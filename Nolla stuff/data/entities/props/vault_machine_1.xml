@@ -1,0 +1,22 @@
+<Entity tags="pixelsprite"
+    >
+  
+  <PixelSpriteComponent 
+    _enabled="1" 
+    image_file="data/props_gfx/vault_machine_1.png" 
+    anchor_x="10" 
+    anchor_y="29"
+    clean_overlapping_pixels="0"
+	material="metal_nohit"
+  >
+  </PixelSpriteComponent>
+
+  <SimplePhysicsComponent 
+    can_go_up="0"
+    >
+  </SimplePhysicsComponent >
+  
+  <VelocityComponent />
+  
+</Entity>
+

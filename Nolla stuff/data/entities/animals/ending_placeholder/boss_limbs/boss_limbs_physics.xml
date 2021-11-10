@@ -1,0 +1,165 @@
+<Entity   >
+	
+	<LightComponent 
+		_enabled="1" 
+		radius="256"
+		r="100"
+		g="255"
+		b="130"
+		offset_y="0"
+		>
+	</LightComponent>
+
+	<PhysicsBodyComponent 
+		allow_sleep="1" 
+		angular_damping="0.02" 
+		fixed_rotation="0" 
+		is_bullet="0" 
+		linear_damping="0" 
+		on_death_leave_physics_body="1" >
+	</PhysicsBodyComponent>
+
+	<PhysicsImageShapeComponent 
+		image_file="data/entities/animals/boss_limbs/body.png" 
+		centered="1"
+		material="aluminium" >
+	</PhysicsImageShapeComponent>
+
+	<PhysicsAIComponent
+		target_vec_max_len="15.0"
+		force_coeff="20.0"
+		force_balancing_coeff="0.8"
+		force_max="100"
+		torque_coeff="50"
+		torque_balancing_coeff="0.8"
+		torque_max="50.0"
+		damage_deactivation_probability="80"
+		damage_deactivation_time_min="60"
+		damage_deactivation_time_max="120" >
+	</PhysicsAIComponent>
+
+	<SpriteComponent 
+		image_file="data/entities/animals/boss_limbs/eyeA.xml" 
+		rect_animation="stand" >
+	</SpriteComponent>
+
+	<SpriteComponent 
+		image_file="data/entities/animals/boss_limbs/eyeB.xml" 
+		rect_animation="stand" >
+	</SpriteComponent>
+
+    <LuaComponent
+        script_source_file="data/entities/animals/boss_limbs/boss_limbs_update.lua"
+        vm_type="ONE_PER_COMPONENT_INSTANCE"
+        enable_coroutines="1"
+        execute_on_added="1"
+        execute_every_n_frame="-1"
+        execute_times="1" >
+    </LuaComponent>
+
+	<LimbBossComponent>
+	</LimbBossComponent>
+
+
+	<Entity>  <Base file="data/entities/animals/boss_limbs/limb.xml" />  </Entity>
+	<Entity>  <Base file="data/entities/animals/boss_limbs/limb.xml" />  </Entity>
+	<Entity>  <Base file="data/entities/animals/boss_limbs/limb.xml" />  </Entity>
+	<Entity>  <Base file="data/entities/animals/boss_limbs/limb.xml" />  </Entity>
+	<Entity>  <Base file="data/entities/animals/boss_limbs/limb.xml" />  </Entity>
+	<Entity>  <Base file="data/entities/animals/boss_limbs/limb.xml" />  </Entity>
+	<Entity>  <Base file="data/entities/animals/boss_limbs/limb.xml" />  </Entity>
+	<Entity>  <Base file="data/entities/animals/boss_limbs/limb.xml" />  </Entity>
+
+
+	<MaterialInventoryComponent 
+		_enabled="1" 
+		drop_as_item="0" 
+		on_death_spill="1"
+		leak_pressure_min="0.2"
+		leak_pressure_max="0.4"
+		leak_on_damage_percent="0.999" 
+    	b2_force_on_leak="2" 
+		>
+		<count_per_material_type>
+			<Material material="radioactive_liquid" count="200"  />
+		</count_per_material_type>
+	</MaterialInventoryComponent>
+
+
+	<Base file="data/entities/base_enemy_robot_boss_limbs.xml" >
+		<AnimalAIComponent 
+			_enabled="1" 
+			preferred_job="JobDefault"
+			creature_detection_range_x="250"
+			creature_detection_range_y="250"
+    		attack_ranged_min_distance="0" 
+    		attack_ranged_max_distance="100" 
+			food_material="blood"
+			needs_food="0"
+			sense_creatures="1"
+			attack_ranged_enabled="0"
+			attack_melee_enabled="1"
+			can_fly="1"  
+			can_walk="0"
+			>
+		</AnimalAIComponent>
+		
+		<DamageModelComponent 
+            hp="0.4"
+		    ragdoll_filenames_file=""
+			fire_probability_of_ignition="0" 
+		    ragdoll_material="" >
+		</DamageModelComponent>
+
+		<SpriteComponent 
+			image_file=""
+			rect_animation="stand"
+			next_rect_animation="stand"
+			special_scale_x="1"
+			has_special_scale="1"
+		    emissive="1" 
+		    additive="0"  
+			offset_x="0"
+			offset_y="0">
+		</SpriteComponent>
+
+		<PathFindingComponent
+			can_walk="0"
+			can_fly="1" >
+		</PathFindingComponent>
+
+		<PathFindingGridMarkerComponent
+			marker_work_flag="16" >
+		</PathFindingGridMarkerComponent>
+		
+		<GenomeDataComponent 
+			herd_id="robot"
+			food_chain_rank="5"
+			is_predator="1" >
+		</GenomeDataComponent>
+		
+		<CharacterPlatformingComponent 
+			jump_velocity_y="-10" 
+			run_velocity="10"  
+			fly_speed_max_up="60"
+			fly_speed_max_down="60"
+			fly_speed_mult="18"
+			fly_speed_change_spd="1"
+			fly_velocity_x="60">
+		</CharacterPlatformingComponent>
+		
+		<HitboxComponent 
+			_enabled="1" 
+			aabb_min_x="-6" 
+			aabb_max_x="6" 
+			aabb_min_y="-5"
+			aabb_max_y="4" > 
+		</HitboxComponent>
+  
+		<CameraBoundComponent
+			max_count="30"
+			distance="160000">
+		</CameraBoundComponent>
+	</Base>
+
+</Entity>

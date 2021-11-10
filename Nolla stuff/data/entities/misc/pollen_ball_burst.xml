@@ -1,0 +1,12 @@
+<Entity >
+	<LuaComponent
+		script_source_file="data/scripts/projectiles/pollen_ball_burst.lua"
+		execute_every_n_frame="1"
+		>
+	</LuaComponent>
+	
+	<LifetimeComponent
+		lifetime="5"
+		>
+	</LifetimeComponent>
+</Entity>

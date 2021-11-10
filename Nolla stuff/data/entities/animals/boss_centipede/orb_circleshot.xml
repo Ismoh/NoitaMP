@@ -1,0 +1,162 @@
+<Entity 
+	name="$projectile_default" 
+	>
+
+	<Base file="data/entities/base_projectile.xml" >
+		<VelocityComponent
+			gravity_y="0"
+			air_friction="0"
+			>
+		</VelocityComponent> 
+	</Base>
+
+	<ProjectileComponent 
+		_enabled="1" 
+		lob_min="0.8"
+		lob_max="1.0"
+		speed_min="150"
+		speed_max="150"
+		die_on_low_velocity="0"
+		on_death_explode="1"
+		on_death_gfx_leave_sprite="0" 
+		on_lifetime_out_explode="1"
+		explosion_dont_damage_shooter="1"
+		damage="0.8"
+		on_collision_die="1"
+		collide_with_world="0"
+		lifetime="250" >
+		<config_explosion
+			never_cache="1" 
+			camera_shake="0" 
+			explosion_radius="9" 
+			explosion_sprite="data/particles/explosion_016_plasma.xml" 
+			explosion_sprite_lifetime="0.0"
+			explosion_sprite_additive="1"
+			explosion_sprite_emissive="1"
+			create_cell_probability="0" 
+			create_cell_material="" 
+			ray_energy="5000"
+			hole_destroy_liquid="1" 
+			hole_enabled="1" 
+			hole_image="data/temp/explosion_hole.png" 
+			particle_effect="0" 
+			damage_mortals="0"
+			physics_explosion_power.max="0.2"
+			physics_explosion_power.max="0.3" 
+			physics_throw_enabled="1" 
+			shake_vegetation="1" 
+			sparks_enabled="0" 
+			sparks_count_max="0" 
+			sparks_count_min="0"
+			light_fade_time="0.8" 
+			light_r="10"
+			light_g="60"
+			light_b="10"
+			stains_enabled="0" 
+			stains_image="data/temp/explosion_stain.png" >
+		</config_explosion>
+	</ProjectileComponent>
+	
+	<SpriteComponent 
+		_enabled="1"
+		alpha="1" 
+		image_file="data/projectiles_gfx/orb_pink_glowy.xml" 
+		next_rect_animation="" 
+		offset_x="8"
+		offset_y="8"
+		rect_animation="spawn" 
+		update_transform_rotation="0"
+		>
+	</SpriteComponent>
+	
+	<SpriteComponent 
+		_enabled="1"
+		alpha="0.5" 
+		image_file="data/projectiles_gfx/orb_pink_glowy.xml" 
+		next_rect_animation="" 
+		offset_x="8"
+		offset_y="8"
+		rect_animation="spawn" 
+		emissive="1"
+		additive="1"
+		update_transform_rotation="0"
+		>
+	</SpriteComponent>
+
+	<!-- FX -->
+	<ParticleEmitterComponent 
+		emitted_material_name="spark_purple_bright"
+		emit_cosmetic_particles="1"
+		gravity.y="0"
+		lifetime_min="2"
+		lifetime_max="6"
+		count_min="1"
+		count_max="1"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		cosmetic_force_create="0"
+		airflow_force="0.3"
+		airflow_time="1.01"
+		airflow_scale="0.05"
+		emission_interval_min_frames="4"
+		emission_interval_max_frames="12"
+		emit_cosmetic_particles="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+	
+	<!--
+	<SpriteParticleEmitterComponent
+		_enabled="1"
+		sprite_file="data/particles/smoke_cloud_tiny_glitter_1.xml"
+		emission_interval_min_frames="16"
+		emission_interval_max_frames="16"
+		additive="1"
+		emissive="0"
+		entity_velocity_multiplier="0.5"
+		sprite_random_rotation="1"
+		randomize_velocity.min_y="-10" 
+		randomize_velocity.max_y="0" 
+		>
+	</SpriteParticleEmitterComponent>
+	-->
+
+	<SpriteParticleEmitterComponent
+		sprite_file="data/particles/spark_glitter.xml"
+		emission_interval_min_frames="4"
+		emission_interval_max_frames="16"
+		additive="1"
+		emissive="1"
+		randomize_lifetime.min="0.5"
+		randomize_lifetime.max="2.0"
+		entity_velocity_multiplier="0.75"
+		randomize_velocity.min_x="-4"
+		randomize_velocity.max_x="4"
+		randomize_velocity.min_y="-4"
+		randomize_velocity.max_y="4"
+		randomize_position.min_x="-4"
+		randomize_position.max_x="4"
+		randomize_position.min_y="-4"
+		randomize_position.max_y="4"
+		>
+	</SpriteParticleEmitterComponent>
+	
+	<!--
+	<AudioComponent
+		file="data/audio/Desktop/projectiles.bank"
+		event_root="projectiles/magic" >
+	</AudioComponent>
+	<LightComponent 
+		_enabled="1" 
+		radius="50" 
+		r="255"
+		g="50"
+		b="255">
+	</LightComponent>
+	-->
+	
+	<VariableStorageComponent
+		name="projectile_file"
+		value_string="data/entities/animals/boss_centipede/orb_circleshot.xml"
+		>
+	</VariableStorageComponent>
+</Entity>

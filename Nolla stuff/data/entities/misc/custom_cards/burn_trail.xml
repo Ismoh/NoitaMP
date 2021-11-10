@@ -1,0 +1,18 @@
+<Entity>
+	
+	<Base file="data/entities/base_custom_card.xml" > 
+		<SpriteComponent 
+			image_file="data/ui_gfx/gun_actions/burn_trail.png" 
+			>
+		</SpriteComponent>
+		
+		<ItemActionComponent 
+			_tags="enabled_in_world"
+			action_id="BURN_TRAIL" >
+		</ItemActionComponent>
+	</Base>
+
+	<Base file="data/entities/misc/custom_cards/base_explosive.xml">
+	</Base>
+	
+</Entity>

@@ -1,0 +1,99 @@
+<Entity name="$animal_frog" >
+  
+	<Base file="data/entities/base_enemy_basic.xml" >
+		<ItemChestComponent level="1" > </ItemChestComponent>
+
+		<AnimalAIComponent 
+			_enabled="1" 
+			preferred_job="JobDefault"
+			escape_if_damaged_probability="35"
+			attack_dash_enabled="1"
+			attack_dash_damage="0.4"
+			creature_detection_range_x="250"
+			creature_detection_range_y="250"
+			food_material="meat"
+			needs_food="1"
+			sense_creatures="1"
+			attack_ranged_enabled="0"
+			attack_melee_enabled="0"
+			can_fly="0"  
+			defecates_and_pees="1"
+			>
+		</AnimalAIComponent>
+
+		<DamageModelComponent 
+            hp="0.3"
+            materials_create_messages="1"
+            ragdoll_material="meat_frog"
+            ragdoll_filenames_file="data/ragdolls/frog/filenames.txt" >
+		</DamageModelComponent>
+
+		<SpriteComponent 
+			image_file="data/enemies_gfx/frog.xml" 
+			rect_animation="stand"
+			offset_x="0"
+			offset_y="0">
+		</SpriteComponent>
+
+		<PathFindingComponent
+		    distance_to_reach_node_x="20"
+		    distance_to_reach_node_y="20"
+		    can_swim_on_surface="1"
+		    can_dive="1"
+			frames_to_get_stuck="20"
+			initial_jump_lob="2"
+			can_walk="0"
+			can_jump="1" >
+		</PathFindingComponent>
+
+		<PathFindingGridMarkerComponent
+			marker_work_flag="16" >
+		</PathFindingGridMarkerComponent>
+		
+		<GenomeDataComponent 
+			herd_id="slimes"
+			food_chain_rank="10"
+			is_predator="1" >
+		</GenomeDataComponent>
+		
+		<CharacterDataComponent 
+			collision_aabb_min_x="-2.0" 
+			collision_aabb_max_x="2.0" 
+			collision_aabb_min_y="-4" 
+			collision_aabb_max_y="3" 
+			buoyancy_check_offset_y="-4" 
+			mass="0.6"
+			>
+		</CharacterDataComponent>
+		
+		<CharacterPlatformingComponent 
+    		pixel_gravity="600" 
+			jump_velocity_y="-12" 
+			run_velocity="0"
+			>
+		</CharacterPlatformingComponent>
+		
+		<HitboxComponent 
+			_enabled="1" 
+			aabb_min_x="-1.5" 
+			aabb_max_x="1.5" 
+			aabb_min_y="-2.5" 
+			aabb_max_y="3" 
+			is_enemy="1" 
+			is_item="0" 
+			is_player="0" >
+		</HitboxComponent>
+
+		<CameraBoundComponent
+		  max_count="20"
+		  distance="160000">
+		</CameraBoundComponent>
+	</Base>
+
+	<AudioComponent
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals/frog" >
+	</AudioComponent>
+
+</Entity>
+

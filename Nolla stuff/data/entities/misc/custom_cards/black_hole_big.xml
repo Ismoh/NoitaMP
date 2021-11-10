@@ -1,0 +1,58 @@
+<Entity>
+	
+	<Base file="data/entities/base_custom_card.xml" > 
+		<SpriteComponent 
+			image_file="data/ui_gfx/gun_actions/black_hole_big.png" 
+			>
+		</SpriteComponent>
+		
+		<ItemActionComponent 
+			_tags="enabled_in_world"
+			action_id="BLACK_HOLE_BIG" >
+		</ItemActionComponent>
+	</Base>
+
+	<InheritTransformComponent
+		_tags="enabled_in_world,enabled_in_hand" >
+	  <Transform 
+		position.x="8" 
+		position.y="0" >
+	  </Transform>
+	</InheritTransformComponent>
+
+	<ParticleEmitterComponent 
+		_tags="enabled_in_hand,item_identified"
+		emitted_material_name="plasma_fading_pink"
+		offset.x="0"
+		offset.y="0"
+		x_pos_offset_min="-4"
+		x_pos_offset_max="4"
+		y_pos_offset_min="-4"
+		y_pos_offset_max="4"
+		x_vel_min="-8"
+		x_vel_max="8"
+		gravity.y="0.0"
+		y_vel_min="-8"
+		y_vel_max="8"
+		count_min="1"
+		count_max="2"
+		lifetime_min="0.1"
+		lifetime_max="0.6"
+		create_real_particles="0"
+		emit_cosmetic_particles="1"
+		emission_interval_min_frames="3"
+		emission_interval_max_frames="5"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+	
+	<LightComponent 
+		_tags="enabled_in_hand,item_identified"
+		_enabled="1" 
+		radius="30"
+		fade_out_time="1.5" 
+		r="80"
+		g="10"
+		b="80" >
+	</LightComponent>
+	
+</Entity>

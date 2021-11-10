@@ -1,0 +1,290 @@
+<Entity name="$animal_necromancer_super" tags="necromancer_shop,necromancer_super,music_energy_100_near,polymorphable_NOT" >
+  
+	<Base file="data/entities/base_enemy_flying.xml" >
+		<ItemChestComponent level="1" > </ItemChestComponent>
+		
+		<AnimalAIComponent
+			attack_ranged_entity_file=""
+			attack_ranged_enabled="0"
+			attack_dash_enabled="0"
+			creature_detection_range_x="900"
+			creature_detection_range_y="900"
+			escape_if_damaged_probability="0"
+			aggressiveness_min="100"
+			aggressiveness_max="100"
+			needs_food="0"
+			can_fly="1" >
+		</AnimalAIComponent>
+
+		<DamageModelComponent 
+            hp="36"
+            ragdoll_material="meat_cursed_dry"
+			blood_material="bone"
+			blood_spray_material="bone"
+            ragdoll_filenames_file="data/ragdolls/necromancer_super/filenames.txt"
+			blood_sprite_directional=""
+			blood_sprite_large=""
+			fire_probability_of_ignition="0"
+			critical_damage_resistance="0.5"
+			minimum_knockback_force="10000"
+			air_needed="0"
+			>
+			<damage_multipliers
+				projectile="0.4"
+				explosion="0.2"
+				electricity="0"
+				ice="0"
+				fire="0.1" >
+			</damage_multipliers>
+		</DamageModelComponent>
+
+		<PathFindingComponent
+			can_fly="1" 
+			can_walk="0"
+			never_consider_line_of_sight="1"
+			>
+		</PathFindingComponent>
+
+		<SpriteComponent 
+			image_file="data/enemies_gfx/necromancer_super.xml" 
+			offset_x="0"
+			offset_y="0">
+		</SpriteComponent>
+		
+		<HitboxComponent 
+			_enabled="1" 
+			aabb_min_x="-6.5" 
+			aabb_max_x="6.5" 
+			aabb_min_y="-16.0" 
+			aabb_max_y="14.0" 
+			is_enemy="1" 
+			is_item="0" 
+			is_player="0" >
+		</HitboxComponent>		
+		
+		<GenomeDataComponent 
+			herd_id="mage" 
+			is_predator="1"
+			>
+		</GenomeDataComponent>
+		
+		<CharacterDataComponent
+			collision_aabb_min_x="-5.0" 
+			collision_aabb_max_x="5.0" 
+			collision_aabb_min_y="-16" 
+			collision_aabb_max_y="3"
+			mass="1.1"
+			>
+		</CharacterDataComponent>
+		
+		<CharacterPlatformingComponent 
+			jump_velocity_y="-12" 
+			run_velocity="14"  
+			fly_speed_max_up="80"
+			fly_speed_max_down="80"
+			fly_speed_mult="40"
+			fly_speed_change_spd="1"
+    		pixel_gravity="50" 
+			fly_velocity_x="80">
+		</CharacterPlatformingComponent>
+	</Base>
+
+	<LightComponent 
+	    _enabled="1" 
+	    radius="70" 
+		r="149"
+		g="235"
+		b="255">
+    </LightComponent>
+	
+	<SpriteComponent 
+        _tags="character" 
+		_enabled="1" 
+		alpha="1" 
+		image_file="data/enemies_gfx/necromancer_super_emissive.xml"
+		offset_x="0" 
+		offset_y="0"
+		emissive="1"
+        additive="1"
+		next_rect_animation="" 
+		rect_animation="walk" 
+		 >
+	</SpriteComponent>
+	
+	<AIAttackComponent
+		min_distance="11"
+		max_distance="200"
+		frames_between="50"
+		frames_between_global="7"
+		attack_ranged_offset_x="12"
+		attack_ranged_offset_y="-22"
+		animation_name="attack_ranged"
+		attack_ranged_entity_file="data/entities/projectiles/orb_pink_big_super.xml"
+		attack_ranged_entity_count_min="2"
+		attack_ranged_entity_count_max="2"
+		attack_ranged_action_frame="6"
+		>
+	</AIAttackComponent>
+	
+	<AIAttackComponent
+		use_probability="70"
+		min_distance="0"
+		max_distance="70"
+		frames_between="7"
+		frames_between_global="7"
+		attack_ranged_offset_x="21"
+		attack_ranged_offset_y="-8"
+		animation_name="attack_ranged_fast"
+		attack_ranged_entity_file="data/entities/projectiles/orb_pink_super.xml"
+		attack_ranged_action_frame="1"
+		>
+	</AIAttackComponent>
+
+	
+	<AudioComponent
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals/necromancer_shop" >
+	</AudioComponent>
+
+	<AudioLoopComponent
+		file="data/audio/Desktop/animals.bank"
+		event_name="animals/necromancer_shop/movement_loop"
+		set_speed_parameter="1"
+		auto_play="1">
+	</AudioLoopComponent>
+	
+    <LuaComponent 
+        _enabled="1" 
+        execute_on_added="1"
+        remove_after_executed="1"
+        script_source_file="data/scripts/animals/necromancer_shop_init.lua" 
+    >
+    </LuaComponent>
+
+	<CellEaterComponent
+		_tags="enable_when_player_seen"
+		_enabled="0"
+		eat_probability="8"
+		radius="40" >
+	</CellEaterComponent>
+
+	<LuaComponent
+		_tags="enable_when_player_seen"
+		_enabled="0"
+		script_source_file="data/scripts/animals/necromancer_super_chase.lua"
+		execute_every_n_frame="1"
+		>
+	</LuaComponent>
+	<LuaComponent
+		_enabled="1"
+		script_source_file="data/scripts/animals/necromancer_super_chase_begin.lua"
+		execute_every_n_frame="47"
+		>
+	</LuaComponent>
+
+	<!-- protections -->
+	<Entity>
+		<InheritTransformComponent />
+		
+        <GameEffectComponent 
+            effect="PROTECTION_FREEZE"
+            frames="-1"
+        >
+        </GameEffectComponent >
+    </Entity>
+	
+    <Entity>
+		<InheritTransformComponent />
+		
+        <GameEffectComponent 
+            effect="PROTECTION_ELECTRICITY"
+            frames="-1"
+        >
+        </GameEffectComponent >
+    </Entity>
+
+	<!-- outer shield  -->
+	<Entity>
+		<InheritTransformComponent>
+			<Transform 
+				only_position="1"
+				position.x="0" 
+				position.y="0" >
+			</Transform>
+		</InheritTransformComponent>
+	
+		<Base file="data/entities/misc/animal_energy_shield.xml">
+			<EnergyShieldComponent 
+				_tags="enabled_in_hand,item_identified__LEGACY"
+				recharge_speed="0.9" 
+				radius="52.0" >
+			</EnergyShieldComponent>
+			
+			<ParticleEmitterComponent
+				emitted_material_name="plasma_fading_pink"
+				area_circle_radius.max="52"
+				>
+			</ParticleEmitterComponent>
+			
+			<ParticleEmitterComponent
+				emitted_material_name="plasma_fading_pink"
+				area_circle_radius.min="52"
+				area_circle_radius.max="52"
+				>
+			</ParticleEmitterComponent>
+			
+			<ParticleEmitterComponent
+				emitted_material_name="plasma_fading_pink"
+				area_circle_radius.min="52"
+				area_circle_radius.max="52"
+				>
+			</ParticleEmitterComponent>
+
+			<LightComponent
+				_enabled="0"
+				>
+			</LightComponent>
+		</Base>
+
+	</Entity>
+	
+	<!-- inner shield -->
+	<Entity>
+		<Base file="data/entities/misc/animal_energy_shield.xml">
+			<InheritTransformComponent>
+				<Transform 
+					only_position="1"
+					position.x="0" 
+					position.y="0" >
+				</Transform>
+			</InheritTransformComponent>
+
+			<EnergyShieldComponent 
+				_tags="enabled_in_hand,item_identified__LEGACY"
+				recharge_speed="0.9" 
+				radius="40.0" >
+			</EnergyShieldComponent>
+			
+			<ParticleEmitterComponent
+				emitted_material_name="plasma_fading_pink"
+				area_circle_radius.max="40"
+				>
+			</ParticleEmitterComponent>
+			
+			<ParticleEmitterComponent
+				emitted_material_name="plasma_fading_pink"
+				area_circle_radius.min="40"
+				area_circle_radius.max="40"
+				>
+			</ParticleEmitterComponent>
+			
+			<ParticleEmitterComponent
+				emitted_material_name="plasma_fading_pink"
+				area_circle_radius.min="40"
+				area_circle_radius.max="40"
+				>
+			</ParticleEmitterComponent>
+		</Base>
+	</Entity>
+</Entity>
+

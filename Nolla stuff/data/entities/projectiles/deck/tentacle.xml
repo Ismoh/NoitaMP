@@ -1,0 +1,110 @@
+<Entity name="$projectile_default" tags="projectile_player" >
+
+	<Base file="data/entities/base_projectile.xml" >
+      <VelocityComponent
+        gravity_y="0.0"
+		mass="0.08"
+		>
+      </VelocityComponent>
+	</Base>
+
+	<ProjectileComponent 
+		projectile_type="VERLET"
+		speed_min="8"
+		speed_max="8"
+		die_on_low_velocity="0"
+		on_death_explode="0"
+		on_death_gfx_leave_sprite="0" 
+		on_lifetime_out_explode="0"
+		on_collision_die="0"
+		penetrate_entities="1"
+		damage="0"
+		attach_to_parent_trigger="1"
+		lifetime="60"
+		shoot_light_flash_radius="80" 
+		shoot_light_flash_r="50"
+		shoot_light_flash_g="0"
+		shoot_light_flash_b="90"
+		knockback_force="2.0"
+		>
+		<damage_by_type
+			melee="0.8"
+			>
+		</damage_by_type>
+		<config_explosion
+			never_cache="1" 
+			damage="0"
+			camera_shake="0" 
+			explosion_radius="0" 
+			explosion_sprite="" 
+			explosion_sprite_lifetime="0" 
+			create_cell_material=""
+			create_cell_probability="0"  
+			hole_destroy_liquid="0" 
+			hole_enabled="0" 
+			hole_image="" 
+			particle_effect="0" 
+			damage_mortals="0" 
+			
+			physics_explosion_power.min="0" 
+			physics_explosion_power.max="0" 
+			physics_throw_enabled="0" 
+			shake_vegetation="0" 
+			sparks_enabled="0" 
+			stains_enabled="0" 
+			>
+		</config_explosion>
+	</ProjectileComponent>
+	
+	<VerletWeaponComponent
+		fade_duration_frames="20"
+		damage_min_step="0.01"
+		damage_max="0.5"
+		damage_coeff="0.0002"
+		impulse_coeff="0.5"
+		physics_impulse_coeff="7.0" >
+	</VerletWeaponComponent>
+
+	<Entity name="$projectile_default">
+	    <VerletPhysicsComponent
+	    	num_points="16"
+	    	stiffness="0.99"
+	    	resting_distance="4.0" 
+	    	pixelate_sprite_transforms="1"
+	    	simulate_wind="0"
+	    	constrain_stretching="0"
+	    	simulate_gravity="0" >
+	    </VerletPhysicsComponent>
+
+		<Base file="data/entities/projectiles/tentacle/tentacle_0.xml" />
+		<Base file="data/entities/projectiles/tentacle/tentacle_2.xml" />
+		<Base file="data/entities/projectiles/tentacle/tentacle_2.xml" />
+		<Base file="data/entities/projectiles/tentacle/tentacle_2.xml" />
+
+		<Base file="data/entities/projectiles/tentacle/tentacle_2.xml" />
+		<Base file="data/entities/projectiles/tentacle/tentacle_2b.xml" />
+		<Base file="data/entities/projectiles/tentacle/tentacle_3.xml" />
+		<Base file="data/entities/projectiles/tentacle/tentacle_3.xml" />
+
+		<Base file="data/entities/projectiles/tentacle/tentacle_3.xml" />
+		<Base file="data/entities/projectiles/tentacle/tentacle_3.xml" />
+		<Base file="data/entities/projectiles/tentacle/tentacle_3.xml" />
+		<Base file="data/entities/projectiles/tentacle/tentacle_3b.xml" />
+
+		<Base file="data/entities/projectiles/tentacle/tentacle_4.xml" />
+		<Base file="data/entities/projectiles/tentacle/tentacle_4.xml" />
+		<Base file="data/entities/projectiles/tentacle/tentacle_4.xml" />
+	</Entity>
+
+  <AudioComponent
+      file="data/audio/Desktop/projectiles.bank"
+      event_root="player_projectiles/bullet_tentacle">
+  </AudioComponent>
+  
+	<VariableStorageComponent
+		name="projectile_file"
+		value_string="data/entities/projectiles/deck/tentacle.xml"
+		>
+	</VariableStorageComponent>
+</Entity>
+

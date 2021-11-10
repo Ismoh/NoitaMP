@@ -1,0 +1,17 @@
+<Entity>
+	<InheritTransformComponent>
+    </InheritTransformComponent>
+	
+    <CellEaterComponent
+		eat_probability="100"
+        radius="8"
+		ignored_material="potion_glass_box2d"
+		>
+    </CellEaterComponent>
+	
+	<LifetimeComponent
+		lifetime="10"
+		>
+	</LifetimeComponent>
+  
+</Entity>

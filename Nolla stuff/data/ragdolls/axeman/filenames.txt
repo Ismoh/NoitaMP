@@ -1,0 +1,11 @@
+data/ragdolls/axeman/head.png
+data/ragdolls/axeman/torso.png
+data/ragdolls/axeman/left_arm.png
+data/ragdolls/axeman/left_hand.png
+data/ragdolls/axeman/axe.png
+data/ragdolls/axeman/right_arm.png
+data/ragdolls/axeman/right_hand.png
+data/ragdolls/axeman/left_leg.png
+data/ragdolls/axeman/left_foot.png
+data/ragdolls/axeman/right_leg.png
+data/ragdolls/axeman/right_foot.png

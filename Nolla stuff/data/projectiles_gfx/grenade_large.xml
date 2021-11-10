@@ -1,0 +1,19 @@
+<Sprite
+ filename="data/projectiles_gfx/grenade_large.png"
+ offset_x="6"
+ offset_y="6"
+ default_animation="fireball" >
+
+ <!-- animation -->
+ <RectAnimation
+  name="fireball"
+  pos_x="0"
+  pos_y="0"
+  frame_count="4"
+  frame_width="12"
+  frame_height="12"
+  frame_wait="0.05"
+  frames_per_row="4"
+  loop="1"   >
+ </RectAnimation>
+</Sprite>

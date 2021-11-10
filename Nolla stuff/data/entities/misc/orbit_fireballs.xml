@@ -1,0 +1,31 @@
+<Entity>
+    <InheritTransformComponent>
+    </InheritTransformComponent>
+	
+	<VariableStorageComponent
+		_tags="orbit_projectile_type"
+		name="orbit_projectile_type"
+		value_string="orbit_fireballs_fireball"
+		>
+	</VariableStorageComponent>
+	
+	<VariableStorageComponent
+		_tags="orbit_projectile_speed"
+		name="orbit_projectile_speed"
+		value_float="0"
+		>
+	</VariableStorageComponent>
+
+    <LuaComponent
+		script_source_file="data/scripts/projectiles/orbit_projectile.lua"
+		execute_every_n_frame="1"
+		remove_after_executed="1"
+		>
+	</LuaComponent>
+	
+	<LuaComponent
+		script_source_file="data/scripts/projectiles/orbit_projectile_rotation.lua"
+		execute_every_n_frame="1"
+		>
+	</LuaComponent>
+</Entity>

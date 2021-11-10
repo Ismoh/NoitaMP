@@ -1,0 +1,16 @@
+<Sprite 
+  filename="data/projectiles_gfx/spark.png" 
+  offset_x="4.5" 
+  offset_y="4.5" >
+  <RectAnimation 
+    frame_count="2" 
+    frame_height="10" 
+    frame_wait="0.2" 
+    frame_width="10" 
+    frames_per_row="10" 
+    name="default" 
+    pos_x="0" 
+    pos_y="1" 
+    shrink_by_one_pixel="1" >
+  </RectAnimation>
+</Sprite>

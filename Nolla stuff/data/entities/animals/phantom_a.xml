@@ -1,0 +1,138 @@
+<Entity tags="glue_NOT" name="$animal_phantom_a" >
+  
+	<Base file="data/entities/base_enemy_flying.xml" >
+		<ItemChestComponent level="5" enemy_drop="1" > </ItemChestComponent>
+		
+		<AnimalAIComponent 
+			_enabled="1" 
+			preferred_job="JobDefault"
+			escape_if_damaged_probability="35"
+			attack_ranged_min_distance="0"
+			attack_melee_damage_min="0.6" 
+			attack_melee_damage_max="0.8"
+			attack_dash_enabled="0"
+			attack_melee_enabled="1"
+			attack_melee_action_frame="3"
+			creature_detection_range_x="250"
+			creature_detection_range_y="250"
+			food_material="meat"
+			needs_food="0"
+			sense_creatures="1"
+			attack_ranged_enabled="1"
+			can_fly="1"  
+			attack_ranged_entity_file="data/entities/projectiles/orbspawner.xml"
+			attack_ranged_frames_between="250" 
+			attack_landing_ranged_enabled="1"
+			attack_ranged_action_frame="4"
+			>
+		</AnimalAIComponent>
+		
+		<DamageModelComponent 
+			hp="3"
+			physics_objects_damage="0"
+			ragdoll_filenames_file=""
+			fire_probability_of_ignition="0" 
+			ragdoll_fx_forced="DISINTEGRATED"
+			ragdoll_material="rock_static_glow"
+			blood_material="plasma_fading"
+			blood_spray_material="plasma_fading"
+			blood_sprite_directional=""
+			blood_sprite_large=""
+			air_needed="0"
+			>
+			<damage_multipliers
+				projectile="0.5"
+				explosion="0.4"
+				electricity="1"
+				fire="0" 
+				slice="1"
+				>
+			</damage_multipliers>
+		</DamageModelComponent>
+
+		<SpriteComponent 
+			image_file="data/enemies_gfx/phantom_a.xml" 
+			offset_x="0"
+			offset_y="0"
+			additive="1"
+			emissive="1"
+			>
+		</SpriteComponent>
+
+		<PathFindingComponent
+		    can_swim_on_surface="1"
+			frames_to_get_stuck="20"
+			can_fly="1"
+			can_jump="0" >
+		</PathFindingComponent>
+
+		<PathFindingGridMarkerComponent
+			marker_work_flag="16" >
+		</PathFindingGridMarkerComponent>
+		
+		<GenomeDataComponent 
+			herd_id="ghost"
+			food_chain_rank="15"
+			is_predator="1" >
+		</GenomeDataComponent>
+		
+		<CharacterPlatformingComponent 
+    		pixel_gravity="600" 
+			jump_velocity_y="-12" 
+			run_velocity="14"
+			>
+		</CharacterPlatformingComponent>
+
+		<CameraBoundComponent
+		  max_count="30"
+		  distance="160000">
+		</CameraBoundComponent>
+		
+		<HitboxComponent 
+		  _enabled="1" 
+		  aabb_min_x="-4.5" 
+		  aabb_max_x="4.5" 
+		  aabb_min_y="-14" 
+		  aabb_max_y="3" 
+		  >
+		</HitboxComponent>
+		
+		<CharacterDataComponent 
+			collision_aabb_min_x="-2"
+			collision_aabb_max_x="2"  
+			collision_aabb_min_y="-14"
+			collision_aabb_max_y="2"
+			mass="1.0"
+			>
+		</CharacterDataComponent>
+			
+		<AudioComponent
+			file="data/audio/Desktop/animals.bank"
+			event_root="animals/ghost" >
+		</AudioComponent>
+
+	</Base>
+	
+	<ItemPickUpperComponent
+    	is_in_npc="1">
+    </ItemPickUpperComponent>
+
+	<AudioLoopComponent
+		file="data/audio/Desktop/animals.bank"
+		event_name="animals/ghost/movement_loop"
+		set_speed_parameter="1"
+		auto_play="1">
+	</AudioLoopComponent>
+	
+	<Entity>
+		<InheritTransformComponent />
+		
+	    <GameEffectComponent 
+	        effect="PROTECTION_FREEZE"
+	        frames="-1"
+	    >
+		</GameEffectComponent >
+	</Entity>
+
+</Entity>
+

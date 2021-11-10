@@ -1,0 +1,109 @@
+<Sprite
+ filename="data/enemies_gfx/blob_emissive.png"
+ offset_x="7"
+ offset_y="13"
+  default_animation="stand" >
+
+ <!-- stand -->
+ <RectAnimation
+  name="stand"
+  pos_x="0"
+  pos_y="0"
+  frame_count="6"
+  frame_width="14"
+  frame_height="16"
+  frame_wait="0.16"
+  frames_per_row="8"
+  loop="1"   >
+ </RectAnimation>
+
+ <!-- walk -->
+ <RectAnimation
+  name="walk"
+  pos_x="0"
+  pos_y="16"
+  frame_count="6"
+  frame_width="14"
+  frame_height="16"
+  frame_wait="0.1"
+  frames_per_row="8"
+  loop="1"   >
+ </RectAnimation>
+
+ <!-- fake run (just a copypaste of walk) -->
+ <RectAnimation
+  name="run"
+  pos_x="0"
+  pos_y="16"
+  frame_count="6"
+  frame_width="14"
+  frame_height="16"
+  frame_wait="0.1"
+  frames_per_row="8"
+  loop="1"   >
+ </RectAnimation>
+
+ <!-- fake burn (just a copypaste of walk) -->
+ <RectAnimation
+  name="burn"
+  pos_x="0"
+  pos_y="16"
+  frame_count="6"
+  frame_width="14"
+  frame_height="16"
+  frame_wait="0.1"
+  frames_per_row="8"
+  loop="1"   >
+ </RectAnimation>
+ 
+ <!-- jump_up -->
+ <RectAnimation
+  name="jump_up"
+  pos_x="0"
+  pos_y="32"
+  frame_count="3"
+  frame_width="14"
+  frame_height="16"
+  frame_wait="0.082"
+  frames_per_row="8"
+  loop="0"   >
+ </RectAnimation>
+
+ <!-- jump_falling -->
+ <RectAnimation
+  name="jump_fall"
+  pos_x="0"
+  pos_y="48"
+  frame_count="2"
+  frame_width="14"
+  frame_height="16"
+  frame_wait="0.082"
+  frames_per_row="8"
+  loop="0"   >
+ </RectAnimation>
+ 
+ <!-- landing -->
+ <RectAnimation
+  name="land"
+  pos_x="0"
+  pos_y="64"
+  frame_count="4"
+  frame_width="14"
+  frame_height="16"
+  frame_wait="0.074"
+  frames_per_row="8"
+  loop="0"   >
+ </RectAnimation>
+ 
+ <RectAnimation
+  name="attack"
+  pos_x="0"
+  pos_y="80"
+  frame_count="5"
+  frame_width="20"
+  frame_height="16"
+  frame_wait="0.08"
+  frames_per_row="8"
+  loop="0"  >
+ </RectAnimation>
+</Sprite>

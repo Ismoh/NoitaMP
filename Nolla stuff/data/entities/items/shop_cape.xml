@@ -1,0 +1,10 @@
+<Entity>
+
+    <Base file="data/entities/items/pickup/cape.xml">
+    </Base>
+
+    <Base file="data/entities/base_shop_item.xml">
+    	    <ItemCostComponent cost="150" />
+    </Base>
+
+</Entity>

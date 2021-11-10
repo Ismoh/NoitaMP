@@ -1,0 +1,25 @@
+<Biome>
+  <Topology 
+    name="_EMPTY_"
+    background_image="data/weather_gfx/background_crypt.png"
+    background_edge_left="data/weather_gfx/edges/background_crypt_left.png"
+    background_edge_right="data/weather_gfx/edges/background_crypt_right.png"
+    background_edge_top="data/weather_gfx/edges/background_crypt_top.png"
+    background_edge_bottom="data/weather_gfx/edges/background_crypt_bottom.png"
+    background_edge_priority="10"     
+
+    limit_background_image="0"
+    lua_script="data/scripts/biomes/wizardcave_entrance.lua"
+    audio_ambience="wandcave"
+  >
+	
+  </Topology>
+
+  <!-- MATERIALS -->
+  <Materials 
+    name="solid_wall" 
+     >
+ 
+  </Materials>
+</Biome>
+

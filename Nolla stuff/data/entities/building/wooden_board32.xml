@@ -1,0 +1,13 @@
+<Entity serialize="0">
+
+    <SpriteComponent 
+        image_file="data/temp/building/wooden_board32.xml" >
+    </SpriteComponent>
+
+    <SpriteComponent 
+        _tags="blit_target"
+        update_transform="0"
+        update_transform_rotation="0" >
+    </SpriteComponent>
+
+</Entity>

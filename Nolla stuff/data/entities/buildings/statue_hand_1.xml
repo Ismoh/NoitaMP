@@ -1,0 +1,37 @@
+<Entity tags="statue_hand_1,statue_hand,hittable,effectable_prop">
+	<PhysicsBody2Component 
+		angular_damping="0.5"
+		destroy_body_if_entity_destroyed="1"
+		auto_clean="0"
+	></PhysicsBody2Component>
+
+	<PhysicsImageShapeComponent 
+		is_root="1"
+		centered="1"
+		image_file="data/buildings_gfx/statue_hand_3.png"
+		material="rock_box2d_hard" >
+	</PhysicsImageShapeComponent>
+
+	<LuaComponent
+		script_physics_body_modified="data/scripts/buildings/statue_hand_modified.lua"
+		script_kick="data/scripts/buildings/statue_hand_modified.lua"
+		execute_every_n_frame="-1"
+		>
+	</LuaComponent>
+
+	<LuaComponent
+		script_source_file="data/scripts/buildings/statue_hand_state.lua"
+		execute_every_n_frame="16"
+		>
+	</LuaComponent>
+	
+	<HitboxComponent 
+		damage_multiplier="0.1"
+		aabb_max_x="12" 
+		aabb_max_y="12" 
+		aabb_min_x="-12" 
+		aabb_min_y="-12" >
+	</HitboxComponent>
+
+</Entity>
+

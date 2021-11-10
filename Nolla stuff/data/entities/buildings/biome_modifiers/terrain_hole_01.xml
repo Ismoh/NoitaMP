@@ -1,0 +1,10 @@
+<Entity>
+	<PixelSceneComponent
+		pixel_scene="data/biome_impl/biome_modifiers/hole_01.png"
+		>
+	</PixelSceneComponent>
+	<LifetimeComponent
+		lifetime="2"
+		>
+	</LifetimeComponent>
+</Entity>

@@ -1,0 +1,18 @@
+<Sprite 
+  default_animation="bubble" 
+  filename="data/particles/gas_bubble_02.png" 
+  offset_x="1" 
+  offset_y="1" >
+  <RectAnimation 
+    frame_count="2" 
+    frame_height="3" 
+    frame_wait="0.27" 
+    frame_width="3" 
+    frames_per_row="2" 
+    loop="0" 
+    name="bubble" 
+    pos_x="0" 
+    pos_y="1" 
+    shrink_by_one_pixel="1" >
+  </RectAnimation>
+</Sprite>

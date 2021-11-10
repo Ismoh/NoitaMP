@@ -1,0 +1,14 @@
+<Entity>
+	<_Transform
+        scale.x="15" scale.y="15" >
+    </_Transform>
+
+    <SpriteComponent 
+        alpha="0.55"
+        image_file="data/particles/explosion_flare_fog_of_war_hole.xml"
+        smooth_filtering="1"
+        kill_entity_after_finished="1"
+        fog_of_war_hole="1" >
+    </SpriteComponent>
+</Entity>
+

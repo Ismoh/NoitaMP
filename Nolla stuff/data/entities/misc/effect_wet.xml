@@ -1,0 +1,11 @@
+<Entity>
+	<InheritTransformComponent>
+    </InheritTransformComponent>	
+    
+    <GameEffectComponent 
+    	effect="WET"
+    	frames="600"
+    >
+	</GameEffectComponent >
+    
+</Entity>

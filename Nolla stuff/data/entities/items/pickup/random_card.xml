@@ -1,0 +1,12 @@
+<Entity tags="drillable,hittable">
+
+
+	<LuaComponent 
+		_enabled="1" 
+		script_source_file="data/scripts/items/make_random_card.lua" 
+        execute_on_added="1"
+        remove_after_executed="1"
+		>
+	</LuaComponent>
+
+</Entity>

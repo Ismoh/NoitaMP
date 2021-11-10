@@ -1,0 +1,12 @@
+<Entity>
+	
+	<LoadEntitiesComponent 
+		entity_file="data/entities/props/physics_fungus_small.xml"
+		kill_entity="1"
+		count.min="1"
+        count.max="1"
+        timeout_frames="25"
+		>
+	</LoadEntitiesComponent>
+
+</Entity>

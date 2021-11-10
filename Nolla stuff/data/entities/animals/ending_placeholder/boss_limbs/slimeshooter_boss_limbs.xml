@@ -1,0 +1,84 @@
+<Entity tags="slimeshooter_boss_limbs" >
+  
+	<Base file="data/entities/base_enemy_flying.xml" >
+		<AnimalAIComponent
+			attack_ranged_entity_file="data/entities/animals/boss_limbs/slime_boss_limbs.xml"
+			attack_ranged_enabled="1"
+			attack_dash_enabled="0"
+			attack_ranged_action_frame="2"
+			attack_ranged_frames_between="40" 
+			attack_ranged_max_distance="120"
+			can_fly="1">
+		</AnimalAIComponent>
+
+		<DamageModelComponent
+            hp="0.7"
+            
+            ragdoll_filenames_file="data/ragdolls/slimeshooter/filenames_boss_limbs.txt" 
+			ragdoll_material="meat_slime_green"
+			blood_material="radioactive_liquid_fading">
+		</DamageModelComponent>
+
+		<PathFindingComponent
+			can_fly="1" >
+		</PathFindingComponent>
+
+		<SpriteComponent 
+			image_file="data/entities/animals/boss_limbs/slimeshooter_boss.xml" 
+			offset_x="0"
+			offset_y="0">
+		</SpriteComponent>   
+		
+		<GenomeDataComponent 
+			herd_id="boss_limbs" >
+		</GenomeDataComponent>
+
+		<HitboxComponent 
+			_enabled="1" 
+			aabb_min_x="-4.0" 
+			aabb_max_x="4.0" 
+			aabb_min_y="-11" 
+			aabb_max_y="-2" 
+			is_enemy="1" 
+			is_item="0" 
+			is_player="0" >
+		</HitboxComponent>
+
+		<CharacterDataComponent 
+			_enabled="1" 
+			climb_over_y="4" 
+			collision_aabb_min_x="-2.0" 
+			collision_aabb_max_x="2.0" 
+			collision_aabb_min_y="-10" 
+			collision_aabb_max_y="0" >
+	    </CharacterDataComponent>
+
+	</Base>
+
+	<LightComponent 
+	    _enabled="1" 
+	    radius="30" 
+		r="99"
+		g="205"
+		b="139"
+		offset_y="-9"
+		>
+    </LightComponent>
+	
+	<MaterialInventoryComponent 
+		_enabled="1" 
+		drop_as_item="0" 
+		leak_on_damage_percent="0.999" 
+		>
+		<count_per_material_type>
+		<Material material="radioactive_liquid_fading" count="800"  />
+		</count_per_material_type>
+	</MaterialInventoryComponent>
+	     
+
+	<Entity>  <Base file="data/entities/verlet_chains/slime_tentacle/slime_tentacle_bright_02.xml"> <InheritTransformComponent><Transform position.x="0"  position.y="-4" ></Transform></InheritTransformComponent> </Base>  </Entity>
+	<Entity>  <Base file="data/entities/verlet_chains/slime_tentacle/slime_tentacle_bright_01.xml"> <InheritTransformComponent><Transform position.x="-3" position.y="-4" ></Transform></InheritTransformComponent> </Base>  </Entity>
+	<Entity>  <Base file="data/entities/verlet_chains/slime_tentacle/slime_tentacle_thin_01.xml"> <InheritTransformComponent><Transform position.x="3"  position.y="-4" ></Transform></InheritTransformComponent> </Base>  </Entity>
+
+</Entity>
+

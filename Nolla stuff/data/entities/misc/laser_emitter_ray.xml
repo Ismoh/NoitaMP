@@ -1,0 +1,15 @@
+<Entity>
+	<LuaComponent 
+		_enabled="1" 
+		script_source_file="data/scripts/projectiles/laser_emitter_ray.lua" 
+		execute_every_n_frame="9">
+   </LuaComponent>
+   
+   <LuaComponent 
+		_enabled="1" 
+		script_source_file="data/scripts/projectiles/laser_emitter_ray.lua" 
+		execute_every_n_frame="5"
+		remove_after_executed="1">
+   </LuaComponent>
+</Entity>
+

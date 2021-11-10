@@ -1,0 +1,8 @@
+<Entity>
+	<LuaComponent
+		script_source_file="data/scripts/buildings/fungitrap_02_spawner.lua"
+		execute_every_n_frame="1"
+		>
+	</LuaComponent>
+</Entity>
+

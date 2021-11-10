@@ -1,0 +1,6 @@
+data/ragdolls/scavenger_shield/torso.png
+data/ragdolls/scavenger_shield/thighs.png
+data/ragdolls/scavenger_shield/head.png
+data/ragdolls/scavenger_shield/left_foot.png
+data/ragdolls/scavenger_shield/right_foot.png
+data/ragdolls/scavenger_shield/hand.png

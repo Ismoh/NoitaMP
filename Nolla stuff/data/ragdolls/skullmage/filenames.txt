@@ -1,0 +1,10 @@
+data/ragdolls/skullmage/torso.png
+data/ragdolls/skullmage/right_thigh.png
+data/ragdolls/skullmage/right_arm.png
+data/ragdolls/skullmage/right_hand.png
+data/ragdolls/skullmage/left_thigh.png
+data/ragdolls/skullmage/left_foot.png
+data/ragdolls/skullmage/left_arm.png
+data/ragdolls/skullmage/left_hand.png
+data/ragdolls/skullmage/head.png
+data/ragdolls/skullmage/hood.png

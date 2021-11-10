@@ -1,0 +1,23 @@
+<Entity>
+    <InheritTransformComponent>
+        <Transform 
+            position.x="0"
+            position.y="-10" 
+        ></Transform>
+    </InheritTransformComponent>    
+    
+    <SpriteComponent 
+        alpha="0.55"
+        image_file="data/particles/treble_eye.xml"
+        smooth_filtering="0"
+        kill_entity_after_finished="1"
+        fog_of_war_hole="0"
+        additive="1" >
+    </SpriteComponent>
+
+    <AudioComponent
+        file="data/audio/Desktop/event_cues.bank"
+        event_root="event_cues/treble_eye" >
+    </AudioComponent>
+
+</Entity>

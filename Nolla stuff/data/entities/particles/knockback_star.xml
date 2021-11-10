@@ -1,0 +1,100 @@
+<Entity>
+	<VelocityComponent
+		gravity_y="0"
+		mass="0"
+		air_friction="12.0"
+		>
+	</VelocityComponent>
+
+	<SimplePhysicsComponent>
+	</SimplePhysicsComponent>
+
+	<SetStartVelocityComponent
+		randomize_speed.min="20"
+		randomize_speed.max="120"
+		randomize_angle.min="0"
+		randomize_angle.max="6.283185" 
+		>
+	</SetStartVelocityComponent>
+	
+	<SpriteComponent 
+		image_file="data/particles/knockback_star_$[1-4].xml"
+		additive="0"
+		emissive="0" 
+		alpha="1"
+		z_index="-1.2">
+	</SpriteComponent>
+
+	<!--
+	<ParticleEmitterComponent 
+		emitted_material_name="spark"
+		gravity.y="0"
+		offset.x="0"
+		offset.y="0"
+		x_pos_offset_min="0"
+		y_pos_offset_min="0"
+		x_pos_offset_max="0"
+		y_pos_offset_max="0"
+		x_vel_min="0"
+		x_vel_max="0"
+		y_vel_min="0"
+		y_vel_max="0"
+		friction="6"
+		count_min="4"
+		count_max="8"
+		area_circle_radius.max="1"
+		area_circle_radius.min="1"
+		velocity_always_away_from_center="80"
+		lifetime_min="0.9"
+		lifetime_max="3.2"
+		render_on_grid="1"
+		airflow_force="0.85"
+		airflow_time="0.101"
+		airflow_scale="2.01"
+		fade_based_on_lifetime="1"
+		create_real_particles="0"
+		emit_cosmetic_particles="1"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		emitter_lifetime_frames="2"
+		delay_frames="0"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+
+	
+	<ParticleEmitterComponent 
+		emitted_material_name="spark"
+		delay_frames="35"
+		offset.x="0"
+		offset.y="0"
+		gravity.y="0"
+		x_vel_min="-60"
+		x_vel_max="60"
+		y_vel_min="-60"
+		y_vel_max="40"
+		friction="4"
+		count_min="1"
+		count_max="1"
+		lifetime_min="0.3"
+		lifetime_max="2.0"
+		emit_real_particles="0"
+		render_on_grid="1"
+		is_trail="0"
+		airflow_force="0.7"
+		airflow_time="0.01"
+		airflow_scale="0.22"
+		emit_cosmetic_particles="1"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="9"
+		fade_based_on_lifetime="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+	-->
+
+	<LifetimeComponent
+		lifetime="40"
+		randomize_lifetime.min="0"
+		randomize_lifetime.max="0"
+		>
+	</LifetimeComponent>
+</Entity>

@@ -1,0 +1,12 @@
+data/ragdolls/failed_alchemist/head.png
+data/ragdolls/failed_alchemist/torso1.png
+data/ragdolls/failed_alchemist/torso2.png
+data/ragdolls/failed_alchemist/thighs.png
+data/ragdolls/failed_alchemist/spike1.png
+data/ragdolls/failed_alchemist/spike2.png
+data/ragdolls/failed_alchemist/foot1.png
+data/ragdolls/failed_alchemist/foot2.png
+data/ragdolls/failed_alchemist/arm1.png
+data/ragdolls/failed_alchemist/arm2.png
+data/ragdolls/failed_alchemist/hand1.png
+data/ragdolls/failed_alchemist/hand2.png

@@ -1,0 +1,175 @@
+<Entity 
+  name="$projectile_default" tags="projectile_player,hittable,mortal,summon_player"
+   >
+
+	<Base file="data/entities/base_projectile.xml" >
+		<VelocityComponent
+		  gravity_y="50"
+		  air_friction="2"
+		  mass="0.03"
+		  >
+		</VelocityComponent>
+	</Base>
+	
+	<HomingComponent
+		target_who_shot="1"
+		homing_targeting_coeff="10.0"
+		homing_velocity_multiplier="1.0"
+		detect_distance="300"
+		just_rotate_towards_target="0"
+	>
+	</HomingComponent>
+
+  <ProjectileComponent 
+    _enabled="1" 
+    lob_min="0.5"
+    lob_max="0.7"
+    speed_min="50"
+    speed_max="150"
+    friction="0"
+    direction_random_rad="0.8"
+    on_death_explode="1"
+    on_death_gfx_leave_sprite="0" 
+    on_lifetime_out_explode="1"
+    explosion_dont_damage_shooter="1"
+	velocity_sets_rotation="0"
+    on_collision_die="0"
+    lifetime="750"
+    damage="0.0"
+    lifetime_randomness="100"
+    ragdoll_force_multiplier="0"
+    hit_particle_force_multiplier="0.1"
+    create_shell_casing="0"
+    muzzle_flash_file=""
+    shoot_light_flash_radius="10"
+    die_on_low_velocity="0"
+    bounce_always="1"
+    bounces_left="10"
+    bounce_energy="1.0"
+	knockback_force="0.4"
+	physics_impulse_coeff="1200"
+	damage_every_x_frames="20"
+     >
+	<damage_by_type
+		melee="0.14"
+		>
+	</damage_by_type>
+    <config_explosion
+		never_cache="1" 
+		damage="0"
+		camera_shake="0" 
+		explosion_radius="1"
+		explosion_sprite="" 
+		explosion_sprite_emissive="1"
+		explosion_sprite_additive="1"
+		explosion_sprite_random_rotation="0"
+		load_this_entity="data/entities/particles/swarm_poof.xml"
+		explosion_sprite_lifetime="0" 
+		create_cell_probability="0" 
+		hole_destroy_liquid="0" 
+		hole_enabled="1" 
+		ray_energy="0"
+		particle_effect="0" 
+		damage_mortals="1"
+		physics_explosion_power.min="0" 
+		physics_explosion_power.max="0" 
+		physics_throw_enabled="0" 
+		shake_vegetation="1" 
+		sparks_count_max="1" 
+		sparks_count_min="4" 
+		sparks_enabled="0"
+		light_enabled="0" 
+		stains_enabled="0"
+		spark_material="plasma_fading_pink"
+		>
+    </config_explosion>
+  </ProjectileComponent>
+  
+  <SpriteComponent 
+    _enabled="1" 
+    alpha="1" 
+    image_file="data/projectiles_gfx/swarm_fly.xml" 
+    next_rect_animation=""
+    rect_animation="" 
+     has_special_scale="1"
+	 special_scale_x="1"
+	 special_scale_y="1"
+     >
+  </SpriteComponent>
+
+  <AudioComponent
+      file="data/audio/Desktop/projectiles.bank"
+      event_root="player_projectiles/bullet_smg">
+  </AudioComponent>
+  
+  <ParticleEmitterComponent 
+		emitted_material_name="spark_purple_bright"
+		offset.x="0"
+		offset.y="0"
+		x_pos_offset_min="0"
+		x_pos_offset_max="0"
+		y_pos_offset_min="0"
+		y_pos_offset_max="0"
+		gravity.y="0"
+		x_vel_min="-3"
+		x_vel_max="3"
+		y_vel_min="-3"
+		y_vel_max="3"
+		count_min="1"
+		count_max="1"
+		lifetime_min="0.2"
+		lifetime_max="0.5"
+		airflow_force="1.0"
+		airflow_time="0.401"
+		airflow_scale="0.25"
+		is_trail="1"
+		trail_gap="1.0"
+		create_real_particles="0"
+		emit_cosmetic_particles="1"
+		render_on_grid="1"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		fade_based_on_lifetime="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+	
+	<DamageModelComponent
+		hp="0.3"
+		ragdoll_filenames_file=""
+		ragdoll_material="meat"
+		ragdoll_fx_forced="DISINTEGRATED"
+		>
+	</DamageModelComponent>
+	
+	<HitboxComponent 
+		_enabled="1" 
+		aabb_min_x="-2" 
+		aabb_max_x="2" 
+		aabb_min_y="-2" 
+		aabb_max_y="2" 
+		is_enemy="1" 
+		is_item="0" 
+		is_player="0" >
+	</HitboxComponent>
+	
+	<AudioLoopComponent
+		file="data/audio/Desktop/projectiles.bank"
+		event_name="player_projectiles/fly/movement_loop"
+		set_speed_parameter="1"
+		auto_play="1">
+	</AudioLoopComponent>
+	
+	<LuaComponent
+		script_source_file="data/scripts/projectiles/swarm_fly.lua"
+		execute_every_n_frame="5"
+		>
+	</LuaComponent>
+	
+	<VariableStorageComponent
+		name="projectile_file"
+		value_string="data/entities/projectiles/deck/swarm_fly.xml"
+		>
+	</VariableStorageComponent>
+
+</Entity>
+

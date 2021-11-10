@@ -1,0 +1,16 @@
+<Entity>
+	
+	<InheritTransformComponent>
+    </InheritTransformComponent>	
+    
+    <ShotEffectComponent
+        extra_modifier="projectile_lava_trail"
+		>
+	</ShotEffectComponent>
+	
+	<LifetimeComponent
+		lifetime="1800"
+		>
+	</LifetimeComponent>
+
+</Entity>

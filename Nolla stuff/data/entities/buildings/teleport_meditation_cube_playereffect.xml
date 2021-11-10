@@ -1,0 +1,12 @@
+<Entity tags="meditation_cube_effect">
+	<!-- effect is also removed when player teleports back -->
+	<InheritTransformComponent>
+    </InheritTransformComponent>	
+    
+    <GameEffectComponent 
+        effect="EDIT_WANDS_EVERYWHERE"
+        frames="36000"
+    >
+	</GameEffectComponent >
+
+</Entity>

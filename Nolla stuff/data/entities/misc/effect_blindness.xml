@@ -1,0 +1,26 @@
+<Entity>
+    <InheritTransformComponent>
+    </InheritTransformComponent>    
+    
+    <GameEffectComponent 
+        effect="BLINDNESS"
+        frames="1200"
+    >
+	</GameEffectComponent>
+
+	<AudioComponent
+		file="data/audio/Desktop/misc.bank"
+		event_root="game_effect/blindness" >
+	</AudioComponent>
+	
+	<UIIconComponent
+		icon_sprite_file="data/ui_gfx/status_indicators/blindness.png"
+		name="$status_blindness"
+		description="$statusdesc_blindness"
+		display_above_head="0"
+		display_in_hud="1"
+		is_perk="0"
+		>
+	</UIIconComponent>
+
+</Entity>

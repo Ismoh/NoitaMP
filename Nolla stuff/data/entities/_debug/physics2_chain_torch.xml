@@ -1,0 +1,144 @@
+<Entity tags="hittable" serialize="1" >
+
+	<PhysicsBody2Component 
+		allow_sleep="1"
+      	angular_damping="0.01"
+      	linear_damping="0.1" 
+		init_offset_x="1.5"
+		root_offset_x="4"
+		root_offset_y="7"
+	></PhysicsBody2Component>
+
+	<PhysicsImageShapeComponent 
+		body_id="0"
+		offset_x="0"
+		offset_y="0"
+		image_file="data/props_gfx/torch_hang_chain_ceiling.png"
+		material="metal_nohit"
+	></PhysicsImageShapeComponent>
+
+	<PhysicsImageShapeComponent 
+		body_id="1"
+		offset_x="0"
+		offset_y="6"
+		image_file="data/props_gfx/torch_hang_chain.png"
+		material="metal_nohit" 
+	></PhysicsImageShapeComponent>
+
+	<PhysicsImageShapeComponent 
+		body_id="2"
+		offset_x="0"
+		offset_y="12"
+		image_file="data/props_gfx/torch_hang_chain.png"
+		material="metal_nohit" 
+	></PhysicsImageShapeComponent>
+
+	<PhysicsImageShapeComponent 
+		body_id="3"
+		offset_x="0"
+		offset_y="18"
+		image_file="data/props_gfx/torch_hang_chain.png"
+		material="metal_nohit" 
+	></PhysicsImageShapeComponent>
+
+	<PhysicsImageShapeComponent 
+		body_id="4"
+		offset_x="-3.5"
+		offset_y="24"
+		image_file="data/props_gfx/torch_hang_unlit.png"
+		material="metal_nohit"
+		is_root="1"
+	></PhysicsImageShapeComponent>
+
+	<PhysicsJoint2Component
+		type="REVOLUTE_JOINT_ATTACH_TO_NEARBY_SURFACE"
+		break_force="8"
+		offset_x="2"
+		offset_y="0"
+		body1_id="0"
+	></PhysicsJoint2Component>
+
+	<PhysicsJoint2Component
+		type="REVOLUTE_JOINT"
+		break_force="4"
+		offset_x="2"
+		offset_y="6"
+		body1_id="0"
+		body2_id="1"
+	></PhysicsJoint2Component>
+
+	<PhysicsJoint2Component
+		type="REVOLUTE_JOINT"
+		break_force="4"
+		offset_x="2"
+		offset_y="12"
+		body1_id="1"
+		body2_id="2"
+	></PhysicsJoint2Component>
+
+	<PhysicsJoint2Component
+		type="REVOLUTE_JOINT"
+		break_force="4"
+		offset_x="2"
+		offset_y="18"
+		body1_id="2"
+		body2_id="3"
+	></PhysicsJoint2Component>
+
+	<PhysicsJoint2Component
+		type="REVOLUTE_JOINT"
+		break_force="4"
+		offset_x="2"
+		offset_y="24"
+		body1_id="3"
+		body2_id="4"
+	></PhysicsJoint2Component>
+
+  	<Entity>
+		<InheritTransformComponent>
+			<Transform 
+				position.x="0"
+				position.y="0" 
+			></Transform>
+		</InheritTransformComponent>
+
+		<LightComponent 
+			_tags="enabled_in_world,enabled_in_hand,fire"
+			radius="96"
+			fade_out_time="1.5"
+		></LightComponent>
+
+		<TorchComponent
+			_tags="enabled_in_world,enabled_in_hand"
+			fire_audio_weight="0.5"
+			suffocation_check_offset_y="-1"
+		></TorchComponent>
+
+		<SpriteAnimatorComponent>
+		</SpriteAnimatorComponent>
+		
+		<Base file="data/entities/base_torch_particle.xml" >
+			<ParticleEmitterComponent 
+				x_pos_offset_min="-3"
+				x_pos_offset_max="2" 
+				y_pos_offset_min="0"
+				y_pos_offset_max="2"
+			></ParticleEmitterComponent>
+
+			<ParticleEmitterComponent 
+				x_pos_offset_min="-3"
+				x_pos_offset_max="2" 
+				y_pos_offset_min="0"
+				y_pos_offset_max="2"
+			></ParticleEmitterComponent>
+
+			<ParticleEmitterComponent 
+				x_pos_offset_min="-3"
+				x_pos_offset_max="2" 
+				y_pos_offset_min="0"
+				y_pos_offset_max="2"
+			></ParticleEmitterComponent>
+		</Base>
+	</Entity>
+
+</Entity>

@@ -1,0 +1,142 @@
+<Entity name="$animal_monk">
+	<Base file="data/entities/base_enemy_basic.xml" >
+		<ItemChestComponent level="1" > </ItemChestComponent>
+
+		<AnimalAIComponent 
+			can_fly="0"
+			preferred_job="JobDefault"
+			escape_if_damaged_probability="35"
+			creature_detection_range_x="250"
+			creature_detection_range_y="250"
+			sense_creatures="1"
+			attack_melee_enabled="0"
+			attack_ranged_enabled="0"
+			>
+		</AnimalAIComponent>
+
+		<DamageModelComponent 
+			hp="7"
+			materials_create_messages="1"
+			ragdoll_material="steel"
+			blood_material="oil"
+			blood_multiplier="0.3"
+			ragdoll_filenames_file="data/ragdolls/monk/filenames.txt" 
+			fire_probability_of_ignition="0"
+			physics_objects_damage="1"
+			critical_damage_resistance="1.0"
+			air_needed="0"
+			>
+		</DamageModelComponent>
+
+		<SpriteComponent 
+			image_file="data/enemies_gfx/monk.xml" 
+			offset_x="0"
+			offset_y="0">
+		</SpriteComponent>
+
+		<PathFindingComponent
+			distance_to_reach_node_x="20"
+			distance_to_reach_node_y="20"
+			can_swim_on_surface="1"
+			can_dive="1"
+			frames_to_get_stuck="30"
+			can_jump="1"
+			jump_speed="80"
+			initial_jump_max_distance_x="40"
+			initial_jump_max_distance_y="20">
+		</PathFindingComponent>
+
+		<GenomeDataComponent 
+			herd_id="robot"
+			food_chain_rank="5"
+			is_predator="1" >
+		</GenomeDataComponent>
+		
+		<CharacterDataComponent 
+			buoyancy_check_offset_y="-4" 
+			collision_aabb_min_x="-2.0" 
+			collision_aabb_max_x="2.0" 
+			collision_aabb_min_y="-10" 
+			collision_aabb_max_y="0" 
+			mass="2.0"
+			>
+		</CharacterDataComponent>
+		
+		<CharacterPlatformingComponent 
+			pixel_gravity="600" 
+			jump_velocity_y="-20" 
+			run_velocity="18"
+			run_animation_velocity_switching_enabled="1"
+			run_animation_velocity_switching_threshold="50"
+			swim_idle_buoyancy_coeff="0.8">
+		</CharacterPlatformingComponent>
+		
+		<HitboxComponent 
+			_enabled="1" 
+			aabb_min_x="-4.5" 
+			aabb_max_x="4.5" 
+			aabb_min_y="-19" 
+			aabb_max_y="0" 
+			is_enemy="1" 
+			is_item="0" 
+			is_player="0" >
+		</HitboxComponent>
+	</Base>
+
+	<!-- arms -->
+	<Entity>
+		<Base file="data/entities/misc/monk_arm.xml">
+		</Base>
+
+		<Entity tags="arm_fx">
+			<Base file="data/entities/misc/monk_arm_fx.xml" />
+		</Entity>
+		<Entity tags="arm_fx">
+			<Base file="data/entities/misc/monk_arm_fx.xml" />
+		</Entity>
+		<Entity tags="arm_fx">
+			<Base file="data/entities/misc/monk_arm_fx.xml" />
+		</Entity>
+	</Entity>
+
+	<Entity>
+		<Base file="data/entities/misc/monk_arm.xml">
+			<SpriteComponent
+				has_special_scale="1"
+				special_scale_x="-1" >
+			</SpriteComponent>
+			<VariableStorageComponent
+				value_bool="0">
+			</VariableStorageComponent>
+		</Base>
+
+		<Entity tags="arm_fx">
+			<Base file="data/entities/misc/monk_arm_fx.xml" />
+		</Entity>
+		<Entity tags="arm_fx">
+			<Base file="data/entities/misc/monk_arm_fx.xml" />
+		</Entity>
+		<Entity tags="arm_fx">
+			<Base file="data/entities/misc/monk_arm_fx.xml" />
+		</Entity>
+	</Entity>
+
+	<!-- cape -->
+	<Entity>  <Base file="data/entities/verlet_chains/monk_cape/monk_cape.xml"> <InheritTransformComponent><Transform position.x="0"  position.y="-12" ></Transform></InheritTransformComponent> </Base>  </Entity>
+	
+	<AudioComponent
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals/monk" >
+	</AudioComponent>
+	
+	<Entity>
+		<InheritTransformComponent />
+		
+	    <GameEffectComponent 
+	        effect="PROTECTION_FREEZE"
+	        frames="-1"
+	    >
+		</GameEffectComponent >
+	</Entity>
+</Entity>
+

@@ -1,0 +1,20 @@
+<Sprite
+	filename="data/particles/fire_falling.png"
+	offset_x="8"
+	offset_y="11"
+	default_animation="explosion"
+	>
+
+	<!-- explosion -->
+	<RectAnimation
+		name="explosion"
+		pos_x="0"
+		pos_y="0"
+		frame_count="12"
+		frame_width="16"
+		frame_height="16"
+		frame_wait="0.06"
+		frames_per_row="12"
+		loop="1"   >
+	</RectAnimation>
+</Sprite>

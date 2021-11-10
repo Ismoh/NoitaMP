@@ -1,0 +1,9 @@
+data/ragdolls/acidshooter_weak/torso.png
+data/ragdolls/acidshooter_weak/tentacle_1_a.png
+data/ragdolls/acidshooter_weak/tentacle_1_b.png
+data/ragdolls/acidshooter_weak/tentacle_2_a.png
+data/ragdolls/acidshooter_weak/tentacle_2_b.png
+data/ragdolls/acidshooter_weak/tentacle_3_a.png
+data/ragdolls/acidshooter_weak/tentacle_3_b.png
+data/ragdolls/acidshooter_weak/tentacle_4_a.png
+data/ragdolls/acidshooter_weak/tentacle_4_b.png

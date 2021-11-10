@@ -1,0 +1,8 @@
+<Entity >
+	<LuaComponent
+		script_source_file="data/scripts/projectiles/crumbling_earth_projectile.lua"
+		execute_every_n_frame="99999999"
+		execute_on_removed="1"
+		>
+	</LuaComponent>
+</Entity>

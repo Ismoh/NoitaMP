@@ -1,0 +1,37 @@
+<Sprite
+ filename="data/projectiles_gfx/mine_player.png"
+ offset_x="6.5"
+ offset_y="11"
+ default_animation="stand" 
+ >
+
+ <!-- stand -->
+ <RectAnimation
+  name="stand"
+  pos_x="0"
+  pos_y="0"
+  frame_count="1"
+  frame_width="13"
+  frame_height="14"
+  frame_wait="0.16"
+  frames_per_row="8"
+  loop="1"   >
+ </RectAnimation>
+ 
+ <RectAnimation
+  name="detonate"
+  pos_x="0"
+  pos_y="0"
+  frame_count="8"
+  frame_width="13"
+  frame_height="14"
+  frame_wait="0.09"
+  frames_per_row="8"
+  loop="1"   >
+    <Event frame="0" name="beep" probability="1" check_physics_material="0"/>
+    <Event frame="2" name="beep" probability="1" check_physics_material="0"/>
+    <Event frame="3" name="beep" probability="1" check_physics_material="0"/>
+    <Event frame="4" name="beep" probability="1" check_physics_material="0"/>
+ </RectAnimation>
+
+</Sprite>

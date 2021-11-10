@@ -1,0 +1,14 @@
+<Entity>
+	<InheritTransformComponent />
+	
+	<LuaComponent
+		script_source_file="data/scripts/magic/eradicate.lua"
+		execute_every_n_frame="100"
+		>
+	</LuaComponent>
+	
+	<LifetimeComponent
+		lifetime="6000"
+		>
+	</LifetimeComponent>
+<Entity>

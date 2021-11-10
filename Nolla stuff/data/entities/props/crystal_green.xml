@@ -1,0 +1,35 @@
+<Entity tags="mortal" >
+	<Base file="data/entities/base_prop_crystal.xml" >
+		<PhysicsImageShapeComponent
+			image_file="data/props_gfx/crystal_green.png"
+			material="crystal_solid" >
+		</PhysicsImageShapeComponent>
+
+		<MaterialInventoryComponent >
+			<count_per_material_type>
+				<Material material="spark_green" count="300"  />
+			</count_per_material_type>
+		</MaterialInventoryComponent>
+		
+		<DamageModelComponent 
+			blood_material="spark_green" >
+		</DamageModelComponent>
+		
+		<ExplodeOnDamageComponent>
+			<config_explosion
+				load_this_entity="data/entities/particles/particle_explosion/main_swirly_green.xml,data/entities/props/crystal_green_effect.xml" >
+			</config_explosion>
+		</ExplodeOnDamageComponent>
+
+		<ParticleEmitterComponent 
+			emitted_material_name="spark_green" >
+		</ParticleEmitterComponent>
+
+		<LightComponent
+			r="20"
+			g="255"
+			b="20" >
+		</LightComponent>
+	</Base>
+	
+</Entity>

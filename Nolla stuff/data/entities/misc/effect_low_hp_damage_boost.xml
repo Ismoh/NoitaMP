@@ -1,0 +1,11 @@
+<Entity>
+	<InheritTransformComponent>
+    </InheritTransformComponent>	
+    
+    <GameEffectComponent 
+    	effect="LOW_HP_DAMAGE_BOOST"
+    	frames="600"
+    >
+	</GameEffectComponent >
+	
+</Entity>

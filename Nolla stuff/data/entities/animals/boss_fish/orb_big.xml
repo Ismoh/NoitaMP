@@ -1,0 +1,77 @@
+<Entity name="$projectile_default" >
+	<VelocityComponent
+		gravity_y="0"
+		air_friction="-0.4"
+		terminal_velocity="300" 
+		displace_liquid="0"
+		liquid_drag="0"
+		>
+	</VelocityComponent>
+	
+	<AreaDamageComponent
+		aabb_min.x="-20" 
+		aabb_min.y="-20" 
+		aabb_max.x="20" 
+		aabb_max.y="20" 
+		damage_per_frame="0.24"
+		update_every_n_frame="1"
+		entities_with_tag="mortal"
+		death_cause="$animal_fish_giga"
+		damage_type="DAMAGE_PROJECTILE"
+		circle_radius="24"
+		>
+	</AreaDamageComponent>
+	
+	<ParticleEmitterComponent 
+		emitted_material_name="spark_green"
+		gravity.y="0.0"
+		lifetime_min="1"
+		lifetime_max="2"
+		x_vel_min="0"
+		x_vel_max="0"
+		y_vel_min="0"
+		y_vel_max="0"
+		count_min="25"
+		count_max="45"
+		render_on_grid="1"
+		fade_based_on_lifetime="0"
+		area_circle_radius.min="20"
+		area_circle_radius.max="20"
+		cosmetic_force_create="1"
+		collide_with_grid="0"
+		airflow_force="0.051"
+		airflow_time="1.01"
+		airflow_scale="0.03"
+		emission_interval_min_frames="12"
+		emission_interval_max_frames="12"
+		emit_cosmetic_particles="1"
+		velocity_always_away_from_center="11"
+		render_back="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+	
+	<ProjectileComponent
+		speed_min="0"
+		speed_max="0"
+		bounce_always="1"
+		bounces_left="9999999999999"
+		bounce_at_any_angle="1"
+		bounce_energy="0.5"
+		lifetime="600"
+		velocity_sets_rotation="0"
+		penetrate_entities="1"
+		collide_with_world="0"
+		direction_random_rad="0"
+		penetrate_world="0"
+		>
+	</ProjectileComponent>
+
+	<SpriteComponent
+		image_file="data/entities/animals/boss_fish/orb_big_sprite.xml"
+		has_special_scale="1"
+		special_scale_x="1"
+		offset_x="0"
+		offset_y="0"
+		>
+	</SpriteComponent>
+</Entity>

@@ -1,0 +1,84 @@
+<Entity>
+
+    <VelocityComponent
+        gravity_y="0"
+        air_friction="4.0" >
+    </VelocityComponent>
+
+    <SimplePhysicsComponent>
+    </SimplePhysicsComponent>
+
+    <SetStartVelocityComponent
+        randomize_speed.min="50"
+        randomize_speed.max="60"
+        randomize_angle.min="-1.57"
+        randomize_angle.max="-1.57" >
+    </SetStartVelocityComponent>
+
+    <DieIfSpeedBelowComponent
+        min_speed="25" >
+    </DieIfSpeedBelowComponent>
+
+    <SpriteParticleEmitterComponent
+        sprite_file="data/particles/smoke_cloud_$[1-4].xml"
+        emission_interval_min_frames="2"
+        emission_interval_max_frames="2"
+        additive="1"
+        emissive="0"
+        scale.x="1.0"
+        scale.y="1.0"
+		count_min="1"
+		count_max="2"
+        sprite_random_rotation="1"
+        randomize_scale.min_x="-0.1" 
+        randomize_scale.max_x="0.1" 
+        randomize_scale.min_y="-0.1" 
+        randomize_scale.max_y="0.1" 
+        randomize_velocity.min_y="-4" 
+        randomize_velocity.max_y="4"
+        randomize_velocity.min_x="-4" 	
+        randomize_velocity.max_x="4"
+		randomize_position.min_y="-10" 
+        randomize_position.max_y="10"
+        randomize_position.min_x="-10"  
+        randomize_position.max_x="10"
+        randomize_animation_speed_coeff.min="0.667"  
+        randomize_animation_speed_coeff.max="1.0" 
+		velocity_always_away_from_center="1"
+		render_back="1"
+		>
+    </SpriteParticleEmitterComponent>
+
+    <LoadEntitiesComponent
+        count.min="1"
+        count.max="1"
+        entity_file="data/entities/particles/particle_explosion/explosion_smoke_pillar_top_left.xml"
+        kill_entity="0"
+        timeout_frames="10" >
+    </LoadEntitiesComponent>
+
+    <LoadEntitiesComponent
+        count.min="1"
+        count.max="1"
+        entity_file="data/entities/particles/particle_explosion/explosion_smoke_pillar_top_right.xml"
+        kill_entity="0"
+        timeout_frames="10" >
+    </LoadEntitiesComponent>
+
+    <LoadEntitiesComponent
+        count.min="1"
+        count.max="1"
+        entity_file="data/entities/particles/particle_explosion/explosion_smoke_pillar_top_left.xml"
+        kill_entity="0"
+        timeout_frames="12" >
+    </LoadEntitiesComponent>
+
+    <LoadEntitiesComponent
+        count.min="1"
+        count.max="1"
+        entity_file="data/entities/particles/particle_explosion/explosion_smoke_pillar_top_right.xml"
+        kill_entity="0"
+        timeout_frames="12" >
+    </LoadEntitiesComponent>
+</Entity>
+

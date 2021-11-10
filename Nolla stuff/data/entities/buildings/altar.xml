@@ -1,0 +1,68 @@
+<Entity>
+
+  <!-- sacrifice logic -->
+
+  <AltarComponent
+    recognized_entity_tags="sacred_barrel"
+    uses_remaining="100" >
+  </AltarComponent>
+  
+  <HitboxComponent 
+    aabb_min_x="-12" 
+    aabb_max_x="12" 
+    aabb_min_y="-15"
+    aabb_max_y="25" >
+  </HitboxComponent>
+  
+
+  <Entity name="on_sacrifice" >
+
+    <MagicConvertMaterialComponent
+      _enabled="0"
+      kill_when_finished="0"
+      from_material="glowstone_altar"
+      steps_per_frame="1"
+      to_material="blood"
+      radius="128" >
+    </MagicConvertMaterialComponent>
+
+    <LuaComponent
+      _enabled="0"
+      script_source_file="data/scripts/buildings/altar_collapse.lua"
+      vm_type="ONE_PER_COMPONENT_INSTANCE"
+      enable_coroutines="1"
+      execute_on_added="1"
+      execute_every_n_frame="-1"
+      execute_times="1" >
+    </LuaComponent>
+
+    <InheritTransformComponent>
+    </InheritTransformComponent>
+
+  </Entity>
+
+
+  <!-- torches turn on when the altar is approached -->
+
+  <Entity>
+
+    <CollisionTriggerComponent
+      width="220"
+      height="64" 
+      radius="128"
+      required_tag="player_unit" >
+  	</CollisionTriggerComponent>
+
+    <LuaComponent
+      script_collision_trigger_hit="data/scripts/buildings/altar_light_torches.lua"
+      execute_every_n_frame="-1" >
+    </LuaComponent>
+
+    <InheritTransformComponent>
+    </InheritTransformComponent>
+
+  </Entity>
+
+
+</Entity>
+

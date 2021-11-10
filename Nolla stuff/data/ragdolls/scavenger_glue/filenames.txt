@@ -1,0 +1,7 @@
+data/ragdolls/scavenger_glue/torso.png
+data/ragdolls/scavenger_glue/thighs.png
+data/ragdolls/scavenger_glue/head.png
+data/ragdolls/scavenger_glue/left_foot.png
+data/ragdolls/scavenger_glue/right_foot.png
+data/ragdolls/scavenger_glue/left_hand.png
+data/ragdolls/scavenger_glue/right_hand.png

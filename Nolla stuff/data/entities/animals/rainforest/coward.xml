@@ -1,0 +1,13 @@
+<Entity >
+  <Base file="data/entities/animals/coward.xml">
+    <DamageModelComponent 
+      hp="6"
+      max_hp="6"
+     ></DamageModelComponent >
+  </Base>
+  
+  <Entity>
+		<Base file="data/entities/misc/animal_energy_shield.xml">
+		</Base>
+	</Entity>
+</Entity>

@@ -1,0 +1,26 @@
+<Entity >
+  <Base file="data/entities/animals/wizard_returner.xml">
+    <DamageModelComponent 
+      hp="19"
+      max_hp="19"
+	  minimum_knockback_force="100000"
+     ></DamageModelComponent >
+  </Base>
+  
+  <Entity>
+	    <GameEffectComponent 
+	        effect="PROTECTION_EXPLOSION"
+	        frames="-1"
+	    >
+		</GameEffectComponent >
+	</Entity>
+	
+	<Entity name="cape">  
+        <Base file="data/entities/verlet_chains/cape/cape.xml">
+			<VerletPhysicsComponent
+        		cloth_color_edge="0xFFbafcff"
+        		cloth_color="0xFF384d6b">
+        	</VerletPhysicsComponent>
+        </Base>  
+    </Entity>
+</Entity>

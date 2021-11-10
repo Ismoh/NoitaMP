@@ -1,0 +1,24 @@
+<Entity>
+	
+	<Base file="data/entities/base_custom_card.xml" > 
+		<SpriteComponent 
+			image_file="data/ui_gfx/gun_actions/oil_trail.png" 
+			>
+		</SpriteComponent>
+		
+		<ItemActionComponent 
+			_tags="enabled_in_world"
+			action_id="OIL_TRAIL" >
+		</ItemActionComponent>
+	</Base>
+
+	<InheritTransformComponent
+		_tags="enabled_in_world,enabled_in_hand"
+		>
+	  <Transform 
+		position.x="5" 
+		position.y="0" >
+	  </Transform>
+	</InheritTransformComponent>
+
+</Entity>

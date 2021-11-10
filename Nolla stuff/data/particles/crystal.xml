@@ -1,0 +1,18 @@
+<Sprite 
+  default_animation="fade" 
+  filename="data/particles/crystal_animated.png" 
+  offset_x="8.5" 
+  offset_y="12" >
+  <RectAnimation 
+    frame_count="7" 
+    frame_height="25" 
+    frame_wait="0.025" 
+    frame_width="18" 
+    frames_per_row="8" 
+    loop="0" 
+    name="fade" 
+    pos_x="0" 
+    pos_y="1" 
+    shrink_by_one_pixel="1" >
+  </RectAnimation>
+</Sprite>

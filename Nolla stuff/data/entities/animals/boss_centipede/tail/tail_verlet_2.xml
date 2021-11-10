@@ -1,0 +1,13 @@
+<Entity >
+   
+  <SpriteComponent 
+    image_file="data/entities/animals/boss_centipede/tail/tail_2.xml" 
+    offset_x="0"
+    offset_y="20"
+    update_transform="0"
+    update_transform_rotation="0" 
+	z_index="1.2"
+	>
+  </SpriteComponent>
+  
+</Entity>

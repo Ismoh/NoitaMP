@@ -1,0 +1,154 @@
+<Entity tags="mortal" >
+
+  <!-- mortal is required so it can explode -->
+  <Base file="data/entities/base_item_physics.xml" >
+    <PhysicsBodyComponent 
+      is_static="1"
+      on_death_leave_physics_body="0" >
+    </PhysicsBodyComponent>
+
+    <PhysicsImageShapeComponent
+      image_file="data/props_gfx/vault_apparatus_02.png" 
+      material="steel"
+      centered="0" 
+      >
+    </PhysicsImageShapeComponent>
+  </Base>
+  
+  <MaterialInventoryComponent 
+    drop_as_item="0" 
+    on_death_spill="1"
+    leak_pressure_min="0.5"
+    leak_pressure_max="0.8"
+    leak_on_damage_percent="0.5"
+    audio_collision_size_modifier_amount="0.8"
+    >
+    <count_per_material_type>
+      <Material material="blood_cold" count="1000"  />
+	  </count_per_material_type>
+  </MaterialInventoryComponent>
+  
+
+  <DamageModelComponent 
+    air_needed="0" 
+    blood_material="blood_cold_vapour" 
+    blood_multiplier="0.5"
+    drop_items_on_death="0" 
+    falling_damage_damage_max="1.2" 
+    falling_damage_damage_min="0.1" 
+    falling_damage_height_max="250" 
+    falling_damage_height_min="70" 
+    falling_damages="0" 
+    fire_damage_amount="0.4" 
+    fire_probability_of_ignition="0"
+	critical_damage_resistance="1"
+    hp="50" 
+    is_on_fire="0" 
+    materials_create_messages="0" 
+    materials_damage="1"
+    materials_that_damage="lava,acid"
+    materials_how_much_damage="0.0002,0.0001,0.001"
+    ragdoll_filenames_file="" 
+    ragdoll_material="" >
+	<damage_multipliers
+		melee="0.1"
+		>
+	</damage_multipliers>
+  </DamageModelComponent>
+  
+  <!-- physics_body_destruction_required (0.0-1.0, 0 = intact, 1 = destroyed)  
+       physics_body_modified_death_probability (if more destroyed than physics_body_destruction_required, explode with this probability (0.9 = 90% chance))-->
+
+  <ExplodeOnDamageComponent
+  	explode_on_death_percent="1"
+  	explode_on_damage_percent="0"
+    physics_body_modified_death_probability="0.9"
+    physics_body_destruction_required="0.1"
+  	>
+    <config_explosion
+      never_cache="0"
+      damage="13"
+      camera_shake="60" 
+      explosion_radius="60" 
+      explosion_sprite="data/particles/explosion_032.xml" 
+      explosion_sprite_lifetime="10" 
+      create_cell_probability="40"
+    create_cell_material="blood_cold_vapour"
+      hole_destroy_liquid="0" 
+      load_this_entity="data/entities/particles/particle_explosion/main_bluesmoke.xml"
+      hole_enabled="1" 
+      ray_energy="2000000"
+      particle_effect="1" 
+      damage_mortals="1" 
+      physics_explosion_power.min="2.5"
+      physics_explosion_power.max="3.5" 
+      physics_throw_enabled="1"
+      shake_vegetation="1" 
+      sparks_count_min="15" 
+    sparks_count_max="20"
+    spark_material="plasma_fading"
+      sparks_enabled="1" 
+      stains_enabled="1" 
+      stains_radius="15" 
+      delay.min="1"
+      delay.max="4"
+      explosion_delay_id="1"
+
+      >
+    </config_explosion>
+  </ExplodeOnDamageComponent>
+  <!--
+  <ParticleEmitterComponent 
+    emitted_material_name="fire"
+    offset.x="25"
+    offset.y="-4"
+    x_pos_offset_min="-3"
+    x_pos_offset_max="3"
+    y_pos_offset_min="-2"
+    y_pos_offset_max="2"
+    count_min="5"
+    count_max="10"
+    lifetime_min="0.1"
+    lifetime_max="0.75"
+    create_real_particles="1"
+    emit_cosmetic_particles="0"
+    collide_with_grid="0"
+    emission_interval_min_frames="80"
+    emission_interval_max_frames="80"
+    is_emitting="1"
+    >
+  </ParticleEmitterComponent>
+  -->
+  <ParticleEmitterComponent 
+    emitted_material_name="blood_cold_vapour"
+    offset.x="25"
+    offset.y="-4"
+    x_pos_offset_min="-3"
+    x_pos_offset_max="3"
+    y_pos_offset_min="-2"
+    y_pos_offset_max="2"
+    count_min="10"
+    count_max="50"
+    create_real_particles="1"
+    emit_cosmetic_particles="0"
+    collide_with_grid="0"
+    emission_interval_min_frames="80"
+    emission_interval_max_frames="80"
+    is_emitting="1"
+    >
+  </ParticleEmitterComponent>
+
+  <AudioLoopComponent
+    _tags="sound_spray"
+    file="data/audio/Desktop/materials.bank"
+    event_name="materials/spray" 
+    volume_autofade_speed="0.25" >
+  </AudioLoopComponent>
+  
+  <AudioComponent
+    file="data/audio/Desktop/materials.bank"
+    event_root="collision/metalhollow"
+    set_latest_event_position="1" >
+  </AudioComponent>
+
+</Entity>

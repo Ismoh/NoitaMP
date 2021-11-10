@@ -1,0 +1,18 @@
+<Sprite 
+  default_animation="explosion" 
+  filename="data/particles/black_hole_big_circle_out.png" 
+  offset_x="67" 
+  offset_y="67" >
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="131" 
+    frame_wait="0.03" 
+    frame_width="131" 
+    frames_per_row="6" 
+    loop="0" 
+    name="explosion" 
+    pos_x="0" 
+    pos_y="1" 
+    shrink_by_one_pixel="1" >
+  </RectAnimation>
+</Sprite>

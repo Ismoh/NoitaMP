@@ -1,0 +1,14 @@
+<Entity>
+
+    <Base file="data/entities/base_jetpack_nosound.xml">
+    </Base>
+
+    <AudioLoopComponent
+        _tags="sound_jetpack"
+        file="data/audio/Desktop/animals.bank"
+        event_name="animals/jetpack/movement_loop"
+        volume_autofade_speed="0.25"
+        set_speed_parameter="1" >
+    </AudioLoopComponent>
+
+</Entity>

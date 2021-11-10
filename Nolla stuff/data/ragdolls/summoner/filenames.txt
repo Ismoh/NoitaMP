@@ -1,0 +1,9 @@
+data/ragdolls/summoner/torso.png
+data/ragdolls/summoner/right_thigh.png
+data/ragdolls/summoner/right_arm.png
+data/ragdolls/summoner/right_hand.png
+data/ragdolls/summoner/left_thigh.png
+data/ragdolls/summoner/left_foot.png
+data/ragdolls/summoner/left_arm.png
+data/ragdolls/summoner/left_hand.png
+data/ragdolls/summoner/head.png

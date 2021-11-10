@@ -1,0 +1,13 @@
+<Entity tags="effect_protection" >
+
+	<InheritTransformComponent>
+    </InheritTransformComponent>
+    
+    <GameEffectComponent
+		_tags="effect_protection"
+    	effect="PROTECTION_MELEE"
+    	frames="-1"
+    	exclusivity_group="0"
+    ></GameEffectComponent >
+
+</Entity>

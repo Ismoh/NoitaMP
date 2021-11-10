@@ -1,0 +1,13 @@
+<Entity >
+  <Base file="data/entities/animals/acidshooter.xml">
+    <DamageModelComponent 
+      hp="4"
+      max_hp="4"
+     ></DamageModelComponent >
+  </Base>
+  
+  <Entity>  <Base file="data/entities/verlet_chains/slime_tentacle/slime_tentacle_02.xml"> <InheritTransformComponent><Transform position.x="-3" position.y="-1" ></Transform></InheritTransformComponent> </Base>  </Entity>
+	<Entity>  <Base file="data/entities/verlet_chains/slime_tentacle/slime_tentacle_01.xml"> <InheritTransformComponent><Transform position.x="-4" position.y="-1" ></Transform></InheritTransformComponent> </Base>  </Entity>
+	<Entity>  <Base file="data/entities/verlet_chains/slime_tentacle/slime_tentacle_01.xml"> <InheritTransformComponent><Transform position.x="0"  position.y="-1" ></Transform></InheritTransformComponent> </Base>  </Entity>
+	<Entity>  <Base file="data/entities/verlet_chains/slime_tentacle/slime_tentacle_thin_01.xml"> <InheritTransformComponent><Transform position.x="4"  position.y="-1" ></Transform></InheritTransformComponent> </Base>  </Entity>
+</Entity>

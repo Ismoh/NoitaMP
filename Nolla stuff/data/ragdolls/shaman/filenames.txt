@@ -1,0 +1,8 @@
+data/ragdolls/shaman/torso.png
+data/ragdolls/shaman/head.png
+data/ragdolls/shaman/hand.png
+data/ragdolls/shaman/lantern.png
+data/ragdolls/shaman/leg_l.png
+data/ragdolls/shaman/leg_r.png
+data/ragdolls/shaman/tentacle_l.png
+data/ragdolls/shaman/tentacle_r.png

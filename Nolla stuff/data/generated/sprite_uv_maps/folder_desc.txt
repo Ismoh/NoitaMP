@@ -1,0 +1,1 @@
+Contains auto-generated sprite uv map sprites.

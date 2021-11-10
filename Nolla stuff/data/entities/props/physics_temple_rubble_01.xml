@@ -1,0 +1,13 @@
+<Entity name="unknown" >
+	<Base file="data/entities/base_item_physics2.xml" >
+		<PhysicsBody2Component
+			init_offset_y="4.5"
+			>
+		</PhysicsBody2Component>
+		<PhysicsImageShapeComponent 
+			image_file="data/props_gfx/temple_rubble_01.png"
+			material="rock_box2d"
+			>
+		</PhysicsImageShapeComponent>
+	</Base>
+</Entity>

@@ -1,0 +1,67 @@
+<Entity tags="glue">
+	<VelocityComponent
+		gravity_y="0"
+		terminal_velocity="10"
+		>
+	</VelocityComponent>
+
+	<SpriteComponent 
+		alpha="0.6"
+		image_file="data/projectiles_gfx/glue.xml" 
+		>
+	</SpriteComponent>
+
+	<!-- anchor entities that stick to target entities or to terrain -->
+	<Entity tags="glue_anchor">
+		<Base file="data/entities/projectiles/glue_anchor.xml" />
+	</Entity>
+	<Entity tags="glue_anchor">
+		<Base file="data/entities/projectiles/glue_anchor.xml" />
+	</Entity>
+
+	<!-- keep this entity between the anchors + handle the stretching & breaking of glue -->
+	<LuaComponent
+		script_source_file="data/scripts/projectiles/glue_stretch.lua"
+		execute_every_n_frame="1"
+		>
+	</LuaComponent>
+
+	<!-- find targets for anchors -->
+	<LuaComponent
+		script_source_file="data/scripts/projectiles/glue_init.lua"
+		execute_on_added="1"
+		remove_after_executed="1"
+		>
+	</LuaComponent>
+
+	<LifetimeComponent
+		lifetime="500"
+		>
+	</LifetimeComponent>
+	<!--
+	<ParticleEmitterComponent 
+		emitted_material_name="glue"
+		emitter_lifetime_frames="3"
+		offset.x="0"
+		offset.y="0"
+		x_pos_offset_min="-2"
+		x_pos_offset_max="2"
+		y_pos_offset_min="-2"
+		y_pos_offset_max="2"
+		x_vel_min="-40"
+		x_vel_max="40"
+		y_vel_min="-40"
+		y_vel_max="-10"
+		count_min="4"
+		count_max="6"
+		lifetime_min="0.2"
+		lifetime_max="0.3"
+		create_real_particles="1"
+		emit_cosmetic_particles="1"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+-->
+</Entity>
+

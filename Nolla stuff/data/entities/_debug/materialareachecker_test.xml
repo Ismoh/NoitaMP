@@ -1,0 +1,14 @@
+<Entity >
+
+	<MaterialAreaCheckerComponent
+    	area_aabb.min_x="-124" 
+		area_aabb.min_y="0"		
+		area_aabb.max_x="109" 
+		area_aabb.max_y="1"		
+		material="templebrick_noedge_static"
+		material2="templebrick_noedge_static"
+		kill_after_message="1"
+		>
+	</MaterialAreaCheckerComponent>
+  
+</Entity>

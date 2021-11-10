@@ -1,0 +1,21 @@
+<Sprite 
+  default_animation="blink" 
+  filename="data/particles/treble_eye.png" 
+  offset_x="32" 
+  offset_y="16" >
+
+  <RectAnimation 
+    frame_count="19" 
+    frame_height="32" 
+    frame_wait="0.1" 
+    frame_width="64" 
+    frames_per_row="19" 
+    loop="0" 
+    name="blink" 
+    pos_x="0" 
+    pos_y="0" 
+    shrink_by_one_pixel="0" >
+  </RectAnimation>
+
+</Sprite>
+

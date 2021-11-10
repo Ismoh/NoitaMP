@@ -1,0 +1,10 @@
+data/ragdolls/roboguard_big/torso.png
+data/ragdolls/roboguard_big/right_thigh.png
+data/ragdolls/roboguard_big/right_foot.png
+data/ragdolls/roboguard_big/right_shoulder.png
+data/ragdolls/roboguard_big/right_arm.png
+data/ragdolls/roboguard_big/right_hand.png
+data/ragdolls/roboguard_big/left_thigh.png
+data/ragdolls/roboguard_big/left_foot.png
+data/ragdolls/roboguard_big/cord_1.png
+data/ragdolls/roboguard_big/cord_2.png

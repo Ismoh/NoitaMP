@@ -1,0 +1,12 @@
+<Entity>
+	
+	<InheritTransformComponent>
+    </InheritTransformComponent>	
+    
+    <GameEffectComponent 
+        effect="PROTECTION_ALL"
+        frames="1800"
+    >
+	</GameEffectComponent >
+
+</Entity>

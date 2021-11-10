@@ -1,0 +1,22 @@
+<Entity name="$animal_turret">
+	
+	<_Transform 
+		scale.x="-1" >
+	</_Transform>
+  
+	<Base file="data/entities/animals/turret_right.xml" >
+
+	</Base>
+	
+	<Entity>
+		<InheritTransformComponent />
+		
+	    <GameEffectComponent 
+	        effect="PROTECTION_FREEZE"
+	        frames="-1"
+	    >
+		</GameEffectComponent >
+	</Entity>
+
+</Entity>
+

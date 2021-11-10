@@ -1,0 +1,8 @@
+<Entity>
+	<Base file="data/entities/buildings/biome_modifiers/terrain_hole_01.xml" >
+		<PixelSceneComponent
+			pixel_scene="data/biome_impl/biome_modifiers/hole_03.png"
+			>
+		</PixelSceneComponent>
+	</Base>
+</Entity>

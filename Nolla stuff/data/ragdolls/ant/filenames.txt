@@ -1,0 +1,13 @@
+data/ragdolls/ant/head.png
+data/ragdolls/ant/upper_torso.png
+data/ragdolls/ant/lower_torso.png
+data/ragdolls/ant/left_hind_leg.png
+data/ragdolls/ant/right_hind_leg.png
+data/ragdolls/ant/left_front_leg.png
+data/ragdolls/ant/right_front_leg.png
+data/ragdolls/ant/antenna_left.png
+data/ragdolls/ant/antenna_right.png
+data/ragdolls/ant/left_arm.png
+data/ragdolls/ant/left_hand.png
+data/ragdolls/ant/right_arm.png
+data/ragdolls/ant/right_hand.png

@@ -1,0 +1,5 @@
+data/ragdolls/tank/gun.png
+data/ragdolls/tank/strut.png
+data/ragdolls/tank/base.png
+data/ragdolls/tank/cord1.png
+data/ragdolls/tank/cord2.png

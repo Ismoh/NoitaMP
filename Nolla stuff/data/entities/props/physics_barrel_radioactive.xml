@@ -1,0 +1,103 @@
+<Entity tags="mortal" >
+
+  <!-- mortal is required so it can explode -->
+
+  <Base file="data/entities/base_item_physics2.xml" >
+    <PhysicsBody2Component
+      kill_entity_after_initialized="0" >
+    </PhysicsBody2Component>
+    <PhysicsImageShapeComponent
+      image_file="data/props_gfx/barrel_radioactive.png"
+      material="metal_rust_barrel" >
+    </PhysicsImageShapeComponent>
+  </Base>
+
+  <MaterialInventoryComponent 
+    _enabled="1" 
+    drop_as_item="0" 
+    on_death_spill="1"
+    leak_on_damage_percent="0.999"
+    audio_collision_size_modifier_amount="1"
+    >
+    <count_per_material_type>
+      <Material material="radioactive_liquid" count="750"  />
+	  </count_per_material_type>
+  </MaterialInventoryComponent>
+
+  <DamageModelComponent 
+    air_needed="0" 
+    blood_material="radioactive_liquid" 
+    drop_items_on_death="0" 
+    falling_damage_damage_max="1.2" 
+    falling_damage_damage_min="0.1" 
+    falling_damage_height_max="250" 
+    falling_damage_height_min="70" 
+    falling_damages="0" 
+    fire_damage_amount="0.4" 
+    fire_probability_of_ignition="0"
+	critical_damage_resistance="1"
+    hp="0.2" 
+    is_on_fire="0" 
+    materials_create_messages="0" 
+    materials_damage="1" 
+	materials_that_damage="fire,lava,acid"
+	materials_how_much_damage="0.0002,0.0001,0.001"
+    ragdoll_filenames_file="" 
+    ragdoll_material="" >
+	<damage_multipliers
+		melee="0.1"
+		>
+	</damage_multipliers>
+  </DamageModelComponent>
+
+  <ExplodeOnDamageComponent
+    explode_on_death_percent="1"
+    explode_on_damage_percent="0.0"
+    physics_body_modified_death_probability="0.9" 
+    physics_body_destruction_required="0.15"
+  	>
+    <config_explosion
+      never_cache="0"
+      damage="2.6"
+      camera_shake="40" 
+      explosion_radius="40" 
+      explosion_sprite="data/particles/explosion_032.xml" 
+      explosion_sprite_lifetime="10" 
+      create_cell_probability="50" 
+      hole_destroy_liquid="0" 
+      load_this_entity="data/entities/particles/particle_explosion/main_green.xml"
+      hole_enabled="1" 
+      ray_energy="2500000"
+      particle_effect="1" 
+      damage_mortals="1" 
+      physics_explosion_power.min="1.7" 
+      physics_explosion_power.max="2.3" 
+      physics_throw_enabled="1"
+      shake_vegetation="1" 
+      sparks_count_max="20" 
+      sparks_count_min="7" 
+      sparks_enabled="1" 
+      stains_enabled="1" 
+      stains_radius="15" 
+      delay.min="1"
+      delay.max="4"
+      explosion_delay_id="1"
+      audio_event_name="explosions/barrel_sludge" >
+      >
+    </config_explosion>
+  </ExplodeOnDamageComponent>
+
+  <AudioLoopComponent
+    _tags="sound_spray"
+    file="data/audio/Desktop/materials.bank"
+    event_name="materials/spray" 
+    volume_autofade_speed="0.25" >
+  </AudioLoopComponent>
+  
+  <AudioComponent
+    file="data/audio/Desktop/materials.bank"
+    event_root="collision/metalhollow"
+    set_latest_event_position="1" >
+  </AudioComponent>
+
+</Entity>

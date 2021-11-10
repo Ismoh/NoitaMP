@@ -1,0 +1,40 @@
+<Entity tags="tiny_ghost_event">
+	<SpriteComponent 
+		image_file="data/projectiles_gfx/tiny_ghost.xml"
+		>
+	</SpriteComponent>
+	<LuaComponent 
+		script_source_file="data/scripts/animals/tiny_ghost_shoot.lua"
+		execute_every_n_frame="25"
+		>
+	</LuaComponent>
+	<LuaComponent 
+		script_source_file="data/scripts/animals/tiny_ghost_move.lua"
+		execute_every_n_frame="1"
+		>
+	</LuaComponent>
+
+	<LuaComponent 
+		script_enabled_changed="data/scripts/animals/tiny_ghost_enabled_changed.lua"
+		execute_every_n_frame="-1"
+		>
+	</LuaComponent>
+	
+	<AudioComponent
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals/tiny_ghost" >
+	</AudioComponent>
+
+	<AudioLoopComponent
+		file="data/audio/Desktop/animals.bank"
+		event_name="animals/tiny_ghost/movement_loop"
+		set_speed_parameter="1"
+		auto_play="1">
+	</AudioLoopComponent>
+	
+	<LifetimeComponent
+		lifetime="28800"
+		>
+	</LifetimeComponent>
+
+</Entity>

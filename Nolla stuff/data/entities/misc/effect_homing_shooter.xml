@@ -1,0 +1,21 @@
+<Entity >
+	<ShotEffectComponent
+		extra_modifier="projectile_homing_shooter_wizard"
+		>
+	</ShotEffectComponent>
+	
+	<LifetimeComponent
+		lifetime="1200"
+		>
+	</LifetimeComponent>
+	
+	<UIIconComponent
+		name="$status_homing_shooter"
+		description="$statusdesc_homing_shooter"
+		icon_sprite_file="data/ui_gfx/status_indicators/homing_shooter.png"
+		is_perk="0"
+		display_above_head="0"
+		display_in_hud="1"
+		>
+	</UIIconComponent>
+</Entity>

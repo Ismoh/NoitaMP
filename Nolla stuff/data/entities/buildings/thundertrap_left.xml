@@ -1,0 +1,120 @@
+<Entity tags="hittable,glue_NOT" >
+  
+	<AnimalAIComponent 
+		_enabled="1" 
+		preferred_job="JobDefault"
+		escape_if_damaged_probability="50"
+		attack_ranged_min_distance="0"
+		attack_ranged_max_distance="300"
+		creature_detection_range_x="300"
+		creature_detection_range_y="40"
+		creature_detection_angular_range_deg="10"
+		food_material="blood"
+		needs_food="1"
+		sense_creatures="1"
+		attack_ranged_enabled="0"
+		attack_melee_enabled="0"
+		attack_ranged_offset_y="4"
+		can_fly="0"  
+		attack_ranged_entity_file="data/entities/projectiles/thunder_trap.xml"
+		attack_ranged_frames_between="120"
+		is_static_turret="0"
+		eye_offset_x="8"
+		aggressiveness_min="30"
+		aggressiveness_max="50"
+	>
+	</AnimalAIComponent>
+	
+	<DamageModelComponent 
+        hp="5.5"
+        ragdoll_material="plastic"
+		ragdoll_filenames_file="" 
+		blood_material="sand"
+		fire_probability_of_ignition="0" 
+		air_needed="0" >
+		<damage_multipliers
+			drill="0.4"
+			fire="0.0"
+			explosion="0.2"
+			electricity="0.0"
+			>
+		</damage_multipliers>
+	</DamageModelComponent>
+
+	<SpriteComponent 
+		image_file="data/buildings_gfx/thundertrap_left.xml" 
+		special_scale_x="1"
+		has_special_scale="1"
+		offset_x="0"
+		offset_y="0" >
+	</SpriteComponent>
+
+	<SpriteAnimatorComponent>
+	</SpriteAnimatorComponent>
+
+	<PathFindingComponent
+	    distance_to_reach_node_x="20"
+	    distance_to_reach_node_y="20"
+		frames_to_get_stuck="120"
+		can_jump="0" 
+		jump_speed="0" >
+	</PathFindingComponent>
+
+	<GenomeDataComponent 
+		herd_id="trap"
+		food_chain_rank="7"
+		is_predator="1" >
+	</GenomeDataComponent>
+	
+	<CharacterPlatformingComponent 
+		jump_velocity_y="0" 
+		run_velocity="0"  
+		pixel_gravity="0" >
+	</CharacterPlatformingComponent>
+	
+	<HitboxComponent 
+		_enabled="1" 
+		aabb_min_x="0"
+		aabb_max_x="5" 
+		aabb_min_y="-5"
+		aabb_max_y="5" 
+		>
+	</HitboxComponent>
+
+	<CameraBoundComponent
+		max_count="30"
+		distance="160000" >
+	</CameraBoundComponent>
+	
+	<Entity>
+		<InheritTransformComponent />
+		
+	    <GameEffectComponent 
+	        effect="STUN_PROTECTION_FREEZE"
+	        frames="-1"
+	    >
+		</GameEffectComponent >
+	</Entity>
+	
+	<Entity>
+		<InheritTransformComponent />
+		
+	    <GameEffectComponent 
+	        effect="PROTECTION_ELECTRICITY"
+	        frames="-1"
+	    >
+		</GameEffectComponent >
+	</Entity>
+	
+	<LuaComponent
+		script_source_file="data/scripts/buildings/crypt_trap_check.lua"
+		execute_every_n_frame="120"
+		>
+	</LuaComponent>
+
+	<PixelSceneComponent
+		pixel_scene="data/biome_impl/crypt/trap_frame_left.png"
+		offset_x="-5"
+		offset_y="-10" >
+	</PixelSceneComponent>
+</Entity>

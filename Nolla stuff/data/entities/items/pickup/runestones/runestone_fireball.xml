@@ -1,0 +1,69 @@
+<Entity>
+	<Base file="data/entities/items/pickup/runestones/runestone_base.xml">
+		<PhysicsImageShapeComponent 
+			image_file="data/items_gfx/runestones/runestone_fireball.png"
+			>
+		</PhysicsImageShapeComponent>
+	
+		<LuaComponent>
+		</LuaComponent>
+		
+		<LuaComponent>
+		</LuaComponent>
+  
+		<ItemComponent
+			item_name="$item_runestone_fireball"
+			ui_sprite="data/ui_gfx/items/runestone_fireball.png"
+			ui_description="$itemdesc_runestone"
+			>
+		</ItemComponent>
+  
+		<UIInfoComponent
+			name="$item_runestone_fireball"
+			>
+		</UIInfoComponent>
+  
+		<AbilityComponent
+			ui_name="$item_runestone_fireball"
+			>
+		</AbilityComponent>
+	
+		<SpriteComponent
+			image_file="data/items_gfx/in_hand/runestone_fireball.png"
+			>
+		</SpriteComponent>
+  
+		<ParticleEmitterComponent
+			_tags="activate"
+			_enabled="0"
+			emitted_material_name="spark"
+			gravity.y="0.0"
+			lifetime_min="8.01"
+			lifetime_max="8.1"
+			count_min="100"
+			count_max="100"
+			render_on_grid="0"
+			fade_based_on_lifetime="1"
+			area_circle_radius.min="16"
+			area_circle_radius.max="16"
+			cosmetic_force_create="1"
+			airflow_force="0.251"
+			airflow_time="1.01"
+			airflow_scale="0.05"
+			emission_interval_min_frames="20"
+			emission_interval_max_frames="20"
+			emit_cosmetic_particles="1"
+			velocity_always_away_from_center="100"
+			collide_with_grid="0"
+			>
+		</ParticleEmitterComponent>
+	
+		<LuaComponent
+			_tags="activate"
+			script_source_file="data/scripts/items/runestones/runestone_fireball.lua"
+			execute_every_n_frame="5"
+			_enabled="0"
+			>
+		</LuaComponent>
+	</Base>
+</Entity>

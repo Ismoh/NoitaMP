@@ -1,0 +1,18 @@
+<Entity 
+	name="$projectile_default" 
+	tags="player_projectile"
+	>
+	
+	<InheritTransformComponent />
+	
+	<LuaComponent
+		script_source_file="data/scripts/projectiles/meteor_rain.lua"
+		execute_every_n_frame="30"
+		>
+	</LuaComponent>
+	
+	<LifetimeComponent
+		lifetime="600"
+		>
+	</LifetimeComponent>
+</Entity>

@@ -1,0 +1,128 @@
+<Sprite
+ filename="data/props_gfx/die_pips.png"
+ offset_x="8"
+ offset_y="8" 
+ default_animation="default">
+
+ <!-- stand -->
+ <RectAnimation
+  name="default"
+  pos_x="0"
+  pos_y="0"
+  frame_count="1"
+  frame_width="16"
+  frame_height="16"
+  frame_wait="0.1"
+  frames_per_row="8"
+  loop="1"   >
+ </RectAnimation>
+ 
+ <RectAnimation
+  name="roll"
+  pos_x="0"
+  pos_y="0"
+  frame_count="8"
+  frame_width="16"
+  frame_height="16"
+  frame_wait="0.04"
+  frames_per_row="8"
+  loop="1"   >
+ </RectAnimation>
+ 
+ <RectAnimation
+  name="rolled_1"
+  pos_x="0"
+  pos_y="0"
+  frame_count="1"
+  frame_width="16"
+  frame_height="16"
+  frame_wait="0.1"
+  frames_per_row="8"
+  loop="1"   >
+ </RectAnimation>
+ 
+ <RectAnimation
+  name="rolled_2"
+  pos_x="16"
+  pos_y="0"
+  frame_count="1"
+  frame_width="16"
+  frame_height="16"
+  frame_wait="0.1"
+  frames_per_row="8"
+  loop="1"   >
+ </RectAnimation>
+ 
+ <RectAnimation
+  name="rolled_3"
+  pos_x="32"
+  pos_y="0"
+  frame_count="1"
+  frame_width="16"
+  frame_height="16"
+  frame_wait="0.1"
+  frames_per_row="8"
+  loop="1"   >
+ </RectAnimation>
+ 
+ <RectAnimation
+  name="rolled_4"
+  pos_x="48"
+  pos_y="0"
+  frame_count="1"
+  frame_width="16"
+  frame_height="16"
+  frame_wait="0.1"
+  frames_per_row="8"
+  loop="1"   >
+ </RectAnimation>
+ 
+ <RectAnimation
+  name="rolled_5"
+  pos_x="64"
+  pos_y="0"
+  frame_count="1"
+  frame_width="16"
+  frame_height="16"
+  frame_wait="0.1"
+  frames_per_row="8"
+  loop="1"   >
+ </RectAnimation>
+ 
+ <RectAnimation
+  name="rolled_6"
+  pos_x="80"
+  pos_y="0"
+  frame_count="1"
+  frame_width="16"
+  frame_height="16"
+  frame_wait="0.1"
+  frames_per_row="8"
+  loop="1"   >
+ </RectAnimation>
+ 
+ <RectAnimation
+  name="rolled_bad"
+  pos_x="96"
+  pos_y="0"
+  frame_count="1"
+  frame_width="16"
+  frame_height="16"
+  frame_wait="0.1"
+  frames_per_row="8"
+  loop="1"   >
+ </RectAnimation>
+ 
+ <RectAnimation
+  name="rolled_good"
+  pos_x="112"
+  pos_y="0"
+  frame_count="1"
+  frame_width="16"
+  frame_height="16"
+  frame_wait="0.1"
+  frames_per_row="8"
+  loop="1"   >
+ </RectAnimation>
+ 
+</Sprite>

@@ -1,0 +1,121 @@
+<Entity tags="hittable,teleportable_NOT,mortal,item_physics,projectile" >
+
+  <!-- physical presence -->
+  
+  <PhysicsBodyComponent 
+    _tags="enabled_in_world"
+    uid="1" 
+    allow_sleep="1" 
+    angular_damping="0" 
+    fixed_rotation="0" 
+    is_bullet="1" 
+    linear_damping="0"
+    auto_clean="1"
+    on_death_leave_physics_body="0"
+  ></PhysicsBodyComponent>
+  
+  <PhysicsImageShapeComponent 
+    body_id="1"
+    centered="1"
+    image_file="data/projectiles_gfx/rock_projectile.png"
+    material="rock_box2d"
+  ></PhysicsImageShapeComponent>
+  
+  <PhysicsThrowableComponent
+    _tags="enabled_in_world"
+    max_throw_speed="80"
+    throw_force_coeff="1.55"
+    min_torque="6"
+    max_torque="9"
+  ></PhysicsThrowableComponent>
+
+  <ProjectileComponent
+    _tags="enabled_in_world"
+    lifetime="-1"
+    penetrate_entities="1"
+    damage="0.0"
+    do_moveto_update="1"
+  ></ProjectileComponent>
+
+  <VelocityComponent
+	_tags="enabled_in_world"
+    affect_physics_bodies="1"
+	>
+  </VelocityComponent>
+
+  <!-- item -->
+
+  <SpriteComponent
+    _tags="enabled_in_hand"
+    _enabled="0"
+    offset_x="3"
+    offset_y="6"
+    image_file="data/items_gfx/in_hand/rock_in_hand.png"
+  ></SpriteComponent>
+
+  <UIInfoComponent
+    _tags="enabled_in_world"
+    name="$item_rock">
+  </UIInfoComponent>
+  
+  <DamageModelComponent 
+    air_needed="0" 
+    blood_material="" 
+    drop_items_on_death="0" 
+    falling_damages="0" 
+    fire_damage_amount="0" 
+    fire_probability_of_ignition="0"
+	critical_damage_resistance="1"
+    hp="999.1" 
+    is_on_fire="0" 
+    materials_create_messages="0" 
+    materials_damage="0"
+    ragdoll_filenames_file="" 
+    ragdoll_material="" 
+	blood_multiplier="0"
+	ui_report_damage="0"
+	>
+	<damage_multipliers
+		melee="0.1"
+		>
+	</damage_multipliers>
+  </DamageModelComponent>
+  
+  <ExplodeOnDamageComponent
+  	explode_on_death_percent="1"
+  	explode_on_damage_percent="0.0"
+    physics_body_modified_death_probability="0.9"
+    physics_body_destruction_required="0.8"
+  	>
+    <config_explosion
+      never_cache="0"
+      damage="0"
+      camera_shake="0" 
+      explosion_radius="0" 
+      explosion_sprite="" 
+      explosion_sprite_lifetime="0" 
+      create_cell_probability="0" 
+      hole_destroy_liquid="0" 
+      hole_enabled="0" 
+      ray_energy="0"
+      particle_effect="0" 
+      damage_mortals="0" 
+      physics_throw_enabled="0"
+      shake_vegetation="0" 
+      sparks_enabled="0" 
+      stains_enabled="0" 
+      >
+    </config_explosion>
+  </ExplodeOnDamageComponent>
+
+  <AudioComponent
+    file="data/audio/Desktop/projectiles.bank"
+    event_root="player_projectiles/throwable">
+  </AudioComponent>
+  
+  <VariableStorageComponent
+		name="projectile_file"
+		value_string="data/entities/projectiles/deck/rock.xml"
+		>
+	</VariableStorageComponent>
+</Entity>

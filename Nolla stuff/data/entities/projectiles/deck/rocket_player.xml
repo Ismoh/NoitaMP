@@ -1,0 +1,23 @@
+<Entity name="$projectile_default" tags="projectile_player" >
+	<Base file="data/entities/projectiles/rocket_tank.xml">
+		<HomingComponent
+			target_tag="homing_target"
+			>
+		</HomingComponent>
+		
+		<ProjectileComponent
+			damage="2"
+			>
+			<config_explosion
+				damage="1"
+				>
+			</config_explosion>
+		</ProjectileComponent>
+		
+		<AudioComponent
+			file="data/audio/Desktop/projectiles.bank"
+			event_root="player_projectiles/rocket">
+		</AudioComponent>
+	</Base>
+</Entity>
+

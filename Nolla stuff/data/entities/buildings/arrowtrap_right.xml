@@ -1,0 +1,48 @@
+<Entity>
+  
+	<Base file="data/entities/buildings/arrowtrap_left.xml" >
+		<AnimalAIComponent
+			eye_offset_x="-8"
+			>
+		</AnimalAIComponent>
+		
+		<SpriteComponent 
+			image_file="data/buildings_gfx/arrowtrap_right.xml" >
+		</SpriteComponent>
+		
+		<HitboxComponent 
+			_enabled="1" 
+			aabb_min_x="-5"
+			aabb_max_x="0" 
+			aabb_min_y="-5"
+			aabb_max_y="5" 
+			>
+		</HitboxComponent>
+
+		<PixelSceneComponent
+			pixel_scene="data/biome_impl/crypt/trap_frame_right.png"
+			offset_x="-15"
+			offset_y="-10" >
+		</PixelSceneComponent>
+	</Base>
+	
+	<Entity>
+		<InheritTransformComponent />
+		
+		<GameEffectComponent 
+			effect="STUN_PROTECTION_FREEZE"
+			frames="-1"
+		>
+		</GameEffectComponent >
+	</Entity>
+	
+	<Entity>
+		<InheritTransformComponent />
+		
+		<GameEffectComponent 
+			effect="STUN_PROTECTION_ELECTRICITY"
+			frames="-1"
+		>
+		</GameEffectComponent >
+	</Entity>
+</Entity>

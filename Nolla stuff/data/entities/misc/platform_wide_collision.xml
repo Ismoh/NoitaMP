@@ -1,0 +1,23 @@
+<Entity tags="magic_eye_platform_child" >
+  <Base file="data/entities/base_item_physics2.xml" >
+    <PhysicsBody2Component
+      kill_entity_after_initialized="0" 
+	  is_static="1"
+	  fixed_rotation="1"
+	  destroy_body_if_entity_destroyed="1"
+	  >
+    </PhysicsBody2Component>
+    <PhysicsImageShapeComponent
+      centered="1" 
+      image_file="data/props_gfx/temporary_platform_wide.png"
+      material="rock_box2d_hard" >
+    </PhysicsImageShapeComponent>
+  </Base>
+  
+  <VelocityComponent
+		gravity_y="0"
+		air_friction="10"
+		mass="0.00"
+		>
+	</VelocityComponent>
+</Entity>

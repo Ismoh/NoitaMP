@@ -1,0 +1,58 @@
+<Entity tags="drillable,hittable,teleportable_NOT,item_pickup">
+	
+	<VelocityComponent>
+	</VelocityComponent>
+
+	<SimplePhysicsComponent>
+	</SimplePhysicsComponent>
+	
+	<UIInfoComponent
+		name="$item_heart_fullhp"
+		>
+	</UIInfoComponent>
+
+	<HitboxComponent 
+		_tags="enabled_in_world"
+		aabb_min_x="-6" 
+		aabb_max_x="6" 
+		aabb_min_y="-8" 
+		aabb_max_y="0" 
+		is_enemy="0" 
+		is_item="1" 
+		is_player="0" >
+	</HitboxComponent>
+
+	<ItemComponent
+		item_name="$item_heart_fullhp"
+		play_spinning_animation="0"
+		stats_count_as_item_pick_up="0"
+   		play_pick_sound="0"
+		auto_pickup="1" >
+	</ItemComponent>
+
+	<LuaComponent 
+		script_item_picked_up="data/scripts/items/heart_fullhp.lua" >
+	</LuaComponent>
+
+	<LightComponent 
+		_tags="enabled_in_world"
+		_enabled="1" 
+		r="255"
+		g="255"
+		b="255"
+		radius="64"
+		fade_out_time="0.75" >
+	</LightComponent>
+
+	<SpriteComponent 
+		_tags="enabled_in_world,character" 
+		alpha="1" 
+		image_file="data/items_gfx/heart.xml" 
+		next_rect_animation="" 
+		rect_animation="" 
+		offset_x="9"
+		offset_y="18"
+		z_index="20" >
+	</SpriteComponent>
+
+</Entity>

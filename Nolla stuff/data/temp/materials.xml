@@ -1,0 +1,5905 @@
+<Materials>
+
+<!-- list of materials required:
+	* fire
+	* smoke
+	* water
+-->
+
+<!-- order of materials:
+	fire (for hax reasons)
+	static
+	sand - ground stuff
+	  sand - rare metals
+	  sand - other
+	liquid
+	gas
+	box2d (solid+physics)
+	special
+	hax
+	bad jokes
+-->
+  
+<!-- tags:
+  [fire]
+  [static]
+  [sand_ground]
+  [sand_metal]
+  [sand_other]
+  [liquid]
+  [gas]
+  [box2d]
+  [hax]
+  
+  [acid]
+  [lava]
+  [plant]
+  [corrodible]
+  [meltable]
+  [meltable_to_lava]
+  [molten]
+  [soluble]
+  [evaporable]
+  [evaporable_fast]
+  [frozen]
+  [radioactive]
+  [requires_air]
+  [requires_water]
+  [grows_grass]
+  
+  
+  NOTE: [meltable] materials need to have a MATERIALNAME_molten variation
+-->
+
+<!--
+	solid_static_type=
+	SOLID_DYNAMIC = 0,
+	SOLID_STATIC_ALWAYS = 1,
+	SOLID_STATIC_BUT_BREAK = 2,
+	SOLID_STATIC_TREE_BREAK = 3,
+	SOLID_DYNAMIC_BREAK_INTO_OTHER_MATERIAL = 4,
+	SOLID_STATIC_ICE_BREAK = 5
+-->
+
+<!-- =================================================================================================================  -->
+<!-- FIRE -->
+  
+  <CellData 
+	name="air"  
+	wang_color="ff000042" >
+  </CellData>
+
+  <CellData 
+	name="fire"  
+  	tags="[fire]"
+	burnable="0"  
+	density="1"  
+	cell_type="fire" 
+	wang_color="ffFF6060"
+	generates_smoke="5"  
+	liquid_gravity="0.5"  
+	liquid_sand="0"  
+	on_fire="1"  
+	requires_oxygen="1"  
+	temperature_of_fire="100"
+	gfx_glow="255" >
+	<Graphics
+		color="ffff6000" >
+	</Graphics>
+
+  </CellData>
+
+  <!-- this is a special material that looks like fire but doesn't burn/light things on fire -->
+  <!-- TODO( petri) why does this render as a line, not a square? -->
+  <CellData 
+	name="spark"  
+  	tags="[fire]"
+	burnable="0"  
+	density="1"  
+	cell_type="fire" 
+	wang_color="ffff6024"
+	generates_smoke="5"  
+	liquid_gravity="0.5"  
+	liquid_sand="0"  
+	on_fire="0"  
+	requires_oxygen="1"  
+	temperature_of_fire="0"
+	gfx_glow="255" >
+  </CellData>
+  
+  <CellDataChild
+  	_parent="spark"
+  	_inherit_reactions="1"
+  	name="spark_green" 
+	wang_color="ff96FF46"
+	>
+  	<Graphics
+	color="ff96FF46" >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellDataChild
+  	_parent="spark"
+  	_inherit_reactions="1"
+  	name="spark_blue" 
+	wang_color="ff82DCFF"
+	>
+  	<Graphics
+	color="ff82DCFF" >
+    </Graphics>
+  </CellDataChild>
+
+  <CellData 
+	name="spark_electric"  
+  	tags="[fire]"
+	burnable="0"  
+	density="1"  
+	cell_type="fire" 
+	wang_color="ff27b4f6"
+	generates_smoke="5"  
+	liquid_gravity="0.5"  
+	liquid_sand="0"  
+	on_fire="0"  
+	requires_oxygen="1"  
+	temperature_of_fire="0"
+	gfx_glow="255" >
+  </CellData>
+  <CellData 
+	name="flame" 
+  	tags="[fire]" 
+	burnable="0"  
+	density="1" 
+	lifetime="5"
+	cell_type="fire" 
+	wang_color="ffce0f0f"   
+	generates_smoke="0"  
+	liquid_gravity="5.0"  
+	liquid_sand="0"  
+	on_fire="1"  
+	requires_oxygen="1"  
+	temperature_of_fire="60"  >
+  </CellData>
+
+  
+<!-- =================================================================================================================  -->
+<!-- STATIC -->
+
+  <!-- inheritance example -->
+  <CellDataChild
+  	_parent="grass"
+  	_inherit_reactions="1"
+  	name="poop_sand" 
+	wang_color="ffebdcab"
+	>
+  	<Graphics
+	texture_file="data/materials_gfx/lsd.png"
+	color="ff524f2d" >
+    </Graphics>
+
+  </CellDataChild>
+
+  <CellData
+	name="sand_static"
+	tags="[static],[corrodible],[alchemy]"
+	burnable="0"
+	density="10"
+	cell_type="liquid"
+	wang_color="ff524f2d"
+    durability="10"
+	generates_smoke="0"
+	liquid_gravity="0.5"
+	liquid_sand="1"
+	liquid_static="1"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="10"
+	hp="19000" 
+	>
+    <Graphics
+		texture_file="data/materials_gfx/earth.png"
+		color="ff524f2d" >
+		<Edge>
+			 <EdgeGraphics 
+			    color="ff233112" 
+			    overwrite="0" 
+			    percent="1" 
+			    require_same_material="0" 
+			    require_same_material_type="1" 
+			    type="NORMAL_BASED" 
+			    z="1" >
+			    <Images>
+			      <Image 
+			        do_only_horizontal_stripe="1" 
+			        do_only_vertical_stripe="0" 
+			        filename="data/temp/edge_sand_2.png" 
+			        min_angle="0.785" 
+			        max_angle="2.356" />
+			      <Image 
+			        do_only_horizontal_stripe="0" 
+			        do_only_vertical_stripe="1" 
+			        filename="data/temp/edge_sand_3.png" 
+			        min_angle="2.356" 
+			        max_angle="3.927" />
+			      <Image 
+			        do_only_horizontal_stripe="1" 
+			        do_only_vertical_stripe="0" 
+			        filename="data/temp/edge_sand_2.png" 
+			        min_angle="3.927" 
+			        max_angle="5.498" />
+			      <Image 
+			        do_only_horizontal_stripe="0" 
+			        do_only_vertical_stripe="1" 
+			        filename="data/temp/edge_sand_3.png" 
+			        min_angle="5.498" 
+			        max_angle="6.2831" />
+			      <Image 
+			        do_only_horizontal_stripe="0" 
+			        do_only_vertical_stripe="1" 
+			        filename="data/temp/edge_sand_3.png" 
+			        min_angle="0" 
+			        max_angle="0.785" />
+			    </Images>
+			  </EdgeGraphics>
+		</Edge>
+    </Graphics>
+  </CellData>
+  
+  <CellDataChild
+  	_parent="sand_static"
+  	_inherit_reactions="1"
+  	name="sand_static_rainforest" 
+	wang_color="ff524F00"
+	hp="70000"
+	>
+  	<Graphics
+	texture_file="data/materials_gfx/earth_rainforest.png"
+	color="ff524F00" >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellDataChild
+  	_parent="sand_static"
+  	_inherit_reactions="1"
+  	name="bone_static" 
+	wang_color="ff523F03"
+	hp="20000"
+	>
+  	<Graphics
+	texture_file="data/materials_gfx/bone.png"
+	color="ff524F00" >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellDataChild
+  	_parent="sand_static"
+  	_inherit_reactions="1"
+  	name="rust_static" 
+	wang_color="ffee8F49"
+	hp="30000"
+	>
+  	<Graphics
+	texture_file="data/materials_gfx/rust.png"
+	color="ffee8F49" >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellDataChild
+  	_parent="sand_static"
+  	_inherit_reactions="1"
+  	name="sand_static_bright" 
+	wang_color="ffef8F49"
+	>
+  	<Graphics
+	texture_file="data/materials_gfx/earth_bright.png"
+	color="ffef8F49" >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellDataChild
+  	_parent="sand_static"
+  	_inherit_reactions="1"
+  	name="sand_static_red" 
+	wang_color="ffff8F47"
+	>
+  	<Graphics
+	texture_file="data/materials_gfx/earth_bright_red.png"
+	color="ffff8F47" >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellData
+	name="nest_static"
+	tags="[static],[corrodible],[burnable],[alchemy]"
+	burnable="1"
+	density="10"
+	cell_type="liquid"
+	wang_color="ffA83E29"
+	generates_smoke="10"
+	liquid_gravity="0.5"
+	liquid_sand="1"
+	liquid_static="1"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="40"
+	autoignition_temperature="85"
+	wang_noise_percent="2.5"
+	hp="5000" 
+	>
+    <Graphics
+	texture_file="data/materials_gfx/nest.png"
+	color="ffA83E29" >
+    </Graphics>
+  </CellData>
+  
+  <CellData
+	name="bluefungi_static"
+	tags="[static],[corrodible],[burnable],[alchemy]"
+	burnable="1"
+	density="10"
+	cell_type="liquid"
+	wang_color="ff435495"
+	generates_smoke="10"
+	liquid_gravity="0.5"
+	liquid_sand="1"
+	liquid_static="1"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="40"
+	autoignition_temperature="85"
+	wang_noise_percent="4.5"
+	hp="20"
+	gfx_glow="50"	
+	solid_restitution="0.7"
+	>
+    <Graphics
+	texture_file="data/materials_gfx/bluefungi.png"
+	color="ff435495" >
+    </Graphics>
+  </CellData>
+
+  <CellData
+	name="rock_static"
+	tags="[static],[corrodible],[meltable_to_lava],[alchemy]"
+	burnable="0"
+	density="10"
+	cell_type="liquid"
+	wang_color="ff353923"
+	liquid_gravity="0"
+	liquid_sand="1"
+	liquid_static="1"
+	on_fire="0"
+	hp="100000" 
+	>
+    <Graphics
+	texture_file="data/materials_gfx/rock.png"
+	color="ff313b36"
+	pixel_all_around="ff313b36"
+	
+	pixel_lonely="ff313b36"
+	pixel_top_right="ff313b36"
+	pixel_bottom_left="ff313b36"
+	
+	pixel_left="ff495750"
+	pixel_top_left="ff495750"
+	pixel_top="ff495750"
+	
+	pixel_right="ff1a201d"
+	pixel_bottom_right="ff1a201d"
+	pixel_bottom="ff1a201d"
+	>
+	<Edge>
+			  <EdgeGraphics 
+			    color="ff233112" 
+			    overwrite="0" 
+			    percent="1" 
+			    require_same_material="0" 
+			    require_same_material_type="1" 
+			    type="NORMAL_BASED" 
+			    z="1" >
+			    <Images>
+			      <Image 
+			        do_only_horizontal_stripe="1" 
+			        do_only_vertical_stripe="0" 
+			        filename="data/temp/edge_brick2_2.png" 
+			        min_angle="0.785" 
+			        max_angle="2.356" />
+			      <Image 
+			        do_only_horizontal_stripe="0" 
+			        do_only_vertical_stripe="1" 
+			        filename="data/temp/edge_brick2_3.png" 
+			        min_angle="2.356" 
+			        max_angle="3.927" />
+			      <Image 
+			        do_only_horizontal_stripe="1" 
+			        do_only_vertical_stripe="0" 
+			        filename="data/temp/edge_brick2_2.png" 
+			        min_angle="3.927" 
+			        max_angle="5.498" />
+			      <Image 
+			        do_only_horizontal_stripe="0" 
+			        do_only_vertical_stripe="1" 
+			        filename="data/temp/edge_brick2_3.png" 
+			        min_angle="5.498" 
+			        max_angle="6.2831" />
+			      <Image 
+			        do_only_horizontal_stripe="1" 
+			        do_only_vertical_stripe="0" 
+			        filename="data/temp/edge_brick2_3.png" 
+			        min_angle="0" 
+			        max_angle="0.785" />
+			    </Images>
+			  </EdgeGraphics>
+		</Edge>
+    </Graphics>
+  </CellData>
+  
+  <CellData
+	name="water_static"
+  	tags="[static]"
+	burnable="0"
+	density="4"
+	cell_type="liquid"
+	wang_color="902F554D"
+	generates_smoke="0"
+	liquid_gravity="1.5"
+	liquid_sand="0"
+	liquid_stains="1"
+	liquid_stains_self="0"
+	liquid_static="1"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="10"  >
+  </CellData>
+  
+  <CellData
+	name="endslime_static"
+  	tags="[static],[alchemy]"
+	burnable="0"
+	density="4"
+	cell_type="liquid"
+	wang_color="888BFF80"
+	generates_smoke="0"
+	liquid_gravity="1.5"
+	liquid_sand="0"
+	liquid_stains="1"
+	liquid_stains_self="0"
+	liquid_static="1"
+	stickyness="0.7"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="10"  >
+	<Graphics
+	texture_file="data/materials_gfx/endslime.png"
+	color="888BFF80" >
+    </Graphics>
+  </CellData>
+
+ <CellData 
+	name="slime_static"
+	tags="[static],[alchemy]"
+	burnable="0"
+	density="4"
+	cell_type="liquid"
+	wang_color="88E8BD5C"
+	generates_smoke="0"
+	liquid_gravity="1.5"
+	liquid_sand="0"
+	liquid_stains="1"
+	liquid_stains_self="0"
+	liquid_static="1"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="10"	liquid_slime="1"
+	stickyness="1.0"
+	solid_friction="1.0"
+	>
+    <Graphics 
+	texture_file="data/materials_gfx/slime.png" 
+	color="88E8BD5C" >
+    </Graphics>
+  </CellData>
+
+  <CellDataChild
+  	_parent="rock_static"
+  	_inherit_reactions="1"
+  	name="rock_hard" 
+	wang_color="ff003344"
+	hp="200000"
+	>
+  	<Graphics
+	texture_file="data/materials_gfx/rock_hard.png"
+	color="ff003344" >
+    </Graphics>
+  </CellDataChild>
+
+	<CellDataChild
+  	_parent="rock_static"
+  	_inherit_reactions="1"
+  	name="rock_hard_border" 
+	wang_color="ff104344"
+	hp="200000"
+	durability="12"
+	>
+  	<Graphics
+	texture_file="data/materials_gfx/rock_hard_border.png"
+	color="ff104344" >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellDataChild
+  	_parent="rock_static"
+  	_inherit_reactions="1"
+  	name="rock_magic_gate" 
+	wang_color="ffab3344"
+	durability="12"
+	hp="400000"
+	>
+  	<Graphics
+	texture_file="data/materials_gfx/rock_hard.png"
+	color="ffab3344" >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellDataChild
+  	_parent="rock_static"
+  	_inherit_reactions="1"
+  	name="rock_magic_bottom" 
+	wang_color="ffabb344"
+	durability="12"
+	hp="400000"
+	>
+  	<Graphics
+	texture_file="data/materials_gfx/magic_gate.png"
+	color="ffabb344" >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellDataChild
+  	_parent="rock_static"
+  	_inherit_reactions="1"
+  	name="coal_static" 
+	wang_color="ff124444"
+	hp="25000"
+	density="6"  
+	cell_type="liquid" 
+	liquid_gravity="0.5"  
+	liquid_sand="1"  
+	liquid_viscosity="75"
+	liquid_sticks_to_ceiling="50"
+	>
+  	<Graphics
+	texture_file="data/materials_gfx/coal_static.png"
+	color="ff124444" >
+    </Graphics>
+  </CellDataChild>
+
+  <CellDataChild
+  	_parent="rock_static"
+  	_inherit_reactions="1"
+  	name="rock_static_grey" 
+	wang_color="ff1244a4"
+	hp="150000"
+	>
+  	<Graphics
+	texture_file="data/materials_gfx/rock_grey.png"
+	color="ff1244a4" >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellDataChild
+  	_parent="rock_static"
+  	_inherit_reactions="1"
+	tags="[static],[corrodible],[alchemy]"
+  	name="skullrock" 
+	wang_color="ff00a344"
+	hp="200000"
+	>
+  	<Graphics
+	texture_file="data/materials_gfx/skullrock.png"
+	color="ff00a344" >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellDataChild
+  	_parent="rock_static"
+  	_inherit_reactions="1"
+  	name="rock_static_wet" 
+	wang_color="ff103344"
+	hp="200000"
+	>
+  	<Graphics
+	texture_file="data/materials_gfx/rock.png"
+	color="ff103344" >
+	<Edge>
+			  <EdgeGraphics 
+			    color="ff233112" 
+			    overwrite="0" 
+			    percent="1" 
+			    require_same_material="0" 
+			    require_same_material_type="1" 
+			    type="NORMAL_BASED" 
+			    z="1" >
+			    <Images>
+			      <Image 
+			        do_only_horizontal_stripe="1" 
+			        do_only_vertical_stripe="0" 
+			        filename="data/temp/edge_brick2_2.png" 
+			        min_angle="0.785" 
+			        max_angle="2.356" />
+			      <Image 
+			        do_only_horizontal_stripe="0" 
+			        do_only_vertical_stripe="1" 
+			        filename="data/temp/edge_brick2_3.png" 
+			        min_angle="2.356" 
+			        max_angle="3.927" />
+			      <Image 
+			        do_only_horizontal_stripe="1" 
+			        do_only_vertical_stripe="0" 
+			        filename="data/temp/edge_brick2_2.png" 
+			        min_angle="3.927" 
+			        max_angle="5.498" />
+			      <Image 
+			        do_only_horizontal_stripe="0" 
+			        do_only_vertical_stripe="1" 
+			        filename="data/temp/edge_brick2_3.png" 
+			        min_angle="5.498" 
+			        max_angle="6.2831" />
+			      <Image 
+			        do_only_horizontal_stripe="1" 
+			        do_only_vertical_stripe="0" 
+			        filename="data/temp/edge_brick2_3.png" 
+			        min_angle="0" 
+			        max_angle="0.785" />
+			    </Images>
+			  </EdgeGraphics>
+		</Edge>
+    </Graphics>
+  </CellDataChild>
+
+    <CellData
+	name="lavarock_static"
+	tags="[static],[corrodible],[alchemy]"
+	burnable="0"
+	density="10"
+	cell_type="liquid"
+	wang_color="ff5F2621"
+	liquid_gravity="0"
+	liquid_sand="1"
+	liquid_static="1"
+	solid_break_to_type="lavasand"
+	on_fire="0"
+	hp="90000" 
+	>
+    <Graphics
+	texture_file="data/materials_gfx/lavarock.png"
+	color="ff5F2621"
+	pixel_all_around="ff5F2621"
+	
+	pixel_lonely="ff5F2621"
+	pixel_top_right="ff5F2621"
+	pixel_bottom_left="ff5F2621"
+	
+	pixel_left="ff8D3620"
+	pixel_top_left="ff8D3620"
+	pixel_top="ff8D3620"
+	
+	pixel_right="ff321616"
+	pixel_bottom_right="ff321616"
+	pixel_bottom="ff321616"
+	>
+    </Graphics>
+  </CellData>
+  
+  <CellData
+	name="meteorite_static"
+	tags="[static],[corrodible],[alchemy]"
+	burnable="0"
+	density="10"
+	cell_type="liquid"
+	wang_color="ff1D1010"
+	liquid_gravity="0"
+	liquid_sand="1"
+	liquid_static="1"
+	solid_restitution="0"
+	on_fire="0"
+	hp="10000" 
+	>
+    <Graphics
+		texture_file="data/materials_gfx/meteor.png"
+		color="ff1D1010"
+		pixel_all_around="ff1D1010"
+
+		pixel_lonely="ff1D1010"
+		pixel_top_right="ff461F1F"
+		pixel_bottom_left="ff0A0606"
+
+		pixel_left="ff0A0606"
+		pixel_top_left="ff1D1010"
+		pixel_top="ff461F1F"
+
+		pixel_right="ff461F1F"
+		pixel_bottom="ff0A0606"
+		pixel_bottom_right="ff1D1010"
+	>
+    </Graphics>
+  </CellData>
+  
+  <CellData
+	name="templerock_static"
+	tags="[static],[corrodible],[alchemy]"
+	burnable="0"
+	density="10"
+	cell_type="liquid"
+	wang_color="ff6F5439"
+	liquid_gravity="0"
+	liquid_sand="1"
+	liquid_static="1"
+	on_fire="0"
+	wang_noise_percent="0.15"
+	hp="10000" 
+	>
+    <Graphics
+		texture_file="data/materials_gfx/templerock.png"
+		color="ff6F5439"
+		pixel_all_around="ff6F5439"
+
+		pixel_lonely="ff6F5439"
+		pixel_top_right="ff6F5439"
+		pixel_bottom_left="ff6F5439"
+
+		pixel_left="ff9A7142"
+		pixel_top_left="ff9A7142"
+		pixel_top="ff9A7142"
+
+		pixel_right="ff543F2B"
+		pixel_bottom="ff543F2B"
+		pixel_bottom_right="ff543F2B"
+	>
+    </Graphics>
+  </CellData>
+  
+  <CellDataChild
+  	_parent="templerock_static"
+  	_inherit_reactions="1"
+  	name="templebrick_static" 
+	wang_color="ff786C42"
+	wang_noise_percent="0.33"
+	hp="100000"
+	wang_curvature="0.5"
+	wang_noise_type="2"
+	>
+  	<Graphics
+	texture_file="data/materials_gfx/templebrick.png"
+	color="ff786C42" >
+    </Graphics>
+  </CellDataChild>
+
+  <CellDataChild
+  	_parent="templebrick_static"
+  	_inherit_reactions="1"
+  	name="templebrick_thick_static" 
+	wang_color="ff646C58"
+	wang_noise_percent="0.27"
+	hp="100000"
+	wang_curvature="0.5"
+	wang_noise_type="1"
+	>
+  	<Graphics
+	texture_file="data/materials_gfx/templebrick.png"
+	color="ff646C58" >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellDataChild
+  	_parent="templerock_static"
+  	_inherit_reactions="1"
+  	name="templebrickdark_static" 
+	hp="200000"
+	wang_color="ff5B5047">
+  	<Graphics
+	texture_file="data/materials_gfx/templebrick_alt.png"
+	color="ff5B5047" >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellDataChild
+  	_parent="templerock_static"
+  	_inherit_reactions="1"
+  	name="glowstone" 
+	gfx_glow="255"
+	hp="40000"
+	wang_color="ffAAF06E">
+  	<Graphics
+	texture_file="data/materials_gfx/templebrick_alt.png"
+	color="ffAAF06E" >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellDataChild
+  	_parent="templerock_static"
+  	_inherit_reactions="1"
+  	name="templebrick_red"
+	hp="200000"
+	wang_color="ff78AC42"
+	>
+  	<Graphics
+	texture_file="data/materials_gfx/templebrick_red.png"
+	color="ff78AC42" >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellDataChild
+  	_parent="templerock_static"
+  	_inherit_reactions="1"
+  	name="templebrick_moss_static" 
+	wang_color="ff786C45"
+	solid_friction="0.8"
+	wang_noise_percent="0.3">
+  	<Graphics
+	texture_file="data/materials_gfx/templerock.png"
+	color="ff786C42" >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellDataChild
+  	_parent="templebrick_static"
+  	_inherit_reactions="1"
+  	name="the_end" 
+	wang_color="ff026C05"
+	wang_noise_percent="0.5"
+	hp="100000"
+	wang_curvature="0.5"
+	wang_noise_type="1"
+	>
+  	<Graphics
+	texture_file="data/materials_gfx/the_end.png"
+	color="ff026C05" >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellData
+	name="steel_static"
+	tags="[static],[corrodible],[rust],[alchemy]"
+	burnable="0"
+	density="10"
+	cell_type="liquid"
+	wang_color="ff404041"
+	liquid_gravity="0"
+	liquid_sand="1"
+	liquid_static="1"
+	on_fire="0"
+	wang_noise_percent="0"
+	hp="90000" 
+	solid_friction="0.75"
+	>
+    <Graphics
+		texture_file="data/materials_gfx/steelpanel.png"
+		color="ff404040"
+		pixel_all_around="ff404040"
+	>
+    </Graphics>
+  </CellData>
+  
+  <CellDataChild
+  	_parent="steel_static"
+  	_inherit_reactions="1"
+  	name="steelmoss_static" 
+	wang_color="ff787A55" 
+	wang_noise_percent="0.0"
+	wang_curvature="0.5"
+	solid_friction="0.9"
+	>
+  	<Graphics
+	texture_file="data/materials_gfx/steelpanelmoss.png"
+	color="ff787A55" >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellDataChild
+  	_parent="steel_static"
+  	_inherit_reactions="1"
+  	name="steelmoss_slanted" 
+	wang_color="ff787A85" 
+	wang_noise_percent="0.0"
+	wang_curvature="0.5"
+	wang_noise_type="1"
+	solid_friction="0.9"
+	>
+  	<Graphics
+	texture_file="data/materials_gfx/steelpanelmoss.png"
+	color="ff787A85" >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellDataChild
+  	_parent="steel_static"
+  	_inherit_reactions="1"
+  	name="steelsmoke_static" 
+	wang_color="ff646455" >
+  	<Graphics
+	texture_file="data/materials_gfx/steelpanel.png"
+	color="ff646455" >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellDataChild
+  	_parent="steel_static"
+  	_inherit_reactions="1"
+  	name="steel_burn"
+	on_fire="1"
+	wang_color="ffa46465" >
+  	<Graphics
+	texture_file="data/materials_gfx/steelpanel_red.png"
+	color="ffa46465" >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellData
+	name="rock_static_glow"
+	tags="[static],[corrodible],[meltable_to_lava],[alchemy]"
+	burnable="0"
+	density="10"
+	cell_type="liquid"
+	wang_color="ff145014"
+	liquid_gravity="0"
+	liquid_sand="1"
+	liquid_static="1"
+	on_fire="0"
+	gfx_glow="20"
+	hp="60000" 
+	>
+    <Graphics
+	texture_file="data/materials_gfx/glowrock.png"
+	color="ff145014"
+	>
+    </Graphics>
+  </CellData>
+
+  <CellData
+	name="snow_static"
+  	tags="[static],[corrodible],[frozen],[meltable_to_water],[alchemy]"
+	burnable="0"
+	density="8"
+	cell_type="liquid"
+	wang_color="ffEBEBEC"
+	generates_smoke="0"
+	liquid_gravity="0.5"
+	liquid_sand="1"
+	liquid_static="1"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="10"
+	hp="1000" 
+	wang_noise_percent="0"
+	solid_friction="0.6"
+	>
+    <Graphics
+	texture_file="data/materials_gfx/snow.png"
+	color="ffEBEBEB" >
+    </Graphics>
+  </CellData>
+  
+  <CellData
+	name="ice_static"
+	tags="[static],[corrodible],[frozen],[meltable_to_water],[alchemy]"
+	burnable="0"
+	density="10"
+	cell_type="liquid"
+	wang_color="ffCFF7C8"
+	generates_smoke="0"
+	liquid_gravity="0.5"
+	liquid_sand="1"
+	liquid_static="1"
+	on_fire="0"
+	slippery="1"
+	solid_friction="0.05"
+	requires_oxygen="1"
+	temperature_of_fire="10"
+	gfx_glow="0"
+	hp="30000" 
+	convert_to_box2d_material="ice_glass"
+	>
+    <Graphics
+	texture_file="data/materials_gfx/ice.png"
+	color="ffCFF7C8" >
+    </Graphics>
+  </CellData>
+  
+  <CellData
+	name="ice_acid_static"
+	tags="[static],[corrodible],[frozen],[meltable_to_acid],[alchemy]"
+	burnable="0"
+	density="10"
+	cell_type="liquid"
+	wang_color="ffCFFFC8"
+	generates_smoke="0"
+	liquid_gravity="0.5"
+	liquid_sand="1"
+	liquid_static="1"
+	on_fire="0"
+	slippery="1"
+	solid_friction="0.05"
+	requires_oxygen="1"
+	temperature_of_fire="10"
+	gfx_glow="0"
+	hp="30000" 
+	convert_to_box2d_material="ice_acid_glass"
+	>
+    <Graphics
+	texture_file="data/materials_gfx/ice_acid.png"
+	color="ffCFFFC8" >
+    </Graphics>
+  </CellData>
+  
+  <CellData
+	name="ice_cold_static"
+	tags="[static],[corrodible],[frozen],[meltable_to_cold],[alchemy]"
+	burnable="0"
+	density="10"
+	cell_type="liquid"
+	wang_color="ffAFFFC8"
+	generates_smoke="0"
+	liquid_gravity="0.5"
+	liquid_sand="1"
+	liquid_static="1"
+	on_fire="0"
+	slippery="1"
+	solid_friction="0.05"
+	requires_oxygen="1"
+	temperature_of_fire="10"
+	gfx_glow="40"
+	hp="30000" 
+	convert_to_box2d_material="ice_cold_glass"
+	>
+    <Graphics
+	texture_file="data/materials_gfx/ice_cold.png"
+	color="ffAFFFC8" >
+    </Graphics>
+  </CellData>
+  
+  <CellData
+	name="ice_radioactive_static"
+	tags="[static],[corrodible],[frozen],[meltable_to_radioactive],[alchemy]"
+	burnable="0"
+	density="10"
+	cell_type="liquid"
+	wang_color="ffBFFFC8"
+	generates_smoke="0"
+	liquid_gravity="0.5"
+	liquid_sand="1"
+	liquid_static="1"
+	on_fire="0"
+	slippery="1"
+	solid_friction="0.05"
+	requires_oxygen="1"
+	temperature_of_fire="10"
+	gfx_glow="60"
+	hp="30000" 
+	convert_to_box2d_material="ice_radioactive_glass"
+	>
+    <Graphics
+	texture_file="data/materials_gfx/ice_radioactive.png"
+	color="ffBFFFC8" >
+    </Graphics>
+  </CellData>
+  
+  <CellData
+	name="ice_meteor_static"
+	tags="[static],[corrodible],[frozen],[meltable_to_lava],[alchemy]"
+	burnable="0"
+	density="10"
+	cell_type="liquid"
+	wang_color="ffCF1FC8"
+	generates_smoke="0"
+	liquid_gravity="0.5"
+	liquid_sand="1"
+	liquid_static="1"
+	on_fire="0"
+	slippery="1"
+	solid_friction="0.05"
+	requires_oxygen="1"
+	temperature_of_fire="10"
+	gfx_glow="20"
+	hp="30000" 
+	convert_to_box2d_material="meteorite_crackable"
+	>
+    <Graphics
+	texture_file="data/materials_gfx/ice_acid.png"
+	color="ffCF1FC8" >
+    </Graphics>
+  </CellData>
+  
+  <CellData
+	name="tubematerial"
+	tags="[static],[corrodible],[alchemy]"
+	burnable="0"
+	density="10"
+	cell_type="liquid"
+	wang_color="ffCFF7C5"
+	generates_smoke="0"
+	liquid_gravity="0.5"
+	liquid_sand="1"
+	liquid_static="1"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="10"
+	solid_restitution="0.4"
+	gfx_glow="20"
+	hp="30000" 
+	convert_to_box2d_material="tube_physics"
+	>
+    <Graphics
+	texture_file="data/materials_gfx/ice.png"
+	color="ffCFF7C5" >
+    </Graphics>
+  </CellData>
+  
+  <CellData
+	name="glass_static"
+	tags="[static],[corrodible],[alchemy]"
+	burnable="0"
+	density="10"
+	cell_type="liquid"
+	wang_color="ffa16065"
+	generates_smoke="0"
+	liquid_gravity="0.5"
+	liquid_sand="1"
+	liquid_static="1"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="10"
+	solid_restitution="0"
+	gfx_glow="6"
+	hp="30000" 
+	convert_to_box2d_material="glass_brittle"
+	>
+    <Graphics
+	texture_file="data/materials_gfx/glass.png"
+	color="ffa16065" >
+    </Graphics>
+  </CellData>
+
+  <CellData
+	name="waterrock"
+	tags="[static],[alchemy]"
+	burnable="0"
+	density="6"
+	cell_type="solid"
+	wang_color="ff1a43f4"
+	generates_smoke="0"
+	on_fire="0"
+	requires_oxygen="0"
+	solid_static_type="2"
+	solid_collide_with_self="0"
+	solid_on_sleep_convert="0"
+	solid_friction="0.05"
+	platform_type="1"
+	hp="10000"
+	gfx_glow="20"
+	>
+    <Graphics
+	texture_file="data/materials_gfx/rock.png"
+	color="ff1a43f4" >
+    </Graphics>
+  </CellData>
+  
+ <CellData
+	name="ice_glass"
+	tags="[static],[meltable_to_water],[alchemy]"
+	burnable="0"
+	density="6"
+	cell_type="solid"
+	wang_color="ffaedde3"
+	generates_smoke="0"
+	on_fire="0"
+	requires_oxygen="0"
+	temperature_of_fire="10"
+	solid_static_type="2"
+	solid_collide_with_self="0"
+	solid_on_sleep_convert="1"
+	solid_break_to_type="ice_static"
+	solid_friction="0.05"
+	crackability="100"
+	platform_type="1"
+	slippery="1"
+	hp="10000"
+	gfx_glow="0"
+	>
+    <Graphics
+	texture_file="data/materials_gfx/ice.png"
+	color="ffCFF7C8" >
+    </Graphics>
+  </CellData>
+
+  <CellDataChild
+  	_parent="ice_glass"
+  	_inherit_reactions="1"
+  	slippery="0"
+  	solid_friction="0.05"
+  	name="tube_physics" 
+	wang_color="ff413F42" >
+  </CellDataChild>
+  
+  <CellDataChild
+  	_parent="ice_glass"
+	tags="[static],[meltable_to_acid],[alchemy]"
+  	_inherit_reactions="1"
+  	solid_friction="0.05"
+  	name="ice_acid_glass" 
+	wang_color="ff41FF42" >
+  </CellDataChild>
+  
+  <CellDataChild
+  	_parent="ice_glass"
+	tags="[static],[meltable_to_cold],[alchemy]"
+  	_inherit_reactions="1"
+  	solid_friction="0.05"
+  	name="ice_cold_glass" 
+	wang_color="ffA1FF42" >
+  </CellDataChild>
+  
+  <CellDataChild
+  	_parent="ice_glass"
+	tags="[static],[meltable_to_radioactive],[alchemy]"
+  	_inherit_reactions="1"
+  	solid_friction="0.05"
+  	name="ice_radioactive_glass" 
+	wang_color="ffB1FF42" >
+  </CellDataChild>
+  
+  <CellData
+	name="ice_glass_b2"
+	tags="[static],[meltable_to_water],[alchemy]"
+	burnable="0"
+	density="6"
+	cell_type="solid"
+	wang_color="ffaedde5"
+	generates_smoke="0"
+	on_fire="0"
+	requires_oxygen="0"
+	temperature_of_fire="10"
+	solid_static_type="0"
+	solid_collide_with_self="0"
+	solid_on_sleep_convert="1"
+	solid_break_to_type="ice_static"
+	crackability="100"
+	platform_type="1"
+	solid_friction="0.05"
+	hp="10000"
+	gfx_glow="20"
+	>
+    <Graphics
+	texture_file="data/materials_gfx/ice.png"
+	color="ffCFF7C8" >
+    </Graphics>
+  </CellData>
+  
+  <CellData
+	name="glass_brittle"
+	tags="[static],[alchemy]"
+	burnable="0"
+	density="6"
+	cell_type="solid"
+	wang_color="ffaeddd3"
+	generates_smoke="0"
+	on_fire="0"
+	requires_oxygen="0"
+	temperature_of_fire="10"
+	solid_static_type="2"
+	solid_collide_with_self="0"
+	solid_on_sleep_convert="1"
+	solid_break_to_type="glass_static"
+	crackability="100"
+	solid_friction="0.9"
+	solid_restitution="0"
+	platform_type="1"
+	hp="10000"
+	gfx_glow="6"
+	>
+    <Graphics
+	texture_file="data/materials_gfx/glass.png"
+	color="ffaeddd3" >
+    </Graphics>
+  </CellData>
+
+  <CellData
+	name="snowrock_static"
+	tags="[static],[corrodible],[alchemy]"
+	burnable="0"
+	density="10"
+	cell_type="liquid"
+	wang_color="ffDBDBDC"
+	liquid_gravity="0"
+	liquid_sand="1"
+	liquid_static="1"
+	solid_friction="0.6"
+	on_fire="0"
+	hp="70000" 
+	>
+    <Graphics
+	texture_file="data/materials_gfx/snowrock.png"
+	color="ffDBDBDB"
+	pixel_all_around="ff313b36"
+	
+	pixel_lonely="ff313b36"
+	pixel_top_right="ff313b36"
+	pixel_bottom_left="ff313b36"
+	
+	pixel_left="ff495750"
+	pixel_top_left="ff495750"
+	pixel_top="ff495750"
+	
+	pixel_right="ff1a201d"
+	pixel_bottom_right="ff1a201d"
+	pixel_bottom="ff1a201d"
+	>
+    </Graphics>
+  </CellData>
+
+  <CellData
+	name="concrete_static"
+	tags="[static],[corrodible],[meltable_to_lava],[alchemy]"
+	burnable="0"
+	density="10"
+	cell_type="liquid"
+	wang_color="ff767677"
+	generates_smoke="0"
+	liquid_gravity="0.5"
+	liquid_sand="1"
+	liquid_static="1"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="10"
+	collapsible="1"
+	solid_friction="1"
+	hp="30000" 
+	supports_collapsible_structures="0"
+	>
+    <Graphics
+	texture_file="data/materials_gfx/concrete.png"
+	color="ff767676" >
+    </Graphics>
+  </CellData>
+
+  <CellData
+	name="wood_static"
+  	tags="[corrodible],[burnable],[alchemy]"
+	burnable="1"
+	density="11"
+	cell_type="liquid"
+	wang_color="ff413F24"
+	generates_smoke="20"
+	liquid_gravity="0.5"
+	liquid_sand="1"
+	liquid_static="1"
+	on_fire="0"
+	fire_hp="600"
+	requires_oxygen="1"
+	temperature_of_fire="90"
+	autoignition_temperature="85"
+	solid_friction="0.9"
+	hp="2000"
+	wang_noise_percent="0.01"
+	wang_curvature="0.5"
+	supports_collapsible_structures="1"
+	>
+    <Graphics
+	texture_file="data/materials_gfx/wood.png"
+	color="ff413F24"
+	pixel_all_around="ff5d5a33"
+	
+	pixel_lonely="ff5d5a33"
+	pixel_top_right="ff5d5a33"
+	pixel_bottom_left="ff5d5a33"
+	
+	pixel_left="ff776e36"
+	pixel_top_left="ff776e36"
+	pixel_top="ff776e36"
+	
+	pixel_right="ff413f24"
+	pixel_bottom="ff413f24"
+	pixel_bottom_right="ff292416"
+	>
+    </Graphics>
+  </CellData>
+
+  <CellDataChild
+  	_parent="wood_static"
+  	_inherit_reactions="1"
+  	name="wood_static_wet"
+	solid_friction="0.5"	
+	fire_hp="12000"
+	hp="2000"
+	wang_color="ff413F41" >
+  </CellDataChild>
+  
+  <CellDataChild
+  	_parent="wood_static"
+  	_inherit_reactions="1"
+  	name="wood_static_gas"
+	solid_friction="0.5"	
+	fire_hp="300"
+	temperature_of_fire="90"
+	autoignition_temperature="15"
+	hp="2000"
+	wang_color="ff414F41" >
+  </CellDataChild>
+  
+  <!-- =================================================================================================================  -->
+  <!-- GAS  -->
+
+  <CellData
+	name="smoke"
+  	tags="[gas]"
+	burnable="0"
+	density="1"
+	lifetime="350"
+	cell_type="gas"
+	wang_color="ff848485"
+	generates_smoke="0"
+	liquid_gravity="0.5"
+	liquid_sand="0"
+	on_fire="0"
+	requires_oxygen="0"
+	temperature_of_fire="60"  >
+  </CellData>
+
+  <CellData
+	name="smoke_explosion"
+  	tags="[gas]"
+	burnable="0"
+	density="1"
+	lifetime="150"
+	cell_type="gas"
+	wang_color="ff848486"
+	generates_smoke="0"
+	liquid_gravity="0.5"
+	liquid_sand="0"
+	on_fire="0"
+	requires_oxygen="0"
+	temperature_of_fire="60"  >
+  </CellData>
+
+  <CellData
+	name="steam"
+  	tags="[gas]"
+	burnable="0"
+	lifetime="1000"
+	density="1"
+	cell_type="gas"
+	wang_color="ffc5c5ff"
+	generates_smoke="0"
+	liquid_gravity="0.5"
+	liquid_sand="0"
+	on_fire="0"
+	requires_oxygen="0"
+	temperature_of_fire="60"  >
+  </CellData>
+  
+  <CellDataChild
+  	_parent="steam"
+	name="steam_trailer"
+	wang_color="ffc6c5ff"
+	>
+	<Graphics
+	color="ffc5c5ff" >
+    </Graphics>
+  </CellDataChild>
+
+  <CellData
+	name="acid_gas"
+  	tags="[gas],[burnable_fast]"
+	burnable="1"
+	density="2"
+	cell_type="gas"
+	lifetime="450"
+	wang_color="ff4eb815"
+	generates_smoke="1"
+	liquid_gravity="0.5"
+	liquid_sand="0"
+	on_fire="0"
+	fire_hp="1000"
+	requires_oxygen="0"
+	temperature_of_fire="60"
+	autoignition_temperature="1" >
+  </CellData>
+  
+  <CellDataChild
+  	_parent="acid_gas"
+	name="poison_gas"
+	wang_color="ffB42CFF"
+	>
+	<Graphics
+	color="ffB42CFF" >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellDataChild
+  	_parent="acid_gas"
+	_inherit_reactions="1"
+	name="fungal_gas"
+	wang_color="ffEA1CAF"
+	>
+	<Graphics
+	color="ffEA1CAF" >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellData
+	name="blood_cold_vapour"
+  	tags="[gas],[vapour]"
+	burnable="0"
+	density="2"
+	cell_type="gas"
+	lifetime="250"
+	wang_color="ff5C98CD"
+	generates_smoke="1"
+	liquid_gravity="0.5"
+	liquid_sand="0"
+	on_fire="0"
+	requires_oxygen="0"
+	temperature_of_fire="0"
+	autoignition_temperature="99" 
+	gfx_glow="255">
+  </CellData>
+  
+  <CellData
+	name="sand_herb_vapour"
+  	tags="[gas],[vapour]"
+	burnable="0"
+	density="2"
+	cell_type="gas"
+	lifetime="250"
+	wang_color="ff6E8C3B"
+	generates_smoke="1"
+	liquid_gravity="0.5"
+	liquid_sand="0"
+	on_fire="0"
+	requires_oxygen="0"
+	temperature_of_fire="0"
+	autoignition_temperature="99" >
+  </CellData>
+  
+
+  <!-- =================================================================================================================  -->
+  <!-- LIQUID  -->
+  
+  <CellData
+	name="water"
+  	tags="[liquid],[corrodible],[freezable],[water]"
+	burnable="0"
+	density="4"
+	cell_type="liquid"
+	wang_color="902F554C"
+	generates_smoke="0"
+	liquid_gravity="1.5"
+	liquid_sand="0"
+	liquid_stains="1"
+	liquid_stains_self="0"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="10" 
+	danger_water="1" >
+  </CellData>
+  
+  <CellDataChild
+  	_parent="water"
+	name="water_fading"
+	wang_color="902F354C"
+	>
+    <Graphics
+	color="902F554C"
+	>
+    </Graphics>
+  </CellDataChild>
+  
+  <CellDataChild
+  	_parent="water"
+	name="water_salt"
+	wang_color="a02F754C"
+	density="4.5"
+	>
+    <Graphics
+	color="a02F754C"
+	>
+    </Graphics>
+  </CellDataChild>
+
+  <CellData
+	name="water_temp"
+  	tags="[liquid],[corrodible],[freezable],[water]"
+	burnable="0"
+	density="4"
+	cell_type="liquid"
+	wang_color="902F554F"
+	generates_smoke="0"
+	liquid_gravity="1.5"
+	liquid_sand="0"
+	liquid_stains="1"
+	liquid_stains_self="0"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="10"
+	danger_water="1" >
+  </CellData>
+  
+  <CellData
+	name="water_ice"
+  	tags="[liquid],[corrodible],[meltable_to_water],[freezable],[water]"
+	burnable="0"
+	density="3.5"
+	cell_type="liquid"
+	wang_color="602F557F"
+	generates_smoke="0"
+	liquid_gravity="1.5"
+	liquid_sand="0"
+	liquid_stains="1"
+	liquid_stains_self="0"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="10"
+	danger_water="1" >
+  </CellData>  
+  
+  <CellData
+	name="water_swamp"
+  	tags="[liquid],[corrodible],[meltable_to_water],[water]"
+	burnable="0"
+	density="3.4"
+	cell_type="liquid"
+	wang_color="902F552C"
+	generates_smoke="0"
+	liquid_gravity="1.5"
+	liquid_sand="0"
+	liquid_stains="1"
+	liquid_stains_self="0"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="10"
+	danger_water="1" >
+  </CellData>  
+
+  <CellData
+	name="oil"
+  	tags="[liquid],[burnable]"
+	burnable="1"
+	density="1"
+	cell_type="liquid"
+	wang_color="ff3B3B3C"
+	generates_smoke="15"
+	liquid_gravity="0.5"
+	fire_hp="90"
+	liquid_sand="0"
+	liquid_stains="4"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="95"
+	autoignition_temperature="10"  >
+	<Graphics
+	color="e63D3728" >
+    </Graphics>
+  </CellData>
+  
+  <CellDataChild
+  	_parent="oil"
+	name="liquid_fire"
+	fire_hp="100"
+	wang_color="ff3B3B3D"
+	requires_oxygen="0"
+	liquid_viscosity="10"
+	liquid_sticks_to_ceiling="100"
+	liquid_flow_speed="0.25"
+	temperature_of_fire="150"
+	liquid_gravity="0.2"
+	liquid_sand="1"
+	on_fire="1"
+	>
+    <Graphics
+	color="ffebcd00"
+	>
+    </Graphics>
+  </CellDataChild>
+
+  <CellData
+	name="alcohol"
+  	tags="[liquid],[burnable],[water]"
+	burnable="1"
+	density="5"
+	cell_type="liquid"
+	wang_color="80d0ffe8"
+	generates_smoke="0"
+	liquid_gravity="1"
+	liquid_sand="0"
+	on_fire="0"
+	requires_oxygen="0"
+	temperature_of_fire="80"
+	autoignition_temperature="10" >
+  </CellData>
+  
+  <CellDataChild
+  	_parent="alcohol"
+	name="midas_precursor"
+	wang_color="e1243CFF"
+	>
+    <Graphics
+	texture_file="data/materials_gfx/midas_precursor.png"
+	color="e1243CFF"
+	>
+    </Graphics>
+  </CellDataChild>
+  
+  <CellDataChild
+  	_parent="alcohol"
+	name="midas"
+	wang_color="efefa101"
+	gfx_glow="90"
+	density="10"
+	>
+    <Graphics
+	texture_file="data/materials_gfx/honey.png"
+	color="efefa101"
+	>
+    </Graphics>
+  </CellDataChild>
+  
+  <CellData
+	name="magic_liquid"
+  	tags="[liquid],[water]"
+	burnable="0"
+	density="5"
+	cell_type="liquid"
+	wang_color="80fffea2"
+	generates_smoke="0"
+	liquid_gravity="1"
+	liquid_sand="0"
+	gfx_glow="90"
+	on_fire="0"
+	requires_oxygen="0"
+	>
+  </CellData>
+
+  <CellData
+	name="swamp"
+  	tags="[liquid],[corrodible],[soluble],[meltable_to_water],[freezable],[water]"
+	burnable="0"
+	density="4"
+	cell_type="liquid"
+	wang_color="802f2f0a"
+	generates_smoke="0"
+	liquid_gravity="0.5"
+	liquid_viscosity="15"
+	liquid_sand="0"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="10"  >
+	<Graphics
+	texture_file="data/materials_gfx/swamp.png"
+	color="802f2f0a" >
+    </Graphics>
+  </CellData>
+
+  <CellData 
+	name="mud"
+  	tags="[sand_ground],[corrodible],[meltable_to_lava]"
+	burnable="0"  
+	density="6"  
+	cell_type="liquid" 
+	wang_color="ff363e21"  
+	generates_smoke="0"  
+	liquid_gravity="0.5"  
+	liquid_sand="1"  
+	liquid_viscosity="75"
+	liquid_sticks_to_ceiling="50"
+	on_fire="0"  
+	requires_oxygen="1"  
+	temperature_of_fire="10"
+	hp="2000" 
+	>
+    <Graphics 
+	texture_file="data/materials_gfx/mud.png" 
+	color="ff363e21" >
+    </Graphics>
+  </CellData>
+
+  <CellData
+	name="blood"
+  	tags="[liquid],[corrodible],[soluble]"
+	burnable="0"
+	density="3.1"
+	cell_type="liquid"
+	wang_color="aa830000"
+	generates_smoke="0"
+	liquid_gravity="0.5"
+	liquid_sand="0"
+	liquid_stains="2"
+	liquid_stains_self="1"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="10"  >
+  </CellData>
+
+  <CellData
+	name="blood_fading"
+  	tags="[liquid],[corrodible],[soluble],[evaporable_fast]"
+	burnable="0"
+	density="3"
+	cell_type="liquid"
+	wang_color="aa830002"
+	generates_smoke="0"
+	liquid_gravity="0.5"
+	liquid_sand="0"
+	liquid_stains="2"
+	liquid_stains_self="1"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="10"  >
+  </CellData>
+  
+  <CellData
+	name="blood_fungi"
+  	tags="[liquid],[corrodible],[soluble],[evaporable]"
+	burnable="0"
+	density="3"
+	cell_type="liquid"
+	wang_color="aa830001"
+	generates_smoke="0"
+	liquid_gravity="0.5"
+	liquid_sand="0"
+	liquid_stains="2"
+	liquid_stains_self="1"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="10"
+	gfx_glow="100" >
+    <Graphics 
+	texture_file="data/materials_gfx/fungi.png" 
+	color="ffF064AA" >
+    </Graphics>
+  </CellData>
+  
+  <CellData
+	name="blood_worm"
+  	tags="[liquid],[corrodible],[soluble]"
+	burnable="0"
+	density="2"
+	cell_type="liquid"
+	wang_color="88C8BC00"
+	generates_smoke="0"
+	liquid_gravity="0.5"
+	liquid_sand="0"
+	liquid_stains="2"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="10"
+	>
+    <Graphics 
+	texture_file="data/materials_gfx/yellowblood.png" 
+	color="88C8BC00" >
+    </Graphics>
+  </CellData>
+  
+  <CellData
+	name="blood_cold"
+  	tags="[liquid],[corrodible],[soluble],[evaporable_custom]"
+	burnable="0"
+	density="3"
+	cell_type="liquid"
+	wang_color="aa830023"
+	generates_smoke="0"
+	liquid_gravity="0.5"
+	liquid_sand="0"
+	liquid_stains="2"
+	liquid_stains_self="1"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="0"
+	gfx_glow="255"
+	>
+    <Graphics 
+	texture_file="data/materials_gfx/blueblood.png" 
+	color="ff33b828" >
+    </Graphics>
+  </CellData>
+
+  <CellData
+	name="radioactive_liquid"
+  	tags="[liquid],[corrodible],[soluble]"
+	burnable="0"
+	density="3"
+	cell_type="liquid"
+	wang_color="4400FF33"
+	gfx_glow="100"
+	generates_smoke="0"
+	liquid_gravity="0.5"
+	liquid_sand="0"
+	liquid_stains="2"
+	liquid_stains_self="1"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="10"
+	danger_radioactive="1" >
+  </CellData>
+  
+  <CellDataChild
+  	_parent="radioactive_liquid"
+	name="poison"
+	wang_color="44B43CFF"
+	danger_poison="1"
+	danger_radioactive="0" >
+    <Graphics
+	color="44B43CFF"
+	>
+    </Graphics>
+  </CellDataChild>
+
+  <CellData
+	name="radioactive_liquid_fading"
+  	tags="[liquid],[corrodible],[soluble],[evaporable_fast]"
+	burnable="0"
+	density="3"
+	cell_type="liquid"
+	wang_color="4400FF34"
+	gfx_glow="180"
+	generates_smoke="0"
+	liquid_gravity="0.5"
+	liquid_sand="0"
+	liquid_stains="2"
+	liquid_stains_self="1"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="10" 
+	danger_radioactive="1" >
+  </CellData>
+
+  <CellData
+	name="plasma_fading"
+  	tags="[liquid],[corrodible],[soluble],[evaporable_fast]"
+	burnable="0"
+	density="3"
+	cell_type="liquid"
+	wang_color="7734bfff"
+	gfx_glow="254"
+	generates_smoke="0"
+	liquid_gravity="0.5"
+	liquid_sand="0"
+	liquid_stains="0"
+	liquid_stains_self="1"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="10"  >
+  </CellData>
+  
+  <CellDataChild
+  	_parent="plasma_fading"
+	name="plasma_fading_green"
+	fire_hp="100"
+	wang_color="ff78F050"
+	requires_oxygen="0"
+	liquid_viscosity="10"
+	liquid_sticks_to_ceiling="100"
+	liquid_flow_speed="0.25"
+	temperature_of_fire="150"
+	liquid_gravity="0.2"
+	liquid_sand="1"
+	on_fire="1"
+	>
+    <Graphics
+	color="ff78F050"
+	>
+    </Graphics>
+  </CellDataChild>
+  
+  <CellDataChild
+  	_parent="plasma_fading"
+	name="plasma_fading_pink"
+	fire_hp="100"
+	wang_color="ffFF50F0"
+	requires_oxygen="0"
+	liquid_viscosity="10"
+	liquid_sticks_to_ceiling="100"
+	liquid_flow_speed="0.25"
+	temperature_of_fire="150"
+	liquid_gravity="0.2"
+	liquid_sand="1"
+	on_fire="1"
+	>
+    <Graphics
+	color="ffFF50F0"
+	>
+    </Graphics>
+  </CellDataChild>
+
+  <CellData
+	name="gold_molten"
+  	tags="[liquid],[corrodible],[molten],[meltable_to_lava],[alchemy]"
+	burnable="0"
+	density="2"
+	cell_type="liquid"
+	wang_color="ffebcd04"
+	generates_smoke="0"
+	liquid_gravity="1"
+	liquid_sand="0"
+	liquid_viscosity="75"
+	on_fire="1"
+	requires_oxygen="1"
+	temperature_of_fire="10"
+	danger_fire="1"
+	>
+    <Graphics
+	texture_file="data/materials_gfx/gold.png"
+	color="ffb89e58" >
+    </Graphics>
+  </CellData>
+  
+  <CellData
+	name="wax_molten"
+  	tags="[liquid],[corrodible],[molten],[alchemy]"
+	burnable="0"
+	density="2"
+	cell_type="liquid"
+	wang_color="ffEAACAB"
+	generates_smoke="0"
+	liquid_gravity="1"
+	liquid_sand="0"
+	liquid_viscosity="75"
+	on_fire="1"
+	requires_oxygen="1"
+	temperature_of_fire="10"
+	danger_fire="1"
+	>
+    <Graphics
+	texture_file="data/materials_gfx/wax.png"
+	color="ffEAACAB" >
+    </Graphics>
+  </CellData>
+
+  <CellData
+	name="silver_molten"
+  	tags="[liquid],[corrodible],[molten],[meltable_to_lava],[alchemy]"
+	burnable="0"
+	density="3"
+	cell_type="liquid"
+	wang_color="ff4e5263"
+	generates_smoke="10"
+	liquid_gravity="1"
+	liquid_sand="0"
+	on_fire="1"
+	requires_oxygen="1"
+	temperature_of_fire="50"
+	autoignition_temperature="99"
+	danger_fire="1"
+	>
+    <Graphics
+	texture_file="data/materials_gfx/silver.png"
+	color="ffb89e58" >
+    </Graphics>
+  </CellData>
+
+  <CellData
+	name="copper_molten"
+  	tags="[liquid],[corrodible],[molten],[meltable_to_lava],[alchemy]"
+	burnable="0"
+	density="3"
+	cell_type="liquid"
+	wang_color="ff4e5264"
+	generates_smoke="10"
+	liquid_gravity="1"
+	liquid_sand="0"
+	on_fire="1"
+	requires_oxygen="1"
+	temperature_of_fire="50"
+	autoignition_temperature="99"
+	danger_fire="1"
+	>
+    <Graphics
+	texture_file="data/materials_gfx/copper.png"
+	color="ffb89e58" >
+    </Graphics>
+  </CellData>
+
+  <CellData
+	name="brass_molten"
+  	tags="[liquid],[corrodible],[molten],[meltable_to_lava],[alchemy]"
+	burnable="0"
+	density="3"
+	cell_type="liquid"
+	wang_color="ff4e5285"
+	generates_smoke="10"
+	liquid_gravity="1"
+	liquid_sand="0"
+	on_fire="1"
+	requires_oxygen="1"
+	temperature_of_fire="50"
+	autoignition_temperature="99"
+	danger_fire="1"
+	>
+    <Graphics
+	texture_file="data/materials_gfx/gold.png"
+	color="ffb89e58" >
+    </Graphics>
+  </CellData>
+
+  <CellData
+	name="glass_molten"
+  	tags="[liquid],[molten],[meltable_to_lava],[alchemy]"
+	burnable="0"
+	density="3"
+	cell_type="liquid"
+	wang_color="ff4e5266"
+	generates_smoke="10"
+	liquid_gravity="1"
+	liquid_sand="0"
+	on_fire="1"
+	requires_oxygen="1"
+	temperature_of_fire="50"
+	autoignition_temperature="99"
+	danger_fire="1"
+	>
+    <Graphics
+	texture_file="data/materials_gfx/glass.png"
+	color="ffb89e58" >
+    </Graphics>
+  </CellData>
+
+  <CellData
+	name="glass_broken_molten"
+  	tags="[liquid],[molten],[meltable_to_lava],[alchemy]"
+	burnable="0"
+	density="3"
+	cell_type="liquid"
+	wang_color="ff4e5237"
+	generates_smoke="10"
+	liquid_gravity="1"
+	liquid_sand="0"
+	on_fire="1"
+	requires_oxygen="1"
+	temperature_of_fire="50"
+	autoignition_temperature="99"
+	danger_fire="1"
+	>
+    <Graphics
+	texture_file="data/materials_gfx/glass.png"
+	color="ffb89e58" >
+    </Graphics>
+  </CellData>
+
+  <CellData
+	name="steel_molten"
+  	tags="[liquid],[molten],[meltable_to_lava],[alchemy]"
+	burnable="0"
+	density="2"
+	cell_type="liquid"
+	wang_color="ffebcd08"
+	generates_smoke="0"
+	liquid_gravity="1"
+	liquid_sand="0"
+	liquid_viscosity="75"
+	on_fire="1"
+	requires_oxygen="1"
+	temperature_of_fire="10"
+	danger_fire="1"
+	>
+    <Graphics
+	texture_file="data/materials_gfx/steel.png"
+	color="ffb89e58" >
+    </Graphics>
+  </CellData>
+  
+  <!-- =================================================================================================================  -->
+  <!-- SAND - GROUND -->
+  <CellData
+	name="cement"
+  	tags="[corrodible],[meltable_to_lava],[alchemy]"
+	burnable="0"
+	density="6"
+	cell_type="liquid"
+	wang_color="ff808081"
+	generates_smoke="0"
+	liquid_gravity="0.5"
+	liquid_sand="0"
+	liquid_sticks_to_ceiling="100"
+	liquid_viscosity="15"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="10"
+	hp="1000" 
+	>
+    <Graphics
+	texture_file="data/materials_gfx/concrete_wet.png"
+	color="ff808080" >
+    </Graphics>
+  </CellData>
+
+  <CellData
+	name="concrete_sand"
+  	tags="[corrodible],[meltable_to_lava],[alchemy]"
+	burnable="0"
+	density="6"
+	cell_type="liquid"
+	wang_color="ff808082"
+	generates_smoke="0"
+	liquid_gravity="1.5"
+	liquid_sand="1"
+	liquid_sand_never_box2d="1"
+	liquid_sticks_to_ceiling="100"
+	liquid_viscosity="15"
+	platform_type="1"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="10"
+	supports_collapsible_structures="0"
+	hp="15000" 
+	>
+    <Graphics
+	texture_file="data/materials_gfx/concrete.png"
+	color="ff767676" >
+    </Graphics>
+  </CellData>
+
+  <CellData
+	name="sand"
+  	tags="[sand_ground],[corrodible],[meltable_to_lava],[alchemy]"
+	burnable="0"
+	density="6"
+	cell_type="liquid"
+	wang_color="ffebcd00"
+	generates_smoke="0"
+	liquid_gravity="0.5"
+	liquid_sand="1"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="10"
+	hp="1000" 
+	>
+    <Graphics
+	texture_file="data/materials_gfx/sand.png"
+	color="ffb89e57" >
+    </Graphics>
+  </CellData>
+  
+  <CellDataChild
+  	_parent="sand"
+  	_inherit_reactions="1"
+  	name="sand_blue" 
+	wang_color="ff008240" 
+	>
+  	<Graphics
+	texture_file="data/materials_gfx/sand_blue.png"
+	color="ff008240" >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellDataChild
+  	_parent="sand"
+  	_inherit_reactions="1"
+  	name="lavasand" 
+	wang_color="ff0A8240" 
+	>
+  	<Graphics
+	texture_file="data/materials_gfx/lavarock.png"
+	color="ff0A8240" >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellData
+	name="bone"
+  	tags="[sand_ground],[corrodible],[meltable_to_lava],[alchemy]"
+	burnable="0"
+	density="6"
+	cell_type="liquid"
+	wang_color="ffE6E6FF"
+	generates_smoke="0"
+	liquid_gravity="0.5"
+	liquid_sand="1"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="10"
+	hp="10000" 
+	>
+    <Graphics
+	texture_file="data/materials_gfx/bone.png"
+	color="ffE6E6FF" >
+    </Graphics>
+  </CellData>
+  
+  <CellData 
+	name="soil"
+  	tags="[sand_ground],[corrodible],[grows_grass],[meltable_to_lava],[alchemy]"
+	burnable="0"  
+	density="6"  
+	cell_type="liquid" 
+	wang_color="ff36311e"  
+	generates_smoke="0"  
+	liquid_gravity="0.5"  
+	liquid_sand="1"  
+	liquid_viscosity="75"
+	liquid_sticks_to_ceiling="50"
+	on_fire="0"  
+	requires_oxygen="1"  
+	temperature_of_fire="10"
+	hp="2000" 
+	>
+    <Graphics 
+	texture_file="data/materials_gfx/soil.png" 
+	color="ff36311e" >
+    </Graphics>
+  </CellData>
+  
+  <CellDataChild
+  	_parent="soil"
+  	_inherit_reactions="1"
+	density="10"
+  	name="soil_lush" 
+	wang_color="ff008040" 
+	liquid_viscosity="0"
+	liquid_sticks_to_ceiling="100"
+	fire_hp="15"
+	temperature_of_fire="30"
+	autoignition_temperature="60"
+	burnable="1"
+	>
+  	<Graphics
+	texture_file="data/materials_gfx/soil_lush.png"
+	color="ff008040" >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellDataChild
+  	_parent="soil"
+  	_inherit_reactions="1"
+	density="10"
+  	name="soil_dead" 
+	wang_color="ff708040" 
+	liquid_viscosity="75"
+	liquid_sticks_to_ceiling="50"
+	fire_hp="100"
+	temperature_of_fire="30"
+	autoignition_temperature="60"
+	burnable="1"
+	>
+  	<Graphics
+	texture_file="data/materials_gfx/soil_dead.png"
+	color="ff708040" >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellData 
+	name="sandstone"
+  	tags="[sand_ground],[corrodible],[meltable_to_lava],[alchemy]"
+	burnable="0"  
+	density="6"  
+	cell_type="liquid" 
+	wang_color="ff90fe40"  
+	generates_smoke="0"  
+	liquid_gravity="0.5"  
+	liquid_sand="1"  
+	liquid_viscosity="5"
+	liquid_sticks_to_ceiling="100"
+	on_fire="0"  
+	requires_oxygen="1"  
+	temperature_of_fire="10"
+	hp="9000" 
+	>
+    <Graphics 
+	texture_file="data/materials_gfx/desert.png" 
+	color="ff90fe40" >
+    </Graphics>
+  </CellData>
+  
+  <CellData 
+	name="fungisoil"
+  	tags="[sand_ground],[corrodible],[grows_fungus],[meltable_to_lava],[alchemy]"
+	burnable="0"  
+	density="6"  
+	cell_type="liquid" 
+	wang_color="ff36312e"  
+	generates_smoke="0"  
+	liquid_gravity="0.5"  
+	liquid_sand="1"  
+	liquid_viscosity="0"
+	liquid_sticks_to_ceiling="100"
+	on_fire="0"  
+	requires_oxygen="1"  
+	temperature_of_fire="10" 
+	>
+    <Graphics 
+	texture_file="data/materials_gfx/soil.png" 
+	color="ff36311e" >
+    </Graphics>
+  </CellData>
+  
+  <CellData 
+	name="honey"
+  	tags="[corrodible],[meltable_to_lava],[alchemy]"
+	burnable="0"  
+	density="10"  
+	cell_type="liquid" 
+	wang_color="55E8BD5A"  
+	generates_smoke="0"  
+	liquid_gravity="0.5"  
+	liquid_sand="1"  
+	liquid_viscosity="15"
+	liquid_sticks_to_ceiling="90"
+	stickyness="1.0"
+	solid_friction="1.0"
+	on_fire="0"  
+	requires_oxygen="0"  
+	temperature_of_fire="10" 
+	>
+    <Graphics 
+	texture_file="data/materials_gfx/honey.png" 
+	color="ffE8BD5A" >
+    </Graphics>
+  </CellData>
+  
+  <CellData 
+	name="slime"
+  	tags="[corrodible],[meltable_to_lava],[alchemy]"
+	burnable="0"  
+	density="5"  
+	cell_type="liquid" 
+	wang_color="88E8BD5A"  
+	generates_smoke="0"  
+	liquid_gravity="0.1"  
+	liquid_sand="0"  
+	liquid_sticks_to_ceiling="90"
+	liquid_slime="1"
+	liquid_stains="2"
+	stickyness="1.0"
+	solid_friction="1.0"
+	on_fire="0"  
+	requires_oxygen="0"  
+	temperature_of_fire="10" 
+	>
+    <Graphics 
+	texture_file="data/materials_gfx/slime.png" 
+	color="88E8BD5A" >
+    </Graphics>
+  </CellData>
+  
+  <CellDataChild
+  	_parent="slime"
+  	_inherit_reactions="1"
+  	name="slime_green" 
+	wang_color="8880FF80" 
+	liquid_viscosity="0"
+	liquid_sticks_to_ceiling="100"
+	liquid_damping="0.9"
+	liquid_flow_speed="0.1"
+	>
+  	<Graphics
+	texture_file="data/materials_gfx/slime_green.png"
+	color="8880FF80" >
+    </Graphics>
+  </CellDataChild>
+
+  <CellDataChild
+  	_parent="slime_green"
+  	_inherit_reactions="0"
+  	name="pea_soup" 
+	wang_color="8880FF82" 
+	liquid_viscosity="0"
+	liquid_sticks_to_ceiling="100"
+	liquid_damping="0.9"
+	liquid_flow_speed="0.1"
+	>
+  	<Graphics
+	texture_file="data/materials_gfx/slime_green.png"
+	color="8880FF80" >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellDataChild
+  	_parent="slime"
+  	_inherit_reactions="1"
+  	name="endslime" 
+	tags="[static],[corrodible],[alchemy]"
+	wang_color="888AFF80" 
+	liquid_viscosity="0"
+	liquid_sticks_to_ceiling="100"
+	liquid_damping="0.9"
+	liquid_flow_speed="0.1"
+	liquid_gravity="0.5"
+	liquid_sand="1"
+	liquid_static="1"
+	>
+  	<Graphics
+	texture_file="data/materials_gfx/endslime.png"
+	color="888AFF80" >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellDataChild
+  	_parent="slime"
+  	_inherit_reactions="1"
+  	name="endslime_blood" 
+	tags="[static],[corrodible]"
+	wang_color="888CFF80" 
+	liquid_viscosity="0"
+	liquid_sticks_to_ceiling="100"
+	liquid_damping="0.9"
+	liquid_flow_speed="0.1"
+	liquid_gravity="0.5"
+	liquid_sand="1"
+	>
+  	<Graphics
+	texture_file="data/materials_gfx/endslime.png"
+	color="888CFF80" >
+    </Graphics>
+  </CellDataChild>
+
+  <CellData 
+	name="explosion_dirt"
+  	tags="[sand_ground],[corrodible]"
+	burnable="0"  
+	density="6"  
+	cell_type="liquid" 
+	wang_color="ff36311f"  
+	generates_smoke="0"  
+	liquid_gravity="0.5"  
+	liquid_sand="1"  
+	on_fire="0"  
+	requires_oxygen="1"  
+	temperature_of_fire="10"
+	hp="1000"
+	>
+  </CellData>
+  
+  <CellData 
+	name="root_base"
+  	tags="[sand_ground],[corrodible],[burnable],[alchemy]"
+	burnable="1"  
+	density="6"  
+	cell_type="liquid" 
+	wang_color="ff526F36"  
+	generates_smoke="0"  
+	liquid_gravity="0"  
+	liquid_sand="1"
+    liquid_static="1"	
+	liquid_viscosity="0"
+	on_fire="0"  
+	requires_oxygen="1"  
+	autoignition_temperature="60"
+	temperature_of_fire="90"
+	hp="10"
+	>
+    <Graphics 
+	texture_file="data/materials_gfx/root.png" 
+	color="ff526F36" >
+    </Graphics>
+  </CellData>
+  
+  <CellData 
+	name="root_trunk"
+  	tags="[sand_ground],[corrodible],[burnable],[alchemy]"
+	burnable="1"  
+	density="6"  
+	cell_type="liquid" 
+	wang_color="ff36315e"  
+	generates_smoke="0"  
+	liquid_gravity="0"  
+	liquid_sand="1"  
+	liquid_viscosity="0"
+	liquid_static="1"
+	on_fire="0"  
+	requires_oxygen="1"  
+	autoignition_temperature="60"
+	temperature_of_fire="90"
+	hp="10"
+	>
+    <Graphics 
+	texture_file="data/materials_gfx/root.png" 
+	color="ff36311e" >
+    </Graphics>
+  </CellData>
+  
+  <CellData 
+	name="root_bad"
+  	tags="[sand_ground],[corrodible],[burnable],[alchemy]"
+	burnable="1"  
+	density="6"  
+	cell_type="liquid" 
+	wang_color="ff2A724A"  
+	generates_smoke="0"  
+	liquid_gravity="0.5"  
+	liquid_sand="1"
+    liquid_static="0"	
+	liquid_viscosity="0"
+	on_fire="0"  
+	requires_oxygen="1" 
+	liquid_sticks_to_ceiling="80"
+	autoignition_temperature="30"
+	temperature_of_fire="90"
+	hp="5"
+	>
+    <Graphics 
+	texture_file="data/materials_gfx/badroot.png" 
+	color="ff2A724A" >
+    </Graphics>
+  </CellData>
+  
+  <CellData
+	name="snow"
+  	tags="[sand_ground],[corrodible],[frozen],[meltable_to_water],[alchemy]"
+	burnable="0"
+	density="8"
+	cell_type="liquid"
+	wang_color="ffF4F4F3"
+	generates_smoke="0"
+	liquid_gravity="0.6"
+	liquid_sand="1"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="10"
+	hp="1000" 
+	>
+    <Graphics
+	texture_file="data/materials_gfx/snow.png"
+	color="ffF4F4F3" >
+    </Graphics>
+  </CellData>
+
+  <CellData
+	name="snow_sticky"
+  	tags="[sand_ground],[corrodible],[frozen],[meltable_to_water],[alchemy]"
+	burnable="0"
+	density="8"
+	cell_type="liquid"
+	wang_color="ffeeeeed"
+	generates_smoke="0"
+	liquid_gravity="0.6"
+	liquid_sand="1"
+	liquid_sticks_to_ceiling="100"
+	liquid_viscosity="20"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="10"
+	hp="1000" 
+	>
+    <Graphics
+	texture_file="data/materials_gfx/snow.png"
+	color="ffeeeeee" >
+    </Graphics>
+  </CellData>
+
+  <CellData
+	name="rotten_meat"
+  	tags="[sand_ground],[corrodible],[meltable_to_lava],[alchemy],[meat]"
+	burnable="1"
+	autoignition_temperature="80"
+	density="6"
+	cell_type="liquid"
+	wang_color="ffebcdd0"
+	generates_smoke="0"
+	liquid_gravity="0.5"
+	liquid_sand="1"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="10"
+	hp="5000" 
+	fire_hp="800"
+	solid_on_collision_material="blood"
+	solid_on_collision_splash_power="1"
+	solid_restitution="0.4"
+	>
+    <Graphics
+	texture_file="data/materials_gfx/meat_rotten.png"
+	color="ffcc4c4c"
+	pixel_all_around="ffcc4c4c"
+	
+	pixel_lonely="ffcc4c4c"
+	pixel_top_right="ffcc4c4c"
+	pixel_bottom_left="ffcc4c4c"
+	
+	pixel_left="ffc996e6"
+	pixel_top_left="ffc996e6"
+	pixel_top="ffc996e6"
+	
+	pixel_right="ff8f4d53"
+	pixel_bottom_right="ff8f4d53"
+	pixel_bottom="ff8f4d53"
+        >
+    </Graphics>
+  </CellData>
+  
+  <CellData
+	name="meat_slime"
+  	tags="[sand_ground],[corrodible],[meltable_to_lava],[alchemy],[meat]"
+	burnable="1"
+	autoignition_temperature="80"
+	density="6"
+	cell_type="liquid"
+	wang_color="ffed4c4c"
+	generates_smoke="0"
+	liquid_gravity="0.5"
+	liquid_sand="1"
+	liquid_slime="1"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="10"
+	hp="5000" 
+	fire_hp="800"
+	solid_on_collision_material="slime"
+	solid_on_collision_splash_power="1"
+	solid_restitution="0.4"
+	solid_break_to_type="slime"
+	>
+    <Graphics
+	texture_file="data/materials_gfx/meat_rotten.png"
+	color="ffed4c4c"
+        >
+    </Graphics>
+  </CellData>
+  
+  <CellDataChild
+  	_parent="meat"
+	name="meat_slime_green"
+	solid_break_to_type="slime_green"
+	solid_restitution="0.4"
+	wang_color="ffed4d4c"
+	solid_on_collision_material="slime_green" >
+  </CellDataChild>
+  
+  <CellDataChild
+  	_parent="meat"
+	name="meat_slime_orange"
+	solid_break_to_type="endslime_blood"
+	solid_restitution="0.4"
+	wang_color="fffeaf2c"
+	solid_on_collision_material="endslime_blood" >
+	<Graphics
+	color="fffeaf2c"
+        >
+    </Graphics>
+  </CellDataChild>
+
+  <CellData
+	name="rotten_meat_radioactive"
+  	tags="[sand_ground],[corrodible],[meltable_to_lava],[alchemy],[meat]"
+	burnable="0"
+	density="6"
+	cell_type="liquid"
+	wang_color="4400FF53"
+	gfx_glow="255"
+	generates_smoke="0"
+	liquid_gravity="0.5"
+	liquid_sand="1"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="10"
+	solid_restitution="0.5"
+	hp="5000" 
+	>
+    <Graphics
+	texture_file="data/materials_gfx/meat_rotten.png"
+	color="ffcc4c4c"
+	pixel_all_around="ffcc4c4c"
+	
+	pixel_lonely="ffcc4c4c"
+	pixel_top_right="ffcc4c4c"
+	pixel_bottom_left="ffcc4c4c"
+	
+	pixel_left="ffc996e6"
+	pixel_top_left="ffc996e6"
+	pixel_top="ffc996e6"
+	
+	pixel_right="ff8f4d53"
+	pixel_bottom_right="ff8f4d53"
+	pixel_bottom="ff8f4d53"
+        >
+    </Graphics>
+  </CellData>
+  
+  <CellDataChild
+  	_parent="meat"
+	name="meat_worm"
+	wang_color="ffebcda1"
+	solid_on_collision_material="blood_worm"
+	solid_break_to_type="blood_worm"
+	gfx_glow="50"
+	>
+    <Graphics
+	texture_file="data/materials_gfx/wormmeat.png"
+	color="ffebcd00"
+	>
+    </Graphics>
+  </CellDataChild>
+
+  <CellData
+	name="ice"
+  	tags="[sand_ground],[corrodible],[frozen],[meltable_to_water],[alchemy]"
+	burnable="0"
+	density="6"
+	cell_type="liquid"
+	wang_color="ffCFCFF0"
+	generates_smoke="0"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="10"
+	liquid_gravity="0.5"
+	slippery="1"
+	solid_friction="0.05"
+	liquid_sand="1"
+	gfx_glow="10"
+	hp="5000" 
+	>
+    <Graphics
+	texture_file="data/materials_gfx/ice.png"
+	color="ffCFCFF0"
+	pixel_all_around="ff3b93bb"
+	
+	pixel_lonely="ff3b93bb"
+	pixel_top_right="ff3b93bb"
+	pixel_bottom_left="ff3b93bb"
+	
+	pixel_left="ff78e0f0"
+	pixel_top_left="ff78e0f0"
+	pixel_top="ff78e0f0"
+	
+	pixel_right="ff365b77"
+	pixel_bottom_right="ff365b77"
+	pixel_bottom="ff365b77"
+	>
+    </Graphics>
+  </CellData>
+  
+  <CellData
+	name="sand_herb"
+  	tags="[corrodible],[evaporable_custom],[burnable],[alchemy]"
+	burnable="1"
+	density="3"
+	cell_type="liquid"
+	wang_color="aa8300a0"
+	generates_smoke="0"
+	liquid_gravity="0.5"
+	liquid_sand="1"
+	liquid_stains="1"
+	liquid_stains_self="0"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="90"
+	autoignition_temperature="85"
+	gfx_glow="30" 
+	fire_hp="400"
+	>
+    <Graphics 
+	texture_file="data/materials_gfx/moss.png" 
+	color="ff33b828" >
+    </Graphics>
+  </CellData>
+  
+  <CellData
+	name="wax"
+  	tags="[burnable],[corrodible],[meltable],[alchemy]"
+	burnable="0"
+	density="6"
+	cell_type="liquid"
+	wang_color="ffEAAAAB"
+	generates_smoke="0"
+	liquid_gravity="3"
+	liquid_sand="1"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="10"
+	solid_friction="0.6"
+	hp="8000" 
+	>
+    <Graphics
+	texture_file="data/materials_gfx/wax.png"
+	color="ffEAAAAB" >
+    </Graphics>
+  </CellData>
+  
+  <!-- =================================================================================================================  -->
+  <!-- SAND - METAL -->
+
+  <CellData
+	name="gold"
+  	tags="[sand_metal],[corrodible],[meltable],[alchemy]"
+	burnable="0"
+	density="6"
+	cell_type="liquid"
+	wang_color="ffebcd01"
+	gfx_glow="127"
+	generates_smoke="0"
+	liquid_gravity="3"
+	liquid_sand="1"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="10"
+	solid_friction="0.7"
+	hp="8000" 
+	>
+    <Graphics
+	texture_file="data/materials_gfx/gold.png"
+	color="ffb89e58" >
+    </Graphics>
+  </CellData>
+
+  <CellData
+	name="silver"
+  	tags="[sand_metal],[corrodible],[meltable],[alchemy]"
+	burnable="0"
+	density="8"
+	cell_type="liquid"
+	wang_color="ff4e5262"
+	gfx_glow="127"
+	generates_smoke="10"
+	liquid_gravity="1.5"
+	liquid_sand="1"
+	liquid_solid="1"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="50"
+	autoignition_temperature="99"
+	solid_friction="0.7"
+	hp="8000" 
+	>
+    <Graphics
+	texture_file="data/materials_gfx/silver.png"
+	color="ffb89e58" >
+    </Graphics>
+  </CellData>
+  
+  <CellDataChild
+  	_parent="silver"
+	name="steel_sand"
+	tags="[sand_metal],[corrodible],[alchemy]"
+	wang_color="ffebf4a1"
+	gfx_glow="0"
+	>
+    <Graphics
+	texture_file="data/materials_gfx/steel.png"
+	color="ffebf4a1"
+	>
+    </Graphics>
+  </CellDataChild>
+
+  <CellData
+	name="copper"
+  	tags="[sand_metal],[corrodible],[meltable],[alchemy]"
+	burnable="0"
+	density="8"
+	cell_type="liquid"
+	wang_color="ff4e5265"
+	generates_smoke="10"
+	on_fire="0"
+	liquid_gravity="0.5"
+	liquid_sand="1"
+	requires_oxygen="1"
+	temperature_of_fire="50"
+	autoignition_temperature="99"
+	solid_friction="0.7"
+	hp="8000" 
+	>
+    <Graphics
+	texture_file="data/materials_gfx/copper.png"
+	color="ffb89e58" >
+    </Graphics>
+  </CellData>
+
+  <CellData
+	name="brass"
+  	tags="[sand_metal],[corrodible],[meltable],[alchemy]"
+	burnable="0"
+	density="8"
+	cell_type="liquid"
+	wang_color="ff4e5267"
+	generates_smoke="10"
+	on_fire="0"
+	liquid_gravity="0.5"
+	liquid_sand="1"
+	requires_oxygen="1"
+	temperature_of_fire="50"
+	autoignition_temperature="99"
+	solid_friction="0.7"
+	hp="8000" 
+	platform_type="0"
+	>
+    <Graphics
+	texture_file="data/materials_gfx/gold.png"
+	color="ffb89e58" >
+    </Graphics>
+  </CellData>
+
+  <CellData
+	name="diamond"
+  	tags="[sand_metal],[alchemy]"
+	burnable="0"
+	density="8"
+	cell_type="liquid"
+	wang_color="ff82DBE2"
+	gfx_glow="127"
+	generates_smoke="10"
+	on_fire="0"
+	liquid_gravity="0.5"
+	liquid_sand="1"
+	requires_oxygen="1"
+	temperature_of_fire="50"
+	autoignition_temperature="99"
+	solid_friction="0.6"
+	hp="200000" 
+	>
+    <Graphics
+	texture_file="data/materials_gfx/diamond.png"
+	color="ff82DBE2" >
+    </Graphics>
+  </CellData>
+
+  
+  <!-- =================================================================================================================  -->
+  <!-- SAND - OTHER -->
+
+  <CellData
+	name="coal"
+  	tags="[sand_other],[corrodible],[burnable],[alchemy]"
+	burnable="1"
+	density="6"
+	cell_type="liquid"
+	wang_color="ff505052"
+	generates_smoke="5"
+	liquid_gravity="0.5"
+	liquid_sand="1"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="95"
+	autoignition_temperature="94"
+	hp="1000" 
+	fire_hp="1000"
+	>
+    <Graphics
+	texture_file="data/materials_gfx/coal.png"
+	color="ff505050" >
+    </Graphics>
+  </CellData>
+
+  <CellData
+	name="sulphur"
+  	tags="[sand_other],[corrodible],[alchemy]"
+  	burnable="1"
+	density="6"
+	cell_type="liquid"
+	wang_color="ff141415"
+	generates_smoke="5"
+	liquid_gravity="0.5"
+	liquid_sand="1"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="95"
+	hp="1000" 
+	>
+    <Graphics
+	texture_file="data/materials_gfx/sulphur.png"
+	color="ffb89e57" >
+    </Graphics>
+  </CellData>
+
+  <CellData
+	name="salt"
+  	tags="[sand_other],[corrodible],[alchemy]"
+	burnable="0"
+	density="6"
+	cell_type="liquid"
+	wang_color="ffe1e1e2"
+	generates_smoke="0"
+	liquid_gravity="0.5"
+	liquid_sand="1"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="10"
+	solid_friction="1"
+	hp="1000" 
+	>
+    <Graphics
+	texture_file="data/materials_gfx/salt.png"
+	color="ffb89e57" >
+    </Graphics>
+  </CellData>
+  
+  <CellDataChild
+  	_parent="salt"
+	name="sodium"
+	wang_color="ff410F24"
+	>
+    <Graphics
+	color="ff410F24"
+        >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellDataChild
+  	_parent="salt"
+	name="burning_powder"
+	burnable="1"
+	fire_hp="100"
+	wang_color="ffa10F24"
+	autoignition_temperature="0"
+	temperature_of_fire="50" 
+	requires_oxygen="0"
+	>
+    <Graphics
+	color="ffa10F24"
+        >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellData
+	name="sodium_unstable"
+  	tags="[sand_other],[corrodible],[alchemy]"
+	burnable="1"
+	density="2"
+	cell_type="liquid"
+	wang_color="ff411F24"
+	generates_smoke="10"
+	liquid_gravity="0.5"
+	liquid_sand="1"
+	on_fire="1"
+	requires_oxygen="0"
+	temperature_of_fire="200"
+	autoignition_temperature="0"
+	hp="1000" 
+	fire_hp="9000"
+	>
+	<ExplosionConfig 
+		cell_explosion_power="20"
+		cell_explosion_damage_required="0"
+		cell_explosion_radius_min="5"
+		create_cell_probability="100" 
+		create_cell_material="fire"
+		ray_energy="50000"
+		>
+	</ExplosionConfig>
+    <Graphics
+	  texture_file="data/materials_gfx/salt.png"
+	  color="ff411F24" >
+    </Graphics>
+  </CellData>
+
+  <CellData
+	name="gunpowder"
+  	tags="[sand_other],[corrodible],[alchemy]"
+	burnable="1"
+	density="7"
+	cell_type="liquid"
+	wang_color="ff232324"
+	generates_smoke="10"
+	liquid_gravity="0.5"
+	liquid_sand="1"
+	on_fire="0"
+	requires_oxygen="0"
+	temperature_of_fire="80"
+	autoignition_temperature="1"
+	hp="1000" 
+	>
+    <Graphics
+	  texture_file="data/materials_gfx/gunpowder.png"
+	  color="ffb89e57" >
+    </Graphics>
+  </CellData>
+  
+  <CellData
+	name="gunpowder_explosive"
+  	tags="[sand_other],[corrodible],[alchemy]"
+	burnable="1"
+	density="7"
+	cell_type="liquid"
+	wang_color="ffF7BB43"
+	generates_smoke="10"
+	liquid_gravity="0.5"
+	liquid_sand="1"
+	on_fire="0"
+	requires_oxygen="0"
+	temperature_of_fire="50"
+	autoignition_temperature="1"
+	hp="1000" 
+	>
+	<ExplosionConfig 
+		cell_explosion_power="40"
+		cell_explosion_damage_required="20"
+		cell_explosion_radius_min="5"
+	
+		ray_energy="50000"
+		>
+	</ExplosionConfig>
+    <Graphics
+	  texture_file="data/materials_gfx/gunpowder.png"
+	  color="ffF7BB43" >
+    </Graphics>
+  </CellData>
+  
+  <CellData
+	name="gunpowder_tnt"
+  	tags="[sand_other],[corrodible],[alchemy]"
+	burnable="1"
+	density="7"
+	cell_type="liquid"
+	wang_color="ffF7BF43"
+	generates_smoke="10"
+	liquid_gravity="0.5"
+	liquid_sand="1"
+	on_fire="0"
+	requires_oxygen="0"
+	temperature_of_fire="50"
+	autoignition_temperature="1"
+	hp="1000" 
+	fire_hp="200"
+	>
+	<ExplosionConfig 
+		cell_explosion_power="200"
+		cell_explosion_damage_required="10"
+		cell_explosion_radius_min="5"
+		create_cell_probability="100"
+		create_cell_material="gunpowder_unstable"
+	
+		ray_energy="120000"
+		>
+	</ExplosionConfig>
+    <Graphics
+	  texture_file="data/materials_gfx/gunpowder_tnt.png"
+	  color="ffF7BF43" >
+    </Graphics>
+  </CellData>
+  
+  <CellData
+	name="gunpowder_unstable"
+  	tags="[sand_other],[corrodible],[burnable],[alchemy]"
+	burnable="1"
+	density="7"
+	cell_type="liquid"
+	wang_color="ff232373"
+	generates_smoke="10"
+	liquid_gravity="0.5"
+	liquid_sand="1"
+	on_fire="1"
+	requires_oxygen="0"
+	temperature_of_fire="50"
+	autoignition_temperature="0"
+	hp="1000" 
+	fire_hp="300"
+	>
+	<ExplosionConfig 
+		cell_explosion_power="40"
+		cell_explosion_damage_required="10"
+		cell_explosion_radius_min="5"
+	
+		ray_energy="50000"
+		>
+	</ExplosionConfig>
+    <Graphics
+	  texture_file="data/materials_gfx/gunpowder.png"
+	  color="ffb89e57" >
+    </Graphics>
+  </CellData>
+  
+  <CellData
+	name="gunpowder_unstable_boss_limbs"
+  	tags="[sand_other],[corrodible],[alchemy]"
+	burnable="1"
+	density="7"
+	cell_type="liquid"
+	wang_color="ff80C850"
+	generates_smoke="10"
+	liquid_gravity="0.5"
+	liquid_sand="1"
+	on_fire="1"
+	requires_oxygen="0"
+	temperature_of_fire="50"
+	autoignition_temperature="0"
+	hp="1000" 
+	fire_hp="300"
+	>
+	<ExplosionConfig 
+		cell_explosion_power="40"
+		cell_explosion_damage_required="0"
+		cell_explosion_radius_min="5"
+	
+		create_cell_probability="10"
+		create_cell_material="slime_green"
+		ray_energy="50000"
+		explosion_sprite="data/particles/explosion_032_slime.xml"
+		spark_material="spark_green"
+		r="80"
+		g="220"
+		b="170"
+		>
+	</ExplosionConfig>
+    <Graphics
+	  texture_file="data/materials_gfx/moss.png"
+	  color="ff80C850" >
+    </Graphics>
+  </CellData>
+
+  <CellData
+	name="plastic_red"
+  	tags="[corrodible],[meltable],[alchemy]"
+	burnable="0"
+	density="6"
+	cell_type="liquid"
+	wang_color="ff900000"
+	generates_smoke="0"
+	liquid_gravity="3"
+	liquid_sand="1"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="10"
+	solid_friction="0.6"
+	hp="100" 
+	platform_type="0"
+	>
+  </CellData>
+
+  <CellData
+	name="plastic_red_molten"
+  	tags="[liquid],[corrodible],[molten],[meltable_to_lava],[alchemy]"
+	burnable="0"
+	density="5.1"
+	cell_type="liquid"
+	color="ff890000"
+	wang_color="ff9000ab"
+	generates_smoke="0"
+	liquid_gravity="3"
+	liquid_sand="0"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="10"
+	hp="100" 
+	>
+  </CellData>
+
+  <CellDataChild
+  	_parent="plastic_red_molten"
+	name="plastic_molten"
+	wang_color="ffff00ab"
+	>
+    <Graphics
+	texture_file="data/materials_gfx/steel.png"
+	color="ff73737f"
+	pixel_all_around="ff73737f"
+	
+	pixel_lonely="ff4f5eab"
+	pixel_top_right="ff4f5eab"
+	pixel_bottom_left="ff4f5eab"
+	
+	pixel_left="ffc1c8be"
+	pixel_top_left="ffc1c8be"
+	pixel_top="ffc1c8be"
+	
+	pixel_right="ff25333b"
+	pixel_bottom_right="ff25333b"
+	pixel_bottom="ff25333b"
+        >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellDataChild
+  	_parent="plastic_red_molten"
+	name="plastic_prop_molten"
+	wang_color="ffbb00ab"
+	>
+    <Graphics
+	texture_file="data/materials_gfx/steel.png"
+	color="ff73737f"
+	pixel_all_around="ff73737f"
+	
+	pixel_lonely="ff4f5eab"
+	pixel_top_right="ff4f5eab"
+	pixel_bottom_left="ff4f5eab"
+	
+	pixel_left="ffc1c8be"
+	pixel_top_left="ffc1c8be"
+	pixel_top="ffc1c8be"
+	
+	pixel_right="ff25333b"
+	pixel_bottom_right="ff25333b"
+	pixel_bottom="ff25333b"
+        >
+    </Graphics>
+  </CellDataChild>
+
+  <!-- =================================================================================================================  -->
+  <!-- PLANT  -->
+
+  <CellData 
+	name="grass"  
+  	tags="[plant],[requires_air],[corrodible],[burnable],[alchemy]"
+	burnable="1"  
+	density="6"  
+	cell_type="liquid" 
+	wang_color="ff3abb30"  
+	generates_smoke="20"  
+	liquid_gravity="0.5"  
+	liquid_sand="1"  
+	on_fire="0"  
+	requires_oxygen="1"  
+	temperature_of_fire="50" 
+	autoignition_temperature="85" 
+	platform_type="0"
+	hp="200" 
+	fire_hp="100"
+	> 
+    <Graphics 
+	texture_file="data/materials_gfx/grass.png" 
+	color="ff33b828" >
+    </Graphics>
+  </CellData>
+
+  <CellData 
+	name="fungi"  
+  	tags="[plant],[corrodible],[burnable],[alchemy]"
+	burnable="1"  
+	density="6"  
+	cell_type="liquid" 
+	wang_color="ff3abb32"  
+	generates_smoke="20"  
+	liquid_gravity="0.5"  
+	liquid_sand="1"
+	liquid_viscosity="0"
+	liquid_sticks_to_ceiling="80"
+	on_fire="0"  
+	requires_oxygen="1"  
+	temperature_of_fire="90" 
+	autoignition_temperature="65" 
+	solid_on_collision_material="blood_fungi"
+	solid_break_to_type="blood_fungi"
+	platform_type="0"
+	gfx_glow="255"
+	fire_hp="60"
+	> 
+    <Graphics 
+	texture_file="data/materials_gfx/fungi.png" 
+	color="ffF064AA" >
+    </Graphics>
+  </CellData>
+  
+  <CellDataChild
+  	_parent="fungi"
+  	_inherit_reactions="1"
+	solid_on_collision_material="slime_green"
+	stickyness="0.7"
+	solid_friction="0.7"
+  	name="fungi_green" 
+	wang_color="ff45FF45" >
+  	<Graphics
+	texture_file="data/materials_gfx/moss.png"
+	color="ff45FF45" >
+    </Graphics>
+  </CellDataChild>
+
+  <CellData 
+	name="spore"  
+  	tags="[plant],[corrodible],[burnable],[alchemy]"
+	burnable="1"  
+	density="6"  
+	cell_type="liquid" 
+	wang_color="ff3abb33"  
+	generates_smoke="20"  
+	liquid_gravity="0.04"  
+	liquid_sand="1"
+	liquid_viscosity="150"
+	liquid_sticks_to_ceiling="0"
+	on_fire="0"  
+	requires_oxygen="1"  
+	temperature_of_fire="90" 
+	autoignition_temperature="65" 
+	platform_type="0"
+	gfx_glow="255"
+	> 
+    <Graphics 
+	texture_file="data/materials_gfx/gunpowder.png" 
+	color="ff33b828" >
+    </Graphics>
+  </CellData>
+  
+  <CellDataChild
+  	_parent="moss"
+  	_inherit_reactions="1"
+	density="1"
+  	name="peat" 
+	wang_color="ff45AA45" >
+  	<Graphics
+	texture_file="data/materials_gfx/moss.png"
+	color="ff45AA45" >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellData 
+	name="moss"  
+	tags="[plant],[corrodible],[burnable],[alchemy]"
+	burnable="1"  
+	density="6"  
+	cell_type="liquid" 
+	wang_color="ff33b828"  
+	generates_smoke="20"  
+	liquid_gravity="0.5"  
+	liquid_sand="1"  
+	liquid_sticks_to_ceiling="100"
+	on_fire="0"  
+	requires_oxygen="1"  
+	temperature_of_fire="50" 
+	autoignition_temperature="85" 
+	platform_type="0"
+	liquid_viscosity="40"
+	hp="200" 
+	fire_hp="100"
+	> 
+    <Graphics 
+	texture_file="data/materials_gfx/moss.png" 
+	color="ff33b828" >
+    </Graphics>
+  </CellData>
+
+  <CellData 
+	name="plant_material"  
+  	tags="[plant],[requires_air],[corrodible],[burnable]"
+	burnable="1"  
+	density="6"  
+	cell_type="liquid" 
+	wang_color="ff33b838"  
+	generates_smoke="20"  
+	liquid_gravity="0.5"  
+	liquid_sand="1"  
+	liquid_viscosity="101"
+	on_fire="0"  
+	requires_oxygen="1"  
+	temperature_of_fire="50" 
+	autoignition_temperature="85" 
+	platform_type="0"
+	vegetation_full_lifetime_growth="700"
+	vegetation_sprite="data/vegetation/bush_growth_$[1-8].xml"
+	hp="200" 
+	> 
+    <Graphics 
+	texture_file="data/materials_gfx/grass.png" 
+	color="ff33b828" >
+    </Graphics>
+  </CellData>
+
+  <CellData 
+	name="ceiling_plant_material"  
+  	tags="[plant],[corrodible],[burnable]"
+	burnable="1"  
+	density="6"  
+	cell_type="liquid" 
+	wang_color="ff33b848"  
+	generates_smoke="20"  
+	liquid_gravity="0.5"  
+	liquid_sand="1"  
+	liquid_viscosity="101"
+	liquid_sticks_to_ceiling="100"
+	on_fire="0"  
+	requires_oxygen="1"  
+	temperature_of_fire="50" 
+	autoignition_temperature="85" 
+	platform_type="0"
+	vegetation_full_lifetime_growth="700"
+	vegetation_sprite="data/vegetation/ceiling_vegetation_00$[1-8].png"
+	hp="200" 
+	> 
+    <Graphics 
+	texture_file="data/materials_gfx/grass.png" 
+	color="ff33b828" >
+    </Graphics>
+  </CellData>
+
+  <CellData 
+	name="mushroom_seed"  
+  	tags="[plant],[corrodible],[burnable]"
+	burnable="1"  
+	density="6"  
+	cell_type="liquid" 
+	wang_color="ffb89f6c"  
+	generates_smoke="20"  
+	liquid_gravity="0.5"  
+	liquid_sand="1"  
+	liquid_viscosity="75"
+	on_fire="0"  
+	requires_oxygen="1"  
+	temperature_of_fire="50" 
+	autoignition_temperature="85" 
+	platform_type="0"
+	hp="200" 
+	> 
+  </CellData>
+  
+  <CellData 
+	name="mushroom"  
+  	tags="[plant],[corrodible],[burnable]"
+	burnable="1"  
+	density="6"  
+	cell_type="liquid" 
+	wang_color="ffb89f7c"  
+	generates_smoke="20"  
+	liquid_gravity="0.5"  
+	liquid_sand="1"  
+	liquid_viscosity="75"
+	on_fire="0"  
+	requires_oxygen="1"  
+	temperature_of_fire="50" 
+	autoignition_temperature="85" 
+	platform_type="0"
+	vegetation_full_lifetime_growth="700"
+	vegetation_sprite="data/vegetation/mushroom_growth_1.xml"
+	hp="200" 
+	> 
+  </CellData>
+
+  <CellData 
+	name="mushroom_giant_red"  
+  	tags="[plant],[requires_air],[corrodible],[burnable]"
+	burnable="1"  
+	density="6"  
+	cell_type="liquid" 
+	wang_color="ffd9d9cd"  
+	generates_smoke="20"  
+	liquid_gravity="0.5"  
+	liquid_sand="1"  
+	liquid_viscosity="75"
+	on_fire="0"  
+	requires_oxygen="1"  
+	temperature_of_fire="50" 
+	autoignition_temperature="85" 
+	platform_type="0"
+	vegetation_full_lifetime_growth="6000"
+	vegetation_sprite="data/vegetation/mushroom_growth_2.xml"
+	hp="200" 
+	> 
+  </CellData>
+  
+  <CellData 
+	name="mushroom_giant_blue"  
+  	tags="[plant],[requires_air],[corrodible],[burnable]"
+	burnable="1"  
+	density="6"  
+	cell_type="liquid" 
+	wang_color="ffd9d9cc"  
+	generates_smoke="20"  
+	liquid_gravity="0.5"  
+	liquid_sand="1"  
+	liquid_viscosity="75"
+	on_fire="0"  
+	requires_oxygen="1"  
+	temperature_of_fire="50" 
+	autoignition_temperature="85" 
+	platform_type="0"
+	vegetation_full_lifetime_growth="6000"
+	vegetation_sprite="data/vegetation/mushroom_growth_3.xml"
+	hp="200" 
+	> 
+  </CellData>
+  
+  <CellData 
+	name="glowshroom"  
+  	tags="[plant],[requires_air],[corrodible],[burnable]"
+	burnable="1"  
+	density="6"  
+	cell_type="liquid" 
+	wang_color="ffd9d9cb"  
+	generates_smoke="20"  
+	liquid_gravity="0.5"  
+	liquid_sand="1"  
+	liquid_viscosity="75"
+	on_fire="0"  
+	requires_oxygen="1"  
+	temperature_of_fire="50" 
+	autoignition_temperature="85" 
+	platform_type="0"
+	vegetation_full_lifetime_growth="6000"
+	vegetation_sprite="data/vegetation/glowshroom_growth.xml"
+	hp="200" 
+	gfx_glow="255"
+	> 
+  </CellData>
+
+ <CellData 
+	name="bush_seed"  
+  	tags="[plant],[requires_air],[corrodible],[burnable]"
+	burnable="1"  
+	density="6"  
+	cell_type="liquid" 
+	wang_color="ff4d5d44"  
+	generates_smoke="20"  
+	liquid_gravity="0.5"  
+	liquid_sand="1"  
+	liquid_viscosity="75"
+	on_fire="0"  
+	requires_oxygen="1"  
+	temperature_of_fire="50" 
+	autoignition_temperature="85" 
+	platform_type="0"
+	vegetation_full_lifetime_growth="700"
+	vegetation_sprite="data/vegetation/bush_growth_$[1-8].xml"
+	hp="200" 
+	> 
+  </CellData>
+
+
+  <!-- =================================================================================================================  -->
+  <!-- SPECIAL -->
+
+  <CellData
+	name="acid"
+  	tags="[liquid],[acid]"
+	burnable="0"
+	density="2.9"
+	cell_type="liquid"
+	wang_color="8000ff12"
+	generates_smoke="0"
+	liquid_gravity="0.5"
+	liquid_sand="0"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="10"  >
+  </CellData>
+
+  <CellData
+	name="lava"
+  	tags="[fire],[liquid],[lava]"
+	burnable="0"
+	density="6"
+	cell_type="liquid"
+	gfx_glow="150"
+	wang_color="ffff6000"
+	generates_smoke="3"
+	liquid_gravity="0.75"
+	liquid_sand="0"
+	liquid_viscosity="10"
+	on_fire="0"
+	danger_fire="1"
+	requires_oxygen="0"
+	temperature_of_fire="90"  >
+  </CellData>
+  
+
+<!-- =================================================================================================================  -->
+<!-- BOX2D (SIMULATED AS A DYNAMIC PHYSICS BODY) -->
+
+  <CellData
+	name="wood_player"
+	tags="[static],[corrodible],[alchemy]"
+	burnable="1"
+	density="6"
+	cell_type="liquid"
+	wang_color="ff613e03"
+	generates_smoke="20"
+	liquid_gravity="0.5"
+	liquid_sand="1"
+	liquid_static="1"
+	on_fire="0"
+	fire_hp="600"
+	requires_oxygen="1"
+	temperature_of_fire="50"
+	autoignition_temperature="85"
+	solid_friction="0.9"
+	gfx_glow="0"
+	hp="2000" 
+	on_fire_convert_to_material="wood_player_b2"
+	platform_type="1"
+	>
+	 <Graphics
+	texture_file="data/materials_gfx/wood.png"
+	color="ff5d5a33"
+	pixel_all_around="ff5d5a33"
+	
+	pixel_lonely="ff5d5a33"
+	pixel_top_right="ff5d5a33"
+	pixel_bottom_left="ff5d5a33"
+	
+	pixel_left="ff776e36"
+	pixel_top_left="ff776e36"
+	pixel_top="ff776e36"
+	
+	pixel_right="ff413f24"
+	pixel_bottom="ff413f24"
+	pixel_bottom_right="ff292416"
+	>
+    </Graphics>
+  </CellData>
+
+  <CellData
+	name="wood_player_b2"
+	tags="[static],[box2d],[alchemy]"
+	burnable="1"
+	density="6"
+	cell_type="solid"
+	wang_color="ff613e02"
+	generates_smoke="20"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="50"
+	autoignition_temperature="85"
+	solid_static_type="3"
+	solid_collide_with_self="0"
+	solid_on_sleep_convert="1"
+	solid_break_to_type="wood_player"
+	crackability="0"
+	solid_friction="0.9"
+	platform_type="1"
+	hp="2000"
+	fire_hp="600"
+	gfx_glow="0"
+	>
+ 	<Graphics
+	texture_file="data/materials_gfx/wood.png"
+	color="ff5d5a33"
+	pixel_all_around="ff5d5a33"
+	
+	pixel_lonely="ff5d5a33"
+	pixel_top_right="ff5d5a33"
+	pixel_bottom_left="ff5d5a33"
+	
+	pixel_left="ff776e36"
+	pixel_top_left="ff776e36"
+	pixel_top="ff776e36"
+	
+	pixel_right="ff413f24"
+	pixel_bottom="ff413f24"
+	pixel_bottom_right="ff292416"
+	>
+    </Graphics>
+  </CellData>
+
+
+  <CellData
+	name="wood"
+  	tags="[box2d],[corrodible],[alchemy]"
+	burnable="1"
+	density="6"
+	cell_type="solid"
+	wang_color="ff613e00"
+	generates_smoke="20"
+	on_fire="0"
+	fire_hp="600"
+	requires_oxygen="1"
+	temperature_of_fire="50"
+	autoignition_temperature="85"
+	solid_static_type="3"
+	solid_collide_with_self="0"
+	platform_type="0"
+	solid_friction="0.9"
+	hp="2000"
+	>
+    <Graphics
+	texture_file="data/materials_gfx/wood.png"
+	color="ff5d5a33"
+	pixel_all_around="ff5d5a33"
+	
+	pixel_lonely="ff5d5a33"
+	pixel_top_right="ff5d5a33"
+	pixel_bottom_left="ff5d5a33"
+	
+	pixel_left="ff776e36"
+	pixel_top_left="ff776e36"
+	pixel_top="ff776e36"
+	
+	pixel_right="ff413f24"
+	pixel_bottom="ff413f24"
+	pixel_bottom_right="ff292416"
+	>
+    </Graphics>
+  </CellData>
+  
+  <CellData
+	name="wax_b2"
+  	tags="[box2d],[alchemy]"
+	burnable="1"
+	density="6"
+	cell_type="solid"
+	wang_color="ffEAAAAC"
+	generates_smoke="20"
+	on_fire="0"
+	fire_hp="60000"
+	requires_oxygen="1"
+	temperature_of_fire="5"
+	autoignition_temperature="99"
+	solid_static_type="0"
+	solid_collide_with_self="1"
+	platform_type="0"
+	solid_friction="0.9"
+	hp="2000"
+	>
+    <Graphics
+	texture_file="data/materials_gfx/wax.png"
+	color="ffEAAAAC"
+	>
+    </Graphics>
+  </CellData>
+  
+
+  <CellDataChild
+  	_parent="wood"
+  	_inherit_reactions="1"
+  	name="templebrick_box2d" 
+	platform_type="2"
+	hp="10000"
+	burnable="0"
+	wang_color="ff644620" >
+  	<Graphics
+	texture_file="data/materials_gfx/templebrick.png"
+	color="ff644620" >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellDataChild
+  	_parent="wood_loose"
+  	_inherit_reactions="1"
+  	name="wood_trailer"
+	autoignition_temperature="50"
+	fire_hp="50"
+	wang_color="ffa44620" >
+  	<Graphics
+	color="ffa44620" >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellDataChild
+  	_parent="wood"
+  	_inherit_reactions="1"
+  	name="wood_wall" 
+	platform_type="1"
+	wang_color="ff644600" >
+  	<Graphics
+	texture_file="data/materials_gfx/wood.png"
+	color="ff644600" >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellDataChild
+  	_parent="wood_loose"
+  	_inherit_reactions="1"
+  	name="cactus" 
+	wang_color="ff64f640" >
+  	<Graphics
+	texture_file="data/materials_gfx/wood.png"
+	color="ff64f640" >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellDataChild
+  	_parent="wood_loose"
+  	_inherit_reactions="1"
+  	name="fungus_loose" 
+	solid_restitution="0.4"
+	solid_on_collision_material="blood_fungi"
+	solid_on_collision_splash_power="1"
+	wang_color="ff64ab40" >
+  	<Graphics
+	texture_file="data/materials_gfx/fungi.png"
+	color="ff64ab40" >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellDataChild
+  	_parent="wood"
+  	_inherit_reactions="1"
+  	name="wood_prop" 
+	platform_type="1"
+	solid_static_type="0"
+	solid_collide_with_self="1"
+	wang_color="ff966400" >
+  	<Graphics
+	texture_file="data/materials_gfx/wood.png"
+	color="ff966400" >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellDataChild
+  	_parent="wood"
+  	_inherit_reactions="1"
+  	name="metal_prop" 
+	platform_type="1"
+	solid_static_type="0"
+	solid_collide_with_self="1"
+	burnable="0"
+	hp="200000"
+	wang_color="ff968800" >
+  	<Graphics
+	texture_file="data/materials_gfx/steel.png"
+	color="ff968800" >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellDataChild
+  	_parent="wood_prop"
+  	_inherit_reactions="1"
+  	name="nest_box2d" 
+	platform_type="0"
+	wang_color="ff3b8d4b" >
+  	<Graphics
+	texture_file="data/materials_gfx/nest.png"
+	color="ff3b8d4b" >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellDataChild
+  	_parent="wood_prop"
+  	_inherit_reactions="1"
+  	name="cocoon_box2d" 
+	platform_type="0"
+	wang_color="ff3f8d4b" >
+  	<Graphics
+	texture_file="data/materials_gfx/nest.png"
+	color="ff3f8d4b" >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellData
+	name="wood_loose"
+  	tags="[box2d],[corrodible],[alchemy]"
+	burnable="1"
+	density="6"
+	cell_type="solid"
+	wang_color="ff613e01"
+	generates_smoke="20"
+	on_fire="0"
+	fire_hp="600"
+	requires_oxygen="1"
+	temperature_of_fire="50"
+	autoignition_temperature="85"
+	solid_static_type="0"
+	solid_collide_with_self="0"
+	solid_friction="0.9"
+	platform_type="0"
+	hp="2000"
+	>
+    <Graphics
+	texture_file="data/materials_gfx/wood.png"
+	color="ff5d5a33"
+	>
+    </Graphics>
+  </CellData>
+
+   <CellData
+	name="ice_ceiling"
+  	tags="[box2d],[corrodible],[alchemy]"
+	burnable="0"
+	density="6"
+	cell_type="solid"
+	wang_color="ff3b93ba"
+	generates_smoke="0"
+	on_fire="0"
+	fire_hp="600"
+	requires_oxygen="1"
+	temperature_of_fire="50"
+	autoignition_temperature="85"
+	solid_friction="0.2"
+	solid_static_type="5"
+	platform_type="0"
+	hp="3000"
+	>
+    <Graphics
+		texture_file="data/materials_gfx/ice.png"
+		color="ff3b93bb"
+		pixel_all_around="ff3b93bb"
+		
+		pixel_lonely="ff3b93bb"
+		pixel_top_right="ff3b93bb"
+		pixel_bottom_left="ff3b93bb"
+		
+		pixel_left="ff78e0f0"
+		pixel_top_left="ff78e0f0"
+		pixel_top="ff78e0f0"
+		
+		pixel_right="ff365b77"
+		pixel_bottom_right="ff365b77"
+		pixel_bottom="ff365b77"
+	>
+    </Graphics>
+  </CellData>
+
+  <CellData
+	name="brick"
+  	tags="[box2d],[corrodible],[alchemy]"
+	burnable="1"
+	density="50"
+	cell_type="solid"
+	wang_color="ffb80900"
+	generates_smoke="10"
+	on_fire="0"
+	requires_oxygen="1"
+	solid_friction="1"
+	temperature_of_fire="30"
+	autoignition_temperature="99" 
+	solid_break_on_explosion_rate="10"
+	hp="4000"
+	>
+    <Graphics
+	texture_file="data/materials_gfx/brick.png"
+	color="ff73737f"
+	pixel_all_around="ff73737f"
+	
+	pixel_lonely="ff73737f"
+	pixel_top_right="ff73737f"
+	pixel_bottom_left="ff73737f"
+	
+	pixel_left="ffc7c7cc"
+	pixel_top_left="ffc7c7cc"
+	pixel_top="ffc7c7cc"
+	
+	pixel_right="ff706d60"
+	pixel_bottom_right="ff706d60"
+	pixel_bottom="ff706d60"
+	>
+    </Graphics>
+  </CellData>
+
+  <CellData
+	name="concrete_collapsed"
+  	tags="[box2d],[corrodible],[alchemy]"
+	burnable="1"
+	density="10"
+	cell_type="solid"
+	wang_color="ffb80901"
+	generates_smoke="10"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="30"
+	autoignition_temperature="99" 
+	solid_break_on_explosion_rate="10"
+	solid_static_type="0"
+	solid_collide_with_self="1"
+	solid_on_sleep_convert="1"
+	solid_friction="0.9"
+	solid_break_to_type="concrete_static"
+	platform_type="1"
+	solid_on_collision_explode="1"
+	supports_collapsible_structures="0"
+	hp="10000"
+	>
+	<ExplosionConfig 
+		cell_explosion_power="0.08"
+		cell_explosion_damage_required="500000"
+		cell_explosion_radius_min="4"
+		cell_explosion_radius_max="20"
+		cell_explosion_velocity_min="30"
+		light_enabled="0"
+		camera_shake="15"
+		stains_enabled="0"
+		spark_material="concrete_sand"
+		create_cell_material="concrete_sand"
+		create_cell_probability="2"
+		explosion_sprite=""
+		ray_energy="60000"
+		>
+	</ExplosionConfig>
+    <Graphics
+	texture_file="data/materials_gfx/brick.png"
+	color="ff73737f"
+	pixel_all_around="ff73737f"
+	
+	pixel_lonely="ff73737f"
+	pixel_top_right="ff73737f"
+	pixel_bottom_left="ff73737f"
+	
+	pixel_left="ffc7c7cc"
+	pixel_top_left="ffc7c7cc"
+	pixel_top="ffc7c7cc"
+	
+	pixel_right="ff706d60"
+	pixel_bottom_right="ff706d60"
+	pixel_bottom="ff706d60"
+	>
+    </Graphics>
+  </CellData>
+
+  <CellData
+	name="tnt"
+  	tags="[box2d],[corrodible],[burnable],[alchemy]"
+	burnable="1"
+	density="8"
+	cell_type="solid"
+	wang_color="ffab5e4f"
+	generates_smoke="10"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="50"
+	autoignition_temperature="85"
+	fire_hp="600"
+	solid_friction="0.9"
+	hp="500"
+	>
+	<ExplosionConfig 
+      	camera_shake="10" 
+		cell_explosion_power="40"
+		cell_explosion_damage_required="30"
+		cell_explosion_radius_min="5"
+		ray_energy="50000"
+		>
+	</ExplosionConfig>
+
+    <Graphics
+	texture_file="data/materials_gfx/tnt.png"
+	color="ff73737f"
+	pixel_all_around="ff73737f"
+	
+	pixel_lonely="ff73737f"
+	pixel_top_right="ff73737f"
+	pixel_bottom_left="ff73737f"
+	
+	pixel_left="ffc7c7cc"
+	pixel_top_left="ffc7c7cc"
+	pixel_top="ffc7c7cc"
+	
+	pixel_right="ff242428"
+	pixel_bottom_right="ff242428"
+	pixel_bottom="ff242428"
+        >
+    </Graphics>
+  </CellData>
+
+  <CellData
+	name="meteorite"
+  	tags="[box2d],[alchemy]"
+	burnable="0"
+	fire_hp="-1"
+	density="8"
+	cell_type="solid"
+	wang_color="ff1D1012"
+	generates_smoke="10"
+	on_fire="1"
+	requires_oxygen="1"
+	temperature_of_fire="50"
+	autoignition_temperature="85"
+	solid_go_through_sand="1"
+	solid_on_collision_explode="1"
+	solid_friction="1"
+	hp="5000"
+	>
+	<ExplosionConfig 
+		cell_explosion_power="2.5"
+		cell_explosion_damage_required="300000"
+		cell_explosion_radius_min="5"
+	
+		ray_energy="50000"
+		>
+	</ExplosionConfig>
+
+    <Graphics
+		texture_file="data/materials_gfx/meteor.png"
+		color="ff1D1010"
+		pixel_all_around="ff1D1010"
+
+		pixel_lonely="ff1D1010"
+		pixel_top_right="ff461F1F"
+		pixel_bottom_left="ff0A0606"
+
+		pixel_left="ff0A0606"
+		pixel_top_left="ff1D1010"
+		pixel_top="ff461F1F"
+
+		pixel_right="ff461F1F"
+		pixel_bottom="ff0A0606"
+		pixel_bottom_right="ff1D1010"
+	>
+    </Graphics>
+  </CellData>
+
+   <CellData
+	name="meteorite_test"
+  	tags="[box2d],[alchemy]"
+	burnable="0"
+	fire_hp="-1"
+	density="8"
+	cell_type="solid"
+	wang_color="ff1D1013"
+	generates_smoke="10"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="50"
+	autoignition_temperature="85"
+	solid_go_through_sand="1"
+	solid_on_collision_explode="0"
+	solid_friction="1"
+	hp="5000"
+	>
+
+    <Graphics
+		texture_file="data/materials_gfx/meteor.png"
+		color="ff1D1010"
+		pixel_all_around="ff1D1010"
+
+		pixel_lonely="ff1D1010"
+		pixel_top_right="ff461F1F"
+		pixel_bottom_left="ff0A0606"
+
+		pixel_left="ff0A0606"
+		pixel_top_left="ff1D1010"
+		pixel_top="ff461F1F"
+
+		pixel_right="ff461F1F"
+		pixel_bottom="ff0A0606"
+		pixel_bottom_right="ff1D1010"
+	>
+    </Graphics>
+  </CellData>
+  
+  
+  <CellDataChild
+  	_parent="meteorite"
+  	_inherit_reactions="1"
+  	name="meteorite_crackable" 
+	wang_color="ffa86C42"
+	crackability="100"
+	cell_type="solid"
+	generates_smoke="0"
+	density="4"
+	on_fire="0"
+	requires_oxygen="0"
+	temperature_of_fire="10"
+	solid_static_type="0"
+	solid_collide_with_self="1"
+	solid_on_sleep_convert="0"
+	solid_break_to_type="ice_static"
+	solid_friction="0.05"
+	solid_on_collision_explode="1"
+	platform_type="1"
+	>
+	<ExplosionConfig 
+		cell_explosion_power="5.5"
+		cell_explosion_damage_required="1000"
+		cell_explosion_velocity_min="0"
+		cell_explosion_radius_min="10"
+		cell_explosion_radius_max="20"
+		cell_explosion_probability="1.1" 
+		ray_energy="100000"
+		>
+	</ExplosionConfig>
+  	<Graphics
+	texture_file="data/materials_gfx/templebrick.png"
+	color="ffa86C42" >
+    </Graphics>
+  </CellDataChild>
+
+  <CellData
+	name="meteorite_green"
+  	tags="[box2d],[alchemy]"
+	burnable="0"
+	fire_hp="-1"
+	density="8"
+	cell_type="solid"
+	wang_color="ff4e5244"
+	generates_smoke="10"
+	on_fire="0"
+	requires_oxygen="1"
+	explosion_power="2.5"
+	temperature_of_fire="50"
+	autoignition_temperature="85"
+	solid_go_through_sand="1"
+	solid_on_collision_explode="1"
+	solid_friction="1"
+	gfx_glow="255"
+	hp="5000"
+	>
+	<ExplosionConfig 
+		cell_explosion_power="30"
+		cell_explosion_damage_required="3000"
+		cell_explosion_radius_min="5"
+	
+		ray_energy="50000"
+		>
+	</ExplosionConfig>
+
+    <Graphics
+	texture_file="data/materials_gfx/rock_glow.png"
+	color="ff313b36"
+	pixel_all_around="ff313b36"
+	
+	pixel_lonely="ff313b36"
+	pixel_top_right="ff313b36"
+	pixel_bottom_left="ff313b36"
+	
+	pixel_left="ff495750"
+	pixel_top_left="ff495750"
+	pixel_top="ff495750"
+	
+	pixel_right="ff1a201d"
+	pixel_bottom_right="ff1a201d"
+	pixel_bottom="ff1a201d"
+	>
+    </Graphics>
+  </CellData>
+
+  <CellData
+	name="steel"
+  	tags="[box2d],[rust_box2d],[alchemy]"
+	burnable="0"
+	density="8"
+	cell_type="solid"
+	wang_color="ff3b5d4b"
+	generates_smoke="10"
+	on_fire="0"
+	requires_oxygen="1"
+	platform_type="1"
+	temperature_of_fire="50"
+	autoignition_temperature="99"
+	solid_static_type="0"
+	solid_break_to_type="steel_sand"
+	solid_friction="0.8"
+	hp="100000"
+	>
+    <Graphics
+	texture_file="data/materials_gfx/steel.png"
+	color="ff73737f"
+	pixel_all_around="ff73737f"
+	
+	pixel_lonely="ff4f5eab"
+	pixel_top_right="ff4f5eab"
+	pixel_bottom_left="ff4f5eab"
+	
+	pixel_left="ffc1c8be"
+	pixel_top_left="ffc1c8be"
+	pixel_top="ffc1c8be"
+	
+	pixel_right="ff25333b"
+	pixel_bottom_right="ff25333b"
+	pixel_bottom="ff25333b"
+        >
+    </Graphics>
+  </CellData>
+
+  <CellData
+	name="steel_rust"
+  	tags="[box2d],[alchemy]"
+	burnable="0"
+	density="8"
+	cell_type="solid"
+	wang_color="ff73727e"
+	generates_smoke="10"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="50"
+	autoignition_temperature="99"
+	solid_friction="1"
+	solid_static_type="0"
+	hp="8000"
+	>
+    <Graphics
+		texture_file="data/materials_gfx/rust.png"
+		color="ff73737f"
+		pixel_all_around="ff73737f"
+		
+		pixel_lonely="ff4f5eab"
+		pixel_top_right="ff4f5eab"
+		pixel_bottom_left="ff4f5eab"
+		
+		pixel_left="ffc1c8be"
+		pixel_top_left="ffc1c8be"
+		pixel_top="ffc1c8be"
+		
+		pixel_right="ff25333b"
+		pixel_bottom_right="ff25333b"
+		pixel_bottom="ff25333b"
+        >
+    </Graphics>
+  </CellData>
+  
+  <CellData
+	name="metal_rust_rust"
+  	tags="[box2d],[alchemy]"
+	burnable="0"
+	density="8"
+	cell_type="solid"
+	wang_color="ff73a27e"
+	generates_smoke="10"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="50"
+	autoignition_temperature="99"
+	solid_friction="1"
+	solid_static_type="0"
+	hp="8000"
+	>
+    <Graphics
+		texture_file="data/materials_gfx/rust.png"
+		color="ff73a37f"
+		pixel_all_around="ff73737f"
+		
+		pixel_lonely="ff4f5eab"
+		pixel_top_right="ff4f5eab"
+		pixel_bottom_left="ff4f5eab"
+		
+		pixel_left="ffc1c8be"
+		pixel_top_left="ffc1c8be"
+		pixel_top="ffc1c8be"
+		
+		pixel_right="ff25333b"
+		pixel_bottom_right="ff25333b"
+		pixel_bottom="ff25333b"
+        >
+    </Graphics>
+  </CellData>
+
+  <CellData
+	name="plastic"
+  	tags="[box2d],[corrodible],[meltable],[alchemy]"
+	burnable="0"
+	density="8"
+	cell_type="solid"
+	wang_color="ff3b5d3b"
+	generates_smoke="10"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="50"
+	autoignition_temperature="99"
+	solid_static_type="0"
+	solid_friction="0.7"
+	hp="4000"
+	>
+    <Graphics
+	texture_file="data/materials_gfx/steel.png"
+	color="ff73737f"
+	pixel_all_around="ff73737f"
+	
+	pixel_lonely="ff4f5eab"
+	pixel_top_right="ff4f5eab"
+	pixel_bottom_left="ff4f5eab"
+	
+	pixel_left="ffc1c8be"
+	pixel_top_left="ffc1c8be"
+	pixel_top="ffc1c8be"
+	
+	pixel_right="ff25333b"
+	pixel_bottom_right="ff25333b"
+	pixel_bottom="ff25333b"
+        >
+    </Graphics>
+  </CellData>
+
+  <CellDataChild
+  	_parent="plastic"
+  	_inherit_reactions="1"
+  	name="plastic_prop" 
+	platform_type="0"
+	wang_color="ff3b6d4b" >
+  	<Graphics
+	texture_file="data/materials_gfx/steel.png"
+	color="ff3b5d4b" >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellData
+	name="aluminium"
+	tags="[box2d],[corrodible],[rust_oxide],[alchemy]"
+	burnable="0"
+	density="8"
+	cell_type="solid"
+	wang_color="ff3b5d3c"
+	generates_smoke="10"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="50"
+	autoignition_temperature="99"
+	solid_friction="0.7"
+	solid_static_type="0"
+	hp="5000"
+	>
+	<Graphics
+		texture_file="data/materials_gfx/steel.png"
+		color="ff73737f"
+	>
+	</Graphics>
+  </CellData>
+  
+  <CellDataChild
+  	_parent="aluminium"
+  	_inherit_reactions="1"
+	tags="[box2d],[corrodible],[alchemy]"
+  	name="aluminium_robot" 
+	wang_color="ff3c2d3c" >
+  	<Graphics
+	texture_file="data/materials_gfx/steel.png"
+	color="ff3c2d3c" >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellDataChild
+  	_parent="aluminium"
+  	_inherit_reactions="1"
+	tags="[box2d],[corrodible],[alchemy]"
+  	name="metal"
+	platform_type="1"
+	wang_color="ff3d2d3c" >
+  	<Graphics
+	texture_file="data/materials_gfx/steel.png"
+	color="ff3d2d3c" >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellDataChild
+  	_parent="aluminium"
+  	_inherit_reactions="1"
+	tags="[box2d]"
+  	name="rock_box2d"
+	platform_type="1"
+	hp="30000"
+	wang_color="ff2d2dac" >
+  	<Graphics
+	texture_file="data/materials_gfx/rock.png"
+	color="ff2d2dac" >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellDataChild
+  	_parent="aluminium"
+  	_inherit_reactions="1"
+	tags="[box2d]"
+  	name="item_box2d"
+	platform_type="0"
+	hp="30000"
+	durability="12"
+	gfx_glow="188"
+	wang_color="fffe2dac"
+	stainable="0" >
+  	<Graphics
+	texture_file="data/materials_gfx/crystal.png"
+	color="fffe2dac" >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellDataChild
+  	_parent="aluminium"
+  	_inherit_reactions="1"
+	tags="[box2d]"
+  	name="gem_box2d"
+	platform_type="0"
+	hp="30000"
+	durability="12"
+	gfx_glow="188"
+	gfx_glow_color="0xFF0000FF"
+	wang_color="fffd2dac"
+	stainable="0" >
+  	<Graphics
+	normal_mapped="1"
+	texture_file="data/materials_gfx/crystal.png"
+	color="ff5787E7" >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellDataChild
+  	_parent="gem_box2d"
+  	_inherit_reactions="1"
+  	name="gem_box2d_pink"
+	gfx_glow_color="0xFFFF00AA"
+	wang_color="fffd2dad"
+	>
+  	<Graphics
+	color="ffE334B4" >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellDataChild
+  	_parent="gem_box2d"
+  	_inherit_reactions="1"
+  	name="gem_box2d_red"
+	gfx_glow_color="0xFFFF0000"
+	wang_color="fffd2d9d"
+	>
+  	<Graphics
+	color="ffE72850" >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellDataChild
+  	_parent="gem_box2d"
+  	_inherit_reactions="1"
+  	name="gem_box2d_green"
+	gfx_glow_color="0xFF00FF00"
+	wang_color="fffd2dae"
+	>
+  	<Graphics
+	color="ffA6D33C" >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellDataChild
+  	_parent="gem_box2d"
+  	_inherit_reactions="1"
+  	name="gem_box2d_orange"
+	wang_color="ffF98227"
+	gfx_glow_color="0xff89DA79"
+	>
+  	<Graphics
+	color="ff89DA79" >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellDataChild
+  	_parent="aluminium"
+  	_inherit_reactions="1"
+	tags="[box2d],[corrodible],[alchemy]"
+  	name="metal_nohit"
+	wang_color="ffad2dac" >
+  	<Graphics
+	texture_file="data/materials_gfx/steel.png"
+	color="ffad2dac" >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellDataChild
+  	_parent="aluminium"
+  	_inherit_reactions="1"
+	tags="[box2d],[corrodible],[rust_box2d],[alchemy]"
+  	name="metal_rust"
+	platform_type="1"
+	wang_color="ff4d2d3c" >
+  	<Graphics
+	texture_file="data/materials_gfx/steel.png"
+	color="ff4d2d3c" >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellDataChild
+  	_parent="aluminium"
+  	_inherit_reactions="1"
+	tags="[box2d],[corrodible],[alchemy]"
+  	name="bone_box2d" 
+	solid_break_to_type="bone"
+	wang_color="ff1c2d2c" >
+  	<Graphics
+	texture_file="data/materials_gfx/bone.png"
+	color="ff1c2d2c" >
+    </Graphics>
+  </CellDataChild>
+  
+  <CellData
+	name="crystal"
+	tags="[box2d],[alchemy]"
+	burnable="0"
+	density="8"
+	cell_type="solid"
+	wang_color="ff3b5d2e"
+	generates_smoke="10"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="50"
+	autoignition_temperature="99"
+	solid_break_to_type="diamond"
+	solid_friction="0.5"
+	solid_static_type="0"
+	hp="500000"
+	>
+	<Graphics
+		texture_file="data/materials_gfx/crystal.png"
+		color="ff74737f"
+	>
+	</Graphics>
+  </CellData>
+  
+  <CellData
+	name="crystal_magic"
+	tags="[box2d],[alchemy]"
+	burnable="0"
+	density="8"
+	cell_type="solid"
+	wang_color="ff3b5d2f"
+	generates_smoke="10"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="50"
+	autoignition_temperature="99"
+	solid_break_to_type="diamond"
+	solid_friction="0.5"
+	solid_static_type="0"
+	solid_gravity_scale="0"
+	hp="500000"
+	platform_type="1"
+	gfx_glow="255"
+	>
+	<Graphics
+		texture_file="data/materials_gfx/crystal.png"
+		color="ff74737e"
+	>
+	</Graphics>
+  </CellData>
+
+  <CellData
+	name="aluminium_oxide"
+	tags="[box2d],[corrodible],[alchemy]"
+	burnable="0"
+	density="8"
+	cell_type="solid"
+	wang_color="ff3b5d4d"
+	generates_smoke="10"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="50"
+	autoignition_temperature="99"
+	solid_friction="0.7"
+	solid_static_type="0"
+	hp="2500"
+	>
+	<Graphics
+		texture_file="data/materials_gfx/aluminium_oxide.png"
+		color="ff73747f"
+	>
+	</Graphics>
+  </CellData>
+  
+  <CellData
+	name="meat"
+  	tags="[box2d],[corrodible],[meltable_to_lava],[alchemy],[meat]"
+	burnable="1"
+	density="3"
+	solid_friction="1"
+	cell_type="solid"
+	wang_color="fff2ddb2"
+	generates_smoke="10"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="30"
+	autoignition_temperature="99" 
+	platform_type="0"
+	hp="1000"
+	fire_hp="600"
+	solid_on_collision_material="blood"
+	solid_on_collision_splash_power="1"
+	>
+    <Graphics
+	texture_file="data/materials_gfx/meat.png"
+	color="ffcc4c4c"
+	pixel_all_around="ffcc4c4c"
+	
+	pixel_lonely="ffcc4c4c"
+	pixel_top_right="ffcc4c4c"
+	pixel_bottom_left="ffcc4c4c"
+	
+	pixel_left="ffc996e6"
+	pixel_top_left="ffc996e6"
+	pixel_top="ffc996e6"
+	
+	pixel_right="ff8f4d53"
+	pixel_bottom_right="ff8f4d53"
+	pixel_bottom="ff8f4d53"
+        >
+    </Graphics>
+  </CellData>
+
+  <CellData
+	name="meat_slime"
+  	tags="[box2d],[corrodible],[meltable_to_lava],[alchemy]"
+	burnable="1"
+	density="3"
+	cell_type="solid"
+	wang_color="fff2ddb3"
+	generates_smoke="10"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="30"
+	autoignition_temperature="99" 
+	platform_type="0"
+	hp="10000"
+	fire_hp="600"
+	solid_collide_with_self="0"
+	solid_on_collision_material="slime_green"
+	solid_break_to_type="slime"
+	solid_on_collision_splash_power="1"
+	solid_collide_with_self="0"
+	solid_restitution="0.5"
+	>
+    <Graphics
+	texture_file="data/materials_gfx/meat.png"
+	color="ffcc4c4c"
+	pixel_all_around="ffcc4c4c"
+	
+	pixel_lonely="ffcc4c4c"
+	pixel_top_right="ffcc4c4c"
+	pixel_bottom_left="ffcc4c4c"
+	
+	pixel_left="ffc996e6"
+	pixel_top_left="ffc996e6"
+	pixel_top="ffc996e6"
+	
+	pixel_right="ff8f4d53"
+	pixel_bottom_right="ff8f4d53"
+	pixel_bottom="ff8f4d53" >
+    </Graphics>
+  </CellData>
+
+  <!-- =================================================================================================================  -->
+  <!-- BAD JOKES -->
+
+  <CellData 
+	name="urine"  
+  	tags="[liquid],[corrodible],[soluble]"
+	burnable="0"  
+	density="3"  
+	cell_type="liquid" 
+	wang_color="33FFEE00"  
+	generates_smoke="0"  
+	liquid_gravity="0.5"  
+	liquid_sand="0"  
+	on_fire="0"  
+	requires_oxygen="1"  
+	temperature_of_fire="10"  >
+  </CellData>
+
+  <CellData 
+	name="poo"  
+  	tags="[sand_other],[corrodible],[soluble]"
+	burnable="0"  
+	density="6"  
+	cell_type="liquid" 
+	wang_color="ff36315f"  
+	generates_smoke="0"  
+	liquid_gravity="0.5"  
+	liquid_sand="1"  
+	liquid_stains="2"
+	liquid_stains_self="1"
+	on_fire="0"  
+	requires_oxygen="1"  
+	temperature_of_fire="10" 
+	platform_type="0"
+	hp="200"
+	>
+    <Graphics 
+	texture_file="data/materials_gfx/soil.png" 
+	color="ff36311e" >
+    </Graphics>
+  </CellData>
+  
+
+  <!-- =================================================================================================================  -->
+  <!-- HAX MATERIALS -->
+  
+  <CellData 
+	name="rocket_particles"  
+  	tags="[liquid]"
+	burnable="0"  
+	density="3"  
+	cell_type="liquid" 
+	wang_color="66FFFFFE"  
+	generates_smoke="0"  
+	liquid_gravity="0.5"  
+	liquid_sand="0"  
+	on_fire="0"  
+	requires_oxygen="1"  
+	temperature_of_fire="10"  >
+  </CellData>
+  
+  <CellData
+	name="ice_melting_perf_killer"
+  	tags="[box2d],[hax],[meltable_to_water],[ice]"
+	burnable="0"
+	density="6"
+	cell_type="solid"
+	wang_color="ffdee1aa"
+	generates_smoke="0"
+	on_fire="0"
+	requires_oxygen="0"
+	temperature_of_fire="100"
+	solid_break_on_explosion_rate="90"
+	solid_static_type="0"
+	>
+    <Graphics
+	texture_file="data/materials_gfx/ice.png"
+	color="ff3b93bb"
+	pixel_all_around="ff3b93bb"
+	
+	pixel_lonely="ff3b93bb"
+	pixel_top_right="ff3b93bb"
+	pixel_bottom_left="ff3b93bb"
+	
+	pixel_left="ff78e0f0"
+	pixel_top_left="ff78e0f0"
+	pixel_top="ff78e0f0"
+	
+	pixel_right="ff365b77"
+	pixel_bottom_right="ff365b77"
+	pixel_bottom="ff365b77"
+	>
+    </Graphics>
+  </CellData>
+
+<CellData
+	name="ice_b2"
+  	tags="[box2d],[alchemy]"
+	burnable="0"
+	density="6"
+	cell_type="solid"
+	wang_color="ffdee1ec"
+	generates_smoke="0"
+	on_fire="0"
+	requires_oxygen="0"
+	temperature_of_fire="100"
+	solid_break_on_explosion_rate="90"
+	solid_static_type="0"
+	solid_friction="0.05"
+	>
+    <Graphics
+	texture_file="data/materials_gfx/ice.png"
+	color="ff3b93bb"
+	pixel_all_around="ff3b93bb"
+	
+	pixel_lonely="ff3b93bb"
+	pixel_top_right="ff3b93bb"
+	pixel_bottom_left="ff3b93bb"
+	
+	pixel_left="ff78e0f0"
+	pixel_top_left="ff78e0f0"
+	pixel_top="ff78e0f0"
+	
+	pixel_right="ff365b77"
+	pixel_bottom_right="ff365b77"
+	pixel_bottom="ff365b77"
+	>
+    </Graphics>
+  </CellData>
+  <CellData
+	name="glass"
+	tags="[static],[meltable],[alchemy]"
+	burnable="0"
+	density="6"
+	cell_type="solid"
+	wang_color="ffaeddee"
+	generates_smoke="0"
+	on_fire="0"
+	requires_oxygen="0"
+	temperature_of_fire="100"
+	solid_static_type="2"
+	solid_on_break_explode="1"
+	solid_break_to_type="glass_broken"
+	hp="200"
+	>
+    <Graphics
+	texture_file="data/materials_gfx/glass.png"
+	color="ffaeddee"
+	pixel_all_around="ffaeddee"
+	
+	pixel_lonely="ffaeddee"
+	pixel_top_right="ffaeddee"
+	pixel_bottom_left="ffaeddee"
+	
+	pixel_left="ffaeddee"
+	pixel_top_left="ffaeddee"
+	pixel_top="ffaeddee"
+	
+	pixel_right="ffaeddee"
+	pixel_bottom_right="ffaeddee"
+	pixel_bottom="ffaeddee"
+	>
+    </Graphics>
+  </CellData>
+
+  <CellData
+	name="glass_broken"
+  	tags="[sand_other],[meltable],[alchemy]"
+	burnable="0"
+	density="6"
+	cell_type="liquid"
+	wang_color="ffaeddef"
+	generates_smoke="0"
+	liquid_gravity="0.5"
+	liquid_sand="1"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="10"
+	hp="1000"
+	>
+    <Graphics
+	texture_file="data/materials_gfx/glass.png"
+	color="ffaeddee" >
+    </Graphics>
+  </CellData>
+  
+ <CellData
+	name="neon_tube_purple"
+	tags="[static],[corrodible],[box2d],[alchemy]"
+	burnable="0"
+	density="6"
+	cell_type="solid"
+	wang_color="ffaedde6"
+	generates_smoke="0"
+	on_fire="0"
+	requires_oxygen="0"
+	temperature_of_fire="100"
+	solid_static_type="0"
+	solid_collide_with_self="1"
+	solid_on_sleep_convert="1"
+	solid_break_to_type="tubematerial"
+	crackability="100"
+	platform_type="0"
+	hp="200"
+	gfx_glow="255"
+	>
+    <Graphics
+	texture_file="data/materials_gfx/neon_tube_purple.png"
+	color="ffCFF7C8"
+	>
+    </Graphics>
+  </CellData>
+
+  <CellDataChild
+  	name="neon_tube_cyan" 
+  	_parent="neon_tube_purple"
+  	_inherit_reactions="1"
+	wang_color="ffaedde7" 
+	>
+	    <Graphics
+		texture_file="data/materials_gfx/neon_tube_cyan.png"
+		color="ffCFF7C8"
+		>
+    </Graphics>
+  </CellDataChild>
+
+
+  <CellDataChild
+  	name="neon_tube_blood_red" 
+  	_parent="neon_tube_purple"
+  	_inherit_reactions="1"
+	wang_color="ffaedde8"
+	>
+	    <Graphics
+		texture_file="data/materials_gfx/neon_tube_blood_red.png"
+		color="ffCFF7C8"
+		>
+    </Graphics>
+  </CellDataChild>
+  
+  <CellData
+	name="blood_thick"
+	tags="[static],[corrodible]"
+	burnable="0"
+	density="10"
+	platform_type="0"
+	solid_collide_with_self="0"
+	gfx_glow="175"
+	cell_type="liquid"
+	wang_color="ffff7674"
+	generates_smoke="0"
+	liquid_gravity="0.5"
+	liquid_sand="1"
+	liquid_static="1"
+	on_fire="0"
+	requires_oxygen="1"
+	temperature_of_fire="10"
+	hp="1000" >
+  </CellData>
+
+<!-- =================================================================================================================  -->
+<!-- ------- REACTIONS ------------ -->
+
+
+  <Reaction probability="70" 
+	input_cell1="cement" 				input_cell2="concrete_static"
+	output_cell1="concrete_static" 		output_cell2="concrete_static"
+	destroy_horizontally_lonely_pixels="1"
+  	req_lifetime="300" >
+  </Reaction>
+
+  <Reaction probablity="80" 
+	input_cell1="cement" 				input_cell2="fire" 				input_cell3="cement"
+	output_cell1="concrete_static" 		output_cell2="air"  
+	destroy_horizontally_lonely_pixels="1"
+  	req_lifetime="50" >
+  </Reaction>
+  
+  <Reaction probablity="100" 
+	input_cell1="cement" 				input_cell2="water"
+	output_cell1="concrete_static" 		output_cell2="air"  
+	destroy_horizontally_lonely_pixels="1"
+  	req_lifetime="600" >
+  </Reaction>
+
+  <Reaction probablity="100" 
+	input_cell1="cement" 				input_cell2="wood_player"
+	output_cell1="concrete_static" 		output_cell2="wood_player"  
+	destroy_horizontally_lonely_pixels="1"
+  	req_lifetime="600" >
+  </Reaction>
+
+  <Reaction probablity="90" 
+	input_cell1="cement" 				input_cell2="air"
+	output_cell1="concrete_static" 		output_cell2="air"
+	destroy_horizontally_lonely_pixels="1" >
+  </Reaction>
+  
+  <Reaction probablity="100" 
+	input_cell1="water" 				input_cell2="cement"
+	output_cell1="concrete_static" 		output_cell2="air"
+	destroy_horizontally_lonely_pixels="1" >
+  </Reaction>
+<!-- =================================================================================================================  -->
+ <!-- water reactions -->
+
+  <!-- steam condenses -->
+  <Reaction probability="1"
+	input_cell1="steam" 		input_cell2="[static]"
+	output_cell1="water" 		output_cell2="[static]"  >
+  </Reaction>
+  
+  <Reaction probability="5"
+	input_cell1="steam_trailer" 		input_cell2="[static]"
+	output_cell1="water" 		output_cell2="[static]"  >
+  </Reaction>
+
+  <!-- fire evaporates water -->
+  <Reaction probability="20"
+	input_cell1="[fire]" 		input_cell2="water"
+	output_cell1="[fire]" 		output_cell2="steam"  >
+  </Reaction>
+  
+  <!-- fire melts snow -->
+  <Reaction probability="20"
+	input_cell1="[fire]" 		input_cell2="snow"
+	output_cell1="[fire]" 		output_cell2="steam"  >
+  </Reaction>
+
+  <Reaction probability="20"
+	input_cell1="[fire]" 		input_cell2="snow_static"
+	output_cell1="[fire]" 		output_cell2="steam"  >
+  </Reaction>
+
+  <!-- fire melts ice -->
+  <Reaction probability="40"
+	input_cell1="[fire]" 		input_cell2="ice"
+	output_cell1="[fire]" 		output_cell2="water"  >
+  </Reaction>
+     
+  <Reaction probability="40"
+	input_cell1="[fire]" 		input_cell2="ice_static"
+	output_cell1="[fire]" 		output_cell2="water"  >
+  </Reaction>
+  
+   <Reaction probability="80"
+	input_cell1="[fire]" 		input_cell2="snow_static"
+	output_cell1="[fire]" 		output_cell2="water"  >
+  </Reaction>
+
+    <Reaction probability="80"
+	input_cell1="[fire]" 		input_cell2="snow"
+	output_cell1="[fire]" 		output_cell2="water"  >
+  </Reaction>
+ 
+  <!-- air melts ice -->
+  <Reaction probability="1"
+	input_cell1="ice" 			input_cell2="air"
+	output_cell1="water" 			output_cell2="air"  >
+  </Reaction>
+
+  <Reaction probability="1"
+	input_cell1="ice_static" 			input_cell2="air"
+	output_cell1="water" 			output_cell2="air"  >
+  </Reaction>
+
+  <!-- water melts ice -->
+  <Reaction probability="1"
+	input_cell1="water" 		input_cell2="ice"
+	output_cell1="water" 		output_cell2="water_ice"  >
+  </Reaction>
+
+  <Reaction probability="1"
+	input_cell1="water" 		input_cell2="ice_static"
+	output_cell1="water" 		output_cell2="water_ice"  >
+  </Reaction>
+  
+  <Reaction probability="1"
+	input_cell1="water" 		input_cell2="[ice]"
+	output_cell1="water" 		output_cell2="water_ice"  >
+  </Reaction>
+
+  <!-- ice freezes water -->
+  
+    <Reaction probability="8"
+	input_cell1="ice_static" 			input_cell2="water"
+	output_cell1="ice_static" 			output_cell2="water_ice"  >
+  </Reaction>
+  
+  <Reaction probability="6"
+	input_cell1="snow_static" 			input_cell2="water"
+	output_cell1="snow_static" 			output_cell2="water_ice"  >
+  </Reaction>
+  
+  <Reaction probability="4"
+	input_cell1="snow_sticky" 			input_cell2="water"			input_cell3="air"
+	output_cell1="snow_sticky" 			output_cell2="water_ice"  >
+  </Reaction>
+  
+  <Reaction probability="10"
+	input_cell1="snowrock_static" 			input_cell2="water"
+	output_cell1="snowrock_static" 			output_cell2="water_ice"  >
+  </Reaction>
+  
+  <Reaction probability="10"
+	input_cell1="ice" 	input_cell2="water_ice"
+	output_cell1="ice_static" 	output_cell2="ice_static"  >
+  </Reaction>
+  
+    <Reaction probability="8"
+	input_cell1="ice" 	input_cell2="water"
+	output_cell1="ice_static" 	output_cell2="water_ice"  >
+  </Reaction>
+  
+   <Reaction probability="35"
+	input_cell1="water_ice" 				input_cell2="ice_static"		input_cell3="air"
+	output_cell1="ice_static" 				output_cell2="ice_static" 
+	blob_radius1="4"						blob_radius2="4"
+	blob_restrict_to_input_material1="1"	blob_restrict_to_input_material1="1" 
+	>
+  </Reaction>
+  
+   <Reaction probability="35"
+	input_cell1="water_ice" 				input_cell2="ice"		input_cell3="air"
+	output_cell1="ice_static" 				output_cell2="ice_static" 
+	blob_radius1="4"						blob_radius2="4"
+	blob_restrict_to_input_material1="1"	blob_restrict_to_input_material1="1" 
+	>
+  </Reaction>
+  
+  <Reaction probability="35"
+	input_cell1="water_ice" 				input_cell2="snow_static"		input_cell3="air"
+	output_cell1="ice_static" 				output_cell2="snow_static" 
+	blob_radius1="4"						blob_radius2="4"
+	blob_restrict_to_input_material1="1"	blob_restrict_to_input_material1="1" 
+	>
+  </Reaction>
+  
+  <Reaction probability="35"
+	input_cell1="water_ice" 				input_cell2="snowrock_static"		input_cell3="air"
+	output_cell1="ice_static" 				output_cell2="snowrock_static" 
+	blob_radius1="4"						blob_radius2="4"
+	blob_restrict_to_input_material1="1"	blob_restrict_to_input_material1="1" 
+	>
+  </Reaction>
+
+  <Reaction probability="15"
+	input_cell1="water" 	input_cell2="radioactive_liquid"
+	output_cell1="water" 	output_cell2="water"
+	>
+  </Reaction>
+  
+  <Reaction probability="5"
+	input_cell1="salt" 	input_cell2="[water]"
+	output_cell1="air" 	output_cell2="water_salt"  >
+  </Reaction>
+  
+  <Reaction probability="50"
+	input_cell1="sodium" 	input_cell2="[water]"
+	output_cell1="sodium" 	output_cell2="steam"  >
+	<ExplosionConfig
+
+		cell_explosion_power="30"
+		cell_explosion_damage_required="3000"
+		cell_explosion_radius_min="5"
+		cell_explosion_radius_max="5"
+		cell_explosion_probability="1.1"
+	
+		ray_energy="50000"
+		>
+	</ExplosionConfig>
+  </Reaction>
+  
+  <Reaction probability="20"
+	input_cell1="burning_powder" 	input_cell2="[water]"
+	output_cell1="burning_powder" 	output_cell2="fire"  >
+  </Reaction>
+  
+  <Reaction probability="40"
+	input_cell1="steam" 	input_cell2="waterrock"
+	output_cell1="steam" 	output_cell2="water"  
+	>
+  </Reaction>
+  
+  <!-- debug test -->
+  <Reaction probability="1"
+  	input_cell1="ice_melting_perf_killer" 	input_cell2="air"
+  	output_cell1="water" 					output_cell2="air"
+  	>
+  </Reaction>
+  
+<!-- =================================================================================================================  -->
+<!-- acid reactions -->
+
+  <!-- [acid] corrodes [corrodible] -->
+ <Reaction probability="50" 
+ 	fast_reaction="1"
+	input_cell1="[acid]" 		input_cell2="[corrodible]" 
+	output_cell1="[acid]" 		output_cell2="acid_gas" >
+  </Reaction>
+
+  <!-- [acid] evaporates to acid_gas -->
+  <Reaction probability="8"
+  	fast_reaction="1"
+   input_cell1="[acid]" 		input_cell2="air"
+   output_cell1="acid_gas" 		output_cell2="air" >
+  </Reaction>
+  
+  <!-- [acid] evaporates to acid_gas -->
+  <Reaction probability="5"
+	fast_reaction="1"
+   input_cell1="[acid]" 		input_cell2="acid_gas"
+   output_cell1="acid_gas" 		output_cell2="air" >
+  </Reaction>
+
+
+<!-- =================================================================================================================  -->
+<!-- meltable, molten reactions-->
+
+  <!-- [meltable] melts when colliding with [fire] -->
+  <Reaction probability="20"
+	input_cell1="[fire]"				input_cell2="[meltable]" 		        
+	output_cell1="[meltable]_molten"	output_cell2="smoke"  >
+  </Reaction>
+
+  <!-- molten turns to solid when colliding with air (solid as a state of material) -->
+  <Reaction probability="10"
+	input_cell1="[meltable]_molten" 	input_cell2="air"
+	output_cell1="[meltable]" 		    output_cell2="air"  >
+  </Reaction>
+
+  <!-- molten turns to solid when colliding with liquid (solid as a state of material) -->
+  <Reaction probability="20"
+	input_cell1="[meltable]_molten" 	input_cell2="water"
+	output_cell1="[meltable]" 		    output_cell2="steam"  >
+  </Reaction>
+
+
+  <Reaction probability="80"
+	input_cell1="[meltable]" 			input_cell2="[lava]"
+	output_cell1="[meltable]_molten" 	output_cell2="[lava]"  >
+  </Reaction>
+
+
+<!-- =================================================================================================================  -->
+<!--- lava reactions ---->
+
+  <Reaction probability="0"
+	input_cell1="[lava]" 		input_cell2="air"
+	output_cell1="smoke" 		output_cell2="air"  >
+  </Reaction>
+
+  <Reaction probability="80"
+	input_cell1="[lava]" 					input_cell2="water"
+	output_cell1="rock_static" 				output_cell2="steam"
+	blob_radius1="6"						blob_radius2="3"
+	blob_restrict_to_input_material1="1" 	blob_restrict_to_input_material1="1" >
+  </Reaction>
+  
+  <Reaction probability="80"
+	input_cell1="[lava]" 					input_cell2="water_ice"
+	output_cell1="rock_static" 				output_cell2="steam"
+	blob_radius1="4"						blob_radius2="4"
+	blob_restrict_to_input_material1="1" 	blob_restrict_to_input_material1="1" >
+  </Reaction>
+
+  <Reaction probability="70"
+	input_cell1="[lava]" 					input_cell2="blood"
+	output_cell1="lavarock_static"			output_cell2="steam"
+	blob_radius1="4"						blob_radius2="4"
+	blob_restrict_to_input_material1="1" 	blob_restrict_to_input_material1="1" >
+  </Reaction>
+
+  <Reaction probability="8"
+	input_cell1="[lava]" 		input_cell2="[burnable]"
+	output_cell1="[lava]" 		output_cell2="fire"  >
+  </Reaction>
+  
+  <Reaction probability="80"
+	input_cell1="[lava]" 		input_cell2="[burnable_fast]"
+	output_cell1="[lava]" 		output_cell2="fire"  >
+  </Reaction>
+  
+  <Reaction probability="40"
+	input_cell1="[fire]" 		input_cell2="[burnable_fast]"
+	output_cell1="[fire]" 		output_cell2="fire"  >
+  </Reaction>
+  
+  <Reaction probability="3"
+	input_cell1="[lava]" 		input_cell2="[meltable_to_lava]"
+	output_cell1="smoke" 		output_cell2="fire"  >
+  </Reaction>
+  
+  <Reaction probability="60"
+	input_cell1="[lava]" 		input_cell2="[meltable_to_water]"
+	output_cell1="[lava]" 		output_cell2="water"  >
+  </Reaction>
+  
+  <Reaction probability="80"
+	input_cell1="[lava]" 		input_cell2="[meltable_to_acid]"
+	output_cell1="[lava]" 		output_cell2="acid"  >
+  </Reaction>
+  
+  <Reaction probability="90"
+	input_cell1="[fire]" 		input_cell2="[meltable_to_acid]"
+	output_cell1="[fire]" 		output_cell2="acid"  >
+  </Reaction>
+  
+  <Reaction probability="80"
+	input_cell1="[lava]" 		input_cell2="[meltable_to_cold]"
+	output_cell1="[lava]" 		output_cell2="blood_cold"  >
+  </Reaction>
+  
+  <Reaction probability="90"
+	input_cell1="[fire]" 		input_cell2="[meltable_to_cold]"
+	output_cell1="[fire]" 		output_cell2="blood_cold"  >
+  </Reaction>
+  
+  <Reaction probability="80"
+	input_cell1="[lava]" 		input_cell2="[meltable_to_radioactive]"
+	output_cell1="[lava]" 		output_cell2="radioactive_liquid"  >
+  </Reaction>
+  
+  <Reaction probability="90"
+	input_cell1="[fire]" 		input_cell2="[meltable_to_radioactive]"
+	output_cell1="[fire]" 		output_cell2="radioactive_liquid"  >
+  </Reaction>
+  
+  <Reaction probability="99"
+	input_cell1="[lava]" 		input_cell2="gunpowder"
+	output_cell1="[lava]" 		output_cell2="gunpowder_unstable"  >
+  </Reaction>
+  
+  <Reaction probability="99"
+	input_cell1="[lava]" 		input_cell2="gunpowder_explosive"
+	output_cell1="[lava]" 		output_cell2="gunpowder_unstable"  >
+  </Reaction>
+  
+  
+<!-- =================================================================================================================  -->
+<!-- [evaporable] reactions -->
+
+  <Reaction probability="15"
+   input_cell1="[evaporable]" 		input_cell2="air"
+   output_cell1="air" 		output_cell2="air" >
+  </Reaction>
+
+  <Reaction probability="45"
+   input_cell1="[evaporable_fast]" 		input_cell2="air"
+   output_cell1="air" 					output_cell2="air" >
+  </Reaction>
+  
+  <Reaction probability="80"
+	input_cell1="[evaporable_custom]" 	input_cell2="[lava]"
+	output_cell1="[evaporable_custom]_vapour" 	output_cell2="[lava]"  >
+  </Reaction>
+  
+  <Reaction probability="80"
+	input_cell1="[fire]" 		input_cell2="[evaporable_custom]"
+	output_cell1="[fire]" 		output_cell2="[evaporable_custom]_vapour"  >
+  </Reaction>
+  
+  <Reaction probability="20"
+	input_cell1="cactus" 	input_cell2="[lava]"
+	output_cell1="sand_herb_vapour" 	output_cell2="[lava]"  >
+  </Reaction>
+  
+  <Reaction probability="20"
+	input_cell1="[fire]" 		input_cell2="cactus"
+	output_cell1="[fire]" 		output_cell2="sand_herb_vapour"  >
+  </Reaction>
+  
+  <Reaction probability="20"
+	input_cell1="[fire]" 		input_cell2="wood_static_gas"
+	output_cell1="[fire]" 		output_cell2="steam_trailer"  >
+  </Reaction>
+
+<!-- =================================================================================================================  -->
+<!-- [grows_grass] reactions -->
+  
+  <Reaction probability="2"
+	input_cell1="[grows_grass]" 	input_cell2="air"
+	output_cell1="grass" 		      output_cell2="air" >
+  </Reaction>
+
+ <!-- =================================================================================================================  -->
+<!-- fungus reactions -->
+
+<Reaction probability="2"
+	input_cell1="[grows_fungus]" 	input_cell2="air"
+	output_cell1="fungi" 		      output_cell2="air" >
+  </Reaction>
+  
+  <Reaction probability="8"
+	input_cell1="fungi" 	input_cell2="air"
+	output_cell1="fungi" 	output_cell2="fungi" 
+	direction="top" >
+  </Reaction>
+  
+  <Reaction probability="50"
+	input_cell1="fungi" 	input_cell2="air"
+	output_cell1="fungi" 	output_cell2="fungi" 
+	direction="bottom" >
+  </Reaction>
+  
+  <Reaction probability="90"
+	input_cell1="spore" 	input_cell2="[sand_ground]"
+	output_cell1="air" 	output_cell2="[sand_ground]" >
+  </Reaction>
+ 
+  <Reaction probability="2"
+	input_cell1="spore" 	input_cell2="air"
+	output_cell1="air" 	output_cell2="air" >
+  </Reaction>
+  
+  <Reaction probability="50"
+	input_cell1="root_base" 	input_cell2="air"
+	output_cell1="root_base" 	output_cell2="root_base" 
+	direction="bottom">
+  </Reaction>
+  
+  <Reaction probability="50"
+	input_cell1="root_trunk" 	input_cell2="air"
+	output_cell1="root_trunk" 	output_cell2="root_base" 
+	direction="left">
+  </Reaction>
+  
+  <Reaction probability="80"
+	input_cell1="root_bad" 	input_cell2="air"
+	output_cell1="root_bad" 	output_cell2="root_bad" 
+	direction="top">
+  </Reaction>
+  
+<!-- =================================================================================================================  -->
+<!-- vegetation reactions -->
+  
+  <!-- shroom seeds -->
+  <Reaction probability="10" 
+  	input_cell1="mushroom_seed" input_cell2="water" input_cell3="air"
+  	output_cell1="mushroom" output_cell2="air" />
+
+  <Reaction probability="5" 
+  	input_cell1="mushroom_seed" input_cell2="blood" input_cell3="air"
+  	output_cell1="mushroom_giant_red" output_cell2="air" />
+
+  <Reaction probability="7" 
+  	input_cell1="mushroom_seed" input_cell2="alcohol" input_cell3="air"
+  	output_cell1="mushroom_giant_blue" output_cell2="air" />
+
+  <!-- sucks up water -->
+  <Reaction probability="1" 
+  	input_cell1="mushroom" input_cell2="water" input_cell3="air"
+  	output_cell1="mushroom" output_cell2="air" />
+
+  <Reaction probability="5" 
+  	input_cell1="mushroom_giant_red" input_cell2="blood" input_cell3="air"
+  	output_cell1="mushroom_giant_red" output_cell2="air" />
+
+  <Reaction probability="5" 
+  	input_cell1="mushroom_giant_blue" input_cell2="alcohol" input_cell3="air"
+  	output_cell1="mushroom_giant_blue" output_cell2="air" />
+	
+	<Reaction probability="2" 
+  	input_cell1="bluefungi_static" input_cell2="air"
+  	output_cell1="glowshroom" output_cell2="air" 
+	direction="top"/>
+
+  <!-- grass requires air, if it doesn't get air, it's converted into soil -->
+  <!-- note ReqReaction -->
+  <ReqReaction probability="10"
+	input_cell1="[requires_air]" 	  input_cell2="air"
+	output_cell1="soil" 		      output_cell2="air" >
+  </ReqReaction>
+
+  <ReqReaction probability="10"
+  	input_cell1="ceiling_plant_material" 	input_cell2="air"
+  	output_cell1="soil" 		      		output_cell2="air" 
+  	direction="bottom" >
+  </ReqReaction>
+
+  <!-- turns to soil without water -->
+  <ReqReaction probability="1"
+	input_cell1="mushroom_seed" 	input_cell2="air" 
+	output_cell1="soil" 			output_cell2="air" >
+  </ReqReaction>
+
+  <ReqReaction probability="1"
+	input_cell1="mushroom_giant_red" 	input_cell2="air" 
+	output_cell1="soil" 				output_cell2="air" >
+  </ReqReaction>
+
+  <ReqReaction probability="1"
+	input_cell1="mushroom_giant_blue" 	input_cell2="air" 
+	output_cell1="soil" 				output_cell2="air" >
+  </ReqReaction>
+
+  <!-- moss reactions -->
+  <Reaction probability="1" 
+	input_cell1="rock_static" 		input_cell2="air" 	
+	output_cell1="rock_static" 		output_cell2="moss" 
+	direction="top" 
+	>
+  </Reaction>
+  
+  <Reaction probability="70" 
+	input_cell1="templebrick_moss_static" 		input_cell2="air" 	
+	output_cell1="templebrick_moss_static" 		output_cell2="moss" 
+	direction="top" 
+	>
+  </Reaction>
+  
+  <Reaction probability="70" 
+	input_cell1="sand_static_rainforest" 		input_cell2="air" 	
+	output_cell1="sand_static_rainforest" 		output_cell2="soil_lush" 
+	direction="top"
+	>
+  </Reaction>
+  
+<!-- =================================================================================================================  -->
+<!--- other reactions ---->
+  
+  <Reaction probability="90"
+   input_cell1="rocket_particles" 	input_cell2="air"
+   output_cell1="air" 					output_cell2="air" >
+  </Reaction>
+
+  <Reaction probability="20" 
+	input_cell1="coal" 			input_cell2="fire" 
+	output_cell1="fire" 		output_cell2="air"  >
+  </Reaction>
+
+  <Reaction probability="20"
+	input_cell1="snow" 			input_cell2="urine"
+	output_cell1="water" 		output_cell2="steam"  >
+  </Reaction>
+  
+  <Reaction probability="40"
+	input_cell1="steelsmoke_static" 			input_cell2="air"
+	output_cell1="steelsmoke_static" 		output_cell2="steam"  
+	direction="top"
+	>
+  </Reaction>
+  
+  <Reaction probability="10"
+	input_cell1="rock_static_glow" 			input_cell2="air"
+	output_cell1="rock_static_glow" 		output_cell2="slime_green"  
+	direction="bottom"
+	>
+  </Reaction>
+  
+  <Reaction probability="5"
+	input_cell1="slime_green" 			input_cell2="air"
+	output_cell1="air" 		output_cell2="air"  
+	>
+  </Reaction>
+  
+  <Reaction probability="2"
+	input_cell1="honey" 			input_cell2="air"
+	output_cell1="honey" 		output_cell2="air"  
+	>
+  </Reaction>
+  
+  <Reaction probability="90"
+	input_cell1="blood_cold" 			input_cell2="[freezable]"
+	output_cell1="blood_cold" 		output_cell2="ice_static" 
+	blob_radius1="3"						blob_radius2="3"
+	blob_restrict_to_input_material2="1" 	blob_restrict_to_input_material2="1" 	
+	>
+  </Reaction>
+  
+  <Reaction probability="20"
+	input_cell1="blood_cold" 			input_cell2="air"
+	output_cell1="blood_cold_vapour" 	output_cell2="air"  >
+  </Reaction>
+  
+  <Reaction probability="20"
+	input_cell1="blood_cold" 			input_cell2="blood_worm"
+	output_cell1="blood_worm" 	output_cell2="blood_worm"  >
+  </Reaction>
+  
+  <!--- [vapour] reactions ---->
+  
+  <Reaction probability="30"
+	input_cell1="[vapour]" 			input_cell2="air"
+	output_cell1="air" 				output_cell2="air"  
+	>
+  </Reaction>
+
+  <!-- SWAMP -->
+  
+  <Reaction probability="1"
+	input_cell1="swamp" 			input_cell2="water"
+	output_cell1="swamp" 			output_cell2="water_swamp"  >
+  </Reaction>
+  
+  <Reaction probability="6"
+	input_cell1="water_swamp" 			input_cell2="air"
+	output_cell1="peat" 				output_cell2="air" 
+	>
+  </Reaction>
+
+  <!-- ETC -->
+  
+  <Reaction probability="3"
+  	input_cell1="blood_thick" 	input_cell2="air"
+  	output_cell1="blood_fading"	output_cell2="air"
+  	>
+  </Reaction>
+  
+  <Reaction probability="15"
+  	fast_reaction="1"
+   input_cell1="poison" 			input_cell2="air"
+   output_cell1="poison_gas" 		output_cell2="air" >
+  </Reaction>
+  
+
+  <Reaction probability="1"
+   input_cell1="[rust]" 			input_cell2="[water]"
+   output_cell1="rust_static" 		output_cell2="[water]" >
+  </Reaction>
+
+  <Reaction probability="1"
+   input_cell1="[rust_box2d]" 			input_cell2="[water]"
+   output_cell1="[rust_box2d]_rust" 	output_cell2="[water]" >
+  </Reaction>
+  
+  <Reaction probability="1"
+   input_cell1="[rust_oxide]" 			input_cell2="[water]"
+   output_cell1="[rust_oxide]_oxide" 	output_cell2="[water]" >
+  </Reaction>
+
+  <Reaction probability="5"
+	input_cell1="water" 			input_cell2="soil"
+	output_cell1="air" 				output_cell2="mud" 
+	>
+  </Reaction>
+  
+  <Reaction probability="3"
+	input_cell1="mud" 				input_cell2="soil"	input_cell3="mud"
+	output_cell1="soil" 			output_cell2="mud"  
+	direction="bottom"
+	>
+  </Reaction>
+
+  <Reaction probability="0.3"
+	input_cell1="soil" 				input_cell2="mud" 	input_cell3="soil"
+	output_cell1="soil" 			output_cell2="soil"  
+	>
+  </Reaction>
+  
+  <Reaction probability="90"
+	fast_reaction="1"
+	input_cell1="magic_liquid" 			input_cell2="rock_magic_bottom"
+	output_cell1="magic_liquid" 			output_cell2="magic_liquid" 
+	blob_radius2="3"
+	blob_restrict_to_input_material2="1"
+	direction="bottom"
+	>
+  </Reaction>
+  
+  <Reaction probability="20"
+	input_cell1="magic_liquid" 			input_cell2="air"
+	output_cell1="air" 			output_cell2="air"  
+	>
+  </Reaction>
+  
+  <Reaction probability="40"
+	input_cell1="magic_liquid" 			input_cell2="soil"
+	output_cell1="smoke" 			output_cell2="magic_liquid"  
+	>
+  </Reaction>
+  
+  <Reaction probability="5"
+	input_cell1="rock_static_wet" 			input_cell2="air"
+	output_cell1="rock_static_wet" 			output_cell2="water_fading"
+	direction="bottom"
+	>
+  </Reaction>
+  
+  <Reaction probability="2"
+	input_cell1="water_fading" 			input_cell2="air"
+	output_cell1="air" 			output_cell2="air"
+	>
+  </Reaction>
+  
+  <Reaction probability="100"
+	input_cell1="midas_precursor" 			input_cell2="[meat]"
+	output_cell1="midas" 			output_cell2="midas"
+	fast_reaction="1"
+	>
+  </Reaction>
+  
+  <Reaction probability="100"
+	input_cell1="midas_precursor" 			input_cell2="midas"
+	output_cell1="midas" 			output_cell2="midas"
+	fast_reaction="1"
+	>
+  </Reaction>
+  
+  <Reaction probability="100"
+	fast_reaction="1"
+	input_cell1="midas" 			input_cell2="[alchemy]"
+	output_cell1="midas" 			output_cell2="gold" 
+	blob_radius2="3"
+	blob_restrict_to_input_material2="1"
+	>
+  </Reaction>
+
+</Materials>

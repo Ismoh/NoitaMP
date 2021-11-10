@@ -1,0 +1,52 @@
+<Entity>
+  <ParticleEmitterComponent 
+    emitted_material_name="fire"
+    count_min="6"
+    count_max="8"
+    offset.x="-1"
+    offset.y="0"
+    x_pos_offset_min="-4"
+    y_pos_offset_min="-4"
+    x_pos_offset_max="-2"
+    y_pos_offset_max="4"
+    x_vel_min="-10"
+    x_vel_max="10"
+    y_vel_min="-10"
+    y_vel_max="10"
+    lifetime_min="1.1"
+    lifetime_max="2.8"
+    create_real_particles="1"
+    emit_cosmetic_particles="0"
+    emission_interval_min_frames="1"
+    emission_interval_max_frames="1"
+	delay_frames="2"
+    is_emitting="1" >
+  </ParticleEmitterComponent>
+
+  <ParticleEmitterComponent 
+    emitted_material_name="fire"
+    custom_style="FIRE"
+    count_min="1"
+    count_max="1"
+    offset.x="-1"
+    offset.y="0"
+    x_pos_offset_min="0"
+    y_pos_offset_min="0"
+    x_pos_offset_max="0"
+    y_pos_offset_max="0"
+    is_trail="1"
+	trail_gap="1.0"
+    x_vel_min="-5"
+    x_vel_max="5"
+    y_vel_min="-10"
+    y_vel_max="10"
+    lifetime_min="1.1"
+    lifetime_max="2.8"
+    create_real_particles="1"
+    emit_cosmetic_particles="0"
+    emission_interval_min_frames="1"
+    emission_interval_max_frames="1"
+	delay_frames="2"
+    is_emitting="1" >
+  </ParticleEmitterComponent>
+</Entity>

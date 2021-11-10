@@ -1,0 +1,19 @@
+<Sprite 
+	filename="data/entities/animals/boss_centipede/limbs/limb_long_A_green.png" 
+	offset_x="0" 
+	offset_y="8" 
+	>
+	
+  <RectAnimation 
+	name="stand" 
+	pos_x="0" 
+	pos_y="0" 
+	frame_count="8" 
+	frame_width="80" 
+	frame_height="16" 
+	frame_wait="0.17" 
+	frames_per_row="8" 
+	loop="1"  >
+  </RectAnimation>
+  
+</Sprite>

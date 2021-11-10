@@ -1,0 +1,8 @@
+data/ragdolls/alchemist/torso.png
+data/ragdolls/alchemist/head.png
+data/ragdolls/alchemist/cowl.png
+data/ragdolls/alchemist/left_arm.png
+data/ragdolls/alchemist/left_hand.png
+data/ragdolls/alchemist/right_hand.png
+data/ragdolls/alchemist/left_foot.png
+data/ragdolls/alchemist/right_foot.png

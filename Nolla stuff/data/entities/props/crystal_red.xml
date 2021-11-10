@@ -1,0 +1,29 @@
+<Entity tags="mortal" >
+	<Base file="data/entities/base_prop_crystal.xml" >
+		<PhysicsImageShapeComponent
+			image_file="data/props_gfx/crystal_red.png"
+			material="crystal_solid" >
+		</PhysicsImageShapeComponent>
+
+		<MaterialInventoryComponent >
+			<count_per_material_type>
+				<Material material="spark_red" count="300"  />
+			</count_per_material_type>
+		</MaterialInventoryComponent>
+		
+		<DamageModelComponent 
+			blood_material="spark_red" >
+		</DamageModelComponent>
+		
+		<ExplodeOnDamageComponent>
+			<config_explosion
+				load_this_entity="data/entities/particles/particle_explosion/main_swirly_red.xml,data/entities/props/crystal_red_effect.xml" >
+			</config_explosion>
+		</ExplodeOnDamageComponent>
+
+		<ParticleEmitterComponent 
+		emitted_material_name="spark_red" >
+		</ParticleEmitterComponent>
+	</Base>
+	
+</Entity>

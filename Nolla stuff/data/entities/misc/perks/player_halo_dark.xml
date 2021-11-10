@@ -1,0 +1,17 @@
+<Entity name="halo" >
+	<Base file="data/entities/misc/perks/player_halo_light.xml">
+	    <SpriteComponent 
+			image_file="data/enemies_gfx/player_halo_dark.png" 
+		></SpriteComponent>
+
+		<LightComponent
+			r="128"
+			g="5"
+			b="5" >
+		</LightComponent>
+
+		<ParticleEmitterComponent 
+			emitted_material_name="spark_red" >
+		</ParticleEmitterComponent>
+	</Base>
+</Entity>

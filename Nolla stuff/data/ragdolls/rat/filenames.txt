@@ -1,0 +1,5 @@
+data/ragdolls/rat/head.png
+data/ragdolls/rat/torso_right.png
+data/ragdolls/rat/torso_left.png
+data/ragdolls/rat/tail_start.png
+data/ragdolls/rat/tail_end.png

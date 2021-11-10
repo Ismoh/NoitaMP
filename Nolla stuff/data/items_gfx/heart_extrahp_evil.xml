@@ -1,0 +1,20 @@
+<Sprite 
+	filename="data/items_gfx/heart_extrahp_evil.png" 
+	offset_x="8" 
+	offset_y="21"
+	default_animation="default"
+	>
+	
+	<RectAnimation
+		name="default"
+		pos_x="0"
+		pos_y="0"
+		frame_count="4"
+		frame_width="20"
+		frame_height="20"
+		frame_wait="0.12"
+		frames_per_row="4"
+		loop="1"
+		>
+  </RectAnimation>
+</Sprite>

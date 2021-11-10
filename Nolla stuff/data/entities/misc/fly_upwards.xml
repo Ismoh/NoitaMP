@@ -1,0 +1,10 @@
+<Entity >
+   
+	<LuaComponent
+		script_source_file="data/scripts/projectiles/fly_upwards.lua"
+		execute_every_n_frame="20"
+		remove_after_executed="1"
+		>
+	</LuaComponent>
+  
+</Entity>

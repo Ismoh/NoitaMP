@@ -1,0 +1,306 @@
+<Entity tags="mortal,human,hittable,homing_target,teleportable_NOT,enemy" name="$animal_boss_limbs">
+	
+	<!-- art - main body ---------------------- -->
+
+	<LightComponent 
+		_enabled="1" 
+		radius="256"
+		r="100"
+		g="255"
+		b="130"
+		offset_y="0"
+   		fade_out_time="1.5" >
+	</LightComponent>
+
+	<SpriteComponent 
+		image_file="data/entities/animals/boss_limbs/body.xml" 
+		offset_y="24"
+		offset_x="24" >
+	</SpriteComponent>
+
+	<SpriteComponent 
+		image_file="data/entities/animals/boss_limbs/eyeA.xml" 
+		never_ragdollify_on_death="1"
+		rect_animation="stand" >
+	</SpriteComponent>
+
+	<SpriteComponent 
+		image_file="data/entities/animals/boss_limbs/eyeB.xml" 
+		never_ragdollify_on_death="1"
+		rect_animation="stand" >
+	</SpriteComponent>
+	
+	<SpriteComponent 
+		image_file="data/entities/animals/boss_limbs/skull.xml" 
+		never_ragdollify_on_death="1"
+		rect_animation="stand" >
+	</SpriteComponent>
+
+
+	<!-- AI ---------------------- -->
+
+	<LimbBossComponent>
+	</LimbBossComponent>
+
+    <LuaComponent
+        script_source_file="data/entities/animals/boss_limbs/boss_limbs_update.lua"
+        vm_type="ONE_PER_COMPONENT_INSTANCE"
+        enable_coroutines="1"
+        execute_on_added="1"
+        execute_every_n_frame="-1"
+        execute_times="1" >
+    </LuaComponent>
+	
+	<LuaComponent 
+		script_damage_received="data/entities/animals/boss_limbs/boss_limbs_damage.lua">
+	</LuaComponent>
+
+	<PathFindingComponent 
+		can_dive="1" 
+		can_fly="1" 
+		can_jump="0" 
+		can_swim_on_surface="0" 
+		can_walk="0" 
+		cost_of_flying="500" 
+		distance_to_reach_node_x="20" 
+		distance_to_reach_node_y="20" 
+		frames_between_searches="20" 
+		frames_to_get_stuck="120" 
+		initial_jump_lob="1" 
+		initial_jump_max_distance_x="100" 
+		initial_jump_max_distance_y="60" 
+		iterations_max_no_goal="9999999" 
+		iterations_max_with_goal="145000" 
+		jump_speed="200" 
+		max_jump_distance_from_camera="400" 
+		search_depth_max_no_goal="120" 
+		search_depth_max_with_goal="145000" 
+		y_walking_compensation="8" >
+	</PathFindingComponent>
+
+	<PathFindingGridMarkerComponent 
+		_enabled="1" 
+		marker_offset_x="0" 
+		marker_offset_y="-6" 
+		marker_work_flag="16" >
+	</PathFindingGridMarkerComponent>
+
+
+	<!-- physics ---------------------- -->
+
+	<PhysicsAIComponent
+		target_vec_max_len="15.0"
+		force_coeff="10.0"
+		force_balancing_coeff="0.8"
+		force_max="100"
+		torque_coeff="50"
+		torque_balancing_coeff="4"
+		torque_max="50.0"
+		damage_deactivation_probability="0"
+		damage_deactivation_time_min="2"
+		damage_deactivation_time_max="10" >
+	</PhysicsAIComponent>
+
+	<PhysicsBodyComponent 
+		force_add_update_areas="1"
+		allow_sleep="1" 
+		angular_damping="0.02" 
+		fixed_rotation="1" 
+		is_bullet="0" 
+		linear_damping="0"  >
+	</PhysicsBodyComponent>
+
+	<PhysicsShapeComponent
+		is_circle="1"
+		radius_x="19"
+		radius_y="19"
+		friction="0.0"
+		restitution="0.3" >
+	</PhysicsShapeComponent>
+
+
+	<!-- damage ---------------------- -->
+
+	<DamageModelComponent 
+		hp="10" 
+		wait_for_kill_flag_on_death="1"
+		air_needed="0" 
+		falling_damages="0" 
+		fire_damage_amount="0.2" 
+		 
+		fire_probability_of_ignition="0.5" 
+		blood_material="slime_green"
+		is_on_fire="0" 
+		materials_damage="1" 
+		materials_how_much_damage="0.1" 
+		materials_that_damage="acid" 
+		ragdoll_filenames_file=""
+        ragdoll_material="meat_slime_green"
+		ragdoll_offset_y="-6"
+		ragdollify_child_entity_sprites="1" 
+		blood_sprite_directional="data/particles/bloodsplatters/bloodsplatter_directional_green_$[1-3].xml"
+		blood_sprite_large="data/particles/bloodsplatters/bloodsplatter_green_$[1-3].xml"
+		>
+		<damage_multipliers
+			melee="2.0"
+			projectile="1.0"
+			explosion="0.3"
+			electricity="0.9"
+			fire="1.2" 
+			drill="0"
+			>
+		</damage_multipliers>
+	</DamageModelComponent>
+
+	<GenomeDataComponent 
+		food_chain_rank="5" 
+		herd_id="boss_limbs" 
+		is_predator="1" >
+	</GenomeDataComponent>
+
+	<!-- top hitbox -->
+	<HitboxComponent 
+		aabb_min_x="-20" 
+		aabb_max_x="20" 
+		aabb_min_y="-20" 
+		aabb_max_y="-10" 
+		damage_multiplier="0" >
+	</HitboxComponent>
+
+	<!-- bottom hitbox -->
+	<HitboxComponent 
+		aabb_min_x="-20" 
+		aabb_max_x="20" 
+		aabb_min_y="12" 
+		aabb_max_y="18" 
+		damage_multiplier="0" >
+	</HitboxComponent>
+
+	<!-- center hitbox (default) -->
+	<HitboxComponent 
+		_tags="hitbox_default"
+		aabb_min_x="-20" 
+		aabb_max_x="20" 
+		aabb_min_y="-10" 
+		aabb_max_y="12"
+		damage_multiplier="0" >
+	</HitboxComponent>
+
+	<!-- center hitbox (weak spot) -->
+	<HitboxComponent 
+		_tags="hitbox_weak_spot"
+		aabb_min_x="-8" 
+		aabb_max_x="8" 
+		aabb_min_y="-10" 
+		aabb_max_y="12"
+		damage_multiplier="1.0" >
+	</HitboxComponent>
+
+
+	<!-- etc ---------------------- -->
+
+	<AudioComponent 
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals" >
+	</AudioComponent>
+
+	<SpriteAnimatorComponent 
+		rotate_to_surface_normal="0" 
+		target_sprite_comp_name="character" >
+	</SpriteAnimatorComponent>
+	
+	<CellEaterComponent
+		radius="30" 
+		eat_probability="0">
+	</CellEaterComponent>
+
+	<!-- health bar ---------------------- -->
+
+	<SpriteComponent 
+		_tags="health_bar_back,ui"
+		_enabled="1" 
+		alpha="1" 
+		has_special_scale="1" 
+		image_file="data/ui_gfx/health_slider_back.png" 
+		is_text_sprite="0" 
+		next_rect_animation="" 
+		offset_x="12" 
+		offset_y="42" 
+		rect_animation="" 
+		special_scale_x="1" 
+		special_scale_y="1" 
+		ui_is_parent="0" 
+		update_transform="1" 
+		visible="1" 
+		emissive="1"
+		never_ragdollify_on_death="1"
+		z_index="-9000" >
+	</SpriteComponent>
+
+	<SpriteComponent 
+		_tags="health_bar,ui" 
+		_enabled="1" 
+		alpha="1" 
+		has_special_scale="1" 
+		image_file="data/ui_gfx/health_slider_front.png" 
+		is_text_sprite="0" 
+		next_rect_animation="" 
+		offset_x="12" 
+		offset_y="42" 
+		rect_animation="" 
+		special_scale_x="1" 
+		special_scale_y="1" 
+		ui_is_parent="0" 
+		update_transform="1" 
+		visible="1" 
+		emissive="1"
+		never_ragdollify_on_death="1"
+		z_index="-9000" >
+	</SpriteComponent>
+		
+	<HealthBarComponent>
+	</HealthBarComponent>
+
+
+	<!-- limbs ---------------------- -->
+
+	<Entity>  <Base file="data/entities/animals/boss_limbs/limb.xml" />  </Entity>
+	<Entity>  <Base file="data/entities/animals/boss_limbs/limb.xml" />  </Entity>
+	<Entity>  <Base file="data/entities/animals/boss_limbs/limb.xml" />  </Entity>
+	<Entity>  <Base file="data/entities/animals/boss_limbs/limb.xml" />  </Entity>
+	<Entity>  <Base file="data/entities/animals/boss_limbs/limb.xml" />  </Entity>
+	<Entity>  <Base file="data/entities/animals/boss_limbs/limb.xml" />  </Entity>
+	<Entity>  <Base file="data/entities/animals/boss_limbs/limb.xml" />  </Entity>
+
+	<Entity name="limb_attacker">  <Base file="data/entities/animals/boss_limbs/limb_attacker.xml" />  </Entity>
+
+
+	<!-- tentacles ---------------------- -->
+
+	<Entity>  <Base file="data/entities/animals/boss_limbs/hair3.xml"> <InheritTransformComponent><Transform position.x="0"   position.y="18" ></Transform></InheritTransformComponent> </Base>  </Entity>
+	<Entity>  <Base file="data/entities/animals/boss_limbs/hair1.xml"> <InheritTransformComponent><Transform position.x="-5"  position.y="18" ></Transform></InheritTransformComponent> </Base>  </Entity>
+	<Entity>  <Base file="data/entities/animals/boss_limbs/hair1.xml"> <InheritTransformComponent><Transform position.x="5"   position.y="18" ></Transform></InheritTransformComponent> </Base>  </Entity>
+	<Entity>  <Base file="data/entities/animals/boss_limbs/hair1.xml"> <InheritTransformComponent><Transform position.x="-10" position.y="16" ></Transform></InheritTransformComponent> </Base>  </Entity>
+	<Entity>  <Base file="data/entities/animals/boss_limbs/hair1.xml"> <InheritTransformComponent><Transform position.x="10"  position.y="16" ></Transform></InheritTransformComponent> </Base>  </Entity>
+	<Entity>  <Base file="data/entities/animals/boss_limbs/hair1.xml"> <InheritTransformComponent><Transform position.x="-15" position.y="13" ></Transform></InheritTransformComponent> </Base>  </Entity>
+	<Entity>  <Base file="data/entities/animals/boss_limbs/hair1.xml"> <InheritTransformComponent><Transform position.x="15"  position.y="13" ></Transform></InheritTransformComponent> </Base>  </Entity>
+
+	<Entity>  <Base file="data/entities/animals/boss_limbs/hair2.xml"> <InheritTransformComponent><Transform position.x="-2.5" position.y="18" ></Transform></InheritTransformComponent> </Base>  </Entity>
+	<Entity>  <Base file="data/entities/animals/boss_limbs/hair2.xml"> <InheritTransformComponent><Transform position.x="2.5"  position.y="18" ></Transform></InheritTransformComponent> </Base>  </Entity>
+	<Entity>  <Base file="data/entities/animals/boss_limbs/hair2.xml"> <InheritTransformComponent><Transform position.x="-7"   position.y="16" ></Transform></InheritTransformComponent> </Base>  </Entity>
+	<Entity>  <Base file="data/entities/animals/boss_limbs/hair2.xml"> <InheritTransformComponent><Transform position.x="7"    position.y="16" ></Transform></InheritTransformComponent> </Base>  </Entity>
+	<Entity>  <Base file="data/entities/animals/boss_limbs/hair3.xml"> <InheritTransformComponent><Transform position.x="-13"  position.y="13" ></Transform></InheritTransformComponent> </Base>  </Entity>
+	<Entity>  <Base file="data/entities/animals/boss_limbs/hair3.xml"> <InheritTransformComponent><Transform position.x="13"   position.y="13" ></Transform></InheritTransformComponent> </Base>  </Entity>
+	<Entity>  <Base file="data/entities/animals/boss_limbs/hair2.xml"> <InheritTransformComponent><Transform position.x="-18"  position.y="10" ></Transform></InheritTransformComponent> </Base>  </Entity>
+	<Entity>  <Base file="data/entities/animals/boss_limbs/hair2.xml"> <InheritTransformComponent><Transform position.x="18"   position.y="10" ></Transform></InheritTransformComponent> </Base>  </Entity>
+	
+	<!-- defeat lua -->
+	
+	<LuaComponent
+		execute_on_removed="1"
+		execute_every_n_frame="-1"
+		script_source_file="data/scripts/buildings/endcrystal_victory.lua"
+		remove_after_executed="0">
+	</LuaComponent>
+
+</Entity>

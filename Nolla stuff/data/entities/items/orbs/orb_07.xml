@@ -1,0 +1,36 @@
+<Entity tags="hittable,teleportable_NOT">
+	
+	<Base file="data/entities/items/orbs/orb_base.xml">
+
+		<OrbComponent
+			orb_id="7" >
+		</OrbComponent>
+		
+		<SpriteComponent 
+			image_file="data/items_gfx/orbs/orb_07.xml" 
+			>
+		</SpriteComponent>
+		
+		<VariableStorageComponent
+			name="card_name"
+			value_string="CLOUD_THUNDER"
+		/>
+
+	</Base>
+	
+	<Entity>
+		<InheritTransformComponent>
+			<Transform 
+				position.x="0"   
+				position.y="-11" 
+				>
+			</Transform>
+		</InheritTransformComponent>
+		
+		<Base file="data/entities/items/orbs/orb_particles_base.xml" />
+	</Entity>
+
+	<LuaComponent 
+		script_item_picked_up="data/scripts/items/orb_07_trap.lua" >
+	</LuaComponent>
+</Entity>

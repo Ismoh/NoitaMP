@@ -1,0 +1,268 @@
+<Entity tags="enemy,mortal,human,hittable,homing_target,teleportable_NOT,touchmagic_immunity,polymorphable_NOT,glue_NOT" name="$animal_parallel_tentacles">
+	
+	<!-- art - main body ---------------------- -->
+
+	<LightComponent 
+		_enabled="1" 
+		radius="256"
+		r="100"
+		g="255"
+		b="130"
+		offset_y="0"
+   		fade_out_time="1.5" >
+	</LightComponent>
+
+	<SpriteComponent 
+		_tags="character"
+		image_file="data/entities/animals/parallel/tentacles/sprite.xml" 
+		>
+	</SpriteComponent>
+
+	<!-- AI ---------------------- -->
+
+	<LimbBossComponent
+		state="1"
+		>
+	</LimbBossComponent>
+	
+	<VariableStorageComponent
+		name="state"
+		value_int="0"
+		>
+	</VariableStorageComponent>
+	
+	<VariableStorageComponent
+		name="memory"
+		value_string="data/entities/projectiles/enlightened_laser_darkbeam.xml"
+		>
+	</VariableStorageComponent>
+	
+	<LuaComponent
+		script_source_file="data/entities/animals/boss_pit/boss_pit_logic.lua"
+		execute_every_n_frame="40"
+		>
+	</LuaComponent>
+	
+	<LuaComponent
+		script_source_file="data/entities/animals/boss_pit/boss_pit_memory.lua"
+		execute_every_n_frame="1"
+		>
+	</LuaComponent>
+	
+	<LuaComponent 
+		script_damage_received="data/entities/animals/boss_pit/boss_pit_damage.lua">
+	</LuaComponent>
+
+	<PathFindingComponent 
+		can_dive="1" 
+		can_fly="1" 
+		can_jump="0" 
+		can_swim_on_surface="0" 
+		can_walk="0" 
+		cost_of_flying="500" 
+		distance_to_reach_node_x="20" 
+		distance_to_reach_node_y="20" 
+		frames_between_searches="20" 
+		frames_to_get_stuck="120" 
+		initial_jump_lob="1" 
+		initial_jump_max_distance_x="100" 
+		initial_jump_max_distance_y="60" 
+		iterations_max_no_goal="9999999" 
+		iterations_max_with_goal="145000" 
+		jump_speed="200" 
+		max_jump_distance_from_camera="400" 
+		search_depth_max_no_goal="120" 
+		search_depth_max_with_goal="145000" 
+		y_walking_compensation="8" >
+	</PathFindingComponent>
+
+	<PathFindingGridMarkerComponent 
+		_enabled="1" 
+		marker_offset_x="0" 
+		marker_offset_y="-6" 
+		marker_work_flag="16" >
+	</PathFindingGridMarkerComponent>
+	
+	<ParticleEmitterComponent 
+		_tags="invincible"
+		_enabled="0"
+		emitted_material_name="spark_blue"
+		gravity.y="0.0"
+		lifetime_min="0.1"
+		lifetime_max="0.9"
+		count_min="10"
+		count_max="30"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		area_circle_radius.min="20"
+		area_circle_radius.max="20"
+		cosmetic_force_create="0"
+		airflow_force="0.41"
+		airflow_time="0.6"
+		airflow_scale="0.05"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		emit_cosmetic_particles="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+	
+	<ParticleEmitterComponent 
+		_tags="invincible"
+		_enabled="0"
+		emitted_material_name="spark_blue"
+		gravity.y="0.0"
+		lifetime_min="0.5"
+		lifetime_max="5.5"
+		count_min="1"
+		count_max="4"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		area_circle_radius.min="0"
+		area_circle_radius.max="20"
+		cosmetic_force_create="0"
+		airflow_force="0.3"
+		airflow_time="0.01"
+		airflow_scale="0.05"
+		emission_interval_min_frames="10"
+		emission_interval_max_frames="20"
+		emit_cosmetic_particles="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+
+
+	<!-- physics ---------------------- -->
+
+	<PhysicsAIComponent
+		target_vec_max_len="15.0"
+		force_coeff="10.0"
+		force_balancing_coeff="0.8"
+		force_max="100"
+		torque_coeff="50"
+		torque_balancing_coeff="4"
+		torque_max="50.0"
+		damage_deactivation_probability="0"
+		damage_deactivation_time_min="2"
+		damage_deactivation_time_max="10" >
+	</PhysicsAIComponent>
+
+	<PhysicsBodyComponent 
+		force_add_update_areas="1"
+		allow_sleep="1" 
+		angular_damping="0.02" 
+		fixed_rotation="1" 
+		is_bullet="0" 
+		linear_damping="0"  >
+	</PhysicsBodyComponent>
+
+	<PhysicsShapeComponent
+		is_circle="1"
+		radius_x="19"
+		radius_y="19"
+		friction="0.0"
+		restitution="0.3" >
+	</PhysicsShapeComponent>
+
+
+	<!-- damage ---------------------- -->
+
+	<DamageModelComponent 
+		hp="32" 
+		air_needed="0" 
+		falling_damages="0"
+		fire_probability_of_ignition="0" 
+		blood_material="slime_green"
+		is_on_fire="0" 
+		ragdoll_filenames_file=""
+        ragdoll_material="meat_slime_green"
+		ragdoll_offset_y="-6"
+		ragdoll_fx_forced="DISINTEGRATED"
+		ragdoll_material="rock_static_glow"
+		ragdollify_child_entity_sprites="1" 
+		blood_sprite_directional="data/particles/bloodsplatters/bloodsplatter_directional_purple_$[1-3].xml"
+		blood_sprite_large="data/particles/bloodsplatters/bloodsplatter_purple_$[1-3].xml"
+		critical_damage_resistance="1.0"
+		physics_objects_damage="0"
+		>
+		<damage_multipliers
+			melee="1.0"
+			projectile="0.3"
+			explosion="0.3"
+			electricity="0.3"
+			fire="0.3"
+			ice="0.3"
+			drill="0"
+			>
+		</damage_multipliers>
+	</DamageModelComponent>
+
+	<GenomeDataComponent 
+		food_chain_rank="5" 
+		herd_id="boss_limbs" 
+		is_predator="1" >
+	</GenomeDataComponent>
+	
+	<HitboxComponent 
+		_enabled="1"
+		damage_multiplier="0.1"
+		aabb_max_x="16" 
+		aabb_max_y="12" 
+		aabb_min_x="-16" 
+		aabb_min_y="-12" >
+	</HitboxComponent>
+	
+	<CameraBoundComponent
+		max_count="20"
+		distance="160000">
+	</CameraBoundComponent>
+
+
+	<!-- etc ---------------------- -->
+
+	<AudioComponent 
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals" >
+	</AudioComponent>
+
+	<SpriteAnimatorComponent />
+	
+	<CellEaterComponent
+		radius="32" 
+		eat_probability="100">
+	</CellEaterComponent>
+	
+	<AudioComponent
+      file="data/audio/Desktop/animals.bank"
+      event_root="animals/boss_limbs"
+      set_latest_event_position="1" >
+	</AudioComponent>
+
+	<!-- tentacles ---------------------- -->
+
+	<Entity><Base file="data/entities/animals/parallel/tentacles/tentacle.xml"> <InheritTransformComponent><Transform position.x="-8"  position.y="-8" ></Transform></InheritTransformComponent> </Base></Entity>
+	<Entity><Base file="data/entities/animals/parallel/tentacles/tentacle.xml"> <InheritTransformComponent><Transform position.x="8"  position.y="-8" ></Transform></InheritTransformComponent> </Base></Entity>
+	<Entity><Base file="data/entities/animals/parallel/tentacles/tentacle.xml"> <InheritTransformComponent><Transform position.x="4"  position.y="-6" ></Transform></InheritTransformComponent> </Base></Entity>
+	<Entity><Base file="data/entities/animals/parallel/tentacles/tentacle.xml"> <InheritTransformComponent><Transform position.x="8"  position.y="-8" ></Transform></InheritTransformComponent> </Base></Entity>
+	<Entity><Base file="data/entities/animals/parallel/tentacles/tentacle.xml"> <InheritTransformComponent><Transform position.x="-4"  position.y="2" ></Transform></InheritTransformComponent> </Base></Entity>
+	<Entity><Base file="data/entities/animals/parallel/tentacles/tentacle.xml"> <InheritTransformComponent><Transform position.x="0"  position.y="4" ></Transform></InheritTransformComponent> </Base></Entity>
+	
+	<Entity>
+		<InheritTransformComponent />
+		
+	    <GameEffectComponent 
+	        effect="PROTECTION_FREEZE"
+	        frames="-1"
+	    >
+		</GameEffectComponent >
+	</Entity>
+	
+	<Entity>
+		<InheritTransformComponent />
+		
+	    <GameEffectComponent 
+	        effect="PROTECTION_ELECTRICITY"
+	        frames="-1"
+	    >
+		</GameEffectComponent >
+	</Entity>
+
+</Entity>

@@ -1,0 +1,11 @@
+data/ragdolls/maggot_tiny/part1.png
+data/ragdolls/maggot_tiny/part2.png
+data/ragdolls/maggot_tiny/part3.png
+data/ragdolls/maggot_tiny/part4.png
+data/ragdolls/maggot_tiny/part5.png
+data/ragdolls/maggot_tiny/part6.png
+data/ragdolls/maggot_tiny/part7.png
+data/ragdolls/maggot_tiny/part8.png
+data/ragdolls/maggot_tiny/part9.png
+data/ragdolls/maggot_tiny/part10.png
+data/ragdolls/maggot_tiny/part11.png

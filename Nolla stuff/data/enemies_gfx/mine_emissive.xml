@@ -1,0 +1,33 @@
+<Sprite
+ filename="data/enemies_gfx/mine_emissive.png"
+ offset_x="6"
+ offset_y="6"
+ default_animation="stand" 
+ >
+
+ <!-- stand -->
+ <RectAnimation
+  name="stand"
+  pos_x="0"
+  pos_y="0"
+  frame_count="1"
+  frame_width="12"
+  frame_height="12"
+  frame_wait="0.16"
+  frames_per_row="8"
+  loop="1"   >
+ </RectAnimation>
+ 
+ <RectAnimation
+  name="detonate"
+  pos_x="0"
+  pos_y="0"
+  frame_count="8"
+  frame_width="12"
+  frame_height="12"
+  frame_wait="0.09"
+  frames_per_row="8"
+  loop="1"   >
+ </RectAnimation>
+
+</Sprite>

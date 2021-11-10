@@ -1,0 +1,57 @@
+<Entity tags="teleportable_NOT,item">
+  <ItemComponent
+    _tags="enabled_in_world"
+    is_pickable="1">
+  </ItemComponent>
+
+  <VelocityComponent
+    _tags="enabled_in_world"
+  	gravity_y="400"
+  	air_friction="0.55"
+  	terminal_velocity="1000" >
+  </VelocityComponent>
+	
+  <SimplePhysicsComponent
+    _tags="enabled_in_world" >
+  </SimplePhysicsComponent>
+  
+  <HitboxComponent 
+    _tags="enabled_in_world"
+    aabb_max_x="4" 
+    aabb_max_y="4" 
+    aabb_min_x="-4" 
+    aabb_min_y="-4" 
+    is_enemy="0" 
+    is_item="0" 
+    is_player="0" >
+  </HitboxComponent>
+   
+  <SpriteComponent 
+    _tags="item,enabled_in_world,enabled_in_hand" 
+    alpha="1" 
+    image_file="data/items_gfx/handgun.xml" 
+    next_rect_animation="default" 
+    rect_animation="default"
+    z_index="-1.5" >
+  </SpriteComponent>
+  
+  <LightComponent 
+    _tags="enabled_in_world"
+    radius="64" >
+  </LightComponent>
+
+  <AudioLoopComponent
+      _tags="enabled_in_world,enabled_in_hand,sound_digger"
+      file="data/audio/Desktop/projectiles.bank"
+      event_name="player_projectiles/digger/loop"
+      volume_autofade_speed="0.1" >
+  </AudioLoopComponent>
+  
+  <AudioLoopComponent
+      _tags="enabled_in_world,enabled_in_hand,sound_spray"
+      file="data/audio/Desktop/projectiles.bank"
+      event_name="player_projectiles/spray/loop"
+      volume_autofade_speed="0.1" >
+  </AudioLoopComponent>
+
+</Entity>

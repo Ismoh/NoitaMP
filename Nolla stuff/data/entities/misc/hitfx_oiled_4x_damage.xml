@@ -1,0 +1,9 @@
+<Entity>
+    
+    <HitEffectComponent 
+        condition_status="OILED"
+        effect_hit="DAMAGE_BOOST"
+        value="4" >
+	</HitEffectComponent >
+
+</Entity>

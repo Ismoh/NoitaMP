@@ -1,0 +1,25 @@
+<Entity name="$animal_sniper" >
+
+	<Base file="data/entities/animals/sniper.xml" include_children="1" >
+		<AnimalAIComponent 
+			_enabled="1" 
+			preferred_job="JobDefault"
+			escape_if_damaged_probability="4"
+			creature_detection_range_x="300"
+			creature_detection_range_y="300"
+			sense_creatures="1"
+			attack_ranged_enabled="1"
+			attack_melee_enabled="0"
+			can_fly="0"  
+			attack_ranged_action_frame="4"
+			attack_ranged_entity_file="data/entities/items/pickup/jar_of_urine.xml"
+			attack_ranged_frames_between="80" 
+			attack_ranged_offset_y="-5"
+			attack_ranged_offset_x="0"
+			needs_food="0"
+			<!-- attack_ranged_min_distance="60" -->
+			>
+		</AnimalAIComponent>
+		
+	</Base>
+</Entity>

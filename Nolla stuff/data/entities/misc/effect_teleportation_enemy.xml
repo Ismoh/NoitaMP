@@ -1,0 +1,28 @@
+<Entity>
+	<Base file="data/entities/particles/teleportation_blast.xml" >
+		<SpriteParticleEmitterComponent
+			randomize_position_inside_hitbox="1"  >
+		</SpriteParticleEmitterComponent>
+	</Base>
+	
+	<InheritTransformComponent>
+    </InheritTransformComponent>	
+    
+    <GameEffectComponent 
+        effect="TELEPORTATION"
+        frames="320"
+		teleportation_probability="200"
+		teleportation_delay_min_frames="140"
+    >
+	</GameEffectComponent >
+	
+	<UIIconComponent
+		icon_sprite_file="data/ui_gfx/status_indicators/teleportation.png"
+		name="$status_teleportation"
+		description="$statusdesc_teleportation"
+		display_above_head="0"
+		display_in_hud="1"
+		is_perk="0"
+		>
+	</UIIconComponent>
+</Entity>

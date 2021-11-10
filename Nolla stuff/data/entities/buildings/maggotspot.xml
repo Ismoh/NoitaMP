@@ -1,0 +1,6 @@
+<Entity>
+    <LuaComponent
+      script_source_file="data/scripts/buildings/maggotspot.lua"
+      execute_every_n_frame="20" >
+    </LuaComponent>
+</Entity>

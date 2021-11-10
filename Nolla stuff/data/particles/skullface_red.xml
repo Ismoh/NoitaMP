@@ -1,0 +1,20 @@
+<Sprite
+filename="data/particles/skullface_red.png"
+offset_x="7.5"
+offset_y="8" 
+default_animation="stand"
+ >
+
+<!-- soul around -->
+<RectAnimation
+name="stand"
+pos_x="0"
+pos_y="0"
+frame_count="8"
+frame_width="15"
+frame_height="16"
+frame_wait="0.12"
+frames_per_row="8"
+loop="1"   >
+</RectAnimation>
+</Sprite>

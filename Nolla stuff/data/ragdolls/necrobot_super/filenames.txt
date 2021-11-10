@@ -1,0 +1,6 @@
+data/ragdolls/necrobot_super/torso.png
+data/ragdolls/necrobot_super/head.png
+data/ragdolls/necrobot_super/hand_right.png
+data/ragdolls/necrobot_super/hand_left.png
+data/ragdolls/necrobot_super/foot_1.png
+data/ragdolls/necrobot_super/foot_2.png

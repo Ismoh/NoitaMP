@@ -1,0 +1,10 @@
+data/ragdolls/skullfly/torso.png
+data/ragdolls/skullfly/tendril1.png
+data/ragdolls/skullfly/tendril2.png
+data/ragdolls/skullfly/tendril3.png
+data/ragdolls/skullfly/tendril4.png
+data/ragdolls/skullfly/tendril5.png
+data/ragdolls/skullfly/tendril6.png
+data/ragdolls/skullfly/wing1.png
+data/ragdolls/skullfly/wing2.png
+data/ragdolls/skullfly/head.png

@@ -1,0 +1,4 @@
+data/ragdolls/monk/torso.png
+data/ragdolls/monk/head.png
+data/ragdolls/monk/leg_l.png
+data/ragdolls/monk/leg_r.png

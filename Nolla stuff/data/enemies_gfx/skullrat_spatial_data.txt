@@ -1,0 +1,7 @@
+ffff0000 left_foot
+ff800000 right_foot
+ffff00ff left_hand
+ff0000ff right_hand
+ffffff00 head
+ff00ffff tail
+ff00ff00 center

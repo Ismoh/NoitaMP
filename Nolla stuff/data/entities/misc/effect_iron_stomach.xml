@@ -1,0 +1,12 @@
+<Entity>
+	
+	<InheritTransformComponent>
+    </InheritTransformComponent>	
+    
+    <GameEffectComponent 
+        effect="IRON_STOMACH"
+        frames="600"
+    >
+	</GameEffectComponent >
+
+</Entity>

@@ -1,0 +1,139 @@
+<Sprite 
+  filename="data/enemies_gfx/playerghost.png" 
+  hotspots_filename="data/enemies_gfx/player_hotspots.png" 
+  offset_x="6" 
+  offset_y="6.5"
+  default_animation="stand">
+
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="20" 
+    frame_wait="0.2" 
+    frame_width="13" 
+    frames_per_row="8" 
+    name="stand" 
+    pos_x="0" 
+    pos_y="1" 
+    shrink_by_one_pixel="1" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="20" 
+    frame_wait="0.105" 
+    frame_width="13" 
+    frames_per_row="8" 
+    name="walk" 
+    pos_x="0" 
+    pos_y="1" 
+    shrink_by_one_pixel="1" >
+
+    <Event 
+      check_physics_material="0" 
+      frame="2" 
+      max_distance="500" 
+      name="step" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="20" 
+    frame_wait="0.105" 
+    frame_width="13" 
+    frames_per_row="8" 
+    name="run" 
+    pos_x="0" 
+    pos_y="1" 
+    shrink_by_one_pixel="1" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="20" 
+    frame_wait="0.095" 
+    frame_width="13" 
+    frames_per_row="8" 
+    name="burn" 
+    pos_x="0" 
+    pos_y="1" 
+    shrink_by_one_pixel="1" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="20" 
+    frame_wait="0.09" 
+    frame_width="13" 
+    frames_per_row="8" 
+    name="fly_move" 
+    pos_x="0" 
+    pos_y="21" 
+    shrink_by_one_pixel="1" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="20" 
+    frame_wait="0.12" 
+    frame_width="13" 
+    frames_per_row="8" 
+    name="fly_idle" 
+    pos_x="0" 
+    pos_y="41" 
+    shrink_by_one_pixel="1" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="20" 
+    frame_wait="0.08" 
+    frame_width="13" 
+    frames_per_row="8" 
+    loop="0" 
+    name="attack" 
+    pos_x="0" 
+    pos_y="61" 
+    shrink_by_one_pixel="1" >
+
+    <Event 
+      check_physics_material="0" 
+      frame="3" 
+      max_distance="500" 
+      name="kick" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+  </RectAnimation>
+
+  <Hotspot 
+    color="ff0000" 
+    name="hand" >
+
+  </Hotspot>
+
+  <Hotspot 
+    color="ff00" 
+    name="belt" >
+
+  </Hotspot>
+
+  <Hotspot 
+    color="ff" 
+    name="cape" >
+
+  </Hotspot>
+
+</Sprite>
+

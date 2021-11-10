@@ -1,0 +1,9 @@
+<Entity tags="racing_checkpoint">
+	<!-- note: more tags are added to these at lavalake_racing.lua -->
+	<LightComponent 
+		radius="100"
+		r="255"
+		g="80"
+		b="80" >
+	</LightComponent>
+</Entity>

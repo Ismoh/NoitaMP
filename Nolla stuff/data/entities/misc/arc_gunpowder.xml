@@ -1,0 +1,6 @@
+<Entity >
+	<ArcComponent
+		lifetime="120" 
+		material="gunpowder_unstable" >
+	</ArcComponent>
+</Entity>

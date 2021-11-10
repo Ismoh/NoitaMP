@@ -1,0 +1,8 @@
+data/ragdolls/bloom/torso.png
+data/ragdolls/bloom/flower.png
+data/ragdolls/bloom/tentacle_1.png
+data/ragdolls/bloom/tentacle_2.png
+data/ragdolls/bloom/tentacle_3.png
+data/ragdolls/bloom/tentacle_4.png
+data/ragdolls/bloom/tentacle_5.png
+data/ragdolls/bloom/tentacle_6.png

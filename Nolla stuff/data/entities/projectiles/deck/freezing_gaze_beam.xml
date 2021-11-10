@@ -1,0 +1,215 @@
+<Entity 
+  name="$projectile_default" tags="projectile_player"
+   >
+
+	<Base file="data/entities/base_projectile.xml" >
+		<VelocityComponent
+			air_friction="-1"
+			gravity_y="0"
+			mass="0.04"
+		>
+		</VelocityComponent>
+	</Base>
+
+  <ProjectileComponent 
+    _enabled="1" 
+    lob_min="0.8"
+    lob_max="1.0"
+    speed_min="220"
+    speed_max="220"
+    direction_random_rad="0"
+    on_death_explode="0"
+    on_death_gfx_leave_sprite="0" 
+    on_lifetime_out_explode="0"
+    on_collision_die="1"
+	die_on_liquid_collision="1"
+    lifetime="25"
+    damage="0.0"
+    velocity_sets_scale="1"
+    ragdoll_force_multiplier="0.01"
+    ragdoll_fx_on_collision="BLOOD_SPRAY"
+    hit_particle_force_multiplier="0.25"
+    camera_shake_when_shot="5.0"
+    bounces_left="10"
+	muzzle_flash_file="data/entities/particles/muzzle_flashes/muzzle_flash_laser.xml"
+	shoot_light_flash_radius="180"
+    shoot_light_flash_r="30"
+    shoot_light_flash_g="170"
+    shoot_light_flash_b="210" 
+	knockback_force="1.0"
+	physics_impulse_coeff="2000"
+	damage_game_effect_entities="data/entities/misc/effect_frozen_short.xml,"
+	penetrate_entities="1"
+	>
+	<damage_by_type ice="0.4" >
+    </damage_by_type>
+    <config_explosion
+      never_cache="1" 
+	  >
+    </config_explosion>
+  </ProjectileComponent>
+
+  <LightComponent 
+    _enabled="1" 
+    radius="150" 
+    r="30"
+    g="90"
+    b="30">
+  </LightComponent>
+
+  <ParticleEmitterComponent 
+    emitted_material_name="spark_blue"
+    offset.x="0"
+    offset.y="0"
+	gravity.y="0.0"
+	x_vel_min="0"
+    x_vel_max="0"
+    y_vel_min="-2"
+    y_vel_max="2"
+    count_min="1"
+    count_max="2"
+	is_trail="0"
+	trail_gap="0.8"
+    lifetime_min="0.1"
+    lifetime_max="0.8"
+    emit_real_particles="0"
+	render_on_grid="1"
+    emit_cosmetic_particles="1"
+    emission_interval_min_frames="1"
+    emission_interval_max_frames="2"
+	fade_based_on_lifetime="1"
+    is_emitting="1" >
+  </ParticleEmitterComponent>
+  
+	<VariableStorageComponent
+		name="projectile_file"
+		value_string="data/entities/projectiles/deck/freezing_gaze_beam.xml"
+		>
+	</VariableStorageComponent>
+	
+	<MagicConvertMaterialComponent
+        from_material="fire"
+        to_material="air"
+        steps_per_frame="20"
+        loop="1"
+		is_circle="1"
+        radius="20" >
+    </MagicConvertMaterialComponent>
+	
+	<MagicConvertMaterialComponent
+        from_material="lava"
+        to_material="rock_static"
+        steps_per_frame="20"
+        loop="1"
+		is_circle="1"
+        radius="20" >
+    </MagicConvertMaterialComponent>
+	
+    <MagicConvertMaterialComponent
+        from_material="water"
+        to_material="ice_static"
+        steps_per_frame="20"
+        loop="1"
+		is_circle="1"
+        radius="20" >
+    </MagicConvertMaterialComponent>
+
+    <MagicConvertMaterialComponent
+        from_material="water_ice"
+        to_material="ice_static"
+        steps_per_frame="20"
+        loop="1"
+		is_circle="1"
+        radius="20" >
+    </MagicConvertMaterialComponent>
+
+    <MagicConvertMaterialComponent
+        from_material="water_salt"
+        to_material="ice_static"
+        steps_per_frame="20"
+        loop="1"
+		is_circle="1"
+        radius="20" >
+    </MagicConvertMaterialComponent>
+
+    <MagicConvertMaterialComponent
+        from_material="water_static"
+        to_material="ice_static"
+        steps_per_frame="20"
+        loop="1"
+		is_circle="1"
+        radius="20" >
+    </MagicConvertMaterialComponent>
+
+    <MagicConvertMaterialComponent
+        from_material="water_swamp"
+        to_material="ice_static"
+        steps_per_frame="20"
+        loop="1"
+		is_circle="1"
+        radius="20" >
+    </MagicConvertMaterialComponent>
+	
+	<MagicConvertMaterialComponent
+        from_material="radioactive_liquid"
+        to_material="ice_radioactive_static"
+        steps_per_frame="20"
+        loop="1"
+		is_circle="1"
+        radius="20" >
+    </MagicConvertMaterialComponent>
+	
+	<MagicConvertMaterialComponent
+        from_material="acid"
+        to_material="ice_acid_static"
+        steps_per_frame="20"
+        loop="1"
+		is_circle="1"
+        radius="20" >
+    </MagicConvertMaterialComponent>
+	
+	<MagicConvertMaterialComponent
+        from_material="blood_cold"
+        to_material="ice_cold_static"
+        steps_per_frame="20"
+        loop="1"
+		is_circle="1"
+        radius="20" >
+    </MagicConvertMaterialComponent>
+	
+	<MagicConvertMaterialComponent
+        from_material="blood"
+        to_material="ice_blood_static"
+        steps_per_frame="20"
+        loop="1"
+		is_circle="1"
+        radius="20" >
+    </MagicConvertMaterialComponent>
+	
+	<MagicConvertMaterialComponent
+        from_material="poison"
+        to_material="ice_poison_static"
+        steps_per_frame="20"
+        loop="1"
+		is_circle="1"
+        radius="20" >
+    </MagicConvertMaterialComponent>
+	
+	<MagicConvertMaterialComponent
+        from_material="slime"
+        to_material="ice_slime_static"
+        steps_per_frame="20"
+        loop="1"
+		is_circle="1"
+        radius="20" >
+    </MagicConvertMaterialComponent>
+    
+    <MagicConvertMaterialComponent
+      kill_when_finished="0"
+      extinguish_fire="1"
+      is_circle="1"
+      loop="1"
+      radius="30" >
+    </MagicConvertMaterialComponent>
+
+</Entity>

@@ -1,0 +1,31 @@
+<Entity>
+	
+	<Base file="data/entities/base_custom_card.xml" > 
+		<SpriteComponent 
+			image_file="data/ui_gfx/gun_actions/thunderball.png" 
+			>
+		</SpriteComponent>
+		
+		<ItemActionComponent 
+			_tags="enabled_in_world"
+			action_id="THUNDERBALL" >
+		</ItemActionComponent>
+	</Base>
+
+	<Base file="data/entities/misc/custom_cards/base_electricity.xml">
+	</Base>
+
+	<LightComponent 
+    	_tags="enabled_in_hand,item_identified"
+        _enabled="1" 
+        radius="40"
+        fade_out_time="1.5" 
+    	r="20"
+    	g="40"
+    	b="150" >
+	</LightComponent>
+	
+	<Base file="data/entities/particles/water_electrocution.xml">
+	</Base>
+	
+</Entity>

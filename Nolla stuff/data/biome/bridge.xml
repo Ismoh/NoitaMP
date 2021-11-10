@@ -1,0 +1,255 @@
+<Biome>
+  <Topology 
+    name="_EMPTY_"
+    background_image="data/weather_gfx/background_snowcave.png"
+
+    lua_script="data/scripts/biomes/bridge.lua"
+    noise_type="SIN_CAPPED_SIMPLEX"
+
+    mGradientAddNoise="1" 
+    mGradientEndY="1024" 
+    mGradientHighNoise="234.057" 
+    mGradientLowNoise="-292.571" 
+    mGradientNoiseScale="0.00128571" 
+    mGradientStartY="-1024" 
+
+    mInsidePerlinClamped="0" 
+    mInsidePerlinScaleMax="2" 
+    mInsidePerlinScaleMin="0.057143" 
+    mInsidePerlinScaleX="0.9999" 
+    mInsidePerlinScaleY="0.9999" 
+    mInsidePerlinScaled="1" 
+    mInsidePerlinSquared="0" 
+
+    mMultiplierGradient="0.871429" 
+    >
+  </Topology>
+
+  <!------------ MATERIALS -------------------->
+
+  <Materials 
+    name="empty" 
+     >
+
+
+    <VegetationComponent 
+      _enabled="1" 
+      is_visual="0" 
+      rand_seed="8376.86" 
+      tree_extra_y="14" 
+      tree_image_file="data/vegetation/tree_spruce_1.png" 
+      tree_image_visual="" 
+      tree_material="wood_loose" 
+      tree_probability="0.328571" 
+      tree_radius_high="0.414286" 
+      tree_radius_low="0.128571" 
+      tree_width="67" 
+      visual_color="0x00FFFF" 
+      visual_offset_x="0" 
+      visual_offset_y="4" >
+    </VegetationComponent>
+
+        <VegetationComponent 
+      _enabled="1" 
+      is_visual="0" 
+      rand_seed="8376.86" 
+      tree_extra_y="14" 
+      tree_image_file="data/vegetation/tree_spruce_2.png" 
+      tree_image_visual="" 
+      tree_material="wood_loose" 
+      tree_probability="0.328571" 
+      tree_radius_high="0.414286" 
+      tree_radius_low="0.128571" 
+      tree_width="89" 
+      visual_color="0x00FFFF" 
+      visual_offset_x="0" 
+      visual_offset_y="4" >
+    </VegetationComponent>
+
+        <VegetationComponent 
+      _enabled="1" 
+      is_visual="0" 
+      rand_seed="8376.86" 
+      tree_extra_y="14" 
+      tree_image_file="data/vegetation/tree_spruce_3.png" 
+      tree_image_visual="" 
+      tree_material="wood_loose" 
+      tree_probability="0.328571" 
+      tree_radius_high="0.414286" 
+      tree_radius_low="0.128571" 
+      tree_width="97" 
+      visual_color="0x00FFFF" 
+      visual_offset_x="0" 
+      visual_offset_y="4" >
+    </VegetationComponent>
+
+    <VegetationComponent 
+      _enabled="1" 
+      is_visual="0" 
+      rand_seed="8376.86" 
+      tree_extra_y="14" 
+      tree_image_file="data/vegetation/tree_spruce_4.png" 
+      tree_image_visual="" 
+      tree_material="wood_loose" 
+      tree_probability="0.328571" 
+      tree_radius_high="0.414286" 
+      tree_radius_low="0.128571" 
+      tree_width="101" 
+      visual_color="0x00FFFF" 
+      visual_offset_x="0" 
+      visual_offset_y="4" >
+    </VegetationComponent>
+	
+	<VegetationComponent 
+      _enabled="1" 
+      is_visual="0" 
+      rand_seed="85376.86" 
+      tree_extra_y="25" 
+      tree_image_file="data/vegetation/tree_leaf.png" 
+      tree_image_visual="" 
+      tree_material="wood_loose" 
+      tree_probability="0.428571" 
+      tree_radius_high="0.414286" 
+      tree_radius_low="0.228571" 
+      tree_width="107" 
+      visual_color="0x00FFFF" 
+      visual_offset_x="0" 
+      visual_offset_y="7" >
+    </VegetationComponent>
+
+ <VegetationComponent 
+      _enabled="1" 
+      is_visual="1" 
+      rand_seed="8376.86" 
+      tree_extra_y="0" 
+      tree_image_file="" 
+      tree_image_visual="" 
+      tree_material="moss" 
+      tree_probability="0.828571" 
+      tree_radius_high="0.414286" 
+      tree_radius_low="0.228571" 
+      tree_width="76.1143" 
+      visual_color="0xffb89f6c" 
+      visual_offset_x="3" 
+      visual_offset_y="7.5" 
+      is_grass="1"
+      grass_requires_neighbors="1"
+      material_on_top_of="sand_static"
+      >
+    </VegetationComponent>
+
+    <VegetationComponent 
+      _enabled="1" 
+      is_visual="1" 
+      rand_seed="1248" 
+      tree_extra_y="0" 
+      tree_image_file="data/vegetation/vine_growth_1.xml" 
+      tree_image_visual="" 
+      tree_material="ceiling_plant_material" 
+      tree_probability="0.24571" 
+      tree_radius_high="0.635286" 
+      tree_radius_low="0.146757" 
+      tree_width="110.123" 
+      visual_color="0x00b89f6c" 
+      visual_offset_x="3" 
+      visual_offset_y="0" 
+      is_ceiling_plant="1"
+      >
+    </VegetationComponent>
+    <VegetationComponent 
+      _enabled="1" 
+      is_visual="1" 
+      rand_seed="4575" 
+      tree_extra_y="-1" 
+      tree_image_file="data/vegetation/ceiling_vegetation_00$[2-8].png" 
+      tree_image_visual="" 
+      tree_material="ceiling_plant_material" 
+      tree_probability="0.54571" 
+      tree_radius_high="0.635286" 
+      tree_radius_low="0.146757" 
+      tree_width="11.123" 
+      visual_color="0x00b89f6c" 
+      visual_offset_x="3" 
+      visual_offset_y="0" 
+      is_ceiling_plant="1"
+      >
+    </VegetationComponent>
+
+    <!-- NOTE! if it's an xml file, make sure tree_material (plant_material) has vegetation_sprite set in  materials.xml-->
+    <VegetationComponent 
+      _enabled="1" 
+      is_visual="1" 
+      rand_seed="507812" 
+      tree_extra_y="-1" 
+      tree_image_file="data/vegetation/bush_growth_$[1-8].xml" 
+      tree_image_visual="" 
+      tree_material="plant_material" 
+      tree_probability="0.528571" 
+      tree_radius_high="0.214286" 
+      tree_radius_low="0.1027" 
+      tree_width="30.571" 
+      visual_color="0xff4d5d44" 
+      visual_offset_x="15" 
+      visual_offset_y="32" 
+	  >
+    </VegetationComponent>
+	
+	<VegetationComponent 
+      _enabled="1" 
+      is_visual="0" 
+      rand_seed="12376.86" 
+      tree_extra_y="14" 
+      tree_image_file="data/vegetation/mushroom_big_$[1-3].png" 
+      tree_image_visual="" 
+      tree_material="fungus_loose" 
+      tree_probability="0.128571" 
+      tree_radius_high="0.414286" 
+      tree_radius_low="0.228571" 
+      tree_width="76.1143" 
+      visual_color="0xffb89f6c" 
+      visual_offset_x="3" 
+      visual_offset_y="7.5" 
+	  >
+    </VegetationComponent>
+	
+	<VegetationComponent 
+      _enabled="1" 
+      is_visual="0" 
+      rand_seed="1245.86" 
+      tree_extra_y="14" 
+      tree_image_file="data/vegetation/mushroom_big_$[4-6].png" 
+      tree_image_visual="" 
+      tree_material="fungus_loose" 
+      tree_probability="0.128571" 
+      tree_radius_high="0.414286" 
+      tree_radius_low="0.228571" 
+      tree_width="76.1143" 
+      visual_color="0xffb89f6c" 
+      visual_offset_x="3" 
+      visual_offset_y="7.5" 
+	  >
+    </VegetationComponent>
+
+    <VegetationComponent 
+      _enabled="1" 
+      is_visual="1" 
+      rand_seed="8376.86" 
+      tree_extra_y="0" 
+      tree_image_file="" 
+      tree_image_visual="" 
+      tree_material="grass" 
+      tree_probability="0.828571" 
+      tree_radius_high="0.414286" 
+      tree_radius_low="0.228571" 
+      tree_width="76.1143" 
+      visual_color="0xffb89f6c" 
+      visual_offset_x="3" 
+      visual_offset_y="7.5" 
+      is_grass="1"
+      grass_requires_neighbors="0"
+      material_on_top_of="soil"
+      >
+    </VegetationComponent>
+  </Materials>
+
+</Biome>

@@ -1,0 +1,34 @@
+<Entity>
+	<SpriteComponent 
+		emissive="0"
+		additive="1"
+		image_file="data/projectiles_gfx/quantum_fx_red.xml" 
+		>
+	</SpriteComponent>
+
+	<ParticleEmitterComponent 
+		emitted_material_name="spark_red_bright"
+		offset.x="0"
+		offset.y="0"
+		gravity.y="0.0"
+		x_vel_min="0"
+		x_vel_max="0"
+		y_vel_min="0"
+		y_vel_max="0"
+		friction="10"
+		count_min="1"
+		count_max="1"
+		lifetime_min="0.25"
+		lifetime_max="4.0"
+		emit_real_particles="0"
+		render_on_grid="1"
+		is_trail="1"
+		trail_gap="6"
+		fade_based_on_lifetime="1"
+		emit_cosmetic_particles="1"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+</Entity>
+

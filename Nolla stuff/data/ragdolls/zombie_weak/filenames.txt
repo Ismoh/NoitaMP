@@ -1,0 +1,12 @@
+data/ragdolls/zombie_weak/upper_torso.png
+data/ragdolls/zombie_weak/lower_torso.png
+data/ragdolls/zombie_weak/right_thigh.png
+data/ragdolls/zombie_weak/right_foot.png
+data/ragdolls/zombie_weak/right_arm.png
+data/ragdolls/zombie_weak/right_hand.png
+data/ragdolls/zombie_weak/left_thigh.png
+data/ragdolls/zombie_weak/left_foot.png
+data/ragdolls/zombie_weak/left_arm.png
+data/ragdolls/zombie_weak/left_hand.png
+data/ragdolls/zombie_weak/head.png
+data/ragdolls/zombie_weak/tail.png

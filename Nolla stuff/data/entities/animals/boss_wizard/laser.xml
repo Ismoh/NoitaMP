@@ -1,0 +1,121 @@
+<Entity 
+  name="$projectile_default" 
+  tags="boss_wizard_laser"
+   >
+
+	<Base file="data/entities/base_projectile.xml" >
+		<VelocityComponent
+    		gravity_y="0"
+			air_friction="2"
+			mass="0.8"
+			>
+    	</VelocityComponent> 
+	</Base>
+
+  <ProjectileComponent 
+    _enabled="1" 
+	lob_min="0.8"
+  	lob_max="1.0"
+  	speed_min="100"
+  	speed_max="120"
+    die_on_low_velocity="0"
+    on_death_explode="1"
+    on_death_gfx_leave_sprite="0" 
+    on_lifetime_out_explode="1"
+	explosion_dont_damage_shooter="1"
+    damage="1.8"
+    on_collision_die="1"
+    lifetime="100" 
+	knockback_force="2.0"
+	velocity_sets_scale="1"
+	>
+    <config_explosion
+      never_cache="1" 
+      camera_shake="4.0" 
+      explosion_radius="20" 
+      explosion_sprite="data/particles/explosion_032_plasma.xml" 
+      explosion_sprite_lifetime="0.0" 
+      create_cell_probability="1" 
+      create_cell_material="plasma_fading" 
+	  ray_energy="10000"
+      hole_destroy_liquid="1" 
+      hole_enabled="1" 
+	  damage = "3.5"
+      hole_image="data/temp/explosion_hole.png"
+	  explosion_sprite_emissive="0"
+	  explosion_sprite_additive="1"
+      particle_effect="0" 
+      damage_mortals="1"
+	  physics_explosion_power.min="0.4" 
+      physics_explosion_power.max="0.6" 
+	  physics_throw_enabled="1"
+      shake_vegetation="1"  
+      sparks_enabled="1" 
+	  spark_material="plasma_fading"
+      sparks_count_max="16" 
+      sparks_count_min="12"
+      light_fade_time="1.2" 
+	  light_r="25"
+	  light_g="95"
+      light_b="190"
+      stains_enabled="1" 
+      stains_image="data/temp/explosion_stain.png" >
+    </config_explosion>
+  </ProjectileComponent>
+  
+  <LuaComponent
+		script_source_file="data/scripts/projectiles/phasing_arc.lua"
+		execute_every_n_frame="12"
+		>
+	</LuaComponent>
+	
+	<LuaComponent
+		_tags="boss_wizard_laser_multiply"
+		script_source_file="data/entities/animals/boss_wizard/laser.lua"
+		execute_every_n_frame="60"
+		>
+	</LuaComponent>
+  
+  <SpriteComponent 
+    _enabled="1" 
+    alpha="1" 
+    image_file="data/projectiles_gfx/orb_blue_big.xml" 
+    next_rect_animation="" 
+    offset_x="8" 
+    offset_y="8" 
+    rect_animation="fireball" 
+	>
+  </SpriteComponent>
+  
+  <SpriteComponent 
+    _enabled="1" 
+    alpha="1" 
+    image_file="data/projectiles_gfx/orb_blue_big.xml" 
+    next_rect_animation="" 
+    offset_x="8" 
+    offset_y="8" 
+    rect_animation="fireball" 
+	emissive="0"
+    additive="1"
+	>
+  </SpriteComponent>
+  
+  <LightComponent 
+    _enabled="1" 
+    radius="150" 
+    r="10"
+    g="85"
+    b="190">
+  </LightComponent>
+  
+	<AudioComponent
+		file="data/audio/Desktop/projectiles.bank"
+		event_root="projectiles/orb_b" >
+	</AudioComponent>
+	
+	<VariableStorageComponent
+		name="projectile_file"
+		value_string="data/entities/animals/boss_wizard/laser.xml"
+		>
+	</VariableStorageComponent>
+</Entity>

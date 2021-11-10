@@ -1,0 +1,86 @@
+<Sprite 
+  filename="data/enemies_gfx/drone.png" 
+  offset_x="6" 
+  offset_y="11"
+  default_animation="stand" >
+
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="17" 
+    frame_wait="0.05" 
+    frame_width="17" 
+    frames_per_row="4" 
+    name="stand" 
+    pos_x="0" 
+    pos_y="1" 
+    shrink_by_one_pixel="1" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="17" 
+    frame_wait="0.05" 
+    frame_width="17" 
+    frames_per_row="4" 
+    name="walk" 
+    pos_x="0" 
+    pos_y="1" 
+    shrink_by_one_pixel="1" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="17" 
+    frame_wait="0.05" 
+    frame_width="17" 
+    frames_per_row="4" 
+    name="run" 
+    pos_x="0" 
+    pos_y="1" 
+    shrink_by_one_pixel="1" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="17" 
+    frame_wait="0.05" 
+    frame_width="17" 
+    frames_per_row="4" 
+    name="burn" 
+    pos_x="0" 
+    pos_y="1" 
+    shrink_by_one_pixel="1" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="17" 
+    frame_wait="0.05" 
+    frame_width="17" 
+    frames_per_row="4" 
+    name="fly_move" 
+    pos_x="0" 
+    pos_y="1" 
+    shrink_by_one_pixel="1" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="17" 
+    frame_wait="0.05" 
+    frame_width="17" 
+    frames_per_row="4" 
+    name="fly_idle" 
+    pos_x="0" 
+    pos_y="1" 
+    shrink_by_one_pixel="1" >
+
+  </RectAnimation>
+
+</Sprite>
+

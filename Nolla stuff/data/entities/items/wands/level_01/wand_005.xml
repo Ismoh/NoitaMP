@@ -1,0 +1,351 @@
+<Entity 
+  name="" 
+  serialize="1" 
+  tags="hittable" >
+
+  <_Transform 
+    position.x="689.705" 
+    position.y="-674.064" 
+    rotation="3.00811" 
+    scale.x="1" 
+    scale.y="-1" >
+
+  </_Transform>
+
+  <AbilityComponent 
+    _enabled="1" 
+    add_these_child_actions="" 
+    amount_in_inventory="1" 
+    base_item_file="data/entities/base_item.xml" 
+    charge_wait_frames="10" 
+    cooldown_frames="0" 
+    current_slot_durability="120" 
+    drop_as_item_on_death="1" 
+    entity_count="1" 
+    entity_file="" 
+    fast_projectile="0" 
+    item_recoil_max="1" 
+    item_recoil_offset_coeff="1" 
+    item_recoil_recovery_speed="15" 
+    item_recoil_rotation_coeff="5" 
+    mChargeCount="0" 
+    mIsInitialized="1" 
+    mana="210" 
+    mana_charge_speed="52" 
+    mana_max="210" 
+    max_amount_in_inventory="1" 
+    max_charged_actions="0" 
+    never_reload="0" 
+    reload_time_frames="4" 
+    rotate_hand_amount="0.7" 
+    rotate_in_hand="1" 
+    rotate_in_hand_amount="1" 
+    shooting_reduces_amount_in_inventory="0" 
+    slot_consumption_function="_get_gun_slot_durability_default" 
+    sprite_file="data/items_gfx/wands/wand_0484.png" 
+    swim_propel_amount="0" 
+    throw_as_item="0" 
+    ui_name="Slim Rapid bolt wand" 
+    use_gun_script="1" >
+
+    <gun_config 
+      actions_per_round="1" 
+      deck_capacity="5" 
+      reload_time="4" 
+      shuffle_deck_when_empty="1" >
+
+    </gun_config>
+
+    <gunaction_config 
+      action_description="" 
+      action_draw_many_count="0" 
+      action_id="" 
+      action_is_dangerous_blast="0" 
+      action_mana_drain="10" 
+      action_max_uses="-1" 
+      action_name="" 
+      action_spawn_level="" 
+      action_spawn_probability="" 
+      action_sprite_filename="" 
+      action_type="0" 
+      blood_count_multiplier="1" 
+      bounces="0" 
+      child_speed_multiplier="1" 
+      custom_xml_file="" 
+      damage_electricity="0" 
+      damage_explosion="0" 
+      damage_fire="0" 
+      damage_melee="0" 
+      damage_projectile="0" 
+      dampening="1" 
+      explosion_damage_to_materials="0" 
+      explosion_radius="0" 
+      extra_entities="" 
+      fire_rate_wait="6" 
+      friendly_fire="0" 
+      game_effect_entities="" 
+      gore_particles="0" 
+      gravity="0" 
+      knockback_force="0" 
+      light="0" 
+      lightning_count="0" 
+      material="" 
+      material_amount="0" 
+      pattern_degrees="0" 
+      projectile_file="" 
+      ragdoll_fx="0" 
+      recoil="0" 
+      reload_time="0" 
+      screenshake="0" 
+      sound_loop_tag="" 
+      speed_multiplier="0.824541" 
+      spread_degrees="6" 
+      sprite="" 
+      state_cards_drawn="0" 
+      state_destroyed_action="0" 
+      state_discarded_action="0" 
+      state_shuffled="0" 
+      trail_material="" 
+      trail_material_amount="0" >
+
+    </gunaction_config>
+
+  </AbilityComponent>
+
+  <AudioLoopComponent 
+    _enabled="1" 
+    _tags="enabled_in_world,enabled_in_hand,sound_digger" 
+    event_name="items/digger" 
+    file="data/audio/Desktop/items.bank"
+    volume_autofade_speed="0.25" >
+
+  </AudioLoopComponent>
+
+  <AudioLoopComponent 
+    _enabled="1" 
+    _tags="enabled_in_world,enabled_in_hand,sound_digger" 
+    event_name="items/digger" 
+    file="data/audio/Desktop/items.bank" >
+
+  </AudioLoopComponent>
+
+  <HitboxComponent 
+    _enabled="0" 
+    _tags="enabled_in_world" 
+    aabb_max_x="4" 
+    aabb_max_y="4" 
+    aabb_min_x="-4" 
+    aabb_min_y="-4" 
+    damage_multiplier="1" 
+    is_enemy="0" 
+    is_item="0" 
+    is_player="0" >
+
+  </HitboxComponent>
+
+  <HotspotComponent 
+    _enabled="0" 
+    _tags="shoot_pos" 
+    offset.x="8" 
+    offset.y="0" 
+    sprite_hotspot_name="" 
+    transform_with_scale="1" >
+
+  </HotspotComponent>
+
+  <ItemAlchemyComponent 
+    _enabled="0" 
+    _tags="enabled_in_world" 
+    material_animate_wand="air" 
+    material_animate_wand_alt="air" 
+    material_increase_uses_remaining="air" 
+    material_make_always_cast="air" 
+    material_remove_shuffle="air" 
+    material_sacrifice="air" >
+
+  </ItemAlchemyComponent>
+
+  <ItemComponent 
+    _enabled="1" 
+    _tags="enabled_in_world" 
+    camera_max_distance="50" 
+    collect_nondefault_actions="0" 
+    is_consumable="0" 
+    is_equipable_forced="0" 
+    is_frozen="0" 
+    is_hittable_always="0" 
+    is_identified="1" 
+    is_pickable="1" 
+    is_stackable="0" 
+    item_name="" 
+    mFramePickedUp="73073" 
+    max_child_items="0" 
+    next_frame_pickable="0" 
+    permanently_attached="0" 
+    preferred_inventory="QUICK" 
+    remove_default_child_actions_on_death="0" 
+    remove_on_death="0" 
+    remove_on_death_if_empty="0" 
+    ui_description="" 
+    ui_sprite="" 
+    uses_remaining="-1" 
+	play_hover_animation="1"
+	play_spinning_animation="0"
+	>
+
+  </ItemComponent>
+
+  <LightComponent 
+    _enabled="0" 
+    _tags="enabled_in_world" 
+    b="118" 
+    blinking_freq="1" 
+    fade_out_time="0" 
+    g="178" 
+    offset_x="0" 
+    offset_y="0" 
+    r="255" 
+    radius="64" 
+    update_properties="0" >
+
+  </LightComponent>
+
+  <ManaReloaderComponent 
+    _enabled="1" 
+    _tags="enabled_in_world,enabled_in_hand,enabled_in_inventory" >
+
+  </ManaReloaderComponent>
+
+  <SimplePhysicsComponent 
+    _enabled="0" 
+    _tags="enabled_in_world" 
+    can_go_up="1" >
+
+  </SimplePhysicsComponent>
+
+  <SpriteComponent 
+    _enabled="1" 
+    _tags="enabled_in_world,item,enabled_in_hand" 
+    additive="0" 
+    alpha="1" 
+    emissive="0" 
+    fog_of_war_hole="0" 
+    has_special_scale="0" 
+    image_file="data/items_gfx/wands/wand_0484.png" 
+    is_text_sprite="0" 
+    kill_entity_after_finished="0" 
+    never_ragdollify_on_death="0" 
+    next_rect_animation="" 
+    offset_x="2" 
+    offset_y="2" 
+    rect_animation="" 
+    smooth_filtering="0" 
+    special_scale_x="1" 
+    special_scale_y="1" 
+    text="" 
+    transform_offset.x="0" 
+    transform_offset.y="0" 
+    ui_is_parent="0" 
+    update_transform="1" 
+    update_transform_rotation="1" 
+    visible="1" 
+    z_index="0.595" >
+
+  </SpriteComponent>
+
+  <SpriteParticleEmitterComponent 
+    _enabled="1" 
+    additive="1" 
+    angular_velocity="0" 
+    camera_bound="1" 
+    camera_distance="75" 
+    color.a="0.5" 
+    color.b="1" 
+    color.g="1" 
+    color.r="1" 
+    color_change.a="-0.5" 
+    color_change.b="0" 
+    color_change.g="0" 
+    color_change.r="0" 
+    count_max="1" 
+    count_min="1" 
+    delay="0" 
+    emission_interval_max_frames="6" 
+    emission_interval_min_frames="3" 
+    emissive="1" 
+    entity_file="" 
+    entity_velocity_multiplier="0" 
+    expand_randomize_position.x="0" 
+    expand_randomize_position.y="0" 
+    gravity.x="0" 
+    gravity.y="0" 
+    is_emitting="1" 
+    lifetime="1.5" 
+    randomize_alpha.max="0" 
+    randomize_alpha.min="0" 
+    randomize_angular_velocity.max="0" 
+    randomize_angular_velocity.min="0" 
+    randomize_animation_speed_coeff.max="0" 
+    randomize_animation_speed_coeff.min="0" 
+    randomize_lifetime.max="0" 
+    randomize_lifetime.min="0" 
+    randomize_position.max_x="5" 
+    randomize_position.max_y="5" 
+    randomize_position.min_x="-5" 
+    randomize_position.min_y="-5" 
+    randomize_position_inside_hitbox="0" 
+    randomize_rotation.max="0" 
+    randomize_rotation.min="0" 
+    randomize_scale.max_x="0" 
+    randomize_scale.max_y="0" 
+    randomize_scale.min_x="0" 
+    randomize_scale.min_y="0" 
+    randomize_velocity.max_x="30" 
+    randomize_velocity.max_y="30" 
+    randomize_velocity.min_x="-30" 
+    randomize_velocity.min_y="-30" 
+    render_back="0" 
+    rotation="0" 
+    scale.x="1" 
+    scale.y="0" 
+    scale_velocity.x="-0.2" 
+    scale_velocity.y="4" 
+    sprite_centered="0" 
+    sprite_file="data/particles/ray.xml" 
+    sprite_random_rotation="0" 
+    use_rotation_from_entity="0" 
+    use_rotation_from_velocity_component="0" 
+    use_velocity_as_rotation="1" 
+    velocity.x="0" 
+    velocity.y="0" 
+    velocity_always_away_from_center="1" 
+    velocity_slowdown="0" >
+
+  </SpriteParticleEmitterComponent>
+
+  <VelocityComponent 
+    _enabled="0" 
+    _tags="enabled_in_world" 
+    air_friction="0.55" 
+    apply_terminal_velocity="1" 
+    gravity_x="0" 
+    gravity_y="400" 
+    mVelocity.x="0" 
+    mVelocity.y="650.486" 
+    mass="0.05" 
+    terminal_velocity="1000" >
+
+  </VelocityComponent>
+
+  <LuaComponent 
+      _enabled="1" 
+      execute_on_added="1"
+      remove_after_executed="1"
+      script_source_file="data/scripts/gun/procedural/level_1_wand.lua" 
+  >
+  </LuaComponent>
+  
+  <Base file="data/entities/base_wand_pickup.xml"></Base>
+
+</Entity>
+

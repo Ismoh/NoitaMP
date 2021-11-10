@@ -1,0 +1,10 @@
+data/ragdolls/necromancer_super/head.png
+data/ragdolls/necromancer_super/body.png
+data/ragdolls/necromancer_super/cape_1.png
+data/ragdolls/necromancer_super/cape_2.png
+data/ragdolls/necromancer_super/cape_3.png
+data/ragdolls/necromancer_super/cape_4.png
+data/ragdolls/necromancer_super/r_arm_1.png
+data/ragdolls/necromancer_super/r_arm_2.png
+data/ragdolls/necromancer_super/l_arm_1.png
+data/ragdolls/necromancer_super/l_arm_2.png

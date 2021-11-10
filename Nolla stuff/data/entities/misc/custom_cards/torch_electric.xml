@@ -1,0 +1,181 @@
+<Entity>
+	
+	<Base file="data/entities/base_custom_card.xml" > 
+		<SpriteComponent 
+			image_file="data/ui_gfx/gun_actions/torch_electric.png" >
+		</SpriteComponent>
+		
+		<ItemActionComponent 
+			_tags="enabled_in_world"
+			action_id="TORCH_ELECTRIC" >
+		</ItemActionComponent>
+	</Base>
+
+	<InheritTransformComponent
+		_tags="enabled_in_world,enabled_in_hand" >
+	  <Transform 
+		position.x="8" 
+		position.y="0" >
+	  </Transform>
+	</InheritTransformComponent>
+
+	<ParticleEmitterComponent 
+		_tags="enabled_in_hand,item_identified"
+		emitted_material_name="plasma_fading"
+		offset.x="0"
+		offset.y="0"
+		x_pos_offset_min="-2"
+		x_pos_offset_max="2"
+		y_pos_offset_min="2"
+		y_pos_offset_max="-2"
+		x_vel_min="-8"
+		x_vel_max="8"
+		y_vel_min="-30"
+		y_vel_max="-10"
+		count_min="2"
+		count_max="4"
+		lifetime_min="0.1"
+		lifetime_max="0.2"
+		create_real_particles="0"
+		emit_cosmetic_particles="1"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="2"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+	
+	<LightComponent 
+		_tags="enabled_in_hand,item_identified"
+		_enabled="1" 
+		radius="130"
+		fade_out_time="1.5" 
+		r="220"
+		g="180"
+		b="240" >
+	</LightComponent>
+
+	<LightComponent 
+		_tags="enabled_in_hand,item_identified"
+		_enabled="1" 
+		radius="32"
+		fade_out_time="1.5" 
+		r="255"
+		g="255"
+		b="255" >
+	</LightComponent>
+
+	<!-- real fire emitters -->
+
+	 <ParticleEmitterComponent 
+	    _tags="enabled_in_hand"
+	    emitted_material_name="steam"
+	    offset.x="0"
+	    offset.y="0"
+	    x_pos_offset_min="0"
+	    x_pos_offset_max="0"
+	    y_pos_offset_min="-1"
+	    y_pos_offset_max="1"
+	    x_vel_min="-0"
+	    x_vel_max="0"
+	    y_vel_min="0"
+	    y_vel_max="0"
+	    count_min="5"
+	    count_max="5"
+	    lifetime_min="0.1"
+	    lifetime_max="0.3"
+	    create_real_particles="1"
+	    emit_cosmetic_particles="0"
+	    emission_interval_min_frames="60"
+	    emission_interval_max_frames="250" >
+	</ParticleEmitterComponent>
+
+    <SpriteComponent 
+	    _tags="enabled_in_hand"
+        alpha="0.9"
+        image_file="data/particles/torch_electric_fog_of_war_hole.xml"
+        smooth_filtering="1"
+        fog_of_war_hole="1"
+        has_special_scale="1"
+        special_scale_x="4"
+        special_scale_y="4" >
+    </SpriteComponent>
+
+	<AudioComponent
+	    _tags="enabled_in_hand"
+		file="data/audio/Desktop/projectiles.bank"
+		event_root="player_projectiles/torch_electric"
+		set_latest_event_position="1" >
+	</AudioComponent>
+
+	<AudioLoopComponent
+	    _tags="enabled_in_hand"
+		file="data/audio/Desktop/projectiles.bank"
+		event_name="player_projectiles/torch_electric/loop"
+		auto_play_if_enabled="1"
+		play_on_component_enable="1" >
+	</AudioLoopComponent>
+	
+	<SpriteParticleEmitterComponent
+		_tags="enabled_in_world,enabled_in_hand,item_identified"
+		sprite_file="data/particles/spark_electric.xml"
+		delay="0"
+		lifetime="0"
+		color.r="1" color.g="1" color.b="1" color.a="1"
+		color_change.r="0" color_change.g="0" color_change.b="0" color_change.a="0"
+		velocity.x="0" velocity.y="0"
+		gravity.x="0" gravity.y="10"
+		velocity_slowdown="0"
+		rotation="0"
+		angular_velocity="0"
+		use_velocity_as_rotation="0"
+		scale.x="1" scale.y="1"
+		scale_velocity.x="0" scale_velocity.y="0"
+		emission_interval_min_frames="8"
+		emission_interval_max_frames="18"
+		count_min="1" 
+		count_max="1"
+		randomize_rotation.min="-3.1415"
+		randomize_rotation.max="3.1415"
+		randomize_position.min_x="-8"
+		randomize_position.max_x="8"
+		randomize_position.min_y="-8"
+		randomize_position.max_y="8"
+		randomize_velocity.min_x="-2"
+		randomize_velocity.max_x="2"
+		randomize_velocity.min_y="-2"
+		randomize_velocity.max_y="2"
+		>
+	</SpriteParticleEmitterComponent>
+
+	<ParticleEmitterComponent 
+		_tags="enabled_in_world,enabled_in_hand,item_identified"
+		emitted_material_name="spark_blue"
+		offset.x="0"
+		offset.y="0"
+		x_pos_offset_min="-3"
+		x_pos_offset_max="3"
+		y_pos_offset_min="1"
+		y_pos_offset_max="-1"
+		x_vel_min="-10"
+		x_vel_max="10"
+		y_vel_min="-20"
+		y_vel_max="-10"
+		count_min="1"
+		count_max="1"
+		gravity.y="0"
+		lifetime_min="0.2"
+		lifetime_max="0.3"
+		create_real_particles="0"
+		emit_cosmetic_particles="1"
+		emission_interval_min_frames="10"
+		emission_interval_max_frames="15"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+	
+	<ElectricitySourceComponent
+		_tags="enabled_in_hand,item_identified"
+        radius="4"
+		emission_interval_frames="32"
+		>
+    </ElectricitySourceComponent>
+
+</Entity>

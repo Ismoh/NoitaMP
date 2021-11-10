@@ -1,0 +1,12 @@
+<Entity>
+	
+	<InheritTransformComponent>
+    </InheritTransformComponent>	
+    
+    <GameEffectComponent 
+        effect="NO_DAMAGE_FLASH"
+        frames="600"
+    >
+	</GameEffectComponent >
+
+</Entity>

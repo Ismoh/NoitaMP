@@ -1,0 +1,156 @@
+<Entity>
+	<!-- teleport logic -->
+
+	<TeleportComponent
+		target_x_is_absolute_position="1"
+		target_y_is_absolute_position="1"
+		target.x="190" 
+		target.y="5231" 
+	></TeleportComponent>
+
+	<HitboxComponent 
+		aabb_min_x="-15" 
+		aabb_min_y="-15"
+		aabb_max_x="15" 
+		aabb_max_y="15" 
+	></HitboxComponent>
+
+	<!-- gfx -->
+	
+	<UIInfoComponent
+		name="$teleport_back"
+		>
+	</UIInfoComponent>
+
+	<LightComponent 
+		_enabled="1" 
+		radius="255"
+		fade_out_time="1.5" 
+		r="64"
+		g="100"
+		b="255"
+		offset_y="-16"
+	></LightComponent>
+	
+	<LightComponent 
+		_enabled="1" 
+		radius="64"
+		fade_out_time="1.5" 
+		r="64"
+		g="100"
+		b="255"
+		offset_y="-16"
+	></LightComponent>
+	
+	<ParticleEmitterComponent 
+		emitted_material_name="spark_purple"
+		gravity.y="0.0"
+		lifetime_min="1"
+		lifetime_max="7"
+		x_vel_min="0"
+		x_vel_max="0"
+		y_vel_min="0"
+		y_vel_max="0"
+		count_min="115"
+		count_max="115"
+		render_on_grid="1"
+		fade_based_on_lifetime="0"
+		area_circle_radius.min="15"
+		area_circle_radius.max="15"
+		cosmetic_force_create="1"
+		collide_with_grid="0"
+		airflow_force="0.011"
+		airflow_time="1.01"
+		airflow_scale="0.03"
+		emission_interval_min_frames="24"
+		emission_interval_max_frames="24"
+		emit_cosmetic_particles="1"
+		velocity_always_away_from_center="11"
+		render_back="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+
+	<ParticleEmitterComponent 
+		emitted_material_name="spark_purple"
+		gravity.y="0.0"
+		lifetime_min="3"
+		lifetime_max="4"
+		x_vel_min="0"
+		x_vel_max="0"
+		y_vel_min="0"
+		y_vel_max="0"
+		count_min="1"
+		count_max="1"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		area_circle_radius.min="0"
+		area_circle_radius.max="15"
+		cosmetic_force_create="1"
+		collide_with_grid="0"
+		airflow_force="0.051"
+		airflow_time="1.01"
+		airflow_scale="0.03"
+		emission_interval_min_frames="12"
+		emission_interval_max_frames="12"
+		emit_cosmetic_particles="1"
+		velocity_always_away_from_center="0"
+		render_back="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+
+	<SpriteComponent 
+		image_file="data/buildings_gfx/teleport_center.xml" 
+		offset_x="0"
+		offset_y="0"
+		z_index="1"
+		additive="1"
+		>
+	</SpriteComponent>
+
+	<AudioLoopComponent
+		file="data/audio/Desktop/fx.snd"
+		event_name="fx/fx_concentration"
+		calculate_material_lowpass="0"
+		auto_play="1" >
+	</AudioLoopComponent>
+
+	<AudioLoopComponent
+		file="data/audio/Desktop/misc.snd"
+		event_name="misc/teleport_emitter_loop"
+		calculate_material_lowpass="0"
+		auto_play="1" >
+	</AudioLoopComponent>
+
+	<LuaComponent
+		script_source_file="data/scripts/buildings/teleport_hourglass_return.lua"
+		execute_every_n_frame="1" >
+	</LuaComponent>
+	<Entity tags="fx">
+		<Base file="data/entities/buildings/teleport_hourglass_return_fx.xml" />
+	</Entity>
+	<Entity tags="fx">
+		<Base file="data/entities/buildings/teleport_hourglass_return_fx.xml" />
+	</Entity>
+	<Entity tags="fx">
+		<Base file="data/entities/buildings/teleport_hourglass_return_fx.xml" />
+	</Entity>
+	<Entity tags="fx">
+		<Base file="data/entities/buildings/teleport_hourglass_return_fx.xml" />
+	</Entity>
+	<Entity tags="fx">
+		<Base file="data/entities/buildings/teleport_hourglass_return_fx.xml" />
+	</Entity>
+	<Entity tags="fx">
+		<Base file="data/entities/buildings/teleport_hourglass_return_fx.xml" />
+	</Entity>
+	<Entity tags="fx">
+		<Base file="data/entities/buildings/teleport_hourglass_return_fx.xml" />
+	</Entity>
+	<Entity tags="fx">
+		<Base file="data/entities/buildings/teleport_hourglass_return_fx.xml" />
+	</Entity>
+	<Entity tags="fx">
+		<Base file="data/entities/buildings/teleport_hourglass_return_fx.xml" />
+	</Entity>
+
+</Entity>

@@ -1,0 +1,60 @@
+<Entity tags="angry_ghost" >
+	<HitboxComponent 
+        _tags="enabled_in_world"
+        aabb_min_x="-4" 
+        aabb_max_x="4" 
+        aabb_min_y="-3" 
+        aabb_max_y="3"
+    ></HitboxComponent>
+
+    <SimplePhysicsComponent
+        _tags="enabled_in_world" 
+    ></SimplePhysicsComponent>
+
+    <VelocityComponent
+        _tags="enabled_in_world"
+		gravity_y="0"
+    ></VelocityComponent>
+
+	<!-- ghost functionality and visuals -->		
+	<SpriteComponent 
+		image_file="data/projectiles_gfx/angry_ghost.xml"
+		>
+	</SpriteComponent>
+	<LuaComponent 
+		script_source_file="data/scripts/animals/tiny_ghost_move.lua"
+		execute_every_n_frame="1"
+		>
+	</LuaComponent>
+	<LuaComponent 
+		script_source_file="data/scripts/perks/angry_ghost_memory.lua"
+		execute_every_n_frame="1"
+		>
+	</LuaComponent>
+	
+	<VariableStorageComponent
+		_tags="angry_ghost_cooldown"
+		name="cooldown"
+		value_int="0"
+		>
+	</VariableStorageComponent>
+	
+	<VariableStorageComponent
+		_tags="angry_ghost_projectile_memory"
+		name="projectile_memory"
+		value_string="data/entities/projectiles/deck/light_bullet.xml"
+		>
+	</VariableStorageComponent>
+	
+	<AudioComponent
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals/tiny_ghost" >
+	</AudioComponent>
+
+	<AudioLoopComponent
+		file="data/audio/Desktop/animals.bank"
+		event_name="animals/tiny_ghost/movement_loop"
+		set_speed_parameter="1"
+		auto_play="1">
+	</AudioLoopComponent>
+</Entity>

@@ -1,0 +1,19 @@
+<Sprite
+filename="data/entities/animals/boss_centipede/verlet_chains/minion_tentacle.png"
+offset_x="0"
+offset_y="0"
+default_animation="stand" >
+
+<!-- animation -->
+	<RectAnimation
+		name="stand"
+		pos_x="4"
+		pos_y="0"
+		frame_count="1"
+		frame_width="4"
+		frame_height="11"
+		frame_wait="1"
+		frames_per_row="8"
+		loop="1"   >
+	</RectAnimation>
+</Sprite>

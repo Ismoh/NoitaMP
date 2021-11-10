@@ -1,0 +1,151 @@
+<Biome>
+  <Topology 
+    name="_EMPTY_"
+    background_image="data/weather_gfx/background_cave_02.png"
+    background_use_neighbor="0"
+
+    wang_template_file="" 
+    lua_script="data/scripts/biomes/lake_statue.lua"
+	noise_type="SIN_CAPPED_SIMPLEX"
+    mGradientAddNoise="3" 
+    mGradientSlopeStartX="-12000"    
+    mGradientSlopeDelta="-0.37"
+
+    mGradientEndY="1024" 
+    mGradientHighNoise="134.057" 
+    mGradientLowNoise="-292.571" 
+    mGradientNoiseScale="0.00128571" 
+    mGradientStartY="-1024" 
+
+    mInsidePerlinClamped="0" 
+    mInsidePerlinScaleMax="1.9999" 
+    mInsidePerlinScaleMin="0.057143" 
+    mInsidePerlinScaleX="0.009999" 
+    mInsidePerlinScaleY="0.009999" 
+    mInsidePerlinScaled="1" 
+    mInsidePerlinSquared="0" 
+    mMultiplierPerlin="1"
+    mInsideAddValue="5.0"
+
+    mMultiplierGradient="0.871429" 
+    bitmap_noise_file="data/biome_impl/topology_lake.png"
+    audio_ambience="hills"
+    >
+  </Topology>
+
+  <!------------ MATERIALS -------------------->
+
+  <Materials 
+    name="lake" 
+     >
+
+    <MaterialComponent 
+      _enabled="1" 
+      is_rare="0" 
+      limit_max_y="5120.229" 
+      limit_min_y="225" 
+      limit_y="1" 
+      material_index="10" 
+      material_max="0.5" 
+      material_min="-1.0" 
+      material_name="water"  >
+    </MaterialComponent>
+
+    <MaterialComponent 
+      _enabled="1" 
+      is_rare="0" 
+      limit_max_y="2048" 
+      limit_min_y="100" 
+      limit_y="0" 
+      material_index="10" 
+      material_max="0.68" 
+      material_min="0.5" 
+      material_name="mud" 
+      rare_polka_is_boxed="1" 
+      rare_polka_probability="0.2" 
+      rare_polka_radius_high="0.65" 
+      rare_polka_radius_low="0.2" 
+      rare_required_max="10" 
+      rare_required_min="0.2" 
+      rare_scale_x="0.05" 
+      rare_scale_y="0.05" 
+      rare_use_perlin="0" 
+      rare_use_polka="1" >
+    </MaterialComponent>
+
+    <MaterialComponent 
+      _enabled="1" 
+      is_rare="0" 
+      limit_max_y="2048" 
+      limit_min_y="100" 
+      limit_y="0" 
+      material_index="10" 
+      material_max="0.95" 
+      material_min="0.68" 
+      material_name="sand_static" 
+      rare_polka_is_boxed="1" 
+      rare_polka_probability="0.2" 
+      rare_polka_radius_high="0.65" 
+      rare_polka_radius_low="0.2" 
+      rare_required_max="10" 
+      rare_required_min="0.2" 
+      rare_scale_x="0.05" 
+      rare_scale_y="0.05" 
+      rare_use_perlin="0" 
+      rare_use_polka="1" >
+    </MaterialComponent>
+
+   
+    <!-- inside the caves values -->
+
+
+    <MaterialComponent 
+      _enabled="1" 
+      is_rare="0" 
+      limit_max_y="2048" 
+      limit_min_y="100" 
+      limit_y="0" 
+      material_index="10" 
+      material_max="4.95" 
+      material_min="4.68" 
+      material_name="rock_static" 
+      rare_polka_is_boxed="1" 
+      rare_polka_probability="0.2" 
+      rare_polka_radius_high="0.65" 
+      rare_polka_radius_low="0.2" 
+      rare_required_max="10" 
+      rare_required_min="0.2" 
+      rare_scale_x="0.05" 
+      rare_scale_y="0.05" 
+      rare_use_perlin="0" 
+      rare_use_polka="1" >
+    </MaterialComponent>
+
+    <MaterialComponent 
+      _enabled="1" 
+      is_rare="0" 
+      limit_max_y="2048" 
+      limit_min_y="100" 
+      limit_y="0" 
+      material_index="10" 
+      material_max="5.5" 
+      material_min="4.9" 
+      material_name="sand_static" 
+      rare_polka_is_boxed="1" 
+      rare_polka_probability="0.2" 
+      rare_polka_radius_high="0.65" 
+      rare_polka_radius_low="0.2" 
+      rare_required_max="10" 
+      rare_required_min="0.2" 
+      rare_scale_x="0.05" 
+      rare_scale_y="0.05" 
+      rare_use_perlin="0" 
+      rare_use_polka="1" >
+    </MaterialComponent>
+
+
+
+  </Materials>
+
+</Biome>
+

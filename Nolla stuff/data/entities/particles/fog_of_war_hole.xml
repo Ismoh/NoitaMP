@@ -1,0 +1,13 @@
+<Entity>
+	<_Transform
+        scale.x="1" scale.y="1" >
+    </_Transform>
+
+    <SpriteComponent 
+        alpha="0.55"
+        image_file="data/particles/fog_of_war_hole.xml"
+        smooth_filtering="1"
+        fog_of_war_hole="1" >
+    </SpriteComponent>
+</Entity>
+

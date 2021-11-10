@@ -1,0 +1,4 @@
+data/ragdolls/wizard_wither/torso.png
+data/ragdolls/wizard_wither/hand.png
+data/ragdolls/wizard_wither/feet.png
+data/ragdolls/wizard_wither/head.png

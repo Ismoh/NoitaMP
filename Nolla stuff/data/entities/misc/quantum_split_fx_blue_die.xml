@@ -1,0 +1,9 @@
+<Entity>
+	<Base file="data/entities/misc/quantum_split_fx_red_die.xml">
+		<ParticleEmitterComponent 
+			emitted_material_name="plasma_fading"
+			>
+		</ParticleEmitterComponent>
+	</Base>
+</Entity>
+

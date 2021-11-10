@@ -1,0 +1,9 @@
+<Entity>
+    
+    <HitEffectComponent 
+		condition_status="SLIMY"
+        effect_hit="LOAD_UNIQUE_CHILD_ENTITY"
+        value_string="data/entities/misc/hitfx_explode_explosion.xml" >
+	</HitEffectComponent >
+
+</Entity>

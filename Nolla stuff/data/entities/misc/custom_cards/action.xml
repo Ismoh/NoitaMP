@@ -1,0 +1,98 @@
+<Entity tags="card_action">
+
+    <ItemComponent
+        _tags="enabled_in_world"
+        play_spinning_animation="0"
+        preferred_inventory="FULL"
+    ></ItemComponent>
+
+    <HitboxComponent 
+        _tags="enabled_in_world"
+        aabb_min_x="-4" 
+        aabb_max_x="4" 
+        aabb_min_y="-3" 
+        aabb_max_y="3" 
+    ></HitboxComponent>
+
+    <SimplePhysicsComponent
+        _tags="enabled_in_world" 
+    ></SimplePhysicsComponent>
+
+    <VelocityComponent
+        _tags="enabled_in_world" 
+    ></VelocityComponent>
+
+    <!-- <SpriteComponent 
+        _tags="enabled_in_world,item_unlocked"
+        image_file="data/ui_gfx/gun_actions/unidentified.png" 
+        offset_x="8"
+        offset_y="8" 
+    ></SpriteComponent>
+
+    <SpriteComponent 
+        _tags="enabled_in_world,item_locked"
+        image_file="data/ui_gfx/gun_actions/unidentified.png" 
+        offset_x="8"
+        offset_y="8" 
+    ></SpriteComponent> -->
+
+    <SpriteComponent 
+        _tags="enabled_in_world,item_identified"
+        image_file="data/ui_gfx/gun_actions/empty.png" 
+        offset_x="8"
+        offset_y="17"
+        z_index="-1.51"
+    ></SpriteComponent>
+
+    <SpriteComponent 
+        _enabled="0"
+        _tags="enabled_in_world,item_unidentified"
+        image_file="data/ui_gfx/gun_actions/unidentified.png" 
+        offset_x="8"
+        offset_y="17"
+        z_index="-1.51"
+    ></SpriteComponent>
+
+    <SpriteComponent 
+        _enabled="0"
+        _tags="enabled_in_world,item_bg"
+        image_file="data/ui_gfx/inventory/item_bg_projectile.png" 
+        offset_x="10"
+        offset_y="19"
+        z_index="-1.5"
+    ></SpriteComponent>
+
+    <ItemActionComponent 
+        _tags="enabled_in_world"
+        action_id="" 
+    ></ItemActionComponent>
+
+    <SpriteOffsetAnimatorComponent
+        _tags="enabled_in_world"
+        y_amount="1"
+        y_speed="2.5"
+        sprite_id="0" >
+    </SpriteOffsetAnimatorComponent>
+
+    <SpriteOffsetAnimatorComponent
+        _tags="enabled_in_world"
+        y_amount="1"
+        y_speed="2.5"
+        sprite_id="1" >
+    </SpriteOffsetAnimatorComponent>
+
+    <SpriteOffsetAnimatorComponent
+        _tags="enabled_in_world"
+        y_amount="1"
+        y_speed="2.5"
+        sprite_id="2" >
+    </SpriteOffsetAnimatorComponent>
+
+    <SpriteOffsetAnimatorComponent
+        _tags="enabled_in_world"
+        y_amount="1"
+        y_speed="2.5"
+        sprite_id="3" >
+    </SpriteOffsetAnimatorComponent>
+
+</Entity>

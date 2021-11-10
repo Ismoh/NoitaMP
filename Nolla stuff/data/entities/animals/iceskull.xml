@@ -1,0 +1,163 @@
+<Entity name="$animal_iceskull">
+  
+	<Base file="data/entities/base_enemy_flying.xml" >
+		<ItemChestComponent level="2" > </ItemChestComponent>
+
+		<AnimalAIComponent
+			attack_ranged_entity_file="data/entities/projectiles/ice.xml"
+			attack_ranged_enabled="1"
+			attack_dash_enabled="1"
+			attack_ranged_offset_y="-5"
+			attack_ranged_frames_between="40" 
+			attack_ranged_max_distance="80"
+			needs_food="0"
+			can_fly="1">
+		</AnimalAIComponent>
+
+		<DamageModelComponent
+			hp="1.5"
+			materials_that_damage="acid,lava,poison,radioactive_gas,radioactive_gas_static,rock_static_radioactive" 
+			materials_how_much_damage="0.004,0.004,0.001,0.001,0.001,0.001"
+			ragdoll_filenames_file="data/ragdolls/iceskull/filenames.txt" 
+			ragdoll_material="ice_b2"
+			blood_material="blood_cold"
+			blood_spray_material="blood_cold"
+			fire_probability_of_ignition="0"
+			blood_sprite_directional=""
+			blood_sprite_large=""
+			>
+			<damage_multipliers
+				ice="0.0"
+				>
+			</damage_multipliers>
+		</DamageModelComponent>
+
+		<PathFindingComponent
+			can_fly="1" 
+			can_walk="0"
+			>
+		</PathFindingComponent>
+
+		<SpriteComponent 
+			image_file="data/enemies_gfx/iceskull.xml" 
+			offset_x="0"
+			offset_y="0">
+		</SpriteComponent>
+        
+		
+		<GenomeDataComponent 
+			herd_id="ice">
+		</GenomeDataComponent>
+
+		<HitboxComponent 
+			_enabled="1" 
+			aabb_min_x="-4.5" 
+			aabb_max_x="4.5" 
+			aabb_min_y="-12" 
+			aabb_max_y="1" 
+			>
+		</HitboxComponent>
+
+		<CharacterDataComponent 
+			_enabled="1" 
+			climb_over_y="4" 
+			collision_aabb_min_x="-2.0" 
+			collision_aabb_max_x="2.0" 
+			collision_aabb_min_y="-10" 
+			collision_aabb_max_y="0" 
+			mass="0.4"
+			>
+	    </CharacterDataComponent>
+		
+		<SpriteStainsComponent
+			_enabled="0"
+			>
+		</SpriteStainsComponent>
+	</Base>
+
+	<LightComponent 
+		_enabled="1" 
+		radius="30" 
+		offset_y="-5"
+		r="100"
+		g="160"
+		b="255">
+	</LightComponent>
+  
+	
+	<ParticleEmitterComponent 
+		emitted_material_name="blood_cold_vapour"
+		count_min="1"
+		count_max="3"
+		offset.x="0"
+		offset.y="-3"
+		x_pos_offset_min="-5"
+		y_pos_offset_min="-10"
+		x_pos_offset_max="5"
+		y_pos_offset_max="0"
+		x_vel_min="-10"
+		x_vel_max="10"
+		y_vel_min="-10"
+		y_vel_max="10"
+		count_min="5"
+		count_max="5"
+		lifetime_min="0.4"
+		lifetime_max="1.0"
+		create_real_particles="1"
+		emit_cosmetic_particles="0"
+		emission_interval_min_frames="3"
+		emission_interval_max_frames="6"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+	
+	<ParticleEmitterComponent 
+		emitted_material_name="blood_cold_vapour"
+		custom_style="FIRE"
+		color="ff50e7f0"
+		count_min="4"
+		count_max="9"
+		offset.x="0"
+		offset.y="-3"
+		x_pos_offset_min="-5"
+		y_pos_offset_min="-10"
+		x_pos_offset_max="5"
+		y_pos_offset_max="0"
+		x_vel_min="-10"
+		x_vel_max="10"
+		y_vel_min="-10"
+		y_vel_max="10"
+		count_min="5"
+		count_max="5"
+		lifetime_min="0.4"
+		lifetime_max="1.0"
+		create_real_particles="1"
+		emit_cosmetic_particles="0"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="2"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+
+	<LuaComponent 
+		_enabled="1" 
+		execute_every_n_frame="-1"
+		script_damage_received="data/scripts/animals/iceskull_damage.lua" >
+	</LuaComponent>
+	
+    <MusicEnergyAffectorComponent
+    	energy_target="1">
+    </MusicEnergyAffectorComponent>
+
+	<AudioLoopComponent
+		file="data/audio/Desktop/animals.bank"
+		event_name="animals/iceskull/movement_loop"
+		set_speed_parameter="1"
+		auto_play="1">
+	</AudioLoopComponent>
+
+	<AudioComponent
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals/iceskull" >
+	</AudioComponent>
+	
+</Entity>
+

@@ -1,0 +1,6 @@
+data/ragdolls/scavenger_mine/torso.png
+data/ragdolls/scavenger_mine/thighs.png
+data/ragdolls/scavenger_mine/head.png
+data/ragdolls/scavenger_mine/left_foot.png
+data/ragdolls/scavenger_mine/right_foot.png
+data/ragdolls/scavenger_mine/hand.png

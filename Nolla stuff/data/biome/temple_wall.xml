@@ -1,0 +1,63 @@
+<Biome>
+  <Topology 
+    name="$biome_holymountain"
+    background_image="data/weather_gfx/background_cave_02.png"
+    background_use_neighbor="0"
+
+    wang_template_file="" 
+    lua_script="data/scripts/biomes/temple_wall.lua"
+    wang_map_width="256"
+    wang_map_height="256"
+	  limit_background_image="0"
+    coarse_map_force_terrain="1"
+    pixel_scene="1"
+    noise_biome_edges="0"
+    audio_ambience="temple">
+  </Topology>
+
+  <!------------ MATERIALS -------------------->
+
+
+  <Materials 
+    name="temple" 
+     >
+<!--   
+    <MaterialComponent 
+      _enabled="1" 
+      is_rare="0" 
+      material_index="9" 
+      material_max="100" 
+      material_min="-100" 
+      material_name="rock_hard_border" 
+      is_polygon="1"
+      >
+      <polygon>
+        <Vec2 x="0" y="0" />
+        <Vec2 x="-0.3" y="0.5" />
+        <Vec2 x="0" y="0.999" />
+        <Vec2 x="0.3" y="0.5" />
+      </polygon>
+    </MaterialComponent>
+
+    <MaterialComponent 
+      _enabled="1" 
+      is_rare="0" 
+      material_index="9" 
+      material_max="100" 
+      material_min="-100" 
+      material_name="rock_hard_border" 
+      is_polygon="1"
+      >
+      <polygon>
+        <Vec2 x="0" y="0" />
+        <Vec2 x="0.7" y="0.5" />
+        <Vec2 x="0" y="0.999" />
+        <Vec2 x="1.3" y="0.5" />
+      </polygon>
+    </MaterialComponent>
+-->
+  </Materials>
+
+
+</Biome>
+

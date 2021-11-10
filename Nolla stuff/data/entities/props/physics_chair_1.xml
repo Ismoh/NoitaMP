@@ -1,0 +1,9 @@
+<Entity name="unknown" >
+  <Base file="data/entities/base_item_physics2.xml" >
+    <PhysicsImageShapeComponent 
+      image_file="data/props_gfx/chair_1.png"
+      material="wood_prop"
+      >
+    </PhysicsImageShapeComponent>
+  </Base>
+</Entity>

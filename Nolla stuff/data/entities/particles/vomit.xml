@@ -1,0 +1,47 @@
+<Entity>
+
+    <InheritTransformComponent
+      	parent_hotspot_tag="hand"
+	    ><Transform 
+	        position.x="6" 
+	        position.y="-5" >
+	 	</Transform>
+	 </InheritTransformComponent>  
+
+	<LifetimeComponent
+		lifetime="30"
+	></LifetimeComponent>
+
+	<ParticleEmitterComponent 
+		emitted_material_name="vomit"
+		gravity.y="150.0"
+		lifetime_min="10"
+		lifetime_max="20"
+		count_min="1"
+		count_max="2"
+		render_on_grid="1"
+		fade_based_on_lifetime="0"
+		cosmetic_force_create="0"
+		airflow_force="0.5"
+		airflow_time="1.9"
+		airflow_scale="0.15"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		emit_cosmetic_particles="0"
+		emit_real_particles="1"
+		x_vel_min="15"
+		x_vel_max="20"
+		y_vel_min="-5"
+		y_vel_max="5"
+		is_emitting="1"
+	></ParticleEmitterComponent>
+
+	<AudioComponent
+		file="data/audio/Desktop/misc.bank"
+		event_root="game_effect/food_poisoning" >
+	</AudioComponent>
+
+</Entity>
+
+
+

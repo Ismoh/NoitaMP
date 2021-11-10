@@ -1,0 +1,7 @@
+data/ragdolls/scavenger_smg/torso.png
+data/ragdolls/scavenger_smg/thighs.png
+data/ragdolls/scavenger_smg/head.png
+data/ragdolls/scavenger_smg/gun.png
+data/ragdolls/scavenger_smg/left_foot.png
+data/ragdolls/scavenger_smg/right_foot.png
+data/ragdolls/scavenger_smg/arm.png

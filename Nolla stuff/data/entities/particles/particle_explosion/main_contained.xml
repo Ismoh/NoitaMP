@@ -1,0 +1,29 @@
+<Entity>
+	<LoadEntitiesComponent
+        count.min="1"
+        count.max="1"
+        kill_entity="0"
+        entity_file="data/entities/particles/particle_explosion/explosion_flare_medium.xml" >
+    </LoadEntitiesComponent>
+
+    <LoadEntitiesComponent
+        count.min="1"
+        count.max="1"
+        kill_entity="0"
+        entity_file="data/entities/particles/particle_explosion/explosion_flare_fog_of_war_hole_medium.xml" >
+    </LoadEntitiesComponent>
+	
+    <LoadEntitiesComponent
+        count.min="4"
+        count.max="6"
+        kill_entity="0"
+        entity_file="data/entities/particles/particle_explosion/explosion_trail_smoke_short.xml" >
+    </LoadEntitiesComponent>
+
+    <LoadEntitiesComponent
+        count.min="4"
+        count.max="6"
+        kill_entity="1"
+        entity_file="data/entities/particles/particle_explosion/explosion_trail_spark_short.xml" >
+    </LoadEntitiesComponent>
+</Entity>

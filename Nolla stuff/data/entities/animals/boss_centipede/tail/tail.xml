@@ -1,0 +1,26 @@
+<Entity >
+   
+    <InheritTransformComponent>
+	</InheritTransformComponent>
+
+    <VerletPhysicsComponent
+		pixelate_sprite_transforms="0"
+    	stiffness="1.25"
+    	num_points="8"
+		velocity_dampening="1.0"
+    	resting_distance="16.0" 
+    	scale_sprite_x="0"
+		mass_min="1.5"
+		mass_max="3.9"
+		>
+    </VerletPhysicsComponent>
+
+	<Base file="data/entities/animals/boss_centipede/tail/tail_verlet_2.xml" />
+	<Base file="data/entities/animals/boss_centipede/tail/tail_verlet_2.xml" />
+	<Base file="data/entities/animals/boss_centipede/tail/tail_verlet_1.xml" />
+	<Base file="data/entities/animals/boss_centipede/tail/tail_verlet_1.xml" />
+	<Base file="data/entities/animals/boss_centipede/tail/tail_verlet_1.xml" />
+	<Base file="data/entities/animals/boss_centipede/tail/tail_verlet_1.xml" />
+	<Base file="data/entities/animals/boss_centipede/tail/tail_verlet_1.xml" />
+  
+</Entity>

@@ -1,0 +1,1 @@
+data/ragdolls/miniblob/torso.png

@@ -1,0 +1,50 @@
+<Entity tags="mortal" >
+
+  <!-- mortal is required so it can explode -->
+
+  <Base file="data/entities/base_item_physics.xml" >
+    <PhysicsImageShapeComponent
+      centered="1" 
+      image_file="data/props_gfx/sandbag.png"
+      material="rock_box2d" >
+    </PhysicsImageShapeComponent>
+  </Base>
+  
+	<MaterialInventoryComponent 
+		drop_as_item="0" 
+		on_death_spill="1"
+		leak_on_damage_percent="0.5"
+		audio_collision_size_modifier_amount="0.8"
+		>
+		<count_per_material_type>
+		  <Material material="sand" count="200"  />
+		  </count_per_material_type>
+	</MaterialInventoryComponent>
+
+  <DamageModelComponent 
+    air_needed="0" 
+    blood_material="" 
+    drop_items_on_death="0" 
+    falling_damage_damage_max="1.2" 
+    falling_damage_damage_min="0.1" 
+    falling_damage_height_max="250" 
+    falling_damage_height_min="70" 
+    falling_damages="0" 
+    fire_damage_amount="0.4" 
+    fire_probability_of_ignition="0" 
+	critical_damage_resistance="1"
+    hp="3.0" 
+    is_on_fire="0" 
+    materials_create_messages="0" 
+    materials_damage="0" 
+    ragdoll_filenames_file="" 
+    ragdoll_material="" >
+  	<damage_multipliers
+  		melee="0.1"
+  		>
+  	</damage_multipliers>
+  </DamageModelComponent>
+  
+  <!-- physics_body_destruction_required (0.0-1.0, 0 = intact, 1 = destroyed)  
+       physics_body_modified_death_probability (if more destroyed than physics_body_destruction_required, explode with this probability (0.9 = 90% chance))-->
+</Entity>

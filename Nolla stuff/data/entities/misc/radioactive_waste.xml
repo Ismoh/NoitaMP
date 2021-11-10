@@ -1,0 +1,64 @@
+<Entity name="$projectile_default" >
+
+  	<MagicConvertMaterialComponent
+      kill_when_finished="0"
+      from_material_tag="[earth]"
+      steps_per_frame="3"
+      to_material="rock_static_radioactive"
+      clean_stains="0"
+      is_circle="1"
+      radius="300" 
+	  >
+    </MagicConvertMaterialComponent>
+	
+	<MagicConvertMaterialComponent
+      kill_when_finished="0"
+      from_material_tag="[liquid_common]"
+      steps_per_frame="3"
+      to_material="radioactive_liquid"
+      clean_stains="0"
+      is_circle="1"
+      radius="300" 
+	  >
+    </MagicConvertMaterialComponent>
+	
+	<MagicConvertMaterialComponent
+      kill_when_finished="0"
+      from_material_tag="[sand_ground]"
+      steps_per_frame="3"
+      to_material="radioactive_liquid"
+      clean_stains="0"
+      is_circle="1"
+      radius="300" 
+	  >
+    </MagicConvertMaterialComponent>
+	
+	<MagicConvertMaterialComponent
+      kill_when_finished="0"
+      from_material_tag="[sand_metal]"
+      steps_per_frame="3"
+      to_material="radioactive_liquid"
+      clean_stains="0"
+      is_circle="1"
+      radius="300" 
+	  >
+    </MagicConvertMaterialComponent>
+	
+	<MagicConvertMaterialComponent
+      kill_when_finished="0"
+      from_material_tag="[sand_other]"
+      steps_per_frame="3"
+      to_material="radioactive_liquid"
+      clean_stains="0"
+      is_circle="1"
+      radius="300" 
+	  >
+    </MagicConvertMaterialComponent>
+	
+	<LifetimeComponent
+		lifetime="160"
+		>
+	</LifetimeComponent>
+
+</Entity>
+

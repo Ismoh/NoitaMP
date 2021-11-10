@@ -1,0 +1,10 @@
+data/ragdolls/elk/torso.png
+data/ragdolls/elk/right_thigh.png
+data/ragdolls/elk/right_leg.png
+data/ragdolls/elk/right_arm.png
+data/ragdolls/elk/right_hand.png
+data/ragdolls/elk/left_thigh.png
+data/ragdolls/elk/left_leg.png
+data/ragdolls/elk/left_arm.png
+data/ragdolls/elk/left_hand.png
+data/ragdolls/elk/head.png

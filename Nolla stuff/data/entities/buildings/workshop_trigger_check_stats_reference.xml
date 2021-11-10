@@ -1,0 +1,4 @@
+<Entity tags="workshop_reference">
+<!-- empty entities don't get serialized -->
+<SpriteComponent image_file="data/debug/empty.png" />
+</Entity>

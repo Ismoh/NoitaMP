@@ -1,0 +1,87 @@
+<Entity 
+  name="unknown" 
+  tags="hittable,mortal" >
+
+  <DamageModelComponent 
+    _enabled="1" 
+    air_in_lungs="5" 
+    air_in_lungs_max="5" 
+    air_lack_of_damage="0.2" 
+    air_needed="0" 
+    falling_damage_damage_max="1.2" 
+    falling_damage_damage_min="0.1" 
+    falling_damage_height_max="250" 
+    falling_damage_height_min="70" 
+    falling_damages="0" 
+    fire_damage_amount="0.2" 
+    fire_probability_of_ignition="0.5" 
+    hp="10" 
+    is_on_fire="0" 
+    blood_material="sand_blue"
+    materials_create_messages="0" 
+    materials_damage="1" 
+    materials_how_much_damage="" 
+    materials_that_damage="" 
+    max_hp="10" 
+    ragdoll_material="ice_b2"
+    ragdoll_filenames_file="" 
+    ragdoll_offset_y="-6" >
+  </DamageModelComponent>
+
+  <GenomeDataComponent 
+    _enabled="1" 
+    food_chain_rank="20" 
+    herd_id="ghost" 
+    is_predator="1" >
+  </GenomeDataComponent>
+
+  <HitboxComponent 
+    _enabled="1" 
+    aabb_max_x="2" 
+    aabb_max_y="0" 
+    aabb_min_x="-2" 
+    aabb_min_y="-2" 
+    is_enemy="0" 
+    is_item="0" 
+    is_player="1" >
+  </HitboxComponent>
+
+  <PathFindingGridMarkerComponent 
+    _enabled="1" 
+    marker_offset_x="0" 
+    marker_offset_y="0" 
+    marker_work_flag="16" >
+  </PathFindingGridMarkerComponent>
+  
+  <VelocityComponent />
+
+  <SimplePhysicsComponent/>
+
+	<LightComponent 
+		_enabled="1" 
+		radius="96"
+		fade_out_time="1.5" 
+		r="230"
+		g="120"
+		b="230"
+		offset_y="-6"
+		>
+	</LightComponent>
+
+  <LuaComponent 
+    _enabled="1" 
+    execute_on_added="1"
+    remove_after_executed="0"
+    execute_every_n_frame="-1"
+    script_source_file="data/scripts/buildings/darkghost_crystal.lua" >
+  </LuaComponent>
+  
+  <LuaComponent 
+    _enabled="1" 
+    remove_after_executed="0"
+    execute_every_n_frame="-1"
+    script_death="data/scripts/buildings/death_ice_explosion.lua" >
+  </LuaComponent>
+
+</Entity>
+

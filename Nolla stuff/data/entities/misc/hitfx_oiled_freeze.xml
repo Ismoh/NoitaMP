@@ -1,0 +1,9 @@
+<Entity>
+    
+    <HitEffectComponent 
+        condition_status="OILED"
+        effect_hit="LOAD_UNIQUE_GAME_EFFECT"
+        value_string="data/entities/misc/effect_frozen.xml" >
+	</HitEffectComponent >
+
+</Entity>

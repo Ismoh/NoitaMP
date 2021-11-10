@@ -1,0 +1,17 @@
+<Entity >
+	<InheritTransformComponent>
+    </InheritTransformComponent>
+	
+	<LuaComponent
+		script_source_file="data/scripts/perks/map.lua"
+		execute_every_n_frame="1"
+		>
+	</LuaComponent>
+	
+	<VariableStorageComponent
+		name="map_timer"
+		value_int="0"
+		>
+	</VariableStorageComponent>
+  
+</Entity>

@@ -1,0 +1,76 @@
+<Entity tags="hittable,prop" >
+	<HitboxComponent 
+		aabb_min_x="-6" 
+		aabb_max_x="6" 
+		aabb_min_y="-10" 
+		aabb_max_y="4" >
+	</HitboxComponent>
+
+	<!--
+	<VelocityComponent />
+
+    <SimplePhysicsComponent/>
+-->
+<LightComponent 
+	_enabled="1" 
+	radius="100"
+	r="255"
+	g="20"
+	b="255"
+	fade_out_time="1.5" 
+	offset_y="-6"
+	>
+</LightComponent>
+
+<DamageModelComponent
+	air_needed="0" 
+	falling_damages="1"
+	fire_damage_amount="0.5" 
+	fire_probability_of_ignition="0.8" 
+	hp="1" 
+	materials_damage="1" 
+	materials_that_damage="acid,lava" 
+	materials_how_much_damage="0.004,0.004"
+	blood_material="grass"
+	blood_multiplier="0.3"
+	physics_objects_damage="1"
+	create_ragdoll="0"
+	>
+</DamageModelComponent>
+
+<ExplodeOnDamageComponent
+	explode_on_death_percent="1"
+	explode_on_damage_percent="0.2"
+	>
+	<config_explosion
+		never_cache="0"
+		damage="1"
+		camera_shake="2" 
+		explosion_radius="12" 
+		explosion_sprite="data/particles/explosion_016.xml" 
+		explosion_sprite_lifetime="10" 
+		load_this_entity="data/entities/projectiles/gasblob.xml"
+		create_cell_probability="80" 
+		hole_destroy_liquid="0" 
+		hole_enabled="1" 
+		ray_energy="10000"
+		particle_effect="1"  
+		damage_mortals="1"
+		physics_throw_enabled="0"
+		shake_vegetation="1" 
+		sparks_count_max="30" 
+		sparks_count_min="15" 
+		sparks_enabled="1" 
+		stains_enabled="1" 
+		stains_radius="10"
+	    audio_enabled="1"
+	    audio_event_name="explosions/slime">
+	</config_explosion>
+</ExplodeOnDamageComponent>
+
+<SpriteComponent
+	image_file="data/props_gfx/root_grower_fruit.xml" 
+	z_index="-0.5"
+	>
+</SpriteComponent>
+</Entity>

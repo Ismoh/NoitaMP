@@ -1,0 +1,192 @@
+<Entity serialize="1">
+
+  <PhysicsBody2Component 
+      allow_sleep="1"
+      angular_damping="0"
+      linear_damping="0" 
+      kill_entity_after_initialized="1"
+      init_offset_x="32"
+      init_offset_y="192"
+  ></PhysicsBody2Component>
+
+
+  <PhysicsImageShapeComponent
+      body_id="0"
+      offset_x="2"
+      offset_y="0"
+      image_file="data/props_breakable_gfx/plank_horizontal_64_00.png"
+      material="wood_prop" 
+  ></PhysicsImageShapeComponent>
+
+  <PhysicsImageShapeComponent
+      body_id="1"
+      offset_x="2"
+      offset_y="64"
+      image_file="data/props_breakable_gfx/plank_horizontal_64_00.png"
+      material="wood_prop" 
+  ></PhysicsImageShapeComponent>
+
+  <PhysicsImageShapeComponent
+      body_id="2"
+      offset_x="2"
+      offset_y="128"
+      image_file="data/props_breakable_gfx/plank_horizontal_64_00.png"
+      material="wood_prop" 
+  ></PhysicsImageShapeComponent>
+e
+
+  <PhysicsImageShapeComponent
+      body_id="10"
+      offset_x="0"
+      offset_y="0"
+      image_file="data/props_breakable_gfx/plank_vertical_64_00.png"
+      material="wood_prop" 
+  ></PhysicsImageShapeComponent>
+
+  <PhysicsImageShapeComponent
+      body_id="11"
+      offset_x="0"
+      offset_y="64"
+      image_file="data/props_breakable_gfx/plank_vertical_64_00.png"
+      material="wood_prop" 
+  ></PhysicsImageShapeComponent>
+
+  <PhysicsImageShapeComponent
+      body_id="12"
+      offset_x="0"
+      offset_y="128"
+      image_file="data/props_breakable_gfx/plank_vertical_64_00.png"
+      material="wood_prop" 
+  ></PhysicsImageShapeComponent>
+
+
+  <PhysicsImageShapeComponent
+      body_id="20"
+      offset_x="66"
+      offset_y="0"
+      image_file="data/props_breakable_gfx/plank_vertical_64_00.png"
+      material="wood_prop" 
+  ></PhysicsImageShapeComponent>
+
+  <PhysicsImageShapeComponent
+      body_id="21"
+      offset_x="66"
+      offset_y="64"
+      image_file="data/props_breakable_gfx/plank_vertical_64_00.png"
+      material="wood_prop" 
+  ></PhysicsImageShapeComponent>
+
+  <PhysicsImageShapeComponent
+      body_id="22"
+      offset_x="66"
+      offset_y="128"
+      image_file="data/props_breakable_gfx/plank_vertical_64_00.png"
+      material="wood_prop" 
+  ></PhysicsImageShapeComponent>
+  
+
+  <PhysicsJoint2Component
+      type="WELD_JOINT"
+      break_force="0.8"
+      break_on_shear_angle_deg="2"
+      offset_x="0"
+      offset_y="64"
+      body1_id="10"
+      body2_id="11"
+  ></PhysicsJoint2Component>
+
+  <PhysicsJoint2Component
+      type="WELD_JOINT"
+      break_force="1.3"
+      break_on_shear_angle_deg="2"
+      offset_x="0"
+      offset_y="128"
+      body1_id="11"
+      body2_id="12"
+  ></PhysicsJoint2Component>
+
+
+  <PhysicsJoint2Component
+      type="WELD_JOINT"
+      break_force="0.8"
+      break_on_shear_angle_deg="2"
+      offset_x="66"
+      offset_y="64"
+      body1_id="20"
+      body2_id="21"
+  ></PhysicsJoint2Component>
+
+  <PhysicsJoint2Component
+      type="WELD_JOINT"
+      break_force="1.3"
+      break_on_shear_angle_deg="2"
+      offset_x="66"
+      offset_y="128"
+      body1_id="21"
+      body2_id="22"
+  ></PhysicsJoint2Component>
+
+
+  <PhysicsJoint2Component
+      type="WELD_JOINT"
+      break_force="0.8"
+      break_on_shear_angle_deg="2"
+      offset_x="2"
+      offset_y="0"
+      body1_id="0"
+      body2_id="10"
+  ></PhysicsJoint2Component>
+
+  <PhysicsJoint2Component
+      type="WELD_JOINT"
+      break_force="0.8"
+      break_on_shear_angle_deg="2"
+      offset_x="64"
+      offset_y="0"
+      body1_id="0"
+      body2_id="20"
+  ></PhysicsJoint2Component>
+
+
+  <PhysicsJoint2Component
+      type="WELD_JOINT"
+      break_force="0.8"
+      break_on_shear_angle_deg="2"
+      offset_x="2"
+      offset_y="64"
+      body1_id="1"
+      body2_id="11"
+  ></PhysicsJoint2Component>
+
+  <PhysicsJoint2Component
+      type="WELD_JOINT"
+      break_force="0.8"
+      break_on_shear_angle_deg="2"
+      offset_x="64"
+      offset_y="64"
+      body1_id="1"
+      body2_id="21"
+  ></PhysicsJoint2Component>
+
+
+  <PhysicsJoint2Component
+      type="WELD_JOINT"
+      break_force="0.8"
+      break_on_shear_angle_deg="2"
+      offset_x="2"
+      offset_y="128"
+      body1_id="2"
+      body2_id="12"
+  ></PhysicsJoint2Component>
+
+  <PhysicsJoint2Component
+      type="WELD_JOINT"
+      break_force="0.8"
+      break_on_shear_angle_deg="2"
+      offset_x="64"
+      offset_y="128"
+      body1_id="2"
+      body2_id="22"
+  ></PhysicsJoint2Component>
+
+</Entity>

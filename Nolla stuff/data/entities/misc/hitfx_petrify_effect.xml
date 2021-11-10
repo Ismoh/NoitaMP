@@ -1,0 +1,8 @@
+<Entity>
+    <LuaComponent
+    	script_source_file="data/scripts/projectiles/petrify.lua"
+    	execute_on_added="0"
+    	remove_after_executed="1"
+    	execute_every_n_frame="1" >
+    </LuaComponent>
+</Entity>

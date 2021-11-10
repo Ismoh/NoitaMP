@@ -1,0 +1,13 @@
+<Entity name="unknown" >
+	<Base file="data/entities/base_item_physics2.xml" >
+		<PhysicsBody2Component 
+			init_offset_y="4"
+			kill_entity_after_initialized="1"
+		></PhysicsBody2Component>
+		<PhysicsImageShapeComponent 
+			image_file="data/props_gfx/furniture_footlocker.png"
+			material="metal_prop"
+			>
+		</PhysicsImageShapeComponent>
+	</Base>
+</Entity>

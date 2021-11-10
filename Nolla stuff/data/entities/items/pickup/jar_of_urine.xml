@@ -1,0 +1,16 @@
+<Entity tags="hittable,teleportable_NOT,item_physics" >
+  <!-- physical presence -->
+  <Base file="data/entities/items/pickup/jar.xml" >
+    <!-- disable the pick up particle effect -->
+    <SpriteParticleEmitterComponent
+      _enabled="0"
+  		>
+  	</SpriteParticleEmitterComponent>
+  </Base>
+
+  <VariableStorageComponent
+    name="potion_material"
+    value_string="urine" >
+  </VariableStorageComponent>
+  
+</Entity>

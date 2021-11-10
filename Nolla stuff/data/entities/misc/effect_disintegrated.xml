@@ -1,0 +1,15 @@
+<Entity>
+	<InheritTransformComponent 
+		_enabled="1" >
+    </InheritTransformComponent>	
+    
+    <GameEffectComponent 
+        effect="NONE"
+        frames="5"
+        disable_movement="0"
+        ragdoll_effect="DISINTEGRATED"
+        ragdoll_material="soil"
+    >
+	</GameEffectComponent >
+
+</Entity>

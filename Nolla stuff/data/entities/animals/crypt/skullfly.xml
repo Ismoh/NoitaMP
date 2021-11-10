@@ -1,0 +1,9 @@
+<Entity >
+  <Base file="data/entities/animals/skullfly.xml">
+    <DamageModelComponent 
+      hp="14.6"
+      max_hp="14.6"
+	  minimum_knockback_force="100000"
+     ></DamageModelComponent >
+  </Base>
+</Entity>

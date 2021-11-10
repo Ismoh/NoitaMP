@@ -1,0 +1,14 @@
+<Entity tags="mortal,human,hittable,prey" >
+
+  <GenomeDataComponent 
+    herd_id="player"
+    food_chain_rank="20"
+    is_predator="1" >
+  </GenomeDataComponent>
+
+  <LifetimeComponent
+    lifetime="400">
+  </LifetimeComponent>
+    
+</Entity>
+

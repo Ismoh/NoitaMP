@@ -1,0 +1,13 @@
+<Entity >
+  <Base file="data/entities/animals/tentacler.xml">
+    <DamageModelComponent 
+      hp="17"
+      max_hp="17"
+	  minimum_knockback_force="100000"
+     ></DamageModelComponent >
+  </Base>
+  
+  <Entity>  <Base file="data/entities/verlet_chains/smalltentacle/tentacler_tentacle_01.xml"> <InheritTransformComponent><Transform position.x="-4"  position.y="-2" ></Transform></InheritTransformComponent> </Base>  </Entity>
+	<Entity>  <Base file="data/entities/verlet_chains/smalltentacle/tentacler_tentacle_01.xml"> <InheritTransformComponent><Transform position.x="4"  position.y="1" ></Transform></InheritTransformComponent> </Base>  </Entity>
+	<Entity>  <Base file="data/entities/verlet_chains/smalltentacle/tentacler_tentacle_02.xml"> <InheritTransformComponent><Transform position.x="0"  position.y="-1" ></Transform></InheritTransformComponent> </Base>  </Entity>
+</Entity>

@@ -1,0 +1,48 @@
+<Entity tags="hungry_ghost">
+	<HitboxComponent 
+        _tags="enabled_in_world"
+        aabb_min_x="-4" 
+        aabb_max_x="4" 
+        aabb_min_y="-4" 
+        aabb_max_y="4"
+    ></HitboxComponent>
+
+    <SimplePhysicsComponent
+        _tags="enabled_in_world" 
+    ></SimplePhysicsComponent>
+
+    <VelocityComponent
+        _tags="enabled_in_world"
+		gravity_y="0"
+    ></VelocityComponent>
+
+	<!-- ghost functionality and visuals -->		
+	<SpriteComponent 
+		image_file="data/projectiles_gfx/hungry_ghost.xml"
+		>
+	</SpriteComponent>
+	<LuaComponent 
+		script_source_file="data/scripts/animals/tiny_ghost_move.lua"
+		execute_every_n_frame="1"
+		>
+	</LuaComponent>
+	
+	<LuaComponent
+		_tags="hungry_ghost_cooldown"
+		script_source_file="data/scripts/perks/hungry_ghost_eat.lua"
+		execute_every_n_frame="1"
+		>
+	</LuaComponent>
+	
+	<AudioComponent
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals/tiny_ghost" >
+	</AudioComponent>
+
+	<AudioLoopComponent
+		file="data/audio/Desktop/animals.bank"
+		event_name="animals/tiny_ghost/movement_loop"
+		set_speed_parameter="1"
+		auto_play="1">
+	</AudioLoopComponent>
+</Entity>

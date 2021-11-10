@@ -1,0 +1,43 @@
+<Entity>
+	<ParticleEmitterComponent
+		emitted_material_name="plasma_fading"
+		gravity.y="0.0"
+		lifetime_min="0.1"
+		lifetime_max="1.5"
+		count_min="1"
+		count_max="1"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		cosmetic_force_create="0"
+		airflow_force="0.3"
+		airflow_time="0.01"
+		airflow_scale="0.05"
+		emission_interval_min_frames="0"
+		emission_interval_max_frames="0"
+		emit_cosmetic_particles="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+	
+	<ParticleEmitterComponent
+		emitted_material_name="plasma_fading"
+		gravity.y="0.0"
+		lifetime_min="0.1"
+		lifetime_max="1.5"
+		count_min="1"
+		count_max="1"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		cosmetic_force_create="0"
+		airflow_force="0.3"
+		airflow_time="0.01"
+		airflow_scale="0.05"
+		emission_interval_min_frames="0"
+		emission_interval_max_frames="0"
+		emit_cosmetic_particles="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+	
+	<LifetimeComponent
+		lifetime="10">
+	</LifetimeComponent>
+</Entity>

@@ -1,0 +1,9 @@
+<Entity tags="statue_hand_3,statue_hand">
+	<Base file="data/entities/buildings/statue_hand_1.xml" >
+		<PhysicsImageShapeComponent 
+			image_file="data/buildings_gfx/statue_hand_1.png"
+			>
+		</PhysicsImageShapeComponent>
+	</Base>
+</Entity>
+

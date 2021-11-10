@@ -1,0 +1,8 @@
+<Entity>
+	<!-- adjust game effect duration to change how long the immunity will last -->
+    <GameEffectComponent 
+    	effect="KNOCKBACK_IMMUNITY"
+    	frames="60"
+    ></GameEffectComponent>
+
+</Entity>

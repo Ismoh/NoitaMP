@@ -1,0 +1,8 @@
+data/ragdolls/bigworm/bigworm_part_01.png
+data/ragdolls/bigworm/bigworm_part_02.png
+data/ragdolls/bigworm/bigworm_part_03.png
+data/ragdolls/bigworm/bigworm_part_04.png
+data/ragdolls/bigworm/bigworm_part_05.png
+data/ragdolls/bigworm/bigworm_part_06.png
+data/ragdolls/bigworm/bigworm_part_07.png
+data/ragdolls/bigworm/bigworm_part_08.png

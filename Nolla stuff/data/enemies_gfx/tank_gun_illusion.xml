@@ -1,0 +1,79 @@
+<Sprite 
+  default_animation="stand" 
+  filename="data/enemies_gfx/tank_gun_illusion.png" 
+  offset_x="9" 
+  offset_y="10" >
+  <RectAnimation 
+    frame_count="1" 
+    frame_height="20" 
+    frame_wait="0.16" 
+    frame_width="22" 
+    frames_per_row="11" 
+    name="stand" 
+    pos_x="0" 
+    pos_y="1" >
+  </RectAnimation>
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="20" 
+    frame_wait="0.1" 
+    frame_width="22" 
+    frames_per_row="11" 
+    name="walk" 
+    pos_x="0" 
+    pos_y="22" >
+  </RectAnimation>
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="20" 
+    frame_wait="0.09" 
+    frame_width="22" 
+    frames_per_row="11" 
+    name="run" 
+    pos_x="0" 
+    pos_y="22" >
+  </RectAnimation>
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="20" 
+    frame_wait="0.09" 
+    frame_width="22" 
+    frames_per_row="11" 
+    name="burn" 
+    pos_x="0" 
+    pos_y="22" >
+  </RectAnimation>
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="20" 
+    frame_wait="0.07" 
+    frame_width="22" 
+    frames_per_row="11" 
+    loop="0" 
+    name="attack" 
+    pos_x="0" 
+    pos_y="43" >
+  </RectAnimation>
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="20" 
+    frame_wait="0.04" 
+    frame_width="22" 
+    frames_per_row="11" 
+    name="attack_ranged" 
+    pos_x="0" 
+    pos_y="43" >
+  </RectAnimation>
+  <RectAnimation 
+    frame_count="11" 
+    frame_height="21" 
+    frame_wait="0.04" 
+    frame_width="23" 
+    frames_per_row="11" 
+    loop="0" 
+    name="attack_grenade" 
+    pos_x="0" 
+    pos_y="64" 
+    shrink_by_one_pixel="1" >
+  </RectAnimation>
+</Sprite>

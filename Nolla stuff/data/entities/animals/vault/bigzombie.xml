@@ -1,0 +1,9 @@
+<Entity >
+  <Base file="data/entities/animals/bigzombie.xml">
+    <DamageModelComponent 
+      hp="10"
+      max_hp="10"
+	  minimum_knockback_force="100000"
+     ></DamageModelComponent >
+  </Base>
+</Entity>

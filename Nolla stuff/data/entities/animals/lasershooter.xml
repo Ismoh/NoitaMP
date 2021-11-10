@@ -1,0 +1,123 @@
+<Entity name="$animal_lasershooter">
+  
+	<Base file="data/entities/base_enemy_flying.xml" >
+		<AnimalAIComponent
+			attack_ranged_entity_file="data/entities/projectiles/laserbeam.xml"
+			attack_ranged_enabled="1"
+			escape_if_damaged_probability="0"
+			attack_ranged_action_frame="8"
+			attack_ranged_offset_x="3"
+			attack_ranged_offset_y="-4"
+			attack_ranged_max_distance="400"
+			creature_detection_range_x="400"
+			creature_detection_range_y="400"
+			attack_melee_enabled="0"
+			attack_dash_enabled="0"
+			attack_ranged_frames_between="130" 
+			needs_food="0"
+			can_fly="1" >
+		</AnimalAIComponent>
+
+		<DamageModelComponent 
+            hp="6"
+            ragdoll_material="meat_slime_green"
+            ragdoll_filenames_file="data/ragdolls/lasershooter/filenames.txt" 
+			blood_material="slime_green"
+			blood_spray_material="slime_green"
+			blood_sprite_directional="data/particles/bloodsplatters/bloodsplatter_directional_green_$[1-3].xml"
+			blood_sprite_large="data/particles/bloodsplatters/bloodsplatter_green_$[1-3].xml"
+			materials_that_damage="lava,poison,blood_cold,blood_cold_vapour" 
+			materials_how_much_damage="0.004,0.001,0.0008,0.0007"
+			>
+		</DamageModelComponent>
+
+		<PathFindingComponent
+			can_fly="1" 
+			can_walk="0"
+			>
+		</PathFindingComponent>
+
+		<SpriteComponent 
+			image_file="data/enemies_gfx/lasershooter.xml" 
+			offset_x="0"
+			offset_y="0">
+		</SpriteComponent>
+		
+		<HitboxComponent 
+			_enabled="1" 
+			aabb_min_x="-4.5" 
+			aabb_max_x="4.5" 
+			aabb_min_y="-8.0" 
+			aabb_max_y="3" 
+			is_enemy="1" 
+			is_item="0" 
+			is_player="0" >
+		</HitboxComponent>		
+		
+		<GenomeDataComponent 
+			herd_id="slimes" >
+		</GenomeDataComponent>
+		
+		<CharacterDataComponent
+			collision_aabb_min_x="-5.0" 
+			collision_aabb_max_x="5.0" 
+			collision_aabb_min_y="-12" 
+			collision_aabb_max_y="3" 
+			mass="1.2"
+			>
+		</CharacterDataComponent>
+	</Base>
+
+	<MaterialInventoryComponent 
+		_enabled="1" 
+		drop_as_item="0" 
+		leak_on_damage_percent="0.999" 
+		>
+		<count_per_material_type>
+		<Material material="radioactive_liquid" count="200"  />
+		</count_per_material_type>
+	</MaterialInventoryComponent>
+
+	<LightComponent 
+	    _enabled="1" 
+	    radius="70" 
+		r="149"
+		g="185"
+		b="225"
+		fade_out_time="1.5"
+		>
+    </LightComponent>
+	
+	<SpriteComponent 
+        _tags="character" 
+		_enabled="1" 
+		alpha="1" 
+		image_file="data/enemies_gfx/lasershooter_emissive.xml"
+		offset_x="0" 
+		offset_y="0"
+		emissive="1"
+        additive="1"
+		next_rect_animation="" 
+		rect_animation="walk" 
+		 >
+	</SpriteComponent>
+	
+	<AudioComponent
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals/lasershooter" >
+	</AudioComponent>
+	
+	<AudioLoopComponent
+		file="data/audio/Desktop/animals.bank"
+		event_name="animals/slimy_small/movement_loop"
+		set_speed_parameter="1"
+		auto_play="1">
+	</AudioLoopComponent>
+	
+	<Entity>  <Base file="data/entities/verlet_chains/tealslime_tentacle/tealslime_tentacle_02.xml"> <InheritTransformComponent><Transform position.x="-3" position.y="-1" ></Transform></InheritTransformComponent> </Base>  </Entity>
+	<Entity>  <Base file="data/entities/verlet_chains/tealslime_tentacle/tealslime_tentacle_01.xml"> <InheritTransformComponent><Transform position.x="-4" position.y="-1" ></Transform></InheritTransformComponent> </Base>  </Entity>
+	<Entity>  <Base file="data/entities/verlet_chains/tealslime_tentacle/tealslime_tentacle_01.xml"> <InheritTransformComponent><Transform position.x="0"  position.y="-1" ></Transform></InheritTransformComponent> </Base>  </Entity>
+	<Entity>  <Base file="data/entities/verlet_chains/tealslime_tentacle/tealslime_tentacle_thin_01.xml"> <InheritTransformComponent><Transform position.x="4"  position.y="-1" ></Transform></InheritTransformComponent> </Base>  </Entity>
+
+</Entity>
+

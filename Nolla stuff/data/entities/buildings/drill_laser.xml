@@ -1,0 +1,277 @@
+<Entity>
+	<!-- electricity & fuel checks -->
+	<ElectricityReceiverComponent
+		offset_x="12"
+		offset_y="77"
+		radius="6"
+		active_time_frames="240"
+	></ElectricityReceiverComponent>
+	<MaterialAreaCheckerComponent
+		update_every_x_frame="30"
+		area_aabb.min_x="-13" 
+		area_aabb.max_x="-8" 
+		area_aabb.min_y="65"   
+		area_aabb.max_y="66"
+		material="oil"
+		material2="liquid_fire_weak"
+		look_for_failure="1"
+		kill_after_message="0"
+	></MaterialAreaCheckerComponent>
+	<MaterialAreaCheckerComponent
+		update_every_x_frame="30"
+		area_aabb.min_x="-13" 
+		area_aabb.max_x="-8" 
+		area_aabb.min_y="65"   
+		area_aabb.max_y="66"
+		material="oil"
+		material2="liquid_fire_weak"
+		look_for_failure="0"
+		kill_after_message="0"
+	></MaterialAreaCheckerComponent>
+	<VariableStorageComponent
+		name="is_fueled"
+		value_bool="1"
+	></VariableStorageComponent>
+	<LuaComponent
+		script_electricity_receiver_switched="data/scripts/buildings/drill_laser.lua"
+		script_material_area_checker_failed="data/scripts/buildings/drill_laser.lua"
+		script_material_area_checker_success="data/scripts/buildings/drill_laser.lua"
+	></LuaComponent>
+
+	<ParticleEmitterComponent 
+		_tags="igniter"
+		_enabled="0"
+		emitted_material_name="liquid_fire_weak"
+		gravity.y="20.0"
+		lifetime_min="3"
+		lifetime_max="4"
+		x_pos_offset_min="-13"
+		x_pos_offset_max="-11"
+		y_pos_offset_min="20"
+		y_pos_offset_max="20"
+		x_vel_min="0"
+		x_vel_max="0"
+		y_vel_min="20"
+		y_vel_max="20"
+		count_min="1"
+		count_max="1"
+		render_on_grid="1"
+		fade_based_on_lifetime="0"
+		emission_interval_min_frames="20"
+		emission_interval_max_frames="160"
+		create_real_particles="1"
+		emit_cosmetic_particles="0"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+
+	<!-- lasers x7 -->
+	<Entity tags="drill_laser">
+		<InheritTransformComponent>
+			<Transform 
+				position.x="-24"
+				position.y="93"
+			></Transform>
+		</InheritTransformComponent>
+
+		<LaserEmitterComponent
+			is_emitting="0"
+			laser_angle_add_rad="1.57079632" >
+			<laser
+				max_cell_durability_to_destroy="15"
+				max_length="400"
+				beam_radius="4"
+				damage_to_cells="7000"
+				damage_to_entities="0.05" >
+			</laser>
+		</LaserEmitterComponent>
+		
+		<SpriteComponent 
+			_tags="laser_fx"
+			_enabled="0"
+			image_file="data/projectiles_gfx/orb_green_big.xml" 
+			additive="1"
+			emissive="1"
+			>
+		</SpriteComponent>
+	</Entity>
+
+	<Entity tags="drill_laser">
+		<InheritTransformComponent>
+			<Transform 
+				position.x="-16"
+				position.y="93"
+			></Transform>
+		</InheritTransformComponent>
+
+		<LaserEmitterComponent
+			is_emitting="0"
+			laser_angle_add_rad="1.57079632" >
+			<laser
+				max_cell_durability_to_destroy="15"
+				max_length="400"
+				beam_radius="4"
+				damage_to_cells="7000"
+				damage_to_entities="0.05" >
+			</laser>
+		</LaserEmitterComponent>
+		
+		<SpriteComponent 
+			_tags="laser_fx"
+			_enabled="0"
+			image_file="data/projectiles_gfx/orb_green_big.xml" 
+			additive="1"
+			emissive="1"
+			>
+		</SpriteComponent>
+	</Entity>
+
+	<Entity tags="drill_laser">
+		<InheritTransformComponent>
+			<Transform 
+				position.x="-8"
+				position.y="93"
+			></Transform>
+		</InheritTransformComponent>
+
+		<LaserEmitterComponent
+			is_emitting="0"
+			laser_angle_add_rad="1.57079632" >
+			<laser
+				max_cell_durability_to_destroy="15"
+				max_length="400"
+				beam_radius="4"
+				damage_to_cells="7000"
+				damage_to_entities="0.05" >
+			</laser>
+		</LaserEmitterComponent>
+
+		<SpriteComponent 
+			_tags="laser_fx"
+			_enabled="0"
+			image_file="data/projectiles_gfx/orb_green_big.xml" 
+			additive="1"
+			emissive="1"
+			>
+		</SpriteComponent>
+	</Entity>
+
+	<Entity tags="drill_laser">
+		<InheritTransformComponent>
+			<Transform 
+				position.x="0"
+				position.y="93"
+			></Transform>
+		</InheritTransformComponent>
+
+		<LaserEmitterComponent
+			is_emitting="0"
+			laser_angle_add_rad="1.57079632" >
+			<laser
+				max_cell_durability_to_destroy="15"
+				max_length="400"
+				beam_radius="4"
+				damage_to_cells="7000"
+				damage_to_entities="0.05" >
+			</laser>
+		</LaserEmitterComponent>
+
+		<SpriteComponent 
+			_tags="laser_fx"
+			_enabled="0"
+			image_file="data/projectiles_gfx/orb_green_big.xml" 
+			additive="1"
+			emissive="1"
+			>
+		</SpriteComponent>
+	</Entity>
+
+	<Entity tags="drill_laser">
+		<InheritTransformComponent>
+			<Transform 
+				position.x="8"
+				position.y="93"
+			></Transform>
+		</InheritTransformComponent>
+
+		<LaserEmitterComponent
+			is_emitting="0"
+			laser_angle_add_rad="1.57079632" >
+			<laser
+				max_cell_durability_to_destroy="15"
+				max_length="400"
+				beam_radius="4"
+				damage_to_cells="7000"
+				damage_to_entities="0.05" >
+			</laser>
+		</LaserEmitterComponent>
+
+		<SpriteComponent 
+			_tags="laser_fx"
+			_enabled="0"
+			image_file="data/projectiles_gfx/orb_green_big.xml" 
+			additive="1"
+			emissive="1"
+			>
+		</SpriteComponent>
+	</Entity>
+
+	<Entity tags="drill_laser">
+		<InheritTransformComponent>
+			<Transform 
+				position.x="16"
+				position.y="93"
+			></Transform>
+		</InheritTransformComponent>
+
+		<LaserEmitterComponent
+			is_emitting="0"
+			laser_angle_add_rad="1.57079632" >
+			<laser
+				max_cell_durability_to_destroy="15"
+				max_length="400"
+				beam_radius="4"
+				damage_to_cells="7000"
+				damage_to_entities="0.05" >
+			</laser>
+		</LaserEmitterComponent>
+
+		<SpriteComponent 
+			_tags="laser_fx"
+			_enabled="0"
+			image_file="data/projectiles_gfx/orb_green_big.xml" 
+			additive="1"
+			emissive="1"
+			>
+		</SpriteComponent>
+	</Entity>
+
+	<Entity tags="drill_laser">
+		<InheritTransformComponent>
+			<Transform 
+				position.x="24"
+				position.y="93"
+			></Transform>
+		</InheritTransformComponent>
+
+		<LaserEmitterComponent
+			is_emitting="0"
+			laser_angle_add_rad="1.57079632" >
+			<laser
+				max_cell_durability_to_destroy="15"
+				max_length="400"
+				beam_radius="4"
+				damage_to_cells="7000"
+				damage_to_entities="0.05" >
+			</laser>
+		</LaserEmitterComponent>
+
+		<SpriteComponent 
+			_tags="laser_fx"
+			_enabled="0"
+			image_file="data/projectiles_gfx/orb_green_big.xml" 
+			additive="1"
+			emissive="1"
+			>
+		</SpriteComponent>
+	</Entity>
+</Entity>

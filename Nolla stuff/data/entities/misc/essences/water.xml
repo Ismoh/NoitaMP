@@ -1,0 +1,10 @@
+<Entity tags="essence,essence_effect">
+	<InheritTransformComponent />
+	
+	<LuaComponent 
+        _enabled="1" 
+        execute_every_n_frame="100"
+        script_source_file="data/scripts/essences/water.lua" 
+	>
+    </LuaComponent>
+</Entity>

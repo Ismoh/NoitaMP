@@ -1,0 +1,10 @@
+data/ragdolls/deer/torso.png
+data/ragdolls/deer/right_thigh.png
+data/ragdolls/deer/right_leg.png
+data/ragdolls/deer/right_arm.png
+data/ragdolls/deer/right_hand.png
+data/ragdolls/deer/left_thigh.png
+data/ragdolls/deer/left_leg.png
+data/ragdolls/deer/left_arm.png
+data/ragdolls/deer/left_hand.png
+data/ragdolls/deer/head.png

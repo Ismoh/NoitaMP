@@ -1,0 +1,27 @@
+<Entity tags="vault_lab_puzzle">
+	<MaterialAreaCheckerComponent
+		area_aabb.min_x="-3" 
+		area_aabb.max_x="3" 
+		area_aabb.min_y="6"   
+		area_aabb.max_y="8" 
+		update_every_x_frame="9"
+		material="magic_liquid_protection_all"
+		material2="magic_liquid_protection_all"
+		look_for_failure="0"
+		kill_after_message="0" >
+	</MaterialAreaCheckerComponent>
+
+	<LuaComponent
+		script_material_area_checker_success="data/scripts/buildings/vault_lab_puzzle_check.lua" >
+	</LuaComponent>
+
+	<PixelSceneComponent
+		pixel_scene="data/biome_impl/empty.png"
+		pixel_scene_visual=""
+		pixel_scene_background="data/biome_impl/vault/lab_puzzle_protect_background.png"
+		background_z_index="35"
+		offset_x="-7"
+		offset_y="-7"
+		skip_biome_checks="1" >
+	</PixelSceneComponent>
+</Entity>

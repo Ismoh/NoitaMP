@@ -1,0 +1,154 @@
+<Entity tags="hittable,teleportable_NOT,item_physics,item_pickup,seed_a" >
+	<Base file="data/entities/base_item_projectile.xml" />
+
+	<!-- physical presence -->
+	
+	<PhysicsBodyComponent 
+		_tags="enabled_in_world"
+		uid="1" 
+		allow_sleep="1" 
+		angular_damping="0" 
+		fixed_rotation="0" 
+		is_bullet="1" 
+		linear_damping="0"
+		auto_clean="0"
+		on_death_leave_physics_body="1"
+		hax_fix_going_through_ground="1"
+	></PhysicsBodyComponent>
+	
+	<PhysicsImageShapeComponent 
+		body_id="1"
+		centered="1"
+		image_file="data/items_gfx/goldnugget_01.png"
+		material="gem_box2d_white"
+	></PhysicsImageShapeComponent>
+	
+	<PhysicsThrowableComponent
+		max_throw_speed="180"
+		throw_force_coeff="1.5"
+	></PhysicsThrowableComponent>
+
+	<VelocityComponent
+		_tags="enabled_in_world"
+	></VelocityComponent>
+
+	<!-- other -->
+
+	<GameEffectComponent 
+		_tags="enabled_in_hand"
+		effect="REMOVE_FOG_OF_WAR"
+		frames="-1"
+	></GameEffectComponent>
+
+	<!-- item -->
+
+	<SpriteComponent
+		_tags="enabled_in_hand"
+		_enabled="0"
+		offset_x="4"
+		offset_y="4"
+		image_file="data/items_gfx/sunseed.png"
+	></SpriteComponent>
+	
+	<SpriteComponent
+		_tags="enabled_in_hand,enabled_in_world"
+		_enabled="1"
+		offset_x="0"
+		offset_y="0"
+		image_file="data/particles/explosion_flare.xml"
+		smooth_filtering="1"
+		alpha="0.9"
+		fog_of_war_hole="1"
+	></SpriteComponent>
+
+	<ItemComponent
+		_tags="enabled_in_world"
+		item_name="$item_sunseed"
+		ui_description="$itemdesc_sunseed"
+		ui_sprite="data/ui_gfx/items/sunseed.png"
+		max_child_items="0"
+		is_pickable="1"
+		is_equipable_forced="1"
+		preferred_inventory="QUICK"
+	></ItemComponent>
+
+	<UIInfoComponent
+		_tags="enabled_in_world"
+		name="$item_sunseed">
+	</UIInfoComponent>
+	
+	<AbilityComponent
+		ui_name="$item_sunseed"
+		throw_as_item="1"
+		><gun_config
+			deck_capacity="0"
+		></gun_config>
+	</AbilityComponent>
+	
+	<MagicConvertMaterialComponent
+		_tags="enabled_in_world,enabled_in_hand"
+		kill_when_finished="0"
+		from_material=""
+		from_material_tag="[sand_ground]"
+		steps_per_frame="2"
+		to_material="gunpowder_unstable"
+		clean_stains="0"
+		is_circle="1"
+		radius="64" 
+		loop="1"
+		>
+	</MagicConvertMaterialComponent>
+	
+	<MagicConvertMaterialComponent
+		_tags="enabled_in_world,enabled_in_hand"
+		kill_when_finished="0"
+		from_material=""
+		from_material_tag="[sand_other]"
+		steps_per_frame="2"
+		to_material="gunpowder_unstable"
+		clean_stains="0"
+		is_circle="1"
+		radius="64" 
+		loop="1"
+		>
+	</MagicConvertMaterialComponent>
+	
+	<ParticleEmitterComponent 
+		_tags="enabled_in_world,enabled_in_hand"
+		emitted_material_name="spark"
+		fade_based_on_lifetime="0"
+		x_pos_offset_min="0"
+		x_pos_offset_max="0"
+		y_pos_offset_min="0"
+		y_pos_offset_max="0"
+		x_vel_min="-5"
+		x_vel_max="15"
+		y_vel_min="-5"
+		y_vel_max="5"
+		area_circle_radius.min="5"
+		area_circle_radius.max="5"
+		velocity_always_away_from_center="10"
+		gravity.y="35"
+		friction="0.1"
+		airflow_force="0.9"
+		airflow_time="0.101"
+		airflow_scale="0.81"
+		count_min="1"
+		count_max="4"
+		lifetime_min="1.0"
+		lifetime_max="5.0"
+		create_real_particles="0"
+		emit_cosmetic_particles="1"
+		collide_with_grid="1"
+		render_on_grid="1"
+		emission_interval_min_frames="12"
+		emission_interval_max_frames="60"
+		render_ultrabright="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+	
+	<CameraBoundComponent
+	  max_count="5"
+	  distance="2000">
+	</CameraBoundComponent>
+</Entity>

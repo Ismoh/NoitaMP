@@ -1,0 +1,10 @@
+<Entity tags="curse_cloud">
+	<Base file="data/entities/misc/effect_curse_cloud_01.xml">
+		<GameEffectComponent 
+			effect="CUSTOM"
+			custom_effect_id="CURSE_CLOUD_01_TEMPORARY"
+			frames="600"
+			>
+		</GameEffectComponent >
+	</Base>
+</Entity>

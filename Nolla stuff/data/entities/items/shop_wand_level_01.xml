@@ -1,0 +1,10 @@
+<Entity>
+
+    <Base file="data/entities/items/wand_level_02.xml">
+    </Base>
+
+    <Base file="data/entities/base_shop_item.xml">
+    	    <ItemCostComponent cost="350" />
+    </Base>
+
+</Entity>

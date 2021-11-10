@@ -1,0 +1,21 @@
+<Entity 
+  name="unknown" 
+  tags="prop,pixelsprite" >
+  
+  <PixelSpriteComponent 
+    _enabled="1" 
+    image_file="data/props_gfx/ladder_long.png" 
+    anchor_x="5" 
+    anchor_y="90" 
+  >
+  </PixelSpriteComponent>
+
+  <SimplePhysicsComponent 
+    can_go_up="0"
+    >
+  </SimplePhysicsComponent >
+  
+  <VelocityComponent />
+  
+</Entity>
+

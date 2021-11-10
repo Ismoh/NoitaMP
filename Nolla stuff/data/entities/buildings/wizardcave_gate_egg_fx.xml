@@ -1,0 +1,56 @@
+<Entity>
+	<ParticleEmitterComponent 
+		emitted_material_name="spark_red_bright"
+		offset.x="0"
+		offset.y="0"
+		gravity.y="0.0"
+		x_vel_min="0"
+		x_vel_max="0"
+		y_vel_min="0"
+		y_vel_max="0"
+		friction="2.1"
+		count_min="1"
+		count_max="8"
+		lifetime_min="2.25"
+		lifetime_max="5.0"
+		area_circle_radius.min="1"
+		area_circle_radius.max="1"
+		emit_real_particles="0"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		emit_cosmetic_particles="1"
+		velocity_always_away_from_center="70"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+	<ParticleEmitterComponent 
+		emitted_material_name="spark_red_bright"
+		offset.x="0"
+		offset.y="0"
+		gravity.y="0.0"
+		x_vel_min="0"
+		x_vel_max="0"
+		y_vel_min="0"
+		y_vel_max="0"
+		friction="0.8"
+		count_min="30"
+		count_max="50"
+		lifetime_min="5.25"
+		lifetime_max="9.0"
+		area_circle_radius.min="4"
+		area_circle_radius.max="4"
+		emit_real_particles="0"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		emit_cosmetic_particles="1"
+		velocity_always_away_from_center="-30"
+		emission_interval_min_frames="12"
+		emission_interval_max_frames="12"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+	<LifetimeComponent
+		lifetime="25" >
+	</LifetimeComponent>
+</Entity>
+

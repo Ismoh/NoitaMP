@@ -1,0 +1,14 @@
+<Entity>
+	<Base file="data/entities/buildings/teleport.xml">
+		<UIInfoComponent
+			name="$teleport_back"
+			>
+		</UIInfoComponent>
+		
+		<TeleportComponent
+			target_x_is_absolute_position="0"
+			target.x="-1875" 
+			target.y="0" 
+		></TeleportComponent>
+	</Base>
+</Entity>

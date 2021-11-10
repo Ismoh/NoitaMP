@@ -1,0 +1,22 @@
+<Entity 
+  name="DEBUG_NAME:player"
+  tags="mortal,human,hittable,peasant,prey,player_unit,teleportable" >
+  
+  <Base file="data/entities/player_base.xml" include_children="1" /> 
+
+  <!--
+  <Entity name="inventory_quick">
+      <Entity><Base file="data/entities/items/starting_wand.xml" /></Entity> 
+      <Entity><Base file="data/entities/items/starting_bomb_wand.xml" /></Entity>
+      <Entity><Base file="data/entities/items/pickup/potion_water.xml" /></Entity>
+  </Entity>
+  -->
+   <Entity name="inventory_quick">
+      <Entity><Base file="data/entities/items/starting_wand_rng.xml" /></Entity>
+      <Entity><Base file="data/entities/items/starting_bomb_wand_rng.xml" /></Entity>
+      <Entity><Base file="data/entities/items/pickup/potion_starting.xml" /></Entity>
+  </Entity>
+  <Entity name="inventory_full"/>
+
+</Entity>
+

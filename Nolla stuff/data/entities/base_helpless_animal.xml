@@ -1,0 +1,214 @@
+<Entity tags="mortal,hittable,helpless_animal,homing_target,teleportable_NOT" >
+    
+    <_Transform 
+        rotation="0" 
+        scale.x="1" 
+        scale.y="1" >
+    </_Transform>
+
+    <AnimalAIComponent 
+        ai_state="0" 
+        ai_state_timer="0" 
+        eye_offset_x="0"
+        eye_offset_y="-8"
+        creature_detection_check_every_x_frames="30" 
+        creature_detection_range_x="180" 
+        creature_detection_range_y="40" 
+        attack_melee_max_distance="10" 
+        attack_melee_damage_min="0.2" 
+        attack_melee_damage_max="0.4" 
+        attack_melee_impulse_multiplier="0.2" 
+        attack_melee_action_frame="2"
+        attack_melee_frames_between="20" 
+        attack_ranged_min_distance="30" 
+        attack_ranged_offset_x="0" 
+        attack_ranged_offset_y="-10" 
+        attack_ranged_frames_between="60" 
+        food_material="grass"
+        food_particle_effect_material="blood_fading"
+        path_cleanup_explosion_radius="0"
+        food_eating_create_particles="1"
+        eating_area_radius_x="3"
+        eating_area_radius_y="8"
+        mouth_offset_x="8" 
+        mouth_offset_y="6" 
+        defecates_and_pees="0" 
+        butt_offset_x="0" 
+        butt_offset_y="3" 
+        pee_velocity_x="22" 
+        pee_velocity_y="-33" 
+        needs_food="0"
+        sense_creatures="0"
+        attack_ranged_enabled="0"
+        attack_melee_enabled="0"
+        can_fly="0"
+        path_distance_to_target_node_to_turn_around="3" 
+		aggressiveness_min="0"
+		aggressiveness_max="20">
+    </AnimalAIComponent>
+
+    <PathFindingComponent
+        search_depth_max_no_goal="120"
+        iterations_max_no_goal="9999999"
+        search_depth_max_with_goal="145000"
+        iterations_max_with_goal="145000"
+        cost_of_flying="500"
+        distance_to_reach_node_x="4"
+        distance_to_reach_node_y="6"
+        frames_to_get_stuck="30"
+        frames_between_searches="30" 
+        y_walking_compensation="8"
+        can_fly="0"
+        can_jump="0"
+        jump_speed="200"
+        initial_jump_lob="1"
+        initial_jump_max_distance_x="100"
+        initial_jump_max_distance_y="60" 
+		can_swim_on_surface="1"
+		can_dive="1"
+		>
+        <jump_trajectories>
+            <JumpTrajectory x="60" y="-40" lob="1" />
+            <JumpTrajectory x="60" y="75" lob="1" />
+        </jump_trajectories>
+    </PathFindingComponent>
+
+    <PathFindingGridMarkerComponent
+        marker_offset_y="-6"
+        marker_work_flag="0" >
+    </PathFindingGridMarkerComponent>
+
+    <CharacterCollisionComponent 
+        getting_crushed_threshold="6"
+        moving_up_before_getting_crushed_threshold="6"
+        _enabled="1" >
+    </CharacterCollisionComponent>
+
+    <CharacterDataComponent 
+        check_collision_max_size_x="4" 
+        check_collision_max_size_y="4" 
+        climb_over_y="4" 
+        collision_aabb_min_x="-2.0" 
+        collision_aabb_max_x="2.0" 
+        collision_aabb_min_y="-3" 
+        collision_aabb_max_y="3"
+        eff_hg_offset_y="1.28572" 
+        eff_hg_position_x="0" 
+        eff_hg_position_y="5" 
+        eff_hg_size_x="6.42857" 
+        eff_hg_size_y="5.14286" 
+        eff_hg_velocity_max_x="19.5787896514" 
+        eff_hg_velocity_max_y="-11.5714" 
+        eff_hg_velocity_min_x="-19.5714" 
+        eff_hg_velocity_min_y="-40" 
+        effect_hit_ground="1" 
+        gravity="0" 
+        buoyancy_check_offset_y="-6">
+    </CharacterDataComponent>
+
+    <GenomeDataComponent 
+        herd_id="helpless"
+        food_chain_rank="20"
+        is_predator="0" >
+    </GenomeDataComponent>
+
+    <CharacterPlatformingComponent 
+        animation_to_play="" 
+        jump_keydown_buffer="2" 
+        jump_velocity_y="-125" 
+        fly_speed_max_up="90"
+        fly_speed_max_down="90"
+        fly_speed_mult="20"
+        fly_speed_change_spd="1"
+        mouse_look="0" 
+        mouse_look_buffer="1" 
+        pixel_gravity="600" 
+        run_velocity="28" 
+        fly_velocity_x="28" 
+        accel_x="0.15" 
+        turning_buffer="0.1" 
+        velocity_max_x="50" 
+        velocity_max_y="200" 
+        velocity_min_x="-50" 
+        velocity_min_y="-200" >
+    </CharacterPlatformingComponent>
+
+    <VelocityComponent
+        updates_velocity="0" >
+    </VelocityComponent>
+
+    <ControlsComponent 
+        enabled="0" 
+        >
+    </ControlsComponent>
+
+    <DamageModelComponent 
+        air_in_lungs="5" 
+        air_in_lungs_max="5" 
+        air_lack_of_damage="0.2" 
+        air_needed="1" 
+        falling_damage_damage_max="1.2" 
+        falling_damage_damage_min="0.1" 
+        falling_damage_height_max="450" 
+        falling_damage_height_min="250" 
+        falling_damages="0" 
+        fire_damage_amount="0.2"
+        fire_probability_of_ignition="0.5" 
+        hp="1" 
+        is_on_fire="0" 
+        mAirAreWeInWater="0" 
+        mFallCount="0" 
+        mFallHighestY="3.40282e+038" 
+        mFallIsOnGround="0" 
+        mFireProbability="100" 
+        mIsOnFire="0" 
+        mLastCheckTime="0" 
+        mLastCheckX="0" 
+        mLastCheckY="0" 
+        materials_damage="1" 
+        materials_that_damage="acid,lava,poison,blood_cold,blood_cold_vapour" 
+        materials_how_much_damage="0.004,0.004,0.001,0.0008,0.0007"
+        ragdoll_filenames_file="data/ragdolls/player/filenames.txt"
+        ragdoll_material="meat_helpless"
+        ragdoll_offset_y="-6"
+		blood_sprite_directional="data/particles/bloodsplatters/bloodsplatter_directional_$[1-3].xml"
+		blood_sprite_large="data/particles/bloodsplatters/bloodsplatter_$[1-3].xml"
+        >
+    </DamageModelComponent>
+
+    <HitboxComponent 
+        aabb_max_x="3" 
+        aabb_max_y="4" 
+        aabb_min_x="-3" 
+        aabb_min_y="-12" 
+		>
+    </HitboxComponent>
+
+    <SpriteAnimatorComponent>
+    </SpriteAnimatorComponent>
+
+    <SpriteComponent 
+        _tags="character" 
+        alpha="1" 
+        image_file="data/enemies_gfx/player.xml" 
+        next_rect_animation="" 
+        offset_x="6" 
+        offset_y="13" 
+        z_index="-1"
+        rect_animation="walk" >
+    </SpriteComponent>
+
+    <CameraBoundComponent
+        max_count="7"
+        distance="2000"
+	   freeze_on_distance_kill="0"
+	   freeze_on_max_count_kill="0" >
+    </CameraBoundComponent>
+
+    <SpriteStainsComponent>
+    </SpriteStainsComponent>
+
+    <StatusEffectDataComponent>
+    </StatusEffectDataComponent>
+    
+</Entity>

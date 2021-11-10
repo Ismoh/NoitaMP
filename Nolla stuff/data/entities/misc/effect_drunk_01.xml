@@ -1,0 +1,31 @@
+<Entity>
+    <InheritTransformComponent>
+    </InheritTransformComponent>
+	
+	<Base file="data/entities/particles/drunk.xml" >
+		<SpriteParticleEmitterComponent
+    		emission_interval_min_frames="20"
+    		emission_interval_max_frames="50"
+			randomize_position_inside_hitbox="0"  >
+		</SpriteParticleEmitterComponent>
+	</Base>
+    
+    <GameEffectComponent 
+        effect="DRUNK"
+        frames="1200"
+    >
+	</GameEffectComponent >
+
+    <GameEffectComponent 
+        effect="FOOD_POISONING"
+        frames="1200"
+    >
+    </GameEffectComponent >
+
+    <DrugEffectModifierComponent>
+        <fx_add
+            doublevision_amount="1.0"
+        />
+    </DrugEffectModifierComponent>
+
+</Entity>

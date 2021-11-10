@@ -1,0 +1,11 @@
+<Entity>
+	<InheritTransformComponent>
+    </InheritTransformComponent>	
+    
+    <GameEffectComponent 
+    	effect="OILED"
+    	frames="600"
+    >
+	</GameEffectComponent >
+	
+</Entity>

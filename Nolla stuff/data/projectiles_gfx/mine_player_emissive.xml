@@ -1,0 +1,28 @@
+<Sprite 
+  default_animation="stand" 
+  filename="data/projectiles_gfx/mine_player_emissive.png" 
+  offset_x="12" 
+  offset_y="18" >
+  <RectAnimation 
+    frame_count="1" 
+    frame_height="25" 
+    frame_wait="0.16" 
+    frame_width="25" 
+    frames_per_row="8" 
+    name="stand" 
+    pos_x="0" 
+    pos_y="1" 
+    shrink_by_one_pixel="1" >
+  </RectAnimation>
+  <RectAnimation 
+    frame_count="8" 
+    frame_height="25" 
+    frame_wait="0.09" 
+    frame_width="25" 
+    frames_per_row="8" 
+    name="detonate" 
+    pos_x="0" 
+    pos_y="1" 
+    shrink_by_one_pixel="1" >
+  </RectAnimation>
+</Sprite>

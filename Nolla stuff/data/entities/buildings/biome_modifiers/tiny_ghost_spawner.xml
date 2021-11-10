@@ -1,0 +1,52 @@
+<!-- attaches a tiny ghost to a nearby enemy -->
+<Entity>
+	<LifetimeComponent
+		lifetime="1200"
+		>
+	</LifetimeComponent>
+	<LuaComponent
+		script_source_file="data/scripts/animals/tiny_ghost_spawn.lua"
+		execute_every_n_frame="60"
+		>
+	</LuaComponent>
+	
+	<Entity tags="tiny_ghost_spawned">
+		<SpriteComponent 
+			_enabled="0"
+			image_file="data/projectiles_gfx/tiny_ghost.xml"
+			>
+		</SpriteComponent>
+		<LuaComponent 
+			_enabled="0"
+			script_source_file="data/scripts/animals/tiny_ghost_shoot_nerfed.lua"
+			execute_every_n_frame="110"
+			>
+		</LuaComponent>
+		<LuaComponent 
+			_enabled="0"
+			script_source_file="data/scripts/animals/tiny_ghost_move.lua"
+			execute_every_n_frame="1"
+			>
+		</LuaComponent>
+		<LuaComponent 
+			_enabled="0"
+			script_enabled_changed="data/scripts/animals/tiny_ghost_enabled_changed.lua"
+			execute_every_n_frame="-1"
+			>
+		</LuaComponent>
+		
+		<AudioComponent
+			_enabled="0"
+			file="data/audio/Desktop/animals.bank"
+			event_root="animals/tiny_ghost" >
+		</AudioComponent>
+
+		<AudioLoopComponent
+			_enabled="0"
+			file="data/audio/Desktop/animals.bank"
+			event_name="animals/tiny_ghost/movement_loop"
+			set_speed_parameter="1"
+			auto_play="1">
+		</AudioLoopComponent>
+	</Entity>
+</Entity>

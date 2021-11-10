@@ -1,0 +1,7 @@
+<Entity>
+	<LuaComponent
+		script_source_file="data/scripts/buildings/funroom_check.lua"
+		execute_every_n_frame="5"
+		>
+	</LuaComponent>
+</Entity>

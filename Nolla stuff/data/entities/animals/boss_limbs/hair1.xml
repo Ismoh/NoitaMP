@@ -1,0 +1,17 @@
+<Entity>
+
+	<InheritTransformComponent>
+	</InheritTransformComponent>
+
+    <VerletPhysicsComponent
+    	stiffness="1.25"
+    	num_points="5"
+    	resting_distance="1.0" >
+    </VerletPhysicsComponent>
+
+	<Base file="data/entities/animals/boss_limbs/hair_piece.xml" />
+	<Base file="data/entities/animals/boss_limbs/hair_piece.xml" />
+	<Base file="data/entities/animals/boss_limbs/hair_piece.xml" />
+	<Base file="data/entities/animals/boss_limbs/hair_piece_thin.xml" />
+
+</Entity>

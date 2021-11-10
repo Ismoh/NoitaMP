@@ -1,0 +1,1761 @@
+<html>
+<head>
+<style>
+	body{
+		background-color: lightgray;
+		font-family: monospace;
+		font-size: large;
+		padding: 10px;
+		width: 100%;
+	}
+	table, th, td {
+		table-layout: fixed;
+		width: 100%;
+		border: 1px solid gray;
+		border-collapse: collapse;
+		text-align: left;
+		vertical-align: top;
+		font-size: large;
+		padding: 3px;
+	}
+	tr:hover {
+		background-color: #f5f5f5;
+	}
+	.function{
+		color:black;
+		font-weight: bold;
+	}
+	.field_name{
+		color:black;
+		font-weight: normal;
+	}
+	.description{
+		color:black;
+		font-weight: normal;
+		font-family: sans-serif;
+		font-size: medium
+	}
+</style>
+<body>
+<table style="width:75%"><tr>
+<th><span class="function">EntityLoad</span>(<span class="field_name"> filename:string, pos_x:number = 0, pos_y:number = 0 </span><span class="func">)</span></th>
+<th><span class="field_name">entity_id:int</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">EntityLoadEndGameItem</span>(<span class="field_name"> filename:string, pos_x:number = 0, pos_y:number = 0 </span><span class="func">)</span></th>
+<th><span class="field_name">entity_id:int</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">EntityLoadCameraBound</span>(<span class="field_name"> filename:string, pos_x:number = 0, pos_y:number = 0 </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">EntityLoadToEntity</span>(<span class="field_name"> filename:string, entity:int </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Loads components from 'filename' to 'entity'. Does not load tags and other stuff.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">EntitySave</span>(<span class="field_name"> entity_id:int, filename:string </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Note: works only in dev builds.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">EntityCreateNew</span>(<span class="field_name"> name:string = "" </span><span class="func">)</span></th>
+<th><span class="field_name">entity_id:int</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">EntityKill</span>(<span class="field_name"> entity_id:int </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">EntityGetIsAlive</span>(<span class="field_name"> entity_id:int </span><span class="func">)</span></th>
+<th><span class="field_name">bool</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">EntityAddComponent</span>(<span class="field_name"> entity_id:int, component_type_name:string, table_of_component_values:{string} = nil </span><span class="func">)</span></th>
+<th><span class="field_name">component_id:int</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">EntityRemoveComponent</span>(<span class="field_name"> entity_id:int, component_id:int </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">EntityGetAllComponents</span>(<span class="field_name"> entity_id:int </span><span class="func">)</span></th>
+<th><span class="field_name">{int}</span></th></th>
+<th><span class="description">Returns a table of component ids.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">EntityGetComponent</span>(<span class="field_name"> entity_id:int, component_type_name:string, tag:string = "" </span><span class="func">)</span></th>
+<th><span class="field_name">{component_id}|nil</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">EntityGetFirstComponent</span>(<span class="field_name"> entity_id:int, component_type_name:string, tag:string = "" </span><span class="func">)</span></th>
+<th><span class="field_name">component_id|nil</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">EntityGetComponentIncludingDisabled</span>(<span class="field_name"> entity_id:int, component_type_name:string, tag:string = "" </span><span class="func">)</span></th>
+<th><span class="field_name">{component_id}|nil</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">EntityGetFirstComponentIncludingDisabled</span>(<span class="field_name"> entity_id:int, component_type_name:string, tag:string = "" </span><span class="func">)</span></th>
+<th><span class="field_name">component_id|nil</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">EntitySetTransform</span>(<span class="field_name"> entity_id:int, x:number, y:number = 0, rotation:number = 0, scale_x:number = 1, scale_y:number = 1 </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">EntityApplyTransform</span>(<span class="field_name"> entity_id:int, x:number, y:number = 0, rotation:number = 0, scale_x:number = 1, scale_y:number = 1 </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Sets the transform and tries to immediately refresh components that calculate values based on an entity's transform.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">EntityGetTransform</span>(<span class="field_name"> entity_id:int </span><span class="func">)</span></th>
+<th><span class="field_name">x:number, y:number, rotation:number, scale_x:number, scale_y:number</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">EntityAddChild</span>(<span class="field_name"> parent_id:int, child_id:int </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">EntityGetAllChildren</span>(<span class="field_name"> entity_id:int </span><span class="func">)</span></th>
+<th><span class="field_name">{entity_id:int}|nil</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">EntityGetParent</span>(<span class="field_name"> entity_id:int </span><span class="func">)</span></th>
+<th><span class="field_name">entity_id:int</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">EntityGetRootEntity</span>(<span class="field_name"> entity_id:int </span><span class="func">)</span></th>
+<th><span class="field_name">entity_id:int</span></th></th>
+<th><span class="description">Returns the given entity if it has no parent, otherwise walks up the parent hierarchy to the topmost parent and returns it.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">EntityRemoveFromParent</span>(<span class="field_name"> entity_id:int </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">EntitySetComponentsWithTagEnabled</span>(<span class="field_name"> entity_id:int, tag:string, enabled:bool </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">EntitySetComponentIsEnabled</span>(<span class="field_name"> entity_id:int, component_id:int, is_enabled:bool </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">EntityGetName</span>(<span class="field_name"> entity_id:int </span><span class="func">)</span></th>
+<th><span class="field_name">name:string</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">EntitySetName</span>(<span class="field_name"> entity_id:int, name:string </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">EntityGetTags</span>(<span class="field_name"> entity_id:int </span><span class="func">)</span></th>
+<th><span class="field_name">string|nil</span></th></th>
+<th><span class="description">Returns a string where the tags are comma-separated, or nil if 'entity_id' doesn't point to a valid entity.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">EntityGetWithTag</span>(<span class="field_name"> tag:string </span><span class="func">)</span></th>
+<th><span class="field_name">{entity_id:int}</span></th></th>
+<th><span class="description">Returns all entities with 'tag'.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">EntityGetInRadius</span>(<span class="field_name"> pos_x:number, pos_y:number, radius:number </span><span class="func">)</span></th>
+<th><span class="field_name">{entity_id:int}</span></th></th>
+<th><span class="description">Returns all entities in 'radius' distance from 'x','y'.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">EntityGetInRadiusWithTag</span>(<span class="field_name"> pos_x:number, pos_y:number, radius:number, entity_tag:string </span><span class="func">)</span></th>
+<th><span class="field_name">{entity_id:int}</span></th></th>
+<th><span class="description">Returns all entities in 'radius' distance from 'x','y'.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">EntityGetClosest</span>(<span class="field_name"> pos_x:number, pos_y:number </span><span class="func">)</span></th>
+<th><span class="field_name">entity_id:int</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">EntityGetClosestWithTag</span>(<span class="field_name">  pos_x:number, pos_y:number, tag:string </span><span class="func">)</span></th>
+<th><span class="field_name">entity_id:int</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">EntityGetWithName</span>(<span class="field_name"> name:string </span><span class="func">)</span></th>
+<th><span class="field_name">entity_id:int</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">EntityAddTag</span>(<span class="field_name"> entity_id:int, tag:string </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">EntityRemoveTag</span>(<span class="field_name"> entity_id:int, tag:string </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">EntityHasTag</span>(<span class="field_name"> entity_id:int, tag:string </span><span class="func">)</span></th>
+<th><span class="field_name">bool</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">EntityGetFilename</span>(<span class="field_name"> entity_id:int </span><span class="func">)</span></th>
+<th><span class="field_name">full_path:string</span></th></th>
+<th><span class="description">return value example: 'data/entities/items/flute.xml'</span></th></th>
+</tr>
+<tr>
+<th><span class="function">ComponentGetValue</span>(<span class="field_name"> component_id:int, variable_name:string </span><span class="func">)</span></th>
+<th><span class="field_name">string|nil</span></th></th>
+<th><span class="description">Deprecated, use ComponentGetValue2() instead.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">ComponentGetValueBool</span>(<span class="field_name"> component_id:int, variable_name:string </span><span class="func">)</span></th>
+<th><span class="field_name">bool</span></th></th>
+<th><span class="description">Deprecated, use ComponentGetValue2() instead.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">ComponentGetValueInt</span>(<span class="field_name"> component_id:int, variable_name:string </span><span class="func">)</span></th>
+<th><span class="field_name">int</span></th></th>
+<th><span class="description">Deprecated, use ComponentGetValue2() instead.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">ComponentGetValueFloat</span>(<span class="field_name"> component_id:int, variable_name:string </span><span class="func">)</span></th>
+<th><span class="field_name">number</span></th></th>
+<th><span class="description">Deprecated, use ComponentGetValue2() instead.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">ComponentGetValueVector2</span>(<span class="field_name"> component_id:int, variable_name:string </span><span class="func">)</span></th>
+<th><span class="field_name">x:number, y:number</span></th></th>
+<th><span class="description">Deprecated, use ComponentGetValue2() instead.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">ComponentSetValue</span>(<span class="field_name"> component_id:int, variable_name:string, value:string </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Deprecated, use ComponentSetValue2() instead.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">ComponentSetValueVector2</span>(<span class="field_name"> component_id:int, variable_name:string, x:number, y:number </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Deprecated, use ComponentSetValue2() instead.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">ComponentSetValueValueRange</span>(<span class="field_name"> component_id:int, variable_name:string, min:number, max:number </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Deprecated, use ComponentSetValue2() instead.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">ComponentSetValueValueRangeInt</span>(<span class="field_name"> component_id:int, variable_name:string, min:number, max:number </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Deprecated, use ComponentSetValue2() instead.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">ComponentSetMetaCustom</span>(<span class="field_name"> component_id:int, variable_name:string, value:string </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Deprecated, use ComponentSetValue2() instead.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">ComponentGetMetaCustom</span>(<span class="field_name"> component_id:int, variable_name:string </span><span class="func">)</span></th>
+<th><span class="field_name">string|nil</span></th></th>
+<th><span class="description">Deprecated, use ComponentGetValue2() instead.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">ComponentObjectGetValue</span>(<span class="field_name"> component_id:int, object_name:string, variable_name:string </span><span class="func">)</span></th>
+<th><span class="field_name">string|nil</span></th></th>
+<th><span class="description">Deprecated, use ComponentObjectGetValue2() instead.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">ComponentObjectGetValueBool</span>(<span class="field_name"> component_id:int, object_name:string, variable_name:string </span><span class="func">)</span></th>
+<th><span class="field_name">string|nil</span></th></th>
+<th><span class="description">Deprecated, use ComponentObjectGetValue2() instead.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">ComponentObjectGetValueInt</span>(<span class="field_name"> component_id:int, object_name:string, variable_name:string </span><span class="func">)</span></th>
+<th><span class="field_name">string|nil</span></th></th>
+<th><span class="description">Deprecated, use ComponentObjectGetValue2() instead.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">ComponentObjectGetValueFloat</span>(<span class="field_name"> component_id:int, object_name:string, variable_name:string </span><span class="func">)</span></th>
+<th><span class="field_name">string|nil</span></th></th>
+<th><span class="description">Deprecated, use ComponentObjectGetValue2() instead.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">ComponentObjectSetValue</span>(<span class="field_name"> component_id:int, object_name:string, variable_name:string, value:string </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Deprecated, use ComponentObjectSetValue2() instead.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">ComponentAddTag</span>(<span class="field_name"> component_id:int, tag:string </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">ComponentRemoveTag</span>(<span class="field_name"> component_id:int, tag:string </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">ComponentHasTag</span>(<span class="field_name"> component_id:int, tag:string </span><span class="func">)</span></th>
+<th><span class="field_name">bool</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">ComponentGetValue2</span>(<span class="field_name"> component_id:int, field_name:string </span><span class="func">)</span></th>
+<th><span class="field_name">multiple_types|nil</span></th></th>
+<th><span class="description">Returns one or many values matching the type or subtypes of the requested field. Reports error and returns nil if the field type is not supported or field was not found.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">ComponentSetValue2</span>(<span class="field_name"> component_id:int, field_name:string, value_or_values:multiple_types </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Sets the value of a field. Value(s) should have a type matching the field type. Reports error if the values weren't given in correct type, the field type is not supported, or the component does not exist.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">ComponentObjectGetValue2</span>(<span class="field_name"> component_id:int, object_name:string, field_name:string </span><span class="func">)</span></th>
+<th><span class="field_name">multiple types|nil</span></th></th>
+<th><span class="description">Returns one or many values matching the type or subtypes of the requested field in a component subobject. Reports error and returns nil if the field type is not supported or 'object_name' is not a metaobject.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">ComponentObjectSetValue2</span>(<span class="field_name"> component_id:int, object_name:string, field_name:string, value_or_values:multiple_types </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Sets the value of a field in a component subobject. Value(s) should have a type matching the field type. Reports error if the values weren't given in correct type, the field type is not supported or 'object_name' is not a metaobject.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">EntityAddComponent2</span>(<span class="field_name"> entity_id:int, component_type_name, table_of_component_values:{string-multiple_types} = nil </span><span class="func">)</span></th>
+<th><span class="field_name">component_id</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">ComponentGetVectorSize</span>(<span class="field_name"> component_id:int, array_member_name:string, type_stored_in_vector:string </span><span class="func">)</span></th>
+<th><span class="field_name">int</span></th></th>
+<th><span class="description">'type_stored_in_vector' should be "int", "float" or "string".</span></th></th>
+</tr>
+<tr>
+<th><span class="function">ComponentGetVectorValue</span>(<span class="field_name"> component_id:int, array_name:string, type_stored_in_vector:string, index:int </span><span class="func">)</span></th>
+<th><span class="field_name">int|number|string|nil</span></th></th>
+<th><span class="description">'type_stored_in_vector' should be "int", "float" or "string".</span></th></th>
+</tr>
+<tr>
+<th><span class="function">ComponentGetVector</span>(<span class="field_name"> component_id:int, array_name:string, type_stored_in_vector:string </span><span class="func">)</span></th>
+<th><span class="field_name">{int|number|string}|nil</span></th></th>
+<th><span class="description">'type_stored_in_vector' should be "int", "float" or "string".</span></th></th>
+</tr>
+<tr>
+<th><span class="function">ComponentGetIsEnabled</span>(<span class="field_name"> component_id:int </span><span class="func">)</span></th>
+<th><span class="field_name">bool</span></th></th>
+<th><span class="description">Returns true if the given component exists and is enabled, else false.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">ComponentGetMembers</span>(<span class="field_name"> component_id:int </span><span class="func">)</span></th>
+<th><span class="field_name">{string-string}|nil</span></th></th>
+<th><span class="description">Returns a string-indexed table of string.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">ComponentObjectGetMembers</span>(<span class="field_name"> component_id:int, object_name:string </span><span class="func">)</span></th>
+<th><span class="field_name">{string-string}|nil</span></th></th>
+<th><span class="description">Returns a string-indexed table of string or nil.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">ComponentGetTypeName</span>(<span class="field_name"> component_id:int </span><span class="func">)</span></th>
+<th><span class="field_name">string</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GetUpdatedEntityID</span>(<span class="field_name"></span><span class="func">)</span></th>
+<th><span class="field_name">entity_id:int</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GetUpdatedComponentID</span>(<span class="field_name"></span><span class="func">)</span></th>
+<th><span class="field_name">component_id:int</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">SetTimeOut</span>(<span class="field_name"> time_to_execute:number, file_to_execute:string, function_to_call:string = nil </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">RegisterSpawnFunction</span>(<span class="field_name"> color:int, function_name:string </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">SpawnActionItem</span>(<span class="field_name"> x:number, y:number, level:int </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">SpawnStash</span>(<span class="field_name"> x:number, y:number, level:int, action_count:int </span><span class="func">)</span></th>
+<th><span class="field_name">entity_id:int</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">SpawnApparition</span>(<span class="field_name"> x:number, y:number, level:int </span><span class="func">)</span></th>
+<th><span class="field_name">spawn_state_id:int, entity_id:int</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">LoadEntityToStash</span>(<span class="field_name"> entity_file:string, stash_entity_id:int </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">AddMaterialInventoryMaterial</span>(<span class="field_name"> entity_id:int, material_name:string, count:int </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GetMaterialInventoryMainMaterial</span>(<span class="field_name"> entity_id:int </span><span class="func">)</span></th>
+<th><span class="field_name">material_type:int</span></th></th>
+<th><span class="description">Returns the id of the material taking the largest part of the first MaterialInventoryComponent in 'entity_id', or 0 if nothing is found.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameScreenshake</span>(<span class="field_name"> strength:number, x:number = camera_x, y:number = camera_y </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameOnCompleted</span>(<span class="field_name"></span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameGiveAchievement</span>(<span class="field_name"> id:string </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameDoEnding2</span>(<span class="field_name"></span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GetParallelWorldPosition</span>(<span class="field_name"> world_pos_x:number, world_pos_y:number </span><span class="func">)</span></th>
+<th><span class="field_name">x,  y</span></th></th>
+<th><span class="description">x = 0 normal world, -1 is first west world, +1 is first east world, if y < 0 it is sky, if y > 0 it is hell </span></th></th>
+</tr>
+<tr>
+<th><span class="function">BiomeMapLoad_KeepPlayer</span>(<span class="field_name"> filename:string, pixel_scenes:string = "data/biome/_pixel_scenes.xml" </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">BiomeMapLoad</span>(<span class="field_name"> filename:string </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Deprecated. Might trigger various bugs. Use BiomeMapLoad_KeepPlayer() instead.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">BiomeSetValue</span>(<span class="field_name"> filename:string, field_name:string, value:multiple_types </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Can be used to edit biome configs during initialization. See the nightmare mod for an usage example.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">BiomeGetValue</span>(<span class="field_name"> filename:string, field_name:string </span><span class="func">)</span></th>
+<th><span class="field_name">multiple types|nil</span></th></th>
+<th><span class="description">Can be used to read biome configs. Returns one or many values matching the type or subtypes of the requested field. Reports error and returns nil if the field type is not supported or field was not found.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">BiomeObjectSetValue</span>(<span class="field_name"> filename:string, meta_object_name:string, field_name:string, value:multiple_types </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Can be used to edit biome configs during initialization. See biome_modifiers.lua for an usage example.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">BiomeVegetationSetValue</span>(<span class="field_name"> filename:string, material_name:string, field_name:string, value:multiple_types </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Can be used to edit biome config MaterialComponents during initialization. Sets the given value in all found VegetationComponent with matching tree_material. See biome_modifiers.lua for an usage example.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">BiomeMaterialSetValue</span>(<span class="field_name"> filename:string, material_name:string, field_name:string, value:multiple_types </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Can be used to edit biome config MaterialComponents during initialization. Sets the given value in the first found MaterialComponent with matching material_name. See biome_modifiers.lua for an usage example.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">BiomeMaterialGetValue</span>(<span class="field_name"> filename:string, material_name:string, field_name:string </span><span class="func">)</span></th>
+<th><span class="field_name">multiple types|nil</span></th></th>
+<th><span class="description">Can be used to read biome config MaterialComponents during initialization. Returns the given value in the first found MaterialComponent with matching material_name. See biome_modifiers.lua for an usage example.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameIsIntroPlaying</span>(<span class="field_name"></span><span class="func">)</span></th>
+<th><span class="field_name">bool</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameGetIsGamepadConnected</span>(<span class="field_name"></span><span class="func">)</span></th>
+<th><span class="field_name">bool</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameGetWorldStateEntity</span>(<span class="field_name"></span><span class="func">)</span></th>
+<th><span class="field_name">entity_id:int</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameGetPlayerStatsEntity</span>(<span class="field_name"></span><span class="func">)</span></th>
+<th><span class="field_name">entity_id:int</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameGetOrbCountAllTime</span>(<span class="field_name"></span><span class="func">)</span></th>
+<th><span class="field_name">int</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameGetOrbCountThisRun</span>(<span class="field_name"></span><span class="func">)</span></th>
+<th><span class="field_name">int</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameGetOrbCollectedThisRun</span>(<span class="field_name"> orb_id_zero_based:int </span><span class="func">)</span></th>
+<th><span class="field_name">bool</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameGetOrbCollectedAllTime</span>(<span class="field_name"> orb_id_zero_based:int </span><span class="func">)</span></th>
+<th><span class="field_name">bool</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameClearOrbsFoundThisRun</span>(<span class="field_name"></span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameGetOrbCountTotal</span>(<span class="field_name"></span><span class="func">)</span></th>
+<th><span class="field_name">int</span></th></th>
+<th><span class="description">Returns the number of orbs, picked or not.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">CellFactory_GetName</span>(<span class="field_name"> material_id:int </span><span class="func">)</span></th>
+<th><span class="field_name">string</span></th></th>
+<th><span class="description">Converts a numeric material id to the material's strings id.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">CellFactory_GetType</span>(<span class="field_name"> material_name:string </span><span class="func">)</span></th>
+<th><span class="field_name">int</span></th></th>
+<th><span class="description">Returns the id of a material.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">CellFactory_GetUIName</span>(<span class="field_name"> material_id:int </span><span class="func">)</span></th>
+<th><span class="field_name">string</span></th></th>
+<th><span class="description">Returns the displayed name of a material, or an empty string if 'material_id' is not valid. Might return a text key.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">CellFactory_GetAllLiquids</span>(<span class="field_name"> include_statics:bool = true, include_particle_fx_materials:bool = false </span><span class="func">)</span></th>
+<th><span class="field_name">{string}</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">CellFactory_GetAllSands</span>(<span class="field_name"> include_statics:bool = true, include_particle_fx_materials:bool = false </span><span class="func">)</span></th>
+<th><span class="field_name">{string}</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">CellFactory_GetAllGases</span>(<span class="field_name"> include_statics:bool = true, include_particle_fx_materials:bool = false </span><span class="func">)</span></th>
+<th><span class="field_name">{string}</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">CellFactory_GetAllFires</span>(<span class="field_name"> include_statics:bool = true, include_particle_fx_materials:bool = false </span><span class="func">)</span></th>
+<th><span class="field_name">{string}</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">CellFactory_GetAllSolids</span>(<span class="field_name"> include_statics:bool = true, include_particle_fx_materials:bool = false </span><span class="func">)</span></th>
+<th><span class="field_name">{string}</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">CellFactory_GetTags</span>(<span class="field_name"> material_id:int </span><span class="func">)</span></th>
+<th><span class="field_name">{string}</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameGetCameraPos</span>(<span class="field_name"></span><span class="func">)</span></th>
+<th><span class="field_name">x:number, y:number</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameSetCameraPos</span>(<span class="field_name"> x:number, y:number </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameSetCameraFree</span>(<span class="field_name"> is_free:bool </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameGetCameraBounds</span>(<span class="field_name"></span><span class="func">)</span></th>
+<th><span class="field_name">x:number, y:number, w:number, h:number</span></th></th>
+<th><span class="description">Returns the camera rectangle. This may not be 100% pixel perfect with regards to what you see on the screen. 'x','y' = top left corner of the rectangle.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameRegenItemAction</span>(<span class="field_name"> entity_id:int </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameRegenItemActionsInContainer</span>(<span class="field_name"> entity_id:int </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameRegenItemActionsInPlayer</span>(<span class="field_name"> entity_id:int </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameKillInventoryItem</span>(<span class="field_name"> inventory_owner_entity_id:int, item_entity_id:int </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GamePickUpInventoryItem</span>(<span class="field_name"> who_picks_up_entity_id:int, item_entity_id:int, do_pick_up_effects:bool = true </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameDropAllItems</span>(<span class="field_name"> entity_id:int </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameDropPlayerInventoryItems</span>(<span class="field_name"> entity_id:int </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameDestroyInventoryItems</span>(<span class="field_name"> entity_id:int </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameIsInventoryOpen</span>(<span class="field_name"></span><span class="func">)</span></th>
+<th><span class="field_name">bool</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameTriggerGameOver</span>(<span class="field_name"></span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">LoadPixelScene</span>(<span class="field_name"> materials_filename:string, colors_filename:string, x:number, y:number, background_file:string, skip_biome_checks:bool = false, skip_edge_textures:bool = false, color_to_material_table:{string-string} = {}, background_z_index:int = 50 </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">LoadBackgroundSprite</span>(<span class="field_name"> background_file:string, x:number, y:number, background_z_index:number = 40.0, check_biome_corners:bool = false </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameCreateParticle</span>(<span class="field_name"> material_name:string, x:number, y:number, how_many:int, xvel:number, yvel:number, just_visual:bool, draw_as_long:bool = false </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameCreateSpriteForXFrames</span>(<span class="field_name"> filename:string, x:number, y:number, centered:bool = true, sprite_offset_x:number = 0, sprite_offset_y:number = 0, frames:int = 1, emissive:bool = false </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameShootProjectile</span>(<span class="field_name"> shooter_entity:int, x:number, y:number, target_x:number, target_y:number, projectile_entity:int, send_message:bool = true, verlet_parent_entity:int = 0 </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">'shooter_entity' can be 0. Warning: If 'projectile_entity' has PhysicsBodyComponent and ItemComponent, components without the "enabled_in_world" tag will be disabled, as if the entity was thrown by player.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">EntityInflictDamage</span>(<span class="field_name"> entity:int, amount:number, damage_type:string, description:string, ragdoll_fx:string, impulse_x:number, impulse_y:number, entity_who_is_responsible:int = 0, world_pos_x:number = entity_x, world_pos_y:number = entity_y, knockback_force:number = 0 </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">EntityIngestMaterial</span>(<span class="field_name"> entity:int, material_type:number, amount:number </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Has the same effects that would occur if 'entity' eats 'amount' number of cells of 'material_type' from the game world. Use this instead of directly modifying IngestionComponent values, if possible. Might not work with non-player entities. Use CellFactory_GetType() to convert a material name to material type.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">EntityRemoveIngestionStatusEffect</span>(<span class="field_name"> entity:int, status_type_id:string </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">EntityAddRandomStains</span>(<span class="field_name"> entity:int, material_type:number, amount:number </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Adds random visible stains of 'material_type' to entity. 'amount' controls the number of stain cells added. Does nothing if 'entity' doesn't have a SpriteStainsComponent. Use CellFactory_GetType() to convert a material name to material type.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">EntitySetDamageFromMaterial</span>(<span class="field_name"> entity:int, material_name:string, damage:number </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Modifies DamageModelComponents materials_that_damage and materials_how_much_damage variables (and their parsed out data structures)</span></th></th>
+</tr>
+<tr>
+<th><span class="function">EntityRefreshSprite</span>(<span class="field_name"> entity:int, sprite_component:int </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Immediately refreshes the given SpriteComponent. Might be useful with text sprites if you want them to update more often than once a second.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">EntityGetWandCapacity</span>(<span class="field_name"> entity:int </span><span class="func">)</span></th>
+<th><span class="field_name">int</span></th></th>
+<th><span class="description">Returns the capacity of a wand entity, or 0 if 'entity' doesnt exist.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">GamePlayAnimation</span>(<span class="field_name"> entity_id:int, name:string, priority:int, followup_name:string = "", followup_priority:int = 0 </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Plays animation. Follow up animation ('followup_name') is applied only if 'followup_priority' is given.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameGetVelocityCompVelocity</span>(<span class="field_name"> entity_id:int </span><span class="func">)</span></th>
+<th><span class="field_name">x:number, y:number</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameGetGameEffect</span>(<span class="field_name"> entity_id:int, game_effect_name:string </span><span class="func">)</span></th>
+<th><span class="field_name">component_id:int</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameGetGameEffectCount</span>(<span class="field_name"> entity_id:int, game_effect_name:string </span><span class="func">)</span></th>
+<th><span class="field_name">int</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">LoadGameEffectEntityTo</span>(<span class="field_name"> entity_id:int, game_effect_entity_file:string </span><span class="func">)</span></th>
+<th><span class="field_name">effect_entity_id:int</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GetGameEffectLoadTo</span>(<span class="field_name"> entity_id:int, game_effect_name:string, always_load_new:bool </span><span class="func">)</span></th>
+<th><span class="field_name">effect_component_id:int, effect_entity_id:int</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">SetPlayerSpawnLocation</span>(<span class="field_name"> x:number, y:number </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">UnlockItem</span>(<span class="field_name"> action_id:string </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameGetPotionColorUint</span>(<span class="field_name"> entity_id:int </span><span class="func">)</span></th>
+<th><span class="field_name">uint</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">EntityGetFirstHitboxCenter</span>(<span class="field_name"> entity_id:int </span><span class="func">)</span></th>
+<th><span class="field_name">(x:number, y:number)|nil</span></th></th>
+<th><span class="description">Returns the centroid of first enabled HitboxComponent found in entity, the position of the entity if no hitbox is found, or nil if the entity does not exist. All returned positions are in world coordinates.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">Raytrace</span>(<span class="field_name"> x1:number, y1:number, x2:number, y2:number </span><span class="func">)</span></th>
+<th><span class="field_name">did_hit:bool, hit_x:number, hit_y:number</span></th></th>
+<th><span class="description">Does a raytrace that stops on any cell it hits.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">RaytraceSurfaces</span>(<span class="field_name"> x1:number, y1:number, x2:number, y2:number </span><span class="func">)</span></th>
+<th><span class="field_name">did_hit:bool, hit_x:number, hit_y:number</span></th></th>
+<th><span class="description">Does a raytrace that stops on any cell that is not fluid, gas (yes, technically gas is a fluid), or fire.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">RaytraceSurfacesAndLiquiform</span>(<span class="field_name"> x1:number, y1:number, x2:number, y2:number </span><span class="func">)</span></th>
+<th><span class="field_name">did_hit:bool, hit_x:number, hit_y:number</span></th></th>
+<th><span class="description">Does a raytrace that stops on any cell that is not gas or fire.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">RaytracePlatforms</span>(<span class="field_name"> x1:number, y1:number, x2:number, y2:number </span><span class="func">)</span></th>
+<th><span class="field_name">did_hit:bool, hit_x:number, hit_y:number</span></th></th>
+<th><span class="description">Does a raytrace that stops on any cell a character can stand on.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">FindFreePositionForBody</span>(<span class="field_name"> ideal_pos_x:number, idea_pos_y:number, velocity_x:number, velocity_y:number, body_radius:number </span><span class="func">)</span></th>
+<th><span class="field_name">x:number, y:number</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GetSurfaceNormal</span>(<span class="field_name"> pos_x:number, pos_y:number, ray_length:number, ray_count:int </span><span class="func">)</span></th>
+<th><span class="field_name">found_normal:bool, normal_x:number, normal_y:number, approximate_distance_from_surface:number</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">DoesWorldExistAt</span>(<span class="field_name"> min_x:int, min_y:int, max_x:int, max_y:int </span><span class="func">)</span></th>
+<th><span class="field_name">bool</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">StringToHerdId</span>(<span class="field_name"> herd_name:string  </span><span class="func">)</span></th>
+<th><span class="field_name">int</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">HerdIdToString</span>(<span class="field_name"> herd_id:int </span><span class="func">)</span></th>
+<th><span class="field_name">string</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GetHerdRelation</span>(<span class="field_name"> herd_id_a:int, herd_id_b:int </span><span class="func">)</span></th>
+<th><span class="field_name">number</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">EntityGetHerdRelation</span>(<span class="field_name"> entity_a:int, entity_b:int </span><span class="func">)</span></th>
+<th><span class="field_name">number</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">EntityGetHerdRelationSafe</span>(<span class="field_name"> entity_a:int, entity_b:int </span><span class="func">)</span></th>
+<th><span class="field_name">number</span></th></th>
+<th><span class="description">does not spam errors, but returns 0 if anything fails</span></th></th>
+</tr>
+<tr>
+<th><span class="function">GenomeSetHerdId</span>(<span class="field_name"> entity_id:int, new_herd_id:string </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Deprecated, use GenomeStringToHerdID() and ComponentSetValue2() instead.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">EntityGetClosestWormAttractor</span>(<span class="field_name"> pos_x:number, pos_y:number </span><span class="func">)</span></th>
+<th><span class="field_name">entity_id:int,  pos_x:number,  pos_y:number</span></th></th>
+<th><span class="description">NOTE: entity_id might be NULL, but pos_x and pos_y could still be valid.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">EntityGetClosestWormDetractor</span>(<span class="field_name"> pos_x:number, pos_y:number </span><span class="func">)</span></th>
+<th><span class="field_name">entity_id:int,  pos_x:number,  pos_y:number,  radius:number</span></th></th>
+<th><span class="description">NOTE: entity_id might be NULL, but pos_x and pos_y could still be valid</span></th></th>
+</tr>
+<tr>
+<th><span class="function">GamePrint</span>(<span class="field_name"> log_line:string </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GamePrintImportant</span>(<span class="field_name"> title:string, description:string = "", ui_custom_decoration_file:string = "" </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">DEBUG_GetMouseWorld</span>(<span class="field_name"></span><span class="func">)</span></th>
+<th><span class="field_name">x:number, y:number</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">DEBUG_MARK</span>(<span class="field_name"> x:number, y:number, message:string = "", color_r:number = 1, color_g:number = 0, color_b:number = 0 </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameGetFrameNum</span>(<span class="field_name"></span><span class="func">)</span></th>
+<th><span class="field_name">int</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameGetRealWorldTimeSinceStarted</span>(<span class="field_name"></span><span class="func">)</span></th>
+<th><span class="field_name">number</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">IsPlayer</span>(<span class="field_name"> entity_id:int </span><span class="func">)</span></th>
+<th><span class="field_name">bool</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">IsInvisible</span>(<span class="field_name"> entity_id:int </span><span class="func">)</span></th>
+<th><span class="field_name">bool</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameIsDailyRun</span>(<span class="field_name"></span><span class="func">)</span></th>
+<th><span class="field_name">bool</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameIsDailyRunOrDailyPracticeRun</span>(<span class="field_name"></span><span class="func">)</span></th>
+<th><span class="field_name">bool</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameIsModeFullyDeterministic</span>(<span class="field_name"></span><span class="func">)</span></th>
+<th><span class="field_name">bool</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GlobalsSetValue</span>(<span class="field_name"> key:string, value:string </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GlobalsGetValue</span>(<span class="field_name"> key:string, default_value:string = "" </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">MagicNumbersGetValue</span>(<span class="field_name"> key:string </span><span class="func">)</span></th>
+<th><span class="field_name">string</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">SetWorldSeed</span>(<span class="field_name"> new_seed:int </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">SessionNumbersGetValue</span>(<span class="field_name"> key:string </span><span class="func">)</span></th>
+<th><span class="field_name">string</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">SessionNumbersSetValue</span>(<span class="field_name"> key:string, value:string </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">SessionNumbersSave</span>(<span class="field_name"></span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">AutosaveDisable</span>(<span class="field_name"></span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">StatsGetValue</span>(<span class="field_name"> key:string </span><span class="func">)</span></th>
+<th><span class="field_name">string|nil</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">StatsGlobalGetValue</span>(<span class="field_name"> key:string </span><span class="func">)</span></th>
+<th><span class="field_name">string</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">StatsBiomeGetValue</span>(<span class="field_name"> key:string </span><span class="func">)</span></th>
+<th><span class="field_name">string</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">StatsBiomeReset</span>(<span class="field_name"></span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">StatsLogPlayerKill</span>(<span class="field_name"> killed_entity_id:int = 0 </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">CreateItemActionEntity</span>(<span class="field_name"> action_id:string, x:number = 0, y:number = 0 </span><span class="func">)</span></th>
+<th><span class="field_name">entity_id:int</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GetRandomActionWithType</span>(<span class="field_name"> x:number, y:number, max_level:int, type:int, i:int = 0 </span><span class="func">)</span></th>
+<th><span class="field_name">string</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GetRandomAction</span>(<span class="field_name"> x:number, y:number, max_level:number, i:int = 0</span><span class="func">)</span></th>
+<th><span class="field_name">string</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameGetDateAndTimeUTC</span>(<span class="field_name"></span><span class="func">)</span></th>
+<th><span class="field_name">year:int, month:int, day:int, hour:int, minute:int, second:int</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameGetDateAndTimeLocal</span>(<span class="field_name"></span><span class="func">)</span></th>
+<th><span class="field_name">ear:int, month:int, day:int, hour:int, minute:int, second:int</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameEmitRainParticles</span>(<span class="field_name"> num_particles:int, width_outside_camera:number, material_name:string, velocity_min:number, velocity_max:number, gravity:number, droplets_bounce:bool, draw_as_long:bool </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameCutThroughWorldVertical</span>(<span class="field_name"> x:int, y_min:int, y_max:int, radius:number, edge_darkening_width:number </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Each beam adds a little overhead to things like chunk creation, so please call this sparingly.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">BiomeMapSetSize</span>(<span class="field_name"> width:int, height:int </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">This is available if BIOME_MAP in magic_numbers.xml points to a lua file, in the context of that file.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">BiomeMapGetSize</span>(<span class="field_name"></span><span class="func">)</span></th>
+<th><span class="field_name">width:int, height:int</span></th></th>
+<th><span class="description">if BIOME_MAP in magic_numbers.xml points to a lua file returns that context, if not will return the biome_map size</span></th></th>
+</tr>
+<tr>
+<th><span class="function">BiomeMapSetPixel</span>(<span class="field_name"> x:int, y:int, color_int:int </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">This is available if BIOME_MAP in magic_numbers.xml points to a lua file, in the context of that file.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">BiomeMapGetPixel</span>(<span class="field_name"> x:int, y:int </span><span class="func">)</span></th>
+<th><span class="field_name">color:int</span></th></th>
+<th><span class="description">This is available if BIOME_MAP in magic_numbers.xml points to a lua file, in the context of that file.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">BiomeMapConvertPixelFromUintToInt</span>(<span class="field_name"> color:int </span><span class="func">)</span></th>
+<th><span class="field_name">int</span></th></th>
+<th><span class="description">Swaps red and blue channels of 'color'. This can be used make sense of the BiomeMapGetPixel() return values. E.g. if( BiomeMapGetPixel( x, y ) == BiomeMapConvertPixelFromUintToInt( 0xFF36D517 ) ) then print('hills') end </span></th></th>
+</tr>
+<tr>
+<th><span class="function">BiomeMapLoadImage</span>(<span class="field_name"> x:int, y:int, image_filename:string </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">This is available if BIOME_MAP in magic_numbers.xml points to a lua file, in the context of that file.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">BiomeMapLoadImageCropped</span>(<span class="field_name"> x:int, y:int, image_filename:string, image_x:int, image_y:int, image_w:int, image_h:int </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">This is available if BIOME_MAP in magic_numbers.xml points to a lua file, in the context of that file.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">BiomeMapGetVerticalPositionInsideBiome</span>(<span class="field_name"> x:number, y:number </span><span class="func">)</span></th>
+<th><span class="field_name">number</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">BiomeMapGetName</span>(<span class="field_name"> x:number = camera_x, y:number = camera_y </span><span class="func">)</span></th>
+<th><span class="field_name">name</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">SetRandomSeed</span>(<span class="field_name"> x:number, y:number </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">Random</span>(<span class="field_name"> a:int = optional, b:int = optional </span><span class="func">)</span></th>
+<th><span class="field_name">number|int.</span></th></th>
+<th><span class="description">This is kinda messy. If given 0 arguments, returns number between 0.0 and 1.0. If given 1 arguments, returns int between 0 and 'a'. If given 2 arguments returns int between 'a' and 'b'.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">Randomf</span>(<span class="field_name"> min:number = optional, max:number = optional </span><span class="func">)</span></th>
+<th><span class="field_name">number</span></th></th>
+<th><span class="description">This is kinda messy. If given 0 arguments, returns number between 0.0 and 1.0. If given 1 arguments, returns number between 0.0 and 'a'. If given 2 arguments returns number between 'a' and 'b'.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">RandomDistribution</span>(<span class="field_name"> min:int, max:int, mean:int, sharpness:number = 1, baseline:number = 0.005 </span><span class="func">)</span></th>
+<th><span class="field_name">int</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">RandomDistributionf</span>(<span class="field_name"> min:number, max:number, mean:number, sharpness:number = 1, baseline:number = 0.005 </span><span class="func">)</span></th>
+<th><span class="field_name">number</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">ProceduralRandom</span>(<span class="field_name"> x:number, y:number, a:int|number = optional, b:int|number = optional </span><span class="func">)</span></th>
+<th><span class="field_name">int|number</span></th></th>
+<th><span class="description">This is kinda messy. If given 2 arguments, returns number between 0.0 and 1.0. If given 3 arguments, returns int between 0 and 'a'. If given 4 arguments returns number between 'a' and 'b'.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">ProceduralRandomf</span>(<span class="field_name"> x:number, y:number, a:number = optional, b:number = optional </span><span class="func">)</span></th>
+<th><span class="field_name">number</span></th></th>
+<th><span class="description">This is kinda messy. If given 2 arguments, returns number between 0.0 and 1.0. If given 3 arguments, returns a number between 0 and 'a'. If given 4 arguments returns a number between 'a' and 'b'.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">ProceduralRandomi</span>(<span class="field_name">  x:number, y:number, a:int = optional, b:int = optional </span><span class="func">)</span></th>
+<th><span class="field_name">number</span></th></th>
+<th><span class="description">This is kinda messy. If given 2 arguments, returns 0 or 1. If given 3 arguments, returns an int between 0 and 'a'. If given 4 arguments returns an int between 'a' and 'b'.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">PhysicsAddBodyImage</span>(<span class="field_name"> entity_id:int, image_file:string, material:string = "", offset_x:number = 0, offset_y:number = 0, centered:bool = false, is_circle:bool = false, material_image_file:string = "", use_image_as_colors:bool = true </span><span class="func">)</span></th>
+<th><span class="field_name">int_body_id</span></th></th>
+<th><span class="description">Does not work with PhysicsBody2Component. Returns the id of the created physics body.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">PhysicsAddBodyCreateBox</span>(<span class="field_name"> entity_id:int, material:string, offset_x:number, offset_y:number, width:int, height:int, centered:bool = false </span><span class="func">)</span></th>
+<th><span class="field_name">int|nil</span></th></th>
+<th><span class="description">Does not work with PhysicsBody2Component. Returns the id of the created physics body.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">PhysicsAddJoint</span>(<span class="field_name"> entity_id:int, body_id0:int, body_id1:int, offset_x:number, offset_y:number, joint_type:string </span><span class="func">)</span></th>
+<th><span class="field_name">int|nil</span></th></th>
+<th><span class="description">Does not work with PhysicsBody2Component. Returns the id of the created joint.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">PhysicsApplyForce</span>(<span class="field_name"> entity_id:int, force_x:number, force_y:number </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">PhysicsApplyTorque</span>(<span class="field_name"> entity_id:int, torque:number </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">PhysicsApplyTorqueToComponent</span>(<span class="field_name"> entity_id:int, component_id:int, torque:number </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">PhysicsApplyForceOnArea</span>(<span class="field_name"> calculate_force_for_body_fn:function, ignore_this_entity:int, area_min_x:number, area_min_y:number,area_max_x:number, area_max_y:number </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">PhysicsRemoveJoints</span>(<span class="field_name"> world_pos_min_x:number, world_pos_min_y:number, world_pos_max_x:number, world_pos_max_y:number  </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">PhysicsSetStatic</span>(<span class="field_name"> entity_id:int, is_static:bool </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">PhysicsGetComponentVelocity</span>(<span class="field_name"> entity_id:int, component_id:int </span><span class="func">)</span></th>
+<th><span class="field_name">vel_x:number, vel_y:number</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">PhysicsGetComponentAngularVelocity</span>(<span class="field_name"> entity_id:int, component_id:int </span><span class="func">)</span></th>
+<th><span class="field_name">vel:number</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">PhysicsBody2InitFromComponents</span>(<span class="field_name"> entity_id:int </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">PhysicsVecToGameVec</span>(<span class="field_name"> x:number, y:number = 0 </span><span class="func">)</span></th>
+<th><span class="field_name">x:number, y:number</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameVecToPhysicsVec</span>(<span class="field_name"> x:number, y:number = 0 </span><span class="func">)</span></th>
+<th><span class="field_name">x:number, y:number</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">LooseChunk</span>(<span class="field_name"> world_pos_x:number, world_pos_y:number, image_filename:string, max_durability:int = 2147483647 </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">AddFlagPersistent</span>(<span class="field_name"> key:string </span><span class="func">)</span></th>
+<th><span class="field_name">bool_is_new</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">RemoveFlagPersistent</span>(<span class="field_name"> key:string </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">HasFlagPersistent</span>(<span class="field_name"> key:string </span><span class="func">)</span></th>
+<th><span class="field_name">bool</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameAddFlagRun</span>(<span class="field_name"> flag:string </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameRemoveFlagRun</span>(<span class="field_name"> flag:string </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameHasFlagRun</span>(<span class="field_name"> flag:string </span><span class="func">)</span></th>
+<th><span class="field_name">bool</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameTriggerMusicEvent</span>(<span class="field_name"> event_path:string, can_be_faded:bool, x:number, y:number </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameTriggerMusicCue</span>(<span class="field_name"> name:string </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameTriggerMusicFadeOutAndDequeueAll</span>(<span class="field_name"> relative_fade_speed:number = 1 </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GamePlaySound</span>(<span class="field_name"> bank_filename:string, event_path:string, x:number, y:number </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameEntityPlaySound</span>(<span class="field_name"> entity_id:int, event_name:string </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Plays a sound through all AudioComponents with matching sound in 'entity_id'.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameEntityPlaySoundLoop</span>(<span class="field_name"> entity:int, component_tag:string, intensity:number </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Plays a sound loop through an AudioLoopComponent tagged with 'component_tag' in 'entity'. 'intensity' affects the intensity passed to the audio event. Must be called every frame when the sound should play.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameSetPostFxParameter</span>(<span class="field_name"> name:string, x:number, y:number, z:number, w:number </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Can be used to pass custom parameters to the post_final shader, or override values set by the game code. The shader uniform called 'name' will be set to the latest given values on this and following frames.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameUnsetPostFxParameter</span>(<span class="field_name"> name:string </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Will remove a post_final shader parameter value binding set via game GameSetPostFxParameter().</span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameTextGetTranslatedOrNot</span>(<span class="field_name"> text_or_key:string </span><span class="func">)</span></th>
+<th><span class="field_name">string</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameTextGet</span>(<span class="field_name"> key:string, param0:string = "", param1:string = "", param2:string = "" </span><span class="func">)</span></th>
+<th><span class="field_name">string</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GuiCreate</span>(<span class="field_name"></span><span class="func">)</span></th>
+<th><span class="field_name">gui:obj</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GuiDestroy</span>(<span class="field_name"> gui:obj </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GuiStartFrame</span>(<span class="field_name"> gui:obj </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GuiOptionsAdd</span>(<span class="field_name"> gui:obj, option:int </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Sets the options that apply to widgets during this frame. For 'option' use the values in the GUI_OPTION table in "data/scripts/lib/utilities.lua". Values from consecutive calls will be combined. For example calling this with the values GUI_OPTION.Align_Left and GUI_OPTION.GamepadDefaultWidget will set both options for the next widget. The options will be cleared on next call to GuiStartFrame().</span></th></th>
+</tr>
+<tr>
+<th><span class="function">GuiOptionsRemove</span>(<span class="field_name"> gui:obj, option:int </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Sets the options that apply to widgets during this frame. For 'option' use the values in the GUI_OPTION table in "data/scripts/lib/utilities.lua". Values from consecutive calls will be combined. For example calling this with the values GUI_OPTION.Align_Left and GUI_OPTION.GamepadDefaultWidget will set both options for the next widget. The options will be cleared on next call to GuiStartFrame().</span></th></th>
+</tr>
+<tr>
+<th><span class="function">GuiOptionsClear</span>(<span class="field_name"> gui:obj </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Clears the options that apply to widgets during this frame.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">GuiOptionsAddForNextWidget</span>(<span class="field_name"> gui:obj, option:int </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GuiColorSetForNextWidget</span>(<span class="field_name"> gui:obj, red:number, green:number, blue:number, alpha:number </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Sets the color of the next widget during this frame. Color components should be in the 0-1 range.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">GuiZSet</span>(<span class="field_name"> gui:obj, z:float </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Sets the rendering depth ('z') of the widgets following this call. Larger z = deeper. The z will be set to 0 on the next call to GuiStartFrame(). </span></th></th>
+</tr>
+<tr>
+<th><span class="function">GuiZSetForNextWidget</span>(<span class="field_name"> gui:obj, z:float </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GuiIdPush</span>(<span class="field_name"> gui:obj, id:int </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Can be used to solve ID conflicts. All ids given to Gui* functions will be hashed with the ids stacked (and hashed together) using GuiIdPush() and GuiIdPop(). The id stack has a max size of 1024, and calls to the function will do nothing if the size is exceeded.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">GuiIdPushString</span>(<span class="field_name"> gui:obj, str:string </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Pushes the hash of 'str' as a gui id. See GuiIdPush().</span></th></th>
+</tr>
+<tr>
+<th><span class="function">GuiIdPop</span>(<span class="field_name"> gui:obj </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">See GuiIdPush().</span></th></th>
+</tr>
+<tr>
+<th><span class="function">GuiAnimateBegin</span>(<span class="field_name"> gui:obj </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Starts a scope where animations initiated using GuiAnimateAlphaFadeIn() etc. will be applied to all widgets.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">GuiAnimateEnd</span>(<span class="field_name"> gui:obj </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Ends a scope where animations initiated using GuiAnimateAlphaFadeIn() etc. will be applied to all widgets.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">GuiAnimateAlphaFadeIn</span>(<span class="field_name"> gui:obj, id:int, speed:number, step:number, reset:bool </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Does an alpha tween animation for all widgets inside a scope set using GuiAnimateBegin() and GuiAnimateEnd().</span></th></th>
+</tr>
+<tr>
+<th><span class="function">GuiAnimateScaleIn</span>(<span class="field_name"> gui:obj, id:int, acceleration:number, reset:bool </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Does a scale tween animation for all widgets inside a scope set using GuiAnimateBegin() and GuiAnimateEnd().</span></th></th>
+</tr>
+<tr>
+<th><span class="function">GuiText</span>(<span class="field_name"> gui:obj, x:number, y:number, text:string </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GuiTextCentered</span>(<span class="field_name"> gui:obj, x:number, y:number, text:string </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Deprecated. Use GuiOptionsAdd() or GuiOptionsAddForNextWidget() with GUI_OPTION.Align_HorizontalCenter and GuiText() instead.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">GuiImage</span>(<span class="field_name"> gui:obj, id:int, x:number, y:number, sprite_filename:string, alpha:number = 1, scale:number = 1, scale_y:number = 0, rotation:number = 0, rect_animation_playback_type:int = GUI_RECT_ANIMATION_PLAYBACK.PlayToEndAndHide, rect_animation_name:string = "" </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">'scale' will be used for 'scale_y' if 'scale_y' equals 0.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">GuiImageNinePiece</span>(<span class="field_name"> gui:obj, id:int, x:number, y:number, width:number, height:number, alpha:number = 1, sprite_filename:string = "data/ui_gfx/decorations/9piece0_gray.png", sprite_highlight_filename:string = "data/ui_gfx/decorations/9piece0_gray.png" </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GuiButton</span>(<span class="field_name"> gui:obj, id:int, x:number, y:number, text:string </span><span class="func">)</span></th>
+<th><span class="field_name">clicked:bool, right_clicked:bool</span></th></th>
+<th><span class="description">The old parameter order where 'id' is the last parameter is still supported. The function dynamically picks the correct order based on the type of the 4th parameter.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">GuiImageButton</span>(<span class="field_name"> gui:obj, id:int, x:number, y:number, text:string, sprite_filename:string </span><span class="func">)</span></th>
+<th><span class="field_name">clicked:bool, right_clicked:bool</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GuiSlider</span>(<span class="field_name"> gui:obj, id:int, x:number, y:number, text:string, value:number, value_min:number, value_max:number, value_default:number, value_display_multiplier:number, value_formatting:string, width:number </span><span class="func">)</span></th>
+<th><span class="field_name">new_value:number</span></th></th>
+<th><span class="description">This is not intended to be outside mod settings menu, and might bug elsewhere.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">GuiTextInput</span>(<span class="field_name"> gui:obj, id:int, x:number, y:number, text:string, width:number, max_length:int, allowed_characters:string = "" </span><span class="func">)</span></th>
+<th><span class="field_name">new_text</span></th></th>
+<th><span class="description">'allowed_characters' should consist only of ASCII characters. This is not intended to be outside mod settings menu, and might bug elsewhere.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">GuiBeginAutoBox</span>(<span class="field_name"> gui:obj </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GuiEndAutoBoxNinePiece</span>(<span class="field_name"> gui:obj, margin:number = 5, size_min_x:number = 0, size_min_y:number = 0, mirrorize_over_x_axis:bool = false, x_axis:number = 0, sprite_filename:string = "data/ui_gfx/decorations/9piece0_gray.png", sprite_highlight_filename:string = "data/ui_gfx/decorations/9piece0_gray.png" </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GuiTooltip</span>(<span class="field_name"> gui:obj, text:string, description:string </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GuiBeginScrollContainer</span>(<span class="field_name"> gui:obj, id:int, x:number, y:number, width:number, height:number, scrollbar_gamepad_focusable:bool = true, margin_x:number = 2, margin_y:number = 2 </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">This can be used to create a container with a vertical scroll bar. Widgets between GuiBeginScrollContainer() and GuiEndScrollContainer() will be positioned relative to the container.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">GuiEndScrollContainer</span>(<span class="field_name"> gui:obj </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GuiLayoutBeginHorizontal</span>(<span class="field_name"> gui:obj, x:number, y:number, position_in_ui_scale:bool = false, margin_x:number = 2, margin_y:number = 2 </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">If 'position_in_ui_scale' is 1, x and y will be in the same scale as other gui positions, otherwise x and y are given as a percentage (0-100) of the gui screen size.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">GuiLayoutBeginVertical</span>(<span class="field_name"> gui:obj, x:number, y:number, position_in_ui_scale:bool = false, margin_x:number = 0, margin_y:number = 0 </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">If 'position_in_ui_scale' is 1, x and y will be in the same scale as other gui positions, otherwise x and y are given as a percentage (0-100) of the gui screen size.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">GuiLayoutAddHorizontalSpacing</span>(<span class="field_name"> gui:obj, amount:number = optional </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Will use the horizontal margin from current layout if amount is not set.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">GuiLayoutAddVerticalSpacing</span>(<span class="field_name"> gui:obj, amount:number = optional </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Will use the vertical margin from current layout if amount is not set.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">GuiLayoutEnd</span>(<span class="field_name"> gui:obj </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GuiLayoutBeginLayer</span>(<span class="field_name"> gui:obj </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Puts following things to a new layout layer. Can be used to create non-layouted widgets inside a layout.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">GuiLayoutEndLayer</span>(<span class="field_name"> gui:obj </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GuiGetScreenDimensions</span>(<span class="field_name"> gui:obj </span><span class="func">)</span></th>
+<th><span class="field_name">width:number, height:number</span></th></th>
+<th><span class="description">Returns dimensions of viewport in the gui coordinate system (which is equal to the coordinates of the screen bottom right corner in gui coordinates). The values returned may change depending on the game resolution because the UI is scaled for pixel-perfect text rendering.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">GuiGetTextDimensions</span>(<span class="field_name"> gui:obj, text:string, scale:number = 1, line_spacing:number = 2 </span><span class="func">)</span></th>
+<th><span class="field_name">width:number, height:number</span></th></th>
+<th><span class="description">Returns size of the given text in the gui coordinate system.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">GuiGetImageDimensions</span>(<span class="field_name"> gui:obj, image_filename:string, scale:number = 1 </span><span class="func">)</span></th>
+<th><span class="field_name">width:number, height:number</span></th></th>
+<th><span class="description">Returns size of the given image in the gui coordinate system.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">GuiGetPreviousWidgetInfo</span>(<span class="field_name"> gui:obj </span><span class="func">)</span></th>
+<th><span class="field_name">clicked:bool,  right_clicked:bool,  hovered:bool,  x:number,  y:number,  width:number,  height:number,  draw_x:number,  draw_y:number,  draw_width:number,  draw_height:number</span></th></th>
+<th><span class="description">Returns the final position, size etc calculated for a widget. Some values aren't supported by all widgets.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameIsBetaBuild</span>(<span class="field_name"></span><span class="func">)</span></th>
+<th><span class="field_name">bool</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">DebugGetIsDevBuild</span>(<span class="field_name"></span><span class="func">)</span></th>
+<th><span class="field_name">bool</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">DebugEnableTrailerMode</span>(<span class="field_name"></span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GameGetIsTrailerModeEnabled</span>(<span class="field_name"></span><span class="func">)</span></th>
+<th><span class="field_name">bool</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">Debug_SaveTestPlayer</span>(<span class="field_name"></span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">This doesn't do anything at the moment.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">DebugBiomeMapGetFilename</span>(<span class="field_name"> x:number = camera_x, y:number = camera_y </span><span class="func">)</span></th>
+<th><span class="field_name">string</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">EntityConvertToMaterial</span>(<span class="field_name"> entity_id:int, material:string </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">ConvertEverythingToGold</span>(<span class="field_name"> material_dynamic:string = "", material_static:string = "" </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">ConvertMaterialEverywhere</span>(<span class="field_name"> material_from_type:int, material_to_type:int </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Converts 'material_from' to 'material_to' everwhere in the game world, replaces 'material_from_type' to 'material_to_type' in the material (CellData) global table, and marks 'material_from' as a "Transformed" material. Every call will add a new entry to WorldStateComponent which serializes these changes, so please call sparingly. The material conversion will be spread over multiple frames. 'material_from' will still retain the original name id and wang color. Use CellFactory_GetType() to convert a material name to material type.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">ConvertMaterialOnAreaInstantly</span>(<span class="field_name"> area_x:int, area_y:int, area_w:int, area_h:int, material_from_type:int, material_to_type:int, trim_box2d:bool, update_edge_graphics_dummy:bool </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Converts cells of 'material_from_type' to 'material_to_type' in the given area. If 'box2d_trim' is true, will attempt to trim the created cells where they might otherwise cause physics glitching. 'update_edge_graphics_dummy' is not yet supported.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">GetDailyPracticeRunSeed</span>(<span class="field_name"></span><span class="func">)</span></th>
+<th><span class="field_name">int</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">ModIsEnabled</span>(<span class="field_name"> mod_id:string </span><span class="func">)</span></th>
+<th><span class="field_name">bool</span></th></th>
+<th><span class="description">Returns true if a mod with the id 'mod_id' is currently active. For example mod_id = "nightmare". </span></th></th>
+</tr>
+<tr>
+<th><span class="function">ModGetActiveModIDs</span>(<span class="field_name"></span><span class="func">)</span></th>
+<th><span class="field_name">{string}</span></th></th>
+<th><span class="description">Returns a table filled with the IDs of currently active mods.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">ModGetAPIVersion</span>(<span class="field_name"></span><span class="func">)</span></th>
+<th><span class="field_name">int</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">ModSettingGet</span>(<span class="field_name"> id:string </span><span class="func">)</span></th>
+<th><span class="field_name">bool|number|string|nil</span></th></th>
+<th><span class="description">Returns the value of a mod setting. 'id' should normally be in the format 'mod_name.setting_id'. Cache the returned value in your lua context if possible.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">ModSettingSet</span>(<span class="field_name"> id:string, value:bool|number|string </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">ModSettingGetNextValue</span>(<span class="field_name"> id:string </span><span class="func">)</span></th>
+<th><span class="field_name">bool|number|string|nil</span></th></th>
+<th><span class="description">Returns the latest value set by the user, which might not be equal to the value that is used in the game (depending on the 'scope' value selected for the setting).</span></th></th>
+</tr>
+<tr>
+<th><span class="function">ModSettingSetNextValue</span>(<span class="field_name"> id:string, value:bool|number|string, is_default:bool </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Sets the latest value set by the user, which might not be equal to the value that is displayed to the game (depending on the 'scope' value selected for the setting).</span></th></th>
+</tr>
+<tr>
+<th><span class="function">ModSettingRemove</span>(<span class="field_name"> id:string </span><span class="func">)</span></th>
+<th><span class="field_name">was_removed:bool</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">ModSettingGetCount</span>(<span class="field_name"></span><span class="func">)</span></th>
+<th><span class="field_name">int</span></th></th>
+<th><span class="description">Returns the number of mod settings defined. Use ModSettingGetAtIndex to enumerate the settings.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">ModSettingGetAtIndex</span>(<span class="field_name"> index:int </span><span class="func">)</span></th>
+<th><span class="field_name">(name:string,  value:bool|number|string|nil,  value_next:bool|number|string|nil) | nil</span></th></th>
+<th><span class="description">'index' should be 0-based index. Returns nil if 'index' is invalid.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">StreamingGetIsConnected</span>(<span class="field_name"></span><span class="func">)</span></th>
+<th><span class="field_name">bool</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">StreamingGetConnectedChannelName</span>(<span class="field_name"></span><span class="func">)</span></th>
+<th><span class="field_name">string</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">StreamingGetVotingCycleDurationFrames</span>(<span class="field_name"></span><span class="func">)</span></th>
+<th><span class="field_name">int</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">StreamingGetRandomViewerName</span>(<span class="field_name"></span><span class="func">)</span></th>
+<th><span class="field_name">string</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">StreamingGetSettingsGhostsNamedAfterViewers</span>(<span class="field_name"></span><span class="func">)</span></th>
+<th><span class="field_name">bool</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">StreamingSetCustomPhaseDurations</span>(<span class="field_name"> time_between_votes_seconds:number, time_voting_seconds:number </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Sets the duration of the next wait and voting phases. Use -1 for default duration.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">StreamingForceNewVoting</span>(<span class="field_name"></span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Cancels whatever is currently going on, and starts a new voting. _streaming_on_vote_start() and _streaming_get_event_for_vote() will be called as usually.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">StreamingSetVotingEnabled</span>(<span class="field_name"> enabled:bool </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Turns the voting UI on or off.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">ModLuaFileAppend</span>(<span class="field_name"> to_filename:string, from_filename:string </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Basically calls dofile(from_filename) at the end of 'to_filename'. Available only during mod initialization.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">ModTextFileGetContent</span>(<span class="field_name"> filename:string </span><span class="func">)</span></th>
+<th><span class="field_name">string</span></th></th>
+<th><span class="description">Returns the current (modded or not) content of the data file 'filename'. Allows access only to data files and files from enabled mods. Available only during mod initialization.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">ModTextFileSetContent</span>(<span class="field_name"> filename:string, new_content:string </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Sets the content the game sees for the file 'filename'. Allows access only to mod and data files. Available only during mod initialization.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">ModTextFileWhoSetContent</span>(<span class="field_name"> filename:string </span><span class="func">)</span></th>
+<th><span class="field_name">string</span></th></th>
+<th><span class="description">Returns the id of the last mod that called ModTextFileSetContent with 'filename', or "". Available only during mod initialization.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">ModMagicNumbersFileAdd</span>(<span class="field_name"> filename:string </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Available only during mod initialization.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">ModMaterialsFileAdd</span>(<span class="field_name"> filename:string </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Available only during mod initialization.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">ModRegisterAudioEventMappings</span>(<span class="field_name"> filename:string </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Available only during mod initialization.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">ModDevGenerateSpriteUVsForDirectory</span>(<span class="field_name"> directory_path:string, override_existing:bool = false </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description">Please supply a path starting with "mods/YOUR_MOD_HERE/" or "data/". If override_existing is true, will always generate new maps, overriding existing files. UV maps are generated when you start or continue a game with your mod enabled. Available only during mod initialization via noita_dev.exe</span></th></th>
+</tr>
+<tr>
+<th><span class="function">RegisterProjectile</span>(<span class="field_name"> entity_filename:string </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">RegisterGunAction</span>(<span class="field_name"></span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">RegisterGunShotEffects</span>(<span class="field_name"></span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">BeginProjectile</span>(<span class="field_name"> entity_filename:string </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">EndProjectile</span>(<span class="field_name"></span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">BeginTriggerTimer</span>(<span class="field_name"> timeout_frames:int </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">BeginTriggerHitWorld</span>(<span class="field_name"></span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">BeginTriggerDeath</span>(<span class="field_name"></span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">EndTrigger</span>(<span class="field_name"></span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">SetProjectileConfigs</span>(<span class="field_name"></span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">StartReload</span>(<span class="field_name"> reload_time:int </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">ActionUsesRemainingChanged</span>(<span class="field_name"> inventoryitem_id:int, uses_remaining:int </span><span class="func">)</span></th>
+<th><span class="field_name">uses_remaining_reduced:bool </span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">ActionUsed</span>(<span class="field_name"> inventoryitem_id:int </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">LogAction</span>(<span class="field_name"> action_name:string </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">OnActionPlayed</span>(<span class="field_name"> action_id:string </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">OnNotEnoughManaForAction</span>(<span class="field_name"></span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">BaabInstruction</span>(<span class="field_name"> name:string </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">SetValueNumber</span>(<span class="field_name"> key:string, value:number </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GetValueNumber</span>(<span class="field_name"> key:string, default_value:number </span><span class="func">)</span></th>
+<th><span class="field_name">number</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">SetValueInteger</span>(<span class="field_name"> key:string, value:int </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GetValueInteger</span>(<span class="field_name"> key:string, default_value:int </span><span class="func">)</span></th>
+<th><span class="field_name">int</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">SetValueBool</span>(<span class="field_name"> key:string, value:number </span><span class="func">)</span></th>
+<th><span class="field_name"></span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">GetValueBool</span>(<span class="field_name"> key:string, default_value:number </span><span class="func">)</span></th>
+<th><span class="field_name">bool</span></th></th>
+<th><span class="description"></span></th></th>
+</tr>
+<tr>
+<th><span class="function">dofile</span>(<span class="field_name"> filename:string </span><span class="func">)</span></th>
+<th><span class="field_name">(nil|script_return_type)|(nil, error_string)</span></th></th>
+<th><span class="description">Returns the script's return value, if any. Returns nil,error_string if the script had errors.</span></th></th>
+</tr>
+<tr>
+<th><span class="function">dofile_once</span>(<span class="field_name"> filename:string </span><span class="func">)</span></th>
+<th><span class="field_name">(nil|script_return_type)|(nil, error_string)</span></th></th>
+<th><span class="description">Runs the script only once per lua context, returns the script's return value, if any. Returns nil,error_string if the script had errors. For performance reasons it is recommended scripts use dofile_once(), unless the standard dofile behaviour is required.</span></th></th>
+</tr>
+
+</body></html>

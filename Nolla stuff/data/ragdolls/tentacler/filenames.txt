@@ -1,0 +1,5 @@
+data/ragdolls/tentacler/head.png
+data/ragdolls/tentacler/tent1.png
+data/ragdolls/tentacler/tent2.png
+data/ragdolls/tentacler/tent3.png
+data/ragdolls/tentacler/tent4.png

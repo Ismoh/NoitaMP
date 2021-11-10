@@ -1,0 +1,17 @@
+<Entity >
+   
+	<LuaComponent
+		script_source_file="data/scripts/projectiles/chain_shot_init.lua"
+		execute_on_added="1"
+		execute_every_n_frame="-1"
+		>
+	</LuaComponent>
+	
+	<LuaComponent
+		script_source_file="data/scripts/projectiles/chain_shot_launch.lua"
+		execute_every_n_frame="-1"
+		execute_on_removed="1"
+		>
+	</LuaComponent>
+  
+</Entity>

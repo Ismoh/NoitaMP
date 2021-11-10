@@ -1,0 +1,8 @@
+<Entity >
+     
+	<MagicConvertMaterialComponent
+		from_material="water"
+		to_material="blood" >
+	</MagicConvertMaterialComponent>
+  
+</Entity>

@@ -1,0 +1,13 @@
+<Entity>
+	<InheritTransformComponent>
+    </InheritTransformComponent>	
+    
+    <GameEffectComponent 
+    	effect="EXPLODING_CORPSE"
+    	frames="600"
+		ragdoll_effect="CUSTOM_RAGDOLL_ENTITY"
+		ragdoll_effect_custom_entity_file="data/entities/props/physics_ragdoll_part_exploding.xml"
+    >
+	</GameEffectComponent >
+	
+</Entity>

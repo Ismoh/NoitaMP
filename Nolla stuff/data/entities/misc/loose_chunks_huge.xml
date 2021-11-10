@@ -1,0 +1,17 @@
+<Entity >
+   
+  <LooseGroundComponent
+    probability="0.2"
+    chunk_probability="0.15"
+    collapse_images="data/procedural_gfx/collapse_lavabridge/$[0-4].png"
+    chunk_material="rock_box2d"
+   >
+  </LooseGroundComponent>
+
+  <LifetimeComponent
+  	lifetime="150"
+  	randomize_lifetime.min="-25"
+  	randomize_lifetime.max="25" >
+  </LifetimeComponent>
+  
+</Entity>

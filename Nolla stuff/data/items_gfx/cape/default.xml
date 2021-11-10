@@ -1,0 +1,20 @@
+<Sprite 
+	filename="data/items_gfx/cape/default.png" 
+	offset_x="8" 
+	offset_y="12"
+	default_animation="default"
+	>
+	
+	<RectAnimation
+		name="default"
+		pos_x="0"
+		pos_y="0"
+		frame_count="1"
+		frame_width="16"
+		frame_height="16"
+		frame_wait="0.12"
+		frames_per_row="1"
+		loop="1"
+		>
+  </RectAnimation>
+</Sprite>

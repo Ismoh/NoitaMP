@@ -1,0 +1,25 @@
+<Biome>
+  <Topology 
+    name="$biome_holymountain"
+	  type="BIOME_WANG_TILE"
+    background_image="data/weather_gfx/background_cave_02.png"
+    background_use_neighbor="0"
+
+    wang_template_file="" 
+    lua_script="data/scripts/biomes/temple_altar_left.lua"
+    wang_map_width="256"
+    wang_map_height="256"
+	  limit_background_image="0"
+    coarse_map_force_terrain="1"
+    pixel_scene="1"
+    noise_biome_edges="0"
+    audio_ambience="temple">
+  </Topology>
+
+  <!------------ MATERIALS -------------------->
+  <Materials 
+    name="temple" 
+     >
+   </Materials>
+</Biome>
+

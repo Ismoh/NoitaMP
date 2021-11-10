@@ -1,0 +1,20 @@
+<Sprite
+filename="data/particles/muzzle_flashes/muzzle_pink_05.png"
+offset_x="8"
+offset_y="7"
+default_animation="muzzle"
+ >
+
+<!-- explosion -->
+<RectAnimation
+name="muzzle"
+pos_x="0"
+pos_y="0"
+frame_count="1"
+frame_width="16"
+frame_height="16"
+frame_wait="0.1"
+frames_per_row="1"
+loop="0"   >
+</RectAnimation>
+</Sprite>

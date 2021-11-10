@@ -1,0 +1,6 @@
+data/ragdolls/flamer/torso.png
+data/ragdolls/flamer/head.png
+data/ragdolls/flamer/left_foot.png
+data/ragdolls/flamer/right_foot.png
+data/ragdolls/flamer/tanks.png
+data/ragdolls/flamer/gun.png

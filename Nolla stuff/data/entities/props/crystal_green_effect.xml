@@ -1,0 +1,42 @@
+<Entity>
+		<MagicConvertMaterialComponent
+			kill_when_finished="1"
+			from_material_tag="[liquid]"
+			steps_per_frame="1"
+			to_material="smoke"
+			clean_stains="0"
+			is_circle="1"
+			radius="100" >
+		</MagicConvertMaterialComponent>
+
+		<MagicConvertMaterialComponent
+			kill_when_finished="1"
+			from_material_tag="[sand_other]"
+			steps_per_frame="1"
+			to_material="smoke"
+			clean_stains="0"
+			is_circle="1"
+			radius="100" >
+		</MagicConvertMaterialComponent>
+
+		<MagicConvertMaterialComponent
+			kill_when_finished="1"
+			from_material_tag="[sand_ground]"
+			steps_per_frame="1"
+			to_material="smoke"
+			clean_stains="0"
+			is_circle="1"
+			radius="100" >
+		</MagicConvertMaterialComponent>
+
+		<MagicConvertMaterialComponent
+			kill_when_finished="1"
+			from_material_tag="[static]"
+			steps_per_frame="1"
+			to_material="rock_static_cursed"
+			clean_stains="0"
+			is_circle="1"
+			radius="100" >
+		</MagicConvertMaterialComponent>
+</Entity>
+

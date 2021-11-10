@@ -1,0 +1,18 @@
+<Entity tags="workshop,workshop_untouched">
+
+	  <HitboxComponent 
+	    aabb_min_x="-64" 
+	    aabb_min_y="-64"
+	    aabb_max_x="64" 
+	    aabb_max_y="32" >
+	  </HitboxComponent>
+
+	<LoadEntitiesComponent 
+		entity_file="data/entities/buildings/workshop_allow_mods.xml"
+		kill_entity="0"
+		count.min="1"
+        count.max="1"
+		>
+	</LoadEntitiesComponent>
+</Entity>
+

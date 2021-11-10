@@ -1,0 +1,20 @@
+<Sprite
+	filename="data/particles/waterstone_drop.png"
+	offset_x="7"
+	offset_y="7"
+	default_animation="explosion"
+	>
+
+	<!-- explosion -->
+	<RectAnimation
+		name="explosion"
+		pos_x="0"
+		pos_y="0"
+		frame_count="12"
+		frame_width="14"
+		frame_height="14"
+		frame_wait="0.06"
+		frames_per_row="13"
+		loop="1"   >
+	</RectAnimation>
+</Sprite>

@@ -1,0 +1,13 @@
+<Entity tags="pixelsprite">
+
+  <PixelSpriteComponent 
+    _enabled="1" 
+    image_file="data/temp/building/back_wall16.png" 
+    anchor_x="8" 
+    anchor_y="8" 
+    diggable="0"
+    material="concrete_static" >
+  </PixelSpriteComponent>
+
+
+</Entity>

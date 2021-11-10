@@ -1,0 +1,11 @@
+<Entity tags="drillable,hittable,teleportable_NOT">
+
+   <Base file="data/entities/items/pickup/heart_fullhp.xml" >
+
+		<LuaComponent 
+			script_item_picked_up="data/scripts/items/heart_fullhp_temple.lua" >
+		</LuaComponent>
+
+   </Base>
+
+</Entity>

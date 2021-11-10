@@ -1,0 +1,69 @@
+<Entity tags="mortal" >
+
+  <!-- mortal is required so it can explode -->
+
+  <Base file="data/entities/base_item_physics.xml" >
+    <PhysicsImageShapeComponent
+      image_file="data/props_gfx/bucket.png"
+      material="wood_prop" >
+    </PhysicsImageShapeComponent>
+
+    <PhysicsBodyComponent 
+    	allow_sleep="1" 
+    	angular_damping="0.01" 
+    	gridworld_box2d="0" 
+    	linear_damping="0.1" 
+    	randomize_init_velocity="1"
+    	>
+    </PhysicsBodyComponent>
+  </Base>
+
+  <PhysicsJointComponent 
+    nail_to_wall="1" 
+    pos_x="4.5"
+    pos_y="-2" >
+  </PhysicsJointComponent>
+
+  <LightComponent 
+    _enabled="1" 
+    radius="240" >
+  </LightComponent>
+
+  <MaterialInventoryComponent 
+    _enabled="1" 
+    drop_as_item="0" 
+    on_death_spill="1"
+    leak_on_damage_percent="0.999" 
+    >
+    <count_per_material_type>
+      <Material material="coal" count="5"  />
+	  </count_per_material_type>
+  </MaterialInventoryComponent>
+
+  <DamageModelComponent 
+    air_needed="0" 
+    blood_material="oil" 
+    drop_items_on_death="0" 
+    falling_damage_damage_max="1.2" 
+    falling_damage_damage_min="0.1" 
+    falling_damage_height_max="250" 
+    falling_damage_height_min="70" 
+    falling_damages="0" 
+    fire_damage_amount="0.2" 
+    fire_probability_of_ignition="0"
+	critical_damage_resistance="1"	
+    hp="0.5" 
+    is_on_fire="0" 
+    materials_create_messages="0" 
+    materials_damage="0" 
+    ragdoll_filenames_file="" 
+    ragdoll_material="" 
+	ui_report_damage="0"
+	>
+  </DamageModelComponent>
+  
+  <CameraBoundComponent
+	  max_count="100"
+	  distance="1000">
+	</CameraBoundComponent>
+</Entity>

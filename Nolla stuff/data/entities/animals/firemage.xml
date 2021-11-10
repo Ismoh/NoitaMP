@@ -1,0 +1,217 @@
+<Entity name="$animal_firemage" tags="firemage" >
+  
+	<Base file="data/entities/base_enemy_basic.xml" >
+		<ItemChestComponent level="1" > </ItemChestComponent>
+		
+		<AnimalAIComponent 
+			_enabled="1" 
+			preferred_job="JobDefault"
+			attack_melee_damage_min="0.4" 
+			attack_melee_damage_max="0.7"
+			creature_detection_range_x="300"
+			creature_detection_range_y="300"
+			food_material="blood"
+			needs_food="0"
+            attack_only_if_attacked="0"
+			sense_creatures="1"
+			attack_ranged_enabled="1"
+			can_fly="0"  
+			attack_ranged_action_frame="3"
+			attack_ranged_entity_file="data/entities/projectiles/fireball_ghostly.xml"
+			attack_ranged_frames_between="80"
+			attack_ranged_min_distance="10" 
+			>
+		</AnimalAIComponent>
+		
+		<DamageModelComponent 
+            hp="5"
+			ragdoll_filenames_file="data/ragdolls/firemage/filenames.txt" 
+			fire_probability_of_ignition="0" 
+			materials_that_damage="acid,water,poison,blood_cold,blood_cold_vapour,mud,water_swamp,water_salt,swamp,snow,water_ice" 
+			materials_how_much_damage="0.004,0.0005,0.001,0.0008,0.0007,0.0005,0.0005,0.0005,0.0005,0.0005,0.0005"
+			ragdoll_material="lavarock_static"
+			blood_material="lava"
+			blood_spray_material="lava"
+			blood_multiplier="0.6"
+			blood_sprite_directional=""
+			blood_sprite_large=""
+			wet_status_effect_damage="0.3"
+			>
+			<damage_multipliers
+				explosion="0.4"
+				fire="0.0" >
+			</damage_multipliers>
+		</DamageModelComponent>
+
+		<SpriteComponent 
+			image_file="data/enemies_gfx/firemage.xml" 
+			offset_x="0"
+			offset_y="0">
+		</SpriteComponent>
+
+		<PathFindingComponent
+			can_jump="1"
+			can_fly="0" 
+			jump_speed="130"
+			initial_jump_lob="1"
+			initial_jump_max_distance_x="90"
+			initial_jump_max_distance_y="90"
+			>
+		</PathFindingComponent>
+
+		<PathFindingGridMarkerComponent
+			marker_work_flag="16" >
+		</PathFindingGridMarkerComponent>
+		
+		<GenomeDataComponent 
+			herd_id="mage"
+			food_chain_rank="15"
+			is_predator="1" >
+		</GenomeDataComponent>
+		
+		<CharacterPlatformingComponent 
+			jump_velocity_y="-6" 
+			run_velocity="18"  >
+		</CharacterPlatformingComponent>
+
+		<CameraBoundComponent
+		  max_count="30"
+		  distance="160000">
+		</CameraBoundComponent>
+		
+		<HitboxComponent 
+		  _enabled="1" 
+		  aabb_min_x="-4.5" 
+		  aabb_max_x="4.5" 
+		  aabb_min_y="-14" 
+		  aabb_max_y="3" 
+		  >
+		</HitboxComponent>
+		
+		<CharacterDataComponent
+			collision_aabb_min_x="-2.5" 
+			collision_aabb_max_x="3.0" 
+			collision_aabb_min_y="-16" 
+			collision_aabb_max_y="3" 
+			mass="1.6"
+			>
+		</CharacterDataComponent>
+	</Base>
+		
+  <LightComponent 
+    _enabled="1" 
+    radius="100" 
+    fade_out_time="1.5"
+    >
+  </LightComponent>
+  
+	<ItemPickUpperComponent
+    	is_in_npc="1">
+    </ItemPickUpperComponent>
+	
+	<Entity>
+
+		<InheritTransformComponent>
+			<Transform 
+				position.x="0"
+				position.y="-12" 
+				>
+			</Transform>
+		</InheritTransformComponent>
+		
+		<Base file="data/entities/base_torch_particle.xml" >
+
+			<ParticleEmitterComponent 
+				x_pos_offset_min="-2"
+				x_pos_offset_max="2" >
+			</ParticleEmitterComponent>
+	  
+			<ParticleEmitterComponent 
+				color="ff3fe2df"
+				x_pos_offset_min="-2"
+				x_pos_offset_max="2" >
+			</ParticleEmitterComponent>
+			
+			<ParticleEmitterComponent 
+				emitted_material_name="spark_blue"
+				x_pos_offset_min="-2"
+				x_pos_offset_max="2" >
+			</ParticleEmitterComponent>
+			
+			<ParticleEmitterComponent 
+				emitted_material_name="fire_blue"
+				>
+			</ParticleEmitterComponent>
+
+		</Base>
+	</Entity>
+	
+	<HotspotComponent
+		_tags="hand_l"
+		sprite_hotspot_name="hand"
+		transform_with_scale="1" >
+	</HotspotComponent>
+	<Entity name="hand_l">
+		
+		<Base file="data/entities/base_torch_particle.xml" >
+
+			<ParticleEmitterComponent 
+				count_min="2"
+				count_max="3"
+				x_pos_offset_min="-1"
+				x_pos_offset_max="1" 
+				y_pos_offset_min="-1"
+				y_pos_offset_max="2"
+				>
+			</ParticleEmitterComponent>
+	  
+			<ParticleEmitterComponent 
+				color="ff3fe2df"
+				count_min="2"
+				count_max="3"
+				x_pos_offset_min="-1"
+				x_pos_offset_max="1" 
+				y_pos_offset_min="-1"
+				y_pos_offset_max="2">
+			</ParticleEmitterComponent>
+			
+			<ParticleEmitterComponent 
+				emitted_material_name="spark_blue"
+				x_pos_offset_min="-1"
+				x_pos_offset_max="1" 
+				y_pos_offset_min="-3"
+				y_pos_offset_max="2">
+			</ParticleEmitterComponent>
+			
+			<ParticleEmitterComponent 
+				emitted_material_name="fire_blue"
+				>
+			</ParticleEmitterComponent>
+
+		</Base>
+		
+		<InheritTransformComponent
+			parent_hotspot_tag="hand_l"
+			only_position="1" >
+		</InheritTransformComponent>
+
+	</Entity>
+
+    <MusicEnergyAffectorComponent
+    	energy_target="1">
+    </MusicEnergyAffectorComponent>
+
+	<AudioComponent
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals/firemage" >
+	</AudioComponent>
+
+	<AudioLoopComponent
+		file="data/audio/Desktop/animals.bank"
+		event_name="animals/firemage/burning_loop"
+		set_speed_parameter="1"
+		auto_play="1">
+	</AudioLoopComponent>
+
+</Entity>
+

@@ -1,0 +1,22 @@
+<Entity>
+	<LuaComponent
+		script_source_file="data/scripts/perks/laser_aim.lua"
+		execute_every_n_frame="1"
+		>
+	</LuaComponent>
+	
+	<LaserEmitterComponent>
+		<laser
+			damage_to_entities="0"
+			damage_to_cells="0"
+			max_length="312"
+			beam_radius="0.5"
+			max_cell_durability_to_destroy="0"
+			audio_enabled="0"
+			hit_particle_chance="0"
+			beam_particle_chance="50"
+			beam_particle_type="spark"
+			>
+		</laser>
+	</LaserEmitterComponent>
+</Entity>

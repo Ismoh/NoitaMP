@@ -1,0 +1,121 @@
+<Entity name="$animal_wizard_weaken" >
+	<Base file="data/entities/base_enemy_basic.xml" >
+		<ItemChestComponent level="2" > </ItemChestComponent>
+		
+		<AnimalAIComponent 
+			_enabled="1" 
+			preferred_job="JobDefault"
+			attack_melee_enabled="0"
+			creature_detection_range_x="400"
+			creature_detection_range_y="400"
+			food_material="blood"
+			needs_food="0"
+			sense_creatures="1"
+			attack_ranged_enabled="1"
+			can_fly="1" 
+			attack_ranged_entity_file="data/entities/projectiles/orb_weaken.xml"
+			attack_ranged_action_frame="5"
+			attack_ranged_frames_between="120"
+			attack_ranged_offset_y="0"
+			attack_ranged_min_distance="0"
+			attack_ranged_max_distance="300"
+			>
+		</AnimalAIComponent>
+		
+		<DamageModelComponent 
+            hp="12"
+            ragdoll_material="meat_slime"
+			ragdoll_filenames_file="data/ragdolls/wizard_weaken/filenames.txt"
+			critical_damage_resistance="1.0"
+			>
+		</DamageModelComponent>
+
+		<SpriteComponent 
+			image_file="data/enemies_gfx/wizard_weaken.xml" 
+			offset_x="0"
+			offset_y="0"
+			>
+		</SpriteComponent>
+
+		<PathFindingComponent
+			can_jump="1" >
+		</PathFindingComponent>
+
+		<PathFindingGridMarkerComponent
+			marker_work_flag="16" >
+		</PathFindingGridMarkerComponent>
+		
+		<GenomeDataComponent 
+			herd_id="mage"
+			food_chain_rank="6"
+			is_predator="1" >
+		</GenomeDataComponent>
+		
+		<CharacterPlatformingComponent 
+			jump_velocity_y="-12" 
+			swim_idle_buoyancy_coeff="1.0"
+			run_velocity="18"  >
+		</CharacterPlatformingComponent>
+		
+		<CameraBoundComponent
+			max_count="30"
+			distance="160000">
+		</CameraBoundComponent>
+		
+		<HitboxComponent 
+		  _enabled="1" 
+		  aabb_min_x="-4.5" 
+		  aabb_max_x="4.5" 
+		  aabb_min_y="-10" 
+		  aabb_max_y="3" 
+		  >
+		</HitboxComponent>
+		
+		<CharacterDataComponent 
+			collision_aabb_min_x="-3.0" 
+			collision_aabb_max_x="3.0" 
+			collision_aabb_min_y="-7" 
+			collision_aabb_max_y="3" 
+			>
+	    </CharacterDataComponent>
+	</Base>
+	
+	<ItemPickUpperComponent
+    	is_in_npc="1">
+    </ItemPickUpperComponent>
+	
+	<HotspotComponent
+        _tags="cape_root"
+        sprite_hotspot_name="cape" >
+    </HotspotComponent>
+	
+	<AudioLoopComponent
+		file="data/audio/Desktop/animals.bank"
+		event_name="animals/wizard/movement_loop"
+		set_speed_parameter="1"
+		auto_play="1">
+	</AudioLoopComponent>
+
+	<AudioComponent
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals/wizard" >
+	</AudioComponent>
+
+	<Entity name="cape">  
+        <Base file="data/entities/verlet_chains/cape/cape.xml">  
+        	<VerletPhysicsComponent
+        		cloth_color_edge="0xFFd4ccc6"
+        		cloth_color="0xFF595c61">
+        	</VerletPhysicsComponent>
+        </Base>  
+    </Entity>
+	
+	<Entity>
+	    <GameEffectComponent 
+	        effect="STUN_PROTECTION_ELECTRICITY"
+	        frames="-1"
+	    >
+		</GameEffectComponent >
+	</Entity>
+</Entity>
+

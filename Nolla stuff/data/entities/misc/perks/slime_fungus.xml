@@ -1,0 +1,13 @@
+<Entity>
+	<InheritTransformComponent>
+    </InheritTransformComponent>
+	
+	<MagicConvertMaterialComponent
+        from_material="slime"
+        to_material="fungus_powder"
+        steps_per_frame="20"
+        loop="1"
+		is_circle="1"
+        radius="20" >
+    </MagicConvertMaterialComponent>
+</Entity>

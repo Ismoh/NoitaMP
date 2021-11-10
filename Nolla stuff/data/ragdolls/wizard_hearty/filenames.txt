@@ -1,0 +1,4 @@
+data/ragdolls/wizard_hearty/torso.png
+data/ragdolls/wizard_hearty/hand.png
+data/ragdolls/wizard_hearty/feet.png
+data/ragdolls/wizard_hearty/head.png

@@ -1,0 +1,7 @@
+<Entity>
+	<Base file="data/entities/items/pickup/potion.xml">
+		<LuaComponent 
+			_enabled="0"
+		></LuaComponent>
+	</Base>
+</Entity>

@@ -1,0 +1,35 @@
+<Entity>
+	<LuaComponent
+		script_source_file="data/scripts/perks/personal_laser_aim.lua"
+		execute_every_n_frame="1"
+		>
+	</LuaComponent>
+	
+	<Entity tags="personal_laser" >
+		<InheritTransformComponent
+			>
+			<Transform 
+				position.x="5"
+				position.y="0"
+				>
+			</Transform>
+		</InheritTransformComponent>
+		
+		<LaserEmitterComponent>
+			<laser
+				damage_to_entities="0.15"
+				damage_to_cells="3000"
+				max_length="54"
+				beam_radius="1.0"
+				max_cell_durability_to_destroy="11"
+				root_entity_is_responsible_for_damage="1"
+				audio_enabled="0"
+				audio_hit_always_enabled="1"
+				hit_particle_chance="10"
+				beam_particle_chance="80"
+				beam_particle_type="spark_green"
+				>
+			</laser>
+		</LaserEmitterComponent>
+	</Entity>
+</Entity>

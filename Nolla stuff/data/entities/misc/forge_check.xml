@@ -1,0 +1,6 @@
+<Entity>
+	<LuaComponent
+		script_source_file="data/scripts/misc/forge_check.lua">
+	</LuaComponent>
+
+</Entity>

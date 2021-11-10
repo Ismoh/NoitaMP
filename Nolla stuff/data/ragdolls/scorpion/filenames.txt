@@ -1,0 +1,4 @@
+data/ragdolls/scorpion/torso1.png
+data/ragdolls/scorpion/torso2.png
+data/ragdolls/scorpion/tail1.png
+data/ragdolls/scorpion/tail2.png

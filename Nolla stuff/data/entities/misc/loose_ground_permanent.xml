@@ -1,0 +1,12 @@
+<Entity>
+	<LooseGroundComponent
+		max_distance="150"
+		probability="0.2"
+		max_angle="3.1415926535"
+		chunk_max_angle="3.1415926535"
+		chunk_probability="0.03" >
+	</LooseGroundComponent>
+
+	<InheritTransformComponent>
+	</InheritTransformComponent>
+</Entity>

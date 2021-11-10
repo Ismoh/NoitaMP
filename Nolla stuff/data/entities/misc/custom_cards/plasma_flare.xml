@@ -1,0 +1,29 @@
+<Entity>
+	
+	<Base file="data/entities/base_custom_card.xml" > 
+		<SpriteComponent 
+			image_file="data/ui_gfx/gun_actions/plasma_flare.png" 
+			>
+		</SpriteComponent>
+		
+		<ItemActionComponent 
+			_tags="enabled_in_world"
+			action_id="PLASMA_FLARE" >
+		</ItemActionComponent>
+	</Base>
+
+	<Base file="data/entities/misc/custom_cards/base_laser.xml">
+		<SpriteParticleEmitterComponent
+			sprite_file="data/particles/shine_pink.xml"
+			emission_interval_min_frames="35"
+			emission_interval_max_frames="45"
+			>
+		</SpriteParticleEmitterComponent>
+		
+		<ParticleEmitterComponent
+			emitted_material_name="plasma_fading_pink"
+			>
+		</ParticleEmitterComponent>
+	</Base>
+	
+</Entity>

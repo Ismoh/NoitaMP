@@ -1,0 +1,7 @@
+<Entity tags="teleportable_NOT,perk,item_perk">
+
+  <LuaComponent 
+    script_item_picked_up="data/scripts/perks/perk_pickup.lua" >
+  </LuaComponent>
+  
+</Entity>

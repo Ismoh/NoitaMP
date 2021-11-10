@@ -1,0 +1,21 @@
+<Entity>
+  
+	<SpriteComponent 
+		_enabled="1" 
+		alpha="1" 
+		image_file="data/particles/heart_out.xml" 
+		next_rect_animation="explosion" 
+		offset_x="0" 
+		offset_y="0" 
+		rect_animation="" 
+		update_transform_rotation="0"
+		>
+	</SpriteComponent>
+	
+	<LifetimeComponent 
+		lifetime="20"
+		>
+	</LifetimeComponent>
+  
+</Entity>
+

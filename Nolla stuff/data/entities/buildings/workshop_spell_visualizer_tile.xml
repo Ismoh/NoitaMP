@@ -1,0 +1,16 @@
+<Entity tags="workshop_spell_visualizer_tile" >
+
+    <SpriteComponent 
+        _tags="enabled_in_world,item_identified"
+        image_file="data/ui_gfx/gun_actions/empty.png" 
+        offset_x="2"
+        offset_y="2"
+        z_index="1"
+    ></SpriteComponent>
+
+    <LifetimeComponent
+        lifetime ="160"
+        fade_sprites="1"
+    ></LifetimeComponent>
+
+</Entity>

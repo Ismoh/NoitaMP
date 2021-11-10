@@ -1,0 +1,133 @@
+<Entity tags="rat,poopstone_immunity,plague_rat" name="$animal_rat">
+  
+	<Base file="data/entities/base_enemy_basic.xml" >
+		<ItemChestComponent _enabled="0" level="2" > </ItemChestComponent>
+		
+		<LuaComponent
+			_enabled="0"
+			>
+		</LuaComponent>
+
+		<AnimalAIComponent 
+			_enabled="1" 
+			preferred_job="JobDefault"
+			attack_melee_damage_min="0.35" 
+			attack_melee_damage_max="0.45"
+			attack_if_damaged_probability="0"
+			needs_food="1"
+			attack_ranged_enabled="0"
+			can_fly="0" 
+			attack_dash_enabled="1"
+			attack_dash_damage="0.35"
+			attack_melee_max_distance="14"
+			aggressiveness_min="100"
+			aggressiveness_max="100"
+			attack_melee_action_frame="3"
+			dont_counter_attack_own_herd="1"
+			>
+		</AnimalAIComponent>
+		
+		<DamageModelComponent 
+			ragdoll_filenames_file="data/ragdolls/plague_rat/filenames.txt" 
+			ragdoll_offset_y="-1"
+			hp="0.7"
+			air_needed="1"
+			fire_probability_of_ignition="0"
+			>
+		</DamageModelComponent>
+
+		<SpriteComponent 
+			image_file="data/enemies_gfx/plague_rat.xml" 
+			offset_x="10"
+			offset_y="12" >
+		</SpriteComponent>
+
+		<PathFindingComponent
+		    distance_to_reach_node_x="20"
+		    distance_to_reach_node_y="20"
+			frames_to_get_stuck="20"
+			can_swim_on_surface="1"
+			can_dive="1"
+			can_jump="1" >
+		</PathFindingComponent>
+
+		<PathFindingGridMarkerComponent
+			marker_work_flag="16" >
+		</PathFindingGridMarkerComponent>
+		
+		<GenomeDataComponent 
+			herd_id="player"
+			food_chain_rank="10"
+			is_predator="1"
+			berserk_dont_attack_friends="1" >
+		</GenomeDataComponent>
+		
+		<CharacterPlatformingComponent 
+			jump_velocity_y="-30" 
+			run_velocity="40"  >
+		</CharacterPlatformingComponent>
+        
+        <HitboxComponent 
+			_enabled="1" 
+			aabb_min_x="-5.5" 
+			aabb_max_x="5.5" 
+			aabb_min_y="-1.4" 
+			aabb_max_y="3.5" 
+			is_enemy="1" 
+			is_item="0" 
+			is_player="0" >
+		</HitboxComponent>
+		
+		<CharacterDataComponent
+			collision_aabb_min_x="-3.5" 
+			collision_aabb_max_x="3.5" 
+			collision_aabb_min_y="-3" 
+			collision_aabb_max_y="3" 
+			buoyancy_check_offset_y="-1"
+			mass="0.4"
+			>
+		</CharacterDataComponent>
+		
+		<CameraBoundComponent
+			max_count="30"
+			>
+		</CameraBoundComponent>
+	</Base>
+	
+	<VariableStorageComponent
+		name="plague_rats"
+		>
+	</VariableStorageComponent>
+	
+	<LuaComponent
+		script_source_file="data/scripts/perks/plague_rats_rat_poof.lua"
+		execute_every_n_frame="800"
+		>
+	</LuaComponent>
+	
+	<LuaComponent
+		script_source_file="data/scripts/perks/plague_rats_init.lua"
+		execute_on_added="1"
+		remove_after_executed="1"
+		>
+	</LuaComponent>
+
+	<AudioComponent
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals/rat" >
+	</AudioComponent>
+	
+	<VariableStorageComponent
+		_tags="no_gold_drop">
+	</VariableStorageComponent>
+
+	<Entity>
+		<GameEffectComponent 
+	        effect="PROTECTION_ALL"
+	        frames="20"
+    	>
+		</GameEffectComponent >
+	</Entity>
+
+</Entity>
+

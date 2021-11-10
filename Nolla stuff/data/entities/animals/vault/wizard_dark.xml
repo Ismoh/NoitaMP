@@ -1,0 +1,18 @@
+<Entity >
+  <Base file="data/entities/animals/wizard_dark.xml">
+    <DamageModelComponent 
+      hp="10"
+      max_hp="10"
+	  minimum_knockback_force="100000"
+     ></DamageModelComponent >
+  </Base>
+  
+  <Entity name="cape">  
+        <Base file="data/entities/verlet_chains/cape/cape.xml">
+			<VerletPhysicsComponent
+        		cloth_color_edge="0xFFC57D93"
+        		cloth_color="0xFF56402C">
+        	</VerletPhysicsComponent>
+        </Base>  
+    </Entity>
+</Entity>

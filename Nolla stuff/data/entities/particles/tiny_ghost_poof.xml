@@ -1,0 +1,30 @@
+<Entity>
+
+  	<ParticleEmitterComponent 
+		emitted_material_name="steam"
+		gravity.y="0.0"
+		lifetime_min="2"
+		lifetime_max="5"
+		count_min="1"
+		count_max="2"
+		x_pos_offset_min="-2"
+		x_pos_offset_max="2"
+		y_pos_offset_min="-4"
+		y_pos_offset_max="3"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		cosmetic_force_create="0"
+		airflow_force="0.451"
+		airflow_time="1.01"
+		airflow_scale="0.25"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		emit_cosmetic_particles="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+
+	<LifetimeComponent
+		lifetime="20" >
+	</LifetimeComponent>
+
+</Entity>

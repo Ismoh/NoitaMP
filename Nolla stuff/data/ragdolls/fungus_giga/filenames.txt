@@ -1,0 +1,5 @@
+data/ragdolls/fungus_giga/stalk.png
+data/ragdolls/fungus_giga/cap.png
+data/ragdolls/fungus_giga/foot1.png
+data/ragdolls/fungus_giga/foot2.png
+data/ragdolls/fungus_giga/foot3.png

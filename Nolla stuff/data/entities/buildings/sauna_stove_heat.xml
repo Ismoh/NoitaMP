@@ -1,0 +1,53 @@
+<Entity>
+  <MagicConvertMaterialComponent
+    _tags="enabled_in_hand,enabled_in_world"
+    kill_when_finished="0"
+    steps_per_frame="3"
+    from_material="water"
+    to_material="steam"
+    clean_stains="0"
+    is_circle="1"
+    radius="11" 
+    reaction_audio_amount="0.005"
+    >
+  </MagicConvertMaterialComponent>
+  
+  <MagicConvertMaterialComponent
+    _tags="enabled_in_hand,enabled_in_world"
+    kill_when_finished="0"
+    steps_per_frame="3"
+    from_material="water_swamp"
+    to_material="steam"
+    clean_stains="0"
+    is_circle="1"
+    radius="11" 
+    reaction_audio_amount="0.005"
+    >
+  </MagicConvertMaterialComponent>
+
+  <MagicConvertMaterialComponent
+    _tags="enabled_in_hand,enabled_in_world"
+    kill_when_finished="0"
+    steps_per_frame="3"
+    from_material="water_salt"
+    to_material="steam"
+    clean_stains="0"
+    is_circle="1"
+    radius="11" 
+    reaction_audio_amount="0.005"
+    >
+  </MagicConvertMaterialComponent>
+
+  <MagicConvertMaterialComponent
+    _tags="enabled_in_hand,enabled_in_world"
+    kill_when_finished="0"
+    steps_per_frame="3"
+    from_material="radioactive_liquid"
+    to_material="radioactive_gas"
+    clean_stains="0"
+    is_circle="1"
+    radius="11" 
+    reaction_audio_amount="0.005"
+    >
+  </MagicConvertMaterialComponent>
+</Entity>

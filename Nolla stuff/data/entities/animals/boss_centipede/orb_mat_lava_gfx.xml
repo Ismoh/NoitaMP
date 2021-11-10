@@ -1,0 +1,31 @@
+<Sprite
+ filename="data/entities/animals/boss_centipede/orb_mat_lava.png"
+ offset_x="10"
+ offset_y="10"
+ default_animation="fireball" >
+
+ <!-- animation -->
+ <RectAnimation
+  name="fireball"
+  pos_x="0"
+  pos_y="0"
+  frame_count="8"
+  frame_width="20"
+  frame_height="20"
+  frame_wait="0.05"
+  frames_per_row="8"
+  loop="1"   >
+ </RectAnimation>
+ 
+ <RectAnimation
+  name="detonate"
+  pos_x="0"
+  pos_y="20"
+  frame_count="8"
+  frame_width="20"
+  frame_height="20"
+  frame_wait="0.03"
+  frames_per_row="8"
+  loop="1"   >
+ </RectAnimation>
+</Sprite>

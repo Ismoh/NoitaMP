@@ -1,0 +1,113 @@
+<Entity tags="hittable,teleportable_NOT" name="$projectile_default" >
+	<DamageModelComponent 
+        hp="0.5"
+        materials_create_messages="1"
+        ragdoll_material="metal_rust"
+		blood_sprite_directional=""
+		blood_sprite_large=""
+		blood_spray_material=""
+        ragdoll_filenames_file="" >
+	</DamageModelComponent>
+
+	<HitboxComponent 
+		aabb_min_x="-3" 
+		aabb_max_x="3" 
+		aabb_min_y="-3" 
+		aabb_max_y="3" 
+		is_enemy="1" 
+		is_item="0" 
+		is_player="0" >
+	</HitboxComponent>
+
+	<CrawlerAnimalComponent
+		animate="0"
+        give_up_time="999"
+		gravity="600"
+		attack_from_ceiling_check_ray_length="1"
+        speed="0"
+		collision_damage="0">
+    </CrawlerAnimalComponent>
+
+    <CollisionTriggerComponent
+    	width="40"
+    	height="40"
+    	radius="20"
+		required_tag="mortal"
+    	timer_for_destruction="30" >
+    </CollisionTriggerComponent>
+	
+	<LuaComponent
+	    execute_on_removed="0"
+	    execute_every_n_frame="-1"
+		script_collision_trigger_hit="data/scripts/projectiles/mine_animate.lua"
+	    remove_after_executed="1">
+  	</LuaComponent>
+	
+	<LuaComponent
+		execute_on_removed="0"
+	    execute_every_n_frame="-1"
+		script_damage_received="data/scripts/projectiles/mine_animate.lua"
+		remove_after_executed="1">
+	</LuaComponent>
+
+	<SpriteComponent 
+		image_file="data/enemies_gfx/mine.xml"
+		rect_animation="stand"
+		>
+	</SpriteComponent>
+
+	<SpriteComponent 
+		_enabled="1" 
+		alpha="1" 
+		image_file="data/enemies_gfx/mine_emissive.xml"
+		offset_x="6" 
+		offset_y="8"
+		emissive="1"
+        additive="1"
+		rect_animation="stand"
+		next_rect_animation="" 
+		 >
+	</SpriteComponent>
+	
+	<MoveToSurfaceOnCreateComponent
+        offset_from_surface="0">
+    </MoveToSurfaceOnCreateComponent>
+
+	<CameraBoundComponent
+	  max_count="20"
+	  distance="160000">
+	</CameraBoundComponent>
+	
+	<ExplosionComponent
+		trigger="ON_DEATH"
+		><config_explosion
+		  never_cache="1" 
+		  camera_shake="25.0" 
+		  explosion_radius="30" 
+		  explosion_sprite="data/particles/explosion_040_poof.xml"
+		  load_this_entity="data/entities/particles/particle_explosion/main_gunpowder_small.xml"
+		  explosion_sprite_lifetime="0" 
+		  create_cell_probability="80" 
+		  create_cell_material="fire" 
+		  ray_energy="170000"
+		  hole_destroy_liquid="0" 
+		  damage="4"
+		  hole_enabled="1" 
+		  hole_image="data/temp/explosion_hole.png" 
+		  particle_effect="1" 
+		  damage_mortals="1" 
+		  physics_explosion_power.min="2.3"
+		  physics_explosion_power.max="3.6" 
+		  physics_throw_enabled="1" 
+		  shake_vegetation="1" 
+		  sparks_enabled="1" 
+		  sparks_count_max="30" 
+		  sparks_count_min="10"
+		  light_fade_time="0.8" 
+		  stains_enabled="1" 
+		  stains_image="data/temp/explosion_stain.png"
+		  >
+		</config_explosion>
+	</ExplosionComponent>
+</Entity>
+

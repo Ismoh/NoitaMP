@@ -1,0 +1,47 @@
+<Entity tags="foot">
+
+	<InheritTransformComponent>
+	</InheritTransformComponent>
+
+	<IKLimbWalkerComponent
+		ground_attachment_min_spread="80"
+		_tags="disabled_at_start"
+		>
+	</IKLimbWalkerComponent>
+
+	<IKLimbComponent
+		length="160" >
+	</IKLimbComponent>
+
+	<SpriteComponent 
+		image_file="data/entities/animals/boss_centipede/limbs/limb_long_A.xml" 
+		z_index="1.2"
+		offset_x="0"
+		offset_y="8"
+		update_transform="0"
+		update_transform_rotation="0"
+		rect_animation="stand"
+		next_rect_animation="stand" >
+	</SpriteComponent>
+
+	<SpriteComponent 
+		image_file="data/entities/animals/boss_centipede/limbs/limb_long_B.xml" 
+		z_index="1.2"
+		offset_x="0"
+		offset_y="8"
+		update_transform="0"
+		update_transform_rotation="0"
+		rect_animation="stand"
+		next_rect_animation="stand" >
+	</SpriteComponent>
+
+	<SpriteComponent 
+		image_file="data/entities/animals/boss_centipede/limbs/limb_long_knee.xml" 
+		z_index="1.1"
+		offset_x="8"
+		offset_y="8"
+		update_transform="0"
+		update_transform_rotation="0" >
+	</SpriteComponent>
+
+</Entity>

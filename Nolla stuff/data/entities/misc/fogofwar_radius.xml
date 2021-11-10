@@ -1,0 +1,22 @@
+<Entity >
+   
+  
+  <FogOfWarRadiusComponent
+    _enabled="1" 
+    radius="200"
+	 >
+  </FogOfWarRadiusComponent>
+
+	  <SpriteComponent 
+        _enabled="1" 
+	    alpha="0.8"
+	    image_file="data/particles/torch_fog_of_war_hole.xml"
+	    smooth_filtering="1"
+	    fog_of_war_hole="1"
+	    has_special_scale="1"
+	    special_scale_x="4"
+	    special_scale_y="4" >
+	</SpriteComponent>
+
+  
+</Entity>

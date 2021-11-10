@@ -1,0 +1,7 @@
+data/ragdolls/icicle/cap_top.png
+data/ragdolls/icicle/cap_bottom.png
+data/ragdolls/icicle/torso.png
+data/ragdolls/icicle/foot_1.png
+data/ragdolls/icicle/foot_2.png
+data/ragdolls/icicle/foot_3.png
+data/ragdolls/icicle/foot_4.png

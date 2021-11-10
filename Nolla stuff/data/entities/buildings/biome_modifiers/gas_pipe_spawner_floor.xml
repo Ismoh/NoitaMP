@@ -1,0 +1,6 @@
+<Entity>
+	<LuaComponent
+		script_source_file="data/scripts/buildings/gas_pipe_spawn_floor.lua"
+		execute_every_n_frame="67">
+	</LuaComponent>
+</Entity>

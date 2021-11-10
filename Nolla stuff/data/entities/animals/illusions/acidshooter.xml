@@ -1,0 +1,97 @@
+<Entity tags="glue_NOT" name="$animal_acidshooter">
+  
+	<Base file="data/entities/base_enemy_flying.xml" >
+		<ItemChestComponent level="1" > </ItemChestComponent>
+		
+		<AnimalAIComponent
+			attack_ranged_entity_file="data/entities/projectiles/acidshot.xml"
+			attack_ranged_state_duration_frames="70"
+			attack_ranged_enabled="1"
+			attack_dash_enabled="0"
+			attack_ranged_frames_between="40" 
+			attack_ranged_offset_y="0.1"
+			needs_food="0"
+			can_fly="1" >
+		</AnimalAIComponent>
+
+		<DamageModelComponent 
+			_enabled="0"
+			>
+		</DamageModelComponent>
+
+		<PathFindingComponent
+			can_fly="1" 
+			can_walk="0"
+			>
+		</PathFindingComponent>
+
+		<SpriteComponent 
+			image_file="data/enemies_gfx/acidshooter.xml" 
+			offset_x="0"
+			alpha="0.5"
+			offset_y="0">
+		</SpriteComponent>
+		
+		<HitboxComponent 
+			_enabled="0"
+			>
+		</HitboxComponent>		
+		
+		<GenomeDataComponent 
+			herd_id="ghost" >
+		</GenomeDataComponent>
+		
+		<CharacterDataComponent
+			collision_aabb_min_x="-4.0" 
+			collision_aabb_max_x="4.0" 
+			collision_aabb_min_y="-10" 
+			collision_aabb_max_y="3" 
+			mass="1.2"
+			>
+		</CharacterDataComponent>
+		
+		<AudioComponent
+			file="data/audio/Desktop/animals.bank"
+			event_root="animals/slime">
+		</AudioComponent>
+
+	</Base>
+
+	<LightComponent 
+	    _enabled="1" 
+	    radius="70" 
+		r="149"
+		g="255"
+		b="149">
+    </LightComponent>
+	
+	<AudioComponent
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals/acidshooter" >
+	</AudioComponent>
+  
+	<AudioLoopComponent
+		file="data/audio/Desktop/animals.bank"
+		event_name="animals/slimy_small/movement_loop"
+		set_speed_parameter="1"
+		auto_play="1">
+	</AudioLoopComponent>
+	
+	<LifetimeComponent
+		lifetime="600"
+		>
+	</LifetimeComponent>
+	
+	<AudioComponent
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals/illusion">
+	</AudioComponent>
+	
+	<LuaComponent
+		script_source_file="data/scripts/animals/illusion_disappear.lua"
+		execute_every_n_frame="-1"
+		execute_on_removed="1"
+		>
+	</LuaComponent>
+</Entity>
+

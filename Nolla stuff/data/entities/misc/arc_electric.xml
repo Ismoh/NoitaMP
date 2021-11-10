@@ -1,0 +1,10 @@
+<Entity >
+	<LightningComponent>
+	</LightningComponent>
+
+	<ArcComponent
+		type="LIGHTNING"
+		lifetime="120" 
+		material="" >
+	</ArcComponent>
+</Entity>

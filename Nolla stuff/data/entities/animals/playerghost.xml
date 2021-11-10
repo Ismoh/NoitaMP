@@ -1,0 +1,40 @@
+<Entity tags="glue_NOT" name="$animal_playerghost">
+	<!-- NOTE! This file is used for polymorph purpouses only -->
+	<!-- the spawned player ghost (that has an old wand) is now at entities/animals/apparition/playerghost.xml -->
+	
+	<Base file="data/entities/base_apparition.xml">
+		<CameraBoundComponent
+			_enabled="0"
+			max_count="30"
+			distance="160000">
+		</CameraBoundComponent>
+	</Base>
+	
+	<LuaComponent 
+		_enabled="1"
+		remove_after_executed="1"
+		script_source_file="data/scripts/animals/wand_ghost.lua" >
+	</LuaComponent>
+
+    <MusicEnergyAffectorComponent
+    	energy_target="0.5">
+    </MusicEnergyAffectorComponent>
+
+	<AudioLoopComponent
+		file="data/audio/Desktop/animals.bank"
+		event_name="animals/ghost/movement_loop"
+		set_speed_parameter="1"
+		auto_play="1">
+	</AudioLoopComponent>
+	
+	<Entity>
+		<InheritTransformComponent />
+		
+	    <GameEffectComponent 
+	        effect="PROTECTION_FREEZE"
+	        frames="-1"
+	    >
+		</GameEffectComponent >
+	</Entity>
+
+</Entity>

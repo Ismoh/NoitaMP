@@ -1,0 +1,178 @@
+<Entity>
+
+	<Base file="data/entities/base_projectile.xml" >
+		<VelocityComponent
+    		gravity_y="0"
+			air_friction="-0.1"
+			mass="0.05"
+			>
+    	</VelocityComponent> 
+	</Base>
+	
+	<HomingComponent
+		target_tag="prey"
+		homing_targeting_coeff="7"
+		detect_distance="350"
+		homing_velocity_multiplier="1.0"
+	></HomingComponent>
+
+	<HitEffectComponent 
+	  	effect_hit="SWAPPER"
+	></HitEffectComponent >
+
+	<ProjectileComponent 
+		_enabled="1" 
+		lob_min="0.8"
+		lob_max="1.0"
+		speed_min="100"
+		speed_max="120"
+		die_on_low_velocity="0"
+		on_death_explode="1"
+		on_death_gfx_leave_sprite="0" 
+		on_lifetime_out_explode="1"
+		explosion_dont_damage_shooter="1"
+		damage="0.0"
+		on_collision_die="1"
+		friendly_fire="1"
+		lifetime="150" >
+		<config_explosion
+			never_cache="1" 
+			camera_shake="0.5" 
+			explosion_radius="1" 
+			explosion_sprite="data/particles/explosion_016_plasma.xml" 
+			explosion_sprite_lifetime="0.0" 
+			create_cell_probability="1" 
+			create_cell_material="plasma_fading" 
+			ray_energy="10000"
+			hole_destroy_liquid="1" 
+			hole_enabled="1" 
+			damage = "0.0"
+			hole_image="data/temp/explosion_hole.png"
+			explosion_sprite_emissive="1"
+			explosion_sprite_additive="1"
+			particle_effect="0" 
+			damage_mortals="1"
+			physics_explosion_power.min="0"
+			physics_explosion_power.max="0"
+			physics_throw_enabled="0"
+			shake_vegetation="1"  
+			sparks_enabled="1" 
+			spark_material="plasma_fading"
+			sparks_count_max="16" 
+			sparks_count_min="12"
+			light_fade_time="1.2" 
+			light_r="35"
+			light_g="135"
+			light_b="140"
+			stains_enabled="1" 
+			stains_image="data/temp/explosion_stain.png" >
+		</config_explosion>
+	</ProjectileComponent>
+
+	<SpriteComponent 
+		_enabled="1" 
+		alpha="1" 
+		image_file="data/projectiles_gfx/orb_blue.xml" 
+		next_rect_animation="" 
+		offset_x="5" 
+		offset_y="5" 
+		rect_animation="fireball" 
+		emissive="1"
+		additive="1"
+		update_transform_rotation="0"
+	>
+	</SpriteComponent>
+
+	<LightComponent 
+		_enabled="1" 
+		radius="150" 
+		r="40"
+		g="18"
+		b="220">
+	</LightComponent>
+
+	<ParticleEmitterComponent 
+		emitted_material_name="spark_blue"
+		offset.x="0"
+		gravity.y="-10.0"
+		offset.y="0"
+		count_min="70"
+		count_max="140"
+		x_pos_offset_min="-2"
+		y_pos_offset_min="-1"
+		x_pos_offset_max="2"
+		y_pos_offset_max="1"
+		x_vel_min="-10"
+		x_vel_max="10"
+		y_vel_min="0"
+		y_vel_max="0"
+		is_trail="1"
+		trail_gap="1.5"
+		lifetime_min="0.4"
+		lifetime_max="0.6"
+		airflow_force="0.1"
+		airflow_time="0.101"
+		airflow_scale="2.01"
+		emit_real_particles="0"
+		fade_based_on_lifetime="1"
+		airflow_force="0.1"
+		airflow_time="1.501"
+		airflow_scale="2.01"
+		render_on_grid="1"
+		emit_cosmetic_particles="1"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		is_emitting="1" 
+	></ParticleEmitterComponent>
+
+	<ParticleEmitterComponent 
+		emitted_material_name="spark_blue"
+		offset.x="0"
+		gravity.y="-5.0"
+		offset.y="0"
+		count_min="70"
+		count_max="140"
+		x_pos_offset_min="-2"
+		y_pos_offset_min="-1"
+		x_pos_offset_max="2"
+		y_pos_offset_max="1"
+		x_vel_min="0"
+		x_vel_max="0"
+		y_vel_min="0"
+		y_vel_max="0"
+		is_trail="1"
+		trail_gap="1.5"
+		lifetime_min="0.4"
+		lifetime_max="3.6"
+		airflow_force="1.1"
+		airflow_time="1.101"
+		airflow_scale="0.51"
+		emit_real_particles="0"
+		fade_based_on_lifetime="1"
+		airflow_force="3.1"
+		airflow_time="1.501"
+		airflow_scale="2.01"
+		render_on_grid="1"
+		emit_cosmetic_particles="1"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		is_emitting="1" 
+	></ParticleEmitterComponent>
+
+	<AudioComponent
+		file="data/audio/Desktop/projectiles.bank"
+		event_root="projectiles/orb_swapper" >
+	</AudioComponent>
+	
+	<AudioLoopComponent
+		file="data/audio/Desktop/projectiles.bank"
+		event_name="projectiles/magic_orb/loop"
+		auto_play="1">
+	</AudioLoopComponent>
+	
+	<VariableStorageComponent
+		name="projectile_file"
+		value_string="data/entities/projectiles/orb_swapper.xml"
+		>
+	</VariableStorageComponent>
+</Entity>

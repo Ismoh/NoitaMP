@@ -1,0 +1,2 @@
+data/ragdolls/drone_lasership/right.png
+data/ragdolls/drone_lasership/left.png

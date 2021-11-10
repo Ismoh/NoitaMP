@@ -1,0 +1,14 @@
+<Entity>
+    <CollisionTriggerComponent
+      width="16"
+      height="96" 
+      radius="128"
+      required_tag="player_unit" >
+  	</CollisionTriggerComponent>
+
+    <LuaComponent
+      script_collision_trigger_hit="data/scripts/buildings/controls_mouse_trigger.lua"
+      execute_every_n_frame="-1" >
+    </LuaComponent>
+</Entity>
+

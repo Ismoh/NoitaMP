@@ -1,0 +1,13 @@
+<Entity >
+	<MagicConvertMaterialComponent
+      kill_when_finished="1"
+      from_material_tag="[solid]"
+      steps_per_frame="5"
+      to_material="salt"
+      clean_stains="1"
+      is_circle="1"
+      radius="256" 
+	  loop="0"
+	  >
+    </MagicConvertMaterialComponent>
+</Entity>

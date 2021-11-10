@@ -1,0 +1,28 @@
+<Entity>
+	
+	<Base file="data/entities/base_custom_card.xml" > 
+		<SpriteComponent 
+			image_file="data/ui_gfx/gun_actions/unstable_gunpowder.png" 
+			>
+		</SpriteComponent>
+		
+		<ItemActionComponent 
+			_tags="enabled_in_world"
+			action_id="UNSTABLE_GUNPOWDER" >
+		</ItemActionComponent>
+	</Base>
+
+	<Base file="data/entities/misc/custom_cards/base_high_explosive.xml">
+	</Base>
+
+	<LightComponent 
+    	_tags="enabled_in_hand,item_identified"
+        _enabled="1" 
+        radius="20"
+        fade_out_time="1.5" 
+    	r="80"
+    	g="60"
+    	b="10" >
+	</LightComponent>
+	
+</Entity>

@@ -1,0 +1,97 @@
+<Entity name="unknown" tags="prop_physics" >
+
+	<Entity>
+		<InheritTransformComponent>
+			<Transform 
+				position.x="12"
+				position.y="12" 
+				>
+			</Transform>
+		</InheritTransformComponent>
+		
+		<LoadEntitiesComponent
+			count.min="0"
+			count.max="1"
+			kill_entity="0"
+			entity_file="data/entities/props/physics_stone_01.xml"
+			>
+		</LoadEntitiesComponent>
+	</Entity>
+	
+	<Entity>
+		<InheritTransformComponent>
+			<Transform 
+				position.x="0"
+				position.y="12" 
+				>
+			</Transform>
+		</InheritTransformComponent>
+		
+		<LoadEntitiesComponent
+			count.min="0"
+			count.max="1"
+			kill_entity="0"
+			entity_file="data/entities/props/physics_stone_02.xml"
+			>
+		</LoadEntitiesComponent>
+	</Entity>
+	
+	<Entity>
+		<InheritTransformComponent>
+			<Transform 
+				position.x="-12"
+				position.y="12" 
+				>
+			</Transform>
+		</InheritTransformComponent>
+		
+		<LoadEntitiesComponent
+			count.min="0"
+			count.max="1"
+			kill_entity="0"
+			entity_file="data/entities/props/physics_stone_03.xml"
+			>
+		</LoadEntitiesComponent>
+	</Entity>
+	
+	<Entity>
+		<InheritTransformComponent>
+			<Transform 
+				position.x="-6"
+				position.y="0" 
+				>
+			</Transform>
+		</InheritTransformComponent>
+		
+		<LoadEntitiesComponent
+			count.min="0"
+			count.max="1"
+			kill_entity="0"
+			entity_file="data/entities/props/physics_stone_04.xml"
+			>
+		</LoadEntitiesComponent>
+	</Entity>
+	
+	<Entity>
+		<InheritTransformComponent>
+			<Transform 
+				position.x="6"
+				position.y="0" 
+				>
+			</Transform>
+		</InheritTransformComponent>
+		
+		<LoadEntitiesComponent
+			count.min="0"
+			count.max="1"
+			kill_entity="0"
+			entity_file="data/entities/props/physics_stone_01.xml"
+			>
+		</LoadEntitiesComponent>
+	</Entity>
+	
+	<LifetimeComponent
+		lifetime="10"
+		>
+	</LifetimeComponent>
+</Entity>

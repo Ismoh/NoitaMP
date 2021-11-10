@@ -1,0 +1,27 @@
+<Entity name="workshop_collapse" tags="workshop_collapse" >
+	<LuaComponent
+      _enabled="1"
+      script_source_file="data/scripts/buildings/workshop_collapse.lua"
+      vm_type="ONE_PER_COMPONENT_INSTANCE"
+      enable_coroutines="1"
+      execute_on_added="1"
+      execute_every_n_frame="-1"
+      execute_times="1" >
+    </LuaComponent>
+
+  <LifetimeComponent
+  	lifetime="320"
+  	randomize_lifetime.min="-50"
+  	randomize_lifetime.max="50" >
+  </LifetimeComponent>
+
+    <MagicConvertMaterialComponent
+      _enabled="1"
+      kill_when_finished="0"
+      from_material="glowstone_altar"
+      steps_per_frame="1"
+      to_material="templebrick_noedge_static"
+      radius="128" >
+    </MagicConvertMaterialComponent>
+
+</Entity>

@@ -1,0 +1,12 @@
+<Entity>
+	<PixelSceneComponent
+		pixel_scene="data/biome_impl/biome_modifiers/water_ball.png"
+		offset_x="16"
+		offset_y="16"
+		>
+	</PixelSceneComponent>
+	<LifetimeComponent
+		lifetime="2"
+		>
+	</LifetimeComponent>
+</Entity>

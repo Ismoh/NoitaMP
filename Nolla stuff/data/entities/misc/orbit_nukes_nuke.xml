@@ -1,0 +1,171 @@
+<Entity 
+  name="$projectile_default" tags="nuke,orbit_projectile"
+   >
+
+	<Base file="data/entities/base_projectile.xml" >
+  
+    <VelocityComponent
+        gravity_y="0" 
+        air_friction="0" 
+		mass="0.2"
+		>
+    </VelocityComponent>
+	</Base>
+
+  <ProjectileComponent 
+    _enabled="1" 
+    lob_min="0.8"
+    lob_max="1.0"
+    speed_min="0"
+    speed_max="0"
+    direction_random_rad="0.01"
+    on_death_explode="1"
+    on_death_gfx_leave_sprite="0" 
+    on_lifetime_out_explode="1"
+    explosion_dont_damage_shooter="0" 
+    on_collision_die="1"
+    lifetime="7200"
+    damage="2"
+    velocity_sets_scale="1"
+    lifetime_randomness="7"
+    ragdoll_force_multiplier="0.04"
+    hit_particle_force_multiplier="5.5 "
+    camera_shake_when_shot="5.0" 
+	muzzle_flash_file="data/entities/particles/muzzle_flashes/muzzle_flash_launcher_large.xml"
+    shoot_light_flash_r="255"
+    shoot_light_flash_g="210"
+    shoot_light_flash_b="40"
+    shoot_light_flash_radius="130"
+	knockback_force="1.5"
+	>
+    <config_explosion
+      never_cache="1" 
+      camera_shake="60" 
+      explosion_radius="150" 
+      explosion_sprite="data/particles/explosion_032.xml"
+	  load_this_entity="data/entities/particles/particle_explosion/main_large.xml,data/entities/misc/loose_chunks.xml"
+      explosion_sprite_lifetime="0" 
+      create_cell_probability="5" 
+      hole_destroy_liquid="0" 
+      hole_enabled="1" 
+      ray_energy="4700000"
+      damage="6"
+      particle_effect="1" 
+      damage_mortals="1"
+	  physics_explosion_power.min="4.5"
+      physics_explosion_power.max="9" 
+      shake_vegetation="1" 
+      sparks_count_max="200" 
+      sparks_count_min="400" 
+      sparks_enabled="1" 
+      stains_enabled="1" 
+      stains_radius="25"
+      background_lightning_count="5" 
+	  max_durability_to_destroy="12"
+    audio_event_name="explosions/nuke"
+	  >
+    </config_explosion>
+  </ProjectileComponent>
+
+  <SpriteComponent 
+    _enabled="1" 
+    alpha="1" 
+    image_file="data/projectiles_gfx/nuke.xml" 
+    next_rect_animation="" 
+    offset_x="2" 
+    offset_y="2" 
+    rect_animation="" 
+     
+     >
+  </SpriteComponent>
+  
+  <ParticleEmitterComponent 
+    emitted_material_name="spark"
+    offset.x="0"
+    offset.y="0"
+    x_pos_offset_min="-4"
+    y_pos_offset_min="-1"
+    x_pos_offset_max="4"
+    y_pos_offset_max="1"
+    x_vel_min="-5"
+    x_vel_max="5"
+    y_vel_min="-5"
+    y_vel_max="5"
+	gravity.y="0"
+    count_min="1"
+    count_max="5"
+	is_trail="1"
+	trail_gap="0.5"
+	render_on_grid="1"
+    lifetime_min="0.1"
+    lifetime_max="0.3"
+	fade_based_on_lifetime="1"
+    create_real_particles="0"
+    emit_cosmetic_particles="1"
+    emission_interval_min_frames="1"
+    emission_interval_max_frames="1"
+    is_emitting="1" >
+  </ParticleEmitterComponent>
+  
+  <ParticleEmitterComponent 
+    emitted_material_name="smoke"
+    offset.x="0"
+    offset.y="0"
+    x_pos_offset_min="-1"
+    y_pos_offset_min="-1"
+    x_pos_offset_max="1"
+    y_pos_offset_max="1"
+    x_vel_min="-50"
+    x_vel_max="5"
+    y_vel_min="-5"
+    y_vel_max="5"
+    count_min="1"
+    count_max="5"
+    lifetime_min="0.1"
+    lifetime_max="0.3"
+    create_real_particles="1"
+    emit_cosmetic_particles="0"
+    emission_interval_min_frames="1"
+    emission_interval_max_frames="1"
+    is_emitting="1" >
+  </ParticleEmitterComponent>
+
+  <ParticleEmitterComponent 
+    emitted_material_name="radioactive_liquid_fading"
+    count_min="1"
+    count_max="2"
+    offset.x="0"
+    offset.y="0"
+    x_pos_offset_min="-1"
+    y_pos_offset_min="-1"
+    x_pos_offset_max="1"
+    y_pos_offset_max="1"
+    x_vel_min="-50"
+    x_vel_max="50"
+    y_vel_min="-50"
+    y_vel_max="50"
+    count_min="1"
+    count_max="5"
+    lifetime_min="0.1"
+    lifetime_max="0.3"
+    create_real_particles="1"
+    emit_cosmetic_particles="0"
+    emission_interval_min_frames="0"
+    emission_interval_max_frames="4"
+    is_emitting="1" >
+  </ParticleEmitterComponent>
+
+  <AudioLoopComponent
+      file="data/audio/Desktop/projectiles.bank"
+      event_name="projectiles/rocket_passby"
+      auto_play="1">
+  </AudioLoopComponent>
+  
+	<VariableStorageComponent
+		name="projectile_file"
+		value_string="data/entities/projectiles/deck/nuke.xml"
+		>
+	</VariableStorageComponent>
+
+</Entity>
+

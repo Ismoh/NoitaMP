@@ -1,0 +1,104 @@
+<Entity name="$animal_chest_mimic"> 
+	<Base file="data/entities/base_enemy_basic.xml" >		
+		<AnimalAIComponent 
+			_enabled="1" 
+			preferred_job="JobDefault"
+			escape_if_damaged_probability="0"
+			creature_detection_range_x="700"
+			creature_detection_range_y="10"
+			food_material="meat"
+			needs_food="0"
+			sense_creatures="1"
+			attack_ranged_enabled="0"
+			attack_melee_enabled="1"
+			can_fly="0" 
+			attack_melee_action_frame="5"
+			aggressiveness_min="95"
+			aggressiveness_max="100"
+			is_static_turret="1"
+			attack_melee_max_distance="15"
+			attack_melee_damage_min="0.6"
+			attack_melee_damage_max="1.0"
+		>
+		</AnimalAIComponent>
+		
+		<DamageModelComponent 
+            hp="3"
+            ragdoll_material="wood_prop"
+			ragdoll_filenames_file="" 
+			blood_material=""
+			fire_probability_of_ignition="20"
+			>
+		</DamageModelComponent>
+
+		<SpriteComponent 
+			image_file="data/enemies_gfx/chest_mimic.xml" 
+			offset_x="0"
+			offset_y="0"
+			>
+		</SpriteComponent>
+
+		<PathFindingGridMarkerComponent
+			marker_work_flag="16" >
+		</PathFindingGridMarkerComponent>
+		
+		<GenomeDataComponent 
+			herd_id="ghost"
+			food_chain_rank="5"
+			is_predator="1" >
+		</GenomeDataComponent>
+		
+		<CharacterPlatformingComponent 
+			jump_velocity_y="0" 
+			run_velocity="0"  >
+		</CharacterPlatformingComponent>
+		
+		<PathFindingComponent
+			can_jump="0"
+			can_fly="0" 
+			can_walk="0"
+			>
+		</PathFindingComponent>
+
+		<CameraBoundComponent
+			max_count="30"
+			distance="160000">
+		</CameraBoundComponent>
+		
+		<HitboxComponent 
+            _enabled="1" 
+            aabb_max_x="8" 
+            aabb_max_y="3" 
+            aabb_min_x="-8" 
+            aabb_min_y="-12" 
+			>
+        </HitboxComponent>
+		
+		<CharacterDataComponent 
+			collision_aabb_min_x="-6.0" 
+			collision_aabb_max_x="6.0" 
+			collision_aabb_min_y="-10" 
+			collision_aabb_max_y="3" 
+			mass="2.2"
+			>
+	    </CharacterDataComponent>
+
+	</Base>
+
+	<VariableStorageComponent 
+		_enabled="1" 
+		name="mimic_poop_count" 
+		value_bool="0" 
+		value_int="0" 
+		value_string="" >
+	</VariableStorageComponent>
+
+	<LuaComponent
+		_enabled="1"
+		script_source_file="data/scripts/animals/mimic_charm.lua"
+		execute_every_n_frame="183"
+		>
+	</LuaComponent>
+
+</Entity>
+

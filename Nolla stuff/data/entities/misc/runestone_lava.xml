@@ -1,0 +1,19 @@
+<Entity >
+	<MagicConvertMaterialComponent
+      kill_when_finished="1"
+      from_material=""
+      from_material_tag="[liquid]"
+      steps_per_frame="8"
+      to_material="lava"
+      clean_stains="0"
+      is_circle="1"
+      radius="192" 
+	  loop="0"
+	  >
+    </MagicConvertMaterialComponent>
+	
+	<LifetimeComponent
+		lifetime="25"
+		>
+	</LifetimeComponent>
+</Entity>

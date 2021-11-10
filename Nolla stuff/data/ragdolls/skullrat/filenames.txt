@@ -1,0 +1,6 @@
+data/ragdolls/skullrat/part1.png
+data/ragdolls/skullrat/part2.png
+data/ragdolls/skullrat/part3.png
+data/ragdolls/skullrat/part4.png
+data/ragdolls/skullrat/tail1.png
+data/ragdolls/skullrat/tail2.png

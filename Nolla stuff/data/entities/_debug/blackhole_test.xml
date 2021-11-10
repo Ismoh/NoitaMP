@@ -1,0 +1,10 @@
+<Entity>
+
+  <BlackHoleComponent>
+  </BlackHoleComponent>
+
+  <DebugFollowMouseComponent>
+  </DebugFollowMouseComponent>
+
+</Entity>
+

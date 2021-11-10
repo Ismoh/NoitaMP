@@ -1,0 +1,22 @@
+<Entity name="$animal_acidshooter">
+  
+	<Base file="data/entities/animals/acidshooter.xml" >
+		<DamageModelComponent
+			ragdoll_filenames_file="data/ragdolls/acidshooter_weak/filenames.txt"
+			hp="0.4"
+			>
+		</DamageModelComponent>
+		
+		<SpriteComponent 
+			image_file="data/enemies_gfx/acidshooter_weak.xml" 
+			>
+		</SpriteComponent> 
+	</Base>
+	
+	<Entity>  <Base file="data/entities/verlet_chains/slime_tentacle/slime_tentacle_alt_02.xml"> <InheritTransformComponent><Transform position.x="-3" position.y="-1" ></Transform></InheritTransformComponent> </Base>  </Entity>
+	<Entity>  <Base file="data/entities/verlet_chains/slime_tentacle/slime_tentacle_alt_01.xml"> <InheritTransformComponent><Transform position.x="-4" position.y="-1" ></Transform></InheritTransformComponent> </Base>  </Entity>
+	<Entity>  <Base file="data/entities/verlet_chains/slime_tentacle/slime_tentacle_alt_01.xml"> <InheritTransformComponent><Transform position.x="0"  position.y="-1" ></Transform></InheritTransformComponent> </Base>  </Entity>
+	<Entity>  <Base file="data/entities/verlet_chains/slime_tentacle/slime_tentacle_thin_alt_01.xml"> <InheritTransformComponent><Transform position.x="4"  position.y="-1" ></Transform></InheritTransformComponent> </Base>  </Entity>
+
+</Entity>
+

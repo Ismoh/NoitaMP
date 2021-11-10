@@ -1,0 +1,135 @@
+<Entity name="unknown" >
+  <_Transform position.x="0" position.y="0" rotation="0" scale.x="1" scale.y="1" >
+  </_Transform>
+
+  <PhysicsBodyComponent 
+    uid="1" 
+    allow_sleep="1" 
+    angular_damping="0" 
+    fixed_rotation="1" 
+	is_static="1"
+    is_bullet="0" 
+    linear_damping="0"
+    auto_clean="0"
+	update_entity_transform="1"
+    on_death_really_leave_body="0"
+    on_death_leave_physics_body="1" >
+  </PhysicsBodyComponent>
+  
+  <PhysicsImageShapeComponent 
+    body_id="1"
+    centered="0"
+    image_file="data/props_gfx/excavationsite_machine_3b.png"
+    material="wood_player_b2" >
+  </PhysicsImageShapeComponent>
+
+  <PhysicsBodyComponent 
+    uid="2" 
+    allow_sleep="1" 
+    angular_damping="0.1" 
+    fixed_rotation="0" 
+    is_bullet="0" 
+    linear_damping="0"
+    auto_clean="0" 
+    update_entity_transform="0"
+    on_death_leave_physics_body="1"
+	on_death_really_leave_body="0"
+    >
+  </PhysicsBodyComponent>
+  
+  <PhysicsImageShapeComponent 
+    body_id="2"
+    centered="1"
+    image_file="data/props_gfx/excavationsite_machine_3b_wheel_1.png"
+    z="-1"
+    material="wood_prop" >
+  </PhysicsImageShapeComponent>
+  
+  <PhysicsBodyComponent 
+    uid="3" 
+    allow_sleep="1" 
+    angular_damping="0.1" 
+    fixed_rotation="0" 
+    is_bullet="0" 
+    linear_damping="0"
+    auto_clean="0" 
+    update_entity_transform="0"
+    on_death_leave_physics_body="1"
+	on_death_really_leave_body="0"
+    >
+  </PhysicsBodyComponent>
+  
+  <PhysicsImageShapeComponent 
+    body_id="3"
+    centered="1"
+    image_file="data/props_gfx/excavationsite_machine_3b_wheel_2.png"
+    z="-1"
+    material="wood_prop" >
+  </PhysicsImageShapeComponent>
+     
+  <PhysicsBodyComponent 
+    uid="4" 
+    allow_sleep="1" 
+    angular_damping="0.1" 
+    fixed_rotation="0" 
+    is_bullet="0" 
+    linear_damping="0"
+    auto_clean="0" 
+    update_entity_transform="0"
+    on_death_leave_physics_body="1"
+	on_death_really_leave_body="0"
+    >
+  </PhysicsBodyComponent>
+  
+  <PhysicsImageShapeComponent 
+    body_id="4"
+    centered="1"
+    image_file="data/props_gfx/excavationsite_machine_3b_wheel_3.png"
+    z="-1"
+    material="wood_prop" >
+  </PhysicsImageShapeComponent>
+
+  <PhysicsJointComponent 
+    nail_to_wall="0" 
+    body1_id="1"
+    body2_id="2"		
+    pos_x="35"		
+    pos_y="64"			
+    mMotorEnabled="1"
+    mMotorSpeed="12"
+    mMaxMotorTorque="65" 
+    grid_joint="1"
+  	>
+  </PhysicsJointComponent>
+  
+  <PhysicsJointComponent 
+    nail_to_wall="0" 
+    body1_id="1"
+    body2_id="3"		
+    pos_x="94"		
+    pos_y="37"			
+    mMotorEnabled="1"
+    mMotorSpeed="-5"
+    mMaxMotorTorque="7" 
+    grid_joint="1"
+  	>
+  </PhysicsJointComponent>
+  
+  <PhysicsJointComponent 
+    nail_to_wall="0" 
+    body1_id="1"
+    body2_id="4"		
+    pos_x="82"		
+    pos_y="89"			
+    mMotorEnabled="1"
+    mMotorSpeed="10"
+    mMaxMotorTorque="4" 
+    grid_joint="1"
+  	>
+  </PhysicsJointComponent>
+  
+  <CameraBoundComponent
+    max_count="50"
+    distance="500">
+  </CameraBoundComponent>
+</Entity>

@@ -1,0 +1,28 @@
+<Entity>
+
+	<Base file="data/entities/particles/electricity.xml" >
+		<SpriteParticleEmitterComponent
+			randomize_position_inside_hitbox="1"  >
+		</SpriteParticleEmitterComponent>
+	</Base>
+
+	<InheritTransformComponent 
+		_enabled="1" >
+    </InheritTransformComponent>	
+    
+    <GameEffectComponent 
+    	effect="ELECTROCUTION"
+    	frames="40"
+    	disable_movement="1"
+		ragdoll_effect="CUSTOM_RAGDOLL_ENTITY"
+		ragdoll_effect_custom_entity_file="data/entities/props/physics_ragdoll_part_electrified.xml"
+    >
+	</GameEffectComponent >
+
+    <AudioLoopComponent
+        file="data/audio/Desktop/misc.bank"
+        event_name="game_effect/electrocution/loop" 
+        auto_play="1" >
+    </AudioLoopComponent>
+
+</Entity>

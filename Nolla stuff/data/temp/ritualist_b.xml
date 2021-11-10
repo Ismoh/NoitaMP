@@ -1,0 +1,19 @@
+<Sprite
+ filename="data/temp/ritualist_b.png"
+ offset_x="10"
+ offset_y="21"
+ default_animation="dance" >
+
+ <!-- animation -->
+ <RectAnimation
+  name="dance"
+  pos_x="20"
+  pos_y="0"
+  frame_count="12"
+  frame_width="20"
+  frame_height="22"
+  frame_wait="0.09"
+  frames_per_row="12"
+  loop="1"   >
+ </RectAnimation>
+</Sprite>

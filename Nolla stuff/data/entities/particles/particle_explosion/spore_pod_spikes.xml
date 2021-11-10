@@ -1,0 +1,10 @@
+<Entity>
+
+    <LoadEntitiesComponent
+        count.min="20"
+        count.max="20"
+        kill_entity="0"
+        entity_file="data/entities/projectiles/deck/spore_pod_spike.xml" >
+    </LoadEntitiesComponent>
+
+</Entity>

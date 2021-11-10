@@ -1,0 +1,48 @@
+<Entity>
+	
+	<Base file="data/entities/base_custom_card.xml" > 
+		<SpriteComponent 
+			image_file="data/ui_gfx/gun_actions/acid_trail.png" 
+			>
+		</SpriteComponent>
+		
+		<ItemActionComponent 
+			_tags="enabled_in_world"
+			action_id="ACID_TRAIL" >
+		</ItemActionComponent>
+	</Base>
+
+	<InheritTransformComponent
+		_tags="enabled_in_world,enabled_in_hand"
+		>
+	  <Transform 
+		position.x="5" 
+		position.y="0" >
+	  </Transform>
+	</InheritTransformComponent>
+
+	<ParticleEmitterComponent 
+		_tags="enabled_in_hand,item_identified"
+		emitted_material_name="acid_gas"
+		offset.x="0"
+		offset.y="0"
+		x_pos_offset_min="-5"
+		x_pos_offset_max="5"
+		y_pos_offset_min="2"
+		y_pos_offset_max="-2"
+		x_vel_min="-2"
+		x_vel_max="2"
+		y_vel_min="-20"
+		y_vel_max="-10"
+		count_min="1"
+		count_max="1"
+		lifetime_min="0.2"
+		lifetime_max="0.3"
+		create_real_particles="1"
+		emit_cosmetic_particles="1"
+		emission_interval_min_frames="10"
+		emission_interval_max_frames="25"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+	
+</Entity>

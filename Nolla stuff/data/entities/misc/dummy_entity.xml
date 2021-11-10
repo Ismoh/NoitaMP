@@ -1,0 +1,11 @@
+<!-- used as a framework for generated objects. see release_child_entitites.lua -->
+<Entity>
+	<SimplePhysicsComponent />
+	<VelocityComponent />
+	<LifetimeComponent
+		lifetime="500"
+		randomize_lifetime.min="-200"
+		randomize_lifetime.max="200"
+		>
+	</LifetimeComponent>
+</Entity>

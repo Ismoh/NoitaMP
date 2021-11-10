@@ -1,0 +1,19 @@
+<Sprite
+ filename="data/projectiles_gfx/rocket_tiny.png"
+ offset_x="4.5"
+ offset_y="3"
+ default_animation="fireball" >
+
+ <!-- animation -->
+ <RectAnimation
+  name="fireball"
+  pos_x="0"
+  pos_y="0"
+  frame_count="3"
+  frame_width="12"
+  frame_height="6"
+  frame_wait="0.09"
+  frames_per_row="3"
+  loop="1"   >
+ </RectAnimation>
+</Sprite>

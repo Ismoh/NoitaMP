@@ -1,0 +1,13 @@
+<Entity 
+	name="unknown" 
+	tags="hittable,mortal,glue_NOT" >
+
+	<Base file="data/entities/buildings/statue_trap_right.xml">
+		<SpriteComponent 
+			image_file="data/buildings_gfx/statue_trap_left.xml"  
+			>
+		</SpriteComponent>
+	</Base>
+
+</Entity>
+

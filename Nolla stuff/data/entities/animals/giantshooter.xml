@@ -1,0 +1,159 @@
+<Entity name="$animal_giantshooter">
+  
+	<Base file="data/entities/base_enemy_flying.xml" >
+		<ItemChestComponent level="1" > </ItemChestComponent>
+		
+		<AnimalAIComponent
+			attack_ranged_entity_file="data/entities/projectiles/acidshot.xml"
+			attack_ranged_enabled="0"
+			attack_dash_enabled="0"
+			attack_ranged_frames_between="40" 
+			needs_food="0"
+			can_fly="1">
+		</AnimalAIComponent>
+
+		<DamageModelComponent 
+			hp="5.0"
+			ragdoll_material="meat_slime_green"
+			ragdoll_filenames_file="data/ragdolls/giantshooter/filenames.txt" 
+			blood_material="acid"
+			blood_spray_material="acid"
+			blood_sprite_directional="data/particles/bloodsplatters/bloodsplatter_directional_green_$[1-3].xml"
+			blood_sprite_large="data/particles/bloodsplatters/bloodsplatter_green_$[1-3].xml"
+			materials_that_damage="lava,poison,blood_cold,blood_cold_vapour" 
+			materials_how_much_damage="0.004,0.001,0.0008,0.0007"
+		>
+		</DamageModelComponent>
+
+		<PathFindingComponent
+			can_fly="1" 
+			can_walk="0"
+			space_required="5"
+			>
+		</PathFindingComponent>
+
+		<SpriteComponent 
+			image_file="data/enemies_gfx/giantshooter.xml" 
+			offset_x="0"
+			offset_y="0">
+		</SpriteComponent>
+		
+		<GenomeDataComponent 
+			herd_id="slimes" >
+		</GenomeDataComponent>
+		
+		<HitboxComponent 
+			_enabled="1" 
+			aabb_max_x="8" 
+			aabb_max_y="3" 
+			aabb_min_x="-8" 
+			aabb_min_y="-15" >
+		</HitboxComponent>
+		
+		<CharacterDataComponent
+			collision_aabb_min_x="-8.0" 
+			collision_aabb_max_x="8.0" 
+			collision_aabb_min_y="-15" 
+			collision_aabb_max_y="3"
+			mass="2.2"
+			>
+		</CharacterDataComponent>
+		
+		<AudioComponent
+			file="data/audio/Desktop/animals.bank"
+			event_root="animals/slime">
+		</AudioComponent>
+
+		<!-- override animals_generic -->
+		<AudioComponent 
+			file="data/audio/Desktop/animals.bank"
+			event_root="">
+		</AudioComponent>
+
+	</Base>
+
+	<MaterialInventoryComponent 
+		_enabled="1" 
+		drop_as_item="0" 
+		leak_on_damage_percent="0.999" 
+		>
+		<count_per_material_type>
+		<Material material="acid" count="400"  />
+		</count_per_material_type>
+	</MaterialInventoryComponent>
+
+	<LightComponent 
+    _enabled="1" 
+    radius="80" 
+    r="118"
+    g="255"
+    b="118">
+	</LightComponent>
+  
+  <ExplodeOnDamageComponent
+  	explode_on_death_percent="1"
+  	explode_on_damage_percent="0.0"
+  	>
+    <config_explosion 
+      never_cache="0"
+      damage="3"
+      camera_shake="30" 
+      explosion_radius="30" 
+      explosion_sprite="data/particles/explosion_032.xml" 
+      explosion_sprite_lifetime="10" 
+      create_cell_probability="70"
+      create_cell_material="acid"	  
+      hole_destroy_liquid="0" 
+      hole_enabled="1" 
+      ray_energy="160000"
+      particle_effect="1" 
+      damage_mortals="1"
+	  physics_explosion_power.min="0.6"
+      physics_explosion_power.max="1.1" 
+	  physics_throw_enabled="1"
+      shake_vegetation="1" 
+      sparks_count_min="1"
+      sparks_count_max="3"  
+      sparks_enabled="1" 
+      stains_enabled="1" 
+      stains_radius="15" >
+    </config_explosion>
+  </ExplodeOnDamageComponent>
+  
+  <LuaComponent
+    _enabled="1"
+    script_damage_received="data/scripts/animals/giantshooter_death.lua"
+    >
+  </LuaComponent>
+  
+	<Entity>  <Base file="data/entities/verlet_chains/slime_tentacle/slime_tentacle_02.xml"> <InheritTransformComponent><Transform position.x="-3" position.y="-1" ></Transform></InheritTransformComponent> </Base>  </Entity>
+	<Entity>  <Base file="data/entities/verlet_chains/slime_tentacle/slime_tentacle_01.xml"> <InheritTransformComponent><Transform position.x="-6" position.y="-1" ></Transform></InheritTransformComponent> </Base>  </Entity>
+	<Entity>  <Base file="data/entities/verlet_chains/slime_tentacle/slime_tentacle_thin_01.xml"> <InheritTransformComponent><Transform position.x="0"  position.y="-1" ></Transform></InheritTransformComponent> </Base>  </Entity>
+	<Entity>  <Base file="data/entities/verlet_chains/slime_tentacle/slime_tentacle_thin_01.xml"> <InheritTransformComponent><Transform position.x="6"  position.y="-1" ></Transform></InheritTransformComponent> </Base>  </Entity>
+	<Entity>  <Base file="data/entities/verlet_chains/slime_tentacle/slime_tentacle_03.xml"> <InheritTransformComponent><Transform position.x="2"  position.y="-1" ></Transform></InheritTransformComponent> </Base>  </Entity>
+
+    <MusicEnergyAffectorComponent
+    	energy_target="1.0">
+    </MusicEnergyAffectorComponent>
+
+	<AudioLoopComponent
+		_tags="sound_spray"
+		file="data/audio/Desktop/materials.bank"
+		event_name="materials/spray_animal" 
+		volume_autofade_speed="0.25" >
+	</AudioLoopComponent>
+
+	<AudioLoopComponent
+		file="data/audio/Desktop/animals.bank"
+		event_name="animals/slimy_big/movement_loop"
+		set_speed_parameter="1"
+		auto_play="1">
+	</AudioLoopComponent>
+
+	<AudioComponent
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals/giantshooter" >
+	</AudioComponent>
+
+</Entity>
+

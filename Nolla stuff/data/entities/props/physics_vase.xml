@@ -1,0 +1,47 @@
+<Entity name="unknown" >
+
+  <Base file="data/entities/base_item_physics.xml" >
+    <PhysicsImageShapeComponent 
+      image_file="data/props_gfx/vase.png"
+      material="rock_box2d" >
+    </PhysicsImageShapeComponent>
+  </Base>
+  
+  <CameraBoundComponent
+    max_count="50"
+    distance="500">
+  </CameraBoundComponent>
+	
+  <MaterialInventoryComponent 
+    _enabled="1" 
+    drop_as_item="0" 
+    on_death_spill="1"
+    leak_on_damage_percent="0.8" 
+    >
+    <count_per_material_type>
+      <Material material="gunpowder_unstable" count="150"  />
+	  </count_per_material_type>
+  </MaterialInventoryComponent>
+
+  <DamageModelComponent 
+    air_needed="0" 
+    blood_material="sand_blue" 
+    drop_items_on_death="0" 
+    falling_damage_damage_max="1.2" 
+    falling_damage_damage_min="0.1" 
+    falling_damage_height_max="250" 
+    falling_damage_height_min="70" 
+    falling_damages="1" 
+    fire_damage_amount="0.2" 
+    fire_probability_of_ignition="10" 
+	critical_damage_resistance="1"
+    hp="5" 
+    is_on_fire="0" 
+    materials_create_messages="0" 
+    materials_damage="0" 
+    ragdoll_filenames_file="" 
+    ragdoll_material="" 
+	ui_report_damage="0"
+	>
+  </DamageModelComponent>
+</Entity>

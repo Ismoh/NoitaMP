@@ -1,0 +1,25 @@
+<Entity>
+	<Base file="data/entities/particles/particle_explosion/base_smoke_trail.xml">
+		<SetStartVelocityComponent
+			randomize_speed.min="300"
+			randomize_speed.max="400"
+			>
+		</SetStartVelocityComponent>
+		
+		<SpriteParticleEmitterComponent
+			sprite_file="data/particles/fire_blue.xml"
+			>
+		</SpriteParticleEmitterComponent>
+	  
+		<SpriteParticleEmitterComponent
+			sprite_file="data/particles/smoke_cloud_tiny_grey_$[1-4].xml"
+			>
+		</SpriteParticleEmitterComponent>
+  
+		<ParticleEmitterComponent 
+			emitted_material_name="plasma_fading"
+			>
+		</ParticleEmitterComponent>
+	</Base>
+</Entity>
+

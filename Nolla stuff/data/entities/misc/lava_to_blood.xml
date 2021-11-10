@@ -1,0 +1,13 @@
+<Entity >
+	<MagicConvertMaterialComponent
+      kill_when_finished="0"
+      from_material="lava"
+      steps_per_frame="48"
+      to_material="blood"
+      clean_stains="0"
+      is_circle="1"
+      radius="48" 
+	  loop="1"
+	  >
+    </MagicConvertMaterialComponent>
+</Entity>

@@ -1,0 +1,15 @@
+<Entity>
+	<PixelSceneComponent
+		pixel_scene="data/biome_impl/safe_haven.png"
+		pixel_scene_visual="data/biome_impl/safe_haven_visual.png"
+		pixel_scene_background="data/biome_impl/safe_haven_background.png"
+		offset_x="-80"
+		offset_y="-60"
+		skip_biome_checks="1"
+		>
+	</PixelSceneComponent>
+	<LifetimeComponent
+		lifetime="2"
+		>
+	</LifetimeComponent>
+</Entity>

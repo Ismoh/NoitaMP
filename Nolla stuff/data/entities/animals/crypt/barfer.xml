@@ -1,0 +1,9 @@
+<Entity >
+  <Base file="data/entities/animals/barfer.xml">
+    <DamageModelComponent 
+      hp="14"
+      max_hp="14"
+	  minimum_knockback_force="100000"
+     ></DamageModelComponent >
+  </Base>
+</Entity>

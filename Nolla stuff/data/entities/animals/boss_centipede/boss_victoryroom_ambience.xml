@@ -1,0 +1,9 @@
+<Entity tags="victoryroom_ambience">
+
+	<AudioLoopComponent
+		file="data/audio/Desktop/event_cues.bank"
+		event_name="event_cues/midas/ambience_loop"
+		auto_play="1">
+	</AudioLoopComponent>
+
+</Entity>

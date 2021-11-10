@@ -1,0 +1,194 @@
+<Entity tags="mortal,hittable,homing_target,polymorphable_NOT,glue_NOT" name="$projectile_default">
+
+	<PhysicsAIComponent
+		target_vec_max_len="15.0"
+		force_coeff="20.0"
+		force_balancing_coeff="0.8"
+		force_max="100"
+		torque_coeff="50"
+		torque_balancing_coeff="0.8"
+		torque_max="50.0"
+		damage_deactivation_probability="0"
+		damage_deactivation_time_min="60"
+		damage_deactivation_time_max="120" >
+	</PhysicsAIComponent>
+
+	<PhysicsBodyComponent 
+		allow_sleep="1" 
+		angular_damping="0.02" 
+		fixed_rotation="1" 
+		is_bullet="0" 
+		linear_damping="0" 
+		force_add_update_areas="1"
+		on_death_leave_physics_body="1" >
+	</PhysicsBodyComponent>
+
+	<PhysicsShapeComponent
+		is_circle="1"
+		radius_x="4"
+		radius_y="4"
+		friction="0.0"
+		restitution="0.3" >
+	</PhysicsShapeComponent>
+
+	<Base file="data/entities/base_enemy_basic.xml" >
+		<LuaComponent
+			_enabled="0"
+			>
+		</LuaComponent>
+		
+		<AnimalAIComponent 
+			_enabled="1" 
+			preferred_job="JobDefault"
+			attack_ranged_min_distance="0"
+			attack_ranged_max_distance="50"
+			creature_detection_range_x="300"
+			creature_detection_range_y="300"
+			attack_ranged_action_frame="3"
+			attack_melee_action_frame="3"
+			sense_creatures="1"
+			attack_ranged_enabled="0"
+			attack_melee_enabled="0"
+			can_fly="1"  
+			eye_offset_y="-5"
+			>
+		</AnimalAIComponent>
+		
+		<DamageModelComponent 
+            hp="0.5"
+            ragdoll_material="crystal"
+			ragdoll_filenames_file="" 
+			blood_material="plasma_fading_pink"
+			ragdoll_fx_forced="DISINTEGRATED"
+			fire_probability_of_ignition="0" 
+			blood_sprite_directional=""
+			blood_sprite_large=""
+    		blood_spray_material="plasma_fading_pink"
+			air_needed="0" 
+			>
+			<damage_multipliers
+				melee="1.0"
+				projectile="1.0"
+				explosion="1.0"
+				electricity="0.1"
+				fire="0" >
+			</damage_multipliers>
+		</DamageModelComponent>
+
+		<SpriteComponent 
+			image_file="data/projectiles_gfx/polyorb.xml" 
+			has_special_scale="1"
+			emissive="1"
+			additive="1"
+			offset_x="0"
+			offset_y="0">
+		</SpriteComponent>
+
+		<PathFindingGridMarkerComponent
+			marker_work_flag="16" >
+		</PathFindingGridMarkerComponent>
+		
+		<PathFindingComponent
+		    distance_to_reach_node_x="20"
+		    distance_to_reach_node_y="20"
+			frames_to_get_stuck="120"
+			can_jump="0" 
+			can_fly="1"
+			jump_speed="0"
+			>
+		</PathFindingComponent>
+
+		<GenomeDataComponent 
+			herd_id="mage"
+			food_chain_rank="7"
+			is_predator="1" >
+		</GenomeDataComponent>
+		
+		<CharacterPlatformingComponent 
+			jump_velocity_y="0" 
+			run_velocity="24"  >
+		</CharacterPlatformingComponent>
+		
+		<HitboxComponent 
+			_enabled="1" 
+			aabb_max_x="4" 
+			aabb_max_y="4" 
+			aabb_min_x="-4" 
+			aabb_min_y="-4" 
+			>
+		</HitboxComponent>
+	
+		<CameraBoundComponent
+			max_count="30"
+			distance="160000">
+		</CameraBoundComponent>
+		
+		<CharacterDataComponent 
+			collision_aabb_min_x="-4"
+			collision_aabb_max_x="4"  
+			collision_aabb_min_y="-4"
+			collision_aabb_max_y="4"
+			>
+		</CharacterDataComponent>
+		
+		<ItemChestComponent
+			enemy_drop="0"
+			item_count_min="0"
+			item_count_max="0"
+			>
+		</ItemChestComponent>
+	</Base>
+	
+	<LuaComponent
+		execute_on_removed="1"
+		execute_every_n_frame="-1"
+		script_source_file="data/scripts/projectiles/polyorb_death.lua"
+		remove_after_executed="0">
+	</LuaComponent>
+	
+	<LuaComponent
+		execute_every_n_frame="220"
+		script_source_file="data/scripts/projectiles/polyorb_death.lua"
+		remove_after_executed="1">
+	</LuaComponent>
+	
+	<ParticleEmitterComponent 
+		emitted_material_name="plasma_fading_pink"
+		gravity.y="0.0"
+		lifetime_min="2.5"
+		lifetime_max="10.5"
+		count_min="1"
+		count_max="2"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		area_circle_radius.max="4"
+		cosmetic_force_create="0"
+		airflow_force="0.5"
+		airflow_time="1.9"
+		airflow_scale="0.15"
+		emission_interval_min_frames="15"
+		emission_interval_max_frames="40"
+		emit_cosmetic_particles="1"
+		x_vel_min="-20"
+		x_vel_max="20"
+		y_vel_min="-20"
+		y_vel_max="20"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+	
+	<VariableStorageComponent
+		_tags="no_gold_drop">
+	</VariableStorageComponent>
+
+	<AudioComponent
+		file="data/audio/Desktop/projectiles.bank"
+		event_root="projectiles/polymorph_bubble">
+	</AudioComponent>
+	
+	<AudioLoopComponent
+		file="data/audio/Desktop/projectiles.bank"
+		event_name="projectiles/magic_orb/loop"
+		auto_play="1">
+	</AudioLoopComponent>
+    
+</Entity>

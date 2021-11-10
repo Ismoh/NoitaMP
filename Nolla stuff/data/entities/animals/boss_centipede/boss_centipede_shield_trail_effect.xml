@@ -1,0 +1,65 @@
+<!-- this is added to all projectiles that have been converted by boss centipede's shield -->
+<Entity>
+	<SpriteComponent 
+		_enabled="1"
+		alpha="1" 
+		image_file="data/projectiles_gfx/orb_pink_ring.xml" 
+		next_rect_animation="" 
+		offset_x="8"
+		offset_y="8"
+		rect_animation="spawn" 
+		update_transform_rotation="0"
+		>
+	</SpriteComponent>
+
+	<!-- trail -->
+	<ParticleEmitterComponent 
+		emitted_material_name="plasma_fading_pink"
+		offset.x="0"
+		offset.y="0"
+		gravity.y="0.0"
+		x_vel_min="0"
+		x_vel_max="0"
+		y_vel_min="0"
+		y_vel_max="0"
+		friction="10"
+		count_min="1"
+		count_max="1"
+		lifetime_min="0.05"
+		lifetime_max="1.15"
+		emit_real_particles="0"
+		render_on_grid="1"
+		is_trail="1"
+		trail_gap="3"
+		emit_cosmetic_particles="1"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+
+	<!-- poof -->
+	<ParticleEmitterComponent 
+		emitted_material_name="plasma_fading_pink"
+		emitter_lifetime_frames="2"
+		offset.x="0"
+		offset.y="0"
+		gravity.y="0.0"
+
+		area_circle_radius.min="3"
+		area_circle_radius.max="3"
+		velocity_always_away_from_center="10"
+		friction="1.5"
+		count_min="30"
+		count_max="60"
+		lifetime_min="0.5"
+		lifetime_max="2.0"
+		emit_real_particles="0"
+		render_on_grid="1"
+		emit_cosmetic_particles="1"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+
+
+</Entity>

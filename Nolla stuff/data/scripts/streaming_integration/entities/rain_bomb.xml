@@ -1,0 +1,15 @@
+<Entity tags="">
+	<InheritTransformComponent />
+	
+	<LifetimeComponent
+		lifetime="80"
+		>
+	</LifetimeComponent>
+	
+	<LuaComponent 
+        _enabled="1" 
+        execute_every_n_frame="10"
+        script_source_file="data/scripts/streaming_integration/scripts/rain_bomb.lua" 
+	>
+    </LuaComponent>
+</Entity>

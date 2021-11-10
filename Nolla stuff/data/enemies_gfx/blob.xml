@@ -1,0 +1,205 @@
+<Sprite 
+  filename="data/enemies_gfx/blob.png" 
+  offset_x="7" 
+  offset_y="13"
+  default_animation="stand" >
+
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="16" 
+    frame_wait="0.16" 
+    frame_width="14" 
+    frames_per_row="8" 
+    name="stand" 
+    pos_x="0" 
+    pos_y="1" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="17" 
+    frame_wait="0.1" 
+    frame_width="15" 
+    frames_per_row="8" 
+    name="walk" 
+    pos_x="0" 
+    pos_y="18" 
+    shrink_by_one_pixel="1" >
+
+    <Event 
+      check_physics_material="1" 
+      frame="2" 
+      max_distance="500" 
+      name="step" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+    <Event 
+      check_physics_material="1" 
+      frame="5" 
+      max_distance="500" 
+      name="step" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="17" 
+    frame_wait="0.1" 
+    frame_width="15" 
+    frames_per_row="8" 
+    name="run" 
+    pos_x="0" 
+    pos_y="18" 
+    shrink_by_one_pixel="1" >
+
+    <Event 
+      check_physics_material="1" 
+      frame="2" 
+      max_distance="500" 
+      name="step" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+    <Event 
+      check_physics_material="1" 
+      frame="5" 
+      max_distance="500" 
+      name="step" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="17" 
+    frame_wait="0.1" 
+    frame_width="15" 
+    frames_per_row="8" 
+    name="burn" 
+    pos_x="0" 
+    pos_y="18" 
+    shrink_by_one_pixel="1" >
+
+    <Event 
+      check_physics_material="1" 
+      frame="2" 
+      max_distance="500" 
+      name="step" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+    <Event 
+      check_physics_material="1" 
+      frame="5" 
+      max_distance="500" 
+      name="step" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="3" 
+    frame_height="17" 
+    frame_wait="0.082" 
+    frame_width="15" 
+    frames_per_row="8" 
+    loop="0" 
+    name="jump_up" 
+    pos_x="0" 
+    pos_y="35" 
+    shrink_by_one_pixel="1" >
+
+    <Event 
+      check_physics_material="1" 
+      frame="0" 
+      max_distance="500" 
+      name="jump" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="2" 
+    frame_height="17" 
+    frame_wait="0.082" 
+    frame_width="15" 
+    frames_per_row="8" 
+    loop="0" 
+    name="jump_fall" 
+    pos_x="0" 
+    pos_y="52" 
+    shrink_by_one_pixel="1" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="17" 
+    frame_wait="0.074" 
+    frame_width="15" 
+    frames_per_row="8" 
+    loop="0" 
+    name="land" 
+    pos_x="0" 
+    pos_y="69" 
+    shrink_by_one_pixel="1" >
+
+    <Event 
+      check_physics_material="1" 
+      frame="0" 
+      max_distance="500" 
+      name="land" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="5" 
+    frame_height="17" 
+    frame_wait="0.08" 
+    frame_width="21" 
+    frames_per_row="8" 
+    loop="0" 
+    name="attack" 
+    pos_x="0" 
+    pos_y="86" 
+    shrink_by_one_pixel="1" >
+
+    <Event 
+      check_physics_material="0" 
+      frame="3" 
+      max_distance="500" 
+      name="bite" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+  </RectAnimation>
+
+</Sprite>
+

@@ -1,0 +1,19 @@
+<Sprite
+ filename="data/projectiles_gfx/orb_expanding_glow.png"
+ offset_x="15"
+ offset_y="15"
+ default_animation="fireball" >
+
+ <!-- animation -->
+ <RectAnimation
+  name="fireball"
+  pos_x="0"
+  pos_y="0"
+  frame_count="12"
+  frame_width="30"
+  frame_height="30"
+  frame_wait="0.12"
+  frames_per_row="12"
+  loop="0"   >
+ </RectAnimation>
+</Sprite>

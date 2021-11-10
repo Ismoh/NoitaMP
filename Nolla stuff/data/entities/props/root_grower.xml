@@ -1,0 +1,120 @@
+<Entity tags="mortal,hittable,teleportable_NOT,destruction_target,root,glue_NOT">
+	<HitboxComponent
+		aabb_min_x="-3"
+		aabb_max_x="3"
+		aabb_min_y="-3"
+		aabb_max_y="3"
+		>
+	</HitboxComponent>
+
+	<DamageModelComponent
+		air_needed="0" 
+		falling_damages="0"
+		fire_damage_amount="0.5" 
+		fire_probability_of_ignition="0.5" 
+		hp="1" 
+		materials_damage="1" 
+		materials_that_damage="acid,lava" 
+		materials_how_much_damage="0.004,0.004"
+		blood_material="grass"
+		blood_multiplier="2"
+		physics_objects_damage="0"
+		create_ragdoll="0"
+		ui_report_damage="0"
+		>
+	</DamageModelComponent>
+
+	<!-- used to store growth direction -->
+	<VelocityComponent
+		updates_velocity="0"
+		gravity_y="0"
+		>
+	</VelocityComponent>
+
+	<ParticleEmitterComponent 
+		_tags="grow"
+		_enabled="0"
+		emitted_material_name="root_growth"
+		offset.x="0"
+		offset.y="0"
+		x_pos_offset_min="-2"
+		x_pos_offset_max="2"
+		y_pos_offset_min="-2"
+		y_pos_offset_max="2"
+		x_vel_min="-0"
+		x_vel_max="0"
+		y_vel_min="0"
+		y_vel_max="0"
+		count_min="6"
+		count_max="6"
+		lifetime_min="0.1"
+		lifetime_max="0.3"
+		create_real_particles="1"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		is_emitting="1"
+		friction="0"
+		render_on_grid="1"
+		attractor_force="0"
+		>
+	</ParticleEmitterComponent>
+
+	<CollisionTriggerComponent
+		width="150"
+		height="150"
+		radius="150"
+		required_tag="player_unit"
+		remove_component_when_triggered="1"
+		destroy_this_entity_when_triggered="0"
+		>
+	</CollisionTriggerComponent>
+
+	<!-- controls the growth movement -->
+	<LuaComponent 
+		_tags="grow"
+		_enabled="0"
+		script_source_file="data/scripts/props/root_grower_spread.lua"
+		execute_every_n_frame="5"
+		>
+	</LuaComponent>
+
+	<!-- the main root has a random chance to spawn root_grower_branch.xml for branching -->
+	<LuaComponent 
+		_tags="grow"
+		_enabled="0"
+		script_source_file="data/scripts/props/root_grower_split.lua"
+		execute_every_n_frame="16"
+		>
+	</LuaComponent>
+
+	<!-- this runs when growth ends -->
+	<LuaComponent 
+		script_source_file="data/scripts/props/root_grower_fruit.lua"
+		execute_on_removed="1"
+		execute_every_n_frame="-1"
+		>
+	</LuaComponent>
+
+	<!-- this starts growth (by enabling components tagged "grow") when player is nearby or the entity is damaged -->
+	<LuaComponent
+		script_collision_trigger_hit="data/scripts/props/root_grower_start.lua"
+		script_damage_received="data/scripts/props/root_grower_start.lua"
+		execute_on_removed="0"
+		execute_every_n_frame="-1"
+		remove_after_executed="1"
+		>
+	</LuaComponent>
+
+	<LifetimeComponent
+		_tags="grow"
+		_enabled="0"
+		lifetime="250" >
+	</LifetimeComponent>
+
+	<AudioLoopComponent
+		_tags="grow"
+		file="data/audio/Desktop/misc.bank"
+		event_name="misc/root_grow"
+		auto_play="1"
+	></AudioLoopComponent>
+</Entity>

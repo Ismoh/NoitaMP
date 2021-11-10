@@ -1,0 +1,37 @@
+<Entity tags="mortal" >
+	<InheritTransformComponent>
+	</InheritTransformComponent>
+
+	<PhysicsImageShapeComponent
+	  centered="1" 
+	  image_file="data/props_gfx/logo_1.png"
+	  material="wood_loose" >
+	</PhysicsImageShapeComponent>
+
+	<PhysicsBodyComponent 
+	  allow_sleep="1" 
+	  angular_damping="0.01" 
+	  gridworld_box2d="0" 
+	  linear_damping="0.1"
+	  force_add_update_areas="1"
+	  randomize_init_velocity="1"
+	  fixed_rotation="0"
+	  is_bullet="0"
+	>
+	</PhysicsBodyComponent>
+
+  <PhysicsJointComponent 
+    nail_to_wall="1" 
+    pos_x="85"
+    pos_y="64.5"
+    grid_joint="1"
+    mMotorEnabled="1"
+    mMotorSpeed="30"
+    mMaxMotorTorque="-20" >
+  </PhysicsJointComponent>
+  
+  <CameraBoundComponent
+	  max_count="100"
+	  distance="1000">
+	</CameraBoundComponent>
+</Entity>

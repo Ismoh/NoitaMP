@@ -1,0 +1,9 @@
+data/ragdolls/lasershooter/torso.png
+data/ragdolls/lasershooter/tentacle_1_a.png
+data/ragdolls/lasershooter/tentacle_1_b.png
+data/ragdolls/lasershooter/tentacle_2_a.png
+data/ragdolls/lasershooter/tentacle_2_b.png
+data/ragdolls/lasershooter/tentacle_3_a.png
+data/ragdolls/lasershooter/tentacle_3_b.png
+data/ragdolls/lasershooter/tentacle_4_a.png
+data/ragdolls/lasershooter/tentacle_4_b.png

@@ -1,0 +1,203 @@
+<Entity name="$projectile_default" tags="projectile_player" >
+  
+	<Base file="data/entities/base_projectile.xml" >
+		<VelocityComponent
+			mass="0.065"
+			>
+		</VelocityComponent>
+	</Base>
+
+  <ProjectileComponent 
+    _enabled="1" 
+    lob_min="0.9"
+    lob_max="1.0"
+    speed_min="250"
+    speed_max="280"
+    friction="0.6"
+    direction_random_rad="0.05"
+    on_death_explode="1"
+    on_death_gfx_leave_sprite="0" 
+    on_lifetime_out_explode="1"
+    explosion_dont_damage_shooter="0" 
+    on_collision_die="1"
+    lifetime="500"
+    damage="1.3"
+    velocity_sets_scale="1"
+    lifetime_randomness="7"
+    ragdoll_force_multiplier="0.04"
+    hit_particle_force_multiplier="5.5 "
+    camera_shake_when_shot="5.0"
+	velocity_sets_rotation="1"
+    bounces_left="4"
+	muzzle_flash_file="data/entities/particles/muzzle_flashes/muzzle_flash_launcher.xml"
+    shoot_light_flash_radius="120"
+	shoot_light_flash_r="255"
+    shoot_light_flash_g="165"
+    shoot_light_flash_b="40"
+	knockback_force="1.0"
+	physics_impulse_coeff="3000"
+	>
+	<damage_by_type
+		fire="0.5"
+		>
+	</damage_by_type>
+    <config_explosion
+      never_cache="0" 
+      camera_shake="10" 
+      explosion_radius="7"
+      explosion_sprite="data/particles/explosion_016.xml" 
+	  load_this_entity="data/entities/particles/particle_explosion/main_gunpowder_tiny.xml"
+      explosion_sprite_lifetime="0" 
+      create_cell_probability="30" 
+      hole_destroy_liquid="0"
+	  explosion_sprite_additive="1"
+      hole_enabled="1" 
+      ray_energy="350000"
+      damage="1.9"
+      particle_effect="0"
+      damage_mortals="1"
+	  physics_explosion_power.min="0.3" 
+      physics_explosion_power.max="0.6"
+	  physics_throw_enabled="1"
+      shake_vegetation="1" 
+      sparks_count_min="4" 
+      sparks_count_max="10" 
+      sparks_enabled="1" 
+      stains_enabled="1"
+      stains_radius="12"
+      audio_event_name="explosions/magic_grenade_tiny" >
+    </config_explosion>
+  </ProjectileComponent>
+  
+  <SpriteComponent 
+    _enabled="1" 
+    alpha="1" 
+    image_file="data/projectiles_gfx/grenade.xml" 
+    next_rect_animation="" 
+    offset_x="4" 
+    offset_y="4" 
+    rect_animation="" 
+	additive="1"
+     >
+  </SpriteComponent>
+  
+  <ParticleEmitterComponent 
+    emitted_material_name="smoke"
+    offset.x="0"
+    offset.y="0"
+    x_pos_offset_min="-1"
+    y_pos_offset_min="-1"
+    x_pos_offset_max="1"
+    y_pos_offset_max="1"
+    x_vel_min="-2"
+    x_vel_max="2"
+    y_vel_min="-5"
+    y_vel_max="0"
+    count_min="1"
+    count_max="1"
+    lifetime_min="0.1"
+    lifetime_max="0.4"
+    create_real_particles="1"
+    emit_cosmetic_particles="0"
+    emission_interval_min_frames="1"
+    emission_interval_max_frames="3"
+    is_emitting="1" 
+	>
+  </ParticleEmitterComponent>
+  
+  <ParticleEmitterComponent 
+    emitted_material_name="fire"
+    offset.x="0"
+    offset.y="0"
+    x_pos_offset_min="-1"
+    y_pos_offset_min="-1"
+    x_pos_offset_max="1"
+    y_pos_offset_max="1"
+    x_vel_min="-2"
+    x_vel_max="2"
+    y_vel_min="-5"
+    y_vel_max="0"
+    count_min="1"
+    count_max="1"
+    lifetime_min="0.1"
+    lifetime_max="0.4"
+    create_real_particles="1"
+    emit_cosmetic_particles="0"
+    emission_interval_min_frames="1"
+    emission_interval_max_frames="3"
+    is_emitting="1" >
+  </ParticleEmitterComponent>
+  
+  <ParticleEmitterComponent 
+    emitted_material_name="spark"
+    offset.x="0"
+    offset.y="0"
+    x_pos_offset_min="-1"
+    y_pos_offset_min="-1"
+    x_pos_offset_max="1"
+    y_pos_offset_max="1"
+    x_vel_min="-20"
+    x_vel_max="20"
+    y_vel_min="-20"
+    y_vel_max="20"
+    count_min="1"
+    count_max="1"
+    lifetime_min="0.1"
+    lifetime_max="0.3"
+    create_real_particles="0"
+    emit_cosmetic_particles="1"
+    emission_interval_min_frames="1"
+    emission_interval_max_frames="1"
+	gravity.y="300"
+    is_emitting="1" >
+  </ParticleEmitterComponent>
+
+  <AudioComponent
+      file="data/audio/Desktop/projectiles.bank"
+      event_root="player_projectiles/bullet_launcher">
+  </AudioComponent>
+  
+  <LightComponent 
+    _enabled="1" 
+    radius="60" 
+	r="120"
+	g="80"
+	b="10">
+  </LightComponent>
+  
+  <ParticleEmitterComponent 
+    emitted_material_name="spark"
+    offset.x="0"
+    offset.y="0"
+    count_min="1"
+    count_max="8"
+    gravity.y="-10"
+    lifetime_min="0.5"
+    lifetime_max="0.8"
+    airflow_force="1.2"
+    airflow_time="0.1"
+    airflow_scale="0.03"
+    is_trail="1"
+    trail_gap="0.5"
+    render_on_grid="1"
+    fade_based_on_lifetime="1"
+    create_real_particles="0"
+    emit_cosmetic_particles="1"
+    emission_interval_min_frames="1"
+    emission_interval_max_frames="1"
+	x_pos_offset_min="-1"
+    y_pos_offset_min="-1"
+    x_pos_offset_max="1"
+    y_pos_offset_max="1"
+    is_emitting="1"
+	>
+  </ParticleEmitterComponent>
+  
+	<VariableStorageComponent
+		name="projectile_file"
+		value_string="data/entities/projectiles/deck/grenade.xml"
+		>
+	</VariableStorageComponent>
+  
+</Entity>
+

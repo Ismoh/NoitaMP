@@ -1,0 +1,169 @@
+<Entity  name="$animal_drone_shield">
+  
+	<Base file="data/entities/base_enemy_robot.xml" >
+		<AnimalAIComponent 
+			_enabled="1" 
+			preferred_job="JobDefault"
+			escape_if_damaged_probability="60"
+			attack_if_damaged_probability="0"
+			creature_detection_range_x="250"
+			creature_detection_range_y="250"
+    		attack_ranged_min_distance="0" 
+    		attack_ranged_max_distance="100"
+			tries_to_ranged_attack_friends="1"
+			food_material="blood"
+			needs_food="0"
+			sense_creatures="1"
+			attack_ranged_enabled="1"
+			attack_melee_enabled="1"
+			can_fly="1"  
+			can_walk="0"
+			attack_ranged_entity_file="data/entities/projectiles/shieldshot.xml"
+			attack_ranged_frames_between="40" >
+		</AnimalAIComponent>
+		
+		<DamageModelComponent 
+            hp="8.4"
+			ragdoll_filenames_file="data/ragdolls/drone_shield/filenames.txt" 
+			fire_probability_of_ignition="0"
+			minimum_knockback_force="100000"
+			>
+			<damage_multipliers
+				fire="0.0" 
+				drill="0.1"
+				slice="0.1"
+				melee="0.3"
+				projectile="0.3"
+				radioactive="0.0"
+				explosion="0.3"
+				electricity="1.0" >
+			</damage_multipliers>
+		</DamageModelComponent>
+
+		<SpriteComponent 
+			image_file="data/enemies_gfx/drone_shield.xml"
+			has_special_scale="1"
+			special_scale_x="1"
+			offset_x="0"
+			offset_y="0"
+			>
+		</SpriteComponent>
+
+		<PathFindingComponent
+			can_walk="0"
+			can_fly="1" >
+		</PathFindingComponent>
+
+		<PathFindingGridMarkerComponent
+			marker_work_flag="16" >
+		</PathFindingGridMarkerComponent>
+		
+		<GenomeDataComponent 
+			herd_id="robot"
+			food_chain_rank="5"
+			is_predator="1" >
+		</GenomeDataComponent>
+		
+		<CharacterPlatformingComponent 
+			jump_velocity_y="-10" 
+			run_velocity="10"  
+			fly_speed_max_up="60"
+			fly_speed_max_down="60"
+			fly_speed_mult="18"
+			fly_speed_change_spd="1"
+			swim_idle_buoyancy_coeff="0.8"
+			fly_velocity_x="60">
+		</CharacterPlatformingComponent>
+		
+		<HitboxComponent 
+			_enabled="1" 
+			aabb_min_x="-6" 
+			aabb_min_y="-6" 
+			aabb_max_x="6" 
+			aabb_max_y="6" 
+			>
+		</HitboxComponent>
+  
+		<CameraBoundComponent
+			max_count="30"
+			distance="160000">
+		</CameraBoundComponent>
+		
+		<CharacterDataComponent
+			collision_aabb_min_x="-6" 
+			collision_aabb_max_x="6" 
+			collision_aabb_min_y="-5" 
+			collision_aabb_max_y="5" 
+			mass="0.8"
+			>
+		</CharacterDataComponent>
+	</Base>
+
+	<AudioLoopComponent
+		file="data/audio/Desktop/animals.bank"
+		event_name="animals/drone/movement_loop"
+		set_speed_parameter="1"
+		auto_play="1">
+	</AudioLoopComponent>
+	
+	<Entity>
+		<InheritTransformComponent />
+		
+	    <GameEffectComponent 
+	        effect="PROTECTION_FREEZE"
+	        frames="-1"
+	    >
+		</GameEffectComponent >
+	</Entity>
+	
+	<Entity>
+		<Base file="data/entities/misc/drone_shield_1.xml">
+		</Base>
+	</Entity>
+	
+	<Entity>
+		<Base file="data/entities/misc/drone_shield_2.xml">
+		</Base>
+	</Entity>
+	
+	<Entity>
+		<Base file="data/entities/misc/drone_shield_3.xml">
+		</Base>
+	</Entity>
+	
+	<ParticleEmitterComponent 
+		emitted_material_name="spark_purple_bright"
+		gravity.y="0.0"
+		lifetime_min="0.4"
+		lifetime_max="0.7"
+		count_min="20"
+		count_max="30"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		area_circle_radius.min="32"
+		area_circle_radius.max="72"
+		cosmetic_force_create="0"
+		airflow_force="1.5"
+		airflow_time="1.9"
+		airflow_scale="0.15"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		emit_cosmetic_particles="1"
+		draw_as_long="1"
+		x_vel_min="-1"
+		x_vel_max="1"
+		y_vel_min="-1"
+		y_vel_max="1"
+		is_emitting="1" 
+		velocity_always_away_from_center="300"
+		>
+	</ParticleEmitterComponent>
+	
+	<LuaComponent
+		script_source_file="data/scripts/animals/drone_shield_aura.lua"
+		execute_every_n_frame="101"
+		>
+	</LuaComponent>
+
+</Entity>
+

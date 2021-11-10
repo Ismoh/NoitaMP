@@ -1,0 +1,18 @@
+<Entity>
+	<Base file="data/entities/particles/telepathy.xml" >
+		<SpriteParticleEmitterComponent
+			randomize_position_inside_hitbox="1"  >
+		</SpriteParticleEmitterComponent>
+	</Base>
+	
+	<InheritTransformComponent 
+		_enabled="1" >
+    </InheritTransformComponent>	
+    
+    <GameEffectComponent 
+        effect="TELEPATHY"
+        frames="1800"
+    >
+	</GameEffectComponent >
+
+</Entity>

@@ -1,0 +1,175 @@
+<Entity tags="glue_NOT" >
+  
+	<PhysicsAIComponent
+		target_vec_max_len="15.0"
+		force_coeff="20.0"
+		force_balancing_coeff="0.8"
+		force_max="100"
+		torque_coeff="50"
+		torque_balancing_coeff="0.8"
+		torque_max="50.0"
+		damage_deactivation_probability="80"
+		damage_deactivation_time_min="60"
+		damage_deactivation_time_max="120" >
+	</PhysicsAIComponent>
+
+	<PhysicsBodyComponent 
+		allow_sleep="1" 
+		angular_damping="0.02" 
+		fixed_rotation="0" 
+		is_bullet="0" 
+		linear_damping="0" 
+		on_death_leave_physics_body="1" >
+	</PhysicsBodyComponent>
+
+	<PhysicsImageShapeComponent 
+		image_file="data/temp/book_test.png"
+		centered="1"
+		material="aluminium_robot" >
+	</PhysicsImageShapeComponent>
+
+	<MaterialInventoryComponent 
+		_enabled="1" 
+		drop_as_item="0" 
+		on_death_spill="1"
+		leak_pressure_min="0.2"
+		leak_pressure_max="0.4"
+		leak_on_damage_percent="0.999" 
+    	b2_force_on_leak="2" 
+		>
+		<count_per_material_type>
+			<Material material="oil" count="200"  />
+		</count_per_material_type>
+	</MaterialInventoryComponent>
+
+	<ExplodeOnDamageComponent
+		explode_on_death_percent="1"
+		explode_on_damage_percent="0.0"
+		physics_body_modified_death_probability="0.9"
+		physics_body_destruction_required="0.34"
+		>
+		<config_explosion
+			never_cache="0"
+			damage="4"
+			camera_shake="40" 
+			explosion_radius="4" 
+			explosion_sprite="data/particles/explosion_008.xml" 
+			explosion_sprite_lifetime="10" 
+			create_cell_probability="50" 
+			hole_destroy_liquid="0" 
+			hole_enabled="1" 
+			ray_energy="180000"
+			particle_effect="1" 
+			damage_mortals="1"
+			physics_explosion_power.min="0" 
+			physics_explosion_power.max="0.1" 
+			physics_throw_enabled="1"
+			shake_vegetation="1" 
+			sparks_count_min="7" 
+			sparks_count_max="20" 
+			sparks_enabled="1" 
+			stains_enabled="1" 
+			stains_radius="15" >
+		</config_explosion>
+	</ExplodeOnDamageComponent>
+
+	<LightComponent 
+		_enabled="1" 
+		radius="200"
+		r="155"
+		g="20"
+		b="0" >
+	</LightComponent>
+
+	<Base file="data/entities/base_enemy_robot.xml" >
+		
+		<AnimalAIComponent 
+			_enabled="1" 
+			preferred_job="JobDefault"
+			creature_detection_range_x="250"
+			creature_detection_range_y="250"
+    		attack_ranged_min_distance="0" 
+    		attack_ranged_max_distance="100" 
+			food_material="blood"
+			needs_food="0"
+			sense_creatures="1"
+			attack_ranged_enabled="0"
+			attack_melee_enabled="1"
+			attack_ranged_offset_y="-2"
+			can_fly="1"  
+			can_walk="0"
+			attack_ranged_entity_file=""
+			attack_ranged_frames_between="80" >
+		</AnimalAIComponent>
+		
+		<DamageModelComponent 
+            hp="0.4"
+		    ragdoll_filenames_file=""
+			fire_probability_of_ignition="0" 
+		    ragdoll_material="" >
+		</DamageModelComponent>
+
+		<SpriteComponent 
+			image_file="data/enemies_gfx/drone_large_emissive.xml"
+			rect_animation="stand"
+			next_rect_animation="stand"
+			special_scale_x="1"
+			has_special_scale="1"
+		    emissive="1" 
+		    additive="0"  
+			offset_x="0"
+			offset_y="0">
+		</SpriteComponent>
+
+		<PathFindingComponent
+			can_walk="0"
+			can_fly="1" >
+		</PathFindingComponent>
+
+		<PathFindingGridMarkerComponent
+			marker_work_flag="16" >
+		</PathFindingGridMarkerComponent>
+		
+		<GenomeDataComponent 
+			herd_id="robot"
+			food_chain_rank="5"
+			is_predator="1" >
+		</GenomeDataComponent>
+		
+		<CharacterPlatformingComponent 
+			jump_velocity_y="-10" 
+			run_velocity="10"  
+			fly_speed_max_up="60"
+			fly_speed_max_down="60"
+			fly_speed_mult="18"
+			fly_speed_change_spd="1"
+			fly_velocity_x="60">
+		</CharacterPlatformingComponent>
+		
+		<HitboxComponent 
+			_enabled="1" 
+			aabb_min_x="-6" 
+			aabb_max_x="6" 
+			aabb_min_y="-5"
+			aabb_max_y="4" > 
+		</HitboxComponent>
+  
+		<CameraBoundComponent
+			max_count="30"
+			distance="160000">
+		</CameraBoundComponent>
+		
+		<SpriteStainsComponent
+			_enabled="0"
+			>
+		</SpriteStainsComponent>
+	</Base>
+	
+	<LuaComponent
+		execute_every_n_frame="300"
+		script_source_file="data/scripts/animals/book_physics.lua"
+		>
+	</LuaComponent>
+			
+</Entity>
+

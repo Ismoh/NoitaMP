@@ -1,0 +1,150 @@
+<Entity name="$animal_fireskull">
+  
+	<Base file="data/entities/base_enemy_flying.xml" >
+		<ItemChestComponent level="1" > </ItemChestComponent>
+		
+		<AnimalAIComponent
+			attack_ranged_enabled="0"
+			attack_dash_enabled="1"
+			attack_ranged_frames_between="20" 
+			can_fly="1"
+			aggressiveness_min="0"
+			aggressiveness_max="50"
+			needs_food="0"
+			>
+		</AnimalAIComponent>
+
+		<DamageModelComponent
+            hp="1.4"
+
+            materials_that_damage="acid,water,poison,blood_cold,blood_cold_vapour,mud,water_swamp,water_salt,swamp,snow,water_ice" 
+		    materials_how_much_damage="0.004,0.001,0.001,0.0008,0.0007,0.001,0.001,0.001,0.001,0.001,0.001"
+            ragdoll_filenames_file="data/ragdolls/skull/filenames.txt" 
+			ragdoll_material="bone_box2d"
+			blood_material="gunpowder_unstable"
+			blood_spray_material="gunpowder_unstable"
+			fire_probability_of_ignition="0"
+			blood_sprite_directional=""
+			blood_sprite_large=""
+			wet_status_effect_damage="0.3"
+			>
+		</DamageModelComponent>
+
+		<PathFindingComponent
+			can_fly="1" 
+			can_walk="0"
+			>
+		</PathFindingComponent>
+
+		<SpriteComponent 
+			image_file="data/enemies_gfx/fireskull.xml" 
+			offset_x="0"
+			offset_y="0">
+		</SpriteComponent>
+        
+		<GenomeDataComponent 
+			herd_id="fire">
+		</GenomeDataComponent>
+
+		<HitboxComponent 
+			_enabled="1" 
+			aabb_min_x="-4.5" 
+			aabb_max_x="4.5" 
+			aabb_min_y="-7" 
+			aabb_max_y="7" 
+			>
+		</HitboxComponent>
+
+		<CharacterDataComponent 
+			_enabled="1" 
+			climb_over_y="4" 
+			collision_aabb_min_x="-3.0" 
+			collision_aabb_max_x="3.0" 
+			collision_aabb_min_y="-10" 
+			collision_aabb_max_y="10" 
+			mass="0.4"
+			>
+	    </CharacterDataComponent>
+
+		<SpriteStainsComponent
+			_enabled="0"
+			>
+		</SpriteStainsComponent>
+	</Base>
+
+	<LightComponent 
+	    _enabled="1" 
+	    radius="50" 
+		r="255"
+		g="255"
+		b="189">
+  </LightComponent>
+	
+	<ParticleEmitterComponent 
+    emitted_material_name="fire"
+    count_min="4"
+    count_max="14"
+    offset.x="0"
+    offset.y="1"
+    x_pos_offset_min="-6"
+    y_pos_offset_min="-10"
+    x_pos_offset_max="6"
+    y_pos_offset_max="4"
+    x_vel_min="-10"
+    x_vel_max="10"
+    y_vel_min="-10"
+    y_vel_max="10"
+    count_min="5"
+    count_max="5"
+    lifetime_min="0.4"
+    lifetime_max="1.0"
+    create_real_particles="1"
+    emit_cosmetic_particles="0"
+    emission_interval_min_frames="2"
+    emission_interval_max_frames="3"
+    is_emitting="1" >
+  </ParticleEmitterComponent>
+  
+  <ParticleEmitterComponent 
+    emitted_material_name="fire"
+	custom_style="FIRE"
+    count_min="4"
+    count_max="14"
+    offset.x="0"
+    offset.y="1"
+    x_pos_offset_min="-6"
+    y_pos_offset_min="-10"
+    x_pos_offset_max="6"
+    y_pos_offset_max="4"
+    x_vel_min="-10"
+    x_vel_max="10"
+    y_vel_min="-10"
+    y_vel_max="10"
+    count_min="5"
+    count_max="5"
+    lifetime_min="0.4"
+    lifetime_max="1.0"
+    create_real_particles="1"
+    emit_cosmetic_particles="0"
+    emission_interval_min_frames="1"
+    emission_interval_max_frames="2"
+    is_emitting="1" >
+  </ParticleEmitterComponent>
+
+	<MusicEnergyAffectorComponent
+		energy_target="1">
+	</MusicEnergyAffectorComponent>
+
+	<AudioLoopComponent
+		file="data/audio/Desktop/animals.bank"
+		event_name="animals/fireskull/movement_loop"
+		set_speed_parameter="1"
+		auto_play="1">
+	</AudioLoopComponent>
+	
+	<AudioComponent
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals/fireskull" >
+	</AudioComponent>
+
+</Entity>

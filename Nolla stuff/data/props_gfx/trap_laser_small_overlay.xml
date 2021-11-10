@@ -1,0 +1,20 @@
+<Sprite
+ filename="data/props_gfx/trap_laser_small_overlay.png"
+ offset_x="5"
+ offset_y="5" 
+ default_animation="default">
+
+ <!-- stand -->
+ <RectAnimation
+  name="default"
+  pos_x="0"
+  pos_y="0"
+  frame_count="2"
+  frame_width="10"
+  frame_height="10"
+  frame_wait="0.04"
+  frames_per_row="2"
+  loop="1"   >
+ </RectAnimation>
+
+</Sprite>

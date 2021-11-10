@@ -1,0 +1,29 @@
+<Entity >
+  <Base file="data/entities/animals/spearbot.xml">
+    <DamageModelComponent 
+      hp="50"
+      max_hp="50"
+	  minimum_knockback_force="100000"
+     ></DamageModelComponent >
+  </Base>
+  
+  <Entity>
+		<InheritTransformComponent />
+		
+	    <GameEffectComponent 
+	        effect="PROTECTION_FREEZE"
+	        frames="-1"
+	    >
+		</GameEffectComponent >
+	</Entity>
+	
+	<Entity>
+		<InheritTransformComponent />
+		
+	    <GameEffectComponent 
+	        effect="PROTECTION_EXPLOSION"
+	        frames="-1"
+	    >
+		</GameEffectComponent >
+	</Entity>
+</Entity>

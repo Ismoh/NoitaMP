@@ -1,0 +1,25 @@
+<Entity >
+   
+  <!-- 
+  0 doesn't work on the right
+  1 does work 
+  2 does work
+  3 does work
+  4 does work
+ -->
+  <LooseGroundComponent
+    probability="1.0"
+    chunk_probability="1.0"
+    chunk_count="1"
+    chunk_max_angle="0"
+    collapse_images="data/procedural_gfx/collapse_lavabridge/3.png"
+   >
+  </LooseGroundComponent>
+
+  <LifetimeComponent
+  	lifetime="20"
+  	randomize_lifetime.min="-5"
+  	randomize_lifetime.max="5" >
+  </LifetimeComponent>
+  
+</Entity>

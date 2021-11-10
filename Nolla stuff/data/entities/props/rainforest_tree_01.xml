@@ -1,0 +1,17 @@
+<Entity 
+  name="unknown" 
+  tags="vegetation,pixelsprite" >
+  
+  <Base file="data/entities/props/base_coalmine_structure.xml" >
+
+    <PixelSpriteComponent 
+      image_file="data/vegetation/swamp_cropped_01.png" 
+      anchor_x="15" 
+      anchor_y="118"
+    >
+    </PixelSpriteComponent>
+
+  </Base>
+
+</Entity>
+

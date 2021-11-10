@@ -1,0 +1,20 @@
+<Sprite 
+	filename="data/entities/animals/lukki/lukki_feet/lukki_wiggle.png" 
+	offset_x="10" 
+	offset_y="10" 
+	default_animation="stand"
+	>
+	
+  <RectAnimation 
+	name="stand" 
+	pos_x="0" 
+	pos_y="0" 
+	frame_count="4" 
+	frame_width="20" 
+	frame_height="20" 
+	frame_wait="0.08" 
+	frames_per_row="4" 
+	loop="1"  >
+  </RectAnimation>
+  
+</Sprite>

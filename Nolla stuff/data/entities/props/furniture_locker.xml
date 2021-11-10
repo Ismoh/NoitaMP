@@ -1,0 +1,45 @@
+<Entity name="unknown" serialize="1" tags="hittable,teleportable_NOT,prop,prop_physics">
+
+	<PhysicsBody2Component 
+		allow_sleep="1" 
+		angular_damping="0.3"
+		linear_damping="0.1" 
+		init_offset_x="5.5"
+		init_offset_y="25"
+		kill_entity_after_initialized="1"
+	></PhysicsBody2Component>
+
+	<PhysicsImageShapeComponent 
+		is_root="1"
+		body_id="1"
+		centered="0"
+		image_file="data/props_gfx/furniture_locker_frame.png"
+		material="metal_prop_loose"
+	></PhysicsImageShapeComponent>
+	<PhysicsImageShapeComponent 
+		body_id="2"
+		centered="0"
+		image_file="data/props_gfx/furniture_locker_door.png"
+		material="metal_prop_loose"
+		z="-1"
+	></PhysicsImageShapeComponent>
+	
+	<PhysicsJoint2Component 
+		type="REVOLUTE_JOINT"
+		break_force="0.75"
+		body1_id="1"
+		body2_id="2"
+		offset_x="8"
+		offset_y="6.5"
+	></PhysicsJoint2Component>
+	<PhysicsJoint2Component 
+		type="REVOLUTE_JOINT"
+		break_force="0.75"
+		body1_id="1"
+		body2_id="2"
+		offset_x="8"
+		offset_y="18.5"
+	></PhysicsJoint2Component>
+
+  
+</Entity>

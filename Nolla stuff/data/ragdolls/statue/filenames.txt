@@ -1,0 +1,8 @@
+data/ragdolls/statue/torso.png
+data/ragdolls/statue/right_thigh.png
+data/ragdolls/statue/right_arm.png
+data/ragdolls/statue/right_hand.png
+data/ragdolls/statue/left_thigh.png
+data/ragdolls/statue/left_arm.png
+data/ragdolls/statue/left_hand.png
+data/ragdolls/statue/head.png

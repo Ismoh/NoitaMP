@@ -1,0 +1,227 @@
+<Entity tags="shaman" name="$animal_shaman">
+	<Base file="data/entities/base_enemy_basic.xml" >
+		<ItemChestComponent level="1" > </ItemChestComponent>
+
+		<AnimalAIComponent 
+			can_fly="0"
+			preferred_job="JobDefault"
+			escape_if_damaged_probability="35"
+			creature_detection_range_x="250"
+			creature_detection_range_y="250"
+			sense_creatures="1"
+
+			attack_melee_enabled="0"
+
+			attack_ranged_enabled="1"
+			attack_ranged_min_distance="20"
+    		attack_ranged_max_distance="200"
+    		attack_ranged_entity_file="data/entities/projectiles/orb_cursed.xml"
+			attack_ranged_entity_count_min="2"
+    		attack_ranged_entity_count_max="2"
+			attack_ranged_state_duration_frames="90"
+			attack_ranged_frames_between="150"
+			attack_ranged_action_frame="10"
+			attack_ranged_offset_y="-11"
+			attack_ranged_offset_x="8"
+			>
+		</AnimalAIComponent>
+
+		<DamageModelComponent 
+			hp="5"
+			materials_create_messages="1"
+			ragdoll_material="meat"
+			blood_material="water_swamp"
+			blood_spray_material="water_swamp"
+			blood_multiplier="0.3"
+			ragdoll_filenames_file="data/ragdolls/shaman/filenames.txt" 
+			fire_probability_of_ignition="0"
+			physics_objects_damage="1"
+			>
+		</DamageModelComponent>
+
+		<SpriteComponent 
+			image_file="data/enemies_gfx/shaman.xml" 
+			offset_x="0"
+			offset_y="0">
+		</SpriteComponent>
+
+		<PathFindingComponent
+			distance_to_reach_node_x="20"
+			distance_to_reach_node_y="20"
+			can_swim_on_surface="1"
+			can_dive="1"
+			frames_to_get_stuck="30"
+			can_jump="1"
+			jump_speed="80"
+			initial_jump_max_distance_x="40"
+			initial_jump_max_distance_y="20">
+		</PathFindingComponent>
+
+		<GenomeDataComponent 
+			herd_id="mage"
+			food_chain_rank="10" >
+		</GenomeDataComponent>
+		
+		<CharacterDataComponent 
+			buoyancy_check_offset_y="-4" 
+			collision_aabb_min_x="-2.0" 
+			collision_aabb_max_x="2.0" 
+			collision_aabb_min_y="-10" 
+			collision_aabb_max_y="0" 
+			mass="1.0"
+			>
+		</CharacterDataComponent>
+		
+		<CharacterPlatformingComponent 
+			pixel_gravity="600" 
+			jump_velocity_y="-20" 
+			run_velocity="12"
+			run_animation_velocity_switching_enabled="1"
+			run_animation_velocity_switching_threshold="50" >
+		</CharacterPlatformingComponent>
+		
+		<HitboxComponent 
+			_enabled="1" 
+			aabb_min_x="-4.5" 
+			aabb_max_x="4.5" 
+			aabb_min_y="-13" 
+			aabb_max_y="0" 
+			is_enemy="1" 
+			is_item="0" 
+			is_player="0" >
+		</HitboxComponent>
+	</Base>
+
+	<ItemPickUpperComponent
+		is_in_npc="1">
+	</ItemPickUpperComponent>
+
+	<HotspotComponent
+		_tags="hand_hotspot,hand"
+		sprite_hotspot_name="hand"
+		offset.x="9" 
+		offset.y="-10">
+	</HotspotComponent>
+
+	<!-- lantern, attached to hand -->
+	<Entity>
+		<InheritTransformComponent
+			only_position="1"
+			parent_hotspot_tag="hand_hotspot" >
+		</InheritTransformComponent>
+
+		<VelocityComponent></VelocityComponent>
+		
+		<SpriteComponent 
+			image_file="data/enemies_gfx/shaman_lantern.png"
+			offset_x="3.5"
+			offset_y="1" 
+			z_index="-1.1">
+		</SpriteComponent>
+		<SpriteComponent 
+			_enabled="0"
+			image_file="data/props_gfx/lantern_small_flame.xml"
+			alpha="1" 
+			offset_x="4" 
+			offset_y="3"
+			emissive="1"
+			additive="0"
+			next_rect_animation="" 
+			rect_animation="stand" 
+			z_index="-1.2"
+			>
+		</SpriteComponent>
+
+		<VariableStorageComponent
+			name="swing"
+			value_int="0" >
+		</VariableStorageComponent>
+		<LuaComponent
+			script_source_file="data/scripts/animals/shaman_lantern.lua">
+		</LuaComponent>
+
+		<LightComponent 
+			r="30"
+			g="255"
+			b="30"
+			radius="120" >
+		</LightComponent>
+		<ParticleEmitterComponent 
+			emitted_material_name="steam"
+			offset.x="0"
+			offset.y="3"
+			x_pos_offset_min="-1"
+			y_pos_offset_min="-1"
+			x_pos_offset_max="1"
+			y_pos_offset_max="1"
+			x_vel_min="-10"
+			x_vel_max="10"
+			y_vel_min="-10"
+			y_vel_max="10"
+			count_min="4"
+			count_max="10"
+			lifetime_min="0.1"
+			lifetime_max="0.3"
+			create_real_particles="1"
+			emit_cosmetic_particles="0"
+			emission_interval_min_frames="30"
+			emission_interval_max_frames="120"
+			is_emitting="1" >
+		</ParticleEmitterComponent>
+
+		<ParticleEmitterComponent 
+			emitted_material_name="spark_green"
+			offset.x="0"
+			offset.y="3"
+			fade_based_on_lifetime="1"
+			render_on_grid="1"
+			x_pos_offset_min="-1"
+			y_pos_offset_min="-4"
+			x_pos_offset_max="1"
+			y_pos_offset_max="1"
+			airflow_force="0.1"
+			airflow_time="0.2"
+			airflow_scale="0.05"
+			gravity.y="0"
+			count_min="1"
+			count_max="1"
+			is_trail="1"
+			trail_gap="4"
+			lifetime_min="0.3"
+			lifetime_max="8.9"
+			create_real_particles="0"
+			emit_cosmetic_particles="1"
+			emission_interval_min_frames="3"
+			emission_interval_max_frames="3"
+			is_emitting="1" >
+		</ParticleEmitterComponent>
+	</Entity>
+
+	<!-- FX -->
+	<ParticleEmitterComponent 
+		emitted_material_name="water_fading"
+		x_pos_offset_min="-4.5"
+		x_pos_offset_max="4.5"
+		y_pos_offset_min="-13"
+		y_pos_offset_max="-5"
+		x_vel_min="-5"
+		x_vel_max="5"
+		y_vel_min="-5"
+		y_vel_max="-50"
+		count_min="1"
+		count_max="1"
+		lifetime_min="0.1"
+		lifetime_max="0.3"
+		create_real_particles="1"
+		emit_cosmetic_particles="0"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="20"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+
+	<AudioComponent
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals/shaman" >
+	</AudioComponent>
+</Entity>
+

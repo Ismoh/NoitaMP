@@ -1,0 +1,2 @@
+<WeatherConfig b_stars_day_alpha="0" b_stars_dusk_alpha="0.1" b_stars_night_alpha="1" b_stars_random_alpha="0" b_stars_rotation_speed="1" star_alpha_max="0.6" star_alpha_min="0" stars_amount_max="120" stars_amount_min="80" stars_center_pos_x="256" stars_center_pos_y="300" stars_random_seed="4256.22" stars_random_size_x="546.133" stars_random_size_y="512" sun_center_pos_x="256" sun_center_pos_y="290.133" sun_radius_x="-220" sun_radius_y="165.387" >
+</WeatherConfig>

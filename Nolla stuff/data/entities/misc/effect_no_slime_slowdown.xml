@@ -1,0 +1,13 @@
+<Entity>
+
+	<InheritTransformComponent 
+		_enabled="1" >
+    </InheritTransformComponent>	
+    
+    <GameEffectComponent 
+        effect="NO_SLIME_SLOWDOWN"
+        frames="720"
+    >
+	</GameEffectComponent >
+
+</Entity>

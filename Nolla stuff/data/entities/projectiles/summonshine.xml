@@ -1,0 +1,97 @@
+<Entity 
+  name="$projectile_default" 
+   >
+
+  <ProjectileComponent 
+    _enabled="1" 
+	speed_min="100"
+	speed_max="120"
+    die_on_low_velocity="1"
+    on_death_explode="1"
+    on_death_gfx_leave_sprite="0" 
+    on_lifetime_out_explode="1"
+    on_collision_die="1"
+	damage="0"
+    lifetime="150" 
+	on_collision_spawn_entity="1"
+    spawn_entity="data/entities/animals/zombie.xml"
+	>
+    <config_explosion
+        never_cache="1" 
+		damage="0"
+		camera_shake="0" 
+		explosion_radius="9" 
+		explosion_sprite="data/particles/explosion_040_poof.xml" 
+		explosion_sprite_lifetime="0.34" 
+		create_cell_probability="0"  
+		hole_destroy_liquid="0"
+		explosion_sprite_emissive="1"
+		explosion_sprite_additive="1"
+		hole_enabled="1" 
+		hole_image="data/temp/explosion_hole.png" 
+		particle_effect="0" 
+		damage_mortals="1" 
+        
+		physics_explosion_power.min="0"
+		physics_explosion_power.max="0" 
+		physics_throw_enabled="0" 
+		shake_vegetation="1" 
+		sparks_count_max="20" 
+		sparks_count_min="7" 
+		sparks_enabled="0" 
+		stains_enabled="1" 
+		stains_radius="9" >
+    </config_explosion>
+  </ProjectileComponent>
+  
+  <SpriteComponent 
+    _enabled="1" 
+    alpha="1" 
+    image_file="data/projectiles_gfx/shine.xml" 
+    next_rect_animation="" 
+    offset_x="0" 
+    offset_y="0" 
+    rect_animation="" 
+	additive="1"
+	emissive="1"
+     
+     >
+  </SpriteComponent>
+
+  <ParticleEmitterComponent 
+		emitted_material_name="spark_yellow"
+		gravity.y="0.0"
+		lifetime_min="0.5"
+		lifetime_max="1.5"
+		count_min="2"
+		count_max="4"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		area_circle_radius.max="8"
+		cosmetic_force_create="0"
+		airflow_force="0.5"
+		airflow_time="0.01"
+		airflow_scale="0.05"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		emit_cosmetic_particles="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+
+  <VelocityComponent 
+	gravity_y="0"
+	>
+  </VelocityComponent>
+  
+  <AudioComponent
+      file="data/audio/Desktop/projectiles.bank"
+      event_root="player_projectiles/summon_generic">
+  </AudioComponent>
+  
+	<VariableStorageComponent
+		name="projectile_file"
+		value_string="data/entities/projectiles/summonshine.xml"
+		>
+	</VariableStorageComponent>
+</Entity>
+

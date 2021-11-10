@@ -1,0 +1,42 @@
+<Entity 
+  name="$projectile_default" 
+   >
+  <GameAreaEffectComponent
+      radius="28"
+    />
+
+	<Base file="data/entities/projectiles/deck/base_field.xml">
+		<SpriteComponent 
+			image_file="data/projectiles_gfx/blast_telepathy.xml"
+			>
+		</SpriteComponent>
+
+		<SpriteParticleEmitterComponent
+			sprite_file="data/particles/ray.xml" 
+			gravity.y="0"
+			color_change.a="-3"
+			randomize_velocity.min_x="-40"
+			randomize_velocity.max_x="40"
+			randomize_velocity.min_y="-40"
+			randomize_velocity.max_y="40"
+			randomize_rotation.min="0"
+			randomize_rotation.max="0"
+			randomize_angular_velocity.min="0"
+			randomize_angular_velocity.max="0"
+			use_velocity_as_rotation="1"
+			>
+		</SpriteParticleEmitterComponent>
+
+		<ProjectileComponent 
+			damage_game_effect_entities="data/entities/misc/effect_telepathy.xml,"
+			friendly_fire="1"
+			collide_with_shooter_frames="0"
+			>
+			<config_explosion
+				explosion_sprite="data/particles/blast_out_telepathy.xml"
+				>
+			</config_explosion>
+		</ProjectileComponent>
+	</Base>
+</Entity>
+

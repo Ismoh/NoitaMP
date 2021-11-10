@@ -1,0 +1,53 @@
+<Entity tags="energy_shield">
+	
+	<Base file="data/entities/base_custom_card.xml" > 
+		<SpriteComponent 
+			image_file="data/ui_gfx/gun_actions/energy_shield.png" 
+			>
+		</SpriteComponent>
+	</Base>
+	
+	<ItemActionComponent 
+		_tags="enabled_in_world"
+		action_id="ENERGY_SHIELD" >
+	</ItemActionComponent>
+
+    <InheritTransformComponent
+        _tags="enabled_in_hand"
+        use_root_parent="1">
+      <Transform 
+        position.x="0" 
+        position.y="-4" >
+      </Transform>
+    </InheritTransformComponent>
+
+    <EnergyShieldComponent 
+        _tags="enabled_in_hand,item_identified"
+        recharge_speed="0.25" 
+		radius="16.0"
+		>
+    </EnergyShieldComponent>
+
+    <SpriteAnimatorComponent
+        _tags="enabled_in_hand" >
+    </SpriteAnimatorComponent>
+
+    <SpriteComponent 
+        _tags="enabled_in_hand,character,item_identified"
+        image_file="data/particles/energy_shield_016.xml"
+		additive="1"
+		emissive="1"
+		>
+    </SpriteComponent>
+	
+	<LightComponent 
+    	_tags="enabled_in_hand,item_identified"
+        _enabled="1" 
+        radius="80"
+        fade_out_time="1.5" 
+    	r="150"
+    	g="190"
+    	b="230" >
+	</LightComponent>
+
+</Entity>

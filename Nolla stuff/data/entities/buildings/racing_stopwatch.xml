@@ -1,0 +1,11 @@
+<Entity tags="racing_stopwatch">
+	<VariableStorageComponent
+		name="time"
+		value_int="0" >
+	</VariableStorageComponent>
+
+	<LuaComponent
+		script_source_file="data/scripts/buildings/racing_stopwatch.lua"
+		execute_every_n_frame="1"  >
+	</LuaComponent>
+</Entity>

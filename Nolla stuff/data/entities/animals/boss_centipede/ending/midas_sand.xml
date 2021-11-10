@@ -1,0 +1,55 @@
+<Entity>
+	<Entity>
+		<InheritTransformComponent>
+			<Transform 
+				position.x="-96"
+				position.y="-64" 
+				>
+			</Transform>
+		</InheritTransformComponent>
+		
+		<LooseGroundComponent
+			probability="0.4"
+			max_distance="160"
+			min_radius="3"
+			max_radius="12"
+			max_angle="3.1415"
+			chunk_max_angle="1.57"
+			chunk_probability="0.0"
+			collapse_images="data/procedural_gfx/collapse_big/$[0-14].png"
+			_enabled="1"
+			>
+		</LooseGroundComponent>
+	</Entity>
+	
+	<Entity>
+		<InheritTransformComponent>
+			<Transform 
+				position.x="96"
+				position.y="-64" 
+				>
+			</Transform>
+		</InheritTransformComponent>
+		
+		<LooseGroundComponent
+			probability="0.4"
+			max_distance="160"
+			min_radius="3"
+			max_radius="12"
+			max_angle="3.1415"
+			chunk_max_angle="1.57"
+			chunk_probability="0.0"
+			collapse_images="data/procedural_gfx/collapse_big/$[0-14].png"
+			_enabled="1"
+			>
+		</LooseGroundComponent>
+	</Entity>
+	
+	<LifetimeComponent
+		lifetime="160"
+		randomize_lifetime.min="-50"
+		randomize_lifetime.max="50"
+		>
+	</LifetimeComponent>
+</Entity>
+

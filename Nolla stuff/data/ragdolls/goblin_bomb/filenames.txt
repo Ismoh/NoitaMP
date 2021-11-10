@@ -1,0 +1,8 @@
+data/ragdolls/goblin_bomb/torso.png
+data/ragdolls/goblin_bomb/head.png
+data/ragdolls/goblin_bomb/left_arm.png
+data/ragdolls/goblin_bomb/right_arm.png
+data/ragdolls/goblin_bomb/left_leg.png
+data/ragdolls/goblin_bomb/right_leg.png
+data/ragdolls/goblin_bomb/left_foot.png
+data/ragdolls/goblin_bomb/right_foot.png

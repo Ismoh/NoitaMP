@@ -1,0 +1,100 @@
+<Entity>
+
+    <ParticleEmitterComponent 
+        _tags="enabled_in_world,enabled_in_hand,fire"
+        emitted_material_name="smoke"
+        offset.x="0"
+        offset.y="-2"
+        x_pos_offset_min="0"
+        x_pos_offset_max="0"
+        y_pos_offset_min="-1"
+        y_pos_offset_max="1"
+        x_vel_min="-10"
+        x_vel_max="10"
+        y_vel_min="-10"
+        y_vel_max="10"
+        count_min="5"
+        count_max="5"
+        lifetime_min="0.1"
+        lifetime_max="0.3"
+        create_real_particles="1"
+        emit_cosmetic_particles="0"
+        emission_interval_min_frames="60"
+        emission_interval_max_frames="250"
+        is_emitting="1" >
+    </ParticleEmitterComponent>
+
+    <ParticleEmitterComponent 
+        _tags="enabled_in_world,enabled_in_hand,fire"
+        emitted_material_name="spark"
+        custom_style="FIRE"
+        offset.x="0"
+        offset.y="-2"
+        x_pos_offset_min="-2"
+        x_pos_offset_max="-1"
+        y_pos_offset_min="-2"
+        y_pos_offset_max="1"
+        x_vel_min="-2"
+        x_vel_max="2"
+        y_vel_min="-20"
+        y_vel_max="-10"
+        count_min="4"
+        count_max="6"
+        lifetime_min="0.3"
+        lifetime_max="0.4"
+        create_real_particles="1"
+        emit_cosmetic_particles="0"
+        emission_interval_min_frames="1"
+        emission_interval_max_frames="3"
+        is_emitting="1" >
+    </ParticleEmitterComponent>
+  
+    <ParticleEmitterComponent 
+        _tags="enabled_in_world,enabled_in_hand,fire"
+        emitted_material_name="spark"
+        offset.x="0"
+        offset.y="-2"
+        x_pos_offset_min="-1"
+        x_pos_offset_max="0"
+        y_pos_offset_min="-2"
+        y_pos_offset_max="1"
+        x_vel_min="-2"
+        x_vel_max="2"
+        y_vel_min="-20"
+        y_vel_max="-10"
+        count_min="1"
+        count_max="2"
+        lifetime_min="0.3"
+        lifetime_max="0.4"
+        create_real_particles="1"
+        emit_cosmetic_particles="0"
+        emission_interval_min_frames="2"
+        emission_interval_max_frames="6"
+        is_emitting="1" >
+    </ParticleEmitterComponent>
+      
+    <ParticleEmitterComponent 
+        _tags="enabled_in_world,enabled_in_hand,fire"
+        emitted_material_name="fire"
+        offset.x="0"
+        offset.y="-2"
+        x_pos_offset_min="-1"
+        x_pos_offset_max="1"
+        y_pos_offset_min="-1"
+        y_pos_offset_max="1"
+        x_vel_min="-2"
+        x_vel_max="2"
+        y_vel_min="-20"
+        y_vel_max="-10"
+        count_min="1"
+        count_max="2"
+        lifetime_min="0.3"
+        lifetime_max="0.4"
+        create_real_particles="1"
+        emit_cosmetic_particles="0"
+        emission_interval_min_frames="2"
+        emission_interval_max_frames="6"
+        fire_cells_dont_ignite_damagemodel="1" >
+    </ParticleEmitterComponent>
+
+</Entity>

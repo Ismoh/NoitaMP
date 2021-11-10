@@ -1,0 +1,73 @@
+<Entity tags="hittable,monk_hand">
+	<SpriteComponent
+		image_file="data/enemies_gfx/monk_hand.xml"
+		rect_animation="open"
+		z_index="-1">
+	</SpriteComponent>
+
+	<HitboxComponent 
+		aabb_min_x="-2" 
+		aabb_max_x="2" 
+		aabb_min_y="-9" 
+		aabb_max_y="-1" >
+	</HitboxComponent>
+
+	<DamageModelComponent 
+		_enabled="1" 
+		hp="2.6"
+		fire_probability_of_ignition="0" 
+		falling_damages="0" 
+		air_needed="0" 
+		materials_damage="0"
+		ragdoll_filenames_file=""
+		blood_material="spark"
+		blood_multiplier="0"
+		create_ragdoll="0"
+		minimum_knockback_force="0"
+		air_needed="0"
+		>
+		<damage_multipliers
+			projectile="0.0"
+			explosion="0.1"
+			electricity="0.5"
+			fire="0.5" 
+			slice="0.1"
+			ice="0.1"
+			>
+		</damage_multipliers>
+	</DamageModelComponent>
+
+	<LightComponent
+		radius="64"
+		r="168"
+		g="168"
+		b="255"
+	></LightComponent>
+	
+	<!-- movement -->
+	<VariableStorageComponent
+		name="is_right"
+		value_bool="1"
+		>
+	</VariableStorageComponent>
+
+	<LuaComponent
+		script_source_file="data/scripts/animals/monk_hand_move.lua"
+		execute_every_n_frame="1"
+		>
+	</LuaComponent>
+
+	<!-- attacking -->
+	<LuaComponent 
+		script_source_file="data/scripts/animals/monk_hand_shoot.lua"
+		execute_every_n_frame="60"
+		>
+	</LuaComponent>
+	
+	<AudioLoopComponent
+		file="data/audio/Desktop/animals.bank"
+		event_name="animals/monk/hand_hover_loop"
+		set_speed_parameter="1"
+		auto_play="1">
+	</AudioLoopComponent>
+</Entity>

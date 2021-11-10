@@ -1,0 +1,19 @@
+<Entity>
+
+	<InheritTransformComponent>
+	</InheritTransformComponent>
+
+    <VerletPhysicsComponent
+    	stiffness="1.25"
+    	num_points="6"
+		velocity_dampening="0.8"
+    	resting_distance="2.0" >
+    </VerletPhysicsComponent>
+
+	<Base file="data/entities/verlet_chains/slime_tentacle/slime_tentacle_piece.xml" />
+	<Base file="data/entities/verlet_chains/slime_tentacle/slime_tentacle_piece.xml" />
+	<Base file="data/entities/verlet_chains/slime_tentacle/slime_tentacle_piece.xml" />
+	<Base file="data/entities/verlet_chains/slime_tentacle/slime_tentacle_piece_thin.xml" />
+	<Base file="data/entities/verlet_chains/slime_tentacle/slime_tentacle_piece_thin.xml" />
+
+</Entity>

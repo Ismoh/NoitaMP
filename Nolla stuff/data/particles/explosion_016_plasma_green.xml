@@ -1,0 +1,18 @@
+<Sprite 
+  default_animation="explosion" 
+  filename="data/particles/explosion_016_plasma_green.png" 
+  offset_x="8" 
+  offset_y="8" >
+  <RectAnimation 
+    frame_count="9" 
+    frame_height="17" 
+    frame_wait="0.021" 
+    frame_width="17" 
+    frames_per_row="8" 
+    loop="0" 
+    name="explosion" 
+    pos_x="0" 
+    pos_y="1" 
+    shrink_by_one_pixel="1" >
+  </RectAnimation>
+</Sprite>

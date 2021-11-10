@@ -1,0 +1,76 @@
+<Entity>
+
+  <Base file="data/entities/base_item_physics2.xml" >
+    <PhysicsBody2Component
+      kill_entity_after_initialized="0" >
+    </PhysicsBody2Component>
+    <PhysicsImageShapeComponent 
+      image_file="data/props_gfx/bottle_yellow.png"
+      material="plastic_prop" >
+    </PhysicsImageShapeComponent>
+  </Base>
+	
+  <MaterialInventoryComponent 
+    _enabled="1" 
+    drop_as_item="0" 
+    on_death_spill="1"
+    leak_on_damage_percent="0.999" 
+    >
+    <count_per_material_type>
+      <Material material="gold_molten" count="100"  />
+	  </count_per_material_type>
+  </MaterialInventoryComponent>
+
+  <DamageModelComponent 
+    air_needed="0" 
+    blood_material="gold_molten" 
+    drop_items_on_death="0" 
+    falling_damage_damage_max="1.2" 
+    falling_damage_damage_min="0.1" 
+    falling_damage_height_max="250" 
+    falling_damage_height_min="70" 
+    falling_damages="1" 
+    fire_damage_amount="0.2" 
+    fire_probability_of_ignition="50" 
+	critical_damage_resistance="1"
+    hp="0.1" 
+    is_on_fire="0" 
+    materials_create_messages="0" 
+    materials_damage="0" 
+    ragdoll_filenames_file="" 
+    ragdoll_material="" 
+	ui_report_damage="0"
+	>
+  </DamageModelComponent>
+  
+  <ExplodeOnDamageComponent
+  	explode_on_death_percent="1"
+  	explode_on_damage_percent="0.8"
+    physics_body_modified_death_probability="0.1"
+  	>
+    <config_explosion
+      never_cache="0"
+      damage="1"
+      camera_shake="12" 
+      explosion_radius="5" 
+      explosion_sprite="data/particles/explosion_032.xml" 
+      explosion_sprite_lifetime="10" 
+      create_cell_probability="0" 
+	  create_cell_material="fire"
+      hole_destroy_liquid="0" 
+      hole_enabled="1" 
+      ray_energy="180000"
+      particle_effect="1" 
+      damage_mortals="1" 
+      physics_explosion_power.min="0.32"
+      physics_explosion_power.max="0.44"
+	  physics_throw_enabled="1"
+      shake_vegetation="1"  
+      sparks_count_min="0" 
+	  sparks_count_max="0"
+      sparks_enabled="0" 
+      stains_enabled="1" 
+      stains_radius="15" >
+    </config_explosion>
+  </ExplodeOnDamageComponent>
+</Entity>

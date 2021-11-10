@@ -1,0 +1,23 @@
+<Sprite 
+	filename="data/items_gfx/material_backbag.png" 
+	offset_x="4.5" 
+	offset_y="5.5" 
+	>
+	
+  <!-- handgun -->
+  <RectAnimation 
+	name="default" 
+	pos_x="0" 
+	pos_y="0" 
+	offset_x="4.5" 
+	offset_y="6" 
+	has_offset="1"
+	frame_count="1" 
+	frame_width="9" 
+	frame_height="11" 
+	frame_wait="0.2" 
+	frames_per_row="10" 
+	loop="0"  >
+  </RectAnimation>
+  
+</Sprite>

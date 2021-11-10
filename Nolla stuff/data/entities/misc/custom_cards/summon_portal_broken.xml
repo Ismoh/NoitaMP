@@ -1,0 +1,13 @@
+<Entity tags="forgeable,card_summon_portal_broken">
+    <Base file="data/entities/base_custom_card.xml" > 
+        <SpriteComponent 
+            image_file="data/ui_gfx/gun_actions/broken_spell.png" 
+            >
+        </SpriteComponent>
+        
+        <ItemActionComponent 
+            _tags="enabled_in_world"
+            action_id="SUMMON_PORTAL_BROKEN" >
+        </ItemActionComponent>
+    </Base>
+</Entity>

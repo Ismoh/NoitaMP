@@ -1,0 +1,51 @@
+<Entity>
+	
+	<Base file="data/entities/base_custom_card.xml" > 
+		<SpriteComponent 
+			image_file="data/ui_gfx/gun_actions/tiny_ghost.png" >
+		</SpriteComponent>
+		
+		<ItemActionComponent 
+			_tags="enabled_in_world"
+			action_id="TINY_GHOST" >
+		</ItemActionComponent>
+	</Base>
+	
+	<!-- ghost functionality and visuals -->		
+	<SpriteComponent 
+		_tags="enabled_in_hand"
+		image_file="data/projectiles_gfx/tiny_ghost.xml"
+		>
+	</SpriteComponent>
+	<LuaComponent 
+		_tags="enabled_in_hand"
+		script_source_file="data/scripts/animals/tiny_ghost_shoot.lua"
+		execute_every_n_frame="25"
+		>
+	</LuaComponent>
+	<LuaComponent 
+		_tags="enabled_in_hand"
+		script_source_file="data/scripts/animals/tiny_ghost_move.lua"
+		execute_every_n_frame="1"
+		>
+	</LuaComponent>
+	<LuaComponent 
+		_tags="enabled_in_hand"
+		script_enabled_changed="data/scripts/animals/tiny_ghost_enabled_changed.lua"
+		execute_every_n_frame="-1"
+		>
+	</LuaComponent>
+	
+	<AudioComponent
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals/tiny_ghost" >
+	</AudioComponent>
+
+	<AudioLoopComponent
+		file="data/audio/Desktop/animals.bank"
+		event_name="animals/tiny_ghost/movement_loop"
+		set_speed_parameter="1"
+		auto_play="1">
+	</AudioLoopComponent>
+
+</Entity>

@@ -1,0 +1,20 @@
+<Entity tags="sunrock" >
+  <PhysicsBody2Component 
+    allow_sleep="1" 
+    angular_damping="0" 
+    fixed_rotation="0" 
+    is_bullet="0" 
+    linear_damping="0"
+    auto_clean="0" 
+	hax_fix_going_through_ground="1"
+	>
+  </PhysicsBody2Component>
+  
+  <PhysicsImageShapeComponent 
+    body_id="1"
+    centered="1"
+    is_root="1"
+    image_file="data/items_gfx/normals_orb_40_noise.png"
+    material="gem_box2d_yellow_sun_gravity" >
+  </PhysicsImageShapeComponent>
+</Entity>

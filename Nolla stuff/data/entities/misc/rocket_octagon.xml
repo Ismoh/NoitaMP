@@ -1,0 +1,9 @@
+<Entity >
+   
+	<LuaComponent
+		script_source_file="data/scripts/projectiles/rocket_octagon.lua"
+		execute_every_n_frame="3"
+		>
+	</LuaComponent>
+  
+</Entity>

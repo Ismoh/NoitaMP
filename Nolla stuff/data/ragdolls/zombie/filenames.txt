@@ -1,0 +1,12 @@
+data/ragdolls/zombie/upper_torso.png
+data/ragdolls/zombie/lower_torso.png
+data/ragdolls/zombie/right_thigh.png
+data/ragdolls/zombie/right_foot.png
+data/ragdolls/zombie/right_arm.png
+data/ragdolls/zombie/right_hand.png
+data/ragdolls/zombie/left_thigh.png
+data/ragdolls/zombie/left_foot.png
+data/ragdolls/zombie/left_arm.png
+data/ragdolls/zombie/left_hand.png
+data/ragdolls/zombie/head.png
+data/ragdolls/zombie/tail.png

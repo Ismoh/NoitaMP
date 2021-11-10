@@ -1,0 +1,20 @@
+<Entity tags="tablet,forgeable,normal_tablet">
+	<!-- orb room behind the lavalake -->
+	<Base file="data/entities/items/books/base_book.xml">
+		<UIInfoComponent
+			name="$booktitle04"
+			>
+		</UIInfoComponent>
+		
+		<ItemComponent
+			item_name="$booktitle04"
+			ui_description="$bookdesc04"
+			>
+		</ItemComponent>
+		
+		<AbilityComponent
+			ui_name="$booktitle04"
+			>
+		</AbilityComponent>
+	</Base>
+</Entity>

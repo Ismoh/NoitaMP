@@ -1,0 +1,4 @@
+data/ragdolls/frog/torso.png
+data/ragdolls/frog/tail.png
+data/ragdolls/frog/left_foot.png
+data/ragdolls/frog/right_foot.png

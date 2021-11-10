@@ -1,0 +1,73 @@
+<Entity name="unknown" serialize="1" tags="hittable,teleportable_NOT,prop,prop_physics">
+
+	<PhysicsBody2Component 
+		allow_sleep="1" 
+		angular_damping="0.3"
+		linear_damping="0.1" 
+		init_offset_x="12"
+		init_offset_y="12"
+		kill_entity_after_initialized="1"
+	></PhysicsBody2Component>
+
+	<PhysicsImageShapeComponent 
+		is_root="1"
+		body_id="1"
+		centered="0"
+		image_file="data/props_gfx/furniture_table_top.png"
+		material="metal_prop"
+		z="-1"
+	></PhysicsImageShapeComponent>
+	<PhysicsImageShapeComponent 
+		body_id="4"
+		centered="0"
+		image_file="data/props_gfx/furniture_table_middle.png"
+		material="metal_prop"
+		z="-1"
+	></PhysicsImageShapeComponent>
+	<PhysicsImageShapeComponent 
+		body_id="2"
+		centered="0"
+		image_file="data/props_gfx/furniture_table_leg_l.png"
+		material="metal_prop"
+	></PhysicsImageShapeComponent>
+	<PhysicsImageShapeComponent 
+		body_id="3"
+		centered="0"
+		image_file="data/props_gfx/furniture_table_leg_r.png"
+		material="metal_prop"
+	></PhysicsImageShapeComponent>
+
+	<PhysicsJoint2Component 
+		type="REVOLUTE_JOINT"
+		break_force="1.2"
+		body1_id="1"
+		body2_id="2"
+		offset_x="3"
+		offset_y="3"
+	></PhysicsJoint2Component>
+	<PhysicsJoint2Component 
+		type="REVOLUTE_JOINT"
+		break_force="1.2"
+		body1_id="1"
+		body2_id="3"
+		offset_x="20"
+		offset_y="3"
+	></PhysicsJoint2Component>
+	<PhysicsJoint2Component 
+		type="WELD_JOINT"
+		break_force="1"
+		body1_id="2"
+		body2_id="4"
+		offset_x="4"
+		offset_y="5"
+	></PhysicsJoint2Component>
+	<PhysicsJoint2Component 
+		type="WELD_JOINT"
+		break_force="1"
+		body1_id="3"
+		body2_id="4"
+		offset_x="19"
+		offset_y="5"
+	></PhysicsJoint2Component>
+  
+</Entity>

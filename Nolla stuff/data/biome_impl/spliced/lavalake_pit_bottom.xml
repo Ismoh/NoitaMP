@@ -1,0 +1,10 @@
+<PixelScenes>
+  <mBufferedPixelScenes>
+    <PixelScene background_filename="data/biome_impl/spliced/lavalake_pit_bottom/0_background.png" colors_filename="" material_filename="data/biome_impl/spliced/lavalake_pit_bottom/0.plz" pos_x="2560" pos_y="3072" skip_biome_checks="1" >
+    </PixelScene>
+    <PixelScene background_filename="data/biome_impl/spliced/lavalake_pit_bottom/1_background.png" colors_filename="" material_filename="data/biome_impl/spliced/lavalake_pit_bottom/1.plz" pos_x="3072" pos_y="3072" skip_biome_checks="1" >
+    </PixelScene>
+    <PixelScene background_filename="data/biome_impl/spliced/lavalake_pit_bottom/2_background.png" colors_filename="" material_filename="data/biome_impl/spliced/lavalake_pit_bottom/2.plz" pos_x="3584" pos_y="3072" skip_biome_checks="1" >
+    </PixelScene>
+  </mBufferedPixelScenes>
+</PixelScenes>

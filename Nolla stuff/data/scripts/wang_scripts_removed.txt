@@ -1,0 +1,3 @@
+ff80C832 spawn_persistent_teleport
+ffffabab spawn_chest
+ffff40ab spawn_blood

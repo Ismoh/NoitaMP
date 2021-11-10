@@ -1,0 +1,9 @@
+data/ragdolls/giant/body.png
+data/ragdolls/giant/limb1.png
+data/ragdolls/giant/limb2.png
+data/ragdolls/giant/limb3.png
+data/ragdolls/giant/limb4.png
+data/ragdolls/giant/limb5.png
+data/ragdolls/giant/limb6.png
+data/ragdolls/giant/limb7.png
+data/ragdolls/giant/limb8.png

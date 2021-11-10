@@ -1,0 +1,17 @@
+<Entity>
+	<MaterialAreaCheckerComponent
+		area_aabb.min_x="-4" 
+		area_aabb.max_x="4" 
+		area_aabb.min_y="4"   
+		area_aabb.max_y="5" 
+		update_every_x_frame="1"
+		material="water"
+		material2="water_ice"
+		look_for_failure="0"
+		kill_after_message="1">
+	</MaterialAreaCheckerComponent>
+
+	<LuaComponent
+		script_material_area_checker_success="data/scripts/buildings/receptacle_water.lua" >
+	</LuaComponent>
+</Entity>

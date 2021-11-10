@@ -1,0 +1,10 @@
+data/ragdolls/scavenger_clusterbomb/torso_upper.png
+data/ragdolls/scavenger_clusterbomb/torso_lower.png
+data/ragdolls/scavenger_clusterbomb/left_thigh.png
+data/ragdolls/scavenger_clusterbomb/right_thigh.png
+data/ragdolls/scavenger_clusterbomb/head.png
+data/ragdolls/scavenger_clusterbomb/gun.png
+data/ragdolls/scavenger_clusterbomb/left_foot.png
+data/ragdolls/scavenger_clusterbomb/right_foot.png
+data/ragdolls/scavenger_clusterbomb/arm.png
+data/ragdolls/scavenger_clusterbomb/hand.png

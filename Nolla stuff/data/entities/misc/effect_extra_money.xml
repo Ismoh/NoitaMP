@@ -1,0 +1,11 @@
+<Entity>
+	<InheritTransformComponent>
+    </InheritTransformComponent>	
+    
+    <GameEffectComponent 
+    	effect="EXTRA_MONEY"
+    	frames="600"
+    >
+	</GameEffectComponent >
+	
+</Entity>

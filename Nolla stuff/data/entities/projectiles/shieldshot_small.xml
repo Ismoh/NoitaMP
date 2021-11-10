@@ -1,0 +1,104 @@
+<Entity name="$projectile_default">
+
+	<Base file="data/entities/base_projectile.xml" >
+		<VelocityComponent
+			gravity_y="0" 
+			mass="0.04"
+			>
+		</VelocityComponent>
+	</Base>
+
+  <ProjectileComponent 
+    _enabled="1" 
+    lob_min="0.8"
+    lob_max="1.1"
+    speed_min="100"
+    speed_max="120"
+    friendly_fire="1"
+    on_death_explode="1"
+    on_death_gfx_leave_sprite="0" 
+    on_lifetime_out_explode="1"
+    explosion_dont_damage_shooter="1"
+    on_collision_die="1"
+    lifetime="50"
+    velocity_sets_scale="1"
+	camera_shake_when_shot="0" 
+    hit_particle_force_multiplier="0"
+	collide_with_shooter_frames="2"
+    damage="0"	
+	muzzle_flash_file="data/entities/particles/muzzle_flashes/muzzle_flash_large.xml">
+    <config_explosion
+      never_cache="1" 
+      damage="0"
+      explosion_radius="1" 
+      explosion_sprite="data/particles/explosion_016_plasma.xml" 
+      explosion_sprite_lifetime="1"
+	  explosion_sprite_emissive="1"
+	  explosion_sprite_additive="1"
+      create_cell_probability="0" 
+      hole_destroy_liquid="0" 
+      hole_enabled="0" 
+      hole_image="data/temp/explosion_hole.png" 
+      ray_energy="10000"
+      particle_effect="0"
+	  physics_explosion_power.min="0"
+      physics_explosion_power.max="0" 
+      physics_throw_enabled="1" 
+      shake_vegetation="1" 
+      sparks_enabled="0"  
+      light_enabled="0" 
+      stains_enabled="0"
+	  camera_shake="0"
+      >
+    </config_explosion>
+  </ProjectileComponent>
+  
+  <ParticleEmitterComponent 
+		emitted_material_name="spark_blue"
+		offset.x="0"
+		offset.y="0"
+		x_pos_offset_min="-1"
+		x_pos_offset_max="1"
+		y_pos_offset_min="-1"
+		y_pos_offset_max="1"
+		gravity.y="0"
+		x_vel_min="-2"
+		x_vel_max="2"
+		y_vel_min="-2"
+		y_vel_max="2"
+		count_min="1"
+		count_max="2"
+		is_trail="1"
+		trail_gap="1"
+		fade_based_on_lifetime="1"
+		lifetime_min="0.8"
+		lifetime_max="2.0"
+		airflow_force="1.5"
+		airflow_time="0.401"
+		airflow_scale="0.05"
+		create_real_particles="0"
+		emit_cosmetic_particles="1"
+		render_on_grid="1"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="2"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+  
+	<AudioComponent
+		file="data/audio/Desktop/projectiles.bank"
+		event_root="projectiles/bullet_shield" >
+	</AudioComponent>
+	
+	<HitEffectComponent 
+        effect_hit="LOAD_UNIQUE_CHILD_ENTITY"
+        value_string="data/entities/misc/shieldshot_shield.xml" >
+	</HitEffectComponent>
+	
+	<VariableStorageComponent
+		name="projectile_file"
+		value_string="data/entities/projectiles/shieldshot.xml"
+		>
+	</VariableStorageComponent>
+
+</Entity>
+

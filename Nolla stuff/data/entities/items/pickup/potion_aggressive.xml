@@ -1,0 +1,18 @@
+<Entity tags="projectile_item">
+	<Base file="data/entities/items/pickup/potion.xml">
+		<LuaComponent 
+			script_source_file="data/scripts/items/potion_aggressive.lua"
+		></LuaComponent>
+		
+		<LuaComponent 
+		></LuaComponent>
+
+		<LuaComponent 
+			script_death="data/scripts/items/potion_glass_break_temporary.lua" 
+		></LuaComponent>
+
+		<MaterialSuckerComponent 
+			barrel_size="500"
+		></MaterialSuckerComponent>
+	</Base>
+</Entity>

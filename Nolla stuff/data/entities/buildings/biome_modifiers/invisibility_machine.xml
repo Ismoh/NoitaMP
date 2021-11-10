@@ -1,0 +1,13 @@
+<!-- attaches a shield to a nearby enemy -->
+<Entity>
+	<LifetimeComponent
+		lifetime="600"
+		>
+	</LifetimeComponent>
+	<LuaComponent
+		script_source_file="data/scripts/animals/invisibility_machine.lua"
+		execute_every_n_frame="21"
+		>
+	</LuaComponent>
+
+</Entity>

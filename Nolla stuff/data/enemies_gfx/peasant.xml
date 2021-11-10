@@ -1,0 +1,531 @@
+<Sprite 
+  filename="data/enemies_gfx/peasant.png" 
+  offset_x="6" 
+  offset_y="6.5"
+  default_animation="stand" >
+
+  <RectAnimation 
+    frame_count="8" 
+    frame_height="19" 
+    frame_wait="0.082" 
+    frame_width="12" 
+    frames_per_row="8" 
+    name="walk" 
+    pos_x="0" 
+    pos_y="1" >
+
+    <Event 
+      check_physics_material="1" 
+      frame="2" 
+      max_distance="500" 
+      name="step" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+    <Event 
+      check_physics_material="1" 
+      frame="6" 
+      max_distance="500" 
+      name="step" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="19" 
+    frame_wait="0.2" 
+    frame_width="12" 
+    frames_per_row="8" 
+    name="stand" 
+    pos_x="0" 
+    pos_y="21" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="3" 
+    frame_height="19" 
+    frame_wait="0.082" 
+    frame_width="12" 
+    frames_per_row="8" 
+    loop="0" 
+    name="jump_up" 
+    pos_x="0" 
+    pos_y="41" >
+
+    <Event 
+      check_physics_material="1" 
+      frame="0" 
+      max_distance="500" 
+      name="jump" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="2" 
+    frame_height="19" 
+    frame_wait="0.082" 
+    frame_width="12" 
+    frames_per_row="8" 
+    loop="0" 
+    name="jump_fall" 
+    pos_x="0" 
+    pos_y="61" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="19" 
+    frame_wait="0.082" 
+    frame_width="12" 
+    frames_per_row="8" 
+    loop="0" 
+    name="land" 
+    pos_x="0" 
+    pos_y="81" >
+
+    <Event 
+      check_physics_material="1" 
+      frame="0" 
+      max_distance="500" 
+      name="land" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="2" 
+    frame_height="19" 
+    frame_wait="1.5" 
+    frame_width="17" 
+    frames_per_row="6" 
+    name="sleep" 
+    pos_x="0" 
+    pos_y="101" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="19" 
+    frame_wait="0.12" 
+    frame_width="12" 
+    frames_per_row="8" 
+    name="build" 
+    pos_x="0" 
+    pos_y="121" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="10" 
+    frame_height="19" 
+    frame_wait="0.095" 
+    frame_width="13" 
+    frames_per_row="10" 
+    name="pray" 
+    pos_x="0" 
+    pos_y="141" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="2" 
+    frame_height="19" 
+    frame_wait="0.1" 
+    frame_width="12" 
+    frames_per_row="6" 
+    name="cry" 
+    pos_x="0" 
+    pos_y="161" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="20" 
+    frame_wait="0.09" 
+    frame_width="15" 
+    frames_per_row="9" 
+    loop="0" 
+    name="attack" 
+    pos_x="0" 
+    pos_y="181" 
+    shrink_by_one_pixel="1" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="8" 
+    frame_height="19" 
+    frame_wait="0.09" 
+    frame_width="14" 
+    frames_per_row="8" 
+    name="shake" 
+    pos_x="0" 
+    pos_y="201" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="19" 
+    frame_wait="0.09" 
+    frame_width="17" 
+    frames_per_row="7" 
+    loop="0" 
+    name="lie_down" 
+    pos_x="0" 
+    pos_y="221" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="5" 
+    frame_height="20" 
+    frame_wait="0.12" 
+    frame_width="19" 
+    frames_per_row="8" 
+    has_offset="1" 
+    loop="0" 
+    name="attack_ranged" 
+    offset_x="10" 
+    offset_y="13" 
+    pos_x="0" 
+    pos_y="241" 
+    shrink_by_one_pixel="1" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="20" 
+    frame_wait="0.2" 
+    frame_width="13" 
+    frames_per_row="8" 
+    name="torch_stand" 
+    pos_x="0" 
+    pos_y="261" 
+    shrink_by_one_pixel="1" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="8" 
+    frame_height="19" 
+    frame_wait="0.085" 
+    frame_width="12" 
+    frames_per_row="8" 
+    name="torch_walk" 
+    pos_x="0" 
+    pos_y="281" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="8" 
+    frame_height="20" 
+    frame_wait="0.08" 
+    frame_width="15" 
+    frames_per_row="8" 
+    name="burn" 
+    pos_x="0" 
+    pos_y="301" 
+    shrink_by_one_pixel="1" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="20" 
+    frame_wait="0.12" 
+    frame_width="15" 
+    frames_per_row="8" 
+    name="crawl" 
+    pos_x="0" 
+    pos_y="321" 
+    shrink_by_one_pixel="1" >
+
+    <Event 
+      check_physics_material="1" 
+      frame="1" 
+      max_distance="500" 
+      name="step" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+    <Event 
+      check_physics_material="1" 
+      frame="3" 
+      max_distance="500" 
+      name="step" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="20" 
+    frame_wait="0.12" 
+    frame_width="15" 
+    frames_per_row="8" 
+    name="swim" 
+    pos_x="0" 
+    pos_y="321" 
+    shrink_by_one_pixel="1" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="5" 
+    frame_height="20" 
+    frame_wait="0.08" 
+    frame_width="15" 
+    frames_per_row="8" 
+    loop="0" 
+    name="kick" 
+    pos_x="0" 
+    pos_y="341" 
+    shrink_by_one_pixel="1" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="19" 
+    frame_wait="0.15" 
+    frame_width="12" 
+    frames_per_row="8" 
+    loop="0" 
+    name="sit_down" 
+    pos_x="0" 
+    pos_y="361" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="2" 
+    frame_height="19" 
+    frame_wait="0.2" 
+    frame_width="14" 
+    frames_per_row="8" 
+    name="pee" 
+    pos_x="0" 
+    pos_y="381" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="8" 
+    frame_height="20" 
+    frame_wait="0.07" 
+    frame_width="13" 
+    frames_per_row="8" 
+    name="run" 
+    pos_x="0" 
+    pos_y="401" 
+    shrink_by_one_pixel="1" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="19" 
+    frame_wait="0.09" 
+    frame_width="18" 
+    frames_per_row="8" 
+    loop="0" 
+    name="attack_2" 
+    pos_x="0" 
+    pos_y="421" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="2" 
+    frame_height="19" 
+    frame_wait="0.13" 
+    frame_width="12" 
+    frames_per_row="8" 
+    name="copulation" 
+    pos_x="0" 
+    pos_y="441" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="19" 
+    frame_wait="0.15" 
+    frame_width="12" 
+    frames_per_row="8" 
+    loop="0" 
+    name="sit_up" 
+    pos_x="0" 
+    pos_y="461" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="19" 
+    frame_wait="0.09" 
+    frame_width="17" 
+    frames_per_row="7" 
+    loop="0" 
+    name="stand_up" 
+    pos_x="0" 
+    pos_y="481" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="5" 
+    frame_height="19" 
+    frame_wait="0.09" 
+    frame_width="12" 
+    frames_per_row="8" 
+    name="eat" 
+    pos_x="0" 
+    pos_y="501" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="11" 
+    frame_height="19" 
+    frame_wait="0.1" 
+    frame_width="12" 
+    frames_per_row="11" 
+    loop="0" 
+    name="scout" 
+    pos_x="0" 
+    pos_y="521" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="19" 
+    frame_wait="0.09" 
+    frame_width="12" 
+    frames_per_row="8" 
+    name="climb" 
+    pos_x="0" 
+    pos_y="541" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="19" 
+    frame_wait="0.095" 
+    frame_width="17" 
+    frames_per_row="8" 
+    name="dig_hor" 
+    pos_x="0" 
+    pos_y="561" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="20" 
+    frame_wait="0.095" 
+    frame_width="18" 
+    frames_per_row="8" 
+    name="dig_down" 
+    pos_x="0" 
+    pos_y="581" 
+    shrink_by_one_pixel="1" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="20" 
+    frame_wait="0.095" 
+    frame_width="16" 
+    frames_per_row="8" 
+    name="dig_up" 
+    pos_x="0" 
+    pos_y="601" 
+    shrink_by_one_pixel="1" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="19" 
+    frame_wait="0.09" 
+    frame_width="17" 
+    frames_per_row="8" 
+    name="digwalk" 
+    pos_x="0" 
+    pos_y="621" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="5" 
+    frame_height="20" 
+    frame_wait="0.1" 
+    frame_width="18" 
+    frames_per_row="8" 
+    has_offset="1" 
+    name="mine" 
+    offset_x="8" 
+    offset_y="8.5" 
+    pos_x="0" 
+    pos_y="641" 
+    shrink_by_one_pixel="1" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="20" 
+    frame_wait="0.07" 
+    frame_width="13" 
+    frames_per_row="8" 
+    name="fly_move" 
+    pos_x="0" 
+    pos_y="661" 
+    shrink_by_one_pixel="1" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="20" 
+    frame_wait="0.07" 
+    frame_width="13" 
+    frames_per_row="8" 
+    name="fly_idle" 
+    pos_x="0" 
+    pos_y="661" 
+    shrink_by_one_pixel="1" >
+
+  </RectAnimation>
+
+</Sprite>
+

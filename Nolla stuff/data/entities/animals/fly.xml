@@ -1,0 +1,96 @@
+<Entity  name="$animal_fly">
+  
+	<Base file="data/entities/base_enemy_flying.xml" >
+		<ItemChestComponent level="4" > </ItemChestComponent>
+
+		<AnimalAIComponent 
+			_enabled="1" 
+			preferred_job="JobDefault"
+			attack_melee_damage_min="0.4" 
+			attack_melee_damage_max="0.6"
+			attack_dash_enabled="1"
+			attack_melee_impulse_multiplier="120" 
+			attack_dash_distance="90"
+			creature_detection_range_x="300"
+			creature_detection_range_y="300"
+			food_material="blood"
+			needs_food="1"
+			sense_creatures="1"
+			attack_ranged_enabled="0"
+			can_fly="1" 
+			can_walk="0" >
+		</AnimalAIComponent>
+
+		<DamageModelComponent 
+			ragdoll_filenames_file="data/ragdolls/fly/filenames.txt"
+			hp="1.5" 
+			fire_probability_of_ignition="0"
+			ragdoll_offset_y="-3"
+			>
+		</DamageModelComponent>
+
+		<SpriteComponent 
+			image_file="data/enemies_gfx/fly.xml" 
+			offset_x="0"
+			offset_y="0"
+			>
+		</SpriteComponent>
+
+		<PathFindingComponent
+			can_walk="0"
+			can_fly="1" >
+		</PathFindingComponent>
+
+		<PathFindingGridMarkerComponent
+			marker_work_flag="16" >
+		</PathFindingGridMarkerComponent>
+		
+		<GenomeDataComponent 
+			herd_id="fly"
+			food_chain_rank="10"
+			is_predator="1" >
+		</GenomeDataComponent>
+		
+		<CharacterPlatformingComponent 
+			jump_velocity_y="-12" 
+			run_velocity="14"  
+			fly_speed_max_up="100"
+			fly_speed_max_down="100"
+			fly_speed_mult="20"
+			fly_speed_change_spd="1"
+    		pixel_gravity="200" 
+			fly_velocity_x="40">
+		</CharacterPlatformingComponent>
+
+		<CameraBoundComponent
+			max_count="30"
+			distance="160000">
+		</CameraBoundComponent>
+	
+		<HitboxComponent 
+			_enabled="1" 
+			aabb_max_x="6" 
+			aabb_max_y="8" 
+			aabb_min_x="-6" 
+			aabb_min_y="-6" >
+		</HitboxComponent>
+		
+		<CharacterDataComponent
+			collision_aabb_min_x="-4.0" 
+			collision_aabb_max_x="4.0" 
+			collision_aabb_min_y="-11" 
+			collision_aabb_max_y="3"
+			mass="1.0"
+			>
+		</CharacterDataComponent>
+	</Base>
+
+	<AudioLoopComponent
+		file="data/audio/Desktop/animals.bank"
+		event_name="animals/wing_flap_insect/movement_loop"
+		set_speed_parameter="1"
+		auto_play="1">
+	</AudioLoopComponent>
+
+</Entity>
+

@@ -1,0 +1,233 @@
+<Entity tags="mortal,human,hittable,homing_target,teleportable_NOT,destruction_target" >
+	
+	<ItemChestComponent
+		_enabled="0"
+		enemy_drop="1"
+		item_count_min="2"
+		item_count_max="3"
+		level="1" >
+	</ItemChestComponent>
+
+	<LuaComponent
+	    execute_every_n_frame="-1"
+	    script_death="data/scripts/items/drop_money.lua"
+	    remove_after_executed="1" >
+	</LuaComponent>
+
+	<_Transform 
+		rotation="0" 
+		scale.x="1" 
+		scale.y="1" >
+	</_Transform>
+
+	<VelocityComponent
+		updates_velocity="0" >
+	</VelocityComponent>
+
+	<HotspotComponent
+		_tags="shoot_pos"
+		offset.y="-4" >
+	</HotspotComponent>
+
+	<AnimalAIComponent 
+		ai_state="0" 
+		ai_state_timer="0" 
+		eye_offset_x="0"
+		eye_offset_y="-8"
+		creature_detection_check_every_x_frames="30" 
+		creature_detection_range_x="180" 
+		creature_detection_range_y="40" 
+		attack_melee_max_distance="10" 
+		attack_melee_damage_min="0.2" 
+		attack_melee_damage_max="0.4" 
+		attack_melee_impulse_vector_x="1" 
+		attack_melee_impulse_vector_y="0.25" 
+		attack_melee_impulse_multiplier="50" 
+		attack_melee_action_frame="2"
+		attack_melee_frames_between="20" 
+		attack_ranged_min_distance="10" 
+		attack_ranged_offset_x="0" 
+		attack_ranged_offset_y="-10" 
+		attack_ranged_action_frame="2"
+		attack_ranged_frames_between="60" 
+		food_material="meat"
+		food_particle_effect_material="blood_fading"
+		food_eating_create_particles="1"
+		eating_area_radius_x="3"
+		eating_area_radius_y="8"
+		mouth_offset_x="2" 
+		mouth_offset_y="6" 
+		defecates_and_pees="0" 
+		butt_offset_x="0" 
+		butt_offset_y="3" 
+		pee_velocity_x="22" 
+		pee_velocity_y="-33" 
+		needs_food="0"
+		sense_creatures="0"
+		attack_ranged_enabled="0"
+		attack_melee_enabled="1"
+		can_fly="1"
+		path_distance_to_target_node_to_turn_around="3" >
+	</AnimalAIComponent>
+
+	<PathFindingComponent
+		search_depth_max_no_goal="120"
+		iterations_max_no_goal="9999999"
+		search_depth_max_with_goal="145000"
+		iterations_max_with_goal="145000"
+		cost_of_flying="1100"
+		distance_to_reach_node_x="4"
+		distance_to_reach_node_y="6"
+		frames_to_get_stuck="30"
+		frames_between_searches="20" 
+		y_walking_compensation="8"
+		can_fly="0"
+		can_jump="0"
+		jump_speed="200"
+		initial_jump_lob="1"
+		initial_jump_max_distance_x="100"
+		initial_jump_max_distance_y="60" >
+		<jump_trajectories>
+			<JumpTrajectory x="5" y="15" lob="1" />
+			<JumpTrajectory x="7" y="20" lob="1" />
+			<JumpTrajectory x="10" y="-60" lob="1" />
+			<JumpTrajectory x="40" y="-35" lob="1" />
+			<JumpTrajectory x="60" y="-40" lob="1" />
+			<JumpTrajectory x="60" y="75"  lob="1" />
+		</jump_trajectories>
+	</PathFindingComponent>
+
+	<PathFindingGridMarkerComponent
+		marker_offset_y="-6"
+		marker_work_flag="0" >
+	</PathFindingGridMarkerComponent>
+
+	<CharacterCollisionComponent 
+		getting_crushed_threshold="6"
+		moving_up_before_getting_crushed_threshold="6" >
+	</CharacterCollisionComponent>
+
+	<CharacterDataComponent 
+		check_collision_max_size_x="4" 
+		check_collision_max_size_y="4" 
+		climb_over_y="4" 
+		collision_aabb_min_x="-2.0" 
+		collision_aabb_max_x="2.0" 
+		collision_aabb_min_y="-3" 
+		collision_aabb_max_y="3"
+		eff_hg_offset_y="1.28572" 
+		eff_hg_position_x="0" 
+		eff_hg_position_y="5" 
+		eff_hg_size_x="6.42857" 
+		eff_hg_size_y="5.14286" 
+		eff_hg_velocity_max_x="19.5787896514" 
+		eff_hg_velocity_max_y="-11.5714" 
+		eff_hg_velocity_min_x="-19.5714" 
+		eff_hg_velocity_min_y="-40" 
+		eff_hg_damage_min="10"
+    	eff_hg_damage_max="95"
+		effect_hit_ground="1" 
+		gravity="0" 
+		buoyancy_check_offset_y="-6">
+	</CharacterDataComponent>
+
+	<GenomeDataComponent 
+		herd_id="player"
+		food_chain_rank="20"
+		is_predator="1" >
+	</GenomeDataComponent>
+
+	<CharacterPlatformingComponent
+		animation_to_play="" 
+		jump_keydown_buffer="2" 
+		jump_velocity_y="-125" 
+		fly_speed_max_up="90"
+		fly_speed_max_down="90"
+		fly_speed_mult="20"
+		fly_speed_change_spd="1"
+		mouse_look="0" 
+		mouse_look_buffer="1" 
+		pixel_gravity="600" 
+		run_velocity="28" 
+		fly_velocity_x="28" 
+		accel_x="0.15" 
+		turning_buffer="0.1" 
+		velocity_min_x="-50" 
+		velocity_max_x="50" 
+		velocity_min_y="-200"
+		velocity_max_y="350" >
+	</CharacterPlatformingComponent>
+
+	<ControlsComponent
+		enabled="0" >
+	</ControlsComponent>
+
+	<DamageModelComponent
+		air_in_lungs="5" 
+		air_in_lungs_max="5" 
+		air_lack_of_damage="0.2" 
+		air_needed="0" 
+		falling_damage_damage_max="1.2" 
+		falling_damage_damage_min="0.1" 
+		falling_damage_height_max="250" 
+		falling_damage_height_min="70" 
+		falling_damages="0" 
+		fire_damage_amount="0.2" 
+		fire_probability_of_ignition="0.5" 
+		hp="1" 
+		is_on_fire="0" 
+		materials_damage="1" 
+		materials_that_damage="acid,lava,poison,blood_cold,blood_cold_vapour,radioactive_gas,radioactive_gas_static,rock_static_radioactive,rock_static_poison,ice_radioactive_static,ice_radioactive_glass,ice_acid_static,ice_acid_glass,rock_static_cursed,poo_gas" 
+		materials_how_much_damage="0.004,0.004,0.001,0.0008,0.0007,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.005,0.00001"
+		ragdoll_filenames_file="data/ragdolls/player/filenames.txt"
+		ragdoll_material="meat"
+		physics_objects_damage="1"
+		ragdoll_offset_y="-6" >
+	</DamageModelComponent>
+
+	<HitboxComponent
+		aabb_max_x="2" 
+		aabb_max_y="4" 
+		aabb_min_x="-2" 
+		aabb_min_y="-12" >
+	</HitboxComponent>
+
+	<SpriteAnimatorComponent>
+	</SpriteAnimatorComponent>
+
+	<SpriteComponent
+		_tags="character" 
+		alpha="1" 
+		image_file="data/enemies_gfx/player.xml" 
+		next_rect_animation="" 
+		offset_x="6" 
+		offset_y="13" 
+		rect_animation="walk" >
+	</SpriteComponent>
+
+	<SpriteStainsComponent>
+	</SpriteStainsComponent>
+
+	<StatusEffectDataComponent>
+	</StatusEffectDataComponent>
+
+	<CameraBoundComponent
+	  max_count="5"
+	  distance="2000">
+	</CameraBoundComponent>
+
+	<AudioComponent
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals"
+		set_latest_event_position="1" >
+	</AudioComponent>
+	
+	<AudioComponent
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals/generic"
+		set_latest_event_position="1" >
+	</AudioComponent>
+
+	<GameStatsComponent />
+
+</Entity>

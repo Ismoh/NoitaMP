@@ -1,0 +1,154 @@
+<Entity name="$animal_spearbot">
+  
+    <Base file="data/entities/base_enemy_robot.xml" >
+		<AnimalAIComponent 
+			escape_if_damaged_probability="0"
+            hide_from_prey="1"
+            hide_from_prey_target_distance="200"
+            hide_from_prey_time="480"
+			attack_melee_damage_min="1.0" 
+			attack_melee_damage_max="1.6"
+			attack_melee_enabled="0"
+			attack_dash_enabled="0"
+			attack_ranged_enabled="1"
+			attack_ranged_action_frame="5"
+			attack_ranged_entity_file="data/entities/projectiles/laser_spear.xml"
+			attack_ranged_offset_y="-20"
+			attack_ranged_max_distance="120"
+			creature_detection_angular_range_deg="60"
+			needs_food="0"
+			can_fly="1" 
+			aggressiveness_min="1"
+			aggressiveness_max="50"
+			>
+		</AnimalAIComponent>
+        
+        <SpriteComponent 
+            image_file="data/enemies_gfx/spearbot.xml" 
+            offset_x="0" 
+            offset_y="0" >
+        </SpriteComponent>
+
+        <DamageModelComponent 
+            hp="9"
+            ragdoll_material="steel"
+			ragdoll_filenames_file="data/ragdolls/spearbot/filenames.txt" 
+			blood_material="oil"
+			blood_spray_material="oil"
+			fire_probability_of_ignition="0" >
+			<damage_multipliers
+				electricity="0.5"
+				>
+			</damage_multipliers>
+		</DamageModelComponent>
+		
+        <PathFindingComponent  
+			can_jump="1"
+			can_fly="1" 
+            frames_to_get_stuck="20" >
+        </PathFindingComponent>
+		
+		<PathFindingGridMarkerComponent
+			marker_work_flag="24" >
+		</PathFindingGridMarkerComponent>
+
+        <HitboxComponent 
+            _enabled="1" 
+            aabb_max_x="6" 
+            aabb_max_y="2" 
+            aabb_min_x="-6" 
+            aabb_min_y="-28" >
+        </HitboxComponent>
+		
+		<CharacterPlatformingComponent 
+            jump_velocity_y="-140" 
+            run_velocity="31" 
+			fly_speed_change_spd="0.8"
+			fly_velocity_x="28" 
+			accel_x="0.03" 
+			swim_idle_buoyancy_coeff="0.8" >
+        </CharacterPlatformingComponent>
+		
+		<GenomeDataComponent 
+			herd_id="robot"
+			food_chain_rank="5"
+			is_predator="1" >
+		</GenomeDataComponent>
+		
+		<CharacterDataComponent
+			collision_aabb_min_x="-4.0" 
+			collision_aabb_max_x="4.0" 
+			collision_aabb_min_y="-20" 
+			collision_aabb_max_y="3"
+			mass="1.8" >
+		</CharacterDataComponent>
+    </Base>
+	
+	<ParticleEmitterComponent
+	    _tags="jetpack"
+	    emitted_material_name="plasma_fading"
+	    offset.x="-8"
+	    offset.y="-10"
+		gravity.y="10"
+	    x_pos_offset_min="-1"
+	    x_pos_offset_max="1"
+	    y_pos_offset_min=""
+	    y_pos_offset_max="0"
+	    x_vel_min="-50"
+	    x_vel_max="7"
+	    y_vel_min="-2"
+	    y_vel_max="50"
+	    count_min="3"
+	    count_max="7"
+	    lifetime_min="0.2"
+	    lifetime_max="0.6"
+		fade_based_on_lifetime="1"
+	    create_real_particles="0"
+	    emit_cosmetic_particles="1"
+	    emission_interval_min_frames="0"
+	    emission_interval_max_frames="1"
+		area_circle_radius.max="4"
+		airflow_force="0.1"
+		airflow_time="0.101"
+		airflow_scale="2.01"
+	    is_emitting="1" >
+  	</ParticleEmitterComponent>
+	
+	<AudioLoopComponent
+        _tags="sound_jetpack"
+        file="data/audio/Desktop/animals.bank"
+        event_name="animals/spearbot/jetpack_loop"
+        volume_autofade_speed="0.25"
+        set_speed_parameter="1" >
+    </AudioLoopComponent>
+  
+	<ItemPickUpperComponent
+		is_in_npc="1">
+	</ItemPickUpperComponent>
+	
+	<AudioComponent
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals/spearbot" >
+	</AudioComponent>
+	
+	<Entity>
+		<InheritTransformComponent />
+		
+	    <GameEffectComponent 
+	        effect="PROTECTION_FREEZE"
+	        frames="-1"
+	    >
+		</GameEffectComponent >
+	</Entity>
+	
+	<Entity>
+		<InheritTransformComponent />
+		
+	    <GameEffectComponent 
+	        effect="PROTECTION_EXPLOSION"
+	        frames="-1"
+	    >
+		</GameEffectComponent >
+	</Entity>
+
+</Entity>

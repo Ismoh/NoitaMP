@@ -1,0 +1,6 @@
+data/ragdolls/ghoul/head.png
+data/ragdolls/ghoul/torso.png
+data/ragdolls/ghoul/left_whisker.png
+data/ragdolls/ghoul/right_whisker.png
+data/ragdolls/ghoul/left_foot.png
+data/ragdolls/ghoul/right_foot.png

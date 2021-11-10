@@ -1,0 +1,34 @@
+<Entity tags="hittable,prop" >
+
+	<HitboxComponent 
+		aabb_min_x="-6" 
+		aabb_max_x="6" 
+		aabb_min_y="-10" 
+		aabb_max_y="4" >
+	</HitboxComponent>
+
+	<DamageModelComponent
+		air_needed="0" 
+		falling_damages="1"
+		fire_damage_amount="0.9" 
+		fire_probability_of_ignition="0.8" 
+		fire_damage_ignited_amount="0.5"
+		hp="0.1" 
+		materials_damage="1" 
+		materials_that_damage="acid,lava" 
+		materials_how_much_damage="0.004,0.004"
+		blood_material="grass"
+		blood_multiplier="0.1"
+		physics_objects_damage="1"
+		ragdoll_filenames_file="data/ragdolls/root_grower_leaf/filenames.txt"
+		ragdoll_material="meat_slime_green"
+		ui_report_damage="0"
+		>
+	</DamageModelComponent>
+
+	<SpriteComponent
+		image_file="data/props_gfx/root_grower_leaf.xml" 
+		>
+	</SpriteComponent>
+
+</Entity>

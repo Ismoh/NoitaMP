@@ -1,0 +1,17 @@
+<Entity>
+    
+    <GameEffectComponent 
+        effect="CUSTOM"
+        custom_effect_id="NIGHTVISION"
+        frames="600"
+    >
+	</GameEffectComponent >
+
+	<DrugEffectModifierComponent>
+		<fx_add
+			color_amount="0.3"
+			nightvision_amount="1.0"
+		/>
+	</DrugEffectModifierComponent>
+
+</Entity>

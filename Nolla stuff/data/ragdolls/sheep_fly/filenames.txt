@@ -1,0 +1,9 @@
+data/ragdolls/sheep_fly/head.png
+data/ragdolls/sheep_fly/right_torso.png
+data/ragdolls/sheep_fly/left_torso.png
+data/ragdolls/sheep_fly/left_frontleg.png
+data/ragdolls/sheep_fly/right_frontleg.png
+data/ragdolls/sheep_fly/left_hindleg.png
+data/ragdolls/sheep_fly/right_hindleg.png
+data/ragdolls/sheep_fly/wing1.png
+data/ragdolls/sheep_fly/wing2.png

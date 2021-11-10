@@ -1,0 +1,7 @@
+<Entity>
+	<LuaComponent
+		script_source_file="data/entities/animals/boss_ghost/spawn_ghost.lua"
+		execute_every_n_frame="36"
+		>
+	</LuaComponent>
+</Entity>

@@ -1,0 +1,22 @@
+<Entity 
+  name="unknown" 
+  tags="vegetation,pixelsprite" >
+  
+  <PixelSpriteComponent 
+    _enabled="1" 
+    image_file="data/vegetation/lush_bush_small_02.png" 
+    anchor_x="16" 
+    anchor_y="30"
+    clean_overlapping_pixels="0"
+  >
+  </PixelSpriteComponent>
+
+  <SimplePhysicsComponent 
+    can_go_up="0"
+    >
+  </SimplePhysicsComponent >
+  
+  <VelocityComponent />
+  
+</Entity>
+

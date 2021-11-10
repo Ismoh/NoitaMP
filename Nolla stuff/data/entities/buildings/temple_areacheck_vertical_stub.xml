@@ -1,0 +1,18 @@
+<Entity tags="temple_areachecker">
+
+	<MaterialAreaCheckerComponent
+		area_aabb.min_x="0"		
+		area_aabb.min_y="0" 
+		area_aabb.max_x="1"		
+		area_aabb.max_y="50" 
+		material="templebrick_noedge_static"
+		material2="templebrick_static"
+		kill_after_message="1"
+		>
+	</MaterialAreaCheckerComponent>
+
+	<LuaComponent
+		script_material_area_checker_failed="data/scripts/buildings/temple_check_for_leaks.lua" >
+	</LuaComponent>
+
+</Entity>

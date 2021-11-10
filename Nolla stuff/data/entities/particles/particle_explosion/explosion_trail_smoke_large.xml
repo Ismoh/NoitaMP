@@ -1,0 +1,33 @@
+<Entity>
+	<Base file="data/entities/particles/particle_explosion/base_smoke_trail.xml">
+		<VelocityComponent
+			air_friction="8.0" 
+			>
+		</VelocityComponent>
+
+		<SetStartVelocityComponent
+			randomize_speed.min="300"
+			randomize_speed.max="1200"
+			>
+		</SetStartVelocityComponent>
+
+		<DieIfSpeedBelowComponent
+			min_speed="40" >
+		</DieIfSpeedBelowComponent>
+
+		<SpriteParticleEmitterComponent
+			randomize_velocity.min_y="-20" 
+			randomize_velocity.max_y="10" 
+			randomize_velocity.min_x="-10" 	
+			randomize_velocity.max_x="10" 
+			>
+		</SpriteParticleEmitterComponent>
+		
+		<SpriteParticleEmitterComponent
+			sprite_file="data/particles/smoke_cloud_$[1-4].xml"
+			render_back="1"
+			>
+		</SpriteParticleEmitterComponent>
+	</Base>
+</Entity>
+

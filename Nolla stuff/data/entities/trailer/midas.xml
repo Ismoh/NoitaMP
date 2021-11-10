@@ -1,0 +1,83 @@
+<Entity>
+    <MagicConvertMaterialComponent
+      kill_when_finished="0"
+      from_material="ice_static"
+      steps_per_frame="3"
+      to_material="gold_static"
+      clean_stains="0"
+      is_circle="1"
+      radius="380" 
+	  >
+    </MagicConvertMaterialComponent>
+	
+	<MagicConvertMaterialComponent
+      kill_when_finished="0"
+      from_material="ice_glass"
+      steps_per_frame="3"
+      to_material="gold_static"
+      clean_stains="0"
+      is_circle="1"
+      radius="380" 
+	  >
+    </MagicConvertMaterialComponent>
+	
+	<MagicConvertMaterialComponent
+      kill_when_finished="0"
+      from_material="gold"
+      steps_per_frame="3"
+      to_material="gold_static"
+      clean_stains="0"
+      is_circle="1"
+      radius="380" 
+	  >
+    </MagicConvertMaterialComponent>
+	
+	<MagicConvertMaterialComponent
+      kill_when_finished="0"
+      from_material="concrete_collapsed"
+      steps_per_frame="3"
+      to_material="gold_static"
+      clean_stains="0"
+      is_circle="1"
+      radius="380" 
+	  >
+    </MagicConvertMaterialComponent>
+	
+	<MagicConvertMaterialComponent
+      kill_when_finished="0"
+      from_material="rock_hard_border"
+      steps_per_frame="3"
+      to_material="gold_static"
+      clean_stains="0"
+      is_circle="1"
+      radius="380" 
+	  >
+    </MagicConvertMaterialComponent>
+	
+	<MagicConvertMaterialComponent
+      kill_when_finished="0"
+      from_material="templebrick_static"
+      steps_per_frame="3"
+      to_material="gold_static_dark"
+      clean_stains="0"
+      is_circle="1"
+      radius="380" 
+	  _enabled="0"
+	  >
+    </MagicConvertMaterialComponent>
+	
+	<LifetimeComponent
+		lifetime="460"
+		randomize_lifetime.min="-50"
+		randomize_lifetime.max="50"
+		>
+	</LifetimeComponent>
+
+	<LoadEntitiesComponent
+        count.min="1"
+        count.max="1"
+        kill_entity="0"
+        entity_file="data/entities/particles/image_emitters/magical_symbol_fast.xml" >
+    </LoadEntitiesComponent>
+</Entity>
+

@@ -1,0 +1,52 @@
+<Entity>	
+	<SpriteComponent 
+		image_file="data/buildings_gfx/lasergate.xml" 
+		special_scale_x="1"
+		has_special_scale="1"
+		offset_x="0"
+		offset_y="0" >
+	</SpriteComponent>
+
+	<SpriteAnimatorComponent>
+	</SpriteAnimatorComponent>
+
+	<CameraBoundComponent
+		max_count="30"
+		distance="160000" >
+	</CameraBoundComponent>
+	
+	<LuaComponent
+		script_source_file="data/scripts/buildings/lasergate_hor.lua"
+		execute_every_n_frame="10"
+		>
+	</LuaComponent>
+	
+	<LightComponent 
+		_enabled="1" 
+		radius="24"
+		fade_out_time="1.5" 
+		r="230"
+		g="120"
+		b="230"
+		>
+	</LightComponent>
+	
+	<LaserEmitterComponent
+		is_emitting="1"
+		laser_angle_add_rad="0"
+		>
+		<laser
+			damage_to_entities="0.2"
+			max_cell_durability_to_destroy="4"
+			damage_to_cells="100"
+			max_length="160"
+			beam_radius="1.5"
+			hit_particle_chance="10"
+			beam_particle_chance="90"
+			beam_particle_type="plasma_fading"
+			audio_enabled="0"
+			>
+		</laser>
+	</LaserEmitterComponent>
+
+</Entity>

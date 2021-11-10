@@ -1,0 +1,20 @@
+<PixelScenes>
+
+  <mBufferedPixelScenes>
+
+    <PixelScene background_filename="data/biome_impl/spliced/watercave/0_background.png" colors_filename="" material_filename="data/biome_impl/spliced/watercave/0.plz" pos_x="-2048" pos_y="389" skip_biome_checks="1" >
+
+    </PixelScene>
+
+    <PixelScene background_filename="" colors_filename="" material_filename="data/biome_impl/spliced/watercave/1.plz" pos_x="-2048" pos_y="512" skip_biome_checks="1" >
+
+    </PixelScene>
+
+    <PixelScene background_filename="" colors_filename="" material_filename="data/biome_impl/spliced/watercave/2.plz" pos_x="-2047" pos_y="1027" skip_biome_checks="1" >
+
+    </PixelScene>
+
+  </mBufferedPixelScenes>
+
+</PixelScenes>
+

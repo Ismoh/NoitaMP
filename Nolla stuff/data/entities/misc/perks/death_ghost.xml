@@ -1,0 +1,65 @@
+<Entity tags="death_ghost" >
+	<Entity>
+		<HitboxComponent 
+			_tags="enabled_in_world"
+			aabb_min_x="-4" 
+			aabb_max_x="4" 
+			aabb_min_y="-4" 
+			aabb_max_y="4"
+		></HitboxComponent>
+
+		<SimplePhysicsComponent
+			_tags="enabled_in_world" 
+		></SimplePhysicsComponent>
+
+		<VelocityComponent
+			_tags="enabled_in_world"
+			gravity_y="0"
+		></VelocityComponent>
+		
+		<AreaDamageComponent
+			aabb_min.x="-8" 
+			aabb_min.y="-8" 
+			aabb_max.x="8" 
+			aabb_max.y="8" 
+			damage_per_frame="0.07"
+			update_every_n_frame="1"
+			entities_with_tag="homing_target"
+			damage_type="DAMAGE_CURSE"
+			>
+		</AreaDamageComponent>
+
+		<!-- ghost functionality and visuals -->		
+		<SpriteComponent 
+			image_file="data/projectiles_gfx/death_ghost.xml"
+			>
+		</SpriteComponent>
+		<LuaComponent 
+			script_source_file="data/scripts/animals/death_ghost_move.lua"
+			execute_every_n_frame="1"
+			>
+		</LuaComponent>
+		
+		<AudioComponent
+			file="data/audio/Desktop/animals.bank"
+			event_root="animals/tiny_ghost" >
+		</AudioComponent>
+
+		<AudioLoopComponent
+			file="data/audio/Desktop/animals.bank"
+			event_name="animals/tiny_ghost/movement_loop"
+			set_speed_parameter="1"
+			auto_play="1">
+		</AudioLoopComponent>
+	</Entity>
+	
+	<CameraBoundComponent
+	  max_count="20"
+	  distance="2000">
+	</CameraBoundComponent>
+	
+	<LifetimeComponent
+		lifetime="1800"
+		>
+	</LifetimeComponent>
+</Entity>

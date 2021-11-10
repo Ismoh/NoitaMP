@@ -1,0 +1,34 @@
+<Entity>
+  <SpriteParticleEmitterComponent
+	sprite_file="data/particles/teleparticle.xml"
+	lifetime="0.4"
+	scale.x="1" scale.y="0.2"
+	color_change.a="-0.2"
+	scale_velocity.x="-0.2" scale_velocity.y="1"
+	randomize_velocity.min_x="0"
+	randomize_velocity.max_x="0"
+	randomize_velocity.min_y="-40"
+	randomize_velocity.max_y="40"
+	velocity_always_away_from_center="0"
+	randomize_rotation.min="0"
+	randomize_rotation.max="0"
+	randomize_angular_velocity.min="0"
+	randomize_angular_velocity.max="0"
+	randomize_position.min_x="-5"
+	randomize_position.max_x="5"
+	randomize_position.min_y="-5"
+	randomize_position.max_y="5"
+	emission_interval_min_frames="3"
+	emission_interval_max_frames="6"
+	count_min="1" count_max="1"
+	>
+	</SpriteParticleEmitterComponent>
+  
+  <LightComponent 
+    _enabled="1" 
+    radius="60" 
+	r="80"
+	g="60"
+	b="0">
+  </LightComponent>
+</Entity>

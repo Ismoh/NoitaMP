@@ -1,0 +1,19 @@
+<Entity>
+  
+	<LightComponent 
+		_enabled="1"
+		radius="200" >
+	</LightComponent>
+	
+	<_Transform
+        scale.x="5" scale.y="5" >
+    </_Transform>
+
+	<SpriteComponent 
+		alpha="0.55"
+		image_file="data/particles/fog_of_war_hole_128.xml"
+		smooth_filtering="1"
+		fog_of_war_hole="1" >
+	</SpriteComponent>
+  
+</Entity>

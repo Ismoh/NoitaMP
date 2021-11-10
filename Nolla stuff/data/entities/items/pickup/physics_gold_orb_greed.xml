@@ -1,0 +1,164 @@
+<Entity name="unknown" tags="hittable,teleportable_NOT,item_physics,item_pickup" >
+
+  <PhysicsBodyComponent 
+    _tags="enabled_in_world"
+    uid="1" 
+    allow_sleep="1" 
+    angular_damping="0" 
+    fixed_rotation="0" 
+    is_bullet="1" 
+    linear_damping="0"
+    auto_clean="0"
+    on_death_leave_physics_body="0"
+    hax_fix_going_through_ground="1"
+  ></PhysicsBodyComponent>
+  
+  <PhysicsImageShapeComponent 
+    body_id="1"
+    centered="1"
+    image_file="data/items_gfx/orb_greed.png"
+    material="metal_hard" >
+  </PhysicsImageShapeComponent>
+  
+  <CameraBoundComponent
+    max_count="50"
+    distance="500">
+  </CameraBoundComponent>
+	
+	<LuaComponent
+		_tags="enabled_in_world,enabled_in_hand"
+		script_kick="data/scripts/items/gold_orb_greed.lua"
+		execute_every_n_frame="-1"
+		>
+	</LuaComponent>
+	
+	<VariableStorageComponent
+		_tags="kick_count,enabled_in_world"
+		name="kick_count"
+		value_int="0"
+		>
+	</VariableStorageComponent>
+	
+	<PhysicsThrowableComponent
+	_tags="enabled_in_world"
+    max_throw_speed="180"
+    throw_force_coeff="1.5"
+  ></PhysicsThrowableComponent>
+  
+  <PhysicsBodyCollisionDamageComponent 
+    _tags="enabled_in_world" 
+    speed_threshold="140.0"
+  ></PhysicsBodyCollisionDamageComponent>
+  
+  <ItemComponent
+    _tags="enabled_in_world"
+    item_name="$item_gold_orb_greed"
+    max_child_items="0"
+    is_pickable="1"
+    is_equipable_forced="1"
+    ui_sprite="data/ui_gfx/items/orb_gold_greed.png"
+    ui_description="$itemdesc_gold_orb_greed"
+    preferred_inventory="QUICK"
+  ></ItemComponent>
+  
+  <UIInfoComponent
+    _tags="enabled_in_world"
+    name="$item_gold_orb_greed" >
+  </UIInfoComponent>
+  
+  <AbilityComponent
+		ui_name="$item_gold_orb_greed"
+		throw_as_item="1"
+		><gun_config
+			deck_capacity="0"
+		></gun_config>
+	</AbilityComponent>
+	
+	<SpriteComponent
+    _tags="enabled_in_hand"
+    _enabled="0"
+    offset_x="4"
+    offset_y="4"
+    image_file="data/items_gfx/in_hand/orb_greed.png"
+  ></SpriteComponent>
+  
+  <SpriteParticleEmitterComponent
+		_tags="enabled_in_world,enabled_in_hand"
+		sprite_file="data/particles/shine_07.xml"
+		lifetime="0.3"
+		emission_interval_min_frames="20"
+		emission_interval_max_frames="250"
+		count_min="1"
+		count_max="1"
+		additive="1"
+		emissive="0"
+		scale.x="1.0"
+		scale.y="1.0"
+		sprite_random_rotation="1"
+		randomize_scale.min_x="-0.1" 
+		randomize_scale.max_x="0.1" 
+		randomize_scale.min_y="-0.1" 
+		randomize_scale.max_y="0.1" 
+		randomize_position.min_y="-8" 
+		randomize_position.max_y="8"
+		randomize_position.min_x="-8"  
+		randomize_position.max_x="8"
+		randomize_animation_speed_coeff.min="0.667"  
+		randomize_animation_speed_coeff.max="1.0" 
+		>
+	</SpriteParticleEmitterComponent>
+
+	<SpriteParticleEmitterComponent
+		_tags="enabled_in_world,enabled_in_hand"
+		sprite_file="data/particles/shine_08.xml"
+		lifetime="0.2"
+		randomize_lifetime.min="0.1"
+		randomize_lifetime.max="0.8"
+		emission_interval_min_frames="10"
+		emission_interval_max_frames="100"
+		count_min="1"
+		count_max="1"
+		additive="1"
+		emissive="0"
+		scale.x="1.0"
+		scale.y="1.0"
+		sprite_random_rotation="1"
+		randomize_scale.min_x="-0.1" 
+		randomize_scale.max_x="0.1" 
+		randomize_scale.min_y="-0.1" 
+		randomize_scale.max_y="0.1" 
+		randomize_position.min_y="-7" 
+		randomize_position.max_y="7"
+		randomize_position.min_x="-7"  
+		randomize_position.max_x="7"
+		randomize_animation_speed_coeff.min="0.667"  
+		randomize_animation_speed_coeff.max="1.0" 
+		>
+	</SpriteParticleEmitterComponent>
+
+	<SpriteParticleEmitterComponent
+		_tags="enabled_in_world,enabled_in_hand"
+		sprite_file="data/particles/shine_06.xml"
+		lifetime="0.56"
+		emission_interval_min_frames="100"
+		emission_interval_max_frames="600"
+		additive="1"
+		emissive="0"
+		scale.x="1.0"
+		scale.y="1.0"
+		count_min="1"
+		count_max="1"
+		sprite_random_rotation="1"
+		randomize_scale.min_x="-0.1" 
+		randomize_scale.max_x="0.1" 
+		randomize_scale.min_y="-0.1" 
+		randomize_scale.max_y="0.1" 
+		randomize_position.min_y="-8" 
+		randomize_position.max_y="8"
+		randomize_position.min_x="-8"  
+		randomize_position.max_x="8"
+		randomize_animation_speed_coeff.min="0.667"  
+		randomize_animation_speed_coeff.max="1.0" 
+		>
+	</SpriteParticleEmitterComponent>
+</Entity>

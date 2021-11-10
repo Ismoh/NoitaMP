@@ -1,0 +1,139 @@
+<Entity  name="$animal_flamer">
+  
+	<Base file="data/entities/base_enemy_robot.xml" >
+		<ItemChestComponent level="3" > </ItemChestComponent>
+
+		<AnimalAIComponent 
+			_enabled="1" 
+			preferred_job="JobDefault"
+			escape_if_damaged_probability="4"
+			attack_melee_damage_min="0.4" 
+			attack_melee_damage_max="0.7"
+			creature_detection_range_x="400"
+			creature_detection_range_y="400"
+			creature_detection_angular_range_deg="60"
+			attack_melee_max_distance="20"
+			food_material="meat"
+			needs_food="0"
+			sense_creatures="1"
+			can_fly="1"  
+			attack_melee_enabled="0"
+			attack_melee_max_distance="10"
+			attack_ranged_enabled="1"
+			attack_landing_ranged_enabled="1"
+			attack_ranged_action_frame="1"
+			attack_ranged_min_distance="10"
+			attack_ranged_max_distance="70"
+			attack_ranged_entity_file="data/entities/projectiles/flamethrower.xml"
+			attack_ranged_frames_between="2" 
+			attack_ranged_offset_y="-4"
+			attack_dash_enabled="0"
+			aggressiveness_min="1"
+			aggressiveness_max="60"
+			>
+		</AnimalAIComponent>
+		
+		<DamageModelComponent 
+            hp="2"
+            materials_create_messages="1"
+			ragdoll_filenames_file="data/ragdolls/flamer/filenames.txt" 
+			fire_probability_of_ignition="0"
+			ragdoll_material="steel"
+			blood_material="oil"
+			>
+		</DamageModelComponent>
+
+		<SpriteComponent 
+			image_file="data/enemies_gfx/flamer.xml" 
+			offset_x="0"
+			offset_y="0">
+		</SpriteComponent>
+
+		<PathFindingComponent
+			can_jump="0"
+			can_fly="1" 
+			jump_speed="80"
+			initial_jump_lob="1"
+			initial_jump_max_distance_x="60"
+			initial_jump_max_distance_y="60" >
+		</PathFindingComponent>
+
+		<PathFindingGridMarkerComponent
+			marker_work_flag="24" >
+		</PathFindingGridMarkerComponent>
+		
+		<GenomeDataComponent 
+			herd_id="robot"
+			food_chain_rank="9"
+			is_predator="1" >
+		</GenomeDataComponent>
+		
+		<CharacterPlatformingComponent 
+			fly_speed_change_spd="0.8"
+			swim_idle_buoyancy_coeff="0.8"
+			fly_velocity_x="28" 
+			accel_x="0.03" 
+			jump_velocity_y="-12" 
+			run_velocity="20"  >
+		</CharacterPlatformingComponent>
+
+		<CameraBoundComponent
+			max_count="30"
+			distance="160000">
+		</CameraBoundComponent>
+		
+		<HitboxComponent 
+            _enabled="1" 
+            aabb_max_x="5" 
+            aabb_max_y="3" 
+            aabb_min_x="-5" 
+            aabb_min_y="-12" 
+			>
+        </HitboxComponent>
+		
+		<CharacterDataComponent
+			collision_aabb_min_x="-2.0" 
+			collision_aabb_max_x="2.0" 
+			collision_aabb_min_y="-10" 
+			collision_aabb_max_y="3"
+			mass="1.4"
+			>
+		</CharacterDataComponent>
+	</Base>
+	
+  <ParticleEmitterComponent
+    _tags="jetpack"
+    emitted_material_name="rocket_particles"
+    offset.x="-1"
+    offset.y="-4"
+    x_pos_offset_min="-1"
+    x_pos_offset_max="1"
+    y_pos_offset_min=""
+    y_pos_offset_max="0"
+    x_vel_min="-7"
+    x_vel_max="7"
+    y_vel_min="80"
+    y_vel_max="180"
+    count_min="3"
+    count_max="7"
+    lifetime_min="0.1"
+    lifetime_max="0.2"
+    create_real_particles="0"
+    emit_cosmetic_particles="1"
+    emission_interval_min_frames="0"
+    emission_interval_max_frames="1"
+    is_emitting="1" >
+  </ParticleEmitterComponent>
+
+  <LightComponent 
+    _enabled="1" 
+    radius="50"
+    fade_out_time="1.5" >
+  </LightComponent>
+  
+	<ItemPickUpperComponent
+    	is_in_npc="1">
+    </ItemPickUpperComponent>
+
+</Entity>
+

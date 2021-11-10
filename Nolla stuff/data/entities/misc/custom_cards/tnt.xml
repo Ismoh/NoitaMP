@@ -1,0 +1,40 @@
+<Entity>
+	
+	<Base file="data/entities/base_custom_card.xml" > 
+	    <ItemComponent
+	        _tags="enabled_in_world,enabled_in_hand,enabled_in_world"
+    		is_equipable_forced="1" >
+	    </ItemComponent>
+
+		<SpriteComponent 
+			image_file="data/ui_gfx/gun_actions/dynamite.png" 
+		></SpriteComponent>
+		
+		<ItemActionComponent 
+			_tags="enabled_in_world"
+			action_id="DYNAMITE" >
+		</ItemActionComponent>
+	</Base>
+
+	<SpriteComponent
+		_tags="enabled_in_hand,not_enabled_in_wand"
+		_enabled="0"
+		offset_x="2.5"
+		offset_y="4.5"
+    	image_file="data/items_gfx/in_hand/tnt_in_hand.png" >
+	</SpriteComponent>
+
+	<AbilityComponent
+		_tags="enabled_in_hand"
+		ui_name="$action_high_explosive"
+		entity_file="data/entities/projectiles/tnt.xml"
+		rotate_hand_amount="0.05"
+		throw_as_item="1" 
+		simulate_throw_as_item="1"
+		use_entity_file_as_projectile_info_proxy="1"
+	><gun_config
+		deck_capacity="0"
+	></gun_config>
+	</AbilityComponent>
+
+</Entity>

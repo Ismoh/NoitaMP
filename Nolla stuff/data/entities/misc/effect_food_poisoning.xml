@@ -1,0 +1,11 @@
+<Entity>
+	<InheritTransformComponent>
+    </InheritTransformComponent>	
+    
+    <GameEffectComponent 
+    	effect="FOOD_POISONING"
+    	frames="600"
+    >
+	</GameEffectComponent >
+	
+</Entity>

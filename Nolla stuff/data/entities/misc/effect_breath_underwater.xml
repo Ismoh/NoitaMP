@@ -1,0 +1,12 @@
+<Entity>
+
+	<InheritTransformComponent>
+    </InheritTransformComponent>
+    
+    <GameEffectComponent 
+    	effect="BREATH_UNDERWATER"
+    	frames="-1"
+    	exclusivity_group="0"
+    ></GameEffectComponent >
+
+</Entity>

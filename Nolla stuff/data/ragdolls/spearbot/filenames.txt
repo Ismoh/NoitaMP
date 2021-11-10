@@ -1,0 +1,11 @@
+data/ragdolls/spearbot/part_1.png
+data/ragdolls/spearbot/part_2.png
+data/ragdolls/spearbot/part_3.png
+data/ragdolls/spearbot/part_4.png
+data/ragdolls/spearbot/part_5.png
+data/ragdolls/spearbot/part_6.png
+data/ragdolls/spearbot/part_7.png
+data/ragdolls/spearbot/part_8.png
+data/ragdolls/spearbot/part_9.png
+data/ragdolls/spearbot/part_10.png
+data/ragdolls/spearbot/part_11.png

@@ -1,0 +1,11 @@
+<Entity>
+    <GameEffectComponent 
+    	effect="KNOCKBACK"
+    	frames="120"
+    >
+	</GameEffectComponent>
+
+    <Base file="data/entities/particles/knockback.xml">
+    </Base>
+	
+</Entity>

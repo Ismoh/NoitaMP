@@ -1,0 +1,29 @@
+<Entity  
+  tags="vegetation,pixelsprite" >
+  
+  <PixelSpriteComponent 
+    _enabled="1" 
+    image_file="data/props_gfx/coalmine_structure_background_02.png" 
+    anchor_x="5" 
+    anchor_y="49"
+    create_box2d_bodies="1"
+    clean_overlapping_pixels="1" 
+  >
+  </PixelSpriteComponent>
+
+  <SimplePhysicsComponent 
+    can_go_up="0"
+    >
+  </SimplePhysicsComponent >
+  
+  <VelocityComponent />
+  
+  <LuaComponent
+    execute_on_removed="0"
+    execute_every_n_frame="-1"
+    script_death="data/scripts/props/coalmine_structure_death.lua"
+    remove_after_executed="0">
+  </LuaComponent>
+
+
+</Entity>

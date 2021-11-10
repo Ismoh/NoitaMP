@@ -1,0 +1,12 @@
+<Entity>
+	
+    <GameEffectComponent 
+        effect="CRITICAL_HIT_BOOST"
+        frames="720"
+    	>
+	</GameEffectComponent >
+	
+	<InheritTransformComponent>
+    </InheritTransformComponent>
+
+</Entity>

@@ -1,0 +1,25 @@
+<Entity>
+	
+	<Base file="data/entities/base_custom_card.xml" > 
+		<SpriteComponent 
+			image_file="data/ui_gfx/gun_actions/spiral_shot.png" 
+			>
+		</SpriteComponent>
+		
+		<ItemActionComponent 
+			_tags="enabled_in_world"
+			action_id="SPIRAL_SHOT" >
+		</ItemActionComponent>
+	</Base>
+
+	<Base file="data/entities/misc/custom_cards/base_laser.xml">
+		<SpriteParticleEmitterComponent
+			sprite_file="data/particles/shine_blue.xml"
+		/>
+		
+		<ParticleEmitterComponent 
+			emitted_material_name="spark_blue"
+		/>
+	</Base>
+	
+</Entity>

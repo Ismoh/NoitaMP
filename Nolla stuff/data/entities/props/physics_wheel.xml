@@ -1,0 +1,36 @@
+<Entity tags="mortal" >
+
+  <!-- mortal is required so it can explode -->
+
+  <Base file="data/entities/base_item_physics.xml" >
+
+    <PhysicsImageShapeComponent
+      image_file="data/props_gfx/wheel.png"
+      material="wood_prop" >
+    </PhysicsImageShapeComponent>
+
+    <PhysicsBodyComponent 
+      angular_damping="0.01" 
+      gridworld_box2d="0" 
+      linear_damping="0.1"
+      force_add_update_areas="1"
+      randomize_init_velocity="1"
+    >
+    </PhysicsBodyComponent>
+  </Base>
+
+  <PhysicsJointComponent 
+    nail_to_wall="1" 
+    pos_x="30"
+    pos_y="30"
+    grid_joint="1"
+    mMotorEnabled="1"
+    mMotorSpeed="1"
+    mMaxMotorTorque="500" >
+  </PhysicsJointComponent>
+  
+  <CameraBoundComponent
+	  max_count="100"
+	  distance="1000">
+	</CameraBoundComponent>
+</Entity>

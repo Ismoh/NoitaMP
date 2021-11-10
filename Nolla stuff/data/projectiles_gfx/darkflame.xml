@@ -1,0 +1,29 @@
+<Sprite 
+  default_animation="spawn" 
+  filename="data/projectiles_gfx/darkflame.png" 
+  offset_x="6" 
+  offset_y="6" >
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="13" 
+    frame_wait="0.1" 
+    frame_width="13" 
+    frames_per_row="6" 
+    name="fireball" 
+    pos_x="0" 
+    pos_y="1" 
+    shrink_by_one_pixel="1" >
+  </RectAnimation>
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="12" 
+    frame_wait="0.1" 
+    frame_width="12" 
+    frames_per_row="6" 
+    loop="0" 
+    name="spawn" 
+    next_animation="fireball" 
+    pos_x="0" 
+    pos_y="14" >
+  </RectAnimation>
+</Sprite>

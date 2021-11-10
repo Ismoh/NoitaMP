@@ -1,0 +1,22 @@
+<Entity>
+	<InheritTransformComponent>
+    </InheritTransformComponent>
+	
+	<MagicConvertMaterialComponent
+        from_material="vomit"
+        to_material="rat_powder"
+        steps_per_frame="20"
+        loop="1"
+		is_circle="1"
+        radius="20" >
+    </MagicConvertMaterialComponent>
+	
+	<MagicConvertMaterialComponent
+        from_material="urine"
+        to_material="rat_powder"
+        steps_per_frame="20"
+        loop="1"
+		is_circle="1"
+        radius="20" >
+    </MagicConvertMaterialComponent>
+</Entity>

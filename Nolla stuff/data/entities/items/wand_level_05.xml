@@ -1,0 +1,67 @@
+<Entity>
+
+    <Base file="data/entities/base_item.xml">
+        <SpriteComponent 
+            next_rect_animation="JobAbilityMachinegun" >
+        </SpriteComponent>
+        
+        <ItemComponent
+            play_hover_animation="1">
+        </ItemComponent>
+
+        <SimplePhysicsComponent
+            _enabled="0">
+        </SimplePhysicsComponent>
+    </Base>
+    
+    <Base file="data/entities/base_wand.xml">
+    </Base>
+
+    <AbilityComponent 
+        amount_in_inventory="1" 
+        cooldown_frames="0" 
+        drop_as_item_on_death="1" 
+        entity_count="1" 
+        entity_file="" 
+        fast_projectile="0" 
+		mana_charge_speed="120"
+		mana_max="500"
+        max_amount_in_inventory="1" 
+        reload_time_frames="0" 
+        shooting_reduces_amount_in_inventory="0" 
+        sprite_file="data/items_gfx/machinegun.xml" 
+        swim_propel_amount="0" 
+        throw_as_item="0" 
+        ui_name="Rapid bolt wand" 
+        use_gun_script="1" 
+        >
+        <gun_config 
+            actions_per_round="1"
+            shuffle_deck_when_empty="1"
+            reload_time="18" 
+            deck_capacity="8" >
+        </gun_config>
+        <gunaction_config 
+            fire_rate_wait="5" >
+        </gunaction_config>
+    </AbilityComponent>
+
+    <HotspotComponent 
+        _tags="shoot_pos" 
+        offset.x="20" 
+        offset.y="0" >
+    </HotspotComponent>
+    
+    <LuaComponent 
+        _enabled="1" 
+        execute_on_added="1"
+        remove_after_executed="1"
+        script_source_file="data/scripts/gun/procedural/wand_level_05.lua" 
+	>
+    </LuaComponent>
+
+    <ManaReloaderComponent
+        _tags="enabled_in_world,enabled_in_hand,enabled_in_inventory" >
+    </ManaReloaderComponent>
+
+</Entity>

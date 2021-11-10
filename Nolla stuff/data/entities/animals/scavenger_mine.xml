@@ -1,0 +1,154 @@
+<Entity name="$animal_scavenger_mine" >
+  
+	<Base file="data/entities/base_enemy_flying.xml" >
+		<ItemChestComponent level="3" enemy_drop="1" > </ItemChestComponent>
+
+		<AnimalAIComponent 
+			_enabled="1" 
+			preferred_job="JobDefault"
+			escape_if_damaged_probability="40"
+			attack_melee_damage_min="0.4" 
+			attack_melee_damage_max="0.7"
+			creature_detection_range_x="400"
+			creature_detection_range_y="400"
+			creature_detection_angular_range_deg="60"
+			attack_melee_max_distance="20"
+			food_material="meat"
+			needs_food="0"
+			sense_creatures="1"
+			can_fly="1"  
+			attack_melee_enabled="1"
+			attack_melee_max_distance="10"
+			attack_ranged_enabled="1"
+			attack_landing_ranged_enabled="1"
+			aggressiveness_min="1"
+			aggressiveness_max="80"
+			>
+		</AnimalAIComponent>
+		
+		<DamageModelComponent 
+            hp="3"
+            materials_create_messages="1"
+			ragdoll_filenames_file="data/ragdolls/scavenger_mine/filenames.txt" 
+			fire_probability_of_ignition="5"
+    		blood_spray_material="blood"
+			>
+			<damage_multipliers
+				melee="0.3"
+				projectile="0.6"
+				explosion="0.6"
+				electricity="1.5"
+				fire="1.5" >
+			</damage_multipliers>
+		</DamageModelComponent>
+
+		<SpriteComponent 
+			image_file="data/enemies_gfx/scavenger_mine.xml" 
+			offset_x="0"
+			offset_y="0">
+		</SpriteComponent>
+
+		<PathFindingComponent
+			can_jump="0"
+			can_fly="1" 
+			jump_speed="80"
+			initial_jump_lob="1"
+			initial_jump_max_distance_x="60"
+			initial_jump_max_distance_y="60" >
+		</PathFindingComponent>
+
+		<PathFindingGridMarkerComponent
+			marker_work_flag="24" >
+		</PathFindingGridMarkerComponent>
+		
+		<GenomeDataComponent 
+			herd_id="orcs"
+			food_chain_rank="9"
+			is_predator="1" >
+		</GenomeDataComponent>
+		
+		<CharacterPlatformingComponent 
+			fly_speed_change_spd="0.8"
+			fly_velocity_x="32" 
+			accel_x="0.03" 
+			jump_velocity_y="-14" 
+			run_velocity="19"  >
+		</CharacterPlatformingComponent>
+
+		<CameraBoundComponent
+			max_count="30"
+			distance="160000">
+		</CameraBoundComponent>
+		
+		<HitboxComponent 
+            _enabled="1" 
+            aabb_min_x="-5" 
+            aabb_max_x="5" 
+            aabb_min_y="-12" 
+            aabb_max_y="3" 
+			>
+        </HitboxComponent>
+		
+		<CharacterDataComponent
+			collision_aabb_min_x="-2.0" 
+			collision_aabb_max_x="2.0" 
+			collision_aabb_min_y="-3" 
+			collision_aabb_max_y="3"
+			mass="1.1"
+			>
+		</CharacterDataComponent>
+	</Base>
+
+  <Base file="data/entities/base_jetpack.xml" />
+
+  <LightComponent 
+    _enabled="1" 
+    radius="50"
+    fade_out_time="1.5" >
+  </LightComponent>
+  
+  <AIAttackComponent
+		min_distance="30"
+		max_distance="220"
+		frames_between="110"
+		frames_between_global="110"
+		attack_ranged_action_frame="8"
+		animation_name="attack_bullet"
+		attack_ranged_entity_file="data/entities/projectiles/buckshot.xml" 
+		state_duration_frames="80"
+		attack_ranged_entity_count_min="2"
+		attack_ranged_entity_count_max="3"
+		attack_ranged_offset_y="-7"
+		attack_ranged_offset_x="9"
+		>
+	</AIAttackComponent>
+
+  	<AIAttackComponent
+		min_distance="30"
+		max_distance="220"
+		frames_between="140" 
+		frames_between_global="40"
+		attack_ranged_action_frame="1"
+		attack_ranged_entity_file="data/entities/projectiles/mine.xml"
+		attack_ranged_offset_y="-7"
+		attack_ranged_offset_x="3"
+		>
+	</AIAttackComponent>
+	
+	<ItemPickUpperComponent
+    	is_in_npc="1">
+    </ItemPickUpperComponent>
+
+	<AudioComponent
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals/scavenger" >
+	</AudioComponent>
+	<Entity>
+	    <GameEffectComponent 
+	        effect="ALLERGY_RADIOACTIVE"
+	        frames="-1"
+	    >
+		</GameEffectComponent >
+	</Entity>
+</Entity>
+

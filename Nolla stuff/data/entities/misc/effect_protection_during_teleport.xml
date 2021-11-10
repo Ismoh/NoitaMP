@@ -1,0 +1,12 @@
+<Entity>
+	
+	<InheritTransformComponent>
+    </InheritTransformComponent>	
+    
+    <GameEffectComponent 
+        effect="PROTECTION_DURING_TELEPORT"
+        frames="7200"
+    >
+	</GameEffectComponent >
+
+</Entity>

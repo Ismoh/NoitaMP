@@ -1,0 +1,24 @@
+<Entity >
+  <Base file="data/entities/animals/assassin.xml">
+    <DamageModelComponent 
+      hp="18"
+      max_hp="18"
+	  minimum_knockback_force="100000"
+     ></DamageModelComponent >
+  </Base>
+  
+	<Entity>
+		<Base file="data/entities/misc/animal_energy_shield_sector.xml">
+		</Base>
+	</Entity>
+	
+	<Entity>
+		<InheritTransformComponent />
+		
+	    <GameEffectComponent 
+	        effect="PROTECTION_FREEZE"
+	        frames="-1"
+	    >
+		</GameEffectComponent >
+	</Entity>
+</Entity>

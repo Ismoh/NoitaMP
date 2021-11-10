@@ -1,0 +1,28 @@
+<Entity	tags="hittable,mortal,prop,pixelsprite" >
+	<PixelSpriteComponent 
+		_enabled="1" 
+		image_file="data/props_gfx/sarcophagus_evil.png"
+		anchor_x="7" 
+		anchor_y="28"
+		create_box2d_bodies="1"
+		clean_overlapping_pixels="1"
+		material="rock_loose"	
+		>
+	</PixelSpriteComponent>
+
+	<!--
+	<LuaComponent
+    execute_every_n_frame="-1"
+    script_collision_trigger_hit="data/scripts/props/sarcophagus_spirit.lua"
+    script_death="data/scripts/props/sarcophagus_spirit.lua"
+    remove_after_executed="0">
+  </LuaComponent>
+	-->
+
+	<SimplePhysicsComponent 
+		can_go_up="0"
+		>
+	</SimplePhysicsComponent >
+
+	<VelocityComponent />
+</Entity>

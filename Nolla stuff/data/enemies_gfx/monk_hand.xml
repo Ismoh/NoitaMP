@@ -1,0 +1,32 @@
+<Sprite 
+	filename="data/enemies_gfx/monk_hand.png" 
+	offset_x="6" 
+	offset_y="14"
+	default_animation="open"
+	>
+
+	<RectAnimation
+		name="open"
+		pos_x="0"
+		pos_y="0"
+		frame_count="4"
+		frame_width="14"
+		frame_height="18"
+		frame_wait="0.1"
+		frames_per_row="4"
+		loop="0"   >
+	</RectAnimation>
+
+	<RectAnimation
+		name="close"
+		pos_x="0"
+		pos_y="18"
+		frame_count="4"
+		frame_width="14"
+		frame_height="18"
+		frame_wait="0.12"
+		frames_per_row="4"
+		loop="0"   >
+	</RectAnimation>
+</Sprite>
+

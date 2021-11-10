@@ -1,0 +1,114 @@
+<Entity  name="$animal_bloom">
+  
+	<Base file="data/entities/base_enemy_basic.xml" >
+	    <ItemChestComponent level="4" > </ItemChestComponent>
+		<AnimalAIComponent 
+			_enabled="1" 
+			preferred_job="JobDefault"
+			escape_if_damaged_probability="50"
+			attack_ranged_min_distance="0"
+			attack_ranged_max_distance="250"
+			creature_detection_range_x="300"
+			creature_detection_range_y="300"
+			food_material="blood"
+			needs_food="0"
+			sense_creatures="1"
+			attack_ranged_enabled="1"
+			attack_melee_enabled="0"
+			attack_ranged_action_frame="4"
+			can_fly="0"  
+			attack_ranged_entity_file="data/entities/projectiles/dummy.xml"
+			attack_ranged_frames_between="60" >
+		</AnimalAIComponent>
+		
+		<DamageModelComponent 
+            hp="4"
+            ragdoll_material="meat_slime_green"
+			ragdoll_filenames_file="data/ragdolls/bloom/filenames.txt" 
+			blood_material="slime"
+			blood_spray_material="slime"
+			fire_probability_of_ignition="5" 
+			air_lack_of_damage="0.2" 
+			air_needed="1" 
+			blood_multiplier="0.4"
+			blood_sprite_directional="data/particles/bloodsplatters/bloodsplatter_directional_purple_$[1-3].xml"
+			blood_sprite_large="data/particles/bloodsplatters/bloodsplatter_purple_$[1-3].xml"
+			>
+		</DamageModelComponent>
+
+		<SpriteComponent 
+			image_file="data/enemies_gfx/bloom.xml" 
+			offset_x="0"
+			offset_y="0">
+		</SpriteComponent>
+
+		<PathFindingGridMarkerComponent
+			marker_work_flag="16" >
+		</PathFindingGridMarkerComponent>
+		
+		<PathFindingComponent
+		    distance_to_reach_node_x="20"
+		    distance_to_reach_node_y="20"
+			frames_to_get_stuck="120"
+			can_jump="1" 
+			jump_speed="140"
+			initial_jump_lob="1"
+			initial_jump_max_distance_x="80"
+			initial_jump_max_distance_y="60" >
+		</PathFindingComponent>
+
+		<GenomeDataComponent 
+			herd_id="flower"
+			food_chain_rank="7"
+			is_predator="1" >
+		</GenomeDataComponent>
+		
+		<CharacterPlatformingComponent 
+			jump_velocity_y="-12" 
+			run_velocity="12"  >
+		</CharacterPlatformingComponent>
+		
+		<HitboxComponent 
+			_enabled="1" 
+			aabb_max_x="8" 
+			aabb_max_y="4" 
+			aabb_min_x="-8" 
+			aabb_min_y="-12" 
+			>
+		</HitboxComponent>
+	
+		<CameraBoundComponent
+			max_count="30"
+			distance="160000">
+		</CameraBoundComponent>
+		
+		<CharacterDataComponent
+			collision_aabb_min_x="-5.0" 
+			collision_aabb_max_x="5.0" 
+			collision_aabb_min_y="-12" 
+			collision_aabb_max_y="3" 
+			mass="1.8"
+			>
+		</CharacterDataComponent>
+	</Base>
+		
+	<LuaComponent 
+		_enabled="1" 
+		script_shot="data/scripts/projectiles/bloom_shot.lua" >
+    </LuaComponent>
+
+	<AudioLoopComponent
+		file="data/audio/Desktop/animals.bank"
+		event_name="animals/slimy_small/movement_loop"
+		set_speed_parameter="1"
+		set_speed_parameter_only_based_on_x_movement="1"
+		auto_play="1">
+	</AudioLoopComponent>
+
+	<AudioComponent
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals/bloom" >
+	</AudioComponent>
+
+</Entity>
+

@@ -1,0 +1,26 @@
+<Entity name="$animal_slimeshooter">
+  
+	<Base file="data/entities/animals/slimeshooter.xml" >
+		<AnimalAIComponent
+			attack_ranged_entity_file="data/entities/projectiles/radioactive_blob.xml"
+			>
+		</AnimalAIComponent>
+		
+		<DamageModelComponent
+			ragdoll_filenames_file="data/ragdolls/slimeshooter_weak/filenames.txt"
+			hp="0.3"
+			>
+		</DamageModelComponent>
+		
+		<SpriteComponent 
+			image_file="data/enemies_gfx/slimeshooter_weak.xml"
+			>
+		</SpriteComponent> 
+	</Base>
+	
+	<!-- <Entity>  <Base file="data/entities/verlet_chains/slime_tentacle/slime_tentacle_bright_alt_02.xml"> <InheritTransformComponent><Transform position.x="0"  position.y="-6" ></Transform></InheritTransformComponent> </Base>  </Entity> -->
+	<Entity>  <Base file="data/entities/verlet_chains/slime_tentacle/slime_tentacle_bright_alt_01.xml"> <InheritTransformComponent><Transform position.x="-3" position.y="-6" ></Transform></InheritTransformComponent> </Base>  </Entity>
+	<Entity>  <Base file="data/entities/verlet_chains/slime_tentacle/slime_tentacle_thin_alt_01.xml"> <InheritTransformComponent><Transform position.x="3"  position.y="-6" ></Transform></InheritTransformComponent> </Base>  </Entity>
+
+</Entity>
+

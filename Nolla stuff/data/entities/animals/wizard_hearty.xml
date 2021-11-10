@@ -1,0 +1,164 @@
+<Entity name="$animal_wizard_hearty" tags="" >
+  
+	<Base file="data/entities/base_enemy_basic.xml" >
+		<ItemChestComponent level="2" > </ItemChestComponent>
+		
+		<AnimalAIComponent 
+			_enabled="1" 
+			preferred_job="JobDefault"
+			attack_melee_enabled="0"
+			creature_detection_range_x="400"
+			creature_detection_range_y="400"
+			food_material="blood"
+			needs_food="0"
+			sense_creatures="1"
+			attack_ranged_enabled="1"
+			can_fly="1" 
+			attack_ranged_entity_file="data/entities/projectiles/orb_hearty.xml"
+			attack_ranged_action_frame="5"
+			attack_ranged_frames_between="110"
+			attack_ranged_offset_y="0"
+			attack_ranged_min_distance="0"
+			attack_ranged_max_distance="300"
+			>
+		</AnimalAIComponent>
+		
+		<DamageModelComponent 
+            hp="12"
+            ragdoll_material="meat_confusion"
+			ragdoll_filenames_file="data/ragdolls/wizard_hearty/filenames.txt"
+			critical_damage_resistance="1.0"
+			healing_particle_effect_entity="data/entities/particles/heal_effect.xml"
+			>
+			<damage_multipliers
+			explosion="-0.5"
+			electricity="-0.5"
+			ice="-0.5">
+			</damage_multipliers>
+		</DamageModelComponent>
+
+		<SpriteComponent 
+			image_file="data/enemies_gfx/wizard_hearty.xml" 
+			offset_x="0"
+			offset_y="0">
+		</SpriteComponent>
+
+		<PathFindingComponent
+			can_jump="1" >
+		</PathFindingComponent>
+
+		<PathFindingGridMarkerComponent
+			marker_work_flag="16" >
+		</PathFindingGridMarkerComponent>
+		
+		<GenomeDataComponent 
+			herd_id="mage"
+			food_chain_rank="6"
+			is_predator="1" >
+		</GenomeDataComponent>
+		
+		<CharacterPlatformingComponent 
+			jump_velocity_y="-12"
+			swim_idle_buoyancy_coeff="1.0"
+			run_velocity="18"  
+			fly_speed_change_spd="0.9"
+			fly_velocity_x="56" 
+			accel_x="0.09" 
+			>
+		</CharacterPlatformingComponent>
+		
+		<CameraBoundComponent
+			max_count="30"
+			distance="160000">
+		</CameraBoundComponent>
+		
+		<HitboxComponent 
+		  _enabled="1" 
+		  aabb_min_x="-4.5" 
+		  aabb_max_x="4.5" 
+		  aabb_min_y="-10" 
+		  aabb_max_y="3" 
+		  >
+		</HitboxComponent>
+		
+		<CharacterDataComponent 
+			collision_aabb_min_x="-3.0" 
+			collision_aabb_max_x="3.0" 
+			collision_aabb_min_y="-7" 
+			collision_aabb_max_y="3" 
+			>
+	    </CharacterDataComponent>
+	</Base>
+	
+	<SpriteParticleEmitterComponent
+		sprite_file="data/particles/darkflame_red.xml"
+		delay="0"
+		lifetime="2"
+		color.r="1" color.g="1" color.b="1" color.a="1"
+		color_change.r="0" color_change.g="0" color_change.b="0" color_change.a="-1"
+		velocity.x="0" velocity.y="0"
+		gravity.x="0" gravity.y="30"
+		velocity_slowdown="0"
+		rotation="0"
+		angular_velocity="0"
+		use_velocity_as_rotation="0"
+		scale.x="1" scale.y="1"
+		scale_velocity.x="0" scale_velocity.y="0"
+		emission_interval_min_frames="5"
+		emission_interval_max_frames="10"
+		count_min="1" count_max="1"
+		randomize_rotation.min="-3.1415"
+		randomize_rotation.max="3.1415"
+		randomize_angular_velocity.min="-15"
+		randomize_angular_velocity.max="15"
+		randomize_velocity.min_x="-5"
+		randomize_velocity.max_x="5"
+		randomize_velocity.min_y="-5"
+		randomize_velocity.max_y="5"
+		randomize_position.min_x="-10"
+		randomize_position.max_x="10"
+		randomize_position.min_y="-10"
+		randomize_position.max_y="10"
+		>
+  </SpriteParticleEmitterComponent>
+  
+	<ItemPickUpperComponent
+    	is_in_npc="1">
+    </ItemPickUpperComponent>
+	
+	<HotspotComponent
+        _tags="cape_root"
+        sprite_hotspot_name="cape" >
+    </HotspotComponent>
+	
+	<AudioLoopComponent
+		file="data/audio/Desktop/animals.bank"
+		event_name="animals/wizard/movement_loop"
+		set_speed_parameter="1"
+		auto_play="1">
+	</AudioLoopComponent>
+
+	<AudioComponent
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals/wizard" >
+	</AudioComponent>
+
+	<Entity name="cape">  
+        <Base file="data/entities/verlet_chains/cape/cape.xml">
+			<VerletPhysicsComponent
+        		cloth_color_edge="0xFFefe08c"
+        		cloth_color="0xFF7d3640">
+        	</VerletPhysicsComponent>
+        </Base>  
+    </Entity>
+	
+	<MagicConvertMaterialComponent
+        from_material="rock_box2d_hard"
+        to_material="air"
+        steps_per_frame="15"
+        loop="1"
+		is_circle="1"
+        radius="15" >
+    </MagicConvertMaterialComponent>
+</Entity>
+

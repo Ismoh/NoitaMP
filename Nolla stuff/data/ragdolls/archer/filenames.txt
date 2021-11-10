@@ -1,0 +1,12 @@
+data/ragdolls/archer/torso.png
+data/ragdolls/archer/right_thigh.png
+data/ragdolls/archer/right_leg.png
+data/ragdolls/archer/right_arm.png
+data/ragdolls/archer/right_hand.png
+data/ragdolls/archer/left_thigh.png
+data/ragdolls/archer/left_leg.png
+data/ragdolls/archer/left_arm.png
+data/ragdolls/archer/left_hand.png
+data/ragdolls/archer/head.png
+data/ragdolls/archer/bow1.png
+data/ragdolls/archer/bow2.png

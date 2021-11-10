@@ -1,0 +1,71 @@
+<Entity name="$animal_longleg">
+  
+    <Base file="data/entities/base_enemy_basic.xml" >
+        <ItemChestComponent level="1" > </ItemChestComponent>
+        
+        <AnimalAIComponent
+            escape_if_damaged_probability="100"
+            sense_creatures="1"
+            attack_melee_max_distance="10" 
+    		attack_dash_enabled="1"
+    	    eating_area_radius_x="8"
+    	    eating_area_radius_y="8"
+    	    mouth_offset_x="0" 
+    	    mouth_offset_y="6"  >
+        </AnimalAIComponent>
+        
+        <SpriteComponent 
+            image_file="data/enemies_gfx/longleg.xml" 
+            offset_x="6" 
+            offset_y="12" >
+        </SpriteComponent>
+        
+        <SpriteAnimatorComponent
+            rotate_to_surface_normal="0" >
+        </SpriteAnimatorComponent>
+
+        <DamageModelComponent
+            hp="0.11"
+            ragdoll_filenames_file="data/ragdolls/longleg/filenames.txt"
+            ragdoll_offset_y="-6"
+			blood_sprite_directional="data/particles/bloodsplatters/bloodsplatter_directional_purple_$[1-3].xml"
+			blood_sprite_large="data/particles/bloodsplatters/bloodsplatter_purple_$[1-3].xml"
+            blood_spray_material="blood"
+            blood_spray_create_some_cosmetic="1"
+			>
+        </DamageModelComponent>
+        
+        <CharacterPlatformingComponent 
+            jump_velocity_y="-140" 
+            run_velocity="25"  >
+        </CharacterPlatformingComponent>
+
+        <GenomeDataComponent 
+            herd_id="spider">
+        </GenomeDataComponent>
+        
+        <HitboxComponent 
+            _enabled="1"
+			aabb_min_x="-5" 
+            aabb_min_y="-6" 
+            aabb_max_x="5" 
+            aabb_max_y="6" 
+			>
+        </HitboxComponent>
+		
+		<CharacterDataComponent
+			collision_aabb_min_x="-2" 
+			collision_aabb_max_x="2" 
+			collision_aabb_min_y="-6" 
+			collision_aabb_max_y="3"
+			mass="0.4"
+			>
+		</CharacterDataComponent>
+    </Base>
+	
+	<AudioComponent
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals/longleg" >
+	</AudioComponent>
+
+</Entity>

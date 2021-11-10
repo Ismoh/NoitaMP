@@ -1,0 +1,13 @@
+<Entity>
+
+	<InheritTransformComponent 
+		_enabled="1" >
+    </InheritTransformComponent>	
+    
+    <GameEffectComponent 
+        effect="BLOODY"
+        frames="720"
+    >
+	</GameEffectComponent >
+
+</Entity>

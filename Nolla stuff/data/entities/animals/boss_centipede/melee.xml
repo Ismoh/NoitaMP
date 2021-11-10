@@ -1,0 +1,98 @@
+<Entity
+	name="unknown">
+	
+	<!--
+	<Base file="data/entities/base_projectile.xml">
+		<VelocityComponent
+			gravity_y="0"
+			mass="0.05" >
+		</VelocityComponent>
+	</Base>
+	-->
+
+	<ProjectileComponent
+		lifetime="80"
+		damage="0"
+		collide_with_world="0"
+		on_lifetime_out_explode="1"
+    on_death_explode="1"
+    on_collision_die="0"
+    explosion_dont_damage_shooter="1"
+		shoot_light_flash_radius="120"
+		shoot_light_flash_r="255"
+		shoot_light_flash_g="240"
+		shoot_light_flash_b="30"
+		><config_explosion
+			never_cache="0" 
+			damage="8"
+			camera_shake="40" 
+			explosion_radius="40" 
+			explosion_sprite="data/particles/explosion_128.xml" 
+			explosion_sprite_lifetime="0" 
+			load_this_entity="data/entities/misc/loose_ground.xml"
+			create_cell_probability="40" 
+			hole_destroy_liquid="0" 
+			hole_enabled="1" 
+			ray_energy="64000"
+			particle_effect="1" 
+			damage_mortals="1"
+			physics_explosion_power.min="2.5"
+			physics_explosion_power.max="6" 
+			shake_vegetation="1" 
+			sparks_count_max="500" 
+			sparks_count_min="800" 
+			sparks_enabled="1" 
+			stains_enabled="1" 
+			stains_radius="25"
+			background_lightning_count="5" 
+			max_durability_to_destroy="12" 
+			audio_event_name="explosions/nuke" 
+			>
+		</config_explosion>
+	</ProjectileComponent>
+
+	<!-- buildup -->
+	<ParticleEmitterComponent 
+		_tags="melee_buildup_particles"
+		emitted_material_name="spark_yellow"
+		gravity.y="0.0"
+		lifetime_min="0.1"
+		lifetime_max="1.5"
+		count_min="20"
+		count_max="20"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		area_circle_radius.min="0"
+		area_circle_radius.max="0"
+		cosmetic_force_create="0"
+		airflow_force="4.1"
+		airflow_time="1.01"
+		airflow_scale="0.05"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		emit_cosmetic_particles="1"
+		image_animation_file="data/particles/image_emitters/circle_reverse_128.png"
+		image_animation_speed="4"
+		image_animation_loop="0"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+
+	<AudioLoopComponent
+		file="data/audio/Desktop/projectiles.bank"
+		event_name="projectiles/fuse_burn_slow"
+		auto_play="1">
+	</AudioLoopComponent>
+	
+	<LuaComponent
+		script_source_file="data/entities/animals/boss_centipede/melee_shots.lua"
+		execute_every_n_frame="-1"
+		execute_on_removed="1"
+		>
+	</LuaComponent>
+	
+	<VariableStorageComponent
+		name="projectile_file"
+		value_string="data/entities/animals/boss_centipede/melee.xml"
+		>
+	</VariableStorageComponent>
+</Entity>

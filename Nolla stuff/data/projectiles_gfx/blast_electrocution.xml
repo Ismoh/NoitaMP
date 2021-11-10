@@ -1,0 +1,33 @@
+<Sprite 
+  color_a="1" 
+  color_b="1" 
+  color_g="0.9" 
+  color_r="0.6" 
+  default_animation="spawn" 
+  filename="data/projectiles_gfx/blast_electrocution.png" 
+  offset_x="32" 
+  offset_y="32" >
+  <RectAnimation 
+    frame_count="5" 
+    frame_height="65" 
+    frame_wait="0.04" 
+    frame_width="65" 
+    frames_per_row="4" 
+    loop="0" 
+    name="spawn" 
+    next_animation="fireball" 
+    pos_x="0" 
+    pos_y="1" 
+    shrink_by_one_pixel="1" >
+  </RectAnimation>
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="64" 
+    frame_wait="0.03" 
+    frame_width="64" 
+    frames_per_row="4" 
+    name="fireball" 
+    pos_x="0" 
+    pos_y="131" >
+  </RectAnimation>
+</Sprite>

@@ -1,0 +1,147 @@
+<Entity name="$animal_cook" >
+  
+	<Base file="data/entities/base_enemy_basic.xml" >
+		<ItemChestComponent level="1" > </ItemChestComponent>
+		
+		<AnimalAIComponent 
+			_enabled="1" 
+			preferred_job="JobDefault"
+			escape_if_damaged_probability="40"
+			attack_melee_damage_min="0.4" 
+			attack_melee_damage_max="0.7"
+			creature_detection_range_x="300"
+			creature_detection_range_y="300"
+			food_material="meat"
+			needs_food="1"
+			sense_creatures="1"
+			attack_ranged_enabled="1"
+			attack_melee_enabled="1"
+			can_fly="0"  
+			attack_melee_action_frame="4"
+			attack_ranged_action_frame="4"
+			attack_ranged_entity_file="data/entities/projectiles/deck/sausage.xml"
+			attack_ranged_frames_between="70" >
+		</AnimalAIComponent>
+		
+		<DamageModelComponent 
+            hp="1.0"
+            materials_create_messages="1"
+			ragdoll_filenames_file="data/ragdolls/miner_chef/filenames.txt" 
+			fire_probability_of_ignition="5"
+    		blood_spray_material="blood"
+            blood_spray_create_some_cosmetic="1"
+			>
+			<damage_multipliers
+				explosion="0.2"
+				>
+			</damage_multipliers>
+		</DamageModelComponent>
+
+		<SpriteComponent 
+			image_file="data/enemies_gfx/miner_chef.xml" 
+			offset_x="0"
+			offset_y="0">
+		</SpriteComponent>
+
+		<PathFindingComponent
+			can_jump="1"
+			can_fly="0" 
+			jump_speed="100"
+			initial_jump_lob="1"
+			initial_jump_max_distance_x="60"
+			initial_jump_max_distance_y="60" 
+			can_swim_on_surface="1"
+			can_dive="1"
+			>
+		</PathFindingComponent>
+
+		<PathFindingGridMarkerComponent
+			marker_work_flag="16" >
+		</PathFindingGridMarkerComponent>
+		
+		<GenomeDataComponent 
+			herd_id="orcs"
+			food_chain_rank="9"
+			is_predator="1" >
+		</GenomeDataComponent>
+		
+		<CharacterPlatformingComponent 
+			jump_velocity_y="-12" 
+			run_velocity="12"  >
+		</CharacterPlatformingComponent>
+
+		<CameraBoundComponent
+			max_count="30"
+			distance="160000">
+		</CameraBoundComponent>
+		
+		<HitboxComponent 
+            _enabled="1" 
+			aabb_min_x="-3"  
+            aabb_max_x="3"
+			aabb_min_y="-6"
+            aabb_max_y="3" 
+			>
+        </HitboxComponent>
+		
+		<CharacterDataComponent
+			collision_aabb_min_x="-2.0" 
+			collision_aabb_max_x="2.0" 
+			collision_aabb_min_y="-7.5" 
+			collision_aabb_max_y="3" 
+			mass="1.3"
+			>
+		</CharacterDataComponent>
+	</Base>
+		
+	<LightComponent 
+		_enabled="1" 
+		radius="50"
+		fade_out_time="1.5" >
+	</LightComponent>
+
+	<ItemPickUpperComponent
+		is_in_npc="1">
+	</ItemPickUpperComponent>
+
+	<AudioComponent
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals/miner" >
+	</AudioComponent>
+	
+	<HitboxComponent 
+		_enabled="1" 
+		aabb_max_x="2.5" 
+		aabb_max_y="-6" 
+		aabb_min_x="-2.5" 
+		aabb_min_y="-12" 
+		damage_multiplier="0.9"
+		>
+	</HitboxComponent>
+	<Entity>
+	    <GameEffectComponent 
+	        effect="ALLERGY_RADIOACTIVE"
+	        frames="-1"
+	    >
+		</GameEffectComponent >
+	</Entity>
+	
+	<HotspotComponent
+		_tags="hand_hotspot,hand"
+		sprite_hotspot_name="hand"
+		offset.x="0" 
+		offset.y="0">
+	</HotspotComponent>
+	
+	<LuaComponent
+		script_shot="data/scripts/animals/limit_sausages.lua"
+		execute_every_n_frame="-1"
+		>
+	</LuaComponent>
+	
+	<VariableStorageComponent
+		name="sausage_max"
+		value_int="0"
+		>
+	</VariableStorageComponent>
+</Entity>

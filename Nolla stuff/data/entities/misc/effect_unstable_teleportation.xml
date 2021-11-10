@@ -1,0 +1,19 @@
+<Entity>
+	<Base file="data/entities/particles/teleportation_blast.xml" >
+		<SpriteParticleEmitterComponent
+			randomize_position_inside_hitbox="1"  >
+		</SpriteParticleEmitterComponent>
+	</Base>
+	
+	<InheritTransformComponent>
+    </InheritTransformComponent>	
+    
+    <GameEffectComponent 
+        effect="UNSTABLE_TELEPORTATION"
+        frames="300"
+		teleportation_probability="200"
+		teleportation_delay_min_frames="600"
+    >
+	</GameEffectComponent >
+
+</Entity>

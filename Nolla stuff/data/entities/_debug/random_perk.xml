@@ -1,0 +1,9 @@
+<Entity tags="teleportable_NOT,perk">
+
+  <LuaComponent 
+    script_source_file="data/scripts/perks/perk_spawn.lua" 
+	execute_every_n_frame="1"
+	>
+  </LuaComponent>
+  
+</Entity>

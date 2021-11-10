@@ -1,0 +1,66 @@
+<Entity tags="temple_door" >
+
+  <Base file="data/entities/base_item_physics.xml" >
+
+    <PhysicsImageShapeComponent
+      body_id="1"
+      centered="0" 
+      image_file="data/props_gfx/temple_door_wheel.png"
+      material="metal_prop" >
+    </PhysicsImageShapeComponent>
+
+    <PhysicsBodyComponent 
+      uid="1"
+      allow_sleep="1" 
+      angular_damping="0.01" 
+      gridworld_box2d="1" 
+      linear_damping="0.1"
+      force_add_update_areas="1"
+      randomize_init_velocity="0"
+    >
+    </PhysicsBodyComponent>
+  </Base>
+
+  <PhysicsImageShapeComponent
+    centered="0" 
+    image_file="data/props_gfx/temple_door_notched.png"
+    material="metal_prop"
+    body_id="2"
+     >
+  </PhysicsImageShapeComponent>
+
+  <PhysicsBodyComponent 
+    allow_sleep="1" 
+    angular_damping="0.01"
+    gridworld_box2d="1"
+    linear_damping="0.03"
+    uid="2"
+    kills_entity="0"
+    >
+  </PhysicsBodyComponent>
+
+  <PhysicsJointComponent 
+    body1_id="1"
+    body2_id="1"
+    nail_to_wall="1" 
+    pos_x="46.5"
+    pos_y="44.5"
+    grid_joint="1"
+    mMotorEnabled="0"
+    mMotorSpeed="-1"
+    mMaxMotorTorque="500000" >
+  </PhysicsJointComponent>
+
+  <!-- <LuaComponent 
+      execute_every_n_frame="1"
+      remove_after_executed="1"
+      script_source_file="data/scripts/props/physics_templedoor.lua"
+      >
+  </LuaComponent>
+
+  <CameraBoundComponent
+	  max_count="20"
+	  distance="1000">
+	</CameraBoundComponent>
+-->
+</Entity>

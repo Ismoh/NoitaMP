@@ -1,0 +1,204 @@
+<Entity tags="hittable,teleportable_NOT,seed_c" >
+	<Base file="data/entities/base_item_projectile.xml" />
+
+	<!-- physical presence -->
+	
+	<PhysicsBodyComponent 
+		_tags="enabled_in_world"
+		uid="1" 
+		allow_sleep="1" 
+		angular_damping="0" 
+		fixed_rotation="0" 
+		is_bullet="1" 
+		linear_damping="0"
+		auto_clean="0"
+		on_death_leave_physics_body="1"
+		hax_fix_going_through_ground="1"
+	></PhysicsBodyComponent>
+	
+	<PhysicsImageShapeComponent 
+		body_id="1"
+		centered="1"
+		image_file="data/items_gfx/normals_orb_56_noise.png"
+		material="gem_box2d_yellow_sun"
+	></PhysicsImageShapeComponent>
+
+	<VelocityComponent
+		_tags="enabled_in_world"
+	></VelocityComponent>
+	
+	<SpriteComponent
+		_tags="enabled_in_hand,enabled_in_world"
+		_enabled="1"
+		offset_x="98"
+		offset_y="98"
+		image_file="data/particles/fog_of_war_hole_huge.png"
+		smooth_filtering="1"
+		fog_of_war_hole="1"
+	></SpriteComponent>
+
+	<UIInfoComponent
+		_tags="enabled_in_world"
+		name="$item_seed_b">
+	</UIInfoComponent>
+	
+	<MagicConvertMaterialComponent
+		_tags="enabled_in_world,enabled_in_hand"
+		kill_when_finished="0"
+		from_material=""
+		from_material_tag="[liquid_common]"
+		steps_per_frame="2"
+		to_material="lava"
+		clean_stains="0"
+		is_circle="1"
+		radius="120" 
+		loop="1"
+		>
+	</MagicConvertMaterialComponent>
+	
+	<MagicConvertMaterialComponent
+		_tags="enabled_in_world,enabled_in_hand"
+		kill_when_finished="0"
+		from_material=""
+		from_material_tag="[sand_ground]"
+		steps_per_frame="2"
+		to_material="lava"
+		clean_stains="0"
+		is_circle="1"
+		radius="120" 
+		loop="1"
+		>
+	</MagicConvertMaterialComponent>
+	
+	<MagicConvertMaterialComponent
+		_tags="enabled_in_world,enabled_in_hand"
+		kill_when_finished="0"
+		from_material=""
+		from_material_tag="[sand_other]"
+		steps_per_frame="2"
+		to_material="lava"
+		clean_stains="0"
+		is_circle="1"
+		radius="120" 
+		loop="1"
+		>
+	</MagicConvertMaterialComponent>
+	
+	<MagicConvertMaterialComponent
+		_tags="enabled_in_world,enabled_in_hand"
+		kill_when_finished="0"
+		ignite_materials="1"
+		steps_per_frame="2"
+		fan_the_flames="1"
+		clean_stains="0"
+		is_circle="1"
+		radius="140" 
+		loop="1"
+		>
+	</MagicConvertMaterialComponent>
+	
+	<CellEaterComponent
+		radius="72"
+		eat_probability="10"
+		ignored_material="gem_box2d_yellow_sun"
+		>
+	</CellEaterComponent>
+	
+	<AreaDamageComponent
+		aabb_min.x="-48" 
+		aabb_min.y="-48" 
+		aabb_max.x="48" 
+		aabb_max.y="48" 
+		damage_per_frame="1.14"
+		update_every_n_frame="1"
+		entities_with_tag="mortal"
+		death_cause="$damage_sun"
+		damage_type="DAMAGE_CURSE"
+		>
+	</AreaDamageComponent>
+	
+	<AreaDamageComponent
+		aabb_min.x="-80" 
+		aabb_min.y="-80" 
+		aabb_max.x="80" 
+		aabb_max.y="80" 
+		damage_per_frame="0.05"
+		update_every_n_frame="1"
+		entities_with_tag="mortal"
+		death_cause="$damage_sun"
+		damage_type="DAMAGE_EXPLOSION"
+		>
+	</AreaDamageComponent>
+	
+	<AreaDamageComponent
+		aabb_min.x="-120" 
+		aabb_min.y="-120" 
+		aabb_max.x="120" 
+		aabb_max.y="120" 
+		damage_per_frame="0.01"
+		update_every_n_frame="1"
+		entities_with_tag="mortal"
+		death_cause="$damage_sun"
+		damage_type="DAMAGE_FIRE"
+		>
+	</AreaDamageComponent>
+	
+	<ParticleEmitterComponent 
+		_tags="enabled_in_world,enabled_in_hand"
+		emitted_material_name="spark_yellow"
+		fade_based_on_lifetime="1"
+		x_pos_offset_min="0"
+		x_pos_offset_max="0"
+		y_pos_offset_min="0"
+		y_pos_offset_max="0"
+		x_vel_min="-40"
+		x_vel_max="40"
+		y_vel_min="-40"
+		y_vel_max="40"
+		area_circle_radius.min="32"
+		area_circle_radius.max="36"
+		velocity_always_away_from_center="150"
+		gravity.y="0"
+		friction="0.1"
+		airflow_force="0.9"
+		airflow_time="0.101"
+		airflow_scale="0.81"
+		count_min="4"
+		count_max="10"
+		lifetime_min="0.5"
+		lifetime_max="2.0"
+		create_real_particles="0"
+		emit_cosmetic_particles="1"
+		draw_as_long="1"
+		collide_with_grid="1"
+		render_on_grid="1"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		render_ultrabright="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+	
+	<LuaComponent
+		script_source_file="data/scripts/buildings/sun/spot_3.lua"
+		execute_every_n_frame="20"
+		>
+	</LuaComponent>
+	
+	<VariableStorageComponent
+		_tags="sunegg_kills"
+		name="sunegg_kills"
+		value_int="0"
+		>
+	</VariableStorageComponent>
+	
+	<AudioLoopComponent
+		file="data/audio/Desktop/misc.bank"
+		event_name="misc/sun/size_1_loop"
+		auto_play="1">
+    </AudioLoopComponent>
+	
+	<CameraBoundComponent
+	  max_count="5"
+	  distance="2000">
+	</CameraBoundComponent>
+</Entity>

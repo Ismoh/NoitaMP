@@ -1,0 +1,12 @@
+<Entity>
+
+	<InheritTransformComponent />
+
+	<LuaComponent
+		script_source_file="data/scripts/items/orb_boss_scream.lua"
+		execute_every_n_frame="1260"
+		>
+	</LuaComponent>
+
+</Entity>
+

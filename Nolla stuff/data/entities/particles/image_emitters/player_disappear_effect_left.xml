@@ -1,0 +1,10 @@
+<Entity>
+	
+	<Base file="data/entities/particles/image_emitters/player_disappear_effect_right.xml">
+	  	<ParticleEmitterComponent 
+			offset.x="1 "
+			image_animation_file="data/particles/image_emitters/player_disappear_left.png" >
+		</ParticleEmitterComponent>
+	</Base>
+
+</Entity>

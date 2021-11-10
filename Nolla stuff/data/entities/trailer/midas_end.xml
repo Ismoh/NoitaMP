@@ -1,0 +1,12 @@
+<Entity>
+    <MagicConvertMaterialComponent
+      kill_when_finished="1"
+      convert_entities="1"
+      steps_per_frame="3"
+      to_material="gold_b2"
+      clean_stains="0"
+      is_circle="1"
+      radius="320" >
+    </MagicConvertMaterialComponent>
+</Entity>
+

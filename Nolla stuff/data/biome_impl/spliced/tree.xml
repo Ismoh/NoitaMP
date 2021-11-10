@@ -1,0 +1,20 @@
+<PixelScenes>
+  <mBufferedPixelScenes>
+    <PixelScene background_filename="data/biome_impl/spliced/tree/0_background.png" colors_filename="data/biome_impl/spliced/tree/0_visual.plz" material_filename="data/biome_impl/spliced/tree/0.plz" pos_x="-2016" pos_y="-1324" skip_biome_checks="1" >
+    </PixelScene>
+    <PixelScene background_filename="data/biome_impl/spliced/tree/1_background.png" colors_filename="data/biome_impl/spliced/tree/1_visual.plz" material_filename="data/biome_impl/spliced/tree/1.plz" pos_x="-2035" pos_y="-812" skip_biome_checks="1" >
+    </PixelScene>
+    <PixelScene background_filename="data/biome_impl/spliced/tree/2_background.png" colors_filename="data/biome_impl/spliced/tree/2_visual.plz" material_filename="data/biome_impl/spliced/tree/2.plz" pos_x="-2048" pos_y="-300" skip_biome_checks="1" >
+    </PixelScene>
+    <PixelScene background_filename="data/biome_impl/spliced/tree/3_background.png" colors_filename="data/biome_impl/spliced/tree/3_visual.plz" material_filename="data/biome_impl/spliced/tree/3.plz" pos_x="-2048" pos_y="212" skip_biome_checks="1" >
+    </PixelScene>
+    <PixelScene background_filename="data/biome_impl/spliced/tree/4_background.png" colors_filename="data/biome_impl/spliced/tree/4_visual.plz" material_filename="data/biome_impl/spliced/tree/4.plz" pos_x="-1536" pos_y="-1323" skip_biome_checks="1" >
+    </PixelScene>
+    <PixelScene background_filename="data/biome_impl/spliced/tree/5_background.png" colors_filename="data/biome_impl/spliced/tree/5_visual.plz" material_filename="data/biome_impl/spliced/tree/5.plz" pos_x="-1536" pos_y="-812" skip_biome_checks="1" >
+    </PixelScene>
+    <PixelScene background_filename="data/biome_impl/spliced/tree/6_background.png" colors_filename="data/biome_impl/spliced/tree/6_visual.plz" material_filename="data/biome_impl/spliced/tree/6.plz" pos_x="-1536" pos_y="-300" skip_biome_checks="1" >
+    </PixelScene>
+    <PixelScene background_filename="data/biome_impl/spliced/tree/7_background.png" colors_filename="data/biome_impl/spliced/tree/7_visual.plz" material_filename="data/biome_impl/spliced/tree/7.plz" pos_x="-1536" pos_y="212" skip_biome_checks="1" >
+    </PixelScene>
+  </mBufferedPixelScenes>
+</PixelScenes>

@@ -1,0 +1,8 @@
+data/ragdolls/bigfly/head.png
+data/ragdolls/bigfly/torso_right.png
+data/ragdolls/bigfly/torso_left.png
+data/ragdolls/bigfly/right_leg.png
+data/ragdolls/bigfly/left_leg.png
+data/ragdolls/bigfly/wing.png
+data/ragdolls/bigfly/right_antenna.png
+data/ragdolls/bigfly/left_antenna.png

@@ -1,0 +1,8 @@
+data/ragdolls/sheep_bat/head.png
+data/ragdolls/sheep_bat/right_torso.png
+data/ragdolls/sheep_bat/left_torso.png
+data/ragdolls/sheep_bat/left_frontleg.png
+data/ragdolls/sheep_bat/right_frontleg.png
+data/ragdolls/sheep_bat/left_hindleg.png
+data/ragdolls/sheep_bat/right_hindleg.png
+data/ragdolls/sheep_bat/wing.png

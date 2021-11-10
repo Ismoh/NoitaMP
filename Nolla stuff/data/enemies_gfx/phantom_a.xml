@@ -1,0 +1,124 @@
+<Sprite 
+  filename="data/enemies_gfx/phantom_a.png" 
+  offset_x="8" 
+  offset_y="19"
+  default_animation="stand" >
+
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="23" 
+    frame_wait="0.12" 
+    frame_width="17" 
+    frames_per_row="8" 
+    name="stand" 
+    pos_x="0" 
+    pos_y="1" 
+    shrink_by_one_pixel="1" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="23" 
+    frame_wait="0.1" 
+    frame_width="17" 
+    frames_per_row="8" 
+    name="walk" 
+    pos_x="0" 
+    pos_y="24" 
+    shrink_by_one_pixel="1" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="23" 
+    frame_wait="0.1" 
+    frame_width="17" 
+    frames_per_row="8" 
+    name="run" 
+    pos_x="0" 
+    pos_y="24" 
+    shrink_by_one_pixel="1" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="23" 
+    frame_wait="0.1" 
+    frame_width="17" 
+    frames_per_row="8" 
+    name="burn" 
+    pos_x="0" 
+    pos_y="24" 
+    shrink_by_one_pixel="1" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="23" 
+    frame_wait="0.09" 
+    frame_width="17" 
+    frames_per_row="8" 
+    name="fly_idle" 
+    pos_x="0" 
+    pos_y="47" 
+    shrink_by_one_pixel="1" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="23" 
+    frame_wait="0.09" 
+    frame_width="17" 
+    frames_per_row="8" 
+    name="fly_move" 
+    pos_x="0" 
+    pos_y="47" 
+    shrink_by_one_pixel="1" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="7" 
+    frame_height="23" 
+    frame_wait="0.09" 
+    frame_width="17" 
+    frames_per_row="8" 
+    loop="0" 
+    name="attack_ranged" 
+    pos_x="0" 
+    pos_y="70" 
+    shrink_by_one_pixel="1" >
+
+    <Event 
+      check_physics_material="0" 
+      frame="4" 
+      max_distance="500" 
+      name="shoot_magic" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="5" 
+    frame_height="23" 
+    frame_wait="0.09" 
+    frame_width="25" 
+    frames_per_row="8" 
+    loop="0" 
+    name="attack" 
+    pos_x="0" 
+    pos_y="93" 
+    shrink_by_one_pixel="1" >
+
+  </RectAnimation>
+
+</Sprite>
+

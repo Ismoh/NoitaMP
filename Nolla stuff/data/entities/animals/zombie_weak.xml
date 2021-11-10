@@ -1,0 +1,17 @@
+<Entity tags="zombie" name="$animal_zombie">
+  
+	<Base file="data/entities/animals/zombie.xml" >
+		<DamageModelComponent
+			ragdoll_filenames_file="data/ragdolls/zombie_weak/filenames.txt"
+			hp="0.2"
+			>
+		</DamageModelComponent>
+		
+		<SpriteComponent 
+			image_file="data/enemies_gfx/zombie_weak.xml" 
+			>
+		</SpriteComponent> 
+	</Base>
+
+</Entity>
+

@@ -1,0 +1,136 @@
+<Entity 
+  name="unknown" 
+  tags="mortal,nest,predator,hittable,glue_NOT" >
+
+  <DamageModelComponent 
+    _enabled="1" 
+    air_in_lungs="5" 
+    air_in_lungs_max="5" 
+    air_lack_of_damage="0.2" 
+    air_needed="0" 
+    ragdoll_material="nest_firebug_box2d"
+    blood_material="lava"
+    drop_items_on_death="1" 
+    falling_damage_damage_max="1.2" 
+    falling_damage_damage_min="0.1" 
+    falling_damage_height_max="250" 
+    falling_damage_height_min="70" 
+    falling_damages="0" 
+    fire_damage_amount="0.2"  
+    fire_probability_of_ignition="0" 
+    hp="5" 
+    is_on_fire="0" 
+    materials_create_messages="0" 
+    materials_damage="1" 
+    materials_that_damage="acid,poison,blood_cold,blood_cold_vapour" 
+    materials_how_much_damage="0.004,0.001,0.0008,0.0007" 
+    max_hp="5" 
+    ragdoll_filenames_file="" 
+    ragdoll_offset_y="-6" >
+  </DamageModelComponent>
+
+  <GenomeDataComponent 
+    _enabled="1" 
+    food_chain_rank="20" 
+    herd_id="nest" 
+    is_predator="1" >
+  </GenomeDataComponent>
+  
+	<ItemChestComponent
+		item_count_min="3"
+		item_count_max="4"
+		level="3" >
+	</ItemChestComponent>
+
+  <HitboxComponent 
+    _enabled="1" 
+    aabb_max_x="10.7143" 
+    aabb_max_y="-3.71429" 
+    aabb_min_x="-9.42857" 
+    aabb_min_y="-25" 
+    is_enemy="0" 
+    is_item="0" 
+    is_player="0" >
+  </HitboxComponent>
+
+  <LuaComponent 
+    _enabled="1" 
+    execute_every_n_frame="121" 
+    execute_times="-1" 
+    remove_after_executed="0" 
+    script_source_file="data/scripts/buildings/firebugnest.lua" >
+  </LuaComponent>
+
+  <PathFindingGridMarkerComponent 
+    _enabled="1" 
+    marker_offset_x="0" 
+    marker_offset_y="0" 
+    marker_work_flag="16" >
+  </PathFindingGridMarkerComponent>
+
+  <SpriteComponent 
+    _enabled="1" 
+    alpha="1" 
+    has_special_scale="0" 
+    image_file="data/buildings_gfx/nest_yellow.xml" 
+    is_text_sprite="0" 
+    next_rect_animation="" 
+    offset_x="0" 
+    offset_y="0" 
+    rect_animation="" 
+    special_scale_x="1" 
+    special_scale_y="1" 
+     
+    ui_is_parent="0" 
+    update_transform="1" 
+    visible="1" 
+     >
+  </SpriteComponent>
+  
+  <ParticleEmitterComponent 
+    emitted_material_name="spark"
+    count_min="1"
+    count_max="2"
+    offset.x="0"
+    offset.y="-5"
+    x_pos_offset_min="-5"
+    y_pos_offset_min="-5"
+    x_pos_offset_max="5"
+    y_pos_offset_max="5"
+    x_vel_min="-50"
+    x_vel_max="50"
+    y_vel_min="-50"
+    y_vel_max="50"
+    lifetime_min="0.1"
+    lifetime_max="0.3"
+    create_real_particles="1"
+    emit_cosmetic_particles="0"
+    emission_interval_min_frames="20"
+    emission_interval_max_frames="40"
+    is_emitting="1" >
+  </ParticleEmitterComponent>
+  
+  <SpriteComponent 
+        _tags="character" 
+		_enabled="1" 
+		alpha="1" 
+		image_file="data/buildings_gfx/nest_emissive_alt.xml"
+		offset_x="0" 
+		offset_y="0"
+		emissive="1"
+        additive="1"
+		next_rect_animation="" 
+		rect_animation="walk" 
+		 >
+	</SpriteComponent>
+	
+	<LightComponent 
+    _enabled="1" 
+    radius="120" 
+  	r="205"
+  	g="145"
+  	b="20">
+  </LightComponent>
+
+</Entity>
+

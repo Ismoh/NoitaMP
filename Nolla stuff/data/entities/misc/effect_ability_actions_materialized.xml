@@ -1,0 +1,12 @@
+<Entity>
+	<InheritTransformComponent 
+		_enabled="1" >
+    </InheritTransformComponent>	
+    
+    <GameEffectComponent 
+        effect="ABILITY_ACTIONS_MATERIALIZED"
+        frames="600"
+    >
+	</GameEffectComponent >
+
+</Entity>

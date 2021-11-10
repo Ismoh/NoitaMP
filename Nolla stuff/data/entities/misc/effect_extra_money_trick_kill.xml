@@ -1,0 +1,11 @@
+<Entity>
+	<InheritTransformComponent>
+    </InheritTransformComponent>	
+    
+    <GameEffectComponent 
+        effect="EXTRA_MONEY_TRICK_KILL"
+        frames="600"
+    >
+	</GameEffectComponent >
+
+</Entity>

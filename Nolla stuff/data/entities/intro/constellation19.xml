@@ -1,0 +1,9 @@
+<Entity serialize="0">
+
+	<Base file="data/entities/intro/constellation_base.xml">
+	  	<ParticleEmitterComponent 
+			image_animation_file="data/entities/intro/03_03.png" >
+		</ParticleEmitterComponent>
+	</Base>
+
+</Entity>

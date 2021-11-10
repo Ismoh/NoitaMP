@@ -1,0 +1,9 @@
+<Entity >
+   
+	<LuaComponent
+		script_source_file="data/scripts/projectiles/chaotic_arc.lua"
+		execute_every_n_frame="2"
+		>
+	</LuaComponent>
+  
+</Entity>

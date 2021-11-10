@@ -1,0 +1,14 @@
+<Entity>
+	<Base file="data/entities/particles/particle_explosion/base_spark_trail.xml">
+		<ParticleEmitterComponent 
+			emitted_material_name="plasma_fading_pink"
+			>
+		</ParticleEmitterComponent>
+
+		<ParticleEmitterComponent 
+			emitted_material_name="plasma_fading_pink"
+			>
+		</ParticleEmitterComponent>
+	</Base>
+</Entity>
+

@@ -1,0 +1,411 @@
+<Entity tags="enemy,teleportable_NOT,hittable,mortal,boss,touchmagic_immunity,music_energy_100,miniboss,polymorphable_NOT,necrobot_NOT,glue_NOT,curse_NOT" name="$animal_boss_ghost">	
+	<ItemChestComponent level="4" enemy_drop="1" > </ItemChestComponent>
+
+	<!-- art - main body ---------------------- -->
+
+	<SpriteComponent
+		_tags="magic_eye"
+		image_file="data/entities/animals/boss_ghost/body.xml"
+		offset_x="0"
+		offset_y="0"
+		emissive="1"
+		additive="1"
+		z_index="0.9"
+		has_special_scale="1"
+		special_scale_x="1"
+		>
+	</SpriteComponent>
+	
+	<SpriteComponent
+		image_file="data/entities/animals/boss_ghost/eye.xml"
+		offset_x="0"
+		offset_y="0"
+		emissive="1"
+		z_index="0.8"
+		has_special_scale="1"
+		special_scale_x="1"
+		>
+	</SpriteComponent>
+	
+	<Entity>
+		<SpriteComponent
+			image_file="data/entities/animals/boss_ghost/pupil.xml"
+			offset_x="0"
+			offset_y="0"
+			emissive="1"
+			z_index="0.7"
+			has_special_scale="1"
+			special_scale_x="1"
+			>
+		</SpriteComponent>
+		
+		<LuaComponent
+			script_source_file="data/entities/animals/boss_ghost/eye.lua"
+			execute_every_n_frame="1"
+			>
+		</LuaComponent>
+	</Entity>
+
+	<!-- AI ---------------------- -->
+	
+	<AnimalAIComponent 
+		preferred_job="JobDefault"
+		creature_detection_range_x="300"
+		creature_detection_range_y="300"
+		attack_dash_enabled="0"
+		attack_ranged_enabled="1"
+		attack_ranged_max_distance="200"
+		attack_ranged_entity_file="data/entities/animals/boss_ghost/boss_ghost_polyp.xml"
+		attack_ranged_frames_between="60"
+		attack_melee_enabled="0"
+		food_material="blood"
+		needs_food="1"
+		sense_creatures="1"
+		can_fly="1" 
+		aggressiveness_min="1"
+		aggressiveness_max="100"
+		sense_creatures_through_walls="1"
+		>
+	</AnimalAIComponent>
+
+	<PathFindingComponent 
+		can_dive="1" 
+		can_fly="1" 
+		can_jump="0" 
+		can_swim_on_surface="1" 
+		can_walk="0" 
+		cost_of_flying="500" 
+		distance_to_reach_node_x="20" 
+		distance_to_reach_node_y="20" 
+		frames_between_searches="20" 
+		frames_to_get_stuck="120" 
+		initial_jump_lob="1" 
+		initial_jump_max_distance_x="100" 
+		initial_jump_max_distance_y="60" 
+		iterations_max_no_goal="9999999" 
+		iterations_max_with_goal="145000" 
+		jump_speed="200" 
+		max_jump_distance_from_camera="400" 
+		search_depth_max_no_goal="120" 
+		search_depth_max_with_goal="145000" 
+		y_walking_compensation="8" >
+	</PathFindingComponent>
+	
+	<DamageModelComponent
+		_tags="magic_eye"
+		hp="40.5"
+		physics_objects_damage="0"
+		ragdoll_filenames_file=""
+		fire_probability_of_ignition="0" 
+		ragdoll_fx_forced="DISINTEGRATED"
+		ragdoll_material="rock_static_glow"
+		blood_material="plasma_fading"
+		blood_spray_material="plasma_fading"
+		blood_sprite_directional=""
+		blood_sprite_large=""
+		air_needed="0"
+		falling_damages="0"
+		>
+		<damage_multipliers
+			projectile="0.0"
+			explosion="0.5"
+			fire="0.5"
+			ice="0.0"
+			slice="0.1"
+			>
+		</damage_multipliers>
+	</DamageModelComponent>
+	
+	<HitboxComponent
+		_tags="magic_eye"
+		aabb_min_x="-16" 
+		aabb_max_x="16" 
+		aabb_min_y="-16" 
+		aabb_max_y="16" 
+		is_enemy="1"
+		>
+	</HitboxComponent>
+	
+	<DamageNearbyEntitiesComponent
+		_tags="magic_eye"
+		radius="16"
+		time_between_damaging="3"
+		target_tag="player_unit"
+		damage_description="$ethereal_damage"
+		damage_type="DAMAGE_CURSE"
+		ragdoll_fx="NONE"
+		>
+	</DamageNearbyEntitiesComponent>
+
+	<PathFindingGridMarkerComponent 
+		_enabled="1" 
+		marker_offset_x="0" 
+		marker_offset_y="-6" 
+		marker_work_flag="16" >
+	</PathFindingGridMarkerComponent>
+	
+	<GenomeDataComponent 
+		herd_id="ghost_boss"
+		food_chain_rank="10"
+		is_predator="1" >
+	</GenomeDataComponent>
+	
+	<CharacterPlatformingComponent 
+		accel_x="1"
+		pixel_gravity="100" 
+		jump_velocity_y="-8" 
+		run_velocity="12">
+	</CharacterPlatformingComponent>
+
+	<SpriteAnimatorComponent />
+
+	<!-- physics ---------------------- -->
+
+	<PhysicsAIComponent
+		target_vec_max_len="15.0"
+		force_coeff="14.0"
+		force_balancing_coeff="0.8"
+		force_max="120"
+		torque_coeff="50"
+		torque_balancing_coeff="0.8"
+		torque_max="50.0"
+		damage_deactivation_probability="0"
+		damage_deactivation_time_min="60"
+		damage_deactivation_time_max="120"
+		free_if_static="1"
+		>
+	</PhysicsAIComponent>
+
+	<PhysicsBodyComponent 
+		force_add_update_areas="1"
+		allow_sleep="1" 
+		angular_damping="0.02" 
+		fixed_rotation="1" 
+		is_bullet="0" 
+		linear_damping="0"
+		is_static="0"
+		>
+	</PhysicsBodyComponent>
+	
+	<ParticleEmitterComponent 
+		emitted_material_name="spark_blue_dark"
+		offset.x="0"
+		offset.y="0"
+		x_pos_offset_min="-15"
+		x_pos_offset_max="15"
+		y_pos_offset_min="-15"
+		y_pos_offset_max="15"
+		gravity.y="0"
+		x_vel_min="-2"
+		x_vel_max="2"
+		y_vel_min="-2"
+		y_vel_max="2"
+		count_min="1"
+		count_max="3"
+		is_trail="0"
+		fade_based_on_lifetime="1"
+		lifetime_min="0.8"
+		lifetime_max="2.0"
+		airflow_force="1.5"
+		airflow_time="0.401"
+		airflow_scale="0.05"
+		create_real_particles="0"
+		emit_cosmetic_particles="1"
+		render_on_grid="1"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="2"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+	
+	<LuaComponent
+		script_source_file="data/scripts/animals/ethereal_check.lua"
+		execute_every_n_frame="5"
+		>
+	</LuaComponent>
+	
+	<AudioLoopComponent
+		file="data/audio/Desktop/animals.bank"
+		event_name="animals/ghost/movement_loop"
+		set_speed_parameter="1"
+		auto_play="1">
+    </AudioLoopComponent>
+	
+	<GameStatsComponent />
+	
+	<Entity tags="boss_ghost_lasers" >
+		<InheritTransformComponent
+			only_position="1"
+			>
+		</InheritTransformComponent>
+		
+		<LaserEmitterComponent
+			is_emitting="0"
+			>
+			<laser
+				damage_to_entities="0.08"
+				max_cell_durability_to_destroy="13"
+				damage_to_cells="12000"
+				root_entity_is_responsible_for_damage="1"
+				max_length="8"
+				beam_radius="1"
+				hit_particle_chance="10"
+				beam_particle_chance="90"
+				beam_particle_type="spark_purple_bright"
+				>
+			</laser>
+		</LaserEmitterComponent>
+		
+		<LaserEmitterComponent
+			is_emitting="0"
+			laser_angle_add_rad="1.570796"
+			>
+			<laser
+				damage_to_entities="0.08"
+				max_cell_durability_to_destroy="13"
+				damage_to_cells="12000"
+				root_entity_is_responsible_for_damage="1"
+				max_length="8"
+				beam_radius="1"
+				hit_particle_chance="10"
+				beam_particle_chance="90"
+				beam_particle_type="spark_purple_bright"
+				>
+			</laser>
+		</LaserEmitterComponent>
+
+		<LaserEmitterComponent
+			is_emitting="0"
+			laser_angle_add_rad="3.14159"
+			>
+			<laser
+				damage_to_entities="0.08"
+				max_cell_durability_to_destroy="13"
+				damage_to_cells="12000"
+				root_entity_is_responsible_for_damage="1"
+				max_length="8"
+				beam_radius="1"
+				hit_particle_chance="10"
+				beam_particle_chance="90"
+				beam_particle_type="spark_purple_bright"
+				>
+			</laser>
+		</LaserEmitterComponent>
+		
+		<LaserEmitterComponent
+			is_emitting="0"
+			laser_angle_add_rad="4.712"
+			>
+			<laser
+				damage_to_entities="0.08"
+				max_cell_durability_to_destroy="13"
+				damage_to_cells="12000"
+				root_entity_is_responsible_for_damage="1"
+				max_length="8"
+				beam_radius="1"
+				hit_particle_chance="10"
+				beam_particle_chance="90"
+				beam_particle_type="spark_purple_bright"
+				>
+			</laser>
+		</LaserEmitterComponent>
+		
+		<LuaComponent
+			script_source_file="data/entities/animals/boss_ghost/lasers.lua"
+			execute_every_n_frame="1"
+			>
+		</LuaComponent>
+		
+		<VariableStorageComponent
+			_tags="laser_status"
+			name="laser_status"
+			value_float="0.0"
+			>
+		</VariableStorageComponent>
+	</Entity>
+	
+	<LuaComponent
+		script_damage_received="data/entities/animals/boss_ghost/damage.lua"
+		execute_every_n_frame="-1"
+		>
+	</LuaComponent>
+	
+	<LuaComponent
+		script_source_file="data/entities/animals/boss_ghost/helpers.lua"
+		execute_every_n_frame="180"
+		>
+	</LuaComponent>
+	
+	<SpriteComponent 
+		_tags="health_bar_back,ui"
+		_enabled="1" 
+		transform_offset.x="0"
+		transform_offset.y="-26"
+		alpha="1" 
+		has_special_scale="1" 
+		image_file="data/ui_gfx/health_slider_back.png" 
+		is_text_sprite="0" 
+		next_rect_animation="" 
+		offset_x="12" 
+		offset_y="42" 
+		rect_animation="" 
+		special_scale_x="1" 
+		special_scale_y="1" 
+		ui_is_parent="0" 
+		update_transform="1" 
+		visible="1" 
+		emissive="1"
+		never_ragdollify_on_death="1"
+		z_index="-9000" >
+	</SpriteComponent>
+	
+	<SpriteComponent 
+		_tags="health_bar,ui" 
+		_enabled="1" 
+		alpha="1" 
+		transform_offset.x="0"
+		transform_offset.y="-26"
+		has_special_scale="1" 
+		image_file="data/ui_gfx/health_slider_front.png" 
+		is_text_sprite="0" 
+		next_rect_animation="" 
+		offset_x="12" 
+		offset_y="42" 
+		rect_animation="" 
+		special_scale_x="1" 
+		special_scale_y="1" 
+		ui_is_parent="0" 
+		update_transform="1" 
+		visible="1" 
+		emissive="1"
+		never_ragdollify_on_death="1"
+		z_index="-9000" >
+	</SpriteComponent>
+	
+	<HealthBarComponent>
+	</HealthBarComponent>
+	
+	<Entity>
+		<InheritTransformComponent />
+		
+	    <GameEffectComponent 
+	        effect="PROTECTION_FREEZE"
+	        frames="-1"
+	    >
+		</GameEffectComponent >
+	</Entity>
+	
+	<Entity>
+		<InheritTransformComponent />
+		
+	    <GameEffectComponent 
+	        effect="STUN_PROTECTION_ELECTRICITY"
+	        frames="-1"
+	    >
+		</GameEffectComponent >
+	</Entity>
+	
+	<LuaComponent
+		script_death="data/entities/animals/boss_ghost/death.lua"
+		>
+	</LuaComponent>
+</Entity>

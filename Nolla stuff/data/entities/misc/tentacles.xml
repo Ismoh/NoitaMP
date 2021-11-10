@@ -1,0 +1,101 @@
+<Entity >
+  
+	<Base file="data/entities/base_enemy_flying.xml" >
+		<AnimalAIComponent
+			attack_ranged_entity_file="data/entities/projectiles/buckshot.xml"
+			attack_ranged_enabled="1"
+			attack_dash_enabled="0"
+			attack_ranged_frames_between="40" 
+			can_fly="1" >
+		</AnimalAIComponent>
+
+		<DamageModelComponent 
+            hp="1.2"
+			
+            ragdoll_material="acid"
+            ragdoll_filenames_file="data/ragdolls/acidshooter/filenames.txt" 
+			>
+		</DamageModelComponent>
+
+		<PathFindingComponent
+			can_fly="1" >
+		</PathFindingComponent>
+
+		<SpriteComponent 
+			image_file="data/enemies_gfx/acidshooter.xml" 
+			offset_x="0"
+			offset_y="0">
+		</SpriteComponent>
+		
+		<HitboxComponent 
+			_enabled="1" 
+			aabb_min_x="-4.5" 
+			aabb_max_x="4.5" 
+			aabb_min_y="-8.0" 
+			aabb_max_y="3" 
+			is_enemy="1" 
+			is_item="0" 
+			is_player="0" >
+		</HitboxComponent>		
+		
+		<GenomeDataComponent 
+			herd_id="slimes" >
+		</GenomeDataComponent>
+	</Base>
+
+	<MaterialInventoryComponent 
+		_enabled="1" 
+		drop_as_item="0" 
+		leak_on_damage_percent="0.999" 
+		>
+		<count_per_material_type>
+		<Material material="acid" count="200"  />
+		</count_per_material_type>
+	</MaterialInventoryComponent>
+
+	<PhysicsBodyComponent
+		uid="1"
+		allow_sleep="0"
+		fixed_rotation="1"
+		is_bullet="0"
+		is_static="0"
+		is_kinematic="1"
+		is_character="0"
+		go_through_sand="0"
+		gridworld_box2d="0"
+		auto_clean="1"
+		on_death_leave_physics_body="0"
+		update_entity_transform="0"
+	>
+	</PhysicsBodyComponent>
+
+	<PhysicsShapeComponent
+		recreate="0"
+		is_circle="1"				
+		friction="0.75"
+		restitution="0.1"
+		density="0"		
+		local_position_x="0"
+		local_position_y="-0.45"	
+		radius_x="0.6"	
+		>
+	</PhysicsShapeComponent>
+  
+	<LuaComponent 
+	    _enabled="1" 
+	    execute_every_n_frame="1"
+	    remove_after_executed="1"
+	    script_source_file="data/scripts/animals/tentacles.lua"
+	    >
+	</LuaComponent>
+
+	<LightComponent 
+	    _enabled="1" 
+	    radius="70" 
+		r="149"
+		g="255"
+		b="149">
+    </LightComponent>
+
+</Entity>
+

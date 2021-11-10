@@ -1,0 +1,15 @@
+<Entity >
+	<InheritTransformComponent />
+   
+	<LuaComponent
+		script_source_file="data/scripts/projectiles/effect_slow_bullets.lua"
+		execute_every_n_frame="3"
+		>
+	</LuaComponent>
+	
+	<LifetimeComponent
+		lifetime="3600"
+		>
+	</LifetimeComponent>
+  
+</Entity>

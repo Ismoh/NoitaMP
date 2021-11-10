@@ -1,0 +1,36 @@
+<Sprite
+	filename="data/projectiles_gfx/blast_borders.png"
+	offset_x="32"
+	offset_y="32"
+	default_animation="spawn" 
+	color_r="0.7"
+	color_g="0.95"
+	color_b="1"
+	>
+
+ <!-- animation -->
+ <RectAnimation
+  name="fireball"
+  pos_x="0"
+  pos_y="64"
+  frame_count="4"
+  frame_width="64"
+  frame_height="64"
+  frame_wait="0.01"
+  frames_per_row="4"
+  loop="1"   >
+ </RectAnimation>
+ 
+ <RectAnimation
+  name="spawn"
+  pos_x="0"
+  pos_y="0"
+  frame_count="5"
+  frame_width="64"
+  frame_height="64"
+  frame_wait="0.02"
+  frames_per_row="4"
+  next_animation="fireball"
+  loop="0"   >
+ </RectAnimation>
+</Sprite>

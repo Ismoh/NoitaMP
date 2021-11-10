@@ -1,0 +1,133 @@
+<Entity 
+  name="$projectile_default" 
+   >
+  <GameAreaEffectComponent
+      radius="28"
+    />
+	
+	<ParticleEmitterComponent
+		_tags="character,enabled_in_hand,item_identified__LEGACY"
+		emitted_material_name="plasma_fading"
+		gravity.y="0.0"
+		lifetime_min="0.1"
+		lifetime_max="0.5"
+		count_min="2"
+		count_max="4"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		area_circle_radius.max="28"
+		cosmetic_force_create="0"
+		airflow_force="0.5"
+		airflow_time="0.1"
+		airflow_scale="0.5"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		emit_cosmetic_particles="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+
+	<ParticleEmitterComponent
+		_tags="character,enabled_in_hand,item_identified__LEGACY,shield_ring"
+		emitted_material_name="plasma_fading"
+		gravity.y="0.0"
+		lifetime_min="0.02"
+		lifetime_max="0.05"
+		count_min="90"
+		count_max="100"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		area_circle_radius.min="28"
+		area_circle_radius.max="28"
+		cosmetic_force_create="0"
+		airflow_force="0.3"
+		airflow_time="0.01"
+		airflow_scale="0.05"
+		emission_interval_min_frames="0"
+		emission_interval_max_frames="0"
+		emit_cosmetic_particles="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+
+	<ParticleEmitterComponent
+		_tags="character,enabled_in_hand,item_identified__LEGACY,shield_hit"
+		emitted_material_name="plasma_fading"
+		gravity.y="0.0"
+		lifetime_min="0.3"
+		lifetime_max="1"
+		count_min="300"
+		count_max="360"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		area_circle_radius.min="28"
+		area_circle_radius.max="28"
+		cosmetic_force_create="0"
+		airflow_force="2.8"
+		airflow_time="0.03"
+		airflow_scale="0.8"
+		emission_interval_min_frames="0"
+		emission_interval_max_frames="0"
+		emit_cosmetic_particles="1"
+		is_emitting="0" >
+	</ParticleEmitterComponent>
+
+	<Base file="data/entities/projectiles/deck/base_field.xml">
+		<SpriteComponent
+			_tags="enabled_in_world,character"
+			image_file="data/projectiles_gfx/blast_shield.xml"
+			>
+		</SpriteComponent>
+
+		<SpriteParticleEmitterComponent
+			_enabled="0"
+			sprite_file="data/particles/teleparticle.xml"
+			lifetime="0.4"
+			scale.x="1" scale.y="0.2"
+			color_change.a="-0.2"
+			scale_velocity.x="-0.2" scale_velocity.y="1"
+			randomize_velocity.min_x="0"
+			randomize_velocity.max_x="0"
+			randomize_velocity.min_y="-40"
+			randomize_velocity.max_y="40"
+			velocity_always_away_from_center="0"
+			randomize_rotation.min="0"
+			randomize_rotation.max="0"
+			randomize_angular_velocity.min="0"
+			randomize_angular_velocity.max="0"
+			>
+		</SpriteParticleEmitterComponent>
+
+		<ProjectileComponent 
+			damage_game_effect_entities=""
+			friendly_fire="0"
+			collide_with_shooter_frames="0"
+			lifetime="7220"
+			>
+			<config_explosion
+				explosion_sprite="data/particles/blast_out_shield.xml"
+				>
+			</config_explosion>
+		</ProjectileComponent>
+	</Base>
+	
+	<EnergyShieldComponent 
+        _tags="enabled_in_world"
+        recharge_speed="0.0" 
+		max_energy="20.0"
+		radius="28.0"
+		energy_required_to_shield="0.1"
+		energy="20"
+		>
+    </EnergyShieldComponent>
+	
+	<SpriteAnimatorComponent
+        _tags="enabled_in_world" >
+    </SpriteAnimatorComponent>
+
+	<AudioComponent
+		file="data/audio/Desktop/projectiles.bank"
+		event_root="player_projectiles/shield"
+		set_latest_event_position="1" >
+	</AudioComponent>
+	
+</Entity>
+

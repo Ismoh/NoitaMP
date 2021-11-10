@@ -1,0 +1,77 @@
+<Entity>
+	<!-- stationary particles -->
+	<ParticleEmitterComponent 
+		emitted_material_name="spark_red"
+		gravity.y="0.0"
+		offset.x="-5"
+		offset.y="5"
+		lifetime_min="2"
+		lifetime_max="5"
+		count_min="1"
+		count_max="1"
+		create_real_particles="0"
+		emit_cosmetic_particles="1"
+		cosmetic_force_create="1"
+		render_on_grid="1"
+		collide_with_grid="0"
+		collide_with_gas_and_fire="0"
+		fade_based_on_lifetime="1"
+		velocity_always_away_from_center="0"
+		airflow_force="0.0"
+		airflow_time="1.01"
+		airflow_scale="0.05"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		image_animation_file="data/particles/image_emitters/wizardcave_gate_ornaments.png"
+		image_animation_speed="1"
+		image_animation_loop="1"
+		image_animation_raytrace_from_center="0" >
+	</ParticleEmitterComponent>
+
+	<!-- radial movement particles -->
+	<ParticleEmitterComponent 
+		emitted_material_name="spark_red"
+		gravity.y="0.0"
+		offset.x="-5"
+		offset.y="5"
+		lifetime_min="2"
+		lifetime_max="12"
+		count_min="1"
+		count_max="1"
+		create_real_particles="0"
+		emit_cosmetic_particles="1"
+		cosmetic_force_create="0"
+		render_on_grid="1"
+		collide_with_grid="1"
+		collide_with_gas_and_fire="0"
+		fade_based_on_lifetime="1"
+		velocity_always_away_from_center="25"
+		airflow_force="0.164"
+		airflow_time="1.01"
+		airflow_scale="0.05"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		image_animation_file="data/particles/image_emitters/wizardcave_gate_ornaments.png"
+		image_animation_speed="1"
+		image_animation_loop="1"
+		image_animation_raytrace_from_center="0" >
+	</ParticleEmitterComponent>
+
+	<LightComponent 
+        radius="200"
+    	r="255"
+    	g="25"
+    	b="20" >
+	</LightComponent>
+
+	<VariableStorageComponent
+		name="egg_count"
+		value_int="0" >
+	</VariableStorageComponent>
+
+	<LuaComponent
+		script_source_file="data/scripts/buildings/wizardcave_gate.lua"
+		execute_every_n_frame="1"
+		>
+	</LuaComponent>
+</Entity>

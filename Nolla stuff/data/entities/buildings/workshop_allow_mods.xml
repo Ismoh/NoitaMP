@@ -1,0 +1,11 @@
+<Entity tags="workshop">
+
+  <HitboxComponent 
+    aabb_min_x="-450" 
+    aabb_min_y="-124"
+    aabb_max_x="64" 
+    aabb_max_y="32" >
+  </HitboxComponent>
+  
+</Entity>
+

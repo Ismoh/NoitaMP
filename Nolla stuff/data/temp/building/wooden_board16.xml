@@ -1,0 +1,19 @@
+<Sprite
+ filename="data/temp/building/wooden_board16.png"
+ offset_x="8"
+ offset_y="0" >
+
+ <!-- stand -->
+ <RectAnimation
+  name="default"
+  pos_x="0"
+  pos_y="0"
+  frame_count="1"
+  frame_width="16"
+  frame_height="4"
+  frame_wait="0.12"
+  frames_per_row="6"
+  loop="1" >
+ </RectAnimation>
+
+</Sprite>

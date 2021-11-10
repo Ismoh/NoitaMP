@@ -1,0 +1,29 @@
+<Entity >
+  <Base file="data/entities/animals/drone_physics.xml">
+    <DamageModelComponent 
+      hp="3.6"
+      max_hp="3.6"
+     ></DamageModelComponent >
+	 
+	<PhysicsAIComponent
+		damage_deactivation_probability="40"
+		damage_deactivation_time_min="40"
+		damage_deactivation_time_max="120" >
+	</PhysicsAIComponent>
+  </Base>
+  
+	<Entity>
+		<Base file="data/entities/misc/animal_energy_shield.xml">
+		</Base>
+	</Entity>
+	
+	<Entity>
+		<InheritTransformComponent />
+		
+	    <GameEffectComponent 
+	        effect="PROTECTION_FREEZE"
+	        frames="-1"
+	    >
+		</GameEffectComponent >
+	</Entity>
+</Entity>

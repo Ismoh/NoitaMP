@@ -1,0 +1,8 @@
+<Entity tags="bunker_check">
+	<LuaComponent
+		script_source_file="data/scripts/buildings/bunker_check.lua"
+		execute_every_n_frame="20"
+		>
+	</LuaComponent>
+</Entity>
+

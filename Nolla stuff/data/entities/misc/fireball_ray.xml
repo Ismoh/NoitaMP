@@ -1,0 +1,8 @@
+<Entity>
+	<LuaComponent 
+		_enabled="1" 
+		script_source_file="data/scripts/projectiles/fireball_ray.lua" 
+		execute_every_n_frame="10">
+   </LuaComponent>
+</Entity>
+

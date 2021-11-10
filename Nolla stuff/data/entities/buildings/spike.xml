@@ -1,0 +1,27 @@
+<Entity   >
+	<CrawlerAnimalComponent
+		animate="0"
+        give_up_time="999"
+		gravity="600"
+		attack_from_ceiling_check_ray_length="1"
+        speed="0"
+		collision_damage="0">
+    </CrawlerAnimalComponent>
+
+	<SpriteComponent 
+		image_file="data/buildings_gfx/spike.xml"
+		rect_animation="stand"
+		>
+	</SpriteComponent>
+	
+	<MoveToSurfaceOnCreateComponent
+        offset_from_surface="2">
+    </MoveToSurfaceOnCreateComponent>
+
+	<CameraBoundComponent
+	  max_count="900"
+	  distance="160000">
+	</CameraBoundComponent>
+		
+</Entity>
+

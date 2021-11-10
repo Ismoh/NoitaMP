@@ -1,0 +1,9 @@
+<Entity >
+  <Base file="data/entities/animals/thundermage.xml">
+    <DamageModelComponent 
+      hp="17"
+      max_hp="17"
+	  minimum_knockback_force="100000"
+     ></DamageModelComponent >
+  </Base>
+</Entity>

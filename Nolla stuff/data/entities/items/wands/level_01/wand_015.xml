@@ -1,0 +1,146 @@
+<Entity 
+  _version="1" 
+  name="" 
+  serialize="1" 
+  tags="teleportable_NOT,item,wand" >
+
+  <Base file="data/entities/items/wands/level_01/base_wand_level_1.xml" >
+
+  <AbilityComponent 
+    _enabled="1" 
+    add_these_child_actions="" 
+    amount_in_inventory="1" 
+    base_item_file="data/entities/base_item.xml" 
+    charge_wait_frames="10" 
+    click_to_use="1" 
+    cooldown_frames="0" 
+    current_slot_durability="60" 
+    drop_as_item_on_death="1" 
+    entity_count="1" 
+    entity_file="" 
+    fast_projectile="0" 
+    is_petris_gun="0" 
+    item_recoil_max="1" 
+    item_recoil_offset_coeff="1" 
+    item_recoil_recovery_speed="15" 
+    item_recoil_rotation_coeff="5" 
+    mChargeCount="0" 
+    mIsInitialized="1" 
+    mana="170" 
+    mana_charge_speed="49" 
+    mana_max="170" 
+    max_amount_in_inventory="1" 
+    max_charged_actions="0" 
+    never_reload="0" 
+    reload_time_frames="0" 
+    rotate_hand_amount="0.7" 
+    rotate_in_hand="1" 
+    rotate_in_hand_amount="1" 
+    shooting_reduces_amount_in_inventory="0" 
+    simulate_throw_as_item="0" 
+    slot_consumption_function="_get_gun_slot_durability_default" 
+    sprite_file="data/items_gfx/wands/wand_0063.png" 
+    stat_times_player_has_edited="0" 
+    stat_times_player_has_shot="0" 
+    swim_propel_amount="0" 
+    throw_as_item="0" 
+    ui_name="Bulky Rapid bolt wand" 
+    use_entity_file_as_projectile_info_proxy="0" 
+    use_gun_script="1" >
+
+    <gun_config 
+      actions_per_round="1" 
+      deck_capacity="11" 
+      reload_time="53" 
+      shuffle_deck_when_empty="1" >
+
+    </gun_config>
+
+    <gunaction_config 
+      action_description="" 
+      action_draw_many_count="0" 
+      action_id="" 
+      action_is_dangerous_blast="0" 
+      action_mana_drain="10" 
+      action_max_uses="-1" 
+      action_name="" 
+      action_spawn_level="" 
+      action_spawn_probability="" 
+      action_spawn_requires_flag="" 
+      action_sprite_filename="" 
+      action_type="0" 
+      action_unidentified_sprite_filename="data/ui_gfx/gun_actions/unidentified.png" 
+      blood_count_multiplier="1" 
+      bounces="0" 
+      child_speed_multiplier="1" 
+      custom_xml_file="" 
+      damage_critical_chance="0" 
+      damage_critical_multiplier="0" 
+      damage_electricity_add="0" 
+      damage_explosion_add="0" 
+      damage_fire_add="0" 
+      damage_melee_add="0" 
+      damage_projectile_add="0" 
+      dampening="1" 
+      explosion_damage_to_materials="0" 
+      explosion_radius="0" 
+      extra_entities="" 
+      fire_rate_wait="24" 
+      friendly_fire="0" 
+      game_effect_entities="" 
+      gore_particles="0" 
+      gravity="0" 
+      knockback_force="0" 
+      lifetime_add="0" 
+      light="0" 
+      lightning_count="0" 
+      material="" 
+      material_amount="0" 
+      pattern_degrees="0" 
+      physics_impulse_coeff="0" 
+      projectile_file="" 
+      ragdoll_fx="0" 
+      recoil="0" 
+      reload_time="0" 
+      screenshake="0" 
+      sound_loop_tag="" 
+      speed_multiplier="0.904531" 
+      spread_degrees="1" 
+      sprite="" 
+      state_cards_drawn="0" 
+      state_destroyed_action="0" 
+      state_discarded_action="0" 
+      state_shuffled="0" 
+      trail_material="" 
+      trail_material_amount="0" >
+
+    </gunaction_config>
+
+  </AbilityComponent>
+
+
+  <HotspotComponent 
+    _tags="shoot_pos" 
+    offset.x="13" 
+    offset.y="0" 
+    sprite_hotspot_name="" 
+    transform_with_scale="1" >
+
+  </HotspotComponent>
+
+
+  <SpriteComponent 
+    _enabled="1" 
+ 
+    image_file="data/items_gfx/wands/wand_0063.png" 
+
+    offset_x="1" 
+    offset_y="5" 
+  >
+
+  </SpriteComponent>
+
+  </Base>
+
+</Entity>
+

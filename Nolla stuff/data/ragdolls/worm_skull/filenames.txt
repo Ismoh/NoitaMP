@@ -1,0 +1,15 @@
+data/ragdolls/worm_skull/worm_skull_body_01.png
+data/ragdolls/worm_skull/worm_skull_body_02.png
+data/ragdolls/worm_skull/worm_skull_body_03.png
+data/ragdolls/worm_skull/worm_skull_body_04.png
+data/ragdolls/worm_skull/worm_skull_body_05.png
+data/ragdolls/worm_skull/worm_skull_body_06.png
+data/ragdolls/worm_skull/worm_skull_body_07.png
+data/ragdolls/worm_skull/worm_skull_body_08.png
+data/ragdolls/worm_skull/worm_skull_body_09.png
+data/ragdolls/worm_skull/worm_skull_body_10.png
+data/ragdolls/worm_skull/worm_skull_body_11.png
+data/ragdolls/worm_skull/worm_skull_body_12.png
+data/ragdolls/worm_skull/worm_skull_body_13.png
+data/ragdolls/worm_skull/worm_skull_body_14.png
+data/ragdolls/worm_skull/worm_skull_body_15.png

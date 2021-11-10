@@ -1,0 +1,40 @@
+<Entity>
+
+	<InheritTransformComponent>
+	</InheritTransformComponent>
+
+	<IKLimbWalkerComponent>
+	</IKLimbWalkerComponent>
+
+	<IKLimbComponent
+		length="40" >
+	</IKLimbComponent>
+
+	<SpriteComponent 
+		image_file="data/entities/animals/lukki/lukki_feet/lukki_limb_A.png" 
+		z_index="1.1"
+		offset_x="0"
+		offset_y="5"
+		update_transform="0"
+		update_transform_rotation="0" >
+	</SpriteComponent>
+
+	<SpriteComponent 
+		image_file="data/entities/animals/lukki/lukki_feet/lukki_limb_B.png" 
+		z_index="1.1"
+		offset_x="0"
+		offset_y="5"
+		update_transform="0"
+		update_transform_rotation="0" >
+	</SpriteComponent>
+
+	<SpriteComponent 
+		image_file="data/entities/animals/lukki/lukki_feet/lukki_knee.png" 
+		z_index="1.1"
+		offset_x="4"
+		offset_y="4"
+		update_transform="0"
+		update_transform_rotation="0" >
+	</SpriteComponent>
+
+</Entity>

@@ -1,0 +1,11 @@
+data/ragdolls/thundermage/torso.png
+data/ragdolls/thundermage/right_thigh.png
+data/ragdolls/thundermage/right_foot.png
+data/ragdolls/thundermage/right_arm.png
+data/ragdolls/thundermage/right_hand.png
+data/ragdolls/thundermage/left_thigh.png
+data/ragdolls/thundermage/left_foot.png
+data/ragdolls/thundermage/left_arm.png
+data/ragdolls/thundermage/left_hand.png
+data/ragdolls/thundermage/head.png
+data/ragdolls/thundermage/hood.png

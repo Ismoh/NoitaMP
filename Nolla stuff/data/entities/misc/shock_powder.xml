@@ -1,0 +1,17 @@
+<Entity>
+	<ElectricityComponent
+		probability_to_heat="0.1"
+		>
+	</ElectricityComponent>
+	
+	<ElectricChargeComponent
+		charge_time_frames="2" 
+		electricity_emission_interval_frames="4"
+		>
+	</ElectricChargeComponent>
+	
+	<LifetimeComponent
+		lifetime="7"
+		>
+	</LifetimeComponent>
+</Entity>

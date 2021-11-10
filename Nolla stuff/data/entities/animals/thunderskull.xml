@@ -1,0 +1,179 @@
+<Entity name="$animal_thunderskull">
+  
+	<Base file="data/entities/base_enemy_flying.xml" >
+		<ItemChestComponent level="2" > </ItemChestComponent>
+
+		<AnimalAIComponent
+			attack_ranged_entity_file="data/entities/projectiles/lightning_thunderskull.xml"
+			attack_ranged_enabled="1"
+			attack_dash_enabled="0"
+			attack_ranged_offset_y="-5"
+			attack_ranged_frames_between="240" 
+			attack_ranged_max_distance="50"
+			needs_food="0"
+			can_fly="1">
+		</AnimalAIComponent>
+
+		<DamageModelComponent
+			hp="4.5"
+			materials_that_damage="acid,lava,poison,radioactive_gas,radioactive_gas_static,rock_static_radioactive" 
+			materials_how_much_damage="0.004,0.004,0.001,0.001,0.001,0.001"
+			ragdoll_filenames_file="data/ragdolls/thunderskull/filenames.txt" 
+			ragdoll_material="ice_b2"
+			blood_material="blood_cold"
+			blood_spray_material="blood_cold"
+			fire_probability_of_ignition="0"
+			blood_sprite_directional=""
+			blood_sprite_large=""
+			>
+			<damage_multipliers
+				electricity="0.0"
+				fire="0.0"
+				ice="0.5"
+				>
+			</damage_multipliers>
+		</DamageModelComponent>
+
+		<PathFindingComponent
+			can_fly="1" 
+			can_walk="0"
+			>
+		</PathFindingComponent>
+
+		<SpriteComponent 
+			image_file="data/enemies_gfx/thunderskull.xml" 
+			offset_x="0"
+			offset_y="0">
+		</SpriteComponent>
+        
+		
+		<GenomeDataComponent 
+			herd_id="ice">
+		</GenomeDataComponent>
+
+		<HitboxComponent 
+			_enabled="1" 
+			aabb_min_x="-4.5" 
+			aabb_max_x="4.5" 
+			aabb_min_y="-12" 
+			aabb_max_y="1" 
+			>
+		</HitboxComponent>
+
+		<CharacterDataComponent 
+			_enabled="1" 
+			climb_over_y="4" 
+			collision_aabb_min_x="-2.0" 
+			collision_aabb_max_x="2.0" 
+			collision_aabb_min_y="-10" 
+			collision_aabb_max_y="0" 
+			mass="0.4"
+			>
+	    </CharacterDataComponent>
+		
+		<SpriteStainsComponent
+			_enabled="0"
+			>
+		</SpriteStainsComponent>
+	</Base>
+
+	<LightComponent 
+		_enabled="1" 
+		radius="30" 
+		offset_y="-5"
+		r="100"
+		g="160"
+		b="255">
+	</LightComponent>
+  
+	<ParticleEmitterComponent 
+		emitted_material_name="steam"
+		count_min="1"
+		count_max="3"
+		offset.x="0"
+		offset.y="-3"
+		x_pos_offset_min="-5"
+		y_pos_offset_min="-10"
+		x_pos_offset_max="5"
+		y_pos_offset_max="0"
+		x_vel_min="-10"
+		x_vel_max="10"
+		y_vel_min="-10"
+		y_vel_max="10"
+		count_min="5"
+		count_max="5"
+		lifetime_min="0.4"
+		lifetime_max="1.0"
+		create_real_particles="1"
+		emit_cosmetic_particles="0"
+		emission_interval_min_frames="3"
+		emission_interval_max_frames="6"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+	
+    <MusicEnergyAffectorComponent
+    	energy_target="1">
+    </MusicEnergyAffectorComponent>
+
+	<AudioLoopComponent
+		file="data/audio/Desktop/animals.bank"
+		event_name="animals/thunderskull/movement_loop"
+		set_speed_parameter="1"
+		auto_play="1">
+	</AudioLoopComponent>
+
+	<AudioComponent
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals/thunderskull" >
+	</AudioComponent>
+	
+	<SpriteParticleEmitterComponent
+		sprite_file="data/particles/spark_electric.xml"
+		delay="0"
+		lifetime="0"
+		color.r="1" color.g="1" color.b="1" color.a="1"
+		color_change.r="0" color_change.g="0" color_change.b="0" color_change.a="0"
+		velocity.x="0" velocity.y="0"
+		gravity.x="0" gravity.y="10"
+		velocity_slowdown="0"
+		rotation="0"
+		angular_velocity="0"
+		use_velocity_as_rotation="0"
+		scale.x="1" scale.y="1"
+		scale_velocity.x="0" scale_velocity.y="0"
+		emission_interval_min_frames="3"
+		emission_interval_max_frames="8"
+		count_min="1" count_max="1"
+		randomize_rotation.min="-3.1415"
+		randomize_rotation.max="3.1415"
+		randomize_position.min_x="-9"
+		randomize_position.max_x="9"
+		randomize_position.min_y="-12"
+		randomize_position.max_y="2"
+		>
+  </SpriteParticleEmitterComponent>
+  
+  <ElectricChargeComponent
+    	_tags="enabled_in_hand,item_identified"
+		charge_time_frames="2" 
+		electricity_emission_interval_frames="10"
+		>
+	</ElectricChargeComponent>
+	
+	<LightComponent
+		_enabled="1" 
+		r="120"
+		g="180"
+		b="220"
+		radius="64" >
+	</LightComponent>
+	
+	<ElectricitySourceComponent
+		_tags="enabled_in_world,enabled_in_hand"
+    radius="32"
+		emission_interval_frames="32"
+		>
+  </ElectricitySourceComponent>
+	
+</Entity>
+

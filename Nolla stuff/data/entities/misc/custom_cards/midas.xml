@@ -1,0 +1,74 @@
+<Entity>
+	
+	<Base file="data/entities/base_custom_card.xml" > 
+		<SpriteComponent 
+			image_file="data/ui_gfx/gun_actions/midas.png" 
+			>
+		</SpriteComponent>
+		
+		<ItemActionComponent 
+			_tags="enabled_in_world"
+			action_id="MIDAS" >
+		</ItemActionComponent>
+	</Base>
+	
+	<InheritTransformComponent
+		_tags="enabled_in_world,enabled_in_hand" >
+	  <Transform 
+		position.x="8" 
+		position.y="0" >
+	  </Transform>
+	</InheritTransformComponent>
+
+	<ParticleEmitterComponent 
+		_tags="enabled_in_hand,item_identified"
+		emitted_material_name="gold"
+		offset.x="0"
+		offset.y="0"
+		x_pos_offset_min="-3"
+		x_pos_offset_max="3"
+		y_pos_offset_min="1"
+		y_pos_offset_max="-1"
+		x_vel_min="-10"
+		x_vel_max="10"
+		y_vel_min="-20"
+		y_vel_max="-10"
+		count_min="1"
+		count_max="1"
+		lifetime_min="0.4"
+		lifetime_max="0.5"
+		create_real_particles="1"
+		emit_cosmetic_particles="0"
+		emission_interval_min_frames="30"
+		emission_interval_max_frames="42"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+	
+	<ParticleEmitterComponent 
+		_tags="enabled_in_hand,item_identified"
+		emitted_material_name="spark_yellow"
+		offset.x="0"
+		offset.y="0"
+		gravity.y="10"
+		x_pos_offset_min="-3"
+		x_pos_offset_max="3"
+		y_pos_offset_min="1"
+		y_pos_offset_max="-1"
+		x_vel_min="-10"
+		x_vel_max="10"
+		y_vel_min="-20"
+		y_vel_max="-10"
+		count_min="1"
+		count_max="2"
+		lifetime_min="0.4"
+		lifetime_max="1.5"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		create_real_particles="0"
+		emit_cosmetic_particles="1"
+		emission_interval_min_frames="3"
+		emission_interval_max_frames="12"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+	
+</Entity>

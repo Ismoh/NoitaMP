@@ -1,0 +1,123 @@
+<Entity name="$animal_scavenger_heal" >
+  
+	<Base file="data/entities/base_enemy_flying.xml" >
+		<ItemChestComponent level="2" > </ItemChestComponent>
+		<AnimalAIComponent 
+			_enabled="1" 
+			preferred_job="JobDefault"
+			escape_if_damaged_probability="100"
+			attack_if_damaged_probability="0"
+			tries_to_ranged_attack_friends="1"
+			attack_melee_damage_min="0.4" 
+			attack_melee_damage_max="0.7"
+			creature_detection_range_x="400"
+			creature_detection_range_y="400"
+			creature_detection_angular_range_deg="60"
+			attack_melee_max_distance="20"
+			food_material="meat"
+			needs_food="0"
+			sense_creatures="1"
+			can_fly="1"  
+			attack_melee_enabled="0"
+			attack_melee_max_distance="10"
+			attack_landing_ranged_enabled="1"
+			attack_ranged_enabled="1"
+			attack_ranged_action_frame="1"
+			attack_ranged_min_distance="0"
+			attack_ranged_max_distance="220"
+			attack_ranged_entity_file="data/entities/projectiles/healshot.xml"
+			attack_ranged_entity_count_min="1"
+			attack_ranged_entity_count_max="1"
+			attack_ranged_frames_between="30" 
+			attack_ranged_offset_x="7"
+			attack_ranged_offset_y="-6.8"
+			aggressiveness_min="90"
+			aggressiveness_max="100"
+			>
+		</AnimalAIComponent>
+		
+		<DamageModelComponent 
+            hp="0.7"
+            materials_create_messages="1"
+			ragdoll_filenames_file="data/ragdolls/scavenger_heal/filenames.txt" 
+			fire_probability_of_ignition="5"
+    		blood_spray_material="blood"
+			>
+		</DamageModelComponent>
+
+		<SpriteComponent 
+			image_file="data/enemies_gfx/scavenger_heal.xml" 
+			offset_x="0"
+			offset_y="0">
+		</SpriteComponent>
+
+		<PathFindingComponent
+			can_jump="0"
+			can_fly="1" 
+			jump_speed="80"
+			initial_jump_lob="1"
+			initial_jump_max_distance_x="60"
+			initial_jump_max_distance_y="60" >
+		</PathFindingComponent>
+
+		<PathFindingGridMarkerComponent
+			marker_work_flag="24" >
+		</PathFindingGridMarkerComponent>
+		
+		<GenomeDataComponent 
+			herd_id="healer"
+			food_chain_rank="9"
+			is_predator="1" >
+		</GenomeDataComponent>
+		
+		<CharacterPlatformingComponent 
+			fly_speed_change_spd="0.8"
+			fly_velocity_x="28" 
+			accel_x="0.03" 
+			jump_velocity_y="-12" 
+			run_velocity="17"  >
+		</CharacterPlatformingComponent>
+
+		<CameraBoundComponent
+			max_count="30"
+			distance="160000">
+		</CameraBoundComponent>
+		
+		<HitboxComponent 
+            _enabled="1" 
+			aabb_min_x="-5" 
+            aabb_max_x="5" 
+			aabb_min_y="-12" 
+            aabb_max_y="3" 
+			>
+        </HitboxComponent>
+		
+		<CharacterDataComponent
+			collision_aabb_min_x="-2.0" 
+			collision_aabb_max_x="2.0" 
+			collision_aabb_min_y="-3" 
+			collision_aabb_max_y="3"
+			mass="1.1"
+			>
+		</CharacterDataComponent>
+	</Base>
+
+  <Base file="data/entities/base_jetpack.xml" />
+
+  <LightComponent 
+    _enabled="1" 
+    radius="50"
+    fade_out_time="1.5" >
+  </LightComponent>
+  
+	<ItemPickUpperComponent
+    	is_in_npc="1">
+    </ItemPickUpperComponent>
+
+	<AudioComponent
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals/scavenger" >
+	</AudioComponent>
+
+</Entity>
+

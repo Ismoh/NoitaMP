@@ -1,0 +1,105 @@
+<Entity name="$animal_skullrat">
+  
+	<Base file="data/entities/base_enemy_flying.xml" >
+		<ItemChestComponent level="5" enemy_drop="1" > </ItemChestComponent>
+
+		<AnimalAIComponent 
+			_enabled="1" 
+			preferred_job="JobDefault"
+			escape_if_damaged_probability="35"
+			attack_melee_damage_min="0.6" 
+			attack_melee_damage_max="0.8"
+			attack_dash_enabled="1"
+			creature_detection_range_x="250"
+			creature_detection_range_y="250"
+			sense_creatures="1"
+			attack_ranged_enabled="0"
+			can_fly="1"  
+			>
+		</AnimalAIComponent>
+
+		<DamageModelComponent 
+            hp="3.7"
+            materials_create_messages="1"
+            ragdoll_material="meat_cursed"
+            ragdoll_filenames_file="data/ragdolls/skullrat/filenames.txt" 
+			fire_probability_of_ignition="3"
+			blood_multiplier="0.5"
+			blood_material="blood"
+			>
+		</DamageModelComponent>
+
+		<SpriteComponent 
+			image_file="data/enemies_gfx/skullrat.xml" 
+			offset_x="0"
+			offset_y="0">
+		</SpriteComponent>
+
+		<PathFindingComponent
+		    can_swim_on_surface="1"
+		    can_dive="1"
+			frames_to_get_stuck="20"
+			can_jump="1" 
+			can_fly="1">
+		</PathFindingComponent>
+
+		<PathFindingGridMarkerComponent
+			marker_work_flag="16" >
+		</PathFindingGridMarkerComponent>
+		
+		<GenomeDataComponent 
+			herd_id="ghost"
+			food_chain_rank="10"
+			is_predator="1" >
+		</GenomeDataComponent>
+		
+		<CharacterDataComponent 
+			buoyancy_check_offset_y="-4"
+			collision_aabb_min_x="-4"
+			collision_aabb_max_x="4"  
+			collision_aabb_min_y="-6"
+			collision_aabb_max_y="2"
+			mass="1.5"
+			>
+		</CharacterDataComponent>
+		
+		<CharacterPlatformingComponent 
+    		pixel_gravity="600" 
+			jump_velocity_y="-12" 
+			run_velocity="22"
+			run_animation_velocity_switching_enabled="1"
+			run_animation_velocity_switching_threshold="50" 
+			>
+		</CharacterPlatformingComponent>
+		
+		<HitboxComponent 
+			_enabled="1" 
+			aabb_min_x="-5.5" 
+			aabb_max_x="5.5" 
+			aabb_min_y="-6.5" 
+			aabb_max_y="3" 
+			is_enemy="1" 
+			is_item="0" 
+			is_player="0" >
+		</HitboxComponent>
+
+		<CameraBoundComponent
+		  max_count="20"
+		  distance="160000">
+		</CameraBoundComponent>
+	</Base>
+
+	<AudioLoopComponent
+		file="data/audio/Desktop/animals.bank"
+		event_name="animals/wing_flap_insect/movement_loop"
+		set_speed_parameter="1"
+		auto_play="1">
+	</AudioLoopComponent>
+	
+	<AudioComponent
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals/skullrat" >
+	</AudioComponent>
+	
+</Entity>
+

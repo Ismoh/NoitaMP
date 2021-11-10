@@ -1,0 +1,57 @@
+<Entity name="$projectile_default" tags="projectile_player,sea_of_lava" >
+
+	<MaterialSeaSpawnerComponent
+	    size.x="300"
+	    size.y="256"
+	    offset.x="0"
+	    offset.y="158"
+	    speed="10"
+	    noise_threshold="0.0"
+	    material="lava" >
+	</MaterialSeaSpawnerComponent>
+
+	<LifetimeComponent
+		lifetime="300">
+	</LifetimeComponent>
+	
+	<ParticleEmitterComponent 
+		emitted_material_name="spark"
+		gravity.y="0.0"
+		lifetime_min="6"
+		lifetime_max="8"
+		count_min="8"
+		count_max="8"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		area_circle_radius.min="0"
+		area_circle_radius.max="0"
+		cosmetic_force_create="0"
+		airflow_force="0.51"
+		airflow_time="1.01"
+		airflow_scale="0.05"
+		x_pos_offset_min="0"
+		x_pos_offset_max="0"
+		y_pos_offset_min="0"
+		y_pos_offset_max="0"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		emit_cosmetic_particles="1"
+		image_animation_file="data/particles/image_emitters/sea_lava.png"
+		image_animation_speed="5"
+		collide_with_gas_and_fire="0"
+		image_animation_loop="0"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+
+	<MusicEnergyAffectorComponent
+		energy_target="1.0">
+	</MusicEnergyAffectorComponent>
+
+	<AudioComponent
+		file="data/audio/Desktop/projectiles.bank"
+		event_root="player_projectiles/sea_of_lava"
+		set_latest_event_position="1" >
+	</AudioComponent>
+
+</Entity>
+

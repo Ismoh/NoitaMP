@@ -1,0 +1,43 @@
+<Entity >
+   
+    <VerletPhysicsComponent
+    	num_points="17"
+    	stiffness="1.0"
+		velocity_dampening="0.9"
+    	resting_distance="4" 
+    	pixelate_sprite_transforms="1"
+        follow_entity_transform="0"
+    	simulate_wind="1"
+    	wind_change_speed="0.25"
+    	simulate_gravity="1" >
+    </VerletPhysicsComponent>
+
+	<Base file="data/entities/verlet_chains/vines/vine_parts/vine_dark_verlet_b_1.xml" />
+	<Base file="data/entities/verlet_chains/vines/vine_parts/vine_dark_verlet_b_2.xml" />
+	<Base file="data/entities/verlet_chains/vines/vine_parts/vine_dark_verlet_b_3.xml" />
+	<Base file="data/entities/verlet_chains/vines/vine_parts/vine_dark_verlet_b_4.xml" />
+	<Base file="data/entities/verlet_chains/vines/vine_parts/vine_dark_verlet_b_5.xml" />
+	<Base file="data/entities/verlet_chains/vines/vine_parts/vine_dark_verlet_b_6.xml" />
+	<Base file="data/entities/verlet_chains/vines/vine_parts/vine_dark_verlet_b_7.xml" />
+	<Base file="data/entities/verlet_chains/vines/vine_parts/vine_dark_verlet_b_4.xml" />
+	<Base file="data/entities/verlet_chains/vines/vine_parts/vine_dark_verlet_b_8.xml" />
+	<Base file="data/entities/verlet_chains/vines/vine_parts/vine_dark_verlet_b_6.xml" />
+	<Base file="data/entities/verlet_chains/vines/vine_parts/vine_dark_verlet_b_7.xml" />
+	<Base file="data/entities/verlet_chains/vines/vine_parts/vine_dark_verlet_b_8.xml" />
+	<Base file="data/entities/verlet_chains/vines/vine_parts/vine_dark_verlet_b_1.xml" />
+	<Base file="data/entities/verlet_chains/vines/vine_parts/vine_dark_verlet_b_2.xml" />
+	<Base file="data/entities/verlet_chains/vines/vine_parts/vine_dark_verlet_b_3.xml" />
+	<Base file="data/entities/verlet_chains/vines/vine_parts/vine_dark_verlet_b_4.xml" />
+	
+	<MoveToSurfaceOnCreateComponent
+		lookup_radius="64"
+		verlet_min_joint_distance="40"
+		type="VERLET_ROPE_TWO_JOINTS" >
+	</MoveToSurfaceOnCreateComponent>
+
+	<AudioComponent
+		file="data/audio/Desktop/materials.bank"
+		event_root="collision/vine" >
+	</AudioComponent>
+  
+</Entity>

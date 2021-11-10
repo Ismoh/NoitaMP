@@ -1,0 +1,9 @@
+<Entity >
+  <Base file="data/entities/animals/scavenger_glue.xml"  include_children="1">
+    <DamageModelComponent 
+      hp="6.5"
+      max_hp="6.5"
+	  minimum_knockback_force="100000"
+     ></DamageModelComponent >
+  </Base>
+</Entity>

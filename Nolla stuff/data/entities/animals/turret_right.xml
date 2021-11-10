@@ -1,0 +1,189 @@
+<Entity name="$animal_turret">
+	<_Transform 
+		scale.x="1" 
+		>
+	</_Transform>
+  
+	<Base file="data/entities/base_enemy_robot.xml" >
+		<ItemChestComponent level="3" > </ItemChestComponent>
+		
+		<AnimalAIComponent 
+			_enabled="1" 
+			preferred_job="JobDefault"
+			escape_if_damaged_probability="0"
+			creature_detection_range_x="700"
+			creature_detection_range_y="10"
+			food_material="meat"
+			needs_food="0"
+			sense_creatures="1"
+			attack_ranged_enabled="1"
+			attack_melee_enabled="0"
+			can_fly="0" 
+			attack_ranged_action_frame="1"
+			attack_ranged_min_distance="10"
+			attack_ranged_max_distance="740"
+			attack_ranged_entity_file="data/entities/projectiles/laser_turret.xml"
+			attack_ranged_entity_count_min="2"
+			attack_ranged_entity_count_max="2"
+			attack_ranged_frames_between="100" 
+			attack_ranged_use_laser_sight="1"
+			attack_ranged_laser_sight_beam_kind="1"
+			attack_ranged_aim_rotation_speed="0.01"
+			attack_ranged_aim_rotation_shooting_ok_angle_deg="2"
+			attack_ranged_offset_y="-6"
+			attack_ranged_offset_x="10"
+			aggressiveness_min="80"
+			aggressiveness_max="100"
+			is_static_turret="1"
+		>
+		</AnimalAIComponent>
+		
+		<DamageModelComponent 
+            hp="3"
+            ragdoll_material="steel"
+			ragdoll_filenames_file="data/ragdolls/turret/filenames.txt" 
+			blood_material="oil"
+			fire_probability_of_ignition="0"
+			in_liquid_shooting_electrify_prob="30" >
+			<damage_multipliers
+				projectile="0.3"
+				explosion="0.6"
+				electricity="1.2"
+				fire="0.1" >
+			</damage_multipliers>
+		</DamageModelComponent>
+
+		<SpriteComponent 
+			image_file="data/enemies_gfx/turret.xml" 
+			offset_x="0"
+			offset_y="0"
+			>
+		</SpriteComponent>
+
+		<PathFindingGridMarkerComponent
+			marker_work_flag="16" >
+		</PathFindingGridMarkerComponent>
+		
+		<GenomeDataComponent 
+			herd_id="orcs"
+			food_chain_rank="5"
+			is_predator="1" >
+		</GenomeDataComponent>
+		
+		<CharacterPlatformingComponent 
+			jump_velocity_y="0" 
+			run_velocity="0"
+			swim_idle_buoyancy_coeff="0.8"
+			swim_up_buoyancy_coeff="0.8"
+			swim_down_buoyancy_coeff="0.8"
+		></CharacterPlatformingComponent>
+		
+		<PathFindingComponent
+			can_jump="0"
+			can_fly="0" 
+			can_walk="0"
+			>
+		</PathFindingComponent>
+
+		<CameraBoundComponent
+			max_count="30"
+			distance="160000">
+		</CameraBoundComponent>
+		
+		<HitboxComponent 
+            _enabled="1" 
+            aabb_max_x="5" 
+            aabb_max_y="3" 
+            aabb_min_x="-5" 
+            aabb_min_y="-12" 
+			>
+        </HitboxComponent>
+		
+		<CharacterDataComponent 
+			collision_aabb_min_x="-6.0" 
+			collision_aabb_max_x="6.0" 
+			collision_aabb_min_y="-10" 
+			collision_aabb_max_y="3" 
+			mass="2.2"
+			>
+	    </CharacterDataComponent>
+	</Base>
+	
+	<ExplodeOnDamageComponent
+  	explode_on_death_percent="1"
+  	explode_on_damage_percent="0.0"
+  	>
+    <config_explosion 
+      never_cache="0"
+      damage="2"
+      camera_shake="40" 
+      explosion_radius="30" 
+      explosion_sprite="data/particles/explosion_032.xml" 
+      explosion_sprite_lifetime="10" 
+      create_cell_probability="70"	  
+      hole_destroy_liquid="0" 
+      hole_enabled="1" 
+      ray_energy="180000"
+      particle_effect="1" 
+      damage_mortals="1" 
+      physics_explosion_power.min="0.7"
+      physics_explosion_power.max="1.2" 
+      physics_throw_enabled="1"
+      shake_vegetation="1" 
+      sparks_count_min="8" 
+      sparks_count_max="12" 
+      sparks_enabled="1" 
+      stains_enabled="1" 
+      stains_radius="15" >
+    </config_explosion>
+  </ExplodeOnDamageComponent>
+
+  <LightComponent 
+    _enabled="1" 
+    radius="64" 
+	r="80"
+	g="200"
+	b="250"
+	fade_out_time="1.5" >
+  </LightComponent>
+
+   <SpriteComponent 
+   	_tags="laser_sight"
+    _enabled="1" 
+    alpha="1" 
+    image_file="data/particles/laser_blue.png"
+    offset_x="0" 
+    offset_y="0"
+    emissive="1"
+    additive="1"
+    visible="0"
+    update_transform="0"
+    next_rect_animation="" 
+    rect_animation="default" 
+     >
+  </SpriteComponent>
+  
+  <SpriteComponent 
+        _tags="character" 
+		_enabled="1" 
+		alpha="1" 
+		image_file="data/enemies_gfx/turret_emissive.xml"
+		emissive="1"
+        additive="1"
+		next_rect_animation="" 
+		rect_animation="stand" 
+		 >
+	</SpriteComponent>
+	
+	<Entity>
+		<InheritTransformComponent />
+		
+	    <GameEffectComponent 
+	        effect="PROTECTION_FREEZE"
+	        frames="-1"
+	    >
+		</GameEffectComponent >
+	</Entity>
+
+</Entity>
+

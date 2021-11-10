@@ -1,0 +1,9 @@
+<Entity name="unknown" >
+	<Base file="data/entities/base_item_physics2.xml" >
+		<PhysicsImageShapeComponent 
+			image_file="data/props_gfx/pumpkin_02.png"
+			material="meat_pumpkin"
+			>
+		</PhysicsImageShapeComponent>
+	</Base>
+</Entity>

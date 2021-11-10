@@ -1,0 +1,37 @@
+<Entity 
+	name="$projectile_default" 
+	tags="all_spells_loader"
+	>
+	
+	<InheritTransformComponent />
+
+	<LifetimeComponent
+		lifetime="7020"
+		>
+	</LifetimeComponent>
+	
+	<VariableStorageComponent
+		name="stage"
+		value_int="0"
+		>
+	</VariableStorageComponent>
+	
+	<LuaComponent
+		script_source_file="data/scripts/projectiles/all_spells_stage.lua"
+		execute_every_n_frame="300"
+		>
+	</LuaComponent>
+	
+	<LuaComponent
+		script_source_file="data/scripts/projectiles/all_spells_effect.lua"
+		execute_every_n_frame="30"
+		>
+	</LuaComponent>
+	
+	<LuaComponent
+		script_source_file="data/scripts/projectiles/all_spells_stage.lua"
+		execute_on_added="1"
+		remove_after_executed="1"
+		>
+	</LuaComponent>
+</Entity>

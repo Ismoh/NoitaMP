@@ -1,0 +1,116 @@
+<Entity tags="energy_shield,shieldshot">	
+
+    <HitboxComponent 
+        _tags="enabled_in_world"
+        aabb_min_x="-4" 
+        aabb_max_x="4" 
+        aabb_min_y="-3" 
+        aabb_max_y="3"
+    ></HitboxComponent>
+
+    <InheritTransformComponent
+        _tags="enabled_in_hand"
+        use_root_parent="1">
+      <Transform 
+        position.x="0" 
+        position.y="-4" >
+      </Transform>
+    </InheritTransformComponent>
+
+    <EnergyShieldComponent 
+        _tags="enabled_in_hand"
+        recharge_speed="0.25" 
+		radius="12.0"
+		energy="1.0"
+		max_energy="1.5"
+		>
+    </EnergyShieldComponent>
+    
+    <ParticleEmitterComponent
+		_tags="character,enabled_in_hand"
+		emitted_material_name="plasma_fading"
+		gravity.y="0.0"
+		lifetime_min="0.1"
+		lifetime_max="0.5"
+		count_min="2"
+		count_max="4"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		area_circle_radius.max="12"
+		cosmetic_force_create="0"
+		airflow_force="0.5"
+		airflow_time="0.1"
+		airflow_scale="0.5"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		emit_cosmetic_particles="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+
+	<ParticleEmitterComponent
+		_tags="character,enabled_in_hand,shield_ring"
+		emitted_material_name="plasma_fading"
+		gravity.y="0.0"
+		lifetime_min="0.02"
+		lifetime_max="0.05"
+		count_min="90"
+		count_max="100"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		area_circle_radius.min="12"
+		area_circle_radius.max="12"
+		cosmetic_force_create="0"
+		airflow_force="0.3"
+		airflow_time="0.01"
+		airflow_scale="0.05"
+		emission_interval_min_frames="0"
+		emission_interval_max_frames="0"
+		emit_cosmetic_particles="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+
+	<ParticleEmitterComponent
+		_tags="character,enabled_in_hand,shield_hit"
+		emitted_material_name="plasma_fading"
+		gravity.y="0.0"
+		lifetime_min="0.3"
+		lifetime_max="1"
+		count_min="300"
+		count_max="360"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		area_circle_radius.min="12"
+		area_circle_radius.max="12"
+		cosmetic_force_create="0"
+		airflow_force="2.8"
+		airflow_time="0.03"
+		airflow_scale="0.8"
+		emission_interval_min_frames="0"
+		emission_interval_max_frames="0"
+		emit_cosmetic_particles="1"
+		is_emitting="0" >
+	</ParticleEmitterComponent>
+
+	<LightComponent 
+    	_tags="enabled_in_hand,item_identified"
+        _enabled="1" 
+        radius="60"
+        fade_out_time="1.5" 
+    	r="150"
+    	g="190"
+    	b="230" >
+	</LightComponent>
+
+    <AudioComponent
+        _tags="enabled_in_hand,item_identified"
+        file="data/audio/Desktop/projectiles.bank"
+        event_root="player_projectiles/shield"
+        set_latest_event_position="1" >
+    </AudioComponent>
+	
+	<LifetimeComponent
+		lifetime="640"
+		>
+	</LifetimeComponent>
+    
+</Entity>

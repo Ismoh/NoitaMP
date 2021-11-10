@@ -1,0 +1,45 @@
+<Sprite 
+  default_animation="stand" 
+  filename="data/enemies_gfx/turret.png" 
+  offset_x="12" 
+  offset_y="15"
+  default_animation="stand" >
+
+  <RectAnimation 
+    frame_count="1" 
+    frame_height="18" 
+    frame_wait="0.16" 
+    frame_width="24" 
+    frames_per_row="6" 
+    name="stand" 
+    pos_x="0" 
+    pos_y="1" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="19" 
+    frame_wait="0.07" 
+    frame_width="25" 
+    frames_per_row="6" 
+    loop="0" 
+    name="attack_ranged" 
+    pos_x="0" 
+    pos_y="20" 
+    shrink_by_one_pixel="1" >
+
+    <Event 
+      check_physics_material="0" 
+      frame="3" 
+      max_distance="500" 
+      name="shoot_sniper" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+  </RectAnimation>
+
+</Sprite>
+

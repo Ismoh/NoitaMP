@@ -1,0 +1,73 @@
+<Entity>
+    <LifetimeComponent
+		lifetime="2"
+		>
+	</LifetimeComponent>
+	
+	<!--<SpriteParticleEmitterComponent
+    sprite_file="data/particles/tinyspark_02.xml"
+    delay="0"
+    lifetime="0"
+    color.r="1" color.g="1" color.b="1" color.a="1"
+    color_change.r="0" color_change.g="0" color_change.b="0" color_change.a="-3.5"
+    velocity.x="0" velocity.y="0"
+    gravity.x="0" gravity.y="10"
+    velocity_slowdown="0"
+    rotation="0"
+    angular_velocity="0"
+    use_velocity_as_rotation="0"
+    scale.x="1" scale.y="1"
+    emission_interval_min_frames="1"
+    emission_interval_max_frames="2"
+    count_min="5" count_max="12"
+	randomize_velocity.min_y="-40" 
+    randomize_velocity.max_y="40"
+    randomize_velocity.min_x="-40" 	
+    randomize_velocity.max_x="40"
+    randomize_rotation.min="-3.1415"
+    randomize_rotation.max="3.1415"
+    randomize_position.min_x="-2"
+    randomize_position.max_x="2"
+    randomize_position.min_y="-2"
+    randomize_position.max_y="2"
+    >
+  </SpriteParticleEmitterComponent>
+-->
+
+    <ParticleEmitterComponent 
+		emitted_material_name="spark_red"
+		lifetime_min="0.5"
+		lifetime_max="2"
+		x_pos_offset_min="-5"
+		x_pos_offset_max="5"
+		y_pos_offset_min="-5"
+		y_pos_offset_max="5"
+		x_vel_min="70"
+		x_vel_max="100"
+		y_vel_min="0"
+		y_vel_max="0"
+		direction_random_deg="15"
+		gravity.y="300"
+		count_min="10"
+		count_max="20"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		cosmetic_force_create="0"
+		draw_as_long="1"
+		airflow_force="0.01"
+		airflow_time="0.2"
+		airflow_scale="0.1"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		emit_cosmetic_particles="1"
+		collide_with_grid="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+
+	<AudioComponent
+		file="data/audio/Desktop/projectiles.bank"
+		event_root="player_projectiles/critical_hit">
+	</AudioComponent>
+
+</Entity>
+

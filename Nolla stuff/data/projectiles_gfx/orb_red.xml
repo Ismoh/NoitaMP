@@ -1,0 +1,19 @@
+<Sprite
+ filename="data/projectiles_gfx/orb_red.png"
+ offset_x="5"
+ offset_y="5"
+ default_animation="fireball" >
+
+ <!-- animation -->
+ <RectAnimation
+  name="fireball"
+  pos_x="0"
+  pos_y="0"
+  frame_count="4"
+  frame_width="10"
+  frame_height="10"
+  frame_wait="0.09"
+  frames_per_row="4"
+  loop="1"   >
+ </RectAnimation>
+</Sprite>

@@ -1,0 +1,3 @@
+data/ragdolls/root_grower_leaf/leaf_1.png
+data/ragdolls/root_grower_leaf/leaf_2.png
+data/ragdolls/root_grower_leaf/leaf_3.png

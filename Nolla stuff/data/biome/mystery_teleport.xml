@@ -1,0 +1,149 @@
+<Biome>
+  <Topology 
+    name="???"
+    type="BIOME_WANG_TILE"
+    background_use_neighbor="0"
+    
+    background_image="data/weather_gfx/background_crypt.png"
+    background_edge_left="data/weather_gfx/edges/background_crypt_left.png"
+    background_edge_right="data/weather_gfx/edges/background_crypt_right.png"
+    background_edge_top="data/weather_gfx/edges/background_crypt_top.png"
+    background_edge_bottom="data/weather_gfx/edges/background_crypt_bottom.png"
+    background_edge_priority="12"     
+
+    wang_template_file="" 
+    lua_script="data/scripts/biomes/mystery_teleport.lua"
+    wang_map_width="256"
+    wang_map_height="256"
+    audio_music_2="wandcave"
+    audio_ambience="cave"
+  >
+  <BitmapCaves 
+      size_x="256"
+      size_y="256"
+      spawn_percent="0"
+      blob_caves_count_min="0"
+      blob_caves_count_max="1"
+      blob_caves_radius_min="1"
+      blob_caves_radius_max="1"
+      blob_caves_strength_min="1.2"
+      blob_caves_strength_max="2"
+      cave_childs_min="0"
+      cave_childs_max="1"
+      cave_count_min="1"
+      cave_count_max="2"
+      cave_strength_min="0.2"
+      cave_strength_max="1.8"
+      mountain_count_min="0"
+      mountain_count_max="0"
+      mountain_size_min="1"
+      mountain_size_max="10"
+      surface_cave_childs_min="0"
+      surface_cave_childs_max="0"
+      surface_caves_count_min="0" 
+      surface_caves_count_max="0"
+	  >
+    </BitmapCaves>
+  </Topology>
+
+  <Materials 
+    name="???" 
+     >
+    <MaterialComponent 
+      _enabled="1" 
+      is_rare="0" 
+      limit_max_y="424.229" 
+      limit_min_y="-1024" 
+      limit_y="1" 
+      material_index="10" 
+      material_max="0.55" 
+      material_min="0.45" 
+      material_name="sand_static" 
+      rare_polka_is_boxed="1" 
+      rare_polka_probability="0.2" 
+      rare_polka_radius_high="0.65" 
+      rare_polka_radius_low="0.2" 
+      rare_required_max="10" 
+      rare_required_min="0.2" 
+      rare_scale_x="0.05" 
+      rare_scale_y="0.05" 
+      rare_use_perlin="0" 
+      rare_use_polka="1" >
+    </MaterialComponent>
+
+    <MaterialComponent 
+      _enabled="1" 
+      is_rare="1" 
+      limit_max_y="2048" 
+      limit_min_y="100" 
+      limit_y="0" 
+      material_index="10" 
+      material_max="1.2" 
+      material_min="1.1" 
+      material_name="diamond" 
+      rare_polka_is_boxed="1" 
+      rare_polka_probability="0.757143" 
+      rare_polka_radius_high="0.464286" 
+      rare_polka_radius_low="0.1428571" 
+      rare_required_max="10" 
+      rare_required_min="0.371429" 
+      rare_scale_x="0.0214286" 
+      rare_scale_y="0.0214286" 
+      rare_use_perlin="0" 
+      rare_use_polka="1" >
+    </MaterialComponent>
+    
+    <MaterialComponent 
+      _enabled="1" 
+      is_rare="0" 
+      limit_max_y="2048" 
+      limit_min_y="100" 
+      limit_y="0" 
+      material_index="10" 
+      material_max="1.0" 
+      material_min="0.6" 
+      material_name="rock_hard" 
+      add_perlin="1"
+      add_perlin_scale_y="0.01"
+      add_perlin_scale_x="0.01"
+      rare_polka_is_boxed="1" 
+      rare_polka_probability="0.2" 
+      rare_polka_radius_high="0.65" 
+      rare_polka_radius_low="0.2" 
+      rare_required_max="10" 
+      rare_required_min="0.2" 
+      rare_scale_x="0.05" 
+      rare_scale_y="0.05" 
+      rare_use_perlin="0" 
+      rare_use_polka="1" >
+    </MaterialComponent>
+	
+	<MaterialComponent 
+      _enabled="1" 
+      is_rare="0" 
+      limit_max_y="2048" 
+      limit_min_y="100" 
+      limit_y="0" 
+      material_index="11" 
+      material_max="3.6" 
+      material_min="0.8" 
+      material_name="templebrickdark_static" 
+      add_perlin="1"
+      add_perlin_scale_y="0.01"
+      add_perlin_scale_x="0.01"
+      rare_polka_is_boxed="1" 
+      rare_polka_probability="0.2" 
+      rare_polka_radius_high="0.65" 
+      rare_polka_radius_low="0.2" 
+      rare_required_max="10" 
+      rare_required_min="0.2" 
+      rare_scale_x="0.05" 
+      rare_scale_y="0.05" 
+      rare_use_perlin="0" 
+      rare_use_polka="1" >
+    </MaterialComponent>
+    
+  </Materials>
+
+</Biome>
+

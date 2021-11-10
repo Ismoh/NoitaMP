@@ -1,0 +1,159 @@
+<Entity tags="glue_NOT" name="$animal_tentacler" >
+  
+	<Base file="data/entities/base_enemy_flying.xml" >
+		<ItemChestComponent level="2" > </ItemChestComponent>
+		<AnimalAIComponent 
+			_enabled="1" 
+			preferred_job="JobDefault"
+			escape_if_damaged_probability="100"
+			attack_melee_damage_min="0.4" 
+			attack_melee_damage_max="0.7"
+			creature_detection_range_x="400"
+			creature_detection_range_y="400"
+			creature_detection_angular_range_deg="60"
+			attack_melee_max_distance="20"
+			food_material="meat"
+			needs_food="0"
+			sense_creatures="1"
+			can_fly="1"  
+			attack_melee_enabled="0"
+			attack_melee_max_distance="10"
+			attack_ranged_enabled="0"
+			aggressiveness_min="1"
+			aggressiveness_max="80"
+			>
+		</AnimalAIComponent>
+		
+		<DamageModelComponent 
+            _enabled="0"
+			>
+		</DamageModelComponent>
+
+		<SpriteComponent 
+			image_file="data/enemies_gfx/tentacler.xml" 
+			alpha="0.5"
+			offset_x="0"
+			offset_y="0">
+		</SpriteComponent>
+
+		<PathFindingComponent
+			can_jump="0"
+			can_fly="1" 
+			can_swim_on_surface="1"
+		    can_dive="1"
+			space_required="5">
+		</PathFindingComponent>
+
+		<PathFindingGridMarkerComponent
+			marker_work_flag="24" >
+		</PathFindingGridMarkerComponent>
+		
+		<GenomeDataComponent 
+			herd_id="ghost"
+			food_chain_rank="9"
+			is_predator="1" >
+		</GenomeDataComponent>
+		
+		<CharacterPlatformingComponent 
+			fly_speed_change_spd="0.8"
+			fly_velocity_x="28" 
+			accel_x="0.03" 
+			jump_velocity_y="-12" 
+			run_velocity="17"  >
+		</CharacterPlatformingComponent>
+
+		<CameraBoundComponent
+			max_count="30"
+			distance="160000">
+		</CameraBoundComponent>
+		
+		<HitboxComponent 
+            _enabled="0"
+			>
+        </HitboxComponent>
+		
+		<CharacterDataComponent 
+			climb_over_y="4" 
+			collision_aabb_min_x="-5.0" 
+			collision_aabb_max_x="5.0" 
+			collision_aabb_min_y="-14" 
+			collision_aabb_max_y="3" 
+			buoyancy_check_offset_y="-6">
+	    </CharacterDataComponent>
+	    
+		<AudioComponent
+			file="data/audio/Desktop/animals.bank"
+			event_root="animals/slime">
+		</AudioComponent>
+
+	</Base>
+
+	<HotspotComponent
+		_tags="hand"
+		offset.y="-1" 
+		offset.x="2"
+		>
+	</HotspotComponent>
+	
+	<AIAttackComponent
+		min_distance="36"
+		max_distance="110"
+		frames_between="120"
+		frames_between_global="0"
+		attack_ranged_action_frame="5"
+		attack_ranged_entity_file="data/entities/projectiles/smalltentacle.xml"
+		attack_ranged_offset_y="-7"
+		attack_ranged_offset_x="4"
+		>
+	</AIAttackComponent>
+	
+	<AIAttackComponent
+		min_distance="0"
+		max_distance="38"
+		frames_between="80"
+		frames_between_global="70"
+		attack_ranged_action_frame="4"
+		animation_name="attack_stone"
+		attack_ranged_entity_file="data/entities/projectiles/freeze_circle.xml" 
+		attack_ranged_offset_y="-7"
+		>
+	</AIAttackComponent>
+	
+	<AIAttackComponent
+		min_distance="0"
+		max_distance="36"
+		frames_between="80"
+		frames_between_global="40"
+		attack_ranged_action_frame="5"
+		attack_ranged_entity_file="data/entities/projectiles/smalltentacle_melee.xml"
+		attack_ranged_offset_y="-7"
+		attack_ranged_offset_x="4"
+		>
+	</AIAttackComponent>
+	
+	<AudioLoopComponent
+		file="data/audio/Desktop/animals.bank"
+		event_name="animals/slimy_big/movement_loop"
+		set_speed_parameter="1"
+		auto_play="1">
+	</AudioLoopComponent>
+	
+	<LifetimeComponent
+		lifetime="600"
+		>
+	</LifetimeComponent>
+	
+	<AudioComponent
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals/illusion">
+	</AudioComponent>
+	
+	<LuaComponent
+		script_source_file="data/scripts/animals/illusion_disappear.lua"
+		execute_every_n_frame="-1"
+		execute_on_removed="1"
+		>
+	</LuaComponent>
+
+</Entity>
+

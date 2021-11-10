@@ -1,0 +1,89 @@
+<Entity>
+	<!--
+	<VelocityComponent
+		gravity_y="-5000"
+		air_friction="0.1"
+		updates_velocity="1"
+		>
+	</VelocityComponent>
+	
+	<SetStartVelocityComponent
+		randomize_speed.min="50"
+		randomize_speed.max="250"
+		randomize_angle.min="0"
+		randomize_angle.max="6.283185" 
+		>
+	</SetStartVelocityComponent>
+
+	<VelocityComponent
+		gravity_y="50"
+		air_friction="0.1" 
+		>
+	</VelocityComponent>
+	<SimplePhysicsComponent>
+	</SimplePhysicsComponent>
+
+	<SpriteComponent 
+		image_file="data/particles/guts_0$[1-3].png"
+		offset_x="2"
+		offset_y="2"
+		additive="0"
+		emissive="0" 
+		alpha="1">
+	</SpriteComponent>
+	-->
+
+	<PhysicsBody2Component
+		update_entity_transform="1">
+	</PhysicsBody2Component>
+
+	<PhysicsImageShapeComponent
+		image_file="data/particles/guts_01.png"
+		use_sprite="1"
+		centered="1"
+		is_root="1"
+		material="meat"
+		>
+	</PhysicsImageShapeComponent>
+
+	<!--
+	<ParticleEmitterComponent 
+		emitted_material_name="blood"
+		delay_frames="6"
+		offset.x="0"
+		offset.y="0"
+		gravity.y="-20"
+		x_vel_min="-50"
+		x_vel_max="50"
+		y_vel_min="-50"
+		y_vel_max="50"
+		friction="10"
+		count_min="0"
+		count_max="10"
+		lifetime_min="0.3"
+		lifetime_max="1.5"
+		render_on_grid="1"
+		is_trail="1"
+		trail_gap="1"
+		airflow_force="0.7"
+		airflow_time="0.01"
+		airflow_scale="0.22"
+		create_real_particles="1"
+		emission_interval_min_frames="10"
+		emission_interval_max_frames="60"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+	<LifetimeComponent
+		lifetime="100"
+		randomize_lifetime.min="-75"
+		randomize_lifetime.max="75"
+		>
+	</LifetimeComponent>
+-->
+	<LuaComponent
+		script_source_file="data/scripts/particles/guts_init.lua"
+		execute_every_n_frame="1"
+		remove_after_executed="1"
+		>
+	</LuaComponent>
+</Entity>

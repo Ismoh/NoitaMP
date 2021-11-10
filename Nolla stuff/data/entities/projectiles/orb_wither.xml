@@ -1,0 +1,140 @@
+<Entity 
+  name="$projectile_default" 
+   >
+
+	<Base file="data/entities/base_projectile.xml" >
+		<VelocityComponent
+    		gravity_y="0"
+			air_friction="-0.1"
+			mass="0.05"
+			>
+    	</VelocityComponent> 
+	</Base>
+	
+	<HomingComponent
+		target_tag="prey"
+		homing_targeting_coeff="9"
+		detect_distance="350"
+		homing_velocity_multiplier="1.0"
+		>
+	</HomingComponent>
+
+  <ProjectileComponent 
+    _enabled="1" 
+	lob_min="0.8"
+  	lob_max="1.0"
+  	speed_min="100"
+  	speed_max="120"
+    die_on_low_velocity="0"
+    on_death_explode="1"
+    on_death_gfx_leave_sprite="0" 
+    on_lifetime_out_explode="1"
+	explosion_dont_damage_shooter="1"
+    damage="0.3"
+    on_collision_die="1"
+    lifetime="150" >
+    <config_explosion
+      never_cache="1" 
+      camera_shake="0.5" 
+      explosion_radius="1" 
+      explosion_sprite="data/particles/explosion_032_slimeburst_yellow.xml" 
+      explosion_sprite_lifetime="0.0" 
+      create_cell_probability="0" 
+      create_cell_material="spark_blue" 
+	  ray_energy="10000"
+      hole_destroy_liquid="1" 
+      hole_enabled="1" 
+	  damage = "0.1"
+      hole_image="data/temp/explosion_hole.png"
+	  explosion_sprite_emissive="1"
+	  explosion_sprite_additive="1"
+      particle_effect="0" 
+      damage_mortals="1"
+	  physics_explosion_power.min="0"
+      physics_explosion_power.max="0"
+	  physics_throw_enabled="0"
+      shake_vegetation="1"  
+      sparks_enabled="1" 
+	  spark_material="spark_yellow"
+      sparks_count_max="16" 
+      sparks_count_min="12"
+      light_fade_time="1.2" 
+	  light_r="180"
+	  light_g="180"
+      light_b="180"
+      stains_enabled="1" 
+      stains_image="data/temp/explosion_stain.png" >
+    </config_explosion>
+  </ProjectileComponent>
+  
+  <SpriteComponent 
+    _enabled="1" 
+    alpha="1" 
+    image_file="data/projectiles_gfx/orb_yellow.xml" 
+    next_rect_animation="" 
+    offset_x="5" 
+    offset_y="5" 
+    rect_animation="fireball" 
+	emissive="1"
+    additive="1"
+     
+	update_transform_rotation="0"
+	>
+  </SpriteComponent>
+  
+	<SpriteParticleEmitterComponent
+		sprite_file="data/particles/tinyspark_01.xml"
+		delay="0"
+		lifetime="0"
+		color.r="1" color.g="1" color.b="1" color.a="1"
+		color_change.r="0" color_change.g="0" color_change.b="0" color_change.a="0"
+		velocity.x="0" velocity.y="0"
+		gravity.x="0" gravity.y="10"
+		velocity_slowdown="0"
+		rotation="0"
+		angular_velocity="0"
+		use_velocity_as_rotation="0"
+		scale.x="1" scale.y="1"
+		scale_velocity.x="0" scale_velocity.y="0"
+		emission_interval_min_frames="3"
+		emission_interval_max_frames="4"
+		count_min="1" count_max="2"
+		randomize_rotation.min="-3.1415"
+		randomize_rotation.max="3.1415"
+		randomize_position.min_x="-8"
+		randomize_position.max_x="8"
+		randomize_position.min_y="-8"
+		randomize_position.max_y="8"
+		>
+	</SpriteParticleEmitterComponent>
+  
+  <LightComponent 
+    _enabled="1" 
+    radius="150" 
+    r="220"
+    g="180"
+    b="40">
+  </LightComponent>
+	
+	<AudioComponent
+		file="data/audio/Desktop/projectiles.bank"
+		event_root="projectiles/magic" >
+	</AudioComponent>
+	
+	<AudioLoopComponent
+		file="data/audio/Desktop/projectiles.bank"
+		event_name="projectiles/magic_orb/loop"
+		auto_play="1">
+	</AudioLoopComponent>
+	
+	<HitEffectComponent 
+        effect_hit="LOAD_UNIQUE_CHILD_ENTITY"
+        value_string="data/entities/misc/effect_wither.xml" >
+	</HitEffectComponent >
+	
+	<VariableStorageComponent
+		name="projectile_file"
+		value_string="data/entities/projectiles/orb_wither.xml"
+		>
+	</VariableStorageComponent>
+</Entity>

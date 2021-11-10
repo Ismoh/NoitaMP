@@ -1,0 +1,24 @@
+<Entity >
+	<HomingComponent
+		_tags="homing_projectile"
+		target_tag="-"
+		homing_targeting_coeff="130.0"
+		homing_velocity_multiplier="0.86"
+		detect_distance="300"
+		predefined_target="0"
+	>
+	</HomingComponent>
+	
+	<LuaComponent
+		script_source_file="data/scripts/projectiles/homing_projectile.lua"
+		execute_every_n_frame="1"
+		remove_after_executed="1"
+		>
+	</LuaComponent>
+	
+	<LuaComponent
+		script_source_file="data/scripts/projectiles/homing_projectile.lua"
+		execute_every_n_frame="6"
+		>
+	</LuaComponent>
+</Entity>

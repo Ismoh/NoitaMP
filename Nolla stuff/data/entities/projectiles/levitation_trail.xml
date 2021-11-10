@@ -1,0 +1,105 @@
+<Entity 
+  name="$projectile_default" tags="projectile_player,projectile_not"
+   >
+
+	<Base file="data/entities/base_projectile.xml" >
+		<VelocityComponent
+			gravity_y="0"
+			mass="0.04"
+            air_friction="2"
+            terminal_velocity="2000"
+		>
+		</VelocityComponent>
+	</Base>
+
+  <ProjectileComponent 
+    _enabled="1" 
+    lob_min="0.8"
+    lob_max="1.0"
+    speed_min="0"
+    speed_max="0"
+    direction_random_rad="0"
+    collide_with_world="1"
+    penetrate_world="1"
+    penetrate_world_velocity_coeff="0.3"
+    on_death_explode="0"
+    on_death_gfx_leave_sprite="0" 
+    on_lifetime_out_explode="0"
+    explosion_dont_damage_shooter="1" 
+    on_collision_die="1"
+	die_on_liquid_collision="0"
+	velocity_sets_scale="1"
+    lifetime="300"
+    damage="0.12"
+    ragdoll_force_multiplier="0.0"
+    ragdoll_fx_on_collision="BLOOD_SPRAY"
+    hit_particle_force_multiplier="0.0"
+    camera_shake_when_shot="0.0"
+    bounces_left="0"
+	muzzle_flash_file=""
+	shoot_light_flash_radius="1"
+	knockback_force="0"
+	physics_impulse_coeff="0"
+	>
+    <config_explosion />
+  </ProjectileComponent>
+
+  <LightComponent 
+    _enabled="1" 
+    radius="20" 
+    r="20"
+    g="70"
+    b="20">
+  </LightComponent>
+
+  <!-- cloud -->
+  <ParticleEmitterComponent 
+    emitted_material_name="plasma_fading_green"
+    emitter_lifetime_frames="280"
+    offset.x="0"
+    offset.y="0"
+	gravity.y="0.0"
+	x_vel_min="-20"
+    x_vel_max="20"
+    y_vel_min="-20"
+    y_vel_max="20"
+    friction="10"
+    count_min="1"
+    count_max="1"
+    lifetime_min="0.05"
+    lifetime_max="0.8"
+    emit_real_particles="0"
+	render_on_grid="1"
+    emit_cosmetic_particles="1"
+    emission_interval_min_frames="1"
+    emission_interval_max_frames="16"
+    is_emitting="1" >
+  </ParticleEmitterComponent>
+
+  <!-- trail -->
+  <ParticleEmitterComponent 
+    emitted_material_name="plasma_fading_green"
+    emitter_lifetime_frames="280"
+    offset.x="0"
+    offset.y="0"
+    gravity.y="0.0"
+    x_vel_min="0"
+    x_vel_max="0"
+    y_vel_min="0"
+    y_vel_max="0"
+    friction="10"
+    count_min="1"
+    count_max="1"
+    lifetime_min="0.05"
+    lifetime_max="0.05"
+    emit_real_particles="0"
+    render_on_grid="1"
+    is_trail="1"
+    trail_gap="1"
+    emit_cosmetic_particles="1"
+    emission_interval_min_frames="1"
+    emission_interval_max_frames="1"
+    is_emitting="1" >
+  </ParticleEmitterComponent>
+
+</Entity>

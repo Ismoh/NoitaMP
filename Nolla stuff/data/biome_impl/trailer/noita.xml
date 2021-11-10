@@ -1,0 +1,79 @@
+<Entity>
+
+  	<ParticleEmitterComponent 
+		emitted_material_name="spark_red"
+		gravity.y="0.0"
+		lifetime_min="1.5"
+		lifetime_max="1.3"
+		count_min="10"
+		count_max="10"
+		y_vel_min="1"
+		y_vel_max="2"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		area_circle_radius.min="0"
+		area_circle_radius.max="0"
+		cosmetic_force_create="0"
+		airflow_force="0.201"
+		airflow_time="0.01"
+		airflow_scale="0.09"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		emit_cosmetic_particles="1"
+		image_animation_file="data/biome_impl/trailer/logo_emitter2.png"
+		image_animation_colors_file="data/biome_impl/trailer/logo_emitter_colors2.png"
+		image_animation_speed="5"
+		image_animation_loop="0"
+		image_animation_emission_probability="0.45"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+
+  	<ParticleEmitterComponent 
+		emitted_material_name="spark_red"
+		gravity.y="0.0"
+		lifetime_min="1.5"
+		lifetime_max="3.3"
+		count_min="10"
+		count_max="10"
+		y_vel_min="1"
+		y_vel_max="2"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		area_circle_radius.min="0"
+		area_circle_radius.max="0"
+		cosmetic_force_create="0"
+		airflow_force="0.201"
+		airflow_time="0.01"
+		airflow_scale="0.09"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		emit_cosmetic_particles="1"
+		image_animation_file="data/biome_impl/trailer/logo_emitter2.png"
+		image_animation_colors_file="data/biome_impl/trailer/logo_emitter_colors2.png"
+		image_animation_speed="3"
+		image_animation_loop="0"
+		image_animation_emission_probability="0.02"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+
+	<LifetimeComponent
+		lifetime="560" >
+	</LifetimeComponent>
+	
+	<SpriteComponent 
+		_enabled="1" 
+		alpha="1" 
+		image_file="data/biome_impl/trailer/logo_background_big.png" 
+		next_rect_animation="" 
+		offset_x="128" 
+		offset_y="128" 
+		has_special_scale="1"
+		special_scale_x="4"
+		special_scale_y="4"
+		rect_animation="" 
+		z_index="10"
+	>
+	</SpriteComponent>
+
+</Entity>
+

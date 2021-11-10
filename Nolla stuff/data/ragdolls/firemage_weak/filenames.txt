@@ -1,0 +1,11 @@
+data/ragdolls/firemage_weak/torso.png
+data/ragdolls/firemage_weak/right_thigh.png
+data/ragdolls/firemage_weak/right_foot.png
+data/ragdolls/firemage_weak/right_arm.png
+data/ragdolls/firemage_weak/right_hand.png
+data/ragdolls/firemage_weak/left_thigh.png
+data/ragdolls/firemage_weak/left_foot.png
+data/ragdolls/firemage_weak/left_arm.png
+data/ragdolls/firemage_weak/left_hand.png
+data/ragdolls/firemage_weak/head.png
+data/ragdolls/firemage_weak/hood.png

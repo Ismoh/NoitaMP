@@ -1,0 +1,5 @@
+data/ragdolls/plague_rat/head.png
+data/ragdolls/plague_rat/torso_right.png
+data/ragdolls/plague_rat/torso_left.png
+data/ragdolls/plague_rat/tail_start.png
+data/ragdolls/plague_rat/tail_end.png

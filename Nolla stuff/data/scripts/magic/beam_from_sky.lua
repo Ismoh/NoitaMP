@@ -1,0 +1,32 @@
+dofile_once("data/scripts/lib/utilities.lua")
+dofile_once("data/scripts/lib/coroutines.lua")
+
+async(function ()
+	local entity_id    = GetUpdatedEntityID()
+	local pos_x, pos_y = EntityGetTransform( entity_id )
+	
+	GamePrintImportant( "$log_beam_stone")
+	GameEntityPlaySound( entity_id, "beam_from_sky_start" )
+	wait( 60 )
+
+	GameScreenshake( 10 )
+	wait( 20 )
+	GameScreenshake( 20 )
+	wait( 20 )
+	GameScreenshake( 30 )
+	wait( 20 )
+	
+	GameScreenshake( 40 )
+	wait( 20 )
+	GameScreenshake( 60 )
+	wait( 20 )
+	GameScreenshake( 100 )
+	wait( 20 )
+	
+	GameCutThroughWorldVertical( pos_x, -2147483647, pos_y, 40, 40 )
+	EntitySetComponentsWithTagEnabled( entity_id, "enabled_in_world", true )
+	GamePlaySound( "data/audio/Desktop/misc.bank", "misc/beam_from_sky_hit", pos_x, pos_y )
+	GameScreenshake( 200 )
+    EntityLoad( "data/entities/particles/poof_green_huge.xml", pos_x, pos_y-5 )
+	component_write( EntityGetFirstComponent( entity_id, "ParticleEmitterComponent"), { count_min=21000, count_max=21000, cosmetic_force_create=true } ) 
+end)

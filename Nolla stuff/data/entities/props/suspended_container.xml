@@ -1,0 +1,55 @@
+<Entity tags="hittable,teleportable_NOT,prop,prop_physics,mortal">
+	<PhysicsBody2Component 
+		is_static="0"
+		allow_sleep="1"
+		angular_damping="0.01"
+		linear_damping="0.3" 
+		fixed_rotation="0"
+		is_bullet="0"
+		>
+	</PhysicsBody2Component>
+
+	<PhysicsImageShapeComponent 
+		body_id="100"
+		is_root="1"
+		centered="1"
+		image_file="data/props_gfx/suspended_container.png"
+		material="metal_prop" >
+	</PhysicsImageShapeComponent>
+
+	<LuaComponent
+		script_source_file="data/scripts/props/suspended_container_physics_objects.lua"
+	    execute_every_n_frame="1"
+	    execute_times="1"
+		>
+	</LuaComponent>
+
+	<!-- chain generation -->
+	<LuaComponent
+		script_source_file="data/scripts/props/chain_to_ceiling.lua"
+		execute_on_added="1"
+	    execute_every_n_frame="5"
+	    execute_times="-1"
+		>
+	</LuaComponent>
+	<VariableStorageComponent
+		name="chain_0_x"
+		value_int="-16"
+		>
+	</VariableStorageComponent>
+	<VariableStorageComponent
+		name="chain_0_y"
+		value_int="-8"
+		>
+	</VariableStorageComponent>
+	<VariableStorageComponent
+		name="chain_1_x"
+		value_int="13"
+		>
+	</VariableStorageComponent>
+	<VariableStorageComponent
+		name="chain_1_y"
+		value_int="-8"
+		>
+	</VariableStorageComponent>
+</Entity>

@@ -1,0 +1,38 @@
+<Entity>
+
+  <Base file="data/entities/base_item_physics.xml" >
+    <PhysicsImageShapeComponent 
+      body_id="1"
+      image_file="data/props_gfx/bed.png"
+      material="wood_prop" 
+      centered="1">
+    </PhysicsImageShapeComponent>
+  </Base>
+  
+  <CameraBoundComponent
+    max_count="50"
+    distance="500">
+  </CameraBoundComponent>
+
+  <DamageModelComponent 
+    air_needed="0" 
+    blood_material="" 
+    drop_items_on_death="0" 
+    falling_damage_damage_max="1.2" 
+    falling_damage_damage_min="0.1" 
+    falling_damage_height_max="250" 
+    falling_damage_height_min="70" 
+    falling_damages="1" 
+    fire_damage_amount="0.2" 
+    fire_probability_of_ignition="0" 
+	critical_damage_resistance="1"
+    hp="800" 
+    is_on_fire="0" 
+    materials_create_messages="0" 
+    materials_damage="0" 
+    ragdoll_filenames_file="" 
+    ragdoll_material="" 
+	ui_report_damage="0"
+	>
+  </DamageModelComponent>
+</Entity>

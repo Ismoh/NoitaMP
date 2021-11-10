@@ -1,0 +1,15 @@
+<Entity tags="teleportable_NOT,projectile">
+	
+	<VelocityComponent
+		mass="0.05"
+		affect_physics_bodies="1" >
+	</VelocityComponent>
+
+	<AudioComponent
+		file="data/audio/Desktop/projectiles.bank"
+		audio_physics_material="projectile"
+		event_root="projectiles/hit" >
+	</AudioComponent>
+
+</Entity>
+

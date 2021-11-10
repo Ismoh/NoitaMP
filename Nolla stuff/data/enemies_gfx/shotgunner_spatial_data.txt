@@ -1,0 +1,5 @@
+ffff0000 left_foot
+ff00ff00 torso
+ff0000ff right_hand
+ffffff00 head
+ff800000 right_foot

@@ -1,0 +1,9 @@
+<Entity >
+  <Base file="data/entities/animals/thunderskull.xml">
+    <DamageModelComponent 
+      hp="6"
+      max_hp="6"
+	  minimum_knockback_force="100000"
+     ></DamageModelComponent >
+  </Base>
+</Entity>

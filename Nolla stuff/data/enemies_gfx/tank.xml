@@ -1,0 +1,101 @@
+<Sprite
+ filename="data/enemies_gfx/tank.png"
+ offset_x="9"
+ offset_y="16"
+  default_animation="stand" >
+
+ <!-- stand -->
+ <RectAnimation
+  name="stand"
+  pos_x="0"
+  pos_y="0"
+  frame_count="1"
+  frame_width="22"
+  frame_height="20"
+  frame_wait="0.16"
+  frames_per_row="11"
+  loop="1"   >
+ </RectAnimation>
+
+ <!-- walk -->
+ <RectAnimation
+  name="walk"
+  pos_x="0"
+  pos_y="20"
+  frame_count="4"
+  frame_width="22"
+  frame_height="20"
+  frame_wait="0.1"
+  frames_per_row="11"
+  loop="1"   >
+ </RectAnimation>
+
+ <!-- run - copied from walk -->
+ <RectAnimation
+  name="run"
+  pos_x="0"
+  pos_y="20"
+  frame_count="4"
+  frame_width="22"
+  frame_height="20"
+  frame_wait="0.09"
+  frames_per_row="11"
+  loop="1"   >
+ </RectAnimation>
+
+ <!-- burn - copied from walk -->
+ <RectAnimation
+  name="burn"
+  pos_x="0"
+  pos_y="20"
+  frame_count="4"
+  frame_width="22"
+  frame_height="20"
+  frame_wait="0.09"
+  frames_per_row="11"
+  loop="1"   >
+ </RectAnimation>
+ 
+ <!-- shoot -->
+  <RectAnimation
+  name="attack"
+  pos_x="0"
+  pos_y="40"
+  frame_count="4"
+  frame_width="22"
+  frame_height="20"
+  frame_wait="0.07"
+  frames_per_row="11"
+  loop="0"   >
+  <Event frame="1" name="shoot_bullet" probability="1" check_physics_material="0"/>
+  <Event frame="3" name="shoot_bullet" probability="1" check_physics_material="0"/>
+ </RectAnimation>
+ 
+ <!-- shoot -->
+  <RectAnimation
+  name="attack_ranged"
+  pos_x="0"
+  pos_y="40"
+  frame_count="4"
+  frame_width="22"
+  frame_height="20"
+  frame_wait="0.07"
+  frames_per_row="11"
+  loop="0"   >
+  <Event frame="1" name="shoot_bullet" probability="1" check_physics_material="0"/>
+  <Event frame="3" name="shoot_bullet" probability="1" check_physics_material="0"/>
+ </RectAnimation>
+ 
+ <RectAnimation
+  name="attack_grenade"
+  pos_x="0"
+  pos_y="60"
+  frame_count="11"
+  frame_width="22"
+  frame_height="20"
+  frame_wait="0.04"
+  frames_per_row="11"
+  loop="0"   >
+  <Event frame="8" name="shoot_bullet" probability="1" check_physics_material="0"/>
+ </RectAnimation>
+</Sprite>

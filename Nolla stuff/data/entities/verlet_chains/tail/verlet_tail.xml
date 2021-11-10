@@ -1,0 +1,32 @@
+<Entity name="belt" >
+
+	<InheritTransformComponent
+        parent_hotspot_tag="belt_root" >
+		<Transform 
+			position.x="1.5" 
+			position.y="0"
+			>
+		</Transform>
+    </InheritTransformComponent>  
+   
+    <VerletPhysicsComponent
+    	num_points="10"
+    	stiffness="1.4"
+		velocity_dampening="0.9"
+    	resting_distance="2" 
+    	pixelate_sprite_transforms="0"
+    	simulate_wind="1"
+        wind_change_speed="0.25"
+    	simulate_gravity="1" 
+		collide_with_cells="1"
+		>
+    </VerletPhysicsComponent>
+
+	<Base file="data/entities/verlet_chains/tail/tail_parts/tail_verlet_1.xml" />
+	<Base file="data/entities/verlet_chains/tail/tail_parts/tail_verlet_2.xml" />
+	<Base file="data/entities/verlet_chains/tail/tail_parts/tail_verlet_2.xml" />
+	<Base file="data/entities/verlet_chains/tail/tail_parts/tail_verlet_3.xml" />
+	<Base file="data/entities/verlet_chains/tail/tail_parts/tail_verlet_3.xml" />
+	<Base file="data/entities/verlet_chains/tail/tail_parts/tail_verlet_3.xml" />
+  
+</Entity>

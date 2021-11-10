@@ -1,0 +1,22 @@
+<Entity 
+  name="unknown" 
+  tags="vegetation,pixelsprite" >
+  
+  <PixelSpriteComponent 
+    _enabled="1" 
+    image_file="data/vegetation/tree_spruce_2.png" 
+    anchor_x="35" 
+    anchor_y="132"
+    clean_overlapping_pixels="0"
+  >
+  </PixelSpriteComponent>
+
+  <SimplePhysicsComponent 
+    can_go_up="0"
+    >
+  </SimplePhysicsComponent >
+  
+  <VelocityComponent />
+  
+</Entity>
+

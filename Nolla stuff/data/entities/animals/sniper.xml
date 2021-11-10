@@ -1,0 +1,155 @@
+<Entity name="$animal_sniper" >
+
+	<Base file="data/entities/base_enemy_basic.xml" >
+		<ItemChestComponent level="2" > </ItemChestComponent>
+		
+		<AnimalAIComponent 
+			_enabled="1" 
+			preferred_job="JobDefault"
+			escape_if_damaged_probability="70"
+			attack_melee_damage_min="0.4" 
+			attack_melee_damage_max="0.7"
+			creature_detection_range_x="700"
+			creature_detection_range_y="700"
+			attack_melee_max_distance="10"
+			food_material="meat"
+			needs_food="0"
+			sense_creatures="1"
+			attack_ranged_enabled="1"
+			attack_melee_enabled="1"
+			can_fly="0"  
+			attack_ranged_action_frame="8"
+			attack_ranged_min_distance="10"
+			attack_ranged_max_distance="800"
+			attack_ranged_entity_file="data/entities/projectiles/sniperbullet.xml"
+			attack_ranged_entity_count_min="1"
+			attack_ranged_entity_count_max="1"
+			attack_ranged_frames_between="100" 
+			attack_ranged_use_laser_sight="1"
+			attack_ranged_laser_sight_beam_kind="0"
+			attack_ranged_offset_y="-5"
+			attack_ranged_offset_x="8"
+			aggressiveness_min="80"
+			aggressiveness_max="100"
+			>
+		</AnimalAIComponent>
+		
+		<DamageModelComponent 
+			hp="1.8"
+			materials_create_messages="1"
+			ragdoll_filenames_file="data/ragdolls/sniper/filenames.txt" 
+			fire_probability_of_ignition="5"
+			ragdoll_offset_x="4"
+			>
+		</DamageModelComponent>
+
+		<SpriteComponent 
+			image_file="data/enemies_gfx/sniper.xml" 
+			offset_x="0"
+			offset_y="0">
+		</SpriteComponent>
+
+		<PathFindingComponent
+			can_jump="1"
+			can_fly="0" 
+			jump_speed="70"
+			initial_jump_lob="1"
+			initial_jump_max_distance_x="60"
+			initial_jump_max_distance_y="50" >
+			<jump_trajectories>
+				<JumpTrajectory x="5" y="15" lob="1" />
+				<JumpTrajectory x="7" y="20" lob="1" />
+				<JumpTrajectory x="10" y="-30" lob="1" />
+				<JumpTrajectory x="40" y="-35" lob="1" />
+				<JumpTrajectory x="50" y="-40" lob="1" />
+				<JumpTrajectory x="60" y="75"  lob="1" />
+			</jump_trajectories>
+		</PathFindingComponent>
+
+		<PathFindingGridMarkerComponent
+			marker_work_flag="16" >
+		</PathFindingGridMarkerComponent>
+		
+		<GenomeDataComponent 
+			herd_id="orcs"
+			food_chain_rank="9"
+			is_predator="1" >
+		</GenomeDataComponent>
+		
+		<CharacterPlatformingComponent 
+			jump_velocity_y="-12" 
+			run_velocity="24"  >
+		</CharacterPlatformingComponent>
+
+		<CameraBoundComponent
+			max_count="30"
+			distance="160000">
+		</CameraBoundComponent>
+		
+		<HitboxComponent 
+			_enabled="1" 
+			aabb_max_x="5" 
+			aabb_max_y="3" 
+			aabb_min_x="-5" 
+			aabb_min_y="-12" 
+			>
+		</HitboxComponent>
+		
+		<CharacterDataComponent 
+			collision_aabb_min_x="-2.0" 
+			collision_aabb_max_x="2.0" 
+			collision_aabb_min_y="-9" 
+			collision_aabb_max_y="3" 
+			mass="1.2"
+			>
+		</CharacterDataComponent>
+	</Base>
+
+	<LightComponent 
+		_enabled="1" 
+		radius="30" 
+		offset_y="-7"
+		r="190"
+		g="200"
+		fade_out_time="1.5" >
+	</LightComponent>
+
+	<SpriteComponent 
+		_tags="laser_sight"
+		_enabled="1" 
+		alpha="1" 
+		image_file="data/particles/laser_red.png"
+		offset_x="5" 
+		offset_y="1"
+		emissive="1"
+		additive="1"
+		visible="0"
+		update_transform="0"
+		next_rect_animation="" 
+		rect_animation="default" 
+		>
+	</SpriteComponent>
+
+	<ItemPickUpperComponent
+		is_in_npc="1">
+	</ItemPickUpperComponent>
+
+	<AudioComponent
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals/sniper" >
+	</AudioComponent>
+
+	<HotspotComponent
+		_tags="hand"
+		offset.x="5"
+		offset.y="-6" >
+	</HotspotComponent>
+	<Entity>
+	    <GameEffectComponent 
+	        effect="ALLERGY_RADIOACTIVE"
+	        frames="-1"
+	    >
+		</GameEffectComponent >
+	</Entity>
+</Entity>
+

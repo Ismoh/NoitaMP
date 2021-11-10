@@ -1,0 +1,7 @@
+<Entity >
+	<HomingComponent
+		just_rotate_towards_target="1"
+		max_turn_rate="0.2"
+	>
+	</HomingComponent>
+</Entity>

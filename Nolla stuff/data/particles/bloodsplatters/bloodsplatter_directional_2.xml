@@ -1,0 +1,20 @@
+<Sprite
+filename="data/particles/bloodsplatters/bloodsplatter_directional_2.png"
+offset_x="8"
+offset_y="8"
+default_animation="smoke"
+ >
+
+<!-- explosion -->
+<RectAnimation
+name="smoke"
+pos_x="0"
+pos_y="0"
+frame_count="5"
+frame_width="32"
+frame_height="16"
+frame_wait="0.025"
+frames_per_row="8"
+loop="0"   >
+</RectAnimation>
+</Sprite>

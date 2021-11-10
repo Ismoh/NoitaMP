@@ -1,0 +1,19 @@
+<Sprite
+ filename="data/projectiles_gfx/meteor.png"
+ offset_x="12"
+ offset_y="12"
+ default_animation="default" >
+
+ <!-- animation -->
+ <RectAnimation
+  name="default"
+  pos_x="0"
+  pos_y="0"
+  frame_count="4"
+  frame_width="24"
+  frame_height="24"
+  frame_wait="0.09"
+  frames_per_row="4"
+  loop="1"   >
+ </RectAnimation>
+</Sprite>

@@ -1,0 +1,118 @@
+<Sprite
+ filename="data/enemies_gfx/sheep.png"
+ offset_x="10"
+ offset_y="12"
+ default_animation="walk" 
+ >
+
+ <!-- stand -->
+ <RectAnimation
+  name="stand"
+  pos_x="0"
+  pos_y="0"
+  frame_count="4"
+  frame_width="20"
+  frame_height="20"
+  frame_wait="0.23"
+  frames_per_row="6"
+  loop="1"   >
+ </RectAnimation>
+
+ <!-- walk -->
+ <RectAnimation
+  name="walk"
+  pos_x="0"
+  pos_y="20"
+  frame_count="6"
+  frame_width="20"
+  frame_height="20"
+  frame_wait="0.12"
+  frames_per_row="6"
+  loop="1"   >
+  <Event frame="2" name="step" probability="0.7" check_physics_material="1"/>
+  <Event frame="5" name="step" probability="0.7" check_physics_material="1"/>
+ </RectAnimation>
+
+ <!-- run - copied from walk -->
+ <RectAnimation
+  name="run"
+  pos_x="0"
+  pos_y="20"
+  frame_count="6"
+  frame_width="20"
+  frame_height="20"
+  frame_wait="0.12"
+  frames_per_row="6"
+  loop="1"   >
+  <Event frame="2" name="step" probability="1" check_physics_material="1"/>
+  <Event frame="5" name="step" probability="1" check_physics_material="1"/>
+ </RectAnimation>
+
+ <!-- burn - copied from walk -->
+ <RectAnimation
+  name="burn"
+  pos_x="0"
+  pos_y="20"
+  frame_count="6"
+  frame_width="20"
+  frame_height="20"
+  frame_wait="0.12"
+  frames_per_row="6"
+  loop="1"   >
+  <Event frame="2" name="step" probability="1" check_physics_material="1"/>
+  <Event frame="5" name="step" probability="1" check_physics_material="1"/>
+ </RectAnimation>
+ 
+ <!-- down -->
+ <RectAnimation
+  name="lower_head"
+  pos_x="0"
+  pos_y="40"
+  frame_count="4"
+  frame_width="20"
+  frame_height="20"
+  frame_wait="0.18"
+  frames_per_row="6"
+  loop="0"   >
+ </RectAnimation>
+ 
+ <!-- graze -->
+ <RectAnimation
+  name="eat"
+  pos_x="0"
+  pos_y="60"
+  frame_count="2"
+  frame_width="20"
+  frame_height="20"
+  frame_wait="0.2"
+  frames_per_row="6"
+  loop="1"   >
+  <Event frame="1" name="eat" probability="0.7" check_physics_material="0"/>
+ </RectAnimation>
+ 
+ <!-- raise head -->
+ <RectAnimation
+  name="raise_head"
+  pos_x="0"
+  pos_y="80"
+  frame_count="4"
+  frame_width="20"
+  frame_height="20"
+  frame_wait="0.18"
+  frames_per_row="6"
+  loop="0"   >
+ </RectAnimation>
+ 
+  <!-- hurt -->
+ <RectAnimation
+  name="hurt"
+  pos_x="0"
+  pos_y="100"
+  frame_count="3"
+  frame_width="20"
+  frame_height="20"
+  frame_wait="0.11"
+  frames_per_row="6"
+  loop="0"   >
+ </RectAnimation>
+</Sprite>

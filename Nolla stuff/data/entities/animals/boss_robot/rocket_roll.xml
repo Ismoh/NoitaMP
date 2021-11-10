@@ -1,0 +1,76 @@
+<Entity name="$projectile_default" tags="projectile_player,disc_bullet" >
+
+	<Base file="data/entities/base_projectile.xml" >
+		<VelocityComponent
+			gravity_y="250"
+			air_friction="0.6"
+			mass="0.05"
+			>
+		</VelocityComponent>
+	</Base>
+
+  <ProjectileComponent 
+    _enabled="1" 
+    lob_min="0.5"
+    lob_max="0.7"
+    speed_min="350"
+    speed_max="450"
+    friction="1"
+    direction_random_rad="0.41"
+    on_death_explode="0"
+    on_death_gfx_leave_sprite="0" 
+    on_lifetime_out_explode="0"
+    explosion_dont_damage_shooter="1"
+    on_collision_die="0"
+    lifetime="90"
+    damage="0"
+    damage_scaled_by_speed="0"
+    lifetime_randomness="0"
+    ragdoll_force_multiplier="0"
+    hit_particle_force_multiplier="0.1"
+    create_shell_casing="0"
+    shoot_light_flash_radius="64"
+    bounces_left="2"
+    bounce_at_any_angle="1"
+    collide_with_shooter_frames="6"
+    friendly_fire="1"
+    velocity_sets_rotation="1"
+    velocity_updates_animation="0"
+    velocity_sets_scale="0"
+	knockback_force="1.3"
+    physics_impulse_coeff="10"
+	collide_with_entities="0"
+    >
+    <config_explosion>
+    </config_explosion>
+  </ProjectileComponent>
+  
+  <SpriteComponent 
+    _enabled="1" 
+    alpha="1" 
+    image_file="data/projectiles_gfx/rocket_roll.xml" 
+    next_rect_animation=""
+    rect_animation="" 
+     >
+  </SpriteComponent>
+
+  <AudioComponent
+      file="data/audio/Desktop/projectiles.bank"
+      event_root="player_projectiles/bullet_disc">
+  </AudioComponent>
+
+	<LuaComponent
+		script_source_file="data/entities/animals/boss_robot/rocket_roll_end.lua"
+		execute_every_n_frame="85"
+		remove_after_executed="1"
+		>
+	</LuaComponent>
+	
+	<VariableStorageComponent
+		name="projectile_file"
+		value_string="data/entities/projectiles/rocket_tank.xml"
+		>
+	</VariableStorageComponent>
+
+</Entity>
+

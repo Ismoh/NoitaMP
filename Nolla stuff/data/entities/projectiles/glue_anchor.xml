@@ -1,0 +1,51 @@
+<Entity tags="glue_anchor">
+	<SpriteComponent 
+		alpha="0.9" 
+		image_file="data/projectiles_gfx/glue_anchor.xml"
+		>
+	</SpriteComponent>
+	<VariableStorageComponent
+		name="target_1"
+		value_int="-1"
+		>
+	</VariableStorageComponent>
+	<LuaComponent
+		script_source_file="data/scripts/projectiles/glue_anchor.lua"
+		execute_every_n_frame="1"
+		>
+	</LuaComponent>
+	<LuaComponent
+		script_source_file="data/scripts/projectiles/glue_death.lua"
+		execute_on_removed="1"
+		execute_every_n_frame="-1" >
+	</LuaComponent>
+
+	<DamageModelComponent
+		air_needed="0" 
+		falling_damages="0"
+		fire_probability_of_ignition="0.8" 
+		hp="1" 
+		materials_damage="1" 
+		materials_that_damage="acid,lava"
+		materials_how_much_damage="0.004,0.004"
+		fire_damage_amount="1.5"
+		blood_material="glue"
+		blood_multiplier="0.3"
+		physics_objects_damage="0"
+		create_ragdoll="0"
+		>
+	</DamageModelComponent>
+	<HitboxComponent 
+		aabb_min_x="-4" 
+		aabb_max_x="4" 
+		aabb_min_y="-4" 
+		aabb_max_y="4" 
+		>
+	</HitboxComponent>
+
+	<LifetimeComponent
+		lifetime="600"
+		>
+	</LifetimeComponent>
+</Entity>
+

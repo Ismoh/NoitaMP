@@ -1,0 +1,14 @@
+<Entity tags="prop"  >
+
+	<VelocityComponent />
+
+    <SimplePhysicsComponent/>
+
+	<SpriteComponent 
+		z_index="1"
+		image_file="data/props_gfx/banner.xml" 
+		offset_x="0"
+		offset_y="0" >
+	</SpriteComponent>
+</Entity>
+

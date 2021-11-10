@@ -1,0 +1,29 @@
+<Entity>
+	<Base file="data/entities/items/wand_unshuffle_02.xml">
+	    <HotspotComponent 
+	        _tags="shoot_pos" 
+	        offset.x="14" 
+	        offset.y="0" >
+	    </HotspotComponent>
+	</Base>
+	
+	<LuaComponent 
+		execute_on_added="1"
+		execute_every_n_frame="181"
+		remove_after_executed="0"
+		script_source_file="data/scripts/gun/procedural/wand_kiekurakeppi.lua" 
+		>
+	</LuaComponent>
+
+	<VariableStorageComponent
+		name="always_cast_action"
+		value_string="KNOCKBACK"
+		>
+	</VariableStorageComponent>
+	<LuaComponent 
+		script_source_file="data/scripts/gun/procedural/wand_add_always_cast.lua" 
+		execute_on_added="1"
+		remove_after_executed="1"
+		>
+	</LuaComponent>
+</Entity>

@@ -1,0 +1,33 @@
+<Sprite 
+  angle="0" 
+  color_a="1" 
+  color_b="1" 
+  color_g="1" 
+  color_r="1" 
+  default_animation="default" 
+  filename="data/items_gfx/health.png" 
+  hotspots_filename="" 
+  name="" 
+  offset_x="6" 
+  offset_y="6" 
+  position_x="0" 
+  position_y="0" 
+  scale_x="1" 
+  scale_y="1" >
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="13" 
+    frame_wait="0.11" 
+    frame_width="13" 
+    frames_per_row="6" 
+    has_offset="0" 
+    loop="1" 
+    name="default" 
+    next_animation="" 
+    offset_x="0" 
+    offset_y="0" 
+    pos_x="0" 
+    pos_y="1" 
+    shrink_by_one_pixel="1" >
+  </RectAnimation>
+</Sprite>

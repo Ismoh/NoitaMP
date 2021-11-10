@@ -1,0 +1,20 @@
+<Entity tags="prop,pixelsprite" >
+
+	<PixelSpriteComponent 
+		_enabled="1" 
+		image_file="data/props_gfx/statue_back.png" 
+		anchor_x="8" 
+		anchor_y="39"
+		create_box2d_bodies="1"
+		clean_overlapping_pixels="1"
+		material="rock_loose"	
+		>
+	</PixelSpriteComponent>
+
+	<SimplePhysicsComponent 
+		can_go_up="0"
+		>
+	</SimplePhysicsComponent >
+
+	<VelocityComponent />
+</Entity>

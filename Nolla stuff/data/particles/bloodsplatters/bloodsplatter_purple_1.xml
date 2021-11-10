@@ -1,0 +1,18 @@
+<Sprite 
+  default_animation="smoke" 
+  filename="data/particles/bloodsplatters/bloodsplatter_purple_1.png" 
+  offset_x="8" 
+  offset_y="8" >
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="17" 
+    frame_wait="0.025" 
+    frame_width="17" 
+    frames_per_row="8" 
+    loop="0" 
+    name="smoke" 
+    pos_x="0" 
+    pos_y="1" 
+    shrink_by_one_pixel="1" >
+  </RectAnimation>
+</Sprite>

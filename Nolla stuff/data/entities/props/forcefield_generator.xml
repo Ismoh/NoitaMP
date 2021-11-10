@@ -1,0 +1,201 @@
+<Entity tags="hittable,teleportable_NOT,mortal">
+	
+	<Base file="data/entities/base_item_physics.xml" >
+		
+
+		<PhysicsBodyComponent 
+			is_static="1"
+			on_death_leave_physics_body="0" >
+		</PhysicsBodyComponent>
+
+		<PhysicsImageShapeComponent
+			image_file="data/props_gfx/forcefield_generator.png"
+			material="steel"
+			centered="0" 
+			>
+		</PhysicsImageShapeComponent>
+	</Base>
+
+	<SpriteComponent
+		image_file="data/props_gfx/forcefield_generator_light.xml"
+		emissive="1"
+		z_index="0.2"
+		>
+	</SpriteComponent>
+
+	<DamageModelComponent 
+		air_needed="0" 
+		blood_material="spark_electric" 
+		blood_multiplier="3"
+		drop_items_on_death="0" 
+		falling_damage_damage_max="1.2" 
+		falling_damage_damage_min="0.1" 
+		falling_damage_height_max="250" 
+		falling_damage_height_min="70" 
+		falling_damages="0" 
+		fire_damage_amount="0.4" 
+		fire_probability_of_ignition="0"
+		critical_damage_resistance="1"
+		hp="30" 
+		is_on_fire="0" 
+		materials_create_messages="0" 
+		materials_damage="1" 
+		materials_that_damage="fire,lava,acid"
+		materials_how_much_damage="0.0002,0.0001,0.001"
+		ragdoll_filenames_file="" 
+		ragdoll_material="" >
+		<damage_multipliers
+			melee="0.1"
+			electricity="0"
+			>
+		</damage_multipliers>
+	</DamageModelComponent>
+
+	<ExplodeOnDamageComponent
+		explode_on_death_percent="1"
+		explode_on_damage_percent="0.0"
+		physics_body_modified_death_probability="0.9" 
+		physics_body_destruction_required="0.1"
+		>
+		<config_explosion
+			never_cache="0"
+			damage="2.6"
+			camera_shake="10" 
+			explosion_radius="16" 
+			explosion_sprite="data/particles/explosion_016_electric.xml" 
+			explosion_sprite_lifetime="10" 
+			create_cell_probability="50" 
+			hole_destroy_liquid="0" 
+			load_this_entity="data/entities/projectiles/thunderball.xml"
+			hole_enabled="1" 
+			ray_energy="25000"
+			particle_effect="1" 
+			damage_mortals="1" 
+			physics_explosion_power.min="1.7" 
+			physics_explosion_power.max="2.3" 
+			physics_throw_enabled="1"
+			shake_vegetation="1" 
+			sparks_count_max="20" 
+			sparks_count_min="7" 
+			sparks_enabled="1" 
+			stains_enabled="1" 
+			stains_radius="15" 
+			delay.min="1"
+			delay.max="4"
+			explosion_delay_id="1"
+			audio_event_name="explosions/electric"
+			>
+		</config_explosion>
+	</ExplodeOnDamageComponent>
+
+
+	<LuaComponent
+		script_source_file="data/scripts/props/forcefield_generator.lua"
+		execute_every_n_frame="8"
+		>
+	</LuaComponent>
+
+	<!---------------- shield ---------------- -->
+	<Entity tags="shield_entity">
+		<InheritTransformComponent>
+			<Transform position.x="8" position.y="-8" rotation="-1.5707" ></Transform>
+		</InheritTransformComponent>
+
+		<EnergyShieldComponent 
+			_tags="enabled_while_shielding"
+			recharge_speed="0.25" 
+			radius="20.0"
+			energy="2.0"
+			max_energy="3.0"
+			sector_degrees="320"
+			>
+		</EnergyShieldComponent>
+
+		<ParticleEmitterComponent
+			_tags="enabled_while_shielding"
+			emitted_material_name="plasma_fading"
+			gravity.y="0.0"
+			lifetime_min="0.1"
+			lifetime_max="0.5"
+			count_min="3"
+			count_max="7"
+			render_on_grid="1"
+			fade_based_on_lifetime="1"
+			area_circle_radius.min="0"
+			area_circle_radius.max="20"
+			area_circle_sector_degrees="320"
+			cosmetic_force_create="0"
+			airflow_force="0.5"
+			airflow_time="0.1"
+			airflow_scale="0.5"
+			emission_interval_min_frames="1"
+			emission_interval_max_frames="1"
+			emit_cosmetic_particles="1"
+			is_emitting="1" >
+		</ParticleEmitterComponent>
+
+		<ParticleEmitterComponent
+			_tags="enabled_while_shielding,shield_ring"
+			emitted_material_name="plasma_fading"
+			gravity.y="0.0"
+			lifetime_min="0.02"
+			lifetime_max="0.15"
+			count_min="1"
+			count_max="5"
+			render_on_grid="1"
+			fade_based_on_lifetime="1"
+			area_circle_radius.min="20"
+			area_circle_radius.max="20"
+			area_circle_sector_degrees="320"
+			cosmetic_force_create="0"
+			airflow_force="0.3"
+			airflow_time="0.01"
+			airflow_scale="0.05"
+			emission_interval_min_frames="0"
+			emission_interval_max_frames="0"
+			emit_cosmetic_particles="1"
+			is_emitting="1" >
+		</ParticleEmitterComponent>
+
+		<ParticleEmitterComponent
+			_tags="enabled_while_shielding,shield_hit"
+			emitted_material_name="plasma_fading"
+			gravity.y="0.0"
+			lifetime_min="0.3"
+			lifetime_max="1"
+			count_min="100"
+			count_max="160"
+			render_on_grid="1"
+			fade_based_on_lifetime="1"
+			area_circle_radius.min="20"
+			area_circle_radius.max="20"
+			area_circle_sector_degrees="220"
+			cosmetic_force_create="0"
+			airflow_force="2.8"
+			airflow_time="0.03"
+			airflow_scale="0.8"
+			emission_interval_min_frames="0"
+			emission_interval_max_frames="0"
+			emit_cosmetic_particles="1"
+			is_emitting="0" >
+		</ParticleEmitterComponent>
+
+		<LightComponent 
+			_tags="enabled_while_shielding"
+			_enabled="1" 
+			radius="60"
+			fade_out_time="1.5" 
+			r="150"
+			g="190"
+			b="230" >
+		</LightComponent>
+
+		<AudioComponent
+			_tags="enabled_while_shielding"
+			file="data/audio/Desktop/projectiles.bank"
+			event_root="player_projectiles/shield"
+			set_latest_event_position="1" >
+		</AudioComponent>
+	</Entity>
+
+</Entity>

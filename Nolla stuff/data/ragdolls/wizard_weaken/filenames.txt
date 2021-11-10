@@ -1,0 +1,4 @@
+data/ragdolls/wizard_weaken/torso.png
+data/ragdolls/wizard_weaken/hand.png
+data/ragdolls/wizard_weaken/feet.png
+data/ragdolls/wizard_weaken/head.png

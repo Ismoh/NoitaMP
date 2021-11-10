@@ -1,0 +1,17 @@
+<Entity tags="hittable,teleportable_NOT,prop,prop_physics">
+  <PhysicsBody2Component
+  	allow_sleep="1"
+  	angular_damping="0"
+  	linear_damping="0"
+    kill_entity_after_initialized="1"
+	>
+  </PhysicsBody2Component>
+
+  <PhysicsImageShapeComponent 
+  	is_root="1"
+    centered="1" 
+    image_file="data/temp/landmine.png"
+    material="steel" >
+  </PhysicsImageShapeComponent>
+
+</Entity>

@@ -1,0 +1,143 @@
+<Entity 
+  name="" 
+  tags="hittable" >
+
+  <DamageModelComponent 
+    _enabled="1" 
+    air_in_lungs="5" 
+    air_in_lungs_max="5" 
+    air_lack_of_damage="0.2" 
+    air_needed="0" 
+    blood_material="oil" 
+     
+     
+    drop_items_on_death="0" 
+    falling_damage_damage_max="1.2" 
+    falling_damage_damage_min="0.1" 
+    falling_damage_height_max="250" 
+    falling_damage_height_min="70" 
+    falling_damages="1" 
+    fire_damage_amount="0.2" 
+     
+    fire_probability_of_ignition="0" 
+    hp="2" 
+    is_on_fire="0" 
+    materials_create_messages="0" 
+    materials_damage="0" 
+    materials_how_much_damage="0.1" 
+    materials_that_create_messages="meat" 
+    materials_that_damage="acid" 
+    max_hp="2" 
+    ragdoll_filenames_file="" 
+    ragdoll_material="" 
+    ragdoll_offset_y="0" >
+  </DamageModelComponent>
+
+  <ExplodeOnDamageComponent 
+    _enabled="1" 
+    explode_on_damage_percent="0.3" 
+    explode_on_death_percent="1" >
+    <config_explosion 
+      camera_shake="40" 
+      create_cell_material="fire" 
+      create_cell_probability="50" 
+      damage="4" 
+      damage_mortals="1" 
+      explosion_radius="40" 
+      explosion_sprite="data/particles/explosion_032.xml" 
+      explosion_sprite_lifetime="10" 
+      gore_particle_count="1" 
+      hole_destroy_liquid="0" 
+     
+      hole_enabled="1" 
+      hole_image="data/temp/explosion_hole.png" 
+      light_b="180" 
+      light_enabled="1" 
+      light_fade_time="0.08" 
+      light_g="217" 
+      light_r="255" 
+      max_durability_to_destroy="10" 
+      particle_effect="1" 
+       
+       
+      physics_explosion_power.max="5" 
+       
+       
+      physics_multiplier_ragdoll_force="1" 
+       
+      physics_throw_enabled="1" 
+      ray_energy="180000" 
+      shake_vegetation="1" 
+      sparks_count_max="20" 
+      sparks_count_min="7" 
+      sparks_enabled="1" 
+      stains_enabled="1" 
+      stains_image="data/temp/explosion_stain.png" 
+      stains_radius="0" >
+    </config_explosion>
+
+  </ExplodeOnDamageComponent>
+
+  <HitboxComponent 
+    _enabled="1" 
+    aabb_max_x="4" 
+    aabb_max_y="5.5" 
+    aabb_min_x="-4" 
+    aabb_min_y="-5.5" 
+    is_enemy="0" 
+    is_item="0" 
+    is_player="0" >
+  </HitboxComponent>
+
+  <ParticleEmitterComponent 
+    _enabled="1" 
+    color="0" 
+    count_max="3" 
+    count_min="1" 
+    emission_interval_max_frames="1" 
+    emission_interval_min_frames="1" 
+    emit_cosmetic_particles="0" 
+    emit_real_particles="1" 
+    emitted_material_name="oil" 
+    is_emitting="1" 
+    lifetime_max="700" 
+    lifetime_min="500" 
+    offset.x="0" 
+    offset.y="0" 
+    use_material_inventory="0" 
+    x_offset="6" 
+    x_pos_offset_max="0" 
+    x_pos_offset_min="0" 
+    x_vel_max="150" 
+    x_vel_min="100" 
+    y_offset="-5" 
+    y_pos_offset_max="0" 
+    y_pos_offset_min="0" 
+    y_vel_max="-100" 
+    y_vel_min="-150" >
+  </ParticleEmitterComponent>
+
+  <PhysicsBodyComponent 
+    _enabled="1" 
+    allow_sleep="1" 
+    angular_damping="0" 
+    fixed_rotation="0" 
+    is_bullet="0" 
+    is_character="0" 
+    is_enabled="1" 
+    is_static="0" 
+    linear_damping="0" 
+    uid="0" >
+  </PhysicsBodyComponent>
+
+  <PhysicsImageShapeComponent 
+    _enabled="1" 
+    body_id="0" 
+    centered="1" 
+    image_file="data/items_gfx/barrel.png" 
+    is_circle="0" 
+    material="plastic" >
+  </PhysicsImageShapeComponent>
+
+</Entity>
+

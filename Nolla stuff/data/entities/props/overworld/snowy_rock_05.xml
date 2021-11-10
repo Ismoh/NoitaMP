@@ -1,0 +1,14 @@
+<Entity>
+	<PixelSceneComponent
+		pixel_scene="data/biome_impl/overworld/snowy_rock_05.png"
+		pixel_scene_visual="data/biome_impl/overworld/snowy_rock_05_visual.png"
+		offset_x="-37"
+		offset_y="-15"
+		>
+	</PixelSceneComponent>
+
+	<LifetimeComponent
+		lifetime="2"
+		>
+	</LifetimeComponent>
+</Entity>

@@ -1,0 +1,189 @@
+<Entity 
+	name="$projectile_default" 
+	>
+
+	<Base file="data/entities/base_projectile.xml" >
+		<VelocityComponent
+			gravity_y="0"
+			air_friction="0"
+			mass="0.06"
+			>
+		</VelocityComponent> 
+	</Base>
+
+	<ProjectileComponent 
+		_enabled="1" 
+		lob_min="0.8"
+		lob_max="1.0"
+		speed_min="90"
+		speed_max="90"
+		die_on_low_velocity="0"
+		on_death_explode="1"
+		on_death_gfx_leave_sprite="0" 
+		on_lifetime_out_explode="1"
+		explosion_dont_damage_shooter="1"
+		bounce_always="1"
+		damage="0.1"
+		on_collision_die="0"
+		muzzle_flash_file="data/entities/particles/muzzle_flashes/muzzle_flash_magic_launcher.xml"
+		shoot_light_flash_r="80"
+		shoot_light_flash_g="255"
+		shoot_light_flash_b="40"
+		shoot_light_flash_radius="90"
+		lifetime="120" 
+		>
+		<config_explosion
+			never_cache="1" 
+			camera_shake="0" 
+			explosion_radius="25" 
+			explosion_sprite="data/particles/explosion_016_plasma_green.xml" 
+			explosion_sprite_lifetime="0.0" 
+			create_cell_probability="0" 
+			create_cell_material="" 
+			explosion_sprite_emissive="1"
+			explosion_sprite_additive="1"
+			ray_energy="10000"
+			hole_destroy_liquid="1" 
+			hole_enabled="1" 
+			hole_image="" 
+			particle_effect="0" 
+			damage_mortals="0"
+			physics_explosion_power.min="0.2"
+			physics_explosion_power.max="0.3" 
+			physics_throw_enabled="1" 
+			shake_vegetation="1" 
+			sparks_enabled="0" 
+			sparks_count_max="0" 
+			sparks_count_min="0"
+			light_fade_time="0.01" 
+			stains_enabled="0" 
+			stains_image="data/temp/explosion_stain.png"
+			audio_event_name="explosions/magic_small" >
+		</config_explosion>
+	</ProjectileComponent>
+	
+	<SpriteComponent 
+		_enabled="1" 
+		alpha="1" 
+		image_file="data/projectiles_gfx/orb_green_big.xml" 
+		next_rect_animation="" 
+		offset_x="0" 
+		offset_y="0" 
+		rect_animation="spawn" 
+
+
+		update_transform_rotation="0"
+		>
+	</SpriteComponent>
+	
+	<SpriteComponent 
+		_enabled="1" 
+		alpha="1" 
+		image_file="data/projectiles_gfx/orb_green_big.xml" 
+		next_rect_animation="" 
+		offset_x="0" 
+		offset_y="0" 
+		rect_animation="spawn" 
+		emissive="1"
+		additive="1"
+
+		update_transform_rotation="0"
+		>
+	</SpriteComponent>
+
+	<LuaComponent 
+		_enabled="1" 
+		script_source_file="data/scripts/projectiles/orb_green.lua" 
+		execute_every_n_frame="40"
+		>
+	</LuaComponent>
+
+	<LightComponent 
+		_enabled="1" 
+		radius="150" 
+		r="30"
+		g="90"
+		b="30">
+	</LightComponent>
+
+	<ParticleEmitterComponent 
+		emitted_material_name="spark_green"
+		gravity.y="0"
+		offset.x="0"
+		offset.y="0"
+		x_pos_offset_min="0"
+		y_pos_offset_min="0"
+		x_pos_offset_max="0"
+		y_pos_offset_max="0"
+		x_vel_min="0"
+		x_vel_max="0"
+		y_vel_min="0"
+		y_vel_max="0"
+		friction="5"
+		count_min="80"
+		count_max="120"
+		area_circle_radius.max="7"
+		area_circle_radius.min="6"
+		velocity_always_away_from_center="100"
+		lifetime_min="0.9"
+		lifetime_max="3.2"
+		render_on_grid="1"
+		airflow_force="0.85"
+		airflow_time="0.101"
+		airflow_scale="2.01"
+		fade_based_on_lifetime="1"
+		create_real_particles="0"
+		emit_cosmetic_particles="1"
+		emission_interval_min_frames="41"
+		emission_interval_max_frames="41"
+		delay_frames="0"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+
+	<ParticleEmitterComponent 
+		emitted_material_name="spark_green"
+		gravity.y="0"
+		offset.x="0"
+		offset.y="0"
+		x_pos_offset_min="0"
+		y_pos_offset_min="0"
+		x_pos_offset_max="0"
+		y_pos_offset_max="0"
+		x_vel_min="-100"
+		x_vel_max="100"
+		y_vel_min="-100"
+		y_vel_max="100"
+		friction="5"
+		count_min="10"
+		count_max="30"
+		area_circle_radius.max="7"
+		area_circle_radius.min="1"
+		velocity_always_away_from_center="100"
+		lifetime_min="1.9"
+		lifetime_max="4.2"
+		render_on_grid="1"
+		airflow_force="0.85"
+		airflow_time="0.101"
+		airflow_scale="2.01"
+		fade_based_on_lifetime="1"
+		create_real_particles="0"
+		emit_cosmetic_particles="1"
+		emission_interval_min_frames="41"
+		emission_interval_max_frames="41"
+		delay_frames="0"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+
+	<AudioComponent
+		file="data/audio/Desktop/projectiles.bank"
+		event_root="projectiles/orb_b" >
+	</AudioComponent>
+	
+	<VariableStorageComponent
+		name="projectile_file"
+		value_string="data/entities/projectiles/orbspawner_green.xml"
+		>
+	</VariableStorageComponent>
+
+</Entity>
+

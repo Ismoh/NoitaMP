@@ -1,0 +1,14 @@
+<Entity >
+
+    <SpriteComponent 
+        alpha="1" 
+        z_index="-2"
+        image_file="data/particles/gas_bubble_0$[1-3].xml" >
+    </SpriteComponent>
+
+    <GasBubbleComponent
+    	max_speed="90"
+    	acceleration="-200">
+    </GasBubbleComponent>
+  
+</Entity>

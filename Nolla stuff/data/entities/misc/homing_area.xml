@@ -1,0 +1,23 @@
+<Entity>
+  
+	<LuaComponent
+		script_source_file="data/scripts/projectiles/homing_area.lua"
+		execute_every_n_frame="1"
+		>
+	</LuaComponent>
+	
+	<SpriteComponent 
+		_enabled="1" 
+		alpha="1" 
+		image_file="data/particles/area_indicator_064_blue.png" 
+		next_rect_animation="" 
+		offset_x="32" 
+		offset_y="32" 
+		rect_animation="spawn"
+		z_index="1.1"
+		never_ragdollify_on_death="1"
+		>
+	</SpriteComponent>
+
+</Entity>
+

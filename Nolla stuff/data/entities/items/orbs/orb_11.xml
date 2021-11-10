@@ -1,0 +1,28 @@
+<Entity tags="hittable,teleportable_NOT">
+	
+	<Base file="data/entities/items/orbs/orb_base.xml">
+
+		<OrbComponent
+			orb_id="11" >
+		</OrbComponent>
+		
+		<SpriteComponent 
+			image_file="data/items_gfx/orbs/orb_11.xml" 
+			>
+		</SpriteComponent>
+
+	</Base>
+	
+	<Entity>
+		<InheritTransformComponent>
+			<Transform 
+				position.x="0"   
+				position.y="-11" 
+				>
+			</Transform>
+		</InheritTransformComponent>
+		
+		<Base file="data/entities/items/orbs/orb_particles_base.xml" />
+	</Entity>
+
+</Entity>

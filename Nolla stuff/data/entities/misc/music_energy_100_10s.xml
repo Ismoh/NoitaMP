@@ -1,0 +1,7 @@
+<Entity tags="music_energy_100" >
+	
+	<LifetimeComponent
+		lifetime="600"
+	></LifetimeComponent>
+
+</Entity>

@@ -1,0 +1,53 @@
+<Entity name="workshop_altar" tags="" >
+
+	<LifetimeComponent
+		lifetime="1240"
+		randomize_lifetime.min="0"
+		randomize_lifetime.max="0" >
+	</LifetimeComponent>
+
+	<AreaDamageComponent
+		aabb_min.x="-391" 
+		aabb_min.y="-99" 
+		aabb_max.x="63" 
+		aabb_max.y="78" 
+		damage_per_frame="0.01333"
+		update_every_n_frame="10"
+		death_cause="$damage_holy_mountains_curse"
+		damage_type="DAMAGE_CURSE"
+		>
+	</AreaDamageComponent>
+	
+	<ParticleEmitterComponent 
+		emitted_material_name="spark_red"
+		x_pos_offset_min="-391"
+		x_pos_offset_max="63"
+		y_pos_offset_min="-100"
+		y_pos_offset_max="100"
+		x_vel_min="-2"
+		x_vel_max="2"
+		y_vel_min="-2"
+		y_vel_max="2"
+		gravity.y="0.0"
+		lifetime_min="0.5"
+		lifetime_max="20.5"
+		count_min="3"
+		count_max="11"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		cosmetic_force_create="0"
+		airflow_force="0.05"
+		airflow_time="0.11"
+		airflow_scale="0.05"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="4"
+		emit_cosmetic_particles="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+	
+	<CameraBoundComponent
+	  max_count="10"
+	  distance="2000">
+	</CameraBoundComponent>
+
+</Entity>

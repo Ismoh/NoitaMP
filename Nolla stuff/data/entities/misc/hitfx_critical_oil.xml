@@ -1,0 +1,9 @@
+<Entity>
+    
+    <HitEffectComponent 
+        condition_effect="OILED"
+        effect_hit="CRITICAL_HIT_BOOST"
+        value="100" >
+	</HitEffectComponent >
+
+</Entity>

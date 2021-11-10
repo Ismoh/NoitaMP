@@ -1,0 +1,35 @@
+<Entity tags="mortal,temple_door" >
+
+  <!-- mortal is required so it can explode -->
+
+  <Base file="data/entities/base_item_physics.xml" >
+    <PhysicsImageShapeComponent
+      image_file="data/props_gfx/temple_door.png"
+      material="metal_prop" >
+    </PhysicsImageShapeComponent>
+
+    <PhysicsBodyComponent 
+      allow_sleep="1" 
+      angular_damping="0.01"
+      gridworld_box2d="1"
+      linear_damping="0.1"
+      uid="1"
+      kills_entity="1" 
+	  force_add_update_areas="1"
+	  >
+    </PhysicsBodyComponent>
+  </Base>
+
+  <LuaComponent 
+	  _enabled="0"
+      execute_every_n_frame="1"
+      remove_after_executed="1"
+      script_source_file="data/scripts/props/physics_templedoor.lua"
+      >
+  </LuaComponent>
+
+  <CameraBoundComponent
+	  max_count="20"
+	  distance="1000">
+	</CameraBoundComponent>
+</Entity>
