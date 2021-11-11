@@ -1,5 +1,6 @@
 {
     "Lua.workspace.library": [
         "noita_api.lua"
-    ]
+    ],
+    "Lua.workspace.maxPreload": 2000
 }

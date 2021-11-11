@@ -1,6 +1,6 @@
-local sock = require("..\\..\\..\\libs\\sock")
+local sock = require("sock")
 
-if not Client then Client = {} end
+if not Client then Client = sock.newClient("localhost", 23476) end
 
 function OnWorldInitialized()
 
@@ -8,10 +8,10 @@ function OnWorldInitialized()
 -- client.lua
 --function love.load()
     -- Creating a new client on localhost:22122
-    Client = sock.newClient("localhost", 23476)
+    --Client = sock.newClient("localhost", 23476)
     
     -- Creating a client to connect to some ip address
-    Client = sock.newClient("198.51.100.0", 23476)
+    --Client = sock.newClient("198.51.100.0", 23476)
 
     -- Called when a connection is made to the server
     Client:on("connect", function(data)
