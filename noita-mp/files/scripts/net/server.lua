@@ -3,7 +3,7 @@ local sock = require("sock")
 if not Server then
     local ip = ModSettingGet("noita-mp.server_ip")
     print("Server IP = " .. ip)
-    local port = ModSettingGet("noita-mp.server_port")
+    local port = tonumber(ModSettingGet("noita-mp.server_port"))
     print("Server Port = " .. port)
     Server = sock.newServer(ip, port)
 end
@@ -29,4 +29,5 @@ function OnWorldInitialized() -- This is called once the game world is initializ
         .. Server:getAddress() .. ":" .. Server:getPort() .. ". Tell your friends to join!")
 end
 
+--print("Server update..")
 Server:update()

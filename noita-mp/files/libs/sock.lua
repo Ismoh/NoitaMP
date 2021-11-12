@@ -1,4 +1,4 @@
-dofile("data/scripts/lib/utilities.lua")
+dofile("mods/noita-mp/files/scripts/util/util.lua")
 
 --- A Lua networking library for LÖVE games.
 -- * [Source code](https://github.com/camchenry/sock.lua)
@@ -1401,16 +1401,24 @@ sock.newClient = function(serverOrAddress, port, maxChannels)
     -- The first would be the common usage for regular client code, while the
     -- latter is mostly used for creating clients in the server-side code.
 
+    print(tostring(port ~= nil))
+    print(tostring(type(port) == "number"))
+    print(tostring(serverOrAddress ~= nil))
+    print(tostring(type(serverOrAddress) == "string"))
+
     -- First form: (address, port)
     if port ~= nil and type(port) == "number" and serverOrAddress ~= nil and type(serverOrAddress) == "string" then
+        print("Creating client from ip address and port")
         client.address = serverOrAddress
         client.port = port
-        client.host = enet.host_create()
+        client.host = enet.host_create(nil)
 
     -- Second form: (enet peer)
     elseif type(serverOrAddress) == "userdata" then
+        print("Creating client from userdata / peer")
         client.connection = serverOrAddress
         client.connectId = client.connection:connect_id()
+        --client.host = enet.host_create()
     end
 
     print("Printing client table:")

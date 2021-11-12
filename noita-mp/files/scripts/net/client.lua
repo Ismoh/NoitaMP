@@ -2,10 +2,10 @@ local sock = require("sock")
 
 local Client = nil
 
-if not Client then
+if Client == nil then
     local ip = ModSettingGet("noita-mp.connect_server_ip")
     print("Client IP = " .. ip)
-    local port = ModSettingGet("noita-mp.connect_server_port")
+    local port = tonumber(ModSettingGet("noita-mp.connect_server_port"))
     print("Client Port = " .. port)
     Client = sock.newClient(ip, port)
 end
@@ -17,7 +17,7 @@ function OnWorldInitialized()
     Client:on("connect", function(data)
         GamePrintImportant( "Client connected to the server.")
     end)
-    
+
     -- Called when the client disconnects from the server
     Client:on("disconnect", function(data)
         GamePrintImportant( "Client disconnected from the server.")
@@ -36,7 +36,7 @@ end
 
 
 Client.updateClient = function()
-
+    --print("Client update..")
     if Client:isConnected() or Client:isDisconnecting() then
 
         Client:update()
