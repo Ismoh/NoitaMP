@@ -1,3 +1,4 @@
+dofile("data/scripts/lib/utilities.lua")
 
 --- A Lua networking library for LÖVE games.
 -- * [Source code](https://github.com/camchenry/sock.lua)
@@ -34,7 +35,7 @@ local sock = {
     ]]
 }
 
-require ("enet")
+local enet = require ("enet")
 
 -- Current folder trick
 -- http://kiki.to/blog/2014/04/12/rule-5-beware-of-multiple-files/
@@ -726,6 +727,7 @@ function Client:update()
         error("Can't deserialize message: deserialize was not set")
     end
 
+    debug_print_table(self)
     print("self = " .. tostring(self))
     print("self.host = " .. tostring(self.host))
     self:log(self.host:service())
@@ -758,6 +760,14 @@ end
 -- @tparam ?number code A number that can be associated with the connect event.
 function Client:connect(code)
     -- number of channels for the client and server must match
+
+    print("Printing client table:")
+    debug_print_table(self)
+    --TableToString(client)
+    print("Printing client.host table:")
+    debug_print_table(self.host)
+    --TableToString(client.host)
+
     self.connection = self.host:connect(self.address .. ":" .. self.port, self.maxChannels, code)
     self.connectId = self.connection:connect_id()
 end
@@ -1316,6 +1326,13 @@ sock.newServer = function(address, port, maxPeers, maxChannels, inBandwidth, out
     -- number of channels for the client and server must match
     server.host = enet.host_create(server.address .. ":" .. server.port, server.maxPeers, server.maxChannels)
 
+    print("Printing server table:")
+    debug_print_table(server)
+    --TableToString(server)
+    print("Printing server.host table:")
+    debug_print_table(server.host)
+    --TableToString(server.host)
+
     if not server.host then
         error("Failed to create the host. Is there another server running on :"..server.port.."?")
     end
@@ -1395,6 +1412,13 @@ sock.newClient = function(serverOrAddress, port, maxChannels)
         client.connection = serverOrAddress
         client.connectId = client.connection:connect_id()
     end
+
+    print("Printing client table:")
+    debug_print_table(client)
+    --TableToString(client)
+    print("Printing client.host table:")
+    debug_print_table(client.host)
+    --TableToString(client.host)
 
     if bitserLoaded then
         client:setSerialization(bitser.dumps, bitser.loads)

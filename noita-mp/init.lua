@@ -1,5 +1,4 @@
 dofile("mods/noita-mp/files/scripts/util/util.lua")
-
 --[[
     Need to add module package to package path, because relative paths are not working
  ]]
@@ -8,9 +7,14 @@ package.cpath = package.cpath .. ';' .. GetPathOfScript() .. 'files/libs/?.dll;'
 print(package.path)
 print(package.cpath)
 
---dofile("mods/noita-mp/files/scripts/net/client.lua")
+local client = dofile_once("mods/noita-mp/files/scripts/net/client.lua")
 
 function OnPlayerSpawned( player_entity ) -- This runs when player entity has been created
+    
+end
+
+function OnWorldPreUpdate()
     dofile("mods/noita-mp/files/scripts/net/server.lua")
-    dofile_once("mods/noita-mp/files/scripts/ui.lua")
+    client.updateClient()
+    dofile("mods/noita-mp/files/scripts/ui.lua")
 end

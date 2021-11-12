@@ -1,8 +1,12 @@
 local sock = require("sock")
 
-local port = 23476;
-
-if not Server then Server = sock.newServer("*", port) end
+if not Server then
+    local ip = ModSettingGet("noita-mp.server_ip")
+    print("Server IP = " .. ip)
+    local port = ModSettingGet("noita-mp.server_port")
+    print("Server Port = " .. port)
+    Server = sock.newServer(ip, port)
+end
 
 function OnWorldInitialized() -- This is called once the game world is initialized. Doesn't ensure any world chunks actually exist. Use OnPlayerSpawned to ensure the chunks around player have been loaded or created.
 
@@ -21,7 +25,8 @@ function OnWorldInitialized() -- This is called once the game world is initializ
         client:send("hello", msg)
     end)
 
-    GamePrintImportant( "Starting server", "localhost:" .. tostring(port) )
+    GamePrintImportant( "Server started", "Your server is running on "
+        .. Server:getAddress() .. ":" .. Server:getPort() .. ". Tell your friends to join!")
 end
 
 Server:update()

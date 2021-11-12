@@ -1,17 +1,17 @@
 local sock = require("sock")
 
-if not Client then Client = sock.newClient("localhost", 23476) end
+local Client = nil
+
+if not Client then
+    local ip = ModSettingGet("noita-mp.connect_server_ip")
+    print("Client IP = " .. ip)
+    local port = ModSettingGet("noita-mp.connect_server_port")
+    print("Client Port = " .. port)
+    Client = sock.newClient(ip, port)
+end
+
 
 function OnWorldInitialized()
-
---end
--- client.lua
---function love.load()
-    -- Creating a new client on localhost:22122
-    --Client = sock.newClient("localhost", 23476)
-    
-    -- Creating a client to connect to some ip address
-    --Client = sock.newClient("198.51.100.0", 23476)
 
     -- Called when a connection is made to the server
     Client:on("connect", function(data)
@@ -27,18 +27,29 @@ function OnWorldInitialized()
     Client:on("hello", function(msg)
         GamePrintImportant( "The server replied: " .. msg)
     end)
-
-    Client:connect()
-    
-    --  You can send different types of data
-    Client:send("greeting", "Hello, my name is Inigo Montoya.")
-    Client:send("isShooting", true)
-    Client:send("bulletsLeft", 1)
-    Client:send("position", {
-        x = 465.3,
-        y = 50,
-    })
 end
 
 
-Client:update()
+Client.connectClient = function()
+    Client:connect()
+end
+
+
+Client.updateClient = function()
+
+    if Client:isConnected() or Client:isDisconnecting() then
+
+        Client:update()
+        --  You can send different types of data
+        Client:send("greeting", "Hello, my name is Inigo Montoya.")
+        Client:send("isShooting", true)
+        Client:send("bulletsLeft", 1)
+        Client:send("position", {
+            x = 465.3,
+            y = 50,
+        })
+    end
+end
+
+
+return Client

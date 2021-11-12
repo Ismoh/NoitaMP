@@ -19,6 +19,12 @@ function TableToString(table)
     local index = 1
     local holder = "{"
     while true do
+
+      if table == nil then
+         holder = holder .. "nil"
+         break
+      end
+
        if type(table[index]) == "function" then
           index = index + 1
        elseif type(table[index]) == "table" then

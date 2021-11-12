@@ -1,4 +1,4 @@
-dofile("data/scripts/lib/mod_settings.lua") -- see this file for documentation on some of the features.
+dofile("data/scripts/lib/mod_settings.lua")
 
 -- This file can't access other files from this or other mods in all circumstances.
 -- Settings will be automatically saved.
@@ -12,24 +12,13 @@ dofile("data/scripts/lib/mod_settings.lua") -- see this file for documentation o
 -- until the player starts a new game.
 -- ModSettingSetNextValue() will set the buffered value, that will later become visible via ModSettingGet(), unless the setting scope is MOD_SETTING_SCOPE_RUNTIME.
 
-function mod_setting_bool_custom( mod_id, gui, in_main_menu, im_id, setting )
-	local value = ModSettingGetNextValue( mod_setting_get_id(mod_id,setting) )
-	local text = setting.ui_name .. " - " .. GameTextGet( value and "$option_on" or "$option_off" )
-
-	if GuiButton( gui, im_id, mod_setting_group_x_offset, 0, text ) then
-		ModSettingSetNextValue( mod_setting_get_id(mod_id,setting), not value, false )
-	end
-
-	mod_setting_tooltip( mod_id, gui, in_main_menu, setting )
-end
-
 function mod_setting_change_callback( mod_id, gui, in_main_menu, setting, old_value, new_value  )
 	print( tostring(new_value) )
 end
 
 local mod_id = "noita-mp" -- This should match the name of your mod's folder.
 mod_settings_version = 1 -- This is a magic global that can be used to migrate settings to new mod versions. call mod_settings_get_version() before mod_settings_update() to get the old value. 
-mod_settings = 
+mod_settings =
 {
 	{
 		id = "_",
@@ -37,134 +26,91 @@ mod_settings =
 		not_setting = true,
 	},
 	{
-		category_id = "group_of_settings",
-		ui_name = "GROUP",
-		ui_description = "Multiple settings together",
+		category_id = "group_of_server_settings",
+		ui_name = "Server",
+		ui_description = "Multiple server settings",
 		settings = {
 			{
-				id = "world_size",
-				ui_name = "World size",
-				ui_description = "How much world do you want?",
-				value_default = "small",
-				values = { {"small","Small"}, {"medium","Medium"}, {"huge","Huge"} },
+				id = "server_ip",
+				ui_name = "Server IP",
+				ui_description = "Your servers IP. (Max length: 15 - Allowed characters: .0123456789)",
+				value_default = "127.0.0.1",
+				text_max_length = 15,
+				allowed_characters = ".0123456789",
 				scope = MOD_SETTING_SCOPE_NEW_GAME,
 				change_fn = mod_setting_change_callback, -- Called when the user interact with the settings widget.
 			},
 			{
-				id = "difficulty",
-				ui_name = "Difficulty",
-				ui_description = "Challenge amount.",
-				value_default = "easy",
-				values = { {"easy","Easy"}, {"normal","Normal"}, {"hard","Hard"} },
-				scope = MOD_SETTING_SCOPE_RUNTIME,
+				id = "server_port",
+				ui_name = "Server Port",
+				ui_description = "Your servers port. (Max length: 5 - Allowed characters: 1234567890, but 65535 is max port)",
+				value_default = "23476",
+				text_max_length = 5,
+				allowed_characters = "1234567890",
+				scope = MOD_SETTING_SCOPE_NEW_GAME,
+				change_fn = mod_setting_change_callback, -- Called when the user interact with the settings widget.
 			},
 			{
-				id = "minibosses_enabled",
-				ui_name = "Minibosses",
-				ui_description = "Minibosses spawn occasionally.",
-				value_default = true,
+				id = "server_password",
+				ui_name = "Server Password",
+				ui_description = "Your servers password.",
+				value_default = "",
+				text_max_length = 20,
 				scope = MOD_SETTING_SCOPE_RUNTIME,
-			},
-			{
-				category_id = "sub_group_of_settings",
-				ui_name = "SUB GROUP WITH FOLDING",
-				ui_description = "Multiple settings together in a foldable group",
-				foldable = true,
-				_folded = true, -- this field will be automatically added to each gategory table to store the current folding state
-				settings = {
-					{
-						id = "world_size2",
-						ui_name = "World size 2",
-						ui_description = "How much world do you want?",
-						value_default = "small",
-						values = { {"small","Small"}, {"medium","Medium"}, {"huge","Huge"} },
-						scope = MOD_SETTING_SCOPE_NEW_GAME,
-						change_fn = mod_setting_change_callback, -- Called when the user interact with the settings widget.
-					},
-					{
-						id = "difficulty2",
-						ui_name = "Difficulty 2",
-						ui_description = "Challenge amount.",
-						value_default = "easy",
-						values = { {"easy","Easy"}, {"normal","Normal"}, {"hard","Hard"} },
-						scope = MOD_SETTING_SCOPE_RUNTIME,
-					},
-					{
-						id = "minibosses_enabled2",
-						ui_name = "Minibosses 2",
-						ui_description = "Minibosses spawn occasionally.",
-						value_default = true,
-						scope = MOD_SETTING_SCOPE_RUNTIME,
-					},
-				},
+				change_fn = mod_setting_change_callback, -- Called when the user interact with the settings widget.
 			},
 		},
 	},
 	{
-		category_id = "group_of_settings2",
-		ui_name = "ANOTHER GROUP",
-		ui_description = "Multiple settings together",
+		category_id = "group_of_client_settings",
+		ui_name = "Client",
+		ui_description = "Multiple client settings",
 		settings = {
 			{
-				id = "custom_cape",
-				ui_name = "Custom cape",
-				ui_description = "",
-				value_default = true,
-				scope = MOD_SETTING_SCOPE_RUNTIME_RESTART,
-			},
-			{
-				id = "extra_health",
-				ui_name = "Extra starting health",
-				ui_description = "Extra HP",
-				value_default = 4,
-				value_min = 0,
-				value_max = 10,
-				value_display_multiplier = 25,
-				value_display_formatting = " $0 HP",
-				scope = MOD_SETTING_SCOPE_NEW_GAME,
-			},
-			{
-				id = "custom_events_enabled",
-				ui_name = "Custom events",
-				ui_description = "",
-				value_default = true,
+				id = "connect_server_ip",
+				ui_name = "Connect Server IP",
+				ui_description = "Type the servers IP in, you want to connect. (Max length: 15 - Allowed characters: .0123456789)",
+				value_default = "127.0.0.1",
+				text_max_length = 15,
+				allowed_characters = ".0123456789",
 				scope = MOD_SETTING_SCOPE_RUNTIME,
+				change_fn = mod_setting_change_callback, -- Called when the user interact with the settings widget.
 			},
 			{
-				id = "password",
-				ui_name = "Password",
-				ui_description = "Textbox.",
-				value_default = "root",
+				id = "connect_server_port",
+				ui_name = "Connect Server Port",
+				ui_description = "Type the servers port in, you want to connect. (Max length: 5 - Allowed characters: 1234567890, but 65535 is max port)",
+				value_default = "23476",
+				text_max_length = 5,
+				allowed_characters = "1234567890",
+				scope = MOD_SETTING_SCOPE_RUNTIME,
+				change_fn = mod_setting_change_callback, -- Called when the user interact with the settings widget.
+			},
+			{
+				id = "connect_server_password",
+				ui_name = "Connect Server Password",
+				ui_description = "Type the servers password in, you want to connect.",
+				value_default = "",
 				text_max_length = 20,
-				allowed_characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_0123456789",
-				scope = MOD_SETTING_SCOPE_NEW_GAME,
-			},
-			{
-				id = "custom_ui",
-				ui_name = "This setting has got some custom UI",
-				ui_description = "",
-				value_default = true,
 				scope = MOD_SETTING_SCOPE_RUNTIME,
-				ui_fn = mod_setting_bool_custom, -- custom widget
+				change_fn = mod_setting_change_callback, -- Called when the user interact with the settings widget.
 			},
+		},
+	},
+	{
+		category_id = "group_of_keybinding_settings",
+		ui_name = "Key Bindings",
+		ui_description = "Multiple key binding settings",
+		settings = {
 			{
-				ui_fn = mod_setting_vertical_spacing,
-				not_setting = true,
-			},
-			{
-				id = "secret_setting",
-				ui_name = "Secret setting",
-				value_default = true,
-				hidden = true,
-			},
-			{
-				id = "Text, not a setting",
-				ui_name = "Just a title, not a setting",
-				not_setting = true,
-			},
-			{
-				image_filename = "data/ui_gfx/game_over_menu/game_over.png",
-				ui_fn = mod_setting_image,
+				id = "toggle_multiplayer_menu",
+				ui_name = "Toggle multiplayer menu",
+				ui_description = "Key binding for showing and hiding mp menu",
+				value_default = "M",
+				text_max_length = 15,
+				allowed_characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+				scope = MOD_SETTING_SCOPE_RUNTIME,
+				change_fn = mod_setting_change_callback, -- Called when the user interact with the settings widget.
 			},
 		},
 	},
@@ -194,46 +140,4 @@ end
 -- This function is called to display the settings UI for this mod. Your mod's settings wont be visible in the mod settings menu if this function isn't defined correctly.
 function ModSettingsGui( gui, in_main_menu )
 	mod_settings_gui( mod_id, mod_settings, gui, in_main_menu )
-
-	--example usage:
-	--[[
-	local im_id = 124662 -- NOTE: ids should not be reused like we do below
-	GuiLayoutBeginLayer( gui )
-
-	GuiLayoutBeginHorizontal( gui, 10, 50 )
-    GuiImage( gui, im_id + 12312535, 0, 0, "data/particles/shine_07.xml", 1, 1, 1, 0, GUI_RECT_ANIMATION_PLAYBACK.PlayToEndAndPause )
-    GuiImage( gui, im_id + 123125351, 0, 0, "data/particles/shine_04.xml", 1, 1, 1, 0, GUI_RECT_ANIMATION_PLAYBACK.PlayToEndAndPause )
-    GuiLayoutEnd( gui )
-
-	GuiBeginAutoBox( gui )
-
-	GuiZSet( gui, 10 )
-	GuiZSetForNextWidget( gui, 11 )
-	GuiText( gui, 50, 50, "Gui*AutoBox*")
-	GuiImage( gui, im_id, 50, 60, "data/ui_gfx/game_over_menu/game_over.png", 1, 1, 0 )
-	GuiZSetForNextWidget( gui, 13 )
-	GuiImage( gui, im_id, 60, 150, "data/ui_gfx/game_over_menu/game_over.png", 1, 1, 0 )
-
-	GuiZSetForNextWidget( gui, 12 )
-	GuiEndAutoBoxNinePiece( gui )
-
-	GuiZSetForNextWidget( gui, 11 )
-	GuiImageNinePiece( gui, 12368912341, 10, 10, 80, 20 )
-	GuiText( gui, 15, 15, "GuiImageNinePiece")
-
-	GuiBeginScrollContainer( gui, 1233451, 500, 100, 100, 100 )
-	GuiLayoutBeginVertical( gui, 0, 0 )
-	GuiText( gui, 10, 0, "GuiScrollContainer")
-	GuiImage( gui, im_id, 10, 0, "data/ui_gfx/game_over_menu/game_over.png", 1, 1, 0 )
-	GuiImage( gui, im_id, 10, 0, "data/ui_gfx/game_over_menu/game_over.png", 1, 1, 0 )
-	GuiImage( gui, im_id, 10, 0, "data/ui_gfx/game_over_menu/game_over.png", 1, 1, 0 )
-	GuiImage( gui, im_id, 10, 0, "data/ui_gfx/game_over_menu/game_over.png", 1, 1, 0 )
-	GuiLayoutEnd( gui )
-	GuiEndScrollContainer( gui )
-
-	local c,rc,hov,x,y,w,h = GuiGetPreviousWidgetInfo( gui )
-	print( tostring(c) .. " " .. tostring(rc) .." " .. tostring(hov) .." " .. tostring(x) .." " .. tostring(y) .." " .. tostring(w) .." ".. tostring(h) )
-
-	GuiLayoutEndLayer( gui )
-	]]--
 end
