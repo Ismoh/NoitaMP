@@ -7,6 +7,8 @@ package.cpath = package.cpath .. ';' .. GetPathOfScript() .. 'files/libs/?.dll;'
 print(package.path)
 print(package.cpath)
 
+ModMagicNumbersFileAdd("mods/noita-mp/files/data/magic_numbers.xml")
+
 local enet = nil
 if enet == nil then
     print("Checking external enet c library 'enet.dll' loading..")
