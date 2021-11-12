@@ -1,0 +1,89 @@
+<Entity name="$projectile_default" tags="projectile_player" >
+
+	<Base file="data/entities/base_projectile.xml" >
+    <VelocityComponent>
+    </VelocityComponent> 
+	</Base>
+	
+	<GameAreaEffectComponent
+      radius="36"
+      frame_length="0"
+      >
+	</GameAreaEffectComponent>
+
+  <ProjectileComponent 
+    lob_min="0.8"
+    lob_max="1.0"
+    speed_min="0"
+    speed_max="0"
+    die_on_low_velocity="0"
+    on_death_explode="1"
+    on_death_gfx_leave_sprite="0" 
+    on_lifetime_out_explode="1"
+    explosion_dont_damage_shooter="0"
+    damage="0"
+    on_collision_die="1"
+    damage_game_effect_entities="data/entities/misc/effect_electricity.xml,"
+    shoot_light_flash_radius="160" 
+    shoot_light_flash_r="160"
+    shoot_light_flash_g="240"
+    shoot_light_flash_b="255"
+    lifetime="3" >
+    <config_explosion
+      never_cache="1" 
+      camera_shake="30.5" 
+      explosion_radius="28" 
+      explosion_sprite="data/particles/explosion_032_electric.xml"
+      load_this_entity="data/entities/particles/particle_explosion/main_blue.xml,data/entities/misc/loose_ground.xml,data/entities/misc/explosion_was_here.xml"
+      explosion_sprite_lifetime="0" 
+      ray_energy="700000"
+      create_cell_probability="0" 
+      create_cell_material="fire" 
+      hole_destroy_liquid="0" 
+      particle_effect="0"
+      damage="1.8"
+      hole_enabled="1" 
+      hole_image="data/temp/explosion_hole.png" 
+      particle_effect="1" 
+      damage_mortals="1"
+      physics_explosion_power.min="1.7" 
+      physics_explosion_power.max="2.4" 
+      physics_throw_enabled="1" 
+      shake_vegetation="0" 
+      spark_material="spark_blue"
+      sparks_enabled="1" 
+      sparks_count_max="30" 
+      sparks_count_min="20"
+      light_fade_time="0.8" 
+      stains_enabled="1" 
+      stains_image="data/temp/explosion_stain.png"
+      audio_enabled="0" >
+    </config_explosion>
+  </ProjectileComponent>
+  
+	<AreaDamageComponent
+		aabb_min.x="-96" 
+		aabb_min.y="-96" 
+		aabb_max.x="96" 
+		aabb_max.y="96" 
+		damage_per_frame="0.4"
+		update_every_n_frame="1"
+		damage_type="DAMAGE_ELECTRICITY"
+		>
+	</AreaDamageComponent>
+  
+  <LuaComponent
+    execute_on_removed="1"
+    execute_every_n_frame="-1"
+    script_source_file="data/scripts/projectiles/lightning_explosion_small.lua"
+    remove_after_executed="0">
+  </LuaComponent>
+  
+	<VariableStorageComponent
+		name="projectile_file"
+		value_string="data/entities/projectiles/deck/thunder_blast.xml"
+		>
+	</VariableStorageComponent>
+
+</Entity>
+

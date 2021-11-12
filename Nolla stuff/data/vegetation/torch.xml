@@ -1,0 +1,18 @@
+<Sprite
+ filename="data/vegetation/torch.png"
+ offset_x="6"
+ offset_y="8" >
+
+ <!-- stand -->
+ <RectAnimation
+  name="stand"
+  pos_x="0"
+  pos_y="0"
+  frame_count="4"
+  frame_width="12"
+  frame_height="19"
+  frame_wait="0.09"
+  frames_per_row="4"
+  loop="1"   >
+ </RectAnimation>
+</Sprite>

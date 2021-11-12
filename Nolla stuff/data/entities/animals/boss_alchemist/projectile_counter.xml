@@ -1,0 +1,111 @@
+<Entity tags="boss_alchemist" >
+	<InheritTransformComponent>
+		<Transform 
+			position.x="0"
+			position.y="-12" 
+		>
+		</Transform>
+	</InheritTransformComponent>
+  
+	<LuaComponent
+		script_source_file="data/entities/animals/boss_alchemist/projectile_counter.lua"
+		execute_every_n_frame="1"
+		>
+	</LuaComponent>
+	
+	<Entity>
+		<InheritTransformComponent>
+			<Transform 
+				position.x="0"
+				position.y="-10" 
+			>
+			</Transform>
+		</InheritTransformComponent>
+			
+		<CellEaterComponent
+			radius="38" 
+			eat_probability="99">
+		</CellEaterComponent>
+	</Entity>
+	
+	<ParticleEmitterComponent 
+		emitted_material_name="spark_purple_bright"
+		gravity.y="0.0"
+		lifetime_min="0.5"
+		lifetime_max="1.5"
+		count_min="2"
+		count_max="8"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		area_circle_radius.max="48"
+		cosmetic_force_create="0"
+		airflow_force="0.5"
+		airflow_time="0.01"
+		airflow_scale="0.05"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		emit_cosmetic_particles="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+
+  	<ParticleEmitterComponent 
+		emitted_material_name="spark_purple_bright"
+		gravity.y="0.0"
+		lifetime_min="0.5"
+		lifetime_max="1.5"
+		count_min="8"
+		count_max="12"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		area_circle_radius.min="48"
+		area_circle_radius.max="48"
+		cosmetic_force_create="0"
+		airflow_force="0.3"
+		airflow_time="0.01"
+		airflow_scale="0.05"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		emit_cosmetic_particles="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+	
+	<Base file="data/entities/projectiles/deck/base_field.xml">
+		<SpriteComponent 
+			image_file="data/particles/area_indicator_096_purple.png"
+			z_index="1.2"
+			offset_x="48"
+			offset_y="48"
+			>
+		</SpriteComponent>
+
+		<SpriteParticleEmitterComponent
+			_enabled="0"
+			>
+		</SpriteParticleEmitterComponent>
+
+		<ProjectileComponent 
+			damage_game_effect_entities=""
+			lifetime="240"
+			>
+			<config_explosion
+				explosion_sprite="data/particles/blast_out.xml"
+				>
+			</config_explosion>
+		</ProjectileComponent>
+		
+		<AudioLoopComponent
+		  file="data/audio/Desktop/projectiles.bank"
+		  event_name="player_projectiles/field_transmutation/loop"
+		  auto_play="1" >
+	  </AudioLoopComponent>
+	</Base>
+	
+	<LuaComponent
+		script_source_file="data/entities/animals/boss_alchemist/projectile_counter_away.lua"
+		execute_every_n_frame="-1"
+		execute_on_removed="1"
+		>
+	</LuaComponent>
+
+</Entity>
+

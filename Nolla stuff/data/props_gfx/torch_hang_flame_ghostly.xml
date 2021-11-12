@@ -1,0 +1,32 @@
+<Sprite
+ filename="data/props_gfx/torch_hang_flame_ghostly.png"
+ offset_x="6"
+ offset_y="18" 
+ default_animation="default">
+
+ <!-- stand -->
+ <RectAnimation
+  name="default"
+  pos_x="0"
+  pos_y="0"
+  frame_count="8"
+  frame_width="12"
+  frame_height="19"
+  frame_wait="0.1"
+  frames_per_row="8"
+  loop="1"   >
+ </RectAnimation>
+ 
+ <RectAnimation
+  name="out"
+  pos_x="0"
+  pos_y="19"
+  frame_count="1"
+  frame_width="12"
+  frame_height="19"
+  frame_wait="0.1"
+  frames_per_row="4"
+  loop="1"   >
+ </RectAnimation>
+ 
+</Sprite>

@@ -1,0 +1,11 @@
+<Entity tags="workshop_spell_visualizer">
+
+	  <HitboxComponent 
+	    aabb_min_x="-64" 
+	    aabb_min_y="-48"
+	    aabb_max_x="64" 
+	    aabb_max_y="48" >
+	  </HitboxComponent>
+
+</Entity>
+

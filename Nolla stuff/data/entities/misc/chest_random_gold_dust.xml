@@ -1,0 +1,13 @@
+<Entity>
+    <MagicConvertMaterialComponent
+      kill_when_finished="1"
+      from_material="wood_prop"
+      steps_per_frame="1"
+      to_material="gold"
+      clean_stains="0"
+      is_circle="1"
+      radius="11" 
+	  >
+    </MagicConvertMaterialComponent>
+</Entity>
+

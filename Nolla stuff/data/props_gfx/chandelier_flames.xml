@@ -1,0 +1,32 @@
+<Sprite
+ filename="data/props_gfx/chandelier_flames.png"
+ offset_x="8.5"
+ offset_y="9.5" 
+ default_animation="default">
+
+ <!-- stand -->
+ <RectAnimation
+  name="default"
+  pos_x="0"
+  pos_y="0"
+  frame_count="6"
+  frame_width="17"
+  frame_height="19"
+  frame_wait="0.1"
+  frames_per_row="6"
+  loop="1"   >
+ </RectAnimation>
+ 
+ <RectAnimation
+  name="out"
+  pos_x="0"
+  pos_y="19"
+  frame_count="1"
+  frame_width="17"
+  frame_height="19"
+  frame_wait="0.1"
+  frames_per_row="4"
+  loop="1"   >
+ </RectAnimation>
+ 
+</Sprite>

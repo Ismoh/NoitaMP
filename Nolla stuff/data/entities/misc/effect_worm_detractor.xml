@@ -1,0 +1,13 @@
+<Entity tags="effect_worm,effect_worm_detractor" >
+	<InheritTransformComponent>
+    </InheritTransformComponent>	
+    
+    <GameEffectComponent
+		_tags="effect_worm,effect_worm_detractor"
+    	effect="WORM_DETRACTOR"
+    	frames="600"
+    >
+	</GameEffectComponent >
+	
+
+</Entity>

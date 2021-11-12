@@ -1,0 +1,31 @@
+<Entity name="effect_tripping_balls" tags="tripping_extreme">
+
+	<InheritTransformComponent>
+    </InheritTransformComponent>
+    
+    <GameEffectComponent 
+        effect="CUSTOM"
+        custom_effect_id="TRIP_00"
+        frames="600"
+    ></GameEffectComponent >
+
+    <GameEffectComponent 
+        effect="FOOD_POISONING"
+        frames="600"
+    ></GameEffectComponent >
+
+	<DrugEffectModifierComponent>
+		<fx_add
+			distortion_amount="0.2"
+			color_amount="1.5"
+			fractals_amount="1.5"
+			fractals_size="1.0"
+		/>
+	</DrugEffectModifierComponent>
+
+	<LuaComponent 
+	    execute_every_n_frame="600"
+	    script_source_file="data/scripts/status_effects/effect_trip_03.lua"
+	></LuaComponent>
+
+</Entity>

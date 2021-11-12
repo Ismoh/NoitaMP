@@ -1,0 +1,9 @@
+<Entity>
+	
+    <GameEffectComponent 
+        effect="MELEE_COUNTER"
+        frames="3"
+    >
+	</GameEffectComponent >
+
+</Entity>

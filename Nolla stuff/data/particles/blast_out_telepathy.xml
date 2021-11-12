@@ -1,0 +1,23 @@
+<Sprite
+	filename="data/particles/blast_out.png"
+	offset_x="32"
+	offset_y="32"
+	default_animation="explosion"
+	color_r="1"
+	color_g="0.8"
+	color_b="0.4"
+ >
+
+<!-- explosion -->
+<RectAnimation
+name="explosion"
+pos_x="0"
+pos_y="0"
+frame_count="5"
+frame_width="64"
+frame_height="64"
+frame_wait="0.02"
+frames_per_row="5"
+loop="0"   >
+</RectAnimation>
+</Sprite>

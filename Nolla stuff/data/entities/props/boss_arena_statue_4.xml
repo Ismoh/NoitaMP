@@ -1,0 +1,22 @@
+<Entity  
+  tags="vegetation,pixelsprite" >
+  
+  <PixelSpriteComponent 
+    _enabled="1" 
+    image_file="data/biome_impl/boss_arena_statue_4.png" 
+    anchor_x="181" 
+    anchor_y="192"
+    create_box2d_bodies="1"
+    clean_overlapping_pixels="1" 
+	material="rock_loose"
+  >
+  </PixelSpriteComponent>
+
+  <SimplePhysicsComponent 
+    can_go_up="0"
+    >
+  </SimplePhysicsComponent >
+  
+  <VelocityComponent />
+</Entity>
+

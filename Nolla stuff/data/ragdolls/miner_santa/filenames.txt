@@ -1,0 +1,10 @@
+data/ragdolls/miner_santa/torso.png
+data/ragdolls/miner_santa/thighs.png
+data/ragdolls/miner_santa/right_foot.png
+data/ragdolls/miner_santa/right_arm.png
+data/ragdolls/miner_santa/right_hand.png
+data/ragdolls/miner_santa/fuse.png
+data/ragdolls/miner_santa/left_foot.png
+data/ragdolls/miner_santa/left_arm.png
+data/ragdolls/miner_santa/left_hand.png
+data/ragdolls/miner_santa/head.png

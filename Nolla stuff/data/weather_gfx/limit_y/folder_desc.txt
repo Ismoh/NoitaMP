@@ -1,0 +1,1 @@
+These files are automagically loaded when generating the background sprites. If the sprite is loaded high enough to be clipped with limit_background_image and background_image_height (in biome.xml) then the game will check if a file of the same name exists in this folder. If so it will load it

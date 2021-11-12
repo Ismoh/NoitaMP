@@ -1,0 +1,11 @@
+<Entity>
+	<InheritTransformComponent>
+    </InheritTransformComponent>	
+    
+    <GameEffectComponent 
+    	effect="STAINS_DROP_FASTER"
+    	frames="600"
+    >
+	</GameEffectComponent >
+	
+</Entity>

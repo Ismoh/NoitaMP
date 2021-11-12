@@ -1,0 +1,20 @@
+<Sprite
+filename="data/particles/shine_07.png"
+offset_x="7.5"
+offset_y="7.5"
+default_animation="explosion"
+ >
+
+<!-- explosion -->
+<RectAnimation
+name="explosion"
+pos_x="0"
+pos_y="0"
+frame_count="6"
+frame_width="15"
+frame_height="15"
+frame_wait="0.06"
+frames_per_row="9"
+loop="0"   >
+</RectAnimation>
+</Sprite>

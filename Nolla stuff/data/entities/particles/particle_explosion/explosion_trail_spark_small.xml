@@ -1,0 +1,15 @@
+<Entity>
+	<Base file="data/entities/particles/particle_explosion/base_spark_trail.xml">
+		<VelocityComponent
+			air_friction="14.0"
+			>
+		</VelocityComponent>
+
+		<SetStartVelocityComponent
+			randomize_speed.min="700"
+			randomize_speed.max="1500"
+			>
+		</SetStartVelocityComponent>
+	</Base>
+</Entity>
+

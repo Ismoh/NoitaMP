@@ -1,0 +1,148 @@
+<Entity 
+	name="$projectile_default" tags="megalaser_beam"
+	>
+	<Base file="data/entities/base_projectile.xml" >
+		<VelocityComponent
+			_enabled="1"
+			air_friction="-20"
+			gravity_y="0"
+			mass="0.04"
+			>
+		</VelocityComponent> 
+	</Base>
+
+	<ProjectileComponent 
+		lob_min="0.8"
+		lob_max="1.0"
+		speed_min="40"
+		speed_max="40"
+		die_on_liquid_collision="1"
+		on_death_explode="1"
+		on_death_gfx_leave_sprite="0" 
+		on_lifetime_out_explode="1"
+		explosion_dont_damage_shooter="1" 
+		on_collision_die="1"
+		friendly_fire="0"
+		dont_collide_with_tag="drone_lasership"
+		shoot_light_flash_radius="15"
+		shoot_light_flash_r="80"
+		shoot_light_flash_g="80"
+		shoot_light_flash_b="255"
+		velocity_sets_scale="1"
+		damage="0.1"
+		lifetime="180"
+		penetrate_entities="0"
+		hit_particle_force_multiplier="0.25"
+		knockback_force="1.5"
+		bounces_left="10"
+		ragdoll_force_multiplier="0.01"
+		ragdoll_fx_on_collision="BLOOD_SPRAY"
+		physics_impulse_coeff="5000"
+		>
+		<config_explosion
+			never_cache="1" 
+			never_cache="1"
+			camera_shake="4.5" 
+			explosion_radius="3"
+			explosion_sprite="data/particles/explosion_016_plasma.xml" 
+			explosion_sprite_lifetime="0" 
+			create_cell_material="plasma_fading_bright"
+			create_cell_probability="15" 
+			hole_destroy_liquid="0"
+			explosion_sprite_additive="1"
+			hole_enabled="1"
+			ray_energy="100000"
+			damage="0.05"
+			hole_image="data/temp/explosion_hole.png" 
+			particle_effect="0 " 
+			damage_mortals="1" 
+			gore_particle_count="8"
+			physics_explosion_power.min="0.2" 
+			physics_explosion_power.max="0.35" 
+			physics_throw_enabled="1" 
+			shake_vegetation="1" 
+			sparks_count_max="20" 
+			sparks_count_min="7" 
+			sparks_enabled="0" 
+			stains_enabled="1"
+			stains_radius="4" 
+			light_fade_time="0.2"
+			light_r="10"
+			light_g="30"
+			light_b="10">
+		</config_explosion>
+	</ProjectileComponent>
+	
+	<SpriteComponent 
+		_enabled="1"
+		emissive="0"
+		image_file="data/projectiles_gfx/laser_big.xml" 
+		>
+	</SpriteComponent>
+	
+	<!-- solid particle line -->
+	<ParticleEmitterComponent 
+		_enabled="1"
+		emitted_material_name="plasma_fading_bright"
+		x_pos_offset_min="-0"
+		x_pos_offset_max="0"
+		y_pos_offset_min="-0"
+		y_pos_offset_max="0"
+		offset.x="0"
+		offset.y="0"
+		gravity.y="0.0"
+		x_vel_min="-0"
+		x_vel_max="0"
+		y_vel_min="-0"
+		y_vel_max="0"
+		count_min="1"
+		count_max="1"
+		is_trail="1"
+		trail_gap="1"
+		lifetime_min="0.4"
+		lifetime_max="0.4"
+		emit_real_particles="0"
+		render_on_grid="0"
+		collide_with_grid="0"
+		fade_based_on_lifetime="0"
+		emit_cosmetic_particles="1"
+		draw_as_long="0"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+
+	<!-- secondary sprinkles -->
+	<ParticleEmitterComponent 
+		_enabled="1"
+		emitted_material_name="plasma_fading_bright"
+		offset.x="0"
+		offset.y="0"
+		gravity.y="0.0"
+		x_vel_min="0"
+		x_vel_max="0"
+		y_vel_min="-5"
+		y_vel_max="5"
+		count_min="1"
+		count_max="1"
+		is_trail="1"
+		trail_gap="5"
+		lifetime_min="0.2"
+		lifetime_max="0.8"
+		emit_real_particles="0"
+		render_on_grid="1"
+		emit_cosmetic_particles="1"
+		fade_based_on_lifetime="0"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="2"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+	
+	<VariableStorageComponent
+		name="projectile_file"
+		value_string="data/entities/projectiles/megalaser_blue_beam.xml"
+		>
+	</VariableStorageComponent>
+
+</Entity>
+

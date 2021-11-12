@@ -1,0 +1,98 @@
+<Sprite
+ filename="data/enemies_gfx/thunderskull.png"
+ offset_x="8"
+ offset_y="13"
+  default_animation="stand" >
+
+ <!-- stand -->
+ <RectAnimation
+  name="stand"
+  pos_x="0"
+  pos_y="0"
+  frame_count="5"
+  frame_width="16"
+  frame_height="16"
+  frame_wait="0.13"
+  frames_per_row="5"
+  loop="1"   >
+ </RectAnimation>
+
+ <!-- walk -->
+ <RectAnimation
+  name="walk"
+  pos_x="0"
+  pos_y="0"
+  frame_count="5"
+  frame_width="16"
+  frame_height="16"
+  frame_wait="0.11"
+  frames_per_row="5"
+  loop="1"   >
+ </RectAnimation>
+
+ <!-- run - copied from walk -->
+ <RectAnimation
+  name="run"
+  pos_x="0"
+  pos_y="0"
+  frame_count="5"
+  frame_width="16"
+  frame_height="16"
+  frame_wait="0.09"
+  frames_per_row="5"
+  loop="1"   >
+ </RectAnimation>
+
+ <!-- burn - copied from walk -->
+ <RectAnimation
+  name="burn"
+  pos_x="0"
+  pos_y="0"
+  frame_count="5"
+  frame_width="16"
+  frame_height="16"
+  frame_wait="0.09"
+  frames_per_row="5"
+  loop="1"   >
+ </RectAnimation>
+ 
+ <RectAnimation
+  name="attack"
+  pos_x="0"
+  pos_y="0"
+  frame_count="5"
+  frame_width="16"
+  frame_height="16"
+  frame_wait="0.08"
+  frames_per_row="6"
+  loop="0"   >
+  <Event frame="1" name="attack_bite" probability="1" check_physics_material="0"/>
+ </RectAnimation>
+ 
+ <RectAnimation
+  name="attack_ranged"
+  pos_x="0"
+  pos_y="0"
+  frame_count="5"
+  frame_width="16"
+  frame_height="16"
+  frame_wait="0.08"
+  frames_per_row="6"
+  loop="0"   >
+  <Event frame="2" name="attack_shoot" probability="1" check_physics_material="0"/>
+ </RectAnimation>
+ 
+ <RectAnimation
+  name="attack_dash"
+  pos_x="0"
+  pos_y="0"
+  frame_count="5"
+  frame_width="16"
+  frame_height="16"
+  frame_wait="0.07"
+  frames_per_row="6"
+  loop="0"   >
+  <Event frame="0" name="attack_dash" probability="1" check_physics_material="0"/>
+ </RectAnimation>
+
+</Sprite>

@@ -1,0 +1,11 @@
+data/ragdolls/wolf/torso.png
+data/ragdolls/wolf/tail.png
+data/ragdolls/wolf/right_thigh.png
+data/ragdolls/wolf/right_leg.png
+data/ragdolls/wolf/right_arm.png
+data/ragdolls/wolf/right_hand.png
+data/ragdolls/wolf/left_thigh.png
+data/ragdolls/wolf/left_leg.png
+data/ragdolls/wolf/left_arm.png
+data/ragdolls/wolf/left_hand.png
+data/ragdolls/wolf/head.png

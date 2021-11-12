@@ -1,0 +1,17 @@
+<Sprite 
+  default_animation="highlight" 
+  filename="data/ui_gfx/inventory/highlight.png" 
+  offset_x="9" 
+  offset_y="9" >
+  <RectAnimation 
+    frame_count="2" 
+    frame_height="19" 
+    frame_wait="0.23" 
+    frame_width="19" 
+    frames_per_row="2" 
+    name="highlight" 
+    pos_x="0" 
+    pos_y="1" 
+    shrink_by_one_pixel="1" >
+  </RectAnimation>
+</Sprite>

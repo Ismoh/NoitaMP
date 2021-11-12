@@ -1,0 +1,22 @@
+<PixelScenes>
+  <mBufferedPixelScenes>
+    <PixelScene DEBUG_RELOAD_ME="1" background_filename="data/biome_impl/spliced/gourd_room/0_background.png" clean_area_before="0" colors_filename="" material_filename="data/biome_impl/spliced/gourd_room/0.plz" pos_x="-16541" pos_y="-6767" skip_biome_checks="1" >
+    </PixelScene>
+    <PixelScene DEBUG_RELOAD_ME="1" background_filename="data/biome_impl/spliced/gourd_room/1_background.png" clean_area_before="0" colors_filename="" material_filename="data/biome_impl/spliced/gourd_room/1.plz" pos_x="-16590" pos_y="-6656" skip_biome_checks="1" >
+    </PixelScene>
+    <PixelScene DEBUG_RELOAD_ME="1" background_filename="data/biome_impl/spliced/gourd_room/2_background.png" clean_area_before="0" colors_filename="" material_filename="data/biome_impl/spliced/gourd_room/2.plz" pos_x="-16533" pos_y="-6144" skip_biome_checks="1" >
+    </PixelScene>
+    <PixelScene DEBUG_RELOAD_ME="1" background_filename="data/biome_impl/spliced/gourd_room/3_background.png" clean_area_before="0" colors_filename="" material_filename="data/biome_impl/spliced/gourd_room/3.plz" pos_x="-16384" pos_y="-6776" skip_biome_checks="1" >
+    </PixelScene>
+    <PixelScene DEBUG_RELOAD_ME="1" background_filename="data/biome_impl/spliced/gourd_room/4_background.png" clean_area_before="0" colors_filename="" material_filename="data/biome_impl/spliced/gourd_room/4.plz" pos_x="-16384" pos_y="-6656" skip_biome_checks="1" >
+    </PixelScene>
+    <PixelScene DEBUG_RELOAD_ME="1" background_filename="data/biome_impl/spliced/gourd_room/5_background.png" clean_area_before="0" colors_filename="" material_filename="data/biome_impl/spliced/gourd_room/5.plz" pos_x="-16384" pos_y="-6144" skip_biome_checks="1" >
+    </PixelScene>
+    <PixelScene DEBUG_RELOAD_ME="1" background_filename="" clean_area_before="0" colors_filename="" material_filename="data/biome_impl/spliced/gourd_room/6.plz" pos_x="-15360" pos_y="-6656" skip_biome_checks="1" >
+    </PixelScene>
+    <PixelScene DEBUG_RELOAD_ME="1" background_filename="" clean_area_before="0" colors_filename="" material_filename="data/biome_impl/spliced/gourd_room/7.plz" pos_x="-15360" pos_y="-6144" skip_biome_checks="1" >
+    </PixelScene>
+    <PixelScene DEBUG_RELOAD_ME="1" background_filename="" clean_area_before="0" colors_filename="" material_filename="data/biome_impl/spliced/gourd_room/8.plz" pos_x="-15360" pos_y="-5632" skip_biome_checks="1" >
+    </PixelScene>
+  </mBufferedPixelScenes>
+</PixelScenes>

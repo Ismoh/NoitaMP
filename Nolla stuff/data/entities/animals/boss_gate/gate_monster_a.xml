@@ -1,0 +1,227 @@
+<Entity name="$animal_gate_monster_a" tags="gate_monster,necrobot_NOT,glue_NOT" >
+
+	<PhysicsAIComponent
+		target_vec_max_len="15.0"
+		force_coeff="18.0"
+		force_balancing_coeff="1.8"
+		force_max="140"
+		torque_coeff="50"
+		torque_balancing_coeff="1"
+		torque_max="50.0"
+		damage_deactivation_probability="1"
+		damage_deactivation_time_min="10"
+		damage_deactivation_time_max="30" >
+	</PhysicsAIComponent>
+
+	<PhysicsBodyComponent 
+		allow_sleep="1" 
+		angular_damping="0.02" 
+		fixed_rotation="0" 
+		is_bullet="0" 
+		linear_damping="0" 
+		on_death_leave_physics_body="1" >
+	</PhysicsBodyComponent>
+
+	<PhysicsImageShapeComponent 
+		image_file="data/entities/animals/boss_gate/gate_monster_a.png"
+		centered="0"
+		material="rock_box2d_nohit_hard" 
+		offset_x="28"
+		offset_y="35"
+		>
+	</PhysicsImageShapeComponent>
+	
+	<Base file="data/entities/base_enemy_flying.xml" >
+		<AnimalAIComponent 
+			preferred_job="JobDefault"
+			attack_ranged_min_distance="0"
+			attack_ranged_max_distance="50"
+			creature_detection_range_x="300"
+			creature_detection_range_y="300"
+			attack_ranged_action_frame="3"
+			attack_melee_action_frame="3"
+			sense_creatures="1"
+			attack_ranged_enabled="0"
+			attack_melee_enabled="1"
+			can_fly="1"  
+			eye_offset_y="-5"
+			attack_ranged_offset_y="0"
+			>
+		</AnimalAIComponent>
+		
+		<DamageModelComponent 
+			hp="80"
+			ragdoll_material="rock_box2d_nohit_hard"
+			ragdoll_filenames_file="" 
+			blood_material="spark_red"
+			blood_spray_material="spark_red"
+			fire_probability_of_ignition="0" 
+			air_needed="0"
+			blood_sprite_directional=""
+			blood_sprite_large=""
+			physics_objects_damage="0"
+			>
+			<damage_multipliers
+				melee="0.1"
+				projectile="0.1"
+				explosion="1.2"
+				electricity="0"
+				fire="0"
+				ice="0"
+				radioactive="0" >
+			</damage_multipliers>
+		</DamageModelComponent>
+
+		<SpriteComponent 
+			image_file="" 
+			offset_x="0"
+			offset_y="0">
+		</SpriteComponent>
+
+		<PathFindingGridMarkerComponent
+			marker_work_flag="16" >
+		</PathFindingGridMarkerComponent>
+		
+		<PathFindingComponent
+			distance_to_reach_node_x="20"
+			distance_to_reach_node_y="20"
+			frames_to_get_stuck="120"
+			can_jump="0" 
+			can_fly="1"
+			jump_speed="0"
+			>
+		</PathFindingComponent>
+
+		<GenomeDataComponent 
+			herd_id="ghost"
+			food_chain_rank="7"
+			is_predator="1" >
+		</GenomeDataComponent>
+		
+		<CharacterPlatformingComponent 
+			jump_velocity_y="0" 
+			run_velocity="24"  >
+		</CharacterPlatformingComponent>
+		
+		<HitboxComponent 
+			aabb_min_x="-10" 
+			aabb_max_x="10" 
+			aabb_min_y="-10" 
+			aabb_max_y="10" 
+			>
+		</HitboxComponent>
+
+		<CameraBoundComponent
+			max_count="30"
+			distance="160000">
+		</CameraBoundComponent>
+		
+		<CharacterDataComponent 
+			collision_aabb_min_x="-25"
+			collision_aabb_max_x="25"  
+			collision_aabb_min_y="-32"
+			collision_aabb_max_y="32"
+			mass="1.8"
+			>
+		</CharacterDataComponent>
+		
+		<SpriteStainsComponent
+			_enabled="0"
+			>
+		</SpriteStainsComponent>
+	</Base>
+
+	<LuaComponent
+		script_source_file="data/entities/animals/boss_gate/gate_monster_push.lua"
+		execute_every_n_frame="4" >
+	</LuaComponent>
+
+	<CellEaterComponent
+		eat_probability="8"
+		radius="50"
+		ignored_material="rock_box2d_nohit_hard" >
+	</CellEaterComponent>
+
+	<AreaDamageComponent
+		aabb_min.x="-40" 
+		aabb_min.y="-40" 
+		aabb_max.x="40" 
+		aabb_max.y="40" 
+		damage_per_frame="0.1"
+		update_every_n_frame="1"
+		entities_with_tag="mortal"
+		damage_type="DAMAGE_CURSE"
+		>
+	</AreaDamageComponent>
+
+	<AudioComponent
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals/statue_physics" >
+	</AudioComponent>
+
+	<AudioLoopComponent
+		file="data/audio/Desktop/animals.bank"
+		event_name="animals/worm/movement_loop_big"
+		set_speed_parameter="1"
+		auto_play="1">
+	</AudioLoopComponent>
+
+	<!-- shadow -->
+	<SpriteParticleEmitterComponent
+		sprite_file="data/entities/animals/boss_gate/gate_monster_a_glow.xml"
+		delay="0"
+		lifetime="0.75"
+		sprite_centered="0"
+		color.r="1" color.g="1" color.b="1" color.a="0.75"
+		color_change.r="0" color_change.g="0" color_change.b="0" color_change.a="-1"
+		render_back="1"
+		velocity.x="0" velocity.y="-10"
+		gravity.x="0" gravity.y="0"
+		velocity_slowdown="0"
+		rotation="0"
+		angular_velocity="0"
+		use_rotation_from_entity="1"
+		use_velocity_as_rotation="0"
+		scale.x="1" scale.y="1"
+		scale_velocity.x="0" scale_velocity.y="0"
+		additive="1"
+		emissive="0"
+		emission_interval_min_frames="6"
+		emission_interval_max_frames="6"
+		count_min="1" count_max="1"
+		>
+	</SpriteParticleEmitterComponent>
+
+	<!-- ring -->
+	<ParticleEmitterComponent 
+		emitted_material_name="spark_red"
+		gravity.y="0.0"
+		lifetime_min="0.4"
+		lifetime_max="1.2"
+		x_pos_offset_min="0"
+		x_pos_offset_max="0"
+		y_pos_offset_min="0"
+		y_pos_offset_max="0"
+		area_circle_radius.min="48"
+		area_circle_radius.max="50"
+		count_min="15"
+		count_max="15"
+		render_on_grid="1"
+		collide_with_grid="0"
+		fade_based_on_lifetime="1"
+		cosmetic_force_create="0"
+		airflow_force="0.251"
+		airflow_time="1.01"
+		airflow_scale="0.05"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		emit_cosmetic_particles="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+
+	<LuaComponent
+		script_death="data/entities/animals/boss_gate/gate_monster_death.lua"
+		>
+	</LuaComponent>
+</Entity>
+

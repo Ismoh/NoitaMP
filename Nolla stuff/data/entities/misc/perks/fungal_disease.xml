@@ -1,0 +1,76 @@
+<Entity >
+	<InheritTransformComponent>
+    </InheritTransformComponent>
+	
+    <LuaComponent
+		script_source_file="data/scripts/perks/fungal_disease.lua"
+		execute_every_n_frame="2"
+		>
+	</LuaComponent>
+	
+	<LuaComponent
+		_enabled="0"
+		_tags="fungal_disease"
+		script_source_file="data/scripts/perks/fungal_disease_effect.lua"
+		execute_every_n_frame="15"
+		>
+	</LuaComponent>
+	
+	<ParticleEmitterComponent
+		_enabled="0"
+		_tags="fungal_disease"
+		emitted_material_name="spark_purple"
+		offset.x="0"
+		offset.y="0"
+		x_pos_offset_min="-8"
+		x_pos_offset_max="8"
+		y_pos_offset_min="-8"
+		y_pos_offset_max="8"
+		gravity.y="0"
+		x_vel_min="-2"
+		x_vel_max="2"
+		y_vel_min="-2"
+		y_vel_max="2"
+		count_min="1"
+		count_max="3"
+		is_trail="0"
+		fade_based_on_lifetime="1"
+		lifetime_min="0.8"
+		lifetime_max="2.0"
+		airflow_force="1.5"
+		airflow_time="0.401"
+		airflow_scale="0.05"
+		create_real_particles="0"
+		emit_cosmetic_particles="1"
+		render_on_grid="1"
+		emission_interval_min_frames="4"
+		emission_interval_max_frames="5"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+	
+	<ParticleEmitterComponent
+		_enabled="0"
+		_tags="fungal_disease"
+		emitted_material_name="fungi"
+		offset.x="0"
+		offset.y="0"
+		x_pos_offset_min="-2"
+		y_pos_offset_min="-2"
+		x_pos_offset_max="2"
+		y_pos_offset_max="2"
+		x_vel_min="-10"
+		x_vel_max="10"
+		y_vel_min="-10"
+		y_vel_max="10"
+		count_min="1"
+		count_max="2"
+		lifetime_min="0.6"
+		lifetime_max="1.8"
+		create_real_particles="1"
+		emit_cosmetic_particles="0"
+		emission_interval_min_frames="10"
+		emission_interval_max_frames="35"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+  
+</Entity>

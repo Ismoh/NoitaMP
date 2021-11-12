@@ -1,0 +1,33 @@
+<Sprite 
+	filename="data/entities/animals/boss_centipede/boss_victoryroom_mechanism.png" 
+	offset_x="46" 
+	offset_y="138" 
+	default_animation="default" >
+
+ <!-- animation -->
+	<RectAnimation
+		name="default"
+		pos_x="0"
+		pos_y="0"
+		frame_count="1"
+		frame_width="143"
+		frame_height="205"
+		frame_wait="0.06"
+		frames_per_row="8"
+		loop="0"
+		>
+	</RectAnimation>
+	
+	<RectAnimation
+		name="active"
+		pos_x="0"
+		pos_y="0"
+		frame_count="8"
+		frame_width="143"
+		frame_height="205"
+		frame_wait="0.06"
+		frames_per_row="8"
+		loop="1"
+		>
+	</RectAnimation>
+</Sprite>

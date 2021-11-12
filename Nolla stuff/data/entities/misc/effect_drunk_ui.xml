@@ -1,0 +1,29 @@
+<Entity>
+    <InheritTransformComponent>
+    </InheritTransformComponent>
+	
+	<Base file="data/entities/particles/drunk.xml" >
+		<SpriteParticleEmitterComponent
+    		emission_interval_min_frames="20"
+    		emission_interval_max_frames="50"
+			randomize_position_inside_hitbox="0"  >
+		</SpriteParticleEmitterComponent>
+	</Base>
+    
+    <GameEffectComponent 
+        effect="DRUNK"
+        frames="1200"
+    >
+	</GameEffectComponent >
+	
+	<UIIconComponent
+		name="$status_drunk_ui"
+		description="$statusdesc_drunk_ui"
+		icon_sprite_file="data/ui_gfx/status_indicators/alcoholic.png"
+		is_perk="0"
+		display_above_head="0"
+		display_in_hud="1"
+		>
+	</UIIconComponent>
+
+</Entity>

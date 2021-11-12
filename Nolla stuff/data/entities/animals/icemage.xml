@@ -1,0 +1,274 @@
+<Entity name="$animal_icemage" >
+  
+	<Base file="data/entities/base_enemy_basic.xml" >
+		<ItemChestComponent level="2" > </ItemChestComponent>
+		
+		<AnimalAIComponent 
+			_enabled="1" 
+			preferred_job="JobDefault"
+			attack_melee_damage_min="0.4" 
+			attack_melee_damage_max="0.7"
+			creature_detection_range_x="300"
+			creature_detection_range_y="300"
+			food_material="blood"
+			needs_food="0"
+			sense_creatures="1"
+			attack_ranged_enabled="1"
+			can_fly="1" 
+			attack_ranged_entity_file="data/entities/projectiles/iceball.xml"
+			attack_ranged_action_frame="3"
+			attack_ranged_frames_between="140"
+			>
+		</AnimalAIComponent>
+		
+		<DamageModelComponent 
+            hp="5"
+            ragdoll_material="ice"
+			ragdoll_filenames_file="data/ragdolls/skullmage/filenames.txt" 
+			fire_probability_of_ignition="0" 
+			blood_material="snow"
+			blood_spray_material="snow"
+			blood_sprite_directional=""
+			blood_sprite_large=""
+			air_needed="0"
+			healing_particle_effect_entity="data/entities/particles/heal_effect.xml"
+			materials_that_damage="acid,lava,poison" 
+			materials_how_much_damage="0.004,0.0005,0.001"
+			>
+			<damage_multipliers
+			projectile="0.9"
+			explosion="0.3"
+			fire="1.5"
+			slice="0.2"
+			ice="-1">
+			</damage_multipliers>
+		</DamageModelComponent>
+
+		<SpriteComponent 
+			image_file="data/enemies_gfx/skullmage.xml" 
+			offset_x="0"
+			offset_y="0">
+		</SpriteComponent>
+
+		<PathFindingComponent
+			can_jump="1" >
+		</PathFindingComponent>
+
+		<PathFindingGridMarkerComponent
+			marker_work_flag="16" >
+		</PathFindingGridMarkerComponent>
+		
+		<GenomeDataComponent 
+			herd_id="mage"
+			food_chain_rank="6"
+			is_predator="1" >
+		</GenomeDataComponent>
+		
+		<CharacterPlatformingComponent 
+			jump_velocity_y="-12" 
+			swim_idle_buoyancy_coeff="1.0"
+			run_velocity="18"  >
+		</CharacterPlatformingComponent>
+		
+		<CameraBoundComponent
+			max_count="30"
+			distance="160000">
+		</CameraBoundComponent>
+		
+		<HitboxComponent 
+		  _enabled="1" 
+		  aabb_min_x="-4.5" 
+		  aabb_max_x="4.5" 
+		  aabb_min_y="-14" 
+		  aabb_max_y="3" 
+		  >
+		</HitboxComponent>
+		
+		<CharacterDataComponent
+			collision_aabb_min_x="-2.5" 
+			collision_aabb_max_x="3.0" 
+			collision_aabb_min_y="-16" 
+			collision_aabb_max_y="3" 
+			mass="1.4"
+			>
+		</CharacterDataComponent>
+	</Base>
+	
+	<ParticleEmitterComponent 
+		emitted_material_name="spark_white"
+		gravity.y="0.0"
+		lifetime_min="0.5"
+		lifetime_max="1.5"
+		count_min="1"
+		count_max="3"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		x_pos_offset_min="-5"
+		y_pos_offset_min="-12"
+		x_pos_offset_max="5"
+		y_pos_offset_max="4"
+		cosmetic_force_create="0"
+		airflow_force="0.1"
+		airflow_time="0.01"
+		airflow_scale="0.05"
+		emission_interval_min_frames="2"
+		emission_interval_max_frames="4"
+		emit_cosmetic_particles="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+	
+	<LightComponent
+		_enabled="1" 
+		r="120"
+		g="180"
+		b="220"
+		radius="64" >
+	</LightComponent>
+	
+	<ItemPickUpperComponent
+    	is_in_npc="1">
+    </ItemPickUpperComponent>
+
+    <MusicEnergyAffectorComponent
+    	energy_target="1">
+    </MusicEnergyAffectorComponent>
+	
+	<AudioLoopComponent
+		file="data/audio/Desktop/animals.bank"
+		event_name="animals/wizard/movement_loop"
+		set_speed_parameter="1"
+		auto_play="1">
+	</AudioLoopComponent>
+
+	<AudioComponent
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals/wizard" >
+	</AudioComponent>
+	
+	<MagicConvertMaterialComponent
+        from_material="fire"
+        to_material="air"
+        steps_per_frame="20"
+        loop="1"
+		is_circle="1"
+        radius="30" >
+    </MagicConvertMaterialComponent>
+	
+	<MagicConvertMaterialComponent
+        from_material="lava"
+        to_material="rock_static"
+        steps_per_frame="20"
+        loop="1"
+		is_circle="1"
+        radius="30" >
+    </MagicConvertMaterialComponent>
+	
+    <MagicConvertMaterialComponent
+        from_material="water"
+        to_material="ice_static"
+        steps_per_frame="20"
+        loop="1"
+		is_circle="1"
+        radius="30" >
+    </MagicConvertMaterialComponent>
+
+    <MagicConvertMaterialComponent
+        from_material="water_ice"
+        to_material="ice_static"
+        steps_per_frame="20"
+        loop="1"
+		is_circle="1"
+        radius="30" >
+    </MagicConvertMaterialComponent>
+
+    <MagicConvertMaterialComponent
+        from_material="water_salt"
+        to_material="ice_static"
+        steps_per_frame="20"
+        loop="1"
+		is_circle="1"
+        radius="30" >
+    </MagicConvertMaterialComponent>
+
+    <MagicConvertMaterialComponent
+        from_material="water_static"
+        to_material="ice_static"
+        steps_per_frame="20"
+        loop="1"
+		is_circle="1"
+        radius="30" >
+    </MagicConvertMaterialComponent>
+
+    <MagicConvertMaterialComponent
+        from_material="water_swamp"
+        to_material="ice_static"
+        steps_per_frame="20"
+        loop="1"
+		is_circle="1"
+        radius="30" >
+    </MagicConvertMaterialComponent>
+	
+	<MagicConvertMaterialComponent
+        from_material="radioactive_liquid"
+        to_material="ice_radioactive_static"
+        steps_per_frame="20"
+        loop="1"
+		is_circle="1"
+        radius="30" >
+    </MagicConvertMaterialComponent>
+	
+	<MagicConvertMaterialComponent
+        from_material="acid"
+        to_material="ice_acid_static"
+        steps_per_frame="20"
+        loop="1"
+		is_circle="1"
+        radius="30" >
+    </MagicConvertMaterialComponent>
+	
+	<MagicConvertMaterialComponent
+        from_material="blood_cold"
+        to_material="ice_cold_static"
+        steps_per_frame="20"
+        loop="1"
+		is_circle="1"
+        radius="30" >
+    </MagicConvertMaterialComponent>
+	
+	<MagicConvertMaterialComponent
+        from_material="blood"
+        to_material="ice_blood_static"
+        steps_per_frame="20"
+        loop="1"
+		is_circle="1"
+        radius="30" >
+    </MagicConvertMaterialComponent>
+	
+	<MagicConvertMaterialComponent
+        from_material="poison"
+        to_material="ice_poison_static"
+        steps_per_frame="20"
+        loop="1"
+		is_circle="1"
+        radius="30" >
+    </MagicConvertMaterialComponent>
+	
+	<MagicConvertMaterialComponent
+        from_material="slime"
+        to_material="ice_slime_static"
+        steps_per_frame="20"
+        loop="1"
+		is_circle="1"
+        radius="30" >
+    </MagicConvertMaterialComponent>
+    
+    <MagicConvertMaterialComponent
+      kill_when_finished="0"
+      extinguish_fire="1"
+      is_circle="1"
+      loop="1"
+      radius="30" >
+    </MagicConvertMaterialComponent>
+
+</Entity>
+

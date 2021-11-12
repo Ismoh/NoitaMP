@@ -1,0 +1,13 @@
+<Entity >
+   
+  <SpriteComponent 
+    image_file="data/entities/projectiles/tentacle/bloodtentacle_4.png" 
+    offset_x="0"
+    offset_y="4.5"
+    update_transform="0"
+    update_transform_rotation="0" 
+	z_index="0.83"
+	>
+  </SpriteComponent>
+  
+</Entity>

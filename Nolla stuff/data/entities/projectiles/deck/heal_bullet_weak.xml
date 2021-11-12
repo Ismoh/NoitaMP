@@ -1,0 +1,123 @@
+<Entity name="$projectile_default" tags="projectile_player,projectile_heal" >
+
+	<Base file="data/entities/base_projectile.xml" >
+		<VelocityComponent
+			gravity_y="200"
+			air_friction="-0.5"
+			mass="0.05"
+			>
+		</VelocityComponent>
+	</Base>
+
+  <ProjectileComponent 
+    _enabled="1" 
+    lob_min="0.5"
+    lob_max="0.7"
+    speed_min="600"
+    speed_max="650"
+    friction="1"
+    direction_random_rad="0.01"
+    on_death_explode="1"
+    on_death_gfx_leave_sprite="0" 
+    on_lifetime_out_explode="1"
+    explosion_dont_damage_shooter="1"
+    on_collision_die="1"
+    lifetime="60"
+    damage="0"
+    velocity_sets_scale="1"
+    lifetime_randomness="7"
+    ragdoll_force_multiplier="0.04"
+    hit_particle_force_multiplier="0.1"
+	muzzle_flash_file="data/entities/particles/muzzle_flashes/muzzle_flash_laser_green.xml"
+    shoot_light_flash_radius="84"
+	shoot_light_flash_r="110"
+    shoot_light_flash_g="205"
+    shoot_light_flash_b="40"
+	collide_with_shooter_frames="4"
+    friendly_fire="1"
+	>
+    <damage_by_type 
+        healing="-0.15" 
+    >
+    </damage_by_type>
+    <config_explosion
+      never_cache="1" 
+      damage="0"
+      camera_shake="0.5" 
+      explosion_radius="2" 
+      explosion_sprite="data/particles/explosion_016_slime.xml" 
+      explosion_sprite_lifetime="0" 
+      create_cell_probability="0" 
+      hole_destroy_liquid="0"
+	  explosion_sprite_additive="1"
+      hole_enabled="1" 
+      ray_energy="40000"
+      particle_effect="0" 
+      damage_mortals="1"
+      physics_throw_enabled="0"  
+      shake_vegetation="1" 
+      sparks_count_max="20" 
+      sparks_count_min="7" 
+      sparks_enabled="0"  
+      material_sparks_enabled="1"
+      material_sparks_count_max="2"
+      material_sparks_count_min="0" 
+      light_enabled="1" 
+	  light_radius_coeff="32"
+      light_r="180"
+      light_g="240"
+      light_b="80"
+	  light_fade_time="2"
+      stains_enabled="1"
+      stains_radius="3" 
+	  audio_enabled="0"
+	  >
+    </config_explosion>
+  </ProjectileComponent>
+  
+  <ParticleEmitterComponent 
+    emitted_material_name="spark_green"
+    offset.x="-1"
+    offset.y="-1"
+	gravity.y="0.10"
+    x_pos_offset_min="-1"
+    y_pos_offset_min="-1"
+    x_pos_offset_max="1"
+    y_pos_offset_max="1"
+    x_vel_min="-5"
+    x_vel_max="5"
+    y_vel_min="0"
+    y_vel_max="0"
+    count_min="1"
+    count_max="5"
+    lifetime_min="0.1"
+    lifetime_max="0.6"
+	fade_based_on_lifetime="1"
+    create_real_particles="0"
+    emit_cosmetic_particles="1"
+    emission_interval_min_frames="0"
+    emission_interval_max_frames="1"
+    is_emitting="1" >
+  </ParticleEmitterComponent>
+
+  <AudioComponent
+      file="data/audio/Desktop/projectiles.bank"
+      event_root="player_projectiles/bullet_heal">
+  </AudioComponent>
+  
+  <LightComponent 
+    _enabled="1" 
+    radius="40" 
+	r="180"
+	g="240"
+	b="50">
+  </LightComponent>
+  
+	<VariableStorageComponent
+		name="projectile_file"
+		value_string="data/entities/projectiles/deck/heal_bullet_weak.xml"
+		>
+	</VariableStorageComponent>
+
+</Entity>
+

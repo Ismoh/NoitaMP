@@ -1,0 +1,137 @@
+<Entity tags="hittable,teleportable_NOT,item_physics" >
+	<Base file="data/entities/base_item_projectile.xml" />
+
+	<!-- physical presence -->
+	
+	<PhysicsBodyComponent 
+		_tags="enabled_in_world"
+		uid="1" 
+		allow_sleep="1" 
+		angular_damping="1.6" 
+		linear_damping="0.8"
+		fixed_rotation="0" 
+		is_bullet="1" 
+		auto_clean="0"
+		on_death_leave_physics_body="1"
+		hax_fix_going_through_ground="1"
+		>
+	</PhysicsBodyComponent>
+	
+	<PhysicsImageShapeComponent 
+		body_id="1"
+		centered="1"
+		image_file="data/items_gfx/safe_haven.png"
+		material="item_box2d_glass"
+		>
+	</PhysicsImageShapeComponent>
+	
+	<PhysicsThrowableComponent
+		max_throw_speed="180"
+		throw_force_coeff="1.25"
+		min_torque="4"
+		max_torque="10"
+		>
+	</PhysicsThrowableComponent>
+
+	<VelocityComponent
+		_tags="enabled_in_world"
+		>
+	</VelocityComponent>
+
+	<!-- safe haven functionality -->
+	<VariableStorageComponent
+		_tags="enabled_in_world"
+		name="player_hp"
+		value_float="4.0" >
+	</VariableStorageComponent>
+
+	<VariableStorageComponent
+		_tags="enabled_in_world"
+		name="throw_time"
+		value_int="-1" >
+	</VariableStorageComponent>
+
+	<LuaComponent
+		_tags="enabled_in_world"
+		script_source_file="data/scripts/items/safe_haven_spawn.lua"
+		execute_every_n_frame="1"
+		>
+	</LuaComponent>
+	
+	<LuaComponent
+		script_throw_item="data/scripts/items/safe_haven_throw.lua"
+		execute_every_n_frame="-1" >
+	</LuaComponent>
+	
+	<!-- item -->
+
+	<SpriteComponent
+		_tags="enabled_in_hand"
+		_enabled="0"
+		offset_x="4"
+		offset_y="4"
+		image_file="data/items_gfx/safe_haven.png"
+		>
+	</SpriteComponent>
+
+	<ItemComponent
+		_tags="enabled_in_world"
+		item_name="$item_safe_haven"
+		max_child_items="0"
+		is_pickable="1"
+		is_equipable_forced="1"
+		ui_sprite="data/ui_gfx/items/safe_haven.png"
+		ui_description="$item_description_safe_haven"
+		preferred_inventory="QUICK"
+		>
+	</ItemComponent>
+
+	<UIInfoComponent
+		_tags="enabled_in_world"
+		name="$item_safe_haven">
+	</UIInfoComponent>
+	
+	<ParticleEmitterComponent 
+		_tags="enabled_on_throw"
+		_enabled="0"
+		emitted_material_name="spark_green"
+		gravity.y="0.0"
+		lifetime_min="8"
+		lifetime_max="15"
+		count_min="1"
+		count_max="1"
+		render_on_grid="1"
+		collide_with_grid="0"
+		collide_with_gas_and_fire="0"
+		fade_based_on_lifetime="1"
+		area_circle_radius.min="0"
+		area_circle_radius.max="3"
+		airflow_force="0.251"
+		airflow_time="1.01"
+		airflow_scale="0.05"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		emit_cosmetic_particles="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+	
+	<AbilityComponent
+		ui_name="$item_safe_haven"
+		throw_as_item="1"
+		>
+		<gun_config
+			deck_capacity="0">
+		</gun_config>
+	</AbilityComponent>
+
+	<!-- FX -->
+
+	<LightComponent
+		_tags="enabled_in_world,enabled_in_hand"
+		radius="70"
+		r="20"
+		g="255"
+		b="20"
+		>
+	</LightComponent>
+</Entity>

@@ -1,0 +1,156 @@
+<Entity tags="hittable,resist_repulsion" name="$animal_boss_ghost_polyp" >
+
+	<Base file="data/entities/base_projectile.xml" >
+		<VelocityComponent
+    		gravity_y="10"
+			mass="0.07"
+			>
+    	</VelocityComponent> 
+	</Base>
+	
+	<HomingComponent
+		_tags="polyp_homing"
+		homing_targeting_coeff="20.0"
+		homing_velocity_multiplier="0.8"
+		detect_distance="200"
+	>
+	</HomingComponent>
+
+  <ProjectileComponent 
+    _enabled="1" 
+	speed_min="200"
+	speed_max="308"
+	direction_random_rad="3.141592"
+    on_death_explode="1"
+    on_death_gfx_leave_sprite="0" 
+    on_lifetime_out_explode="1"
+    on_collision_die="1"
+    die_on_low_velocity="0"
+	explosion_dont_damage_shooter="1"
+	damage="3.0"
+    lifetime="330"
+	shoot_light_flash_r="90"
+    shoot_light_flash_g="150"
+    shoot_light_flash_b="10"
+    shoot_light_flash_radius="48"
+	knockback_force="1.0"
+	collide_with_world="0"
+	penetrate_world="1"
+	>
+    <config_explosion
+        never_cache="1" 
+		damage="3"
+		camera_shake="3.5" 
+		explosion_radius="32" 
+		load_this_entity="data/entities/particles/particle_explosion/main_blue.xml"
+		explosion_sprite_lifetime="0" 
+		create_cell_material="acid"
+		create_cell_probability="0"  
+		hole_destroy_liquid="0" 
+		hole_enabled="1" 
+		hole_image="data/temp/explosion_hole.png" 
+		particle_effect="0" 
+		damage_mortals="1" 
+		physics_explosion_power.min="0.3"
+		physics_explosion_power.max="0.4"
+		physics_throw_enabled="1" 
+		shake_vegetation="1" 
+		sparks_count_max="20" 
+		sparks_count_min="7" 
+		sparks_enabled="0" 
+		stains_enabled="1" 
+		stains_radius="9"
+        audio_enabled="0" >
+    </config_explosion>
+  </ProjectileComponent>
+  
+	<SpriteComponent 
+		_tags="magic_eye" 
+		alpha="1" 
+		image_file="data/entities/animals/boss_ghost/polyp.xml" 
+		next_rect_animation="" 
+		offset_x="0" 
+		offset_y="0"
+		additive="1"
+		emissive="1"
+		z_index="1.0"
+		rect_animation="" 
+		update_transform_rotation="0"
+		>
+	</SpriteComponent>
+	
+	<SpriteComponent  
+		alpha="1" 
+		image_file="data/entities/animals/boss_ghost/polyp_eye.xml" 
+		next_rect_animation="" 
+		offset_x="0" 
+		offset_y="0"
+		emissive="1"
+		z_index="0.9"
+		rect_animation="" 
+		update_transform_rotation="0"
+		>
+	</SpriteComponent>
+
+    <HitboxComponent
+		_tags="magic_eye"
+        _enabled="1" 
+        aabb_min_x="-5" 
+        aabb_max_x="5" 
+        aabb_min_y="-5" 
+        aabb_max_y="5" >
+    </HitboxComponent>
+
+    <DamageModelComponent
+		_tags="magic_eye"
+        _enabled="1" 
+        hp="1.5"
+        fire_probability_of_ignition="0" 
+        falling_damages="0" 
+        air_needed="0" 
+        materials_damage="0"
+        ragdoll_filenames_file=""
+        blood_material="acid"
+        blood_multiplier="0"
+        create_ragdoll="0" >
+    </DamageModelComponent>
+
+  <AudioComponent
+      file="data/audio/Desktop/projectiles.bank"
+      event_root="projectiles/acid">
+  </AudioComponent>
+  
+	<VariableStorageComponent
+		name="projectile_file"
+		value_string="data/entities/animals/boss_ghost/polyp_shot.xml"
+		>
+	</VariableStorageComponent>
+	
+	<LuaComponent
+		script_source_file="data/scripts/animals/ethereal_check.lua"
+		execute_every_n_frame="5"
+		>
+	</LuaComponent>
+	
+	<LuaComponent
+		script_source_file="data/entities/animals/boss_ghost/polyp_trajectory.lua"
+		execute_every_n_frame="1"
+		>
+	</LuaComponent>
+	
+	<LuaComponent
+		script_source_file="data/entities/animals/boss_ghost/polyp_remove_homing.lua"
+		execute_every_n_frame="150"
+		remove_after_executed="1"
+		>
+	</LuaComponent>
+	
+	<LuaComponent
+		script_source_file="data/scripts/animals/ethereal_check.lua"
+		execute_on_added="1"
+		remove_after_executed="1"
+		>
+	</LuaComponent>
+
+</Entity>
+

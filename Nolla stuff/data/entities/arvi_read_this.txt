@@ -1,0 +1,24 @@
+1) Muista hitbox. Paina F5 + n ja kato, että hitbox on oikein
+2) Platforming hitboxit CharacterDataComponentissa
+3) Muista buoyancy_check_offset_y CharacterDataComponentissa (vaikuttaa kellumiskorkeuteen, oletus = -6 eli veden pinnassa on kohta joka on about -6 px entity keskipisteestä)
+
+
+		<HitboxComponent 
+			_enabled="1" 
+			aabb_min_x="-4.5" 
+			aabb_max_x="4.5" 
+			aabb_min_y="-5.5" 
+			aabb_max_y="3"
+			>
+		</HitboxComponent>
+
+
+		<CharacterDataComponent 
+			_enabled="1" 
+			climb_over_y="4" 
+			collision_aabb_min_x="-2.0" 
+			collision_aabb_max_x="2.0" 
+			collision_aabb_min_y="-3" 
+			collision_aabb_max_y="3" 
+			buoyancy_check_offset_y="-3">
+	    </CharacterDataComponent>

@@ -1,0 +1,10 @@
+<Entity>
+  <SpriteComponent 
+		image_file="data/buildings_gfx/runes.xml" 
+		offset_x="0"
+		offset_y="0"
+		emissive="1"
+		>
+	</SpriteComponent>
+</Entity>
+

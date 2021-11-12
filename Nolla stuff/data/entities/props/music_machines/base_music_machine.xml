@@ -1,0 +1,175 @@
+<Entity tags="mortal" >
+	
+	<PhysicsBody2Component
+		allow_sleep="1"
+		angular_damping="0"
+		linear_damping="0"
+		kill_entity_after_initialized="0"
+	></PhysicsBody2Component>
+
+	<PhysicsImageShapeComponent 
+		is_root="1"
+		centered="1" 
+		image_file="data/props_gfx/music_machine.png"
+		material="metal_prop_low_restitution"
+	></PhysicsImageShapeComponent>
+
+	<DamageModelComponent 
+		air_needed="0" 
+		blood_material="smoke" 
+		drop_items_on_death="0" 
+		falling_damages="0" 
+		fire_damage_amount="0.4" 
+		fire_probability_of_ignition="0" 
+		critical_damage_resistance="1"
+		hp="8.0" 
+		is_on_fire="0" 
+		materials_create_messages="0" 
+		materials_damage="1"
+		materials_that_damage="fire,lava,acid"
+		materials_how_much_damage="0.0002,0.0001,0.001"
+		ragdoll_filenames_file="" 
+		ragdoll_material="" >
+		<damage_multipliers
+			melee="0.1"
+			electricity="0.0"
+			>
+		</damage_multipliers>
+	</DamageModelComponent>
+
+	<ExplodeOnDamageComponent
+		explode_on_death_percent="1"
+		explode_on_damage_percent="0.0"
+		physics_body_modified_death_probability="0.7"
+		physics_body_destruction_required="0.32"
+		>
+		<config_explosion
+			never_cache="0"
+			damage="1.2"
+			camera_shake="40" 
+			explosion_radius="25" 
+			explosion_sprite="data/particles/explosion_032.xml" 
+			explosion_sprite_lifetime="10" 
+			create_cell_probability="80" 
+			hole_destroy_liquid="0" 
+			load_this_entity="data/entities/particles/particle_explosion/main.xml"
+			hole_enabled="1" 
+			ray_energy="700000"
+			particle_effect="1" 
+			damage_mortals="1" 
+			physics_explosion_power.min="1.9" 
+			physics_explosion_power.max="2.5" 
+			physics_throw_enabled="1"
+			shake_vegetation="1" 
+			sparks_count_min="10" 
+			sparks_count_max="25" 
+			sparks_enabled="1" 
+			stains_enabled="1" 
+			stains_radius="15" 
+			delay.min="1"
+			delay.max="4"
+			explosion_delay_id="1"
+			>
+		</config_explosion>
+	</ExplodeOnDamageComponent>
+
+	<ParticleEmitterComponent 
+		_enabled="0"
+		_tags="fx"
+		emitted_material_name="spark_white"
+		offset.x="0"
+		offset.y="0"
+		x_pos_offset_min="3"
+		x_pos_offset_max="23"
+		y_pos_offset_min="-1"
+		y_pos_offset_max="-0"
+		x_vel_min="10"
+		x_vel_max="60"
+		y_vel_min="-20"
+		y_vel_max="0"
+		gravity.y="0.0"
+		count_min="1"
+		count_max="3"
+		lifetime_min="0.2"
+		lifetime_max="1.2"
+		is_trail="0"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		airflow_force="1.5"
+		airflow_time="1.101"
+		airflow_scale="0.05"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		emit_cosmetic_particles="1"
+		create_real_particles="0"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+	
+	<SpriteParticleEmitterComponent
+		_enabled="0"
+		_tags="fx"
+		sprite_file="data/particles/note_$[1-4].xml"
+		delay="0"
+		lifetime="1.5"
+		color.r="1" color.g="1" color.b="1" color.a="1"
+		color_change.r="0" color_change.g="0" color_change.b="0" color_change.a="-1"
+		velocity.x="0" velocity.y="0"
+		gravity.x="0" gravity.y="0"
+		velocity_slowdown="0"
+		rotation="0"
+		angular_velocity="0"
+		use_velocity_as_rotation="0"
+		scale.x="1" scale.y="1"
+		scale_velocity.x="0" scale_velocity.y="0"
+		emission_interval_min_frames="20"
+		emission_interval_max_frames="35"
+		count_min="1" count_max="1"
+		randomize_rotation.min="-0.3415"
+		randomize_rotation.max="0.3415"
+		randomize_angular_velocity.min="-0.1415"
+		randomize_angular_velocity.max="0.1415"
+		randomize_position.min_x="3"
+		randomize_position.max_x="5"
+		randomize_position.min_y="-17"
+		randomize_position.max_y="-0"
+		randomize_velocity.min_x="8"
+		randomize_velocity.max_x="20"
+		randomize_velocity.min_y="-8"
+		randomize_velocity.max_y="8"
+		entity_velocity_multiplier="0.1"
+		>
+	</SpriteParticleEmitterComponent>
+	
+	<!-- audio and particle fx enable/disable -->
+
+    <LuaComponent 
+        script_kick="data/entities/props/music_machines/music_machine_00_kick.lua" 
+	></LuaComponent>
+
+    <LuaComponent 
+    	execute_on_added="1"
+    	execute_every_n_frame="-1"
+        script_source_file="data/entities/props/music_machines/music_machine_reset.lua" 
+	></LuaComponent>
+
+    <LuaComponent 
+        script_audio_event_dead="data/entities/props/music_machines/music_machine_audio_dead.lua" 
+	></LuaComponent>
+
+    <LuaComponent 
+    	_enabled="0"
+		_tags="fx"
+    	execute_on_added="0"
+    	execute_every_n_frame="60"
+        script_source_file="data/entities/props/music_machines/music_machine_animal_effects.lua" 
+	></LuaComponent>
+
+	<AudioComponent
+		file="data/audio/Desktop/music.bank"
+		event_root="music/ancient_tracks"
+		set_latest_event_position="1"
+        remove_latest_event_on_destroyed="1"
+        send_message_on_event_dead="1"
+	></AudioComponent>
+	
+</Entity>

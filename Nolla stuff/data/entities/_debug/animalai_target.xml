@@ -1,0 +1,19 @@
+<Entity tags="mortal,human,hittable,peasant,prey,player_unit,teleportable" >
+   
+	<GenomeDataComponent
+		food_chain_rank="100"
+		>
+	</GenomeDataComponent>
+
+    <DebugFollowMouseComponent></DebugFollowMouseComponent>
+  
+
+	<SpriteComponent 
+		image_file="data/ui_gfx/mouse_cursor.png" 
+		offset_x="6"
+		offset_y="6"
+		z_index="-1"
+		>
+	</SpriteComponent>
+
+</Entity>

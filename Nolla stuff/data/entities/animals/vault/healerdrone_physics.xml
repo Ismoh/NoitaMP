@@ -1,0 +1,31 @@
+<Entity >
+  <Base file="data/entities/animals/healerdrone_physics.xml">
+	<PhysicsAIComponent
+		target_vec_max_len="15.0"
+		force_coeff="20.0"
+		force_balancing_coeff="0.8"
+		force_max="100"
+		torque_coeff="50"
+		torque_balancing_coeff="0.8"
+		torque_max="50.0"
+		damage_deactivation_probability="20"
+		damage_deactivation_time_min="30"
+		damage_deactivation_time_max="100" >
+	</PhysicsAIComponent>
+	
+    <DamageModelComponent 
+      hp="0.75"
+      max_hp="0.75"
+     ></DamageModelComponent >
+  </Base>
+  
+	<Entity>
+		<InheritTransformComponent />
+		
+	    <GameEffectComponent 
+	        effect="PROTECTION_FREEZE"
+	        frames="-1"
+	    >
+		</GameEffectComponent >
+	</Entity>
+</Entity>

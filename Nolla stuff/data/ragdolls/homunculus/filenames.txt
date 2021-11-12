@@ -1,0 +1,6 @@
+data/ragdolls/homunculus/torso.png
+data/ragdolls/homunculus/head.png
+data/ragdolls/homunculus/arm_l.png
+data/ragdolls/homunculus/arm_r.png
+data/ragdolls/homunculus/foot_l.png
+data/ragdolls/homunculus/foot_r.png

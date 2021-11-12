@@ -1,0 +1,274 @@
+<Entity 
+  name="$projectile_default" tags="projectile_player"
+   >
+
+	<Base file="data/entities/base_projectile.xml" >
+		<VelocityComponent
+    		gravity_y="50"
+			air_friction="0"
+			mass="0.3"
+			>
+    	</VelocityComponent> 
+	</Base>
+
+  <ProjectileComponent 
+    _enabled="1" 
+  	lob_min="0.8"
+  	lob_max="1.0"
+  	speed_min="300"
+  	speed_max="400"
+    die_on_low_velocity="1"
+    on_death_explode="1"
+    on_death_gfx_leave_sprite="0" 
+    on_lifetime_out_explode="1"
+	explosion_dont_damage_shooter="1"
+    damage="0"
+    on_collision_die="1"
+	die_on_liquid_collision="1"
+    lifetime="200"
+	muzzle_flash_file="data/entities/particles/muzzle_flashes/muzzle_flash_launcher_large.xml"
+	shoot_light_flash_r="255"
+    shoot_light_flash_g="210"
+    shoot_light_flash_b="40"
+    shoot_light_flash_radius="120"
+	knockback_force="3.0"
+	physics_impulse_coeff="9000"
+	>
+	<damage_by_type
+		fire="2.25"
+		>
+	</damage_by_type>
+    <config_explosion
+      never_cache="1" 
+      camera_shake="20.5" 
+      explosion_radius="45" 
+      explosion_sprite="data/particles/explosion_040_poof.xml" 
+      explosion_sprite_lifetime="0" 
+      create_cell_probability="100" 
+      create_cell_material="fire" 
+      hole_destroy_liquid="0"
+      load_this_entity="data/entities/particles/particle_explosion/main.xml,data/entities/misc/loose_ground.xml,data/entities/misc/explosion_was_here.xml"
+      ray_energy="7500000"
+      hole_enabled="1" 
+      hole_image="data/temp/explosion_hole.png" 
+      particle_effect="1" 
+      damage_mortals="1"
+      physics_explosion_power.min="2" 
+      physics_explosion_power.max="4" 
+      physics_throw_enabled="1" 
+      shake_vegetation="1" 
+      sparks_enabled="1"
+	  sparks_count_min="50"
+      sparks_count_max="100" 
+      light_fade_time="0.8" 
+      stains_enabled="1" 
+      stains_image="data/temp/explosion_stain.png" >
+    </config_explosion>
+  </ProjectileComponent>
+  
+  <SpriteComponent 
+    _enabled="1" 
+    alpha="1" 
+    image_file="data/projectiles_gfx/meteor.xml" 
+    next_rect_animation="" 
+    offset_x="0" 
+    offset_y="0" 
+    rect_animation=""
+	emissive="1"
+	additive="1"
+    z_index="-0.5"
+     >
+  </SpriteComponent>
+
+  <ParticleEmitterComponent 
+    emitted_material_name="smoke"
+    offset.x="0"
+    offset.y="1"
+    x_pos_offset_min="-1"
+    y_pos_offset_min="-1"
+    x_pos_offset_max="1"
+    y_pos_offset_max="1"
+    x_vel_min="-10"
+    x_vel_max="10"
+    y_vel_min="-10"
+    y_vel_max="10"
+    count_min="5"
+    count_max="5"
+    lifetime_min="0.1"
+    lifetime_max="0.3"
+    create_real_particles="1"
+    emit_cosmetic_particles="0"
+    emission_interval_min_frames="1"
+    emission_interval_max_frames="1"
+    is_emitting="1" >
+  </ParticleEmitterComponent>
+  
+  <ParticleEmitterComponent 
+    emitted_material_name="fire"
+    offset.x="0"
+    offset.y="0"
+    x_pos_offset_min="-1"
+    y_pos_offset_min="-1"
+    x_pos_offset_max="1"
+    y_pos_offset_max="1"
+    x_vel_min="-10"
+    x_vel_max="10"
+    y_vel_min="-10"
+    y_vel_max="10"
+    count_min="1"
+    count_max="1"
+    lifetime_min="0.1"
+    lifetime_max="0.3"
+    create_real_particles="1"
+    emit_cosmetic_particles="0"
+    emission_interval_min_frames="1"
+    emission_interval_max_frames="2"
+    is_emitting="1"
+    >
+  </ParticleEmitterComponent>
+  
+  <ParticleEmitterComponent 
+    emitted_material_name="fire"
+    custom_style="FIRE"
+    count_min="6"
+    count_max="6"
+    offset.x="0"
+    offset.y="0"
+    x_pos_offset_min="-12"
+    x_pos_offset_max="12"
+    y_pos_offset_min="-12"
+    y_pos_offset_max="12"
+    x_vel_min="0"
+    x_vel_max="0"
+    y_vel_min="0"
+    y_vel_max="0"
+    lifetime_min="1.1"
+    lifetime_max="2.8"
+    create_real_particles="1"
+    emit_cosmetic_particles="0"
+    emission_interval_min_frames="1"
+    emission_interval_max_frames="1"
+	delay_frames="2"
+    is_emitting="0" >
+  </ParticleEmitterComponent>
+  
+  <ParticleEmitterComponent 
+		emitted_material_name="spark"
+		offset.x="0"
+		offset.y="0"
+		x_pos_offset_min="-2"
+		x_pos_offset_max="2"
+		y_pos_offset_min="-2"
+		y_pos_offset_max="2"
+		x_vel_min="-2"
+		x_vel_max="2"
+		y_vel_min="-2"
+		y_vel_max="2"
+		gravity.y="0.0"
+		count_min="40"
+		count_max="100"
+		lifetime_min="0.2"
+		lifetime_max="0.4"
+		area_circle_radius.min="10"
+		area_circle_radius.max="10"
+		render_on_grid="1"
+		fade_based_on_lifetime="0"
+		airflow_force="2.5"
+		airflow_time="1.401"
+		airflow_scale="0.05"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		emit_cosmetic_particles="1"
+		create_real_particles="0"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+	
+	<ParticleEmitterComponent 
+		emitted_material_name="fire"
+		offset.x="0"
+		offset.y="0"
+		x_pos_offset_min="-2"
+		x_pos_offset_max="2"
+		y_pos_offset_min="-2"
+		y_pos_offset_max="2"
+		x_vel_min="-80"
+		x_vel_max="80"
+		y_vel_min="-80"
+		y_vel_max="80"
+		gravity.y="0.0"
+		count_min="80"
+		count_max="120"
+		lifetime_min="0.1"
+		lifetime_max="0.2"
+		area_circle_radius.min="12"
+		area_circle_radius.max="12"
+		render_on_grid="0"
+		fade_based_on_lifetime="1"
+		airflow_force="8.5"
+		airflow_time="1.401"
+		airflow_scale="0.05"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		emit_cosmetic_particles="1"
+		create_real_particles="0"
+		is_emitting="0" >
+	</ParticleEmitterComponent>
+  
+  <SpriteParticleEmitterComponent
+    sprite_file="data/particles/fire_large.xml"
+    delay="0"
+    lifetime="0"
+	emissive="1"
+	additive="1"
+    color.r="1" color.g="1" color.b="1" color.a="1"
+    color_change.r="0" color_change.g="0" color_change.b="0" color_change.a="-2"
+    velocity.x="0" velocity.y="0"
+    gravity.x="0" gravity.y="10"
+    velocity_slowdown="0"
+    rotation="0"
+    angular_velocity="0"
+    use_velocity_as_rotation="0"
+    scale.x="1" scale.y="1"
+    scale_velocity.x="0" scale_velocity.y="0"
+    emission_interval_min_frames="1"
+    emission_interval_max_frames="1"
+    count_min="3" count_max="5"
+    randomize_rotation.min="-0.3415"
+    randomize_rotation.max="0.3415"
+    randomize_angular_velocity.min="-1.3415"
+    randomize_angular_velocity.max="1.3415"
+    randomize_position.min_x="-7"
+    randomize_position.max_x="7"
+    randomize_position.min_y="-7"
+    randomize_position.max_y="7"
+    randomize_velocity.min_x="-10"
+    randomize_velocity.max_x="10"
+    randomize_velocity.min_y="-10"
+    randomize_velocity.max_y="10"
+	is_emitting="1"
+    >
+  </SpriteParticleEmitterComponent>
+
+  <LightComponent 
+    _enabled="1" 
+    radius="150" >
+  </LightComponent>
+
+  <AudioComponent
+      file="data/audio/Desktop/projectiles.bank"
+      event_root="player_projectiles/meteor">
+  </AudioComponent>
+  
+  <AudioLoopComponent
+		file="data/audio/Desktop/projectiles.bank"
+		event_name="player_projectiles/meteor/loop"
+		auto_play="1">
+	</AudioLoopComponent>
+
+	<VariableStorageComponent
+		name="projectile_file"
+		value_string="data/entities/projectiles/deck/meteor.xml"
+		>
+	</VariableStorageComponent>
+</Entity>
+

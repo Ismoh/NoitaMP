@@ -1,0 +1,55 @@
+<Biome>
+  <Topology 
+    name="$biome_lava"
+    type="BIOME_PROCEDURAL"
+    background_image="data/weather_gfx/background_cave_04.png" 
+    background_edge_left="data/weather_gfx/edges/background_cave_04_left.png"
+    background_edge_right="data/weather_gfx/edges/background_cave_04_right.png"
+    background_edge_top="data/weather_gfx/edges/background_cave_04_top.png"
+    background_edge_bottom="data/weather_gfx/edges/background_cave_04_bottom.png"
+    background_edge_priority="9"     
+
+    lua_script="data/scripts/biomes/hills.lua"
+    noise_biome_edges="0"
+    skip_edge_textures="1"
+>
+
+  </Topology>
+
+  <Materials 
+    name="lava" 
+     >
+    <MaterialComponent 
+      _enabled="1" 
+      is_rare="0" 
+      limit_max_y="2048" 
+      limit_min_y="100" 
+      limit_y="0" 
+      material_index="10" 
+      material_max="100" 
+      material_min="-100" 
+      material_name="lava" 
+      rare_polka_is_boxed="0" 
+      rare_polka_probability="0.160871" 
+      rare_polka_radius_high="0.771429" 
+      rare_polka_radius_low="0.357143" 
+      rare_required_max="10" 
+      rare_required_min="0" 
+      rare_scale_x="0.0100004" 
+      rare_scale_y="0.00357165" 
+      rare_use_perlin="0" 
+      rare_use_polka="0" 
+      is_polygon="1"
+      >
+      <polygon>
+        <Vec2 x="0" y="0.02" />
+        <Vec2 x="1" y="0.02" />
+        <Vec2 x="1" y="1" />
+        <Vec2 x="0" y="1" />
+      </polygon>
+    </MaterialComponent>
+
+  </Materials>
+
+</Biome>
+

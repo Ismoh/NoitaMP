@@ -1,0 +1,9 @@
+<Entity name="unknown" >
+  <Base file="data/entities/base_item_physics2.xml" >
+    <PhysicsImageShapeComponent 
+      image_file="data/props_gfx/stone_04.png"
+      material="rock_box2d"
+      >
+    </PhysicsImageShapeComponent>
+  </Base>
+</Entity>

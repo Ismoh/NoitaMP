@@ -1,0 +1,13 @@
+<Entity >
+	<InheritTransformComponent>
+    </InheritTransformComponent>
+	
+    <CellEaterComponent
+		eat_probability="50"
+        radius="10" 
+		limited_materials="1"
+		materials="sand,soil,bone,fungisoil,mud,sandstone,snow,snow_sticky,sand_herb,wax,coal,sulphur,salt,gunpowder,gunpowder_unstable,gunpowder_explosive,gunpowder_tnt,poo,glass_broken"
+		>
+    </CellEaterComponent>
+  
+</Entity>

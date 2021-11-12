@@ -1,0 +1,118 @@
+<Entity name="$animal_failed_alchemist">
+  
+    <Base file="data/entities/base_enemy_basic.xml" >
+		<AnimalAIComponent 
+			escape_if_damaged_probability="0"
+            hide_from_prey="1"
+            hide_from_prey_target_distance="200"
+            hide_from_prey_time="480"
+			attack_melee_damage_min="2.0" 
+			attack_melee_damage_max="3.6"
+			attack_melee_max_distance="20"
+			needs_food="0"
+			can_fly="0" 
+			aggressiveness_min="1"
+			aggressiveness_max="80"
+			attack_melee_action_frame="6"
+			attack_melee_finish_enabled="1" 
+			attack_melee_finish_action_frame="6"
+			>
+			<attack_melee_finish_config_explosion 
+				camera_shake="2" 
+				explosion_radius="4" 
+				explosion_sprite="data/particles/explosion_016_plasma_pink.xml"
+				explosion_sprite_lifetime="1" 
+				create_cell_probability="0" 
+				hole_destroy_liquid="0" 
+				hole_enabled="1" 
+				particle_effect="0" 
+				damage="1.0"
+				damage_mortals="1" 
+				physics_explosion_power.min="0.2"
+				physics_explosion_power.max="0.6"
+				physics_throw_enabled="1" 
+				shake_vegetation="1" 
+				sparks_enabled="1"
+				spark_material="spark_purple_bright"
+				sparks_count_min="10"
+				sparks_count_max="20"
+				stains_radius="2"
+				stains_enabled="1" >
+			</attack_melee_finish_config_explosion >
+			>
+		</AnimalAIComponent>
+        
+        <SpriteComponent 
+            image_file="data/enemies_gfx/failed_alchemist.xml" 
+            offset_x="0" 
+            offset_y="0" >
+        </SpriteComponent>
+
+        <DamageModelComponent 
+            hp="16"
+            ragdoll_material="bone_box2d"
+			ragdoll_filenames_file="data/ragdolls/failed_alchemist/filenames.txt" 
+			blood_material="bone"
+			blood_spray_material="bone"
+			fire_probability_of_ignition="0" 
+			ragdoll_offset_y="-10"
+			fire_probability_of_ignition="0"
+			>
+			<damage_multipliers
+			projectile="0.6"
+			fire="0.2"
+			electricity="0.6"
+			slice="1.2"
+			>
+			</damage_multipliers>
+		</DamageModelComponent>
+		
+        <PathFindingComponent  
+			can_jump="1"
+			can_fly="0" 
+            frames_to_get_stuck="20" >
+        </PathFindingComponent>
+		
+		<PathFindingGridMarkerComponent
+			marker_work_flag="24" >
+		</PathFindingGridMarkerComponent>
+
+        <HitboxComponent 
+            _enabled="1" 
+            aabb_max_x="8" 
+            aabb_max_y="2" 
+            aabb_min_x="-8" 
+            aabb_min_y="-24" >
+        </HitboxComponent>
+		
+		<CharacterPlatformingComponent 
+            jump_velocity_y="-240" 
+            run_velocity="12" 
+			swim_idle_buoyancy_coeff="0.8" >
+        </CharacterPlatformingComponent>
+		
+		<GenomeDataComponent 
+			herd_id="mage"
+			food_chain_rank="5"
+			is_predator="1" >
+		</GenomeDataComponent>
+		
+		<CharacterDataComponent
+			collision_aabb_min_x="-6.0" 
+			collision_aabb_max_x="6.0" 
+			collision_aabb_min_y="-20" 
+			collision_aabb_max_y="3"
+			mass="1.8" >
+		</CharacterDataComponent>
+		
+		<AudioComponent
+			file="data/audio/Desktop/animals.bank"
+			event_root="animals/ghost" >
+		</AudioComponent>
+    </Base>
+  
+	<ItemPickUpperComponent
+		is_in_npc="1">
+	</ItemPickUpperComponent>
+
+</Entity>

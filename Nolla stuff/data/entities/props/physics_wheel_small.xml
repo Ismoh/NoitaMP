@@ -1,0 +1,55 @@
+<Entity tags="mortal" >
+
+  <!-- mortal is required so it can explode -->
+
+  <Base file="data/entities/base_item_physics.xml" >
+
+    <PhysicsImageShapeComponent
+      image_file="data/props_gfx/wheel_small.png"
+      material="wood_prop" >
+    </PhysicsImageShapeComponent>
+
+	<PhysicsBodyComponent 
+	angular_damping="0.01" 
+	gridworld_box2d="0" 
+	linear_damping="0.1" 
+	randomize_init_velocity="1"
+	>
+    </PhysicsBodyComponent>
+  </Base>
+
+  <PhysicsJointComponent 
+    nail_to_wall="1" 
+    pos_x="20"
+    pos_y="20"
+    grid_joint="1"
+	mMotorEnabled="1"
+    mMotorSpeed="-1"
+    mMaxMotorTorque="100" 
+	>	>
+  </PhysicsJointComponent>
+  
+  <CameraBoundComponent
+	  max_count="100"
+	  distance="1000">
+	</CameraBoundComponent>
+	
+	<DamageModelComponent 
+		air_needed="0" 
+		blood_material="wood" 
+		blood_multiplier="0"
+		drop_items_on_death="0" 
+		falling_damages="0" 
+		fire_damage_amount="0.2" 
+		fire_probability_of_ignition="0" 
+		critical_damage_resistance="1"
+		hp="99999" 
+		is_on_fire="0" 
+		materials_create_messages="0" 
+		materials_damage="1" 
+		ragdoll_filenames_file="" 
+		ragdoll_material="wood" 
+		ui_report_damage="0"
+		>
+	</DamageModelComponent>
+</Entity>

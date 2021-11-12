@@ -1,0 +1,1 @@
+data/ragdolls/pebble/torso.png

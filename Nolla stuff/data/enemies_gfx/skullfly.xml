@@ -1,0 +1,108 @@
+<Sprite 
+  filename="data/enemies_gfx/skullfly.png" 
+  offset_x="14" 
+  offset_y="24"
+  default_animation="stand" >
+
+  <RectAnimation 
+    frame_count="8" 
+    frame_height="29" 
+    frame_wait="0.1" 
+    frame_width="29" 
+    frames_per_row="8" 
+    name="stand" 
+    pos_x="0" 
+    pos_y="1" 
+    shrink_by_one_pixel="1" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="8" 
+    frame_height="29" 
+    frame_wait="0.08" 
+    frame_width="29" 
+    frames_per_row="8" 
+    name="walk" 
+    pos_x="0" 
+    pos_y="1" 
+    shrink_by_one_pixel="1" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="8" 
+    frame_height="29" 
+    frame_wait="0.08" 
+    frame_width="29" 
+    frames_per_row="8" 
+    name="run" 
+    pos_x="0" 
+    pos_y="1" 
+    shrink_by_one_pixel="1" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="8" 
+    frame_height="29" 
+    frame_wait="0.08" 
+    frame_width="29" 
+    frames_per_row="8" 
+    name="burn" 
+    pos_x="0" 
+    pos_y="1" 
+    shrink_by_one_pixel="1" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="8" 
+    frame_height="29" 
+    frame_wait="0.08" 
+    frame_width="29" 
+    frames_per_row="8" 
+    loop="0" 
+    name="attack_ranged" 
+    pos_x="0" 
+    pos_y="30" 
+    shrink_by_one_pixel="1" >
+
+    <Event 
+      check_physics_material="0" 
+      frame="4" 
+      max_distance="500" 
+      name="shoot_magic" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="5" 
+    frame_height="29" 
+    frame_wait="0.1" 
+    frame_width="29" 
+    frames_per_row="8" 
+    loop="0" 
+    name="attack" 
+    pos_x="0" 
+    pos_y="59" 
+    shrink_by_one_pixel="1" >
+
+    <Event 
+      check_physics_material="0" 
+      frame="3" 
+      max_distance="500" 
+      name="bite" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+  </RectAnimation>
+
+</Sprite>
+

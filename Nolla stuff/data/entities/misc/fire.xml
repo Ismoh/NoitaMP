@@ -1,0 +1,9 @@
+<Entity >
+   
+  <ElectricityComponent
+      hack_is_set_fire="1" >
+  </ElectricityComponent>
+
+  <LifetimeComponent lifetime="1" />
+  
+</Entity>

@@ -1,0 +1,54 @@
+<PixelScenes>
+  <mBufferedPixelScenes>
+    <PixelScene background_filename="" colors_filename="" material_filename="data/biome_impl/spliced/lavalake2/0.plz" pos_x="2050" pos_y="445" skip_biome_checks="1" >
+    </PixelScene>
+    <PixelScene background_filename="" colors_filename="" material_filename="data/biome_impl/spliced/lavalake2/1.plz" pos_x="2048" pos_y="512" skip_biome_checks="1" >
+    </PixelScene>
+    <PixelScene background_filename="" colors_filename="" material_filename="data/biome_impl/spliced/lavalake2/2.plz" pos_x="2065" pos_y="1024" skip_biome_checks="1" >
+    </PixelScene>
+    <PixelScene background_filename="" colors_filename="" material_filename="data/biome_impl/spliced/lavalake2/3.plz" pos_x="2326" pos_y="1536" skip_biome_checks="1" >
+    </PixelScene>
+    <PixelScene background_filename="" colors_filename="" material_filename="data/biome_impl/spliced/lavalake2/4.plz" pos_x="2556" pos_y="2048" skip_biome_checks="1" >
+    </PixelScene>
+    <PixelScene background_filename="" colors_filename="" material_filename="data/biome_impl/spliced/lavalake2/5.plz" pos_x="2560" pos_y="451" skip_biome_checks="1" >
+    </PixelScene>
+    <PixelScene background_filename="" colors_filename="" material_filename="data/biome_impl/spliced/lavalake2/6.plz" pos_x="2560" pos_y="512" skip_biome_checks="1" >
+    </PixelScene>
+    <PixelScene background_filename="" colors_filename="" material_filename="data/biome_impl/spliced/lavalake2/7.plz" pos_x="2560" pos_y="1024" skip_biome_checks="1" >
+    </PixelScene>
+    <PixelScene background_filename="" colors_filename="" material_filename="data/biome_impl/spliced/lavalake2/8.plz" pos_x="2560" pos_y="1536" skip_biome_checks="1" >
+    </PixelScene>
+    <PixelScene background_filename="" colors_filename="" material_filename="data/biome_impl/spliced/lavalake2/9.plz" pos_x="2560" pos_y="2048" skip_biome_checks="1" >
+    </PixelScene>
+    <PixelScene background_filename="" colors_filename="" material_filename="data/biome_impl/spliced/lavalake2/10.plz" pos_x="3072" pos_y="451" skip_biome_checks="1" >
+    </PixelScene>
+    <PixelScene background_filename="" colors_filename="" material_filename="data/biome_impl/spliced/lavalake2/11.plz" pos_x="3072" pos_y="512" skip_biome_checks="1" >
+    </PixelScene>
+    <PixelScene background_filename="" colors_filename="" material_filename="data/biome_impl/spliced/lavalake2/12.plz" pos_x="3072" pos_y="1024" skip_biome_checks="1" >
+    </PixelScene>
+    <PixelScene background_filename="" colors_filename="" material_filename="data/biome_impl/spliced/lavalake2/13.plz" pos_x="3072" pos_y="1536" skip_biome_checks="1" >
+    </PixelScene>
+    <PixelScene background_filename="" colors_filename="" material_filename="data/biome_impl/spliced/lavalake2/14.plz" pos_x="3072" pos_y="2048" skip_biome_checks="1" >
+    </PixelScene>
+    <PixelScene background_filename="" colors_filename="" material_filename="data/biome_impl/spliced/lavalake2/15.plz" pos_x="3584" pos_y="445" skip_biome_checks="1" >
+    </PixelScene>
+    <PixelScene background_filename="" colors_filename="" material_filename="data/biome_impl/spliced/lavalake2/16.plz" pos_x="3584" pos_y="512" skip_biome_checks="1" >
+    </PixelScene>
+    <PixelScene background_filename="" colors_filename="" material_filename="data/biome_impl/spliced/lavalake2/17.plz" pos_x="3584" pos_y="1024" skip_biome_checks="1" >
+    </PixelScene>
+    <PixelScene background_filename="" colors_filename="" material_filename="data/biome_impl/spliced/lavalake2/18.plz" pos_x="3584" pos_y="1536" skip_biome_checks="1" >
+    </PixelScene>
+    <PixelScene background_filename="" colors_filename="" material_filename="data/biome_impl/spliced/lavalake2/19.plz" pos_x="3584" pos_y="2048" skip_biome_checks="1" >
+    </PixelScene>
+    <PixelScene background_filename="" colors_filename="" material_filename="data/biome_impl/spliced/lavalake2/20.plz" pos_x="4096" pos_y="461" skip_biome_checks="1" >
+    </PixelScene>
+    <PixelScene background_filename="" colors_filename="" material_filename="data/biome_impl/spliced/lavalake2/21.plz" pos_x="4096" pos_y="512" skip_biome_checks="1" >
+    </PixelScene>
+    <PixelScene background_filename="" colors_filename="" material_filename="data/biome_impl/spliced/lavalake2/22.plz" pos_x="4096" pos_y="1024" skip_biome_checks="1" >
+    </PixelScene>
+    <PixelScene background_filename="" colors_filename="" material_filename="data/biome_impl/spliced/lavalake2/23.plz" pos_x="4608" pos_y="2048" skip_biome_checks="1" >
+    </PixelScene>
+    <PixelScene background_filename="" colors_filename="" material_filename="data/biome_impl/spliced/lavalake2/24.plz" pos_x="4608" pos_y="2392" skip_biome_checks="1" >
+    </PixelScene>
+  </mBufferedPixelScenes>
+</PixelScenes>

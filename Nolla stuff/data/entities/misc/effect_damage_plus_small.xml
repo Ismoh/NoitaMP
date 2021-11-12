@@ -1,0 +1,23 @@
+<Entity >
+	<InheritTransformComponent />
+	
+	<ShotEffectComponent
+		extra_modifier="damage_plus_small"
+		>
+	</ShotEffectComponent>
+	
+	<LifetimeComponent
+		lifetime="300"
+		>
+	</LifetimeComponent>
+	
+	<UIIconComponent
+		name="$status_damage_plus_small"
+		description="$statusdesc_damage_plus_small"
+		icon_sprite_file="data/ui_gfx/status_indicators/damage_plus_small.png"
+		is_perk="0"
+		display_above_head="0"
+		display_in_hud="1"
+		>
+	</UIIconComponent>
+</Entity>

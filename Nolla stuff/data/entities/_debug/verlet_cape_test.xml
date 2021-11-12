@@ -1,0 +1,20 @@
+<Entity >
+   
+    <VerletPhysicsComponent
+    	num_points="100"
+        width="10"
+        type="CLOTH"
+    	stiffness="1.5"
+    	velocity_dampening="0.7"
+        simulate_wind="1"
+        resting_distance="1.5"
+    	constrain_stretching="1"
+    	collide_with_cells="1"
+    	mass_min="0.1"
+    	mass_max="0.2"
+    	pixelate_sprite_transforms="0" >
+    </VerletPhysicsComponent>
+
+    <DebugFollowMouseComponent></DebugFollowMouseComponent>
+  
+</Entity>

@@ -1,0 +1,129 @@
+<Entity tags="mortal,hittable,teleportable_NOT,prop,prop_physics">
+
+	<PhysicsBody2Component 
+		allow_sleep="1"
+		angular_damping="0"
+		linear_damping="0" 
+	></PhysicsBody2Component>
+
+	<PhysicsImageShapeComponent 
+		is_root="1"
+		centered="1" 
+		image_file="data/props_gfx/trap_laser_small.png"
+		material="steel"
+	></PhysicsImageShapeComponent>
+
+	<ElectricityReceiverComponent
+		radius="6"
+		active_time_frames="15"
+	></ElectricityReceiverComponent>
+
+	<Entity name="laser">
+		<LaserEmitterComponent
+			_tags="laser_toggle"
+			is_emitting="0"
+			>
+			<laser
+				max_length="256"
+				>
+			</laser>
+		</LaserEmitterComponent>
+
+		<InheritTransformComponent>
+			<Transform 
+				position.x="5"
+			></Transform>
+		</InheritTransformComponent>
+	</Entity>
+	
+	<LuaComponent
+		script_source_file="data/scripts/props/trap_laser_toggle.lua"
+		execute_every_n_frame="150"
+		>
+	</LuaComponent>
+	
+	<LuaComponent
+		script_source_file="data/scripts/props/trap_laser_init.lua"
+		execute_on_added="1"
+		remove_after_executed="1"
+		>
+	</LuaComponent>
+	
+	<VariableStorageComponent
+		name="status"
+		value_int="0"
+		>
+	</VariableStorageComponent>
+	
+	<SpriteComponent
+		_tags="laser_toggle"
+		_enabled="0"
+		image_file="data/props_gfx/trap_laser_small_overlay.xml"
+		rect_animation="default"
+		z_index="-1"
+		>
+	</SpriteComponent>
+
+	<DamageModelComponent 
+		air_needed="0" 
+		blood_material="spark_green" 
+		blood_multiplier="3"
+		drop_items_on_death="0" 
+		falling_damage_damage_max="1.2" 
+		falling_damage_damage_min="0.1" 
+		falling_damage_height_max="250" 
+		falling_damage_height_min="70" 
+		falling_damages="0" 
+		fire_damage_amount="0.4" 
+		fire_probability_of_ignition="0"
+		critical_damage_resistance="1"
+		hp="30" 
+		is_on_fire="0" 
+		materials_create_messages="0" 
+		materials_damage="1" 
+		materials_that_damage="fire,lava,acid"
+		materials_how_much_damage="0.0002,0.0001,0.001"
+		ragdoll_filenames_file="" 
+		ragdoll_material="" 
+		><damage_multipliers
+			melee="0.1"
+			electricity="0"
+		></damage_multipliers>
+	</DamageModelComponent>
+
+	<ExplodeOnDamageComponent
+		explode_on_death_percent="1"
+		explode_on_damage_percent="0.0"
+		physics_body_modified_death_probability="1.0" 
+		physics_body_destruction_required="0.15"
+		><config_explosion
+			never_cache="0"
+			damage="2.6"
+			camera_shake="10" 
+			explosion_radius="16" 
+			explosion_sprite="data/particles/explosion_016_electric.xml" 
+			explosion_sprite_lifetime="10" 
+			create_cell_probability="50" 
+			hole_destroy_liquid="0" 
+			load_this_entity="data/entities/projectiles/thunderball.xml"
+			hole_enabled="1" 
+			ray_energy="25000"
+			particle_effect="1" 
+			damage_mortals="1" 
+			physics_explosion_power.min="1.7" 
+			physics_explosion_power.max="2.3" 
+			physics_throw_enabled="1"
+			shake_vegetation="1" 
+			sparks_count_max="20" 
+			sparks_count_min="7" 
+			sparks_enabled="1" 
+			stains_enabled="1" 
+			stains_radius="15" 
+			delay.min="1"
+			delay.max="4"
+			explosion_delay_id="1"
+			audio_event_name="explosions/electric"
+		></config_explosion>
+	</ExplodeOnDamageComponent>
+
+</Entity>

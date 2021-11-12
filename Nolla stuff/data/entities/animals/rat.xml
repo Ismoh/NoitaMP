@@ -1,0 +1,90 @@
+<Entity tags="rat" name="$animal_rat">
+  
+	<Base file="data/entities/base_enemy_basic.xml" >
+		<ItemChestComponent level="2" > </ItemChestComponent>
+
+		<AnimalAIComponent 
+			_enabled="1" 
+			preferred_job="JobDefault"
+			attack_melee_damage_min="0.2" 
+			attack_melee_damage_max="0.4"
+			needs_food="1"
+			attack_ranged_enabled="0"
+			can_fly="0" 
+			attack_melee_max_distance="10"
+			attack_melee_action_frame="3"
+			>
+		</AnimalAIComponent>
+		
+		<DamageModelComponent 
+			ragdoll_filenames_file="data/ragdolls/rat/filenames.txt" 
+			ragdoll_offset_y="-1"
+			hp="0.2"
+			air_needed="1"
+			>
+		</DamageModelComponent>
+
+		<SpriteComponent 
+			image_file="data/enemies_gfx/rat.xml" 
+			offset_x="10"
+			offset_y="12" >
+		</SpriteComponent>
+
+		<PathFindingComponent
+		    distance_to_reach_node_x="20"
+		    distance_to_reach_node_y="20"
+			frames_to_get_stuck="20"
+			can_swim_on_surface="1"
+			can_dive="1"
+			can_jump="1" >
+		</PathFindingComponent>
+
+		<PathFindingGridMarkerComponent
+			marker_work_flag="16" >
+		</PathFindingGridMarkerComponent>
+		
+		<GenomeDataComponent 
+			herd_id="rat"
+			food_chain_rank="10"
+			is_predator="1" >
+		</GenomeDataComponent>
+		
+		<CharacterPlatformingComponent 
+			jump_velocity_y="-30" 
+			run_velocity="40"  >
+		</CharacterPlatformingComponent>
+        
+        <HitboxComponent 
+			_enabled="1" 
+			aabb_min_x="-5.5" 
+			aabb_max_x="5.5" 
+			aabb_min_y="-1.4" 
+			aabb_max_y="3.5" 
+			is_enemy="1" 
+			is_item="0" 
+			is_player="0" >
+		</HitboxComponent>
+		
+		<CharacterDataComponent
+			collision_aabb_min_x="-3.5" 
+			collision_aabb_max_x="3.5" 
+			collision_aabb_min_y="-3" 
+			collision_aabb_max_y="3" 
+			buoyancy_check_offset_y="-1"
+			mass="0.4"
+			>
+		</CharacterDataComponent>
+	</Base>
+
+	<AudioComponent
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals/rat" >
+	</AudioComponent>
+	
+	<VariableStorageComponent
+		name="plague_rats"
+		>
+	</VariableStorageComponent>
+
+</Entity>
+

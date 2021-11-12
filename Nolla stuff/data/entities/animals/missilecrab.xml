@@ -1,0 +1,141 @@
+<Entity name="$animal_missilecrab" >
+  
+	<Base file="data/entities/base_enemy_robot.xml" >
+		<AnimalAIComponent 
+			_enabled="1" 
+			preferred_job="JobDefault"
+			attack_melee_damage_min="0.4" 
+			attack_melee_damage_max="0.7"
+			creature_detection_range_x="200"
+			creature_detection_range_y="200"
+			escape_if_damaged_probability="0"
+			food_material="blood"
+			needs_food="0"
+			sense_creatures="1"
+			attack_ranged_enabled="1"
+			can_fly="0"  
+			attack_ranged_action_frame="4"
+			attack_ranged_entity_file="data/entities/projectiles/rocket_tiny_roll.xml"
+			attack_ranged_frames_between="120" 
+			attack_ranged_entity_count_min="3"
+			attack_ranged_entity_count_max="4"
+			aggressiveness_min="1"
+			aggressiveness_max="5"
+			attack_ranged_aim_rotation_enabled="1"
+			attack_ranged_aim_rotation_speed="0.1"
+			attack_ranged_aim_rotation_shooting_ok_angle_deg="5"
+			attack_ranged_use_laser_sight="1"
+			attack_ranged_laser_sight_beam_kind="1"
+			aggressiveness_min="1"
+			aggressiveness_max="80"
+			>
+		</AnimalAIComponent>
+		
+		<DamageModelComponent 
+            hp="12"
+            ragdoll_material="steel"
+			ragdoll_filenames_file="data/ragdolls/missilecrab/filenames.txt" 
+			blood_material="oil"
+			fire_probability_of_ignition="0" 
+			>
+			<damage_multipliers
+				explosion="0.6"
+				>
+			</damage_multipliers>
+		</DamageModelComponent>
+
+		<SpriteComponent 
+			image_file="data/enemies_gfx/missilecrab.xml" 
+			offset_x="0"
+			offset_y="0">
+		</SpriteComponent>
+
+		<PathFindingGridMarkerComponent
+			marker_work_flag="16" >
+		</PathFindingGridMarkerComponent>
+		
+		<PathFindingComponent
+		    distance_to_reach_node_x="20"
+		    distance_to_reach_node_y="20"
+			frames_to_get_stuck="120"
+			can_jump="1" >
+		</PathFindingComponent>
+
+		<GenomeDataComponent 
+			herd_id="robot"
+			food_chain_rank="5"
+			is_predator="1" >
+		</GenomeDataComponent>
+		
+		<CharacterPlatformingComponent 
+			jump_velocity_y="-12" 
+			swim_idle_buoyancy_coeff="0.8"
+			run_velocity="24"  >
+		</CharacterPlatformingComponent>
+		
+		<HitboxComponent 
+			_enabled="1" 
+			aabb_max_x="8" 
+			aabb_max_y="4" 
+			aabb_min_x="-8" 
+			aabb_min_y="-8" 
+			>
+		</HitboxComponent>
+	
+		<CameraBoundComponent
+			max_count="30"
+			distance="160000">
+		</CameraBoundComponent>
+		
+		<CharacterDataComponent
+			collision_aabb_min_x="-5.0" 
+			collision_aabb_max_x="5.0" 
+			collision_aabb_min_y="-7" 
+			collision_aabb_max_y="3"
+			mass="1.9"
+			>
+		</CharacterDataComponent>
+	</Base>
+		
+	<SpriteComponent 
+		_tags="laser_sight"
+		_enabled="1" 
+		alpha="1" 
+		image_file="data/particles/laser_blue.png"
+		offset_x="5" 
+		offset_y="1"
+		emissive="1"
+		additive="1"
+		visible="0"
+		update_transform="0"
+		next_rect_animation="" 
+		rect_animation="default" 
+		 >
+	</SpriteComponent>
+	
+	<SpriteComponent 
+        _tags="character" 
+		_enabled="1" 
+		alpha="1" 
+		image_file="data/enemies_gfx/missilecrab_emissive.xml"
+		offset_x="0" 
+		offset_y="0"
+		emissive="1"
+        additive="1"
+		next_rect_animation="" 
+		rect_animation="walk" 
+		 >
+	</SpriteComponent>
+	
+	<Entity>
+		<InheritTransformComponent />
+		
+	    <GameEffectComponent 
+	        effect="PROTECTION_FREEZE"
+	        frames="-1"
+	    >
+		</GameEffectComponent >
+	</Entity>
+
+</Entity>
+

@@ -1,0 +1,169 @@
+<Entity
+	name="$projectile_default" 
+	>
+
+	<Base file="data/entities/base_projectile.xml" >
+		<VelocityComponent
+			gravity_y="0"
+			air_friction="2"
+			>
+		</VelocityComponent> 
+	</Base>
+
+	<UIInfoComponent
+		name="$teleport_strange_unstable"
+		>
+	</UIInfoComponent>
+
+	<LightComponent 
+		_enabled="1" 
+		radius="255"
+		fade_out_time="1.5" 
+		r="64"
+		g="100"
+		b="255"
+		offset_y="-0"
+	></LightComponent>
+	
+	<LightComponent 
+		_enabled="1" 
+		radius="64"
+		fade_out_time="1.5" 
+		r="255"
+		g="255"
+		b="255"
+		offset_y="-0"
+		blinking_freq="0.3"
+	></LightComponent>
+	
+	<ParticleEmitterComponent 
+		_tags="modulate_radius"
+		emitted_material_name="spark_purple"
+		gravity.y="0.0"
+		lifetime_min="3"
+		lifetime_max="4"
+		x_vel_min="0"
+		x_vel_max="0"
+		y_vel_min="0"
+		y_vel_max="0"
+		count_min="10"
+		count_max="80"
+		render_on_grid="1"
+		fade_based_on_lifetime="0"
+		area_circle_radius.min="15"
+		area_circle_radius.max="15"
+		cosmetic_force_create="1"
+		collide_with_grid="0"
+		airflow_force="0.081"
+		airflow_time="1.01"
+		airflow_scale="0.03"
+		emission_interval_min_frames="12"
+		emission_interval_max_frames="12"
+		emit_cosmetic_particles="1"
+		velocity_always_away_from_center="11"
+		render_back="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+
+	<ParticleEmitterComponent 
+		emitted_material_name="spark_purple"
+		gravity.y="0.0"
+		lifetime_min="3"
+		lifetime_max="4"
+		x_vel_min="-20"
+		x_vel_max="20"
+		y_vel_min="-20"
+		y_vel_max="20"
+		count_min="1"
+		count_max="1"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		area_circle_radius.min="0"
+		area_circle_radius.max="6"
+		cosmetic_force_create="1"
+		collide_with_grid="0"
+		airflow_force="0.051"
+		airflow_time="1.01"
+		airflow_scale="0.03"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		emit_cosmetic_particles="1"
+		velocity_always_away_from_center="0"
+		render_back="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+
+	<ParticleEmitterComponent 
+		emitted_material_name="spark_purple"
+		delay_frames="118"
+		gravity.y="0.0"
+		lifetime_min="3"
+		lifetime_max="12"
+		x_vel_min="-250"
+		x_vel_max="250"
+		y_vel_min="-250"
+		y_vel_max="250"
+		friction="1.2"
+		count_min="40"
+		count_max="80"
+		render_on_grid="1"
+		fade_based_on_lifetime="0"
+		area_circle_radius.min="6"
+		area_circle_radius.max="6"
+		cosmetic_force_create="1"
+		collide_with_grid="0"
+		airflow_force="0.051"
+		airflow_time="1.01"
+		airflow_scale="0.03"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		emit_cosmetic_particles="1"
+		velocity_always_away_from_center="0"
+		render_back="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+	
+	<SpriteComponent 
+		_tags="modulate_radius"
+		image_file="data/buildings_gfx/teleport_center.xml" 
+		offset_x="0"
+		offset_y="0"
+		z_index="1"
+		additive="1"
+		>
+	</SpriteComponent>
+
+	<AudioLoopComponent
+		file="data/audio/Desktop/misc.snd"
+		event_name="misc/teleport_loop"
+		calculate_material_lowpass="0"
+		auto_play="1" >
+	</AudioLoopComponent>
+
+	<AudioLoopComponent
+		file="data/audio/Desktop/misc.snd"
+		event_name="misc/teleport_emitter_loop"
+		calculate_material_lowpass="0"
+		auto_play="1" >
+	</AudioLoopComponent>
+
+	<AudioComponent
+		file="data/audio/Desktop/projectiles.snd"
+		event_root="player_projectiles/fizzle">
+	</AudioComponent>
+
+	<LifetimeComponent
+		lifetime="120"
+	></LifetimeComponent>
+
+	<LuaComponent
+		script_source_file="data/scripts/projectiles/summon_portal_vibrate.lua"
+		execute_every_n_frame="1"
+	></LuaComponent>
+
+	<LuaComponent
+		script_source_file="data/scripts/projectiles/summon_portal_position_check.lua"
+		execute_every_n_frame="118"
+	></LuaComponent>
+
+</Entity>

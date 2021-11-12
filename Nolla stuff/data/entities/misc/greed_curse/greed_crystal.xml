@@ -1,0 +1,133 @@
+<Entity tags="greed_crystal" >
+
+  <!-- mortal is required so it can explode -->
+
+  <Base file="data/entities/base_item_physics.xml" >
+	<PhysicsBodyComponent
+		on_death_leave_physics_body="1"
+		>
+	</PhysicsBodyComponent>
+	
+    <PhysicsImageShapeComponent
+      image_file="data/props_gfx/worm_deflector_crystal.png"
+      material="magic_crystal_green" >
+    </PhysicsImageShapeComponent>
+  </Base>
+
+  <DamageModelComponent 
+    air_needed="0" 
+    blood_material="spark_green" 
+    drop_items_on_death="0" 
+    falling_damage_damage_max="1.2" 
+    falling_damage_damage_min="0.1" 
+    falling_damage_height_max="250" 
+    falling_damage_height_min="70" 
+    falling_damages="0" 
+    fire_damage_amount="0.4" 
+    fire_probability_of_ignition="0"
+	critical_damage_resistance="1"
+    hp="10.2" 
+    is_on_fire="0" 
+    materials_create_messages="0" 
+    materials_damage="1"
+    materials_that_damage="fire,lava,acid"
+    materials_how_much_damage="0.0002,0.0001,0.001"
+    ragdoll_filenames_file="" 
+    ragdoll_material="" >
+	<damage_multipliers
+		melee="0.1"
+		>
+	</damage_multipliers>
+  </DamageModelComponent>
+  
+  <ExplodeOnDamageComponent
+  	explode_on_death_percent="1"
+  	explode_on_damage_percent="0.0"
+    physics_body_modified_death_probability="0.9"
+    physics_body_destruction_required="0.3"
+  	>
+    <config_explosion
+      never_cache="0"
+      damage="0"
+      camera_shake="40" 
+      explosion_radius="20" 
+      explosion_sprite="" 
+      explosion_sprite_lifetime="0" 
+      create_cell_probability="0" 
+      hole_destroy_liquid="0" 
+      load_this_entity="data/entities/particles/particle_explosion/main_green.xml"
+      hole_enabled="1" 
+      ray_energy="30000"
+      particle_effect="0" 
+      damage_mortals="0" 
+      physics_explosion_power.min="1.9" 
+      physics_explosion_power.max="2.5" 
+      physics_throw_enabled="1"
+      shake_vegetation="1" 
+      sparks_count_min="10" 
+      sparks_count_max="25" 
+      sparks_enabled="1" 
+      stains_enabled="1" 
+      stains_radius="15" 
+      >
+    </config_explosion>
+  </ExplodeOnDamageComponent>
+  
+	<Entity>
+		<InheritTransformComponent>
+			<Transform 
+				position.x="0"   
+				position.y="0" 
+			>
+			</Transform>
+		</InheritTransformComponent>
+
+		<ParticleEmitterComponent 
+			emitted_material_name="spark_green"
+			gravity.y="0.0"
+			lifetime_min="1"
+			lifetime_max="3"
+			x_vel_min="-5"
+			x_vel_max="5"
+			y_vel_min="-20"
+			y_vel_max="5"
+			count_min="15"
+			count_max="15"
+			render_on_grid="1"
+			fade_based_on_lifetime="1"
+			cosmetic_force_create="1"
+			collide_with_grid="0"
+			airflow_force="0.051"
+			airflow_time="1.01"
+			airflow_scale="0.03"
+			emission_interval_min_frames="12"
+			emission_interval_max_frames="12"
+			emit_cosmetic_particles="1"
+			area_circle_radius.max="11"
+			render_back="1"
+			is_emitting="1" 
+			>
+		</ParticleEmitterComponent>
+		
+		<LightComponent 
+			_enabled="1" 
+			radius="80" 
+			r="45"
+			g="250"
+			b="165"
+			>
+		</LightComponent>
+	</Entity>
+	
+	<UIInfoComponent
+		name="$item_greed_crystal"
+		>
+	</UIInfoComponent>
+	
+	<LuaComponent
+		execute_every_n_frame="-1"
+		script_death="data/scripts/magic/greed_curse/greed_crystal_death.lua"
+		remove_after_executed="0">
+	  </LuaComponent>
+
+</Entity>

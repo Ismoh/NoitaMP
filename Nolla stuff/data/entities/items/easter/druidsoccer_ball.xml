@@ -1,0 +1,15 @@
+<Entity name="unknown" >
+	<Base file="data/entities/base_item_physics.xml" >
+
+    <PhysicsBodyComponent 
+      auto_clean="0" >
+    </PhysicsBodyComponent>
+
+    <PhysicsImageShapeComponent 
+      image_file="data/items_gfx/easter/druidsoccer_ball.png"
+      material="rock_box2d" >
+    </PhysicsImageShapeComponent>
+
+  </Base>
+
+</Entity>

@@ -1,0 +1,20 @@
+<Sprite
+filename="data/particles/charm.png"
+offset_x="3.5"
+offset_y="3" 
+default_animation="stand"
+ >
+
+<!-- soul around -->
+<RectAnimation
+name="stand"
+pos_x="0"
+pos_y="0"
+frame_count="1"
+frame_width="7"
+frame_height="6"
+frame_wait="0.12"
+frames_per_row="6"
+loop="1"   >
+</RectAnimation>
+</Sprite>

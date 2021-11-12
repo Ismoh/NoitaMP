@@ -1,0 +1,9 @@
+<Entity tags="mortal,hittable" >
+	<Base file="data/entities/base_dripping_liquid.xml">
+		<ParticleEmitterComponent
+			emission_interval_min_frames="5"
+			emission_interval_max_frames="15"
+			>
+		</ParticleEmitterComponent>
+	</Base>
+</Entity>

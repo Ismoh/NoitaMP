@@ -1,0 +1,13 @@
+<Entity>
+	<Base file="data/entities/misc/quantum_split_fx_red.xml">
+		<SpriteComponent 
+			image_file="data/projectiles_gfx/quantum_fx_blue.xml" 
+			>
+		</SpriteComponent>
+		<ParticleEmitterComponent 
+			emitted_material_name="plasma_fading"
+			>
+		</ParticleEmitterComponent>
+	</Base>
+</Entity>
+

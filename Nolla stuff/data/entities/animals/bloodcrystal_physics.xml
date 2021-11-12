@@ -1,0 +1,163 @@
+<Entity tags="glue_NOT" name="$animal_bloodcrystal_physics" >
+  
+  <PhysicsAIComponent
+		target_vec_max_len="20.0"
+		force_coeff="20.0"
+		force_balancing_coeff="1.8"
+		force_max="120"
+		torque_coeff="50"
+		torque_balancing_coeff="1.2"
+		torque_max="50.0"
+		damage_deactivation_probability="20"
+		damage_deactivation_time_min="20"
+		damage_deactivation_time_max="40" >
+	</PhysicsAIComponent>
+
+	<PhysicsBodyComponent 
+		allow_sleep="1" 
+		angular_damping="0.02" 
+		fixed_rotation="0" 
+		is_bullet="0" 
+		linear_damping="0" 
+		on_death_leave_physics_body="1" >
+	</PhysicsBodyComponent>
+
+	<PhysicsImageShapeComponent 
+		image_file="data/enemies_gfx/bloodcrystal_physics.png"
+		centered="0"
+		material="crystal_purple" 
+		offset_x="10"
+		offset_y="10"
+		>
+	</PhysicsImageShapeComponent>
+	
+	<LightComponent 
+		_enabled="1" 
+		radius="200"
+		r="225"
+		g="10"
+		b="180" >
+	</LightComponent>
+	
+	<Base file="data/entities/base_enemy_flying.xml" >
+		<AnimalAIComponent 
+			_enabled="1" 
+			preferred_job="JobDefault"
+			creature_detection_range_x="300"
+			creature_detection_range_y="300"
+			sense_creatures="1"
+			needs_food="0"
+			attack_ranged_enabled="0"
+			attack_melee_enabled="0"
+			can_fly="1"  
+			eye_offset_y="-12"
+			>
+		</AnimalAIComponent>
+		
+		<DamageModelComponent 
+            hp="4"
+            ragdoll_material="crystal_purple"
+			ragdoll_filenames_file="" 
+			blood_material="plasma_fading_pink"
+			blood_spray_material="plasma_fading_pink"
+			fire_probability_of_ignition="0" 
+			air_needed="0"
+			blood_sprite_directional=""
+			blood_sprite_large=""
+			>
+			<damage_multipliers
+				melee="0.5"
+				projectile="0.5"
+				explosion="1.0"
+				electricity="0.1"
+				ice="2.0"
+				fire="0" >
+			</damage_multipliers>
+		</DamageModelComponent>
+
+		<SpriteComponent 
+			image_file="" 
+			offset_x="0"
+			offset_y="0">
+		</SpriteComponent>
+
+		<PathFindingGridMarkerComponent
+			marker_work_flag="16" >
+		</PathFindingGridMarkerComponent>
+		
+		<PathFindingComponent
+		    distance_to_reach_node_x="20"
+		    distance_to_reach_node_y="20"
+			frames_to_get_stuck="120"
+			can_jump="0" 
+			can_fly="1"
+			jump_speed="0"
+			>
+		</PathFindingComponent>
+
+		<GenomeDataComponent 
+			herd_id="ghost"
+			food_chain_rank="7"
+			is_predator="1" >
+		</GenomeDataComponent>
+		
+		<CharacterPlatformingComponent 
+			jump_velocity_y="0" 
+			run_velocity="24"  >
+		</CharacterPlatformingComponent>
+		
+		<HitboxComponent 
+			_enabled="1" 
+			aabb_max_x="10" 
+			aabb_max_y="10" 
+			aabb_min_x="-10" 
+			aabb_min_y="-10" 
+			>
+		</HitboxComponent>
+	
+		<CameraBoundComponent
+			max_count="30"
+			distance="160000">
+		</CameraBoundComponent>
+		
+		<CharacterDataComponent 
+			collision_aabb_min_x="-8"
+			collision_aabb_max_x="8"  
+			collision_aabb_min_y="-8"
+			collision_aabb_max_y="8"
+			mass="3.0"
+			>
+		</CharacterDataComponent>
+		
+		<SpriteStainsComponent
+			_enabled="0"
+			>
+		</SpriteStainsComponent>
+	</Base>
+
+	<CollisionTriggerComponent
+    	width="60"
+    	height="60"
+    	radius="30"
+		required_tag="prey"
+    	timer_for_destruction="30" 
+		destroy_this_entity_when_triggered="0"
+		>
+    </CollisionTriggerComponent>
+	
+	<LuaComponent
+	    execute_on_removed="0"
+	    execute_every_n_frame="-1"
+		script_collision_trigger_hit="data/scripts/animals/bloodcrystal_explosion.lua"
+	    remove_after_executed="0">
+  	</LuaComponent>
+  	
+	<AudioLoopComponent
+		file="data/audio/Desktop/animals.bank"
+		event_name="animals/magical/movement_loop"
+		set_speed_parameter="1"
+		auto_play="1">
+	</AudioLoopComponent>
+
+</Entity>
+

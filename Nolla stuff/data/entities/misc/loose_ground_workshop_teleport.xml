@@ -1,0 +1,12 @@
+<Entity >
+  <LooseGroundComponent
+  	probability="0.1"
+  	max_distance="75"
+  ></LooseGroundComponent>
+
+  <LifetimeComponent
+  	lifetime="60"
+  	randomize_lifetime.min="-10"
+  	randomize_lifetime.max="50"
+  ></LifetimeComponent>
+</Entity>

@@ -1,0 +1,29 @@
+<Entity>
+	<InheritTransformComponent>
+    </InheritTransformComponent>
+	
+    <MagicConvertMaterialComponent
+      kill_when_finished="0"
+      from_any_material="1"
+      steps_per_frame="3"
+      to_material="gold_radioactive"
+      clean_stains="0"
+      is_circle="1"
+      radius="300" 
+      convert_same_material="0"
+	  >
+    </MagicConvertMaterialComponent>
+	
+	<LifetimeComponent
+		lifetime="160"
+		>
+	</LifetimeComponent>
+	
+	<LuaComponent 
+        execute_every_n_frame="159"
+        remove_after_executed="1"
+        script_source_file="data/entities/animals/boss_centipede/ending/midas_convert_everything_to_radioactive_gold.lua" 
+	>
+    </LuaComponent>
+</Entity>
+

@@ -1,0 +1,19 @@
+<Sprite
+ filename="data/props_gfx/root_grower_fruit.png"
+ offset_x="9"
+ offset_y="11" 
+ default_animation="grow" >
+
+ <RectAnimation
+  name="grow"
+  pos_x="0"
+  pos_y="0"
+  frame_count="8"
+  frame_width="18"
+  frame_height="18"
+  frame_wait="0.1"
+  frames_per_row="8"
+  loop="0"   >
+ </RectAnimation>
+
+</Sprite>

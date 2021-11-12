@@ -1,0 +1,11 @@
+<Entity>
+	<InheritTransformComponent>
+    </InheritTransformComponent>	
+    
+    <GameEffectComponent 
+        effect="NO_WAND_EDITING"
+        frames="600"
+    >
+	</GameEffectComponent >
+
+</Entity>

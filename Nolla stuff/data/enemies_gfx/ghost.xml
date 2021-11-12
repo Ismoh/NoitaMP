@@ -1,0 +1,22 @@
+<Sprite 
+  default_animation="stand" 
+  filename="data/enemies_gfx/ghost.png" 
+  offset_x="20" 
+  offset_y="20"
+>
+
+  <RectAnimation 
+    frame_count="8" 
+    frame_height="41" 
+    frame_wait="0.16" 
+    frame_width="41" 
+    frames_per_row="8" 
+    name="stand" 
+    pos_x="0" 
+    pos_y="1" 
+    shrink_by_one_pixel="1" >
+
+  </RectAnimation>
+
+</Sprite>
+

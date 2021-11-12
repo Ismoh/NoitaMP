@@ -1,0 +1,80 @@
+<Entity tags="mortal" >
+
+  <!-- mortal is required so it can explode -->
+
+  <Base file="data/entities/base_item_physics2.xml" >
+    <PhysicsBody2Component
+      kill_entity_after_initialized="0" >
+    </PhysicsBody2Component>
+    <PhysicsImageShapeComponent
+      image_file="data/props_gfx/barrel_water.png"
+      material="wood_prop" >
+    </PhysicsImageShapeComponent>
+  </Base>
+
+  <MaterialInventoryComponent 
+    _enabled="1" 
+    drop_as_item="0" 
+    on_death_spill="1"
+    leak_on_damage_percent="0.999"
+    audio_collision_size_modifier_amount="1"
+    >
+    <count_per_material_type>
+      <Material material="water" count="750"  />
+    </count_per_material_type>
+  </MaterialInventoryComponent>
+
+  <DamageModelComponent 
+    air_needed="0" 
+    blood_material="water" 
+    drop_items_on_death="0" 
+    falling_damage_damage_max="1.2" 
+    falling_damage_damage_min="0.1" 
+    falling_damage_height_max="250" 
+    falling_damage_height_min="70" 
+    falling_damages="0" 
+    fire_damage_amount="0.4" 
+    fire_probability_of_ignition="0"
+	  critical_damage_resistance="1"
+    hp="0.3" 
+    is_on_fire="0" 
+    materials_create_messages="0" 
+    materials_damage="1"
+    materials_that_damage="fire,lava,acid"
+    materials_how_much_damage="0.0002,0.0001,0.001"
+    ragdoll_filenames_file="" 
+    ragdoll_material="" >
+	<damage_multipliers
+		melee="0.1"
+		>
+	</damage_multipliers>
+  </DamageModelComponent>
+  
+  <!-- physics_body_destruction_required (0.0-1.0, 0 = intact, 1 = destroyed)  
+       physics_body_modified_death_probability (if more destroyed than physics_body_destruction_required, explode with this probability (0.9 = 90% chance))-->
+
+  <AudioLoopComponent
+    _tags="sound_spray"
+    file="data/audio/Desktop/materials.bank"
+    event_name="materials/spray" 
+    volume_autofade_speed="0.25" >
+  </AudioLoopComponent>
+  
+  <AudioComponent
+    file="data/audio/Desktop/materials.bank"
+    event_root="collision/wood"
+    set_latest_event_position="1" >
+  </AudioComponent>
+
+  <AudioComponent
+    file="data/audio/Desktop/materials.bank"
+    event_root="collision/barrel_water" >
+  </AudioComponent>
+
+  <!-- ignore the name, this is for the liquid container hit sound that plays when kicked -->
+  <AudioComponent
+    file="data/audio/Desktop/materials.bank"
+    event_root="collision/metalhollow" >
+  </AudioComponent>
+
+</Entity>

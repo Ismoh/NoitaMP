@@ -1,0 +1,18 @@
+<Entity >
+  <Base file="data/entities/animals/worm_skull.xml">
+    <DamageModelComponent 
+      hp="150"
+      max_hp="150"
+     ></DamageModelComponent >
+  </Base>
+  
+  <Entity>
+		<InheritTransformComponent />
+		
+	    <GameEffectComponent 
+	        effect="PROTECTION_FREEZE"
+	        frames="-1"
+	    >
+		</GameEffectComponent >
+	</Entity>
+</Entity>

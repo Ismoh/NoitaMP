@@ -1,0 +1,62 @@
+<Entity tags="mortal,hittable,glue_NOT" >
+
+<!-- mortal is required so it can explode -->
+
+	<SpriteComponent 
+		image_file="data/buildings_gfx/lukki_eggs.xml" 
+		offset_x="0" 
+		offset_y="0" 
+		 >
+	</SpriteComponent>
+
+	<LightComponent 
+		_enabled="1" 
+		radius="100" 
+		>
+	</LightComponent>
+	
+	<HitboxComponent 
+		aabb_min_x="-9" 
+		aabb_max_x="9" 
+		aabb_min_y="-9" 
+		aabb_max_y="9" 
+		>
+	</HitboxComponent>
+
+	<DamageModelComponent 
+		air_needed="0" 
+		blood_material="slime" 
+		drop_items_on_death="0"  
+		fire_damage_amount="0.2" 
+		fire_probability_of_ignition="0" 
+		critical_damage_resistance="1"
+		hp="8" 
+		is_on_fire="0" 
+		materials_create_messages="0" 
+		materials_damage="0" 
+		ragdoll_filenames_file="" 
+		ragdoll_material="meat_slime"
+	>
+	</DamageModelComponent>
+  
+	<CameraBoundComponent
+		max_count="99999"
+		distance="1000"
+	>
+	</CameraBoundComponent>
+	
+	<MaterialInventoryComponent 
+		drop_as_item="0" 
+		on_death_spill="1"
+		leak_on_damage_percent="0.999"
+    >
+		<count_per_material_type>
+			<Material material="slime" count="50"  />
+		</count_per_material_type>
+	</MaterialInventoryComponent>
+
+	<LuaComponent 
+		execute_every_n_frame="-1" 
+		script_damage_received="data/scripts/buildings/lukki_eggs.lua" >
+	</LuaComponent>
+</Entity>

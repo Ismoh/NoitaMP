@@ -1,0 +1,83 @@
+<Entity tags="">
+	<PhysicsBody2Component 
+		is_static="0"
+		allow_sleep="1"
+		angular_damping="0.01"
+		linear_damping="0.3" 
+		fixed_rotation="0"
+		is_bullet="0"
+		init_offset_y="8"
+		kill_entity_after_initialized="1"
+	></PhysicsBody2Component>
+
+	<PhysicsImageShapeComponent 
+		body_id="100"
+		is_root="1"
+		centered="0"
+		offset_y="0"
+		image_file="data/props_gfx/grass_stalk.png"
+		material="fungus_loose"
+	></PhysicsImageShapeComponent>
+	<PhysicsImageShapeComponent
+		body_id="101"
+		offset_x="0"
+		offset_y="2"
+		image_file="data/props_gfx/grass_stalk.png"
+		material="fungus_loose"
+	></PhysicsImageShapeComponent>
+	<PhysicsImageShapeComponent
+		body_id="102"
+		offset_x="0"
+		offset_y="4"
+		image_file="data/props_gfx/grass_stalk.png"
+		material="fungus_loose"
+	></PhysicsImageShapeComponent>
+
+	<!-- joints -->
+	<PhysicsJoint2MutatorComponent
+		joint_id="1"
+		motor_speed="0.001"
+		motor_max_torque="91"
+	></PhysicsJoint2MutatorComponent>
+	<PhysicsJoint2MutatorComponent
+		joint_id="2"
+		motor_speed="0.001"
+		motor_max_torque="91"
+	></PhysicsJoint2MutatorComponent>
+
+	<!-- stalk joints -->
+	<PhysicsJoint2Component
+		type="REVOLUTE_JOINT"
+		joint_id="1"
+		offset_x="0.5"
+		offset_y="2"
+		body1_id="100"
+		body2_id="101"
+		break_force="10"
+		break_distance="5"
+	></PhysicsJoint2Component>
+	<PhysicsJoint2Component
+		type="REVOLUTE_JOINT"
+		joint_id="2"
+		offset_x="0.5"
+		offset_y="4"
+		body1_id="101"
+		body2_id="102"
+		break_force="10"
+		break_distance="5"
+	></PhysicsJoint2Component>
+
+	<!-- joint to ground -->
+	<PhysicsJoint2Component
+		type="REVOLUTE_JOINT_ATTACH_TO_NEARBY_SURFACE"
+		offset_x="0.5"
+		offset_y="6"
+		body1_id="102"
+		break_force="35"
+		break_distance="8"
+		ray_x="0"
+		ray_y="10"
+		surface_attachment_offset_y="0.0"
+	></PhysicsJoint2Component>
+
+</Entity>

@@ -1,0 +1,29 @@
+<Entity tags="teleportable_NOT,wand">
+	<LuaComponent 
+        _enabled="1" 
+        execute_every_n_frame="-1"
+        script_item_picked_up="data/scripts/particles/wand_pickup.lua"
+		remove_after_executed="0"		
+	>
+    </LuaComponent>
+
+	<!-- sentient charmed wands -->
+    <MaterialAreaCheckerComponent 
+        _tags="enabled_in_world"
+        update_every_x_frame="20"
+        look_for_failure="0"
+        area_aabb.min_x="-2" 
+        area_aabb.min_y="-4"        
+        area_aabb.max_x="2" 
+        area_aabb.max_y="0"     
+        material="magic_liquid_charm"
+        material2="magic_liquid_charm"
+        kill_after_message="0"
+        />
+
+    <LuaComponent
+        _tags="enabled_in_world"
+        script_material_area_checker_success="data/scripts/animals/wand_charm.lua" >
+    </LuaComponent>
+
+</Entity>

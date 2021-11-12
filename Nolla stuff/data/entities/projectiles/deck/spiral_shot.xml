@@ -1,0 +1,78 @@
+<Entity 
+  name="$projectile_default" tags="projectile_player"
+   >
+
+	<Base file="data/entities/base_projectile.xml" >
+		<VelocityComponent
+    		gravity_y="0"
+			air_friction="0"
+			mass="0.01"
+			>
+    	</VelocityComponent> 
+	</Base>
+
+  <ProjectileComponent 
+    _enabled="1" 
+	lob_min="0.8"
+  	lob_max="1.0"
+  	speed_min="100"
+  	speed_max="120"
+	collide_with_entities="0"
+    die_on_low_velocity="0"
+    on_death_explode="0"
+    on_death_gfx_leave_sprite="0" 
+    on_lifetime_out_explode="0"
+	explosion_dont_damage_shooter="1"
+    damage="0.2"
+    on_collision_die="0"
+	direction_random_rad="0.0"
+    lifetime="100"
+	muzzle_flash_file="data/entities/particles/muzzle_flashes/muzzle_flash_magic_large.xml"
+	shoot_light_flash_r="160"
+    shoot_light_flash_g="245"
+    shoot_light_flash_b="255"
+    shoot_light_flash_radius="180"
+	damage_every_x_frames="5"
+	physics_impulse_coeff="5000"
+	>
+  </ProjectileComponent>
+  
+	<LightComponent 
+		_enabled="1" 
+		radius="150" 
+		r="150"
+		g="35"
+		b="120">
+	</LightComponent>
+	
+	<LuaComponent 
+		remove_after_executed="1"
+		script_source_file="data/scripts/projectiles/spiral_shot_start.lua" 
+		execute_on_added="1">
+	</LuaComponent>
+	
+	<LuaComponent 
+		_enabled="1" 
+		remove_after_executed="0"
+		script_source_file="data/scripts/projectiles/spiral_shot.lua" 
+		execute_every_n_frame="1">
+	</LuaComponent>
+	
+  <AudioComponent
+      file="data/audio/Desktop/projectiles.bank"
+      event_root="player_projectiles/spiral_shot">
+  </AudioComponent>
+  
+  <AudioLoopComponent
+		file="data/audio/Desktop/projectiles.bank"
+		event_name="player_projectiles/spiral_shot/loop"
+		auto_play="1">
+	</AudioLoopComponent>
+	
+	<VariableStorageComponent
+		name="projectile_file"
+		value_string="data/entities/projectiles/deck/spiral_shot.xml"
+		>
+	</VariableStorageComponent>
+
+</Entity>

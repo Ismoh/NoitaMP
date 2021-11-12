@@ -1,0 +1,29 @@
+<Entity>
+
+  	<ParticleEmitterComponent 
+		emitted_material_name="snow"
+		offset.x="0"
+		offset.y="0"
+		x_pos_offset_min="-256"
+		x_pos_offset_max="0"
+		y_pos_offset_min="0"
+		y_pos_offset_max="0"
+		x_vel_min="0"
+		x_vel_max="0"
+		y_vel_min="0"
+		y_vel_max="0"
+		count_min="1"
+		count_max="10"
+		lifetime_min="0.2"
+		lifetime_max="0.5"
+		airflow_force="10.0"
+		is_trail="1"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		emit_cosmetic_particles="0"
+		create_real_particles="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+	
+</Entity>
+

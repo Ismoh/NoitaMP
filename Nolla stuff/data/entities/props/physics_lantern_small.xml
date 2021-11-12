@@ -1,0 +1,131 @@
+<Entity tags="mortal" >
+
+  <!-- mortal is required so it can explode -->
+
+  <Base file="data/entities/base_item_physics.xml" >
+    <PhysicsImageShapeComponent
+      image_file="data/props_gfx/lantern_small.png"
+      material="glass_box2d" >
+    </PhysicsImageShapeComponent>
+
+    <PhysicsBodyComponent allow_sleep="1" angular_damping="0.01" gridworld_box2d="1" linear_damping="0.1" >
+    </PhysicsBodyComponent>
+  </Base>
+
+  <PhysicsJointComponent 
+    nail_to_wall="1" 
+    breakable="1"
+    pos_x="4.5"
+    pos_y="4" >
+  </PhysicsJointComponent>
+
+  <LightComponent 
+    _enabled="1" 
+    radius="240" >
+  </LightComponent>
+
+  <MaterialInventoryComponent 
+    _enabled="1" 
+    drop_as_item="0" 
+    on_death_spill="1"
+    leak_on_damage_percent="0.999" 
+    >
+    <count_per_material_type>
+      <Material material="oil" count="4"  />
+	  </count_per_material_type>
+  </MaterialInventoryComponent>
+
+  <DamageModelComponent 
+    air_needed="0" 
+    blood_material="oil" 
+    drop_items_on_death="0" 
+    falling_damage_damage_max="1.2" 
+    falling_damage_damage_min="0.1" 
+    falling_damage_height_max="250" 
+    falling_damage_height_min="70" 
+    falling_damages="0" 
+    fire_damage_amount="0.2" 
+    fire_probability_of_ignition="0" 
+    hp="0.15" 
+    is_on_fire="0" 
+    materials_create_messages="0" 
+    materials_damage="0" 
+    ragdoll_filenames_file="" 
+    ragdoll_material=""
+    critical_damage_resistance="1" 
+	  ui_report_damage="0" >
+  </DamageModelComponent>
+
+  <ExplodeOnDamageComponent
+    explode_on_death_percent="1"
+    explode_on_damage_percent="0.0"
+    physics_body_modified_death_probability="0.75"
+    physics_body_destruction_required="0.5"
+  	>
+    <config_explosion
+      never_cache="0"
+      damage="0.2"
+      camera_shake="1" 
+      explosion_radius="5" 
+      explosion_sprite="data/particles/explosion_008.xml" 
+      explosion_sprite_lifetime="8" 
+      create_cell_probability="50" 
+      hole_destroy_liquid="0" 
+      hole_enabled="1" 
+      ray_energy="10000"
+      particle_effect="1"  
+      damage_mortals="1"
+      physics_explosion_power.min="0.05"
+      physics_explosion_power.max="0.1"
+      physics_throw_enabled="1"
+      shake_vegetation="1" 
+	    sparks_count_min="5" 
+      sparks_count_max="10" 
+      sparks_enabled="1" 
+      stains_enabled="1" 
+      stains_radius="10" >
+    </config_explosion>
+  </ExplodeOnDamageComponent>
+  
+	<PhysicsBodyCollisionDamageComponent 
+		_tags="enabled_in_world" 
+		speed_threshold="120.0"
+		>
+	</PhysicsBodyCollisionDamageComponent>
+  
+  <CameraBoundComponent
+    max_count="100"
+    distance="1000">
+  </CameraBoundComponent>
+
+  <SpriteComponent 
+    _tags="character"
+    alpha="1" 
+    image_file="data/props_gfx/lantern_small_flame.xml"
+    offset_x="4.45" 
+    offset_y="6.5"
+    emissive="0"
+    additive="0"
+    next_rect_animation="" 
+    rect_animation="stand" 
+	z_index="-1"
+     >
+  </SpriteComponent>
+  
+  <TorchComponent
+    _tags="enabled_in_world">
+  </TorchComponent>
+	
+  <SpriteAnimatorComponent>
+  </SpriteAnimatorComponent>
+
+  <LuaComponent script_physics_body_modified="data/scripts/props/physics_lantern_damaged.lua"  />
+  
+  <LuaComponent script_death="data/scripts/props/lantern_small_death.lua" />
+
+  <AudioComponent
+    file="data/audio/Desktop/materials.bank"
+    event_root="collision/lantern" >
+  </AudioComponent>
+
+</Entity>

@@ -1,0 +1,67 @@
+<Entity serialize="1" >
+
+	<PhysicsBody2Component 
+		allow_sleep="1"
+		angular_damping="0"
+		linear_damping="0" >
+	</PhysicsBody2Component>
+
+	<PhysicsImageShapeComponent
+		body_id="0"
+		offset_x="-9"
+		offset_y="-59"
+		image_file="data/props_gfx/overworld/pole_02.png"
+		material="wood_prop_noplayerhit" 
+		is_root="1" >
+	</PhysicsImageShapeComponent>
+
+	<PhysicsJoint2Component 
+		type="WELD_JOINT_ATTACH_TO_NEARBY_SURFACE"
+		body1_id="0"
+		offset_x="0"
+		offset_y="0"
+		break_force="2"
+		break_distance="8"
+		break_on_body_modified="1"
+		ray_x="0"
+		ray_y="8" >
+	</PhysicsJoint2Component>
+
+	<!-- cloths -->
+	<Entity>
+		<Base file="data/entities/verlet_chains/ribbon/ribbon_01.xml">
+			<InheritTransformComponent>
+				<Transform 
+					position.x="11"
+					position.y="14" >
+				</Transform>
+			</InheritTransformComponent>
+		</Base>
+	</Entity>
+	<Entity>
+		<Base file="data/entities/verlet_chains/ribbon/ribbon_02.xml">
+			<InheritTransformComponent>
+				<Transform 
+					position.x="11"
+					position.y="15" >
+				</Transform>
+			</InheritTransformComponent>
+		</Base>
+	</Entity>
+	<Entity>
+		<Base file="data/entities/verlet_chains/ribbon/ribbon_02.xml">
+			<InheritTransformComponent>
+				<Transform 
+					position.x="10"
+					position.y="20" >
+				</Transform>
+			</InheritTransformComponent>
+		</Base>
+	</Entity>
+
+	<LuaComponent
+		script_physics_body_modified="data/scripts/props/release_child_entities.lua"
+		remove_after_executed="1"
+		execute_every_n_frame="-1" >
+	</LuaComponent>
+</Entity>

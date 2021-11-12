@@ -1,0 +1,21 @@
+<Entity  
+  tags="vegetation,pixelsprite" >
+  
+  <PixelSpriteComponent 
+    _enabled="1" 
+    image_file="data/biome_impl/mountain/left_entrance_grass.png" 
+    anchor_x="198" 
+    anchor_y="40"
+    create_box2d_bodies="1"
+    clean_overlapping_pixels="1" 
+  >
+  </PixelSpriteComponent>
+
+  <SimplePhysicsComponent 
+    can_go_up="0"
+    >
+  </SimplePhysicsComponent >
+  
+  <VelocityComponent />
+</Entity>
+

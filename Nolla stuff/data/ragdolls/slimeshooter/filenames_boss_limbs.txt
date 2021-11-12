@@ -1,0 +1,9 @@
+data/ragdolls/slimeshooter/torso_boss_limbs.png
+data/ragdolls/slimeshooter/tentacle_1_a.png
+data/ragdolls/slimeshooter/tentacle_1_b.png
+data/ragdolls/slimeshooter/tentacle_2_a.png
+data/ragdolls/slimeshooter/tentacle_2_b.png
+data/ragdolls/slimeshooter/tentacle_3_a.png
+data/ragdolls/slimeshooter/tentacle_3_b.png
+data/ragdolls/slimeshooter/tentacle_4_a.png
+data/ragdolls/slimeshooter/tentacle_4_b.png

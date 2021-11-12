@@ -1,0 +1,19 @@
+<Sprite
+ filename="data/buildings_gfx/lasergun.png"
+ offset_x="6"
+ offset_y="6"
+ default_animation="stand" >
+
+ <!-- animation -->
+ <RectAnimation
+  name="stand"
+  pos_x="0"
+  pos_y="0"
+  frame_count="8"
+  frame_width="12"
+  frame_height="12"
+  frame_wait="0.1"
+  frames_per_row="8"
+  loop="1"   >
+ </RectAnimation>
+</Sprite>

@@ -1,0 +1,19 @@
+<Entity>
+	<InheritTransformComponent>
+    </InheritTransformComponent>
+	
+	<MagicConvertMaterialComponent
+		from_any_material="1"
+        to_material="acid"
+        steps_per_frame="5"
+        loop="0"
+		is_circle="1"
+        radius="20" >
+    </MagicConvertMaterialComponent>
+	
+	<LifetimeComponent
+		lifetime="4"
+	>
+	</LifetimeComponent>
+  
+</Entity>

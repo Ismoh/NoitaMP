@@ -1,0 +1,98 @@
+<Entity tags="mortal,hittable,homing_target,enemy" name="$animal_shooterflower">
+
+	<ItemChestComponent level="4" enemy_drop="1" > </ItemChestComponent>
+
+	<LuaComponent
+	    execute_every_n_frame="-1"
+	    script_death="data/scripts/items/drop_money.lua"
+	    remove_after_executed="1" >
+	</LuaComponent>
+
+	<AnimalAIComponent 
+		_enabled="1" 
+		preferred_job="JobDefault"
+		escape_if_damaged_probability="0"
+		attack_ranged_min_distance="0"
+		attack_ranged_max_distance="200"
+		attack_dash_enabled="0"
+		attack_melee_enabled="0"
+		creature_detection_range_x="350"
+		creature_detection_range_y="350"
+		eye_offset_y="-5"
+		attack_ranged_offset_y="-12"
+		sense_creatures="1"
+		attack_ranged_enabled="1"
+		needs_food="0"
+		can_fly="0"  
+		attack_ranged_entity_file="data/entities/projectiles/orb_tiny.xml"
+		attack_ranged_frames_between="100" 
+		attack_ranged_action_frame="6"
+		attack_ranged_entity_count_min="10"
+		attack_ranged_entity_count_max="10"
+		>
+	</AnimalAIComponent>
+  
+	<DamageModelComponent 
+        hp="5"
+        materials_create_messages="1"
+        ragdoll_material="meat_slime_green"
+		blood_material="slime_green"
+		blood_spray_material="slime_green"
+        ragdoll_filenames_file="" 
+		blood_sprite_directional="data/particles/bloodsplatters/bloodsplatter_directional_green_$[1-3].xml"
+		blood_sprite_large="data/particles/bloodsplatters/bloodsplatter_green_$[1-3].xml"
+		>
+	</DamageModelComponent>
+
+	<HitboxComponent 
+		_enabled="1" 
+		aabb_min_x="-8" 
+		aabb_max_x="8" 
+		aabb_min_y="-8" 
+		aabb_max_y="8" 
+		is_enemy="1" 
+		is_item="0" 
+		is_player="0" >
+	</HitboxComponent>
+
+	<CrawlerAnimalComponent
+		animate="1"
+        give_up_time="999"
+		gravity="600"
+		attack_from_ceiling_check_ray_length="1"
+        speed="0"
+		collision_damage="0">
+    </CrawlerAnimalComponent>
+
+	<SpriteComponent 
+		_tags="character" 
+		image_file="data/enemies_gfx/shooterflower.xml"
+		>
+	</SpriteComponent>
+
+	<MoveToSurfaceOnCreateComponent
+        offset_from_surface="0">
+    </MoveToSurfaceOnCreateComponent>
+
+	<CameraBoundComponent
+	  max_count="20"
+	  distance="160000">
+	</CameraBoundComponent>
+	
+	<GenomeDataComponent 
+		herd_id="flower"
+		food_chain_rank="15"
+		is_predator="1" >
+	</GenomeDataComponent>
+	
+	<SpriteAnimatorComponent>
+	</SpriteAnimatorComponent>
+		
+	<AudioComponent
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals/shooterflower" >
+	</AudioComponent>
+
+
+</Entity>
+

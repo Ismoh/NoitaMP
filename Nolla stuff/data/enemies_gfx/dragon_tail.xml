@@ -1,0 +1,21 @@
+<Sprite 
+  filename="data/enemies_gfx/dragon_tail.png" 
+  offset_x="17" 
+  offset_y="15"
+  default_animation="stand" >
+
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="33" 
+    frame_wait="0.12" 
+    frame_width="41" 
+    frames_per_row="4" 
+    name="eat" 
+    pos_x="0" 
+    pos_y="1" 
+    shrink_by_one_pixel="1" >
+
+  </RectAnimation>
+
+</Sprite>
+

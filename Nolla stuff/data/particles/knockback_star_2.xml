@@ -1,0 +1,20 @@
+<Sprite 
+  default_animation="stand" 
+  filename="data/particles/knockback_star.png" 
+  offset_x="4.5" 
+  offset_y="4.5" >
+
+  <RectAnimation 
+    name="stand" 
+    frame_count="6" 
+    frame_height="9" 
+    frame_wait="0.09" 
+    frame_width="9" 
+    frames_per_row="6" 
+    pos_x="0" 
+    pos_y="0" 
+    loop="0"
+    >
+  </RectAnimation>
+</Sprite>
+

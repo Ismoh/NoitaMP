@@ -1,0 +1,100 @@
+<Entity 
+	name="$projectile_default" 
+	>
+
+	<Base file="data/entities/base_projectile.xml" >
+		<VelocityComponent
+			gravity_y="0"
+			air_friction="0"
+			mass="0.05"
+			>
+		</VelocityComponent> 
+	</Base>
+
+	<ProjectileComponent 
+		_enabled="1" 
+		lob_min="0.8"
+		lob_max="1.0"
+		speed_min="350"
+		speed_max="350"
+		die_on_low_velocity="0"
+		on_death_explode="1"
+		on_death_gfx_leave_sprite="0" 
+		on_lifetime_out_explode="0"
+		explosion_dont_damage_shooter="0"
+		damage="4.8"
+		on_collision_die="1"
+		lifetime="20" 
+		knockback_force="1.0"
+		friendly_fire="1"
+		>
+		<config_explosion
+			never_cache="1" 
+			camera_shake="0" 
+			explosion_radius="13" 
+			explosion_sprite="" 
+			explosion_sprite_lifetime="0.0" 
+			create_cell_probability="0" 
+			create_cell_material="" 
+			ray_energy="900000"
+			hole_destroy_liquid="1" 
+			hole_enabled="1" 
+			hole_image="data/temp/explosion_hole.png"
+			explosion_sprite_emissive="1"
+			explosion_sprite_additive="1"
+			particle_effect="0" 
+			max_durability_to_destroy="14"
+			damage_mortals="1"
+			damage="4.0"
+			physics_explosion_power.min="0.3" 
+			physics_explosion_power.max="0.4"
+			physics_throw_enabled="1" 
+			shake_vegetation="1" 
+			sparks_enabled="1" 
+			sparks_count_max="5" 
+			sparks_count_min="10"
+			spark_material="plasma_fading"
+			light_fade_time="0.8" 
+			light_r="15"
+			light_g="15"
+			light_b="40"
+			stains_enabled="0" 
+			stains_image="data/temp/explosion_stain.png"
+			audio_enabled="0" >
+		</config_explosion>
+	</ProjectileComponent>
+	
+	<SpriteComponent 
+		_enabled="1" 
+		alpha="1" 
+		image_file="data/projectiles_gfx/orb_blue.xml" 
+		next_rect_animation="" 
+		offset_x="6" 
+		offset_y="6" 
+		rect_animation="spawn" 
+		emissive="1"
+		additive="1"
+
+		update_transform_rotation="0"
+		>
+	</SpriteComponent>
+	
+	<LightComponent 
+		_enabled="1" 
+		radius="150" 
+		r="45"
+		g="45"
+		b="90">
+	</LightComponent>
+	
+	<AudioComponent
+      file="data/audio/Desktop/projectiles.bank"
+      event_root="player_projectiles/all_spell/orb">
+  </AudioComponent>
+	
+	<VariableStorageComponent
+		name="projectile_file"
+		value_string="data/entities/projectiles/deck/all_spells_orb.xml"
+		>
+	</VariableStorageComponent>
+</Entity>

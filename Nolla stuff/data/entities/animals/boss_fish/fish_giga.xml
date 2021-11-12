@@ -1,0 +1,278 @@
+<Entity name="$animal_fish_giga" tags="hittable,polymorphable_NOT,necrobot_NOT,glue_NOT,teleportable_NOT,curse_NOT,touchmagic_immunity,mortal,hiteffect_enabled">
+	<VelocityComponent
+		gravity_y="0"
+		air_friction="0"
+		terminal_velocity="300" 
+		displace_liquid="0"
+		liquid_drag="0"
+		>
+	</VelocityComponent>
+
+	<ProjectileComponent
+		speed_min="0"
+		speed_max="0"
+		lifetime="-1"
+		bounce_always="1"
+		bounces_left="9999999999999"
+		bounce_at_any_angle="1"
+		bounce_energy="0.5"
+		velocity_sets_rotation="0"
+		penetrate_entities="1"
+		collide_with_world="0"
+		>
+	</ProjectileComponent>
+	
+	<DamageModelComponent 
+		hp="300"
+		air_needed="0" 
+		falling_damages="0" 
+		fire_damage_amount="0" 	 
+		fire_probability_of_ignition="0" 
+		blood_material="blood"
+		is_on_fire="0" 
+		materials_damage="0" 
+		ragdoll_filenames_file=""
+        ragdoll_material="meat"
+		ragdoll_offset_y="-6"
+		ragdollify_child_entity_sprites="1"
+		ragdoll_fx_forced="DISINTEGRATED"
+		physics_objects_damage="0"
+		blood_multiplier="0"
+		>
+		<damage_multipliers
+			melee="0.01"
+			projectile="0"
+			explosion="0.01"
+			electricity="0"
+			fire="0"
+			slice="0.01"
+			drill="0"
+			ice="0"
+			radioactive="0"
+			>
+		</damage_multipliers>
+	</DamageModelComponent>
+
+	<GenomeDataComponent 
+		food_chain_rank="5" 
+		herd_id="eel" 
+		is_predator="1" >
+	</GenomeDataComponent>
+	
+	<HitboxComponent 
+		aabb_min_x="-16" 
+		aabb_max_x="16" 
+		aabb_min_y="12" 
+		aabb_max_y="84"
+		damage_multiplier="1.0" >
+	</HitboxComponent>
+	
+	<Entity>
+		<VariableStorageComponent
+			name="phase_timer"
+			value_int="0"
+			>
+		</VariableStorageComponent>
+		
+		<InheritTransformComponent>
+			<Transform position.x="0" position.y="48" ></Transform>
+		</InheritTransformComponent>
+		
+		<SpriteComponent
+			image_file="data/entities/animals/boss_fish/eye.xml"
+			has_special_scale="1"
+			special_scale_x="1"
+			offset_x="0"
+			offset_y="0"
+			z_index="1.9"
+			rect_animation=""
+			>
+		</SpriteComponent>
+		
+		<LuaComponent
+			script_source_file="data/entities/animals/boss_fish/eye.lua"
+			execute_every_n_frame="1"
+			>
+		</LuaComponent>
+	</Entity>
+	
+	<SpriteComponent
+		image_file="data/entities/animals/boss_fish/body.png"
+		has_special_scale="1"
+		special_scale_x="1"
+		offset_x="128"
+		offset_y="192"
+		z_index="2.0"
+		>
+	</SpriteComponent>
+
+	<Entity>
+		<InheritTransformComponent>
+			<Transform position.x="-96" position.y="64" ></Transform>
+		</InheritTransformComponent>
+		
+		<SpriteComponent
+			image_file="data/entities/animals/boss_fish/tentacle_1.png"
+			has_special_scale="1"
+			special_scale_x="1"
+			offset_x="67"
+			offset_y="19"
+			>
+		</SpriteComponent>
+		
+		<LuaComponent
+			script_source_file="data/entities/animals/boss_fish/tentacle_1.lua"
+			execute_every_n_frame="1"
+			>
+		</LuaComponent>
+	</Entity>
+	
+	<Entity>
+		<InheritTransformComponent>
+			<Transform position.x="-72" position.y="72" ></Transform>
+		</InheritTransformComponent>
+		
+		<SpriteComponent
+			image_file="data/entities/animals/boss_fish/tentacle_2.png"
+			has_special_scale="1"
+			special_scale_x="1"
+			offset_x="37"
+			offset_y="17"
+			>
+		</SpriteComponent>
+		
+		<LuaComponent
+			script_source_file="data/entities/animals/boss_fish/tentacle_2.lua"
+			execute_every_n_frame="1"
+			>
+		</LuaComponent>
+	</Entity>
+	
+	<Entity>
+		<InheritTransformComponent>
+			<Transform position.x="72" position.y="72" ></Transform>
+		</InheritTransformComponent>
+		
+		<SpriteComponent
+			image_file="data/entities/animals/boss_fish/tentacle_3.png"
+			has_special_scale="1"
+			special_scale_x="1"
+			offset_x="37"
+			offset_y="17"
+			>
+		</SpriteComponent>
+		
+		<LuaComponent
+			script_source_file="data/entities/animals/boss_fish/tentacle_3.lua"
+			execute_every_n_frame="1"
+			>
+		</LuaComponent>
+	</Entity>
+	
+	<Entity>
+		<InheritTransformComponent>
+			<Transform position.x="96" position.y="64" ></Transform>
+		</InheritTransformComponent>
+		
+		<SpriteComponent
+			image_file="data/entities/animals/boss_fish/tentacle_4.png"
+			has_special_scale="1"
+			special_scale_x="1"
+			offset_x="28"
+			offset_y="19"
+			>
+		</SpriteComponent>
+		
+		<LuaComponent
+			script_source_file="data/entities/animals/boss_fish/tentacle_4.lua"
+			execute_every_n_frame="1"
+			>
+		</LuaComponent>
+	</Entity>
+
+	<LuaComponent
+		script_source_file="data/entities/animals/boss_fish/movement.lua"
+		execute_every_n_frame="1"
+		>
+	</LuaComponent>
+	
+	<LuaComponent
+		script_damage_received="data/entities/animals/boss_fish/damage.lua"
+		execute_every_n_frame="-1"
+		>
+	</LuaComponent>
+	
+	<SpriteComponent 
+		_tags="health_bar_back,ui"
+		_enabled="1" 
+		transform_offset.x="0"
+		transform_offset.y="48"
+		alpha="1" 
+		has_special_scale="1" 
+		image_file="data/ui_gfx/health_slider_back.png" 
+		is_text_sprite="0" 
+		next_rect_animation="" 
+		offset_x="12" 
+		offset_y="42" 
+		rect_animation="" 
+		special_scale_x="1" 
+		special_scale_y="1" 
+		ui_is_parent="0" 
+		update_transform="1" 
+		visible="0" 
+		emissive="1"
+		never_ragdollify_on_death="1"
+		z_index="-9000" >
+	</SpriteComponent>
+	
+	<SpriteComponent 
+		_tags="health_bar,ui" 
+		_enabled="1" 
+		alpha="1" 
+		transform_offset.x="0"
+		transform_offset.y="48"
+		has_special_scale="1" 
+		image_file="data/ui_gfx/health_slider_front.png" 
+		is_text_sprite="0" 
+		next_rect_animation="" 
+		offset_x="12" 
+		offset_y="42" 
+		rect_animation="" 
+		special_scale_x="1" 
+		special_scale_y="1" 
+		ui_is_parent="0" 
+		update_transform="1" 
+		visible="0" 
+		emissive="1"
+		never_ragdollify_on_death="1"
+		z_index="-9000" >
+	</SpriteComponent>
+	
+	<HealthBarComponent>
+	</HealthBarComponent>
+	
+	<Entity>
+		<InheritTransformComponent />
+		
+	    <GameEffectComponent 
+	        effect="STUN_PROTECTION_FREEZE"
+	        frames="-1"
+	    >
+		</GameEffectComponent >
+	</Entity>
+	
+	<Entity>
+		<InheritTransformComponent />
+		
+	    <GameEffectComponent 
+	        effect="STUN_PROTECTION_ELECTRICITY"
+	        frames="-1"
+	    >
+		</GameEffectComponent >
+	</Entity>
+	
+	<LuaComponent
+		script_death="data/entities/animals/boss_fish/death.lua"
+		>
+	</LuaComponent>
+</Entity>

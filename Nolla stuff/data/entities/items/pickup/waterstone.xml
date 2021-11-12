@@ -1,0 +1,294 @@
+<Entity tags="hittable,teleportable_NOT,item_physics,item_pickup,waterstone" >
+	<Base file="data/entities/base_item_projectile.xml" />
+
+	<!-- physical presence -->
+	
+	<PhysicsBodyComponent 
+		_tags="enabled_in_world"
+		uid="1" 
+		allow_sleep="1" 
+		angular_damping="0" 
+		fixed_rotation="0" 
+		is_bullet="1" 
+		linear_damping="0"
+		auto_clean="0"
+		on_death_leave_physics_body="1"
+		hax_fix_going_through_ground="1"
+	></PhysicsBodyComponent>
+	
+	<PhysicsImageShapeComponent 
+		body_id="1"
+		centered="1"
+		image_file="data/items_gfx/waterstone.png"
+		material="rock_box2d_hard"
+	></PhysicsImageShapeComponent>
+	
+	<PhysicsThrowableComponent
+		max_throw_speed="180"
+		throw_force_coeff="1.5"
+	></PhysicsThrowableComponent>
+
+	<VelocityComponent
+		_tags="enabled_in_world"
+	></VelocityComponent>
+
+	<!-- other -->
+
+	<GameEffectComponent 
+		_tags="enabled_in_hand"
+		effect="BREATH_UNDERWATER"
+		frames="-1"
+	></GameEffectComponent>
+
+	<GameEffectComponent 
+		_tags="enabled_in_hand"
+		effect="STAINS_DROP_FASTER"
+		frames="-1"
+	></GameEffectComponent>
+
+	<!-- item -->
+
+	<SpriteComponent
+		_tags="enabled_in_hand"
+		_enabled="0"
+		offset_x="4"
+		offset_y="4"
+		image_file="data/items_gfx/waterstone.png"
+	></SpriteComponent>
+
+	<ItemComponent
+		_tags="enabled_in_world"
+		item_name="$item_waterstone"
+		ui_description="$item_description_waterstone"
+		ui_sprite="data/ui_gfx/items/waterstone.png"
+		max_child_items="0"
+		is_pickable="1"
+		is_equipable_forced="1"
+		preferred_inventory="QUICK"
+	></ItemComponent>
+
+	<UIInfoComponent
+		_tags="enabled_in_world"
+		name="$item_waterstone">
+	</UIInfoComponent>
+	
+	<SpriteParticleEmitterComponent
+		sprite_file="data/particles/ray.xml" 
+		delay="0"
+		lifetime="1.5"
+		color.r="1" color.g="0.5" color.b="1" color.a="1.0"
+		color_change.r="0" color_change.g="0" color_change.b="0" color_change.a="-3.5"
+		velocity.x="0" velocity.y="0"
+		gravity.x="0" gravity.y="0"
+		velocity_slowdown="0"
+		rotation="0"
+		angular_velocity="0"
+		scale.x="1" scale.y="0"
+		scale_velocity.x="-0.3" scale_velocity.y="3"
+		emission_interval_min_frames="3"
+		emission_interval_max_frames="6"
+		emissive="1"
+		additive="1"
+		count_min="1" count_max="1"
+		use_velocity_as_rotation="1"
+		randomize_position.min_x="-2"
+		randomize_position.max_x="2"
+		randomize_position.min_y="-2"
+		randomize_position.max_y="2"
+		randomize_velocity.min_x="-30"
+		randomize_velocity.max_x="30"
+		randomize_velocity.min_y="-30"
+		randomize_velocity.max_y="30"
+		velocity_always_away_from_center="1">
+	</SpriteParticleEmitterComponent>
+	
+	<AbilityComponent
+		ui_name="$item_waterstone"
+		throw_as_item="1"
+		><gun_config
+			deck_capacity="0"
+		></gun_config>
+	</AbilityComponent>
+	
+	<MagicConvertMaterialComponent
+		_tags="enabled_in_world,enabled_in_hand"
+		kill_when_finished="1"
+		from_material=""
+		from_material_tag="[hot]"
+		steps_per_frame="2"
+		to_material="smoke"
+		clean_stains="0"
+		is_circle="1"
+		radius="64" 
+		loop="1"
+		>
+	</MagicConvertMaterialComponent>
+	
+	<MagicConvertMaterialComponent
+		_tags="enabled_in_world,enabled_in_hand"
+		kill_when_finished="1"
+		from_material=""
+		from_material_tag="[lava]"
+		steps_per_frame="2"
+		to_material="lavarock_static"
+		clean_stains="0"
+		is_circle="1"
+		radius="64" 
+		loop="1"
+		>
+	</MagicConvertMaterialComponent>
+	
+	<MagicConvertMaterialComponent
+		_tags="enabled_in_world,enabled_in_hand"
+		kill_when_finished="1"
+		from_material=""
+		from_material_tag="[molten]"
+		steps_per_frame="2"
+		to_material="rock_static"
+		clean_stains="0"
+		is_circle="1"
+		radius="64" 
+		loop="1"
+		>
+	</MagicConvertMaterialComponent>
+	
+	<LuaComponent
+		_tags="enabled_in_world,enabled_in_hand"
+		script_source_file="data/scripts/items/waterstone.lua"
+		execute_every_n_frame="5"
+		>
+	</LuaComponent>
+	
+	<MagicConvertMaterialComponent
+		kill_when_finished="0"
+		extinguish_fire="1"
+		is_circle="1"
+		loop="1"
+		radius="64" >
+	</MagicConvertMaterialComponent>
+
+	<!-- VFX -->
+	<!-- halo -->
+	<SpriteParticleEmitterComponent
+		_tags="enabled_in_world,enabled_in_hand"
+		sprite_file="data/particles/waterstone_bubble.xml"
+		delay="0"
+		lifetime="0.35"
+		color.r="1" color.g="1" color.b="1" color.a="0.5"
+		color_change.r="0" color_change.g="0" color_change.b="0" color_change.a="-1.5"
+		render_back="1"
+		velocity.x="0" velocity.y="0"
+		gravity.x="0" gravity.y="10"
+		velocity_slowdown="0"
+		rotation="0"
+		angular_velocity="0"
+		use_velocity_as_rotation="0"
+		scale.x="1" scale.y="1"
+		scale_velocity.x="0" scale_velocity.y="0"
+		emission_interval_min_frames="2"
+		emission_interval_max_frames="2"
+		count_min="1" count_max="1"
+		randomize_rotation.min="0"
+		randomize_rotation.max="0"
+		randomize_position.min_x="-1.5"
+		randomize_position.max_x="1.5"
+		randomize_position.min_y="-1.5"
+		randomize_position.max_y="1.5"
+		>
+	</SpriteParticleEmitterComponent>
+	<!-- drops -->
+	<SpriteParticleEmitterComponent
+		_tags="enabled_in_world,enabled_in_hand"
+		sprite_file="data/particles/waterstone_drop.xml"
+		delay="0"
+		lifetime="0.5"
+		color.r="1" color.g="1" color.b="1" color.a="1"
+		color_change.r="0" color_change.g="0" color_change.b="0" color_change.a="-0.5"
+		render_back="0"
+		velocity.x="0" velocity.y="0"
+		velocity_always_away_from_center="10"
+		gravity.x="0" gravity.y="0"
+		velocity_slowdown="0"
+		rotation="0"
+		angular_velocity="0"
+		use_velocity_as_rotation="0"
+		scale.x="1" scale.y="1"
+		scale_velocity.x="0" scale_velocity.y="0"
+		emission_interval_min_frames="2"
+		emission_interval_max_frames="4"
+		count_min="1" count_max="1"
+		randomize_rotation.min="-3.14"
+		randomize_rotation.max="3.14"
+		randomize_position.min_x="-1.5"
+		randomize_position.max_x="1.5"
+		randomize_position.min_y="-1.5"
+		randomize_position.max_y="1.5"
+		>
+	</SpriteParticleEmitterComponent>
+
+	<!-- sweat -->
+	<ParticleEmitterComponent 
+		_tags="enabled_in_world,enabled_in_hand"
+		emitted_material_name="water"
+		fade_based_on_lifetime="0"
+		x_pos_offset_min="-2"
+		x_pos_offset_max="2"
+		y_pos_offset_min="0"
+		y_pos_offset_max="4"
+		x_vel_min="-5"
+		x_vel_max="15"
+		y_vel_min="-5"
+		y_vel_max="5"
+		area_circle_radius.min="5"
+		area_circle_radius.max="5"
+		velocity_always_away_from_center="10"
+		gravity.y="35"
+		friction="0.1"
+		airflow_force="0.9"
+		airflow_time="0.101"
+		airflow_scale="0.81"
+		count_min="1"
+		count_max="4"
+		lifetime_min="1.0"
+		lifetime_max="5.0"
+		create_real_particles="0"
+		emit_cosmetic_particles="1"
+		collide_with_grid="1"
+		render_on_grid="1"
+		emission_interval_min_frames="8"
+		emission_interval_max_frames="40"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+	<ParticleEmitterComponent 
+		_tags="enabled_in_world,enabled_in_hand"
+		emitted_material_name="plasma_fading"
+		fade_based_on_lifetime="0"
+		x_pos_offset_min="0"
+		x_pos_offset_max="0"
+		y_pos_offset_min="0"
+		y_pos_offset_max="0"
+		x_vel_min="-5"
+		x_vel_max="15"
+		y_vel_min="-5"
+		y_vel_max="5"
+		area_circle_radius.min="5"
+		area_circle_radius.max="5"
+		velocity_always_away_from_center="10"
+		gravity.y="35"
+		friction="0.1"
+		airflow_force="0.9"
+		airflow_time="0.101"
+		airflow_scale="0.81"
+		count_min="1"
+		count_max="4"
+		lifetime_min="1.0"
+		lifetime_max="5.0"
+		create_real_particles="0"
+		emit_cosmetic_particles="1"
+		collide_with_grid="1"
+		render_on_grid="1"
+		emission_interval_min_frames="12"
+		emission_interval_max_frames="60"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+</Entity>

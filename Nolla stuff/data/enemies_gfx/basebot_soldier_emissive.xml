@@ -1,0 +1,90 @@
+<Sprite 
+  default_animation="stand" 
+  filename="data/enemies_gfx/basebot_soldier_emissive.png" 
+  offset_x="9" 
+  offset_y="15" >
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="20" 
+    frame_wait="0.12" 
+    frame_width="20" 
+    frames_per_row="8" 
+    name="stand" 
+    pos_x="0" 
+    pos_y="1" >
+  </RectAnimation>
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="20" 
+    frame_wait="0.085" 
+    frame_width="20" 
+    frames_per_row="8" 
+    name="fly_idle" 
+    pos_x="0" 
+    pos_y="1" >
+  </RectAnimation>
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="20" 
+    frame_wait="0.09" 
+    frame_width="20" 
+    frames_per_row="8" 
+    name="walk" 
+    pos_x="0" 
+    pos_y="22" >
+  </RectAnimation>
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="20" 
+    frame_wait="0.09" 
+    frame_width="20" 
+    frames_per_row="8" 
+    name="run" 
+    pos_x="0" 
+    pos_y="22" >
+  </RectAnimation>
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="20" 
+    frame_wait="0.09" 
+    frame_width="20" 
+    frames_per_row="8" 
+    name="burn" 
+    pos_x="0" 
+    pos_y="22" >
+  </RectAnimation>
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="20" 
+    frame_wait="0.07" 
+    frame_width="20" 
+    frames_per_row="8" 
+    name="fly_move" 
+    pos_x="0" 
+    pos_y="22" >
+  </RectAnimation>
+  <RectAnimation 
+    frame_count="5" 
+    frame_height="21" 
+    frame_wait="0.05" 
+    frame_width="21" 
+    frames_per_row="8" 
+    loop="0" 
+    name="attack" 
+    pos_x="0" 
+    pos_y="43" 
+    shrink_by_one_pixel="1" >
+  </RectAnimation>
+  <RectAnimation 
+    frame_count="5" 
+    frame_height="21" 
+    frame_wait="0.02" 
+    frame_width="21" 
+    frames_per_row="8" 
+    loop="0" 
+    name="attack_ranged" 
+    pos_x="0" 
+    pos_y="43" 
+    shrink_by_one_pixel="1" >
+  </RectAnimation>
+</Sprite>

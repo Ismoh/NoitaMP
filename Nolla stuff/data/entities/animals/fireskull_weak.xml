@@ -1,0 +1,16 @@
+<Entity name="$animal_fireskull">
+  
+	<Base file="data/entities/animals/fireskull.xml" >
+		<DamageModelComponent
+			hp="0.4"
+			>
+		</DamageModelComponent>
+		
+		<SpriteComponent 
+			image_file="data/enemies_gfx/fireskull.xml" 
+			>
+		</SpriteComponent> 
+	</Base>
+
+</Entity>
+

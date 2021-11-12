@@ -1,0 +1,88 @@
+<Sprite 
+	filename="data/buildings_gfx/stash.png" 
+	offset_x="10" 
+	offset_y="19" 
+	default_animation="stand" 
+	>
+	
+	<RectAnimation
+		name="stand"
+		pos_x="0"
+		pos_y="0"
+		frame_count="1"
+		frame_width="20"
+		frame_height="20"
+		frame_wait="0.09"
+		frames_per_row="5"
+		loop="1"   >
+	</RectAnimation>
+	
+	<RectAnimation
+		name="opening"
+		pos_x="0"
+		pos_y="20"
+		frame_count="5"
+		frame_width="20"
+		frame_height="20"
+		frame_wait="0.05"
+		frames_per_row="5"
+		loop="0"   
+		next_animation="open"
+		>
+	</RectAnimation>
+	
+	<RectAnimation
+		name="open"
+		pos_x="0"
+		pos_y="40"
+		frame_count="1"
+		frame_width="20"
+		frame_height="20"
+		frame_wait="0.12"
+		frames_per_row="5"
+		loop="1"   
+		>
+	</RectAnimation>
+	
+	<RectAnimation
+		name="closing"
+		pos_x="0"
+		pos_y="60"
+		frame_count="5"
+		frame_width="20"
+		frame_height="20"
+		frame_wait="0.05"
+		frames_per_row="5"
+		loop="0"   
+		next_animation="stand"
+		>
+	</RectAnimation>
+	
+	<RectAnimation
+		name="shake"
+		pos_x="0"
+		pos_y="80"
+		frame_count="3"
+		frame_width="20"
+		frame_height="20"
+		frame_wait="0.09"
+		frames_per_row="5"
+		loop="0"   
+		next_animation="open"
+		>
+	</RectAnimation>
+	
+	<RectAnimation
+		name="shake2"
+		pos_x="0"
+		pos_y="100"
+		frame_count="3"
+		frame_width="20"
+		frame_height="20"
+		frame_wait="0.09"
+		frames_per_row="5"
+		loop="0"   
+		next_animation="open"
+		>
+	</RectAnimation>
+</Sprite>

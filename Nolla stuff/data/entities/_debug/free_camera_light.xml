@@ -1,0 +1,19 @@
+<Entity serialize="0">
+  
+  <LightComponent 
+      r="255"
+      g="255"
+      b="255"
+      radius="750"
+      fade_out_time="5.0" >
+  </LightComponent>
+
+  <LightComponent 
+      r="255"
+      g="255"
+      b="255"
+      radius="750"
+      fade_out_time="5.0" >
+  </LightComponent>
+
+</Entity>

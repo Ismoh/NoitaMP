@@ -1,0 +1,8 @@
+<Entity>
+	<ElectricityReceiverComponent
+		radius="6"
+	></ElectricityReceiverComponent>
+	<LuaComponent
+		script_electricity_receiver_switched="data/scripts/buildings/swing_puzzle_target.lua"
+	></LuaComponent>
+</Entity>

@@ -1,0 +1,20 @@
+<Entity>
+    <CollisionTriggerComponent
+      width="32"
+      height="72" 
+      radius="128"
+      required_tag="card_action"
+      destroy_this_entity_when_triggered="0" >
+  	</CollisionTriggerComponent>
+
+    <LuaComponent
+      script_collision_trigger_hit="data/scripts/buildings/temple_duplicator.lua"
+      execute_every_n_frame="-1" >
+    </LuaComponent>
+	
+	<SpriteComponent 
+		image_file="data/buildings_gfx/temple_duplicator.xml" 
+		offset_x="0"
+		offset_y="0">
+	</SpriteComponent>
+</Entity>

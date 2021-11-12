@@ -1,0 +1,25 @@
+<Entity >
+	
+	<InheritTransformComponent>
+	</InheritTransformComponent>
+   
+    <VerletPhysicsComponent
+    	stiffness="0.8"
+    	num_points="5"
+		velocity_dampening="0.8"
+    	resting_distance="5.0"
+		scale_sprite_x="0"
+		pixelate_sprite_transforms="0"
+		simulate_gravity="1"
+		wind_change_speed="1.1"
+		mass_min="0.15"
+		mass_max="0.29"
+		>
+    </VerletPhysicsComponent>
+
+	<Base file="data/entities/verlet_chains/banner/parts/verlet_1.xml" />
+	<Base file="data/entities/verlet_chains/banner/parts/verlet_2.xml" />
+	<Base file="data/entities/verlet_chains/banner/parts/verlet_3.xml" />
+	<Base file="data/entities/verlet_chains/banner/parts/verlet_4.xml" />
+  
+</Entity>

@@ -1,0 +1,90 @@
+<Entity tags="hittable,teleportable_NOT,item_physics,alchemist_key" >
+  <Base file="data/entities/base_item_projectile.xml" />
+
+  <!-- physical presence -->
+  
+  <PhysicsBodyComponent 
+    _tags="enabled_in_world"
+    uid="1" 
+    allow_sleep="1" 
+    angular_damping="0" 
+    fixed_rotation="0" 
+    is_bullet="1" 
+    linear_damping="0"
+    auto_clean="0"
+    on_death_leave_physics_body="1"
+    hax_fix_going_through_ground="1"
+  ></PhysicsBodyComponent>
+  
+  <PhysicsImageShapeComponent 
+    body_id="1"
+    centered="1"
+    image_file="data/items_gfx/key.png"
+    material="item_box2d_glass"
+  ></PhysicsImageShapeComponent>
+  
+  <PhysicsThrowableComponent
+    max_throw_speed="180"
+    throw_force_coeff="1.5"
+  ></PhysicsThrowableComponent>
+
+  <VelocityComponent
+    _tags="enabled_in_world"
+  ></VelocityComponent>
+
+  <!-- item -->
+
+  <SpriteComponent
+    _tags="enabled_in_hand"
+    _enabled="0"
+    offset_x="4"
+    offset_y="6"
+    image_file="data/items_gfx/in_hand/key.png"
+  ></SpriteComponent>
+
+  <ItemComponent
+    _tags="enabled_in_world"
+    item_name="$item_key"
+    max_child_items="0"
+    is_pickable="1"
+    is_equipable_forced="1"
+    ui_sprite="data/ui_gfx/items/key.png"
+    ui_description="$itemdesc_key_0"
+    preferred_inventory="QUICK"
+  ></ItemComponent>
+
+  <AbilityComponent
+    ui_name="$item_key"
+    throw_as_item="1"
+  ><gun_config
+    deck_capacity="0"
+  ></gun_config>
+  </AbilityComponent>
+
+  <UIInfoComponent
+    _tags="enabled_in_world"
+    name="$item_key">
+  </UIInfoComponent>
+  
+  <VariableStorageComponent
+	_tags="enabled_in_world"
+	name="status"
+	value_int="0"
+	>
+	</VariableStorageComponent>
+	
+	<VariableStorageComponent
+	_tags="enabled_in_world"
+	name="music_machine"
+	value_int="0"
+	>
+	</VariableStorageComponent>
+	
+	<LuaComponent
+		_tags="enabled_in_world"
+		script_source_file="data/entities/animals/boss_alchemist/key_music.lua"
+		execute_every_n_frame="60"
+		>
+	</LuaComponent>
+
+</Entity>

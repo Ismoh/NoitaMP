@@ -1,0 +1,14 @@
+<Entity >
+  <Base file="data/entities/animals/lasershooter.xml">
+    <DamageModelComponent 
+      hp="16"
+      max_hp="16"
+	  minimum_knockback_force="100000"
+     ></DamageModelComponent >
+  </Base>
+  
+  <Entity>  <Base file="data/entities/verlet_chains/tealslime_tentacle/tealslime_tentacle_02.xml"> <InheritTransformComponent><Transform position.x="-3" position.y="-1" ></Transform></InheritTransformComponent> </Base>  </Entity>
+	<Entity>  <Base file="data/entities/verlet_chains/tealslime_tentacle/tealslime_tentacle_01.xml"> <InheritTransformComponent><Transform position.x="-4" position.y="-1" ></Transform></InheritTransformComponent> </Base>  </Entity>
+	<Entity>  <Base file="data/entities/verlet_chains/tealslime_tentacle/tealslime_tentacle_01.xml"> <InheritTransformComponent><Transform position.x="0"  position.y="-1" ></Transform></InheritTransformComponent> </Base>  </Entity>
+	<Entity>  <Base file="data/entities/verlet_chains/tealslime_tentacle/tealslime_tentacle_thin_01.xml"> <InheritTransformComponent><Transform position.x="4"  position.y="-1" ></Transform></InheritTransformComponent> </Base>  </Entity>
+</Entity>

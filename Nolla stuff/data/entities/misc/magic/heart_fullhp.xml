@@ -1,0 +1,8 @@
+<Entity >
+  <Base file="data/entities/animals/parallel/tentacles/parallel_tentacles.xml" include_children="1">
+    <DamageModelComponent 
+      hp="90"
+      max_hp="90"
+     ></DamageModelComponent >
+  </Base>
+</Entity>

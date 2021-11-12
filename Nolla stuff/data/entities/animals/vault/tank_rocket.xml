@@ -1,0 +1,19 @@
+<Entity >
+  <Base file="data/entities/animals/tank_rocket.xml">
+    <DamageModelComponent 
+      hp="15"
+      max_hp="15"
+	  minimum_knockback_force="100000"
+     ></DamageModelComponent >
+  </Base>
+  
+	<Entity>
+		<InheritTransformComponent />
+		
+	    <GameEffectComponent 
+	        effect="PROTECTION_FREEZE"
+	        frames="-1"
+	    >
+		</GameEffectComponent >
+	</Entity>
+</Entity>

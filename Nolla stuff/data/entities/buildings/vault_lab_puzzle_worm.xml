@@ -1,0 +1,11 @@
+<Entity tags="vault_lab_puzzle">
+	<Base file="data/entities/buildings/vault_lab_puzzle_protect.xml">
+		<MaterialAreaCheckerComponent
+			material="magic_liquid_worm_attractor"
+			material2="blood_worm" >
+		</MaterialAreaCheckerComponent>
+		<PixelSceneComponent
+			pixel_scene_background="data/biome_impl/vault/lab_puzzle_worm_background.png" >
+		</PixelSceneComponent>
+	</Base>
+</Entity>

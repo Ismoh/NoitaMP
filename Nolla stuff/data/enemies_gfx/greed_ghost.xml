@@ -1,0 +1,32 @@
+<Sprite
+ filename="data/enemies_gfx/greed_ghost.png"
+ offset_x="28"
+ offset_y="28"
+  default_animation="appear" >
+
+ <!-- stand -->
+ <RectAnimation
+  name="stand"
+  pos_x="0"
+  pos_y="0"
+  frame_count="4"
+  frame_width="56"
+  frame_height="56"
+  frame_wait="0.2"
+  frames_per_row="4"
+  loop="1"   >
+ </RectAnimation>
+ 
+ <RectAnimation
+  name="appear"
+  pos_x="0"
+  pos_y="56"
+  frame_count="4"
+  frame_width="56"
+  frame_height="56"
+  frame_wait="0.1"
+  frames_per_row="4"
+  next_animation="stand"
+  loop="0"   >
+ </RectAnimation>
+</Sprite>

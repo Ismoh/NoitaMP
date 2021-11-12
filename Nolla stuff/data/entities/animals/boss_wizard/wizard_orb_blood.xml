@@ -1,0 +1,111 @@
+<Entity 
+  name="$projectile_default" 
+  tags="hittable,touchmagic_immunity,polymorphable_NOT"
+   >
+	<ParticleEmitterComponent 
+		emitted_material_name="blood"
+		gravity.y="100.0"
+		lifetime_min="0.8"
+		lifetime_max="1.5"
+		count_min="3"
+		count_max="6"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		area_circle_radius.min="0"
+		area_circle_radius.max="0"
+		cosmetic_force_create="0"
+		airflow_force="1.1"
+		airflow_time="1.01"
+		airflow_scale="0.05"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		emit_cosmetic_particles="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+	
+	<VariableStorageComponent
+		_tags="wizard_orb_id"
+		name="wizard_orb_id"
+		value_int="0"
+		>
+	</VariableStorageComponent>
+	
+	<LuaComponent
+		script_source_file="data/entities/animals/boss_wizard/orb_rotation.lua"
+		execute_every_n_frame="1"
+		>
+	</LuaComponent>
+  
+	<LuaComponent
+		script_damage_received="data/entities/animals/boss_wizard/orb_blood_damage.lua"
+		execute_every_n_frame="-1"
+		>
+	</LuaComponent>
+	
+	<SpriteComponent 
+		image_file="data/entities/animals/boss_wizard/orb_blood.xml" 
+		offset_x="0"
+		offset_y="0"
+		z_index="1.2"
+		>
+	</SpriteComponent>
+	
+	<GenomeDataComponent 
+		herd_id="mage"
+		food_chain_rank="6"
+		is_predator="1" >
+	</GenomeDataComponent>
+	
+	<HitboxComponent 
+		_enabled="1" 
+		aabb_max_x="5" 
+		aabb_max_y="5" 
+		aabb_min_x="-5" 
+		aabb_min_y="-5" >
+	</HitboxComponent>
+	
+	<DamageModelComponent 
+		hp="6000"
+		ragdoll_filenames_file=""
+		blood_material="blood"
+		blood_spray_material="blood"
+		ragdoll_offset_y="-14"
+		fire_probability_of_ignition="0"
+		ragdoll_fx_forced="DISINTEGRATED"
+		ragdoll_material="blood"
+		critical_damage_resistance="1.0"
+		physics_objects_damage="0"
+		>
+		<damage_multipliers
+		projectile="0.2"
+		explosion="0.2"
+		electricity="0.2"
+		fire="0.2"
+		ice="0.2"
+		melee="0.2"
+		slice="0.2"
+		>
+		</damage_multipliers>
+	</DamageModelComponent>
+	
+	<Entity>
+		<InheritTransformComponent />
+		
+	    <GameEffectComponent 
+	        effect="STUN_PROTECTION_FREEZE"
+	        frames="-1"
+	    >
+		</GameEffectComponent >
+	</Entity>
+	
+	<Entity>
+		<InheritTransformComponent />
+		
+	    <GameEffectComponent 
+	        effect="STUN_PROTECTION_ELECTRICITY"
+	        frames="-1"
+	    >
+		</GameEffectComponent >
+	</Entity>
+
+</Entity>

@@ -1,0 +1,21 @@
+<Entity tags="tablet,forgeable,normal_tablet">
+	<!-- under the lavalake -->
+
+	<Base file="data/entities/items/books/base_book.xml">
+		<UIInfoComponent
+			name="$booktitle05"
+			>
+		</UIInfoComponent>
+		
+		<ItemComponent
+			item_name="$booktitle05"
+			ui_description="$bookdesc05"
+			>
+		</ItemComponent>
+		
+		<AbilityComponent
+			ui_name="$booktitle05"
+			>
+		</AbilityComponent>
+	</Base>
+</Entity>

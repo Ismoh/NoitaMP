@@ -1,0 +1,132 @@
+<Entity tags="mortal,hittable,homing_target,teleportable_NOT,enemy,glue_NOT" >
+
+	<PhysicsAIComponent
+		target_vec_max_len="15.0"
+		force_coeff="20.0"
+		force_balancing_coeff="0.8"
+		force_max="100"
+		torque_coeff="50"
+		torque_balancing_coeff="0.8"
+		torque_max="50.0"
+		damage_deactivation_probability="80"
+		damage_deactivation_time_min="60"
+		damage_deactivation_time_max="120" >
+	</PhysicsAIComponent>
+
+	<PhysicsBodyComponent 
+		allow_sleep="1" 
+		angular_damping="0.02" 
+		fixed_rotation="0" 
+		is_bullet="0" 
+		linear_damping="0" 
+		force_add_update_areas="1"
+		on_death_leave_physics_body="0" >
+	</PhysicsBodyComponent>
+
+	<PhysicsShapeComponent
+		is_circle="1"
+		radius_x="5"
+		radius_y="5"
+		friction="0.0"
+		restitution="0.3" >
+	</PhysicsShapeComponent>
+
+	<Base file="data/entities/base_enemy_flying.xml" >
+		<AnimalAIComponent 
+			_enabled="1" 
+			preferred_job="JobDefault"
+			attack_ranged_min_distance="0"
+			attack_ranged_max_distance="50"
+			creature_detection_range_x="300"
+			creature_detection_range_y="300"
+			attack_ranged_action_frame="3"
+			attack_melee_action_frame="3"
+			sense_creatures="1"
+			attack_ranged_enabled="1"
+			attack_melee_enabled="0"
+			can_fly="1"  
+			attack_ranged_entity_file="data/entities/projectiles/orb_pink.xml"
+			attack_ranged_frames_between="10" 
+			eye_offset_y="-5"
+			attack_ranged_offset_y="-5"
+			>
+		</AnimalAIComponent>
+		
+		<DamageModelComponent 
+            hp="1.5"
+            ragdoll_material="crystal"
+			ragdoll_filenames_file="" 
+			blood_material="plasma_fading"
+			fire_probability_of_ignition="0" 
+			air_needed="0" 
+			>
+			<damage_multipliers
+				melee="1.0"
+				projectile="1.0"
+				explosion="1.0"
+				electricity="0.1"
+				fire="0" >
+			</damage_multipliers>
+		</DamageModelComponent>
+
+		<SpriteComponent 
+			image_file="" 
+			offset_x="0"
+			offset_y="0">
+		</SpriteComponent>
+
+		<PathFindingGridMarkerComponent
+			marker_work_flag="16" >
+		</PathFindingGridMarkerComponent>
+		
+		<PathFindingComponent
+		    distance_to_reach_node_x="20"
+		    distance_to_reach_node_y="20"
+			frames_to_get_stuck="120"
+			can_jump="0" 
+			can_fly="1"
+			jump_speed="0"
+			>
+		</PathFindingComponent>
+
+		<GenomeDataComponent 
+			herd_id="ghost"
+			food_chain_rank="7"
+			is_predator="1" >
+		</GenomeDataComponent>
+		
+		<CharacterPlatformingComponent 
+			jump_velocity_y="0" 
+			run_velocity="24"  >
+		</CharacterPlatformingComponent>
+		
+		<HitboxComponent 
+			_enabled="1" 
+			aabb_max_x="5" 
+			aabb_max_y="0" 
+			aabb_min_x="-5" 
+			aabb_min_y="-12" 
+			>
+		</HitboxComponent>
+	
+		<CameraBoundComponent
+			_enabled="0"
+			max_count="30"
+			distance="160000">
+		</CameraBoundComponent>
+		
+		<CharacterDataComponent 
+			collision_aabb_min_x="-3"
+			collision_aabb_max_x="3"  
+			collision_aabb_min_y="-3"
+			collision_aabb_max_y="3"
+			>
+		</CharacterDataComponent>
+	</Base>
+	
+	<ItemPickUpperComponent
+		is_immune_to_kicks="1"
+    	is_in_npc="1" >
+    </ItemPickUpperComponent>
+    
+</Entity>

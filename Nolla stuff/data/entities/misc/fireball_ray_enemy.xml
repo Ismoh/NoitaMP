@@ -1,0 +1,15 @@
+<Entity>
+	<InheritTransformComponent />
+	
+	<LuaComponent 
+		_enabled="1" 
+		script_source_file="data/scripts/projectiles/fireball_ray_enemy.lua" 
+		execute_every_n_frame="10">
+   </LuaComponent>
+	
+	<LifetimeComponent
+		lifetime="5000"
+		>
+	</LifetimeComponent>
+</Entity>
+

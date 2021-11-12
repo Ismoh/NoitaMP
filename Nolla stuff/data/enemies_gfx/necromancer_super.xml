@@ -1,0 +1,141 @@
+<Sprite 
+  filename="data/enemies_gfx/necromancer_super.png" 
+  offset_x="16" 
+  offset_y="42"
+  default_animation="stand" >
+
+  <RectAnimation 
+    frame_count="8" 
+    frame_height="60" 
+    frame_wait="0.1" 
+    frame_width="42" 
+    frames_per_row="8" 
+    name="stand" 
+    pos_x="0" 
+    pos_y="120" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="8" 
+    frame_height="60" 
+    frame_wait="0.085" 
+    frame_width="42" 
+    frames_per_row="8" 
+    name="walk" 
+    pos_x="0" 
+    pos_y="0" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="8" 
+    frame_height="60" 
+    frame_wait="0.085" 
+    frame_width="42" 
+    frames_per_row="8" 
+    name="run" 
+    pos_x="0" 
+    pos_y="0" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="8" 
+    frame_height="60" 
+    frame_wait="0.085" 
+    frame_width="42" 
+    frames_per_row="8" 
+    name="burn" 
+    pos_x="0" 
+    pos_y="0" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="8" 
+    frame_height="60" 
+    frame_wait="0.12" 
+    frame_width="42" 
+    frames_per_row="8" 
+    name="fly_idle" 
+    pos_x="0" 
+    pos_y="120" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="8" 
+    frame_height="60" 
+    frame_wait="0.12" 
+    frame_width="42" 
+    frames_per_row="8" 
+    name="fly_move" 
+    pos_x="0" 
+    pos_y="0" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="8" 
+    frame_height="60" 
+    frame_wait="0.08" 
+    frame_width="42" 
+    frames_per_row="8" 
+    loop="0" 
+    name="attack_ranged" 
+    pos_x="0" 
+    pos_y="60" 
+    >
+
+    <Event 
+      check_physics_material="0" 
+      frame="6" 
+      max_distance="500" 
+      name="shoot_magic" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+  </RectAnimation>
+  
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="59" 
+    frame_wait="0.09" 
+    frame_width="42" 
+    frames_per_row="8" 
+    loop="0" 
+    name="attack_ranged_fast" 
+    pos_x="0" 
+    pos_y="180" 
+    >
+  </RectAnimation>
+  
+  <RectAnimation 
+    frame_count="8" 
+    frame_height="60" 
+    frame_wait="0.08" 
+    frame_width="42" 
+    frames_per_row="8" 
+    loop="0" 
+    name="attack" 
+    pos_x="0" 
+    pos_y="60" 
+    >
+
+    <Event 
+      check_physics_material="0" 
+      frame="6" 
+      max_distance="500" 
+      name="shoot_magic" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+  </RectAnimation>
+
+</Sprite>
+

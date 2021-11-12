@@ -1,0 +1,13 @@
+<Entity 
+  name="unknown" 
+  tags="vegetation" >
+
+  <SimplePhysicsComponent 
+    can_go_up="0"
+    >
+  </SimplePhysicsComponent >
+  
+  <VelocityComponent />
+  
+</Entity>
+

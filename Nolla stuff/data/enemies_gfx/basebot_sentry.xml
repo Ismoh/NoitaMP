@@ -1,0 +1,108 @@
+<Sprite
+ filename="data/enemies_gfx/basebot_sentry.png"
+ offset_x="9"
+ offset_y="15"
+  default_animation="stand" >
+
+ <!-- stand -->
+ <RectAnimation
+  name="stand"
+  pos_x="0"
+  pos_y="0"
+  frame_count="6"
+  frame_width="20"
+  frame_height="20"
+  frame_wait="0.12"
+  frames_per_row="8"
+  loop="1"   >
+ </RectAnimation>
+
+ <!-- walk -->
+ <RectAnimation
+  name="walk"
+  pos_x="0"
+  pos_y="20"
+  frame_count="4"
+  frame_width="20"
+  frame_height="20"
+  frame_wait="0.09"
+  frames_per_row="8"
+  loop="1"   >
+ </RectAnimation>
+
+ <!-- fake run (just a copypaste of walk) -->
+ <RectAnimation
+  name="run"
+  pos_x="0"
+  pos_y="20"
+  frame_count="4"
+  frame_width="20"
+  frame_height="20"
+  frame_wait="0.09"
+  frames_per_row="8"
+  loop="1"   >
+ </RectAnimation>
+
+ <!-- fake burn (just a copypaste of walk) -->
+ <RectAnimation
+  name="burn"
+  pos_x="0"
+  pos_y="20"
+  frame_count="4"
+  frame_width="20"
+  frame_height="20"
+  frame_wait="0.09"
+  frames_per_row="8"
+  loop="1"   >
+ </RectAnimation>
+
+ <RectAnimation
+  name="attack"
+  pos_x="0"
+  pos_y="40"
+  frame_count="5"
+  frame_width="20"
+  frame_height="20"
+  frame_wait="0.05"
+  frames_per_row="8"
+  loop="0"  >
+  <Event frame="3" name="shoot_bullet" probability="1" check_physics_material="0"/>
+ </RectAnimation>
+ 
+ <RectAnimation
+  name="attack_ranged"
+  pos_x="0"
+  pos_y="40"
+  frame_count="5"
+  frame_width="20"
+  frame_height="20"
+  frame_wait="0.05"
+  frames_per_row="8"
+  loop="0"  >
+  <Event frame="3" name="shoot_bullet" probability="1" check_physics_material="0"/>
+ </RectAnimation>
+ 
+ <RectAnimation
+  name="fly_idle"
+  pos_x="0"
+  pos_y="0"
+  frame_count="6"
+  frame_width="20"
+  frame_height="20"
+  frame_wait="0.085"
+  frames_per_row="8"
+  loop="1"  >
+ </RectAnimation>
+ 
+ <RectAnimation
+  name="fly_move"
+  pos_x="0"
+  pos_y="20"
+  frame_count="4"
+  frame_width="20"
+  frame_height="20"
+  frame_wait="0.07"
+  frames_per_row="8"
+  loop="1"  >
+ </RectAnimation>
+</Sprite>

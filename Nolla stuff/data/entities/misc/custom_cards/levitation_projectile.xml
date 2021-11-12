@@ -1,0 +1,66 @@
+<Entity>
+	
+	<Base file="data/entities/base_custom_card.xml" > 
+		<SpriteComponent 
+			image_file="data/ui_gfx/gun_actions/levitation_projectile.png" 
+			>
+		</SpriteComponent>
+		
+		<ItemActionComponent 
+			_tags="enabled_in_world"
+			action_id="LEVITATION_PROJECTILE" >
+		</ItemActionComponent>
+	</Base>
+
+	<InheritTransformComponent
+		_tags="enabled_in_world,enabled_in_hand" >
+	  <Transform 
+		position.x="8" 
+		position.y="0" >
+	  </Transform>
+	</InheritTransformComponent>
+
+	<SpriteParticleEmitterComponent
+		_tags="enabled_in_hand,item_identified"
+		sprite_file="data/particles/shine_confusion.xml"
+		delay="0"
+		lifetime="0"
+		color.r="1" color.g="1" color.b="1" color.a="1"
+		color_change.r="0" color_change.g="0" color_change.b="0" color_change.a="-1"
+		velocity.x="0" velocity.y="0"
+		gravity.x="0" gravity.y="10"
+		velocity_slowdown="0.5"
+		rotation="0"
+		angular_velocity="0"
+		use_velocity_as_rotation="0"
+		scale.x="1" scale.y="1"
+		scale_velocity.x="0" scale_velocity.y="0"
+		emission_interval_min_frames="24"
+		emission_interval_max_frames="45"
+		count_min="1" count_max="2"
+		randomize_rotation.min="-3.1415"
+		randomize_rotation.max="3.1415"
+		randomize_angular_velocity.min="-1"
+		randomize_angular_velocity.max="1"
+		randomize_position.min_x="-2"
+		randomize_position.max_x="2"
+		randomize_position.min_y="-2"
+		randomize_position.max_y="2"
+		randomize_velocity.min_y="-20"
+		randomize_velocity.max_y="20"
+		randomize_velocity.min_x="-20"
+		randomize_velocity.max_x="20"
+		>
+	  </SpriteParticleEmitterComponent>
+	
+	<LightComponent 
+		_tags="enabled_in_hand,item_identified"
+		_enabled="1" 
+		radius="30"
+		fade_out_time="1.5" 
+		r="80"
+		g="10"
+		b="80" >
+	</LightComponent>
+	
+</Entity>

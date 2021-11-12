@@ -1,0 +1,17 @@
+<Entity >
+   
+    <VerletPhysicsComponent
+    	type="BLOB"
+    	width="1"
+    	num_points="33"
+    	stiffness="0.1"
+        velocity_dampening="0.99"
+    	resting_distance="8" 
+    	simulate_wind="0"
+        follow_entity_transform="0"
+    	simulate_gravity="1" >
+    </VerletPhysicsComponent>
+
+    <DebugFollowMouseComponent></DebugFollowMouseComponent>
+
+</Entity>

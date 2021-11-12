@@ -1,0 +1,45 @@
+<Entity 
+	name="$projectile_default" tags="projectile_player"
+	>
+
+	<Base file="data/entities/base_projectile.xml" >
+		<VelocityComponent
+			gravity_y="0"
+			>
+		</VelocityComponent> 
+	</Base>
+
+	<ProjectileComponent 
+		_enabled="1" 
+		lob_min="0.8"
+		lob_max="1.0"
+		speed_min="40"
+		speed_max="40"
+		die_on_low_velocity="0"
+		on_death_explode="0"
+		on_death_gfx_leave_sprite="0" 
+		on_lifetime_out_explode="0"
+		on_collision_die="1"
+		shoot_light_flash_radius="15"
+		shoot_light_flash_r="250"
+		shoot_light_flash_g="80"
+		shoot_light_flash_b="255"
+		damage="0.0"
+		lifetime="44" 
+		penetrate_entities="1"
+		>
+	</ProjectileComponent>
+
+	<LuaComponent
+		script_source_file="data/scripts/projectiles/freezing_gaze.lua"
+		execute_every_n_frame="1"
+		>
+	</LuaComponent>
+  
+	<AudioComponent
+		file="data/audio/Desktop/projectiles.bank"
+		event_root="player_projectiles/freezing_gaze">
+	</AudioComponent>
+	
+</Entity>
+

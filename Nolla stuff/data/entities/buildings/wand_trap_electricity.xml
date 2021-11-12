@@ -1,0 +1,6 @@
+<Entity tags="wand_trap">
+  <VariableStorageComponent
+    name="entity_file"
+    value_string="data/entities/misc/electricity.xml"
+  />
+</Entity>

@@ -1,0 +1,54 @@
+<Entity>
+	<Base file="data/entities/particles/particle_explosion/base_spark_trail.xml">
+		<VelocityComponent
+			air_friction="8.0"
+			>
+		</VelocityComponent>
+		
+		<SetStartVelocityComponent
+			randomize_speed.min="800"
+			randomize_speed.max="2000"
+			>
+		</SetStartVelocityComponent>
+		
+		<DieIfSpeedBelowComponent
+			min_speed="90"
+			>
+		</DieIfSpeedBelowComponent>
+		
+		<ParticleEmitterComponent 
+			emitted_material_name="plasma_fading"
+			x_pos_offset_min="0"
+			y_pos_offset_min="0"
+			x_pos_offset_max="0"
+			y_pos_offset_max="0"
+			x_vel_min="-5"
+			x_vel_max="5"
+			y_vel_min="-10"
+			y_vel_max="15"
+			fade_based_on_lifetime="1"
+			render_on_grid="1"
+			lifetime_min="0.3"
+			lifetime_max="0.8"
+			>
+		</ParticleEmitterComponent>
+
+		<ParticleEmitterComponent 
+			emitted_material_name="plasma_fading"
+			fade_based_on_lifetime="1"
+			x_pos_offset_min="-8"
+			y_pos_offset_min="-8"
+			x_pos_offset_max="8"
+			y_pos_offset_max="8"
+			x_vel_min="-5"
+			x_vel_max="5"
+			y_vel_min="-10"
+			y_vel_max="15"
+			render_on_grid="1"
+			lifetime_min="0.1"
+			lifetime_max="0.3"
+			>
+		</ParticleEmitterComponent>
+	</Base>
+</Entity>
+

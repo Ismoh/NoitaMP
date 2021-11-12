@@ -1,0 +1,11 @@
+<Entity >
+  <Base file="data/entities/animals/tentacler_small.xml">
+    <DamageModelComponent 
+      hp="4.5"
+      max_hp="4.5"
+	  minimum_knockback_force="100000"
+     ></DamageModelComponent >
+  </Base>
+  
+  <Entity>  <Base file="data/entities/verlet_chains/smalltentacle/tentacler_tentacle_02.xml"> <InheritTransformComponent><Transform position.x="0"  position.y="-8" ></Transform></InheritTransformComponent> </Base>  </Entity>
+</Entity>

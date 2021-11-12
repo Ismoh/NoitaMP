@@ -1,0 +1,38 @@
+<Entity  tags="prop,hittable,mortal,homing_target" >
+
+	<VelocityComponent />
+
+    <SimplePhysicsComponent/>
+
+	<SpriteComponent 
+		z_index="1"
+		image_file="data/props_gfx/dummy_target.xml" 
+		offset_x="0"
+		offset_y="0" >
+	</SpriteComponent>
+	
+	<DamageModelComponent 
+    air_needed="0" 
+    blood_material="sand" 
+    drop_items_on_death="0" 
+    falling_damages="0" 
+    fire_damage_amount="0" 
+    fire_probability_of_ignition="0"
+	critical_damage_resistance="0"
+    hp="120" 
+	blood_multiplier="0.01"
+    is_on_fire="0" 
+    materials_create_messages="0" 
+    materials_damage="0" 
+    ragdoll_filenames_file="" 
+    ragdoll_material="" >
+  </DamageModelComponent>
+  
+  <HitboxComponent
+		aabb_min_x="-8.5"
+		aabb_max_x="8.5" 
+		aabb_min_y="-22"
+		aabb_max_y="0"  
+	>
+	</HitboxComponent>
+</Entity>

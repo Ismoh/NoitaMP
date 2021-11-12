@@ -1,0 +1,19 @@
+<Sprite
+ filename="data/buildings_gfx/snowcrystal.png"
+ offset_x="13"
+ offset_y="23"
+ default_animation="stand" >
+
+ <!-- animation -->
+ <RectAnimation
+  name="stand"
+  pos_x="0"
+  pos_y="0"
+  frame_count="18"
+  frame_width="26"
+  frame_height="26"
+  frame_wait="0.15"
+  frames_per_row="18"
+  loop="1"   >
+ </RectAnimation>
+</Sprite>

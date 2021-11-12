@@ -1,0 +1,16 @@
+<Entity>
+	
+	<InheritTransformComponent>
+    </InheritTransformComponent>	
+    
+    <ShotEffectComponent
+        extra_modifier="extreme_spread"
+		>
+	</ShotEffectComponent>
+	
+	<LifetimeComponent
+		lifetime="3600"
+		>
+	</LifetimeComponent>
+
+</Entity>

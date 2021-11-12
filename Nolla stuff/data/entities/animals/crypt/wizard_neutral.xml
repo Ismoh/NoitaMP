@@ -1,0 +1,38 @@
+<Entity >
+  <Base file="data/entities/animals/wizard_neutral.xml">
+    <DamageModelComponent 
+      hp="14"
+      max_hp="14"
+	  minimum_knockback_force="100000"
+     ></DamageModelComponent >
+  </Base>
+  
+  <Entity name="cape">  
+        <Base file="data/entities/verlet_chains/cape/cape.xml">
+			<VerletPhysicsComponent
+        		cloth_color_edge="0xFF96acab"
+        		cloth_color="0xFF4a4e5b">
+        	</VerletPhysicsComponent>
+        </Base>  
+    </Entity>
+  
+  <Entity>
+		<InheritTransformComponent />
+		
+	    <GameEffectComponent 
+	        effect="STUN_PROTECTION_FREEZE"
+	        frames="-1"
+	    >
+		</GameEffectComponent >
+	</Entity>
+	
+	<Entity>
+		<InheritTransformComponent />
+		
+	    <GameEffectComponent 
+	        effect="STUN_PROTECTION_ELECTRICITY"
+	        frames="-1"
+	    >
+		</GameEffectComponent >
+	</Entity>
+</Entity>

@@ -1,0 +1,9 @@
+<Entity>
+	<Base file="data/entities/items/pickup/potion.xml" />
+	
+	<VariableStorageComponent
+		name="potion_material"
+		value_string="alcohol"
+		>
+	</VariableStorageComponent>
+</Entity>

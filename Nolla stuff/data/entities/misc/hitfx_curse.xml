@@ -1,0 +1,8 @@
+<Entity>
+    
+    <HitEffectComponent 
+        effect_hit="LOAD_CHILD_ENTITY"
+        value_string="data/entities/misc/curse_init.xml" >
+	</HitEffectComponent >
+
+</Entity>

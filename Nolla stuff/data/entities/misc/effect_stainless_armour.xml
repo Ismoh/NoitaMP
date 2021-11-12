@@ -1,0 +1,12 @@
+<Entity tags="effect_resistance,effect_protection" >
+	<InheritTransformComponent 
+		_enabled="1" >
+    </InheritTransformComponent>	
+    
+    <GameEffectComponent
+		_tags="effect_resistance,effect_protection"
+        effect="STAINLESS_ARMOUR"
+        frames="600"
+    >
+	</GameEffectComponent >
+</Entity>

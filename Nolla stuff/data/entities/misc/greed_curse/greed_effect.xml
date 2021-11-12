@@ -1,0 +1,106 @@
+<Entity name="unknown" >
+	<InheritTransformComponent />
+	
+	<ParticleEmitterComponent 
+		_tags="curse"
+		emitted_material_name="spark_yellow"
+		gravity.y="0.0"
+		lifetime_min="1.5"
+		lifetime_max="8.5"
+		count_min="0"
+		count_max="1"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		area_circle_radius.max="6"
+		cosmetic_force_create="0"
+		airflow_force="0.5"
+		airflow_time="0.01"
+		airflow_scale="0.05"
+		attractor_force="2"
+		emission_interval_min_frames="4"
+		emission_interval_max_frames="20"
+		emit_cosmetic_particles="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+	
+	<ParticleEmitterComponent 
+		_tags="curse"
+		emitted_material_name="gold"
+		gravity.y="0.0"
+		lifetime_min="2.5"
+		lifetime_max="13.5"
+		count_min="0"
+		count_max="1"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		area_circle_radius.max="4"
+		cosmetic_force_create="0"
+		airflow_force="0.5"
+		airflow_time="0.01"
+		airflow_scale="0.05"
+		attractor_force="2"
+		emission_interval_min_frames="4"
+		emission_interval_max_frames="20"
+		emit_cosmetic_particles="1"
+		>
+	</ParticleEmitterComponent>
+	
+	<SpriteParticleEmitterComponent
+		_tags="curse"
+        sprite_file="data/particles/shine_08.xml"
+        lifetime="1.5"
+        randomize_lifetime.min="1.0"
+        randomize_lifetime.max="2.0"
+        emission_interval_min_frames="2"
+        emission_interval_max_frames="40"
+        count_min="1"
+        count_max="1"
+        additive="1"
+        emissive="0"
+        sprite_random_rotation="1"
+        gravity.y="5"
+        randomize_velocity.min_y="-10" 
+        randomize_velocity.max_y="10"
+        randomize_velocity.min_x="-10"  
+        randomize_velocity.max_x="10"
+        randomize_position.min_x="-150"
+		randomize_position.max_x="150"
+		randomize_position.min_y="-200"
+		randomize_position.max_y="50"
+		velocity_slowdown="0.5"
+        randomize_animation_speed_coeff.min="0.667"  
+        randomize_animation_speed_coeff.max="1.0" 
+        >
+    </SpriteParticleEmitterComponent>
+
+    <!-- bigger blinkys -->
+    <SpriteParticleEmitterComponent
+		_tags="curse"
+        sprite_file="data/particles/shine_07.xml"
+        lifetime="1.5"
+        randomize_lifetime.min="0.5"
+        randomize_lifetime.max="2.0"
+        emission_interval_min_frames="2"
+        emission_interval_max_frames="120"
+        additive="1"
+        emissive="0"
+        count_min="1"
+        count_max="1"
+        sprite_random_rotation="1"
+        gravity.y="5"
+        randomize_velocity.min_y="-10" 
+        randomize_velocity.max_y="10"
+        randomize_velocity.min_x="-10"  
+        randomize_velocity.max_x="10"
+        randomize_position.min_x="-100"
+		randomize_position.max_x="100"
+		randomize_position.min_y="-150"
+		randomize_position.max_y="50"
+		velocity_slowdown="0.5"
+        randomize_animation_speed_coeff.min="0.667"  
+        randomize_animation_speed_coeff.max="1.0" 
+        >
+    </SpriteParticleEmitterComponent>
+
+</Entity>
+

@@ -1,0 +1,14 @@
+<PixelScenes>
+
+  <PixelSceneFiles>
+    <!-- add spliced pixel scenes here  -->
+    <File>data/biome_impl/spliced/mountain_lake.xml</File>
+  </PixelSceneFiles>
+  
+  <mBufferedPixelScenes>
+		<PixelScene DEBUG_RELOAD_ME="0" background_filename="" clean_area_before="1" colors_filename="" material_filename="data/biome_impl/laboratory/range.png" pos_x="0" pos_y="-386" skip_biome_checks="1" skip_edge_textures="0" >
+		</PixelScene>
+	</mBufferedPixelScenes>
+
+</PixelScenes>
+

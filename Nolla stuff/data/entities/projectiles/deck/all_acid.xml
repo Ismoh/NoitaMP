@@ -1,0 +1,19 @@
+<Entity tags="projectile_player" >
+	<LuaComponent
+		script_source_file="data/scripts/projectiles/all_acid.lua"
+		execute_every_n_frame="-1"
+		execute_on_added="1"
+		>
+	</LuaComponent>
+	
+	<LifetimeComponent
+		lifetime="2"
+		>
+	</LifetimeComponent>
+	
+	<AudioComponent
+      file="data/audio/Desktop/projectiles.bank"
+      event_root="player_projectiles/all_spell"
+      set_latest_event_position="1" >
+	</AudioComponent>
+</Entity>

@@ -1,0 +1,6 @@
+<Entity tags="wand_trap">
+  <VariableStorageComponent
+    name="entity_file"
+    value_string="data/entities/projectiles/deck/circle_acid.xml"
+  />
+</Entity>

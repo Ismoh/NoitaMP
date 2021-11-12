@@ -1,0 +1,115 @@
+<Entity name="$projectile_default">
+
+	<Base file="data/entities/base_projectile.xml" >
+		<VelocityComponent
+			air_friction="1.6"
+			mass="0.065"
+			>
+		</VelocityComponent>
+	</Base>
+
+  <ProjectileComponent 
+    _enabled="1" 
+    lob_min="0.8"
+    lob_max="1.4"
+    speed_min="450"
+    speed_max="550"
+    friction="1"
+    direction_random_rad="0.05"
+    on_death_explode="1"
+    on_death_gfx_leave_sprite="0" 
+    on_lifetime_out_explode="1"
+    explosion_dont_damage_shooter="1" 
+    on_collision_die="1"
+    lifetime="40"
+    damage="0.33"
+    velocity_sets_scale="1"
+    lifetime_randomness="7"
+    ragdoll_force_multiplier="0.05"
+    hit_particle_force_multiplier="0.25 "
+    camera_shake_when_shot="0.4"
+    create_shell_casing="1"
+    muzzle_flash_file="data/entities/particles/muzzle_flashes/muzzle_flash_magic_large.xml"
+    shoot_light_flash_radius="100" 
+	knockback_force="0.7"
+	>
+    <config_explosion
+      never_cache="1" 
+      damage="0.25"
+      camera_shake="0.5" 
+      explosion_radius="3"
+      explosion_sprite="data/particles/explosion_008.xml" 
+      explosion_sprite_lifetime="0" 
+      create_cell_probability="0" 
+      hole_destroy_liquid="0" 
+      hole_enabled="1" 
+      ray_energy="60000"
+      particle_effect="0" 
+      damage_mortals="1" 
+	  physics_explosion_power.min="0.3"
+      physics_explosion_power.max="0.4" 
+      physics_throw_enabled="1" 
+      shake_vegetation="1" 
+      sparks_count_max="20" 
+      sparks_count_min="7" 
+      sparks_enabled="0" 
+      material_sparks_enabled="1"
+      material_sparks_count_max="3"
+      material_sparks_count_min="0" 
+      light_enabled="0" 
+      stains_enabled="1"
+      stains_radius="1" 
+	  audio_enabled="0"
+	  >
+    </config_explosion>
+  </ProjectileComponent>
+  
+  <SpriteComponent 
+    _enabled="1" 
+    alpha="1" 
+    image_file="data/projectiles_gfx/heavy_bullet_poison.xml" 
+    next_rect_animation="" 
+    offset_x="2" 
+    offset_y="2" 
+    rect_animation="" 
+    emissive="1"
+	additive="1"
+     >
+  </SpriteComponent>
+
+  <ParticleEmitterComponent 
+    emitted_material_name="poison"
+    offset.x="-1"
+    offset.y="0"
+    x_pos_offset_min="-1"
+    y_pos_offset_min="-1"
+    x_pos_offset_max="1"
+    y_pos_offset_max="1"
+    x_vel_min="-10"
+    x_vel_max="10"
+    y_vel_min="0"
+    y_vel_max="0"
+    count_min="5"
+    count_max="9"
+    lifetime_min="0.3"
+    lifetime_max="1.6"
+    create_real_particles="0"
+    emit_cosmetic_particles="0"
+    emission_interval_min_frames="1"
+    emission_interval_max_frames="1"
+    is_emitting="1" >
+  </ParticleEmitterComponent>
+  
+	<AudioComponent
+		file="data/audio/Desktop/projectiles.bank"
+		event_root="projectiles/poison">
+	</AudioComponent>
+	
+	<VariableStorageComponent
+		name="projectile_file"
+		value_string="data/entities/projectiles/bullet_poison.xml"
+		>
+	</VariableStorageComponent>
+
+</Entity>
+

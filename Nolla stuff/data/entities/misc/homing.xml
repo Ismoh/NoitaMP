@@ -1,0 +1,7 @@
+<Entity >
+	<HomingComponent
+		homing_targeting_coeff="130.0"
+		homing_velocity_multiplier="0.86"
+	>
+	</HomingComponent>
+</Entity>

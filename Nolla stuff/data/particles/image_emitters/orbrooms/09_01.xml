@@ -1,0 +1,3 @@
+<Entity ><Base file="data/particles/image_emitters/orbrooms/orbroom_base.xml">
+  <ParticleEmitterComponent image_animation_file="data/particles/image_emitters/orbrooms/09_01.png" />
+</Base></Entity>

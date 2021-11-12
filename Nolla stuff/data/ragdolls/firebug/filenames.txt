@@ -1,0 +1,6 @@
+data/ragdolls/firebug/head.png
+data/ragdolls/firebug/torso.png
+data/ragdolls/firebug/foot1.png
+data/ragdolls/firebug/foot2.png
+data/ragdolls/firebug/wing1.png
+data/ragdolls/firebug/wing2.png

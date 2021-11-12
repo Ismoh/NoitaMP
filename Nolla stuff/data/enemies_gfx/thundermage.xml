@@ -1,0 +1,196 @@
+<Sprite 
+  filename="data/enemies_gfx/thundermage.png" 
+  offset_x="9" 
+  offset_y="19"
+  default_animation="stand" >
+
+  <RectAnimation 
+    frame_count="8" 
+    frame_height="24" 
+    frame_wait="0.09" 
+    frame_width="18" 
+    frames_per_row="8" 
+    name="stand" 
+    pos_x="0" 
+    pos_y="1" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="8" 
+    frame_height="25" 
+    frame_wait="0.09" 
+    frame_width="19" 
+    frames_per_row="8" 
+    name="walk" 
+    pos_x="0" 
+    pos_y="26" 
+    shrink_by_one_pixel="1" >
+
+    <Event 
+      check_physics_material="1" 
+      frame="2" 
+      max_distance="500" 
+      name="step" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+    <Event 
+      check_physics_material="1" 
+      frame="6" 
+      max_distance="500" 
+      name="step" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="8" 
+    frame_height="25" 
+    frame_wait="0.09" 
+    frame_width="19" 
+    frames_per_row="8" 
+    name="run" 
+    pos_x="0" 
+    pos_y="26" 
+    shrink_by_one_pixel="1" >
+
+    <Event 
+      check_physics_material="1" 
+      frame="2" 
+      max_distance="500" 
+      name="step" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+    <Event 
+      check_physics_material="1" 
+      frame="6" 
+      max_distance="500" 
+      name="step" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="8" 
+    frame_height="25" 
+    frame_wait="0.09" 
+    frame_width="19" 
+    frames_per_row="8" 
+    name="burn" 
+    pos_x="0" 
+    pos_y="26" 
+    shrink_by_one_pixel="1" >
+
+    <Event 
+      check_physics_material="1" 
+      frame="2" 
+      max_distance="500" 
+      name="step" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+    <Event 
+      check_physics_material="1" 
+      frame="6" 
+      max_distance="500" 
+      name="step" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="25" 
+    frame_wait="0.09" 
+    frame_width="21" 
+    frames_per_row="8" 
+    has_offset="1" 
+    loop="0" 
+    name="attack" 
+    offset_x="10" 
+    offset_y="19" 
+    pos_x="0" 
+    pos_y="51" 
+    shrink_by_one_pixel="1" >
+
+    <Event 
+      check_physics_material="0" 
+      frame="3" 
+      max_distance="500" 
+      name="shoot_thunder" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="25" 
+    frame_wait="0.09" 
+    frame_width="19" 
+    frames_per_row="8" 
+    name="fly_move" 
+    pos_x="0" 
+    pos_y="76" 
+    shrink_by_one_pixel="1" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="25" 
+    frame_wait="0.09" 
+    frame_width="19" 
+    frames_per_row="8" 
+    name="fly_idle" 
+    pos_x="0" 
+    pos_y="76" 
+    shrink_by_one_pixel="1" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="10" 
+    frame_height="25" 
+    frame_wait="0.07" 
+    frame_width="19" 
+    frames_per_row="10" 
+    loop="0" 
+    name="attack_ranged" 
+    pos_x="0" 
+    pos_y="101" 
+    shrink_by_one_pixel="1" >
+
+    <Event 
+      check_physics_material="0" 
+      frame="3" 
+      max_distance="500" 
+      name="shoot_thunder" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+  </RectAnimation>
+
+</Sprite>
+

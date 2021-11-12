@@ -1,0 +1,131 @@
+<Sprite
+ filename="data/enemies_gfx/sheep_fly.png"
+ offset_x="10"
+ offset_y="17"
+ default_animation="walk" 
+ >
+  <RectAnimation
+  name="stand"
+  pos_x="0"
+  pos_y="20"
+  frame_count="4"
+  frame_width="20"
+  frame_height="20"
+  frame_wait="0.23"
+  frames_per_row="6"
+  has_offset="1"
+  offset_x="10"
+  offset_y="15"
+  loop="1"   >
+ </RectAnimation>
+
+ <!-- walk -->
+ <RectAnimation
+  name="walk"
+  pos_x="0"
+  pos_y="40"
+  frame_count="6"
+  frame_width="20"
+  frame_height="20"
+  frame_wait="0.12"
+  frames_per_row="6"
+  has_offset="1"
+  offset_x="10"
+  offset_y="15"
+  loop="1"   >
+  <Event frame="2" name="step" probability="0.7" check_physics_material="1"/>
+  <Event frame="5" name="step" probability="0.7" check_physics_material="1"/>
+ </RectAnimation>
+
+ <!-- run - copied from walk -->
+ <RectAnimation
+  name="run"
+  pos_x="0"
+  pos_y="40"
+  frame_count="6"
+  frame_width="20"
+  frame_height="20"
+  frame_wait="0.12"
+  frames_per_row="6"
+  has_offset="1"
+  offset_x="10"
+  offset_y="15"
+  loop="1"   >
+  <Event frame="2" name="step" probability="1" check_physics_material="1"/>
+  <Event frame="5" name="step" probability="1" check_physics_material="1"/>
+ </RectAnimation>
+
+ <!-- burn - copied from walk -->
+ <RectAnimation
+  name="burn"
+  pos_x="0"
+  pos_y="40"
+  frame_count="6"
+  frame_width="20"
+  frame_height="20"
+  frame_wait="0.12"
+  frames_per_row="6"
+  has_offset="1"
+  offset_x="10"
+  offset_y="15"
+  loop="1"   >
+  <Event frame="2" name="step" probability="1" check_physics_material="1"/>
+  <Event frame="5" name="step" probability="1" check_physics_material="1"/>
+ </RectAnimation>
+ 
+ <RectAnimation
+  name="jump_up"
+  pos_x="0"
+  pos_y="20"
+  frame_count="4"
+  frame_width="20"
+  frame_height="20"
+  frame_wait="0.23"
+  frames_per_row="6"
+  has_offset="1"
+  offset_x="10"
+  offset_y="15"
+  loop="1"   >
+ </RectAnimation>
+ 
+ <RectAnimation
+  name="fall_down"
+  pos_x="0"
+  pos_y="20"
+  frame_count="4"
+  frame_width="20"
+  frame_height="20"
+  frame_wait="0.23"
+  frames_per_row="6"
+  has_offset="1"
+  offset_x="10"
+  offset_y="15"
+  loop="1"   >
+ </RectAnimation>
+ 
+ <!-- stand -->
+ <RectAnimation
+  name="fly_idle"
+  pos_x="0"
+  pos_y="0"
+  frame_count="8"
+  frame_width="20"
+  frame_height="20"
+  frame_wait="0.05"
+  frames_per_row="8"
+  loop="1"   >
+ </RectAnimation>
+
+ <!-- walk -->
+ <RectAnimation
+  name="fly_move"
+  pos_x="0"
+  pos_y="0"
+  frame_count="8"
+  frame_width="20"
+  frame_height="20"
+  frame_wait="0.05"
+  frames_per_row="8"
+  loop="1"   >
+ </RectAnimation>
+</Sprite>

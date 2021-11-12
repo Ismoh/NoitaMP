@@ -1,0 +1,326 @@
+<Sprite 
+  angle="0" 
+  color_a="1" 
+  color_b="1" 
+  color_g="1" 
+  color_r="1" 
+  default_animation="stand" 
+  filename="data/enemies_gfx/ant.png" 
+  hotspots_filename="" 
+  name="" 
+  offset_x="8" 
+  offset_y="18" 
+  position_x="0" 
+  position_y="0" 
+  scale_x="1" 
+  scale_y="1" >
+
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="24" 
+    frame_wait="0.12" 
+    frame_width="24" 
+    frames_per_row="6" 
+    has_offset="0" 
+    loop="1" 
+    name="stand" 
+    next_animation="" 
+    offset_x="0" 
+    offset_y="0" 
+    pos_x="0" 
+    pos_y="0" 
+    shrink_by_one_pixel="0" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="24" 
+    frame_wait="0.12" 
+    frame_width="24" 
+    frames_per_row="6" 
+    has_offset="0" 
+    loop="1" 
+    name="walk" 
+    next_animation="" 
+    offset_x="0" 
+    offset_y="0" 
+    pos_x="0" 
+    pos_y="24" 
+    shrink_by_one_pixel="0" >
+
+    <Event 
+      check_physics_material="1" 
+      frame="1" 
+      max_distance="500" 
+      name="step" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+    <Event 
+      check_physics_material="1" 
+      frame="4" 
+      max_distance="500" 
+      name="step" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="24" 
+    frame_wait="0.1" 
+    frame_width="24" 
+    frames_per_row="6" 
+    has_offset="0" 
+    loop="1" 
+    name="run" 
+    next_animation="" 
+    offset_x="0" 
+    offset_y="0" 
+    pos_x="0" 
+    pos_y="24" 
+    shrink_by_one_pixel="0" >
+
+    <Event 
+      check_physics_material="1" 
+      frame="1" 
+      max_distance="500" 
+      name="step" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+    <Event 
+      check_physics_material="1" 
+      frame="4" 
+      max_distance="500" 
+      name="step" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="24" 
+    frame_wait="0.085" 
+    frame_width="24" 
+    frames_per_row="6" 
+    has_offset="0" 
+    loop="1" 
+    name="burn" 
+    next_animation="" 
+    offset_x="0" 
+    offset_y="0" 
+    pos_x="0" 
+    pos_y="24" 
+    shrink_by_one_pixel="0" >
+
+    <Event 
+      check_physics_material="1" 
+      frame="1" 
+      max_distance="500" 
+      name="step" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+    <Event 
+      check_physics_material="1" 
+      frame="4" 
+      max_distance="500" 
+      name="step" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="3" 
+    frame_height="24" 
+    frame_wait="0.1" 
+    frame_width="24" 
+    frames_per_row="6" 
+    has_offset="0" 
+    loop="0" 
+    name="jump_up" 
+    next_animation="" 
+    offset_x="0" 
+    offset_y="0" 
+    pos_x="0" 
+    pos_y="48" 
+    shrink_by_one_pixel="0" >
+
+    <Event 
+      check_physics_material="1" 
+      frame="0" 
+      max_distance="500" 
+      name="jump" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="2" 
+    frame_height="24" 
+    frame_wait="0.1" 
+    frame_width="24" 
+    frames_per_row="6" 
+    has_offset="0" 
+    loop="0" 
+    name="jump_fall" 
+    next_animation="" 
+    offset_x="0" 
+    offset_y="0" 
+    pos_x="0" 
+    pos_y="72" 
+    shrink_by_one_pixel="0" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="3" 
+    frame_height="24" 
+    frame_wait="0.1" 
+    frame_width="24" 
+    frames_per_row="6" 
+    has_offset="0" 
+    loop="0" 
+    name="land" 
+    next_animation="" 
+    offset_x="0" 
+    offset_y="0" 
+    pos_x="0" 
+    pos_y="96" 
+    shrink_by_one_pixel="1" >
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="24" 
+    frame_wait="0.08" 
+    frame_width="24" 
+    frames_per_row="6" 
+    has_offset="0" 
+    loop="0" 
+    name="attack" 
+    next_animation="" 
+    offset_x="0" 
+    offset_y="0" 
+    pos_x="0" 
+    pos_y="120" 
+    shrink_by_one_pixel="0" >
+
+    <Event 
+      check_physics_material="0" 
+      frame="3" 
+      max_distance="500" 
+      name="attack_melee" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="5" 
+    frame_height="24" 
+    frame_wait="0.09" 
+    frame_width="24" 
+    frames_per_row="6" 
+    has_offset="0" 
+    loop="0" 
+    name="attack_ranged" 
+    next_animation="" 
+    offset_x="0" 
+    offset_y="0" 
+    pos_x="0" 
+    pos_y="144" 
+    shrink_by_one_pixel="0" >
+
+    <Event 
+      check_physics_material="0" 
+      frame="2" 
+      max_distance="500" 
+      name="attack_spit_large" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="3" 
+    frame_height="24" 
+    frame_wait="0.105" 
+    frame_width="24" 
+    frames_per_row="6" 
+    has_offset="0" 
+    loop="0" 
+    name="hurt" 
+    next_animation="" 
+    offset_x="0" 
+    offset_y="0" 
+    pos_x="0" 
+    pos_y="168" 
+    shrink_by_one_pixel="0" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="5" 
+    frame_height="24" 
+    frame_wait="0.04" 
+    frame_width="24" 
+    frames_per_row="6" 
+    has_offset="0" 
+    loop="0" 
+    name="alert" 
+    next_animation="" 
+    offset_x="0" 
+    offset_y="0" 
+    pos_x="0" 
+    pos_y="192" 
+    shrink_by_one_pixel="0" >
+
+    <Event 
+      check_physics_material="0" 
+      frame="1" 
+      max_distance="500" 
+      name="alert" 
+      on_finished="0" 
+      probability="0.6" >
+
+    </Event>
+
+    <Event 
+      check_physics_material="0" 
+      frame="3" 
+      max_distance="500" 
+      name="alert" 
+      on_finished="0" 
+      probability="0.6" >
+
+    </Event>
+
+  </RectAnimation>
+
+</Sprite>
+

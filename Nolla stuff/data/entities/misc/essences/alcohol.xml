@@ -1,0 +1,22 @@
+<Entity tags="essence,essence_effect">
+	<InheritTransformComponent />
+	
+	<ShotEffectComponent
+        extra_modifier="projectile_alcohol_trail"
+	>
+    </ShotEffectComponent>
+	
+	<Base file="data/entities/particles/drunk.xml" >
+		<SpriteParticleEmitterComponent
+    		emission_interval_min_frames="20"
+    		emission_interval_max_frames="50"
+			randomize_position_inside_hitbox="0"  >
+		</SpriteParticleEmitterComponent>
+	</Base>
+    
+    <GameEffectComponent 
+        effect="DRUNK"
+        frames="-1"
+    >
+	</GameEffectComponent >
+</Entity>

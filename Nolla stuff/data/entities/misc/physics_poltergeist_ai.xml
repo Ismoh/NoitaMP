@@ -1,0 +1,85 @@
+<Entity tags="glue_NOT">
+
+  <PhysicsAIComponent
+    target_vec_max_len="20.0"
+    force_coeff="40.0"
+    force_balancing_coeff="1.8"
+    force_max="120"
+    torque_coeff="50"
+    torque_balancing_coeff="0.9"
+    torque_max="1.0"
+    rotation_speed="1"
+    damage_deactivation_probability="20"
+    damage_deactivation_time_min="20"
+    damage_deactivation_time_max="40" >
+  </PhysicsAIComponent>
+
+    <AnimalAIComponent 
+      _enabled="1" 
+      preferred_job="JobDefault"
+      creature_detection_range_x="300"
+      creature_detection_range_y="300"
+      sense_creatures="1"
+      needs_food="0"
+      attack_ranged_enabled="0"
+      attack_melee_enabled="0"
+      can_fly="1"  
+      aggressiveness_min="80"
+      aggressiveness_max="100"
+      eye_offset_y="-12"
+      >
+    </AnimalAIComponent>
+
+    <PathFindingGridMarkerComponent
+      marker_work_flag="16" >
+    </PathFindingGridMarkerComponent>
+    
+    <PathFindingComponent
+      distance_to_reach_node_x="20"
+      distance_to_reach_node_y="20"
+      frames_to_get_stuck="120"
+      can_jump="0" 
+      can_fly="1"
+      jump_speed="0"
+      >
+    </PathFindingComponent>
+
+    <GenomeDataComponent 
+      herd_id="worm"
+      food_chain_rank="7"
+      is_predator="1" >
+    </GenomeDataComponent>
+    
+    <CharacterPlatformingComponent 
+      jump_velocity_y="0" 
+      run_velocity="24"  >
+    </CharacterPlatformingComponent>
+
+    <SpriteAnimatorComponent>
+    </SpriteAnimatorComponent>
+
+	<ParticleEmitterComponent 
+        emitted_material_name="spark_red"
+        offset.x="0"
+        offset.y="0"
+        x_pos_offset_min="-6"
+        x_pos_offset_max="6"
+        y_pos_offset_min="-6"
+        y_pos_offset_max="6"
+        x_vel_min="-40"
+        x_vel_max="40"
+        y_vel_min="-60"
+        y_vel_max="20"
+        count_min="3"
+        count_max="6"
+        lifetime_min="0.5"
+        lifetime_max="0.9"
+        create_real_particles="0"
+        emit_cosmetic_particles="1"
+		fade_based_on_lifetime="1"
+        emission_interval_min_frames="1"
+        emission_interval_max_frames="2"
+        is_emitting="1" >
+    </ParticleEmitterComponent>
+    
+</Entity>

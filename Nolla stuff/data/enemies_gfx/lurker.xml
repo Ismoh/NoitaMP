@@ -1,0 +1,83 @@
+<Sprite
+ filename="data/enemies_gfx/lurker.png"
+ offset_x="10"
+ offset_y="10"
+  default_animation="stand" >
+
+ <!-- stand -->
+ <RectAnimation
+  name="stand"
+  pos_x="0"
+  pos_y="0"
+  frame_count="20"
+  frame_width="20"
+  frame_height="20"
+  frame_wait="0.09"
+  frames_per_row="20"
+  loop="1"   >
+ </RectAnimation>
+
+ <!-- walk -->
+ <RectAnimation
+  name="walk"
+  pos_x="0"
+  pos_y="0"
+  frame_count="20"
+  frame_width="20"
+  frame_height="20"
+  frame_wait="0.09"
+  frames_per_row="20"
+  loop="1"   >
+ </RectAnimation>
+
+ <!-- run - copied from walk -->
+ <RectAnimation
+  name="run"
+  pos_x="0"
+  pos_y="0"
+  frame_count="20"
+  frame_width="20"
+  frame_height="20"
+  frame_wait="0.09"
+  frames_per_row="20"
+  loop="1"   >
+ </RectAnimation>
+
+ <!-- burn - copied from walk -->
+ <RectAnimation
+  name="burn"
+  pos_x="0"
+  pos_y="0"
+  frame_count="20"
+  frame_width="20"
+  frame_height="20"
+  frame_wait="0.09"
+  frames_per_row="20"
+  loop="1"   >
+ </RectAnimation>
+ 
+ <RectAnimation
+  name="fly_idle"
+  pos_x="0"
+  pos_y="0"
+  frame_count="20"
+  frame_width="20"
+  frame_height="20"
+  frame_wait="0.09"
+  frames_per_row="20"
+  loop="1"   >
+ </RectAnimation>
+ 
+ <RectAnimation
+  name="fly_move"
+  pos_x="0"
+  pos_y="0"
+  frame_count="20"
+  frame_width="20"
+  frame_height="20"
+  frame_wait="0.09"
+  frames_per_row="20"
+  loop="1"   >
+ </RectAnimation>
+
+</Sprite>

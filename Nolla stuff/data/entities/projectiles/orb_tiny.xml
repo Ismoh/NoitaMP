@@ -1,0 +1,149 @@
+<Entity 
+	name="$projectile_default" 
+	>
+
+	<Base file="data/entities/base_projectile.xml" >
+		<VelocityComponent
+			gravity_y="0"
+			air_friction="-0.7"
+			terminal_velocity="200"
+			mass="0.8"
+			>
+		</VelocityComponent> 
+	</Base>
+	
+	<HomingComponent
+		just_rotate_towards_target="1"
+		max_turn_rate="0.015"
+	>
+	</HomingComponent>
+
+	<ProjectileComponent 
+		lob_min="0.8"
+		lob_max="1.0"
+		speed_min="50"
+		speed_max="50"
+		direction_random_rad="3.14151"
+		die_on_low_velocity="0"
+		on_death_explode="1"
+		on_death_gfx_leave_sprite="0" 
+		on_lifetime_out_explode="1"
+		explosion_dont_damage_shooter="1"
+		damage="0.12"
+		on_collision_die="1"
+		bounces_left="1"
+		bounce_at_any_angle="1"
+		bounce_energy="0.8"
+		lifetime="130"
+		lifetime_randomness="50"
+		knockback_force="0.1"
+		>
+		<config_explosion
+			never_cache="1" 
+			camera_shake="0.0" 
+			explosion_radius="6" 
+			explosion_sprite="data/particles/explosion_008_pink.xml" 
+			explosion_sprite_lifetime="0.0" 
+			create_cell_probability="1" 
+			create_cell_material="plasma_fading_pink" 
+			ray_energy="10000"
+			hole_destroy_liquid="1" 
+			hole_enabled="1" 
+			damage="0"
+			hole_image="data/temp/explosion_hole.png"
+			explosion_sprite_emissive="0"
+			explosion_sprite_additive="1"
+			particle_effect="0" 
+			damage_mortals="1"
+			physics_explosion_power.min="0.4" 
+			physics_explosion_power.max="0.6"
+			physics_throw_enabled="1"
+			shake_vegetation="1"  
+			sparks_enabled="1" 
+			sparks_count_max="8" 
+			sparks_count_min="4"
+			spark_material="plasma_fading_pink"
+			light_fade_time="1.2" 
+			light_r="155"
+			light_g="15"
+			light_b="140"
+			stains_enabled="1" 
+			stains_image="data/temp/explosion_stain.png"
+			audio_enabled="0" >
+		</config_explosion>
+	</ProjectileComponent>
+
+
+	<SetStartVelocityComponent
+		randomize_speed.min="200"
+		randomize_speed.max="400"
+		randomize_angle.min="0"
+		randomize_angle.max="3.1"
+		>
+	</SetStartVelocityComponent>
+	
+	<SpriteComponent 
+		_enabled="1" 
+		alpha="1" 
+		image_file="data/projectiles_gfx/orb_tiny.xml" 
+		emissive="0"
+		additive="1"
+		update_transform_rotation="0"
+		>
+	</SpriteComponent>
+
+		<!-- trail -->
+	<ParticleEmitterComponent 
+		emitted_material_name="plasma_fading_pink"
+		offset.x="0"
+		offset.y="0"
+		gravity.y="19.0"
+		x_vel_min="0"
+		x_vel_max="0"
+		y_vel_min="0"
+		y_vel_max="0"
+		friction="0"
+		count_min="1"
+		count_max="1"
+		lifetime_min="0.05"
+		lifetime_max="1.15"
+		emit_real_particles="0"
+		render_on_grid="1"
+		is_trail="0"
+		trail_gap="3"
+		emit_cosmetic_particles="1"
+		fade_based_on_lifetime="1"
+		emission_interval_min_frames="2"
+		emission_interval_max_frames="2"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+
+	<!-- poof -->
+	<ParticleEmitterComponent 
+		emitted_material_name="plasma_fading_pink"
+		emitter_lifetime_frames="2"
+		offset.x="0"
+		offset.y="0"
+		gravity.y="0.0"
+		area_circle_radius.min="3"
+		area_circle_radius.max="3"
+		velocity_always_away_from_center="40"
+		friction="1.5"
+		count_min="10"
+		count_max="10"
+		lifetime_min="0.5"
+		lifetime_max="2.0"
+		emit_real_particles="0"
+		render_on_grid="1"
+		emit_cosmetic_particles="1"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+	
+	<VariableStorageComponent
+		name="projectile_file"
+		value_string="data/entities/projectiles/orb_tiny.xml"
+		>
+	</VariableStorageComponent>
+</Entity>

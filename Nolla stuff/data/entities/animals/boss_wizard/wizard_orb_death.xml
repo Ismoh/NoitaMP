@@ -1,0 +1,151 @@
+<Entity 
+  name="$projectile_default" 
+  tags="hittable,touchmagic_immunity,polymorphable_NOT,wizard_orb_death"
+   >
+	<ParticleEmitterComponent 
+		emitted_material_name="slime"
+		gravity.y="100.0"
+		lifetime_min="0.8"
+		lifetime_max="1.5"
+		count_min="3"
+		count_max="6"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		area_circle_radius.min="0"
+		area_circle_radius.max="0"
+		cosmetic_force_create="0"
+		airflow_force="1.1"
+		airflow_time="1.01"
+		airflow_scale="0.05"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		emit_cosmetic_particles="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+	
+	<VariableStorageComponent
+		_tags="wizard_orb_id"
+		name="wizard_orb_id"
+		value_int="0"
+		>
+	</VariableStorageComponent>
+	
+	<LuaComponent
+		script_source_file="data/entities/animals/boss_wizard/orb_rotation.lua"
+		execute_every_n_frame="1"
+		>
+	</LuaComponent>
+	
+	<LuaComponent
+		script_source_file="data/entities/animals/boss_wizard/orb_death_effect.lua"
+		execute_every_n_frame="101"
+		>
+	</LuaComponent>
+	
+	<GenomeDataComponent 
+		herd_id="mage"
+		food_chain_rank="6"
+		is_predator="1" >
+	</GenomeDataComponent>
+	
+	<SpriteComponent 
+		image_file="data/entities/animals/boss_wizard/orb_death.xml" 
+		offset_x="0"
+		offset_y="0"
+		z_index="1.2"
+		>
+	</SpriteComponent>
+	
+	<HitboxComponent 
+		_enabled="1" 
+		aabb_max_x="5" 
+		aabb_max_y="5" 
+		aabb_min_x="-5" 
+		aabb_min_y="-5" >
+	</HitboxComponent>
+	
+	<DamageModelComponent 
+		hp="20"
+		ragdoll_filenames_file=""
+		blood_material="blood"
+		blood_spray_material="blood"
+		ragdoll_offset_y="-14"
+		fire_probability_of_ignition="0"
+		ragdoll_fx_forced="DISINTEGRATED"
+		ragdoll_material="slime"
+		critical_damage_resistance="1.0"
+		physics_objects_damage="0"
+		>
+		<damage_multipliers
+		projectile="0.5"
+		explosion="0.5"
+		electricity="0.5"
+		fire="0.5"
+		ice="0.5"
+		melee="0.5"
+		slice="0.5"
+		>
+		</damage_multipliers>
+	</DamageModelComponent>
+	
+	<Entity>
+		<InheritTransformComponent />
+		
+	    <GameEffectComponent 
+	        effect="STUN_PROTECTION_FREEZE"
+	        frames="-1"
+	    >
+		</GameEffectComponent >
+	</Entity>
+	
+	<Entity>
+		<InheritTransformComponent />
+		
+	    <GameEffectComponent 
+	        effect="STUN_PROTECTION_ELECTRICITY"
+	        frames="-1"
+	    >
+		</GameEffectComponent >
+	</Entity>
+	
+	<ParticleEmitterComponent 
+		emitted_material_name="spark_purple_bright"
+		gravity.y="0.0"
+		lifetime_min="0.2"
+		lifetime_max="0.6"
+		count_min="5"
+		count_max="10"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		area_circle_radius.min="8"
+		area_circle_radius.max="16"
+		cosmetic_force_create="0"
+		airflow_force="1.5"
+		airflow_time="1.9"
+		airflow_scale="0.15"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		emit_cosmetic_particles="1"
+		draw_as_long="1"
+		x_vel_min="-1"
+		x_vel_max="1"
+		y_vel_min="-1"
+		y_vel_max="1"
+		is_emitting="1" 
+		velocity_always_away_from_center="100"
+		>
+	</ParticleEmitterComponent>
+	
+	<AreaDamageComponent
+		aabb_min.x="-12" 
+		aabb_min.y="-12" 
+		aabb_max.x="12" 
+		aabb_max.y="12" 
+		damage_per_frame="0.06"
+		update_every_n_frame="4"
+		entities_with_tag="human"
+		damage_type="DAMAGE_CURSE"
+		>
+	</AreaDamageComponent>
+
+</Entity>

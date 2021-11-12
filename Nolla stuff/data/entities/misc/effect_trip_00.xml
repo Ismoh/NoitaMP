@@ -1,0 +1,18 @@
+<Entity>
+    
+    <GameEffectComponent 
+        effect="CUSTOM"
+        custom_effect_id="TRIP_00"
+        frames="600"
+    >
+	</GameEffectComponent >
+
+	<DrugEffectModifierComponent>
+		<fx_add
+			distortion_amount="0.2"
+			color_amount="0.05"
+			fractals_amount="0.1"
+		/>
+	</DrugEffectModifierComponent>
+
+</Entity>

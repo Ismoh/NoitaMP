@@ -1,0 +1,159 @@
+<Sprite 
+  filename="data/enemies_gfx/assassin_emissive.png" 
+  offset_x="8" 
+  offset_y="8"
+  default_animation="stand" >
+
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="16" 
+    frame_wait="0.1" 
+    frame_width="18" 
+    frames_per_row="6" 
+    name="stand" 
+    pos_x="0" 
+    pos_y="1" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="16" 
+    frame_wait="0.085" 
+    frame_width="18" 
+    frames_per_row="6" 
+    name="walk" 
+    pos_x="0" 
+    pos_y="18" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="16" 
+    frame_wait="0.085" 
+    frame_width="18" 
+    frames_per_row="6" 
+    name="run" 
+    pos_x="0" 
+    pos_y="18" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="16" 
+    frame_wait="0.085" 
+    frame_width="18" 
+    frames_per_row="6" 
+    name="burn" 
+    pos_x="0" 
+    pos_y="18" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="2" 
+    frame_height="16" 
+    frame_wait="0.1" 
+    frame_width="18" 
+    frames_per_row="6" 
+    loop="0" 
+    name="jump_up" 
+    pos_x="0" 
+    pos_y="35" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="2" 
+    frame_height="16" 
+    frame_wait="0.1" 
+    frame_width="18" 
+    frames_per_row="6" 
+    loop="0" 
+    name="jump_fall" 
+    pos_x="0" 
+    pos_y="52" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="3" 
+    frame_height="16" 
+    frame_wait="0.1" 
+    frame_width="18" 
+    frames_per_row="6" 
+    loop="0" 
+    name="land" 
+    pos_x="0" 
+    pos_y="69" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="5" 
+    frame_height="17" 
+    frame_wait="0.08" 
+    frame_width="19" 
+    frames_per_row="6" 
+    loop="0" 
+    name="attack" 
+    pos_x="0" 
+    pos_y="86" 
+    shrink_by_one_pixel="1" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="2" 
+    frame_height="16" 
+    frame_wait="0.12" 
+    frame_width="18" 
+    frames_per_row="6" 
+    loop="0" 
+    name="hurt" 
+    pos_x="0" 
+    pos_y="103" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="15" 
+    frame_height="16" 
+    frame_wait="0.055" 
+    frame_width="18" 
+    frames_per_row="15" 
+    loop="0" 
+    name="attack_dash" 
+    pos_x="0" 
+    pos_y="120" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="16" 
+    frame_wait="0.09" 
+    frame_width="18" 
+    frames_per_row="15" 
+    name="fly_idle" 
+    pos_x="0" 
+    pos_y="137" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="16" 
+    frame_wait="0.09" 
+    frame_width="18" 
+    frames_per_row="15" 
+    name="fly_move" 
+    pos_x="0" 
+    pos_y="137" >
+
+  </RectAnimation>
+
+</Sprite>
+

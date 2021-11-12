@@ -1,0 +1,81 @@
+<Entity tags="mortal,prey" name="$animal_deer">
+  
+	<Base file="data/entities/base_helpless_animal.xml" >
+
+        <AnimalAIComponent 
+        	preferred_job="Escaping"
+			attack_melee_enabled="0"
+			attack_ranged_entity_file=""
+			attack_ranged_predict="1"
+			attack_ranged_enabled="0"
+			attack_melee_enabled="0"
+			sense_creatures="1"
+			creature_detection_range_x="128"
+			creature_detection_range_y="160"
+			attack_melee_damage_min="0"
+			attack_melee_damage_max="0"
+			can_fly="0"
+            >
+        </AnimalAIComponent >
+		
+		<DamageModelComponent 
+			ragdoll_filenames_file="data/ragdolls/deer/filenames.txt" 
+			fire_probability_of_ignition="0.05"
+			hp="0.8"
+			>
+		</DamageModelComponent>
+
+		<SpriteComponent 
+			_enabled="1" 
+			alpha="1" 
+			image_file="data/enemies_gfx/deer.xml" 
+			next_rect_animation="" 
+			offset_x="15" 
+			offset_y="25" 
+			rect_animation="stand" 
+			 >
+		</SpriteComponent>
+
+		<PathFindingGridMarkerComponent
+			marker_work_flag="24" >
+		</PathFindingGridMarkerComponent>
+		
+		<GenomeDataComponent 
+			herd_id="helpless"
+			food_chain_rank="20"
+			is_predator="0" >
+		</GenomeDataComponent>
+		
+		<CharacterPlatformingComponent 
+			jump_velocity_y="-12" 
+			run_velocity="30"  
+			>
+		</CharacterPlatformingComponent>
+		
+		<HitboxComponent 
+			_enabled="1" 
+			aabb_min_x="-6.5" 
+			aabb_max_x="6.5" 
+			aabb_min_y="-10" 
+			aabb_max_y="3" 
+			>
+		</HitboxComponent>
+		
+		<PathFindingComponent
+		    can_swim_on_surface="1"
+		    can_dive="1"
+			>
+		</PathFindingComponent>
+		
+		<CharacterDataComponent
+			collision_aabb_min_x="-4.6" 
+			collision_aabb_max_x="4.6" 
+			collision_aabb_min_y="-10" 
+			collision_aabb_max_y="3" 
+			mass="2.4"
+			>
+		</CharacterDataComponent>
+	</Base>
+
+</Entity>
+

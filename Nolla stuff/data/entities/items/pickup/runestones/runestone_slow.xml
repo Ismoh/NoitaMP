@@ -1,0 +1,67 @@
+<Entity>
+	<Base file="data/entities/items/pickup/runestones/runestone_base.xml">
+		<PhysicsImageShapeComponent 
+			image_file="data/items_gfx/runestones/runestone_slow.png"
+			>
+		</PhysicsImageShapeComponent>
+		
+		<LuaComponent>
+		</LuaComponent>
+		
+		<LuaComponent>
+		</LuaComponent>
+  
+		<ItemComponent
+			item_name="$item_runestone_slow"
+			ui_sprite="data/ui_gfx/items/runestone_slow.png"
+			ui_description="$itemdesc_runestone"
+			>
+		</ItemComponent>
+  
+		<UIInfoComponent
+			name="$item_runestone_slow"
+			>
+		</UIInfoComponent>
+  
+		<AbilityComponent
+			ui_name="$item_runestone_slow"
+			>
+		</AbilityComponent>
+	
+		<SpriteComponent
+			image_file="data/items_gfx/in_hand/runestone_slow.png"
+			>
+		</SpriteComponent>
+  
+		<ParticleEmitterComponent
+			_tags="activate"
+			_enabled="0"
+			emitted_material_name="plasma_fading"
+			gravity.y="0.0"
+			lifetime_min="9.01"
+			lifetime_max="9.1"
+			count_min="150"
+			count_max="150"
+			render_on_grid="0"
+			fade_based_on_lifetime="1"
+			area_circle_radius.min="16"
+			area_circle_radius.max="16"
+			cosmetic_force_create="1"
+			airflow_force="0.451"
+			airflow_time="0.91"
+			airflow_scale="0.05"
+			emission_interval_min_frames="30"
+			emission_interval_max_frames="30"
+			emit_cosmetic_particles="1"
+			velocity_always_away_from_center="80"
+			collide_with_grid="0"
+			>
+		</ParticleEmitterComponent>
+	
+		<LuaComponent
+			script_source_file="data/scripts/items/runestones/runestone_slow.lua"
+			execute_every_n_frame="10"
+			>
+		</LuaComponent>
+	</Base>
+</Entity>

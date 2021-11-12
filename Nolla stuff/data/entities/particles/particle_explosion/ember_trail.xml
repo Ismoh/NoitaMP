@@ -1,0 +1,68 @@
+<Entity>
+	<VelocityComponent
+		gravity_y="90"
+		air_friction="2.0" 
+		liquid_death_threshold="3"
+		>
+	</VelocityComponent>
+
+	<SimplePhysicsComponent>
+	</SimplePhysicsComponent>
+	
+	<SetStartVelocityComponent
+		randomize_speed.min="50"
+		randomize_speed.max="250"
+		randomize_angle.min="0"
+		randomize_angle.max="6.283185" 
+		>
+	</SetStartVelocityComponent>
+	
+	<SpriteComponent 
+		image_file="data/particles/smoke_orange.xml"
+		additive="1"
+		emissive="0" 
+		alpha="1">
+	</SpriteComponent>
+
+	<ParticleEmitterComponent 
+		emitted_material_name="fire"
+		delay_frames="6"
+		offset.x="0"
+		offset.y="0"
+		gravity.y="-20"
+		x_vel_min="0"
+		x_vel_max="0"
+		y_vel_min="0"
+		y_vel_max="0"
+		friction="10"
+		count_min="0"
+		count_max="1"
+		lifetime_min="0.3"
+		lifetime_max="1.5"
+		emit_real_particles="0"
+		render_on_grid="0"
+		is_trail="1"
+		trail_gap="1"
+		airflow_force="0.7"
+		airflow_time="0.01"
+		airflow_scale="0.22"
+		emit_cosmetic_particles="1"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		fade_based_on_lifetime="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+
+	<LifetimeComponent
+		lifetime="100"
+		randomize_lifetime.min="-75"
+		randomize_lifetime.max="75"
+		>
+	</LifetimeComponent>
+
+	<LuaComponent
+		script_source_file="data/scripts/particles/scatter_position.lua"
+		remove_after_executed="1"
+		>
+	</LuaComponent>
+</Entity>

@@ -1,0 +1,143 @@
+<Entity 
+  name="$projectile_default" 
+   >
+  <GameAreaEffectComponent
+      radius="64"
+    >
+  </GameAreaEffectComponent>
+  
+	<ParticleEmitterComponent 
+		emitted_material_name="spark"
+		gravity.y="0.0"
+		lifetime_min="0.5"
+		lifetime_max="1.5"
+		count_min="2"
+		count_max="4"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		area_circle_radius.max="64"
+		cosmetic_force_create="0"
+		airflow_force="1.7"
+		airflow_time="0.11"
+		airflow_scale="0.05"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		emit_cosmetic_particles="1"
+		attractor_force="4"
+		draw_as_long="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+
+  	<ParticleEmitterComponent 
+		emitted_material_name="spark"
+		gravity.y="0.0"
+		lifetime_min="0.5"
+		lifetime_max="2.5"
+		count_min="4"
+		count_max="4"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		area_circle_radius.min="64"
+		area_circle_radius.max="64"
+		cosmetic_force_create="0"
+		airflow_force="0.8"
+		airflow_time="0.11"
+		airflow_scale="0.05"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		emit_cosmetic_particles="1"
+		attractor_force="8"
+		draw_as_long="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+
+	<Base file="data/entities/projectiles/deck/base_field.xml">
+		<SpriteComponent
+			_enabled="0"
+			>
+		</SpriteComponent>
+
+		<SpriteParticleEmitterComponent
+			sprite_file="data/particles/shine_03.xml"
+			_enabled="0"
+			lifetime="2"
+			color.r="1" color.g="1" color.b="1" color.a="1"
+			color_change.r="0" color_change.g="0" color_change.b="0" color_change.a="-1"
+			randomize_rotation.min="-3.1415"
+			randomize_rotation.max="3.1415"
+			randomize_angular_velocity.min="-15"
+			randomize_angular_velocity.max="15"
+			>
+		</SpriteParticleEmitterComponent>
+
+		<ProjectileComponent 
+			damage_game_effect_entities=""
+			friendly_fire="0"
+			lifetime="300"
+			>
+			<config_explosion
+				explosion_sprite="data/particles/blast_out_polymorph.xml"
+				>
+			</config_explosion>
+		</ProjectileComponent>
+		
+		<AudioLoopComponent
+		  file="data/audio/Desktop/projectiles.bank"
+		  event_name="player_projectiles/field_transmutation/loop"
+		  auto_play="1" >
+	  </AudioLoopComponent>
+	</Base>
+	
+	<MaterialSuckerComponent
+		num_cells_sucked_per_frame="200"
+		randomized_position.min_x="-64"
+		randomized_position.max_x="64"
+		randomized_position.min_y="-64"
+		randomized_position.max_y="64"
+		material_type="0"
+		barrel_size="10000"
+		>
+	</MaterialSuckerComponent>
+	
+	<MaterialInventoryComponent
+		drop_as_item="0"
+		on_death_spill="1"
+		>
+	</MaterialInventoryComponent>
+	
+	<DamageModelComponent 
+		hp="0.5"
+		materials_create_messages="1"
+		ragdoll_material="meat"
+		ragdoll_filenames_file="" 
+		blood_sprite_directional=""
+		blood_sprite_large=""
+		air_needed="0"
+		wait_for_kill_flag_on_death="1"
+		ui_report_damage="0"
+		>
+	</DamageModelComponent>
+	
+	<HitboxComponent 
+		aabb_min_x="-2" 
+		aabb_max_x="2" 
+		aabb_min_y="-2" 
+		aabb_max_y="2" 
+		>
+	</HitboxComponent>
+	
+	<LuaComponent
+		_tags="vacuum_powder_helper"
+		script_source_file="data/scripts/projectiles/vacuum_powder.lua"
+		execute_every_n_frame="280"
+		>
+	</LuaComponent>
+	
+	<LuaComponent
+		script_source_file="data/scripts/projectiles/vacuum_powder_init.lua"
+		execute_every_n_frame="2"
+		remove_after_executed="1"
+		>
+	</LuaComponent>
+</Entity>
+

@@ -1,0 +1,41 @@
+<Entity>
+	<Base file="data/entities/props/root_grower.xml" >
+		<ParticleEmitterComponent 
+			_enabled="1"
+			x_pos_offset_min="-1"
+			x_pos_offset_max="1"
+			y_pos_offset_min="-1"
+			y_pos_offset_max="1"
+			count_min="8"
+			count_max="8"
+			lifetime_min="0.1"
+			lifetime_max="0.3"
+			>
+		</ParticleEmitterComponent>
+
+		<CollisionTriggerComponent
+			_enabled="0"
+			>
+		</CollisionTriggerComponent>
+		
+		<LuaComponent 
+			_enabled="1"
+			script_source_file="data/scripts/props/root_grower_spread.lua"
+			execute_every_n_frame="2"
+			>
+		</LuaComponent>
+
+		<!-- don't allow splitting with branches -->
+		<LuaComponent 
+			_enabled="0"
+			script_source_file="data/scripts/props/root_grower_split.lua"
+			execute_every_n_frame="-1"
+			>
+		</LuaComponent>
+
+		<LifetimeComponent
+			_enabled="1"
+			lifetime="50" >
+		</LifetimeComponent>
+	</Base>
+</Entity>

@@ -1,0 +1,20 @@
+<Sprite
+ filename="data/buildings_gfx/statue_trap_left.png"
+ offset_x="10"
+ offset_y="19"
+ default_animation="default" >
+
+ <!-- animation -->
+ <RectAnimation
+  name="default"
+  pos_x="0"
+  pos_y="0"
+  frame_count="1"
+  frame_width="20"
+  frame_height="20"
+  frame_wait="0.12"
+  frames_per_row="8"
+  loop="1"   >
+ </RectAnimation>
+
+ </Sprite>

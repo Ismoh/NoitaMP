@@ -1,0 +1,9 @@
+call _boss_arena.bat
+call _giant_tree.bat
+call _lake_statue.bat
+call _lavalake2.bat
+call _lavalake_pit_bottom.bat
+call _moon.bat
+call _mountain_lake.bat
+call _tree.bat
+call _watercave.bat

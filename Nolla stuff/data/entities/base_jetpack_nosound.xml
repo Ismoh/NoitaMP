@@ -1,0 +1,45 @@
+<Entity>
+    
+	<ParticleEmitterComponent
+        _tags="jetpack"
+        emitted_material_name="rocket_particles"
+        offset.x="-1"
+        offset.y="-4"
+        x_pos_offset_min="-1"
+        x_pos_offset_max="1"
+        y_pos_offset_min=""
+        y_pos_offset_max="0"
+        x_vel_min="-7"
+        x_vel_max="7"
+        y_vel_min="80"
+        y_vel_max="180"
+        count_min="3"
+        count_max="7"
+        lifetime_min="0.1"
+        lifetime_max="0.2"
+        create_real_particles="0"
+        emit_cosmetic_particles="1"
+        emission_interval_min_frames="0"
+        emission_interval_max_frames="1"
+        is_emitting="1" >
+    </ParticleEmitterComponent>
+	
+	<SpriteParticleEmitterComponent
+        _tags="jetpack"
+        sprite_file="data/particles/jetpack_smoke.xml"
+		delay="0"
+		additive="1"
+		randomize_position.min_x="-3"
+		randomize_position.max_x="-1"
+		randomize_velocity.min_y="80"
+		randomize_velocity.max_y="180"
+        count_min="2"
+        count_max="5"
+        emission_interval_min_frames="0"
+        emission_interval_max_frames="1"
+        is_emitting="0" 
+		render_back="1"
+		>
+    </SpriteParticleEmitterComponent>
+
+</Entity>

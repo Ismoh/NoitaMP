@@ -1,0 +1,119 @@
+<Entity name="$animal_acidshooter">
+  
+	<Base file="data/entities/base_enemy_flying.xml" >
+		<ItemChestComponent level="1" > </ItemChestComponent>
+		
+		<AnimalAIComponent
+			attack_ranged_entity_file="data/entities/projectiles/acidshot.xml"
+			attack_ranged_state_duration_frames="70"
+			attack_ranged_enabled="1"
+			attack_dash_enabled="0"
+			attack_ranged_frames_between="40" 
+			attack_ranged_offset_y="0.1"
+			needs_food="0"
+			can_fly="1" >
+		</AnimalAIComponent>
+
+		<DamageModelComponent 
+            hp="1.0"
+			materials_that_damage="lava,poison,blood_cold,blood_cold_vapour" 
+			materials_how_much_damage="0.004,0.001,0.0008,0.0007"
+            ragdoll_material="meat_slime_green"
+			blood_material="slime_green"
+			blood_spray_material="acid"
+            ragdoll_filenames_file="data/ragdolls/acidshooter/filenames.txt"
+			blood_sprite_directional="data/particles/bloodsplatters/bloodsplatter_directional_green_$[1-3].xml"
+			blood_sprite_large="data/particles/bloodsplatters/bloodsplatter_green_$[1-3].xml"
+			>
+			<damage_multipliers
+				radioactive="0.0" >
+			</damage_multipliers>
+		</DamageModelComponent>
+
+		<PathFindingComponent
+			can_fly="1" 
+			can_walk="0"
+			>
+		</PathFindingComponent>
+
+		<SpriteComponent 
+			image_file="data/enemies_gfx/acidshooter.xml" 
+			offset_x="0"
+			offset_y="0">
+		</SpriteComponent>
+		
+		<HitboxComponent 
+			_enabled="1" 
+			aabb_min_x="-4.5" 
+			aabb_max_x="4.5" 
+			aabb_min_y="-8.0" 
+			aabb_max_y="3" 
+			is_enemy="1" 
+			is_item="0" 
+			is_player="0" >
+		</HitboxComponent>		
+		
+		<GenomeDataComponent 
+			herd_id="slimes" >
+		</GenomeDataComponent>
+		
+		<CharacterDataComponent
+			collision_aabb_min_x="-4.0" 
+			collision_aabb_max_x="4.0" 
+			collision_aabb_min_y="-10" 
+			collision_aabb_max_y="3" 
+			mass="1.2"
+			>
+		</CharacterDataComponent>
+		
+		<AudioComponent
+			file="data/audio/Desktop/animals.bank"
+			event_root="animals/slime">
+		</AudioComponent>
+
+	</Base>
+
+	<MaterialInventoryComponent 
+		_enabled="1" 
+		drop_as_item="0" 
+		leak_on_damage_percent="0.999" 
+		>
+		<count_per_material_type>
+		<Material material="acid" count="200"  />
+		</count_per_material_type>
+	</MaterialInventoryComponent>
+
+	<LightComponent 
+	    _enabled="1" 
+	    radius="70" 
+		r="149"
+		g="255"
+		b="149">
+    </LightComponent>
+	
+	<AudioComponent
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals/acidshooter" >
+	</AudioComponent>
+
+	<AudioLoopComponent
+		_tags="sound_spray"
+		file="data/audio/Desktop/materials.bank"
+		event_name="materials/spray_animal" 
+		volume_autofade_speed="0.25" >
+	</AudioLoopComponent>
+  
+	<AudioLoopComponent
+		file="data/audio/Desktop/animals.bank"
+		event_name="animals/slimy_small/movement_loop"
+		set_speed_parameter="1"
+		auto_play="1">
+	</AudioLoopComponent>
+	
+	<Entity>  <Base file="data/entities/verlet_chains/slime_tentacle/slime_tentacle_02.xml"> <InheritTransformComponent><Transform position.x="-3" position.y="-1" ></Transform></InheritTransformComponent> </Base>  </Entity>
+	<Entity>  <Base file="data/entities/verlet_chains/slime_tentacle/slime_tentacle_01.xml"> <InheritTransformComponent><Transform position.x="-4" position.y="-1" ></Transform></InheritTransformComponent> </Base>  </Entity>
+	<Entity>  <Base file="data/entities/verlet_chains/slime_tentacle/slime_tentacle_01.xml"> <InheritTransformComponent><Transform position.x="0"  position.y="-1" ></Transform></InheritTransformComponent> </Base>  </Entity>
+	<Entity>  <Base file="data/entities/verlet_chains/slime_tentacle/slime_tentacle_thin_01.xml"> <InheritTransformComponent><Transform position.x="4"  position.y="-1" ></Transform></InheritTransformComponent> </Base>  </Entity>
+
+</Entity>
+

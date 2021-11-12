@@ -1,0 +1,23 @@
+<Sprite 
+	filename="data/ui_gfx/loading_splash/noita_logo_v2_anim_01.png" 
+	offset_x="55" 
+	offset_y="30" 
+	default_animation="default"
+	>
+	
+  <RectAnimation 
+	name="default" 
+	pos_x="0" 
+	pos_y="0" 
+	offset_x="0" 
+	offset_y="0" 
+	has_offset="0"
+	frame_count="24" 
+	frame_width="110" 
+	frame_height="61" 
+	frame_wait="0.03" 
+	frames_per_row="24" 
+	loop="1"  >
+  </RectAnimation>
+  
+</Sprite>

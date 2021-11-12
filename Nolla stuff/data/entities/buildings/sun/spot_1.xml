@@ -1,0 +1,34 @@
+<Entity>
+	<LuaComponent
+		script_source_file="data/scripts/buildings/sun/spot_1.lua"
+		execute_every_n_frame="36"
+		>
+	</LuaComponent>
+
+	<!-- buildup -->
+	<ParticleEmitterComponent 
+		_tags="buildup_particles"
+		emitted_material_name="spark"
+		gravity.y="0.0"
+		lifetime_min="0.1"
+		lifetime_max="1.5"
+		count_min="20"
+		count_max="20"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		area_circle_radius.min="0"
+		area_circle_radius.max="0"
+		cosmetic_force_create="0"
+		airflow_force="4.1"
+		airflow_time="1.01"
+		airflow_scale="0.05"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		emit_cosmetic_particles="1"
+		image_animation_file="data/particles/image_emitters/circle_reverse_64.png"
+		image_animation_speed="4"
+		image_animation_loop="0"
+		render_ultrabright="1"
+		is_emitting="0" >
+	</ParticleEmitterComponent>
+</Entity>

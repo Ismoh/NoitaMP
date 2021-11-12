@@ -1,0 +1,10 @@
+data/ragdolls/fungus_big/torso.png
+data/ragdolls/fungus_big/head.png
+data/ragdolls/fungus_big/tentacle_1.png
+data/ragdolls/fungus_big/tentacle_2.png
+data/ragdolls/fungus_big/tentacle_3.png
+data/ragdolls/fungus_big/tentacle_4.png
+data/ragdolls/fungus_big/tentacle_5.png
+data/ragdolls/fungus_big/tentacle_6.png
+data/ragdolls/fungus_big/tentacle_7.png
+data/ragdolls/fungus_big/tentacle_8.png

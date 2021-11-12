@@ -1,0 +1,119 @@
+<Sprite
+ filename="data/entities/animals/boss_limbs/body.png"
+ offset_x="24"
+ offset_y="24" 
+ default_animation="stand"
+ >
+
+ <!-- stand -->
+ <RectAnimation
+  name="stand"
+  pos_x="0"
+  pos_y="0"
+  frame_count="12"
+  frame_width="48"
+  frame_height="48"
+  frame_wait="0.12"
+  frames_per_row="12"
+  loop="1"   >
+ </RectAnimation>
+ 
+ <RectAnimation
+  name="open"
+  pos_x="0"
+  pos_y="48"
+  frame_count="6"
+  frame_width="48"
+  frame_height="48"
+  frame_wait="0.09"
+  frames_per_row="12"
+  next_animation="opened"
+  loop="0"   >
+ </RectAnimation>
+ 
+ <RectAnimation
+  name="opened"
+  pos_x="0"
+  pos_y="96"
+  frame_count="5"
+  frame_width="48"
+  frame_height="48"
+  frame_wait="0.12"
+  frames_per_row="12"
+  loop="1"   >
+ </RectAnimation>
+ 
+ <RectAnimation
+  name="close"
+  pos_x="0"
+  pos_y="144"
+  frame_count="5"
+  frame_width="48"
+  frame_height="48"
+  frame_wait="0.09"
+  frames_per_row="12"
+  next_animation="stand"
+  loop="0"   >
+ </RectAnimation>
+ 
+ <RectAnimation
+  name="attack_ranged"
+  pos_x="0"
+  pos_y="192"
+  frame_count="7"
+  frame_width="48"
+  frame_height="48"
+  frame_wait="0.09"
+  frames_per_row="12"
+  loop="0"   >
+ </RectAnimation>
+ 
+ <RectAnimation
+  name="hurt"
+  pos_x="0"
+  pos_y="240"
+  frame_count="2"
+  frame_width="48"
+  frame_height="48"
+  frame_wait="0.09"
+  frames_per_row="12"
+  loop="0"   >
+ </RectAnimation>
+ 
+ <RectAnimation
+  name="charge"
+  pos_x="0"
+  pos_y="288"
+  frame_count="12"
+  frame_width="48"
+  frame_height="48"
+  frame_wait="0.07"
+  frames_per_row="12"
+  loop="0"   >
+ </RectAnimation>
+ 
+ <RectAnimation
+  name="death2"
+  pos_x="0"
+  pos_y="336"
+  frame_count="3"
+  frame_width="48"
+  frame_height="48"
+  frame_wait="0.093"
+  frames_per_row="12"
+  loop="1"   >
+ </RectAnimation>
+ 
+ <RectAnimation
+  name="death1"
+  pos_x="0"
+  pos_y="384"
+  frame_count="5"
+  frame_width="48"
+  frame_height="48"
+  frame_wait="0.07"
+  frames_per_row="12"
+  loop="0"   >
+ </RectAnimation>
+
+</Sprite>

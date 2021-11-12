@@ -1,0 +1,37 @@
+<!-- attaches a shield to a nearby enemy -->
+<Entity>
+	<LifetimeComponent
+		lifetime="1200"
+		>
+	</LifetimeComponent>
+	<LuaComponent
+		script_source_file="data/scripts/animals/energy_shield_sector_spawn.lua"
+		execute_every_n_frame="61"
+		>
+	</LuaComponent>
+	
+	<Entity tags="spawned_energy_shield">
+		<Base file="data/entities/misc/animal_energy_shield_sector.xml">
+			<EnergyShieldComponent
+				_enabled="0"
+				radius="20"
+				max_energy="0.5"
+				recharge_speed="0.2" >
+			</EnergyShieldComponent>
+			<ParticleEmitterComponent
+				_enabled="0"
+				area_circle_radius.max="20" />
+			<ParticleEmitterComponent
+				_enabled="0"
+				area_circle_radius.min="20"
+				area_circle_radius.max="20" />
+			<ParticleEmitterComponent
+				_enabled="0"
+				area_circle_radius.min="20"
+				area_circle_radius.max="20" />
+			<LightComponent _enabled="0" />
+			<AudioComponent _enabled="0" />
+		</Base>
+	</Entity>
+
+</Entity>

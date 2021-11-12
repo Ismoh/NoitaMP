@@ -1,0 +1,346 @@
+Current modding API version: 7
+---
+EntityLoad( filename:string, pos_x:number = 0, pos_y:number = 0 ) -> entity_id:int
+EntityLoadEndGameItem( filename:string, pos_x:number = 0, pos_y:number = 0 ) -> entity_id:int
+EntityLoadCameraBound( filename:string, pos_x:number = 0, pos_y:number = 0 )
+EntityLoadToEntity( filename:string, entity:int ) [Loads components from 'filename' to 'entity'. Does not load tags and other stuff.]
+EntitySave( entity_id:int, filename:string ) [Note: works only in dev builds.]
+EntityCreateNew( name:string = "" ) -> entity_id:int
+EntityKill( entity_id:int )
+EntityGetIsAlive( entity_id:int ) -> bool
+EntityAddComponent( entity_id:int, component_type_name:string, table_of_component_values:{string} = nil ) -> component_id:int
+EntityRemoveComponent( entity_id:int, component_id:int )
+EntityGetAllComponents( entity_id:int ) -> {int} [Returns a table of component ids.]
+EntityGetComponent( entity_id:int, component_type_name:string, tag:string = "" ) -> {component_id}|nil
+EntityGetFirstComponent( entity_id:int, component_type_name:string, tag:string = "" ) -> component_id|nil
+EntityGetComponentIncludingDisabled( entity_id:int, component_type_name:string, tag:string = "" ) -> {component_id}|nil
+EntityGetFirstComponentIncludingDisabled( entity_id:int, component_type_name:string, tag:string = "" ) -> component_id|nil
+EntitySetTransform( entity_id:int, x:number, y:number = 0, rotation:number = 0, scale_x:number = 1, scale_y:number = 1 )
+EntityApplyTransform( entity_id:int, x:number, y:number = 0, rotation:number = 0, scale_x:number = 1, scale_y:number = 1 )  [Sets the transform and tries to immediately refresh components that calculate values based on an entity's transform.]
+EntityGetTransform( entity_id:int ) -> x:number,y:number,rotation:number,scale_x:number,scale_y:number
+EntityAddChild( parent_id:int, child_id:int )
+EntityGetAllChildren( entity_id:int ) -> {entity_id:int}|nil
+EntityGetParent( entity_id:int ) -> entity_id:int
+EntityGetRootEntity( entity_id:int ) -> entity_id:int [Returns the given entity if it has no parent, otherwise walks up the parent hierarchy to the topmost parent and returns it.]
+EntityRemoveFromParent( entity_id:int )
+EntitySetComponentsWithTagEnabled( entity_id:int, tag:string, enabled:bool )
+EntitySetComponentIsEnabled( entity_id:int, component_id:int, is_enabled:bool )
+EntityGetName( entity_id:int ) -> name:string
+EntitySetName( entity_id:int, name:string )
+EntityGetTags( entity_id:int ) -> string|nil [Returns a string where the tags are comma-separated, or nil if 'entity_id' doesn't point to a valid entity.]
+EntityGetWithTag( tag:string ) -> {entity_id:int} [Returns all entities with 'tag'.]
+EntityGetInRadius( pos_x:number, pos_y:number, radius:number ) -> {entity_id:int} [Returns all entities in 'radius' distance from 'x','y'.]
+EntityGetInRadiusWithTag( pos_x:number, pos_y:number, radius:number, entity_tag:string ) -> {entity_id:int} [Returns all entities in 'radius' distance from 'x','y'.]
+EntityGetClosest( pos_x:number, pos_y:number ) -> entity_id:int
+EntityGetClosestWithTag(  pos_x:number, pos_y:number, tag:string ) -> entity_id:int
+EntityGetWithName( name:string ) -> entity_id:int
+EntityAddTag( entity_id:int, tag:string )
+EntityRemoveTag( entity_id:int, tag:string )
+EntityHasTag( entity_id:int, tag:string ) -> bool
+EntityGetFilename( entity_id:int ) -> full_path:string [return value example: 'data/entities/items/flute.xml']
+ComponentGetValue( component_id:int, variable_name:string ) -> string|nil [Deprecated, use ComponentGetValue2() instead.]
+ComponentGetValueBool( component_id:int, variable_name:string ) -> bool [Deprecated, use ComponentGetValue2() instead.]
+ComponentGetValueInt( component_id:int, variable_name:string ) -> int [Deprecated, use ComponentGetValue2() instead.]
+ComponentGetValueFloat( component_id:int, variable_name:string ) -> number [Deprecated, use ComponentGetValue2() instead.]
+ComponentGetValueVector2( component_id:int, variable_name:string ) -> x:number,y:number [Deprecated, use ComponentGetValue2() instead.]
+ComponentSetValue( component_id:int, variable_name:string, value:string ) [Deprecated, use ComponentSetValue2() instead.]
+ComponentSetValueVector2( component_id:int, variable_name:string, x:number, y:number ) [Deprecated, use ComponentSetValue2() instead.]
+ComponentSetValueValueRange( component_id:int, variable_name:string, min:number, max:number ) [Deprecated, use ComponentSetValue2() instead.]
+ComponentSetValueValueRangeInt( component_id:int, variable_name:string, min:number, max:number ) [Deprecated, use ComponentSetValue2() instead.]
+ComponentSetMetaCustom( component_id:int, variable_name:string, value:string ) [Deprecated, use ComponentSetValue2() instead.]
+ComponentGetMetaCustom( component_id:int, variable_name:string ) -> string|nil [Deprecated, use ComponentGetValue2() instead.]
+ComponentObjectGetValue( component_id:int, object_name:string, variable_name:string ) -> string|nil [Deprecated, use ComponentObjectGetValue2() instead.]
+ComponentObjectGetValueBool( component_id:int, object_name:string, variable_name:string ) -> string|nil [Deprecated, use ComponentObjectGetValue2() instead.]
+ComponentObjectGetValueInt( component_id:int, object_name:string, variable_name:string ) -> string|nil [Deprecated, use ComponentObjectGetValue2() instead.]
+ComponentObjectGetValueFloat( component_id:int, object_name:string, variable_name:string ) -> string|nil [Deprecated, use ComponentObjectGetValue2() instead.]
+ComponentObjectSetValue( component_id:int, object_name:string, variable_name:string, value:string ) [Deprecated, use ComponentObjectSetValue2() instead.]
+ComponentAddTag( component_id:int, tag:string )
+ComponentRemoveTag( component_id:int, tag:string )
+ComponentHasTag( component_id:int, tag:string ) -> bool
+ComponentGetValue2( component_id:int, field_name:string ) -> multiple_types|nil [Returns one or many values matching the type or subtypes of the requested field. Reports error and returns nil if the field type is not supported or field was not found.]
+ComponentSetValue2( component_id:int, field_name:string, value_or_values:multiple_types ) [Sets the value of a field. Value(s) should have a type matching the field type. Reports error if the values weren't given in correct type, the field type is not supported, or the component does not exist.]
+ComponentObjectGetValue2( component_id:int, object_name:string, field_name:string ) -> multiple types|nil [Returns one or many values matching the type or subtypes of the requested field in a component subobject. Reports error and returns nil if the field type is not supported or 'object_name' is not a metaobject.]
+ComponentObjectSetValue2( component_id:int, object_name:string, field_name:string, value_or_values:multiple_types ) [Sets the value of a field in a component subobject. Value(s) should have a type matching the field type. Reports error if the values weren't given in correct type, the field type is not supported or 'object_name' is not a metaobject.]
+EntityAddComponent2( entity_id:int, component_type_name, table_of_component_values:{string-multiple_types} = nil ) -> component_id [Creates a component of type 'component_type_name' and adds it to 'entity_id'. 'table_of_component_values' should be a string-indexed table, where keys are field names and values are field values of correct type. The value setting works like ComponentObjectSetValue2(), with the exception that multivalue types are not supported. Additional supported values are _tags:comma_separated_string and _enabled:bool, which basically work like the those fields work in entity XML files. Returns the created component, if creation succeeded, or nil.
+ComponentGetVectorSize( component_id:int, array_member_name:string, type_stored_in_vector:string ) -> int ['type_stored_in_vector' should be "int", "float" or "string".]
+ComponentGetVectorValue( component_id:int, array_name:string, type_stored_in_vector:string, index:int ) -> int|number|string|nil ['type_stored_in_vector' should be "int", "float" or "string".]
+ComponentGetVector( component_id:int, array_name:string, type_stored_in_vector:string ) -> {int|number|string}|nil ['type_stored_in_vector' should be "int", "float" or "string".]
+ComponentGetIsEnabled( component_id:int ) -> bool [Returns true if the given component exists and is enabled, else false.]
+ComponentGetMembers( component_id:int ) -> {string-string}|nil [Returns a string-indexed table of string.]
+ComponentObjectGetMembers( component_id:int, object_name:string ) -> {string-string}|nil [Returns a string-indexed table of string or nil.]
+ComponentGetTypeName( component_id:int ) -> string
+GetUpdatedEntityID() -> entity_id:int
+GetUpdatedComponentID() -> component_id:int
+SetTimeOut( time_to_execute:number, file_to_execute:string, function_to_call:string = nil )
+RegisterSpawnFunction( color:int, function_name:string )
+SpawnActionItem( x:number, y:number, level:int )
+SpawnStash( x:number, y:number, level:int, action_count:int ) -> entity_id:int
+SpawnApparition( x:number, y:number, level:int ) -> spawn_state_id:int,entity_id:int
+LoadEntityToStash( entity_file:string, stash_entity_id:int )
+AddMaterialInventoryMaterial( entity_id:int, material_name:string, count:int )
+GetMaterialInventoryMainMaterial( entity_id:int ) -> material_type:int [Returns the id of the material taking the largest part of the first MaterialInventoryComponent in 'entity_id', or 0 if nothing is found.]
+GameScreenshake( strength:number, x:number = camera_x, y:number = camera_y )
+GameOnCompleted()
+GameGiveAchievement( id:string )
+GameDoEnding2()
+GetParallelWorldPosition( world_pos_x:number, world_pos_y:number ) -> x, y [x = 0 normal world, -1 is first west world, +1 is first east world, if y < 0 it is sky, if y > 0 it is hell ]
+BiomeMapLoad_KeepPlayer( filename:string, pixel_scenes:string = "data/biome/_pixel_scenes.xml" )
+BiomeMapLoad( filename:string ) [Deprecated. Might trigger various bugs. Use BiomeMapLoad_KeepPlayer() instead.]
+BiomeSetValue( filename:string, field_name:string, value:multiple_types ) [Can be used to edit biome configs during initialization. See the nightmare mod for an usage example.]
+BiomeGetValue( filename:string, field_name:string ) -> multiple types|nil [Can be used to read biome configs. Returns one or many values matching the type or subtypes of the requested field. Reports error and returns nil if the field type is not supported or field was not found.]
+BiomeObjectSetValue( filename:string, meta_object_name:string, field_name:string, value:multiple_types ) [Can be used to edit biome configs during initialization. See biome_modifiers.lua for an usage example.]
+BiomeVegetationSetValue( filename:string, material_name:string, field_name:string, value:multiple_types ) [Can be used to edit biome config MaterialComponents during initialization. Sets the given value in all found VegetationComponent with matching tree_material. See biome_modifiers.lua for an usage example.]
+BiomeMaterialSetValue( filename:string, material_name:string, field_name:string, value:multiple_types ) [Can be used to edit biome config MaterialComponents during initialization. Sets the given value in the first found MaterialComponent with matching material_name. See biome_modifiers.lua for an usage example.]
+BiomeMaterialGetValue( filename:string, material_name:string, field_name:string ) -> multiple types|nil [Can be used to read biome config MaterialComponents during initialization. Returns the given value in the first found MaterialComponent with matching material_name. See biome_modifiers.lua for an usage example.]
+GameIsIntroPlaying() -> bool
+GameGetIsGamepadConnected() -> bool
+GameGetWorldStateEntity() -> entity_id:int
+GameGetPlayerStatsEntity() -> entity_id:int
+GameGetOrbCountAllTime() -> int
+GameGetOrbCountThisRun() -> int
+GameGetOrbCollectedThisRun( orb_id_zero_based:int ) -> bool
+GameGetOrbCollectedAllTime( orb_id_zero_based:int ) -> bool
+GameClearOrbsFoundThisRun()
+GameGetOrbCountTotal() -> int [Returns the number of orbs, picked or not.]
+CellFactory_GetName( material_id:int ) -> string [Converts a numeric material id to the material's strings id.]
+CellFactory_GetType( material_name:string ) -> int [Returns the id of a material.]
+CellFactory_GetUIName( material_id:int ) -> string [Returns the displayed name of a material, or an empty string if 'material_id' is not valid. Might return a text key.]
+CellFactory_GetAllLiquids( include_statics:bool = true, include_particle_fx_materials:bool = false ) -> {string}
+CellFactory_GetAllSands( include_statics:bool = true, include_particle_fx_materials:bool = false ) -> {string}
+CellFactory_GetAllGases( include_statics:bool = true, include_particle_fx_materials:bool = false ) -> {string}
+CellFactory_GetAllFires( include_statics:bool = true, include_particle_fx_materials:bool = false ) -> {string}
+CellFactory_GetAllSolids( include_statics:bool = true, include_particle_fx_materials:bool = false ) -> {string}
+CellFactory_GetTags( material_id:int ) -> {string}
+GameGetCameraPos() -> x:number,y:number
+GameSetCameraPos( x:number, y:number )
+GameSetCameraFree( is_free:bool )
+GameGetCameraBounds() -> x:number,y:number,w:number,h:number [Returns the camera rectangle. This may not be 100% pixel perfect with regards to what you see on the screen. 'x','y' = top left corner of the rectangle.]
+GameRegenItemAction( entity_id:int )
+GameRegenItemActionsInContainer( entity_id:int )
+GameRegenItemActionsInPlayer( entity_id:int )
+GameKillInventoryItem( inventory_owner_entity_id:int, item_entity_id:int )
+GamePickUpInventoryItem( who_picks_up_entity_id:int, item_entity_id:int, do_pick_up_effects:bool = true )
+GameDropAllItems( entity_id:int )
+GameDropPlayerInventoryItems( entity_id:int )
+GameDestroyInventoryItems( entity_id:int )
+GameIsInventoryOpen() -> bool
+GameTriggerGameOver()
+LoadPixelScene( materials_filename:string, colors_filename:string, x:number, y:number, background_file:string, skip_biome_checks:bool = false, skip_edge_textures:bool = false, color_to_material_table:{string-string} = {}, background_z_index:int = 50 )
+LoadBackgroundSprite( background_file:string, x:number, y:number, background_z_index:number = 40.0, check_biome_corners:bool = false )
+GameCreateParticle( material_name:string, x:number, y:number, how_many:int, xvel:number, yvel:number, just_visual:bool, draw_as_long:bool = false )
+GameCreateSpriteForXFrames( filename:string, x:number, y:number, centered:bool = true, sprite_offset_x:number = 0, sprite_offset_y:number = 0, frames:int = 1, emissive:bool = false )
+GameShootProjectile( shooter_entity:int, x:number, y:number, target_x:number, target_y:number, projectile_entity:int, send_message:bool = true, verlet_parent_entity:int = 0 ) ['shooter_entity' can be 0. Warning: If 'projectile_entity' has PhysicsBodyComponent and ItemComponent, components without the "enabled_in_world" tag will be disabled, as if the entity was thrown by player.]
+EntityInflictDamage( entity:int, amount:number, damage_type:string, description:string, ragdoll_fx:string, impulse_x:number, impulse_y:number, entity_who_is_responsible:int = 0, world_pos_x:number = entity_x, world_pos_y:number = entity_y, knockback_force:number = 0 )
+EntityIngestMaterial( entity:int, material_type:number, amount:number ) [Has the same effects that would occur if 'entity' eats 'amount' number of cells of 'material_type' from the game world. Use this instead of directly modifying IngestionComponent values, if possible. Might not work with non-player entities. Use CellFactory_GetType() to convert a material name to material type.]
+EntityRemoveIngestionStatusEffect( entity:int, status_type_id:string )
+EntityAddRandomStains( entity:int, material_type:number, amount:number ) [Adds random visible stains of 'material_type' to entity. 'amount' controls the number of stain cells added. Does nothing if 'entity' doesn't have a SpriteStainsComponent. Use CellFactory_GetType() to convert a material name to material type.]
+EntitySetDamageFromMaterial( entity:int, material_name:string, damage:number ) [Modifies DamageModelComponents materials_that_damage and materials_how_much_damage variables (and their parsed out data structures)]
+EntityRefreshSprite( entity:int, sprite_component:int ) [Immediately refreshes the given SpriteComponent. Might be useful with text sprites if you want them to update more often than once a second.]
+EntityGetWandCapacity( entity:int ) -> int [Returns the capacity of a wand entity, or 0 if 'entity' doesnt exist.]
+GamePlayAnimation( entity_id:int, name:string, priority:int, followup_name:string = "", followup_priority:int = 0 ) [Plays animation. Follow up animation ('followup_name') is applied only if 'followup_priority' is given.]
+GameGetVelocityCompVelocity( entity_id:int ) -> x:number,y:number
+GameGetGameEffect( entity_id:int, game_effect_name:string ) -> component_id:int
+GameGetGameEffectCount( entity_id:int, game_effect_name:string ) -> int
+LoadGameEffectEntityTo( entity_id:int, game_effect_entity_file:string ) -> effect_entity_id:int
+GetGameEffectLoadTo( entity_id:int, game_effect_name:string, always_load_new:bool ) -> effect_component_id:int,effect_entity_id:int
+SetPlayerSpawnLocation( x:number, y:number )
+UnlockItem( action_id:string )
+GameGetPotionColorUint( entity_id:int ) -> uint
+EntityGetFirstHitboxCenter( entity_id:int ) -> (x:number,y:number)|nil [Returns the centroid of first enabled HitboxComponent found in entity, the position of the entity if no hitbox is found, or nil if the entity does not exist. All returned positions are in world coordinates.]
+Raytrace( x1:number, y1:number, x2:number, y2:number ) -> did_hit:bool,hit_x:number,hit_y:number [Does a raytrace that stops on any cell it hits.]
+RaytraceSurfaces( x1:number, y1:number, x2:number, y2:number ) -> did_hit:bool,hit_x:number,hit_y:number [Does a raytrace that stops on any cell that is not fluid, gas (yes, technically gas is a fluid), or fire.]
+RaytraceSurfacesAndLiquiform( x1:number, y1:number, x2:number, y2:number ) -> did_hit:bool,hit_x:number,hit_y:number [Does a raytrace that stops on any cell that is not gas or fire.]
+RaytracePlatforms( x1:number, y1:number, x2:number, y2:number ) -> did_hit:bool,hit_x:number,hit_y:number [Does a raytrace that stops on any cell a character can stand on.]
+FindFreePositionForBody( ideal_pos_x:number, idea_pos_y:number, velocity_x:number, velocity_y:number, body_radius:number ) -> x:number,y:number
+GetSurfaceNormal( pos_x:number, pos_y:number, ray_length:number, ray_count:int ) -> found_normal:bool,normal_x:number,normal_y:number,approximate_distance_from_surface:number
+DoesWorldExistAt( min_x:int, min_y:int, max_x:int, max_y:int ) -> bool [Returns true if the area inside the bounding box defined by the parameters has been streamed in and no pixel scenes are loading in the area.
+StringToHerdId( herd_name:string  ) -> int
+HerdIdToString( herd_id:int ) -> string
+GetHerdRelation( herd_id_a:int, herd_id_b:int ) -> number
+EntityGetHerdRelation( entity_a:int, entity_b:int ) -> number
+EntityGetHerdRelationSafe( entity_a:int, entity_b:int ) -> number [does not spam errors, but returns 0 if anything fails]
+GenomeSetHerdId( entity_id:int, new_herd_id:string ) [Deprecated, use GenomeStringToHerdID() and ComponentSetValue2() instead.]
+EntityGetClosestWormAttractor( pos_x:number, pos_y:number ) -> entity_id:int, pos_x:number, pos_y:number [NOTE: entity_id might be NULL, but pos_x and pos_y could still be valid.]
+EntityGetClosestWormDetractor( pos_x:number, pos_y:number ) -> entity_id:int, pos_x:number, pos_y:number, radius:number [NOTE: entity_id might be NULL, but pos_x and pos_y could still be valid]
+GamePrint( log_line:string )
+GamePrintImportant( title:string, description:string = "", ui_custom_decoration_file:string = "" )
+DEBUG_GetMouseWorld() -> x:number,y:number
+DEBUG_MARK( x:number, y:number, message:string = "", color_r:number = 1, color_g:number = 0, color_b:number = 0 )
+GameGetFrameNum() -> int
+GameGetRealWorldTimeSinceStarted() -> number
+IsPlayer( entity_id:int ) -> bool
+IsInvisible( entity_id:int ) -> bool
+GameIsDailyRun() -> bool
+GameIsDailyRunOrDailyPracticeRun() -> bool
+GameIsModeFullyDeterministic() -> bool
+GlobalsSetValue( key:string, value:string )
+GlobalsGetValue( key:string, default_value:string = "" )
+MagicNumbersGetValue( key:string ) -> string
+SetWorldSeed( new_seed:int )
+SessionNumbersGetValue( key:string ) -> string
+SessionNumbersSetValue( key:string, value:string )
+SessionNumbersSave()
+AutosaveDisable()
+StatsGetValue( key:string ) -> string|nil
+StatsGlobalGetValue( key:string ) -> string
+StatsBiomeGetValue( key:string ) -> string
+StatsBiomeReset()
+StatsLogPlayerKill( killed_entity_id:int = 0 )
+CreateItemActionEntity( action_id:string, x:number = 0, y:number = 0 ) -> entity_id:int
+GetRandomActionWithType( x:number, y:number, max_level:int, type:int, i:int = 0 ) -> string
+GetRandomAction( x:number, y:number, max_level:number, i:int = 0) -> string
+GameGetDateAndTimeUTC() -> year:int,month:int,day:int,hour:int,minute:int,second:int
+GameGetDateAndTimeLocal() ->year:int,month:int,day:int,hour:int,minute:int,second:int
+GameEmitRainParticles( num_particles:int, width_outside_camera:number, material_name:string, velocity_min:number, velocity_max:number, gravity:number, droplets_bounce:bool, draw_as_long:bool )
+GameCutThroughWorldVertical( x:int, y_min:int, y_max:int, radius:number, edge_darkening_width:number ) [Each beam adds a little overhead to things like chunk creation, so please call this sparingly.]
+BiomeMapSetSize( width:int, height:int ) [This is available if BIOME_MAP in magic_numbers.xml points to a lua file, in the context of that file.]
+BiomeMapGetSize() -> width:int,height:int [if BIOME_MAP in magic_numbers.xml points to a lua file returns that context, if not will return the biome_map size]
+BiomeMapSetPixel( x:int, y:int, color_int:int ) [This is available if BIOME_MAP in magic_numbers.xml points to a lua file, in the context of that file.]
+BiomeMapGetPixel( x:int, y:int ) -> color:int [This is available if BIOME_MAP in magic_numbers.xml points to a lua file, in the context of that file.]
+BiomeMapConvertPixelFromUintToInt( color:int ) -> int [Swaps red and blue channels of 'color'. This can be used make sense of the BiomeMapGetPixel() return values. E.g. if( BiomeMapGetPixel( x, y ) == BiomeMapConvertPixelFromUintToInt( 0xFF36D517 ) ) then print('hills') end ]
+BiomeMapLoadImage( x:int, y:int, image_filename:string ) [This is available if BIOME_MAP in magic_numbers.xml points to a lua file, in the context of that file.]
+BiomeMapLoadImageCropped( x:int, y:int, image_filename:string, image_x:int, image_y:int, image_w:int, image_h:int ) [This is available if BIOME_MAP in magic_numbers.xml points to a lua file, in the context of that file.]
+BiomeMapGetVerticalPositionInsideBiome( x:number, y:number ) -> number
+BiomeMapGetName( x:number = camera_x, y:number = camera_y ) -> name
+SetRandomSeed( x:number, y:number )
+Random( a:int = optional, b:int = optional ) -> number|int. [This is kinda messy. If given 0 arguments, returns number between 0.0 and 1.0. If given 1 arguments, returns int between 0 and 'a'. If given 2 arguments returns int between 'a' and 'b'.]
+Randomf( min:number = optional, max:number = optional ) -> number [This is kinda messy. If given 0 arguments, returns number between 0.0 and 1.0. If given 1 arguments, returns number between 0.0 and 'a'. If given 2 arguments returns number between 'a' and 'b'.]
+RandomDistribution( min:int, max:int, mean:int, sharpness:number = 1, baseline:number = 0.005 ) -> int
+RandomDistributionf( min:number, max:number, mean:number, sharpness:number = 1, baseline:number = 0.005 ) -> number
+ProceduralRandom( x:number, y:number, a:int|number = optional, b:int|number = optional ) -> int|number [This is kinda messy. If given 2 arguments, returns number between 0.0 and 1.0. If given 3 arguments, returns int between 0 and 'a'. If given 4 arguments returns number between 'a' and 'b'.]
+ProceduralRandomf( x:number, y:number, a:number = optional, b:number = optional ) -> number [This is kinda messy. If given 2 arguments, returns number between 0.0 and 1.0. If given 3 arguments, returns a number between 0 and 'a'. If given 4 arguments returns a number between 'a' and 'b'.]
+ProceduralRandomi(  x:number, y:number, a:int = optional, b:int = optional ) -> number [This is kinda messy. If given 2 arguments, returns 0 or 1. If given 3 arguments, returns an int between 0 and 'a'. If given 4 arguments returns an int between 'a' and 'b'.]
+PhysicsAddBodyImage( entity_id:int, image_file:string, material:string = "", offset_x:number = 0, offset_y:number = 0, centered:bool = false, is_circle:bool = false, material_image_file:string = "", use_image_as_colors:bool = true ) -> int_body_id [Does not work with PhysicsBody2Component. Returns the id of the created physics body.]
+PhysicsAddBodyCreateBox( entity_id:int, material:string, offset_x:number, offset_y:number, width:int, height:int, centered:bool = false ) -> int|nil [Does not work with PhysicsBody2Component. Returns the id of the created physics body.]
+PhysicsAddJoint( entity_id:int, body_id0:int, body_id1:int, offset_x:number, offset_y:number, joint_type:string ) -> int|nil [Does not work with PhysicsBody2Component. Returns the id of the created joint.]
+PhysicsApplyForce( entity_id:int, force_x:number, force_y:number )
+PhysicsApplyTorque( entity_id:int, torque:number )
+PhysicsApplyTorqueToComponent( entity_id:int, component_id:int, torque:number )
+PhysicsApplyForceOnArea( calculate_force_for_body_fn:function, ignore_this_entity:int, area_min_x:number, area_min_y:number,area_max_x:number, area_max_y:number ) [Applies a force calculated by 'calculate_force_for_body_fn' to all bodies in an area. 'calculate_force_for_body_fn' should be a lua function with the following signature: function( body_entity:int, body_mass:number, body_x:number, body_y:number, body_vel_x:number, body_vel_y:number, body_vel_angular:number ) -> force_world_pos_x:number,force_world_pos_y:number,force_x:number,force_y:number,force_angular:number
+PhysicsRemoveJoints( world_pos_min_x:number, world_pos_min_y:number, world_pos_max_x:number, world_pos_max_y:number  )
+PhysicsSetStatic( entity_id:int, is_static:bool )
+PhysicsGetComponentVelocity( entity_id:int, component_id:int ) -> vel_x:number,vel_y:number
+PhysicsGetComponentAngularVelocity( entity_id:int, component_id:int ) -> vel:number
+PhysicsBody2InitFromComponents( entity_id:int )
+PhysicsVecToGameVec( x:number, y:number = 0 ) -> x:number,y:number
+GameVecToPhysicsVec( x:number, y:number = 0 ) -> x:number,y:number
+LooseChunk( world_pos_x:number, world_pos_y:number, image_filename:string, max_durability:int = 2147483647 )
+AddFlagPersistent( key:string ) -> bool_is_new
+RemoveFlagPersistent( key:string )
+HasFlagPersistent( key:string ) -> bool
+GameAddFlagRun( flag:string )
+GameRemoveFlagRun( flag:string )
+GameHasFlagRun( flag:string ) -> bool
+GameTriggerMusicEvent( event_path:string, can_be_faded:bool, x:number, y:number )
+GameTriggerMusicCue( name:string )
+GameTriggerMusicFadeOutAndDequeueAll( relative_fade_speed:number = 1 )
+GamePlaySound( bank_filename:string, event_path:string, x:number, y:number )
+GameEntityPlaySound( entity_id:int, event_name:string ) [Plays a sound through all AudioComponents with matching sound in 'entity_id'.]
+GameEntityPlaySoundLoop( entity:int, component_tag:string, intensity:number ) [Plays a sound loop through an AudioLoopComponent tagged with 'component_tag' in 'entity'. 'intensity' affects the intensity passed to the audio event. Must be called every frame when the sound should play.]
+GameSetPostFxParameter( name:string, x:number, y:number, z:number, w:number ) [Can be used to pass custom parameters to the post_final shader, or override values set by the game code. The shader uniform called 'name' will be set to the latest given values on this and following frames.]
+GameUnsetPostFxParameter( name:string ) [Will remove a post_final shader parameter value binding set via game GameSetPostFxParameter().]
+GameTextGetTranslatedOrNot( text_or_key:string ) -> string
+GameTextGet( key:string, param0:string = "", param1:string = "", param2:string = "" ) -> string
+GuiCreate() -> gui:obj
+GuiDestroy( gui:obj )
+GuiStartFrame( gui:obj )
+GuiOptionsAdd( gui:obj, option:int ) [Sets the options that apply to widgets during this frame. For 'option' use the values in the GUI_OPTION table in "data/scripts/lib/utilities.lua". Values from consecutive calls will be combined. For example calling this with the values GUI_OPTION.Align_Left and GUI_OPTION.GamepadDefaultWidget will set both options for the next widget. The options will be cleared on next call to GuiStartFrame().]
+GuiOptionsRemove( gui:obj, option:int ) [Sets the options that apply to widgets during this frame. For 'option' use the values in the GUI_OPTION table in "data/scripts/lib/utilities.lua". Values from consecutive calls will be combined. For example calling this with the values GUI_OPTION.Align_Left and GUI_OPTION.GamepadDefaultWidget will set both options for the next widget. The options will be cleared on next call to GuiStartFrame().]
+GuiOptionsClear( gui:obj ) [Clears the options that apply to widgets during this frame.]
+GuiOptionsAddForNextWidget( gui:obj, option:int ) [Sets the options that apply to the next widget during this frame. For 'option' use the values in the GUI_OPTION table in "data/scripts/lib/utilities.lua". Values from consecutive calls will be combined. For example calling this with the values GUI_OPTION.Align_Left and GUI_OPTION.GamepadDefaultWidget will set both options for the next widget.
+GuiColorSetForNextWidget( gui:obj, red:number, green:number, blue:number, alpha:number ) [Sets the color of the next widget during this frame. Color components should be in the 0-1 range.]
+GuiZSet( gui:obj, z:float ) [Sets the rendering depth ('z') of the widgets following this call. Larger z = deeper. The z will be set to 0 on the next call to GuiStartFrame(). ]
+GuiZSetForNextWidget( gui:obj, z:float ) [Sets the rendering depth ('z') of the next widget following this call. Larger z = deeper.
+GuiIdPush( gui:obj, id:int ) [Can be used to solve ID conflicts. All ids given to Gui* functions will be hashed with the ids stacked (and hashed together) using GuiIdPush() and GuiIdPop(). The id stack has a max size of 1024, and calls to the function will do nothing if the size is exceeded.]
+GuiIdPushString( gui:obj, str:string ) [Pushes the hash of 'str' as a gui id. See GuiIdPush().]
+GuiIdPop( gui:obj ) [See GuiIdPush().]
+GuiAnimateBegin( gui:obj ) [Starts a scope where animations initiated using GuiAnimateAlphaFadeIn() etc. will be applied to all widgets.]
+GuiAnimateEnd( gui:obj ) [Ends a scope where animations initiated using GuiAnimateAlphaFadeIn() etc. will be applied to all widgets.]
+GuiAnimateAlphaFadeIn( gui:obj, id:int, speed:number, step:number, reset:bool ) [Does an alpha tween animation for all widgets inside a scope set using GuiAnimateBegin() and GuiAnimateEnd().]
+GuiAnimateScaleIn( gui:obj, id:int, acceleration:number, reset:bool ) [Does a scale tween animation for all widgets inside a scope set using GuiAnimateBegin() and GuiAnimateEnd().]
+GuiText( gui:obj, x:number, y:number, text:string )
+GuiTextCentered( gui:obj, x:number, y:number, text:string ) [Deprecated. Use GuiOptionsAdd() or GuiOptionsAddForNextWidget() with GUI_OPTION.Align_HorizontalCenter and GuiText() instead.]
+GuiImage( gui:obj, id:int, x:number, y:number, sprite_filename:string, alpha:number = 1, scale:number = 1, scale_y:number = 0, rotation:number = 0, rect_animation_playback_type:int = GUI_RECT_ANIMATION_PLAYBACK.PlayToEndAndHide, rect_animation_name:string = "" ) ['scale' will be used for 'scale_y' if 'scale_y' equals 0.]
+GuiImageNinePiece( gui:obj, id:int, x:number, y:number, width:number, height:number, alpha:number = 1, sprite_filename:string = "data/ui_gfx/decorations/9piece0_gray.png", sprite_highlight_filename:string = "data/ui_gfx/decorations/9piece0_gray.png" )
+GuiButton( gui:obj, id:int, x:number, y:number, text:string ) -> clicked:bool,right_clicked:bool [The old parameter order where 'id' is the last parameter is still supported. The function dynamically picks the correct order based on the type of the 4th parameter.]
+GuiImageButton( gui:obj, id:int, x:number, y:number, text:string, sprite_filename:string ) -> clicked:bool,right_clicked:bool
+GuiSlider( gui:obj, id:int, x:number, y:number, text:string, value:number, value_min:number, value_max:number, value_default:number, value_display_multiplier:number, value_formatting:string, width:number ) -> new_value:number [This is not intended to be outside mod settings menu, and might bug elsewhere.]
+GuiTextInput( gui:obj, id:int, x:number, y:number, text:string, width:number, max_length:int, allowed_characters:string = "" ) -> new_text ['allowed_characters' should consist only of ASCII characters. This is not intended to be outside mod settings menu, and might bug elsewhere.]
+GuiBeginAutoBox( gui:obj ) [Together with GuiEndAutoBoxNinePiece() this can be used to draw an auto-scaled background box for a bunch of widgets rendered between the calls.
+GuiEndAutoBoxNinePiece( gui:obj, margin:number = 5, size_min_x:number = 0, size_min_y:number = 0, mirrorize_over_x_axis:bool = false, x_axis:number = 0, sprite_filename:string = "data/ui_gfx/decorations/9piece0_gray.png", sprite_highlight_filename:string = "data/ui_gfx/decorations/9piece0_gray.png" )
+GuiTooltip( gui:obj, text:string, description:string )
+GuiBeginScrollContainer( gui:obj, id:int, x:number, y:number, width:number, height:number, scrollbar_gamepad_focusable:bool = true, margin_x:number = 2, margin_y:number = 2 ) [This can be used to create a container with a vertical scroll bar. Widgets between GuiBeginScrollContainer() and GuiEndScrollContainer() will be positioned relative to the container.]
+GuiEndScrollContainer( gui:obj )
+GuiLayoutBeginHorizontal( gui:obj, x:number, y:number, position_in_ui_scale:bool = false, margin_x:number = 2, margin_y:number = 2 ) [If 'position_in_ui_scale' is 1, x and y will be in the same scale as other gui positions, otherwise x and y are given as a percentage (0-100) of the gui screen size.]
+GuiLayoutBeginVertical( gui:obj, x:number, y:number, position_in_ui_scale:bool = false, margin_x:number = 0, margin_y:number = 0 ) [If 'position_in_ui_scale' is 1, x and y will be in the same scale as other gui positions, otherwise x and y are given as a percentage (0-100) of the gui screen size.]
+GuiLayoutAddHorizontalSpacing( gui:obj, amount:number = optional ) [Will use the horizontal margin from current layout if amount is not set.]
+GuiLayoutAddVerticalSpacing( gui:obj, amount:number = optional ) [Will use the vertical margin from current layout if amount is not set.]
+GuiLayoutEnd( gui:obj )
+GuiLayoutBeginLayer( gui:obj ) [Puts following things to a new layout layer. Can be used to create non-layouted widgets inside a layout.]
+GuiLayoutEndLayer( gui:obj )
+GuiGetScreenDimensions( gui:obj ) -> width:number,height:number [Returns dimensions of viewport in the gui coordinate system (which is equal to the coordinates of the screen bottom right corner in gui coordinates). The values returned may change depending on the game resolution because the UI is scaled for pixel-perfect text rendering.]
+GuiGetTextDimensions( gui:obj, text:string, scale:number = 1, line_spacing:number = 2 ) -> width:number,height:number [Returns size of the given text in the gui coordinate system.]
+GuiGetImageDimensions( gui:obj, image_filename:string, scale:number = 1 ) -> width:number,height:number [Returns size of the given image in the gui coordinate system.]
+GuiGetPreviousWidgetInfo( gui:obj ) -> clicked:bool, right_clicked:bool, hovered:bool, x:number, y:number, width:number, height:number, draw_x:number, draw_y:number, draw_width:number, draw_height:number [Returns the final position, size etc calculated for a widget. Some values aren't supported by all widgets.]
+GameIsBetaBuild() -> bool
+DebugGetIsDevBuild() -> bool
+DebugEnableTrailerMode()
+GameGetIsTrailerModeEnabled() -> bool
+Debug_SaveTestPlayer() [This doesn't do anything at the moment.]
+DebugBiomeMapGetFilename( x:number = camera_x, y:number = camera_y ) -> string
+EntityConvertToMaterial( entity_id:int, material:string )
+ConvertEverythingToGold( material_dynamic:string = "", material_static:string = "" )
+ConvertMaterialEverywhere( material_from_type:int, material_to_type:int ) [Converts 'material_from' to 'material_to' everwhere in the game world, replaces 'material_from_type' to 'material_to_type' in the material (CellData) global table, and marks 'material_from' as a "Transformed" material. Every call will add a new entry to WorldStateComponent which serializes these changes, so please call sparingly. The material conversion will be spread over multiple frames. 'material_from' will still retain the original name id and wang color. Use CellFactory_GetType() to convert a material name to material type.]
+ConvertMaterialOnAreaInstantly( area_x:int, area_y:int, area_w:int, area_h:int, material_from_type:int, material_to_type:int, trim_box2d:bool, update_edge_graphics_dummy:bool ) [Converts cells of 'material_from_type' to 'material_to_type' in the given area. If 'box2d_trim' is true, will attempt to trim the created cells where they might otherwise cause physics glitching. 'update_edge_graphics_dummy' is not yet supported.]
+GetDailyPracticeRunSeed() -> int
+ModIsEnabled( mod_id:string ) -> bool [Returns true if a mod with the id 'mod_id' is currently active. For example mod_id = "nightmare". ]
+ModGetActiveModIDs() -> {string} [Returns a table filled with the IDs of currently active mods.]
+ModGetAPIVersion() -> int
+ModSettingGet( id:string ) -> bool|number|string|nil [Returns the value of a mod setting. 'id' should normally be in the format 'mod_name.setting_id'. Cache the returned value in your lua context if possible.]
+ModSettingSet( id:string, value:bool|number|string ) [Sets the value of a mod setting. 'id' should normally be in the format 'mod_name.setting_id'.
+ModSettingGetNextValue( id:string ) -> bool|number|string|nil [Returns the latest value set by the user, which might not be equal to the value that is used in the game (depending on the 'scope' value selected for the setting).]
+ModSettingSetNextValue( id:string, value:bool|number|string, is_default:bool ) [Sets the latest value set by the user, which might not be equal to the value that is displayed to the game (depending on the 'scope' value selected for the setting).]
+ModSettingRemove( id:string ) -> was_removed:bool
+ModSettingGetCount() -> int [Returns the number of mod settings defined. Use ModSettingGetAtIndex to enumerate the settings.]
+ModSettingGetAtIndex( index:int ) -> (name:string, value:bool|number|string|nil, value_next:bool|number|string|nil) | nil ['index' should be 0-based index. Returns nil if 'index' is invalid.]
+StreamingGetIsConnected() -> bool
+StreamingGetConnectedChannelName() -> string
+StreamingGetVotingCycleDurationFrames() -> int
+StreamingGetRandomViewerName() -> string [Returns the name of a random stream viewer who recently sent a chat message. Returns "" if the 'Creatures can be named after viewers' setting is off.
+StreamingGetSettingsGhostsNamedAfterViewers() -> bool
+StreamingSetCustomPhaseDurations( time_between_votes_seconds:number, time_voting_seconds:number ) [Sets the duration of the next wait and voting phases. Use -1 for default duration.]
+StreamingForceNewVoting() [Cancels whatever is currently going on, and starts a new voting. _streaming_on_vote_start() and _streaming_get_event_for_vote() will be called as usually.]
+StreamingSetVotingEnabled( enabled:bool ) [Turns the voting UI on or off.]
+ModLuaFileAppend( to_filename:string, from_filename:string ) [Basically calls dofile(from_filename) at the end of 'to_filename'. Available only during mod initialization.]
+ModTextFileGetContent( filename:string ) -> string [Returns the current (modded or not) content of the data file 'filename'. Allows access only to data files and files from enabled mods. Available only during mod initialization.]
+ModTextFileSetContent( filename:string, new_content:string ) [Sets the content the game sees for the file 'filename'. Allows access only to mod and data files. Available only during mod initialization.]
+ModTextFileWhoSetContent( filename:string ) -> string [Returns the id of the last mod that called ModTextFileSetContent with 'filename', or "". Available only during mod initialization.]
+ModMagicNumbersFileAdd( filename:string ) [Available only during mod initialization.]
+ModMaterialsFileAdd( filename:string ) [Available only during mod initialization.]
+ModRegisterAudioEventMappings( filename:string ) [Available only during mod initialization.]
+ModDevGenerateSpriteUVsForDirectory( directory_path:string, override_existing:bool = false ) [Please supply a path starting with "mods/YOUR_MOD_HERE/" or "data/". If override_existing is true, will always generate new maps, overriding existing files. UV maps are generated when you start or continue a game with your mod enabled. Available only during mod initialization via noita_dev.exe]
+RegisterProjectile( entity_filename:string )
+RegisterGunAction()
+RegisterGunShotEffects()
+BeginProjectile( entity_filename:string )
+EndProjectile()
+BeginTriggerTimer( timeout_frames:int )
+BeginTriggerHitWorld()
+BeginTriggerDeath()
+EndTrigger()
+SetProjectileConfigs()
+StartReload( reload_time:int )
+ActionUsesRemainingChanged( inventoryitem_id:int, uses_remaining:int ) -> uses_remaining_reduced:bool 
+ActionUsed( inventoryitem_id:int )
+LogAction( action_name:string )
+OnActionPlayed( action_id:string )
+OnNotEnoughManaForAction()
+BaabInstruction( name:string )
+SetValueNumber( key:string, value:number )
+GetValueNumber( key:string, default_value:number ) -> number
+SetValueInteger( key:string, value:int )
+GetValueInteger( key:string, default_value:int ) -> int
+SetValueBool( key:string, value:number )
+GetValueBool( key:string, default_value:number ) -> bool
+dofile( filename:string ) -> (nil|script_return_type)|(nil,error_string) [Returns the script's return value, if any. Returns nil,error_string if the script had errors.]
+dofile_once( filename:string ) -> (nil|script_return_type)|(nil,error_string) [Runs the script only once per lua context, returns the script's return value, if any. Returns nil,error_string if the script had errors. For performance reasons it is recommended scripts use dofile_once(), unless the standard dofile behaviour is required.]

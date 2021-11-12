@@ -1,0 +1,10 @@
+data/ragdolls/necromancer_shop/head.png
+data/ragdolls/necromancer_shop/torso.png
+data/ragdolls/necromancer_shop/cape.png
+data/ragdolls/necromancer_shop/cape1.png
+data/ragdolls/necromancer_shop/cape2.png
+data/ragdolls/necromancer_shop/cape3.png
+data/ragdolls/necromancer_shop/cape4.png
+data/ragdolls/necromancer_shop/staff.png
+data/ragdolls/necromancer_shop/arm_right.png
+data/ragdolls/necromancer_shop/hand_right.png

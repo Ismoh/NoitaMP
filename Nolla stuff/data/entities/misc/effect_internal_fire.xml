@@ -1,0 +1,74 @@
+<Entity>
+	<InheritTransformComponent 
+		_enabled="1" >
+    </InheritTransformComponent>	
+    
+    <GameEffectComponent 
+    	effect="INTERNAL_FIRE"
+    	frames="100"
+    	disable_movement="0" >
+	</GameEffectComponent >
+
+  <ParticleEmitterComponent 
+    emitted_material_name="fire"
+    custom_style="FIRE"
+    count_min="5"
+    count_max="5"
+    offset.x="-1"
+    offset.y="-5"
+    x_pos_offset_min="-5"
+    x_pos_offset_max="5"
+    y_pos_offset_min="-4"
+    y_pos_offset_max="4"
+    x_vel_min="0"
+    x_vel_max="0"
+    y_vel_min="0"
+    y_vel_max="0"
+    lifetime_min="1.1"
+    lifetime_max="2.8"
+    create_real_particles="1"
+    emit_cosmetic_particles="0"
+    emission_interval_min_frames="1"
+    emission_interval_max_frames="1"
+	delay_frames="2"
+    is_emitting="1" >
+  </ParticleEmitterComponent>
+
+  <ParticleEmitterComponent 
+    _tags="smoke"
+    emitted_material_name="smoke"
+    count_min="1"
+    count_max="5"
+    offset.x="-1"
+    offset.y="-5"
+    x_pos_offset_min="-2"
+    x_pos_offset_max="2"
+    y_pos_offset_min="-4"
+    y_pos_offset_max="4"
+    x_vel_min="0"
+    x_vel_max="0"
+    y_vel_min="0"
+    y_vel_max="0"
+    lifetime_min="1.1"
+    lifetime_max="2.8"
+    create_real_particles="1"
+    emit_cosmetic_particles="0"
+    emission_interval_min_frames="1"
+    emission_interval_max_frames="1"
+    delay_frames="2"
+    is_emitting="0" >
+  </ParticleEmitterComponent>
+
+    <AudioComponent
+        file="data/audio/Desktop/misc.bank"
+        event_root="game_effect/on_fire"
+        set_latest_event_position="1" >
+    </AudioComponent>
+
+    <AudioLoopComponent
+        file="data/audio/Desktop/misc.bank"
+        event_name="game_effect/on_fire/burning" 
+        auto_play="1" >
+    </AudioLoopComponent>
+
+</Entity>

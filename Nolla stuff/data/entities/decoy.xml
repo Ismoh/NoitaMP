@@ -1,0 +1,64 @@
+<Entity tags="prey,mortal,teleportable_NOT" >
+  <VelocityComponent
+  	gravity_y="400"
+  	air_friction="0.55"
+  	terminal_velocity="1000" >
+  </VelocityComponent>
+	
+  <SimplePhysicsComponent>
+  </SimplePhysicsComponent>
+
+  <LifetimeComponent
+    lifetime="600">
+  </LifetimeComponent>
+
+  <GenomeDataComponent 
+    herd_id="player"
+    food_chain_rank="20"
+    is_predator="1" >
+  </GenomeDataComponent>
+   
+  <HitboxComponent 
+    _enabled="1" 
+    aabb_max_x="3" 
+    aabb_max_y="0" 
+    aabb_min_x="-3" 
+    aabb_min_y="-16" 
+    is_enemy="0" 
+    is_item="0" 
+    is_player="1" >
+  </HitboxComponent>
+  
+  <PathFindingGridMarkerComponent
+    marker_offset_y="-3"
+    marker_work_flag="8" >
+  </PathFindingGridMarkerComponent>
+  
+  <LightComponent 
+    r="50"
+    g="100"
+    b="255"
+    radius="64"
+    fade_out_time="0.75" >
+  </LightComponent>
+  
+  <SpriteComponent 
+    _tags="character"
+    alpha="0.5" 
+    image_file="data/enemies_gfx/player.xml" 
+    next_rect_animation="stand" 
+    rect_animation="stand" 
+    offset_x="6"
+    offset_y="18"
+     >
+  </SpriteComponent>
+  
+  <SpriteAnimatorComponent >
+  </SpriteAnimatorComponent>
+  
+  <HotspotComponent
+      _tags="cape_root"
+      sprite_hotspot_name="cape" >
+  </HotspotComponent>
+
+</Entity>

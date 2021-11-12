@@ -1,0 +1,14 @@
+<Entity >
+  <Base file="data/entities/animals/coward.xml">
+    <DamageModelComponent 
+      hp="10"
+      max_hp="10"
+	  minimum_knockback_force="100000"
+     ></DamageModelComponent >
+  </Base>
+  
+  <Entity>
+		<Base file="data/entities/misc/animal_energy_shield.xml">
+		</Base>
+	</Entity>
+</Entity>

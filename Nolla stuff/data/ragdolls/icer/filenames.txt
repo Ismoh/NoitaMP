@@ -1,0 +1,6 @@
+data/ragdolls/icer/torso.png
+data/ragdolls/icer/head.png
+data/ragdolls/icer/left_foot.png
+data/ragdolls/icer/right_foot.png
+data/ragdolls/icer/tanks.png
+data/ragdolls/icer/gun.png

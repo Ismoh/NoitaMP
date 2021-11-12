@@ -1,0 +1,47 @@
+<Entity >
+
+	<InheritTransformComponent />
+	
+	<LifetimeComponent
+		lifetime="120"
+		>
+	</LifetimeComponent>
+   
+	<LuaComponent
+		script_source_file="data/scripts/projectiles/essence_to_power_cooldown.lua"
+		execute_on_removed="1"
+		execute_every_n_frame="-1"
+		>
+	</LuaComponent>
+	
+	<ParticleEmitterComponent 
+		emitted_material_name="spark_blue_dark"
+		offset.x="0"
+		offset.y="0"
+		x_pos_offset_min="-12"
+		x_pos_offset_max="12"
+		y_pos_offset_min="-12"
+		y_pos_offset_max="12"
+		gravity.y="0"
+		x_vel_min="-2"
+		x_vel_max="2"
+		y_vel_min="-2"
+		y_vel_max="2"
+		count_min="1"
+		count_max="3"
+		is_trail="0"
+		fade_based_on_lifetime="1"
+		lifetime_min="0.8"
+		lifetime_max="2.0"
+		airflow_force="1.5"
+		airflow_time="0.401"
+		airflow_scale="0.05"
+		create_real_particles="0"
+		emit_cosmetic_particles="1"
+		render_on_grid="1"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="2"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+  
+</Entity>

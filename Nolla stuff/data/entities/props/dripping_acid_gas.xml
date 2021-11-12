@@ -1,0 +1,20 @@
+<Entity tags="mortal,hittable" >
+	<Base file="data/entities/base_dripping_liquid.xml">
+		<ParticleEmitterComponent
+			emitted_material_name="acid_gas"
+			emission_interval_min_frames="1"
+			emission_interval_max_frames="5"
+			gravity.y="-100"
+			>
+		</ParticleEmitterComponent>
+		
+		<ParticleEmitterComponent
+			emitted_material_name="acid_gas"
+			emission_interval_min_frames="1"
+			emission_interval_max_frames="3"
+			count_min="1"
+			count_max="4"
+			>
+		</ParticleEmitterComponent>
+	</Base>
+</Entity>

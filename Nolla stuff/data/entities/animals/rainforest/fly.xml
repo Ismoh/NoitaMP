@@ -1,0 +1,8 @@
+<Entity >
+  <Base file="data/entities/animals/fly.xml">
+    <DamageModelComponent 
+      hp="3"
+      max_hp="3"
+     ></DamageModelComponent >
+  </Base>
+</Entity>

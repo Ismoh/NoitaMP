@@ -1,0 +1,31 @@
+<Entity tags="energy_shield">
+
+	<Base file="data/entities/misc/animal_energy_shield.xml" >
+
+        <InheritTransformComponent
+            rotate_based_on_x_scale="1" >
+			<Transform 
+				position.x="0" 
+				position.y="-4" >
+			</Transform>
+        </InheritTransformComponent>
+
+        <EnergyShieldComponent 
+            sector_degrees="170" >
+        </EnergyShieldComponent>
+
+        <ParticleEmitterComponent
+            area_circle_sector_degrees="170" >
+        </ParticleEmitterComponent>
+
+        <ParticleEmitterComponent
+            area_circle_sector_degrees="170" >
+        </ParticleEmitterComponent>
+
+        <ParticleEmitterComponent
+            area_circle_sector_degrees="170" >
+        </ParticleEmitterComponent>
+
+	</Base>
+
+</Entity>

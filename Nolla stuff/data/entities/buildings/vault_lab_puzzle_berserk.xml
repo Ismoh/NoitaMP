@@ -1,0 +1,11 @@
+<Entity tags="vault_lab_puzzle">
+	<Base file="data/entities/buildings/vault_lab_puzzle_protect.xml">
+		<MaterialAreaCheckerComponent
+			material="magic_liquid_berserk"
+			material2="magic_liquid_berserk" >
+		</MaterialAreaCheckerComponent>
+		<PixelSceneComponent
+			pixel_scene_background="data/biome_impl/vault/lab_puzzle_berserk_background.png" >
+		</PixelSceneComponent>
+	</Base>
+</Entity>

@@ -1,0 +1,129 @@
+<Sprite 
+  filename="data/enemies_gfx/fireskull.png" 
+  offset_x="8" 
+  offset_y="10"
+  default_animation="stand" >
+
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="20" 
+    frame_wait="0.09" 
+    frame_width="16" 
+    frames_per_row="6" 
+    name="stand" 
+    pos_x="0" 
+    pos_y="0" 
+    >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="20" 
+    frame_wait="0.09" 
+    frame_width="16" 
+    frames_per_row="6" 
+    name="walk" 
+    pos_x="0" 
+    pos_y="0" 
+    >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="20" 
+    frame_wait="0.09" 
+    frame_width="16" 
+    frames_per_row="6" 
+    name="run" 
+    pos_x="0" 
+    pos_y="0" 
+    >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="20" 
+    frame_wait="0.09" 
+    frame_width="16" 
+    frames_per_row="6" 
+    name="burn" 
+    pos_x="0" 
+    pos_y="0" 
+    >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="5" 
+    frame_height="20" 
+    frame_wait="0.08" 
+    frame_width="16" 
+    frames_per_row="6" 
+    loop="0" 
+    name="attack" 
+    pos_x="0" 
+    pos_y="20" >
+
+    <Event 
+      check_physics_material="0" 
+      frame="3" 
+      max_distance="500" 
+      name="bite" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="5" 
+    frame_height="20" 
+    frame_wait="0.08" 
+    frame_width="16" 
+    frames_per_row="6" 
+    loop="0" 
+    name="attack_ranged" 
+    pos_x="0" 
+    pos_y="20" >
+
+    <Event 
+      check_physics_material="0" 
+      frame="3" 
+      max_distance="500" 
+      name="bite" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="5" 
+    frame_height="20" 
+    frame_wait="0.07" 
+    frame_width="16" 
+    frames_per_row="6" 
+    loop="0" 
+    name="attack_dash" 
+    pos_x="0" 
+    pos_y="20" >
+
+    <Event 
+      check_physics_material="0" 
+      frame="0" 
+      max_distance="500" 
+      name="dash" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+  </RectAnimation>
+
+</Sprite>
+

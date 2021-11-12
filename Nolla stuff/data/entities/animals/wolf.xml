@@ -1,0 +1,89 @@
+<Entity name="$animal_wolf" >
+  
+	<Base file="data/entities/base_enemy_basic.xml" >
+		<AnimalAIComponent 
+			_enabled="1" 
+			preferred_job="JobDefault"
+			
+			escape_if_damaged_probability="50"
+			attack_melee_damage_min="0.2" 
+			attack_melee_damage_max="0.4"
+			attack_dash_enabled="1"
+			creature_detection_range_x="300"
+			creature_detection_range_y="300"
+			food_material="meat"
+			attack_dash_speed="800"
+			needs_food="1"
+			
+			sense_creatures="1"
+			attack_ranged_enabled="0"
+			can_fly="0"  >
+		</AnimalAIComponent>
+
+		<DamageModelComponent 
+            hp="0.6"
+            materials_create_messages="1"
+            ragdoll_material="meat"
+            ragdoll_filenames_file="data/ragdolls/wolf/filenames.txt" >
+		</DamageModelComponent>
+
+		<SpriteComponent 
+			image_file="data/enemies_gfx/wolf.xml" 
+			offset_x="0"
+			offset_y="0">
+		</SpriteComponent>
+
+		<PathFindingComponent
+		    distance_to_reach_node_x="20"
+		    distance_to_reach_node_y="20"
+			frames_to_get_stuck="20"
+			can_jump="0" >
+		</PathFindingComponent>
+
+		<PathFindingGridMarkerComponent
+			marker_work_flag="16" >
+		</PathFindingGridMarkerComponent>
+		
+		<GenomeDataComponent 
+			herd_id="wolf"
+			food_chain_rank="7"
+			is_predator="1" >
+		</GenomeDataComponent>
+		
+		<CharacterPlatformingComponent 
+			accel_x="4"
+    		pixel_gravity="600" 
+			jump_velocity_y="-12" 
+			run_velocity="80"
+			run_animation_velocity_switching_enabled="1"
+			run_animation_velocity_switching_threshold="50" >
+		</CharacterPlatformingComponent>
+		
+		<HitboxComponent 
+			_enabled="1" 
+			aabb_min_x="-4.5" 
+			aabb_max_x="4.5" 
+			aabb_min_y="-5.5" 
+			aabb_max_y="3" 
+			>
+		</HitboxComponent>
+
+		<CharacterDataComponent 
+			_enabled="1" 
+			climb_over_y="4" 
+			collision_aabb_min_x="-2.0" 
+			collision_aabb_max_x="2.0" 
+			collision_aabb_min_y="-3" 
+			collision_aabb_max_y="3" 
+			buoyancy_check_offset_y="-6"
+			mass="1.2"
+			>
+	    </CharacterDataComponent>
+
+		<CameraBoundComponent
+		  max_count="20"
+		  distance="160000">
+		</CameraBoundComponent>
+	</Base>
+</Entity>
+

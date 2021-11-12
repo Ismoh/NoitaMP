@@ -1,0 +1,23 @@
+<Entity >
+   
+	<LuaComponent
+		script_source_file="data/scripts/projectiles/colour_spell.lua"
+		execute_every_n_frame="1"
+		remove_after_executed="1"
+		>
+	</LuaComponent>
+	
+	<LuaComponent
+		script_source_file="data/scripts/projectiles/colour_spell.lua"
+		execute_on_added="1"
+		remove_after_executed="1"
+		>
+	</LuaComponent>
+	
+	<VariableStorageComponent
+		name="colour_name"
+		value_string="purple"
+		>
+	</VariableStorageComponent>
+  
+</Entity>

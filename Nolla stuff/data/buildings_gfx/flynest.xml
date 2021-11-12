@@ -1,0 +1,19 @@
+<Sprite
+ filename="data/buildings_gfx/flynest.png"
+ offset_x="14"
+ offset_y="26"
+ default_animation="stand" >
+
+ <!-- animation -->
+ <RectAnimation
+  name="stand"
+  pos_x="0"
+  pos_y="0"
+  frame_count="4"
+  frame_width="28"
+  frame_height="28"
+  frame_wait="0.15"
+  frames_per_row="4"
+  loop="1"   >
+ </RectAnimation>
+</Sprite>

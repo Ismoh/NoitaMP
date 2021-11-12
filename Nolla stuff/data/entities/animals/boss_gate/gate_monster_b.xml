@@ -1,0 +1,37 @@
+<Entity name="$animal_gate_monster_b" tags="gate_monster">
+	<Base file="data/entities/animals/boss_gate/gate_monster_a.xml" >
+		<PhysicsAIComponent
+			target_vec_max_len="15.0"
+			force_coeff="16.0"
+			force_balancing_coeff="1.6"
+			force_max="150"
+			torque_coeff="55" >
+		</PhysicsAIComponent>
+
+		<PhysicsImageShapeComponent 
+			image_file="data/entities/animals/boss_gate/gate_monster_b.png"
+			offset_x="18"
+			offset_y="35"
+			>
+		</PhysicsImageShapeComponent>
+		
+		<CharacterDataComponent 
+			collision_aabb_min_x="-17"
+			collision_aabb_max_x="17"  
+			collision_aabb_min_y="-35"
+			collision_aabb_max_y="35"
+			mass="1.8"
+			>
+		</CharacterDataComponent>
+
+		<!-- shadow -->
+		<SpriteParticleEmitterComponent
+			sprite_file="data/entities/animals/boss_gate/gate_monster_b_glow.xml"
+			randomize_position.min_x="0"
+			randomize_position.max_x="0"
+			randomize_position.min_y="-12"
+			randomize_position.max_y="-12">
+		</SpriteParticleEmitterComponent>
+	</Base>
+</Entity>
+

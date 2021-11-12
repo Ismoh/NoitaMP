@@ -1,0 +1,85 @@
+<Entity name="$projectile_default" tags="projectile_player" >
+	<LoadEntitiesComponent
+        count.min="1"
+        count.max="1"
+        kill_entity="0"
+        entity_file="data/entities/particles/image_emitters/magical_symbol_fast.xml" >
+    </LoadEntitiesComponent>
+	
+	<Entity>
+		<InheritTransformComponent>
+			<Transform 
+				position.x="-128"
+				position.y="0" 
+				>
+			</Transform>
+		</InheritTransformComponent>
+		
+		<LooseGroundComponent
+			probability="0.4"
+			max_distance="160"
+			min_radius="6"
+			max_radius="16"
+			max_angle="3.1415"
+			chunk_max_angle="1.57"
+			chunk_probability="0.15"
+			collapse_images="data/procedural_gfx/collapse_big/$[0-14].png"
+			_enabled="1"
+			>
+		</LooseGroundComponent>
+	</Entity>
+	
+	<Entity>
+		<InheritTransformComponent>
+			<Transform 
+				position.x="128"
+				position.y="0" 
+				>
+			</Transform>
+		</InheritTransformComponent>
+		
+		<LooseGroundComponent
+			probability="0.4"
+			max_distance="160"
+			min_radius="6"
+			max_radius="16"
+			max_angle="3.1415"
+			chunk_max_angle="1.57"
+			chunk_probability="0.15"
+			collapse_images="data/procedural_gfx/collapse_big/$[0-14].png"
+			_enabled="1"
+			>
+		</LooseGroundComponent>
+	</Entity>
+	
+	<Entity>
+		<InheritTransformComponent>
+			<Transform 
+				position.x="0"
+				position.y="0" 
+				>
+			</Transform>
+		</InheritTransformComponent>
+		
+		<LooseGroundComponent
+			probability="0.4"
+			max_distance="160"
+			min_radius="6"
+			max_radius="16"
+			max_angle="3.1415"
+			chunk_max_angle="1.57"
+			chunk_probability="0.15"
+			collapse_images="data/procedural_gfx/collapse_big/$[0-14].png"
+			_enabled="1"
+			>
+		</LooseGroundComponent>
+	</Entity>
+	
+	<LifetimeComponent
+		lifetime="360"
+		randomize_lifetime.min="-50"
+		randomize_lifetime.max="50"
+		>
+	</LifetimeComponent>
+</Entity>
+

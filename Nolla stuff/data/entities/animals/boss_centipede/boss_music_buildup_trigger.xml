@@ -1,0 +1,15 @@
+<Entity tags="workshop_exit" >
+    <CollisionTriggerComponent
+      width="64"
+      height="1024" 
+      radius="9999"
+      destroy_this_entity_when_triggered="1"
+      required_tag="player_unit" >
+  	</CollisionTriggerComponent>
+
+    <LuaComponent
+      script_collision_trigger_hit="data/entities/animals/boss_centipede/boss_music_buildup_trigger.lua"
+      execute_every_n_frame="-1" >
+    </LuaComponent>
+</Entity>
+

@@ -1,0 +1,140 @@
+<Entity name="unknown" tags="teleportable_NOT,item_physics,item_pickup" >
+  <PhysicsBodyComponent 
+    _tags="enabled_in_world"
+    uid="1" 
+    allow_sleep="1" 
+    angular_damping="0" 
+    fixed_rotation="0" 
+    is_bullet="1" 
+    linear_damping="0"
+    auto_clean="0"
+    on_death_leave_physics_body="0"
+    hax_fix_going_through_ground="1"
+  ></PhysicsBodyComponent>
+  
+  <PhysicsImageShapeComponent 
+    body_id="1"
+    centered="1"
+    image_file="data/items_gfx/runestones/runestone_slow.png"
+    material="rock_box2d_hard" >
+  </PhysicsImageShapeComponent>
+  
+  <CameraBoundComponent
+    max_count="50"
+    distance="1000">
+  </CameraBoundComponent>
+	
+	<LuaComponent
+		_tags="enabled_in_world"
+		script_kick="data/scripts/items/runestones/runestone_activate.lua"
+		execute_every_n_frame="-1"
+		>
+	</LuaComponent>
+	
+	<LuaComponent
+		_tags="enabled_in_world"
+		script_throw_item="data/scripts/items/runestones/runestone_activate.lua"
+		execute_every_n_frame="-1"
+		>
+	</LuaComponent>
+	
+	<VariableStorageComponent
+		_tags="enabled_in_world"
+		name="active"
+		value_int="0"
+		>
+	</VariableStorageComponent>
+	
+	<PhysicsThrowableComponent
+    max_throw_speed="180"
+    throw_force_coeff="1.5"
+  ></PhysicsThrowableComponent>
+  
+  <PhysicsBodyCollisionDamageComponent 
+    _tags="enabled_in_world" 
+    speed_threshold="140.0"
+  ></PhysicsBodyCollisionDamageComponent>
+  
+  <ItemComponent
+    _tags="enabled_in_world"
+    item_name="$item_runestone_slow"
+    max_child_items="0"
+    is_pickable="1"
+    is_equipable_forced="1"
+    ui_sprite="data/ui_gfx/items/runestone_slow.png"
+    ui_description="$itemdesc_runestone"
+    preferred_inventory="QUICK"
+  ></ItemComponent>
+  
+  <UIInfoComponent
+    _tags="enabled_in_world"
+    name="$item_runestone_slow" >
+  </UIInfoComponent>
+  
+  <AbilityComponent
+		ui_name="$item_runestone_slow"
+		throw_as_item="1"
+		><gun_config
+			deck_capacity="0"
+		></gun_config>
+	</AbilityComponent>
+	
+	<SpriteComponent
+    _tags="enabled_in_hand"
+    _enabled="0"
+    offset_x="4"
+    offset_y="8"
+    image_file="data/items_gfx/in_hand/runestone_slow.png"
+  ></SpriteComponent>
+  
+  <ParticleEmitterComponent
+		_tags="activate"
+		_enabled="0"
+		emitted_material_name="plasma_fading"
+		gravity.y="0.0"
+		lifetime_min="9.01"
+		lifetime_max="9.1"
+		count_min="150"
+		count_max="150"
+		render_on_grid="0"
+		fade_based_on_lifetime="1"
+		area_circle_radius.min="16"
+		area_circle_radius.max="16"
+		cosmetic_force_create="1"
+		airflow_force="0.451"
+		airflow_time="0.91"
+		airflow_scale="0.05"
+		emission_interval_min_frames="30"
+		emission_interval_max_frames="30"
+		emit_cosmetic_particles="1"
+		velocity_always_away_from_center="80"
+		collide_with_grid="0"
+		>
+	</ParticleEmitterComponent>
+	
+	<LuaComponent
+		_tags="activate"
+		script_source_file="data/scripts/items/runestones/runestone_slow.lua"
+		execute_every_n_frame="10"
+		_enabled="0"
+		>
+	</LuaComponent>
+	
+	<AudioLoopComponent
+		_tags="activate"
+		_enabled="0"
+		file="data/audio/Desktop/misc.bank"
+		event_name="misc/runestone_loop"
+		calculate_material_lowpass="0"
+		auto_play_if_enabled="1"
+		play_on_component_enable="1"
+		>
+	</AudioLoopComponent>
+	
+	<LuaComponent 
+		_tags="enabled_in_hand"
+		script_item_picked_up="data/scripts/items/runestones/runestone_activate.lua"
+		execute_every_n_frame="-1"
+		>
+	</LuaComponent>
+</Entity>

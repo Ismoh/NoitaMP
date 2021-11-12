@@ -1,0 +1,4 @@
+<Entity tags="ending_sampo_spot_underground">
+<!-- empty entities don't get serialized -->
+<SpriteComponent image_file="data/debug/empty.png" />
+</Entity>

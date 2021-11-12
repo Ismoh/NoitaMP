@@ -1,0 +1,12 @@
+<Entity>
+	<InheritTransformComponent 
+		_enabled="1" >
+    </InheritTransformComponent>	
+    
+    <GameEffectComponent 
+        effect="TELEPORTITIS"
+        frames="600"
+    >
+	</GameEffectComponent >
+
+</Entity>

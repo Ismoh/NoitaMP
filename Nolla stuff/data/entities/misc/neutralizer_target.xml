@@ -1,0 +1,27 @@
+<Entity tags="neutralizer_target" >
+    <InheritTransformComponent
+		only_position="1"
+		>
+		<Transform 
+			position.x="0" 
+			position.y="-8" >
+		</Transform>
+	</InheritTransformComponent>
+	
+	<GameEffectComponent 
+    	effect="MOVEMENT_SLOWER_2X"
+    	frames="-1"
+    >
+	</GameEffectComponent >
+	
+	<SpriteComponent 
+		image_file="data/projectiles_gfx/target2.xml"
+		emissive="1"
+		>
+	</SpriteComponent>
+	
+	<LifetimeComponent
+		lifetime="600"
+		>
+	</LifetimeComponent>
+</Entity>

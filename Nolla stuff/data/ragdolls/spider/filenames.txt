@@ -1,0 +1,10 @@
+data/ragdolls/spider/torso.png
+data/ragdolls/spider/head.png
+data/ragdolls/spider/leg1.png
+data/ragdolls/spider/leg2.png
+data/ragdolls/spider/leg3.png
+data/ragdolls/spider/leg4.png
+data/ragdolls/spider/antenna_left1.png
+data/ragdolls/spider/antenna_left2.png
+data/ragdolls/spider/antenna_right1.png
+data/ragdolls/spider/antenna_right2.png

@@ -1,0 +1,21 @@
+<Entity tags="" >
+
+  <!-- mortal is required so it can explode -->
+
+  <Base file="data/entities/base_item_physics.xml" >
+	<PhysicsBodyComponent
+		on_death_leave_physics_body="1"
+		>
+	</PhysicsBodyComponent>
+	
+    <PhysicsImageShapeComponent
+      image_file="data/props_gfx/worm_deflector_base.png"
+      material="metal_prop" >
+    </PhysicsImageShapeComponent>
+  </Base>
+
+	  
+  <!-- physics_body_destruction_required (0.0-1.0, 0 = intact, 1 = destroyed)  
+       physics_body_modified_death_probability (if more destroyed than physics_body_destruction_required, explode with this probability (0.9 = 90% chance))-->
+
+</Entity>

@@ -1,0 +1,118 @@
+<Entity>
+    <MagicConvertMaterialComponent
+      kill_when_finished="1"
+      from_material="lava"
+      steps_per_frame="10"
+      to_material="air"
+      clean_stains="0"
+      is_circle="1"
+      radius="256" 
+	  >
+    </MagicConvertMaterialComponent>
+	
+	<MagicConvertMaterialComponent
+      kill_when_finished="1"
+      from_material="radioactive_liquid"
+      steps_per_frame="10"
+      to_material="air"
+      clean_stains="0"
+      is_circle="1"
+      radius="256" 
+	  >
+    </MagicConvertMaterialComponent>
+	
+	<MagicConvertMaterialComponent
+      kill_when_finished="1"
+      from_material="acid"
+      steps_per_frame="10"
+      to_material="air"
+      clean_stains="0"
+      is_circle="1"
+      radius="256" 
+	  >
+    </MagicConvertMaterialComponent>
+	
+	<MagicConvertMaterialComponent
+      kill_when_finished="1"
+      from_material="poison"
+      steps_per_frame="10"
+      to_material="air"
+      clean_stains="0"
+      is_circle="1"
+      radius="256" 
+	  >
+    </MagicConvertMaterialComponent>
+	
+	<MagicConvertMaterialComponent
+      kill_when_finished="1"
+      from_material="soil"
+      steps_per_frame="10"
+      to_material="air"
+      clean_stains="0"
+      is_circle="1"
+      radius="256" 
+	  _enabled="0"
+	  >
+    </MagicConvertMaterialComponent>
+	
+	<MagicConvertMaterialComponent
+      kill_when_finished="1"
+      from_material="blood"
+      steps_per_frame="10"
+      to_material="air"
+      clean_stains="0"
+      is_circle="1"
+      radius="256" 
+	  _enabled="0"
+	  >
+    </MagicConvertMaterialComponent>
+	
+	<MagicConvertMaterialComponent
+      kill_when_finished="1"
+      from_material="lavarock_static"
+      steps_per_frame="10"
+      to_material="air"
+      clean_stains="0"
+      is_circle="1"
+      radius="256" 
+	  _enabled="0"
+	  >
+    </MagicConvertMaterialComponent>
+	
+	<MagicConvertMaterialComponent
+      kill_when_finished="1"
+      from_material="rock_static_radioactive"
+      steps_per_frame="10"
+      to_material="air"
+      clean_stains="0"
+      is_circle="1"
+      radius="256" 
+	  _enabled="0"
+	  >
+    </MagicConvertMaterialComponent>
+	
+	<MagicConvertMaterialComponent
+      kill_when_finished="1"
+      from_material="rock_static_poison"
+      steps_per_frame="10"
+      to_material="air"
+      clean_stains="0"
+      is_circle="1"
+      radius="256" 
+	  _enabled="0"
+	  >
+    </MagicConvertMaterialComponent>
+
+	<LoadEntitiesComponent
+        count.min="1"
+        count.max="1"
+        kill_entity="0"
+        entity_file="data/entities/animals/boss_centipede/clear_materials_image.xml" >
+    </LoadEntitiesComponent>
+	
+	<LifetimeComponent
+		lifetime="80"
+		>
+	</LifetimeComponent>
+</Entity>
+

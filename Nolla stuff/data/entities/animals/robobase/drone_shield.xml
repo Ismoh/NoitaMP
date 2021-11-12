@@ -1,0 +1,24 @@
+<Entity >
+  <Base file="data/entities/animals/drone_shield.xml" include_children="1">
+    <DamageModelComponent 
+      hp="16"
+      max_hp="16"
+	  minimum_knockback_force="100000"
+     >
+	 <damage_multipliers
+				projectile="0.0" 
+				>
+			</damage_multipliers>
+	 </DamageModelComponent >
+  </Base>
+  
+	<Entity>
+		<InheritTransformComponent />
+		
+	    <GameEffectComponent 
+	        effect="PROTECTION_FREEZE"
+	        frames="-1"
+	    >
+		</GameEffectComponent >
+	</Entity>
+</Entity>

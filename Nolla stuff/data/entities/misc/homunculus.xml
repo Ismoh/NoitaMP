@@ -1,0 +1,156 @@
+<Entity name="$animal_homunculus" tags="homunculus" >
+  
+	<Base file="data/entities/base_enemy_basic.xml" >
+		<ItemChestComponent level="2" > </ItemChestComponent>
+		
+		<LuaComponent
+			_enabled="0"
+			script_death=""
+			>
+		</LuaComponent>
+		
+		<AnimalAIComponent 
+			_enabled="1" 
+			preferred_job="JobDefault"
+			attack_melee_enabled="0"
+			escape_if_damaged_probability="0"
+			attack_if_damaged_probability="0"
+			creature_detection_range_x="400"
+			creature_detection_range_y="400"
+			dont_counter_attack_own_herd="1"
+			food_material="blood"
+			needs_food="0"
+			sense_creatures="1"
+			attack_ranged_enabled="1"
+			can_fly="1" 
+			attack_ranged_entity_file="data/entities/projectiles/fireball_firebug.xml"
+			attack_ranged_action_frame="3"
+			attack_ranged_frames_between="80"
+			attack_ranged_offset_y="0"
+			attack_ranged_min_distance="0"
+			attack_ranged_max_distance="200"
+			aggressiveness_min="95"
+			aggressiveness_max="100"
+			>
+		</AnimalAIComponent>
+		
+		<DamageModelComponent 
+            hp="2.0"
+            ragdoll_material="meat"
+			ragdoll_filenames_file="data/ragdolls/homunculus/filenames.txt"
+			fire_probability_of_ignition="0"
+			>
+			<damage_multipliers
+				fire="0.5" 
+				slice="0.5"
+				melee="0.5"
+				projectile="0.5"
+				explosion="0.5"
+				>
+			</damage_multipliers>
+		</DamageModelComponent>
+
+		<SpriteComponent 
+			image_file="data/enemies_gfx/homunculus.xml" 
+			offset_x="0"
+			offset_y="0">
+		</SpriteComponent>
+
+		<PathFindingComponent
+			can_jump="1" >
+		</PathFindingComponent>
+
+		<PathFindingGridMarkerComponent
+			marker_work_flag="16" >
+		</PathFindingGridMarkerComponent>
+		
+		<GenomeDataComponent 
+			herd_id="player"
+			food_chain_rank="6"
+			is_predator="1" 
+			berserk_dont_attack_friends="1" >
+		</GenomeDataComponent>
+		
+		<CharacterPlatformingComponent 
+			jump_velocity_y="-12" 
+			swim_idle_buoyancy_coeff="1.0"
+			run_velocity="18"  >
+		</CharacterPlatformingComponent>
+		
+		<CameraBoundComponent
+			max_count="30"
+			distance="160000">
+		</CameraBoundComponent>
+		
+		<HitboxComponent 
+		  _enabled="1" 
+		  aabb_min_x="-4.5" 
+		  aabb_max_x="4.5" 
+		  aabb_min_y="-10" 
+		  aabb_max_y="3" 
+		  >
+		</HitboxComponent>
+		
+		<CharacterDataComponent 
+			collision_aabb_min_x="-3.0" 
+			collision_aabb_max_x="3.0" 
+			collision_aabb_min_y="-7" 
+			collision_aabb_max_y="3" 
+			>
+	    </CharacterDataComponent>
+	</Base>
+	
+	<Entity>
+		<InheritTransformComponent>
+			<Transform 
+				position.x="0"
+				position.y="4" 
+			>
+			</Transform>
+		</InheritTransformComponent>
+		
+		<Base file="data/entities/base_jetpack.xml" />
+	</Entity>
+
+	<AudioComponent
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals/homunculus" >
+	</AudioComponent>
+	
+	<VariableStorageComponent
+		name="type"
+		value_string=""
+		>
+	</VariableStorageComponent>
+	
+	<LuaComponent
+		script_source_file="data/scripts/animals/homunculus_init.lua"
+		execute_every_n_frame="-1"
+		execute_on_added="1"
+		remove_after_executed="1"
+		>
+	</LuaComponent>
+	
+	<LuaComponent
+		script_source_file="data/scripts/animals/homunculus_teleport.lua"
+		execute_every_n_frame="120"
+		>
+	</LuaComponent>
+	
+	<LuaComponent
+		script_shot="data/scripts/animals/homunculus_attack.lua"
+		execute_every_n_frame="-1"
+		>
+	</LuaComponent>
+	
+	<Entity>
+		<InheritTransformComponent />
+		<GameEffectComponent 
+			effect="CHARM"
+			frames="-1"
+		>
+		</GameEffectComponent >
+	</Entity>
+    
+</Entity>
+

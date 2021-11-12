@@ -1,0 +1,87 @@
+<Entity name="$animal_firemage_weak" tags="firemage" >
+  
+	<Base file="data/entities/animals/firemage.xml" >
+		<AnimalAIComponent
+			attack_ranged_entity_file="data/entities/projectiles/fireball.xml"
+			>
+		</AnimalAIComponent>
+		
+		<DamageModelComponent
+			hp="3.2"
+			>
+		</DamageModelComponent>
+		
+		<SpriteComponent 
+			image_file="data/enemies_gfx/firemage_weak.xml" 
+			>
+		</SpriteComponent> 
+	</Base>
+	
+	<Entity>
+		<InheritTransformComponent>
+			<Transform 
+				position.x="0"
+				position.y="-12" 
+				>
+			</Transform>
+		</InheritTransformComponent>
+		
+		<Base file="data/entities/base_torch_particle.xml" >
+
+			<ParticleEmitterComponent 
+				x_pos_offset_min="-2"
+				x_pos_offset_max="2" >
+			</ParticleEmitterComponent>
+	  
+			<ParticleEmitterComponent 
+				x_pos_offset_min="-2"
+				x_pos_offset_max="2" >
+			</ParticleEmitterComponent>
+			
+			<ParticleEmitterComponent 
+				x_pos_offset_min="-2"
+				x_pos_offset_max="2" >
+			</ParticleEmitterComponent>
+
+		</Base>
+	</Entity>
+
+	<Entity name="hand_l">	
+		<Base file="data/entities/base_torch_particle.xml" >
+
+			<ParticleEmitterComponent 
+				count_min="2"
+				count_max="3"
+				x_pos_offset_min="-1"
+				x_pos_offset_max="1" 
+				y_pos_offset_min="-1"
+				y_pos_offset_max="2"
+				>
+			</ParticleEmitterComponent>
+	  
+			<ParticleEmitterComponent 
+				count_min="2"
+				count_max="3"
+				x_pos_offset_min="-1"
+				x_pos_offset_max="1" 
+				y_pos_offset_min="-1"
+				y_pos_offset_max="2">
+			</ParticleEmitterComponent>
+			
+			<ParticleEmitterComponent 
+				x_pos_offset_min="-1"
+				x_pos_offset_max="1" 
+				y_pos_offset_min="-3"
+				y_pos_offset_max="2">
+			</ParticleEmitterComponent>
+
+		</Base>
+		
+		<InheritTransformComponent
+			parent_hotspot_tag="hand_l"
+			only_position="1" >
+		</InheritTransformComponent>
+
+	</Entity>
+</Entity>
+

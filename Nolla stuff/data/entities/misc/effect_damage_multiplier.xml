@@ -1,0 +1,11 @@
+<Entity>
+	<InheritTransformComponent>
+    </InheritTransformComponent>	
+    
+    <GameEffectComponent 
+    	effect="DAMAGE_MULTIPLIER"
+    	frames="600"
+    >
+	</GameEffectComponent >
+	
+</Entity>

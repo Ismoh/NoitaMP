@@ -1,0 +1,9 @@
+data/ragdolls/shotgunner_weak/torso.png
+data/ragdolls/shotgunner_weak/head.png
+data/ragdolls/shotgunner_weak/gun.png
+data/ragdolls/shotgunner_weak/left_arm.png
+data/ragdolls/shotgunner_weak/left_hand.png
+data/ragdolls/shotgunner_weak/left_thigh.png
+data/ragdolls/shotgunner_weak/left_foot.png
+data/ragdolls/shotgunner_weak/right_thigh.png
+data/ragdolls/shotgunner_weak/right_foot.png

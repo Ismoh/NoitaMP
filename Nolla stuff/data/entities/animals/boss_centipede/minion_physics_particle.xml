@@ -1,0 +1,18 @@
+<Sprite 
+  default_animation="fade" 
+  filename="data/entities/animals/boss_centipede/minion_physics_particle.png" 
+  offset_x="8" 
+  offset_y="10" >
+  <RectAnimation 
+    frame_count="9" 
+    frame_height="20" 
+    frame_wait="0.025" 
+    frame_width="16" 
+    frames_per_row="8" 
+    loop="0" 
+    name="fade" 
+    pos_x="0" 
+    pos_y="0" 
+    >
+  </RectAnimation>
+</Sprite>

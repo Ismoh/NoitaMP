@@ -1,0 +1,5 @@
+data/ragdolls/barfer/head.png
+data/ragdolls/barfer/upper_torso.png
+data/ragdolls/barfer/lower_torso.png
+data/ragdolls/barfer/left.png
+data/ragdolls/barfer/right.png

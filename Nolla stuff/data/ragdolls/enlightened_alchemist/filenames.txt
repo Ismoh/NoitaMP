@@ -1,0 +1,9 @@
+data/ragdolls/enlightened_alchemist/head1.png
+data/ragdolls/enlightened_alchemist/head2.png
+data/ragdolls/enlightened_alchemist/torso1.png
+data/ragdolls/enlightened_alchemist/torso2.png
+data/ragdolls/enlightened_alchemist/torso3.png
+data/ragdolls/enlightened_alchemist/hand1.png
+data/ragdolls/enlightened_alchemist/hand2.png
+data/ragdolls/enlightened_alchemist/tent1.png
+data/ragdolls/enlightened_alchemist/tent2.png

@@ -1,0 +1,79 @@
+<Entity tags="hittable,teleportable_NOT" >
+
+  <!-- physical presence -->
+  
+  <PhysicsBodyComponent 
+    _tags="enabled_in_world"
+    uid="1" 
+    allow_sleep="1" 
+    angular_damping="0" 
+    fixed_rotation="0" 
+    is_bullet="1" 
+    linear_damping="0"
+    auto_clean="0"
+    on_death_leave_physics_body="1"
+    send_collision_messages="1"
+  ></PhysicsBodyComponent>
+  
+  <PhysicsImageShapeComponent 
+    body_id="1"
+    centered="1"
+    image_file="data/items_gfx/spear.png"
+    material="rock_box2d"
+  ></PhysicsImageShapeComponent>
+  
+  <PhysicsThrowableComponent
+    _tags="enabled_in_world"
+    max_throw_speed="110"
+    throw_force_coeff="1.55"
+    tip_check_offset_min="5"
+    tip_check_offset_max="8"
+    attach_to_surfaces_knife_style="1"
+    min_torque="0"
+    max_torque="0"
+  ></PhysicsThrowableComponent>
+
+  <ProjectileComponent
+    _tags="enabled_in_world"
+    lifetime="-1"
+    penetrate_entities="1"
+  ></ProjectileComponent>
+
+  <VelocityComponent
+    _tags="enabled_in_world"
+  ></VelocityComponent>
+
+  <!-- item -->
+
+  <SpriteComponent
+    _tags="enabled_in_hand"
+    _enabled="0"
+    offset_x="10.5"
+    offset_y="2"
+    image_file="data/items_gfx/spear.png"
+  ></SpriteComponent>
+
+  <ItemComponent
+    _tags="enabled_in_world"
+    item_name="Heavy Spear"
+    max_child_items="0"
+    is_pickable="1"
+    is_equipable_forced="1"
+    ui_sprite="data/ui_gfx/items/knife.png"
+    ui_description="Equip and throw."
+    preferred_inventory="QUICK"
+  ></ItemComponent>
+
+  <AbilityComponent
+    ui_name="Heavy Spear"
+    throw_as_item="1"
+  ><gun_config
+    deck_capacity="0"
+  ></gun_config>
+  </AbilityComponent>
+
+  <UIInfoComponent
+    _tags="enabled_in_world"
+    name="Throwing knife">
+  </UIInfoComponent>
+</Entity>

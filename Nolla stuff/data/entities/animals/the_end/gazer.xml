@@ -1,0 +1,8 @@
+<Entity >
+  <Base file="data/entities/animals/gazer.xml">
+    <DamageModelComponent 
+      hp="60"
+      max_hp="60"
+     ></DamageModelComponent >
+  </Base>
+</Entity>

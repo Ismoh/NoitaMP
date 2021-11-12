@@ -1,0 +1,55 @@
+<Entity tags="" >
+	<InheritTransformComponent 
+		_tags="first,enabled_in_hand,enabled_in_world,item_identified"
+		>
+	</InheritTransformComponent>
+	
+	<ParticleEmitterComponent 
+		_tags="first,enabled_in_hand,enabled_in_world,item_identified"
+		emitted_material_name="spark_red"
+		gravity.y="0.0"
+		lifetime_min="1.5"
+		lifetime_max="8.5"
+		count_min="0"
+		count_max="1"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		area_circle_radius.max="6"
+		cosmetic_force_create="0"
+		airflow_force="0.5"
+		airflow_time="0.01"
+		airflow_scale="0.05"
+		attractor_force="2"
+		emission_interval_min_frames="4"
+		emission_interval_max_frames="30"
+		emit_cosmetic_particles="1"
+		collide_with_grid="0"
+		cosmetic_force_create="1"
+		is_emitting="1" 
+		>
+	</ParticleEmitterComponent>
+	
+	<ParticleEmitterComponent 
+		_tags="first,enabled_in_hand,enabled_in_world,item_identified"
+		emitted_material_name="spark"
+		gravity.y="0.0"
+		lifetime_min="2.5"
+		lifetime_max="13.5"
+		count_min="0"
+		count_max="1"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		area_circle_radius.max="16"
+		cosmetic_force_create="0"
+		airflow_force="0.5"
+		airflow_time="0.01"
+		airflow_scale="0.05"
+		attractor_force="2"
+		emission_interval_min_frames="2"
+		emission_interval_max_frames="10"
+		emit_cosmetic_particles="1"
+		cosmetic_force_create="1"
+		collide_with_grid="0"
+		>
+	</ParticleEmitterComponent>
+</Entity>

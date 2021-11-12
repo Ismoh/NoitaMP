@@ -1,0 +1,10 @@
+<Entity tags="mortal,musicmachine,musicmachine2" >
+	<Base file="data/entities/props/music_machines/base_music_machine.xml" >
+
+	    <LuaComponent 
+	        script_kick="data/entities/props/music_machines/music_machine_01.lua" 
+		></LuaComponent>
+
+	</Base>
+
+</Entity>

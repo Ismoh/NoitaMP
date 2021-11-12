@@ -1,0 +1,12 @@
+<Entity>
+	
+	<InheritTransformComponent>
+    </InheritTransformComponent>	
+    
+    <GameEffectComponent 
+        effect="SLIMY"
+        frames="3600"
+    >
+	</GameEffectComponent >
+
+</Entity>

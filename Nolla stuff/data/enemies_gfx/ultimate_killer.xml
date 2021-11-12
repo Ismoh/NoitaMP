@@ -1,0 +1,407 @@
+<Sprite 
+  filename="data/enemies_gfx/ultimate_killer.png" 
+  offset_x="5" 
+  offset_y="6"
+  default_animation="stand" >
+
+  <RectAnimation 
+    frame_count="2" 
+    frame_height="10" 
+    frame_wait="0.2" 
+    frame_width="10" 
+    frames_per_row="8" 
+    name="stand" 
+    pos_x="0" 
+    pos_y="0" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="10" 
+    frame_wait="0.082" 
+    frame_width="10" 
+    frames_per_row="8" 
+    name="walk" 
+    pos_x="0" 
+    pos_y="10" >
+
+    <Event 
+      check_physics_material="1" 
+      frame="0" 
+      max_distance="500" 
+      name="step" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+    <Event 
+      check_physics_material="1" 
+      frame="2" 
+      max_distance="500" 
+      name="step" 
+      on_finished="0" 
+      probability="1" >
+    </Event>
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="10" 
+    frame_wait="0.075" 
+    frame_width="10" 
+    frames_per_row="8" 
+    name="run" 
+    pos_x="0" 
+    pos_y="10" 
+     >
+
+    <Event 
+      check_physics_material="1" 
+      frame="1" 
+      max_distance="500" 
+      name="step" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+    <Event 
+      check_physics_material="1" 
+      frame="5" 
+      max_distance="500" 
+      name="step" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="10" 
+    frame_wait="0.075" 
+    frame_width="10" 
+    frames_per_row="8" 
+    name="burn" 
+    pos_x="0" 
+    pos_y="10" 
+     >
+
+    <Event 
+      check_physics_material="1" 
+      frame="1" 
+      max_distance="500" 
+      name="step" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+    <Event 
+      check_physics_material="1" 
+      frame="5" 
+      max_distance="500" 
+      name="step" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="1" 
+    frame_height="10" 
+    frame_wait="0.082" 
+    frame_width="10" 
+    frames_per_row="8" 
+    loop="0" 
+    name="jump_up" 
+    pos_x="0" 
+    pos_y="20" 
+     >
+
+    <Event 
+      check_physics_material="0" 
+      frame="0" 
+      max_distance="500" 
+      name="jump" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+    <Event 
+      check_physics_material="0" 
+      frame="0" 
+      max_distance="500" 
+      name="voc_jump" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="1" 
+    frame_height="10" 
+    frame_wait="0.082" 
+    frame_width="10" 
+    frames_per_row="8" 
+    loop="0" 
+    name="jump_fall" 
+    pos_x="0" 
+    pos_y="30" 
+     >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="2" 
+    frame_height="10" 
+    frame_wait="0.082" 
+    frame_width="10" 
+    frames_per_row="8" 
+    loop="0" 
+    name="land" 
+    pos_x="0" 
+    pos_y="40" >
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="10" 
+    frame_wait="0.075" 
+    frame_width="10" 
+    frames_per_row="8" 
+    loop="0" 
+    name="attack" 
+    pos_x="0" 
+    pos_y="50" 
+     >
+
+    <Event frame="2" max_distance="500"  name="attack_melee"   on_finished="0" probability="1" />
+
+  </RectAnimation>
+  
+  <RectAnimation 
+    frame_count="5" 
+    frame_height="10" 
+    frame_wait="0.09" 
+    frame_width="10" 
+    frames_per_row="8" 
+    loop="0" 
+    name="attack_ranged" 
+    pos_x="0" 
+    pos_y="60" 
+     >
+
+    <Event frame="2" max_distance="500"  name="shoot_slime"   on_finished="0" probability="1" />
+
+  </RectAnimation>
+  
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="10" 
+    frame_wait="0.2" 
+    frame_width="10" 
+    frames_per_row="8" 
+    name="fly_idle" 
+    pos_x="0" 
+    pos_y="80" >
+
+  </RectAnimation>
+  
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="10" 
+    frame_wait="0.2" 
+    frame_width="10" 
+    frames_per_row="8" 
+    name="fly_move" 
+    pos_x="0" 
+    pos_y="90" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="2" 
+    frame_height="10" 
+    frame_wait="0.07" 
+    frame_width="10" 
+    frames_per_row="8" 
+    loop="0" 
+    name="hurt" 
+    pos_x="0" 
+    pos_y="130" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="2" 
+    frame_height="10" 
+    frame_wait="0.07" 
+    frame_width="10" 
+    frames_per_row="8" 
+    name="knockback" 
+    pos_x="0" 
+    pos_y="120" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="3" 
+    frame_height="10" 
+    frame_wait="0.12" 
+    frame_width="10" 
+    frames_per_row="8" 
+    loop="0" 
+    name="lower_head" 
+    pos_x="0" 
+    pos_y="140" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="2" 
+    frame_height="10" 
+    frame_wait="0.18" 
+    frame_width="10" 
+    frames_per_row="8" 
+    name="eat" 
+    pos_x="0" 
+    pos_y="150" 
+     >
+
+    <Event 
+      check_physics_material="0" 
+      frame="0" 
+      max_distance="500" 
+      name="eat" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="3" 
+    frame_height="10" 
+    frame_wait="0.12" 
+    frame_width="10" 
+    frames_per_row="8" 
+    loop="0" 
+    name="raise_head" 
+    pos_x="0" 
+    pos_y="160" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="2" 
+    frame_height="10" 
+    frame_wait="0.06" 
+    frame_width="10" 
+    frames_per_row="8" 
+    loop="0" 
+    name="alert" 
+    pos_x="0" 
+    pos_y="100" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="2" 
+    frame_height="10" 
+    frame_wait="0.11" 
+    frame_width="10" 
+    frames_per_row="8" 
+    name="swim_idle" 
+    pos_x="0" 
+    pos_y="100" >
+
+    <Event 
+      check_physics_material="0" 
+      frame="1" 
+      max_distance="500" 
+      name="paddle" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="10" 
+    frame_wait="0.09" 
+    frame_width="10" 
+    frames_per_row="8" 
+    name="swim_move" 
+    pos_x="0" 
+    pos_y="110" >
+
+    <Event 
+      check_physics_material="0" 
+      frame="0" 
+      max_distance="500" 
+      name="paddle" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+    <Event 
+      check_physics_material="0" 
+      frame="2" 
+      max_distance="500" 
+      name="paddle" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="1" 
+    frame_height="10" 
+    frame_wait="0.05" 
+    frame_width="10" 
+    frames_per_row="8" 
+    loop="0" 
+    name="jump_prepare" 
+    pos_x="0" 
+    pos_y="70" >
+
+    <Event 
+      check_physics_material="0" 
+      frame="0" 
+      max_distance="500" 
+      name="jump_start" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+    <Event 
+      check_physics_material="0" 
+      frame="0" 
+      max_distance="500" 
+      name="voc_jump_prepare" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+  </RectAnimation>
+
+</Sprite>
+

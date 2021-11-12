@@ -1,0 +1,167 @@
+<Entity name="$projectile_default" >
+	<Base file="data/entities/base_projectile.xml" >
+		<VelocityComponent
+			air_friction="0.0"
+			mass="0.0"
+			gravity_y="0.0"
+			terminal_velocity="1"
+			>
+		</VelocityComponent>
+	</Base>
+
+	<ProjectileComponent 
+		speed_min="1"
+		speed_max="1"
+		friction="0.0"
+		direction_random_rad="0.05"
+		on_death_gfx_leave_sprite="0" 
+		lifetime="32"
+		damage="0"
+		lifetime_randomness="0"
+		ragdoll_force_multiplier="0.0"
+		hit_particle_force_multiplier="5.5"
+		camera_shake_when_shot="3.0"
+		shoot_light_flash_radius="80"
+		muzzle_flash_file="data/entities/particles/muzzle_flashes/muzzle_flash_launcher.xml"
+		knockback_force="2.5"
+		on_collision_die="0"
+		on_collision_remove_projectile="0"
+		on_lifetime_out_explode="0"
+		collide_with_world="0"
+		penetrate_entities="1"
+		collide_with_entities="0"
+		collide_with_tag=""
+		>
+	</ProjectileComponent>
+
+	<LuaComponent
+		script_source_file="data/scripts/projectiles/megalaser_blue_spawn.lua"
+		execute_every_n_frame="30"
+		remove_after_executed="1"
+		>
+	</LuaComponent>
+
+	<!-- FX -->
+	<SpriteComponent
+		image_file="data/projectiles_gfx/orb_blue_big.xml"
+		z_index="-1.1" >
+	</SpriteComponent>
+
+	<ParticleEmitterComponent 
+		emitted_material_name="plasma_fading_bright"
+		offset.x="0"
+		offset.y="0"
+		x_pos_offset_min="-5"
+		x_pos_offset_max="5"
+		y_pos_offset_min="-5"
+		y_pos_offset_max="5"
+		gravity.y="0.0"
+		x_vel_min="-20"
+		x_vel_max="20"
+		y_vel_min="-30"
+		y_vel_max="10"
+		velocity_always_away_from_center="1"
+		area_circle_radius.min="10"
+		area_circle_radius.max="10"
+		friction="4"
+		count_min="1"
+		count_max="2"
+		lifetime_min="0.3"
+		lifetime_max="0.8"
+		emitter_lifetime_frames="3"
+		emit_real_particles="0"
+		render_on_grid="1"
+		emit_cosmetic_particles="1"
+		fade_based_on_lifetime="0"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+	
+	<!-- launch blast a -->
+	<ParticleEmitterComponent 
+		emitted_material_name="plasma_fading_bright"
+		delay_frames="30"
+		offset.x="0"
+		offset.y="0"
+		x_pos_offset_min="-5"
+		x_pos_offset_max="5"
+		y_pos_offset_min="-5"
+		y_pos_offset_max="5"
+		gravity.y="0.0"
+		x_vel_min="-20"
+		x_vel_max="800"
+		y_vel_min="-30"
+		y_vel_max="30"
+		velocity_always_away_from_center="1"
+		area_circle_radius.min="10"
+		area_circle_radius.max="10"
+		friction="4"
+		count_min="30"
+		count_max="50"
+		lifetime_min="0.1"
+		lifetime_max="0.4"
+		emitter_lifetime_frames="3"
+		emit_real_particles="0"
+		render_on_grid="1"
+		emit_cosmetic_particles="1"
+		fade_based_on_lifetime="0"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+
+	<!-- launch blast circle -->
+	<ParticleEmitterComponent 
+		emitted_material_name="plasma_fading_bright"
+		delay_frames="29"
+		offset.x="0"
+		offset.y="0"
+		x_pos_offset_min="-0"
+		x_pos_offset_max="0"
+		y_pos_offset_min="-0"
+		y_pos_offset_max="0"
+		gravity.y="0.0"
+		x_vel_min="-0"
+		x_vel_max="40"
+		y_vel_min="-5"
+		y_vel_max="5"
+		velocity_always_away_from_center="1"
+		area_circle_radius.min="9"
+		area_circle_radius.max="9"
+		friction="0.5"
+		count_min="30"
+		count_max="60"
+		lifetime_min="0.2"
+		lifetime_max="1.0"
+		emitter_lifetime_frames="2"
+		emit_real_particles="0"
+		render_on_grid="1"
+		emit_cosmetic_particles="1"
+		fade_based_on_lifetime="1"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+
+	<LightComponent 
+		radius="100" >
+	</LightComponent>
+
+	<AudioComponent
+		file="data/audio/Desktop/projectiles.bank"
+		event_root="projectiles/megalaser_blue">
+	</AudioComponent>
+
+	<AudioLoopComponent
+		file="data/audio/Desktop/projectiles.bank"
+		event_name="projectiles/electric/loop"
+		auto_play="1">
+   	</AudioLoopComponent>
+	
+	<VariableStorageComponent
+		name="projectile_file"
+		value_string="data/entities/projectiles/megalaser_blue.xml"
+		>
+	</VariableStorageComponent>
+</Entity>

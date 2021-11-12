@@ -1,0 +1,7 @@
+<Entity>
+	<LuaComponent
+		script_source_file="data/scripts/animals/fungus_powder.lua"
+		execute_on_added="1"
+		>
+	</LuaComponent>
+</Entity>

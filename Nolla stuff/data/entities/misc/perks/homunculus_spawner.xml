@@ -1,0 +1,29 @@
+<Entity tags="greed_curse">
+	<InheritTransformComponent />
+	
+	<VariableStorageComponent
+		name="status"
+		value_int="1"
+		>
+	</VariableStorageComponent>
+	
+	<VariableStorageComponent
+		name="latest_depth"
+		value_int="0"
+		>
+	</VariableStorageComponent>
+	
+	<VariableStorageComponent
+		name="memory"
+		value_string=""
+		>
+	</VariableStorageComponent>
+	
+	<LuaComponent 
+        _enabled="1" 
+        execute_every_n_frame="60"
+        script_source_file="data/scripts/perks/homunculus_check_biome.lua" 
+	>
+    </LuaComponent>
+	
+</Entity>

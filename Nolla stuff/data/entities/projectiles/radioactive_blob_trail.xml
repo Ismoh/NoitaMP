@@ -1,0 +1,128 @@
+<Entity tags="hittable" name="$projectile_default">
+
+	<Base file="data/entities/base_projectile.xml" >
+		<VelocityComponent
+    		gravity_y="10"
+    		air_friction="0"
+			mass="0.055"
+			>
+    	</VelocityComponent> 
+	</Base>
+
+	<ProjectileComponent 
+		_enabled="1" 
+		speed_min="90"
+		speed_max="115"
+		on_death_explode="1"
+		on_death_gfx_leave_sprite="0" 
+		on_lifetime_out_explode="1"
+		on_collision_die="1"
+		damage="0.25"
+		lifetime="330"
+		shoot_light_flash_r="40"
+		shoot_light_flash_g="120"
+		shoot_light_flash_b="20"
+		shoot_light_flash_radius="72"
+		knockback_force="1.5"
+		>
+		<config_explosion
+		    never_cache="1" 
+			damage="0.3"
+			camera_shake="3.5" 
+			explosion_radius="9" 
+			explosion_sprite="data/particles/explosion_032_slimeburst.xml" 
+			explosion_sprite_lifetime="0" 
+			create_cell_probability="5" 
+			create_cell_material="radioactive_liquid_fading"
+			hole_destroy_liquid="0" 
+			hole_enabled="1" 
+			hole_image="data/temp/explosion_hole.png" 
+			particle_effect="0" 
+			damage_mortals="1"
+			physics_explosion_power.min="0.2"
+			physics_explosion_power.max="0.3" 
+			physics_throw_enabled="1" 
+			shake_vegetation="1" 
+			sparks_count_max="20" 
+			sparks_count_min="7" 
+			sparks_enabled="0" 
+			stains_enabled="1" 
+			stains_radius="9"
+			audio_enabled="0" >
+		</config_explosion>
+	</ProjectileComponent>
+
+	<SpriteComponent 
+		_enabled="1" 
+		alpha="1" 
+		image_file="data/projectiles_gfx/slime.xml" 
+		next_rect_animation="" 
+		offset_x="8" 
+		offset_y="6" 
+		rect_animation="" 
+		 
+		 >
+	</SpriteComponent>
+
+	<ParticleEmitterComponent 
+		emitted_material_name="radioactive_liquid"
+		count_min="1"
+		count_max="2"
+		offset.x="-1"
+		offset.y="0"
+		x_pos_offset_min="-1"
+		y_pos_offset_min="-2"
+		x_pos_offset_max="1"
+		y_pos_offset_max="2"
+		count_min="1"
+		count_max="1"
+		is_trail="1"
+		trail_gap="2.5"
+		lifetime_min="0.1"
+		lifetime_max="1.3"
+		render_on_grid="1"
+		create_real_particles="0"
+		emit_cosmetic_particles="0"
+		emit_real_particles="1"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+
+	<LightComponent 
+	    _enabled="1" 
+	    radius="30" 
+		r="99"
+		g="205"
+		b="139"
+		offset_y="0"
+		>
+	</LightComponent>
+
+
+    <DamageModelComponent 
+        _enabled="1" 
+        hp="0.2"
+        fire_probability_of_ignition="0" 
+        falling_damages="0" 
+        air_needed="0" 
+        materials_damage="0"
+        ragdoll_filenames_file=""
+        blood_material="radioactive_liquid_fading"
+        blood_multiplier="0"
+        create_ragdoll="0" >
+    </DamageModelComponent>
+
+  <AudioComponent
+      file="data/audio/Desktop/projectiles.bank"
+      event_root="projectiles/slime">
+  </AudioComponent>
+  
+	<VariableStorageComponent
+		name="projectile_file"
+		value_string="data/entities/projectiles/radioactive_blob_trail.xml"
+		>
+	</VariableStorageComponent>
+
+</Entity>
+

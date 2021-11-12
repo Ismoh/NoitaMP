@@ -1,0 +1,88 @@
+<Entity tags="teleportable_NOT">
+  <ItemComponent
+    _tags="enabled_in_world"
+    is_pickable="1">
+  </ItemComponent>
+
+  <VelocityComponent
+    _tags="enabled_in_world"
+  	gravity_y="400"
+  	air_friction="0.55"
+  	terminal_velocity="1000" >
+  </VelocityComponent>
+	
+  
+  <HitboxComponent 
+    _tags="enabled_in_world"
+    aabb_max_x="4" 
+    aabb_max_y="4" 
+    aabb_min_x="-4" 
+    aabb_min_y="-4" 
+    is_enemy="0" 
+    is_item="0" 
+    is_player="0" >
+  </HitboxComponent>
+   
+  <SpriteComponent 
+    _tags="item,enabled_in_world,enabled_in_hand" 
+    alpha="1" 
+    image_file="data/items_gfx/handgun.xml" 
+    next_rect_animation="default" 
+    rect_animation="default"
+    z_index="-1.5" >
+  </SpriteComponent>
+  
+  <LightComponent 
+    _tags="enabled_in_world"
+    radius="64" >
+  </LightComponent>
+
+  <AudioLoopComponent
+      _tags="enabled_in_world,enabled_in_hand,sound_digger"
+      file="data/audio/Desktop/projectiles.bank"
+      event_name="player_projectiles/digger/loop"
+      volume_autofade_speed="0.1" >
+  </AudioLoopComponent>
+  
+  <AudioLoopComponent
+      _tags="enabled_in_world,enabled_in_hand,sound_spray"
+      file="data/audio/Desktop/projectiles.bank"
+      event_name="player_projectiles/spray/loop"
+      volume_autofade_speed="0.1" >
+  </AudioLoopComponent>
+
+
+<!-- physics stuff -->
+
+  <PhysicsBodyComponent 
+    _tags="enabled_in_world"
+    uid="1" 
+    allow_sleep="1" 
+    angular_damping="0" 
+    fixed_rotation="0" 
+    is_bullet="1" 
+    linear_damping="0"
+    auto_clean="0"
+    on_death_leave_physics_body="0"
+    hax_fix_going_through_ground="1"
+    hax_fix_going_through_sand="0"
+    hax_wait_till_pixel_scenes_loaded="1"
+    force_add_update_areas="1"
+  ></PhysicsBodyComponent>
+  
+
+  <PhysicsShapeComponent
+  is_circle="0"
+  is_box="0"
+    is_based_on_sprite="1"
+  radius_x="6"
+  radius_y="2.5"
+  friction="0.35"
+  restitution="0.15"
+  local_position_x="3.0"
+  local_position_y="0.0"
+ >
+  </PhysicsShapeComponent>
+
+
+</Entity>

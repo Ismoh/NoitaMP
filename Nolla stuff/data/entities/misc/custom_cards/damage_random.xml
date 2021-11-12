@@ -1,0 +1,22 @@
+<Entity>
+	
+	<Base file="data/entities/base_custom_card.xml" > 
+		<SpriteComponent 
+			image_file="data/ui_gfx/gun_actions/damage_random.png" 
+			>
+		</SpriteComponent>
+		
+		<ItemActionComponent 
+			_tags="enabled_in_world"
+			action_id="DAMAGE_RANDOM" >
+		</ItemActionComponent>
+	</Base>
+
+	<Base file="data/entities/misc/custom_cards/base_damage.xml">
+		<SpriteParticleEmitterComponent
+			sprite_file="data/particles/tinyspark_02.xml"
+		>
+		</SpriteParticleEmitterComponent>
+	</Base>
+	
+</Entity>

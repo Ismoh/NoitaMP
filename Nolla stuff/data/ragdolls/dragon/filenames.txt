@@ -1,0 +1,11 @@
+data/ragdolls/dragon/dragon_01.png
+data/ragdolls/dragon/dragon_02.png
+data/ragdolls/dragon/dragon_03.png
+data/ragdolls/dragon/dragon_04.png
+data/ragdolls/dragon/dragon_05.png
+data/ragdolls/dragon/dragon_06.png
+data/ragdolls/dragon/dragon_07.png
+data/ragdolls/dragon/dragon_08.png
+data/ragdolls/dragon/dragon_09.png
+data/ragdolls/dragon/dragon_10.png
+data/ragdolls/dragon/dragon_11.png

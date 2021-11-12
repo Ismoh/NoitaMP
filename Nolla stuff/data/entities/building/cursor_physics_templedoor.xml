@@ -1,0 +1,9 @@
+<Entity serialize="0">
+
+    <SpriteComponent 
+        image_file="data/props_gfx/temple_door.png"
+        offset_x="7" 
+        offset_y="30" >
+    </SpriteComponent>
+
+</Entity>

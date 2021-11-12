@@ -1,0 +1,67 @@
+<Entity>
+	<Base file="data/entities/base_item.xml">
+        <SpriteComponent 
+			image_file="data/items_gfx/flute.xml" 
+            next_rect_animation="" 
+			offset_x="1"
+			offset_y="3.5"
+			>
+        </SpriteComponent>
+        
+        <ItemComponent
+			item_name="$item_ocarina"
+            play_hover_animation="1"
+			always_use_item_name_in_ui="1"
+			>
+        </ItemComponent>
+
+        <SimplePhysicsComponent
+            _enabled="0">
+        </SimplePhysicsComponent>
+    </Base>
+	
+	<Base file="data/entities/base_wand.xml">
+    </Base>
+	
+	<UIInfoComponent
+		_tags="enabled_in_world"
+		name="$item_ocarina">
+	</UIInfoComponent>
+
+	<AbilityComponent
+        _enabled="1" 
+        sprite_file="data/items_gfx/flute.xml"
+        swim_propel_amount="-30"
+        ui_name="$item_ocarina"
+        drop_as_item_on_death="0"
+        cooldown_frames="1"
+        entity_count="1"
+        reload_time_frames="1"
+        use_gun_script="1"
+		mana_charge_speed="30"
+		mana_max="2"
+        >
+        <gun_config 
+            shuffle_deck_when_empty="0"
+            reload_time="1"
+            deck_capacity="20" >
+        </gun_config>
+        <gunaction_config 
+            fire_rate_wait="2" >
+        </gunaction_config>
+    </AbilityComponent>
+	
+	<HotspotComponent 
+        _tags="shoot_pos" 
+        offset.x="10" 
+        offset.y="-0.5" >
+    </HotspotComponent>
+
+    <ManaReloaderComponent
+        _tags="enabled_in_world,enabled_in_hand,enabled_in_inventory" >
+    </ManaReloaderComponent>
+	
+	<Base file="data/entities/base_wand_pickup.xml" > <LuaComponent _enabled="0" script_item_picked_up="" /> </Base>
+
+</Entity>
+

@@ -1,0 +1,6 @@
+<Entity>
+	<ElectricityComponent
+		energy="250"
+		probability_to_heat="0.2" >
+	</ElectricityComponent>
+</Entity>

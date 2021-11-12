@@ -1,0 +1,15 @@
+<Entity name="unknown" >
+	<Base file="data/entities/base_item_physics.xml" >
+
+    <PhysicsBodyComponent 
+      auto_clean="0" >
+    </PhysicsBodyComponent>
+
+    <PhysicsImageShapeComponent 
+      image_file="data/entities/animals/boss_centipede/rewards/giant_dollar.png"
+      material="gold_b2" >
+    </PhysicsImageShapeComponent>
+
+  </Base>
+
+</Entity>

@@ -1,0 +1,20 @@
+<Sprite
+filename="data/particles/discbullet_trail.png"
+offset_x="6"
+offset_y="6"
+default_animation="explosion"
+ >
+
+<!-- explosion -->
+<RectAnimation
+name="explosion"
+pos_x="0"
+pos_y="0"
+frame_count="1"
+frame_width="12"
+frame_height="12"
+frame_wait="0.02"
+frames_per_row="1"
+loop="1"   >
+</RectAnimation>
+</Sprite>

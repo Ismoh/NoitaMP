@@ -1,0 +1,88 @@
+<Entity>
+	
+	<Base file="data/entities/base_custom_card.xml" > 
+		<SpriteComponent 
+			image_file="data/ui_gfx/gun_actions/heal_bullet.png" 
+			>
+		</SpriteComponent>
+		
+		<ItemActionComponent 
+			_tags="enabled_in_world"
+			action_id="HEAL_BULLET" >
+		</ItemActionComponent>
+	</Base>
+
+	<InheritTransformComponent
+		_tags="enabled_in_world,enabled_in_hand" >
+	  <Transform 
+		position.x="8" 
+		position.y="0" >
+	  </Transform>
+	</InheritTransformComponent>
+
+	<SpriteParticleEmitterComponent
+		_tags="enabled_in_hand,item_identified"
+		sprite_file="data/particles/heal.xml"
+		delay="0"
+		lifetime="0"
+		color.r="1" color.g="1" color.b="1" color.a="1"
+		color_change.r="0" color_change.g="0" color_change.b="0" color_change.a="0"
+		velocity.x="0" velocity.y="0"
+		gravity.x="0" gravity.y="10"
+		velocity_slowdown="0"
+		rotation="0"
+		angular_velocity="0"
+		use_velocity_as_rotation="0"
+		scale.x="1" scale.y="1"
+		scale_velocity.x="0" scale_velocity.y="0"
+		emission_interval_min_frames="15"
+		emission_interval_max_frames="25"
+		count_min="1" count_max="1"
+		randomize_rotation.min="-0.3415"
+		randomize_rotation.max="0.3415"
+		randomize_angular_velocity.min="-1.3415"
+		randomize_angular_velocity.max="1.3415"
+		randomize_position.min_x="-2"
+		randomize_position.max_x="2"
+		randomize_position.min_y="-2"
+		randomize_position.max_y="2"
+		randomize_velocity.min_x="-10"
+		randomize_velocity.max_x="10"
+		randomize_velocity.min_y="-10"
+		randomize_velocity.max_y="10"
+		is_emitting="0"
+		>
+	</SpriteParticleEmitterComponent>
+	
+	<ParticleEmitterComponent
+		_tags="enabled_in_hand,item_identified"
+		emitted_material_name="spark_green"
+		gravity.y="0.0"
+		lifetime_min="0.5"
+		lifetime_max="1.5"
+		count_min="1"
+		count_max="2"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		area_circle_radius.max="2"
+		cosmetic_force_create="0"
+		airflow_force="0.5"
+		airflow_time="0.01"
+		airflow_scale="0.05"
+		emission_interval_min_frames="25"
+		emission_interval_max_frames="35"
+		emit_cosmetic_particles="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+	
+	<LightComponent 
+		_tags="enabled_in_hand,item_identified"
+		_enabled="1" 
+		radius="30"
+		fade_out_time="1.5" 
+		r="80"
+		g="10"
+		b="80" >
+	</LightComponent>
+	
+</Entity>

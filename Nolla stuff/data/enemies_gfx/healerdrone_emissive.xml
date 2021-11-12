@@ -1,0 +1,19 @@
+<Sprite
+ filename="data/enemies_gfx/healerdrone_emissive.png"
+ offset_x="5.5"
+ offset_y="4"
+  default_animation="stand" >
+
+ <!-- stand -->
+ <RectAnimation
+  name="stand"
+  pos_x="0"
+  pos_y="0"
+  frame_count="1"
+  frame_width="12"
+  frame_height="8"
+  frame_wait="0.2"
+  frames_per_row="1"
+  loop="1"   >
+ </RectAnimation>
+</Sprite>

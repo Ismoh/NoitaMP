@@ -1,0 +1,44 @@
+<Sprite
+ filename="data/entities/animals/boss_limbs/eyeB.png"
+ offset_x="24"
+ offset_y="24" >
+
+ <!-- stand -->
+ <RectAnimation
+  name="stand"
+  pos_x="0"
+  pos_y="0"
+  frame_count="1"
+  frame_width="48"
+  frame_height="48"
+  frame_wait="0.09"
+  frames_per_row="6"
+  loop="1"   >
+ </RectAnimation>
+ 
+  <!-- invisibility -->
+ <RectAnimation
+  name="invisible"
+  pos_x="0"
+  pos_y="48"
+  frame_count="1"
+  frame_width="48"
+  frame_height="48"
+  frame_wait="0.09"
+  frames_per_row="6"
+  loop="1"   >
+ </RectAnimation>
+
+ <!-- walk -->
+ <RectAnimation
+  name="animate"
+  pos_x="0"
+  pos_y="0"
+  frame_count="6"
+  frame_width="48"
+  frame_height="48"
+  frame_wait="0.13"
+  frames_per_row="6"
+  loop="0"   >
+ </RectAnimation>
+</Sprite>

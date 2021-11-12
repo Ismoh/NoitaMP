@@ -1,0 +1,13 @@
+<Entity tags="mortal,hittable" >
+	<Base file="data/entities/base_dripping_liquid.xml">
+		<ParticleEmitterComponent
+			emitted_material_name="oil"
+			>
+		</ParticleEmitterComponent>
+		
+		<ParticleEmitterComponent
+			emitted_material_name="oil"
+			>
+		</ParticleEmitterComponent>
+	</Base>
+</Entity>

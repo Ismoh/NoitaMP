@@ -1,0 +1,62 @@
+<Entity name="effect_CURSE" tags="effect_CURSE" >
+	<InheritTransformComponent />
+	
+	<LuaComponent
+		script_source_file="data/scripts/projectiles/curse.lua"
+		execute_every_n_frame="30"
+		>
+	</LuaComponent>
+	
+	<VariableStorageComponent
+		_tags="effect_curse_damage"
+		name="effect_curse_damage"
+		value_float="0.08"
+		>
+	</VariableStorageComponent>
+	
+	<LuaComponent
+		script_source_file="data/scripts/projectiles/curse_end.lua"
+		execute_every_n_frame="-1"
+		execute_on_removed="1"
+		>
+	</LuaComponent>
+	
+	<LifetimeComponent
+		_tags="effect_curse_lifetime"
+		lifetime="300"
+		>
+	</LifetimeComponent>
+	
+	<SpriteParticleEmitterComponent
+		sprite_file="data/particles/creepy.xml"
+		delay="0"
+		lifetime="0"
+		render_back="1"
+		color.r="1" color.g="1" color.b="1" color.a="0.4"
+		color_change.r="0" color_change.g="0" color_change.b="0" color_change.a="-1"
+		velocity.x="0" velocity.y="0"
+		gravity.x="0" gravity.y="0"
+		velocity_slowdown="0"
+		rotation="0"
+		angular_velocity="0"
+		use_velocity_as_rotation="0"
+		scale.x="1" scale.y="1"
+		scale_velocity.x="0" scale_velocity.y="0"
+		emission_interval_min_frames="30"
+		emission_interval_max_frames="30"
+		count_min="1" count_max="1"
+		randomize_rotation.min="-3.1415"
+		randomize_rotation.max="3.1415"
+		randomize_angular_velocity.min="-8.3415"
+		randomize_angular_velocity.max="8.3415"
+		randomize_position.min_x="-2"
+		randomize_position.max_x="2"
+		randomize_position.min_y="-2"
+		randomize_position.max_y="2"
+		randomize_velocity.min_x="-8"
+		randomize_velocity.max_x="8"
+		randomize_velocity.min_y="-8"
+		randomize_velocity.max_y="8"
+		>
+	</SpriteParticleEmitterComponent>
+</Entity>

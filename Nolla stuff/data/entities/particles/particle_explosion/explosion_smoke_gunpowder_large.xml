@@ -1,0 +1,9 @@
+<Entity>
+	<Base file="data/entities/particles/particle_explosion/explosion_smoke_gunpowder.xml" >
+		<SetStartVelocityComponent
+			randomize_speed.min="200"
+			randomize_speed.max="900"
+		>
+	</SetStartVelocityComponent>
+    </Base>
+</Entity>

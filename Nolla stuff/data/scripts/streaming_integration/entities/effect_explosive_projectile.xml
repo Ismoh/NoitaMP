@@ -1,0 +1,16 @@
+<Entity>
+	
+	<InheritTransformComponent>
+    </InheritTransformComponent>	
+    
+    <ShotEffectComponent
+        extra_modifier="explosive_projectile"
+		>
+	</ShotEffectComponent>
+	
+	<LifetimeComponent
+		lifetime="3600"
+		>
+	</LifetimeComponent>
+
+</Entity>

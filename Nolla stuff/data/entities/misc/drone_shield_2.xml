@@ -1,0 +1,29 @@
+<Entity tags="energy_shield">
+	<Base file="data/entities/misc/animal_energy_shield.xml">
+		<EnergyShieldComponent 
+			recharge_speed="0.6" 
+			radius="24.0" 
+			max_energy="1.5"
+			>
+		</EnergyShieldComponent>
+		
+		<ParticleEmitterComponent
+			is_emitting="0"
+			>
+		</ParticleEmitterComponent>
+		
+		<ParticleEmitterComponent
+			emitted_material_name="plasma_fading_pink"
+			area_circle_radius.min="24"
+			area_circle_radius.max="24"
+			>
+		</ParticleEmitterComponent>
+
+		<ParticleEmitterComponent
+			emitted_material_name="plasma_fading_pink"
+			area_circle_radius.min="24"
+			area_circle_radius.max="24"
+			>
+		</ParticleEmitterComponent>
+	</Base>
+</Entity>

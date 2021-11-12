@@ -1,0 +1,88 @@
+<Entity tags="teleportable_NOT,enemy,flying" >  
+	<Base file="data/entities/base_humanoid.xml" >
+		<AnimalAIComponent 
+			preferred_job="JobDefault"
+			creature_detection_range_x="300"
+			creature_detection_range_y="300"
+			attack_dash_enabled="0"
+			attack_ranged_enabled="1"
+			attack_ranged_entity_file="data/entities/projectiles/acidshot.xml"
+			attack_ranged_frames_between="40"
+			food_material="blood"
+			needs_food="1"
+			sense_creatures="1"
+			can_fly="1" 
+			aggressiveness_min="1"
+			aggressiveness_max="100"
+			>
+		</AnimalAIComponent>
+
+		<DamageModelComponent 
+            hp="0.5"
+            materials_create_messages="1"
+            ragdoll_material="meat"
+            ragdoll_filenames_file="data/ragdolls/zombie/filenames.txt"
+			blood_sprite_directional="data/particles/bloodsplatters/bloodsplatter_directional_$[1-3].xml"
+			blood_sprite_large="data/particles/bloodsplatters/bloodsplatter_$[1-3].xml"
+    		blood_spray_material="blood"
+			air_needed="1" 
+			>
+			<damage_multipliers
+				drill="0.5"
+				>
+			</damage_multipliers>
+		</DamageModelComponent>
+
+		<SpriteComponent 
+			image_file="data/enemies_gfx/zombie.xml" 
+			z_index="-1">
+		</SpriteComponent>
+
+		<PathFindingComponent
+		    distance_to_reach_node_x="10"
+		    distance_to_reach_node_y="10"
+			frames_to_get_stuck="30"
+			can_jump="0" >
+		</PathFindingComponent>
+
+		<PathFindingGridMarkerComponent
+			marker_work_flag="16" >
+		</PathFindingGridMarkerComponent>
+		
+		<GenomeDataComponent 
+			herd_id="-1"
+			food_chain_rank="10"
+			is_predator="1" >
+		</GenomeDataComponent>
+		
+		<CharacterPlatformingComponent 
+			accel_x="1"
+    		pixel_gravity="600" 
+			jump_velocity_y="-8" 
+			run_velocity="12">
+		</CharacterPlatformingComponent>
+		
+		<HitboxComponent 
+			aabb_min_x="-4.5" 
+			aabb_max_x="4.5" 
+			aabb_min_y="-5.5" 
+			aabb_max_y="3" 
+			>
+		</HitboxComponent>
+
+		<CharacterDataComponent 
+			climb_over_y="4" 
+			collision_aabb_min_x="-2.0" 
+			collision_aabb_max_x="2.0" 
+			collision_aabb_min_y="-3" 
+			collision_aabb_max_y="3" 
+			buoyancy_check_offset_y="-6">
+	    </CharacterDataComponent>
+
+		<CameraBoundComponent
+		  max_count="20"
+		  distance="160000">
+		</CameraBoundComponent>
+	</Base>
+</Entity>
+

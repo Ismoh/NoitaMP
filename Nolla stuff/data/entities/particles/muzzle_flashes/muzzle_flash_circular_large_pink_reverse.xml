@@ -1,0 +1,13 @@
+<Entity >
+  <SpriteComponent 
+    _enabled="1" 
+    alpha="1" 
+    image_file="data/particles/explosion_100_pink.xml"
+    next_rect_animation="reverse"
+    rect_animation="reverse"
+	emissive="1"
+    additive="1"
+    kill_entity_after_finished="1"
+     >
+  </SpriteComponent>
+</Entity>

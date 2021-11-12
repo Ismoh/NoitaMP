@@ -1,0 +1,75 @@
+<Entity tags="wand,wand_good">
+    <AbilityComponent 
+        amount_in_inventory="1" 
+        cooldown_frames="0" 
+        drop_as_item_on_death="1" 
+        entity_count="1" 
+        entity_file="" 
+        fast_projectile="0" 
+		mana_charge_speed="30"
+		mana_max="100"
+        max_amount_in_inventory="1" 
+        reload_time_frames="0" 
+        shooting_reduces_amount_in_inventory="0" 
+        sprite_file="data/items_gfx/wands/custom/good_01.xml" 
+        swim_propel_amount="0" 
+        throw_as_item="0" 
+        ui_name="wand_good_1" 
+        use_gun_script="1" 
+        >
+        <gun_config 
+            shuffle_deck_when_empty="0"
+            reload_time="24" 
+            deck_capacity="3" >
+        </gun_config>
+        <gunaction_config 
+            fire_rate_wait="10" >
+        </gunaction_config>
+    </AbilityComponent>
+    
+    <HotspotComponent 
+        _tags="shoot_pos" 
+        offset.x="15" 
+        offset.y="-0.5" >
+    </HotspotComponent>
+	
+	<Base file="data/entities/base_item.xml" >
+        <ItemComponent
+            item_name="wand_good_1"
+			play_hover_animation="1"
+			>
+        </ItemComponent>
+		
+		<SpriteComponent 
+			_tags="item,enabled_in_world,enabled_in_hand" 
+			alpha="1" 
+			image_file="data/items_gfx/wands/custom/good_01.xml" 
+			next_rect_animation="default" 
+			rect_animation="default"
+			z_index="-1.5" >
+		</SpriteComponent>
+		
+		<SimplePhysicsComponent
+            _enabled="0">
+        </SimplePhysicsComponent>
+    </Base>
+    
+    <LuaComponent 
+        _enabled="1" 
+        execute_on_added="1"
+        remove_after_executed="1"
+        script_source_file="data/entities/items/wands/wand_good/wand_good_1.lua" 
+	>
+    </LuaComponent>
+
+    <ManaReloaderComponent
+        _tags="enabled_in_world,enabled_in_hand,enabled_in_inventory" >
+    </ManaReloaderComponent>
+	
+	<LuaComponent 
+		script_item_picked_up="data/entities/items/wands/wand_good/wand_good_pickup.lua" 
+		remove_after_executed="1"
+		>
+	</LuaComponent>
+
+</Entity>

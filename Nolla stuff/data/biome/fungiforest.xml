@@ -1,0 +1,155 @@
+<Biome>
+  <Topology 
+    name="$biome_fun"
+    type="BIOME_WANG_TILE"
+    background_image="data/weather_gfx/background_fungiforest_01.png"
+    background_edge_left="data/weather_gfx/edges/background_fungiforest_01_left.png"
+    background_edge_right="data/weather_gfx/edges/background_fungiforest_01_right.png"
+    background_edge_top="data/weather_gfx/edges/background_fungiforest_01_top.png"
+    background_edge_bottom="data/weather_gfx/edges/background_fungiforest_01_bottom.png"
+    background_edge_priority="9"
+
+    limit_background_image="0"
+
+    wang_template_file="data/wang_tiles/fungiforest.png" 
+    lua_script="data/scripts/biomes/fungiforest.lua"
+    wang_map_width="260"
+    wang_map_height="260"
+    audio_music_2="fungicave"
+    audio_ambience="fungicave"
+  >
+  </Topology>
+
+  <Materials 
+    name="fungiforest" 
+     >
+    <MaterialComponent 
+      _enabled="1" 
+      is_rare="1" 
+      limit_max_y="2048" 
+      limit_min_y="100" 
+      limit_y="0" 
+      material_index="10" 
+      material_max="0.46" 
+      material_min="0.443701" 
+      material_name="gold" 
+      rare_polka_is_boxed="0" 
+      rare_polka_probability="0.960871" 
+      rare_polka_radius_high="0.771429" 
+      rare_polka_radius_low="0.357143" 
+      rare_required_max="10" 
+      rare_required_min="0" 
+      rare_scale_x="0.0100004" 
+      rare_scale_y="0.00357165" 
+      rare_use_perlin="0" 
+      rare_use_polka="1" >
+    </MaterialComponent>
+
+    <MaterialComponent 
+      _enabled="1" 
+      is_rare="0" 
+      limit_max_y="424.229" 
+      limit_min_y="-1024" 
+      limit_y="0" 
+      material_index="10" 
+      material_max="0.66" 
+      material_min="0.57" 
+      material_name="fungisoil" 
+      rare_polka_is_boxed="1" 
+      rare_polka_probability="0.2" 
+      rare_polka_radius_high="0.65" 
+      rare_polka_radius_low="0.2" 
+      rare_required_max="10" 
+      rare_required_min="0.2" 
+      rare_scale_x="0.05" 
+      rare_scale_y="0.05" 
+      rare_use_perlin="0" 
+      rare_use_polka="1" >
+    </MaterialComponent>
+
+    <MaterialComponent 
+      _enabled="1" 
+      is_rare="1" 
+      limit_max_y="2048" 
+      limit_min_y="100" 
+      limit_y="0" 
+      material_index="10" 
+      material_max="1.2" 
+      material_min="1.1" 
+      material_name="gold" 
+      rare_polka_is_boxed="1" 
+      rare_polka_probability="0.357143" 
+      rare_polka_radius_high="0.464286" 
+      rare_polka_radius_low="0.0428571" 
+      rare_required_max="10" 
+      rare_required_min="0.371429" 
+      rare_scale_x="0.0214286" 
+      rare_scale_y="0.0214286" 
+      rare_use_perlin="0" 
+      rare_use_polka="1" >
+    </MaterialComponent>
+
+    <MaterialComponent 
+      _enabled="1" 
+      is_rare="0" 
+      limit_max_y="2048" 
+      limit_min_y="100" 
+      limit_y="0" 
+      material_index="10" 
+      material_max="3.5" 
+      material_min="0.66" 
+      material_name="rock_static_fungal" 
+      rare_polka_is_boxed="1" 
+      rare_polka_probability="0.2" 
+      rare_polka_radius_high="0.65" 
+      rare_polka_radius_low="0.2" 
+      rare_required_max="10" 
+      rare_required_min="0.2" 
+      rare_scale_x="0.05" 
+      rare_scale_y="0.05" 
+      rare_use_perlin="0" 
+      rare_use_polka="1" >
+    </MaterialComponent>
+	
+	<VegetationComponent 
+      _enabled="1" 
+      is_visual="0" 
+      rand_seed="12376.86" 
+      tree_extra_y="2" 
+      tree_image_file="data/vegetation/mushroom_small_0$[1-5].png" 
+      tree_image_visual="" 
+      tree_material="fungus_loose" 
+      tree_probability="0.128571" 
+      tree_radius_high="0.414286" 
+      tree_radius_low="0.328571" 
+      tree_width="18.1143" 
+      visual_color="0xffb89f6c" 
+      visual_offset_x="3" 
+      visual_offset_y="1"
+	  material_on_top_of="sand_static"
+	  >
+    </VegetationComponent>
+	
+	<VegetationComponent 
+      _enabled="1" 
+      is_visual="0" 
+      rand_seed="1245.86" 
+      tree_extra_y="2" 
+      tree_image_file="data/vegetation/mushroom_small_0$[6-9].png" 
+      tree_image_visual="" 
+      tree_material="fungus_loose" 
+      tree_probability="0.128571" 
+      tree_radius_high="0.414286" 
+      tree_radius_low="0.328571" 
+      tree_width="16.1143" 
+      visual_color="0xffb89f6c" 
+      visual_offset_x="3" 
+      visual_offset_y="1"
+	  material_on_top_of="sand_static"
+	  >
+    </VegetationComponent>
+    
+  </Materials>
+
+</Biome>
+

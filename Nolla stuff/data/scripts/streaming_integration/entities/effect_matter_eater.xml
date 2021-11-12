@@ -1,0 +1,17 @@
+<Entity>
+	
+	<InheritTransformComponent>
+    </InheritTransformComponent>	
+    
+    <LuaComponent
+		script_shot="data/scripts/streaming_integration/scripts/matter_eater.lua"
+		execute_every_n_frame="-1"
+		>
+	</LuaComponent>
+	
+	<LifetimeComponent
+		lifetime="3600"
+		>
+	</LifetimeComponent>
+
+</Entity>

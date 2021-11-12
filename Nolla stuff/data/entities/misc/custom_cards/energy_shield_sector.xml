@@ -1,0 +1,37 @@
+<Entity tags="energy_shield">
+    
+    <Base file="data/entities/misc/custom_cards/energy_shield.xml" > 
+
+        <SpriteComponent 
+            image_file="data/ui_gfx/gun_actions/energy_shield_sector.png" >
+        </SpriteComponent>
+
+        <ItemActionComponent 
+            _tags="enabled_in_world"
+            action_id="ENERGY_SHIELD_SECTOR" >
+        </ItemActionComponent>
+
+        <InheritTransformComponent
+            use_root_parent="1"
+            always_use_immediate_parent_rotation="1" >
+        </InheritTransformComponent>
+
+        <EnergyShieldComponent 
+            sector_degrees="170" >
+        </EnergyShieldComponent>
+
+        <ParticleEmitterComponent
+            area_circle_sector_degrees="170" >
+        </ParticleEmitterComponent>
+
+        <ParticleEmitterComponent
+            area_circle_sector_degrees="170" >
+        </ParticleEmitterComponent>
+
+        <ParticleEmitterComponent
+            area_circle_sector_degrees="170" >
+        </ParticleEmitterComponent>
+
+    </Base>
+    
+</Entity>

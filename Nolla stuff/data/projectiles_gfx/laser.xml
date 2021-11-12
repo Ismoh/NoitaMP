@@ -1,0 +1,19 @@
+<Sprite
+ filename="data/projectiles_gfx/laser.png"
+ offset_x="3"
+ offset_y="1"
+ default_animation="fireball" >
+
+ <!-- animation -->
+ <RectAnimation
+  name="fireball"
+  pos_x="0"
+  pos_y="0"
+  frame_count="2"
+  frame_width="8"
+  frame_height="3"
+  frame_wait="0.02"
+  frames_per_row="2"
+  loop="1"   >
+ </RectAnimation>
+</Sprite>

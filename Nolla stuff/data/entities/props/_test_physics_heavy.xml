@@ -1,0 +1,30 @@
+<Entity tags="hittable" >
+
+  <PhysicsBodyComponent 
+    uid="1" 
+    allow_sleep="1" 
+    angular_damping="0.1" 
+    fixed_rotation="0" 
+    is_bullet="0" 
+    linear_damping="0"
+    auto_clean="0" 
+    update_entity_transform="1"
+    on_death_leave_physics_body="1"
+    >
+  </PhysicsBodyComponent>
+  <PhysicsImageShapeComponent 
+    body_id="1"
+    centered="1"
+    image_file="data/temp/_test_base.png"
+    material="aluminium" >
+  </PhysicsImageShapeComponent>
+
+  <LuaComponent 
+      _enabled="1" 
+      execute_every_n_frame="1"
+      remove_after_executed="1"
+      script_source_file="data/scripts/props/_test_physics_heavy.lua"
+      >
+  </LuaComponent>
+
+</Entity>

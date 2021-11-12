@@ -1,0 +1,12 @@
+<Entity tags="drillable,hittable">
+
+	<LuaComponent 
+		script_source_file="data/scripts/items/spawn_random_shop_item.lua" 
+        execute_on_added="1"
+        remove_after_executed="1"
+	></LuaComponent>
+
+	<!-- so this entity used to create component doesn't hang around for too long -->
+	<LifetimeComponent lifetime="5" />
+
+</Entity>

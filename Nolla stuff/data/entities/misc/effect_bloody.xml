@@ -1,0 +1,15 @@
+<Entity>
+	<InheritTransformComponent>
+    </InheritTransformComponent>	
+    
+    <GameEffectComponent 
+    	effect="BLOODY"
+    	frames="600"
+    >
+	</GameEffectComponent >
+	
+    <ShotEffectComponent
+    	extra_modifier="critical_hit_boost">
+    </ShotEffectComponent>
+	
+</Entity>

@@ -1,0 +1,119 @@
+<Entity name="$projectile_default" tags="projectile_player" >
+  
+	<Base file="data/entities/base_projectile.xml" >
+		<VelocityComponent
+			gravity_y="120"
+			mass="0.065"
+			>
+		</VelocityComponent>
+	</Base>
+	
+	<LuaComponent
+		script_source_file="data/scripts/projectiles/chaotic_arc.lua"
+		execute_every_n_frame="2"
+		>
+	</LuaComponent>
+
+  <ProjectileComponent 
+    _enabled="1" 
+    lob_min="0.9"
+    lob_max="1.0"
+    speed_min="250"
+    speed_max="280"
+    friction="0.6"
+    direction_random_rad="0.05"
+    on_death_explode="1"
+    on_death_gfx_leave_sprite="0" 
+    on_lifetime_out_explode="1"
+    explosion_dont_damage_shooter="0" 
+    on_collision_die="0"
+    lifetime="300"
+    damage="1.6"
+    velocity_sets_scale="1"
+    lifetime_randomness="100"
+    ragdoll_force_multiplier="0.04"
+    hit_particle_force_multiplier="5.5 "
+    camera_shake_when_shot="5.0"
+	velocity_sets_rotation="0"
+    bounces_left="5"
+	bounce_always="1"
+	muzzle_flash_file="data/entities/particles/muzzle_flashes/muzzle_flash_magic_launcher.xml"
+    shoot_light_flash_radius="120"
+	shoot_light_flash_r="125"
+    shoot_light_flash_g="255"
+    shoot_light_flash_b="40"
+	knockback_force="1.0"
+	physics_impulse_coeff="4000"
+	>
+	<damage_by_type
+		fire="1.2"
+		>
+	</damage_by_type>
+    <config_explosion
+      never_cache="0" 
+      camera_shake="10" 
+      explosion_radius="25"
+      explosion_sprite="data/particles/bloodsplatters/bloodsplatter_large_1.xml" 
+      explosion_sprite_lifetime="0" 
+      create_cell_probability="20" 
+	  create_cell_material="blood"
+      hole_destroy_liquid="0"
+	  explosion_sprite_additive="1"
+      hole_enabled="1" 
+      ray_energy="1500000"
+      damage="2.4"
+      particle_effect="0"
+      damage_mortals="1"
+	  physics_explosion_power.min="0.4" 
+      physics_explosion_power.max="0.65"
+	  physics_throw_enabled="1"
+      shake_vegetation="1" 
+      sparks_count_min="10" 
+      sparks_count_max="30" 
+	  spark_material="poo"
+      sparks_enabled="1" 
+      stains_enabled="1"
+      stains_radius="12" 
+      audio_event_name="explosions/magic_grenade_mid" >
+    </config_explosion>
+  </ProjectileComponent>
+  
+  <SpriteComponent 
+    _enabled="1" 
+    alpha="1" 
+    image_file="data/projectiles_gfx/duck.xml" 
+    next_rect_animation="" 
+    offset_x="0" 
+    offset_y="0" 
+    rect_animation=""
+	has_special_scale="1"
+     >
+  </SpriteComponent>
+
+  <AudioComponent
+      file="data/audio/Desktop/projectiles.bank"
+      event_root="player_projectiles/bullet_launcher">
+  </AudioComponent>
+  
+	<LuaComponent
+		_tags="duck_timer"
+		script_source_file="data/scripts/projectiles/duck.lua"
+		execute_every_n_frame="10"
+		>
+	</LuaComponent>
+	
+	<LuaComponent
+		script_source_file="data/scripts/projectiles/duck_init.lua"
+		execute_every_n_frame="1"
+		remove_after_executed="1"
+		>
+	</LuaComponent>
+  
+	<VariableStorageComponent
+		name="projectile_file"
+		value_string="data/entities/projectiles/deck/duck.xml"
+		>
+	</VariableStorageComponent>
+  
+</Entity>
+

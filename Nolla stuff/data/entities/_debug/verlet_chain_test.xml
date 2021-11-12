@@ -1,0 +1,28 @@
+<Entity >
+   
+    <VerletPhysicsComponent
+    	num_points="12"
+    	stiffness="1.0"
+    	resting_distance="2" 
+    	pixelate_sprite_transforms="0"
+    	simulate_wind="0"
+    	simulate_gravity="1" >
+    </VerletPhysicsComponent>
+
+    <DebugFollowMouseComponent></DebugFollowMouseComponent>
+
+	<Base file="data/entities/debug/rope.xml" />
+	<Base file="data/entities/debug/rope.xml" />
+	<Base file="data/entities/debug/rope.xml" />
+	<Base file="data/entities/debug/rope.xml" />
+
+	<Base file="data/entities/debug/rope.xml" />
+	<Base file="data/entities/debug/rope.xml" />
+	<Base file="data/entities/debug/rope.xml" />
+	<Base file="data/entities/debug/rope.xml" />
+
+	<Base file="data/entities/debug/rope.xml" />
+	<Base file="data/entities/debug/rope.xml" />
+	<Base file="data/entities/debug/rope2.xml" />
+  
+</Entity>

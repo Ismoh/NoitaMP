@@ -1,0 +1,19 @@
+<Entity >
+  <Base file="data/entities/animals/turret_left.xml">
+    <DamageModelComponent 
+      hp="9"
+      max_hp="9"
+	  minimum_knockback_force="100000"
+     ></DamageModelComponent >
+  </Base>
+  
+	<Entity>
+		<InheritTransformComponent />
+		
+	    <GameEffectComponent 
+	        effect="PROTECTION_FREEZE"
+	        frames="-1"
+	    >
+		</GameEffectComponent >
+	</Entity>
+</Entity>

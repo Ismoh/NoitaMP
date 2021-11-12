@@ -1,0 +1,125 @@
+<Entity tags="tablet,normal_tablet">
+	<!-- spawned at the start of spell lab game mode -->
+
+	<BookComponent>
+	</BookComponent>
+
+	<UIInfoComponent
+		name="$booktitle_allspells"
+	></UIInfoComponent>
+
+	<PhysicsBodyComponent 
+		_tags="enabled_in_world"
+		uid="1" 
+		allow_sleep="1" 
+		angular_damping="0" 
+		fixed_rotation="0" 
+		is_bullet="1" 
+		linear_damping="0"
+		auto_clean="1"
+		hax_fix_going_through_ground="1"
+		on_death_leave_physics_body="0"
+		on_death_really_leave_body="0"
+	></PhysicsBodyComponent>
+
+	<PhysicsImageShapeComponent 
+		body_id="1"
+		centered="1"
+		image_file="data/items_gfx/laboratory_tablet.png"
+		material="rock_box2d_hard"
+	></PhysicsImageShapeComponent>
+
+	<ProjectileComponent
+		_tags="enabled_in_world"
+		lifetime="-1"
+		penetrate_entities="1"
+		never_hit_player="1"
+	></ProjectileComponent>
+
+	<VelocityComponent
+		_tags="enabled_in_world"
+	></VelocityComponent>
+	
+	<ItemComponent
+		_tags="enabled_in_world"
+		max_child_items="0"
+		is_pickable="1"
+		is_equipable_forced="1"
+		preferred_inventory="QUICK"
+		item_name="$booktitle_allspells"
+		ui_description="$bookdesc_allspells"
+		is_all_spells_book="1"
+		ui_sprite="data/ui_gfx/items/laboratory_tablet.png"
+		camera_max_distance="0"
+		camera_smooth_speed_multiplier="2"
+	></ItemComponent>
+  
+	<SpriteComponent
+		_tags="enabled_in_hand"
+		_enabled="0"
+		offset_x="4"
+		offset_y="4"
+		image_file="data/items_gfx/in_hand/laboratory_tablet_in_hand.png"
+	></SpriteComponent>
+
+	<HitboxComponent 
+		_tags="enabled_in_world"
+		aabb_min_x="-3" 
+		aabb_max_x="3" 
+		aabb_min_y="-5" 
+		aabb_max_y="0" >
+	</HitboxComponent>
+
+	<LightComponent 
+		_tags="enabled_in_world"
+		_enabled="1" 
+		r="255"
+		g="255"
+		b="255"
+		radius="64"
+		fade_out_time="0.75" >
+	</LightComponent>
+	
+	<ParticleEmitterComponent 
+		_tags="enabled_in_world,enabled_in_hand"
+		emitted_material_name="spark_white"
+		offset.x="0"
+		offset.y="0"
+		x_pos_offset_min="0"
+		x_pos_offset_max="0"
+		y_pos_offset_min="0"
+		y_pos_offset_max="0"
+		x_vel_min="0"
+		x_vel_max="0"
+		y_vel_min="0"
+		y_vel_max="0"
+		count_min="1"
+		count_max="1"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="3"
+		area_circle_radius.max="6"
+		emit_cosmetic_particles="1"
+		create_real_particles="0"
+		lifetime_min="2.5"
+		lifetime_max="6.5"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		airflow_force="0.5"
+		airflow_time="0.01"
+		airflow_scale="0.05"
+		collide_with_grid="0"
+		gravity.y="0.0"
+		render_back="1"
+		>
+	</ParticleEmitterComponent>
+	
+	<AbilityComponent
+		ui_name="$booktitle_allspells"
+		throw_as_item="0"
+		click_to_use="0"
+		><gun_config
+			deck_capacity="0"
+		></gun_config>
+	</AbilityComponent>
+
+</Entity>

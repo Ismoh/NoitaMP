@@ -1,0 +1,10 @@
+<Entity tags="teleportable_NOT,ending_mechanism">
+	<SpriteComponent 
+		image_file="data/entities/animals/boss_centipede/boss_victoryroom_mechanism_sprite.xml" 
+		offset_x="0"
+		offset_y="0" 
+		z_index="1.5"
+		>
+	</SpriteComponent>
+	
+</Entity>

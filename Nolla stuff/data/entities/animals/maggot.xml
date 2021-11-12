@@ -1,0 +1,120 @@
+<Entity name="$animal_maggot" >
+  
+	<Base file="data/entities/base_enemy_basic.xml" >
+		<ItemChestComponent level="2" > </ItemChestComponent>
+		
+		<AnimalAIComponent 
+			_enabled="1" 
+			preferred_job="JobDefault"
+			escape_if_damaged_probability="0"
+			attack_melee_damage_min="0.4" 
+			attack_melee_damage_max="0.7"
+			creature_detection_range_x="600"
+			creature_detection_range_y="600"
+			attack_ranged_min_distance="0"
+			attack_ranged_max_distance="500"
+			attack_melee_action_frame="5"
+			food_material="blood"
+			needs_food="0"
+			sense_creatures="1"
+			attack_melee_enabled="1"
+			can_fly="0"  
+			aggressiveness_min="1"
+			aggressiveness_max="40"
+			>
+		</AnimalAIComponent>
+		
+		<DamageModelComponent 
+            hp="3.5"
+            ragdoll_material="meat_slime_green"
+			ragdoll_filenames_file="data/ragdolls/maggot/filenames.txt" 
+			blood_material="slime_green"
+			blood_spray_material="slime_green"
+			blood_sprite_directional="data/particles/bloodsplatters/bloodsplatter_directional_green_$[1-3].xml"
+			blood_sprite_large="data/particles/bloodsplatters/bloodsplatter_green_$[1-3].xml"
+			fire_probability_of_ignition="5"
+			>
+			<damage_multipliers
+				projectile="0.9"
+				explosion="0.3"
+				electricity="2"
+				fire="0.1" >
+			</damage_multipliers>
+		</DamageModelComponent>
+
+		<SpriteComponent 
+			image_file="data/enemies_gfx/maggot.xml" 
+			offset_x="0"
+			offset_y="0"
+			z_index="-1"
+			>
+		</SpriteComponent>
+
+		<PathFindingGridMarkerComponent
+			marker_work_flag="16" >
+		</PathFindingGridMarkerComponent>
+		
+		<PathFindingComponent
+		    distance_to_reach_node_x="20"
+		    distance_to_reach_node_y="20"
+			frames_to_get_stuck="120"
+			can_jump="0" >
+		</PathFindingComponent>
+
+		<GenomeDataComponent 
+			herd_id="slimes"
+			food_chain_rank="5"
+			is_predator="1" >
+		</GenomeDataComponent>
+		
+		<CharacterPlatformingComponent 
+			swim_idle_buoyancy_coeff="0.8"
+			jump_velocity_y="0" 
+			run_velocity="12"  >
+		</CharacterPlatformingComponent>
+		
+		<HitboxComponent 
+			_enabled="1" 
+			aabb_max_x="8" 
+			aabb_max_y="4" 
+			aabb_min_x="-8" 
+			aabb_min_y="-12" 
+			>
+		</HitboxComponent>
+	
+		<CameraBoundComponent
+			max_count="30"
+			distance="160000">
+		</CameraBoundComponent>
+		
+		<CharacterDataComponent
+			collision_aabb_min_x="-4.0" 
+			collision_aabb_max_x="4.0" 
+			collision_aabb_min_y="-12" 
+			collision_aabb_max_y="3"
+			mass="2.6"
+			>
+		</CharacterDataComponent>
+	</Base>
+	
+	<AIAttackComponent
+		min_distance="30"
+		max_distance="500"
+		frames_between="80"
+		frames_between_global="80"
+		attack_ranged_action_frame="5"
+		state_duration_frames="80"
+		attack_ranged_offset_y="-4"
+		attack_ranged_offset_x="4"
+		animation_name="attack_ranged"
+		attack_ranged_entity_file="data/entities/projectiles/slimetrail.xml" 
+		angular_range_deg="90"
+		>
+	</AIAttackComponent>
+	
+	<AudioComponent
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals/maggot" >
+	</AudioComponent>
+</Entity>
+

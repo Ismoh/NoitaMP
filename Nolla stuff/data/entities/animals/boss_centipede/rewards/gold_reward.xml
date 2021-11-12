@@ -1,0 +1,46 @@
+<Entity tags="teleportable_NOT">
+	<UIInfoComponent
+		name="$reward_gold_statue"
+		>
+	</UIInfoComponent>
+	
+	<PhysicsBodyComponent 
+    _tags="enabled_in_world"
+    uid="1" 
+    allow_sleep="1" 
+    angular_damping="0" 
+    fixed_rotation="0" 
+    is_bullet="1" 
+    linear_damping="0"
+    auto_clean="1"
+    hax_fix_going_through_ground="1"
+    on_death_leave_physics_body="0"
+    on_death_really_leave_body="0"
+  ></PhysicsBodyComponent>
+  
+  <PhysicsImageShapeComponent 
+    body_id="1"
+    centered="1"
+    image_file="data/entities/animals/boss_centipede/rewards/gold_reward_sprite.png"
+    material="metal_prop"
+  ></PhysicsImageShapeComponent>
+
+  <ItemComponent
+    item_name="$reward_gold_statue"
+    play_spinning_animation="0" >
+  </ItemComponent>
+
+  <LuaComponent 
+    script_item_picked_up="data/entities/animals/boss_centipede/rewards/gold_reward.lua" >
+  </LuaComponent>
+
+  <LightComponent 
+    _tags="enabled_in_world"
+    r="255"
+    g="255"
+    b="255"
+    radius="64"
+    fade_out_time="0.75" >
+  </LightComponent>
+
+</Entity>

@@ -1,0 +1,301 @@
+<Entity 
+	tags="mortal,hittable,teleportable_NOT,homing_target,enemy,worm" 
+	name="$animal_worm_big"
+	>
+	<_Transform 
+		position.x="0" 
+		position.y="0" 
+		rotation="0" 
+		scale.x="1" 
+		scale.y="1" >
+	</_Transform>
+
+	<WormComponent
+		acceleration="1.5"
+		gravity="3"
+		tail_gravity="30"
+		part_distance="16"
+		ground_check_offset="8"
+		hitbox_radius="9"
+		target_kill_radius="10"
+		target_kill_ragdoll_force="10"
+		ragdoll_filename=""
+		eat_anim_wait_mult="0.05 "
+		jump_cam_shake="6" 
+		>
+	</WormComponent>
+
+	<WormAIComponent
+		speed="4"
+		speed_hunt="5"
+		direction_adjust_speed="0.003"
+		direction_adjust_speed_hunt="0.04"
+		hunt_box_radius="256"
+		random_target_box_radius="128"
+		new_hunt_target_check_every="240"
+		new_random_target_check_every="240"
+		give_up_area_radius="150"
+		give_up_time_frames="250"
+		>
+	</WormAIComponent>
+
+	<CellEaterComponent
+		radius="9" >
+	</CellEaterComponent>
+
+	<DamageModelComponent 
+		_enabled="1" 
+		air_needed="0" 
+		
+		falling_damages="0" 
+		fire_damage_amount="0.2" 
+		 
+		fire_probability_of_ignition="0.5" 
+		blood_material="blood_worm"
+		blood_spray_material="blood_worm"
+		hp="140" 
+		is_on_fire="0" 
+		mAirAreWeInWater="0" 
+		mFallCount="0" 
+		mFallHighestY="3.40282e+038" 
+		mFallIsOnGround="0" 
+		mFireProbability="100" 
+		mIsOnFire="0" 
+		mLastCheckTime="0" 
+		mLastCheckX="0" 
+		mLastCheckY="0" 
+		materials_damage="1" 
+		materials_how_much_damage="0.0001,0.0001" 
+		materials_that_damage="acid,lava" 
+		ragdoll_filenames_file=""
+		ragdoll_material="meat_worm"
+		ragdoll_offset_y="-6"
+		blood_sprite_directional="data/particles/bloodsplatters/bloodsplatter_directional_yellow_$[1-3].xml"
+		blood_sprite_large="data/particles/bloodsplatters/bloodsplatter_large_yellow_$[1-3].xml"
+		>
+		<damage_multipliers
+			drill="0.4"
+			>
+		</damage_multipliers>
+	</DamageModelComponent>
+
+	<PathFindingGridMarkerComponent
+		marker_offset_y="0"
+		marker_work_flag="16" >
+	</PathFindingGridMarkerComponent>
+
+	<GenomeDataComponent 
+		_enabled="1"
+		herd_id="worm"
+		food_chain_rank="6"
+		is_predator="1" >
+	</GenomeDataComponent>
+
+	<SpriteComponent 
+		_enabled="1" 
+		alpha="1" 
+		image_file="data/enemies_gfx/worm_big_head.xml" 
+		rect_animation="eat" 
+		next_rect_animation="eat" 
+		offset_x="22" 
+		offset_y="12" 
+		update_transform="0"
+		z_index="-0.5"
+		 >
+	</SpriteComponent>
+
+	<SpriteComponent 
+		_enabled="1" 
+		alpha="1" 
+		image_file="data/enemies_gfx/worm_big_body.xml" 
+		rect_animation="eat" 
+		next_rect_animation="eat" 
+		offset_x="22" 
+		offset_y="12" 
+		update_transform="0"
+		z_index="-0.4"
+		 >
+	</SpriteComponent>
+
+	<SpriteComponent 
+		_enabled="1" 
+		alpha="1" 
+		image_file="data/enemies_gfx/worm_big_body.xml" 
+		rect_animation="eat" 
+		next_rect_animation="eat" 
+		offset_x="22" 
+		offset_y="12" 
+		update_transform="0"
+		z_index="-0.39"
+		 >
+	</SpriteComponent>
+
+	<SpriteComponent 
+		_enabled="1" 
+		alpha="1" 
+		image_file="data/enemies_gfx/worm_big_body.xml" 
+		rect_animation="eat" 
+		next_rect_animation="eat" 
+		offset_x="22" 
+		offset_y="12" 
+		update_transform="0"
+		z_index="-0.38"
+		 >
+	</SpriteComponent>
+	
+	<SpriteComponent 
+		_enabled="1" 
+		alpha="1" 
+		image_file="data/enemies_gfx/worm_big_body.xml" 
+		rect_animation="eat" 
+		next_rect_animation="eat" 
+		offset_x="22" 
+		offset_y="12" 
+		update_transform="0"
+		z_index="-0.37"
+		 >
+	</SpriteComponent>
+	
+	<SpriteComponent 
+		_enabled="1" 
+		alpha="1" 
+		image_file="data/enemies_gfx/worm_big_body.xml" 
+		rect_animation="eat" 
+		next_rect_animation="eat" 
+		offset_x="22" 
+		offset_y="12" 
+		update_transform="0"
+		z_index="-0.36"
+		 >
+	</SpriteComponent>
+
+	<SpriteComponent 
+		_enabled="1" 
+		alpha="1" 
+		image_file="data/enemies_gfx/worm_big_tail.xml" 
+		rect_animation="eat" 
+		next_rect_animation="eat" 
+		next_rect_animation="" 
+		offset_x="22" 
+		offset_y="12" 
+		update_transform="0"
+		z_index="-0.35"
+		 >
+	</SpriteComponent>
+
+
+	<SpriteStainsComponent
+    	fade_stains_towards_srite_top="0"
+		sprite_id="0">
+	</SpriteStainsComponent>
+		
+	<SpriteStainsComponent
+    	fade_stains_towards_srite_top="0"
+		sprite_id="1">
+	</SpriteStainsComponent>
+
+	<SpriteStainsComponent
+    	fade_stains_towards_srite_top="0"
+		sprite_id="2">
+	</SpriteStainsComponent>
+
+	<SpriteStainsComponent
+    	fade_stains_towards_srite_top="0"
+		sprite_id="3">
+	</SpriteStainsComponent>
+		
+	<SpriteStainsComponent
+    	fade_stains_towards_srite_top="0"
+		sprite_id="4">
+	</SpriteStainsComponent>
+	
+	<SpriteStainsComponent
+    	fade_stains_towards_srite_top="0"
+		sprite_id="5">
+	</SpriteStainsComponent>
+	
+	<SpriteStainsComponent
+    	fade_stains_towards_srite_top="0"
+		sprite_id="6">
+	</SpriteStainsComponent>
+		
+
+	<SpriteComponent 
+		_tags="health_bar_back,ui,no_hitbox" 
+		_enabled="1" 
+		alpha="1" 
+		has_special_scale="1" 
+		image_file="data/ui_gfx/health_slider_back.png" 
+		is_text_sprite="0" 
+		next_rect_animation="" 
+		offset_x="12" 
+		offset_y="42" 
+		rect_animation="" 
+		special_scale_x="1" 
+		special_scale_y="1" 
+		ui_is_parent="0" 
+		update_transform="1" 
+		visible="1" 
+		z_index="-9000"
+		never_ragdollify_on_death="1"
+		 >
+	</SpriteComponent>
+
+	<SpriteComponent 
+		_tags="health_bar,ui,no_hitbox" 
+		_enabled="1" 
+		alpha="1" 
+		has_special_scale="1" 
+		image_file="data/ui_gfx/health_slider_front.png" 
+		is_text_sprite="0" 
+		next_rect_animation="" 
+		offset_x="11" 
+		offset_y="42" 
+		rect_animation="" 
+		special_scale_x="1" 
+		special_scale_y="1" 
+		ui_is_parent="0" 
+		update_transform="1" 
+		visible="1" 
+		z_index="-9000"
+		never_ragdollify_on_death="1"
+		 >
+	</SpriteComponent>
+
+	<HealthBarComponent>
+	</HealthBarComponent>
+
+	<CameraBoundComponent
+		max_count="10"
+		distance="2000">
+	</CameraBoundComponent>
+
+	<ItemChestComponent level="3" enemy_drop="1" > </ItemChestComponent>
+	
+	<LuaComponent
+		script_death="data/scripts/animals/worm_death.lua"
+		>
+	</LuaComponent>
+	
+    <MusicEnergyAffectorComponent
+    	energy_target="1">
+    </MusicEnergyAffectorComponent>
+
+	<AudioComponent
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals">
+	</AudioComponent>
+
+	<AudioComponent
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals/worm">
+	</AudioComponent>
+
+	<AudioLoopComponent
+		file="data/audio/Desktop/animals.bank"
+		event_name="animals/worm/movement_loop_big"
+		set_speed_parameter="1"
+		auto_play="1">
+	</AudioLoopComponent>
+
+</Entity>

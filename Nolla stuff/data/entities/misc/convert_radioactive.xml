@@ -1,0 +1,51 @@
+<Entity>
+
+	<LifetimeComponent
+		lifetime="14"
+	></LifetimeComponent>
+
+	<MagicConvertMaterialComponent
+	  kill_when_finished="0"
+	  from_material_tag="[solid]"
+	  to_material="rock_static_cursed_green"
+	  steps_per_frame="5"
+	  clean_stains="0"
+	  is_circle="1"
+	  radius="70" 
+	  loop="0"
+	></MagicConvertMaterialComponent>
+
+	<MagicConvertMaterialComponent
+	  kill_when_finished="0"
+	  from_material_tag="[liquid]"
+	  to_material="cursed_liquid"
+	  steps_per_frame="5"
+	  clean_stains="0"
+	  is_circle="1"
+	  radius="70" 
+	  loop="1"
+	></MagicConvertMaterialComponent>
+	
+	<MagicConvertMaterialComponent
+	  kill_when_finished="0"
+	  from_material_tag="[sand_ground]"
+	  to_material="cursed_liquid"
+	  steps_per_frame="5"
+	  clean_stains="0"
+	  is_circle="1"
+	  radius="70" 
+	  loop="1"
+	></MagicConvertMaterialComponent>
+	
+	<MagicConvertMaterialComponent
+	  kill_when_finished="0"
+	  from_material_tag="[sand_other]"
+	  to_material="cursed_liquid"
+	  steps_per_frame="5"
+	  clean_stains="0"
+	  is_circle="1"
+	  radius="70" 
+	  loop="1"
+	></MagicConvertMaterialComponent>
+
+</Entity>

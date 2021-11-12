@@ -1,0 +1,146 @@
+<Entity  name="$animal_soldier">
+  
+	<Base file="data/entities/base_enemy_robot.xml" >
+		<AnimalAIComponent 
+			preferred_job="JobDefault"
+			creature_detection_range_x="250"
+			creature_detection_range_y="250"
+			food_material="blood"
+			needs_food="0"
+			sense_creatures="1"
+			attack_ranged_enabled="1"
+			attack_melee_enabled="0"
+			can_fly="1"  
+			can_walk="0"
+			attack_ranged_entity_file="data/entities/projectiles/soldiershot.xml"
+			attack_ranged_min_distance="0"
+			attack_ranged_max_distance="200"
+			attack_ranged_frames_between="40"
+			attack_ranged_action_frame="3"
+			attack_ranged_offset_y="-1"
+			attack_ranged_offset_x="8"
+			>
+		</AnimalAIComponent>
+		
+		<DamageModelComponent 
+            hp="20.5"
+			ragdoll_filenames_file="data/ragdolls/basebot/filenames_soldier.txt" >
+			<damage_multipliers
+				projectile="0.0"
+				explosion="0.0"
+				>
+			</damage_multipliers>
+		</DamageModelComponent>
+
+		<SpriteComponent 
+			offset_x="0"
+			offset_y="0"
+			image_file="data/enemies_gfx/basebot_soldier.xml" >
+		</SpriteComponent>
+
+		<PathFindingComponent
+			can_walk="0"
+			can_fly="1" >
+		</PathFindingComponent>
+
+		<PathFindingGridMarkerComponent
+			marker_work_flag="16" >
+		</PathFindingGridMarkerComponent>
+		
+		<GenomeDataComponent 
+			herd_id="robot"
+			food_chain_rank="5"
+			is_predator="1" >
+		</GenomeDataComponent>
+		
+		<CharacterPlatformingComponent 
+			jump_velocity_y="-10" 
+			run_velocity="20"  
+			fly_speed_max_up="40"
+			fly_speed_max_down="40"
+			fly_speed_mult="10"
+			fly_speed_change_spd="1"
+			swim_idle_buoyancy_coeff="0.8"
+			fly_velocity_x="40">
+		</CharacterPlatformingComponent>
+		
+		<HitboxComponent 
+			_enabled="1" 
+			aabb_min_x="-8" 
+			aabb_max_x="8" 
+			aabb_min_y="-7" 
+			aabb_max_y="8" 
+			>
+		</HitboxComponent>
+  
+		<CameraBoundComponent
+			max_count="30"
+			distance="160000">
+		</CameraBoundComponent>
+		
+		<CharacterDataComponent
+			collision_aabb_min_x="-8" 
+			collision_aabb_max_x="8" 
+			collision_aabb_min_y="-8" 
+			collision_aabb_max_y="6" 
+			mass="0.8"
+			>
+		</CharacterDataComponent>
+	</Base>
+
+	<ParticleEmitterComponent 
+		emitted_material_name="spark_green"
+		x_pos_offset_min="-8"
+		x_pos_offset_max="8"
+		y_pos_offset_min="5"
+		y_pos_offset_max="7"
+		x_vel_min="0"
+		x_vel_max="0"
+		y_vel_min="40"
+		y_vel_max="120"
+		friction="1"
+		count_min="1"
+		count_max="1"
+		lifetime_min="0.2"
+		lifetime_max="0.7"
+		create_real_particles="0"
+		emit_cosmetic_particles="1"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="3"
+		fade_based_on_lifetime="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+	
+	<AudioComponent
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals/drone_lasership" >
+	</AudioComponent>
+
+	<AudioLoopComponent
+		file="data/audio/Desktop/animals.bank"
+		event_name="animals/drone_lasership/movement_loop"
+		set_speed_parameter="1"
+		auto_play="1">
+	</AudioLoopComponent>
+	
+	<Entity>
+		<InheritTransformComponent />
+		
+	    <GameEffectComponent 
+	        effect="PROTECTION_FREEZE"
+	        frames="-1"
+	    >
+		</GameEffectComponent >
+	</Entity>
+	
+	<SpriteComponent 
+        _tags="character" 
+		alpha="1" 
+		image_file="data/enemies_gfx/basebot_soldier_emissive.xml"
+		emissive="1"
+        additive="1"
+		rect_animation="walk" >
+	</SpriteComponent>
+
+</Entity>
+

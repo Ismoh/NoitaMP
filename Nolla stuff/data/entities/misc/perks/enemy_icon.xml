@@ -1,0 +1,22 @@
+<Entity tags="perk_icon_enemy" >	
+
+    <InheritTransformComponent
+        _tags="enabled_in_hand"
+        use_root_parent="1">
+      <Transform 
+        position.x="0" 
+        position.y="-24" >
+      </Transform>
+    </InheritTransformComponent>
+
+	<SpriteComponent 
+		image_file="data/ui_gfx/perk_icons/extra_perk.png" 
+		next_rect_animation=""
+		rect_animation=""
+		offset_x="8.5"
+		offset_y="7.5"
+		has_special_scale="1"
+	>
+	</SpriteComponent>
+    
+</Entity>

@@ -1,0 +1,9 @@
+<Entity >
+	<HomingComponent
+		target_who_shot="1"
+		homing_targeting_coeff="15.0"
+		homing_velocity_multiplier="0.98"
+		detect_distance="500"
+	>
+	</HomingComponent>
+</Entity>

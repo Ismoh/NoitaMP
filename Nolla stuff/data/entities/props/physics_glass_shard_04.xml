@@ -1,0 +1,19 @@
+<Entity tags="mortal" >
+
+  <Base file="data/entities/base_item_physics.xml" >
+    <PhysicsBodyComponent
+      on_death_really_leave_body="1"
+    ></PhysicsBodyComponent>
+
+    <PhysicsImageShapeComponent
+      centered="1" 
+      image_file="data/props_gfx/glass_shard_04.png"
+      material="glass_box2d" >
+    </PhysicsImageShapeComponent>
+  </Base>
+
+  <LifetimeComponent
+      lifetime="360"
+  ></LifetimeComponent>
+
+</Entity>

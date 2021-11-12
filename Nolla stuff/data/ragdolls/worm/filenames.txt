@@ -1,0 +1,4 @@
+data/ragdolls/worm/worm_part_01.png
+data/ragdolls/worm/worm_part_02.png
+data/ragdolls/worm/worm_part_03.png
+data/ragdolls/worm/worm_part_04.png

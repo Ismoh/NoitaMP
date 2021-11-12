@@ -1,0 +1,29 @@
+<Sprite 
+  default_animation="fireball" 
+  filename="data/projectiles_gfx/pipe_bomb_crystal.png" 
+  offset_x="4.5" 
+  offset_y="4.5" >
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="10" 
+    frame_wait="1000" 
+    frame_width="10" 
+    frames_per_row="4" 
+    name="fireball" 
+    pos_x="0" 
+    pos_y="1" 
+    shrink_by_one_pixel="1" >
+  </RectAnimation>
+  <RectAnimation 
+    frame_count="1" 
+    frame_height="10" 
+    frame_wait="0.02" 
+    frame_width="10" 
+    frames_per_row="4" 
+    loop="0" 
+    name="on_ground" 
+    pos_x="0" 
+    pos_y="1" 
+    shrink_by_one_pixel="1" >
+  </RectAnimation>
+</Sprite>

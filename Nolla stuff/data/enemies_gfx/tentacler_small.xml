@@ -1,0 +1,109 @@
+<Sprite
+ filename="data/enemies_gfx/tentacler_small.png"
+ offset_x="9"
+ offset_y="16"
+  default_animation="stand" >
+
+ <!-- stand -->
+ <RectAnimation
+  name="stand"
+  pos_x="0"
+  pos_y="0"
+  frame_count="6"
+  frame_width="18"
+  frame_height="18"
+  frame_wait="0.23"
+  frames_per_row="6"
+  loop="1"   >
+ </RectAnimation>
+
+ <!-- walk -->
+ <RectAnimation
+  name="walk"
+  pos_x="0"
+  pos_y="0"
+  frame_count="6"
+  frame_width="18"
+  frame_height="18"
+  frame_wait="0.23"
+  frames_per_row="6"
+  loop="1"   >
+ </RectAnimation>
+
+ <!-- run - copied from walk -->
+ <RectAnimation
+  name="run"
+  pos_x="0"
+  pos_y="0"
+  frame_count="6"
+  frame_width="18"
+  frame_height="18"
+  frame_wait="0.23"
+  frames_per_row="6"
+  loop="1"   >
+ </RectAnimation>
+
+ <!-- burn - copied from walk -->
+ <RectAnimation
+  name="burn"
+  pos_x="0"
+  pos_y="0"
+  frame_count="6"
+  frame_width="18"
+  frame_height="18"
+  frame_wait="0.23"
+  frames_per_row="6"
+  loop="1"   >
+ </RectAnimation>
+ 
+ <RectAnimation
+  name="attack"
+  pos_x="0"
+  pos_y="36"
+  frame_count="6"
+  frame_width="18"
+  frame_height="18"
+  frame_wait="0.1"
+  frames_per_row="6"
+  loop="0"   >
+  <Event frame="3" name="shoot_ice" probability="1" check_physics_material="0"/>
+ </RectAnimation>
+ 
+ <RectAnimation
+  name="attack_ranged"
+  pos_x="0"
+  pos_y="36"
+  frame_count="6"
+  frame_width="18"
+  frame_height="18"
+  frame_wait="0.1"
+  frames_per_row="6"
+  loop="0"   >
+  <Event frame="3" name="shoot_ice" probability="1" check_physics_material="0"/>
+ </RectAnimation>
+ 
+ <RectAnimation
+  name="fly_idle"
+  pos_x="0"
+  pos_y="0"
+  frame_count="4"
+  frame_width="18"
+  frame_height="18"
+  frame_wait="0.23"
+  frames_per_row="6"
+  loop="1"   >
+ </RectAnimation>
+ 
+ <RectAnimation
+  name="fly_move"
+  pos_x="0"
+  pos_y="18"
+  frame_count="4"
+  frame_width="18"
+  frame_height="18"
+  frame_wait="0.23"
+  frames_per_row="6"
+  loop="1"   >
+ </RectAnimation>
+
+</Sprite>

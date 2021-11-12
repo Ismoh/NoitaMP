@@ -1,0 +1,14 @@
+<Entity tags="projectile_slow_field">	
+    <InheritTransformComponent
+        use_root_parent="1">
+      <Transform 
+        position.x="0" 
+        position.y="-4" >
+      </Transform>
+    </InheritTransformComponent>
+	
+	<LuaComponent
+		script_source_file="data/scripts/perks/projectile_slow_field.lua"
+		execute_every_n_frame="2" >
+	</LuaComponent>
+</Entity>

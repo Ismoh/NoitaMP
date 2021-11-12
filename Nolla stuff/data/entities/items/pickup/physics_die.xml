@@ -1,0 +1,155 @@
+<Entity name="unknown" tags="hittable,teleportable_NOT,item_physics,item_pickup" >
+
+  <PhysicsBodyComponent 
+    _tags="enabled_in_world"
+    uid="1" 
+    allow_sleep="1" 
+    angular_damping="0" 
+    fixed_rotation="0" 
+    is_bullet="1" 
+    linear_damping="0"
+    auto_clean="0"
+    on_death_leave_physics_body="0"
+    hax_fix_going_through_ground="1"
+  ></PhysicsBodyComponent>
+  
+  <PhysicsImageShapeComponent 
+    body_id="1"
+    centered="1"
+    image_file="data/props_gfx/die.png"
+    material="rock_box2d_hard" >
+  </PhysicsImageShapeComponent>
+  
+  <CameraBoundComponent
+    max_count="50"
+    distance="500">
+  </CameraBoundComponent>
+  
+  <SpriteComponent 
+    _tags="character,enabled_in_world"
+    alpha="1" 
+    image_file="data/props_gfx/die_pips.xml"
+    offset_x="0" 
+    offset_y="0"
+    next_rect_animation="" 
+    rect_animation="stand" 
+	z_index="-1"
+     >
+  </SpriteComponent>
+  
+  <HitboxComponent
+	_tags="enabled_in_world"
+    aabb_min_x="-6" 
+    aabb_max_x="6" 
+    aabb_min_y="-6" 
+    aabb_max_y="6" >
+  </HitboxComponent>
+  
+  <DamageModelComponent
+	_tags="enabled_in_world"
+    air_needed="0" 
+    blood_material="" 
+    drop_items_on_death="0" 
+    falling_damages="1" 
+    fire_probability_of_ignition="0" 
+	critical_damage_resistance="1"
+    hp="9999" 
+    is_on_fire="0" 
+    materials_create_messages="0" 
+    materials_damage="0" 
+    ragdoll_filenames_file="" 
+    ragdoll_material="" 
+	invincibility_frames="40"
+	ui_report_damage="0"
+	>
+	<damage_multipliers
+		melee="0.4"
+		projectile="0.4"
+		explosion="0.0"
+		fire="0.0"
+		ice="0.4"
+		electricity="0.4"
+		drill="0.1"
+		slice="0.4"
+		radioactive="0.1"
+		>
+	</damage_multipliers>
+  </DamageModelComponent>
+  
+	<LuaComponent
+		_tags="enabled_in_world"
+		script_damage_received="data/scripts/items/die_roll.lua"
+		execute_every_n_frame="-1"
+		>
+	</LuaComponent>
+	
+	<LuaComponent
+		_tags="enabled_in_world"
+		script_enabled_changed="data/scripts/items/die_roll.lua"
+		execute_every_n_frame="-1"
+		>
+	</LuaComponent>
+	
+	<LuaComponent
+		_tags="enabled_in_world"
+		script_kick="data/scripts/items/die_roll.lua"
+		execute_every_n_frame="-1"
+		>
+	</LuaComponent>
+	
+	<LuaComponent
+		_tags="enabled_in_world"
+		script_source_file="data/scripts/items/die_status.lua"
+		execute_every_n_frame="5"
+		>
+	</LuaComponent>
+	
+	<VariableStorageComponent
+		_tags="enabled_in_world"
+		name="rolling"
+		value_int="0"
+		>
+	</VariableStorageComponent>
+	
+	<PhysicsThrowableComponent
+    max_throw_speed="180"
+    throw_force_coeff="1.5"
+  ></PhysicsThrowableComponent>
+  
+  <PhysicsBodyCollisionDamageComponent 
+    _tags="enabled_in_world" 
+    speed_threshold="140.0"
+  ></PhysicsBodyCollisionDamageComponent>
+  
+  <ItemComponent
+    _tags="enabled_in_world"
+    item_name="$item_die"
+    max_child_items="0"
+    is_pickable="1"
+    is_equipable_forced="1"
+    ui_sprite="data/ui_gfx/items/die.png"
+    ui_description="$itemdesc_die"
+    preferred_inventory="QUICK"
+  ></ItemComponent>
+  
+  <UIInfoComponent
+    _tags="enabled_in_world"
+    name="$item_die" >
+  </UIInfoComponent>
+  
+  <AbilityComponent
+		ui_name="$item_die"
+		throw_as_item="1"
+		><gun_config
+			deck_capacity="0"
+		></gun_config>
+	</AbilityComponent>
+	
+	<SpriteComponent
+    _tags="enabled_in_hand"
+    _enabled="0"
+    offset_x="4"
+    offset_y="4"
+    image_file="data/items_gfx/in_hand/die.png"
+  ></SpriteComponent>
+</Entity>

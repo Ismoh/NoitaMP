@@ -1,0 +1,50 @@
+<Entity name="$projectile_default">
+	<Base file="data/entities/base_projectile.xml" >
+		<VelocityComponent
+			mass="1.4"
+			>
+    	</VelocityComponent>
+	</Base>
+
+  <ProjectileComponent 
+    _enabled="1" 
+	speed_min="200"
+	speed_max="200"
+    die_on_low_velocity="0"
+    on_death_explode="0"
+    on_death_gfx_leave_sprite="0" 
+    on_lifetime_out_explode="0"
+    on_collision_die="1"
+	penetrate_entities="1"
+	collide_with_entities="0"
+	damage="0"
+    lifetime="40" 
+	on_collision_spawn_entity="1"
+    spawn_entity="data/entities/projectiles/deck/spore_pod_growing.xml"
+	>
+    <config_explosion
+        never_cache="1" 
+		damage="0"
+		camera_shake="0" 
+		explosion_radius="0" 
+		explosion_sprite="" 
+		explosion_sprite_lifetime="0" 
+		create_cell_material=""
+		create_cell_probability="0"  
+		hole_destroy_liquid="0" 
+		hole_enabled="0" 
+		hole_image="" 
+		particle_effect="0" 
+		damage_mortals="0" 
+        
+		physics_explosion_power.min="0"
+		physics_explosion_power.max="0" 
+		physics_throw_enabled="0" 
+		shake_vegetation="0" 
+		sparks_enabled="0" 
+		stains_enabled="0" 
+		>
+    </config_explosion>
+  </ProjectileComponent>
+</Entity>
+

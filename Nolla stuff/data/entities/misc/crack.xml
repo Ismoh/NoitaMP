@@ -1,0 +1,13 @@
+<Entity >
+   
+  <ElectricityComponent
+      energy="200"
+  	  splitting_energy_min="0"
+  	  splitting_energy_max="20"
+  	  speed="20"
+  	  splittings_min="0"
+  	  splittings_max="2"
+      hack_is_material_crack="1" >
+  </ElectricityComponent>
+  
+</Entity>

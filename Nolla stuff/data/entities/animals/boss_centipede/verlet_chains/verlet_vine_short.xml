@@ -1,0 +1,22 @@
+<Entity tags="vine">
+	<InheritTransformComponent>
+	</InheritTransformComponent>
+   
+    <VerletPhysicsComponent
+    	num_points="8"
+    	stiffness="1.0"
+		velocity_dampening="0.9"
+    	resting_distance="4" 
+    	simulate_gravity="1"
+    	constrain_stretching="1" >
+    </VerletPhysicsComponent>
+
+	<Base file="data/entities/animals/boss_centipede/verlet_chains/vine_verlet_1.xml" />
+	<Base file="data/entities/animals/boss_centipede/verlet_chains/vine_verlet_1.xml" />
+	<Base file="data/entities/animals/boss_centipede/verlet_chains/vine_verlet_2.xml" />
+	<Base file="data/entities/animals/boss_centipede/verlet_chains/vine_verlet_2.xml" />
+	<Base file="data/entities/animals/boss_centipede/verlet_chains/vine_verlet_3.xml" />
+	<Base file="data/entities/animals/boss_centipede/verlet_chains/vine_verlet_3.xml" />
+	<Base file="data/entities/animals/boss_centipede/verlet_chains/vine_verlet_4.xml" />
+  
+</Entity>

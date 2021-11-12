@@ -1,0 +1,135 @@
+<Entity 
+	name="$projectile_default" 
+	>
+
+	<Base file="data/entities/base_projectile.xml" >
+		<VelocityComponent
+			gravity_y="0"
+			air_friction="4"
+			mass="0.05"
+			>
+		</VelocityComponent> 
+	</Base>
+
+	<ProjectileComponent 
+		_enabled="1" 
+		lob_min="0.8"
+		lob_max="1.0"
+		speed_min="60"
+		speed_max="60"
+		die_on_low_velocity="0"
+		on_death_explode="1"
+		on_death_gfx_leave_sprite="0" 
+		on_lifetime_out_explode="1"
+		explosion_dont_damage_shooter="1"
+		damage="0"
+		on_collision_die="0"
+		lifetime="180" 
+		knockback_force="0.0"
+		penetrate_entities="1"
+		>
+		<config_explosion
+			never_cache="1" 
+			camera_shake="0" 
+			explosion_radius="32" 
+			explosion_sprite="data/particles/explosion_016_plasma.xml" 
+			explosion_sprite_lifetime="0.0" 
+			create_cell_probability="0" 
+			create_cell_material="" 
+			ray_energy="5000"
+			hole_destroy_liquid="1" 
+			hole_enabled="1"
+			damage="0.8"
+			hole_image="data/temp/explosion_hole.png"
+			explosion_sprite_emissive="1"
+			explosion_sprite_additive="1"
+			particle_effect="0" 
+			damage_mortals="0"
+			physics_explosion_power.min="0.3" 
+			physics_explosion_power.max="0.4"
+			physics_throw_enabled="1" 
+			shake_vegetation="1" 
+			sparks_enabled="0" 
+			sparks_count_max="0" 
+			sparks_count_min="0"
+			light_fade_time="0.8" 
+			light_r="15"
+			light_g="15"
+			light_b="40"
+			stains_enabled="0" 
+			stains_image="data/temp/explosion_stain.png"
+			audio_enabled="0" >
+		</config_explosion>
+	</ProjectileComponent>
+	
+	<SpriteComponent 
+		_enabled="1" 
+		alpha="1" 
+		image_file="data/entities/animals/boss_pit/wand_0$[1-9].png" 
+		offset_x="16" 
+		offset_y="16"
+		>
+	</SpriteComponent>
+
+	<ParticleEmitterComponent 
+		emitted_material_name="spark_purple_bright"
+		gravity.y="0"
+		offset.x="-0.5"
+		offset.y="0.5"
+		x_pos_offset_min="0"
+		y_pos_offset_min="0"
+		x_pos_offset_max="0"
+		y_pos_offset_max="0"
+		area_circle_sector_degrees="180"
+		x_vel_min="0"
+		x_vel_max="0"
+		y_vel_min="0"
+		y_vel_max="0"
+		friction="2"
+		count_min="1"
+		count_max="1"
+		lifetime_min="0.3"
+		lifetime_max="2.9"
+		render_on_grid="1"
+		airflow_force="0.85"
+		airflow_time="0.101"
+		airflow_scale="0.31"
+		fade_based_on_lifetime="1"
+		create_real_particles="0"
+		emit_cosmetic_particles="1"
+		emission_interval_min_frames="5"
+		emission_interval_max_frames="10"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+	
+	<LightComponent 
+		_enabled="1" 
+		radius="150" 
+		r="45"
+		g="45"
+		b="90">
+	</LightComponent>
+	
+	<VariableStorageComponent
+		name="memory"
+		value_string="data/entities/projectiles/enlightened_laser_darkbeam.xml"
+		>
+	</VariableStorageComponent>
+	
+	<LuaComponent
+		script_source_file="data/entities/animals/boss_pit/wand.lua"
+		execute_every_n_frame="40"
+		>
+	</LuaComponent>
+	
+	<LuaComponent
+		script_source_file="data/entities/animals/boss_pit/wand_rotate.lua"
+		execute_every_n_frame="1"
+		>
+	</LuaComponent>
+	
+	<AudioComponent
+		file="data/audio/Desktop/projectiles.bank"
+		event_root="projectiles/orb_a" >
+	</AudioComponent>
+</Entity>

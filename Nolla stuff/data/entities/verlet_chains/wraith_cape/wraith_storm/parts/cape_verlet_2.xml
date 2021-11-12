@@ -1,0 +1,12 @@
+<Entity >
+   
+  <SpriteComponent 
+    image_file="data/entities/verlet_chains/wraith_cape/wraith_storm/parts/cape_2.xml" 
+    offset_x="1"
+    offset_y="12"
+	z_index="1.3"
+    update_transform="0"
+    update_transform_rotation="0" >
+  </SpriteComponent>
+  
+</Entity>

@@ -1,0 +1,11 @@
+<Entity>
+	<InheritTransformComponent>
+    </InheritTransformComponent>	
+    
+    <GameEffectComponent 
+        effect="PROJECTILE_HOMING"
+        frames="600"
+    >
+	</GameEffectComponent >
+
+</Entity>

@@ -1,0 +1,19 @@
+<Entity tags="hittable,item,item_shop,glue_NOT">
+
+    <!-- these two are used to make these shop items -->
+    <ItemCostComponent cost="100" />
+
+    <SpriteComponent 
+        _tags="shop_cost,enabled_in_world"
+        image_file="data/fonts/font_pixel_white.xml" 
+        is_text_sprite="1" 
+        offset_x="7" 
+        offset_y="15" 
+        update_transform="1" 
+        update_transform_rotation="0"
+        text="100"
+        z_index="-1"
+         >
+    </SpriteComponent>
+
+</Entity>    

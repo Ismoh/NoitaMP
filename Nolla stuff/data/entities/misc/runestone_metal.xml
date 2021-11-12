@@ -1,0 +1,32 @@
+<Entity >
+	<MagicConvertMaterialComponent
+      kill_when_finished="1"
+      from_material=""
+      from_material_tag="[meltable_metal]"
+      steps_per_frame="8"
+      to_material="poison"
+      clean_stains="0"
+      is_circle="1"
+      radius="160" 
+	  loop="0"
+	  >
+    </MagicConvertMaterialComponent>
+	
+	<MagicConvertMaterialComponent
+      kill_when_finished="1"
+      from_material=""
+      from_material_tag="[meltable_metal_generic]"
+      steps_per_frame="8"
+      to_material="poison"
+      clean_stains="0"
+      is_circle="1"
+      radius="160" 
+	  loop="0"
+	  >
+    </MagicConvertMaterialComponent>
+	
+	<LifetimeComponent
+		lifetime="25"
+		>
+	</LifetimeComponent>
+</Entity>

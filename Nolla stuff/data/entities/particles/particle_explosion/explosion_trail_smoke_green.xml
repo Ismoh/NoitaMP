@@ -1,0 +1,12 @@
+<Entity>
+	<Base file="data/entities/particles/particle_explosion/base_smoke_trail.xml">
+		<SpriteParticleEmitterComponent>
+		</SpriteParticleEmitterComponent>
+		
+		<SpriteParticleEmitterComponent
+			sprite_file="data/particles/smoke_cloud_tiny_green_$[1-4].xml"
+			>
+		</SpriteParticleEmitterComponent>
+	</Base>
+</Entity>
+

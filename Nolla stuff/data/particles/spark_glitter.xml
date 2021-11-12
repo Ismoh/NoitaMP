@@ -1,0 +1,20 @@
+<Sprite
+filename="data/particles/spark_glitter.png"
+offset_x="2"
+offset_y="2"
+default_animation="explosion"
+ >
+
+<!-- explosion -->
+<RectAnimation
+name="explosion"
+pos_x="0"
+pos_y="0"
+frame_count="6"
+frame_width="5"
+frame_height="5"
+frame_wait="0.08"
+frames_per_row="6"
+loop="1"   >
+</RectAnimation>
+</Sprite>

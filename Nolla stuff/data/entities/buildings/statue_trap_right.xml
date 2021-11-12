@@ -1,0 +1,25 @@
+<Entity 
+  name="unknown" 
+  tags="" >
+
+  <SpriteComponent 
+    _enabled="1" 
+    alpha="1" 
+    image_file="data/buildings_gfx/statue_trap_right.xml" 
+    offset_x="0" 
+    offset_y="0" 
+     >
+  </SpriteComponent>
+
+  <SimplePhysicsComponent />
+  
+  <VelocityComponent />
+  
+  <LuaComponent
+	script_source_file="data/scripts/buildings/statue_trap.lua"
+	execute_every_n_frame="40"
+	>
+  </LuaComponent>
+
+</Entity>
+

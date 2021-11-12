@@ -1,0 +1,52 @@
+<Entity name="unknown" serialize="1">
+
+    <PhysicsBody2Component 
+        allow_sleep="1" 
+        linear_damping="0.1" 
+        kill_entity_after_initialized="1"
+    ></PhysicsBody2Component>
+
+    <PhysicsImageShapeComponent 
+        body_id="1"
+        centered="1"
+        image_file="data/props_gfx/minecart.png"
+        material="metal_rust"
+    ></PhysicsImageShapeComponent>
+
+    <PhysicsImageShapeComponent 
+        body_id="2"
+        centered="1"
+        is_circle="1"
+        image_file="data/props_gfx/minecart_wheel_left.png"
+        z="-1"
+        material="metal_rust"
+    ></PhysicsImageShapeComponent>
+
+    <PhysicsImageShapeComponent 
+        body_id="3"
+        centered="1"
+        is_circle="1"
+        image_file="data/props_gfx/minecart_wheel_right.png"
+        z="-1"
+        material="metal_rust"
+    ></PhysicsImageShapeComponent>
+
+    <PhysicsJoint2Component 
+        type="REVOLUTE_JOINT"
+        break_force="20"
+        body1_id="1"
+        body2_id="2"
+        offset_x="-5"		
+        offset_y="4"
+    ></PhysicsJoint2Component>
+
+    <PhysicsJoint2Component 
+        type="REVOLUTE_JOINT"
+        break_force="20"
+        body1_id="1"
+        body2_id="3"
+        offset_x="4"
+        offset_y="4"
+    ></PhysicsJoint2Component>
+  
+</Entity>

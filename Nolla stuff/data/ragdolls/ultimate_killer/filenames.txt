@@ -1,0 +1,3 @@
+data/ragdolls/ultimate_killer/torso.png
+data/ragdolls/ultimate_killer/left_leg.png
+data/ragdolls/ultimate_killer/right_leg.png

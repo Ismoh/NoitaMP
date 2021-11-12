@@ -1,0 +1,8 @@
+data/ragdolls/scavenger_civilian/torso.png
+data/ragdolls/scavenger_civilian/left_arm.png
+data/ragdolls/scavenger_civilian/right_arm.png
+data/ragdolls/scavenger_civilian/left_hand.png
+data/ragdolls/scavenger_civilian/right_hand.png
+data/ragdolls/scavenger_civilian/head.png
+data/ragdolls/scavenger_civilian/left_foot.png
+data/ragdolls/scavenger_civilian/right_foot.png

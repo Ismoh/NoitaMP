@@ -1,0 +1,112 @@
+<Sprite
+ filename="data/enemies_gfx/firebug.png"
+ offset_x="8"
+ offset_y="13"
+ default_animation="stand"
+ >
+
+ <!-- stand -->
+ <RectAnimation
+  name="stand"
+  pos_x="0"
+  pos_y="0"
+  frame_count="10"
+  frame_width="16"
+  frame_height="16"
+  frame_wait="0.05"
+  frames_per_row="10"
+  loop="1"   >
+ </RectAnimation>
+
+ <!-- walk -->
+ <RectAnimation
+  name="walk"
+  pos_x="0"
+  pos_y="0"
+  frame_count="10"
+  frame_width="16"
+  frame_height="16"
+  frame_wait="0.05"
+  frames_per_row="10"
+  loop="1"   >
+ </RectAnimation>
+
+ <!-- run - copied from walk -->
+ <RectAnimation
+  name="run"
+  pos_x="0"
+  pos_y="0"
+  frame_count="10"
+  frame_width="16"
+  frame_height="16"
+  frame_wait="0.05"
+  frames_per_row="10"
+  loop="1"   >
+ </RectAnimation>
+
+ <!-- burn - copied from walk -->
+ <RectAnimation
+  name="burn"
+  pos_x="0"
+  pos_y="0"
+  frame_count="10"
+  frame_width="16"
+  frame_height="16"
+  frame_wait="0.05"
+  frames_per_row="10"
+  loop="1"   >
+ </RectAnimation>
+ 
+  <!-- flight -->
+ <RectAnimation
+  name="fly_move"
+  pos_x="0"
+  pos_y="16"
+  frame_count="8"
+  frame_width="16"
+  frame_height="16"
+  frame_wait="0.035"
+  frames_per_row="8"
+  loop="1"   >
+ </RectAnimation>
+ 
+ <RectAnimation
+  name="fly_idle"
+  pos_x="0"
+  pos_y="16"
+  frame_count="8"
+  frame_width="16"
+  frame_height="16"
+  frame_wait="0.035"
+  frames_per_row="8"
+  loop="1"   >
+ </RectAnimation>
+ 
+   <!-- sting attack -->
+ <RectAnimation
+  name="attack_dash"
+  pos_x="0"
+  pos_y="16"
+  frame_count="8"
+  frame_width="16"
+  frame_height="16"
+  frame_wait="0.035"
+  frames_per_row="8"
+  loop="1"   >
+  <Event frame="0" name="dash" probability="1" check_physics_material="0"/>
+ </RectAnimation>
+ 
+ <RectAnimation
+  name="attack_ranged"
+  pos_x="0"
+  pos_y="32"
+  frame_count="4"
+  frame_width="16"
+  frame_height="16"
+  frame_wait="0.06"
+  frames_per_row="8"
+  loop="0"   >
+  <Event frame="1" name="attack_shoot" probability="1" check_physics_material="0"/>
+ </RectAnimation>
+
+</Sprite>

@@ -1,0 +1,32 @@
+<Sprite
+ filename="data/props_gfx/pressure_plate.png"
+ offset_x="12"
+ offset_y="1" 
+ default_animation="up">
+
+ <!-- stand -->
+ <RectAnimation
+  name="up"
+  pos_x="0"
+  pos_y="0"
+  frame_count="1"
+  frame_width="24"
+  frame_height="2"
+  frame_wait="0.1"
+  frames_per_row="4"
+  loop="0"   >
+ </RectAnimation>
+ 
+ <RectAnimation
+  name="down"
+  pos_x="24" 
+  pos_y="0"
+  frame_count="1"
+  frame_width="24"
+  frame_height="2"
+  frame_wait="0.1"
+  frames_per_row="4"
+  loop="0"   >
+ </RectAnimation>
+ 
+</Sprite>

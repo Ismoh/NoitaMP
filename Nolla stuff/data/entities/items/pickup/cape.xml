@@ -1,0 +1,64 @@
+<Entity tags="teleportable_NOT">
+  <VelocityComponent>
+  </VelocityComponent>
+
+  <SimplePhysicsComponent>
+  </SimplePhysicsComponent>
+  
+  <UIInfoComponent
+		name="Cape upgrade"
+		>
+	</UIInfoComponent>
+
+  <HitboxComponent 
+    _tags="enabled_in_world"
+    aabb_min_x="-6" 
+    aabb_max_x="6" 
+    aabb_min_y="-8" 
+    aabb_max_y="0" 
+    is_enemy="0" 
+    is_item="1" 
+    is_player="0" >
+  </HitboxComponent>
+
+  <ItemComponent
+    item_name="Fire protection cape"
+    play_spinning_animation="0" >
+  </ItemComponent>
+
+  <LuaComponent 
+    script_item_picked_up="data/scripts/items/protection_cape.lua" >
+  </LuaComponent>
+
+  <VariableStorageComponent
+    name="type"
+    value_string="protection_fire" 
+  ></VariableStorageComponent>
+
+  <LuaComponent 
+    script_source_file="data/scripts/items/init_random_cape.lua" 
+    execute_every_n_frame="0"
+    remove_after_executed="1"
+  ></LuaComponent>
+
+  <LightComponent 
+    _tags="enabled_in_world"
+    r="255"
+    g="255"
+    b="255"
+    radius="64"
+    fade_out_time="0.75" >
+  </LightComponent>
+
+  <SpriteComponent 
+    _tags="enabled_in_world,character" 
+    alpha="1" 
+    image_file="data/items_gfx/cape/default.xml" 
+    next_rect_animation="" 
+    rect_animation="" 
+    offset_x="0"
+    offset_y="0"
+    z_index="20" >
+  </SpriteComponent>
+
+</Entity>

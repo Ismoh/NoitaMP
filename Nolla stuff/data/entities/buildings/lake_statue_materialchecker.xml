@@ -1,0 +1,19 @@
+<Entity >
+
+	<MaterialAreaCheckerComponent
+		area_aabb.min_x="-7" 
+		area_aabb.min_y="-7"		
+		area_aabb.max_x="7" 
+		area_aabb.max_y="7"		
+		material="blood"
+		material2="blood"
+		kill_after_message="1"
+		look_for_failure="0"
+		>
+	</MaterialAreaCheckerComponent>
+
+	<LuaComponent
+		script_material_area_checker_failed="data/scripts/buildings/temple_check_for_leaks.lua" >
+	</LuaComponent>
+
+</Entity>

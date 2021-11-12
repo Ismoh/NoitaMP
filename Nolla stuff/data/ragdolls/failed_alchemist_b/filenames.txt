@@ -1,0 +1,6 @@
+data/ragdolls/failed_alchemist_b/head.png
+data/ragdolls/failed_alchemist_b/torso.png
+data/ragdolls/failed_alchemist_b/cape1.png
+data/ragdolls/failed_alchemist_b/cape2.png
+data/ragdolls/failed_alchemist_b/tail1.png
+data/ragdolls/failed_alchemist_b/tail2.png

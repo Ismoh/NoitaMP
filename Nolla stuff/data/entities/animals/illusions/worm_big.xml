@@ -1,0 +1,232 @@
+<Entity 
+	tags="mortal,hittable,teleportable_NOT,homing_target,enemy,worm,glue_NOT" 
+	name="$animal_worm_big"
+	>
+	<_Transform 
+		position.x="0" 
+		position.y="0" 
+		rotation="0" 
+		scale.x="1" 
+		scale.y="1" >
+	</_Transform>
+
+	<WormComponent
+		acceleration="1.5"
+		gravity="0"
+		tail_gravity="0"
+		part_distance="16"
+		ground_check_offset="32"
+		hitbox_radius="1"
+		target_kill_radius="10"
+		target_kill_ragdoll_force="10"
+		ragdoll_filename=""
+		eat_anim_wait_mult="0.05"
+		jump_cam_shake="6" 
+		>
+	</WormComponent>
+
+	<WormAIComponent
+		speed="4"
+		speed_hunt="5"
+		direction_adjust_speed="0.003"
+		direction_adjust_speed_hunt="0.04"
+		hunt_box_radius="256"
+		random_target_box_radius="128"
+		new_hunt_target_check_every="240"
+		new_random_target_check_every="240"
+		give_up_area_radius="150"
+		give_up_time_frames="250"
+		>
+	</WormAIComponent>
+
+	<DamageModelComponent 
+		_enabled="0"
+		>
+	</DamageModelComponent>
+
+	<PathFindingGridMarkerComponent
+		marker_offset_y="0"
+		marker_work_flag="16" >
+	</PathFindingGridMarkerComponent>
+
+	<GenomeDataComponent 
+		_enabled="1"
+		herd_id="ghost"
+		food_chain_rank="6"
+		is_predator="1" >
+	</GenomeDataComponent>
+
+	<SpriteComponent 
+		_enabled="1" 
+		alpha="1" 
+		image_file="data/enemies_gfx/worm_big_head_illusion.xml" 
+		rect_animation="eat" 
+		next_rect_animation="eat" 
+		offset_x="22" 
+		offset_y="12" 
+		update_transform="0"
+		z_index="-0.5"
+		alpha="0.5"
+		>
+	</SpriteComponent>
+
+	<SpriteComponent 
+		_enabled="1" 
+		alpha="1" 
+		image_file="data/enemies_gfx/worm_big_body_illusion.xml" 
+		rect_animation="eat" 
+		next_rect_animation="eat" 
+		offset_x="22" 
+		offset_y="12" 
+		update_transform="0"
+		z_index="-0.4"
+		alpha="0.5"
+		>
+	</SpriteComponent>
+
+	<SpriteComponent 
+		_enabled="1" 
+		alpha="1" 
+		image_file="data/enemies_gfx/worm_big_body_illusion.xml" 
+		rect_animation="eat" 
+		next_rect_animation="eat" 
+		offset_x="22" 
+		offset_y="12" 
+		update_transform="0"
+		z_index="-0.39"
+		alpha="0.5"
+		>
+	</SpriteComponent>
+
+	<SpriteComponent 
+		_enabled="1" 
+		alpha="1" 
+		image_file="data/enemies_gfx/worm_big_body_illusion.xml" 
+		rect_animation="eat" 
+		next_rect_animation="eat" 
+		offset_x="22" 
+		offset_y="12" 
+		update_transform="0"
+		z_index="-0.38"
+		alpha="0.5"
+		>
+	</SpriteComponent>
+	
+	<SpriteComponent 
+		_enabled="1" 
+		alpha="1" 
+		image_file="data/enemies_gfx/worm_big_body_illusion.xml" 
+		rect_animation="eat" 
+		next_rect_animation="eat" 
+		offset_x="22" 
+		offset_y="12" 
+		update_transform="0"
+		z_index="-0.37"
+		alpha="0.5"
+		>
+	</SpriteComponent>
+	
+	<SpriteComponent 
+		_enabled="1" 
+		alpha="1" 
+		image_file="data/enemies_gfx/worm_big_body_illusion.xml" 
+		rect_animation="eat" 
+		next_rect_animation="eat" 
+		offset_x="22" 
+		offset_y="12" 
+		update_transform="0"
+		z_index="-0.36"
+		alpha="0.5"
+		>
+	</SpriteComponent>
+
+	<SpriteComponent 
+		_enabled="1" 
+		alpha="1" 
+		image_file="data/enemies_gfx/worm_big_tail_illusion.xml" 
+		rect_animation="eat" 
+		next_rect_animation="eat" 
+		next_rect_animation="" 
+		offset_x="22" 
+		offset_y="12" 
+		update_transform="0"
+		z_index="-0.35"
+		alpha="0.5"
+		>
+	</SpriteComponent>
+
+
+	<SpriteStainsComponent
+    	fade_stains_towards_srite_top="0"
+		sprite_id="0">
+	</SpriteStainsComponent>
+		
+	<SpriteStainsComponent
+    	fade_stains_towards_srite_top="0"
+		sprite_id="1">
+	</SpriteStainsComponent>
+
+	<SpriteStainsComponent
+    	fade_stains_towards_srite_top="0"
+		sprite_id="2">
+	</SpriteStainsComponent>
+
+	<SpriteStainsComponent
+    	fade_stains_towards_srite_top="0"
+		sprite_id="3">
+	</SpriteStainsComponent>
+		
+	<SpriteStainsComponent
+    	fade_stains_towards_srite_top="0"
+		sprite_id="4">
+	</SpriteStainsComponent>
+	
+	<SpriteStainsComponent
+    	fade_stains_towards_srite_top="0"
+		sprite_id="5">
+	</SpriteStainsComponent>
+	
+	<SpriteStainsComponent
+    	fade_stains_towards_srite_top="0"
+		sprite_id="6">
+	</SpriteStainsComponent>
+
+	<CameraBoundComponent
+		max_count="10"
+		distance="2000">
+	</CameraBoundComponent>
+
+	<AudioComponent
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals">
+	</AudioComponent>
+
+	<AudioComponent
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals/worm">
+	</AudioComponent>
+
+	<AudioLoopComponent
+		file="data/audio/Desktop/animals.bank"
+		event_name="animals/worm/movement_loop_big"
+		set_speed_parameter="1"
+		auto_play="1">
+	</AudioLoopComponent>
+	
+	<LifetimeComponent
+		lifetime="600"
+		>
+	</LifetimeComponent>
+	
+	<AudioComponent
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals/illusion">
+	</AudioComponent>
+	
+	<LuaComponent
+		script_source_file="data/scripts/animals/illusion_disappear.lua"
+		execute_every_n_frame="-1"
+		execute_on_removed="1"
+		>
+	</LuaComponent>
+</Entity>

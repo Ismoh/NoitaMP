@@ -1,0 +1,85 @@
+<Entity tags="hittable,prop" >
+	<HitboxComponent 
+		aabb_min_x="-1" 
+		aabb_max_x="1" 
+		aabb_min_y="-5" 
+		aabb_max_y="1" >
+	</HitboxComponent>
+
+	<VelocityComponent />
+
+    <SimplePhysicsComponent/>
+
+	<LightComponent 
+		_enabled="1" 
+		radius="56"
+		fade_out_time="1.5" 
+		offset_y="-8"
+		>
+	</LightComponent>
+
+	<DamageModelComponent 
+		air_needed="0" 
+		blood_material="wax" 
+		drop_items_on_death="0" 
+		falling_damages="0" 
+		fire_damage_amount="0.2" 
+		fire_probability_of_ignition="0" 
+		critical_damage_resistance="1"
+		hp="0.1" 
+		is_on_fire="0" 
+		materials_create_messages="0" 
+		materials_damage="1" 
+		ragdoll_filenames_file="" 
+		ragdoll_material="wood_static" 
+		ui_report_damage="0"
+		>
+	</DamageModelComponent>
+
+	<SpriteComponent
+		_tags="character"
+		image_file="data/props_gfx/candle_2.xml" 
+		offset_x="0"
+		offset_y="0" >
+	</SpriteComponent>
+	
+	<Base file="data/entities/base_torch_particle.xml" >
+		<ParticleEmitterComponent 
+			offset.y="-8"
+			x_pos_offset_min="-2"
+			x_pos_offset_max="1" 
+			count_min="1"
+			count_max="1"
+			>
+		</ParticleEmitterComponent>
+  
+		<ParticleEmitterComponent 
+			offset.y="-8"
+			x_pos_offset_min="-2"
+			x_pos_offset_max="1" 
+			count_min="1"
+			count_max="1"
+			>
+		</ParticleEmitterComponent>
+    </Base>
+  
+  <SpriteComponent 
+		_tags="character"
+		alpha="1" 
+		image_file="data/props_gfx/candle_2_emissive.xml"
+		offset_x="0" 
+		offset_y="0"
+		emissive="1"
+        additive="1"
+		next_rect_animation="" 
+		rect_animation="stand" 
+		 >
+	</SpriteComponent>
+	
+	<TorchComponent
+		_tags="enabled_in_world">
+	</TorchComponent>
+	
+	<SpriteAnimatorComponent>
+	</SpriteAnimatorComponent>
+</Entity>

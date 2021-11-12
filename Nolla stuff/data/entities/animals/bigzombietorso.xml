@@ -1,0 +1,98 @@
+<Entity tags="zombie" name="$animal_bigzombie">
+  
+	<Base file="data/entities/base_enemy_basic.xml" >
+		<AnimalAIComponent 
+			_enabled="1" 
+			preferred_job="JobDefault"
+			escape_if_damaged_probability="0"
+			attack_melee_action_frame="3"
+			attack_melee_damage_min="0.6" 
+			attack_melee_damage_max="0.8"
+			attack_dash_enabled="1"
+			creature_detection_range_x="300"
+			creature_detection_range_y="300"
+			food_material="meat"
+			needs_food="0"
+			sense_creatures="1"
+			attack_ranged_enabled="1"
+			attack_ranged_entity_file="data/entities/projectiles/fireball.xml"
+			attack_ranged_frames_between="40"
+			attack_ranged_action_frame="4"
+			can_fly="0"  
+			defecates_and_pees="1"
+			aggressiveness_min="1"
+			aggressiveness_max="50"
+			>
+		</AnimalAIComponent>
+
+		<DamageModelComponent 
+            hp="6"
+            materials_create_messages="1"
+            ragdoll_material="meat_cursed"
+            ragdoll_filenames_file="data/ragdolls/bigzombie/filenames_torso.txt" >
+		</DamageModelComponent>
+
+		<SpriteComponent 
+			image_file="data/enemies_gfx/bigzombietorso.xml" 
+			offset_x="0"
+			offset_y="0">
+		</SpriteComponent>
+
+		<PathFindingComponent
+		    distance_to_reach_node_x="20"
+		    distance_to_reach_node_y="20"
+		    can_swim_on_surface="1"
+		    can_dive="1"
+			frames_to_get_stuck="1"
+			can_jump="1" >
+		</PathFindingComponent>
+
+		<PathFindingGridMarkerComponent
+			marker_work_flag="16" >
+		</PathFindingGridMarkerComponent>
+		
+		<GenomeDataComponent 
+			herd_id="zombie"
+			food_chain_rank="10"
+			is_predator="1" >
+		</GenomeDataComponent>
+		
+		<CharacterDataComponent 
+			collision_aabb_min_x="-4.0" 
+			collision_aabb_max_x="3.0" 
+			collision_aabb_min_y="-8" 
+			collision_aabb_max_y="3" 
+			buoyancy_check_offset_y="-4"
+			mass="1.7"			
+			>
+		</CharacterDataComponent>
+		
+		<CharacterPlatformingComponent 
+    		pixel_gravity="500" 
+			jump_velocity_y="-12" 
+			run_velocity="22"
+			>
+		</CharacterPlatformingComponent>
+		
+		<HitboxComponent 
+			_enabled="1" 
+			aabb_min_x="-4.5" 
+			aabb_max_x="4.5" 
+			aabb_min_y="-6.5" 
+			aabb_max_y="3" 
+			is_enemy="1" 
+			is_item="0" 
+			is_player="0" >
+		</HitboxComponent>
+
+		<CameraBoundComponent
+		  max_count="20"
+		  distance="160000">
+		</CameraBoundComponent>
+	</Base>
+	
+	<ItemPickUpperComponent
+    	is_in_npc="1">
+    </ItemPickUpperComponent>
+</Entity>
+

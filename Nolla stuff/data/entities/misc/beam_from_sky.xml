@@ -1,0 +1,136 @@
+<Entity>
+	<LuaComponent
+    script_source_file="data/scripts/magic/beam_from_sky.lua"
+    vm_type="ONE_PER_COMPONENT_INSTANCE"
+    enable_coroutines="1"
+    execute_on_added="1"
+    execute_every_n_frame="-1"
+    execute_times="1"
+  ></LuaComponent>
+
+  <LifetimeComponent
+  	lifetime="190"
+  ></LifetimeComponent>
+
+  <AreaDamageComponent
+    _enabled="0"
+    _tags="enabled_in_world"
+    aabb_min.x="-40" 
+    aabb_min.y="-10000" 
+    aabb_max.x="40" 
+    aabb_max.y="5" 
+    damage_per_frame="5"
+    update_every_n_frame="1"
+    entities_with_tag="mortal"
+    damage_type="DAMAGE_PROJECTILE"
+    death_cause="$damage_plasmabeam"
+  ></AreaDamageComponent>
+
+  <LooseGroundComponent
+    probability="0.2"
+    max_angle="1.6"
+    max_distance="200"
+  ></LooseGroundComponent>
+
+  <LooseGroundComponent
+    _enabled="0"
+    _tags="enabled_in_world"
+    probability="1.0"
+    chunk_probability="0"
+    max_angle="1.6"
+    max_distance="200"
+  ></LooseGroundComponent>
+
+  <!-- fx -->
+
+  <ParticleEmitterComponent 
+    emitted_material_name="spark_green"
+    gravity.y="-1"
+    lifetime_min="1"
+    lifetime_max="2"
+    x_vel_min="0"
+    x_vel_max="0"
+    y_vel_min="-20"
+    y_vel_max="-0"
+    x_pos_offset_min="-40"
+    x_pos_offset_max="40"
+    y_pos_offset_min="-2048"
+    y_pos_offset_max="1"
+    count_min="100"
+    count_max="200"
+    render_on_grid="1"
+    fade_based_on_lifetime="0"
+    airflow_force="0.0"
+    airflow_time="1.01"
+    airflow_scale="0.03"
+    emission_interval_min_frames="1"
+    emission_interval_max_frames="1"
+    cosmetic_force_create="1"
+    emit_cosmetic_particles="1"
+    is_emitting="1"
+  ></ParticleEmitterComponent>
+  
+   <ParticleEmitterComponent 
+    emitted_material_name="spark_white"
+    gravity.y="-1"
+    lifetime_min="2"
+    lifetime_max="3"
+    x_vel_min="-20"
+    x_vel_max="20"
+    y_vel_min="0"
+    y_vel_max="0"
+    x_pos_offset_min="0"
+    x_pos_offset_max="0"
+    y_pos_offset_min="-2048"
+    y_pos_offset_max="1"
+    count_min="90"
+    count_max="100"
+    render_on_grid="1"
+    fade_based_on_lifetime="1"
+    airflow_force="0.0"
+    airflow_time="1.01"
+    airflow_scale="0.03"
+    emission_interval_min_frames="1"
+    emission_interval_max_frames="1"
+    cosmetic_force_create="1"
+    emit_cosmetic_particles="1"
+    is_emitting="1"
+  ></ParticleEmitterComponent>
+
+  <ParticleEmitterComponent 
+    _enabled="0"
+    _tags="enabled_in_world"
+    emitted_material_name="spark_green"
+    gravity.y="-1"
+    lifetime_min="1"
+    lifetime_max="2"
+    x_vel_min="0"
+    x_vel_max="0"
+    y_vel_min="-20"
+    y_vel_max="-0"
+    x_pos_offset_min="-40"
+    x_pos_offset_max="40"
+    y_pos_offset_min="-2048"
+    y_pos_offset_max="1"
+    count_min="150"
+    count_max="150"
+    render_on_grid="1"
+    fade_based_on_lifetime="0"
+    airflow_force="0.0"
+    airflow_time="1.01"
+    airflow_scale="0.03"
+    emission_interval_min_frames="1"
+    emission_interval_max_frames="1"
+    cosmetic_force_create="1"
+    emit_cosmetic_particles="1"
+    render_ultrabright="1"
+    is_emitting="1"
+  ></ParticleEmitterComponent>
+  
+  <AudioComponent
+    file="data/audio/Desktop/misc.bank"
+    event_root="misc"
+    remove_latest_event_on_destroyed="1">
+  </AudioComponent>
+
+</Entity>

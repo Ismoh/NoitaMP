@@ -1,0 +1,6 @@
+<PixelScenes>
+  <mBufferedPixelScenes>
+    <PixelScene background_filename="" colors_filename="" material_filename="data/biome_impl/spliced/mountain_lake/0.plz" pos_x="2560" pos_y="0" skip_biome_checks="1" >
+    </PixelScene>
+  </mBufferedPixelScenes>
+</PixelScenes>

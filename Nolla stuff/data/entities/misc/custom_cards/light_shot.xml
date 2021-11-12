@@ -1,0 +1,24 @@
+<Entity>
+	
+	<Base file="data/entities/base_custom_card.xml" > 
+		<SpriteComponent 
+			image_file="data/ui_gfx/gun_actions/light_shot.png" 
+			>
+		</SpriteComponent>
+		
+		<ItemActionComponent 
+			_tags="enabled_in_world"
+			action_id="LIGHT_SHOT" >
+		</ItemActionComponent>
+	</Base>
+
+	<Base file="data/entities/misc/custom_cards/base_damage.xml">
+		<SpriteParticleEmitterComponent
+			sprite_file="data/particles/tinyspark_03.xml"
+			emission_interval_min_frames="15"
+			emission_interval_max_frames="25"
+		>
+		</SpriteParticleEmitterComponent>
+	</Base>
+	
+</Entity>

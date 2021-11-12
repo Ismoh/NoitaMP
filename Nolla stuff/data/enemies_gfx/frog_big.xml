@@ -1,0 +1,58 @@
+<Sprite
+ filename="data/enemies_gfx/frog_big.png"
+ offset_x="8"
+ offset_y="11"
+  default_animation="stand" >
+
+ <!-- stand -->
+ <RectAnimation
+  name="stand"
+  pos_x="0"
+  pos_y="0"
+  frame_count="6"
+  frame_width="16"
+  frame_height="16"
+  frame_wait="0.16"
+  frames_per_row="12"
+  loop="1"   >
+ </RectAnimation>
+ 
+ <!-- jump_up -->
+ <RectAnimation
+  name="jump_up"
+  pos_x="0"
+  pos_y="16"
+  frame_count="1"
+  frame_width="16"
+  frame_height="16"
+  frame_wait="0.082"
+  frames_per_row="12"
+  loop="0"   >
+  <Event frame="0" name="jump" probability="1" check_physics_material="1"/>
+ </RectAnimation>
+
+ <!-- jump_falling -->
+ <RectAnimation
+  name="jump_fall"
+  pos_x="0"
+  pos_y="32"
+  frame_count="1"
+  frame_width="16"
+  frame_height="16"
+  frame_wait="0.082"
+  frames_per_row="12"
+  loop="0"   >
+ </RectAnimation>
+ 
+ <RectAnimation
+  name="attack_ranged"
+  pos_x="0"
+  pos_y="48"
+  frame_count="12"
+  frame_width="16"
+  frame_height="16"
+  frame_wait="0.07"
+  frames_per_row="12"
+  loop="1"   >
+ </RectAnimation>
+</Sprite>

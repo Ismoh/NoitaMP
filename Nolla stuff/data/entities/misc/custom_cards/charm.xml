@@ -1,0 +1,56 @@
+<Entity>
+	
+	<Base file="data/entities/base_custom_card.xml" > 
+		<SpriteComponent 
+			image_file="data/ui_gfx/gun_actions/charm.png" 
+			>
+		</SpriteComponent>
+		
+		<ItemActionComponent 
+			_tags="enabled_in_world"
+			action_id="CHARM" >
+		</ItemActionComponent>
+	</Base>
+
+	<InheritTransformComponent
+		_tags="enabled_in_world,enabled_in_hand" >
+	  <Transform 
+		position.x="8" 
+		position.y="0" >
+	  </Transform>
+	</InheritTransformComponent>
+
+	<SpriteParticleEmitterComponent
+		_tags="enabled_in_hand,item_identified"
+		sprite_file="data/particles/charm.xml"
+		delay="0"
+		lifetime="1.5"
+		color.r="1" color.g="1" color.b="1" color.a="1"
+		color_change.r="0" color_change.g="0" color_change.b="0" color_change.a="-1"
+		velocity.x="0" velocity.y="0"
+		gravity.x="0" gravity.y="10"
+		velocity_slowdown="0"
+		rotation="0"
+		angular_velocity="0"
+		use_velocity_as_rotation="0"
+		scale.x="1" scale.y="1"
+		scale_velocity.x="0" scale_velocity.y="0"
+		emission_interval_min_frames="22"
+		emission_interval_max_frames="30"
+		count_min="1" count_max="1"
+		randomize_rotation.min="-0.3415"
+		randomize_rotation.max="0.3415"
+		randomize_angular_velocity.min="-1.3415"
+		randomize_angular_velocity.max="1.3415"
+		randomize_position.min_x="-2"
+		randomize_position.max_x="2"
+		randomize_position.min_y="-2"
+		randomize_position.max_y="2"
+		randomize_velocity.min_x="-10"
+		randomize_velocity.max_x="10"
+		randomize_velocity.min_y="-10"
+		randomize_velocity.max_y="10"
+		>
+	</SpriteParticleEmitterComponent>
+	
+</Entity>

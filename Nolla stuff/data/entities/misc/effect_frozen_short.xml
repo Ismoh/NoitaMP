@@ -1,0 +1,14 @@
+<Entity>
+    <InheritTransformComponent>
+    </InheritTransformComponent>    
+    
+    <GameEffectComponent 
+        effect="FROZEN"
+        frames="50"
+        disable_movement="1"
+        ragdoll_effect="FROZEN"
+        ragdoll_material="ice_glass_b2"
+    >
+	</GameEffectComponent >
+
+</Entity>

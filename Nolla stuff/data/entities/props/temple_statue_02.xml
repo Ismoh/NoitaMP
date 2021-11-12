@@ -1,0 +1,38 @@
+<Entity  tags="prop,hittable,mortal,homing_target,effectable_prop" >
+	<PhysicsBody2Component 
+		angular_damping="0.1" 
+		init_offset_x="11"
+		init_offset_y="29"
+		root_offset_x="8"
+		root_offset_y="8"
+		>
+	</PhysicsBody2Component>
+
+	<PhysicsImageShapeComponent 
+		image_file="data/props_gfx/temple_statue_02.png" 
+		is_root="1"
+		centered="0"
+		material="rock_box2d_hard" 
+		offset_x="0"
+		offset_y="0"
+		>
+	</PhysicsImageShapeComponent>
+	
+	<DamageModelComponent 
+		air_needed="0" 
+		blood_material="sand" 
+		drop_items_on_death="0" 
+		falling_damages="0" 
+		fire_damage_amount="0" 
+		fire_probability_of_ignition="0"
+		critical_damage_resistance="0"
+		hp="1200" 
+		blood_multiplier="0.01"
+		is_on_fire="0" 
+		materials_create_messages="0" 
+		materials_damage="0" 
+		ui_force_report_damage="1"
+		ragdoll_filenames_file="" 
+		ragdoll_material="" >
+	</DamageModelComponent>
+</Entity>

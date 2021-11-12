@@ -1,0 +1,9 @@
+data/ragdolls/bigzombie/torso.png
+data/ragdolls/bigzombie/right_thigh.png
+data/ragdolls/bigzombie/right_foot.png
+data/ragdolls/bigzombie/right_arm.png
+data/ragdolls/bigzombie/right_hand.png
+data/ragdolls/bigzombie/left_thigh.png
+data/ragdolls/bigzombie/left_foot.png
+data/ragdolls/bigzombie/left_arm.png
+data/ragdolls/bigzombie/tail.png

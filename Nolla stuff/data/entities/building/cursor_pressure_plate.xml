@@ -1,0 +1,9 @@
+<Entity serialize="0">
+
+    <SpriteComponent 
+        image_file="data/props_gfx/pressure_plate.xml" 
+        offset_x="12"
+        offset_y="1" >
+    </SpriteComponent>
+
+</Entity>

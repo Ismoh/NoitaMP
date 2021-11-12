@@ -1,0 +1,20 @@
+<Entity>
+    
+  <TelekinesisComponent>
+  </TelekinesisComponent>
+
+  <AudioLoopComponent
+    _tags="sound_telekinesis_move"
+    file="data/audio/Desktop/misc.bank"
+    event_name="misc/telekinesis/object_move"
+    volume_autofade_speed="0.05"
+  ></AudioLoopComponent>
+
+  <AudioLoopComponent
+    _tags="sound_telekinesis_hold"
+    file="data/audio/Desktop/misc.bank"
+    event_name="misc/telekinesis/hold"
+    volume_autofade_speed="0.05"
+  ></AudioLoopComponent>
+
+</Entity>

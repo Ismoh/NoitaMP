@@ -1,0 +1,7 @@
+data/ragdolls/sheep/head.png
+data/ragdolls/sheep/right_torso.png
+data/ragdolls/sheep/left_torso.png
+data/ragdolls/sheep/left_frontleg.png
+data/ragdolls/sheep/right_frontleg.png
+data/ragdolls/sheep/left_hindleg.png
+data/ragdolls/sheep/right_hindleg.png

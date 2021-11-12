@@ -1,0 +1,13 @@
+<Entity>
+
+    <GameEffectComponent 
+        effect="CUSTOM"
+        custom_effect_id="PHYSICS_RAGDOLL_AI"
+        frames="200"
+		ragdoll_effect="CUSTOM_RAGDOLL_ENTITY"
+		ragdoll_effect_custom_entity_file="data/entities/misc/physics_ragdoll_ai.xml"
+		ragdoll_fx_custom_entity_apply_only_to_largest_body="1"
+    >
+	</GameEffectComponent >
+
+</Entity>

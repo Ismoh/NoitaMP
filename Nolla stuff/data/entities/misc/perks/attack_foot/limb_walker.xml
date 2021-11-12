@@ -1,0 +1,42 @@
+<Entity tags="attack_foot_walker" >
+
+	<InheritTransformComponent>
+	</InheritTransformComponent>
+
+	<IKLimbWalkerComponent
+		affect_flying="1"
+	>
+	</IKLimbWalkerComponent>
+
+	<IKLimbComponent
+		length="50" >
+	</IKLimbComponent>
+
+	<SpriteComponent 
+		image_file="data/entities/misc/perks/attack_foot/limb_a.png" 
+		z_index="1.1"
+		offset_x="0"
+		offset_y="4.5"
+		update_transform="0"
+		update_transform_rotation="0" >
+	</SpriteComponent>
+
+	<SpriteComponent 
+		image_file="data/entities/misc/perks/attack_foot/limb_B.png" 
+		z_index="1.1"
+		offset_x="0"
+		offset_y="4.5"
+		update_transform="0"
+		update_transform_rotation="0" >
+	</SpriteComponent>
+
+	<SpriteComponent 
+		image_file="data/entities/misc/perks/attack_foot/knee.png" 
+		z_index="1.1"
+		offset_x="4"
+		offset_y="4"
+		update_transform="0"
+		update_transform_rotation="0" >
+	</SpriteComponent>
+
+</Entity>

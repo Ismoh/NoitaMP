@@ -1,0 +1,20 @@
+<Entity name="$animal_miner">
+	<Base file="data/entities/animals/miner.xml" include_children="1" >
+		<DamageModelComponent
+			ragdoll_filenames_file="data/ragdolls/miner_weak/filenames.txt"
+			hp="0.44"
+			>
+		</DamageModelComponent>
+		
+		<SpriteComponent 
+			image_file="data/enemies_gfx/miner_weak.xml" 
+			>
+		</SpriteComponent> 
+	</Base>
+
+    <MusicEnergyAffectorComponent
+    	energy_target="0.5">
+    </MusicEnergyAffectorComponent>
+
+</Entity>
+

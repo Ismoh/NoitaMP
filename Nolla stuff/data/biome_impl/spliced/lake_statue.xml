@@ -1,0 +1,10 @@
+<PixelScenes>
+  <mBufferedPixelScenes>
+    <PixelScene background_filename="" colors_filename="" material_filename="data/biome_impl/spliced/lake_statue/0.plz" pos_x="-14848" pos_y="160" skip_biome_checks="1" >
+    </PixelScene>
+    <PixelScene background_filename="" colors_filename="" material_filename="data/biome_impl/spliced/lake_statue/1.plz" pos_x="-14336" pos_y="23" skip_biome_checks="1" >
+    </PixelScene>
+    <PixelScene background_filename="" colors_filename="" material_filename="data/biome_impl/spliced/lake_statue/2.plz" pos_x="-13824" pos_y="156" skip_biome_checks="1" >
+    </PixelScene>
+  </mBufferedPixelScenes>
+</PixelScenes>

@@ -1,0 +1,9 @@
+<Entity >
+  <Base file="data/entities/animals/maggot.xml">
+    <DamageModelComponent 
+      hp="13.5"
+      max_hp="13.5"
+	  minimum_knockback_force="100000"
+     ></DamageModelComponent >
+  </Base>
+</Entity>

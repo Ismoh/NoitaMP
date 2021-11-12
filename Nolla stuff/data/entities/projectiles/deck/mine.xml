@@ -1,0 +1,187 @@
+<Entity tags="hittable,projectile_player" name="$projectile_default">
+  
+	<Base file="data/entities/base_projectile.xml" >
+	</Base>
+
+  <ProjectileComponent 
+    lob_min="0.9"
+    lob_max="1.0"
+    speed_min="250"
+    speed_max="280"
+    friction="0.6"
+    direction_random_rad="0.05"
+    on_death_explode="1"
+    on_death_gfx_leave_sprite="0" 
+    on_lifetime_out_explode="0"
+    explosion_dont_damage_shooter="0" 
+    on_collision_die="0"
+    lifetime="-1"
+    damage="0"
+    velocity_sets_scale="1"
+    velocity_updates_animation="0.5"
+    velocity_sets_rotation="0"
+    lifetime_randomness="0"
+    ragdoll_force_multiplier="0.04"
+    hit_particle_force_multiplier="5.5 "
+    camera_shake_when_shot="5.0"
+    bounces_left="4"
+    muzzle_flash_file="data/entities/particles/muzzle_flashes/muzzle_flash_medium.xml"
+    shoot_light_flash_r="255"
+    shoot_light_flash_g="210"
+    shoot_light_flash_b="40"
+    shoot_light_flash_radius="64"
+    damage_every_x_frames="15"
+    physics_impulse_coeff="8000">
+    <config_explosion
+      never_cache="1" 
+      camera_shake="25.0" 
+      explosion_radius="30" 
+      explosion_sprite="data/particles/explosion_040_poof.xml"
+      load_this_entity="data/entities/particles/particle_explosion/main.xml"
+      explosion_sprite_lifetime="0" 
+      create_cell_probability="80" 
+      create_cell_material="fire" 
+      ray_energy="280000"
+      hole_destroy_liquid="0" 
+      damage="4"
+      hole_enabled="1" 
+      hole_image="data/temp/explosion_hole.png" 
+      particle_effect="1" 
+      damage_mortals="1" 
+      physics_explosion_power.min="2.3"
+      physics_explosion_power.max="3.6" 
+      physics_throw_enabled="1" 
+      shake_vegetation="1" 
+      sparks_enabled="1" 
+      sparks_count_max="30" 
+      sparks_count_min="10"
+      light_fade_time="0.8" 
+      stains_enabled="1" 
+      stains_image="data/temp/explosion_stain.png" 
+      audio_event_name="explosions/magic_grenade_small" >
+    </config_explosion>
+  </ProjectileComponent>
+
+  <HitboxComponent 
+    aabb_min_x="-3" 
+    aabb_max_x="3" 
+    aabb_min_y="-3" 
+    aabb_max_y="3" 
+    is_enemy="1" 
+    is_item="0" 
+    is_player="0" >
+  </HitboxComponent>
+
+  <DamageModelComponent 
+    air_needed="0" 
+    blood_material="" 
+    blood_multiplier="0"
+    drop_items_on_death="0" 
+    falling_damages="0" 
+    fire_damage_amount="0.01" 
+    fire_probability_of_ignition="0.001" 
+    hp="0.5" 
+    is_on_fire="0" 
+    materials_create_messages="0" 
+    materials_damage="0" 
+    ragdoll_filenames_file="" 
+    ragdoll_material="" >
+  </DamageModelComponent>
+
+  <CollisionTriggerComponent
+  	width="40"
+  	height="40"
+  	radius="20"
+    required_tag="mortal"
+    self_trigger="1"
+  	timer_for_destruction="30" >
+  </CollisionTriggerComponent>
+	
+	<LuaComponent
+    execute_on_removed="0"
+    execute_every_n_frame="-1"
+	script_collision_trigger_hit="data/scripts/projectiles/mine_animate.lua"
+    remove_after_executed="1">
+	</LuaComponent>
+
+	<LuaComponent
+		execute_on_removed="0"
+		execute_every_n_frame="-1"
+		script_damage_received="data/scripts/projectiles/mine_animate.lua"
+		remove_after_executed="1">
+	</LuaComponent>
+	
+	<LuaComponent
+		execute_on_removed="0"
+		execute_every_n_frame="1000"
+		script_source_file="data/scripts/projectiles/mine_animate_slow.lua"
+		remove_after_executed="1">
+	</LuaComponent>
+
+	<SpriteComponent 
+		image_file="data/projectiles_gfx/mine_player.xml"
+		rect_animation="stand"
+		>
+	</SpriteComponent>
+
+	<SpriteComponent 
+		alpha="1" 
+		image_file="data/projectiles_gfx/mine_player_emissive.xml"
+		offset_x="0" 
+		offset_y="0"
+		emissive="1"
+		additive="1"
+		rect_animation="stand"
+		next_rect_animation="" 
+    >
+	</SpriteComponent>
+
+	<CameraBoundComponent
+	  max_count="20"
+	  distance="160000">
+	</CameraBoundComponent>
+
+  <AudioComponent
+      file="data/audio/Desktop/projectiles.bank"
+      event_root="player_projectiles/bullet_launcher">
+  </AudioComponent>
+  
+  <ExplosionComponent
+		trigger="ON_DEATH"
+		><config_explosion
+		  never_cache="1" 
+		  camera_shake="25.0" 
+		  explosion_radius="30" 
+		  explosion_sprite="data/particles/explosion_040_poof.xml"
+		  load_this_entity="data/entities/particles/particle_explosion/main.xml"
+		  explosion_sprite_lifetime="0" 
+		  create_cell_probability="80" 
+		  create_cell_material="fire" 
+		  ray_energy="170000"
+		  hole_destroy_liquid="0" 
+		  damage="4"
+		  hole_enabled="1" 
+		  hole_image="data/temp/explosion_hole.png" 
+		  particle_effect="1" 
+		  damage_mortals="1" 
+		  physics_explosion_power.min="2.3"
+		  physics_explosion_power.max="3.6" 
+		  physics_throw_enabled="1" 
+		  shake_vegetation="1" 
+		  sparks_enabled="1" 
+		  sparks_count_max="30" 
+		  sparks_count_min="10"
+		  light_fade_time="0.8" 
+		  stains_enabled="1" 
+		  stains_image="data/temp/explosion_stain.png"
+		  >
+		</config_explosion>
+	</ExplosionComponent>
+
+  <AudioComponent
+    file="data/audio/Desktop/animals.bank"
+    event_root="animals/mine" >
+  </AudioComponent>
+
+</Entity>
+

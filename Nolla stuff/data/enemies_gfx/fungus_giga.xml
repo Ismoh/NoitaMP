@@ -1,0 +1,155 @@
+<Sprite 
+  filename="data/enemies_gfx/fungus_giga.png" 
+  offset_x="12" 
+  offset_y="37"
+  default_animation="stand" >
+
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="42" 
+    frame_wait="0.18" 
+    frame_width="24" 
+    frames_per_row="8" 
+    name="stand" 
+    pos_x="0" 
+    pos_y="0" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="42" 
+    frame_wait="0.16" 
+    frame_width="24" 
+    frames_per_row="6" 
+    name="walk" 
+    pos_x="0" 
+    pos_y="42" 
+     >
+
+    <Event 
+      check_physics_material="1" 
+      frame="0" 
+      max_distance="500" 
+      name="step" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+    <Event 
+      check_physics_material="1" 
+      frame="3" 
+      max_distance="500" 
+      name="step" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="42" 
+    frame_wait="0.14" 
+    frame_width="24" 
+    frames_per_row="6" 
+    name="run" 
+    pos_x="0" 
+    pos_y="42" 
+     >
+
+    <Event 
+      check_physics_material="1" 
+      frame="0" 
+      max_distance="500" 
+      name="step" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+    <Event 
+      check_physics_material="1" 
+      frame="3" 
+      max_distance="500" 
+      name="step" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="42" 
+    frame_wait="0.14" 
+    frame_width="24" 
+    frames_per_row="6" 
+    name="burn" 
+    pos_x="0" 
+    pos_y="42" 
+     >
+
+    <Event 
+      check_physics_material="1" 
+      frame="0" 
+      max_distance="500" 
+      name="step" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+    <Event 
+      check_physics_material="1" 
+      frame="3" 
+      max_distance="500" 
+      name="step" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="1" 
+    frame_height="42" 
+    frame_wait="0.2" 
+    frame_width="24" 
+    frames_per_row="8" 
+    name="jump_up" 
+    pos_x="24" 
+    pos_y="42" 
+     >
+
+    <Event 
+      check_physics_material="1" 
+      frame="0" 
+      max_distance="500" 
+      name="jump" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="1" 
+    frame_height="42" 
+    frame_wait="0.2" 
+    frame_width="24" 
+    frames_per_row="8" 
+    name="jump_fall" 
+    pos_x="48" 
+    pos_y="42" 
+     >
+
+  </RectAnimation>
+
+</Sprite>
+

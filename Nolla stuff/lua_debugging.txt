@@ -1,0 +1,26 @@
+This file contains instructions for debugging Noita's Lua scripts. 
+
+We assume that you have basic experience using a graphical debugger (e.g. understand the concept of a breakpoint).
+Please note that running the game with the -debug_lua parameter enables some lua sandbox escape exploits, so you shouldn't do that when any untrusted mods are enabled.
+
+1) Download and install the Decoda IDE: https://unknownworlds.com/decoda/download/
+2) Start Decoda
+3) Select Project -> Settings
+4) In the dialog set "Command" to point to your noita_dev.exe
+5) Set "Command arguments" to -debug_lua
+6) Set "Working directory" to point to the directory where noita_dev.exe is located
+7) Select Debug -> Start debugging (or press F5)
+8) Press F9 or click the bar on the left side of the source view to add/remove a breakpoint on the current source line
+
+
+Tips:
+- In case you'd like to debug a lua file before it's been loaded by the game (and auto-added to Project Explorer), drag and drop the file to Project explorer, open the file and set breakpoints where needed, then press F5 to start debugging.
+- Adding _G to the Watch window allows you to watch the entire state of a lua context.
+- Please note that Noita runs lua scripts inside multiple lua contexts.
+
+
+Using luacheck to statically check lua scripts
+---
+1) Get a copy of luacheck.exe (https://github.com/luarocks/luacheck) and place it into Noita/tools_modding. A precompiled 64-bit binary can be found here: https://github.com/mpeterv/luacheck/releases/download/0.23.0/luacheck.exe
+2) Open a command line and set your working directory to Noita/tools_modding
+3) Run luacheck_all

@@ -1,0 +1,6 @@
+data/ragdolls/fly/head.png
+data/ragdolls/fly/torso_right.png
+data/ragdolls/fly/torso_left.png
+data/ragdolls/fly/right_leg.png
+data/ragdolls/fly/left_leg.png
+data/ragdolls/fly/wing.png

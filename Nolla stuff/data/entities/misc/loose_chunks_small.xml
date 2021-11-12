@@ -1,0 +1,16 @@
+<Entity >
+   
+  <LooseGroundComponent
+    probability="0.2"
+    chunk_probability="0.15"
+    collapse_images="data/procedural_gfx/collapse_big/$[0-14].png"
+   >
+  </LooseGroundComponent>
+
+  <LifetimeComponent
+  	lifetime="90"
+  	randomize_lifetime.min="-20"
+  	randomize_lifetime.max="20" >
+  </LifetimeComponent>
+  
+</Entity>

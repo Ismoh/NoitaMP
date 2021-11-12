@@ -1,0 +1,31 @@
+<Entity name="unknown" >
+
+  <PhysicsBodyComponent 
+    uid="1" 
+    allow_sleep="1" 
+    angular_damping="0" 
+    fixed_rotation="0" 
+    is_bullet="0" 
+    linear_damping="0"
+    auto_clean="1"
+    on_death_leave_physics_body="1" 
+  ></PhysicsBodyComponent>
+  
+  <PhysicsImageShapeComponent 
+    body_id="1"
+    centered="1"
+    image_file="data/props_gfx/stone_01.png"
+    material="rock_box2d" 
+  ></PhysicsImageShapeComponent>
+  
+  <CameraBoundComponent
+    max_count="50"
+    distance="1000"
+  ></CameraBoundComponent>
+
+  <ElectricitySourceComponent
+    radius="5"
+    emission_interval_frames="15"
+  ></ElectricitySourceComponent>
+
+</Entity>

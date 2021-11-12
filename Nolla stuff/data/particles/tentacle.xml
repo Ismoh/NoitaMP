@@ -1,0 +1,17 @@
+<Sprite 
+  default_animation="explosion" 
+  filename="data/particles/tentacle.png" 
+  offset_x="0.5" 
+  offset_y="2" >
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="5" 
+    frame_wait="0.12" 
+    frame_width="17" 
+    frames_per_row="4" 
+    name="explosion" 
+    pos_x="0" 
+    pos_y="1" 
+    shrink_by_one_pixel="1" >
+  </RectAnimation>
+</Sprite>

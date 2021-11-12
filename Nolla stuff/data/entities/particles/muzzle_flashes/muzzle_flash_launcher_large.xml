@@ -1,0 +1,39 @@
+<Entity >
+
+  <SpriteComponent 
+    _enabled="1" 
+    alpha="1" 
+    image_file="data/particles/muzzle_flashes/muzzle_launcher_large_0$[1-5].png" 
+    next_rect_animation="muzzle"
+    rect_animation="muzzle"
+	emissive="1"
+    additive="1"
+    kill_entity_after_finished="1"
+	offset_x="7"
+	offset_y="9"
+     >
+  </SpriteComponent>
+  
+  <ParticleEmitterComponent 
+    emitted_material_name="spark"
+    offset.x="0"
+    offset.y="0"
+    x_pos_offset_min="0"
+    y_pos_offset_min="-1"
+    x_pos_offset_max="0"
+    y_pos_offset_max="1"
+    x_vel_min="400"
+    x_vel_max="60"
+    y_vel_min="-60"
+    y_vel_max="50"
+    count_min="5"
+    count_max="7"
+    lifetime_min="0.0"
+    lifetime_max="0.05"
+    create_real_particles="0"
+    emit_cosmetic_particles="1"
+    emission_interval_min_frames="0"
+    emission_interval_max_frames="0"
+    is_emitting="1" >
+  </ParticleEmitterComponent>
+</Entity>

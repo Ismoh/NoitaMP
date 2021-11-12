@@ -1,0 +1,17 @@
+<Sprite 
+  default_animation="fireball" 
+  filename="data/projectiles_gfx/fireball.png" 
+  offset_x="12" 
+  offset_y="12" >
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="25" 
+    frame_wait="0.09" 
+    frame_width="25" 
+    frames_per_row="4" 
+    name="fireball" 
+    pos_x="0" 
+    pos_y="1" 
+    shrink_by_one_pixel="1" >
+  </RectAnimation>
+</Sprite>

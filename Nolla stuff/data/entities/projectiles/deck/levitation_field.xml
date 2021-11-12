@@ -1,0 +1,77 @@
+<Entity name="$projectile_default">
+	<GameAreaEffectComponent
+		radius="56" >
+	</GameAreaEffectComponent>
+	
+	<ParticleEmitterComponent 
+		emitted_material_name="spark"
+		gravity.y="0.0"
+		lifetime_min="0.5"
+		lifetime_max="1.5"
+		count_min="2"
+		count_max="4"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		area_circle_radius.max="56"
+		cosmetic_force_create="0"
+		airflow_force="0.1"
+		airflow_time="0.01"
+		airflow_scale="0.05"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		emit_cosmetic_particles="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+
+  	<ParticleEmitterComponent 
+		emitted_material_name="spark"
+		gravity.y="0.0"
+		lifetime_min="0.5"
+		lifetime_max="1.5"
+		count_min="4"
+		count_max="4"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		area_circle_radius.min="56"
+		area_circle_radius.max="56"
+		cosmetic_force_create="0"
+		airflow_force="0.3"
+		airflow_time="0.01"
+		airflow_scale="0.05"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		emit_cosmetic_particles="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+
+	<Base file="data/entities/projectiles/deck/base_field.xml">
+		<SpriteComponent 
+			image_file="data/projectiles_gfx/blast_levitation.xml" >
+		</SpriteComponent>
+
+		<SpriteParticleEmitterComponent
+			sprite_file="data/particles/shine_levitation.xml" 
+			randomize_position.min_x="-56"
+			randomize_position.max_x="56"
+			randomize_position.min_y="-56"
+			randomize_position.max_y="56"
+			>
+		</SpriteParticleEmitterComponent>
+
+		<ProjectileComponent 
+			friendly_fire="1"
+			collide_with_shooter_frames="0"
+			damage_game_effect_entities="data/entities/misc/effect_levitation.xml," >
+			<config_explosion
+				explosion_sprite="data/particles/blast_out_levitation.xml" >
+			</config_explosion>
+		</ProjectileComponent>
+	</Base>
+
+	<LevitationComponent 
+	    radius="30"
+	    entity_force="0.3"
+	    box2d_force="0.45" >
+	</LevitationComponent>
+</Entity>
+

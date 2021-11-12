@@ -1,0 +1,5 @@
+data/ragdolls/coward/torso.png
+data/ragdolls/coward/head.png
+data/ragdolls/coward/foot_left.png
+data/ragdolls/coward/foot_right.png
+data/ragdolls/coward/hand.png

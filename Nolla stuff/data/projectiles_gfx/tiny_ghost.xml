@@ -1,0 +1,52 @@
+<Sprite 
+  default_animation="float_right" 
+  filename="data/projectiles_gfx/tiny_ghost.png" 
+  offset_x="4.5" 
+  offset_y="5" >
+
+  <RectAnimation 
+    name="float_right" 
+    frame_count="8" 
+    frame_height="10" 
+    frame_wait="0.14" 
+    frame_width="9" 
+    frames_per_row="12" 
+    pos_x="0" 
+    pos_y="0" >
+  </RectAnimation>
+
+  <RectAnimation 
+    name="float_left" 
+    frame_count="8" 
+    frame_height="10" 
+    frame_wait="0.14" 
+    frame_width="9" 
+    frames_per_row="8" 
+    pos_x="0" 
+    pos_y="10" >
+  </RectAnimation>
+
+  <RectAnimation 
+    name="fly_right" 
+    frame_count="4" 
+    frame_height="10" 
+    frame_wait="0.08" 
+    frame_width="9" 
+    frames_per_row="8" 
+    pos_x="0" 
+    pos_y="20" >
+  </RectAnimation>
+
+  <RectAnimation 
+    name="fly_left" 
+    frame_count="4" 
+    frame_height="10" 
+    frame_wait="0.08" 
+    frame_width="9" 
+    frames_per_row="8" 
+    pos_x="0" 
+    pos_y="30" >
+  </RectAnimation>
+
+</Sprite>
+

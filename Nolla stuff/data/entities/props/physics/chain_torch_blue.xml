@@ -1,0 +1,54 @@
+<Entity tags="hittable" serialize="1" >
+
+  	<Base file="data/entities/base_chain_torch.xml" /> 
+
+  	<Entity>
+		<InheritTransformComponent>
+			<Transform 
+				position.x="0"
+				position.y="0" 
+			></Transform>
+		</InheritTransformComponent>
+
+		<LightComponent 
+			_tags="fire"
+			radius="96"
+			fade_out_time="1.5"
+		></LightComponent>
+
+		<TorchComponent
+			fire_audio_weight="0.5"
+			suffocation_check_offset_y="-1"
+		></TorchComponent>
+
+		<SpriteAnimatorComponent>
+		</SpriteAnimatorComponent>
+		
+		<Base file="data/entities/base_torch_particle.xml" >
+			<ParticleEmitterComponent 
+				x_pos_offset_min="-3"
+				x_pos_offset_max="2" 
+				y_pos_offset_min="0"
+				y_pos_offset_max="2"
+			></ParticleEmitterComponent>
+
+			<ParticleEmitterComponent 
+				color="ff50e7f0"
+				emitted_material_name="spark_blue"
+				x_pos_offset_min="-3"
+				x_pos_offset_max="2"
+				y_pos_offset_min="0"
+				y_pos_offset_max="2"
+			></ParticleEmitterComponent>
+
+			<ParticleEmitterComponent 
+				emitted_material_name="spark_blue"
+				x_pos_offset_min="-3"
+				x_pos_offset_max="2"
+				y_pos_offset_min="0"
+				y_pos_offset_max="2"
+			></ParticleEmitterComponent>
+		</Base>
+	</Entity>
+
+</Entity>

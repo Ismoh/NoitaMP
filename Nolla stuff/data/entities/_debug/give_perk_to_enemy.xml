@@ -1,0 +1,10 @@
+<Entity>	
+
+	<LuaComponent
+		script_source_file="data/scripts/perks/give_perk_to_enemy.lua"
+		execute_on_added="1"
+		execute_every_n_frame="-1"
+		execute_times="1" >
+	</LuaComponent>
+	
+</Entity>

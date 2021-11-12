@@ -1,0 +1,33 @@
+<Entity name="unknown" tags="item_physics,gold_nugget" >
+
+	<Base file="data/entities/items/pickup/goldnugget_10.xml" >
+
+		<!-- physical presence -->
+		<UIInfoComponent
+			name="$item_bloodmoney" >
+		</UIInfoComponent>
+
+		<PhysicsImageShapeComponent 
+			material="bloodgold_box2d" >
+		</PhysicsImageShapeComponent>
+
+		<ItemComponent
+			_tags="enabled_in_world"
+			item_name="$item_bloodmoney_10"
+			>
+		</ItemComponent>
+	</Base>
+
+	<!-- 3 / 25 = 0.12 -->
+	<!-- Arvi: Increased this to 0.16 so that 10 hp nuggets are a bit better at healing relative to the others -->
+	
+	<VariableStorageComponent
+		_tags="enabled_in_world"
+		name="hp_value"
+		value_float="0.16" >
+	</VariableStorageComponent>
+
+	<!-- item -->
+
+
+</Entity>

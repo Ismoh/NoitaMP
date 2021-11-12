@@ -1,0 +1,34 @@
+<Entity>
+    <InheritTransformComponent>
+    </InheritTransformComponent>
+
+    <LuaComponent
+		script_source_file="data/scripts/projectiles/autoaim.lua"
+		execute_every_n_frame="1"
+		remove_after_executed="1"
+		>
+	</LuaComponent>
+
+	<ParticleEmitterComponent 
+		_tags="autoaim_fx"
+		_enabled="0"
+		emitted_material_name="spark_white"
+		offset.x="0"
+		offset.y="0"
+		gravity.y="50"
+		x_vel_min="-8"
+		x_vel_max="8"
+		y_vel_min="-8"
+		y_vel_max="8"
+		count_min="10"
+		count_max="15"
+		lifetime_min="0.2"
+		lifetime_max="0.8"
+		emitter_lifetime_frames="4"
+		create_real_particles="0"
+		emit_cosmetic_particles="1"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+</Entity>

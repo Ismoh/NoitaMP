@@ -1,0 +1,11 @@
+<Entity >
+   
+	<LuaComponent
+		script_source_file="data/scripts/projectiles/bounce_spark.lua"
+		execute_every_n_frame="1"
+		execute_times="1"
+		remove_after_executed="1"
+		>
+	</LuaComponent>
+  
+</Entity>

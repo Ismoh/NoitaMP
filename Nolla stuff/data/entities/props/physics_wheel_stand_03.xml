@@ -1,0 +1,64 @@
+<Entity name="unknown" >
+
+  <PhysicsBodyComponent 
+    uid="1" 
+    allow_sleep="1" 
+    angular_damping="0" 
+    fixed_rotation="1" 
+	  is_static="1"
+    is_bullet="0" 
+    linear_damping="0"
+    auto_clean="0"
+    update_entity_transform="1"
+    on_death_really_leave_body="0"
+    on_death_leave_physics_body="1" >
+  </PhysicsBodyComponent>
+
+  <PhysicsImageShapeComponent 
+    body_id="1"
+    centered="1"
+    image_file="data/props_gfx/wheel_stand_03.png"
+    material="wood_player_b2" >
+  </PhysicsImageShapeComponent>
+
+  <PhysicsBodyComponent 
+    uid="2" 
+    allow_sleep="1" 
+    angular_damping="0.1" 
+    fixed_rotation="0" 
+    is_bullet="0" 
+    linear_damping="0"
+    auto_clean="0" 
+    update_entity_transform="0"
+    on_death_leave_physics_body="1"
+    on_death_really_leave_body="0"
+    >
+  </PhysicsBodyComponent>
+  <PhysicsImageShapeComponent 
+    body_id="2"
+    centered="1"
+    image_file="data/props_gfx/wheel_stand_wheel_03.png"
+    z="-1"
+    material="wood_prop" >
+  </PhysicsImageShapeComponent>
+
+
+  <PhysicsJointComponent 
+    nail_to_wall="0" 
+    body1_id="1"
+    body2_id="2"		
+    pos_x="45"		
+    pos_y="31"			
+    mMotorEnabled="1"
+    mMotorSpeed="1"
+    mMaxMotorTorque="100" 
+    grid_joint="1"
+  	>
+  </PhysicsJointComponent>
+
+  
+  <CameraBoundComponent
+    max_count="50"
+    distance="500">
+  </CameraBoundComponent>
+</Entity>

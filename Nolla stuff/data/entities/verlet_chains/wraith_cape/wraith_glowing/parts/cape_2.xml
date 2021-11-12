@@ -1,0 +1,19 @@
+<Sprite
+filename="data/entities/verlet_chains/wraith_cape/wraith_glowing/parts/cape_2.png"
+offset_x="0"
+offset_y="0"
+default_animation="stand" >
+
+<!-- animation -->
+	<RectAnimation
+		name="stand"
+		pos_x="0"
+		pos_y="0"
+		frame_count="1"
+		frame_width="8"
+		frame_height="24"
+		frame_wait="1"
+		frames_per_row="8"
+		loop="1"   >
+	</RectAnimation>
+</Sprite>

@@ -1,0 +1,10 @@
+<Entity serialize="0">
+
+	<Base file="data/entities/intro/constellation_base.xml">
+	  	<ParticleEmitterComponent 
+			emission_chance="20"
+			image_animation_file="data/entities/intro/nolla_games.png" >
+		</ParticleEmitterComponent>
+	</Base>
+
+</Entity>

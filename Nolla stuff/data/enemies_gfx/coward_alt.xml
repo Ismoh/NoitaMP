@@ -1,0 +1,80 @@
+<Sprite
+ filename="data/items_gfx/normals_orb_base"
+	offset_x="8" 
+	offset_y="18"
+	default_animation="stand" >
+
+ <!-- stand -->
+ <RectAnimation
+  name="stand"
+  pos_x="0"
+  pos_y="0"
+  frame_count="4"
+  frame_width="20"
+  frame_height="20"
+  frame_wait="0.2"
+  frames_per_row="7"
+  loop="1"   >
+ </RectAnimation>
+
+ <!-- walk -->
+ <RectAnimation
+  name="walk"
+  pos_x="0"
+  pos_y="0"
+  frame_count="4"
+  frame_width="20"
+  frame_height="20"
+  frame_wait="0.2"
+  frames_per_row="7"
+  loop="1"   >
+ </RectAnimation>
+
+ <!-- run - copied from walk -->
+ <RectAnimation
+  name="run"
+  pos_x="0"
+  pos_y="0"
+  frame_count="4"
+  frame_width="20"
+  frame_height="20"
+  frame_wait="0.2"
+  frames_per_row="7"
+  loop="1"   >
+ </RectAnimation>
+
+ <!-- burn - copied from walk -->
+ <RectAnimation
+  name="burn"
+  pos_x="0"
+  pos_y="0"
+  frame_count="4"
+  frame_width="20"
+  frame_height="20"
+  frame_wait="0.2"
+  frames_per_row="7"
+  loop="1"   >
+ </RectAnimation>
+ 
+ <RectAnimation
+  name="attack"
+  pos_x="0"
+  pos_y="20"
+  frame_count="7"
+  frame_width="20"
+  frame_height="20"
+  frame_wait="0.07"
+  frames_per_row="7"
+  loop="0"   >
+  <Event 
+      check_physics_material="0" 
+      frame="5" 
+      max_distance="500" 
+      name="attack_bite" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+ </RectAnimation>
+
+</Sprite>

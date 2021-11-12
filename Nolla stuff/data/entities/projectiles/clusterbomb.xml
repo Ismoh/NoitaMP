@@ -1,0 +1,99 @@
+<Entity 
+  name="$projectile_default" 
+   >
+
+	<Base file="data/entities/base_projectile.xml" >
+		<VelocityComponent
+			mass="0.07"
+			>
+    	</VelocityComponent>
+	</Base>
+
+  <ProjectileComponent 
+    _enabled="1" 
+    lob_min="0.9"
+    lob_max="1.0"
+    speed_min="250"
+    speed_max="280"
+    friction="0.6"
+    direction_random_rad="0.05"
+    on_death_explode="1"
+    on_death_gfx_leave_sprite="0" 
+    on_lifetime_out_explode="1"
+    explosion_dont_damage_shooter="0" 
+    on_collision_die="0"
+    lifetime="100"
+    damage="0"
+    velocity_sets_scale="1"
+    velocity_updates_animation="1"
+    velocity_sets_rotation="1"
+    lifetime_randomness="0"
+    ragdoll_force_multiplier="0.04"
+    hit_particle_force_multiplier="5.5 "
+    camera_shake_when_shot="5.0"
+    bounces_left="4"
+    muzzle_flash_file="data/entities/particles/muzzle_flashes/muzzle_flash_launcher.xml"
+    shoot_light_flash_radius="80" >
+    <config_explosion
+      never_cache="1" 
+      camera_shake="20" 
+      explosion_radius="20"
+      explosion_sprite="data/particles/explosion_032.xml"
+	  load_this_entity="data/entities/particles/particle_explosion/main_gunpowder_small.xml"
+      explosion_sprite_lifetime="0" 
+      create_cell_probability="60" 
+      hole_destroy_liquid="1" 
+      hole_enabled="1" 
+	  hole_image="data/temp/explosion_hole.png" 
+      ray_energy="900000"
+      damage="4"
+      particle_effect="1"
+      damage_mortals="1"
+	  physics_explosion_power.min="2.9"
+      physics_explosion_power.max="4.3"
+	  physics_throw_enabled="1"
+      shake_vegetation="1" 
+      sparks_count_min="30" 
+      sparks_count_max="40" 
+      sparks_enabled="1" 
+      stains_enabled="1"
+      stains_radius="12"
+      audio_event_name="explosions/tnt" >
+    </config_explosion>
+  </ProjectileComponent>
+  
+  <SpriteComponent 
+    _enabled="1" 
+    alpha="1" 
+    image_file="data/projectiles_gfx/pipe_bomb.xml" 
+    next_rect_animation="" 
+    rect_animation="" 
+     
+     >
+  </SpriteComponent>
+  
+  <SpriteComponent 
+    _enabled="1" 
+    alpha="1" 
+    image_file="data/projectiles_gfx/pipe_bomb_emissive.xml" 
+    next_rect_animation="" 
+    rect_animation="" 
+	emissive="1"
+	additive="1"
+     
+     >
+  </SpriteComponent>
+  
+  <AudioComponent
+    file="data/audio/Desktop/projectiles.bank"
+    event_root="projectiles/bullet_fire_heavy">
+  </AudioComponent>
+  
+  <VariableStorageComponent
+		name="projectile_file"
+		value_string="data/entities/projectiles/clusterbomb.xml"
+		>
+	</VariableStorageComponent>
+
+</Entity>
+

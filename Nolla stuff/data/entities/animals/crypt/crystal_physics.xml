@@ -1,0 +1,15 @@
+<Entity >
+  <Base file="data/entities/animals/crystal_physics.xml">
+	<PhysicsAIComponent
+		damage_deactivation_probability="40"
+		damage_deactivation_time_min="40"
+		damage_deactivation_time_max="120" >
+	</PhysicsAIComponent>
+	
+    <DamageModelComponent 
+      hp="24"
+      max_hp="24"
+	  minimum_knockback_force="100000"
+     ></DamageModelComponent >
+  </Base>
+</Entity>

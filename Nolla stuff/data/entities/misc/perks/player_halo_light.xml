@@ -1,0 +1,48 @@
+<Entity name="halo" >
+    <SpriteComponent 
+		_tags="character" 
+		image_file="data/enemies_gfx/player_halo_light.png" 
+		next_rect_animation="" 
+		offset_x="4" 
+		offset_y="3" 
+		z_index="-0.57"
+	></SpriteComponent>
+
+	<LuaComponent
+		script_source_file="data/scripts/perks/player_halo_move.lua"
+		execute_every_n_frame="1"
+		>
+	</LuaComponent>
+
+	<LightComponent
+		radius="128"
+		r="128"
+		g="128"
+		b="10" >
+	</LightComponent>
+
+	<ParticleEmitterComponent 
+		emitted_material_name="spark_yellow"
+		gravity.y="-40.0"
+		lifetime_min="0.8"
+		lifetime_max="1.6"
+		x_pos_offset_min="-2"
+		x_pos_offset_max="2"
+		y_pos_offset_min="-1"
+		y_pos_offset_max="1"
+		velocity_always_away_from_center="10"
+		count_min="1"
+		count_max="1"
+		render_on_grid="1"
+		collide_with_grid="0"
+		fade_based_on_lifetime="1"
+		cosmetic_force_create="0"
+		airflow_force="0.251"
+		airflow_time="1.01"
+		airflow_scale="0.05"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="2"
+		emit_cosmetic_particles="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+</Entity>

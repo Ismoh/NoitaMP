@@ -1,0 +1,19 @@
+<Sprite 
+	filename="data/entities/animals/boss_gate/gate_monster_c_glow.png" 
+	offset_x="18" 
+	offset_y="26" 
+  default_animation="stand">
+	
+  <RectAnimation 
+	name="stand" 
+	pos_x="0" 
+	pos_y="0" 
+	frame_count="1" 
+	frame_width="41" 
+	frame_height="75" 
+	frame_wait="0.14" 
+	frames_per_row="1" 
+	loop="0"  >
+  </RectAnimation>
+  
+</Sprite>

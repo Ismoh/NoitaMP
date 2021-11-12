@@ -1,0 +1,41 @@
+<Entity>
+	<InheritTransformComponent>
+    </InheritTransformComponent>	
+    
+    <GameEffectComponent 
+    	effect="RADIOACTIVE"
+    	frames="600"
+    >
+	</GameEffectComponent >
+	
+	<ParticleEmitterComponent 
+		emitted_material_name="radioactive_liquid"
+		offset.x="0"
+		offset.y="0"
+		gravity.y="42"
+		x_pos_offset_min="-4"
+		x_pos_offset_max="4"
+		y_pos_offset_min="-12"
+		y_pos_offset_max="0"
+		x_vel_min="-11.71"
+		x_vel_max="11.71"
+		y_vel_min="-44.32"
+		y_vel_max="-19.94"
+		count_min="1"
+		count_max="1"
+		is_trail="0"
+		fade_based_on_lifetime="1"
+		lifetime_min="0.8"
+		lifetime_max="2.2"
+		airflow_force="0.8314"
+		airflow_scale="0.1371"
+		friction="0.0001"
+		create_real_particles="0"
+		emit_cosmetic_particles="1"
+		render_on_grid="1"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="25"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+	
+</Entity>

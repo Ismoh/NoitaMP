@@ -1,0 +1,9 @@
+<Entity name="unknown" >
+  <Base file="data/entities/base_item_physics2.xml" >
+    <PhysicsImageShapeComponent 
+      image_file="data/props_gfx/bone_06.png"
+      material="bone_box2d"
+      >
+    </PhysicsImageShapeComponent>
+  </Base>
+</Entity>

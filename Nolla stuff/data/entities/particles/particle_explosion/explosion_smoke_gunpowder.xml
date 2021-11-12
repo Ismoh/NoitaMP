@@ -1,0 +1,45 @@
+<Entity>
+	<VelocityComponent
+		gravity_y="500"
+		air_friction="10.0" 
+		>
+	</VelocityComponent>
+
+	<SimplePhysicsComponent>
+	</SimplePhysicsComponent>
+	
+	<SetStartVelocityComponent
+		randomize_speed.min="100"
+		randomize_speed.max="500"
+		randomize_angle.min="0"
+		randomize_angle.max="6.283185" 
+		>
+	</SetStartVelocityComponent>
+
+	<SpriteParticleEmitterComponent
+		sprite_file="data/particles/smoke_gunpowder_0$[1-4].xml"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="2"
+		additive="0"
+		emissive="0"
+		scale.x="1.0"
+		scale.y="1.0"
+		sprite_random_rotation="1"
+		randomize_scale.min_x="-0.1" 
+		randomize_scale.max_x="0.1" 
+		randomize_scale.min_y="-0.1" 
+		randomize_scale.max_y="0.1" 
+		randomize_velocity.min_y="-10" 
+		randomize_velocity.max_y="0"
+		randomize_velocity.min_x="-10" 	
+		randomize_velocity.max_x="10" 
+		lifetime="0.5"
+		velocity_slowdown="5.8"
+	>
+	</SpriteParticleEmitterComponent>
+
+	<LifetimeComponent
+		lifetime="4"
+		>
+	</LifetimeComponent>
+</Entity>

@@ -1,0 +1,86 @@
+<Entity tags="mortal" >
+
+  <!-- mortal is required so it can explode -->
+
+  <Base file="data/entities/base_item_physics.xml" >
+    <PhysicsImageShapeComponent
+      image_file="data/props_gfx/pressure_tank.png"
+      material="steel" >
+    </PhysicsImageShapeComponent>
+  </Base>
+
+  <MaterialInventoryComponent 
+    _enabled="1" 
+    drop_as_item="0" 
+    on_death_spill="1"
+    leak_on_damage_percent="0.999"
+    b2_force_on_leak="0.1" 
+    kill_when_empty="1"
+    >
+    <count_per_material_type>
+      <Material material="acid" count="700"  />
+	  </count_per_material_type>
+  </MaterialInventoryComponent>
+
+  <DamageModelComponent 
+    air_needed="0" 
+    blood_material="fire" 
+    drop_items_on_death="0" 
+    falling_damage_damage_max="1.2" 
+    falling_damage_damage_min="0.1" 
+    falling_damage_height_max="250" 
+    falling_damage_height_min="70" 
+    falling_damages="0" 
+    fire_damage_amount="0.2" 
+    fire_probability_of_ignition="0" 
+	critical_damage_resistance="1"
+    hp="4" 
+    is_on_fire="0" 
+    materials_create_messages="0" 
+    materials_damage="0" 
+    ragdoll_filenames_file="" 
+    ragdoll_material="" >
+  </DamageModelComponent>
+
+  <ExplodeOnDamageComponent
+  	explode_on_death_percent="1"
+  	explode_on_damage_percent="0.1"
+    physics_body_modified_death_probability="0.1">
+    <config_explosion
+      never_cache="0"
+      damage="16"
+      camera_shake="80" 
+      explosion_radius="90" 
+      explosion_sprite="data/particles/explosion_032.xml" 
+      explosion_sprite_lifetime="10" 
+      create_cell_probability="70" 
+      hole_destroy_liquid="0" 
+      hole_enabled="1" 
+      load_this_entity="data/entities/particles/particle_explosion/main_green_large.xml"
+      ray_energy="4000000"
+      particle_effect="1" 
+      damage_mortals="1" 
+      physics_explosion_power.min="3.5"
+      physics_explosion_power.max="4.7"
+	  physics_throw_enabled="1"
+      shake_vegetation="1" 
+      sparks_count_min="19" 
+	  sparks_count_max="28" 
+      sparks_enabled="1" 
+      stains_enabled="1" 
+      stains_radius="15" 
+      delay.min="1"
+      delay.max="4"
+      explosion_delay_id="1"
+      >
+    </config_explosion>
+  </ExplodeOnDamageComponent>
+
+  <AudioLoopComponent
+    _tags="sound_spray"
+    file="data/audio/Desktop/materials.bank"
+    event_name="materials/spray"
+    volume_autofade_speed="0.25" >
+  </AudioLoopComponent>
+  
+</Entity>

@@ -1,0 +1,6 @@
+data/ragdolls/maggot/segment_1.png
+data/ragdolls/maggot/segment_2.png
+data/ragdolls/maggot/segment_3.png
+data/ragdolls/maggot/segment_4.png
+data/ragdolls/maggot/segment_5.png
+data/ragdolls/maggot/segment_6.png

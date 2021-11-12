@@ -1,0 +1,19 @@
+<Sprite
+ filename="data/projectiles_gfx/glue_anchor.png"
+ offset_x="4.5"
+ offset_y="4.5"
+ default_animation="fireball" >
+
+ <!-- animation -->
+ <RectAnimation
+  name="fireball"
+  pos_x="0"
+  pos_y="0"
+  frame_count="1"
+  frame_width="8"
+  frame_height="8"
+  frame_wait="0.09"
+  frames_per_row="1"
+  loop="1"   >
+ </RectAnimation>
+</Sprite>

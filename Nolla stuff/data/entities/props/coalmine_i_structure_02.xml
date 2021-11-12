@@ -1,0 +1,17 @@
+<Entity 
+  name="unknown" 
+  tags="vegetation,pixelsprite" >
+  
+  <Base file="data/entities/props/base_coalmine_structure.xml" >
+
+    <PixelSpriteComponent 
+      image_file="data/props_gfx/coalmine_i_structure_background_02.png" 
+      anchor_x="5" 
+      anchor_y="49" 
+    >
+    </PixelSpriteComponent>
+
+  </Base>
+
+</Entity>
+

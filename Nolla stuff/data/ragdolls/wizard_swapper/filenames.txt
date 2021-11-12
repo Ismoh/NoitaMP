@@ -1,0 +1,4 @@
+data/ragdolls/wizard_swapper/torso.png
+data/ragdolls/wizard_swapper/hand.png
+data/ragdolls/wizard_swapper/feet.png
+data/ragdolls/wizard_swapper/head.png

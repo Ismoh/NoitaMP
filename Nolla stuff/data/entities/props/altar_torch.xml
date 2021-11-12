@@ -1,0 +1,58 @@
+<Entity 
+  name="unknown" 
+  tags="vegetation,altar_torch" >
+  
+  <PhysicsBodyComponent 
+	allow_sleep="1"
+	angular_damping="0"
+	is_bullet="0"
+	linear_damping="0"
+	is_static="1"
+	fixed_rotation="1"
+	auto_clean="1"
+	>
+  </PhysicsBodyComponent>
+
+  <PhysicsImageShapeComponent 
+    image_file="data/props_gfx/altar_torch.png"
+    material="templebrick_static" >
+  </PhysicsImageShapeComponent>
+  
+  <VelocityComponent />
+  
+	<Base file="data/entities/base_torch_particle.xml" >
+		<ParticleEmitterComponent
+			_tags="fire"
+    		_enabled="0"
+			offset.y="2"
+			offset.x="7.5"
+			x_pos_offset_min="-3"
+			x_pos_offset_max="2" 
+			emitted_material_name="spark_green"
+			>
+		</ParticleEmitterComponent>
+  
+		<ParticleEmitterComponent
+			_tags="fire"
+    		_enabled="0"
+			offset.y="2"
+			offset.x="7.5"
+			x_pos_offset_min="-4"
+			x_pos_offset_max="1" 
+			color="ff20f050"
+			emitted_material_name="spark_green"
+			>
+		</ParticleEmitterComponent>
+		
+		<ParticleEmitterComponent
+			_tags="fire"
+    		_enabled="0"
+			offset.y="2"
+			offset.x="7.5"
+			x_pos_offset_min="-3"
+			x_pos_offset_max="2" 
+			emitted_material_name="spark_green"
+			>
+		</ParticleEmitterComponent>
+    </Base>
+</Entity>

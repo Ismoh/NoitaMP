@@ -1,0 +1,39 @@
+<Entity >
+
+  <SpriteComponent 
+    _enabled="1" 
+    alpha="1" 
+    image_file="data/particles/explosion_040_poof.xml"
+    next_rect_animation="explosion"
+    rect_animation="explosion"
+	emissive="1"
+    additive="1"
+    kill_entity_after_finished="1"
+	offset_x="16"
+	offset_y="16"
+     >
+  </SpriteComponent>
+  
+  <ParticleEmitterComponent 
+    emitted_material_name="spark_electric"
+    offset.x="0"
+    offset.y="0"
+    x_pos_offset_min="-4"
+    y_pos_offset_min="-4"
+    x_pos_offset_max="4"
+    y_pos_offset_max="4"
+    x_vel_min="300"
+    x_vel_max="50"
+    y_vel_min="0"
+    y_vel_max="0"
+    count_min="4"
+    count_max="16"
+    lifetime_min="0.0"
+    lifetime_max="0.05"
+    create_real_particles="0"
+    emit_cosmetic_particles="1"
+    emission_interval_min_frames="0"
+    emission_interval_max_frames="0"
+    is_emitting="1" >
+  </ParticleEmitterComponent>
+</Entity>

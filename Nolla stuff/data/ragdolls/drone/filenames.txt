@@ -1,0 +1,1 @@
+data/ragdolls/drone/drone.png

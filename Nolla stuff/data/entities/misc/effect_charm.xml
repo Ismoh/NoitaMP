@@ -1,0 +1,24 @@
+<Entity>
+	<Base file="data/entities/particles/charm.xml" >
+		<SpriteParticleEmitterComponent
+		    emission_interval_min_frames="5"
+    		emission_interval_max_frames="15"
+			randomize_position_inside_hitbox="1"  >
+		</SpriteParticleEmitterComponent>
+	</Base>
+	
+	<InheritTransformComponent 
+		_enabled="1" >
+    </InheritTransformComponent>	
+    
+    <GameEffectComponent 
+        effect="CHARM"
+        frames="-1"
+    >
+	</GameEffectComponent >
+
+	<AudioComponent
+		file="data/audio/Desktop/misc.bank"
+		event_root="game_effect/charm" >
+	</AudioComponent>
+</Entity>

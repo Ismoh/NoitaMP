@@ -1,0 +1,255 @@
+<Entity tags="hittable,teleportable_NOT,prop,prop_physics,mortal">
+	<PhysicsBody2Component 
+		is_static="0"
+		allow_sleep="1"
+		angular_damping="0.01"
+		linear_damping="0.3" 
+		fixed_rotation="0"
+		is_bullet="0"
+		init_offset_y="-3"
+		>
+	</PhysicsBody2Component>
+
+	<PhysicsImageShapeComponent 
+		body_id="100"
+		is_root="1"
+		centered="1"
+		image_file="data/props_gfx/tubelamp.png"
+		material="glass_box2d" >
+	</PhysicsImageShapeComponent>
+
+	<PhysicsImageShapeComponent
+		body_id="101"
+		offset_x="-5"
+		offset_y="-8"
+		image_file="data/props_breakable_gfx/wire_vertical_5_00.png"
+		material="metal_wire_nohit"
+		>
+	</PhysicsImageShapeComponent>
+
+	<PhysicsImageShapeComponent
+		body_id="102"
+		offset_x="4"
+		offset_y="-8"
+		image_file="data/props_breakable_gfx/wire_vertical_5_00.png"
+		material="metal_wire_nohit"
+		>
+	</PhysicsImageShapeComponent>
+
+	<!-- joints -->
+	<PhysicsJoint2MutatorComponent
+		joint_id="1"
+	></PhysicsJoint2MutatorComponent>
+
+	<PhysicsJoint2MutatorComponent
+		joint_id="2"
+	></PhysicsJoint2MutatorComponent>
+
+	<!-- body to wire joints -->
+	<PhysicsJoint2Component
+		type="REVOLUTE_JOINT"
+		joint_id="1"
+		offset_x="-4.5"
+		offset_y="-3"
+		body1_id="100"
+		body2_id="101"
+		break_force="10"
+		break_distance="2"
+		>
+	</PhysicsJoint2Component>
+	<PhysicsJoint2Component
+		type="REVOLUTE_JOINT"
+		joint_id="2"
+		offset_x="4.5"
+		offset_y="-3"
+		body1_id="100"
+		body2_id="102"
+		break_force="10"
+		break_distance="2"
+		>
+	</PhysicsJoint2Component>
+
+	<!-- wire to ceiling -->
+	<PhysicsJoint2Component
+		type="REVOLUTE_JOINT_ATTACH_TO_NEARBY_SURFACE"
+		offset_x="-4.25"
+		offset_y="-7"
+		body1_id="101"
+		break_force="8"
+		break_distance="2"
+		ray_x="0"
+		ray_y="-16"
+		>
+	</PhysicsJoint2Component>
+	<PhysicsJoint2Component
+		type="REVOLUTE_JOINT_ATTACH_TO_NEARBY_SURFACE"
+		offset_x="4.25"
+		offset_y="-7"
+		body1_id="102"
+		break_force="8"
+		break_distance="2"
+		ray_x="0"
+		ray_y="-16"
+		>
+	</PhysicsJoint2Component>
+
+	<!-- misc -->
+	<LightComponent 
+		_enabled="1" 
+		radius="150" 
+		blinking_freq="1"
+		offset_x="-6"
+		r="200"
+		g="230"
+		b="255">
+	</LightComponent>
+
+	<LightComponent 
+		_enabled="1" 
+		radius="150" 
+		blinking_freq="1"
+		offset_x="6"
+		r="200"
+		g="230"
+		b="255">
+	</LightComponent>
+
+	<MaterialInventoryComponent 
+		_enabled="1" 
+		drop_as_item="0" 
+		on_death_spill="1"
+		leak_on_damage_percent="1"
+		leak_pressure_min="0.1"
+		leak_pressure_max="0.7"
+		kill_when_empty="1"
+		>
+		<count_per_material_type>
+			<Material material="spark_electric" count="100"  />
+		</count_per_material_type>
+	</MaterialInventoryComponent>
+
+	<DamageModelComponent 
+		air_needed="0" 
+		blood_material="" 
+		drop_items_on_death="0" 
+		falling_damage_damage_max="1.2" 
+		falling_damage_damage_min="0.1" 
+		falling_damage_height_max="250" 
+		falling_damage_height_min="70" 
+		falling_damages="0" 
+		fire_damage_amount="0.2" 
+		fire_probability_of_ignition="0" 
+		critical_damage_resistance="1"
+		hp="0.7" 
+		is_on_fire="0" 
+		materials_create_messages="0" 
+		materials_damage="0" 
+		ragdoll_filenames_file="" 
+		ragdoll_material="" 
+		ui_report_damage="0"
+		>
+	</DamageModelComponent>
+
+	<ExplodeOnDamageComponent
+		explode_on_death_percent="1"
+		explode_on_damage_percent="0.0"
+		physics_body_modified_death_probability="0"
+		physics_body_destruction_required="0.6"
+		>
+		<config_explosion
+			never_cache="0"
+			damage="1"
+			camera_shake="5" 
+			explosion_radius="10" 
+			explosion_sprite="data/particles/explosion_016_electric.xml" 
+			explosion_sprite_lifetime="8" 
+			create_cell_probability="10"
+			create_cell_material="spark_electric"	  
+			hole_destroy_liquid="0" 
+			hole_enabled="1" 
+			ray_energy="100000"
+			particle_effect="1" 
+			damage_mortals="1" 
+			physics_explosion_power.min="0.08"
+			physics_explosion_power.max="0.15" 
+			physics_throw_enabled="1"
+			shake_vegetation="1" 
+			sparks_count_max="10" 
+			sparks_count_min="5" 
+			sparks_enabled="1"
+			stains_enabled="1" 
+			stains_radius="10" >
+		</config_explosion>
+	</ExplodeOnDamageComponent>
+
+	<LuaComponent 
+		script_physics_body_modified="data/scripts/props/physics_tube_lamp.lua" 
+		execute_every_n_frame="-1"
+		remove_after_executed="1"
+		>
+	</LuaComponent>
+
+	<!-- enabled by physics_tube_lamp.lua when damaged -->
+	<LuaComponent
+		_tags="electricity_effect"
+		_enabled="0"
+		script_source_file="data/scripts/props/physics_tube_lamp_electricity_pulse.lua"
+		execute_every_n_frame="60"
+	></LuaComponent>
+	
+	<SpriteParticleEmitterComponent
+		_tags="electricity_effect"
+		_enabled="0"
+		sprite_file="data/particles/spark_electric.xml"
+		delay="0"
+		lifetime="0"
+		color.r="1.0" color.g="1" color.b="1" color.a="1"
+		color_change.r="0" color_change.g="0" color_change.b="0" color_change.a="0"
+		velocity.x="0" velocity.y="0"
+		gravity.x="0" gravity.y="10"
+		velocity_slowdown="0"
+		rotation="0"
+		angular_velocity="0"
+		use_velocity_as_rotation="0"
+		scale.x="1" scale.y="1"
+		scale_velocity.x="0" scale_velocity.y="0"
+		emission_interval_min_frames="60"
+		emission_interval_max_frames="60"
+		count_min="3" count_max="10"
+		randomize_rotation.min="-3.1415"
+		randomize_rotation.max="3.1415"
+		randomize_position.min_x="0"
+		randomize_position.max_x="16"
+		randomize_position.min_y="-8"
+		randomize_position.max_y="8"
+	></SpriteParticleEmitterComponent>
+
+	<ParticleEmitterComponent 
+	    _tags="electricity_effect"
+	    _enabled="0"
+	    emitted_material_name="spark_electric"
+	    offset.x="0"
+	    offset.y="0"
+	    x_pos_offset_min="0"
+	    x_pos_offset_max="4"
+	    y_pos_offset_min="8"
+	    y_pos_offset_max="4"
+	    x_vel_min="-50"
+	    x_vel_max="50"
+	    y_vel_min="-100"
+	    y_vel_max="50"
+	    count_min="20"
+	    count_max="60"
+	    lifetime_min="0.1"
+	    lifetime_max="0.75"
+	    create_real_particles="0"
+	    emit_cosmetic_particles="1"
+	    collide_with_grid="0"
+	    emission_interval_min_frames="60"
+	    emission_interval_max_frames="60"
+	    is_emitting="1"
+	    fade_based_on_lifetime="0"
+	    draw_as_long="1"
+	></ParticleEmitterComponent>
+
+</Entity>

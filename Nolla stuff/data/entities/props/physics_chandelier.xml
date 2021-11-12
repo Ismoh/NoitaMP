@@ -1,0 +1,90 @@
+<Entity tags="hittable" >
+
+  <PhysicsBodyComponent 
+    uid="1" 
+    allow_sleep="1" 
+    angular_damping="0.1" 
+    fixed_rotation="0" 
+    is_bullet="0" 
+    linear_damping="0"
+    auto_clean="0" 
+    update_entity_transform="1"
+    on_death_leave_physics_body="1"
+    >
+  </PhysicsBodyComponent>
+  
+  <PhysicsImageShapeComponent 
+    body_id="1"
+    centered="1"
+    image_file="data/props_gfx/chandelier.png"
+    material="metal_nohit" >
+  </PhysicsImageShapeComponent>
+
+  <LuaComponent 
+      execute_every_n_frame="1"
+      remove_after_executed="1"
+      script_source_file="data/scripts/props/physics_chandelier.lua"
+      >
+  </LuaComponent>
+
+  <LuaComponent 
+    script_physics_body_modified="data/scripts/props/physics_chain_torch_damaged.lua" 
+  >
+  </LuaComponent>
+
+  <HitboxComponent 
+    aabb_min_x="-4" 
+    aabb_max_x="5" 
+    aabb_min_y="-6" 
+    aabb_max_y="6" >
+  </HitboxComponent>
+  
+  <LightComponent 
+    radius="120"
+    fade_out_time="1.5" 
+    offset_y="-15"
+    >
+  </LightComponent>
+  
+  <SpriteComponent 
+    _tags="character"
+    alpha="1" 
+    image_file="data/props_gfx/chandelier_flames.xml"
+    offset_x="0" 
+    offset_y="0"
+    emissive="1"
+    additive="0"
+    next_rect_animation="" 
+    rect_animation="stand" 
+     >
+  </SpriteComponent>
+
+  <CameraBoundComponent
+    max_count="50"
+    distance="500">
+  </CameraBoundComponent>
+  
+  <TorchComponent
+		_tags="enabled_in_world">
+	</TorchComponent>
+	
+	<SpriteAnimatorComponent>
+	</SpriteAnimatorComponent>
+	
+	<DamageModelComponent 
+    air_needed="0" 
+    blood_material="oil" 
+    drop_items_on_death="0" 
+    falling_damages="0" 
+    fire_probability_of_ignition="0" 
+	critical_damage_resistance="1"
+    hp="0.5" 
+    is_on_fire="0" 
+    materials_create_messages="0" 
+    materials_damage="0" 
+    ragdoll_filenames_file="" 
+    ragdoll_material="" 
+	ui_report_damage="0"
+	>
+  </DamageModelComponent>
+</Entity>

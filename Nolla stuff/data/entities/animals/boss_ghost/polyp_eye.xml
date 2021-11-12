@@ -1,0 +1,21 @@
+<Sprite
+filename="data/entities/animals/boss_ghost/polyp_eye.png"
+offset_x="9"
+offset_y="9" 
+default_animation="stand"
+>
+
+ <!-- stand -->
+ <RectAnimation
+  name="stand"
+  pos_x="0"
+  pos_y="0"
+  frame_count="1"
+  frame_width="18"
+  frame_height="18"
+  frame_wait="0.12"
+  frames_per_row="4"
+  loop="1"   >
+ </RectAnimation>
+
+</Sprite>

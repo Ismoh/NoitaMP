@@ -1,0 +1,114 @@
+<Entity serialize="1" >
+
+  <PhysicsBody2Component 
+      allow_sleep="1"
+      angular_damping="0"
+      linear_damping="0" 
+      kill_entity_after_initialized="1"
+  ></PhysicsBody2Component>
+
+  <PhysicsImageShapeComponent
+      body_id="0"
+      offset_x="0"
+      offset_y="0"
+      image_file="data/props_breakable_gfx/long_plank_a_00.png"
+      material="wood_prop" 
+  ></PhysicsImageShapeComponent>
+
+  <PhysicsImageShapeComponent
+      body_id="1"
+      offset_x="64"
+      offset_y="0"
+      image_file="data/props_breakable_gfx/long_plank_a_00.png"
+      material="wood_prop" 
+  ></PhysicsImageShapeComponent>
+
+  <PhysicsImageShapeComponent
+      body_id="2"
+      offset_x="128"
+      offset_y="0"
+      image_file="data/props_breakable_gfx/long_plank_a_00.png"
+      material="wood_prop" 
+  ></PhysicsImageShapeComponent>
+
+  <PhysicsImageShapeComponent
+      body_id="3"
+      offset_x="192"
+      offset_y="0"
+      image_file="data/props_breakable_gfx/long_plank_a_00.png"
+      material="wood_prop" 
+  ></PhysicsImageShapeComponent>
+
+  <PhysicsImageShapeComponent
+      body_id="4"
+      offset_x="256"
+      offset_y="0"
+      image_file="data/props_breakable_gfx/long_plank_a_00.png"
+      material="wood_prop" 
+  ></PhysicsImageShapeComponent>
+
+  <PhysicsImageShapeComponent
+      body_id="5"
+      offset_x="320"
+      offset_y="0"
+      image_file="data/props_breakable_gfx/long_plank_a_00.png"
+      material="wood_prop" 
+  ></PhysicsImageShapeComponent>
+
+  <PhysicsImageShapeComponent
+      body_id="6"
+      offset_x="384"
+      offset_y="0"
+      image_file="data/props_breakable_gfx/long_plank_a_00.png"
+      material="wood_prop" 
+  ></PhysicsImageShapeComponent>
+
+  <PhysicsJoint2Component
+      type="WELD_JOINT"
+      offset_x="64"
+      offset_y="1"
+      body1_id="0"
+      body2_id="1"
+  ></PhysicsJoint2Component>
+
+  <PhysicsJoint2Component
+      type="WELD_JOINT"
+      offset_x="128"
+      offset_y="1"
+      body1_id="1"
+      body2_id="2"
+  ></PhysicsJoint2Component>
+
+  <PhysicsJoint2Component
+      type="WELD_JOINT"
+      offset_x="192"
+      offset_y="1"
+      body1_id="2"
+      body2_id="3"
+  ></PhysicsJoint2Component>
+
+  <PhysicsJoint2Component
+      type="WELD_JOINT"
+      offset_x="256"
+      offset_y="1"
+      body1_id="3"
+      body2_id="4"
+  ></PhysicsJoint2Component>
+
+  <PhysicsJoint2Component
+      type="WELD_JOINT"
+      offset_x="320"
+      offset_y="1"
+      body1_id="4"
+      body2_id="5"
+  ></PhysicsJoint2Component>
+
+  <PhysicsJoint2Component
+      type="WELD_JOINT"
+      offset_x="384"
+      offset_y="1"
+      body1_id="5"
+      body2_id="6"
+  ></PhysicsJoint2Component>
+
+</Entity>

@@ -1,0 +1,55 @@
+<Entity >
+ 
+
+	<SpriteComponent 
+		image_file="data/enemies_gfx/acidshooter.xml" 
+		offset_x="0"
+		offset_y="0">
+	</SpriteComponent>
+
+	<PhysicsBodyComponent
+		uid="1"
+		allow_sleep="0"
+		fixed_rotation="1"
+		is_bullet="0"
+		is_static="0"
+		is_kinematic="1"
+		is_character="0"
+		go_through_sand="0"
+		gridworld_box2d="0"
+		auto_clean="1"
+		on_death_leave_physics_body="0"
+		update_entity_transform="0"
+	>
+	</PhysicsBodyComponent>
+
+	<PhysicsShapeComponent
+		recreate="0"
+		is_circle="1"				
+		friction="0.75"
+		restitution="0.1"
+		density="0"		
+		local_position_x="0"
+		local_position_y="-0.45"	
+		radius_x="0.6"	
+		>
+	</PhysicsShapeComponent>
+  
+	<LuaComponent 
+	    _enabled="1" 
+	    execute_every_n_frame="1"
+	    remove_after_executed="1"
+	    script_source_file="data/scripts/animals/tentacles.lua"
+	    >
+	</LuaComponent>
+
+	<LightComponent 
+	    _enabled="1" 
+	    radius="70" 
+		r="149"
+		g="255"
+		b="149">
+    </LightComponent>
+
+</Entity>
+

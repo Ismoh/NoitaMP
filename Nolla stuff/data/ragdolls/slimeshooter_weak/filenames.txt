@@ -1,0 +1,7 @@
+data/ragdolls/slimeshooter_weak/torso.png
+data/ragdolls/slimeshooter_weak/tentacle_1_a.png
+data/ragdolls/slimeshooter_weak/tentacle_1_b.png
+data/ragdolls/slimeshooter_weak/tentacle_2_a.png
+data/ragdolls/slimeshooter_weak/tentacle_2_b.png
+data/ragdolls/slimeshooter_weak/tentacle_4_a.png
+data/ragdolls/slimeshooter_weak/tentacle_4_b.png

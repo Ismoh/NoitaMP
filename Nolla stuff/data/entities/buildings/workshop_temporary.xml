@@ -1,0 +1,16 @@
+<Entity tags="workshop">
+
+	  <HitboxComponent 
+	    aabb_min_x="-200" 
+	    aabb_min_y="-96"
+	    aabb_max_x="200" 
+	    aabb_max_y="80" >
+	  </HitboxComponent>
+
+	<LuaComponent
+		script_source_file="data/scripts/buildings/workshop_temporary_check.lua"
+		execute_every_n_frame="20"
+		>
+	</LuaComponent>
+</Entity>
+

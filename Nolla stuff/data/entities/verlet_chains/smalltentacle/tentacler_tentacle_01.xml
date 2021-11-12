@@ -1,0 +1,27 @@
+<Entity>
+
+	<InheritTransformComponent>
+	</InheritTransformComponent>
+
+    <VerletPhysicsComponent
+    	stiffness="1.25"
+    	num_points="9"
+		velocity_dampening="0.8"
+    	resting_distance="1.0" 
+		pixelate_sprite_transforms="0"
+		animation_target_offset.y="1.0"
+		animation_energy="0.16"
+		stain_cells_probability="10"
+		>
+    </VerletPhysicsComponent>
+
+	<Base file="data/entities/verlet_chains/smalltentacle/smalltentacle_2.xml" />
+	<Base file="data/entities/verlet_chains/smalltentacle/smalltentacle_2.xml" />
+	<Base file="data/entities/verlet_chains/smalltentacle/smalltentacle_2.xml" />
+	<Base file="data/entities/verlet_chains/smalltentacle/smalltentacle_3.xml" />
+	<Base file="data/entities/verlet_chains/smalltentacle/smalltentacle_3.xml" />
+	<Base file="data/entities/verlet_chains/smalltentacle/smalltentacle_4.xml" />
+	<Base file="data/entities/verlet_chains/smalltentacle/smalltentacle_4.xml" />
+	<Base file="data/entities/verlet_chains/smalltentacle/smalltentacle_4.xml" />
+
+</Entity>

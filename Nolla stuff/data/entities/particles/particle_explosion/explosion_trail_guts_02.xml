@@ -1,0 +1,16 @@
+<Entity>
+	<Base file="data/entities/particles/particle_explosion/explosion_trail_guts_01.xml">
+
+		<PhysicsImageShapeComponent
+			image_file="data/particles/guts_02.png"
+			material="meat"
+			>
+		</PhysicsImageShapeComponent>
+
+		<!-- staggered init so that guts stick less together -->
+		<LuaComponent
+			execute_every_n_frame="5"
+			>
+		</LuaComponent>
+	</Base>
+</Entity>

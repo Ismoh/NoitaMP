@@ -1,0 +1,33 @@
+<Entity tags="moon_altar,moon_energy">
+	<LuaComponent 
+        _enabled="1" 
+        execute_every_n_frame="90"
+        script_source_file="data/scripts/magic/moon_altar.lua" 
+	>
+    </LuaComponent>
+	
+	<LuaComponent 
+        _enabled="1" 
+        execute_every_n_frame="1"
+        script_source_file="data/scripts/magic/moon_altar_init.lua"
+		remove_after_executed="1"
+	>
+    </LuaComponent>
+	
+	<LuaComponent 
+        _enabled="1" 
+        execute_every_n_frame="80"
+        script_source_file="data/scripts/magic/moon_altar_extra.lua" 
+	>
+    </LuaComponent>
+	
+	<LightComponent
+		_tags="enabled_in_world,enabled_in_hand"
+		radius="96"
+		r="255"
+		g="255"
+		b="255"
+		fade_out_time="0.2"
+		>
+	</LightComponent>
+</Entity>

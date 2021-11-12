@@ -1,0 +1,27 @@
+<Entity tags="hittable" >
+	
+	<Base file="data/entities/base_item_physics2.xml" >
+    <PhysicsBody2Component
+      kill_entity_after_initialized="0" >
+    </PhysicsBody2Component>
+    <PhysicsImageShapeComponent 
+      image_file="data/props_gfx/physics_candle_1.png"
+      material="wax_b2" >
+    </PhysicsImageShapeComponent>
+   </Base>
+
+  <Entity>
+  	<InheritTransformComponent >
+  		<Transform
+  			position.x="-0.5"
+  			position.y="0"
+		></Transform>
+	</InheritTransformComponent>
+
+    <ElectricityComponent
+	  energy="5"
+      hack_is_set_fire="1" >
+    </ElectricityComponent>
+  </Entity>
+
+</Entity>

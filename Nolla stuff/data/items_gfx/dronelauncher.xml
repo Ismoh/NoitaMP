@@ -1,0 +1,33 @@
+<Sprite 
+  angle="0" 
+  color_a="1" 
+  color_b="1" 
+  color_g="1" 
+  color_r="1" 
+  default_animation="" 
+  filename="data/items_gfx/dronelauncher.png" 
+  hotspots_filename="" 
+  name="" 
+  offset_x="6" 
+  offset_y="3" 
+  position_x="0" 
+  position_y="0" 
+  scale_x="1" 
+  scale_y="1" >
+  <RectAnimation 
+    frame_count="1" 
+    frame_height="7" 
+    frame_wait="0.2" 
+    frame_width="13" 
+    frames_per_row="10" 
+    has_offset="1" 
+    loop="0" 
+    name="default" 
+    next_animation="" 
+    offset_x="3" 
+    offset_y="4" 
+    pos_x="0" 
+    pos_y="1" 
+    shrink_by_one_pixel="1" >
+  </RectAnimation>
+</Sprite>

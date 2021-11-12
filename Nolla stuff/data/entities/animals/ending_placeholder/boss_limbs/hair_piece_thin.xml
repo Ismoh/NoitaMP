@@ -1,0 +1,11 @@
+<Entity >
+   
+  <SpriteComponent 
+    image_file="data/entities/animals/boss_limbs/hair_piece_thin.png" 
+    offset_x="0"
+    offset_y="0.5"
+    update_transform="0"
+    update_transform_rotation="0" >
+  </SpriteComponent>
+  
+</Entity>

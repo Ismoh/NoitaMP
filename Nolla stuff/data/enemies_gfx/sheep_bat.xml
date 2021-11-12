@@ -1,0 +1,192 @@
+<Sprite 
+  default_animation="walk" 
+  filename="data/enemies_gfx/sheep_bat.png" 
+  offset_x="10" 
+  offset_y="12" >
+  <RectAnimation 
+    frame_count="8" 
+    frame_height="21" 
+    frame_wait="0.1" 
+    frame_width="21" 
+    frames_per_row="8" 
+    name="fly_idle" 
+    pos_x="0" 
+    pos_y="1" 
+    shrink_by_one_pixel="1" >
+    <Event 
+      check_physics_material="0" 
+      frame="3" 
+      max_distance="500" 
+      name="flap" 
+      on_finished="0" 
+      probability="1" >
+    </Event>
+    <Event 
+      check_physics_material="0" 
+      frame="6" 
+      max_distance="500" 
+      name="flap" 
+      on_finished="0" 
+      probability="1" >
+    </Event>
+  </RectAnimation>
+  <RectAnimation 
+    frame_count="8" 
+    frame_height="21" 
+    frame_wait="0.1" 
+    frame_width="21" 
+    frames_per_row="8" 
+    name="fly_move" 
+    pos_x="0" 
+    pos_y="1" 
+    shrink_by_one_pixel="1" >
+    <Event 
+      check_physics_material="0" 
+      frame="3" 
+      max_distance="500" 
+      name="flap" 
+      on_finished="0" 
+      probability="1" >
+    </Event>
+    <Event 
+      check_physics_material="0" 
+      frame="6" 
+      max_distance="500" 
+      name="flap" 
+      on_finished="0" 
+      probability="1" >
+    </Event>
+  </RectAnimation>
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="22" 
+    frame_wait="0.23" 
+    frame_width="22" 
+    frames_per_row="6" 
+    has_offset="1" 
+    name="stand" 
+    offset_x="10" 
+    offset_y="16" 
+    pos_x="0" 
+    pos_y="22" 
+    shrink_by_one_pixel="1" >
+  </RectAnimation>
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="22" 
+    frame_wait="0.23" 
+    frame_width="22" 
+    frames_per_row="6" 
+    has_offset="1" 
+    name="jump_up" 
+    offset_x="10" 
+    offset_y="16" 
+    pos_x="0" 
+    pos_y="22" 
+    shrink_by_one_pixel="1" >
+  </RectAnimation>
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="22" 
+    frame_wait="0.23" 
+    frame_width="22" 
+    frames_per_row="6" 
+    has_offset="1" 
+    name="fall_down" 
+    offset_x="10" 
+    offset_y="16" 
+    pos_x="0" 
+    pos_y="22" 
+    shrink_by_one_pixel="1" >
+  </RectAnimation>
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="22" 
+    frame_wait="0.12" 
+    frame_width="22" 
+    frames_per_row="6" 
+    has_offset="1" 
+    name="walk" 
+    offset_x="10" 
+    offset_y="16" 
+    pos_x="0" 
+    pos_y="44" 
+    shrink_by_one_pixel="1" >
+    <Event 
+      check_physics_material="1" 
+      frame="2" 
+      max_distance="500" 
+      name="step" 
+      on_finished="0" 
+      probability="0.7" >
+    </Event>
+    <Event 
+      check_physics_material="1" 
+      frame="5" 
+      max_distance="500" 
+      name="step" 
+      on_finished="0" 
+      probability="0.7" >
+    </Event>
+  </RectAnimation>
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="22" 
+    frame_wait="0.12" 
+    frame_width="22" 
+    frames_per_row="6" 
+    has_offset="1" 
+    name="run" 
+    offset_x="10" 
+    offset_y="16" 
+    pos_x="0" 
+    pos_y="44" 
+    shrink_by_one_pixel="1" >
+    <Event 
+      check_physics_material="1" 
+      frame="2" 
+      max_distance="500" 
+      name="step" 
+      on_finished="0" 
+      probability="1" >
+    </Event>
+    <Event 
+      check_physics_material="1" 
+      frame="5" 
+      max_distance="500" 
+      name="step" 
+      on_finished="0" 
+      probability="1" >
+    </Event>
+  </RectAnimation>
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="22" 
+    frame_wait="0.12" 
+    frame_width="22" 
+    frames_per_row="6" 
+    has_offset="1" 
+    name="burn" 
+    offset_x="10" 
+    offset_y="16" 
+    pos_x="0" 
+    pos_y="44" 
+    shrink_by_one_pixel="1" >
+    <Event 
+      check_physics_material="1" 
+      frame="2" 
+      max_distance="500" 
+      name="step" 
+      on_finished="0" 
+      probability="1" >
+    </Event>
+    <Event 
+      check_physics_material="1" 
+      frame="5" 
+      max_distance="500" 
+      name="step" 
+      on_finished="0" 
+      probability="1" >
+    </Event>
+  </RectAnimation>
+</Sprite>

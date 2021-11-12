@@ -1,0 +1,10 @@
+<Entity >
+	<InheritTransformComponent />
+   
+	<LuaComponent
+		script_shot="data/scripts/streaming_integration/scripts/add_homing_on_shot.lua"
+		execute_every_n_frame="-1"
+		>
+	</LuaComponent>
+  
+</Entity>

@@ -1,0 +1,10 @@
+data/ragdolls/peasant_blue/torso.png
+data/ragdolls/peasant_blue/right_thigh.png
+data/ragdolls/peasant_blue/right_leg.png
+data/ragdolls/peasant_blue/right_arm.png
+data/ragdolls/peasant_blue/right_hand.png
+data/ragdolls/peasant_blue/left_thigh.png
+data/ragdolls/peasant_blue/left_leg.png
+data/ragdolls/peasant_blue/left_arm.png
+data/ragdolls/peasant_blue/left_hand.png
+data/ragdolls/peasant_blue/head.png

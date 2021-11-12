@@ -1,0 +1,77 @@
+<Entity >
+
+  <SpriteComponent 
+    _enabled="1" 
+    alpha="0" 
+    image_file="data/particles/muzzle_flashes/muzzle_magic_launcher_large_0$[1-5].png" 
+    next_rect_animation="muzzle"
+    rect_animation="muzzle"
+	emissive="1"
+    additive="1"
+    kill_entity_after_finished="1"
+	offset_x="7"
+	offset_y="9"
+     >
+  </SpriteComponent>
+  
+  <ParticleEmitterComponent 
+    emitted_material_name="spark_red"
+    offset.x="0"
+    offset.y="0"
+	gravity.y="0.5"
+    x_pos_offset_min="0"
+    y_pos_offset_min="-1"
+    x_pos_offset_max="0"
+    y_pos_offset_max="1"
+    x_vel_min="21"
+    x_vel_max="210"
+    y_vel_min="0"
+    y_vel_max="0"
+    direction_random_deg="10"
+    count_min="40"
+    count_max="50"
+    lifetime_min="0.4"
+    lifetime_max="5.25"
+    create_real_particles="0"
+	fade_based_on_lifetime="1"
+    emit_cosmetic_particles="1"
+	render_on_grid="1"
+	airflow_force="0.5"
+	airflow_time="0.5"
+	airflow_scale="0.05"
+    friction="4"
+    emission_interval_min_frames="0"
+    emission_interval_max_frames="0"
+    is_emitting="1" >
+  </ParticleEmitterComponent>
+  
+  <ParticleEmitterComponent 
+    emitted_material_name="spark_red"
+    offset.x="0"
+    offset.y="0"
+	gravity.y="0"
+    x_pos_offset_min="0"
+    y_pos_offset_min="0"
+    x_pos_offset_max="0"
+    y_pos_offset_max="0"
+    x_vel_min="30"
+    x_vel_max="60"
+    y_vel_min="-15"
+    y_vel_max="15"
+    count_min="20"
+    count_max="30"
+    lifetime_min="2.0"
+    lifetime_max="12.1"
+	fade_based_on_lifetime="1"
+	render_on_grid="1"
+	airflow_force="1.5"
+	airflow_time="0.05"
+	airflow_scale="0.05"
+    friction="5"
+    create_real_particles="0"
+    emit_cosmetic_particles="1"
+    emission_interval_min_frames="2"
+    emission_interval_max_frames="7"
+    is_emitting="1" >
+  </ParticleEmitterComponent>
+</Entity>

@@ -1,0 +1,32 @@
+<Entity>
+	<Base file="data/entities/items/wand_level_05_better.xml">
+	    <HotspotComponent 
+	        _tags="shoot_pos" 
+	        offset.x="22" 
+	        offset.y="0" >
+	    </HotspotComponent>
+	</Base>
+	
+	<LuaComponent 
+		execute_on_added="1"
+		execute_every_n_frame="181"
+		remove_after_executed="0"
+		script_source_file="data/scripts/gun/procedural/wand_varpuluuta.lua" 
+		>
+	</LuaComponent>
+	
+	<Entity>
+		<InheritTransformComponent
+			_tags="enabled_in_world,enabled_in_hand"
+			only_position="1"
+			parent_hotspot_tag="shoot_pos" >
+		</InheritTransformComponent>
+		<CellEaterComponent
+			_tags="enabled_in_world,enabled_in_hand"
+			radius="20"
+			eat_probability="10"
+			only_stain="1"
+			>
+		</CellEaterComponent>
+	</Entity>
+</Entity>

@@ -1,0 +1,19 @@
+<Sprite
+	filename="data/props_gfx/forcefield_generator_light.png"
+	offset_x="0"
+	offset_y="4" 
+	default_animation="on">
+
+	<RectAnimation
+		name="on"
+		pos_x="0"
+		pos_y="0"
+		frame_count="2"
+		frame_width="16"
+		frame_height="16"
+		frame_wait="0.42"
+		frames_per_row="2"
+		loop="1"   >
+	</RectAnimation>
+
+</Sprite>

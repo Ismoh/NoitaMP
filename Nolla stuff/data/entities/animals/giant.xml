@@ -1,0 +1,123 @@
+<Entity name="$animal_giant" >
+  
+	<Base file="data/entities/base_enemy_basic.xml" >
+		<ItemChestComponent level="2" > </ItemChestComponent>
+		
+		<AnimalAIComponent 
+			_enabled="1" 
+			preferred_job="JobDefault"
+			escape_if_damaged_probability="0"
+			attack_melee_damage_min="0.4" 
+			attack_melee_damage_max="0.7"
+			creature_detection_range_x="600"
+			creature_detection_range_y="400"
+			needs_food="0"
+			sense_creatures="1"
+			attack_ranged_enabled="1"
+			attack_melee_enabled="1"
+			can_fly="0"  
+			attack_ranged_action_frame="4"
+			attack_ranged_entity_file="data/entities/projectiles/pebble.xml"
+			attack_ranged_frames_between="100" 
+			attack_ranged_offset_y="-12"
+			attack_ranged_max_distance="600"
+			>
+		</AnimalAIComponent>
+		
+		<DamageModelComponent 
+            hp="6"
+            materials_create_messages="1"
+			ragdoll_filenames_file="data/ragdolls/giant/filenames.txt" 
+			fire_probability_of_ignition="0"
+			blood_material="blood_cold"
+			blood_spray_material="blood_cold"
+			ragdoll_material="lavarock_static"
+			ragdoll_offset_x="0"
+			blood_multiplier="0.4"
+			ragdoll_blood_amount_absolute="0"
+			blood_sprite_directional="data/particles/bloodsplatters/bloodsplatter_directional_blue_$[1-3].xml"
+			blood_sprite_large="data/particles/bloodsplatters/bloodsplatter_blue_$[1-3].xml"
+			healing_particle_effect_entity="data/entities/particles/heal_effect.xml"
+			materials_that_damage="acid,lava,poison,radioactive_gas,radioactive_gas_static,rock_static_radioactive,rock_static_poison,ice_radioactive_static,ice_radioactive_glass,ice_acid_static,ice_acid_glass,rock_static_cursed,poo_gas" 
+			materials_how_much_damage="0.004,0.004,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.005,0.00001"
+			>
+			<damage_multipliers
+				explosion="0.2"
+				fire="0.0"
+				ice="-1.0"
+				 >
+			</damage_multipliers>
+		</DamageModelComponent>
+
+		<SpriteComponent 
+			image_file="data/enemies_gfx/giant.xml" 
+			offset_x="0"
+			offset_y="0">
+		</SpriteComponent>
+
+		<PathFindingComponent
+			can_jump="0"
+			can_fly="0" 
+			jump_speed="100"
+			initial_jump_lob="1"
+			initial_jump_max_distance_x="60"
+			initial_jump_max_distance_y="60" >
+		</PathFindingComponent>
+
+		<PathFindingGridMarkerComponent
+			marker_work_flag="16" >
+		</PathFindingGridMarkerComponent>
+		
+		<GenomeDataComponent 
+			herd_id="giant"
+			food_chain_rank="9"
+			is_predator="1" >
+		</GenomeDataComponent>
+		
+		<CharacterPlatformingComponent 
+			jump_velocity_y="-12" 
+			run_velocity="10"  >
+		</CharacterPlatformingComponent>
+
+		<CameraBoundComponent
+			max_count="30"
+			distance="160000">
+		</CameraBoundComponent>
+		
+		<HitboxComponent 
+            _enabled="1" 
+            aabb_min_x="-5" 
+            aabb_max_x="5" 
+            aabb_min_y="-18" 
+            aabb_max_y="3" 
+			>
+        </HitboxComponent>
+		
+		<CharacterDataComponent
+			collision_aabb_min_x="-3.0" 
+			collision_aabb_max_x="3.0" 
+			collision_aabb_min_y="-16" 
+			collision_aabb_max_y="3"
+			mass="3.2"
+			>
+		</CharacterDataComponent>
+	</Base>
+		
+  <LightComponent 
+    _enabled="1" 
+    radius="50" 
+	offset_y="-16"
+	r="20"
+	g="80"
+	b="60"
+	fade_out_time="1.5"
+	>
+  </LightComponent>
+
+	<AudioComponent
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals/giant" >
+	</AudioComponent>
+
+</Entity>
+

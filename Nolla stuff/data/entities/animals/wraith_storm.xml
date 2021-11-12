@@ -1,0 +1,198 @@
+<Entity name="$animal_wraith_storm">
+  
+	<Base file="data/entities/base_enemy_flying.xml" >
+		<ItemChestComponent level="1" > </ItemChestComponent>
+
+		<AnimalAIComponent
+			attack_ranged_enabled="0"
+			attack_dash_enabled="0"
+			needs_food="0"
+			can_fly="1">
+		</AnimalAIComponent>
+
+		<DamageModelComponent
+            hp="18.75"
+            fire_probability_of_ignition="0" 
+			ragdoll_fx_forced="DISINTEGRATED"
+			ragdoll_material="rock_static_glow"
+			blood_material="plasma_fading"
+			blood_spray_material="plasma_fading"
+			ragdoll_material="plasma_fading"
+			blood_sprite_directional=""
+			blood_sprite_large=""
+			minimum_knockback_force="100000"
+			>
+			<damage_multipliers
+				projectile="0.3"
+				explosion="0.3"
+				electricity="0.0"
+				fire="0.7" 
+				slice="0.3"
+				ice="0.4"
+				>
+			</damage_multipliers>
+		</DamageModelComponent>
+
+		<PathFindingComponent
+			can_fly="1" 
+			can_walk="0"
+			>
+		</PathFindingComponent>
+
+		<SpriteComponent 
+			image_file="data/enemies_gfx/wraith_storm.xml" 
+			offset_x="0"
+			offset_y="0">
+		</SpriteComponent>   
+		
+		<GenomeDataComponent 
+			herd_id="mage"
+			food_chain_rank="15"
+			is_predator="1" >
+		</GenomeDataComponent>
+
+		<HitboxComponent 
+			_enabled="1" 
+			aabb_min_x="-7.0" 
+			aabb_max_x="7.0" 
+			aabb_min_y="-7" 
+			aabb_max_y="7" 
+			is_enemy="1" 
+			is_item="0" 
+			is_player="0" >
+		</HitboxComponent>
+
+		<CharacterDataComponent 
+			_enabled="1" 
+			climb_over_y="4" 
+			collision_aabb_min_x="-2.0" 
+			collision_aabb_max_x="2.0" 
+			collision_aabb_min_y="-6" 
+			collision_aabb_max_y="4" 
+			mass="0.9"
+			>
+	    </CharacterDataComponent>
+
+		<AudioComponent
+			file="data/audio/Desktop/animals.bank"
+			event_root="animals/wraith_storm" >
+		</AudioComponent>
+
+	</Base>
+
+	<LightComponent 
+	    _enabled="1" 
+	    radius="30" 
+		r="99"
+		g="180"
+		b="205"
+		offset_y="-9"
+		>
+    </LightComponent>
+
+	<AudioLoopComponent
+		file="data/audio/Desktop/animals.bank"
+		event_name="animals/wraith_storm/movement_loop"
+		set_speed_parameter="1"
+		auto_play="1">
+	</AudioLoopComponent>
+	
+	<AudioLoopComponent
+		file="data/audio/Desktop/animals.bank"
+		event_name="animals/wraith/electricity_loop"
+		auto_play="1">
+	</AudioLoopComponent>
+  
+	<Entity>  <Base file="data/entities/verlet_chains/wraith_cape/wraith_storm/wraith_cape.xml"> <InheritTransformComponent><Transform position.x="0"  position.y="2" ></Transform></InheritTransformComponent> </Base>  </Entity>
+	
+	<LuaComponent
+		script_source_file="data/scripts/projectiles/projectile_thunder.lua"
+		execute_every_n_frame="1"
+		>
+	</LuaComponent>
+	
+	<SpriteComponent 
+        alpha="0.55"
+        image_file="data/particles/fog_of_war_hole.xml"
+        smooth_filtering="1"
+        fog_of_war_hole="1"
+		>
+    </SpriteComponent>
+	
+	<Entity>
+		<InheritTransformComponent />
+		
+		<ParticleEmitterComponent 
+			emitted_material_name="spark_blue"
+			gravity.y="0.0"
+			lifetime_min="0.5"
+			lifetime_max="1.5"
+			count_min="2"
+			count_max="4"
+			render_on_grid="1"
+			fade_based_on_lifetime="1"
+			area_circle_radius.max="32"
+			cosmetic_force_create="0"
+			airflow_force="3.5"
+			airflow_time="0.02"
+			airflow_scale="0.05"
+			emission_interval_min_frames="1"
+			emission_interval_max_frames="1"
+			emit_cosmetic_particles="1"
+			velocity_always_away_from_center="11"
+			is_emitting="1"
+			>
+		</ParticleEmitterComponent>
+
+		<ParticleEmitterComponent 
+			emitted_material_name="spark_blue"
+			gravity.y="0.0"
+			lifetime_min="0.5"
+			lifetime_max="1.5"
+			count_min="4"
+			count_max="10"
+			render_on_grid="1"
+			fade_based_on_lifetime="1"
+			area_circle_radius.min="32"
+			area_circle_radius.max="32"
+			cosmetic_force_create="0"
+			airflow_force="0.2"
+			airflow_time="0.02"
+			airflow_scale="0.05"
+			emission_interval_min_frames="1"
+			emission_interval_max_frames="1"
+			emit_cosmetic_particles="1"
+			is_emitting="1" 
+			>
+		</ParticleEmitterComponent>
+		
+		<SpriteParticleEmitterComponent
+			sprite_file="data/particles/arc.xml"
+			lifetime="0"
+			color.r="1" color.g="1" color.b="1" color.a="1"
+			color_change.r="0" color_change.g="0" color_change.b="0" color_change.a="0"
+			randomize_rotation.min="-3.1415"
+			randomize_rotation.max="3.1415"
+			randomize_velocity.min_x="-30"
+			randomize_velocity.max_x="30"
+			randomize_velocity.min_y="-30"
+			randomize_velocity.max_y="30"
+			randomize_position.min_x="-32"
+			randomize_position.max_x="32"
+			randomize_position.min_y="-32"
+			randomize_position.max_y="32"
+			emission_interval_min_frames="12"
+			emission_interval_max_frames="20"
+			>
+		</SpriteParticleEmitterComponent>
+		
+		<SpriteComponent 
+			image_file="data/particles/area_indicator_064_blue.png"
+			z_index="1.2"
+			offset_x="32"
+			offset_y="32"
+			>
+		</SpriteComponent>
+	</Entity>
+</Entity>
+

@@ -1,0 +1,223 @@
+<Entity tags="enemy,teleportable_NOT,polymorphable_NOT,hittable,mortal,boss_ghost_helper,glue_NOT" name="$animal_ethereal_being">	
+	<ItemChestComponent level="4" enemy_drop="1" > </ItemChestComponent>
+
+	<!-- art - main body ---------------------- -->
+
+	<SpriteComponent
+		_tags="magic_eye"
+		image_file="data/enemies_gfx/ethereal_being.xml"
+		offset_x="0"
+		offset_y="0"
+		emissive="1"
+		additive="1"
+		z_index="0.9"
+		has_special_scale="1"
+		special_scale_x="1"
+		>
+	</SpriteComponent>
+
+	<!-- AI ---------------------- -->
+	
+	<AnimalAIComponent 
+		preferred_job="JobDefault"
+		creature_detection_range_x="300"
+		creature_detection_range_y="300"
+		attack_dash_enabled="0"
+		attack_ranged_enabled="0"
+		attack_melee_enabled="1"
+		food_material="blood"
+		needs_food="1"
+		sense_creatures="1"
+		can_fly="1" 
+		aggressiveness_min="1"
+		aggressiveness_max="100"
+		sense_creatures_through_walls="1"
+		>
+	</AnimalAIComponent>
+
+	<PathFindingComponent 
+		can_dive="1" 
+		can_fly="1" 
+		can_jump="0" 
+		can_swim_on_surface="1" 
+		can_walk="0" 
+		cost_of_flying="500" 
+		distance_to_reach_node_x="20" 
+		distance_to_reach_node_y="20" 
+		frames_between_searches="20" 
+		frames_to_get_stuck="120" 
+		initial_jump_lob="1" 
+		initial_jump_max_distance_x="100" 
+		initial_jump_max_distance_y="60" 
+		iterations_max_no_goal="9999999" 
+		iterations_max_with_goal="145000" 
+		jump_speed="200" 
+		max_jump_distance_from_camera="400" 
+		search_depth_max_no_goal="120" 
+		search_depth_max_with_goal="145000" 
+		y_walking_compensation="8" >
+	</PathFindingComponent>
+	
+	<DamageModelComponent
+		_tags="magic_eye"
+		hp="15.5"
+		physics_objects_damage="0"
+		ragdoll_filenames_file=""
+		fire_probability_of_ignition="0" 
+		ragdoll_fx_forced="DISINTEGRATED"
+		ragdoll_material="rock_static_glow"
+		blood_material="plasma_fading"
+		blood_spray_material="plasma_fading"
+		blood_sprite_directional=""
+		blood_sprite_large=""
+		air_needed="0"
+		falling_damages="0"
+		>
+		<damage_multipliers
+			projectile="0.0"
+			fire="0" 
+			ice="0"
+			>
+		</damage_multipliers>
+	</DamageModelComponent>
+	
+	<HitboxComponent
+		_tags="magic_eye"
+		aabb_min_x="-16" 
+		aabb_max_x="16" 
+		aabb_min_y="-16" 
+		aabb_max_y="16" 
+		is_enemy="1"
+		>
+	</HitboxComponent>
+	
+	<DamageNearbyEntitiesComponent
+		radius="16"
+		time_between_damaging="40"
+		damage_min="0.16"
+		damage_max="0.32"
+		target_tag="player_unit"
+		damage_description="$ethereal_damage"
+		damage_type="DAMAGE_CURSE"
+		ragdoll_fx="NONE"
+		>
+	</DamageNearbyEntitiesComponent>
+	
+	<DamageNearbyEntitiesComponent
+		_tags="magic_eye"
+		radius="16"
+		time_between_damaging="3"
+		target_tag="player_unit"
+		damage_description="$ethereal_damage"
+		damage_type="DAMAGE_CURSE"
+		ragdoll_fx="NONE"
+		>
+	</DamageNearbyEntitiesComponent>
+
+	<PathFindingGridMarkerComponent 
+		_enabled="1" 
+		marker_offset_x="0" 
+		marker_offset_y="-6" 
+		marker_work_flag="16" >
+	</PathFindingGridMarkerComponent>
+	
+	<GenomeDataComponent 
+		herd_id="ghost"
+		food_chain_rank="10"
+		is_predator="1" >
+	</GenomeDataComponent>
+	
+	<CharacterPlatformingComponent 
+		accel_x="1"
+		pixel_gravity="100" 
+		jump_velocity_y="-8" 
+		run_velocity="12">
+	</CharacterPlatformingComponent>
+
+	<SpriteAnimatorComponent />
+
+	<!-- physics ---------------------- -->
+
+	<PhysicsAIComponent
+		target_vec_max_len="15.0"
+		force_coeff="14.0"
+		force_balancing_coeff="0.8"
+		force_max="160"
+		torque_coeff="50"
+		torque_balancing_coeff="0.8"
+		torque_max="50.0"
+		damage_deactivation_probability="0"
+		damage_deactivation_time_min="60"
+		damage_deactivation_time_max="120"
+		free_if_static="1"
+		>
+	</PhysicsAIComponent>
+
+	<PhysicsBodyComponent 
+		force_add_update_areas="1"
+		allow_sleep="1" 
+		angular_damping="0.02" 
+		fixed_rotation="1" 
+		is_bullet="0" 
+		linear_damping="0"
+		is_static="0"
+		>
+	</PhysicsBodyComponent>
+	
+	<ParticleEmitterComponent 
+		emitted_material_name="spark_blue_dark"
+		offset.x="0"
+		offset.y="0"
+		x_pos_offset_min="-15"
+		x_pos_offset_max="15"
+		y_pos_offset_min="-15"
+		y_pos_offset_max="15"
+		gravity.y="0"
+		x_vel_min="-2"
+		x_vel_max="2"
+		y_vel_min="-2"
+		y_vel_max="2"
+		count_min="3"
+		count_max="6"
+		is_trail="0"
+		fade_based_on_lifetime="1"
+		lifetime_min="0.8"
+		lifetime_max="2.0"
+		airflow_force="1.5"
+		airflow_time="0.401"
+		airflow_scale="0.05"
+		create_real_particles="0"
+		emit_cosmetic_particles="1"
+		render_on_grid="1"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="2"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+	
+	<LuaComponent
+		script_source_file="data/scripts/animals/ethereal_check.lua"
+		execute_every_n_frame="5"
+		>
+	</LuaComponent>
+	
+	<LuaComponent
+		script_death="data/scripts/animals/log_kill.lua"
+		execute_every_n_frame="-1"
+		>
+	</LuaComponent>
+	
+	<AudioLoopComponent
+		file="data/audio/Desktop/animals.bank"
+		event_name="animals/ghost/movement_loop"
+		set_speed_parameter="1"
+		auto_play="1">
+    </AudioLoopComponent>
+	
+	<CameraBoundComponent
+		max_count="20"
+		distance="160000">
+	</CameraBoundComponent>
+	
+	<GameStatsComponent />
+
+</Entity>

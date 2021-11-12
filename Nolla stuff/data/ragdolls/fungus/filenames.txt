@@ -1,0 +1,4 @@
+data/ragdolls/fungus/torso.png
+data/ragdolls/fungus/cap.png
+data/ragdolls/fungus/left_foot.png
+data/ragdolls/fungus/right_foot.png

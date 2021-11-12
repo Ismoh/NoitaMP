@@ -1,0 +1,6 @@
+<Entity >
+	<ArcComponent
+		lifetime="120" 
+		material="poison" >
+	</ArcComponent>
+</Entity>

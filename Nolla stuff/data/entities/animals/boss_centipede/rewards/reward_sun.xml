@@ -1,0 +1,14 @@
+<Entity tags="teleportable_NOT">
+  <Base file="data/entities/animals/boss_centipede/rewards/gold_reward.xml" >
+    <UIInfoComponent              name="$reward_sun"/>
+    <ItemComponent                item_name="$reward_sun" />
+    <PhysicsImageShapeComponent   image_file="data/entities/animals/boss_centipede/rewards/reward_sun.png" />
+
+  </Base>
+
+  <VariableStorageComponent
+    name="end_gold"
+    value_int="70000" >
+  </VariableStorageComponent>
+
+</Entity>

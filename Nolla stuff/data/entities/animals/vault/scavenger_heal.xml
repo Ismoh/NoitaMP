@@ -1,0 +1,9 @@
+<Entity >
+  <Base file="data/entities/animals/scavenger_heal.xml"  include_children="1">
+    <DamageModelComponent 
+      hp="0.7"
+      max_hp="0.7"
+	  minimum_knockback_force="100000"
+     ></DamageModelComponent >
+  </Base>
+</Entity>

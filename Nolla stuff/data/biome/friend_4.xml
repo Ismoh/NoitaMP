@@ -1,0 +1,158 @@
+<Biome>
+  <Topology 
+    name="_EMPTY_"
+    background_image="data/weather_gfx/background_cave_02.png"
+    background_use_neighbor="0"
+    lua_script="data/scripts/biomes/friend_4.lua"
+    mBiomeMaterialsFile="data/materials/biome_forest.xml" 
+    mExtraPerlinScaleX="0.05" 
+    mExtraPerlinScaleY="0.0342857" 
+    mGradientAddNoise="1" 
+    mGradientEndY="1024" 
+    mGradientHighNoise="234.057" 
+    mGradientLowNoise="-292.571" 
+    mGradientMaxY="0.17" 
+    mGradientMinY="0.25" 
+    mGradientNoiseScale="0.00128571" 
+    mGradientSinMultipleMax="0.005153" 
+    mGradientSinMultipleMin="0.0021" 
+    mGradientStartY="-1024" 
+    mGradientType="1" 
+    mInsidePerlinClamped="0" 
+    mInsidePerlinScaleMax="2" 
+    mInsidePerlinScaleMin="0.057143" 
+    mInsidePerlinScaleX="1" 
+    mInsidePerlinScaleY="1" 
+    mInsidePerlinScaled="1" 
+    mInsidePerlinSquared="0" 
+    mMultiplierExtraPerlin="1" 
+    mMultiplierGradient="0.871429" 
+    mMultiplierPerlin="0.642857" 
+    mPerlinScale_x="0" 
+    mPerlinScale_y="105" 
+    mWaterLevel="1000"
+    limit_background_image="1"
+    fat_biome_edges="0"
+    has_rain="0"
+     >
+
+  </Topology>
+
+  <!------------ MATERIALS -------------------->
+
+  <Materials 
+    name="solid_wall" 
+     >
+    <MaterialComponent 
+      _enabled="1" 
+      is_rare="1" 
+      limit_max_y="2048" 
+      limit_min_y="100" 
+      limit_y="0" 
+      material_index="10" 
+      material_max="0.55" 
+      material_min="0.51" 
+      material_name="coal" 
+      rare_polka_is_boxed="0" 
+      rare_polka_probability="0.160871" 
+      rare_polka_radius_high="0.771429" 
+      rare_polka_radius_low="0.357143" 
+      rare_required_max="10" 
+      rare_required_min="0" 
+      rare_scale_x="0.0100004" 
+      rare_scale_y="0.00357165" 
+      rare_use_perlin="0" 
+      rare_use_polka="1" >
+    </MaterialComponent>
+
+  
+    <MaterialComponent 
+      _enabled="1" 
+      is_rare="0" 
+      limit_max_y="2048" 
+      limit_min_y="100" 
+      limit_y="0" 
+      material_index="10" 
+      material_max="0.95" 
+      material_min="-100.0" 
+      material_name="rock_hard" 
+      rare_polka_is_boxed="1" 
+      rare_polka_probability="0.2" 
+      rare_polka_radius_high="0.65" 
+      rare_polka_radius_low="0.2" 
+      rare_required_max="10" 
+      rare_required_min="0.2" 
+      rare_scale_x="0.05" 
+      rare_scale_y="0.05" 
+      rare_use_perlin="0" 
+      rare_use_polka="1" >
+    </MaterialComponent>
+
+    <MaterialComponent 
+      _enabled="1" 
+      is_rare="1" 
+      limit_max_y="2048" 
+      limit_min_y="100" 
+      limit_y="0" 
+      material_index="10" 
+      material_max="1.2" 
+      material_min="1.1" 
+      material_name="coal" 
+      rare_polka_is_boxed="1" 
+      rare_polka_probability="0.157143" 
+      rare_polka_radius_high="0.464286" 
+      rare_polka_radius_low="0.0428571" 
+      rare_required_max="10" 
+      rare_required_min="0.371429" 
+      rare_scale_x="0.0214286" 
+      rare_scale_y="0.0214286" 
+      rare_use_perlin="1" 
+      rare_use_polka="1" >
+    </MaterialComponent>
+
+    <MaterialComponent 
+      _enabled="1" 
+      is_rare="1" 
+      limit_max_y="2048" 
+      limit_min_y="750" 
+      limit_y="1" 
+      material_index="10" 
+      material_max="1.25" 
+      material_min="1.05" 
+      material_name="copper" 
+      rare_polka_is_boxed="0" 
+      rare_polka_probability="0.357143" 
+      rare_polka_radius_high="0.764286" 
+      rare_polka_radius_low="0.328571" 
+      rare_required_max="10" 
+      rare_required_min="0.019" 
+      rare_scale_x="0.007514286" 
+      rare_scale_y="0.007514286" 
+      rare_use_perlin="1" 
+      rare_use_polka="1" >
+    </MaterialComponent>
+
+    <MaterialComponent 
+      _enabled="1" 
+      is_rare="0" 
+      limit_max_y="2048" 
+      limit_min_y="100" 
+      limit_y="0" 
+      material_index="9" 
+      material_max="3.5" 
+      material_min="-0.25" 
+      material_name="rock_hard_border" 
+      rare_polka_is_boxed="1" 
+      rare_polka_probability="0.2" 
+      rare_polka_radius_high="0.65" 
+      rare_polka_radius_low="0.2" 
+      rare_required_max="10" 
+      rare_required_min="0.2" 
+      rare_scale_x="0.05" 
+      rare_scale_y="0.05" 
+      rare_use_perlin="0" 
+      rare_use_polka="1" >
+    </MaterialComponent>
+  </Materials>
+
+</Biome>

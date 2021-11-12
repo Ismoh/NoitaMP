@@ -1,0 +1,66 @@
+<Entity tags="mortal,hittable,homing_target,glue_NOT" >	
+	<DamageModelComponent 
+        hp="6.5"
+        ragdoll_material="steel"
+		ragdoll_filenames_file="" 
+		blood_material="copper"
+		fire_probability_of_ignition="0" 
+		air_needed="0" >
+		<damage_multipliers
+			drill="0.1"
+			projectile="0.1"
+			fire="0.0"
+			ice="0.2"
+			slice="0.0"
+			>
+		</damage_multipliers>
+	</DamageModelComponent>
+
+	<SpriteComponent 
+		image_file="data/buildings_gfx/lasergun.xml" 
+		special_scale_x="1"
+		has_special_scale="1"
+		offset_x="0"
+		offset_y="0" >
+	</SpriteComponent>
+
+	<SpriteAnimatorComponent>
+	</SpriteAnimatorComponent>
+	
+	<HitboxComponent 
+		_enabled="1" 
+		aabb_min_x="-5"
+		aabb_max_x="4" 
+		aabb_min_y="-5"
+		aabb_max_y="5" 
+		>
+	</HitboxComponent>
+
+	<CameraBoundComponent
+		max_count="30"
+		distance="160000" >
+	</CameraBoundComponent>
+	
+	<VariableStorageComponent
+		name="timing"
+		value_int="-1"
+		>
+	</VariableStorageComponent>
+	
+	<LuaComponent
+		script_source_file="data/scripts/buildings/lasergun.lua"
+		execute_every_n_frame="10"
+		>
+	</LuaComponent>
+	
+	<LightComponent 
+		_enabled="1" 
+		radius="96"
+		fade_out_time="1.5" 
+		r="230"
+		g="120"
+		b="230"
+		>
+	</LightComponent>
+
+</Entity>

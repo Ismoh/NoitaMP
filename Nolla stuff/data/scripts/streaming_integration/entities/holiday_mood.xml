@@ -1,0 +1,49 @@
+<Entity>
+	<MagicConvertMaterialComponent
+      kill_when_finished="1"
+      from_material_tag="[solid]"
+      steps_per_frame="12"
+      to_material="snow_static"
+      clean_stains="1"
+      is_circle="1"
+      radius="512" 
+	  loop="0"
+	  >
+    </MagicConvertMaterialComponent>
+	
+	<MagicConvertMaterialComponent
+      kill_when_finished="1"
+      from_material_tag="[sand_ground]"
+      steps_per_frame="12"
+      to_material="snow"
+      clean_stains="1"
+      is_circle="1"
+      radius="512" 
+	  loop="0"
+	  >
+    </MagicConvertMaterialComponent>
+	
+	<MagicConvertMaterialComponent
+      kill_when_finished="1"
+      from_material_tag="[sand_other]"
+      steps_per_frame="12"
+      to_material="snow"
+      clean_stains="1"
+      is_circle="1"
+      radius="512" 
+	  loop="0"
+	  >
+    </MagicConvertMaterialComponent>
+	
+	<MagicConvertMaterialComponent
+      kill_when_finished="1"
+      from_material_tag="[liquid]"
+      steps_per_frame="12"
+      to_material="water_ice"
+      clean_stains="1"
+      is_circle="1"
+      radius="512" 
+	  loop="0"
+	  >
+    </MagicConvertMaterialComponent>
+</Entity>

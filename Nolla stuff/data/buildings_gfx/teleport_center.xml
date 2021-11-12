@@ -1,0 +1,20 @@
+<Sprite 
+	default_animation="stand"
+	filename="data/buildings_gfx/teleport_center.png" 
+	offset_x="48" 
+	offset_y="48"
+	>
+	
+	<RectAnimation 
+		frame_count="1" 
+		frame_height="96" 
+		frame_wait="0.001" 
+		frame_width="96" 
+		frames_per_row="1" 
+		loop="1" 
+		name="stand" 
+		pos_x="0" 
+		pos_y="0" 
+		>
+	</RectAnimation>
+</Sprite>

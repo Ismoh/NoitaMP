@@ -1,0 +1,87 @@
+<Sprite 
+  filename="data/enemies_gfx/giantshooter_weak.png" 
+  offset_x="10" 
+  offset_y="16"
+  default_animation="stand" >
+
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="33" 
+    frame_wait="0.25" 
+    frame_width="21" 
+    frames_per_row="6" 
+    name="stand" 
+    pos_x="0" 
+    pos_y="1" 
+    shrink_by_one_pixel="1" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="33" 
+    frame_wait="0.25" 
+    frame_width="21" 
+    frames_per_row="6" 
+    name="walk" 
+    pos_x="0" 
+    pos_y="1" 
+    shrink_by_one_pixel="1" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="33" 
+    frame_wait="0.25" 
+    frame_width="21" 
+    frames_per_row="6" 
+    name="run" 
+    pos_x="0" 
+    pos_y="1" 
+    shrink_by_one_pixel="1" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="33" 
+    frame_wait="0.25" 
+    frame_width="21" 
+    frames_per_row="6" 
+    name="burn" 
+    pos_x="0" 
+    pos_y="1" 
+    shrink_by_one_pixel="1" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="33" 
+    frame_wait="0.25" 
+    frame_width="21" 
+    frames_per_row="6" 
+    name="attack_ranged" 
+    pos_x="0" 
+    pos_y="1" 
+    shrink_by_one_pixel="1" >
+      <Event frame="0" name="attack_bite"  on_finished="0"  probability="1" />
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="33" 
+    frame_wait="0.09" 
+    frame_width="21" 
+    frames_per_row="4" 
+    loop="0" 
+    name="attack" 
+    pos_x="0" 
+    pos_y="34" 
+    shrink_by_one_pixel="1" >
+      <Event frame="0" name="attack_bite"  on_finished="0"  probability="1" />
+  </RectAnimation>
+
+</Sprite>
+

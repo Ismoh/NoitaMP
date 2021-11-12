@@ -1,0 +1,10 @@
+data/ragdolls/scavenger_poison/torso_upper.png
+data/ragdolls/scavenger_poison/torso_lower.png
+data/ragdolls/scavenger_poison/left_thigh.png
+data/ragdolls/scavenger_poison/right_thigh.png
+data/ragdolls/scavenger_poison/head.png
+data/ragdolls/scavenger_poison/gun.png
+data/ragdolls/scavenger_poison/left_foot.png
+data/ragdolls/scavenger_poison/right_foot.png
+data/ragdolls/scavenger_poison/arm.png
+data/ragdolls/scavenger_poison/hand.png

@@ -1,0 +1,85 @@
+<Entity tags="mortal" >
+
+  <!-- mortal is required so it can explode -->
+
+  <Base file="data/entities/base_item_physics.xml" >
+    <PhysicsImageShapeComponent
+      image_file="data/props_gfx/crate.png"
+      material="wood_prop" >
+    </PhysicsImageShapeComponent>
+    
+    <PhysicsBodyComponent on_death_leave_physics_body="1"></PhysicsBodyComponent>
+  </Base>
+
+  <MaterialInventoryComponent 
+    _enabled="1" 
+    drop_as_item="0" 
+    on_death_spill="1"
+    leak_on_damage_percent="0.999"
+    >
+    <count_per_material_type>
+      <Material material="liquid_fire" count="100"  />
+	  </count_per_material_type>
+  </MaterialInventoryComponent>
+
+  <DamageModelComponent 
+    air_needed="0" 
+    blood_material="gunpowder_unstable" 
+    drop_items_on_death="0" 
+    falling_damage_damage_max="1.2" 
+    falling_damage_damage_min="0.1" 
+    falling_damage_height_max="250" 
+    falling_damage_height_min="70" 
+    falling_damages="0" 
+    fire_damage_amount="0.2" 
+    fire_probability_of_ignition="0" 
+	critical_damage_resistance="1"
+    hp="2" 
+    is_on_fire="0" 
+    materials_create_messages="0" 
+    materials_damage="0" 
+    ragdoll_filenames_file="" 
+    ragdoll_material="" 
+	>
+	<damage_multipliers
+		melee="0.1"
+		>
+	</damage_multipliers>
+  </DamageModelComponent>
+
+  <ExplodeOnDamageComponent
+  	explode_on_death_percent="1"
+  	explode_on_damage_percent="0.1"
+    physics_body_modified_death_probability="0.4"
+  	>
+    <config_explosion
+      never_cache="0"
+      damage="3"
+      camera_shake="40" 
+      explosion_radius="45" 
+      explosion_sprite="data/particles/explosion_032.xml" 
+      explosion_sprite_lifetime="10" 
+      create_cell_probability="70" 
+	    create_cell_material="fire"
+      hole_destroy_liquid="1" 
+      load_this_entity="data/entities/particles/particle_explosion/main_gunpowder_large.xml"
+      hole_enabled="1" 
+      ray_energy="500000"
+      particle_effect="1" 
+      damage_mortals="1" 
+      physics_explosion_power.min="1.8" 
+      physics_explosion_power.max="2.5" 
+      physics_throw_enabled="1"
+      shake_vegetation="1" 
+      sparks_count_min="35" 
+	    sparks_count_max="50" 
+      sparks_enabled="1" 
+      stains_enabled="1" 
+      stains_radius="15" 
+      delay.min="1"
+      delay.max="4"
+      explosion_delay_id="1"
+      >
+    </config_explosion>
+  </ExplodeOnDamageComponent>
+</Entity>

@@ -1,0 +1,7 @@
+<Entity name="$animal_shotgunner">
+ 	<Base file="data/entities/animals/shotgunner_weak.xml" include_children="1" />
+	<Entity>
+  		<Base file="data/entities/misc/effect_drunk_forever.xml" include_children="1" />
+  	</Entity>
+</Entity>
+

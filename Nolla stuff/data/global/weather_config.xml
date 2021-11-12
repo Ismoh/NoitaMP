@@ -1,0 +1,21 @@
+<WeatherConfig 
+	debug="0"
+	autoplay="1" 
+	init_randomize="1" 
+	speed="0.005" 
+	storm_alpha_0="0" 
+	storm_alpha_1="0.6" 
+	storm_clouds_pos_y_0="130" 
+	storm_clouds_pos_y_1="40" 
+	storm_value="0" 
+	time="0.103977" 
+	windspeed="-3.26618" 
+	parallax_offset_y="50"
+	mountains_01_offset_y="39.49"
+	mountains_02_offset_y="42.74"
+	clouds_01_offset_y_min="-5"
+	clouds_01_offset_y_max="74"
+	clouds_02_offset_y_min="36.4"
+	clouds_02_offset_y_max="127"
+	>
+</WeatherConfig>

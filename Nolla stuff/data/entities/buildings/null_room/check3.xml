@@ -1,0 +1,32 @@
+<Entity>
+	<UIInfoComponent
+		name="$building_altar_null"
+		>
+	</UIInfoComponent>
+	
+	<LightComponent
+		_tags="enabled_in_world,enabled_in_hand"
+		radius="96"
+		r="255"
+		g="255"
+		b="255"
+		fade_out_time="0.2"
+		>
+	</LightComponent>
+	
+	<MaterialAreaCheckerComponent
+		area_aabb.min_x="4" 
+		area_aabb.min_y="-3"		
+		area_aabb.max_x="6" 
+		area_aabb.max_y="3"		
+		material="silver"
+		material2="silver"
+		kill_after_message="0"
+		look_for_failure="0"
+		>
+	</MaterialAreaCheckerComponent>
+
+	<LuaComponent
+		script_material_area_checker_success="data/scripts/magic/null_room/check1_success.lua" >
+	</LuaComponent>
+</Entity>

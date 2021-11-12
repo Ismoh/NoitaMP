@@ -1,0 +1,140 @@
+<Entity tags="racing_cart,moon_energy">
+	<!-- jetpack spray -->
+	<Base file="data/entities/base_jetpack_nosound.xml">
+		<ParticleEmitterComponent
+			offset.x="-4"
+			offset.y="0"
+			x_vel_min="-100"
+			x_vel_max="-80"
+			y_vel_min="-7"
+			y_vel_max="7" >
+		</ParticleEmitterComponent>
+	</Base>
+	
+	<!-- cart -->
+	<VelocityComponent
+		gravity_y="0"
+		air_friction="0.5"
+		terminal_velocity="150" >
+	</VelocityComponent>
+
+	<ProjectileComponent
+		speed_min="0"
+		speed_max="0"
+		bounce_always="1"
+		bounces_left="9999999999999"
+		bounce_at_any_angle="1"
+		bounce_energy="0.5"
+		velocity_sets_rotation="0"
+		penetrate_entities="1"
+		collide_with_tag="racing_track" >
+	</ProjectileComponent>
+	
+	<SpriteComponent
+		_tags="driverless"
+		image_file="data/projectiles_gfx/racing_cart.xml"
+		has_special_scale="1"
+		special_scale_x="1"
+		>
+	</SpriteComponent>
+	
+	<SpriteComponent
+		_tags="driver"
+		_enabled="0"
+		image_file="data/projectiles_gfx/racing_cart_killer.xml"
+		has_special_scale="1"
+		special_scale_x="1"
+		>
+	</SpriteComponent>
+
+	<!-- movement -->
+	<LuaComponent
+		script_source_file="data/scripts/buildings/racing_cart_move.lua"
+		execute_every_n_frame="1"  >
+	</LuaComponent>
+	
+	<LuaComponent
+		_tags="driverless"
+		script_source_file="data/scripts/buildings/racing_cart_check.lua"
+		execute_every_n_frame="20"  >
+	</LuaComponent>
+
+	<!-- checkpoints & race logic -->
+	<CollisionTriggerComponent
+		required_tag="racing_checkpoint"
+		width="10"
+		height="40"
+		radius="40"
+		destroy_this_entity_when_triggered="0" >
+	</CollisionTriggerComponent>
+	<VariableStorageComponent
+		name="lap_start_time"
+		value_int="0" >
+	</VariableStorageComponent>
+	<VariableStorageComponent
+		name="best_time"
+		value_int="99999999" >
+	</VariableStorageComponent>
+	<VariableStorageComponent
+		name="checkpoint_1"
+		value_bool="0" >
+	</VariableStorageComponent>
+	<VariableStorageComponent
+		name="checkpoint_2"
+		value_bool="0" >
+	</VariableStorageComponent>
+	<LuaComponent
+		script_collision_trigger_hit="data/scripts/buildings/racing_cart_checkpoint.lua"
+		execute_every_n_frame="-1" >
+	</LuaComponent>
+	
+	<!-- fx etc -->
+	<LightComponent 
+		radius="150" >
+	</LightComponent>
+
+	<ParticleEmitterComponent
+		emitted_material_name="spark_yellow"
+		offset.x="-4"
+		offset.y="0"
+		x_pos_offset_min="0"
+		x_pos_offset_max="0"
+		y_pos_offset_min="0"
+		y_pos_offset_max="0"
+		x_vel_min="0"
+		x_vel_max="0"
+		y_vel_min="0"
+		y_vel_max="0"
+		gravity.y="0"
+		count_min="1"
+		count_max="1"
+		lifetime_min="20"
+		lifetime_max="60"
+		create_real_particles="0"
+		emit_cosmetic_particles="1"
+		fade_based_on_lifetime="1"
+		render_on_grid="1"
+		emission_interval_min_frames="0"
+		emission_interval_max_frames="0"
+		is_trail="1"
+		trail_gap="3"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+
+	<AudioLoopComponent
+		file="data/audio/Desktop/animals.bank"
+		event_name="animals/drone_lasership/movement_loop"
+		set_speed_parameter="1"
+		auto_play="1"
+		calculate_material_lowpass="0" >
+	</AudioLoopComponent>
+
+	<AudioLoopComponent
+		_tags="jetpack"
+		file="data/audio/Desktop/animals.bank"
+		event_name="animals/jetpack/movement_loop"
+		play_on_component_enable="1"
+		set_speed_parameter="1"
+		calculate_material_lowpass="0" >
+	</AudioLoopComponent>
+</Entity>

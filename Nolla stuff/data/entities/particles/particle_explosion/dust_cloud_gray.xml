@@ -1,0 +1,105 @@
+<Entity>
+	<!--
+	<VelocityComponent
+		gravity_y="500"
+		air_friction="10.0" 
+		>
+	</VelocityComponent>
+
+	<SimplePhysicsComponent>
+	</SimplePhysicsComponent>
+	
+	<SetStartVelocityComponent
+		randomize_speed.min="1"
+		randomize_speed.max="10"
+		randomize_angle.min="0"
+		randomize_angle.max="6.283185" 
+		>
+	</SetStartVelocityComponent>
+-->
+
+	<SpriteParticleEmitterComponent
+		sprite_file="data/particles/dust_cloud_gray.xml"
+		delay="0"
+		lifetime="60"
+		additive="0"
+		emissive="0"
+		color.r="1" color.g="1" color.b="1" color.a="1"
+		color_change.r="0" color_change.g="0" color_change.b="0" color_change.a="-1.0"
+		velocity.x="0" velocity.y="0"
+		gravity.x="0" gravity.y="-30"
+		render_back="1"
+		velocity_slowdown="3.5"
+		rotation="1"
+		angular_velocity="0"
+		use_velocity_as_rotation="0"
+		scale.x="1" scale.y="1"
+		scale_velocity.x="0" scale_velocity.y="0"
+		emission_interval_min_frames="256"
+		emission_interval_max_frames="256"
+		count_min="5" count_max="10"
+		randomize_rotation.min="-0.5"
+		randomize_rotation.max="0.5"
+		randomize_angular_velocity.min="-1.0"
+		randomize_angular_velocity.max="1.0"
+		randomize_scale.min_x="-0.2" 
+		randomize_scale.max_x="0.2" 
+		randomize_scale.min_y="-0.2" 
+		randomize_scale.max_y="0.2" 
+		randomize_velocity.min_x="-80"  
+		randomize_velocity.max_x="80"
+		randomize_velocity.min_y="-80" 
+		randomize_velocity.max_y="80"
+		randomize_position.min_x="-16"  
+		randomize_position.max_x="16"
+		randomize_position.min_y="-16" 
+		randomize_position.max_y="16"
+		is_emitting="1"
+		>
+	</SpriteParticleEmitterComponent>
+
+	<SpriteParticleEmitterComponent
+		sprite_file="data/particles/dust_cloud_gray.xml"
+		delay="0"
+		lifetime="200"
+		additive="1"
+		emissive="0"
+		color.r="1" color.g="1" color.b="1" color.a="1"
+		color_change.r="0" color_change.g="0" color_change.b="0" color_change.a="-1.0"
+		velocity.x="0" velocity.y="0"
+		gravity.x="0" gravity.y="-30"
+		render_back="1"
+		velocity_slowdown="3.5"
+		rotation="1"
+		angular_velocity="0"
+		use_velocity_as_rotation="0"
+		scale.x="1" scale.y="1"
+		scale_velocity.x="0" scale_velocity.y="0"
+		emission_interval_min_frames="256"
+		emission_interval_max_frames="256"
+		count_min="2" count_max="5"
+		randomize_rotation.min="-0.5"
+		randomize_rotation.max="0.5"
+		randomize_angular_velocity.min="-1.0"
+		randomize_angular_velocity.max="1.0"
+		randomize_scale.min_x="-0.2" 
+		randomize_scale.max_x="0.2" 
+		randomize_scale.min_y="-0.2" 
+		randomize_scale.max_y="0.2" 
+		randomize_velocity.min_x="-80"  
+		randomize_velocity.max_x="80"
+		randomize_velocity.min_y="-80" 
+		randomize_velocity.max_y="80"
+		randomize_position.min_x="-16"  
+		randomize_position.max_x="16"
+		randomize_position.min_y="-16" 
+		randomize_position.max_y="16"
+		is_emitting="1"
+		>
+	</SpriteParticleEmitterComponent>
+
+	<LifetimeComponent
+		lifetime="2"
+		>
+	</LifetimeComponent>
+</Entity>

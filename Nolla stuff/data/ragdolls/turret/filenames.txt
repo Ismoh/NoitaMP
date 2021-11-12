@@ -1,0 +1,7 @@
+data/ragdolls/turret/gun.png
+data/ragdolls/turret/cord.png
+data/ragdolls/turret/base.png
+data/ragdolls/turret/foot1.png
+data/ragdolls/turret/foot2.png
+data/ragdolls/turret/foot3.png
+data/ragdolls/turret/foot4.png

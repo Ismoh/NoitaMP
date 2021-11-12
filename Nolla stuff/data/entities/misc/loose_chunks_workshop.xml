@@ -1,0 +1,23 @@
+<Entity >
+   
+   <!-- 
+   concrete_collapsed is used here, so that players can get through the collapsed temple more easily. 
+   Mostly because of the case that they loop around and go through a portal into a collapsed temple.
+    --> 
+  <LooseGroundComponent
+    probability="0.25"
+    max_distance="180"
+    max_angle="2.1"
+    chunk_probability="0.15"
+    collapse_images="data/procedural_gfx/collapse_big/$[0-14].png"
+    chunk_material="concrete_collapsed"
+   >
+  </LooseGroundComponent>
+
+  <LifetimeComponent
+  	lifetime="320"
+  	randomize_lifetime.min="-50"
+  	randomize_lifetime.max="50" >
+  </LifetimeComponent>
+  
+</Entity>

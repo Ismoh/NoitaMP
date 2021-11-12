@@ -1,0 +1,31 @@
+<Entity>
+	<Base file="data/entities/particles/particle_explosion/base_spark_trail.xml">
+		<VelocityComponent
+			air_friction="8.0"
+			>
+		</VelocityComponent>
+
+		<DieIfSpeedBelowComponent
+			min_speed="30"
+			>
+		</DieIfSpeedBelowComponent>
+		
+		<ParticleEmitterComponent
+			emitted_material_name="spark_purple_bright"
+			>
+		</ParticleEmitterComponent>
+  
+		<ParticleEmitterComponent 
+			emitted_material_name="spark_purple_bright"
+			lifetime_max="2.4"
+			>
+		</ParticleEmitterComponent>
+
+		<ParticleEmitterComponent 
+			emitted_material_name="spark_purple_bright"
+			lifetime_max="0.6"
+			>
+		</ParticleEmitterComponent>
+	</Base>
+</Entity>
+

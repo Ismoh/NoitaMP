@@ -1,0 +1,8 @@
+<Entity >
+  <Base file="data/entities/animals/fungus.xml">
+    <DamageModelComponent 
+      hp="5.2"
+      max_hp="5.2"
+     ></DamageModelComponent >
+  </Base>
+</Entity>

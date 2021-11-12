@@ -1,0 +1,23 @@
+<Entity>
+	<InheritTransformComponent
+		only_position="1" >
+	</InheritTransformComponent>
+	
+	<SpriteComponent 
+		_tags="fx"
+		_enabled="0"
+		image_file="data/particles/knockback_star_spinning.xml"
+		additive="1"
+		emissive="1" 
+		alpha="1"
+		z_index="-1.2">
+	</SpriteComponent>
+
+	<LuaComponent
+		_tags="fx"
+		_enabled="0"
+		script_source_file="data/scripts/particles/knockback.lua"
+		execute_every_n_frame="4"
+		>
+	</LuaComponent>
+</Entity>

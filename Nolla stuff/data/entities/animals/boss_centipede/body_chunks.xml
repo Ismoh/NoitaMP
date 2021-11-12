@@ -1,0 +1,113 @@
+<Entity tags="hittable" >
+
+	<PhysicsBodyComponent 
+		uid="1" 
+		allow_sleep="1" 
+		angular_damping="0.1" 
+		fixed_rotation="0" 
+		is_bullet="0" 
+		linear_damping="0"
+		update_entity_transform="1"
+		on_death_leave_physics_body="1"
+		>
+	</PhysicsBodyComponent>
+	<PhysicsImageShapeComponent 
+		body_id="1"
+		centered="0"
+		offset_x="40"
+		offset_y="40"
+		image_file="data/entities/animals/boss_centipede/body_chunk_01.png"
+		material="meat_slime_green" >
+	</PhysicsImageShapeComponent>
+
+	<PhysicsBodyComponent 
+		uid="2" 
+		allow_sleep="1" 
+		angular_damping="0.1" 
+		fixed_rotation="0" 
+		is_bullet="0" 
+		linear_damping="0"
+		update_entity_transform="1"
+		on_death_leave_physics_body="1"
+		>
+	</PhysicsBodyComponent>
+	<PhysicsImageShapeComponent 
+		body_id="2"
+		centered="0"
+		offset_x="-80"
+		offset_y="0"
+		image_file="data/entities/animals/boss_centipede/body_chunk_02.png"
+		material="meat_slime_green" >
+	</PhysicsImageShapeComponent>
+
+	<PhysicsBodyComponent 
+		uid="3" 
+		allow_sleep="1" 
+		angular_damping="0.1" 
+		fixed_rotation="0" 
+		is_bullet="0" 
+		linear_damping="0"
+		update_entity_transform="1"
+		on_death_leave_physics_body="1"
+		>
+	</PhysicsBodyComponent>
+	<PhysicsImageShapeComponent 
+		body_id="3"
+		centered="0"
+		offset_x="20"
+		offset_y="-40"
+		image_file="data/entities/animals/boss_centipede/body_chunk_03.png"
+		material="meat_slime_green" >
+	</PhysicsImageShapeComponent>
+
+	<SpriteParticleEmitterComponent
+		sprite_file="data/particles/explosion_032_slime.xml"
+		emission_interval_min_frames="9999999999"
+		emission_interval_max_frames="9999999999"
+		count_min="20"
+		count_max="20"
+		sprite_random_rotation="1"
+		randomize_position.min_y="0" 
+		randomize_position.max_y="50"
+		randomize_position.min_x="-25"  
+		randomize_position.max_x="25"
+		>
+	</SpriteParticleEmitterComponent>
+
+	<!--
+	<Base file="data/entities/base_item_physics.xml" >
+
+		<PhysicsImageShapeComponent 
+			image_file="data/entities/animals/boss_centipede/body_chunk_01.png"
+			material="meat_slime_green" >
+		</PhysicsImageShapeComponent>
+
+	</Base>
+	
+	<CameraBoundComponent
+		max_count="50"
+		distance="500">
+	</CameraBoundComponent>
+	
+	<DamageModelComponent 
+		air_needed="0" 
+		blood_material="" 
+		drop_items_on_death="0" 
+		falling_damage_damage_max="1.2" 
+		falling_damage_damage_min="0.1" 
+		falling_damage_height_max="250" 
+		falling_damage_height_min="70" 
+		falling_damages="1" 
+		fire_damage_amount="0" 
+		fire_probability_of_ignition="0" 
+		critical_damage_resistance="1"
+		hp="800" 
+		is_on_fire="0" 
+		materials_create_messages="0" 
+		materials_damage="0" 
+		ragdoll_filenames_file="" 
+		ragdoll_material="" >
+	</DamageModelComponent>
+-->
+
+</Entity>

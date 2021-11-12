@@ -1,0 +1,35 @@
+<Entity tags="hittable" >
+	<HitboxComponent 
+		aabb_min_x="-10" 
+		aabb_max_x="10" 
+		aabb_min_y="-1" 
+		aabb_max_y="1" >
+	</HitboxComponent>
+
+	<VelocityComponent />
+
+    <SimplePhysicsComponent can_go_up="0" />
+
+	<SpriteComponent 
+		image_file="data/props_gfx/pressure_plate.xml" 
+		offset_x="12"
+		offset_y="1" >
+	</SpriteComponent>
+
+	<PressurePlateComponent 
+		check_every_x_frames="30"		
+		aabb_min.x="-10"
+		aabb_max.x="10"
+		aabb_min.y="-1"
+		aabb_max.y="2"
+		material_percent="0.65"
+	>
+	</PressurePlateComponent>
+
+
+  	<LuaComponent 
+      script_pressure_plate_change="data/scripts/props/pressure_plate.lua"
+      >
+  </LuaComponent>
+
+</Entity>

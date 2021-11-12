@@ -1,0 +1,68 @@
+<Entity tags="hittable,teleportable_NOT" >
+
+  <!-- physical presence -->
+  
+  <PhysicsBodyComponent 
+    _tags="enabled_in_world"
+    uid="1" 
+    allow_sleep="1" 
+    angular_damping="0" 
+    fixed_rotation="0" 
+    is_bullet="1" 
+    linear_damping="0"
+    auto_clean="0"
+    on_death_leave_physics_body="0"
+    hax_fix_going_through_ground="1"
+    hax_fix_going_through_sand="0"
+    hax_wait_till_pixel_scenes_loaded="1"
+    force_add_update_areas="1"
+  ></PhysicsBodyComponent>
+  
+
+  <PhysicsShapeComponent
+	is_circle="0"
+	is_box="1"
+	radius_x="6"
+	radius_y="2.5"
+	friction="0.35"
+	restitution="0.15"
+	local_position_x="3.0"
+	local_position_y="0.0"
+ >
+  </PhysicsShapeComponent>
+
+  <SpriteComponent 
+        _enabled="1" 
+        _tags="enabled_in_hand,enabled_in_world,item" 
+        additive="0" 
+        alpha="1" 
+        emissive="0" 
+        fog_of_war_hole="0" 
+        has_special_scale="0" 
+        image_file="data/items_gfx/handgun.xml" 
+        is_text_sprite="0" 
+        kill_entity_after_finished="0" 
+        never_ragdollify_on_death="0" 
+        next_rect_animation="" 
+        offset_x="0" 
+        offset_y="0" 
+        rect_animation="default" 
+        smooth_filtering="0" 
+        special_scale_x="1" 
+        special_scale_y="1" 
+        text="" 
+        transform_offset.x="0" 
+        transform_offset.y="0" 
+        ui_is_parent="0" 
+        update_transform="1" 
+        update_transform_rotation="1" 
+        visible="1" 
+        z_index="-1.5" >
+  </SpriteComponent>
+
+
+  <UIInfoComponent
+    _tags="enabled_in_world"
+    name="Throwing knife">
+  </UIInfoComponent>
+</Entity>

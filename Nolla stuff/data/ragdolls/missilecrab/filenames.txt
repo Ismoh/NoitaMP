@@ -1,0 +1,7 @@
+data/ragdolls/missilecrab/torso.png
+data/ragdolls/missilecrab/right_thigh.png
+data/ragdolls/missilecrab/right_foot.png
+data/ragdolls/missilecrab/hind_foot_a.png
+data/ragdolls/missilecrab/hind_foot_b.png
+data/ragdolls/missilecrab/left_thigh.png
+data/ragdolls/missilecrab/left_foot.png

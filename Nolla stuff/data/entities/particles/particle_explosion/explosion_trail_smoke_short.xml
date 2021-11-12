@@ -1,0 +1,10 @@
+<Entity>
+	<Base file="data/entities/particles/particle_explosion/base_smoke_trail.xml">
+		<SetStartVelocityComponent
+			randomize_speed.min="300"
+			randomize_speed.max="400"
+			>
+		</SetStartVelocityComponent>
+	</Base>
+</Entity>
+

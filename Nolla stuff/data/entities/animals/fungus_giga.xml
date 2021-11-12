@@ -1,0 +1,148 @@
+<Entity name="$animal_fungus_giga" >
+  
+	<Base file="data/entities/base_enemy_basic.xml" >
+		<ItemChestComponent level="2" enemy_drop="1" > </ItemChestComponent>
+
+		<AnimalAIComponent 
+			_enabled="1" 
+			escape_if_damaged_probability="20"
+			food_material="blood"
+			attack_melee_enabled="0" 
+			attack_melee_max_distance="1"
+			attack_dash_enabled="1"
+			attack_dash_lob="1.3"
+			attack_ranged_enabled="1"
+			attack_ranged_entity_file="data/entities/projectiles/pollen_ball.xml"
+			attack_ranged_frames_between="120"
+			aggressiveness_min="10"
+			aggressiveness_max="100"
+			attack_dash_damage="1.4"
+			>
+		</AnimalAIComponent>
+		
+		<DamageModelComponent 
+            hp="16.6"
+			air_needed="0"
+			ragdoll_filenames_file="data/ragdolls/fungus_giga/filenames.txt" 
+			fire_probability_of_ignition="20" 
+			ragdoll_material="fungus_loose_trippy"
+			blood_material="blood_fungi"
+			blood_spray_material="blood_fungi"
+			blood_sprite_directional="data/particles/bloodsplatters/bloodsplatter_directional_purple_$[1-3].xml"
+			blood_sprite_large="data/particles/bloodsplatters/bloodsplatter_purple_$[1-3].xml"
+			minimum_knockback_force="100000"
+			>
+			<damage_multipliers
+				fire="1.4"
+				explosion="0.0"
+				>
+			</damage_multipliers>
+		</DamageModelComponent>
+		
+		<SpriteComponent 
+			image_file="data/enemies_gfx/fungus_giga.xml" 
+			offset_x="0"
+			offset_y="0">
+		</SpriteComponent>
+
+		<PathFindingGridMarkerComponent
+			marker_work_flag="16" >
+		</PathFindingGridMarkerComponent>
+		
+		<PathFindingComponent
+			frames_to_get_stuck="120"
+			can_jump="1" 
+			never_consider_line_of_sight="1"
+			>
+		</PathFindingComponent>
+
+		<GenomeDataComponent 
+			herd_id="fungus"
+			food_chain_rank="15"
+			is_predator="1" >
+		</GenomeDataComponent>
+		
+		<CharacterPlatformingComponent 
+			jump_velocity_y="-18" 
+			run_velocity="14"  >
+		</CharacterPlatformingComponent>
+
+		<CameraBoundComponent
+		  max_count="30"
+		  distance="160000">
+		</CameraBoundComponent>
+		
+		<HitboxComponent 
+			_enabled="1" 
+			aabb_max_x="6" 
+			aabb_max_y="4" 
+			aabb_min_x="-6" 
+			aabb_min_y="-24" >
+		</HitboxComponent>
+		
+		<CharacterDataComponent
+			collision_aabb_min_x="-4.0" 
+			collision_aabb_max_x="4.0" 
+			collision_aabb_min_y="-14" 
+			collision_aabb_max_y="3"
+			mass="1.3"
+			>
+		</CharacterDataComponent>
+		
+		<AudioComponent
+			file="data/audio/Desktop/animals.bank"
+			event_root="animals/slime">
+		</AudioComponent>
+
+	</Base>
+
+  <MaterialInventoryComponent 
+    _enabled="1" 
+    drop_as_item="0" 
+    leak_on_damage_percent="0.999" 
+    >
+    <count_per_material_type>
+      <Material material="blood_fungi" count="400"  />
+	</count_per_material_type>
+  </MaterialInventoryComponent>
+  
+  <LuaComponent
+    script_death="data/scripts/animals/fungus_big_death.lua"
+    >
+  </LuaComponent>
+	
+	<LuaComponent
+		script_source_file="data/scripts/animals/fungus_giga_pollen.lua"
+		execute_every_n_frame="10"
+		>
+	</LuaComponent>
+	
+	<ParticleEmitterComponent 
+    emitted_material_name="acid_gas"
+    offset.x="0"
+    offset.y="0"
+    x_pos_offset_min="-2"
+    y_pos_offset_min="-2"
+    x_pos_offset_max="2"
+    y_pos_offset_max="2"
+    x_vel_min="-10"
+    x_vel_max="10"
+    y_vel_min="-10"
+    y_vel_max="10"
+    count_min="1"
+    count_max="2"
+    lifetime_min="0.6"
+    lifetime_max="1.8"
+    create_real_particles="1"
+    emit_cosmetic_particles="0"
+    emission_interval_min_frames="2"
+    emission_interval_max_frames="8"
+    is_emitting="1" >
+  </ParticleEmitterComponent>
+	
+	<AudioComponent
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals/fungus" >
+	</AudioComponent>
+
+</Entity>

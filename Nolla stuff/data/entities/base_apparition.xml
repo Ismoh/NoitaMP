@@ -1,0 +1,118 @@
+<Entity>
+	<Base file="data/entities/base_enemy_flying.xml" >
+		<ItemChestComponent level="2" > </ItemChestComponent>
+		<AnimalAIComponent 
+			_enabled="1" 
+			preferred_job="JobDefault"
+			escape_if_damaged_probability="100"
+			attack_melee_damage_min="0.4" 
+			attack_melee_damage_max="0.7"
+			creature_detection_range_x="400"
+			creature_detection_range_y="400"
+			creature_detection_angular_range_deg="60"
+			attack_melee_max_distance="20"
+			food_material="meat"
+			needs_food="0"
+			sense_creatures="1"
+			can_fly="1"  
+			attack_melee_enabled="1"
+			attack_landing_ranged_enabled="0"
+			attack_ranged_enabled="0"
+			attack_ranged_entity_file=""
+			aggressiveness_min="90"
+			aggressiveness_max="100"
+			>
+		</AnimalAIComponent>
+
+		<DamageModelComponent 
+			hp="10"
+			max_hp="50"
+			materials_create_messages="1"
+			ragdoll_filenames_file="" 
+			fire_probability_of_ignition="0"
+			ragdoll_fx_forced="DISINTEGRATED"
+			ragdoll_material="rock_static_glow"
+			minimum_knockback_force="1000"
+			materials_that_damage="" 
+			materials_how_much_damage=""
+			>
+			<damage_multipliers
+				melee="0.3"
+				projectile="0.5"
+				explosion="1.0"
+				electricity="1.0"
+				ice="1.0"
+				fire="0.1" >
+			</damage_multipliers>
+		</DamageModelComponent>
+
+		<SpriteComponent 
+			image_file="data/enemies_gfx/playerghost.xml" 
+			emissive="1"
+			additive="1"
+			offset_x="6" 
+			offset_y="13" >
+		</SpriteComponent>
+
+		<PathFindingComponent
+			can_jump="0"
+			can_fly="1" 
+			can_walk="0"
+			jump_speed="80"
+			initial_jump_lob="1"
+			initial_jump_max_distance_x="60"
+			initial_jump_max_distance_y="60" >
+		</PathFindingComponent>
+
+		<PathFindingGridMarkerComponent
+			marker_work_flag="24" >
+		</PathFindingGridMarkerComponent>
+
+		<GenomeDataComponent 
+			herd_id="apparition"
+			food_chain_rank="9"
+			is_predator="1" >
+		</GenomeDataComponent>
+
+		<CharacterPlatformingComponent 
+			fly_speed_change_spd="0.8"
+			fly_velocity_x="28" 
+			accel_x="0.03" 
+			jump_velocity_y="-12" 
+			run_velocity="17"  >
+		</CharacterPlatformingComponent>
+
+		<CameraBoundComponent
+			_enabled="1"
+			max_count="30"
+			distance="160000">
+		</CameraBoundComponent>
+
+		<HitboxComponent 
+			_enabled="1" 
+			aabb_max_x="3" 
+			aabb_max_y="3" 
+			aabb_min_x="-3" 
+			aabb_min_y="-14" 
+			>
+		</HitboxComponent>
+
+		<AudioComponent
+			file="data/audio/Desktop/animals.bank"
+			event_root="animals/ghost" >
+		</AudioComponent>
+		
+	</Base>
+
+	<LightComponent 
+		_enabled="1" 
+		radius="50"
+		fade_out_time="1.5" >
+	</LightComponent>
+
+	<ItemPickUpperComponent
+		is_in_npc="1">
+	</ItemPickUpperComponent>
+
+</Entity>
+

@@ -1,0 +1,114 @@
+<Entity name="$animal_fish" 
+    tags="mortal,hittable,helpless_animal,prey" >
+    
+    <AdvancedFishAIComponent
+        move_check_range_min="8"
+        >
+    </AdvancedFishAIComponent>
+
+    <GenomeDataComponent 
+        herd_id="helpless"
+        food_chain_rank="1000"
+        is_predator="0" >
+    </GenomeDataComponent>
+
+
+    <DamageModelComponent 
+        air_in_lungs="5" 
+        air_in_lungs_max="5" 
+        air_lack_of_damage="0.2" 
+        air_needed="0" 
+        materials_that_damage="acid,lava,poison,blood_cold,blood_cold_vapour,magic_liquid_mana_regeneration" 
+        materials_how_much_damage="0.004,0.004,0.001,0.0008,0.0007,0.004"
+        falling_damage_damage_max="1.2" 
+        falling_damage_damage_min="0.1" 
+        falling_damage_height_max="450" 
+        falling_damage_height_min="250" 
+        falling_damages="1" 
+        fire_damage_amount="0.2" 
+        fire_probability_of_ignition="0.5" 
+        hp="0.1" 
+        is_on_fire="0" 
+        mAirAreWeInWater="0" 
+        mFallCount="0" 
+        mFallHighestY="3.40282e+038" 
+        mFallIsOnGround="0" 
+        mFireProbability="100" 
+        mIsOnFire="0" 
+        mLastCheckTime="0" 
+        mLastCheckX="0" 
+        mLastCheckY="0" 
+        materials_damage="1" 
+        ragdoll_filenames_file=""
+        ragdoll_material="meat_helpless"
+        ragdoll_offset_y="0"
+        >
+    </DamageModelComponent>
+
+    <HitboxComponent 
+        aabb_max_x="3.5" 
+        aabb_max_y="4" 
+        aabb_min_x="-3.5" 
+        aabb_min_y="-3"
+        >
+    </HitboxComponent>
+
+    <CharacterDataComponent
+        buoyancy_check_offset_y="0"
+        mass="0.2"
+        collision_aabb_min_x="-3" 
+        collision_aabb_max_x="3" 
+        collision_aabb_min_y="-3" 
+        collision_aabb_max_y="3"
+        eff_hg_velocity_min_x="-20" 
+        eff_hg_velocity_max_x="20" 
+        eff_hg_velocity_min_y="-20" 
+        eff_hg_velocity_max_y="20" 
+        >
+    </CharacterDataComponent>
+
+    <CharacterPlatformingComponent 
+        velocity_min_x="-150" 
+        velocity_max_x="150" 
+        velocity_min_y="-50"
+        velocity_max_y="200" 
+        run_velocity="60"
+        accel_x="0.15" 
+        >
+    </CharacterPlatformingComponent>
+
+    <CharacterCollisionComponent 
+        getting_crushed_threshold="6"
+        moving_up_before_getting_crushed_threshold="6" >
+    </CharacterCollisionComponent>
+
+    <VelocityComponent
+        updates_velocity="0"
+        displace_liquid="0" >
+    </VelocityComponent>
+
+    <ControlsComponent 
+        enabled="0" 
+        >
+    </ControlsComponent>
+
+
+    <SpriteAnimatorComponent>
+    </SpriteAnimatorComponent>
+
+    <SpriteComponent 
+        _tags="character" 
+        alpha="1" 
+        image_file="data/enemies_gfx/fish_01.xml" 
+        next_rect_animation="" 
+        rect_animation="walk" 
+        >
+    </SpriteComponent>
+
+    <CameraBoundComponent
+        max_count="64"
+        distance="2000"
+        >
+    </CameraBoundComponent>
+
+</Entity>

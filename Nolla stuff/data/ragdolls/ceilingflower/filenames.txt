@@ -1,0 +1,6 @@
+data/ragdolls/ceilingflower/root.png
+data/ragdolls/ceilingflower/left_leaf.png
+data/ragdolls/ceilingflower/right_leaf.png
+data/ragdolls/ceilingflower/petal_left.png
+data/ragdolls/ceilingflower/petal_middle.png
+data/ragdolls/ceilingflower/petal_right.png

@@ -1,0 +1,10 @@
+data/ragdolls/skeleton/torso.png
+data/ragdolls/skeleton/head.png
+data/ragdolls/skeleton/left_arm.png
+data/ragdolls/skeleton/left_hand.png
+data/ragdolls/skeleton/right_arm.png
+data/ragdolls/skeleton/right_hand.png
+data/ragdolls/skeleton/left_leg.png
+data/ragdolls/skeleton/left_foot.png
+data/ragdolls/skeleton/right_leg.png
+data/ragdolls/skeleton/right_foot.png

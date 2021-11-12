@@ -1,0 +1,91 @@
+<Biome>
+  <Topology 
+    name="$biome_clouds"
+    type="BIOME_WANG_TILE"
+    background_image="data/weather_gfx/background_cave_02.png"
+	noise_biome_edges="1"
+    wang_template_file="data/wang_tiles/clouds.png" 
+    lua_script="data/scripts/biomes/clouds.lua"
+    wang_map_width="256"
+    wang_map_height="256"
+    audio_ambience="cave"
+    audio_ambience_surface="hills"
+	coarse_map_cell_count_always_zero="1"
+	coarse_map_not_terrain="1"
+	>
+  </Topology>
+
+  <Materials 
+    name="clouds" 
+     >
+
+    <MaterialComponent 
+      _enabled="1" 
+      is_rare="0" 
+      limit_max_y="424.229" 
+      limit_min_y="-1024" 
+      limit_y="1" 
+      material_index="10" 
+      material_max="0.53" 
+      material_min="0.45" 
+      material_name="cloud_lighter" 
+      rare_polka_is_boxed="1" 
+      rare_polka_probability="0.2" 
+      rare_polka_radius_high="0.65" 
+      rare_polka_radius_low="0.2" 
+      rare_required_max="10" 
+      rare_required_min="0.2" 
+      rare_scale_x="0.05" 
+      rare_scale_y="0.05" 
+      rare_use_perlin="0" 
+      rare_use_polka="1" >
+    </MaterialComponent>
+
+    <MaterialComponent 
+      _enabled="1" 
+      is_rare="0" 
+      limit_max_y="2048" 
+      limit_min_y="100" 
+      limit_y="0" 
+      material_index="10" 
+      material_max="0.95" 
+      material_min="0.53" 
+      material_name="cloud" 
+      rare_polka_is_boxed="1" 
+      rare_polka_probability="0.2" 
+      rare_polka_radius_high="0.65" 
+      rare_polka_radius_low="0.2" 
+      rare_required_max="10" 
+      rare_required_min="0.2" 
+      rare_scale_x="0.05" 
+      rare_scale_y="0.05" 
+      rare_use_perlin="0" 
+      rare_use_polka="1" >
+    </MaterialComponent>
+
+    <MaterialComponent 
+      _enabled="1" 
+      is_rare="0" 
+      limit_max_y="2048" 
+      limit_min_y="100" 
+      limit_y="0" 
+      material_index="10" 
+      material_max="3.5" 
+      material_min="0.9" 
+      material_name="cloud" 
+      rare_polka_is_boxed="1" 
+      rare_polka_probability="0.2" 
+      rare_polka_radius_high="0.65" 
+      rare_polka_radius_low="0.2" 
+      rare_required_max="10" 
+      rare_required_min="0.2" 
+      rare_scale_x="0.05" 
+      rare_scale_y="0.05" 
+      rare_use_perlin="0" 
+      rare_use_polka="1" >
+    </MaterialComponent>
+    
+  </Materials>
+
+</Biome>
+

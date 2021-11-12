@@ -1,0 +1,29 @@
+<Entity>
+  <ParticleEmitterComponent 
+		emitted_material_name="blood_fading_slow"
+		offset.x="0"
+		offset.y="0"
+		x_pos_offset_min="-1"
+		x_pos_offset_max="1"
+		y_pos_offset_min="-1"
+		y_pos_offset_max="1"
+		gravity.y="400"
+		x_vel_min="-10"
+		x_vel_max="2"
+		y_vel_min="-10"
+		y_vel_max="10"
+		count_min="1"
+		count_max="4"
+		is_trail="1"
+		trail_gap="4"
+		fade_based_on_lifetime="0"
+		lifetime_min="1.8"
+		lifetime_max="3.0"
+		emit_real_particles="1"
+		emit_cosmetic_particles="0"
+		render_on_grid="1"
+		emission_interval_min_frames="2"
+		emission_interval_max_frames="5"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+</Entity>

@@ -1,0 +1,15 @@
+<Entity tags="workshop_exit" >
+    <CollisionTriggerComponent
+      width="52"
+      height="52" 
+      radius="128"
+      destroy_this_entity_when_triggered="0"
+      required_tag="player_unit" >
+  	</CollisionTriggerComponent>
+
+    <LuaComponent
+      script_collision_trigger_hit="data/scripts/buildings/workshop_exit_final.lua"
+      execute_every_n_frame="-1" >
+    </LuaComponent>
+</Entity>
+

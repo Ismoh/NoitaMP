@@ -1,0 +1,94 @@
+<Entity name="$animal_bigbat">
+  
+	<Base file="data/entities/base_enemy_flying.xml" >
+		<ItemChestComponent level="2" > </ItemChestComponent>
+
+		<AnimalAIComponent
+			attack_ranged_enabled="1"
+			attack_ranged_entity_file="data/entities/projectiles/bat.xml"
+			attack_ranged_frames_between="250" 
+			attack_ranged_offset_y="8"
+			attack_ranged_action_frame="4"
+			attack_dash_enabled="1"
+			attack_dash_damage="0.5"
+			needs_food="0"
+			can_fly="1">
+		</AnimalAIComponent>
+
+		<DamageModelComponent
+            hp="3.5"
+            ragdoll_filenames_file="data/ragdolls/bigbat/filenames.txt"
+			ragdoll_material="meat_slime"
+			ragdoll_offset_y="-5"
+			ragdoll_offset_x="-1"
+			blood_material="slime"
+			blood_spray_material="slime"
+			blood_sprite_directional="data/particles/bloodsplatters/bloodsplatter_directional_purple_$[1-3].xml"
+			blood_sprite_large="data/particles/bloodsplatters/bloodsplatter_purple_$[1-3].xml"
+			>
+		</DamageModelComponent>
+
+		<PathFindingComponent
+			can_fly="1" 
+			can_walk="0"
+			>
+		</PathFindingComponent>
+
+		<SpriteComponent 
+			image_file="data/enemies_gfx/bigbat.xml" 
+			offset_x="0"
+			offset_y="0">
+		</SpriteComponent>   
+		
+		<GenomeDataComponent 
+			herd_id="bat" >
+		</GenomeDataComponent>
+
+		<HitboxComponent 
+			_enabled="1" 
+			aabb_min_x="-6.0" 
+			aabb_max_x="10.0" 
+			aabb_min_y="-15" 
+			aabb_max_y="5" 
+			is_enemy="1" 
+			is_item="0" 
+			is_player="0" >
+		</HitboxComponent>
+
+		<CharacterDataComponent 
+			_enabled="1" 
+			climb_over_y="4" 
+			collision_aabb_min_x="-6.0" 
+			collision_aabb_max_x="6.0" 
+			collision_aabb_min_y="-13" 
+			collision_aabb_max_y="2" 
+			mass="1.5"
+			>
+	    </CharacterDataComponent>
+
+	</Base>
+	
+	<LightComponent
+		_enabled="1" 
+		r="80"
+		g="40"
+		b="60"
+		radius="64" >
+	</LightComponent>
+
+    <MusicEnergyAffectorComponent
+    	energy_target="1">
+    </MusicEnergyAffectorComponent>
+    
+	<AudioComponent
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals/bigbat" >
+	</AudioComponent>
+
+	<AudioComponent
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals/wing_flap_skin_big" >
+	</AudioComponent>
+
+</Entity>
+

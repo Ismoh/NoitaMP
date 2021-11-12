@@ -1,0 +1,7 @@
+data/ragdolls/worm_tiny/part_1.png
+data/ragdolls/worm_tiny/part_2.png
+data/ragdolls/worm_tiny/part_3.png
+data/ragdolls/worm_tiny/part_4.png
+data/ragdolls/worm_tiny/part_5.png
+data/ragdolls/worm_tiny/part_6.png
+data/ragdolls/worm_tiny/part_7.png

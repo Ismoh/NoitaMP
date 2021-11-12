@@ -1,0 +1,14 @@
+<Entity tags="ending_sampo_spot_mountain">
+	<LuaComponent 
+        _enabled="1" 
+        execute_every_n_frame="240"
+        script_source_file="data/scripts/magic/altar_tablet_magic.lua" 
+	>
+    </LuaComponent>
+	
+	<VariableStorageComponent
+		name="tablets_eaten"
+		value_int="0"
+		>
+	</VariableStorageComponent>
+</Entity>

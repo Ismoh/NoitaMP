@@ -1,0 +1,70 @@
+<Sprite 
+  filename="data/enemies_gfx/lasershooter_emissive.png" 
+  offset_x="8" 
+  offset_y="12"
+  default_animation="stand" >
+
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="24" 
+    frame_wait="0.23" 
+    frame_width="20" 
+    frames_per_row="6" 
+    name="stand" 
+    pos_x="0" 
+    pos_y="1" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="24" 
+    frame_wait="0.23" 
+    frame_width="20" 
+    frames_per_row="6" 
+    name="walk" 
+    pos_x="0" 
+    pos_y="1" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="24" 
+    frame_wait="0.23" 
+    frame_width="20" 
+    frames_per_row="6" 
+    name="run" 
+    pos_x="0" 
+    pos_y="1" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="4" 
+    frame_height="24" 
+    frame_wait="0.23" 
+    frame_width="20" 
+    frames_per_row="6" 
+    name="burn" 
+    pos_x="0" 
+    pos_y="1" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="12" 
+    frame_height="25" 
+    frame_wait="0.08" 
+    frame_width="21" 
+    frames_per_row="12" 
+    loop="0" 
+    name="attack_ranged" 
+    pos_x="0" 
+    pos_y="26" 
+    shrink_by_one_pixel="1" >
+
+  </RectAnimation>
+
+</Sprite>
+

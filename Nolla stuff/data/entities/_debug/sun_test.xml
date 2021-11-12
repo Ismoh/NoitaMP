@@ -1,0 +1,123 @@
+<Entity tags="hittable,teleportable_NOT,item_physics" >
+	<Base file="data/entities/base_item_projectile.xml" />
+
+	<!-- physical presence -->
+	
+	<PhysicsBodyComponent 
+		_tags="enabled_in_world"
+		uid="1" 
+		allow_sleep="1" 
+		angular_damping="0" 
+		fixed_rotation="0" 
+		is_bullet="0" 
+		linear_damping="0"
+		auto_clean="0"
+		on_death_leave_physics_body="1"
+		gravity_scale_if_has_no_image_shapes="0"
+	></PhysicsBodyComponent>
+	
+	<PhysicsShapeComponent
+		is_circle="1"
+		radius_x="64"
+		radius_y="64" 
+		>
+	</PhysicsShapeComponent>
+
+	<VelocityComponent
+		_tags="enabled_in_world"
+	></VelocityComponent>
+	
+	<SpriteComponent
+		_tags="enabled_in_hand,enabled_in_world"
+		_enabled="1"
+		offset_x="98"
+		offset_y="98"
+		image_file="data/particles/fog_of_war_hole_huge.png"
+		smooth_filtering="1"
+		fog_of_war_hole="1"
+	></SpriteComponent>
+	
+	<SpriteComponent
+		_tags="enabled_in_hand,enabled_in_world"
+		_enabled="1"
+		offset_x="70"
+		offset_y="70"
+		emissive="1"
+		additive="1"
+		image_file="data/props_gfx/sun.png"
+		smooth_filtering="1"
+	></SpriteComponent>
+
+	<UIInfoComponent
+		_tags="enabled_in_world"
+		name="$item_seed_d">
+	</UIInfoComponent>
+	
+	<ParticleEmitterComponent 
+		_tags="enabled_in_world,enabled_in_hand"
+		emitted_material_name="spark_yellow"
+		fade_based_on_lifetime="1"
+		x_pos_offset_min="0"
+		x_pos_offset_max="0"
+		y_pos_offset_min="0"
+		y_pos_offset_max="0"
+		x_vel_min="-80"
+		x_vel_max="80"
+		y_vel_min="-80"
+		y_vel_max="80"
+		area_circle_radius.min="32"
+		area_circle_radius.max="64"
+		velocity_always_away_from_center="100"
+		gravity.y="0"
+		friction="0.1"
+		airflow_force="0.9"
+		airflow_time="0.101"
+		airflow_scale="0.81"
+		count_min="40"
+		count_max="60"
+		lifetime_min="0.1"
+		lifetime_max="2.4"
+		create_real_particles="0"
+		emit_cosmetic_particles="1"
+		draw_as_long="1"
+		collide_with_grid="0"
+		render_on_grid="1"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+	
+	<ParticleEmitterComponent 
+		_tags="enabled_in_world,enabled_in_hand"
+		emitted_material_name="spark"
+		fade_based_on_lifetime="1"
+		x_pos_offset_min="0"
+		x_pos_offset_max="0"
+		y_pos_offset_min="0"
+		y_pos_offset_max="0"
+		x_vel_min="-80"
+		x_vel_max="80"
+		y_vel_min="-80"
+		y_vel_max="80"
+		area_circle_radius.min="32"
+		area_circle_radius.max="64"
+		velocity_always_away_from_center="100"
+		gravity.y="0"
+		friction="0.1"
+		airflow_force="0.9"
+		airflow_time="0.101"
+		airflow_scale="0.81"
+		count_min="40"
+		count_max="60"
+		lifetime_min="0.1"
+		lifetime_max="2.4"
+		create_real_particles="0"
+		emit_cosmetic_particles="1"
+		draw_as_long="1"
+		collide_with_grid="0"
+		render_on_grid="1"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+</Entity>

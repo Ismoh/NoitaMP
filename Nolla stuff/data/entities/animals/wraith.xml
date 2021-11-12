@@ -1,0 +1,177 @@
+<Entity name="$animal_wraith">
+  
+	<Base file="data/entities/base_enemy_flying.xml" >
+		<ItemChestComponent level="1" > </ItemChestComponent>
+
+		<AnimalAIComponent
+			attack_ranged_enabled="0"
+			attack_dash_enabled="0"
+			needs_food="0"
+			can_fly="1">
+		</AnimalAIComponent>
+
+		<DamageModelComponent
+            hp="14.75"
+            fire_probability_of_ignition="0" 
+			ragdoll_fx_forced="DISINTEGRATED"
+			ragdoll_material="rock_static_glow"
+			blood_material="plasma_fading_pink"
+			blood_spray_material="plasma_fading_pink"
+			ragdoll_material="plasma_fading_pink"
+			blood_sprite_directional=""
+			blood_sprite_large=""
+			minimum_knockback_force="100000"
+			>
+			<damage_multipliers
+				projectile="0.1"
+				explosion="0.1"
+				electricity="0.5"
+				fire="0.5" 
+				slice="0.1"
+				ice="0.1"
+				>
+			</damage_multipliers>
+		</DamageModelComponent>
+
+		<PathFindingComponent
+			can_fly="1" 
+			can_walk="0"
+			>
+		</PathFindingComponent>
+
+		<SpriteComponent 
+			image_file="data/enemies_gfx/wraith.xml" 
+			offset_x="0"
+			offset_y="0">
+		</SpriteComponent>   
+		
+		<GenomeDataComponent 
+			herd_id="mage"
+			food_chain_rank="15"
+			is_predator="1" >
+		</GenomeDataComponent>
+
+		<HitboxComponent 
+			_enabled="1" 
+			aabb_min_x="-4.0" 
+			aabb_max_x="4.0" 
+			aabb_min_y="-4" 
+			aabb_max_y="4" 
+			is_enemy="1" 
+			is_item="0" 
+			is_player="0" >
+		</HitboxComponent>
+
+		<CharacterDataComponent 
+			_enabled="1" 
+			climb_over_y="4" 
+			collision_aabb_min_x="-2.0" 
+			collision_aabb_max_x="2.0" 
+			collision_aabb_min_y="-10" 
+			collision_aabb_max_y="0" 
+			mass="0.9"
+			>
+	    </CharacterDataComponent>
+
+		<AudioComponent
+			file="data/audio/Desktop/animals.bank"
+			event_root="animals/wraith" >
+		</AudioComponent>
+
+	</Base>
+
+	<LightComponent 
+	    _enabled="1" 
+	    radius="30" 
+		r="99"
+		g="205"
+		b="139"
+		offset_y="-9"
+		>
+    </LightComponent>
+
+	<AudioLoopComponent
+		file="data/audio/Desktop/animals.bank"
+		event_name="animals/wraith/movement_loop"
+		set_speed_parameter="1"
+		auto_play="1">
+	</AudioLoopComponent>
+	
+	<AudioLoopComponent
+		file="data/audio/Desktop/animals.bank"
+		event_name="animals/wraith/vortex_loop"
+		auto_play="1">
+	</AudioLoopComponent>
+  
+	<Entity>  <Base file="data/entities/verlet_chains/wraith_cape/wraith/wraith_cape.xml"> <InheritTransformComponent><Transform position.x="0"  position.y="2" ></Transform></InheritTransformComponent> </Base>  </Entity>
+	
+	<LuaComponent
+		script_source_file="data/scripts/projectiles/projectile_gravity_strong.lua"
+		execute_every_n_frame="1"
+		>
+	</LuaComponent>
+	
+	<ParticleEmitterComponent 
+		emitted_material_name="spark_purple_bright"
+		gravity.y="0.0"
+		lifetime_min="0.5"
+		lifetime_max="1.5"
+		count_min="2"
+		count_max="4"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		area_circle_radius.max="96"
+		cosmetic_force_create="0"
+		airflow_force="0.5"
+		airflow_time="0.01"
+		airflow_scale="0.05"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		emit_cosmetic_particles="1"
+		is_emitting="1" 
+		draw_as_long="1"
+		attractor_force="16"
+		>
+	</ParticleEmitterComponent>
+
+  	<ParticleEmitterComponent 
+		emitted_material_name="spark_purple_bright"
+		gravity.y="0.0"
+		lifetime_min="0.5"
+		lifetime_max="1.5"
+		count_min="10"
+		count_max="20"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		area_circle_radius.min="96"
+		area_circle_radius.max="96"
+		cosmetic_force_create="0"
+		airflow_force="0.3"
+		airflow_time="0.01"
+		airflow_scale="0.05"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		emit_cosmetic_particles="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+	
+	<SpriteComponent 
+		image_file="data/particles/area_indicator_096_purple_dark.png"
+		z_index="1.2"
+		offset_x="48"
+		offset_y="48"
+		_enabled="0"
+		>
+	</SpriteComponent>
+	
+	<SpriteComponent 
+		_tags="character" 
+		image_file="data/enemies_gfx/wraith_arm.xml" 
+		offset_x="0"
+		offset_y="0"
+		z_index="1.6"
+		rect_animation="walk"
+		>
+	</SpriteComponent>   
+</Entity>
+

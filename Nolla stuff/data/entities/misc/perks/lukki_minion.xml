@@ -1,0 +1,160 @@
+<Entity tags="mortal,hittable,lukki,glue_NOT" name="$perk_lukki_minion">	
+	<!-- art - main body ---------------------- -->
+
+	<LightComponent 
+		_enabled="1" 
+		radius="32"
+		r="120"
+		g="60"
+		b="10"
+		offset_y="0"
+   		fade_out_time="1.5" >
+	</LightComponent>
+
+	<SpriteComponent 
+		image_file="data/entities/animals/lukki/lukki_feet/lukki_sprite_minion.xml"
+		offset_x="0"
+		offset_y="0"
+		>
+	</SpriteComponent>
+
+	<!-- AI ---------------------- -->
+	
+	<LuaComponent
+		script_source_file="data/scripts/perks/lukki_minion_movement.lua"
+		execute_every_n_frame="1"
+		>
+	</LuaComponent>
+
+	<PhysicsBodyComponent 
+		force_add_update_areas="1"
+		allow_sleep="0" 
+		angular_damping="0.02" 
+		fixed_rotation="1" 
+		is_bullet="0" 
+		linear_damping="0"  
+		gravity_scale_if_has_no_image_shapes="0"
+		>
+	</PhysicsBodyComponent>
+	
+	<VelocityComponent />
+
+
+	<!-- damage ---------------------- -->
+
+	<DamageModelComponent 
+		hp="9999.5" 
+		air_needed="0" 
+		falling_damages="0" 
+		fire_damage_amount="02" 
+		fire_probability_of_ignition="0" 
+		blood_material="slime_green"
+		blood_spray_material="slime_green"
+		is_on_fire="0" 
+		ragdoll_filenames_file=""
+        ragdoll_material="meat_slime_green"
+		ragdoll_offset_y="-6"
+		ragdollify_child_entity_sprites="1"
+		blood_sprite_directional="data/particles/bloodsplatters/bloodsplatter_directional_green_$[1-3].xml"
+		blood_sprite_large="data/particles/bloodsplatters/bloodsplatter_green_$[1-3].xml"
+		>
+		<damage_multipliers
+			melee="0.0"
+			projectile="0.0"
+			explosion="0.0"
+			electricity="0.0"
+			fire="0.0" 
+			slice="0.0"
+			ice="0.0"
+			radioactive="0.0"
+			>
+		</damage_multipliers>
+	</DamageModelComponent>
+	
+	<GenomeDataComponent 
+		herd_id="player" >
+	</GenomeDataComponent>
+
+	<!-- center hitbox (weak spot) -->
+	<HitboxComponent 
+		_tags="hitbox_weak_spot"
+		aabb_min_x="-6" 
+		aabb_max_x="6" 
+		aabb_min_y="-6" 
+		aabb_max_y="6"
+		damage_multiplier="1.0" >
+	</HitboxComponent>
+
+
+	<!-- etc ---------------------- -->
+
+	<AudioComponent 
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals" >
+	</AudioComponent>
+
+	<AudioComponent 
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals/lukki_tiny" >
+	</AudioComponent>
+
+	<SpriteAnimatorComponent 
+		rotate_to_surface_normal="0" 
+		target_sprite_comp_name="character" >
+	</SpriteAnimatorComponent>
+	
+	<ParticleEmitterComponent 
+		emitted_material_name="radioactive_liquid"
+		offset.x="-1"
+		offset.y="0"
+		x_pos_offset_min="-8"
+		y_pos_offset_min="-8"
+		x_pos_offset_max="8"
+		y_pos_offset_max="8"
+		x_vel_min="-4"
+		x_vel_max="4"
+		y_vel_min="-10"
+		y_vel_max="5"
+		count_min="1"
+		count_max="5"
+		gravity.y="0"
+		lifetime_min="0.3"
+		lifetime_max="1.6"
+		render_on_grid="1"
+		create_real_particles="0"
+		cosmetic_force_create="1"
+		collide_with_grid="0"
+		emit_cosmetic_particles="1"
+		emission_interval_min_frames="7"
+		emission_interval_max_frames="20"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+
+	<!-- limbs ---------------------- -->
+
+	<Entity>  <Base file="data/entities/animals/lukki/lukki_feet/lukki_limb_minion.xml" />  </Entity>
+	<Entity>  <Base file="data/entities/animals/lukki/lukki_feet/lukki_limb_minion.xml" />  </Entity>
+	<Entity>  <Base file="data/entities/animals/lukki/lukki_feet/lukki_limb_minion.xml" />  </Entity>
+	<Entity>  <Base file="data/entities/animals/lukki/lukki_feet/lukki_limb_minion.xml" />  </Entity>
+	<Entity>  <Base file="data/entities/animals/lukki/lukki_feet/lukki_limb_minion.xml" />  </Entity>
+
+	<Entity name="limb_attacker">  <Base file="data/entities/animals/lukki/lukki_feet/lukki_limb_attacker_minion.xml" />  </Entity>
+	
+	<AreaDamageComponent
+		aabb_min.x="-12" 
+		aabb_min.y="-12" 
+		aabb_max.x="12" 
+		aabb_max.y="12" 
+		damage_per_frame="0.2"
+		update_every_n_frame="10"
+		entities_with_tag="enemy"
+		damage_type="DAMAGE_MELEE"
+		>
+	</AreaDamageComponent>
+	
+	<VariableStorageComponent
+		name="memory"
+		value_int="0"
+		>
+	</VariableStorageComponent>
+</Entity>

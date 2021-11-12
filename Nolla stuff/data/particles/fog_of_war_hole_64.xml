@@ -1,0 +1,22 @@
+<Sprite 
+  default_animation="explosion" 
+  filename="data/particles/fog_of_war_hole_64.png" 
+  offset_x="33" 
+  offset_y="33" >
+
+  <RectAnimation 
+    frame_count="1" 
+    frame_height="65" 
+    frame_wait="0.02" 
+    frame_width="65" 
+    frames_per_row="1" 
+    loop="0" 
+    name="explosion" 
+    pos_x="0" 
+    pos_y="0" 
+    shrink_by_one_pixel="1" >
+
+  </RectAnimation>
+
+</Sprite>
+

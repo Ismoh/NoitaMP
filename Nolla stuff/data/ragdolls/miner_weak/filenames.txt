@@ -1,0 +1,10 @@
+data/ragdolls/miner_weak/torso.png
+data/ragdolls/miner_weak/thighs.png
+data/ragdolls/miner_weak/right_foot.png
+data/ragdolls/miner_weak/right_arm.png
+data/ragdolls/miner_weak/right_hand.png
+data/ragdolls/miner_weak/fuse.png
+data/ragdolls/miner_weak/left_foot.png
+data/ragdolls/miner_weak/left_arm.png
+data/ragdolls/miner_weak/left_hand.png
+data/ragdolls/miner_weak/head.png

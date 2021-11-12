@@ -1,0 +1,14 @@
+<Entity >
+	
+	<LuaComponent
+		script_source_file="data/scripts/projectiles/bounce_laser_launch.lua"
+		execute_on_added="1"
+		>
+	</LuaComponent>
+
+  <AudioComponent
+      file="data/audio/Desktop/projectiles.bank"
+      event_root="player_projectiles/bullet_laser">
+  </AudioComponent>
+
+</Entity>

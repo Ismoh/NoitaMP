@@ -1,0 +1,32 @@
+<Entity>
+
+	<InheritTransformComponent>
+	</InheritTransformComponent>
+
+	<IKLimbAttackerComponent
+		radius="14" >
+	</IKLimbAttackerComponent>
+
+	<IKLimbComponent
+		length="14" >
+	</IKLimbComponent>
+
+	<SpriteComponent 
+		image_file="data/entities/animals/lukki/lukki_feet/lukki_limb_A_minion.png" 
+		z_index="1.1"
+		offset_x="0"
+		offset_y="5"
+		update_transform="0"
+		update_transform_rotation="0" >
+	</SpriteComponent>
+
+	<SpriteComponent 
+		image_file="data/entities/animals/lukki/lukki_feet/lukki_limb_B_minion.png" 
+		z_index="1.1"
+		offset_x="0"
+		offset_y="5"
+		update_transform="0"
+		update_transform_rotation="0" >
+	</SpriteComponent>
+
+</Entity>

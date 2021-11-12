@@ -1,0 +1,32 @@
+<Sprite
+ filename="data/projectiles_gfx/black_hole_big.png"
+ offset_x="48"
+ offset_y="48"
+ default_animation="spawn" >
+
+ <!-- animation -->
+ <RectAnimation
+  name="fireball"
+  pos_x="0"
+  pos_y="0"
+  frame_count="32"
+  frame_width="96"
+  frame_height="96"
+  frame_wait="0.05"
+  frames_per_row="47"
+  loop="1"   >
+ </RectAnimation>
+ 
+ <RectAnimation
+  name="spawn"
+  pos_x="0"
+  pos_y="96"
+  frame_count="47"
+  frame_width="96"
+  frame_height="96"
+  frame_wait="0.05"
+  frames_per_row="47"
+  next_animation="fireball"
+  loop="0"   >
+ </RectAnimation>
+</Sprite>

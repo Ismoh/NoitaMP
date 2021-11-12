@@ -1,0 +1,68 @@
+<Entity >
+
+  <SpriteComponent 
+    _enabled="1" 
+    alpha="1" 
+    image_file="data/particles/muzzle_flashes/muzzle_magic_small_0$[1-5].png" 
+    next_rect_animation="muzzle"
+    rect_animation="muzzle"
+	emissive="1"
+    additive="1"
+    kill_entity_after_finished="1"
+	offset_x="5"
+	offset_y="7"
+     >
+  </SpriteComponent>
+  
+  <ParticleEmitterComponent 
+    emitted_material_name="spark_blue"
+    offset.x="0"
+    offset.y="0"
+    x_pos_offset_min="-1"
+    y_pos_offset_min="-1"
+    x_pos_offset_max="1"
+    y_pos_offset_max="1"
+    x_vel_min="300"
+    x_vel_max="50"
+    y_vel_min="0"
+    y_vel_max="0"
+    count_min="1"
+    count_max="4"
+    lifetime_min="0.0"
+    lifetime_max="0.1"
+    create_real_particles="0"
+    emit_cosmetic_particles="1"
+    emission_interval_min_frames="0"
+    emission_interval_max_frames="0"
+    is_emitting="1" >
+  </ParticleEmitterComponent>
+  
+  <ParticleEmitterComponent 
+    emitted_material_name="plasma_fading"
+    offset.x="0"
+    offset.y="0"
+	gravity.y="0"
+    x_pos_offset_min="0"
+    y_pos_offset_min="0"
+    x_pos_offset_max="0"
+    y_pos_offset_max="0"
+    x_vel_min="10"
+    x_vel_max="40"
+    y_vel_min="-2"
+    y_vel_max="2"
+    count_min="1"
+    count_max="2"
+    lifetime_min="1.0"
+    lifetime_max="4.1"
+	fade_based_on_lifetime="1"
+	render_on_grid="1"
+	airflow_force="0.5"
+	airflow_time="0.5"
+	airflow_scale="0.05"
+    create_real_particles="0"
+    emit_cosmetic_particles="1"
+    emission_interval_min_frames="2"
+    emission_interval_max_frames="10"
+    is_emitting="1" >
+  </ParticleEmitterComponent>
+</Entity>

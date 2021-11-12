@@ -1,0 +1,69 @@
+<Entity tags="zombie" name="$animal_bigzombie">
+  
+	<Base file="data/entities/base_enemy_flying.xml" >
+		<AnimalAIComponent
+			attack_ranged_enabled="0"
+			attack_melee_enabled="1"
+			attack_dash_enabled="1"
+			attack_melee_damage_min="0.5"
+			attack_melee_damage_max="0.6"
+			eye_offset_y="-8"
+			aggressiveness_min="1"
+			aggressiveness_max="50"
+			needs_food="0"
+			can_fly="1" >
+		</AnimalAIComponent>
+
+		<DamageModelComponent 
+            hp="4"
+			fire_probability_of_ignition="0"
+	            ragdoll_material="meat_cursed"
+            ragdoll_filenames_file="data/ragdolls/bigzombie/filenames_head.txt" 
+			>
+		</DamageModelComponent>
+
+		<PathFindingComponent
+			can_fly="1" 
+			can_walk="0"
+			>
+		</PathFindingComponent>
+
+		<SpriteComponent 
+			image_file="data/enemies_gfx/bigzombiehead.xml" 
+			offset_x="0"
+			offset_y="0">
+		</SpriteComponent>
+		
+		<HitboxComponent 
+			_enabled="1" 
+			aabb_min_x="-2.5" 
+			aabb_max_x="2.5" 
+			aabb_min_y="-16.0" 
+			aabb_max_y="-8" 
+			is_enemy="1" 
+			is_item="0" 
+			is_player="0" >
+		</HitboxComponent>		
+		
+		<GenomeDataComponent 
+			herd_id="zombie" >
+		</GenomeDataComponent>
+		
+		<CharacterDataComponent 
+			collision_aabb_min_x="-4.5" 
+			collision_aabb_max_x="4.5" 
+			collision_aabb_min_y="-14"
+			collision_aabb_max_y="-7"
+			mass="0.4"
+			>
+		</CharacterDataComponent>
+	</Base>
+	
+	<LuaComponent
+    execute_every_n_frame="-1"
+    script_death="data/scripts/animals/bigzombiehead.lua"
+    remove_after_executed="0">
+    </LuaComponent>
+
+</Entity>
+

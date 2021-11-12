@@ -1,0 +1,20 @@
+<Sprite
+ filename="data/vegetation/grass_patch_05.png"
+ offset_x="10"
+ offset_y="9" 
+ default_animation="vegetation_growth" >
+
+ <!-- vegetation_growth is special name, creates a growing vegetation with it -->
+ <RectAnimation
+  name="vegetation_growth"
+  pos_x="0"
+  pos_y="0"
+  frame_count="1"
+  frame_width="20"
+  frame_height="10"
+  frame_wait="1.0"
+  frames_per_row="1"
+  loop="1"   >
+ </RectAnimation>
+
+</Sprite>

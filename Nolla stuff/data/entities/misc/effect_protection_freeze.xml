@@ -1,0 +1,13 @@
+<Entity tags="effect_protection" >
+	
+	<InheritTransformComponent>
+    </InheritTransformComponent>	
+    
+    <GameEffectComponent
+		_tags="effect_protection"
+        effect="PROTECTION_FREEZE"
+        frames="7200"
+    >
+	</GameEffectComponent >
+
+</Entity>

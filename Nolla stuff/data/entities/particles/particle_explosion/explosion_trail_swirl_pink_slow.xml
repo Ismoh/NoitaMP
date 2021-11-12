@@ -1,0 +1,61 @@
+<Entity>
+	<VelocityComponent
+		gravity_y="0"
+		air_friction="2" 
+		updates_velocity="1"
+		>
+	</VelocityComponent>
+
+	<SimplePhysicsComponent>
+	</SimplePhysicsComponent>
+	
+	<SetStartVelocityComponent
+		randomize_speed.min="50"
+		randomize_speed.max="200"
+		randomize_angle.min="0"
+		randomize_angle.max="6.283185" 
+		>
+	</SetStartVelocityComponent>
+	
+	<ParticleEmitterComponent 
+		emitted_material_name="plasma_fading_pink"
+		delay_frames="2"
+		offset.x="0"
+		offset.y="0"
+		gravity.y="0"
+		x_vel_min="0"
+		x_vel_max="0"
+		y_vel_min="0"
+		y_vel_max="0"
+		friction="10"
+		count_min="0"
+		count_max="1"
+		lifetime_min="0.5"
+		lifetime_max="2.5"
+		emit_real_particles="0"
+		render_on_grid="0"
+		is_trail="1"
+		trail_gap="1"
+		airflow_force="0.3"
+		airflow_time="0.01"
+		airflow_scale="0.22"
+		emit_cosmetic_particles="1"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		fade_based_on_lifetime="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+
+	<LifetimeComponent
+		lifetime="100"
+		randomize_lifetime.min="-75"
+		randomize_lifetime.max="35"
+		>
+	</LifetimeComponent>
+
+	<LuaComponent
+		script_source_file="data/scripts/particles/swirl_movement.lua"
+		execute_every_n_frame="1"
+		>
+	</LuaComponent>
+</Entity>

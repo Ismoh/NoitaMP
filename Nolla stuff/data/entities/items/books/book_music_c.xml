@@ -1,0 +1,38 @@
+<Entity tags="scroll">
+	<Base file="data/entities/items/books/base_book.xml">
+		<BookComponent
+			_enabled="0"
+			>
+		</BookComponent>
+
+		<ParticleEmitterComponent 
+			_enabled="0"
+			>
+		</ParticleEmitterComponent>
+		
+		<PhysicsImageShapeComponent 
+			image_file="data/items_gfx/book_small.png"
+		></PhysicsImageShapeComponent>
+
+		<UIInfoComponent
+			name="$item_book_music_c"
+			>
+		</UIInfoComponent>
+		
+		<ItemComponent
+			ui_sprite="data/items_gfx/book.png"
+			item_name="$item_book_music_c"
+			ui_description="$itemdesc_book_music_c"
+			>
+		</ItemComponent>
+		
+		<SpriteComponent
+			image_file="data/items_gfx/in_hand/book_in_hand.png"
+		></SpriteComponent>
+		
+		<AbilityComponent
+			ui_name="$item_book_music_c"
+			>
+		</AbilityComponent>
+	</Base>
+</Entity>

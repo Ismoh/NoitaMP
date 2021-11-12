@@ -1,0 +1,139 @@
+<Entity tags="mortal" >
+	<!-- mortal is required so it can explode -->
+	<Base file="data/entities/base_item_physics2.xml" >
+		<PhysicsBody2Component
+			kill_entity_after_initialized="0" >
+		</PhysicsBody2Component>
+		<PhysicsImageShapeComponent
+			image_file="data/props_gfx/crystal_red.png"
+			material="crystal_solid" >
+		</PhysicsImageShapeComponent>
+	</Base>
+
+	<VelocityComponent>
+	</VelocityComponent>
+
+	<!-- hover -->
+	<LuaComponent
+		script_source_file="data/scripts/props/crystal_rotate.lua"
+		execute_every_n_frame="3" >
+	</LuaComponent>
+
+	<MaterialInventoryComponent 
+		drop_as_item="0" 
+		on_death_spill="1"
+		leak_on_damage_percent="0.1"
+		audio_collision_size_modifier_amount="0.8"
+		b2_force_on_leak="0.3"
+		leak_pressure_min="0.4"
+		leak_pressure_max="0.8"
+		kill_when_empty="1"
+		>
+		<count_per_material_type>
+			<Material material="spark_red" count="300"  />
+		</count_per_material_type>
+	</MaterialInventoryComponent>
+
+	<DamageModelComponent 
+		air_needed="0" 
+		blood_material="spark_red" 
+		blood_multiplier="0.1"
+		drop_items_on_death="0" 
+		falling_damage_damage_max="1.2" 
+		falling_damage_damage_min="0.1" 
+		falling_damage_height_max="250" 
+		falling_damage_height_min="70" 
+		falling_damages="0" 
+		fire_damage_amount="0.4" 
+		fire_probability_of_ignition="0"
+		critical_damage_resistance="1"
+		hp="10" 
+		is_on_fire="0" 
+		materials_create_messages="0" 
+		materials_damage="1"
+		materials_that_damage="fire,lava,acid"
+		materials_how_much_damage="0.0002,0.0001,0.001"
+		ragdoll_filenames_file="" 
+		ragdoll_material="" >
+		<damage_multipliers
+			melee="0.1"
+			>
+		</damage_multipliers>
+	</DamageModelComponent>
+	
+	<ExplodeOnDamageComponent
+		explode_on_death_percent="1"
+		explode_on_damage_percent="0.0"
+		physics_body_modified_death_probability="0.9"
+		physics_body_destruction_required="0.15"
+		>
+		<config_explosion
+			never_cache="0"
+			damage="2.6"
+			camera_shake="20" 
+			explosion_radius="25" 
+			explosion_sprite="data/particles/explosion_032.xml" 
+			explosion_sprite_lifetime="10" 
+			create_cell_probability="80" 
+			hole_destroy_liquid="0" 
+			load_this_entity="data/entities/particles/particle_explosion/main_swirly_red.xml,data/entities/props/crystal_red_effect.xml"
+			hole_enabled="1" 
+			ray_energy="4000000"
+			particle_effect="1" 
+			damage_mortals="1" 
+			physics_explosion_power.min="1.9" 
+			physics_explosion_power.max="2.5" 
+			physics_throw_enabled="1"
+			shake_vegetation="1" 
+			sparks_count_min="10" 
+			sparks_count_max="25" 
+			sparks_enabled="1" 
+			stains_enabled="1" 
+			stains_radius="15" 
+			delay.min="1"
+			delay.max="4"
+			explosion_delay_id="1"
+			audio_event_name="explosions/magic_rocket_big" >
+		</config_explosion>
+	</ExplodeOnDamageComponent>
+
+	<ParticleEmitterComponent 
+		emitted_material_name="spark_red"
+		gravity.y="-60.0"
+		lifetime_min="0.8"
+		lifetime_max="1.6"
+		x_pos_offset_min="-0"
+		x_pos_offset_max="0"
+		y_pos_offset_min="-12"
+		y_pos_offset_max="12"
+		area_circle_radius.min="0"
+		area_circle_radius.max="10"
+		count_min="1"
+		count_max="1"
+		render_on_grid="1"
+		collide_with_grid="0"
+		fade_based_on_lifetime="1"
+		cosmetic_force_create="0"
+		airflow_force="0.251"
+		airflow_time="1.01"
+		airflow_scale="0.05"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		emit_cosmetic_particles="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+
+	<LightComponent
+		radius="60"
+		r="255"
+		g="20"
+		b="20" >
+	</LightComponent>
+
+	<AudioLoopComponent
+		file="data/audio/Desktop/animals.bank"
+		event_name="animals/magical/movement_loop"
+		set_speed_parameter="1"
+		auto_play="1">
+	</AudioLoopComponent>
+</Entity>

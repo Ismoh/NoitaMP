@@ -1,0 +1,5 @@
+data/ragdolls/blob/torso.png
+data/ragdolls/blob/leg1.png
+data/ragdolls/blob/leg2.png
+data/ragdolls/blob/leg3.png
+data/ragdolls/blob/leg4.png

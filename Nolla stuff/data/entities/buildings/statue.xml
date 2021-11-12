@@ -1,0 +1,72 @@
+<Entity 
+  name="unknown" 
+  tags="hittable,mortal" >
+  
+  <DamageModelComponent 
+    _enabled="1" 
+    air_needed="0" 
+    drop_items_on_death="0" 
+    falling_damages="0" 
+    fire_probability_of_ignition="0" 
+	critical_damage_resistance="1"
+    hp="0.2" 
+    is_on_fire="0" 
+    materials_create_messages="0" 
+    materials_damage="1" 
+    materials_how_much_damage="0.1" 
+    materials_that_damage="" 
+    max_hp="0.2" 
+    ragdoll_filenames_file="" 
+    ragdoll_offset_y="-6" 
+    ragdoll_material="bone"
+    blood_material="bone"
+	>
+  </DamageModelComponent>
+
+  <HitboxComponent 
+    _enabled="1" 
+    aabb_max_x="4.5" 
+    aabb_max_y="0" 
+    aabb_min_x="-4.5" 
+    aabb_min_y="-16" 
+    is_enemy="0" 
+    is_item="0" 
+    is_player="0" >
+  </HitboxComponent>
+
+  <SpriteComponent 
+    _enabled="1" 
+    alpha="1" 
+    has_special_scale="0" 
+    image_file="data/buildings_gfx/statue.xml" 
+    is_text_sprite="0" 
+    next_rect_animation="" 
+    offset_x="0" 
+    offset_y="0" 
+    rect_animation="" 
+    special_scale_x="1" 
+    special_scale_y="1" 
+     
+    ui_is_parent="0" 
+    update_transform="1" 
+    visible="1" 
+     >
+  </SpriteComponent>
+
+  <SimplePhysicsComponent />
+  
+  <VelocityComponent />
+  
+  <MaterialInventoryComponent 
+    _enabled="1" 
+    drop_as_item="0" 
+    on_death_spill="1"
+    leak_on_damage_percent="0.999"
+    >
+    <count_per_material_type>
+      <Material material="sand" count="50"  />
+	  </count_per_material_type>
+  </MaterialInventoryComponent>
+
+</Entity>
+

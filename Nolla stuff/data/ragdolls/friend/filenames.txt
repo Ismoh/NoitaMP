@@ -1,0 +1,5 @@
+data/ragdolls/friend/torso.png
+data/ragdolls/friend/left_foot.png
+data/ragdolls/friend/left_leg.png
+data/ragdolls/friend/right_foot.png
+data/ragdolls/friend/right_leg.png

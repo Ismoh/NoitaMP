@@ -1,0 +1,67 @@
+<Entity 
+  name="unknown" 
+   >
+
+	<Base file="data/entities/base_projectile.xml" >
+		<VelocityComponent
+    		gravity_y="200"
+			air_friction="8.7"
+			>
+    	</VelocityComponent> 
+	</Base>
+
+	<ProjectileComponent 
+		_enabled="1" 
+		speed_min="450"
+		speed_max="650"
+		die_on_low_velocity="0"
+		on_death_explode="0"
+		on_death_gfx_leave_sprite="0" 
+		on_lifetime_out_explode="0"
+		damage="0.0"
+		bounce_always="1"
+		bounces_left="10"
+		bounce_energy="0.5"
+		on_collision_die="0"
+		collide_with_entities="0"
+		lifetime="15" >
+	</ProjectileComponent>
+   
+	<LightComponent 
+		_enabled="1" 
+		radius="64" 
+		r="255"
+		g="230"
+		b="120"
+		fade_out_time="0.5"
+		>
+	</LightComponent>
+	
+	<SpriteParticleEmitterComponent
+		sprite_file="data/particles/sparkly.xml"
+		delay="0"
+		lifetime="0"
+		color.r="1" color.g="1" color.b="1" color.a="0.8"
+		color_change.r="0" color_change.g="0" color_change.b="0" color_change.a="0"
+		velocity.x="0" velocity.y="0"
+		gravity.x="0" gravity.y="-15"
+		velocity_slowdown="0"
+		rotation="0"
+		angular_velocity="0"
+		randomize_velocity.min_x="-10"
+		randomize_velocity.max_x="10"
+		randomize_velocity.min_y="-30"
+		randomize_velocity.max_y="10"
+		randomize_position.min_x="-4"
+		randomize_position.max_x="4"
+		randomize_position.min_y="-4"
+		randomize_position.max_y="4"
+		scale.x="1" scale.y="1"
+		scale_velocity.x="0" scale_velocity.y="0"
+		emission_interval_min_frames="2"
+		emission_interval_max_frames="4"
+		count_min="1" count_max="2"
+		>
+	</SpriteParticleEmitterComponent>
+</Entity>
+

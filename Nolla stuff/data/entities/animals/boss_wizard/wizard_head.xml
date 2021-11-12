@@ -1,0 +1,121 @@
+<Sprite 
+	filename="data/entities/animals/boss_wizard/wizard_head.png" 
+	offset_x="40" 
+	offset_y="56"
+	default_animation="stand" >
+
+	<RectAnimation 
+		frame_count="6" 
+		frame_height="72" 
+		frame_wait="0.14" 
+		frame_width="80" 
+		frames_per_row="18" 
+		name="stand" 
+		pos_x="0" 
+		pos_y="0"
+		>
+	</RectAnimation>
+
+	<RectAnimation 
+		frame_count="6" 
+		frame_height="72" 
+		frame_wait="0.12" 
+		frame_width="80" 
+		frames_per_row="18" 
+		name="walk" 
+		pos_x="0" 
+		pos_y="0" 
+		>
+	</RectAnimation>
+
+	<RectAnimation 
+		frame_count="6" 
+		frame_height="72" 
+		frame_wait="0.1" 
+		frame_width="80" 
+		frames_per_row="18" 
+		name="run" 
+		pos_x="0" 
+		pos_y="0" 
+		>
+	</RectAnimation>
+
+	<RectAnimation 
+		frame_count="6" 
+		frame_height="72" 
+		frame_wait="0.09" 
+		frame_width="80" 
+		frames_per_row="18" 
+		name="burn" 
+		pos_x="0" 
+		pos_y="0" 
+		>
+	</RectAnimation>
+	
+	<RectAnimation 
+		frame_count="6" 
+		frame_height="72" 
+		frame_wait="0.11" 
+		frame_width="80" 
+		frames_per_row="18" 
+		name="fly_idle" 
+		pos_x="0" 
+		pos_y="0" 
+		>
+	</RectAnimation>
+	
+	<RectAnimation 
+		frame_count="6" 
+		frame_height="72" 
+		frame_wait="0.09" 
+		frame_width="80" 
+		frames_per_row="18" 
+		name="fly_move" 
+		pos_x="0" 
+		pos_y="0" 
+		>
+	</RectAnimation>
+	
+	<RectAnimation 
+		frame_count="11" 
+		frame_height="72" 
+		frame_wait="0.06" 
+		frame_width="80" 
+		frames_per_row="18" 
+		loop="0" 
+		name="attack" 
+		pos_x="0" 
+		pos_y="144" 
+		>
+		<Event frame="7" max_distance="500"  name="attack_melee"   on_finished="0" probability="1" />
+	</RectAnimation>
+	
+	<RectAnimation 
+		frame_count="18" 
+		frame_height="72" 
+		frame_wait="0.05s" 
+		frame_width="80" 
+		frames_per_row="18" 
+		loop="0" 
+		name="attack_ranged" 
+		pos_x="0" 
+		pos_y="72" 
+		>
+		<Event frame="11" max_distance="500"  name="attack_shoot"   on_finished="0" probability="1" />
+	</RectAnimation>
+	
+	<RectAnimation 
+		frame_count="11" 
+		frame_height="72" 
+		frame_wait="0.06" 
+		frame_width="80" 
+		frames_per_row="18" 
+		loop="0" 
+		name="attack_ranged2" 
+		pos_x="0" 
+		pos_y="144" 
+		>
+		<Event frame="7" max_distance="500"  name="attack_shoot"   on_finished="0" probability="1" />
+	</RectAnimation>
+</Sprite>
+

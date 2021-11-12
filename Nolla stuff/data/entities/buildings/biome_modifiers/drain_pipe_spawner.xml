@@ -1,0 +1,6 @@
+<Entity>
+	<LuaComponent
+		script_source_file="data/scripts/buildings/drain_pipe_spawn.lua"
+		execute_every_n_frame="67">
+	</LuaComponent>
+</Entity>

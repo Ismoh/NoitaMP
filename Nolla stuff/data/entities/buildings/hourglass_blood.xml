@@ -1,0 +1,32 @@
+<Entity tags="hourglass_entity,hourglass_blood">
+	<MagicConvertMaterialComponent
+		_tags="enabled_by_liquid"
+		_enabled="0"
+		kill_when_finished="1"
+		steps_per_frame="1"
+		from_material_tag="[blood]"
+		to_material="gold"
+		clean_stains="0"
+		is_circle="1"
+		radius="46"
+		>
+	</MagicConvertMaterialComponent>
+
+	<MaterialAreaCheckerComponent
+		_tags="disabled_by_liquid"
+		area_aabb.min_x="-16" 
+		area_aabb.max_x="16" 
+		area_aabb.min_y="0"   
+		area_aabb.max_y="8" 
+		update_every_x_frame="1"
+		material="blood"
+		material2="blood"
+		look_for_failure="0"
+		kill_after_message="0">
+	</MaterialAreaCheckerComponent>
+
+	<LuaComponent
+		_tags="disabled_by_liquid"
+		script_material_area_checker_success="data/scripts/buildings/hourglass_material_check.lua" >
+	</LuaComponent>
+</Entity>

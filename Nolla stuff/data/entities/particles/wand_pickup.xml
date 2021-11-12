@@ -1,0 +1,57 @@
+<Entity>
+
+    <VelocityComponent
+        gravity_y="0"
+        air_friction="4.0" >
+    </VelocityComponent>
+
+    <SimplePhysicsComponent>
+    </SimplePhysicsComponent>
+
+    <LifetimeComponent
+		lifetime="10"
+		>
+	</LifetimeComponent>
+
+    <SpriteParticleEmitterComponent
+        sprite_file="data/particles/shine_05.xml"
+		lifetime="5"
+		color.r="1" color.g="1" color.b="1" color.a="1"
+		color_change.r="0" color_change.g="0" color_change.b="0" color_change.a="-2"
+        emission_interval_min_frames="1"
+        emission_interval_max_frames="1"
+        additive="1"
+        emissive="0"
+        scale.x="1.0"
+        scale.y="1.0"
+		count_min="1"
+		count_max="2"
+        sprite_random_rotation="1"
+        randomize_scale.min_x="-0.1" 
+        randomize_scale.max_x="0.1" 
+        randomize_scale.min_y="-0.1" 
+        randomize_scale.max_y="0.1" 
+        randomize_velocity.min_y="-90" 
+        randomize_velocity.max_y="90"
+        randomize_velocity.min_x="-90" 	
+        randomize_velocity.max_x="90"
+		randomize_position.min_y="-2" 
+        randomize_position.max_y="2"
+        randomize_position.min_x="-2"  
+        randomize_position.max_x="2"
+        randomize_animation_speed_coeff.min="0.667"  
+        randomize_animation_speed_coeff.max="1.0" 
+		>
+    </SpriteParticleEmitterComponent>
+	
+	<LightComponent 
+		_enabled="1" 
+		r="228"
+		g="255"
+		b="70"
+		radius="48" 
+		fade_out_time="2"
+		>
+	</LightComponent>
+</Entity>
+

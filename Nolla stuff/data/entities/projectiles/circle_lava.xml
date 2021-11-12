@@ -1,0 +1,42 @@
+<Entity name="$projectile_default" tags="projectile_player" >
+
+  	<ParticleEmitterComponent 
+		emitted_material_name="lava"
+		create_real_particles="1"
+		gravity.y="0.0"
+		lifetime_min="8"
+		lifetime_max="15"
+		count_min="1"
+		count_max="1"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		area_circle_radius.min="0"
+		area_circle_radius.max="0"
+		cosmetic_force_create="0"
+		airflow_force="0.251"
+		airflow_time="1.01"
+		airflow_scale="0.05"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		emit_cosmetic_particles="0"
+		image_animation_file="data/particles/image_emitters/circle_256.png"
+		image_animation_speed="1"
+		image_animation_loop="0"
+		image_animation_raytrace_from_center="0"
+		collide_with_gas_and_fire="0"
+		set_magic_creation="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+	
+	<AudioComponent
+		file="data/audio/Desktop/projectiles.bank"
+		event_root="player_projectiles/sea_of_lava"
+		set_latest_event_position="1" >
+	</AudioComponent>
+
+	<LifetimeComponent
+		lifetime="260" >
+	</LifetimeComponent>
+
+</Entity>
+

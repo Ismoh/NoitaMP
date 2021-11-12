@@ -1,0 +1,24 @@
+<Entity >
+	
+	<InheritTransformComponent>
+	</InheritTransformComponent>
+   
+    <VerletPhysicsComponent
+    	stiffness="1.0"
+    	num_points="5"
+		velocity_dampening="0.8"
+    	resting_distance="4.0"
+		scale_sprite_x="0"
+		pixelate_sprite_transforms="0"
+		simulate_gravity="1"
+		mass_min="3.5"
+		mass_max="6.9"
+		>
+    </VerletPhysicsComponent>
+
+	<Base file="data/entities/verlet_chains/wraith_cape/wraith_glowing/parts/cape_verlet_1.xml" />
+	<Base file="data/entities/verlet_chains/wraith_cape/wraith_glowing/parts/cape_verlet_2.xml" />
+	<Base file="data/entities/verlet_chains/wraith_cape/wraith_glowing/parts/cape_verlet_3.xml" />
+	<Base file="data/entities/verlet_chains/wraith_cape/wraith_glowing/parts/cape_verlet_4.xml" />
+  
+</Entity>

@@ -1,0 +1,11 @@
+<Entity>
+	<InheritTransformComponent>
+    </InheritTransformComponent>	
+    
+    <GameEffectComponent 
+    	effect="HOVER_BOOST"
+    	frames="600"
+    >
+	</GameEffectComponent >
+	
+</Entity>

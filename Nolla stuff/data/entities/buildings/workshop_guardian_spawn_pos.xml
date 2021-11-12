@@ -1,0 +1,13 @@
+<Entity tags="guardian_spawn_pos" >
+
+  <SpriteComponent 
+    _enabled="0" 
+    alpha="1" 
+    offset_x="0"
+    offset_y="0"
+    image_file="data/debug/box_10x10.png" 
+     >
+  </SpriteComponent>
+  
+</Entity>
+

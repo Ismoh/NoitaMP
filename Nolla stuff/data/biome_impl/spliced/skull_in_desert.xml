@@ -1,0 +1,6 @@
+<PixelScenes>
+  <mBufferedPixelScenes>
+    <PixelScene background_filename="" colors_filename="data/biome_impl/spliced/skull_in_desert/1_visual.png" material_filename="data/biome_impl/spliced/skull_in_desert/1.png" pos_x="7100" pos_y="-100" skip_biome_checks="1" >
+    </PixelScene>
+  </mBufferedPixelScenes>
+</PixelScenes>

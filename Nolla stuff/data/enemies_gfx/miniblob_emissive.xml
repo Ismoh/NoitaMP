@@ -1,0 +1,97 @@
+<Sprite 
+  filename="data/enemies_gfx/miniblob_emissive.png" 
+  offset_x="7" 
+  offset_y="13"
+  default_animation="stand" >
+
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="17" 
+    frame_wait="0.16" 
+    frame_width="15" 
+    frames_per_row="8" 
+    name="stand" 
+    pos_x="0" 
+    pos_y="1" 
+    shrink_by_one_pixel="1" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="3" 
+    frame_height="17" 
+    frame_wait="0.064" 
+    frame_width="21" 
+    frames_per_row="8" 
+    loop="0" 
+    name="attack" 
+    pos_x="0" 
+    pos_y="1" 
+    shrink_by_one_pixel="1" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="5" 
+    frame_height="16" 
+    frame_wait="0.1" 
+    frame_width="14" 
+    frames_per_row="8" 
+    name="walk" 
+    pos_x="0" 
+    pos_y="18" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="5" 
+    frame_height="16" 
+    frame_wait="0.1" 
+    frame_width="14" 
+    frames_per_row="8" 
+    name="run" 
+    pos_x="0" 
+    pos_y="18" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="5" 
+    frame_height="16" 
+    frame_wait="0.1" 
+    frame_width="14" 
+    frames_per_row="8" 
+    name="burn" 
+    pos_x="0" 
+    pos_y="18" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="1" 
+    frame_height="16" 
+    frame_wait="0.082" 
+    frame_width="14" 
+    frames_per_row="8" 
+    loop="0" 
+    name="jump_up" 
+    pos_x="0" 
+    pos_y="18" >
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="1" 
+    frame_height="16" 
+    frame_wait="0.082" 
+    frame_width="14" 
+    frames_per_row="8" 
+    loop="0" 
+    name="jump_fall" 
+    pos_x="28" 
+    pos_y="18" >
+
+  </RectAnimation>
+
+</Sprite>
+

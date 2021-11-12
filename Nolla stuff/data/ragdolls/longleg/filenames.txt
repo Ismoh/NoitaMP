@@ -1,0 +1,7 @@
+data/ragdolls/longleg/head.png
+data/ragdolls/longleg/leg1.png
+data/ragdolls/longleg/foot1.png
+data/ragdolls/longleg/leg2.png
+data/ragdolls/longleg/foot2.png
+data/ragdolls/longleg/leg3.png
+data/ragdolls/longleg/foot3.png

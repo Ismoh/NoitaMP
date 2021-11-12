@@ -1,0 +1,159 @@
+<Entity tags="hittable,teleportable_NOT,projectile_item" name="$projectile_default">
+
+  <!-- physical presence -->
+  
+  <PhysicsBodyComponent 
+    _tags="enabled_in_world"
+    uid="1" 
+    allow_sleep="1" 
+    angular_damping="0" 
+    fixed_rotation="0" 
+    is_bullet="1" 
+    linear_damping="0"
+    auto_clean="0"
+    on_death_leave_physics_body="0"
+  ></PhysicsBodyComponent>
+  
+  <PhysicsImageShapeComponent 
+    body_id="1"
+    centered="1"
+    image_file="data/items_gfx/potion_normals.png"
+    material="potion_glass_box2d"
+  ></PhysicsImageShapeComponent>
+  
+  <PhysicsThrowableComponent
+    max_throw_speed="180"
+    throw_force_coeff="1.5"
+  ></PhysicsThrowableComponent>
+
+  <ProjectileComponent
+    _tags="enabled_in_world"
+    lifetime="-1"
+    penetrate_entities="1"
+  ></ProjectileComponent>
+
+  <VelocityComponent
+    _tags="enabled_in_world"
+  ></VelocityComponent>
+  
+  <!-- potion logic -->
+
+  <PotionComponent
+    _tags="enabled_in_hand,enabled_in_world"
+    spray_velocity_coeff="75"
+  ></PotionComponent>
+
+  <MaterialInventoryComponent 
+    _tags="enabled_in_world,enabled_in_hand"
+    drop_as_item="0" 
+    on_death_spill="1"
+    leak_pressure_min="0.07"
+    leak_pressure_min="0.1"
+    leak_on_damage_percent="1"
+    min_damage_to_leak="0.0"
+    death_throw_particle_velocity_coeff="0.9" >
+    <count_per_material_type>
+		<Material material="oil" count="200"  />
+		<Material material="liquid_fire_weak" count="201"  />
+    </count_per_material_type>
+  </MaterialInventoryComponent>
+
+  <MaterialSuckerComponent 
+    barrel_size="401"
+    num_cells_sucked_per_frame="0"
+  ></MaterialSuckerComponent>
+
+  <DamageModelComponent 
+    _tags="enabled_in_world"
+    air_needed="0" 
+    blood_material="" 
+    drop_items_on_death="0" 
+    falling_damages="0" 
+    fire_damage_amount="0.2" 
+    fire_probability_of_ignition="0" 
+    hp="0.5" 
+    is_on_fire="0" 
+    materials_create_messages="0" 
+    materials_damage="1" 
+    materials_that_damage="lava"
+    materials_how_much_damage="0.001"
+    ragdoll_filenames_file=""
+    ragdoll_material=""
+  ></DamageModelComponent>
+
+  <ExplodeOnDamageComponent
+    _tags="enabled_in_world"
+    explode_on_death_percent="1"
+    explode_on_damage_percent="0"
+    physics_body_destruction_required="0.51"
+    physics_body_modified_death_probability="1" >
+    <config_explosion
+      never_cache="0"
+      damage="2.5"
+      camera_shake="20" 
+      explosion_radius="20" 
+      explosion_sprite="data/particles/explosion_032.xml"
+	  load_this_entity="data/entities/particles/particle_explosion/main_small.xml"	  
+      explosion_sprite_lifetime="0"
+	  audio_event_name="explosions/tnt"
+      hole_destroy_liquid="0" 
+      hole_enabled="0" 
+      ray_energy="100"
+      particle_effect="0" 
+      damage_mortals="1" 
+      physics_explosion_power.max="5" 
+      shake_vegetation="1" 
+      sparks_count_min="10" 
+      sparks_count_max="20" 
+      sparks_enabled="1" 
+      stains_enabled="1" 
+      stains_radius="0" 
+	  audio_event_name="explosions/cocktail"
+	  >
+    </config_explosion>
+  </ExplodeOnDamageComponent>
+
+  <PhysicsBodyCollisionDamageComponent 
+    _tags="enabled_in_world" 
+    speed_threshold="80.0"
+  ></PhysicsBodyCollisionDamageComponent>
+
+  <LuaComponent 
+    script_death="data/scripts/items/potion_glass_break_temporary.lua" 
+  ></LuaComponent>
+  
+  <!-- item -->
+
+  <SpriteComponent
+    _tags="enabled_in_hand"
+    _enabled="0"
+    offset_x="4"
+    offset_y="4"
+    image_file="data/items_gfx/potion.png"
+  ></SpriteComponent>
+
+  <ItemComponent
+    _tags="enabled_in_world"
+    item_name="$item_cocktail"
+    max_child_items="0"
+    is_pickable="1"
+    is_equipable_forced="1"
+    ui_sprite="data/ui_gfx/items/potion.png"
+    ui_description="$item_description_potion"
+    preferred_inventory="QUICK"
+  ></ItemComponent>
+
+  <AbilityComponent
+    ui_name="$item_cocktail"
+    throw_as_item="1"
+  ><gun_config
+    deck_capacity="0"
+  ></gun_config>
+  </AbilityComponent>
+
+  <UIInfoComponent
+    _tags="enabled_in_world"
+    name="$item_cocktail">
+  </UIInfoComponent>
+
+</Entity>

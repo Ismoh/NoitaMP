@@ -1,0 +1,11 @@
+<Entity>
+  
+  <LightComponent 
+    _enabled="1"
+    r="255"
+    g="255"
+    b="255"
+	radius="1000" >
+  </LightComponent>
+  
+</Entity>

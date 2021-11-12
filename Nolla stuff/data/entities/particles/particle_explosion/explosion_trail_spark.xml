@@ -1,0 +1,5 @@
+<Entity>
+	<Base file="data/entities/particles/particle_explosion/base_spark_trail.xml">
+	</Base>
+</Entity>
+

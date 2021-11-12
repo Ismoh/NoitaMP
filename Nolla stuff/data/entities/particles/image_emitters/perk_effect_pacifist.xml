@@ -1,0 +1,47 @@
+<Entity>
+
+  	<ParticleEmitterComponent 
+		emitted_material_name="spark_yellow"
+		gravity.y="0.0"
+		lifetime_min="8"
+		lifetime_max="15"
+		count_min="8"
+		count_max="8"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		area_circle_radius.min="0"
+		area_circle_radius.max="0"
+		cosmetic_force_create="0"
+		airflow_force="0.251"
+		airflow_time="1.01"
+		airflow_scale="0.05"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		emit_cosmetic_particles="1"
+		image_animation_file="data/particles/image_emitters/potion_effect.png"
+		image_animation_raytrace_from_center="1"
+		image_animation_speed="5"
+		image_animation_loop="0"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+
+	<LifetimeComponent
+		lifetime="260" >
+	</LifetimeComponent>
+	
+	<MagicConvertMaterialComponent
+      _enabled="1"
+      kill_when_finished="0"
+      from_material="glowstone"
+      steps_per_frame="5"
+      to_material="water"
+      radius="128" >
+    </MagicConvertMaterialComponent>
+
+    <AudioComponent
+      file="data/audio/Desktop/event_cues.bank"
+      event_root="event_cues/perk">
+    </AudioComponent>
+
+</Entity>
+

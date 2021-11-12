@@ -1,0 +1,11 @@
+<Entity>
+	<InheritTransformComponent>
+    </InheritTransformComponent>	
+    
+    <GameEffectComponent 
+    	effect="EXPLODING_CORPSE_SHOTS"
+    	frames="600"
+    >
+	</GameEffectComponent >
+	
+</Entity>

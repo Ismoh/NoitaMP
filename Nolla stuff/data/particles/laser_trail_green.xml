@@ -1,0 +1,20 @@
+<Sprite
+filename="data/particles/laser_trail_green.png"
+offset_x="4"
+offset_y="0.5"
+default_animation="stand"
+ >
+
+<!-- explosion -->
+<RectAnimation
+name="stand"
+pos_x="0"
+pos_y="0"
+frame_count="6"
+frame_width="8"
+frame_height="1"
+frame_wait="0.05"
+frames_per_row="6"
+loop="0"   >
+</RectAnimation>
+</Sprite>

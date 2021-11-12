@@ -1,0 +1,14 @@
+<Entity >
+	<InheritTransformComponent>
+    </InheritTransformComponent>
+	
+	<MagicConvertMaterialComponent
+        from_material_tag="[gas]"
+        to_material="fire"
+        steps_per_frame="48"
+        loop="1"
+		is_circle="1"
+        radius="48" >
+    </MagicConvertMaterialComponent>
+  
+</Entity>

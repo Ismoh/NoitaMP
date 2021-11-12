@@ -1,0 +1,12 @@
+<Entity name="$projectile_default" tags="projectile_player" >
+
+	<Base file="data/entities/projectiles/deck/bounce_spark.xml">
+		<ProjectileComponent
+			friendly_fire="1"
+			collide_with_shooter_frames="8"
+			>
+		</ProjectileComponent>
+	</Base>
+
+</Entity>
+

@@ -1,0 +1,354 @@
+<Entity 
+  tags="mortal,hittable,teleportable_NOT,homing_target,enemy,worm,music_energy_000,glue_NOT" 
+  name="$animal_worm_skull"
+  >
+  <_Transform 
+    position.x="0" 
+    position.y="0" 
+    rotation="0" 
+    scale.x="1" 
+    scale.y="1" >
+  </_Transform>
+  
+  <WormComponent
+    acceleration="0.5"
+    gravity="4"
+    tail_gravity="50"
+    part_distance="12"
+    ground_check_offset="8"
+    hitbox_radius="9"
+    bite_damage="1"
+    target_kill_radius="10"
+    target_kill_ragdoll_force="10"
+    ragdoll_filename="data/ragdolls/worm_skull/filenames.txt"
+    eat_anim_wait_mult="0.05 "
+    jump_cam_shake="2" >
+  </WormComponent>
+  
+  <DamageNearbyEntitiesComponent
+    radius="16"
+    time_between_damaging="4"
+    target_tag="player_unit"
+    damage_type="DAMAGE_CURSE"
+    ragdoll_fx="NONE">
+	</DamageNearbyEntitiesComponent>
+  
+  <WormAIComponent
+    speed="5"
+    speed_hunt="8"
+    direction_adjust_speed="0.005"
+    direction_adjust_speed_hunt="0.04"
+    hunt_box_radius="256"
+    random_target_box_radius="128"
+    new_hunt_target_check_every="240"
+    new_random_target_check_every="240"
+    give_up_area_radius="150"
+    give_up_time_frames="250"
+     >
+  </WormAIComponent>
+  
+  <CellEaterComponent
+		_tags="cell_eater"
+		_enabled="0"
+		radius="9" >
+	</CellEaterComponent>
+  
+  <DamageModelComponent 
+    _enabled="1" 
+    air_needed="0" 
+    falling_damages="0" 
+    fire_damage_amount="0.2" 
+     
+    fire_probability_of_ignition="0.5" 
+    hp="25" 
+    ragdoll_fx_forced="DISINTEGRATED"
+    is_on_fire="0" 
+    mAirAreWeInWater="0" 
+    mFallCount="0" 
+    mFallHighestY="3.40282e+038" 
+    mFallIsOnGround="0" 
+    mFireProbability="100" 
+    mIsOnFire="0" 
+    mLastCheckTime="0" 
+    mLastCheckX="0" 
+    mLastCheckY="0" 
+    materials_damage="1" 
+    materials_how_much_damage="0.1" 
+    materials_that_damage="acid" 
+    ragdoll_filenames_file=""
+    ragdoll_offset_y="-6"
+	blood_material="plasma_fading"
+	blood_spray_material="plasma_fading"
+	ragdoll_material="plasma_fading"
+	blood_sprite_directional="data/particles/bloodsplatters/bloodsplatter_directional_blue_$[1-3].xml"
+	blood_sprite_large="data/particles/bloodsplatters/bloodsplatter_blue_$[1-3].xml"
+    >
+	<damage_multipliers
+		drill="0.1"
+		>
+	</damage_multipliers>
+  </DamageModelComponent>
+  
+  <PathFindingGridMarkerComponent
+    marker_offset_y="0"
+    marker_work_flag="16" >
+  </PathFindingGridMarkerComponent>
+
+  <GenomeDataComponent 
+    _enabled="1"
+    herd_id="ghost"
+    food_chain_rank="20"
+    is_predator="1" >
+  </GenomeDataComponent>
+  
+  <SpriteComponent 
+    _enabled="1" 
+    alpha="1" 
+    image_file="data/enemies_gfx/worm_skull_head.xml" 
+    rect_animation="eat" 
+    next_rect_animation="eat"
+    emissive="1"
+    additive="1"
+    offset_x="22" 
+    offset_y="16" 
+    update_transform="0"
+	z_index="-4.0" 
+     >
+  </SpriteComponent>
+  
+  <SpriteComponent 
+    _enabled="1" 
+    alpha="1" 
+    image_file="data/enemies_gfx/worm_skull_body.xml" 
+    rect_animation="eat" 
+    next_rect_animation="eat" 
+    offset_x="22" 
+    emissive="1"
+    additive="1"
+    offset_y="16" 
+	update_transform="0"
+	z_index="-3.9" 
+     >
+  </SpriteComponent>
+  
+  <SpriteComponent 
+    _enabled="1" 
+    alpha="1" 
+    image_file="data/enemies_gfx/worm_skull_body.xml" 
+    rect_animation="eat" 
+    next_rect_animation="eat" 
+    emissive="1"
+    additive="1"
+    offset_x="22" 
+    offset_y="16" 
+    update_transform="0"
+	z_index="-3.8" 
+     >
+  </SpriteComponent>
+  
+  <SpriteComponent 
+    _enabled="1" 
+    alpha="1" 
+    image_file="data/enemies_gfx/worm_skull_body.xml" 
+    rect_animation="eat" 
+    next_rect_animation="eat" 
+    emissive="1"
+    additive="1"
+    offset_x="22" 
+    offset_y="16" 
+    update_transform="0"
+	z_index="-3.7" 
+     >
+  </SpriteComponent>
+  
+  <SpriteComponent 
+    _enabled="1" 
+    alpha="1" 
+    image_file="data/enemies_gfx/worm_skull_body.xml" 
+    rect_animation="eat" 
+    next_rect_animation="eat" 
+    emissive="1"
+    additive="1"
+    offset_x="22" 
+    offset_y="16" 
+    update_transform="0"
+	z_index="-3.6" 
+     >
+  </SpriteComponent>
+  
+  <SpriteComponent 
+    _enabled="1" 
+    alpha="1" 
+    image_file="data/enemies_gfx/worm_skull_body.xml" 
+    rect_animation="eat" 
+    next_rect_animation="eat" 
+    emissive="1"
+    additive="1"
+    offset_x="22" 
+    offset_y="16" 
+    update_transform="0"
+	z_index="-3.5" 
+     >
+  </SpriteComponent>
+  
+  <SpriteComponent 
+    _enabled="1" 
+    alpha="1" 
+    image_file="data/enemies_gfx/worm_skull_body.xml" 
+    rect_animation="eat" 
+    next_rect_animation="eat" 
+    emissive="1"
+    additive="1"
+    offset_x="22" 
+    offset_y="16" 
+    update_transform="0"
+	z_index="-3.4" 
+     >
+  </SpriteComponent>
+  
+  <SpriteComponent 
+    _enabled="1" 
+    alpha="1" 
+    image_file="data/enemies_gfx/worm_skull_body.xml" 
+    rect_animation="eat" 
+    next_rect_animation="eat"
+    emissive="1"
+    additive="1"	
+    offset_x="22" 
+    offset_y="16" 
+    update_transform="0"
+	z_index="-3.3" 
+     >
+  </SpriteComponent>
+  
+  <SpriteComponent 
+    _enabled="1" 
+    alpha="1" 
+    image_file="data/enemies_gfx/worm_skull_body.xml" 
+    rect_animation="eat" 
+    next_rect_animation="eat" 
+    emissive="1"
+    additive="1"
+    offset_x="22" 
+    offset_y="16" 
+    update_transform="0"
+	z_index="-3.2" 
+     >
+  </SpriteComponent>
+  
+  <SpriteComponent 
+    _enabled="1" 
+    alpha="1" 
+    image_file="data/enemies_gfx/worm_skull_body.xml" 
+    rect_animation="eat" 
+    next_rect_animation="eat" 
+    emissive="1"
+    additive="1"
+    offset_x="22" 
+    offset_y="16" 
+    update_transform="0"
+	z_index="-3.1" 
+     >
+  </SpriteComponent>
+  
+  <SpriteComponent 
+    _enabled="1" 
+    alpha="1" 
+    image_file="data/enemies_gfx/worm_skull_body.xml" 
+    rect_animation="eat" 
+    next_rect_animation="eat" 
+    emissive="1"
+    additive="1"
+    offset_x="22" 
+    offset_y="16" 
+    update_transform="0"
+	z_index="-3.0" 
+     >
+  </SpriteComponent>
+  
+  <SpriteComponent 
+    _enabled="1" 
+    alpha="1" 
+    image_file="data/enemies_gfx/worm_skull_body.xml" 
+    rect_animation="eat" 
+    next_rect_animation="eat" 
+    emissive="1"
+    additive="1"
+    offset_x="22" 
+    offset_y="16" 
+    update_transform="0"
+	z_index="-2.9" 
+     >
+  </SpriteComponent>
+  
+  <SpriteComponent 
+    _enabled="1" 
+    alpha="1" 
+    image_file="data/enemies_gfx/worm_skull_body.xml" 
+    rect_animation="eat" 
+    next_rect_animation="eat" 
+    emissive="1"
+    additive="1"
+    offset_x="22" 
+    offset_y="16" 
+    update_transform="0"
+	z_index="-2.8" 
+     >
+  </SpriteComponent>
+  
+  <SpriteComponent 
+    _enabled="1" 
+    alpha="1" 
+    image_file="data/enemies_gfx/worm_skull_body.xml" 
+    rect_animation="eat" 
+    next_rect_animation="eat"
+    emissive="1"
+    additive="1"	
+    offset_x="22" 
+    offset_y="16" 
+    update_transform="0"
+	z_index="-2.7" 
+     >
+  </SpriteComponent>
+  
+  <SpriteComponent 
+    _enabled="1" 
+    alpha="1" 
+    image_file="data/enemies_gfx/worm_skull_tail.xml" 
+    rect_animation="eat" 
+    next_rect_animation="eat"
+    emissive="1"
+    additive="1"	
+    next_rect_animation="" 
+    offset_x="22" 
+    offset_y="16" 
+    update_transform="0"
+	z_index="-2.6" 
+     >
+  </SpriteComponent>
+		
+	<CameraBoundComponent
+	  max_count="10"
+	  distance="2000">
+	</CameraBoundComponent>
+
+  <MusicEnergyAffectorComponent
+    energy_target="1">
+  </MusicEnergyAffectorComponent>
+  
+  <AudioComponent
+    file="data/audio/Desktop/animals.bank"
+    event_root="animals/ghost" >
+  </AudioComponent>
+  
+  <Entity>
+		<InheritTransformComponent />
+		
+	    <GameEffectComponent 
+	        effect="PROTECTION_FREEZE"
+	        frames="-1"
+	    >
+		</GameEffectComponent >
+	</Entity>
+
+</Entity>

@@ -1,0 +1,125 @@
+<Entity tags="glue_NOT" name="$animal_enlightened_alchemist" >
+  
+	<Base file="data/entities/base_enemy_basic.xml" >
+		<ItemChestComponent level="2" > </ItemChestComponent>
+		
+		<AnimalAIComponent 
+			preferred_job="JobDefault"
+			attack_melee_enabled="0"
+			creature_detection_range_x="400"
+			creature_detection_range_y="400"
+			food_material="blood"
+			needs_food="0"
+			sense_creatures="1"
+			attack_ranged_enabled="1"
+			can_fly="1" 
+			attack_ranged_entity_file="data/entities/projectiles/enlightened_laser_dark_wand.xml"
+			attack_ranged_action_frame="4"
+			attack_ranged_frames_between="120"
+			attack_ranged_offset_x="12"
+			attack_ranged_offset_y="-12"
+			attack_ranged_min_distance="0"
+			attack_ranged_min_distance="300"
+			>
+		</AnimalAIComponent>
+		
+		<DamageModelComponent 
+            _enabled="0"
+			>
+		</DamageModelComponent>
+
+		<SpriteComponent 
+			image_file="data/enemies_gfx/enlightened_alchemist.xml"
+			alpha="0.5"
+			offset_x="0"
+			offset_y="0">
+		</SpriteComponent>
+
+		<PathFindingComponent
+			can_jump="0" 
+			can_walk="0"
+			can_fly="1"
+			>
+		</PathFindingComponent>
+
+		<PathFindingGridMarkerComponent
+			marker_work_flag="16" >
+		</PathFindingGridMarkerComponent>
+		
+		<GenomeDataComponent 
+			herd_id="ghost"
+			food_chain_rank="6"
+			is_predator="1" >
+		</GenomeDataComponent>
+		
+		<CharacterPlatformingComponent 
+			jump_velocity_y="-12" 
+			swim_idle_buoyancy_coeff="1.0"
+			run_velocity="1"  >
+		</CharacterPlatformingComponent>
+		
+		<CameraBoundComponent
+			max_count="30"
+			distance="160000">
+		</CameraBoundComponent>
+		
+		<HitboxComponent 
+            _enabled="0"
+			>
+        </HitboxComponent>
+		
+		<CharacterDataComponent
+			collision_aabb_min_x="-9.0" 
+			collision_aabb_max_x="9.0" 
+			collision_aabb_min_y="-25" 
+			collision_aabb_max_y="3"
+			mass="1.8" >
+		</CharacterDataComponent>
+	</Base>
+	
+	<AudioLoopComponent
+		file="data/audio/Desktop/animals.bank"
+		event_name="animals/enlightened_alchemist/movement_loop"
+		set_speed_parameter="1"
+		auto_play="1">
+	</AudioLoopComponent>
+
+	<AudioComponent
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals/enlightened_alchemist" >
+	</AudioComponent>
+	
+	<SpriteComponent 
+		alpha="0" 
+		image_file="data/particles/enlightened_alchemist_halo_dark.xml"
+		emissive="1"
+        additive="1"
+		special_scale_x="1"
+		has_special_scale="1"
+		rect_animation="stand" >
+	</SpriteComponent>
+	
+	<LuaComponent
+		script_source_file="data/scripts/animals/enlightened_alchemist_init.lua"
+		remove_after_executed="1"
+		>
+	</LuaComponent>
+	
+	<LifetimeComponent
+		lifetime="600"
+		>
+	</LifetimeComponent>
+	
+	<AudioComponent
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals/illusion">
+	</AudioComponent>
+    
+	<LuaComponent
+		script_source_file="data/scripts/animals/illusion_disappear.lua"
+		execute_every_n_frame="-1"
+		execute_on_removed="1"
+		>
+	</LuaComponent>
+</Entity>
+

@@ -1,0 +1,559 @@
+<Entity 
+  name="" 
+  tags="hittable" >
+
+  <DamageModelComponent 
+    _enabled="1" 
+    air_in_lungs="5" 
+    air_in_lungs_max="5" 
+    air_lack_of_damage="0.2" 
+    air_needed="0" 
+    blood_material="oil" 
+     
+     
+    drop_items_on_death="0" 
+    falling_damage_damage_max="1.2" 
+    falling_damage_damage_min="0.1" 
+    falling_damage_height_max="250" 
+    falling_damage_height_min="70" 
+    falling_damages="1" 
+    fire_damage_amount="0.2" 
+     
+    fire_probability_of_ignition="0" 
+    hp="2" 
+    is_on_fire="0" 
+    materials_create_messages="0" 
+    materials_damage="0" 
+    materials_how_much_damage="0.1" 
+    materials_that_create_messages="meat" 
+    materials_that_damage="acid" 
+    max_hp="2" 
+    ragdoll_filenames_file="" 
+    ragdoll_material="" 
+    ragdoll_offset_y="0" >
+  </DamageModelComponent>
+
+  <ExplodeOnDamageComponent 
+    _enabled="1" 
+    explode_on_damage_percent="0" 
+    explode_on_death_percent="1" >
+    <config_explosion 
+      camera_shake="40" 
+      create_cell_material="fire" 
+      create_cell_probability="50" 
+      damage="4" 
+      damage_mortals="1" 
+      explosion_radius="40" 
+      explosion_sprite="data/particles/explosion_032.xml" 
+      explosion_sprite_lifetime="10" 
+      gore_particle_count="1" 
+      hole_destroy_liquid="0" 
+     
+      hole_enabled="1" 
+      hole_image="data/temp/explosion_hole.png" 
+      light_b="180" 
+      light_enabled="1" 
+      light_fade_time="0.08" 
+      light_g="217" 
+      light_r="255" 
+      max_durability_to_destroy="10" 
+      particle_effect="1" 
+       
+       
+      physics_explosion_power.max="5" 
+       
+       
+      physics_multiplier_ragdoll_force="1" 
+       
+      physics_throw_enabled="1" 
+      ray_energy="180000" 
+      shake_vegetation="1" 
+      sparks_count_max="20" 
+      sparks_count_min="7" 
+      sparks_enabled="1" 
+      stains_enabled="1" 
+      stains_image="data/temp/explosion_stain.png" 
+      stains_radius="0" >
+    </config_explosion>
+
+  </ExplodeOnDamageComponent>
+
+  <HitboxComponent 
+    _enabled="1" 
+    aabb_max_x="4" 
+    aabb_max_y="5.5" 
+    aabb_min_x="-4" 
+    aabb_min_y="-5.5" 
+    is_enemy="0" 
+    is_item="0" 
+    is_player="0" >
+  </HitboxComponent>
+
+  <MaterialInventoryComponent 
+    _enabled="1" 
+    drop_as_item="0" 
+    leak_on_damage_percent="0.999" >
+    <count_per_material_type>
+      <Material 
+        count="0" 
+        material="air" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="fire" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="flame" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="waterstone_static" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="sand_static" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="nest_static" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="bluefungi_static" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="rock_static" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="lavarock_static" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="meteorite_static" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="templerock_static" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="steel_static" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="rock_static_glow" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="snow_static" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="ice_static" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="snowrock_static" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="concrete_static" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="smoke" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="steam" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="acid_gas" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="water" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="water_ice" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="oil" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="alcohol" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="swamp" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="mud" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="blood" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="blood_fading" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="radioactive_liquid" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="radioactive_liquid_fading" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="plasma_fading" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="gold_molten" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="silver_molten" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="copper_molten" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="glass_molten" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="glass_broken_molten" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="steel_molten" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="cement" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="sand" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="soil" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="fungisoil" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="honey" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="explosion_dirt" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="root_base" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="root_trunk" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="root_bad" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="snow" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="snow_sticky" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="rotten_meat" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="ice" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="gold" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="silver" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="copper" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="diamond" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="coal" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="sulphur" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="salt" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="gunpowder" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="grass" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="fungi" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="spore" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="moss" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="plant_material" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="ceiling_plant_material" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="mushroom_seed" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="mushroom" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="mushroom_giant_red" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="mushroom_giant_blue" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="glowshroom" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="bush_seed" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="acid" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="lava" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="wood" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="wood_loose" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="brick" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="tnt" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="meteorite" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="meteorite_green" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="steel" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="plastic" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="meat" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="urine" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="poo" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="rocket_particles" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="ice_melting_perf_killer" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="glass" >
+      </Material>
+
+      <Material 
+        count="0" 
+        material="glass_broken" >
+      </Material>
+
+    </count_per_material_type>
+
+  </MaterialInventoryComponent>
+
+  <PhysicsBodyComponent 
+    _enabled="1" 
+    allow_sleep="1" 
+    angular_damping="0" 
+    fixed_rotation="0" 
+    is_bullet="0" 
+    is_character="0" 
+    is_enabled="1" 
+    is_static="0" 
+    linear_damping="0" 
+    uid="0" >
+  </PhysicsBodyComponent>
+
+  <PhysicsImageShapeComponent 
+    _enabled="1" 
+    body_id="0" 
+    centered="1" 
+    image_file="data/items_gfx/barrel.png" 
+    is_circle="0" 
+    material="plastic" >
+  </PhysicsImageShapeComponent>
+
+</Entity>
+

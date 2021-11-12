@@ -1,0 +1,13 @@
+<Entity >
+   
+  <SpriteComponent 
+    _enabled="1" 
+    alpha="1" 
+    offset_x="5"
+    offset_y="0"
+    image_file="data/ui_gfx/sale_indicator.png" 
+    z_index="-1.5"
+     >
+  </SpriteComponent>
+  
+</Entity>

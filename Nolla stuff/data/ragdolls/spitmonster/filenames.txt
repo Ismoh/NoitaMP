@@ -1,0 +1,14 @@
+data/ragdolls/spitmonster/head.png
+data/ragdolls/spitmonster/foot1.png
+data/ragdolls/spitmonster/foot2.png
+data/ragdolls/spitmonster/foot3.png
+data/ragdolls/spitmonster/foot4.png
+data/ragdolls/spitmonster/hair1.png
+data/ragdolls/spitmonster/hair2.png
+data/ragdolls/spitmonster/hair3.png
+data/ragdolls/spitmonster/hair4.png
+data/ragdolls/spitmonster/hair5.png
+data/ragdolls/spitmonster/hair6.png
+data/ragdolls/spitmonster/hair7.png
+data/ragdolls/spitmonster/hair8.png
+data/ragdolls/spitmonster/hair9.png

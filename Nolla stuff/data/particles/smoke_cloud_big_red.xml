@@ -1,0 +1,18 @@
+<Sprite 
+  default_animation="explosion" 
+  filename="data/particles/smoke_cloud_big_red.png" 
+  offset_x="12" 
+  offset_y="12" >
+  <RectAnimation 
+    frame_count="12" 
+    frame_height="25" 
+    frame_wait="0.045" 
+    frame_width="25" 
+    frames_per_row="12" 
+    loop="0" 
+    name="explosion" 
+    pos_x="0" 
+    pos_y="1" 
+    shrink_by_one_pixel="1" >
+  </RectAnimation>
+</Sprite>

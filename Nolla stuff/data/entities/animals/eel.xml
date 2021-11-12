@@ -1,0 +1,145 @@
+<Entity 
+	name="$animal_eel" 
+	tags="mortal,hittable,homing_target,destruction_target,enemy,glue_NOT" >
+	<_Transform 
+		position.x="0" 
+		position.y="0" 
+		rotation="0" 
+		scale.x="1" 
+		scale.y="1" >
+	</_Transform>
+
+	<WormComponent
+		is_water_worm="1"
+		acceleration="0.5"
+		gravity="4"
+		tail_gravity="30"
+		part_distance="14"
+		ground_check_offset="1"
+		hitbox_radius="5"
+		target_kill_radius="7"
+		target_kill_ragdoll_force="8"
+		ragdoll_filename="data/ragdolls/worm/filenames.txt"
+		eat_anim_wait_mult="0.1"
+		jump_cam_shake="6" 
+		>
+	</WormComponent>
+
+	<WormAIComponent
+		speed="2"
+		speed_hunt="4"
+		direction_adjust_speed="0.012"
+		direction_adjust_speed_hunt="0.06"
+		hunt_box_radius="256"
+		random_target_box_radius="128"
+		new_hunt_target_check_every="120"
+		new_random_target_check_every="120"
+		give_up_area_radius="60"
+		give_up_time_frames="250"
+		>
+	</WormAIComponent>
+
+	<DamageModelComponent 
+		_enabled="1" 
+		air_needed="0" 
+		
+		falling_damages="0" 
+		fire_damage_amount="0.2" 
+		 
+		fire_probability_of_ignition="0.5" 
+		blood_material="blood_worm"
+		blood_spray_material="blood_worm"
+		hp="20" 
+		is_on_fire="0" 
+		mAirAreWeInWater="0" 
+		mFallCount="0" 
+		mFallHighestY="3.40282e+038" 
+		mFallIsOnGround="0" 
+		mFireProbability="100" 
+		mIsOnFire="0" 
+		mLastCheckTime="0" 
+		mLastCheckX="0" 
+		mLastCheckY="0" 
+		materials_damage="1" 
+		materials_that_damage="acid,lava,poison,blood_cold,blood_cold_vapour" 
+		materials_how_much_damage="0.004,0.004,0.001,0.0008,0.0007"
+		ragdoll_filenames_file=""
+		ragdoll_material="meat_worm"
+		ragdoll_offset_y="-6"
+		>
+	</DamageModelComponent>
+
+	<PathFindingGridMarkerComponent
+		marker_offset_y="0"
+		marker_work_flag="16" >
+	</PathFindingGridMarkerComponent>
+
+	<GenomeDataComponent 
+		_enabled="1"
+		herd_id="eel"
+		food_chain_rank="20"
+		is_predator="1" >
+	</GenomeDataComponent>
+
+	<SpriteComponent 
+		_enabled="1" 
+		alpha="1" 
+		image_file="data/enemies_gfx/eel_head.png" 
+		next_rect_animation="" 
+		offset_x="18" 
+		offset_y="10" 
+		update_transform="0"
+		 >
+	</SpriteComponent>
+
+	<SpriteComponent 
+		_enabled="1" 
+		alpha="1" 
+		image_file="data/enemies_gfx/eel_body.png" 
+		next_rect_animation="" 
+		offset_x="18" 
+		offset_y="10" 
+		update_transform="0"
+		 >
+	</SpriteComponent>
+
+	<SpriteComponent 
+		_enabled="1" 
+		alpha="1" 
+		image_file="data/enemies_gfx/eel_body2.png" 
+		next_rect_animation="" 
+		offset_x="18" 
+		offset_y="10" 
+		update_transform="0"
+		 >
+	</SpriteComponent>
+
+	<SpriteComponent 
+		_enabled="1" 
+		alpha="1" 
+		image_file="data/enemies_gfx/eel_body3.png" 
+		next_rect_animation="" 
+		offset_x="18" 
+		offset_y="10" 
+		update_transform="0"
+		 >
+	</SpriteComponent>
+
+	<SpriteComponent 
+		_enabled="1" 
+		alpha="1" 
+		image_file="data/enemies_gfx/eel_tail.png" 
+		next_rect_animation="" 
+		offset_x="18" 
+		offset_x="7" 
+		offset_y="10" 
+		update_transform="0"
+		 >
+	</SpriteComponent>
+		
+	<CameraBoundComponent
+		max_count="10"
+		distance="2000">
+	</CameraBoundComponent>
+
+</Entity>

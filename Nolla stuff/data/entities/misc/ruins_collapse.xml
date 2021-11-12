@@ -1,0 +1,20 @@
+<Entity>
+	<LooseGroundComponent
+		probability="0.4"
+		max_distance="100"
+		min_radius="6"
+		max_radius="16"
+		max_angle="3.1415"
+		chunk_max_angle="1.57"
+		chunk_probability="0.08"
+		collapse_images="data/procedural_gfx/collapse_big/$[0-14].png"
+		_enabled="1"
+		>
+	</LooseGroundComponent>
+	<LifetimeComponent
+		lifetime="280"
+		randomize_lifetime.min="-50"
+		randomize_lifetime.max="50"
+		>
+	</LifetimeComponent>
+</Entity>

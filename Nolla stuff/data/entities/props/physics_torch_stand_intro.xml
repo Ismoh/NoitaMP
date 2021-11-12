@@ -1,0 +1,93 @@
+<Entity tags="hittable" >
+
+	<PhysicsBodyComponent 
+		uid="1" 
+		allow_sleep="1" 
+		angular_damping="0.1" 
+		fixed_rotation="0" 
+		is_bullet="0" 
+		linear_damping="0"
+		auto_clean="0" 
+		update_entity_transform="1"
+		on_death_leave_physics_body="1"
+		>
+	</PhysicsBodyComponent>
+
+	<PhysicsImageShapeComponent 
+		body_id="1"
+		centered="1"
+		image_file="data/props_gfx/torch_stand_base.png"
+		material="metal_nohit" >
+	</PhysicsImageShapeComponent>
+  
+	<DamageModelComponent 
+		hp="0.3" 
+		air_needed="0" 
+		blood_material="fire" 
+		drop_items_on_death="0" 
+		falling_damage_damage_max="1.2" 
+		falling_damage_damage_min="0.1" 
+		falling_damage_height_max="250" 
+		falling_damage_height_min="70" 
+		falling_damages="1" 
+		fire_damage_amount="0.2" 
+		fire_probability_of_ignition="0" 
+		critical_damage_resistance="1"
+		is_on_fire="0" 
+		materials_create_messages="0" 
+		materials_damage="1" 
+		ragdoll_filenames_file="" 
+		ragdoll_offset_y="-10"
+		ragdoll_material="wood_prop" 
+		ui_report_damage="0"
+		>
+	</DamageModelComponent>
+
+	<Entity>
+
+		<InheritTransformComponent>
+			<Transform 
+				position.x="0"
+				position.y="0" 
+				>
+			</Transform>
+		</InheritTransformComponent>
+		
+		<LightComponent 
+    		_tags="enabled_in_world,enabled_in_hand,fire"
+			radius="166"
+			fade_out_time="1.5" >
+		</LightComponent>
+		
+		<TorchComponent
+			_tags="enabled_in_world,enabled_in_hand"
+			fire_audio_weight="0.35"
+			suffocation_check_offset_y="-3"
+			>
+		</TorchComponent>
+	
+		<SpriteAnimatorComponent>
+		</SpriteAnimatorComponent>
+
+		<Base file="data/entities/base_torch_particle.xml" >
+
+			<ParticleEmitterComponent 
+				x_pos_offset_min="-3"
+				x_pos_offset_max="2" >
+			</ParticleEmitterComponent>
+	  
+			<ParticleEmitterComponent 
+				x_pos_offset_min="-3"
+				x_pos_offset_max="2" >
+			</ParticleEmitterComponent>
+			
+			<ParticleEmitterComponent 
+				x_pos_offset_min="-3"
+				x_pos_offset_max="2" >
+			</ParticleEmitterComponent>
+
+		</Base>
+
+	</Entity>
+
+</Entity>

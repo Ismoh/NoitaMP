@@ -1,0 +1,22 @@
+<Biome>
+	<Topology 
+		name="$biome_boss_arena"
+		background_image="data/weather_gfx/background_cave_02.png"
+		background_use_neighbor="0"
+
+		wang_template_file="" 
+		lua_script="data/scripts/biomes/boss_arena_top.lua"
+		wang_map_width="256"
+		wang_map_height="256"
+		limit_background_image="0"
+		coarse_map_force_terrain="1"
+		pixel_scene="0"
+		noise_biome_edges="0"
+		audio_ambience="temple"
+		audio_music_no_forced_quietness="1"
+		audio_ambience="snowcastle">
+	</Topology>
+	
+	<Materials />
+</Biome>
+

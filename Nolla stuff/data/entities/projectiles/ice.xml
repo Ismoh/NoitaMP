@@ -1,0 +1,143 @@
+<Entity 
+  name="$projectile_default" 
+   >
+
+	<Base file="data/entities/base_projectile.xml" >
+		<VelocityComponent
+    		gravity_y="10"
+    		air_friction="0.05"
+			mass="0.055"
+			>
+    	</VelocityComponent> 
+	</Base>
+
+	<ProjectileComponent 
+		_enabled="1" 
+		speed_min="50"
+		speed_max="50"
+		on_death_explode="1"
+		on_death_gfx_leave_sprite="0" 
+		on_lifetime_out_explode="1"
+		on_collision_die="1"
+        die_on_low_velocity="0"
+		explosion_dont_damage_shooter="1"
+		damage="0"
+		lifetime="80" 
+		damage_game_effect_entities="data/entities/misc/effect_frozen_short.xml,"
+		knockback_force="1.3"
+		>
+		<damage_by_type
+			ice="0.3"
+			>
+		</damage_by_type>
+		<config_explosion
+		    never_cache="1" 
+			damage="0.3"
+			camera_shake="1.5" 
+			explosion_radius="6" 
+			explosion_sprite="data/particles/explosion_016_plasma.xml" 
+			explosion_sprite_lifetime="0.34" 
+			create_cell_probability="60" 
+			create_cell_material="blood_cold"
+			hole_destroy_liquid="0" 
+			hole_enabled="1" 
+			hole_image="data/temp/explosion_hole.png" 
+			particle_effect="0" 
+			damage_mortals="1"
+			physics_explosion_power.min="0.05"
+			physics_explosion_power.max="0.12" 
+			physics_throw_enabled="1" 
+			shake_vegetation="1" 
+			sparks_count_max="20" 
+			sparks_count_min="7" 
+			sparks_enabled="0" 
+			stains_enabled="1" 
+			stains_radius="9"
+			ray_energy="5000"
+			>
+		</config_explosion>
+	</ProjectileComponent>
+
+	<SpriteComponent 
+		_enabled="1" 
+		alpha="1" 
+		image_file="data/projectiles_gfx/ice.xml" 
+		next_rect_animation="" 
+		offset_x="8" 
+		offset_y="6" 
+		rect_animation="" 
+		 
+		 >
+	</SpriteComponent>
+
+	<ParticleEmitterComponent 
+		emitted_material_name="blood_cold_vapour"
+		fade_based_on_lifetime="1"
+		offset.x="-4"
+		offset.y="0"
+		x_pos_offset_min="-1"
+		y_pos_offset_min="-1"
+		x_pos_offset_max="1"
+		y_pos_offset_max="1"
+		x_vel_min="-50"
+		x_vel_max="50"
+		y_vel_min="-50"
+		y_vel_max="50"
+		count_min="5"
+		count_max="5"
+		lifetime_min="0.1"
+		lifetime_max="0.3"
+		create_real_particles="0"
+		emit_cosmetic_particles="1"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="2"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+	
+	<ParticleEmitterComponent 
+		emitted_material_name="blood_cold_vapour"
+		fade_based_on_lifetime="1"
+		custom_style="FIRE"
+		color="ff50e7f0"
+		offset.x="0"
+		offset.y="0"
+		x_pos_offset_min="-2"
+		y_pos_offset_min="-2"
+		x_pos_offset_max="2"
+		y_pos_offset_max="2"
+		x_vel_min="-10"
+		x_vel_max="10"
+		count_min="1"
+		count_max="3"
+		lifetime_min="0.1"
+		lifetime_max="0.3"
+		create_real_particles="0"
+		emit_cosmetic_particles="1"
+		emission_interval_min_frames="3"
+		emission_interval_max_frames="7"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+
+	<LightComponent 
+	    _enabled="1" 
+	    radius="20" 
+		r="99"
+		g="205"
+		b="139"
+		offset_y="0"
+		>
+	</LightComponent>
+
+  <AudioComponent
+      file="data/audio/Desktop/projectiles.bank"
+      event_root="projectiles/icethrower">
+  </AudioComponent>
+  
+	<VariableStorageComponent
+		name="projectile_file"
+		value_string="data/entities/projectiles/ice.xml"
+		>
+	</VariableStorageComponent>
+
+</Entity>
+

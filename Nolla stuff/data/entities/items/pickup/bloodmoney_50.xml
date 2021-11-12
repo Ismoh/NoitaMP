@@ -1,0 +1,31 @@
+<Entity name="unknown" tags="item_physics,gold_nugget" >
+
+	<Base file="data/entities/items/pickup/goldnugget_50.xml" >
+
+		<!-- physical presence -->
+		<UIInfoComponent
+			name="$item_bloodmoney" >
+		</UIInfoComponent>
+
+		<PhysicsImageShapeComponent 
+			material="bloodgold_box2d" >
+		</PhysicsImageShapeComponent>
+
+		<ItemComponent
+			_tags="enabled_in_world"
+			item_name="$item_bloodmoney_50"
+			>
+		</ItemComponent>
+	</Base>
+
+	<!-- 3*5 / 25 = 0.6 -->
+	<VariableStorageComponent
+		_tags="enabled_in_world"
+		name="hp_value"
+		value_float="0.4" >
+	</VariableStorageComponent>
+
+	<!-- item -->
+
+
+</Entity>

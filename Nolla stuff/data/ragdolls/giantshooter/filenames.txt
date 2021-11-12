@@ -1,0 +1,13 @@
+data/ragdolls/giantshooter/torso.png
+data/ragdolls/giantshooter/tentacle_1_a.png
+data/ragdolls/giantshooter/tentacle_1_b.png
+data/ragdolls/giantshooter/tentacle_2_a.png
+data/ragdolls/giantshooter/tentacle_2_b.png
+data/ragdolls/giantshooter/tentacle_3_a.png
+data/ragdolls/giantshooter/tentacle_3_b.png
+data/ragdolls/giantshooter/tentacle_4_a.png
+data/ragdolls/giantshooter/tentacle_4_b.png
+data/ragdolls/giantshooter/tentacle_5_a.png
+data/ragdolls/giantshooter/tentacle_5_b.png
+data/ragdolls/giantshooter/tentacle_6_a.png
+data/ragdolls/giantshooter/tentacle_6_b.png

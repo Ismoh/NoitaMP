@@ -1,0 +1,13 @@
+<Entity >
+	<LuaComponent
+    	script_source_file="data/scripts/props/hanging_root_verlet_randomizer.lua"
+    	execute_on_added="1"
+    	execute_every_n_frame="-1"
+    	execute_times="1" >
+    </LuaComponent>
+
+	<AudioComponent
+		file="data/audio/Desktop/materials.bank"
+		event_root="collision/vine" >
+	</AudioComponent>
+</Entity>

@@ -1,0 +1,16 @@
+<Entity tags="hut_check">
+	<LuaComponent
+		script_source_file="data/scripts/buildings/hut_check.lua"
+		execute_every_n_frame="20"
+		>
+	</LuaComponent>
+		
+	<LoadEntitiesComponent 
+		entity_file="data/entities/items/books/book_bunker.xml"
+		kill_entity="0"
+		count.min="1"
+        count.max="1"
+		>
+	</LoadEntitiesComponent>
+</Entity>
+

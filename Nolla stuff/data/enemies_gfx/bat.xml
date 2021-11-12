@@ -1,0 +1,146 @@
+<Sprite 
+  filename="data/enemies_gfx/bat.png" 
+  offset_x="8" 
+  offset_y="12"
+  default_animation="stand" >
+
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="17" 
+    frame_wait="0.09" 
+    frame_width="17" 
+    frames_per_row="6" 
+    name="stand" 
+    pos_x="0" 
+    pos_y="1" 
+    shrink_by_one_pixel="1" >
+
+    <Event 
+      check_physics_material="0" 
+      frame="1" 
+      max_distance="500" 
+      name="flap" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="17" 
+    frame_wait="0.09" 
+    frame_width="17" 
+    frames_per_row="6" 
+    name="walk" 
+    pos_x="0" 
+    pos_y="1" 
+    shrink_by_one_pixel="1" >
+
+    <Event 
+      check_physics_material="0" 
+      frame="1" 
+      max_distance="500" 
+      name="flap" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="17" 
+    frame_wait="0.09" 
+    frame_width="17" 
+    frames_per_row="6" 
+    name="run" 
+    pos_x="0" 
+    pos_y="1" 
+    shrink_by_one_pixel="1" >
+
+    <Event 
+      check_physics_material="0" 
+      frame="1" 
+      max_distance="500" 
+      name="flap" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="17" 
+    frame_wait="0.09" 
+    frame_width="17" 
+    frames_per_row="6" 
+    name="burn" 
+    pos_x="0" 
+    pos_y="1" 
+    shrink_by_one_pixel="1" >
+
+    <Event 
+      check_physics_material="0" 
+      frame="1" 
+      max_distance="500" 
+      name="flap" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="17" 
+    frame_wait="0.09" 
+    frame_width="17" 
+    frames_per_row="6" 
+    name="fly_idle" 
+    pos_x="0" 
+    pos_y="1" 
+    shrink_by_one_pixel="1" >
+
+    <Event 
+      check_physics_material="0" 
+      frame="1" 
+      max_distance="500" 
+      name="flap" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+  </RectAnimation>
+
+  <RectAnimation 
+    frame_count="6" 
+    frame_height="17" 
+    frame_wait="0.09" 
+    frame_width="17" 
+    frames_per_row="6" 
+    name="fly_move" 
+    pos_x="0" 
+    pos_y="1" 
+    shrink_by_one_pixel="1" >
+
+    <Event 
+      check_physics_material="0" 
+      frame="1" 
+      max_distance="500" 
+      name="flap" 
+      on_finished="0" 
+      probability="1" >
+
+    </Event>
+
+  </RectAnimation>
+
+</Sprite>
+

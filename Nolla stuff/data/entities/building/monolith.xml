@@ -1,0 +1,23 @@
+<Entity 
+  name="unknown" 
+  tags="building, house" >
+
+  <SpriteComponent 
+    _tags="building" 
+    _enabled="1" 
+    image_file="data/vegetation/monolith.png" 
+    next_rect_animation="" 
+    offset_x="10" 
+    offset_y="47" 
+    rect_animation="" 
+     >
+  </SpriteComponent>
+
+  <VelocityComponent>
+  </VelocityComponent>
+
+  <SimplePhysicsComponent>
+  </SimplePhysicsComponent>
+
+</Entity>
+

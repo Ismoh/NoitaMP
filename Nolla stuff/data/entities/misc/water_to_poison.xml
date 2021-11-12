@@ -1,0 +1,67 @@
+<Entity >
+	<MagicConvertMaterialComponent
+      kill_when_finished="0"
+      from_material="water"
+      steps_per_frame="3"
+      to_material="poison"
+      clean_stains="0"
+      is_circle="1"
+      radius="32" 
+	  >
+    </MagicConvertMaterialComponent>
+	
+	<MagicConvertMaterialComponent
+      kill_when_finished="0"
+      from_material="water_ice"
+      steps_per_frame="3"
+      to_material="poison"
+      clean_stains="0"
+      is_circle="1"
+      radius="32" 
+	  >
+    </MagicConvertMaterialComponent>
+	
+	<MagicConvertMaterialComponent
+      kill_when_finished="0"
+      from_material="water_static"
+      steps_per_frame="3"
+      to_material="poison"
+      clean_stains="0"
+      is_circle="1"
+      radius="32" 
+	  >
+    </MagicConvertMaterialComponent>
+	
+	<MagicConvertMaterialComponent
+      kill_when_finished="0"
+      from_material="water_temp"
+      steps_per_frame="3"
+      to_material="poison"
+      clean_stains="0"
+      is_circle="1"
+      radius="32" 
+	  >
+    </MagicConvertMaterialComponent>
+	
+	<MagicConvertMaterialComponent
+      kill_when_finished="0"
+      from_material="water_swamp"
+      steps_per_frame="3"
+      to_material="poison"
+      clean_stains="0"
+      is_circle="1"
+      radius="32" 
+	  >
+    </MagicConvertMaterialComponent>
+
+   <MagicConvertMaterialComponent
+      kill_when_finished="0"
+      from_material="water_salt"
+      steps_per_frame="3"
+      to_material="poison"
+      clean_stains="0"
+      is_circle="1"
+      radius="32" 
+    >
+    </MagicConvertMaterialComponent>
+</Entity>

@@ -1,0 +1,106 @@
+<Entity>
+	<VelocityComponent
+		gravity_y="200"
+		air_friction="10.0"
+		>
+	</VelocityComponent>
+
+	<SimplePhysicsComponent>
+	</SimplePhysicsComponent>
+
+	<SetStartVelocityComponent
+		randomize_speed.min="800"
+		randomize_speed.max="1250"
+		randomize_angle.min="0"
+		randomize_angle.max="6.283185"
+		>
+	</SetStartVelocityComponent>
+
+	<DieIfSpeedBelowComponent
+		min_speed="50"
+		>
+	</DieIfSpeedBelowComponent>
+
+	<ParticleEmitterComponent 
+		emitted_material_name="spark"
+		offset.x="0"
+		offset.y="0"
+		gravity.y="1.60"
+		x_pos_offset_min="0"
+		y_pos_offset_min="0"
+		x_pos_offset_max="0"
+		y_pos_offset_max="0"
+		x_vel_min="-5"
+		x_vel_max="5"
+		y_vel_min="-10"
+		y_vel_max="15"
+		count_min="15"
+		count_max="15"
+		is_trail="1"
+		lifetime_min="0.1"
+		lifetime_max="0.2"
+		create_real_particles="0"
+		emit_cosmetic_particles="1"
+		emission_interval_min_frames="2"
+		emission_interval_max_frames="3"
+		is_emitting="1"
+		fade_based_on_lifetime="1"
+		>
+	</ParticleEmitterComponent>
+
+	<ParticleEmitterComponent 
+		emitted_material_name="spark"
+		offset.x="0"
+		offset.y="0"
+		gravity.y="1.60"
+		x_pos_offset_min="-8"
+		y_pos_offset_min="-8"
+		x_pos_offset_max="8"
+		y_pos_offset_max="8"
+		x_vel_min="-5"
+		x_vel_max="5"
+		y_vel_min="-10"
+		y_vel_max="15"
+		count_min="1"
+		count_max="1"
+		is_trail="1"
+		lifetime_min="0.3"
+		lifetime_max="1.4"
+		create_real_particles="0"
+		emit_cosmetic_particles="1"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		is_emitting="1" 
+		airflow_force="0.5"
+		airflow_time="0.401"
+		airflow_scale="0.5"
+		fade_based_on_lifetime="1"
+		>
+	</ParticleEmitterComponent>
+
+	<ParticleEmitterComponent 
+		emitted_material_name="smoke_explosion"
+		offset.x="0"
+		offset.y="1"
+		x_pos_offset_min="-4"
+		y_pos_offset_min="-4"
+		x_pos_offset_max="4"
+		y_pos_offset_max="4"
+		x_vel_min="-5"
+		x_vel_max="5"
+		y_vel_min="-5"
+		y_vel_max="5"
+		count_min="1"
+		count_max="2"
+		is_trail="1"
+		lifetime_min="0.1"
+		lifetime_max="0.3"
+		create_real_particles="1"
+		emit_cosmetic_particles="0"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		is_emitting="1"
+		>
+	</ParticleEmitterComponent>
+</Entity>
+

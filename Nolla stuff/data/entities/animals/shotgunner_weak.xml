@@ -1,0 +1,20 @@
+<Entity name="$animal_shotgunner">
+	<Base file="data/entities/animals/shotgunner.xml" include_children="1" >
+		<DamageModelComponent
+			ragdoll_filenames_file="data/ragdolls/shotgunner_weak/filenames.txt"
+			hp="0.36"
+			>
+		</DamageModelComponent>
+		
+		<SpriteComponent 
+			image_file="data/enemies_gfx/shotgunner_weak.xml" 
+			>
+		</SpriteComponent> 
+	</Base>
+
+    <MusicEnergyAffectorComponent
+    	energy_target="0.5">
+    </MusicEnergyAffectorComponent>
+
+</Entity>
+

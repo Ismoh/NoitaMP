@@ -1,0 +1,11 @@
+<Entity>
+	<InheritTransformComponent>
+    </InheritTransformComponent>	
+    
+    <GameEffectComponent 
+    	effect="GLOBAL_GORE"
+    	frames="600"
+    >
+	</GameEffectComponent >
+	
+</Entity>

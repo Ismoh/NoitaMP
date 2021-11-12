@@ -1,0 +1,19 @@
+<Entity>
+	<PhysicsBody2Component />
+
+	<PhysicsImageShapeComponent
+		image_file="data/particles/guts_01.png"
+		use_sprite="1"
+		centered="1"
+		is_root="1"
+		material="meat"
+		>
+	</PhysicsImageShapeComponent>
+
+	<LuaComponent
+		script_source_file="data/scripts/particles/guts_init.lua"
+		execute_every_n_frame="3"
+		remove_after_executed="1"
+		>
+	</LuaComponent>
+</Entity>

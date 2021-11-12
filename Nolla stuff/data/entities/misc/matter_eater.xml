@@ -1,0 +1,19 @@
+<Entity>
+	<InheritTransformComponent>
+    </InheritTransformComponent>
+	
+    <CellEaterComponent
+		eat_probability="90"
+        radius="8"
+		ignored_material="rock_static_cursed"
+		ignored_material_tag="[matter_eater_ignore_list]"
+		>
+    </CellEaterComponent>
+	
+	<LifetimeComponent
+		lifetime="200"
+		randomize_lifetime.min="-50"
+		randomize_lifetime.max="50"
+		>
+	</LifetimeComponent>
+</Entity>

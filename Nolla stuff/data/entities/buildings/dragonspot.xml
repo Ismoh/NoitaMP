@@ -1,0 +1,14 @@
+<Entity>
+    <CollisionTriggerComponent
+      width="128"
+      height="128" 
+      radius="256"
+      required_tag="player_unit"
+      destroy_this_entity_when_triggered="0" >
+  	</CollisionTriggerComponent>
+
+    <LuaComponent
+      script_collision_trigger_hit="data/scripts/buildings/dragonspot.lua"
+      execute_every_n_frame="-1" >
+    </LuaComponent>
+</Entity>

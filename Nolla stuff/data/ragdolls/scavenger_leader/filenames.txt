@@ -1,0 +1,8 @@
+data/ragdolls/scavenger_leader/head.png
+data/ragdolls/scavenger_leader/torso.png
+data/ragdolls/scavenger_leader/gun.png
+data/ragdolls/scavenger_leader/thighs.png
+data/ragdolls/scavenger_leader/left_foot.png
+data/ragdolls/scavenger_leader/right_foot.png
+data/ragdolls/scavenger_leader/arm.png
+data/ragdolls/scavenger_leader/hand.png

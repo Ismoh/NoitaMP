@@ -1,0 +1,18 @@
+<Entity serialize="0">
+
+    <SpriteComponent 
+        image_file="data/temp/building/back_wall16.xml"
+        alpha="0.5"
+        z_index="2">
+    </SpriteComponent>
+
+    <SpriteComponent 
+        image_file="data/temp/building/cursor_16x16.png"
+        offset_x="8"
+        offset_y="8"
+        emissive="1"
+        alpha="0.8"
+        z_index="10">
+    </SpriteComponent>
+
+</Entity>

@@ -1,0 +1,15 @@
+<Entity >
+   
+  <SpriteComponent 
+    _enabled="1" 
+    alpha="1" 
+    offset_x="0"
+    offset_y="0"
+    image_file="data/temp/trailer_text.png" 
+    has_special_scale="1"
+    special_scale_x="0.218750"
+    special_scale_y="0.218750"
+     >
+  </SpriteComponent>
+  
+</Entity>

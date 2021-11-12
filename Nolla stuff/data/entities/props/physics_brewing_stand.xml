@@ -1,0 +1,99 @@
+<Entity>
+
+  <Base file="data/entities/base_item_physics2.xml" >
+    <PhysicsBody2Component
+      kill_entity_after_initialized="0" >
+    </PhysicsBody2Component>
+    <PhysicsImageShapeComponent 
+      image_file="data/props_gfx/brewing_stand.png"
+      material="wood_prop" >
+    </PhysicsImageShapeComponent>
+  </Base>
+	
+  <MaterialInventoryComponent 
+    _enabled="1" 
+    drop_as_item="0" 
+    on_death_spill="1"
+    leak_on_damage_percent="0.999" 
+    >
+    <count_per_material_type>
+      <Material material="alcohol" count="2000"  />
+	  </count_per_material_type>
+  </MaterialInventoryComponent>
+
+  <DamageModelComponent 
+    air_needed="0" 
+    blood_material="alcohol" 
+    drop_items_on_death="0" 
+    falling_damage_damage_max="1.2" 
+    falling_damage_damage_min="0.1" 
+    falling_damage_height_max="250" 
+    falling_damage_height_min="70" 
+    falling_damages="1" 
+    fire_damage_amount="0.2" 
+    fire_probability_of_ignition="0" 
+	critical_damage_resistance="1"
+    hp="800" 
+    is_on_fire="0" 
+    materials_create_messages="0" 
+    materials_damage="0" 
+    ragdoll_filenames_file="" 
+    ragdoll_material="" 
+	ui_report_damage="0"
+	>
+  </DamageModelComponent>
+
+  <ParticleEmitterComponent 
+    emitted_material_name="steam"
+    offset.x="2"
+    offset.y="-18"
+    x_pos_offset_min="-1"
+    x_pos_offset_max="0"
+    y_pos_offset_min="1"
+    y_pos_offset_max="0"
+    x_vel_min="-10"
+    x_vel_max="10"
+    y_vel_min="-10"
+    y_vel_max="10"
+    count_min="1"
+    count_max="1"
+    lifetime_min="0.1"
+    lifetime_max="0.3"
+    create_real_particles="1"
+    emit_cosmetic_particles="0"
+    emission_interval_min_frames="25"
+    emission_interval_max_frames="95"
+    is_emitting="1" >
+  </ParticleEmitterComponent>
+
+  <ParticleEmitterComponent 
+    emitted_material_name="alcohol"
+    offset.x="10"
+    offset.y="13"
+    x_pos_offset_min="0"
+    x_pos_offset_max="2"
+    y_pos_offset_min="0"
+    y_pos_offset_max="0"
+    x_vel_min="0"
+    x_vel_max="0"
+    y_vel_min="0"
+    y_vel_max="0"
+    count_min="1"
+    count_max="1"
+    lifetime_min="0.1"
+    lifetime_max="0.3"
+    create_real_particles="1"
+    emit_cosmetic_particles="0"
+    emission_interval_min_frames="25"
+    emission_interval_max_frames="295"
+    is_emitting="1" >
+  </ParticleEmitterComponent>
+
+  <AudioLoopComponent
+    _tags="sound_spray"
+    file="data/audio/Desktop/materials.bank"
+    event_name="materials/spray"
+    volume_autofade_speed="0.25" >
+  </AudioLoopComponent>
+  
+</Entity>

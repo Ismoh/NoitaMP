@@ -1,0 +1,16 @@
+<Entity>
+	<InheritTransformComponent
+		only_position="1"
+		>
+		<Transform 
+			position.x="0" 
+			position.y="-8" >
+		</Transform>
+	</InheritTransformComponent>
+	
+	<LuaComponent
+		script_source_file="data/scripts/perks/projectile_eater_sector.lua"
+		execute_every_n_frame="1"
+		>
+	</LuaComponent>
+</Entity>

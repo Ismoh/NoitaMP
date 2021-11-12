@@ -1,0 +1,14 @@
+<Entity tags="hourglass_entity">
+	<LuaComponent
+		script_collision_trigger_hit="data/scripts/buildings/hourglass_music_trigger.lua"
+		execute_times="1" >
+	</LuaComponent>
+
+	<CollisionTriggerComponent
+		width="360"
+		height="180"
+		radius="200"
+		required_tag="player_unit"
+		destroy_this_entity_when_triggered="1" >
+	</CollisionTriggerComponent>
+</Entity>

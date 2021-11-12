@@ -1,0 +1,97 @@
+<Entity >
+  <Base file="data/entities/animals/firemage.xml">
+    <DamageModelComponent 
+      hp="15"
+      max_hp="15"
+	  minimum_knockback_force="100000"
+     ></DamageModelComponent >
+  </Base>
+  
+  <Entity>
+
+		<InheritTransformComponent>
+			<Transform 
+				position.x="0"
+				position.y="-12" 
+				>
+			</Transform>
+		</InheritTransformComponent>
+		
+		<Base file="data/entities/base_torch_particle.xml" >
+
+			<ParticleEmitterComponent 
+				x_pos_offset_min="-2"
+				x_pos_offset_max="2" >
+			</ParticleEmitterComponent>
+	  
+			<ParticleEmitterComponent 
+				color="ff3fe2df"
+				x_pos_offset_min="-2"
+				x_pos_offset_max="2" >
+			</ParticleEmitterComponent>
+			
+			<ParticleEmitterComponent 
+				emitted_material_name="spark_blue"
+				x_pos_offset_min="-2"
+				x_pos_offset_max="2" >
+			</ParticleEmitterComponent>
+			
+			<ParticleEmitterComponent 
+				emitted_material_name="fire_blue"
+				>
+			</ParticleEmitterComponent>
+
+		</Base>
+	</Entity>
+	
+	<HotspotComponent
+		_tags="hand_l"
+		sprite_hotspot_name="hand"
+		transform_with_scale="1" >
+	</HotspotComponent>
+	<Entity name="hand_l">
+		
+		<Base file="data/entities/base_torch_particle.xml" >
+
+			<ParticleEmitterComponent 
+				count_min="2"
+				count_max="3"
+				x_pos_offset_min="-1"
+				x_pos_offset_max="1" 
+				y_pos_offset_min="-1"
+				y_pos_offset_max="2"
+				>
+			</ParticleEmitterComponent>
+	  
+			<ParticleEmitterComponent 
+				color="ff3fe2df"
+				count_min="2"
+				count_max="3"
+				x_pos_offset_min="-1"
+				x_pos_offset_max="1" 
+				y_pos_offset_min="-1"
+				y_pos_offset_max="2">
+			</ParticleEmitterComponent>
+			
+			<ParticleEmitterComponent 
+				emitted_material_name="spark_blue"
+				x_pos_offset_min="-1"
+				x_pos_offset_max="1" 
+				y_pos_offset_min="-3"
+				y_pos_offset_max="2">
+			</ParticleEmitterComponent>
+			
+			<ParticleEmitterComponent 
+				emitted_material_name="fire_blue"
+				>
+			</ParticleEmitterComponent>
+
+		</Base>
+		
+		<InheritTransformComponent
+			parent_hotspot_tag="hand_l"
+			only_position="1" >
+		</InheritTransformComponent>
+
+	</Entity>
+</Entity>

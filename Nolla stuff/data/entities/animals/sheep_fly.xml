@@ -1,0 +1,102 @@
+<Entity tags="mortal,prey,sheep" name="$animal_sheep_fly">
+  
+	<Base file="data/entities/base_helpless_animal.xml" >
+
+        <AnimalAIComponent 
+        	preferred_job="Escaping"
+			attack_melee_enabled="0"
+			attack_ranged_entity_file=""
+			attack_ranged_predict="1"
+			attack_ranged_enabled="0"
+			attack_melee_enabled="0"
+			attack_melee_damage_min="0"
+			attack_melee_damage_max="0"
+			can_fly="1"
+			food_material="grass"
+			needs_food="0"
+            >
+        </AnimalAIComponent >
+		
+		<DamageModelComponent 
+			ragdoll_offset_y="-11"
+			ragdoll_filenames_file="data/ragdolls/sheep_fly/filenames.txt" 
+			hp="0.2"
+			materials_create_messages="1"
+			materials_that_create_messages="grass"
+			>
+		</DamageModelComponent>
+
+		<SpriteComponent 
+			image_file="data/enemies_gfx/sheep_fly.xml"
+            offset_x="10"
+            offset_y="12" 
+			>
+		</SpriteComponent>
+
+		<SpriteAnimatorComponent
+			rotate_to_surface_normal="0" >
+		</SpriteAnimatorComponent>
+
+		<PathFindingGridMarkerComponent
+			marker_work_flag="24"
+			>
+		</PathFindingGridMarkerComponent>
+		
+		<GenomeDataComponent 
+			herd_id="helpless"
+			food_chain_rank="20"
+			is_predator="0" 
+			>
+		</GenomeDataComponent>
+		
+		<CharacterPlatformingComponent 
+			jump_velocity_y="0" 
+			run_velocity="10"  
+			>
+		</CharacterPlatformingComponent>
+		
+		<HitboxComponent 
+			_enabled="1" 
+			aabb_max_x="6" 
+			aabb_max_y="4" 
+			aabb_min_x="-6" 
+			aabb_min_y="-7" 
+		>
+        </HitboxComponent>
+		
+		<CharacterDataComponent
+			collision_aabb_min_x="-3.0" 
+			collision_aabb_max_x="3.0" 
+			collision_aabb_min_y="-6" 
+			collision_aabb_max_y="2" 
+			buoyancy_check_offset_y="-3"
+			mass="1.4"
+		>
+		</CharacterDataComponent>
+		
+		<PathFindingComponent
+			can_jump="0" 
+			jump_speed="0"
+			can_walk="0"
+			can_fly="1"
+			initial_jump_max_distance_x="0"
+			initial_jump_max_distance_y="0"
+			>
+		</PathFindingComponent>
+	</Base>
+
+	<AudioComponent
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals/sheep" >
+	</AudioComponent>
+	
+	<AudioLoopComponent
+		file="data/audio/Desktop/animals.bank"
+		event_name="animals/wing_flap_insect/movement_loop"
+		set_speed_parameter="1"
+		set_speed_parameter_only_based_on_y_movement="1"
+		auto_play="1">
+	</AudioLoopComponent>
+
+</Entity>
+

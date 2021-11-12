@@ -1,0 +1,13 @@
+<Entity >
+   
+  <SpriteComponent 
+    image_file="data/entities/animals/boss_centipede/verlet_chains/minion_tentacle_3.xml" 
+    offset_x="0"
+    offset_y="5.5"
+    update_transform="0"
+    update_transform_rotation="0"
+	z_index="1.1"
+	>
+  </SpriteComponent>
+  
+</Entity>

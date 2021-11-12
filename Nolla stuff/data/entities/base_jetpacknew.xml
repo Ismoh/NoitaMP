@@ -1,0 +1,50 @@
+<Entity>
+	
+	<SpriteParticleEmitterComponent
+        _tags="jetpack"
+        sprite_file="data/particles/jetpack.xml"
+		delay="0"
+		additive="1"
+		randomize_position.min_y="-3"
+		randomize_position.max_y="0"
+		randomize_position.min_x="-4"
+		randomize_position.max_x="-2"
+		randomize_velocity.min_x="-30"
+		randomize_velocity.max_x="-30"
+		randomize_velocity.min_y="40"
+		randomize_velocity.max_y="40"
+        count_min="1"
+        count_max="1"
+        emission_interval_min_frames="1"
+        emission_interval_max_frames="2"
+        is_emitting="1" 
+		render_back="1"
+		>
+    </SpriteParticleEmitterComponent>
+	
+	<ParticleEmitterComponent 
+		_tags="jetpack"
+		render_back="1"
+		emitted_material_name="spark_green"
+		offset.x="0"
+		offset.y="0"
+		x_pos_offset_min="-4"
+		y_pos_offset_min="-3"
+		x_pos_offset_max="-2"
+		y_pos_offset_max="0"
+		x_vel_min="-30"
+		x_vel_max="-30"
+		y_vel_min="40"
+		y_vel_max="40"
+		count_min="2"
+		count_max="8"
+		lifetime_min="0.05"
+		lifetime_max="0.1"
+		create_real_particles="0"
+		emit_cosmetic_particles="1"
+		render_on_grid="1"
+		emission_interval_min_frames="0"
+		emission_interval_max_frames="0"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+</Entity>
