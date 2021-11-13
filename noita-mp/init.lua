@@ -9,34 +9,41 @@ print(package.cpath)
 
 ModMagicNumbersFileAdd("mods/noita-mp/files/data/magic_numbers.xml")
 
-local enet = nil
-if enet == nil then
-    print("Checking external enet c library 'enet.dll' loading..")
-    enet = assert(package.loadlib(GetPathOfScript() .. "files/libs/enet.dll", "luaopen_enet"))
-    enet()
-    print("enet c library 'enet.dll' was loaded.")
+-- local enet = nil
+-- if enet == nil then
+--     print("Checking external enet c library 'enet.dll' loading..")
+--     enet = assert(package.loadlib(GetPathOfScript() .. "files/libs/enet.dll", "luaopen_enet"))
+--     enet()
+--     print("enet c library 'enet.dll' was loaded.")
+-- end
+
+-- local client = dofile_once("mods/noita-mp/files/scripts/net/client.lua")
+-- local server = dofile_once("mods/noita-mp/files/scripts/net/server.lua")
+
+function OnWorldInitialized()
+    print("init.lua | OnWorldInitialized()")
+    dofile_once("mods/noita-mp/files/scripts/net/server_class.lua") -- run once to init server object
+    dofile_once("mods/noita-mp/files/scripts/net/client_class.lua") -- run once to init client object
 end
 
-local client = dofile_once("mods/noita-mp/files/scripts/net/client.lua")
-
 function OnPlayerSpawned( player_entity ) -- This runs when player entity has been created
-    -- --debug_print_table(package.loaded)
-    -- --debug_print_table(package.loaded, 1, "enet")
-    -- print("printing debug_print_table(package.loaded[\"enet\"], 2)")
-    -- debug_print_table(package.loaded["enet"], 2)
 
-    -- print("printing assert(package.loadlib(GetPathOfScript() .. \"files/libs/enet.dll\", \"enet_initialize\"))")
-    -- assert(package.loadlib(GetPathOfScript() .. "files/libs/enet.dll", "enet_initialize"))
-
-    -- print("printing local test = assert(package.loadlib(GetPathOfScript() .. \"files/libs/enet.dll\", \"host_create\"))")
-    -- local test = assert(package.loadlib(GetPathOfScript() .. "files/libs/enet.dll", "host_create"))
-
-    -- print("printing assert(package.loadlib(GetPathOfScript() .. \"files/libs/enet.dll\", \"linked_version\"))")
-    -- assert(package.loadlib(GetPathOfScript() .. "files/libs/enet.dll", "linked_version"))
+    -- if Server.super then
+    --     GamePrintImportant( "Server started", "Your server is running on "
+    --     .. Server.super:getAddress() .. ":" .. Server.super:getPort() .. ". Tell your friends to join!")
+    -- else
+    --     GamePrintImportant( "Server not started", "Your server wasn't started yet. Check ModSettings to change this or Press M to open multiplayer menu.")
+    -- end
 end
 
 function OnWorldPreUpdate()
-    dofile("mods/noita-mp/files/scripts/net/server.lua")
-    client.updateClient()
+    if _G.Server then
+        _G.Server:update()
+    end
+
+    if _G.Client then
+        _G.Client:update()
+    end
+
     dofile("mods/noita-mp/files/scripts/ui.lua")
 end

@@ -727,7 +727,7 @@ function Client:update()
         error("Can't deserialize message: deserialize was not set")
     end
 
-    debug_print_table(self)
+    -- debug_print_table(self)
     print("self = " .. tostring(self))
     print("self.host = " .. tostring(self.host))
     self:log(self.host:service())
@@ -761,12 +761,14 @@ end
 function Client:connect(code)
     -- number of channels for the client and server must match
 
-    print("Printing client table:")
-    debug_print_table(self)
-    --TableToString(client)
-    print("Printing client.host table:")
-    debug_print_table(self.host)
-    --TableToString(client.host)
+    -- print("Printing client table:")
+    -- debug_print_table(self)
+    -- TableToString(client)
+    -- print("Printing client.host table:")
+    -- debug_print_table(self.host)
+    -- TableToString(client.host)
+
+    print("sock.lua | Connecting to ".. self.address .. ":" .. self.port)
 
     self.connection = self.host:connect(self.address .. ":" .. self.port, self.maxChannels, code)
     self.connectId = self.connection:connect_id()
@@ -1326,12 +1328,12 @@ sock.newServer = function(address, port, maxPeers, maxChannels, inBandwidth, out
     -- number of channels for the client and server must match
     server.host = enet.host_create(server.address .. ":" .. server.port, server.maxPeers, server.maxChannels)
 
-    print("Printing server table:")
-    debug_print_table(server)
-    --TableToString(server)
-    print("Printing server.host table:")
-    debug_print_table(server.host)
-    --TableToString(server.host)
+    -- print("Printing server table:")
+    -- debug_print_table(server)
+    -- TableToString(server)
+    -- print("Printing server.host table:")
+    -- debug_print_table(server.host)
+    -- TableToString(server.host)
 
     if not server.host then
         error("Failed to create the host. Is there another server running on :"..server.port.."?")
@@ -1422,10 +1424,10 @@ sock.newClient = function(serverOrAddress, port, maxChannels)
     end
 
     print("Printing client table:")
-    debug_print_table(client)
+    -- debug_print_table(client)
     --TableToString(client)
     print("Printing client.host table:")
-    debug_print_table(client.host)
+    -- debug_print_table(client.host)
     --TableToString(client.host)
 
     if bitserLoaded then

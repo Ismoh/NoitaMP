@@ -59,6 +59,14 @@ mod_settings =
 				scope = MOD_SETTING_SCOPE_RUNTIME,
 				change_fn = mod_setting_change_callback, -- Called when the user interact with the settings widget.
 			},
+			{
+				id = "server_start_when_world_loaded",
+				ui_name = "Server start behaviour",
+				ui_description = "Starts the server immediately, when world is loaded.",
+				value_default = true,
+				scope = MOD_SETTING_SCOPE_NEW_GAME,
+				change_fn = mod_setting_change_callback, -- Called when the user interact with the settings widget.
+			},
 		},
 	},
 	{
