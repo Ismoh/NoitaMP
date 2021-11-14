@@ -768,9 +768,11 @@ function Client:connect(code)
     -- debug_print_table(self.host)
     -- TableToString(client.host)
 
-    print("sock.lua | Connecting to ".. self.address .. ":" .. self.port)
+    print("sock.lua | Connecting to ".. self.address .. ":" .. self.port .. "(self.maxChannels = " .. self.maxChannels .. ", code = ".. tostring(code) ..")")
 
     self.connection = self.host:connect(self.address .. ":" .. self.port, self.maxChannels, code)
+    print("sock.lua | Printing client.connection:")
+    debug_print_table(self.connection)
     self.connectId = self.connection:connect_id()
 end
 
@@ -1417,16 +1419,18 @@ sock.newClient = function(serverOrAddress, port, maxChannels)
 
     -- Second form: (enet peer)
     elseif type(serverOrAddress) == "userdata" then
-        print("Creating client from userdata / peer")
+        print("sock.lua | Creating client from userdata / peer. Printing table serverOrAddress")
+        print("sock.lua | serverOrAddress = " .. tostring(serverOrAddress))
+        debug_print_table(serverOrAddress)
         client.connection = serverOrAddress
         client.connectId = client.connection:connect_id()
         --client.host = enet.host_create()
     end
 
-    print("Printing client table:")
+    --print("Printing client table:")
     -- debug_print_table(client)
     --TableToString(client)
-    print("Printing client.host table:")
+    --print("Printing client.host table:")
     -- debug_print_table(client.host)
     --TableToString(client.host)
 
