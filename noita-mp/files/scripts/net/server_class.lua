@@ -37,9 +37,24 @@ function Server:createCallbacks()
 
     -- Called when someone connects to the server
     self.super:on("connect", function(data, client)
+
+        print("server_class.lua | on_connect: ")
+        print("server_class.lua | on_connect: data = " .. tostring(data))
+        print("server_class.lua | on_connect: client = " .. tostring(client))
+
         -- Send a message back to the connected client
         local msg = "Hello from the server!"
         client:send("hello", msg)
+    end)
+
+    -- Called when the client disconnects from the server
+    self.super:on("disconnect", function(data)
+        print("server_class.lua | Server disconnected. data = " .. tostring(data))
+    end)
+
+    -- see lua-enet/enet.c
+    self.super:on("receive", function(data, channel, client)
+        print("server_class.lua | Server received: data = " .. tostring(data) .. ", channel = " .. tostring(channel) .. ", client = " .. tostring(client))
     end)
 end
 
@@ -52,6 +67,8 @@ function Server:create()
 
     self.super = sock.newServer(ip, port)
     print("server_class.lua | Server started on " .. self.super:getAddress() .. ":" .. self.super:getPort())
+
+    self:createCallbacks()
 
     GamePrintImportant( "Server started", "Your server is running on "
         .. self.super:getAddress() .. ":" .. self.super:getPort() .. ". Tell your friends to join!")

@@ -9,13 +9,14 @@ print(package.cpath)
 
 ModMagicNumbersFileAdd("mods/noita-mp/files/data/magic_numbers.xml")
 
--- local enet = nil
--- if enet == nil then
---     print("Checking external enet c library 'enet.dll' loading..")
---     enet = assert(package.loadlib(GetPathOfScript() .. "files/libs/enet.dll", "luaopen_enet"))
---     enet()
---     print("enet c library 'enet.dll' was loaded.")
--- end
+local enet = nil
+if enet == nil then
+    local fileName = "files/libs/enet1317_lua-enet-master21-10-2015_lua5-1_32bit.dll"
+    print("Checking external enet c library '" .. fileName .. "' loading..")
+    enet = assert(package.loadlib(GetPathOfScript() .. fileName, "luaopen_enet"))
+    enet()
+    print("enet c library '" .. fileName .. "' was loaded.")
+end
 
 -- local client = dofile_once("mods/noita-mp/files/scripts/net/client.lua")
 -- local server = dofile_once("mods/noita-mp/files/scripts/net/server.lua")

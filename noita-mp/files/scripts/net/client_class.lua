@@ -35,6 +35,11 @@ function Client:createCallbacks()
         print("client_class.lua | Client disconnected from the server.")
     end)
 
+    -- see lua-enet/enet.c
+    self.super:on("receive", function(data, channel)
+        print("client_class.lua | Client received: data = " .. tostring(data) .. ", channel = " .. tostring(channel))
+    end)
+
     -- Custom callback, called whenever you send the event from the server
     self.super:on("hello", function(msg)
         print("client_class.lua | The server replied: " .. msg)
@@ -56,7 +61,7 @@ function Client:connect()
     GamePrintImportant( "Client is connecting..", "You are trying to connect to "
         .. self.super:getAddress() .. ":" .. self.super:getPort() .. "!")
 
-    self.super:connect()
+    self.super:connect(0)
 
     --  You can send different types of data
     self.super:send("greeting", "Hello, my name is Inigo Montoya.")

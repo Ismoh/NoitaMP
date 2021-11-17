@@ -35,7 +35,16 @@ local sock = {
     ]]
 }
 
-local enet = require ("enet")
+-- local enet = nil
+-- if enet == nil then
+--     local fileName = "enet.dll"
+--     print("Checking external enet c library '" .. fileName .. "' loading..")
+--     enet = assert(package.loadlib(GetPathOfScript() .. fileName, "luaopen_enet"))
+--     enet()
+--     print("enet c library '" .. fileName .. "' was loaded.")
+-- end
+-- local enet = require ("enet1317_lua-enet-master21-10-2015_lua5-1_32bit")
+local enet = require "enet"
 
 -- Current folder trick
 -- http://kiki.to/blog/2014/04/12/rule-5-beware-of-multiple-files/
@@ -141,8 +150,8 @@ end
 
 function Logger:log(event, data)
     local time = os.date("%X") -- something like 24:59:59
-    local shortLine = ("[%s] %s"):format(event, data)
-    local fullLine  = ("[%s][%s][%s] %s"):format(self.source, time, event, data)
+    local shortLine = ("[event = %s] data = %s"):format(event, data)
+    local fullLine  = ("[%s][%s][event = %s] data = %s"):format(self.source, time, event, data)
 
     -- The printed message may or may not be the full message
     local line = fullLine
@@ -161,6 +170,9 @@ function Logger:log(event, data)
     -- The logged message is always the full message
     table.insert(self.messages, fullLine)
 
+    if event ~= nil or data ~= nil then
+        print("sock.lua | " .. fullLine)
+    end
     -- TODO: Dump to a log file
 end
 
@@ -382,7 +394,7 @@ function Server:_activateTriggers(event, data, client)
     self.packetsReceived = self.packetsReceived + 1
 
     if not result then
-        self:log("warning", "Tried to activate trigger: '" .. tostring(event) .. "' but it does not exist.")
+        self:log("warning", "Server tried to activate trigger: '" .. tostring(event) .. "' but it does not exist.")
     end
 end
 
@@ -728,8 +740,8 @@ function Client:update()
     end
 
     -- debug_print_table(self)
-    print("self = " .. tostring(self))
-    print("self.host = " .. tostring(self.host))
+    --print("self = " .. tostring(self))
+    --print("self.host = " .. tostring(self.host))
     self:log(self.host:service())
 
     local event = self.host:service(self.messageTimeout)
@@ -772,7 +784,11 @@ function Client:connect(code)
 
     self.connection = self.host:connect(self.address .. ":" .. self.port, self.maxChannels, code)
     print("sock.lua | Printing client.connection:")
-    debug_print_table(self.connection)
+    if type(self.connection) == "userdata" then
+        debug_print_table(self.connection, 2, "connection")
+    else
+        print("sock.lua | Client/self.connection = " .. self.connection)
+    end
     self.connectId = self.connection:connect_id()
 end
 
@@ -855,7 +871,7 @@ function Client:_activateTriggers(event, data)
     self.packetsReceived = self.packetsReceived + 1
 
     if not result then
-        self:log("warning", "Tried to activate trigger: '" .. tostring(event) .. "' but it does not exist.")
+        self:log("warning", "Client tried to activate trigger: '" .. tostring(event) .. "' but it does not exist.")
     end
 end
 
@@ -1336,6 +1352,8 @@ sock.newServer = function(address, port, maxPeers, maxChannels, inBandwidth, out
     -- print("Printing server.host table:")
     -- debug_print_table(server.host)
     -- TableToString(server.host)
+    print("sock.lua | newServer / server.host = " .. tostring(server.host))
+    debug_print_table(server.host, 2)
 
     if not server.host then
         error("Failed to create the host. Is there another server running on :"..server.port.."?")
@@ -1415,7 +1433,10 @@ sock.newClient = function(serverOrAddress, port, maxChannels)
         print("Creating client from ip address and port")
         client.address = serverOrAddress
         client.port = port
-        client.host = enet.host_create(nil)
+        --client.host = enet.host_create(nil)
+        client.host = enet.host_create()
+        print("sock.lua | newClient / client.host = " .. tostring(client.host))
+        debug_print_table(client.host, 2)
 
     -- Second form: (enet peer)
     elseif type(serverOrAddress) == "userdata" then
@@ -1423,6 +1444,7 @@ sock.newClient = function(serverOrAddress, port, maxChannels)
         print("sock.lua | serverOrAddress = " .. tostring(serverOrAddress))
         debug_print_table(serverOrAddress)
         client.connection = serverOrAddress
+        debug_print_table(client.connection)
         client.connectId = client.connection:connect_id()
         --client.host = enet.host_create()
     end
