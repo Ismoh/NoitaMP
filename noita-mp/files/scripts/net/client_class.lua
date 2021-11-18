@@ -30,6 +30,14 @@ function Client:createCallbacks()
         print("client_class.lua | Client connected to the server.")
     end)
 
+    self.super:on("seed", function(data)
+        local server_seed = tonumber(data.seed)
+        print("client_class.lua | Client got seed from the server. Seed = " .. server_seed)
+        ModSettingSet("noita-mp.connect_server_seed", server_seed)
+        SetWorldSeed(server_seed)
+        BiomeMapLoad_KeepPlayer("data/biome_impl/biome_map_newgame_plus.lua", "data/biome/_pixel_scenes_newgame_plus.xml") -- StartReload(0)
+    end)
+
     -- Called when the client disconnects from the server
     self.super:on("disconnect", function(data)
         print("client_class.lua | Client disconnected from the server.")

@@ -103,6 +103,12 @@ mod_settings =
 				scope = MOD_SETTING_SCOPE_RUNTIME,
 				change_fn = mod_setting_change_callback, -- Called when the user interact with the settings widget.
 			},
+			{
+				id = "connect_server_seed",
+				value_default = 0,
+				scope = MOD_SETTING_SCOPE_RUNTIME,
+				hidden = true,
+			},
 		},
 	},
 	{

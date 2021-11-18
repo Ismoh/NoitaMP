@@ -35,16 +35,10 @@ local sock = {
     ]]
 }
 
--- local enet = nil
--- if enet == nil then
---     local fileName = "enet.dll"
---     print("Checking external enet c library '" .. fileName .. "' loading..")
---     enet = assert(package.loadlib(GetPathOfScript() .. fileName, "luaopen_enet"))
---     enet()
---     print("enet c library '" .. fileName .. "' was loaded.")
--- end
--- local enet = require ("enet1317_lua-enet-master21-10-2015_lua5-1_32bit")
-local enet = require "enet"
+local enet = require "enet" -- already loaded in init.lua
+
+print("sock.lua | lua-enet version = master branch 21.10.2015")
+print("sock.lua | enet version = " .. enet.linked_version()) -- 1.3.17
 
 -- Current folder trick
 -- http://kiki.to/blog/2014/04/12/rule-5-beware-of-multiple-files/
@@ -285,6 +279,8 @@ function Server:update()
             self:_activateTriggers("disconnect", event.data, eventClient)
             self:log(event.type, tostring(event.peer) .. " disconnected")
 
+        else
+            self:log(event.type, ("event = %s, type = %s, data = %s, peer = %s"):format(event, event.type, event.data, event.peer))
         end
 
         event = self.host:service(self.messageTimeout)
@@ -761,6 +757,8 @@ function Client:update()
         elseif event.type == "disconnect" then
             self:_activateTriggers("disconnect", event.data)
             self:log(event.type, "Disconnected from " .. tostring(self.connection))
+        else
+            self:log(event.type, ("event = %s, type = %s, data = %s, peer = %s"):format(event, event.type, event.data, event.peer))
         end
 
         event = self.host:service(self.messageTimeout)

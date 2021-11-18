@@ -18,8 +18,19 @@ if enet == nil then
     print("enet c library '" .. fileName .. "' was loaded.")
 end
 
--- local client = dofile_once("mods/noita-mp/files/scripts/net/client.lua")
--- local server = dofile_once("mods/noita-mp/files/scripts/net/server.lua")
+function OnModPreInit()
+    local seed = tonumber(ModSettingGet("noita-mp.connect_server_seed"))
+
+    -- if (seed == nil) then
+    --     seed = 0
+    --     ModSettingSet( "noita_together.seed", seed )
+    -- end
+
+    if (seed > 0) then
+        SetWorldSeed(seed)
+        _G.Client:connect()
+    end
+end
 
 function OnWorldInitialized()
     print("init.lua | OnWorldInitialized()")

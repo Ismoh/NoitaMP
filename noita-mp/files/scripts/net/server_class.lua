@@ -36,15 +36,21 @@ function Server:createCallbacks()
     print("server_class.lua | Creating servers callback functions.")
 
     -- Called when someone connects to the server
-    self.super:on("connect", function(data, client)
+    self.super:on("connect", function(data, peer)
 
         print("server_class.lua | on_connect: ")
         print("server_class.lua | on_connect: data = " .. tostring(data))
-        print("server_class.lua | on_connect: client = " .. tostring(client))
+        print("server_class.lua | on_connect: client = " .. tostring(peer))
+
+        -- Send client the servers seed
+        local seed = "" .. GetDailyPracticeRunSeed()
+        print("server_class.lua | Sending seed to client: client id = " .. seed)
+        peer:send("seed1", seed)
+        self.super:sendToPeer(peer, "seed2", seed)
 
         -- Send a message back to the connected client
-        local msg = "Hello from the server!"
-        client:send("hello", msg)
+        local msg = "Hello from the server!" .. seed
+        peer:send("hello", msg)
     end)
 
     -- Called when the client disconnects from the server
