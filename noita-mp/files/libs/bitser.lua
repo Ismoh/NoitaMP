@@ -1,8 +1,10 @@
 --[[
 Copyright (c) 2016, Robin Wellner
+
 Permission to use, copy, modify, and/or distribute this software for any
 purpose with or without fee is hereby granted, provided that the above
 copyright notice and this permission notice appear in all copies.
+
 THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
 WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
 MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
@@ -149,14 +151,14 @@ local function write_number(value, _)
 	end
 end
 
-local function write_string(value, _)
+local function write_string(value, seen)
 	if #value < 32 then
 		--short string
 		Buffer_write_byte(192 + #value)
 	else
 		--long string
 		Buffer_write_byte(244)
-		write_number(#value)
+		write_number(#value, seen)
 	end
 	Buffer_write_string(value)
 end
@@ -171,14 +173,14 @@ end
 
 local function write_table(value, seen)
 	local classkey
-	local classname = (class_name_registry[value.class] -- MiddleClass
+	local class = (class_name_registry[value.class] -- MiddleClass
 		or class_name_registry[value.__baseclass] -- SECL
 		or class_name_registry[getmetatable(value)] -- hump.class
 		or class_name_registry[value.__class__]) -- Slither
-	if classname then
-		classkey = classkey_registry[classname]
+	if class then
+		classkey = classkey_registry[class]
 		Buffer_write_byte(242)
-		serialize_value(classname, seen)
+		write_string(class)
 	else
 		Buffer_write_byte(240)
 	end

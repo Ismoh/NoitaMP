@@ -358,17 +358,18 @@ end
 --@usage
 --server:sendToPeer(peer, "initialGameInfo", {...})
 function Server:sendToPeer(peer, event, data)
-    local message = {event, data}
-    local serializedMessage
-    if type(data) == "userdata" and data.type and data:typeOf("Data") then
-        message[2] = data:getString()
-        serializedMessage = self.serialize(message)
-    else
-        serializedMessage = self.serialize(message)
-    end
+    -- local message = {event, data}
+    -- local serializedMessage
+    -- if type(data) == "userdata" and data.type and data:typeOf("Data") then
+    --     message[2] = data:getString()
+    --     serializedMessage = self.serialize(message)
+    -- else
+    --     serializedMessage = self.serialize(message)
+    -- end
 
     self.packetsSent = self.packetsSent + 1
-    peer:send(serializedMessage, self.sendChannel, self.sendMode)
+    --peer:send(serializedMessage, self.sendChannel, self.sendMode)
+    peer:send(event, data)
     self:resetSendSettings()
 end
 

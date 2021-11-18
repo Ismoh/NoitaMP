@@ -1,7 +1,7 @@
 local sock = require "sock"
 
--- https://www.tutorialspoint.com/lua/lua_object_oriented.htm
 
+-- https://www.tutorialspoint.com/lua/lua_object_oriented.htm
 -- Meta class
 Client = {
     super   = nil,
@@ -19,6 +19,13 @@ function Client:new(o, super, address, port)
     self.address = tostring(address)
     self.port = tonumber(port)
     return o
+end
+
+
+function Client:setSettings()
+    --self.super:setSerialization(bitser.dumps, bitser.load)
+    self.super:setSchema("seed", { "seed" })
+    self.super:setSchema("playerState", { "index", "player"})
 end
 
 
@@ -54,6 +61,7 @@ function Client:createCallbacks()
     end)
 end
 
+
 function Client:connect()
     if not self.super then
         print("client_class.lua | Clients super wasn't set. Also refreshing ip and port.")
@@ -64,6 +72,7 @@ function Client:connect()
         self.super = sock.newClient(ip, port)
     end
 
+    self:setSettings()
     self:createCallbacks()
 
     GamePrintImportant( "Client is connecting..", "You are trying to connect to "
@@ -81,6 +90,7 @@ function Client:connect()
     })
 end
 
+
 function Client:update()
     if not self.super then
         return -- Client not established
@@ -88,6 +98,7 @@ function Client:update()
 
     self.super:update()
 end
+
 
 -- Create a new global object of the server
 _G.Client = Client:new()

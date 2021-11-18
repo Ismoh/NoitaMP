@@ -1,7 +1,7 @@
 local sock = require "sock"
 
--- https://www.tutorialspoint.com/lua/lua_object_oriented.htm
 
+-- https://www.tutorialspoint.com/lua/lua_object_oriented.htm
 -- Meta class
 Server = {
     super   = nil,
@@ -28,6 +28,13 @@ function Server:new(o, super, address, port)
     -- end
 
     return o
+end
+
+
+function Server:setSettings()
+    --self.super:setSerialization(bitser.dumps, bitser.load)
+    self.super:setSchema("seed", "seed")
+    self.super:setSchema("playerState", { "index", "player"})
 end
 
 
@@ -64,6 +71,7 @@ function Server:createCallbacks()
     end)
 end
 
+
 function Server:create()
     print("server_class.lua | Starting server and fetching ip and port..")
 
@@ -74,6 +82,7 @@ function Server:create()
     self.super = sock.newServer(ip, port)
     print("server_class.lua | Server started on " .. self.super:getAddress() .. ":" .. self.super:getPort())
 
+    self:setSettings()
     self:createCallbacks()
 
     GamePrintImportant( "Server started", "Your server is running on "
