@@ -26,6 +26,7 @@ function OnModPreInit()
     --     ModSettingSet( "noita_together.seed", seed )
     -- end
 
+    print("init.lua | Server world seed = " .. seed)
     if (seed > 0) then
         SetWorldSeed(seed)
         _G.Client:connect()

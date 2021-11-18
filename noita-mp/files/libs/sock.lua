@@ -1,10 +1,8 @@
-dofile("mods/noita-mp/files/scripts/util/util.lua")
 
 --- A Lua networking library for LÖVE games.
 -- * [Source code](https://github.com/camchenry/sock.lua)
 -- * [Examples](https://github.com/camchenry/sock.lua/tree/master/examples)
 -- @module sock
--- @usage sock = require "sock"
 
 local sock = {
     _VERSION     = 'sock.lua v0.3.0',
@@ -63,12 +61,16 @@ end
 
 -- links variables to keys based on their order
 -- note that it only works for boolean and number values, not strings
-local function zipTable(items, keys)
+local function zipTable(items, keys, event)
     local data = {}
 
     -- convert variable at index 1 into the value for the key value at index 1, and so on
     for i, value in ipairs(items) do
         local key = keys[i]
+
+        if not key then
+            error("Event '"..event.."' missing data key. Is the schema different between server and client?")
+        end
 
         data[key] = value
     end
@@ -144,8 +146,8 @@ end
 
 function Logger:log(event, data)
     local time = os.date("%X") -- something like 24:59:59
-    local shortLine = ("[event = %s] data = %s"):format(event, data)
-    local fullLine  = ("[%s][%s][event = %s] data = %s"):format(self.source, time, event, data)
+    local shortLine = ("[%s] %s"):format(event, data)
+    local fullLine  = ("[%s][%s][%s] %s"):format(self.source, time, event, data)
 
     -- The printed message may or may not be the full message
     local line = fullLine
@@ -221,7 +223,7 @@ function Listener:trigger(event, data, client)
         for _, trigger in pairs(self.triggers[event]) do
             -- Event has a pre-existing schema defined
             if self.schemas[event] then
-                data = zipTable(data, self.schemas[event])
+                data = zipTable(data, self.schemas[event], event)
             end
             trigger(data, client)
         end
@@ -238,11 +240,6 @@ local Server_mt = {__index = Server}
 
 --- Check for network events and handle them.
 function Server:update()
-    if not self.deserialize then
-        self:log("error", "Can't deserialize message: deserialize was not set")
-        error("Can't deserialize message: deserialize was not set")
-    end
-
     local event = self.host:service(self.messageTimeout)
 
     while event do
@@ -255,10 +252,8 @@ function Server:update()
             self:log(event.type, tostring(event.peer) .. " connected")
 
         elseif event.type == "receive" then
-            local message = self.deserialize(event.data)
+            local eventName, data = self:__unpack(event.data)
             local eventClient = self:getClient(event.peer)
-            local eventName = message[1]
-            local data = message[2]
 
             self:_activateTriggers(eventName, data, eventClient)
             self:log(eventName, data)
@@ -287,14 +282,24 @@ function Server:update()
     end
 end
 
---- Send a message to all clients, except one.
--- Useful for when the client does something locally, but other clients
--- need to be updated at the same time. This way avoids duplicating objects by
--- never sending its own event to itself in the first place.
--- @tparam Client client The client to not receive the message.
--- @tparam string event The event to trigger with this message.
--- @param data The data to send.
-function Server:sendToAllBut(client, event, data)
+-- Creates the unserialized message that will be used in callbacks
+-- In: serialized message (string)
+-- Out: event (string), data (mixed)
+function Server:__unpack(data)
+    if not self.deserialize then
+        self:log("error", "Can't deserialize message: deserialize was not set")
+        error("Can't deserialize message: deserialize was not set")
+    end
+
+    local message = self.deserialize(data)
+    local eventName, data = message[1], message[2]
+    return eventName, data
+end
+
+-- Creates the serialized message that will be sent over the network
+-- In: event (string), data (mixed)
+-- Out: serialized message (string)
+function Server:__pack(event, data)
     local message = {event, data}
     local serializedMessage
 
@@ -310,6 +315,19 @@ function Server:sendToAllBut(client, event, data)
     else
         serializedMessage = self.serialize(message)
     end
+
+    return serializedMessage
+end
+
+--- Send a message to all clients, except one.
+-- Useful for when the client does something locally, but other clients
+-- need to be updated at the same time. This way avoids duplicating objects by
+-- never sending its own event to itself in the first place.
+-- @tparam Client client The client to not receive the message.
+-- @tparam string event The event to trigger with this message.
+-- @param data The data to send.
+function Server:sendToAllBut(client, event, data)
+    local serializedMessage = self:__pack(event, data)
 
     for _, p in pairs(self.peers) do
         if p ~= client.connection then
@@ -327,21 +345,7 @@ end
 --@usage
 --server:sendToAll("gameStarting", true)
 function Server:sendToAll(event, data)
-    local message = {event, data}
-    local serializedMessage
-
-    if not self.serialize then
-        self:log("error", "Can't serialize message: serialize was not set")
-        error("Can't serialize message: serialize was not set")
-    end
-
-    -- 'Data' = binary data class in Love
-    if type(data) == "userdata" and data.type and data:typeOf("Data") then
-        message[2] = data:getString()
-        serializedMessage = self.serialize(message)
-    else
-        serializedMessage = self.serialize(message)
-    end
+    local serializedMessage = self:__pack(event, data)
 
     self.packetsSent = self.packetsSent + #self.peers
 
@@ -358,18 +362,13 @@ end
 --@usage
 --server:sendToPeer(peer, "initialGameInfo", {...})
 function Server:sendToPeer(peer, event, data)
-    -- local message = {event, data}
-    -- local serializedMessage
-    -- if type(data) == "userdata" and data.type and data:typeOf("Data") then
-    --     message[2] = data:getString()
-    --     serializedMessage = self.serialize(message)
-    -- else
-    --     serializedMessage = self.serialize(message)
-    -- end
+    --local serializedMessage = self:__pack(event, data)
 
     self.packetsSent = self.packetsSent + 1
-    --peer:send(serializedMessage, self.sendChannel, self.sendMode)
+
     peer:send(event, data)
+    --peer:send(serializedMessage, self.sendChannel, self.sendMode)
+
     self:resetSendSettings()
 end
 
@@ -731,16 +730,6 @@ local Client_mt = {__index = Client}
 
 --- Check for network events and handle them.
 function Client:update()
-    if not self.deserialize then
-        self:log("error", "Can't deserialize message: deserialize was not set")
-        error("Can't deserialize message: deserialize was not set")
-    end
-
-    -- debug_print_table(self)
-    --print("self = " .. tostring(self))
-    --print("self.host = " .. tostring(self.host))
-    self:log(self.host:service())
-
     local event = self.host:service(self.messageTimeout)
 
     while event do
@@ -748,9 +737,7 @@ function Client:update()
             self:_activateTriggers("connect", event.data)
             self:log(event.type, "Connected to " .. tostring(self.connection))
         elseif event.type == "receive" then
-            local message = self.deserialize(event.data)
-            local eventName = message[1]
-            local data = message[2]
+            local eventName, data = self:__unpack(event.data)
 
             self:_activateTriggers(eventName, data)
             self:log(eventName, data)
@@ -771,23 +758,7 @@ end
 -- @tparam ?number code A number that can be associated with the connect event.
 function Client:connect(code)
     -- number of channels for the client and server must match
-
-    -- print("Printing client table:")
-    -- debug_print_table(self)
-    -- TableToString(client)
-    -- print("Printing client.host table:")
-    -- debug_print_table(self.host)
-    -- TableToString(client.host)
-
-    print("sock.lua | Connecting to ".. self.address .. ":" .. self.port .. "(self.maxChannels = " .. self.maxChannels .. ", code = ".. tostring(code) ..")")
-
     self.connection = self.host:connect(self.address .. ":" .. self.port, self.maxChannels, code)
-    print("sock.lua | Printing client.connection:")
-    if type(self.connection) == "userdata" then
-        debug_print_table(self.connection, 2, "connection")
-    else
-        print("sock.lua | Client/self.connection = " .. self.connection)
-    end
     self.connectId = self.connection:connect_id()
 end
 
@@ -825,10 +796,24 @@ function Client:reset()
     end
 end
 
---- Send a message to the server.
--- @tparam string event The event to trigger with this message.
--- @param data The data to send.
-function Client:send(event, data)
+-- Creates the unserialized message that will be used in callbacks
+-- In: serialized message (string)
+-- Out: event (string), data (mixed)
+function Client:__unpack(data)
+    if not self.deserialize then
+        self:log("error", "Can't deserialize message: deserialize was not set")
+        error("Can't deserialize message: deserialize was not set")
+    end
+
+    local message = self.deserialize(data)
+    local eventName, data = message[1], message[2]
+    return eventName, data
+end
+
+-- Creates the serialized message that will be sent over the network
+-- In: event (string), data (mixed)
+-- Out: serialized message (string)
+function Client:__pack(event, data)
     local message = {event, data}
     local serializedMessage
 
@@ -844,6 +829,15 @@ function Client:send(event, data)
     else
         serializedMessage = self.serialize(message)
     end
+
+    return serializedMessage
+end
+
+--- Send a message to the server.
+-- @tparam string event The event to trigger with this message.
+-- @param data The data to send.
+function Client:send(event, data)
+    local serializedMessage = self:__pack(event, data)
 
     self.connection:send(serializedMessage, self.sendChannel, self.sendMode)
 
@@ -1345,14 +1339,6 @@ sock.newServer = function(address, port, maxPeers, maxChannels, inBandwidth, out
     -- number of channels for the client and server must match
     server.host = enet.host_create(server.address .. ":" .. server.port, server.maxPeers, server.maxChannels)
 
-    -- print("Printing server table:")
-    -- debug_print_table(server)
-    -- TableToString(server)
-    -- print("Printing server.host table:")
-    -- debug_print_table(server.host)
-    -- TableToString(server.host)
-    print("sock.lua | newServer / server.host = " .. tostring(server.host))
-    debug_print_table(server.host, 2)
 
     if not server.host then
         error("Failed to create the host. Is there another server running on :"..server.port.."?")
@@ -1422,38 +1408,17 @@ sock.newClient = function(serverOrAddress, port, maxChannels)
     -- The first would be the common usage for regular client code, while the
     -- latter is mostly used for creating clients in the server-side code.
 
-    print(tostring(port ~= nil))
-    print(tostring(type(port) == "number"))
-    print(tostring(serverOrAddress ~= nil))
-    print(tostring(type(serverOrAddress) == "string"))
-
     -- First form: (address, port)
     if port ~= nil and type(port) == "number" and serverOrAddress ~= nil and type(serverOrAddress) == "string" then
-        print("Creating client from ip address and port")
         client.address = serverOrAddress
         client.port = port
-        --client.host = enet.host_create(nil)
         client.host = enet.host_create()
-        print("sock.lua | newClient / client.host = " .. tostring(client.host))
-        debug_print_table(client.host, 2)
 
     -- Second form: (enet peer)
     elseif type(serverOrAddress) == "userdata" then
-        print("sock.lua | Creating client from userdata / peer. Printing table serverOrAddress")
-        print("sock.lua | serverOrAddress = " .. tostring(serverOrAddress))
-        debug_print_table(serverOrAddress)
         client.connection = serverOrAddress
-        debug_print_table(client.connection)
         client.connectId = client.connection:connect_id()
-        --client.host = enet.host_create()
     end
-
-    --print("Printing client table:")
-    -- debug_print_table(client)
-    --TableToString(client)
-    --print("Printing client.host table:")
-    -- debug_print_table(client.host)
-    --TableToString(client.host)
 
     if bitserLoaded then
         client:setSerialization(bitser.dumps, bitser.loads)

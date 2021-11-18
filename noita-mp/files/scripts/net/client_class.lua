@@ -1,3 +1,5 @@
+dofile("mods/noita-mp/files/scripts/util/file_util.lua")
+
 local sock = require "sock"
 
 
@@ -23,7 +25,8 @@ end
 
 
 function Client:setSettings()
-    --self.super:setSerialization(bitser.dumps, bitser.load)
+    self.super:setTimeout(320, 50000, 100000)
+    self.super:setSchema("worldFiles", {"fileFullpath", "fileContent"})
     self.super:setSchema("seed", { "seed" })
     self.super:setSchema("playerState", { "index", "player"})
 end
@@ -37,12 +40,24 @@ function Client:createCallbacks()
         print("client_class.lua | Client connected to the server.")
     end)
 
+    self.super:on("worldFiles", function(data)
+        local file_fullpath = data.fileFullpath
+        local file_content = data.fileContent
+
+        print("client_class.lua | Receiving world files from server: " .. file_fullpath)
+
+        WriteSavegameWorldFile(file_fullpath, file_content)
+    end)
+
+    self.super:on("restart", function(data)
+        BiomeMapLoad_KeepPlayer("data/biome_impl/biome_map_newgame_plus.lua", "data/biome/_pixel_scenes_newgame_plus.xml") -- StartReload(0)
+    end)
+
     self.super:on("seed", function(data)
         local server_seed = tonumber(data.seed)
         print("client_class.lua | Client got seed from the server. Seed = " .. server_seed)
         ModSettingSet("noita-mp.connect_server_seed", server_seed)
-        SetWorldSeed(server_seed)
-        BiomeMapLoad_KeepPlayer("data/biome_impl/biome_map_newgame_plus.lua", "data/biome/_pixel_scenes_newgame_plus.xml") -- StartReload(0)
+        --BiomeMapLoad_KeepPlayer("data/biome_impl/biome_map_newgame_plus.lua", "data/biome/_pixel_scenes_newgame_plus.xml") -- StartReload(0)
     end)
 
     -- Called when the client disconnects from the server

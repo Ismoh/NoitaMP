@@ -1,3 +1,4 @@
+dofile("mods/noita-mp/files/scripts/util/file_util.lua")
 local sock = require "sock"
 
 
@@ -32,8 +33,8 @@ end
 
 
 function Server:setSettings()
-    --self.super:setSerialization(bitser.dumps, bitser.load)
-    self.super:setSchema("seed", "seed")
+    self.super:setSchema("worldFiles", {"fileFullpath", "fileContent"})
+    self.super:setSchema("seed", {"seed"})
     self.super:setSchema("playerState", { "index", "player"})
 end
 
@@ -44,16 +45,26 @@ function Server:createCallbacks()
 
     -- Called when someone connects to the server
     self.super:on("connect", function(data, peer)
-
         print("server_class.lua | on_connect: ")
         print("server_class.lua | on_connect: data = " .. tostring(data))
         print("server_class.lua | on_connect: client = " .. tostring(peer))
 
+
+        -- Send client the servers world
+        local file_names = GetSavegameWorldFileNames()
+        for index, file_fullpath in ipairs(file_names) do
+            print("server_class.lua | Sending world files to client: " .. index .. " " .. file_fullpath)
+            local file_content = ReadSavegameWorldFile(file_fullpath)
+            peer:send("worldFiles", { file_fullpath, file_content })
+        end
+
+        -- Send restart command
+        peer:send("restart", {})
+
         -- Send client the servers seed
         local seed = "" .. GetDailyPracticeRunSeed()
-        print("server_class.lua | Sending seed to client: client id = " .. seed)
-        peer:send("seed1", seed)
-        self.super:sendToPeer(peer, "seed2", seed)
+        print("server_class.lua | Sending seed to client: connection id = " .. peer:getConnectId() .. ", seed = " .. seed)
+        self.super:sendToPeer(peer, "seed", {seed})
 
         -- Send a message back to the connected client
         local msg = "Hello from the server!" .. seed
