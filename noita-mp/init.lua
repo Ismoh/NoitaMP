@@ -1,9 +1,12 @@
 dofile("mods/noita-mp/files/scripts/util/util.lua")
+
+SetNoitaRootAbsolutePath()
+
 --[[
     Need to add module package to package path, because relative paths are not working
  ]]
-package.path = package.path .. ';' .. GetPathOfScript() .. 'files/libs/?.lua;'
-package.cpath = package.cpath .. ';' .. GetPathOfScript() .. 'files/libs/?.dll;'
+package.path = package.path .. ';' .. GetRelativePathOfModFolder() .. '/files/libs/?.lua;'
+package.cpath = package.cpath .. ';' .. GetRelativePathOfModFolder() .. '/files/libs/?.dll;'
 print(package.path)
 print(package.cpath)
 
@@ -11,9 +14,11 @@ ModMagicNumbersFileAdd("mods/noita-mp/files/data/magic_numbers.xml")
 
 local enet = nil
 if enet == nil then
-    local fileName = "files/libs/enet1317_lua-enet-master21-10-2015_lua5-1_32bit.dll"
-    print("Checking external enet c library '" .. fileName .. "' loading..")
-    enet = assert(package.loadlib(GetPathOfScript() .. fileName, "luaopen_enet"))
+    local path = GetRelativePathOfModFolder() .. "/files/libs"
+    local fileName = "enet1317_lua-enet-master21-10-2015_lua5-1_32bit.dll"
+    local rel_path = path .. "/" .. fileName
+    print("Checking external enet c library '" .. rel_path .. "' loading..")
+    enet = assert(package.loadlib(rel_path, "luaopen_enet"))
     enet()
     print("enet c library '" .. fileName .. "' was loaded.")
 end

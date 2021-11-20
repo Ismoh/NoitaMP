@@ -1,0 +1,26 @@
+7z_path: C:\Program Files (x86)\Lua\5.1\7z.exe
+autoclose: true
+display_save_status: true
+executable_path: C:\Program Files (x86)\Steam\steamapps\common\Noita\noita.exe
+hotkey_load: !!python/tuple
+- control
+- f9
+hotkey_loadQuick: !!python/tuple
+- control
+- shift
+- f9
+hotkey_save: !!python/tuple
+- control
+- f5
+hotkey_saveQuick: !!python/tuple
+- control
+- shift
+- f5
+launch_arguments:
+- -no_logo_splashes
+- -gamemode 4294967295
+- -save_slot 0
+launch_on_load: true
+saveFolderPath: C:\Users\Ismoh-PC\AppData\LocalLow\Nolla_Games_Noita
+steam_launch: C:\Program Files (x86)\Steam\steam.exe
+use_steam_launch: true

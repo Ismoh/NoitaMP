@@ -45,6 +45,7 @@ function Client:createCallbacks()
         local file_content = data.fileContent
 
         print("client_class.lua | Receiving world files from server: " .. file_fullpath)
+        GamePrint("client_class.lua | Receiving world files from server: " .. file_fullpath)
 
         WriteSavegameWorldFile(file_fullpath, file_content)
     end)
