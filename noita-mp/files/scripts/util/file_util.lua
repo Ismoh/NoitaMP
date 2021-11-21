@@ -5,6 +5,7 @@ local unix = string.find(path_separator, '/')
 
 local command = ""
 
+
 function InitThisFile()
     local path = ""
     if windows then
@@ -15,6 +16,18 @@ function InitThisFile()
         command = "ls -a " .. path -- TODO where are the savegames stored on unix?
     end
 end
+
+
+--- Sets Noitas root absolute path to _G
+function SetNoitaRootAbsolutePath()
+    local noita_root_path = assert(io.popen("cd"):read("*l"), "Unable to run windows command \"cd\" to get Noitas root folder!")
+    --noita_root_path = string.gsub(noita_root_path, "\\", "/")
+
+    _G.noita_root_path = noita_root_path
+
+    print("file_util.lua | Noitas root absolute path set to " .. _G.noita_root_path)
+end
+
 
 --- Returns the relative path to the parent folder of the script, which executes this function.
 --- Slash at the end is removed.
@@ -30,6 +43,7 @@ function GetPathOfScript()
 
     return match_last_slash
 end
+
 
 --- Returns the worlds folder depending on devBuild or release
 ---@return string world_path : noita installation path, %appdata%\..\LocalLow\Nolla_Games_Noita\ on windows and unknown for unix systems
@@ -65,15 +79,6 @@ function GetWorldFolder()
     return world_path
 end
 
---- Sets Noitas root absolute path to _G
-function SetNoitaRootAbsolutePath()
-    local noita_root_path = assert(io.popen("cd"):read("*l"), "Unable to run windows command \"cd\" to get Noitas root folder!")
-    noita_root_path = string.gsub(noita_root_path, "\\", "/")
-
-    _G.noita_root_path = noita_root_path
-
-    print("file_util.lua | Noitas root absolute path set to " .. _G.noita_root_path)
-end
 
 --- Returns the ABSOLUTE path of the mods folder.
 --- If _G.noita_root_path is not set yet, then it will be
@@ -85,12 +90,37 @@ function GetAbsolutePathOfModFolder()
     return _G.noita_root_path .. "/mods/noita-mp"
 end
 
+
 --- Returns the RELATIVE path of the mods folder.
 ---@return string "mods/noita-mp"
 function GetRelativePathOfModFolder()
     return "mods/noita-mp"
 end
 
+--- Returns the RELATIVE path of the library folder required for this mod.
+---@return string "/mods/noita-mp/files/libs"
+function GetRelativePathOfRequiredLibs()
+    return "mods/noita-mp/files/libs"
+end
+
+
+--- Returns the ABSOLUTE path of the library folder required for this mod.
+--- If _G.noita_root_path is not set yet, then it will be
+---@return string _G.noita_root_path .. "/mods/noita-mp/files/libs"
+function GetAbsolutePathOfRequiredLibs()
+    if not _G.noita_root_path then
+        SetNoitaRootAbsolutePath()
+    end
+    return _G.noita_root_path .. "/mods/noita-mp/files/libs"
+end
+
+----------------------------------------------------------------------------------------------------
+
+function FileExists(path)
+    local file = io.open(path, "rb")
+    if file then file:close() end
+    return file ~= nil
+  end
 
 function GetSavegameWorldFileNames()
     -- https://stackoverflow.com/a/11130774/3493998

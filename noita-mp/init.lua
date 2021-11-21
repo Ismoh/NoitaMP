@@ -2,25 +2,57 @@ dofile("mods/noita-mp/files/scripts/util/util.lua")
 
 SetNoitaRootAbsolutePath()
 
---[[
-    Need to add module package to package path, because relative paths are not working
- ]]
-package.path = package.path .. ';' .. GetRelativePathOfModFolder() .. '/files/libs/?.lua;'
-package.cpath = package.cpath .. ';' .. GetRelativePathOfModFolder() .. '/files/libs/?.dll;'
+-- Need to add module package to package path, because relative paths are not working
+package.path = package.path .. ";"
+.. string.gsub(GetRelativePathOfRequiredLibs() .. "/?.lua;", "/", "\\")
+.. string.gsub(GetAbsolutePathOfRequiredLibs() .. "/?.lua;", "/", "\\")
 print(package.path)
+
+package.cpath = package.cpath .. ";"
+.. string.gsub(GetRelativePathOfRequiredLibs() .. "/?.dll;", "/", "\\")
+.. string.gsub(GetAbsolutePathOfRequiredLibs() .. "/?.dll;", "/", "\\")
 print(package.cpath)
+
 
 ModMagicNumbersFileAdd("mods/noita-mp/files/data/magic_numbers.xml")
 
 local enet = nil
 if enet == nil then
-    local path = GetRelativePathOfModFolder() .. "/files/libs"
-    local fileName = "enet1317_lua-enet-master21-10-2015_lua5-1_32bit.dll"
-    local rel_path = path .. "/" .. fileName
-    print("Checking external enet c library '" .. rel_path .. "' loading..")
-    enet = assert(package.loadlib(rel_path, "luaopen_enet"))
-    enet()
-    print("enet c library '" .. fileName .. "' was loaded.")
+    local fileName = "enet.dll"
+    print("Trying to load enet c library by file name with '" .. fileName .. "' loading.. Does file exists? " .. tostring(FileExists(fileName)))
+    enet = package.loadlib(fileName, "luaopen_enet")
+
+    if not enet then
+        print(tostring(enet))
+        local rel_path = GetRelativePathOfRequiredLibs() .. "/" .. fileName
+        rel_path = string.gsub(rel_path, "/", "\\")
+        print("Trying to load enet c library by relative path with '" .. rel_path .. "' loading.. Does file exists? " .. tostring(FileExists(rel_path)))
+        enet = package.loadlib(rel_path, "luaopen_enet")
+    end
+
+    if not enet then
+        print(tostring(enet))
+        local abs_path = GetAbsolutePathOfRequiredLibs() .. "/" .. fileName
+        abs_path = string.gsub(abs_path, "/", "\\")
+        print("Trying to load enet c library by absolute path with '" .. abs_path .. "' loading.. Does file exists? " .. tostring(FileExists(abs_path)))
+        enet = package.loadlib(abs_path, "luaopen_enet")
+    end
+
+    if not enet then
+        print(tostring(enet))
+        local abs_path = [[C:\Program Files (x86)\Steam\steamapps\common\Noita\mods\noita-mp\files\libs\enet.dll]]
+        print("Trying to load enet c library by absolute path with '" .. abs_path .. "' loading.. Does file exists? " .. tostring(FileExists(abs_path)))
+        enet = package.loadlib(abs_path, "luaopen_enet")
+    end
+
+    if enet then
+        print("enet c library '" .. fileName .. "' was loaded by function load.")
+        enet()
+    else
+        print(tostring(enet))
+        print("enet c library '" .. fileName .. "' was loaded by require load.")
+        require("enet.dll")
+    end
 end
 
 function OnModPreInit()
