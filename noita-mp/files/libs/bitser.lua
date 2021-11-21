@@ -1,5 +1,5 @@
 --[[
-Copyright (c) 2020, Jasmijn Wellner
+Copyright (c) 2016, Robin Wellner
 
 Permission to use, copy, modify, and/or distribute this software for any
 purpose with or without fee is hereby granted, provided that the above
@@ -14,8 +14,6 @@ ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 ]]
 
-local VERSION = '1.1'
-
 local floor = math.floor
 local pairs = pairs
 local type = type
@@ -29,7 +27,6 @@ local buf_size = -1
 local buf = nil
 local writable_buf = nil
 local writable_buf_size = nil
-local SEEN_LEN = {}
 
 local function Buffer_prereserve(min_size)
 	if buf_size < min_size then
@@ -84,18 +81,16 @@ local function Buffer_write_byte(x)
 	buf_pos = buf_pos + 1
 end
 
-local function Buffer_write_raw(data, len)
-	Buffer_reserve(len)
-	ffi.copy(buf + buf_pos, data, len)
-	buf_pos = buf_pos + len
-end
-
 local function Buffer_write_string(s)
-	Buffer_write_raw(s, #s)
+	Buffer_reserve(#s)
+	ffi.copy(buf + buf_pos, s, #s)
+	buf_pos = buf_pos + #s
 end
 
 local function Buffer_write_data(ct, len, ...)
-	Buffer_write_raw(ffi.new(ct, ...), len)
+	Buffer_reserve(len)
+	ffi.copy(buf + buf_pos, ffi.new(ct, ...), len)
+	buf_pos = buf_pos + len
 end
 
 local function Buffer_ensure(numbytes)
@@ -118,14 +113,12 @@ local function Buffer_read_string(len)
 	return x
 end
 
-local function Buffer_read_raw(data, len)
-	ffi.copy(data, buf + buf_pos, len)
-	buf_pos = buf_pos + len
-	return data
-end
-
 local function Buffer_read_data(ct, len)
-	return Buffer_read_raw(ffi.new(ct), len)
+	Buffer_ensure(len)
+	local x = ffi.new(ct)
+	ffi.copy(x, buf + buf_pos, len)
+	buf_pos = buf_pos + len
+	return x
 end
 
 local resource_registry = {}
@@ -158,14 +151,14 @@ local function write_number(value, _)
 	end
 end
 
-local function write_string(value, _)
+local function write_string(value, seen)
 	if #value < 32 then
 		--short string
 		Buffer_write_byte(192 + #value)
 	else
 		--long string
 		Buffer_write_byte(244)
-		write_number(#value)
+		write_number(#value, seen)
 	end
 	Buffer_write_string(value)
 end
@@ -180,15 +173,14 @@ end
 
 local function write_table(value, seen)
 	local classkey
-	local classname = (class_name_registry[value.class] -- MiddleClass
+	local class = (class_name_registry[value.class] -- MiddleClass
 		or class_name_registry[value.__baseclass] -- SECL
 		or class_name_registry[getmetatable(value)] -- hump.class
-		or class_name_registry[value.__class__] -- Slither
-		or class_name_registry[value.__class]) -- Moonscript class
-	if classname then
-		classkey = classkey_registry[classname]
+		or class_name_registry[value.__class__]) -- Slither
+	if class then
+		classkey = classkey_registry[class]
 		Buffer_write_byte(242)
-		serialize_value(classname, seen)
+		write_string(class)
 	else
 		Buffer_write_byte(240)
 	end
@@ -212,23 +204,7 @@ local function write_table(value, seen)
 	end
 end
 
-local function write_cdata(value, seen)
-	local ty = ffi.typeof(value)
-	if ty == value then
-		-- ctype
-		Buffer_write_byte(251)
-		serialize_value(tostring(ty):sub(7, -2), seen)
-		return
-	end
-	-- cdata
-	Buffer_write_byte(252)
-	serialize_value(ty, seen)
-	local len = ffi.sizeof(value)
-	write_number(len)
-	Buffer_write_raw(ffi.typeof('$[1]', ty)(value), len)
-end
-
-local types = {number = write_number, string = write_string, table = write_table, boolean = write_boolean, ["nil"] = write_nil, cdata = write_cdata}
+local types = {number = write_number, string = write_string, table = write_table, boolean = write_boolean, ["nil"] = write_nil}
 
 serialize_value = function(value, seen)
 	if seen[value] then
@@ -244,9 +220,9 @@ serialize_value = function(value, seen)
 		return
 	end
 	local t = type(value)
-	if t ~= 'number' and t ~= 'boolean' and t ~= 'nil' and t ~= 'cdata' then
-		seen[value] = seen[SEEN_LEN]
-		seen[SEEN_LEN] = seen[SEEN_LEN] + 1
+	if t ~= 'number' and t ~= 'boolean' and t ~= 'nil' then
+		seen[value] = seen.len
+		seen.len = seen.len + 1
 	end
 	if resource_name_registry[value] then
 		local name = resource_name_registry[value]
@@ -268,7 +244,7 @@ end
 
 local function serialize(value)
 	Buffer_makeBuffer(4096)
-	local seen = {[SEEN_LEN] = 0}
+	local seen = {len = 0}
 	serialize_value(value, seen)
 end
 
@@ -359,15 +335,6 @@ local function deserialize_value(seen)
 	elseif t == 250 then
 		--short int
 		return Buffer_read_data("int16_t[1]", 2)[0]
-	elseif t == 251 then
-		--ctype
-		return ffi.typeof(deserialize_value(seen))
-	elseif t == 252 then
-		local ctype = deserialize_value(seen)
-		local len = deserialize_value(seen)
-		local read_into = ffi.typeof('$[1]', ctype)()
-		Buffer_read_raw(read_into, len)
-		return ctype(read_into[0])
 	else
 		error("unsupported serialized type " .. t)
 	end
@@ -387,34 +354,20 @@ local function deserialize_Slither(instance, class)
 	return getmetatable(class).allocate(instance)
 end
 
-local function deserialize_Moonscript(instance, class)
-	return setmetatable(instance, class.__base)
-end
-
 return {dumps = function(value)
 	serialize(value)
 	return ffi.string(buf, buf_pos)
 end, dumpLoveFile = function(fname, value)
 	serialize(value)
-	assert(love.filesystem.write(fname, ffi.string(buf, buf_pos)))
+	love.filesystem.write(fname, ffi.string(buf, buf_pos))
 end, loadLoveFile = function(fname)
-	local serializedData, error = love.filesystem.newFileData(fname)
-	assert(serializedData, error)
+	local serializedData = love.filesystem.newFileData(fname)
 	Buffer_newDataReader(serializedData:getPointer(), serializedData:getSize())
-	local value = deserialize_value({})
-	-- serializedData needs to not be collected early in a tail-call
-	-- so make sure deserialize_value returns before loadLoveFile does
-	return value
+	return deserialize_value({})
 end, loadData = function(data, size)
-	if size == 0 then
-		error('cannot load value from empty data')
-	end
 	Buffer_newDataReader(data, size)
 	return deserialize_value({})
 end, loads = function(str)
-	if #str == 0 then
-		error('cannot load value from empty string')
-	end
 	Buffer_newReader(str)
 	return deserialize_value({})
 end, register = function(name, resource)
@@ -428,7 +381,7 @@ end, unregister = function(name)
 end, registerClass = function(name, class, classkey, deserializer)
 	if not class then
 		class = name
-		name = class.__name__ or class.name or class.__name
+		name = class.__name__ or class.name
 	end
 	if not classkey then
 		if class.__instanceDict then
@@ -438,7 +391,7 @@ end, registerClass = function(name, class, classkey, deserializer)
 			-- assume SECL
 			classkey = '__baseclass'
 		end
-		-- assume hump.class, Slither, Moonscript class or something else that doesn't store the
+		-- assume hump.class, Slither, or something else that doesn't store the
 		-- class directly on the instance
 	end
 	if not deserializer then
@@ -454,9 +407,6 @@ end, registerClass = function(name, class, classkey, deserializer)
 		elseif class.__name__ then
 			-- assume Slither
 			deserializer = deserialize_Slither
-		elseif class.__base then
-			-- assume Moonscript class
-			deserializer = deserialize_Moonscript
 		else
 			error("no deserializer given for unsupported class library")
 		end
@@ -471,4 +421,4 @@ end, unregisterClass = function(name)
 	classkey_registry[name] = nil
 	class_deserialize_registry[name] = nil
 	class_registry[name] = nil
-end, reserveBuffer = Buffer_prereserve, clearBuffer = Buffer_clear, version = VERSION}
+end, reserveBuffer = Buffer_prereserve, clearBuffer = Buffer_clear}

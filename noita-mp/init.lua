@@ -1,40 +1,99 @@
 dofile("mods/noita-mp/files/scripts/util/util.lua")
---[[
-    Need to add module package to package path, because relative paths are not working
- ]]
-package.path = package.path .. ';' .. GetPathOfScript() .. 'files/libs/?.lua;'
-package.cpath = package.cpath .. ';' .. GetPathOfScript() .. 'files/libs/?.dll;'
+
+SetNoitaRootAbsolutePath()
+
+-- Need to add module package to package path, because relative paths are not working
+package.path = package.path .. ";"
+.. string.gsub(GetRelativePathOfRequiredLibs() .. "/?.lua;", "/", "\\")
+.. string.gsub(GetAbsolutePathOfRequiredLibs() .. "/?.lua;", "/", "\\")
 print(package.path)
+
+package.cpath = package.cpath .. ";"
+.. string.gsub(GetRelativePathOfRequiredLibs() .. "/?.dll;", "/", "\\")
+.. string.gsub(GetAbsolutePathOfRequiredLibs() .. "/?.dll;", "/", "\\")
 print(package.cpath)
+
+
+ModMagicNumbersFileAdd("mods/noita-mp/files/data/magic_numbers.xml")
 
 local enet = nil
 if enet == nil then
-    print("Checking external enet c library 'enet.dll' loading..")
-    enet = assert(package.loadlib(GetPathOfScript() .. "files/libs/enet.dll", "luaopen_enet"))
-    enet()
-    print("enet c library 'enet.dll' was loaded.")
+    local fileName = "enet.dll"
+    print("Trying to load enet c library by file name with '" .. fileName .. "' loading.. Does file exists? " .. tostring(FileExists(fileName)))
+    enet = package.loadlib(fileName, "luaopen_enet")
+
+    if not enet then
+        print(tostring(enet))
+        local rel_path = GetRelativePathOfRequiredLibs() .. "/" .. fileName
+        rel_path = string.gsub(rel_path, "/", "\\")
+        print("Trying to load enet c library by relative path with '" .. rel_path .. "' loading.. Does file exists? " .. tostring(FileExists(rel_path)))
+        enet = package.loadlib(rel_path, "luaopen_enet")
+    end
+
+    if not enet then
+        print(tostring(enet))
+        local abs_path = GetAbsolutePathOfRequiredLibs() .. "/" .. fileName
+        abs_path = string.gsub(abs_path, "/", "\\")
+        print("Trying to load enet c library by absolute path with '" .. abs_path .. "' loading.. Does file exists? " .. tostring(FileExists(abs_path)))
+        enet = package.loadlib(abs_path, "luaopen_enet")
+    end
+
+    if not enet then
+        print(tostring(enet))
+        local abs_path = [[C:\Program Files (x86)\Steam\steamapps\common\Noita\mods\noita-mp\files\libs\enet.dll]]
+        print("Trying to load enet c library by absolute path with '" .. abs_path .. "' loading.. Does file exists? " .. tostring(FileExists(abs_path)))
+        enet = package.loadlib(abs_path, "luaopen_enet")
+    end
+
+    if enet then
+        print("enet c library '" .. fileName .. "' was loaded by function load.")
+        enet()
+    else
+        print(tostring(enet))
+        print("enet c library '" .. fileName .. "' was loaded by require load.")
+        require("enet.dll")
+    end
 end
 
-local client = dofile_once("mods/noita-mp/files/scripts/net/client.lua")
+function OnModPreInit()
+    local seed = tonumber(ModSettingGet("noita-mp.connect_server_seed"))
+
+    -- if (seed == nil) then
+    --     seed = 0
+    --     ModSettingSet( "noita_together.seed", seed )
+    -- end
+
+    print("init.lua | Server world seed = " .. seed)
+    if (seed > 0) then
+        SetWorldSeed(seed)
+        _G.Client:connect()
+    end
+end
+
+function OnWorldInitialized()
+    print("init.lua | OnWorldInitialized()")
+    dofile_once("mods/noita-mp/files/scripts/net/server_class.lua") -- run once to init server object
+    dofile_once("mods/noita-mp/files/scripts/net/client_class.lua") -- run once to init client object
+end
 
 function OnPlayerSpawned( player_entity ) -- This runs when player entity has been created
-    -- --debug_print_table(package.loaded)
-    -- --debug_print_table(package.loaded, 1, "enet")
-    -- print("printing debug_print_table(package.loaded[\"enet\"], 2)")
-    -- debug_print_table(package.loaded["enet"], 2)
 
-    -- print("printing assert(package.loadlib(GetPathOfScript() .. \"files/libs/enet.dll\", \"enet_initialize\"))")
-    -- assert(package.loadlib(GetPathOfScript() .. "files/libs/enet.dll", "enet_initialize"))
-
-    -- print("printing local test = assert(package.loadlib(GetPathOfScript() .. \"files/libs/enet.dll\", \"host_create\"))")
-    -- local test = assert(package.loadlib(GetPathOfScript() .. "files/libs/enet.dll", "host_create"))
-
-    -- print("printing assert(package.loadlib(GetPathOfScript() .. \"files/libs/enet.dll\", \"linked_version\"))")
-    -- assert(package.loadlib(GetPathOfScript() .. "files/libs/enet.dll", "linked_version"))
+    -- if Server.super then
+    --     GamePrintImportant( "Server started", "Your server is running on "
+    --     .. Server.super:getAddress() .. ":" .. Server.super:getPort() .. ". Tell your friends to join!")
+    -- else
+    --     GamePrintImportant( "Server not started", "Your server wasn't started yet. Check ModSettings to change this or Press M to open multiplayer menu.")
+    -- end
 end
 
 function OnWorldPreUpdate()
-    dofile("mods/noita-mp/files/scripts/net/server.lua")
-    client.updateClient()
+    if _G.Server then
+        _G.Server:update()
+    end
+
+    if _G.Client then
+        _G.Client:update()
+    end
+
     dofile("mods/noita-mp/files/scripts/ui.lua")
 end

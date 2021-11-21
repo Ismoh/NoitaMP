@@ -34,9 +34,9 @@ mod_settings =
 				id = "server_ip",
 				ui_name = "Server IP",
 				ui_description = "Your servers IP. (Max length: 15 - Allowed characters: .0123456789)",
-				value_default = "127.0.0.1",
+				value_default = "localhost",
 				text_max_length = 15,
-				allowed_characters = ".0123456789",
+				allowed_characters = ".0123456789abcdefghijklmnopqrstuvwxyz",
 				scope = MOD_SETTING_SCOPE_NEW_GAME,
 				change_fn = mod_setting_change_callback, -- Called when the user interact with the settings widget.
 			},
@@ -59,6 +59,14 @@ mod_settings =
 				scope = MOD_SETTING_SCOPE_RUNTIME,
 				change_fn = mod_setting_change_callback, -- Called when the user interact with the settings widget.
 			},
+			{
+				id = "server_start_when_world_loaded",
+				ui_name = "Server start behaviour",
+				ui_description = "Starts the server immediately, when world is loaded.",
+				value_default = true,
+				scope = MOD_SETTING_SCOPE_NEW_GAME,
+				change_fn = mod_setting_change_callback, -- Called when the user interact with the settings widget.
+			},
 		},
 	},
 	{
@@ -70,9 +78,9 @@ mod_settings =
 				id = "connect_server_ip",
 				ui_name = "Connect Server IP",
 				ui_description = "Type the servers IP in, you want to connect. (Max length: 15 - Allowed characters: .0123456789)",
-				value_default = "127.0.0.1",
+				value_default = "localhost",
 				text_max_length = 15,
-				allowed_characters = ".0123456789",
+				allowed_characters = ".0123456789abcdefghijklmnopqrstuvwxyz",
 				scope = MOD_SETTING_SCOPE_RUNTIME,
 				change_fn = mod_setting_change_callback, -- Called when the user interact with the settings widget.
 			},
@@ -94,6 +102,12 @@ mod_settings =
 				text_max_length = 20,
 				scope = MOD_SETTING_SCOPE_RUNTIME,
 				change_fn = mod_setting_change_callback, -- Called when the user interact with the settings widget.
+			},
+			{
+				id = "connect_server_seed",
+				value_default = 0,
+				scope = MOD_SETTING_SCOPE_RUNTIME,
+				hidden = true,
 			},
 		},
 	},

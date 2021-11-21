@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+  <command>C:\Program Files (x86)\Steam\steamapps\common\Noita\noita_dev.exe</command>
+  <working_directory>C:\Program Files (x86)\Steam\steamapps\common\Noita</working_directory>
+  <symbols_directory></symbols_directory>
+  <command_arguments>-debug_lua</command_arguments>
+  <scc>
+    <provider></provider>
+    <user></user>
+    <project_name></project_name>
+    <local_path></local_path>
+    <aux_project_path></aux_project_path>
+  </scc>
+</project>
