@@ -56,22 +56,27 @@ if enet == nil then
 end
 
 function OnModPreInit()
+    -- the seed is set when first time connecting to a server, otherwise 0
     local seed = tonumber(ModSettingGet("noita-mp.connect_server_seed"))
 
-    -- if (seed == nil) then
-    --     seed = 0
-    --     ModSettingSet( "noita_together.seed", seed )
-    -- end
+    if not seed and seed > 0 then
+        print("init.lua | loading world seed magic number xml file.")
 
-    print("init.lua | Server world seed = " .. seed)
-    if (seed > 0) then
+        local world_seed_magic_numbers_path = GetAbsolutePathOfModFolder() .. "/files/tmp/magic_numbers/world_seed.xml"
+        if FileExists(world_seed_magic_numbers_path) then
+            print("init.lua | Loading " .. world_seed_magic_numbers_path)
+            ModMagicNumbersFileAdd(world_seed_magic_numbers_path)
+        else
+            print("init.lua | Unable to load " .. world_seed_magic_numbers_path)
+        end
+
         SetWorldSeed(seed)
         _G.Client:connect()
     end
 end
 
 function OnWorldInitialized()
-    print("init.lua | OnWorldInitialized()")
+    print("init.lua | OnWorldInitialized() | Loading clinet and server stuff..")
     dofile_once("mods/noita-mp/files/scripts/net/server_class.lua") -- run once to init server object
     dofile_once("mods/noita-mp/files/scripts/net/client_class.lua") -- run once to init client object
 end

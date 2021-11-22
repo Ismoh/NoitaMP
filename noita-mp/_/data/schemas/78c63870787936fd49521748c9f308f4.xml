@@ -1,0 +1,3376 @@
+<Schema hash="78c63870787936fd49521748c9f308f4" >
+  <Component component_name="AIAttackComponent" >
+    <Var name="use_probability" size="4" type="int" >
+    </Var>
+    <Var name="min_distance" size="4" type="float" >
+    </Var>
+    <Var name="max_distance" size="4" type="float" >
+    </Var>
+    <Var name="angular_range_deg" size="4" type="float" >
+    </Var>
+    <Var name="state_duration_frames" size="4" type="int" >
+    </Var>
+    <Var name="frames_between" size="4" type="int" >
+    </Var>
+    <Var name="frames_between_global" size="4" type="int" >
+    </Var>
+    <Var name="animation_name" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="attack_landing_ranged_enabled" size="1" type="bool" >
+    </Var>
+    <Var name="attack_ranged_action_frame" size="4" type="int" >
+    </Var>
+    <Var name="attack_ranged_offset_x" size="4" type="float" >
+    </Var>
+    <Var name="attack_ranged_offset_y" size="4" type="float" >
+    </Var>
+    <Var name="attack_ranged_root_offset_x" size="4" type="float" >
+    </Var>
+    <Var name="attack_ranged_root_offset_y" size="4" type="float" >
+    </Var>
+    <Var name="attack_ranged_use_message" size="1" type="bool" >
+    </Var>
+    <Var name="attack_ranged_predict" size="1" type="bool" >
+    </Var>
+    <Var name="attack_ranged_entity_file" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="attack_ranged_entity_count_min" size="4" type="int" >
+    </Var>
+    <Var name="attack_ranged_entity_count_max" size="4" type="int" >
+    </Var>
+    <Var name="attack_ranged_use_laser_sight" size="1" type="bool" >
+    </Var>
+    <Var name="attack_ranged_aim_rotation_enabled" size="1" type="bool" >
+    </Var>
+    <Var name="attack_ranged_aim_rotation_speed" size="4" type="float" >
+    </Var>
+    <Var name="attack_ranged_aim_rotation_shooting_ok_angle_deg" size="4" type="float" >
+    </Var>
+  </Component>
+  <Component component_name="AIComponent" >
+    <Var name="TEMP_TEMP_TEMP" size="4" type="float" >
+    </Var>
+  </Component>
+  <Component component_name="AbilityComponent" >
+    <Var name="cooldown_frames" size="4" type="int" >
+    </Var>
+    <Var name="entity_file" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="sprite_file" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="entity_count" size="4" type="int" >
+    </Var>
+    <Var name="never_reload" size="1" type="bool" >
+    </Var>
+    <Var name="reload_time_frames" size="4" type="int" >
+    </Var>
+    <Var name="mana" size="4" type="float" >
+    </Var>
+    <Var name="mana_max" size="4" type="float" >
+    </Var>
+    <Var name="mana_charge_speed" size="4" type="float" >
+    </Var>
+    <Var name="rotate_in_hand" size="1" type="bool" >
+    </Var>
+    <Var name="rotate_in_hand_amount" size="4" type="float" >
+    </Var>
+    <Var name="rotate_hand_amount" size="4" type="float" >
+    </Var>
+    <Var name="fast_projectile" size="1" type="bool" >
+    </Var>
+    <Var name="swim_propel_amount" size="4" type="float" >
+    </Var>
+    <Var name="max_charged_actions" size="4" type="int" >
+    </Var>
+    <Var name="charge_wait_frames" size="4" type="int" >
+    </Var>
+    <Var name="item_recoil_recovery_speed" size="4" type="float" >
+    </Var>
+    <Var name="item_recoil_max" size="4" type="float" >
+    </Var>
+    <Var name="item_recoil_offset_coeff" size="4" type="float" >
+    </Var>
+    <Var name="item_recoil_rotation_coeff" size="4" type="float" >
+    </Var>
+    <Var name="base_item_file" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="use_entity_file_as_projectile_info_proxy" size="1" type="bool" >
+    </Var>
+    <Var name="click_to_use" size="1" type="bool" >
+    </Var>
+    <Var name="stat_times_player_has_shot" size="4" type="int" >
+    </Var>
+    <Var name="stat_times_player_has_edited" size="4" type="int" >
+    </Var>
+    <Var name="shooting_reduces_amount_in_inventory" size="1" type="bool" >
+    </Var>
+    <Var name="throw_as_item" size="1" type="bool" >
+    </Var>
+    <Var name="simulate_throw_as_item" size="1" type="bool" >
+    </Var>
+    <Var name="max_amount_in_inventory" size="4" type="int" >
+    </Var>
+    <Var name="amount_in_inventory" size="4" type="int" >
+    </Var>
+    <Var name="drop_as_item_on_death" size="1" type="bool" >
+    </Var>
+    <Var name="ui_name" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="use_gun_script" size="1" type="bool" >
+    </Var>
+    <Var name="is_petris_gun" size="1" type="bool" >
+    </Var>
+    <Var name="gun_config" size="20" type="class ConfigGun" >
+    </Var>
+    <Var name="gunaction_config" size="568" type="class ConfigGunActionInfo" >
+    </Var>
+    <Var name="add_these_child_actions" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="current_slot_durability" size="4" type="int" >
+    </Var>
+    <Var name="slot_consumption_function" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="mChargeCount" size="4" type="int" >
+    </Var>
+    <Var name="mIsInitialized" size="1" type="bool" >
+    </Var>
+  </Component>
+  <Component component_name="AdvancedFishAIComponent" >
+    <Var name="move_check_range_min" size="4" type="float" >
+    </Var>
+    <Var name="move_check_range_max" size="4" type="float" >
+    </Var>
+  </Component>
+  <Component component_name="AltarComponent" >
+    <Var name="recognized_entity_tags" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="good_fx_material" size="4" type="int" >
+    </Var>
+    <Var name="neutral_fx_material" size="4" type="int" >
+    </Var>
+    <Var name="evil_fx_material" size="4" type="int" >
+    </Var>
+    <Var name="uses_remaining" size="4" type="int" >
+    </Var>
+  </Component>
+  <Component component_name="AnimalAIComponent" >
+    <Var name="ai_state" size="4" type="int" >
+    </Var>
+    <Var name="ai_state_timer" size="4" type="int" >
+    </Var>
+    <Var name="preferred_job" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="escape_if_damaged_probability" size="4" type="int" >
+    </Var>
+    <Var name="attack_if_damaged_probability" size="4" type="int" >
+    </Var>
+    <Var name="eye_offset_x" size="4" type="int" >
+    </Var>
+    <Var name="eye_offset_y" size="4" type="int" >
+    </Var>
+    <Var name="attack_only_if_attacked" size="1" type="bool" >
+    </Var>
+    <Var name="dont_counter_attack_own_herd" size="1" type="bool" >
+    </Var>
+    <Var name="creature_detection_range_x" size="4" type="float" >
+    </Var>
+    <Var name="creature_detection_range_y" size="4" type="float" >
+    </Var>
+    <Var name="creature_detection_angular_range_deg" size="4" type="float" >
+    </Var>
+    <Var name="creature_detection_check_every_x_frames" size="4" type="int" >
+    </Var>
+    <Var name="max_distance_to_cam_to_start_hunting" size="4" type="float" >
+    </Var>
+    <Var name="pathfinding_max_depth_no_target" size="4" type="int" >
+    </Var>
+    <Var name="pathfinding_max_depth_has_target" size="4" type="int" >
+    </Var>
+    <Var name="aggressiveness_min" size="4" type="float" >
+    </Var>
+    <Var name="aggressiveness_max" size="4" type="float" >
+    </Var>
+    <Var name="tries_to_ranged_attack_friends" size="1" type="bool" >
+    </Var>
+    <Var name="attack_melee_enabled" size="1" type="bool" >
+    </Var>
+    <Var name="attack_dash_enabled" size="1" type="bool" >
+    </Var>
+    <Var name="attack_landing_ranged_enabled" size="1" type="bool" >
+    </Var>
+    <Var name="attack_ranged_enabled" size="1" type="bool" >
+    </Var>
+    <Var name="attack_knockback_multiplier" size="4" type="float" >
+    </Var>
+    <Var name="is_static_turret" size="1" type="bool" >
+    </Var>
+    <Var name="attack_melee_max_distance" size="4" type="int" >
+    </Var>
+    <Var name="attack_melee_action_frame" size="4" type="int" >
+    </Var>
+    <Var name="attack_melee_frames_between" size="4" type="int" >
+    </Var>
+    <Var name="attack_melee_damage_min" size="4" type="float" >
+    </Var>
+    <Var name="attack_melee_damage_max" size="4" type="float" >
+    </Var>
+    <Var name="attack_melee_impulse_vector_x" size="4" type="float" >
+    </Var>
+    <Var name="attack_melee_impulse_vector_y" size="4" type="float" >
+    </Var>
+    <Var name="attack_melee_impulse_multiplier" size="4" type="float" >
+    </Var>
+    <Var name="attack_melee_offset_x" size="4" type="float" >
+    </Var>
+    <Var name="attack_melee_offset_y" size="4" type="float" >
+    </Var>
+    <Var name="attack_melee_finish_enabled" size="1" type="bool" >
+    </Var>
+    <Var name="attack_melee_finish_config_explosion" size="364" type="class ConfigExplosion" >
+    </Var>
+    <Var name="attack_melee_finish_action_frame" size="4" type="int" >
+    </Var>
+    <Var name="attack_dash_distance" size="4" type="float" >
+    </Var>
+    <Var name="attack_dash_frames_between" size="4" type="int" >
+    </Var>
+    <Var name="attack_dash_damage" size="4" type="float" >
+    </Var>
+    <Var name="attack_dash_speed" size="4" type="float" >
+    </Var>
+    <Var name="attack_dash_lob" size="4" type="float" >
+    </Var>
+    <Var name="attack_ranged_min_distance" size="4" type="float" >
+    </Var>
+    <Var name="attack_ranged_max_distance" size="4" type="float" >
+    </Var>
+    <Var name="attack_ranged_action_frame" size="4" type="int" >
+    </Var>
+    <Var name="attack_ranged_frames_between" size="12" type="struct LensValue<int>" >
+    </Var>
+    <Var name="attack_ranged_offset_x" size="4" type="float" >
+    </Var>
+    <Var name="attack_ranged_offset_y" size="4" type="float" >
+    </Var>
+    <Var name="attack_ranged_use_message" size="1" type="bool" >
+    </Var>
+    <Var name="attack_ranged_predict" size="1" type="bool" >
+    </Var>
+    <Var name="attack_ranged_entity_file" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="attack_ranged_entity_count_min" size="4" type="int" >
+    </Var>
+    <Var name="attack_ranged_entity_count_max" size="4" type="int" >
+    </Var>
+    <Var name="attack_ranged_use_laser_sight" size="1" type="bool" >
+    </Var>
+    <Var name="attack_ranged_laser_sight_beam_kind" size="1" type="bool" >
+    </Var>
+    <Var name="attack_ranged_aim_rotation_enabled" size="1" type="bool" >
+    </Var>
+    <Var name="attack_ranged_aim_rotation_speed" size="4" type="float" >
+    </Var>
+    <Var name="attack_ranged_aim_rotation_shooting_ok_angle_deg" size="4" type="float" >
+    </Var>
+    <Var name="attack_ranged_state_duration_frames" size="4" type="int" >
+    </Var>
+    <Var name="hide_from_prey" size="1" type="bool" >
+    </Var>
+    <Var name="hide_from_prey_target_distance" size="4" type="float" >
+    </Var>
+    <Var name="hide_from_prey_time" size="4" type="int" >
+    </Var>
+    <Var name="food_material" size="4" type="int" >
+    </Var>
+    <Var name="food_particle_effect_material" size="4" type="int" >
+    </Var>
+    <Var name="food_eating_create_particles" size="1" type="bool" >
+    </Var>
+    <Var name="eating_area_radius_x" size="4" type="int" >
+    </Var>
+    <Var name="eating_area_radius_y" size="4" type="int" >
+    </Var>
+    <Var name="mouth_offset_x" size="4" type="int" >
+    </Var>
+    <Var name="mouth_offset_y" size="4" type="int" >
+    </Var>
+    <Var name="defecates_and_pees" size="1" type="bool" >
+    </Var>
+    <Var name="butt_offset_x" size="4" type="int" >
+    </Var>
+    <Var name="butt_offset_y" size="4" type="int" >
+    </Var>
+    <Var name="pee_velocity_x" size="4" type="float" >
+    </Var>
+    <Var name="pee_velocity_y" size="4" type="float" >
+    </Var>
+    <Var name="needs_food" size="1" type="bool" >
+    </Var>
+    <Var name="sense_creatures" size="1" type="bool" >
+    </Var>
+    <Var name="sense_creatures_through_walls" size="1" type="bool" >
+    </Var>
+    <Var name="can_fly" size="1" type="bool" >
+    </Var>
+    <Var name="can_walk" size="1" type="bool" >
+    </Var>
+    <Var name="path_distance_to_target_node_to_turn_around" size="4" type="int" >
+    </Var>
+    <Var name="path_cleanup_explosion_radius" size="4" type="float" >
+    </Var>
+    <Var name="max_distance_to_move_from_home" size="4" type="float" >
+    </Var>
+    <Var name="mAggression" size="12" type="struct LensValue<float>" >
+    </Var>
+  </Component>
+  <Component component_name="ArcComponent" >
+    <Var name="type" size="4" type="enum ARC_TYPE::Enum" >
+    </Var>
+    <Var name="material" size="4" type="int" >
+    </Var>
+    <Var name="lifetime" size="4" type="int" >
+    </Var>
+  </Component>
+  <Component component_name="AreaDamageComponent" >
+    <Var name="aabb_min" size="8" type="class ceng::math::CVector2<float>" >
+    </Var>
+    <Var name="aabb_max" size="8" type="class ceng::math::CVector2<float>" >
+    </Var>
+    <Var name="circle_radius" size="4" type="float" >
+    </Var>
+    <Var name="damage_type" size="4" type="enum DAMAGE_TYPES::Enum" >
+    </Var>
+    <Var name="damage_per_frame" size="4" type="float" >
+    </Var>
+    <Var name="update_every_n_frame" size="4" type="int" >
+    </Var>
+    <Var name="entity_responsible" size="4" type="unsigned int" >
+    </Var>
+    <Var name="death_cause" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="entities_with_tag" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+  </Component>
+  <Component component_name="AudioComponent" >
+    <Var name="file" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="event_root" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="audio_physics_material" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="set_latest_event_position" size="1" type="bool" >
+    </Var>
+    <Var name="remove_latest_event_on_destroyed" size="1" type="bool" >
+    </Var>
+    <Var name="send_message_on_event_dead" size="1" type="bool" >
+    </Var>
+    <Var name="play_only_if_visible" size="1" type="bool" >
+    </Var>
+  </Component>
+  <Component component_name="AudioListenerComponent" >
+    <Var name="z" size="4" type="float" >
+    </Var>
+  </Component>
+  <Component component_name="AudioLoopComponent" >
+    <Var name="file" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="event_name" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="auto_play" size="1" type="bool" >
+    </Var>
+    <Var name="auto_play_if_enabled" size="1" type="bool" >
+    </Var>
+    <Var name="play_on_component_enable" size="1" type="bool" >
+    </Var>
+    <Var name="calculate_material_lowpass" size="1" type="bool" >
+    </Var>
+    <Var name="set_speed_parameter" size="1" type="bool" >
+    </Var>
+    <Var name="set_speed_parameter_only_based_on_x_movement" size="1" type="bool" >
+    </Var>
+    <Var name="set_speed_parameter_only_based_on_y_movement" size="1" type="bool" >
+    </Var>
+    <Var name="volume_autofade_speed" size="4" type="float" >
+    </Var>
+  </Component>
+  <Component component_name="BlackHoleComponent" >
+    <Var name="radius" size="4" type="float" >
+    </Var>
+    <Var name="particle_attractor_force" size="4" type="float" >
+    </Var>
+    <Var name="damage_probability" size="4" type="float" >
+    </Var>
+    <Var name="damage_amount" size="4" type="float" >
+    </Var>
+  </Component>
+  <Component component_name="BookComponent" >
+    <Var name="TEMP_TEMPY" size="4" type="float" >
+    </Var>
+    <Var name="TEMP_TEMP_TEMP" size="4" type="float" >
+    </Var>
+  </Component>
+  <Component component_name="BossDragonComponent" >
+    <Var name="speed" size="4" type="float" >
+    </Var>
+    <Var name="speed_hunt" size="4" type="float" >
+    </Var>
+    <Var name="acceleration" size="4" type="float" >
+    </Var>
+    <Var name="direction_adjust_speed" size="4" type="float" >
+    </Var>
+    <Var name="direction_adjust_speed_hunt" size="4" type="float" >
+    </Var>
+    <Var name="gravity" size="4" type="float" >
+    </Var>
+    <Var name="tail_gravity" size="4" type="float" >
+    </Var>
+    <Var name="part_distance" size="4" type="float" >
+    </Var>
+    <Var name="ground_check_offset" size="4" type="int" >
+    </Var>
+    <Var name="eat_ground_radius" size="4" type="float" >
+    </Var>
+    <Var name="eat_ground" size="1" type="bool" >
+    </Var>
+    <Var name="hitbox_radius" size="4" type="float" >
+    </Var>
+    <Var name="bite_damage" size="4" type="float" >
+    </Var>
+    <Var name="target_kill_radius" size="4" type="float" >
+    </Var>
+    <Var name="target_kill_ragdoll_force" size="4" type="float" >
+    </Var>
+    <Var name="hunt_box_radius" size="4" type="float" >
+    </Var>
+    <Var name="random_target_box_radius" size="4" type="float" >
+    </Var>
+    <Var name="new_hunt_target_check_every" size="4" type="int" >
+    </Var>
+    <Var name="new_random_target_check_every" size="4" type="int" >
+    </Var>
+    <Var name="jump_cam_shake" size="4" type="float" >
+    </Var>
+    <Var name="jump_cam_shake_distance" size="4" type="float" >
+    </Var>
+    <Var name="eat_anim_wait_mult" size="4" type="float" >
+    </Var>
+    <Var name="projectile_1" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="projectile_1_count" size="4" type="int" >
+    </Var>
+    <Var name="projectile_2" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="projectile_2_count" size="4" type="int" >
+    </Var>
+    <Var name="ragdoll_filename" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+  </Component>
+  <Component component_name="CameraBoundComponent" >
+    <Var name="enabled" size="1" type="bool" >
+    </Var>
+    <Var name="distance" size="4" type="float" >
+    </Var>
+    <Var name="distance_border" size="4" type="float" >
+    </Var>
+    <Var name="max_count" size="4" type="int" >
+    </Var>
+    <Var name="freeze_on_distance_kill" size="1" type="bool" >
+    </Var>
+    <Var name="freeze_on_max_count_kill" size="1" type="bool" >
+    </Var>
+  </Component>
+  <Component component_name="CardinalMovementComponent" >
+    <Var name="horizontal_movement" size="1" type="bool" >
+    </Var>
+    <Var name="vertical_movement" size="1" type="bool" >
+    </Var>
+    <Var name="intercardinal_movement" size="1" type="bool" >
+    </Var>
+  </Component>
+  <Component component_name="CellEaterComponent" >
+    <Var name="radius" size="4" type="float" >
+    </Var>
+    <Var name="eat_probability" size="4" type="int" >
+    </Var>
+    <Var name="ignored_material" size="4" type="int" >
+    </Var>
+    <Var name="only_stain" size="1" type="bool" >
+    </Var>
+    <Var name="eat_dynamic_physics_bodies" size="1" type="bool" >
+    </Var>
+    <Var name="limited_materials" size="1" type="bool" >
+    </Var>
+    <Var name="ignored_material_tag" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="materials" size="12" type="class std::vector<int,class std::allocator<int> >" >
+    </Var>
+  </Component>
+  <Component component_name="CharacterCollisionComponent" >
+    <Var name="getting_crushed_threshold" size="4" type="int" >
+    </Var>
+    <Var name="moving_up_before_getting_crushed_threshold" size="4" type="int" >
+    </Var>
+  </Component>
+  <Component component_name="CharacterDataComponent" >
+    <Var name="platforming_type" size="4" type="int" >
+    </Var>
+    <Var name="collision_aabb_min_x" size="12" type="struct LensValue<float>" >
+    </Var>
+    <Var name="collision_aabb_max_x" size="12" type="struct LensValue<float>" >
+    </Var>
+    <Var name="collision_aabb_min_y" size="12" type="struct LensValue<float>" >
+    </Var>
+    <Var name="collision_aabb_max_y" size="12" type="struct LensValue<float>" >
+    </Var>
+    <Var name="mass" size="4" type="float" >
+    </Var>
+    <Var name="buoyancy_check_offset_y" size="4" type="int" >
+    </Var>
+    <Var name="liquid_velocity_coeff" size="4" type="float" >
+    </Var>
+    <Var name="gravity" size="4" type="float" >
+    </Var>
+    <Var name="fly_time_max" size="12" type="struct LensValue<float>" >
+    </Var>
+    <Var name="fly_recharge_spd" size="4" type="float" >
+    </Var>
+    <Var name="fly_recharge_spd_ground" size="4" type="float" >
+    </Var>
+    <Var name="flying_needs_recharge" size="1" type="bool" >
+    </Var>
+    <Var name="flying_in_air_wait_frames" size="4" type="int" >
+    </Var>
+    <Var name="flying_recharge_removal_frames" size="4" type="int" >
+    </Var>
+    <Var name="climb_over_y" size="4" type="int" >
+    </Var>
+    <Var name="check_collision_max_size_x" size="4" type="int" >
+    </Var>
+    <Var name="check_collision_max_size_y" size="4" type="int" >
+    </Var>
+    <Var name="is_on_ground" size="1" type="bool" >
+    </Var>
+    <Var name="is_on_slippery_ground" size="1" type="bool" >
+    </Var>
+    <Var name="ground_stickyness" size="4" type="float" >
+    </Var>
+    <Var name="effect_hit_ground" size="1" type="bool" >
+    </Var>
+    <Var name="eff_hg_damage_min" size="4" type="int" >
+    </Var>
+    <Var name="eff_hg_damage_max" size="4" type="int" >
+    </Var>
+    <Var name="eff_hg_position_x" size="4" type="float" >
+    </Var>
+    <Var name="eff_hg_position_y" size="4" type="float" >
+    </Var>
+    <Var name="eff_hg_size_x" size="4" type="float" >
+    </Var>
+    <Var name="eff_hg_size_y" size="4" type="float" >
+    </Var>
+    <Var name="eff_hg_velocity_min_x" size="4" type="float" >
+    </Var>
+    <Var name="eff_hg_velocity_max_x" size="4" type="float" >
+    </Var>
+    <Var name="eff_hg_velocity_min_y" size="4" type="float" >
+    </Var>
+    <Var name="eff_hg_velocity_max_y" size="4" type="float" >
+    </Var>
+    <Var name="eff_hg_offset_y" size="4" type="float" >
+    </Var>
+    <Var name="eff_hg_update_box2d" size="1" type="bool" >
+    </Var>
+    <Var name="eff_hg_b2force_multiplier" size="4" type="float" >
+    </Var>
+    <Var name="destroy_ground" size="4" type="float" >
+    </Var>
+    <Var name="send_transform_update_message" size="1" type="bool" >
+    </Var>
+  </Component>
+  <Component component_name="CharacterPlatformingComponent" >
+    <Var name="velocity_min_x" size="12" type="struct LensValue<float>" >
+    </Var>
+    <Var name="velocity_max_x" size="12" type="struct LensValue<float>" >
+    </Var>
+    <Var name="velocity_min_y" size="12" type="struct LensValue<float>" >
+    </Var>
+    <Var name="velocity_max_y" size="12" type="struct LensValue<float>" >
+    </Var>
+    <Var name="run_velocity" size="12" type="struct LensValue<float>" >
+    </Var>
+    <Var name="fly_velocity_x" size="12" type="struct LensValue<float>" >
+    </Var>
+    <Var name="jump_velocity_x" size="4" type="float" >
+    </Var>
+    <Var name="jump_velocity_y" size="4" type="float" >
+    </Var>
+    <Var name="jump_keydown_buffer" size="4" type="int" >
+    </Var>
+    <Var name="fly_speed_max_up" size="12" type="struct LensValue<float>" >
+    </Var>
+    <Var name="fly_speed_max_down" size="12" type="struct LensValue<float>" >
+    </Var>
+    <Var name="fly_speed_mult" size="4" type="float" >
+    </Var>
+    <Var name="fly_speed_change_spd" size="4" type="float" >
+    </Var>
+    <Var name="fly_model_player" size="1" type="bool" >
+    </Var>
+    <Var name="fly_smooth_y" size="1" type="bool" >
+    </Var>
+    <Var name="accel_x" size="4" type="float" >
+    </Var>
+    <Var name="accel_x_air" size="4" type="float" >
+    </Var>
+    <Var name="pixel_gravity" size="4" type="float" >
+    </Var>
+    <Var name="swim_idle_buoyancy_coeff" size="4" type="float" >
+    </Var>
+    <Var name="swim_down_buoyancy_coeff" size="4" type="float" >
+    </Var>
+    <Var name="swim_up_buoyancy_coeff" size="4" type="float" >
+    </Var>
+    <Var name="swim_drag" size="4" type="float" >
+    </Var>
+    <Var name="swim_extra_horizontal_drag" size="4" type="float" >
+    </Var>
+    <Var name="mouse_look" size="1" type="bool" >
+    </Var>
+    <Var name="mouse_look_buffer" size="4" type="float" >
+    </Var>
+    <Var name="keyboard_look" size="1" type="bool" >
+    </Var>
+    <Var name="turning_buffer" size="4" type="float" >
+    </Var>
+    <Var name="animation_to_play" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="animation_to_play_next" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="run_animation_velocity_switching_threshold" size="4" type="float" >
+    </Var>
+    <Var name="run_animation_velocity_switching_enabled" size="1" type="bool" >
+    </Var>
+    <Var name="turn_animation_frames_between" size="4" type="int" >
+    </Var>
+    <Var name="precision_jumping_max_duration_frames" size="4" type="int" >
+    </Var>
+  </Component>
+  <Component component_name="CharacterStatsComponent" >
+  </Component>
+  <Component component_name="CollisionTriggerComponent" >
+    <Var name="width" size="4" type="float" >
+    </Var>
+    <Var name="height" size="4" type="float" >
+    </Var>
+    <Var name="radius" size="4" type="float" >
+    </Var>
+    <Var name="required_tag" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="remove_component_when_triggered" size="1" type="bool" >
+    </Var>
+    <Var name="destroy_this_entity_when_triggered" size="1" type="bool" >
+    </Var>
+    <Var name="timer_for_destruction" size="4" type="int" >
+    </Var>
+    <Var name="self_trigger" size="1" type="bool" >
+    </Var>
+    <Var name="skip_self_frames" size="4" type="int" >
+    </Var>
+  </Component>
+  <Component component_name="ConsumableTeleportComponent" >
+    <Var name="create_other_end" size="1" type="bool" >
+    </Var>
+    <Var name="is_at_home" size="1" type="bool" >
+    </Var>
+    <Var name="collision_radius" size="4" type="float" >
+    </Var>
+    <Var name="target_location" size="8" type="class ceng::math::CVector2<float>" >
+    </Var>
+    <Var name="target_id" size="4" type="unsigned int" >
+    </Var>
+    <Var name="id" size="4" type="unsigned int" >
+    </Var>
+    <Var name="mNextUsableFrame" size="4" type="int" >
+    </Var>
+    <Var name="mHasOtherEnd" size="1" type="bool" >
+    </Var>
+  </Component>
+  <Component component_name="ControllerGoombaAIComponent" >
+    <Var name="auto_turn_around_enabled" size="1" type="bool" >
+    </Var>
+    <Var name="wait_to_turn_around" size="4" type="int" >
+    </Var>
+    <Var name="wall_hit_wait" size="4" type="int" >
+    </Var>
+    <Var name="check_wall_detection" size="1" type="bool" >
+    </Var>
+    <Var name="wall_detection_aabb_min_x" size="4" type="float" >
+    </Var>
+    <Var name="wall_detection_aabb_max_x" size="4" type="float" >
+    </Var>
+    <Var name="wall_detection_aabb_min_y" size="4" type="float" >
+    </Var>
+    <Var name="wall_detection_aabb_max_y" size="4" type="float" >
+    </Var>
+    <Var name="check_floor_detection" size="1" type="bool" >
+    </Var>
+    <Var name="floor_detection_aabb_min_x" size="4" type="float" >
+    </Var>
+    <Var name="floor_detection_aabb_max_x" size="4" type="float" >
+    </Var>
+    <Var name="floor_detection_aabb_min_y" size="4" type="float" >
+    </Var>
+    <Var name="floor_detection_aabb_max_y" size="4" type="float" >
+    </Var>
+  </Component>
+  <Component component_name="ControlsComponent" >
+    <Var name="polymorph_hax" size="1" type="bool" >
+    </Var>
+    <Var name="polymorph_next_attack_frame" size="4" type="int" >
+    </Var>
+    <Var name="enabled" size="1" type="bool" >
+    </Var>
+    <Var name="gamepad_indirect_aiming_enabled" size="1" type="bool" >
+    </Var>
+    <Var name="gamepad_fire_on_thumbstick_extend" size="1" type="bool" >
+    </Var>
+    <Var name="gamepad_fire_on_thumbstick_extend_threshold" size="4" type="float" >
+    </Var>
+  </Component>
+  <Component component_name="CrawlerAnimalComponent" >
+    <Var name="ray_length" size="4" type="float" >
+    </Var>
+    <Var name="ray_count" size="4" type="int" >
+    </Var>
+    <Var name="gravity" size="4" type="float" >
+    </Var>
+    <Var name="terminal_velocity" size="4" type="float" >
+    </Var>
+    <Var name="speed" size="4" type="float" >
+    </Var>
+    <Var name="give_up_area_radius" size="4" type="int" >
+    </Var>
+    <Var name="give_up_time" size="4" type="int" >
+    </Var>
+    <Var name="attack_from_ceiling_check_ray_length" size="4" type="float" >
+    </Var>
+    <Var name="attack_from_ceiling_check_every_n_frames" size="4" type="int" >
+    </Var>
+    <Var name="collision_damage" size="4" type="float" >
+    </Var>
+    <Var name="collision_damage_radius" size="4" type="float" >
+    </Var>
+    <Var name="collision_damage_frames_between" size="4" type="int" >
+    </Var>
+    <Var name="animate" size="1" type="bool" >
+    </Var>
+  </Component>
+  <Component component_name="CutThroughWorldDoneHereComponent" >
+    <Var name="id_of_done_cut" size="4" type="unsigned int" >
+    </Var>
+  </Component>
+  <Component component_name="DamageModelComponent" >
+    <Var name="hp" size="8" type="double" >
+    </Var>
+    <Var name="max_hp" size="8" type="double" >
+    </Var>
+    <Var name="max_hp_cap" size="8" type="double" >
+    </Var>
+    <Var name="max_hp_old" size="8" type="double" >
+    </Var>
+    <Var name="damage_multipliers" size="60" type="class ConfigDamagesByType" >
+    </Var>
+    <Var name="critical_damage_resistance" size="4" type="float" >
+    </Var>
+    <Var name="invincibility_frames" size="4" type="int" >
+    </Var>
+    <Var name="falling_damages" size="1" type="bool" >
+    </Var>
+    <Var name="falling_damage_height_min" size="4" type="float" >
+    </Var>
+    <Var name="falling_damage_height_max" size="4" type="float" >
+    </Var>
+    <Var name="falling_damage_damage_min" size="4" type="float" >
+    </Var>
+    <Var name="falling_damage_damage_max" size="4" type="float" >
+    </Var>
+    <Var name="air_needed" size="1" type="bool" >
+    </Var>
+    <Var name="air_in_lungs" size="4" type="float" >
+    </Var>
+    <Var name="air_in_lungs_max" size="4" type="float" >
+    </Var>
+    <Var name="air_lack_of_damage" size="4" type="float" >
+    </Var>
+    <Var name="minimum_knockback_force" size="4" type="float" >
+    </Var>
+    <Var name="materials_damage" size="1" type="bool" >
+    </Var>
+    <Var name="material_damage_min_cell_count" size="4" type="int" >
+    </Var>
+    <Var name="materials_that_damage" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="materials_how_much_damage" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="materials_damage_proportional_to_maxhp" size="1" type="bool" >
+    </Var>
+    <Var name="physics_objects_damage" size="1" type="bool" >
+    </Var>
+    <Var name="materials_create_messages" size="1" type="bool" >
+    </Var>
+    <Var name="materials_that_create_messages" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="ragdoll_filenames_file" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="ragdoll_material" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="ragdoll_offset_x" size="4" type="float" >
+    </Var>
+    <Var name="ragdoll_offset_y" size="4" type="float" >
+    </Var>
+    <Var name="ragdoll_fx_forced" size="4" type="enum RAGDOLL_FX::Enum" >
+    </Var>
+    <Var name="blood_material" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="blood_spray_material" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="blood_spray_create_some_cosmetic" size="1" type="bool" >
+    </Var>
+    <Var name="blood_multiplier" size="4" type="float" >
+    </Var>
+    <Var name="ragdoll_blood_amount_absolute" size="4" type="int" >
+    </Var>
+    <Var name="blood_sprite_directional" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="blood_sprite_large" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="healing_particle_effect_entity" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="create_ragdoll" size="1" type="bool" >
+    </Var>
+    <Var name="ragdollify_child_entity_sprites" size="1" type="bool" >
+    </Var>
+    <Var name="ragdollify_root_angular_damping" size="4" type="float" >
+    </Var>
+    <Var name="ragdollify_disintegrate_nonroot" size="1" type="bool" >
+    </Var>
+    <Var name="wait_for_kill_flag_on_death" size="1" type="bool" >
+    </Var>
+    <Var name="kill_now" size="1" type="bool" >
+    </Var>
+    <Var name="drop_items_on_death" size="1" type="bool" >
+    </Var>
+    <Var name="ui_report_damage" size="1" type="bool" >
+    </Var>
+    <Var name="ui_force_report_damage" size="1" type="bool" >
+    </Var>
+    <Var name="in_liquid_shooting_electrify_prob" size="4" type="int" >
+    </Var>
+    <Var name="wet_status_effect_damage" size="4" type="float" >
+    </Var>
+    <Var name="is_on_fire" size="1" type="bool" >
+    </Var>
+    <Var name="fire_probability_of_ignition" size="4" type="float" >
+    </Var>
+    <Var name="fire_how_much_fire_generates" size="4" type="int" >
+    </Var>
+    <Var name="fire_damage_ignited_amount" size="4" type="float" >
+    </Var>
+    <Var name="fire_damage_amount" size="4" type="float" >
+    </Var>
+    <Var name="mLastElectricityResistanceFrame" size="4" type="int" >
+    </Var>
+    <Var name="mLastFrameReportedBlock" size="4" type="int" >
+    </Var>
+    <Var name="mLastMaxHpChangeFrame" size="4" type="int" >
+    </Var>
+  </Component>
+  <Component component_name="DamageNearbyEntitiesComponent" >
+    <Var name="radius" size="4" type="float" >
+    </Var>
+    <Var name="damage_min" size="4" type="float" >
+    </Var>
+    <Var name="damage_max" size="4" type="float" >
+    </Var>
+    <Var name="target_vec_max_len" size="4" type="float" >
+    </Var>
+    <Var name="knockback_multiplier" size="4" type="float" >
+    </Var>
+    <Var name="time_between_damaging" size="4" type="int" >
+    </Var>
+    <Var name="damage_type" size="4" type="enum DAMAGE_TYPES::Enum" >
+    </Var>
+    <Var name="damage_description" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="target_tag" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="ragdoll_fx" size="4" type="enum RAGDOLL_FX::Enum" >
+    </Var>
+  </Component>
+  <Component component_name="DebugFollowMouseComponent" >
+  </Component>
+  <Component component_name="DebugLogMessagesComponent" >
+    <Var name="TEMP_TEMPY" size="4" type="float" >
+    </Var>
+    <Var name="TEMP_TEMP_TEMP" size="4" type="float" >
+    </Var>
+  </Component>
+  <Component component_name="DebugSpatialVisualizerComponent" >
+    <Var name="min_x" size="4" type="float" >
+    </Var>
+    <Var name="min_y" size="4" type="float" >
+    </Var>
+    <Var name="max_x" size="4" type="float" >
+    </Var>
+    <Var name="max_y" size="4" type="float" >
+    </Var>
+    <Var name="color" size="4" type="unsigned int" >
+    </Var>
+  </Component>
+  <Component component_name="DieIfSpeedBelowComponent" >
+    <Var name="min_speed" size="4" type="float" >
+    </Var>
+    <Var name="mMinSpeedSquared" size="4" type="float" >
+    </Var>
+  </Component>
+  <Component component_name="DroneLauncherComponent" >
+    <Var name="drone_entity_file" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+  </Component>
+  <Component component_name="DrugEffectComponent" >
+    <Var name="drug_fx_target" size="28" type="class ConfigDrugFx" >
+    </Var>
+    <Var name="m_drug_fx_current" size="28" type="class ConfigDrugFx" >
+    </Var>
+  </Component>
+  <Component component_name="DrugEffectModifierComponent" >
+    <Var name="fx_add" size="28" type="class ConfigDrugFx" >
+    </Var>
+    <Var name="fx_multiply" size="28" type="class ConfigDrugFx" >
+    </Var>
+  </Component>
+  <Component component_name="ElectricChargeComponent" >
+    <Var name="charge_time_frames" size="4" type="int" >
+    </Var>
+    <Var name="fx_velocity_max" size="4" type="float" >
+    </Var>
+    <Var name="electricity_emission_interval_frames" size="4" type="int" >
+    </Var>
+    <Var name="fx_emission_interval_min" size="4" type="int" >
+    </Var>
+    <Var name="fx_emission_interval_max" size="4" type="int" >
+    </Var>
+    <Var name="charge" size="4" type="int" >
+    </Var>
+  </Component>
+  <Component component_name="ElectricityComponent" >
+    <Var name="energy" size="4" type="int" >
+    </Var>
+    <Var name="probability_to_heat" size="4" type="float" >
+    </Var>
+    <Var name="speed" size="4" type="int" >
+    </Var>
+    <Var name="splittings_min" size="4" type="int" >
+    </Var>
+    <Var name="splittings_max" size="4" type="int" >
+    </Var>
+    <Var name="splitting_energy_min" size="4" type="int" >
+    </Var>
+    <Var name="splitting_energy_max" size="4" type="int" >
+    </Var>
+    <Var name="hack_is_material_crack" size="1" type="bool" >
+    </Var>
+    <Var name="hack_crack_ice" size="1" type="bool" >
+    </Var>
+    <Var name="hack_is_set_fire" size="1" type="bool" >
+    </Var>
+  </Component>
+  <Component component_name="ElectricityReceiverComponent" >
+    <Var name="offset_x" size="4" type="int" >
+    </Var>
+    <Var name="offset_y" size="4" type="int" >
+    </Var>
+    <Var name="radius" size="4" type="int" >
+    </Var>
+    <Var name="active_time_frames" size="4" type="int" >
+    </Var>
+    <Var name="switch_on_msg_interval_frames" size="4" type="int" >
+    </Var>
+    <Var name="electrified_msg_interval_frames" size="4" type="int" >
+    </Var>
+  </Component>
+  <Component component_name="ElectricitySourceComponent" >
+    <Var name="radius" size="4" type="int" >
+    </Var>
+    <Var name="emission_interval_frames" size="4" type="int" >
+    </Var>
+  </Component>
+  <Component component_name="EndingMcGuffinComponent" >
+    <Var name="TEMP_TEMPY" size="4" type="float" >
+    </Var>
+    <Var name="TEMP_TEMP_TEMP" size="4" type="float" >
+    </Var>
+  </Component>
+  <Component component_name="EnergyShieldComponent" >
+    <Var name="radius" size="4" type="float" >
+    </Var>
+    <Var name="damage_multiplier" size="4" type="float" >
+    </Var>
+    <Var name="max_energy" size="4" type="float" >
+    </Var>
+    <Var name="energy_required_to_shield" size="4" type="float" >
+    </Var>
+    <Var name="recharge_speed" size="4" type="float" >
+    </Var>
+    <Var name="sector_degrees" size="4" type="float" >
+    </Var>
+    <Var name="energy" size="4" type="float" >
+    </Var>
+  </Component>
+  <Component component_name="ExplodeOnDamageComponent" >
+    <Var name="explode_on_death_percent" size="4" type="float" >
+    </Var>
+    <Var name="explode_on_damage_percent" size="4" type="float" >
+    </Var>
+    <Var name="physics_body_modified_death_probability" size="4" type="float" >
+    </Var>
+    <Var name="physics_body_destruction_required" size="4" type="float" >
+    </Var>
+    <Var name="config_explosion" size="364" type="class ConfigExplosion" >
+    </Var>
+  </Component>
+  <Component component_name="ExplosionComponent" >
+    <Var name="trigger" size="4" type="enum EXPLOSION_TRIGGER_TYPE::Enum" >
+    </Var>
+    <Var name="config_explosion" size="364" type="class ConfigExplosion" >
+    </Var>
+    <Var name="timeout_frames" size="4" type="int" >
+    </Var>
+    <Var name="timeout_frames_random" size="4" type="int" >
+    </Var>
+    <Var name="kill_entity" size="1" type="bool" >
+    </Var>
+    <Var name="mTimerTriggerFrame" size="4" type="int" >
+    </Var>
+  </Component>
+  <Component component_name="FishAIComponent" >
+    <Var name="direction" size="4" type="int" >
+    </Var>
+    <Var name="speed" size="4" type="float" >
+    </Var>
+    <Var name="aabb_min" size="8" type="class ceng::math::CVector2<float>" >
+    </Var>
+    <Var name="aabb_max" size="8" type="class ceng::math::CVector2<float>" >
+    </Var>
+  </Component>
+  <Component component_name="FlyingComponent" >
+    <Var name="type" size="4" type="int" >
+    </Var>
+    <Var name="perlin_freq" size="4" type="float" >
+    </Var>
+    <Var name="perlin_time_freq" size="4" type="float" >
+    </Var>
+    <Var name="perlin_wind_x" size="4" type="float" >
+    </Var>
+    <Var name="perlin_wind_y" size="4" type="float" >
+    </Var>
+  </Component>
+  <Component component_name="FogOfWarRadiusComponent" >
+    <Var name="radius" size="4" type="float" >
+    </Var>
+  </Component>
+  <Component component_name="FogOfWarRemoverComponent" >
+    <Var name="radius" size="4" type="float" >
+    </Var>
+  </Component>
+  <Component component_name="GameAreaEffectComponent" >
+    <Var name="radius" size="4" type="float" >
+    </Var>
+    <Var name="collide_with_tag" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="frame_length" size="4" type="int" >
+    </Var>
+    <Var name="game_effect_entitities" size="12" type="class std::vector<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class std::allocator<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > > >" >
+    </Var>
+  </Component>
+  <Component component_name="GameEffectComponent" >
+    <Var name="effect" size="4" type="enum GAME_EFFECT::Enum" >
+    </Var>
+    <Var name="custom_effect_id" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="frames" size="4" type="int" >
+    </Var>
+    <Var name="exclusivity_group" size="4" type="int" >
+    </Var>
+    <Var name="report_block_msg" size="1" type="bool" >
+    </Var>
+    <Var name="disable_movement" size="1" type="bool" >
+    </Var>
+    <Var name="ragdoll_effect" size="4" type="enum RAGDOLL_FX::Enum" >
+    </Var>
+    <Var name="ragdoll_material" size="4" type="int" >
+    </Var>
+    <Var name="ragdoll_effect_custom_entity_file" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="ragdoll_fx_custom_entity_apply_only_to_largest_body" size="1" type="bool" >
+    </Var>
+    <Var name="polymorph_target" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="mSerializedData" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="mCaster" size="4" type="unsigned int" >
+    </Var>
+    <Var name="mCasterHerdId" size="4" type="int" >
+    </Var>
+    <Var name="teleportation_probability" size="4" type="int" >
+    </Var>
+    <Var name="teleportation_delay_min_frames" size="4" type="int" >
+    </Var>
+    <Var name="teleportation_radius_min" size="4" type="float" >
+    </Var>
+    <Var name="teleportation_radius_max" size="4" type="float" >
+    </Var>
+    <Var name="teleportations_num" size="4" type="int" >
+    </Var>
+    <Var name="causing_status_effect" size="4" type="unsigned int" >
+    </Var>
+    <Var name="caused_by_ingestion_status_effect" size="1" type="bool" >
+    </Var>
+    <Var name="mCharmDisabledCameraBound" size="1" type="bool" >
+    </Var>
+    <Var name="mCharmEnabledTeleporting" size="1" type="bool" >
+    </Var>
+    <Var name="mInvisible" size="1" type="bool" >
+    </Var>
+    <Var name="mCounter" size="4" type="int" >
+    </Var>
+    <Var name="mCooldown" size="4" type="int" >
+    </Var>
+    <Var name="mIsExtension" size="1" type="bool" >
+    </Var>
+  </Component>
+  <Component component_name="GameLogComponent" >
+    <Var name="report_death" size="1" type="bool" >
+    </Var>
+    <Var name="report_damage" size="1" type="bool" >
+    </Var>
+    <Var name="report_new_biomes" size="1" type="bool" >
+    </Var>
+    <Var name="mVisitiedBiomes" size="12" type="class std::vector<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class std::allocator<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > > >" >
+    </Var>
+  </Component>
+  <Component component_name="GameStatsComponent" >
+    <Var name="name" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="stats_filename" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="is_player" size="1" type="bool" >
+    </Var>
+    <Var name="extra_death_msg" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+  </Component>
+  <Component component_name="GasBubbleComponent" >
+    <Var name="acceleration" size="4" type="float" >
+    </Var>
+    <Var name="max_speed" size="4" type="float" >
+    </Var>
+  </Component>
+  <Component component_name="GenomeDataComponent" >
+    <Var name="herd_id" size="12" type="struct LensValue<int>" >
+    </Var>
+    <Var name="is_predator" size="1" type="bool" >
+    </Var>
+    <Var name="food_chain_rank" size="4" type="float" >
+    </Var>
+    <Var name="berserk_dont_attack_friends" size="1" type="bool" >
+    </Var>
+  </Component>
+  <Component component_name="GhostComponent" >
+    <Var name="speed" size="4" type="float" >
+    </Var>
+    <Var name="velocity" size="8" type="class ceng::math::CVector2<float>" >
+    </Var>
+    <Var name="new_hunt_target_check_every" size="4" type="int" >
+    </Var>
+    <Var name="hunt_box_radius" size="4" type="float" >
+    </Var>
+    <Var name="aggressiveness" size="4" type="float" >
+    </Var>
+    <Var name="max_distance_from_home" size="4" type="float" >
+    </Var>
+    <Var name="die_if_no_home" size="1" type="bool" >
+    </Var>
+    <Var name="target_tag" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+  </Component>
+  <Component component_name="GodInfoComponent" >
+    <Var name="mana_current" size="4" type="float" >
+    </Var>
+    <Var name="mana_max" size="4" type="float" >
+    </Var>
+    <Var name="gold" size="4" type="float" >
+    </Var>
+  </Component>
+  <Component component_name="GunComponent" >
+  </Component>
+  <Component component_name="HealthBarComponent" >
+  </Component>
+  <Component component_name="HitEffectComponent" >
+    <Var name="condition_effect" size="4" type="enum GAME_EFFECT::Enum" >
+    </Var>
+    <Var name="condition_status" size="4" type="unsigned int" >
+    </Var>
+    <Var name="effect_hit" size="4" type="enum HIT_EFFECT::Enum" >
+    </Var>
+    <Var name="value" size="4" type="int" >
+    </Var>
+    <Var name="value_string" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+  </Component>
+  <Component component_name="HitboxComponent" >
+    <Var name="is_player" size="1" type="bool" >
+    </Var>
+    <Var name="is_enemy" size="1" type="bool" >
+    </Var>
+    <Var name="is_item" size="1" type="bool" >
+    </Var>
+    <Var name="aabb_min_x" size="4" type="float" >
+    </Var>
+    <Var name="aabb_max_x" size="4" type="float" >
+    </Var>
+    <Var name="aabb_min_y" size="4" type="float" >
+    </Var>
+    <Var name="aabb_max_y" size="4" type="float" >
+    </Var>
+    <Var name="offset" size="8" type="class ceng::math::CVector2<float>" >
+    </Var>
+    <Var name="damage_multiplier" size="4" type="float" >
+    </Var>
+  </Component>
+  <Component component_name="HomingComponent" >
+    <Var name="target_tag" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="target_who_shot" size="1" type="bool" >
+    </Var>
+    <Var name="detect_distance" size="4" type="float" >
+    </Var>
+    <Var name="homing_velocity_multiplier" size="4" type="float" >
+    </Var>
+    <Var name="homing_targeting_coeff" size="4" type="float" >
+    </Var>
+    <Var name="just_rotate_towards_target" size="1" type="bool" >
+    </Var>
+    <Var name="max_turn_rate" size="4" type="float" >
+    </Var>
+    <Var name="predefined_target" size="4" type="unsigned int" >
+    </Var>
+  </Component>
+  <Component component_name="HotspotComponent" >
+    <Var name="offset" size="8" type="class ceng::math::CVector2<float>" >
+    </Var>
+    <Var name="transform_with_scale" size="1" type="bool" >
+    </Var>
+    <Var name="sprite_hotspot_name" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+  </Component>
+  <Component component_name="IKLimbAttackerComponent" >
+    <Var name="radius" size="4" type="float" >
+    </Var>
+    <Var name="leg_velocity_coeff" size="4" type="float" >
+    </Var>
+    <Var name="targeting_radius" size="4" type="float" >
+    </Var>
+    <Var name="targeting_raytrace" size="1" type="bool" >
+    </Var>
+    <Var name="target_entities_with_tag" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="mTarget" size="8" type="class ceng::math::CVector2<float>" >
+    </Var>
+  </Component>
+  <Component component_name="IKLimbComponent" >
+    <Var name="length" size="4" type="float" >
+    </Var>
+    <Var name="thigh_extra_lenght" size="4" type="float" >
+    </Var>
+    <Var name="end_position" size="8" type="class ceng::math::CVector2<float>" >
+    </Var>
+    <Var name="mJointSideInterpolation" size="4" type="float" >
+    </Var>
+    <Var name="mJointWorldPos" size="8" type="class ceng::math::CVector2<float>" >
+    </Var>
+  </Component>
+  <Component component_name="IKLimbWalkerComponent" >
+    <Var name="ground_attachment_min_spread" size="4" type="float" >
+    </Var>
+    <Var name="ground_attachment_max_tries" size="4" type="int" >
+    </Var>
+    <Var name="ground_attachment_max_angle" size="4" type="float" >
+    </Var>
+    <Var name="ground_attachment_ray_length_coeff" size="4" type="float" >
+    </Var>
+    <Var name="leg_velocity_coeff" size="4" type="float" >
+    </Var>
+    <Var name="affect_flying" size="1" type="bool" >
+    </Var>
+    <Var name="mTarget" size="8" type="class ceng::math::CVector2<float>" >
+    </Var>
+    <Var name="mPrevTarget" size="8" type="class ceng::math::CVector2<float>" >
+    </Var>
+    <Var name="mPrevCenterPosition" size="8" type="class ceng::math::CVector2<float>" >
+    </Var>
+    <Var name="mState" size="4" type="int" >
+    </Var>
+  </Component>
+  <Component component_name="IKLimbsAnimatorComponent" >
+    <Var name="future_state_samples" size="4" type="int" >
+    </Var>
+    <Var name="ground_attachment_ray_length_coeff" size="4" type="float" >
+    </Var>
+    <Var name="leg_velocity_coeff" size="4" type="float" >
+    </Var>
+    <Var name="affect_flying" size="1" type="bool" >
+    </Var>
+    <Var name="large_movement_penalty_coeff" size="4" type="float" >
+    </Var>
+    <Var name="no_ground_attachment_penalty_coeff" size="4" type="float" >
+    </Var>
+    <Var name="mPrevBodyPosition" size="8" type="class ceng::math::CVector2<float>" >
+    </Var>
+  </Component>
+  <Component component_name="IngestionComponent" >
+    <Var name="ingestion_size" size="8" type="__int64" >
+    </Var>
+    <Var name="ingestion_capacity" size="8" type="__int64" >
+    </Var>
+    <Var name="ingestion_cooldown_delay_frames" size="4" type="unsigned int" >
+    </Var>
+    <Var name="ingestion_reduce_every_n_frame" size="4" type="unsigned int" >
+    </Var>
+    <Var name="overingestion_damage" size="4" type="float" >
+    </Var>
+    <Var name="blood_healing_speed" size="4" type="float" >
+    </Var>
+    <Var name="ingestion_satiation_material_tag" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="m_ingestion_cooldown_frames" size="4" type="int" >
+    </Var>
+  </Component>
+  <Component component_name="InheritTransformComponent" >
+    <Var name="use_root_parent" size="1" type="bool" >
+    </Var>
+    <Var name="only_position" size="1" type="bool" >
+    </Var>
+    <Var name="parent_hotspot_tag" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="parent_sprite_id" size="4" type="int" >
+    </Var>
+    <Var name="always_use_immediate_parent_rotation" size="1" type="bool" >
+    </Var>
+    <Var name="rotate_based_on_x_scale" size="1" type="bool" >
+    </Var>
+    <Var name="Transform" size="32" type="struct ceng::math::CXForm<float>" >
+    </Var>
+  </Component>
+  <Component component_name="InteractableComponent" >
+    <Var name="radius" size="4" type="float" >
+    </Var>
+    <Var name="ui_text" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="name" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+  </Component>
+  <Component component_name="Inventory2Component" >
+    <Var name="quick_inventory_slots" size="4" type="int" >
+    </Var>
+    <Var name="full_inventory_slots_x" size="4" type="int" >
+    </Var>
+    <Var name="full_inventory_slots_y" size="4" type="int" >
+    </Var>
+    <Var name="mSavedActiveItemIndex" size="4" type="unsigned int" >
+    </Var>
+  </Component>
+  <Component component_name="InventoryComponent" >
+    <Var name="ui_container_type" size="4" type="int" >
+    </Var>
+    <Var name="ui_container_size" size="8" type="class ceng::math::CVector2<int>" >
+    </Var>
+    <Var name="ui_element_size" size="8" type="class ceng::math::CVector2<int>" >
+    </Var>
+    <Var name="ui_position_on_screen" size="8" type="class ceng::math::CVector2<int>" >
+    </Var>
+    <Var name="ui_element_sprite" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="actions" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+  </Component>
+  <Component component_name="InventoryGuiComponent" >
+    <Var name="has_opened_inventory_edit" size="1" type="bool" >
+    </Var>
+    <Var name="wallet_money_target" size="4" type="int" >
+    </Var>
+  </Component>
+  <Component component_name="ItemAIKnowledgeComponent" >
+    <Var name="is_ranged_weapon" size="1" type="bool" >
+    </Var>
+    <Var name="is_throwable_weapon" size="1" type="bool" >
+    </Var>
+    <Var name="is_melee_weapon" size="1" type="bool" >
+    </Var>
+    <Var name="is_self_healing" size="1" type="bool" >
+    </Var>
+    <Var name="is_other_healing" size="1" type="bool" >
+    </Var>
+    <Var name="is_self_buffing" size="1" type="bool" >
+    </Var>
+    <Var name="is_other_buffing" size="1" type="bool" >
+    </Var>
+    <Var name="is_weapon" size="1" type="bool" >
+    </Var>
+    <Var name="is_known" size="1" type="bool" >
+    </Var>
+    <Var name="is_safe" size="1" type="bool" >
+    </Var>
+    <Var name="is_consumed" size="1" type="bool" >
+    </Var>
+    <Var name="never_use" size="1" type="bool" >
+    </Var>
+    <Var name="ranged_min_distance" size="4" type="float" >
+    </Var>
+  </Component>
+  <Component component_name="ItemActionComponent" >
+    <Var name="action_id" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+  </Component>
+  <Component component_name="ItemAlchemyComponent" >
+    <Var name="material_make_always_cast" size="4" type="int" >
+    </Var>
+    <Var name="material_remove_shuffle" size="4" type="int" >
+    </Var>
+    <Var name="material_animate_wand" size="4" type="int" >
+    </Var>
+    <Var name="material_animate_wand_alt" size="4" type="int" >
+    </Var>
+    <Var name="material_increase_uses_remaining" size="4" type="int" >
+    </Var>
+    <Var name="material_sacrifice" size="4" type="int" >
+    </Var>
+  </Component>
+  <Component component_name="ItemChestComponent" >
+    <Var name="item_count_min" size="4" type="int" >
+    </Var>
+    <Var name="item_count_max" size="4" type="int" >
+    </Var>
+    <Var name="level" size="4" type="int" >
+    </Var>
+    <Var name="enemy_drop" size="1" type="bool" >
+    </Var>
+    <Var name="actions" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="action_uses_remaining" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="other_entities_to_spawn" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="mSeed" size="4" type="unsigned int" >
+    </Var>
+  </Component>
+  <Component component_name="ItemComponent" >
+    <Var name="item_name" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="is_stackable" size="1" type="bool" >
+    </Var>
+    <Var name="is_consumable" size="1" type="bool" >
+    </Var>
+    <Var name="stats_count_as_item_pick_up" size="1" type="bool" >
+    </Var>
+    <Var name="auto_pickup" size="1" type="bool" >
+    </Var>
+    <Var name="permanently_attached" size="1" type="bool" >
+    </Var>
+    <Var name="uses_remaining" size="4" type="int" >
+    </Var>
+    <Var name="is_identified" size="1" type="bool" >
+    </Var>
+    <Var name="is_frozen" size="1" type="bool" >
+    </Var>
+    <Var name="collect_nondefault_actions" size="1" type="bool" >
+    </Var>
+    <Var name="remove_on_death" size="1" type="bool" >
+    </Var>
+    <Var name="remove_on_death_if_empty" size="1" type="bool" >
+    </Var>
+    <Var name="remove_default_child_actions_on_death" size="1" type="bool" >
+    </Var>
+    <Var name="play_hover_animation" size="1" type="bool" >
+    </Var>
+    <Var name="play_spinning_animation" size="1" type="bool" >
+    </Var>
+    <Var name="is_equipable_forced" size="1" type="bool" >
+    </Var>
+    <Var name="play_pick_sound" size="1" type="bool" >
+    </Var>
+    <Var name="drinkable" size="1" type="bool" >
+    </Var>
+    <Var name="spawn_pos" size="8" type="class ceng::math::CVector2<float>" >
+    </Var>
+    <Var name="max_child_items" size="4" type="int" >
+    </Var>
+    <Var name="ui_sprite" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="ui_description" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="preferred_inventory" size="4" type="enum INVENTORY_KIND::Enum" >
+    </Var>
+    <Var name="enable_orb_hacks" size="1" type="bool" >
+    </Var>
+    <Var name="is_all_spells_book" size="1" type="bool" >
+    </Var>
+    <Var name="always_use_item_name_in_ui" size="1" type="bool" >
+    </Var>
+    <Var name="custom_pickup_string" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="ui_display_description_on_pick_up_hint" size="1" type="bool" >
+    </Var>
+    <Var name="inventory_slot" size="8" type="class ceng::math::CVector2<int>" >
+    </Var>
+    <Var name="next_frame_pickable" size="4" type="int" >
+    </Var>
+    <Var name="npc_next_frame_pickable" size="4" type="int" >
+    </Var>
+    <Var name="is_pickable" size="1" type="bool" >
+    </Var>
+    <Var name="is_hittable_always" size="1" type="bool" >
+    </Var>
+    <Var name="item_pickup_radius" size="4" type="float" >
+    </Var>
+    <Var name="camera_max_distance" size="4" type="float" >
+    </Var>
+    <Var name="camera_smooth_speed_multiplier" size="4" type="float" >
+    </Var>
+    <Var name="has_been_picked_by_player" size="1" type="bool" >
+    </Var>
+    <Var name="mFramePickedUp" size="4" type="int" >
+    </Var>
+  </Component>
+  <Component component_name="ItemCostComponent" >
+    <Var name="cost" size="8" type="__int64" >
+    </Var>
+    <Var name="stealable" size="1" type="bool" >
+    </Var>
+  </Component>
+  <Component component_name="ItemPickUpperComponent" >
+    <Var name="is_in_npc" size="1" type="bool" >
+    </Var>
+    <Var name="is_immune_to_kicks" size="1" type="bool" >
+    </Var>
+    <Var name="drop_items_on_death" size="1" type="bool" >
+    </Var>
+    <Var name="mLatestItemOverlapInfoBoxPosition" size="8" type="class ceng::math::CVector2<float>" >
+    </Var>
+  </Component>
+  <Component component_name="ItemRechargeNearGroundComponent" >
+    <Var name="TEMP_TEMPY" size="4" type="float" >
+    </Var>
+    <Var name="TEMP_TEMP_TEMP" size="4" type="float" >
+    </Var>
+  </Component>
+  <Component component_name="ItemStashComponent" >
+    <Var name="throw_openable_cooldown_frames" size="4" type="int" >
+    </Var>
+    <Var name="init_children" size="1" type="bool" >
+    </Var>
+  </Component>
+  <Component component_name="KickComponent" >
+    <Var name="can_kick" size="1" type="bool" >
+    </Var>
+    <Var name="max_force" size="12" type="struct LensValue<float>" >
+    </Var>
+    <Var name="player_kickforce" size="12" type="struct LensValue<float>" >
+    </Var>
+    <Var name="kick_radius" size="4" type="float" >
+    </Var>
+    <Var name="kick_damage" size="12" type="struct LensValue<float>" >
+    </Var>
+    <Var name="kick_knockback" size="12" type="struct LensValue<float>" >
+    </Var>
+    <Var name="telekinesis_throw_speed" size="4" type="float" >
+    </Var>
+    <Var name="kick_entities" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+  </Component>
+  <Component component_name="LaserEmitterComponent" >
+    <Var name="laser" size="52" type="class ConfigLaser" >
+    </Var>
+    <Var name="is_emitting" size="1" type="bool" >
+    </Var>
+    <Var name="emit_until_frame" size="4" type="int" >
+    </Var>
+    <Var name="laser_angle_add_rad" size="4" type="float" >
+    </Var>
+  </Component>
+  <Component component_name="LevitationComponent" >
+    <Var name="radius" size="4" type="float" >
+    </Var>
+    <Var name="entity_force" size="4" type="float" >
+    </Var>
+    <Var name="box2d_force" size="4" type="float" >
+    </Var>
+    <Var name="effect_lifetime_frames" size="4" type="int" >
+    </Var>
+  </Component>
+  <Component component_name="LifetimeComponent" >
+    <Var name="lifetime" size="4" type="int" >
+    </Var>
+    <Var name="randomize_lifetime" size="8" type="struct ValueRange" >
+    </Var>
+    <Var name="fade_sprites" size="1" type="bool" >
+    </Var>
+    <Var name="kill_parent" size="1" type="bool" >
+    </Var>
+    <Var name="kill_all_parents" size="1" type="bool" >
+    </Var>
+  </Component>
+  <Component component_name="LightComponent" >
+    <Var name="update_properties" size="1" type="bool" >
+    </Var>
+    <Var name="radius" size="4" type="float" >
+    </Var>
+    <Var name="r" size="4" type="unsigned int" >
+    </Var>
+    <Var name="g" size="4" type="unsigned int" >
+    </Var>
+    <Var name="b" size="4" type="unsigned int" >
+    </Var>
+    <Var name="offset_x" size="4" type="float" >
+    </Var>
+    <Var name="offset_y" size="4" type="float" >
+    </Var>
+    <Var name="fade_out_time" size="4" type="float" >
+    </Var>
+    <Var name="blinking_freq" size="4" type="float" >
+    </Var>
+  </Component>
+  <Component component_name="LightningComponent" >
+    <Var name="config_explosion" size="364" type="class ConfigExplosion" >
+    </Var>
+    <Var name="sprite_lightning_file" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="is_projectile" size="1" type="bool" >
+    </Var>
+    <Var name="explosion_type" size="4" type="int" >
+    </Var>
+    <Var name="arc_lifetime" size="4" type="int" >
+    </Var>
+  </Component>
+  <Component component_name="LimbBossComponent" >
+    <Var name="state" size="4" type="int" >
+    </Var>
+  </Component>
+  <Component component_name="LiquidDisplacerComponent" >
+    <Var name="radius" size="4" type="int" >
+    </Var>
+    <Var name="velocity_x" size="4" type="float" >
+    </Var>
+    <Var name="velocity_y" size="4" type="float" >
+    </Var>
+  </Component>
+  <Component component_name="LoadEntitiesComponent" >
+    <Var name="entity_file" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="count" size="8" type="struct ValueRangeInt" >
+    </Var>
+    <Var name="kill_entity" size="1" type="bool" >
+    </Var>
+    <Var name="timeout_frames" size="4" type="int" >
+    </Var>
+    <Var name="mTimerTriggerFrame" size="4" type="int" >
+    </Var>
+  </Component>
+  <Component component_name="LocationMarkerComponent" >
+    <Var name="id" size="4" type="int" >
+    </Var>
+  </Component>
+  <Component component_name="LooseGroundComponent" >
+    <Var name="probability" size="4" type="float" >
+    </Var>
+    <Var name="max_durability" size="4" type="int" >
+    </Var>
+    <Var name="max_distance" size="4" type="float" >
+    </Var>
+    <Var name="max_angle" size="4" type="float" >
+    </Var>
+    <Var name="min_radius" size="4" type="int" >
+    </Var>
+    <Var name="max_radius" size="4" type="int" >
+    </Var>
+    <Var name="chunk_probability" size="4" type="float" >
+    </Var>
+    <Var name="chunk_max_angle" size="4" type="float" >
+    </Var>
+    <Var name="chunk_count" size="4" type="int" >
+    </Var>
+    <Var name="chunk_material" size="4" type="int" >
+    </Var>
+    <Var name="collapse_images" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+  </Component>
+  <Component component_name="LuaComponent" >
+    <Var name="script_source_file" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="vm_type" size="4" type="enum LUA_VM_TYPE::Enum" >
+    </Var>
+    <Var name="execute_on_added" size="1" type="bool" >
+    </Var>
+    <Var name="execute_on_removed" size="1" type="bool" >
+    </Var>
+    <Var name="execute_every_n_frame" size="4" type="int" >
+    </Var>
+    <Var name="execute_times" size="4" type="int" >
+    </Var>
+    <Var name="remove_after_executed" size="1" type="bool" >
+    </Var>
+    <Var name="enable_coroutines" size="1" type="bool" >
+    </Var>
+    <Var name="call_init_function" size="1" type="bool" >
+    </Var>
+    <Var name="script_enabled_changed" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="script_damage_received" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="script_damage_about_to_be_received" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="script_item_picked_up" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="script_shot" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="script_collision_trigger_hit" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="script_collision_trigger_timer_finished" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="script_physics_body_modified" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="script_pressure_plate_change" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="script_inhaled_material" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="script_death" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="script_throw_item" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="script_material_area_checker_failed" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="script_material_area_checker_success" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="script_electricity_receiver_switched" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="script_electricity_receiver_electrified" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="script_kick" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="script_interacting" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="script_audio_event_dead" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="script_wand_fired" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="script_teleported" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="script_portal_teleport_used" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="mLastExecutionFrame" size="4" type="int" >
+    </Var>
+    <Var name="mModAppendsDone" size="1" type="bool" >
+    </Var>
+  </Component>
+  <Component component_name="MagicConvertMaterialComponent" >
+    <Var name="radius" size="4" type="int" >
+    </Var>
+    <Var name="min_radius" size="4" type="int" >
+    </Var>
+    <Var name="is_circle" size="1" type="bool" >
+    </Var>
+    <Var name="steps_per_frame" size="4" type="int" >
+    </Var>
+    <Var name="from_material" size="4" type="int" >
+    </Var>
+    <Var name="from_material_tag" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="from_any_material" size="1" type="bool" >
+    </Var>
+    <Var name="to_material" size="4" type="int" >
+    </Var>
+    <Var name="clean_stains" size="1" type="bool" >
+    </Var>
+    <Var name="extinguish_fire" size="1" type="bool" >
+    </Var>
+    <Var name="fan_the_flames" size="4" type="int" >
+    </Var>
+    <Var name="temperature_reaction_temp" size="4" type="int" >
+    </Var>
+    <Var name="ignite_materials" size="4" type="int" >
+    </Var>
+    <Var name="loop" size="1" type="bool" >
+    </Var>
+    <Var name="kill_when_finished" size="1" type="bool" >
+    </Var>
+    <Var name="convert_entities" size="1" type="bool" >
+    </Var>
+    <Var name="stain_frozen" size="1" type="bool" >
+    </Var>
+    <Var name="reaction_audio_amount" size="4" type="float" >
+    </Var>
+    <Var name="convert_same_material" size="1" type="bool" >
+    </Var>
+    <Var name="from_material_array" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="to_material_array" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="mRadius" size="4" type="int" >
+    </Var>
+  </Component>
+  <Component component_name="MagicXRayComponent" >
+    <Var name="radius" size="4" type="int" >
+    </Var>
+    <Var name="steps_per_frame" size="4" type="int" >
+    </Var>
+    <Var name="mStep" size="4" type="int" >
+    </Var>
+    <Var name="mRadius" size="4" type="int" >
+    </Var>
+  </Component>
+  <Component component_name="ManaReloaderComponent" >
+  </Component>
+  <Component component_name="MaterialAreaCheckerComponent" >
+    <Var name="update_every_x_frame" size="4" type="int" >
+    </Var>
+    <Var name="look_for_failure" size="1" type="bool" >
+    </Var>
+    <Var name="area_aabb" size="16" type="struct types::aabb" >
+    </Var>
+    <Var name="material" size="4" type="int" >
+    </Var>
+    <Var name="material2" size="4" type="int" >
+    </Var>
+    <Var name="kill_after_message" size="1" type="bool" >
+    </Var>
+  </Component>
+  <Component component_name="MaterialInventoryComponent" >
+    <Var name="drop_as_item" size="1" type="bool" >
+    </Var>
+    <Var name="on_death_spill" size="1" type="bool" >
+    </Var>
+    <Var name="leak_on_damage_percent" size="4" type="float" >
+    </Var>
+    <Var name="leak_pressure_min" size="4" type="float" >
+    </Var>
+    <Var name="leak_pressure_max" size="4" type="float" >
+    </Var>
+    <Var name="min_damage_to_leak" size="4" type="float" >
+    </Var>
+    <Var name="b2_force_on_leak" size="4" type="float" >
+    </Var>
+    <Var name="death_throw_particle_velocity_coeff" size="4" type="float" >
+    </Var>
+    <Var name="kill_when_empty" size="1" type="bool" >
+    </Var>
+    <Var name="halftime_materials" size="1" type="bool" >
+    </Var>
+    <Var name="max_capacity" size="8" type="double" >
+    </Var>
+    <Var name="count_per_material_type" size="12" type="class std::vector<double,class std::allocator<double> >" >
+    </Var>
+    <Var name="audio_collision_size_modifier_amount" size="4" type="float" >
+    </Var>
+    <Var name="last_frame_drank" size="4" type="int" >
+    </Var>
+  </Component>
+  <Component component_name="MaterialSeaSpawnerComponent" >
+    <Var name="material" size="4" type="int" >
+    </Var>
+    <Var name="size" size="8" type="class ceng::math::CVector2<int>" >
+    </Var>
+    <Var name="offset" size="8" type="class ceng::math::CVector2<int>" >
+    </Var>
+    <Var name="speed" size="4" type="int" >
+    </Var>
+    <Var name="sine_wavelength" size="4" type="float" >
+    </Var>
+    <Var name="sine_amplitude" size="4" type="float" >
+    </Var>
+    <Var name="noise_scale" size="8" type="double" >
+    </Var>
+    <Var name="noise_threshold" size="8" type="double" >
+    </Var>
+    <Var name="m_position" size="4" type="int" >
+    </Var>
+    <Var name="frames_run" size="4" type="int" >
+    </Var>
+  </Component>
+  <Component component_name="MaterialSuckerComponent" >
+    <Var name="material_type" size="4" type="int" >
+    </Var>
+    <Var name="barrel_size" size="4" type="int" >
+    </Var>
+    <Var name="num_cells_sucked_per_frame" size="4" type="int" >
+    </Var>
+    <Var name="set_projectile_to_liquid" size="1" type="bool" >
+    </Var>
+    <Var name="last_material_id" size="4" type="int" >
+    </Var>
+    <Var name="suck_gold" size="1" type="bool" >
+    </Var>
+    <Var name="suck_health" size="1" type="bool" >
+    </Var>
+    <Var name="suck_static_materials" size="1" type="bool" >
+    </Var>
+    <Var name="suck_tag" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="randomized_position" size="16" type="struct types::iaabb" >
+    </Var>
+    <Var name="mAmountUsed" size="4" type="int" >
+    </Var>
+  </Component>
+  <Component component_name="MoveToSurfaceOnCreateComponent" >
+    <Var name="type" size="4" type="enum MOVETOSURFACE_TYPE::Enum" >
+    </Var>
+    <Var name="lookup_radius" size="4" type="float" >
+    </Var>
+    <Var name="offset_from_surface" size="4" type="float" >
+    </Var>
+    <Var name="ray_count" size="4" type="int" >
+    </Var>
+    <Var name="verlet_min_joint_distance" size="4" type="float" >
+    </Var>
+  </Component>
+  <Component component_name="MusicEnergyAffectorComponent" >
+    <Var name="energy_target" size="4" type="float" >
+    </Var>
+    <Var name="fade_range" size="4" type="float" >
+    </Var>
+    <Var name="trigger_danger_music" size="1" type="bool" >
+    </Var>
+    <Var name="fog_of_war_threshold" size="4" type="int" >
+    </Var>
+    <Var name="is_enemy" size="1" type="bool" >
+    </Var>
+    <Var name="energy_lerp_up_speed_multiplier" size="4" type="float" >
+    </Var>
+  </Component>
+  <Component component_name="NinjaRopeComponent" >
+    <Var name="max_length" size="4" type="float" >
+    </Var>
+    <Var name="mLength" size="4" type="float" >
+    </Var>
+  </Component>
+  <Component component_name="OrbComponent" >
+    <Var name="orb_id" size="4" type="int" >
+    </Var>
+  </Component>
+  <Component component_name="ParticleEmitterComponent" >
+    <Var name="emitted_material_name" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="create_real_particles" size="1" type="bool" >
+    </Var>
+    <Var name="emit_real_particles" size="1" type="bool" >
+    </Var>
+    <Var name="emit_cosmetic_particles" size="1" type="bool" >
+    </Var>
+    <Var name="cosmetic_force_create" size="1" type="bool" >
+    </Var>
+    <Var name="render_back" size="1" type="bool" >
+    </Var>
+    <Var name="render_ultrabright" size="1" type="bool" >
+    </Var>
+    <Var name="collide_with_grid" size="1" type="bool" >
+    </Var>
+    <Var name="collide_with_gas_and_fire" size="1" type="bool" >
+    </Var>
+    <Var name="particle_single_width" size="1" type="bool" >
+    </Var>
+    <Var name="emitter_lifetime_frames" size="4" type="int" >
+    </Var>
+    <Var name="fire_cells_dont_ignite_damagemodel" size="1" type="bool" >
+    </Var>
+    <Var name="color_is_based_on_pos" size="1" type="bool" >
+    </Var>
+    <Var name="color" size="4" type="unsigned int" >
+    </Var>
+    <Var name="offset" size="8" type="class ceng::math::CVector2<float>" >
+    </Var>
+    <Var name="x_pos_offset_min" size="4" type="float" >
+    </Var>
+    <Var name="y_pos_offset_min" size="4" type="float" >
+    </Var>
+    <Var name="x_pos_offset_max" size="4" type="float" >
+    </Var>
+    <Var name="y_pos_offset_max" size="4" type="float" >
+    </Var>
+    <Var name="area_circle_radius" size="8" type="struct ValueRange" >
+    </Var>
+    <Var name="area_circle_sector_degrees" size="4" type="float" >
+    </Var>
+    <Var name="x_vel_min" size="4" type="float" >
+    </Var>
+    <Var name="x_vel_max" size="4" type="float" >
+    </Var>
+    <Var name="y_vel_min" size="4" type="float" >
+    </Var>
+    <Var name="y_vel_max" size="4" type="float" >
+    </Var>
+    <Var name="direction_random_deg" size="4" type="float" >
+    </Var>
+    <Var name="gravity" size="8" type="class ceng::math::CVector2<float>" >
+    </Var>
+    <Var name="velocity_always_away_from_center" size="4" type="float" >
+    </Var>
+    <Var name="lifetime_min" size="4" type="float" >
+    </Var>
+    <Var name="lifetime_max" size="4" type="float" >
+    </Var>
+    <Var name="airflow_force" size="4" type="float" >
+    </Var>
+    <Var name="airflow_time" size="4" type="float" >
+    </Var>
+    <Var name="airflow_scale" size="4" type="float" >
+    </Var>
+    <Var name="friction" size="4" type="float" >
+    </Var>
+    <Var name="attractor_force" size="4" type="float" >
+    </Var>
+    <Var name="count_min" size="12" type="struct LensValue<int>" >
+    </Var>
+    <Var name="count_max" size="12" type="struct LensValue<int>" >
+    </Var>
+    <Var name="emission_interval_min_frames" size="4" type="int" >
+    </Var>
+    <Var name="emission_interval_max_frames" size="4" type="int" >
+    </Var>
+    <Var name="emission_chance" size="4" type="int" >
+    </Var>
+    <Var name="custom_style" size="4" type="enum PARTICLE_EMITTER_CUSTOM_STYLE::Enum" >
+    </Var>
+    <Var name="delay_frames" size="4" type="int" >
+    </Var>
+    <Var name="is_emitting" size="1" type="bool" >
+    </Var>
+    <Var name="use_material_inventory" size="1" type="bool" >
+    </Var>
+    <Var name="is_trail" size="1" type="bool" >
+    </Var>
+    <Var name="trail_gap" size="4" type="float" >
+    </Var>
+    <Var name="render_on_grid" size="1" type="bool" >
+    </Var>
+    <Var name="fade_based_on_lifetime" size="1" type="bool" >
+    </Var>
+    <Var name="draw_as_long" size="1" type="bool" >
+    </Var>
+    <Var name="b2_force" size="4" type="float" >
+    </Var>
+    <Var name="set_magic_creation" size="1" type="bool" >
+    </Var>
+    <Var name="image_animation_file" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="image_animation_colors_file" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="image_animation_speed" size="4" type="float" >
+    </Var>
+    <Var name="image_animation_loop" size="1" type="bool" >
+    </Var>
+    <Var name="image_animation_phase" size="4" type="float" >
+    </Var>
+    <Var name="image_animation_emission_probability" size="4" type="float" >
+    </Var>
+    <Var name="image_animation_raytrace_from_center" size="1" type="bool" >
+    </Var>
+    <Var name="image_animation_use_entity_rotation" size="1" type="bool" >
+    </Var>
+  </Component>
+  <Component component_name="PathFindingComponent" >
+    <Var name="search_depth_max_no_goal" size="4" type="int" >
+    </Var>
+    <Var name="iterations_max_no_goal" size="4" type="int" >
+    </Var>
+    <Var name="search_depth_max_with_goal" size="4" type="int" >
+    </Var>
+    <Var name="iterations_max_with_goal" size="4" type="int" >
+    </Var>
+    <Var name="cost_of_flying" size="4" type="float" >
+    </Var>
+    <Var name="distance_to_reach_node_x" size="4" type="int" >
+    </Var>
+    <Var name="distance_to_reach_node_y" size="4" type="int" >
+    </Var>
+    <Var name="frames_to_get_stuck" size="4" type="int" >
+    </Var>
+    <Var name="frames_between_searches" size="4" type="int" >
+    </Var>
+    <Var name="y_walking_compensation" size="4" type="float" >
+    </Var>
+    <Var name="can_fly" size="1" type="bool" >
+    </Var>
+    <Var name="can_walk" size="1" type="bool" >
+    </Var>
+    <Var name="can_jump" size="1" type="bool" >
+    </Var>
+    <Var name="can_dive" size="1" type="bool" >
+    </Var>
+    <Var name="can_swim_on_surface" size="1" type="bool" >
+    </Var>
+    <Var name="never_consider_line_of_sight" size="1" type="bool" >
+    </Var>
+    <Var name="space_required" size="4" type="float" >
+    </Var>
+    <Var name="max_jump_distance_from_camera" size="4" type="float" >
+    </Var>
+    <Var name="jump_speed" size="4" type="float" >
+    </Var>
+    <Var name="initial_jump_lob" size="4" type="float" >
+    </Var>
+    <Var name="initial_jump_max_distance_x" size="4" type="float" >
+    </Var>
+    <Var name="initial_jump_max_distance_y" size="4" type="float" >
+    </Var>
+    <Var name="jump_trajectories" size="12" type="class std::vector<struct PathFindingJumpParams,class std::allocator<struct PathFindingJumpParams> >" >
+    </Var>
+  </Component>
+  <Component component_name="PathFindingGridMarkerComponent" >
+    <Var name="marker_work_flag" size="4" type="int" >
+    </Var>
+    <Var name="marker_offset_x" size="4" type="float" >
+    </Var>
+    <Var name="marker_offset_y" size="4" type="float" >
+    </Var>
+    <Var name="player_marker_radius" size="4" type="float" >
+    </Var>
+  </Component>
+  <Component component_name="PhysicsAIComponent" >
+    <Var name="target_vec_max_len" size="4" type="float" >
+    </Var>
+    <Var name="force_coeff" size="4" type="float" >
+    </Var>
+    <Var name="force_balancing_coeff" size="4" type="float" >
+    </Var>
+    <Var name="force_max" size="4" type="float" >
+    </Var>
+    <Var name="torque_coeff" size="4" type="float" >
+    </Var>
+    <Var name="torque_balancing_coeff" size="4" type="float" >
+    </Var>
+    <Var name="torque_max" size="4" type="float" >
+    </Var>
+    <Var name="damage_deactivation_probability" size="4" type="int" >
+    </Var>
+    <Var name="damage_deactivation_time_min" size="4" type="int" >
+    </Var>
+    <Var name="damage_deactivation_time_max" size="4" type="int" >
+    </Var>
+    <Var name="die_on_remaining_mass_percentage" size="4" type="float" >
+    </Var>
+    <Var name="levitate" size="1" type="bool" >
+    </Var>
+    <Var name="keep_inside_world" size="1" type="bool" >
+    </Var>
+    <Var name="free_if_static" size="1" type="bool" >
+    </Var>
+  </Component>
+  <Component component_name="PhysicsBody2Component" >
+    <Var name="mBodyId" size="8" type="unsigned __int64" >
+    </Var>
+    <Var name="linear_damping" size="4" type="float" >
+    </Var>
+    <Var name="angular_damping" size="4" type="float" >
+    </Var>
+    <Var name="allow_sleep" size="1" type="bool" >
+    </Var>
+    <Var name="fixed_rotation" size="1" type="bool" >
+    </Var>
+    <Var name="is_bullet" size="1" type="bool" >
+    </Var>
+    <Var name="is_static" size="1" type="bool" >
+    </Var>
+    <Var name="buoyancy" size="4" type="float" >
+    </Var>
+    <Var name="hax_fix_going_through_ground" size="1" type="bool" >
+    </Var>
+    <Var name="hax_fix_going_through_sand" size="1" type="bool" >
+    </Var>
+    <Var name="hax_wait_till_pixel_scenes_loaded" size="1" type="bool" >
+    </Var>
+    <Var name="go_through_sand" size="1" type="bool" >
+    </Var>
+    <Var name="auto_clean" size="1" type="bool" >
+    </Var>
+    <Var name="force_add_update_areas" size="1" type="bool" >
+    </Var>
+    <Var name="update_entity_transform" size="1" type="bool" >
+    </Var>
+    <Var name="kill_entity_if_body_destroyed" size="1" type="bool" >
+    </Var>
+    <Var name="kill_entity_after_initialized" size="1" type="bool" >
+    </Var>
+    <Var name="manual_init" size="1" type="bool" >
+    </Var>
+    <Var name="destroy_body_if_entity_destroyed" size="1" type="bool" >
+    </Var>
+    <Var name="root_offset_x" size="4" type="float" >
+    </Var>
+    <Var name="root_offset_y" size="4" type="float" >
+    </Var>
+    <Var name="init_offset_x" size="4" type="float" >
+    </Var>
+    <Var name="init_offset_y" size="4" type="float" >
+    </Var>
+    <Var name="mActiveState" size="1" type="bool" >
+    </Var>
+    <Var name="mLocalPosition" size="8" type="class ceng::math::CVector2<float>" >
+    </Var>
+    <Var name="mPixelCountOrig" size="4" type="unsigned int" >
+    </Var>
+  </Component>
+  <Component component_name="PhysicsBodyCollisionDamageComponent" >
+    <Var name="speed_threshold" size="4" type="float" >
+    </Var>
+    <Var name="damage_multiplier" size="4" type="float" >
+    </Var>
+  </Component>
+  <Component component_name="PhysicsBodyComponent" >
+    <Var name="is_external" size="1" type="bool" >
+    </Var>
+    <Var name="hax_fix_going_through_ground" size="1" type="bool" >
+    </Var>
+    <Var name="hax_fix_going_through_sand" size="1" type="bool" >
+    </Var>
+    <Var name="hax_wait_till_pixel_scenes_loaded" size="1" type="bool" >
+    </Var>
+    <Var name="uid" size="4" type="int" >
+    </Var>
+    <Var name="is_enabled" size="1" type="bool" >
+    </Var>
+    <Var name="linear_damping" size="4" type="float" >
+    </Var>
+    <Var name="angular_damping" size="4" type="float" >
+    </Var>
+    <Var name="allow_sleep" size="1" type="bool" >
+    </Var>
+    <Var name="fixed_rotation" size="1" type="bool" >
+    </Var>
+    <Var name="buoyancy" size="4" type="float" >
+    </Var>
+    <Var name="gravity_scale_if_has_no_image_shapes" size="4" type="float" >
+    </Var>
+    <Var name="is_bullet" size="1" type="bool" >
+    </Var>
+    <Var name="is_static" size="1" type="bool" >
+    </Var>
+    <Var name="is_kinematic" size="1" type="bool" >
+    </Var>
+    <Var name="is_character" size="1" type="bool" >
+    </Var>
+    <Var name="go_through_sand" size="1" type="bool" >
+    </Var>
+    <Var name="gridworld_box2d" size="1" type="bool" >
+    </Var>
+    <Var name="auto_clean" size="1" type="bool" >
+    </Var>
+    <Var name="on_death_leave_physics_body" size="1" type="bool" >
+    </Var>
+    <Var name="on_death_really_leave_body" size="1" type="bool" >
+    </Var>
+    <Var name="update_entity_transform" size="1" type="bool" >
+    </Var>
+    <Var name="force_add_update_areas" size="1" type="bool" >
+    </Var>
+    <Var name="kills_entity" size="1" type="bool" >
+    </Var>
+    <Var name="projectiles_rotate_toward_velocity" size="1" type="bool" >
+    </Var>
+    <Var name="initial_velocity" size="8" type="class ceng::math::CVector2<float>" >
+    </Var>
+    <Var name="randomize_init_velocity" size="1" type="bool" >
+    </Var>
+    <Var name="mActiveState" size="1" type="bool" >
+    </Var>
+  </Component>
+  <Component component_name="PhysicsImageShapeComponent" >
+    <Var name="is_root" size="1" type="bool" >
+    </Var>
+    <Var name="body_id" size="4" type="int" >
+    </Var>
+    <Var name="use_sprite" size="1" type="bool" >
+    </Var>
+    <Var name="is_circle" size="1" type="bool" >
+    </Var>
+    <Var name="centered" size="1" type="bool" >
+    </Var>
+    <Var name="offset_x" size="4" type="float" >
+    </Var>
+    <Var name="offset_y" size="4" type="float" >
+    </Var>
+    <Var name="z" size="4" type="float" >
+    </Var>
+    <Var name="image_file" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="material" size="4" type="int" >
+    </Var>
+  </Component>
+  <Component component_name="PhysicsJoint2Component" >
+    <Var name="joint_id" size="2" type="unsigned short" >
+    </Var>
+    <Var name="break_force" size="4" type="float" >
+    </Var>
+    <Var name="break_distance" size="4" type="float" >
+    </Var>
+    <Var name="break_on_body_modified" size="1" type="bool" >
+    </Var>
+    <Var name="break_on_shear_angle_deg" size="4" type="float" >
+    </Var>
+    <Var name="type" size="4" type="enum JOINT_TYPE::Enum" >
+    </Var>
+    <Var name="body1_id" size="4" type="int" >
+    </Var>
+    <Var name="body2_id" size="4" type="int" >
+    </Var>
+    <Var name="offset_x" size="4" type="float" >
+    </Var>
+    <Var name="offset_y" size="4" type="float" >
+    </Var>
+    <Var name="ray_x" size="4" type="float" >
+    </Var>
+    <Var name="ray_y" size="4" type="float" >
+    </Var>
+    <Var name="surface_attachment_offset_x" size="4" type="float" >
+    </Var>
+    <Var name="surface_attachment_offset_y" size="4" type="float" >
+    </Var>
+  </Component>
+  <Component component_name="PhysicsJoint2MutatorComponent" >
+    <Var name="joint_id" size="2" type="unsigned short" >
+    </Var>
+    <Var name="destroy" size="1" type="bool" >
+    </Var>
+    <Var name="motor_speed" size="4" type="float" >
+    </Var>
+    <Var name="motor_max_torque" size="4" type="float" >
+    </Var>
+    <Var name="mBox2DJointId" size="8" type="unsigned __int64" >
+    </Var>
+  </Component>
+  <Component component_name="PhysicsJointComponent" >
+    <Var name="nail_to_wall" size="1" type="bool" >
+    </Var>
+    <Var name="grid_joint" size="1" type="bool" >
+    </Var>
+    <Var name="breakable" size="1" type="bool" >
+    </Var>
+    <Var name="type" size="4" type="enum JOINT_TYPE::Enum" >
+    </Var>
+    <Var name="body1_id" size="4" type="int" >
+    </Var>
+    <Var name="body2_id" size="4" type="int" >
+    </Var>
+    <Var name="pos_x" size="4" type="float" >
+    </Var>
+    <Var name="pos_y" size="4" type="float" >
+    </Var>
+    <Var name="delta_x" size="4" type="float" >
+    </Var>
+    <Var name="delta_y" size="4" type="float" >
+    </Var>
+    <Var name="mMotorEnabled" size="1" type="bool" >
+    </Var>
+    <Var name="mMotorSpeed" size="4" type="float" >
+    </Var>
+    <Var name="mMaxMotorTorque" size="4" type="float" >
+    </Var>
+  </Component>
+  <Component component_name="PhysicsPickUpComponent" >
+    <Var name="transform" size="32" type="struct ceng::math::CXForm<float>" >
+    </Var>
+    <Var name="original_left_joint_pos" size="8" type="class ceng::math::CVector2<float>" >
+    </Var>
+    <Var name="original_right_joint_pos" size="8" type="class ceng::math::CVector2<float>" >
+    </Var>
+    <Var name="pick_up_strength" size="4" type="float" >
+    </Var>
+  </Component>
+  <Component component_name="PhysicsRagdollComponent" >
+    <Var name="filename" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="filenames" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="offset_x" size="4" type="float" >
+    </Var>
+    <Var name="offset_y" size="4" type="float" >
+    </Var>
+  </Component>
+  <Component component_name="PhysicsShapeComponent" >
+    <Var name="recreate" size="1" type="bool" >
+    </Var>
+    <Var name="is_circle" size="1" type="bool" >
+    </Var>
+    <Var name="is_box" size="1" type="bool" >
+    </Var>
+    <Var name="is_capsule" size="1" type="bool" >
+    </Var>
+    <Var name="is_based_on_sprite" size="1" type="bool" >
+    </Var>
+    <Var name="friction" size="4" type="float" >
+    </Var>
+    <Var name="restitution" size="4" type="float" >
+    </Var>
+    <Var name="density" size="4" type="float" >
+    </Var>
+    <Var name="local_position_x" size="4" type="float" >
+    </Var>
+    <Var name="local_position_y" size="4" type="float" >
+    </Var>
+    <Var name="radius_x" size="4" type="float" >
+    </Var>
+    <Var name="radius_y" size="4" type="float" >
+    </Var>
+    <Var name="capsule_x_percent" size="4" type="float" >
+    </Var>
+    <Var name="capsule_y_percent" size="4" type="float" >
+    </Var>
+  </Component>
+  <Component component_name="PhysicsThrowableComponent" >
+    <Var name="throw_force_coeff" size="4" type="float" >
+    </Var>
+    <Var name="max_throw_speed" size="4" type="float" >
+    </Var>
+    <Var name="min_torque" size="4" type="float" >
+    </Var>
+    <Var name="max_torque" size="4" type="float" >
+    </Var>
+    <Var name="tip_check_offset_min" size="4" type="float" >
+    </Var>
+    <Var name="tip_check_offset_max" size="4" type="float" >
+    </Var>
+    <Var name="tip_check_random_rotation_deg" size="4" type="float" >
+    </Var>
+    <Var name="attach_min_speed" size="4" type="float" >
+    </Var>
+    <Var name="attach_to_surfaces_knife_style" size="1" type="bool" >
+    </Var>
+    <Var name="hp" size="4" type="int" >
+    </Var>
+  </Component>
+  <Component component_name="PixelSceneComponent" >
+    <Var name="pixel_scene" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="pixel_scene_visual" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="pixel_scene_background" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="background_z_index" size="4" type="int" >
+    </Var>
+    <Var name="offset_x" size="4" type="float" >
+    </Var>
+    <Var name="offset_y" size="4" type="float" >
+    </Var>
+    <Var name="skip_biome_checks" size="1" type="bool" >
+    </Var>
+    <Var name="skip_edge_textures" size="1" type="bool" >
+    </Var>
+  </Component>
+  <Component component_name="PixelSpriteComponent" >
+    <Var name="image_file" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="anchor_x" size="4" type="int" >
+    </Var>
+    <Var name="anchor_y" size="4" type="int" >
+    </Var>
+    <Var name="material" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="diggable" size="1" type="bool" >
+    </Var>
+    <Var name="clean_overlapping_pixels" size="1" type="bool" >
+    </Var>
+    <Var name="kill_when_sprite_dies" size="1" type="bool" >
+    </Var>
+    <Var name="create_box2d_bodies" size="1" type="bool" >
+    </Var>
+    <Var name="mPixelSprite" size="4" type="class PixelSprite *" >
+    </Var>
+  </Component>
+  <Component component_name="PlatformShooterPlayerComponent" >
+    <Var name="aiming_reticle_distance_from_character" size="4" type="float" >
+    </Var>
+    <Var name="camera_max_distance_from_character" size="4" type="float" >
+    </Var>
+    <Var name="alcohol_drunken_speed" size="4" type="float" >
+    </Var>
+    <Var name="blood_fungi_drunken_speed" size="4" type="float" >
+    </Var>
+    <Var name="blood_worm_drunken_speed" size="4" type="float" >
+    </Var>
+    <Var name="eating_area_min" size="8" type="class ceng::math::CVector2<int>" >
+    </Var>
+    <Var name="eating_area_max" size="8" type="class ceng::math::CVector2<int>" >
+    </Var>
+    <Var name="eating_cells_per_frame" size="4" type="int" >
+    </Var>
+    <Var name="eating_probability" size="4" type="int" >
+    </Var>
+    <Var name="eating_delay_frames" size="4" type="int" >
+    </Var>
+    <Var name="stoned_speed" size="4" type="float" >
+    </Var>
+    <Var name="center_camera_on_this_entity" size="1" type="bool" >
+    </Var>
+    <Var name="move_camera_with_aim" size="1" type="bool" >
+    </Var>
+  </Component>
+  <Component component_name="PlayerCollisionComponent" >
+    <Var name="getting_crushed_threshold" size="4" type="int" >
+    </Var>
+    <Var name="moving_up_before_getting_crushed_threshold" size="4" type="int" >
+    </Var>
+  </Component>
+  <Component component_name="PlayerStatsComponent" >
+    <Var name="lives" size="4" type="int" >
+    </Var>
+    <Var name="max_hp" size="4" type="float" >
+    </Var>
+    <Var name="speed" size="4" type="float" >
+    </Var>
+  </Component>
+  <Component component_name="PositionSeedComponent" >
+    <Var name="pos_x" size="4" type="float" >
+    </Var>
+    <Var name="pos_y" size="4" type="float" >
+    </Var>
+  </Component>
+  <Component component_name="PotionComponent" >
+    <Var name="spray_velocity_coeff" size="4" type="float" >
+    </Var>
+    <Var name="spray_velocity_normalized_min" size="4" type="float" >
+    </Var>
+    <Var name="body_colored" size="1" type="bool" >
+    </Var>
+    <Var name="throw_bunch" size="1" type="bool" >
+    </Var>
+    <Var name="throw_how_many" size="4" type="int" >
+    </Var>
+    <Var name="never_color" size="1" type="bool" >
+    </Var>
+  </Component>
+  <Component component_name="PressurePlateComponent" >
+    <Var name="check_every_x_frames" size="4" type="int" >
+    </Var>
+    <Var name="state" size="4" type="int" >
+    </Var>
+    <Var name="aabb_min" size="8" type="class ceng::math::CVector2<float>" >
+    </Var>
+    <Var name="aabb_max" size="8" type="class ceng::math::CVector2<float>" >
+    </Var>
+    <Var name="material_percent" size="4" type="float" >
+    </Var>
+  </Component>
+  <Component component_name="ProjectileComponent" >
+    <Var name="projectile_type" size="4" type="enum PROJECTILE_TYPE::Enum" >
+    </Var>
+    <Var name="lifetime" size="4" type="int" >
+    </Var>
+    <Var name="lifetime_randomness" size="4" type="int" >
+    </Var>
+    <Var name="on_lifetime_out_explode" size="1" type="bool" >
+    </Var>
+    <Var name="collide_with_world" size="1" type="bool" >
+    </Var>
+    <Var name="config" size="568" type="class ConfigGunActionInfo" >
+    </Var>
+    <Var name="speed_min" size="4" type="float" >
+    </Var>
+    <Var name="speed_max" size="4" type="float" >
+    </Var>
+    <Var name="friction" size="4" type="float" >
+    </Var>
+    <Var name="direction_random_rad" size="4" type="float" >
+    </Var>
+    <Var name="direction_nonrandom_rad" size="4" type="float" >
+    </Var>
+    <Var name="lob_min" size="4" type="float" >
+    </Var>
+    <Var name="lob_max" size="4" type="float" >
+    </Var>
+    <Var name="camera_shake_when_shot" size="4" type="float" >
+    </Var>
+    <Var name="shoot_light_flash_radius" size="4" type="float" >
+    </Var>
+    <Var name="shoot_light_flash_r" size="4" type="unsigned int" >
+    </Var>
+    <Var name="shoot_light_flash_g" size="4" type="unsigned int" >
+    </Var>
+    <Var name="shoot_light_flash_b" size="4" type="unsigned int" >
+    </Var>
+    <Var name="create_shell_casing" size="1" type="bool" >
+    </Var>
+    <Var name="shell_casing_material" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="shell_casing_offset" size="8" type="class ceng::math::CVector2<float>" >
+    </Var>
+    <Var name="muzzle_flash_file" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="bounces_left" size="4" type="int" >
+    </Var>
+    <Var name="bounce_energy" size="4" type="float" >
+    </Var>
+    <Var name="bounce_always" size="1" type="bool" >
+    </Var>
+    <Var name="bounce_at_any_angle" size="1" type="bool" >
+    </Var>
+    <Var name="attach_to_parent_trigger" size="1" type="bool" >
+    </Var>
+    <Var name="bounce_fx_file" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="angular_velocity" size="4" type="float" >
+    </Var>
+    <Var name="velocity_sets_rotation" size="1" type="bool" >
+    </Var>
+    <Var name="velocity_sets_scale" size="1" type="bool" >
+    </Var>
+    <Var name="velocity_sets_scale_coeff" size="4" type="float" >
+    </Var>
+    <Var name="velocity_sets_y_flip" size="1" type="bool" >
+    </Var>
+    <Var name="velocity_updates_animation" size="4" type="float" >
+    </Var>
+    <Var name="ground_penetration_coeff" size="4" type="float" >
+    </Var>
+    <Var name="ground_penetration_max_durability_to_destroy" size="4" type="int" >
+    </Var>
+    <Var name="go_through_this_material" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="do_moveto_update" size="1" type="bool" >
+    </Var>
+    <Var name="on_death_duplicate_remaining" size="4" type="int" >
+    </Var>
+    <Var name="on_death_gfx_leave_sprite" size="1" type="bool" >
+    </Var>
+    <Var name="on_death_explode" size="1" type="bool" >
+    </Var>
+    <Var name="on_death_emit_particle" size="1" type="bool" >
+    </Var>
+    <Var name="on_death_emit_particle_count" size="4" type="int" >
+    </Var>
+    <Var name="die_on_liquid_collision" size="1" type="bool" >
+    </Var>
+    <Var name="die_on_low_velocity" size="1" type="bool" >
+    </Var>
+    <Var name="die_on_low_velocity_limit" size="4" type="float" >
+    </Var>
+    <Var name="on_death_emit_particle_type" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="on_death_particle_check_concrete" size="1" type="bool" >
+    </Var>
+    <Var name="ground_collision_fx" size="1" type="bool" >
+    </Var>
+    <Var name="explosion_dont_damage_shooter" size="1" type="bool" >
+    </Var>
+    <Var name="config_explosion" size="364" type="class ConfigExplosion" >
+    </Var>
+    <Var name="on_death_item_pickable_radius" size="4" type="float" >
+    </Var>
+    <Var name="penetrate_world" size="1" type="bool" >
+    </Var>
+    <Var name="penetrate_world_velocity_coeff" size="4" type="float" >
+    </Var>
+    <Var name="penetrate_entities" size="1" type="bool" >
+    </Var>
+    <Var name="on_collision_die" size="1" type="bool" >
+    </Var>
+    <Var name="on_collision_remove_projectile" size="1" type="bool" >
+    </Var>
+    <Var name="on_collision_spawn_entity" size="1" type="bool" >
+    </Var>
+    <Var name="spawn_entity" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="spawn_entity_is_projectile" size="1" type="bool" >
+    </Var>
+    <Var name="physics_impulse_coeff" size="4" type="float" >
+    </Var>
+    <Var name="damage_every_x_frames" size="4" type="int" >
+    </Var>
+    <Var name="damage_scaled_by_speed" size="1" type="bool" >
+    </Var>
+    <Var name="damage_scale_max_speed" size="4" type="float" >
+    </Var>
+    <Var name="ragdoll_fx_on_collision" size="4" type="enum RAGDOLL_FX::Enum" >
+    </Var>
+    <Var name="collide_with_entities" size="1" type="bool" >
+    </Var>
+    <Var name="collide_with_tag" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="dont_collide_with_tag" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="collide_with_shooter_frames" size="4" type="int" >
+    </Var>
+    <Var name="friendly_fire" size="1" type="bool" >
+    </Var>
+    <Var name="damage" size="4" type="float" >
+    </Var>
+    <Var name="damage_by_type" size="60" type="class ConfigDamagesByType" >
+    </Var>
+    <Var name="damage_critical" size="16" type="class ConfigDamageCritical" >
+    </Var>
+    <Var name="knockback_force" size="4" type="float" >
+    </Var>
+    <Var name="ragdoll_force_multiplier" size="4" type="float" >
+    </Var>
+    <Var name="hit_particle_force_multiplier" size="4" type="float" >
+    </Var>
+    <Var name="blood_count_multiplier" size="4" type="float" >
+    </Var>
+    <Var name="damage_game_effect_entities" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="never_hit_player" size="1" type="bool" >
+    </Var>
+    <Var name="collect_materials_to_shooter" size="1" type="bool" >
+    </Var>
+    <Var name="play_damage_sounds" size="1" type="bool" >
+    </Var>
+    <Var name="mLastFrameDamaged" size="4" type="int" >
+    </Var>
+  </Component>
+  <Component component_name="RotateTowardsComponent" >
+    <Var name="entity_with_tag" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+  </Component>
+  <Component component_name="SetLightAlphaFromVelocityComponent" >
+    <Var name="max_velocity" size="4" type="float" >
+    </Var>
+  </Component>
+  <Component component_name="SetStartVelocityComponent" >
+    <Var name="velocity" size="8" type="class ceng::math::CVector2<float>" >
+    </Var>
+    <Var name="randomize_angle" size="8" type="struct ValueRange" >
+    </Var>
+    <Var name="randomize_speed" size="8" type="struct ValueRange" >
+    </Var>
+  </Component>
+  <Component component_name="ShotEffectComponent" >
+    <Var name="condition_effect" size="4" type="enum GAME_EFFECT::Enum" >
+    </Var>
+    <Var name="condition_status" size="4" type="unsigned int" >
+    </Var>
+    <Var name="extra_modifier" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+  </Component>
+  <Component component_name="SimplePhysicsComponent" >
+    <Var name="can_go_up" size="1" type="bool" >
+    </Var>
+  </Component>
+  <Component component_name="SineWaveComponent" >
+    <Var name="sinewave_freq" size="4" type="float" >
+    </Var>
+    <Var name="sinewave_m" size="4" type="float" >
+    </Var>
+    <Var name="lifetime" size="4" type="int" >
+    </Var>
+  </Component>
+  <Component component_name="SpriteAnimatorComponent" >
+    <Var name="target_sprite_comp_name" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="rotate_to_surface_normal" size="1" type="bool" >
+    </Var>
+  </Component>
+  <Component component_name="SpriteComponent" >
+    <Var name="image_file" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="ui_is_parent" size="1" type="bool" >
+    </Var>
+    <Var name="is_text_sprite" size="1" type="bool" >
+    </Var>
+    <Var name="offset_x" size="4" type="float" >
+    </Var>
+    <Var name="offset_y" size="4" type="float" >
+    </Var>
+    <Var name="transform_offset" size="8" type="class ceng::math::CVector2<float>" >
+    </Var>
+    <Var name="offset_animator_offset" size="8" type="class ceng::math::CVector2<float>" >
+    </Var>
+    <Var name="alpha" size="4" type="float" >
+    </Var>
+    <Var name="visible" size="1" type="bool" >
+    </Var>
+    <Var name="emissive" size="1" type="bool" >
+    </Var>
+    <Var name="additive" size="1" type="bool" >
+    </Var>
+    <Var name="fog_of_war_hole" size="1" type="bool" >
+    </Var>
+    <Var name="smooth_filtering" size="1" type="bool" >
+    </Var>
+    <Var name="rect_animation" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="next_rect_animation" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="text" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="z_index" size="4" type="float" >
+    </Var>
+    <Var name="update_transform" size="1" type="bool" >
+    </Var>
+    <Var name="update_transform_rotation" size="1" type="bool" >
+    </Var>
+    <Var name="kill_entity_after_finished" size="1" type="bool" >
+    </Var>
+    <Var name="has_special_scale" size="1" type="bool" >
+    </Var>
+    <Var name="special_scale_x" size="4" type="float" >
+    </Var>
+    <Var name="special_scale_y" size="4" type="float" >
+    </Var>
+    <Var name="never_ragdollify_on_death" size="1" type="bool" >
+    </Var>
+  </Component>
+  <Component component_name="SpriteOffsetAnimatorComponent" >
+    <Var name="x_amount" size="4" type="float" >
+    </Var>
+    <Var name="x_speed" size="4" type="float" >
+    </Var>
+    <Var name="y_amount" size="4" type="float" >
+    </Var>
+    <Var name="y_speed" size="4" type="float" >
+    </Var>
+    <Var name="sprite_id" size="4" type="int" >
+    </Var>
+    <Var name="x_phase" size="4" type="float" >
+    </Var>
+    <Var name="x_phase_offset" size="4" type="float" >
+    </Var>
+  </Component>
+  <Component component_name="SpriteParticleEmitterComponent" >
+    <Var name="sprite_file" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="sprite_centered" size="1" type="bool" >
+    </Var>
+    <Var name="sprite_random_rotation" size="1" type="bool" >
+    </Var>
+    <Var name="render_back" size="1" type="bool" >
+    </Var>
+    <Var name="delay" size="4" type="float" >
+    </Var>
+    <Var name="lifetime" size="4" type="float" >
+    </Var>
+    <Var name="color" size="20" type="class ceng::CColorFloat" >
+    </Var>
+    <Var name="color_change" size="20" type="class ceng::CColorFloat" >
+    </Var>
+    <Var name="additive" size="1" type="bool" >
+    </Var>
+    <Var name="emissive" size="1" type="bool" >
+    </Var>
+    <Var name="velocity" size="8" type="class ceng::math::CVector2<float>" >
+    </Var>
+    <Var name="gravity" size="8" type="class ceng::math::CVector2<float>" >
+    </Var>
+    <Var name="velocity_slowdown" size="4" type="float" >
+    </Var>
+    <Var name="rotation" size="4" type="float" >
+    </Var>
+    <Var name="angular_velocity" size="4" type="float" >
+    </Var>
+    <Var name="use_velocity_as_rotation" size="1" type="bool" >
+    </Var>
+    <Var name="use_rotation_from_velocity_component" size="1" type="bool" >
+    </Var>
+    <Var name="use_rotation_from_entity" size="1" type="bool" >
+    </Var>
+    <Var name="entity_velocity_multiplier" size="4" type="float" >
+    </Var>
+    <Var name="scale" size="8" type="class ceng::math::CVector2<float>" >
+    </Var>
+    <Var name="scale_velocity" size="8" type="class ceng::math::CVector2<float>" >
+    </Var>
+    <Var name="z_index" size="4" type="float" >
+    </Var>
+    <Var name="randomize_lifetime" size="8" type="struct ValueRange" >
+    </Var>
+    <Var name="randomize_position" size="16" type="struct types::aabb" >
+    </Var>
+    <Var name="randomize_position_inside_hitbox" size="1" type="bool" >
+    </Var>
+    <Var name="randomize_velocity" size="16" type="struct types::aabb" >
+    </Var>
+    <Var name="randomize_scale" size="16" type="struct types::aabb" >
+    </Var>
+    <Var name="randomize_rotation" size="8" type="struct ValueRange" >
+    </Var>
+    <Var name="randomize_angular_velocity" size="8" type="struct ValueRange" >
+    </Var>
+    <Var name="randomize_alpha" size="8" type="struct ValueRange" >
+    </Var>
+    <Var name="randomize_animation_speed_coeff" size="8" type="struct ValueRange" >
+    </Var>
+    <Var name="velocity_always_away_from_center" size="1" type="bool" >
+    </Var>
+    <Var name="expand_randomize_position" size="8" type="class ceng::math::CVector2<float>" >
+    </Var>
+    <Var name="camera_bound" size="1" type="bool" >
+    </Var>
+    <Var name="camera_distance" size="4" type="float" >
+    </Var>
+    <Var name="is_emitting" size="1" type="bool" >
+    </Var>
+    <Var name="count_min" size="4" type="int" >
+    </Var>
+    <Var name="count_max" size="4" type="int" >
+    </Var>
+    <Var name="emission_interval_min_frames" size="4" type="int" >
+    </Var>
+    <Var name="emission_interval_max_frames" size="4" type="int" >
+    </Var>
+    <Var name="entity_file" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+  </Component>
+  <Component component_name="SpriteStainsComponent" >
+    <Var name="sprite_id" size="4" type="int" >
+    </Var>
+    <Var name="fade_stains_towards_srite_top" size="1" type="bool" >
+    </Var>
+    <Var name="stain_shaken_drop_chance_multiplier" size="12" type="struct LensValue<int>" >
+    </Var>
+    <Var name="mData" size="4" type="struct SpriteStains *" >
+    </Var>
+  </Component>
+  <Component component_name="StatusEffectDataComponent" >
+    <Var name="stain_effects" size="12" type="class std::vector<float,class std::allocator<float> >" >
+    </Var>
+    <Var name="effects_previous" size="12" type="class std::vector<float,class std::allocator<float> >" >
+    </Var>
+    <Var name="ingestion_effects" size="12" type="class std::vector<float,class std::allocator<float> >" >
+    </Var>
+    <Var name="ingestion_effect_causes" size="12" type="class std::vector<int,class std::allocator<int> >" >
+    </Var>
+    <Var name="ingestion_effect_causes_many" size="12" type="class std::vector<int,class std::allocator<int> >" >
+    </Var>
+  </Component>
+  <Component component_name="StreamingKeepAliveComponent" >
+    <Var name="TEMP_TEMPY" size="4" type="float" >
+    </Var>
+    <Var name="TEMP_TEMP_TEMP" size="4" type="float" >
+    </Var>
+  </Component>
+  <Component component_name="TelekinesisComponent" >
+    <Var name="min_size" size="4" type="unsigned int" >
+    </Var>
+    <Var name="max_size" size="4" type="unsigned int" >
+    </Var>
+    <Var name="radius" size="4" type="float" >
+    </Var>
+    <Var name="throw_speed" size="4" type="float" >
+    </Var>
+    <Var name="target_distance" size="4" type="float" >
+    </Var>
+    <Var name="kick_to_use" size="1" type="bool" >
+    </Var>
+    <Var name="mState" size="4" type="int" >
+    </Var>
+    <Var name="mBodyID" size="8" type="unsigned __int64" >
+    </Var>
+    <Var name="mStartBodyMaxExtent" size="4" type="float" >
+    </Var>
+    <Var name="mStartAimAngle" size="4" type="float" >
+    </Var>
+    <Var name="mStartBodyAngle" size="4" type="float" >
+    </Var>
+    <Var name="mStartBodyDistance" size="4" type="float" >
+    </Var>
+    <Var name="mStartTime" size="4" type="float" >
+    </Var>
+    <Var name="mMinBodyDistance" size="4" type="float" >
+    </Var>
+    <Var name="mInteract" size="1" type="bool" >
+    </Var>
+  </Component>
+  <Component component_name="TeleportComponent" >
+    <Var name="target" size="8" type="class ceng::math::CVector2<float>" >
+    </Var>
+    <Var name="target_x_is_absolute_position" size="1" type="bool" >
+    </Var>
+    <Var name="target_y_is_absolute_position" size="1" type="bool" >
+    </Var>
+    <Var name="source_particle_fx_file" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="target_particle_fx_file" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="load_collapse_entity" size="1" type="bool" >
+    </Var>
+  </Component>
+  <Component component_name="TeleportProjectileComponent" >
+    <Var name="min_distance_from_wall" size="4" type="float" >
+    </Var>
+    <Var name="actionable_lifetime" size="4" type="int" >
+    </Var>
+  </Component>
+  <Component component_name="TextLogComponent" >
+    <Var name="key" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="image_filename" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+  </Component>
+  <Component component_name="TorchComponent" >
+    <Var name="probability_of_ignition_attempt" size="4" type="int" >
+    </Var>
+    <Var name="suffocation_check_offset_y" size="4" type="float" >
+    </Var>
+    <Var name="frames_suffocated_to_extinguish" size="4" type="int" >
+    </Var>
+    <Var name="extinguishable" size="1" type="bool" >
+    </Var>
+    <Var name="fire_audio_weight" size="4" type="float" >
+    </Var>
+  </Component>
+  <Component component_name="UIIconComponent" >
+    <Var name="icon_sprite_file" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="name" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="description" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="display_above_head" size="1" type="bool" >
+    </Var>
+    <Var name="display_in_hud" size="1" type="bool" >
+    </Var>
+    <Var name="is_perk" size="1" type="bool" >
+    </Var>
+  </Component>
+  <Component component_name="UIInfoComponent" >
+    <Var name="name" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+  </Component>
+  <Component component_name="VariableStorageComponent" >
+    <Var name="name" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="value_string" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="value_int" size="4" type="int" >
+    </Var>
+    <Var name="value_bool" size="1" type="bool" >
+    </Var>
+    <Var name="value_float" size="4" type="float" >
+    </Var>
+  </Component>
+  <Component component_name="VelocityComponent" >
+    <Var name="gravity_x" size="4" type="float" >
+    </Var>
+    <Var name="gravity_y" size="4" type="float" >
+    </Var>
+    <Var name="mass" size="4" type="float" >
+    </Var>
+    <Var name="air_friction" size="4" type="float" >
+    </Var>
+    <Var name="terminal_velocity" size="4" type="float" >
+    </Var>
+    <Var name="apply_terminal_velocity" size="1" type="bool" >
+    </Var>
+    <Var name="updates_velocity" size="1" type="bool" >
+    </Var>
+    <Var name="displace_liquid" size="1" type="bool" >
+    </Var>
+    <Var name="affect_physics_bodies" size="1" type="bool" >
+    </Var>
+    <Var name="limit_to_max_velocity" size="1" type="bool" >
+    </Var>
+    <Var name="liquid_death_threshold" size="4" type="int" >
+    </Var>
+    <Var name="liquid_drag" size="4" type="float" >
+    </Var>
+    <Var name="mVelocity" size="8" type="class ceng::math::CVector2<float>" >
+    </Var>
+  </Component>
+  <Component component_name="VerletPhysicsComponent" >
+    <Var name="num_points" size="4" type="int" >
+    </Var>
+    <Var name="num_links" size="4" type="int" >
+    </Var>
+    <Var name="width" size="4" type="int" >
+    </Var>
+    <Var name="type" size="4" type="enum VERLET_TYPE::Enum" >
+    </Var>
+    <Var name="resting_distance" size="4" type="float" >
+    </Var>
+    <Var name="mass_min" size="4" type="float" >
+    </Var>
+    <Var name="mass_max" size="4" type="float" >
+    </Var>
+    <Var name="stiffness" size="4" type="float" >
+    </Var>
+    <Var name="velocity_dampening" size="4" type="float" >
+    </Var>
+    <Var name="gets_entity_velocity_coeff" size="4" type="float" >
+    </Var>
+    <Var name="collide_with_cells" size="1" type="bool" >
+    </Var>
+    <Var name="simulate_gravity" size="1" type="bool" >
+    </Var>
+    <Var name="simulate_wind" size="1" type="bool" >
+    </Var>
+    <Var name="wind_change_speed" size="4" type="float" >
+    </Var>
+    <Var name="constrain_stretching" size="1" type="bool" >
+    </Var>
+    <Var name="pixelate_sprite_transforms" size="1" type="bool" >
+    </Var>
+    <Var name="scale_sprite_x" size="1" type="bool" >
+    </Var>
+    <Var name="follow_entity_transform" size="1" type="bool" >
+    </Var>
+    <Var name="animation_target_offset" size="8" type="class ceng::math::CVector2<float>" >
+    </Var>
+    <Var name="animation_amount" size="4" type="float" >
+    </Var>
+    <Var name="animation_speed" size="4" type="float" >
+    </Var>
+    <Var name="animation_energy" size="4" type="float" >
+    </Var>
+    <Var name="cloth_sprite_z_index" size="4" type="float" >
+    </Var>
+    <Var name="stain_cells_probability" size="4" type="int" >
+    </Var>
+    <Var name="cloth_color_edge" size="4" type="unsigned int" >
+    </Var>
+    <Var name="cloth_color" size="4" type="unsigned int" >
+    </Var>
+    <Var name="m_position_previous" size="8" type="class ceng::math::CVector2<float>" >
+    </Var>
+    <Var name="m_is_culled_previous" size="1" type="bool" >
+    </Var>
+    <Var name="colors" size="640" type="struct UintArrayInline" >
+    </Var>
+    <Var name="materials" size="640" type="struct UintArrayInline" >
+    </Var>
+  </Component>
+  <Component component_name="VerletWeaponComponent" >
+    <Var name="damage_radius" size="4" type="float" >
+    </Var>
+    <Var name="physics_force_radius" size="4" type="float" >
+    </Var>
+    <Var name="damage_min_step" size="4" type="float" >
+    </Var>
+    <Var name="damage_max" size="4" type="float" >
+    </Var>
+    <Var name="damage_coeff" size="4" type="float" >
+    </Var>
+    <Var name="impulse_coeff" size="4" type="float" >
+    </Var>
+    <Var name="fade_duration_frames" size="4" type="int" >
+    </Var>
+    <Var name="physics_impulse_coeff" size="4" type="float" >
+    </Var>
+  </Component>
+  <Component component_name="VerletWorldJointComponent" >
+    <Var name="world_position" size="8" type="class ceng::math::CVector2<float>" >
+    </Var>
+    <Var name="verlet_point_index" size="4" type="int" >
+    </Var>
+  </Component>
+  <Component component_name="WalletComponent" >
+    <Var name="money" size="8" type="__int64" >
+    </Var>
+    <Var name="money_spent" size="8" type="__int64" >
+    </Var>
+    <Var name="mMoneyPrevFrame" size="8" type="__int64" >
+    </Var>
+    <Var name="mHasReachedInf" size="1" type="bool" >
+    </Var>
+  </Component>
+  <Component component_name="WalletValuableComponent" >
+    <Var name="money_value" size="4" type="int" >
+    </Var>
+  </Component>
+  <Component component_name="WorldStateComponent" >
+    <Var name="is_initialized" size="1" type="bool" >
+    </Var>
+    <Var name="time" size="4" type="float" >
+    </Var>
+    <Var name="time_total" size="4" type="float" >
+    </Var>
+    <Var name="time_dt" size="4" type="float" >
+    </Var>
+    <Var name="day_count" size="4" type="int" >
+    </Var>
+    <Var name="rain" size="4" type="float" >
+    </Var>
+    <Var name="rain_target" size="4" type="float" >
+    </Var>
+    <Var name="fog" size="4" type="float" >
+    </Var>
+    <Var name="fog_target" size="4" type="float" >
+    </Var>
+    <Var name="intro_weather" size="1" type="bool" >
+    </Var>
+    <Var name="wind" size="4" type="float" >
+    </Var>
+    <Var name="wind_speed" size="4" type="float" >
+    </Var>
+    <Var name="wind_speed_sin_t" size="4" type="float" >
+    </Var>
+    <Var name="wind_speed_sin" size="4" type="float" >
+    </Var>
+    <Var name="clouds_01_target" size="4" type="float" >
+    </Var>
+    <Var name="clouds_02_target" size="4" type="float" >
+    </Var>
+    <Var name="gradient_sky_alpha_target" size="4" type="float" >
+    </Var>
+    <Var name="sky_sunset_alpha_target" size="4" type="float" >
+    </Var>
+    <Var name="lightning_count" size="4" type="int" >
+    </Var>
+    <Var name="player_spawn_location" size="8" type="class ceng::math::CVector2<float>" >
+    </Var>
+    <Var name="lua_globals" size="8" type="class std::map<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,struct std::less<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > >,class std::allocator<struct std::pair<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const ,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > > > >" >
+    </Var>
+    <Var name="pending_portals" size="12" type="class std::vector<class ConfigPendingPortal,class std::allocator<class ConfigPendingPortal> >" >
+    </Var>
+    <Var name="next_portal_id" size="4" type="unsigned int" >
+    </Var>
+    <Var name="apparitions_per_level" size="12" type="class std::vector<int,class std::allocator<int> >" >
+    </Var>
+    <Var name="npc_parties" size="12" type="class std::vector<class ConfigNpcParty,class std::allocator<class ConfigNpcParty> >" >
+    </Var>
+    <Var name="session_stat_file" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="orbs_found_thisrun" size="12" type="class std::vector<int,class std::allocator<int> >" >
+    </Var>
+    <Var name="flags" size="12" type="class std::vector<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class std::allocator<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > > >" >
+    </Var>
+    <Var name="changed_materials" size="12" type="class std::vector<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class std::allocator<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > > >" >
+    </Var>
+    <Var name="player_polymorph_count" size="4" type="int" >
+    </Var>
+    <Var name="player_polymorph_random_count" size="4" type="int" >
+    </Var>
+    <Var name="player_did_infinite_spell_count" size="4" type="int" >
+    </Var>
+    <Var name="player_did_damage_over_1milj" size="4" type="int" >
+    </Var>
+    <Var name="player_living_with_minus_hp" size="4" type="int" >
+    </Var>
+    <Var name="global_genome_relations_modifier" size="4" type="float" >
+    </Var>
+    <Var name="mods_have_been_active_during_this_run" size="1" type="bool" >
+    </Var>
+    <Var name="twitch_has_been_active_during_this_run" size="1" type="bool" >
+    </Var>
+    <Var name="next_cut_through_world_id" size="4" type="unsigned int" >
+    </Var>
+    <Var name="cuts_through_world" size="12" type="class std::vector<class ConfigCutThroughWorld,class std::allocator<class ConfigCutThroughWorld> >" >
+    </Var>
+    <Var name="gore_multiplier" size="12" type="struct LensValue<int>" >
+    </Var>
+    <Var name="trick_kill_gold_multiplier" size="12" type="struct LensValue<int>" >
+    </Var>
+    <Var name="damage_flash_multiplier" size="12" type="struct LensValue<float>" >
+    </Var>
+    <Var name="open_fog_of_war_everywhere" size="8" type="struct LensValue<bool>" >
+    </Var>
+    <Var name="consume_actions" size="8" type="struct LensValue<bool>" >
+    </Var>
+    <Var name="perk_infinite_spells" size="1" type="bool" >
+    </Var>
+    <Var name="perk_trick_kills_blood_money" size="1" type="bool" >
+    </Var>
+    <Var name="perk_hp_drop_chance" size="4" type="int" >
+    </Var>
+    <Var name="perk_gold_is_forever" size="1" type="bool" >
+    </Var>
+    <Var name="perk_rats_player_friendly" size="1" type="bool" >
+    </Var>
+    <Var name="EVERYTHING_TO_GOLD" size="1" type="bool" >
+    </Var>
+    <Var name="material_everything_to_gold" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="material_everything_to_gold_static" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="INFINITE_GOLD_HAPPENING" size="1" type="bool" >
+    </Var>
+    <Var name="ENDING_HAPPINESS_HAPPENING" size="1" type="bool" >
+    </Var>
+    <Var name="ENDING_HAPPINESS_FRAMES" size="4" type="int" >
+    </Var>
+    <Var name="ENDING_HAPPINESS" size="1" type="bool" >
+    </Var>
+    <Var name="mFlashAlpha" size="4" type="float" >
+    </Var>
+    <Var name="DEBUG_LOADED_FROM_AUTOSAVE" size="4" type="int" >
+    </Var>
+    <Var name="DEBUG_LOADED_FROM_OLD_VERSION" size="4" type="int" >
+    </Var>
+  </Component>
+  <Component component_name="WormAIComponent" >
+    <Var name="speed" size="4" type="float" >
+    </Var>
+    <Var name="speed_hunt" size="4" type="float" >
+    </Var>
+    <Var name="direction_adjust_speed" size="4" type="float" >
+    </Var>
+    <Var name="direction_adjust_speed_hunt" size="4" type="float" >
+    </Var>
+    <Var name="random_target_box_radius" size="4" type="float" >
+    </Var>
+    <Var name="new_hunt_target_check_every" size="4" type="int" >
+    </Var>
+    <Var name="new_random_target_check_every" size="4" type="int" >
+    </Var>
+    <Var name="hunt_box_radius" size="4" type="float" >
+    </Var>
+    <Var name="cocoon_food_required" size="4" type="int" >
+    </Var>
+    <Var name="cocoon_entity" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="give_up_area_radius" size="4" type="float" >
+    </Var>
+    <Var name="give_up_time_frames" size="4" type="int" >
+    </Var>
+    <Var name="debug_follow_mouse" size="1" type="bool" >
+    </Var>
+  </Component>
+  <Component component_name="WormAttractorComponent" >
+    <Var name="direction" size="4" type="int" >
+    </Var>
+    <Var name="radius" size="4" type="float" >
+    </Var>
+  </Component>
+  <Component component_name="WormComponent" >
+    <Var name="speed" size="4" type="float" >
+    </Var>
+    <Var name="acceleration" size="4" type="float" >
+    </Var>
+    <Var name="ground_decceleration" size="12" type="struct LensValue<float>" >
+    </Var>
+    <Var name="gravity" size="4" type="float" >
+    </Var>
+    <Var name="tail_gravity" size="4" type="float" >
+    </Var>
+    <Var name="part_distance" size="4" type="float" >
+    </Var>
+    <Var name="ground_check_offset" size="4" type="int" >
+    </Var>
+    <Var name="hitbox_radius" size="4" type="float" >
+    </Var>
+    <Var name="bite_damage" size="4" type="float" >
+    </Var>
+    <Var name="target_kill_radius" size="4" type="float" >
+    </Var>
+    <Var name="target_kill_ragdoll_force" size="4" type="float" >
+    </Var>
+    <Var name="jump_cam_shake" size="4" type="float" >
+    </Var>
+    <Var name="jump_cam_shake_distance" size="4" type="float" >
+    </Var>
+    <Var name="eat_anim_wait_mult" size="4" type="float" >
+    </Var>
+    <Var name="ragdoll_filename" size="24" type="class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" >
+    </Var>
+    <Var name="is_water_worm" size="1" type="bool" >
+    </Var>
+    <Var name="max_speed" size="4" type="float" >
+    </Var>
+  </Component>
+  <Component component_name="WormPlayerComponent" >
+  </Component>
+</Schema>

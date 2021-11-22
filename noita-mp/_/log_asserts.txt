@@ -1,0 +1,42 @@
+2021, 11, 21 - 21:32
+Assert failed: (!( i < 0 || i >= _size )) in d:\projects\nollagames\fallingeverything\poro\source\utils\filesystem\../safearray/csafearray.h at line 75
+2021, 11, 21 - 21:33
+Assert failed: (!( i < 0 || i >= _size )) in d:\projects\nollagames\fallingeverything\poro\source\utils\filesystem\../safearray/csafearray.h at line 75
+2021, 11, 21 - 21:35
+Assert failed: (!( i < 0 || i >= _size )) in d:\projects\nollagames\fallingeverything\poro\source\utils\filesystem\../safearray/csafearray.h at line 75
+2021, 11, 21 - 21:35
+Assert failed: (!( i < 0 || i >= _size )) in d:\projects\nollagames\fallingeverything\poro\source\utils\filesystem\../safearray/csafearray.h at line 75
+2021, 11, 21 - 21:38
+Assert failed: (!( i < 0 || i >= _size )) in d:\projects\nollagames\fallingeverything\poro\source\utils\filesystem\../safearray/csafearray.h at line 75
+2021, 11, 21 - 21:38
+Assert failed: (!( i < 0 || i >= _size )) in d:\projects\nollagames\fallingeverything\poro\source\utils\filesystem\../safearray/csafearray.h at line 75
+2021, 11, 21 - 21:39
+Assert failed: (!( i < 0 || i >= _size )) in d:\projects\nollagames\fallingeverything\poro\source\utils\filesystem\../safearray/csafearray.h at line 75
+2021, 11, 21 - 21:41
+Assert failed: (!( i < 0 || i >= _size )) in d:\projects\nollagames\fallingeverything\poro\source\utils\filesystem\../safearray/csafearray.h at line 75
+2021, 11, 21 - 21:42
+Assert failed: (!( i < 0 || i >= _size )) in d:\projects\nollagames\fallingeverything\poro\source\utils\filesystem\../safearray/csafearray.h at line 75
+2021, 11, 21 - 21:46
+Assert failed: (!( i < 0 || i >= _size )) in d:\projects\nollagames\fallingeverything\poro\source\utils\filesystem\../safearray/csafearray.h at line 75
+2021, 11, 21 - 21:47
+Assert failed: (!( i < 0 || i >= _size )) in d:\projects\nollagames\fallingeverything\poro\source\utils\filesystem\../safearray/csafearray.h at line 75
+2021, 11, 21 - 22:0
+Assert failed: (!( i < 0 || i >= _size )) in d:\projects\nollagames\fallingeverything\poro\source\utils\filesystem\../safearray/csafearray.h at line 75
+2021, 11, 21 - 23:12
+Assert failed: (!( i < 0 || i >= _size )) in d:\projects\nollagames\fallingeverything\poro\source\utils\filesystem\../safearray/csafearray.h at line 75
+2021, 11, 21 - 23:16
+Assert failed: (!( i < 0 || i >= _size )) in d:\projects\nollagames\fallingeverything\poro\source\utils\filesystem\../safearray/csafearray.h at line 75
+2021, 11, 21 - 23:19
+Assert failed: (!( i < 0 || i >= _size )) in d:\projects\nollagames\fallingeverything\poro\source\utils\filesystem\../safearray/csafearray.h at line 75
+2021, 11, 21 - 23:23
+Assert failed: (!( i < 0 || i >= _size )) in d:\projects\nollagames\fallingeverything\poro\source\utils\filesystem\../safearray/csafearray.h at line 75
+2021, 11, 21 - 23:24
+Assert failed: (!( i < 0 || i >= _size )) in d:\projects\nollagames\fallingeverything\poro\source\utils\filesystem\../safearray/csafearray.h at line 75
+2021, 11, 21 - 23:28
+Assert failed: (!( i < 0 || i >= _size )) in d:\projects\nollagames\fallingeverything\poro\source\utils\filesystem\../safearray/csafearray.h at line 75
+2021, 11, 21 - 23:29
+Assert failed: (!( i < 0 || i >= _size )) in d:\projects\nollagames\fallingeverything\poro\source\utils\filesystem\../safearray/csafearray.h at line 75
+2021, 11, 21 - 23:30
+Assert failed: (!( i < 0 || i >= _size )) in d:\projects\nollagames\fallingeverything\poro\source\utils\filesystem\../safearray/csafearray.h at line 75
+2021, 11, 21 - 23:34
+Assert failed: (!( i < 0 || i >= _size )) in d:\projects\nollagames\fallingeverything\poro\source\utils\filesystem\../safearray/csafearray.h at line 75

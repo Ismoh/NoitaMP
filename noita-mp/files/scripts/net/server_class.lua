@@ -33,9 +33,10 @@ end
 
 
 function Server:setSettings()
-    self.super:setSchema("worldFiles", {"fileFullpath", "fileContent"})
-    self.super:setSchema("seed", {"seed"})
-    self.super:setSchema("playerState", { "index", "player"})
+    self.super:setSchema("worldFiles", { "fileFullpath", "fileContent", "fileIndex", "amountOfFiles" })
+    self.super:setSchema("worldFilesFinished", { "progress" })
+    self.super:setSchema("seed", { "seed" })
+    self.super:setSchema("playerState", { "index", "player" })
 end
 
 
@@ -51,24 +52,31 @@ function Server:createCallbacks()
 
 
         -- Send client the servers world
-        local file_names = GetSavegameWorldFileNames()
+        --local amount_of_files = GetAmountOfWorldFiles()
+        local file_names, amount_of_files = GetSavegameWorldFileNames()
         for index, file_fullpath in ipairs(file_names) do
             print("server_class.lua | Sending world files to client: " .. index .. " " .. file_fullpath)
             local file_content = ReadSavegameWorldFile(file_fullpath)
-            peer:send("worldFiles", { file_fullpath, file_content })
+            peer:send("worldFiles", { file_fullpath, file_content, index, amount_of_files })
         end
 
-        -- Send restart command
-        peer:send("restart", {})
-
         -- Send client the servers seed
-        local seed = "" .. GetDailyPracticeRunSeed()
+        local seed = "" .. StatsGetValue("world_seed")
         print("server_class.lua | Sending seed to client: connection id = " .. peer:getConnectId() .. ", seed = " .. seed)
         self.super:sendToPeer(peer, "seed", {seed})
 
         -- Send a message back to the connected client
         local msg = "Hello from the server!" .. seed
         peer:send("hello", msg)
+    end)
+
+    self.super:on("worldFilesFinished", function(data, peer)
+        print("server_class.lua | on_worldFilesFinished: ")
+        print("server_class.lua | on_worldFilesFinished: data = " .. tostring(data))
+        print("server_class.lua | on_worldFilesFinished: client = " .. tostring(peer))
+
+        -- Send restart command
+        peer:send("restart", {"Restart now!"})
     end)
 
     -- Called when the client disconnects from the server
