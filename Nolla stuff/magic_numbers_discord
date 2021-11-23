@@ -1,0 +1,61 @@
+23:58] .twitch.tv/ismoh_: what are magic numbers used for? seed changer used it to set the world seed. I tried it, but looks like I need to name it magic_numbers.xml
+Is it "allowed" to have more than one? what can be inside this file?
+[23:58] .twitch.tv/ismoh_: are savegames depending on magic_numbers?
+[23:58] Horscht: it's basically just some settings that's in there, that's all, like a configuration file
+[23:58] Horscht: you can check out all (I think) the possible values in save00/magic_numbers.xml
+[23:59] Horscht: that file contains all the magic numbers used for the current run and some persist permanently
+[23:59] Horscht: you can override those values by registering your own magic numbers file using ModMagicNumbersFileAdd
+23. November 2021
+[00:00] Horscht: point it to any XML with the following structure and it will overwrite that value:
+<MagicNumbers 
+  DESIGN_PLAYER_START_POS_X="227" 
+  DESIGN_PLAYER_START_POS_Y="-85"
+></MagicNumbers>
+ (Bearbeitet)
+[00:00] Konnari: hey what tutorial should i watch, i wanna learn to mod noita and i know LUA pretty well already
+[00:01] peremptor: this is a good starter https://noita.fandom.com/wiki/Modding
+Noita Wiki
+Modding
+Notice: This page is written for aspiring modders. For installing mods, see the page How to install mods.
+
+Modding Noita is quite straightforward and fun, but can still hide many implementation details in itself. These pages hope to lower the barrier of entry and address any common pitfalls.
+All the tools you need to get started are:
+
+a proper t...
+
+[00:01] Konnari:  thanks!
+[00:02] Horscht: and yeah there can be any number of magic numbers files registered but I'm not sure if the first instance gets dibs on the change or the last
+[00:02] peremptor: is there any entity, that is guarenteed to be loaded. untill the game or the run is being closed ? i need something to tack my save values onto but they stop being accessible as soon as the player dies.
+@Horscht
+point it to any XML with the following structure and it will overwrite that value: <MagicNumbers    DESIGN_PLAYER_START_POS_X="227"    DESIGN_PLAYER_START_POS_Y="-85" ></MagicNumbers> (Bearbeitet)
+[00:03] .twitch.tv/ismoh_: ModMagicNumbersFileAdd has to set in ModPreInit()?
+@Horscht
+and yeah there can be any number of magic numbers files registered but I'm not sure if the first instance gets dibs on the change or the last
+[00:03] .twitch.tv/ismoh_: Sorry, I dont understand
+@peremptor
+is there any entity, that is guarenteed to be loaded. untill the game or the run is being closed ? i need something to tack my save values onto but they stop being accessible as soon as the player dies.
+[00:03] Horscht: you can just create your own entity or use the world state entity GameGetWorldStateEntity() but I've never modified it so I don't know how it will react
+@.twitch.tv/ismoh_
+ModMagicNumbersFileAdd has to set in ModPreInit()?
+[00:04] Horscht: ModMagicNumbersFileAdd has to be called before magic numbers are loaded, which is somewhere around mod intialization, I always use it at the top level outside any callback function (Bearbeitet)
+[00:05] .twitch.tv/ismoh_: Init.lua for instance
+[00:05] Horscht: after the game has been initialized, those values can't be changed anymore
+[00:05] .twitch.tv/ismoh_: That might be my problem (Bearbeitet)
+[00:05] Horscht: you can see it in the console when it happens
+Loading MagicNumbers (??SAV/magic_numbers.xml)
+Loading MagicNumbers (data/magic_numbers.xml)
+Loading MagicNumbers (mods/p2k/files/scripts/magic_numbers_resolution.xml)
+Loading MagicNumbers (mods/AdventureMode/_virtual/magic_numbers.xml)
+[00:07] .twitch.tv/ismoh_: ??SAV looks like to be the savegame, isnt it?
+[00:08] Horscht: yes
+[00:09] Giga Nuke™: Does anyone know where the sprites for the hungry/mournful ghost are located? I found the angry ghost but for some reason the other two are hard to find.
+[00:12] Horscht: data/projectiles_gfx/hungry_ghost.png
+[00:14] Giga Nuke™: Yeah just checked and it's not there for some reason, odd.
+[00:14] Horscht: did you unpack the data?
+[00:15] Giga Nuke™: Yeah, it was on my desktop for some time though so maybe I accidently deleted it. Lemme get a fresh unpack. (Bearbeitet)
+[00:17] Giga Nuke™: Yeah my bad, I found it after getting a fresh pack. My bad.
+[00:37] .twitch.tv/ismoh_: I would like to continue modding, but I have a really bad cold and I am just doing a lot of mistakes.. Cant think properly!
+[00:37] .twitch.tv/ismoh_: took the magic numbers to my note, thanks @Horscht
+[00:38] .twitch.tv/ismoh_: one last thing: my magic_numbers shouldnt be in mods/noita-mp/data, because I dont want to override anything?!
+[00:39] .twitch.tv/ismoh_: besides world seed for now
+[00:39] .twitch.tv/ismoh_: ok, nevermind XD

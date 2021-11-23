@@ -34,25 +34,40 @@ if not initialized then
             GuiImage(gui, next_id(), 10, bottom_y, "data/ui_gfx/button_fold_open.png" , 1,1,1)
             GuiTooltip(gui, "", "")
 
-            --GuiColorSetForNextWidget(gui, 1, 0, 0, 1)
-            local start_server_clicked, right_clicked = GuiButton(gui, next_id(), 15, bottom_y, "Start server!")
-            if start_server_clicked then
-                _G.Server:create()
+            ------------ Start server
+            if _G.Server == nil or next(_G.Server) == nil or _G.Server.super == nil or next(_G.Server.super) == nil then
+                GuiColorSetForNextWidget(gui, 0, 1, 0, 1)
+                if GuiButton(gui, next_id(), 15, bottom_y, "Start server!") then
+                    _G.Server:create()
+                end
+                GuiTooltip(gui, "", "Will connect to " .. tostring(ModSettingGet("noita-mp.server_ip")) .. tostring(ModSettingGet("noita-mp.server_port")))
+            else
+            ------------ Stop server
+                GuiColorSetForNextWidget(gui, 1, 0, 0, 1)
+                if GuiButton(gui, next_id(), 15, bottom_y, "Stop server!") then
+                    _G.Server.super:destroy()
+                end
             end
-            GuiTooltip(gui, "", "")
 
-            --GuiColorSetForNextWidget(gui, 1, 0, 0, 1)
-            local connect_server_clicked, right_clicked = GuiButton(gui, next_id(), 15, bottom_y, "Connect to friends server!")
-            if connect_server_clicked then
-                _G.Client:connect()
+            ------------ Connect
+            if _G.Client == nil or next(_G.Client) == nil or _G.Client.super:isDisconnected() and not _G.Client.super:isConnecting() then
+                GuiColorSetForNextWidget(gui, 0, 1, 0, 1)
+                if GuiButton(gui, next_id(), 15, bottom_y, "Connect!") then
+                    _G.Client:connect()
+                end
+                GuiTooltip(gui, "", "Will connect to " .. tostring(ModSettingGet("noita-mp.connect_server_ip")) .. tostring(ModSettingGet("noita-mp.connect_server_port")))
+            else
+            ------------- Disconnect
+                GuiColorSetForNextWidget(gui, 1, 0, 0, 1)
+                if GuiButton(gui, next_id(), 15, bottom_y, "Disconnect!") then
+                    _G.Client:connect()
+                end
             end
-            GuiTooltip(gui, "", "")
 
             if _G.Client ~= nil and next(_G.Client) ~= nil then
                 local rtt = tonumber(_G.Client.super:getRoundTripTime())
                 --GuiColorSetForNextWidget(gui, 1, 0, 0, 1) TODO rtt / ? = red
                 GuiText(gui, 15, bottom_y,  rtt .. "ms")
-                --GuiTooltip(gui, "", "")
             end
 
         GuiLayoutEnd(gui)

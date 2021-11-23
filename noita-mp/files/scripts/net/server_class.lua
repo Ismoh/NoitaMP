@@ -119,15 +119,11 @@ end
 
 
 -- Create a new global object of the server
+_G.Server = Server:new()
 if ModSettingGet("noita-mp.server_start_when_world_loaded") then
-    local ip = ModSettingGet("noita-mp.server_ip") print("server_class.lua | Server IP = " .. ip)
-    local port = tonumber(ModSettingGet("noita-mp.server_port")) print("server_class.lua | Server Port = " .. port)
-    _G.Server = Server:new(nil, ip, port)
-
+    _G.Server:create()
     GamePrintImportant( "Server started", "Your server is running on "
-        .. Server.super:getAddress() .. ":" .. Server.super:getPort() .. ". Tell your friends to join!")
+        .. _G.Server.super:getAddress() .. ":" .. _G.Server.super:getPort() .. ". Tell your friends to join!")
 else
     GamePrintImportant( "Server not started", "Your server wasn't started yet. Check ModSettings to change this or Press M to open multiplayer menu.")
-
-    _G.Server = Server:new()
 end
