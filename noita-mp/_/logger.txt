@@ -1,4 +1,0 @@
-Noita (Apr 23 2021) - 20211121-233422
--------------------------------------------
-Failed to load XML file - config.xml
-LoadImage() - Failed to load image: data/ui_gfx/mouse_cursor_big.png

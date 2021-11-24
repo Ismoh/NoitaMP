@@ -26,7 +26,7 @@ end
 
 function Client:setSettings()
     self.super:setTimeout(320, 50000, 100000)
-    self.super:setSchema("worldFiles", { "fileFullpath", "fileContent", "fileIndex", "amountOfFiles" })
+    self.super:setSchema("worldFiles", { "relDirPath", "fileName", "fileContent", "fileIndex", "amountOfFiles" })
     self.super:setSchema("worldFilesFinished", { "progress" })
     self.super:setSchema("seed", { "seed" })
     self.super:setSchema("playerState", { "index", "player" })
@@ -47,16 +47,17 @@ function Client:createCallbacks()
             return
         end
 
-        local file_fullpath = data.fileFullpath
+        local rel_dir_path = data.relDirPath
+        local file_name = data.fileName
         local file_content = data.fileContent
         local file_index = data.fileIndex
         local amount_of_files = data.amountOfFiles
 
-        if file_fullpath then
+        if file_name then
             print("client_class.lua | Receiving world file " .. file_index .. " / " .. amount_of_files .. " from server.")
-            print("client_class.lua | Receiving world files from server: " .. file_fullpath)
-            GamePrint("client_class.lua | Receiving world files from server: " .. file_fullpath)
-            WriteBinaryFile(file_fullpath, file_content)
+            print("client_class.lua | Receiving world files from server: " .. rel_dir_path .. _G.path_separator .. file_name)
+            GamePrint("client_class.lua | Receiving world files from server: " .. rel_dir_path .. _G.path_separator .. file_name)
+            WriteBinaryFile(GetDirPathOfSave00() .. _G.path_separator .. rel_dir_path .. _G.path_separator .. file_name, file_content)
         else
             GamePrint("client_class.lua | Unable to write file, because path and content aren't set.")
         end

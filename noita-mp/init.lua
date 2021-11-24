@@ -59,7 +59,7 @@ if enet == nil then
     else
         print(tostring(enet))
         print("enet c library '" .. fileName .. "' was loaded by require load.")
-        require("enet.dll")
+        require(fileName)
     end
 end
 
@@ -83,7 +83,6 @@ end
 
 
 function OnPlayerSpawned( player_entity ) -- This runs when player entity has been created
-
     -- if Server.super then
     --     GamePrintImportant( "Server started", "Your server is running on "
     --     .. Server.super:getAddress() .. ":" .. Server.super:getPort() .. ". Tell your friends to join!")

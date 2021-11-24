@@ -189,6 +189,9 @@ end
 function Listener:addCallback(event, callback)
     if not self.triggers[event] then
         self.triggers[event] = {}
+    else
+        print("sock.lua | addCallback | There is already a callback set for event " .. event .. ". This callback won't be added. Returning nil!")
+        return nil
     end
 
     table.insert(self.triggers[event], callback)

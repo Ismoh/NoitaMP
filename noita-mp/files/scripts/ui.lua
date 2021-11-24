@@ -40,12 +40,12 @@ if not initialized then
                 if GuiButton(gui, next_id(), 15, bottom_y, "Start server!") then
                     _G.Server:create()
                 end
-                GuiTooltip(gui, "", "Will connect to " .. tostring(ModSettingGet("noita-mp.server_ip")) .. tostring(ModSettingGet("noita-mp.server_port")))
+                GuiTooltip(gui, "", "Start a server on " .. tostring(ModSettingGet("noita-mp.server_ip")) .. ":" .. tostring(ModSettingGet("noita-mp.server_port")))
             else
             ------------ Stop server
                 GuiColorSetForNextWidget(gui, 1, 0, 0, 1)
                 if GuiButton(gui, next_id(), 15, bottom_y, "Stop server!") then
-                    _G.Server.super:destroy()
+                    _G.Server:destroy()
                 end
             end
 
@@ -55,7 +55,7 @@ if not initialized then
                 if GuiButton(gui, next_id(), 15, bottom_y, "Connect!") then
                     _G.Client:connect()
                 end
-                GuiTooltip(gui, "", "Will connect to " .. tostring(ModSettingGet("noita-mp.connect_server_ip")) .. tostring(ModSettingGet("noita-mp.connect_server_port")))
+                GuiTooltip(gui, "", "Will connect to " .. tostring(ModSettingGet("noita-mp.connect_server_ip")) .. ":" .. tostring(ModSettingGet("noita-mp.connect_server_port")))
             else
             ------------- Disconnect
                 GuiColorSetForNextWidget(gui, 1, 0, 0, 1)

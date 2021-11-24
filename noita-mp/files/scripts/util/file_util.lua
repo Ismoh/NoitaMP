@@ -59,11 +59,74 @@ function GetPathOfScript()
 end
 
 
---- Returns the worlds folder depending on devBuild or release
----@return string world_path : noita installation path, %appdata%\..\LocalLow\Nolla_Games_Noita\ on windows and unknown for unix systems
-function GetWorldFolder()
-    local file = nil
+----------------------------------------------------------------------------------------------------
+-- Savegame / world stuff
+----------------------------------------------------------------------------------------------------
 
+---comment
+function GetDirAndFilesOfSave00()
+    local dir_save_00 = "save00"
+    local command = 'dir "%appdata%\\..\\LocalLow\\Nolla_Games_Noita\\' .. dir_save_00 .. '" /b/s'
+    if DebugGetIsDevBuild() then
+        command = "dir " .. dir_save_00 .. " /b/s"
+    end
+    if unix then
+        error("Unix system are not supported yet :(",2)-- use ls bla bla
+    end
+
+    local file = assert(io.popen(command, "r"), "Unable to execute command: " .. command)
+    local path = ""
+    local t = {}
+    local i = 1
+    while path ~= nil do
+        path = file:read("*l")
+
+        if path ~=nil and path ~= "" then
+            -- C:\Program Files (x86)\Steam\steamapps\common\Noita\save00\world\.autosave_player
+            -- to world\.autosave_player
+            local index_start, index_end = string.find(path, dir_save_00 .. "\\")
+            local relative = string.sub(path, index_end + 1) -- +1 to get rid of \ or /
+
+            local dir_name = ""
+            local file_name = ""
+
+            if IsDir(path) then
+                dir_name = relative
+            else
+                local t_match = {}
+                local i_match = 0
+                for match in relative:gmatch("[^\\" .. path_separator .. "]*") do
+                    if match ~= "" then
+                        i_match = i_match + 1
+                        t_match[i_match] = match
+                    end
+                end
+
+                for ind, dir_or_file in ipairs(t_match) do
+                    if ind < i_match then
+                        dir_name = dir_name .. dir_or_file .. path_separator
+                    else
+                        file_name = dir_or_file
+                    end
+                end
+            end
+
+            if string.sub(dir_name, -1, -1) == path_separator then -- check for trailing path separator
+                dir_name = string.sub(dir_name, 1, -2) -- remove it
+            end
+
+            t[i] = { dir_name, file_name }
+            i = i + 1
+        end
+    end
+    return t, i
+end
+
+
+--- Returns fullpath of save00 directory on devBuild or release
+--- @return string world_path : noita installation path\save00, %appdata%\..\LocalLow\Nolla_Games_Noita\save00 on windows and unknown for unix systems
+function GetDirPathOfSave00()
+    local file = nil
     if unix then
         error("file_util.lua | Unix systems are not supported yet. I am sorry! :(")
     end
@@ -74,13 +137,12 @@ function GetWorldFolder()
         file = assert(io.popen("dir \"%appdata%\\..\\LocalLow\\Nolla_Games_Noita\" /s/b/ad", "r"))
     end
 
-    --local content = file:read("*a")
     local world_path = nil
     local line = ""
     while line ~= nil do
         line = file:read("*l")
         if string.find(line, "save00") then
-            world_path = line .. "\\world"
+            world_path = line -- .. "\\world"
             break
         end
     end
@@ -92,6 +154,28 @@ function GetWorldFolder()
 
     world_path = ReplacePathSeparator(world_path)
     return world_path
+end
+
+
+function GetSavegameWorldFileNames()
+    local command = ""
+    if windows then
+        command = 'dir "' .. GetWorldFolder() .. '" /b /a-d'
+    end
+    -- if unix then
+    --     path = "??"
+    --     command = "ls -a " .. path -- TODO where are the savegames stored on unix?
+    -- end
+
+    -- https://stackoverflow.com/a/11130774/3493998
+    local i, t, popen = 0, {}, io.popen
+    local pfile = popen(command)
+    for file_name in pfile:lines() do
+        i = i + 1
+        t[i] = file_name
+    end
+    pfile:close()
+    return t, i
 end
 
 
@@ -164,33 +248,38 @@ function GetAbsolutePathOfRequiredLibs()
 end
 
 ----------------------------------------------------------------------------------------------------
+-- File and Directory checks, writing and reading
+----------------------------------------------------------------------------------------------------
 
 function FileExists(path)
-    path = ReplacePathSeparator(path)
-    local file = io.open(path, "rb")
-    if file then file:close() end
-    return file ~= nil
+    -- path = ReplacePathSeparator(path)
+    -- local file = io.open(path, "rb")
+    -- if file then file:close() end
+    -- return file ~= nil
+    return Exists(path)
   end
 
-function GetSavegameWorldFileNames()
-    local command = ""
-    if windows then
-        command = 'dir "' .. GetWorldFolder() .. '" /s/b'
-    end
-    -- if unix then
-    --     path = "??"
-    --     command = "ls -a " .. path -- TODO where are the savegames stored on unix?
-    -- end
+function Exists(name)
+    -- https://stackoverflow.com/a/21637809/3493998
+    if type(name)~="string" then return false end
+    return os.rename(name,name) and true or false
+end
 
-    -- https://stackoverflow.com/a/11130774/3493998
-    local i, t, popen = 0, {}, io.popen
-    local pfile = popen(command)
-    for file_fullpath in pfile:lines() do
-        i = i + 1
-        t[i] = file_fullpath
+function IsFile(name)
+    -- https://stackoverflow.com/a/21637809/3493998
+    if type(name)~="string" then return false end
+    if not Exists(name) then return false end
+    local f = io.open(name)
+    if f then
+        f:close()
+        return true
     end
-    pfile:close()
-    return t, i
+    return false
+end
+
+function IsDir(name)
+    -- https://stackoverflow.com/a/21637809/3493998
+    return (Exists(name) and not IsFile(name))
 end
 
 
@@ -224,12 +313,15 @@ function WriteFile(file_fullpath, file_content)
     fh:close()
 end
 
+----------------------------------------------------------------------------------------------------
+-- Noita restart, yay!
+----------------------------------------------------------------------------------------------------
 
 function RestartNoita()
     local exe = "noita.exe"
     if DebugGetIsDevBuild() then
         exe = "noita_dev.exe"
     end
-    os.execute("start \"\" " .. exe .. " -save_slot 0 -gamemode 0")
+    os.execute("start \"\" " .. exe .. " -no_logo_splashes -save_slot 0 -gamemode 0")
     os.exit()
 end

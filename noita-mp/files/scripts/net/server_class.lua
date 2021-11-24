@@ -17,23 +17,14 @@ function Server:new(o, super, address, port)
     setmetatable(o, self)
     self.__index = self
     self.super = super
-    self.address = tostring(address) -- or ModSettingGet("noita-mp.server_ip")) print("server_class.lua | self.address = " .. self.address)
-    self.port = tonumber(port) -- or ModSettingGet("noita-mp.server_port")) print("server_class.lua | self.port = " .. self.port)
-
-    -- if self.port ~= nil and type(self.port) == "number" and self.address ~= nil and type(self.address) == "string" then
-    --     self.super = sock.newServer(self.address, self.port)
-    --     print("server_class.lua | Server started on " .. self.super:getAddress() .. ":" .. self.super:getPort())
-    -- else
-    --     print("server_class.lua | Unable to instantiate server object, because address and port are missing.")
-    --     --GamePrintImportant("Unable to instantiate server object, because address and port are missing.")
-    -- end
-
+    self.address = tostring(address)
+    self.port = tonumber(port)
     return o
 end
 
 
 function Server:setSettings()
-    self.super:setSchema("worldFiles", { "fileFullpath", "fileContent", "fileIndex", "amountOfFiles" })
+    self.super:setSchema("worldFiles", { "relDirPath", "fileName", "fileContent", "fileIndex", "amountOfFiles" })
     self.super:setSchema("worldFilesFinished", { "progress" })
     self.super:setSchema("seed", { "seed" })
     self.super:setSchema("playerState", { "index", "player" })
@@ -53,11 +44,13 @@ function Server:createCallbacks()
 
         -- Send client the servers world
         --local amount_of_files = GetAmountOfWorldFiles()
-        local file_names, amount_of_files = GetSavegameWorldFileNames()
-        for index, file_fullpath in ipairs(file_names) do
-            print("server_class.lua | Sending world files to client: " .. index .. " " .. file_fullpath)
-            local file_content = ReadSavegameWorldFile(file_fullpath)
-            peer:send("worldFiles", { file_fullpath, file_content, index, amount_of_files })
+        local dir_and_file_pair, amount_of_files = GetDirAndFilesOfSave00()
+        for index, pair in ipairs(dir_and_file_pair) do
+            local rel_dir_path = pair[1]
+            local file_name = pair[2]
+            print("server_class.lua | Sending world files to client: " .. index .. " " .. rel_dir_path .. _G.path_separator .. file_name)
+            local file_content = ReadSavegameWorldFile( GetDirPathOfSave00() .. _G.path_separator .. rel_dir_path .. _G.path_separator .. file_name)
+            peer:send("worldFiles", { rel_dir_path, file_name, file_content, index, amount_of_files })
         end
 
         -- Send client the servers seed
@@ -109,6 +102,12 @@ function Server:create()
 end
 
 
+function Server:destroy()
+    _G.Server.super:destroy()
+    _G.Server = Server:new()
+end
+
+
 function Server:update()
     if not self.super then
         return -- server not established
@@ -122,8 +121,6 @@ end
 _G.Server = Server:new()
 if ModSettingGet("noita-mp.server_start_when_world_loaded") then
     _G.Server:create()
-    GamePrintImportant( "Server started", "Your server is running on "
-        .. _G.Server.super:getAddress() .. ":" .. _G.Server.super:getPort() .. ". Tell your friends to join!")
 else
     GamePrintImportant( "Server not started", "Your server wasn't started yet. Check ModSettings to change this or Press M to open multiplayer menu.")
 end
