@@ -44,7 +44,7 @@ end
 
 --- Returns the relative path to the parent folder of the script, which executes this function.
 --- Slash at the end is removed.
----@return string|number match_last_slash i.e.: "mods/files/scripts"
+--- @return string|number match_last_slash i.e.: "mods/files/scripts"
 function GetPathOfScript()
     local rel_path_to_this_script = debug.getinfo(2, "S").source:sub(1)
 
@@ -63,7 +63,9 @@ end
 -- Savegame / world stuff
 ----------------------------------------------------------------------------------------------------
 
----comment
+--- Returns files with its associated directory path relative to \save00
+--- @return table [1] { "\dir1\dir2" , "filename" }
+--- @return integer amount of files within save00 (rekursive)
 function GetDirAndFilesOfSave00()
     local dir_save_00 = "save00"
     local command = 'dir "%appdata%\\..\\LocalLow\\Nolla_Games_Noita\\' .. dir_save_00 .. '" /b/s'
@@ -124,7 +126,7 @@ end
 
 
 --- Returns fullpath of save00 directory on devBuild or release
---- @return string world_path : noita installation path\save00, %appdata%\..\LocalLow\Nolla_Games_Noita\save00 on windows and unknown for unix systems
+--- @return string save00_path : noita installation path\save00, %appdata%\..\LocalLow\Nolla_Games_Noita\save00 on windows and unknown for unix systems
 function GetDirPathOfSave00()
     local file = nil
     if unix then
@@ -137,77 +139,29 @@ function GetDirPathOfSave00()
         file = assert(io.popen("dir \"%appdata%\\..\\LocalLow\\Nolla_Games_Noita\" /s/b/ad", "r"))
     end
 
-    local world_path = nil
+    local save00_path = nil
     local line = ""
     while line ~= nil do
         line = file:read("*l")
         if string.find(line, "save00") then
-            world_path = line -- .. "\\world"
+            save00_path = line -- .. "\\world"
             break
         end
     end
     file:close()
 
-    if world_path == nil or world_path == "" then
+    if save00_path == nil or save00_path == "" then
         GamePrintImportant("Unable to find world files","Do yourself a favour and save&quit the game and start it again!")
     end
 
-    world_path = ReplacePathSeparator(world_path)
-    return world_path
+    save00_path = ReplacePathSeparator(save00_path)
+    return save00_path
 end
-
-
-function GetSavegameWorldFileNames()
-    local command = ""
-    if windows then
-        command = 'dir "' .. GetWorldFolder() .. '" /b /a-d'
-    end
-    -- if unix then
-    --     path = "??"
-    --     command = "ls -a " .. path -- TODO where are the savegames stored on unix?
-    -- end
-
-    -- https://stackoverflow.com/a/11130774/3493998
-    local i, t, popen = 0, {}, io.popen
-    local pfile = popen(command)
-    for file_name in pfile:lines() do
-        i = i + 1
-        t[i] = file_name
-    end
-    pfile:close()
-    return t, i
-end
-
-
--- function GetAmountOfWorldFiles()
---     local file = nil
-
---     if unix then
---         error("file_util.lua | Unix systems are not supported yet. I am sorry! :(")
---     end
-
---     local command = 'dir "' .. GetWorldFolder() .. '" /s/b'
---     file = assert(io.popen(command, "r"), "Unable to count world files. command: " .. command)
-
---     local count = 0
---     local line = ""
---     while line ~= nil do
---         line = file:read("*l")
---         count = count + 1
---     end
---     file:close()
-
---     if count <= 0 then
---         GamePrintImportant("Unable to find world files","Do yourself a favour and save&quit the game and start it again! Count = " .. count)
---     end
-
---     return count
--- end
 
 
 --- Returns the ABSOLUTE path of the mods folder.
 --- If _G.noita_root_path is not set yet, then it will be
----@return string _G.noita_root_path .. "/mods"
+--- @return string _G.noita_root_path .. "/mods"
 function GetAbsolutePathOfModFolder()
     if not _G.noita_root_path then
         SetNoitaRootAbsolutePath()
@@ -219,7 +173,7 @@ end
 
 
 --- Returns the RELATIVE path of the mods folder.
----@return string "mods/noita-mp"
+--- @return string "mods/noita-mp"
 function GetRelativePathOfModFolder()
     local p = "mods/noita-mp"
     p = ReplacePathSeparator(p)
@@ -227,7 +181,7 @@ function GetRelativePathOfModFolder()
 end
 
 --- Returns the RELATIVE path of the library folder required for this mod.
----@return string "/mods/noita-mp/files/libs"
+--- @return string "/mods/noita-mp/files/libs"
 function GetRelativePathOfRequiredLibs()
     local p = "mods/noita-mp/files/libs"
     p = ReplacePathSeparator(p)
@@ -237,7 +191,7 @@ end
 
 --- Returns the ABSOLUTE path of the library folder required for this mod.
 --- If _G.noita_root_path is not set yet, then it will be
----@return string _G.noita_root_path .. "/mods/noita-mp/files/libs"
+--- @return string _G.noita_root_path .. "/mods/noita-mp/files/libs"
 function GetAbsolutePathOfRequiredLibs()
     if not _G.noita_root_path then
         SetNoitaRootAbsolutePath()
@@ -247,23 +201,17 @@ function GetAbsolutePathOfRequiredLibs()
     return p
 end
 
+
 ----------------------------------------------------------------------------------------------------
 -- File and Directory checks, writing and reading
 ----------------------------------------------------------------------------------------------------
-
-function FileExists(path)
-    -- path = ReplacePathSeparator(path)
-    -- local file = io.open(path, "rb")
-    -- if file then file:close() end
-    -- return file ~= nil
-    return Exists(path)
-  end
 
 function Exists(name)
     -- https://stackoverflow.com/a/21637809/3493998
     if type(name)~="string" then return false end
     return os.rename(name,name) and true or false
 end
+
 
 function IsFile(name)
     -- https://stackoverflow.com/a/21637809/3493998
@@ -277,13 +225,14 @@ function IsFile(name)
     return false
 end
 
+
 function IsDir(name)
     -- https://stackoverflow.com/a/21637809/3493998
     return (Exists(name) and not IsFile(name))
 end
 
 
-function ReadSavegameWorldFile(file_fullpath)
+function ReadBinaryFile(file_fullpath)
     file_fullpath = ReplacePathSeparator(file_fullpath)
     -- https://stackoverflow.com/a/31857671/3493998
     local file = io.open(file_fullpath, "rb") -- r read mode and b binary mode

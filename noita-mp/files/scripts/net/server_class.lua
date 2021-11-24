@@ -49,7 +49,7 @@ function Server:createCallbacks()
             local rel_dir_path = pair[1]
             local file_name = pair[2]
             print("server_class.lua | Sending world files to client: " .. index .. " " .. rel_dir_path .. _G.path_separator .. file_name)
-            local file_content = ReadSavegameWorldFile( GetDirPathOfSave00() .. _G.path_separator .. rel_dir_path .. _G.path_separator .. file_name)
+            local file_content = ReadBinaryFile( GetDirPathOfSave00() .. _G.path_separator .. rel_dir_path .. _G.path_separator .. file_name)
             peer:send("worldFiles", { rel_dir_path, file_name, file_content, index, amount_of_files })
         end
 
