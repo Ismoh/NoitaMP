@@ -43,15 +43,25 @@ function Server:createCallbacks()
 
 
         -- Send client the servers world
-        --local amount_of_files = GetAmountOfWorldFiles()
-        local dir_and_file_pair, amount_of_files = GetDirAndFilesOfSave00()
-        for index, pair in ipairs(dir_and_file_pair) do
-            local rel_dir_path = pair[1]
-            local file_name = pair[2]
-            print("server_class.lua | Sending world files to client: " .. index .. " " .. rel_dir_path .. _G.path_separator .. file_name)
-            local file_content = ReadBinaryFile( GetDirPathOfSave00() .. _G.path_separator .. rel_dir_path .. _G.path_separator .. file_name)
-            peer:send("worldFiles", { rel_dir_path, file_name, file_content, index, amount_of_files })
-        end
+        -- local dir_and_file_pair, amount_of_files = GetRelativeDirectoryAndFilesOfSave00()
+        -- for index, pair in ipairs(dir_and_file_pair) do
+        --     local rel_dir_path = pair[1]
+        --     local file_name = pair[2]
+        --     local path = GetAbsoluteDirectoryPathOfSave00() .. _G.path_separator .. rel_dir_path .. _G.path_separator .. file_name
+
+        --     local file_content = ""
+        --     if IsFile(path) then
+        --         file_content = ReadBinaryFile(path)
+        --     end
+
+        --     print(("server_class.lua | Sending world files to client: dir:%s, file:%s, content:%s, index:%s, amount:%s"):format(rel_dir_path, file_name, file_content, index, amount_of_files))
+        --     peer:send("worldFiles", { rel_dir_path, file_name, file_content, index, amount_of_files })
+        -- end
+        local archive_name = "server_save00_" .. os.date("%Y-%m-%d_%H-%M-%S")
+        local archive_content = Create7zipArchive(archive_name .. "_from_server",
+                                                    GetAbsoluteDirectoryPathOfSave00(),
+                                                    GetAbsoluteDirectoryPathOfMods() .. _G.path_separator .. "_")
+        peer:send("worldFiles", { "_", archive_name .. "_for_client.7z", archive_content, 1, 1 })
 
         -- Send client the servers seed
         local seed = "" .. StatsGetValue("world_seed")
@@ -59,8 +69,8 @@ function Server:createCallbacks()
         self.super:sendToPeer(peer, "seed", {seed})
 
         -- Send a message back to the connected client
-        local msg = "Hello from the server!" .. seed
-        peer:send("hello", msg)
+        -- local msg = "Hello from the server!" .. seed
+        -- peer:send("hello", msg)
     end)
 
     self.super:on("worldFilesFinished", function(data, peer)

@@ -1,0 +1,3 @@
+This is simply a backup directory for server savegames.
+Whenever you create or receive a savegame something like 'server_save00_98-09-16_23:48:10.7z' will be added.
+Do not anything here, because it will be simply ignored :)

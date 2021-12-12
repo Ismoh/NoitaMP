@@ -1,22 +1,22 @@
 dofile("mods/noita-mp/files/scripts/util/util.lua")
 
-SetNoitaRootAbsolutePath()
+SetAbsolutePathOfNoitaRootDirectory()
 
 -- Need to add module package to package path, because relative paths are not working
 package.path = package.path .. ";"
-.. string.gsub(GetRelativePathOfRequiredLibs() .. "/?.lua;", "/", "\\")
-.. string.gsub(GetAbsolutePathOfRequiredLibs() .. "/?.lua;", "/", "\\")
+.. string.gsub(GetRelativeDirectoryPathOfRequiredLibs() .. "/?.lua;", "/", "\\")
+.. string.gsub(GetAbsoluteDirectoryPathOfRequiredLibs() .. "/?.lua;", "/", "\\")
 print(package.path)
 
 package.cpath = package.cpath .. ";"
-.. string.gsub(GetRelativePathOfRequiredLibs() .. "/?.dll;", "/", "\\")
-.. string.gsub(GetAbsolutePathOfRequiredLibs() .. "/?.dll;", "/", "\\")
+.. string.gsub(GetRelativeDirectoryPathOfRequiredLibs() .. "/?.dll;", "/", "\\")
+.. string.gsub(GetAbsoluteDirectoryPathOfRequiredLibs() .. "/?.dll;", "/", "\\")
 print(package.cpath)
 
 
 ModMagicNumbersFileAdd("mods/noita-mp/files/data/magic_numbers.xml")
 print("init.lua | loading world seed magic number xml file.")
-local world_seed_magic_numbers_path = GetAbsolutePathOfModFolder() .. "/files/tmp/magic_numbers/world_seed.xml"
+local world_seed_magic_numbers_path = GetAbsoluteDirectoryPathOfMods() .. "/files/tmp/magic_numbers/world_seed.xml"
 if Exists(world_seed_magic_numbers_path) then
     GamePrint("init.lua | Loading " .. world_seed_magic_numbers_path)
     ModMagicNumbersFileAdd(world_seed_magic_numbers_path)
@@ -32,7 +32,7 @@ if enet == nil then
 
     if not enet then
         print(tostring(enet))
-        local rel_path = GetRelativePathOfRequiredLibs() .. "/" .. fileName
+        local rel_path = GetRelativeDirectoryPathOfRequiredLibs() .. "/" .. fileName
         rel_path = string.gsub(rel_path, "/", "\\")
         print("Trying to load enet c library by relative path with '" .. rel_path .. "' loading.. Does file exists? " .. tostring(Exists(rel_path)))
         enet = package.loadlib(rel_path, "luaopen_enet")
@@ -40,7 +40,7 @@ if enet == nil then
 
     if not enet then
         print(tostring(enet))
-        local abs_path = GetAbsolutePathOfRequiredLibs() .. "/" .. fileName
+        local abs_path = GetAbsoluteDirectoryPathOfRequiredLibs() .. "/" .. fileName
         abs_path = string.gsub(abs_path, "/", "\\")
         print("Trying to load enet c library by absolute path with '" .. abs_path .. "' loading.. Does file exists? " .. tostring(Exists(abs_path)))
         enet = package.loadlib(abs_path, "luaopen_enet")
@@ -63,6 +63,7 @@ if enet == nil then
     end
 end
 
+Find7zipExecutable()
 
 function OnModPreInit()
     -- the seed is set when first time connecting to a server, otherwise 0
