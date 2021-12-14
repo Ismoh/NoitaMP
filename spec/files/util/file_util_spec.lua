@@ -13,6 +13,16 @@ describe("file_util.lua", function()
             assert.are_not.equals(path, result)
             assert.are.equals("//test//path//123", result)
     end)
+        
+    it("is_windows = false (unix)", function()
+      _G.is_windows = false -- TODO: mock this on a better way: https://olivinelabs.com/busted/#spies-mocks-stubs
+      local path = "//test//path//123"
+      local result = ReplacePathSeparator(path)
+            
+            assert.has_no.errors(ReplacePathSeparator(path))
+            assert.are_not.equals(path, result)
+            assert.are.equals("\test\path\123", result)
+    end)
   end)
 
   -- more tests pertaining to the top level
