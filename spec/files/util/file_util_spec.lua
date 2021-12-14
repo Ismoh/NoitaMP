@@ -1,3 +1,5 @@
+require 'ReplacePathSeparator'
+
 describe("file_util.lua", function()
   -- tests go here
 
