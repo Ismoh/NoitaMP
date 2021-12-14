@@ -1,4 +1,4 @@
-package = "NoitaMP"
+package = "noitamp"
 version = "dev-1"
 
 source = {
@@ -13,14 +13,4 @@ description = {
 
 dependencies = {
   "lua = 5.1",
-  "lpeg",
-  "luasocket",
-  "lua-cjson",
-}
-
-build = {
-  type = "builtin",
-  modules = {
-    ["NoitaMP"] = "NoitaMP/init.lua"
-  }
 }
