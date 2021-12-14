@@ -1,5 +1,3 @@
-require("file_util.lua")
-
 describe("file_util.lua", function()
   -- tests go here
 
