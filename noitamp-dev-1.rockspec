@@ -15,4 +15,11 @@ dependencies = {
   "lua = 5.1",
 }
 
-build = {}
+build = {
+  type = "builtin",
+  modules = {
+    ["NoitaMP"] = {
+      sources = ["./noita-mp/init.lua", "./noita-mp/settings.lua", "./noita-mp/init.lua", "./noita-mp/files/"]      
+    }
+  }
+}
