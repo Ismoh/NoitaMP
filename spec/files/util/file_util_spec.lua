@@ -1,4 +1,4 @@
-require '/home/runner/work/NoitaMP/NoitaMP/noita-mp/files/scripts/util/file_util.lua'
+dofile("../noita-mp/files/scripts/util/file_util.lua")
 
 describe("file_util.lua", function()
   -- tests go here
