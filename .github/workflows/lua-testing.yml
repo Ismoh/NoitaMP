@@ -16,7 +16,7 @@ jobs:
       run: |
         ################ install lua manually: https://github.com/luarocks/luarocks/wiki/Installation-instructions-for-Unix
         echo "> sudo apt install build-essential libreadline-dev unzip"
-        sudo apt install build-essential libreadline-dev unzip
+        apt install build-essential libreadline-dev unzip
         
         echo "> curl -R -O http://www.lua.org/ftp/lua-5.1.5.tar.gz"
         curl -R -O http://www.lua.org/ftp/lua-5.1.5.tar.gz
@@ -28,10 +28,10 @@ jobs:
         cd lua-5.1.5
         
         echo "> sudo make linux test"
-        sudo make linux test
+        make linux test
 
         echo "> sudo make install INSTALL_TOP=${{ github.workspace }}/lua51"
-        sudo make install INSTALL_TOP=${{ github.workspace }}/lua51
+        make install INSTALL_TOP=${{ github.workspace }}/lua51
 
         echo "> ls -lsa ${{ github.workspace }}/lua51"
         ls -lsa ${{ github.workspace }}/lua51
@@ -47,13 +47,13 @@ jobs:
         cd luarocks-2.0.4
 
         echo "> sudo ./configure --prefix=${{ github.workspace }}/luarocks --with-lua-include=${{ github.workspace }}/lua51/include --with-lua=${{ github.workspace }}/lua51"
-        sudo ./configure --prefix=${{ github.workspace }}/luarocks --with-lua-include=${{ github.workspace }}/lua51/include --with-lua=${{ github.workspace }}/lua51
+        ./configure --prefix=${{ github.workspace }}/luarocks --with-lua-include=${{ github.workspace }}/lua51/include --with-lua=${{ github.workspace }}/lua51
 
         echo "> sudo make"
-        sudo make
+        make
 
         echo "> sudo make install"
-        sudo make install
+        make install
 
         echo "> ls -lsa ${{ github.workspace }}/luarocks"
         ls -lsa ${{ github.workspace }}/luarocks
@@ -71,13 +71,13 @@ jobs:
       run: |
         ################ run luarocks commands
         echo "> sudo luarocks install luacov"
-        sudo ${{ github.workspace }}/luarocks/bin/luarocks install luacov
+        ${{ github.workspace }}/luarocks/bin/luarocks install luacov
 
         echo "> sudo luarocks install busted"
-        sudo ${{ github.workspace }}/luarocks/bin/luarocks install busted
+        ${{ github.workspace }}/luarocks/bin/luarocks install busted
 
         echo "> sudo luarocks install luasystem" # https://githubmemory.com/repo/Olivine-Labs/busted/issues/650
-        sudo ${{ github.workspace }}/luarocks/bin/luarocks install luasystem
+        ${{ github.workspace }}/luarocks/bin/luarocks install luasystem
 
 
         echo "> ls -lsa ${{ github.workspace }}/luarocks"
@@ -94,10 +94,10 @@ jobs:
 
 
         echo "> sudo busted -o utfTerminal"
-        sudo ${{ github.workspace }}/luarocks/bin/busted -o utfTerminal
+        ${{ github.workspace }}/luarocks/bin/busted -o utfTerminal
 
         echo "> sudo luacov ./spec/luacov/.luacov"
-        sudo ${{ github.workspace }}/luarocks/bin/luacov ./spec/luacov/.luacov
+        ${{ github.workspace }}/luarocks/bin/luacov ./spec/luacov/.luacov
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v2
