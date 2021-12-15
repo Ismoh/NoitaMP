@@ -91,22 +91,8 @@ jobs:
 
 
 
-        echo "> ls -lsa ${{ github.workspace }}/luajit"
-        ls -lsa ${{ github.workspace }}/luajit
-
-        echo "> ls -lsa ${{ github.workspace }}/luajit/include/luajit-2.0"
-        ls -lsa ${{ github.workspace }}/luajit/include/luajit-2.0
-
-
-        echo "> ls -lsa ${{ github.workspace }}/luajit/lib/lua/5.1"
-        ls -lsa ${{ github.workspace }}/luajit/lib/lua/5.1
-
-
-        echo "> ls -lsa ${{ github.workspace }}/luajit/share"
-        ls -lsa ${{ github.workspace }}/luajit/share
-
-        echo "> ls -lsa ${{ github.workspace }}/luajit/share/lua/5.1"
-        ls -lsa ${{ github.workspace }}/luajit/share/lua/5.1
+        echo "> ls -R ${{ github.workspace }}/luajit"
+        ls -R ${{ github.workspace }}/luajit
 
 
 
