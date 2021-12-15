@@ -46,8 +46,8 @@ jobs:
         echo "> cd luarocks-2.0.4"
         cd luarocks-2.0.4
 
-        echo "> sudo ./configure --with-lua-include=/usr/local/include --with-lua=${{ github.workspace }}/lua51"
-        sudo ./configure --with-lua-include=/usr/local/include --with-lua=${{ github.workspace }}/lua51
+        echo "> sudo ./configure --with-lua-include=${{ github.workspace }}/lua51/include --with-lua=${{ github.workspace }}/lua51"
+        sudo ./configure --with-lua-include=${{ github.workspace }}/lua51/include --with-lua=${{ github.workspace }}/lua51
 
         echo "> sudo make"
         sudo make
