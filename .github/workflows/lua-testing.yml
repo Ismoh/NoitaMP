@@ -79,8 +79,17 @@ jobs:
         #echo "> luarocks install luasystem" # https://githubmemory.com/repo/Olivine-Labs/busted/issues/650
         #${{ github.workspace }}/luarocks/bin/luarocks install luasystem
 
-        echo "> luarocks install ffi"
-        ${{ github.workspace }}/luarocks/bin/luarocks install ffi
+        echo "> cd ${{ github.workspace }}/dll_building/LuaJIT-2.0.4"
+        cd ${{ github.workspace }}/dll_building/LuaJIT-2.0.4
+
+        echo "> make PREFIX=${{ github.workspace }}/luajit"
+        make PREFIX=${{ github.workspace }}/luajit
+
+        echo "> make install PREFIX=${{ github.workspace }}/luajit"
+        make install PREFIX=${{ github.workspace }}/luajit # sudo?
+
+
+
 
         #echo "> ls -lsa ${{ github.workspace }}/luarocks"
         #ls -lsa ${{ github.workspace }}/luarocks
@@ -99,6 +108,8 @@ jobs:
 
         #echo "> ${{ github.workspace }}/luarocks/bin/luarocks --version"
         #${{ github.workspace }}/luarocks/bin/luarocks --version
+
+
 
         echo "> sudo busted -o utfTerminal"
         ${{ github.workspace }}/luarocks/bin/busted -o utfTerminal
