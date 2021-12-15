@@ -58,12 +58,11 @@ jobs:
         make
         sudo make install
 
-        # run luarocks commands
-
     - name: Generate coverage report
       run: |
-        luarocks install luacov
-        luarocks install busted
+        # run luarocks commands
+        sudo luarocks install luacov
+        sudo luarocks install busted
         busted -o utfTerminal
         luacov ./spec/luacov/.luacov
 
