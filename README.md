@@ -1,4 +1,4 @@
-[![Develop : lua-testing](https://github.com/Ismoh/NoitaMP/actions/workflows/lua-testing.yml/badge.svg?branch=develop&event=push)](https://github.com/Ismoh/NoitaMP/actions/workflows/lua-testing.yml)
+[![Develop](https://github.com/Ismoh/NoitaMP/actions/workflows/lua-testing.yml/badge.svg?branch=develop&event=push)](https://github.com/Ismoh/NoitaMP/actions/workflows/lua-testing.yml)
 
 # noita-mp
 
