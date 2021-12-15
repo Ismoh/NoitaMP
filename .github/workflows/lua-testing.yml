@@ -61,14 +61,14 @@ jobs:
         echo "> sudo luarocks install busted"
         sudo luarocks install busted
 
-        echo "> sudo luarocks install luasystem" # https://githubmemory.com/repo/Olivine-Labs/busted/issues/650
-        sudo luarocks install luasystem
+        #echo "> sudo luarocks install luasystem" # https://githubmemory.com/repo/Olivine-Labs/busted/issues/650
+        #sudo luarocks install luasystem
 
-        echo "> busted -o utfTerminal"
-        busted -o utfTerminal
+        echo "> sudo busted -o utfTerminal"
+        sudo busted -o utfTerminal
 
-        echo "> luacov ./spec/luacov/.luacov"
-        luacov ./spec/luacov/.luacov
+        echo "> sudo luacov ./spec/luacov/.luacov"
+        sudo luacov ./spec/luacov/.luacov
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v2
