@@ -30,8 +30,11 @@ jobs:
         echo "> sudo make linux test"
         sudo make linux test
 
-        echo "> sudo make install"
-        sudo make install
+        echo "> sudo make install INSTALL_TOP=${{ github.workspace }}/lua51"
+        sudo make install INSTALL_TOP=${{ github.workspace }}/lua51
+
+        echo "> ls -lsa ${{ github.workspace }}/lua51"
+        ls -lsa ${{ github.workspace }}/lua51
 
         ################ install lua rocks manually: https://github.com/luarocks/luarocks/wiki/Installation-instructions-for-Unix
         echo "> wget https://luarocks.github.io/luarocks/releases/luarocks-2.0.4.tar.gz"
@@ -43,8 +46,8 @@ jobs:
         echo "> cd luarocks-2.0.4"
         cd luarocks-2.0.4
 
-        echo "> sudo ./configure --with-lua-include=/usr/local/include"
-        sudo ./configure --with-lua-include=/usr/local/include
+        echo "> sudo ./configure --with-lua-include=/usr/local/include --with-lua=${{ github.workspace }}/lua51"
+        sudo ./configure --with-lua-include=/usr/local/include --with-lua=${{ github.workspace }}/lua51
 
         echo "> sudo make"
         sudo make
