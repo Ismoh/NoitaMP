@@ -94,17 +94,23 @@ jobs:
         echo "> ls -lsa ${{ github.workspace }}/luajit"
         ls -lsa ${{ github.workspace }}/luajit
 
-        echo "> ls -lsa ${{ github.workspace }}/luajit/bin"
-        ls -lsa ${{ github.workspace }}/luajit/bin
-
-        echo "> ls -lsa ${{ github.workspace }}/luajit/include"
-        ls -lsa ${{ github.workspace }}/luajit/include
+        echo "> ls -lsa ${{ github.workspace }}/luajit/include/luajit-2.0"
+        ls -lsa ${{ github.workspace }}/luajit/include/luajit-2.0
 
         echo "> ls -lsa ${{ github.workspace }}/luajit/lib"
         ls -lsa ${{ github.workspace }}/luajit/lib
 
+        echo "> ls -lsa ${{ github.workspace }}/luajit/lib/lua"
+        ls -lsa ${{ github.workspace }}/luajit/lib/lua
+
+        echo "> ls -lsa ${{ github.workspace }}/luajit/lib/pkgconfig"
+        ls -lsa ${{ github.workspace }}/luajit/lib/pkgconfig
+
         echo "> ls -lsa ${{ github.workspace }}/luajit/share"
         ls -lsa ${{ github.workspace }}/luajit/share
+
+        echo "> ls -lsa ${{ github.workspace }}/luajit/share/lua"
+        ls -lsa ${{ github.workspace }}/luajit/share/lua
 
 
 
