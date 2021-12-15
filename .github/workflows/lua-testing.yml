@@ -31,6 +31,15 @@ jobs:
       run: |
         busted -o utfTerminal
 
+  test2:
+    strategy:
+      fail-fast: false
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@main
+    
     - name: Generate coverage report
       run: |
         luarocks install luacov
@@ -45,3 +54,4 @@ jobs:
         directory: ./spec/luacov/luacov.report.out
         path_to_write_report: ./coverage/codecov_report.txt
         verbose: true
+
