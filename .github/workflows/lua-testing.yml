@@ -94,10 +94,10 @@ jobs:
 
 
         echo "> sudo busted -o utfTerminal"
-        sudo busted -o utfTerminal
+        sudo ${{ github.workspace }}/luarocks/bin/busted -o utfTerminal
 
         echo "> sudo luacov ./spec/luacov/.luacov"
-        sudo luacov ./spec/luacov/.luacov
+        sudo ${{ github.workspace }}/luarocks/bin/luacov ./spec/luacov/.luacov
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v2
