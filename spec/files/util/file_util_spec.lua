@@ -1,4 +1,4 @@
-dofile("noita-mp/files/scripts/util/file_util.lua")
+require("noita-mp/files/scripts/util/file_util")
 
 describe("file_util.lua", function()
   -- tests go here
