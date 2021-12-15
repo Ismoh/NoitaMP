@@ -55,6 +55,9 @@ jobs:
         echo "> sudo make install"
         sudo make install
 
+        echo "> ls -lsa ${{ github.workspace }}/luarocks"
+        ls -lsa ${{ github.workspace }}/luarocks
+
     - name: Generate coverage report
       run: |
         ################ run luarocks commands
