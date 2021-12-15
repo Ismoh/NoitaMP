@@ -15,7 +15,7 @@ jobs:
     - name: Install lua 5.1.5 and luarocks 2.0.4
       run: |
         ################ install lua manually: https://github.com/luarocks/luarocks/wiki/Installation-instructions-for-Unix
-        echo "> apt install build-essential libreadline-dev unzip"
+        echo "> sudo apt install build-essential libreadline-dev unzip"
         sudo apt install build-essential libreadline-dev unzip
         
         echo "> curl -R -O http://www.lua.org/ftp/lua-5.1.5.tar.gz"
@@ -27,8 +27,8 @@ jobs:
         echo "> cd lua-5.1.5"
         cd lua-5.1.5
         
-        echo "> make linux test"
-        make linux test
+        echo "> sudo make linux test"
+        sudo make linux test
 
         echo "> sudo make install"
         sudo make install
@@ -43,11 +43,11 @@ jobs:
         echo "> cd luarocks-2.0.4"
         cd luarocks-2.0.4
 
-        echo "> ./configure --with-lua-include=/usr/local/include"
-        ./configure --with-lua-include=/usr/local/include
+        echo "> sudo ./configure --with-lua-include=/usr/local/include"
+        sudo ./configure --with-lua-include=/usr/local/include
 
-        echo "> make"
-        make
+        echo "> sudo make"
+        sudo make
 
         echo "> sudo make install"
         sudo make install
