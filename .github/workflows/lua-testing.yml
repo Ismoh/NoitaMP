@@ -71,13 +71,13 @@ jobs:
       run: |
         ################ run luarocks commands
         echo "> sudo luarocks install luacov"
-        sudo luarocks install luacov
+        sudo ${{ github.workspace }}/luarocks/bin/luarocks install luacov
 
         echo "> sudo luarocks install busted"
-        sudo luarocks install busted
+        sudo ${{ github.workspace }}/luarocks/bin/luarocks install busted
 
         echo "> sudo luarocks install luasystem" # https://githubmemory.com/repo/Olivine-Labs/busted/issues/650
-        sudo luarocks install luasystem
+        sudo ${{ github.workspace }}/luarocks/bin/luarocks install luasystem
 
         echo "> sudo busted -o utfTerminal"
         sudo busted -o utfTerminal
