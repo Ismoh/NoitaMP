@@ -1,4 +1,5 @@
-local file_util = require("noita-mp/files/scripts/util/file_util")
+require("noita-mp/files/scripts/util/file_util")
+local file_util = package.loaded["file_util"]
 
 describe("file_util.lua", function()
   -- tests go here
