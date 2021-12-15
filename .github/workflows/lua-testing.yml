@@ -79,6 +79,20 @@ jobs:
         echo "> sudo luarocks install luasystem" # https://githubmemory.com/repo/Olivine-Labs/busted/issues/650
         sudo ${{ github.workspace }}/luarocks/bin/luarocks install luasystem
 
+
+        echo "> ls -lsa ${{ github.workspace }}/luarocks"
+        ls -lsa ${{ github.workspace }}/luarocks
+
+        echo "> ls -lsa ${{ github.workspace }}/luarocks/bin"
+        ls -lsa ${{ github.workspace }}/luarocks/bin
+
+        echo "> ls -lsa ${{ github.workspace }}/luarocks/etc"
+        ls -lsa ${{ github.workspace }}/luarocks/etc
+
+        echo "> ls -lsa ${{ github.workspace }}/luarocks/share"
+        ls -lsa ${{ github.workspace }}/luarocks/share
+
+
         echo "> sudo busted -o utfTerminal"
         sudo busted -o utfTerminal
 
