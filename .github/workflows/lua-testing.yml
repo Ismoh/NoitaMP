@@ -76,20 +76,20 @@ jobs:
         echo "> sudo luarocks install busted"
         ${{ github.workspace }}/luarocks/bin/luarocks install busted
 
-#       echo "> sudo luarocks install luasystem" # https://githubmemory.com/repo/Olivine-Labs/busted/issues/650
-#       ${{ github.workspace }}/luarocks/bin/luarocks install luasystem
+        #echo "> sudo luarocks install luasystem" # https://githubmemory.com/repo/Olivine-Labs/busted/issues/650
+        #${{ github.workspace }}/luarocks/bin/luarocks install luasystem
 
         echo "> sudo luarocks install luaffi"
         ${{ github.workspace }}/luarocks/bin/luarocks install luaffi
 
-#        echo "> ls -lsa ${{ github.workspace }}/luarocks"
-#        ls -lsa ${{ github.workspace }}/luarocks
+        #echo "> ls -lsa ${{ github.workspace }}/luarocks"
+        #ls -lsa ${{ github.workspace }}/luarocks
 
-#        echo "> ls -lsa ${{ github.workspace }}/luarocks/bin"
-#        ls -lsa ${{ github.workspace }}/luarocks/bin
+        #echo "> ls -lsa ${{ github.workspace }}/luarocks/bin"
+        #ls -lsa ${{ github.workspace }}/luarocks/bin
 
-#        echo "> ls -lsa ${{ github.workspace }}/luarocks/etc/luarocks"
-#        ls -lsa ${{ github.workspace }}/luarocks/etc/luarocks
+        #echo "> ls -lsa ${{ github.workspace }}/luarocks/etc/luarocks"
+        #ls -lsa ${{ github.workspace }}/luarocks/etc/luarocks
 
         echo "> ls -lsa ${{ github.workspace }}/luarocks/share/lua/5.1"
         ls -lsa ${{ github.workspace }}/luarocks/share/lua/5.1
@@ -97,8 +97,8 @@ jobs:
         echo "> ls -lsa ${{ github.workspace }}/luarocks/share/lua/5.1/system"
         ls -lsa ${{ github.workspace }}/luarocks/share/lua/5.1/system
 
-#        echo "> ${{ github.workspace }}/luarocks/bin/luarocks --version"
-#        ${{ github.workspace }}/luarocks/bin/luarocks --version
+        #echo "> ${{ github.workspace }}/luarocks/bin/luarocks --version"
+        #${{ github.workspace }}/luarocks/bin/luarocks --version
 
         echo "> sudo busted -o utfTerminal"
         ${{ github.workspace }}/luarocks/bin/busted -o utfTerminal
