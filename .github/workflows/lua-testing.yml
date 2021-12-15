@@ -22,6 +22,7 @@ jobs:
     - name: build
       run: |
         luarocks install busted
+        luarocks install luaffi
         luarocks make
 
     - name: test
