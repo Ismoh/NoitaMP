@@ -407,3 +407,5 @@ function fu.StopSaveAndStartNoita()
     end
     os.execute('start "" ' .. exe .. ' -no_logo_splashes -save_slot 6 -gamemode 0')
 end
+
+return fu
