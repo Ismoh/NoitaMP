@@ -1,3 +1,8 @@
+package.cpath = package.cpath .. ";"
+.. string.gsub("${{ github.workspace }}/luajit/lib/?.dll;", "/", "\\")
+.. string.gsub("${{ github.workspace }}/luajit/lib/?.so;", "/", "\\")
+
+
 local fu = require("noita-mp/files/scripts/util/file_util")
 
 describe("file_util.lua", function()
