@@ -29,6 +29,7 @@ function Client:setSettings()
     self.super:setSchema("worldFiles", { "relDirPath", "fileName", "fileContent", "fileIndex", "amountOfFiles" })
     self.super:setSchema("worldFilesFinished", { "progress" })
     self.super:setSchema("seed", { "seed" })
+    self.super:setSchema("username", { "username" })
     self.super:setSchema("playerState", { "index", "player" })
 end
 
@@ -38,7 +39,13 @@ function Client:createCallbacks()
     print("client_class.lua | Creating clients callback functions.")
 
     self.super:on("connect", function(data)
-        print("client_class.lua | Client connected to the server.")
+        print("client_class.lua | Client connected to the server. Sending username to server..")
+
+        local connection_id = tostring(self.super:getConnectId())
+        local ip = tostring(self.super:getAddress())
+        local username = tostring(ModSettingGet("noita-mp.username"))
+        self.super.username = username
+        self.super:send("username", { username })
     end)
 
     self.super:on("worldFiles", function(data)
@@ -57,28 +64,28 @@ function Client:createCallbacks()
         print(msg)
         GamePrint(msg)
 
-        local save00_parent_directory_path = GetAbsoluteDirectoryPathOfParentSave00()
+        local save06_parent_directory_path = GetAbsoluteDirectoryPathOfParentSave06()
 
         -- if file_name ~= nil and file_name ~= ""
-        -- then -- file in save00 | "" -> directory was sent
-        --     WriteBinaryFile(save00_dir .. _G.path_separator .. file_name, file_content)
+        -- then -- file in save06 | "" -> directory was sent
+        --     WriteBinaryFile(save06_dir .. _G.path_separator .. file_name, file_content)
         -- elseif rel_dir_path ~= nil and file_name ~= ""
         -- then -- file in subdirectory was sent
-        --     WriteBinaryFile(save00_dir .. _G.path_separator .. rel_dir_path .. _G.path_separator .. file_name, file_content)
+        --     WriteBinaryFile(save06_dir .. _G.path_separator .. rel_dir_path .. _G.path_separator .. file_name, file_content)
         -- elseif rel_dir_path ~= nil and (file_name == nil or file_name == "")
         -- then -- directory name was sent
-        --     MkDir(save00_dir .. _G.path_separator .. rel_dir_path)
+        --     MkDir(save06_dir .. _G.path_separator .. rel_dir_path)
         -- else
         --     GamePrint("client_class.lua | Unable to write file, because path and content aren't set.")
         -- end
         local archive_directory = GetAbsoluteDirectoryPathOfMods() .. _G.path_separator .. rel_dir_path
         WriteBinaryFile( archive_directory .. _G.path_separator .. file_name, file_content)
 
-        if Exists(GetAbsoluteDirectoryPathOfSave00()) then -- Create backup if save00 exists
-            os.execute('cd "' .. GetAbsoluteDirectoryPathOfParentSave00() .. '" && move save00 save00_backup')
+        if Exists(GetAbsoluteDirectoryPathOfSave06()) then -- Create backup if save06 exists
+            os.execute('cd "' .. GetAbsoluteDirectoryPathOfParentSave06() .. '" && move save06 save06_backup')
         end
         
-        Extract7zipArchive(archive_directory, file_name, save00_parent_directory_path)
+        Extract7zipArchive(archive_directory, file_name, save06_parent_directory_path)
 
         if file_index >= amount_of_files then
             self.super:send("worldFilesFinished", { "" .. file_index .. "/" .. amount_of_files })
@@ -100,7 +107,7 @@ function Client:createCallbacks()
     end)
     
     self.super:on("restart", function(data)
-        ForceQuitAndStartNoita()
+        StopWithoutSaveAndStartNoita()
         --BiomeMapLoad_KeepPlayer("data/biome_impl/biome_map_newgame_plus.lua", "data/biome/_pixel_scenes_newgame_plus.xml") -- StartReload(0)
     end)
 
@@ -147,6 +154,11 @@ function Client:connect()
         x = 465.3,
         y = 50,
     })
+end
+
+
+function Client:disconnect()
+    self.super:disconnect()
 end
 
 

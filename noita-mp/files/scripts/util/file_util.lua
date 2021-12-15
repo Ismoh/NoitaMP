@@ -77,14 +77,14 @@ end
 -- Savegame / world stuff
 ----------------------------------------------------------------------------------------------------
 
---- Returns files with its associated directory path relative to \save00\*
+--- Returns files with its associated directory path relative to \save06\*
 --- @return table [1] { "\persistent\flags" , "filename" }
---- @return integer amount of files within save00 (rekursive)
-function GetRelativeDirectoryAndFilesOfSave00()
-    local dir_save_00 = "save00"
-    local command = 'dir "%appdata%\\..\\LocalLow\\Nolla_Games_Noita\\' .. dir_save_00 .. '" /b/s'
+--- @return integer amount of files within save06 (rekursive)
+function GetRelativeDirectoryAndFilesOfSave06()
+    local dir_save_06 = "save06"
+    local command = 'dir "%appdata%\\..\\LocalLow\\Nolla_Games_Noita\\' .. dir_save_06 .. '" /b/s'
     if DebugGetIsDevBuild() then
-        command = "dir " .. dir_save_00 .. " /b/s"
+        command = "dir " .. dir_save_06 .. " /b/s"
     end
     if unix then
         error("Unix system are not supported yet :(",2)-- use ls bla bla
@@ -98,9 +98,9 @@ function GetRelativeDirectoryAndFilesOfSave00()
         path = file:read("*l")
 
         if path ~=nil and path ~= "" then
-            -- C:\Program Files (x86)\Steam\steamapps\common\Noita\save00\world\.autosave_player
+            -- C:\Program Files (x86)\Steam\steamapps\common\Noita\save06\world\.autosave_player
             -- to world\.autosave_player
-            local index_start, index_end = string.find(path, dir_save_00 .. "\\")
+            local index_start, index_end = string.find(path, dir_save_06 .. "\\")
             local relative = string.sub(path, index_end + 1) -- +1 to get rid of \ or /
 
             local dir_name = ""
@@ -137,8 +137,8 @@ function GetRelativeDirectoryAndFilesOfSave00()
 end
 
 ---comment
----@return string save00_parent_directory_path noita installation path or %appdata%\..\LocalLow\Nolla_Games_Noita on windows and unknown for unix systems
-function GetAbsoluteDirectoryPathOfParentSave00()
+---@return string save06_parent_directory_path noita installation path or %appdata%\..\LocalLow\Nolla_Games_Noita on windows and unknown for unix systems
+function GetAbsoluteDirectoryPathOfParentSave06()
     local file = nil
     if unix then
         error("file_util.lua | Unix systems are not supported yet. I am sorry! :(")
@@ -153,30 +153,30 @@ function GetAbsoluteDirectoryPathOfParentSave00()
         find_directory_name = "Nolla_Games_Noita"
     end
 
-    local save00_parent_directory_path = nil
+    local save06_parent_directory_path = nil
     local line = ""
     while line ~= nil do
         line = file:read("*l")
         if string.find(line, find_directory_name) then
-            save00_parent_directory_path = line -- .. "\\world"
+            save06_parent_directory_path = line -- .. "\\world"
             break
         end
     end
     file:close()
 
-    if save00_parent_directory_path == nil or save00_parent_directory_path == "" then
+    if save06_parent_directory_path == nil or save06_parent_directory_path == "" then
         GamePrintImportant("Unable to find world files","Do yourself a favour and save&quit the game and start it again!")
     end
 
-    save00_parent_directory_path = ReplacePathSeparator(save00_parent_directory_path)
-    return save00_parent_directory_path
+    save06_parent_directory_path = ReplacePathSeparator(save06_parent_directory_path)
+    return save06_parent_directory_path
 end
 
---- Returns fullpath of save00 directory on devBuild or release
---- @return string directory_path_of_save00 : noita installation path\save00 or %appdata%\..\LocalLow\Nolla_Games_Noita\save00 on windows and unknown for unix systems
-function GetAbsoluteDirectoryPathOfSave00()
-    local directory_path_of_save00 = GetAbsoluteDirectoryPathOfParentSave00() .. _G.path_separator .. "save00"
-    return directory_path_of_save00
+--- Returns fullpath of save06 directory on devBuild or release
+--- @return string directory_path_of_save06 : noita installation path\save06 or %appdata%\..\LocalLow\Nolla_Games_Noita\save06 on windows and unknown for unix systems
+function GetAbsoluteDirectoryPathOfSave06()
+    local directory_path_of_save06 = GetAbsoluteDirectoryPathOfParentSave06() .. _G.path_separator .. "save06"
+    return directory_path_of_save06
 end
 
 
@@ -277,6 +277,17 @@ function WriteBinaryFile(file_fullpath, file_content)
 end
 
 
+function ReadFile(file_fullpath)
+    file_fullpath = ReplacePathSeparator(file_fullpath)
+    -- https://stackoverflow.com/a/31857671/3493998
+    local file = io.open(file_fullpath, "r")
+    if not file then return nil end
+    local content = file:read "*a" -- *a or *all reads the whole file
+    file:close()
+    return content
+end
+
+
 function WriteFile(file_fullpath, file_content)
     file_fullpath = ReplacePathSeparator(file_fullpath)
     -- http://lua-users.org/wiki/FileInputOutput
@@ -322,8 +333,8 @@ function Exists7zip()
 end
 
 ---comment
----@param archive_name string server_save00_98-09-16_23:48:10 - without file extension (*.7z)
----@param absolute_directory_path_to_add_archive string "C:\Users\Ismoh-PC\AppData\LocalLow\Nolla_Games_Noita\save00"
+---@param archive_name string server_save06_98-09-16_23:48:10 - without file extension (*.7z)
+---@param absolute_directory_path_to_add_archive string "C:\Users\Ismoh-PC\AppData\LocalLow\Nolla_Games_Noita\save06"
 ---@param absolute_destination_path string "C:\Program Files (x86)\Steam\steamapps\common\Noita\mods\noita-mp\_"
 ---@return string|number content binary content of archive
 function Create7zipArchive(archive_name, absolute_directory_path_to_add_archive, absolute_destination_path)
@@ -342,7 +353,7 @@ end
 
 ---comment
 ---@param archive_absolute_directory_path string path to archive location like "C:\Program Files (x86)\Steam\steamapps\common\Noita\mods\noita-mp\_"
----@param archive_name string server_save00_98-09-16_23:48:10.7z - with file extension (*.7z)
+---@param archive_name string server_save06_98-09-16_23:48:10.7z - with file extension (*.7z)
 ---@param extract_absolute_directory_path string "C:\Users\Ismoh-PC\AppData\LocalLow\Nolla_Games_Noita"
 function Extract7zipArchive(archive_absolute_directory_path, archive_name, extract_absolute_directory_path)
     archive_absolute_directory_path = ReplacePathSeparator(archive_absolute_directory_path)
@@ -352,18 +363,18 @@ function Extract7zipArchive(archive_absolute_directory_path, archive_name, extra
     print("file_util.lua | Running: " .. command)
     os.execute(command)
 end
---cd "C:\Program Files (x86)\Steam\steamapps\common\Noita\mods\noita-mp\_" && 7z.exe x -aoa test.7z -o"C:\Program Files (x86)\Steam\steamapps\common\Noita\save00_test"
+--cd "C:\Program Files (x86)\Steam\steamapps\common\Noita\mods\noita-mp\_" && 7z.exe x -aoa test.7z -o"C:\Program Files (x86)\Steam\steamapps\common\Noita\save06_test"
 
 ----------------------------------------------------------------------------------------------------
 -- Noita restart, yay!
 ----------------------------------------------------------------------------------------------------
 
-function ForceQuitAndStartNoita()
+function StopWithoutSaveAndStartNoita()
     local exe = "noita.exe"
     if DebugGetIsDevBuild() then
         exe = "noita_dev.exe"
     end
-    os.execute('start "" ' .. exe .. ' -no_logo_splashes -save_slot 0 -gamemode 0')
+    os.execute('start "" ' .. exe .. ' -no_logo_splashes -save_slot 6 -gamemode 0')
     os.exit()
 end
 
@@ -383,4 +394,14 @@ function StopSaveAndStartNoita()
     local evt = ffi.new('SDL_Event')
     evt.type = 0x100 -- SDL_QUIT
     SDL.SDL_PushEvent(evt)
+
+    if _G.Server then
+        _G.Server:destroy()
+    end
+
+    local exe = "noita.exe"
+    if DebugGetIsDevBuild() then
+        exe = "noita_dev.exe"
+    end
+    os.execute('start "" ' .. exe .. ' -no_logo_splashes -save_slot 6 -gamemode 0')
 end

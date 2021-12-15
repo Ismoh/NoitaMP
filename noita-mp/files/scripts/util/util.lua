@@ -7,3 +7,12 @@ function GetPlayer()
        return player[1]
    end
 end
+
+
+function Sleep(seconds)
+    -- https://stackoverflow.com/a/40524323/3493998
+    local sec = tonumber(os.clock() + seconds)
+    while (os.clock() < sec) do
+        -- do a buys wait. Consuming processor time, but I dont care :)
+    end
+end

@@ -27,6 +27,7 @@ function Server:setSettings()
     self.super:setSchema("worldFiles", { "relDirPath", "fileName", "fileContent", "fileIndex", "amountOfFiles" })
     self.super:setSchema("worldFilesFinished", { "progress" })
     self.super:setSchema("seed", { "seed" })
+    self.super:setSchema("username", { "username" })
     self.super:setSchema("playerState", { "index", "player" })
 end
 
@@ -40,37 +41,13 @@ function Server:createCallbacks()
         print("server_class.lua | on_connect: ")
         print("server_class.lua | on_connect: data = " .. tostring(data))
         print("server_class.lua | on_connect: client = " .. tostring(peer))
+    end)
 
-
-        -- Send client the servers world
-        -- local dir_and_file_pair, amount_of_files = GetRelativeDirectoryAndFilesOfSave00()
-        -- for index, pair in ipairs(dir_and_file_pair) do
-        --     local rel_dir_path = pair[1]
-        --     local file_name = pair[2]
-        --     local path = GetAbsoluteDirectoryPathOfSave00() .. _G.path_separator .. rel_dir_path .. _G.path_separator .. file_name
-
-        --     local file_content = ""
-        --     if IsFile(path) then
-        --         file_content = ReadBinaryFile(path)
-        --     end
-
-        --     print(("server_class.lua | Sending world files to client: dir:%s, file:%s, content:%s, index:%s, amount:%s"):format(rel_dir_path, file_name, file_content, index, amount_of_files))
-        --     peer:send("worldFiles", { rel_dir_path, file_name, file_content, index, amount_of_files })
-        -- end
-        local archive_name = "server_save00_" .. os.date("%Y-%m-%d_%H-%M-%S")
-        local archive_content = Create7zipArchive(archive_name .. "_from_server",
-                                                    GetAbsoluteDirectoryPathOfSave00(),
-                                                    GetAbsoluteDirectoryPathOfMods() .. _G.path_separator .. "_")
-        peer:send("worldFiles", { "_", archive_name .. "_for_client.7z", archive_content, 1, 1 })
-
-        -- Send client the servers seed
-        local seed = "" .. StatsGetValue("world_seed")
-        print("server_class.lua | Sending seed to client: connection id = " .. peer:getConnectId() .. ", seed = " .. seed)
-        self.super:sendToPeer(peer, "seed", {seed})
-
-        -- Send a message back to the connected client
-        -- local msg = "Hello from the server!" .. seed
-        -- peer:send("hello", msg)
+    self.super:on("username", function(data, peer)
+        print("server_class.lua | on_username: ")
+        print("server_class.lua | on_username: data = " .. tostring(data))
+        print("server_class.lua | on_username: client = " .. tostring(peer))
+        self:setUsername(data, peer)
     end)
 
     self.super:on("worldFilesFinished", function(data, peer)
@@ -111,6 +88,92 @@ function Server:create()
         .. self.super:getAddress() .. ":" .. self.super:getPort() .. ". Tell your friends to join!")
 end
 
+
+function Server:setUsername(data, peer)
+    local username = data.username
+
+    for _, client in pairs(self.super.clients) do
+        if client == peer then
+            self.super.clients[_].username = username
+        end
+    end
+end
+
+
+function Server:checkIsAllowed(peer)
+    local restoredClients = self:getStoredClients()
+    if restoredClients then
+        for _, client in pairs(restoredClients) do
+            -- TODO add something like GUID to the client and mod settings to identify the user by its unique user id
+            local peer_string_stored = tostring(client.connection)
+            local index_of_collon_stored = string.find(peer_string_stored, ":")
+            local ip_stored = string.sub(peer_string_stored, 0, index_of_collon_stored)
+            local peer_string = tostring(peer.connection)
+            local index_of_collon = string.find(peer_string, ":")
+            local ip = string.sub(peer_string, 0, index_of_collon)
+            if ip_stored == ip and client.username == peer.username then
+                self.super.clients[_].isAllowed = true
+                peer.isAllowed = true
+                return true
+            end
+        end
+    end
+    return false
+end
+
+
+function Server:setIsAllowed(client, isAllowed)
+    for _, c in pairs(self.super.clients) do
+        if c.connection == client.connection and c.connectId == client.connectId then
+            self.super.clients[_].isAllowed = isAllowed
+        end
+    end
+end
+
+
+function Server:setMapReceived(peer, isMapReceived)
+    for _, client in pairs(self.super.clients) do
+        if client == peer then
+            self.super.clients[_].isMapReceived = isMapReceived
+        end
+    end
+end
+
+
+function Server:storeClients()
+    local t = {}
+    for _, client in pairs(self.super:getClients()) do
+        --local clientString = { client.username, client.isAllowed, client.isMapReceived }
+        --local serialised = self.super:pack(clientString)
+        --WriteFile(GetAbsoluteDirectoryPathOfMods() .. _G.path_separator .. "_" .. _G.path_separator .. "clients", serialised)
+        local serialiseable_client = {
+            connection = tostring(client.connection),
+            connectId = tostring(client.connectId),
+            username = tostring(client.username),
+            isAllowed = tostring(client.isAllowed),
+            isMapReceived = tostring(client.isMapReceived)
+        }
+        table.insert(t, serialiseable_client)
+    end
+    local serialised = self.super:pack(t)
+    WriteFile(GetAbsoluteDirectoryPathOfMods() .. _G.path_separator .. "_" .. _G.path_separator .. "clients", serialised)
+end
+
+
+function Server:getStoredClients()
+    local full_path = GetAbsoluteDirectoryPathOfMods() .. _G.path_separator .. "_" .. _G.path_separator .. "clients"
+    if Exists(full_path) then
+        local serialised_content = ReadFile(full_path)
+        local stored_clients = self.super:unpack(serialised_content)
+        return stored_clients
+    end
+    return nil
+end
+
+
+function Server:sendMap(client)
+
+end
 
 function Server:destroy()
     _G.Server.super:destroy()

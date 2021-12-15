@@ -1,1 +1,0 @@
-﻿MsgBox "This is a placeholder for the AutoHotkey v2.0 configuration utility."

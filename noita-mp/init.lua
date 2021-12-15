@@ -77,7 +77,24 @@ end
 
 
 function OnWorldInitialized()
-    print("init.lua | OnWorldInitialized() | Loading clinet and server stuff..")
+    print("init.lua | OnWorldInitialized()")
+
+    local make_zip = ModSettingGet("noita-mp.server_start_7zip_savegame")
+    print("init.lua | make_zip = " .. tostring(make_zip))
+    if make_zip then
+        local archive_name = "server_save06_" .. os.date("%Y-%m-%d_%H-%M-%S")
+        local destination = GetAbsoluteDirectoryPathOfMods() .. _G.path_separator .. "_"
+        local archive_content = Create7zipArchive(archive_name .. "_from_server",
+                                                    GetAbsoluteDirectoryPathOfSave06(),
+                                                    destination)
+        local msg = ("init.lua | Server savegame [%s] was zipped with 7z to location [%s]."):format(archive_name, destination)
+        print(msg)
+        GamePrint(msg)
+        ModSettingSetNextValue("noita-mp.server_start_7zip_savegame", false, false)
+        ModSettingSet("noita-mp.server_start_when_world_loaded", true) -- automatically start the server again
+    end
+
+    print("init.lua | Initialise client and server stuff..")
     dofile_once("mods/noita-mp/files/scripts/net/server_class.lua") -- run once to init server object
     dofile_once("mods/noita-mp/files/scripts/net/client_class.lua") -- run once to init client object
 end
