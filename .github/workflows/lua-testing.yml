@@ -91,25 +91,11 @@ jobs:
 
 
 
-        #echo "> ls -lsa ${{ github.workspace }}/luarocks"
-        #ls -lsa ${{ github.workspace }}/luarocks
-
-        #echo "> ls -lsa ${{ github.workspace }}/luarocks/bin"
-        #ls -lsa ${{ github.workspace }}/luarocks/bin
-
-        #echo "> ls -lsa ${{ github.workspace }}/luarocks/etc/luarocks"
-        #ls -lsa ${{ github.workspace }}/luarocks/etc/luarocks
-
-        echo "> ls -lsa ${{ github.workspace }}/luarocks/share/lua/5.1"
-        ls -lsa ${{ github.workspace }}/luarocks/share/lua/5.1
-
-        echo "> ls -lsa ${{ github.workspace }}/luarocks/share/lua/5.1/system"
-        ls -lsa ${{ github.workspace }}/luarocks/share/lua/5.1/system
-
-        #echo "> ${{ github.workspace }}/luarocks/bin/luarocks --version"
-        #${{ github.workspace }}/luarocks/bin/luarocks --version
+        echo "> ls -lsa ${{ github.workspace }}/luajit"
+        ls -lsa ${{ github.workspace }}/luajit
 
 
+        # Go back to workspace dir of runner, otherwise busted won't find spec dir oder *_spec files
         echo "> cd ${{ github.workspace }}"
         cd ${{ github.workspace }}
 
