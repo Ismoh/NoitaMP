@@ -86,13 +86,26 @@ jobs:
         make PREFIX=${{ github.workspace }}/luajit
 
         echo "> make install PREFIX=${{ github.workspace }}/luajit"
-        make install PREFIX=${{ github.workspace }}/luajit # sudo?
+        make install PREFIX=${{ github.workspace }}/luajit
 
 
 
 
         echo "> ls -lsa ${{ github.workspace }}/luajit"
         ls -lsa ${{ github.workspace }}/luajit
+
+        echo "> ls -lsa ${{ github.workspace }}/luajit/bin"
+        ls -lsa ${{ github.workspace }}/luajit/bin
+
+        echo "> ls -lsa ${{ github.workspace }}/luajit/include"
+        ls -lsa ${{ github.workspace }}/luajit/include
+
+        echo "> ls -lsa ${{ github.workspace }}/luajit/lib"
+        ls -lsa ${{ github.workspace }}/luajit/lib
+
+        echo "> ls -lsa ${{ github.workspace }}/luajit/share"
+        ls -lsa ${{ github.workspace }}/luajit/share
+
 
 
         # Go back to workspace dir of runner, otherwise busted won't find spec dir oder *_spec files
