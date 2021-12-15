@@ -1,3 +1,5 @@
+local fu = {}
+
 local ffi = require("ffi")
 
 -- https://stackoverflow.com/a/14425862/3493998
@@ -14,7 +16,7 @@ else
 end
 
 
-function ReplacePathSeparator(path)
+function fu.ReplacePathSeparator(path)
     if _G.is_windows then
         -- replace unix path separator with windows, if there are any / in the path
         path = string.gsub(path, "/", _G.path_separator)
@@ -31,7 +33,7 @@ end
 --- Removes trailing path separator in a string: \persistent\flags\ -> \persistent\flags
 --- @param path string any string, i.e. \persistent\flags\
 --- @return string path \persistent\flags
-function RemoveTrailingPathSeparator(path)
+function fu.RemoveTrailingPathSeparator(path)
     if type(path) ~= "string" then return path end
     if string.sub(path, -1, -1) == path_separator then -- check for trailing path separator
         path = string.sub(path, 1, -2) -- remove it
@@ -41,9 +43,9 @@ end
 
 
 --- Sets Noitas root absolute path to _G
-function SetAbsolutePathOfNoitaRootDirectory()
+function fu.SetAbsolutePathOfNoitaRootDirectory()
     local noita_root_directory_path = assert(io.popen("cd"):read("*l"), "Unable to run windows command \"cd\" to get Noitas root directory!")
-    noita_root_directory_path = ReplacePathSeparator(noita_root_directory_path)
+    noita_root_directory_path = fu.ReplacePathSeparator(noita_root_directory_path)
 
     _G.noita_root_directory_path = noita_root_directory_path
 
@@ -51,7 +53,7 @@ function SetAbsolutePathOfNoitaRootDirectory()
 end
 
 
-function GetAbsolutePathOfNoitaRootDirectory()
+function fu.GetAbsolutePathOfNoitaRootDirectory()
     return _G.noita_root_directory_path
 end
 
@@ -80,7 +82,7 @@ end
 --- Returns files with its associated directory path relative to \save06\*
 --- @return table [1] { "\persistent\flags" , "filename" }
 --- @return integer amount of files within save06 (rekursive)
-function GetRelativeDirectoryAndFilesOfSave06()
+function fu.GetRelativeDirectoryAndFilesOfSave06()
     local dir_save_06 = "save06"
     local command = 'dir "%appdata%\\..\\LocalLow\\Nolla_Games_Noita\\' .. dir_save_06 .. '" /b/s'
     if DebugGetIsDevBuild() then
@@ -127,7 +129,7 @@ function GetRelativeDirectoryAndFilesOfSave06()
                 end
             end
 
-            dir_name = RemoveTrailingPathSeparator(dir_name)
+            dir_name = fu.RemoveTrailingPathSeparator(dir_name)
 
             t[i] = { dir_name, file_name }
             i = i + 1
@@ -138,7 +140,7 @@ end
 
 ---comment
 ---@return string save06_parent_directory_path noita installation path or %appdata%\..\LocalLow\Nolla_Games_Noita on windows and unknown for unix systems
-function GetAbsoluteDirectoryPathOfParentSave06()
+function fu.GetAbsoluteDirectoryPathOfParentSave06()
     local file = nil
     if unix then
         error("file_util.lua | Unix systems are not supported yet. I am sorry! :(")
@@ -168,14 +170,14 @@ function GetAbsoluteDirectoryPathOfParentSave06()
         GamePrintImportant("Unable to find world files","Do yourself a favour and save&quit the game and start it again!")
     end
 
-    save06_parent_directory_path = ReplacePathSeparator(save06_parent_directory_path)
+    save06_parent_directory_path = fu.ReplacePathSeparator(save06_parent_directory_path)
     return save06_parent_directory_path
 end
 
 --- Returns fullpath of save06 directory on devBuild or release
 --- @return string directory_path_of_save06 : noita installation path\save06 or %appdata%\..\LocalLow\Nolla_Games_Noita\save06 on windows and unknown for unix systems
-function GetAbsoluteDirectoryPathOfSave06()
-    local directory_path_of_save06 = GetAbsoluteDirectoryPathOfParentSave06() .. _G.path_separator .. "save06"
+function fu.GetAbsoluteDirectoryPathOfSave06()
+    local directory_path_of_save06 = fu.GetAbsoluteDirectoryPathOfParentSave06() .. _G.path_separator .. "save06"
     return directory_path_of_save06
 end
 
@@ -183,29 +185,29 @@ end
 --- Returns the ABSOLUTE path of the mods folder.
 --- If _G.noita_root_directory_path is not set yet, then it will be
 --- @return string _G.noita_root_directory_path .. "/mods"
-function GetAbsoluteDirectoryPathOfMods()
+function fu.GetAbsoluteDirectoryPathOfMods()
     if not _G.noita_root_directory_path then
-        SetAbsolutePathOfNoitaRootDirectory()
+        fu.SetAbsolutePathOfNoitaRootDirectory()
     end
     local p = _G.noita_root_directory_path .. "/mods/noita-mp"
-    p = ReplacePathSeparator(p)
+    p = fu.ReplacePathSeparator(p)
     return p
 end
 
 
 --- Returns the RELATIVE path of the mods folder.
 --- @return string "mods/noita-mp"
-function GetRelativeDirectoryPathOfMods()
+function fu.GetRelativeDirectoryPathOfMods()
     local p = "mods/noita-mp"
-    p = ReplacePathSeparator(p)
+    p = fu.ReplacePathSeparator(p)
     return p
 end
 
 --- Returns the RELATIVE path of the library folder required for this mod.
 --- @return string "/mods/noita-mp/files/libs"
-function GetRelativeDirectoryPathOfRequiredLibs()
+function fu.GetRelativeDirectoryPathOfRequiredLibs()
     local p = "mods/noita-mp/files/libs"
-    p = ReplacePathSeparator(p)
+    p = fu.ReplacePathSeparator(p)
     return p
 end
 
@@ -213,12 +215,12 @@ end
 --- Returns the ABSOLUTE path of the library folder required for this mod.
 --- If _G.noita_root_directory_path is not set yet, then it will be
 --- @return string _G.noita_root_directory_path .. "/mods/noita-mp/files/libs"
-function GetAbsoluteDirectoryPathOfRequiredLibs()
+function fu.GetAbsoluteDirectoryPathOfRequiredLibs()
     if not _G.noita_root_directory_path then
-        SetAbsolutePathOfNoitaRootDirectory()
+        fu.SetAbsolutePathOfNoitaRootDirectory()
     end
     local p = _G.noita_root_directory_path .. "/mods/noita-mp/files/libs"
-    p = ReplacePathSeparator(p)
+    p = fu.ReplacePathSeparator(p)
     return p
 end
 
@@ -230,17 +232,17 @@ end
 --- Checks if FILE or DIRECTORY exists
 --- @param name string full path
 --- @return boolean
-function Exists(name)
+function fu.Exists(name)
     -- https://stackoverflow.com/a/21637809/3493998
     if type(name)~="string" then return false end
     return os.rename(name,name) and true or false
 end
 
 
-function IsFile(name)
+function fu.IsFile(name)
     -- https://stackoverflow.com/a/21637809/3493998
     if type(name)~="string" then return false end
-    if not Exists(name) then return false end
+    if not fu.Exists(name) then return false end
     local f = io.open(name)
     if f then
         f:close()
@@ -250,14 +252,14 @@ function IsFile(name)
 end
 
 
-function IsDirectory(name)
+function fu.IsDirectory(name)
     -- https://stackoverflow.com/a/21637809/3493998
-    return (Exists(name) and not IsFile(name))
+    return (fu.Exists(name) and not fu.IsFile(name))
 end
 
 
-function ReadBinaryFile(file_fullpath)
-    file_fullpath = ReplacePathSeparator(file_fullpath)
+function fu.ReadBinaryFile(file_fullpath)
+    file_fullpath = fu.ReplacePathSeparator(file_fullpath)
     -- https://stackoverflow.com/a/31857671/3493998
     local file = io.open(file_fullpath, "rb") -- r read mode and b binary mode
     if not file then return nil end
@@ -267,8 +269,8 @@ function ReadBinaryFile(file_fullpath)
 end
 
 
-function WriteBinaryFile(file_fullpath, file_content)
-    file_fullpath = ReplacePathSeparator(file_fullpath)
+function fu.WriteBinaryFile(file_fullpath, file_content)
+    file_fullpath = fu.ReplacePathSeparator(file_fullpath)
     -- http://lua-users.org/wiki/FileInputOutput
     local fh = assert(io.open(file_fullpath, "wb"))
     fh:write(file_content)
@@ -277,8 +279,8 @@ function WriteBinaryFile(file_fullpath, file_content)
 end
 
 
-function ReadFile(file_fullpath)
-    file_fullpath = ReplacePathSeparator(file_fullpath)
+function fu.ReadFile(file_fullpath)
+    file_fullpath = fu.ReplacePathSeparator(file_fullpath)
     -- https://stackoverflow.com/a/31857671/3493998
     local file = io.open(file_fullpath, "r")
     if not file then return nil end
@@ -288,8 +290,8 @@ function ReadFile(file_fullpath)
 end
 
 
-function WriteFile(file_fullpath, file_content)
-    file_fullpath = ReplacePathSeparator(file_fullpath)
+function fu.WriteFile(file_fullpath, file_content)
+    file_fullpath = fu.ReplacePathSeparator(file_fullpath)
     -- http://lua-users.org/wiki/FileInputOutput
     local fh = assert(io.open(file_fullpath, "w"))
     fh:write(file_content)
@@ -298,9 +300,9 @@ function WriteFile(file_fullpath, file_content)
 end
 
 
-function MkDir(full_path)
+function fu.MkDir(full_path)
     -- https://stackoverflow.com/a/1690932/3493998
-    full_path = ReplacePathSeparator(full_path)
+    full_path = fu.ReplacePathSeparator(full_path)
     os.execute('mkdir "' .. full_path .. '"')
 end
 
@@ -309,7 +311,7 @@ end
 -- 7zip stuff
 ----------------------------------------------------------------------------------------------------
 
-function Find7zipExecutable()
+function fu.Find7zipExecutable()
     if is_windows then
         local f = io.popen("where.exe 7z", "r")
         if not f then
@@ -317,14 +319,14 @@ function Find7zipExecutable()
             os.exit()
         end
         local response = f:read("*a")
-        _G.seven_zip = tostring(ReplacePathSeparator(response))
+        _G.seven_zip = tostring(fu.ReplacePathSeparator(response))
         print("file_util.lua | Found 7z.exe: " .. _G.seven_zip)
     else
         error("Unfortunately unix systems aren't supported yet. Please consider https://github.com/Ismoh/NoitaMP/issues!", 2)
     end
 end
 
-function Exists7zip()
+function fu.Exists7zip()
     if _G.seven_zip then
         return true
     else
@@ -337,27 +339,27 @@ end
 ---@param absolute_directory_path_to_add_archive string "C:\Users\Ismoh-PC\AppData\LocalLow\Nolla_Games_Noita\save06"
 ---@param absolute_destination_path string "C:\Program Files (x86)\Steam\steamapps\common\Noita\mods\noita-mp\_"
 ---@return string|number content binary content of archive
-function Create7zipArchive(archive_name, absolute_directory_path_to_add_archive, absolute_destination_path)
-    assert(Exists7zip(), "Unable to find 7z.exe, please install 7z via https://7-zip.de/download.html and restart the Noita!")
+function fu.Create7zipArchive(archive_name, absolute_directory_path_to_add_archive, absolute_destination_path)
+    assert(fu.Exists7zip(), "Unable to find 7z.exe, please install 7z via https://7-zip.de/download.html and restart the Noita!")
 
-    absolute_directory_path_to_add_archive = ReplacePathSeparator(absolute_directory_path_to_add_archive)
-    absolute_destination_path = ReplacePathSeparator(absolute_destination_path)
+    absolute_directory_path_to_add_archive = fu.ReplacePathSeparator(absolute_directory_path_to_add_archive)
+    absolute_destination_path = fu.ReplacePathSeparator(absolute_destination_path)
 
     local command = 'cd "' .. absolute_destination_path .. '" && 7z.exe a -t7z ' .. archive_name .. ' "' .. absolute_directory_path_to_add_archive .. '"'
     print("file_util.lua | Running: " .. command)
     os.execute(command)
 
     local archive_full_path = absolute_destination_path .. _G.path_separator .. archive_name .. ".7z"
-    return ReadBinaryFile(archive_full_path)
+    return fu.ReadBinaryFile(archive_full_path)
 end
 
 ---comment
 ---@param archive_absolute_directory_path string path to archive location like "C:\Program Files (x86)\Steam\steamapps\common\Noita\mods\noita-mp\_"
 ---@param archive_name string server_save06_98-09-16_23:48:10.7z - with file extension (*.7z)
 ---@param extract_absolute_directory_path string "C:\Users\Ismoh-PC\AppData\LocalLow\Nolla_Games_Noita"
-function Extract7zipArchive(archive_absolute_directory_path, archive_name, extract_absolute_directory_path)
-    archive_absolute_directory_path = ReplacePathSeparator(archive_absolute_directory_path)
-    extract_absolute_directory_path = ReplacePathSeparator(extract_absolute_directory_path)
+function fu.Extract7zipArchive(archive_absolute_directory_path, archive_name, extract_absolute_directory_path)
+    archive_absolute_directory_path = fu.ReplacePathSeparator(archive_absolute_directory_path)
+    extract_absolute_directory_path = fu.ReplacePathSeparator(extract_absolute_directory_path)
 
     local command = 'cd "' .. archive_absolute_directory_path .. '" && 7z.exe x -aoa ' .. archive_name .. ' -o"' .. extract_absolute_directory_path .. '"'
     print("file_util.lua | Running: " .. command)
@@ -369,7 +371,7 @@ end
 -- Noita restart, yay!
 ----------------------------------------------------------------------------------------------------
 
-function StopWithoutSaveAndStartNoita()
+function fu.StopWithoutSaveAndStartNoita()
     local exe = "noita.exe"
     if DebugGetIsDevBuild() then
         exe = "noita_dev.exe"
@@ -379,7 +381,7 @@ function StopWithoutSaveAndStartNoita()
 end
 
 --- This executes c code to sent SDL_QUIT command to the app
-function StopSaveAndStartNoita()
+function fu.StopSaveAndStartNoita()
     ffi.cdef[[
         typedef union SDL_Event
         {
