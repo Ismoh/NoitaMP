@@ -6,7 +6,7 @@ jobs:
   test:
     strategy:
       matrix:
-        luaVersion: ["luajit-2.0.4", "5.1.5", "noitalua51.dll"]
+        luaVersion: ["luajit-2.0.4", "5.1.5"]
         
     runs-on: ubuntu-latest
 
