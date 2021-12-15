@@ -92,6 +92,9 @@ jobs:
         echo "> ls -lsa ${{ github.workspace }}/luarocks/share/lua/5.1"
         ls -lsa ${{ github.workspace }}/luarocks/share/lua/5.1
 
+        echo "> ls -lsa ${{ github.workspace }}/luarocks/share/lua/5.1/system"
+        ls -lsa ${{ github.workspace }}/luarocks/share/lua/5.1/system
+
 
         echo "> sudo busted -o utfTerminal"
         ${{ github.workspace }}/luarocks/bin/busted -o utfTerminal
