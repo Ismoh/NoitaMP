@@ -61,8 +61,8 @@ jobs:
         echo "> sudo luarocks install busted"
         sudo luarocks install busted
 
-        #echo "> sudo luarocks install luasystem" # https://githubmemory.com/repo/Olivine-Labs/busted/issues/650
-        #sudo luarocks install luasystem
+        echo "> sudo luarocks install luasystem" # https://githubmemory.com/repo/Olivine-Labs/busted/issues/650
+        sudo luarocks install luasystem
 
         echo "> sudo busted -o utfTerminal"
         sudo busted -o utfTerminal
