@@ -5,6 +5,7 @@ on: [push, pull_request]
 jobs:
   test:
     strategy:
+      fail-fast: false
       matrix:
         luaVersion: ["luajit-2.0.4", "5.1.5"]
         
