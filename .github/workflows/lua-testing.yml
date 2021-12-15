@@ -58,6 +58,15 @@ jobs:
         echo "> ls -lsa ${{ github.workspace }}/luarocks"
         ls -lsa ${{ github.workspace }}/luarocks
 
+        echo "> ls -lsa ${{ github.workspace }}/luarocks/bin"
+        ls -lsa ${{ github.workspace }}/luarocks/bin
+
+        echo "> ls -lsa ${{ github.workspace }}/luarocks/etc"
+        ls -lsa ${{ github.workspace }}/luarocks/etc
+
+        echo "> ls -lsa ${{ github.workspace }}/luarocks/share"
+        ls -lsa ${{ github.workspace }}/luarocks/share
+
     - name: Generate coverage report
       run: |
         ################ run luarocks commands
