@@ -110,6 +110,8 @@ jobs:
         #${{ github.workspace }}/luarocks/bin/luarocks --version
 
 
+        echo "> cd ${{ github.workspace }}"
+        cd ${{ github.workspace }}
 
         echo "> sudo busted -o utfTerminal"
         ${{ github.workspace }}/luarocks/bin/busted -o utfTerminal
