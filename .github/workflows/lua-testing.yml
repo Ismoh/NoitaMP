@@ -20,7 +20,7 @@ jobs:
     - uses: leafo/gh-actions-luarocks@v4.0.0
 
     - name: Get Lua from cache
-      uses: "${{ GITHUB_WORKSPACE }}/dll_building/lua-enet-master_21-10-2015_ENet1-3-17_Noita-lua51-dll/noitalua51.dll"
+      uses: ${{ GITHUB_WORKSPACE }}/dll_building/lua-enet-master_21-10-2015_ENet1-3-17_Noita-lua51-dll/noitalua51.dll
 
     - name: build
       run: |
