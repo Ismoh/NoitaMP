@@ -49,8 +49,8 @@ jobs:
         echo "> make"
         make
 
-        echo "> make install"
-        make install
+        echo "> sudo make install"
+        sudo make install
 
     - name: Generate coverage report
       run: |
