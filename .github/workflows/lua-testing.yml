@@ -1,12 +1,12 @@
 name: lua-testing
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   test:
     strategy:
       matrix:
-        luaVersion: ["luajit-2.0.4", "5.1.5"]
+        luaVersion: ["luajit-2.0.4", "5.1.5", ""]
         
     runs-on: ubuntu-latest
 
@@ -18,6 +18,9 @@ jobs:
         luaVersion: ${{ matrix.luaVersion }}
 
     - uses: leafo/gh-actions-luarocks@v4.0.0
+
+    - name: Get Lua from cache
+      uses: 'dll_building/lua-enet-master_21-10-2015_ENet1-3-17_Noita-lua51-dll/noitalua51.dll'
 
     - name: build
       run: |
