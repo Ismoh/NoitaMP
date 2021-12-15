@@ -13,6 +13,7 @@ description = {
 
 dependencies = {
   "lua = 5.1",
+  "ffi",
 }
 
 build = {
