@@ -22,23 +22,6 @@ jobs:
 
     - name: build
       run: |
-        # install lua manually: https://github.com/luarocks/luarocks/wiki/Installation-instructions-for-Unix
-        sudo apt install build-essential libreadline-dev unzip
-        curl -R -O http://www.lua.org/ftp/lua-5.1.tar.gz
-        tar -zxf lua-5.1.tar.gz
-        cd lua-5.1
-        make linux test
-        sudo make install
-
-        # install lua rocks manually: https://github.com/luarocks/luarocks/wiki/Installation-instructions-for-Unix
-        wget https://luarocks.github.io/luarocks/releases/luarocks-2.0.4.tar.gz
-        tar zxpf luarocks-2.0.4.tar.gz
-        cd luarocks-2.0.4
-        ./configure --with-lua-include=/usr/local/include
-        make
-        sudo make install
-
-        # run luarocks commands
         luarocks install luacov
         luarocks install busted
         luarocks install luaffi
@@ -56,6 +39,26 @@ jobs:
 
     steps:
     - uses: actions/checkout@main
+
+    - name: Install lua51 and luarocks 2.0.4
+      run: |
+        # install lua manually: https://github.com/luarocks/luarocks/wiki/Installation-instructions-for-Unix
+        sudo apt install build-essential libreadline-dev unzip
+        curl -R -O http://www.lua.org/ftp/lua-5.1.tar.gz
+        tar -zxf lua-5.1.tar.gz
+        cd lua-5.1
+        make linux test
+        sudo make install
+
+        # install lua rocks manually: https://github.com/luarocks/luarocks/wiki/Installation-instructions-for-Unix
+        wget https://luarocks.github.io/luarocks/releases/luarocks-2.0.4.tar.gz
+        tar zxpf luarocks-2.0.4.tar.gz
+        cd luarocks-2.0.4
+        ./configure --with-lua-include=/usr/local/include
+        make
+        sudo make install
+
+        # run luarocks commands
 
     - name: Generate coverage report
       run: |
