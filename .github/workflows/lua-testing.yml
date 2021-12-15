@@ -39,7 +39,7 @@ jobs:
         sudo env | grep lua
 
         echo "busted -o utfTerminal"
-        busted -o utfTerminal
+        sudo busted -o utfTerminal
 
         echo "luacov ./spec/luacov/.luacov"
         luacov ./spec/luacov/.luacov
