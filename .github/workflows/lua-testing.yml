@@ -14,7 +14,7 @@ jobs:
 
     - name: Install lua 5.1.5 and luarocks 2.0.4
       run: |
-        # install lua manually: https://github.com/luarocks/luarocks/wiki/Installation-instructions-for-Unix
+        ################ install lua manually: https://github.com/luarocks/luarocks/wiki/Installation-instructions-for-Unix
         echo "> apt install build-essential libreadline-dev unzip"
         sudo apt install build-essential libreadline-dev unzip
         
@@ -33,7 +33,7 @@ jobs:
         echo "> sudo make install"
         sudo make install
 
-        # install lua rocks manually: https://github.com/luarocks/luarocks/wiki/Installation-instructions-for-Unix
+        ################ install lua rocks manually: https://github.com/luarocks/luarocks/wiki/Installation-instructions-for-Unix
         echo "> wget https://luarocks.github.io/luarocks/releases/luarocks-2.0.4.tar.gz"
         wget https://luarocks.github.io/luarocks/releases/luarocks-2.0.4.tar.gz
 
@@ -54,16 +54,20 @@ jobs:
 
     - name: Generate coverage report
       run: |
-        # run luarocks commands
-        luarocks install luacov
-        luarocks install busted
+        ################ run luarocks commands
+        echo "> sudo luarocks install luacov"
+        sudo luarocks install luacov
 
+        echo "> sudo luarocks install busted"
+        sudo luarocks install busted
+
+        echo "> env | grep lua"
         env | grep lua
 
-        "busted -o utfTerminal"
+        echo "> busted -o utfTerminal"
         busted -o utfTerminal
 
-        "luacov ./spec/luacov/.luacov"
+        echo "> luacov ./spec/luacov/.luacov"
         luacov ./spec/luacov/.luacov
 
     - name: Upload coverage to Codecov
