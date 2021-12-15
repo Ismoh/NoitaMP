@@ -16,7 +16,7 @@ jobs:
       run: |
         ################ install lua manually: https://github.com/luarocks/luarocks/wiki/Installation-instructions-for-Unix
         echo "> sudo apt install build-essential libreadline-dev unzip"
-        apt install build-essential libreadline-dev unzip
+        sudo apt install build-essential libreadline-dev unzip
         
         echo "> curl -R -O http://www.lua.org/ftp/lua-5.1.5.tar.gz"
         curl -R -O http://www.lua.org/ftp/lua-5.1.5.tar.gz
