@@ -99,7 +99,7 @@ jobs:
         cd ${{ github.workspace }}
 
         echo "> sudo busted -o utfTerminal"
-        ${{ github.workspace }}/luarocks/bin/busted -o utfTerminal
+        ${{ github.workspace }}/luarocks/bin/busted --verbose -o utfTerminal
 
         echo "> sudo luacov ./spec/luacov/.luacov"
         ${{ github.workspace }}/luarocks/bin/luacov ./spec/luacov/.luacov
