@@ -5,6 +5,10 @@
 print("package.path = " .. package.path)
 print("package.cpath = " .. package.cpath)
 
+local ffi = require("ffi")
+
+print(ffi)
+
 local fu = require("noita-mp/files/scripts/util/file_util")
 
 describe("file_util.lua", function()

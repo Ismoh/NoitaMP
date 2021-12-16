@@ -3,7 +3,7 @@ name: lua-testing
 on: [push, pull_request]
 
 jobs:
-  lua-unit-test:
+  lua-unit-tests:
     strategy:
       fail-fast: false
 
