@@ -98,8 +98,8 @@ jobs:
         echo "> cd ${{ github.workspace }}"
         cd ${{ github.workspace }}
 
-        echo "> ${{ github.workspace }}/luajit/bin/luajit ${{ github.workspace }}/.github/workflows/adjust_package_paths.lua"
-        ${{ github.workspace }}/luajit/bin/luajit ${{ github.workspace }}/.github/workflows/adjust_package_paths.lua
+        echo "> ${{ github.workspace }}/.github/workflows/adjust_package_paths.sh"
+        ${{ github.workspace }}/.github/workflows/adjust_package_paths.sh
 
         echo "> ${{ github.workspace }}/luarocks/bin/busted --lua= ${{ github.workspace }}/luajit/bin/luajit -v -o utfTerminal"
         ${{ github.workspace }}/luarocks/bin/busted --lua=${{ github.workspace }}/luajit/bin/luajit -v -o utfTerminal
