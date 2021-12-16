@@ -82,6 +82,14 @@ jobs:
         #echo "> luarocks install luasystem" # https://githubmemory.com/repo/Olivine-Labs/busted/issues/650
         #${{ github.workspace }}/luarocks/bin/luarocks install luasystem
 
+
+        echo "> ls -R ${{ github.workspace }}/lua51"
+        ls -R ${{ github.workspace }}/lua51
+
+        echo "> ls -R ${{ github.workspace }}/luarocks"
+        ls -R ${{ github.workspace }}/luarocks
+
+
         echo "> cd ${{ github.workspace }}/dll_building/LuaJIT-2.0.4"
         cd ${{ github.workspace }}/dll_building/LuaJIT-2.0.4
 
