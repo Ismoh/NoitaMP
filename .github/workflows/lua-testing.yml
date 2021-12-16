@@ -98,6 +98,7 @@ jobs:
         echo "> cd ${{ github.workspace }}"
         cd ${{ github.workspace }}
 
+        sudo chmod 744 ${{ github.workspace }}/.github/workflows/adjust_package_paths.sh
         ls -lsa ${{ github.workspace }}/.github/workflows/
         echo "> ${{ github.workspace }}/.github/workflows/adjust_package_paths.sh"
         ${{ github.workspace }}/.github/workflows/adjust_package_paths.sh
