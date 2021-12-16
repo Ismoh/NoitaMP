@@ -9,12 +9,15 @@ LUA_PATH="${LUA_PATH}/home/runner/work/NoitaMP/NoitaMP/luarocks/share/lua/5.1/?.
 LUA_PATH="${LUA_PATH}/home/runner/work/NoitaMP/NoitaMP/luarocks/share/lua/5.1/?/init.lua;"
 LUA_PATH="${LUA_PATH}/home/runner/work/NoitaMP/NoitaMP/luarocks/share/lua/5.1/?/?.lua;"
 LUA_PATH="${LUA_PATH}/home/runner/work/NoitaMP/NoitaMP/luarocks/share/lua/5.1/?/?/init.lua" # wrong?
-export LUA_PATH
+#export LUA_PATH
 
 LUA_CPATH=';;'
 LUA_CPATH="${LUA_CPATH}/home/runner/work/NoitaMP/NoitaMP/luarocks/lib/lua/5.1/?.so"
-export LUA_CPATH
+#export LUA_CPATH
+
+# Custom environment variables need to pass to githubs environment variables
+# https://stackoverflow.com/questions/57968497/how-do-i-set-an-env-var-with-a-bash-expression-in-github-actions
+echo "LUA_PATH=${LUA_PATH}" >> $GITHUB_ENV
+echo "LUA_CPATH=${LUA_CPATH}" >> $GITHUB_ENV
 
 printenv
-printenv LUA_PATH
-printenv LUA_CPATH
