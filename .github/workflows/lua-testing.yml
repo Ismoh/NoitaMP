@@ -103,8 +103,8 @@ jobs:
         echo "> ${{ github.workspace }}/.github/workflows/adjust_package_paths.sh"
         ${{ github.workspace }}/.github/workflows/adjust_package_paths.sh
 
-        echo "> ${{ github.workspace }}/luarocks/bin/busted --lua=${{ github.workspace }}/luajit/bin/luajit --lpath=${{ env.LUA_PATH }} --cpath=$LUA_CPATH -v -o utfTerminal"
-        ${{ github.workspace }}/luarocks/bin/busted --lua=${{ github.workspace }}/luajit/bin/luajit --lpath=${{ env.LUA_PATH }} --cpath=${{ lua.cpath }} -v -o utfTerminal
+        echo "> ${{ github.workspace }}/luarocks/bin/busted --lua=${{ github.workspace }}/luajit/bin/luajit --lpath=${{ env.LUA_PATH }} --cpath=${LUA_CPATH} -v -o utfTerminal"
+        ${{ github.workspace }}/luarocks/bin/busted --lua=${{ github.workspace }}/luajit/bin/luajit --lpath=${{ env.LUA_PATH }} --cpath=${LUA_CPATH} -v -o utfTerminal
 
         echo "> luacov ./spec/luacov/.luacov"
         ${{ github.workspace }}/luarocks/bin/luacov ./spec/luacov/.luacov
