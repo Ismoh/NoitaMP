@@ -1,7 +1,8 @@
-package.cpath = package.cpath .. ";"
-.. string.gsub("/home/runner/work/NoitaMP/NoitaMP/luajit/lib/?.dll;", "/", "\\")
-.. string.gsub("/home/runner/work/NoitaMP/NoitaMP/luajit/lib/?.so;", "/", "\\")
+--package.cpath = package.cpath .. ";"
+--.. string.gsub("/home/runner/work/NoitaMP/NoitaMP/luajit/lib/?.dll;", "/", "\\")
+--.. string.gsub("/home/runner/work/NoitaMP/NoitaMP/luajit/lib/?.so;", "/", "\\")
 
+print("package.path = " .. package.path)
 print("package.cpath = " .. package.cpath)
 
 local fu = require("noita-mp/files/scripts/util/file_util")
