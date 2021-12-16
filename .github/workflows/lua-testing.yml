@@ -98,6 +98,16 @@ jobs:
         echo "> cd ${{ github.workspace }}"
         cd ${{ github.workspace }}
 
+        # Adjust luajits package.path
+        echo "> ${{ github.workspace }}/luajit/bin/luajit -e 'package.path = package.path .. ";/luarocks/share/lua/5.1/?.lua"'"
+        ${{ github.workspace }}/luajit/bin/luajit -e 'package.path = package.path .. ";/luarocks/share/lua/5.1/?.lua"'
+
+        echo "> ${{ github.workspace }}/luajit/bin/luajit -e 'package.path = package.path .. ";/luarocks/share/lua/5.1/?/init.lua"'"
+        ${{ github.workspace }}/luajit/bin/luajit -e 'package.path = package.path .. ";/luarocks/share/lua/5.1/?/init.lua"'
+
+        echo "> ${{ github.workspace }}/luajit/bin/luajit -e 'package.cpath = package.cpath .. ";/luarocks/lib/lua/5.1/?.so"'"
+        ${{ github.workspace }}/luajit/bin/luajit -e 'package.cpath = package.cpath .. ";/luarocks/lib/lua/5.1/?.so"'
+
         ${{ github.workspace }}/luajit/bin/luajit -e 'print("package.path = " .. package.path)'
         ${{ github.workspace }}/luajit/bin/luajit -e 'print("package.cpath = " .. package.cpath)'
 
