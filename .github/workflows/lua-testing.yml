@@ -98,10 +98,10 @@ jobs:
         echo "> cd ${{ github.workspace }}"
         cd ${{ github.workspace }}
 
-        echo "> sudo busted -o utfTerminal"
-        ${{ github.workspace }}/luarocks/bin/busted -v -o utfTerminal
+        echo "> ${{ github.workspace }}/luarocks/bin/busted --lua= ${{ github.workspace }}/luajit/bin/luajit-v -o utfTerminal"
+        ${{ github.workspace }}/luarocks/bin/busted --lua= ${{ github.workspace }}/luajit/bin/luajit-v -o utfTerminal
 
-        echo "> sudo luacov ./spec/luacov/.luacov"
+        echo "> luacov ./spec/luacov/.luacov"
         ${{ github.workspace }}/luarocks/bin/luacov ./spec/luacov/.luacov
 
     - name: Upload coverage to Codecov
