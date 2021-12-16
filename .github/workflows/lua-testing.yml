@@ -3,7 +3,7 @@ name: lua-testing
 on: [push, pull_request]
 
 jobs:
-  test:
+  lua-unit-test:
     strategy:
       fail-fast: false
 
@@ -12,7 +12,7 @@ jobs:
     steps:
     - uses: actions/checkout@main
 
-    - name: Install lua 5.1.5 and luarocks 2.0.4
+    - name: Install lua 5.1.5
       run: |
         ################ install lua manually: https://github.com/luarocks/luarocks/wiki/Installation-instructions-for-Unix
         echo "> sudo apt install build-essential libreadline-dev unzip"
@@ -27,15 +27,17 @@ jobs:
         echo "> cd lua-5.1.5"
         cd lua-5.1.5
         
-        echo "> sudo make linux test"
+        echo "> make linux test"
         make linux test
 
-        echo "> sudo make install INSTALL_TOP=${{ github.workspace }}/lua51"
+        echo "> make install INSTALL_TOP=${{ github.workspace }}/lua51"
         make install INSTALL_TOP=${{ github.workspace }}/lua51
 
-        echo "> ls -lsa ${{ github.workspace }}/lua51"
-        ls -lsa ${{ github.workspace }}/lua51
+        echo "> ls -R ${{ github.workspace }}/lua51"
+        ls -R ${{ github.workspace }}/lua51
 
+    - name: Install luarocks 3.8.0
+      run: |
         ################ install lua rocks manually: https://github.com/luarocks/luarocks/wiki/Installation-instructions-for-Unix
         echo "> wget https://luarocks.github.io/luarocks/releases/luarocks-3.8.0.tar.gz"
         wget https://luarocks.github.io/luarocks/releases/luarocks-3.8.0.tar.gz
@@ -46,30 +48,20 @@ jobs:
         echo "> cd luarocks-3.8.0"
         cd luarocks-3.8.0
 
-        echo "> sudo ./configure --prefix=${{ github.workspace }}/luarocks --with-lua-include=${{ github.workspace }}/lua51/include --with-lua=${{ github.workspace }}/lua51"
+        echo "> ./configure --prefix=${{ github.workspace }}/luarocks --with-lua-include=${{ github.workspace }}/lua51/include --with-lua=${{ github.workspace }}/lua51"
         ./configure --prefix=${{ github.workspace }}/luarocks --with-lua-include=${{ github.workspace }}/lua51/include --with-lua=${{ github.workspace }}/lua51
 
-        echo "> sudo make"
+        echo "> make"
         make
 
-        echo "> sudo make install"
+        echo "> make install"
         make install
 
-        echo "> ls -lsa ${{ github.workspace }}/luarocks"
-        ls -lsa ${{ github.workspace }}/luarocks
+        echo "> ls -R ${{ github.workspace }}/luarocks"
+        ls -R ${{ github.workspace }}/luarocks
 
-        echo "> ls -lsa ${{ github.workspace }}/luarocks/bin"
-        ls -lsa ${{ github.workspace }}/luarocks/bin
-
-        echo "> ls -lsa ${{ github.workspace }}/luarocks/etc"
-        ls -lsa ${{ github.workspace }}/luarocks/etc
-
-        echo "> ls -lsa ${{ github.workspace }}/luarocks/share"
-        ls -lsa ${{ github.workspace }}/luarocks/share
-
-    - name: Generate coverage report
+    - name: Install dependencies
       run: |
-        ################ run luarocks commands
         echo "> luarocks install luacov"
         ${{ github.workspace }}/luarocks/bin/luarocks install luacov
 
@@ -82,14 +74,12 @@ jobs:
         #echo "> luarocks install luasystem" # https://githubmemory.com/repo/Olivine-Labs/busted/issues/650
         #${{ github.workspace }}/luarocks/bin/luarocks install luasystem
 
-
-        echo "> ls -R ${{ github.workspace }}/lua51"
-        ls -R ${{ github.workspace }}/lua51
-
         echo "> ls -R ${{ github.workspace }}/luarocks"
         ls -R ${{ github.workspace }}/luarocks
 
-
+    - name: Install luaJIT 2.0.4
+      if: ${{ false }} # https://code-maven.com/slides/github-ci/disable-step-in-github-action
+      run: |
         echo "> cd ${{ github.workspace }}/dll_building/LuaJIT-2.0.4"
         cd ${{ github.workspace }}/dll_building/LuaJIT-2.0.4
 
@@ -99,14 +89,11 @@ jobs:
         echo "> make install PREFIX=${{ github.workspace }}/luajit"
         make install PREFIX=${{ github.workspace }}/luajit
 
-
-
-
         echo "> ls -R ${{ github.workspace }}/luajit"
         ls -R ${{ github.workspace }}/luajit
 
-
-
+    - name: Generate coverage report with busted and luacov
+      run: |
         # Go back to workspace dir of runner, otherwise busted won't find spec dir oder *_spec files
         echo "> cd ${{ github.workspace }}"
         cd ${{ github.workspace }}
