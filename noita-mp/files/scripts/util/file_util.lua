@@ -108,7 +108,7 @@ function fu.GetRelativeDirectoryAndFilesOfSave06()
             local dir_name = ""
             local file_name = ""
 
-            if IsDirectory(path) then
+            if fu.IsDirectory(path) then
                 dir_name = relative
             else
                 local t_match = {}

@@ -78,7 +78,7 @@ jobs:
         ls -R ${{ github.workspace }}/luarocks
 
     - name: Install luaJIT 2.0.4
-      if: ${{ false }} # https://code-maven.com/slides/github-ci/disable-step-in-github-action
+      #if: ${{ false }} # https://code-maven.com/slides/github-ci/disable-step-in-github-action
       run: |
         echo "> cd ${{ github.workspace }}/dll_building/LuaJIT-2.0.4"
         cd ${{ github.workspace }}/dll_building/LuaJIT-2.0.4
