@@ -76,6 +76,9 @@ jobs:
         echo "> luarocks install busted"
         ${{ github.workspace }}/luarocks/bin/luarocks install busted
 
+        echo "> luarocks install --server=https://luarocks.org/dev luaffi"
+        ${{ github.workspace }}/luarocks/bin/luarocks install --server=https://luarocks.org/dev luaffi
+
         #echo "> luarocks install luasystem" # https://githubmemory.com/repo/Olivine-Labs/busted/issues/650
         #${{ github.workspace }}/luarocks/bin/luarocks install luasystem
 
