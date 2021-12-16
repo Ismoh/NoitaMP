@@ -98,21 +98,8 @@ jobs:
         echo "> cd ${{ github.workspace }}"
         cd ${{ github.workspace }}
 
-        # Adjust luajits package.path
-        #echo "> ${{ github.workspace }}/luajit/bin/luajit -e 'package.path = package.path .. ";${{ github.workspace }}/luarocks/share/lua/5.1/?.lua"'"
-        #${{ github.workspace }}/luajit/bin/luajit -e 'package.path = package.path .. ";${{ github.workspace }}/luarocks/share/lua/5.1/?.lua"'
-
-        echo "> ${{ github.workspace }}/luajit/bin/luajit -e 'package.path = package.path .. ";${{ github.workspace }}/luarocks/share/lua/5.1/?/init.lua"'"
-        ${{ github.workspace }}/luajit/bin/luajit -e 'package.path = package.path .. ";${{ github.workspace }}/luarocks/share/lua/5.1/?/init.lua"'
-
-        echo "> ${{ github.workspace }}/luajit/bin/luajit -e 'package.path = package.path .. ";${{ github.workspace }}/luarocks/share/lua/5.1/?/?.lua"'"
-        ${{ github.workspace }}/luajit/bin/luajit -e 'package.path = package.path .. ";${{ github.workspace }}/luarocks/share/lua/5.1/?/?.lua"'
-
-        echo "> ${{ github.workspace }}/luajit/bin/luajit -e 'package.cpath = package.cpath .. ";${{ github.workspace }}/luarocks/lib/lua/5.1/?.so"'"
-        ${{ github.workspace }}/luajit/bin/luajit -e 'package.cpath = package.cpath .. ";${{ github.workspace }}/luarocks/lib/lua/5.1/?.so"'
-
-        ${{ github.workspace }}/luajit/bin/luajit -e 'print("package.path = " .. package.path)'
-        ${{ github.workspace }}/luajit/bin/luajit -e 'print("package.cpath = " .. package.cpath)'
+        echo "> ${{ github.workspace }}/luajit/bin/luajit ${{ github.workspace }}/.github/workflows/adjust_package_paths.lua"
+        ${{ github.workspace }}/luajit/bin/luajit ${{ github.workspace }}/.github/workflows/adjust_package_paths.lua
 
         echo "> ${{ github.workspace }}/luarocks/bin/busted --lua= ${{ github.workspace }}/luajit/bin/luajit -v -o utfTerminal"
         ${{ github.workspace }}/luarocks/bin/busted --lua=${{ github.workspace }}/luajit/bin/luajit -v -o utfTerminal
