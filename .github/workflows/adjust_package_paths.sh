@@ -16,3 +16,5 @@ LUA_CPATH="${LUA_CPATH}/home/runner/work/NoitaMP/NoitaMP/luarocks/lib/lua/5.1/?.
 export LUA_CPATH
 
 printenv
+printenv LUA_PATH
+printenv LUA_CPATH
