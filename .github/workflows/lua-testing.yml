@@ -98,6 +98,9 @@ jobs:
         echo "> cd ${{ github.workspace }}"
         cd ${{ github.workspace }}
 
+        lua print("package.path = " .. package.path)
+        lua print("package.cpath = " .. package.cpath)
+
         echo "> ${{ github.workspace }}/luarocks/bin/busted --lua= ${{ github.workspace }}/luajit/bin/luajit -v -o utfTerminal"
         ${{ github.workspace }}/luarocks/bin/busted --lua=${{ github.workspace }}/luajit/bin/luajit -v -o utfTerminal
 
