@@ -97,9 +97,13 @@ jobs:
 
     - name: Run testing with LuaUnit
       run: |
-        # https://stackoverflow.com/a/10523492/3493998
         ${{ github.workspace }}/luajit/bin/luajit -v
         ${{ github.workspace }}/luajit/bin/luajit ${{ github.workspace }}/.testing/luaunit.lua --version
+        
+        # copy luaunit.lua to package directory, because I don't want to mess around with lua pathes again
+        cp ${{ github.workspace }}/.testing/luaunit.lua ${{ github.workspace }}/luajit/share/lua/5.1/
+
+        # run all lua test files with one command: https://stackoverflow.com/a/10523492/3493998
         sudo find ${{ github.workspace }}/.testing -maxdepth 1 -type f -exec ${{ github.workspace }}/luajit/bin/luajit {} \;
 
     - name: Generate coverage report with busted and luacov
