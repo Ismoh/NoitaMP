@@ -53,6 +53,6 @@ jobs:
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
         directory: ${{ github.workspace }}
-        path_to_write_report: ./codecov_report.txt
+        #path_to_write_report: ./codecov_report.txt https://github.com/codecov/codecov-action/issues/476
         verbose: true
 
