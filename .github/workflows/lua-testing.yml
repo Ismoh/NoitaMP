@@ -75,8 +75,8 @@ jobs:
         echo "> cd luarocks-3.8.0"
         cd luarocks-3.8.0
 
-        echo "> ./configure --prefix=${{ github.workspace }}/luarocks --with-lua-include=${{ github.workspace }}/luajit/include --with-lua=${{ github.workspace }}/luajit/bin"
-        ./configure --prefix=${{ github.workspace }}/luarocks --with-lua-include=${{ github.workspace }}/luajit/include --with-lua=${{ github.workspace }}/luajit/bin
+        echo "> ./configure --prefix=${{ github.workspace }}/luarocks --with-lua-include=${{ github.workspace }}/luajit/include --with-lua=${{ github.workspace }}/luajit"
+        ./configure --prefix=${{ github.workspace }}/luarocks --with-lua-include=${{ github.workspace }}/luajit/include --with-lua=${{ github.workspace }}/luajit
 
         echo "> make"
         make
