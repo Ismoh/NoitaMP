@@ -7,6 +7,8 @@ function testReplacePathSeparatorWindows()
     local path = "/test/path/123"
     local result = fu.ReplacePathSeparator(path)
 
+    print("path = " .. path)
+    print("result = " .. result)
     lu.assertNotEquals(path, result)
     lu.assertEquals("\\test\\path\\123", result)
 end
@@ -16,6 +18,8 @@ function testReplacePathSeparatorUnix()
     local path = "\\test\\path\\123"
     local result = fu.ReplacePathSeparator(path)
 
+    print("path = " .. path)
+    print("result = " .. result)
     lu.assertNotEquals(path, result)
     lu.assertEquals("/test/path/123", result)
 end
