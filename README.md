@@ -2,13 +2,13 @@
 
 <div align="center">
 
-![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/ismoh/noitamp/lua-testing/develop?label=unit%20test%20develop&style=flat-square)
-![GitHub Workflow Status (event)](https://img.shields.io/github/workflow/status/ismoh/noitamp/lua-testing?event=push&label=unit%20test%20on%20push&style=flat-square)
+[![lua-testing-develop](https://img.shields.io/github/workflow/status/ismoh/noitamp/lua-testing/develop?label=unit%20test%20develop&style=flat-square)](https://github.com/Ismoh/NoitaMP/actions/workflows/lua-testing.yml?query=branch%3Adevelop)
+[![lua-testing-event-push](https://img.shields.io/github/workflow/status/ismoh/noitamp/lua-testing?event=push&label=unit%20test%20on%20push&style=flat-square)](https://github.com/Ismoh/NoitaMP/actions/workflows/lua-testing.yml?query=event%3Apush)
 [![codecov](https://flat.badgen.net/codecov/c/github/ismoh/noitamp)](https://codecov.io/gh/Ismoh/NoitaMP)
 
 [![release](https://flat.badgen.net/github/release/ismoh/noitamp)](https://github.com/Ismoh/NoitaMP/releases)
 [![releases](https://flat.badgen.net/github/releases/ismoh/noitamp)](https://github.com/Ismoh/NoitaMP/releases)
-![GitHub last commit (branch)](https://img.shields.io/github/last-commit/ismoh/noitamp?style=flat-square)
+[![last-commit](https://img.shields.io/github/last-commit/ismoh/noitamp?style=flat-square)](https://github.com/Ismoh/NoitaMP/commit/develop)
 
 [![watchers](https://flat.badgen.net/github/watchers/ismoh/noitamp)](https://github.com/Ismoh/NoitaMP)
 [![stars](https://flat.badgen.net/github/stars/ismoh/noitamp)](https://github.com/Ismoh/NoitaMP)
@@ -18,7 +18,7 @@
 [![open-issues](https://flat.badgen.net/github/open-issues/ismoh/noitamp)](https://github.com/Ismoh/NoitaMP/issues)
 [![open-issues-help-wanted](https://flat.badgen.net/github/label-issues/ismoh/noitamp/help%20wanted/open)](https://github.com/Ismoh/NoitaMP/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22)
 
-[![license](https://flat.badgen.net/github/license/ismoh/noitamp)](#license)
+[![license](https://flat.badgen.net/github/license/ismoh/noitamp)](https://github.com/Ismoh/NoitaMP/blob/develop/LICENSE)
 
 </div>
 
