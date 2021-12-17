@@ -99,8 +99,7 @@ jobs:
       run: |
         # https://stackoverflow.com/a/10523492/3493998
         ${{ github.workspace }}/luajit/bin/luajit -v
-        lua -v
-        lua ${{ github.workspace }}/.testing/luaunit.lua --version
+        ${{ github.workspace }}/luajit/bin/luajit ${{ github.workspace }}/.testing/luaunit.lua --version
         sudo find ${{ github.workspace }}/.testing/tests -maxdepth 1 -type f -exec ${{ github.workspace }}/luajit/bin/luajit {} \;
 
     - name: Generate coverage report with busted and luacov
