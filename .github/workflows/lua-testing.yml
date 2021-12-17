@@ -79,10 +79,10 @@ jobs:
         ./configure --prefix=${{ github.workspace }}/luarocks --with-lua-include=${{ github.workspace }}/luajit/include --with-lua=${{ github.workspace }}/luajit
 
         echo "> make"
-        make
+        make --prefix=${{ github.workspace }}/luarocks
 
         echo "> make install"
-        make install
+        make install --prefix=${{ github.workspace }}/luarocks
 
         echo "> ls -R ${{ github.workspace }}/luarocks"
         ls -R ${{ github.workspace }}/luarocks
