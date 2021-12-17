@@ -12,108 +12,44 @@ jobs:
     steps:
     - uses: actions/checkout@main
 
-    - name: Install lua 5.1.5
-      if: ${{ false }}
-      run: |
-        ls -lsaR
-        
-        ################ install lua manually: https://github.com/luarocks/luarocks/wiki/Installation-instructions-for-Unix
-        echo "> sudo apt install build-essential libreadline-dev unzip"
-        sudo apt install build-essential libreadline-dev unzip
-        
-        echo "> curl -R -O http://www.lua.org/ftp/lua-5.1.5.tar.gz"
-        curl -R -O http://www.lua.org/ftp/lua-5.1.5.tar.gz
-        
-        echo "> tar -zxf lua-5.1.5.tar.gz"
-        tar -zxf lua-5.1.5.tar.gz
-        
-        echo "> cd lua-5.1.5"
-        cd lua-5.1.5
-        
-        echo "> make linux test"
-        make linux test
-
-        echo "> make install INSTALL_TOP=${{ github.workspace }}/lua51"
-        make install INSTALL_TOP=${{ github.workspace }}/lua51
-
-        echo "> ls -lsaR ${{ github.workspace }}/lua51"
-        ls -lsaR ${{ github.workspace }}/lua51
-
     - name: Install luaJIT 2.0.4
-      #if: ${{ false }} # https://code-maven.com/slides/github-ci/disable-step-in-github-action
+      #if: ${{ false }} to disable a step
       run: |
-        echo "> cd ${{ github.workspace }}/.building/LuaJIT-2.0.4"
         cd ${{ github.workspace }}/.building/LuaJIT-2.0.4
-
-        echo "> make PREFIX=${{ github.workspace }}/luajit"
         make PREFIX=${{ github.workspace }}/luajit
-
-        echo "> make install PREFIX=${{ github.workspace }}/luajit"
         make install PREFIX=${{ github.workspace }}/luajit
-
-        echo "> ls -lsaR ${{ github.workspace }}/luajit"
-        ls -lsaR ${{ github.workspace }}/luajit
-
-        printenv
+        #ls -lsaR ${{ github.workspace }}/luajit
 
     - name: Run LuaUnit 3.4
       run: |
-        ${{ github.workspace }}/luajit/bin/luajit -v
-        ${{ github.workspace }}/luajit/bin/luajit ${{ github.workspace }}/.testing/luaunit.lua --version
-
-        # copy luaunit.lua to package directory, because I don't want to mess around with lua pathes again
+        ######## copy luaunit.lua to package directory, because I don't want to mess around with lua pathes again
         cp ${{ github.workspace }}/.testing/luaunit.lua ${{ github.workspace }}/luajit/share/lua/5.1/
-
-        # run all lua test files with one command: https://stackoverflow.com/a/10523492/3493998
+        ######## run all lua test files with one command: https://stackoverflow.com/a/10523492/3493998
         sudo find ${{ github.workspace }}/.testing -maxdepth 1 -type f -exec ${{ github.workspace }}/luajit/bin/luajit {} -o text --verbose --failure --error \; > ${{ github.workspace }}/.testing/testresult.log
 
     - name: Install luarocks 3.8.0
       run: |
-        ################ install lua rocks manually: https://github.com/luarocks/luarocks/wiki/Installation-instructions-for-Unix
-        echo "> wget https://luarocks.github.io/luarocks/releases/luarocks-3.8.0.tar.gz"
+        ######## install lua rocks manually: https://github.com/luarocks/luarocks/wiki/Installation-instructions-for-Unix
         wget https://luarocks.github.io/luarocks/releases/luarocks-3.8.0.tar.gz
-
-        echo "> tar zxpf luarocks-3.8.0.tar.gz"
         tar zxpf luarocks-3.8.0.tar.gz
-
-        ls -lsaR ${{ github.workspace }}
-
-        echo "> cd luarocks-3.8.0"
         cd luarocks-3.8.0
-
+        ######## set luajit pathes to luarocks
         ./configure --prefix=${{ github.workspace }}/luarocks --with-lua=${{ github.workspace }}/luajit --with-lua-include=${{ github.workspace }}/luajit/include/luajit-2.0 --with-lua-lib=${{ github.workspace }}/luajit/lib
-
-        cat ${{ github.workspace }}/luarocks-3.8.0/Makefile
-
-        cat ${{ github.workspace }}/luarocks-3.8.0/config.ld
-
-        cat ${{ github.workspace }}/luarocks-3.8.0/configure
-
-        cat ${{ github.workspace }}/luarocks-3.8.0/luarocks-3.8.0-1.rockspec
-
-
-        echo "> make"
         make
-
-        echo "> make install"
         make install
-
-        echo "> ls -lsaR ${{ github.workspace }}/luarocks"
-        ls -lsaR ${{ github.workspace }}/luarocks
+        #ls -lsaR ${{ github.workspace }}/luarocks
 
     - name: Install dependencies
       run: |
-        echo "> luarocks install luacov"
+        ######## Use --tree to define the installation path of the module, which is luajit/share/lua/5.1/ although only the 'root' directory is set
         ${{ github.workspace }}/luarocks/bin/luarocks --tree=${{ github.workspace }}/luajit install luacov
-
-        echo "> ls -lsaR ${{ github.workspace }}/luarocks"
-        ls -lsaR ${{ github.workspace }}
+        #ls -lsaR ${{ github.workspace }}/luajit/share/lua/5.1/
 
     - name: Generate coverage report with luacov
       run: |
         # https://leafo.net/guides/customizing-the-luarocks-tree.html#how-lua-finds-packages/setting-the-path-with-luarocks
-        echo "${{ github.workspace }}/luarocks/bin/luarocks path"
-        ${{ github.workspace }}/luarocks/bin/luarocks path >> ~/.bashrc
+        #echo "${{ github.workspace }}/luarocks/bin/luarocks path"
+        #${{ github.workspace }}/luarocks/bin/luarocks path >> ~/.bashrc
 
         sudo find ${{ github.workspace }}/.testing -maxdepth 1 -type f -exec ${{ github.workspace }}/luajit/bin/luajit -lluacov {} \;
 
