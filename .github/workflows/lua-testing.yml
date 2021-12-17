@@ -39,8 +39,6 @@ jobs:
         echo "> ls -lsaR ${{ github.workspace }}/lua51"
         ls -lsaR ${{ github.workspace }}/lua51
 
-        find lua
-
     - name: Install luaJIT 2.0.4
       #if: ${{ false }} # https://code-maven.com/slides/github-ci/disable-step-in-github-action
       run: |
@@ -55,8 +53,6 @@ jobs:
 
         echo "> ls -lsaR ${{ github.workspace }}/luajit"
         ls -lsaR ${{ github.workspace }}/luajit
-
-        find luajit
 
     - name: Run LuaUnit 3.4
       run: |
