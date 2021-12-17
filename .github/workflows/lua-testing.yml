@@ -24,7 +24,7 @@ jobs:
         ######## copy luaunit.lua to package directory, because I don't want to mess around with lua pathes again
         cp ${{ github.workspace }}/.testing/luaunit.lua ${{ github.workspace }}/luajit/share/lua/5.1/
         ######## run all lua test files with one command: https://stackoverflow.com/a/10523492/3493998
-        sudo find ${{ github.workspace }}/.testing -maxdepth 1 -type f -exec ${{ github.workspace }}/luajit/bin/luajit {} -o text --verbose --failure --error \; > ${{ github.workspace }}/.testing/testresult.log
+        sudo find ${{ github.workspace }}/.testing/tests -name "*.lua" -type f -exec ${{ github.workspace }}/luajit/bin/luajit {} -o text --verbose --failure --error \; > ${{ github.workspace }}/.testing/testresult.log
         cat ${{ github.workspace }}/.testing/testresult.log
 
     - name: Install luarocks 3.8.0
@@ -45,7 +45,7 @@ jobs:
 
     - name: Generate coverage report with luacov
       run: |
-        sudo find ${{ github.workspace }}/noita-mp -name "*.lua" -type f -exec ${{ github.workspace }}/luajit/bin/luajit -lluacov {} \;
+        sudo find ${{ github.workspace }}/.testing/tests -name "*.lua" -type f -exec ${{ github.workspace }}/luajit/bin/luajit -lluacov {} \;
         ${{ github.workspace }}/luajit/bin/luacov
 
     - name: Upload coverage to Codecov
