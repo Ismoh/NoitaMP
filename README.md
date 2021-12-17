@@ -8,7 +8,7 @@ Let's see, if I can do so?!
 ## Noita Together Reference
 
 [Noita Together](https://github.com/soler91/noita-together) is a mod I was inspired by trying to do my own mod!
-It's awesome and it's more or less a reference to this. Just to be clear, there is no 'stolen' code. So try it out!
+It's awesome and it's more or less a reference to this. You really should try Noita Together! (Just to be clear, there is no 'stolen' code.)
 
 ## Credits | Special Thanks
 
@@ -21,9 +21,9 @@ I wouldn't be able to create this mod without the help by
 - soler91
 
 I appreaciate your help a lot!
-If you spot anything I should mention, feel free to create a issue or get in contact to me!
+If you spot anything I should mention, feel free to create a issue or get in touch with me!
 
-Also special thanks to the guys, who share your libraries, frameworks and other stuff. See below!
+Also special thanks to the ppl, who share their libraries, frameworks and other stuff. See below!
 
 ### Used libraries, frameworks and other stuff
 
@@ -34,7 +34,7 @@ Also special thanks to the guys, who share your libraries, frameworks and other 
 - [sock.lua](https://github.com/camchenry/sock.lua)
 
 I had to build the network library by my own, because Noita provides its own lua51.dll. I had struggle to build it, if you are interested in,
-I've added all the necessary build files inside of dll_building.7z and here you can see the [stackoverflow question](https://stackoverflow.com/questions/70048918/lua-5-1-package-loadlib-and-require-gcc-building-windows-dll) I've created.
+I've added all the necessary build files inside of .building/dll_building.7z and here you can see the [stackoverflow question](https://stackoverflow.com/questions/70048918/lua-5-1-package-loadlib-and-require-gcc-building-windows-dll) I've created.
 
 ### Testing (wip)
 
