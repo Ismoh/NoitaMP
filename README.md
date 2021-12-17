@@ -1,6 +1,6 @@
 # Noita Multiplayer
 
-I love to play Noita! You should give it a try: [Noita](https://noitagame.com/)
+I love to play [Noita](https://noitagame.com/)! You should give it a try!
 Usually I like to play with my friends. Truly Noita is made for beeing a singleplayer game,
 but I can't get rid of the idea to try implemting a multiplayer mod, just to share all the feelings playing Noita with friends.
 Let's see, if I can do so?!
