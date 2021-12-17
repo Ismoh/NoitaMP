@@ -26,6 +26,7 @@ jobs:
         cp ${{ github.workspace }}/.testing/luaunit.lua ${{ github.workspace }}/luajit/share/lua/5.1/
         ######## run all lua test files with one command: https://stackoverflow.com/a/10523492/3493998
         sudo find ${{ github.workspace }}/.testing -maxdepth 1 -type f -exec ${{ github.workspace }}/luajit/bin/luajit {} -o text --verbose --failure --error \; > ${{ github.workspace }}/.testing/testresult.log
+        cat ${{ github.workspace }}/.testing/testresult.log
 
     - name: Install luarocks 3.8.0
       run: |
@@ -54,7 +55,7 @@ jobs:
         ls -lsaR ${{ github.workspace }}/luajit/share/lua/5.1/luacov
         ls -lsaR ${{ github.workspace }}/luarocks/bin
 
-        ${{ github.workspace }}/luajit/share/lua/5.1/luacov
+        ${{ github.workspace }}/luajit/bin/luacov
 
         ls -lsa
 
