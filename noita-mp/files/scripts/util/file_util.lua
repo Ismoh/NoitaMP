@@ -9,7 +9,7 @@ local unix = string.find(path_separator, '/')
 
 _G.is_windows = windows
 _G.is_unix = unix
-if windows then
+if _G.is_windows then
     _G.path_separator = tostring(path_separator)
 else
     _G.path_separator = tostring(path_separator)
