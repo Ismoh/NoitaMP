@@ -50,7 +50,8 @@ jobs:
         sudo find ${{ github.workspace }}/.testing -maxdepth 1 -type f -exec ${{ github.workspace }}/luajit/bin/luajit -lluacov {} \;
 
         ls -lsaR ${{ github.workspace }}/luajit/share/lua/5.1/luacov
-        
+        ls -lsaR ${{ github.workspace }}/luarocks/bin
+
         ${{ github.workspace }}/luajit/share/lua/5.1/luacov
 
         ls -lsa
