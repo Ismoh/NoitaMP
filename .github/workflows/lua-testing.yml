@@ -54,6 +54,8 @@ jobs:
         echo "> ls -lsaR ${{ github.workspace }}/luajit"
         ls -lsaR ${{ github.workspace }}/luajit
 
+        printenv
+
     - name: Run LuaUnit 3.4
       run: |
         ${{ github.workspace }}/luajit/bin/luajit -v
@@ -81,7 +83,15 @@ jobs:
 
         ./configure --prefix=${{ github.workspace }}/luarocks --with-lua=${{ github.workspace }}/luajit --with-lua-include=${{ github.workspace }}/luajit/include/luajit-2.0 --with-lua-lib=${{ github.workspace }}/luajit/lib
 
-        cat make
+        cat ${{ github.workspace }}/luarocks-3.8.0/Makefile
+
+        cat ${{ github.workspace }}/luarocks-3.8.0/config.ld
+
+        cat ${{ github.workspace }}/luarocks-3.8.0/configure
+
+        cat ${{ github.workspace }}/luarocks-3.8.0/luarocks-3.8.0-1.rockspec
+
+
         echo "> make"
         make
 
@@ -94,10 +104,10 @@ jobs:
     - name: Install dependencies
       run: |
         echo "> luarocks install luacov"
-        ${{ github.workspace }}/luarocks/bin/luarocks install luacov
+        ${{ github.workspace }}/luarocks/bin/luarocks --tree=${{ github.workspace }}/luajit install luacov
 
         echo "> ls -lsaR ${{ github.workspace }}/luarocks"
-        ls -lsaR ${{ github.workspace }}/luarocks
+        ls -lsaR ${{ github.workspace }}
 
     - name: Generate coverage report with luacov
       run: |
