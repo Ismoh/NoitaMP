@@ -1,5 +1,0 @@
-include = {
-   "fu$",      -- the main module
-   "fu%/.+$",  -- and everything namespaced underneath it
-}
-includeuntestedfiles = true
