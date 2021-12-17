@@ -6,37 +6,36 @@ local ffi = require("ffi")
 local path_separator = package.config:sub(1,1)
 _G.is_windows = string.find(path_separator, '\\')
 _G.is_unix = string.find(path_separator, '/')
-
-if _G.is_windows then
-    _G.path_separator = tostring(path_separator)
-else
-    _G.path_separator = tostring(path_separator)
-end
+_G.path_separator = tostring(path_separator)
 
 
+--- Replaces windows path separator to unix path separator and vice versa.
+--- Error if path is not a string.
+--- @param path string
+--- @return string path
 function fu.ReplacePathSeparator(path)
+    if type(path) ~= "string" then error("path is not a string") end
     if _G.is_windows then
         print("file_util.lua | windows detected replace / with \\")
-        -- replace unix path separator with windows, if there are any / in the path
         path = string.gsub(path, "/", "\\")
     else
         print("file_util.lua | unix detected replace \\ with /")
-        -- replace windows path separator with unix, if there are any \ in the path
         path = string.gsub(path, "\\", "/")
     end
     return path
 end
 
 
---- Removes trailing path separator in a string: \persistent\flags\ -> \persistent\flags
+--- Removes trailing path separator in a string: \persistent\flags\ -> \persistent\flags.
+--- Error if path is not a string.
 --- @param path string any string, i.e. \persistent\flags\
 --- @return string path \persistent\flags
 function fu.RemoveTrailingPathSeparator(path)
-    if type(path) ~= "string" then return path end
-    if string.sub(path, -1, -1) == path_separator then -- check for trailing path separator
-        path = string.sub(path, 1, -2) -- remove it
+    if type(path) ~= "string" then error("path is not a string") end
+    if string.sub(path, -1, -1) == _G.path_separator then
+        path = string.sub(path, 1, -2)
     end
-    return tostring(path)
+    return path
 end
 
 

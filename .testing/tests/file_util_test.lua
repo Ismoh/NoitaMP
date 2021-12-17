@@ -31,8 +31,8 @@ function TestFileUtil:testReplacePathSeparatorOnUnix()
     lu.assertEquals("/test/path/123", path_unix)
 end
 
-function TestFileUtil:testRemoveTrailingPathSeparator(path)
-    local path = tostring("\\persistent\\flags\\")
+function TestFileUtil:testRemoveTrailingPathSeparator()
+    local path = tostring(_G.path_separator .. "persistent" .. _G.path_separator .. "flags" .. _G.path_separator)
     local result = fu.RemoveTrailingPathSeparator(path)
 
     print("path = " .. path)
