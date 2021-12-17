@@ -20,12 +20,15 @@ jobs:
         make install PREFIX=${{ github.workspace }}/luajit
 
     - name: Run LuaUnit 3.4
+      id: lua_unit_tests
       run: |
         ######## copy luaunit.lua to package directory, because I don't want to mess around with lua pathes again
         cp ${{ github.workspace }}/.testing/luaunit.lua ${{ github.workspace }}/luajit/share/lua/5.1/
         ######## run all lua test files with one command: https://stackoverflow.com/a/10523492/3493998
         sudo find ${{ github.workspace }}/.testing/tests -name "*.lua" -type f -exec ${{ github.workspace }}/luajit/bin/luajit {} -o text --verbose --failure --error \; > ${{ github.workspace }}/.testing/testresult.log
         cat ${{ github.workspace }}/.testing/testresult.log
+        ######## Check if tests succeed: https://stackoverflow.com/questions/59191913/get-output-of-a-specific-step-in-github-actions
+      if: ${{ grep -i FAIL ${{ github.workspace }}/.testing/testresult.log }}
 
     - name: Install luarocks 3.8.0
       run: |
