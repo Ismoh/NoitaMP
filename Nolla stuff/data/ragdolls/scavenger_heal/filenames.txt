@@ -1,6 +1,0 @@
-data/ragdolls/scavenger_heal/torso.png
-data/ragdolls/scavenger_heal/thighs.png
-data/ragdolls/scavenger_heal/head.png
-data/ragdolls/scavenger_heal/left_foot.png
-data/ragdolls/scavenger_heal/right_foot.png
-data/ragdolls/scavenger_heal/hand.png

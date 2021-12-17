@@ -1,5 +1,0 @@
-<Entity tags="spell,levitation">
-	<LifetimeComponent 
-		lifetime="600" >
-	</LifetimeComponent>
-</Entity>
