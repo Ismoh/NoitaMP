@@ -14,6 +14,8 @@ jobs:
 
     - name: Install lua 5.1.5
       run: |
+        ls -lsaR
+        
         ################ install lua manually: https://github.com/luarocks/luarocks/wiki/Installation-instructions-for-Unix
         echo "> sudo apt install build-essential libreadline-dev unzip"
         sudo apt install build-essential libreadline-dev unzip
