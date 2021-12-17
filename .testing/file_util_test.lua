@@ -5,7 +5,6 @@ local fu = require("noita-mp/files/scripts/util/file_util")
 TestFileUtil = {}
 
 function TestFileUtil:setUp()
-
 end
 
 function TestFileUtil:testReplacePathSeparatorOnWindows()

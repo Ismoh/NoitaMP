@@ -37,49 +37,6 @@ jobs:
         echo "> ls -R ${{ github.workspace }}/lua51"
         ls -R ${{ github.workspace }}/lua51
 
-    - name: Install luarocks 3.8.0
-      if: ${{ false }} 
-      run: |
-        ################ install lua rocks manually: https://github.com/luarocks/luarocks/wiki/Installation-instructions-for-Unix
-        echo "> wget https://luarocks.github.io/luarocks/releases/luarocks-3.8.0.tar.gz"
-        wget https://luarocks.github.io/luarocks/releases/luarocks-3.8.0.tar.gz
-
-        echo "> tar zxpf luarocks-3.8.0.tar.gz"
-        tar zxpf luarocks-3.8.0.tar.gz
-
-        echo "> cd luarocks-3.8.0"
-        cd luarocks-3.8.0
-
-        echo "> ./configure --prefix=${{ github.workspace }}/luarocks --with-lua-include=${{ github.workspace }}/lua51/include --with-lua=${{ github.workspace }}/lua51"
-        ./configure --prefix=${{ github.workspace }}/luarocks --with-lua-include=${{ github.workspace }}/lua51/include --with-lua=${{ github.workspace }}/lua51
-
-        echo "> make"
-        make
-
-        echo "> make install"
-        make install
-
-        echo "> ls -R ${{ github.workspace }}/luarocks"
-        ls -R ${{ github.workspace }}/luarocks
-
-    - name: Install dependencies
-      if: ${{ false }} 
-      run: |
-        echo "> luarocks install luacov"
-        ${{ github.workspace }}/luarocks/bin/luarocks install luacov
-
-        echo "> luarocks install busted"
-        ${{ github.workspace }}/luarocks/bin/luarocks install busted
-
-        echo "> luarocks install --server=https://luarocks.org/dev luaffi"
-        ${{ github.workspace }}/luarocks/bin/luarocks install --server=https://luarocks.org/dev luaffi
-
-        #echo "> luarocks install luasystem" # https://githubmemory.com/repo/Olivine-Labs/busted/issues/650
-        #${{ github.workspace }}/luarocks/bin/luarocks install luasystem
-
-        echo "> ls -R ${{ github.workspace }}/luarocks"
-        ls -R ${{ github.workspace }}/luarocks
-
     - name: Install luaJIT 2.0.4
       #if: ${{ false }} # https://code-maven.com/slides/github-ci/disable-step-in-github-action
       run: |
@@ -104,11 +61,46 @@ jobs:
         cp ${{ github.workspace }}/.testing/luaunit.lua ${{ github.workspace }}/luajit/share/lua/5.1/
 
         # run all lua test files with one command: https://stackoverflow.com/a/10523492/3493998
-        sudo find ${{ github.workspace }}/.testing -maxdepth 1 -type f -exec ${{ github.workspace }}/luajit/bin/luajit {} -o text --verbose --failure --error \;
+        sudo find ${{ github.workspace }}/.testing -maxdepth 1 -type f -exec ${{ github.workspace }}/luajit/bin/luajit {} -o text --verbose --failure --error \; > ${{ github.workspace }}/.testing/testresult.log
+
+    - name: Install luarocks 3.8.0
+      run: |
+        ################ install lua rocks manually: https://github.com/luarocks/luarocks/wiki/Installation-instructions-for-Unix
+        echo "> wget https://luarocks.github.io/luarocks/releases/luarocks-3.8.0.tar.gz"
+        wget https://luarocks.github.io/luarocks/releases/luarocks-3.8.0.tar.gz
+
+        echo "> tar zxpf luarocks-3.8.0.tar.gz"
+        tar zxpf luarocks-3.8.0.tar.gz
+
+        echo "> cd luarocks-3.8.0"
+        cd luarocks-3.8.0
+
+        echo "> ./configure --prefix=${{ github.workspace }}/luarocks --with-lua-include=${{ github.workspace }}/luajit/include --with-lua=${{ github.workspace }}/luajit/bin"
+        ./configure --prefix=${{ github.workspace }}/luarocks --with-lua-include=${{ github.workspace }}/luajit/include --with-lua=${{ github.workspace }}/luajit/bin
+
+        echo "> make"
+        make
+
+        echo "> make install"
+        make install
+
+        echo "> ls -R ${{ github.workspace }}/luarocks"
+        ls -R ${{ github.workspace }}/luarocks
+
+    - name: Install dependencies
+      if: ${{ false }} 
+      run: |
+        echo "> luarocks install luacov"
+        ${{ github.workspace }}/luarocks/bin/luarocks install luacov
+
+        echo "> ls -R ${{ github.workspace }}/luarocks"
+        ls -R ${{ github.workspace }}/luarocks
 
     - name: Generate coverage report with luacov
       run: |
-        -lluacov awesome-tests.lua
+        lua -lluacov awesome-tests.lua
+
+        ls -R
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v2
