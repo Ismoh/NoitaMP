@@ -13,7 +13,6 @@ jobs:
     - uses: actions/checkout@main
 
     - name: Install lua 5.1.5
-      if: ${{ false }} 
       run: |
         ################ install lua manually: https://github.com/luarocks/luarocks/wiki/Installation-instructions-for-Unix
         echo "> sudo apt install build-essential libreadline-dev unzip"
@@ -96,7 +95,7 @@ jobs:
 
     - name: Generate coverage report with luacov
       run: |
-        sudo find ${{ github.workspace }}/.testing -maxdepth 1 -type f -exec ${{ github.workspace }}/luarocks/bin/luarocks -lluacov {} \;
+        sudo find ${{ github.workspace }}/.testing -maxdepth 1 -type f -exec lua -lluacov {} \;
 
         ls -R
 
