@@ -28,12 +28,14 @@ Also special thanks to the guys, who share your libraries, frameworks and other 
 ### Used libraries, frameworks and other stuff
 
 - lua 5.1 (lua51.dll provided by Noita)
-- luaJIT-2.0.4 (also used by Noita)
+- [luaJIT-2.0.4](https://github.com/LuaJIT/LuaJIT/releases/tag/v2.0.4) (also used by Noita)
 - [eNet](http://enet.bespin.org/)
 - [lua-enet](https://github.com/leafo/lua-enet)
 - [sock.lua](https://github.com/camchenry/sock.lua)
 
 I had to build the network library by my own, because Noita provides its own lua51.dll. I had struggle to build it, if you are interested in,
-I've added all the necessary build files inside of dll_building and here you can see the [stackoverflow question](https://stackoverflow.com/questions/70048918/lua-5-1-package-loadlib-and-require-gcc-building-windows-dll) I've created.
+I've added all the necessary build files inside of dll_building.7z and here you can see the [stackoverflow question](https://stackoverflow.com/questions/70048918/lua-5-1-package-loadlib-and-require-gcc-building-windows-dll) I've created.
+
+### Testing (wip)
 
 [![Develop](https://github.com/Ismoh/NoitaMP/actions/workflows/lua-testing.yml/badge.svg?branch=develop&event=push)](https://github.com/Ismoh/NoitaMP/actions/workflows/lua-testing.yml)
