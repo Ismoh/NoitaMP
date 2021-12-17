@@ -33,7 +33,7 @@ jobs:
     - name: Unit test failed?
       ######## Check if tests succeed:
       # https://stackoverflow.com/questions/59191913/get-output-of-a-specific-step-in-github-actions
-      if: ${{ steps.lua_unit_tests.outputs.testresult != FAIL }}
+      if: ${{ steps.lua_unit_tests.outputs.testresult != '' }}
       run: |
         core.setFailed('Unit test failed.')
 
