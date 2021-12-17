@@ -4,11 +4,9 @@ local ffi = require("ffi")
 
 -- https://stackoverflow.com/a/14425862/3493998
 local path_separator = package.config:sub(1,1)
-local windows = string.find(path_separator, '\\')
-local unix = string.find(path_separator, '/')
+_G.is_windows = string.find(path_separator, '\\')
+_G.is_unix = string.find(path_separator, '/')
 
-_G.is_windows = windows
-_G.is_unix = unix
 if _G.is_windows then
     _G.path_separator = tostring(path_separator)
 else
@@ -18,11 +16,11 @@ end
 
 function fu.ReplacePathSeparator(path)
     if _G.is_windows then
+        print("file_util.lua | windows detected replace / with \\")
         -- replace unix path separator with windows, if there are any / in the path
         path = string.gsub(path, "/", _G.path_separator)
-        -- fix string path C:\tmp\tmp1\\test.xml to C:\\tmp\\tmp1\\test.xml
-        -- path = string.gsub(path, "\\", _G.path_separator) TODO: \dir1\\dir2\dir3\\file.tmp
     else
+        print("file_util.lua | unix detected replace \\ with /")
         -- replace windows path separator with unix, if there are any \ in the path
         path = string.gsub(path, "\\", _G.path_separator)
     end
