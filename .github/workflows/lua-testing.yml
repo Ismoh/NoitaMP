@@ -45,7 +45,7 @@ jobs:
 
     - name: Generate coverage report with luacov
       run: |
-        sudo find ${{ github.workspace }}/.testing -maxdepth 1 -type f -exec ${{ github.workspace }}/luajit/bin/luajit -lluacov {} \;
+        sudo find ${{ github.workspace }}/noita-mp -maxdepth 1 -type f -exec ${{ github.workspace }}/luajit/bin/luajit -lluacov {} \;
         ${{ github.workspace }}/luajit/bin/luacov
 
     - name: Upload coverage to Codecov

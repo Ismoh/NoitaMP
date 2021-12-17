@@ -38,5 +38,6 @@ I've added all the necessary build files inside of .building/dll_building.7z and
 
 ### Testing (wip)
 
-[![Develop](https://github.com/Ismoh/NoitaMP/actions/workflows/lua-testing.yml/badge.svg?branch=develop&event=push)](https://github.com/Ismoh/NoitaMP/actions/workflows/lua-testing.yml)
+[![lua-testing](https://github.com/Ismoh/NoitaMP/actions/workflows/lua-testing.yml/badge.svg?event=push)](https://github.com/Ismoh/NoitaMP/actions/workflows/lua-testing.yml)
+[![lua-testing](https://github.com/Ismoh/NoitaMP/actions/workflows/lua-testing.yml/badge.svg?event=pull_request)](https://github.com/Ismoh/NoitaMP/actions/workflows/lua-testing.yml)
 [![codecov](https://codecov.io/gh/Ismoh/NoitaMP/branch/develop/graph/badge.svg?token=9WPMOAJIGY)](https://codecov.io/gh/Ismoh/NoitaMP)
