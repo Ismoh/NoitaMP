@@ -104,7 +104,7 @@ jobs:
         cp ${{ github.workspace }}/.testing/luaunit.lua ${{ github.workspace }}/luajit/share/lua/5.1/
 
         # run all lua test files with one command: https://stackoverflow.com/a/10523492/3493998
-        sudo find ${{ github.workspace }}/.testing -maxdepth 1 -type f -exec ${{ github.workspace }}/luajit/bin/luajit {} -v \;
+        sudo find ${{ github.workspace }}/.testing -maxdepth 1 -type f -exec ${{ github.workspace }}/luajit/bin/luajit {} -o TAP \;
 
     - name: Generate coverage report with busted and luacov
       if: ${{ false }} 

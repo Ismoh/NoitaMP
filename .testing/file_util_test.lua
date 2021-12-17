@@ -2,7 +2,13 @@
 local lu = require('luaunit')
 local fu = require("noita-mp/files/scripts/util/file_util")
 
-function testReplacePathSeparatorWindows()
+TestFileUtil = {}
+
+function TestFileUtil:setUp()
+    
+end
+
+function TestFileUtil:testReplacePathSeparatorWindows()
     _G.is_windows = true -- TODO: is there a better way to mock?
     local path = "/test/path/123" -- unix path separator
     local result = fu.ReplacePathSeparator(path)
@@ -13,7 +19,7 @@ function testReplacePathSeparatorWindows()
     lu.assertEquals([[\test\path\123]], result)
 end
 
-function testReplacePathSeparatorUnix()
+function TestFileUtil:testReplacePathSeparatorUnix()
     _G.is_windows = false -- TODO: is there a better way to mock?
     local path = [[\test\path\123]] -- windows path separator
     local result = fu.ReplacePathSeparator(path)
