@@ -47,19 +47,11 @@ jobs:
 
     - name: Generate coverage report with luacov
       run: |
-        # https://leafo.net/guides/customizing-the-luarocks-tree.html#how-lua-finds-packages/setting-the-path-with-luarocks
-        #echo "${{ github.workspace }}/luarocks/bin/luarocks path"
-        #${{ github.workspace }}/luarocks/bin/luarocks path >> ~/.bashrc
-
         sudo find ${{ github.workspace }}/.testing -maxdepth 1 -type f -exec ${{ github.workspace }}/luajit/bin/luajit -lluacov {} \;
-
-        ls -lsaR
-        
-        cat luacov.stats.out
 
         luacov
 
-        cat luacov.report.out
+        ls -lsa
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v2
