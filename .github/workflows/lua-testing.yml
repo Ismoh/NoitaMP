@@ -98,7 +98,7 @@ jobs:
     - name: Run testing with LuaUnit
       run: |
         # https://stackoverflow.com/a/10523492/3493998
-        find ${{ github.workspace }}/.testing/tests -maxdepth 1 -type f -exec ${{ github.workspace }}/luajit {} \;
+        sudo find ${{ github.workspace }}/.testing/tests -maxdepth 1 -type f -exec ${{ github.workspace }}/luajit {} \;
 
     - name: Generate coverage report with busted and luacov
       if: ${{ false }} 
