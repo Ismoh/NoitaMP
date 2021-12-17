@@ -17,25 +17,18 @@ function Server:new(o, super, address, port)
     setmetatable(o, self)
     self.__index = self
     self.super = super
-    self.address = tostring(address) -- or ModSettingGet("noita-mp.server_ip")) print("server_class.lua | self.address = " .. self.address)
-    self.port = tonumber(port) -- or ModSettingGet("noita-mp.server_port")) print("server_class.lua | self.port = " .. self.port)
-
-    -- if self.port ~= nil and type(self.port) == "number" and self.address ~= nil and type(self.address) == "string" then
-    --     self.super = sock.newServer(self.address, self.port)
-    --     print("server_class.lua | Server started on " .. self.super:getAddress() .. ":" .. self.super:getPort())
-    -- else
-    --     print("server_class.lua | Unable to instantiate server object, because address and port are missing.")
-    --     --GamePrintImportant("Unable to instantiate server object, because address and port are missing.")
-    -- end
-
+    self.address = tostring(address)
+    self.port = tonumber(port)
     return o
 end
 
 
 function Server:setSettings()
-    self.super:setSchema("worldFiles", {"fileFullpath", "fileContent"})
-    self.super:setSchema("seed", {"seed"})
-    self.super:setSchema("playerState", { "index", "player"})
+    self.super:setSchema("worldFiles", { "relDirPath", "fileName", "fileContent", "fileIndex", "amountOfFiles" })
+    self.super:setSchema("worldFilesFinished", { "progress" })
+    self.super:setSchema("seed", { "seed" })
+    self.super:setSchema("username", { "username" })
+    self.super:setSchema("playerState", { "index", "player" })
 end
 
 
@@ -48,27 +41,22 @@ function Server:createCallbacks()
         print("server_class.lua | on_connect: ")
         print("server_class.lua | on_connect: data = " .. tostring(data))
         print("server_class.lua | on_connect: client = " .. tostring(peer))
+    end)
 
+    self.super:on("username", function(data, peer)
+        print("server_class.lua | on_username: ")
+        print("server_class.lua | on_username: data = " .. tostring(data))
+        print("server_class.lua | on_username: client = " .. tostring(peer))
+        self:setUsername(data, peer)
+    end)
 
-        -- Send client the servers world
-        local file_names = GetSavegameWorldFileNames()
-        for index, file_fullpath in ipairs(file_names) do
-            print("server_class.lua | Sending world files to client: " .. index .. " " .. file_fullpath)
-            local file_content = ReadSavegameWorldFile(file_fullpath)
-            peer:send("worldFiles", { file_fullpath, file_content })
-        end
+    self.super:on("worldFilesFinished", function(data, peer)
+        print("server_class.lua | on_worldFilesFinished: ")
+        print("server_class.lua | on_worldFilesFinished: data = " .. tostring(data))
+        print("server_class.lua | on_worldFilesFinished: client = " .. tostring(peer))
 
         -- Send restart command
-        peer:send("restart", {})
-
-        -- Send client the servers seed
-        local seed = "" .. GetDailyPracticeRunSeed()
-        print("server_class.lua | Sending seed to client: connection id = " .. peer:getConnectId() .. ", seed = " .. seed)
-        self.super:sendToPeer(peer, "seed", {seed})
-
-        -- Send a message back to the connected client
-        local msg = "Hello from the server!" .. seed
-        peer:send("hello", msg)
+        peer:send("restart", {"Restart now!"})
     end)
 
     -- Called when the client disconnects from the server
@@ -101,6 +89,98 @@ function Server:create()
 end
 
 
+function Server:setUsername(data, peer)
+    local username = data.username
+
+    for _, client in pairs(self.super.clients) do
+        if client == peer then
+            self.super.clients[_].username = username
+        end
+    end
+end
+
+
+function Server:checkIsAllowed(peer)
+    local restoredClients = self:getStoredClients()
+    if restoredClients then
+        for _, client in pairs(restoredClients) do
+            -- TODO add something like GUID to the client and mod settings to identify the user by its unique user id
+            local peer_string_stored = tostring(client.connection)
+            local index_of_collon_stored = string.find(peer_string_stored, ":")
+            local ip_stored = string.sub(peer_string_stored, 0, index_of_collon_stored)
+            local peer_string = tostring(peer.connection)
+            local index_of_collon = string.find(peer_string, ":")
+            local ip = string.sub(peer_string, 0, index_of_collon)
+            if ip_stored == ip and client.username == peer.username then
+                self.super.clients[_].isAllowed = true
+                peer.isAllowed = true
+                return true
+            end
+        end
+    end
+    return false
+end
+
+
+function Server:setIsAllowed(client, isAllowed)
+    for _, c in pairs(self.super.clients) do
+        if c.connection == client.connection and c.connectId == client.connectId then
+            self.super.clients[_].isAllowed = isAllowed
+        end
+    end
+end
+
+
+function Server:setMapReceived(peer, isMapReceived)
+    for _, client in pairs(self.super.clients) do
+        if client == peer then
+            self.super.clients[_].isMapReceived = isMapReceived
+        end
+    end
+end
+
+
+function Server:storeClients()
+    local t = {}
+    for _, client in pairs(self.super:getClients()) do
+        --local clientString = { client.username, client.isAllowed, client.isMapReceived }
+        --local serialised = self.super:pack(clientString)
+        --WriteFile(GetAbsoluteDirectoryPathOfMods() .. _G.path_separator .. "_" .. _G.path_separator .. "clients", serialised)
+        local serialiseable_client = {
+            connection = tostring(client.connection),
+            connectId = tostring(client.connectId),
+            username = tostring(client.username),
+            isAllowed = tostring(client.isAllowed),
+            isMapReceived = tostring(client.isMapReceived)
+        }
+        table.insert(t, serialiseable_client)
+    end
+    local serialised = self.super:pack(t)
+    WriteFile(GetAbsoluteDirectoryPathOfMods() .. _G.path_separator .. "_" .. _G.path_separator .. "clients", serialised)
+end
+
+
+function Server:getStoredClients()
+    local full_path = GetAbsoluteDirectoryPathOfMods() .. _G.path_separator .. "_" .. _G.path_separator .. "clients"
+    if Exists(full_path) then
+        local serialised_content = ReadFile(full_path)
+        local stored_clients = self.super:unpack(serialised_content)
+        return stored_clients
+    end
+    return nil
+end
+
+
+function Server:sendMap(client)
+
+end
+
+function Server:destroy()
+    _G.Server.super:destroy()
+    _G.Server = Server:new()
+end
+
+
 function Server:update()
     if not self.super then
         return -- server not established
@@ -111,15 +191,9 @@ end
 
 
 -- Create a new global object of the server
+_G.Server = Server:new()
 if ModSettingGet("noita-mp.server_start_when_world_loaded") then
-    local ip = ModSettingGet("noita-mp.server_ip") print("server_class.lua | Server IP = " .. ip)
-    local port = tonumber(ModSettingGet("noita-mp.server_port")) print("server_class.lua | Server Port = " .. port)
-    _G.Server = Server:new(nil, ip, port)
-
-    GamePrintImportant( "Server started", "Your server is running on "
-        .. Server.super:getAddress() .. ":" .. Server.super:getPort() .. ". Tell your friends to join!")
+    _G.Server:create()
 else
     GamePrintImportant( "Server not started", "Your server wasn't started yet. Check ModSettings to change this or Press M to open multiplayer menu.")
-
-    _G.Server = Server:new()
 end

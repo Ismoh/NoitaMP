@@ -2,5 +2,10 @@
     "Lua.workspace.library": [
         "noita_api.lua"
     ],
-    "Lua.workspace.maxPreload": 2000
+    "Lua.workspace.maxPreload": 2000,
+    "cmake.configureOnOpen": false,
+    "Lua.diagnostics.globals": [
+        "describe",
+        "it"
+    ]
 }

@@ -189,6 +189,9 @@ end
 function Listener:addCallback(event, callback)
     if not self.triggers[event] then
         self.triggers[event] = {}
+    else
+        print("sock.lua | addCallback | There is already a callback set for event " .. event .. ". This callback won't be added. Returning nil!")
+        return nil
     end
 
     table.insert(self.triggers[event], callback)
@@ -296,6 +299,18 @@ function Server:__unpack(data)
     return eventName, data
 end
 
+--- Added for NoitaMP
+---@param data any
+---@return any
+function Server:unpack(data)
+    if not self.deserialize then
+        self:log("error", "Can't deserialize message: deserialize was not set")
+        error("Can't deserialize message: deserialize was not set")
+    end
+
+    return self.deserialize(data)
+end
+
 -- Creates the serialized message that will be sent over the network
 -- In: event (string), data (mixed)
 -- Out: serialized message (string)
@@ -317,6 +332,18 @@ function Server:__pack(event, data)
     end
 
     return serializedMessage
+end
+
+--- Added for NoitaMP
+---@param data any
+---@return any
+function Server:pack(data)
+    if not self.serialize then
+        self:log("error", "Can't serialize message: serialize was not set")
+        error("Can't serialize message: serialize was not set")
+    end
+
+    return self.serialize(data)
 end
 
 --- Send a message to all clients, except one.
@@ -1310,29 +1337,32 @@ sock.newServer = function(address, port, maxPeers, maxChannels, inBandwidth, out
     outBandwidth    = outBandwidth or 0
 
     local server = setmetatable({
-        address         = address,
-        port            = port,
-        host            = nil,
+        address            = address,
+        port               = port,
+        host               = nil,
 
-        messageTimeout  = 0,
-        maxChannels     = maxChannels,
-        maxPeers        = maxPeers,
-        sendMode        = "reliable",
-        defaultSendMode = "reliable",
-        sendChannel     = 0,
+        messageTimeout     = 0,
+        maxChannels        = maxChannels,
+        maxPeers           = maxPeers,
+        sendMode           = "reliable",
+        defaultSendMode    = "reliable",
+        sendChannel        = 0,
         defaultSendChannel = 0,
 
-        peers           = {},
-        clients         = {},
+        peers              = {},
+        clients            = {},
 
-        listener        = newListener(),
-        logger          = newLogger("SERVER"),
+        listener      = newListener(),
+        logger        = newLogger("SERVER"),
 
-        serialize       = nil,
-        deserialize     = nil,
+        serialize          = nil,
+        deserialize        = nil,
 
-        packetsSent     = 0,
-        packetsReceived = 0,
+        packetsSent        = 0,
+        packetsReceived    = 0,
+
+        -- NoitaMP additions
+        username           = ""
     }, Server_mt)
 
     -- ip, max peers, max channels, in bandwidth, out bandwidth
@@ -1378,28 +1408,33 @@ sock.newClient = function(serverOrAddress, port, maxChannels)
     maxChannels     = maxChannels or 1
 
     local client = setmetatable({
-        address         = nil,
-        port            = nil,
-        host            = nil,
+        address            = nil,
+        port               = nil,
+        host               = nil,
 
-        connection      = nil,
-        connectId       = nil,
+        connection         = nil, -- aka peer
+        connectId          = nil,
 
-        messageTimeout  = 0,
-        maxChannels     = maxChannels,
-        sendMode        = "reliable",
-        defaultSendMode = "reliable",
-        sendChannel     = 0,
+        messageTimeout     = 0,
+        maxChannels        = maxChannels,
+        sendMode           = "reliable",
+        defaultSendMode    = "reliable",
+        sendChannel        = 0,
         defaultSendChannel = 0,
 
-        listener        = newListener(),
-        logger          = newLogger("CLIENT"),
+        listener      = newListener(),
+        logger        = newLogger("CLIENT"),
 
-        serialize       = nil,
-        deserialize     = nil,
+        serialize          = nil,
+        deserialize        = nil,
 
-        packetsReceived = 0,
-        packetsSent     = 0,
+        packetsReceived    = 0,
+        packetsSent        = 0,
+
+        -- NoitaMP additions
+        username           = "",
+        isAllowed          = false,
+        isMapReceived      = false
     }, Client_mt)
 
     -- Two different forms for client creation:

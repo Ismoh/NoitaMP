@@ -26,9 +26,11 @@ end
 
 function Client:setSettings()
     self.super:setTimeout(320, 50000, 100000)
-    self.super:setSchema("worldFiles", {"fileFullpath", "fileContent"})
+    self.super:setSchema("worldFiles", { "relDirPath", "fileName", "fileContent", "fileIndex", "amountOfFiles" })
+    self.super:setSchema("worldFilesFinished", { "progress" })
     self.super:setSchema("seed", { "seed" })
-    self.super:setSchema("playerState", { "index", "player"})
+    self.super:setSchema("username", { "username" })
+    self.super:setSchema("playerState", { "index", "player" })
 end
 
 
@@ -37,27 +39,75 @@ function Client:createCallbacks()
     print("client_class.lua | Creating clients callback functions.")
 
     self.super:on("connect", function(data)
-        print("client_class.lua | Client connected to the server.")
+        print("client_class.lua | Client connected to the server. Sending username to server..")
+
+        local connection_id = tostring(self.super:getConnectId())
+        local ip = tostring(self.super:getAddress())
+        local username = tostring(ModSettingGet("noita-mp.username"))
+        self.super.username = username
+        self.super:send("username", { username })
     end)
 
     self.super:on("worldFiles", function(data)
-        local file_fullpath = data.fileFullpath
+        if not data or next(data) == nil then
+            GamePrint("client_class.lua | Receiving world files from server, but data is nil or empty. " .. tostring(data))
+            return
+        end
+
+        local rel_dir_path = data.relDirPath
+        local file_name = data.fileName
         local file_content = data.fileContent
+        local file_index = data.fileIndex
+        local amount_of_files = data.amountOfFiles
 
-        print("client_class.lua | Receiving world files from server: " .. file_fullpath)
-        GamePrint("client_class.lua | Receiving world files from server: " .. file_fullpath)
+        local msg = ("client_class.lua | Receiving world file: dir:%s, file:%s, content:%s, index:%s, amount:%s"):format(rel_dir_path, file_name, file_content, file_index, amount_of_files)
+        print(msg)
+        GamePrint(msg)
 
-        WriteSavegameWorldFile(file_fullpath, file_content)
-    end)
+        local save06_parent_directory_path = GetAbsoluteDirectoryPathOfParentSave06()
 
-    self.super:on("restart", function(data)
-        BiomeMapLoad_KeepPlayer("data/biome_impl/biome_map_newgame_plus.lua", "data/biome/_pixel_scenes_newgame_plus.xml") -- StartReload(0)
+        -- if file_name ~= nil and file_name ~= ""
+        -- then -- file in save06 | "" -> directory was sent
+        --     WriteBinaryFile(save06_dir .. _G.path_separator .. file_name, file_content)
+        -- elseif rel_dir_path ~= nil and file_name ~= ""
+        -- then -- file in subdirectory was sent
+        --     WriteBinaryFile(save06_dir .. _G.path_separator .. rel_dir_path .. _G.path_separator .. file_name, file_content)
+        -- elseif rel_dir_path ~= nil and (file_name == nil or file_name == "")
+        -- then -- directory name was sent
+        --     MkDir(save06_dir .. _G.path_separator .. rel_dir_path)
+        -- else
+        --     GamePrint("client_class.lua | Unable to write file, because path and content aren't set.")
+        -- end
+        local archive_directory = GetAbsoluteDirectoryPathOfMods() .. _G.path_separator .. rel_dir_path
+        WriteBinaryFile( archive_directory .. _G.path_separator .. file_name, file_content)
+
+        if Exists(GetAbsoluteDirectoryPathOfSave06()) then -- Create backup if save06 exists
+            os.execute('cd "' .. GetAbsoluteDirectoryPathOfParentSave06() .. '" && move save06 save06_backup')
+        end
+        
+        Extract7zipArchive(archive_directory, file_name, save06_parent_directory_path)
+
+        if file_index >= amount_of_files then
+            self.super:send("worldFilesFinished", { "" .. file_index .. "/" .. amount_of_files })
+        end
     end)
 
     self.super:on("seed", function(data)
         local server_seed = tonumber(data.seed)
         print("client_class.lua | Client got seed from the server. Seed = " .. server_seed)
         ModSettingSet("noita-mp.connect_server_seed", server_seed)
+
+        print("client_class.lua | Creating magic numbers file to set clients world seed and restart the game.")
+        WriteFile(GetAbsoluteDirectoryPathOfMods() .. "/files/tmp/magic_numbers/world_seed.xml",
+                    [[<MagicNumbers WORLD_SEED="]] .. tostring(server_seed) .. [["/>]])
+        --ModTextFileSetContent( GetRelativeDirectoryPathOfMods()
+        --    .. "/files/data/magic_numbers.xml", )
+
+        --BiomeMapLoad_KeepPlayer("data/biome_impl/biome_map_newgame_plus.lua", "data/biome/_pixel_scenes_newgame_plus.xml") -- StartReload(0)
+    end)
+    
+    self.super:on("restart", function(data)
+        StopWithoutSaveAndStartNoita()
         --BiomeMapLoad_KeepPlayer("data/biome_impl/biome_map_newgame_plus.lua", "data/biome/_pixel_scenes_newgame_plus.xml") -- StartReload(0)
     end)
 
@@ -104,6 +154,11 @@ function Client:connect()
         x = 465.3,
         y = 50,
     })
+end
+
+
+function Client:disconnect()
+    self.super:disconnect()
 end
 
 

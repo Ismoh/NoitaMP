@@ -21,9 +21,13 @@ mod_settings_version = 1 -- This is a magic global that can be used to migrate s
 mod_settings =
 {
 	{
-		id = "_",
-		ui_name = "NOTE: This is just an example of mod settings. These don't actually affect anything.",
-		not_setting = true,
+		id = "username",
+		ui_name = "Username",
+		ui_description = "Username displayed in game and necessary to set!",
+		value_default = "noname",
+		text_max_length = 20,
+		scope = MOD_SETTING_SCOPE_RUNTIME,
+		change_fn = mod_setting_change_callback, -- Called when the user interact with the settings widget.
 	},
 	{
 		category_id = "group_of_server_settings",
@@ -37,7 +41,7 @@ mod_settings =
 				value_default = "localhost",
 				text_max_length = 15,
 				allowed_characters = ".0123456789abcdefghijklmnopqrstuvwxyz",
-				scope = MOD_SETTING_SCOPE_NEW_GAME,
+				scope = MOD_SETTING_SCOPE_RUNTIME,
 				change_fn = mod_setting_change_callback, -- Called when the user interact with the settings widget.
 			},
 			{
@@ -47,7 +51,7 @@ mod_settings =
 				value_default = "23476",
 				text_max_length = 5,
 				allowed_characters = "1234567890",
-				scope = MOD_SETTING_SCOPE_NEW_GAME,
+				scope = MOD_SETTING_SCOPE_RUNTIME,
 				change_fn = mod_setting_change_callback, -- Called when the user interact with the settings widget.
 			},
 			{
@@ -64,8 +68,17 @@ mod_settings =
 				ui_name = "Server start behaviour",
 				ui_description = "Starts the server immediately, when world is loaded.",
 				value_default = true,
-				scope = MOD_SETTING_SCOPE_NEW_GAME,
+				scope = MOD_SETTING_SCOPE_RUNTIME,
 				change_fn = mod_setting_change_callback, -- Called when the user interact with the settings widget.
+			},
+			{
+				id = "server_start_7zip_savegame",
+				ui_name = "Savegame Slot 6",
+				ui_description = "Savegame will be zipped next restart",
+				value_default = false,
+				scope = MOD_SETTING_SCOPE_RUNTIME_RESTART,
+				change_fn = mod_setting_change_callback, -- Called when the user interact with the settings widget.
+				hidden = true,
 			},
 		},
 	},

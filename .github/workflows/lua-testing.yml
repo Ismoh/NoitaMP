@@ -1,29 +1,124 @@
 name: lua-testing
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
-  test:
+  lua-unit-tests:
     strategy:
-      matrix:
-        luaVersion: ["5.1.5", "luajit-2.0.4"]
-        
+      fail-fast: false
+
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@main
 
-    - uses: leafo/gh-actions-lua@v8.0.0
+    - name: Install lua 5.1.5
+      run: |
+        ################ install lua manually: https://github.com/luarocks/luarocks/wiki/Installation-instructions-for-Unix
+        echo "> sudo apt install build-essential libreadline-dev unzip"
+        sudo apt install build-essential libreadline-dev unzip
+        
+        echo "> curl -R -O http://www.lua.org/ftp/lua-5.1.5.tar.gz"
+        curl -R -O http://www.lua.org/ftp/lua-5.1.5.tar.gz
+        
+        echo "> tar -zxf lua-5.1.5.tar.gz"
+        tar -zxf lua-5.1.5.tar.gz
+        
+        echo "> cd lua-5.1.5"
+        cd lua-5.1.5
+        
+        echo "> make linux test"
+        make linux test
+
+        echo "> make install INSTALL_TOP=${{ github.workspace }}/lua51"
+        make install INSTALL_TOP=${{ github.workspace }}/lua51
+
+        echo "> ls -R ${{ github.workspace }}/lua51"
+        ls -R ${{ github.workspace }}/lua51
+
+    - name: Install luarocks 3.8.0
+      run: |
+        ################ install lua rocks manually: https://github.com/luarocks/luarocks/wiki/Installation-instructions-for-Unix
+        echo "> wget https://luarocks.github.io/luarocks/releases/luarocks-3.8.0.tar.gz"
+        wget https://luarocks.github.io/luarocks/releases/luarocks-3.8.0.tar.gz
+
+        echo "> tar zxpf luarocks-3.8.0.tar.gz"
+        tar zxpf luarocks-3.8.0.tar.gz
+
+        echo "> cd luarocks-3.8.0"
+        cd luarocks-3.8.0
+
+        echo "> ./configure --prefix=${{ github.workspace }}/luarocks --with-lua-include=${{ github.workspace }}/lua51/include --with-lua=${{ github.workspace }}/lua51"
+        ./configure --prefix=${{ github.workspace }}/luarocks --with-lua-include=${{ github.workspace }}/lua51/include --with-lua=${{ github.workspace }}/lua51
+
+        echo "> make"
+        make
+
+        echo "> make install"
+        make install
+
+        echo "> ls -R ${{ github.workspace }}/luarocks"
+        ls -R ${{ github.workspace }}/luarocks
+
+    - name: Install dependencies
+      run: |
+        echo "> luarocks install luacov"
+        ${{ github.workspace }}/luarocks/bin/luarocks install luacov
+
+        echo "> luarocks install busted"
+        ${{ github.workspace }}/luarocks/bin/luarocks install busted
+
+        echo "> luarocks install --server=https://luarocks.org/dev luaffi"
+        ${{ github.workspace }}/luarocks/bin/luarocks install --server=https://luarocks.org/dev luaffi
+
+        #echo "> luarocks install luasystem" # https://githubmemory.com/repo/Olivine-Labs/busted/issues/650
+        #${{ github.workspace }}/luarocks/bin/luarocks install luasystem
+
+        echo "> ls -R ${{ github.workspace }}/luarocks"
+        ls -R ${{ github.workspace }}/luarocks
+
+    - name: Install luaJIT 2.0.4
+      #if: ${{ false }} # https://code-maven.com/slides/github-ci/disable-step-in-github-action
+      run: |
+        echo "> cd ${{ github.workspace }}/dll_building/LuaJIT-2.0.4"
+        cd ${{ github.workspace }}/dll_building/LuaJIT-2.0.4
+
+        echo "> make PREFIX=${{ github.workspace }}/luajit"
+        make PREFIX=${{ github.workspace }}/luajit
+
+        echo "> make install PREFIX=${{ github.workspace }}/luajit"
+        make install PREFIX=${{ github.workspace }}/luajit
+
+        echo "> ls -R ${{ github.workspace }}/luajit"
+        ls -R ${{ github.workspace }}/luajit
+
+    - name: Generate coverage report with busted and luacov
+      run: |
+        # Go back to workspace dir of runner, otherwise busted won't find spec dir oder *_spec files
+        echo "> cd ${{ github.workspace }}"
+        cd ${{ github.workspace }}
+
+        sudo chmod 744 ${{ github.workspace }}/.github/workflows/adjust_package_paths.sh
+        ls -lsa ${{ github.workspace }}/.github/workflows/
+        echo "> ${{ github.workspace }}/.github/workflows/adjust_package_paths.sh"
+        ${{ github.workspace }}/.github/workflows/adjust_package_paths.sh
+
+        sudo chmod 744 ${{ github.workspace }}/.github/workflows/return_lua_path.sh
+        echo "LUA_PATH=$(${{ github.workspace }}/.github/workflows/return_lua_path.sh)" >> $GITHUB_ENV
+        sudo chmod 744 ${{ github.workspace }}/.github/workflows/return_lua_cpath.sh
+        echo "LUA_CPATH=$(${{ github.workspace }}/.github/workflows/return_lua_cpath.sh)" >> $GITHUB_ENV
+
+        echo "> ${{ github.workspace }}/luarocks/bin/busted --lua=${{ github.workspace }}/luajit/bin/luajit --lpath=${{ env.LUA_PATH }} --cpath=${{ env.LUA_CPATH }} -v -o utfTerminal"
+        ${{ github.workspace }}/luarocks/bin/busted --lua=${{ github.workspace }}/luajit/bin/luajit --lpath=${{ env.LUA_PATH }} --cpath=${{ env.LUA_CPATH }} -v -o utfTerminal
+
+        echo "> luacov ./spec/luacov/.luacov"
+        ${{ github.workspace }}/luarocks/bin/luacov ./spec/luacov/.luacov
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v2
       with:
-        luaVersion: ${{ matrix.luaVersion }}
+        token: ${{ secrets.CODECOV_TOKEN }}
+        directory: ./spec/luacov/luacov.report.out
+        path_to_write_report: ./coverage/codecov_report.txt
+        verbose: true
 
-    - uses: leafo/gh-actions-luarocks@v4.0.0
-
-    - name: build
-      run: |
-        luarocks install busted
-        luarocks make
-
-    - name: test
-      run: |
-        busted -o utfTerminal

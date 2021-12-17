@@ -1,0 +1,20 @@
+1. start server manually or automatically
+2. client connects to server
+    + wait until server accept the connection
+    + if accepted, alert on client "wait until map is saved and synced"
+    + wait timeout time and reconnect
+4. server has to accept connection in mod settings or key press?
+5. server sent alert to clients "going to save and quit and restart server - progess on client wont be saved"
+    + keep clients somehow in mind (mac address?)
+    + save, quits, restart game and automatically start server
+    + wait for reconnect of client
+6. when client reconncets, server will check remembered client (mac address)
+    + if match, then sent map
+    + alert, pls do not move
+    + if no match, dont accept connection
+7. pause game somehow, until all clients sent "map received" to server
+8. clients restart noita (force quit without saving) 
+    + automatically reconnect to server after restart
+    + sent to server "map received"
+8. server got all "map received" messages and stop pausing
+9. enjoy NoitMP
