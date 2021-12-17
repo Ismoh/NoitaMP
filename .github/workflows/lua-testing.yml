@@ -13,6 +13,7 @@ jobs:
     - uses: actions/checkout@main
 
     - name: Install lua 5.1.5
+      if: ${{ false }} 
       run: |
         ################ install lua manually: https://github.com/luarocks/luarocks/wiki/Installation-instructions-for-Unix
         echo "> sudo apt install build-essential libreadline-dev unzip"
@@ -37,6 +38,7 @@ jobs:
         ls -R ${{ github.workspace }}/lua51
 
     - name: Install luarocks 3.8.0
+      if: ${{ false }} 
       run: |
         ################ install lua rocks manually: https://github.com/luarocks/luarocks/wiki/Installation-instructions-for-Unix
         echo "> wget https://luarocks.github.io/luarocks/releases/luarocks-3.8.0.tar.gz"
@@ -61,6 +63,7 @@ jobs:
         ls -R ${{ github.workspace }}/luarocks
 
     - name: Install dependencies
+      if: ${{ false }} 
       run: |
         echo "> luarocks install luacov"
         ${{ github.workspace }}/luarocks/bin/luarocks install luacov
@@ -92,7 +95,13 @@ jobs:
         echo "> ls -R ${{ github.workspace }}/luajit"
         ls -R ${{ github.workspace }}/luajit
 
+    - name: Run testing with LuaUnit
+      run: |
+        # https://stackoverflow.com/a/10523492/3493998
+        find ${{ github.workspace }}/.testing/tests -maxdepth 1 -type f -exec ${{ github.workspace }}/luajit {} \;
+
     - name: Generate coverage report with busted and luacov
+      if: ${{ false }} 
       run: |
         # Go back to workspace dir of runner, otherwise busted won't find spec dir oder *_spec files
         echo "> cd ${{ github.workspace }}"
