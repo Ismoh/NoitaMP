@@ -33,8 +33,8 @@ jobs:
         echo "> make install INSTALL_TOP=${{ github.workspace }}/lua51"
         make install INSTALL_TOP=${{ github.workspace }}/lua51
 
-        echo "> ls -R ${{ github.workspace }}/lua51"
-        ls -R ${{ github.workspace }}/lua51
+        echo "> ls -lsaR ${{ github.workspace }}/lua51"
+        ls -lsaR ${{ github.workspace }}/lua51
 
     - name: Install luaJIT 2.0.4
       #if: ${{ false }} # https://code-maven.com/slides/github-ci/disable-step-in-github-action
@@ -48,8 +48,8 @@ jobs:
         echo "> make install PREFIX=${{ github.workspace }}/luajit"
         make install PREFIX=${{ github.workspace }}/luajit
 
-        echo "> ls -R ${{ github.workspace }}/luajit"
-        ls -R ${{ github.workspace }}/luajit
+        echo "> ls -lsaR ${{ github.workspace }}/luajit"
+        ls -lsaR ${{ github.workspace }}/luajit
 
     - name: Run LuaUnit 3.4
       run: |
@@ -82,22 +82,22 @@ jobs:
         echo "> make install"
         make install
 
-        echo "> ls -R ${{ github.workspace }}/luarocks"
-        ls -R ${{ github.workspace }}/luarocks
+        echo "> ls -lsaR ${{ github.workspace }}/luarocks"
+        ls -lsaR ${{ github.workspace }}/luarocks
 
     - name: Install dependencies
       run: |
         echo "> luarocks install luacov"
         ${{ github.workspace }}/luarocks/bin/luarocks install luacov
 
-        echo "> ls -R ${{ github.workspace }}/luarocks"
-        ls -R ${{ github.workspace }}/luarocks
+        echo "> ls -lsaR ${{ github.workspace }}/luarocks"
+        ls -lsaR ${{ github.workspace }}/luarocks
 
     - name: Generate coverage report with luacov
       run: |
         sudo find ${{ github.workspace }}/.testing -maxdepth 1 -type f -exec ${{ github.workspace }}/lua51/lua -lluacov {} \;
 
-        ls -R
+        ls -lsaR
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v2
