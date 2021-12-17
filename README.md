@@ -2,16 +2,23 @@
 
 <div align="center">
 
-[![Ismoh - NoitaMP](https://img.shields.io/static/v1?label=Ismoh&message=NoitaMP&color=blue&logo=github)](https://github.com/Ismoh/NoitaMP "Go to GitHub repo")
-[![stars - NoitaMP](https://img.shields.io/github/stars/Ismoh/NoitaMP?style=social)](https://github.com/Ismoh/NoitaMP)
-[![forks - NoitaMP](https://img.shields.io/github/forks/Ismoh/NoitaMP?style=social)](https://github.com/Ismoh/NoitaMP)
+![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/ismoh/noitamp/lua-testing/develop?label=unit%20test%20develop&style=flat-square)
+![GitHub Workflow Status (event)](https://img.shields.io/github/workflow/status/ismoh/noitamp/lua-testing?event=push&label=unit%20test%20on%20push&style=flat-square)
+[![codecov](https://flat.badgen.net/codecov/c/github/ismoh/noitamp)](https://codecov.io/gh/Ismoh/NoitaMP)
 
-[![lua-testing](https://github.com/Ismoh/NoitaMP/actions/workflows/lua-testing.yml/badge.svg?branch=develop&event=push)](https://github.com/Ismoh/NoitaMP/actions/workflows/lua-testing.yml)
-[![codecov](https://codecov.io/gh/Ismoh/NoitaMP/branch/develop/graph/badge.svg?token=9WPMOAJIGY)](https://codecov.io/gh/Ismoh/NoitaMP)
+[![release](https://flat.badgen.net/github/release/ismoh/noitamp)](https://github.com/Ismoh/NoitaMP/releases)
+[![releases](https://flat.badgen.net/github/releases/ismoh/noitamp)](https://github.com/Ismoh/NoitaMP/releases)
+![GitHub last commit (branch)](https://img.shields.io/github/last-commit/ismoh/noitamp?style=flat-square)
 
-[![GitHub tag](https://img.shields.io/github/tag/Ismoh/NoitaMP?include_prereleases=&sort=semver&color=blue)](https://github.com/Ismoh/NoitaMP/releases/)
-[![issues - NoitaMP](https://img.shields.io/github/issues/Ismoh/NoitaMP)](https://github.com/Ismoh/NoitaMP/issues)
-[![License](https://img.shields.io/badge/License-MIT-blue)](#license)
+[![watchers](https://flat.badgen.net/github/watchers/ismoh/noitamp)](https://github.com/Ismoh/NoitaMP)
+[![stars](https://flat.badgen.net/github/stars/ismoh/noitamp)](https://github.com/Ismoh/NoitaMP)
+[![forks](https://flat.badgen.net/github/forks/ismoh/noitamp)](https://github.com/Ismoh/NoitaMP)
+
+[![issues](https://flat.badgen.net/github/issues/ismoh/noitamp)](https://github.com/Ismoh/NoitaMP/issues?q=is%3Aissue)
+[![open-issues](https://flat.badgen.net/github/open-issues/ismoh/noitamp)](https://github.com/Ismoh/NoitaMP/issues)
+[![open-issues-help-wanted](https://flat.badgen.net/github/label-issues/ismoh/noitamp/help%20wanted/open)](https://github.com/Ismoh/NoitaMP/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22)
+
+[![license](https://flat.badgen.net/github/license/ismoh/noitamp)](#license)
 
 </div>
 
