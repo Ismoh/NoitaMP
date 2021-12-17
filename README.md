@@ -18,7 +18,7 @@ I wouldn't be able to create this mod without the help by
 - @Horscht
 - @M127
 - @Pyry
-- soler91
+- Soler91
 
 I appreaciate your help a lot!
 If you spot anything I should mention, feel free to create a issue or get in touch with me!
