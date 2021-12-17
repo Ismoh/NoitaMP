@@ -1,5 +1,20 @@
 # Noita Multiplayer
 
+<div align="center">
+
+[![Ismoh - NoitaMP](https://img.shields.io/static/v1?label=Ismoh&message=NoitaMP&color=blue&logo=github)](https://github.com/Ismoh/NoitaMP "Go to GitHub repo")
+[![stars - NoitaMP](https://img.shields.io/github/stars/Ismoh/NoitaMP?style=social)](https://github.com/Ismoh/NoitaMP)
+[![forks - NoitaMP](https://img.shields.io/github/forks/Ismoh/NoitaMP?style=social)](https://github.com/Ismoh/NoitaMP)
+
+[![lua-testing](https://github.com/Ismoh/NoitaMP/actions/workflows/lua-testing.yml/badge.svg?branch=develop&event=push)](https://github.com/Ismoh/NoitaMP/actions/workflows/lua-testing.yml)
+[![codecov](https://codecov.io/gh/Ismoh/NoitaMP/branch/develop/graph/badge.svg?token=9WPMOAJIGY)](https://codecov.io/gh/Ismoh/NoitaMP)
+
+[![GitHub tag](https://img.shields.io/github/tag/Ismoh/NoitaMP?include_prereleases=&sort=semver&color=blue)](https://github.com/Ismoh/NoitaMP/releases/)
+[![issues - NoitaMP](https://img.shields.io/github/issues/Ismoh/NoitaMP)](https://github.com/Ismoh/NoitaMP/issues)
+[![License](https://img.shields.io/badge/License-MIT-blue)](#license)
+
+</div>
+
 I love to play [Noita](https://noitagame.com/)! You should give it a try!
 Usually I like to play with my friends. Truly Noita is made for beeing a singleplayer game,
 but I can't get rid of the idea to try implemting a multiplayer mod, just to share all the feelings playing Noita with friends.
@@ -36,8 +51,4 @@ Also special thanks to the ppl, who share their libraries, frameworks and other 
 I had to build the network library by my own, because Noita provides its own lua51.dll. I had struggle to build it, if you are interested in,
 I've added all the necessary build files inside of .building/dll_building.7z and here you can see the [stackoverflow question](https://stackoverflow.com/questions/70048918/lua-5-1-package-loadlib-and-require-gcc-building-windows-dll) I've created.
 
-### Testing (wip)
-
-[![lua-testing](https://github.com/Ismoh/NoitaMP/actions/workflows/lua-testing.yml/badge.svg?event=push)](https://github.com/Ismoh/NoitaMP/actions/workflows/lua-testing.yml)
-[![lua-testing](https://github.com/Ismoh/NoitaMP/actions/workflows/lua-testing.yml/badge.svg?event=pull_request)](https://github.com/Ismoh/NoitaMP/actions/workflows/lua-testing.yml)
-[![codecov](https://codecov.io/gh/Ismoh/NoitaMP/branch/develop/graph/badge.svg?token=9WPMOAJIGY)](https://codecov.io/gh/Ismoh/NoitaMP)
+---
