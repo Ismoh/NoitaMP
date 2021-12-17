@@ -87,7 +87,6 @@ jobs:
         ls -R ${{ github.workspace }}/luarocks
 
     - name: Install dependencies
-      if: ${{ false }} 
       run: |
         echo "> luarocks install luacov"
         ${{ github.workspace }}/luarocks/bin/luarocks install luacov
@@ -97,7 +96,7 @@ jobs:
 
     - name: Generate coverage report with luacov
       run: |
-        lua -lluacov awesome-tests.lua
+        sudo find ${{ github.workspace }}/.testing -maxdepth 1 -type f -exec ${{ github.workspace }}/luajit/bin/luajit -lluacov {} \;
 
         ls -R
 
