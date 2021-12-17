@@ -1,9 +1,0 @@
-<Entity tags="big_explosion">
-  
-	<LifetimeComponent
-		lifetime="50"
-		>
-	</LifetimeComponent>
-
-</Entity>
-

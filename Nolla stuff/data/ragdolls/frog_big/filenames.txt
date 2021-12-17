@@ -1,4 +1,0 @@
-data/ragdolls/frog_big/body.png
-data/ragdolls/frog_big/eyes.png
-data/ragdolls/frog_big/left_foot.png
-data/ragdolls/frog_big/right_foot.png
