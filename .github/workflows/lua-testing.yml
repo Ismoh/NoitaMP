@@ -106,28 +106,9 @@ jobs:
         # run all lua test files with one command: https://stackoverflow.com/a/10523492/3493998
         sudo find ${{ github.workspace }}/.testing -maxdepth 1 -type f -exec ${{ github.workspace }}/luajit/bin/luajit {} -o text --verbose --failure --error \;
 
-    - name: Generate coverage report with busted and luacov
-      if: ${{ false }} 
+    - name: Generate coverage report with luacov
       run: |
-        # Go back to workspace dir of runner, otherwise busted won't find spec dir oder *_spec files
-        echo "> cd ${{ github.workspace }}"
-        cd ${{ github.workspace }}
-
-        sudo chmod 744 ${{ github.workspace }}/.github/workflows/adjust_package_paths.sh
-        ls -lsa ${{ github.workspace }}/.github/workflows/
-        echo "> ${{ github.workspace }}/.github/workflows/adjust_package_paths.sh"
-        ${{ github.workspace }}/.github/workflows/adjust_package_paths.sh
-
-        sudo chmod 744 ${{ github.workspace }}/.github/workflows/return_lua_path.sh
-        echo "LUA_PATH=$(${{ github.workspace }}/.github/workflows/return_lua_path.sh)" >> $GITHUB_ENV
-        sudo chmod 744 ${{ github.workspace }}/.github/workflows/return_lua_cpath.sh
-        echo "LUA_CPATH=$(${{ github.workspace }}/.github/workflows/return_lua_cpath.sh)" >> $GITHUB_ENV
-
-        echo "> ${{ github.workspace }}/luarocks/bin/busted --lua=${{ github.workspace }}/luajit/bin/luajit --lpath=${{ env.LUA_PATH }} --cpath=${{ env.LUA_CPATH }} -v -o utfTerminal"
-        ${{ github.workspace }}/luarocks/bin/busted --lua=${{ github.workspace }}/luajit/bin/luajit --lpath=${{ env.LUA_PATH }} --cpath=${{ env.LUA_CPATH }} -v -o utfTerminal
-
-        echo "> luacov ./spec/luacov/.luacov"
-        ${{ github.workspace }}/luarocks/bin/luacov ./spec/luacov/.luacov
+        -lluacov awesome-tests.lua
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v2
