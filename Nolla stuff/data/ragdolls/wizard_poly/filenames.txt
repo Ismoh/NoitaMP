@@ -1,4 +1,0 @@
-data/ragdolls/wizard_poly/torso.png
-data/ragdolls/wizard_poly/hand.png
-data/ragdolls/wizard_poly/feet.png
-data/ragdolls/wizard_poly/head.png

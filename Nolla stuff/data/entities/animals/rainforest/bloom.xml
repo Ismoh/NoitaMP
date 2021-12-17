@@ -1,8 +1,0 @@
-<Entity >
-  <Base file="data/entities/animals/bloom.xml">
-    <DamageModelComponent 
-      hp="8"
-      max_hp="8"
-     ></DamageModelComponent >
-  </Base>
-</Entity>

@@ -1,3 +1,0 @@
-data/ragdolls/bigbat/torso.png
-data/ragdolls/bigbat/wing1.png
-data/ragdolls/bigbat/wing2.png

@@ -1,4 +1,0 @@
-data/ragdolls/wizard_returner/torso.png
-data/ragdolls/wizard_returner/hand.png
-data/ragdolls/wizard_returner/feet.png
-data/ragdolls/wizard_returner/head.png

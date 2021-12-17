@@ -1,5 +1,0 @@
-<Entity>
-  <LifetimeComponent
-    lifetime="1" >
-  </LifetimeComponent>
-</Entity>

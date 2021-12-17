@@ -1,3 +1,0 @@
-data/ragdolls/duck/torso.png
-data/ragdolls/duck/head.png
-data/ragdolls/duck/feet.png

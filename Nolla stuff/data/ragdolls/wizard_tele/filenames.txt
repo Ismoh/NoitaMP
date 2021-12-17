@@ -1,4 +1,0 @@
-data/ragdolls/wizard_tele/torso.png
-data/ragdolls/wizard_tele/hand.png
-data/ragdolls/wizard_tele/feet.png
-data/ragdolls/wizard_tele/head.png
