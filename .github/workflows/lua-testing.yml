@@ -31,10 +31,12 @@ jobs:
         make linux test
 
         echo "> make install INSTALL_TOP=${{ github.workspace }}/lua51"
-        make install INSTALL_TOP=${{ github.workspace }}/lua51
+        make install 
 
         echo "> ls -lsaR ${{ github.workspace }}/lua51"
-        ls -lsaR ${{ github.workspace }}/lua51
+        ls -lsaR ${{ github.workspace }}
+
+        find lua
 
     - name: Install luaJIT 2.0.4
       #if: ${{ false }} # https://code-maven.com/slides/github-ci/disable-step-in-github-action
@@ -43,13 +45,15 @@ jobs:
         cd ${{ github.workspace }}/.building/LuaJIT-2.0.4
 
         echo "> make PREFIX=${{ github.workspace }}/luajit"
-        make PREFIX=${{ github.workspace }}/luajit
+        make
 
         echo "> make install PREFIX=${{ github.workspace }}/luajit"
-        make install PREFIX=${{ github.workspace }}/luajit
+        make install
 
         echo "> ls -lsaR ${{ github.workspace }}/luajit"
-        ls -lsaR ${{ github.workspace }}/luajit
+        ls -lsaR ${{ github.workspace }}
+
+        find luajit
 
     - name: Run LuaUnit 3.4
       run: |
