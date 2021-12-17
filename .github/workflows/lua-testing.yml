@@ -35,7 +35,7 @@ jobs:
       # https://stackoverflow.com/questions/59191913/get-output-of-a-specific-step-in-github-actions
       if: ${{ steps.lua_unit_tests.outputs.testresult != '' }}
       run: |
-        core.setFailed('Unit test failed.')
+        exit 1
 
     - name: Install luarocks 3.8.0
       run: |
