@@ -18,7 +18,6 @@ jobs:
         cd ${{ github.workspace }}/.building/LuaJIT-2.0.4
         make PREFIX=${{ github.workspace }}/luajit
         make install PREFIX=${{ github.workspace }}/luajit
-        #ls -lsaR ${{ github.workspace }}/luajit
 
     - name: Run LuaUnit 3.4
       run: |
@@ -38,26 +37,22 @@ jobs:
         ./configure --prefix=${{ github.workspace }}/luarocks --with-lua=${{ github.workspace }}/luajit --with-lua-include=${{ github.workspace }}/luajit/include/luajit-2.0 --with-lua-lib=${{ github.workspace }}/luajit/lib
         make
         make install
-        #ls -lsaR ${{ github.workspace }}/luarocks
 
     - name: Install dependencies
       run: |
         ######## Use --tree to define the installation path of the module, which is luajit/share/lua/5.1/ although only the 'root' directory is set
         ${{ github.workspace }}/luarocks/bin/luarocks --tree=${{ github.workspace }}/luajit install luacov
-        #ls -lsaR ${{ github.workspace }}/luajit/share/lua/5.1/
 
     - name: Generate coverage report with luacov
       run: |
         sudo find ${{ github.workspace }}/.testing -maxdepth 1 -type f -exec ${{ github.workspace }}/luajit/bin/luajit -lluacov {} \;
         ${{ github.workspace }}/luajit/bin/luacov
 
-        ls -lsaR
-
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v2
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
-        directory: ${{ github.workspace }}/luacov.report.out
-        path_to_write_report: 'working-directory'
+        directory: ${{ github.workspace }}
+        path_to_write_report: ${{ github.workspace }}/codecov_report.txt
         verbose: true
 
