@@ -80,8 +80,8 @@ jobs:
     - name: Install luaJIT 2.0.4
       #if: ${{ false }} # https://code-maven.com/slides/github-ci/disable-step-in-github-action
       run: |
-        echo "> cd ${{ github.workspace }}/dll_building/LuaJIT-2.0.4"
-        cd ${{ github.workspace }}/dll_building/LuaJIT-2.0.4
+        echo "> cd ${{ github.workspace }}/.building/LuaJIT-2.0.4"
+        cd ${{ github.workspace }}/.building/LuaJIT-2.0.4
 
         echo "> make PREFIX=${{ github.workspace }}/luajit"
         make PREFIX=${{ github.workspace }}/luajit
