@@ -13,6 +13,7 @@ jobs:
     - uses: actions/checkout@main
 
     - name: Install lua 5.1.5
+      if: ${{ false }}
       run: |
         ls -lsaR
         
@@ -33,10 +34,10 @@ jobs:
         make linux test
 
         echo "> make install INSTALL_TOP=${{ github.workspace }}/lua51"
-        make install 
+        make install INSTALL_TOP=${{ github.workspace }}/lua51
 
         echo "> ls -lsaR ${{ github.workspace }}/lua51"
-        ls -lsaR ${{ github.workspace }}
+        ls -lsaR ${{ github.workspace }}/lua51
 
         find lua
 
@@ -47,13 +48,13 @@ jobs:
         cd ${{ github.workspace }}/.building/LuaJIT-2.0.4
 
         echo "> make PREFIX=${{ github.workspace }}/luajit"
-        make
+        make PREFIX=${{ github.workspace }}/luajit
 
         echo "> make install PREFIX=${{ github.workspace }}/luajit"
-        make install
+        make install PREFIX=${{ github.workspace }}/luajit
 
         echo "> ls -lsaR ${{ github.workspace }}/luajit"
-        ls -lsaR ${{ github.workspace }}
+        ls -lsaR ${{ github.workspace }}/luajit
 
         find luajit
 
@@ -101,6 +102,10 @@ jobs:
 
     - name: Generate coverage report with luacov
       run: |
+        # https://leafo.net/guides/customizing-the-luarocks-tree.html#how-lua-finds-packages/setting-the-path-with-luarocks
+        echo "${{ github.workspace }}luarocks/bin/luarocks path"
+        ${{ github.workspace }}luarocks/bin/luarocks path >> ~/.bashrc
+
         sudo find ${{ github.workspace }}/.testing -maxdepth 1 -type f -exec ${{ github.workspace }}/luajit/bin/luajit -lluacov {} \;
 
         ls -lsaR
