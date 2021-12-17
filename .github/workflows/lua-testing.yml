@@ -74,11 +74,14 @@ jobs:
         echo "> tar zxpf luarocks-3.8.0.tar.gz"
         tar zxpf luarocks-3.8.0.tar.gz
 
+        ls -lsaR ${{ github.workspace }}
+
         echo "> cd luarocks-3.8.0"
         cd luarocks-3.8.0
 
         ./configure --prefix=${{ github.workspace }}/luarocks --with-lua=${{ github.workspace }}/luajit --with-lua-include=${{ github.workspace }}/luajit/include/luajit-2.0 --with-lua-lib=${{ github.workspace }}/luajit/lib
 
+        cat make
         echo "> make"
         make
 
