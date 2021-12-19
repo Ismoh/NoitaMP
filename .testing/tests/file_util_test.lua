@@ -5,6 +5,7 @@ local fu = require("noita-mp/files/scripts/util/file_util")
 TestFileUtil = {}
 
 function TestFileUtil:setUp()
+    print("\n")
 end
 
 function TestFileUtil:testReplacePathSeparatorOnWindows()
@@ -39,7 +40,7 @@ function TestFileUtil:testRemoveTrailingPathSeparator()
     print("result = " .. result)
 
     lu.assertNotEquals(path, result)
-    lu.assertEquals("\\persistent\\flags", result)
+    lu.assertEquals(_G.path_separator .. "persistent" .. _G.path_separator .. "flags", result)
 end
 
 os.exit(lu.LuaUnit.run())
