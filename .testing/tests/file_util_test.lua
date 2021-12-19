@@ -63,7 +63,7 @@ function TestFileUtil:testSetAbsolutePathOfNoitaRootDirectory()
 end
 
 function TestFileUtil:testGetRelativeDirectoryAndFilesOfSave06()
-    lu.assertError(fu.GetRelativeDirectoryAndFilesOfSave06())
+    lu.assertError(fu.GetRelativeDirectoryAndFilesOfSave06(), true)
 end
 
 os.exit(lu.LuaUnit.run())
