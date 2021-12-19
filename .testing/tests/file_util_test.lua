@@ -18,8 +18,17 @@ end
 
 function TestFileUtil:testPlatformValues()
     local path_separator = package.config:sub(1,1)
-    local windows = string.find(path_separator, '\\') or false
-    local unix = string.find(path_separator, '/') or false
+    local windows = nil
+    local unix = nil
+
+    if path_separator == '\\' then
+        windows = true
+        unix = false
+    end
+    if _G.path_separator == '/' then
+        windows = false
+        unix = true
+    end
 
     lu.assertEquals(_G.path_separator, path_separator)
     lu.assertEquals(_G.is_windows, windows)
