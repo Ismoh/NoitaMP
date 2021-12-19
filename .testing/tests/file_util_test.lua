@@ -78,6 +78,10 @@ function TestFileUtil:testSetAbsolutePathOfNoitaRootDirectory()
     lu.assertNotIsNil(_G.noita_root_directory_path, "_G.noita_root_directory_path must not be nil!")
 end
 
+function TestFileUtil:testGetAbsolutePathOfNoitaRootDirectory()
+    lu.assertEquals(fu.GetAbsolutePathOfNoitaRootDirectory(), _G.noita_root_directory_path)
+end
+
 ----------------------------------------------------------------------------------------------------
 -- Noita world and savegame specific functions
 ----------------------------------------------------------------------------------------------------
