@@ -4,11 +4,18 @@ local ffi = require("ffi")
 
 -- https://stackoverflow.com/a/14425862/3493998
 local path_separator = package.config:sub(1,1)
-_G.is_windows = string.find(path_separator, '\\') or 0
-_G.is_unix = string.find(path_separator, '/') or 0
 _G.path_separator = tostring(path_separator)
 
-print("file_util.lua | Detected " .. (_G.is_windows and "Windows " or "Unix ") .. " with path separator '" .. path_separator .. "'.")
+if _G.path_separator == '\\' then
+    _G.is_windows = true
+    _G.is_unix = false
+end
+if _G.path_separator == '/' then
+    _G.is_windows = false
+    _G.is_unix = true
+end
+
+print("file_util.lua | Detected " .. (_G.is_windows and "Windows" or "Unix") .. " with path separator '" .. path_separator .. "'.")
 
 
 ----------------------------------------------------------------------------------------------------
