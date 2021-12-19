@@ -14,8 +14,8 @@ function TestFileUtil:testPlatformValues()
     local unix = string.find(path_separator, '/') or false
 
     print("_G.path_separator = " .. _G.path_separator)
-    print("_G.is_windows = " .. _G.is_windows)
-    print("_G.is_unix" .. _G.is_unix)
+    print("_G.is_windows = " .. tostring(_G.is_windows))
+    print("_G.is_unix" .. tostring(_G.is_unix))
 
     lu.assertEquals(_G.path_separator, path_separator)
     lu.assertEquals(_G.is_windows, windows)
@@ -64,8 +64,8 @@ function TestFileUtil:testRemoveTrailingPathSeparator()
 end
 
 function TestFileUtil:testSetAbsolutePathOfNoitaRootDirectory()
-    print("_G.is_windows = " .. _G.is_windows)
-    print("_G.is_unix = " .. _G.is_unix)
+    print("_G.is_windows = " .. tostring(_G.is_windows))
+    print("_G.is_unix = " .. tostring(_G.is_unix))
     print("_G.path_separator = " .. _G.path_separator)
 
     lu.assertIsNil(_G.noita_root_directory_path, "_G.noita_root_directory_path already set, but should be nil!")
