@@ -9,6 +9,7 @@ function TestFileUtil:setUp()
 end
 
 function TestFileUtil:testReplacePathSeparatorOnWindows()
+    local old = _G.is_windows
     _G.is_windows = true -- TODO: is there a better way to mock?
 
     local path_unix = "/test/path/123"
@@ -18,9 +19,12 @@ function TestFileUtil:testReplacePathSeparatorOnWindows()
     print("path_windows = " .. path_windows)
     lu.assertNotEquals(path_unix, path_windows)
     lu.assertEquals([[\test\path\123]], path_windows)
+
+    _G.is_windows = old
 end
 
 function TestFileUtil:testReplacePathSeparatorOnUnix()
+    local old = _G.is_windows
     _G.is_windows = false -- TODO: is there a better way to mock?
 
     local path_windows = "\\test\\path\\123"
@@ -30,6 +34,8 @@ function TestFileUtil:testReplacePathSeparatorOnUnix()
     print("path_unix = " .. path_unix)
     lu.assertNotEquals(path_windows, path_unix)
     lu.assertEquals("/test/path/123", path_unix)
+
+    _G.is_windows = old
 end
 
 function TestFileUtil:testRemoveTrailingPathSeparator()
@@ -44,6 +50,10 @@ function TestFileUtil:testRemoveTrailingPathSeparator()
 end
 
 function TestFileUtil:testSetAbsolutePathOfNoitaRootDirectory()
+    print("_G.is_windows = " .. _G.is_windows)
+    print("_G.is_unix = " .. _G.is_unix)
+    print("_G.path_separator = " .. _G.path_separator)
+
     lu.assertIsNil(_G.noita_root_directory_path, "_G.noita_root_directory_path already set, but should be nil!")
     fu.SetAbsolutePathOfNoitaRootDirectory()
     lu.assertNotIsNil(_G.noita_root_directory_path, "_G.noita_root_directory_path must not be nil!")
