@@ -1,5 +1,7 @@
 # Try to exclude everything from linguist
-* linguist-vendored
+.building/* linguist-vendored
+.debug/* linguist-vendored
+.vscode/* linguist-vendored
 
 # Include only self implemented code
 .github/workflows/* linguist-detectable
