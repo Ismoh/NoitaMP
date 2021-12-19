@@ -12,6 +12,10 @@ function TestFileUtil:setUp()
     end
 end
 
+----------------------------------------------------------------------------------------------------
+-- Platform specific functions
+----------------------------------------------------------------------------------------------------
+
 function TestFileUtil:testPlatformValues()
     local path_separator = package.config:sub(1,1)
     local windows = string.find(path_separator, '\\') or false
@@ -56,10 +60,18 @@ function TestFileUtil:testRemoveTrailingPathSeparator()
     lu.assertEquals(_G.path_separator .. "persistent" .. _G.path_separator .. "flags", result)
 end
 
+----------------------------------------------------------------------------------------------------
+-- Noita specific file, directory or path functions
+----------------------------------------------------------------------------------------------------
+
 function TestFileUtil:testSetAbsolutePathOfNoitaRootDirectory()
     fu.SetAbsolutePathOfNoitaRootDirectory()
     lu.assertNotIsNil(_G.noita_root_directory_path, "_G.noita_root_directory_path must not be nil!")
 end
+
+----------------------------------------------------------------------------------------------------
+-- Noita world and savegame specific functions
+----------------------------------------------------------------------------------------------------
 
 function TestFileUtil:testGetRelativeDirectoryAndFilesOfSave06()
     -- TODO: enable again when there is a reply: https://github.com/bluebird75/luaunit/issues/141
@@ -80,7 +92,27 @@ function TestFileUtil:testGetAbsoluteDirectoryPathOfSave06()
 end
 
 function TestFileUtil:testGetAbsoluteDirectoryPathOfMods()
-    fu.GetAbsoluteDirectoryPathOfMods()
+    local actual_path = fu.GetAbsoluteDirectoryPathOfMods()
+    local expected = fu.ReplacePathSeparator(_G.noita_root_directory_path .. "/mods/noita-mp")
+    lu.assertEquals(actual_path, expected)
 end
+
+function TestFileUtil:testGetRelativeDirectoryPathOfMods()
+    lu.assertEquals(fu.GetRelativeDirectoryPathOfMods(), fu.ReplacePathSeparator("mods/noita-mp"))
+end
+
+function TestFileUtil:testGetRelativeDirectoryPathOfRequiredLibs()
+    lu.assertEquals(fu.GetRelativeDirectoryPathOfRequiredLibs(), fu.ReplacePathSeparator("mods/noita-mp/files/libs"))
+end
+
+function TestFileUtil:testGetAbsoluteDirectoryPathOfRequiredLibs()
+    local actual_path = fu.GetAbsoluteDirectoryPathOfRequiredLibs()
+    local expected = fu.ReplacePathSeparator(_G.noita_root_directory_path .. "/mods/noita-mp/files/libs")
+    lu.assertEquals(actual_path, expected)
+end
+
+----------------------------------------------------------------------------------------------------
+-- File and Directory checks, writing and reading
+----------------------------------------------------------------------------------------------------
 
 os.exit(lu.LuaUnit.run())
