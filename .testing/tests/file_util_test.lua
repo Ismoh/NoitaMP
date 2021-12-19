@@ -63,8 +63,7 @@ function TestFileUtil:testSetAbsolutePathOfNoitaRootDirectory()
 end
 
 function TestFileUtil:testGetRelativeDirectoryAndFilesOfSave06()
-
-    fu.GetRelativeDirectoryAndFilesOfSave06()
+    lu.assertErrorMsgMatches("Unix system are not supported yet :(", fu.GetRelativeDirectoryAndFilesOfSave06())
 end
 
 os.exit(lu.LuaUnit.run())
