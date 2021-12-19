@@ -41,7 +41,14 @@ end
 
 --- Sets Noitas root absolute path to _G
 function fu.SetAbsolutePathOfNoitaRootDirectory()
-    local noita_root_directory_path = assert(io.popen("cd"):read("*l"), "Unable to run windows command \"cd\" to get Noitas root directory!")
+    local noita_root_directory_path = nil
+
+    if _G.is_windows then
+        noita_root_directory_path = assert(io.popen("cd"):read("*l"), "Unable to run windows command 'cd' to get Noitas root directory!")
+    else
+        noita_root_directory_path = assert(io.popen("pwd"):read("*l"), "Unable to run ubuntu command 'pwd' to get Noitas root directory!")
+    end
+
     noita_root_directory_path = fu.ReplacePathSeparator(noita_root_directory_path)
 
     _G.noita_root_directory_path = noita_root_directory_path
