@@ -4,8 +4,8 @@ local ffi = require("ffi")
 
 -- https://stackoverflow.com/a/14425862/3493998
 local path_separator = package.config:sub(1,1)
-_G.is_windows = string.find(path_separator, '\\')
-_G.is_unix = string.find(path_separator, '/')
+_G.is_windows = string.find(path_separator, '\\') or false
+_G.is_unix = string.find(path_separator, '/') or false
 _G.path_separator = tostring(path_separator)
 
 

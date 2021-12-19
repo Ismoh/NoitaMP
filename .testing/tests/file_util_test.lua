@@ -8,6 +8,16 @@ function TestFileUtil:setUp()
     print("\n")
 end
 
+function TestFileUtil:testPlatformValues()
+    local path_separator = package.config:sub(1,1)
+    local windows = string.find(path_separator, '\\') or false
+    local unix = string.find(path_separator, '/') or false
+
+    lu.assertEquals(_G.path_separator, path_separator)
+    lu.assertEquals(_G.is_windows, windows)
+    lu.assertEquals(_G.is_unix, unix)
+end
+
 function TestFileUtil:testReplacePathSeparatorOnWindows()
     local old = _G.is_windows
     _G.is_windows = true -- TODO: is there a better way to mock?
