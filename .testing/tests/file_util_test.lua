@@ -6,6 +6,10 @@ TestFileUtil = {}
 
 function TestFileUtil:setUp()
     print("\n")
+    -- Mock Noita Api functions
+    _G.DebugGetIsDevBuild = function ()
+        return false
+    end
 end
 
 function TestFileUtil:testPlatformValues()
@@ -59,7 +63,7 @@ function TestFileUtil:testSetAbsolutePathOfNoitaRootDirectory()
 end
 
 function TestFileUtil:testGetRelativeDirectoryAndFilesOfSave06()
-    
+
     fu.GetRelativeDirectoryAndFilesOfSave06()
 end
 
