@@ -43,4 +43,10 @@ function TestFileUtil:testRemoveTrailingPathSeparator()
     lu.assertEquals(_G.path_separator .. "persistent" .. _G.path_separator .. "flags", result)
 end
 
+function TestFileUtil:testSetAbsolutePathOfNoitaRootDirectory()
+    lu.assertIsNil(_G.noita_root_directory_path, "_G.noita_root_directory_path already set, but should be nil!")
+    fu.SetAbsolutePathOfNoitaRootDirectory()
+    lu.assertNotIsNil(_G.noita_root_directory_path, "_G.noita_root_directory_path must not be nil!")
+end
+
 os.exit(lu.LuaUnit.run())
