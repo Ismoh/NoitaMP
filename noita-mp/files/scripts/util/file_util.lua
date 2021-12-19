@@ -4,10 +4,16 @@ local ffi = require("ffi")
 
 -- https://stackoverflow.com/a/14425862/3493998
 local path_separator = package.config:sub(1,1)
-_G.is_windows = string.find(path_separator, '\\') or false
-_G.is_unix = string.find(path_separator, '/') or false
+_G.is_windows = string.find(path_separator, '\\') or 0
+_G.is_unix = string.find(path_separator, '/') or 0
 _G.path_separator = tostring(path_separator)
 
+print("file_util.lua | Detected " .. (_G.is_windows and "Windows " or "Unix ") .. " with path separator '" .. path_separator .. "'.")
+
+
+----------------------------------------------------------------------------------------------------
+-- Platform specific functions
+----------------------------------------------------------------------------------------------------
 
 --- Replaces windows path separator to unix path separator and vice versa.
 --- Error if path is not a string.
@@ -39,6 +45,10 @@ function fu.RemoveTrailingPathSeparator(path)
 end
 
 
+----------------------------------------------------------------------------------------------------
+-- Noita specific file, directory or path functions
+----------------------------------------------------------------------------------------------------
+
 --- Sets Noitas root absolute path to _G
 function fu.SetAbsolutePathOfNoitaRootDirectory()
     local noita_root_directory_path = nil
@@ -62,25 +72,8 @@ function fu.GetAbsolutePathOfNoitaRootDirectory()
 end
 
 
--- --- Returns the relative path to the parent folder of the script, which executes this function.
--- --- Slash at the end is removed.
--- --- @return string|number match_last_slash i.e.: "mods/files/scripts"
--- function GetRelativeDirectoryPathOfSelfScript()
---     local rel_path_to_this_script = debug.getinfo(2, "S").source:sub(1)
-
---     -- TODO unix -> str:match("(.*/)")
-
---     local match_last_slash = rel_path_to_this_script:match("(.*[/\\])")
---     match_last_slash = string.sub(0, string.len(match_last_slash)-1)
---     print("file_util.lua | Relative path to parent folder of this script = " .. match_last_slash)
-
---     match_last_slash = ReplacePathSeparator(match_last_slash)
---     return match_last_slash
--- end
-
-
 ----------------------------------------------------------------------------------------------------
--- Savegame / world stuff
+-- Noita world and savegame specific functions
 ----------------------------------------------------------------------------------------------------
 
 --- Returns files with its associated directory path relative to \save06\*
@@ -88,12 +81,15 @@ end
 --- @return integer amount of files within save06 (rekursive)
 function fu.GetRelativeDirectoryAndFilesOfSave06()
     local dir_save_06 = "save06"
-    local command = 'dir "%appdata%\\..\\LocalLow\\Nolla_Games_Noita\\' .. dir_save_06 .. '" /b/s'
-    if DebugGetIsDevBuild() then
-        command = "dir " .. dir_save_06 .. " /b/s"
-    end
-    if unix then
-        error("Unix system are not supported yet :(",2)-- use ls bla bla
+    local command = nil
+
+    if _G.is_windows then
+        command = 'dir "%appdata%\\..\\LocalLow\\Nolla_Games_Noita\\' .. dir_save_06 .. '" /b/s'
+        if DebugGetIsDevBuild() then
+            command = "dir " .. dir_save_06 .. " /b/s"
+        end
+    else
+        error("Unix system are not supported yet :(",2)
     end
 
     local file = assert(io.popen(command, "r"), "Unable to execute command: " .. command)
@@ -103,7 +99,7 @@ function fu.GetRelativeDirectoryAndFilesOfSave06()
     while path ~= nil do
         path = file:read("*l")
 
-        if path ~=nil and path ~= "" then
+        if path ~=nil and path ~= "" then -- EOF
             -- C:\Program Files (x86)\Steam\steamapps\common\Noita\save06\world\.autosave_player
             -- to world\.autosave_player
             local index_start, index_end = string.find(path, dir_save_06 .. "\\")
