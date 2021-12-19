@@ -119,6 +119,7 @@ function TestFileUtil:testGetRelativeDirectoryPathOfRequiredLibs()
 end
 
 function TestFileUtil:testGetAbsoluteDirectoryPathOfRequiredLibs()
+    _G.noita_root_directory_path = nil -- mock
     local actual_path = fu.GetAbsoluteDirectoryPathOfRequiredLibs()
     local expected = fu.ReplacePathSeparator(_G.noita_root_directory_path .. "/mods/noita-mp/files/libs")
     lu.assertEquals(actual_path, expected)
