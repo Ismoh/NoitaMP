@@ -13,6 +13,10 @@ function TestFileUtil:testPlatformValues()
     local windows = string.find(path_separator, '\\') or false
     local unix = string.find(path_separator, '/') or false
 
+    print("_G.path_separator = " .. _G.path_separator)
+    print("_G.is_windows = " .. _G.is_windows)
+    print("_G.is_unix" .. _G.is_unix)
+
     lu.assertEquals(_G.path_separator, path_separator)
     lu.assertEquals(_G.is_windows, windows)
     lu.assertEquals(_G.is_unix, unix)
