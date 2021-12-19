@@ -27,6 +27,7 @@ jobs:
         ######## run all lua test files with one command: https://stackoverflow.com/a/10523492/3493998
         sudo find ${{ github.workspace }}/.testing/tests -name "*.lua" -type f -exec ${{ github.workspace }}/luajit/bin/luajit {} -o text --verbose --failure --error \; > ${{ github.workspace }}/.testing/testresult.log
         # https://timheuer.com/blog/manually-force-a-failure-in-github-action-step/
+        #cat ${{ github.workspace }}/.testing/testresult.log
         echo "::set-output name=testresult::$( grep -i FAIL ${{ github.workspace }}/.testing/testresult.log )"
       
     - name: Unit test failed?
@@ -34,6 +35,7 @@ jobs:
       # https://stackoverflow.com/questions/59191913/get-output-of-a-specific-step-in-github-actions
       if: ${{ steps.lua_unit_tests.outputs.testresult != '' }}
       run: |
+        echo "Unit tests failed!"
         exit 1
 
     - name: Install luarocks 3.8.0
