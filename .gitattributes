@@ -1,0 +1,7 @@
+# Try to exclude everything from linguist
+/* linguist-vendored
+
+# Include only self implemented code
+/.github/workflows/* linguist-detectable
+/.testing/tests/* linguist-detectable
+/noita-mp/* linguist-detectable
