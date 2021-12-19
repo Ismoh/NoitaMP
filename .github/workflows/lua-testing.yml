@@ -28,13 +28,13 @@ jobs:
         sudo find ${{ github.workspace }}/.testing/tests -name "*.lua" -type f -exec ${{ github.workspace }}/luajit/bin/luajit {} -o text --verbose --error \; > ${{ github.workspace }}/.testing/testresult.log
         # https://timheuer.com/blog/manually-force-a-failure-in-github-action-step/
         cat ${{ github.workspace }}/.testing/testresult.log
-        echo "::set-output name=testresult::$( grep FAIL ${{ github.workspace }}/.testing/testresult.log )"
-        echo "::set-output name=testresult::$( grep ERROR ${{ github.workspace }}/.testing/testresult.log )"
+        echo "::set-output name=fail::$( grep FAIL ${{ github.workspace }}/.testing/testresult.log )"
+        echo "::set-output name=error::$( grep ERROR ${{ github.workspace }}/.testing/testresult.log )"
       
     - name: Unit test failed?
       ######## Check if tests succeed:
       # https://stackoverflow.com/questions/59191913/get-output-of-a-specific-step-in-github-actions
-      if: ${{ steps.lua_unit_tests.outputs.testresult != '' }}
+      if: ${{ steps.lua_unit_tests.outputs.fail != '' or steps.lua_unit_tests.outputs.error != '' }}
       run: |
         echo "Unit tests failed!"
         exit 1

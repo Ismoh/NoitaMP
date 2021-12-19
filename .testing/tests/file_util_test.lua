@@ -14,8 +14,8 @@ end
 
 function TestFileUtil:testPlatformValues()
     local path_separator = package.config:sub(1,1)
-    local windows = string.find(path_separator, '\\') or 0
-    local unix = string.find(path_separator, '/') or 0
+    local windows = string.find(path_separator, '\\') or false
+    local unix = string.find(path_separator, '/') or false
 
     lu.assertEquals(_G.path_separator, path_separator)
     lu.assertEquals(_G.is_windows, windows)
@@ -57,7 +57,6 @@ function TestFileUtil:testRemoveTrailingPathSeparator()
 end
 
 function TestFileUtil:testSetAbsolutePathOfNoitaRootDirectory()
-    lu.assertIsNil(_G.noita_root_directory_path, "_G.noita_root_directory_path already set, but should be nil!")
     fu.SetAbsolutePathOfNoitaRootDirectory()
     lu.assertNotIsNil(_G.noita_root_directory_path, "_G.noita_root_directory_path must not be nil!")
 end
