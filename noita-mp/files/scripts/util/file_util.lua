@@ -145,11 +145,13 @@ function fu.GetRelativeDirectoryAndFilesOfSave06()
     return t, i
 end
 
----comment
----@return string save06_parent_directory_path noita installation path or %appdata%\..\LocalLow\Nolla_Games_Noita on windows and unknown for unix systems
+--- Return the parent directory of the savegame directory save06.
+--- If DebugGetIsDevBuild() then Noitas installation path is returned: 'C:\Program Files (x86)\Steam\steamapps\common\Noita'
+--- otherwise it will return: '%appdata%\..\LocalLow\Nolla_Games_Noita' on windows
+--- @return string save06_parent_directory_path string of absolute path to '..\Noita' or '..\Nolla_Games_Noita'
 function fu.GetAbsoluteDirectoryPathOfParentSave06()
     local file = nil
-    if unix then
+    if _G.is_unix then
         error("file_util.lua | Unix systems are not supported yet. I am sorry! :(")
     end
 
@@ -167,7 +169,7 @@ function fu.GetAbsoluteDirectoryPathOfParentSave06()
     while line ~= nil do
         line = file:read("*l")
         if string.find(line, find_directory_name) then
-            save06_parent_directory_path = line -- .. "\\world"
+            save06_parent_directory_path = line
             break
         end
     end
@@ -188,7 +190,6 @@ function fu.GetAbsoluteDirectoryPathOfSave06()
     return directory_path_of_save06
 end
 
-
 --- Returns the ABSOLUTE path of the mods folder.
 --- If _G.noita_root_directory_path is not set yet, then it will be
 --- @return string _G.noita_root_directory_path .. "/mods"
@@ -200,7 +201,6 @@ function fu.GetAbsoluteDirectoryPathOfMods()
     p = fu.ReplacePathSeparator(p)
     return p
 end
-
 
 --- Returns the RELATIVE path of the mods folder.
 --- @return string "mods/noita-mp"
