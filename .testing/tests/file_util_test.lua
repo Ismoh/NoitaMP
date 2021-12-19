@@ -6,7 +6,7 @@ TestFileUtil = {}
 
 function TestFileUtil:setUp()
     print("\n")
-    -- Mock Noita Api functions
+    -- Mock Noita Api global functions
     _G.DebugGetIsDevBuild = function ()
         return false
     end
@@ -14,8 +14,8 @@ end
 
 function TestFileUtil:testPlatformValues()
     local path_separator = package.config:sub(1,1)
-    local windows = string.find(path_separator, '\\') or false
-    local unix = string.find(path_separator, '/') or false
+    local windows = string.find(path_separator, '\\') or 0
+    local unix = string.find(path_separator, '/') or 0
 
     lu.assertEquals(_G.path_separator, path_separator)
     lu.assertEquals(_G.is_windows, windows)
