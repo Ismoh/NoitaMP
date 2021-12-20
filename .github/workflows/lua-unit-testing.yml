@@ -85,7 +85,6 @@ jobs:
         ### copy luaunit.lua to package directory, because I don't want to mess around with lua pathes again: see .building\LuaJIT-2.0.4\src\luaconf.h
         New-Item -Path "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\" -Name "lua" -ItemType "directory"
         Copy-Item "${{ github.workspace }}\.testing\luaunit.lua" -Destination "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\lua\"
-        ls -R ${{ github.workspace }}\.building\LuaJIT-2.0.4\src
 
         dir -Path ${{ github.workspace }}\.testing\tests -Filter *.lua -Recurse | %{& '${{ github.workspace }}\.building\LuaJIT-2.0.4\src\luajit.exe' $_.FullName -o text --verbose --error > ${{ github.workspace }}\.testing\testresult.log}
         # https://timheuer.com/blog/manually-force-a-failure-in-github-action-step/

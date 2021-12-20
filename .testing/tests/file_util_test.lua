@@ -137,13 +137,13 @@ end
 function TestFileUtil:testExists()
     lu.assertNotIsTrue(fu.Exists("nonexistingfile.asdf"))
     lu.assertErrorMsgContains("is not type of string!", fu.Exists)
-    lu.assertIsTrue(fu.Exists(_G.noita_root_directory_path .. ".gitignore"))
+    lu.assertIsTrue(fu.Exists(_G.noita_root_directory_path .. "/.gitignore"))
 end
 
 function TestFileUtil:testIsFile()
     lu.assertNotIsTrue(fu.IsFile("nonexistingfile.asdf"))
     lu.assertErrorMsgContains("is not type of string!", fu.IsFile)
-    lu.assertIsTrue(fu.IsFile(_G.noita_root_directory_path .. ".gitignore"))
+    lu.assertIsTrue(fu.IsFile(_G.noita_root_directory_path .. "/.gitignore"))
 end
 
 function TestFileUtil:testIsDirectory()
@@ -156,7 +156,7 @@ function TestFileUtil:testReadBinaryFile()
     lu.assertErrorMsgContains("is not type of string!", fu.ReadBinaryFile)
     lu.assertErrorMsgContains("Unable to open and read file: ", fu.ReadBinaryFile, "nonexistingfile.asdf")
 
-    local content = fu.ReadBinaryFile(_G.noita_root_directory_path .. ".gitignore")
+    local content = fu.ReadBinaryFile(_G.noita_root_directory_path .. "/.gitignore")
     lu.assertNotNil(content)
 end
 
