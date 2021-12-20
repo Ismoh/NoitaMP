@@ -83,9 +83,9 @@ jobs:
       id: lua_unit_tests
       run: |
         ### copy luaunit.lua to package directory, because I don't want to mess around with lua pathes again: see .building\LuaJIT-2.0.4\src\luaconf.h
-        New-Item -Path "${{ github.workspace }}.building\LuaJIT-2.0.4\src\" -Name "lua" -ItemType "directory"
+        New-Item -Path "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\" -Name "lua" -ItemType "directory"
         Copy-Item "${{ github.workspace }}\.testing\luaunit.lua" -Destination "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\lua"
-        ls -R ${{ github.workspace }}.building\LuaJIT-2.0.4\
+        ls -R ${{ github.workspace }}.building\LuaJIT-2.0.4\src
 
         ######## run all lua test files with one command: https://stackoverflow.com/a/10523492/3493998
         #sudo find ${{ github.workspace }}\.testing\tests -name "*.lua" -type f -exec ${{ github.workspace }}\luajit\bin\luajit {} -o text --verbose --error \; > ${{ github.workspace }}\.testing\testresult.log
