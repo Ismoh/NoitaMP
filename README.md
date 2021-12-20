@@ -18,6 +18,8 @@
 [![open-issues](https://flat.badgen.net/github/open-issues/ismoh/noitamp)](https://github.com/Ismoh/NoitaMP/issues)
 [![open-issues-help-wanted](https://flat.badgen.net/github/label-issues/ismoh/noitamp/help%20wanted/open)](https://github.com/Ismoh/NoitaMP/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22)
 
+![windows](https://img.shields.io/badge/platform-windows-green?style=flat-square&logo=windows)
+![linux](https://img.shields.io/badge/platform-linux-red?style=flat-square&logo=linux)
 [![license](https://flat.badgen.net/github/license/ismoh/noitamp)](https://github.com/Ismoh/NoitaMP/blob/develop/LICENSE)
 
 </div>
