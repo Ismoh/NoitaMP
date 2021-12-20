@@ -133,33 +133,33 @@ end
 function TestFileUtil:testExists()
     lu.assertNotIsTrue(fu.Exists("nonexistingfile.asdf"))
     lu.assertErrorMsgContains("is not type of string!", fu.Exists)
-    lu.assertIsTrue(fu.Exists("/home/runner/work/NoitaMP/NoitaMP/.gitignore"))
+    lu.assertIsTrue(fu.Exists(_G.noita_root_directory_path .. ".gitignore"))
 end
 
 function TestFileUtil:testIsFile()
     lu.assertNotIsTrue(fu.IsFile("nonexistingfile.asdf"))
     lu.assertErrorMsgContains("is not type of string!", fu.IsFile)
-    lu.assertIsTrue(fu.IsFile("/home/runner/work/NoitaMP/NoitaMP/.gitignore"))
+    lu.assertIsTrue(fu.IsFile(_G.noita_root_directory_path .. ".gitignore"))
 end
 
 function TestFileUtil:testIsDirectory()
     lu.assertNotIsTrue(fu.IsDirectory("nonexistingdirectory"))
     lu.assertErrorMsgContains("is not type of string!", fu.IsDirectory)
-    -- lu.assertIsTrue(fu.IsDirectory("/home/runner/work/NoitaMP/NoitaMP/")) TODO: https://github.com/Ismoh/NoitaMP/issues/13
+    -- lu.assertIsTrue(fu.IsDirectory(_G.noita_root_directory_path)) TODO: https://github.com/Ismoh/NoitaMP/issues/13
 end
 
 function TestFileUtil:testReadBinaryFile()
     lu.assertErrorMsgContains("is not type of string!", fu.ReadBinaryFile)
     lu.assertErrorMsgContains("Unable to open and read file: ", fu.ReadBinaryFile, "nonexistingfile.asdf")
 
-    local content = fu.ReadBinaryFile("/home/runner/work/NoitaMP/NoitaMP/.gitignore")
+    local content = fu.ReadBinaryFile(_G.noita_root_directory_path .. ".gitignore")
     lu.assertNotNil(content)
 end
 
 function TestFileUtil:testWriteBinaryFile()
     lu.assertErrorMsgContains("is not type of string!", fu.WriteBinaryFile)
 
-    local full_path = "/home/runner/work/NoitaMP/NoitaMP/.testing/write-temporary-binary-test-file.txt"
+    local full_path = _G.noita_root_directory_path .. ".testing/write-temporary-binary-test-file.txt"
     fu.WriteBinaryFile(full_path, "File Content")
     lu.assertIsTrue(fu.Exists(full_path))
 end
@@ -168,24 +168,24 @@ function TestFileUtil:testReadFile()
     lu.assertErrorMsgContains("is not type of string!", fu.ReadFile)
     lu.assertErrorMsgContains("Unable to open and read file: ", fu.ReadFile, "nonexistingfile.asdf")
 
-    local content = fu.ReadFile("/home/runner/work/NoitaMP/NoitaMP/.gitignore")
+    local content = fu.ReadFile(_G.noita_root_directory_path .. ".gitignore")
     lu.assertNotNil(content)
 end
 
 function TestFileUtil:testWriteFile()
     lu.assertErrorMsgContains("is not type of string!", fu.WriteFile)
 
-    local full_path = "/home/runner/work/NoitaMP/NoitaMP/.testing/write-temporary-test-file.txt"
+    local full_path = _G.noita_root_directory_path .. ".testing/write-temporary-test-file.txt"
     fu.WriteFile(full_path, "File Content")
     lu.assertIsTrue(fu.Exists(full_path))
 end
 
 function TestFileUtil:testMkDir()
     lu.assertErrorMsgContains("is not type of string!", fu.MkDir)
-    lu.assertErrorMsgContains("Unfortunately unix systems aren't supported yet.", fu.MkDir, "/home/runner/work/NoitaMP/NoitaMP/.testing/temp-test-dir")
+    lu.assertErrorMsgContains("Unfortunately unix systems aren't supported yet.", fu.MkDir, _G.noita_root_directory_path .. ".testing/temp-test-dir")
 
     -- TODO: windows
-    -- local dir_path = "/home/runner/work/NoitaMP/NoitaMP/.testing/temp-test-dir"
+    -- local dir_path = _G.noita_root_directory_path .. ".testing/temp-test-dir"
     -- fu.MkDir(dir_path)
     -- lu.assertIsTrue(fu.Exists(dir_path))
     -- lu.assertIsTrue(fu.IsDirectory(dir_path))
