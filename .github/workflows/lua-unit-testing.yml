@@ -82,7 +82,8 @@ jobs:
         mingw32-make install
         cd ${{ github.workspace }}
         tree /f
-        tree /usr/
+        cd C:\
+        tree /f
 
     - name: Run LuaUnit 3.4
       id: lua_unit_tests
