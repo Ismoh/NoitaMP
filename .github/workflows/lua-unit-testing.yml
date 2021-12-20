@@ -82,7 +82,7 @@ jobs:
         mingw32-make install
         cd ${{ github.workspace }}
         ls -lsaR
-        cd C:\usr\local
+        cd C:\
         ls -lsaR
 
     - name: Run LuaUnit 3.4
