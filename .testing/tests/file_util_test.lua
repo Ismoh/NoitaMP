@@ -178,7 +178,7 @@ end
 function TestFileUtil:testWriteFile()
     lu.assertErrorMsgContains("is not type of string!", fu.WriteFile)
 
-    local full_path = _G.noita_root_directory_path .. ".testing/write-temporary-test-file.txt"
+    local full_path = _G.noita_root_directory_path .. "/.testing/write-temporary-test-file.txt"
     fu.WriteFile(full_path, "File Content")
     lu.assertIsTrue(fu.Exists(full_path))
 end
@@ -187,7 +187,7 @@ function TestFileUtil:testMkDir()
     lu.assertErrorMsgContains("is not type of string!", fu.MkDir)
     
     -- TODO: windows
-    -- local dir_path = _G.noita_root_directory_path .. ".testing/temp-test-dir"
+    -- local dir_path = _G.noita_root_directory_path .. "/.testing/temp-test-dir"
     -- fu.MkDir(dir_path)
     -- lu.assertIsTrue(fu.Exists(dir_path))
     -- lu.assertIsTrue(fu.IsDirectory(dir_path))
