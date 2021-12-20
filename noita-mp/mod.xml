@@ -7,5 +7,6 @@
 	ui_newgame_gfx_banner_bg=""
 	ui_newgame_gfx_banner_fg=""
 	is_game_mode="1"
+	game_mode_supports_save_slots="6"
 > 
 </Mod>

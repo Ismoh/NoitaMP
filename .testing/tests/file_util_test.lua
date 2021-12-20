@@ -141,7 +141,7 @@ end
 function TestFileUtil:testIsDirectory()
     lu.assertNotIsTrue(fu.IsDirectory("nonexistingdirectory"))
     lu.assertErrorMsgContains("is not type of string!", fu.IsDirectory)
-    lu.assertIsTrue(fu.IsDirectory("/home/runner/work/NoitaMP/NoitaMP/.github/workflows"))
+    lu.assertIsTrue(fu.IsDirectory("/home/runner/work/NoitaMP/NoitaMP"))
 end
 
 function TestFileUtil:testReadBinaryFile()
