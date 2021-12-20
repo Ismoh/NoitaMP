@@ -242,7 +242,7 @@ end
 function fu.Exists(name)
     -- https://stackoverflow.com/a/21637809/3493998
     if type(name)~="string" then
-        error("file_util.lua | Parameter name '" .. name .."' is not type of string!")
+        error("file_util.lua | Parameter name '" .. tostring(name) .."' is not type of string!")
     end
     return os.rename(name,name) and true or false
 end
@@ -251,7 +251,7 @@ end
 function fu.IsFile(name)
     -- https://stackoverflow.com/a/21637809/3493998
     if type(name)~="string" then
-        error("file_util.lua | Parameter name '" .. name .."' is not type of string!")
+        error("file_util.lua | Parameter name '" .. tostring(name) .."' is not type of string!")
     end
     if not fu.Exists(name) then return false end
     local f = io.open(name)
@@ -271,7 +271,7 @@ end
 
 function fu.ReadBinaryFile(file_fullpath)
     if type(file_fullpath)~="string" then
-        error("file_util.lua | Parameter file_fullpath '" .. file_fullpath .."' is not type of string!")
+        error("file_util.lua | Parameter file_fullpath '" .. tostring(file_fullpath) .."' is not type of string!")
     end
     file_fullpath = fu.ReplacePathSeparator(file_fullpath)
     -- https://stackoverflow.com/a/31857671/3493998
@@ -287,7 +287,7 @@ end
 
 function fu.WriteBinaryFile(file_fullpath, file_content)
     if type(file_fullpath)~="string" then
-        error("file_util.lua | Parameter file_fullpath '" .. file_fullpath .."' is not type of string!")
+        error("file_util.lua | Parameter file_fullpath '" .. tostring(file_fullpath) .."' is not type of string!")
     end
     file_fullpath = fu.ReplacePathSeparator(file_fullpath)
     -- http://lua-users.org/wiki/FileInputOutput
@@ -300,7 +300,7 @@ end
 
 function fu.ReadFile(file_fullpath)
     if type(file_fullpath)~="string" then
-        error("file_util.lua | Parameter file_fullpath '" .. file_fullpath .."' is not type of string!")
+        error("file_util.lua | Parameter file_fullpath '" .. tostring(file_fullpath) .."' is not type of string!")
     end
     file_fullpath = fu.ReplacePathSeparator(file_fullpath)
     -- https://stackoverflow.com/a/31857671/3493998
@@ -316,7 +316,7 @@ end
 
 function fu.WriteFile(file_fullpath, file_content)
     if type(file_fullpath)~="string" then
-        error("file_util.lua | Parameter file_fullpath '" .. file_fullpath .."' is not type of string!")
+        error("file_util.lua | Parameter file_fullpath '" .. tostring(file_fullpath) .."' is not type of string!")
     end
     file_fullpath = fu.ReplacePathSeparator(file_fullpath)
     -- http://lua-users.org/wiki/FileInputOutput
@@ -329,7 +329,7 @@ end
 
 function fu.MkDir(full_path)
     if type(full_path)~="string" then
-        error("file_util.lua | Parameter file_fullpath '" .. full_path .."' is not type of string!")
+        error("file_util.lua | Parameter file_fullpath '" .. tostring(full_path) .."' is not type of string!")
     end
     -- https://stackoverflow.com/a/1690932/3493998
     full_path = fu.ReplacePathSeparator(full_path)
@@ -373,13 +373,13 @@ function fu.Create7zipArchive(archive_name, absolute_directory_path_to_add_archi
     assert(fu.Exists7zip(), "Unable to find 7z.exe, please install 7z via https://7-zip.de/download.html and restart the Noita!")
 
     if type(archive_name)~="string" then
-        error("file_util.lua | Parameter archive_name '" .. archive_name .."' is not type of string!")
+        error("file_util.lua | Parameter archive_name '" .. tostring(archive_name) .."' is not type of string!")
     end
     if type(absolute_directory_path_to_add_archive)~="string" then
-        error("file_util.lua | Parameter absolute_directory_path_to_add_archive '" .. absolute_directory_path_to_add_archive .."' is not type of string!")
+        error("file_util.lua | Parameter absolute_directory_path_to_add_archive '" .. tostring(absolute_directory_path_to_add_archive) .."' is not type of string!")
     end
     if type(absolute_destination_path)~="string" then
-        error("file_util.lua | Parameter absolute_destination_path '" .. absolute_destination_path .."' is not type of string!")
+        error("file_util.lua | Parameter absolute_destination_path '" .. tostring(absolute_destination_path) .."' is not type of string!")
     end
 
     absolute_directory_path_to_add_archive = fu.ReplacePathSeparator(absolute_directory_path_to_add_archive)
