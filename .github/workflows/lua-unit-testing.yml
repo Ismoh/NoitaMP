@@ -77,11 +77,12 @@ jobs:
         echo "cd ${{ github.workspace }}\.building\LuaJIT-2.0.4"
         cd ${{ github.workspace }}\.building\LuaJIT-2.0.4
         echo "mingw32-make PREFIX=${{ github.workspace }}\luajit"
-        mingw32-make PREFIX=${{ github.workspace }}/luajit
+        mingw32-make
         echo "mingw32-make install PREFIX=${{ github.workspace }}\luajit"
-        mingw32-make install PREFIX=${{ github.workspace }}/luajit
+        mingw32-make install
         cd ${{ github.workspace }}
         tree /f
+        tree /usr/
 
     - name: Run LuaUnit 3.4
       id: lua_unit_tests
