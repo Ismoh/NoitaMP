@@ -87,21 +87,18 @@ end
 ----------------------------------------------------------------------------------------------------
 
 function TestFileUtil:testGetRelativeDirectoryAndFilesOfSave06()
-    -- TODO: enable again when there is a reply: https://github.com/bluebird75/luaunit/issues/141
-    -- lu.assertError(fu.GetRelativeDirectoryAndFilesOfSave06())
-    -- lu.assertErrorMsgContains("Unix system are not supported yet", fu.GetRelativeDirectoryAndFilesOfSave06())
+    lu.assertError(fu.GetRelativeDirectoryAndFilesOfSave06)
+    lu.assertErrorMsgContains("Unix system are not supported yet", fu.GetRelativeDirectoryAndFilesOfSave06)
 end
 
 function TestFileUtil:testGetAbsoluteDirectoryPathOfParentSave06()
-    -- TODO: enable again when there is a reply: https://github.com/bluebird75/luaunit/issues/141
-    -- lu.assertError(fu.GetAbsoluteDirectoryPathOfParentSave06())
-    -- lu.assertErrorMsgContains("", fu.GetAbsoluteDirectoryPathOfParentSave06())
+    lu.assertError(fu.GetAbsoluteDirectoryPathOfParentSave06)
+    lu.assertErrorMsgContains("", fu.GetAbsoluteDirectoryPathOfParentSave06)
 end
 
 function TestFileUtil:testGetAbsoluteDirectoryPathOfSave06()
-    -- TODO: enable again when there is a reply: https://github.com/bluebird75/luaunit/issues/141
-    -- lu.assertError(fu.GetAbsoluteDirectoryPathOfSave06())
-    -- lu.assertErrorMsgContains("", fu.GetAbsoluteDirectoryPathOfSave06())
+    lu.assertError(fu.GetAbsoluteDirectoryPathOfSave06)
+    lu.assertErrorMsgContains("", fu.GetAbsoluteDirectoryPathOfSave06)
 end
 
 function TestFileUtil:testGetAbsoluteDirectoryPathOfMods()
