@@ -87,13 +87,11 @@ jobs:
         Copy-Item "${{ github.workspace }}\.testing\luaunit.lua" -Destination "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\lua"
         ls -R ${{ github.workspace }}\.building\LuaJIT-2.0.4\src
 
-        ######## run all lua test files with one command: https://stackoverflow.com/a/10523492/3493998
-        #sudo find ${{ github.workspace }}\.testing\tests -name "*.lua" -type f -exec ${{ github.workspace }}\luajit\bin\luajit {} -o text --verbose --error \; > ${{ github.workspace }}\.testing\testresult.log
         dir -Path ${{ github.workspace }}\.testing\tests -Filter *.lua -Recurse | %{& '${{ github.workspace }}\.building\LuaJIT-2.0.4\src\luajit.exe' $_.FullName -o text --verbose --error > ${{ github.workspace }}\.testing\testresult.log}
         # https://timheuer.com/blog/manually-force-a-failure-in-github-action-step/
         type ${{ github.workspace }}\.testing\testresult.log
-        echo "::set-output name=fail::$( grep FAIL ${{ github.workspace }}\.testing\testresult.log )"
-        echo "::set-output name=error::$( grep ERROR ${{ github.workspace }}\.testing\testresult.log )"
+        Write-Output "::set-output name=fail::%{ Select-String -Path "${{ github.workspace }}\.testing\testresult.log" -Pattern "FAIL" }"
+        Write-Output "::set-output name=error::%{ Select-String -Path "${{ github.workspace }}\.testing\testresult.log" -Pattern "ERROR" }"
       
     - name: Unit test failed?
       ######## Check if tests succeed:
