@@ -12,6 +12,10 @@ function TestFileUtil:setUp()
     end
 end
 
+function TestFileUtil:setUp()
+    print("\n")
+end
+
 ----------------------------------------------------------------------------------------------------
 -- Platform specific functions
 ----------------------------------------------------------------------------------------------------
@@ -141,7 +145,7 @@ end
 function TestFileUtil:testIsDirectory()
     lu.assertNotIsTrue(fu.IsDirectory("nonexistingdirectory"))
     lu.assertErrorMsgContains("is not type of string!", fu.IsDirectory)
-    lu.assertIsTrue(fu.IsDirectory("/home/runner/work/NoitaMP/NoitaMP/"))
+    -- lu.assertIsTrue(fu.IsDirectory("/home/runner/work/NoitaMP/NoitaMP/")) TODO: https://github.com/Ismoh/NoitaMP/issues/13
 end
 
 function TestFileUtil:testReadBinaryFile()
