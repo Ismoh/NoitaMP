@@ -1,4 +1,4 @@
-name: Lua Unit Testing
+name: Windows Lua Unit Testing
 
 on: [push, pull_request]
 
