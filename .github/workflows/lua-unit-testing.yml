@@ -3,7 +3,8 @@ name: Lua Unit Testing
 on: [push, pull_request]
 
 jobs:
-  "LuaUnit on Ubuntu-latest":
+  lua-unit-testing-on-ubuntu-latest:
+    name: "LuaUnit on Ubuntu-latest"
     runs-on: ubuntu-latest
 
     steps:
@@ -65,7 +66,8 @@ jobs:
         #path_to_write_report: ./codecov_report.txt https://github.com/codecov/codecov-action/issues/476
         verbose: true
 
-  "LuaUnit on Windows-latest":
+  lua-unit-testing-on-windows-latest:
+    name: "LuaUnit on Windows-latest"
     runs-on: windows-latest
 
     steps:
