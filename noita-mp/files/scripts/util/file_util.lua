@@ -333,7 +333,14 @@ function fu.MkDir(full_path)
     end
     -- https://stackoverflow.com/a/1690932/3493998
     full_path = fu.ReplacePathSeparator(full_path)
-    os.execute('mkdir "' .. full_path .. '"')
+
+    local command = nil
+    if _G.is_windows then
+        command = 'mkdir "' .. full_path .. '"'
+    else
+        error("Unfortunately unix systems aren't supported yet.")
+    end
+    os.execute(command)
 end
 
 

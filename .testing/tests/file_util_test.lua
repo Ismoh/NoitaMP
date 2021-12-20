@@ -178,11 +178,13 @@ end
 
 function TestFileUtil:testMkDir()
     lu.assertErrorMsgContains("is not type of string!", fu.MkDir)
+    lu.assertErrorMsgContains("Unfortunately unix systems aren't supported yet.", fu.MkDir, ".testing/temp-test-dir")
 
-    local dir_path = ".testing/temp-test-dir"
-    fu.MkDir(dir_path)
-    lu.assertIsTrue(fu.Exists(dir_path))
-    lu.assertIsTrue(fu.IsDirectory(dir_path))
+    -- TODO: windows
+    -- local dir_path = ".testing/temp-test-dir"
+    -- fu.MkDir(dir_path)
+    -- lu.assertIsTrue(fu.Exists(dir_path))
+    -- lu.assertIsTrue(fu.IsDirectory(dir_path))
 end
 
 function TestFileUtil:testFind7zipExecutable()
