@@ -133,13 +133,13 @@ end
 function TestFileUtil:testExists()
     lu.assertNotIsTrue(fu.Exists("nonexistingfile.asdf"))
     lu.assertErrorMsgContains("is not type of string!", fu.Exists)
-    lu.assertIsTrue(fu.Exists("/home/runner/work/NoitaMP/NoitaMP/.github/workflows/lua-testing.yml"))
+    lu.assertIsTrue(fu.Exists("/home/runner/work/NoitaMP/NoitaMP/.gitignore"))
 end
 
 function TestFileUtil:testIsFile()
     lu.assertNotIsTrue(fu.IsFile("nonexistingfile.asdf"))
     lu.assertErrorMsgContains("is not type of string!", fu.IsFile)
-    lu.assertIsTrue(fu.IsFile("/home/runner/work/NoitaMP/NoitaMP/.github/workflows/lua-testing.yml"))
+    lu.assertIsTrue(fu.IsFile("/home/runner/work/NoitaMP/NoitaMP/.gitignore"))
 end
 
 function TestFileUtil:testIsDirectory()
@@ -152,7 +152,7 @@ function TestFileUtil:testReadBinaryFile()
     lu.assertErrorMsgContains("is not type of string!", fu.ReadBinaryFile)
     lu.assertErrorMsgContains("Unable to open and read file: ", fu.ReadBinaryFile, "nonexistingfile.asdf")
 
-    local content = fu.ReadBinaryFile("/home/runner/work/NoitaMP/NoitaMP/.github/workflows/lua-testing.yml")
+    local content = fu.ReadBinaryFile("/home/runner/work/NoitaMP/NoitaMP/.gitignore")
     lu.assertNotNil(content)
 end
 
@@ -168,7 +168,7 @@ function TestFileUtil:testReadFile()
     lu.assertErrorMsgContains("is not type of string!", fu.ReadFile)
     lu.assertErrorMsgContains("Unable to open and read file: ", fu.ReadFile, "nonexistingfile.asdf")
 
-    local content = fu.ReadFile("/home/runner/work/NoitaMP/NoitaMP/.github/workflows/lua-testing.yml")
+    local content = fu.ReadFile("/home/runner/work/NoitaMP/NoitaMP/.gitignore")
     lu.assertNotNil(content)
 end
 
