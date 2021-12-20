@@ -253,7 +253,10 @@ function fu.IsFile(full_path)
     if type(full_path)~="string" then
         error("file_util.lua | Parameter full_path '" .. tostring(full_path) .."' is not type of string!")
     end
-    if not fu.Exists(full_path) then return false end
+    if not fu.Exists(full_path) then
+        print("file_util.lua | Path '" .. tostring(full_path) .."' does not exist!")
+        return false
+    end
     local f = io.open(full_path)
     if f then
         f:close()
