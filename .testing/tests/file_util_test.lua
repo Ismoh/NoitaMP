@@ -12,7 +12,7 @@ function TestFileUtil:setUp()
     end
 end
 
-function TestFileUtil:setUp()
+function TestFileUtil:tearDown()
     print("\n")
 end
 
