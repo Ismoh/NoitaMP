@@ -162,7 +162,7 @@ end
 function TestFileUtil:testWriteBinaryFile()
     lu.assertErrorMsgContains("is not type of string!", fu.WriteBinaryFile)
 
-    local full_path = _G.noita_root_directory_path .. ".testing/write-temporary-binary-test-file.txt"
+    local full_path = _G.noita_root_directory_path .. "/.testing/write-temporary-binary-test-file.txt"
     fu.WriteBinaryFile(full_path, "File Content")
     lu.assertIsTrue(fu.Exists(full_path))
 end
