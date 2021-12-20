@@ -237,24 +237,24 @@ end
 ----------------------------------------------------------------------------------------------------
 
 --- Checks if FILE or DIRECTORY exists
---- @param name string full path
+--- @param full_path string full path
 --- @return boolean
-function fu.Exists(name)
+function fu.Exists(full_path)
     -- https://stackoverflow.com/a/21637809/3493998
-    if type(name)~="string" then
-        error("file_util.lua | Parameter name '" .. tostring(name) .."' is not type of string!")
+    if type(full_path)~="string" then
+        error("file_util.lua | Parameter full_path '" .. tostring(full_path) .."' is not type of string!")
     end
-    return os.rename(name,name) and true or false
+    return os.rename(full_path,full_path) and true or false
 end
 
 
-function fu.IsFile(name)
+function fu.IsFile(full_path)
     -- https://stackoverflow.com/a/21637809/3493998
-    if type(name)~="string" then
-        error("file_util.lua | Parameter name '" .. tostring(name) .."' is not type of string!")
+    if type(full_path)~="string" then
+        error("file_util.lua | Parameter full_path '" .. tostring(full_path) .."' is not type of string!")
     end
-    if not fu.Exists(name) then return false end
-    local f = io.open(name)
+    if not fu.Exists(full_path) then return false end
+    local f = io.open(full_path)
     if f then
         f:close()
         return true
@@ -263,9 +263,9 @@ function fu.IsFile(name)
 end
 
 
-function fu.IsDirectory(name)
+function fu.IsDirectory(full_path)
     -- https://stackoverflow.com/a/21637809/3493998
-    return (fu.Exists(name) and not fu.IsFile(name))
+    return (fu.Exists(full_path) and not fu.IsFile(full_path))
 end
 
 
