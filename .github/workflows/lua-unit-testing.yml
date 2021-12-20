@@ -81,9 +81,9 @@ jobs:
         echo "mingw32-make install PREFIX=${{ github.workspace }}\luajit"
         mingw32-make install
         cd ${{ github.workspace }}
-        tree /f
+        ln -R /f
         cd C:\usr\local
-        tree /f
+        ln -R /f
 
     - name: Run LuaUnit 3.4
       id: lua_unit_tests
