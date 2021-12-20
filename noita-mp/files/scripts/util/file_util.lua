@@ -8,11 +8,11 @@ _G.path_separator = tostring(path_separator)
 
 if _G.path_separator == '\\' then
     _G.is_windows = true
-    _G.is_unix = false
+    _G.is_linux = false
 end
 if _G.path_separator == '/' then
     _G.is_windows = false
-    _G.is_unix = true
+    _G.is_linux = true
 end
 
 print("file_util.lua | Detected " .. (_G.is_windows and "Windows" or "Unix") .. " with path separator '" .. path_separator .. "'.")
@@ -151,7 +151,7 @@ end
 --- @return string save06_parent_directory_path string of absolute path to '..\Noita' or '..\Nolla_Games_Noita'
 function fu.GetAbsoluteDirectoryPathOfParentSave06()
     local file = nil
-    if _G.is_unix then
+    if _G.is_linux then
         error("file_util.lua | Unix systems are not supported yet. I am sorry! :(")
     end
 

@@ -40,7 +40,7 @@ function TestFileUtil:testPlatformValues()
 
     lu.assertEquals(_G.path_separator, path_separator)
     lu.assertEquals(_G.is_windows, windows)
-    lu.assertEquals(_G.is_unix, unix)
+    lu.assertEquals(_G.is_linux, unix)
 end
 
 function TestFileUtil:testReplacePathSeparatorOnWindows()
@@ -95,8 +95,7 @@ end
 ----------------------------------------------------------------------------------------------------
 
 function TestFileUtil:testGetRelativeDirectoryAndFilesOfSave06()
-    lu.assertError(fu.GetRelativeDirectoryAndFilesOfSave06)
-    lu.assertErrorMsgContains("Unix system are not supported yet", fu.GetRelativeDirectoryAndFilesOfSave06)
+    
 end
 
 function TestFileUtil:testGetAbsoluteDirectoryPathOfParentSave06()
@@ -172,7 +171,7 @@ function TestFileUtil:testReadFile()
     lu.assertErrorMsgContains("is not type of string!", fu.ReadFile)
     lu.assertErrorMsgContains("Unable to open and read file: ", fu.ReadFile, "nonexistingfile.asdf")
 
-    local content = fu.ReadFile(_G.noita_root_directory_path .. ".gitignore")
+    local content = fu.ReadFile(_G.noita_root_directory_path .. "/.gitignore")
     lu.assertNotNil(content)
 end
 
@@ -186,8 +185,7 @@ end
 
 function TestFileUtil:testMkDir()
     lu.assertErrorMsgContains("is not type of string!", fu.MkDir)
-    lu.assertErrorMsgContains("Unfortunately unix systems aren't supported yet.", fu.MkDir, _G.noita_root_directory_path .. ".testing/temp-test-dir")
-
+    
     -- TODO: windows
     -- local dir_path = _G.noita_root_directory_path .. ".testing/temp-test-dir"
     -- fu.MkDir(dir_path)
@@ -196,7 +194,7 @@ function TestFileUtil:testMkDir()
 end
 
 function TestFileUtil:testFind7zipExecutable()
-    lu.assertErrorMsgContains("Unfortunately unix systems aren't supported yet.", fu.Find7zipExecutable)
+    
 end
 
 function TestFileUtil:testExists7zip()
