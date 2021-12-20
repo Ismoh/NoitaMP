@@ -10,6 +10,10 @@ function TestFileUtil:setUp()
     _G.DebugGetIsDevBuild = function ()
         return false
     end
+
+    if not _G.noita_root_directory_path then
+        fu.SetAbsolutePathOfNoitaRootDirectory()
+    end
 end
 
 function TestFileUtil:tearDown()

@@ -2,8 +2,8 @@
 
 <div align="center">
 
-[![lua-testing-develop](https://img.shields.io/github/workflow/status/ismoh/noitamp/Lua%20Unit%20Testing/develop?label=tests%20on%20develop&style=flat-square&logo=github)](https://github.com/Ismoh/NoitaMP/actions/workflows/lua-testing.yml?query=branch%3Adevelop)
-[![lua-testing-event-push](https://img.shields.io/github/workflow/status/ismoh/noitamp/Lua%20Unit%20Testing?event=push&label=tests%20on%20push&style=flat-square&logo=github)](https://github.com/Ismoh/NoitaMP/actions/workflows/lua-testing.yml?query=event%3Apush)
+[![Lua Unit Testing on develop](https://img.shields.io/github/workflow/status/ismoh/noitamp/Lua%20Unit%20Testing/develop?label=tests%20on%20develop&logo=github&style=flat-square)](https://github.com/Ismoh/NoitaMP/actions/workflows/lua-unit-testing.yml?query=branch%3Adevelop)
+[![Lua Unit Testing on push](https://img.shields.io/github/workflow/status/ismoh/noitamp/Lua%20Unit%20Testing?label=tests%20on%20push&logo=github&style=flat-square)](https://github.com/Ismoh/NoitaMP/actions/workflows/lua-unit-testing.yml?query=event%3Apush)
 [![codecov](https://flat.badgen.net/codecov/c/github/ismoh/noitamp?icon=codecov)](https://codecov.io/gh/Ismoh/NoitaMP)
 
 [![release](https://flat.badgen.net/github/release/ismoh/noitamp)](https://github.com/Ismoh/NoitaMP/releases)
