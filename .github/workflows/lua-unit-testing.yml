@@ -74,19 +74,18 @@ jobs:
 
     - name: Install luaJIT 2.0.4
       run: |
-        echo "cd ${{ github.workspace }}\.building\LuaJIT-2.0.4"
         cd ${{ github.workspace }}\.building\LuaJIT-2.0.4
-        echo "mingw32-make PREFIX=${{ github.workspace }}\luajit"
+        ### PREFIX isn't working on windows mingw32/powershell, but I don't care. luaJIT is installed in \.building\LuaJIT-2.0.4\src\luajit.exe
         mingw32-make
-        echo "mingw32-make install PREFIX=${{ github.workspace }}\luajit"
         mingw32-make install
+        ls -R
 
     - name: Run LuaUnit 3.4
       id: lua_unit_tests
       run: |
         ######## copy luaunit.lua to package directory, because I don't want to mess around with lua pathes again: see .building\LuaJIT-2.0.4\src\luaconf.h
-        echo 'Copy-Item "${{ github.workspace }}\.testing\luaunit.lua" ${{ github.workspace }}\luajit\src\lua\'
-        New-Item -Path ""${{ github.workspace }}.building\LuaJIT-2.0.4\src\" -Name "lua" -ItemType "directory"
+        Write-Output "Copy-Item ${{ github.workspace }}\.testing\luaunit.lua ${{ github.workspace }}\luajit\src\lua\"
+        New-Item -Path "${{ github.workspace }}.building\LuaJIT-2.0.4\src\" -Name "lua" -ItemType "directory"
         Copy-Item "${{ github.workspace }}\.testing\luaunit.lua" -Destination "${{ github.workspace }}.building\LuaJIT-2.0.4\src\lua"
         ######## run all lua test files with one command: https://stackoverflow.com/a/10523492/3493998
         sudo find ${{ github.workspace }}\.testing\tests -name "*.lua" -type f -exec ${{ github.workspace }}\luajit\bin\luajit {} -o text --verbose --error \; > ${{ github.workspace }}\.testing\testresult.log
