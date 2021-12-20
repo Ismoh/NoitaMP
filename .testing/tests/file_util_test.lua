@@ -199,7 +199,7 @@ function TestFileUtil:testExists7zip()
 end
 
 function TestFileUtil:testCreate7zipArchive()
-    fu.Create7zipArchive()
+    --fu.Create7zipArchive()
 end
 
 os.exit(lu.LuaUnit.run())
