@@ -268,7 +268,14 @@ end
 
 function fu.IsDirectory(full_path)
     -- https://stackoverflow.com/a/21637809/3493998
-    return (fu.Exists(full_path) and not fu.IsFile(full_path))
+    if type(full_path)~="string" then
+        error("file_util.lua | Parameter full_path '" .. tostring(full_path) .."' is not type of string!")
+    end
+    local exists = fu.Exists(full_path)
+    print("file_util.lua | Directory " .. full_path .. " exists = " .. tostring(exists))
+    local is_file = fu.IsFile(full_path)
+    print("file_util.lua | Is the directory a file? " .. full_path .. " is_file = " .. tostring(is_file))
+    return (exists and not is_file)
 end
 
 
