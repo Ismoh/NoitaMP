@@ -77,9 +77,9 @@ jobs:
         echo "cd ${{ github.workspace }}\.building\LuaJIT-2.0.4"
         cd ${{ github.workspace }}\.building\LuaJIT-2.0.4
         echo "mingw32-make PREFIX=${{ github.workspace }}\luajit"
-        mingw32-make
+        mingw32-make PREFIX=${{ github.workspace }}/luajit
         echo "mingw32-make install PREFIX=${{ github.workspace }}\luajit"
-        mingw32-make install
+        mingw32-make install PREFIX=${{ github.workspace }}/luajit
         cd ${{ github.workspace }}
         ls -R
         tree /f
