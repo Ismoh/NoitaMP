@@ -82,7 +82,7 @@ jobs:
         mingw32-make install
         cd ${{ github.workspace }}
         tree /f
-        cd C:\
+        cd C:\usr\local
         tree /f
 
     - name: Run LuaUnit 3.4
