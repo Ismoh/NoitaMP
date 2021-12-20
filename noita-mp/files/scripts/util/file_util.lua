@@ -241,14 +241,18 @@ end
 --- @return boolean
 function fu.Exists(name)
     -- https://stackoverflow.com/a/21637809/3493998
-    if type(name)~="string" then return false end
+    if type(name)~="string" then
+        error("file_util.lua | Parameter name '" .. name .."' is not type of string!")
+    end
     return os.rename(name,name) and true or false
 end
 
 
 function fu.IsFile(name)
     -- https://stackoverflow.com/a/21637809/3493998
-    if type(name)~="string" then return false end
+    if type(name)~="string" then
+        error("file_util.lua | Parameter name '" .. name .."' is not type of string!")
+    end
     if not fu.Exists(name) then return false end
     local f = io.open(name)
     if f then
@@ -266,10 +270,15 @@ end
 
 
 function fu.ReadBinaryFile(file_fullpath)
+    if type(file_fullpath)~="string" then
+        error("file_util.lua | Parameter file_fullpath '" .. file_fullpath .."' is not type of string!")
+    end
     file_fullpath = fu.ReplacePathSeparator(file_fullpath)
     -- https://stackoverflow.com/a/31857671/3493998
     local file = io.open(file_fullpath, "rb") -- r read mode and b binary mode
-    if not file then return nil end
+    if not file then
+        error("Unable to open and read file: " .. file_fullpath)
+    end
     local content = file:read "*a" -- *a or *all reads the whole file
     file:close()
     return content
@@ -277,6 +286,9 @@ end
 
 
 function fu.WriteBinaryFile(file_fullpath, file_content)
+    if type(file_fullpath)~="string" then
+        error("file_util.lua | Parameter file_fullpath '" .. file_fullpath .."' is not type of string!")
+    end
     file_fullpath = fu.ReplacePathSeparator(file_fullpath)
     -- http://lua-users.org/wiki/FileInputOutput
     local fh = assert(io.open(file_fullpath, "wb"))
@@ -287,10 +299,15 @@ end
 
 
 function fu.ReadFile(file_fullpath)
+    if type(file_fullpath)~="string" then
+        error("file_util.lua | Parameter file_fullpath '" .. file_fullpath .."' is not type of string!")
+    end
     file_fullpath = fu.ReplacePathSeparator(file_fullpath)
     -- https://stackoverflow.com/a/31857671/3493998
     local file = io.open(file_fullpath, "r")
-    if not file then return nil end
+    if not file then
+        error("Unable to open and read file: " .. file_fullpath)
+    end
     local content = file:read "*a" -- *a or *all reads the whole file
     file:close()
     return content
@@ -298,6 +315,9 @@ end
 
 
 function fu.WriteFile(file_fullpath, file_content)
+    if type(file_fullpath)~="string" then
+        error("file_util.lua | Parameter file_fullpath '" .. file_fullpath .."' is not type of string!")
+    end
     file_fullpath = fu.ReplacePathSeparator(file_fullpath)
     -- http://lua-users.org/wiki/FileInputOutput
     local fh = assert(io.open(file_fullpath, "w"))
@@ -308,6 +328,9 @@ end
 
 
 function fu.MkDir(full_path)
+    if type(full_path)~="string" then
+        error("file_util.lua | Parameter file_fullpath '" .. full_path .."' is not type of string!")
+    end
     -- https://stackoverflow.com/a/1690932/3493998
     full_path = fu.ReplacePathSeparator(full_path)
     os.execute('mkdir "' .. full_path .. '"')
@@ -348,6 +371,16 @@ end
 ---@return string|number content binary content of archive
 function fu.Create7zipArchive(archive_name, absolute_directory_path_to_add_archive, absolute_destination_path)
     assert(fu.Exists7zip(), "Unable to find 7z.exe, please install 7z via https://7-zip.de/download.html and restart the Noita!")
+
+    if type(archive_name)~="string" then
+        error("file_util.lua | Parameter archive_name '" .. archive_name .."' is not type of string!")
+    end
+    if type(absolute_directory_path_to_add_archive)~="string" then
+        error("file_util.lua | Parameter absolute_directory_path_to_add_archive '" .. absolute_directory_path_to_add_archive .."' is not type of string!")
+    end
+    if type(absolute_destination_path)~="string" then
+        error("file_util.lua | Parameter absolute_destination_path '" .. absolute_destination_path .."' is not type of string!")
+    end
 
     absolute_directory_path_to_add_archive = fu.ReplacePathSeparator(absolute_directory_path_to_add_archive)
     absolute_destination_path = fu.ReplacePathSeparator(absolute_destination_path)

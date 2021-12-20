@@ -116,7 +116,7 @@ function TestFileUtil:testGetRelativeDirectoryPathOfRequiredLibs()
 end
 
 function TestFileUtil:testGetAbsoluteDirectoryPathOfRequiredLibs()
-    _G.noita_root_directory_path = nil -- mock
+    _G.noita_root_directory_path = nil -- TODO: is there a better way to mock?
     local actual_path = fu.GetAbsoluteDirectoryPathOfRequiredLibs()
     local expected = fu.ReplacePathSeparator(_G.noita_root_directory_path .. "/mods/noita-mp/files/libs")
     lu.assertEquals(actual_path, expected)
@@ -125,5 +125,81 @@ end
 ----------------------------------------------------------------------------------------------------
 -- File and Directory checks, writing and reading
 ----------------------------------------------------------------------------------------------------
+
+function TestFileUtil:testExists()
+    lu.assertNotIsTrue(fu.Exists("nonexistingfile.asdf"))
+    lu.assertErrorMsgContains("is not type of string!", fu.Exists)
+    lu.assertIsTrue(fu.Exists(".github/workflows/lua-testing.yml"))
+end
+
+function TestFileUtil:testIsFile()
+    lu.assertNotIsTrue(fu.IsFile("nonexistingfile.asdf"))
+    lu.assertErrorMsgContains("is not type of string!", fu.IsFile)
+    lu.assertIsTrue(fu.IsFile(".github/workflows/lua-testing.yml"))
+end
+
+function TestFileUtil:testIsDirectory()
+    lu.assertNotIsTrue(fu.IsDirectory("nonexistingdirectory"))
+    lu.assertErrorMsgContains("is not type of string!", fu.IsDirectory)
+    lu.assertIsTrue(fu.IsDirectory(".github/workflows"))
+end
+
+function TestFileUtil:testReadBinaryFile()
+    lu.assertErrorMsgContains("is not type of string!", fu.ReadBinaryFile)
+    lu.assertErrorMsgContains("Unable to open and read file: ", fu.ReadBinaryFile, "nonexistingfile.asdf")
+
+    local content = fu.ReadBinaryFile(".github/workflows/lua-testing.yml")
+    lu.assertNotNil(content)
+end
+
+function TestFileUtil:testWriteBinaryFile()
+    lu.assertErrorMsgContains("is not type of string!", fu.WriteBinaryFile)
+
+    local full_path = ".testing/write-temporary-binary-test-file.txt"
+    fu.WriteBinaryFile(full_path, "File Content")
+    lu.assertIsTrue(fu.Exists(full_path))
+end
+
+function TestFileUtil:testReadFile()
+    lu.assertErrorMsgContains("is not type of string!", fu.ReadFile)
+    lu.assertErrorMsgContains("Unable to open and read file: ", fu.ReadFile, "nonexistingfile.asdf")
+
+    local content = fu.ReadFile(".github/workflows/lua-testing.yml")
+    lu.assertNotNil(content)
+end
+
+function TestFileUtil:testWriteFile()
+    lu.assertErrorMsgContains("is not type of string!", fu.WriteFile)
+
+    local full_path = ".testing/write-temporary-test-file.txt"
+    fu.WriteFile(full_path, "File Content")
+    lu.assertIsTrue(fu.Exists(full_path))
+end
+
+function TestFileUtil:testMkDir()
+    lu.assertErrorMsgContains("is not type of string!", fu.MkDir)
+
+    local dir_path = ".testing/temp-test-dir"
+    fu.MkDir(dir_path)
+    lu.assertIsTrue(fu.Exists(dir_path))
+    lu.assertIsTrue(fu.IsDirectory(dir_path))
+end
+
+function TestFileUtil:testFind7zipExecutable()
+    lu.assertErrorMsgContains("Unfortunately unix systems aren't supported yet.", fu.Find7zipExecutable)
+end
+
+function TestFileUtil:testExists7zip()
+    local old = _G.seven_zip
+    _G.seven_zip = false -- mock
+    lu.assertNotIsTrue(fu.Exists7zip())
+    _G.seven_zip = true -- mock
+    lu.assertIsTrue(fu.Exists7zip())
+    _G.seven_zip = old
+end
+
+function TestFileUtil:testCreate7zipArchive()
+    fu.Create7zipArchive()
+end
 
 os.exit(lu.LuaUnit.run())
