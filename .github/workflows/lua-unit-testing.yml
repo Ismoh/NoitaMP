@@ -81,6 +81,7 @@ jobs:
         echo "mingw32-make install PREFIX=${{ github.workspace }}\luajit"
         mingw32-make install
         cd ${{ github.workspace }}
+        ls -R
         Get-ChildItem -Path D:\ -Filter luajit.exe -Recurse -ErrorAction SilentlyContinue -Force
         Get-ChildItem -Path C:\ -Filter luajit.exe -Recurse -ErrorAction SilentlyContinue -Force
 
