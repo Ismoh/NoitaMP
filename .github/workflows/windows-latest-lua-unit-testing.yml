@@ -59,7 +59,7 @@ jobs:
         
         ### set luajit pathes to luarocks
         #.\configure --prefix=${{ github.workspace }}\luarocks --with-lua=${{ github.workspace }}\luajit --with-lua-include=${{ github.workspace }}\luajit\include\luajit-2.0 --with-lua-lib=${{ github.workspace }}\luajit\lib
-        Start-Process -FilePath "${{ github.workspace }}\luarocks-3.8.0-win32\luarocks-3.8.0-win32\install.bat" -ArgumentList "/P=${{ github.workspace }}\luarocks /BIN=${{ github.workspace }}\.building\LuaJIT-2.0.4\src\luajit.exe /INC=${{ github.workspace }}\.building\LuaJIT-2.0.4\src\lua\ /LIB=${{ github.workspace }}\.building\LuaJIT-2.0.4\src\lua\ --verbose" -Wait -NoNewWindow
+        Start-Process -FilePath "${{ github.workspace }}\luarocks-3.8.0-win32\luarocks-3.8.0-win32\install.bat" -ArgumentList "/P=${{ github.workspace }}\luarocks /BIN=${{ github.workspace }}\.building\LuaJIT-2.0.4\src\luajit.exe" -Wait -NoNewWindow
 
         #make
         #make install
@@ -67,7 +67,7 @@ jobs:
     - name: Install dependencies
       run: |
         ######## Use --tree to define the installation path of the module, which is luajit/share/lua/5.1/ although only the 'root' directory is set
-        ${{ github.workspace }}\luarocks\bin\luarocks --tree=${{ github.workspace }}\luajit install luacov
+        Start-Process -FilePath "${{ github.workspace }}\luarocks\bin\luarocks" -ArgumentList "/TREE=${{ github.workspace }}\.building\LuaJIT-2.0.4\src\lua\ install luacov" -Wait -NoNewWindow
 
     - name: Generate coverage report with luacov
       run: |
