@@ -28,15 +28,17 @@ jobs:
         # https://timheuer.com/blog/manually-force-a-failure-in-github-action-step/
         type ${{ github.workspace }}\.testing\testresult.log
         Write-Output "::set-output name=fail::%{ Select-String -Path ${{ github.workspace }}\.testing\testresult.log -Pattern 'FAIL' }"
-        Write-Output "${{ steps.lua_unit_tests.outputs.fail }}" 
+        Write-Output "steps.lua_unit_tests.outputs.fail = ${{ steps.lua_unit_tests.outputs.fail }}" 
         Write-Output "::set-output name=error::%{ Select-String -Path ${{ github.workspace }}\.testing\testresult.log -Pattern 'FAIL' }"
-        Write-Output "${{ steps.lua_unit_tests.outputs.error }}" 
+        Write-Output "steps.lua_unit_tests.outputs.error = ${{ steps.lua_unit_tests.outputs.error }}" 
       
     - name: Unit test failed?
       ######## Check if tests succeed:
       # https://stackoverflow.com/questions/59191913/get-output-of-a-specific-step-in-github-actions
-      if: ${{ steps.lua_unit_tests.outputs.fail != '' || steps.lua_unit_tests.outputs.error != '' }}
+      #if: ${{ steps.lua_unit_tests.outputs.fail != "" || steps.lua_unit_tests.outputs.error != "" }}
       run: |
+        echo "steps.lua_unit_tests.outputs.fail = ${{ steps.lua_unit_tests.outputs.fail }}"
+        echo "steps.lua_unit_tests.outputs.error = ${{ steps.lua_unit_tests.outputs.error }}"
         echo "Unit tests failed!"
         exit 1
 
