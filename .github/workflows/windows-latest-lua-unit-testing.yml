@@ -61,7 +61,7 @@ jobs:
         ### set luajit pathes to luarocks
         #.\configure --prefix=${{ github.workspace }}\luarocks --with-lua=${{ github.workspace }}\luajit --with-lua-include=${{ github.workspace }}\luajit\include\luajit-2.0 --with-lua-lib=${{ github.workspace }}\luajit\lib
         Write-Host "Start-Process -FilePath "${{ github.workspace }}\luarocks-3.8.0-win32\luarocks-3.8.0-win32\install.bat" -ArgumentList "/P=${{ github.workspace }}\.building\luarocks-3.8.0\ /BIN=${{ github.workspace }}\.building\LuaJIT-2.0.4\src\" -Wait -NoNewWindow"
-        Start-Process -FilePath "${{ github.workspace }}\luarocks-3.8.0-win32\luarocks-3.8.0-win32\install.bat" -ArgumentList "/P=${{ github.workspace }}\.building\luarocks-3.8.0\ /BIN=${{ github.workspace }}\.building\LuaJIT-2.0.4\src\" -Wait -NoNewWindow
+        Start-Process -FilePath "${{ github.workspace }}\luarocks-3.8.0-win32\luarocks-3.8.0-win32\install.bat" -ArgumentList "/P=${{ github.workspace }}\\.building\\luarocks-3.8.0\\" -Wait -NoNewWindow
 
         Remove-Item -Path ${{ github.workspace }}\luarocks-3.8.0-win32.zip
         Remove-Item -Path ${{ github.workspace }}\luarocks-3.8.0-win32 -Recurse
