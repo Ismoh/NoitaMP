@@ -28,9 +28,9 @@ jobs:
         # https://timheuer.com/blog/manually-force-a-failure-in-github-action-step/
         type ${{ github.workspace }}\.testing\testresult.log
         Write-Output "::set-output name=fail::%{ Get-ChildItem -Recurse -Path '${{ github.workspace }}\.testing\testresult.log' | Select-String 'FAIL' }"
-        echo ${{ steps.lua_unit_tests.outputs.fail }}
+        Write-Output "${{ steps.lua_unit_tests.outputs.fail }}" 
         Write-Output "::set-output name=error::%{ Get-ChildItem -Recurse -Path '${{ github.workspace }}\.testing\testresult.log' | Select-String 'ERROR' }"
-        echo ${{ steps.lua_unit_tests.outputs.error }}
+        Write-Output "${{ steps.lua_unit_tests.outputs.error }}" 
       
     - name: Unit test failed?
       ######## Check if tests succeed:
