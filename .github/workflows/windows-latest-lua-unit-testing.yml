@@ -60,6 +60,9 @@ jobs:
 
         ls -R ${{ github.workspace }}
 
+        ### set environment variable https://stackoverflow.com/a/1333717/3493998
+        [System.Environment]::SetEnvironmentVariable('LUAROCKS_CONFIG','${{ github.workspace }}\.building\luarocks-3.8.0\config-windows.5.1.lua')
+
         ### set luajit pathes to luarocks
         #.\configure --prefix=${{ github.workspace }}\luarocks --with-lua=${{ github.workspace }}\luajit --with-lua-include=${{ github.workspace }}\luajit\include\luajit-2.0 --with-lua-lib=${{ github.workspace }}\luajit\lib
         Write-Host "Start-Process -FilePath "${{ github.workspace }}\luarocks-3.8.0-win32\luarocks-3.8.0-win32\install.bat" -ArgumentList "/FORCECONFIG" -Wait -NoNewWindow"
