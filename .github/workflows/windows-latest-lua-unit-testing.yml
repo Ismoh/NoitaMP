@@ -51,7 +51,7 @@ jobs:
         Invoke-WebRequest -Uri "http://luarocks.github.io/luarocks/releases/luarocks-3.8.0-win32.zip" -OutFile "${{ github.workspace }}\luarocks-3.8.0-win32.zip"
 
         #tar zxpf luarocks-3.8.0.tar.gz
-        Expand-Archive -Path luarocks-3.8.0-win32.zip -DestinationPath "${{ github.workspace }}\luarocks-3.8.0-win32"
+        Expand-Archive -Path ${{ github.workspace }}\luarocks-3.8.0-win32.zip -DestinationPath "${{ github.workspace }}\luarocks-3.8.0-win32"
 
         cd luarocks-3.8.0-win32
 
@@ -60,10 +60,11 @@ jobs:
         New-Item -Path "${{ github.workspace }}\.building\" -Name "luarocks-3.8.0" -ItemType "directory"        
         ### set luajit pathes to luarocks
         #.\configure --prefix=${{ github.workspace }}\luarocks --with-lua=${{ github.workspace }}\luajit --with-lua-include=${{ github.workspace }}\luajit\include\luajit-2.0 --with-lua-lib=${{ github.workspace }}\luajit\lib
+        Write-Host "Start-Process -FilePath "${{ github.workspace }}\luarocks-3.8.0-win32\luarocks-3.8.0-win32\install.bat" -ArgumentList "/P=${{ github.workspace }}\.building\luarocks-3.8.0\ /BIN=${{ github.workspace }}\.building\LuaJIT-2.0.4\src\" -Wait -NoNewWindow"
         Start-Process -FilePath "${{ github.workspace }}\luarocks-3.8.0-win32\luarocks-3.8.0-win32\install.bat" -ArgumentList "/P=${{ github.workspace }}\.building\luarocks-3.8.0\ /BIN=${{ github.workspace }}\.building\LuaJIT-2.0.4\src\" -Wait -NoNewWindow
 
-        #make
-        #make install
+        Remove-Item -Path ${{ github.workspace }}\luarocks-3.8.0-win32.zip
+        Remove-Item -Path ${{ github.workspace }}\luarocks-3.8.0-win32 -Recurse
 
     - name: Install dependencies
       run: |
