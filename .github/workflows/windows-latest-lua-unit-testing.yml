@@ -27,9 +27,11 @@ jobs:
         dir -Path ${{ github.workspace }}\.testing\tests -Filter *.lua -Recurse | %{& '${{ github.workspace }}\.building\LuaJIT-2.0.4\src\luajit.exe' $_.FullName -o text --verbose --error > ${{ github.workspace }}\.testing\testresult.log}
         # https://timheuer.com/blog/manually-force-a-failure-in-github-action-step/
         type ${{ github.workspace }}\.testing\testresult.log
-        Write-Output "::set-output name=fail::%{ Select-String -Path ${{ github.workspace }}\.testing\testresult.log -Pattern 'FAIL' }"
+        $fail = Select-String -Path ${{ github.workspace }}\.testing\testresult.log -Pattern 'FAIL'
+        Write-Output "::set-output name=fail::$fail"
         Write-Output "steps.lua_unit_tests.outputs.fail = ${{ steps.lua_unit_tests.outputs.fail }}" 
-        Write-Output "::set-output name=error::%{ Select-String -Path ${{ github.workspace }}\.testing\testresult.log -Pattern 'FAIL' }"
+        $error = Select-String -Path ${{ github.workspace }}\.testing\testresult.log -Pattern 'ERROR'
+        Write-Output "::set-output name=error::$error"
         Write-Output "steps.lua_unit_tests.outputs.error = ${{ steps.lua_unit_tests.outputs.error }}" 
       
     - name: Unit test failed?
