@@ -55,12 +55,15 @@ jobs:
 
         cd luarocks-3.8.0-win32
 
+        New-Item -Path "c:" -Name "luarocks" -ItemType "directory"
+        Copy-Item "${{ github.workspace }}\.building\luarocks-3.8.0\config-windows.5.1.lua" -Destination "C:\luarocks\config.lua"
+
         ls -R ${{ github.workspace }}
 
         New-Item -Path "${{ github.workspace }}\.building\" -Name "luarocks-3.8.0" -ItemType "directory"        
         ### set luajit pathes to luarocks
         #.\configure --prefix=${{ github.workspace }}\luarocks --with-lua=${{ github.workspace }}\luajit --with-lua-include=${{ github.workspace }}\luajit\include\luajit-2.0 --with-lua-lib=${{ github.workspace }}\luajit\lib
-        Write-Host "Start-Process -FilePath "${{ github.workspace }}\luarocks-3.8.0-win32\luarocks-3.8.0-win32\install.bat" -ArgumentList "/P=${{ github.workspace }}\.building\luarocks-3.8.0\ /BIN=${{ github.workspace }}\.building\LuaJIT-2.0.4\src\" -Wait -NoNewWindow"
+        Write-Host "Start-Process -FilePath "${{ github.workspace }}\luarocks-3.8.0-win32\luarocks-3.8.0-win32\install.bat" -ArgumentList "/FORCECONFIG" -Wait -NoNewWindow"
         Start-Process -FilePath "${{ github.workspace }}\luarocks-3.8.0-win32\luarocks-3.8.0-win32\install.bat" -ArgumentList "/P=${{ github.workspace }}\\.building\\luarocks-3.8.0\\" -Wait -NoNewWindow
 
         Remove-Item -Path ${{ github.workspace }}\luarocks-3.8.0-win32.zip
