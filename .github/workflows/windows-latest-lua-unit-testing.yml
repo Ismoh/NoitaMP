@@ -53,9 +53,9 @@ jobs:
         #tar zxpf luarocks-3.8.0.tar.gz
         Expand-Archive -Path luarocks-3.8.0-win32.zip -DestinationPath "${{ github.workspace }}\luarocks-3.8.0-win32"
 
-        cd luarocks-3.8.0-win32 ${{ github.workspace }}
+        cd luarocks-3.8.0-win32
 
-        tree /f
+        tree /f ${{ github.workspace }}
         
         ### set luajit pathes to luarocks
         #.\configure --prefix=${{ github.workspace }}\luarocks --with-lua=${{ github.workspace }}\luajit --with-lua-include=${{ github.workspace }}\luajit\include\luajit-2.0 --with-lua-lib=${{ github.workspace }}\luajit\lib
