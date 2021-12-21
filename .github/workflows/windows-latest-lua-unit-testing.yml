@@ -54,10 +54,12 @@ jobs:
         Expand-Archive -Path luarocks-3.8.0-win32.zip -DestinationPath "${{ github.workspace }}\luarocks-3.8.0-win32"
 
         cd luarocks-3.8.0-win32
+
+        tree /f
         
         ### set luajit pathes to luarocks
         #.\configure --prefix=${{ github.workspace }}\luarocks --with-lua=${{ github.workspace }}\luajit --with-lua-include=${{ github.workspace }}\luajit\include\luajit-2.0 --with-lua-lib=${{ github.workspace }}\luajit\lib
-        install.bat /P=${{ github.workspace }}\luarocks /LUA=${{ github.workspace }}\luajit /INC=${{ github.workspace }}\luajit\include\luajit-2.0 /LIB=${{ github.workspace }}\luajit\lib
+        cmd.exe /c 'install.bat' /P=${{ github.workspace }}\luarocks /LUA=${{ github.workspace }}\luajit /INC=${{ github.workspace }}\luajit\include\luajit-2.0 /LIB=${{ github.workspace }}\luajit\lib
         
         #make
         #make install
