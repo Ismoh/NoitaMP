@@ -55,7 +55,7 @@ jobs:
 
         cd luarocks-3.8.0-win32
 
-        New-Item -Path "c:" -Name "luarocks" -ItemType "directory"
+        New-Item -Path "C:" -Name "luarocks" -ItemType "directory"
         Copy-Item "${{ github.workspace }}\.building\luarocks-3.8.0\config-windows.5.1.lua" -Destination "C:\luarocks\config.lua"
 
         ls -R ${{ github.workspace }}
@@ -66,6 +66,8 @@ jobs:
         dir env:
 
         ls C:/
+
+        ls C:/luarocks
 
         ### set luajit pathes to luarocks
         #.\configure --prefix=${{ github.workspace }}\luarocks --with-lua=${{ github.workspace }}\luajit --with-lua-include=${{ github.workspace }}\luajit\include\luajit-2.0 --with-lua-lib=${{ github.workspace }}\luajit\lib
