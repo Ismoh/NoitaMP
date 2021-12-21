@@ -25,19 +25,18 @@ jobs:
         Copy-Item "${{ github.workspace }}\.testing\luaunit.lua" -Destination "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\lua\"
 
         dir -Path ${{ github.workspace }}\.testing\tests -Filter *.lua -Recurse | %{& '${{ github.workspace }}\.building\LuaJIT-2.0.4\src\luajit.exe' $_.FullName -o text --verbose --error > ${{ github.workspace }}\.testing\testresult.log}
-        # https://timheuer.com/blog/manually-force-a-failure-in-github-action-step/
         type ${{ github.workspace }}\.testing\testresult.log
+        
+        # https://timheuer.com/blog/manually-force-a-failure-in-github-action-step/
         $testFail = Select-String -Path ${{ github.workspace }}\.testing\testresult.log -Pattern 'FAIL' -CaseSensitive
         Write-Output "::set-output name=fail::$testFail"
-        Write-Output "steps.lua_unit_tests.outputs.fail = ${{ steps.lua_unit_tests.outputs.fail }}" 
+        
         $testError = Select-String -Path ${{ github.workspace }}\.testing\testresult.log -Pattern 'ERROR' -CaseSensitive
         Write-Output "::set-output name=error::$testError"
-        Write-Output "steps.lua_unit_tests.outputs.error = ${{ steps.lua_unit_tests.outputs.error }}" 
       
     - name: Unit test failed?
-      ######## Check if tests succeed:
-      # https://stackoverflow.com/questions/59191913/get-output-of-a-specific-step-in-github-actions
-      #if: ${{ steps.lua_unit_tests.outputs.fail != "" || steps.lua_unit_tests.outputs.error != "" }}
+      ### Check if tests succeed:
+      if: ${{ steps.lua_unit_tests.outputs.fail != "" || steps.lua_unit_tests.outputs.error != "" }}
       run: |
         echo "steps.lua_unit_tests.outputs.fail = ${{ steps.lua_unit_tests.outputs.fail }}"
         echo "steps.lua_unit_tests.outputs.error = ${{ steps.lua_unit_tests.outputs.error }}"
@@ -46,14 +45,22 @@ jobs:
 
     - name: Install luarocks 3.8.0
       run: |
-        ######## install lua rocks manually: https://github.com/luarocks/luarocks/wiki/Installation-instructions-for-Unix
-        wget https://luarocks.github.io/luarocks/releases/luarocks-3.8.0.tar.gz
-        tar zxpf luarocks-3.8.0.tar.gz
-        cd luarocks-3.8.0
-        ######## set luajit pathes to luarocks
-        .\configure --prefix=${{ github.workspace }}\luarocks --with-lua=${{ github.workspace }}\luajit --with-lua-include=${{ github.workspace }}\luajit\include\luajit-2.0 --with-lua-lib=${{ github.workspace }}\luajit\lib
-        make
-        make install
+        ### install lua rocks manually: https://github.com/luarocks/luarocks/wiki/Installation-instructions-for-Unix
+      
+        #wget https://luarocks.github.io/luarocks/releases/luarocks-3.8.0.tar.gz
+        Invoke-WebRequest -Uri "http://luarocks.github.io/luarocks/releases/luarocks-3.8.0-win32.zip" -OutFile "${{ github.workspace }}\luarocks-3.8.0-win32.zip"
+
+        #tar zxpf luarocks-3.8.0.tar.gz
+        Expand-Archive -Path luarocks-3.8.0-win32.zip -DestinationPath "${{ github.workspace }}\luarocks-3.8.0-win32"
+
+        cd luarocks-3.8.0-win32
+        
+        ### set luajit pathes to luarocks
+        #.\configure --prefix=${{ github.workspace }}\luarocks --with-lua=${{ github.workspace }}\luajit --with-lua-include=${{ github.workspace }}\luajit\include\luajit-2.0 --with-lua-lib=${{ github.workspace }}\luajit\lib
+        install.bat /P=${{ github.workspace }}\luarocks /LUA=${{ github.workspace }}\luajit /INC=${{ github.workspace }}\luajit\include\luajit-2.0 /LIB=${{ github.workspace }}\luajit\lib
+        
+        #make
+        #make install
 
     - name: Install dependencies
       run: |
