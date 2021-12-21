@@ -60,7 +60,6 @@ jobs:
 
         ls -R ${{ github.workspace }}
 
-        New-Item -Path "${{ github.workspace }}\.building\" -Name "luarocks-3.8.0" -ItemType "directory"        
         ### set luajit pathes to luarocks
         #.\configure --prefix=${{ github.workspace }}\luarocks --with-lua=${{ github.workspace }}\luajit --with-lua-include=${{ github.workspace }}\luajit\include\luajit-2.0 --with-lua-lib=${{ github.workspace }}\luajit\lib
         Write-Host "Start-Process -FilePath "${{ github.workspace }}\luarocks-3.8.0-win32\luarocks-3.8.0-win32\install.bat" -ArgumentList "/FORCECONFIG" -Wait -NoNewWindow"
