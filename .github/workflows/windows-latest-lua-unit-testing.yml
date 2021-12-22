@@ -7,7 +7,6 @@ jobs:
     name: "LuaUnit on Windows-latest (mingw32)"
     runs-on: windows-latest
     env:
-      LUA_PATH: ";;${{ env.lua_install_lib_dir }}\\?.lua;${{ env.lua_install_lib_dir }}\\?\\init.lua;${{ env.lua_install_lib_dir }}\\jit\\?.lua;${{ env.lua_install_lib_dir }}\\jit\\?\\init.lua"
       temp_dir: ${{ github.workspace }}\temp
       lua_temp_dir: ${{ github.workspace }}\temp\lua-5.1.5
       luajit_temp_dir: ${{ github.workspace }}\temp\luaJIT-2.0.4
@@ -15,6 +14,7 @@ jobs:
       lua_install_bin_dir: ${{ github.workspace }}\Lua\bin
       lua_install_lib_dir: ${{ github.workspace }}\Lua\lib
       lua_install_include_dir: ${{ github.workspace }}\Lua\include
+      LUA_PATH: ";;${{ github.workspace }}/Lua/lib/?.lua;${{ github.workspace }}/Lua/lib/?/init.lua;${{ github.workspace }}/Lua/lib/jit/?.lua;${{ github.workspace }}/Lua/lib/jit/?/init.lua"
 
     steps:
     - uses: actions/checkout@main
