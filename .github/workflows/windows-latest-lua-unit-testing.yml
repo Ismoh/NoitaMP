@@ -35,13 +35,19 @@ jobs:
         ### https://gist.github.com/Egor-Skriptunoff/cb952f7eaf39b7b1bf739b818ece87cd        
         Copy-Item -Path "${{ github.workspace }}\.building\LuaJIT-2.0.4\" -Destination "${{ github.workspace }}\temp\LuaJIT-2.0.4\" -Recurse
         cd ${{ github.workspace }}\temp\LuaJIT-2.0.4\
-        mingw32-make
+        mingw32-make PLAT=mingw
         ls -R
 
     - name: Install Lua 5.1.5 and LuaJIT 2.0.4
       run: |
         ### https://gist.github.com/Egor-Skriptunoff/cb952f7eaf39b7b1bf739b818ece87cd        
         New-Item -Path "${{ github.workspace }}" -Name "Lua" -ItemType "directory"
+        Copy-Item "${{ github.workspace }}\temp\lua-5.1.5\src\lua.exe" -Destination "${{ github.workspace }}\Lua\"
+        Copy-Item "${{ github.workspace }}\temp\lua-5.1.5\src\luac.exe" -Destination "${{ github.workspace }}\Lua\"
+        Copy-Item "${{ github.workspace }}\temp\lua-5.1.5\src\lua51.dll" -Destination "${{ github.workspace }}\Lua\"
+        Copy-Item "${{ github.workspace }}\temp\LuaJIT-2.0.4\src\luajit.exe" -Destination "${{ github.workspace }}\Lua\"
+        Copy-Item "${{ github.workspace }}\temp\LuaJIT-2.0.4\src\lua51.exe" -Destination "${{ github.workspace }}\Lua\"
+        Copy-Item "${{ github.workspace }}\temp\LuaJIT-2.0.4\src\jit\*" -Destination "${{ github.workspace }}\Lua\lua\jit\"
         exit 1
 
     - name: Run LuaUnit 3.4
