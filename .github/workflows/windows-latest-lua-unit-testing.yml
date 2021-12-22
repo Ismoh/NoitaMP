@@ -26,29 +26,7 @@ jobs:
         mingw32-make
         mingw32-make install
 
-    - name: Build Lua 5.1.5
-      run: |
-        ### https://gist.github.com/Egor-Skriptunoff/cb952f7eaf39b7b1bf739b818ece87cd
-        ### http://lua-users.org/wiki/BuildingLuaInWindowsForNewbies
-        New-Item -Path "${{ github.workspace }}" -Name "temp" -ItemType "directory"
-        cd ${{ env.temp_dir }}\
-        Invoke-WebRequest -Uri "https://www.lua.org/ftp/lua-5.1.5.tar.gz" -OutFile "${{ env.temp_dir }}\lua-5.1.5.tar.gz"
-        #Expand-Archive -Path "${{ env.temp_dir }}\lua-5.1.5.tar.gz" -DestinationPath "${{ env.lua_temp_dir }}\"
-        tar zxpf lua-5.1.5.tar.gz
-        cd ${{ env.lua_temp_dir }}\
-        mingw32-make PLAT=mingw
-        ls -R
-
-    - name: Build LuaJIT 2.0.4
-      run: |
-        ### https://gist.github.com/Egor-Skriptunoff/cb952f7eaf39b7b1bf739b818ece87cd
-        ### http://lua-users.org/wiki/BuildingLuaInWindowsForNewbies
-        Copy-Item -Path "${{ github.workspace }}\.building\LuaJIT-2.0.4\" -Destination "${{ env.luajit_temp_dir }}\" -Recurse
-        cd ${{ env.luajit_temp_dir }}\
-        mingw32-make PLAT=mingw
-        ls -R
-
-    - name: Install Lua 5.1.5 and LuaJIT 2.0.4
+    - name: Make directories for Lua installation
       run: |
         ### https://gist.github.com/Egor-Skriptunoff/cb952f7eaf39b7b1bf739b818ece87cd
         ### http://lua-users.org/wiki/BuildingLuaInWindowsForNewbies
@@ -57,10 +35,41 @@ jobs:
         New-Item -Path "${{ env.lua_install_dir }}" -Name "lib" -ItemType "directory"
         New-Item -Path "${{ env.lua_install_dir }}" -Name "include" -ItemType "directory"
 
+    - name: Build and install Lua 5.1.5
+      if: ${{ false }}
+      run: |
+        ### https://gist.github.com/Egor-Skriptunoff/cb952f7eaf39b7b1bf739b818ece87cd
+        ### http://lua-users.org/wiki/BuildingLuaInWindowsForNewbies
+
+        ### Build
+        New-Item -Path "${{ github.workspace }}" -Name "temp" -ItemType "directory"
+        cd ${{ env.temp_dir }}\
+        Invoke-WebRequest -Uri "https://www.lua.org/ftp/lua-5.1.5.tar.gz" -OutFile "${{ env.temp_dir }}\lua-5.1.5.tar.gz"
+        #Expand-Archive -Path "${{ env.temp_dir }}\lua-5.1.5.tar.gz" -DestinationPath "${{ env.lua_temp_dir }}\"
+        tar zxpf lua-5.1.5.tar.gz
+        cd ${{ env.lua_temp_dir }}\
+        mingw32-make PLAT=mingw
+        
+        ### Install
         ### binaries
         Copy-Item "${{ env.lua_temp_dir }}\src\lua.exe" -Destination "${{ env.lua_install_bin_dir }}\"
         Copy-Item "${{ env.lua_temp_dir }}\src\luac.exe" -Destination "${{ env.lua_install_bin_dir }}\"
         Copy-Item "${{ env.lua_temp_dir }}\src\lua51.dll" -Destination "${{ env.lua_install_bin_dir }}\"
+
+        Start-Process -FilePath "${{ env.lua_install_bin_dir }}\lua.exe" -ArgumentList " -v" -Wait -NoNewWindow
+
+    - name: Build and install LuaJIT 2.0.4
+      run: |
+        ### https://gist.github.com/Egor-Skriptunoff/cb952f7eaf39b7b1bf739b818ece87cd
+        ### http://lua-users.org/wiki/BuildingLuaInWindowsForNewbies
+
+        ### Build
+        Copy-Item -Path "${{ github.workspace }}\.building\LuaJIT-2.0.4\" -Destination "${{ env.luajit_temp_dir }}\" -Recurse
+        cd ${{ env.luajit_temp_dir }}\
+        mingw32-make PLAT=mingw
+        
+        ### Install
+        ### binaries
         Copy-Item "${{ env.luajit_temp_dir }}\src\luajit.exe" -Destination "${{ env.lua_install_bin_dir }}\"
         Copy-Item "${{ env.luajit_temp_dir }}\src\lua51.dll" -Destination "${{ env.lua_install_bin_dir }}\"
         
@@ -74,9 +83,6 @@ jobs:
         Copy-Item "${{ env.luajit_temp_dir }}\src\lauxlib.h" -Destination "${{ env.lua_install_include_dir }}\"
         Copy-Item "${{ env.luajit_temp_dir }}\src\lua.hpp" -Destination "${{ env.lua_install_include_dir }}\"
 
-        ls -R ${{ env.lua_install_dir }}\
-
-        Start-Process -FilePath "${{ env.lua_install_bin_dir }}\lua.exe" -ArgumentList " -v" -Wait -NoNewWindow
         Start-Process -FilePath "${{ env.lua_install_bin_dir }}\luajit.exe" -ArgumentList " -v" -Wait -NoNewWindow
         Start-Process -FilePath "${{ env.lua_install_bin_dir }}\luajit.exe" -ArgumentList " -e `"print(_VERSION)`"" -Wait -NoNewWindow
 
@@ -93,7 +99,10 @@ jobs:
     - name: Run LuaUnit 3.4
       id: lua_unit_tests
       run: |
+        ### Adjust package paths
         Start-Process -FilePath "${{ env.lua_install_bin_dir }}\luajit.exe" -ArgumentList " ${{ github.workspace }}\noita-mp\files\lib\external\modules_handler.lua" -Wait -NoNewWindow
+        env
+
         dir -Path ${{ github.workspace }}\.testing\tests -Filter *.lua -Recurse | %{& '${{ env.lua_install_bin_dir }}\luajit.exe' $_.FullName -o text --verbose --error > ${{ github.workspace }}\.testing\testresult.log}
         type ${{ github.workspace }}\.testing\testresult.log
         
