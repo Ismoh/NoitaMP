@@ -46,24 +46,24 @@ jobs:
         ### http://lua-users.org/wiki/BuildingLuaInWindowsForNewbies
         New-Item -Path "${{ github.workspace }}" -Name "Lua" -ItemType "directory"
         New-Item -Path "${{ github.workspace }}\Lua" -Name "bin" -ItemType "directory"
-        Copy-Item "${{ github.workspace }}\temp\lua-5.1.5\src\lua.exe" -Destination "${{ github.workspace }}\Lua\bin\"
-        Copy-Item "${{ github.workspace }}\temp\lua-5.1.5\src\luac.exe" -Destination "${{ github.workspace }}\Lua\bin\"
-        Copy-Item "${{ github.workspace }}\temp\lua-5.1.5\src\lua51.dll" -Destination "${{ github.workspace }}\Lua\bin\"
-        Copy-Item "${{ github.workspace }}\temp\LuaJIT-2.0.4\src\luajit.exe" -Destination "${{ github.workspace }}\Lua\bin\"
-        Copy-Item "${{ github.workspace }}\temp\LuaJIT-2.0.4\src\lua51.dll" -Destination "${{ github.workspace }}\Lua\bin\"
+        Copy-Item "${{ github.workspace }}\temp\lua-5.1.5\src\lua.exe" -Destination "${{ github.workspace }}\Lua\"
+        Copy-Item "${{ github.workspace }}\temp\lua-5.1.5\src\luac.exe" -Destination "${{ github.workspace }}\Lua\"
+        Copy-Item "${{ github.workspace }}\temp\lua-5.1.5\src\lua51.dll" -Destination "${{ github.workspace }}\Lua\"
+        Copy-Item "${{ github.workspace }}\temp\LuaJIT-2.0.4\src\luajit.exe" -Destination "${{ github.workspace }}\Lua\"
+        Copy-Item "${{ github.workspace }}\temp\LuaJIT-2.0.4\src\lua51.dll" -Destination "${{ github.workspace }}\Lua\"
         Copy-Item "${{ github.workspace }}\temp\LuaJIT-2.0.4\src\jit\" -Destination "${{ github.workspace }}\Lua\lua\jit\"
         ls -R ${{ github.workspace }}\Lua\
 
-        Start-Process -FilePath "${{ github.workspace }}\Lua\bin\lua.exe" -ArgumentList " -v" -Wait -NoNewWindow
-        Start-Process -FilePath "${{ github.workspace }}\Lua\bin\luajit.exe" -ArgumentList " -v" -Wait -NoNewWindow
-        Start-Process -FilePath "${{ github.workspace }}\Lua\bin\luajit.exe" -ArgumentList " -e `"print(_VERSION)`"" -Wait -NoNewWindow
+        Start-Process -FilePath "${{ github.workspace }}\Lua\lua.exe" -ArgumentList " -v" -Wait -NoNewWindow
+        Start-Process -FilePath "${{ github.workspace }}\Lua\luajit.exe" -ArgumentList " -v" -Wait -NoNewWindow
+        Start-Process -FilePath "${{ github.workspace }}\Lua\luajit.exe" -ArgumentList " -e `"print(_VERSION)`"" -Wait -NoNewWindow
 
     - name: Run LuaUnit 3.4
       id: lua_unit_tests
       run: |
         Copy-Item "${{ github.workspace }}\.testing\luaunit.lua" -Destination "${{ github.workspace }}\Lua\lua\"
 
-        dir -Path ${{ github.workspace }}\.testing\tests -Filter *.lua -Recurse | %{& '${{ github.workspace }}\Lua\bin\luajit.exe' $_.FullName -o text --verbose --error > ${{ github.workspace }}\.testing\testresult.log}
+        dir -Path ${{ github.workspace }}\.testing\tests -Filter *.lua -Recurse | %{& '${{ github.workspace }}\Lua\luajit.exe' $_.FullName -o text --verbose --error > ${{ github.workspace }}\.testing\testresult.log}
         type ${{ github.workspace }}\.testing\testresult.log
         
         # https://timheuer.com/blog/manually-force-a-failure-in-github-action-step/
