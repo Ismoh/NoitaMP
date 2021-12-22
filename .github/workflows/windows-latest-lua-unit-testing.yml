@@ -8,12 +8,12 @@ jobs:
     runs-on: windows-latest
     env:
       temp_dir: ${{ github.workspace }}\temp
-      lua-5.1.5_temp_dir: ${{ env.temp_dir }}\lua-5.1.5
-      luaJIT-2.0.4_temp_dir: ${{ env.temp_dir }}\luaJIT-2.0.4
+      lua-5.1.5_temp_dir: ${{ github.workspace }}\temp\lua-5.1.5
+      luaJIT-2.0.4_temp_dir: ${{ github.workspace }}\temp\luaJIT-2.0.4
       lua_install_dir: ${{ github.workspace }}\Lua
-      lua_install_bin_dir: ${{ lua_install_dir }}\bin
-      lua_install_lib_dir: ${{ lua_install_dir }}\lib
-      lua_install_include_dir: ${{ lua_install_dir }}\include
+      lua_install_bin_dir: ${{ github.workspace }}\Lua\bin
+      lua_install_lib_dir: ${{ github.workspace }}\Lua\lib
+      lua_install_include_dir: ${{ github.workspace }}\Lua\include
 
     steps:
     - uses: actions/checkout@main
