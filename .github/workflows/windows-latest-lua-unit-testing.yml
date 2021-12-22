@@ -54,8 +54,8 @@ jobs:
         Copy-Item "${{ github.workspace }}\temp\LuaJIT-2.0.4\src\jit\" -Destination "${{ github.workspace }}\Lua\lua\jit\"
         ls -R ${{ github.workspace }}\Lua\
 
-        ${{ github.workspace }}\Lua\bin\lua.exe -e "print [[Hello Lua!]];print[[Simple LuaJIT test successful!!!]]; -v"
-        ${{ github.workspace }}\Lua\bin\luajit.exe -e "print [[Hello LuaJIT!]];print[[Simple Lua test successful!!!]]; -v"
+        Start-Process -FilePath "${{ github.workspace }}\Lua\bin\lua.exe" -ArgumentList "-e `"print [[Hello Lua!]];print[[Simple LuaJIT test successful!!!]]; -v `"" -Wait -NoNewWindow
+        Start-Process -FilePath "${{ github.workspace }}\Lua\bin\luajit.exe" -ArgumentList "-e `"print [[Hello LuaJIT!]];print[[Simple Lua test successful!!!]]; -v `"" -Wait -NoNewWindow
         exit 1
 
     - name: Run LuaUnit 3.4
