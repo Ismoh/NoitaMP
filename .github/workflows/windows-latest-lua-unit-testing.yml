@@ -27,7 +27,7 @@ jobs:
         #Expand-Archive -Path "${{ github.workspace }}\temp\lua-5.1.5.tar.gz" -DestinationPath "${{ github.workspace }}\temp\lua-5.1.5\"
         tar zxpf lua-5.1.5.tar.gz
         cd ${{ github.workspace }}\temp\lua-5.1.5\
-        mingw32-make
+        mingw32-make PLAT=mingw
         ls -R
 
     - name: Build LuaJIT 2.0.4
