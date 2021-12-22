@@ -7,7 +7,7 @@ jobs:
     name: "LuaUnit on Windows-latest (mingw32)"
     runs-on: windows-latest
     env:
-      LUA_PATH: ";;${{ env.lua_install_lib_dir }}\?.lua;${{ env.lua_install_lib_dir }}\?\init.lua;${{ env.lua_install_lib_dir }}\jit\?.lua;${{ env.lua_install_lib_dir }}\jit\?\init.lua"
+      LUA_PATH: ";;${{ env.lua_install_lib_dir }}\\?.lua;${{ env.lua_install_lib_dir }}\\?\\init.lua;${{ env.lua_install_lib_dir }}\\jit\\?.lua;${{ env.lua_install_lib_dir }}\\jit\\?\\init.lua"
       temp_dir: ${{ github.workspace }}\temp
       lua_temp_dir: ${{ github.workspace }}\temp\lua-5.1.5
       luajit_temp_dir: ${{ github.workspace }}\temp\luaJIT-2.0.4
