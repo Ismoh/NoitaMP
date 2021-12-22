@@ -20,10 +20,12 @@ jobs:
 
     - name: Install LuaJIT 2.0.4
       run: |
+        ### https://gist.github.com/Egor-Skriptunoff/cb952f7eaf39b7b1bf739b818ece87cd
         New-Item -Path "${{ github.workspace }}" -Name "temp" -ItemType "directory"
         cd ${{ github.workspace }}\temp\
         Invoke-WebRequest -Uri "https://www.lua.org/ftp/lua-5.1.5.tar.gz" -OutFile "${{ github.workspace }}\temp\lua-5.1.5.tar.gz"
-        Expand-Archive -Path "${{ github.workspace }}\temp\lua-5.1.5.tar.gz" -DestinationPath "${{ github.workspace }}\temp\lua-5.1.5\"
+        #Expand-Archive -Path "${{ github.workspace }}\temp\lua-5.1.5.tar.gz" -DestinationPath "${{ github.workspace }}\temp\lua-5.1.5\"
+        tar zxpf lua-5.1.5.tar.gz
         ls -R
 
     - name: Run LuaUnit 3.4
