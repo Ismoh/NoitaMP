@@ -91,6 +91,7 @@ jobs:
         Expand-Archive -Path ${{ github.workspace }}\luarocks-3.8.0-win32.zip -DestinationPath "${{ github.workspace }}\temp\luarocks-3.8.0-win32"
 
         cd ${{ github.workspace }}\temp\luarocks-3.8.0-win32
+        ls- R
 
         ### set environment variable https://stackoverflow.com/a/1333717/3493998 + https://www.tutorialspoint.com/how-to-set-environment-variables-using-powershell
         #[System.Environment]::SetEnvironmentVariable('LUAROCKS_CONFIG','${{ github.workspace }}\.building\luarocks-3.8.0\config-windows.5.1.lua')
@@ -98,7 +99,7 @@ jobs:
         ### set luajit pathes to luarocks
         #.\configure --prefix=${{ github.workspace }}\luarocks --with-lua=${{ github.workspace }}\luajit --with-lua-include=${{ github.workspace }}\luajit\include\luajit-2.0 --with-lua-lib=${{ github.workspace }}\luajit\lib
         Write-Host "Start-Process -FilePath "${{ github.workspace }}\luarocks-3.8.0-win32\luarocks-3.8.0-win32\install.bat" -Wait -NoNewWindow"
-        Start-Process -FilePath "install.bat" -ArgumentList " /?" -Wait -NoNewWindow
+        Start-Process -FilePath "${{ github.workspace }}\temp\luarocks-3.8.0-win32\install.bat" -ArgumentList " /?" -Wait -NoNewWindow
 
     - name: Install luarocks 3.8.0 linux
       run: |
