@@ -38,7 +38,7 @@ jobs:
         mingw32-make
         ls -R
 
-    - name: 'Install' Lua 5.1.5 and LuaJIT 2.0.4
+    - name: Install Lua 5.1.5 and LuaJIT 2.0.4
       run: |
         ### https://gist.github.com/Egor-Skriptunoff/cb952f7eaf39b7b1bf739b818ece87cd        
         New-Item -Path "${{ github.workspace }}" -Name "Lua" -ItemType "directory"
