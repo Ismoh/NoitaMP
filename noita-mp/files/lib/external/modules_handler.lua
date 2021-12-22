@@ -24,7 +24,7 @@ local extensions = {
 
 --[[ NoitaMP additions ]]
 local default_path = package.path
-package.path = package.path .. "{root}/noita-mp/files/lib/external/?.lua;"
+package.path = package.path .. "./noita-mp/files/lib/external/?.lua;"
 --[[ NoitaMP additions ]]
 
 -- os_name is a supplemental module for
