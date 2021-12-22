@@ -91,10 +91,12 @@ if current_clib_extension then
         end
     end
     -- build module path list delimited with semicolon.
-    package.path = table.concat(lpaths, ";")
-    package.cpath = table.concat(cpaths, ";")
-
+    --package.path = table.concat(lpaths, ";")
+    --package.cpath = table.concat(cpaths, ";")
     --[[ NoitaMP additions ]]
+    package.path = package.path .. table.concat(lpaths, ";")
+    package.cpath = package.cpath .. table.concat(cpaths, ";")
+
     _G.os_name = current_platform
     _G.os_arch = current_architecture
 
