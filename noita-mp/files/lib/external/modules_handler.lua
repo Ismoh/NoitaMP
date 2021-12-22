@@ -1,5 +1,14 @@
 -- https://subscription.packtpub.com/book/game-development/9781849515504/1/ch01lvl1sec10/preparing-a-basic-file-structure-for-the-game-engine
 
+--[[ NoitaMP additions ]]
+local params = {...}
+local destination_path = params[1]
+
+local default_package_path = package.path
+package.path = package.path .. "./noita-mp/files/lib/external/?.lua;"
+
+local fu = require("./noita-mp/files/scripts/util/file_util")
+--[[ NoitaMP additions ]]
 -- A list of paths to lua script modules
 local paths = {
     "{root}/noita-mp/files/{module}",
@@ -22,17 +31,12 @@ local extensions = {
     Mac = "dylib"
 }
 
---[[ NoitaMP additions ]]
-local default_path = package.path
-package.path = package.path .. "./noita-mp/files/lib/external/?.lua;"
---[[ NoitaMP additions ]]
-
 -- os_name is a supplemental module for
 -- OS and CPU architecture detection
 local os_name = require("os_name")
 
 --[[ NoitaMP additions ]]
-package.path = default_path
+package.path = default_package_path
 --[[ NoitaMP additions ]]
 
 -- A dot character represent current working directory
@@ -93,7 +97,8 @@ if current_clib_extension then
     -- build module path list delimited with semicolon.
     --package.path = table.concat(lpaths, ";")
     --package.cpath = table.concat(cpaths, ";")
-    --[[ NoitaMP additions ]]
+
+--[[ NoitaMP additions ]]
     package.path = package.path .. ";" .. table.concat(lpaths, ";")
     package.cpath = package.cpath .. ";" .. table.concat(cpaths, ";")
 
@@ -102,17 +107,26 @@ if current_clib_extension then
 
     if _G.os_name == "Windows" then
         _G.is_windows = true
-        os.execute('set LUA_PATH="' .. package.path ..'"')
-        os.execute('set LUA_CPATH="' .. package.cpath ..'"')
+
+        if destination_path then
+            local content =
+                'set LUA_PATH=%LUA_PATH%";' .. package.path .. '\\n set LUA_CPATH=%LUA_CPATH%;"' .. package.cpath .. '"'
+            fu.WriteFile(destination_path, content)
+            print("modules_handler.lua | File (" .. destination_path .. ") created with content: " .. content)
+        end
     end
     if _G.os_name == "Linux" then
         _G.is_linux = true
-        os.execute('export LUA_PATH="' .. package.path ..'"')
-        os.execute('export LUA_CPATH="' .. package.cpath ..'"')
+
+        if destination_path then
+            local content = 'export LUA_PATH="' .. package.path .. '"\\ export LUA_CPATH="' .. package.cpath .. '"'
+            fu.WriteFile(destination_path, content)
+            print("modules_handler.lua | File (" .. destination_path .. ") created with content: " .. content)
+        end
     end
 
     print("modules_handler.lua | Detected OS " .. _G.os_name .. " " .. _G.os_arch .. " .")
-    print("modules_handler.lua | package.path and LUA_PATH set to " .. package.path .. " .")
-    print("modules_handler.lua | package.cpath and LUA_CPATH set to " .. package.cpath .. " .")
-    --[[ NoitaMP additions ]]
+    print("modules_handler.lua | package.path set to " .. package.path .. " .")
+    print("modules_handler.lua | package.cpath set to " .. package.cpath .. " .")
+--[[ NoitaMP additions ]]
 end
