@@ -46,7 +46,7 @@ jobs:
         Copy-Item "${{ github.workspace }}\temp\lua-5.1.5\src\luac.exe" -Destination "${{ github.workspace }}\Lua\"
         Copy-Item "${{ github.workspace }}\temp\lua-5.1.5\src\lua51.dll" -Destination "${{ github.workspace }}\Lua\"
         Copy-Item "${{ github.workspace }}\temp\LuaJIT-2.0.4\src\luajit.exe" -Destination "${{ github.workspace }}\Lua\"
-        Copy-Item "${{ github.workspace }}\temp\LuaJIT-2.0.4\src\lua51.exe" -Destination "${{ github.workspace }}\Lua\"
+        Copy-Item "${{ github.workspace }}\temp\LuaJIT-2.0.4\src\lua51.dll" -Destination "${{ github.workspace }}\Lua\"
         Copy-Item "${{ github.workspace }}\temp\LuaJIT-2.0.4\src\jit\*" -Destination "${{ github.workspace }}\Lua\lua\jit\"
         exit 1
 
