@@ -8,8 +8,8 @@ jobs:
     runs-on: windows-latest
     env:
       temp_dir: ${{ github.workspace }}\temp
-      lua-5.1.5_temp_dir: ${{ github.workspace }}\temp\lua-5.1.5
-      luaJIT-2.0.4_temp_dir: ${{ github.workspace }}\temp\luaJIT-2.0.4
+      lua_temp_dir: ${{ github.workspace }}\temp\lua-5.1.5
+      luajit_temp_dir: ${{ github.workspace }}\temp\luaJIT-2.0.4
       lua_install_dir: ${{ github.workspace }}\Lua
       lua_install_bin_dir: ${{ github.workspace }}\Lua\bin
       lua_install_lib_dir: ${{ github.workspace }}\Lua\lib
@@ -33,9 +33,9 @@ jobs:
         New-Item -Path "${{ github.workspace }}" -Name "temp" -ItemType "directory"
         cd ${{ temp_dir }}\
         Invoke-WebRequest -Uri "https://www.lua.org/ftp/lua-5.1.5.tar.gz" -OutFile "${{ temp_dir }}\lua-5.1.5.tar.gz"
-        #Expand-Archive -Path "${{ temp_dir }}\lua-5.1.5.tar.gz" -DestinationPath "${{ lua-5.1.5_temp_dir }}\"
+        #Expand-Archive -Path "${{ temp_dir }}\lua-5.1.5.tar.gz" -DestinationPath "${{ lua_temp_dir }}\"
         tar zxpf lua-5.1.5.tar.gz
-        cd ${{ lua-5.1.5_temp_dir }}\
+        cd ${{ lua_temp_dir }}\
         mingw32-make PLAT=mingw
         ls -R
 
@@ -43,8 +43,8 @@ jobs:
       run: |
         ### https://gist.github.com/Egor-Skriptunoff/cb952f7eaf39b7b1bf739b818ece87cd
         ### http://lua-users.org/wiki/BuildingLuaInWindowsForNewbies
-        Copy-Item -Path "${{ github.workspace }}\.building\LuaJIT-2.0.4\" -Destination "${{ luaJIT-2.0.4_temp_dir }}\" -Recurse
-        cd ${{ luaJIT-2.0.4_temp_dir }}\
+        Copy-Item -Path "${{ github.workspace }}\.building\LuaJIT-2.0.4\" -Destination "${{ luajit_temp_dir }}\" -Recurse
+        cd ${{ luajit_temp_dir }}\
         mingw32-make PLAT=mingw
         ls -R
 
@@ -58,20 +58,20 @@ jobs:
         New-Item -Path "${{ lua_install_dir }}" -Name "include" -ItemType "directory"
 
         ### binaries
-        Copy-Item "${{ lua-5.1.5_temp_dir }}\src\lua.exe" -Destination "${{ lua_install_bin_dir }}\"
-        Copy-Item "${{ lua-5.1.5_temp_dir }}\src\luac.exe" -Destination "${{ lua_install_bin_dir }}\"
-        Copy-Item "${{ lua-5.1.5_temp_dir }}\src\lua51.dll" -Destination "${{ lua_install_bin_dir }}\"
-        Copy-Item "${{ luaJIT-2.0.4_temp_dir }}\src\luajit.exe" -Destination "${{ lua_install_bin_dir }}\"
-        Copy-Item "${{ luaJIT-2.0.4_temp_dir }}\src\lua51.dll" -Destination "${{ lua_install_bin_dir }}\"
+        Copy-Item "${{ lua_temp_dir }}\src\lua.exe" -Destination "${{ lua_install_bin_dir }}\"
+        Copy-Item "${{ lua_temp_dir }}\src\luac.exe" -Destination "${{ lua_install_bin_dir }}\"
+        Copy-Item "${{ lua_temp_dir }}\src\lua51.dll" -Destination "${{ lua_install_bin_dir }}\"
+        Copy-Item "${{ luajit_temp_dir }}\src\luajit.exe" -Destination "${{ lua_install_bin_dir }}\"
+        Copy-Item "${{ luajit_temp_dir }}\src\lua51.dll" -Destination "${{ lua_install_bin_dir }}\"
         
         ### modules written in lua
-        Copy-Item "${{ luaJIT-2.0.4_temp_dir }}\src\jit\" -Destination "${{ lua_install_lib_dir }}\jit\"
+        Copy-Item "${{ luajit_temp_dir }}\src\jit\" -Destination "${{ lua_install_lib_dir }}\jit\"
         ### includes
-        Copy-Item "${{ luaJIT-2.0.4_temp_dir }}\src\luaconf.h" -Destination "${{ lua_install_include_dir }}\"
-        Copy-Item "${{ luaJIT-2.0.4_temp_dir }}\src\lua.h" -Destination "${{ lua_install_include_dir }}\"
-        Copy-Item "${{ luaJIT-2.0.4_temp_dir }}\src\lualib.h" -Destination "${{ lua_install_include_dir }}\"
-        Copy-Item "${{ luaJIT-2.0.4_temp_dir }}\src\lauxlib.h" -Destination "${{ lua_install_include_dir }}\"
-        Copy-Item "${{ luaJIT-2.0.4_temp_dir }}\src\lua.hpp" -Destination "${{ lua_install_include_dir }}\"
+        Copy-Item "${{ luajit_temp_dir }}\src\luaconf.h" -Destination "${{ lua_install_include_dir }}\"
+        Copy-Item "${{ luajit_temp_dir }}\src\lua.h" -Destination "${{ lua_install_include_dir }}\"
+        Copy-Item "${{ luajit_temp_dir }}\src\lualib.h" -Destination "${{ lua_install_include_dir }}\"
+        Copy-Item "${{ luajit_temp_dir }}\src\lauxlib.h" -Destination "${{ lua_install_include_dir }}\"
+        Copy-Item "${{ luajit_temp_dir }}\src\lua.hpp" -Destination "${{ lua_install_include_dir }}\"
 
         ls -R ${{ lua_install_dir }}\
 
