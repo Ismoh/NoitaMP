@@ -94,16 +94,12 @@ jobs:
       shell: bash
       run: |
         fixedpath=$(echo "${{ env.temp_dir }}/lua_path.txt" | sed -e 's_\\_/_g') ### replce \ with /
-        echo "fixedpath = $fixedpath"
-        echo "cat"
         cat $fixedpath
-        echo "export"
         echo "LUA_PATH=;;${{ github.workspace }}/Lua/lib/?.lua;${{ github.workspace }}/Lua/lib/?/init.lua;${{ github.workspace }}/Lua/lib/jit/?.lua;${{ github.workspace }}/Lua/lib/jit/?/init.lua;$(cat $fixedpath)" >> $GITHUB_ENV
-        echo "show env"
-        echo ${{ env.LUA_PATH }}
 
-        #$lua_cpath = Get-Content ${{ env.temp_dir }}\lua_cpath.txt -Raw 
-        #Write-Host "LUA_CPATH=`"${{ env.LUA_CPATH }};$lua_cpath`"" >> $GITHUB_ENV
+        fixedpath=$(echo "${{ env.temp_dir }}/lua_cpath.txt" | sed -e 's_\\_/_g') ### replce \ with /
+        cat $fixedpath
+        echo "LUA_CPATH=$(cat $fixedpath)" >> $GITHUB_ENV
 
     - name: Install LuaUnit 3.4
       if: ${{ false }}
