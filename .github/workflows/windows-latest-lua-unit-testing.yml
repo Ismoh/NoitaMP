@@ -71,7 +71,7 @@ jobs:
 
         cd ${{ github.workspace }}\luarocks-3.8.0-win32\luarocks-3.8.0-win32\
 
-        ls -R
+        ls ${{ github.workspace }}\luarocks-3.8.0-win32\luarocks-3.8.0-win32\install.bat
 
         ### set luajit pathes to luarocks
         #.\configure --prefix=${{ github.workspace }}\luarocks --with-lua=${{ github.workspace }}\luajit --with-lua-include=${{ github.workspace }}\luajit\include\luajit-2.0 --with-lua-lib=${{ github.workspace }}\luajit\lib
