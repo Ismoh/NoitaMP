@@ -89,8 +89,9 @@ jobs:
 
     - name: Adjust package paths
       run: |
-        Start-Process -FilePath "${{ env.lua_install_bin_dir }}\luajit.exe" -ArgumentList " ${{ github.workspace }}\noita-mp\files\lib\external\modules_handler.lua ${{ github.workspace }}\temp\adjust-pathes.bat" -Wait -NoNewWindow
-        Start-Process -FilePath "${{ github.workspace }}\temp\adjust-pathes.bat"
+        Start-Process -FilePath "${{ env.lua_install_bin_dir }}\luajit.exe" -ArgumentList " ${{ github.workspace }}\noita-mp\files\lib\external\modules_handler.lua ${{ env.temp_dir }}\adjust-pathes.bat" -Wait -NoNewWindow
+        ls -R ${{ env.temp_dir }}\
+        Start-Process -FilePath "${{ env.temp_dir }}\adjust-pathes.bat"
 
     - name: Install LuaUnit 3.4
       if: ${{ false }}

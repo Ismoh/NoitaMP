@@ -110,7 +110,7 @@ if current_clib_extension then
 
         if destination_path then
             local content =
-                'set LUA_PATH=%LUA_PATH%";' .. package.path .. '\\n set LUA_CPATH=%LUA_CPATH%;"' .. package.cpath .. '"'
+                'set LUA_PATH=%LUA_PATH%";' .. package.path .. '"\n set LUA_CPATH=%LUA_CPATH%;"' .. package.cpath .. '"'
             fu.WriteFile(destination_path, content)
             print("modules_handler.lua | File (" .. destination_path .. ") created with content: " .. content)
         end
