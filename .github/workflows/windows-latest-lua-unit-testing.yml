@@ -86,15 +86,17 @@ jobs:
         Start-Process -FilePath "${{ env.lua_install_bin_dir }}\luajit.exe" -ArgumentList " -v" -Wait -NoNewWindow
         Start-Process -FilePath "${{ env.lua_install_bin_dir }}\luajit.exe" -ArgumentList " -e `"print(_VERSION)`"" -Wait -NoNewWindow
 
-    - name: Adjust package paths
+    - name: Run lua script to adjust lua package pathes
       run: |
         Start-Process -FilePath "${{ env.lua_install_bin_dir }}\luajit.exe" -ArgumentList " ${{ github.workspace }}\noita-mp\files\lib\external\modules_handler.lua ${{ env.temp_dir }}" -Wait -NoNewWindow
         
+    - name: Set GitHub env variables
+      run: |
         echo "LUA_PATH=\";;${{ github.workspace }}/Lua/lib/?.lua;${{ github.workspace }}/Lua/lib/?/init.lua;${{ github.workspace }}/Lua/lib/jit/?.lua;${{ github.workspace }}/Lua/lib/jit/?/init.lua;$(cat ${{ env.temp_dir }}\lua_path.txt)\"" >> $GITHUB_ENV
         echo ${{ env. LUA_PATH }}
 
-        $lua_cpath = Get-Content ${{ env.temp_dir }}\lua_cpath.txt -Raw 
-        Write-Host "LUA_CPATH=`"${{ env.LUA_CPATH }};$lua_cpath`"" >> $GITHUB_ENV
+        #$lua_cpath = Get-Content ${{ env.temp_dir }}\lua_cpath.txt -Raw 
+        #Write-Host "LUA_CPATH=`"${{ env.LUA_CPATH }};$lua_cpath`"" >> $GITHUB_ENV
 
     - name: Install LuaUnit 3.4
       if: ${{ false }}
