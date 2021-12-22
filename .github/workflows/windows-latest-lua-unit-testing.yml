@@ -14,7 +14,6 @@ jobs:
       lua_install_bin_dir: ${{ github.workspace }}\Lua\bin
       lua_install_lib_dir: ${{ github.workspace }}\Lua\lib
       lua_install_include_dir: ${{ github.workspace }}\Lua\include
-      LUA_PATH: ";;${{ github.workspace }}/Lua/lib/?.lua;${{ github.workspace }}/Lua/lib/?/init.lua;${{ github.workspace }}/Lua/lib/jit/?.lua;${{ github.workspace }}/Lua/lib/jit/?/init.lua;"
 
     steps:
     - uses: actions/checkout@main
@@ -90,10 +89,10 @@ jobs:
     - name: Adjust package paths
       run: |
         Start-Process -FilePath "${{ env.lua_install_bin_dir }}\luajit.exe" -ArgumentList " ${{ github.workspace }}\noita-mp\files\lib\external\modules_handler.lua ${{ env.temp_dir }}" -Wait -NoNewWindow
-
-        $lua_path = Get-Content ${{ env.temp_dir }}\lua_path.txt -Raw 
-        #Write-Output "LUA_PATH=`"${{ env.LUA_PATH }};$lua_path`"" >> $GITHUB_ENV
-        echo 'LUA_PATH="${{ env.LUA_PATH }}$(cat ${{ env.temp_dir }}\lua_path.txt)"' >> $GITHUB_ENV
+        
+        echo "'LUA_PATH=";;${{ github.workspace }}/Lua/lib/?.lua;${{ github.workspace }}/Lua/lib/?/init.lua;${{ github.workspace }}/Lua/lib/jit/?.lua;${{ github.workspace }}/Lua/lib/jit/?/init.lua;$(cat ${{ env.temp_dir }}\lua_path.txt)"' >> $GITHUB_ENV"
+        echo 'LUA_PATH=";;${{ github.workspace }}/Lua/lib/?.lua;${{ github.workspace }}/Lua/lib/?/init.lua;${{ github.workspace }}/Lua/lib/jit/?.lua;${{ github.workspace }}/Lua/lib/jit/?/init.lua;$(cat ${{ env.temp_dir }}\lua_path.txt)"' >> $GITHUB_ENV
+        echo ${{ env. LUA_PATH }}
 
         $lua_cpath = Get-Content ${{ env.temp_dir }}\lua_cpath.txt -Raw 
         Write-Host "LUA_CPATH=`"${{ env.LUA_CPATH }};$lua_cpath`"" >> $GITHUB_ENV
