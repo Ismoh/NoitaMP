@@ -21,6 +21,7 @@ jobs:
     - name: Build Lua 5.1.5
       run: |
         ### https://gist.github.com/Egor-Skriptunoff/cb952f7eaf39b7b1bf739b818ece87cd
+        ### http://lua-users.org/wiki/BuildingLuaInWindowsForNewbies
         New-Item -Path "${{ github.workspace }}" -Name "temp" -ItemType "directory"
         cd ${{ github.workspace }}\temp\
         Invoke-WebRequest -Uri "https://www.lua.org/ftp/lua-5.1.5.tar.gz" -OutFile "${{ github.workspace }}\temp\lua-5.1.5.tar.gz"
@@ -32,7 +33,8 @@ jobs:
 
     - name: Build LuaJIT 2.0.4
       run: |
-        ### https://gist.github.com/Egor-Skriptunoff/cb952f7eaf39b7b1bf739b818ece87cd        
+        ### https://gist.github.com/Egor-Skriptunoff/cb952f7eaf39b7b1bf739b818ece87cd
+        ### http://lua-users.org/wiki/BuildingLuaInWindowsForNewbies
         Copy-Item -Path "${{ github.workspace }}\.building\LuaJIT-2.0.4\" -Destination "${{ github.workspace }}\temp\LuaJIT-2.0.4\" -Recurse
         cd ${{ github.workspace }}\temp\LuaJIT-2.0.4\
         mingw32-make PLAT=mingw
@@ -40,14 +42,19 @@ jobs:
 
     - name: Install Lua 5.1.5 and LuaJIT 2.0.4
       run: |
-        ### https://gist.github.com/Egor-Skriptunoff/cb952f7eaf39b7b1bf739b818ece87cd        
+        ### https://gist.github.com/Egor-Skriptunoff/cb952f7eaf39b7b1bf739b818ece87cd
+        ### http://lua-users.org/wiki/BuildingLuaInWindowsForNewbies
         New-Item -Path "${{ github.workspace }}" -Name "Lua" -ItemType "directory"
-        Copy-Item "${{ github.workspace }}\temp\lua-5.1.5\src\lua.exe" -Destination "${{ github.workspace }}\Lua\"
-        Copy-Item "${{ github.workspace }}\temp\lua-5.1.5\src\luac.exe" -Destination "${{ github.workspace }}\Lua\"
-        Copy-Item "${{ github.workspace }}\temp\lua-5.1.5\src\lua51.dll" -Destination "${{ github.workspace }}\Lua\"
-        Copy-Item "${{ github.workspace }}\temp\LuaJIT-2.0.4\src\luajit.exe" -Destination "${{ github.workspace }}\Lua\"
-        Copy-Item "${{ github.workspace }}\temp\LuaJIT-2.0.4\src\lua51.dll" -Destination "${{ github.workspace }}\Lua\"
+        Copy-Item "${{ github.workspace }}\temp\lua-5.1.5\src\lua.exe" -Destination "${{ github.workspace }}\Lua\bin\"
+        Copy-Item "${{ github.workspace }}\temp\lua-5.1.5\src\luac.exe" -Destination "${{ github.workspace }}\Lua\bin\"
+        Copy-Item "${{ github.workspace }}\temp\lua-5.1.5\src\lua51.dll" -Destination "${{ github.workspace }}\Lua\bin\"
+        Copy-Item "${{ github.workspace }}\temp\LuaJIT-2.0.4\src\luajit.exe" -Destination "${{ github.workspace }}\Lua\bin\"
+        Copy-Item "${{ github.workspace }}\temp\LuaJIT-2.0.4\src\lua51.dll" -Destination "${{ github.workspace }}\Lua\bin\"
         Copy-Item "${{ github.workspace }}\temp\LuaJIT-2.0.4\src\jit\" -Destination "${{ github.workspace }}\Lua\lua\jit\"
+        ls -R ${{ github.workspace }}\Lua\
+
+        ${{ github.workspace }}\Lua\bin\lua.exe -e "print [[Hello Lua!]];print[[Simple LuaJIT test successful!!!]]; -v"
+        ${{ github.workspace }}\Lua\bin\luajit.exe -e "print [[Hello LuaJIT!]];print[[Simple Lua test successful!!!]]; -v"
         exit 1
 
     - name: Run LuaUnit 3.4
