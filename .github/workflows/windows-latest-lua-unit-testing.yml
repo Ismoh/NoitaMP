@@ -87,9 +87,9 @@ jobs:
         Start-Process -FilePath "${{ env.lua_install_bin_dir }}\luajit.exe" -ArgumentList " -e `"print(_VERSION)`"" -Wait -NoNewWindow
 
     - name: Adjust package paths
-      if: ${{ false }}
       run: |
-        Start-Process -FilePath "${{ env.lua_install_bin_dir }}\luajit.exe" -ArgumentList " ${{ github.workspace }}\noita-mp\files\lib\external\modules_handler.lua" -Wait -NoNewWindow
+        set LUA_PATH="%LUA_PATH%;${{ env.lua_install_lib_dir }}\?.lua;${{ env.lua_install_lib_dir }}\?\init.lua;${{ env.lua_install_lib_dir }}\jit\?.lua;${{ env.lua_install_lib_dir }}\jit\?\init.lua"
+        set LUA_CPATH="%LUA_CPATH%;${{ env.lua_install_include_dir }}\?.dll"
 
     - name: Install LuaUnit 3.4
       if: ${{ false }}
