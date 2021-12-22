@@ -56,16 +56,16 @@ jobs:
 
         Start-Process -FilePath "${{ github.workspace }}\Lua\bin\lua.exe" -ArgumentList " -v" -Wait -NoNewWindow
         Start-Process -FilePath "${{ github.workspace }}\Lua\bin\luajit.exe" -ArgumentList " -v" -Wait -NoNewWindow
-        exit 1
+        Start-Process -FilePath "${{ github.workspace }}\Lua\bin\luajit.exe" -ArgumentList " -e `"print(_VERSION)`"" -Wait -NoNewWindow
 
     - name: Run LuaUnit 3.4
       id: lua_unit_tests
       run: |
         ### copy luaunit.lua to package directory, because I don't want to mess around with lua pathes again: see .building\LuaJIT-2.0.4\src\luaconf.h
         New-Item -Path "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\" -Name "lua" -ItemType "directory"
-        Copy-Item "${{ github.workspace }}\.testing\luaunit.lua" -Destination "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\lua\"
+        Copy-Item "${{ github.workspace }}\.testing\luaunit.lua" -Destination "$${{ github.workspace }}\Lua\lua\"
 
-        dir -Path ${{ github.workspace }}\.testing\tests -Filter *.lua -Recurse | %{& '${{ github.workspace }}\.building\LuaJIT-2.0.4\src\luajit.exe' $_.FullName -o text --verbose --error > ${{ github.workspace }}\.testing\testresult.log}
+        dir -Path ${{ github.workspace }}\.testing\tests -Filter *.lua -Recurse | %{& '${{ github.workspace }}\Lua\bin\luajit.exe' $_.FullName -o text --verbose --error > ${{ github.workspace }}\.testing\testresult.log}
         type ${{ github.workspace }}\.testing\testresult.log
         
         # https://timheuer.com/blog/manually-force-a-failure-in-github-action-step/
