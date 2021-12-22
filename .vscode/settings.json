@@ -7,6 +7,7 @@
     "Lua.diagnostics.globals": [
         "describe",
         "it",
-        "jit"
+        "jit",
+        "bitser"
     ]
 }

@@ -22,9 +22,18 @@ local extensions = {
     Mac = "dylib"
 }
 
+--[[ NoitaMP additions ]]
+local default_path = package.path
+package.path = package.path .. "{root}/noita-mp/files/lib/external/?.lua;"
+--[[ NoitaMP additions ]]
+
 -- os_name is a supplemental module for
 -- OS and CPU architecture detection
-local os_name = require "os_name"
+local os_name = require("os_name")
+
+--[[ NoitaMP additions ]]
+package.path = default_path
+--[[ NoitaMP additions ]]
 
 -- A dot character represent current working directory
 local root_dir = "."
