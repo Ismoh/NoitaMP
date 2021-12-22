@@ -66,6 +66,7 @@ jobs:
         
         ### modules written in lua
         Copy-Item "${{ env.luajit_temp_dir }}\src\jit\" -Destination "${{ env.lua_install_lib_dir }}\jit\"
+
         ### includes
         Copy-Item "${{ env.luajit_temp_dir }}\src\luaconf.h" -Destination "${{ env.lua_install_include_dir }}\"
         Copy-Item "${{ env.luajit_temp_dir }}\src\lua.h" -Destination "${{ env.lua_install_include_dir }}\"
@@ -80,6 +81,7 @@ jobs:
         Start-Process -FilePath "${{ env.lua_install_bin_dir }}\luajit.exe" -ArgumentList " -e `"print(_VERSION)`"" -Wait -NoNewWindow
 
     - name: Adjust package paths
+      if: ${{ false }}
       run: |
         Start-Process -FilePath "${{ env.lua_install_bin_dir }}\luajit.exe" -ArgumentList " ${{ github.workspace }}\noita-mp\files\lib\external\modules_handler.lua" -Wait -NoNewWindow
 
@@ -91,7 +93,7 @@ jobs:
     - name: Run LuaUnit 3.4
       id: lua_unit_tests
       run: |
-        ls -R
+        Start-Process -FilePath "${{ env.lua_install_bin_dir }}\luajit.exe" -ArgumentList " ${{ github.workspace }}\noita-mp\files\lib\external\modules_handler.lua" -Wait -NoNewWindow
         dir -Path ${{ github.workspace }}\.testing\tests -Filter *.lua -Recurse | %{& '${{ env.lua_install_bin_dir }}\luajit.exe' $_.FullName -o text --verbose --error > ${{ github.workspace }}\.testing\testresult.log}
         type ${{ github.workspace }}\.testing\testresult.log
         
