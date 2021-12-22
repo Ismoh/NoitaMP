@@ -109,19 +109,34 @@ if current_clib_extension then
         _G.is_windows = true
 
         if destination_path then
-            local content =
-                'set LUA_PATH=%LUA_PATH%";' .. package.path .. '"\n set LUA_CPATH=%LUA_CPATH%;"' .. package.cpath .. '"'
-            fu.WriteFile(destination_path, content)
-            print("modules_handler.lua | File (" .. destination_path .. ") created with content: " .. content)
+            local lua_path_file = fu.RemoveTrailingPathSeparator(destination_path) .. "\\lua_path.txt"
+            local lua_path_file_content = ";" .. package.path
+
+            local lua_cpath_file = fu.RemoveTrailingPathSeparator(destination_path) .. "\\lua_cpath.txt"
+            local lua_cpath_file_content = ";" .. package.cpath
+
+            fu.WriteFile(lua_path_file, lua_path_file_content)
+            print("modules_handler.lua | File (" .. lua_path_file .. ") created with content: " .. lua_path_file_content)
+
+            fu.WriteFile(lua_cpath_file, lua_cpath_file_content)
+            print("modules_handler.lua | File (" .. lua_cpath_file .. ") created with content: " .. lua_cpath_file_content)
         end
     end
     if _G.os_name == "Linux" then
         _G.is_linux = true
 
         if destination_path then
-            local content = 'export LUA_PATH="' .. package.path .. '"\\ export LUA_CPATH="' .. package.cpath .. '"'
-            fu.WriteFile(destination_path, content)
-            print("modules_handler.lua | File (" .. destination_path .. ") created with content: " .. content)
+            local lua_path_file = fu.RemoveTrailingPathSeparator(destination_path) .. "/lua_path"
+            local lua_path_file_content = ";" .. package.path
+
+            local lua_cpath_file = fu.RemoveTrailingPathSeparator(destination_path) .. "/lua_cpath"
+            local lua_cpath_file_content = ";" .. package.cpath
+
+            fu.WriteFile(lua_path_file, lua_path_file_content)
+            print("modules_handler.lua | File (" .. lua_path_file .. ") created with content: " .. lua_path_file_content)
+
+            fu.WriteFile(lua_cpath_file, lua_cpath_file_content)
+            print("modules_handler.lua | File (" .. lua_cpath_file .. ") created with content: " .. lua_cpath_file_content)
         end
     end
 
