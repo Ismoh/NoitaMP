@@ -92,10 +92,10 @@ jobs:
         Start-Process -FilePath "${{ env.lua_install_bin_dir }}\luajit.exe" -ArgumentList " ${{ github.workspace }}\noita-mp\files\lib\external\modules_handler.lua ${{ env.temp_dir }}" -Wait -NoNewWindow
 
         $lua_path = Get-Content ${{ env.temp_dir }}\lua_path.txt -Raw 
-        Write-Host "::set-env name=LUA_PATH::`"${{ env.LUA_PATH }};$lua_path`""
+        Write-Host "LUA_PATH=`"${{ env.LUA_PATH }};$lua_path`"" >> $GITHUB_ENV
 
         $lua_cpath = Get-Content ${{ env.temp_dir }}\lua_cpath.txt -Raw 
-        Write-Output "::set-env name=LUA_CPATH::`"${{ env.LUA_CPATH }};$lua_cpath`""
+        Write-Host "LUA_CPATH=`"${{ env.LUA_CPATH }};$lua_cpath`"" >> $GITHUB_ENV
 
     - name: Install LuaUnit 3.4
       if: ${{ false }}
