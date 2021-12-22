@@ -93,6 +93,7 @@ jobs:
     - name: Set GitHub env variables
       shell: bash
       run: |
+        cat ${{ env.temp_dir }}\lua_path.txt
         echo "LUA_PATH=;;${{ github.workspace }}/Lua/lib/?.lua;${{ github.workspace }}/Lua/lib/?/init.lua;${{ github.workspace }}/Lua/lib/jit/?.lua;${{ github.workspace }}/Lua/lib/jit/?/init.lua;$(cat ${{ env.temp_dir }}\lua_path.txt)" >> $GITHUB_ENV
         echo ${{ env. LUA_PATH }}
 
