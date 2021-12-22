@@ -2,10 +2,10 @@
 
 -- A list of paths to lua script modules
 local paths = {
-    "{root}/{module}",
-    "{root}/lib/{module}",
-    "{root}/lib/external/{module}",
-    "{root}/lib/external/platform-specific/{platform}/{module}"
+    "{root}/noita-mp/files/{module}",
+    "{root}/noita-mp/files/lib/{module}",
+    "{root}/noita-mp/files/lib/external/{module}",
+    "{root}/noita-mp/files/lib/external/platform-specific/{platform}/{module}"
 }
 
 -- A list of paths to binary Lua modules
