@@ -18,7 +18,7 @@ jobs:
         mingw32-make
         mingw32-make install
 
-    - name: Install LuaJIT 2.0.4
+    - name: Build Lua 5.1.5
       run: |
         ### https://gist.github.com/Egor-Skriptunoff/cb952f7eaf39b7b1bf739b818ece87cd
         New-Item -Path "${{ github.workspace }}" -Name "temp" -ItemType "directory"
@@ -26,7 +26,23 @@ jobs:
         Invoke-WebRequest -Uri "https://www.lua.org/ftp/lua-5.1.5.tar.gz" -OutFile "${{ github.workspace }}\temp\lua-5.1.5.tar.gz"
         #Expand-Archive -Path "${{ github.workspace }}\temp\lua-5.1.5.tar.gz" -DestinationPath "${{ github.workspace }}\temp\lua-5.1.5\"
         tar zxpf lua-5.1.5.tar.gz
+        cd ${{ github.workspace }}\temp\lua-5.1.5\
+        mingw32-make
         ls -R
+
+    - name: Build LuaJIT 2.0.4
+      run: |
+        ### https://gist.github.com/Egor-Skriptunoff/cb952f7eaf39b7b1bf739b818ece87cd        
+        Copy-Item -Path "${{ github.workspace }}\.building\LuaJIT-2.0.4\" -Destination "${{ github.workspace }}\temp\LuaJIT-2.0.4\" -Recurse
+        cd ${{ github.workspace }}\temp\LuaJIT-2.0.4\
+        mingw32-make
+        ls -R
+
+    - name: 'Install' Lua 5.1.5 and LuaJIT 2.0.4
+      run: |
+        ### https://gist.github.com/Egor-Skriptunoff/cb952f7eaf39b7b1bf739b818ece87cd        
+        New-Item -Path "${{ github.workspace }}" -Name "Lua" -ItemType "directory"
+        exit 1
 
     - name: Run LuaUnit 3.4
       id: lua_unit_tests
