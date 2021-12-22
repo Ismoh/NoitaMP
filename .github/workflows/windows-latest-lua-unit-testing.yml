@@ -43,7 +43,7 @@ jobs:
         echo "Unit tests failed!"
         exit 1
 
-    - name: Install luarocks 3.8.0
+    - name: Install luarocks 3.8.0 windows
       run: |
         ### install lua rocks manually: https://github.com/luarocks/luarocks/wiki/Installation-instructions-for-Unix
       
@@ -72,10 +72,21 @@ jobs:
         ### set luajit pathes to luarocks
         #.\configure --prefix=${{ github.workspace }}\luarocks --with-lua=${{ github.workspace }}\luajit --with-lua-include=${{ github.workspace }}\luajit\include\luajit-2.0 --with-lua-lib=${{ github.workspace }}\luajit\lib
         Write-Host "Start-Process -FilePath "${{ github.workspace }}\luarocks-3.8.0-win32\luarocks-3.8.0-win32\install.bat" -Wait -NoNewWindow"
-        Start-Process -FilePath "${{ github.workspace }}\luarocks-3.8.0-win32\luarocks-3.8.0-win32\install.bat" -Wait -NoNewWindow
+        Start-Process -FilePath "${{ github.workspace }}\luarocks-3.8.0-win32\luarocks-3.8.0-win32\install.bat /?" -Wait -NoNewWindow
 
         Remove-Item -Path ${{ github.workspace }}\luarocks-3.8.0-win32.zip
         Remove-Item -Path ${{ github.workspace }}\luarocks-3.8.0-win32 -Recurse
+
+    - name: Install luarocks 3.8.0 linux
+      run: |
+        ######## install lua rocks manually: https://github.com/luarocks/luarocks/wiki/Installation-instructions-for-Unix
+        wget https://luarocks.github.io/luarocks/releases/luarocks-3.8.0.tar.gz
+        tar zxpf luarocks-3.8.0.tar.gz
+        cd luarocks-3.8.0
+        ######## set luajit pathes to luarocks
+        ./configure --prefix=${{ github.workspace }}/luarocks --with-lua=${{ github.workspace }}/luajit --with-lua-include=${{ github.workspace }}/luajit/include/luajit-2.0 --with-lua-lib=${{ github.workspace }}/luajit/lib
+        make
+        make install
 
     - name: Install dependencies
       run: |
