@@ -58,11 +58,13 @@ jobs:
         Start-Process -FilePath "${{ github.workspace }}\Lua\luajit.exe" -ArgumentList " -v" -Wait -NoNewWindow
         Start-Process -FilePath "${{ github.workspace }}\Lua\luajit.exe" -ArgumentList " -e `"print(_VERSION)`"" -Wait -NoNewWindow
 
-    - name: Run LuaUnit 3.4
-      id: lua_unit_tests
+    - name: Install LuaUnit 3.4
       run: |
         Copy-Item "${{ github.workspace }}\.testing\luaunit.lua" -Destination "${{ github.workspace }}\Lua\lua\"
 
+    - name: Run LuaUnit 3.4
+      id: lua_unit_tests
+      run: |
         dir -Path ${{ github.workspace }}\.testing\tests -Filter *.lua -Recurse | %{& '${{ github.workspace }}\Lua\luajit.exe' $_.FullName -o text --verbose --error > ${{ github.workspace }}\.testing\testresult.log}
         type ${{ github.workspace }}\.testing\testresult.log
         
@@ -74,7 +76,6 @@ jobs:
         Write-Output "::set-output name=error::$testError"
       
     - name: Unit test failed?
-      ### Check if tests succeed:
       if: ${{ steps.lua_unit_tests.outputs.fail != '' || steps.lua_unit_tests.outputs.error != '' }}
       run: |
         echo "steps.lua_unit_tests.outputs.fail = ${{ steps.lua_unit_tests.outputs.fail }}"
@@ -84,41 +85,20 @@ jobs:
 
     - name: Install luarocks 3.8.0 windows
       run: |
-        ### install lua rocks manually: https://github.com/luarocks/luarocks/wiki/Installation-instructions-for-Unix
+        ### install lua rocks manually: https://github.com/luarocks/luarocks/wiki/Installation-instructions-for-Windows
       
-        #wget https://luarocks.github.io/luarocks/releases/luarocks-3.8.0.tar.gz
         Invoke-WebRequest -Uri "http://luarocks.github.io/luarocks/releases/luarocks-3.8.0-win32.zip" -OutFile "${{ github.workspace }}\luarocks-3.8.0-win32.zip"
+        Expand-Archive -Path ${{ github.workspace }}\luarocks-3.8.0-win32.zip -DestinationPath "${{ github.workspace }}\temp\luarocks-3.8.0-win32"
 
-        #tar zxpf luarocks-3.8.0.tar.gz
-        Expand-Archive -Path ${{ github.workspace }}\luarocks-3.8.0-win32.zip -DestinationPath "${{ github.workspace }}\luarocks-3.8.0-win32"
-
-        cd luarocks-3.8.0-win32
-
-        New-Item -Path "C:" -Name "luarocks" -ItemType "directory"
-        Copy-Item "${{ github.workspace }}\.building\luarocks-3.8.0\config-windows.5.1.lua" -Destination "C:\luarocks\config.lua"
-
-        #ls -R ${{ github.workspace }}
+        cd ${{ github.workspace }}\temp\luarocks-3.8.0-win32
 
         ### set environment variable https://stackoverflow.com/a/1333717/3493998 + https://www.tutorialspoint.com/how-to-set-environment-variables-using-powershell
-        [System.Environment]::SetEnvironmentVariable('LUAROCKS_CONFIG','${{ github.workspace }}\.building\luarocks-3.8.0\config-windows.5.1.lua')
-
-        #dir env:
-
-        #ls C:/
-
-        #ls C:/luarocks
-
-        cd ${{ github.workspace }}\luarocks-3.8.0-win32\luarocks-3.8.0-win32\
-
-        ls ${{ github.workspace }}\luarocks-3.8.0-win32\luarocks-3.8.0-win32\install.bat
+        #[System.Environment]::SetEnvironmentVariable('LUAROCKS_CONFIG','${{ github.workspace }}\.building\luarocks-3.8.0\config-windows.5.1.lua')
 
         ### set luajit pathes to luarocks
         #.\configure --prefix=${{ github.workspace }}\luarocks --with-lua=${{ github.workspace }}\luajit --with-lua-include=${{ github.workspace }}\luajit\include\luajit-2.0 --with-lua-lib=${{ github.workspace }}\luajit\lib
         Write-Host "Start-Process -FilePath "${{ github.workspace }}\luarocks-3.8.0-win32\luarocks-3.8.0-win32\install.bat" -Wait -NoNewWindow"
-        Start-Process -FilePath "install.bat" -ArgumentList "/?" -Wait -NoNewWindow
-
-        Remove-Item -Path ${{ github.workspace }}\luarocks-3.8.0-win32.zip
-        Remove-Item -Path ${{ github.workspace }}\luarocks-3.8.0-win32 -Recurse
+        Start-Process -FilePath "install.bat" -ArgumentList " /?" -Wait -NoNewWindow
 
     - name: Install luarocks 3.8.0 linux
       run: |
