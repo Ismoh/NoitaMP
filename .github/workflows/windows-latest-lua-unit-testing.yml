@@ -31,11 +31,11 @@ jobs:
         ### https://gist.github.com/Egor-Skriptunoff/cb952f7eaf39b7b1bf739b818ece87cd
         ### http://lua-users.org/wiki/BuildingLuaInWindowsForNewbies
         New-Item -Path "${{ github.workspace }}" -Name "temp" -ItemType "directory"
-        cd ${{ temp_dir }}\
-        Invoke-WebRequest -Uri "https://www.lua.org/ftp/lua-5.1.5.tar.gz" -OutFile "${{ temp_dir }}\lua-5.1.5.tar.gz"
-        #Expand-Archive -Path "${{ temp_dir }}\lua-5.1.5.tar.gz" -DestinationPath "${{ lua_temp_dir }}\"
+        cd ${{ env.temp_dir }}\
+        Invoke-WebRequest -Uri "https://www.lua.org/ftp/lua-5.1.5.tar.gz" -OutFile "${{ env.temp_dir }}\lua-5.1.5.tar.gz"
+        #Expand-Archive -Path "${{ env.temp_dir }}\lua-5.1.5.tar.gz" -DestinationPath "${{ env.lua_temp_dir }}\"
         tar zxpf lua-5.1.5.tar.gz
-        cd ${{ lua_temp_dir }}\
+        cd ${{ env.lua_temp_dir }}\
         mingw32-make PLAT=mingw
         ls -R
 
@@ -43,8 +43,8 @@ jobs:
       run: |
         ### https://gist.github.com/Egor-Skriptunoff/cb952f7eaf39b7b1bf739b818ece87cd
         ### http://lua-users.org/wiki/BuildingLuaInWindowsForNewbies
-        Copy-Item -Path "${{ github.workspace }}\.building\LuaJIT-2.0.4\" -Destination "${{ luajit_temp_dir }}\" -Recurse
-        cd ${{ luajit_temp_dir }}\
+        Copy-Item -Path "${{ github.workspace }}\.building\LuaJIT-2.0.4\" -Destination "${{ env.luajit_temp_dir }}\" -Recurse
+        cd ${{ env.luajit_temp_dir }}\
         mingw32-make PLAT=mingw
         ls -R
 
@@ -53,40 +53,40 @@ jobs:
         ### https://gist.github.com/Egor-Skriptunoff/cb952f7eaf39b7b1bf739b818ece87cd
         ### http://lua-users.org/wiki/BuildingLuaInWindowsForNewbies
         New-Item -Path "${{ github.workspace }}" -Name "Lua" -ItemType "directory"
-        New-Item -Path "${{ lua_install_dir }}" -Name "bin" -ItemType "directory"
-        New-Item -Path "${{ lua_install_dir }}" -Name "lib" -ItemType "directory"
-        New-Item -Path "${{ lua_install_dir }}" -Name "include" -ItemType "directory"
+        New-Item -Path "${{ env.lua_install_dir }}" -Name "bin" -ItemType "directory"
+        New-Item -Path "${{ env.lua_install_dir }}" -Name "lib" -ItemType "directory"
+        New-Item -Path "${{ env.lua_install_dir }}" -Name "include" -ItemType "directory"
 
         ### binaries
-        Copy-Item "${{ lua_temp_dir }}\src\lua.exe" -Destination "${{ lua_install_bin_dir }}\"
-        Copy-Item "${{ lua_temp_dir }}\src\luac.exe" -Destination "${{ lua_install_bin_dir }}\"
-        Copy-Item "${{ lua_temp_dir }}\src\lua51.dll" -Destination "${{ lua_install_bin_dir }}\"
-        Copy-Item "${{ luajit_temp_dir }}\src\luajit.exe" -Destination "${{ lua_install_bin_dir }}\"
-        Copy-Item "${{ luajit_temp_dir }}\src\lua51.dll" -Destination "${{ lua_install_bin_dir }}\"
+        Copy-Item "${{ env.lua_temp_dir }}\src\lua.exe" -Destination "${{ env.lua_install_bin_dir }}\"
+        Copy-Item "${{ env.lua_temp_dir }}\src\luac.exe" -Destination "${{ env.lua_install_bin_dir }}\"
+        Copy-Item "${{ env.lua_temp_dir }}\src\lua51.dll" -Destination "${{ env.lua_install_bin_dir }}\"
+        Copy-Item "${{ env.luajit_temp_dir }}\src\luajit.exe" -Destination "${{ env.lua_install_bin_dir }}\"
+        Copy-Item "${{ env.luajit_temp_dir }}\src\lua51.dll" -Destination "${{ env.lua_install_bin_dir }}\"
         
         ### modules written in lua
-        Copy-Item "${{ luajit_temp_dir }}\src\jit\" -Destination "${{ lua_install_lib_dir }}\jit\"
+        Copy-Item "${{ env.luajit_temp_dir }}\src\jit\" -Destination "${{ env.lua_install_lib_dir }}\jit\"
         ### includes
-        Copy-Item "${{ luajit_temp_dir }}\src\luaconf.h" -Destination "${{ lua_install_include_dir }}\"
-        Copy-Item "${{ luajit_temp_dir }}\src\lua.h" -Destination "${{ lua_install_include_dir }}\"
-        Copy-Item "${{ luajit_temp_dir }}\src\lualib.h" -Destination "${{ lua_install_include_dir }}\"
-        Copy-Item "${{ luajit_temp_dir }}\src\lauxlib.h" -Destination "${{ lua_install_include_dir }}\"
-        Copy-Item "${{ luajit_temp_dir }}\src\lua.hpp" -Destination "${{ lua_install_include_dir }}\"
+        Copy-Item "${{ env.luajit_temp_dir }}\src\luaconf.h" -Destination "${{ env.lua_install_include_dir }}\"
+        Copy-Item "${{ env.luajit_temp_dir }}\src\lua.h" -Destination "${{ env.lua_install_include_dir }}\"
+        Copy-Item "${{ env.luajit_temp_dir }}\src\lualib.h" -Destination "${{ env.lua_install_include_dir }}\"
+        Copy-Item "${{ env.luajit_temp_dir }}\src\lauxlib.h" -Destination "${{ env.lua_install_include_dir }}\"
+        Copy-Item "${{ env.luajit_temp_dir }}\src\lua.hpp" -Destination "${{ env.lua_install_include_dir }}\"
 
-        ls -R ${{ lua_install_dir }}\
+        ls -R ${{ env.lua_install_dir }}\
 
-        Start-Process -FilePath "${{ lua_install_bin_dir }}\lua.exe" -ArgumentList " -v" -Wait -NoNewWindow
-        Start-Process -FilePath "${{ lua_install_bin_dir }}\luajit.exe" -ArgumentList " -v" -Wait -NoNewWindow
-        Start-Process -FilePath "${{ lua_install_bin_dir }}\luajit.exe" -ArgumentList " -e `"print(_VERSION)`"" -Wait -NoNewWindow
+        Start-Process -FilePath "${{ env.lua_install_bin_dir }}\lua.exe" -ArgumentList " -v" -Wait -NoNewWindow
+        Start-Process -FilePath "${{ env.lua_install_bin_dir }}\luajit.exe" -ArgumentList " -v" -Wait -NoNewWindow
+        Start-Process -FilePath "${{ env.lua_install_bin_dir }}\luajit.exe" -ArgumentList " -e `"print(_VERSION)`"" -Wait -NoNewWindow
 
     - name: Install LuaUnit 3.4
       run: |
-        Copy-Item "${{ github.workspace }}\.testing\luaunit.lua" -Destination "${{ lua_install_lib_dir }}\"
+        Copy-Item "${{ github.workspace }}\.testing\luaunit.lua" -Destination "${{ env.lua_install_lib_dir }}\"
 
     - name: Run LuaUnit 3.4
       id: lua_unit_tests
       run: |
-        dir -Path ${{ github.workspace }}\.testing\tests -Filter *.lua -Recurse | %{& '${{ lua_install_bin_dir }}\luajit.exe' $_.FullName -o text --verbose --error > ${{ github.workspace }}\.testing\testresult.log}
+        dir -Path ${{ github.workspace }}\.testing\tests -Filter *.lua -Recurse | %{& '${{ env.lua_install_bin_dir }}\luajit.exe' $_.FullName -o text --verbose --error > ${{ github.workspace }}\.testing\testresult.log}
         type ${{ github.workspace }}\.testing\testresult.log
         
         # https://timheuer.com/blog/manually-force-a-failure-in-github-action-step/
@@ -109,9 +109,9 @@ jobs:
         ### install lua rocks manually: https://github.com/luarocks/luarocks/wiki/Installation-instructions-for-Windows
       
         Invoke-WebRequest -Uri "http://luarocks.github.io/luarocks/releases/luarocks-3.8.0-win32.zip" -OutFile "${{ github.workspace }}\luarocks-3.8.0-win32.zip"
-        Expand-Archive -Path ${{ github.workspace }}\luarocks-3.8.0-win32.zip -DestinationPath "${{ temp_dir }}\luarocks-3.8.0-win32"
+        Expand-Archive -Path ${{ github.workspace }}\luarocks-3.8.0-win32.zip -DestinationPath "${{ env.temp_dir }}\luarocks-3.8.0-win32"
 
-        cd ${{ temp_dir }}\luarocks-3.8.0-win32
+        cd ${{ env.temp_dir }}\luarocks-3.8.0-win32
         ls -R
 
         ### set environment variable https://stackoverflow.com/a/1333717/3493998 + https://www.tutorialspoint.com/how-to-set-environment-variables-using-powershell
@@ -119,8 +119,8 @@ jobs:
 
         ### set luajit pathes to luarocks
         #.\configure --prefix=${{ github.workspace }}\luarocks --with-lua=${{ github.workspace }}\luajit --with-lua-include=${{ github.workspace }}\luajit\include\luajit-2.0 --with-lua-lib=${{ github.workspace }}\luajit\lib
-        Write-Host 'Start-Process -FilePath "${{ temp_dir }}\luarocks-3.8.0-win32\luarocks-3.8.0-win32\install.bat" -ArgumentList " /P ${{ github.workspace }}\luarocks-3.8.0 /CONFIG ${{ github.workspace }}\.building\luarocks-3.8.0\config-windows.5.1.lua" -Wait -NoNewWindow'
-        Start-Process -FilePath "${{ temp_dir }}\luarocks-3.8.0-win32\luarocks-3.8.0-win32\install.bat" -ArgumentList " /P ${{ github.workspace }}\luarocks-3.8.0 /CONFIG ${{ github.workspace }}\.building\luarocks-3.8.0\config-windows.5.1.lua" -Wait -NoNewWindow
+        Write-Host 'Start-Process -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-win32\luarocks-3.8.0-win32\install.bat" -ArgumentList " /P ${{ github.workspace }}\luarocks-3.8.0 /CONFIG ${{ github.workspace }}\.building\luarocks-3.8.0\config-windows.5.1.lua" -Wait -NoNewWindow'
+        Start-Process -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-win32\luarocks-3.8.0-win32\install.bat" -ArgumentList " /P ${{ github.workspace }}\luarocks-3.8.0 /CONFIG ${{ github.workspace }}\.building\luarocks-3.8.0\config-windows.5.1.lua" -Wait -NoNewWindow
 
     - name: Install luarocks 3.8.0 linux
       run: |
