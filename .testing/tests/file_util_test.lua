@@ -161,7 +161,7 @@ end
 ----------------------------------------------------------------------------------------------------
 
 function TestFileUtil:testGetRelativeDirectoryAndFilesOfSave06()
-
+    fu.GetRelativeDirectoryAndFilesOfSave06()
 end
 
 function TestFileUtil:testGetAbsoluteDirectoryPathOfParentSave06()
