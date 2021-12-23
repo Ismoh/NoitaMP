@@ -98,7 +98,7 @@ function TestFileUtil:testSetAbsolutePathOfNoitaRootDirectory()
 end
 
 function TestFileUtil:testSetAbsolutePathOfNoitaRootDirectoryOnWindows()
-    lu.skipIf(_G.is_linux)
+    lu.skipIf(_G.is_linux, "Windows only!")
     local old_is_windows = _G.is_windows
     local old_is_linux = _G.is_linux
 
