@@ -26,9 +26,7 @@ local function getOS()
     end
 
     raw_os_name = (raw_os_name):lower()
-    print(raw_os_name)
     raw_arch_name = (raw_arch_name):lower()
-    print(raw_arch_name)
 
     local os_patterns = {
         ["windows"] = "Windows",
@@ -46,6 +44,8 @@ local function getOS()
         ["i[%d]86"] = "x86",
         ["amd64"] = "x86_64",
         ["x86_64"] = "x86_64",
+        ["^x64$"] = "x64",
+        ["i[%d]64"] = "x64",
         ["Power Macintosh"] = "powerpc",
         ["^arm"] = "arm",
         ["^mips"] = "mips"
