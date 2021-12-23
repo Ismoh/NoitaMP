@@ -83,7 +83,8 @@ function fu.GetRelativeDirectoryAndFilesOfSave06()
             command = "dir " .. dir_save_06 .. " /b/s"
         end
     else
-        error("Unix system are not supported yet :(",2)
+        command = 'find "~/.steam/steam/userdata/$(id -u)/881100/' .. dir_save_06 .. '"'
+        --error("Unix system are not supported yet :(",2)
     end
 
     local file = assert(io.popen(command, "r"), "Unable to execute command: " .. command)
