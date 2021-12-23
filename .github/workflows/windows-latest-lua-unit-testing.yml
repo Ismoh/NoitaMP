@@ -142,18 +142,7 @@ jobs:
         ### set luajit pathes to luarocks
         #.\configure --prefix=${{ github.workspace }}\luarocks --with-lua=${{ github.workspace }}\luajit --with-lua-include=${{ github.workspace }}\luajit\include\luajit-2.0 --with-lua-lib=${{ github.workspace }}\luajit\lib
         Write-Host 'Start-Process -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-windows-32\luarocks.exe" -ArgumentList " /P ${{ github.workspace }}\luarocks-3.8.0 " -Wait -NoNewWindow'
-        Start-Process -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-windows-32\luarocks.exe" -ArgumentList " /? " -Wait -NoNewWindow
-
-    - name: Install luarocks 3.8.0 linux
-      run: |
-        ######## install lua rocks manually: https://github.com/luarocks/luarocks/wiki/Installation-instructions-for-Unix
-        wget https://luarocks.github.io/luarocks/releases/luarocks-3.8.0.tar.gz
-        tar zxpf luarocks-3.8.0.tar.gz
-        cd luarocks-3.8.0
-        ######## set luajit pathes to luarocks
-        ./configure --prefix=${{ github.workspace }}/luarocks --with-lua=${{ github.workspace }}/luajit --with-lua-include=${{ github.workspace }}/luajit/include/luajit-2.0 --with-lua-lib=${{ github.workspace }}/luajit/lib
-        make
-        make install
+        Start-Process -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-windows-32\luarocks.exe" -Wait -NoNewWindow
 
     - name: Install dependencies
       run: |
