@@ -118,7 +118,7 @@ end
 -- Noita world and savegame specific functions
 ----------------------------------------------------------------------------------------------------
 
-function TestFileUtil:testGetRelativeDirectoryAndFilesOfSave06()
+--[[ function TestFileUtil:testGetRelativeDirectoryAndFilesOfSave06()
     -- Mock stuff
     local mkdir_command = nil
     local newfile_command = nil
@@ -145,7 +145,7 @@ function TestFileUtil:testGetRelativeDirectoryAndFilesOfSave06()
     lu.assertNotNil(table)
     lu.assertIsPlusZero(#table)
     lu.assertIsPlusZero(index)
-end
+end ]]
 
 function TestFileUtil:testGetAbsoluteDirectoryPathOfParentSave06()
     lu.assertError(fu.GetAbsoluteDirectoryPathOfParentSave06)
