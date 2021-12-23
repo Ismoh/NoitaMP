@@ -93,11 +93,11 @@ jobs:
     - name: Set GitHub env variables
       shell: bash
       run: |
-        fixedpath=$(echo "${{ env.temp_dir }}/lua_path.txt" | sed -e 's_\\_/_g') ### replce \ with /
+        fixedpath=$(echo "${{ env.temp_dir }}/lua_path.txt" | sed -e 's_\\_/_g') ### replace \ with /
         cat $fixedpath
         echo "LUA_PATH=;;${{ github.workspace }}/Lua/lib/?.lua;${{ github.workspace }}/Lua/lib/?/init.lua;${{ github.workspace }}/Lua/lib/jit/?.lua;${{ github.workspace }}/Lua/lib/jit/?/init.lua;$(cat $fixedpath)" >> $GITHUB_ENV
 
-        fixedpath=$(echo "${{ env.temp_dir }}/lua_cpath.txt" | sed -e 's_\\_/_g') ### replce \ with /
+        fixedpath=$(echo "${{ env.temp_dir }}/lua_cpath.txt" | sed -e 's_\\_/_g') ### replace \ with /
         cat $fixedpath
         echo "LUA_CPATH=$(cat $fixedpath)" >> $GITHUB_ENV
 
@@ -109,8 +109,6 @@ jobs:
     - name: Run LuaUnit 3.4
       id: lua_unit_tests
       run: |
-        env
-
         dir -Path ${{ github.workspace }}\.testing\tests -Filter *.lua -Recurse | %{& '${{ env.lua_install_bin_dir }}\luajit.exe' $_.FullName -o text --verbose --error > ${{ github.workspace }}\.testing\testresult.log}
         type ${{ github.workspace }}\.testing\testresult.log
         
@@ -133,19 +131,21 @@ jobs:
       run: |
         ### install lua rocks manually: https://github.com/luarocks/luarocks/wiki/Installation-instructions-for-Windows
       
-        Invoke-WebRequest -Uri "http://luarocks.github.io/luarocks/releases/luarocks-3.8.0-win32.zip" -OutFile "${{ github.workspace }}\luarocks-3.8.0-win32.zip"
-        Expand-Archive -Path ${{ github.workspace }}\luarocks-3.8.0-win32.zip -DestinationPath "${{ env.temp_dir }}\luarocks-3.8.0-win32"
+        #Invoke-WebRequest -Uri "http://luarocks.github.io/luarocks/releases/luarocks-3.8.0-win32.zip" -OutFile "${{ github.workspace }}\luarocks-3.8.0-win32.zip"
+        Invoke-WebRequest -Uri "http://luarocks.github.io/luarocks/releases/luarocks-3.8.0-windows-32.zip" -OutFile "${{ github.workspace }}\luarocks-3.8.0-win32.zip"
+        Expand-Archive -Path ${{ github.workspace }}\luarocks-3.8.0-win32.zip -DestinationPath "${{ env.temp_dir }}"
+        cd ${{ env.temp_dir }}\luarocks-3.8.0-windows-32
 
-        cd ${{ env.temp_dir }}\luarocks-3.8.0-win32
         ls -R
-
-        ### set environment variable https://stackoverflow.com/a/1333717/3493998 + https://www.tutorialspoint.com/how-to-set-environment-variables-using-powershell
-        #[System.Environment]::SetEnvironmentVariable('LUAROCKS_CONFIG','${{ github.workspace }}\.building\luarocks-3.8.0\config-windows.5.1.lua')
 
         ### set luajit pathes to luarocks
         #.\configure --prefix=${{ github.workspace }}\luarocks --with-lua=${{ github.workspace }}\luajit --with-lua-include=${{ github.workspace }}\luajit\include\luajit-2.0 --with-lua-lib=${{ github.workspace }}\luajit\lib
-        Write-Host 'Start-Process -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-win32\luarocks-3.8.0-win32\install.bat" -ArgumentList " /P ${{ github.workspace }}\luarocks-3.8.0 /CONFIG ${{ github.workspace }}\.building\luarocks-3.8.0\config-windows.5.1.lua" -Wait -NoNewWindow'
-        Start-Process -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-win32\luarocks-3.8.0-win32\install.bat" -ArgumentList " /P ${{ github.workspace }}\luarocks-3.8.0 /CONFIG ${{ github.workspace }}\.building\luarocks-3.8.0\config-windows.5.1.lua" -Wait -NoNewWindow
+        Write-Host 'Start-Process
+            -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-windows-32\luarocks.exe"
+            -ArgumentList " /P ${{ github.workspace }}\luarocks-3.8.0 " -Wait -NoNewWindow'
+        Start-Process 
+            -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-windows-32\luarocks.exe"
+            -ArgumentList " /? " -Wait -NoNewWindow
 
     - name: Install luarocks 3.8.0 linux
       run: |
