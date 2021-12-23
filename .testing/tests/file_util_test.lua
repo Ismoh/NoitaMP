@@ -111,7 +111,12 @@ end
 -- Noita specific file, directory or path functions
 ----------------------------------------------------------------------------------------------------
 
-function TestFileUtil:testSetAbsolutePathOfNoitaRootDirectoryOnWindows()
+function TestFileUtil:testSetAbsolutePathOfNoitaRootDirectory()
+    fu.SetAbsolutePathOfNoitaRootDirectory()
+    lu.assertNotIsNil(_G.noita_root_directory_path, "_G.noita_root_directory_path must not be nil!")
+end
+
+--[[ function TestFileUtil:testSetAbsolutePathOfNoitaRootDirectoryOnWindows()
     local old_is_windows = _G.is_windows
     local old_is_linux = _G.is_linux
 
@@ -137,7 +142,7 @@ function TestFileUtil:testSetAbsolutePathOfNoitaRootDirectoryOnLinux()
 
     _G.is_windows = old_is_windows
     _G.is_linux = old_is_linux
-end
+end ]]
 
 function TestFileUtil:testSetAbsolutePathOfNoitaRootDirectoryUnkownOs()
     local old_is_windows = _G.is_windows
