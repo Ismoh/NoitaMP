@@ -121,7 +121,7 @@ jobs:
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v2
       with:
-        token: ${{ secrets.CODECOV_TOKEN }}
         directory: ${{ github.workspace }}
-        #path_to_write_report: ./codecov_report.txt https://github.com/codecov/codecov-action/issues/476
+        flags: unittesting
+        name: Windows Lua Unit Testing
         verbose: true
