@@ -27,7 +27,7 @@ jobs:
         cat ${{ github.workspace }}/.testing/testresult.log
         echo "::set-output name=fail::$( grep FAIL ${{ github.workspace }}/.testing/testresult.log )"
         echo "::set-output name=error::$( grep ERROR ${{ github.workspace }}/.testing/testresult.log )"
-        echo "::set-output name=not_found::$( grep 'not found' ${{ github.workspace }}/.testing/testresult.log )"
+        echo "::set-output name=not_found::$( grep \"not found\" ${{ github.workspace }}/.testing/testresult.log )"
       
     - name: Unit test failed?
       ######## Check if tests succeed:
