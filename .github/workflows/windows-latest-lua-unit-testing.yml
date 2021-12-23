@@ -128,7 +128,7 @@ jobs:
         echo "Unit tests failed!"
         exit 1
 
-    - name: Install luarocks 3.8.0 windows
+    - name: Install luarocks 3.8.0
       run: |
         ### install lua rocks manually: https://github.com/luarocks/luarocks/wiki/Installation-instructions-for-Windows
       
@@ -140,7 +140,7 @@ jobs:
         ls -R
 
         ### Replace user default config file of luarocks
-        Copy-Item -Path "${{ github.workspace }}\.building\luarocks-3.8.0\config-5.1.lua" -Destination "C:/Users/runneradmin/AppData/Roaming/luarocks/" -force
+        Copy-Item -Path "${{ github.workspace }}\.building\luarocks-3.8.0\config-5.1.lua" -Destination "C:/Users/runneradmin/AppData/Roaming/luarocks/" -Recurse -force
       
         cat C:/Users/runneradmin/AppData/Roaming/luarocks/config-5.1.lua
 
