@@ -7,7 +7,7 @@ local destination_path = params[1]
 local default_package_path = package.path
 package.path = package.path .. "./noita-mp/files/lib/external/?.lua;"
 
-local fu = require("./noita-mp/files/scripts/util/file_util")
+local fu = require("/noita-mp/files/scripts/util/file_util")
 --[[ NoitaMP additions ]]
 -- A list of paths to lua script modules
 local paths = {
