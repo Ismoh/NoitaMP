@@ -1,5 +1,5 @@
 -- Fix package.path and package.cpath once
-dofile_once("noita-mp/files/lib/external/init_package_loading.lua")
+dofile_once("mods/noita-mp/files/lib/external/init_package_loading.lua")
 
 dofile("mods/noita-mp/files/scripts/util/util.lua")
 local fu = require("file_util")
