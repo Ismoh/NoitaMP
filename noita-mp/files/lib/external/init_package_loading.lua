@@ -38,12 +38,28 @@ local os_name = require("os_name")
 --[[ NoitaMP additions ]]
 package.path = default_package_path
 --[[ NoitaMP additions ]]
+
 -- A dot character represent current working directory
 local root_dir = "."
 local current_platform, current_architecture = os_name.getOS()
 
 local cpaths, lpaths = {}, {}
 local current_clib_extension = extensions[current_platform]
+
+--[[ NoitaMP additions ]]
+_G.os_name = current_platform
+_G.os_arch = current_architecture
+
+-- https://stackoverflow.com/a/14425862/3493998
+_G.path_separator = tostring(package.config:sub(1, 1))
+
+if _G.os_name == "Windows" then
+    _G.is_windows = true
+end
+if _G.os_name == "Linux" then
+    _G.is_linux = true
+end
+--[[ NoitaMP additions ]]
 
 if current_clib_extension then
     -- now you can process each defined path for module.
@@ -98,19 +114,8 @@ if current_clib_extension then
     --package.cpath = table.concat(cpaths, ";")
 
     --[[ NoitaMP additions ]]
-    if _G.os_name == "Windows" then
-        _G.is_windows = true
-    end
-    if _G.os_name == "Linux" then
-        _G.is_linux = true
-    end
     package.path = fu.ReplacePathSeparator(package.path .. ";" .. table.concat(lpaths, ";"))
     package.cpath = fu.ReplacePathSeparator(package.cpath .. ";" .. table.concat(cpaths, ";"))
-
-    _G.os_name = current_platform
-    _G.os_arch = current_architecture
-    -- https://stackoverflow.com/a/14425862/3493998
-    _G.path_separator = tostring(package.config:sub(1, 1))
 
     if destination_path then
         local lua_path_file = fu.RemoveTrailingPathSeparator(destination_path) .. _G.path_separator .. "lua_path.txt"
