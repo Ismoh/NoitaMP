@@ -7,3 +7,4 @@ ignore:
   - ".gitignore"
   - "LICENSE"
   - "README.md"
+  - "noita-mp/files/lib"
