@@ -38,7 +38,6 @@ local os_name = require("os_name")
 --[[ NoitaMP additions ]]
 package.path = default_package_path
 --[[ NoitaMP additions ]]
-
 -- A dot character represent current working directory
 local root_dir = "."
 local current_platform, current_architecture = os_name.getOS()
@@ -98,52 +97,47 @@ if current_clib_extension then
     --package.path = table.concat(lpaths, ";")
     --package.cpath = table.concat(cpaths, ";")
 
---[[ NoitaMP additions ]]
+    --[[ NoitaMP additions ]]
+    if _G.os_name == "Windows" then
+        _G.is_windows = true
+    end
+    if _G.os_name == "Linux" then
+        _G.is_linux = true
+    end
     package.path = fu.ReplacePathSeparator(package.path .. ";" .. table.concat(lpaths, ";"))
     package.cpath = fu.ReplacePathSeparator(package.cpath .. ";" .. table.concat(cpaths, ";"))
 
     _G.os_name = current_platform
     _G.os_arch = current_architecture
     -- https://stackoverflow.com/a/14425862/3493998
-    _G.path_separator = tostring(package.config:sub(1,1))
+    _G.path_separator = tostring(package.config:sub(1, 1))
 
-    if _G.os_name == "Windows" then
-        _G.is_windows = true
+    if destination_path then
+        local lua_path_file = fu.RemoveTrailingPathSeparator(destination_path) .. "\\lua_path.txt"
+        local lua_path_file_content = ";" .. package.path
 
-        if destination_path then
-            local lua_path_file = fu.RemoveTrailingPathSeparator(destination_path) .. "\\lua_path.txt"
-            local lua_path_file_content = ";" .. package.path
+        local lua_cpath_file = fu.RemoveTrailingPathSeparator(destination_path) .. "\\lua_cpath.txt"
+        local lua_cpath_file_content = ";" .. package.cpath
 
-            local lua_cpath_file = fu.RemoveTrailingPathSeparator(destination_path) .. "\\lua_cpath.txt"
-            local lua_cpath_file_content = ";" .. package.cpath
+        fu.WriteFile(lua_path_file, lua_path_file_content)
+        print(
+            "init_package_loading.lua | File (" .. lua_path_file .. ") created with content: " .. lua_path_file_content
+        )
 
-            fu.WriteFile(lua_path_file, lua_path_file_content)
-            print("init_package_loading.lua | File (" .. lua_path_file .. ") created with content: " .. lua_path_file_content)
-
-            fu.WriteFile(lua_cpath_file, lua_cpath_file_content)
-            print("init_package_loading.lua | File (" .. lua_cpath_file .. ") created with content: " .. lua_cpath_file_content)
-        end
-    end
-    if _G.os_name == "Linux" then
-        _G.is_linux = true
-
-        if destination_path then
-            local lua_path_file = fu.RemoveTrailingPathSeparator(destination_path) .. "/lua_path"
-            local lua_path_file_content = ";" .. package.path
-
-            local lua_cpath_file = fu.RemoveTrailingPathSeparator(destination_path) .. "/lua_cpath"
-            local lua_cpath_file_content = ";" .. package.cpath
-
-            fu.WriteFile(lua_path_file, lua_path_file_content)
-            print("init_package_loading.lua | File (" .. lua_path_file .. ") created with content: " .. lua_path_file_content)
-
-            fu.WriteFile(lua_cpath_file, lua_cpath_file_content)
-            print("init_package_loading.lua | File (" .. lua_cpath_file .. ") created with content: " .. lua_cpath_file_content)
-        end
+        fu.WriteFile(lua_cpath_file, lua_cpath_file_content)
+        print(
+            "init_package_loading.lua | File (" ..
+                lua_cpath_file .. ") created with content: " .. lua_cpath_file_content
+        )
     end
 
-    print("init_package_loading.lua | Detected OS " .. _G.os_name .. " " .. _G.os_arch .. " with path separator '" .. _G.path_separator .. "'.")
+    print(
+        "init_package_loading.lua | Detected OS " ..
+            _G.os_name .. " " .. _G.os_arch .. " with path separator '" .. _G.path_separator .. "'."
+    )
     print("init_package_loading.lua | package.path set to " .. package.path .. " .")
     print("init_package_loading.lua | package.cpath set to " .. package.cpath .. " .")
---[[ NoitaMP additions ]]
+else
+    error("Unable to detect OS!", 2)
+    --[[ NoitaMP additions ]]
 end
