@@ -24,7 +24,7 @@ end
 -- Platform specific functions
 ----------------------------------------------------------------------------------------------------
 
-function TestFileUtil:testPlatformValues()
+--[[ function TestFileUtil:testPlatformValues()
     local path_separator = package.config:sub(1,1)
     local windows = nil
     local unix = nil
@@ -41,7 +41,7 @@ function TestFileUtil:testPlatformValues()
     lu.assertEquals(_G.path_separator, path_separator)
     lu.assertEquals(_G.is_windows, windows)
     lu.assertEquals(_G.is_linux, unix)
-end
+end ]]
 
 function TestFileUtil:testReplacePathSeparatorOnWindows()
     local old = _G.is_windows
