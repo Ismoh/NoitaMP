@@ -72,11 +72,6 @@ jobs:
         cat $fixedpath
         echo "LUA_CPATH=$(cat $fixedpath)" >> $GITHUB_ENV
 
-    - name: Install LuaUnit 3.4
-      if: ${{ false }}
-      run: |
-        Copy-Item "${{ github.workspace }}\.testing\luaunit.lua" -Destination "${{ env.lua_install_lib_dir }}\"
-
     - name: Run LuaUnit 3.4
       id: lua_unit_tests
       shell: pwsh
