@@ -113,10 +113,10 @@ if current_clib_extension then
     _G.path_separator = tostring(package.config:sub(1, 1))
 
     if destination_path then
-        local lua_path_file = fu.RemoveTrailingPathSeparator(destination_path) .. "\\lua_path.txt"
+        local lua_path_file = fu.RemoveTrailingPathSeparator(destination_path) .. _G.path_separator .. "lua_path.txt"
         local lua_path_file_content = ";" .. package.path
 
-        local lua_cpath_file = fu.RemoveTrailingPathSeparator(destination_path) .. "\\lua_cpath.txt"
+        local lua_cpath_file = fu.RemoveTrailingPathSeparator(destination_path) .. _G.path_separator .. "lua_cpath.txt"
         local lua_cpath_file_content = ";" .. package.cpath
 
         fu.WriteFile(lua_path_file, lua_path_file_content)
