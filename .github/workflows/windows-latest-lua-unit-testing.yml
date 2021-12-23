@@ -137,12 +137,12 @@ jobs:
         Expand-Archive -Path ${{ github.workspace }}\luarocks-3.8.0-win32.zip -DestinationPath "${{ env.temp_dir }}"
         cd ${{ env.temp_dir }}\luarocks-3.8.0-windows-32
 
-        ls -R
+        ls -R C:\Users\runneradmin\AppData\Roaming\
 
         ### Replace user default config file of luarocks
-        Copy-Item -Path "${{ github.workspace }}\.building\luarocks-3.8.0\config-5.1.lua" -Destination "C:/Users/runneradmin/AppData/Roaming/luarocks/" -Recurse -force
+        Copy-Item -Path "${{ github.workspace }}\.building\luarocks-3.8.0\config-5.1.lua" -Destination "C:\Users\runneradmin\AppData\Roaming\luarocks\" -Recurse -force
       
-        cat C:/Users/runneradmin/AppData/Roaming/luarocks/config-5.1.lua
+        cat C:\Users\runneradmin\AppData\Roaming\luarocks\config-5.1.lua
 
         Start-Process -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-windows-32\luarocks.exe" -ArgumentList " config" -Wait -NoNewWindow
 
