@@ -59,6 +59,11 @@ end
 if _G.os_name == "Linux" then
     _G.is_linux = true
 end
+
+print(
+        "init_package_loading.lua | Detected OS " ..
+            _G.os_name .. " " .. _G.os_arch .. " with path separator '" .. _G.path_separator .. "'."
+    )
 --[[ NoitaMP additions ]]
 
 if current_clib_extension then
@@ -136,10 +141,6 @@ if current_clib_extension then
         )
     end
 
-    print(
-        "init_package_loading.lua | Detected OS " ..
-            _G.os_name .. " " .. _G.os_arch .. " with path separator '" .. _G.path_separator .. "'."
-    )
     print("init_package_loading.lua | package.path set to " .. package.path .. " .")
     print("init_package_loading.lua | package.cpath set to " .. package.cpath .. " .")
 else
