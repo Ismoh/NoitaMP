@@ -14,9 +14,11 @@ function fu.ReplacePathSeparator(path)
     if _G.is_windows then
         print("file_util.lua | windows detected replace / with \\")
         path = string.gsub(path, "/", "\\")
-    else
+    elseif _G.is_linux then
         print("file_util.lua | unix detected replace \\ with /")
         path = string.gsub(path, "\\", "/")
+    else
+        error("Unable to detect OS, therefore not able to replace path separator!", 2)
     end
     return path
 end
