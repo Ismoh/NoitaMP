@@ -76,7 +76,7 @@ jobs:
       id: lua_unit_tests
       shell: pwsh
       run: |
-        dir -Path ${{ github.workspace }}\.testing\tests -Filter *.lua -Recurse | %{& '${{ env.lua_install_bin_dir }}\luajit.exe' $_.FullName -o text --verbose --error > ${{ github.workspace }}\.testing\testresult.log }
+        dir -Path ${{ github.workspace }}\.testing\tests -Filter *.lua -Recurse | %{& '${{ env.lua_install_bin_dir }}\luajit.exe' $_.FullName -o text --verbose > ${{ github.workspace }}\.testing\testresult.log }
         type ${{ github.workspace }}\.testing\testresult.log
         
         # https://timheuer.com/blog/manually-force-a-failure-in-github-action-step/
@@ -113,7 +113,7 @@ jobs:
 
     - name: Generate coverage report with luacov
       run: |
-        dir -Path ${{ github.workspace }}\.testing\tests -Filter *.lua -Recurse | %{& '${{ env.lua_install_bin_dir }}\luajit.exe' -lluacov $_.FullName -o text --verbose --error }
+        dir -Path ${{ github.workspace }}\.testing\tests -Filter *.lua -Recurse | %{& '${{ env.lua_install_bin_dir }}\luajit.exe' -lluacov $_.FullName -o text --verbose }
         
         Start-Process -FilePath "${{ env.lua_install_bin_dir }}\luacov.bat" -Wait -NoNewWindow
 

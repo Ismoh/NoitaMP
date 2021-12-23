@@ -166,6 +166,7 @@ end
 ----------------------------------------------------------------------------------------------------
 
 function TestFileUtil:testGetRelativeDirectoryAndFilesOfSave06()
+    lu.skipIf(_G.is_linux, "Unix systems aren't supported yet.")
     fu.GetRelativeDirectoryAndFilesOfSave06()
 end
 
