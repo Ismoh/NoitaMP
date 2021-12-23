@@ -62,7 +62,7 @@ end
 
 print(
         "init_package_loading.lua | Detected OS " ..
-            _G.os_name .. " " .. _G.os_arch .. " with path separator '" .. _G.path_separator .. "'."
+            _G.os_name .. "(" .. _G.os_arch .. ") with path separator '" .. _G.path_separator .. "'."
     )
 --[[ NoitaMP additions ]]
 

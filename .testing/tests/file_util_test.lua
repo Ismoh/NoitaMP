@@ -1,5 +1,6 @@
 #!/usr/bin/env lua
-local lu = require('luaunit')
+dofile("noita-mp/files/lib/external/init_package_loading.lua")
+local lu = require("luaunit")
 local fu = require("noita-mp/files/scripts/util/file_util")
 
 TestFileUtil = {}
