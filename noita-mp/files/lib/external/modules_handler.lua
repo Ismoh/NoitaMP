@@ -99,8 +99,8 @@ if current_clib_extension then
     --package.cpath = table.concat(cpaths, ";")
 
 --[[ NoitaMP additions ]]
-    package.path = package.path .. ";" .. table.concat(lpaths, ";")
-    package.cpath = package.cpath .. ";" .. table.concat(cpaths, ";")
+    package.path = fu.ReplacePathSeparator(package.path .. ";" .. table.concat(lpaths, ";"))
+    package.cpath = fu.ReplacePathSeparator(package.cpath .. ";" .. table.concat(cpaths, ";"))
 
     _G.os_name = current_platform
     _G.os_arch = current_architecture
