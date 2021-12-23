@@ -26,7 +26,9 @@ local function getOS()
     end
 
     raw_os_name = (raw_os_name):lower()
+    print(raw_os_name)
     raw_arch_name = (raw_arch_name):lower()
+    print(raw_arch_name)
 
     local os_patterns = {
         ["windows"] = "Windows",
