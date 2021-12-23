@@ -97,35 +97,6 @@ function TestFileUtil:testSetAbsolutePathOfNoitaRootDirectory()
     lu.assertNotIsNil(_G.noita_root_directory_path, "_G.noita_root_directory_path must not be nil!")
 end
 
-function TestFileUtil:testSetAbsolutePathOfNoitaRootDirectoryOnWindows()
-    lu.skipIf(_G.is_linux, "Windows only!")
-    local old_is_windows = _G.is_windows
-    local old_is_linux = _G.is_linux
-
-    _G.is_windows = true -- TODO: is there a better way to mock?
-    _G.is_linux = false -- TODO: is there a better way to mock?
-
-    fu.SetAbsolutePathOfNoitaRootDirectory()
-    lu.assertNotIsNil(_G.noita_root_directory_path, "_G.noita_root_directory_path must not be nil!")
-
-    _G.is_windows = old_is_windows
-    _G.is_linux = old_is_linux
-end
---[[
-function TestFileUtil:testSetAbsolutePathOfNoitaRootDirectoryOnLinux()
-    local old_is_windows = _G.is_windows
-    local old_is_linux = _G.is_linux
-
-    _G.is_windows = false -- TODO: is there a better way to mock?
-    _G.is_linux = true -- TODO: is there a better way to mock?
-
-    fu.SetAbsolutePathOfNoitaRootDirectory()
-    lu.assertNotIsNil(_G.noita_root_directory_path, "_G.noita_root_directory_path must not be nil!")
-
-    _G.is_windows = old_is_windows
-    _G.is_linux = old_is_linux
-end ]]
-
 function TestFileUtil:testSetAbsolutePathOfNoitaRootDirectoryUnkownOs()
     local old_is_windows = _G.is_windows
     local old_is_linux = _G.is_linux
@@ -148,8 +119,31 @@ end
 ----------------------------------------------------------------------------------------------------
 
 function TestFileUtil:testGetRelativeDirectoryAndFilesOfSave06()
-    lu.skipIf(_G.is_linux, "Unix systems aren't supported yet.")
-    fu.GetRelativeDirectoryAndFilesOfSave06()
+    -- Mock stuff
+    local mkdir_command = nil
+    local newfile_command = nil
+    if _G.is_windows then
+        mkdir_command = 'mkdir "%appdata%\\..\\LocalLow\\Nolla_Games_Noita\\save06"'
+        newfile_command = 'echo "file1" > file1.txt'
+    end
+    if _G.is_linux then
+        mkdir_command = 'mkdir ~/.steam/steam/userdata/$(id -u)/881100/'
+        newfile_command = 'echo "file1" > file1.txt'
+    end
+
+    local mkdir_command_result = assert(io.popen(mkdir_command, "r"), "Unable to execute command: " .. mkdir_command)
+    print(mkdir_command_result:read("*a"))
+
+    local newfile_command_result = assert(io.popen(newfile_command, "r"), "Unable to execute command: " .. newfile_command)
+    print(newfile_command_result:read("*a"))
+
+    local table, index = fu.GetRelativeDirectoryAndFilesOfSave06()
+
+    lu.assertEquals(table[1][1], "", "Returned relativ path doesn't match.")
+    lu.assertEquals(table[1][2], "file1.txt", "Filename isn't equal.")
+    lu.assertNotNil(table)
+    lu.assertIsPlusZero(#table)
+    lu.assertIsPlusZero(index)
 end
 
 function TestFileUtil:testGetAbsoluteDirectoryPathOfParentSave06()
