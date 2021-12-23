@@ -18,14 +18,6 @@ jobs:
     steps:
     - uses: actions/checkout@main
 
-    - name: Install luaJIT 2.0.4
-      if: ${{ false }}
-      run: |
-        cd ${{ github.workspace }}\.building\LuaJIT-2.0.4
-        ### PREFIX isn't working on windows mingw32/powershell, but I don't care. luaJIT is installed in ${{ github.workspace }}\.building\LuaJIT-2.0.4\src\luajit.exe
-        mingw32-make
-        mingw32-make install
-
     - name: Make directories for Lua installation
       run: |
         ### https://gist.github.com/Egor-Skriptunoff/cb952f7eaf39b7b1bf739b818ece87cd
@@ -34,29 +26,6 @@ jobs:
         New-Item -Path "${{ env.lua_install_dir }}" -Name "bin" -ItemType "directory"
         New-Item -Path "${{ env.lua_install_dir }}" -Name "lib" -ItemType "directory"
         New-Item -Path "${{ env.lua_install_dir }}" -Name "include" -ItemType "directory"
-
-    - name: Build and install Lua 5.1.5
-      if: ${{ false }}
-      run: |
-        ### https://gist.github.com/Egor-Skriptunoff/cb952f7eaf39b7b1bf739b818ece87cd
-        ### http://lua-users.org/wiki/BuildingLuaInWindowsForNewbies
-
-        ### Build
-        New-Item -Path "${{ github.workspace }}" -Name "temp" -ItemType "directory"
-        cd ${{ env.temp_dir }}\
-        Invoke-WebRequest -Uri "https://www.lua.org/ftp/lua-5.1.5.tar.gz" -OutFile "${{ env.temp_dir }}\lua-5.1.5.tar.gz"
-        #Expand-Archive -Path "${{ env.temp_dir }}\lua-5.1.5.tar.gz" -DestinationPath "${{ env.lua_temp_dir }}\"
-        tar zxpf lua-5.1.5.tar.gz
-        cd ${{ env.lua_temp_dir }}\
-        mingw32-make PLAT=mingw
-        
-        ### Install
-        ### binaries
-        Copy-Item "${{ env.lua_temp_dir }}\src\lua.exe" -Destination "${{ env.lua_install_bin_dir }}\"
-        Copy-Item "${{ env.lua_temp_dir }}\src\luac.exe" -Destination "${{ env.lua_install_bin_dir }}\"
-        Copy-Item "${{ env.lua_temp_dir }}\src\lua51.dll" -Destination "${{ env.lua_install_bin_dir }}\"
-
-        Start-Process -FilePath "${{ env.lua_install_bin_dir }}\lua.exe" -ArgumentList " -v" -Wait -NoNewWindow
 
     - name: Build and install LuaJIT 2.0.4
       run: |
@@ -110,7 +79,7 @@ jobs:
       id: lua_unit_tests
       shell: pwsh
       run: |
-        dir -Path ${{ github.workspace }}\.testing\tests -Filter *.lua -Recurse | %{& '${{ env.lua_install_bin_dir }}\luajit.exe' $_.FullName -o text --verbose --error > ${{ github.workspace }}\.testing\testresult.log}
+        dir -Path ${{ github.workspace }}\.testing\tests -Filter *.lua -Recurse | %{& '${{ env.lua_install_bin_dir }}\luajit.exe' $_.FullName -o text --verbose --error > ${{ github.workspace }}\.testing\testresult.log }
         type ${{ github.workspace }}\.testing\testresult.log
         
         # https://timheuer.com/blog/manually-force-a-failure-in-github-action-step/
@@ -132,6 +101,8 @@ jobs:
       run: |
         Invoke-WebRequest -Uri "http://luarocks.github.io/luarocks/releases/luarocks-3.8.0-windows-32.zip" -OutFile "${{ github.workspace }}\luarocks-3.8.0-win32.zip"
         Expand-Archive -Path ${{ github.workspace }}\luarocks-3.8.0-win32.zip -DestinationPath "${{ env.temp_dir }}"
+
+        Start-Process -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-windows-32\luarocks.exe" -ArgumentList " --version " -Wait -NoNewWindow
         
     - name: Install luacov
       run: |
@@ -140,7 +111,7 @@ jobs:
     - name: Generate coverage report with luacov
       run: |
         #sudo find ${{ github.workspace }}\.testing\tests -name "*.lua" -type f -exec ${{ github.workspace }}\luajit\bin\luajit -lluacov {} \;
-        dir -Path ${{ github.workspace }}\.testing\tests -Filter *.lua -Recurse | %{& '${{ env.lua_install_bin_dir }}\luajit.exe' $_.FullName -o text --verbose --error
+        dir -Path ${{ github.workspace }}\.testing\tests -Filter *.lua -Recurse | %{& '${{ env.lua_install_bin_dir }}\luajit.exe' $_.FullName -o text --verbose --error }
         
         ls -R
 
