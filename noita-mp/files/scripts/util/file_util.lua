@@ -1,9 +1,5 @@
 local fu = {}
-
 local ffi = require("ffi")
-
-print("file_util.lua | Detected " .. (_G.is_windows and "Windows" or "Unix") .. " with path separator '" .. _G.path_separator .. "'.")
-
 
 ----------------------------------------------------------------------------------------------------
 -- Platform specific functions

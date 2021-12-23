@@ -118,10 +118,10 @@ if current_clib_extension then
             local lua_cpath_file_content = ";" .. package.cpath
 
             fu.WriteFile(lua_path_file, lua_path_file_content)
-            print("modules_handler.lua | File (" .. lua_path_file .. ") created with content: " .. lua_path_file_content)
+            print("init_package_loading.lua | File (" .. lua_path_file .. ") created with content: " .. lua_path_file_content)
 
             fu.WriteFile(lua_cpath_file, lua_cpath_file_content)
-            print("modules_handler.lua | File (" .. lua_cpath_file .. ") created with content: " .. lua_cpath_file_content)
+            print("init_package_loading.lua | File (" .. lua_cpath_file .. ") created with content: " .. lua_cpath_file_content)
         end
     end
     if _G.os_name == "Linux" then
@@ -135,15 +135,15 @@ if current_clib_extension then
             local lua_cpath_file_content = ";" .. package.cpath
 
             fu.WriteFile(lua_path_file, lua_path_file_content)
-            print("modules_handler.lua | File (" .. lua_path_file .. ") created with content: " .. lua_path_file_content)
+            print("init_package_loading.lua | File (" .. lua_path_file .. ") created with content: " .. lua_path_file_content)
 
             fu.WriteFile(lua_cpath_file, lua_cpath_file_content)
-            print("modules_handler.lua | File (" .. lua_cpath_file .. ") created with content: " .. lua_cpath_file_content)
+            print("init_package_loading.lua | File (" .. lua_cpath_file .. ") created with content: " .. lua_cpath_file_content)
         end
     end
 
-    print("modules_handler.lua | Detected OS " .. _G.os_name .. " " .. _G.os_arch .. " .")
-    print("modules_handler.lua | package.path set to " .. package.path .. " .")
-    print("modules_handler.lua | package.cpath set to " .. package.cpath .. " .")
+    print("init_package_loading.lua | Detected OS " .. _G.os_name .. " " .. _G.os_arch .. " with path separator '" .. _G.path_separator .. "'.")
+    print("init_package_loading.lua | package.path set to " .. package.path .. " .")
+    print("init_package_loading.lua | package.cpath set to " .. package.cpath .. " .")
 --[[ NoitaMP additions ]]
 end
