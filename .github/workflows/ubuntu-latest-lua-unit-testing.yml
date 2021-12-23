@@ -27,12 +27,12 @@ jobs:
         cat ${{ github.workspace }}/.testing/testresult.log
         echo "::set-output name=fail::$( grep FAIL ${{ github.workspace }}/.testing/testresult.log )"
         echo "::set-output name=error::$( grep ERROR ${{ github.workspace }}/.testing/testresult.log )"
-        echo "::set-output name=not_found::$( grep not\ found ${{ github.workspace }}/.testing/testresult.log )"
+        echo '::set-output name=not_found::$( grep "not found" ${{ github.workspace }}/.testing/testresult.log )'
       
     - name: Unit test failed?
       ######## Check if tests succeed:
       # https://stackoverflow.com/questions/59191913/get-output-of-a-specific-step-in-github-actions
-      if: ${{ steps.lua_unit_tests.outputs.fail != '' || steps.lua_unit_tests.outputs.error != '' || steps.lua_unit_tests.outputs.not_found != '' }}
+      #if: ${{ steps.lua_unit_tests.outputs.fail != '' || steps.lua_unit_tests.outputs.error != '' || steps.lua_unit_tests.outputs.not_found != '' }}
       run: |
         echo "steps.lua_unit_tests.outputs.fail = ${{ steps.lua_unit_tests.outputs.fail }}"
         echo "steps.lua_unit_tests.outputs.error = ${{ steps.lua_unit_tests.outputs.error }}"
