@@ -145,12 +145,12 @@ jobs:
       
         #cat C:\Users\runneradmin\AppData\Roaming\luarocks\config-5.1.lua
 
-        Start-Process -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-windows-32\luarocks.exe" -ArgumentList " config --local `"${{ github.workspace }}\.building\luarocks-3.8.0\config-windows-5.1.lua`" " -Wait -NoNewWindow
+        Start-Process -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-windows-32\luarocks.exe" -ArgumentList " config --local=`"${{ github.workspace }}\.building\luarocks-3.8.0\config-windows-5.1.lua`" " -Wait -NoNewWindow
 
     - name: Install luacov
       run: |
         ######## Use --tree to define the installation path of the module, which is luajit/share/lua/5.1/ although only the 'root' directory is set
-        Start-Process -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-windows-32\luarocks.exe" -ArgumentList "--lua-dir ${{ env.lua_install_dir }} --lua-version 5.1 --tree ${{ env.lua_install_dir }} install luacov" -Wait -NoNewWindow
+        Start-Process -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-windows-32\luarocks.exe" -ArgumentList "--lua-dir=${{ env.lua_install_dir }} --lua-version=5.1 --tree=${{ env.lua_install_dir }} install luacov" -Wait -NoNewWindow
 
     - name: Generate coverage report with luacov
       run: |
