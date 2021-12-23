@@ -113,9 +113,7 @@ jobs:
         #sudo find ${{ github.workspace }}\.testing\tests -name "*.lua" -type f -exec ${{ github.workspace }}\luajit\bin\luajit -lluacov {} \;
         dir -Path ${{ github.workspace }}\.testing\tests -Filter *.lua -Recurse | %{& '${{ env.lua_install_bin_dir }}\luajit.exe' $_.FullName -o text --verbose --error }
         
-        ls -R
-
-        ${{ github.workspace }}\luajit\bin\luacov
+        ${{ lua_install_bin_dir }}\luacov.bat
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v2
