@@ -1,5 +1,7 @@
 #!/usr/bin/env lua
+
 dofile("noita-mp/files/lib/external/init_package_loading.lua")
+
 local lu = require("luaunit")
 local fu = require("file_util")
 
@@ -45,8 +47,13 @@ end
 end ]]
 
 function TestFileUtil:testReplacePathSeparatorOnWindows()
-    local old = _G.is_windows
+    local old_is_windows = _G.is_windows
+    local old_is_linux = _G.is_linux
+    local old_path_separator = _G.path_separator
+
     _G.is_windows = true -- TODO: is there a better way to mock?
+    _G.is_linux = false -- TODO: is there a better way to mock?
+    _G.path_separator = "\\" -- TODO: is there a better way to mock?
 
     local path_unix = "/test/path/123"
     local path_windows = fu.ReplacePathSeparator(path_unix)
@@ -54,12 +61,19 @@ function TestFileUtil:testReplacePathSeparatorOnWindows()
     lu.assertNotEquals(path_unix, path_windows)
     lu.assertEquals([[\test\path\123]], path_windows)
 
-    _G.is_windows = old
+    _G.is_windows = old_is_windows
+    _G.is_linux = old_is_linux
+    _G.path_separator = old_path_separator
 end
 
 function TestFileUtil:testReplacePathSeparatorOnUnix()
-    local old = _G.is_windows
+    local old_is_windows = _G.is_windows
+    local old_is_linux = _G.is_linux
+    local old_path_separator = _G.path_separator
+
     _G.is_windows = false -- TODO: is there a better way to mock?
+    _G.is_linux = true -- TODO: is there a better way to mock?
+    _G.path_separator = "/" -- TODO: is there a better way to mock?
 
     local path_windows = "\\test\\path\\123"
     local path_unix = fu.ReplacePathSeparator(path_windows)
@@ -67,7 +81,9 @@ function TestFileUtil:testReplacePathSeparatorOnUnix()
     lu.assertNotEquals(path_windows, path_unix)
     lu.assertEquals("/test/path/123", path_unix)
 
-    _G.is_windows = old
+    _G.is_windows = old_is_windows
+    _G.is_linux = old_is_linux
+    _G.path_separator = old_path_separator
 end
 
 function TestFileUtil:testRemoveTrailingPathSeparator()
