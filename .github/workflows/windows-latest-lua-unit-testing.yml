@@ -130,31 +130,20 @@ jobs:
 
     - name: Install luarocks 3.8.0
       run: |
-        ### install lua rocks manually: https://github.com/luarocks/luarocks/wiki/Installation-instructions-for-Windows
-      
-        #Invoke-WebRequest -Uri "http://luarocks.github.io/luarocks/releases/luarocks-3.8.0-win32.zip" -OutFile "${{ github.workspace }}\luarocks-3.8.0-win32.zip"
         Invoke-WebRequest -Uri "http://luarocks.github.io/luarocks/releases/luarocks-3.8.0-windows-32.zip" -OutFile "${{ github.workspace }}\luarocks-3.8.0-win32.zip"
         Expand-Archive -Path ${{ github.workspace }}\luarocks-3.8.0-win32.zip -DestinationPath "${{ env.temp_dir }}"
-        cd ${{ env.temp_dir }}\luarocks-3.8.0-windows-32
-
-        #ls -R C:\Users\runneradmin\AppData\Roaming\
-
-        ### Replace user default config file of luarocks
-        #New-Item -Path "C:\Users\runneradmin\AppData\Roaming\" -Name "luarocks" -ItemType "directory"
-        #Copy-Item -Path "${{ github.workspace }}\.building\luarocks-3.8.0\config-windows-5.1.lua" -Destination "C:\Users\runneradmin\AppData\Roaming\luarocks\config-5.1.lua" -Recurse -force
-      
-        #cat C:\Users\runneradmin\AppData\Roaming\luarocks\config-5.1.lua
-
-        Start-Process -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-windows-32\luarocks.exe" -ArgumentList " config --local=`"${{ github.workspace }}\.building\luarocks-3.8.0\config-windows-5.1.lua`" " -Wait -NoNewWindow
-
+        
     - name: Install luacov
       run: |
-        ######## Use --tree to define the installation path of the module, which is luajit/share/lua/5.1/ although only the 'root' directory is set
         Start-Process -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-windows-32\luarocks.exe" -ArgumentList "--lua-dir=${{ env.lua_install_dir }} --lua-version=5.1 --tree=${{ env.lua_install_dir }} install luacov" -Wait -NoNewWindow
 
     - name: Generate coverage report with luacov
       run: |
-        sudo find ${{ github.workspace }}\.testing\tests -name "*.lua" -type f -exec ${{ github.workspace }}\luajit\bin\luajit -lluacov {} \;
+        #sudo find ${{ github.workspace }}\.testing\tests -name "*.lua" -type f -exec ${{ github.workspace }}\luajit\bin\luajit -lluacov {} \;
+        dir -Path ${{ github.workspace }}\.testing\tests -Filter *.lua -Recurse | %{& '${{ env.lua_install_bin_dir }}\luajit.exe' $_.FullName -o text --verbose --error
+        
+        ls -R
+
         ${{ github.workspace }}\luajit\bin\luacov
 
     - name: Upload coverage to Codecov
