@@ -139,7 +139,7 @@ function TestFileUtil:testGetRelativeDirectoryAndFilesOfSave06()
 
     local table, index = fu.GetRelativeDirectoryAndFilesOfSave06()
 
-    lu.assertEquals(table[1].dir_name, "", "Returned relativ path doesn't match.")
+    lu.assertEquals(table[1].dir_name, nil, "Returned relativ path doesn't match.")
     lu.assertEquals(table[1].file_name, "file1.txt", "Filename isn't equal.")
     lu.assertNotNil(table)
     lu.assertIsPlusZero(#table)

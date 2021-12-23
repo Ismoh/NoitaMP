@@ -71,7 +71,7 @@ end
 ----------------------------------------------------------------------------------------------------
 
 --- Returns files with its associated directory path relative to \save06\*
---- @return table [1] { "\persistent\flags" , "filename" }
+--- @return table [1] { "\dir1\dir2" , "filename.extension" } . If a file is inside \save06\ this will be returned: [2] { nil, "insideSave06.txt"}
 --- @return integer amount of files within save06 (rekursive)
 function fu.GetRelativeDirectoryAndFilesOfSave06()
     local dir_save_06 = "save06"
