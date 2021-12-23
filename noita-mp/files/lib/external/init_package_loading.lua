@@ -119,8 +119,8 @@ if current_clib_extension then
     --package.cpath = table.concat(cpaths, ";")
 
     --[[ NoitaMP additions ]]
-    package.path = fu.ReplacePathSeparator(package.path .. ";" .. table.concat(lpaths, ";"))
-    package.cpath = fu.ReplacePathSeparator(package.cpath .. ";" .. table.concat(cpaths, ";"))
+    package.path = fu.ReplacePathSeparator(table.concat(lpaths, ";"))
+    package.cpath = fu.ReplacePathSeparator(table.concat(cpaths, ";"))
 
     if destination_path then
         local lua_path_file = fu.RemoveTrailingPathSeparator(destination_path) .. _G.path_separator .. "lua_path.txt"
