@@ -27,25 +27,6 @@ end
 -- Platform specific functions
 ----------------------------------------------------------------------------------------------------
 
---[[ function TestFileUtil:testPlatformValues()
-    local path_separator = package.config:sub(1,1)
-    local windows = nil
-    local unix = nil
-
-    if path_separator == '\\' then
-        windows = true
-        unix = false
-    end
-    if _G.path_separator == '/' then
-        windows = false
-        unix = true
-    end
-
-    lu.assertEquals(_G.path_separator, path_separator)
-    lu.assertEquals(_G.is_windows, windows)
-    lu.assertEquals(_G.is_linux, unix)
-end ]]
-
 function TestFileUtil:testReplacePathSeparatorOnWindows()
     local old_is_windows = _G.is_windows
     local old_is_linux = _G.is_linux
@@ -116,7 +97,7 @@ function TestFileUtil:testSetAbsolutePathOfNoitaRootDirectory()
     lu.assertNotIsNil(_G.noita_root_directory_path, "_G.noita_root_directory_path must not be nil!")
 end
 
---[[ function TestFileUtil:testSetAbsolutePathOfNoitaRootDirectoryOnWindows()
+function TestFileUtil:testSetAbsolutePathOfNoitaRootDirectoryOnWindows()
     local old_is_windows = _G.is_windows
     local old_is_linux = _G.is_linux
 
@@ -129,7 +110,7 @@ end
     _G.is_windows = old_is_windows
     _G.is_linux = old_is_linux
 end
-
+--[[
 function TestFileUtil:testSetAbsolutePathOfNoitaRootDirectoryOnLinux()
     local old_is_windows = _G.is_windows
     local old_is_linux = _G.is_linux
