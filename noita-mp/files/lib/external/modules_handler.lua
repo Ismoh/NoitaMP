@@ -104,6 +104,8 @@ if current_clib_extension then
 
     _G.os_name = current_platform
     _G.os_arch = current_architecture
+    -- https://stackoverflow.com/a/14425862/3493998
+    _G.path_separator = tostring(package.config:sub(1,1))
 
     if _G.os_name == "Windows" then
         _G.is_windows = true

@@ -2,20 +2,7 @@ local fu = {}
 
 local ffi = require("ffi")
 
--- https://stackoverflow.com/a/14425862/3493998
-local path_separator = package.config:sub(1,1)
-_G.path_separator = tostring(path_separator)
-
-if _G.path_separator == '\\' then
-    _G.is_windows = true
-    _G.is_linux = false
-end
-if _G.path_separator == '/' then
-    _G.is_windows = false
-    _G.is_linux = true
-end
-
-print("file_util.lua | Detected " .. (_G.is_windows and "Windows" or "Unix") .. " with path separator '" .. path_separator .. "'.")
+print("file_util.lua | Detected " .. (_G.is_windows and "Windows" or "Unix") .. " with path separator '" .. _G.path_separator .. "'.")
 
 
 ----------------------------------------------------------------------------------------------------
@@ -120,7 +107,7 @@ function fu.GetRelativeDirectoryAndFilesOfSave06()
             else
                 local t_match = {}
                 local i_match = 0
-                for match in relative:gmatch("[^\\" .. path_separator .. "]*") do
+                for match in relative:gmatch("[^\\" .. _G.path_separator .. "]*") do
                     if match ~= "" then
                         i_match = i_match + 1
                         t_match[i_match] = match
@@ -129,7 +116,7 @@ function fu.GetRelativeDirectoryAndFilesOfSave06()
 
                 for ind, dir_or_file in ipairs(t_match) do
                     if ind < i_match then
-                        dir_name = dir_name .. dir_or_file .. path_separator
+                        dir_name = dir_name .. dir_or_file .. _G.path_separator
                     else
                         file_name = dir_or_file
                     end
