@@ -5,7 +5,7 @@ local params = {...}
 local destination_path = params[1]
 
 local default_package_path = package.path
-package.path = package.path .. ";./noita-mp/files/lib/external/?.lua;" .. "./noita-mp/files/scripts/util/?.lua;"
+package.path = package.path .. ";./noita-mp/files/lib/external/?.lua;" .. "./noita-mp/files/scripts/util/?.lua;" .. "mods/noita-mp/files/lib/external/?.lua;" .. "mods/noita-mp/files/scripts/util/?.lua;"
 
 local fu = require("file_util")
 --[[ NoitaMP additions ]]
@@ -38,7 +38,6 @@ local os_name = require("os_name")
 --[[ NoitaMP additions ]]
 package.path = default_package_path
 --[[ NoitaMP additions ]]
-
 -- A dot character represent current working directory
 local root_dir = "."
 local current_platform, current_architecture = os_name.getOS()
@@ -61,11 +60,10 @@ if _G.os_name == "Linux" then
 end
 
 print(
-        "init_package_loading.lua | Detected OS " ..
-            _G.os_name .. "(" .. _G.os_arch .. ") with path separator '" .. _G.path_separator .. "'."
-    )
+    "init_package_loading.lua | Detected OS " ..
+        _G.os_name .. "(" .. _G.os_arch .. ") with path separator '" .. _G.path_separator .. "'."
+)
 --[[ NoitaMP additions ]]
-
 if current_clib_extension then
     -- now you can process each defined path for module.
     for _, path in ipairs(paths) do
@@ -144,6 +142,6 @@ if current_clib_extension then
     print("init_package_loading.lua | package.path set to " .. package.path .. " .")
     print("init_package_loading.lua | package.cpath set to " .. package.cpath .. " .")
 else
-    error("Unable to detect OS!", 2)
     --[[ NoitaMP additions ]]
+    error("Unable to detect OS!", 2)
 end
