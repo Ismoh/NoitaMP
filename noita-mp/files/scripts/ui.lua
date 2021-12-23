@@ -1,5 +1,6 @@
 --local server = dofile_once("mods/noita-mp/files/scripts/net/server.lua")
 --local client = dofile_once("mods/noita-mp/files/scripts/net/client.lua")
+local fu = require("file_util")
 
 if initialized == nil then initialized = false; end
 
@@ -116,8 +117,8 @@ if not initialized then
                             print("server_class.lua | make_zip = " .. tostring(make_zip))
 
                             Sleep(2)
-                            StopSaveAndStartNoita()
-                        end                        
+                            fu.StopSaveAndStartNoita()
+                        end
                     end
                     GuiTooltip(gui, "Allow: You need to allow the client to connect, because Noita will be restarted to fully save the world.", "Unfortunatelly this is due to no/less access to Noita save functions.")
                     -- Kick Button

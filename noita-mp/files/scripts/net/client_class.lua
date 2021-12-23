@@ -1,5 +1,6 @@
-dofile("mods/noita-mp/files/scripts/util/file_util.lua")
+--dofile("mods/noita-mp/files/scripts/util/file_util.lua")
 
+local fu = require("file_util")
 local sock = require "sock"
 
 
@@ -64,7 +65,7 @@ function Client:createCallbacks()
         print(msg)
         GamePrint(msg)
 
-        local save06_parent_directory_path = GetAbsoluteDirectoryPathOfParentSave06()
+        local save06_parent_directory_path = fu.GetAbsoluteDirectoryPathOfParentSave06()
 
         -- if file_name ~= nil and file_name ~= ""
         -- then -- file in save06 | "" -> directory was sent
@@ -78,14 +79,14 @@ function Client:createCallbacks()
         -- else
         --     GamePrint("client_class.lua | Unable to write file, because path and content aren't set.")
         -- end
-        local archive_directory = GetAbsoluteDirectoryPathOfMods() .. _G.path_separator .. rel_dir_path
-        WriteBinaryFile( archive_directory .. _G.path_separator .. file_name, file_content)
+        local archive_directory = fu.GetAbsoluteDirectoryPathOfMods() .. _G.path_separator .. rel_dir_path
+        fu.WriteBinaryFile( archive_directory .. _G.path_separator .. file_name, file_content)
 
-        if Exists(GetAbsoluteDirectoryPathOfSave06()) then -- Create backup if save06 exists
-            os.execute('cd "' .. GetAbsoluteDirectoryPathOfParentSave06() .. '" && move save06 save06_backup')
+        if fu.Exists(fu.GetAbsoluteDirectoryPathOfSave06()) then -- Create backup if save06 exists
+            os.execute('cd "' .. fu.GetAbsoluteDirectoryPathOfParentSave06() .. '" && move save06 save06_backup')
         end
-        
-        Extract7zipArchive(archive_directory, file_name, save06_parent_directory_path)
+
+        fu.Extract7zipArchive(archive_directory, file_name, save06_parent_directory_path)
 
         if file_index >= amount_of_files then
             self.super:send("worldFilesFinished", { "" .. file_index .. "/" .. amount_of_files })
@@ -98,16 +99,16 @@ function Client:createCallbacks()
         ModSettingSet("noita-mp.connect_server_seed", server_seed)
 
         print("client_class.lua | Creating magic numbers file to set clients world seed and restart the game.")
-        WriteFile(GetAbsoluteDirectoryPathOfMods() .. "/files/tmp/magic_numbers/world_seed.xml",
+        fu.WriteFile(fu.GetAbsoluteDirectoryPathOfMods() .. "/files/tmp/magic_numbers/world_seed.xml",
                     [[<MagicNumbers WORLD_SEED="]] .. tostring(server_seed) .. [["/>]])
         --ModTextFileSetContent( GetRelativeDirectoryPathOfMods()
         --    .. "/files/data/magic_numbers.xml", )
 
         --BiomeMapLoad_KeepPlayer("data/biome_impl/biome_map_newgame_plus.lua", "data/biome/_pixel_scenes_newgame_plus.xml") -- StartReload(0)
     end)
-    
+
     self.super:on("restart", function(data)
-        StopWithoutSaveAndStartNoita()
+        fu.StopWithoutSaveAndStartNoita()
         --BiomeMapLoad_KeepPlayer("data/biome_impl/biome_map_newgame_plus.lua", "data/biome/_pixel_scenes_newgame_plus.xml") -- StartReload(0)
     end)
 

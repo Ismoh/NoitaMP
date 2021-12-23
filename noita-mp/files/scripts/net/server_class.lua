@@ -1,4 +1,5 @@
-dofile("mods/noita-mp/files/scripts/util/file_util.lua")
+--dofile("mods/noita-mp/files/scripts/util/file_util.lua")
+local fu = require("file_util")
 local sock = require "sock"
 
 
@@ -156,14 +157,14 @@ function Server:storeClients()
         table.insert(t, serialiseable_client)
     end
     local serialised = self.super:pack(t)
-    WriteFile(GetAbsoluteDirectoryPathOfMods() .. _G.path_separator .. "_" .. _G.path_separator .. "clients", serialised)
+    fu.WriteFile(fu.GetAbsoluteDirectoryPathOfMods() .. _G.path_separator .. "_" .. _G.path_separator .. "clients", serialised)
 end
 
 
 function Server:getStoredClients()
-    local full_path = GetAbsoluteDirectoryPathOfMods() .. _G.path_separator .. "_" .. _G.path_separator .. "clients"
-    if Exists(full_path) then
-        local serialised_content = ReadFile(full_path)
+    local full_path = fu.GetAbsoluteDirectoryPathOfMods() .. _G.path_separator .. "_" .. _G.path_separator .. "clients"
+    if fu.Exists(full_path) then
+        local serialised_content = fu.ReadFile(full_path)
         local stored_clients = self.super:unpack(serialised_content)
         return stored_clients
     end

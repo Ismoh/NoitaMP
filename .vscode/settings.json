@@ -8,6 +8,16 @@
         "describe",
         "it",
         "jit",
-        "bitser"
+        "bitser",
+        "MOD_SETTING_SCOPE_RUNTIME",
+        "MOD_SETTING_SCOPE_RUNTIME_RESTART",
+        "mod_settings_get_version",
+        "mod_settings_update",
+        "mod_settings_gui_count",
+        "mod_settings_gui",
+        "mod_setting_change_callback",
+        "mod_settings_version",
+        "mod_settings",
+        "draw_gui"
     ]
 }
