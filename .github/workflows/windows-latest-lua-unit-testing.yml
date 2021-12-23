@@ -142,7 +142,7 @@ jobs:
         ### set luajit pathes to luarocks
         #.\configure --prefix=${{ github.workspace }}\luarocks --with-lua=${{ github.workspace }}\luajit --with-lua-include=${{ github.workspace }}\luajit\include\luajit-2.0 --with-lua-lib=${{ github.workspace }}\luajit\lib
         Write-Host 'Start-Process -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-windows-32\luarocks.exe" -ArgumentList " /P ${{ github.workspace }}\luarocks-3.8.0 " -Wait -NoNewWindow'
-        Start-Process -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-windows-32\luarocks.exe" -ArgumentList " --config " -Wait -NoNewWindow
+        Start-Process -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-windows-32\luarocks.exe" -ArgumentList " config " -Wait -NoNewWindow
 
     - name: Install dependencies
       run: |
