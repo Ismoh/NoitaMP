@@ -13,6 +13,7 @@ jobs:
       lua_install_dir: ${{ github.workspace }}\Lua
       lua_install_bin_dir: ${{ github.workspace }}\Lua\bin
       lua_install_lib_dir: ${{ github.workspace }}\Lua\lib
+      lua_install_share_dir: ${{ github.workspace }}\Lua\share
       lua_install_include_dir: ${{ github.workspace }}\Lua\include
 
     steps:
@@ -25,6 +26,7 @@ jobs:
         New-Item -Path "${{ github.workspace }}" -Name "Lua" -ItemType "directory"
         New-Item -Path "${{ env.lua_install_dir }}" -Name "bin" -ItemType "directory"
         New-Item -Path "${{ env.lua_install_dir }}" -Name "lib" -ItemType "directory"
+        New-Item -Path "${{ env.lua_install_dir }}" -Name "share" -ItemType "directory"
         New-Item -Path "${{ env.lua_install_dir }}" -Name "include" -ItemType "directory"
 
     - name: Build and install LuaJIT 2.0.4
@@ -64,7 +66,7 @@ jobs:
       run: |
         fixedpath=$(echo "${{ env.temp_dir }}/lua_path.txt" | sed -e 's_\\_/_g') ### replace \ with /
         cat $fixedpath
-        echo "LUA_PATH=;;${{ github.workspace }}/Lua/lib/?.lua;${{ github.workspace }}/Lua/lib/?/init.lua;${{ github.workspace }}/Lua/lib/jit/?.lua;${{ github.workspace }}/Lua/lib/jit/?/init.lua;$(cat $fixedpath)" >> $GITHUB_ENV
+        echo "LUA_PATH=;;${{ lua_install_lib_dir }}\\?.lua;${{ lua_install_lib_dir }}\\?\\init.lua;${{ lua_install_lib_dir }}\\jit\\?.lua;${{ lua_install_lib_dir }}\\jit\\?\\init.lua;${{ lua_install_share_dir }}\\lua\\5.1\\?.lua;$(cat $fixedpath)" >> $GITHUB_ENV
 
         fixedpath=$(echo "${{ env.temp_dir }}/lua_cpath.txt" | sed -e 's_\\_/_g') ### replace \ with /
         cat $fixedpath
@@ -106,7 +108,7 @@ jobs:
         
     - name: Install luacov
       run: |
-        Start-Process -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-windows-32\luarocks.exe" -ArgumentList "--lua-dir=${{ env.lua_install_dir }} --lua-version=5.1 --tree=${{ env.lua_install_lib_dir }}\ install luacov" -Wait -NoNewWindow
+        Start-Process -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-windows-32\luarocks.exe" -ArgumentList "--lua-dir=${{ env.lua_install_dir }} --lua-version=5.1 --tree=${{ env.lua_install_dir }} install luacov" -Wait -NoNewWindow
 
         ls -R ${{ env.lua_install_dir }}
 
@@ -114,7 +116,7 @@ jobs:
       run: |
         dir -Path ${{ github.workspace }}\.testing\tests -Filter *.lua -Recurse | %{& '${{ env.lua_install_bin_dir }}\luajit.exe' -lluacov $_.FullName -o text --verbose --error }
         
-        ${{ env.lua_install_bin_dir }}\luacov.bat
+        Start-Process -FilePath "${{ env.lua_install_bin_dir }}\luacov.bat" -Wait -NoNewWindow
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v2
