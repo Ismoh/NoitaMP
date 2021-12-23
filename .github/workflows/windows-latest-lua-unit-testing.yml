@@ -150,7 +150,7 @@ jobs:
     - name: Install luacov
       run: |
         ######## Use --tree to define the installation path of the module, which is luajit/share/lua/5.1/ although only the 'root' directory is set
-        Start-Process -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-windows-32\luarocks.exe" -ArgumentList "--lua-dir {{ lua_install_dir }} --lua-version 5.1 --tree ${{ env.lua_install_dir }} install luacov" -Wait -NoNewWindow
+        Start-Process -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-windows-32\luarocks.exe" -ArgumentList "--lua-dir {{ env.lua_install_dir }} --lua-version 5.1 --tree ${{ env.lua_install_dir }} install luacov" -Wait -NoNewWindow
 
     - name: Generate coverage report with luacov
       run: |
