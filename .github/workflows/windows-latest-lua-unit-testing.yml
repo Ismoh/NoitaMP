@@ -1,0 +1,127 @@
+name: Windows Lua Unit Testing
+
+on: [push, pull_request]
+
+jobs:
+  lua-unit-testing-on-windows-latest:
+    name: "LuaUnit on Windows-latest (mingw32)"
+    runs-on: windows-latest
+    env:
+      temp_dir: ${{ github.workspace }}\temp
+      lua_temp_dir: ${{ github.workspace }}\temp\lua-5.1.5
+      luajit_temp_dir: ${{ github.workspace }}\temp\luaJIT-2.0.4
+      lua_install_dir: ${{ github.workspace }}\Lua
+      lua_install_bin_dir: ${{ github.workspace }}\Lua\bin
+      lua_install_lib_dir: ${{ github.workspace }}\Lua\lib
+      lua_install_share_dir: ${{ github.workspace }}\Lua\share
+      lua_install_include_dir: ${{ github.workspace }}\Lua\include
+
+    steps:
+    - uses: actions/checkout@main
+
+    - name: Make directories for Lua installation
+      run: |
+        ### https://gist.github.com/Egor-Skriptunoff/cb952f7eaf39b7b1bf739b818ece87cd
+        ### http://lua-users.org/wiki/BuildingLuaInWindowsForNewbies
+        New-Item -Path "${{ github.workspace }}" -Name "Lua" -ItemType "directory"
+        New-Item -Path "${{ env.lua_install_dir }}" -Name "bin" -ItemType "directory"
+        New-Item -Path "${{ env.lua_install_dir }}" -Name "lib" -ItemType "directory"
+        New-Item -Path "${{ env.lua_install_dir }}" -Name "share" -ItemType "directory"
+        New-Item -Path "${{ env.lua_install_dir }}" -Name "include" -ItemType "directory"
+
+    - name: Build and install LuaJIT 2.0.4
+      run: |
+        ### https://gist.github.com/Egor-Skriptunoff/cb952f7eaf39b7b1bf739b818ece87cd
+        ### http://lua-users.org/wiki/BuildingLuaInWindowsForNewbies
+
+        ### Build
+        Copy-Item -Path "${{ github.workspace }}\.building\LuaJIT-2.0.4\" -Destination "${{ env.luajit_temp_dir }}\" -Recurse
+        cd ${{ env.luajit_temp_dir }}\
+        mingw32-make PLAT=mingw
+        
+        ### Install
+        ### binaries
+        Copy-Item "${{ env.luajit_temp_dir }}\src\luajit.exe" -Destination "${{ env.lua_install_bin_dir }}\"
+        Copy-Item "${{ env.luajit_temp_dir }}\src\lua51.dll" -Destination "${{ env.lua_install_bin_dir }}\"
+        
+        ### modules written in lua
+        Copy-Item "${{ env.luajit_temp_dir }}\src\jit\" -Destination "${{ env.lua_install_lib_dir }}\jit\"
+
+        ### includes
+        Copy-Item "${{ env.luajit_temp_dir }}\src\luaconf.h" -Destination "${{ env.lua_install_include_dir }}\"
+        Copy-Item "${{ env.luajit_temp_dir }}\src\lua.h" -Destination "${{ env.lua_install_include_dir }}\"
+        Copy-Item "${{ env.luajit_temp_dir }}\src\lualib.h" -Destination "${{ env.lua_install_include_dir }}\"
+        Copy-Item "${{ env.luajit_temp_dir }}\src\lauxlib.h" -Destination "${{ env.lua_install_include_dir }}\"
+        Copy-Item "${{ env.luajit_temp_dir }}\src\lua.hpp" -Destination "${{ env.lua_install_include_dir }}\"
+
+        Start-Process -FilePath "${{ env.lua_install_bin_dir }}\luajit.exe" -ArgumentList " -v" -Wait -NoNewWindow
+        Start-Process -FilePath "${{ env.lua_install_bin_dir }}\luajit.exe" -ArgumentList " -e `"print(_VERSION)`"" -Wait -NoNewWindow
+
+    - name: Run lua script to adjust lua package pathes
+      run: |
+        Start-Process -FilePath "${{ env.lua_install_bin_dir }}\luajit.exe" -ArgumentList " ${{ github.workspace }}\noita-mp\files\lib\external\init_package_loading.lua ${{ env.temp_dir }}" -Wait -NoNewWindow
+        
+    - name: Set GitHub env variables
+      shell: bash
+      run: |
+        fixedpath=$(echo "${{ env.temp_dir }}/lua_path.txt" | sed -e 's_\\_/_g') ### replace \ with /
+        cat $fixedpath
+        echo "LUA_PATH=;;${{ env.lua_install_lib_dir }}\\?.lua;${{ env.lua_install_lib_dir }}\\?\\init.lua;${{ env.lua_install_lib_dir }}\\jit\\?.lua;${{ env.lua_install_lib_dir }}\\jit\\?\\init.lua;${{ env.lua_install_share_dir }}\\lua\\5.1\\?.lua;$(cat $fixedpath)" >> $GITHUB_ENV
+
+        fixedpath=$(echo "${{ env.temp_dir }}/lua_cpath.txt" | sed -e 's_\\_/_g') ### replace \ with /
+        cat $fixedpath
+        echo "LUA_CPATH=$(cat $fixedpath)" >> $GITHUB_ENV
+
+    - name: Install LuaUnit 3.4
+      if: ${{ false }}
+      run: |
+        Copy-Item "${{ github.workspace }}\.testing\luaunit.lua" -Destination "${{ env.lua_install_lib_dir }}\"
+
+    - name: Run LuaUnit 3.4
+      id: lua_unit_tests
+      shell: pwsh
+      run: |
+        dir -Path ${{ github.workspace }}\.testing\tests -Filter *.lua -Recurse | %{& '${{ env.lua_install_bin_dir }}\luajit.exe' $_.FullName -o text --verbose --error > ${{ github.workspace }}\.testing\testresult.log }
+        type ${{ github.workspace }}\.testing\testresult.log
+        
+        # https://timheuer.com/blog/manually-force-a-failure-in-github-action-step/
+        $testFail = Select-String -Path ${{ github.workspace }}\.testing\testresult.log -Pattern 'FAIL' -CaseSensitive
+        Write-Output "::set-output name=fail::$testFail"
+        
+        $testError = Select-String -Path ${{ github.workspace }}\.testing\testresult.log -Pattern 'ERROR' -CaseSensitive
+        Write-Output "::set-output name=error::$testError"
+      
+    - name: Unit test failed?
+      if: ${{ steps.lua_unit_tests.outputs.fail != '' || steps.lua_unit_tests.outputs.error != '' }}
+      run: |
+        echo "steps.lua_unit_tests.outputs.fail = ${{ steps.lua_unit_tests.outputs.fail }}"
+        echo "steps.lua_unit_tests.outputs.error = ${{ steps.lua_unit_tests.outputs.error }}"
+        echo "Unit tests failed!"
+        exit 1
+
+    - name: Install luarocks 3.8.0
+      run: |
+        Invoke-WebRequest -Uri "http://luarocks.github.io/luarocks/releases/luarocks-3.8.0-windows-32.zip" -OutFile "${{ github.workspace }}\luarocks-3.8.0-win32.zip"
+        Expand-Archive -Path ${{ github.workspace }}\luarocks-3.8.0-win32.zip -DestinationPath "${{ env.temp_dir }}"
+
+        Start-Process -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-windows-32\luarocks.exe" -ArgumentList " --version " -Wait -NoNewWindow
+        
+    - name: Install luacov
+      run: |
+        Start-Process -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-windows-32\luarocks.exe" -ArgumentList "--lua-dir=${{ env.lua_install_dir }} --lua-version=5.1 --tree=${{ env.lua_install_dir }} install luacov" -Wait -NoNewWindow
+
+        ls -R ${{ env.lua_install_dir }}
+
+    - name: Generate coverage report with luacov
+      run: |
+        dir -Path ${{ github.workspace }}\.testing\tests -Filter *.lua -Recurse | %{& '${{ env.lua_install_bin_dir }}\luajit.exe' -lluacov $_.FullName -o text --verbose --error }
+        
+        Start-Process -FilePath "${{ env.lua_install_bin_dir }}\luacov.bat" -Wait -NoNewWindow
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v2
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        directory: ${{ github.workspace }}
+        #path_to_write_report: ./codecov_report.txt https://github.com/codecov/codecov-action/issues/476
+        verbose: true

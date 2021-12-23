@@ -6,6 +6,8 @@
     "cmake.configureOnOpen": false,
     "Lua.diagnostics.globals": [
         "describe",
-        "it"
+        "it",
+        "jit",
+        "bitser"
     ]
 }
