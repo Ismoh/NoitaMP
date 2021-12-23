@@ -124,11 +124,11 @@ function TestFileUtil:testGetRelativeDirectoryAndFilesOfSave06()
     local newfile_command = nil
     if _G.is_windows then
         mkdir_command = 'mkdir "%appdata%\\..\\LocalLow\\Nolla_Games_Noita\\save06"'
-        newfile_command = 'echo "file1" > file1.txt'
+        newfile_command = 'echo "file1" > %appdata%\\..\\LocalLow\\Nolla_Games_Noita\\save06\\file1.txt'
     end
     if _G.is_linux then
         mkdir_command = 'mkdir ~/.steam/steam/userdata/$(id -u)/881100/'
-        newfile_command = 'echo "file1" > file1.txt'
+        newfile_command = 'echo "file1" > ~/.steam/steam/userdata/$(id -u)/881100/file1.txt'
     end
 
     local mkdir_command_result = assert(io.popen(mkdir_command, "r"), "Unable to execute command: " .. mkdir_command)
