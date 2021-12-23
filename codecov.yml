@@ -1,0 +1,9 @@
+ignore:
+  - ".building"
+  - ".debug"
+  - ".github"
+  - ".vscode"
+  - ".gitattritbutes"
+  - ".gitignore"
+  - "LICENSE"
+  - "README.md"
