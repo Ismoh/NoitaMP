@@ -86,6 +86,19 @@ function TestFileUtil:testReplacePathSeparatorOnUnix()
     _G.path_separator = old_path_separator
 end
 
+function TestFileUtil:testReplacePathSeparatorUnkownOs()
+    local old_is_windows = _G.is_windows
+    local old_is_linux = _G.is_linux
+
+    _G.is_windows = false -- TODO: is there a better way to mock?
+    _G.is_linux = false -- TODO: is there a better way to mock?
+
+    lu.assertErrorMsgContains("file_util.lua | Unable to detect OS", fu.ReplacePathSeparator, "path doesnt matter")
+
+    _G.is_windows = old_is_windows
+    _G.is_linux = old_is_linux
+end
+
 function TestFileUtil:testRemoveTrailingPathSeparator()
     local path = tostring(_G.path_separator .. "persistent" .. _G.path_separator .. "flags" .. _G.path_separator)
     local result = fu.RemoveTrailingPathSeparator(path)
@@ -112,7 +125,7 @@ end
 ----------------------------------------------------------------------------------------------------
 
 function TestFileUtil:testGetRelativeDirectoryAndFilesOfSave06()
-    
+
 end
 
 function TestFileUtil:testGetAbsoluteDirectoryPathOfParentSave06()
@@ -202,7 +215,7 @@ end
 
 function TestFileUtil:testMkDir()
     lu.assertErrorMsgContains("is not type of string!", fu.MkDir)
-    
+
     -- TODO: windows
     -- local dir_path = _G.noita_root_directory_path .. "/.testing/temp-test-dir"
     -- fu.MkDir(dir_path)
@@ -211,7 +224,7 @@ function TestFileUtil:testMkDir()
 end
 
 function TestFileUtil:testFind7zipExecutable()
-    
+
 end
 
 function TestFileUtil:testExists7zip()

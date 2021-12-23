@@ -18,7 +18,7 @@ function fu.ReplacePathSeparator(path)
         print("file_util.lua | unix detected replace \\ with /")
         path = string.gsub(path, "\\", "/")
     else
-        error("Unable to detect OS, therefore not able to replace path separator!", 2)
+        error(("file_util.lua | Unable to detect OS(%s[%s]), therefore not able to replace path separator!"):format(_G.os_name, _G.os_arch), 2)
     end
     return path
 end
