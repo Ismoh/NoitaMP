@@ -90,12 +90,16 @@ jobs:
         
         $testError = Select-String -Path ${{ github.workspace }}\.testing\testresult.log -Pattern 'ERROR' -CaseSensitive
         Write-Output "::set-output name=error::$testError"
+
+        $notFound = Select-String -Path ${{ github.workspace }}\.testing\testresult.log -Pattern 'not found' -CaseSensitive
+        Write-Output "::set-output name=not_found::$notFound"
       
     - name: Unit test failed?
-      if: ${{ steps.lua_unit_tests.outputs.fail != '' || steps.lua_unit_tests.outputs.error != '' }}
+      if: ${{ steps.lua_unit_tests.outputs.fail != '' || steps.lua_unit_tests.outputs.error != '' || steps.lua_unit_tests.outputs.not_found != '' }}
       run: |
         echo "steps.lua_unit_tests.outputs.fail = ${{ steps.lua_unit_tests.outputs.fail }}"
         echo "steps.lua_unit_tests.outputs.error = ${{ steps.lua_unit_tests.outputs.error }}"
+        echo "steps.lua_unit_tests.outputs.not_found = ${{ steps.lua_unit_tests.outputs.not_found }}"
         echo "Unit tests failed!"
         exit 1
 
