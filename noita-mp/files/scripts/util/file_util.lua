@@ -47,8 +47,10 @@ function fu.SetAbsolutePathOfNoitaRootDirectory()
 
     if _G.is_windows then
         noita_root_directory_path = assert(io.popen("cd"):read("*l"), "Unable to run windows command 'cd' to get Noitas root directory!")
-    else
+    elseif _G.is_linux then
         noita_root_directory_path = assert(io.popen("pwd"):read("*l"), "Unable to run ubuntu command 'pwd' to get Noitas root directory!")
+    else
+        error(("file_util.lua | Unable to detect OS(%s[%s]), therefore not able to replace path separator!"):format(_G.os_name, _G.os_arch), 2)
     end
 
     noita_root_directory_path = fu.ReplacePathSeparator(noita_root_directory_path)

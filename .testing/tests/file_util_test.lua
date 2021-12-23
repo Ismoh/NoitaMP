@@ -111,9 +111,45 @@ end
 -- Noita specific file, directory or path functions
 ----------------------------------------------------------------------------------------------------
 
-function TestFileUtil:testSetAbsolutePathOfNoitaRootDirectory()
+function TestFileUtil:testSetAbsolutePathOfNoitaRootDirectoryOnWindows()
+    local old_is_windows = _G.is_windows
+    local old_is_linux = _G.is_linux
+
+    _G.is_windows = true -- TODO: is there a better way to mock?
+    _G.is_linux = false -- TODO: is there a better way to mock?
+
     fu.SetAbsolutePathOfNoitaRootDirectory()
     lu.assertNotIsNil(_G.noita_root_directory_path, "_G.noita_root_directory_path must not be nil!")
+
+    _G.is_windows = old_is_windows
+    _G.is_linux = old_is_linux
+end
+
+function TestFileUtil:testSetAbsolutePathOfNoitaRootDirectoryOnLinux()
+    local old_is_windows = _G.is_windows
+    local old_is_linux = _G.is_linux
+
+    _G.is_windows = false -- TODO: is there a better way to mock?
+    _G.is_linux = true -- TODO: is there a better way to mock?
+
+    fu.SetAbsolutePathOfNoitaRootDirectory()
+    lu.assertNotIsNil(_G.noita_root_directory_path, "_G.noita_root_directory_path must not be nil!")
+
+    _G.is_windows = old_is_windows
+    _G.is_linux = old_is_linux
+end
+
+function TestFileUtil:testSetAbsolutePathOfNoitaRootDirectoryUnkownOs()
+    local old_is_windows = _G.is_windows
+    local old_is_linux = _G.is_linux
+
+    _G.is_windows = false -- TODO: is there a better way to mock?
+    _G.is_linux = false -- TODO: is there a better way to mock?
+
+    lu.assertErrorMsgContains("file_util.lua | Unable to detect OS", fu.SetAbsolutePathOfNoitaRootDirectory, "path doesnt matter")
+
+    _G.is_windows = old_is_windows
+    _G.is_linux = old_is_linux
 end
 
 function TestFileUtil:testGetAbsolutePathOfNoitaRootDirectory()
