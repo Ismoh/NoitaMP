@@ -140,17 +140,17 @@ jobs:
         ls -R C:\Users\runneradmin\AppData\Roaming\
 
         ### Replace user default config file of luarocks
-        New-Item -Path "C:\Users\runneradmin\AppData\Roaming\" -Name "luarocks" -ItemType "directory"
-        Copy-Item -Path "${{ github.workspace }}\.building\luarocks-3.8.0\config-windows-5.1.lua" -Destination "C:\Users\runneradmin\AppData\Roaming\luarocks\config-5.1.lua" -Recurse -force
+        #New-Item -Path "C:\Users\runneradmin\AppData\Roaming\" -Name "luarocks" -ItemType "directory"
+        #Copy-Item -Path "${{ github.workspace }}\.building\luarocks-3.8.0\config-windows-5.1.lua" -Destination "C:\Users\runneradmin\AppData\Roaming\luarocks\config-5.1.lua" -Recurse -force
       
-        cat C:\Users\runneradmin\AppData\Roaming\luarocks\config-5.1.lua
+        #cat C:\Users\runneradmin\AppData\Roaming\luarocks\config-5.1.lua
 
         Start-Process -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-windows-32\luarocks.exe" -ArgumentList " config" -Wait -NoNewWindow
 
     - name: Install luacov
       run: |
         ######## Use --tree to define the installation path of the module, which is luajit/share/lua/5.1/ although only the 'root' directory is set
-        Start-Process -FilePath "${{ github.workspace }}\luarocks\bin\luarocks" -ArgumentList "/TREE=${{ github.workspace }}\.building\LuaJIT-2.0.4\src\lua\ install luacov" -Wait -NoNewWindow
+        Start-Process -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-windows-32\luarocks.exe" -ArgumentList "--tree ${{ env.lua_install_dir }} install luacov" -Wait -NoNewWindow
 
     - name: Generate coverage report with luacov
       run: |
