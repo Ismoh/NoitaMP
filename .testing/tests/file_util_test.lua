@@ -138,6 +138,7 @@ function TestFileUtil:testGetRelativeDirectoryAndFilesOfSave06()
     print(newfile_command_result:read("*a"))
 
     local table, index = fu.GetRelativeDirectoryAndFilesOfSave06()
+    print(table[1])
 
     lu.assertEquals(table[1].dir_name, nil, "Returned relativ path doesn't match.")
     lu.assertEquals(table[1].file_name, "file1.txt", "Filename isn't equal.")
