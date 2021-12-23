@@ -140,7 +140,7 @@ jobs:
         ls -R
 
         ### Replace user default config file of luarocks
-        Copy-Item -Path "${{ github.workspace }}\.building\luarocks-3.8.0\config-windows.5.1.lua" -Destination "C:/Users/runneradmin/AppData/Roaming/luarocks/config-5.1.lua" -force
+        Copy-Item -Path "${{ github.workspace }}\.building\luarocks-3.8.0\config-5.1.lua" -Destination "C:/Users/runneradmin/AppData/Roaming/luarocks/" -force
       
         cat C:/Users/runneradmin/AppData/Roaming/luarocks/config-5.1.lua
 
