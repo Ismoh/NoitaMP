@@ -91,7 +91,7 @@ jobs:
         $testError = Select-String -Path ${{ github.workspace }}\.testing\testresult.log -Pattern 'ERROR' -CaseSensitive
         Write-Output "::set-output name=error::$testError"
 
-        $notFound = Select-String -Path ${{ github.workspace }}\.testing\testresult.log -CaseSensitive
+        $notFound = Get-Content -Path ${{ github.workspace }}\.testing\testresult.log
         Write-Output "::set-output name=not_found::$notFound"
       
     - name: Unit test failed?
