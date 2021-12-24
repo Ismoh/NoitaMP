@@ -172,7 +172,7 @@ function fu.GetAbsoluteDirectoryPathOfParentSave06()
 
     file = assert(io.popen(command, "r")) -- path where noita.exe is
 
-    fu.Exists("/home/runner/work/NoitaMP/NoitaMP/.steam/steam/userdata/$(id -u)/881100/")
+    fu.Exists("/home/runner/work/NoitaMP/NoitaMP/.steam/steam/userdata/$(id -u)/881100/Nolla_Games_Noita/")
 
     local save06_parent_directory_path = nil
     local line = ""
@@ -257,7 +257,7 @@ function fu.Exists(full_path)
         error("file_util.lua | Parameter full_path '" .. tostring(full_path) .. "' is not type of string!")
     end
     local exists = os.rename(full_path, full_path) and true or false
-    print("file_util.lua | File or directory " .. full_path .. " exists = " .. exists)
+    print("file_util.lua | File or directory " .. full_path .. " exists = " .. tostring(exists))
     return exists
 end
 
