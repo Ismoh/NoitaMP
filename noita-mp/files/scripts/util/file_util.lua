@@ -176,6 +176,7 @@ function fu.GetAbsoluteDirectoryPathOfParentSave06()
     local line = ""
     while line ~= nil do
         line = file:read("*l")
+        print("file_util.lua | GetAbsoluteDirectoryPathOfParentSave06 line = " .. line)
         if string.find(line, find_directory_name) then
             save06_parent_directory_path = line
             break
