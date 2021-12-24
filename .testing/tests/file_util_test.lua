@@ -148,6 +148,7 @@ end
 end ]]
 
 function TestFileUtil:testGetAbsoluteDirectoryPathOfParentSave06()
+    lu.skipIf(_G.is_linux)
     -- Mock begin
     local mkdir_command = nil
 
