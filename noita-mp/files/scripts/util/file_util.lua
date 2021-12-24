@@ -158,11 +158,11 @@ function fu.GetAbsoluteDirectoryPathOfParentSave06()
 
     if _G.is_windows then
         command = 'dir "%appdata%\\..\\LocalLow\\Nolla_Games_Noita\\.." /s/b/ad'
-        find_directory_name = "Noita"
+        find_directory_name = "Nolla_Games_Noita"
 
         if DebugGetIsDevBuild() then
             command = "dir .. /s/b/ad"
-            find_directory_name = "Nolla_Games_Noita"
+            find_directory_name = "Noita"
         end
     else
         --error("Unix system are not supported yet :(",2)

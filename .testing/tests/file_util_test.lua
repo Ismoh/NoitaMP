@@ -155,7 +155,7 @@ function TestFileUtil:testGetAbsoluteDirectoryPathOfParentSave06()
         mkdir_command = 'mkdir "%appdata%\\..\\LocalLow\\Nolla_Games_Noita\\"'
     end
     if _G.is_linux then
-        mkdir_command = 'mkdir ~/.steam/steam/userdata/$(id -u)/881100/'
+        mkdir_command = 'mkdir ~/.steam/steam/userdata/$(id -u)/881100/Nolla_Games_Noita/'
     end
 
     local mkdir_command_result = assert(io.popen(mkdir_command, "r"), "Unable to execute command: " .. mkdir_command)
