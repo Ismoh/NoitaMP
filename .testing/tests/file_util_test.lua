@@ -148,7 +148,7 @@ end
 end ]]
 
 function TestFileUtil:testGetAbsoluteDirectoryPathOfParentSave06()
-    lu.skipIf(_G.is_linux)
+    lu.skipIf(_G.is_linux, "Linux not supported yet!")
     -- Mock begin
     local mkdir_command = nil
 
