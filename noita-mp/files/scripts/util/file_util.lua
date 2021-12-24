@@ -172,6 +172,8 @@ function fu.GetAbsoluteDirectoryPathOfParentSave06()
 
     file = assert(io.popen(command, "r")) -- path where noita.exe is
 
+    fu.Exists("/home/runner/work/NoitaMP/NoitaMP/.steam/steam/userdata/$(id -u)/881100/")
+
     local save06_parent_directory_path = nil
     local line = ""
     while line ~= nil do
