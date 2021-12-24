@@ -148,8 +148,23 @@ end
 end ]]
 
 function TestFileUtil:testGetAbsoluteDirectoryPathOfParentSave06()
-    lu.assertError(fu.GetAbsoluteDirectoryPathOfParentSave06)
-    lu.assertErrorMsgContains("", fu.GetAbsoluteDirectoryPathOfParentSave06)
+    -- Mock begin
+    local mkdir_command = nil
+
+    if _G.is_windows then
+        mkdir_command = 'mkdir "%appdata%\\..\\LocalLow\\Nolla_Games_Noita\\"'
+    end
+    if _G.is_linux then
+        mkdir_command = 'mkdir ~/.steam/steam/userdata/$(id -u)/881100/'
+    end
+
+    local mkdir_command_result = assert(io.popen(mkdir_command, "r"), "Unable to execute command: " .. mkdir_command)
+    print(mkdir_command_result:read("*a"))
+    -- Mock end
+
+    local result = fu.GetAbsoluteDirectoryPathOfParentSave06()
+    lu.assertNotNil(result)
+    lu.assertStrContains(result, "Noita", "", "Parent directory of save06 does not contain Noita!")
 end
 
 function TestFileUtil:testGetAbsoluteDirectoryPathOfSave06()
