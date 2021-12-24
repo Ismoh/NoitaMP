@@ -256,7 +256,9 @@ function fu.Exists(full_path)
     if type(full_path) ~= "string" then
         error("file_util.lua | Parameter full_path '" .. tostring(full_path) .. "' is not type of string!")
     end
-    return os.rename(full_path, full_path) and true or false
+    local exists = os.rename(full_path, full_path) and true or false
+    print("file_util.lua | File or directory " .. full_path .. " exists = " .. exists)
+    return exists
 end
 
 function fu.IsFile(full_path)
