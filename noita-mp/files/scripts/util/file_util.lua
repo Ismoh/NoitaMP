@@ -166,7 +166,7 @@ function fu.GetAbsoluteDirectoryPathOfParentSave06()
         end
     else
         --error("Unix system are not supported yet :(",2)
-        command = 'find "~/.steam/steam/userdata/$(id -u)/881100/"'
+        command = 'find "~/.steam/steam/userdata/$(id -u)/881100/Nolla_Games_Noita/"'
         find_directory_name = "Nolla_Games_Noita"
     end
 
