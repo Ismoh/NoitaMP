@@ -1,6 +1,6 @@
 #!/usr/bin/env lua
 
-dofile_once("noita-mp/files/lib/external/init_package_loading.lua")
+dofile("noita-mp/files/lib/external/init_package_loading.lua")
 
 local lu = require("luaunit")
 local fu = require("file_util")
