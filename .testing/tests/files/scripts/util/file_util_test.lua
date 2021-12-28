@@ -8,7 +8,7 @@ local fu = require("file_util")
 TestFileUtil = {}
 
 function TestFileUtil:setUp()
-    print("\n")
+    print("setUp\n")
     -- Mock Noita Api global functions
     _G.DebugGetIsDevBuild = function ()
         return false
@@ -20,7 +20,7 @@ function TestFileUtil:setUp()
 end
 
 function TestFileUtil:tearDown()
-    print("\n")
+    print("\ntearDown")
 end
 
 ----------------------------------------------------------------------------------------------------
