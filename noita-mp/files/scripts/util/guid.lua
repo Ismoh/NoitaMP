@@ -14,6 +14,8 @@ function Guid.getGuid()
     local x = "x"
     local t = {x:rep(8), x:rep(4), x:rep(4), x:rep(4), x:rep(12)}
     local guid = table.concat(t, "-")
+    local is_valid = false
+    local is_unique = false
 
     repeat
         guid =
@@ -28,9 +30,22 @@ function Guid.getGuid()
                 return Guid.getRandomRange_aA_to_fF()
             end
         )
-    until Guid.isValid(guid)
-    print("guid.lua | guid = " .. guid .. " is valid = " .. tostring(Guid.isValid(guid)))
+        is_valid = Guid.isPatternValid(guid)
+        is_unique = Guid.isUnique(guid)
+    until is_valid and is_unique
+
+    table.insert(Guid.cached_guid, guid)
+    print("guid.lua | guid = " .. guid .. " is valid = " .. tostring(is_valid) .. " and is unique = " .. tostring(is_unique))
     return guid
+end
+
+function Guid.isUnique(guid)
+    local is_unique = true
+    if table.contains(Guid.cached_guid, guid) == true then
+        print("guid.lua | guid (" .. guid .. ") isn't unique, therefore it's not valid!")
+        is_unique = false
+    end
+    return is_unique
 end
 
 function Guid.getRandomRange_0_to_9()
@@ -43,22 +58,16 @@ function Guid.getRandomRange_aA_to_fF()
     return string.upper(chars[char_index])
 end
 
---- Validates a guid.
+--- Validates a guid only on its pattern.
 --- @param guid string
 --- @return boolean isValid
-function Guid.isValid(guid)
+function Guid.isPatternValid(guid)
     local is_valid = false
     local pattern = "%x%x%x%x%x%x%x%x%-%x%x%x%x%-%x%x%x%x%-%x%x%x%x%-%x%x%x%x%x%x%x%x%x%x%x%x"
     local match = guid:match(pattern)
 
     if match == guid then
         is_valid = true
-        if table.contains(Guid.cached_guid, guid) == true then
-            print("guid.lua | guid (" .. guid .. ") isn't unique, therefore it's not valid!")
-            is_valid = false
-        else
-            table.insert(Guid.cached_guid, guid)
-        end
     end
     return is_valid
 end

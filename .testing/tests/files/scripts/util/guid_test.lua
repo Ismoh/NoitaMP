@@ -19,7 +19,7 @@ end
 function TestGuid:testGetGuid()
     local guid = Guid.getGuid()
     lu.assertNotIsNil(guid)
-    lu.assertIsTrue(Guid.isValid(guid))
+    lu.assertIsTrue(Guid.isPatternValid(guid))
 end
 
 function TestGuid:testRandomness()
