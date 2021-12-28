@@ -1,6 +1,6 @@
 -- Fix package.path and package.cpath once
 dofile_once("mods/noita-mp/files/lib/external/init_package_loading.lua")
-dofile_once("mods/noita-mp/files/util/table_extensions.lua")
+dofile_once("mods/noita-mp/files/scripts/util/table_extensions.lua")
 
 
 dofile("mods/noita-mp/files/scripts/util/util.lua")
