@@ -24,7 +24,7 @@ end
 
 function TestGuid:testRandomness()
     local t = {}
-    for i = 1, 10000000, 1 do
+    for i = 1, 1000, 1 do
         local new_guid = Guid.getGuid()
         lu.assertIsFalse(table.contains(t, new_guid))
         table.insert(t, new_guid)
