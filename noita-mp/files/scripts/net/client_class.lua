@@ -1,7 +1,8 @@
 --dofile("mods/noita-mp/files/scripts/util/file_util.lua")
 
 local fu = require("file_util")
-local sock = require "sock"
+local sock = require("sock")
+local Guid = require("guid")
 
 
 -- https://www.tutorialspoint.com/lua/lua_object_oriented.htm
@@ -138,6 +139,8 @@ function Client:connect()
 
         self.super = sock.newClient(ip, port)
     end
+
+    self.super.guid = ModSettingGet("noita-mp.guid")
 
     self:setSettings()
     self:createCallbacks()

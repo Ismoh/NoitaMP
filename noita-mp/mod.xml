@@ -4,9 +4,9 @@
 	request_no_api_restrictions="1"
 	ui_newgame_name="Noita Multiplayer"
 	ui_newgame_description="Let's see if I can create a multiplayer mod for Noita."
-	ui_newgame_gfx_banner_bg=""
-	ui_newgame_gfx_banner_fg=""
+	ui_newgame_gfx_banner_bg="data/ui_gfx/game_mode/banner_dailyrun_background.png"
+	ui_newgame_gfx_banner_fg="mods/noita-mp/files/data/ui_gfx/game_mode/banner_noita-mp_overlay.png"
 	is_game_mode="1"
-	game_mode_supports_save_slots="6"
+	game_mode_supports_save_slots="1"
 > 
 </Mod>

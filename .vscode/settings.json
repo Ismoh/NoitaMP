@@ -18,6 +18,9 @@
         "mod_setting_change_callback",
         "mod_settings_version",
         "mod_settings",
-        "draw_gui"
+        "draw_gui",
+        "mod_setting_readonly",
+        "mod_setting_get_id",
+        "mod_setting_tooltip"
     ]
 }

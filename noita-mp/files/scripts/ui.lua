@@ -100,9 +100,9 @@ if not initialized then
                     i = (i - 1) * 3 -- 1-1*5=0 | 2-1*5=5 | 3-1*5=10
                     GuiText(gui, 0,i, client.username)
                     GuiText(gui, 5,i, client:getRoundTripTime() .. "ms")
-                    GuiImage(gui, next_id(), 10, i, "mods/noita-mp/files/data/ui/green_tik_8x8.png" , 1,1,1)
+                    GuiImage(gui, next_id(), 10, i, "mods/noita-mp/files/data/ui_gfx/in_game/green_tik_8x8.png" , 1,1,1)
                     -- Allow Button
-                    if GuiImageButton(gui, next_id(), 15, i, "", "mods/noita-mp/files/data/ui/green_tik_8x8.png") then
+                    if GuiImageButton(gui, next_id(), 15, i, "", "mods/noita-mp/files/data/ui_gfx/in_game/green_tik_8x8.png") then
                         if _G.Server:checkIsAllowed(client) then
                             -- Send map, if already allowed to join
                             _G.Server:sendMap(client)
@@ -122,13 +122,13 @@ if not initialized then
                     end
                     GuiTooltip(gui, "Allow: You need to allow the client to connect, because Noita will be restarted to fully save the world.", "Unfortunatelly this is due to no/less access to Noita save functions.")
                     -- Kick Button
-                    if GuiImageButton(gui, next_id(), 15, i, "", "mods/noita-mp/files/data/ui/red_tik_8x8.png") then
+                    if GuiImageButton(gui, next_id(), 15, i, "", "mods/noita-mp/files/data/ui_gfx/in_game/red_tik_8x8.png") then
 
                     end
                 end
             end
 
-            -- GuiImage(gui, next_id(), 0, 0, "noita-mp/files/data/ui/green_tik.png" , 1,1,1)
+            -- GuiImage(gui, next_id(), 0, 0, "noita-mp/files/data/ui_gfx/in_game/green_tik_8x8.png" , 1,1,1)
             -- GuiTooltip(gui, "", "")
 
             -- if _G.Client ~= nil and next(_G.Client) ~= nil then

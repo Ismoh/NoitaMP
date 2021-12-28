@@ -28,7 +28,7 @@ function Guid:getGuid()
     repeat
         guid =
             string.gsub(
-            guid,
+                guid,
             x,
             function(c)
                 local is_digit = math.random(0, 1)
@@ -45,7 +45,7 @@ function Guid:getGuid()
     table.insert(self.cached_guid, guid)
     print(
         "guid.lua | guid = " ..
-            guid .. " is valid = " .. tostring(is_valid) .. " and is unique = " .. tostring(is_unique)
+        guid .. " is valid = " .. tostring(is_valid) .. " and is unique = " .. tostring(is_unique)
     )
     return guid
 end
@@ -68,6 +68,10 @@ end
 --- @param guid string
 --- @return boolean true if GUID is unique.
 function Guid:isUnique(guid)
+    if guid == nil or guid == "" or type(guid) ~= "string" then
+        print("guid.lua | guid is nil, empty or not a string. Returning false!")
+        return false
+    end
     local is_unique = true
     if table.contains(self.cached_guid, guid) == true then
         print("guid.lua | guid (" .. guid .. ") isn't unique, therefore it's not valid!")

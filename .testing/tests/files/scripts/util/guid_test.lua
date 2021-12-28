@@ -20,6 +20,12 @@ function TestGuid:testGetGuid()
     local guid = Guid:getGuid()
     lu.assertNotIsNil(guid)
     lu.assertIsTrue(Guid.isPatternValid(guid))
+
+    lu.assertIsFalse(Guid.isPatternValid(""))
+    lu.assertIsFalse(Guid.isPatternValid(nil))
+
+    local number = tonumber(1)
+    lu.assertIsFalse(Guid.isPatternValid(number))
 end
 
 function TestGuid:testRandomness()

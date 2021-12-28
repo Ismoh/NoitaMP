@@ -1,6 +1,6 @@
 --dofile("mods/noita-mp/files/scripts/util/file_util.lua")
 local fu = require("file_util")
-local sock = require "sock"
+local sock = require("sock")
 
 
 -- https://www.tutorialspoint.com/lua/lua_object_oriented.htm
@@ -81,6 +81,8 @@ function Server:create()
 
     self.super = sock.newServer(ip, port)
     print("server_class.lua | Server started on " .. self.super:getAddress() .. ":" .. self.super:getPort())
+    
+    self.super.guid = ModSettingGet("noita-mp.guid")
 
     self:setSettings()
     self:createCallbacks()
