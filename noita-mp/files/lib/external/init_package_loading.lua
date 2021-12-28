@@ -12,6 +12,9 @@ local fu = require("file_util")
 -- A list of paths to lua script modules
 local paths = {
     "{root}/noita-mp/files/{module}",
+    "{root}/noita-mp/files/scripts/{module}",
+    "{root}/noita-mp/files/scripts/net/{module}",
+    "{root}/noita-mp/files/scripts/util/{module}",
     "{root}/noita-mp/files/lib/{module}",
     "{root}/noita-mp/files/lib/external/{module}",
     "{root}/noita-mp/files/lib/external/platform-specific/{platform}/{module}"

@@ -8,11 +8,11 @@ local guid = require("guid")
 TestGuid = {}
 
 function TestGuid:setUp()
-    print("setUp\n")
+    print("\nsetUp")
 end
 
 function TestFileUtil:tearDown()
-    print("\ntearDown")
+    print("tearDown\n")
 end
 
 function TestGuid:testGetGuid()
