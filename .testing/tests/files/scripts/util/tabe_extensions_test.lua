@@ -23,14 +23,14 @@ function TestTableExtensions:testTableContains()
     lu.assertIsTrue(table.contains(t, "flag"))
     lu.assertIsTrue(table.contains(t, "line"))
 
-    lu.assertIsTrue(table.contains(t2, 2))
-    lu.assertIsTrue(table.contains(t2, 4))
+    lu.assertIsTrue(table.contains(t2, 23))
+    lu.assertIsTrue(table.contains(t2, 57))
 
     lu.assertIsFalse(table.contains(t, "balls"))
     lu.assertIsFalse(table.contains(t, "balls"))
 
     lu.assertIsFalse(table.contains(t2, 0))
-    lu.assertIsFalse(table.contains(t2, 10))
+    lu.assertIsFalse(table.contains(t2, 4))
 end
 
 function TestTableExtensions:testTableContainsAll()

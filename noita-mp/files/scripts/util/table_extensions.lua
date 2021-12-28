@@ -1,14 +1,19 @@
 -- Used to extend default lua implementations
--- https://gist.github.com/HoraceBury/9307117
 
---- Return true, if the key is contained in the tbl.
----@param tbl table Table to check.
----@param key any Number or String for indexing the table.
----@return boolean true if indexing by key does not return nil
-table.contains = function (tbl, key)
-    return tbl[key] ~= nil
+--- Return true, if the key is contained in the tbl. NOTE: Doesn't check for duplicates inside the table.
+--- @param tbl table Table to check.
+--- @param key any Number(index) or String(name matching) for indexing the table.
+--- @return boolean true if indexing by key does not return nil
+table.contains = function(tbl, key)
+    for index, value in ipairs(tbl) do
+        if value == key then
+            return true
+        end
+    end
+    return false
 end
 
+-- https://gist.github.com/HoraceBury/9307117
 --- Returns true if all the arg parameters are contained in the tbl.
 --- @param tbl table The table to check within for the values passed in the following parameters.
 --- @param ... any
