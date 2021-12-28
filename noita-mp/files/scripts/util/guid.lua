@@ -3,12 +3,20 @@
 -- https://stackoverflow.com/a/32353223/3493998
 
 local Guid = {
-    cached_guid = {}
+    cached_guid = {},
+    getRandomRange_0_to_9 = function()
+        return math.random(0, 9)
+    end,
+    getRandomRange_aA_to_fF = function()
+        local chars = {"a", "b", "c", "d", "e", "f"}
+        local char_index = math.random(1, 6)
+        return string.upper(chars[char_index])
+    end
 }
 
---- Generates a pseudo GUID. Does not fulfil RFC standard!
+--- Generates a pseudo GUID. Does not fulfil RFC standard! Should generate unique GUIDs, but repeats if there is a duplicate.
 --- @return string guid
-function Guid.getGuid()
+function Guid:getGuid()
     math.randomseed(os.clock() * 123456789000, os.time() * 1000)
 
     local x = "x"
@@ -25,42 +33,26 @@ function Guid.getGuid()
             function(c)
                 local is_digit = math.random(0, 1)
                 if is_digit == 1 then
-                    return Guid.getRandomRange_0_to_9()
+                    return self.getRandomRange_0_to_9()
                 end
-                return Guid.getRandomRange_aA_to_fF()
+                return self.getRandomRange_aA_to_fF()
             end
         )
-        is_valid = Guid.isPatternValid(guid)
-        is_unique = Guid.isUnique(guid)
+        is_valid = self.isPatternValid(guid)
+        is_unique = self:isUnique(guid)
     until is_valid and is_unique
 
-    table.insert(Guid.cached_guid, guid)
-    print("guid.lua | guid = " .. guid .. " is valid = " .. tostring(is_valid) .. " and is unique = " .. tostring(is_unique))
+    table.insert(self.cached_guid, guid)
+    print(
+        "guid.lua | guid = " ..
+            guid .. " is valid = " .. tostring(is_valid) .. " and is unique = " .. tostring(is_unique)
+    )
     return guid
-end
-
-function Guid.isUnique(guid)
-    local is_unique = true
-    if table.contains(Guid.cached_guid, guid) == true then
-        print("guid.lua | guid (" .. guid .. ") isn't unique, therefore it's not valid!")
-        is_unique = false
-    end
-    return is_unique
-end
-
-function Guid.getRandomRange_0_to_9()
-    return math.random(0, 9)
-end
-
-function Guid.getRandomRange_aA_to_fF()
-    local chars = {"a", "b", "c", "d", "e", "f"}
-    local char_index = math.random(1, 6)
-    return string.upper(chars[char_index])
 end
 
 --- Validates a guid only on its pattern.
 --- @param guid string
---- @return boolean isValid
+--- @return boolean true if GUID-pattern matches
 function Guid.isPatternValid(guid)
     local is_valid = false
     local pattern = "%x%x%x%x%x%x%x%x%-%x%x%x%x%-%x%x%x%x%-%x%x%x%x%-%x%x%x%x%x%x%x%x%x%x%x%x"
@@ -70,6 +62,18 @@ function Guid.isPatternValid(guid)
         is_valid = true
     end
     return is_valid
+end
+
+--- Validates if the given guid is unique or already generated.
+--- @param guid string
+--- @return boolean true if GUID is unique.
+function Guid:isUnique(guid)
+    local is_unique = true
+    if table.contains(self.cached_guid, guid) == true then
+        print("guid.lua | guid (" .. guid .. ") isn't unique, therefore it's not valid!")
+        is_unique = false
+    end
+    return is_unique
 end
 
 return Guid
