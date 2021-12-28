@@ -136,13 +136,19 @@ function Server:checkIsAllowed(peer)
     if restoredClients then
         for _, client in pairs(restoredClients) do
             -- TODO add something like GUID to the client and mod settings to identify the user by its unique user id
-            local peer_string_stored = tostring(client.connection)
-            local index_of_collon_stored = string.find(peer_string_stored, ":")
-            local ip_stored = string.sub(peer_string_stored, 0, index_of_collon_stored)
-            local peer_string = tostring(peer.connection)
-            local index_of_collon = string.find(peer_string, ":")
-            local ip = string.sub(peer_string, 0, index_of_collon)
-            if ip_stored == ip and client.username == peer.username then
+            -- local peer_string_stored = tostring(client.connection)
+            -- local index_of_collon_stored = string.find(peer_string_stored, ":")
+            -- local ip_stored = string.sub(peer_string_stored, 0, index_of_collon_stored)
+            -- local peer_string = tostring(peer.connection)
+            -- local index_of_collon = string.find(peer_string, ":")
+            -- local ip = string.sub(peer_string, 0, index_of_collon)
+            -- if ip_stored == ip and client.username == peer.username then
+            --     self.super.clients[_].isAllowed = true
+            --     peer.isAllowed = true
+            --     return true
+            -- end
+
+            if client.guid == peer.guid then
                 self.super.clients[_].isAllowed = true
                 peer.isAllowed = true
                 return true
@@ -177,6 +183,7 @@ function Server:storeClients()
         local serialiseable_client = {
             connection = tostring(client.connection),
             connectId = tostring(client.connectId),
+            guid = tostring(client.guid),
             username = tostring(client.username),
             isAllowed = tostring(client.isAllowed),
             isMapReceived = tostring(client.isMapReceived)
