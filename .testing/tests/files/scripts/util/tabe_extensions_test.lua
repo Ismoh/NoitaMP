@@ -37,11 +37,11 @@ function TestTableExtensions:testTableContainsAll()
     local t = {"ball", "flag", "line"}
 
     lu.assertIsTrue(table.containsAll(t, "ball", "flag", "line"))
+    lu.assertIsTrue(table.containsAll(t, "ball"))
+    lu.assertIsTrue(table.containsAll(t, "flag"))
+    lu.assertIsTrue(table.containsAll(t, "line"))
+    lu.assertIsTrue(table.containsAll(t, "ball", "line"))
 
-    lu.assertIsFalse(table.containsAll(t, "ball"))
-    lu.assertIsFalse(table.containsAll(t, "flag"))
-    lu.assertIsFalse(table.containsAll(t, "line"))
-    lu.assertIsFalse(table.containsAll(t, "ball", "line"))
     lu.assertIsFalse(table.containsAll(t, "paint", "line"))
     lu.assertIsFalse(table.containsAll(t, "balls"))
     lu.assertIsFalse(table.containsAll(t, "paint"))
