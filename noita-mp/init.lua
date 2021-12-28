@@ -1,11 +1,9 @@
 -- Fix package.path and package.cpath once
 dofile_once("mods/noita-mp/files/lib/external/init_package_loading.lua")
 dofile_once("mods/noita-mp/files/scripts/util/table_extensions.lua")
-
-
 dofile("mods/noita-mp/files/scripts/util/util.lua")
+
 local fu = require("file_util")
-local Guid = require("guid")
 
 fu.SetAbsolutePathOfNoitaRootDirectory()
 
@@ -105,10 +103,6 @@ function OnWorldInitialized()
     dofile_once("mods/noita-mp/files/scripts/net/server_class.lua") -- run once to init server object
     dofile_once("mods/noita-mp/files/scripts/net/client_class.lua") -- run once to init client object
 
-    Guid.getGuid()
-    local t = {"ball", "flag", "line"}
-    local expected = table.contains(t, "ball")
-    print(tostring(expected))
 end
 
 

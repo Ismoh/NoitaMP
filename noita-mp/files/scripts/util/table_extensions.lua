@@ -19,6 +19,7 @@ end
 --- @param ... any
 --- @return boolean true if all the values were in the table.
 table.containsAll = function(tbl, ...)
+    local arg = {...}
     local count = 0
     for i = 1, #tbl do
         for c = 1, #arg do
