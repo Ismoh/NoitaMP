@@ -4,7 +4,7 @@
 
 local Guid = {}
 
---- Generates a GUID.
+--- Generates a pseudo GUID. Does not fulfil RFC standard!
 --- @return string guid
 function Guid.getGuid()
     math.randomseed(os.clock() * 123456789000, os.time() * 1000)
@@ -17,7 +17,6 @@ function Guid.getGuid()
         guid,
         x,
         function(c)
-            -- math.randomseed(os.clock() * 123456789000, os.time() * 1000)
             local is_digit = math.random(0, 1)
             if is_digit == 1 then
                 return Guid.getRandomRange_0_to_9()
@@ -30,37 +29,25 @@ function Guid.getGuid()
 end
 
 function Guid.getRandomRange_0_to_9()
-    --math.randomseed(os.clock() * 123456789, os.time() * 1000)
     return math.random(0, 9)
 end
 
 function Guid.getRandomRange_aA_to_fF()
     local chars = {"a", "b", "c", "d", "e", "f"}
-
-    --math.randomseed(os.clock() * 123456789, os.time() * 1000)
     local char_index = math.random(1, 6)
-
-    local char = chars[char_index]
-
-    --math.randomseed(os.clock() * 123456789, os.time() * 1000)
-    local uppercase = math.random(0, 1)
-
-    if uppercase == 1 then
-        char = string.upper(char)
-    end
-    return char
+    return string.upper(chars[char_index])
 end
 
 --- Validates a guid.
 --- @param guid string
 --- @return boolean isValid
 function Guid.isValid(guid)
-    local pattern = "%x%x%x%x%x%x%x%x-%x%x%x%x-%x%x%x%x-%x%x%x%x-%x%x%x%x%x%x%x%x%x%x%x%x"
-    --local guid = "3F2504E0-4F89-41D3-9A0C-0305E82C3301"
-    local is_valid = guid:match(pattern)
-    print(tostring(is_valid))
-    if is_valid ~= 1 or is_valid ~= "true" or is_valid ~= true then
-        is_valid = false
+    local is_valid = false
+    local pattern = "%x%x%x%x%x%x%x%x%-%x%x%x%x%-%x%x%x%x%-%x%x%x%x%-%x%x%x%x%x%x%x%x%x%x%x%x"
+    local match = guid:match(pattern)
+
+    if match == guid then
+        is_valid = true
     end
     return is_valid
 end
