@@ -2,7 +2,9 @@
 -- https://gist.github.com/jrus/3197011
 -- https://stackoverflow.com/a/32353223/3493998
 
-local Guid = {}
+local Guid = {
+    cached_guid = {}
+}
 
 --- Generates a pseudo GUID. Does not fulfil RFC standard!
 --- @return string guid
@@ -12,18 +14,21 @@ function Guid.getGuid()
     local x = "x"
     local t = {x:rep(8), x:rep(4), x:rep(4), x:rep(4), x:rep(12)}
     local guid = table.concat(t, "-")
-    guid =
-        string.gsub(
-        guid,
-        x,
-        function(c)
-            local is_digit = math.random(0, 1)
-            if is_digit == 1 then
-                return Guid.getRandomRange_0_to_9()
+
+    repeat
+        guid =
+            string.gsub(
+            guid,
+            x,
+            function(c)
+                local is_digit = math.random(0, 1)
+                if is_digit == 1 then
+                    return Guid.getRandomRange_0_to_9()
+                end
+                return Guid.getRandomRange_aA_to_fF()
             end
-            return Guid.getRandomRange_aA_to_fF()
-        end
-    )
+        )
+    until Guid.isValid(guid)
     print("guid.lua | guid = " .. guid .. " is valid = " .. tostring(Guid.isValid(guid)))
     return guid
 end
@@ -48,6 +53,12 @@ function Guid.isValid(guid)
 
     if match == guid then
         is_valid = true
+        if table.contains(Guid.cached_guid, guid) == true then
+            print("guid.lua | guid (" .. guid .. ") isn't unique, therefore it's not valid!")
+            is_valid = false
+        else
+            table.insert(Guid.cached_guid, guid)
+        end
     end
     return is_valid
 end
