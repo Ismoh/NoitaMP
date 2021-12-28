@@ -40,6 +40,11 @@ mod_settings = {
 		text_max_length = 36,
 		scope = MOD_SETTING_SCOPE_RUNTIME,
 		change_fn = mod_setting_change_callback, -- Called when the user interact with the settings widget.
+	},
+	{
+		id = "guid_readonly",
+		ui_name = "Globally unique identifier",
+		ui_description = "Cannot be changed manually. I suggest to keep it as it is.",
 		ui_fn = mod_setting_readonly,
 	},
 	{
@@ -182,11 +187,11 @@ function ModSettingsGui(gui, in_main_menu)
 	mod_settings_gui(mod_id, mod_settings, gui, in_main_menu)
 end
 
--- function mod_setting_readonly(mod_id, gui, in_main_menu, im_id, setting)
--- 	local guid_value = ModSettingGetNextValue(mod_setting_get_id(mod_id, setting))
--- 	local text = setting.ui_name .. ": " .. guid_value
--- 	--setting.default_value = Guid:getGuid()
+function mod_setting_readonly(mod_id, gui, in_main_menu, im_id, setting)
+	local guid = ModSettingGet("noita-mp.guid")
+	local guid_value = ModSettingGetNextValue("noita-mp.guid")
+	local text = setting.ui_name .. ": " .. guid_value .. ", " .. guid
 
--- 	GuiText(gui, 0, 0, text)
--- 	mod_setting_tooltip(mod_id, gui, in_main_menu, setting)
--- end
+	GuiText(gui, 0, 0, text)
+	mod_setting_tooltip(mod_id, gui, in_main_menu, setting)
+end

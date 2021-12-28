@@ -1,6 +1,6 @@
 -- Fix package.path and package.cpath once
-dofile_once("mods/noita-mp/files/lib/external/init_package_loading.lua")
-dofile_once("mods/noita-mp/files/scripts/util/table_extensions.lua")
+dofile("mods/noita-mp/files/lib/external/init_package_loading.lua")
+dofile("mods/noita-mp/files/scripts/util/table_extensions.lua")
 dofile("mods/noita-mp/files/scripts/util/util.lua")
 
 local fu = require("file_util")
@@ -21,13 +21,6 @@ end
 fu.Find7zipExecutable()
 
 function OnModPreInit()
-    local mod_setting_guid = tostring(ModSettingGet("noita-mp.guid"))
-    if mod_setting_guid == "" or Guid.isPatternValid(mod_setting_guid) == false then
-        local guid = Guid:getGuid()
-        ModSettingSet("noita-mp.guid", guid)
-        ModSettingSetNextValue("noita-mp.guid", guid, "")
-    end
-
     -- the seed is set when first time connecting to a server, otherwise 0
     local seed = tonumber(ModSettingGet("noita-mp.connect_server_seed"))
 
