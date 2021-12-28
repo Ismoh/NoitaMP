@@ -11,7 +11,7 @@ function TestGuid:setUp()
     print("\nsetUp")
 end
 
-function TestFileUtil:tearDown()
+function TestGuid:tearDown()
     print("tearDown\n")
 end
 

@@ -122,5 +122,6 @@ jobs:
       with:
         directory: ${{ github.workspace }}
         flags: unittesting
+        functionalities: network
         name: Windows Lua Unit Testing
         verbose: true
