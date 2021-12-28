@@ -44,8 +44,7 @@ function OnWorldInitialized()
             ("init.lua | Server savegame [%s] was zipped with 7z to location [%s]."):format(archive_name, destination)
         print(msg)
         GamePrint(msg)
-        ModSettingSetNextValue("noita-mp.server_start_7zip_savegame", false, false)
-        ModSettingSet("noita-mp.server_start_when_world_loaded", true) -- automatically start the server again
+        ModSettingSetNextValue("noita-mp.server_start_7zip_savegame", false, false) -- automatically start the server again
     end
 
     print("init.lua | Initialise client and server stuff..")

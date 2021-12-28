@@ -22,15 +22,15 @@ function Server:new(o, super, address, port)
 end
 
 function Server:setGuid()
-    local mod_setting_guid = tostring(ModSettingGet("noita-mp.guid"))
-    if self.super.guid == nil or mod_setting_guid == "" or Guid.isPatternValid(mod_setting_guid) == false then
-        local guid = Guid:getGuid()
-        ModSettingSet("noita-mp.guid", guid)
-        ModSettingSetNextValue("noita-mp.guid", guid, true)
+    local guid = tostring(ModSettingGetNextValue("noita-mp.guid"))
+    if guid == "" or Guid.isPatternValid(guid) == false then
+        guid = Guid:getGuid()
+        ModSettingSetNextValue("noita-mp.guid", guid, false)
         self.super.guid = guid
-        print("server_class.lua | guid set to " .. guid)
+        print("client_class.lua | guid set to " .. guid)
     else
-        print("server_class.lua | guid was already set to " .. self.super.guid)
+        self.super.guid = guid
+        print("client_class.lua | guid was already set to " .. self.super.guid)
     end
 end
 
