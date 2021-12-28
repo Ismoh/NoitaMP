@@ -20,3 +20,5 @@ function TestGuid:testGetGuid()
     lu.assertNotIsNil(guid)
     lu.assertIsTrue(Guid.valid(guid))
 end
+
+os.exit(lu.LuaUnit.run())
