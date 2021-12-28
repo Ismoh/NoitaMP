@@ -8,7 +8,7 @@ function Guid.getGuid()
     local x = "%x"
     local t = {x:rep(8), x:rep(4), x:rep(4), x:rep(4), x:rep(12)}
     local guid = table.concat(t, "%-")
-    print(luaunit.prettystr(guid))
+    print("guid.lua | guid = " .. guid .. " or " .. luaunit.prettystr(guid))
     return guid
 end
 
