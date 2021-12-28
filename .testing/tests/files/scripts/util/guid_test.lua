@@ -3,7 +3,7 @@
 dofile("noita-mp/files/lib/external/init_package_loading.lua")
 
 local lu = require("luaunit")
-local guid = require("guid")
+local Guid = require("guid")
 
 TestGuid = {}
 
@@ -16,5 +16,7 @@ function TestGuid:tearDown()
 end
 
 function TestGuid:testGetGuid()
-    guid.getGuid()
+    local guid = Guid.getGuid()
+    lu.assertNotIsNil(guid)
+    lu.assertIsTrue(Guid.valid(guid))
 end
