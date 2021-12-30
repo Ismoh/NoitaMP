@@ -1,14 +1,6 @@
-dofile("data/scripts/lib/utilities.lua")
+--dofile("data/scripts/lib/utilities.lua")
 
 local util = {}
-
-function util.GetPlayer()
-   local player = EntityGetWithTag("player_unit") or nil
-   if player ~= nil then
-       return player[1]
-   end
-end
-
 
 function util.Sleep(seconds)
     -- https://stackoverflow.com/a/40524323/3493998
