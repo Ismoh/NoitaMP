@@ -74,18 +74,15 @@ jobs:
 
     - name: Run LuaUnit 3.4
       id: lua_unit_tests
-      #shell: pwsh
       run: |
-        #dir -Path ${{ github.workspace }}\.testing\tests -Filter *.lua -Recurse | %{& '${{ env.lua_install_bin_dir }}\luajit.exe' $_.FullName -o text --verbose > ${{ github.workspace }}\.testing\testresult.log }
         $files = Get-ChildItem -Path ${{ github.workspace }}\.testing\tests -Filter *.lua -Recurse
         foreach ($file in $files) # https://stackoverflow.com/a/11568420/3493998
         {
           Write-Host "Running lua file $file"
-          # Start-Process -FilePath "${{ env.lua_install_bin_dir }}\luajit.exe" -ArgumentList "$file -o text --verbose" -Wait -NoNewWindow -PassThru > ${{ github.workspace }}\.testing\testresult.log
           # https://stackoverflow.com/a/45330000/3493998
           & '${{ env.lua_install_bin_dir }}\luajit.exe' '$file.FullName' '-o' 'text' '--verbose' > ${{ github.workspace }}\.testing\testresult.log
-        }
-        type ${{ github.workspace }}\.testing\testresult.log
+          type ${{ github.workspace }}\.testing\testresult.log
+        }        
         
         # https://timheuer.com/blog/manually-force-a-failure-in-github-action-step/
         $testFail = Select-String -Path ${{ github.workspace }}\.testing\testresult.log -Pattern 'FAIL' -CaseSensitive
