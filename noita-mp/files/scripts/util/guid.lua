@@ -52,6 +52,7 @@ function Guid:getGuid()
             counter
         )
 
+        counter = counter + 1
         if counter > 100 then
             local msg =
                 string.format("Tried to generate GUID %s times. Stopped it for now! This is a serious bug!", counter)
@@ -59,6 +60,8 @@ function Guid:getGuid()
             error(msg, 2)
             break
         end
+
+        util.Sleep(2)
     until is_valid and is_unique
 
     table.insert(self.cached_guid, guid)
