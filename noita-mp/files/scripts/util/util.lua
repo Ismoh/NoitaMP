@@ -16,3 +16,14 @@ function Sleep(seconds)
         -- do a buys wait. Consuming processor time, but I dont care :)
     end
 end
+
+
+function IsEmpty(var)
+    if var == nil then
+        return true
+    end
+    if var == "" then
+        return true
+    end
+    return false
+end
