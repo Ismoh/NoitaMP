@@ -56,9 +56,13 @@ end
 --- @param guid string
 --- @return boolean true if GUID-pattern matches
 function Guid.isPatternValid(guid)
+    if type(guid) ~= "string" then
+        return false
+    end
     if util.IsEmpty(guid) then
         return false
     end
+    
     local is_valid = false
     local pattern = "%x%x%x%x%x%x%x%x%-%x%x%x%x%-%x%x%x%x%-%x%x%x%x%-%x%x%x%x%x%x%x%x%x%x%x%x"
     local match = guid:match(pattern)
