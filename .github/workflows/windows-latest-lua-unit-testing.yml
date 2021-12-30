@@ -81,7 +81,7 @@ jobs:
         foreach ($file in $files) # https://stackoverflow.com/a/11568420/3493998
         {
           Write-Host "Running lua file $file"
-          %{& '${{ env.lua_install_bin_dir }}\luajit.exe' $_.FullName -o text --verbose > ${{ github.workspace }}\.testing\testresult.log }
+          %{& '${{ env.lua_install_bin_dir }}\luajit.exe' $file.FullName -o text --verbose > ${{ github.workspace }}\.testing\testresult.log }
           # Start-Process -FilePath "${{ env.lua_install_bin_dir }}\luajit.exe" -ArgumentList "$file.FullName -o text --verbose" > ${{ github.workspace }}\.testing\testresult.log
         }
         type ${{ github.workspace }}\.testing\testresult.log
