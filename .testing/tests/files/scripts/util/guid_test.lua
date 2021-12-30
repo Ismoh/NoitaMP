@@ -1,7 +1,5 @@
 #!/usr/bin/env lua
-
-dofile("noita-mp/files/lib/external/init_package_loading.lua")
-dofile("noita-mp/files/scripts/util/table_extensions.lua")
+dofile("noita-mp/files/scripts/init/init_.lua")
 
 local lu = require("luaunit")
 local Guid = require("guid")

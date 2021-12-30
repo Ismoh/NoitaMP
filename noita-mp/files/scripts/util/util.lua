@@ -1,5 +1,3 @@
---dofile("data/scripts/lib/utilities.lua")
-
 local util = {}
 
 function util.Sleep(seconds)
