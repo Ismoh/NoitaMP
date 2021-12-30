@@ -84,69 +84,6 @@ end
 -- Noita world and savegame specific functions
 ----------------------------------------------------------------------------------------------------
 
---[[ --- Returns files with its associated directory path relative to \save06\*
---- @return table [1] { "\dir1\dir2" , "filename.extension" } . If a file is inside \save06\ this will be returned: [2] { nil, "insideSave06.txt"}
---- @return integer amount of files within save06 (rekursive)
-function fu.GetRelativeDirectoryAndFilesOfSave06()
-    local dir_save_06 = "save06"
-    local command = nil
-
-    if _G.is_windows then
-        command = 'dir "%appdata%\\..\\LocalLow\\Nolla_Games_Noita\\' .. dir_save_06 .. '" /b/s'
-        if DebugGetIsDevBuild() then
-            command = "dir " .. dir_save_06 .. " /b/s"
-        end
-    else
-        command = 'find "~/.steam/steam/userdata/$(id -u)/881100/' .. dir_save_06 .. '"'
-        --error("Unix system are not supported yet :(",2)
-    end
-
-    local file = assert(io.popen(command, "r"), "Unable to execute command: " .. command)
-    local path = ""
-    local t = {}
-    local i = 1
-    while path ~= nil do
-        path = file:read("*l")
-
-        if path ~=nil and path ~= "" then -- EOF
-            -- C:\Program Files (x86)\Steam\steamapps\common\Noita\save06\world\.autosave_player
-            -- to world\.autosave_player
-            local index_start, index_end = string.find(path, dir_save_06 .. "\\")
-            local relative = string.sub(path, index_end + 1) -- +1 to get rid of \ or /
-
-            local dir_name = ""
-            local file_name = ""
-
-            if fu.IsDirectory(path) then
-                dir_name = relative
-            else
-                local t_match = {}
-                local i_match = 0
-                for match in relative:gmatch("[^\\" .. _G.path_separator .. "]*") do
-                    if match ~= "" then
-                        i_match = i_match + 1
-                        t_match[i_match] = match
-                    end
-                end
-
-                for ind, dir_or_file in ipairs(t_match) do
-                    if ind < i_match then
-                        dir_name = dir_name .. dir_or_file .. _G.path_separator
-                    else
-                        file_name = dir_or_file
-                    end
-                end
-            end
-
-            dir_name = fu.RemoveTrailingPathSeparator(dir_name)
-
-            t[i] = { dir_name, file_name }
-            i = i + 1
-        end
-    end
-    return t, i
-end ]]
-
 --- Return the parent directory of the savegame directory save06.
 --- If DebugGetIsDevBuild() then Noitas installation path is returned: 'C:\Program Files (x86)\Steam\steamapps\common\Noita'
 --- otherwise it will return: '%appdata%\..\LocalLow\Nolla_Games_Noita' on windows
@@ -171,8 +108,6 @@ function fu.GetAbsoluteDirectoryPathOfParentSave06()
     end
 
     file = assert(io.popen(command, "r")) -- path where noita.exe is
-
-    fu.Exists("/home/runner/work/NoitaMP/NoitaMP/.steam/steam/userdata/$(id -u)/881100/Nolla_Games_Noita/")
 
     local save06_parent_directory_path = nil
     local line = ""

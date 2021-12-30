@@ -1,5 +1,4 @@
 dofile("data/scripts/lib/mod_settings.lua")
-local Guid = dofile("mods/noita-mp/files/scripts/util/guid.lua")
 
 -- This file can't access other files from this or other mods in all circumstances.
 -- Settings will be automatically saved.

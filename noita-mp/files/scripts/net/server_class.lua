@@ -160,7 +160,7 @@ end
 
 function Server:setIsAllowed(client, isAllowed)
     for _, c in pairs(self.super.clients) do
-        if c.connection == client.connection and c.connectId == client.connectId then
+        if c.guid == client.guid then
             self.super.clients[_].isAllowed = isAllowed
         end
     end
@@ -177,9 +177,6 @@ end
 function Server:storeClients()
     local t = {}
     for _, client in pairs(self.super:getClients()) do
-        --local clientString = { client.username, client.isAllowed, client.isMapReceived }
-        --local serialised = self.super:pack(clientString)
-        --WriteFile(GetAbsoluteDirectoryPathOfMods() .. _G.path_separator .. "_" .. _G.path_separator .. "clients", serialised)
         local serialiseable_client = {
             connection = tostring(client.connection),
             connectId = tostring(client.connectId),

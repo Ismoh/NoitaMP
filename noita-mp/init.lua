@@ -1,4 +1,4 @@
-dofile("noita-mp/files/scripts/init/init_.lua")
+dofile("mods/noita-mp/files/scripts/init/init_.lua")
 
 local fu = require("file_util")
 local Guid = require("guid")
