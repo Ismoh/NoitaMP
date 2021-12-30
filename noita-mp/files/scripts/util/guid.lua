@@ -45,7 +45,7 @@ function Guid:getGuid()
         is_valid = self.isPatternValid(guid)
         is_unique = self:isUnique(guid)
         logger:debug(
-            "GUID (%s) is valid=%s and unique=%s. Generating GUID run no. %s",
+            "GUID (%s) is valid=%s and unique=%s. Generating GUID run-number %s",
             guid,
             is_valid,
             is_unique,
