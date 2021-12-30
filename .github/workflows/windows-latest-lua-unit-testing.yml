@@ -76,7 +76,14 @@ jobs:
       id: lua_unit_tests
       #shell: pwsh
       run: |
-        dir -Path ${{ github.workspace }}\.testing\tests -Filter *.lua -Recurse | %{& '${{ env.lua_install_bin_dir }}\luajit.exe' $_.FullName -o text --verbose > ${{ github.workspace }}\.testing\testresult.log }
+        #dir -Path ${{ github.workspace }}\.testing\tests -Filter *.lua -Recurse | %{& '${{ env.lua_install_bin_dir }}\luajit.exe' $_.FullName -o text --verbose > ${{ github.workspace }}\.testing\testresult.log }
+        $files = Get-ChildItem -Path ${{ github.workspace }}\.testing\tests -Filter *.lua -Recurse
+        foreach ($file in $files) # https://stackoverflow.com/a/11568420/3493998
+        {
+          Write-Host "Running lua file $file"
+          # %{& '${{ env.lua_install_bin_dir }}\luajit.exe' $_.FullName -o text --verbose > ${{ github.workspace }}\.testing\testresult.log }
+          Start-Process -FilePath "${{ env.lua_install_bin_dir }}\luajit.exe" -ArgumentList "$file.FullName -o text --verbose" > ${{ github.workspace }}\.testing\testresult.log
+        }
         type ${{ github.workspace }}\.testing\testresult.log
         
         # https://timheuer.com/blog/manually-force-a-failure-in-github-action-step/
