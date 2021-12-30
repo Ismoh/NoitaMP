@@ -123,7 +123,7 @@ jobs:
         ls -R
         $content = Get-Content -Path ${{ github.workspace }}/luacov.report.out
         $content = $content.Replace("\", "/")
-        $content >> ${{ github.workspace }}/luacov.report.out
+        $content > ${{ github.workspace }}/luacov.report.out
         Write-Host $content
 
         #$(cat ${{ github.workspace }}/luacov.report.out | sed -e 's_\\_/_g') > ${{ github.workspace }}/luacov.report.out
