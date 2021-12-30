@@ -74,7 +74,7 @@ jobs:
 
     - name: Run LuaUnit 3.4
       id: lua_unit_tests
-      shell: pwsh
+      #shell: pwsh
       run: |
         dir -Path ${{ github.workspace }}\.testing\tests -Filter *.lua -Recurse | %{& '${{ env.lua_install_bin_dir }}\luajit.exe' $_.FullName -o text --verbose > ${{ github.workspace }}\.testing\testresult.log }
         type ${{ github.workspace }}\.testing\testresult.log
