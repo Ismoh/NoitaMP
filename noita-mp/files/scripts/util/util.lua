@@ -25,5 +25,8 @@ function IsEmpty(var)
     if var == "" then
         return true
     end
+    if type(var) == "table" and not next(var) then
+        return true
+    end
     return false
 end
