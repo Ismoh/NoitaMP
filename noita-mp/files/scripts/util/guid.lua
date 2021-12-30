@@ -28,6 +28,7 @@ function Guid:getGuid()
     local is_valid = false
     local is_unique = false
 
+    local counter = 0
     repeat
         guid =
             string.gsub(
@@ -43,7 +44,21 @@ function Guid:getGuid()
         )
         is_valid = self.isPatternValid(guid)
         is_unique = self:isUnique(guid)
-        logger:debug("GUID (%s) is valid=%s and unique=%s", guid, is_valid, is_unique)
+        logger:debug(
+            "GUID (%s) is valid=%s and unique=%s. Generating GUID run no. %s",
+            guid,
+            is_valid,
+            is_unique,
+            counter
+        )
+
+        if counter > 100 then
+            local msg =
+                string.format("Tried to generate GUID %s times. Stopped it for now! This is a serious bug!", counter)
+            logger:error(msg)
+            error(msg, 2)
+            break
+        end
     until is_valid and is_unique
 
     table.insert(self.cached_guid, guid)
