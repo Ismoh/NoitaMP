@@ -118,10 +118,16 @@ jobs:
         Start-Process -FilePath "${{ env.lua_install_bin_dir }}\luacov.bat" -Wait -NoNewWindow
 
     - name: Fix codecov path issue
+      shell: pwsh
       run: |
         ls -R
-        $(cat ${{ github.workspace }}/luacov.report.out | sed -e 's_\\_/_g') > ${{ github.workspace }}/luacov.report.out
-        cat ${{ github.workspace }}/luacov.report.out
+        $content = Get-Content -Path ${{ github.workspace }}/luacov.report.out
+        $content = $content.Replace("\\", "/")
+        $content >> ${{ github.workspace }}/luacov.report.out
+        Write-Host $content
+        
+        #$(cat ${{ github.workspace }}/luacov.report.out | sed -e 's_\\_/_g') > ${{ github.workspace }}/luacov.report.out
+        #cat ${{ github.workspace }}/luacov.report.out
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v2
