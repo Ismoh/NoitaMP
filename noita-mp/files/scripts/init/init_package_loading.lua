@@ -5,32 +5,30 @@ local params = {...}
 local destination_path = params[1]
 
 local default_package_path = package.path
-package.path = package.path .. ";./noita-mp/files/lib/external/?.lua;" .. "./noita-mp/files/scripts/util/?.lua;" .. "mods/noita-mp/files/lib/external/?.lua;" .. "mods/noita-mp/files/scripts/util/?.lua;"
+package.path =
+    package.path ..
+    ";./noita-mp/files/lib/external/?.lua;" ..
+        "./noita-mp/files/scripts/util/?.lua;" ..
+            "mods/noita-mp/files/lib/external/?.lua;" .. "mods/noita-mp/files/scripts/util/?.lua;"
 
 local fu = require("file_util")
 --[[ NoitaMP additions ]]
 -- A list of paths to lua script modules
 local paths = {
     "{root}/noita-mp/files/{module}", -- {root}/ is used outside of the game: github etc
-    "mods/noita-mp/files/{module}",   -- mods/ is used inside the game
-
+    "mods/noita-mp/files/{module}", -- mods/ is used inside the game
     "{root}/noita-mp/files/lib/{module}",
     "mods/noita-mp/files/lib/{module}",
-
     "{root}/noita-mp/files/lib/external/{module}",
     "mods/noita-mp/files/lib/external/{module}",
-
     "{root}/noita-mp/files/lib/external/platform-specific/{platform}/{module}",
     "mods/noita-mp/files/lib/external/platform-specific/{platform}/{module}",
-
     "{root}/noita-mp/files/scripts/{module}",
     "mods/noita-mp/files/scripts/{module}",
-
     "{root}/noita-mp/files/scripts/net/{module}",
     "mods/noita-mp/files/scripts/net/{module}",
-
     "{root}/noita-mp/files/scripts/util/{module}",
-    "mods/noita-mp/files/scripts/util/{module}",
+    "mods/noita-mp/files/scripts/util/{module}"
 }
 
 -- A list of paths to binary Lua modules
@@ -161,5 +159,3 @@ else
     --[[ NoitaMP additions ]]
     error("Unable to detect OS!", 2)
 end
-
-dofile("noita-mp/files/lib/init_logger.lua")

@@ -1,7 +1,4 @@
--- Fix package.path and package.cpath once
-dofile("mods/noita-mp/files/lib/external/init_package_loading.lua")
-dofile("mods/noita-mp/files/scripts/util/table_extensions.lua")
-dofile("mods/noita-mp/files/scripts/util/util.lua")
+dofile("noita-mp/files/scripts/init/init_.lua")
 
 local fu = require("file_util")
 local Guid = require("guid")
