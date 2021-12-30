@@ -83,7 +83,7 @@ jobs:
           Write-Host "Running lua file $file"
           # Start-Process -FilePath "${{ env.lua_install_bin_dir }}\luajit.exe" -ArgumentList "$file -o text --verbose" -Wait -NoNewWindow -PassThru > ${{ github.workspace }}\.testing\testresult.log
           # https://stackoverflow.com/a/45330000/3493998
-          & '${{ env.lua_install_bin_dir }}\luajit.exe' $file.FullName -o text --verbose > ${{ github.workspace }}\.testing\testresult.log
+          & '${{ env.lua_install_bin_dir }}\luajit.exe' '$file.FullName' '-o' 'text' '--verbose' > ${{ github.workspace }}\.testing\testresult.log
         }
         type ${{ github.workspace }}\.testing\testresult.log
         
