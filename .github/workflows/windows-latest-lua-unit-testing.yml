@@ -120,7 +120,7 @@ jobs:
     - name: Fix codecov path issue
       run: |
         ls -R
-        $(echo "${{ github.workspace }}/luacov.report.out" | sed -e 's_\\_/_g') > ${{ github.workspace }}/luacov.report.out
+        $(cat ${{ github.workspace }}/luacov.report.out | sed -e 's_\\_/_g') > ${{ github.workspace }}/luacov.report.out
         cat ${{ github.workspace }}/luacov.report.out
 
     - name: Upload coverage to Codecov
