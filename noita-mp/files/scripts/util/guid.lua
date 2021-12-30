@@ -43,7 +43,7 @@ function Guid:getGuid()
         )
         is_valid = self.isPatternValid(guid)
         is_unique = self:isUnique(guid)
-        logger:debug("Guid (%s) is valid=%s and unique=%s", guid, is_valid, is_unique)
+        logger:debug("GUID (%s) is valid=%s and unique=%s", guid, is_valid, is_unique)
     until is_valid and is_unique
 
     table.insert(self.cached_guid, guid)

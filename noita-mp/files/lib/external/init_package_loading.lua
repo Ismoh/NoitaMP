@@ -161,3 +161,5 @@ else
     --[[ NoitaMP additions ]]
     error("Unable to detect OS!", 2)
 end
+
+dofile("noita-mp/files/lib/init_logger.lua")
