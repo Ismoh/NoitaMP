@@ -3,6 +3,7 @@
 -- https://stackoverflow.com/a/32353223/3493998
 
 local util = require("util")
+local logger = _G.logger
 
 local Guid = {
     cached_guid = {},
@@ -30,7 +31,7 @@ function Guid:getGuid()
     repeat
         guid =
             string.gsub(
-                guid,
+            guid,
             x,
             function(c)
                 local is_digit = math.random(0, 1)
@@ -42,12 +43,13 @@ function Guid:getGuid()
         )
         is_valid = self.isPatternValid(guid)
         is_unique = self:isUnique(guid)
+        logger:debug("Guid (%s) is valid=%s and unique=%s", guid, is_valid, is_unique)
     until is_valid and is_unique
 
     table.insert(self.cached_guid, guid)
     print(
         "guid.lua | guid = " ..
-        guid .. " is valid = " .. tostring(is_valid) .. " and is unique = " .. tostring(is_unique)
+            guid .. " is valid = " .. tostring(is_valid) .. " and is unique = " .. tostring(is_unique)
     )
     return guid
 end
@@ -62,7 +64,7 @@ function Guid.isPatternValid(guid)
     if util.IsEmpty(guid) then
         return false
     end
-    
+
     local is_valid = false
     local pattern = "%x%x%x%x%x%x%x%x%-%x%x%x%x%-%x%x%x%x%-%x%x%x%x%-%x%x%x%x%x%x%x%x%x%x%x%x"
     local match = guid:match(pattern)
