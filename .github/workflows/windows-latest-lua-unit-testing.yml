@@ -118,6 +118,7 @@ jobs:
         Start-Process -FilePath "${{ env.lua_install_bin_dir }}\luacov.bat" -Wait -NoNewWindow
 
     - name: Upload coverage to Codecov
+      shell: bash
       uses: codecov/codecov-action@v2
       with:
         directory: ${{ github.workspace }}
