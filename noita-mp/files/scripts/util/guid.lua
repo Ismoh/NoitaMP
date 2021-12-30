@@ -2,7 +2,7 @@
 -- https://gist.github.com/jrus/3197011
 -- https://stackoverflow.com/a/32353223/3493998
 
-dofile("mods/noita-mp/files/scripts/util/util.lua")
+local util = require("util")
 
 local Guid = {
     cached_guid = {},
@@ -56,7 +56,7 @@ end
 --- @param guid string
 --- @return boolean true if GUID-pattern matches
 function Guid.isPatternValid(guid)
-    if IsEmpty(guid) then
+    if util.IsEmpty(guid) then
         return false
     end
     local is_valid = false

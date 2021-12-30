@@ -1,7 +1,8 @@
 dofile("data/scripts/lib/utilities.lua")
-dofile("mods/noita-mp/files/scripts/util/file_util.lua")
 
-function GetPlayer()
+local util = {}
+
+function util.GetPlayer()
    local player = EntityGetWithTag("player_unit") or nil
    if player ~= nil then
        return player[1]
@@ -9,7 +10,7 @@ function GetPlayer()
 end
 
 
-function Sleep(seconds)
+function util.Sleep(seconds)
     -- https://stackoverflow.com/a/40524323/3493998
     local sec = tonumber(os.clock() + seconds)
     while (os.clock() < sec) do
@@ -18,7 +19,7 @@ function Sleep(seconds)
 end
 
 
-function IsEmpty(var)
+function util.IsEmpty(var)
     if var == nil then
         return true
     end
@@ -30,3 +31,5 @@ function IsEmpty(var)
     end
     return false
 end
+
+return util

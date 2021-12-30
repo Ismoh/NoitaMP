@@ -1,5 +1,4 @@
---local server = dofile_once("mods/noita-mp/files/scripts/net/server.lua")
---local client = dofile_once("mods/noita-mp/files/scripts/net/client.lua")
+local util = require("util")
 local fu = require("file_util")
 
 if initialized == nil then initialized = false; end
@@ -116,7 +115,7 @@ if not initialized then
                             local make_zip = ModSettingGet("noita-mp.server_start_7zip_savegame")
                             print("server_class.lua | make_zip = " .. tostring(make_zip))
 
-                            Sleep(2)
+                            util.Sleep(2)
                             fu.StopSaveAndStartNoita()
                         end
                     end
