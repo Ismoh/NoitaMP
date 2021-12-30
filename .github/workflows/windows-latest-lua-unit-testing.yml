@@ -117,6 +117,11 @@ jobs:
         
         Start-Process -FilePath "${{ env.lua_install_bin_dir }}\luacov.bat" -Wait -NoNewWindow
 
+    - name: Fix codecov path issue
+      run: |
+        ls -R
+        #$(echo "${{ env.temp_dir }}/lua_path.txt" | sed -e 's_\\_/_g') > 
+
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v2
       shell: bash
