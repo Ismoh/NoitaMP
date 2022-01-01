@@ -1,10 +1,14 @@
 local util = {}
 
 function util.Sleep(seconds)
+    if type(seconds) ~= "number" then
+        error("Unable to wait if parameter 'seconds' isn't a number: " .. type(seconds))
+    end
     -- https://stackoverflow.com/a/40524323/3493998
     local sec = tonumber(os.clock() + seconds)
     while (os.clock() < sec) do
-        -- do a buys wait. Consuming processor time, but I dont care :)
+        -- do a busy wait. Consuming processor time, but I dont care :)
+        logger:debug("Doing busy while waiting..")
     end
 end
 
@@ -34,7 +38,7 @@ function util.ExtendAndCutStringToLength(var, length, char)
         error("length is not a number.", 2)
     end
     if type(char) ~= "string" or string.len(char) > 1 then
-        error("length is not a character.", 2)
+        error("char is not a character. string.len(char) > 1 = " .. string.len(char), 2)
     end
 
     local new_var = ""
