@@ -264,7 +264,7 @@ local function strsplit(delimiter, text)
         return nil
     end
 
-    local list, pos, first, last = {}, 1
+    local list, pos, first, last = {}, 1, nil, nil
     while true do
         first, last = text:find(delimiter, pos, true)
         if first then -- found?
@@ -2664,7 +2664,7 @@ end
 
         for i, cmdArg in ipairs(cmdLine) do
             if state ~= nil then
-                setArg( cmdArg, state, result )
+                setArg( cmdArg, state )
                 state = nil
             else
                 if cmdArg:sub(1,1) == '-' then

@@ -21,6 +21,9 @@
         "draw_gui",
         "mod_setting_readonly",
         "mod_setting_get_id",
-        "mod_setting_tooltip"
+        "mod_setting_tooltip",
+        "ngx",
+        "EXPORT_ASSERT_TO_GLOBALS",
+        "gui"
     ]
 }

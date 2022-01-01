@@ -1,13 +1,13 @@
 local util = require("util")
 local fu = require("file_util")
 
-if initialized == nil then
-    initialized = false
+if Initialized == nil then
+    Initialized = false
 end
 
-if not initialized then
+if not Initialized then
     print("initializing ui..")
-    initialized = true
+    Initialized = true
     local gui_id = 2
     local gui = gui or GuiCreate()
 
