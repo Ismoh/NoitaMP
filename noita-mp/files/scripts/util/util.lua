@@ -8,7 +8,7 @@ function util.Sleep(seconds)
     local sec = tonumber(os.clock() + seconds)
     while (os.clock() < sec) do
         -- do a busy wait. Consuming processor time, but I dont care :)
-        logger:debug("Doing busy while waiting..")
+        logger:debug("Doing busy while waiting.. os,clock()=" .. os.clock() .. " sec=" .. sec)
     end
 end
 
