@@ -10,6 +10,11 @@ jobs:
     steps:
     - uses: actions/checkout@main
 
+    - name: Create symlink for /mods/
+      run: |
+        ln -s ${{ github.workspace }} ${{ github.workspace }}/mods
+        ls ${{ github.workspace }}/mods
+
     - name: Install luaJIT 2.0.4
       run: |
         cd ${{ github.workspace }}/.building/LuaJIT-2.0.4
