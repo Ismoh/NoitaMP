@@ -66,6 +66,10 @@ jobs:
         sudo find ${{ github.workspace }}/.testing/tests -name "*.lua" -type f -exec ${{ github.workspace }}/luajit/bin/luajit -lluacov {} \;
         ${{ github.workspace }}/luajit/bin/luacov
 
+    - name: Remove luarocks-3.8.0 codecov.yml
+      run: |
+        rm ${{ github.workspace }}/luarocks-3.8.0/.codecov.yml
+
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v2
       with:
