@@ -23,7 +23,7 @@ function TestUtil:testSleep()
     local timestamp_after = os.clock()
     local diff = timestamp_before + seconds_to_wait
     logger:debug("timestamp_before=%s, timestamp_after=%s, diff=%s", timestamp_before, timestamp_after, diff)
-    lu.assertEquals(diff, timestamp_after)
+    lu.almostEquals(diff, timestamp_after, 0.1)
 end
 
 function TestUtil:testIsEmpty()
