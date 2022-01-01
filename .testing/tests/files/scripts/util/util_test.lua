@@ -18,9 +18,9 @@ function TestUtil:testSleep()
     lu.assertErrorMsgContains("Unable to wait if parameter 'seconds' isn't a number:", util.Sleep, "seconds")
 
     local seconds_to_wait = 4
-    local timestamp_before = os.time()
+    local timestamp_before = os.clock()
     util.Sleep(seconds_to_wait)
-    local timestamp_after = os.time()
+    local timestamp_after = os.clock()
     local diff = os.difftime(timestamp_before, timestamp_after)
     logger:debug("timestamp_before=%s, timestamp_after=%s, diff=%s", timestamp_before, timestamp_after, diff)
     lu.assertEquals(diff, seconds_to_wait)
@@ -39,7 +39,13 @@ end
 function TestUtil:testExtendAndCutStringToLength()
     lu.assertErrorMsgEquals("var is not a string.", util.ExtendAndCutStringToLength, 1)
     lu.assertErrorMsgEquals("length is not a number.", util.ExtendAndCutStringToLength, "var", "length")
-    lu.assertErrorMsgContains("char is not a character. string.len(char) > 1 = ", util.ExtendAndCutStringToLength, "var", 1, "character")
+    lu.assertErrorMsgContains(
+        "char is not a character. string.len(char) > 1 = ",
+        util.ExtendAndCutStringToLength,
+        "var",
+        1,
+        "character"
+    )
 
     local expected = "12345"
     local actual = util.ExtendAndCutStringToLength("12345678910", 5, " ")
