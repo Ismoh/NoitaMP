@@ -1,16 +1,12 @@
 local util = {}
 
-function util.Sleep(seconds)
-    if type(seconds) ~= "number" then
+function util.Sleep(s)
+    if type(s) ~= "number" then
         error("Unable to wait if parameter 'seconds' isn't a number: " .. type(seconds))
     end
-    -- https://stackoverflow.com/a/40524323/3493998
-    local wait = os.clock()
-    while (wait < seconds) do
-        -- do a busy wait. Consuming processor time, but I dont care :)
-        wait = wait + os.clock()
-        logger:debug("Doing busy while waiting.. os,clock()=" .. wait .. " seconds=" .. seconds)
-    end
+    -- http://lua-users.org/wiki/SleepFunction
+    local ntime = os.clock() + s/10
+    repeat until os.clock() > ntime
 end
 
 function util.IsEmpty(var)
