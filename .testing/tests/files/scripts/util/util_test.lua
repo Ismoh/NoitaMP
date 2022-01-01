@@ -18,9 +18,9 @@ function TestUtil:testSleep()
     lu.assertErrorMsgContains("Unable to wait if parameter 'seconds' isn't a number:", util.Sleep, "seconds")
 
     local seconds_to_wait = 4
-    local timestamp_before = os.clock()
+    local timestamp_before = os.time()
     util.Sleep(seconds_to_wait)
-    local timestamp_after = os.clock()
+    local timestamp_after = os.time()
     lu.assertEquals(os.difftime(timestamp_before, timestamp_after), seconds_to_wait)
 end
 
