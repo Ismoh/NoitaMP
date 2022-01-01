@@ -5,7 +5,7 @@ function util.Sleep(s)
         error("Unable to wait if parameter 'seconds' isn't a number: " .. type(s))
     end
     -- http://lua-users.org/wiki/SleepFunction
-    local ntime = os.clock() + s/10
+    local ntime = os.clock() + s
     repeat until os.clock() > ntime
 end
 
