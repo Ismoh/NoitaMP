@@ -6,8 +6,10 @@ function util.Sleep(seconds)
     end
     -- https://stackoverflow.com/a/40524323/3493998
     local sec = tonumber(os.clock() + seconds)
-    while (os.clock() < sec) do
+    local wait = os.clock()
+    while (wait < sec) do
         -- do a busy wait. Consuming processor time, but I dont care :)
+        wait = wait + os.clock()
         logger:debug("Doing busy while waiting.. os,clock()=" .. os.clock() .. " sec=" .. sec)
     end
 end
