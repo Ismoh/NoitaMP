@@ -5,12 +5,11 @@ function util.Sleep(seconds)
         error("Unable to wait if parameter 'seconds' isn't a number: " .. type(seconds))
     end
     -- https://stackoverflow.com/a/40524323/3493998
-    local sec = tonumber(os.clock() + seconds)
     local wait = os.clock()
-    while (wait < sec) do
+    while (wait < seconds) do
         -- do a busy wait. Consuming processor time, but I dont care :)
         wait = wait + os.clock()
-        logger:debug("Doing busy while waiting.. os,clock()=" .. os.clock() .. " sec=" .. sec)
+        logger:debug("Doing busy while waiting.. os,clock()=" .. wait .. " seconds=" .. seconds)
     end
 end
 
