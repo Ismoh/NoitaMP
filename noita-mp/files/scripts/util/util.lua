@@ -9,7 +9,7 @@ function util.Sleep(seconds)
     while (wait < seconds) do
         -- do a busy wait. Consuming processor time, but I dont care :)
         wait = wait + os.clock()
-        -- logger:debug("Doing busy while waiting.. os,clock()=" .. wait .. " seconds=" .. seconds)
+        logger:debug("Doing busy while waiting.. os,clock()=" .. wait .. " seconds=" .. seconds)
     end
 end
 
