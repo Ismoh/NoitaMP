@@ -1,10 +1,4 @@
--- Noita independent init file for setting global object, requirements and fixing lua paths
+-- Init lua scripts to set necessary defaults, like lua paths, logger init and extensions
 dofile("mods/noita-mp/files/scripts/init/init_package_loading.lua")
 dofile("mods/noita-mp/files/scripts/init/init_logger.lua")
 dofile("mods/noita-mp/files/scripts/util/table_extensions.lua")
-
--- use require instead of dofile, because of different paths. Set package parh in the first line
--- or move/copy noita-mp to ./mods/ on github
-
--- create symlink /mods/ -> root-dir for github on ubuntu
--- check if there is symlink on windows
