@@ -21,7 +21,9 @@ function TestUtil:testSleep()
     local timestamp_before = os.time()
     util.Sleep(seconds_to_wait)
     local timestamp_after = os.time()
-    lu.assertEquals(os.difftime(timestamp_before, timestamp_after), seconds_to_wait)
+    local diff = os.difftime(timestamp_before, timestamp_after)
+    logger:debug("timestamp_before=%s, timestamp_after=%s, diff=%s", timestamp_before, timestamp_after, diff)
+    lu.assertEquals(diff, seconds_to_wait)
 end
 
 function TestUtil:testIsEmpty()
