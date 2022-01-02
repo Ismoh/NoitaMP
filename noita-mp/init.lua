@@ -1,7 +1,7 @@
 dofile("mods/noita-mp/files/scripts/init/init_.lua")
 
 local fu = require("file_util")
-local Guid = require("guid")
+local em = require("entities_manager")
 
 fu.SetAbsolutePathOfNoitaRootDirectory()
 
@@ -66,6 +66,8 @@ function OnWorldPreUpdate()
     if _G.Client then
         _G.Client:update()
     end
+
+    em.UpdateEntitiesWithTag("enemy")
 
     dofile("mods/noita-mp/files/scripts/ui.lua")
 end
