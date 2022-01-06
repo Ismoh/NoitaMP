@@ -1,3 +1,5 @@
+local bitser = require("bitser")
+
 local util = {}
 
 function util.Sleep(s)
@@ -49,6 +51,14 @@ function util.ExtendAndCutStringToLength(var, length, char)
         end
     end
     return new_var
+end
+
+function util.serialise(data)
+    return bitser.dumps(data)
+end
+
+function util.deserialise(data)
+    return bitser.loads(data)
 end
 
 return util
