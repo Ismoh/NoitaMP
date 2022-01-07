@@ -1,4 +1,4 @@
--- Used to extend default lua implementations
+-- Used to extend default lua implementations of table
 
 --- Return true, if the key is contained in the tbl. NOTE: Doesn't check for duplicates inside the table.
 --- @param tbl table Table to check.
