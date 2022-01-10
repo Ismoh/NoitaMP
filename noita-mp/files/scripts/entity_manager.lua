@@ -5,7 +5,10 @@ local em = {
     cached_entity_ids = {}
 }
 
---- Adds a network component to an entity, if it doesn't exist already.
+--- Checks for entities in a specific range/radius to the player_units.
+--- If there are entities in this radius, a NetworkComponent will be added as a VariableStorageComponent.
+--- If entities does not have VelocityComponents, those will be ignored.
+--- Every checked entity will be put into a cache list, to stop iterating over the same entities again and again.
 function em.AddNetworkComponent()
     -- local entity_ids = EntityGetWithTag("root") or {}
     local entity_ids = {}
@@ -27,99 +30,90 @@ function em.AddNetworkComponent()
             -- loop all components of the entity
             local component_ids = EntityGetAllComponents(entity_id)
 
-            local is_velocity_component = false
+            local has_velocity_component = false
             for index_component_id, component_id in ipairs(component_ids) do
                 -- search for VelocityComponent
                 local component_name = ComponentGetTypeName(component_id)
                 if component_name == "VelocityComponent" then
-                    is_velocity_component = true
-                    break
-                end
+                    has_velocity_component = true
+                    local variable_storage_component_ids =
+                        EntityGetComponentIncludingDisabled(entity_id, "VariableStorageComponent") or {}
 
-                if is_velocity_component and component_name == "VariableStorageComponent" then
-                    is_velocity_component = false
-                    -- check if the entity already has a VelocityComponent and a VariableStorageComponent
-                    local variable_storage_component_name = ComponentGetValue2(component_id, "name") or nil
-                    if variable_storage_component_name == "network_component_class" then
-                        -- if entity already has a VariableStorageComponent with the name of 'network_component_class', skip it
-                        break
-                    else
-                        -- if the VariableStorageComponent is not a 'network_component_class', then add one
-                        local component_id =
-                            EntityAddComponent2(
-                            entity_id,
-                            "VariableStorageComponent",
-                            {
-                                name = "network_component_class",
-                                value_string = nil
-                            }
-                        )
-                        logger:debug("VariableStorageComponent added with noita component_id = %s!", component_id)
-
-                        local nc = NetworkComponent:new(nil, component_id, "TODO get client or server")
-                        local nc_serialised = util.serialise(nc:toSerialisableTable())
-
-                        ComponentSetValue2(component_id, "value_string", nc_serialised)
-                        logger:debug("Added network component to the VariableStorageComponent as a serialised string.")
-
-                        table.insert(em.cached_entity_ids, entity_id)
-                    end
-                end
-            end
-        end
-    end
-
-    -- Ignore already checked entities by removing it with a cached list
-    entity_ids = table.removeByTable(entity_ids, em.cached_entity_ids)
-
-    if #entity_ids > 0 then
-        for index, entity_id in ipairs(entity_ids) do
-            local added = false
-
-            local component_ids = EntityGetAllComponents(entity_id)
-            if #component_ids > 0 then
-                for index, component_id in ipairs(component_ids) do
-                    local component_name = ComponentGetTypeName(component_id)
-                    if component_name == "VariableStorageComponent" then
-                        -- local script_source_file = ComponentGetValue2(component_id, "script_source_file")
-                        -- if
-                        --     script_source_file ~= nil and
-                        --         script_source_file == "noita-mp/files/scripts/components/network_component.lua"
-                        --  then
-                        added = true
+                    -- if variable_storage_component_ids == nil or variable_storage_component_ids == {} then
+                    --     em.AddNetworkComponentToEntity(entity_id)
                     -- end
+
+                    local has_network_component = false
+                    for index_variable_storage_component_id, variable_storage_component_id in ipairs(
+                        variable_storage_component_ids
+                    ) do
+                        -- check if the entity already has a VariableStorageComponent
+                        local variable_storage_component_name =
+                            ComponentGetValue2(variable_storage_component_id, "name") or nil
+                        if variable_storage_component_name == "network_component_class" then
+                            -- if entity already has a VariableStorageComponent with the name of 'network_component_class', skip it
+                            has_network_component = true
+                        end
+                    end
+
+                    if has_network_component == false then
+                        -- if the VariableStorageComponent is not a 'network_component_class', then add one
+                        em.AddNetworkComponentToEntity(entity_id)
                     end
                 end
             end
 
-            if added == false then
-                logger:debug("Adding custom network component!")
-
-                local component_id =
-                    EntityAddComponent2(
-                    entity_id,
-                    "VariableStorageComponent",
-                    {
-                        name = "network_component_class",
-                        value_string = nil
-                    }
-                )
-                logger:debug("VariableStorageComponent added with noita component_id = %s!", component_id)
-
-                local nc = NetworkComponent:new(nil, component_id, "TODO get client or server")
-                local nc_serialised = util.serialise(nc:toSerialisableTable())
-
-                ComponentSetValue2(component_id, "value_string", nc_serialised)
-                logger:debug("Added network component to the VariableStorageComponent as a serialised string.")
-
-                added = true
+            if has_velocity_component == false then
+                -- if the entity does not have a VelocityComponent, skip it always
+                table.insert(em.cached_entity_ids, entity_id)
             end
-
-            table.insert(em.cached_entity_ids, entity_id)
-
-            logger:debug("Found entity '%s' by tag '%s'", entity_id, tag)
         end
     end
+end
+
+--- Adds a NetworkComponent to an entity, if it doesn't exist already.
+--- @param entity_id number The entity id where to add the NetworkComponent.
+--- @return number component_id Returns the component_id. The already existed one or the newly created id.
+function em.AddNetworkComponentToEntity(entity_id)
+    local variable_storage_component_ids = EntityGetComponentIncludingDisabled(1781, "VariableStorageComponent")
+
+    -- check if the entity already has a NetworkComponent. If so skip this function by returning the component_id
+    for index, variable_storage_component_id in ipairs(variable_storage_component_ids) do
+        local variable_storage_component_name = ComponentGetValue2(variable_storage_component_id, "name") or nil
+        if variable_storage_component_name == "network_component_class" then
+            -- if entity already has a VariableStorageComponent with the name of 'network_component_class', skip it
+            table.insert(em.cached_entity_ids, entity_id)
+            return variable_storage_component_id
+        end
+    end
+
+    local component_id =
+        EntityAddComponent2(
+        entity_id,
+        "VariableStorageComponent",
+        {
+            name = "network_component_class",
+            value_string = nil -- will be set after creation, because NetworkComponent has to be serialised
+        }
+    )
+    logger:debug(
+        "VariableStorageComponent added with noita component_id = %s to entity_id = %s!",
+        component_id,
+        entity_id
+    )
+
+    local nc = NetworkComponent:new(nil, component_id, "TODO get client or server")
+    local nc_serialised = util.serialise(nc:toSerialisableTable())
+
+    ComponentSetValue2(component_id, "value_string", nc_serialised)
+    logger:debug(
+        "Added network component to the VariableStorageComponent as a serialised string: component_id = %s to entity_id = %s!",
+        component_id,
+        entity_id
+    )
+
+    table.insert(em.cached_entity_ids, entity_id)
+    return component_id
 end
 
 return em
