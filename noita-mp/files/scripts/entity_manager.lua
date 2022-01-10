@@ -65,6 +65,7 @@ function em.AddNetworkComponent()
 
             if has_velocity_component == false then
                 -- if the entity does not have a VelocityComponent, skip it always
+                logger:debug("Entity %s does not have a VelocityComponent. Ignore it.", entity_id)
                 table.insert(em.cached_entity_ids, entity_id)
             end
         end
@@ -75,7 +76,7 @@ end
 --- @param entity_id number The entity id where to add the NetworkComponent.
 --- @return number component_id Returns the component_id. The already existed one or the newly created id.
 function em.AddNetworkComponentToEntity(entity_id)
-    local variable_storage_component_ids = EntityGetComponentIncludingDisabled(1781, "VariableStorageComponent")
+    local variable_storage_component_ids = EntityGetComponentIncludingDisabled(entity_id, "VariableStorageComponent") or {}
 
     -- check if the entity already has a NetworkComponent. If so skip this function by returning the component_id
     for index, variable_storage_component_id in ipairs(variable_storage_component_ids) do
