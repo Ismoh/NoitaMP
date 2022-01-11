@@ -12,14 +12,16 @@ dofile("data/scripts/lib/mod_settings.lua")
 -- until the player starts a new game.
 -- ModSettingSetNextValue() will set the buffered value, that will later become visible via ModSettingGet(), unless the setting scope is MOD_SETTING_SCOPE_RUNTIME.
 
-function mod_setting_change_callback( mod_id, gui, in_main_menu, setting, old_value, new_value  )
-	print( tostring(new_value) )
+function mod_setting_change_callback(mod_id, gui, in_main_menu, setting, old_value, new_value)
+	print(
+		"settings.lua | Mod setting '" ..
+			setting.id .. "' was changed from '" .. tostring(old_value) .. "' to '" .. tostring(new_value) .. "'."
+	)
 end
 
 local mod_id = "noita-mp" -- This should match the name of your mod's folder.
-mod_settings_version = 1 -- This is a magic global that can be used to migrate settings to new mod versions. call mod_settings_get_version() before mod_settings_update() to get the old value. 
-mod_settings =
-{
+mod_settings_version = 1 -- This is a magic global that can be used to migrate settings to new mod versions. call mod_settings_get_version() before mod_settings_update() to get the old value.
+mod_settings = {
 	{
 		id = "username",
 		ui_name = "Username",
@@ -27,7 +29,21 @@ mod_settings =
 		value_default = "noname",
 		text_max_length = 20,
 		scope = MOD_SETTING_SCOPE_RUNTIME,
+		change_fn = mod_setting_change_callback -- Called when the user interact with the settings widget.
+	},
+	{
+		id = "guid",
+		value_default = "",
+		text_max_length = 36,
+		scope = MOD_SETTING_SCOPE_RUNTIME,
 		change_fn = mod_setting_change_callback, -- Called when the user interact with the settings widget.
+		hidden = true,
+	},
+	{
+		id = "guid_readonly",
+		ui_name = "GUID",
+		ui_description = "Cannot be changed manually. I suggest to keep it as it is.",
+		ui_fn = mod_setting_readonly,
 	},
 	{
 		category_id = "group_of_server_settings",
@@ -149,9 +165,9 @@ mod_settings =
 -- 		- before mod initialization when starting a new game (init_scope will be MOD_SETTING_SCOPE_NEW_GAME)
 --		- when entering the game after a restart (init_scope will be MOD_SETTING_SCOPE_RESTART)
 --		- at the end of an update when mod settings have been changed via ModSettingsSetNextValue() and the game is unpaused (init_scope will be MOD_SETTINGS_SCOPE_RUNTIME)
-function ModSettingsUpdate( init_scope )
-	local old_version = mod_settings_get_version( mod_id ) -- This can be used to migrate some settings between mod versions.
-	mod_settings_update( mod_id, mod_settings, init_scope )
+function ModSettingsUpdate(init_scope)
+	local old_version = mod_settings_get_version(mod_id) -- This can be used to migrate some settings between mod versions.
+	mod_settings_update(mod_id, mod_settings, init_scope)
 end
 
 -- This function should return the number of visible setting UI elements.
@@ -161,10 +177,18 @@ end
 -- At the moment it is fine to simply return 0 or 1 in a custom implementation, but we don't guarantee that will be the case in the future.
 -- This function is called every frame when in the settings menu.
 function ModSettingsGuiCount()
-	return mod_settings_gui_count( mod_id, mod_settings )
+	return mod_settings_gui_count(mod_id, mod_settings)
 end
 
 -- This function is called to display the settings UI for this mod. Your mod's settings wont be visible in the mod settings menu if this function isn't defined correctly.
-function ModSettingsGui( gui, in_main_menu )
-	mod_settings_gui( mod_id, mod_settings, gui, in_main_menu )
+function ModSettingsGui(gui, in_main_menu)
+	mod_settings_gui(mod_id, mod_settings, gui, in_main_menu)
+end
+
+function mod_setting_readonly(mod_id, gui, in_main_menu, im_id, setting)
+	local guid = ModSettingGetNextValue("noita-mp.guid")
+	local text = setting.ui_name .. ": " .. tostring(guid)
+
+	GuiText(gui, 0, 0, text)
+	mod_setting_tooltip(mod_id, gui, in_main_menu, setting)
 end

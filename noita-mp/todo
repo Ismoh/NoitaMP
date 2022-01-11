@@ -18,3 +18,5 @@
     + sent to server "map received"
 8. server got all "map received" messages and stop pausing
 9. enjoy NoitMP
+
+Rename _clients to session name. 

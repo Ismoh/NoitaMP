@@ -1,0 +1,12 @@
+ignore:
+  - ".building"
+  - ".debug"
+  - ".github"
+  - ".vscode"
+  - ".gitattritbutes"
+  - ".gitignore"
+  - "LICENSE"
+  - "README.md"
+  - "noita-mp/files/lib"
+  - "luarocks-3.8.0/.codecov.yml"
+  - "mods"
