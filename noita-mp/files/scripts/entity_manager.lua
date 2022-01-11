@@ -21,29 +21,28 @@ end
 --- If entities does not have VelocityComponents, those will be ignored.
 --- Every checked entity will be put into a cache list, to stop iterating over the same entities again and again.
 function em.AddNetworkComponent()
-    -- local entity_ids = EntityGetWithTag("root") or {}
-    local entity_ids = {}
-
     local player_unit_ids = EntityGetWithTag("player_unit")
-    for index_player_unit_id, player_unit_id in ipairs(player_unit_ids) do
+    --for index_player_unit_id, player_unit_id in ipairs(player_unit_ids) do
+    for i_p = 1, #player_unit_ids do
         -- get all player units
-        local x, y, rot, scale_x, scale_y = EntityGetTransform(player_unit_id)
+        local x, y, rot, scale_x, scale_y = EntityGetTransform(player_unit_ids[i_p])
 
         -- find all entities in a specific radius based on the player units position
-        local temp_entity_ids = EntityGetInRadius(x, y, 1000)
+        local entity_ids = EntityGetInRadius(x, y, 1000)
 
-        for index_entity_id, entity_id in ipairs(temp_entity_ids) do
-            -- if table.contains(em.cache.all_entity_ids, entity_id) then
-            --     -- if entity was already checked, skip it
-            --     break
-            -- end
+        --for index_entity_id, entity_id in ipairs(temp_entity_ids) do
+        for i_e = 1, #entity_ids do
+            local entity_id = entity_ids[i_e]
 
             if not table.contains(em.cache.all_entity_ids, entity_id) then -- if entity was already checked, skip it
                 -- loop all components of the entity
                 local component_ids = EntityGetAllComponents(entity_id)
 
                 local has_velocity_component = false
-                for index_component_id, component_id in ipairs(component_ids) do
+                --for index_component_id, component_id in ipairs(component_ids) do
+                for i_c = 1, #component_ids do
+                    local component_id = component_ids[i_c]
+
                     -- search for VelocityComponent
                     local component_name = ComponentGetTypeName(component_id)
                     if component_name == "VelocityComponent" then
@@ -51,14 +50,10 @@ function em.AddNetworkComponent()
                         local variable_storage_component_ids =
                             EntityGetComponentIncludingDisabled(entity_id, "VariableStorageComponent") or {}
 
-                        -- if variable_storage_component_ids == nil or variable_storage_component_ids == {} then
-                        --     em.AddNetworkComponentToEntity(entity_id)
-                        -- end
-
                         local has_network_component = false
-                        for index_variable_storage_component_id, variable_storage_component_id in ipairs(
-                            variable_storage_component_ids
-                        ) do
+                        -- for index_variable_storage_component_id, variable_storage_component_id in ipairs(variable_storage_component_ids) do
+                        for i_v = 1, #variable_storage_component_ids do
+                            local variable_storage_component_id = variable_storage_component_ids[i_v]
                             -- check if the entity already has a VariableStorageComponent
                             local variable_storage_component_name =
                                 ComponentGetValue2(variable_storage_component_id, "name") or nil
@@ -102,7 +97,9 @@ function em.AddNetworkComponentToEntity(entity_id, guid, nuid)
         EntityGetComponentIncludingDisabled(entity_id, "VariableStorageComponent") or {}
 
     -- check if the entity already has a NetworkComponent. If so skip this function by returning the component_id
-    for index, variable_storage_component_id in ipairs(variable_storage_component_ids) do
+    --for index, variable_storage_component_id in ipairs(variable_storage_component_ids) do
+    for i_v = 1, #variable_storage_component_ids do
+        local variable_storage_component_id = variable_storage_component_ids[i_v]
         local variable_storage_component_name = ComponentGetValue2(variable_storage_component_id, "name") or nil
         local nc_serialised = ComponentGetValue2(variable_storage_component_id, "value_string") or nil
         local nc = nil
@@ -152,12 +149,11 @@ end
 function em.SpawnEntity(owner, nuid, x, y, rot, filename)
     local entity_id = EntityLoad(filename, x, y)
     em.AddNetworkComponentToEntity(entity_id, owner, nuid)
-    EntityApplyTransform( entity_id, x, y, rot)
+    EntityApplyTransform(entity_id, x, y, rot)
     return entity_id
 end
 
 function em.UpdateEntities()
-    
 end
 
 --- Get a network component by its entity id
