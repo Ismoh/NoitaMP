@@ -30,10 +30,11 @@ Usually I like to play with my friends. Truly Noita is made for beeing a singlep
 but I can't get rid of the idea to try implemting a multiplayer mod, just to share all the feelings playing Noita with friends.
 Let's see, if I can do so?!
 
-## Noita Together Reference
+## Documentation
 
-[Noita Together](https://github.com/soler91/noita-together) is a mod I was inspired by trying to do my own mod!
-It's awesome and it's more or less a reference to this. You really should try Noita Together! (Just to be clear, there is no 'stolen' code.)
+Installation, configuration and support can be found on the [docs](https://ismoh.github.io/NoitaMP/).
+
+---
 
 ## Credits | Special Thanks
 
@@ -60,3 +61,9 @@ Also special thanks to the ppl, who share their libraries, frameworks and other 
 
 I had to build the network library by my own, because Noita provides its own lua51.dll. I had struggle to build it, if you are interested in,
 I've added all the necessary build files inside of .building/dll_building.7z and here you can see the [stackoverflow question](https://stackoverflow.com/questions/70048918/lua-5-1-package-loadlib-and-require-gcc-building-windows-dll) I've created.
+
+---
+### Noita Together Reference
+
+[Noita Together](https://github.com/soler91/noita-together) is a mod I was inspired by trying to do my own mod!
+It's awesome and it's more or less a reference to this. You really should try Noita Together! (Just to be clear, there is no 'stolen' code.)
