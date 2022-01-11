@@ -40,7 +40,9 @@ function Server:setSettings()
     self.super:setSchema("worldFilesFinished", {"progress"})
     self.super:setSchema("seed", {"seed"})
     self.super:setSchema("clientInfo", {"username", "guid"})
-    self.super:setSchema("playerState", {"index", "player"})
+    self.super:setSchema("needNuid", {"owner", "localEntityId"})
+    self.super:setSchema("newNuid", {"owner", "localEntityId", "nuid", "x", "y", "rot", "file"})
+    self.super:setSchema("entityState", {"owner", "nuid", "x", "y", "rot"})
 end
 
 -- Derived class methods
@@ -98,9 +100,44 @@ function Server:createCallbacks()
             )
         end
     )
+
+    self.super:on(
+        "needNuid",
+        function(data, peer)
+            local owner = data.owner
+            local local_entity_id = data.localEntityId
+            local new_nuid = em.GetNextNuid()
+            self.super:sendToAll("newNuid", {owner, local_entity_id, new_nuid})
+        end
+    )
+
+    self.super:on(
+        "newNuid",
+        function(data, peer)
+            local owner = data.owner
+            if self.super.guid == owner then
+                return -- skip if this entity is my own
+            end
+
+            em.SpawnEntity(owner, data.nuid, data.x, data.y, data.rot, data.filename)
+        end
+    )
+
+    self.super:on(
+        "entityState",
+        function(data)
+            local guid = data.owner
+            local nuid = data.nuid
+            local x = data.x
+            local y = data.y
+            local rot = data.rot
+
+            local nc = em.GetNetworkComponent(nuid)
+        end
+    )
 end
 
-function Server:create()
+function Server:start()
     print("server_class.lua | Starting server and fetching ip and port..")
 
     local ip = tostring(ModSettingGet("noita-mp.server_ip"))
@@ -119,6 +156,15 @@ function Server:create()
         "Your server is running on " ..
             self.super:getAddress() .. ":" .. self.super:getPort() .. ". Tell your friends to join!"
     )
+end
+
+function Server:stop()
+    -- _G.Server.super:destroy()
+    -- _G.Server.super = nil
+    -- _G.Server = Server:new()
+    self.super:destroy()
+    self.super = nil
+    -- _G.Server = Server:new()
 end
 
 function Server:setClientInfo(data, peer)
@@ -209,23 +255,36 @@ end
 function Server:sendMap(client)
 end
 
-function Server:destroy()
-    _G.Server.super:destroy()
-    _G.Server = Server:new()
-end
-
 function Server:update()
     if not self.super then
         return -- server not established
     end
 
+    em.AddNetworkComponent()
+
+    em.UpdateEntities()
+
     self.super:update()
+end
+
+--- Checks if the current local user is the server
+--- @return boolean iAm true if server
+function Server:amIServer()
+    if _G.Server.super and _G.Client.super then
+        error("Something really strange is going on. You are server and client at the same time?", 2)
+    end
+
+    if _G.Server.super and _G.Server.super.guid == self.super.guid then
+        return true
+    end
+
+    return false
 end
 
 -- Create a new global object of the server
 _G.Server = Server:new()
 if ModSettingGet("noita-mp.server_start_when_world_loaded") then
-    _G.Server:create()
+    _G.Server:start()
 else
     GamePrintImportant(
         "Server not started",

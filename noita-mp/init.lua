@@ -67,7 +67,5 @@ function OnWorldPreUpdate()
         _G.Client:update()
     end
 
-    em.AddNetworkComponent("enemy")
-
     dofile("mods/noita-mp/files/scripts/ui.lua")
 end

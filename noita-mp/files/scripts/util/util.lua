@@ -58,6 +58,9 @@ function util.serialise(data)
     return bitser.dumps(data)
 end
 
+--- Deserialise data
+---@param data any
+---@return any
 function util.deserialise(data)
     return bitser.loads(data)
 end

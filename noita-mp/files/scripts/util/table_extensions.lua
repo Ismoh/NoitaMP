@@ -4,13 +4,20 @@
 --- @param tbl table Table to check.
 --- @param key any Number(index) or String(name matching) for indexing the table.
 --- @return boolean true if indexing by key does not return nil
+--- @return integer index also returns the index of the found key
 table.contains = function(tbl, key)
-    for index, value in ipairs(tbl) do
-        if value == key then
-            return true
+    -- for index, value in ipairs(tbl) do
+    --     if value == key then
+    --         return true, index
+    --     end
+    -- end
+    for i = 1, #tbl do -- better performance? Yes reduced load from 111 to 80. still only 10fps
+        local v = tbl[i]
+        if v == key then
+            return true, i
         end
     end
-    return false
+    return false, -1
 end
 
 -- https://gist.github.com/HoraceBury/9307117#file-tablelib-lua-L293-L313

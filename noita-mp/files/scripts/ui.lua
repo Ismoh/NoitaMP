@@ -47,13 +47,13 @@ if not Initialized then
         if _G.Server == nil or next(_G.Server) == nil or _G.Server.super == nil or next(_G.Server.super) == nil then
             GuiColorSetForNextWidget(gui, 0, 1, 0, 1)
             if GuiButton(gui, next_id(), 0, 0, "Start server on " .. server_ip .. ":" .. server_port) then
-                _G.Server:create()
+                _G.Server:start()
             end
         else
             ------------ Stop server
             GuiColorSetForNextWidget(gui, 1, 0, 0, 1)
             if GuiButton(gui, next_id(), 0, 0, "Stop server on " .. server_ip .. ":" .. server_port) then
-                _G.Server:destroy()
+                _G.Server:stop()
             end
         end
         GuiLayoutEnd(gui)

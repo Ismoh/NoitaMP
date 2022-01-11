@@ -417,7 +417,7 @@ function fu.StopSaveAndStartNoita()
     SDL.SDL_PushEvent(evt)
 
     if _G.Server then
-        _G.Server:destroy()
+        _G.Server:stop()
     end
 
     local exe = "noita.exe"
