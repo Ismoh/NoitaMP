@@ -85,3 +85,12 @@ function table.indexOf(tbl, value)
     end
     return index
 end
+
+--- Adds a value to a table, if this value doesn't exist in the table
+--- @param tbl table
+--- @param value any
+function table.insertIfNotExist(tbl, value)
+    if not table.contains(tbl, value) then
+        table.insert(tbl, value)
+    end
+end

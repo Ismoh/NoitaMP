@@ -14,6 +14,10 @@ end
 
 local logger = Logging.new(appender)
 
-logger:setLevel(logger.DEBUG)
+if DebugGetIsDevBuild() then
+  logger:setLevel(logger.DEBUG)
+else
+  logger:setLevel(logger.WARN)
+end
 
 _G.logger = logger

@@ -1,6 +1,7 @@
 local fu = require("file_util")
 local sock = require("sock")
 local Guid = require("guid")
+local em = require("entity_manager")
 
 -- https://www.tutorialspoint.com/lua/lua_object_oriented.htm
 -- Meta class
@@ -53,6 +54,7 @@ function Server:createCallbacks()
             print("server_class.lua | on_connect: ")
             print("server_class.lua | on_connect: data = " .. tostring(data))
             print("server_class.lua | on_connect: client = " .. tostring(peer))
+            em.SpawnEntity(peer.guid, "mods/noita-mp/data/enemies_gfx/client_player_base.xml", 1, 1)
         end
     )
 
