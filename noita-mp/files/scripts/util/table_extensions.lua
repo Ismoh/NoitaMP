@@ -38,21 +38,6 @@ table.containsAll = function(tbl, ...)
     return count >= #arg
 end
 
--- https://gist.github.com/HoraceBury/9307117#file-tablelib-lua-L117-L126
--- extends table.remove to remove objects directly, without requiring table.indexOf
--- local _remove = table.remove
--- table.remove = function(t, pos)
---     if (type(pos) == "number") then
---         return _remove(t, pos)
---     else
---         pos = table.indexOf(t, pos)
---         if pos == nil then
---             error("Key does not exist!")
---         end
---         return _remove(t, pos)
---     end
--- end
-
 -- https://stackoverflow.com/questions/1758991/how-to-remove-a-lua-table-entry-by-its-key
 function table.removeByKey(tbl, key)
     -- local element = table[key]
@@ -73,11 +58,6 @@ end
 --- @param tbl2 table
 --- @return table tbl1 returns tbl1 with remove values containing in tbl2
 function table.removeByTable(tbl1, tbl2)
-    -- for i, value in ipairs(tbl2) do
-    --     if table.contains(tbl1, value) then
-    --         table.removeByValue(tbl1, value)
-    --     end
-    -- end
     for i = 1, #tbl2 do
         local v = tbl2[i]
         if table.contains(tbl1, v) then
@@ -89,14 +69,6 @@ end
 
 -- https://stackoverflow.com/a/52922737/3493998
 function table.indexOf(tbl, value)
-    -- local index = nil
-    -- for i, v in ipairs(tbl) do
-    --     if (v == value) then
-    --         index = i
-    --         break
-    --     end
-    -- end
-    -- return index
     for i = 1, #tbl do
         local v = tbl[i]
         if (v == value) then

@@ -22,7 +22,6 @@ end
 --- Every checked entity will be put into a cache list, to stop iterating over the same entities again and again.
 function em.AddNetworkComponent()
     local player_unit_ids = EntityGetWithTag("player_unit")
-    --for index_player_unit_id, player_unit_id in ipairs(player_unit_ids) do
     for i_p = 1, #player_unit_ids do
         -- get all player units
         local x, y, rot, scale_x, scale_y = EntityGetTransform(player_unit_ids[i_p])
@@ -30,7 +29,6 @@ function em.AddNetworkComponent()
         -- find all entities in a specific radius based on the player units position
         local entity_ids = EntityGetInRadius(x, y, 1000)
 
-        --for index_entity_id, entity_id in ipairs(temp_entity_ids) do
         for i_e = 1, #entity_ids do
             local entity_id = entity_ids[i_e]
 
@@ -39,7 +37,6 @@ function em.AddNetworkComponent()
                 local component_ids = EntityGetAllComponents(entity_id)
 
                 local has_velocity_component = false
-                --for index_component_id, component_id in ipairs(component_ids) do
                 for i_c = 1, #component_ids do
                     local component_id = component_ids[i_c]
 
@@ -51,7 +48,6 @@ function em.AddNetworkComponent()
                             EntityGetComponentIncludingDisabled(entity_id, "VariableStorageComponent") or {}
 
                         local has_network_component = false
-                        -- for index_variable_storage_component_id, variable_storage_component_id in ipairs(variable_storage_component_ids) do
                         for i_v = 1, #variable_storage_component_ids do
                             local variable_storage_component_id = variable_storage_component_ids[i_v]
                             -- check if the entity already has a VariableStorageComponent
@@ -63,14 +59,13 @@ function em.AddNetworkComponent()
                             end
                         end
 
-                        local nuid = nil
-                        if _G.Server:amIServer() then
-                            nuid = em.GetNextNuid()
-                        else
-                            _G.Client:sendNeedNuid(entity_id)
-                        end
-
                         if has_network_component == false then
+                            local nuid = nil
+                            if _G.Server:amIServer() then
+                                nuid = em.GetNextNuid()
+                            else
+                                _G.Client:sendNeedNuid(entity_id)
+                            end
                             -- if the VariableStorageComponent is not a 'network_component_class', then add one
                             em.AddNetworkComponentToEntity(entity_id, ModSettingGet("noita-mp.guid"), nuid)
                         end
@@ -97,7 +92,6 @@ function em.AddNetworkComponentToEntity(entity_id, guid, nuid)
         EntityGetComponentIncludingDisabled(entity_id, "VariableStorageComponent") or {}
 
     -- check if the entity already has a NetworkComponent. If so skip this function by returning the component_id
-    --for index, variable_storage_component_id in ipairs(variable_storage_component_ids) do
     for i_v = 1, #variable_storage_component_ids do
         local variable_storage_component_id = variable_storage_component_ids[i_v]
         local variable_storage_component_name = ComponentGetValue2(variable_storage_component_id, "name") or nil
