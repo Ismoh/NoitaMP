@@ -73,9 +73,15 @@ end
 --- @param tbl2 table
 --- @return table tbl1 returns tbl1 with remove values containing in tbl2
 function table.removeByTable(tbl1, tbl2)
-    for i, value in ipairs(tbl2) do
-        if table.contains(tbl1, value) then
-            table.removeByValue(tbl1, value)
+    -- for i, value in ipairs(tbl2) do
+    --     if table.contains(tbl1, value) then
+    --         table.removeByValue(tbl1, value)
+    --     end
+    -- end
+    for i = 1, #tbl2 do
+        local v = tbl2[i]
+        if table.contains(tbl1, v) then
+            table.removeByValue(tbl1, v)
         end
     end
     return tbl1
@@ -83,14 +89,21 @@ end
 
 -- https://stackoverflow.com/a/52922737/3493998
 function table.indexOf(tbl, value)
-    local index = nil
-    for i, v in ipairs(tbl) do
+    -- local index = nil
+    -- for i, v in ipairs(tbl) do
+    --     if (v == value) then
+    --         index = i
+    --         break
+    --     end
+    -- end
+    -- return index
+    for i = 1, #tbl do
+        local v = tbl[i]
         if (v == value) then
-            index = i
-            break
+            return i
         end
     end
-    return index
+    return nil
 end
 
 --- Adds a value to a table, if this value doesn't exist in the table
