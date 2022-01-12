@@ -15,19 +15,14 @@ local fu = require("file_util")
 --[[ NoitaMP additions ]]
 -- A list of paths to lua script modules
 local paths = {
-    -- "{root}/noita-mp/files/{module}", -- {root}/ is used outside of the game: github etc
-    "mods/noita-mp/files/{module}", -- mods/ is used inside the game
-    -- "{root}/noita-mp/files/lib/{module}",
+    "mods/noita-mp/files/{module}",
     "mods/noita-mp/files/lib/{module}",
-    -- "{root}/noita-mp/files/lib/external/{module}",
     "mods/noita-mp/files/lib/external/{module}",
-    -- "{root}/noita-mp/files/lib/external/platform-specific/{platform}/{module}",
     "mods/noita-mp/files/lib/external/platform-specific/{platform}/{module}",
-    -- "{root}/noita-mp/files/scripts/{module}",
     "mods/noita-mp/files/scripts/{module}",
-    -- "{root}/noita-mp/files/scripts/net/{module}",
+    "mods/noita-mp/files/scripts/components/{module}",
+    "mods/noita-mp/files/scripts/init/{module}",
     "mods/noita-mp/files/scripts/net/{module}",
-    -- "{root}/noita-mp/files/scripts/util/{module}",
     "mods/noita-mp/files/scripts/util/{module}"
 }
 

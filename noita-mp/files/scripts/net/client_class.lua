@@ -1,6 +1,7 @@
 local fu = require("file_util")
 local sock = require("sock")
 local Guid = require("guid")
+local em = require("entity_manager")
 
 -- https://www.tutorialspoint.com/lua/lua_object_oriented.htm
 -- Meta class
@@ -21,7 +22,6 @@ function Client:new(o, super, address, port)
     return o
 end
 
-
 function Client:setGuid()
     local guid = tostring(ModSettingGetNextValue("noita-mp.guid"))
     if guid == "" or Guid.isPatternValid(guid) == false then
@@ -35,13 +35,27 @@ function Client:setGuid()
     end
 end
 
+function Client:setNuid(owner, local_entity_id, nuid)
+    local nc = em.GetNetworkComponent(local_entity_id)
+    if nc.nuid ~= nil then
+        logger:warning("Nuid %s of entity %s was already set, although it's a local new one?", nuid, local_entity_id)
+    end
+    if nc.owner ~= owner then
+        error(("Owner %s tries to set nuid %s of different nc.owners %s entity %s."):format(owner, nuid, nc.owner, local_entity_id), 2)
+    end
+    nc.nuid = nuid
+end
+
 function Client:setSettings()
     self.super:setTimeout(320, 50000, 100000)
     self.super:setSchema("worldFiles", {"relDirPath", "fileName", "fileContent", "fileIndex", "amountOfFiles"})
     self.super:setSchema("worldFilesFinished", {"progress"})
     self.super:setSchema("seed", {"seed"})
     self.super:setSchema("clientInfo", {"username", "guid"})
-    self.super:setSchema("playerState", {"index", "player"})
+    self.super:setSchema("needNuid", {"owner", "localEntityId"})
+    self.super:setSchema("newNuid", {"owner", "localEntityId", "nuid", "x", "y", "rot", "file"})
+    self.super:setSchema("entityState", {"owner", "nuid", "x", "y", "rot"})
+    --self.super:setSchema("playerState", {"index", "player"})
 end
 
 -- Derived class methods
@@ -162,11 +176,15 @@ function Client:createCallbacks()
         end
     )
 
-    -- Custom callback, called whenever you send the event from the server
     self.super:on(
-        "hello",
-        function(msg)
-            print("client_class.lua | The server replied: " .. msg)
+        "newNuid",
+        function(data)
+            local owner = data.owner
+            if self.super.guid == owner then
+                self:setNuid(owner, data.localEntityId, data.nuid)
+            else
+                em.SpawnEntity(owner, data.nuid, data.x, data.y, data.rot, data.filename)
+            end
         end
     )
 end
@@ -215,6 +233,11 @@ function Client:update()
     end
 
     self.super:update()
+end
+
+function Client:sendNeedNuid(entity_id)
+    local owner = ModSettingGet("noita-mp.guid")
+    self.super:send("needNuid", {owner, entity_id})
 end
 
 -- Create a new global object of the server
