@@ -1,37 +1,17 @@
-## Welcome to GitHub Pages
+# NoitaMP mod documentation
 
-You can use the [editor on GitHub](https://github.com/Ismoh/NoitaMP/edit/develop/docs/index.md) to maintain and preview the content for your website in Markdown files.
+NoitaMP is a mod for [Noita](https://noitagame.com/) to be able to share your feelings while playing Noita with your friends. It's a multiplayer mod :rage1: View it on [GitHub](https://github.com/Ismoh/NoitaMP).
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## Installation
 
-### Markdown
+1. Download the [latest version](https://github.com/Ismoh/NoitaMP/releases) of NoitaMP
+2. Unzip it
+3. Paste '**noita-mp\\**' folder into '**...\\Noita\\mods\\**' directory of your Noita destination path.
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+## Configuration
 
-```markdown
-Syntax highlighted code block
+TBC
 
-# Header 1
-## Header 2
-### Header 3
+## Support
 
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/Ismoh/NoitaMP/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+If you need help or anything looks like to be broken, search the [issues](https://github.com/Ismoh/NoitaMP/issues?q=is%3Aissue) to find a similar problem or [create](https://github.com/Ismoh/NoitaMP/issues/new/choose) a new issue, when there really is something broken! Please do me a favour and first check the old issues. I appreciate it!
