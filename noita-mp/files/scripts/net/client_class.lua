@@ -2,6 +2,7 @@ local fu = require("file_util")
 local sock = require("sock")
 local Guid = require("guid")
 local em = require("entity_manager")
+local util = require("util")
 
 -- https://www.tutorialspoint.com/lua/lua_object_oriented.htm
 -- Meta class
@@ -41,9 +42,18 @@ function Client:setNuid(owner, local_entity_id, nuid)
         logger:warning("Nuid %s of entity %s was already set, although it's a local new one?", nuid, local_entity_id)
     end
     if nc.owner ~= owner then
-        error(("Owner %s tries to set nuid %s of different nc.owners %s entity %s."):format(owner, nuid, nc.owner, local_entity_id), 2)
+        error(
+            ("Owner %s tries to set nuid %s of different nc.owners %s entity %s."):format(
+                owner,
+                nuid,
+                nc.owner,
+                local_entity_id
+            ),
+            2
+        )
     end
     nc.nuid = nuid
+    ComponentSetValue2(nc.noita_component_id, "value_string", util.serialize(nc))
 end
 
 function Client:setSettings()
@@ -52,8 +62,8 @@ function Client:setSettings()
     self.super:setSchema("worldFilesFinished", {"progress"})
     self.super:setSchema("seed", {"seed"})
     self.super:setSchema("clientInfo", {"username", "guid"})
-    self.super:setSchema("needNuid", {"owner", "localEntityId"})
-    self.super:setSchema("newNuid", {"owner", "localEntityId", "nuid", "x", "y", "rot", "file"})
+    self.super:setSchema("needNuid", {"owner", "localEntityId", "filename"})
+    self.super:setSchema("newNuid", {"owner", "localEntityId", "nuid", "x", "y", "rot", "filename"})
     self.super:setSchema("entityState", {"owner", "nuid", "x", "y", "rot"})
     --self.super:setSchema("playerState", {"index", "player"})
 end
@@ -232,12 +242,15 @@ function Client:update()
         return -- Client not established
     end
 
+    em.AddNetworkComponent()
+
     self.super:update()
 end
 
 function Client:sendNeedNuid(entity_id)
     local owner = ModSettingGet("noita-mp.guid")
-    self.super:send("needNuid", {owner, entity_id})
+    local filename = EntityGetFilename(entity_id)
+    self.super:send("needNuid", {owner, entity_id, filename})
 end
 
 -- Create a new global object of the server

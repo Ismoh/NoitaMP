@@ -32,7 +32,7 @@ function em.AddNetworkComponent()
         for i_e = 1, #entity_ids do
             local entity_id = entity_ids[i_e]
 
-            if not table.contains(em.cache.all_entity_ids, entity_id) then -- if entity was already checked, skip it
+            if not em.cache.all_entity_ids[entity_id] then -- if entity was already checked, skip it
                 -- loop all components of the entity
                 local component_ids = EntityGetAllComponents(entity_id)
 
@@ -63,6 +63,12 @@ function em.AddNetworkComponent()
                             local nuid = nil
                             if _G.Server:amIServer() then
                                 nuid = em.GetNextNuid()
+                                _G.Server:sendNewNuid(
+                                    ModSettingGet("noita-mp.guid"),
+                                    entity_id,
+                                    nuid,
+                                    EntityGetFilename(entity_id)
+                                )
                             else
                                 _G.Client:sendNeedNuid(entity_id)
                             end
@@ -75,7 +81,7 @@ function em.AddNetworkComponent()
                 if has_velocity_component == false then
                     -- if the entity does not have a VelocityComponent, skip it always
                     -- logger:debug("Entity %s does not have a VelocityComponent. Ignore it.", entity_id)
-                    table.insertIfNotExist(em.cache.all_entity_ids, entity_id)
+                    em.cache.all_entity_ids[entity_id] = true
                 end
             end
         end
@@ -104,7 +110,7 @@ function em.AddNetworkComponentToEntity(entity_id, guid, nuid)
 
         if variable_storage_component_name == "network_component_class" and nc:getNuid() == nuid then
             -- if entity already has a VariableStorageComponent with the name of 'network_component_class', skip it
-            table.insertIfNotExist(em.cache.all_entity_ids, entity_id)
+            em.cache.all_entity_ids[entity_id] = true
             return variable_storage_component_id
         end
     end
@@ -135,8 +141,9 @@ function em.AddNetworkComponentToEntity(entity_id, guid, nuid)
         entity_id
     )
 
-    table.insertIfNotExist(em.cache.nc_entity_ids, entity_id)
-    table.insertIfNotExist(em.cache.all_entity_ids, entity_id)
+    em.cache.nc_entity_ids[entity_id] = component_id
+    em.cache.all_entity_ids[entity_id] = true
+
     return component_id
 end
 
@@ -154,9 +161,8 @@ end
 --- @param entity_id number Id of the entity.
 --- @return table nc Returns the network component.
 function em.GetNetworkComponent(entity_id)
-    local contains, index = table.contains(em.cache.nc_entity_ids, entity_id)
-    if contains then
-        local nc_id = em.cache.nc_entity_ids.get(index)
+    if em.cache.nc_entity_ids[entity_id] then
+        local nc_id = em.cache.nc_entity_ids[entity_id]
         local nc_serialised = ComponentGetValue(nc_id, "value_string")
         local nc = util.deserialise(nc_serialised)
         return nc

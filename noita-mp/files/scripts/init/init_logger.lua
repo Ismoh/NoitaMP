@@ -5,10 +5,10 @@ local appender = function(self, level, message)
   local file_name = debug.getinfo(2, "S").source:sub(2)
   file_name = file_name:match("^.*/(.*)$") or file_name
   file_name = "\n" .. file_name .. " | "
-
   level = string.trim(level)
 
-  print(file_name, level, message)
+  print(file_name .. level .. " | " .. message)
+  GamePrint(level .. " | " .. message)
   return true
 end
 

@@ -40,8 +40,8 @@ function Server:setSettings()
     self.super:setSchema("worldFilesFinished", {"progress"})
     self.super:setSchema("seed", {"seed"})
     self.super:setSchema("clientInfo", {"username", "guid"})
-    self.super:setSchema("needNuid", {"owner", "localEntityId"})
-    self.super:setSchema("newNuid", {"owner", "localEntityId", "nuid", "x", "y", "rot", "file"})
+    self.super:setSchema("needNuid", {"owner", "localEntityId", "filename"})
+    self.super:setSchema("newNuid", {"owner", "localEntityId", "nuid", "x", "y", "rot", "filename"})
     self.super:setSchema("entityState", {"owner", "nuid", "x", "y", "rot"})
 end
 
@@ -56,7 +56,14 @@ function Server:createCallbacks()
             print("server_class.lua | on_connect: ")
             print("server_class.lua | on_connect: data = " .. tostring(data))
             print("server_class.lua | on_connect: client = " .. tostring(peer))
-            em.SpawnEntity(peer.guid, em.GetNextNuid(), 5, 5, 10, "mods/noita-mp/data/enemies_gfx/client_player_base.xml")
+            em.SpawnEntity(
+                peer.guid,
+                em.GetNextNuid(),
+                5,
+                5,
+                10,
+                "mods/noita-mp/data/enemies_gfx/client_player_base.xml"
+            )
         end
     )
 
@@ -103,17 +110,14 @@ function Server:createCallbacks()
 
     self.super:on(
         "needNuid",
-        function(data, peer)
-            local owner = data.owner
-            local local_entity_id = data.localEntityId
-            local new_nuid = em.GetNextNuid()
-            self.super:sendToAll("newNuid", {owner, local_entity_id, new_nuid})
+        function(data)
+            self:sendNewNuid(data.owner, data.localEntityId, em.GetNextNuid(), data.filename)
         end
     )
 
     self.super:on(
         "newNuid",
-        function(data, peer)
+        function(data)
             local owner = data.owner
             if self.super.guid == owner then
                 return -- skip if this entity is my own
@@ -255,6 +259,10 @@ end
 function Server:sendMap(client)
 end
 
+function Server:sendNewNuid(owner, local_entity_id, new_nuid, filename)
+    self.super:sendToAll2("newNuid", {owner, local_entity_id, new_nuid, filename})
+end
+
 function Server:update()
     if not self.super then
         return -- server not established
@@ -270,9 +278,10 @@ end
 --- Checks if the current local user is the server
 --- @return boolean iAm true if server
 function Server:amIServer()
-    if _G.Server.super and _G.Client.super then
-        error("Something really strange is going on. You are server and client at the same time?", 2)
-    end
+    -- this can happen when you started and stop a server and then connected to a different server!
+    -- if _G.Server.super and _G.Client.super then
+    --     error("Something really strange is going on. You are server and client at the same time?", 2)
+    -- end
 
     if _G.Server.super and _G.Server.super.guid == self.super.guid then
         return true

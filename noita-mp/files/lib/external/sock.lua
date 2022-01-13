@@ -381,6 +381,17 @@ function Server:sendToAll(event, data)
     self:resetSendSettings()
 end
 
+function Server:sendToAll2(event, data)
+    local serializedMessage = self:__pack(event, data)
+
+    for _, p in pairs(self.peers) do
+        self.packetsSent = self.packetsSent + 1
+        p:send(serializedMessage, self.sendChannel, self.sendMode)
+    end
+
+    self:resetSendSettings()
+end
+
 --- Send a message to a single peer. Useful to send data to a newly connected player
 -- without sending to everyone who already received it.
 -- @tparam enet_peer peer The enet peer to receive the message.
