@@ -7,6 +7,8 @@ NetworkComponent = {
     health = nil
 }
 
+----------- Constructor
+
 --- Creates a new table of NetworkComponent
 --- @param o table Used for inheritance.
 --- @param noita_component_id number Component ID used by Noita API
@@ -27,6 +29,23 @@ function NetworkComponent:new(o, noita_component_id, owner, nuid, transform, hea
     return o
 end
 
+----------- Getter / Setter
+
+function NetworkComponent:getNoitaComponentId()
+    return self.noita_component_id
+end
+
+---@return string self.owner Returns the guid of the owner.
+function NetworkComponent:getOwner()
+    return self.owner
+end
+
+function NetworkComponent:getNuid()
+    return self.nuid
+end
+
+-----------
+
 --- Provides a serialisable table by its own fields
 --- @return table t Returns itself as a data table, without any functions, to be able to be de-/serialised.
 function NetworkComponent:toSerialisableTable()
@@ -38,10 +57,6 @@ function NetworkComponent:toSerialisableTable()
         health = self.health
     }
     return t
-end
-
-function NetworkComponent:getNuid()
-    return self.nuid
 end
 
 return NetworkComponent

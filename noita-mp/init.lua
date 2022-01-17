@@ -49,13 +49,8 @@ function OnWorldInitialized()
     dofile_once("mods/noita-mp/files/scripts/net/client_class.lua") -- run once to init client object
 end
 
-function OnPlayerSpawned(player_entity) -- This runs when player entity has been created
-    -- if Server.super then
-    --     GamePrintImportant( "Server started", "Your server is running on "
-    --     .. Server.super:getAddress() .. ":" .. Server.super:getPort() .. ". Tell your friends to join!")
-    -- else
-    --     GamePrintImportant( "Server not started", "Your server wasn't started yet. Check ModSettings to change this or Press M to open multiplayer menu.")
-    -- end
+function OnPlayerSpawned(player_entity)
+    local component_id = em.AddNetworkComponentToEntity(player_entity, ModSettingGet("noita-mp.guid"), em.GetNextNuid())
 end
 
 function OnWorldPreUpdate()

@@ -86,14 +86,14 @@ function util.debug_entity(e)
     local children = EntityGetAllChildren(e)
     local comps = EntityGetAllComponents(e)
 
-    print("--- ENTITY DATA ---")
-    print("Parent: [" .. parent .. "] " .. (EntityGetName(parent) or "nil"))
+    logger:debug("--- ENTITY DATA ---")
+    logger:debug("Parent: [" .. parent .. "] " .. (EntityGetName(parent) or "nil"))
 
-    print(" Entity: [" .. util.str(e) .. "] " .. (EntityGetName(e) or "nil"))
-    print("  Tags: " .. (EntityGetTags(e) or "nil"))
+    logger:debug(" Entity: [" .. util.str(e) .. "] " .. (EntityGetName(e) or "nil"))
+    logger:debug("  Tags: " .. (EntityGetTags(e) or "nil"))
     if (comps ~= nil) then
         for _, comp in ipairs(comps) do
-            print("  Comp: [" .. comp .. "] " .. (ComponentGetTypeName(comp) or "nil"))
+            logger:debug("  Comp: [" .. comp .. "] " .. (ComponentGetTypeName(comp) or "nil"))
         end
     end
 
@@ -103,12 +103,12 @@ function util.debug_entity(e)
 
     for _, child in ipairs(children) do
         local comps = EntityGetAllComponents(child)
-        print("  Child: [" .. child .. "] " .. EntityGetName(child))
+        logger:debug("  Child: [" .. child .. "] " .. EntityGetName(child))
         for _, comp in ipairs(comps) do
-            print("   Comp: [" .. comp .. "] " .. (ComponentGetTypeName(comp) or "nil"))
+            logger:debug("   Comp: [" .. comp .. "] " .. (ComponentGetTypeName(comp) or "nil"))
         end
     end
-    print("--- END ENTITY DATA ---")
+    logger:debug("--- END ENTITY DATA ---")
 end
 
 return util

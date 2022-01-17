@@ -53,7 +53,7 @@ function Client:setNuid(owner, local_entity_id, nuid)
         )
     end
     nc.nuid = nuid
-    ComponentSetValue2(nc.noita_component_id, "value_string", util.serialize(nc))
+    ComponentSetValue2(nc.noita_component_id, "value_string", util.serialise(nc))
 end
 
 function Client:setSettings()
@@ -62,8 +62,8 @@ function Client:setSettings()
     self.super:setSchema("worldFilesFinished", {"progress"})
     self.super:setSchema("seed", {"seed"})
     self.super:setSchema("clientInfo", {"username", "guid"})
-    self.super:setSchema("needNuid", {"owner", "localEntityId", "filename"})
-    self.super:setSchema("newNuid", {"owner", "localEntityId", "nuid", "x", "y", "rot", "filename"})
+    self.super:setSchema("needNuid", {"owner", "localEntityId", "x", "y", "rot", "velocity", "filename"})
+    self.super:setSchema("newNuid", {"owner", "localEntityId", "nuid", "x", "y", "rot", "velocity", "filename"})
     self.super:setSchema("entityState", {"owner", "nuid", "x", "y", "rot"})
     --self.super:setSchema("playerState", {"index", "player"})
 end
@@ -193,7 +193,7 @@ function Client:createCallbacks()
             if self.super.guid == owner then
                 self:setNuid(owner, data.localEntityId, data.nuid)
             else
-                em.SpawnEntity(owner, data.nuid, data.x, data.y, data.rot, data.filename)
+                em.SpawnEntity(owner, data.nuid, data.x, data.y, data.rot, data.velocity, data.filename)
             end
         end
     )
@@ -247,10 +247,11 @@ function Client:update()
     self.super:update()
 end
 
-function Client:sendNeedNuid(entity_id)
-    local owner = ModSettingGet("noita-mp.guid")
+function Client:sendNeedNuid(entity_id, velocity)
+    local owner = tostring(ModSettingGet("noita-mp.guid"))
+    local x, y, rot = EntityGetTransform(entity_id)
     local filename = EntityGetFilename(entity_id)
-    self.super:send("needNuid", {owner, entity_id, filename})
+    self.super:send("needNuid", {owner, entity_id, x, y, rot, velocity, filename})
 end
 
 -- Create a new global object of the server

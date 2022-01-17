@@ -44,6 +44,9 @@ function em.AddNetworkComponent()
                     local component_name = ComponentGetTypeName(component_id)
                     if component_name == "VelocityComponent" then
                         has_velocity_component = true
+                        local velo_x, velo_y = ComponentGetValue2(component_id, "mVelocity")
+                        local velocity = {velo_x, velo_y}
+
                         local variable_storage_component_ids =
                             EntityGetComponentIncludingDisabled(entity_id, "VariableStorageComponent") or {}
 
@@ -61,16 +64,23 @@ function em.AddNetworkComponent()
 
                         if has_network_component == false then
                             local nuid = nil
+                            local x_e, y_e, rot_e = EntityGetTransform(entity_id)
+
                             if _G.Server:amIServer() then
                                 nuid = em.GetNextNuid()
+
                                 _G.Server:sendNewNuid(
                                     ModSettingGet("noita-mp.guid"),
                                     entity_id,
                                     nuid,
+                                    x_e,
+                                    y_e,
+                                    rot_e,
+                                    velocity,
                                     EntityGetFilename(entity_id)
                                 )
                             else
-                                _G.Client:sendNeedNuid(entity_id)
+                                _G.Client:sendNeedNuid(entity_id, velocity)
                             end
                             -- if the VariableStorageComponent is not a 'network_component_class', then add one
                             em.AddNetworkComponentToEntity(entity_id, ModSettingGet("noita-mp.guid"), nuid)
@@ -104,11 +114,11 @@ function em.AddNetworkComponentToEntity(entity_id, guid, nuid)
         local nc_serialised = ComponentGetValue2(variable_storage_component_id, "value_string") or nil
         local nc = nil
 
-        if nc_serialised then
+        if not util.IsEmpty(nc_serialised) then
             nc = util.deserialise(nc_serialised)
         end
 
-        if variable_storage_component_name == "network_component_class" and nc:getNuid() == nuid then
+        if variable_storage_component_name == "network_component_class" and nc.nuid == nuid then
             -- if entity already has a VariableStorageComponent with the name of 'network_component_class', skip it
             em.cache.all_entity_ids[entity_id] = true
             return variable_storage_component_id
@@ -144,13 +154,37 @@ function em.AddNetworkComponentToEntity(entity_id, guid, nuid)
     em.cache.nc_entity_ids[entity_id] = component_id
     em.cache.all_entity_ids[entity_id] = true
 
+    logger:debug(util.debug_entity(entity_id))
+
     return component_id
 end
 
-function em.SpawnEntity(owner, nuid, x, y, rot, filename)
+--- Spwans an entity and applies the transform and velocity to it. Also adds the network_component.
+---@param owner any
+---@param nuid any
+---@param x any
+---@param y any
+---@param rot any
+---@param velocity table {x, y} - can be nil
+---@param filename any
+---@return number
+function em.SpawnEntity(owner, nuid, x, y, rot, velocity, filename)
     local entity_id = EntityLoad(filename, x, y)
     em.AddNetworkComponentToEntity(entity_id, owner, nuid)
     EntityApplyTransform(entity_id, x, y, rot)
+    
+    local velo_comp_id = EntityGetFirstComponent(entity_id, "VelocityComponent")
+    if velocity and velo_comp_id then
+        ComponentSetValue2(velo_comp_id, "mVelocity", velocity[1], velocity[2])
+    end
+
+    -- local velo_comp_ids = EntityGetComponent(entity_id, "VelocityComponent")
+    -- if velocity and velo_comp_ids then
+    --     for i = 1, #velo_comp_ids do
+    --         ComponentSetValue2(velo_comp_ids[i], "mVelocity", velocity[1], velocity[2])
+    --     end
+    -- end
+
     return entity_id
 end
 
@@ -167,6 +201,26 @@ function em.GetNetworkComponent(entity_id)
         local nc = util.deserialise(nc_serialised)
         return nc
     end
+end
+
+function em.getLocalPlayerId()
+    local player_unit_ids = EntityGetWithTag("player_unit")
+    for i_p = 1, #player_unit_ids do
+        local nc = em.GetNetworkComponent(player_unit_ids[i_p])
+        -- local variable_storage_component_ids =
+        --     EntityGetComponentIncludingDisabled(player_unit_ids[i_p], "VariableStorageComponent") or {}
+        -- for c = 1, #variable_storage_component_ids do
+        --     local players_guid = ComponentGetValue2(variable_storage_component_ids[c], "guid")
+
+        --     if players_guid == ModSettingGet("noita-mp.guid") then
+        --         return player_unit_ids[i_p]
+        --     end
+        -- end
+        if nc.owner == ModSettingGet("noita-mp.guid") then
+            return player_unit_ids[i_p]
+        end
+    end
+    return nil
 end
 
 return em

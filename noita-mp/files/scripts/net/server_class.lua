@@ -2,6 +2,7 @@ local fu = require("file_util")
 local sock = require("sock")
 local Guid = require("guid")
 local em = require("entity_manager")
+local util = require("util")
 
 -- https://www.tutorialspoint.com/lua/lua_object_oriented.htm
 -- Meta class
@@ -40,8 +41,8 @@ function Server:setSettings()
     self.super:setSchema("worldFilesFinished", {"progress"})
     self.super:setSchema("seed", {"seed"})
     self.super:setSchema("clientInfo", {"username", "guid"})
-    self.super:setSchema("needNuid", {"owner", "localEntityId", "filename"})
-    self.super:setSchema("newNuid", {"owner", "localEntityId", "nuid", "x", "y", "rot", "filename"})
+    self.super:setSchema("needNuid",{"owner", "localEntityId", "x", "y", "rot", "velocity", "filename"})
+    self.super:setSchema("newNuid", {"owner", "localEntityId", "nuid", "x", "y", "rot", "velocity", "filename"})
     self.super:setSchema("entityState", {"owner", "nuid", "x", "y", "rot"})
 end
 
@@ -53,15 +54,19 @@ function Server:createCallbacks()
     self.super:on(
         "connect",
         function(data, peer)
+            local local_player_id = em.getLocalPlayerId()
+            local x, y, rot, scale_x, scale_y = EntityGetTransform(local_player_id)
+
             print("server_class.lua | on_connect: ")
             print("server_class.lua | on_connect: data = " .. tostring(data))
             print("server_class.lua | on_connect: client = " .. tostring(peer))
             em.SpawnEntity(
                 peer.guid,
                 em.GetNextNuid(),
-                5,
-                5,
-                10,
+                x,
+                y,
+                rot,
+                nil,
                 "mods/noita-mp/data/enemies_gfx/client_player_base.xml"
             )
         end
@@ -111,7 +116,16 @@ function Server:createCallbacks()
     self.super:on(
         "needNuid",
         function(data)
-            self:sendNewNuid(data.owner, data.localEntityId, em.GetNextNuid(), data.filename)
+            local owner = data.owner
+            local local_entity_id = data.localEntityId
+            local new_nuid = em.GetNextNuid()
+            local x = data.x
+            local y = data.y
+            local rot = data.rot
+            local velocity = data.velocity
+            local filename = data.filename
+            self:sendNewNuid(owner, local_entity_id, new_nuid, x, y, rot, velocity, filename)
+            em.SpawnEntity(owner, new_nuid, x, y, rot, velocity, filename)
         end
     )
 
@@ -123,7 +137,7 @@ function Server:createCallbacks()
                 return -- skip if this entity is my own
             end
 
-            em.SpawnEntity(owner, data.nuid, data.x, data.y, data.rot, data.filename)
+            em.SpawnEntity(owner, data.nuid, data.x, data.y, data.rot, data.velocity, data.filename)
         end
     )
 
@@ -259,8 +273,8 @@ end
 function Server:sendMap(client)
 end
 
-function Server:sendNewNuid(owner, local_entity_id, new_nuid, filename)
-    self.super:sendToAll2("newNuid", {owner, local_entity_id, new_nuid, filename})
+function Server:sendNewNuid(owner, local_entity_id, new_nuid, x, y, rot, velocity, filename)
+    self.super:sendToAll2("newNuid", {owner, local_entity_id, new_nuid, x, y, rot, velocity, filename})
 end
 
 function Server:update()
