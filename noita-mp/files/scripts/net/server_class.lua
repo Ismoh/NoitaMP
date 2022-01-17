@@ -29,10 +29,10 @@ function Server:setGuid()
         guid = Guid:getGuid()
         ModSettingSetNextValue("noita-mp.guid", guid, false)
         self.super.guid = guid
-        print("client_class.lua | guid set to " .. guid)
+        util.pprint("client_class.lua | guid set to " .. guid)
     else
         self.super.guid = guid
-        print("client_class.lua | guid was already set to " .. self.super.guid)
+        util.pprint("client_class.lua | guid was already set to " .. self.super.guid)
     end
 end
 
@@ -48,7 +48,7 @@ end
 
 -- Derived class methods
 function Server:createCallbacks()
-    print("server_class.lua | Creating servers callback functions.")
+    util.pprint("server_class.lua | Creating servers callback functions.")
 
     -- Called when someone connects to the server
     self.super:on(
@@ -57,9 +57,9 @@ function Server:createCallbacks()
             local local_player_id = em.getLocalPlayerId()
             local x, y, rot, scale_x, scale_y = EntityGetTransform(local_player_id)
 
-            print("server_class.lua | on_connect: ")
-            print("server_class.lua | on_connect: data = " .. tostring(data))
-            print("server_class.lua | on_connect: client = " .. tostring(peer))
+            util.pprint("server_class.lua | on_connect: ")
+            util.pprint("server_class.lua | on_connect: data = " .. tostring(data))
+            util.pprint("server_class.lua | on_connect: client = " .. tostring(peer))
             em.SpawnEntity(
                 peer.guid,
                 em.GetNextNuid(),
@@ -75,9 +75,11 @@ function Server:createCallbacks()
     self.super:on(
         "clientInfo",
         function(data, peer)
-            print("server_class.lua | on_clientInfo: ")
-            print("server_class.lua | on_clientInfo: data = " .. tostring(data))
-            print("server_class.lua | on_clientInfo: client = " .. tostring(peer))
+            logger:debug("on_clientInfo: data =")
+            util.pprint(data)
+            logger:debug("on_clientInfo: peer =")
+            util.pprint(peer)
+            
             self:setClientInfo(data, peer)
         end
     )
@@ -85,10 +87,11 @@ function Server:createCallbacks()
     self.super:on(
         "worldFilesFinished",
         function(data, peer)
-            print("server_class.lua | on_worldFilesFinished: ")
-            print("server_class.lua | on_worldFilesFinished: data = " .. tostring(data))
-            print("server_class.lua | on_worldFilesFinished: client = " .. tostring(peer))
-
+            logger:debug("on_worldFilesFinished: data =")
+            util.pprint(data)
+            logger:debug("on_worldFilesFinished: peer =")
+            util.pprint(peer)
+            
             -- Send restart command
             peer:send("restart", {"Restart now!"})
         end
@@ -98,7 +101,8 @@ function Server:createCallbacks()
     self.super:on(
         "disconnect",
         function(data)
-            print("server_class.lua | Server disconnected. data = " .. tostring(data))
+            logger:debug("on_disconnect: data =")
+            util.pprint(data)
         end
     )
 
@@ -106,10 +110,12 @@ function Server:createCallbacks()
     self.super:on(
         "receive",
         function(data, channel, client)
-            print(
-                "server_class.lua | Server received: data = " ..
-                    tostring(data) .. ", channel = " .. tostring(channel) .. ", client = " .. tostring(client)
-            )
+            logger:debug("on_receive: data =")
+            util.pprint(data)
+            logger:debug("on_receive: channel =")
+            util.pprint(channel)
+            logger:debug("on_receive: client =")
+            util.pprint(client)
         end
     )
 
@@ -156,14 +162,14 @@ function Server:createCallbacks()
 end
 
 function Server:start()
-    print("server_class.lua | Starting server and fetching ip and port..")
+    util.pprint("server_class.lua | Starting server and fetching ip and port..")
 
     local ip = tostring(ModSettingGet("noita-mp.server_ip"))
     local port = tonumber(ModSettingGet("noita-mp.server_port"))
-    print("server_class.lua | Starting server on " .. ip .. ":" .. port)
+    util.pprint("server_class.lua | Starting server on " .. ip .. ":" .. port)
 
     self.super = sock.newServer(ip, port)
-    print("server_class.lua | Server started on " .. self.super:getAddress() .. ":" .. self.super:getPort())
+    util.pprint("server_class.lua | Server started on " .. self.super:getAddress() .. ":" .. self.super:getPort())
 
     self:setGuid()
     self:setSettings()

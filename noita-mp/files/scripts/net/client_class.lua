@@ -29,10 +29,10 @@ function Client:setGuid()
         guid = Guid:getGuid()
         ModSettingSetNextValue("noita-mp.guid", guid, false)
         self.super.guid = guid
-        print("client_class.lua | guid set to " .. guid)
+        logger:debug("client_class.lua | guid set to " .. guid)
     else
         self.super.guid = guid
-        print("client_class.lua | guid was already set to " .. self.super.guid)
+        logger:debug("client_class.lua | guid was already set to " .. self.super.guid)
     end
 end
 
@@ -54,6 +54,7 @@ function Client:setNuid(owner, local_entity_id, nuid)
     end
     nc.nuid = nuid
     ComponentSetValue2(nc.noita_component_id, "value_string", util.serialise(nc))
+    logger:debug("Got new nuid (%s) from owner (%s) and set it to entity %s", nuid, owner, local_entity_id)
 end
 
 function Client:setSettings()
@@ -70,12 +71,13 @@ end
 
 -- Derived class methods
 function Client:createCallbacks()
-    print("client_class.lua | Creating clients callback functions.")
+    logger:debug("client_class.lua | Creating clients callback functions.")
 
     self.super:on(
         "connect",
         function(data)
-            print("client_class.lua | Client connected to the server. Sending client info to server..")
+            logger:debug("client_class.lua | Client connected to the server. Sending client info to server..")
+            util.pprint(data)
 
             local connection_id = tostring(self.super:getConnectId())
             local ip = tostring(self.super:getAddress())
@@ -109,7 +111,7 @@ function Client:createCallbacks()
                 file_index,
                 amount_of_files
             )
-            print(msg)
+            logger:debug(msg)
             GamePrint(msg)
 
             local save06_parent_directory_path = fu.GetAbsoluteDirectoryPathOfParentSave06()
@@ -145,10 +147,11 @@ function Client:createCallbacks()
         "seed",
         function(data)
             local server_seed = tonumber(data.seed)
-            print("client_class.lua | Client got seed from the server. Seed = " .. server_seed)
+            logger:debug("client_class.lua | Client got seed from the server. Seed = " .. server_seed)
+            util.pprint(data)
             --ModSettingSet("noita-mp.connect_server_seed", server_seed)
 
-            print("client_class.lua | Creating magic numbers file to set clients world seed and restart the game.")
+            logger:debug("client_class.lua | Creating magic numbers file to set clients world seed and restart the game.")
             fu.WriteFile(
                 fu.GetAbsoluteDirectoryPathOfMods() .. "/files/tmp/magic_numbers/world_seed.xml",
                 [[<MagicNumbers WORLD_SEED="]] .. tostring(server_seed) .. [["/>]]
@@ -172,7 +175,8 @@ function Client:createCallbacks()
     self.super:on(
         "disconnect",
         function(data)
-            print("client_class.lua | Client disconnected from the server.")
+            logger:debug("client_class.lua | Client disconnected from the server.")
+            util.pprint(data)
         end
     )
 
@@ -180,15 +184,18 @@ function Client:createCallbacks()
     self.super:on(
         "receive",
         function(data, channel)
-            print(
-                "client_class.lua | Client received: data = " .. tostring(data) .. ", channel = " .. tostring(channel)
-            )
+            logger:debug("on_receive: data =")
+            util.pprint(data)
+            logger:debug("on_receive: channel =")
+            util.pprint(channel)
         end
     )
 
     self.super:on(
         "newNuid",
         function(data)
+            logger:debug("Got new nuid=%s from owner=%s, see below.", data.nuid, data.owner)
+            util.pprint(data)
             local owner = data.owner
             if self.super.guid == owner then
                 self:setNuid(owner, data.localEntityId, data.nuid)
@@ -201,10 +208,10 @@ end
 
 function Client:connect()
     if not self.super then
-        print("client_class.lua | Clients super wasn't set. Also refreshing ip and port.")
+        logger:debug("client_class.lua | Clients super wasn't set. Also refreshing ip and port.")
         local ip = tostring(ModSettingGet("noita-mp.connect_server_ip"))
         local port = tonumber(ModSettingGet("noita-mp.connect_server_port"))
-        print("client_class.lua | Connecting to server on " .. ip .. ":" .. port)
+        logger:debug("client_class.lua | Connecting to server on " .. ip .. ":" .. port)
 
         self.super = sock.newClient(ip, port)
     end

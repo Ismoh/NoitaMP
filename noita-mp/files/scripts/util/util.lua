@@ -1,4 +1,5 @@
 local bitser = require("bitser")
+local pprint = require("pprint")
 
 local util = {}
 
@@ -86,14 +87,14 @@ function util.debug_entity(e)
     local children = EntityGetAllChildren(e)
     local comps = EntityGetAllComponents(e)
 
-    logger:debug("--- ENTITY DATA ---")
-    logger:debug("Parent: [" .. parent .. "] " .. (EntityGetName(parent) or "nil"))
+    local msg = "--- ENTITY DATA ---\n"
+    msg = msg .. ("Parent: [" .. parent .. "] " .. (EntityGetName(parent) or "nil") .. "\n")
 
-    logger:debug(" Entity: [" .. util.str(e) .. "] " .. (EntityGetName(e) or "nil"))
-    logger:debug("  Tags: " .. (EntityGetTags(e) or "nil"))
+    msg = msg .. (" Entity: [" .. util.str(e) .. "] " .. (EntityGetName(e) or "nil") .. "\n")
+    msg = msg .. ("  Tags: " .. (EntityGetTags(e) or "nil") .. "\n")
     if (comps ~= nil) then
         for _, comp in ipairs(comps) do
-            logger:debug("  Comp: [" .. comp .. "] " .. (ComponentGetTypeName(comp) or "nil"))
+            msg = msg .. ("  Comp: [" .. comp .. "] " .. (ComponentGetTypeName(comp) or "nil") .. "\n")
         end
     end
 
@@ -103,12 +104,18 @@ function util.debug_entity(e)
 
     for _, child in ipairs(children) do
         local comps = EntityGetAllComponents(child)
-        logger:debug("  Child: [" .. child .. "] " .. EntityGetName(child))
+        msg = msg .. ("  Child: [" .. child .. "] " .. EntityGetName(child) .. "\n")
         for _, comp in ipairs(comps) do
-            logger:debug("   Comp: [" .. comp .. "] " .. (ComponentGetTypeName(comp) or "nil"))
+            msg = msg .. ("   Comp: [" .. comp .. "] " .. (ComponentGetTypeName(comp) or "nil") .. "\n")
         end
     end
-    logger:debug("--- END ENTITY DATA ---")
+    msg = msg .. ("--- END ENTITY DATA ---" .. "\n")
+
+    logger:debug(msg)
+end
+
+function util.pprint(var)
+    pprint(var)
 end
 
 return util

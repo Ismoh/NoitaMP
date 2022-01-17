@@ -1,4 +1,7 @@
-local Logging = require ("logging")
+local default_package_path = package.path
+package.path = package.path .. ";mods/noita-mp/files/lib/external/?.lua;"
+
+local Logging = require("logging")
 
 local appender = function(self, level, message)
   -- add file name to logs: https://stackoverflow.com/a/48469960/3493998
@@ -8,7 +11,7 @@ local appender = function(self, level, message)
   level = string.trim(level)
   local time = os.date("%X")
 
-  local msg = ("%s\n%s\n[%s] %s"):format(time, file_name, level, message)
+  local msg = ("%s [%s] %s ( in %s )"):format(time, level, message, file_name)
   print(msg)
   --GamePrint(msg)
   return true
@@ -22,4 +25,8 @@ local logger = Logging.new(appender)
 --   logger:setLevel(logger.WARN)
 -- end
 
+print("_G.logger initialised!")
 _G.logger = logger
+
+-- Reset pathes
+package.path = default_package_path

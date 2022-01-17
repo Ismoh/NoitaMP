@@ -32,7 +32,7 @@ if not Initialized then
         reset_id()
         GuiStartFrame(gui)
 
-        if GuiButton(gui, next_id(), 20,20, hide_text) then
+        if GuiButton(gui, next_id(), 20, 20, hide_text) then
             hide = not hide
         end
 
@@ -40,7 +40,8 @@ if not Initialized then
             hide_text = "Hide NoitaMP UI"
             ------------ ------------ Start server ui
             local width, height = GuiGetScreenDimensions(gui) -- width = 640, height = 360
-            local bg_width, bg_height = GuiGetImageDimensions(gui, "mods/noita-mp/files/data/ui_gfx/in_game/mp_menu_200x150.png", 1)
+            local bg_width, bg_height =
+                GuiGetImageDimensions(gui, "mods/noita-mp/files/data/ui_gfx/in_game/mp_menu_200x150.png", 1)
 
             local x = width / 2 - bg_width / 2
             local y = height - bg_height
@@ -77,19 +78,27 @@ if not Initialized then
                 )
             else
                 ------------ Connect
-                if
-                    _G.Client == nil or next(_G.Client) == nil or
-                        _G.Client.super:isDisconnected() and not _G.Client.super:isConnecting()
-                then
-                    GuiColorSetForNextWidget(gui, 0, 1, 0, 1)
-                    if GuiButton(gui, next_id(), 0, 0, "Connect to " .. connect_to_ip .. ":" .. connect_to_port) then
-                        _G.Client:connect()
+                if _G.Client == nil or next(_G.Client) == nil then
+                    if _G.Client.super:isDisconnected() then
+                        GuiColorSetForNextWidget(gui, 0, 1, 0, 1)
+                        if GuiButton(gui, next_id(), 0, 0, "Connect to " .. connect_to_ip .. ":" .. connect_to_port) then
+                            _G.Client:connect()
+                        end
                     end
-                else
-                    ------------- Disconnect
-                    GuiColorSetForNextWidget(gui, 1, 0, 0, 1)
-                    if GuiButton(gui, next_id(), 0, 0, "Disconnect from " .. connect_to_ip .. ":" .. connect_to_port) then
-                        _G.Client:disconnect()
+                    if _G.Client.super:isConnected() then
+                        ------------- Disconnect
+                        GuiColorSetForNextWidget(gui, 1, 0, 0, 1)
+                        if
+                            GuiButton(
+                                gui,
+                                next_id(),
+                                0,
+                                0,
+                                "Disconnect from " .. connect_to_ip .. ":" .. connect_to_port
+                            )
+                         then
+                            _G.Client:disconnect()
+                        end
                     end
                 end
             end
@@ -135,7 +144,16 @@ if not Initialized then
                             1
                         )
                     else
-                        GuiImage(gui, next_id(), 10, i, "mods/noita-mp/files/data/ui_gfx/in_game/red_tik_8x8.png", 1, 1, 1)
+                        GuiImage(
+                            gui,
+                            next_id(),
+                            10,
+                            i,
+                            "mods/noita-mp/files/data/ui_gfx/in_game/red_tik_8x8.png",
+                            1,
+                            1,
+                            1
+                        )
                     end
 
                     -- Allow Button
@@ -148,7 +166,7 @@ if not Initialized then
                             "",
                             "mods/noita-mp/files/data/ui_gfx/in_game/green_tik_8x8.png"
                         )
-                    then
+                     then
                         if _G.Server:checkIsAllowed(client) then
                             -- Send map, if already allowed to join
                             _G.Server:sendMap(client)
@@ -163,7 +181,7 @@ if not Initialized then
                             -- remeber to zip the savegame, when restarting server
                             ModSettingSetNextValue("noita-mp.server_start_7zip_savegame", true, false)
                             local make_zip = ModSettingGet("noita-mp.server_start_7zip_savegame")
-                            print("server_class.lua | make_zip = " .. tostring(make_zip))
+                            util.pprint("server_class.lua | make_zip = " .. tostring(make_zip))
 
                             util.Sleep(2)
                             fu.StopSaveAndStartNoita()
@@ -175,7 +193,16 @@ if not Initialized then
                         "Unfortunatelly this is due to no/less access to Noita save functions."
                     )
                     -- Kick Button
-                    if GuiImageButton(gui, next_id(), 15, i, "", "mods/noita-mp/files/data/ui_gfx/in_game/red_tik_8x8.png") then
+                    if
+                        GuiImageButton(
+                            gui,
+                            next_id(),
+                            15,
+                            i,
+                            "",
+                            "mods/noita-mp/files/data/ui_gfx/in_game/red_tik_8x8.png"
+                        )
+                     then
                         client:disconnect()
                     end
                 end

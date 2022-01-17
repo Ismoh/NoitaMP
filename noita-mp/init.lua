@@ -6,7 +6,7 @@ local em = require("entity_manager")
 fu.SetAbsolutePathOfNoitaRootDirectory()
 
 ModMagicNumbersFileAdd("mods/noita-mp/files/data/magic_numbers.xml")
-print("init.lua | loading world seed magic number xml file.")
+logger:debug("init.lua | loading world seed magic number xml file.")
 local world_seed_magic_numbers_path = fu.GetAbsoluteDirectoryPathOfMods() .. "/files/tmp/magic_numbers/world_seed.xml"
 if fu.Exists(world_seed_magic_numbers_path) then
     GamePrint("init.lua | Loading " .. world_seed_magic_numbers_path)
@@ -28,10 +28,10 @@ function OnModPreInit()
 end
 
 function OnWorldInitialized()
-    print("init.lua | OnWorldInitialized()")
+    logger:debug("init.lua | OnWorldInitialized()")
 
     local make_zip = ModSettingGet("noita-mp.server_start_7zip_savegame")
-    print("init.lua | make_zip = " .. tostring(make_zip))
+    logger:debug("init.lua | make_zip = " .. tostring(make_zip))
     if make_zip then
         local archive_name = "server_save06_" .. os.date("%Y-%m-%d_%H-%M-%S")
         local destination = fu.GetAbsoluteDirectoryPathOfMods() .. _G.path_separator .. "_"
@@ -39,12 +39,12 @@ function OnWorldInitialized()
             fu.Create7zipArchive(archive_name .. "_from_server", fu.GetAbsoluteDirectoryPathOfSave06(), destination)
         local msg =
             ("init.lua | Server savegame [%s] was zipped with 7z to location [%s]."):format(archive_name, destination)
-        print(msg)
+        logger:debug(msg)
         GamePrint(msg)
         ModSettingSetNextValue("noita-mp.server_start_7zip_savegame", false, false) -- automatically start the server again
     end
 
-    print("init.lua | Initialise client and server stuff..")
+    logger:debug("init.lua | Initialise client and server stuff..")
     dofile_once("mods/noita-mp/files/scripts/net/server_class.lua") -- run once to init server object
     dofile_once("mods/noita-mp/files/scripts/net/client_class.lua") -- run once to init client object
 end

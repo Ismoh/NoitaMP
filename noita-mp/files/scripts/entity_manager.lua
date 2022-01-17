@@ -31,6 +31,8 @@ function em.AddNetworkComponent()
 
         for i_e = 1, #entity_ids do
             local entity_id = entity_ids[i_e]
+            local filename = EntityGetFilename(entity_id)
+
 
             if not em.cache.all_entity_ids[entity_id] then -- if entity was already checked, skip it
                 -- loop all components of the entity
@@ -77,7 +79,7 @@ function em.AddNetworkComponent()
                                     y_e,
                                     rot_e,
                                     velocity,
-                                    EntityGetFilename(entity_id)
+                                    filename
                                 )
                             else
                                 _G.Client:sendNeedNuid(entity_id, velocity)
@@ -135,7 +137,8 @@ function em.AddNetworkComponentToEntity(entity_id, guid, nuid)
         }
     )
     logger:debug(
-        "VariableStorageComponent added with noita component_id = %s to entity_id = %s!",
+        "VariableStorageComponent (nuid=%s) added with noita component_id = %s to entity_id = %s!",
+        nuid,
         component_id,
         entity_id
     )
@@ -146,7 +149,8 @@ function em.AddNetworkComponentToEntity(entity_id, guid, nuid)
 
     ComponentSetValue2(component_id, "value_string", nc_serialised)
     logger:debug(
-        "Added network component to the VariableStorageComponent as a serialised string: component_id = %s to entity_id = %s!",
+        "Added network component (nuid=%s) to the VariableStorageComponent as a serialised string: component_id=%s to entity_id=%s!",
+        nuid,
         component_id,
         entity_id
     )
@@ -154,7 +158,7 @@ function em.AddNetworkComponentToEntity(entity_id, guid, nuid)
     em.cache.nc_entity_ids[entity_id] = component_id
     em.cache.all_entity_ids[entity_id] = true
 
-    logger:debug(util.debug_entity(entity_id))
+    util.debug_entity(entity_id)
 
     return component_id
 end
@@ -193,8 +197,9 @@ end
 
 --- Get a network component by its entity id
 --- @param entity_id number Id of the entity.
+--- @param nuid number Network-Id of the component.
 --- @return table nc Returns the network component.
-function em.GetNetworkComponent(entity_id)
+function em.GetNetworkComponent(entity_id, nuid)
     if em.cache.nc_entity_ids[entity_id] then
         local nc_id = em.cache.nc_entity_ids[entity_id]
         local nc_serialised = ComponentGetValue(nc_id, "value_string")
@@ -207,20 +212,11 @@ function em.getLocalPlayerId()
     local player_unit_ids = EntityGetWithTag("player_unit")
     for i_p = 1, #player_unit_ids do
         local nc = em.GetNetworkComponent(player_unit_ids[i_p])
-        -- local variable_storage_component_ids =
-        --     EntityGetComponentIncludingDisabled(player_unit_ids[i_p], "VariableStorageComponent") or {}
-        -- for c = 1, #variable_storage_component_ids do
-        --     local players_guid = ComponentGetValue2(variable_storage_component_ids[c], "guid")
-
-        --     if players_guid == ModSettingGet("noita-mp.guid") then
-        --         return player_unit_ids[i_p]
-        --     end
-        -- end
-        if nc.owner == ModSettingGet("noita-mp.guid") then
+        if nc and nc.owner == ModSettingGet("noita-mp.guid") then
             return player_unit_ids[i_p]
         end
     end
-    return nil
+    return player_unit_ids[1]
 end
 
 return em

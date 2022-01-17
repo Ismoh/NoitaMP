@@ -33,7 +33,8 @@ local sock = {
     ]]
 }
 
-local enet = require "enet" -- already loaded in init.lua
+local enet = require("enet")
+local util = require("util")
 
 print("sock.lua | lua-enet version = master branch 21.10.2015")
 print("sock.lua | enet version = " .. enet.linked_version()) -- 1.3.17
@@ -146,8 +147,9 @@ end
 
 function Logger:log(event, data)
     local time = os.date("%X") -- something like 24:59:59
-    local shortLine = ("[%s] %s"):format(event, data)
-    local fullLine  = ("[%s][%s][%s] %s"):format(self.source, time, event, data)
+    local shortLine = ("%s [%s] %s"):format(time, event, data)
+    local fullLine  = ("%s [%s %s] %s"):format(time, self.source, event, data) --local fullLine  = ("[%s][%s][%s] %s"):format(self.source, time, event, data)
+    
 
     -- The printed message may or may not be the full message
     local line = fullLine
@@ -163,11 +165,14 @@ function Logger:log(event, data)
         print(line)
     end
 
+    -- log data separatly to be able to read network traffic
+    util.pprint(data)
+
     -- The logged message is always the full message
     table.insert(self.messages, fullLine)
 
     if event ~= nil or data ~= nil then
-        print("sock.lua | " .. fullLine)
+        print(fullLine)
     end
     -- TODO: Dump to a log file
 end

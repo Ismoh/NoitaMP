@@ -65,7 +65,7 @@ function Guid:getGuid()
     until is_valid and is_unique
 
     table.insert(self.cached_guid, guid)
-    print(
+    util.pprint(
         "guid.lua | guid = " ..
             guid .. " is valid = " .. tostring(is_valid) .. " and is unique = " .. tostring(is_unique)
     )
@@ -98,12 +98,12 @@ end
 --- @return boolean true if GUID is unique.
 function Guid:isUnique(guid)
     if guid == nil or guid == "" or type(guid) ~= "string" then
-        print("guid.lua | guid is nil, empty or not a string. Returning false!")
+        util.pprint("guid.lua | guid is nil, empty or not a string. Returning false!")
         return false
     end
     local is_unique = true
     if table.contains(self.cached_guid, guid) == true then
-        print("guid.lua | guid (" .. guid .. ") isn't unique, therefore it's not valid!")
+        util.pprint("guid.lua | guid (" .. guid .. ") isn't unique, therefore it's not valid!")
         is_unique = false
     end
     return is_unique
