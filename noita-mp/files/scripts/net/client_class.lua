@@ -36,7 +36,6 @@ function Client:setGuid()
     end
 end
 
-
 function Client:setSettings()
     self.super:setTimeout(320, 50000, 100000)
     self.super:setSchema("worldFiles", {"relDirPath", "fileName", "fileContent", "fileIndex", "amountOfFiles"})
@@ -45,8 +44,8 @@ function Client:setSettings()
     self.super:setSchema("clientInfo", {"username", "guid"})
     self.super:setSchema("needNuid", {"owner", "localEntityId", "x", "y", "rot", "velocity", "filename"})
     self.super:setSchema("newNuid", {"owner", "localEntityId", "nuid", "x", "y", "rot", "velocity", "filename"})
-    self.super:setSchema("entityState", {"owner", "nuid", "x", "y", "rot"})
-    --self.super:setSchema("playerState", {"index", "player"})
+    self.super:setSchema("entityAlive", {"owner", "localEntityId", "nuid", "isAlive"})
+    self.super:setSchema("entityState", {"owner", "localEntityId", "nuid", "x", "y", "rot", "velocity", "health"})
 end
 
 -- Derived class methods
@@ -176,14 +175,28 @@ function Client:createCallbacks()
     self.super:on(
         "newNuid",
         function(data)
-            logger:debug("Got new nuid=%s from %s (%s), see below.", data.nuid, data.owner.username or data.owner[1], data.owner.guid or data.owner[2])
+            logger:debug(
+                "Got new nuid=%s from %s (%s), see below.",
+                data.nuid,
+                data.owner.username or data.owner[1],
+                data.owner.guid or data.owner[2]
+            )
             util.pprint(data)
             local owner = data.owner
             --if self.super.guid == owner.guid then
             --    self:setNuid(owner, data.localEntityId, data.nuid)
             --else
-                em.SpawnEntity(owner, data.nuid, data.x, data.y, data.rot, data.velocity, data.filename, data.localEntityId)
+            em.SpawnEntity(owner, data.nuid, data.x, data.y, data.rot, data.velocity, data.filename, data.localEntityId)
             --end
+        end
+    )
+
+    self.super:on(
+        "entityAlive",
+        function(data)
+            util.pprint(data)
+
+            em.DespawnEntity(data.owner, data.localEntityId, data.nuid, data.isAlive)
         end
     )
 end

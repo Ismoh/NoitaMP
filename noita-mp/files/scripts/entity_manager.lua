@@ -142,7 +142,7 @@ function em.AddNetworkComponentToEntity(entity_id, owner, nuid)
         entity_id
     )
 
-    local nc = NetworkComponent:new(nil, component_id, owner, nuid)
+    local nc = NetworkComponent:new(owner, nuid, entity_id, component_id)
     local nc_serialised = util.serialise(nc:toSerialisableTable())
 
     ComponentSetValue2(component_id, "value_string", nc_serialised)
@@ -162,9 +162,10 @@ function em.AddNetworkComponentToEntity(entity_id, owner, nuid)
 end
 
 function em.setNuid(owner, local_entity_id, nuid)
-    local nc = em.GetNetworkComponent(local_entity_id)
+    local nc = em.GetNetworkComponent(owner, local_entity_id, nuid)
     if nc.nuid ~= nil then
-        logger:warning("Nuid %s of entity %s was already set, although it's a local new one?", nuid, local_entity_id)
+        logger:warning("Nuid %s of entity %s was already set, although it's a local new one? It will be skipped!", nuid, local_entity_id)
+        return
     end
 
     local owner_guid = owner.guid or owner[2]
@@ -233,20 +234,81 @@ function em.SpawnEntity(owner, nuid, x, y, rot, velocity, filename, local_entity
     return entity_id
 end
 
+function em.DespawnEntity(owner, local_entity_id, nuid, is_alive)
+    local nc = em.GetNetworkComponent(owner, local_entity_id, nuid)
+    local entity_id = local_entity_id
+
+    if nc.local_entity_id ~= local_entity_id then
+        -- update entity_id, because the owner of the entity is not the local owner and the local_entity_id is not the correct one
+        entity_id = nc.local_entity_id
+    end
+
+    if not is_alive then
+        -- might be that the entity already was killed locally
+        local alive = EntityGetIsAlive(entity_id)
+        if alive then
+            EntityKill(entity_id)
+            logger:debug("Killed entity %s!", entity_id)
+        else
+            logger:debug("Entity %s was already killed locally!", entity_id)
+        end
+    end
+end
+
 function em.UpdateEntities()
+    for e = 1, #em.cache.nc_entity_ids do
+        local entity_id = em.cache.nc_entity_ids[e]
+        local nc = em.GetNetworkComponent(entity_id, nil)
+        local owner = util.getLocalOwner()
+        local nuid = nc.nuid
+
+        if EntityGetIsAlive(entity_id) == false then
+            if _G.Server:amIServer() then
+                _G.Server.super:sendToAll2("entityAlive", {owner, entity_id, nuid, false})
+            else
+                _G.Client.super:send("entityAlive", {owner, entity_id, nuid, false})
+            end
+        else
+            local x, y, rot = EntityGetTransform(entity_id)
+            local velo_comp_id = EntityGetFirstComponent(entity_id, "VelocityComponent")
+            local velo_x, velo_y = ComponentGetValue2(velo_comp_id, "mVelocity")
+            local velocity = {velo_x, velo_y}
+
+            if _G.Server:amIServer() then
+                _G.Server.super:sendToAll2("entityState", {owner, entity_id, nuid, x, y, rot, velocity, health})
+            else
+                _G.Client.super:send("entityState", {owner, entity_id, nuid, x, y, rot, velocity, health})
+            end
+        end
+    end
 end
 
 --- Get a network component by its entity id
---- @param entity_id number Id of the entity.
+--- @param owner table { username, guid }
+--- @param entity_id number Id of the entity, but related to the owner.
 --- @param nuid number Network-Id of the component.
 --- @return table nc Returns the network component.
-function em.GetNetworkComponent(entity_id, nuid)
-    if em.cache.nc_entity_ids[entity_id] then
-        local nc_id = em.cache.nc_entity_ids[entity_id]
-        local nc_serialised = ComponentGetValue(nc_id, "value_string")
-        local nc = util.deserialise(nc_serialised)
-        return nc
+function em.GetNetworkComponent(owner, entity_id, nuid)
+    local nc = nil
+    local nc_id = nil
+    local guid = owner.guid or owner[2]
+
+    if util.getLocalOwner().guid == guid then
+        -- this local owner created the entity and its cached
+        nc_id = em.cache.nc_entity_ids[entity_id]
     end
+
+    -- may happen that the nc_id is still nil, because entity might not exist anymore
+    -- or in addition the owner of the entity is not the local one
+    -- therefore find network component by NUID
+    if not nc_id or nc_id == nil then
+        local index = table.indexOf(em.cache.nc_entity_ids, nuid)
+        nc_id = em.cache.nc_entity_ids[index]
+    end
+
+    local nc_serialised = ComponentGetValue(nc_id, "value_string")
+    nc = util.deserialise(nc_serialised)
+    return nc
 end
 
 function em.getLocalPlayerId()

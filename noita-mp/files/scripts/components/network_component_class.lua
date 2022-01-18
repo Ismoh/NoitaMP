@@ -1,32 +1,28 @@
 -- Meta class
 NetworkComponent = {
-    noita_component_id = nil, -- peer(locally) used component id
     owner = {}, -- this is { username, guid } for each specific client/server
     nuid = nil, -- network unique identifier to find an entity by nuid
-    transform = {x = 1, y = 1, rot = 123},
-    health = nil
+    local_entity_id = nil, -- noitas entity id of the owner who created this network component
+    component_id = nil, -- noitas component_id only valid for the owner who created the component    
 }
 
 ----------- Constructor
 
 --- Creates a new table of NetworkComponent
---- @param o table Used for inheritance.
---- @param noita_component_id number Component ID used by Noita API
 --- @param owner table { username, guid } GUID of server OR client, to be able to check, if this entity needs to be 'destroyed' or respawned.
 --- @param nuid number NUID to find entity by network component id
---- @param transform table { x = 1, y = 2, rot = 123 }
---- @param health number 38 hp left
+--- @param local_entity_id number Noitas entity ID, which is the id of the owner, who created this entity
+--- @param component_id number Noitas component ID, which is the id of the network component
 --- @return table NetworkComponent Returns a new 'instance' of NetworkComponent. It's only a table :)
-function NetworkComponent:new(o, noita_component_id, owner, nuid, transform, health)
-    o = o or {}
-    setmetatable(o, self)
+function NetworkComponent:new(owner, nuid, local_entity_id, component_id)
+    local network_component = {}
+    setmetatable(network_component, self)
     self.__index = self
-    self.noita_component_id = noita_component_id or nil
     self.owner = owner or nil
     self.nuid = nuid or nil
-    self.transform = transform or nil
-    self.health = health or nil
-    return o
+    self.local_entity_id = local_entity_id or nil
+    self.component_id = component_id or nil
+    return network_component
 end
 
 ----------- Getter / Setter

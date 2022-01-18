@@ -43,7 +43,8 @@ function Server:setSettings()
     self.super:setSchema("clientInfo", {"username", "guid"})
     self.super:setSchema("needNuid", {"owner", "localEntityId", "x", "y", "rot", "velocity", "filename"})
     self.super:setSchema("newNuid", {"owner", "localEntityId", "nuid", "x", "y", "rot", "velocity", "filename"})
-    self.super:setSchema("entityState", {"owner", "nuid", "x", "y", "rot"})
+    self.super:setSchema("entityAlive", {"owner", "localEntityId", "nuid", "isAlive"})
+    self.super:setSchema("entityState", {"owner", "localEntityId", "nuid", "x", "y", "rot", "velocity", "health"})
 end
 
 -- Derived class methods
@@ -126,7 +127,11 @@ function Server:createCallbacks()
     self.super:on(
         "needNuid",
         function(data)
-            logger:debug("%s (%s) needs a new nuid.", data.owner.username or data.owner[1], data.owner.guid or data.owner[2])
+            logger:debug(
+                "%s (%s) needs a new nuid.",
+                data.owner.username or data.owner[1],
+                data.owner.guid or data.owner[2]
+            )
             util.pprint(data)
 
             local new_nuid = em.GetNextNuid()
@@ -162,6 +167,16 @@ function Server:createCallbacks()
 
             logger:debug("Got a new nuid and spawning entity. For data content see above!")
             em.SpawnEntity(data.owner, data.nuid, data.x, data.y, data.rot, data.velocity, data.filename, nil)
+        end
+    )
+
+    self.super:on(
+        "entityAlive",
+        function(data)
+            util.pprint(data)
+
+            self.super:sendToAll2("entityAlive", data)
+            em.DespawnEntity(data.owner, data.localEntityId, data.nuid, data.isAlive)
         end
     )
 
