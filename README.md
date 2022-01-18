@@ -3,6 +3,7 @@
 <div align="center">
 
 [![platform](https://img.shields.io/badge/platform-ubuntu%20%7C%20windows-lightgrey?style=flat-square)](https://github.com/Ismoh/NoitaMP)[![ubuntu master](https://img.shields.io/github/workflow/status/ismoh/noitamp/Ubuntu%20Lua%20Unit%20Testing/master?label=&logo=ubuntu&style=flat-square)](https://github.com/Ismoh/NoitaMP/actions/workflows/ubuntu-latest-lua-unit-testing.yml?query=branch%3Amaster)[![windows master](https://img.shields.io/github/workflow/status/ismoh/noitamp/Windows%20Lua%20Unit%20Testing/master?label=&logo=windows&style=flat-square)](https://github.com/Ismoh/NoitaMP/actions/workflows/windows-latest-lua-unit-testing.yml?query=branch%3Amaster)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FIsmoh%2FNoitaMP.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FIsmoh%2FNoitaMP?ref=badge_shield)
 
 [![latest release](https://img.shields.io/github/v/release/ismoh/noitamp?include_prereleases&label=latest%20release&style=flat-square)](https://github.com/Ismoh/NoitaMP/releases)
 [![amount of releases](https://flat.badgen.net/github/releases/ismoh/noitamp)](https://github.com/Ismoh/NoitaMP/releases)
@@ -67,3 +68,6 @@ I've added all the necessary build files inside of .building/dll_building.7z and
 
 [Noita Together](https://github.com/soler91/noita-together) is a mod I was inspired by trying to do my own mod!
 It's awesome and it's more or less a reference to this. You really should try Noita Together! (Just to be clear, there is no 'stolen' code.)
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FIsmoh%2FNoitaMP.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FIsmoh%2FNoitaMP?ref=badge_large)
