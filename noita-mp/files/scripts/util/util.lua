@@ -118,4 +118,11 @@ function util.pprint(var)
     pprint(var)
 end
 
+function util.getLocalOwner()
+    return {
+        username = tostring(ModSettingGet("noita-mp.username")),
+        guid = tostring(ModSettingGet("noita-mp.guid"))
+    }
+end
+
 return util

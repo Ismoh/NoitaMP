@@ -33,7 +33,6 @@ function em.AddNetworkComponent()
             local entity_id = entity_ids[i_e]
             local filename = EntityGetFilename(entity_id)
 
-
             if not em.cache.all_entity_ids[entity_id] then -- if entity was already checked, skip it
                 -- loop all components of the entity
                 local component_ids = EntityGetAllComponents(entity_id)
@@ -72,7 +71,7 @@ function em.AddNetworkComponent()
                                 nuid = em.GetNextNuid()
 
                                 _G.Server:sendNewNuid(
-                                    ModSettingGet("noita-mp.guid"),
+                                    util.getLocalOwner(),
                                     entity_id,
                                     nuid,
                                     x_e,
@@ -85,7 +84,7 @@ function em.AddNetworkComponent()
                                 _G.Client:sendNeedNuid(entity_id, velocity)
                             end
                             -- if the VariableStorageComponent is not a 'network_component_class', then add one
-                            em.AddNetworkComponentToEntity(entity_id, ModSettingGet("noita-mp.guid"), nuid)
+                            em.AddNetworkComponentToEntity(entity_id, util.getLocalOwner(), nuid)
                         end
                     end
                 end
@@ -102,10 +101,10 @@ end
 
 --- Adds a NetworkComponent to an entity, if it doesn't exist already.
 --- @param entity_id number The entity id where to add the NetworkComponent.
---- @param guid string guid to know the owner (optional)
+--- @param owner table { username, guid }
 --- @param nuid number nuid to know the entity wiht network component
 --- @return number component_id Returns the component_id. The already existed one or the newly created id.
-function em.AddNetworkComponentToEntity(entity_id, guid, nuid)
+function em.AddNetworkComponentToEntity(entity_id, owner, nuid)
     local variable_storage_component_ids =
         EntityGetComponentIncludingDisabled(entity_id, "VariableStorageComponent") or {}
 
@@ -143,7 +142,6 @@ function em.AddNetworkComponentToEntity(entity_id, guid, nuid)
         entity_id
     )
 
-    local owner = guid or ModSettingGet("noita-mp.guid")
     local nc = NetworkComponent:new(nil, component_id, owner, nuid)
     local nc_serialised = util.serialise(nc:toSerialisableTable())
 
@@ -163,20 +161,63 @@ function em.AddNetworkComponentToEntity(entity_id, guid, nuid)
     return component_id
 end
 
+function em.setNuid(owner, local_entity_id, nuid)
+    local nc = em.GetNetworkComponent(local_entity_id)
+    if nc.nuid ~= nil then
+        logger:warning("Nuid %s of entity %s was already set, although it's a local new one?", nuid, local_entity_id)
+    end
+
+    local owner_guid = owner.guid or owner[2]
+    local nc_guid = nc.owner.guid or nc.owner[2]
+
+    if nc_guid ~= owner_guid then
+        error(
+            ("%s (%s) tries to set nuid %s of different nc.owners %s (%s) entity %s."):format(
+                owner.username or owner[1],
+                owner.guid or owner[2],
+                nuid,
+                nc.owner.username or nc.owner[1],
+                nc.owner.guid or nc.owner[2],
+                local_entity_id
+            ),
+            2
+        )
+    end
+    nc.nuid = nuid
+    ComponentSetValue2(nc.noita_component_id, "value_string", util.serialise(nc))
+    logger:debug(
+        "Got new nuid (%s) from %s (%s) and set it to entity %s",
+        nuid,
+        owner.username or owner[1],
+        owner_guid,
+        local_entity_id
+    )
+end
+
 --- Spwans an entity and applies the transform and velocity to it. Also adds the network_component.
----@param owner any
+---@param owner table { username, guid }
 ---@param nuid any
 ---@param x any
 ---@param y any
 ---@param rot any
 ---@param velocity table {x, y} - can be nil
 ---@param filename any
+---@param local_entity_id number this is the initial entity_id created by server OR client. It's owner specific! Every owner has its own entity ids.
 ---@return number
-function em.SpawnEntity(owner, nuid, x, y, rot, velocity, filename)
+function em.SpawnEntity(owner, nuid, x, y, rot, velocity, filename, local_entity_id)
+    local local_guid = util.getLocalOwner().guid or util.getLocalOwner()[2]
+    local owner_guid = owner.guid or owner[2]
+
+    if local_guid == owner_guid then
+        -- if the owner sent by network is the local owner, don't spawn an additional entity, but update the nuid
+        em.setNuid(owner, local_entity_id, nuid)
+        return
+    end
+
     local entity_id = EntityLoad(filename, x, y)
     em.AddNetworkComponentToEntity(entity_id, owner, nuid)
     EntityApplyTransform(entity_id, x, y, rot)
-    
+
     local velo_comp_id = EntityGetFirstComponent(entity_id, "VelocityComponent")
     if velocity and velo_comp_id then
         ComponentSetValue2(velo_comp_id, "mVelocity", velocity[1], velocity[2])
@@ -212,7 +253,7 @@ function em.getLocalPlayerId()
     local player_unit_ids = EntityGetWithTag("player_unit")
     for i_p = 1, #player_unit_ids do
         local nc = em.GetNetworkComponent(player_unit_ids[i_p])
-        if nc and nc.owner == ModSettingGet("noita-mp.guid") then
+        if nc and nc.owner.guid == ModSettingGet("noita-mp.guid") then
             return player_unit_ids[i_p]
         end
     end

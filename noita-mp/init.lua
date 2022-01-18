@@ -1,5 +1,6 @@
 dofile("mods/noita-mp/files/scripts/init/init_.lua")
 
+local util = require("util")
 local fu = require("file_util")
 local em = require("entity_manager")
 
@@ -50,7 +51,7 @@ function OnWorldInitialized()
 end
 
 function OnPlayerSpawned(player_entity)
-    local component_id = em.AddNetworkComponentToEntity(player_entity, ModSettingGet("noita-mp.guid"), em.GetNextNuid())
+    local component_id = em.AddNetworkComponentToEntity(player_entity, util.getLocalOwner(), em.GetNextNuid())
 end
 
 function OnWorldPreUpdate()

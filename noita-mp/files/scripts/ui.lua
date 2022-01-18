@@ -78,14 +78,14 @@ if not Initialized then
                 )
             else
                 ------------ Connect
-                if _G.Client == nil or next(_G.Client) == nil then
-                    if _G.Client.super:isDisconnected() then
+                --if _G.Client == nil or next(_G.Client) == nil then
+                    if _G.Client == nil or next(_G.Client) == nil or _G.Client.super:isDisconnected() then
                         GuiColorSetForNextWidget(gui, 0, 1, 0, 1)
                         if GuiButton(gui, next_id(), 0, 0, "Connect to " .. connect_to_ip .. ":" .. connect_to_port) then
                             _G.Client:connect()
                         end
                     end
-                    if _G.Client.super:isConnected() then
+                    if _G.Client ~= nil and _G.Client.super ~= nil and (_G.Client.super:isConnected() or _G.Client.super:isConnecting()) then
                         ------------- Disconnect
                         GuiColorSetForNextWidget(gui, 1, 0, 0, 1)
                         if
@@ -100,7 +100,7 @@ if not Initialized then
                             _G.Client:disconnect()
                         end
                     end
-                end
+                --end
             end
             GuiLayoutEnd(gui)
 

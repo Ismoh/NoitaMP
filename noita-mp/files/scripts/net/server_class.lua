@@ -41,7 +41,7 @@ function Server:setSettings()
     self.super:setSchema("worldFilesFinished", {"progress"})
     self.super:setSchema("seed", {"seed"})
     self.super:setSchema("clientInfo", {"username", "guid"})
-    self.super:setSchema("needNuid",{"owner", "localEntityId", "x", "y", "rot", "velocity", "filename"})
+    self.super:setSchema("needNuid", {"owner", "localEntityId", "x", "y", "rot", "velocity", "filename"})
     self.super:setSchema("newNuid", {"owner", "localEntityId", "nuid", "x", "y", "rot", "velocity", "filename"})
     self.super:setSchema("entityState", {"owner", "nuid", "x", "y", "rot"})
 end
@@ -61,13 +61,17 @@ function Server:createCallbacks()
             util.pprint("server_class.lua | on_connect: data = " .. tostring(data))
             util.pprint("server_class.lua | on_connect: client = " .. tostring(peer))
             em.SpawnEntity(
-                peer.guid,
+                {
+                    peer.username,
+                    peer.guid
+                },
                 em.GetNextNuid(),
                 x,
                 y,
                 rot,
                 nil,
-                "mods/noita-mp/data/enemies_gfx/client_player_base.xml"
+                "mods/noita-mp/data/enemies_gfx/client_player_base.xml",
+                nil
             )
         end
     )
@@ -79,7 +83,7 @@ function Server:createCallbacks()
             util.pprint(data)
             logger:debug("on_clientInfo: peer =")
             util.pprint(peer)
-            
+
             self:setClientInfo(data, peer)
         end
     )
@@ -91,7 +95,7 @@ function Server:createCallbacks()
             util.pprint(data)
             logger:debug("on_worldFilesFinished: peer =")
             util.pprint(peer)
-            
+
             -- Send restart command
             peer:send("restart", {"Restart now!"})
         end
@@ -122,35 +126,49 @@ function Server:createCallbacks()
     self.super:on(
         "needNuid",
         function(data)
-            local owner = data.owner
-            local local_entity_id = data.localEntityId
+            logger:debug("%s (%s) needs a new nuid.", data.owner.username or data.owner[1], data.owner.guid or data.owner[2])
+            util.pprint(data)
+
             local new_nuid = em.GetNextNuid()
-            local x = data.x
-            local y = data.y
-            local rot = data.rot
-            local velocity = data.velocity
-            local filename = data.filename
-            self:sendNewNuid(owner, local_entity_id, new_nuid, x, y, rot, velocity, filename)
-            em.SpawnEntity(owner, new_nuid, x, y, rot, velocity, filename)
+
+            -- tell the clients that there is a new entity, they have to spawn, besides the client, who sent the request
+            self:sendNewNuid(
+                data.owner,
+                data.localEntityId,
+                new_nuid,
+                data.x,
+                data.y,
+                data.rot,
+                data.velocity,
+                data.filename
+            )
+
+            -- spawn the entity on server only
+            em.SpawnEntity(data.owner, new_nuid, data.x, data.y, data.rot, data.velocity, data.filename, nil)
         end
     )
 
     self.super:on(
         "newNuid",
         function(data)
-            local owner = data.owner
-            if self.super.guid == owner then
+            util.pprint(data)
+
+            if self.super.guid == data.owner.guid then
+                logger:debug(
+                    "Got a new nuid, but the owner is me and therefore I don't care :). For data content see above!"
+                )
                 return -- skip if this entity is my own
             end
 
-            em.SpawnEntity(owner, data.nuid, data.x, data.y, data.rot, data.velocity, data.filename)
+            logger:debug("Got a new nuid and spawning entity. For data content see above!")
+            em.SpawnEntity(data.owner, data.nuid, data.x, data.y, data.rot, data.velocity, data.filename, nil)
         end
     )
 
     self.super:on(
         "entityState",
         function(data)
-            local guid = data.owner
+            local guid = data.owner.guid
             local nuid = data.nuid
             local x = data.x
             local y = data.y
@@ -280,7 +298,22 @@ function Server:sendMap(client)
 end
 
 function Server:sendNewNuid(owner, local_entity_id, new_nuid, x, y, rot, velocity, filename)
-    self.super:sendToAll2("newNuid", {owner, local_entity_id, new_nuid, x, y, rot, velocity, filename})
+    self.super:sendToAll2(
+        "newNuid",
+        {
+            {
+                owner.username or owner[1],
+                owner.guid or owner[2]
+            },
+            local_entity_id,
+            new_nuid,
+            x,
+            y,
+            rot,
+            velocity,
+            filename
+        }
+    )
 end
 
 function Server:update()

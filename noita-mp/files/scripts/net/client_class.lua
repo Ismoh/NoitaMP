@@ -36,26 +36,6 @@ function Client:setGuid()
     end
 end
 
-function Client:setNuid(owner, local_entity_id, nuid)
-    local nc = em.GetNetworkComponent(local_entity_id)
-    if nc.nuid ~= nil then
-        logger:warning("Nuid %s of entity %s was already set, although it's a local new one?", nuid, local_entity_id)
-    end
-    if nc.owner ~= owner then
-        error(
-            ("Owner %s tries to set nuid %s of different nc.owners %s entity %s."):format(
-                owner,
-                nuid,
-                nc.owner,
-                local_entity_id
-            ),
-            2
-        )
-    end
-    nc.nuid = nuid
-    ComponentSetValue2(nc.noita_component_id, "value_string", util.serialise(nc))
-    logger:debug("Got new nuid (%s) from owner (%s) and set it to entity %s", nuid, owner, local_entity_id)
-end
 
 function Client:setSettings()
     self.super:setTimeout(320, 50000, 100000)
@@ -151,7 +131,9 @@ function Client:createCallbacks()
             util.pprint(data)
             --ModSettingSet("noita-mp.connect_server_seed", server_seed)
 
-            logger:debug("client_class.lua | Creating magic numbers file to set clients world seed and restart the game.")
+            logger:debug(
+                "client_class.lua | Creating magic numbers file to set clients world seed and restart the game."
+            )
             fu.WriteFile(
                 fu.GetAbsoluteDirectoryPathOfMods() .. "/files/tmp/magic_numbers/world_seed.xml",
                 [[<MagicNumbers WORLD_SEED="]] .. tostring(server_seed) .. [["/>]]
@@ -194,14 +176,14 @@ function Client:createCallbacks()
     self.super:on(
         "newNuid",
         function(data)
-            logger:debug("Got new nuid=%s from owner=%s, see below.", data.nuid, data.owner)
+            logger:debug("Got new nuid=%s from %s (%s), see below.", data.nuid, data.owner.username or data.owner[1], data.owner.guid or data.owner[2])
             util.pprint(data)
             local owner = data.owner
-            if self.super.guid == owner then
-                self:setNuid(owner, data.localEntityId, data.nuid)
-            else
-                em.SpawnEntity(owner, data.nuid, data.x, data.y, data.rot, data.velocity, data.filename)
-            end
+            --if self.super.guid == owner.guid then
+            --    self:setNuid(owner, data.localEntityId, data.nuid)
+            --else
+                em.SpawnEntity(owner, data.nuid, data.x, data.y, data.rot, data.velocity, data.filename, data.localEntityId)
+            --end
         end
     )
 end
@@ -255,10 +237,9 @@ function Client:update()
 end
 
 function Client:sendNeedNuid(entity_id, velocity)
-    local owner = tostring(ModSettingGet("noita-mp.guid"))
     local x, y, rot = EntityGetTransform(entity_id)
     local filename = EntityGetFilename(entity_id)
-    self.super:send("needNuid", {owner, entity_id, x, y, rot, velocity, filename})
+    self.super:send("needNuid", {util.getLocalOwner(), entity_id, x, y, rot, velocity, filename})
 end
 
 -- Create a new global object of the server
