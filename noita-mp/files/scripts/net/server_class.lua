@@ -189,7 +189,7 @@ function Server:createCallbacks()
             local y = data.y
             local rot = data.rot
 
-            local nc = em.GetNetworkComponent(nuid)
+            local nc = em:GetNetworkComponent(data.owner, data.localEntityId, data.nuid)
         end
     )
 end
@@ -336,7 +336,7 @@ function Server:update()
         return -- server not established
     end
 
-    em.AddNetworkComponent()
+    em:AddNetworkComponentsResumeCoroutine()
 
     em.UpdateEntities()
 

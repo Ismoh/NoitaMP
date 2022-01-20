@@ -244,15 +244,15 @@ function Client:update()
         return -- Client not established
     end
 
-    em.AddNetworkComponent()
+    em:AddNetworkComponentsResumeCoroutine()
 
     self.super:update()
 end
 
-function Client:sendNeedNuid(entity_id, velocity)
+function Client:sendNeedNuid(owner, entity_id, velocity)
     local x, y, rot = EntityGetTransform(entity_id)
     local filename = EntityGetFilename(entity_id)
-    self.super:send("needNuid", {util.getLocalOwner(), entity_id, x, y, rot, velocity, filename})
+    self.super:send("needNuid", {owner, entity_id, x, y, rot, velocity, filename})
 end
 
 -- Create a new global object of the server

@@ -25,8 +25,11 @@ local logger = Logging.new(appender)
 --   logger:setLevel(logger.WARN)
 -- end
 
-print("_G.logger initialised!")
-_G.logger = logger
+if not _G.logger then
+  _G.logger = logger
+end
 
 -- Reset pathes
 package.path = default_package_path
+
+_G.logger:info("_G.logger initialised!")

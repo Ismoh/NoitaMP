@@ -6,6 +6,10 @@ NetworkComponent = {
     component_id = nil, -- noitas component_id only valid for the owner who created the component    
 }
 
+-- statics
+NetworkComponent.name = "network_component_class"
+NetworkComponent.field_name = "value_string"
+
 ----------- Constructor
 
 --- Creates a new table of NetworkComponent
@@ -28,7 +32,7 @@ end
 ----------- Getter / Setter
 
 function NetworkComponent:getNoitaComponentId()
-    return self.noita_component_id
+    return self.component_id
 end
 
 ---@return string self.owner Returns the guid of the owner.
@@ -46,14 +50,13 @@ end
 --- @return table t Returns itself as a data table, without any functions, to be able to be de-/serialised.
 function NetworkComponent:toSerialisableTable()
     local t = {
-        noita_component_id = self.noita_component_id,
         owner = {
             self.owner.username,
             self.owner.guid
         },
         nuid = self.nuid,
-        transform = self.transform,
-        health = self.health
+        local_entity_id = self.local_entity_id,
+        component_id = self.component_id
     }
     return t
 end
