@@ -11,7 +11,7 @@ dofile("mods/noita-mp/files/scripts/util/table_extensions.lua")
 dofile("mods/noita-mp/files/scripts/util/string_extensions.lua")
 dofile("mods/noita-mp/files/scripts/init/init_logger.lua")
 if params then
-    dofile("mods/noita-mp/files/scripts/init/init_package_loading.lua")(params)
+    dofile("mods/noita-mp/files/scripts/init/init_package_loading.lua")(params[1])
 else
     dofile("mods/noita-mp/files/scripts/init/init_package_loading.lua")
 end
