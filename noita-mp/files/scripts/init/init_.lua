@@ -3,7 +3,7 @@ print("Initialise pathes, globals and extensions..")
 
 --#region
 -- github workflow stuff
-local params = ...
+local params = {...}
 print(("params = %s"):format(params))
 --#endregion
 
@@ -11,7 +11,7 @@ dofile("mods/noita-mp/files/scripts/util/table_extensions.lua")
 dofile("mods/noita-mp/files/scripts/util/string_extensions.lua")
 dofile("mods/noita-mp/files/scripts/init/init_logger.lua")
 if params then
-    dofile("mods/noita-mp/files/scripts/init/init_package_loading.lua")(params[1])
+    dofile("mods/noita-mp/files/scripts/init/init_package_loading.lua")(params)
 else
     dofile("mods/noita-mp/files/scripts/init/init_package_loading.lua")
 end
