@@ -1,14 +1,29 @@
 -- Meta class
 NetworkComponent = {
-    owner = {}, -- this is { username, guid } for each specific client/server
+    owner = {}, -- this is { username = string|nil, guid = string|nil } for each specific client/server
     nuid = nil, -- network unique identifier to find an entity by nuid
     local_entity_id = nil, -- noitas entity id of the owner who created this network component
-    component_id = nil, -- noitas component_id only valid for the owner who created the component    
+    component_id = nil -- noitas component_id only valid for the owner who created the component
 }
 
--- statics
+----------- Statics
 NetworkComponent.name = "network_component_class"
 NetworkComponent.field_name = "value_string"
+--- Provides a serialisable table by its own fields
+---@param nc table deserialised network component - without any functions
+---@return table t Returns itself as a data table, without any functions, to be able to be de-/serialised.
+NetworkComponent.toSerialisableTable = function(nc)
+    local t = {
+        owner = {
+            username = nc.owner.username or "nil",
+            guid = nc.owner.guid or "nil"
+        },
+        nuid = nc.nuid or "nil",
+        local_entity_id = nc.local_entity_id or "nil",
+        component_id = nc.component_id or "nil"
+    }
+    return t
+end
 
 ----------- Constructor
 
@@ -45,20 +60,5 @@ function NetworkComponent:getNuid()
 end
 
 -----------
-
---- Provides a serialisable table by its own fields
---- @return table t Returns itself as a data table, without any functions, to be able to be de-/serialised.
-function NetworkComponent:toSerialisableTable()
-    local t = {
-        owner = {
-            self.owner.username,
-            self.owner.guid
-        },
-        nuid = self.nuid,
-        local_entity_id = self.local_entity_id,
-        component_id = self.component_id
-    }
-    return t
-end
 
 return NetworkComponent

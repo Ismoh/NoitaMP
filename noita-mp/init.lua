@@ -51,7 +51,7 @@ function OnWorldInitialized()
 end
 
 function OnPlayerSpawned(player_entity)
-    local component_id = em.AddNetworkComponentToEntity(player_entity, util.getLocalOwner(), em.GetNextNuid())
+    local component_id = em:AddNetworkComponentToEntity(player_entity, util.getLocalOwner(), nil)
 end
 
 function OnWorldPreUpdate()

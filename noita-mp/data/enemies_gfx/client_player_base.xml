@@ -2,38 +2,38 @@
   name="DEBUG_NAME:player"
   tags="mortal,human,hittable,peasant,prey,player_unit,teleportable" >
   
-  <HotspotComponent
+  <!-- <HotspotComponent
       _tags="hand"
       sprite_hotspot_name="hand"
-  ></HotspotComponent>
+  ></HotspotComponent> -->
 
-  <HotspotComponent
+  <!-- <HotspotComponent
     _tags="shoot_pos"
     offset.x="0"
     offset.y="-2"
-  ></HotspotComponent>
+  ></HotspotComponent> -->
 
-  <HotspotComponent
+  <!-- <HotspotComponent
     _tags="kick_pos"
     offset.x="0"
     offset.y="2"
-  ></HotspotComponent>
+  ></HotspotComponent> -->
   
-  <HotspotComponent
+  <!-- <HotspotComponent
     _tags="crouch_sensor"
     offset.x="0"
     offset.y="-14"
-  ></HotspotComponent>
+  ></HotspotComponent> -->
 
-  <PhysicsPickUpComponent 
+  <!-- <PhysicsPickUpComponent 
     original_left_joint_pos.x="-8"
     original_left_joint_pos.y="-2"
     original_right_joint_pos.x="-2"
     original_right_joint_pos.y="-2"
     pick_up_strength="400"
-  ></PhysicsPickUpComponent>
+  ></PhysicsPickUpComponent> -->
 
-  <PlatformShooterPlayerComponent
+  <!-- <PlatformShooterPlayerComponent
     center_camera_on_this_entity="1"
     aiming_reticle_distance_from_character="60"
     camera_max_distance_from_character="50"
@@ -43,20 +43,20 @@
     eating_area_min.y="-4"
     eating_area_max.y="6"
     eating_cells_per_frame="2"
-  ></PlatformShooterPlayerComponent>
+  ></PlatformShooterPlayerComponent> -->
   
-  <PathFindingGridMarkerComponent
+  <!-- <PathFindingGridMarkerComponent
     player_marker_radius="100.0"
     marker_offset_y="-3"
     marker_work_flag="8"
-  ></PathFindingGridMarkerComponent>
+  ></PathFindingGridMarkerComponent> -->
 
   <PlayerCollisionComponent 
     getting_crushed_threshold="6"
     moving_up_before_getting_crushed_threshold="6"
   ></PlayerCollisionComponent >
 
-  <CharacterDataComponent 
+  <!-- <CharacterDataComponent 
     platforming_type="2"
     check_collision_max_size_x="4" 
     check_collision_max_size_y="4" 
@@ -88,8 +88,9 @@
     gravity="0"
     buoyancy_check_offset_y="-7"
     send_transform_update_message="1"
-  ></CharacterDataComponent>
+  ></CharacterDataComponent> -->
 
+  <!-- not sure, if this should stay -->
   <GenomeDataComponent 
     herd_id="player"
     food_chain_rank="20"
@@ -97,7 +98,8 @@
     berserk_dont_attack_friends="1"
   ></GenomeDataComponent>
 
-  <CharacterPlatformingComponent 
+  <!-- not sure, if this should stay -->
+  <CharacterPlatformingComponent
     animation_to_play="" 
     jump_keydown_buffer="2" 
     jump_velocity_y="-95" 
@@ -185,11 +187,11 @@
     is_player="1"
   ></HitboxComponent>
 
-  <Inventory2Component
+  <!-- <Inventory2Component
     quick_inventory_slots="10"
     full_inventory_slots_x="16"
     full_inventory_slots_y="1"
-  ></Inventory2Component>
+  ></Inventory2Component> -->
 
   <!-- <InventoryGuiComponent /> -->
 
@@ -241,11 +243,11 @@
       only_position="1"
     ></InheritTransformComponent>  
 
-    <HotspotComponent
+    <!-- <HotspotComponent
       _tags="hand"
       sprite_hotspot_name="hand"
       transform_with_scale="1"
-    ></HotspotComponent>
+    ></HotspotComponent> -->
 
   </Entity>
 
@@ -269,7 +271,7 @@
   <StatusEffectDataComponent>
   </StatusEffectDataComponent>
 
-  <AudioComponent
+  <!-- <AudioComponent
     file="data/audio/Desktop/player.bank"
     event_root="player"
     audio_physics_material="character_player"
@@ -323,15 +325,15 @@
   ></AudioListenerComponent>
   
   <GunComponent>
-  </GunComponent>
+  </GunComponent> -->
 
   <LiquidDisplacerComponent
     radius="1"
   ></LiquidDisplacerComponent>
 
-  <ItemPickUpperComponent
+  <!-- <ItemPickUpperComponent
     drop_items_on_death="0"
-  ></ItemPickUpperComponent>
+  ></ItemPickUpperComponent> -->
 
 	<Base file="data/entities/base_jetpack_nosound.xml">
 
@@ -345,10 +347,10 @@
 
   <GameLogComponent
     report_damage="0"
-    report_death="1"
+    report_death="0"
   ></GameLogComponent>
 
-  <GameStatsComponent is_player="1" />
+  <!-- <GameStatsComponent is_player="1" /> -->
 
   <LightComponent 
     r="255"
@@ -383,12 +385,12 @@
   
   <!-- ingestion -->
 
-  <MaterialInventoryComponent 
+  <!-- <MaterialInventoryComponent 
       _tags="ingestion"
       drop_as_item="0"
       on_death_spill="0"
       kill_when_empty="0"
-  ></MaterialInventoryComponent>
+  ></MaterialInventoryComponent> -->
   
   <IngestionComponent 
     ingestion_capacity="7500"
@@ -401,7 +403,7 @@
 
   <!-- --> 
 
-  <WalletComponent>
+  <!-- <WalletComponent>
   </WalletComponent>
 
   <StreamingKeepAliveComponent>
@@ -428,7 +430,7 @@
 	<VariableStorageComponent
 		name="kantele_song_pos"
 		value_int="0"
-	></VariableStorageComponent>
+	></VariableStorageComponent> -->
 	
 	<SpriteComponent 
 		_tags="character,player_amulet" 
@@ -490,7 +492,7 @@
 		_enabled="0"
 	></SpriteComponent>
 
-	<LuaComponent
+	<!-- <LuaComponent
 		script_source_file="data/scripts/magic/amulet.lua"
 		execute_on_added="1"
 		remove_after_executed="1"
@@ -508,6 +510,6 @@
 		execute_every_n_frame="10"
 		remove_after_executed="1"
 		>
-	</LuaComponent>
+	</LuaComponent> -->
 
 </Entity>

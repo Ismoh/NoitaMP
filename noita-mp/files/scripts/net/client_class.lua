@@ -176,18 +176,28 @@ function Client:createCallbacks()
         "newNuid",
         function(data)
             logger:debug(
-                "Got new nuid=%s from %s (%s), see below.",
+                "%s (%s) needs a new NUID. nuid=%s, x=%s, y=%s, rot=%s, velocity=%s, filename=%s, localEntityId=%s",
+                data.owner.username,
+                data.owner.guid,
                 data.nuid,
-                data.owner.username or data.owner[1],
-                data.owner.guid or data.owner[2]
+                data.x,
+                data.y,
+                data.rot,
+                data.velocity,
+                data.filename,
+                data.localEntityId
             )
             util.pprint(data)
-            local owner = data.owner
-            --if self.super.guid == owner.guid then
-            --    self:setNuid(owner, data.localEntityId, data.nuid)
-            --else
-            em.SpawnEntity(owner, data.nuid, data.x, data.y, data.rot, data.velocity, data.filename, data.localEntityId)
-            --end
+            em:SpawnEntity(
+                data.owner,
+                data.nuid,
+                data.x,
+                data.y,
+                data.rot,
+                data.velocity,
+                data.filename,
+                data.localEntityId
+            )
         end
     )
 
@@ -196,7 +206,34 @@ function Client:createCallbacks()
         function(data)
             util.pprint(data)
 
-            em.DespawnEntity(data.owner, data.localEntityId, data.nuid, data.isAlive)
+            em:DespawnEntity(data.owner, data.localEntityId, data.nuid, data.isAlive)
+        end
+    )
+
+    self.super:on(
+        "entityState",
+        function(data)
+            util.pprint(data)
+
+            local nc = em:GetNetworkComponent(data.owner, data.localEntityId, data.nuid)
+            if nc then
+                EntityApplyTransform(nc.local_entity_id, data.x, data.y, data.rot)
+            else
+                logger:warn(
+                    "Got entityState, but unable to find the network component!" ..
+                        " owner(%s, %s), localEntityId(%s), nuid(%s), x(%s), y(%s), rot(%s), velocity(x %s, y %s), health(%s)",
+                    data.owner.username,
+                    data.owner.guid,
+                    data.localEntityId,
+                    data.nuid,
+                    data.x,
+                    data.y,
+                    data.rot,
+                    data.velocity.x,
+                    data.velocity.y,
+                    data.health
+                )
+            end
         end
     )
 end
@@ -245,6 +282,8 @@ function Client:update()
     end
 
     em:AddNetworkComponentsResumeCoroutine()
+
+    em:UpdateEntities()
 
     self.super:update()
 end

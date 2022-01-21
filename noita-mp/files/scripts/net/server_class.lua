@@ -55,18 +55,18 @@ function Server:createCallbacks()
     self.super:on(
         "connect",
         function(data, peer)
-            local local_player_id = em.getLocalPlayerId()
+            local local_player_id = em:getLocalPlayerId()
             local x, y, rot, scale_x, scale_y = EntityGetTransform(local_player_id)
 
             util.pprint("server_class.lua | on_connect: ")
             util.pprint("server_class.lua | on_connect: data = " .. tostring(data))
             util.pprint("server_class.lua | on_connect: client = " .. tostring(peer))
-            em.SpawnEntity(
+            em:SpawnEntity(
                 {
                     peer.username,
                     peer.guid
                 },
-                em.GetNextNuid(),
+                em:GetNextNuid(),
                 x,
                 y,
                 rot,
@@ -127,14 +127,10 @@ function Server:createCallbacks()
     self.super:on(
         "needNuid",
         function(data)
-            logger:debug(
-                "%s (%s) needs a new nuid.",
-                data.owner.username or data.owner[1],
-                data.owner.guid or data.owner[2]
-            )
+            logger:debug("%s (%s) needs a new nuid.", data.owner.username, data.owner.guid)
             util.pprint(data)
 
-            local new_nuid = em.GetNextNuid()
+            local new_nuid = em:GetNextNuid()
 
             -- tell the clients that there is a new entity, they have to spawn, besides the client, who sent the request
             self:sendNewNuid(
@@ -149,7 +145,7 @@ function Server:createCallbacks()
             )
 
             -- spawn the entity on server only
-            em.SpawnEntity(data.owner, new_nuid, data.x, data.y, data.rot, data.velocity, data.filename, nil)
+            em:SpawnEntity(data.owner, new_nuid, data.x, data.y, data.rot, data.velocity, data.filename, nil)
         end
     )
 
@@ -166,7 +162,7 @@ function Server:createCallbacks()
             end
 
             logger:debug("Got a new nuid and spawning entity. For data content see above!")
-            em.SpawnEntity(data.owner, data.nuid, data.x, data.y, data.rot, data.velocity, data.filename, nil)
+            em:SpawnEntity(data.owner, data.nuid, data.x, data.y, data.rot, data.velocity, data.filename, nil)
         end
     )
 
@@ -176,20 +172,35 @@ function Server:createCallbacks()
             util.pprint(data)
 
             self.super:sendToAll2("entityAlive", data)
-            em.DespawnEntity(data.owner, data.localEntityId, data.nuid, data.isAlive)
+            em:DespawnEntity(data.owner, data.localEntityId, data.nuid, data.isAlive)
         end
     )
 
     self.super:on(
         "entityState",
         function(data)
-            local guid = data.owner.guid
-            local nuid = data.nuid
-            local x = data.x
-            local y = data.y
-            local rot = data.rot
+            util.pprint(data)
 
             local nc = em:GetNetworkComponent(data.owner, data.localEntityId, data.nuid)
+            if nc then
+                EntityApplyTransform(nc.local_entity_id, data.x, data.y, data.rot)
+            else
+                logger:warn(
+                    "Got entityState, but unable to find the network component!" ..
+                        " owner(%s, %s), localEntityId(%s), nuid(%s), x(%s), y(%s), rot(%s), velocity(x %s, y %s), health(%s)",
+                    data.owner.username,
+                    data.owner.guid,
+                    data.localEntityId,
+                    data.nuid,
+                    data.x,
+                    data.y,
+                    data.rot,
+                    data.velocity.x,
+                    data.velocity.y,
+                    data.health
+                )
+            end
+            self.super:sendToAll2("entityState", data)
         end
     )
 end
@@ -316,10 +327,7 @@ function Server:sendNewNuid(owner, local_entity_id, new_nuid, x, y, rot, velocit
     self.super:sendToAll2(
         "newNuid",
         {
-            {
-                owner.username or owner[1],
-                owner.guid or owner[2]
-            },
+            owner,
             local_entity_id,
             new_nuid,
             x,
@@ -338,7 +346,7 @@ function Server:update()
 
     em:AddNetworkComponentsResumeCoroutine()
 
-    em.UpdateEntities()
+    em:UpdateEntities()
 
     self.super:update()
 end

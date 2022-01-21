@@ -2,6 +2,7 @@ local fu = {}
 local ffi = require("ffi")
 
 if not logger then
+---@diagnostic disable-next-line: lowercase-global
     logger = _G.logger
 end
 
