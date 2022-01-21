@@ -3,6 +3,7 @@
 --[[ NoitaMP additions ]]
 local params = {...}
 local destination_path = params[1]
+logger:debug("params = %s | destination_path = %s", params, destination_path)
 
 local default_package_path = package.path
 package.path =
@@ -148,7 +149,7 @@ if current_clib_extension then
                 lua_cpath_file .. ") created with content: " .. lua_cpath_file_content
         )
     else
-        logger:info("destination_path was not set. Export LPATH and CPATH will be skipped!")
+        logger:warn("destination_path was not set. Export LPATH and CPATH will be skipped!")
     end
 
     print("init_package_loading.lua | package.path set to " .. package.path .. " .")
