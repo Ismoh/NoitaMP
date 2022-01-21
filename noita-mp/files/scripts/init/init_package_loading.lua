@@ -130,6 +130,7 @@ if current_clib_extension then
     package.cpath = fu.ReplacePathSeparator(table.concat(cpaths, ";"))
 
     if destination_path then
+        logger:info("destination_path was set to export LPATH and CPATH!")
         local lua_path_file = fu.RemoveTrailingPathSeparator(destination_path) .. _G.path_separator .. "lua_path.txt"
         local lua_path_file_content = ";" .. package.path
 
@@ -146,6 +147,8 @@ if current_clib_extension then
             "init_package_loading.lua | File (" ..
                 lua_cpath_file .. ") created with content: " .. lua_cpath_file_content
         )
+    else
+        logger:info("destination_path was not set. Export LPATH and CPATH will be skipped!")
     end
 
     print("init_package_loading.lua | package.path set to " .. package.path .. " .")
