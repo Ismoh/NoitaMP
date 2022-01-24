@@ -88,3 +88,4 @@ jobs:
       with:
         path-to-lcov: ./luacov.stats.out
         github-token: ${{ secrets.github_token }}
+        verbose: true
