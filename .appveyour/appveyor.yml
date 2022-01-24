@@ -1,1 +1,8 @@
-version: '0.0.{build}#{branch}'
+version: '{version}.{build}#{branch}'
+image: Ubuntu
+init:
+- sh: export VERSION=$(.appveyour/get_latest_release_version.sh)
+environment:
+  version: '{version}'
+test: off
+deploy: off
