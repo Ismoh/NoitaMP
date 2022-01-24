@@ -1,0 +1,1 @@
+repo_token: ${{ secrets.coveralls_repo_token }}
