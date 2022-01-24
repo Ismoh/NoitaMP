@@ -1,8 +1,15 @@
 version: '{version}.{build}#{branch}'
 image: Ubuntu
-init:
-- sh: export VERSION=$(.appveyour/get_latest_release_version.sh)
+clone_script:
+- sh: >-
+    # Exporting environment variable to get the latest github release version
+
+    export VERSION=$(curl --silent "https://api.github.com/repos/$1/releases/latest" | # Get latest release from GitHub api
+        grep '"tag_name":' |                                            # Get tag line
+        sed -E 's/.*"([^"]+)".*/\1/'   )
+        export -p
 environment:
   version: '{version}'
+build: off
 test: off
 deploy: off
