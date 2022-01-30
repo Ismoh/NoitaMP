@@ -9,7 +9,7 @@ if varargs and #varargs > 0 then
     print("'varargs' of init_.lua, see below:")
     print(unpack(varargs))
 
-    destination_path = select(1, ...)
+    destination_path = varargs[1]
 else
     print("no 'varargs' set.")
 end
