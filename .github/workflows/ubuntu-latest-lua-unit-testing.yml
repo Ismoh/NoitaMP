@@ -67,11 +67,16 @@ jobs:
       run: |
         ######## Use --tree to define the installation path of the module, which is luajit/share/lua/5.1/ although only the 'root' directory is set
         ${{ github.workspace }}/luarocks/bin/luarocks --tree=${{ github.workspace }}/luajit install luacov
+        ${{ github.workspace }}/luarocks/bin/luarocks --tree=${{ github.workspace }}/luajit install luacov-coveralls
 
     - name: Generate coverage report with luacov
       run: |
         sudo find ${{ github.workspace }}/.testing/tests -name "*.lua" -type f -exec ${{ github.workspace }}/luajit/bin/luajit -lluacov {} \;
         ${{ github.workspace }}/luajit/bin/luacov
+        
+    - name: Generate coverage report with luacov-coveralls
+      run: |
+        ${{ github.workspace }}/luajit/bin/luacov-coveralls
 
     - name: Remove luarocks-3.8.0 codecov.yml
       run: |
@@ -83,4 +88,12 @@ jobs:
         directory: ${{ github.workspace }}
         flags: unittesting
         name: Ubuntu Lua Unit Testing
+        verbose: true
+        
+    - name: Coveralls GitHub Action
+      uses: coverallsapp/github-action@1.1.3
+      with:
+        path-to-lcov: ./luacov.stats.out
+        github-token: ${{ secrets.github_token }}
+        repo_token: ${{ secrets.coveralls_repo_token }}
         verbose: true
