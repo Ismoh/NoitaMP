@@ -6,6 +6,8 @@ jobs:
   lua-unit-testing-on-ubuntu-latest:
     name: "LuaUnit on Ubuntu-latest"
     runs-on: ubuntu-latest
+    env:
+      temp_dir: ${{ github.workspace }}\temp
 
     steps:
     - uses: actions/checkout@main

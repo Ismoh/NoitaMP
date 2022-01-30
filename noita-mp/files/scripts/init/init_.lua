@@ -5,7 +5,7 @@ print("Initialise pathes, globals and extensions..")
 -- github workflow stuff
 local varargs = {...}
 local destination_path = nil
-if varargs then
+if varargs and #varargs > 0 then
     print("'varargs' of init_.lua, see below:")
     print(unpack(...))
     destination_path = select(1, ...)
