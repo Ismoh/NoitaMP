@@ -3,16 +3,23 @@ print("Initialise pathes, globals and extensions..")
 
 --#region
 -- github workflow stuff
-print("'varargs' of init_.lua, see below:")
-print(unpack(...))
-local destination_path = select(1, ...)
+local varargs = {...}
+local destination_path = nil
+if varargs then
+    print("'varargs' of init_.lua, see below:")
+    print(unpack(...))
+    destination_path = select(1, ...)
+else
+    print("no 'varargs' set.")
+end
+
 --#endregion
 
 dofile("mods/noita-mp/files/scripts/util/table_extensions.lua")
 dofile("mods/noita-mp/files/scripts/util/string_extensions.lua")
 dofile("mods/noita-mp/files/scripts/init/init_logger.lua")
--- if destination_path then
-dofile("mods/noita-mp/files/scripts/init/init_package_loading.lua")(destination_path)
---else
---     dofile("mods/noita-mp/files/scripts/init/init_package_loading.lua")
---end
+if destination_path then
+    dofile("mods/noita-mp/files/scripts/init/init_package_loading.lua")(destination_path)
+else
+    dofile("mods/noita-mp/files/scripts/init/init_package_loading.lua")
+end
