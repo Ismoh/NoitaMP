@@ -10,6 +10,7 @@ if varargs and #varargs > 0 then
     print(unpack(varargs))
 
     destination_path = varargs[1]
+    print("destination_path = " .. tostring(destination_path))
 else
     print("no 'varargs' set.")
 end
