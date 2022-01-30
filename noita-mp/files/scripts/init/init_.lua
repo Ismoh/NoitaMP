@@ -20,10 +20,11 @@ end
 dofile("mods/noita-mp/files/scripts/util/table_extensions.lua")
 dofile("mods/noita-mp/files/scripts/util/string_extensions.lua")
 dofile("mods/noita-mp/files/scripts/init/init_logger.lua")
+local init_package_loading = dofile("mods/noita-mp/files/scripts/init/init_package_loading.lua")
 if destination_path then
     print("Running init_package_loading.lua with destination_path = " .. tostring(destination_path))
-    dofile("mods/noita-mp/files/scripts/init/init_package_loading.lua")(destination_path)
+    init_package_loading(destination_path)
 else
     print("Running init_package_loading.lua without any destination_path")
-    dofile("mods/noita-mp/files/scripts/init/init_package_loading.lua")
+    init_package_loading()
 end
