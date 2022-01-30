@@ -7,11 +7,7 @@ local varargs = {...}
 local destination_path = nil
 if varargs and #varargs > 0 then
     print("'varargs' of init_.lua, see below:")
-    if type(varargs) == "table" then
-        print(unpack(...))
-    else
-        print(...)
-    end
+    print(unpack(varargs))
 
     destination_path = select(1, ...)
 else
