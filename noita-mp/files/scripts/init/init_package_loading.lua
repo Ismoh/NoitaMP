@@ -2,12 +2,7 @@
 
 --[[ NoitaMP additions ]]
 local destination_path = ...
-
-local msg = ""
-for index, param in ipairs(...) do
-    msg = msg .. ", params[" .. index .. "] = " .. tostring(param)
-end
-logger:debug("%s | destination_path = %s", msg, destination_path)
+logger:debug("destination_path = %s", destination_path)
 
 local default_package_path = package.path
 package.path =
