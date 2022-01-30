@@ -3,7 +3,7 @@ print("Initialise pathes, globals and extensions..")
 
 --#region
 -- github workflow stuff
-local params = {...}
+local params = ...
 print(("params = %s"):format(params))
 --#endregion
 

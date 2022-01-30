@@ -1,11 +1,10 @@
 -- https://subscription.packtpub.com/book/game-development/9781849515504/1/ch01lvl1sec10/preparing-a-basic-file-structure-for-the-game-engine
 
 --[[ NoitaMP additions ]]
-local params = {...}
-local destination_path = params[1]
+local destination_path = ...
 
 local msg = ""
-for index, param in ipairs(params) do
+for index, param in ipairs(...) do
     msg = msg .. ", params[" .. index .. "] = " .. tostring(param)
 end
 logger:debug("%s | destination_path = %s", msg, destination_path)
