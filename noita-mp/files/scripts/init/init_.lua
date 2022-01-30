@@ -3,6 +3,8 @@ print("Initialise pathes, globals and extensions..")
 
 --#region
 -- github workflow stuff
+print("'varargs' of init_.lua, see below:")
+print(unpack(...))
 local destination_path = select(1, ...)
 --#endregion
 
