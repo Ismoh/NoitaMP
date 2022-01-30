@@ -21,6 +21,10 @@ jobs:
         make PREFIX=${{ github.workspace }}/luajit
         make install PREFIX=${{ github.workspace }}/luajit
 
+    - name: Run lua script to adjust lua package pathes
+      run: |
+        ${{ github.workspace }}/luajit/bin/luajit ${{ github.workspace }}\noita-mp\files\scripts\init\init_.lua ${{ env.temp_dir }}
+        
     - name: Run LuaUnit 3.4
       id: lua_unit_tests
       run: |
