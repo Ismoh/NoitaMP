@@ -8,14 +8,14 @@ local varargs = {}
 for i = 1, select("#", ...) do
     varargs[#varargs + 1] = select(i, ...)
 end
-print(("varargs = %s"):format(varargs))
+print(("varargs = %s"):format(unpack(varargs)))
 --#endregion
 
 dofile("mods/noita-mp/files/scripts/util/table_extensions.lua")
 dofile("mods/noita-mp/files/scripts/util/string_extensions.lua")
 dofile("mods/noita-mp/files/scripts/init/init_logger.lua")
 -- if params then
-dofile("mods/noita-mp/files/scripts/init/init_package_loading.lua")(params)
+dofile("mods/noita-mp/files/scripts/init/init_package_loading.lua")(varargs)
 -- else
 --     dofile("mods/noita-mp/files/scripts/init/init_package_loading.lua")
 -- end

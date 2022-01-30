@@ -1,7 +1,7 @@
 -- https://subscription.packtpub.com/book/game-development/9781849515504/1/ch01lvl1sec10/preparing-a-basic-file-structure-for-the-game-engine
 
 --[[ NoitaMP additions ]]
-local destination_path = ...
+local destination_path = select(1, ...)
 logger:debug("destination_path = %s", destination_path)
 
 local default_package_path = package.path
