@@ -10,8 +10,8 @@ print(("params = %s"):format(params))
 dofile("mods/noita-mp/files/scripts/util/table_extensions.lua")
 dofile("mods/noita-mp/files/scripts/util/string_extensions.lua")
 dofile("mods/noita-mp/files/scripts/init/init_logger.lua")
-if params then
+-- if params then
     dofile("mods/noita-mp/files/scripts/init/init_package_loading.lua")(params)
-else
-    dofile("mods/noita-mp/files/scripts/init/init_package_loading.lua")
-end
+-- else
+--     dofile("mods/noita-mp/files/scripts/init/init_package_loading.lua")
+-- end
