@@ -1,11 +1,7 @@
 -- https://subscription.packtpub.com/book/game-development/9781849515504/1/ch01lvl1sec10/preparing-a-basic-file-structure-for-the-game-engine
 
 --[[ NoitaMP additions ]]
-return function(varargs)
-    local destination_path = nil
-    if varargs and #varargs > 0 then
-        destination_path = varargs[1]
-    end
+return function(destination_path)
     logger:debug("destination_path = %s", destination_path)
 
     local default_package_path = package.path
