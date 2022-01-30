@@ -3,14 +3,7 @@ print("Initialise pathes, globals and extensions..")
 
 --#region
 -- github workflow stuff
-local destination_path = nil
-local varargs = {}
--- https://stackoverflow.com/a/7630202/3493998
-for i = 1, select("#", ...) do
-    varargs[#varargs + 1] = select(i, ...)
-end
-print("varargs = " .. unpack(varargs))
-destination_path = varargs[1]
+local destination_path = select(1, ...)
 --#endregion
 
 dofile("mods/noita-mp/files/scripts/util/table_extensions.lua")
