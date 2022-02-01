@@ -78,6 +78,7 @@ jobs:
       env:
         github-token: ${{ secrets.github_token }}
         COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+        COVERALLS_DEBUG: true
       run: |
         ${{ github.workspace }}/luajit/bin/luacov-coveralls -v
 
