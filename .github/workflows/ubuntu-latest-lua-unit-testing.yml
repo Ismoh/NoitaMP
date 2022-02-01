@@ -94,10 +94,3 @@ jobs:
         flags: unittesting
         name: Ubuntu Lua Unit Testing
         verbose: true
-        
-    - name: Coveralls GitHub Action
-      uses: coverallsapp/github-action@master
-      with:
-        path-to-lcov: ./luacov.stats.out
-        github-token: ${{ secrets.github_token }}
-        #repo_token: ${{ secrets.coveralls_repo_token }}
