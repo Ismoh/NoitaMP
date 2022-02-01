@@ -76,7 +76,7 @@ jobs:
         
     - name: Generate coverage report with luacov-coveralls
       run: |
-        ${{ github.workspace }}/luajit/bin/luacov-coveralls
+        ${{ github.workspace }}/luajit/bin/luacov-coveralls -v
 
     - name: Remove luarocks-3.8.0 codecov.yml
       run: |
