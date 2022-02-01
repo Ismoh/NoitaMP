@@ -75,6 +75,8 @@ jobs:
         ${{ github.workspace }}/luajit/bin/luacov
         
     - name: Generate coverage report with luacov-coveralls
+      env:
+        COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
       run: |
         ${{ github.workspace }}/luajit/bin/luacov-coveralls -v
 
