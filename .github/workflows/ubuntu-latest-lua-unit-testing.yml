@@ -76,7 +76,7 @@ jobs:
         
     - name: Generate coverage report with luacov-coveralls
       env:
-        github-token: ${{ secrets.github_token }}
+        #github-token: ${{ secrets.github_token }}
         #COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
         COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         COVERALLS_DEBUG: true
