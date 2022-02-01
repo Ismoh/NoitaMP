@@ -95,5 +95,5 @@ jobs:
       with:
         path-to-lcov: ./luacov.stats.out
         github-token: ${{ secrets.github_token }}
-        repo_token: ${{ secrets.coveralls_repo_token }}
+        #repo_token: ${{ secrets.coveralls_repo_token }}
         verbose: true
