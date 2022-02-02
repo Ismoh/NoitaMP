@@ -1,11 +1,7 @@
 -- Configuration file for LuaCov
 
-local source = os.getenv("PWD") or io.popen("cd"):read() -- working dir: https://programming-idioms.org/idiom/106/get-program-working-directory/3804/lua
+local source = os.getenv("PWD") or io.popen("cd "):read() or "" -- working dir: https://programming-idioms.org/idiom/106/get-program-working-directory/3804/lua
 print("source = " .. tostring(source))
-
-if not source then
-    source = "home/runner/work/NoitaMP/NoitaMP"
-end
 
 local function escape_pattern(str)
     local str_sub = string.gsub(str, "%W", "%%%1")
@@ -21,9 +17,18 @@ local function fix_paths(str)
         return ""
     end
 
-    local str_replace = str:gsub(str, "home/runner/work/NoitaMP/NoitaMP", "")
-    str_replace = str:gsub(str, "mods/", "")
-    print("fixed_path = " .. tostring(str_replace))
+    print("str = " .. str)
+    local str_replace = str
+
+    if str:find("home/runner/work/NoitaMP/NoitaMP") then
+        str_replace = str:gsub("home/runner/work/NoitaMP/NoitaMP", "")
+    end
+
+    if str:find("mods/") then
+        str_replace = str:gsub("mods/", "")
+    end
+
+    print("fixed_path = " .. str_replace)
     return str_replace
 end
 
