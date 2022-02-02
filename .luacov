@@ -2,7 +2,6 @@
 
 -- This variable is set externally
 local source = os.getenv("SOURCE_DIRECTORY") or os.getenv("PWD")
-local build = os.getenv("BUILD_DIRECTORY") or (source .. "/build")
 
 local function escape_pattern(str)
     local str_sub = string.gsub(str, "%W", "%%%1")
@@ -10,20 +9,29 @@ local function escape_pattern(str)
     return str_sub
 end
 
+---comment
+---@param str string
+local function fix_paths(str)
+    local str_replace = string.gsub(str, "home/runner/work/NoitaMP/NoitaMP/", "")
+    str_replace = string.gsub(str, "mods/", "")
+    return str_replace
+end
+
 return {
     --statsfile = build .. "/luacov.stats.out",
     --reportfile = build .. "/luacov.report.out",
-    include = {
-        escape_pattern(source) .. "/.+",
-        -- Relative paths (to source/build dir).
-        "^[^/].+"
-    },
+    --include = {
+    --    escape_pattern(source) .. "/.+",
+    --    -- Relative paths (to source/build dir).
+    --    "^[^/].+"
+    --},
     -- configuration for luacov-coveralls reporter
     coveralls = {
         pathcorrect = {
             {
-                escape_pattern(source .. "/"),
-                ""
+                --escape_pattern(source .. "/"),
+                --""
+                fix_paths(source .. "")
             }
         }
     }
