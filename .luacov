@@ -1,0 +1,30 @@
+-- Configuration file for LuaCov
+
+-- This variable is set externally
+local source = os.getenv("SOURCE_DIRECTORY") or os.getenv("PWD")
+local build = os.getenv("BUILD_DIRECTORY") or (source .. "/build")
+
+local function escape_pattern(str)
+    local str_sub = string.gsub(str, "%W", "%%%1")
+    print(str_sub)
+    return str_sub
+end
+
+return {
+    --statsfile = build .. "/luacov.stats.out",
+    --reportfile = build .. "/luacov.report.out",
+    include = {
+        escape_pattern(source) .. "/.+",
+        -- Relative paths (to source/build dir).
+        "^[^/].+"
+    },
+    -- configuration for luacov-coveralls reporter
+    coveralls = {
+        pathcorrect = {
+            {
+                escape_pattern(source .. "/"),
+                ""
+            }
+        }
+    }
+}
