@@ -18,6 +18,7 @@ end
 local function fix_paths(str)
     local str_replace = string.gsub(str, "home/runner/work/NoitaMP/NoitaMP/", "")
     str_replace = string.gsub(str, "mods/", "")
+    print("fixed_path = " .. tostring(str_replace))
     return str_replace
 end
 
