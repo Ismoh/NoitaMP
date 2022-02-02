@@ -1,8 +1,12 @@
 -- Configuration file for LuaCov
 
 -- This variable is set externally
-local source = os.getenv("SOURCE_DIRECTORY") or os.getenv("PWD") or (...):gsub('%.[^%.]+$', '')
+local source = (...):gsub('%.[^%.]+$', '') or os.getenv("PWD") or io.popen("cd"):read() -- current folder
 print("source = " .. tostring(source))
+
+if not source then
+    source = "home/runner/work/NoitaMP/NoitaMP/"
+end
 
 local function escape_pattern(str)
     local str_sub = string.gsub(str, "%W", "%%%1")
