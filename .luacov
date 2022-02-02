@@ -1,7 +1,8 @@
 -- Configuration file for LuaCov
 
 -- This variable is set externally
-local source = os.getenv("SOURCE_DIRECTORY") or os.getenv("PWD")
+local source = os.getenv("SOURCE_DIRECTORY") or os.getenv("PWD") or (...):gsub('%.[^%.]+$', '')
+print("source = " .. tostring(source))
 
 local function escape_pattern(str)
     local str_sub = string.gsub(str, "%W", "%%%1")
@@ -9,7 +10,7 @@ local function escape_pattern(str)
     return str_sub
 end
 
----comment
+--- I want to have fixed pathes on coveralls.io, without changing the path on coveralls.io manually..
 ---@param str string
 local function fix_paths(str)
     local str_replace = string.gsub(str, "home/runner/work/NoitaMP/NoitaMP/", "")
