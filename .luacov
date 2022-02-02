@@ -16,6 +16,10 @@ end
 --- I want to have fixed pathes on coveralls.io, without changing the path on coveralls.io manually..
 ---@param str string
 local function fix_paths(str)
+    if type(str) ~= "string" then
+        print("str is type of " .. type(str) .. ". Returning ''!")
+        return ""
+    end
     local str_replace = str:gsub(str, "home/runner/work/NoitaMP/NoitaMP", "")
     str_replace = str:gsub(str, "mods/", "")
     print("fixed_path = " .. tostring(str_replace))
