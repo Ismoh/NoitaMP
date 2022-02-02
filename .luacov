@@ -46,8 +46,11 @@ return {
             {
                 --escape_pattern(source .. "/"),
                 --""
-                fix_paths(source .. "")
+                fix_paths(source)
             }
         }
+    },
+    repositry = {
+        path = fix_paths(source)
     }
 }
