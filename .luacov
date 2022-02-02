@@ -1,7 +1,6 @@
 -- Configuration file for LuaCov
 
--- This variable is set externally
-local source = (...):gsub('%.[^%.]+$', '') or os.getenv("PWD") or io.popen("cd"):read() -- current folder
+local source = os.getenv("PWD") or io.popen("cd"):read() -- working dir: https://programming-idioms.org/idiom/106/get-program-working-directory/3804/lua
 print("source = " .. tostring(source))
 
 if not source then
