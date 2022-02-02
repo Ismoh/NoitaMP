@@ -4,7 +4,7 @@ local source = os.getenv("PWD") or io.popen("cd"):read() -- working dir: https:/
 print("source = " .. tostring(source))
 
 if not source then
-    source = "home/runner/work/NoitaMP/NoitaMP/"
+    source = "home/runner/work/NoitaMP/NoitaMP"
 end
 
 local function escape_pattern(str)
@@ -16,8 +16,8 @@ end
 --- I want to have fixed pathes on coveralls.io, without changing the path on coveralls.io manually..
 ---@param str string
 local function fix_paths(str)
-    local str_replace = string.gsub(str, "home/runner/work/NoitaMP/NoitaMP/", "")
-    str_replace = string.gsub(str, "mods/", "")
+    local str_replace = str:gsub(str, "home/runner/work/NoitaMP/NoitaMP", "")
+    str_replace = str:gsub(str, "mods/", "")
     print("fixed_path = " .. tostring(str_replace))
     return str_replace
 end
