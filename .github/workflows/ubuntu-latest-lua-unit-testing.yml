@@ -73,6 +73,7 @@ jobs:
       run: |
         sudo find ${{ github.workspace }}/.testing/tests -name "*.lua" -type f -exec ${{ github.workspace }}/luajit/bin/luajit -lluacov {} \;
         ${{ github.workspace }}/luajit/bin/luacov
+        ls -R
         
     - name: Generate coverage report with luacov-coveralls
       env:
