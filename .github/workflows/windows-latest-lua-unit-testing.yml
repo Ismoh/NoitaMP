@@ -116,9 +116,10 @@ jobs:
 
         Start-Process -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-windows-32\luarocks.exe" -ArgumentList " --version " -Wait -NoNewWindow
         
-    - name: Install luacov
+    - name: Install luacov and lua-coveralls
       run: |
         Start-Process -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-windows-32\luarocks.exe" -ArgumentList "--lua-dir=${{ env.lua_install_dir }} --lua-version=5.1 --tree=${{ env.lua_install_dir }} install luacov" -Wait -NoNewWindow
+        Start-Process -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-windows-32\luarocks.exe" -ArgumentList "--lua-dir=${{ env.lua_install_dir }} --lua-version=5.1 --tree=${{ env.lua_install_dir }} install luacov-coveralls" -Wait -NoNewWindow
 
         ls -R ${{ env.lua_install_dir }}
 
@@ -127,6 +128,13 @@ jobs:
         dir -Path ${{ github.workspace }}\.testing\tests -Filter *.lua -Recurse | %{& '${{ env.lua_install_bin_dir }}\luajit.exe' -lluacov $_.FullName -o text --verbose }
         
         Start-Process -FilePath "${{ env.lua_install_bin_dir }}\luacov.bat" -Wait -NoNewWindow
+
+    - name: Generate coverage report with luacov-coveralls
+      env:
+        COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        COVERALLS_DEBUG: true
+      run: |
+        ${{ github.workspace }}/luajit/bin/luacov-coveralls -v
 
     - name: Fix codecov path issue
       shell: pwsh
