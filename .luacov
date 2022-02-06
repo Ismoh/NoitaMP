@@ -1,0 +1,81 @@
+-- Configuration file for LuaCov
+
+-- local source = os.getenv("PWD") or io.popen("cd "):read() or "" -- working dir: https://programming-idioms.org/idiom/106/get-program-working-directory/3804/lua
+-- print("source = " .. tostring(source))
+
+-- local function escape_pattern(str)
+--     local str_sub = string.gsub(str, "%W", "%%%1")
+--     print(str_sub)
+--     return str_sub
+-- end
+
+-- --- I want to have fixed pathes on coveralls.io, without changing the path on coveralls.io manually..
+-- ---@param str string
+-- local function fix_paths(str)
+--     if not type(str) == "string" or str == nil then
+--         print("str is type of " .. type(str) .. ". Returning ''!")
+--         return ""
+--     end
+
+--     print("str = " .. str)
+--     local str_replace = str
+
+--     if str:find("home/runner/work/NoitaMP/NoitaMP") then
+--         str_replace = str:gsub("home/runner/work/NoitaMP/NoitaMP", "")
+--     end
+
+--     if str:find("mods/") then
+--         str_replace = str:gsub("mods/", "")
+--     end
+
+--     print("fixed_path = " .. str_replace)
+--     return str_replace
+-- end
+
+-- return {
+--     --statsfile = build .. "/luacov.stats.out",
+--     --reportfile = build .. "/luacov.report.out",
+--     --include = {
+--     --    escape_pattern(source) .. "/.+",
+--     --    -- Relative paths (to source/build dir).
+--     --    "^[^/].+"
+--     --},
+--     -- configuration for luacov-coveralls reporter
+--     coveralls = {
+--         pathcorrect = {
+--             {
+--                 --escape_pattern(source .. "/"),
+--                 --""
+--                 fix_paths(source)
+--             }
+--         }
+--     },
+--     -- repositry = {
+--     --     path = fix_paths(source)
+--     -- }
+-- }
+
+return {
+    exclude = {
+        ".building",
+        ".debug",
+        ".github",
+        ".testing",
+        ".vscode",
+        "docs",
+        ".gitattritbutes",
+        ".gitignore",
+        ".luacov",
+        "CODE_OF_CONDUCT.md",
+        "codecov.yml",
+        "CONTRIBUTING.md",
+        "coveralls.yml",
+        "LICENSE",
+        "README.md",
+        "SUPPORT.md",
+        --"noita-mp/files/lib",
+        --"mods/noita-mp/files/lib",
+        "luarocks-3.8.0/.codecov.yml",
+        --"mods"
+    }
+}

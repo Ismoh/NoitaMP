@@ -1,0 +1,5 @@
+#https://linuxtut.com/en/f2296aa663230f71d883/
+#service_name: github-ci
+
+# https://github.com/coverallsapp/github-action
+#base_path: "mods"
