@@ -60,7 +60,7 @@ return {
         ".building",
         ".debug",
         ".github",
-        --".testing",
+        ".testing",
         ".vscode",
         "docs",
         ".gitattritbutes",
