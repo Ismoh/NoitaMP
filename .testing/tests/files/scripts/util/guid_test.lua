@@ -1,5 +1,5 @@
 #!/usr/bin/env lua
-dofile("mods/noita-mp/files/scripts/init/init_.lua")
+dofile("noita-mp/files/scripts/init/init_.lua")
 
 local lu = require("luaunit")
 local Guid = require("guid")
