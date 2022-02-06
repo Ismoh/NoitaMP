@@ -18,12 +18,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@main
-    
-    - name: Create symbolic link for \mods\
-      shell: cmd
-      run: |
-        mklink /D ${{ github.workspace }}\mods ${{ github.workspace }}
-        dir ${{ github.workspace }}\mods
 
     - name: Make directories for Lua installation
       run: |
