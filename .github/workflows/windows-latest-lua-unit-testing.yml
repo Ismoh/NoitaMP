@@ -59,7 +59,7 @@ jobs:
 
     - name: Run lua script to adjust lua package pathes
       run: |
-        Start-Process -FilePath "${{ env.lua_install_bin_dir }}\luajit.exe" -ArgumentList " ${{ github.workspace }}\noita-mp\files\scripts\init\init_.lua ${{ env.temp_dir }}" -Wait -NoNewWindow
+        Start-Process -FilePath "${{ env.lua_install_bin_dir }}\luajit.exe" -ArgumentList " ${{ github.workspace }}\mods\noita-mp\files\scripts\init\init_.lua ${{ env.temp_dir }}" -Wait -NoNewWindow
         
     - name: Set GitHub env variables
       shell: bash

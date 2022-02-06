@@ -21,13 +21,13 @@ jobs:
     - name: Run lua script to adjust lua package pathes
       run: |
         mkdir ${{ env.temp_dir }}
-        ${{ github.workspace }}/luajit/bin/luajit ${{ github.workspace }}/noita-mp/files/scripts/init/init_.lua ${{ env.temp_dir }}
+        ${{ github.workspace }}/luajit/bin/luajit ${{ github.workspace }}/mods/noita-mp/files/scripts/init/init_.lua ${{ env.temp_dir }}
         
     - name: Run LuaUnit 3.4
       id: lua_unit_tests
       run: |
         ######## copy luaunit.lua to package directory, because I don't want to mess around with lua pathes again
-        cp ${{ github.workspace }}/noita-mp/files/lib/external/luaunit.lua ${{ github.workspace }}/luajit/share/lua/5.1/
+        cp ${{ github.workspace }}/mods/noita-mp/files/lib/external/luaunit.lua ${{ github.workspace }}/luajit/share/lua/5.1/
         ######## run all lua test files with one command: https://stackoverflow.com/a/10523492/3493998
         sudo find ${{ github.workspace }}/.testing/tests -name "*.lua" -type f -exec ${{ github.workspace }}/luajit/bin/luajit {} -o text --verbose \; > ${{ github.workspace }}/.testing/testresult.log
         # https://timheuer.com/blog/manually-force-a-failure-in-github-action-step/
