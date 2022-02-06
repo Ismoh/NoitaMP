@@ -2,4 +2,4 @@
 #service_name: github-ci
 
 # https://github.com/coverallsapp/github-action
-base-path: "/mods"
+base_path: "/noita-mp"
