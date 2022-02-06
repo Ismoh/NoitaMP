@@ -1,6 +1,6 @@
 #!/usr/bin/env lua
 
-dofile("noita-mp/files/scripts/init/init_.lua")
+dofile("mods/noita-mp/files/scripts/init/init_.lua")
 
 local lu = require("luaunit")
 local fu = require("file_util")
