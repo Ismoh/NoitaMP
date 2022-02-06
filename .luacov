@@ -60,7 +60,7 @@ return {
         ".building",
         ".debug",
         ".github",
-        ".testing",
+        --".testing",
         ".vscode",
         "docs",
         ".gitattritbutes",
@@ -73,9 +73,9 @@ return {
         "LICENSE",
         "README.md",
         "SUPPORT.md",
-        "noita-mp/files/lib",
-        "mods/noita-mp/files/lib",
+        --"noita-mp/files/lib",
+        --"mods/noita-mp/files/lib",
         "luarocks-3.8.0/.codecov.yml",
-        "mods"
+        --"mods"
     }
 }
