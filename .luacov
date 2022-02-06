@@ -54,3 +54,28 @@
 --     --     path = fix_paths(source)
 --     -- }
 -- }
+
+return {
+    exclude = {
+        ".building",
+        ".debug",
+        ".github",
+        ".testing",
+        ".vscode",
+        "docs",
+        ".gitattritbutes",
+        ".gitignore",
+        ".luacov",
+        "CODE_OF_CONDUCT.md",
+        "codecov.yml",
+        "CONTRIBUTING.md",
+        "coveralls.yml",
+        "LICENSE",
+        "README.md",
+        "SUPPORT.md",
+        "noita-mp/files/lib",
+        "mods/noita-mp/files/lib",
+        "luarocks-3.8.0/.codecov.yml",
+        "mods"
+    }
+}
