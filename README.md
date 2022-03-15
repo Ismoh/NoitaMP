@@ -57,7 +57,9 @@ but I can't get rid of the idea to try implemting a multiplayer mod, just to sha
 Let's see, if I can do so?!
 
 <div align="center">
-    <img src="https://i.imgur.com/2ZtBztV.gif">
+
+[![image](https://i.imgur.com/2ZtBztV.gif)](https://i.imgur.com/2ZtBztV.gif)
+
 </div>
 
 ## Documentation
