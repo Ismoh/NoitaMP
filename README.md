@@ -56,7 +56,11 @@ Usually I like to play with my friends. Truly Noita is made for beeing a singlep
 but I can't get rid of the idea to try implemting a multiplayer mod, just to share all the feelings playing Noita with friends.
 Let's see, if I can do so?!
 
-<img src='./misc/NoitaMP-alpha-teaser.gif'>
+<div align="center">
+
+[![image](https://i.imgur.com/2ZtBztV.gif)](https://i.imgur.com/2ZtBztV.gif)
+
+</div>
 
 ## Documentation
 
