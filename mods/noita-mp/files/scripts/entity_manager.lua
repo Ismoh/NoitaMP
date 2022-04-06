@@ -1,5 +1,6 @@
 local util = require("util")
 local NetworkComponent = require("network_component_class")
+local json = require("json")
 
 local em = {
     nuid_counter = 0,
@@ -13,8 +14,9 @@ local em = {
     ---@param component_id number Noitas component_id for this network component
     ---@param nc table NetworkComponent
     setComponentValue = function(component_id, nc)
-        local nc_serialisable = NetworkComponent.toSerialisableTable(nc)
-        ComponentSetValue2(component_id, NetworkComponent.field_name, util.serialise(nc_serialisable))
+        -- local nc_serialisable = NetworkComponent.toSerialisableTable(nc)
+        local nc_as_json = tostring(json.encode(NetworkComponent.toSerialisableTable(nc)))
+        ComponentSetValue2(component_id, NetworkComponent.field_name, nc_as_json)
     end
 }
 
@@ -92,7 +94,7 @@ function em.AddNetworkComponentsCoroutine()
                                 -- check if the entity already has a VariableStorageComponent
                                 local variable_storage_component_name =
                                     ComponentGetValue2(variable_storage_component_id, "name") or nil
-                                if variable_storage_component_name == "network_component_class" then
+                                if variable_storage_component_name == NetworkComponent.name then
                                     -- if entity already has a VariableStorageComponent with the name of 'network_component_class', skip it
                                     has_network_component = true
                                 end
@@ -149,21 +151,24 @@ function em:AddNetworkComponentToEntity(entity_id, owner, nuid)
     for i_v = 1, #variable_storage_component_ids do
         local variable_storage_component_id = variable_storage_component_ids[i_v]
         local variable_storage_component_name = ComponentGetValue2(variable_storage_component_id, "name") or nil
-        local nc_serialised = ComponentGetValue2(variable_storage_component_id, "value_string") or nil
+        --local nc_serialised = ComponentGetValue2(variable_storage_component_id, NetworkComponent.field_name) or nil
+        local nc_as_json = ComponentGetValue2(variable_storage_component_id, NetworkComponent.field_name) or nil
         local nc = nil
 
-        if not util.IsEmpty(nc_serialised) then
-            nc = util.deserialise(nc_serialised)
-        end
+        if variable_storage_component_name == NetworkComponent.name then
+            if not util.IsEmpty(nc_as_json) then
+                nc = json.decode(nc_as_json)
 
-        if variable_storage_component_name == "network_component_class" and nc.nuid == nuid then
-            -- if entity already has a VariableStorageComponent with the name of 'network_component_class', skip it
-            self.cache.nc_entity_ids[entity_id] = {
-                component_id = variable_storage_component_id,
-                nuid = nuid
-            }
-            self.cache.all_entity_ids[entity_id] = true
-            return variable_storage_component_id
+                if nc.nuid == nuid then
+                    -- if entity already has a VariableStorageComponent with the name of 'network_component_class', skip it
+                    self.cache.nc_entity_ids[entity_id] = {
+                        component_id = variable_storage_component_id,
+                        nuid = nuid
+                    }
+                    self.cache.all_entity_ids[entity_id] = true
+                    return variable_storage_component_id
+                end
+            end
         end
     end
 
@@ -172,7 +177,7 @@ function em:AddNetworkComponentToEntity(entity_id, owner, nuid)
         entity_id,
         "VariableStorageComponent",
         {
-            name = "network_component_class",
+            name = NetworkComponent.name,
             value_string = nil -- will be set after creation, because NetworkComponent has to be serialised
         }
     )
@@ -206,6 +211,19 @@ end
 
 function em:setNuid(owner, local_entity_id, nuid)
     local nc = self:GetNetworkComponent(owner, local_entity_id, nuid)
+
+    if nc == util.IsEmpty(nc) then
+        logger.error(
+            ("Unable to set NUID, because unable to find Network Component. owner = %s(%s), local_entity_id = %s, nuid = %s"):format(
+                owner.username,
+                owner.guid,
+                local_entity_id,
+                nuid
+            )
+        )
+        return
+    end
+
     if nc.nuid ~= nil and nc.nuid ~= "nil" then
         logger:warning(
             "Nuid %s of entity %s was already set, although it's a local new one? It will be skipped!",
@@ -400,8 +418,9 @@ function em:GetNetworkComponentByOwnerAndEntityId(owner, entity_id)
 
     local componet_id = cached_nc_entity_id_map.component_id
     local nuid = cached_nc_entity_id_map.nuid
-    local nc_serialised = ComponentGetValue2(componet_id, NetworkComponent.field_name)
-    local nc = util.deserialise(nc_serialised)
+    local nc_as_json = ComponentGetValue2(componet_id, NetworkComponent.field_name)
+    local nc = json.decode(nc_as_json)
+     --util.deserialise(nc_serialised)
     local nc_owner_guid = nc.owner.guid or nc.owner[2]
 
     -- double check if owner is correct
@@ -435,8 +454,9 @@ function em:GetNetworkComponentByNuid(nuid)
         local nuid_cached = tbl.nuid
 
         if nuid == nuid_cached then
-            local nc_serialised = ComponentGetValue2(component_id, NetworkComponent.field_name)
-            return util.deserialise(nc_serialised)
+            local nc_as_json = ComponentGetValue2(component_id, NetworkComponent.field_name)
+            return json.decode(nc_as_json)
+         --util.deserialise(nc_serialised)
         end
     end
     return nil

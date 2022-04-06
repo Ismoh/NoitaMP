@@ -7,8 +7,13 @@ NetworkComponent = {
 }
 
 ----------- Statics
-NetworkComponent.name = "network_component_class"
+NetworkComponent.name = "nc"
 NetworkComponent.field_name = "value_string"
+-- NetworkComponent.owner_name = "nc_owner"
+-- NetworkComponent.nuid_name = "nc_nuid"
+-- NetworkComponent.local_entity_id_name = "nc_local_entity_id"
+-- NetworkComponent.component_id_name = "nc_component_id"
+
 --- Provides a serialisable table by its own fields
 ---@param nc table deserialised network component - without any functions
 ---@return table t Returns itself as a data table, without any functions, to be able to be de-/serialised.
