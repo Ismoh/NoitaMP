@@ -7,12 +7,13 @@ NetworkComponent = {
 }
 
 ----------- Statics
-NetworkComponent.name = "nc"
+--NetworkComponent.name = "nc"
 NetworkComponent.field_name = "value_string"
--- NetworkComponent.owner_name = "nc_owner"
--- NetworkComponent.nuid_name = "nc_nuid"
--- NetworkComponent.local_entity_id_name = "nc_local_entity_id"
--- NetworkComponent.component_id_name = "nc_component_id"
+NetworkComponent.storage_name_owner_name = "noita-mp.nc_owner.name"
+NetworkComponent.storage_name_owner_guid = "noita-mp.nc_owner.guid"
+NetworkComponent.storage_name_nuid = "noita-mp.nc_nuid"
+NetworkComponent.storage_name_local_entity_id = "noita-mp.nc_local_entity_id" -- TODO: REMOVE: no need for this, because can be found by NUID and entity get id
+NetworkComponent.storage_name_component_id = "noita-mp.nc_component_id" -- TODO: REMOVE: no need for this, because can be found by NUID and entity get component_id
 
 --- Provides a serialisable table by its own fields
 ---@param nc table deserialised network component - without any functions

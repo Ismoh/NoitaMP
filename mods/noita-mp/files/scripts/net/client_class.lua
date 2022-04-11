@@ -281,7 +281,9 @@ function Client:update()
         return -- Client not established
     end
 
-    em:AddNetworkComponentsResumeCoroutine()
+    em:DespawnClientEntities(self.super)
+
+    em:AddNetworkComponents()
 
     em:UpdateEntities()
 
@@ -292,6 +294,15 @@ function Client:sendNeedNuid(owner, entity_id, velocity)
     local x, y, rot = EntityGetTransform(entity_id)
     local filename = EntityGetFilename(entity_id)
     self.super:send("needNuid", {owner, entity_id, x, y, rot, velocity, filename})
+end
+
+--- Checks if the current local user is a client
+--- @return boolean iAm true if client
+function Client:amIClient()
+    if self.super ~= nil then
+       return self.super.whoAmI == "CLIENT"
+    end
+    return false
 end
 
 -- Create a new global object of the server

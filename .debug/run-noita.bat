@@ -1,18 +1,18 @@
+@REM setlocal enabledelayedexpansion
 
-set noita-exe=""
-set noita-dev-exe=""
+@REM FOR /f "tokens=2 delims==" %%d IN ('wmic logicaldisk where "drivetype=3" get name /format:value') DO (
 
-FOR /f "tokens=2 delims==" %%d IN ('wmic logicaldisk where "drivetype=3" get name /format:value') DO (
-    echo %%d
+@REM     echo %%d
+@REM     cd /d %%d
 
-    set %noita-exe% = CALL where /r %%d noita.exe
-    echo %noita-exe%
+@REM     for /f "tokens=* delims=" %%a in ('dir /s /b noita.exe') do set "noita_exe=%%a"
+@REM     echo %%noita_exe%%=%noita_exe%
 
-    set %noita-dev-exe% = CALL where /r %%d noita_dev.exe
-    echo %noita-dev-exe%
-)
+@REM     for /f "tokens=*" %%a in ('dir /s /b noita_dev.exe') do set "noita_dev_exe=%%a"
+@REM     echo %%noita_dev_exe%%=%noita_dev_exe%
+@REM )
 
-exec %noita-exe%
-exec %noita-dev-exe%
+@REM endlocal
 
-pause
+start "" "C:\Program Files (x86)\Steam\steamapps\common\Noita\noita.exe"
+start "" "C:\Program Files (x86)\Steam\steamapps\common\Noita\noita_dev.exe" -lua_debug

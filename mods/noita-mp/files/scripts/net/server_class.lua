@@ -344,7 +344,7 @@ function Server:update()
         return -- server not established
     end
 
-    em:AddNetworkComponentsResumeCoroutine()
+    em:AddNetworkComponents()
 
     em:UpdateEntities()
 
