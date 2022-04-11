@@ -43,7 +43,7 @@ Installation, configuration and support can be found on the [docs](https://ismoh
 
 ---
 
-## Thanks to all awesome contributers!
+## Our awesome and valuable Contributors
 
 <a href="https://github.com/Ismoh/NoitaMP/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=Ismoh/NoitaMP" />
