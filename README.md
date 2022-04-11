@@ -43,6 +43,16 @@ Installation, configuration and support can be found on the [docs](https://ismoh
 
 ---
 
+## Thanks to all awesome contributers!
+
+<a href="https://github.com/Ismoh/NoitaMP/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Ismoh/NoitaMP" />
+</a>
+
+Made with [contrib.rocks](https://contrib.rocks).
+
+---
+
 ## Credits | Special Thanks
 
 I wouldn't be able to create this mod without the help by
