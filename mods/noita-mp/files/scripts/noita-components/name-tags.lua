@@ -1,23 +1,22 @@
-
 function PlayerNameFunction(playerName)
     gui = gui or GuiCreate()
     GuiStartFrame(gui)
-    local x1, y1 = GuiGetScreenDimensions(gui)
-    x1, y1 = x1/2, y1/2
+    local screenWidth, screenHeight = GuiGetScreenDimensions(gui)
+    screenWidth, screenHeight = screenWidth/2, screenHeight/2
 
     local entityId = GetUpdatedEntityID()
     local x, y = EntityGetTransform(entityId)
 
     function getEntityPositionOnScreen(entityId)
         local camX, camY = GameGetCameraPos()
-        return x1+((x-camX)*1.5),y1+((y-camY)*1.5)
+        return screenWidth+((x-camX)*1.5),screenHeight+((y-camY)*1.5)
     end
 
-    local xL, yL = getEntityPositionOnScreen(EntityGetWithTag("player_unit")[1])
+    local entityX, entityY = getEntityPositionOnScreen(EntityGetWithTag("player_unit")[1])
     local playerNameLength = string.len(playerName)
-    local playerNameMid = xL -(playerNameLength*2)
+    local playerNameMid = entityX -(playerNameLength*2)
 
-    GuiText(gui,playerNameMid,yL,playerName)
+    GuiText(gui,playerNameMid,entityY,playerName)
 end
 
 PlayerNameFunction("testname")
