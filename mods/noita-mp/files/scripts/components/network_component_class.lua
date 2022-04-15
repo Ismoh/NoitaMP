@@ -28,7 +28,6 @@ function NetworkComponent:new(owner, nuid)
     return network_component
 end
 
-
 ----------- functions
 
 --- Provides a serialisable table by its own fields
@@ -137,12 +136,23 @@ function NetworkComponent.addNetworkComponentValues(entity_id, owner, nuid)
         entity_id
     )
 
+    EntityAddComponent2(
+        entity_id,
+        "LuaComponent",
+        {
+            script_source_file = "mods/noita-mp/files/scripts/noita-components/nuid_updater.lua",
+            execute_on_added = 1,
+            execute_on_removed = 1,
+        }
+    )
+
     _G.cache.nuids[nuid] = { entity_id, component_id_username, component_id_guid, component_id_nuid }
     EntitySetName(entity_id, tostring(nuid)) -- This might be a way to get a relation between an entity and the nuid
 
+    GlobalsSetValue(tostring(nuid), tostring(entity_id)) -- stored in /saveXX/world_state.xml
+
     return component_id_nuid
 end
-
 
 function NetworkComponent.getNetworkComponentValues(nuid, expected_entity_id)
 
