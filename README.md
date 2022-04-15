@@ -41,8 +41,6 @@ Let's see, if I can do so?!
 
 Installation, configuration and support can be found on the [docs](https://ismoh.github.io/NoitaMP/).
 
----
-
 ## Our awesome and valuable Contributors
 
 <a href="https://github.com/Ismoh/NoitaMP/graphs/contributors">
@@ -50,8 +48,6 @@ Installation, configuration and support can be found on the [docs](https://ismoh
 </a>
 
 Made with [contrib.rocks](https://contrib.rocks).
-
----
 
 ## Credits | Special Thanks
 
