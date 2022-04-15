@@ -1,1 +1,2 @@
 -- get entity_id, component_id and nuid of entity and then set it to _G.cache.nuids[nuid] = { entity_id, component_id_username, component_id_guid, component_id_nuid }
+-- Use GlobalsSet/GetValue
