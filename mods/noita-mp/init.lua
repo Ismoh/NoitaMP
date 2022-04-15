@@ -19,6 +19,9 @@ end
 fu.Find7zipExecutable()
 
 function OnModPreInit()
+    _G.cache = {}
+    _G.cache.nuids = {} -- _G.cache.nuids[nuid] = { entity_id, component_id_username, component_id_guid, component_id_nuid }
+
     -- the seed is set when first time connecting to a server, otherwise 0
     local seed = tonumber(ModSettingGet("noita-mp.connect_server_seed"))
 
@@ -51,7 +54,7 @@ function OnWorldInitialized()
 end
 
 function OnPlayerSpawned(player_entity)
-    local component_id = em:AddNetworkComponentToEntity(player_entity, util.getLocalOwner(), nil)
+    local component_id = em:AddNetworkComponentToEntity(player_entity, util.getLocalOwner(), -1)
 end
 
 function OnWorldPreUpdate()

@@ -40,7 +40,7 @@ function em:DespawnClientEntities(clientOrServer)
         local x, y, rot, scale_x, scale_y = EntityGetTransform(player_unit_ids[i_p])
 
         -- find all entities in a specific radius based on the player units position
-        local entity_ids = EntityGetInRadiusWithTag(x, y, 1000, "enemy")
+        local entity_ids = EntityGetInRadiusWithTag(x, y, 150, "enemy")
 
         for i_e = 1, #entity_ids do
             local entity_id = entity_ids[i_e]
@@ -61,7 +61,7 @@ function em.AddNetworkComponents()
         local x, y, rot, scale_x, scale_y = EntityGetTransform(player_unit_ids[i_p])
 
         -- find all entities in a specific radius based on the player units position
-        local entity_ids = EntityGetInRadius(x, y, 1000)
+        local entity_ids = EntityGetInRadius(x, y, 150)
 
         for i_e = 1, #entity_ids do
             local entity_id = entity_ids[i_e]
@@ -170,100 +170,17 @@ function em:AddNetworkComponentToEntity(entity_id, owner, nuid)
     --     end
     -- end
 
-    local component_id =
-    EntityAddComponent2(
-        entity_id,
-        "VariableStorageComponent",
-        {
-            name = NetworkComponent.storage_name_owner_name,
-            value_string = owner.name
-        }
-    )
-    logger:debug(
-        "VariableStorageComponent (%s = %s) added with noita component_id = %s to entity_id = %s!",
-        NetworkComponent.storage_name_owner_name,
-        owner.name,
-        component_id,
-        entity_id
-    )
-
-    component_id =
-    EntityAddComponent2(
-        entity_id,
-        "VariableStorageComponent",
-        {
-            name = NetworkComponent.storage_name_owner_guid,
-            value_string = owner.guid
-        }
-    )
-    logger:debug(
-        "VariableStorageComponent (%s = %s) added with noita component_id = %s to entity_id = %s!",
-        NetworkComponent.storage_name_owner_guid,
-        owner.guid,
-        component_id,
-        entity_id
-    )
-
-    local component_id_nuid =
-    EntityAddComponent2(
-        entity_id,
-        "VariableStorageComponent",
-        {
-            name = NetworkComponent.storage_name_nuid,
-            value_string = nuid
-        }
-    )
-    logger:debug(
-        "VariableStorageComponent (%s = %s) added with noita component_id = %s to entity_id = %s!",
-        NetworkComponent.storage_name_nuid,
-        nuid,
-        component_id_nuid,
-        entity_id
-    )
-
-    component_id =
-    EntityAddComponent2(
-        entity_id,
-        "VariableStorageComponent",
-        {
-            name = NetworkComponent.storage_name_local_entity_id,
-            value_string = entity_id
-        }
-    )
-    logger:debug(
-        "VariableStorageComponent (%s = %s) added with noita component_id = %s to entity_id = %s!",
-        NetworkComponent.storage_name_local_entity_id,
-        entity_id,
-        component_id,
-        entity_id
-    )
-
-    component_id = -- TODO: REMOVE: no need for VariableStorageComponent of component_id
-    EntityAddComponent2(
-        entity_id,
-        "VariableStorageComponent",
-        {
-            name = NetworkComponent.storage_name_component_id,
-            value_string = component_id_nuid
-        }
-    )
-    logger:debug(
-        "VariableStorageComponent (%s = %s) added with noita component_id = %s to entity_id = %s!",
-        NetworkComponent.storage_name_component_id,
-        component_id_nuid,
-        component_id_nuid,
-        entity_id
-    )
+    local component_id_nuid = NetworkComponent.addNetworkComponentValues(entity_id, owner, nuid)
 
     self.cache.nc_entity_ids[entity_id] = {
-        component_id = component_id,
+        component_id = component_id_nuid,
         nuid = nuid
     }
     self.cache.all_entity_ids[entity_id] = true
 
     util.debug_entity(entity_id)
 
-    return component_id
+    --return component_id
 end
 
 function em:setNuid(owner, local_entity_id, nuid)
