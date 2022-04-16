@@ -2,7 +2,7 @@ local fu = {}
 local ffi = require("ffi")
 
 if not logger then
----@diagnostic disable-next-line: lowercase-global
+    ---@diagnostic disable-next-line: lowercase-global
     logger = _G.logger
 end
 
@@ -59,11 +59,9 @@ function fu.SetAbsolutePathOfNoitaRootDirectory()
     local noita_root_directory_path = nil
 
     if _G.is_windows then
-        noita_root_directory_path =
-            assert(io.popen("cd"):read("*l"), "Unable to run windows command 'cd' to get Noitas root directory!")
+        noita_root_directory_path = assert(io.popen("cd"):read("*l"), "Unable to run windows command 'cd' to get Noitas root directory!")
     elseif _G.is_linux then
-        noita_root_directory_path =
-            assert(io.popen("pwd"):read("*l"), "Unable to run ubuntu command 'pwd' to get Noitas root directory!")
+        noita_root_directory_path = assert(io.popen("pwd"):read("*l"), "Unable to run ubuntu command 'pwd' to get Noitas root directory!")
     else
         error(
             ("file_util.lua | Unable to detect OS(%s[%s]), therefore not able to replace path separator!"):format(
@@ -107,7 +105,7 @@ function fu.GetAbsoluteDirectoryPathOfParentSave06()
             find_directory_name = "Noita"
         end
     else
-        error("Unix system are not supported yet :(",2)
+        error("Unix system are not supported yet :(", 2)
         --command = 'find "~/.steam/steam/userdata/$(id -u)/881100/Nolla_Games_Noita/"'
         --find_directory_name = "Nolla_Games_Noita"
     end
@@ -300,6 +298,16 @@ function fu.MkDir(full_path)
     os.execute(command)
 end
 
+---comment
+--- http://lua-users.org/wiki/SplitJoin -> Example: Split a file path string into components.
+---@param str any
+---@return unknown
+function fu.splitPath(str)
+    return string.split(str, '[\\/]+') -- TODO: differ between windows and unix
+    --parts = split_path("/usr/local/bin")
+    --> {'usr','local','bin'}
+end
+
 ----------------------------------------------------------------------------------------------------
 -- 7zip stuff
 ----------------------------------------------------------------------------------------------------
@@ -350,13 +358,13 @@ function fu.Create7zipArchive(archive_name, absolute_directory_path_to_add_archi
     if type(absolute_directory_path_to_add_archive) ~= "string" then
         error(
             "file_util.lua | Parameter absolute_directory_path_to_add_archive '" ..
-                tostring(absolute_directory_path_to_add_archive) .. "' is not type of string!"
+            tostring(absolute_directory_path_to_add_archive) .. "' is not type of string!"
         )
     end
     if type(absolute_destination_path) ~= "string" then
         error(
             "file_util.lua | Parameter absolute_destination_path '" ..
-                tostring(absolute_destination_path) .. "' is not type of string!"
+            tostring(absolute_destination_path) .. "' is not type of string!"
         )
     end
 
@@ -364,9 +372,9 @@ function fu.Create7zipArchive(archive_name, absolute_directory_path_to_add_archi
     absolute_destination_path = fu.ReplacePathSeparator(absolute_destination_path)
 
     local command =
-        'cd "' ..
+    'cd "' ..
         absolute_destination_path ..
-            '" && 7z.exe a -t7z ' .. archive_name .. ' "' .. absolute_directory_path_to_add_archive .. '"'
+        '" && 7z.exe a -t7z ' .. archive_name .. ' "' .. absolute_directory_path_to_add_archive .. '"'
     logger:debug("file_util.lua | Running: " .. command)
     os.execute(command)
 
@@ -383,12 +391,13 @@ function fu.Extract7zipArchive(archive_absolute_directory_path, archive_name, ex
     extract_absolute_directory_path = fu.ReplacePathSeparator(extract_absolute_directory_path)
 
     local command =
-        'cd "' ..
+    'cd "' ..
         archive_absolute_directory_path ..
-            '" && 7z.exe x -aoa ' .. archive_name .. ' -o"' .. extract_absolute_directory_path .. '"'
+        '" && 7z.exe x -aoa ' .. archive_name .. ' -o"' .. extract_absolute_directory_path .. '"'
     logger:debug("file_util.lua | Running: " .. command)
     os.execute(command)
 end
+
 --cd "C:\Program Files (x86)\Steam\steamapps\common\Noita\mods\noita-mp\_" && 7z.exe x -aoa test.7z -o"C:\Program Files (x86)\Steam\steamapps\common\Noita\save06_test"
 
 ----------------------------------------------------------------------------------------------------
