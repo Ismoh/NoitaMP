@@ -4,10 +4,8 @@ dofile_once("mods/noita-mp/files/scripts/util/string_extensions.lua")
 -- CONFIG --
 ------------
 
-local entityid = nil --GetUpdatedEntityID()
-
-local function getNuidByVsc(entityId)
-    local vsc = EntityGetComponentIncludingDisabled(entityId, "VariableStorageComponent")
+local function getNuidByVsc(entity_id)
+    local vsc = EntityGetComponentIncludingDisabled(entity_id, "VariableStorageComponent")
     for i = 1, #vsc do
         local variable_storage_component_name = ComponentGetValue2(vsc[i], "name") or nil
         if variable_storage_component_name == "noita-mp.nc_nuid" then -- see NetworkComponent.storage_name_nuid
@@ -17,8 +15,8 @@ local function getNuidByVsc(entityId)
     return nil
 end
 
-local function getStoredNuidAndEntityId(entityId)
-    local stored_string = GlobalsGetValue(("nuid = %s"):format(entityId))
+local function getStoredNuidAndEntityId(entity_id)
+    local stored_string = GlobalsGetValue(("nuid = %s"):format(entity_id))
     local values = nil
     local stored_nuid = nil
     local stored_entity_id = nil
@@ -33,11 +31,9 @@ local function getStoredNuidAndEntityId(entityId)
 end
 
 function init(entity_id)
-    entityid = entity_id
-
     ------------------------------------------
     -- Get nuid by VariableStorageComponent --
-    local nuid_by_vsc = getNuidByVsc(entityid)
+    local nuid_by_vsc = getNuidByVsc(entity_id)
     -- Get nuid by VariableStorageComponent --
     ------------------------------------------
 
@@ -45,7 +41,7 @@ function init(entity_id)
     -- Get nuid by noitas global storage -> /saveXX/world_state.xml --
     --- Keep in mind that the entity_id will change when a savegame was loaded,
     --- that's why the stored nuid is not the correct one when loaded by noitas global storage
-    local stored_nuid, stored_entity_id = getStoredNuidAndEntityId(entityid)
+    local stored_nuid, stored_entity_id = getStoredNuidAndEntityId(entity_id)
     -- Get nuid by noitas global storage -> /saveXX/world_state.xml --
     ------------------------------------------------------------------
 
