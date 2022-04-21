@@ -8,8 +8,11 @@ local function getNuidByVsc(entity_id)
     local vsc = EntityGetComponentIncludingDisabled(entity_id, "VariableStorageComponent")
     for i = 1, #vsc do
         local variable_storage_component_name = ComponentGetValue2(vsc[i], "name") or nil
-        if variable_storage_component_name == "noita-mp.nc_nuid" then -- see NetworkComponent.storage_name_nuid
-            return tonumber(ComponentGetValue2(vsc[i], "value_string"))
+        if variable_storage_component_name == "noita-mp.nc_nuid" then -- see NetworkComponent.component_name_nuid
+            local nuid = ComponentGetValue2(vsc[i], "value_string")
+            if nuid ~= nil or nuid ~= "" then
+                return tonumber(nuid)
+            end
         end
     end
     return nil
@@ -70,5 +73,5 @@ function death(damage_type_bit_field, damage_message, entity_thats_responsible, 
     local nuid_by_vsc = getNuidByVsc(entity_id)
 
     GlobalsSetValue(("nuid = %s"):format(nuid_by_vsc), ("nuid = %s - entity_id = %s"):format(nuid_by_vsc, -99))
-    print("nuid_updater.lua | Entity (" .. entity_id .. ") was killed and nuid (" .. nuid_by_vsc .. ") in noitas global storage was updated: old=" .. entity_id .. " and new=-99")
+    print(("nuid_updater.lua | Entity (%s) was killed and nuid (%s) in noitas global storage was updated: old=%s and new=-99"):format(entity_id, nuid_by_vsc, entity_id))
 end

@@ -8,9 +8,9 @@ NetworkComponent = {
 
 ----------- Constants
 NetworkComponent.field_name = "value_string"
-NetworkComponent.storage_name_owner_username = "noita-mp.nc_owner.username"
-NetworkComponent.storage_name_owner_guid = "noita-mp.nc_owner.guid"
-NetworkComponent.storage_name_nuid = "noita-mp.nc_nuid"
+NetworkComponent.component_name_owner_username = "noita-mp.nc_owner.username"
+NetworkComponent.component_name_owner_guid = "noita-mp.nc_owner.guid"
+NetworkComponent.component_name_nuid = "noita-mp.nc_nuid"
 
 
 ----------- Constructor
@@ -76,12 +76,14 @@ function NetworkComponent.addNetworkComponentValues(entity_id, owner, nuid)
         error("owner.guid is nil or empty. Unable to store network components values.", 2)
     end
 
-    if type(nuid) ~= "number" then
-        error("nuid is not type of number. Unable to store network components values.", 2)
-    end
+    if _G.Server:amIServer() then -- Clients can spawn entities with NUID = nil, think of projectiles. The NUID will be updated, when server sent the client the NUID
+        if type(nuid) ~= "number" then
+            error("nuid is not type of number. Unable to store network components values.", 2)
+        end
 
-    if util.IsEmpty(nuid) then
-        error("nuid is nil or empty. Unable to store network components values.", 2)
+        if util.IsEmpty(nuid) then
+            error("nuid is nil or empty. Unable to store network components values.", 2)
+        end
     end
 
 
@@ -90,13 +92,13 @@ function NetworkComponent.addNetworkComponentValues(entity_id, owner, nuid)
         entity_id,
         "VariableStorageComponent",
         {
-            name = NetworkComponent.storage_name_owner_username,
+            name = NetworkComponent.component_name_owner_username,
             value_string = owner.username
         }
     )
     local log_result = logger:debug(
         "VariableStorageComponent (%s = %s) added with noita component_id = %s to entity_id = %s!",
-        NetworkComponent.storage_name_owner_username,
+        NetworkComponent.component_name_owner_username,
         owner.username,
         component_id_username,
         entity_id
@@ -107,13 +109,13 @@ function NetworkComponent.addNetworkComponentValues(entity_id, owner, nuid)
         entity_id,
         "VariableStorageComponent",
         {
-            name = NetworkComponent.storage_name_owner_guid,
+            name = NetworkComponent.component_name_owner_guid,
             value_string = owner.guid
         }
     )
     log_result = logger:debug(
         "VariableStorageComponent (%s = %s) added with noita component_id = %s to entity_id = %s!",
-        NetworkComponent.storage_name_owner_guid,
+        NetworkComponent.component_name_owner_guid,
         owner.guid,
         component_id_guid,
         entity_id
@@ -124,13 +126,13 @@ function NetworkComponent.addNetworkComponentValues(entity_id, owner, nuid)
         entity_id,
         "VariableStorageComponent",
         {
-            name = NetworkComponent.storage_name_nuid,
+            name = NetworkComponent.component_name_nuid,
             value_string = nuid
         }
     )
     log_result = logger:debug(
         "VariableStorageComponent (%s = %s) added with noita component_id = %s to entity_id = %s!",
-        NetworkComponent.storage_name_nuid,
+        NetworkComponent.component_name_nuid,
         nuid,
         component_id_nuid,
         entity_id
@@ -149,36 +151,110 @@ function NetworkComponent.addNetworkComponentValues(entity_id, owner, nuid)
         }
     )
 
-    _G.cache.nuids[nuid] = { entity_id, component_id_username, component_id_guid, component_id_nuid }
-    EntitySetName(entity_id, tostring(nuid)) -- This might be a way to get a relation between an entity and the nuid
+    if _G.Client:amIClient() then
+        _G.cache.entity_ids_without_nuids[entity_id] = {
+            entity_id = entity_id,
+            component_id_username = component_id_username,
+            component_id_guid = component_id_guid,
+            component_id_nuid = component_id_nuid
+        }
 
-    GlobalsSetValue(("nuid = %s"):format(nuid), ("nuid = %s - entity_id = %s"):format(nuid, entity_id)) -- stored in /saveXX/world_state.xml
+        _G.Client:sendNeedNuid(util.getLocalOwner(), entity_id)
+    end
+
+    if nuid ~= nil then -- NUID can be nil, when the client creates entities, like projectiles
+        _G.cache.nuids[nuid] = {
+            entity_id = entity_id,
+            component_id_username = component_id_username,
+            component_id_guid = component_id_guid,
+            component_id_nuid = component_id_nuid
+        }
+        EntitySetName(entity_id, tostring(nuid)) -- This might be a way to get a relation between an entity and the nuid
+
+        GlobalsSetValue(("nuid = %s"):format(nuid), ("nuid = %s - entity_id = %s"):format(nuid, entity_id)) -- stored in /saveXX/world_state.xml
+    end
 
     return component_id_nuid
 end
 
 function NetworkComponent.getNetworkComponentValues(nuid, expected_entity_id)
+    local entity_id = nil
+    local owner = {}
 
     local stored_ids = _G.cache.nuids[nuid]
-    local stored_entity_id = tonumber(stored_ids[1])
-    local component_id_username = tonumber(stored_ids[2])
-    local component_id_guid = tonumber(stored_ids[3])
-    local component_id_nuid = tonumber(stored_ids[4])
+    if stored_ids ~= nil then
+        entity_id = tonumber(stored_ids.entity_id)
+        local component_id_username = tonumber(stored_ids.component_id_username)
+        local component_id_guid = tonumber(stored_ids.component_id_guid)
+        local component_id_nuid = tonumber(stored_ids.component_id_nuid)
 
-    local owner = {}
-    owner.username = ComponentGetValue2(component_id_username, NetworkComponent.storage_name_owner_username)
-    owner.guid = ComponentGetValue2(component_id_guid, NetworkComponent.storage_name_owner_guid)
-    local actual_nuid = ComponentGetValue2(component_id_nuid, NetworkComponent.storage_name_owner_nuid)
+        owner.username = ComponentGetValue2(component_id_username, NetworkComponent.component_name_owner_username)
+        owner.guid = ComponentGetValue2(component_id_guid, NetworkComponent.component_name_owner_guid)
+        local actual_nuid = ComponentGetValue2(component_id_nuid, NetworkComponent.storage_name_owner_nuid)
+    end
 
     if actual_nuid ~= nuid then
-        local entity_id = EntityGetWithName(tostring(nuid))
-        local component_ids = EntityGetComponentIncludingDisabled(entity_id, "VariableStorageComponent")
-        for i = 1, #component_ids do
-            --ComponentGetName
+        entity_id = EntityGetWithName(tostring(nuid)) -- returns 0 if nothing found
+        if entity_id == 0 then
+            entity_id = nil
+        end
+        local vsc = EntityGetComponentIncludingDisabled(entity_id, "VariableStorageComponent") or {}
+        for i = 1, #vsc do
+            local variable_storage_component_name = ComponentGetValue2(vsc[i], "name") or nil
+            if variable_storage_component_name == "noita-mp.nc_nuid" then -- see NetworkComponent.component_name_nuid
+                local vsc_nuid = ComponentGetValue2(vsc[i], "value_string")
+                if vsc_nuid ~= nil or vsc_nuid ~= "" then
+                    vsc_nuid = tonumber(vsc_nuid)
+
+                    if nuid ~= vsc_nuid then
+                        logger:warn("vsc_nuid=%s does not fit to nuid=%s! This might happen when a new entity has to be spawned", vsc_nuid, nuid)
+                        entity_id = nil
+                    end
+                end
+            end
         end
     end
 
-    return NetworkComponent:new(owner, nuid)
+    if entity_id ~= nil then
+        return NetworkComponent:new(owner, nuid)
+    end
+
+    return nil
+end
+
+function NetworkComponent.updateNuid(entity_id, nuid)
+    local cached_ids = _G.cache.entity_ids_without_nuids[entity_id]
+    if cached_ids == nil then
+        _G.logger:debug("Unable to find entity_id (%s) in cache without nuids. Going to search in nuids cache with nuid (%s)..", entity_id, nuid)
+        cached_ids = _G.cache.nuids[nuid]
+        if cached_ids == nil then
+            logger:error("Unable to update entity_id (%s) with nuid (%s), because entity with id (%s) does not exist in cache.", entity_id, nuid, entity_id)
+            return
+        end
+    end
+
+    local cached_entity_id = tonumber(cached_ids.entity_id)
+    local cached_component_id_username = tonumber(cached_ids.component_id_username)
+    local cached_component_id_guid = tonumber(cached_ids.component_id_guid)
+    local cached_component_id_nuid = tonumber(cached_ids.component_id_nuid)
+
+    if entity_id ~= cached_entity_id then
+        error(("Cached entity_id (%s) does not fit to requested entity_id (%s), when updating nuid (%s)."):format(cached_entity_id, entity_id, nuid), 2)
+    end
+
+    -- Set the value in VariableStorageComponent
+    ComponentSetValue2(cached_component_id_nuid, NetworkComponent.field_name, nuid)
+
+    -- Update or set the cache for nuids
+    _G.cache.nuids[nuid] = {
+        entity_id = entity_id,
+        component_id_username = cached_component_id_username,
+        component_id_guid = cached_component_id_guid,
+        component_id_nuid = cached_component_id_nuid
+    }
+
+    -- get rid off the cache entry where no nuid is available
+    _G.cache.entity_ids_without_nuids[entity_id] = nil
 end
 
 -----------

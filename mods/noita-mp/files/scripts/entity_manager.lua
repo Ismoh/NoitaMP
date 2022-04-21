@@ -108,7 +108,7 @@ function em.AddNetworkComponents()
 
                                     _G.Server:sendNewNuid(owner, entity_id, nuid, x_e, y_e, rot_e, velocity, filename)
                                 else
-                                    _G.Client:sendNeedNuid(owner, entity_id, velocity)
+                                    -- _G.Client:sendNeedNuid(owner, entity_id, velocity)
                                 end
                                 -- if the VariableStorageComponent is not a 'network_component_class', then add one
                                 em:AddNetworkComponentToEntity(entity_id, util.getLocalOwner(), nuid)
@@ -184,50 +184,51 @@ function em:AddNetworkComponentToEntity(entity_id, owner, nuid)
 end
 
 function em:setNuid(owner, local_entity_id, nuid)
-    local nc = self:GetNetworkComponent(owner, local_entity_id, nuid)
+    NetworkComponent.updateNuid(local_entity_id, nuid)
+    -- local nc = self:GetNetworkComponent(owner, local_entity_id, nuid)
 
-    if nc == util.IsEmpty(nc) then
-        logger.error(
-            ("Unable to set NUID, because unable to find Network Component. owner = %s(%s), local_entity_id = %s, nuid = %s"):format(
-                owner.username,
-                owner.guid,
-                local_entity_id,
-                nuid
-            )
-        )
-        return
-    end
+    -- if nc == util.IsEmpty(nc) then
+    --     logger.error(
+    --         ("Unable to set NUID, because unable to find Network Component. owner = %s(%s), local_entity_id = %s, nuid = %s"):format(
+    --             owner.username,
+    --             owner.guid,
+    --             local_entity_id,
+    --             nuid
+    --         )
+    --     )
+    --     return
+    -- end
 
-    if nc.nuid ~= nil and nc.nuid ~= "nil" then
-        logger:warning(
-            "Nuid %s of entity %s was already set, although it's a local new one? It will be skipped!",
-            nuid,
-            local_entity_id
-        )
-        return
-    end
+    -- if nc.nuid ~= nil and nc.nuid ~= "nil" then
+    --     logger:warning(
+    --         "Nuid %s of entity %s was already set, although it's a local new one? It will be skipped!",
+    --         nuid,
+    --         local_entity_id
+    --     )
+    --     return
+    -- end
 
-    local owner_guid = owner.guid
-    local nc_guid = nc.owner.guid
+    -- local owner_guid = owner.guid
+    -- local nc_guid = nc.owner.guid
 
-    if nc_guid ~= owner_guid then
-        error(
-            ("%s (%s) tries to set nuid %s of different nc.owners %s (%s) entity %s."):format(
-                owner.username,
-                owner.guid,
-                nuid,
-                nc.owner.username,
-                nc.owner.guid,
-                local_entity_id
-            ),
-            2
-        )
-    end
+    -- if nc_guid ~= owner_guid then
+    --     error(
+    --         ("%s (%s) tries to set nuid %s of different nc.owners %s (%s) entity %s."):format(
+    --             owner.username,
+    --             owner.guid,
+    --             nuid,
+    --             nc.owner.username,
+    --             nc.owner.guid,
+    --             local_entity_id
+    --         ),
+    --         2
+    --     )
+    -- end
 
-    nc.nuid = nuid
-    em.setComponentValue(nc.component_id, nc)
+    -- nc.nuid = nuid
+    -- em.setComponentValue(nc.component_id, nc)
 
-    logger:debug("Set new nuid (%s) from %s (%s) to entity %s", nuid, owner.username, owner_guid, local_entity_id)
+    local log = logger:debug("Set new nuid (%s) from %s (%s) to entity %s", nuid, owner.username, owner.guid, local_entity_id)
 end
 
 --- Spwans an entity and applies the transform and velocity to it. Also adds the network_component.
@@ -332,11 +333,13 @@ end
 ---@param nuid number
 ---@return table nc NetworkComponent or nil, if there is no network component
 function em:GetNetworkComponent(owner, entity_id, nuid)
-    local nc = self:GetNetworkComponentByOwnerAndEntityId(owner, entity_id)
+    -- local nc = self:GetNetworkComponentByOwnerAndEntityId(owner, entity_id)
 
-    if not nc then
-        nc = self:GetNetworkComponentByNuid(nuid)
-    end
+    -- if not nc then
+    --     nc = self:GetNetworkComponentByNuid(nuid)
+    -- end
+
+    local nc = NetworkComponent.getNetworkComponentValues(nuid, entity_id)
 
     if not nc then
         logger:warn(
@@ -433,7 +436,10 @@ function em:GetNetworkComponentByNuid(nuid)
          --util.deserialise(nc_serialised)
         end
     end
-    return nil
+
+    local nc = NetworkComponent.getNetworkComponentValues(nuid)
+
+    return nc
 end
 
 function em:getLocalPlayerId()

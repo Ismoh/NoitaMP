@@ -290,8 +290,11 @@ function Client:update()
     self.super:update()
 end
 
-function Client:sendNeedNuid(owner, entity_id, velocity)
+function Client:sendNeedNuid(owner, entity_id)
     local x, y, rot = EntityGetTransform(entity_id)
+    local velo_comp_id = EntityGetFirstComponent(entity_id, "VelocityComponent")
+    local velo_x, velo_y = ComponentGetValue2(velo_comp_id, "mVelocity")
+    local velocity = {velo_x, velo_y}
     local filename = EntityGetFilename(entity_id)
     self.super:send("needNuid", {owner, entity_id, x, y, rot, velocity, filename})
 end
