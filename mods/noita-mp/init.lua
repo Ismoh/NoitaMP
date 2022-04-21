@@ -57,7 +57,7 @@ function OnPlayerSpawned(player_entity)
         EntityAddComponent2(player_entity, "LuaComponent", {
         script_source_file="mods/noita-mp/files/scripts/noita-components/name-tags.lua",
         execute_every_n_frame=1,})
-      end
+    end
 end
 
 function OnWorldPreUpdate()
