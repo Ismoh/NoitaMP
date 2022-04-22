@@ -41,9 +41,9 @@ function OnWorldInitialized()
         local archive_name = "server_save06_" .. os.date("%Y-%m-%d_%H-%M-%S")
         local destination = fu.GetAbsoluteDirectoryPathOfMods() .. _G.path_separator .. "_"
         local archive_content =
-            fu.Create7zipArchive(archive_name .. "_from_server", fu.GetAbsoluteDirectoryPathOfSave06(), destination)
+        fu.Create7zipArchive(archive_name .. "_from_server", fu.GetAbsoluteDirectoryPathOfSave06(), destination)
         local msg =
-            ("init.lua | Server savegame [%s] was zipped with 7z to location [%s]."):format(archive_name, destination)
+        ("init.lua | Server savegame [%s] was zipped with 7z to location [%s]."):format(archive_name, destination)
         logger:debug(msg)
         GamePrint(msg)
         ModSettingSetNextValue("noita-mp.server_start_7zip_savegame", false, false) -- automatically start the server again
@@ -56,11 +56,15 @@ end
 
 function OnPlayerSpawned(player_entity)
     local component_id = em:AddNetworkComponentToEntity(player_entity, util.getLocalOwner(), -1)
+    
     if not GameHasFlagRun("nameTags_script_applied") then
         GameAddFlagRun("nameTags_script_applied")
-        EntityAddComponent2(player_entity, "LuaComponent", {
-        script_source_file="mods/noita-mp/files/scripts/noita-components/name-tags.lua",
-        execute_every_n_frame=1,})
+        EntityAddComponent2(player_entity,
+            "LuaComponent",
+            {
+                script_source_file = "mods/noita-mp/files/scripts/noita-components/name_tags.lua",
+                execute_every_n_frame = 1,
+            })
     end
 end
 

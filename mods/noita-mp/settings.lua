@@ -155,6 +155,13 @@ mod_settings = {
 				scope = MOD_SETTING_SCOPE_RUNTIME,
 				change_fn = mod_setting_change_callback, -- Called when the user interact with the settings widget.
 			},
+			{
+				id = "toggle_debug",
+				ui_name = "Toggle debug",
+				ui_description = "Toggle network debug info on or off",
+				value_default = true,
+				scope = MOD_SETTING_SCOPE_RUNTIME,
+			},
 		},
 	},
 }

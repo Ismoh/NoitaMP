@@ -151,6 +151,15 @@ function NetworkComponent.addNetworkComponentValues(entity_id, owner, nuid)
         }
     )
 
+    EntityAddComponent2(
+        entity_id,
+        "LuaComponent",
+        {
+            script_source_file = "mods/noita-mp/files/scripts/noita-components/nuid_debug.lua",
+            execute_every_n_frame = 1,
+        }
+    )
+
     if _G.Client:amIClient() then
         _G.cache.entity_ids_without_nuids[entity_id] = {
             entity_id = entity_id,
@@ -169,7 +178,7 @@ function NetworkComponent.addNetworkComponentValues(entity_id, owner, nuid)
             component_id_guid = component_id_guid,
             component_id_nuid = component_id_nuid
         }
-        EntitySetName(entity_id, tostring(nuid)) -- This might be a way to get a relation between an entity and the nuid
+        EntitySetName(entity_id, ("nuid = %s"):format(nuid)) -- This might be a way to get a relation between an entity and the nuid
 
         GlobalsSetValue(("nuid = %s"):format(nuid), ("nuid = %s - entity_id = %s"):format(nuid, entity_id)) -- stored in /saveXX/world_state.xml
     end

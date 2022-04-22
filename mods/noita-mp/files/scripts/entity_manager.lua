@@ -67,7 +67,7 @@ function em.AddNetworkComponents()
             local entity_id = entity_ids[i_e]
             local filename = EntityGetFilename(entity_id)
 
-            if not em.cache.all_entity_ids[entity_id] then -- if entity was already checked, skip it
+            --[[ if not em.cache.all_entity_ids[entity_id] then -- if entity was already checked, skip it
                 -- loop all components of the entity
                 local component_ids = EntityGetAllComponents(entity_id)
 
@@ -130,7 +130,7 @@ function em.AddNetworkComponents()
                     -- logger:debug("Entity %s does not have a VelocityComponent. Ignore it.", entity_id)
                     em.cache.all_entity_ids[entity_id] = true
                 end
-            end
+            end ]]
             --coroutine.yield(entity_id)
         end
     end
