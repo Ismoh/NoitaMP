@@ -52,6 +52,12 @@ end
 
 function OnPlayerSpawned(player_entity)
     local component_id = em:AddNetworkComponentToEntity(player_entity, util.getLocalOwner(), nil)
+    if not GameHasFlagRun("nameTags_script_applied") then
+        GameAddFlagRun("nameTags_script_applied")
+        EntityAddComponent2(player_entity, "LuaComponent", {
+        script_source_file="mods/noita-mp/files/scripts/noita-components/name-tags.lua",
+        execute_every_n_frame=1,})
+    end
 end
 
 function OnWorldPreUpdate()
