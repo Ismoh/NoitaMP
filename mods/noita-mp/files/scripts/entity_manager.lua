@@ -113,7 +113,7 @@ function em.AddNetworkComponents()
                                 -- if the VariableStorageComponent is not a 'network_component_class', then add one
                                 em:AddNetworkComponentToEntity(entity_id, util.getLocalOwner(), nuid)
                                 logger:debug(
-                                    "AddNetworkComponent owner = %s(%s), nuid = %s, local_entity_id = %s, component_id = %s",
+                                    "AddNetworkComponent owner = %s(%s), nuid=%s, local_entity_id = %s, component_id = %s",
                                     owner.username,
                                     owner.guid,
                                     nuid,

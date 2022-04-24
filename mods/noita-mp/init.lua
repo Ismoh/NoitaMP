@@ -23,6 +23,16 @@ function OnModPreInit()
     _G.cache.nuids = {} -- _G.cache.nuids[nuid] = { entity_id, component_id_username, component_id_guid, component_id_nuid }
     _G.cache.entity_ids_without_nuids = {} -- _G.cache.entity_ids_without_nuids[entity_id] = { entity_id, component_id_username, component_id_guid, component_id_nuid }
 
+    _G.whoAmI = function ()
+        if _G.Server:amIServer() then
+            return "SERVER"
+        end
+        if _G.Client:amIClient() then
+            return "CLIENT"
+        end
+        return nil
+    end
+
     -- the seed is set when first time connecting to a server, otherwise 0
     local seed = tonumber(ModSettingGet("noita-mp.connect_server_seed"))
 

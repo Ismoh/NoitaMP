@@ -91,7 +91,7 @@ end
 --- If DebugGetIsDevBuild() then Noitas installation path is returned: 'C:\Program Files (x86)\Steam\steamapps\common\Noita'
 --- otherwise it will return: '%appdata%\..\LocalLow\Nolla_Games_Noita' on windows
 --- @return string save06_parent_directory_path string of absolute path to '..\Noita' or '..\Nolla_Games_Noita'
-function fu.GetAbsoluteDirectoryPathOfParentSave06()
+function fu.GetAbsoluteDirectoryPathOfParentSave()
     local file = nil
     local command = nil
     local find_directory_name = nil
@@ -116,7 +116,7 @@ function fu.GetAbsoluteDirectoryPathOfParentSave06()
     local line = ""
     while line ~= nil do
         line = file:read("*l")
-        logger:debug("file_util.lua | GetAbsoluteDirectoryPathOfParentSave06 line = " .. line)
+        logger:debug("file_util.lua | GetAbsoluteDirectoryPathOfParentSave line = " .. line)
         if string.find(line, find_directory_name) then
             save06_parent_directory_path = line
             break
@@ -138,7 +138,7 @@ end
 --- Returns fullpath of save06 directory on devBuild or release
 --- @return string directory_path_of_save06 : noita installation path\save06 or %appdata%\..\LocalLow\Nolla_Games_Noita\save06 on windows and unknown for unix systems
 function fu.GetAbsoluteDirectoryPathOfSave06()
-    local directory_path_of_save06 = fu.GetAbsoluteDirectoryPathOfParentSave06() .. _G.path_separator .. "save06"
+    local directory_path_of_save06 = fu.GetAbsoluteDirectoryPathOfParentSave() .. _G.path_separator .. "save06"
     return directory_path_of_save06
 end
 
@@ -180,6 +180,10 @@ function fu.GetAbsoluteDirectoryPathOfRequiredLibs()
     local p = _G.noita_root_directory_path .. "/mods/noita-mp/files/libs"
     p = fu.ReplacePathSeparator(p)
     return p
+end
+
+function fu.GetAbsDirPathOfWorldStateXml(saveFolderName)
+    return fu.GetAbsoluteDirectoryPathOfParentSave() .. _G.path_separator .. saveFolderName .. _G.path_separator .. "world_state.xml"
 end
 
 ----------------------------------------------------------------------------------------------------
