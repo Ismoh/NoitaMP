@@ -130,6 +130,7 @@ jobs:
       env:
         COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         COVERALLS_DEBUG: true
+      shell: bash
       run: |
         ls -R
         ${{ github.workspace }}/luajit/bin/luacov-coveralls -v
