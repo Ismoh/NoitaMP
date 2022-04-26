@@ -1,4 +1,5 @@
-dofile_once("mods/noita-mp/files/scripts/util/table_extensions.lua")
+dofile_once("mods/noita-mp/files/scripts/extensions/table_extensions.lua")
+NetworkVscUtils = dofile_once("mods/noita-mp/files/scripts/util/NetworkVscUtil.lua")
 
 if ModSettingGet("noita-mp.toggle_debug") then
 
@@ -23,6 +24,7 @@ if ModSettingGet("noita-mp.toggle_debug") then
     for i = 1, #vsc do
         local variable_storage_component_name = ComponentGetValue2(vsc[i], "name") or nil
         local found = string.find(variable_storage_component_name, "noita-mp", 1, true)
+        local found = string.find(variable_storage_component_name, NetworkVscUtils.componentNameOfNuid, 1, true)
         if found ~= nil then
             local value = ComponentGetValue2(vsc[i], "value_string")
             local text = ("%s = %s, component_id = %s"):format(variable_storage_component_name, value, vsc[i])

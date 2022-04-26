@@ -1,7 +1,8 @@
 local fu = require("file_util")
 local sock = require("sock")
 local Guid = require("guid")
-local em = require("entity_manager")
+--local em = require("entity_manager")
+local entityUtils = require("EntityUtils")
 local util = require("util")
 local nuidUtils = require("NuidUtils")
 
@@ -346,9 +347,11 @@ function Server:update()
         return -- server not established
     end
 
-    em:AddNetworkComponents()
+    entityUtils.initNetworkVscs()
 
-    em:UpdateEntities()
+    -- em:AddNetworkComponents()
+
+    -- em:UpdateEntities()
 
     self.super:update()
 end

@@ -31,4 +31,6 @@ if not username then
     end
 end
 
-PlayerNameFunction(entity_id, username)
+if username then
+    PlayerNameFunction(entity_id, username)
+end

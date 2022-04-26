@@ -65,7 +65,7 @@ function OnWorldInitialized()
 end
 
 function OnPlayerSpawned(player_entity)
-    local component_id = em:AddNetworkComponentToEntity(player_entity, util.getLocalOwner(), -1)
+    -- local component_id = em:AddNetworkComponentToEntity(player_entity, util.getLocalOwner(), -1)
     
     if not GameHasFlagRun("nameTags_script_applied") then
         GameAddFlagRun("nameTags_script_applied")

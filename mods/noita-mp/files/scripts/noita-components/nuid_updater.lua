@@ -1,77 +1,119 @@
+print("nuid_updater.lua started..")
 ------------
 -- CONFIG --
 dofile_once("mods/noita-mp/files/scripts/util/string_extensions.lua")
+NetworkVscUtils = dofile_once("mods/noita-mp/files/scripts/util/NetworkVscUtil.lua")
+GlobalsUtils = dofile_once("mods/noita-mp/files/scripts/util/GlobalsUtils.lua")
+
+local executeOnAdded = GetValueBool("executeOnAdded", true)
+
+if not logger then
+    print("logger isn't available in GlobalsUtils, looks like a Noita Component is using GlobalsUtils.")
+    logger = {}
+    function logger:debug(var)
+        print(("[debug] nuid_updater.lua | %s"):format(var))
+    end
+
+    function logger:error(var)
+        print(("[warn] nuid_updater.lua | %s"):format(var))
+    end
+
+    function logger:error(var)
+        print(("[error] nuid_updater.lua | %s"):format(var))
+    end
+end
 -- CONFIG --
 ------------
 
-local function getNuidByVsc(entity_id)
-    local vsc = EntityGetComponentIncludingDisabled(entity_id, "VariableStorageComponent")
-    for i = 1, #vsc do
-        local variable_storage_component_name = ComponentGetValue2(vsc[i], "name") or nil
-        if variable_storage_component_name == "noita-mp.nc_nuid" then -- see NetworkComponent.component_name_nuid
-            local nuid = ComponentGetValue2(vsc[i], "value_string")
-            if nuid ~= nil or nuid ~= "" then
-                return tonumber(nuid)
-            end
-        end
-    end
-    return nil
-end
+--#region local functions
 
-local function getStoredNuidAndEntityId(entity_id)
-    local stored_string = GlobalsGetValue(("nuid = %s"):format(entity_id))
-    local values = nil
-    local stored_nuid = nil
-    local stored_entity_id = nil
+-- local function getNuidByVsc(entityId)
+--     print("nuid_updater.lua getNuidByVsc..")
+--     local vsc = EntityGetComponentIncludingDisabled(entityId, "VariableStorageComponent") or {}
+--     for i = 1, #vsc do
+--         local variable_storage_component_name = ComponentGetValue2(vsc[i], "name") or nil
+--         if variable_storage_component_name == NetworkVscUtils.componentNameOfNuid then -- "noita-mp.nc_nuid" then -- see NetworkComponent.component_name_nuid
+--             local nuid = ComponentGetValue2(vsc[i], "value_string")
+--             if nuid ~= nil or nuid ~= "" then
+--                 return tonumber(nuid)
+--             end
+--         end
+--     end
+--     return nil
+-- end
 
-    if stored_string ~= nil then
-        values = string.split(stored_string, ",")
-        stored_nuid = tonumber(values[1])
-        stored_entity_id = tonumber(values[2])
-    end
+-- local function getStoredNuidAndEntityId(currentEntityId)
+--     print("nuid_updater.lua getStoredNuidAndEntityId..")
+--     local nuidByVsc = getNuidByVsc(currentEntityId)
+--     local globalsKey = GlobalsUtils.nuidKeyFormat:format(nuidByVsc)
+--     local globalsValue = GlobalsUtils.getNuid(globalsKey)
+--     local values = nil
+--     local stored_nuid = nil
+--     local stored_entity_id = nil
 
-    return stored_nuid, stored_entity_id
-end
+--     if globalsValue ~= nil then
+--         local entityId = nil
+--         local foundEntityId = string.find(globalsValue, GlobalsUtils.nuidValueSubstring, 1, true)
+--         if foundEntityId ~= nil then
+--             entityId = tonumber(string.sub(globalsValue, GlobalsUtils.nuidValueSubstring:len()))
+--         else
+--             print(("Error in nuid_updater.lua | Unable to get entityId number of value string (%s)."):format(globalsValue))
+--         end
 
-function init(entity_id)
-    ------------------------------------------
-    -- Get nuid by VariableStorageComponent --
-    local nuid_by_vsc = getNuidByVsc(entity_id)
-    -- Get nuid by VariableStorageComponent --
-    ------------------------------------------
+--         if currentEntityId ~= entityId then
+--             print(("Warning in nuid_updater.lua | Entity id changed: previous = %s, current = %s."):format(entityId, currentEntityId))
+--         end
+--     end
+--     print(("stored_nuid %s, stored_entity_id %s"):format(stored_nuid, stored_entity_id))
+--     return stored_nuid, stored_entity_id
+-- end
 
-    ------------------------------------------------------------------
-    -- Get nuid by noitas global storage -> /saveXX/world_state.xml --
-    --- Keep in mind that the entity_id will change when a savegame was loaded,
-    --- that's why the stored nuid is not the correct one when loaded by noitas global storage
-    local stored_nuid, stored_entity_id = getStoredNuidAndEntityId(entity_id)
-    -- Get nuid by noitas global storage -> /saveXX/world_state.xml --
-    ------------------------------------------------------------------
+--#endregion
 
-    if nuid_by_vsc ~= nil and stored_nuid ~= nil and nuid_by_vsc ~= stored_nuid then
-        error(("Stored nuid in noitas global storage does not fit to the entity_id anymore! %s ~= %s"):format(nuid_by_vsc, stored_nuid), 2)
-    end
+--#region executeOnAdded = added() and executeOnRemove = remove()
 
-    if stored_entity_id ~= nil and entity_id ~= stored_entity_id then
-        error(("Stored entity_id in noitas global storage does not fit to the current entity_id anymore! %s ~= %s"):format(entity_id, stored_entity_id), 2)
-    end
+local function added()
+    logger:debug("nuid_updater.lua added..")
+    local currentEntityId = GetUpdatedEntityID()
+    local ownerName, ownerGuid, nuid = NetworkVscUtils.getAllVcsValuesByEntityId(currentEntityId)
+    local globalsNuid, globalsEntityId = GlobalsUtils.getNuidEntityPair(nuid)
 
-    -------------------------------------------------------------------------
-    -- Update entity_id to the related nuid in the global storage of noita --
-    -- if EntityGetIsAlive(entity_id) then -- seems to be entity is always alive
-    GlobalsSetValue(("nuid = %s"):format(nuid_by_vsc), ("nuid = %s - entity_id = %s"):format(nuid_by_vsc, entity_id))
-    print(("nuid_updater.lua | nuid in noitas global storage was set: nuid = %s - entity_id = %s"):format(nuid_by_vsc, entity_id))
-    -- else
-    --     GlobalsSetValue(("nuid = %s"):format(nuid_by_vsc), ("nuid = %s - entity_id = %s"):format(nuid_by_vsc, -99))
+    -- if nuid_by_vsc ~= nil and stored_nuid ~= nil and nuid_by_vsc ~= stored_nuid then
+    --     error(("Stored nuid in noitas global storage does not fit to the entity_id anymore! %s ~= %s"):format(nuid_by_vsc, stored_nuid), 2)
     -- end
-    -- Update entity_id to the related nuid in the global storage of noita --
-    -------------------------------------------------------------------------
+
+    -- if stored_entity_id ~= nil and currentEntityId ~= stored_entity_id then
+    --     error(("Stored entity_id in noitas global storage does not fit to the current entity_id anymore! %s ~= %s"):format(currentEntityId, stored_entity_id), 2)
+    -- end
+
+    GlobalsUtils.setNuid(nuid, currentEntityId)
+    print(("nuid_updater.lua | nuid in noitas global storage was set: nuid = %s and entity_id = %s"):format(nuid, currentEntityId))
 end
 
-function death(damage_type_bit_field, damage_message, entity_thats_responsible, drop_items)
-    local entity_id = GetUpdatedEntityID()
-    local nuid_by_vsc = getNuidByVsc(entity_id)
+local function remove()
+    logger:debug("nuid_updater.lua remove..")
+    local currentEntityId = GetUpdatedEntityID()
+    local ownerName, ownerGuid, nuid = NetworkVscUtils.getAllVcsValuesByEntityId(currentEntityId)
+    local globalsNuid, globalsEntityId = GlobalsUtils.getNuidEntityPair(nuid)
 
-    GlobalsSetValue(("nuid = %s"):format(nuid_by_vsc), ("nuid = %s - entity_id = %s"):format(nuid_by_vsc, -99))
-    print(("nuid_updater.lua | Entity (%s) was killed and nuid (%s) in noitas global storage was updated: old=%s and new=-99"):format(entity_id, nuid_by_vsc, entity_id))
+    GlobalsUtils.setNuid(nuid, -99)
+    logger:debug(("Entity (%s) was killed and nuid (%s) in noitas global storage was updated: old=%s and new=-99"):format(currentEntityId, nuid, globalsEntityId))
 end
+
+--#endregion
+
+
+--#region Decision maker if executed on added or remove
+
+if executeOnAdded then -- this was executed on added
+    print("executed on added")
+    added()
+    SetValueBool("executeOnAdded", false)
+end
+
+if not executeOnAdded then -- this was executed on remove
+    print("executed on remove")
+    remove()
+end
+
+--#endregion

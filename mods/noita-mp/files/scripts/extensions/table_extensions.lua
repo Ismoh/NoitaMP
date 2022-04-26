@@ -26,7 +26,7 @@ end
 --- @param ... any
 --- @return boolean true if all the values were in the table.
 table.containsAll = function(tbl, ...)
-    local arg = {...}
+    local arg = { ... }
     local count = 0
     for i = 1, #tbl do
         for c = 1, #arg do
@@ -84,5 +84,14 @@ end
 function table.insertIfNotExist(tbl, value)
     if not table.contains(tbl, value) then
         table.insert(tbl, value)
+    end
+end
+
+--- Adds all values of tbl2 into tbl1.
+--- @param tbl1 table
+--- @param tbl2 table
+function table.insertAll(tbl1, tbl2)
+    for i, v in ipairs(tbl2) do
+        table.insert(tbl1, v)
     end
 end

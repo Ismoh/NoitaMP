@@ -188,7 +188,7 @@ function em:setNuid(owner, local_entity_id, nuid)
     -- local nc = self:GetNetworkComponent(owner, local_entity_id, nuid)
 
     -- if nc == util.IsEmpty(nc) then
-    --     logger.error(
+    --     logger:error(
     --         ("Unable to set NUID, because unable to find Network Component. owner = %s(%s), local_entity_id = %s, nuid = %s"):format(
     --             owner.username,
     --             owner.guid,

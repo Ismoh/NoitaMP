@@ -16,7 +16,8 @@ NuidUtils = {}
 
 --#region Global private variables
 
-local counter = -1
+local counter = 0
+local xmlParsed = false
 
 --#endregion
 
@@ -29,21 +30,24 @@ local function getNextNuid()
     end
 
     -- Are there any nuids saved in globals, if so get the highest nuid?
-    local worldStateXmlAbsPath = fu.GetAbsDirPathOfWorldStateXml("save01") -- TODO in https://github.com/Ismoh/NoitaMP/issues/39
-    if fu.Exists(worldStateXmlAbsPath) then
-        local f = io.open(worldStateXmlAbsPath, "r")
-        local xml = nxml.parse(f:read("*a"))
-        f:close()
+    if not xmlParsed then
+        local worldStateXmlAbsPath = fu.GetAbsDirPathOfWorldStateXml("save01") -- TODO in https://github.com/Ismoh/NoitaMP/issues/39
+        if fu.Exists(worldStateXmlAbsPath) then
+            local f = io.open(worldStateXmlAbsPath, "r")
+            local xml = nxml.parse(f:read("*a"))
+            f:close()
 
-        for v in xml:first_of("WorldStateComponent"):first_of("lua_globals"):each_of("E") do
-            local nuid = GlobalsUtils.getNuidNumberOfKeyString(v.attr.key)
-            if nuid ~= nil then
-                nuid = tonumber(nuid)
-                if nuid > counter then
-                    counter = nuid
+            for v in xml:first_of("WorldStateComponent"):first_of("lua_globals"):each_of("E") do
+                local nuid = GlobalsUtils.parseXmlValueToNuidAndEntityId(v.attr.key, v.attr.value)
+                if nuid ~= nil then
+                    nuid = tonumber(nuid)
+                    if nuid > counter then
+                        counter = nuid
+                    end
                 end
             end
         end
+        xmlParsed = true
     end
     counter = counter + 1
     return counter
