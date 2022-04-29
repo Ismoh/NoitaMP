@@ -13,7 +13,7 @@ function util.Sleep(s)
     until os.clock() > ntime
 end
 
-function util.IsEmpty(var) -- if you change this also change NetworkVscUtil.lua
+function util.IsEmpty(var) -- if you change this also change NetworkVscUtils.lua
     if var == nil then
         return true
     end

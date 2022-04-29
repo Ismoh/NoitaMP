@@ -53,9 +53,8 @@ Made with [contrib.rocks](https://contrib.rocks).
 
 I wouldn't be able to create this mod without the help by
 
-- @Evaisa
-- @Horscht
-- @M127
+- @EvaisaGiac
+- @TheHorscht
 - @Pyry
 - Soler91
 

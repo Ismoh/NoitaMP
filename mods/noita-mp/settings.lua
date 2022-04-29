@@ -15,8 +15,94 @@ dofile("data/scripts/lib/mod_settings.lua")
 function mod_setting_change_callback(mod_id, gui, in_main_menu, setting, old_value, new_value)
 	print(
 		"settings.lua | Mod setting '" ..
-			setting.id .. "' was changed from '" .. tostring(old_value) .. "' to '" .. tostring(new_value) .. "'."
+		setting.id .. "' was changed from '" .. tostring(old_value) .. "' to '" .. tostring(new_value) .. "'."
 	)
+
+	print(("Mod setting changed: mod_id = %s, gui = %s, in_main_menu = %s, setting = %s, old_value = %s, new_value = %s"):format(mod_id, gui, in_main_menu, setting, old_value, new_value))
+
+	ChangeDebugUi(setting, new_value)
+end
+
+function mod_setting_readonly(mod_id, gui, in_main_menu, im_id, setting)
+	local guid = ModSettingGetNextValue("noita-mp.guid")
+	local text = setting.ui_name .. ": " .. tostring(guid)
+
+	GuiText(gui, 0, 0, text)
+	mod_setting_tooltip(mod_id, gui, in_main_menu, setting)
+end
+
+--- Get a specific settings table by its id.
+--- @param idOrCategoryId string id of the settings table or category id
+--- @return table settings The specific settings table found by the id.
+function GetSettingById(idOrCategoryId)
+	--- Recursive searching for an id in each mod settings tables.
+	---@param tbl table each setting table in mod settings.
+	---@return table settings
+	local function getSetting(tbl)
+		local settingsTable = tbl
+		for index, entry in ipairs(settingsTable) do
+			if entry.id then -- when there is a setting defined
+				if idOrCategoryId == entry.id then
+					return entry
+				end
+			elseif entry.category_id then -- when there is a category grouping
+				if idOrCategoryId == entry.category_id then
+					return entry
+				end
+			end
+			if entry.settings then
+				local settings = getSetting(entry.settings)
+				if settings then
+					return settings
+				end
+			end
+		end
+		return nil, nil
+	end
+
+	return getSetting(mod_settings)
+end
+
+function ChangeDebugUi(currentSetting, newValue)
+	local categoryLogLevel = GetSettingById("log_level")
+	local settingLogDebug = GetSettingById("log_debug")
+	local settingLogWarn = GetSettingById("log_warn")
+	local settingLogInfo = GetSettingById("log_info")
+	local settingLogError = GetSettingById("log_error")
+
+	-- Show or hide log level setting, if debug is on or off
+	if currentSetting.id == "toggle_debug" then
+		categoryLogLevel.hidden = not newValue
+		settingLogDebug.hidden = not newValue
+		settingLogWarn.hidden = not newValue
+		settingLogInfo.hidden = not newValue
+		settingLogError.hidden = not newValue
+	end
+
+	-- radio button like selection
+	if ModSettingGetNextValue("noita-mp.log_error") then
+		ModSettingSetNextValue("noita-mp.log_debug", false, false)
+		ModSettingSetNextValue("noita-mp.log_warn", false, false)
+		ModSettingSetNextValue("noita-mp.log_info", false, false)
+	end
+
+	if ModSettingGetNextValue("noita-mp.log_info") then
+		ModSettingSetNextValue("noita-mp.log_debug", false, false)
+		ModSettingSetNextValue("noita-mp.log_warn", false, false)
+		ModSettingSetNextValue("noita-mp.log_error", false, false)
+	end
+
+	if ModSettingGetNextValue("noita-mp.log_warn") then
+		ModSettingSetNextValue("noita-mp.log_debug", false, false)
+		ModSettingSetNextValue("noita-mp.log_info", false, false)
+		ModSettingSetNextValue("noita-mp.log_error", false, false)
+	end
+
+	if ModSettingGetNextValue("noita-mp.log_debug") then
+		ModSettingSetNextValue("noita-mp.log_warn", false, false)
+		ModSettingSetNextValue("noita-mp.log_info", false, false)
+		ModSettingSetNextValue("noita-mp.log_error", false, false)
+	end
 end
 
 local mod_id = "noita-mp" -- This should match the name of your mod's folder.
@@ -155,16 +241,69 @@ mod_settings = {
 				scope = MOD_SETTING_SCOPE_RUNTIME,
 				change_fn = mod_setting_change_callback, -- Called when the user interact with the settings widget.
 			},
+		},
+	},
+	{
+		category_id = "debug",
+		ui_name = "Debug settings",
+		ui_description = "Multiple debug settings",
+		settings = {
 			{
 				id = "toggle_debug",
 				ui_name = "Toggle debug",
 				ui_description = "Toggle network debug info on or off",
-				value_default = true,
+				value_default = false,
 				scope = MOD_SETTING_SCOPE_RUNTIME,
+				change_fn = mod_setting_change_callback, -- Called when the user interact with the settings widget.
+			},
+			{
+				category_id = "log_level",
+				ui_name = "Log level",
+				ui_description = "Toggle log level. Be careful, debug log level will kill fps!",
+				hidden = true,
+				settings = {
+					{
+						id = "log_debug",
+						ui_name = "Debug",
+						ui_description = "Set log level to debug. You will see debug, warning, info and errors.",
+						value_default = false,
+						hidden = true,
+						scope = MOD_SETTING_SCOPE_RUNTIME,
+						change_fn = mod_setting_change_callback, -- Called when the user interact with the settings widget.
+					},
+					{
+						id = "log_warn",
+						ui_name = "Warning",
+						ui_description = "Set log level to warning. You will see warnings, info and errors.",
+						value_default = false,
+						hidden = true,
+						scope = MOD_SETTING_SCOPE_RUNTIME,
+						change_fn = mod_setting_change_callback, -- Called when the user interact with the settings widget.
+					},
+					{
+						id = "log_info",
+						ui_name = "Info",
+						ui_description = "Set log level to info. You will see info and errors.",
+						value_default = false,
+						hidden = true,
+						scope = MOD_SETTING_SCOPE_RUNTIME,
+						change_fn = mod_setting_change_callback, -- Called when the user interact with the settings widget.
+					},
+					{
+						id = "log_error",
+						ui_name = "Error",
+						ui_description = "Set log level to error. You will only see errors.",
+						value_default = true,
+						hidden = true,
+						scope = MOD_SETTING_SCOPE_RUNTIME,
+						change_fn = mod_setting_change_callback, -- Called when the user interact with the settings widget.
+					},
+				},
 			},
 		},
 	},
 }
+
 
 -- This function is called to ensure the correct setting values are visible to the game via ModSettingGet(). your mod's settings don't work if you don't have a function like this defined in settings.lua.
 -- This function is called:
@@ -190,12 +329,4 @@ end
 -- This function is called to display the settings UI for this mod. Your mod's settings wont be visible in the mod settings menu if this function isn't defined correctly.
 function ModSettingsGui(gui, in_main_menu)
 	mod_settings_gui(mod_id, mod_settings, gui, in_main_menu)
-end
-
-function mod_setting_readonly(mod_id, gui, in_main_menu, im_id, setting)
-	local guid = ModSettingGetNextValue("noita-mp.guid")
-	local text = setting.ui_name .. ": " .. tostring(guid)
-
-	GuiText(gui, 0, 0, text)
-	mod_setting_tooltip(mod_id, gui, in_main_menu, setting)
 end
