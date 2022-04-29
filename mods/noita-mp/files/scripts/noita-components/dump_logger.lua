@@ -1,6 +1,4 @@
 if not logger then -- logger is usually initialised by unsafe API, which isnt available in Noita Components.
-
-    print("logger isn't available in GlobalsUtils, looks like a Noita Component is using GlobalsUtils.")
     logger = {}
 
     local file = "unkown script - please define this in your Noita Component"
@@ -18,7 +16,7 @@ if not logger then -- logger is usually initialised by unsafe API, which isnt av
     end
 
     function logger:debug(text, ...)
-        local msg = "00:00:00 [debug] " .. text .. " in (" .. file .. ".lua)"
+        local msg = "00:00:00 [37m[debug][0m " .. text .. " in (" .. file .. ".lua)"
         if ... then
             msg = msg:format(...)
         end
@@ -26,7 +24,7 @@ if not logger then -- logger is usually initialised by unsafe API, which isnt av
     end
 
     function logger:warn(text, ...)
-        local msg = "00:00:00 [warn] " .. text .. " in (" .. file .. ".lua)"
+        local msg = "00:00:00 [33m[warn][0m " .. text .. " in (" .. file .. ".lua)"
         if ... then
             msg = msg:format(...)
         end
@@ -34,7 +32,7 @@ if not logger then -- logger is usually initialised by unsafe API, which isnt av
     end
 
     function logger:info(text, ...)
-        local msg = "00:00:00 [warn] " .. text .. " in (" .. file .. ".lua)"
+        local msg = "00:00:00 [36m[info][0m " .. text .. " in (" .. file .. ".lua)"
         if ... then
             msg = msg:format(...)
         end
@@ -42,10 +40,12 @@ if not logger then -- logger is usually initialised by unsafe API, which isnt av
     end
 
     function logger:error(text, ...)
-        local msg = "00:00:00 [error] " .. text .. " in (" .. file .. ".lua)"
+        local msg = "00:00:00 [31m[error][0m " .. text .. " in (" .. file .. ".lua)"
         if ... then
             msg = msg:format(...)
         end
         log("error", msg)
     end
+
+    logger:debug("logger isn't available in (%s). Setting dump logger up!", file)
 end

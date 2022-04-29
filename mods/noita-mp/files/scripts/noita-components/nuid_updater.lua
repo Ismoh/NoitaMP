@@ -25,7 +25,7 @@ local function added()
 
     if currentEntityId ~= globalsEntityId then
         GlobalsUtils.setNuid(nuid, currentEntityId)
-        logger:debug("nuid_updater.lua | nuid in noitas global storage was set: nuid = %s and entity_id = %s", nuid, currentEntityId)
+        logger:debug("nuid in noitas global storage was set: nuid = %s and entity_id = %s", nuid, currentEntityId)
     end
 end
 
