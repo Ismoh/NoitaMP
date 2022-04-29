@@ -2,6 +2,8 @@ dofile_once("mods/noita-mp/files/scripts/extensions/table_extensions.lua")
 dofile_once("mods/noita-mp/files/scripts/noita-components/dump_logger.lua")
 NetworkVscUtils = dofile_once("mods/noita-mp/files/scripts/util/NetworkVscUtils.lua")
 
+logger:setFile("nuid_debug")
+
 if ModSettingGet("noita-mp.toggle_debug") then
 
     local entity_id = GetUpdatedEntityID()

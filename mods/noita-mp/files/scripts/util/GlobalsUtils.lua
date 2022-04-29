@@ -39,11 +39,12 @@ function GlobalsUtils.parseXmlValueToNuidAndEntityId(xmlKey, xmlValue)
     if foundNuid ~= nil then
         nuid = tonumber(string.sub(xmlKey, GlobalsUtils.nuidKeySubstring:len()))
     else
-        logger:error("Unable to get nuid number of key string (%s).", xmlKey)
+        logger:info("Unable to get nuid number of key string (%s).", xmlKey)
+        return nil, nil
     end
 
     local entityId = nil
-    if xmlValue then -- can be empty or nil, when there is no entityId stored in Noitas Globals
+    if xmlValue and xmlValue ~= "" then -- can be empty or nil, when there is no entityId stored in Noitas Globals
         local foundEntityId = string.find(xmlValue, GlobalsUtils.nuidValueSubstring, 1, true)
         if foundEntityId ~= nil then
             entityId = tonumber(string.sub(xmlValue, GlobalsUtils.nuidValueSubstring:len()))

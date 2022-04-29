@@ -2,8 +2,8 @@ if not logger then -- logger is usually initialised by unsafe API, which isnt av
 
     print("logger isn't available in GlobalsUtils, looks like a Noita Component is using GlobalsUtils.")
     logger = {}
-    
-    local file = ""
+
+    local file = "unkown script - please define this in your Noita Component"
 
     local function log(log_level, text)
         local setting_log_level = tostring(ModSettingGetNextValue("noita-mp.log_level"))

@@ -217,7 +217,7 @@ mod_settings = {
 		settings = {
 			{
 				id = "toggle_debug",
-				ui_name = "Toggle debug information in game!",
+				ui_name = "Toggle debug (in game)",
 				ui_description = "Toggle network debug information on or off in running world.",
 				value_default = false,
 				scope = MOD_SETTING_SCOPE_RUNTIME,
@@ -226,7 +226,7 @@ mod_settings = {
 			{
 				id = "log_level",
 				ui_name = "Log level",
-				ui_description = [[Set the current log level, if debug is enabled.
+				ui_description = [[Set the current log level, for printing messages into console.
 Debug:   You will see debug, warning, info and errors.
 Warning: You will see warnings, info and errors.
 Info:     You will see info and errors.

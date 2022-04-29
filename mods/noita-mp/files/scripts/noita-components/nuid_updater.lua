@@ -1,10 +1,11 @@
-print("nuid_updater.lua started..")
 ------------
 -- CONFIG --
 dofile_once("mods/noita-mp/files/scripts/extensions/string_extensions.lua")
 dofile_once("mods/noita-mp/files/scripts/noita-components/dump_logger.lua")
 NetworkVscUtils = dofile_once("mods/noita-mp/files/scripts/util/NetworkVscUtils.lua")
 GlobalsUtils = dofile_once("mods/noita-mp/files/scripts/util/GlobalsUtils.lua")
+
+logger:setFile("nuid_updater")
 
 local executeOnAdded = GetValueBool("executeOnAdded", true)
 -- CONFIG --
@@ -44,13 +45,11 @@ end
 --#region Decision maker if executed on added or remove
 
 if executeOnAdded then -- this was executed on added
-    print("executed on added")
     added()
     SetValueBool("executeOnAdded", false)
 end
 
 if not executeOnAdded then -- this was executed on remove
-    print("executed on remove")
     remove()
 end
 
