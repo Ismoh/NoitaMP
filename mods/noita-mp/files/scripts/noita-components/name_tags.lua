@@ -1,3 +1,5 @@
+dofile_once("mods/noita-mp/files/scripts/noita-components/dump_logger.lua")
+
 function PlayerNameFunction(entity_id, playerName)
     gui = gui or GuiCreate()
     GuiStartFrame(gui)

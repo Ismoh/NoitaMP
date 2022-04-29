@@ -20,7 +20,7 @@ function mod_setting_change_callback(mod_id, gui, in_main_menu, setting, old_val
 
 	print(("Mod setting changed: mod_id = %s, gui = %s, in_main_menu = %s, setting = %s, old_value = %s, new_value = %s"):format(mod_id, gui, in_main_menu, setting, old_value, new_value))
 
-	ChangeDebugUi(setting, new_value)
+	-- ChangeDebugUi(setting, new_value)
 end
 
 function mod_setting_readonly(mod_id, gui, in_main_menu, im_id, setting)
@@ -64,44 +64,11 @@ function GetSettingById(idOrCategoryId)
 end
 
 function ChangeDebugUi(currentSetting, newValue)
-	local categoryLogLevel = GetSettingById("log_level")
-	local settingLogDebug = GetSettingById("log_debug")
-	local settingLogWarn = GetSettingById("log_warn")
-	local settingLogInfo = GetSettingById("log_info")
-	local settingLogError = GetSettingById("log_error")
+	local settingLogLevel = GetSettingById("log_level")
 
 	-- Show or hide log level setting, if debug is on or off
 	if currentSetting.id == "toggle_debug" then
-		categoryLogLevel.hidden = not newValue
-		settingLogDebug.hidden = not newValue
-		settingLogWarn.hidden = not newValue
-		settingLogInfo.hidden = not newValue
-		settingLogError.hidden = not newValue
-	end
-
-	-- radio button like selection
-	if ModSettingGetNextValue("noita-mp.log_error") then
-		ModSettingSetNextValue("noita-mp.log_debug", false, false)
-		ModSettingSetNextValue("noita-mp.log_warn", false, false)
-		ModSettingSetNextValue("noita-mp.log_info", false, false)
-	end
-
-	if ModSettingGetNextValue("noita-mp.log_info") then
-		ModSettingSetNextValue("noita-mp.log_debug", false, false)
-		ModSettingSetNextValue("noita-mp.log_warn", false, false)
-		ModSettingSetNextValue("noita-mp.log_error", false, false)
-	end
-
-	if ModSettingGetNextValue("noita-mp.log_warn") then
-		ModSettingSetNextValue("noita-mp.log_debug", false, false)
-		ModSettingSetNextValue("noita-mp.log_info", false, false)
-		ModSettingSetNextValue("noita-mp.log_error", false, false)
-	end
-
-	if ModSettingGetNextValue("noita-mp.log_debug") then
-		ModSettingSetNextValue("noita-mp.log_warn", false, false)
-		ModSettingSetNextValue("noita-mp.log_info", false, false)
-		ModSettingSetNextValue("noita-mp.log_error", false, false)
+		settingLogLevel.hidden = not newValue
 	end
 end
 
@@ -250,55 +217,26 @@ mod_settings = {
 		settings = {
 			{
 				id = "toggle_debug",
-				ui_name = "Toggle debug",
-				ui_description = "Toggle network debug info on or off",
+				ui_name = "Toggle debug information in game!",
+				ui_description = "Toggle network debug information on or off in running world.",
 				value_default = false,
 				scope = MOD_SETTING_SCOPE_RUNTIME,
 				change_fn = mod_setting_change_callback, -- Called when the user interact with the settings widget.
 			},
 			{
-				category_id = "log_level",
+				id = "log_level",
 				ui_name = "Log level",
-				ui_description = "Toggle log level. Be careful, debug log level will kill fps!",
-				hidden = true,
-				settings = {
-					{
-						id = "log_debug",
-						ui_name = "Debug",
-						ui_description = "Set log level to debug. You will see debug, warning, info and errors.",
-						value_default = false,
-						hidden = true,
-						scope = MOD_SETTING_SCOPE_RUNTIME,
-						change_fn = mod_setting_change_callback, -- Called when the user interact with the settings widget.
-					},
-					{
-						id = "log_warn",
-						ui_name = "Warning",
-						ui_description = "Set log level to warning. You will see warnings, info and errors.",
-						value_default = false,
-						hidden = true,
-						scope = MOD_SETTING_SCOPE_RUNTIME,
-						change_fn = mod_setting_change_callback, -- Called when the user interact with the settings widget.
-					},
-					{
-						id = "log_info",
-						ui_name = "Info",
-						ui_description = "Set log level to info. You will see info and errors.",
-						value_default = false,
-						hidden = true,
-						scope = MOD_SETTING_SCOPE_RUNTIME,
-						change_fn = mod_setting_change_callback, -- Called when the user interact with the settings widget.
-					},
-					{
-						id = "log_error",
-						ui_name = "Error",
-						ui_description = "Set log level to error. You will only see errors.",
-						value_default = true,
-						hidden = true,
-						scope = MOD_SETTING_SCOPE_RUNTIME,
-						change_fn = mod_setting_change_callback, -- Called when the user interact with the settings widget.
-					},
+				ui_description = [[Set the current log level, if debug is enabled.
+Debug:   You will see debug, warning, info and errors.
+Warning: You will see warnings, info and errors.
+Info:     You will see info and errors.
+Error:   You will only see errors.]],
+				value_default = "error",
+				values = {
+					{ "debug, warn, info, error", "Debug" }, { "warn, info, error", "Warning" }, { "info, error", "Info" }, { "error", "Error" }
 				},
+				scope = MOD_SETTING_SCOPE_RUNTIME,
+				change_fn = mod_setting_change_callback, -- Called when the user interact with the settings widget.
 			},
 		},
 	},
