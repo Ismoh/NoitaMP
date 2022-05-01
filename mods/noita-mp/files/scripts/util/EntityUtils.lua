@@ -108,13 +108,13 @@ EntityUtils.exclude = {
 
 --- Looks like there were access to despawned entities, which might cause game crashing.
 --- Use this function whenever you work with entity_id/entityId to stop client game crashing.
----@param entityId number Id of any entity.
----@return number|nil entityId returns the entityId if is alive, otherwise nil
+--- @param entityId number Id of any entity.
+--- @return number|nil entityId returns the entityId if is alive, otherwise nil
 function EntityUtils.isEntityAlive(entityId)
     if EntityGetIsAlive(entityId) then
         return entityId
     end
-    logger:error("Entity (%s) isn't alive anymore! Returning nil.", entityId)
+    logger:warn("Entity (%s) isn't alive anymore! Returning nil.", entityId)
     return nil
 end
 
