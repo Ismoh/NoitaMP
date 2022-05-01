@@ -16,7 +16,7 @@ if not logger then -- logger is usually initialised by unsafe API, which isnt av
     end
 
     function logger:debug(text, ...)
-        local msg = "00:00:00 [37m[debug][0m " .. text .. " in (" .. file .. ".lua)"
+        local msg = "00:00:00 [debug] " .. text .. " in (" .. file .. ".lua)"
         if ... then
             msg = msg:format(...)
         end
@@ -24,7 +24,7 @@ if not logger then -- logger is usually initialised by unsafe API, which isnt av
     end
 
     function logger:warn(text, ...)
-        local msg = "00:00:00 [33m[warn][0m " .. text .. " in (" .. file .. ".lua)"
+        local msg = "00:00:00 [warn] " .. text .. " in (" .. file .. ".lua)"
         if ... then
             msg = msg:format(...)
         end
@@ -32,7 +32,7 @@ if not logger then -- logger is usually initialised by unsafe API, which isnt av
     end
 
     function logger:info(text, ...)
-        local msg = "00:00:00 [36m[info][0m " .. text .. " in (" .. file .. ".lua)"
+        local msg = "00:00:00 [info] " .. text .. " in (" .. file .. ".lua)"
         if ... then
             msg = msg:format(...)
         end
@@ -40,7 +40,7 @@ if not logger then -- logger is usually initialised by unsafe API, which isnt av
     end
 
     function logger:error(text, ...)
-        local msg = "00:00:00 [31m[error][0m " .. text .. " in (" .. file .. ".lua)"
+        local msg = "00:00:00 [error] " .. text .. " in (" .. file .. ".lua)"
         if ... then
             msg = msg:format(...)
         end

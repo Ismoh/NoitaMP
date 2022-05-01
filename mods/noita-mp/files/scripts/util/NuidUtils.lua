@@ -6,7 +6,6 @@
 local util = require("util")
 local fu = require("file_util")
 local nxml = require("nxml")
-local GlobalsUtils = require("GlobalsUtils")
 
 -----------------
 -- NuidUtils:
@@ -63,4 +62,11 @@ end
 
 --#endregion
 
+-- Because of stack overflow errors when loading lua files,
+-- I decided to put Utils 'classes' into globals
+_G.NuidUtils = NuidUtils
+
+-- But still return for Noita Components,
+-- which does not have access to _G,
+-- because of own context/vm
 return NuidUtils

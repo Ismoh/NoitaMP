@@ -1,10 +1,7 @@
 local fu = require("file_util")
 local sock = require("sock")
 local Guid = require("guid")
---local em = require("entity_manager")
-local entityUtils = require("EntityUtils")
 local util = require("util")
-local nuidUtils = require("NuidUtils")
 
 -- https://www.tutorialspoint.com/lua/lua_object_oriented.htm
 -- Meta class
@@ -133,7 +130,7 @@ function Server:createCallbacks()
             logger:debug("%s (%s) needs a new nuid.", data.owner.username, data.owner.guid)
             util.pprint(data)
 
-            local new_nuid = nuidUtils.getNextNuid()
+            local new_nuid = NuidUtils.getNextNuid()
 
             -- tell the clients that there is a new entity, they have to spawn, besides the client, who sent the request
             self:sendNewNuid(
@@ -347,7 +344,7 @@ function Server:update()
         return -- server not established
     end
 
-    entityUtils.initNetworkVscs()
+    EntityUtils.initNetworkVscs()
 
     -- em:AddNetworkComponents()
 

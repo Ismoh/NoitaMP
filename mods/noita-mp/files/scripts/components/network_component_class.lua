@@ -1,4 +1,5 @@
 local util = require("util")
+--local EntityUtils = require("EntityUtils")
 
 -- Meta class
 NetworkComponent = {
@@ -51,6 +52,9 @@ end
 ---@param owner table Owner table: { username = string, guid = string } - cannot be nil
 ---@param nuid number NetworkUniqueIdentifier - cannot be nil
 function NetworkComponent.addNetworkComponentValues(entity_id, owner, nuid)
+    if not EntityUtils.isEntityAlive(entity_id) then
+        return
+    end
 
     if type(entity_id) ~= "number" then
         error("entity_id is not type of number. Unable to store network components values.", 2)
@@ -225,6 +229,9 @@ function NetworkComponent.getNetworkComponentValues(nuid, expected_entity_id)
     end
 
     if entity_id ~= nil then
+        if not EntityUtils.isEntityAlive(entity_id) then
+            return
+        end
         return NetworkComponent:new(owner, nuid)
     end
 
@@ -232,6 +239,9 @@ function NetworkComponent.getNetworkComponentValues(nuid, expected_entity_id)
 end
 
 function NetworkComponent.updateNuid(entity_id, nuid)
+    if not EntityUtils.isEntityAlive(entity_id) then
+        return
+    end
     local cached_ids = _G.cache.entity_ids_without_nuids[entity_id]
     if cached_ids == nil then
         _G.logger:debug("Unable to find entity_id (%s) in cache without nuids. Going to search in nuids cache with nuid (%s)..", entity_id, nuid)

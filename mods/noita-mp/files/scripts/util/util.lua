@@ -1,4 +1,3 @@
-local bitser = require("bitser")
 local pprint = require("pprint")
 
 local util = {}

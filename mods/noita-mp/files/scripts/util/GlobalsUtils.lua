@@ -3,6 +3,10 @@
 -- Naming convention is found here:
 -- http://lua-users.org/wiki/LuaStyleGuide#:~:text=Lua%20internal%20variable%20naming%20%2D%20The,but%20not%20necessarily%2C%20e.g.%20_G%20.
 
+--if not EntityUtils then
+--    EntityUtils = dofile_once("mods/noita-mp/files/scripts/util/EntityUtils.lua")
+--end
+
 -----------------
 -- GlobalsUtils:
 -----------------
@@ -57,6 +61,9 @@ function GlobalsUtils.parseXmlValueToNuidAndEntityId(xmlKey, xmlValue)
 end
 
 function GlobalsUtils.setNuid(nuid, entityId, componentIdForOwnerName, componentIdForOwnerGuid, componentIdForNuid)
+    if not EntityUtils.isEntityAlive(entityId) then
+        return
+    end
     GlobalsSetValue(GlobalsUtils.nuidKeyFormat:format(nuid), GlobalsUtils.nuidValueFormat:format(entityId)) -- also change stuff in nuid_update.lua
 end
 
@@ -76,4 +83,11 @@ end
 
 --#endregion
 
+-- Because of stack overflow errors when loading lua files,
+-- I decided to put Utils 'classes' into globals
+_G.GlobalsUtils = GlobalsUtils
+
+-- But still return for Noita Components,
+-- which does not have access to _G,
+-- because of own context/vm
 return GlobalsUtils

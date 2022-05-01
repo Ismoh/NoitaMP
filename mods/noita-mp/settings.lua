@@ -149,6 +149,15 @@ mod_settings = {
 				change_fn = mod_setting_change_callback, -- Called when the user interact with the settings widget.
 				hidden = true,
 			},
+			{
+				id = "radius_include_entities",
+				ui_name = "Radius to detect entities",
+				ui_description = "Higher value = lower fps + small freezes. Value to low = DEsync! Default = 500",
+				allowed_characters = "1234567890",
+				value_default = "500",
+				scope = MOD_SETTING_SCOPE_RUNTIME_RESTART,
+				change_fn = mod_setting_change_callback, -- Called when the user interact with the settings widget.
+			},
 		},
 	},
 	{
@@ -190,6 +199,15 @@ mod_settings = {
 				value_default = 0,
 				scope = MOD_SETTING_SCOPE_RUNTIME,
 				hidden = true,
+			},
+			{
+				id = "radius_exclude_entities",
+				ui_name = "Radius to remove entities on clients",
+				ui_description = "Higher value = better sync. Value to low = strange behaviour! Default = 500",
+				allowed_characters = "1234567890",
+				value_default = "500",
+				scope = MOD_SETTING_SCOPE_RUNTIME_RESTART,
+				change_fn = mod_setting_change_callback, -- Called when the user interact with the settings widget.
 			},
 		},
 	},

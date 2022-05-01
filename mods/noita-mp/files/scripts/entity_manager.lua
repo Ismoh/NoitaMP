@@ -1,6 +1,7 @@
-local util = require("util")
+local util = dofile_once("mods/noita-mp/files/scripts/util/util.lua")--require("util")
 local NetworkComponent = require("network_component_class")
 local json = require("json")
+--EntityUtils = dofile_once("mods/noita-mp/files/scripts/util/EntityUtils.lua")
 
 local em = {
     nuid_counter = 0,
@@ -44,8 +45,10 @@ function em:DespawnClientEntities(clientOrServer)
 
         for i_e = 1, #entity_ids do
             local entity_id = entity_ids[i_e]
-            util.debug_entity(entity_id)
-            EntityKill(entity_id)
+            if EntityUtils.isEntityAlive(entity_id) then
+                util.debug_entity(entity_id)
+                EntityKill(entity_id)
+            end
         end
     end
 end
@@ -142,8 +145,11 @@ end
 --- @param nuid number nuid to know the entity wiht network component
 --- @return number component_id Returns the component_id. The already existed one or the newly created id.
 function em:AddNetworkComponentToEntity(entity_id, owner, nuid)
+    if not EntityUtils.isEntityAlive(entity_id) then
+        return
+    end
     local variable_storage_component_ids =
-        EntityGetComponentIncludingDisabled(entity_id, "VariableStorageComponent") or {}
+    EntityGetComponentIncludingDisabled(entity_id, "VariableStorageComponent") or {}
 
     -- check if the entity already has a NetworkComponent. If so skip this function by returning the component_id
     -- for i_v = 1, #variable_storage_component_ids do
@@ -263,6 +269,9 @@ function em:SpawnEntity(owner, nuid, x, y, rot, velocity, filename, local_entity
     end
 
     local entity_id = EntityLoad(filename, x, y)
+    if not EntityUtils.isEntityAlive(entity_id) then
+        return
+    end
 
     self:AddNetworkComponentToEntity(entity_id, owner, nuid)
     EntityApplyTransform(entity_id, x, y, rot)
@@ -298,30 +307,32 @@ end
 
 function em:UpdateEntities()
     for index, entity_id in ipairs(self.cache.nc_entity_ids) do
-        --local owner = util.getLocalOwner()
-        local nc = self:GetNetworkComponent(nil, entity_id, nil)
-        local nuid = nc.nuid
-        local owner = {
-            username = nc.owner.username,
-            guid = nc.owner.guid
-        }
+        if EntityUtils.isEntityAlive(entity_id) then
+            --local owner = util.getLocalOwner()
+            local nc = self:GetNetworkComponent(nil, entity_id, nil)
+            local nuid = nc.nuid
+            local owner = {
+                username = nc.owner.username,
+                guid = nc.owner.guid
+            }
 
-        if not EntityGetIsAlive(entity_id) then
-            if _G.Server:amIServer() then
-                _G.Server.super:sendToAll2("entityAlive", {owner, entity_id, nuid, false})
+            if not EntityGetIsAlive(entity_id) then
+                if _G.Server:amIServer() then
+                    _G.Server.super:sendToAll2("entityAlive", { owner, entity_id, nuid, false })
+                else
+                    _G.Client.super:send("entityAlive", { owner, entity_id, nuid, false })
+                end
             else
-                _G.Client.super:send("entityAlive", {owner, entity_id, nuid, false})
-            end
-        else
-            local x, y, rot = EntityGetTransform(entity_id)
-            local velo_comp_id = EntityGetFirstComponent(entity_id, "VelocityComponent")
-            local velo_x, velo_y = ComponentGetValue2(velo_comp_id, "mVelocity")
-            local velocity = {velo_x, velo_y}
+                local x, y, rot = EntityGetTransform(entity_id)
+                local velo_comp_id = EntityGetFirstComponent(entity_id, "VelocityComponent")
+                local velo_x, velo_y = ComponentGetValue2(velo_comp_id, "mVelocity")
+                local velocity = { velo_x, velo_y }
 
-            if _G.Server:amIServer() then
-                _G.Server.super:sendToAll2("entityState", {owner, entity_id, nuid, x, y, rot, velocity, health})
-            else
-                _G.Client.super:send("entityState", {owner, entity_id, nuid, x, y, rot, velocity, health})
+                if _G.Server:amIServer() then
+                    _G.Server.super:sendToAll2("entityState", { owner, entity_id, nuid, x, y, rot, velocity, health })
+                else
+                    _G.Client.super:send("entityState", { owner, entity_id, nuid, x, y, rot, velocity, health })
+                end
             end
         end
     end
@@ -333,6 +344,9 @@ end
 ---@param nuid number
 ---@return table nc NetworkComponent or nil, if there is no network component
 function em:GetNetworkComponent(owner, entity_id, nuid)
+    if not EntityUtils.isEntityAlive(entity_id) then
+        return
+    end
     -- local nc = self:GetNetworkComponentByOwnerAndEntityId(owner, entity_id)
 
     -- if not nc then
@@ -359,6 +373,9 @@ end
 ---@param entity_id number entity_id, doesn't matter of local_entity_id or remote_entity_id
 ---@return table nc If owner or entity_id isn't set, it returns nil. If nc was found, but owner mismatch, returns nil. Otherwise the network component table.
 function em:GetNetworkComponentByOwnerAndEntityId(owner, entity_id)
+    if not EntityUtils.isEntityAlive(entity_id) then
+        return
+    end
     if not owner then
         logger:warn(
             "Unable to find network component by owner(%s, %s) and entity_id(%s), because owner is nil.",
@@ -397,7 +414,7 @@ function em:GetNetworkComponentByOwnerAndEntityId(owner, entity_id)
     local nuid = cached_nc_entity_id_map.nuid
     local nc_as_json = ComponentGetValue2(componet_id, NetworkComponent.field_name)
     local nc = json.decode(nc_as_json)
-     --util.deserialise(nc_serialised)
+    --util.deserialise(nc_serialised)
     local nc_owner_guid = nc.owner.guid or nc.owner[2]
 
     -- double check if owner is correct
@@ -433,7 +450,7 @@ function em:GetNetworkComponentByNuid(nuid)
         if nuid == nuid_cached then
             local nc_as_json = ComponentGetValue2(component_id, NetworkComponent.field_name)
             return json.decode(nc_as_json)
-         --util.deserialise(nc_serialised)
+            --util.deserialise(nc_serialised)
         end
     end
 

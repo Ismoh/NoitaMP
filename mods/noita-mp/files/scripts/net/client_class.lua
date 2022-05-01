@@ -282,16 +282,21 @@ function Client:update()
         return -- Client not established
     end
 
-    em:DespawnClientEntities(self.super)
+    -- em:DespawnClientEntities(self.super)
 
-    em:AddNetworkComponents()
+    -- em:AddNetworkComponents()
 
-    em:UpdateEntities()
+    -- em:UpdateEntities()
+
+    EntityUtils.despawnClientEntities()
 
     self.super:update()
 end
 
 function Client:sendNeedNuid(owner, entity_id)
+    if not EntityUtils.isEntityAlive(entity_id) then
+        return
+    end
     local x, y, rot = EntityGetTransform(entity_id)
     local velo_comp_id = EntityGetFirstComponent(entity_id, "VelocityComponent")
     local velo_x, velo_y = ComponentGetValue2(velo_comp_id, "mVelocity")

@@ -3,6 +3,9 @@
 -- Naming convention is found here:
 -- http://lua-users.org/wiki/LuaStyleGuide#:~:text=Lua%20internal%20variable%20naming%20%2D%20The,but%20not%20necessarily%2C%20e.g.%20_G%20.
 
+--if not EntityUtils then
+--   EntityUtils = dofile_once("mods/noita-mp/files/scripts/util/EntityUtils.lua")
+--end
 
 -----------------
 -- NetworkVscUtils:
@@ -40,6 +43,9 @@ end
 --- @return integer compId The specific componentId, which contains the searched value
 --- @return string value The components value
 local function checkIfSpecificVscExists(entityId, componentTypeName, fieldNameForMatch, matchValue, fieldNameForValue)
+   if not EntityUtils.isEntityAlive(entityId) then
+      return
+   end
    ---@diagnostic disable-next-line: missing-parameter
    local componentIds = EntityGetComponentIncludingDisabled(entityId, componentTypeName) or {}
    if isEmpty(componentIds) then
@@ -66,6 +72,9 @@ end
 ---@param entityId number Id of an entity provided by Noita
 ---@param ownerName string This is the owner of an entity. Owners name.
 local function addOrUpdateVscForOwnerName(entityId, ownerName)
+   if not EntityUtils.isEntityAlive(entityId) then
+      return
+   end
    local compId, compOwnerName = checkIfSpecificVscExists(
       entityId, NetworkVscUtils.variableStorageComponentName, NetworkVscUtils.name,
       NetworkVscUtils.componentNameOfOwnersName, NetworkVscUtils.valueString)
@@ -100,6 +109,9 @@ local function addOrUpdateVscForOwnerName(entityId, ownerName)
 end
 
 local function addOrUpdateVscForOwnerGuid(entityId, ownerGuid)
+   if not EntityUtils.isEntityAlive(entityId) then
+      return
+   end
    local compId, compOwnerGuid = checkIfSpecificVscExists(
       entityId, NetworkVscUtils.variableStorageComponentName, NetworkVscUtils.name,
       NetworkVscUtils.componentNameOfOwnersGuid, NetworkVscUtils.valueString)
@@ -134,6 +146,9 @@ local function addOrUpdateVscForOwnerGuid(entityId, ownerGuid)
 end
 
 local function addOrUpdateVscForNuid(entityId, nuid)
+   if not EntityUtils.isEntityAlive(entityId) then
+      return
+   end
    local compId, compNuid = checkIfSpecificVscExists(
       entityId, NetworkVscUtils.variableStorageComponentName, NetworkVscUtils.name,
       NetworkVscUtils.componentNameOfNuid, NetworkVscUtils.valueString)
@@ -177,6 +192,9 @@ end
 --- Adds a LuaComponent for the nuid debugger.
 ---@param entityId number Id of an entity provided by Noita
 local function addNuidDebugger(entityId)
+   if not EntityUtils.isEntityAlive(entityId) then
+      return
+   end
    local compId, compOwnerName = checkIfSpecificVscExists(
       entityId, "LuaComponent", "script_source_file",
       NetworkVscUtils.componentNameOfNuidDebugger, "script_source_file")
@@ -186,7 +204,7 @@ local function addNuidDebugger(entityId)
    else
       compId = EntityAddComponent2(entityId, "LuaComponent", {
          script_source_file = "mods/noita-mp/files/scripts/noita-components/nuid_debug.lua",
-         script_enabled_changed = "mods/noita-mp/files/scripts/noita-components/LuaComponentDisAndEnable.lua",
+         script_enabled_changed = "mods/noita-mp/files/scripts/noita-components/lua_component_enabler.lua",
          execute_every_n_frame = 1,
       })
       logger:debug(
@@ -206,6 +224,9 @@ end
 --- Adds a LuaComponent for the nuid updater.
 ---@param entityId number Id of an entity provided by Noita
 local function addNuidUpdater(entityId)
+   if not EntityUtils.isEntityAlive(entityId) then
+      return
+   end
    local compId, compOwnerName = checkIfSpecificVscExists(
       entityId, "LuaComponent", "script_source_file",
       NetworkVscUtils.componentNameOfNuidUpdater, "script_source_file")
@@ -235,6 +256,9 @@ local function addNuidUpdater(entityId)
 end
 
 local function getNetworkComponents(entityId)
+   if not EntityUtils.isEntityAlive(entityId) then
+      return
+   end
    local ownerNameCompId = checkIfSpecificVscExists(
       entityId, NetworkVscUtils.variableStorageComponentName, NetworkVscUtils.name,
       NetworkVscUtils.componentNameOfOwnersName, NetworkVscUtils.valueString)
@@ -281,6 +305,9 @@ NetworkVscUtils.componentNameOfNuidUpdater = "nuid_updater.lua"
 ---@return integer|nil componentIdForOwnerGuid
 ---@return integer|nil componentIdForNuid
 function NetworkVscUtils.addOrUpdateAllVscs(entityId, ownerName, ownerGuid, nuid)
+   if not EntityUtils.isEntityAlive(entityId) then
+      return
+   end
 
    if _G.whoAmI() == Server.SERVER and isEmpty(nuid) then
       error("You are not allowed to add a nuid, when beeing server!", 2)
@@ -306,6 +333,9 @@ end
 ---@return string ownerGuid
 ---@return number nuid
 function NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
+   if not EntityUtils.isEntityAlive(entityId) then
+      return
+   end
    local ownerNameCompId, ownerGuidCompId, nuidCompId, componentIdForNuidDebugger, componentIdForNuidUpdater = getNetworkComponents(entityId)
    return NetworkVscUtils.getAllVcsValuesByComponentIds(ownerNameCompId, ownerGuidCompId, nuidCompId)
 end
@@ -326,12 +356,18 @@ function NetworkVscUtils.getAllVcsValuesByComponentIds(ownerNameCompId, ownerGui
 end
 
 function NetworkVscUtils.isNetworkEntityByNuidVsc(entityId)
+   if not EntityUtils.isEntityAlive(entityId) then
+      return
+   end
    return checkIfSpecificVscExists(
       entityId, NetworkVscUtils.variableStorageComponentName, NetworkVscUtils.name,
       NetworkVscUtils.componentNameOfNuid, NetworkVscUtils.valueString)
 end
 
 function NetworkVscUtils.hasNetworkLuaComponents(entityId)
+   if not EntityUtils.isEntityAlive(entityId) then
+      return
+   end
    local has = false
    local nuid_debugger, value = checkIfSpecificVscExists(
       entityId, "LuaComponent", "script_source_file",
@@ -347,6 +383,9 @@ function NetworkVscUtils.hasNetworkLuaComponents(entityId)
 end
 
 function NetworkVscUtils.enableComponents(entityId)
+   if not EntityUtils.isEntityAlive(entityId) then
+      return
+   end
    local ownerNameCompId, ownerGuidCompId, nuidCompId, componentIdForNuidDebugger, componentIdForNuidUpdater = getNetworkComponents(entityId)
    NetworkVscUtils.enableComponent(entityId, ownerNameCompId)
    NetworkVscUtils.enableComponent(entityId, ownerGuidCompId)
@@ -356,6 +395,9 @@ function NetworkVscUtils.enableComponents(entityId)
 end
 
 function NetworkVscUtils.enableComponent(entityId, componentId)
+   if not EntityUtils.isEntityAlive(entityId) then
+      return
+   end
    if not ComponentGetIsEnabled(componentId) then
       logger:warn("Entity(%s) has a disabled network component(%s), turning it on!", entityId, componentId)
       EntitySetComponentIsEnabled(entityId, componentId, true)
@@ -364,4 +406,11 @@ end
 
 --#endregion
 
+-- Because of stack overflow errors when loading lua files,
+-- I decided to put Utils 'classes' into globals
+_G.NetworkVscUtils = NetworkVscUtils
+
+-- But still return for Noita Components,
+-- which does not have access to _G,
+-- because of own context/vm
 return NetworkVscUtils

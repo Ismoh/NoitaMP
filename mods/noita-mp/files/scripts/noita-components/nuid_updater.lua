@@ -2,8 +2,10 @@
 -- CONFIG --
 dofile_once("mods/noita-mp/files/scripts/extensions/string_extensions.lua")
 dofile_once("mods/noita-mp/files/scripts/noita-components/dump_logger.lua")
+EntityUtils = dofile_once("mods/noita-mp/files/scripts/util/EntityUtils.lua")
 NetworkVscUtils = dofile_once("mods/noita-mp/files/scripts/util/NetworkVscUtils.lua")
 GlobalsUtils = dofile_once("mods/noita-mp/files/scripts/util/GlobalsUtils.lua")
+
 
 logger:setFile("nuid_updater")
 
@@ -20,6 +22,9 @@ local executeOnAdded = GetValueBool("executeOnAdded", true)
 local function added()
     logger:debug("nuid_updater.lua added..")
     local currentEntityId = GetUpdatedEntityID()
+    if not EntityUtils.isEntityAlive(currentEntityId) then
+        return
+    end
     local ownerName, ownerGuid, nuid = NetworkVscUtils.getAllVcsValuesByEntityId(currentEntityId)
     local globalsNuid, globalsEntityId = GlobalsUtils.getNuidEntityPair(nuid)
 

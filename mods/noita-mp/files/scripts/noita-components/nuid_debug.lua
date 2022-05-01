@@ -1,12 +1,18 @@
 dofile_once("mods/noita-mp/files/scripts/extensions/table_extensions.lua")
 dofile_once("mods/noita-mp/files/scripts/noita-components/dump_logger.lua")
+EntityUtils = dofile_once("mods/noita-mp/files/scripts/util/EntityUtils.lua")
 NetworkVscUtils = dofile_once("mods/noita-mp/files/scripts/util/NetworkVscUtils.lua")
+
 
 logger:setFile("nuid_debug")
 
 if ModSettingGet("noita-mp.toggle_debug") then
 
-    local entity_id = GetUpdatedEntityID()
+    local entityId = GetUpdatedEntityID()
+
+    if not EntityUtils.isEntityAlive(entityId) then
+        return
+    end
 
     gui = gui or GuiCreate()
     GuiStartFrame(gui)
@@ -14,14 +20,15 @@ if ModSettingGet("noita-mp.toggle_debug") then
     local screenWidth, screenHeight = GuiGetScreenDimensions(gui)
     screenWidth, screenHeight = screenWidth / 2, screenHeight / 2
 
-    local x, y = EntityGetTransform(entity_id)
+    local x, y = EntityGetTransform(entityId)
 
     local function getEntityPositionOnScreen()
         local camX, camY = GameGetCameraPos()
         return screenWidth + ((x - camX) * 1.5), screenHeight + ((y - camY) * 1.5)
     end
 
-    local vsc = EntityGetComponentIncludingDisabled(entity_id, "VariableStorageComponent") or {}
+    ---@diagnostic disable-next-line: missing-parameter
+    local vsc = EntityGetComponentIncludingDisabled(entityId, "VariableStorageComponent") or {}
     for i = 1, #vsc do
         local entityX, entityY = getEntityPositionOnScreen()
         local variable_storage_component_name = ComponentGetValue2(vsc[i], "name") or nil

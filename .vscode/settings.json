@@ -25,5 +25,6 @@
         "ngx",
         "EXPORT_ASSERT_TO_GLOBALS",
         "gui"
-    ]
+    ],
+    "lua.targetVersion": "5.1"
 }

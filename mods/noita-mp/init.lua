@@ -1,8 +1,6 @@
 dofile("mods/noita-mp/files/scripts/init/init_.lua")
 
-local util = require("util")
 local fu = require("file_util")
-local em = require("entity_manager")
 
 fu.SetAbsolutePathOfNoitaRootDirectory()
 

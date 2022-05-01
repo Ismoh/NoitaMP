@@ -1,4 +1,5 @@
 dofile_once("mods/noita-mp/files/scripts/noita-components/dump_logger.lua")
+EntityUtils = dofile_once("mods/noita-mp/files/scripts/util/EntityUtils.lua")
 
 logger:setFile("name_tags")
 
@@ -22,11 +23,17 @@ function PlayerNameFunction(entity_id, playerName)
     GuiText(gui, playerNameMid, entityY, playerName)
 end
 
-local entity_id = GetUpdatedEntityID()
+local entityId = GetUpdatedEntityID()
+
+if not EntityUtils.isEntityAlive(entityId) then
+    return
+end
+
 username = username or nil
 
 if not username then
-    local vsc = EntityGetComponentIncludingDisabled(entity_id, "VariableStorageComponent") or {}
+    ---@diagnostic disable-next-line: missing-parameter
+    local vsc = EntityGetComponentIncludingDisabled(entityId, "VariableStorageComponent") or {}
     for i = 1, #vsc do
         local variable_storage_component_name = ComponentGetValue2(vsc[i], "name") or nil
         if variable_storage_component_name == "noita-mp.nc_owner.username" then -- see NetworkComponent.component_name_owner_username = "noita-mp.nc_owner.username"
@@ -36,5 +43,5 @@ if not username then
 end
 
 if username then
-    PlayerNameFunction(entity_id, username)
+    PlayerNameFunction(entityId, username)
 end

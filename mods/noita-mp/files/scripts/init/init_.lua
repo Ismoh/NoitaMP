@@ -28,3 +28,9 @@ else
     print("Running init_package_loading.lua without any destination_path")
     init_package_loading()
 end
+
+-- Load utils
+require("EntityUtils")
+require("GlobalsUtils")
+require("NetworkVscUtils")
+require("NuidUtils")
