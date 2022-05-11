@@ -2,6 +2,7 @@ local fu = require("file_util")
 local sock = require("sock")
 local Guid = require("guid")
 local util = require("util")
+local em = require("entity_manager")
 
 -- https://www.tutorialspoint.com/lua/lua_object_oriented.htm
 -- Meta class
@@ -66,7 +67,7 @@ function Server:createCallbacks()
                     peer.username,
                     peer.guid
                 },
-                nuidUtils.getNextNuid(),
+                NuidUtils.getNextNuid(),
                 x,
                 y,
                 rot,

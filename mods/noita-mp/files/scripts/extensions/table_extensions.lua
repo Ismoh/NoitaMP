@@ -91,6 +91,12 @@ end
 --- @param tbl1 table
 --- @param tbl2 table
 function table.insertAll(tbl1, tbl2)
+    if not tbl1 then
+        tbl1 = {}
+    end
+    if not tbl2 then
+        tbl2 = {}
+    end
     for i, v in ipairs(tbl2) do
         table.insert(tbl1, v)
     end

@@ -312,6 +312,26 @@ function fu.splitPath(str)
     --> {'usr','local','bin'}
 end
 
+-- Lua implementation of PHP scandir function
+function fu.scanDir(directory)
+    local i, t, popen = 0, {}, io.popen
+    local pfile = nil
+
+    if is_windows then
+        pfile = popen('dir "'..directory..'" /b /ad')
+    else
+        pfile = popen('ls -a "'..directory..'"')
+    end
+
+
+    for filename in pfile:lines() do
+        i = i + 1
+        t[i] = filename
+    end
+    pfile:close()
+    return t
+end
+
 ----------------------------------------------------------------------------------------------------
 -- 7zip stuff
 ----------------------------------------------------------------------------------------------------

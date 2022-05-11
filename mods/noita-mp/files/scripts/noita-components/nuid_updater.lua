@@ -1,17 +1,12 @@
-------------
--- CONFIG --
-dofile_once("mods/noita-mp/files/scripts/extensions/string_extensions.lua")
 dofile_once("mods/noita-mp/files/scripts/noita-components/dump_logger.lua")
+logger:setFile("nuid_updater")
+dofile_once("mods/noita-mp/files/scripts/extensions/string_extensions.lua")
 EntityUtils = dofile_once("mods/noita-mp/files/scripts/util/EntityUtils.lua")
 NetworkVscUtils = dofile_once("mods/noita-mp/files/scripts/util/NetworkVscUtils.lua")
 GlobalsUtils = dofile_once("mods/noita-mp/files/scripts/util/GlobalsUtils.lua")
 
 
-logger:setFile("nuid_updater")
-
 local executeOnAdded = GetValueBool("executeOnAdded", true)
--- CONFIG --
-------------
 
 --#region local functions
 

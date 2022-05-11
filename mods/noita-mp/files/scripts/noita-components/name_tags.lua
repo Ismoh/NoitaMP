@@ -1,7 +1,7 @@
 dofile_once("mods/noita-mp/files/scripts/noita-components/dump_logger.lua")
+logger:setFile("name_tags")
 EntityUtils = dofile_once("mods/noita-mp/files/scripts/util/EntityUtils.lua")
 
-logger:setFile("name_tags")
 
 function PlayerNameFunction(entity_id, playerName)
     gui = gui or GuiCreate()

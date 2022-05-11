@@ -33,7 +33,6 @@
       image_file="data/props_breakable_gfx/plank_horizontal_64_00.png"
       material="wood_prop" 
   ></PhysicsImageShapeComponent>
-e
 
   <PhysicsImageShapeComponent
       body_id="10"

@@ -1,10 +1,9 @@
-dofile_once("mods/noita-mp/files/scripts/extensions/table_extensions.lua")
 dofile_once("mods/noita-mp/files/scripts/noita-components/dump_logger.lua")
+logger:setFile("nuid_debug")
+dofile_once("mods/noita-mp/files/scripts/extensions/table_extensions.lua")
 EntityUtils = dofile_once("mods/noita-mp/files/scripts/util/EntityUtils.lua")
 NetworkVscUtils = dofile_once("mods/noita-mp/files/scripts/util/NetworkVscUtils.lua")
 
-
-logger:setFile("nuid_debug")
 
 if ModSettingGet("noita-mp.toggle_debug") then
 
