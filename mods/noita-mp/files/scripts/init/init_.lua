@@ -3,7 +3,7 @@ print("Initialise pathes, globals and extensions..")
 
 --#region
 -- github workflow stuff
-local varargs = {...}
+local varargs = { ... }
 local destination_path = nil
 if varargs and #varargs > 0 then
     print("'varargs' of init_.lua, see below:")
@@ -29,8 +29,14 @@ else
     init_package_loading()
 end
 
--- Load utils
-require("EntityUtils")
-require("GlobalsUtils")
-require("NetworkVscUtils")
-require("NuidUtils")
+-- On Github we do not want to load the utils.
+-- Do a simple check by nil check:
+if ModSettingGet then
+    -- Load utils
+    require("EntityUtils")
+    require("GlobalsUtils")
+    require("NetworkVscUtils")
+    require("NuidUtils")
+else
+    logger:warn("Utils didnt load in init_.lua, because it looks like the mod wasn't run in game, but maybe on Github.")
+end
