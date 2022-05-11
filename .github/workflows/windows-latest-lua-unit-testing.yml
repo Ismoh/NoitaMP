@@ -19,6 +19,11 @@ jobs:
     steps:
       - uses: actions/checkout@main
 
+      - name:
+        shell: pwsh
+        run: |
+          ls -R C:
+
       - name: Make directories for Lua installation
         run: |
           ### https://gist.github.com/Egor-Skriptunoff/cb952f7eaf39b7b1bf739b818ece87cd
@@ -113,7 +118,6 @@ jobs:
       - name: add mingw32 to path
         shell: bash
         run: |
-          ls -R "C:\"
           echo "C:\msys64\mingw32\bin" >> $GITHUB_PATH
 
       - name: Install dependencies
