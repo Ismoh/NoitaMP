@@ -41,7 +41,6 @@ jobs:
       - run: file ./hello.exe
       - run: ./hello
 
-    steps:
       - uses: actions/checkout@main
       #- uses: msys2/setup-msys2@v2with:
       #    install: gcc make
