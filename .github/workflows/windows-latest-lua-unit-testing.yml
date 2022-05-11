@@ -129,18 +129,14 @@ jobs:
         run: |
           echo "C:\msys64\mingw32\bin" >> $GITHUB_PATH
 
-      - name:
-        shell: msys2 {0}
-        run: |
-          cmd //C ${{ env.temp_dir }}/luarocks-3.8.0-windows-32/luarocks.exe --lua-dir=${{ github.workspace }}/Lua --lua-version=5.1 --tree=${{ github.workspace }}/Lua install luafilesystem
-
       - name: Install dependencies
         run: |
+          cp C:\ProgramData\chocolatey\lib\mingw\tools\install\mingw64\bin\x86_64-w64-mingw32-gcc.exe C:\ProgramData\chocolatey\lib\mingw\tools\install\mingw64\bin\mingw32-gcc.exe
+
           Start-Process -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-windows-32\luarocks.exe" -ArgumentList "--lua-dir=${{ env.lua_install_dir }} --lua-version=5.1 --tree=${{ env.lua_install_dir }} install luacov" -Wait -NoNewWindow
           Start-Process -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-windows-32\luarocks.exe" -ArgumentList "--lua-dir=${{ env.lua_install_dir }} --lua-version=5.1 --tree=${{ env.lua_install_dir }} install lua-path" -Wait -NoNewWindow
           Start-Process -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-windows-32\luarocks.exe" -ArgumentList "--lua-dir=${{ env.lua_install_dir }} --lua-version=5.1 --tree=${{ env.lua_install_dir }} install dkjson" -Wait -NoNewWindow
-          # Start-Process -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-windows-32\luarocks.exe" -ArgumentList "--lua-dir=${{ env.lua_install_dir }} --lua-version=5.1 --tree=${{ env.lua_install_dir }} install luafilesystem" -Wait -NoNewWindow
-          cmd //C ${{ env.temp_dir }}\luarocks-3.8.0-windows-32\luarocks.exe --lua-dir=${{ env.lua_install_dir }} --lua-version=5.1 --tree=${{ env.lua_install_dir }} install luafilesystem
+          Start-Process -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-windows-32\luarocks.exe" -ArgumentList "--lua-dir=${{ env.lua_install_dir }} --lua-version=5.1 --tree=${{ env.lua_install_dir }} install luafilesystem" -Wait -NoNewWindow
           Start-Process -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-windows-32\luarocks.exe" -ArgumentList "--lua-dir=${{ env.lua_install_dir }} --lua-version=5.1 --tree=${{ env.lua_install_dir }} install luacov-coveralls" -Wait -NoNewWindow
 
           ls -R ${{ env.lua_install_dir }}
