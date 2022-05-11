@@ -20,7 +20,9 @@ jobs:
       - uses: actions/checkout@main
 
       - name: Symbolic link to mingw32-gcc
-        run: ln -s C/ProgramData/Chocolatey/bin/gcc.exe c/mingw32-gcc
+        shell: pwsh
+        run: ln -s C:\ProgramData\Chocolatey\bin\gcc.exe C:\mingw32-gcc
+
       - name:
         shell: pwsh
         run: |
