@@ -20,15 +20,19 @@ end
 local logger = Logging.new(appender)
 
 if logger then
-  local setting_log_level = tostring(ModSettingGetNextValue("noita-mp.log_level")) -- "debug, warn, info, error" or "warn, info, error" or "info, error"
-  local levels = setting_log_level:upper():split(",")
-  logger:setLevel(levels[1])
+  if ModSettingGetNextValue then
+    local setting_log_level = tostring(ModSettingGetNextValue("noita-mp.log_level")) -- "debug, warn, info, error" or "warn, info, error" or "info, error"
+    local levels = setting_log_level:upper():split(",")
+    logger:setLevel(levels[1])
+  else
+    logger:setLevel("DEBUG")
+  end
 
   if not _G.logger then
     _G.logger = logger
   end
 else
-  print("ERROR: Unable to init logger!")
+  print("ERROR: Unable to init logger! logger is nil.")
 end
 
 -- Reset pathes
