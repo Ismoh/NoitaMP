@@ -16,40 +16,14 @@ jobs:
       lua_install_share_dir: ${{ github.workspace }}\Lua\share
       lua_install_include_dir: ${{ github.workspace }}\Lua\include
 
-    strategy:
-      matrix:
-        compiler: [gcc, clang]
-        msystem: [MINGW32, MINGW64]
-    defaults:
-      run:
-        shell: msys2 {0}
-
     steps:
-      - uses: actions/checkout@v2
-      - uses: msys2/setup-msys2@v2
-        with:
-          msystem: ${{ matrix.msystem }}
-          install: make
-      - run: pacman --noconfirm -S gcc
-        if: ${{ matrix.compiler == 'gcc' }}
-      - run: pacman --noconfirm -S mingw-w64-x86_64-clang
-        if: ${{ (matrix.msystem == 'MINGW64') && (matrix.compiler == 'clang') }}
-      - run: pacman --noconfirm -S mingw-w64-i686-clang
-        if: ${{ (matrix.msystem == 'MINGW32') && (matrix.compiler == 'clang') }}
-      - run: ${{ matrix.compiler }} --version
-      - run: make CC=${{ matrix.compiler }}
-      - run: file ./hello.exe
-      - run: ./hello
-
       - uses: actions/checkout@main
-      #- uses: msys2/setup-msys2@v2with:
-      #    install: gcc make
-      #    install: mingw32-gcc
 
       - name:
         shell: pwsh
         run: |
           ls -R C:\msys64\mingw32
+          New-Item -ItemType HardLink -Path "C:\msys64\mingw32\bin\mingw32-gcc" -Target "C:\msys64\mingw32\bin\gcc"
 
       - name: Install mingw32-gcc
         run: |
