@@ -50,7 +50,7 @@ jobs:
       - name:
         shell: pwsh
         run: |
-          ls -R C:\msys64
+          ls -R C:\msys64\mingw32
 
       - name: Install mingw32-gcc
         run: |
