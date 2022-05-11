@@ -23,7 +23,8 @@ jobs:
         shell: pwsh
         run: |
           ls -R
-          where.exe gcc
+          where.exe gcc # C:\ProgramData\Chocolatey\bin\gcc.exe C:\Strawberry\c\bin\gcc.exe
+          where.exe mingw32-gcc
           ls -R C:\msys64\mingw32\bin
           New-Item -ItemType HardLink -Path "C:\msys64\mingw32\bin\mingw32-gcc" -Target "C:\msys64\mingw32\bin\gcc"
 
