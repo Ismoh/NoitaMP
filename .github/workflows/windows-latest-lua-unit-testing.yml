@@ -27,7 +27,7 @@ jobs:
 
       - name:
         shell: pwsh
-        run: ls -R C:/ProgramData/Chocolatey/lib/mingw/tools/install/
+        run: ls -R C:/ProgramData/Chocolatey/lib/mingw/tools/install/mingw64/bin/
 
       - name: Symbolic link to mingw32-gcc
         shell: pwsh
