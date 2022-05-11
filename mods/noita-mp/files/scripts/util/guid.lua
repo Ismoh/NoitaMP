@@ -109,4 +109,11 @@ function Guid:isUnique(guid)
     return is_unique
 end
 
+-- Because of stack overflow errors when loading lua files,
+-- I decided to put Utils 'classes' into globals
+_G.Guid = Guid
+
+-- But still return for Noita Components,
+-- which does not have access to _G,
+-- because of own context/vm
 return Guid

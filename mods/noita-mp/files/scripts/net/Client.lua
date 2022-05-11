@@ -1,0 +1,353 @@
+-- OOP class definition is found here: Closure approach
+-- http://lua-users.org/wiki/ObjectOrientationClosureApproach
+-- Naming convention is found here:
+-- http://lua-users.org/wiki/LuaStyleGuide#:~:text=Lua%20internal%20variable%20naming%20%2D%20The,but%20not%20necessarily%2C%20e.g.%20_G%20.
+
+local sock = require("sock")
+
+--------------------
+-- Client:
+--------------------
+Client = {}
+
+-- Global private variables:
+
+-- Global private methods:
+
+-- Access to global private variables
+
+-- Global public variables:
+
+-- Constructor
+function Client.new(sockClient)
+    local self = sockClient -- {}
+
+    self.username = tostring(ModSettingGet("noita-mp.username"))
+
+    -- Private variables:
+
+    -- Public variables:
+
+    -- Private methods:
+    --#region Settings
+
+    local function setConfigSettings()
+        self:setTimeout(320, 50000, 100000)
+    end
+
+    local function setSchemas()
+        self:setSchema("worldFiles", { "relDirPath", "fileName", "fileContent", "fileIndex", "amountOfFiles" })
+        self:setSchema("worldFilesFinished", { "progress" })
+        self:setSchema("seed", { "seed" })
+        self:setSchema("clientInfo", { "username", "guid" })
+        self:setSchema("needNuid", { "owner", "localEntityId", "x", "y", "rot", "velocity", "filename" })
+        self:setSchema("newNuid", { "owner", "localEntityId", "nuid", "x", "y", "rot", "velocity", "filename" })
+        self:setSchema("entityAlive", { "owner", "localEntityId", "nuid", "isAlive" })
+        self:setSchema("entityState", { "owner", "localEntityId", "nuid", "x", "y", "rot", "velocity", "health" })
+    end
+
+    local function setGuid()
+        local guid = tostring(ModSettingGetNextValue("noita-mp.guid"))
+        if guid == "" or Guid.isPatternValid(guid) == false then
+            guid = Guid:getGuid()
+            ModSettingSetNextValue("noita-mp.guid", guid, false)
+            self.guid = guid
+            logger:debug("Clients guid set to " .. guid)
+        else
+            self.guid = guid
+            logger:debug("Clients guid was already set to " .. self.guid)
+        end
+    end
+
+    --#endregion
+
+    --#region Callbacks
+
+    local function createCallbacks()
+        logger:debug("client_class.lua | Creating clients callback functions.")
+
+        self:on(
+            "connect",
+            function(data)
+            logger:debug("client_class.lua | Client connected to the server. Sending client info to server..")
+            util.pprint(data)
+
+            local connection_id = tostring(self:getConnectId())
+            local ip = tostring(self:getAddress())
+            local username = tostring(ModSettingGet("noita-mp.username"))
+            self.username = username
+            self:send("clientInfo", { username, self.guid })
+        end
+        )
+
+        self:on(
+            "worldFiles",
+            function(data)
+            if not data or next(data) == nil then
+                GamePrint(
+                    "client_class.lua | Receiving world files from server, but data is nil or empty. " .. tostring(data)
+                )
+                return
+            end
+
+            local rel_dir_path = data.relDirPath
+            local file_name = data.fileName
+            local file_content = data.fileContent
+            local file_index = data.fileIndex
+            local amount_of_files = data.amountOfFiles
+
+            local msg =
+            ("client_class.lua | Receiving world file: dir:%s, file:%s, content:%s, index:%s, amount:%s"):format(
+                rel_dir_path,
+                file_name,
+                file_content,
+                file_index,
+                amount_of_files
+            )
+            logger:debug(msg)
+            GamePrint(msg)
+
+            local save06_parent_directory_path = fu.GetAbsoluteDirectoryPathOfParentSave()
+
+            -- if file_name ~= nil and file_name ~= ""
+            -- then -- file in save06 | "" -> directory was sent
+            --     WriteBinaryFile(save06_dir .. _G.path_separator .. file_name, file_content)
+            -- elseif rel_dir_path ~= nil and file_name ~= ""
+            -- then -- file in subdirectory was sent
+            --     WriteBinaryFile(save06_dir .. _G.path_separator .. rel_dir_path .. _G.path_separator .. file_name, file_content)
+            -- elseif rel_dir_path ~= nil and (file_name == nil or file_name == "")
+            -- then -- directory name was sent
+            --     MkDir(save06_dir .. _G.path_separator .. rel_dir_path)
+            -- else
+            --     GamePrint("client_class.lua | Unable to write file, because path and content aren't set.")
+            -- end
+            local archive_directory = fu.GetAbsoluteDirectoryPathOfMods() .. _G.path_separator .. rel_dir_path
+            fu.WriteBinaryFile(archive_directory .. _G.path_separator .. file_name, file_content)
+
+            if fu.Exists(fu.GetAbsoluteDirectoryPathOfSave06()) then -- Create backup if save06 exists
+                os.execute('cd "' .. fu.GetAbsoluteDirectoryPathOfParentSave() .. '" && move save06 save06_backup')
+            end
+
+            fu.Extract7zipArchive(archive_directory, file_name, save06_parent_directory_path)
+
+            if file_index >= amount_of_files then
+                self:send("worldFilesFinished", { "" .. file_index .. "/" .. amount_of_files })
+            end
+        end
+        )
+
+        self:on(
+            "seed",
+            function(data)
+            local server_seed = tonumber(data.seed)
+            logger:debug("client_class.lua | Client got seed from the server. Seed = " .. server_seed)
+            util.pprint(data)
+            --ModSettingSet("noita-mp.connect_server_seed", server_seed)
+
+            logger:debug(
+            "client_class.lua | Creating magic numbers file to set clients world seed and restart the game."
+            )
+            fu.WriteFile(
+                fu.GetAbsoluteDirectoryPathOfMods() .. "/files/tmp/magic_numbers/world_seed.xml",
+                [[<MagicNumbers WORLD_SEED="]] .. tostring(server_seed) .. [["/>]]
+            )
+            --ModTextFileSetContent( GetRelativeDirectoryPathOfMods()
+            --    .. "/files/data/magic_numbers.xml", )
+
+            --BiomeMapLoad_KeepPlayer("data/biome_impl/biome_map_newgame_plus.lua", "data/biome/_pixel_scenes_newgame_plus.xml") -- StartReload(0)
+        end
+        )
+
+        self:on(
+            "restart",
+            function(data)
+            fu.StopWithoutSaveAndStartNoita()
+            --BiomeMapLoad_KeepPlayer("data/biome_impl/biome_map_newgame_plus.lua", "data/biome/_pixel_scenes_newgame_plus.xml") -- StartReload(0)
+        end
+        )
+
+        -- Called when the client disconnects from the server
+        self:on(
+            "disconnect",
+            function(data)
+            logger:debug("client_class.lua | Client disconnected from the server.")
+            util.pprint(data)
+        end
+        )
+
+        -- see lua-enet/enet.c
+        self:on(
+            "receive",
+            function(data, channel)
+            logger:debug("on_receive: data =")
+            util.pprint(data)
+            logger:debug("on_receive: channel =")
+            util.pprint(channel)
+        end
+        )
+
+        self:on(
+            "newNuid",
+            function(data)
+            logger:debug(
+                "%s (%s) needs a new NUID. nuid=%s, x=%s, y=%s, rot=%s, velocity=%s, filename=%s, localEntityId=%s",
+                data.owner.username,
+                data.owner.guid,
+                data.nuid,
+                data.x,
+                data.y,
+                data.rot,
+                data.velocity,
+                data.filename,
+                data.localEntityId
+            )
+            util.pprint(data)
+            em:SpawnEntity(
+                data.owner,
+                data.nuid,
+                data.x,
+                data.y,
+                data.rot,
+                data.velocity,
+                data.filename,
+                data.localEntityId
+            )
+        end
+        )
+
+        self:on(
+            "entityAlive",
+            function(data)
+            util.pprint(data)
+
+            em:DespawnEntity(data.owner, data.localEntityId, data.nuid, data.isAlive)
+        end
+        )
+
+        self:on(
+            "entityState",
+            function(data)
+            util.pprint(data)
+
+            local nc = em:GetNetworkComponent(data.owner, data.localEntityId, data.nuid)
+            if nc then
+                EntityApplyTransform(nc.local_entity_id, data.x, data.y, data.rot)
+            else
+                logger:warn(
+                    "Got entityState, but unable to find the network component!" ..
+                    " owner(%s, %s), localEntityId(%s), nuid(%s), x(%s), y(%s), rot(%s), velocity(x %s, y %s), health(%s)",
+                    data.owner.username,
+                    data.owner.guid,
+                    data.localEntityId,
+                    data.nuid,
+                    data.x,
+                    data.y,
+                    data.rot,
+                    data.velocity.x,
+                    data.velocity.y,
+                    data.health
+                )
+            end
+        end
+        )
+    end
+
+    --#endregion
+
+    -- Public methods:
+    --#region Connect and disconnect
+
+    --- Some inheritance: Save parent function (not polluting global 'self' space)
+    local sockClientConnect = sockClient.connect
+    --- Connects to a server on ip and port. Both can be nil, then ModSettings will be used.
+    --- @param ip string localhost or 127.0.0.1 or nil
+    --- @param port number 1 - 65535 or nil
+    function self.connect(ip, port)
+
+        if self:isConnecting() or self:isConnected() then
+            logger:warn("Client is still connected to %s:%s. Disconnecting!", self:getAddress(), self:getPort())
+            self:disconnect()
+        end
+
+        if not ip then
+            ip = tostring(ModSettingGet("noita-mp.connect_server_ip"))
+        end
+
+        if not port then
+            port = tonumber(ModSettingGet("noita-mp.connect_server_port"))
+        end
+
+        logger:info("Connecting to server on %s:%s", ip, port)
+        self = sock.newClient(ip, port)
+
+        setGuid()
+        setConfigSettings()
+        setSchemas()
+        createCallbacks()
+
+        GamePrintImportant("Client is connecting..",
+            "You are trying to connect to " .. self:getAddress() .. ":" .. self:getPort() .. "!",
+            nil
+        )
+
+        sockClientConnect(ip, port)
+
+        --  You can send different types of data
+        self:send("clientInfo", { self.username, self.guid })
+    end
+
+    --- Some inheritance: Save parent function (not polluting global 'self' space)
+    local sockClientDisconnect = sockClient.disconnect
+    function self.disconnect()
+        sockClientDisconnect()
+    end
+
+    --#endregion
+
+    --#region Additional methods
+
+    --- Some inheritance: Save parent function (not polluting global 'self' space)
+    local sockClientUpdate = sockClient.update
+    --- Updates the Client by checking for network events and handling them.
+    function self.update()
+        if not self.host then
+            return -- Client not established
+        end
+
+        EntityUtils.despawnClientEntities()
+
+        sockClientUpdate()
+    end
+
+    function self.sendNeedNuid(owner, entityId)
+        if not EntityUtils.isEntityAlive(entityId) then
+            return
+        end
+        local x, y, rot = EntityGetTransform(entityId)
+        ---@diagnostic disable-next-line: missing-parameter
+        local velocityCompId = EntityGetFirstComponent(entityId, "VelocityComponent")
+        local veloX, veloY = ComponentGetValue2(velocityCompId, "mVelocity")
+        local velocity = { veloX, veloY }
+        local filename = EntityGetFilename(entityId)
+        self:send("needNuid", { owner, entityId, x, y, rot, velocity, filename })
+    end
+
+    --- Checks if the current local user is a client
+    --- @return boolean iAm true if client
+    function self.amIClient()
+        if self ~= nil then
+            return self.whoAmI == "CLIENT"
+        end
+        return false
+    end
+
+    --#endregion
+
+    -- Apply some private methods
+
+    return self
+end
+
+-- Init this object:
+
+_G.Client = Client.new(sock.newClient())

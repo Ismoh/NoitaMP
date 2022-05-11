@@ -1,4 +1,3 @@
-
 --- A Lua networking library for LÖVE games.
 -- * [Source code](https://github.com/camchenry/sock.lua)
 -- * [Examples](https://github.com/camchenry/sock.lua/tree/master/examples)
@@ -70,7 +69,7 @@ local function zipTable(items, keys, event)
         local key = keys[i]
 
         if not key then
-            error("Event '"..event.."' missing data key. Is the schema different between server and client?")
+            error("Event '" .. event .. "' missing data key. Is the schema different between server and client?")
         end
 
         data[key] = value
@@ -82,39 +81,39 @@ end
 --- All of the possible connection statuses for a client connection.
 -- @see Client:getState
 sock.CONNECTION_STATES = {
-    "disconnected",             -- Disconnected from the server.
-    "connecting",               -- In the process of connecting to the server.
-    "acknowledging_connect",    --
-    "connection_pending",       --
-    "connection_succeeded",     --
-    "connected",                -- Successfully connected to the server.
-    "disconnect_later",         -- Disconnecting, but only after sending all queued packets.
-    "disconnecting",            -- In the process of disconnecting from the server.
+    "disconnected", -- Disconnected from the server.
+    "connecting", -- In the process of connecting to the server.
+    "acknowledging_connect", --
+    "connection_pending", --
+    "connection_succeeded", --
+    "connected", -- Successfully connected to the server.
+    "disconnect_later", -- Disconnecting, but only after sending all queued packets.
+    "disconnecting", -- In the process of disconnecting from the server.
     "acknowledging_disconnect", --
-    "zombie",                   --
-    "unknown",                  --
+    "zombie", --
+    "unknown", --
 }
 
 --- States that represent the client connecting to a server.
 sock.CONNECTING_STATES = {
-    "connecting",               -- In the process of connecting to the server.
-    "acknowledging_connect",    --
-    "connection_pending",       --
-    "connection_succeeded",     --
+    "connecting", -- In the process of connecting to the server.
+    "acknowledging_connect", --
+    "connection_pending", --
+    "connection_succeeded", --
 }
 
 --- States that represent the client disconnecting from a server.
 sock.DISCONNECTING_STATES = {
-    "disconnect_later",         -- Disconnecting, but only after sending all queued packets.
-    "disconnecting",            -- In the process of disconnecting from the server.
+    "disconnect_later", -- Disconnecting, but only after sending all queued packets.
+    "disconnecting", -- In the process of disconnecting from the server.
     "acknowledging_disconnect", --
 }
 
 --- Valid modes for sending messages.
 sock.SEND_MODES = {
-    "reliable",     -- Message is guaranteed to arrive, and arrive in the order in which it is sent.
-    "unsequenced",  -- Message has no guarantee on the order that it arrives.
-    "unreliable",   -- Message is not guaranteed to arrive.
+    "reliable", -- Message is guaranteed to arrive, and arrive in the order in which it is sent.
+    "unsequenced", -- Message has no guarantee on the order that it arrives.
+    "unreliable", -- Message is not guaranteed to arrive.
 }
 
 local function isValidSendMode(mode)
@@ -127,29 +126,28 @@ local function isValidSendMode(mode)
 end
 
 local Logger = {}
-local Logger_mt = {__index = Logger}
+local Logger_mt = { __index = Logger }
 
 local function newLogger(source)
     local logger = setmetatable({
-        source          = source,
-        messages        = {},
+        source   = source,
+        messages = {},
 
         -- Makes print info more concise, but should still log the full line
-        shortenLines    = true,
+        shortenLines   = true,
         -- Print all incoming event data
-        printEventData  = false,
-        printErrors     = true,
-        printWarnings   = true,
+        printEventData = false,
+        printErrors    = true,
+        printWarnings  = true,
     }, Logger_mt)
 
     return logger
 end
 
 function Logger:log(event, data)
-    local time = os.date("%X") -- something like 24:59:59
+    local time      = os.date("%X") -- something like 24:59:59
     local shortLine = ("%s [%s] %s"):format(time, event, data)
     local fullLine  = ("%s [%s %s] %s"):format(time, self.source, event, data) --local fullLine  = ("[%s][%s][%s] %s"):format(self.source, time, event, data)
-    
 
     -- The printed message may or may not be the full message
     local line = fullLine
@@ -178,12 +176,12 @@ function Logger:log(event, data)
 end
 
 local Listener = {}
-local Listener_mt = {__index = Listener}
+local Listener_mt = { __index = Listener }
 
 local function newListener()
     local listener = setmetatable({
-        triggers        = {},
-        schemas         = {},
+        triggers = {},
+        schemas  = {},
     }, Listener_mt)
 
     return listener
@@ -244,7 +242,7 @@ end
 --- Manages all clients and receives network events.
 -- @type Server
 local Server = {}
-local Server_mt = {__index = Server}
+local Server_mt = { __index = Server }
 
 --- Check for network events and handle them.
 function Server:update()
@@ -320,7 +318,7 @@ end
 -- In: event (string), data (mixed)
 -- Out: serialized message (string)
 function Server:__pack(event, data)
-    local message = {event, data}
+    local message = { event, data }
     local serializedMessage
 
     if not self.serialize then
@@ -530,7 +528,7 @@ end
 -- The initial default is 0.
 -- @tparam number channel Channel to send data on.
 function Server:setDefaultSendChannel(channel)
-   self.defaultSendChannel = channel
+    self.defaultSendChannel = channel
 end
 
 --- Set the data schema for an event.
@@ -622,8 +620,8 @@ end
 --server = sock.newServer("localhost", 22122)
 --server:setSerialization(bitser.dumps, bitser.loads)
 function Server:setSerialization(serialize, deserialize)
-    assert(type(serialize) == "function", "Serialize must be a function, got: '"..type(serialize).."'")
-    assert(type(deserialize) == "function", "Deserialize must be a function, got: '"..type(deserialize).."'")
+    assert(type(serialize) == "function", "Serialize must be a function, got: '" .. type(serialize) .. "'")
+    assert(type(deserialize) == "function", "Deserialize must be a function, got: '" .. type(deserialize) .. "'")
     self.serialize = serialize
     self.deserialize = deserialize
 end
@@ -677,6 +675,7 @@ end
 function Server:getTotalReceivedData()
     return self.host:total_received_data()
 end
+
 --- Get the total number of packets (messages) sent since the server was created.
 -- Everytime a message is sent or received, the corresponding figure is incremented.
 -- Therefore, this is not necessarily an accurate indicator of how many packets were actually
@@ -765,11 +764,10 @@ function Server:getClientCount()
     return #self.clients
 end
 
-
 --- Connects to servers.
 -- @type Client
 local Client = {}
-local Client_mt = {__index = Client}
+local Client_mt = { __index = Client }
 
 --- Check for network events and handle them.
 function Client:update()
@@ -857,7 +855,7 @@ end
 -- In: event (string), data (mixed)
 -- Out: serialized message (string)
 function Client:__pack(event, data)
-    local message = {event, data}
+    local message = { event, data }
     local serializedMessage
 
     if not self.serialize then
@@ -1127,8 +1125,8 @@ end
 --client = sock.newClient("localhost", 22122)
 --client:setSerialization(bitser.dumps, bitser.loads)
 function Client:setSerialization(serialize, deserialize)
-    assert(type(serialize) == "function", "Serialize must be a function, got: '"..type(serialize).."'")
-    assert(type(deserialize) == "function", "Deserialize must be a function, got: '"..type(deserialize).."'")
+    assert(type(serialize) == "function", "Serialize must be a function, got: '" .. type(serialize) .. "'")
+    assert(type(deserialize) == "function", "Deserialize must be a function, got: '" .. type(deserialize) .. "'")
     self.serialize = serialize
     self.deserialize = deserialize
 end
@@ -1345,17 +1343,17 @@ end
 -- -- Limit incoming/outgoing bandwidth to 1kB/s (1000 bytes/s)
 --server = sock.newServer("*", 22122, 10, 2, 1000, 1000)
 sock.newServer = function(address, port, maxPeers, maxChannels, inBandwidth, outBandwidth)
-    address         = address or "localhost"
-    port            = port or 22122
-    maxPeers        = maxPeers or 64
-    maxChannels     = maxChannels or 1
-    inBandwidth     = inBandwidth or 0
-    outBandwidth    = outBandwidth or 0
+    address      = address or "localhost"
+    port         = port or 22122
+    maxPeers     = maxPeers or 64
+    maxChannels  = maxChannels or 1
+    inBandwidth  = inBandwidth or 0
+    outBandwidth = outBandwidth or 0
 
     local server = setmetatable({
-        address            = address,
-        port               = port,
-        host               = nil,
+        address = address,
+        port    = port,
+        host    = nil,
 
         messageTimeout     = 0,
         maxChannels        = maxChannels,
@@ -1365,22 +1363,22 @@ sock.newServer = function(address, port, maxPeers, maxChannels, inBandwidth, out
         sendChannel        = 0,
         defaultSendChannel = 0,
 
-        peers              = {},
-        clients            = {},
+        peers   = {},
+        clients = {},
 
-        listener      = newListener(),
-        logger        = newLogger("SERVER"),
+        listener = newListener(),
+        logger   = newLogger("SERVER"),
 
-        serialize          = nil,
-        deserialize        = nil,
+        serialize   = nil,
+        deserialize = nil,
 
-        packetsSent        = 0,
-        packetsReceived    = 0,
+        packetsSent     = 0,
+        packetsReceived = 0,
 
         -- NoitaMP additions
-        username           = "",
-        guid               = nil,
-        whoAmI             = "SERVER",
+        username = "",
+        guid     = nil,
+        whoAmI   = "SERVER",
     }, Server_mt)
 
     -- ip, max peers, max channels, in bandwidth, out bandwidth
@@ -1389,7 +1387,7 @@ sock.newServer = function(address, port, maxPeers, maxChannels, inBandwidth, out
 
 
     if not server.host then
-        error("Failed to create the host. Is there another server running on :"..server.port.."?")
+        error("Failed to create the host. Is there another server running on :" .. server.port .. "?")
     end
 
     server:setBandwidthLimit(inBandwidth, outBandwidth)
@@ -1426,12 +1424,12 @@ sock.newClient = function(serverOrAddress, port, maxChannels)
     maxChannels     = maxChannels or 1
 
     local client = setmetatable({
-        address            = nil,
-        port               = nil,
-        host               = nil,
+        address = nil,
+        port    = nil,
+        host    = nil,
 
-        connection         = nil, -- aka peer
-        connectId          = nil,
+        connection = nil, -- aka peer
+        connectId  = nil,
 
         messageTimeout     = 0,
         maxChannels        = maxChannels,
@@ -1440,21 +1438,21 @@ sock.newClient = function(serverOrAddress, port, maxChannels)
         sendChannel        = 0,
         defaultSendChannel = 0,
 
-        listener      = newListener(),
-        logger        = newLogger("CLIENT"),
+        listener = newListener(),
+        logger   = newLogger("CLIENT"),
 
-        serialize          = nil,
-        deserialize        = nil,
+        serialize   = nil,
+        deserialize = nil,
 
-        packetsReceived    = 0,
-        packetsSent        = 0,
+        packetsReceived = 0,
+        packetsSent     = 0,
 
         -- NoitaMP additions
-        username           = "",
-        guid               = nil,
-        isAllowed          = false,
-        isMapReceived      = false,
-        whoAmI             = "CLIENT",
+        username      = "",
+        guid          = nil,
+        isAllowed     = false,
+        isMapReceived = false,
+        whoAmI        = "CLIENT",
     }, Client_mt)
 
     -- Two different forms for client creation:
@@ -1469,7 +1467,7 @@ sock.newClient = function(serverOrAddress, port, maxChannels)
         client.port = port
         client.host = enet.host_create()
 
-    -- Second form: (enet peer)
+        -- Second form: (enet peer)
     elseif type(serverOrAddress) == "userdata" then
         client.connection = serverOrAddress
         client.connectId = client.connection:connect_id()

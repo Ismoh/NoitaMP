@@ -119,7 +119,7 @@ jobs:
         run: |
           #echo "C:\msys64\mingw32\bin" >> $GITHUB_PATH
           #cp C:\ProgramData\chocolatey\lib\mingw\tools\install\mingw64\bin\x86_64-w64-mingw32-gcc.exe C:\ProgramData\chocolatey\lib\mingw\tools\install\mingw64\bin\mingw32-gcc.exe
-          
+
           Start-Process -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-windows-32\luarocks.exe" -ArgumentList "--lua-dir=${{ env.lua_install_dir }} --lua-version=5.1 --tree=${{ env.lua_install_dir }} install luacov" -Wait -NoNewWindow
           Start-Process -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-windows-32\luarocks.exe" -ArgumentList "--lua-dir=${{ env.lua_install_dir }} --lua-version=5.1 --tree=${{ env.lua_install_dir }} install lua-path" -Wait -NoNewWindow
           Start-Process -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-windows-32\luarocks.exe" -ArgumentList "--lua-dir=${{ env.lua_install_dir }} --lua-version=5.1 --tree=${{ env.lua_install_dir }} install dkjson" -Wait -NoNewWindow
@@ -134,13 +134,13 @@ jobs:
 
           Start-Process -FilePath "${{ env.lua_install_bin_dir }}\luacov.bat" -Wait -NoNewWindow
 
-      - name: Generate coverage report with luacov-coveralls
-        shell: cmd
-        env:
-          COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          COVERALLS_DEBUG: true
-        run: |
-          #${{ env.lua_install_bin_dir }}\luacov-coveralls.bat -v
+      # - name: Generate coverage report with luacov-coveralls
+      #   shell: cmd
+      #   env:
+      #     COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     COVERALLS_DEBUG: true
+      #   run: |
+      #     ${{ env.lua_install_bin_dir }}\luacov-coveralls.bat -v
 
       - name: Fix codecov path issue
         shell: pwsh
