@@ -19,6 +19,8 @@ jobs:
     steps:
       - uses: actions/checkout@main
 
+      - name: Symbolic link to mingw32-gcc
+        run: ln -s C/ProgramData/Chocolatey/bin/gcc.exe c/mingw32-gcc
       - name:
         shell: pwsh
         run: |
@@ -26,7 +28,7 @@ jobs:
           where.exe gcc # C:\ProgramData\Chocolatey\bin\gcc.exe C:\Strawberry\c\bin\gcc.exe
           where.exe mingw32-gcc
           ls -R C:\msys64\mingw32\bin
-          New-Item -ItemType HardLink -Path "C:\ProgramData\Chocolatey\bin\mingw32-gcc.exe" -Target "C:\ProgramData\Chocolatey\bin\gcc.exe"
+          #New-Item -ItemType HardLink -Path "C:\ProgramData\Chocolatey\bin\mingw32-gcc.exe" -Target "C:\ProgramData\Chocolatey\bin\gcc.exe"
 
       - name: Install mingw32-gcc
         run: |
