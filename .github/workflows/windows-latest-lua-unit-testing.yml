@@ -20,10 +20,6 @@ jobs:
     steps:
       - uses: actions/checkout@main
 
-      - name: Symbolic link to mingw32-gcc
-        shell: pwsh
-        run: ln -s C:\ProgramData\Chocolatey\bin\gcc.exe C:\mingw32-gcc
-
       - name: Make directories for Lua installation
         run: |
           ### https://gist.github.com/Egor-Skriptunoff/cb952f7eaf39b7b1bf739b818ece87cd
@@ -117,8 +113,9 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cp C:\ProgramData\chocolatey\lib\mingw\tools\install\mingw64\bin\x86_64-w64-mingw32-gcc.exe C:\ProgramData\chocolatey\lib\mingw\tools\install\mingw64\bin\mingw32-gcc.exe
-
+          echo "C:\msys64\mingw32\bin" >> $GITHUB_PATH
+          #cp C:\ProgramData\chocolatey\lib\mingw\tools\install\mingw64\bin\x86_64-w64-mingw32-gcc.exe C:\ProgramData\chocolatey\lib\mingw\tools\install\mingw64\bin\mingw32-gcc.exe
+          
           Start-Process -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-windows-32\luarocks.exe" -ArgumentList "--lua-dir=${{ env.lua_install_dir }} --lua-version=5.1 --tree=${{ env.lua_install_dir }} install luacov" -Wait -NoNewWindow
           Start-Process -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-windows-32\luarocks.exe" -ArgumentList "--lua-dir=${{ env.lua_install_dir }} --lua-version=5.1 --tree=${{ env.lua_install_dir }} install lua-path" -Wait -NoNewWindow
           Start-Process -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-windows-32\luarocks.exe" -ArgumentList "--lua-dir=${{ env.lua_install_dir }} --lua-version=5.1 --tree=${{ env.lua_install_dir }} install dkjson" -Wait -NoNewWindow
