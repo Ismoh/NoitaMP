@@ -6,9 +6,7 @@ jobs:
   lua-unit-testing-on-windows-latest:
     name: "LuaUnit on Windows-latest (mingw32)"
     runs-on: windows-latest
-    defaults:
-      run:
-        shell: msys2 {0}
+
     env:
       temp_dir: ${{ github.workspace }}\temp
       lua_temp_dir: ${{ github.workspace }}\temp\lua-5.1.5
@@ -21,24 +19,15 @@ jobs:
 
     steps:
       - uses: actions/checkout@main
+      - uses: msys2/setup-msys2@v2
+        with:
+          msystem: MINGW32
+          update: true
+          #install: git mingw-w64-x86_64-cc
 
       - name: Symbolic link to mingw32-gcc
         shell: pwsh
         run: ln -s C:\ProgramData\Chocolatey\bin\gcc.exe C:\mingw32-gcc
-
-      - name:
-        shell: pwsh
-        run: |
-          ls -R
-          where.exe gcc # C:\ProgramData\Chocolatey\bin\gcc.exe C:\Strawberry\c\bin\gcc.exe
-          #where.exe mingw32-gcc
-          #ls -R C:\msys64\mingw32\bin
-          #New-Item -ItemType HardLink -Path "C:\ProgramData\Chocolatey\bin\mingw32-gcc.exe" -Target "C:\ProgramData\Chocolatey\bin\gcc.exe"
-
-      - name: Install mingw32-gcc
-        run: |
-          gcc -v
-          #mingw32-gcc -v
 
       - name: Make directories for Lua installation
         run: |
@@ -135,6 +124,11 @@ jobs:
         shell: bash
         run: |
           echo "C:\msys64\mingw32\bin" >> $GITHUB_PATH
+
+      - name:
+        shell: msys2 {0}
+        run: |
+          cmd //C ${{ env.temp_dir }}\luarocks-3.8.0-windows-32\luarocks.exe --lua-dir=${{ env.lua_install_dir }} --lua-version=5.1 --tree=${{ env.lua_install_dir }} install luafilesystem
 
       - name: Install dependencies
         run: |
