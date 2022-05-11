@@ -25,6 +25,10 @@ jobs:
           update: true
           #install: git mingw-w64-x86_64-cc
 
+      - name:
+        shell: pwsh
+        run: ls -R C:/ProgramData/Chocolatey/lib/mingw/tools/install/
+
       - name: Symbolic link to mingw32-gcc
         shell: pwsh
         run: ln -s C:\ProgramData\Chocolatey\bin\gcc.exe C:\mingw32-gcc
