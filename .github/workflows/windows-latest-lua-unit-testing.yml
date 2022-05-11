@@ -18,6 +18,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@main
+      #- uses: actions/checkout@v2
+      - uses: msys2/setup-msys2@v2with:
+          install: gcc make
+          install: mingw32-gcc
 
       - name:
         shell: pwsh
@@ -25,11 +29,6 @@ jobs:
           ls -R C:\msys64
 
       - name: Install mingw32-gcc
-      #- uses: actions/checkout@v2
-      - uses: msys2/setup-msys2@v2
-        with:
-          install: gcc make
-          install: mingw32-gcc
         run: |
           gcc -v
           mingw32-gcc -v
