@@ -29,7 +29,7 @@ jobs:
           ls -R
           where.exe gcc # C:\ProgramData\Chocolatey\bin\gcc.exe C:\Strawberry\c\bin\gcc.exe
           where.exe mingw32-gcc
-          ls -R C:\msys64\mingw32\bin
+          #ls -R C:\msys64\mingw32\bin
           #New-Item -ItemType HardLink -Path "C:\ProgramData\Chocolatey\bin\mingw32-gcc.exe" -Target "C:\ProgramData\Chocolatey\bin\gcc.exe"
 
       - name: Install mingw32-gcc
