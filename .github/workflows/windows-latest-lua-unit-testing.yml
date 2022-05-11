@@ -22,7 +22,9 @@ jobs:
       - name:
         shell: pwsh
         run: |
-          ls -R C:\msys64\mingw32
+          ls -R
+          where.exe gcc
+          ls -R C:\msys64\mingw32\bin
           New-Item -ItemType HardLink -Path "C:\msys64\mingw32\bin\mingw32-gcc" -Target "C:\msys64\mingw32\bin\gcc"
 
       - name: Install mingw32-gcc
