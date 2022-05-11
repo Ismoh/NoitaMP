@@ -139,7 +139,7 @@ jobs:
           COVERALLS_DEBUG: true
         run: |
           ls -R
-          ${{ lua_install_bin_dir }}\luacov-coveralls.bat -v
+          ${{ env.lua_install_bin_dir }}\luacov-coveralls.bat -v
 
       - name: Fix codecov path issue
         shell: pwsh
