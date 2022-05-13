@@ -1,4 +1,5 @@
 dofile("mods/noita-mp/files/scripts/init/init_.lua")
+local render_ezgui = dofile_once("mods/noita-mp/files/lib/external/ezgui/EZGUI.lua").init("mods/noita-mp/files/lib/external/ezgui")
 
 local fu = require("file_util")
 
@@ -18,7 +19,7 @@ fu.Find7zipExecutable()
 
 function OnModPreInit()
     EntityUtils.modifyPhysicsEntities()
-    
+
     _G.cache = {}
     _G.cache.nuids = {} -- _G.cache.nuids[nuid] = { entity_id, component_id_username, component_id_guid, component_id_nuid }
     _G.cache.entity_ids_without_nuids = {} -- _G.cache.entity_ids_without_nuids[entity_id] = { entity_id, component_id_username, component_id_guid, component_id_nuid }
@@ -59,9 +60,11 @@ function OnWorldInitialized()
         ModSettingSetNextValue("noita-mp.server_start_7zip_savegame", false, false) -- automatically start the server again
     end
 
-    logger:debug("init.lua | Initialise client and server stuff..")
-    dofile_once("mods/noita-mp/files/scripts/net/server_class.lua") -- run once to init server object
-    dofile_once("mods/noita-mp/files/scripts/net/client_class.lua") -- run once to init client object
+    --logger:debug("init.lua | Initialise client and server stuff..")
+    --dofile_once("mods/noita-mp/files/scripts/net/server_class.lua") -- run once to init server object
+    --dofile_once("mods/noita-mp/files/scripts/net/client_class.lua") -- run once to init client object
+    --dofile_once("mods/noita-mp/files/scripts/net/Server.lua")
+    --dofile_once("mods/noita-mp/files/scripts/net/Client.lua")
 end
 
 function OnPlayerSpawned(player_entity)
@@ -81,15 +84,25 @@ end
 function OnWorldPreUpdate()
     UpdateLogLevel()
 
-    if _G.Server then
-        _G.Server:update()
-    end
-
-    if _G.Client then
-        _G.Client:update()
-    end
+    _G.Server.update()
+    _G.Client.update()
 
     dofile("mods/noita-mp/files/scripts/ui.lua")
+
+    local ezguiData = {
+        collection = { "Bloo", "Blaa", "Blee" },
+        button_margin = 5,
+        ip = _G.Server:getAddress(),
+        port = _G.Server:getPort(),
+        startServer = function()
+            _G.Server.start(ezguiData.ip, ezguiData.port)
+        end,
+        -- Methods defined here can be used in @click, arg1 is the data_context itself, arg2 the element that was clicked, arg3 the first custom arg
+        a_method = function(data, element, arg1)
+            print(arg1)
+        end,
+    }
+    render_ezgui(50, 50, "mods/noita-mp/files/data/ezgui/main.xml", ezguiData)
 end
 
 function UpdateLogLevel()

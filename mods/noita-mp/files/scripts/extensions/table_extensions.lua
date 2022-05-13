@@ -87,6 +87,7 @@ function table.insertIfNotExist(tbl, value)
     end
 end
 
+--- DEPRECATED use table.insertAllButNotDuplicates(tbl1, tbl2)
 --- Adds all values of tbl2 into tbl1.
 --- @param tbl1 table
 --- @param tbl2 table
@@ -99,5 +100,22 @@ function table.insertAll(tbl1, tbl2)
     end
     for i, v in ipairs(tbl2) do
         table.insert(tbl1, v)
+    end
+end
+
+--- Adds all values of tbl2 into tbl1, but not duplicates.
+--- @param tbl1 table
+--- @param tbl2 table
+function table.insertAllButNotDuplicates(tbl1, tbl2)
+    if not tbl1 then
+        tbl1 = {}
+    end
+    if not tbl2 then
+        tbl2 = {}
+    end
+    for i, v in ipairs(tbl2) do
+        if not table.contains(tbl1, v) then
+            table.insert(tbl1, v)
+        end
     end
 end

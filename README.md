@@ -33,7 +33,7 @@ Let's see, if I can do so?!
 
 <div align="center">
 
-[![image](https://i.imgur.com/2ZtBztV.gif)](https://i.imgur.com/2ZtBztV.gif)
+[![gif](https://i.imgur.com/2ZtBztV.gif)](https://i.imgur.com/2ZtBztV.gif)
 
 </div>
 
@@ -46,8 +46,6 @@ Installation, configuration and support can be found on the [docs](https://ismoh
 <a href="https://github.com/Ismoh/NoitaMP/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=Ismoh/NoitaMP" />
 </a>
-
-Made with [contrib.rocks](https://contrib.rocks).
 
 ## Credits | Special Thanks
 
@@ -74,6 +72,7 @@ Also special thanks to the ppl, who share their libraries, frameworks and other 
 - [sock.lua](https://github.com/camchenry/sock.lua)
 - [json.lua](https://github.com/rxi/json.lua)
 - [nxml.lua](https://github.com/zatherz/luanxml)
+- [EZGUI.lua](https://github.com/TheHorscht/EZGUI)
 
 I had to build the network library by my own, because Noita provides its own lua51.dll. I had struggle to build it, if you are interested in,
 I've added all the necessary build files inside of .building/dll_building.7z and here you can see the [stackoverflow question](https://stackoverflow.com/questions/70048918/lua-5-1-package-loadlib-and-require-gcc-building-windows-dll) I've created.

@@ -19,25 +19,11 @@ local localOwner = {
     name = tostring(ModSettingGet("noita-mp.username")),
     guid = tostring(ModSettingGet("noita-mp.guid"))
 }
-local localPlayerEntityId = nil
+-- local localPlayerEntityId = nil do not cache, because players entityId will change when respawning
 
 --#endregion
 
 --#region Global private functions
-
---- Assuming this will be called before the other player units will be spawned.
---- @return number localPlayerEntityId
-local function getLocalPlayerEntityId()
-    if not localPlayerEntityId then
-        local playerUnits = EntityGetWithTag("player_unit")
-        if #playerUnits > 2 then
-            error("Unable to detect the local player unit! This is a serious problem, which needs to be fixed!", 2) -- TODO
-        end
-        localPlayerEntityId = playerUnits[1]
-    end
-
-    return localPlayerEntityId
-end
 
 --- Filters a table of entities by component name or filename. This include and exclude map is defined in EntityUtils.include/.exclude.
 --- Credits to @Horscht#6086!
@@ -91,9 +77,9 @@ local function getFilteredEntities(radius, include, exclude)
         local x, y, rot, scaleX, scaleY = EntityGetTransform(playerUnitIds[i])
 
         -- find all entities in a specific radius based on the player units position
-        local entityIds = EntityGetInRadius(x, y, radius)
+        local entityIds = EntityGetInRadius(x, y, radius) or {}
 
-        table.insertAll(entities, entityIds)
+        table.insertAllButNotDuplicates(entities, entityIds)
     end
 
     return filterEntities(entities, include, exclude)
@@ -109,6 +95,33 @@ end
 
 --#region Global public functions
 
+function EntityUtils.getLocalPlayerEntityId()
+    local playerEntityIds = EntityGetWithTag("player_unit")
+    for i = 1, #playerEntityIds do
+        if NetworkVscUtils.hasNetworkLuaComponents(playerEntityIds[i]) then
+            local compOwnerName, compOwnerGuid, compNuid = NetworkVscUtils.getAllVcsValuesByEntityId(playerEntityIds[i])
+            if compOwnerGuid == localOwner.guid then
+                return playerEntityIds[i]
+            end
+        end
+    end
+    logger:warn("Unable to get local player entity id. Returning first entity id(%s), which was found.", playerEntityIds[1])
+    return playerEntityIds[1]
+end
+
+-- --- Assuming this will be called before the other player units will be spawned.
+-- --- @return number localPlayerEntityIds
+-- function EntityUtils.getLocalPlayerEntityIds()
+--     --if not localPlayerEntityId then
+--     local playerEntityIds = EntityGetWithTag("player_unit")
+--     --if #playerEntityIds > 2 then
+--     --        error("Unable to detect the local player unit! This is a serious problem, which needs to be fixed!", 2) -- TODO
+--     --    end
+--     --    localPlayerEntityId = playerUnits[1]
+--     --end
+--     return playerEntityIds --return localPlayerEntityId
+-- end
+
 --- Looks like there were access to despawned entities, which might cause game crashing.
 --- Use this function whenever you work with entity_id/entityId to stop client game crashing.
 --- @param entityId number Id of any entity.
@@ -122,7 +135,7 @@ function EntityUtils.isEntityAlive(entityId)
 end
 
 function EntityUtils.initNetworkVscs()
-    if _G.whoAmI() ~= Server.SERVER then
+    if _G.whoAmI() ~= _G.Server.iAm then
         error("You are not allowed to init network variable storage components, if not server!", 2)
     end
 
@@ -149,13 +162,65 @@ function EntityUtils.initNetworkVscs()
             local veloCompId = EntityGetFirstComponent(entityId, "VelocityComponent")
             local velo_x, velo_y = ComponentGetValue2(veloCompId, "mVelocity")
             local fileName = EntityGetFilename(entityId)
-            _G.Server:sendNewNuid(owner, entityId, nuid, x, y, rotation, { velo_x, velo_y }, fileName)
+            _G.Server.sendNewNuid(owner, entityId, nuid, x, y, rotation, { velo_x, velo_y }, fileName)
         end
     end
 end
 
+--- Spwans an entity and applies the transform and velocity to it. Also adds the network_component.
+---@param owner table { username, guid }
+---@param nuid any
+---@param x any
+---@param y any
+---@param rot any
+---@param velocity table { x, y } - can be nil
+---@param filename any
+---@param localEntityId number this is the initial entity_id created by server OR client. It's owner specific! Every owner has its own entity ids.
+---@return number entityId Returns the entity_id of a already existing entity, found by nuid or the newly created entity.
+function EntityUtils.SpawnEntity(owner, nuid, x, y, rot, velocity, filename, localEntityId)
+    local localGuid = util.getLocalOwner().guid or util.getLocalOwner()[2]
+    local remoteGuid = owner.guid or owner[2]
+
+    if localGuid == remoteGuid then
+        if not EntityUtils.isEntityAlive(localEntityId) then
+            return
+        end
+        -- if the owner sent by network is the local owner, don't spawn an additional entity, but update the nuid
+        NetworkVscUtils.addOrUpdateAllVscs(localEntityId, owner.username, owner.guid, nuid)
+        return
+    end
+
+    -- double check, if there is already an entity with this NUID and return the entity_id
+    if EntityUtils.isEntityAlive(localEntityId) and NetworkVscUtils.hasNetworkLuaComponents(localEntityId) then
+        local ownerNameByVsc, ownerGuidByVsc, nuidByVsc = NetworkVscUtils.getAllVcsValuesByEntityId(localEntityId)
+        if ownerGuidByVsc ~= remoteGuid then
+            logger:error("Trying to spawn entity(%s) locally, but owner does not match: remoteOwner(%s) ~= localOwner(%s). remoteNuid(%s) ~= localNuid(%s)",
+                localEntityId, owner.username, ownerNameByVsc, nuid, nuidByVsc)
+        end
+    end
+
+    local entityId = EntityLoad(filename, x, y)
+    if not EntityUtils.isEntityAlive(entityId) then
+        return
+    end
+
+    NetworkVscUtils.addOrUpdateAllVscs(entityId, owner.username, owner.guid, nuid) --self:AddNetworkComponentToEntity(entity_id, owner, nuid)
+    EntityApplyTransform(entityId, x, y, rot, 1, 1)
+
+    ---@diagnostic disable-next-line: missing-parameter
+    local veloCompId = EntityGetFirstComponent(entityId, "VelocityComponent")
+    if velocity and veloCompId then
+        ---@diagnostic disable-next-line: redundant-parameter
+        ComponentSetValue2(veloCompId, "mVelocity", velocity[1], velocity[2])
+    else
+        logger:warn("Unable to get VelocityComponent.")
+        --EntityAddComponent2(entityId, "VelocityComponent", {})
+    end
+    return entityId
+end
+
 function EntityUtils.despawnClientEntities()
-    if _G.whoAmI() ~= Client.CLIENT then
+    if _G.whoAmI() ~= _G.Client.iAm then
         error("You are not allowed to remove entities, if not client!", 2)
     end
 
@@ -165,12 +230,15 @@ function EntityUtils.despawnClientEntities()
     if #filteredEntities > 0 then
         -- local playerUnitIds = EntityGetWithTag("player_unit")
         -- for i = 1, #playerUnitIds do
-        local playerEntityId = getLocalPlayerEntityId()
+        local playerEntityId = EntityUtils.getLocalPlayerEntityId()
         local playerEntities = {}
         table.insertIfNotExist(playerEntities, playerEntityId)
-        table.insertIfNotExist(playerEntities, EntityUtils.getPlayerInventoryEntityId(playerEntityId, "inventory_quick"))
-        table.insertIfNotExist(playerEntities, EntityUtils.getPlayerInventoryEntityId(playerEntityId, "inventory_full"))
-        table.insertAll(playerEntities, EntityGetAllChildren(playerEntityId) or {})
+        table.insertIfNotExist(playerEntities, EntityUtils.get_player_inventory_contents("inventory_quick")) -- wands and items
+        table.insertIfNotExist(playerEntities, EntityUtils.get_player_inventory_contents("inventory_full")) -- spells
+        --for i = 1, #playerEntityIds do
+
+        table.insertAllButNotDuplicates(playerEntities, EntityGetAllChildren(playerEntityId) or {})
+        --end
 
         table.removeByTable(filteredEntities, playerEntities)
         --end
@@ -184,19 +252,38 @@ function EntityUtils.despawnClientEntities()
     end
 end
 
---- Special thanks to @Coxas/Thighs:
---- @param playerUnitEntityId number Player units entity id. (local or remote)
---- @param inventoryType string inventoryType can be either "inventory_quick" or "inventory_full".
---- @return number|nil inventoryEntityId
-function EntityUtils.getPlayerInventoryEntityId(playerUnitEntityId, inventoryType)
-    local playerChildrenEntityIds = EntityGetAllChildren(playerUnitEntityId) or {}
-    for i = 1, #playerChildrenEntityIds do
-        local childEntityId = playerChildrenEntityIds[i]
-        if EntityGetName(childEntityId) == inventoryType then
-            return childEntityId -- inventoryEntityId
+-- --- Special thanks to @Coxas/Thighs:
+-- --- @param playerUnitEntityId number Player units entity id. (local or remote)
+-- --- @param inventoryType string inventoryType can be either "inventory_quick" or "inventory_full".
+-- --- @return number|nil inventoryEntityId
+-- function EntityUtils.getPlayerInventoryEntityId(playerUnitEntityId, inventoryType)
+--     local playerChildrenEntityIds = EntityGetAllChildren(playerUnitEntityId) or {}
+--     for i = 1, #playerChildrenEntityIds do
+--         local childEntityId = playerChildrenEntityIds[i]
+--         if EntityGetName(childEntityId) == inventoryType then
+--             return childEntityId -- inventoryEntityId
+--         end
+--     end
+--     return nil
+-- end
+
+--- Special thanks to @Horscht:
+---@param inventory_type any
+---@return table
+function EntityUtils.get_player_inventory_contents(inventory_type)
+    local player = EntityUtils.getLocalPlayerEntityId() --EntityGetWithTag("player_unit")[1]
+    local out = {}
+    if player then
+        for i, child in ipairs(EntityGetAllChildren(player) or {}) do
+            if EntityGetName(child) == inventory_type then
+                for i, item_entity in ipairs(EntityGetAllChildren(child) or {}) do
+                    table.insert(out, item_entity)
+                end
+                break
+            end
         end
     end
-    return nil
+    return out
 end
 
 function EntityUtils.modifyPhysicsEntities()

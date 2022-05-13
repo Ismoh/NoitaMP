@@ -309,8 +309,8 @@ function NetworkVscUtils.addOrUpdateAllVscs(entityId, ownerName, ownerGuid, nuid
       return
    end
 
-   if _G.whoAmI() == Server.SERVER and isEmpty(nuid) then
-      error("You are not allowed to add a nuid, when beeing server!", 2)
+   if _G.whoAmI() == _G.Server.iAm and isEmpty(nuid) then
+      error("You are not allowed to add a empty or nil nuid, when beeing server!", 2)
    end
 
    local componentIdForOwnerName = addOrUpdateVscForOwnerName(entityId, ownerName)
@@ -328,10 +328,10 @@ function NetworkVscUtils.addOrUpdateAllVscs(entityId, ownerName, ownerGuid, nuid
 end
 
 --- Returns all Network Vsc values by its entity id.
----@param entityId number Entity Id provided by Noita
----@return string ownerName
----@return string ownerGuid
----@return number nuid
+--- @param entityId number Entity Id provided by Noita
+--- @return string ownerName
+--- @return string ownerGuid
+--- @return number nuid
 function NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
    if not EntityUtils.isEntityAlive(entityId) then
       return

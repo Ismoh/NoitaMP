@@ -136,7 +136,7 @@ local function newLogger(source)
         -- Makes print info more concise, but should still log the full line
         shortenLines   = true,
         -- Print all incoming event data
-        printEventData = false,
+        printEventData = true,
         printErrors    = true,
         printWarnings  = true,
     }, Logger_mt)
@@ -1378,7 +1378,7 @@ sock.newServer = function(address, port, maxPeers, maxChannels, inBandwidth, out
         -- NoitaMP additions
         username = "",
         guid     = nil,
-        whoAmI   = "SERVER",
+        iAm      = "SERVER",
     }, Server_mt)
 
     -- ip, max peers, max channels, in bandwidth, out bandwidth
@@ -1452,7 +1452,7 @@ sock.newClient = function(serverOrAddress, port, maxChannels)
         guid          = nil,
         isAllowed     = false,
         isMapReceived = false,
-        whoAmI        = "CLIENT",
+        iAm           = "CLIENT",
     }, Client_mt)
 
     -- Two different forms for client creation:

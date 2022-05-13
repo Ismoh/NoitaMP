@@ -23,8 +23,7 @@ local xmlParsed = false
 --#region Global private functions
 
 local function getNextNuid()
-    local whoAmI = _G.whoAmI()
-    if whoAmI == "CLIENT" or util.IsEmpty(whoAmI) then
+    if _G.whoAmI() ~= _G.Server.iAm then
         error(("Unable to get next nuid, because looks like you aren't a server?! - whoAmI = %s"):format(whoAmI), 2)
     end
 

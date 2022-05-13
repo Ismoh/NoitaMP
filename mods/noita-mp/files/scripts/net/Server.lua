@@ -19,7 +19,7 @@ Server = {}
 -- Global public variables:
 
 -- Constructor
-function Server.new(sockServer)
+function Server.new(sockServer, stopImmediately)
     local self = sockServer -- {}
 
     self.username = tostring(ModSettingGet("noita-mp.username"))
@@ -44,14 +44,14 @@ function Server.new(sockServer)
 
     local function setGuid()
         local guid = tostring(ModSettingGetNextValue("noita-mp.guid"))
-        if guid == "" or Guid.isPatternValid(guid) == false then
-            guid = Guid:getGuid()
+        if guid == "" or _G.Guid.isPatternValid(guid) == false then
+            guid = _G.Guid:getGuid()
             ModSettingSetNextValue("noita-mp.guid", guid, false)
             self.guid = guid
-            util.pprint("client_class.lua | guid set to " .. guid)
+            util.pprint("Server guid set to " .. guid)
         else
             self.guid = guid
-            util.pprint("client_class.lua | guid was already set to " .. self.guid)
+            util.pprint("Server guid was already set to " .. self.guid)
         end
     end
 
@@ -63,28 +63,15 @@ function Server.new(sockServer)
         util.pprint("server_class.lua | Creating servers callback functions.")
 
         -- Called when someone connects to the server
-        self:on(
-            "connect",
-            function(data, peer)
-            local local_player_id = em:getLocalPlayerId()
+        self:on("connect", function(data, peer)
+            logger:debug("Someone connected to the server:")
+            util.pprint(data)
+
+            local local_player_id = EntityUtils.getLocalPlayerEntityId()
             local x, y, rot, scale_x, scale_y = EntityGetTransform(local_player_id)
 
-            util.pprint("server_class.lua | on_connect: ")
-            util.pprint("server_class.lua | on_connect: data = " .. tostring(data))
-            util.pprint("server_class.lua | on_connect: client = " .. tostring(peer))
-            em:SpawnEntity(
-                {
-                    peer.username,
-                    peer.guid
-                },
-                NuidUtils.getNextNuid(),
-                x,
-                y,
-                rot,
-                nil,
-                "mods/noita-mp/data/enemies_gfx/client_player_base.xml",
-                nil
-            )
+            EntityUtils.SpawnEntity({ peer.username, peer.guid }, NuidUtils.getNextNuid(), x, y, rot,
+                nil, "mods/noita-mp/data/enemies_gfx/client_player_base.xml", nil)
         end
         )
 
@@ -245,9 +232,12 @@ function Server.new(sockServer)
             port = tonumber(ModSettingGet("noita-mp.server_port"))
         end
 
-        logger:info("Starting server on %s:%s ..", ip, port)
+        self.stop()
+        _G.Server.stop() -- stop if any server is already running
 
-        self = sock.newServer(ip, port)
+        logger:info("Starting server on %s:%s ..", ip, port)
+        self = _G.ServerInit.new(sock.newServer(ip, port), false)
+        _G.Server = self
         logger:info("Server started on %s:%s", self:getAddress(), self:getPort())
 
         setGuid()
@@ -261,24 +251,36 @@ function Server.new(sockServer)
 
     --- Stops the server.
     function self.stop()
-        self:destroy()
+        if self.isRunning() then
+            self:destroy()
+        else
+            logger:info("Server isn't running, there cannot be stopped.")
+        end
     end
 
     --#endregion
 
     --#region Additional methods
 
+    function self.isRunning()
+        local status, result = pcall(self.getSocketAddress, self)
+        if not status then
+            return false
+        end
+        return true
+    end
+
     --- Some inheritance: Save parent function (not polluting global 'self' space)
-    local sockServerUpdate = self.update -- sockServer.update
+    local sockServerUpdate = sockServer.update
     --- Updates the server by checking for network events and handling them.
     function self.update()
-        if not self.host then
+        if not self.isRunning() then --if not self.host then
             return -- server not established
         end
 
         EntityUtils.initNetworkVscs()
 
-        sockServerUpdate()
+        sockServerUpdate(self)
     end
 
     function self.sendNewNuid(owner, localEntityId, newNuid, x, y, rot, velocity, filename)
@@ -303,7 +305,7 @@ function Server.new(sockServer)
         --     error("Something really strange is going on. You are server and client at the same time?", 2)
         -- end
 
-        if _G.Server.host and _G.Server.guid == self.guid then
+        if _G.Server.isRunning() then --if _G.Server.host and _G.Server.guid == self.guid then
             return true
         end
 
@@ -312,6 +314,12 @@ function Server.new(sockServer)
 
     --#endregion
 
+    if stopImmediately then
+        -- sock.lua starts by default a server on default ip and port.
+        -- I dont want to start it immediatly.
+        self.stop()
+    end
+
     -- Apply some private methods
 
     return self
@@ -319,11 +327,15 @@ end
 
 -- Init this object:
 
-local startOnLoad = ModSettingGet("noita-mp.server_start_when_world_loaded")
+-- Because of stack overflow errors when loading lua files,
+-- I decided to put Utils 'classes' into globals
+_G.ServerInit = Server
+_G.Server = Server.new(sock.newServer(), true)
 
+
+local startOnLoad = ModSettingGet("noita-mp.server_start_when_world_loaded")
 if startOnLoad then
     -- Polymorphism sample
-    _G.Server = Server.new(sock.newServer())
     _G.Server.start(nil, nil)
 else
     GamePrintImportant("Server not started",
@@ -331,3 +343,9 @@ else
         nil
     )
 end
+
+
+-- But still return for Noita Components,
+-- which does not have access to _G,
+-- because of own context/vm
+return Server

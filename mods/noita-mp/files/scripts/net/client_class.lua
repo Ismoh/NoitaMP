@@ -315,4 +315,4 @@ Client = {
 -- end
 
 -- Create a new global object of the server
-_G.Client = Client:new()
+--_G.Client = Client:new()

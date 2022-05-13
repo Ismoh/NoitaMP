@@ -41,7 +41,7 @@ if not Initialized then
             ------------ ------------ Start server ui
             local width, height = GuiGetScreenDimensions(gui) -- width = 640, height = 360
             local bg_width, bg_height =
-                GuiGetImageDimensions(gui, "mods/noita-mp/files/data/ui_gfx/in_game/mp_menu_200x150.png", 1)
+            GuiGetImageDimensions(gui, "mods/noita-mp/files/data/ui_gfx/in_game/mp_menu_200x150.png", 1)
 
             local x = width / 2 - bg_width / 2
             local y = height - bg_height
@@ -50,10 +50,10 @@ if not Initialized then
 
             GuiLayoutBeginHorizontal(gui, x, y, true, 0, 0)
             ------------ Start server
-            if _G.Server == nil or next(_G.Server) == nil or _G.Server.super == nil or next(_G.Server.super) == nil then
+            if not _G.Server.isRunning() then --if _G.Server == nil or next(_G.Server) == nil or _G.Server == nil or next(_G.Server) == nil then
                 GuiColorSetForNextWidget(gui, 0, 1, 0, 1)
                 if GuiButton(gui, next_id(), 0, 0, "Start server on " .. server_ip .. ":" .. server_port) then
-                    _G.Server:start()
+                    _G.Server.start(server_ip, server_port)
                 end
             else
                 ------------ Stop server
@@ -69,7 +69,7 @@ if not Initialized then
             y = y + 3
             GuiLayoutBeginHorizontal(gui, x, y, true, 5, 5)
             ------------ Not allowed to connect to a server while your own server is running
-            if _G.Server ~= nil and next(_G.Server) ~= nil and _G.Server.super ~= nil and next(_G.Server.super) ~= nil then
+            if _G.Server.isRunning() then --if _G.Server ~= nil and next(_G.Server) ~= nil and _G.Server ~= nil and next(_G.Server) ~= nil then
                 GuiText(gui, 0, 0, "Not allowed to connect..")
                 GuiTooltip(
                     gui,
@@ -79,27 +79,26 @@ if not Initialized then
             else
                 ------------ Connect
                 --if _G.Client == nil or next(_G.Client) == nil then
-                    if _G.Client == nil or next(_G.Client) == nil or _G.Client.super:isDisconnected() then
-                        GuiColorSetForNextWidget(gui, 0, 1, 0, 1)
-                        if GuiButton(gui, next_id(), 0, 0, "Connect to " .. connect_to_ip .. ":" .. connect_to_port) then
-                            _G.Client:connect()
-                        end
+                if not _G.Client.isConnected() then --if _G.Client == nil or next(_G.Client) == nil or _G.Client:isDisconnected() then
+                    GuiColorSetForNextWidget(gui, 0, 1, 0, 1)
+                    if GuiButton(gui, next_id(), 0, 0, "Connect to " .. connect_to_ip .. ":" .. connect_to_port) then
+                        _G.Client.connect(connect_to_ip, connect_to_port)
                     end
-                    if _G.Client ~= nil and _G.Client.super ~= nil and (_G.Client.super:isConnected() or _G.Client.super:isConnecting()) then
-                        ------------- Disconnect
-                        GuiColorSetForNextWidget(gui, 1, 0, 0, 1)
-                        if
-                            GuiButton(
-                                gui,
-                                next_id(),
-                                0,
-                                0,
-                                "Disconnect from " .. connect_to_ip .. ":" .. connect_to_port
-                            )
-                         then
-                            _G.Client:disconnect()
-                        end
+                end
+                if _G.Client ~= nil and _G.Client ~= nil and (_G.Client:isConnected() or _G.Client:isConnecting()) then
+                    ------------- Disconnect
+                    GuiColorSetForNextWidget(gui, 1, 0, 0, 1)
+                    if GuiButton(
+                        gui,
+                        next_id(),
+                        0,
+                        0,
+                        "Disconnect from " .. connect_to_ip .. ":" .. connect_to_port
+                    )
+                    then
+                        _G.Client:disconnect()
                     end
+                end
                 --end
             end
             GuiLayoutEnd(gui)
@@ -121,8 +120,8 @@ if not Initialized then
             y = y + 3
             GuiLayoutBeginHorizontal(gui, x, y, true, 5, 5)
             ------------- Player list when server
-            if _G.Server ~= nil and next(_G.Server) ~= nil and _G.Server.super ~= nil and next(_G.Server.super) ~= nil then
-                for i, client in pairs(_G.Server.super:getClients()) do
+            if _G.Server ~= nil and next(_G.Server) ~= nil and _G.Server ~= nil and next(_G.Server) ~= nil then
+                for i, client in pairs(_G.Server:getClients()) do
                     i = (i - 1) * 3 -- 1-1*5=0 | 2-1*5=5 | 3-1*5=10
                     GuiText(gui, 0, i, util.ExtendAndCutStringToLength(client.username, string_length, " "))
                     GuiText(
@@ -157,16 +156,15 @@ if not Initialized then
                     end
 
                     -- Allow Button
-                    if
-                        GuiImageButton(
-                            gui,
-                            next_id(),
-                            15,
-                            i,
-                            "",
-                            "mods/noita-mp/files/data/ui_gfx/in_game/green_tik_8x8.png"
-                        )
-                     then
+                    if GuiImageButton(
+                        gui,
+                        next_id(),
+                        15,
+                        i,
+                        "",
+                        "mods/noita-mp/files/data/ui_gfx/in_game/green_tik_8x8.png"
+                    )
+                    then
                         if _G.Server:checkIsAllowed(client) then
                             -- Send map, if already allowed to join
                             _G.Server:sendMap(client)
@@ -193,16 +191,15 @@ if not Initialized then
                         "Unfortunatelly this is due to no/less access to Noita save functions."
                     )
                     -- Kick Button
-                    if
-                        GuiImageButton(
-                            gui,
-                            next_id(),
-                            15,
-                            i,
-                            "",
-                            "mods/noita-mp/files/data/ui_gfx/in_game/red_tik_8x8.png"
-                        )
-                     then
+                    if GuiImageButton(
+                        gui,
+                        next_id(),
+                        15,
+                        i,
+                        "",
+                        "mods/noita-mp/files/data/ui_gfx/in_game/red_tik_8x8.png"
+                    )
+                    then
                         client:disconnect()
                     end
                 end
@@ -212,7 +209,7 @@ if not Initialized then
             -- GuiTooltip(gui, "", "")
 
             -- if _G.Client ~= nil and next(_G.Client) ~= nil then
-            --     local rtt = tonumber(_G.Client.super:getRoundTripTime())
+            --     local rtt = tonumber(_G.Client:getRoundTripTime())
             --     --GuiColorSetForNextWidget(gui, 1, 0, 0, 1) TODO rtt / ? = red
             --     GuiText(gui, 0, 0,  rtt .. "ms")
             -- end

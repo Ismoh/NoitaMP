@@ -19,7 +19,7 @@ Client = {}
 -- Global public variables:
 
 -- Constructor
-function Client.new(sockClient)
+function Client.new(sockClient, disconnectImmediately)
     local self = sockClient -- {}
 
     self.username = tostring(ModSettingGet("noita-mp.username"))
@@ -64,19 +64,26 @@ function Client.new(sockClient)
     --#region Callbacks
 
     local function createCallbacks()
-        logger:debug("client_class.lua | Creating clients callback functions.")
+        logger:debug("Client creating clients callback functions.")
 
         self:on(
             "connect",
             function(data)
-            logger:debug("client_class.lua | Client connected to the server. Sending client info to server..")
+            logger:debug("Client connected to the server. Sending client info to server..")
             util.pprint(data)
 
-            local connection_id = tostring(self:getConnectId())
-            local ip = tostring(self:getAddress())
             local username = tostring(ModSettingGet("noita-mp.username"))
             self.username = username
             self:send("clientInfo", { username, self.guid })
+
+            local playerEntityId = EntityUtils.getLocalPlayerEntityId()
+            --for i = 1, #playerEntityIds do
+                if not NetworkVscUtils.hasNetworkLuaComponents(playerEntityId) then
+                    local localOwner = util.getLocalOwner()
+                    self.sendNeedNuid(localOwner, playerEntityId)
+                    NetworkVscUtils.addOrUpdateAllVscs(playerEntityId, localOwner.username, localOwner.guid, nil)
+                end
+            --end
         end
         )
 
@@ -85,7 +92,7 @@ function Client.new(sockClient)
             function(data)
             if not data or next(data) == nil then
                 GamePrint(
-                    "client_class.lua | Receiving world files from server, but data is nil or empty. " .. tostring(data)
+                    "Client receiving world files from server, but data is nil or empty. " .. tostring(data)
                 )
                 return
             end
@@ -97,7 +104,7 @@ function Client.new(sockClient)
             local amount_of_files = data.amountOfFiles
 
             local msg =
-            ("client_class.lua | Receiving world file: dir:%s, file:%s, content:%s, index:%s, amount:%s"):format(
+            ("Client receiving world file: dir:%s, file:%s, content:%s, index:%s, amount:%s"):format(
                 rel_dir_path,
                 file_name,
                 file_content,
@@ -119,7 +126,7 @@ function Client.new(sockClient)
             -- then -- directory name was sent
             --     MkDir(save06_dir .. _G.path_separator .. rel_dir_path)
             -- else
-            --     GamePrint("client_class.lua | Unable to write file, because path and content aren't set.")
+            --     GamePrint("Unable to write file, because path and content aren't set.")
             -- end
             local archive_directory = fu.GetAbsoluteDirectoryPathOfMods() .. _G.path_separator .. rel_dir_path
             fu.WriteBinaryFile(archive_directory .. _G.path_separator .. file_name, file_content)
@@ -140,12 +147,12 @@ function Client.new(sockClient)
             "seed",
             function(data)
             local server_seed = tonumber(data.seed)
-            logger:debug("client_class.lua | Client got seed from the server. Seed = " .. server_seed)
+            logger:debug("Client got seed from the server. Seed = " .. server_seed)
             util.pprint(data)
             --ModSettingSet("noita-mp.connect_server_seed", server_seed)
 
             logger:debug(
-            "client_class.lua | Creating magic numbers file to set clients world seed and restart the game."
+            "Client creating magic numbers file to set clients world seed and restart the game."
             )
             fu.WriteFile(
                 fu.GetAbsoluteDirectoryPathOfMods() .. "/files/tmp/magic_numbers/world_seed.xml",
@@ -170,7 +177,7 @@ function Client.new(sockClient)
         self:on(
             "disconnect",
             function(data)
-            logger:debug("client_class.lua | Client disconnected from the server.")
+            logger:debug("Client disconnected from the server.")
             util.pprint(data)
         end
         )
@@ -202,16 +209,7 @@ function Client.new(sockClient)
                 data.localEntityId
             )
             util.pprint(data)
-            em:SpawnEntity(
-                data.owner,
-                data.nuid,
-                data.x,
-                data.y,
-                data.rot,
-                data.velocity,
-                data.filename,
-                data.localEntityId
-            )
+            EntityUtils.SpawnEntity(data.owner, data.nuid, data.x, data.y, data.rot, data.velocity, data.filename, data.localEntityId)
         end
         )
 
@@ -277,8 +275,14 @@ function Client.new(sockClient)
             port = tonumber(ModSettingGet("noita-mp.connect_server_port"))
         end
 
+        port = tonumber(port)
+
+        self.disconnect()
+        _G.Client.disconnect() -- stop if any server is already running
+
         logger:info("Connecting to server on %s:%s", ip, port)
-        self = sock.newClient(ip, port)
+        self = _G.ClientInit.new(sock.newClient(ip, port))
+        _G.Client = self
 
         setGuid()
         setConfigSettings()
@@ -290,33 +294,41 @@ function Client.new(sockClient)
             nil
         )
 
-        sockClientConnect(ip, port)
+        sockClientConnect(self)
 
-        --  You can send different types of data
-        self:send("clientInfo", { self.username, self.guid })
+        -- FYI: If you want to send data after connected, do it in the "connect" callback function
     end
 
     --- Some inheritance: Save parent function (not polluting global 'self' space)
     local sockClientDisconnect = sockClient.disconnect
     function self.disconnect()
-        sockClientDisconnect()
+        if self.isConnected() then
+            sockClientDisconnect()
+        else
+            logger:info("Client isn't connected, no need to disconnenct!")
+        end
     end
 
     --#endregion
 
     --#region Additional methods
 
+    local sockClientIsConnected = sockClient.isConnected
+    function self.isConnected()
+        return sockClientIsConnected(self)
+    end
+
     --- Some inheritance: Save parent function (not polluting global 'self' space)
     local sockClientUpdate = sockClient.update
     --- Updates the Client by checking for network events and handling them.
     function self.update()
-        if not self.host then
-            return -- Client not established
+        if not self.isConnected() and not self:isConnecting() or self:isDisconnected() then
+            return
         end
 
         EntityUtils.despawnClientEntities()
 
-        sockClientUpdate()
+        sockClientUpdate(self)
     end
 
     function self.sendNeedNuid(owner, entityId)
@@ -335,8 +347,8 @@ function Client.new(sockClient)
     --- Checks if the current local user is a client
     --- @return boolean iAm true if client
     function self.amIClient()
-        if self ~= nil then
-            return self.whoAmI == "CLIENT"
+        if not _G.Server.amIServer() then
+            return true
         end
         return false
     end
@@ -345,9 +357,23 @@ function Client.new(sockClient)
 
     -- Apply some private methods
 
+    if disconnectImmediately then
+        -- sock.lua starts by default a server on default ip and port.
+        -- I dont want to start it immediatly.
+        self.disconnect()
+    end
+
     return self
 end
 
 -- Init this object:
 
-_G.Client = Client.new(sock.newClient())
+-- Because of stack overflow errors when loading lua files,
+-- I decided to put Utils 'classes' into globals
+_G.ClientInit = Client
+_G.Client = Client.new(sock.newClient(), true)
+
+-- But still return for Noita Components,
+-- which does not have access to _G,
+-- because of own context/vm
+return Client

@@ -37,6 +37,9 @@ if ModSettingGet then
     require("GlobalsUtils")
     require("NetworkVscUtils")
     require("NuidUtils")
+    require("guid")
+    require("Server")
+    require("Client")
 else
     logger:warn("Utils didnt load in init_.lua, because it looks like the mod wasn't run in game, but maybe on Github.")
 end
