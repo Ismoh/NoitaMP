@@ -1,5 +1,7 @@
-local util = require("util")
+local util = dofile_once("mods/noita-mp/files/scripts/util/util.lua")--require("util")
 local NetworkComponent = require("network_component_class")
+local json = require("json")
+--EntityUtils = dofile_once("mods/noita-mp/files/scripts/util/EntityUtils.lua")
 
 local em = {
     nuid_counter = 0,
@@ -13,8 +15,9 @@ local em = {
     ---@param component_id number Noitas component_id for this network component
     ---@param nc table NetworkComponent
     setComponentValue = function(component_id, nc)
-        local nc_serialisable = NetworkComponent.toSerialisableTable(nc)
-        ComponentSetValue2(component_id, NetworkComponent.field_name, util.serialise(nc_serialisable))
+        -- local nc_serialisable = NetworkComponent.toSerialisableTable(nc)
+        local nc_as_json = tostring(json.encode(NetworkComponent.toSerialisableTable(nc)))
+        ComponentSetValue2(component_id, NetworkComponent.field_name, nc_as_json)
     end
 }
 
@@ -25,49 +28,49 @@ function em:GetNextNuid()
     return self.nuid_counter
 end
 
-function em:AddNetworkComponentsResumeCoroutine()
-    -- if not self.co_add_network_components then
-    --     self.co_add_network_components = coroutine.create(self.AddNetworkComponentsCoroutine)
-    -- end
+--- Despawns all entities of the clients.
+---@param clientOrServer table
+function em:DespawnClientEntities(clientOrServer)
+    if clientOrServer.whoAmI == "SERVER" then
+        return
+    end
 
-    -- local status, result = coroutine.status(self.co_add_network_components)
-
-    -- if status == "dead" then
-    --     -- re-set the coroutine if status is dead otherwise new spawned entities won't be handled
-    --     self.co_add_network_components = coroutine.create(self.AddNetworkComponentsCoroutine)
-    --     -- refresh status
-    --     status, result = coroutine.status(self.co_add_network_components)
-    -- end
-
-    -- if status ~= "dead" and status == "suspended" then
-    --     local success, resume_result, third = coroutine.resume(self.co_add_network_components)
-    --     if not success then
-    --         error(("Coroutine failed: %s. %s").format(resume_result, third), 2)
-    --     end
-    -- end
-
-    -- status, result = coroutine.status(self.co_add_network_components)
-    em.AddNetworkComponentsCoroutine()
-end
-
---- Checks for entities (only for his own - locally) in a specific range/radius to the player_units.
---- If there are entities in this radius, a NetworkComponent will be added as a VariableStorageComponent.
---- If entities does not have VelocityComponents, those will be ignored.
---- Every checked entity will be put into a cache list, to stop iterating over the same entities again and again.
-function em.AddNetworkComponentsCoroutine()
     local player_unit_ids = EntityGetWithTag("player_unit")
     for i_p = 1, #player_unit_ids do
         -- get all player units
         local x, y, rot, scale_x, scale_y = EntityGetTransform(player_unit_ids[i_p])
 
         -- find all entities in a specific radius based on the player units position
-        local entity_ids = EntityGetInRadius(x, y, 100)
+        local entity_ids = EntityGetInRadiusWithTag(x, y, 150, "enemy")
+
+        for i_e = 1, #entity_ids do
+            local entity_id = entity_ids[i_e]
+            if EntityUtils.isEntityAlive(entity_id) then
+                util.debug_entity(entity_id)
+                EntityKill(entity_id)
+            end
+        end
+    end
+end
+
+--- Checks for entities (only for his own - locally) in a specific range/radius to the player_units.
+--- If there are entities in this radius, a NetworkComponent will be added as a VariableStorageComponent.
+--- If entities does not have VelocityComponents, those will be ignored.
+--- Every checked entity will be put into a cache list, to stop iterating over the same entities again and again.
+function em.AddNetworkComponents()
+    local player_unit_ids = EntityGetWithTag("player_unit")
+    for i_p = 1, #player_unit_ids do
+        -- get all player units
+        local x, y, rot, scale_x, scale_y = EntityGetTransform(player_unit_ids[i_p])
+
+        -- find all entities in a specific radius based on the player units position
+        local entity_ids = EntityGetInRadius(x, y, 150)
 
         for i_e = 1, #entity_ids do
             local entity_id = entity_ids[i_e]
             local filename = EntityGetFilename(entity_id)
 
-            if not em.cache.all_entity_ids[entity_id] then -- if entity was already checked, skip it
+            --[[ if not em.cache.all_entity_ids[entity_id] then -- if entity was already checked, skip it
                 -- loop all components of the entity
                 local component_ids = EntityGetAllComponents(entity_id)
 
@@ -92,7 +95,7 @@ function em.AddNetworkComponentsCoroutine()
                                 -- check if the entity already has a VariableStorageComponent
                                 local variable_storage_component_name =
                                     ComponentGetValue2(variable_storage_component_id, "name") or nil
-                                if variable_storage_component_name == "network_component_class" then
+                                if variable_storage_component_name == NetworkComponent.name then
                                     -- if entity already has a VariableStorageComponent with the name of 'network_component_class', skip it
                                     has_network_component = true
                                 end
@@ -108,12 +111,12 @@ function em.AddNetworkComponentsCoroutine()
 
                                     _G.Server:sendNewNuid(owner, entity_id, nuid, x_e, y_e, rot_e, velocity, filename)
                                 else
-                                    _G.Client:sendNeedNuid(owner, entity_id, velocity)
+                                    -- _G.Client:sendNeedNuid(owner, entity_id, velocity)
                                 end
                                 -- if the VariableStorageComponent is not a 'network_component_class', then add one
                                 em:AddNetworkComponentToEntity(entity_id, util.getLocalOwner(), nuid)
                                 logger:debug(
-                                    "AddNetworkComponent: owner=%s(%s), nuid=%s, local_entity_id=%s, component_id=%s",
+                                    "AddNetworkComponent owner = %s(%s), nuid=%s, local_entity_id = %s, component_id = %s",
                                     owner.username,
                                     owner.guid,
                                     nuid,
@@ -130,7 +133,7 @@ function em.AddNetworkComponentsCoroutine()
                     -- logger:debug("Entity %s does not have a VelocityComponent. Ignore it.", entity_id)
                     em.cache.all_entity_ids[entity_id] = true
                 end
-            end
+            end ]]
             --coroutine.yield(entity_id)
         end
     end
@@ -142,100 +145,96 @@ end
 --- @param nuid number nuid to know the entity wiht network component
 --- @return number component_id Returns the component_id. The already existed one or the newly created id.
 function em:AddNetworkComponentToEntity(entity_id, owner, nuid)
+    if not EntityUtils.isEntityAlive(entity_id) then
+        return
+    end
     local variable_storage_component_ids =
-        EntityGetComponentIncludingDisabled(entity_id, "VariableStorageComponent") or {}
+    EntityGetComponentIncludingDisabled(entity_id, "VariableStorageComponent") or {}
 
     -- check if the entity already has a NetworkComponent. If so skip this function by returning the component_id
-    for i_v = 1, #variable_storage_component_ids do
-        local variable_storage_component_id = variable_storage_component_ids[i_v]
-        local variable_storage_component_name = ComponentGetValue2(variable_storage_component_id, "name") or nil
-        local nc_serialised = ComponentGetValue2(variable_storage_component_id, "value_string") or nil
-        local nc = nil
+    -- for i_v = 1, #variable_storage_component_ids do
+    --     local variable_storage_component_id = variable_storage_component_ids[i_v]
+    --     local variable_storage_component_name = ComponentGetValue2(variable_storage_component_id, "name") or nil
+    --     --local nc_serialised = ComponentGetValue2(variable_storage_component_id, NetworkComponent.field_name) or nil
+    --     local nc_as_json = ComponentGetValue2(variable_storage_component_id, NetworkComponent.field_name) or nil
+    --     local nc = nil
 
-        if not util.IsEmpty(nc_serialised) then
-            nc = util.deserialise(nc_serialised)
-        end
+    --     if variable_storage_component_name == NetworkComponent.name then
+    --         if not util.IsEmpty(nc_as_json) then
+    --             nc = json.decode(nc_as_json)
 
-        if variable_storage_component_name == "network_component_class" and nc.nuid == nuid then
-            -- if entity already has a VariableStorageComponent with the name of 'network_component_class', skip it
-            self.cache.nc_entity_ids[entity_id] = {
-                component_id = variable_storage_component_id,
-                nuid = nuid
-            }
-            self.cache.all_entity_ids[entity_id] = true
-            return variable_storage_component_id
-        end
-    end
+    --             if nc.nuid == nuid then
+    --                 -- if entity already has a VariableStorageComponent with the name of 'network_component_class', skip it
+    --                 self.cache.nc_entity_ids[entity_id] = {
+    --                     component_id = variable_storage_component_id,
+    --                     nuid = nuid
+    --                 }
+    --                 self.cache.all_entity_ids[entity_id] = true
+    --                 return variable_storage_component_id
+    --             end
+    --         end
+    --     end
+    -- end
 
-    local component_id =
-        EntityAddComponent2(
-        entity_id,
-        "VariableStorageComponent",
-        {
-            name = "network_component_class",
-            value_string = nil -- will be set after creation, because NetworkComponent has to be serialised
-        }
-    )
-    logger:debug(
-        "VariableStorageComponent (nuid=%s) added with noita component_id = %s to entity_id = %s!",
-        nuid,
-        component_id,
-        entity_id
-    )
-
-    local nc = NetworkComponent:new(owner, nuid, entity_id, component_id)
-    em.setComponentValue(component_id, nc)
-
-    logger:debug(
-        "Added network component (nuid=%s) to the VariableStorageComponent as a serialised string: component_id=%s to entity_id=%s!",
-        nuid,
-        component_id,
-        entity_id
-    )
+    local component_id_nuid = NetworkComponent.addNetworkComponentValues(entity_id, owner, nuid)
 
     self.cache.nc_entity_ids[entity_id] = {
-        component_id = component_id,
+        component_id = component_id_nuid,
         nuid = nuid
     }
     self.cache.all_entity_ids[entity_id] = true
 
     util.debug_entity(entity_id)
 
-    return component_id
+    --return component_id
 end
 
 function em:setNuid(owner, local_entity_id, nuid)
-    local nc = self:GetNetworkComponent(owner, local_entity_id, nuid)
-    if nc.nuid ~= nil and nc.nuid ~= "nil" then
-        logger:warning(
-            "Nuid %s of entity %s was already set, although it's a local new one? It will be skipped!",
-            nuid,
-            local_entity_id
-        )
-        return
-    end
+    NetworkComponent.updateNuid(local_entity_id, nuid)
+    -- local nc = self:GetNetworkComponent(owner, local_entity_id, nuid)
 
-    local owner_guid = owner.guid
-    local nc_guid = nc.owner.guid
+    -- if nc == util.IsEmpty(nc) then
+    --     logger:error(
+    --         ("Unable to set NUID, because unable to find Network Component. owner = %s(%s), local_entity_id = %s, nuid = %s"):format(
+    --             owner.username,
+    --             owner.guid,
+    --             local_entity_id,
+    --             nuid
+    --         )
+    --     )
+    --     return
+    -- end
 
-    if nc_guid ~= owner_guid then
-        error(
-            ("%s (%s) tries to set nuid %s of different nc.owners %s (%s) entity %s."):format(
-                owner.username,
-                owner.guid,
-                nuid,
-                nc.owner.username,
-                nc.owner.guid,
-                local_entity_id
-            ),
-            2
-        )
-    end
+    -- if nc.nuid ~= nil and nc.nuid ~= "nil" then
+    --     logger:warning(
+    --         "Nuid %s of entity %s was already set, although it's a local new one? It will be skipped!",
+    --         nuid,
+    --         local_entity_id
+    --     )
+    --     return
+    -- end
 
-    nc.nuid = nuid
-    em.setComponentValue(nc.component_id, nc)
+    -- local owner_guid = owner.guid
+    -- local nc_guid = nc.owner.guid
 
-    logger:debug("Set new nuid (%s) from %s (%s) to entity %s", nuid, owner.username, owner_guid, local_entity_id)
+    -- if nc_guid ~= owner_guid then
+    --     error(
+    --         ("%s (%s) tries to set nuid %s of different nc.owners %s (%s) entity %s."):format(
+    --             owner.username,
+    --             owner.guid,
+    --             nuid,
+    --             nc.owner.username,
+    --             nc.owner.guid,
+    --             local_entity_id
+    --         ),
+    --         2
+    --     )
+    -- end
+
+    -- nc.nuid = nuid
+    -- em.setComponentValue(nc.component_id, nc)
+
+    local log = logger:debug("Set new nuid (%s) from %s (%s) to entity %s", nuid, owner.username, owner.guid, local_entity_id)
 end
 
 --- Spwans an entity and applies the transform and velocity to it. Also adds the network_component.
@@ -270,6 +269,9 @@ function em:SpawnEntity(owner, nuid, x, y, rot, velocity, filename, local_entity
     end
 
     local entity_id = EntityLoad(filename, x, y)
+    if not EntityUtils.isEntityAlive(entity_id) then
+        return
+    end
 
     self:AddNetworkComponentToEntity(entity_id, owner, nuid)
     EntityApplyTransform(entity_id, x, y, rot)
@@ -305,30 +307,32 @@ end
 
 function em:UpdateEntities()
     for index, entity_id in ipairs(self.cache.nc_entity_ids) do
-        --local owner = util.getLocalOwner()
-        local nc = self:GetNetworkComponent(nil, entity_id, nil)
-        local nuid = nc.nuid
-        local owner = {
-            username = nc.owner.username,
-            guid = nc.owner.guid
-        }
+        if EntityUtils.isEntityAlive(entity_id) then
+            --local owner = util.getLocalOwner()
+            local nc = self:GetNetworkComponent(nil, entity_id, nil)
+            local nuid = nc.nuid
+            local owner = {
+                username = nc.owner.username,
+                guid = nc.owner.guid
+            }
 
-        if not EntityGetIsAlive(entity_id) then
-            if _G.Server:amIServer() then
-                _G.Server.super:sendToAll2("entityAlive", {owner, entity_id, nuid, false})
+            if not EntityGetIsAlive(entity_id) then
+                if _G.Server:amIServer() then
+                    _G.Server.super:sendToAll2("entityAlive", { owner, entity_id, nuid, false })
+                else
+                    _G.Client.super:send("entityAlive", { owner, entity_id, nuid, false })
+                end
             else
-                _G.Client.super:send("entityAlive", {owner, entity_id, nuid, false})
-            end
-        else
-            local x, y, rot = EntityGetTransform(entity_id)
-            local velo_comp_id = EntityGetFirstComponent(entity_id, "VelocityComponent")
-            local velo_x, velo_y = ComponentGetValue2(velo_comp_id, "mVelocity")
-            local velocity = {velo_x, velo_y}
+                local x, y, rot = EntityGetTransform(entity_id)
+                local velo_comp_id = EntityGetFirstComponent(entity_id, "VelocityComponent")
+                local velo_x, velo_y = ComponentGetValue2(velo_comp_id, "mVelocity")
+                local velocity = { velo_x, velo_y }
 
-            if _G.Server:amIServer() then
-                _G.Server.super:sendToAll2("entityState", {owner, entity_id, nuid, x, y, rot, velocity, health})
-            else
-                _G.Client.super:send("entityState", {owner, entity_id, nuid, x, y, rot, velocity, health})
+                if _G.Server:amIServer() then
+                    _G.Server.super:sendToAll2("entityState", { owner, entity_id, nuid, x, y, rot, velocity, health })
+                else
+                    _G.Client.super:send("entityState", { owner, entity_id, nuid, x, y, rot, velocity, health })
+                end
             end
         end
     end
@@ -340,11 +344,16 @@ end
 ---@param nuid number
 ---@return table nc NetworkComponent or nil, if there is no network component
 function em:GetNetworkComponent(owner, entity_id, nuid)
-    local nc = self:GetNetworkComponentByOwnerAndEntityId(owner, entity_id)
-
-    if not nc then
-        nc = self:GetNetworkComponentByNuid(nuid)
+    if not EntityUtils.isEntityAlive(entity_id) then
+        return
     end
+    -- local nc = self:GetNetworkComponentByOwnerAndEntityId(owner, entity_id)
+
+    -- if not nc then
+    --     nc = self:GetNetworkComponentByNuid(nuid)
+    -- end
+
+    local nc = NetworkComponent.getNetworkComponentValues(nuid, entity_id)
 
     if not nc then
         logger:warn(
@@ -364,6 +373,9 @@ end
 ---@param entity_id number entity_id, doesn't matter of local_entity_id or remote_entity_id
 ---@return table nc If owner or entity_id isn't set, it returns nil. If nc was found, but owner mismatch, returns nil. Otherwise the network component table.
 function em:GetNetworkComponentByOwnerAndEntityId(owner, entity_id)
+    if not EntityUtils.isEntityAlive(entity_id) then
+        return
+    end
     if not owner then
         logger:warn(
             "Unable to find network component by owner(%s, %s) and entity_id(%s), because owner is nil.",
@@ -400,8 +412,9 @@ function em:GetNetworkComponentByOwnerAndEntityId(owner, entity_id)
 
     local componet_id = cached_nc_entity_id_map.component_id
     local nuid = cached_nc_entity_id_map.nuid
-    local nc_serialised = ComponentGetValue2(componet_id, NetworkComponent.field_name)
-    local nc = util.deserialise(nc_serialised)
+    local nc_as_json = ComponentGetValue2(componet_id, NetworkComponent.field_name)
+    local nc = json.decode(nc_as_json)
+    --util.deserialise(nc_serialised)
     local nc_owner_guid = nc.owner.guid or nc.owner[2]
 
     -- double check if owner is correct
@@ -435,11 +448,15 @@ function em:GetNetworkComponentByNuid(nuid)
         local nuid_cached = tbl.nuid
 
         if nuid == nuid_cached then
-            local nc_serialised = ComponentGetValue2(component_id, NetworkComponent.field_name)
-            return util.deserialise(nc_serialised)
+            local nc_as_json = ComponentGetValue2(component_id, NetworkComponent.field_name)
+            return json.decode(nc_as_json)
+            --util.deserialise(nc_serialised)
         end
     end
-    return nil
+
+    local nc = NetworkComponent.getNetworkComponentValues(nuid)
+
+    return nc
 end
 
 function em:getLocalPlayerId()

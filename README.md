@@ -41,17 +41,24 @@ Let's see, if I can do so?!
 
 Installation, configuration and support can be found on the [docs](https://ismoh.github.io/NoitaMP/).
 
----
+## Our awesome and valuable Contributors
+
+<a href="https://github.com/Ismoh/NoitaMP/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Ismoh/NoitaMP" />
+</a>
+
+Made with [contrib.rocks](https://contrib.rocks).
 
 ## Credits | Special Thanks
 
 I wouldn't be able to create this mod without the help by
 
-- @Evaisa
-- @Horscht
-- @M127
-- @Pyry
-- Soler91
+- [@EvaisaGiac](https://github.com/EvaisaGiac/)
+- [@TheHorscht](https://github.com/TheHorscht/)
+- [@Pyry](https://github.com/probable-basilisk)
+- [@DevonX](https://github.com/DevonX)
+- [@shebpamm](https://github.com/shebpamm)
+- @Coxas/Thighs
 
 I appreaciate your help a lot!
 If you spot anything I should mention, feel free to create a issue or get in touch with [me](https://github.com/Ismoh)!
@@ -65,12 +72,8 @@ Also special thanks to the ppl, who share their libraries, frameworks and other 
 - [eNet](http://enet.bespin.org/)
 - [lua-enet](https://github.com/leafo/lua-enet)
 - [sock.lua](https://github.com/camchenry/sock.lua)
+- [json.lua](https://github.com/rxi/json.lua)
+- [nxml.lua](https://github.com/zatherz/luanxml)
 
 I had to build the network library by my own, because Noita provides its own lua51.dll. I had struggle to build it, if you are interested in,
 I've added all the necessary build files inside of .building/dll_building.7z and here you can see the [stackoverflow question](https://stackoverflow.com/questions/70048918/lua-5-1-package-loadlib-and-require-gcc-building-windows-dll) I've created.
-
----
-### Noita Together Reference
-
-[Noita Together](https://github.com/soler91/noita-together) is a mod I was inspired by trying to do my own mod!
-It's awesome and it's more or less a reference to this. You really should try Noita Together! (Just to be clear, there is no 'stolen' code.)
