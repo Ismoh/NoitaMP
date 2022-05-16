@@ -18,7 +18,7 @@ updates:
     target-branch: "develop"
 
   - package-ecosystem: "gitsubmodule"
-    directory: "/"
+    directory: "."
     schedule:
       interval: "daily"
       day: "thursday"
