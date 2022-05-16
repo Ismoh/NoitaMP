@@ -15,4 +15,4 @@ updates:
       day: "thursday"
       time: "18:00"
       timezone: "Europe/Berlin"
-    target-branch: "dependencies"
+    target-branch: "develop"
