@@ -82,7 +82,7 @@ jobs:
         rm ${{ github.workspace }}/luarocks-3.8.0/.codecov.yml
 
     - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v2
+      uses: codecov/codecov-action@v3
       with:
         directory: ${{ github.workspace }}
         flags: unittesting
