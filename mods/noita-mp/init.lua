@@ -75,9 +75,9 @@ function OnPlayerSpawned(player_entity)
         EntityAddComponent2(player_entity,
             "LuaComponent",
             {
-            script_source_file = "mods/noita-mp/files/scripts/noita-components/name_tags.lua",
-            execute_every_n_frame = 1,
-        })
+                script_source_file = "mods/noita-mp/files/scripts/noita-components/name_tags.lua",
+                execute_every_n_frame = 1,
+            })
     end
 end
 
@@ -92,10 +92,8 @@ function OnWorldPreUpdate()
     local ezguiData = {
         collection = { "Bloo", "Blaa", "Blee" },
         button_margin = 5,
-        ip = _G.Server:getAddress(),
-        port = _G.Server:getPort(),
         startServer = function()
-            _G.Server.start(ezguiData.ip, ezguiData.port)
+            _G.Server.start(_G.Server:getAddress(), _G.Server:getPort())
         end,
         -- Methods defined here can be used in @click, arg1 is the data_context itself, arg2 the element that was clicked, arg3 the first custom arg
         a_method = function(data, element, arg1)

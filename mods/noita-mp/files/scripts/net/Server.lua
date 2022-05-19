@@ -19,7 +19,7 @@ Server = {}
 -- Global public variables:
 
 -- Constructor
-function Server.new(sockServer, stopImmediately)
+function Server.new(sockServer)
     local self = sockServer -- {}
 
     self.name = tostring(ModSettingGet("noita-mp.name"))
@@ -243,7 +243,7 @@ function Server.new(sockServer, stopImmediately)
 
         GamePrintImportant("Server started",
             ("Your server is running on %s. Tell your friends to join!"):format(self:getAddress(), self:getPort()),
-            nil)
+            "")
     end
 
     --- Stops the server.
@@ -311,12 +311,6 @@ function Server.new(sockServer, stopImmediately)
 
     --#endregion
 
-    if stopImmediately then
-        -- sock.lua starts by default a server on default ip and port.
-        -- I dont want to start it immediatly.
-        self.stop()
-    end
-
     -- Apply some private methods
 
     return self
@@ -337,7 +331,7 @@ if startOnLoad then
 else
     GamePrintImportant("Server not started",
         "Your server wasn't started yet. Check ModSettings to change this or Press M to open multiplayer menu.",
-        nil
+        ""
     )
 end
 

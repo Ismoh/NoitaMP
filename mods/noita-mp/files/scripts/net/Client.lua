@@ -19,7 +19,7 @@ Client = {}
 -- Global public variables:
 
 -- Constructor
-function Client.new(sockClient, disconnectImmediately)
+function Client.new(sockClient)
     local self = sockClient -- {}
 
     self.name = tostring(ModSettingGet("noita-mp.name"))
@@ -290,8 +290,11 @@ function Client.new(sockClient, disconnectImmediately)
         _G.Client.disconnect() -- stop if any server is already running
 
         logger:info(logger.channels.network, "Connecting to server on %s:%s", ip, port)
-        self = _G.ClientInit.new(sock.newClient(ip, port))
-        _G.Client = self
+        if not self.host then
+            self:establishClient(ip, port)
+        end
+        --self = _G.ClientInit.new(sock.newClient(ip, port))
+        --_G.Client = self
 
         setGuid()
         setConfigSettings()
@@ -300,7 +303,7 @@ function Client.new(sockClient, disconnectImmediately)
 
         GamePrintImportant("Client is connecting..",
             "You are trying to connect to " .. self:getAddress() .. ":" .. self:getPort() .. "!",
-            nil
+            ""
         )
 
         sockClientConnect(self)
@@ -365,12 +368,6 @@ function Client.new(sockClient, disconnectImmediately)
     --#endregion
 
     -- Apply some private methods
-
-    if disconnectImmediately then
-        -- sock.lua starts by default a server on default ip and port.
-        -- I dont want to start it immediatly.
-        self.disconnect()
-    end
 
     return self
 end

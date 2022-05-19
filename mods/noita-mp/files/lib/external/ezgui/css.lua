@@ -1,6 +1,6 @@
-local pretty = dofile_once("%PATH%/lib/pretty.lua")
-local props = dofile_once("%PATH%/css_props.lua")
-local utils = dofile_once("%PATH%/utils.lua")
+local pretty = dofile_once("%PATH%lib/pretty.lua")
+local props = dofile_once("%PATH%css_props.lua")
+local utils = dofile_once("%PATH%utils.lua")
 
 local function calculate_selector_specificity(selector)
   -- Start at 0, add 100 for each ID value, add 10 for each class value (or pseudo-class or attribute selector), add 1 for each element selector or pseudo-element.

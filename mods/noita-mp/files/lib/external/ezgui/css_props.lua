@@ -1,5 +1,5 @@
-local pretty = dofile_once("%PATH%/lib/pretty.lua")
-local parser = dofile_once("%PATH%/parsing_functions.lua")
+local pretty = dofile_once("%PATH%lib/pretty.lua")
+local parser = dofile_once("%PATH%parsing_functions.lua")
 
 local function make_value(val)
   return {

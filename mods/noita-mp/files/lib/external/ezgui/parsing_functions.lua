@@ -1,5 +1,5 @@
-local utils = dofile_once("%PATH%/utils.lua")
-local string_buffer = dofile_once("%PATH%/string_buffer.lua")
+local utils = dofile_once("%PATH%utils.lua")
+local string_buffer = dofile_once("%PATH%string_buffer.lua")
 
 local dom_element_names = {
   "Button", "Image", "Layout", "Slider", "Text",
@@ -258,6 +258,33 @@ end
 
 local function read_text(buffer)
   return buffer:read_while(peek_text)
+end
+
+local function read_hex_color(input, error_callback)
+  local buffer = type(input) == "string" and string_buffer(input) or input
+  error_callback = error_callback or _throw_error
+  skip_whitespace(buffer)
+  local str = buffer:peek(0, 9)
+  if not buffer:look_ahead("#") then
+    error_callback(buffer.str, "Expected '#'", buffer:pos(), 2)
+    return
+  end
+  buffer:skip()
+  local color = {}
+  for i=1, 4 do
+    local pos = buffer:pos()
+    local s = buffer:peek(0, 2)
+    local num = tonumber(s or "", 16)
+    if not num and i <= 3 then
+      error_callback(buffer.str, "Expected hex pair", pos, 2)
+      return
+    end
+    if num then
+      table.insert(color, num / 255)
+      buffer:skip(2)
+    end
+  end
+  return { r = color[1], g = color[2], b = color[3], a = color[4] or 1 }
 end
 
 local function parse_loop(input, error_callback)
@@ -639,6 +666,7 @@ local function parse_tokens(input)
   local buffer = type(input) == "string" and string_buffer(input) or input
   local tokens = {}
   local funcs = {
+    { type = "color", func = read_hex_color },
     { type = "boolean", func = read_boolean_literal },
     { type = "number", func = read_number_literal },
     { type = "binding", func = read_style_binding },
@@ -647,8 +675,12 @@ local function parse_tokens(input)
   while not buffer:is_done() do
     skip_whitespace(buffer)
     local value
+    -- Read until the next whitespace
+    local str = buffer:read_while(function(buffer)
+      return buffer:peek() and buffer:peek():match("[^%s]")
+    end)
     for i, parser in ipairs(funcs) do
-      local read_value = try_read(parser.func, buffer)
+      local read_value = try_read(parser.func, str)
       if read_value ~= nil then
         value = { type = parser.type }
         if parser.type == "binding" then
@@ -685,4 +717,5 @@ return {
   read_binding_target = read_binding_target,
   convert_css_comments_to_spaces = convert_css_comments_to_spaces,
   peek_style_binding_start = peek_style_binding_start,
+  read_hex_color = read_hex_color,
 }

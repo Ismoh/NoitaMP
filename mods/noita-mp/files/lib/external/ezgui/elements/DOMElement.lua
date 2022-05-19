@@ -1,8 +1,8 @@
-dofile_once("%PATH%/oop.lua")
-local parser = dofile_once("%PATH%/parsing_functions.lua")
-local css_props = dofile_once("%PATH%/css_props.lua")
-local pretty = dofile_once("%PATH%/lib/pretty.lua")
-local string_buffer = dofile_once("%PATH%/string_buffer.lua")
+dofile_once("%PATH%oop.lua")
+local parser = dofile_once("%PATH%parsing_functions.lua")
+local css_props = dofile_once("%PATH%css_props.lua")
+local pretty = dofile_once("%PATH%lib/pretty.lua")
+local string_buffer = dofile_once("%PATH%string_buffer.lua")
 
 function get_data_from_binding_chain(data_context, binding_target_chain)
   for i, current_target in ipairs(binding_target_chain) do
@@ -183,7 +183,7 @@ DOMElement.default_style = {
 
 function DOMElement:QuerySelector(selector_string)
   local selector = parser.parse_style_selector(selector_string)
-  local css = dofile_once("%PATH%/css.lua")
+  local css = dofile_once("%PATH%css.lua")
   local function find_matching_self_or_child(element)
     local s = element
     if css.does_selector_match(s, selector) then

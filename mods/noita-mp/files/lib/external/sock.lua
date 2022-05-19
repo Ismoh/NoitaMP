@@ -244,6 +244,29 @@ end
 local Server = {}
 local Server_mt = { __index = Server }
 
+--- NoitaMp Moved this part from newServer to Server:start
+---@param ip string
+---@param port number
+function Server:start(ip, port)
+    ip = ip or self.address
+    port = port or self.port
+
+    -- ip, max peers, max channels, in bandwidth, out bandwidth
+    -- number of channels for the client and server must match
+    self.host = enet.host_create(ip .. ":" .. port, self.maxPeers, self.maxChannels)
+
+
+    if not self.host then
+        error("Failed to create the host. Is there another server running on :" .. self.port .. "?")
+    end
+
+    self:setBandwidthLimit(self.inBandwidth, self.outBandwidth)
+
+    if bitserLoaded then
+        self:setSerialization(bitser.dumps, bitser.loads)
+    end
+end
+
 --- Check for network events and handle them.
 function Server:update()
     local event = self.host:service(self.messageTimeout)
@@ -251,6 +274,7 @@ function Server:update()
     while event do
         if event.type == "connect" then
             local eventClient = sock.newClient(event.peer)
+            eventClient:establishClient(event.peer)
             eventClient:setSerialization(self.serialize, self.deserialize)
             table.insert(self.peers, event.peer)
             table.insert(self.clients, eventClient)
@@ -769,6 +793,33 @@ end
 local Client = {}
 local Client_mt = { __index = Client }
 
+function Client:establishClient(serverOrAddress, port)
+    serverOrAddress = serverOrAddress or self.address
+    port = port or self.port
+
+    -- Two different forms for client creation:
+    -- 1. Pass in (address, port) and connect to that.
+    -- 2. Pass in (enet peer) and set that as the existing connection.
+    -- The first would be the common usage for regular client code, while the
+    -- latter is mostly used for creating clients in the server-side code.
+
+    -- First form: (address, port)
+    if port ~= nil and type(port) == "number" and serverOrAddress ~= nil and type(serverOrAddress) == "string" then
+        self.address = serverOrAddress
+        self.port = port
+        self.host = enet.host_create()
+
+        -- Second form: (enet peer)
+    elseif type(serverOrAddress) == "userdata" then
+        self.connection = serverOrAddress
+        self.connectId = self.connection:connect_id()
+    end
+
+    if bitserLoaded then
+        self:setSerialization(bitser.dumps, bitser.loads)
+    end
+end
+
 --- Check for network events and handle them.
 function Client:update()
     local event = self.host:service(self.messageTimeout)
@@ -798,6 +849,10 @@ end
 -- Connection will not actually occur until the next time `Client:update` is called.
 -- @tparam ?number code A number that can be associated with the connect event.
 function Client:connect(code)
+    if not self.host then
+        self:establishClient()
+    end
+
     -- number of channels for the client and server must match
     self.connection = self.host:connect(self.address .. ":" .. self.port, self.maxChannels, code)
     self.connectId = self.connection:connect_id()
@@ -1376,25 +1431,25 @@ sock.newServer = function(address, port, maxPeers, maxChannels, inBandwidth, out
         packetsReceived = 0,
 
         -- NoitaMP additions
-        name     = "",
-        guid     = nil,
-        iAm      = "SERVER",
+        name = "",
+        guid = nil,
+        iAm  = "SERVER",
     }, Server_mt)
 
-    -- ip, max peers, max channels, in bandwidth, out bandwidth
-    -- number of channels for the client and server must match
-    server.host = enet.host_create(server.address .. ":" .. server.port, server.maxPeers, server.maxChannels)
+    -- -- ip, max peers, max channels, in bandwidth, out bandwidth
+    -- -- number of channels for the client and server must match
+    -- server.host = enet.host_create(server.address .. ":" .. server.port, server.maxPeers, server.maxChannels)
 
 
-    if not server.host then
-        error("Failed to create the host. Is there another server running on :" .. server.port .. "?")
-    end
+    -- if not server.host then
+    --     error("Failed to create the host. Is there another server running on :" .. server.port .. "?")
+    -- end
 
-    server:setBandwidthLimit(inBandwidth, outBandwidth)
+    -- server:setBandwidthLimit(inBandwidth, outBandwidth)
 
-    if bitserLoaded then
-        server:setSerialization(bitser.dumps, bitser.loads)
-    end
+    -- if bitserLoaded then
+    --     server:setSerialization(bitser.dumps, bitser.loads)
+    -- end
 
     return server
 end
@@ -1455,27 +1510,27 @@ sock.newClient = function(serverOrAddress, port, maxChannels)
         iAm           = "CLIENT",
     }, Client_mt)
 
-    -- Two different forms for client creation:
-    -- 1. Pass in (address, port) and connect to that.
-    -- 2. Pass in (enet peer) and set that as the existing connection.
-    -- The first would be the common usage for regular client code, while the
-    -- latter is mostly used for creating clients in the server-side code.
+    -- -- Two different forms for client creation:
+    -- -- 1. Pass in (address, port) and connect to that.
+    -- -- 2. Pass in (enet peer) and set that as the existing connection.
+    -- -- The first would be the common usage for regular client code, while the
+    -- -- latter is mostly used for creating clients in the server-side code.
 
-    -- First form: (address, port)
-    if port ~= nil and type(port) == "number" and serverOrAddress ~= nil and type(serverOrAddress) == "string" then
-        client.address = serverOrAddress
-        client.port = port
-        client.host = enet.host_create()
+    -- -- First form: (address, port)
+    -- if port ~= nil and type(port) == "number" and serverOrAddress ~= nil and type(serverOrAddress) == "string" then
+    --     client.address = serverOrAddress
+    --     client.port = port
+    --     client.host = enet.host_create()
 
-        -- Second form: (enet peer)
-    elseif type(serverOrAddress) == "userdata" then
-        client.connection = serverOrAddress
-        client.connectId = client.connection:connect_id()
-    end
+    --     -- Second form: (enet peer)
+    -- elseif type(serverOrAddress) == "userdata" then
+    --     client.connection = serverOrAddress
+    --     client.connectId = client.connection:connect_id()
+    -- end
 
-    if bitserLoaded then
-        client:setSerialization(bitser.dumps, bitser.loads)
-    end
+    -- if bitserLoaded then
+    --     client:setSerialization(bitser.dumps, bitser.loads)
+    -- end
 
     return client
 end

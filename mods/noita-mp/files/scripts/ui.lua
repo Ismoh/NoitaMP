@@ -173,7 +173,7 @@ if not Initialized then
                             GamePrintImportant(
                                 "Noita Restart for saving world",
                                 "Noita will be restarted to fully save the world.\nUnfortunatelly this is due to no/less access to Noita save functions."
-                            )
+                            , "")
                             _G.Server:setIsAllowed(client, true)
                             _G.Server:storeClients()
                             -- remeber to zip the savegame, when restarting server

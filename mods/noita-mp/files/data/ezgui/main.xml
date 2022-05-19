@@ -1,9 +1,9 @@
 <Layout debug="true">
-    <Layout class="horizontal">
-        <Text>Start server on {{ ip }}:{{ port }}</Text>
-        <Button @click="startServer()">Start!</Button>
-    </Layout>
-    <Text forEach="element in collection">{{ element }}</Text>
+  <Layout class="horizontal">
+    <Text>Start server on {{ ip }}:{{ port }}</Text>
+    <Button @click="startServer()">Start!</Button>
+  </Layout>
+  <Text forEach="element in collection">{{ element }}</Text>
 </Layout>
 
 <Style>

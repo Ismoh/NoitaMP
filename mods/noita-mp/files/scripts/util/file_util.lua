@@ -127,7 +127,7 @@ function fu.GetAbsoluteDirectoryPathOfParentSave()
     if save06_parent_directory_path == nil or save06_parent_directory_path == "" then
         GamePrintImportant(
             "Unable to find world files",
-            "Do yourself a favour and save&quit the game and start it again!"
+            "Do yourself a favour and save&quit the game and start it again!", ""
         )
     end
 
@@ -318,9 +318,9 @@ function fu.scanDir(directory)
     local pfile = nil
 
     if is_windows then
-        pfile = popen('dir "'..directory..'" /b /ad')
+        pfile = popen('dir "' .. directory .. '" /b /ad')
     else
-        pfile = popen('ls -a "'..directory..'"')
+        pfile = popen('ls -a "' .. directory .. '"')
     end
 
 

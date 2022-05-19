@@ -65,6 +65,7 @@ local function get_data_from_binding_chain(data_context, binding_target_chain)
 end
 
 return {
+  split_lines = split_lines,
   throw_error = throw_error,
   get_line_by_pos = get_line_by_pos,
   get_data_from_binding_chain = get_data_from_binding_chain

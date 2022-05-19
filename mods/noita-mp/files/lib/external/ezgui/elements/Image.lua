@@ -1,6 +1,6 @@
-dofile_once("%PATH%/oop.lua")
-dofile_once("%PATH%/parsing_functions.lua")
-local DOMElement = dofile_once("%PATH%/elements/DOMElement.lua")
+dofile_once("%PATH%oop.lua")
+dofile_once("%PATH%parsing_functions.lua")
+local DOMElement = dofile_once("%PATH%elements/DOMElement.lua")
 
 local Image = new_class("Image", function(self, xml_element, data_context)
   super(xml_element, data_context)

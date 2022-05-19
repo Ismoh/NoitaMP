@@ -1,0 +1,13 @@
+v0.1.2:
+- Entire area of buttons is now clickable, including the padding
+- Slider can now be bound to values on subtables (one.two.three)
+
+v0.1.1:
+- FIX: Layout background rendering z-index
+- FIX: Attribute binding didn't work (e.g. :debug="var")
+- FIX: CSS property defaults were not being applied correctly
+- Rework <Text> multiline/newline rendering
+- Use images from data/ to render debug visualizations
+
+v0.1.0:
+- First preview release
