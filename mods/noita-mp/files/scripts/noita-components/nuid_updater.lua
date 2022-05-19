@@ -15,7 +15,7 @@ local executeOnAdded = GetValueBool("executeOnAdded", true)
 --#region executeOnAdded = added() and executeOnRemove = remove()
 
 local function added()
-    logger:debug("nuid_updater.lua added..")
+    logger:debug(logger.channels.nuid, "nuid_updater.lua added..")
     local currentEntityId = GetUpdatedEntityID()
     if not EntityUtils.isEntityAlive(currentEntityId) then
         return
@@ -25,18 +25,18 @@ local function added()
 
     if currentEntityId ~= globalsEntityId then
         GlobalsUtils.setNuid(nuid, currentEntityId)
-        logger:debug("nuid in noitas global storage was set: nuid = %s and entity_id = %s", nuid, currentEntityId)
+        logger:debug(logger.channels.nuid, "nuid in noitas global storage was set: nuid = %s and entity_id = %s", nuid, currentEntityId)
     end
 end
 
 local function remove()
-    logger:debug("nuid_updater.lua remove..")
+    logger:debug(logger.channels.nuid, "nuid_updater.lua remove..")
     local currentEntityId = GetUpdatedEntityID()
     local ownerName, ownerGuid, nuid = NetworkVscUtils.getAllVcsValuesByEntityId(currentEntityId)
     local globalsNuid, globalsEntityId = GlobalsUtils.getNuidEntityPair(nuid)
 
     GlobalsUtils.setNuid(nuid, -99)
-    logger:debug(("Entity (%s) was killed and nuid (%s) in noitas global storage was updated: old=%s and new=-99"):format(currentEntityId, nuid, globalsEntityId))
+    logger:debug(logger.channels.nuid, ("Entity (%s) was killed and nuid (%s) in noitas global storage was updated: old=%s and new=-99"):format(currentEntityId, nuid, globalsEntityId))
 end
 
 --#endregion

@@ -6,7 +6,7 @@ local fu = require("file_util")
 fu.SetAbsolutePathOfNoitaRootDirectory()
 
 ModMagicNumbersFileAdd("mods/noita-mp/files/data/magic_numbers.xml")
-logger:debug("init.lua | loading world seed magic number xml file.")
+logger:debug(nil, "init.lua | loading world seed magic number xml file.")
 local world_seed_magic_numbers_path = fu.GetAbsoluteDirectoryPathOfMods() .. "/files/tmp/magic_numbers/world_seed.xml"
 if fu.Exists(world_seed_magic_numbers_path) then
     GamePrint("init.lua | Loading " .. world_seed_magic_numbers_path)
@@ -20,9 +20,9 @@ fu.Find7zipExecutable()
 function OnModPreInit()
     EntityUtils.modifyPhysicsEntities()
 
-    _G.cache = {}
-    _G.cache.nuids = {} -- _G.cache.nuids[nuid] = { entity_id, component_id_username, component_id_guid, component_id_nuid }
-    _G.cache.entity_ids_without_nuids = {} -- _G.cache.entity_ids_without_nuids[entity_id] = { entity_id, component_id_username, component_id_guid, component_id_nuid }
+    --_G.cache = {}
+    --_G.cache.nuids = {} -- _G.cache.nuids[nuid] = { entity_id, component_id_username, component_id_guid, component_id_nuid }
+    --_G.cache.entity_ids_without_nuids = {} -- _G.cache.entity_ids_without_nuids[entity_id] = { entity_id, component_id_username, component_id_guid, component_id_nuid }
 
     _G.whoAmI = function()
         if _G.Server:amIServer() then
@@ -44,10 +44,10 @@ function OnModPreInit()
 end
 
 function OnWorldInitialized()
-    logger:debug("init.lua | OnWorldInitialized()")
+    logger:debug(nil, "init.lua | OnWorldInitialized()")
 
     local make_zip = ModSettingGet("noita-mp.server_start_7zip_savegame")
-    logger:debug("init.lua | make_zip = " .. tostring(make_zip))
+    logger:debug(nil, "init.lua | make_zip = " .. tostring(make_zip))
     if make_zip then
         local archive_name = "server_save06_" .. os.date("%Y-%m-%d_%H-%M-%S")
         local destination = fu.GetAbsoluteDirectoryPathOfMods() .. _G.path_separator .. "_"
@@ -55,7 +55,7 @@ function OnWorldInitialized()
         fu.Create7zipArchive(archive_name .. "_from_server", fu.GetAbsoluteDirectoryPathOfSave06(), destination)
         local msg =
         ("init.lua | Server savegame [%s] was zipped with 7z to location [%s]."):format(archive_name, destination)
-        logger:debug(msg)
+        logger:debug(nil, msg)
         GamePrint(msg)
         ModSettingSetNextValue("noita-mp.server_start_7zip_savegame", false, false) -- automatically start the server again
     end
@@ -106,13 +106,13 @@ function OnWorldPreUpdate()
 end
 
 function UpdateLogLevel()
-    if _G.logger then
-        local currentLogLevel = logger:getLevel()
-        local setting_log_level = tostring(ModSettingGetNextValue("noita-mp.log_level")) -- "debug, warn, info, error" or "warn, info, error" or "info, error"
-        local levels = setting_log_level:upper():split(",")
-        local newLogLevel = levels[1]
-        if currentLogLevel ~= newLogLevel then
-            logger:setLevel(newLogLevel)
-        end
-    end
+    -- if _G.logger then
+    --     local currentLogLevel = logger:getLevel()
+    --     local setting_log_level = tostring(ModSettingGetNextValue("noita-mp.log_level")) -- "debug, warn, info, error" or "warn, info, error" or "info, error"
+    --     local levels = setting_log_level:upper():split(",")
+    --     local newLogLevel = levels[1]
+    --     if currentLogLevel ~= newLogLevel then
+    --         logger:setLevel(newLogLevel)
+    --     end
+    -- end
 end

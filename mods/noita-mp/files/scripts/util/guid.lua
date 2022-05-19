@@ -11,27 +11,30 @@ local Guid = {
         return math.random(0, 9)
     end,
     getRandomRange_aA_to_fF = function()
-        local chars = {"a", "b", "c", "d", "e", "f"}
+        local chars = { "a", "b", "c", "d", "e", "f" }
         local char_index = math.random(1, 6)
         return string.upper(chars[char_index])
     end
 }
 
 --- Generates a pseudo GUID. Does not fulfil RFC standard! Should generate unique GUIDs, but repeats if there is a duplicate.
+--- @param inUse table A list of all guids, which are already in use. This aren't the cached guids. Think of client connects to server and both have the same guid.
 --- @return string guid
-function Guid:getGuid()
+function Guid:getGuid(inUse)
+    inUse = inUse or {}
+    table.insertAllButNotDuplicates(self.cached_guid, inUse)
+
     math.randomseed(os.clock() * 123456789000, os.time() * 1000)
 
     local x = "x"
-    local t = {x:rep(8), x:rep(4), x:rep(4), x:rep(4), x:rep(12)}
+    local t = { x:rep(8), x:rep(4), x:rep(4), x:rep(4), x:rep(12) }
     local guid = table.concat(t, "-")
     local is_valid = false
     local is_unique = false
 
     local counter = 0
     repeat
-        guid =
-            string.gsub(
+        guid = string.gsub(
             guid,
             x,
             function(c)
@@ -44,7 +47,7 @@ function Guid:getGuid()
         )
         is_valid = self.isPatternValid(guid)
         is_unique = self:isUnique(guid)
-        logger:debug(
+        logger:debug(logger.channels.guid,
             "GUID (%s) is valid=%s and unique=%s. Generating GUID run-number %s",
             guid,
             is_valid,
@@ -55,7 +58,7 @@ function Guid:getGuid()
         counter = counter + 1
         if counter > 100 then
             local msg =
-                string.format("Tried to generate GUID %s times. Stopped it for now! This is a serious bug!", counter)
+            string.format("Tried to generate GUID %s times. Stopped it for now! This is a serious bug!", counter)
             logger:error(msg)
             error(msg, 2)
             break
@@ -67,7 +70,7 @@ function Guid:getGuid()
     table.insert(self.cached_guid, guid)
     util.pprint(
         "guid.lua | guid = " ..
-            guid .. " is valid = " .. tostring(is_valid) .. " and is unique = " .. tostring(is_unique)
+        guid .. " is valid = " .. tostring(is_valid) .. " and is unique = " .. tostring(is_unique)
     )
     return guid
 end

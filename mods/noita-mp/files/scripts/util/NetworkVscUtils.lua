@@ -49,7 +49,7 @@ local function checkIfSpecificVscExists(entityId, componentTypeName, fieldNameFo
    ---@diagnostic disable-next-line: missing-parameter
    local componentIds = EntityGetComponentIncludingDisabled(entityId, componentTypeName) or {}
    if isEmpty(componentIds) then
-      logger:info("Entity(%s) does not have any %s. Returning nil.", entityId, componentTypeName)
+      logger:info(logger.channels.vsc, "Entity(%s) does not have any %s. Returning nil.", entityId, componentTypeName)
       return nil
    end
    for i = 1, #componentIds do
@@ -64,7 +64,7 @@ local function checkIfSpecificVscExists(entityId, componentTypeName, fieldNameFo
          return componentIds[i], value
       end
    end
-   logger:warn("Looks like the %s.%s does not exists on entity(%s). Returning nil!", componentTypeName, fieldNameForMatch, entityId)
+   logger:warn(logger.channels.vsc, "Looks like the %s.%s does not exists on entity(%s). Returning nil!", componentTypeName, fieldNameForMatch, entityId)
    return nil
 end
 
@@ -80,7 +80,7 @@ local function addOrUpdateVscForOwnerName(entityId, ownerName)
       NetworkVscUtils.componentNameOfOwnersName, NetworkVscUtils.valueString)
    if compId then
       ComponentSetValue2(compId, NetworkVscUtils.valueString, ownerName)
-      logger:debug(
+      logger:debug(logger.channels.vsc,
          "Owner.name(%s) was set to already existing VSC(%s, %s) on entity(%s). Previous owner name = %s",
          ownerName,
          NetworkVscUtils.componentNameOfOwnersName,
@@ -94,7 +94,7 @@ local function addOrUpdateVscForOwnerName(entityId, ownerName)
          name = NetworkVscUtils.componentNameOfOwnersName,
          value_string = ownerName
       })
-      logger:debug(
+      logger:debug(logger.channels.vsc,
          "VariableStorageComponent (%s = %s) added with noita componentId = %s to entityId = %s!",
          NetworkVscUtils.componentNameOfOwnersName,
          ownerName,
@@ -117,7 +117,7 @@ local function addOrUpdateVscForOwnerGuid(entityId, ownerGuid)
       NetworkVscUtils.componentNameOfOwnersGuid, NetworkVscUtils.valueString)
    if compId then
       ComponentSetValue2(compId, NetworkVscUtils.valueString, ownerGuid)
-      logger:debug(
+      logger:debug(logger.channels.vsc,
          "Owner.guid(%s) was set to already existing VSC(%s, %s) on entity(%s). Previous owner guid = %s",
          ownerGuid,
          NetworkVscUtils.componentNameOfOwnersGuid,
@@ -131,7 +131,7 @@ local function addOrUpdateVscForOwnerGuid(entityId, ownerGuid)
          name = NetworkVscUtils.componentNameOfOwnersGuid,
          value_string = ownerGuid
       })
-      logger:debug(
+      logger:debug(logger.channels.vsc,
          "VariableStorageComponent (%s = %s) added with noita componentId = %s to entityId = %s!",
          NetworkVscUtils.componentNameOfOwnersName,
          ownerGuid,
@@ -159,7 +159,7 @@ local function addOrUpdateVscForNuid(entityId, nuid)
    -- There already might be a nuid vsc without any nuid set, think of a client shooting projectiles
    if compId and not compNuid then
       ComponentSetValue2(compId, NetworkVscUtils.valueString, nuid)
-      logger:debug(
+      logger:debug(logger.channels.vsc,
          "Nuid(%s) was set to already existing VSC(%s, %s) on entity(%s)",
          nuid,
          NetworkVscUtils.componentNameOfNuid,
@@ -175,7 +175,7 @@ local function addOrUpdateVscForNuid(entityId, nuid)
          name = NetworkVscUtils.componentNameOfNuid,
          value_string = nuid
       })
-      logger:debug(
+      logger:debug(logger.channels.vsc,
          "VariableStorageComponent (%s = %s) added with noita componentId = %s to entityId = %s!",
          NetworkVscUtils.componentNameOfNuid,
          nuid,
@@ -199,7 +199,7 @@ local function addNuidDebugger(entityId)
       entityId, "LuaComponent", "script_source_file",
       NetworkVscUtils.componentNameOfNuidDebugger, "script_source_file")
    if compId then
-      logger:debug("Entity(%s) already has a nuid debugger.")
+      logger:debug(logger.channels.vsc, "Entity(%s) already has a nuid debugger.")
       return compId
    else
       compId = EntityAddComponent2(entityId, "LuaComponent", {
@@ -207,7 +207,7 @@ local function addNuidDebugger(entityId)
          script_enabled_changed = "mods/noita-mp/files/scripts/noita-components/lua_component_enabler.lua",
          execute_every_n_frame = 1,
       })
-      logger:debug(
+      logger:debug(logger.channels.vsc,
          "LuaComponent (%s = %s) added with noita componentId = %s to entityId = %s!",
          NetworkVscUtils.componentNameOfNuidDebugger,
          "nuid_debug.lua",
@@ -231,7 +231,7 @@ local function addNuidUpdater(entityId)
       entityId, "LuaComponent", "script_source_file",
       NetworkVscUtils.componentNameOfNuidUpdater, "script_source_file")
    if compId then
-      logger:debug("Entity(%s) already has a nuid updater.")
+      logger:debug(logger.channels.vsc, "Entity(%s) already has a nuid updater.")
       return compId
    else
       compId = EntityAddComponent2(entityId, "LuaComponent", {
@@ -241,7 +241,7 @@ local function addNuidUpdater(entityId)
          execute_on_removed = true,
          execute_every_n_frame = -1, -- = -1 -> execute only on add/remove/event
       })
-      logger:debug(
+      logger:debug(logger.channels.vsc,
          "LuaComponent (%s = %s) added with noita componentId = %s to entityId = %s!",
          NetworkVscUtils.componentNameOfNuidUpdater,
          "nuid_updater.lua",
@@ -364,6 +364,22 @@ function NetworkVscUtils.isNetworkEntityByNuidVsc(entityId)
       NetworkVscUtils.componentNameOfNuid, NetworkVscUtils.valueString)
 end
 
+--- Checks if the nuid Vsc exists, if so returns nuid
+--- @param entityId number
+--- @return boolean|number return false|nuid : Returns false, if there is no NuidVsc or nuid is empty. Returns nuid, if set.
+function NetworkVscUtils.hasNuidSet(entityId)
+   local nuidCompId, nuid = checkIfSpecificVscExists(entityId, NetworkVscUtils.variableStorageComponentName, NetworkVscUtils.name,
+      NetworkVscUtils.componentNameOfNuid, NetworkVscUtils.valueString)
+
+   if not nuidCompId then
+      return false
+   end
+   if not nuid or nuid == "" then
+      return false
+   end
+   return tonumber(nuid)
+end
+
 function NetworkVscUtils.hasNetworkLuaComponents(entityId)
    if not EntityUtils.isEntityAlive(entityId) then
       return
@@ -399,7 +415,7 @@ function NetworkVscUtils.enableComponent(entityId, componentId)
       return
    end
    if not ComponentGetIsEnabled(componentId) then
-      logger:warn("Entity(%s) has a disabled network component(%s), turning it on!", entityId, componentId)
+      logger:warn(logger.channels.vsc, "Entity(%s) has a disabled network component(%s), turning it on!", entityId, componentId)
       EntitySetComponentIsEnabled(entityId, componentId, true)
    end
 end

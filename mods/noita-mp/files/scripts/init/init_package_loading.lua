@@ -2,7 +2,7 @@
 
 --[[ NoitaMP additions ]]
 return function(destination_path)
-    logger:debug("destination_path = %s", destination_path)
+    logger:debug(nil, "destination_path = %s", destination_path)
 
     local default_package_path = package.path
     package.path =
@@ -130,7 +130,7 @@ return function(destination_path)
         package.cpath = fu.ReplacePathSeparator(table.concat(cpaths, ";"))
 
         if destination_path then
-            logger:info("destination_path was set to export LPATH and CPATH!")
+            logger:info(nil, "destination_path was set to export LPATH and CPATH!")
             local lua_path_file =
                 fu.RemoveTrailingPathSeparator(destination_path) .. _G.path_separator .. "lua_path.txt"
             local lua_path_file_content = ";" .. package.path
@@ -151,7 +151,7 @@ return function(destination_path)
                     lua_cpath_file .. ") created with content: " .. lua_cpath_file_content
             )
         else
-            logger:warn("destination_path was not set. Export LPATH and CPATH will be skipped!")
+            logger:warn(nil, "destination_path was not set. Export LPATH and CPATH will be skipped!")
         end
 
         print("init_package_loading.lua | package.path set to " .. package.path .. " .")

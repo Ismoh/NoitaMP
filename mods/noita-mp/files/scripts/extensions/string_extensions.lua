@@ -30,3 +30,11 @@ string.split = function(str, pat)
     end
     return t
 end
+
+--- Contains on lower case
+--- @param str string String
+--- @param pattern string String, Char, Regex
+--- @return integer found 0 if not found. Greater 0 if found.
+string.contains = function(str, pattern)
+    return string.find(str:lower(), pattern:lower(), 1, true)
+end

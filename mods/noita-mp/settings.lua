@@ -63,22 +63,22 @@ function GetSettingById(idOrCategoryId)
 	return getSetting(mod_settings)
 end
 
-function ChangeDebugUi(currentSetting, newValue)
-	local settingLogLevel = GetSettingById("log_level")
+-- function ChangeDebugUi(currentSetting, newValue)
+-- 	local settingLogLevel = GetSettingById("log_level")
 
-	-- Show or hide log level setting, if debug is on or off
-	if currentSetting.id == "toggle_debug" then
-		settingLogLevel.hidden = not newValue
-	end
-end
+-- 	-- Show or hide log level setting, if debug is on or off
+-- 	if currentSetting.id == "toggle_debug" then
+-- 		settingLogLevel.hidden = not newValue
+-- 	end
+-- end
 
 local mod_id = "noita-mp" -- This should match the name of your mod's folder.
 mod_settings_version = 1 -- This is a magic global that can be used to migrate settings to new mod versions. call mod_settings_get_version() before mod_settings_update() to get the old value.
 mod_settings = {
 	{
-		id = "username",
-		ui_name = "Username",
-		ui_description = "Username displayed in game and necessary to set!",
+		id = "name",
+		ui_name = "Name",
+		ui_description = "Name displayed in game and necessary to set!",
 		value_default = "noname",
 		text_max_length = 20,
 		scope = MOD_SETTING_SCOPE_RUNTIME,
@@ -235,15 +235,89 @@ mod_settings = {
 		settings = {
 			{
 				id = "toggle_debug",
-				ui_name = "Toggle debug (in game)",
+				ui_name = "Toggle debug (gui in game)",
 				ui_description = "Toggle network debug information on or off in running world.",
 				value_default = false,
 				scope = MOD_SETTING_SCOPE_RUNTIME,
 				change_fn = mod_setting_change_callback, -- Called when the user interact with the settings widget.
 			},
 			{
-				id = "log_level",
-				ui_name = "Log level",
+				id = "log_level_entity",
+				ui_name = "Log level related to Entities",
+				ui_description = [[Set the current log level, for printing messages into console.
+Debug:   You will see debug, warning, info and errors.
+Warning: You will see warnings, info and errors.
+Info:     You will see info and errors.
+Error:   You will only see errors.]],
+				value_default = "error",
+				values = {
+					{ "debug, warn, info, error", "Debug" }, { "warn, info, error", "Warning" }, { "info, error", "Info" }, { "error", "Error" }
+				},
+				scope = MOD_SETTING_SCOPE_RUNTIME,
+				change_fn = mod_setting_change_callback, -- Called when the user interact with the settings widget.
+			},
+			{
+				id = "log_level_globals",
+				ui_name = "Log level  related to Globals",
+				ui_description = [[Set the current log level, for printing messages into console.
+Debug:   You will see debug, warning, info and errors.
+Warning: You will see warnings, info and errors.
+Info:     You will see info and errors.
+Error:   You will only see errors.]],
+				value_default = "error",
+				values = {
+					{ "debug, warn, info, error", "Debug" }, { "warn, info, error", "Warning" }, { "info, error", "Info" }, { "error", "Error" }
+				},
+				scope = MOD_SETTING_SCOPE_RUNTIME,
+				change_fn = mod_setting_change_callback, -- Called when the user interact with the settings widget.
+			},
+			{
+				id = "log_level_guid",
+				ui_name = "Log level  related to Guids",
+				ui_description = [[Set the current log level, for printing messages into console.
+Debug:   You will see debug, warning, info and errors.
+Warning: You will see warnings, info and errors.
+Info:     You will see info and errors.
+Error:   You will only see errors.]],
+				value_default = "error",
+				values = {
+					{ "debug, warn, info, error", "Debug" }, { "warn, info, error", "Warning" }, { "info, error", "Info" }, { "error", "Error" }
+				},
+				scope = MOD_SETTING_SCOPE_RUNTIME,
+				change_fn = mod_setting_change_callback, -- Called when the user interact with the settings widget.
+			},
+			{
+				id = "log_level_network",
+				ui_name = "Log level related to Client and Server",
+				ui_description = [[Set the current log level, for printing messages into console.
+Debug:   You will see debug, warning, info and errors.
+Warning: You will see warnings, info and errors.
+Info:     You will see info and errors.
+Error:   You will only see errors.]],
+				value_default = "error",
+				values = {
+					{ "debug, warn, info, error", "Debug" }, { "warn, info, error", "Warning" }, { "info, error", "Info" }, { "error", "Error" }
+				},
+				scope = MOD_SETTING_SCOPE_RUNTIME,
+				change_fn = mod_setting_change_callback, -- Called when the user interact with the settings widget.
+			},
+			{
+				id = "log_level_nuid",
+				ui_name = "Log level related to Nuids",
+				ui_description = [[Set the current log level, for printing messages into console.
+Debug:   You will see debug, warning, info and errors.
+Warning: You will see warnings, info and errors.
+Info:     You will see info and errors.
+Error:   You will only see errors.]],
+				value_default = "error",
+				values = {
+					{ "debug, warn, info, error", "Debug" }, { "warn, info, error", "Warning" }, { "info, error", "Info" }, { "error", "Error" }
+				},
+				scope = MOD_SETTING_SCOPE_RUNTIME,
+				change_fn = mod_setting_change_callback, -- Called when the user interact with the settings widget.
+			}, {
+				id = "log_level_vsc",
+				ui_name = "Log level related to Network VariableStorageComponents",
 				ui_description = [[Set the current log level, for printing messages into console.
 Debug:   You will see debug, warning, info and errors.
 Warning: You will see warnings, info and errors.

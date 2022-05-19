@@ -41,5 +41,5 @@ if ModSettingGet then
     require("Server")
     require("Client")
 else
-    logger:warn("Utils didnt load in init_.lua, because it looks like the mod wasn't run in game, but maybe on Github.")
+    logger:warn(nil, "Utils didnt load in init_.lua, because it looks like the mod wasn't run in game, but maybe on Github.")
 end

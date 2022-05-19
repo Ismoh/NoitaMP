@@ -1376,7 +1376,7 @@ sock.newServer = function(address, port, maxPeers, maxChannels, inBandwidth, out
         packetsReceived = 0,
 
         -- NoitaMP additions
-        username = "",
+        name     = "",
         guid     = nil,
         iAm      = "SERVER",
     }, Server_mt)
@@ -1448,7 +1448,7 @@ sock.newClient = function(serverOrAddress, port, maxChannels)
         packetsSent     = 0,
 
         -- NoitaMP additions
-        username      = "",
+        name          = "",
         guid          = nil,
         isAllowed     = false,
         isMapReceived = false,

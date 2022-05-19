@@ -19,10 +19,10 @@ function fu.ReplacePathSeparator(path)
         error("path is not a string")
     end
     if _G.is_windows then
-        logger:debug("file_util.lua | windows detected replace / with \\")
+        --logger:debug("file_util.lua | windows detected replace / with \\")
         path = string.gsub(path, "/", "\\")
     elseif _G.is_linux then
-        logger:debug("file_util.lua | unix detected replace \\ with /")
+        --logger:debug("file_util.lua | unix detected replace \\ with /")
         path = string.gsub(path, "\\", "/")
     else
         error(
@@ -76,7 +76,7 @@ function fu.SetAbsolutePathOfNoitaRootDirectory()
 
     _G.noita_root_directory_path = noita_root_directory_path
 
-    logger:debug("file_util.lua | Absolute path of Noitas root directory set to " .. _G.noita_root_directory_path)
+    --logger:debug("file_util.lua | Absolute path of Noitas root directory set to " .. _G.noita_root_directory_path)
 end
 
 function fu.GetAbsolutePathOfNoitaRootDirectory()
@@ -116,7 +116,7 @@ function fu.GetAbsoluteDirectoryPathOfParentSave()
     local line = ""
     while line ~= nil do
         line = file:read("*l")
-        logger:debug("file_util.lua | GetAbsoluteDirectoryPathOfParentSave line = " .. line)
+        --logger:debug("file_util.lua | GetAbsoluteDirectoryPathOfParentSave line = " .. line)
         if string.find(line, find_directory_name) then
             save06_parent_directory_path = line
             break
@@ -199,7 +199,7 @@ function fu.Exists(full_path)
         error("file_util.lua | Parameter full_path '" .. tostring(full_path) .. "' is not type of string!")
     end
     local exists = os.rename(full_path, full_path) and true or false
-    logger:debug("file_util.lua | File or directory " .. full_path .. " exists = " .. tostring(exists))
+    --logger:debug("file_util.lua | File or directory " .. full_path .. " exists = " .. tostring(exists))
     return exists
 end
 
@@ -209,7 +209,7 @@ function fu.IsFile(full_path)
         error("file_util.lua | Parameter full_path '" .. tostring(full_path) .. "' is not type of string!")
     end
     if not fu.Exists(full_path) then
-        logger:debug("file_util.lua | Path '" .. tostring(full_path) .. "' does not exist!")
+        --logger:debug("file_util.lua | Path '" .. tostring(full_path) .. "' does not exist!")
         return false
     end
     local f = io.open(full_path)
@@ -226,9 +226,9 @@ function fu.IsDirectory(full_path)
         error("file_util.lua | Parameter full_path '" .. tostring(full_path) .. "' is not type of string!")
     end
     local exists = fu.Exists(full_path)
-    logger:debug("file_util.lua | Directory " .. full_path .. " exists = " .. tostring(exists))
+    --logger:debug("file_util.lua | Directory " .. full_path .. " exists = " .. tostring(exists))
     local is_file = fu.IsFile(full_path)
-    logger:debug("file_util.lua | Is the directory a file? " .. full_path .. " is_file = " .. tostring(is_file))
+    --logger:debug("file_util.lua | Is the directory a file? " .. full_path .. " is_file = " .. tostring(is_file))
     return (exists and not is_file)
 end
 
@@ -348,7 +348,7 @@ function fu.Find7zipExecutable()
         end
         local response = f:read("*a")
         _G.seven_zip = tostring(fu.ReplacePathSeparator(response))
-        logger:debug("file_util.lua | Found 7z.exe: " .. _G.seven_zip)
+        logger:debug(nil, "file_util.lua | Found 7z.exe: " .. _G.seven_zip)
     else
         error(
             "Unfortunately unix systems aren't supported yet. Please consider https://github.com/Ismoh/NoitaMP/issues!",
@@ -399,7 +399,7 @@ function fu.Create7zipArchive(archive_name, absolute_directory_path_to_add_archi
     'cd "' ..
         absolute_destination_path ..
         '" && 7z.exe a -t7z ' .. archive_name .. ' "' .. absolute_directory_path_to_add_archive .. '"'
-    logger:debug("file_util.lua | Running: " .. command)
+    logger:debug(nil, "file_util.lua | Running: " .. command)
     os.execute(command)
 
     local archive_full_path = absolute_destination_path .. _G.path_separator .. archive_name .. ".7z"
@@ -418,7 +418,7 @@ function fu.Extract7zipArchive(archive_absolute_directory_path, archive_name, ex
     'cd "' ..
         archive_absolute_directory_path ..
         '" && 7z.exe x -aoa ' .. archive_name .. ' -o"' .. extract_absolute_directory_path .. '"'
-    logger:debug("file_util.lua | Running: " .. command)
+    logger:debug(nil, "file_util.lua | Running: " .. command)
     os.execute(command)
 end
 

@@ -29,19 +29,19 @@ if not EntityUtils.isEntityAlive(entityId) then
     return
 end
 
-username = username or nil
+name = name or nil
 
-if not username then
+if not name then
     ---@diagnostic disable-next-line: missing-parameter
     local vsc = EntityGetComponentIncludingDisabled(entityId, "VariableStorageComponent") or {}
     for i = 1, #vsc do
         local variable_storage_component_name = ComponentGetValue2(vsc[i], "name") or nil
-        if variable_storage_component_name == "noita-mp.nc_owner.username" then -- see NetworkComponent.component_name_owner_username = "noita-mp.nc_owner.username"
-            username = ComponentGetValue2(vsc[i], "value_string")
+        if variable_storage_component_name == "noita-mp.nc_owner.name" then -- see NetworkComponent.component_name_owner_username = "noita-mp.nc_owner.username"
+            name = ComponentGetValue2(vsc[i], "value_string")
         end
     end
 end
 
-if username then
-    PlayerNameFunction(entityId, username)
+if name then
+    PlayerNameFunction(entityId, name)
 end

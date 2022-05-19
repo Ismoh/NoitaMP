@@ -48,27 +48,27 @@ local function rewrite_stacktrace()
 end
 
 -- private log function, with support for formating a complex log message.
-local function LOG_MSG(self, level, fmt, ...)
+local function LOG_MSG(self, level, channel, fmt, ...)
   local f_type = type(fmt)
   if f_type == 'string' then
     if select('#', ...) > 0 then
       local status, msg = pcall(format, fmt, ...)
       if status then
-        return self:append(level, msg)
+        return self:append(level, channel, msg)
       else
-        return self:append(level, "Error formatting log message: " ..
-                                  msg .. rewrite_stacktrace())
+        return self:append(level, channel, "Error formatting log message: " ..
+          msg .. rewrite_stacktrace())
       end
     else
       -- only a single string, no formating needed.
-      return self:append(level, fmt)
+      return self:append(level, channel, fmt)
     end
   elseif f_type == 'function' then
     -- fmt should be a callable function which returns the message to log
-    return self:append(level, fmt(...))
+    return self:append(level, channel, fmt(...))
   end
   -- fmt is not a string and not a function, just call tostring() on it.
-  return self:append(level, logging.tostring(fmt))
+  return self:append(level, channel, logging.tostring(fmt))
 end
 
 -- do nothing function for disabled levels.
@@ -110,14 +110,14 @@ function logging.new(append, startLevel)
   local logger = {}
   logger.append = append
 
-  logger.setLevel = function (self, level)
+  logger.setLevel = function(self, level)
     local order = LEVELS[level]
     assert(order, "undefined level '%s'", _tostring(level))
     local old_level = self.level
     self.level = level
     self.level_order = order
     -- enable/disable levels
-    for i=1, MAX_LEVELS do
+    for i = 1, MAX_LEVELS do
       local name = LEVELS[i]:lower()
       if i >= order and i ~= MAX_LEVELS then
         self[name] = LEVEL_FUNCS[i]
@@ -135,17 +135,17 @@ function logging.new(append, startLevel)
   end
 
   -- generic log function.
-  logger.log = function (self, level, ...)
+  logger.log = function(self, level, channel, ...)
     local order = LEVELS[level]
     assert(order, "undefined level `%s'", _tostring(level))
     if order < self.level_order then
       return
     end
-    return LOG_MSG(self, level, ...)
+    return LOG_MSG(self, level, channel, ...)
   end
 
   -- a print function generator
-  logger.getPrint = function (self, level)
+  logger.getPrint = function(self, level)
     local order = LEVELS[level]
     assert(order, "undefined level `%s'", _tostring(level))
     return function(...)
@@ -156,19 +156,19 @@ function logging.new(append, startLevel)
   end
 
   -- create the proxy functions for each log level.
-  for i=1, MAX_LEVELS do
+  for i = 1, MAX_LEVELS do
     local level = LEVELS[i]
     if logger[level:lower()] then
-      return nil, "'" .. level .."' is not a proper level name since there is already a property '" .. level:lower() .. "'"
+      return nil, "'" .. level .. "' is not a proper level name since there is already a property '" .. level:lower() .. "'"
     end
-    LEVEL_FUNCS[i] = function(self, ...)
+    LEVEL_FUNCS[i] = function(self, channel, ...)
       -- no level checking needed here, this function will only be called if it's level is active.
-      return LOG_MSG(self, level, ...)
+      return LOG_MSG(self, level, channel, ...)
     end
   end
 
   -- insert log level constants
-  for i=1, MAX_LEVELS do
+  for i = 1, MAX_LEVELS do
     logger[LEVELS[i]] = LEVELS[i]
   end
 
@@ -176,7 +176,6 @@ function logging.new(append, startLevel)
   logger:setLevel(startLevel)
   return logger
 end
-
 
 -------------------------------------------------------------------------------
 -- Prepares the log message
@@ -202,8 +201,8 @@ function logging.compilePattern(pattern)
   local inject_info = false
   for placeholder, needs_info in pairs(placeholders) do
     local count
-    pattern, count = pattern:gsub("%%"..placeholder, '"..'..(needs_info or placeholder)..'.."')
-    inject_info = inject_info or (count>0 and needs_info)
+    pattern, count = pattern:gsub("%%" .. placeholder, '"..' .. (needs_info or placeholder) .. '.."')
+    inject_info = inject_info or (count > 0 and needs_info)
   end
   -- cleanup start & end
   if pattern:sub(1, 4) == '""..' then
@@ -215,9 +214,9 @@ function logging.compilePattern(pattern)
   -- build function
   local func = [[
   return function(date, level, message)
-      ]]..(inject_info and getDebugInfoLine:format(sourceDebugLevel) or "")..[[
+      ]] .. (inject_info and getDebugInfoLine:format(sourceDebugLevel) or "") .. [[
 
-      return ]]..pattern..[[
+      return ]] .. pattern .. [[
 
     end]]
 
@@ -268,22 +267,23 @@ local function tostring(value)
     end
     table.sort(auxTable)
 
-    str = str..'{'
+    str = str .. '{'
     local separator = ""
     local entry
     for _, fieldName in ipairs(auxTable) do
       if ((tonumber(fieldName)) and (tonumber(fieldName) > 0)) then
         entry = tostring(value[tonumber(fieldName)])
       else
-        entry = fieldName.." = "..tostring(value[fieldName])
+        entry = fieldName .. " = " .. tostring(value[fieldName])
       end
-      str = str..separator..entry
+      str = str .. separator .. entry
       separator = ", "
     end
-    str = str..'}'
+    str = str .. '}'
   end
   return str
 end
+
 logging.tostring = tostring
 
 -------------------------------------------------------------------------------
@@ -365,7 +365,7 @@ defaultLogPatterns = logging.buildLogPatterns({}, defaultLogPattern)
 -- Backward compatible parameter handling
 -------------------------------------------------------------------------------
 function logging.getDeprecatedParams(lst, ...) -- TODO: remove in next major version
-  local args = { n = select("#", ...), ...}
+  local args = { n = select("#", ...), ... }
   if type(args[1]) == "table" then
     -- this is the new format of a single params-table
     return args[1]
@@ -378,7 +378,6 @@ function logging.getDeprecatedParams(lst, ...) -- TODO: remove in next major ver
   return params
 end
 
-
 -------------------------------------------------------------------------------
 -- dynamically detect proper source debug level, since this can vary by Lua versions
 -------------------------------------------------------------------------------
@@ -386,10 +385,11 @@ do
   local detection_logger, test_msg
 
   local function detect_func() detection_logger:debug("message") end -- This function MUST be on a single line!!
-  local detect_func_info = debug.getinfo(detect_func)
-  local detect_func_match = detect_func_info.short_src..":"..tostring(detect_func_info.linedefined or -999)
 
-  detection_logger = logging.new( function(self, level, message)
+  local detect_func_info = debug.getinfo(detect_func)
+  local detect_func_match = detect_func_info.short_src .. ":" .. tostring(detect_func_info.linedefined or -999)
+
+  detection_logger = logging.new(function(self, level, message)
     test_msg = logging.prepareLogMsg("%source", "", level, message)
   end)
 

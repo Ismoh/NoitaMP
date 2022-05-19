@@ -16,7 +16,7 @@ end
 --#region Global private variables
 
 local localOwner = {
-    name = tostring(ModSettingGet("noita-mp.username")),
+    name = tostring(ModSettingGet("noita-mp.name")),
     guid = tostring(ModSettingGet("noita-mp.guid"))
 }
 -- local localPlayerEntityId = nil do not cache, because players entityId will change when respawning
@@ -105,7 +105,7 @@ function EntityUtils.getLocalPlayerEntityId()
             end
         end
     end
-    logger:warn("Unable to get local player entity id. Returning first entity id(%s), which was found.", playerEntityIds[1])
+    logger:warn(logger.channels.entity, "Unable to get local player entity id. Returning first entity id(%s), which was found.", playerEntityIds[1])
     return playerEntityIds[1]
 end
 
@@ -130,7 +130,7 @@ function EntityUtils.isEntityAlive(entityId)
     if EntityGetIsAlive(entityId) then
         return entityId
     end
-    logger:warn("Entity (%s) isn't alive anymore! Returning nil.", entityId)
+    logger:warn(logger.channels.entity, "Entity (%s) isn't alive anymore! Returning nil.", entityId)
     return nil
 end
 
@@ -154,7 +154,7 @@ function EntityUtils.initNetworkVscs()
             else
                 nuid = tonumber(value)
             end
-            NetworkVscUtils.addOrUpdateAllVscs(entityId, owner.username, owner.guid, nuid)
+            NetworkVscUtils.addOrUpdateAllVscs(entityId, owner.name, owner.guid, nuid)
             GlobalsUtils.setNuid(nuid, entityId)
 
             local x, y, rotation, scaleX, scaleY = EntityGetTransform(entityId)
@@ -168,7 +168,7 @@ function EntityUtils.initNetworkVscs()
 end
 
 --- Spwans an entity and applies the transform and velocity to it. Also adds the network_component.
----@param owner table { username, guid }
+---@param owner table { name, guid }
 ---@param nuid any
 ---@param x any
 ---@param y any
@@ -186,7 +186,7 @@ function EntityUtils.SpawnEntity(owner, nuid, x, y, rot, velocity, filename, loc
             return
         end
         -- if the owner sent by network is the local owner, don't spawn an additional entity, but update the nuid
-        NetworkVscUtils.addOrUpdateAllVscs(localEntityId, owner.username, owner.guid, nuid)
+        NetworkVscUtils.addOrUpdateAllVscs(localEntityId, owner.name, owner.guid, nuid)
         return
     end
 
@@ -195,7 +195,7 @@ function EntityUtils.SpawnEntity(owner, nuid, x, y, rot, velocity, filename, loc
         local ownerNameByVsc, ownerGuidByVsc, nuidByVsc = NetworkVscUtils.getAllVcsValuesByEntityId(localEntityId)
         if ownerGuidByVsc ~= remoteGuid then
             logger:error("Trying to spawn entity(%s) locally, but owner does not match: remoteOwner(%s) ~= localOwner(%s). remoteNuid(%s) ~= localNuid(%s)",
-                localEntityId, owner.username, ownerNameByVsc, nuid, nuidByVsc)
+                localEntityId, owner.name, ownerNameByVsc, nuid, nuidByVsc)
         end
     end
 
@@ -204,7 +204,7 @@ function EntityUtils.SpawnEntity(owner, nuid, x, y, rot, velocity, filename, loc
         return
     end
 
-    NetworkVscUtils.addOrUpdateAllVscs(entityId, owner.username, owner.guid, nuid) --self:AddNetworkComponentToEntity(entity_id, owner, nuid)
+    NetworkVscUtils.addOrUpdateAllVscs(entityId, owner.name, owner.guid, nuid) --self:AddNetworkComponentToEntity(entity_id, owner, nuid)
     EntityApplyTransform(entityId, x, y, rot, 1, 1)
 
     ---@diagnostic disable-next-line: missing-parameter
@@ -213,7 +213,7 @@ function EntityUtils.SpawnEntity(owner, nuid, x, y, rot, velocity, filename, loc
         ---@diagnostic disable-next-line: redundant-parameter
         ComponentSetValue2(veloCompId, "mVelocity", velocity[1], velocity[2])
     else
-        logger:warn("Unable to get VelocityComponent.")
+        logger:warn(logger.channels.entity, "Unable to get VelocityComponent.")
         --EntityAddComponent2(entityId, "VelocityComponent", {})
     end
     return entityId
@@ -225,22 +225,30 @@ function EntityUtils.despawnClientEntities()
     end
 
     local radius = tonumber(ModSettingGetNextValue("noita-mp.radius_exclude_entities"))
-    local filteredEntities = getFilteredEntities(radius, EntityUtils.include, EntityUtils.exclude)
+    local x, y = EntityGetTransform(EntityUtils.getLocalPlayerEntityId())
+    local filteredEntities = EntityGetInRadiusWithTag(x, y, radius, "enemy") or {} --getFilteredEntities(radius, EntityUtils.include, EntityUtils.exclude)
 
     if #filteredEntities > 0 then
         -- local playerUnitIds = EntityGetWithTag("player_unit")
         -- for i = 1, #playerUnitIds do
         local playerEntityId = EntityUtils.getLocalPlayerEntityId()
-        local playerEntities = {}
-        table.insertIfNotExist(playerEntities, playerEntityId)
-        table.insertIfNotExist(playerEntities, EntityUtils.get_player_inventory_contents("inventory_quick")) -- wands and items
-        table.insertIfNotExist(playerEntities, EntityUtils.get_player_inventory_contents("inventory_full")) -- spells
-        --for i = 1, #playerEntityIds do
+        local playerEntityIds = {}
+        table.insertIfNotExist(playerEntityIds, playerEntityId)
+        table.insertAllButNotDuplicates(playerEntityIds, EntityUtils.get_player_inventory_contents("inventory_quick")) -- wands and items
+        table.insertAllButNotDuplicates(playerEntityIds, EntityUtils.get_player_inventory_contents("inventory_full")) -- spells
+        table.insertAllButNotDuplicates(playerEntityIds, EntityGetAllChildren(playerEntityId) or {})
 
-        table.insertAllButNotDuplicates(playerEntities, EntityGetAllChildren(playerEntityId) or {})
-        --end
+        for i = 1, #playerEntityIds do
+            local entityId = playerEntityIds[i]
+            if not NetworkVscUtils.hasNetworkLuaComponents(entityId) then
+                NetworkVscUtils.addOrUpdateAllVscs(entityId, localOwner.name, localOwner.guid, nil)
+            end
+            if not NetworkVscUtils.hasNuidSet(entityId) then
+                Client.sendNeedNuid(localOwner, entityId)
+            end
+        end
 
-        table.removeByTable(filteredEntities, playerEntities)
+        table.removeByTable(filteredEntities, playerEntityIds)
         --end
     end
 

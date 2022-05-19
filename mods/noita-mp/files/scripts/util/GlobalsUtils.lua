@@ -43,7 +43,7 @@ function GlobalsUtils.parseXmlValueToNuidAndEntityId(xmlKey, xmlValue)
     if foundNuid ~= nil then
         nuid = tonumber(string.sub(xmlKey, GlobalsUtils.nuidKeySubstring:len()))
     else
-        logger:info("Unable to get nuid number of key string (%s).", xmlKey)
+        logger:info(logger.channels.globals, "Unable to get nuid number of key string (%s).", xmlKey)
         return nil, nil
     end
 

@@ -141,7 +141,7 @@ end
 
 --- Adds a NetworkComponent to an entity, if it doesn't exist already.
 --- @param entity_id number The entity id where to add the NetworkComponent.
---- @param owner table { username, guid }
+--- @param owner table { name, guid }
 --- @param nuid number nuid to know the entity wiht network component
 --- @return number component_id Returns the component_id. The already existed one or the newly created id.
 function em:AddNetworkComponentToEntity(entity_id, owner, nuid)

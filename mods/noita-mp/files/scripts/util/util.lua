@@ -98,7 +98,7 @@ function util.debug_entity(e)
             if comp_type == "VariableStorageComponent" then
                 msg = msg .. (" - " .. (ComponentGetValue2(comp, "name") or "") .. " = " .. (ComponentGetValue2(comp, "value_string") or ""))
             end
-            msg  = msg .."\n"
+            msg = msg .. "\n"
         end
     end
 
@@ -115,12 +115,12 @@ function util.debug_entity(e)
             if comp_type == "VariableStorageComponent" then
                 msg = msg .. (" - " .. (ComponentGetValue2(comp, "name") or "") .. " = " .. (ComponentGetValue2(comp, "value_string") or ""))
             end
-            msg  = msg .."\n"
+            msg = msg .. "\n"
         end
     end
     msg = msg .. ("--- END ENTITY DATA ---" .. "\n")
 
-    logger:debug(msg)
+    logger:debug(nil, msg)
 end
 
 function util.pprint(var)
@@ -129,7 +129,7 @@ end
 
 function util.getLocalOwner()
     return {
-        username = tostring(ModSettingGet("noita-mp.username")),
+        name = tostring(ModSettingGet("noita-mp.name")),
         guid = tostring(ModSettingGet("noita-mp.guid"))
     }
 end

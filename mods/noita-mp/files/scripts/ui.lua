@@ -6,7 +6,7 @@ if Initialized == nil then
 end
 
 if not Initialized then
-    logger:debug("Initialising ui")
+    logger:debug(nil, "Initialising ui")
     Initialized = true
     local gui_id = 2
     local gui = gui or GuiCreate()
@@ -123,7 +123,7 @@ if not Initialized then
             if _G.Server ~= nil and next(_G.Server) ~= nil and _G.Server ~= nil and next(_G.Server) ~= nil then
                 for i, client in pairs(_G.Server:getClients()) do
                     i = (i - 1) * 3 -- 1-1*5=0 | 2-1*5=5 | 3-1*5=10
-                    GuiText(gui, 0, i, util.ExtendAndCutStringToLength(client.username, string_length, " "))
+                    GuiText(gui, 0, i, util.ExtendAndCutStringToLength(client.name, string_length, " "))
                     GuiText(
                         gui,
                         0,
