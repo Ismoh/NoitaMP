@@ -35,16 +35,18 @@ local function _get_last_modified(directory)
     return last
 end
 
+--local modified = true
 local function watcher(directory, callback)
     local last = _get_last_modified(directory)
-    callback()
+    callback(last)
 
-    while true do
-        _check_modification(directory, last_modified, function(_last_modified)
-            last = _last_modified
-            callback()
-        end)
-    end
+    --while modified do --while true do
+    _check_modification(directory, last_modified, function(_last_modified)
+        last = _last_modified
+        callback(last)
+        --modified = true
+    end)
+    --end
 end
 
 return watcher

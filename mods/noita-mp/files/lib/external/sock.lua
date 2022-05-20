@@ -147,7 +147,7 @@ end
 function Logger:log(event, data)
     local time      = os.date("%X") -- something like 24:59:59
     local shortLine = ("%s [%s] %s"):format(time, event, data)
-    local fullLine  = ("%s [%s %s] %s"):format(time, self.source, event, data) --local fullLine  = ("[%s][%s][%s] %s"):format(self.source, time, event, data)
+    local fullLine  = ("%s [%s %s] %s"):format(time, self.source, event, util.pprint(data)) --local fullLine  = ("[%s][%s][%s] %s"):format(self.source, time, event, data)
 
     -- The printed message may or may not be the full message
     local line = fullLine
@@ -156,22 +156,22 @@ function Logger:log(event, data)
     end
 
     if self.printEventData then
-        print(line)
-    elseif self.printErrors and event == "error" then
-        print(line)
+        --print(line)
+        _G.logger:info(_G.logger.channels.network, fullLine)
     elseif self.printWarnings and event == "warning" then
-        print(line)
+        --print(line)
+        _G.logger:warn(_G.logger.channels.network, fullLine)
+    elseif self.printErrors and event == "error" then
+        --print(line)
+        _G.logger:error(_G.logger.channels.network, fullLine)
     end
-
-    -- log data separatly to be able to read network traffic
-    util.pprint(data)
 
     -- The logged message is always the full message
     table.insert(self.messages, fullLine)
 
-    if event ~= nil or data ~= nil then
-        print(fullLine)
-    end
+    -- if event ~= nil or data ~= nil then
+    --     print(fullLine)
+    -- end
     -- TODO: Dump to a log file
 end
 

@@ -12,16 +12,15 @@ local appender = function(self, level, channel, message)
     end
   end
 
+  local time = os.date("%X")
+  channel = string.ExtendOrCutStringToLength(channel, 7, " ")
+  level = string.ExtendOrCutStringToLength(level, 5, " ")
   -- add file name to logs: https://stackoverflow.com/a/48469960/3493998
   local file_name = debug.getinfo(2, "S").source:sub(2)
   file_name = file_name:match("^.*/(.*)$") or file_name
-  file_name = file_name
-  level = string.trim(level)
-  local time = os.date("%X")
-
-  local msg = ("%s [%s] %s ( in %s )"):format(time, level, message, file_name)
+  local msg = ("%s [%s][%s] %s ( in %s )"):format(time, channel, level, message, file_name)
   print(msg)
-  --GamePrint(msg)
+  
   return true
 end
 

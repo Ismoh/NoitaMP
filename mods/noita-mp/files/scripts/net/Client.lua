@@ -81,13 +81,14 @@ function Client.new(sockClient)
                 self:send("clientInfo", { name, self.guid })
 
                 local playerEntityId = EntityUtils.getLocalPlayerEntityId()
-                --for i = 1, #playerEntityIds do
+                local localOwner = util.getLocalOwner()
+
                 if not NetworkVscUtils.hasNetworkLuaComponents(playerEntityId) then
-                    local localOwner = util.getLocalOwner()
-                    self.sendNeedNuid(localOwner, playerEntityId)
                     NetworkVscUtils.addOrUpdateAllVscs(playerEntityId, localOwner.name, localOwner.guid, nil)
                 end
-                --end
+                if not NetworkVscUtils.hasNuidSet(playerEntityId) then
+                    self.sendNeedNuid(localOwner, playerEntityId)
+                end
             end
         )
 

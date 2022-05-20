@@ -29,7 +29,7 @@ local function getNextNuid()
 
     -- Are there any nuids saved in globals, if so get the highest nuid?
     if not xmlParsed then
-        local worldStateXmlAbsPath = fu.GetAbsDirPathOfWorldStateXml("save01") -- TODO in https://github.com/Ismoh/NoitaMP/issues/39
+        local worldStateXmlAbsPath = fu.GetAbsDirPathOfWorldStateXml(saveSlotDirectory)
         if fu.Exists(worldStateXmlAbsPath) then
             local f = io.open(worldStateXmlAbsPath, "r")
             local xml = nxml.parse(f:read("*a"))
@@ -44,6 +44,7 @@ local function getNextNuid()
                     end
                 end
             end
+            logger:info(logger.channels.nuid, "Loaded nuids after loading a savegame. Latest nuid from world_state.xml aka Globals = %s.", counter)
         end
         xmlParsed = true
     end

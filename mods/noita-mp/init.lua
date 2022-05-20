@@ -17,9 +17,9 @@ end
 
 fu.Find7zipExecutable()
 
-function OnModPreInit()
-    fu.createCallbacksForSaveSlotWatcher()
+local saveSlotsLastModifiedBeforeWorldInit = fu.getLastModifiedSaveSlots()
 
+function OnModPreInit()
     EntityUtils.modifyPhysicsEntities()
 
     --_G.cache = {}
@@ -124,7 +124,7 @@ local function drawGui()
             end,
             showText = ("[%s]"):format(show),
         }
-        render_ezgui(50, 50, "mods/noita-mp/files/data/ezgui/PlayerList.xml", showGuiData)
+        render_ezgui(50, 50, "mods/noita-mp/files/data/ezgui/ShowAndHideMenu.xml", showGuiData)
     end
 
     drawShowGui()
@@ -134,7 +134,23 @@ local function drawGui()
     end
 end
 
+--- PreUpdate of world
 function OnWorldPreUpdate()
+    if not _G.saveSlotDirectory then
+        local saveSlotsLastModifiedAfterWorldInit = fu.getLastModifiedSaveSlots()
+        for i = 1, #saveSlotsLastModifiedBeforeWorldInit do
+            for j = 1, #saveSlotsLastModifiedAfterWorldInit do
+                if saveSlotsLastModifiedBeforeWorldInit[i].lastModified > saveSlotsLastModifiedAfterWorldInit[j].lastModified then
+                    _G.saveSlotDirectory = saveSlotsLastModifiedAfterWorldInit[i].dir
+                    logger:info(nil, "Save slot found in '%s'", _G.saveSlotDirectory)
+                else
+                    _G.saveSlotDirectory = saveSlotsLastModifiedAfterWorldInit[j].dir
+                    logger:info(nil, "Save slot found in '%s'", _G.saveSlotDirectory)
+                end
+            end
+        end
+    end
+
     UpdateLogLevel()
 
     _G.Server.update()

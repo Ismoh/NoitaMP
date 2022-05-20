@@ -183,20 +183,30 @@ function fu.GetAbsoluteDirectoryPathOfRequiredLibs()
     return p
 end
 
-function fu.GetAbsDirPathOfWorldStateXml(saveFolderName)
-    return fu.GetAbsoluteDirectoryPathOfParentSave() .. _G.path_separator .. saveFolderName .. _G.path_separator .. "world_state.xml"
+--- There is a world_state.xml per each saveSlot directory, which contains Globals. Nuid are stored in Globals.
+--- @param saveSlotAbsDirectoryPath string Absolute directory path to the current selected save slot.
+--- @return string absPath world_state.xml absolute file path
+function fu.GetAbsDirPathOfWorldStateXml(saveSlotAbsDirectoryPath)
+    return ("%s%s%s"):format(saveSlotAbsDirectoryPath, path_separator, "world_state.xml")
 end
 
-function fu.createCallbacksForSaveSlotWatcher()
+function fu.getLastModifiedSaveSlots()
     local save0 = fu.GetAbsoluteDirectoryPathOfParentSave() .. path_separator .. "save0"
 
+    local saveSlotLastModified = {}
     for i = 0, 6, 1 do
         local save0X = save0 .. i
-        watcher(save0X, function()
-            _G.saveSlotDirectory = save0X
+
+        watcher(save0X, function(lastModified)
+            --_G.saveSlotDirectory = save0X
+            logger:debug(nil, "SaveSlot(%s) directory was last modified at %s.", "save0" .. i, lastModified)
+            if lastModified > 0 then
+                table.insert(saveSlotLastModified, { dir = save0X, lastModified = lastModified })
+            end
         end)
     end
-    logger:info(nil, "Callbacks for saveSlot directory detection were created!")
+    --logger:info(nil, "Callbacks for saveSlot directory detection were created!")
+    return saveSlotLastModified
 end
 
 ----------------------------------------------------------------------------------------------------

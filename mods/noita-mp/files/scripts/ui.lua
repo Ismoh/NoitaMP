@@ -108,11 +108,11 @@ if not Initialized then
             x = x
             y = y + 3
             GuiLayoutBeginHorizontal(gui, x, y, true, 5, 5)
-            GuiText(gui, 0, 0, util.ExtendAndCutStringToLength("Name", string_length, " "))
-            GuiText(gui, 0, 0, util.ExtendAndCutStringToLength("Ping", string_length, " "))
-            GuiText(gui, 0, 0, util.ExtendAndCutStringToLength("Map received", string_length, " "))
-            GuiText(gui, 0, 0, util.ExtendAndCutStringToLength("Allow", string_length, " "))
-            GuiText(gui, 0, 0, util.ExtendAndCutStringToLength("Kick", string_length, " "))
+            GuiText(gui, 0, 0, string.ExtendOrCutStringToLength("Name", string_length, " "))
+            GuiText(gui, 0, 0, string.ExtendOrCutStringToLength("Ping", string_length, " "))
+            GuiText(gui, 0, 0, string.ExtendOrCutStringToLength("Map received", string_length, " "))
+            GuiText(gui, 0, 0, string.ExtendOrCutStringToLength("Allow", string_length, " "))
+            GuiText(gui, 0, 0, string.ExtendOrCutStringToLength("Kick", string_length, " "))
             GuiLayoutEnd(gui)
 
             ------------ ------------ Player list content
@@ -123,12 +123,12 @@ if not Initialized then
             if _G.Server ~= nil and next(_G.Server) ~= nil and _G.Server ~= nil and next(_G.Server) ~= nil then
                 for i, client in pairs(_G.Server:getClients()) do
                     i = (i - 1) * 3 -- 1-1*5=0 | 2-1*5=5 | 3-1*5=10
-                    GuiText(gui, 0, i, util.ExtendAndCutStringToLength(client.name, string_length, " "))
+                    GuiText(gui, 0, i, string.ExtendOrCutStringToLength(client.name, string_length, " "))
                     GuiText(
                         gui,
                         0,
                         i,
-                        util.ExtendAndCutStringToLength(client:getRoundTripTime() .. "ms", string_length, " ")
+                        string.ExtendOrCutStringToLength(client:getRoundTripTime() .. "ms", string_length, " ")
                     )
                     -- Map received
                     if client.isMapReceived then
@@ -173,7 +173,7 @@ if not Initialized then
                             GamePrintImportant(
                                 "Noita Restart for saving world",
                                 "Noita will be restarted to fully save the world.\nUnfortunatelly this is due to no/less access to Noita save functions."
-                            , "")
+                                , "")
                             _G.Server:setIsAllowed(client, true)
                             _G.Server:storeClients()
                             -- remeber to zip the savegame, when restarting server

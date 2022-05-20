@@ -14,18 +14,23 @@ if not logger then -- logger is usually initialised by unsafe API, which isnt av
 
     local file = "unkown script - please define this in your Noita Component"
 
-    local function log(log_level, channel, text)
+    local function log(level, channel, message)
         local logLevelOfSettings = nil
 
         if channel then -- also have a look on init_logger.lua
             logLevelOfSettings = tostring(ModSettingGet(("noita-mp.log_level_%s"):format(channel)))
-            if not logLevelOfSettings:contains(log_level) then
+            if not logLevelOfSettings:contains(level) then
                 return false
             end
         end
 
-        if logLevelOfSettings ~= nil and logLevelOfSettings:find(log_level) then
-            print(text)
+        channel = string.ExtendOrCutStringToLength(channel, 7, " ")
+        level = string.ExtendOrCutStringToLength(level, 5, " ")
+
+        local msg = ("%s [%s][%s] %s ( in %s )"):format("00:00:00", channel, level, message, file)
+
+        if logLevelOfSettings ~= nil and logLevelOfSettings:find(level) then
+            print(msg)
         end
     end
 
@@ -34,35 +39,31 @@ if not logger then -- logger is usually initialised by unsafe API, which isnt av
     end
 
     function logger:debug(channel, text, ...)
-        local msg = "00:00:00 [debug] " .. text .. " in (" .. file .. ".lua)"
         if ... then
-            msg = msg:format(...)
+            text = text:format(...)
         end
-        log("debug", channel, msg)
+        log("debug", channel, text)
     end
 
     function logger:warn(channel, text, ...)
-        local msg = "00:00:00 [warn] " .. text .. " in (" .. file .. ".lua)"
         if ... then
-            msg = msg:format(...)
+            text = text:format(...)
         end
-        log("warn", channel, msg)
+        log("warn", channel, text)
     end
 
     function logger:info(channel, text, ...)
-        local msg = "00:00:00 [info] " .. text .. " in (" .. file .. ".lua)"
         if ... then
-            msg = msg:format(...)
+            text = text:format(...)
         end
-        log("info", channel, msg)
+        log("info", channel, text)
     end
 
     function logger:error(channel, text, ...)
-        local msg = "00:00:00 [error] " .. text .. " in (" .. file .. ".lua)"
         if ... then
-            msg = msg:format(...)
+            text = text:format(...)
         end
-        log("error", channel, msg)
+        log("error", channel, text)
     end
 
     logger:debug(nil, "logger isn't available in (%s). Setting dump logger up!", file)

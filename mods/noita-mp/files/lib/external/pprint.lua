@@ -16,22 +16,22 @@ pprint.defaults = {
     show_thread = false,
     show_userdata = false,
     -- additional display trigger
-    show_metatable = false,     -- show metatable
-    show_all = false,           -- override other show settings and show everything
-    use_tostring = false,       -- use __tostring to print table if available
-    filter_function = nil,      -- called like callback(value[,key, parent]), return truty value to hide
-    object_cache = 'local',     -- cache blob and table to give it a id, 'local' cache per print, 'global' cache
-                                -- per process, falsy value to disable (might cause infinite loop)
+    show_metatable = false, -- show metatable
+    show_all = true, -- override other show settings and show everything
+    use_tostring = false, -- use __tostring to print table if available
+    filter_function = nil, -- called like callback(value[,key, parent]), return truty value to hide
+    object_cache = 'local', -- cache blob and table to give it a id, 'local' cache per print, 'global' cache
+    -- per process, falsy value to disable (might cause infinite loop)
     -- format settings
-    indent_size = 2,            -- indent for each nested table level
-    level_width = 80,           -- max width per indent level
-    wrap_string = true,         -- wrap string when it's longer than level_width
-    wrap_array = false,         -- wrap every array elements
-    sort_keys = true,           -- sort table keys
+    indent_size = 2, -- indent for each nested table level
+    level_width = 80, -- max width per indent level
+    wrap_string = false, -- wrap string when it's longer than level_width
+    wrap_array = false, -- wrap every array elements
+    sort_keys = true, -- sort table keys
 }
 
 local TYPES = {
-    ['nil'] = 1, ['boolean'] = 2, ['number'] = 3, ['string'] = 4, 
+    ['nil'] = 1, ['boolean'] = 2, ['number'] = 3, ['string'] = 4,
     ['table'] = 5, ['function'] = 6, ['thread'] = 7, ['userdata'] = 8
 }
 
@@ -44,7 +44,7 @@ local ESCAPE_MAP = {
 -- generic utilities
 local function escape(s)
     s = s:gsub('([%c\\])', ESCAPE_MAP)
-    local dq = s:find('"') 
+    local dq = s:find('"')
     local sq = s:find("'")
     if dq and sq then
         return s:gsub('"', '\\"'), '"'
@@ -72,7 +72,7 @@ local CACHE_TYPES = {
 -- use weakrefs to avoid accidentall adding refcount
 local function cache_apperance(obj, cache, option)
     if not cache.visited_tables then
-        cache.visited_tables = setmetatable({}, {__mode = 'k'})
+        cache.visited_tables = setmetatable({}, { __mode = 'k' })
     end
     local t = type(obj)
 
@@ -80,13 +80,13 @@ local function cache_apperance(obj, cache, option)
     -- might cause different results?
     -- respect show_xxx and filter_function to be consistent with print results
     if (not TYPES[t] and not option.show_table)
-        or (TYPES[t] and not option['show_'..t]) then
+        or (TYPES[t] and not option['show_' .. t]) then
         return
     end
 
     if CACHE_TYPES[t] or TYPES[t] == nil then
         if not cache[t] then
-            cache[t] = setmetatable({}, {__mode = 'k'})
+            cache[t] = setmetatable({}, { __mode = 'k' })
             cache[t]._cnt = 0
         end
         if not cache[t][obj] then
@@ -123,20 +123,20 @@ local function str_natural_cmp(lhs, rhs)
         local rmid, rend = rhs:find('%d+')
         if not (lmid and rmid) then return lhs < rhs end
 
-        local lsub = lhs:sub(1, lmid-1)
-        local rsub = rhs:sub(1, rmid-1)
+        local lsub = lhs:sub(1, lmid - 1)
+        local rsub = rhs:sub(1, rmid - 1)
         if lsub ~= rsub then
             return lsub < rsub
         end
-        
+
         local lnum = tonumber(lhs:sub(lmid, lend))
         local rnum = tonumber(rhs:sub(rmid, rend))
         if lnum ~= rnum then
             return lnum < rnum
         end
 
-        lhs = lhs:sub(lend+1)
-        rhs = rhs:sub(rend+1)
+        lhs = lhs:sub(lend + 1)
+        rhs = rhs:sub(rend + 1)
     end
     return lhs < rhs
 end
@@ -165,7 +165,7 @@ local function make_option(option)
         end
         if option.show_all then
             for t, _ in pairs(TYPES) do
-                option['show_'..t] = true
+                option['show_' .. t] = true
             end
             option.show_metatable = true
         end
@@ -185,6 +185,7 @@ function pprint.pformat(obj, option, printer)
     local function default_printer(s)
         table.insert(buf, s)
     end
+
     printer = printer or default_printer
 
     local cache
@@ -200,7 +201,7 @@ function pprint.pformat(obj, option, printer)
     local last = '' -- used for look back and remove trailing comma
     local status = {
         indent = '', -- current indent
-        len = 0,     -- current line length
+        len = 0, -- current line length
     }
 
     local wrapped_printer = function(s)
@@ -258,12 +259,12 @@ function pprint.pformat(obj, option, printer)
 
     local function make_fixed_formatter(t, has_cache)
         if has_cache then
-            return function (v)
+            return function(v)
                 return string.format('[[%s %d]]', t, cache[t][v])
             end
         else
-            return function (v)
-                return '[['..t..']]'
+            return function(v)
+                return '[[' .. t .. ']]'
             end
         end
     end
@@ -281,14 +282,14 @@ function pprint.pformat(obj, option, printer)
                     local seg = option.level_width - status.len
                     _p(string.sub(s, 1, seg), true)
                     _n()
-                    s = string.sub(s, seg+1)
+                    s = string.sub(s, seg + 1)
                 end
                 _p(s) -- print the remaining parts
-                return ']]' 
+                return ']]'
             end
         end
 
-        return force_long_quote and '[['..s..']]' or quote..s..quote
+        return force_long_quote and '[[' .. s .. ']]' or quote .. s .. quote
     end
 
     local function table_formatter(t)
@@ -320,10 +321,10 @@ function pprint.pformat(obj, option, printer)
 
         local limit = tonumber(option.depth_limit)
         if limit and depth > limit then
-           if print_header_ix then
-              return string.format('[[%s %d]]...', ttype, print_header_ix)
-           end
-           return string_formatter(tostring(t), true)
+            if print_header_ix then
+                return string.format('[[%s %d]]...', ttype, print_header_ix)
+            end
+            return string_formatter(tostring(t), true)
         end
 
         local tlen = #t
@@ -334,18 +335,18 @@ function pprint.pformat(obj, option, printer)
         if print_header_ix then
             _p(string.format('--[[%s %d]] ', ttype, print_header_ix))
         end
-        for ix = 1,tlen do
+        for ix = 1, tlen do
             local v = t[ix]
-            if formatter[type(v)] == nop_formatter or 
-               (option.filter_function and option.filter_function(v, ix, t)) then
-               -- pass
+            if formatter[type(v)] == nop_formatter or
+                (option.filter_function and option.filter_function(v, ix, t)) then
+                -- pass
             else
                 if option.wrap_array then
                     wrapped = _n()
                 end
-                depth = depth+1
-                _p(format(v)..', ')
-                depth = depth-1
+                depth = depth + 1
+                _p(format(v) .. ', ')
+                depth = depth - 1
             end
         end
 
@@ -364,8 +365,8 @@ function pprint.pformat(obj, option, printer)
         local function print_kv(k, v, t)
             -- can't use option.show_x as obj may contain custom type
             if formatter[type(v)] == nop_formatter or
-               formatter[type(k)] == nop_formatter or 
-               (option.filter_function and option.filter_function(v, k, t)) then
+                formatter[type(k)] == nop_formatter or
+                (option.filter_function and option.filter_function(v, k, t)) then
                 return
             end
             wrapped = _n()
@@ -376,16 +377,16 @@ function pprint.pformat(obj, option, printer)
                 -- [[]] type string in key is illegal, needs to add spaces inbetween
                 local k = format(k)
                 if string.match(k, '%[%[') then
-                    _p(' '..k..' ', true)
+                    _p(' ' .. k .. ' ', true)
                 else
                     _p(k, true)
                 end
                 _p(']')
             end
             _p(' = ', true)
-            depth = depth+1
+            depth = depth + 1
             _p(format(v), true)
-            depth = depth-1
+            depth = depth - 1
             _p(',', true)
         end
 
@@ -455,18 +456,18 @@ function pprint.pformat(obj, option, printer)
 end
 
 -- pprint all the arguments
-function pprint.pprint( ... )
-    local args = {...}
+function pprint.pprint(...)
+    local args = { ... }
     -- select will get an accurate count of array len, counting trailing nils
     local len = select('#', ...)
-    for ix = 1,len do
-        pprint.pformat(args[ix], nil, io.write)
+    for ix = 1, len do
+        pprint.pformat(args[ix], nil, io.write) Return string somehow?
         io.write('\n')
     end
 end
 
 setmetatable(pprint, {
-    __call = function (_, ...)
+    __call = function(_, ...)
         pprint.pprint(...)
     end
 })

@@ -243,9 +243,9 @@ function EntityUtils.despawnClientEntities()
             if not NetworkVscUtils.hasNetworkLuaComponents(entityId) then
                 NetworkVscUtils.addOrUpdateAllVscs(entityId, localOwner.name, localOwner.guid, nil)
             end
-            if not NetworkVscUtils.hasNuidSet(entityId) then
-                Client.sendNeedNuid(localOwner, entityId)
-            end
+            -- if not NetworkVscUtils.hasNuidSet(entityId) then
+            --     Client.sendNeedNuid(localOwner, entityId)
+            -- end
         end
 
         table.removeByTable(filteredEntities, playerEntityIds)
