@@ -1,0 +1,38 @@
+<Layout>
+  <Layout class="header">
+    <Text>NoitaMP v{{version}}</Text>
+    <Button @click="start()">Start Server on {{ip}}:{{port}}</Button>
+  </Layout>
+  <Layout class="table">
+    <Layout class="header">
+      <Text>Minäs</Text>
+      <Text>RTT</Text>
+      <Text>Actions</Text>
+      <Text></Text>
+    </Layout>
+    <Layout forEach="minae in clients">
+      <Text>{{minae.name}}</Text>
+      <Text>{{minae.rtt}}</Text>
+      <Button @click="kick(minae)">Kick</Button>
+      <Button @click="ban(minae)">Ban</Button>
+    </Layout>
+  </Layout>
+</Layout>
+<Style>
+.header {
+  direction: vertical;
+}
+.table {
+  direction: vertical;
+  border: true;
+}
+.table > Layout {
+  direction: horizontal;
+}
+.table .header {
+  border: true;
+}
+.table > Layout > * {
+  width: 50;
+}
+</Style>

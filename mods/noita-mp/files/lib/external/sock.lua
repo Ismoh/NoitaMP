@@ -255,12 +255,14 @@ function Server:start(ip, port)
     -- number of channels for the client and server must match
     self.host = enet.host_create(ip .. ":" .. port, self.maxPeers, self.maxChannels)
 
+    self.address = ip
+    self.port = port
 
     if not self.host then
         error("Failed to create the host. Is there another server running on :" .. self.port .. "?")
     end
 
-    self:setBandwidthLimit(self.inBandwidth, self.outBandwidth)
+    self:setBandwidthLimit(0, 0)
 
     if bitserLoaded then
         self:setSerialization(bitser.dumps, bitser.loads)

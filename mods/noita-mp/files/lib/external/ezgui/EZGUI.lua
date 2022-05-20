@@ -64,8 +64,6 @@ return {
         ("%soop.lua"):format(self_path),
         ("%sparsing_functions.lua"):format(self_path),
         ("%sstring_buffer.lua"):format(self_path),
-        ("%sunit_test.lua"):format(self_path),
-        ("%sunit_tests.lua"):format(self_path),
         ("%sutils.lua"):format(self_path),
         ("%selements/Button.lua"):format(self_path),
         ("%selements/DOMElement.lua"):format(self_path),

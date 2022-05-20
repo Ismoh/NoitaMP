@@ -61,6 +61,8 @@ function Layout:_GetInnerAndOuterDimensions(gui, data_context)
       local child_width, child_height = child:GetDimensions(gui, data_context)
       local child_total_width = child_width + child.style.margin_left + child.style.margin_right
       local child_total_height = child_height + child.style.margin_top + child.style.margin_bottom
+      child_total_width = math.max(child_total_width, child.style.width or 0)
+      child_total_height = math.max(child_total_height, child.style.height or 0)
       if self.style.direction == "horizontal" then
         inner_width = inner_width + child_total_width
         inner_height = math.max(inner_height, child_total_height)
@@ -130,6 +132,8 @@ function Layout:Render(gui, new_id, data_context, layout)
       local child_width, child_height = child:GetDimensions(gui, data_context)
       local child_total_width = child_width + child.style.margin_left + child.style.margin_right
       local child_total_height = child_height + child.style.margin_top + child.style.margin_bottom
+      child_total_width = math.max(child_total_width, child.style.width or 0)
+      child_total_height = math.max(child_total_height, child.style.height or 0)
       if self.attr.debug then
         -- Content
         local x, y = self:GetPositionForWidget(child, child_width, child_height)

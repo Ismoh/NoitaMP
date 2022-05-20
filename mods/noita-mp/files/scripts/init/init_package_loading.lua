@@ -5,11 +5,17 @@ return function(destination_path)
     logger:debug(nil, "destination_path = %s", destination_path)
 
     local default_package_path = package.path
-    package.path =
-        package.path ..
+    package.path = package.path ..
         ";./noita-mp/files/lib/external/?.lua;" ..
-            "./noita-mp/files/scripts/util/?.lua;" ..
-                "mods/noita-mp/files/lib/external/?.lua;" .. "mods/noita-mp/files/scripts/util/?.lua;"
+        "./noita-mp/files/scripts/util/?.lua;" ..
+        "mods/noita-mp/files/lib/external/?.lua;" ..
+        "mods/noita-mp/files/scripts/util/?.lua;"
+
+    package.cpath = package.cpath ..
+        ";./noita-mp/files/lib/external/platform-specific/windows/?.dll;" ..
+        ";./noita-mp/files/lib/external/platform-specific/linux/?.so;" ..
+        ";mods/noita-mp/files/lib/external/platform-specific/windows/?.dll;" ..
+        ";mods/noita-mp/files/lib/external/platform-specific/linux/?.so;"
 
     local fu = require("file_util")
     --[[ NoitaMP additions ]]
@@ -70,14 +76,14 @@ return function(destination_path)
 
     print(
         "init_package_loading.lua | Detected OS " ..
-            _G.os_name .. "(" .. _G.os_arch .. ") with path separator '" .. _G.path_separator .. "'."
+        _G.os_name .. "(" .. _G.os_arch .. ") with path separator '" .. _G.path_separator .. "'."
     )
     --[[ NoitaMP additions ]]
     if current_clib_extension then
         -- now you can process each defined path for module.
         for _, path in ipairs(paths) do
             local path =
-                path:gsub(
+            path:gsub(
                 "{(%w+)}",
                 {
                     root = root_dir,
@@ -89,30 +95,27 @@ return function(destination_path)
                 -- make a substitution for each module file path.
                 for _, raw_module_path in ipairs(module_paths) do
                     local module_path =
-                        path:gsub(
+                    path:gsub(
                         "{(%w+)}",
                         {
                             module = raw_module_path
                         }
                     )
                     -- add path for binary module
-                    cpaths[#cpaths + 1] =
-                        module_path:gsub(
+                    cpaths[#cpaths + 1] = module_path:gsub(
                         "{(%w+)}",
                         {
                             extension = current_clib_extension
                         }
                     )
                     -- add paths for platform independent lua and luac modules
-                    lpaths[#lpaths + 1] =
-                        module_path:gsub(
+                    lpaths[#lpaths + 1] = module_path:gsub(
                         "{(%w+)}",
                         {
                             extension = "lua"
                         }
                     )
-                    lpaths[#lpaths + 1] =
-                        module_path:gsub(
+                    lpaths[#lpaths + 1] = module_path:gsub(
                         "{(%w+)}",
                         {
                             extension = "luac"
@@ -132,23 +135,23 @@ return function(destination_path)
         if destination_path then
             logger:info(nil, "destination_path was set to export LPATH and CPATH!")
             local lua_path_file =
-                fu.RemoveTrailingPathSeparator(destination_path) .. _G.path_separator .. "lua_path.txt"
+            fu.RemoveTrailingPathSeparator(destination_path) .. _G.path_separator .. "lua_path.txt"
             local lua_path_file_content = ";" .. package.path
 
             local lua_cpath_file =
-                fu.RemoveTrailingPathSeparator(destination_path) .. _G.path_separator .. "lua_cpath.txt"
+            fu.RemoveTrailingPathSeparator(destination_path) .. _G.path_separator .. "lua_cpath.txt"
             local lua_cpath_file_content = ";" .. package.cpath
 
             fu.WriteFile(lua_path_file, lua_path_file_content)
             print(
                 "init_package_loading.lua | File (" ..
-                    lua_path_file .. ") created with content: " .. lua_path_file_content
+                lua_path_file .. ") created with content: " .. lua_path_file_content
             )
 
             fu.WriteFile(lua_cpath_file, lua_cpath_file_content)
             print(
                 "init_package_loading.lua | File (" ..
-                    lua_cpath_file .. ") created with content: " .. lua_cpath_file_content
+                lua_cpath_file .. ") created with content: " .. lua_cpath_file_content
             )
         else
             logger:warn(nil, "destination_path was not set. Export LPATH and CPATH will be skipped!")

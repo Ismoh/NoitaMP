@@ -217,6 +217,8 @@ function Server.new(sockServer)
     -- Public methods:
     --#region Start and stop
 
+    --- Some inheritance: Save parent function (not polluting global 'self' space)
+    local sockServerStart = sockServer.start
     --- Starts a server on ip and port. Both can be nil, then ModSettings will be used.
     --- @param ip string localhost or 127.0.0.1 or nil
     --- @param port number 1 - 65535 or nil
@@ -233,8 +235,9 @@ function Server.new(sockServer)
         _G.Server.stop() -- stop if any server is already running
 
         logger:info(logger.channels.network, "Starting server on %s:%s ..", ip, port)
-        self = _G.ServerInit.new(sock.newServer(ip, port), false)
-        _G.Server = self
+        --self = _G.ServerInit.new(sock.newServer(ip, port), false)
+        --_G.Server = self
+        sockServerStart(self, ip, port)
         logger:info(logger.channels.network, "Server started on %s:%s", self:getAddress(), self:getPort())
 
         setGuid()
@@ -309,6 +312,14 @@ function Server.new(sockServer)
         return false
     end
 
+    function self.kick(name)
+        logger:debug(logger.channels.network, "Minä %s was kicked!", name)
+    end
+
+    function self.ban(name)
+        logger:debug(logger.channels.network, "Minä %s was banned!", name)
+    end
+
     --#endregion
 
     -- Apply some private methods
@@ -321,7 +332,7 @@ end
 -- Because of stack overflow errors when loading lua files,
 -- I decided to put Utils 'classes' into globals
 _G.ServerInit = Server
-_G.Server = Server.new(sock.newServer(), true)
+_G.Server = Server.new(sock.newServer())
 
 
 local startOnLoad = ModSettingGet("noita-mp.server_start_when_world_loaded")

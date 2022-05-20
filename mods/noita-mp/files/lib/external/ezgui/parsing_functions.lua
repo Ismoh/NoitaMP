@@ -2,7 +2,7 @@ local utils = dofile_once("%PATH%utils.lua")
 local string_buffer = dofile_once("%PATH%string_buffer.lua")
 
 local dom_element_names = {
-  "Button", "Image", "Layout", "Slider", "Text",
+  "Button", "Image", "Layout", "Slider", "Text", "*"
 }
 
 local function _throw_error(str, msg, pos, level)
@@ -218,7 +218,7 @@ local function read_element_name(input)
   local buffer = type(input) == "string" and string_buffer(input) or input
   local pos = buffer:pos()
   local dom_element_name = buffer:read_while(function(buffer)
-    return buffer:peek() and (buffer:peek():match("[a-zA-Z]") ~= nil)
+    return buffer:peek() and (buffer:peek():match("[a-zA-Z%*]") ~= nil)
   end)
   for i, name in ipairs(dom_element_names) do
     if dom_element_name == name then

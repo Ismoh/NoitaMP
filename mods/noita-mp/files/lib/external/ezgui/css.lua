@@ -21,7 +21,7 @@ end
 
 local function does_selector_match(element, selector)
   local function does_simple_selector_match(element, selector)
-    if selector.name and element.name ~= selector.name then
+    if selector.name and (selector.name ~= "*") and (element.name ~= selector.name) then
       return false
     end
     if selector.class then
@@ -44,6 +44,9 @@ local function does_selector_match(element, selector)
     end
   end
   local function matches(element, selector)
+    if not element then
+      return false
+    end
     if not does_simple_selector_match(element, selector) then
       return false
     end

@@ -180,6 +180,20 @@ define_property("align_items_vertical", false, "top", function(style, name, str)
   end
 end)
 
+define_property("align_self_horizontal", false, "left", function(style, name, str)
+  local tokens = parser.parse_tokens(str)
+  if validate_tokens(tokens, "identifier") then
+    style._set(name, tokens[1])
+  end
+end)
+
+define_property("align_self_vertical", false, "top", function(style, name, str)
+  local tokens = parser.parse_tokens(str)
+  if validate_tokens(tokens, "identifier") then
+    style._set(name, tokens[1])
+  end
+end)
+
 define_property("border", false, false, function(style, name, str)
   local tokens = parser.parse_tokens(str)
   if validate_tokens(tokens, "boolean") then

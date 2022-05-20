@@ -1,5 +1,6 @@
 local fu = {}
 local ffi = require("ffi")
+local watcher = require("watcher")
 
 if not logger then
     ---@diagnostic disable-next-line: lowercase-global
@@ -184,6 +185,18 @@ end
 
 function fu.GetAbsDirPathOfWorldStateXml(saveFolderName)
     return fu.GetAbsoluteDirectoryPathOfParentSave() .. _G.path_separator .. saveFolderName .. _G.path_separator .. "world_state.xml"
+end
+
+function fu.createCallbacksForSaveSlotWatcher()
+    local save0 = fu.GetAbsoluteDirectoryPathOfParentSave() .. path_separator .. "save0"
+
+    for i = 0, 6, 1 do
+        local save0X = save0 .. i
+        watcher(save0X, function()
+            _G.saveSlotDirectory = save0X
+        end)
+    end
+    logger:info(nil, "Callbacks for saveSlot directory detection were created!")
 end
 
 ----------------------------------------------------------------------------------------------------
