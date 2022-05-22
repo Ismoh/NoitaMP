@@ -17,7 +17,7 @@ pprint.defaults = {
     show_userdata = false,
     -- additional display trigger
     show_metatable = false, -- show metatable
-    show_all = true, -- override other show settings and show everything
+    show_all = false, -- override other show settings and show everything
     use_tostring = false, -- use __tostring to print table if available
     filter_function = nil, -- called like callback(value[,key, parent]), return truty value to hide
     object_cache = 'local', -- cache blob and table to give it a id, 'local' cache per print, 'global' cache
@@ -25,7 +25,7 @@ pprint.defaults = {
     -- format settings
     indent_size = 2, -- indent for each nested table level
     level_width = 80, -- max width per indent level
-    wrap_string = false, -- wrap string when it's longer than level_width
+    wrap_string = true, -- wrap string when it's longer than level_width
     wrap_array = false, -- wrap every array elements
     sort_keys = true, -- sort table keys
 }
@@ -461,7 +461,7 @@ function pprint.pprint(...)
     -- select will get an accurate count of array len, counting trailing nils
     local len = select('#', ...)
     for ix = 1, len do
-        pprint.pformat(args[ix], nil, io.write) Return string somehow?
+        pprint.pformat(args[ix], nil, io.write)
         io.write('\n')
     end
 end

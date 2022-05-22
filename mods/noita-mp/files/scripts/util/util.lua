@@ -95,7 +95,9 @@ function util.debug_entity(e)
 end
 
 function util.pprint(var)
-    pprint(var)
+    return pprint.pformat(var, {
+        show_all = true,
+    })
 end
 
 function util.getLocalOwner()

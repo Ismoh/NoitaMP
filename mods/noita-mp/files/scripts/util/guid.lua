@@ -17,14 +17,50 @@ local Guid = {
     end
 }
 
---- Generates a pseudo GUID. Does not fulfil RFC standard! Should generate unique GUIDs, but repeats if there is a duplicate.
---- @param inUse table A list of all guids, which are already in use. This aren't the cached guids. Think of client connects to server and both have the same guid.
---- @return string guid
-function Guid:getGuid(inUse)
-    inUse = inUse or {}
-    table.insertAllButNotDuplicates(self.cached_guid, inUse)
+--- Get processor id and use it for unique player identification.
+--- To be able to test networking locally, noita.exe or noita_dex.exe is added.
+--- @return number number unique number of local computer
+local function getUniqueness()
+    local command = nil
+    local file = nil
+    local result = nil
 
-    math.randomseed(os.clock() * 123456789000, os.time() * 1000)
+    if is_windows then
+        command = 'wmic CPU get ProcessorId'
+    else
+        error("Unix system are not supported yet :(", 2)
+    end
+
+    file = io.popen(command, "r")
+    local count = 1
+    for line in file:lines() do
+        if count == 2 then
+            result = line
+            break
+        end
+        count = count + 1
+    end
+    file:close()
+
+    if not DebugGetIsDevBuild() then
+        result = result .. "noita.exe"
+    else
+        result = result .. "noita_dev.exe"
+    end
+
+    local number = ""
+    for i = 1, string.len(result) do
+        local char = string.sub(result, i, i)
+        number = number .. string.byte(char)
+    end
+
+    return tonumber(number)
+end
+
+--- Generates a pseudo GUID. Does not fulfil RFC standard! Should generate unique GUIDs, but repeats if there is a duplicate.
+--- @return string guid
+function Guid:getGuid()
+    math.randomseed(getUniqueness())
 
     local x = "x"
     local t = { x:rep(8), x:rep(4), x:rep(4), x:rep(4), x:rep(12) }
@@ -68,10 +104,7 @@ function Guid:getGuid(inUse)
     until is_valid and is_unique
 
     table.insert(self.cached_guid, guid)
-    util.pprint(
-        "guid.lua | guid = " ..
-        guid .. " is valid = " .. tostring(is_valid) .. " and is unique = " .. tostring(is_unique)
-    )
+    logger:debug(logger.channels.guid, "guid.lua | guid = " .. guid .. " is valid = " .. tostring(is_valid) .. " and is unique = " .. tostring(is_unique))
     return guid
 end
 
@@ -101,12 +134,12 @@ end
 --- @return boolean true if GUID is unique.
 function Guid:isUnique(guid)
     if guid == nil or guid == "" or type(guid) ~= "string" then
-        util.pprint("guid.lua | guid is nil, empty or not a string. Returning false!")
+        logger:debug(logger.channels.guid, "guid.lua | guid is nil, empty or not a string. Returning false!")
         return false
     end
     local is_unique = true
     if table.contains(self.cached_guid, guid) == true then
-        util.pprint("guid.lua | guid (" .. guid .. ") isn't unique, therefore it's not valid!")
+        logger:debug(logger.channels.guid, "guid.lua | guid (" .. guid .. ") isn't unique, therefore it's not valid!")
         is_unique = false
     end
     return is_unique

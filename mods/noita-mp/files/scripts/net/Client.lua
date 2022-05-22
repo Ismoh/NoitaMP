@@ -50,7 +50,7 @@ function Client.new(sockClient)
     local function setGuid(newGuid)
         local guid = tostring(ModSettingGetNextValue("noita-mp.guid"))
         if guid == "" or Guid.isPatternValid(guid) == false and not newGuid then
-            guid = Guid:getGuid(nil)
+            guid = Guid:getGuid()
             ModSettingSetNextValue("noita-mp.guid", guid, false)
             self.guid = guid
             logger:debug(logger.channels.network, "Clients guid set to " .. guid)
@@ -74,7 +74,7 @@ function Client.new(sockClient)
             "connect",
             function(data)
                 logger:debug(logger.channels.network, "Client connected to the server. Sending client info to server..")
-                util.pprint(data)
+                logger:debug(util.pprint(data))
 
                 local name = tostring(ModSettingGet("noita-mp.name"))
                 self.name = name
@@ -158,7 +158,7 @@ function Client.new(sockClient)
             function(data)
                 local server_seed = tonumber(data.seed)
                 logger:debug(logger.channels.network, "Client got seed from the server. Seed = " .. server_seed)
-                util.pprint(data)
+                logger:debug(util.pprint(data))
                 --ModSettingSet("noita-mp.connect_server_seed", server_seed)
 
                 logger:debug(logger.channels.network,
@@ -188,7 +188,7 @@ function Client.new(sockClient)
             "disconnect",
             function(data)
                 logger:debug(logger.channels.network, "Client disconnected from the server.")
-                util.pprint(data)
+                logger:debug(util.pprint(data))
             end
         )
 
@@ -197,9 +197,9 @@ function Client.new(sockClient)
             "receive",
             function(data, channel)
                 logger:debug(logger.channels.network, "on_receive: data =")
-                util.pprint(data)
+                logger:debug(util.pprint(data))
                 logger:debug(logger.channels.network, "on_receive: channel =")
-                util.pprint(channel)
+                logger:debug(util.pprint(channel))
             end
         )
 
@@ -218,7 +218,7 @@ function Client.new(sockClient)
                     data.filename,
                     data.localEntityId
                 )
-                util.pprint(data)
+                logger:debug(util.pprint(data))
                 EntityUtils.SpawnEntity(data.owner, data.nuid, data.x, data.y, data.rot, data.velocity, data.filename, data.localEntityId)
             end
         )
@@ -226,7 +226,7 @@ function Client.new(sockClient)
         self:on(
             "entityAlive",
             function(data)
-                util.pprint(data)
+                logger:debug(util.pprint(data))
 
                 em:DespawnEntity(data.owner, data.localEntityId, data.nuid, data.isAlive)
             end
@@ -235,7 +235,7 @@ function Client.new(sockClient)
         self:on(
             "entityState",
             function(data)
-                util.pprint(data)
+                logger:debug(util.pprint(data))
 
                 local nc = em:GetNetworkComponent(data.owner, data.localEntityId, data.nuid)
                 if nc then

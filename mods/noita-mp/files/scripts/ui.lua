@@ -179,7 +179,7 @@ if not Initialized then
                             -- remeber to zip the savegame, when restarting server
                             ModSettingSetNextValue("noita-mp.server_start_7zip_savegame", true, false)
                             local make_zip = ModSettingGet("noita-mp.server_start_7zip_savegame")
-                            util.pprint("server_class.lua | make_zip = " .. tostring(make_zip))
+                            logger:debug(util.pprint("server_class.lua | make_zip = " .. tostring(make_zip)))
 
                             util.Sleep(2)
                             fu.StopSaveAndStartNoita()

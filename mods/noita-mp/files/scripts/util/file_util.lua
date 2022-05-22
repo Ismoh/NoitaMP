@@ -190,6 +190,8 @@ function fu.GetAbsDirPathOfWorldStateXml(saveSlotAbsDirectoryPath)
     return ("%s%s%s"):format(saveSlotAbsDirectoryPath, path_separator, "world_state.xml")
 end
 
+--- see _G.saveSlotMeta
+---@return table
 function fu.getLastModifiedSaveSlots()
     local save0 = fu.GetAbsoluteDirectoryPathOfParentSave() .. path_separator .. "save0"
 
@@ -198,14 +200,12 @@ function fu.getLastModifiedSaveSlots()
         local save0X = save0 .. i
 
         watcher(save0X, function(lastModified)
-            --_G.saveSlotDirectory = save0X
             logger:debug(nil, "SaveSlot(%s) directory was last modified at %s.", "save0" .. i, lastModified)
             if lastModified > 0 then
-                table.insert(saveSlotLastModified, { dir = save0X, lastModified = lastModified })
+                table.insert(saveSlotLastModified, { dir = save0X, lastModified = lastModified, slot = i })
             end
         end)
     end
-    --logger:info(nil, "Callbacks for saveSlot directory detection were created!")
     return saveSlotLastModified
 end
 
@@ -451,17 +451,17 @@ end
 -- Noita restart, yay!
 ----------------------------------------------------------------------------------------------------
 
-function fu.StopWithoutSaveAndStartNoita()
+function fu.killNoitaAndRestart()
     local exe = "noita.exe"
     if DebugGetIsDevBuild() then
         exe = "noita_dev.exe"
     end
-    os.execute('start "" ' .. exe .. " -no_logo_splashes -save_slot 6 -gamemode 0")
+    os.execute(('start "" %s -no_logo_splashes -save_slot %s -gamemode 0'):format(exe, _G.saveSlotMeta.slot))
     os.exit()
 end
 
 --- This executes c code to sent SDL_QUIT command to the app
-function fu.StopSaveAndStartNoita()
+function fu.saveAndRestartNoita()
     ffi.cdef [[
         typedef union SDL_Event
         {
@@ -485,7 +485,7 @@ function fu.StopSaveAndStartNoita()
     if DebugGetIsDevBuild() then
         exe = "noita_dev.exe"
     end
-    os.execute('start "" ' .. exe .. " -no_logo_splashes -save_slot 6 -gamemode 0")
+    os.execute(('start "" %s -no_logo_splashes -save_slot %s -gamemode 0'):format(exe, _G.saveSlotMeta.slot))
 end
 
 return fu

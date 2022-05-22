@@ -46,13 +46,13 @@ function Server.new(sockServer)
     local function setGuid()
         local guid = tostring(ModSettingGetNextValue("noita-mp.guid"))
         if guid == "" or _G.Guid.isPatternValid(guid) == false then
-            guid = _G.Guid:getGuid(nil)
+            guid = _G.Guid:getGuid()
             ModSettingSetNextValue("noita-mp.guid", guid, false)
             self.guid = guid
-            util.pprint("Server guid set to " .. guid)
+            logger:debug("Server guid set to " .. guid)
         else
             self.guid = guid
-            util.pprint("Server guid was already set to " .. self.guid)
+            logger:debug("Server guid was already set to " .. self.guid)
         end
     end
 
@@ -62,10 +62,18 @@ function Server.new(sockServer)
         local name = data.name
         local guid = data.guid
 
-        if not Guid:isUnique(guid) then
-            guid = Guid:getGuid({ guid })
-            self:sendToPeer(peer, "duplicatedGuid", { guid })
+        if not name then
+            error("Unable to get clients name!", 2)
         end
+
+        if not guid then
+            error("Unable to get clients guid!", 2)
+        end
+
+        -- if not Guid:isUnique(guid) then
+        --     guid = Guid:getGuid({ guid })
+        --     self:sendToPeer(peer, "duplicatedGuid", { guid })
+        -- end
 
         for i, client in pairs(self.clients) do
             if client == peer then
@@ -78,12 +86,11 @@ function Server.new(sockServer)
     --#region Callbacks
 
     local function createCallbacks()
-        util.pprint("server_class.lua | Creating servers callback functions.")
+        logger:debug("server_class.lua | Creating servers callback functions.")
 
         -- Called when someone connects to the server
         self:on("connect", function(data, peer)
-            logger:debug(logger.channels.network, "Someone connected to the server:")
-            util.pprint(data)
+            logger:debug(logger.channels.network, "Someone connected to the server:", util.pprint(data))
 
             local local_player_id = EntityUtils.getLocalPlayerEntityId()
             local x, y, rot, scale_x, scale_y = EntityGetTransform(local_player_id)
@@ -96,11 +103,8 @@ function Server.new(sockServer)
         self:on(
             "clientInfo",
             function(data, peer)
-                logger:debug(logger.channels.network, "on_clientInfo: data =")
-                util.pprint(data)
-                logger:debug(logger.channels.network, "on_clientInfo: peer =")
-                util.pprint(peer)
-
+                logger:debug(logger.channels.network, "on_clientInfo: data =", util.pprint(data))
+                logger:debug(logger.channels.network, "on_clientInfo: peer =", util.pprint(peer))
                 setClientInfo(data, peer)
             end
         )
@@ -108,11 +112,8 @@ function Server.new(sockServer)
         self:on(
             "worldFilesFinished",
             function(data, peer)
-                logger:debug(logger.channels.network, "on_worldFilesFinished: data =")
-                util.pprint(data)
-                logger:debug(logger.channels.network, "on_worldFilesFinished: peer =")
-                util.pprint(peer)
-
+                logger:debug(logger.channels.network, "on_worldFilesFinished: data =", util.pprint(data))
+                logger:debug(logger.channels.network, "on_worldFilesFinished: peer =", util.pprint(peer))
                 -- Send restart command
                 peer:send("restart", { "Restart now!" })
             end
@@ -122,8 +123,7 @@ function Server.new(sockServer)
         self:on(
             "disconnect",
             function(data)
-                logger:debug(logger.channels.network, "on_disconnect: data =")
-                util.pprint(data)
+                logger:debug(logger.channels.network, "on_disconnect: data =", util.pprint(data))
             end
         )
 
@@ -131,26 +131,20 @@ function Server.new(sockServer)
         self:on(
             "receive",
             function(data, channel, client)
-                logger:debug(logger.channels.network, "on_receive: data =")
-                util.pprint(data)
-                logger:debug(logger.channels.network, "on_receive: channel =")
-                util.pprint(channel)
-                logger:debug(logger.channels.network, "on_receive: client =")
-                util.pprint(client)
+                logger:debug(logger.channels.network, "on_receive: data =", util.pprint(data))
+                logger:debug(logger.channels.network, "on_receive: channel =", util.pprint(channel))
+                logger:debug(logger.channels.network, "on_receive: client =", util.pprint(client))
             end
         )
 
         self:on(
             "needNuid",
             function(data)
-                logger:debug(logger.channels.network, "%s (%s) needs a new nuid.", data.owner.name, data.owner.guid)
-                util.pprint(data)
+                logger:debug(logger.channels.network, "%s (%s) needs a new nuid.", data.owner.name, data.owner.guid, util.pprint(data))
 
                 local new_nuid = NuidUtils.getNextNuid()
-
                 -- tell the clients that there is a new entity, they have to spawn, besides the client, who sent the request
                 self.sendNewNuid(data.owner, data.localEntityId, new_nuid, data.x, data.y, data.rot, data.velocity, data.filename)
-
                 -- spawn the entity on server only
                 EntityUtils.SpawnEntity(data.owner, new_nuid, data.x, data.y, data.rot, data.velocity, data.filename, data.localEntityId) --em:SpawnEntity(data.owner, new_nuid, data.x, data.y, data.rot, data.velocity, data.filename, nil)
             end
@@ -159,7 +153,7 @@ function Server.new(sockServer)
         self:on(
             "newNuid",
             function(data)
-                util.pprint(data)
+                logger:debug(logger.channels.network, util.pprint(data))
 
                 if self.guid == data.owner.guid then
                     logger:debug(logger.channels.network,
@@ -176,7 +170,7 @@ function Server.new(sockServer)
         self:on(
             "entityAlive",
             function(data)
-                util.pprint(data)
+                logger:debug(logger.channels.network, util.pprint(data))
 
                 self:sendToAll2("entityAlive", data)
                 em:DespawnEntity(data.owner, data.localEntityId, data.nuid, data.isAlive)
@@ -186,7 +180,7 @@ function Server.new(sockServer)
         self:on(
             "entityState",
             function(data)
-                util.pprint(data)
+                logger:debug(logger.channels.network, util.pprint(data))
 
                 local nc = em:GetNetworkComponent(data.owner, data.localEntityId, data.nuid)
                 if nc then

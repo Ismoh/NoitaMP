@@ -136,16 +136,16 @@ end
 
 --- PreUpdate of world
 function OnWorldPreUpdate()
-    if not _G.saveSlotDirectory then
+    if not _G.saveSlotMeta then
         local saveSlotsLastModifiedAfterWorldInit = fu.getLastModifiedSaveSlots()
         for i = 1, #saveSlotsLastModifiedBeforeWorldInit do
             for j = 1, #saveSlotsLastModifiedAfterWorldInit do
                 if saveSlotsLastModifiedBeforeWorldInit[i].lastModified > saveSlotsLastModifiedAfterWorldInit[j].lastModified then
-                    _G.saveSlotDirectory = saveSlotsLastModifiedAfterWorldInit[i].dir
-                    logger:info(nil, "Save slot found in '%s'", _G.saveSlotDirectory)
+                    _G.saveSlotMeta = saveSlotsLastModifiedAfterWorldInit[i]
+                    logger:info(nil, "Save slot found in '%s'", _G.saveSlotMeta)
                 else
-                    _G.saveSlotDirectory = saveSlotsLastModifiedAfterWorldInit[j].dir
-                    logger:info(nil, "Save slot found in '%s'", _G.saveSlotDirectory)
+                    _G.saveSlotMeta = saveSlotsLastModifiedAfterWorldInit[j]
+                    logger:info(nil, "Save slot found in '%s'", _G.saveSlotMeta)
                 end
             end
         end
