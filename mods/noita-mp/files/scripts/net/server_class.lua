@@ -30,10 +30,10 @@
 --         guid = Guid:getGuid()
 --         ModSettingSetNextValue("noita-mp.guid", guid, false)
 --         self.super.guid = guid
---         util.pprint("client_class.lua | guid set to " .. guid)
+--         util.pformat("client_class.lua | guid set to " .. guid)
 --     else
 --         self.super.guid = guid
---         util.pprint("client_class.lua | guid was already set to " .. self.super.guid)
+--         util.pformat("client_class.lua | guid was already set to " .. self.super.guid)
 --     end
 -- end
 
@@ -50,7 +50,7 @@
 
 -- -- Derived class methods
 -- function Server:createCallbacks()
---     util.pprint("server_class.lua | Creating servers callback functions.")
+--     util.pformat("server_class.lua | Creating servers callback functions.")
 
 --     -- Called when someone connects to the server
 --     self.super:on(
@@ -59,9 +59,9 @@
 --             local local_player_id = em:getLocalPlayerId()
 --             local x, y, rot, scale_x, scale_y = EntityGetTransform(local_player_id)
 
---             util.pprint("server_class.lua | on_connect: ")
---             util.pprint("server_class.lua | on_connect: data = " .. tostring(data))
---             util.pprint("server_class.lua | on_connect: client = " .. tostring(peer))
+--             util.pformat("server_class.lua | on_connect: ")
+--             util.pformat("server_class.lua | on_connect: data = " .. tostring(data))
+--             util.pformat("server_class.lua | on_connect: client = " .. tostring(peer))
 --             em:SpawnEntity(
 --                 {
 --                     peer.username,
@@ -82,9 +82,9 @@
 --         "clientInfo",
 --         function(data, peer)
 --             logger:debug("on_clientInfo: data =")
---             util.pprint(data)
+--             util.pformat(data)
 --             logger:debug("on_clientInfo: peer =")
---             util.pprint(peer)
+--             util.pformat(peer)
 
 --             self:setClientInfo(data, peer)
 --         end
@@ -94,9 +94,9 @@
 --         "worldFilesFinished",
 --         function(data, peer)
 --             logger:debug("on_worldFilesFinished: data =")
---             util.pprint(data)
+--             util.pformat(data)
 --             logger:debug("on_worldFilesFinished: peer =")
---             util.pprint(peer)
+--             util.pformat(peer)
 
 --             -- Send restart command
 --             peer:send("restart", {"Restart now!"})
@@ -108,7 +108,7 @@
 --         "disconnect",
 --         function(data)
 --             logger:debug("on_disconnect: data =")
---             util.pprint(data)
+--             util.pformat(data)
 --         end
 --     )
 
@@ -117,11 +117,11 @@
 --         "receive",
 --         function(data, channel, client)
 --             logger:debug("on_receive: data =")
---             util.pprint(data)
+--             util.pformat(data)
 --             logger:debug("on_receive: channel =")
---             util.pprint(channel)
+--             util.pformat(channel)
 --             logger:debug("on_receive: client =")
---             util.pprint(client)
+--             util.pformat(client)
 --         end
 --     )
 
@@ -129,7 +129,7 @@
 --         "needNuid",
 --         function(data)
 --             logger:debug("%s (%s) needs a new nuid.", data.owner.username, data.owner.guid)
---             util.pprint(data)
+--             util.pformat(data)
 
 --             local new_nuid = NuidUtils.getNextNuid()
 
@@ -153,7 +153,7 @@
 --     self.super:on(
 --         "newNuid",
 --         function(data)
---             util.pprint(data)
+--             util.pformat(data)
 
 --             if self.super.guid == data.owner.guid then
 --                 logger:debug(
@@ -170,7 +170,7 @@
 --     self.super:on(
 --         "entityAlive",
 --         function(data)
---             util.pprint(data)
+--             util.pformat(data)
 
 --             self.super:sendToAll2("entityAlive", data)
 --             em:DespawnEntity(data.owner, data.localEntityId, data.nuid, data.isAlive)
@@ -180,7 +180,7 @@
 --     self.super:on(
 --         "entityState",
 --         function(data)
---             util.pprint(data)
+--             util.pformat(data)
 
 --             local nc = em:GetNetworkComponent(data.owner, data.localEntityId, data.nuid)
 --             if nc then
@@ -207,14 +207,14 @@
 -- end
 
 -- function Server:start()
---     util.pprint("server_class.lua | Starting server and fetching ip and port..")
+--     util.pformat("server_class.lua | Starting server and fetching ip and port..")
 
 --     local ip = tostring(ModSettingGet("noita-mp.server_ip"))
 --     local port = tonumber(ModSettingGet("noita-mp.server_port"))
---     util.pprint("server_class.lua | Starting server on " .. ip .. ":" .. port)
+--     util.pformat("server_class.lua | Starting server on " .. ip .. ":" .. port)
 
 --     self.super = sock.newServer(ip, port)
---     util.pprint("server_class.lua | Server started on " .. self.super:getAddress() .. ":" .. self.super:getPort())
+--     util.pformat("server_class.lua | Server started on " .. self.super:getAddress() .. ":" .. self.super:getPort())
 
 --     self:setGuid()
 --     self:setSettings()

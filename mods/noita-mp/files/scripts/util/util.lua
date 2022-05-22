@@ -94,10 +94,8 @@ function util.debug_entity(e)
     logger:debug(nil, msg)
 end
 
-function util.pprint(var)
-    return pprint.pformat(var, {
-        show_all = true,
-    })
+function util.pformat(var)
+    return pprint.pformat(var, pprint.defaults)
 end
 
 function util.getLocalOwner()

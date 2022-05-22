@@ -1,6 +1,7 @@
 local fu = {}
 local ffi = require("ffi")
 local watcher = require("watcher")
+local lfs = require("lfs")
 
 if not logger then
     ---@diagnostic disable-next-line: lowercase-global
@@ -456,7 +457,11 @@ function fu.killNoitaAndRestart()
     if DebugGetIsDevBuild() then
         exe = "noita_dev.exe"
     end
-    os.execute(('start "" %s -no_logo_splashes -save_slot %s -gamemode 0'):format(exe, _G.saveSlotMeta.slot))
+
+    lfs.rmdir(_G.saveSlotMeta.dir)
+    lfs.mkdir(_G.saveSlotMeta.dir)
+
+    os.execute(('start "" %s -no_logo_splashes -save_slot %s'):format(exe, _G.saveSlotMeta.slot)) -- -gamemode 0
     os.exit()
 end
 
@@ -485,7 +490,7 @@ function fu.saveAndRestartNoita()
     if DebugGetIsDevBuild() then
         exe = "noita_dev.exe"
     end
-    os.execute(('start "" %s -no_logo_splashes -save_slot %s -gamemode 0'):format(exe, _G.saveSlotMeta.slot))
+    os.execute(('start "" %s -no_logo_splashes -save_slot %s'):format(exe, _G.saveSlotMeta.slot)) -- -gamemode 0
 end
 
 return fu

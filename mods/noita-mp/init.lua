@@ -38,10 +38,9 @@ function OnModPreInit()
 
     -- the seed is set when first time connecting to a server, otherwise 0
     local seed = tonumber(ModSettingGet("noita-mp.connect_server_seed"))
-
     if not seed and seed > 0 then
         SetWorldSeed(seed)
-        _G.Client:connect()
+        _G.Client.connect(nil, nil, 1)
     end
 end
 
@@ -134,6 +133,11 @@ local function drawGui()
     end
 end
 
+function OnPausePreUpdate()
+    _G.Server.update()
+    _G.Client.update()
+end
+
 --- PreUpdate of world
 function OnWorldPreUpdate()
     if not _G.saveSlotMeta then
@@ -142,16 +146,16 @@ function OnWorldPreUpdate()
             for j = 1, #saveSlotsLastModifiedAfterWorldInit do
                 if saveSlotsLastModifiedBeforeWorldInit[i].lastModified > saveSlotsLastModifiedAfterWorldInit[j].lastModified then
                     _G.saveSlotMeta = saveSlotsLastModifiedAfterWorldInit[i]
-                    logger:info(nil, "Save slot found in '%s'", _G.saveSlotMeta)
+                    logger:info(nil, "Save slot found in '%s'", util.pformat(_G.saveSlotMeta))
                 else
                     _G.saveSlotMeta = saveSlotsLastModifiedAfterWorldInit[j]
-                    logger:info(nil, "Save slot found in '%s'", _G.saveSlotMeta)
+                    logger:info(nil, "Save slot found in '%s'", util.pformat(_G.saveSlotMeta))
                 end
             end
         end
     end
 
-    UpdateLogLevel()
+    --UpdateLogLevel()
 
     _G.Server.update()
     _G.Client.update()

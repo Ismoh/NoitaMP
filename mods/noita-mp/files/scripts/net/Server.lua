@@ -17,30 +17,34 @@ Server = {}
 -- Access to global private variables
 
 -- Global public variables:
+Server.events = {
+    connect = "connect",
+    seed = "seed",
+    serverInfo = "serverInfo",
+}
 
 -- Constructor
 function Server.new(sockServer)
     local self = sockServer -- {}
 
-    self.name = tostring(ModSettingGet("noita-mp.name"))
-
     -- Private variables:
 
     -- Public variables:
+    self.name = tostring(ModSettingGet("noita-mp.name"))
 
     -- Private methods:
     --#region Settings
 
     local function setSchemas()
-        self:setSchema("duplicatedGuid", { "newGuid" })
-        self:setSchema("worldFiles", { "relDirPath", "fileName", "fileContent", "fileIndex", "amountOfFiles" })
-        self:setSchema("worldFilesFinished", { "progress" })
-        self:setSchema("seed", { "seed" })
-        self:setSchema("clientInfo", { "name", "guid" })
-        self:setSchema("needNuid", { "owner", "localEntityId", "x", "y", "rot", "velocity", "filename" })
-        self:setSchema("newNuid", { "owner", "localEntityId", "nuid", "x", "y", "rot", "velocity", "filename" })
-        self:setSchema("entityAlive", { "owner", "localEntityId", "nuid", "isAlive" })
-        self:setSchema("entityState", { "owner", "localEntityId", "nuid", "x", "y", "rot", "velocity", "health" })
+        -- self:setSchema("duplicatedGuid", { "newGuid" })
+        -- self:setSchema("worldFiles", { "relDirPath", "fileName", "fileContent", "fileIndex", "amountOfFiles" })
+        -- self:setSchema("worldFilesFinished", { "progress" })
+        -- self:setSchema("seed", { "seed" })
+        -- self:setSchema("clientInfo", { "name", "guid" })
+        -- self:setSchema("needNuid", { "owner", "localEntityId", "x", "y", "rot", "velocity", "filename" })
+        -- self:setSchema("newNuid", { "owner", "localEntityId", "nuid", "x", "y", "rot", "velocity", "filename" })
+        -- self:setSchema("entityAlive", { "owner", "localEntityId", "nuid", "isAlive" })
+        -- self:setSchema("entityState", { "owner", "localEntityId", "nuid", "x", "y", "rot", "velocity", "health" })
     end
 
     local function setGuid()
@@ -57,6 +61,19 @@ function Server.new(sockServer)
     end
 
     --#endregion
+
+    --#region Server Callbacks
+
+    ---comment
+    --- @param data number 0 = first connection or 1 second connection with loaded seed
+    --- @param peer table see Client.lua + sock.lua#newClient
+    local function onConnect(data, peer)
+        if data == 0 then
+            self:sendToPeer(peer, ServerInit.events.serverInfo, { util.getLocalOwner() })
+            self:sendToPeer(peer, ServerInit.events.seed, { seed = StatsGetValue("world_seed") })
+        end
+
+    end
 
     local function setClientInfo(data, peer)
         local name = data.name
@@ -83,127 +100,130 @@ function Server.new(sockServer)
         end
     end
 
-    --#region Callbacks
-
     local function createCallbacks()
         logger:debug("server_class.lua | Creating servers callback functions.")
 
+        self:on(ServerInit.events.connect, function(data, peer)
+            logger:info(logger.channels.network, "Someone connected to the server, see pretty format: peer=%s and data=%s", util.pformat(peer), util.pformat(data))
+            onConnect(data, peer)
+        end)
+
         -- Called when someone connects to the server
-        self:on("connect", function(data, peer)
-            logger:debug(logger.channels.network, "Someone connected to the server:", util.pprint(data))
+        -- self:on("connect", function(data, peer)
+        --     logger:debug(logger.channels.network, "Someone connected to the server:", util.pformat(data))
 
-            local local_player_id = EntityUtils.getLocalPlayerEntityId()
-            local x, y, rot, scale_x, scale_y = EntityGetTransform(local_player_id)
+        --     local local_player_id = EntityUtils.getLocalPlayerEntityId()
+        --     local x, y, rot, scale_x, scale_y = EntityGetTransform(local_player_id)
 
-            EntityUtils.SpawnEntity({ peer.name, peer.guid }, NuidUtils.getNextNuid(), x, y, rot,
-                nil, "mods/noita-mp/data/enemies_gfx/client_player_base.xml", nil)
-        end
-        )
+        --     EntityUtils.SpawnEntity({ peer.name, peer.guid }, NuidUtils.getNextNuid(), x, y, rot,
+        --         nil, "mods/noita-mp/data/enemies_gfx/client_player_base.xml", nil)
+        -- end
+        -- )
 
-        self:on(
-            "clientInfo",
-            function(data, peer)
-                logger:debug(logger.channels.network, "on_clientInfo: data =", util.pprint(data))
-                logger:debug(logger.channels.network, "on_clientInfo: peer =", util.pprint(peer))
-                setClientInfo(data, peer)
-            end
-        )
+        -- self:on(
+        --     "clientInfo",
+        --     function(data, peer)
+        --         logger:debug(logger.channels.network, "on_clientInfo: data =", util.pformat(data))
+        --         logger:debug(logger.channels.network, "on_clientInfo: peer =", util.pformat(peer))
+        --         setClientInfo(data, peer)
+        --     end
+        -- )
 
-        self:on(
-            "worldFilesFinished",
-            function(data, peer)
-                logger:debug(logger.channels.network, "on_worldFilesFinished: data =", util.pprint(data))
-                logger:debug(logger.channels.network, "on_worldFilesFinished: peer =", util.pprint(peer))
-                -- Send restart command
-                peer:send("restart", { "Restart now!" })
-            end
-        )
+        -- self:on(
+        --     "worldFilesFinished",
+        --     function(data, peer)
+        --         logger:debug(logger.channels.network, "on_worldFilesFinished: data =", util.pformat(data))
+        --         logger:debug(logger.channels.network, "on_worldFilesFinished: peer =", util.pformat(peer))
+        --         -- Send restart command
+        --         peer:send("restart", { "Restart now!" })
+        --     end
+        -- )
 
-        -- Called when the client disconnects from the server
-        self:on(
-            "disconnect",
-            function(data)
-                logger:debug(logger.channels.network, "on_disconnect: data =", util.pprint(data))
-            end
-        )
+        -- -- Called when the client disconnects from the server
+        -- self:on(
+        --     "disconnect",
+        --     function(data)
+        --         logger:debug(logger.channels.network, "on_disconnect: data =", util.pformat(data))
+        --     end
+        -- )
 
-        -- see lua-enet/enet.c
-        self:on(
-            "receive",
-            function(data, channel, client)
-                logger:debug(logger.channels.network, "on_receive: data =", util.pprint(data))
-                logger:debug(logger.channels.network, "on_receive: channel =", util.pprint(channel))
-                logger:debug(logger.channels.network, "on_receive: client =", util.pprint(client))
-            end
-        )
+        -- -- see lua-enet/enet.c
+        -- self:on(
+        --     "receive",
+        --     function(data, channel, client)
+        --         logger:debug(logger.channels.network, "on_receive: data =", util.pformat(data))
+        --         logger:debug(logger.channels.network, "on_receive: channel =", util.pformat(channel))
+        --         logger:debug(logger.channels.network, "on_receive: client =", util.pformat(client))
+        --     end
+        -- )
 
-        self:on(
-            "needNuid",
-            function(data)
-                logger:debug(logger.channels.network, "%s (%s) needs a new nuid.", data.owner.name, data.owner.guid, util.pprint(data))
+        -- self:on(
+        --     "needNuid",
+        --     function(data)
+        --         logger:debug(logger.channels.network, "%s (%s) needs a new nuid.", data.owner.name, data.owner.guid, util.pformat(data))
 
-                local new_nuid = NuidUtils.getNextNuid()
-                -- tell the clients that there is a new entity, they have to spawn, besides the client, who sent the request
-                self.sendNewNuid(data.owner, data.localEntityId, new_nuid, data.x, data.y, data.rot, data.velocity, data.filename)
-                -- spawn the entity on server only
-                EntityUtils.SpawnEntity(data.owner, new_nuid, data.x, data.y, data.rot, data.velocity, data.filename, data.localEntityId) --em:SpawnEntity(data.owner, new_nuid, data.x, data.y, data.rot, data.velocity, data.filename, nil)
-            end
-        )
+        --         local new_nuid = NuidUtils.getNextNuid()
+        --         -- tell the clients that there is a new entity, they have to spawn, besides the client, who sent the request
+        --         self.sendNewNuid(data.owner, data.localEntityId, new_nuid, data.x, data.y, data.rot, data.velocity, data.filename)
+        --         -- spawn the entity on server only
+        --         EntityUtils.SpawnEntity(data.owner, new_nuid, data.x, data.y, data.rot, data.velocity, data.filename, data.localEntityId) --em:SpawnEntity(data.owner, new_nuid, data.x, data.y, data.rot, data.velocity, data.filename, nil)
+        --     end
+        -- )
 
-        self:on(
-            "newNuid",
-            function(data)
-                logger:debug(logger.channels.network, util.pprint(data))
+        -- self:on(
+        --     "newNuid",
+        --     function(data)
+        --         logger:debug(logger.channels.network, util.pformat(data))
 
-                if self.guid == data.owner.guid then
-                    logger:debug(logger.channels.network,
-                        "Got a new nuid, but the owner is me and therefore I don't care :). For data content see above!"
-                    )
-                    return -- skip if this entity is my own
-                end
+        --         if self.guid == data.owner.guid then
+        --             logger:debug(logger.channels.network,
+        --                 "Got a new nuid, but the owner is me and therefore I don't care :). For data content see above!"
+        --             )
+        --             return -- skip if this entity is my own
+        --         end
 
-                logger:debug(logger.channels.network, "Got a new nuid and spawning entity. For data content see above!")
-                em:SpawnEntity(data.owner, data.nuid, data.x, data.y, data.rot, data.velocity, data.filename, nil)
-            end
-        )
+        --         logger:debug(logger.channels.network, "Got a new nuid and spawning entity. For data content see above!")
+        --         em:SpawnEntity(data.owner, data.nuid, data.x, data.y, data.rot, data.velocity, data.filename, nil)
+        --     end
+        -- )
 
-        self:on(
-            "entityAlive",
-            function(data)
-                logger:debug(logger.channels.network, util.pprint(data))
+        -- self:on(
+        --     "entityAlive",
+        --     function(data)
+        --         logger:debug(logger.channels.network, util.pformat(data))
 
-                self:sendToAll2("entityAlive", data)
-                em:DespawnEntity(data.owner, data.localEntityId, data.nuid, data.isAlive)
-            end
-        )
+        --         self:sendToAll2("entityAlive", data)
+        --         em:DespawnEntity(data.owner, data.localEntityId, data.nuid, data.isAlive)
+        --     end
+        -- )
 
-        self:on(
-            "entityState",
-            function(data)
-                logger:debug(logger.channels.network, util.pprint(data))
+        -- self:on(
+        --     "entityState",
+        --     function(data)
+        --         logger:debug(logger.channels.network, util.pformat(data))
 
-                local nc = em:GetNetworkComponent(data.owner, data.localEntityId, data.nuid)
-                if nc then
-                    EntityApplyTransform(nc.local_entity_id, data.x, data.y, data.rot)
-                else
-                    logger:warn(logger.channels.network,
-                        "Got entityState, but unable to find the network component!" ..
-                        " owner(%s, %s), localEntityId(%s), nuid(%s), x(%s), y(%s), rot(%s), velocity(x %s, y %s), health(%s)",
-                        data.owner.name,
-                        data.owner.guid,
-                        data.localEntityId,
-                        data.nuid,
-                        data.x,
-                        data.y,
-                        data.rot,
-                        data.velocity.x,
-                        data.velocity.y,
-                        data.health
-                    )
-                end
-                self:sendToAll2("entityState", data)
-            end
-        )
+        --         local nc = em:GetNetworkComponent(data.owner, data.localEntityId, data.nuid)
+        --         if nc then
+        --             EntityApplyTransform(nc.local_entity_id, data.x, data.y, data.rot)
+        --         else
+        --             logger:warn(logger.channels.network,
+        --                 "Got entityState, but unable to find the network component!" ..
+        --                 " owner(%s, %s), localEntityId(%s), nuid(%s), x(%s), y(%s), rot(%s), velocity(x %s, y %s), health(%s)",
+        --                 data.owner.name,
+        --                 data.owner.guid,
+        --                 data.localEntityId,
+        --                 data.nuid,
+        --                 data.x,
+        --                 data.y,
+        --                 data.rot,
+        --                 data.velocity.x,
+        --                 data.velocity.y,
+        --                 data.health
+        --             )
+        --         end
+        --         self:sendToAll2("entityState", data)
+        --     end
+        -- )
     end
 
     --#endregion

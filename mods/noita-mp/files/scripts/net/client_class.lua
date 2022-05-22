@@ -57,7 +57,7 @@ Client = {
 --         "connect",
 --         function(data)
 --             logger:debug("client_class.lua | Client connected to the server. Sending client info to server..")
---             util.pprint(data)
+--             util.pformat(data)
 
 --             local connection_id = tostring(self.super:getConnectId())
 --             local ip = tostring(self.super:getAddress())
@@ -128,7 +128,7 @@ Client = {
 --         function(data)
 --             local server_seed = tonumber(data.seed)
 --             logger:debug("client_class.lua | Client got seed from the server. Seed = " .. server_seed)
---             util.pprint(data)
+--             util.pformat(data)
 --             --ModSettingSet("noita-mp.connect_server_seed", server_seed)
 
 --             logger:debug(
@@ -158,7 +158,7 @@ Client = {
 --         "disconnect",
 --         function(data)
 --             logger:debug("client_class.lua | Client disconnected from the server.")
---             util.pprint(data)
+--             util.pformat(data)
 --         end
 --     )
 
@@ -167,9 +167,9 @@ Client = {
 --         "receive",
 --         function(data, channel)
 --             logger:debug("on_receive: data =")
---             util.pprint(data)
+--             util.pformat(data)
 --             logger:debug("on_receive: channel =")
---             util.pprint(channel)
+--             util.pformat(channel)
 --         end
 --     )
 
@@ -188,7 +188,7 @@ Client = {
 --                 data.filename,
 --                 data.localEntityId
 --             )
---             util.pprint(data)
+--             util.pformat(data)
 --             em:SpawnEntity(
 --                 data.owner,
 --                 data.nuid,
@@ -205,7 +205,7 @@ Client = {
 --     self.super:on(
 --         "entityAlive",
 --         function(data)
---             util.pprint(data)
+--             util.pformat(data)
 
 --             em:DespawnEntity(data.owner, data.localEntityId, data.nuid, data.isAlive)
 --         end
@@ -214,7 +214,7 @@ Client = {
 --     self.super:on(
 --         "entityState",
 --         function(data)
---             util.pprint(data)
+--             util.pformat(data)
 
 --             local nc = em:GetNetworkComponent(data.owner, data.localEntityId, data.nuid)
 --             if nc then

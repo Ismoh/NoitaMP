@@ -71,10 +71,12 @@ Also special thanks to the ppl, who share their libraries, frameworks and other 
 - [eNet](http://enet.bespin.org/)
 - [lua-enet](https://github.com/leafo/lua-enet)
 - [sock.lua](https://github.com/camchenry/sock.lua)
+- [pprint.lua](https://github.com/jagt/pprint.lua)
 - [json.lua](https://github.com/rxi/json.lua)
 - [nxml.lua](https://github.com/zatherz/luanxml)
 - [EZGUI.lua](https://github.com/TheHorscht/EZGUI)
 - [lua-watcher.lua](https://github.com/EvandroLG/lua-watcher)
+- [lfs-ffi.lua](https://github.com/sonoro1234/luafilesystem)
 
 I had to build the network library by my own, because Noita provides its own lua51.dll. I had struggle to build it, if you are interested in,
 I've added all the necessary build files inside of .building/dll_building.7z and here you can see the [stackoverflow question](https://stackoverflow.com/questions/70048918/lua-5-1-package-loadlib-and-require-gcc-building-windows-dll) I've created.

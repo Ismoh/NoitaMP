@@ -147,7 +147,7 @@ end
 function Logger:log(event, data)
     local time      = os.date("%X") -- something like 24:59:59
     local shortLine = ("%s [%s] %s"):format(time, event, data)
-    local fullLine  = ("%s [%s %s] %s"):format(time, self.source, event, util.pprint(data)) --local fullLine  = ("[%s][%s][%s] %s"):format(self.source, time, event, data)
+    local fullLine  = ("%s [%s %s] %s"):format(time, self.source, event, util.pformat(data)) --local fullLine  = ("[%s][%s][%s] %s"):format(self.source, time, event, data)
 
     -- The printed message may or may not be the full message
     local line = fullLine

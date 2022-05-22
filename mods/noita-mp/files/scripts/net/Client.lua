@@ -36,15 +36,15 @@ function Client.new(sockClient)
     end
 
     local function setSchemas()
-        self:setSchema("duplicatedGuid", { "newGuid" })
-        self:setSchema("worldFiles", { "relDirPath", "fileName", "fileContent", "fileIndex", "amountOfFiles" })
-        self:setSchema("worldFilesFinished", { "progress" })
-        self:setSchema("seed", { "seed" })
-        self:setSchema("clientInfo", { "name", "guid" })
-        self:setSchema("needNuid", { "owner", "localEntityId", "x", "y", "rot", "velocity", "filename" })
-        self:setSchema("newNuid", { "owner", "localEntityId", "nuid", "x", "y", "rot", "velocity", "filename" })
-        self:setSchema("entityAlive", { "owner", "localEntityId", "nuid", "isAlive" })
-        self:setSchema("entityState", { "owner", "localEntityId", "nuid", "x", "y", "rot", "velocity", "health" })
+        -- self:setSchema("duplicatedGuid", { "newGuid" })
+        -- self:setSchema("worldFiles", { "relDirPath", "fileName", "fileContent", "fileIndex", "amountOfFiles" })
+        -- self:setSchema("worldFilesFinished", { "progress" })
+        -- self:setSchema("seed", { "seed" })
+        -- self:setSchema("clientInfo", { "name", "guid" })
+        -- self:setSchema("needNuid", { "owner", "localEntityId", "x", "y", "rot", "velocity", "filename" })
+        -- self:setSchema("newNuid", { "owner", "localEntityId", "nuid", "x", "y", "rot", "velocity", "filename" })
+        -- self:setSchema("entityAlive", { "owner", "localEntityId", "nuid", "isAlive" })
+        -- self:setSchema("entityState", { "owner", "localEntityId", "nuid", "x", "y", "rot", "velocity", "health" })
     end
 
     local function setGuid(newGuid)
@@ -65,199 +65,232 @@ function Client.new(sockClient)
 
     --#endregion
 
-    --#region Callbacks
+    --#region Client Callbacks
+
+    ---comment
+    ---@param data number 0 or 1
+    local function onConnect(data)
+
+    end
+
+    ---comment
+    ---@param data table { name, guid }
+    local function onServerInfo(data)
+
+    end
+
+    ---comment
+    ---@param data table { seed = ""}
+    local function onSeed(data)
+        logger:info(logger.channels.network, "Client received servers seed (%s) and stored it. Restarting Noita with that seed and auto connect now!")
+        ModSettingSet("noita-mp.connect_server_seed", data.seed)
+        --StatsSetValue("world_seed")
+        fu.killNoitaAndRestart()
+    end
 
     local function createCallbacks()
         logger:debug(logger.channels.network, "Client creating clients callback functions.")
 
-        self:on(
-            "connect",
-            function(data)
-                logger:debug(logger.channels.network, "Client connected to the server. Sending client info to server..")
-                logger:debug(util.pprint(data))
-
-                local name = tostring(ModSettingGet("noita-mp.name"))
-                self.name = name
-                self:send("clientInfo", { name, self.guid })
-
-                local playerEntityId = EntityUtils.getLocalPlayerEntityId()
-                local localOwner = util.getLocalOwner()
-
-                if not NetworkVscUtils.hasNetworkLuaComponents(playerEntityId) then
-                    NetworkVscUtils.addOrUpdateAllVscs(playerEntityId, localOwner.name, localOwner.guid, nil)
-                end
-                if not NetworkVscUtils.hasNuidSet(playerEntityId) then
-                    self.sendNeedNuid(localOwner, playerEntityId)
-                end
-            end
-        )
-
-        self:on("duplicatedGuid", function(data)
-            logger:warn(logger.channels.network, "Duplicated guid!")
-            setGuid(data.newGuid)
+        self:on(ServerInit.events.connect, function(data)
+            logger:info(logger.channels.network, "Client connected to server. See pretty format: data=%s", util.pformat(data))
+            onConnect(data)
         end)
 
-        self:on(
-            "worldFiles",
-            function(data)
-                if not data or next(data) == nil then
-                    GamePrint(
-                        "Client receiving world files from server, but data is nil or empty. " .. tostring(data)
-                    )
-                    return
-                end
+        self:on(ServerInit.events.serverInfo, function(data)
+            onServerInfo(data)
+        end)
 
-                local rel_dir_path = data.relDirPath
-                local file_name = data.fileName
-                local file_content = data.fileContent
-                local file_index = data.fileIndex
-                local amount_of_files = data.amountOfFiles
+        self:on(ServerInit.events.seed, function(data)
+            onSeed(data)
+        end)
+        -- self:on(
+        --     "connect",
+        --     function(data)
+        --         logger:debug(logger.channels.network, "Client connected to the server. Sending client info to server..")
+        --         logger:debug(util.pformat(data))
 
-                local msg =
-                ("Client receiving world file: dir:%s, file:%s, content:%s, index:%s, amount:%s"):format(
-                    rel_dir_path,
-                    file_name,
-                    file_content,
-                    file_index,
-                    amount_of_files
-                )
-                logger:debug(logger.channels.network, msg)
-                GamePrint(msg)
+        --         local name = tostring(ModSettingGet("noita-mp.name"))
+        --         self.name = name
+        --         self:send("clientInfo", { name, self.guid })
 
-                local save06_parent_directory_path = fu.GetAbsoluteDirectoryPathOfParentSave()
+        --         local playerEntityId = EntityUtils.getLocalPlayerEntityId()
+        --         local localOwner = util.getLocalOwner()
 
-                -- if file_name ~= nil and file_name ~= ""
-                -- then -- file in save06 | "" -> directory was sent
-                --     WriteBinaryFile(save06_dir .. _G.path_separator .. file_name, file_content)
-                -- elseif rel_dir_path ~= nil and file_name ~= ""
-                -- then -- file in subdirectory was sent
-                --     WriteBinaryFile(save06_dir .. _G.path_separator .. rel_dir_path .. _G.path_separator .. file_name, file_content)
-                -- elseif rel_dir_path ~= nil and (file_name == nil or file_name == "")
-                -- then -- directory name was sent
-                --     MkDir(save06_dir .. _G.path_separator .. rel_dir_path)
-                -- else
-                --     GamePrint("Unable to write file, because path and content aren't set.")
-                -- end
-                local archive_directory = fu.GetAbsoluteDirectoryPathOfMods() .. _G.path_separator .. rel_dir_path
-                fu.WriteBinaryFile(archive_directory .. _G.path_separator .. file_name, file_content)
+        --         if not NetworkVscUtils.hasNetworkLuaComponents(playerEntityId) then
+        --             NetworkVscUtils.addOrUpdateAllVscs(playerEntityId, localOwner.name, localOwner.guid, nil)
+        --         end
+        --         if not NetworkVscUtils.hasNuidSet(playerEntityId) then
+        --             self.sendNeedNuid(localOwner, playerEntityId)
+        --         end
+        --     end
+        -- )
 
-                if fu.Exists(fu.GetAbsoluteDirectoryPathOfSave06()) then -- Create backup if save06 exists
-                    os.execute('cd "' .. fu.GetAbsoluteDirectoryPathOfParentSave() .. '" && move save06 save06_backup')
-                end
+        -- self:on("duplicatedGuid", function(data)
+        --     logger:warn(logger.channels.network, "Duplicated guid!")
+        --     setGuid(data.newGuid)
+        -- end)
 
-                fu.Extract7zipArchive(archive_directory, file_name, save06_parent_directory_path)
+        -- self:on(
+        --     "worldFiles",
+        --     function(data)
+        --         if not data or next(data) == nil then
+        --             GamePrint(
+        --                 "Client receiving world files from server, but data is nil or empty. " .. tostring(data)
+        --             )
+        --             return
+        --         end
 
-                if file_index >= amount_of_files then
-                    self:send("worldFilesFinished", { "" .. file_index .. "/" .. amount_of_files })
-                end
-            end
-        )
+        --         local rel_dir_path = data.relDirPath
+        --         local file_name = data.fileName
+        --         local file_content = data.fileContent
+        --         local file_index = data.fileIndex
+        --         local amount_of_files = data.amountOfFiles
 
-        self:on(
-            "seed",
-            function(data)
-                local server_seed = tonumber(data.seed)
-                logger:debug(logger.channels.network, "Client got seed from the server. Seed = " .. server_seed)
-                logger:debug(util.pprint(data))
-                --ModSettingSet("noita-mp.connect_server_seed", server_seed)
+        --         local msg =
+        --         ("Client receiving world file: dir:%s, file:%s, content:%s, index:%s, amount:%s"):format(
+        --             rel_dir_path,
+        --             file_name,
+        --             file_content,
+        --             file_index,
+        --             amount_of_files
+        --         )
+        --         logger:debug(logger.channels.network, msg)
+        --         GamePrint(msg)
 
-                logger:debug(logger.channels.network,
-                    "Client creating magic numbers file to set clients world seed and restart the game."
-                )
-                fu.WriteFile(
-                    fu.GetAbsoluteDirectoryPathOfMods() .. "/files/tmp/magic_numbers/world_seed.xml",
-                    [[<MagicNumbers WORLD_SEED="]] .. tostring(server_seed) .. [["/>]]
-                )
-                --ModTextFileSetContent( GetRelativeDirectoryPathOfMods()
-                --    .. "/files/data/magic_numbers.xml", )
+        --         local save06_parent_directory_path = fu.GetAbsoluteDirectoryPathOfParentSave()
 
-                --BiomeMapLoad_KeepPlayer("data/biome_impl/biome_map_newgame_plus.lua", "data/biome/_pixel_scenes_newgame_plus.xml") -- StartReload(0)
-            end
-        )
+        --         -- if file_name ~= nil and file_name ~= ""
+        --         -- then -- file in save06 | "" -> directory was sent
+        --         --     WriteBinaryFile(save06_dir .. _G.path_separator .. file_name, file_content)
+        --         -- elseif rel_dir_path ~= nil and file_name ~= ""
+        --         -- then -- file in subdirectory was sent
+        --         --     WriteBinaryFile(save06_dir .. _G.path_separator .. rel_dir_path .. _G.path_separator .. file_name, file_content)
+        --         -- elseif rel_dir_path ~= nil and (file_name == nil or file_name == "")
+        --         -- then -- directory name was sent
+        --         --     MkDir(save06_dir .. _G.path_separator .. rel_dir_path)
+        --         -- else
+        --         --     GamePrint("Unable to write file, because path and content aren't set.")
+        --         -- end
+        --         local archive_directory = fu.GetAbsoluteDirectoryPathOfMods() .. _G.path_separator .. rel_dir_path
+        --         fu.WriteBinaryFile(archive_directory .. _G.path_separator .. file_name, file_content)
 
-        self:on(
-            "restart",
-            function(data)
-                fu.StopWithoutSaveAndStartNoita()
-                --BiomeMapLoad_KeepPlayer("data/biome_impl/biome_map_newgame_plus.lua", "data/biome/_pixel_scenes_newgame_plus.xml") -- StartReload(0)
-            end
-        )
+        --         if fu.Exists(fu.GetAbsoluteDirectoryPathOfSave06()) then -- Create backup if save06 exists
+        --             os.execute('cd "' .. fu.GetAbsoluteDirectoryPathOfParentSave() .. '" && move save06 save06_backup')
+        --         end
 
-        -- Called when the client disconnects from the server
-        self:on(
-            "disconnect",
-            function(data)
-                logger:debug(logger.channels.network, "Client disconnected from the server.")
-                logger:debug(util.pprint(data))
-            end
-        )
+        --         fu.Extract7zipArchive(archive_directory, file_name, save06_parent_directory_path)
 
-        -- see lua-enet/enet.c
-        self:on(
-            "receive",
-            function(data, channel)
-                logger:debug(logger.channels.network, "on_receive: data =")
-                logger:debug(util.pprint(data))
-                logger:debug(logger.channels.network, "on_receive: channel =")
-                logger:debug(util.pprint(channel))
-            end
-        )
+        --         if file_index >= amount_of_files then
+        --             self:send("worldFilesFinished", { "" .. file_index .. "/" .. amount_of_files })
+        --         end
+        --     end
+        -- )
 
-        self:on(
-            "newNuid",
-            function(data)
-                logger:debug(logger.channels.network,
-                    "%s (%s) needs a new NUID. nuid=%s, x=%s, y=%s, rot=%s, velocity=%s, filename=%s, localEntityId=%s",
-                    data.owner.name,
-                    data.owner.guid,
-                    data.nuid,
-                    data.x,
-                    data.y,
-                    data.rot,
-                    data.velocity,
-                    data.filename,
-                    data.localEntityId
-                )
-                logger:debug(util.pprint(data))
-                EntityUtils.SpawnEntity(data.owner, data.nuid, data.x, data.y, data.rot, data.velocity, data.filename, data.localEntityId)
-            end
-        )
+        -- self:on(
+        --     "seed",
+        --     function(data)
+        --         local server_seed = tonumber(data.seed)
+        --         logger:debug(logger.channels.network, "Client got seed from the server. Seed = " .. server_seed)
+        --         logger:debug(util.pformat(data))
+        --         --ModSettingSet("noita-mp.connect_server_seed", server_seed)
 
-        self:on(
-            "entityAlive",
-            function(data)
-                logger:debug(util.pprint(data))
+        --         logger:debug(logger.channels.network,
+        --             "Client creating magic numbers file to set clients world seed and restart the game."
+        --         )
+        --         fu.WriteFile(
+        --             fu.GetAbsoluteDirectoryPathOfMods() .. "/files/tmp/magic_numbers/world_seed.xml",
+        --             [[<MagicNumbers WORLD_SEED="]] .. tostring(server_seed) .. [["/>]]
+        --         )
+        --         --ModTextFileSetContent( GetRelativeDirectoryPathOfMods()
+        --         --    .. "/files/data/magic_numbers.xml", )
 
-                em:DespawnEntity(data.owner, data.localEntityId, data.nuid, data.isAlive)
-            end
-        )
+        --         --BiomeMapLoad_KeepPlayer("data/biome_impl/biome_map_newgame_plus.lua", "data/biome/_pixel_scenes_newgame_plus.xml") -- StartReload(0)
+        --     end
+        -- )
 
-        self:on(
-            "entityState",
-            function(data)
-                logger:debug(util.pprint(data))
+        -- self:on(
+        --     "restart",
+        --     function(data)
+        --         fu.StopWithoutSaveAndStartNoita()
+        --         --BiomeMapLoad_KeepPlayer("data/biome_impl/biome_map_newgame_plus.lua", "data/biome/_pixel_scenes_newgame_plus.xml") -- StartReload(0)
+        --     end
+        -- )
 
-                local nc = em:GetNetworkComponent(data.owner, data.localEntityId, data.nuid)
-                if nc then
-                    EntityApplyTransform(nc.local_entity_id, data.x, data.y, data.rot)
-                else
-                    logger:warn(logger.channels.network,
-                        "Got entityState, but unable to find the network component!" ..
-                        " owner(%s, %s), localEntityId(%s), nuid(%s), x(%s), y(%s), rot(%s), velocity(x %s, y %s), health(%s)",
-                        data.owner.name,
-                        data.owner.guid,
-                        data.localEntityId,
-                        data.nuid,
-                        data.x,
-                        data.y,
-                        data.rot,
-                        data.velocity.x,
-                        data.velocity.y,
-                        data.health
-                    )
-                end
-            end
-        )
+        -- -- Called when the client disconnects from the server
+        -- self:on(
+        --     "disconnect",
+        --     function(data)
+        --         logger:debug(logger.channels.network, "Client disconnected from the server.")
+        --         logger:debug(util.pformat(data))
+        --     end
+        -- )
+
+        -- -- see lua-enet/enet.c
+        -- self:on(
+        --     "receive",
+        --     function(data, channel)
+        --         logger:debug(logger.channels.network, "on_receive: data =")
+        --         logger:debug(util.pformat(data))
+        --         logger:debug(logger.channels.network, "on_receive: channel =")
+        --         logger:debug(util.pformat(channel))
+        --     end
+        -- )
+
+        -- self:on(
+        --     "newNuid",
+        --     function(data)
+        --         logger:debug(logger.channels.network,
+        --             "%s (%s) needs a new NUID. nuid=%s, x=%s, y=%s, rot=%s, velocity=%s, filename=%s, localEntityId=%s",
+        --             data.owner.name,
+        --             data.owner.guid,
+        --             data.nuid,
+        --             data.x,
+        --             data.y,
+        --             data.rot,
+        --             data.velocity,
+        --             data.filename,
+        --             data.localEntityId
+        --         )
+        --         logger:debug(util.pformat(data))
+        --         EntityUtils.SpawnEntity(data.owner, data.nuid, data.x, data.y, data.rot, data.velocity, data.filename, data.localEntityId)
+        --     end
+        -- )
+
+        -- self:on(
+        --     "entityAlive",
+        --     function(data)
+        --         logger:debug(util.pformat(data))
+
+        --         em:DespawnEntity(data.owner, data.localEntityId, data.nuid, data.isAlive)
+        --     end
+        -- )
+
+        -- self:on(
+        --     "entityState",
+        --     function(data)
+        --         logger:debug(util.pformat(data))
+
+        --         local nc = em:GetNetworkComponent(data.owner, data.localEntityId, data.nuid)
+        --         if nc then
+        --             EntityApplyTransform(nc.local_entity_id, data.x, data.y, data.rot)
+        --         else
+        --             logger:warn(logger.channels.network,
+        --                 "Got entityState, but unable to find the network component!" ..
+        --                 " owner(%s, %s), localEntityId(%s), nuid(%s), x(%s), y(%s), rot(%s), velocity(x %s, y %s), health(%s)",
+        --                 data.owner.name,
+        --                 data.owner.guid,
+        --                 data.localEntityId,
+        --                 data.nuid,
+        --                 data.x,
+        --                 data.y,
+        --                 data.rot,
+        --                 data.velocity.x,
+        --                 data.velocity.y,
+        --                 data.health
+        --             )
+        --         end
+        --     end
+        -- )
     end
 
     --#endregion
@@ -270,7 +303,8 @@ function Client.new(sockClient)
     --- Connects to a server on ip and port. Both can be nil, then ModSettings will be used.
     --- @param ip string localhost or 127.0.0.1 or nil
     --- @param port number 1 - 65535 or nil
-    function self.connect(ip, port)
+    --- @param code number 0 = connecting first time, 1 = connected second time with loaded seed
+    function self.connect(ip, port, code)
 
         if self:isConnecting() or self:isConnected() then
             logger:warn(logger.channels.network, "Client is still connected to %s:%s. Disconnecting!", self:getAddress(), self:getPort())
@@ -307,7 +341,7 @@ function Client.new(sockClient)
             ""
         )
 
-        sockClientConnect(self)
+        sockClientConnect(self, code)
 
         -- FYI: If you want to send data after connected, do it in the "connect" callback function
     end
