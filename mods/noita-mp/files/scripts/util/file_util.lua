@@ -303,6 +303,19 @@ function fu.WriteFile(file_fullpath, file_content)
         error("file_util.lua | Parameter file_fullpath '" .. tostring(file_fullpath) .. "' is not type of string!")
     end
     file_fullpath = fu.ReplacePathSeparator(file_fullpath)
+
+    local segments = string.split(file_fullpath, path_separator) or {}
+    local pathPerSegments = ""
+    for i = 1, #segments do -- recursivly create directories
+        local segment = segments[i]
+        pathPerSegments = pathPerSegments .. segment .. path_separator
+        if not fu.Exists(pathPerSegments) then
+            if not pathPerSegments:contains(".") then -- dump check if it's a file
+                fu.MkDir(pathPerSegments)
+            end
+        end
+    end
+
     -- http://lua-users.org/wiki/FileInputOutput
     local fh = assert(io.open(file_fullpath, "w"))
     fh:write(file_content)
@@ -354,6 +367,18 @@ function fu.scanDir(directory)
     end
     pfile:close()
     return t
+end
+
+function fu.removeContentOfDirectory(absolutePath)
+    local successRmDir, errorRmDir = lfs.rmdir(absolutePath)
+
+    if not successRmDir or errorRmDir then
+        local command = ('rmdir /s /q "%s"'):format(absolutePath)
+        local success, exitCode, code = os.execute(command)
+        logger:debug(nil, "Tried to remove directory. success=%s, exictCode=%s, code=%s", success, exitCode, code)
+    end
+
+    lfs.mkdir(absolutePath)
 end
 
 ----------------------------------------------------------------------------------------------------
@@ -458,10 +483,9 @@ function fu.killNoitaAndRestart()
         exe = "noita_dev.exe"
     end
 
-    lfs.rmdir(_G.saveSlotMeta.dir)
-    lfs.mkdir(_G.saveSlotMeta.dir)
+    fu.removeContentOfDirectory(_G.saveSlotMeta.dir)
 
-    os.execute(('start "" %s -no_logo_splashes -save_slot %s'):format(exe, _G.saveSlotMeta.slot)) -- -gamemode 0
+    os.execute(('start "" %s -no_logo_splashes -save_slot %s -gamemode 4 -clean_save'):format(exe, _G.saveSlotMeta.slot)) -- -gamemode 0
     os.exit()
 end
 
@@ -490,7 +514,7 @@ function fu.saveAndRestartNoita()
     if DebugGetIsDevBuild() then
         exe = "noita_dev.exe"
     end
-    os.execute(('start "" %s -no_logo_splashes -save_slot %s'):format(exe, _G.saveSlotMeta.slot)) -- -gamemode 0
+    os.execute(('start "" %s -no_logo_splashes -save_slot %s -gamemode 4'):format(exe, _G.saveSlotMeta.slot)) -- -gamemode 0
 end
 
 return fu

@@ -2,6 +2,8 @@ local pprint = require("pprint")
 
 local util = {}
 
+--- Wait for n seconds.
+---@param s number seconds to wait
 function util.Sleep(s)
     if type(s) ~= "number" then
         error("Unable to wait if parameter 'seconds' isn't a number: " .. type(s))

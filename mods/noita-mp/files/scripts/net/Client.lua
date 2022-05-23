@@ -73,6 +73,12 @@ function Client.new(sockClient)
 
     end
 
+    local function onDisconnect()
+
+        local worldSeedMagicNumbersFileAbsPath = fu.GetAbsoluteDirectoryPathOfMods() .. "/temp/WorldSeed.xml"
+        fu.removeContentOfDirectory(fu.GetAbsoluteDirectoryPathOfMods() .. "/temp/")
+    end
+
     ---comment
     ---@param data table { name, guid }
     local function onServerInfo(data)
@@ -82,8 +88,17 @@ function Client.new(sockClient)
     ---comment
     ---@param data table { seed = ""}
     local function onSeed(data)
-        logger:info(logger.channels.network, "Client received servers seed (%s) and stored it. Restarting Noita with that seed and auto connect now!")
-        ModSettingSet("noita-mp.connect_server_seed", data.seed)
+        local serversSeed = data.seed
+        logger:info(logger.channels.network, "Client received servers seed (%s) and stored it. Restarting Noita with that seed and auto connect now!", serversSeed)
+
+        local worldSeedMagicNumbersFileAbsPath = fu.GetAbsoluteDirectoryPathOfMods() .. "/temp/WorldSeed.xml"
+        -- if not fu.Exists(fu.GetAbsoluteDirectoryPathOfMods() .. "/temp/") then
+        --     fu.MkDir(fu.GetAbsoluteDirectoryPathOfMods() .. "/temp/")
+        -- end
+        local content = ('<MagicNumbers WORLD_SEED="%s"/>'):format(serversSeed)
+        fu.WriteFile(worldSeedMagicNumbersFileAbsPath, content)
+
+        ModSettingSet("noita-mp.connect_server_seed", serversSeed)
         --StatsSetValue("world_seed")
         fu.killNoitaAndRestart()
     end

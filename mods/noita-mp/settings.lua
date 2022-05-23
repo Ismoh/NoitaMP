@@ -95,8 +95,13 @@ mod_settings = {
 	{
 		id = "guid_readonly",
 		ui_name = "GUID",
-		ui_description = "Cannot be changed manually. I suggest to keep it as it is.",
+		ui_description = "Will be the same as long as you install a new CPU in your computer :).",
 		ui_fn = mod_setting_readonly,
+	},
+	{
+		id = "saveSlotMetaDirectory",
+		ui_fn = mod_setting_readonly,
+		hidden = true,
 	},
 	{
 		category_id = "group_of_server_settings",

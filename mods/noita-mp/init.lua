@@ -1,31 +1,40 @@
+----------------------------------------------------------------------------------------------------
+-- Imports by dofile, dofile_once and require
+----------------------------------------------------------------------------------------------------
 dofile("mods/noita-mp/files/scripts/init/init_.lua")
 local render_ezgui = dofile_once("mods/noita-mp/files/lib/external/ezgui/EZGUI.lua").init("mods/noita-mp/files/lib/external/ezgui")
-
 local fu = require("file_util")
 
+logger:debug("init.lua", "Starting to load noita-mp init.lua..")
+
+
+----------------------------------------------------------------------------------------------------
+-- Stuff needs to be executed before anything else
+----------------------------------------------------------------------------------------------------
 fu.SetAbsolutePathOfNoitaRootDirectory()
 
+-- Is used to stop Noita pausing game, when focus is gone (tab out game)
 ModMagicNumbersFileAdd("mods/noita-mp/files/data/magic_numbers.xml")
-logger:debug(nil, "init.lua | loading world seed magic number xml file.")
-local world_seed_magic_numbers_path = fu.GetAbsoluteDirectoryPathOfMods() .. "/files/tmp/magic_numbers/world_seed.xml"
-if fu.Exists(world_seed_magic_numbers_path) then
-    GamePrint("init.lua | Loading " .. world_seed_magic_numbers_path)
-    ModMagicNumbersFileAdd(world_seed_magic_numbers_path)
+
+local worldSeedMagicNumbersFileAbsPath = fu.GetAbsoluteDirectoryPathOfMods() .. "/temp/WorldSeed.xml"
+if fu.Exists(worldSeedMagicNumbersFileAbsPath) then
+    logger:debug("init.lua", "Loading " .. worldSeedMagicNumbersFileAbsPath)
+    ModMagicNumbersFileAdd(worldSeedMagicNumbersFileAbsPath)
 else
-    GamePrint("init.lua | Unable to load " .. world_seed_magic_numbers_path)
+    logger:debug("init.lua", "Unable to load " .. worldSeedMagicNumbersFileAbsPath)
 end
 
 fu.Find7zipExecutable()
 
 local saveSlotsLastModifiedBeforeWorldInit = fu.getLastModifiedSaveSlots()
 
-function OnModPreInit()
-    EntityUtils.modifyPhysicsEntities()
+EntityUtils.modifyPhysicsEntities()
 
-    --_G.cache = {}
-    --_G.cache.nuids = {} -- _G.cache.nuids[nuid] = { entity_id, component_id_username, component_id_guid, component_id_nuid }
-    --_G.cache.entity_ids_without_nuids = {} -- _G.cache.entity_ids_without_nuids[entity_id] = { entity_id, component_id_username, component_id_guid, component_id_nuid }
+----------------------------------------------------------------------------------------------------
+-- NoitaMP functions
+----------------------------------------------------------------------------------------------------
 
+local function createGlobalWhoAmIFunction()
     _G.whoAmI = function()
         if _G.Server:amIServer() then
             return "SERVER"
@@ -35,50 +44,28 @@ function OnModPreInit()
         end
         return nil
     end
+end
 
-    -- the seed is set when first time connecting to a server, otherwise 0
+--- When connecting the first time to a server, the server will send the servers' seed to the client.
+--- Then the client restarts, empties his selected save slot, to be able to generate the correct world,
+--- with the servers seed.
+local function setSeedIfConnectedSecondTime()
     local seed = tonumber(ModSettingGet("noita-mp.connect_server_seed"))
+    logger:debug("init.lua", "Servers world seed = ", seed)
     if not seed and seed > 0 then
+        if DebugGetIsDevBuild() then
+            util.Sleep(5) -- needed to be able to attach debugger again
+        end
+
+        local saveSlotMetaDirectory = ModSettingGet("noita-mp.saveSlotMetaDirectory")
+        if saveSlotMetaDirectory then
+            fu.removeContentOfDirectory(saveSlotMetaDirectory)
+        else
+            error("Unable to emtying selected save slot!", 2)
+        end
+
         SetWorldSeed(seed)
         _G.Client.connect(nil, nil, 1)
-    end
-end
-
-function OnWorldInitialized()
-    logger:debug(nil, "init.lua | OnWorldInitialized()")
-
-    local make_zip = ModSettingGet("noita-mp.server_start_7zip_savegame")
-    logger:debug(nil, "init.lua | make_zip = " .. tostring(make_zip))
-    if make_zip then
-        local archive_name = "server_save06_" .. os.date("%Y-%m-%d_%H-%M-%S")
-        local destination = fu.GetAbsoluteDirectoryPathOfMods() .. _G.path_separator .. "_"
-        local archive_content =
-        fu.Create7zipArchive(archive_name .. "_from_server", fu.GetAbsoluteDirectoryPathOfSave06(), destination)
-        local msg =
-        ("init.lua | Server savegame [%s] was zipped with 7z to location [%s]."):format(archive_name, destination)
-        logger:debug(nil, msg)
-        GamePrint(msg)
-        ModSettingSetNextValue("noita-mp.server_start_7zip_savegame", false, false) -- automatically start the server again
-    end
-
-    --logger:debug("init.lua | Initialise client and server stuff..")
-    --dofile_once("mods/noita-mp/files/scripts/net/server_class.lua") -- run once to init server object
-    --dofile_once("mods/noita-mp/files/scripts/net/client_class.lua") -- run once to init client object
-    --dofile_once("mods/noita-mp/files/scripts/net/Server.lua")
-    --dofile_once("mods/noita-mp/files/scripts/net/Client.lua")
-end
-
-function OnPlayerSpawned(player_entity)
-    -- local component_id = em:AddNetworkComponentToEntity(player_entity, util.getLocalOwner(), -1)
-
-    if not GameHasFlagRun("nameTags_script_applied") then
-        GameAddFlagRun("nameTags_script_applied")
-        EntityAddComponent2(player_entity,
-            "LuaComponent",
-            {
-                script_source_file = "mods/noita-mp/files/scripts/noita-components/name_tags.lua",
-                execute_every_n_frame = 1,
-            })
     end
 end
 
@@ -133,6 +120,53 @@ local function drawGui()
     end
 end
 
+----------------------------------------------------------------------------------------------------
+-- Noita API callback funcstions
+----------------------------------------------------------------------------------------------------
+function OnModPreInit()
+    createGlobalWhoAmIFunction()
+
+    setSeedIfConnectedSecondTime()
+end
+
+function OnWorldInitialized()
+    logger:debug(nil, "init.lua | OnWorldInitialized()")
+
+    local make_zip = ModSettingGet("noita-mp.server_start_7zip_savegame")
+    logger:debug(nil, "init.lua | make_zip = " .. tostring(make_zip))
+    if make_zip then
+        local archive_name = "server_save06_" .. os.date("%Y-%m-%d_%H-%M-%S")
+        local destination = fu.GetAbsoluteDirectoryPathOfMods() .. _G.path_separator .. "_"
+        local archive_content =
+        fu.Create7zipArchive(archive_name .. "_from_server", fu.GetAbsoluteDirectoryPathOfSave06(), destination)
+        local msg =
+        ("init.lua | Server savegame [%s] was zipped with 7z to location [%s]."):format(archive_name, destination)
+        logger:debug(nil, msg)
+        GamePrint(msg)
+        ModSettingSetNextValue("noita-mp.server_start_7zip_savegame", false, false) -- automatically start the server again
+    end
+
+    --logger:debug("init.lua | Initialise client and server stuff..")
+    --dofile_once("mods/noita-mp/files/scripts/net/server_class.lua") -- run once to init server object
+    --dofile_once("mods/noita-mp/files/scripts/net/client_class.lua") -- run once to init client object
+    --dofile_once("mods/noita-mp/files/scripts/net/Server.lua")
+    --dofile_once("mods/noita-mp/files/scripts/net/Client.lua")
+end
+
+function OnPlayerSpawned(player_entity)
+    -- local component_id = em:AddNetworkComponentToEntity(player_entity, util.getLocalOwner(), -1)
+
+    if not GameHasFlagRun("nameTags_script_applied") then
+        GameAddFlagRun("nameTags_script_applied")
+        EntityAddComponent2(player_entity,
+            "LuaComponent",
+            {
+                script_source_file = "mods/noita-mp/files/scripts/noita-components/name_tags.lua",
+                execute_every_n_frame = 1,
+            })
+    end
+end
+
 function OnPausePreUpdate()
     _G.Server.update()
     _G.Client.update()
@@ -144,11 +178,17 @@ function OnWorldPreUpdate()
         local saveSlotsLastModifiedAfterWorldInit = fu.getLastModifiedSaveSlots()
         for i = 1, #saveSlotsLastModifiedBeforeWorldInit do
             for j = 1, #saveSlotsLastModifiedAfterWorldInit do
+                local saveSlotMeta = nil
                 if saveSlotsLastModifiedBeforeWorldInit[i].lastModified > saveSlotsLastModifiedAfterWorldInit[j].lastModified then
-                    _G.saveSlotMeta = saveSlotsLastModifiedAfterWorldInit[i]
-                    logger:info(nil, "Save slot found in '%s'", util.pformat(_G.saveSlotMeta))
+                    saveSlotMeta = saveSlotsLastModifiedBeforeWorldInit[i]
                 else
-                    _G.saveSlotMeta = saveSlotsLastModifiedAfterWorldInit[j]
+                    saveSlotMeta = saveSlotsLastModifiedAfterWorldInit[j]
+                end
+
+                if saveSlotMeta then
+                    --- Set modSettings as well when changing this: ModSettingSetNextValue("noita-mp.saveSlotMetaDirectory", _G.saveSlotMeta, false)
+                    _G.saveSlotMeta = saveSlotMeta
+                    ModSettingSetNextValue("noita-mp.saveSlotMetaDirectory", _G.saveSlotMeta.dir, false)
                     logger:info(nil, "Save slot found in '%s'", util.pformat(_G.saveSlotMeta))
                 end
             end
@@ -163,16 +203,4 @@ function OnWorldPreUpdate()
     dofile("mods/noita-mp/files/scripts/ui.lua")
 
     drawGui()
-end
-
-function UpdateLogLevel()
-    -- if _G.logger then
-    --     local currentLogLevel = logger:getLevel()
-    --     local setting_log_level = tostring(ModSettingGetNextValue("noita-mp.log_level")) -- "debug, warn, info, error" or "warn, info, error" or "info, error"
-    --     local levels = setting_log_level:upper():split(",")
-    --     local newLogLevel = levels[1]
-    --     if currentLogLevel ~= newLogLevel then
-    --         logger:setLevel(newLogLevel)
-    --     end
-    -- end
 end
