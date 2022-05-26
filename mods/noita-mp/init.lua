@@ -2,8 +2,8 @@
 -- Imports by dofile, dofile_once and require
 ----------------------------------------------------------------------------------------------------
 dofile("mods/noita-mp/files/scripts/init/init_.lua")
-local render_ezgui = dofile_once("mods/noita-mp/files/lib/external/ezgui/EZGUI.lua").init("mods/noita-mp/files/lib/external/ezgui")
 local fu = require("file_util")
+local ui = require("Ui")
 
 logger:debug("init.lua", "Starting to load noita-mp init.lua..")
 
@@ -66,57 +66,6 @@ local function setSeedIfConnectedSecondTime()
 
         SetWorldSeed(seed)
         _G.Client.connect(nil, nil, 1)
-    end
-end
-
-local function drawGui()
-    local function playerList()
-        local clients = {}
-        if _G.Server.amIServer() then
-            clients = _G.Server.clients
-            for i = 1, #clients do
-                clients[i].rtt = clients[i]:getRoundTripTime()
-            end
-        else
-            clients = { name = _G.Client.name, rtt = _G.Client:getRoundTripTime() }
-        end
-
-        local playerListData = {
-            version = "0.1.0 - alpha + 1", --fu.ReadFile(".version")
-            ip = _G.Server:getAddress(),
-            port = _G.Server:getPort(),
-            start = function()
-                _G.Server.start(nil, nil)
-            end,
-            clients = clients,
-            kick = function(data, element, arg1)
-                _G.Server.kick(arg1)
-            end,
-            ban = function(data, element, arg1)
-                _G.Server.ban(arg1)
-            end
-        }
-        render_ezgui(50, 50, "mods/noita-mp/files/data/ezgui/PlayerList.xml", playerListData)
-    end
-
-    if not show then
-        show = false
-    end
-
-    local function drawShowGui()
-        local showGuiData = {
-            toggleShow = function(data, element)
-                show = not show
-            end,
-            showText = ("[%s]"):format(show),
-        }
-        render_ezgui(50, 50, "mods/noita-mp/files/data/ezgui/ShowAndHideMenu.xml", showGuiData)
-    end
-
-    drawShowGui()
-
-    if show then
-        playerList()
     end
 end
 
@@ -200,7 +149,7 @@ function OnWorldPreUpdate()
     _G.Server.update()
     _G.Client.update()
 
-    dofile("mods/noita-mp/files/scripts/ui.lua")
+    --dofile("mods/noita-mp/files/scripts/ui.lua")
 
-    drawGui()
+    ui.drawGui()
 end

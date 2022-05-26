@@ -1432,10 +1432,6 @@ sock.newServer = function(address, port, maxPeers, maxChannels, inBandwidth, out
         packetsSent     = 0,
         packetsReceived = 0,
 
-        -- NoitaMP additions
-        name = "",
-        guid = nil,
-        iAm  = "SERVER",
     }, Server_mt)
 
     -- -- ip, max peers, max channels, in bandwidth, out bandwidth

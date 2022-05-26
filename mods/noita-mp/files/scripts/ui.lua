@@ -1,224 +1,120 @@
-local util = require("util")
-local fu = require("file_util")
+-- OOP class definition is found here: Closure approach
+-- http://lua-users.org/wiki/ObjectOrientationClosureApproach
+-- Naming convention is found here:
+-- http://lua-users.org/wiki/LuaStyleGuide#:~:text=Lua%20internal%20variable%20naming%20%2D%20The,but%20not%20necessarily%2C%20e.g.%20_G%20.
 
-if Initialized == nil then
-    Initialized = false
-end
+----------------------------------------
+-- 'Imports'
+----------------------------------------
+local renderEzgui = dofile_once("mods/noita-mp/files/lib/external/ezgui/EZGUI.lua").init("mods/noita-mp/files/lib/external/ezgui")
 
-if not Initialized then
-    logger:debug(nil, "Initialising ui")
-    Initialized = true
-    local gui_id = 2
-    local gui = gui or GuiCreate()
-    local hide = false
-    local hide_text = "Hide NoitaMP UI"
+----------------------------------------------------------------------------------------------------
+--- Ui
+--- @see PlayerList.xml
+--- @see FoldingMenu.xml
+----------------------------------------------------------------------------------------------------
+Ui = {}
 
-    local function reset_id()
-        gui_id = 2
-    end
+----------------------------------------
+-- Global private variables:
+----------------------------------------
 
-    local function next_id()
-        local id = gui_id
-        gui_id = gui_id + 1
-        return id
-    end
+----------------------------------------
+-- Global private methods:
+----------------------------------------
 
-    function draw_gui()
-        local server_ip = tostring(ModSettingGet("noita-mp.server_ip"))
-        local server_port = tostring(ModSettingGet("noita-mp.server_port"))
-        local connect_to_ip = tostring(ModSettingGet("noita-mp.connect_server_ip"))
-        local connect_to_port = tostring(ModSettingGet("noita-mp.connect_server_port"))
+----------------------------------------
+-- Access to global private variables
+----------------------------------------
 
-        reset_id()
-        GuiStartFrame(gui)
+----------------------------------------
+-- Global public variables:
+----------------------------------------
 
-        if GuiButton(gui, next_id(), 20, 20, hide_text) then
-            hide = not hide
-        end
+----------------------------------------------------------------------------------------------------
+--- Ui constructor
+----------------------------------------------------------------------------------------------------
+function Ui.new()
+    local self = {}
 
-        if not hide then
-            hide_text = "Hide NoitaMP UI"
-            ------------ ------------ Start server ui
-            local width, height = GuiGetScreenDimensions(gui) -- width = 640, height = 360
-            local bg_width, bg_height =
-            GuiGetImageDimensions(gui, "mods/noita-mp/files/data/ui_gfx/in_game/mp_menu_200x150.png", 1)
+    ------------------------------------
+    -- Private variables:
+    ------------------------------------
+    local foldingOpen = false
 
-            local x = width / 2 - bg_width / 2
-            local y = height - bg_height
+    ------------------------------------
+    -- Public variables:
+    ------------------------------------
 
-            GuiImage(gui, next_id(), x, y, "mods/noita-mp/files/data/ui_gfx/in_game/mp_menu_200x150.png", 1, 1, 1)
+    ------------------------------------
+    -- Private methods:
+    ------------------------------------
 
-            GuiLayoutBeginHorizontal(gui, x, y, true, 0, 0)
-            ------------ Start server
-            if not _G.Server.isRunning() then --if _G.Server == nil or next(_G.Server) == nil or _G.Server == nil or next(_G.Server) == nil then
-                GuiColorSetForNextWidget(gui, 0, 1, 0, 1)
-                if GuiButton(gui, next_id(), 0, 0, "Start server on " .. server_ip .. ":" .. server_port) then
-                    _G.Server.start(server_ip, server_port)
-                end
-            else
-                ------------ Stop server
-                GuiColorSetForNextWidget(gui, 1, 0, 0, 1)
-                if GuiButton(gui, next_id(), 0, 0, "Stop server on " .. server_ip .. ":" .. server_port) then
-                    _G.Server:stop()
-                end
-            end
-            GuiLayoutEnd(gui)
-
-            ------------ ------------ Connect to server ui
-            x = x
-            y = y + 3
-            GuiLayoutBeginHorizontal(gui, x, y, true, 5, 5)
-            ------------ Not allowed to connect to a server while your own server is running
-            if _G.Server.isRunning() then --if _G.Server ~= nil and next(_G.Server) ~= nil and _G.Server ~= nil and next(_G.Server) ~= nil then
-                GuiText(gui, 0, 0, "Not allowed to connect..")
-                GuiTooltip(
-                    gui,
-                    "Not allowed to connect..",
-                    "Stop your server first, before connecting to another server. Thanks!"
-                )
-            else
-                ------------ Connect
-                --if _G.Client == nil or next(_G.Client) == nil then
-                if not _G.Client.isConnected() then --if _G.Client == nil or next(_G.Client) == nil or _G.Client:isDisconnected() then
-                    GuiColorSetForNextWidget(gui, 0, 1, 0, 1)
-                    if GuiButton(gui, next_id(), 0, 0, "Connect to " .. connect_to_ip .. ":" .. connect_to_port) then
-                        _G.Client.connect(connect_to_ip, connect_to_port)
-                    end
-                end
-                if _G.Client ~= nil and _G.Client ~= nil and (_G.Client:isConnected() or _G.Client:isConnecting()) then
-                    ------------- Disconnect
-                    GuiColorSetForNextWidget(gui, 1, 0, 0, 1)
-                    if GuiButton(
-                        gui,
-                        next_id(),
-                        0,
-                        0,
-                        "Disconnect from " .. connect_to_ip .. ":" .. connect_to_port
-                    )
-                    then
-                        _G.Client:disconnect()
-                    end
-                end
-                --end
-            end
-            GuiLayoutEnd(gui)
-
-            ------------ ------------ Player list header
-            local string_length = 12
-            x = x
-            y = y + 3
-            GuiLayoutBeginHorizontal(gui, x, y, true, 5, 5)
-            GuiText(gui, 0, 0, string.ExtendOrCutStringToLength("Name", string_length, " "))
-            GuiText(gui, 0, 0, string.ExtendOrCutStringToLength("Ping", string_length, " "))
-            GuiText(gui, 0, 0, string.ExtendOrCutStringToLength("Map received", string_length, " "))
-            GuiText(gui, 0, 0, string.ExtendOrCutStringToLength("Allow", string_length, " "))
-            GuiText(gui, 0, 0, string.ExtendOrCutStringToLength("Kick", string_length, " "))
-            GuiLayoutEnd(gui)
-
-            ------------ ------------ Player list content
-            x = x
-            y = y + 3
-            GuiLayoutBeginHorizontal(gui, x, y, true, 5, 5)
-            ------------- Player list when server
-            if _G.Server ~= nil and next(_G.Server) ~= nil and _G.Server ~= nil and next(_G.Server) ~= nil then
-                for i, client in pairs(_G.Server:getClients()) do
-                    i = (i - 1) * 3 -- 1-1*5=0 | 2-1*5=5 | 3-1*5=10
-                    GuiText(gui, 0, i, string.ExtendOrCutStringToLength(client.name, string_length, " "))
-                    GuiText(
-                        gui,
-                        0,
-                        i,
-                        string.ExtendOrCutStringToLength(client:getRoundTripTime() .. "ms", string_length, " ")
-                    )
-                    -- Map received
-                    if client.isMapReceived then
-                        GuiImage(
-                            gui,
-                            next_id(),
-                            10,
-                            i,
-                            "mods/noita-mp/files/data/ui_gfx/in_game/green_tik_8x8.png",
-                            1,
-                            1,
-                            1
-                        )
-                    else
-                        GuiImage(
-                            gui,
-                            next_id(),
-                            10,
-                            i,
-                            "mods/noita-mp/files/data/ui_gfx/in_game/red_tik_8x8.png",
-                            1,
-                            1,
-                            1
-                        )
-                    end
-
-                    -- Allow Button
-                    if GuiImageButton(
-                        gui,
-                        next_id(),
-                        15,
-                        i,
-                        "",
-                        "mods/noita-mp/files/data/ui_gfx/in_game/green_tik_8x8.png"
-                    )
-                    then
-                        if _G.Server:checkIsAllowed(client) then
-                            -- Send map, if already allowed to join
-                            _G.Server:sendMap(client)
-                        else
-                            -- Save map and restart, if not already allowed and set allowed to true
-                            GamePrintImportant(
-                                "Noita Restart for saving world",
-                                "Noita will be restarted to fully save the world.\nUnfortunatelly this is due to no/less access to Noita save functions."
-                                , "")
-                            _G.Server:setIsAllowed(client, true)
-                            _G.Server:storeClients()
-                            -- remeber to zip the savegame, when restarting server
-                            ModSettingSetNextValue("noita-mp.server_start_7zip_savegame", true, false)
-                            local make_zip = ModSettingGet("noita-mp.server_start_7zip_savegame")
-                            logger:debug(util.pformat("server_class.lua | make_zip = " .. tostring(make_zip)))
-
-                            util.Sleep(2)
-                            fu.StopSaveAndStartNoita()
-                        end
-                    end
-                    GuiTooltip(
-                        gui,
-                        "Allow: You need to allow the client to connect, because Noita will be restarted to fully save the world.",
-                        "Unfortunatelly this is due to no/less access to Noita save functions."
-                    )
-                    -- Kick Button
-                    if GuiImageButton(
-                        gui,
-                        next_id(),
-                        15,
-                        i,
-                        "",
-                        "mods/noita-mp/files/data/ui_gfx/in_game/red_tik_8x8.png"
-                    )
-                    then
-                        client:disconnect()
-                    end
-                end
-            end
-
-            -- GuiImage(gui, next_id(), 0, 0, "noita-mp/files/data/ui_gfx/in_game/green_tik_8x8.png" , 1,1,1)
-            -- GuiTooltip(gui, "", "")
-
-            -- if _G.Client ~= nil and next(_G.Client) ~= nil then
-            --     local rtt = tonumber(_G.Client:getRoundTripTime())
-            --     --GuiColorSetForNextWidget(gui, 1, 0, 0, 1) TODO rtt / ? = red
-            --     GuiText(gui, 0, 0,  rtt .. "ms")
-            -- end
-
-            GuiLayoutEnd(gui)
+    --- Draws [+ NoitaMP] or [- NoitaMP]
+    local function drawFolding()
+        local text = ""
+        if foldingOpen then
+            text = ("[- NoitaMP]")
         else
-            hide_text = "Show NoitaMP UI"
+            text = ("[+ NoitaMP]")
+        end
+
+        local showGuiData = {
+            toggleFoling = function(data, element)
+                show = not show
+            end,
+
+            text = text,
+        }
+        renderEzgui(50, 50, "mods/noita-mp/files/data/ezgui/ShowAndHideMenu.xml", showGuiData)
+    end
+
+    local function playerList()
+        local clients = {}
+        if _G.Server.amIServer() then
+            clients = _G.Server.clients
+            for i = 1, #clients do
+                clients[i].rtt = clients[i]:getRoundTripTime()
+            end
+        else
+            clients = { name = _G.Client.name, rtt = _G.Client:getRoundTripTime() }
+        end
+
+        local playerListData = {
+            version = "0.1.0 - alpha + 1", --fu.ReadFile(".version")
+            ip = _G.Server:getAddress(),
+            port = _G.Server:getPort(),
+            start = function()
+                _G.Server.start(nil, nil)
+            end,
+            clients = clients,
+            kick = function(data, element, arg1)
+                _G.Server.kick(arg1)
+            end,
+            ban = function(data, element, arg1)
+                _G.Server.ban(arg1)
+            end
+        }
+        renderEzgui(50, 50, "mods/noita-mp/files/data/ezgui/PlayerList.xml", playerListData)
+    end
+
+    ------------------------------------
+    -- Public methods:
+    ------------------------------------
+    function self.update()
+        drawFolding()
+        if show then
+            playerList()
         end
     end
+
+    ------------------------------------
+    -- Apply some private methods
+    ------------------------------------
+
+    return self
 end
 
-draw_gui()
+-- Init this object:
+
+return Ui

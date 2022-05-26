@@ -1,0 +1,3 @@
+<Layout>
+    <Button @click="toggleFoling()">{{showText}}</Button>
+</Layout>

@@ -1,3 +1,0 @@
-<Layout>
-    <Button @click="toggleShow()">{{showText}}</Button>
-</Layout>

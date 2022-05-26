@@ -83,10 +83,11 @@ function Server.new(sockServer)
     --- @param data number not in use atm
     --- @param peer table
     local function onConnect(data, peer)
-        self:sendToPeer(peer, NetworkUtils.events.playerInfo.name, { util.getLocalPlayerInfo() })
+        local localPlayerInfo = util.getLocalPlayerInfo()
+        self:sendToPeer(peer, NetworkUtils.events.playerInfo.name, { name = localPlayerInfo.name, guid = localPlayerInfo.guid })
         self:sendToPeer(peer, NetworkUtils.events.seed.name, { seed = StatsGetValue("world_seed") })
         -- Let the other clients know, that one client connected
-        self:sendToAllBut(peer, NetworkUtils.events.connect2.name, { peer.name, peer.guid })
+        self:sendToAllBut(peer, NetworkUtils.events.connect2.name, { name = peer.name, guid = peer.guid })
     end
 
     ------------------------------------------------------------------------------------------------
@@ -99,6 +100,20 @@ function Server.new(sockServer)
         logger:debug(logger.channels.network, "Disconnected from server!", util.pformat(data))
         -- Let the other clients know, that one client disconnected
         self:sendToAllBut(peer, NetworkUtils.events.disconnect2.name, { peer.name, peer.guid })
+    end
+
+    ------------------------------------------------------------------------------------------------
+    --- onPlayerInfo
+    ------------------------------------------------------------------------------------------------
+    --- Callback when Server sent his playerInfo to the client
+    --- @param data table { name, guid }
+    local function onPlayerInfo(data, peer)
+        for i, client in pairs(self.clients) do
+            if client == peer then
+                self.clients[i].name = data.name
+                self.clients[i].guid = data.guid
+            end
+        end
     end
 
     --self:sendToAllBut(peer, NetworkUtils.events.playerInfo.name)
@@ -258,8 +273,8 @@ function Server.new(sockServer)
         --self:setSchema(NetworkUtils.events.disconnect, { "code" })
         self:on(NetworkUtils.events.disconnect.name, onDisconnect)
 
-        self:setSchema(NetworkUtils.events.seed.name, NetworkUtils.events.seed.schema)
-        self:on(NetworkUtils.events.seed.name, onSeed)
+        --self:setSchema(NetworkUtils.events.seed.name, NetworkUtils.events.seed.schema)
+        --self:on(NetworkUtils.events.seed.name, onSeed)
 
         self:setSchema(NetworkUtils.events.playerInfo, NetworkUtils.events.playerInfo.schema)
         self:on(NetworkUtils.events.playerInfo.name, onPlayerInfo)

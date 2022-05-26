@@ -92,7 +92,7 @@ function Client.new(sockClient)
         local guid = localPlayerInfo.guid
         local entityId = localPlayerInfo.entityId
 
-        self:send(NetworkUtils.events.playerInfo.name, { name, guid })
+        self:send(NetworkUtils.events.playerInfo.name, { name = name, guid = guid })
 
         if not NetworkVscUtils.hasNetworkLuaComponents(entityId) then
             NetworkVscUtils.addOrUpdateAllVscs(entityId, name, guid, nil)
