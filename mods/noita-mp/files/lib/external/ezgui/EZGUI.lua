@@ -6,7 +6,7 @@ local _ModTextFileGetContent = ModTextFileGetContent
 
 function shallow_copy(t)
   local t2 = {}
-  for k,v in pairs(t) do
+  for k, v in pairs(t) do
     t2[k] = v
   end
   return t2
@@ -114,11 +114,11 @@ return {
           style_element = element
         end
       end
-      
+
       if not root_layout then
         error("No root 'Layout' found", 2)
       end
-    
+
       local rulesets = {}
       if style_element then
         local text, text_pos = style_element:text()
@@ -127,7 +127,7 @@ return {
           utils.throw_error(xml_content, msg, text_pos + pos, 2)
         end)
       end
-    
+
       local function make_dom(element)
         if not DOM_Elements[element.name] then
           error("Unknown element type: '" .. element.name .. "'", 4)
@@ -140,7 +140,7 @@ return {
         end
         return dom_element
       end
-    
+
       local dom = make_dom(root_layout)
       local function apply_rules(dom_element)
         css.apply_matching_rules_to_element(dom_element, rulesets)
@@ -148,6 +148,7 @@ return {
           apply_rules(child)
         end
       end
+
       apply_rules(dom)
       return dom
     end
@@ -165,10 +166,13 @@ return {
         return id
       end
     end
+
     local _gui = GuiCreate()
+    local frame_started
     local observing = {}
     return function(x, y, content, data, gui)
-      if not gui then
+      if not gui and frame_started ~= GameGetFrameNum() then
+        frame_started = GameGetFrameNum()
         GuiStartFrame(_gui)
       end
       if not observing[data] then
@@ -187,7 +191,10 @@ return {
       end
       local new_id = create_id_generator()
       local root_layout = dom_cache[content]
-      return root_layout:Render(gui, new_id, data)
+      GuiIdPushString(gui, "EZGUI_" .. tostring(content))
+      local width, height = root_layout:Render(gui, new_id, data)
+      GuiIdPop(gui)
+      return width, height
     end
   end
 }

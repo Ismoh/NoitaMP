@@ -3,7 +3,7 @@
 ----------------------------------------------------------------------------------------------------
 dofile("mods/noita-mp/files/scripts/init/init_.lua")
 local fu = require("file_util")
-local ui = require("Ui")
+local ui = require("Ui").new()
 
 logger:debug("init.lua", "Starting to load noita-mp init.lua..")
 
@@ -151,5 +151,5 @@ function OnWorldPreUpdate()
 
     --dofile("mods/noita-mp/files/scripts/ui.lua")
 
-    ui.drawGui()
+    ui.update()
 end
