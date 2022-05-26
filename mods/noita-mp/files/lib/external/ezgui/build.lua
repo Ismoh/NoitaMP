@@ -32,6 +32,7 @@ local files_to_bundle = {
   "lib/pretty.lua",
   "lib/nxml.lua",
   "elements/Button.lua",
+  "elements/Input.lua",
   "elements/DOMElement.lua",
   "elements/Image.lua",
   "elements/Layout.lua",

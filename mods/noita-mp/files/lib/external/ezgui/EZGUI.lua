@@ -1,5 +1,5 @@
 --[[ 
-  EZGUI v0.1.1
+  EZGUI v0.2.0
 ]]
 
 local _ModTextFileGetContent = ModTextFileGetContent
@@ -48,7 +48,7 @@ local function make_observable(t, key, prev_keys)
       end
       path = path .. key
 
-      print(path .. " changed!")
+      -- print(path .. " changed!")
     end
   })
 end
@@ -65,20 +65,17 @@ return {
         ("%sparsing_functions.lua"):format(self_path),
         ("%sstring_buffer.lua"):format(self_path),
         ("%sutils.lua"):format(self_path),
-        ("%selements/Button.lua"):format(self_path),
         ("%selements/DOMElement.lua"):format(self_path),
-        ("%selements/Image.lua"):format(self_path),
         ("%selements/Layout.lua"):format(self_path),
-        ("%selements/Slider.lua"):format(self_path),
         ("%selements/Text.lua"):format(self_path),
+        ("%selements/Input.lua"):format(self_path),
+        ("%selements/Button.lua"):format(self_path),
+        ("%selements/Image.lua"):format(self_path),
+        ("%selements/Slider.lua"):format(self_path),
       }
       for i, filepath in ipairs(files) do
         local content = ModTextFileGetContent(filepath)
         local s = content:gsub("%%PATH%%", self_path)
-        if filepath == "mods/EZGUI_example/lib/EZGUI/elements/Layout.lua" then
-          print('self_path (' .. tostring(self_path) .. ':'.. type(self_path) .. ')')
-          print('s: ' .. s:sub(1, 100))
-        end
         ModTextFileSetContent(filepath, s)
       end
     end
@@ -88,6 +85,7 @@ return {
     local pretty = dofile_once(self_path .. "lib/pretty.lua")
     local Layout = dofile_once(self_path .. "elements/Layout.lua")
     local Text = dofile_once(self_path .. "elements/Text.lua")
+    local Input = dofile_once(self_path .. "elements/Input.lua")
     local Button = dofile_once(self_path .. "elements/Button.lua")
     local Image = dofile_once(self_path .. "elements/Image.lua")
     local Slider = dofile_once(self_path .. "elements/Slider.lua")
@@ -102,6 +100,7 @@ return {
       Button = Button,
       Image = Image,
       Slider = Slider,
+      Input = Input,
     }
 
     local dom_cache = {}
@@ -183,11 +182,11 @@ return {
         else
           dom_cache[content] = make_dom_from_nxml_table(content.xml, content.xml_string, data)
         end
+        dom_cache[content].style.margin_left = x
+        dom_cache[content].style.margin_top = y
       end
       local new_id = create_id_generator()
       local root_layout = dom_cache[content]
-      root_layout.style.margin_left = x
-      root_layout.style.margin_top = y
       return root_layout:Render(gui, new_id, data)
     end
   end

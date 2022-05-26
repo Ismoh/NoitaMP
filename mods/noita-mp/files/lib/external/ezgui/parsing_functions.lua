@@ -2,7 +2,7 @@ local utils = dofile_once("%PATH%utils.lua")
 local string_buffer = dofile_once("%PATH%string_buffer.lua")
 
 local dom_element_names = {
-  "Button", "Image", "Layout", "Slider", "Text", "*"
+  "Layout", "Text", "Input", "Button", "Image", "Slider", "*"
 }
 
 local function _throw_error(str, msg, pos, level)
@@ -380,7 +380,8 @@ function parse_function_call_expression(input, error_callback)
       if not data_context[function_name] then
         error("Function not found in data context: " .. function_name, 3)
       end
-      local _args = { data_context, element }
+      local _args = {}
+      -- Collect and package arguments
       for i, arg in ipairs(args) do
         if arg.type == "variable" then
           if not data_context[arg.value] then
@@ -390,7 +391,13 @@ function parse_function_call_expression(input, error_callback)
         end
         table.insert(_args, arg.value)
       end
-      data_context[function_name](unpack(_args))
+      return setfenv(data_context[function_name], setmetatable({
+        self = data_context,
+        element = element
+      }, {
+        __index = _G,
+        __newindex = _G
+      }))(unpack(_args))
     end
   }
 end

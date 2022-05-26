@@ -151,13 +151,12 @@ define_property("margin_bottom", false, 0, function(style, name, str)
   end
 end)
 
--- define_property("color", true, "#FFFFFF", function(style, name, str)
---   local tokens = parser.parse_tokens(str)
---   -- TODO: Parse color
---   if validate_tokens(tokens, "color") then
---     style[name] = make_value(tokens[1].value)
---   end
--- end)
+define_property("color", true, nil, function(style, name, str)
+  local tokens = parser.parse_tokens(str)
+  if validate_tokens(tokens, "color") then
+    style._set(name, tokens[1])
+  end
+end)
 
 define_property("direction", false, "vertical", function(style, name, str)
   local tokens = parser.parse_tokens(str)
@@ -201,6 +200,13 @@ define_property("border", false, false, function(style, name, str)
   end
 end)
 
+define_property("border_size", false, 0, function(style, name, str)
+  local tokens = parser.parse_tokens(str)
+  if validate_tokens(tokens, "number") then
+    style._set(name, tokens[1])
+  end
+end)
+
 define_property("width", false, nil, function(style, name, str)
   local tokens = parser.parse_tokens(str)
   if validate_tokens(tokens, "number") then
@@ -215,11 +221,11 @@ define_property("height", false, nil, function(style, name, str)
   end
 end)
 
-define_property("background", false, true, function(style, name, str)
-  local tokens = parser.parse_tokens(str)
-  if validate_tokens(tokens, "boolean") then
-    style._set(name, tokens[1])
-  end
-end)
+-- define_property("background", false, true, function(style, name, str)
+--   local tokens = parser.parse_tokens(str)
+--   if validate_tokens(tokens, "boolean") then
+--     style._set(name, tokens[1])
+--   end
+-- end)
 
 return props

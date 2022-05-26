@@ -5,32 +5,53 @@ local DOMElement = dofile_once("%PATH%elements/DOMElement.lua")
 local Image = new_class("Image", function(self, xml_element, data_context)
   super(xml_element, data_context)
   self.src = xml_element.attr.src
-  self.scaleX = tonumber(xml_element.attr.scaleX) or 1
-  self.scaleY = tonumber(xml_element.attr.scaleY) or 1
+  self:ReadAttribute(xml_element, "scaleX", 1)
+  self:ReadAttribute(xml_element, "scaleY", 1)
+  if xml_element.attr["@click"] then
+    self.onClick = parse_function_call_expression(xml_element.attr["@click"])
+  end
 end, DOMElement)
 
-function Image:GetDimensions(gui)
+function Image:GetContentDimensions(gui, data_context)
   if not gui then error("Required parameter #1: GuiObject", 2) end
-  local width, height = GuiGetImageDimensions(gui, self.src, 1)
-  return width * self.scaleX + self.style.padding_left + self.style.padding_right, height * self.scaleY + self.style.padding_top + self.style.padding_bottom
+  local image_width, image_height = GuiGetImageDimensions(gui, self.src, 1)
+  return image_width * self.attr.scaleX, image_height * self.attr.scaleY
 end
 
 function Image:Render(gui, new_id, data_context, layout)
   if not gui then error("Required parameter #1: GuiObject", 2) end
   if not data_context then error("Required parameter #2: data_context", 2) end
   local x, y = self.style.margin_left, self.style.margin_top
+  local offset_x, offset_y = self:GetRenderOffset(gui, data_context)
+  local width, height, outer_width, outer_height = self:GetDimensions(gui, data_context)
+  local border_size = self:GetBorderSize()
   if layout then
-    local width, height = self:GetDimensions(gui)
-    x, y = layout:GetPositionForWidget(self, width, height)
+    x, y = layout:GetPositionForWidget(gui, data_context, self, width, height)
   end
-  local z
-  if layout then
-    z = layout:GetZ()
-  else
-    z = self:GetZ()
-  end
+  local z = self:GetZ()
+  self:RenderBorder(gui, new_id, x, y, z, width, height)
   GuiZSetForNextWidget(gui, z)
-  GuiImage(gui, new_id(), x + self.style.padding_left, y + self.style.padding_top, self.src, 1, self.scaleX, self.scaleY)
+  if self.style.color then
+    local c = self.style.color
+    GuiColorSetForNextWidget(gui, c.r, c.g, c.b, math.max(c.a, 0.001))
+  end
+  GuiImage(gui, new_id(), x + offset_x + self.style.padding_left + border_size, y + offset_y + self.style.padding_top + border_size, self.src, 1, self.attr.scaleX, self.attr.scaleY)
+
+  -- Draw an invisible nine piece which catches mouse clicks, this is to have exact control over the clickable area, which should include padding
+  local click_area_width = outer_width - border_size * 2
+  local click_area_height = outer_height - border_size * 2
+  GuiZSetForNextWidget(gui, z - 2)
+  GuiImageNinePiece(gui, new_id(), x + border_size, y + border_size, click_area_width, click_area_height, 0)
+  local clicked, right_clicked, hovered, _x, _y, width, height, draw_x, draw_y, draw_width, draw_height = GuiGetPreviousWidgetInfo(gui)
+  if clicked then
+    self.onClick.execute(data_context, self)
+  end
+  -- Draw an invisible image while the button is hovered which prevents mouse clicks from firing wands etc
+  if hovered then
+    GuiColorSetForNextWidget(gui, 1, 0, 0, 1)
+    GuiZSetForNextWidget(gui, z - 3)
+    GuiImage(gui, new_id(), x + border_size, y + border_size, "data/debug/whitebox.png", 0, click_area_width / 20, click_area_height / 20)
+  end
 end
 
 return Image

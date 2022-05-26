@@ -127,11 +127,16 @@ local DOMElement = new_class("DOMElement", function(self, xml_element, data_cont
           return (self.parent and self.parent.style[key]) or css_props[key].default
         else
           -- Get default
-          local default = self.default_style[key] or css_props[key].default
+          local default = self.default_style[key] -- or css_props[key].default
           local superclass = self.__superclass
           while default == nil and superclass do
             default = superclass.default_style[key]
             superclass = superclass.__superclass
+          end
+          -- If we still haven't found a default defined on the class hierarchy chain's default_styles,
+          -- use css props default
+          if not default then
+            default = css_props[key].default
           end
           return default
         end
@@ -141,7 +146,11 @@ local DOMElement = new_class("DOMElement", function(self, xml_element, data_cont
       if not css_props[key] then
         error(("Unknown property: '%s'"):format(tostring(key)), 2)
       end
-      css_props[key].apply(self.style, value_string)
+      -- TODO: Lazy hack... rework later,
+      -- some css properties should not be applied to certain elements that don't support them
+      if not (self.name == "Input" and key:sub(1, 7) == "padding") then
+        css_props[key].apply(self.style, value_string)
+      end
     end
   })
   local attr = {}
@@ -167,7 +176,34 @@ local DOMElement = new_class("DOMElement", function(self, xml_element, data_cont
   if xml_element.attr.forEach then
     self.loop = parser.parse_loop(string_buffer(xml_element.attr.forEach))
   end
-  self:ReadAttribute(xml_element, "debug", false)
+  self:ReadAttribute(xml_element, "debug", false, function(val)
+    if val == "true" then
+      return true
+    elseif val == "false" then
+      return false
+    end
+  end)
+  local function read_func(prop, attr)
+    local attr = xml_element.attr[attr]
+    if attr then
+      if attr:match("%(") then
+        local func = parse_function_call_expression(attr)
+        self[prop] = function()
+          return func.execute(data_context, self)
+        end
+      else
+        self[prop] = function()
+          local a = {
+            type = "binding",
+            target_chain = parser.read_binding_target(attr),
+          }
+          return get_value_from_chain_or_not(data_context, a)
+        end
+      end
+    end
+  end
+  read_func("render_if", "if")
+  read_func("show_if", "show")
 end)
 
 DOMElement.default_style = {
@@ -179,6 +215,8 @@ DOMElement.default_style = {
   margin_top = 0,
   margin_right = 0,
   margin_bottom = 0,
+  border = false,
+  border_size = 3,
 }
 
 function DOMElement:QuerySelector(selector_string)
@@ -201,8 +239,44 @@ function DOMElement:QuerySelector(selector_string)
   return find_matching_self_or_child(self)
 end
 
-function DOMElement:GetDimensions()
-  error("This should never get called", 2)
+function DOMElement:GetDimensions(gui, data_context)
+  if not gui then error("Required parameter #1: GuiObject", 2) end
+  if not data_context then error("Required parameter #2: data_context:table", 2) end
+  local content_width, content_height = self:GetContentDimensions(gui, data_context)
+  local border_size = self:GetBorderSize()
+  local outer_width = content_width + self.style.padding_left + self.style.padding_right + border_size * 2
+  local outer_height = content_height + self.style.padding_top + self.style.padding_bottom + border_size * 2
+  return content_width, content_height, math.max((self.style.width or 0), outer_width), math.max((self.style.height or 0), outer_height)
+end
+
+-- Just a shortcut for self.style.border and self.style.border_size or 0
+function DOMElement:GetBorderSize()
+  return self.style.border and self.style.border_size or 0
+end
+
+function DOMElement:GetRenderOffset(gui, data_context)
+  local content_width, content_height = self:GetContentDimensions(gui, data_context)
+  local border_size = self:GetBorderSize()
+  content_width = content_width + self.style.padding_left + self.style.padding_right + border_size * 2
+  content_height = content_height + self.style.padding_top + self.style.padding_bottom + border_size * 2
+  local space_to_move_x = math.max(self.style.width or 0, content_width) - content_width
+  local space_to_move_y = math.max(self.style.height or 0, content_height) - content_height
+  local x_translate_scale = ({ left=0, center=0.5, right=1 })[self.style.align_self_horizontal]
+  local y_translate_scale = ({ top=0, center=0.5, bottom=1 })[self.style.align_self_vertical]
+  return x_translate_scale * space_to_move_x, y_translate_scale * space_to_move_y
+end
+
+function DOMElement:RenderBorder(gui, new_id, x, y, z, inner_width, inner_height)
+  if self.style.border then
+    GuiZSetForNextWidget(gui, z + 1)
+    -- Width and height of GuiImageNinePiece are based on the inside, border gets drawn outside of the area (not 100% sure)
+    local border_size = self:GetBorderSize()
+    local width_with_padding = inner_width + self.style.padding_left + self.style.padding_right
+    local height_with_padding = inner_height + self.style.padding_top + self.style.padding_bottom
+    width_with_padding = math.max((self.style.width or 0) - border_size * 2, width_with_padding)
+    height_with_padding = math.max((self.style.height or 0) - border_size * 2, height_with_padding)
+    GuiImageNinePiece(gui, new_id(), x + border_size, y + border_size, width_with_padding, height_with_padding)
+  end
 end
 
 function DOMElement:AddChild(child)

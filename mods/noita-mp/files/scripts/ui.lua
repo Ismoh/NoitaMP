@@ -61,9 +61,8 @@ function Ui.new()
 
         local showGuiData = {
             toggleFoling = function(data, element)
-                show = not show
+                foldingOpen = not foldingOpen
             end,
-
             text = text,
         }
         renderEzgui(50, 50, "mods/noita-mp/files/data/ezgui/ShowAndHideMenu.xml", showGuiData)
