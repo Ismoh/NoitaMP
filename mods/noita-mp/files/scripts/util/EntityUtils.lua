@@ -178,7 +178,7 @@ end
 ---@param localEntityId number this is the initial entity_id created by server OR client. It's owner specific! Every owner has its own entity ids.
 ---@return number entityId Returns the entity_id of a already existing entity, found by nuid or the newly created entity.
 function EntityUtils.SpawnEntity(owner, nuid, x, y, rot, velocity, filename, localEntityId)
-    local localGuid = util.getLocalOwner().guid or util.getLocalOwner()[2]
+    local localGuid = util.getLocalPlayerInfo().guid or util.getLocalPlayerInfo()[2]
     local remoteGuid = owner.guid or owner[2]
 
     if localGuid == remoteGuid then

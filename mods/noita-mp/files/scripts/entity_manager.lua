@@ -1,4 +1,4 @@
-local util = dofile_once("mods/noita-mp/files/scripts/util/util.lua")--require("util")
+local util = dofile_once("mods/noita-mp/files/scripts/util/util.lua") --require("util")
 local NetworkComponent = require("network_component_class")
 local json = require("json")
 --EntityUtils = dofile_once("mods/noita-mp/files/scripts/util/EntityUtils.lua")
@@ -102,7 +102,7 @@ function em.AddNetworkComponents()
                             end
 
                             if has_network_component == false then
-                                local owner = util.getLocalOwner()
+                                local owner = util.getLocalPlayerInfo()
                                 local nuid = nil
                                 local x_e, y_e, rot_e = EntityGetTransform(entity_id)
 
@@ -114,7 +114,7 @@ function em.AddNetworkComponents()
                                     -- _G.Client:sendNeedNuid(owner, entity_id, velocity)
                                 end
                                 -- if the VariableStorageComponent is not a 'network_component_class', then add one
-                                em:AddNetworkComponentToEntity(entity_id, util.getLocalOwner(), nuid)
+                                em:AddNetworkComponentToEntity(entity_id, util.getLocalPlayerInfo(), nuid)
                                 logger:debug(
                                     "AddNetworkComponent owner = %s(%s), nuid=%s, local_entity_id = %s, component_id = %s",
                                     owner.username,
@@ -248,7 +248,7 @@ end
 ---@param local_entity_id number this is the initial entity_id created by server OR client. It's owner specific! Every owner has its own entity ids.
 ---@return number entity_id Returns the entity_id of a already existing entity, found by nuid or the newly created entity.
 function em:SpawnEntity(owner, nuid, x, y, rot, velocity, filename, local_entity_id)
-    local local_guid = util.getLocalOwner().guid or util.getLocalOwner()[2]
+    local local_guid = util.getLocalPlayerInfo().guid or util.getLocalPlayerInfo()[2]
     local owner_guid = owner.guid or owner[2]
 
     if local_guid == owner_guid then
@@ -308,7 +308,7 @@ end
 function em:UpdateEntities()
     for index, entity_id in ipairs(self.cache.nc_entity_ids) do
         if EntityUtils.isEntityAlive(entity_id) then
-            --local owner = util.getLocalOwner()
+            --local owner = util.getLocalPlayerInfo()
             local nc = self:GetNetworkComponent(nil, entity_id, nil)
             local nuid = nc.nuid
             local owner = {
@@ -462,7 +462,7 @@ end
 function em:getLocalPlayerId()
     local player_unit_ids = EntityGetWithTag("player_unit")
     for i_p = 1, #player_unit_ids do
-        local nc = self:GetNetworkComponent(util.getLocalOwner(), player_unit_ids[i_p])
+        local nc = self:GetNetworkComponent(util.getLocalPlayerInfo(), player_unit_ids[i_p])
         if nc and nc.owner.guid == ModSettingGet("noita-mp.guid") then
             return player_unit_ids[i_p]
         end

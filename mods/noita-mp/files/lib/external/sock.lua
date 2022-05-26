@@ -1504,12 +1504,6 @@ sock.newClient = function(serverOrAddress, port, maxChannels)
         packetsReceived = 0,
         packetsSent     = 0,
 
-        -- NoitaMP additions
-        name          = "",
-        guid          = nil,
-        isAllowed     = false,
-        isMapReceived = false,
-        iAm           = "CLIENT",
     }, Client_mt)
 
     -- -- Two different forms for client creation:

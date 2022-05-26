@@ -100,11 +100,21 @@ function util.pformat(var)
     return pprint.pformat(var, pprint.defaults)
 end
 
-function util.getLocalOwner()
+--- Gets the local player information.
+--- @return table playerInfo { name, guid, entityId }
+function util.getLocalPlayerInfo()
     return {
         name = tostring(ModSettingGet("noita-mp.name")),
-        guid = tostring(ModSettingGet("noita-mp.guid"))
+        guid = tostring(ModSettingGet("noita-mp.guid")),
+        entityId = EntityUtils.getLocalPlayerEntityId()
     }
+end
+
+--- Reloads the whole world with a specific seed. No need to restart the game and use magic numbers.
+---@param seed number max = 4294967295
+function util.reloadMap(seed)
+    SetWorldSeed(seed)
+    BiomeMapLoad_KeepPlayer("mods/noita-mp/files/scripts/DefaultBiomeMap.lua", "data/biome/_pixel_scenes.xml")
 end
 
 return util

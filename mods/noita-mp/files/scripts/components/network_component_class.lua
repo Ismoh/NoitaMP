@@ -172,7 +172,7 @@ function NetworkComponent.addNetworkComponentValues(entity_id, owner, nuid)
             component_id_nuid = component_id_nuid
         }
 
-        _G.Client:sendNeedNuid(util.getLocalOwner(), entity_id)
+        _G.Client:sendNeedNuid(util.getLocalPlayerInfo(), entity_id)
     end
 
     if nuid ~= nil then -- NUID can be nil, when the client creates entities, like projectiles

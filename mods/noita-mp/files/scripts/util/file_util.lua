@@ -485,7 +485,7 @@ function fu.killNoitaAndRestart()
 
     fu.removeContentOfDirectory(_G.saveSlotMeta.dir)
 
-    os.execute(('start "" %s -no_logo_splashes -save_slot %s -gamemode 4 -clean_save'):format(exe, _G.saveSlotMeta.slot)) -- -gamemode 0
+    os.execute(('start "" %s -no_logo_splashes -save_slot %s -gamemode 4'):format(exe, _G.saveSlotMeta.slot)) -- -gamemode 0
     os.exit()
 end
 

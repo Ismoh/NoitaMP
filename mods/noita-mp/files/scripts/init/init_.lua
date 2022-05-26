@@ -36,6 +36,7 @@ if ModSettingGet then
     require("EntityUtils")
     require("GlobalsUtils")
     require("NetworkVscUtils")
+    require("NetworkUtils")
     require("NuidUtils")
     require("guid")
     require("Server")
