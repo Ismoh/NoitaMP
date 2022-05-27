@@ -296,12 +296,15 @@ end
 
 function EntityUtils.modifyPhysicsEntities()
     if not util then
+        ---@diagnostic disable-next-line: lowercase-global
         util = require("util")
     end
     if not fu then
+        ---@diagnostic disable-next-line: lowercase-global
         fu = require("file_util")
     end
     if not nxml then
+        ---@diagnostic disable-next-line: lowercase-global
         nxml = require("nxml")
     end
 
