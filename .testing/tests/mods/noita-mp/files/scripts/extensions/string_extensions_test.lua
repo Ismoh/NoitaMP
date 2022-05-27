@@ -1,7 +1,7 @@
 dofile("mods/noita-mp/files/scripts/init/init_.lua")
 
 local lu = require("luaunit")
-local stringExtensions = require("string_extensions")
+local stringExtensions = dofile("mods/noita-mp/files/scripts/extensions/string_extensions.lua")
 
 TestStringExtensions = {}
 
