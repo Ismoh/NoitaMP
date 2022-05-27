@@ -28,7 +28,7 @@ local function getUniqueness()
     if is_windows then
         command = 'wmic CPU get ProcessorId'
     else
-        error("Unix system are not supported yet :(", 2)
+        command = "sudo dmidecode -t processor | grep -E ID |  sed 's/.*: //'"
     end
 
     file = io.popen(command, "r")

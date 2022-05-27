@@ -8,6 +8,13 @@ TestUtil = {}
 
 function TestUtil:setUp()
     print("\nsetUp")
+
+    --- Mocked in guid_test.lua
+    --- @param id string
+    --- @return nil nil Returns nil in this case.
+    _G.ModSettingGet = function(id)
+        return nil
+    end
 end
 
 function TestUtil:tearDown()
