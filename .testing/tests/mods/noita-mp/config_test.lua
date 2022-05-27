@@ -11,3 +11,5 @@ end
 function TestConfig:tearDown()
     print("tearDown\n")
 end
+
+os.exit(lu.LuaUnit.run())

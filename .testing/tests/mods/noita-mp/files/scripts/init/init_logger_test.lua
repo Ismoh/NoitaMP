@@ -11,3 +11,5 @@ end
 function TestInitLogger:tearDown()
     print("tearDown\n")
 end
+
+os.exit(lu.LuaUnit.run())
