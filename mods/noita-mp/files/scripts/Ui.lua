@@ -111,7 +111,7 @@ function Ui.new()
                 _G.Server.ban(arg1)
             end
         }
-        renderEzgui(50, 50, "mods/noita-mp/files/data/ezgui/PlayerList.xml", playerListData)
+        renderEzgui(0, height - 20, "mods/noita-mp/files/data/ezgui/PlayerList.xml", playerListData)
     end
 
     ------------------------------------
