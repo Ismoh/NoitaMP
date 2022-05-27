@@ -332,9 +332,9 @@ function fu.MkDir(full_path)
 
     local command = nil
     if _G.is_windows then
-        command = 'mkdir "' .. full_path .. '"'
+        command = ('mkdir "%s"'):format(full_path)
     else
-        error("Unfortunately unix systems aren't supported yet.")
+        command = ('mkdir "%s"'):format(full_path)
     end
     os.execute(command)
 end

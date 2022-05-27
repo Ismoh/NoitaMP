@@ -8,6 +8,10 @@ TestGuid = {}
 
 function TestGuid:setUp()
     print("\nsetUp")
+    -- Mock Noita Api global functions
+    _G.DebugGetIsDevBuild = function()
+        return false
+    end
 end
 
 function TestGuid:tearDown()
