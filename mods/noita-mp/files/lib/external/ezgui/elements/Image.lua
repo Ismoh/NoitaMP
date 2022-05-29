@@ -4,7 +4,7 @@ local DOMElement = dofile_once("%PATH%elements/DOMElement.lua")
 
 local Image = new_class("Image", function(self, xml_element, data_context)
   super(xml_element, data_context)
-  self.src = xml_element.attr.src
+  self:ReadAttribute(xml_element, "src", "")
   self:ReadAttribute(xml_element, "scaleX", 1)
   self:ReadAttribute(xml_element, "scaleY", 1)
   if xml_element.attr["@click"] then
@@ -14,7 +14,7 @@ end, DOMElement)
 
 function Image:GetContentDimensions(gui, data_context)
   if not gui then error("Required parameter #1: GuiObject", 2) end
-  local image_width, image_height = GuiGetImageDimensions(gui, self.src, 1)
+  local image_width, image_height = GuiGetImageDimensions(gui, self.attr.src, 1)
   return image_width * self.attr.scaleX, image_height * self.attr.scaleY
 end
 
@@ -35,7 +35,7 @@ function Image:Render(gui, new_id, data_context, layout)
     local c = self.style.color
     GuiColorSetForNextWidget(gui, c.r, c.g, c.b, math.max(c.a, 0.001))
   end
-  GuiImage(gui, new_id(), x + offset_x + self.style.padding_left + border_size, y + offset_y + self.style.padding_top + border_size, self.src, 1, self.attr.scaleX, self.attr.scaleY)
+  GuiImage(gui, new_id(), x + offset_x + self.style.padding_left + border_size, y + offset_y + self.style.padding_top + border_size, self.attr.src, 1, self.attr.scaleX, self.attr.scaleY)
 
   -- Draw an invisible nine piece which catches mouse clicks, this is to have exact control over the clickable area, which should include padding
   local click_area_width = outer_width - border_size * 2

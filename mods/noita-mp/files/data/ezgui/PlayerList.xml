@@ -1,43 +1,69 @@
-<Layout class="main">
-  <Layout class="header">
+<Layout :debug="debug" class="main">
+  <Layout :debug="debug" class="header">
     <Text>NoitaMP</Text>
-    <Image src="data/particles/eye.png" @click="toggleAddress()"></Image>
-    <Text>{{address}}</Text>
-    <Image src="data/particles/eye.png" @click="copyAddress()"></Image>
+    <Text class="address">Your address: {{address}}</Text>
+    <Image :src="toggleAddressSrc" @click="toggleAddress()"></Image>
+    <Image src="mods/noita-mp/files/data/ezgui/src/copy.png" @click="copyAddress()"></Image>
   </Layout>
-  <Layout class="table">
-    <Layout class="header">
+  <Layout :debug="debug" class="table">
+    <Layout :debug="debug" class="header">
       <Text>Minäs</Text>
       <Text>Latency(RTT)</Text>
       <Text>Actions</Text>
       <Text></Text>
     </Layout>
-    <Layout forEach="minae in clients">
-      <Text>{{minae.name}}</Text>
+    <Layout :debug="debug" class="body" forEach="minae in player">
+      <Text>
+      {{minae.name}}
+      {{minae.health}} {{minae.x}}, {{minae.y}}
+      </Text>
       <Text>{{minae.rtt}} ms</Text>
       <Button @click="kick(minae)">Kick</Button>
       <Button @click="ban(minae)">Ban</Button>
     </Layout>
   </Layout>
+  <Layout :debug="debug" class="footer">
+    <Image if="showStart()" src="mods/noita-mp/files/data/ezgui/src/start.png" @click="start()"></Image>
+    <Image if="showStop()" src="mods/noita-mp/files/data/ezgui/src/stop.png" @click="stop()"></Image>
+    <Image if="showConnect()" src="mods/noita-mp/files/data/ezgui/src/connect.png" @click="connect()"></Image>
+    <Image if="showConnected()" src="mods/noita-mp/files/data/ezgui/src/connected.png"></Image>
+    <Image if="showDisconnect()" src="mods/noita-mp/files/data/ezgui/src/disconnect.png" @click="disconnect()"></Image>
+  </Layout>
 </Layout>
+
 <Style>
 .main {
   border: true;
+  width: 200;
 }
+
 .header {
   direction: horizontal;
+  align_items_vertical: center;
 }
+.header > * {
+  padding_left: 5;
+}
+.header .address {
+  width: 170;
+}
+
 .table {
   direction: vertical;
-  border: true;
+  border: false;
 }
 .table > Layout {
   direction: horizontal;
+  align_items_vertical: center;
 }
 .table .header {
-  border: true;
+  border: false;
 }
-.table > Layout > * {
-  width: 50;
+.table .body {
+
+}
+
+.footer {
+  direction: horizontal;
 }
 </Style>

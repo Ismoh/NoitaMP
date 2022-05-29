@@ -55,10 +55,66 @@ function Ui.new()
     local foldingOpen = false
     local showAddress = false
     local width, height = GetWidthAndHeightByResolution()
+    local menuWidth = 0
+    local menuHeight = 0
 
     ------------------------------------
     -- Public variables:
     ------------------------------------
+    self.ezguiFoldingData = {
+        toggleFoling = function(data, element)
+            foldingOpen = not foldingOpen
+        end,
+        text = "",
+    }
+
+    self.ezguiMenuData = {
+        debug = DebugGetIsDevBuild(),
+        toggleAddressSrc = "",
+        toggleAddress = function()
+            showAddress = not showAddress
+        end,
+        address = "",
+        copyAddress = function()
+            util.copyToClipboard(("%s:%s"):format(_G.Server:getAddress(), _G.Server:getPort()))
+        end,
+        player = {},
+        kick = function(data, element, arg1)
+            _G.Server.kick(arg1)
+        end,
+        ban = function(data, element, arg1)
+            _G.Server.ban(arg1)
+        end,
+        -----------
+        showStart = function()
+            return not _G.Server.isRunning() and not _G.Client.isConnected()
+        end,
+        showStop = function()
+            return _G.Server.isRunning()
+        end,
+        showConnect = function()
+            return not _G.Server.isRunning() and not _G.Client.isConnected()
+        end,
+        showConnected = function()
+            return _G.Client.isConnected()
+        end,
+        showDisconnect = function()
+            return _G.Client.isConnected()
+        end,
+        -----------
+        start = function()
+            _G.Server.start(nil, nil)
+        end,
+        stop = function()
+            _G.Server.stop()
+        end,
+        connect = function()
+            _G.Client.connect()
+        end,
+        disconnect = function()
+            _G.Client.disconnect()
+        end,
+    }
 
     ------------------------------------
     -- Private methods:
@@ -68,18 +124,12 @@ function Ui.new()
     local function drawFolding()
         local text = ""
         if foldingOpen then
-            text = ("[- NoitaMP] v0.0.0-alpha")
+            self.ezguiFoldingData.text = ("[- NoitaMP] v0.0.0-alpha")
         else
-            text = ("[+ NoitaMP]")
+            self.ezguiFoldingData.text = ("[+ NoitaMP]")
         end
 
-        local foldingData = {
-            toggleFoling = function(data, element)
-                foldingOpen = not foldingOpen
-            end,
-            text = text,
-        }
-        renderEzgui(0, height - 10, "mods/noita-mp/files/data/ezgui/FoldingMenu.xml", foldingData)
+        renderEzgui(0, height - 10, "mods/noita-mp/files/data/ezgui/FoldingMenu.xml", self.ezguiFoldingData)
     end
 
     local function drawMenu()
@@ -87,44 +137,38 @@ function Ui.new()
             return
         end
 
-        local clients = {}
+        local player = {}
         if _G.Server.amIServer() then
-            clients = _G.Server.clients
-            for i = 1, #clients do
-                clients[i].rtt = clients[i]:getRoundTripTime()
+            table.insert(player, { name = _G.Server.name, health = 123, x = 1, y = 3, rtt = 0 })
+            table.insertAllButNotDuplicates(player, _G.Server.clients)
+            for i = 2, #player do
+                player[i].health = i
+                player[i].x = 2 * i
+                player[i].y = 3 * i
+                player[i].rtt = player[i]:getRoundTripTime()
             end
         else
-            clients = { name = _G.Client.name, rtt = _G.Client:getRoundTripTime() }
+            table.insert(player, { name = _G.Client.name, health = 123, x = 1, y = 3, rtt = _G.Client:getRoundTripTime() })
+            table.insertAllButNotDuplicates(player, _G.Client.otherClients)
+            for i = 2, #player do
+                player[i].health = i
+                player[i].x = 2 * i
+                player[i].y = 3 * i
+                player[i].rtt = player[i]:getRoundTripTime()
+            end
         end
+        self.ezguiMenuData.player = player
 
-        local uiAddress = ""
 
         if showAddress then
-            uiAddress = ("%s:%s"):format(_G.Server:getAddress(), _G.Server:getPort())
+            self.ezguiMenuData.address = ("%s:%s"):format(_G.Server:getAddress(), _G.Server:getPort())
+            self.ezguiMenuData.toggleAddressSrc = "mods/noita-mp/files/data/ezgui/src/hideAddress.png"
         else
-            uiAddress = "255.255.255.255:65535"
+            self.ezguiMenuData.address = "XXX.XXX.XXX.XXX:XXXXX"
+            self.ezguiMenuData.toggleAddressSrc = "mods/noita-mp/files/data/ezgui/src/showAddress.png"
         end
 
-        local playerListData = {
-            toggleAddress = function()
-                showAddress = not showAddress
-            end,
-            address = uiAddress,
-            copyAddress = function()
-                util.copyToClipboard(("%s:%s"):format(_G.Server:getAddress(), _G.Server:getPort()))
-            end,
-            start = function()
-                _G.Server.start(nil, nil)
-            end,
-            clients = clients,
-            kick = function(data, element, arg1)
-                _G.Server.kick(arg1)
-            end,
-            ban = function(data, element, arg1)
-                _G.Server.ban(arg1)
-            end
-        }
-        renderEzgui(0, height - 100, "mods/noita-mp/files/data/ezgui/PlayerList.xml", playerListData)
+        menuWidth, menuHeight = renderEzgui(10, height - menuHeight - 10, "mods/noita-mp/files/data/ezgui/PlayerList.xml", self.ezguiMenuData)
     end
 
     ------------------------------------
