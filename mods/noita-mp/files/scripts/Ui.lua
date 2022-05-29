@@ -53,6 +53,7 @@ function Ui.new()
     -- Private variables:
     ------------------------------------
     local foldingOpen = false
+    local showAddress = false
     local width, height = GetWidthAndHeightByResolution()
 
     ------------------------------------
@@ -96,10 +97,22 @@ function Ui.new()
             clients = { name = _G.Client.name, rtt = _G.Client:getRoundTripTime() }
         end
 
+        local uiAddress = ""
+
+        if showAddress then
+            uiAddress = ("%s:%s"):format(_G.Server:getAddress(), _G.Server:getPort())
+        else
+            uiAddress = "255.255.255.255:65535"
+        end
+
         local playerListData = {
-            version = "0.1.0 - alpha + 1", --fu.ReadFile(".version")
-            ip = _G.Server:getAddress(),
-            port = _G.Server:getPort(),
+            toggleAddress = function()
+                showAddress = not showAddress
+            end,
+            address = uiAddress,
+            copyAddress = function()
+                util.copyToClipboard(("%s:%s"):format(_G.Server:getAddress(), _G.Server:getPort()))
+            end,
             start = function()
                 _G.Server.start(nil, nil)
             end,
@@ -111,7 +124,7 @@ function Ui.new()
                 _G.Server.ban(arg1)
             end
         }
-        renderEzgui(0, height - 20, "mods/noita-mp/files/data/ezgui/PlayerList.xml", playerListData)
+        renderEzgui(0, height - 100, "mods/noita-mp/files/data/ezgui/PlayerList.xml", playerListData)
     end
 
     ------------------------------------

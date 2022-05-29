@@ -117,4 +117,14 @@ function util.reloadMap(seed)
     BiomeMapLoad_KeepPlayer("mods/noita-mp/files/scripts/DefaultBiomeMap.lua", "data/biome/_pixel_scenes.xml")
 end
 
+function util.copyToClipboard(copy)
+    local command = nil
+    if _G.is_windows then
+        command = ('echo "%s" | clip'):format(copy)
+    else
+        command = ('echo "%s" | xclip -sel clip'):format(copy)
+    end
+    os.execute(command)
+end
+
 return util
