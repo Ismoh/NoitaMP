@@ -1,97 +1,110 @@
-<Layout debug="true" class="main">
-  <Layout debug="true" class="header">
+<Layout :debug="debug" class="main">
+
+  <Layout :debug="debug" class="header">
     <Text>NoitaMP</Text>
     <Text class="address">Your address: {{address}}</Text>
     <Image :src="toggleAddressSrc" @click="toggleAddress()"></Image>
     <Image src="mods/noita-mp/files/data/ezgui/src/copy.png" @click="copyAddress()"></Image>
   </Layout>
-  <Layout debug="true" class="table">
-    <Layout debug="true" class="header">
-      <Text class="minaes">Minäs</Text>
-      <Text class="rtt">Latency(RTT)</Text>
-      <Text class="actions">Actions</Text>
-      <Text></Text>
+
+  <Layout class="table" debug="true">
+    <Layout class="header">
+      <Text>Header 1</Text>
+      <Text>Another header</Text>
+      <Text>Boop</Text>
     </Layout>
-    <Layout debug="true" class="body" forEach="minae in player">
-      <Text class="minaes">
-      {{minae.name}}
-      {{minae.health}}/100 {{minae.x}},{{minae.y}}
-      </Text>
-      <Text class="rtt">{{minae.rtt}} ms</Text>
-      <Button @click="kick(minae)">Kick</Button>
-      <Button @click="ban(minae)">Ban</Button>
+    <Layout class="row" forEach="minae in player">
+      <Text>Content</Text>
+      <Text>Content 2</Text>
+      <Text>{{ minae.name }}</Text>
     </Layout>
   </Layout>
-  <Layout debug="false" class="footer">
+
+  <Layout class="table" :debug="debug">
+    <Layout class="header" :debug="debug">
+      <Text>Minäs</Text>
+      <Text>Latency(RTT)</Text>
+      <Text>Actions</Text>
+    </Layout>
+    <Layout :debug="debug" class="body" forEach="minae in player">
+      <Text class="minaes">
+      {{minae.name}} {{minae.health}}
+      {{minae.x}},{{minae.y}}
+      </Text>
+      <Text class="rtt">{{minae.rtt}} ms</Text>
+      <Layout>
+        <Button @click="kick(minae)">Kick</Button>
+        <Button @click="ban(minae)">Ban</Button>
+      </Layout>
+    </Layout>
+  </Layout>
+  <Button @click="toggleDebug()">{{debug}}</Button>
+
+  <Layout :debug="debug" class="actions">
     <Image if="showStart()" src="mods/noita-mp/files/data/ezgui/src/start.png" @click="start()"></Image>
     <Image if="showStop()" src="mods/noita-mp/files/data/ezgui/src/stop.png" @click="stop()"></Image>
     <Image if="showConnect()" src="mods/noita-mp/files/data/ezgui/src/connect.png" @click="connect()"></Image>
     <Image if="showConnected()" src="mods/noita-mp/files/data/ezgui/src/connected.png"></Image>
     <Image if="showDisconnect()" src="mods/noita-mp/files/data/ezgui/src/disconnect.png" @click="disconnect()"></Image>
   </Layout>
+
 </Layout>
 
 <Style>
-* {
-  
+Text {
+  padding: 2;
+}
+Image {
+  padding: 2;
 }
 
 .main {
   border: true;
-  width: 200;
 }
+
+
+Layout {
+  border: true;
+}
+.table {
+  direction: vertical;
+}
+.table > Layout > * {
+  width: 80;
+  align_self_horizontal: center;
+}
+.table > Layout {
+  direction: horizontal;
+  border: false;
+}
+
+
 
 .header {
   direction: horizontal;
   align_items_vertical: center;
 }
-.header > * {
-  padding_left: 5;
-}
-.header .address {
+.address {
   width: 170;
 }
 
 .table {
   direction: vertical;
-  border: true;
-  width: 200;
+  align_items_horizontal: center;
 }
 .table > Layout {
-  border: true;
   direction: horizontal;
   align_items_vertical: center;
 }
-.table .header {
-  border: true;
-}
 .table .header > * {
-  padding_left: 5;
-  width: 80;
-}
-.table .header .minaes {
-  align_items_horizontal: center;
-}
-.table .header .rtt {
-  width: 80;
-  align_items_horizontal: center;
-}
-.table .header .actions {
-  align_items_horizontal: center; 
-  width: 50; 
+  width: [cellWidth];
 }
 .table .body > * {
-  align_items_horizontal: center;
-}
-.table .body > Text {
-  padding_left: 5;
-  width: 80;
-}
-.table .body > Button {
-  
+  width: [cellWidth];
 }
 
-.footer {
+.actions {
   direction: horizontal;
+  align_items_vertical: center;
 }
 </Style>

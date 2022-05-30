@@ -50,6 +50,8 @@ function Client.new(sockClient)
     -- guid might not be set here or will be overwritten at the end of the constructor. @see setGuid
     self.guid = tostring(ModSettingGet("noita-mp.guid"))
     self.iAm = "CLIENT"
+    self.transform = { x = 0, y = 0 }
+    self.health = { current = 234, max = 2135 }
     self.serverInfo = nil
     self.otherClients = {}
 
@@ -368,6 +370,17 @@ function Client.new(sockClient)
         -- self:setSchema("entityState", { "owner", "localEntityId", "nuid", "x", "y", "rot", "velocity", "health" })
     end
 
+    local function updateVariables()
+        local entityId = util.getLocalPlayerInfo().entityId
+        ---@diagnostic disable-next-line: missing-parameter
+        local hpCompId = EntityGetFirstComponentIncludingDisabled(entityId, "DamageModelComponent")
+        local hpCurrent = math.floor(tonumber(ComponentGetValue2(hpCompId, "hp")) * 25)
+        local hpMax = math.floor(tonumber(ComponentGetValue2(hpCompId, "max_hp")) * 25)
+        self.health = { current = hpCurrent, max = hpMax }
+        local x, y, rot, scale_x, scale_y = EntityGetTransform(entityId)
+        self.transform = { x = math.floor(x), y = math.floor(y) }
+    end
+
     ------------------------------------
     -- Public methods:
     ------------------------------------
@@ -441,6 +454,8 @@ function Client.new(sockClient)
         if not self.isConnected() and not self:isConnecting() or self:isDisconnected() then
             return
         end
+
+        updateVariables()
 
         EntityUtils.despawnClientEntities()
 

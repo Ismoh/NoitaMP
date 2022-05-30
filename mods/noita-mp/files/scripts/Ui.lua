@@ -52,11 +52,14 @@ function Ui.new()
     ------------------------------------
     -- Private variables:
     ------------------------------------
+    local debug = DebugGetIsDevBuild()
     local foldingOpen = false
     local showAddress = false
     local width, height = GetWidthAndHeightByResolution()
-    local menuWidth = 0
-    local menuHeight = 0
+    local menuWidth = 241
+    local menuHeight = 113
+    local x = -menuWidth
+    local y = height - menuHeight - 10
 
     ------------------------------------
     -- Public variables:
@@ -69,7 +72,7 @@ function Ui.new()
     }
 
     self.ezguiMenuData = {
-        debug = DebugGetIsDevBuild(),
+        debug = debug,
         toggleAddressSrc = "",
         toggleAddress = function()
             showAddress = not showAddress
@@ -114,6 +117,10 @@ function Ui.new()
         disconnect = function()
             _G.Client.disconnect()
         end,
+        toggleDebug = function()
+            debug = not debug
+        end,
+        cellWidth = 50,
     }
 
     ------------------------------------
@@ -134,6 +141,8 @@ function Ui.new()
 
     local function drawMenu()
         if not foldingOpen then
+            x = -menuWidth
+            y = height - menuHeight - 10
             return
         end
 
@@ -141,9 +150,9 @@ function Ui.new()
         if _G.Server.amIServer() then
             table.insert(player, {
                 name = _G.Server.name,
-                health = 123,
-                x = 1,
-                y = 3,
+                health = ("%s/%s"):format(_G.Server.health.current, _G.Server.health.max),
+                x = _G.Server.transform.x,
+                y = _G.Server.transform.y,
                 rtt = 0
             })
             table.insertAllButNotDuplicates(player, _G.Server.clients)
@@ -156,9 +165,9 @@ function Ui.new()
         else
             table.insert(player, {
                 name = _G.Client.name,
-                health = 123,
-                x = 1,
-                y = 3,
+                health = ("%s/%s"):format(_G.Client.health.current, _G.Client.health.max),
+                x = _G.Client.transform.x,
+                y = _G.Client.transform.y,
                 rtt = _G.Client:getRoundTripTime()
             })
             table.insertAllButNotDuplicates(player, _G.Client.otherClients)
@@ -180,7 +189,18 @@ function Ui.new()
             self.ezguiMenuData.toggleAddressSrc = "mods/noita-mp/files/data/ezgui/src/showAddress.png"
         end
 
-        menuWidth, menuHeight = renderEzgui(10, height - menuHeight - 10, "mods/noita-mp/files/data/ezgui/PlayerList.xml", self.ezguiMenuData)
+        self.ezguiMenuData.debug = debug
+        if menuWidth == 0 then
+            self.ezguiMenuData.cellWidth = math.floor(menuWidth / 3)
+        end
+
+        if x < 10 then
+            x = x + 20
+        else
+            x = 10
+        end
+
+        menuWidth, menuHeight = renderEzgui(x, y, "mods/noita-mp/files/data/ezgui/PlayerList.xml", self.ezguiMenuData)
     end
 
     ------------------------------------

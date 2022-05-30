@@ -26,7 +26,7 @@ function Image:Render(gui, new_id, data_context, layout)
   local width, height, outer_width, outer_height = self:GetDimensions(gui, data_context)
   local border_size = self:GetBorderSize()
   if layout then
-    x, y = layout:GetPositionForWidget(gui, data_context, self, width, height)
+    x, y = layout:GetPositionForWidget(gui, data_context, self, outer_width, outer_height)
   end
   local z = self:GetZ()
   self:RenderBorder(gui, new_id, x, y, z, width, height)

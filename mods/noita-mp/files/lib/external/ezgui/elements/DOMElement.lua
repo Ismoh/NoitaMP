@@ -36,7 +36,7 @@ function inflate(tokens, data_context)
       local context = data_context
       for i=1, #v.target_chain do
         context = context[v.target_chain[i]]
-        if not context then
+        if context == nil then
           error("Unknown identifier: '" .. tostring(v.target_chain[i]) .."'", 2)
         end
       end

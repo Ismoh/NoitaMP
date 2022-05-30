@@ -49,6 +49,8 @@ function Server.new(sockServer)
     -- guid might not be set here or will be overwritten at the end of the constructor. @see setGuid
     self.guid = tostring(ModSettingGet("noita-mp.guid"))
     self.iAm = "SERVER"
+    self.transform = { x = 0, y = 0 }
+    self.health = { current = 234, max = 2135 }
 
     ------------------------------------
     -- Private methods:
@@ -290,6 +292,17 @@ function Server.new(sockServer)
         -- self:setSchema("entityState", { "owner", "localEntityId", "nuid", "x", "y", "rot", "velocity", "health" })
     end
 
+    local function updateVariables()
+        local serverEntityId = util.getLocalPlayerInfo().entityId
+        ---@diagnostic disable-next-line: missing-parameter
+        local hpCompId = EntityGetFirstComponentIncludingDisabled(serverEntityId, "DamageModelComponent")
+        local hpCurrent = math.floor(tonumber(ComponentGetValue2(hpCompId, "hp")) * 25)
+        local hpMax = math.floor(tonumber(ComponentGetValue2(hpCompId, "max_hp")) * 25)
+        self.health = { current = hpCurrent, max = hpMax }
+        local x, y, rot, scale_x, scale_y = EntityGetTransform(serverEntityId)
+        self.transform = { x = math.floor(x), y = math.floor(y) }
+    end
+
     -- Public methods:
     --#region Start and stop
 
@@ -353,6 +366,8 @@ function Server.new(sockServer)
         if not self.isRunning() then --if not self.host then
             return -- server not established
         end
+
+        updateVariables()
 
         EntityUtils.initNetworkVscs()
 
