@@ -176,7 +176,7 @@ return {
         GuiStartFrame(_gui)
       end
       if not observing[data] then
-        make_observable(data)
+        --make_observable(data)
         observing[data] = true
       end
       gui = gui or _gui

@@ -139,7 +139,13 @@ function Ui.new()
 
         local player = {}
         if _G.Server.amIServer() then
-            table.insert(player, { name = _G.Server.name, health = 123, x = 1, y = 3, rtt = 0 })
+            table.insert(player, {
+                name = _G.Server.name,
+                health = 123,
+                x = 1,
+                y = 3,
+                rtt = 0
+            })
             table.insertAllButNotDuplicates(player, _G.Server.clients)
             for i = 2, #player do
                 player[i].health = i
@@ -148,7 +154,13 @@ function Ui.new()
                 player[i].rtt = player[i]:getRoundTripTime()
             end
         else
-            table.insert(player, { name = _G.Client.name, health = 123, x = 1, y = 3, rtt = _G.Client:getRoundTripTime() })
+            table.insert(player, {
+                name = _G.Client.name,
+                health = 123,
+                x = 1,
+                y = 3,
+                rtt = _G.Client:getRoundTripTime()
+            })
             table.insertAllButNotDuplicates(player, _G.Client.otherClients)
             for i = 2, #player do
                 player[i].health = i

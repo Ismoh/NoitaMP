@@ -1304,6 +1304,7 @@ function Client:getRoundTripTime()
     if self.connection then
         return self.connection:round_trip_time()
     end
+    return 9999
 end
 
 --- Get the unique connection id, if connected.

@@ -1,28 +1,28 @@
-<Layout :debug="debug" class="main">
-  <Layout :debug="debug" class="header">
+<Layout debug="true" class="main">
+  <Layout debug="true" class="header">
     <Text>NoitaMP</Text>
     <Text class="address">Your address: {{address}}</Text>
     <Image :src="toggleAddressSrc" @click="toggleAddress()"></Image>
     <Image src="mods/noita-mp/files/data/ezgui/src/copy.png" @click="copyAddress()"></Image>
   </Layout>
-  <Layout :debug="debug" class="table">
-    <Layout :debug="debug" class="header">
-      <Text>Minäs</Text>
-      <Text>Latency(RTT)</Text>
-      <Text>Actions</Text>
+  <Layout debug="true" class="table">
+    <Layout debug="true" class="header">
+      <Text class="minaes">Minäs</Text>
+      <Text class="rtt">Latency(RTT)</Text>
+      <Text class="actions">Actions</Text>
       <Text></Text>
     </Layout>
-    <Layout :debug="debug" class="body" forEach="minae in player">
-      <Text>
+    <Layout debug="true" class="body" forEach="minae in player">
+      <Text class="minaes">
       {{minae.name}}
-      {{minae.health}} {{minae.x}}, {{minae.y}}
+      {{minae.health}}/100 {{minae.x}},{{minae.y}}
       </Text>
-      <Text>{{minae.rtt}} ms</Text>
+      <Text class="rtt">{{minae.rtt}} ms</Text>
       <Button @click="kick(minae)">Kick</Button>
       <Button @click="ban(minae)">Ban</Button>
     </Layout>
   </Layout>
-  <Layout :debug="debug" class="footer">
+  <Layout debug="false" class="footer">
     <Image if="showStart()" src="mods/noita-mp/files/data/ezgui/src/start.png" @click="start()"></Image>
     <Image if="showStop()" src="mods/noita-mp/files/data/ezgui/src/stop.png" @click="stop()"></Image>
     <Image if="showConnect()" src="mods/noita-mp/files/data/ezgui/src/connect.png" @click="connect()"></Image>
@@ -32,6 +32,10 @@
 </Layout>
 
 <Style>
+* {
+  
+}
+
 .main {
   border: true;
   width: 200;
@@ -50,17 +54,41 @@
 
 .table {
   direction: vertical;
-  border: false;
+  border: true;
+  width: 200;
 }
 .table > Layout {
+  border: true;
   direction: horizontal;
   align_items_vertical: center;
 }
 .table .header {
-  border: false;
+  border: true;
 }
-.table .body {
-
+.table .header > * {
+  padding_left: 5;
+  width: 80;
+}
+.table .header .minaes {
+  align_items_horizontal: center;
+}
+.table .header .rtt {
+  width: 80;
+  align_items_horizontal: center;
+}
+.table .header .actions {
+  align_items_horizontal: center; 
+  width: 50; 
+}
+.table .body > * {
+  align_items_horizontal: center;
+}
+.table .body > Text {
+  padding_left: 5;
+  width: 80;
+}
+.table .body > Button {
+  
 }
 
 .footer {
