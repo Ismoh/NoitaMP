@@ -52,7 +52,7 @@ function Ui.new()
     ------------------------------------
     -- Private variables:
     ------------------------------------
-    local debug = DebugGetIsDevBuild()
+    local debug = false -- DebugGetIsDevBuild()
     local foldingOpen = false
     local showAddress = false
     local width, height = GetWidthAndHeightByResolution()
@@ -149,32 +149,45 @@ function Ui.new()
         local player = {}
         if _G.Server.amIServer() then
             table.insert(player, {
-                name = _G.Server.name,
-                health = ("%s/%s"):format(_G.Server.health.current, _G.Server.health.max),
-                x = _G.Server.transform.x,
-                y = _G.Server.transform.y,
+                name = string.ExtendOrCutStringToLength(_G.Server.name, 12, ".", true),
+                health = _G.Server.health,
+                transform = {
+                    x = string.ExtendOrCutStringToLength(_G.Server.transform.x, 11, "", true),
+                    y = string.ExtendOrCutStringToLength(_G.Server.transform.y, 11, "", true),
+                },
                 rtt = 0
             })
             table.insertAllButNotDuplicates(player, _G.Server.clients)
             for i = 2, #player do
-                player[i].health = i
-                player[i].x = 2 * i
-                player[i].y = 3 * i
+                player[i].name = string.ExtendOrCutStringToLength(player[i].name, 12, ".", true)
+                player[i].health = { current = i, max = 2 }
+                player[i].transform = { x = 123, y = 12334 }
                 player[i].rtt = player[i]:getRoundTripTime()
             end
         else
-            table.insert(player, {
-                name = _G.Client.name,
-                health = ("%s/%s"):format(_G.Client.health.current, _G.Client.health.max),
-                x = _G.Client.transform.x,
-                y = _G.Client.transform.y,
+            table.insert(player, 1, {
+                name = string.ExtendOrCutStringToLength(_G.Client.serverInfo.name, 12, ".", true),
+                health = { current = "?", max = "?" },
+                transform = {
+                    x = string.ExtendOrCutStringToLength("?", 11, "", true),
+                    y = string.ExtendOrCutStringToLength("?", 11, "", true),
+                },
+                rtt = 0
+            })
+            table.insert(player, 2, {
+                name = string.ExtendOrCutStringToLength(_G.Client.name, 12, ".", true),
+                health = _G.Client.health,
+                transform = {
+                    x = string.ExtendOrCutStringToLength(_G.Client.transform.x, 11, "", true),
+                    y = string.ExtendOrCutStringToLength(_G.Client.transform.y, 11, "", true),
+                },
                 rtt = _G.Client:getRoundTripTime()
             })
             table.insertAllButNotDuplicates(player, _G.Client.otherClients)
-            for i = 2, #player do
-                player[i].health = i
-                player[i].x = 2 * i
-                player[i].y = 3 * i
+            for i = 3, #player do
+                player[i].name = string.ExtendOrCutStringToLength(player[i].name, 12, ".", true)
+                player[i].health = { current = i, max = 2 }
+                player[i].transform = { x = 123, y = 12334 }
                 player[i].rtt = player[i]:getRoundTripTime()
             end
         end

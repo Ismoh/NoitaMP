@@ -4,8 +4,9 @@
 ---@param var string any string you want to extend or cut
 ---@param length number
 ---@param char any
+---@param makeItVisible boolean
 ---@return string
-string.ExtendOrCutStringToLength = function(var, length, char)
+string.ExtendOrCutStringToLength = function(var, length, char, makeItVisible)
     if type(var) ~= "string" then
         var = tostring(var)
     end
@@ -16,17 +17,27 @@ string.ExtendOrCutStringToLength = function(var, length, char)
         error("char is not a character. string.len(char) > 1 = " .. string.len(char), 2)
     end
 
-    local new_var = ""
+    local returnString = ""
+
     local len = string.len(var)
-    for i = 1, length, 1 do
-        local char_of_var = var:sub(i, i)
-        if char_of_var ~= "" then
-            new_var = new_var .. char_of_var
-        else
-            new_var = new_var .. char
+
+    if len > length then
+        returnString = var:sub(1, length)
+        if makeItVisible then -- check if you want to add ".." -> "longString" -> "longStr.."
+            returnString = returnString:sub(1, length - 2)
+            returnString = returnString .. ".."
+        end
+    else
+        for i = 1, length, 1 do
+            local char_of_var = var:sub(i, i)
+            if char_of_var ~= "" then
+                returnString = returnString .. char_of_var
+            else
+                returnString = returnString .. char
+            end
         end
     end
-    return new_var
+    return returnString
 end
 
 string.trim = function(s)

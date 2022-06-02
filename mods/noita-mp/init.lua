@@ -153,3 +153,8 @@ function OnWorldPreUpdate()
 
     ui.update()
 end
+
+function OnWorldPostUpdate()
+    _G.Server.update()
+    _G.Client.update()
+end

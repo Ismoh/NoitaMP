@@ -87,7 +87,7 @@ function Server.new(sockServer)
     local function onConnect(data, peer)
         local localPlayerInfo = util.getLocalPlayerInfo()
         self:sendToPeer(peer, NetworkUtils.events.playerInfo.name, { name = localPlayerInfo.name, guid = localPlayerInfo.guid })
-        self:sendToPeer(peer, NetworkUtils.events.seed.name, { seed = StatsGetValue("world_seed") })
+        self:sendToPeer(peer, NetworkUtils.events.seed.name, { StatsGetValue("world_seed") })
         -- Let the other clients know, that one client connected
         self:sendToAllBut(peer, NetworkUtils.events.connect2.name, { name = peer.name, guid = peer.guid })
     end
@@ -293,14 +293,16 @@ function Server.new(sockServer)
     end
 
     local function updateVariables()
-        local serverEntityId = util.getLocalPlayerInfo().entityId
-        ---@diagnostic disable-next-line: missing-parameter
-        local hpCompId = EntityGetFirstComponentIncludingDisabled(serverEntityId, "DamageModelComponent")
-        local hpCurrent = math.floor(tonumber(ComponentGetValue2(hpCompId, "hp")) * 25)
-        local hpMax = math.floor(tonumber(ComponentGetValue2(hpCompId, "max_hp")) * 25)
-        self.health = { current = hpCurrent, max = hpMax }
-        local x, y, rot, scale_x, scale_y = EntityGetTransform(serverEntityId)
-        self.transform = { x = math.floor(x), y = math.floor(y) }
+        local entityId = util.getLocalPlayerInfo().entityId
+        if entityId then
+            ---@diagnostic disable-next-line: missing-parameter
+            local hpCompId = EntityGetFirstComponentIncludingDisabled(entityId, "DamageModelComponent")
+            local hpCurrent = math.floor(tonumber(ComponentGetValue2(hpCompId, "hp")) * 25)
+            local hpMax = math.floor(tonumber(ComponentGetValue2(hpCompId, "max_hp")) * 25)
+            self.health = { current = hpCurrent, max = hpMax }
+            local x, y, rot, scale_x, scale_y = EntityGetTransform(entityId)
+            self.transform = { x = math.floor(x), y = math.floor(y) }
+        end
     end
 
     -- Public methods:

@@ -52,7 +52,7 @@ function Client.new(sockClient)
     self.iAm = "CLIENT"
     self.transform = { x = 0, y = 0 }
     self.health = { current = 234, max = 2135 }
-    self.serverInfo = nil
+    self.serverInfo = {}
     self.otherClients = {}
 
     ------------------------------------
@@ -122,7 +122,7 @@ function Client.new(sockClient)
     --- @param data table { code = 0 }
     local function onDisconnect(data)
         logger:debug(logger.channels.network, "Disconnected from server!", util.pformat(data))
-        self.serverInfo = nil
+        self.serverInfo = {}
     end
 
     ------------------------------------------------------------------------------------------------
@@ -156,7 +156,10 @@ function Client.new(sockClient)
         local serversSeed = tonumber(data.seed)
         logger:info(logger.channels.network, "Client received servers seed (%s) and stored it. Restarting Noita with that seed and auto connect now!", serversSeed)
 
-        util.reloadMap(serversSeed)
+        local localSeed = tonumber(StatsGetValue("world_seed"))
+        if localSeed ~= serversSeed then
+            util.reloadMap(serversSeed)
+        end
     end
 
     -- self:on(
@@ -372,13 +375,15 @@ function Client.new(sockClient)
 
     local function updateVariables()
         local entityId = util.getLocalPlayerInfo().entityId
-        ---@diagnostic disable-next-line: missing-parameter
-        local hpCompId = EntityGetFirstComponentIncludingDisabled(entityId, "DamageModelComponent")
-        local hpCurrent = math.floor(tonumber(ComponentGetValue2(hpCompId, "hp")) * 25)
-        local hpMax = math.floor(tonumber(ComponentGetValue2(hpCompId, "max_hp")) * 25)
-        self.health = { current = hpCurrent, max = hpMax }
-        local x, y, rot, scale_x, scale_y = EntityGetTransform(entityId)
-        self.transform = { x = math.floor(x), y = math.floor(y) }
+        if entityId then
+            ---@diagnostic disable-next-line: missing-parameter
+            local hpCompId = EntityGetFirstComponentIncludingDisabled(entityId, "DamageModelComponent")
+            local hpCurrent = math.floor(tonumber(ComponentGetValue2(hpCompId, "hp")) * 25)
+            local hpMax = math.floor(tonumber(ComponentGetValue2(hpCompId, "max_hp")) * 25)
+            self.health = { current = hpCurrent, max = hpMax }
+            local x, y, rot, scale_x, scale_y = EntityGetTransform(entityId)
+            self.transform = { x = math.floor(x), y = math.floor(y) }
+        end
     end
 
     ------------------------------------
