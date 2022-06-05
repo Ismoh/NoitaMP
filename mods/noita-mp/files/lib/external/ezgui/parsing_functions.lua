@@ -128,10 +128,17 @@ local function read_binding_target(input, error_callback)
   -- Read periods/points
   local target_chain = {}
   while true do
-    -- error("Needs refactoring")
-    local target = read_identifier(buffer, function(str, msg, pos, lvl)
-      error_callback(str, msg, pos, lvl)
-    end)
+    local target
+    if buffer:peek() and buffer:peek():match("%d") then
+      target = buffer:read_while(function(buffer)
+        return buffer:peek() and buffer:peek():match("%d")
+      end)
+    end
+    if not target then
+      target = read_identifier(buffer, function(str, msg, pos, lvl)
+        error_callback(str, msg, pos, lvl)
+      end)
+    end
     if target then
       table.insert(target_chain, target)
     end
@@ -376,25 +383,30 @@ function parse_function_call_expression(input, error_callback)
     type = "function",
     name = function_name,
     args = args,
-    execute = function(data_context, element)
-      if not data_context[function_name] then
-        error("Function not found in data context: " .. function_name, 3)
+    execute = function(ezgui_object, environment_variables)
+      if not ezgui_object.methods[function_name] then
+        error("Function not found in ezgui_object.methods: " .. function_name, 3)
       end
+      environment_variables.self = setmetatable({}, {
+        __index = function(t, k)
+          return utils.get_value_from_ezgui_object(ezgui_object, { k })
+        end,
+        __newindex = function(t, k, v)
+          return utils.set_data_on_binding_chain(ezgui_object, { k }, v)
+        end,
+      })
       local _args = {}
       -- Collect and package arguments
       for i, arg in ipairs(args) do
         if arg.type == "variable" then
-          if not data_context[arg.value] then
+          if not ezgui_object.data[arg.value] then
             error("Variable not found in data context: " .. arg.value, 3)
           end
-          arg.value = data_context[arg.value]
+          arg.value = ezgui_object.data[arg.value]
         end
         table.insert(_args, arg.value)
       end
-      return setfenv(data_context[function_name], setmetatable({
-        self = data_context,
-        element = element
-      }, {
+      return setfenv(ezgui_object.methods[function_name], setmetatable(environment_variables, {
         __index = _G,
         __newindex = _G
       }))(unpack(_args))

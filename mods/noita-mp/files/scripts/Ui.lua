@@ -65,63 +65,72 @@ function Ui.new()
     -- Public variables:
     ------------------------------------
     self.ezguiFoldingData = {
-        toggleFoling = function(data, element)
-            foldingOpen = not foldingOpen
-        end,
-        text = "",
+        data = {
+            text = "",
+        },
+        methods = {
+            toggleFoling = function(data, element)
+                foldingOpen = not foldingOpen
+            end,
+        }
     }
 
     self.ezguiMenuData = {
-        debug = debug,
-        toggleAddressSrc = "",
-        toggleAddress = function()
-            showAddress = not showAddress
-        end,
-        address = "",
-        copyAddress = function()
-            util.copyToClipboard(("%s:%s"):format(_G.Server:getAddress(), _G.Server:getPort()))
-        end,
-        player = {},
-        kick = function(data, element, arg1)
-            _G.Server.kick(arg1)
-        end,
-        ban = function(data, element, arg1)
-            _G.Server.ban(arg1)
-        end,
-        -----------
-        showStart = function()
-            return not _G.Server.isRunning() and not _G.Client.isConnected()
-        end,
-        showStop = function()
-            return _G.Server.isRunning()
-        end,
-        showConnect = function()
-            return not _G.Server.isRunning() and not _G.Client.isConnected()
-        end,
-        showConnected = function()
-            return _G.Client.isConnected()
-        end,
-        showDisconnect = function()
-            return _G.Client.isConnected()
-        end,
-        -----------
-        start = function()
-            _G.Server.start(nil, nil)
-        end,
-        stop = function()
-            _G.Server.stop()
-        end,
-        connect = function()
-            _G.Client.connect()
-        end,
-        disconnect = function()
-            _G.Client.disconnect()
-        end,
-        toggleDebug = function()
-            debug = not debug
-        end,
-        cellWidth = 50,
+        data = {
+            debug = debug,
+            toggleAddressSrc = "",
+            address = "",
+            player = {},
+            cellWidth = 50,
+        },
+        methods = {
+            toggleAddress = function()
+                showAddress = not showAddress
+            end,
+            copyAddress = function()
+                util.copyToClipboard(("%s:%s"):format(_G.Server:getAddress(), _G.Server:getPort()))
+            end,
+            kick = function(data, element, arg1)
+                _G.Server.kick(arg1)
+            end,
+            ban = function(data, element, arg1)
+                _G.Server.ban(arg1)
+            end,
+            -----------
+            showStart = function()
+                return not _G.Server.isRunning() and not _G.Client.isConnected()
+            end,
+            showStop = function()
+                return _G.Server.isRunning()
+            end,
+            showConnect = function()
+                return not _G.Server.isRunning() and not _G.Client.isConnected()
+            end,
+            showConnected = function()
+                return _G.Client.isConnected()
+            end,
+            showDisconnect = function()
+                return _G.Client.isConnected()
+            end,
+            -----------
+            start = function()
+                _G.Server.start(nil, nil)
+            end,
+            stop = function()
+                _G.Server.stop()
+            end,
+            connect = function()
+                _G.Client.connect()
+            end,
+            disconnect = function()
+                _G.Client.disconnect()
+            end,
+            toggleDebug = function()
+                debug = not debug
+            end,
+        }
     }
+
 
     ------------------------------------
     -- Private methods:
@@ -131,9 +140,9 @@ function Ui.new()
     local function drawFolding()
         local text = ""
         if foldingOpen then
-            self.ezguiFoldingData.text = ("[- NoitaMP] v0.0.0-alpha")
+            self.ezguiFoldingData.data.text = ("[- NoitaMP] v0.0.0-alpha")
         else
-            self.ezguiFoldingData.text = ("[+ NoitaMP]")
+            self.ezguiFoldingData.data.text = ("[+ NoitaMP]")
         end
 
         renderEzgui(0, height - 10, "mods/noita-mp/files/data/ezgui/FoldingMenu.xml", self.ezguiFoldingData)
@@ -191,20 +200,20 @@ function Ui.new()
                 player[i].rtt = player[i]:getRoundTripTime()
             end
         end
-        self.ezguiMenuData.player = player
+        self.ezguiMenuData.data.player = player
 
 
         if showAddress then
-            self.ezguiMenuData.address = ("%s:%s"):format(_G.Server:getAddress(), _G.Server:getPort())
-            self.ezguiMenuData.toggleAddressSrc = "mods/noita-mp/files/data/ezgui/src/hideAddress.png"
+            self.ezguiMenuData.data.address = ("%s:%s"):format(_G.Server:getAddress(), _G.Server:getPort())
+            self.ezguiMenuData.data.toggleAddressSrc = "mods/noita-mp/files/data/ezgui/src/hideAddress.png"
         else
-            self.ezguiMenuData.address = "XXX.XXX.XXX.XXX:XXXXX"
-            self.ezguiMenuData.toggleAddressSrc = "mods/noita-mp/files/data/ezgui/src/showAddress.png"
+            self.ezguiMenuData.data.address = "XXX.XXX.XXX.XXX:XXXXX"
+            self.ezguiMenuData.data.toggleAddressSrc = "mods/noita-mp/files/data/ezgui/src/showAddress.png"
         end
 
-        self.ezguiMenuData.debug = debug
+        self.ezguiMenuData.data.debug = debug
         if menuWidth == 0 then
-            self.ezguiMenuData.cellWidth = math.floor(menuWidth / 3)
+            self.ezguiMenuData.data.cellWidth = math.floor(menuWidth / 3)
         end
 
         if x < 10 then

@@ -1,3 +1,12 @@
+v0.2.0-29-gb81808a:
+- Fix multiple GUIs not working correctly
+- When specifiying X, Y position when rendering the main layout, will now update correctly
+  and also not use the margin system for it internally anymore.
+- Removed Button debug rendering for clickable area, since it's pretty much useless anyway, just set debug on the containing Layout
+- Add @change callback for Input and Text
+- You can now define a callback for when a data property got changed through any means
+- Computed properties
+
 v0.2.0:
 - Images now support the @click attribute to basically create an ImageButton
 - Add Input element
