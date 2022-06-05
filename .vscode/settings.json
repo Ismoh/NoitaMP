@@ -1,5 +1,5 @@
 {
-  "Lua.workspace.library": [".debug/noita_api.lua"],
+  "Lua.workspace.library": [".debug/noita_api.lua", "${3rd}/love2d/library"],
   "Lua.workspace.maxPreload": 2000,
   "cmake.configureOnOpen": false,
   "Lua.diagnostics.globals": [
@@ -32,5 +32,5 @@
     "editor.defaultFormatter": "DotJoshJohnson.xml"
   },
   "Lua.runtime.version": "LuaJIT",
-  "Lua.workspace.checkThirdParty": true
+  "Lua.workspace.checkThirdParty": false
 }
