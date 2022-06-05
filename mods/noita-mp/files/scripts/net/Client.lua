@@ -162,126 +162,25 @@ function Client.new(sockClient)
         end
     end
 
-    -- self:on(
-    --     "connect",
-    --     function(data)
-    --         logger:debug(logger.channels.network, "Client connected to the server. Sending client info to server..")
-    --         logger:debug(util.pformat(data))
+    ------------------------------------------------------------------------------------------------
+    --- onNewNuid
+    ------------------------------------------------------------------------------------------------
+    --- Callback when Server sent a new nuid to the client
+    --- @param data table { owner, localEntityId, newNuid, x, y, rotation, velocity, filename }
+    local function onNewNuid(data)
+        logger:debug(logger.channels.network, "Received a new nuid!", util.pformat(data))
 
-    --
-    --     end
-    -- )
+        local owner         = data[1]
+        local localEntityId = data[2]
+        local newNuid       = data[3]
+        local x             = data[4]
+        local y             = data[5]
+        local rotation      = data[6]
+        local velocity      = data[7]
+        local filename      = data[8]
 
-    -- self:on("duplicatedGuid", function(data)
-    --     logger:warn(logger.channels.network, "Duplicated guid!")
-    --     setGuid(data.newGuid)
-    -- end)
-
-    -- self:on(
-    --     "worldFiles",
-    --     function(data)
-    --         if not data or next(data) == nil then
-    --             GamePrint(
-    --                 "Client receiving world files from server, but data is nil or empty. " .. tostring(data)
-    --             )
-    --             return
-    --         end
-
-    --         local rel_dir_path = data.relDirPath
-    --         local file_name = data.fileName
-    --         local file_content = data.fileContent
-    --         local file_index = data.fileIndex
-    --         local amount_of_files = data.amountOfFiles
-
-    --         local msg =
-    --         ("Client receiving world file: dir:%s, file:%s, content:%s, index:%s, amount:%s"):format(
-    --             rel_dir_path,
-    --             file_name,
-    --             file_content,
-    --             file_index,
-    --             amount_of_files
-    --         )
-    --         logger:debug(logger.channels.network, msg)
-    --         GamePrint(msg)
-
-    --         local save06_parent_directory_path = fu.GetAbsoluteDirectoryPathOfParentSave()
-
-    --         -- if file_name ~= nil and file_name ~= ""
-    --         -- then -- file in save06 | "" -> directory was sent
-    --         --     WriteBinaryFile(save06_dir .. _G.path_separator .. file_name, file_content)
-    --         -- elseif rel_dir_path ~= nil and file_name ~= ""
-    --         -- then -- file in subdirectory was sent
-    --         --     WriteBinaryFile(save06_dir .. _G.path_separator .. rel_dir_path .. _G.path_separator .. file_name, file_content)
-    --         -- elseif rel_dir_path ~= nil and (file_name == nil or file_name == "")
-    --         -- then -- directory name was sent
-    --         --     MkDir(save06_dir .. _G.path_separator .. rel_dir_path)
-    --         -- else
-    --         --     GamePrint("Unable to write file, because path and content aren't set.")
-    --         -- end
-    --         local archive_directory = fu.GetAbsoluteDirectoryPathOfMods() .. _G.path_separator .. rel_dir_path
-    --         fu.WriteBinaryFile(archive_directory .. _G.path_separator .. file_name, file_content)
-
-    --         if fu.Exists(fu.GetAbsoluteDirectoryPathOfSave06()) then -- Create backup if save06 exists
-    --             os.execute('cd "' .. fu.GetAbsoluteDirectoryPathOfParentSave() .. '" && move save06 save06_backup')
-    --         end
-
-    --         fu.Extract7zipArchive(archive_directory, file_name, save06_parent_directory_path)
-
-    --         if file_index >= amount_of_files then
-    --             self:send("worldFilesFinished", { "" .. file_index .. "/" .. amount_of_files })
-    --         end
-    --     end
-    -- )
-
-    -- self:on(
-    --     "seed",
-    --     function(data)
-    --         local server_seed = tonumber(data.seed)
-    --         logger:debug(logger.channels.network, "Client got seed from the server. Seed = " .. server_seed)
-    --         logger:debug(util.pformat(data))
-    --         --ModSettingSet("noita-mp.connect_server_seed", server_seed)
-
-    --         logger:debug(logger.channels.network,
-    --             "Client creating magic numbers file to set clients world seed and restart the game."
-    --         )
-    --         fu.WriteFile(
-    --             fu.GetAbsoluteDirectoryPathOfMods() .. "/files/tmp/magic_numbers/world_seed.xml",
-    --             [[<MagicNumbers WORLD_SEED="]] .. tostring(server_seed) .. [["/>]]
-    --         )
-    --         --ModTextFileSetContent( GetRelativeDirectoryPathOfMods()
-    --         --    .. "/files/data/magic_numbers.xml", )
-
-    --         --BiomeMapLoad_KeepPlayer("data/biome_impl/biome_map_newgame_plus.lua", "data/biome/_pixel_scenes_newgame_plus.xml") -- StartReload(0)
-    --     end
-    -- )
-
-    -- self:on(
-    --     "restart",
-    --     function(data)
-    --         fu.StopWithoutSaveAndStartNoita()
-    --         --BiomeMapLoad_KeepPlayer("data/biome_impl/biome_map_newgame_plus.lua", "data/biome/_pixel_scenes_newgame_plus.xml") -- StartReload(0)
-    --     end
-    -- )
-
-    -- -- Called when the client disconnects from the server
-    -- self:on(
-    --     "disconnect",
-    --     function(data)
-    --         logger:debug(logger.channels.network, "Client disconnected from the server.")
-    --         logger:debug(util.pformat(data))
-    --     end
-    -- )
-
-    -- -- see lua-enet/enet.c
-    -- self:on(
-    --     "receive",
-    --     function(data, channel)
-    --         logger:debug(logger.channels.network, "on_receive: data =")
-    --         logger:debug(util.pformat(data))
-    --         logger:debug(logger.channels.network, "on_receive: channel =")
-    --         logger:debug(util.pformat(channel))
-    --     end
-    -- )
+        EntityUtils.SpawnEntity(owner, newNuid, x, y, rotation, velocity, filename, localEntityId)
+    end
 
     -- self:on(
     --     "newNuid",
@@ -361,6 +260,9 @@ function Client.new(sockClient)
 
         self:setSchema(NetworkUtils.events.playerInfo, NetworkUtils.events.playerInfo.schema)
         self:on(NetworkUtils.events.playerInfo.name, onPlayerInfo)
+
+        self:setSchema(NetworkUtils.events.newNuid, NetworkUtils.events.newNuid.schema)
+        self:on(NetworkUtils.events.newNuid.name, onNewNuid)
 
         -- self:setSchema("duplicatedGuid", { "newGuid" })
         -- self:setSchema("worldFiles", { "relDirPath", "fileName", "fileContent", "fileIndex", "amountOfFiles" })

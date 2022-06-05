@@ -281,6 +281,9 @@ function Server.new(sockServer)
         self:setSchema(NetworkUtils.events.playerInfo, NetworkUtils.events.playerInfo.schema)
         self:on(NetworkUtils.events.playerInfo.name, onPlayerInfo)
 
+        -- self:setSchema(NetworkUtils.events.newNuid, NetworkUtils.events.newNuid.schema)
+        -- self:on(NetworkUtils.events.newNuid.name, onNewNuid)
+
         -- self:setSchema("duplicatedGuid", { "newGuid" })
         -- self:setSchema("worldFiles", { "relDirPath", "fileName", "fileContent", "fileIndex", "amountOfFiles" })
         -- self:setSchema("worldFilesFinished", { "progress" })
