@@ -96,23 +96,6 @@ function Ui.new()
             ban = function(data, element, arg1)
                 _G.Server.ban(arg1)
             end,
-            -----------
-            showStart = function()
-                return not _G.Server.isRunning() and not _G.Client.isConnected()
-            end,
-            showStop = function()
-                return _G.Server.isRunning()
-            end,
-            showConnect = function()
-                return not _G.Server.isRunning() and not _G.Client.isConnected()
-            end,
-            showConnected = function()
-                return _G.Client.isConnected()
-            end,
-            showDisconnect = function()
-                return _G.Client.isConnected()
-            end,
-            -----------
             start = function()
                 _G.Server.start(nil, nil)
             end,
@@ -127,6 +110,26 @@ function Ui.new()
             end,
             toggleDebug = function()
                 debug = not debug
+            end,
+        },
+        computed = {
+            showKickBan = function()
+                return _G.Server.amIServer()
+            end,
+            showStart = function()
+                return not _G.Server.isRunning() and not _G.Client.isConnected()
+            end,
+            showStop = function()
+                return _G.Server.isRunning()
+            end,
+            showConnect = function()
+                return not _G.Server.isRunning() and not _G.Client.isConnected()
+            end,
+            showConnected = function()
+                return _G.Client.isConnected()
+            end,
+            showDisconnect = function()
+                return _G.Client.isConnected()
             end,
         }
     }
