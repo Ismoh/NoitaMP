@@ -75,6 +75,12 @@ local function addOrUpdateVscForOwnerName(entityId, ownerName)
    if not EntityUtils.isEntityAlive(entityId) then
       return
    end
+
+   if not ownerName or ownerName == "" then
+      logger:error(logger.channels.vsc, ("Unable to update VSC on entity (%s), when ownerName is '%s'"):format(entityId, ownerName))
+      ownerName = tostring(ownerName)
+   end
+
    local compId, compOwnerName = checkIfSpecificVscExists(
       entityId, NetworkVscUtils.variableStorageComponentName, NetworkVscUtils.name,
       NetworkVscUtils.componentNameOfOwnersName, NetworkVscUtils.valueString)
@@ -112,6 +118,12 @@ local function addOrUpdateVscForOwnerGuid(entityId, ownerGuid)
    if not EntityUtils.isEntityAlive(entityId) then
       return
    end
+
+   if not ownerGuid or ownerGuid == "" then
+      logger:error(logger.channels.vsc, ("Unable to update VSC on entity (%s), when ownerGuid is '%s'"):format(entityId, ownerGuid))
+      ownerGuid = tostring(ownerGuid)
+   end
+
    local compId, compOwnerGuid = checkIfSpecificVscExists(
       entityId, NetworkVscUtils.variableStorageComponentName, NetworkVscUtils.name,
       NetworkVscUtils.componentNameOfOwnersGuid, NetworkVscUtils.valueString)
@@ -149,10 +161,16 @@ local function addOrUpdateVscForNuid(entityId, nuid)
    if not EntityUtils.isEntityAlive(entityId) then
       return
    end
+
+   if not nuid or nuid == "" then
+      logger:error(logger.channels.vsc, ("Unable to update VSC on entity (%s), when nuid is '%s'"):format(entityId, nuid))
+      return
+   end
+
    local compId, compNuid = checkIfSpecificVscExists(
       entityId, NetworkVscUtils.variableStorageComponentName, NetworkVscUtils.name,
       NetworkVscUtils.componentNameOfNuid, NetworkVscUtils.valueString)
-   if compNuid then
+   if compNuid and compNuid ~= "" then
       error(("It is not possible to re-set a nuid(%s) on a entity(%s), which already has one set(%s)! Returning nil!"):format(nuid, entityId, compNuid), 2)
    end
 

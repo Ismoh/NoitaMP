@@ -42,10 +42,10 @@ local function getUniqueness()
     end
     file:close()
 
-    if not DebugGetIsDevBuild() then
-        result = result .. "noita.exe"
-    else
+    if DebugGetIsDevBuild() then
         result = result .. "noita_dev.exe"
+    else
+        result = result .. "noita.exe"
     end
 
     local number = ""

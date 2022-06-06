@@ -168,9 +168,11 @@ function Client.new(sockClient)
     --- Callback when Server sent a new nuid to the client
     --- @param data table { owner, localEntityId, newNuid, x, y, rotation, velocity, filename }
     local function onNewNuid(data)
-        logger:debug(logger.channels.network, "Received a new nuid!", util.pformat(data))
+        logger:debug(logger.channels.network, ("Received a new nuid! data = %s"):format(util.pformat(data)))
 
-        local owner         = data[1]
+        local owner         = {}
+        owner.name          = data[1][1]
+        owner.guid          = data[1][2]
         local localEntityId = data[2]
         local newNuid       = data[3]
         local x             = data[4]
