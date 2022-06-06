@@ -118,6 +118,17 @@ function Server.new(sockServer)
         end
     end
 
+    ------------------------------------------------------------------------------------------------
+    --- onNeedNuid
+    ------------------------------------------------------------------------------------------------
+
+    local function onNeedNuid(data, peer)
+        logger:debug(logger.channels.network, util.pformat(peer), " needs a new nuid.", util.pformat(data))
+        local newNuid = NuidUtils.getNextNuid()
+        self.sendNewNuid(data.owner, data.localEntityId, newNuid,
+            data.x, data.y, data.rotation, data.velocity, data.filename)
+    end
+
     --self:sendToAllBut(peer, NetworkUtils.events.playerInfo.name)
 
     local function setClientInfo(data, peer)
@@ -281,8 +292,11 @@ function Server.new(sockServer)
         self:setSchema(NetworkUtils.events.playerInfo, NetworkUtils.events.playerInfo.schema)
         self:on(NetworkUtils.events.playerInfo.name, onPlayerInfo)
 
-        -- self:setSchema(NetworkUtils.events.newNuid, NetworkUtils.events.newNuid.schema)
+        -- self:setSchema(NetworkUtils.events.newNuid.name, NetworkUtils.events.newNuid.schema)
         -- self:on(NetworkUtils.events.newNuid.name, onNewNuid)
+
+        self:setSchema(NetworkUtils.events.needNuid.name, NetworkUtils.events.needNuid.schema)
+        self:on(NetworkUtils.events.needNuid.name, onNeedNuid)
 
         -- self:setSchema("duplicatedGuid", { "newGuid" })
         -- self:setSchema("worldFiles", { "relDirPath", "fileName", "fileContent", "fileIndex", "amountOfFiles" })

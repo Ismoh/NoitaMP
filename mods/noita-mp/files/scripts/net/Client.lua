@@ -183,26 +183,6 @@ function Client.new(sockClient)
     end
 
     -- self:on(
-    --     "newNuid",
-    --     function(data)
-    --         logger:debug(logger.channels.network,
-    --             "%s (%s) needs a new NUID. nuid=%s, x=%s, y=%s, rot=%s, velocity=%s, filename=%s, localEntityId=%s",
-    --             data.owner.name,
-    --             data.owner.guid,
-    --             data.nuid,
-    --             data.x,
-    --             data.y,
-    --             data.rot,
-    --             data.velocity,
-    --             data.filename,
-    --             data.localEntityId
-    --         )
-    --         logger:debug(util.pformat(data))
-    --         EntityUtils.SpawnEntity(data.owner, data.nuid, data.x, data.y, data.rot, data.velocity, data.filename, data.localEntityId)
-    --     end
-    -- )
-
-    -- self:on(
     --     "entityAlive",
     --     function(data)
     --         logger:debug(util.pformat(data))
