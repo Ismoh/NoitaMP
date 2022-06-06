@@ -162,9 +162,8 @@ local function addOrUpdateVscForNuid(entityId, nuid)
       return
    end
 
-   if not nuid or nuid == "" then
+   if _G.whoAmI() == _G.Server.iAm and not nuid or nuid == "" then
       logger:error(logger.channels.vsc, ("Unable to update VSC on entity (%s), when nuid is '%s'"):format(entityId, nuid))
-      return
    end
 
    local compId, compNuid = checkIfSpecificVscExists(
@@ -175,7 +174,7 @@ local function addOrUpdateVscForNuid(entityId, nuid)
    end
 
    -- There already might be a nuid vsc without any nuid set, think of a client shooting projectiles
-   if compId and not compNuid then
+   if compId and not compNuid or compNuid == "" then
       ComponentSetValue2(compId, NetworkVscUtils.valueString, nuid)
       logger:debug(logger.channels.vsc,
          "Nuid(%s) was set to already existing VSC(%s, %s) on entity(%s)",

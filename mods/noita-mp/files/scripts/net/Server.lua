@@ -123,10 +123,20 @@ function Server.new(sockServer)
     ------------------------------------------------------------------------------------------------
 
     local function onNeedNuid(data, peer)
-        logger:debug(logger.channels.network, util.pformat(peer), " needs a new nuid.", util.pformat(data))
+        logger:debug(logger.channels.network, ("Peer %s needs a new nuid. data = %s"):format(util.pformat(peer), util.pformat(data)))
+
+        local owner         = data.owner
+        local localEntityId = data.localEntityId
+        local x             = data.x
+        local y             = data.y
+        local rotation      = data.rotation
+        local velocity      = data.velocity
+        local filename      = data.filename
+
         local newNuid = NuidUtils.getNextNuid()
-        self.sendNewNuid(data.owner, data.localEntityId, newNuid,
-            data.x, data.y, data.rotation, data.velocity, data.filename)
+        self.sendNewNuid(owner, localEntityId, newNuid,
+            x, y, rotation, velocity, filename)
+        EntityUtils.SpawnEntity(owner, newNuid, x, y, rotation, velocity, filename, localEntityId)
     end
 
     --self:sendToAllBut(peer, NetworkUtils.events.playerInfo.name)
