@@ -26,7 +26,10 @@ NetworkUtils.events = {
     playerInfo = { name = "playerInfo", schema = { "name", "guid" } },
 
     --- newNuid is used to let clients spawn entities by the servers permission
-    newNuid = { name = "newNuid", schema = { "owner", "localEntityId", "newNuid", "x", "y", "rotation", "velocity", "filename" } }
+    newNuid = { name = "newNuid", schema = { "owner", "localEntityId", "newNuid", "x", "y", "rotation", "velocity", "filename" } },
+
+    --- needNuid is used to ask for a nuid from client to servers
+    needNuid = { name = "needNuid", schema = { "owner", "localEntityId", "x", "y", "rotation", "velocity", "filename" } }
 }
 
 -- Because of stack overflow errors when loading lua files,

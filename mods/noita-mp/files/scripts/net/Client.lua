@@ -354,13 +354,13 @@ function Client.new(sockClient)
         if not EntityUtils.isEntityAlive(entityId) then
             return
         end
-        local x, y, rot = EntityGetTransform(entityId)
+        local x, y, rotation = EntityGetTransform(entityId)
         ---@diagnostic disable-next-line: missing-parameter
         local velocityCompId = EntityGetFirstComponent(entityId, "VelocityComponent")
         local veloX, veloY = ComponentGetValue2(velocityCompId, "mVelocity")
         local velocity = { veloX, veloY }
         local filename = EntityGetFilename(entityId)
-        self:send("needNuid", { { ownerName, ownerGuid }, entityId, x, y, rot, velocity, filename })
+        self:send("needNuid", { { ownerName, ownerGuid }, entityId, x, y, rotation, velocity, filename })
     end
 
     --- Checks if the current local user is a client
