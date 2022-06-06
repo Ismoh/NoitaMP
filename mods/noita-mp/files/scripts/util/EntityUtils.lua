@@ -134,10 +134,13 @@ function EntityUtils.isEntityAlive(entityId)
     return nil
 end
 
+--- Initialise Network VSC.
+--- If server then nuid is added.
+--- If client then nuid is needed.
 function EntityUtils.initNetworkVscs()
-    if _G.whoAmI() ~= _G.Server.iAm then
-        error("You are not allowed to init network variable storage components, if not server!", 2)
-    end
+    -- if _G.whoAmI() ~= _G.Server.iAm then
+    --     error("You are not allowed to init network variable storage components, if not server!", 2)
+    -- end
 
     local radius = tonumber(ModSettingGetNextValue("noita-mp.radius_include_entities"))
     local filteredEntities = getFilteredEntities(radius, EntityUtils.include, EntityUtils.exclude)
@@ -149,20 +152,29 @@ function EntityUtils.initNetworkVscs()
         if EntityUtils.isEntityAlive(entityId) then
             local nuid = nil
             local compId, value = NetworkVscUtils.isNetworkEntityByNuidVsc(entityId)
-            if not compId then -- if a nuid on an entity already exists, don't get a new nuid
-                nuid = NuidUtils.getNextNuid()
+
+            if not compId or value == "" or value == nil then -- if a nuid on an entity already exists, don't get a new nuid
+                if _G.whoAmI() == _G.Server.iAm then
+                    nuid = NuidUtils.getNextNuid()
+                else
+                    _G.Client.sendNeedNuid(owner.name, owner.guid, entityId)
+                end
             else
                 nuid = tonumber(value)
             end
-            NetworkVscUtils.addOrUpdateAllVscs(entityId, owner.name, owner.guid, nuid)
-            GlobalsUtils.setNuid(nuid, entityId)
 
-            local x, y, rotation, scaleX, scaleY = EntityGetTransform(entityId)
-            ---@diagnostic disable-next-line: missing-parameter
-            local veloCompId = EntityGetFirstComponent(entityId, "VelocityComponent")
-            local velo_x, velo_y = ComponentGetValue2(veloCompId, "mVelocity")
-            local fileName = EntityGetFilename(entityId)
-            _G.Server.sendNewNuid(owner, entityId, nuid, x, y, rotation, { velo_x, velo_y }, fileName)
+            NetworkVscUtils.addOrUpdateAllVscs(entityId, owner.name, owner.guid, nuid)
+
+            if _G.whoAmI() == _G.Server.iAm then
+                GlobalsUtils.setNuid(nuid, entityId)
+
+                local x, y, rotation, scaleX, scaleY = EntityGetTransform(entityId)
+                ---@diagnostic disable-next-line: missing-parameter
+                local veloCompId = EntityGetFirstComponent(entityId, "VelocityComponent")
+                local velo_x, velo_y = ComponentGetValue2(veloCompId, "mVelocity")
+                local fileName = EntityGetFilename(entityId)
+                _G.Server.sendNewNuid(owner, entityId, nuid, x, y, rotation, { velo_x, velo_y }, fileName)
+            end
         end
     end
 end

@@ -345,6 +345,7 @@ function Client.new(sockClient)
         updateVariables()
 
         EntityUtils.despawnClientEntities()
+        EntityUtils.initNetworkVscs()
 
         sockClientUpdate(self)
     end
