@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------------------------------------
--- Imports by dofile, dofile_once and require
+--- Imports by dofile, dofile_once and require
 ----------------------------------------------------------------------------------------------------
 dofile("mods/noita-mp/files/scripts/init/init_.lua")
 local fu = require("file_util")
@@ -9,8 +9,9 @@ logger:debug("init.lua", "Starting to load noita-mp init.lua..")
 
 
 ----------------------------------------------------------------------------------------------------
--- Stuff needs to be executed before anything else
+--- Stuff needs to be executed before anything else
 ----------------------------------------------------------------------------------------------------
+
 fu.SetAbsolutePathOfNoitaRootDirectory()
 
 -- Is used to stop Noita pausing game, when focus is gone (tab out game)
@@ -31,7 +32,7 @@ local saveSlotsLastModifiedBeforeWorldInit = fu.getLastModifiedSaveSlots()
 EntityUtils.modifyPhysicsEntities()
 
 ----------------------------------------------------------------------------------------------------
--- NoitaMP functions
+--- NoitaMP functions
 ----------------------------------------------------------------------------------------------------
 
 local function createGlobalWhoAmIFunction()
@@ -61,7 +62,7 @@ local function setSeedIfConnectedSecondTime()
         if saveSlotMetaDirectory then
             fu.removeContentOfDirectory(saveSlotMetaDirectory)
         else
-            error("Unable to emtying selected save slot!", 2)
+            error("Unable to emptying selected save slot!", 2)
         end
 
         SetWorldSeed(seed)
@@ -70,8 +71,9 @@ local function setSeedIfConnectedSecondTime()
 end
 
 ----------------------------------------------------------------------------------------------------
--- Noita API callback funcstions
+--- Noita API callback functions
 ----------------------------------------------------------------------------------------------------
+
 function OnModPreInit()
     createGlobalWhoAmIFunction()
 
@@ -127,7 +129,7 @@ function OnWorldPreUpdate()
         local saveSlotsLastModifiedAfterWorldInit = fu.getLastModifiedSaveSlots()
         for i = 1, #saveSlotsLastModifiedBeforeWorldInit do
             for j = 1, #saveSlotsLastModifiedAfterWorldInit do
-                local saveSlotMeta = nil
+                local saveSlotMeta
                 if saveSlotsLastModifiedBeforeWorldInit[i].lastModified > saveSlotsLastModifiedAfterWorldInit[j].lastModified then
                     saveSlotMeta = saveSlotsLastModifiedBeforeWorldInit[i]
                 else
