@@ -50,14 +50,16 @@ local function filterEntities(entities, include, exclude)
     end
 
     for i, entityId in ipairs(entities) do
-        local included = entityMatches(entityId, include.byFilename, include.byComponentsName)
-        local excluded = entityMatches(entityId, exclude.byFilename, exclude.byComponentsName)
+        if EntityGetRootEntity(entityId) == entityId then
+            local included = entityMatches(entityId, include.byFilename, include.byComponentsName)
+            local excluded = entityMatches(entityId, exclude.byFilename, exclude.byComponentsName)
 
-        if included and not excluded then
-            local isNetworkEntity = NetworkVscUtils.isNetworkEntityByNuidVsc(entityId)
-            local hasNetworkLuaComponents = NetworkVscUtils.hasNetworkLuaComponents(entityId)
-            if not isNetworkEntity and not hasNetworkLuaComponents then
-                table.insert(filteredEntities, entityId)
+            if included and not excluded then
+                local isNetworkEntity = NetworkVscUtils.isNetworkEntityByNuidVsc(entityId)
+                local hasNetworkLuaComponents = NetworkVscUtils.hasNetworkLuaComponents(entityId)
+                if not isNetworkEntity and not hasNetworkLuaComponents then
+                    table.insert(filteredEntities, entityId)
+                end
             end
         end
     end
