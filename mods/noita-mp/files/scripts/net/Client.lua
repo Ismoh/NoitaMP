@@ -359,8 +359,11 @@ function Client.new(sockClient)
         local x, y, rotation = EntityGetTransform(entityId)
         ---@diagnostic disable-next-line: missing-parameter
         local velocityCompId = EntityGetFirstComponent(entityId, "VelocityComponent")
-        local veloX, veloY = ComponentGetValue2(velocityCompId, "mVelocity")
-        local velocity = { veloX, veloY }
+        local velocity
+        if velocityCompId then
+            local veloX, veloY = ComponentGetValue2(velocityCompId, "mVelocity")
+            velocity = { veloX, veloY }
+        end
         local filename = EntityGetFilename(entityId)
         self:send("needNuid", { { ownerName, ownerGuid }, entityId, x, y, rotation, velocity, filename })
     end

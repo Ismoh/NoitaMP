@@ -221,14 +221,16 @@ function EntityUtils.SpawnEntity(owner, nuid, x, y, rot, velocity, filename, loc
     NetworkVscUtils.addOrUpdateAllVscs(entityId, owner.name, owner.guid, nuid) --self:AddNetworkComponentToEntity(entity_id, owner, nuid)
     EntityApplyTransform(entityId, x, y, rot, 1, 1)
 
-    ---@diagnostic disable-next-line: missing-parameter
-    local veloCompId = EntityGetFirstComponent(entityId, "VelocityComponent")
-    if velocity and veloCompId then
-        ---@diagnostic disable-next-line: redundant-parameter
-        ComponentSetValue2(veloCompId, "mVelocity", velocity[1], velocity[2])
-    else
-        logger:warn(logger.channels.entity, "Unable to get VelocityComponent.")
-        --EntityAddComponent2(entityId, "VelocityComponent", {})
+    if velocity then
+        ---@diagnostic disable-next-line: missing-parameter
+        local veloCompId = EntityGetFirstComponent(entityId, "VelocityComponent")
+        if veloCompId then
+            ---@diagnostic disable-next-line: redundant-parameter
+            ComponentSetValue2(veloCompId, "mVelocity", velocity[1], velocity[2])
+        else
+            logger:warn(logger.channels.entity, "Unable to get VelocityComponent.")
+            --EntityAddComponent2(entityId, "VelocityComponent", {})
+        end
     end
     return entityId
 end
