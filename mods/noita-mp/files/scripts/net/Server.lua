@@ -68,6 +68,11 @@ function Server.new(sockServer)
     ------------------------------------------------------------------------------------------------
     local function setGuid()
         local guid = tostring(ModSettingGetNextValue("noita-mp.guid"))
+
+        --if DebugGetIsDevBuild() then
+        --    guid = ""
+        --end
+
         if guid == "" or Guid.isPatternValid(guid) == false then
             guid = Guid:getGuid()
             ModSettingSetNextValue("noita-mp.guid", guid, false)

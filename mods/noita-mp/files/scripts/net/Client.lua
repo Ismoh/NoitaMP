@@ -71,6 +71,11 @@ function Client.new(sockClient)
     ------------------------------------------------------------------------------------------------
     local function setGuid()
         local guid = tostring(ModSettingGetNextValue("noita-mp.guid"))
+
+        --if DebugGetIsDevBuild() then
+        --    guid = ""
+        --end
+
         if guid == "" or Guid.isPatternValid(guid) == false then
             guid = Guid:getGuid()
             ModSettingSetNextValue("noita-mp.guid", guid, false)
@@ -109,7 +114,7 @@ function Client.new(sockClient)
     --- onConnect2
     ------------------------------------------------------------------------------------------------
     --- Callback when one of the other clients connected.
-    --- @param data table { "name", "guid" } @see NetworkUtils.events.disconnect2.schema
+    --- @param data table data = { "name", "guid" } @see NetworkUtils.events.disconnect2.schema
     local function onConnect2(data)
         logger:debug(logger.channels.network, "Another client connected.", util.pformat(data))
         table.insertIfNotExist(self.otherClients, { name = data.name, guid = data.guid })
@@ -170,16 +175,16 @@ function Client.new(sockClient)
     local function onNewNuid(data)
         logger:debug(logger.channels.network, ("Received a new nuid! data = %s"):format(util.pformat(data)))
 
-        local owner         = {}
-        owner.name          = data[1][1]
-        owner.guid          = data[1][2]
+        local owner = {}
+        owner.name = data[1][1]
+        owner.guid = data[1][2]
         local localEntityId = data[2]
-        local newNuid       = data[3]
-        local x             = data[4]
-        local y             = data[5]
-        local rotation      = data[6]
-        local velocity      = data[7]
-        local filename      = data[8]
+        local newNuid = data[3]
+        local x = data[4]
+        local y = data[5]
+        local rotation = data[6]
+        local velocity = data[7]
+        local filename = data[8]
 
         EntityUtils.SpawnEntity(owner, newNuid, x, y, rotation, velocity, filename, localEntityId)
     end
@@ -260,7 +265,6 @@ function Client.new(sockClient)
     local function updateVariables()
         local entityId = util.getLocalPlayerInfo().entityId
         if entityId then
-            ---@diagnostic disable-next-line: missing-parameter
             local hpCompId = EntityGetFirstComponentIncludingDisabled(entityId, "DamageModelComponent")
             local hpCurrent = math.floor(tonumber(ComponentGetValue2(hpCompId, "hp")) * 25)
             local hpMax = math.floor(tonumber(ComponentGetValue2(hpCompId, "max_hp")) * 25)
@@ -308,8 +312,8 @@ function Client.new(sockClient)
         end
 
         GamePrintImportant("Client is connecting..",
-            "You are trying to connect to " .. self:getAddress() .. ":" .. self:getPort() .. "!",
-            ""
+                "You are trying to connect to " .. self:getAddress() .. ":" .. self:getPort() .. "!",
+                ""
         )
 
         sockClientConnect(self, code)
@@ -357,7 +361,6 @@ function Client.new(sockClient)
             return
         end
         local x, y, rotation = EntityGetTransform(entityId)
-        ---@diagnostic disable-next-line: missing-parameter
         local velocityCompId = EntityGetFirstComponent(entityId, "VelocityComponent")
         local veloX, veloY = ComponentGetValue2(velocityCompId, "mVelocity")
         local velocity = { veloX, veloY }

@@ -100,7 +100,6 @@ function Guid:getGuid()
             break
         end
 
-        util.Sleep(2)
     until is_valid and is_unique
 
     table.insert(self.cached_guid, guid)
