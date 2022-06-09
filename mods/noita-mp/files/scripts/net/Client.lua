@@ -37,7 +37,7 @@ Client = {}
 --- @param sockClient table sock.lua#newClient
 --- @return table Client
 function Client.new(sockClient)
-    local self = sockClient
+    local self        = sockClient
 
     ------------------------------------
     -- Private variables:
@@ -46,15 +46,15 @@ function Client.new(sockClient)
     ------------------------------------
     -- Public variables:
     ------------------------------------
-    self.name = tostring(ModSettingGet("noita-mp.name"))
+    self.name         = tostring(ModSettingGet("noita-mp.name"))
     -- guid might not be set here or will be overwritten at the end of the constructor. @see setGuid
-    self.guid = tostring(ModSettingGet("noita-mp.guid"))
-    self.iAm = "CLIENT"
-    self.transform = { x = 0, y = 0 }
-    self.health = { current = 234, max = 2135 }
-    self.serverInfo = {}
+    self.guid         = tostring(ModSettingGet("noita-mp.guid"))
+    self.iAm          = "CLIENT"
+    self.transform    = { x = 0, y = 0 }
+    self.health       = { current = 234, max = 2135 }
+    self.serverInfo   = {}
     self.otherClients = {}
-    self.acknowledge = {} -- sock.lua#Client:send -> self.acknowledge[packetsSent] = { event = event, data = data, entityId = data.entityId, status = NetworkUtils.events.acknowledgement.sent }
+    self.acknowledge  = {} -- sock.lua#Client:send -> self.acknowledge[packetsSent] = { event = event, data = data, entityId = data.entityId, status = NetworkUtils.events.acknowledgement.sent }
 
     ------------------------------------
     --- Private methods:
@@ -91,17 +91,27 @@ function Client.new(sockClient)
     --- Send acknowledgement
     ------------------------------------------------------------------------------------------------
     local function sendAck(networkMessageId)
-        self:send(NetworkUtils.events.acknowledgement.name, { networkMessageId, status = NetworkUtils.events.acknowledgement.ack })
+        local data = { networkMessageId, NetworkUtils.events.acknowledgement.ack }
+        self:send(NetworkUtils.events.acknowledgement.name, data)
+        logger:debug(logger.channels.network, ("Sent ack with data = %s"):format(data))
     end
 
     ------------------------------------------------------------------------------------------------
     --- onAcknowledgement
     ------------------------------------------------------------------------------------------------
-    local function onAcknowledgement(networkMessageId, status)
-        if not self.acknowledge[networkMessageId].status then
-            logger:error(logger.channels.network, ("Unable to get acknowledgement with networkMessageId = %s"):format(networkMessageId))
+    local function onAcknowledgement(data)
+        if not data.networkMessageId then
+            logger:error(logger.channels.network,
+                         ("Unable to get acknowledgement with networkMessageId = %s, data = %s, peer = %s")
+                                 :format(networkMessageId, util.pformat(data), util.pformat(peer)))
+            return
         end
-        self.acknowledge[networkMessageId].status = status
+
+        if not self.acknowledge[data.networkMessageId] then
+            self.acknowledge[data.networkMessageId] = {}
+        end
+
+        self.acknowledge[data.networkMessageId].status = data.status
     end
 
     ------------------------------------------------------------------------------------------------
@@ -110,14 +120,14 @@ function Client.new(sockClient)
     --- Callback when connected to server.
     --- @param data number not in use atm
     local function onConnect(data)
-        sendAck(data.networkMessageId)
+        -- sendAck(data.networkMessageId)
 
         logger:debug(logger.channels.network, "Connected to server!", util.pformat(data))
 
         local localPlayerInfo = util.getLocalPlayerInfo()
-        local name = localPlayerInfo.name
-        local guid = localPlayerInfo.guid
-        local entityId = localPlayerInfo.entityId
+        local name            = localPlayerInfo.name
+        local guid            = localPlayerInfo.guid
+        local entityId        = localPlayerInfo.entityId
 
         self:send(NetworkUtils.events.playerInfo.name, { name = name, guid = guid })
 
@@ -146,12 +156,13 @@ function Client.new(sockClient)
     --- onDisconnect
     ------------------------------------------------------------------------------------------------
     --- Callback when disconnected from server.
-    --- @param data table { code = 0 }
+    --- @param data table data.code = 0
     local function onDisconnect(data)
-        sendAck(data.networkMessageId)
+        -- sendAck(data.networkMessageId)
 
         logger:debug(logger.channels.network, "Disconnected from server!", util.pformat(data))
-        self.serverInfo = {}
+        self.serverInfo  = {}
+        self.acknowledge = {}
     end
 
     ------------------------------------------------------------------------------------------------
@@ -189,7 +200,9 @@ function Client.new(sockClient)
         sendAck(data.networkMessageId)
 
         local serversSeed = tonumber(data.seed)
-        logger:info(logger.channels.network, "Client received servers seed (%s) and stored it. Restarting Noita with that seed and auto connect now!", serversSeed)
+        logger:info(logger.channels.network,
+                    "Client received servers seed (%s) and stored it. Restarting Noita with that seed and auto connect now!",
+                    serversSeed)
 
         local localSeed = tonumber(StatsGetValue("world_seed"))
         if localSeed ~= serversSeed then
@@ -207,16 +220,16 @@ function Client.new(sockClient)
 
         logger:debug(logger.channels.network, ("Received a new nuid! data = %s"):format(util.pformat(data)))
 
-        local owner = {}
-        owner.name = data[1].name or data[1][1]
-        owner.guid = data[1].guid or data[1][2]
+        local owner         = {}
+        owner.name          = data[1].name or data[1][1]
+        owner.guid          = data[1].guid or data[1][2]
         local localEntityId = data[2]
-        local newNuid = data[3]
-        local x = data[4]
-        local y = data[5]
-        local rotation = data[6]
-        local velocity = data[7]
-        local filename = data[8]
+        local newNuid       = data[3]
+        local x             = data[4]
+        local y             = data[5]
+        local rotation      = data[6]
+        local velocity      = data[7]
+        local filename      = data[8]
 
         EntityUtils.SpawnEntity(owner, newNuid, x, y, rotation, velocity, filename, localEntityId)
     end
@@ -300,12 +313,13 @@ function Client.new(sockClient)
     local function updateVariables()
         local entityId = util.getLocalPlayerInfo().entityId
         if entityId then
-            local hpCompId = EntityGetFirstComponentIncludingDisabled(entityId, "DamageModelComponent")
-            local hpCurrent = math.floor(tonumber(ComponentGetValue2(hpCompId, "hp")) * 25)
-            local hpMax = math.floor(tonumber(ComponentGetValue2(hpCompId, "max_hp")) * 25)
-            self.health = { current = hpCurrent, max = hpMax }
+            local hpCompId                    = EntityGetFirstComponentIncludingDisabled(entityId,
+                                                                                         "DamageModelComponent")
+            local hpCurrent                   = math.floor(tonumber(ComponentGetValue2(hpCompId, "hp")) * 25)
+            local hpMax                       = math.floor(tonumber(ComponentGetValue2(hpCompId, "max_hp")) * 25)
+            self.health                       = { current = hpCurrent, max = hpMax }
             local x, y, rot, scale_x, scale_y = EntityGetTransform(entityId)
-            self.transform = { x = math.floor(x), y = math.floor(y) }
+            self.transform                    = { x = math.floor(x), y = math.floor(y) }
         end
     end
 
@@ -324,7 +338,8 @@ function Client.new(sockClient)
     function self.connect(ip, port, code)
 
         if self:isConnecting() or self:isConnected() then
-            logger:warn(logger.channels.network, "Client is still connected to %s:%s. Disconnecting!", self:getAddress(), self:getPort())
+            logger:warn(logger.channels.network, "Client is still connected to %s:%s. Disconnecting!",
+                        self:getAddress(), self:getPort())
             self:disconnect()
         end
 
@@ -347,8 +362,8 @@ function Client.new(sockClient)
         end
 
         GamePrintImportant("Client is connecting..",
-                "You are trying to connect to " .. self:getAddress() .. ":" .. self:getPort() .. "!",
-                ""
+                           "You are trying to connect to " .. self:getAddress() .. ":" .. self:getPort() .. "!",
+                           ""
         )
 
         sockClientConnect(self, code)
@@ -398,16 +413,17 @@ function Client.new(sockClient)
 
         local x, y, rotation = EntityGetTransform(entityId)
         local velocityCompId = EntityGetFirstComponent(entityId, "VelocityComponent")
-        local velocity = {}
+        local velocity       = {}
         if velocityCompId then
             local veloX, veloY = ComponentGetValue2(velocityCompId, "mVelocity")
-            velocity = { veloX, veloY }
+            velocity           = { veloX, veloY }
         end
         local filename = EntityGetFilename(entityId)
-        local data = { { ownerName, ownerGuid }, entityId, x, y, rotation, velocity, filename }
+        local data     = { { ownerName, ownerGuid }, entityId, x, y, rotation, velocity, filename }
 
         if not NetworkUtils.resend(NetworkUtils.events.needNuid.name, data) then
-            logger:info(logger.channels.network, ("Network message for needNuid for entityId %s already was acknowledged."):format(entityId))
+            logger:info(logger.channels.network,
+                        ("Network message for needNuid for entityId %s already was acknowledged."):format(entityId))
             return
         end
 
@@ -442,7 +458,7 @@ end
 -- Because of stack overflow errors when loading lua files,
 -- I decided to put Utils 'classes' into globals
 _G.ClientInit = Client
-_G.Client = Client.new(sock.newClient())
+_G.Client     = Client.new(sock.newClient())
 
 -- But still return for Noita Components,
 -- which does not have access to _G,

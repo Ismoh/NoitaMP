@@ -68,7 +68,7 @@ function NetworkUtils.resend(event, data, entityId)
         end
     end
 
-    logger:error(logger.channels.events.network, "Unable to get status of network message.")
+    logger:error(logger.channels.network, "Unable to get status of network message.")
 end
 
 -- Because of stack overflow errors when loading lua files,

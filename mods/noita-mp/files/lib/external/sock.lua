@@ -935,13 +935,23 @@ end
 -- @tparam string event The event to trigger with this message.
 -- @param data The data to send.
 function Client:send(event, data)
-    data.networkMessageId = self.packetsSent
-
     local serializedMessage = self:__pack(event, data)
 
     self.connection:send(serializedMessage, self.sendChannel, self.sendMode)
 
     self.packetsSent = self.packetsSent + 1
+
+    if not self.acknowledge then
+        self.acknowledge = {}
+    end
+
+    if not data.networkMessageId then
+        data.networkMessageId = self.packetsSent
+    end
+    
+    if not self.acknowledge[data.networkMessageId] then
+        self.acknowledge[data.networkMessageId] = {}
+    end
 
     self.acknowledge[data.networkMessageId] = { event = event, data = data, entityId = data.entityId, status = NetworkUtils.events.acknowledgement.sent }
 
