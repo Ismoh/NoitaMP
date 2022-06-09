@@ -50,14 +50,16 @@ local function filterEntities(entities, include, exclude)
     end
 
     for i, entityId in ipairs(entities) do
-        local included = entityMatches(entityId, include.byFilename, include.byComponentsName)
-        local excluded = entityMatches(entityId, exclude.byFilename, exclude.byComponentsName)
+        if EntityGetRootEntity(entityId) == entityId then
+            local included = entityMatches(entityId, include.byFilename, include.byComponentsName)
+            local excluded = entityMatches(entityId, exclude.byFilename, exclude.byComponentsName)
 
-        if included and not excluded then
-            local isNetworkEntity = NetworkVscUtils.isNetworkEntityByNuidVsc(entityId)
-            local hasNetworkLuaComponents = NetworkVscUtils.hasNetworkLuaComponents(entityId)
-            if not isNetworkEntity and not hasNetworkLuaComponents then
-                table.insert(filteredEntities, entityId)
+            if included and not excluded then
+                local isNetworkEntity = NetworkVscUtils.isNetworkEntityByNuidVsc(entityId)
+                local hasNetworkLuaComponents = NetworkVscUtils.hasNetworkLuaComponents(entityId)
+                if not isNetworkEntity and not hasNetworkLuaComponents then
+                    table.insert(filteredEntities, entityId)
+                end
             end
         end
     end
@@ -219,14 +221,16 @@ function EntityUtils.SpawnEntity(owner, nuid, x, y, rot, velocity, filename, loc
     NetworkVscUtils.addOrUpdateAllVscs(entityId, owner.name, owner.guid, nuid) --self:AddNetworkComponentToEntity(entity_id, owner, nuid)
     EntityApplyTransform(entityId, x, y, rot, 1, 1)
 
-    ---@diagnostic disable-next-line: missing-parameter
-    local veloCompId = EntityGetFirstComponent(entityId, "VelocityComponent")
-    if velocity and veloCompId then
-        ---@diagnostic disable-next-line: redundant-parameter
-        ComponentSetValue2(veloCompId, "mVelocity", velocity[1], velocity[2])
-    else
-        logger:warn(logger.channels.entity, "Unable to get VelocityComponent.")
-        --EntityAddComponent2(entityId, "VelocityComponent", {})
+    if velocity then
+        ---@diagnostic disable-next-line: missing-parameter
+        local veloCompId = EntityGetFirstComponent(entityId, "VelocityComponent")
+        if veloCompId then
+            ---@diagnostic disable-next-line: redundant-parameter
+            ComponentSetValue2(veloCompId, "mVelocity", velocity[1], velocity[2])
+        else
+            logger:warn(logger.channels.entity, "Unable to get VelocityComponent.")
+            --EntityAddComponent2(entityId, "VelocityComponent", {})
+        end
     end
     return entityId
 end

@@ -175,16 +175,16 @@ function Client.new(sockClient)
     local function onNewNuid(data)
         logger:debug(logger.channels.network, ("Received a new nuid! data = %s"):format(util.pformat(data)))
 
-        local owner = {}
-        owner.name = data[1][1]
-        owner.guid = data[1][2]
+        local owner         = {}
+        owner.name          = data[1].name or data[1][1]
+        owner.guid          = data[1].guid or data[1][2]
         local localEntityId = data[2]
-        local newNuid = data[3]
-        local x = data[4]
-        local y = data[5]
-        local rotation = data[6]
-        local velocity = data[7]
-        local filename = data[8]
+        local newNuid       = data[3]
+        local x             = data[4]
+        local y             = data[5]
+        local rotation      = data[6]
+        local velocity      = data[7]
+        local filename      = data[8]
 
         EntityUtils.SpawnEntity(owner, newNuid, x, y, rotation, velocity, filename, localEntityId)
     end
@@ -362,8 +362,11 @@ function Client.new(sockClient)
         end
         local x, y, rotation = EntityGetTransform(entityId)
         local velocityCompId = EntityGetFirstComponent(entityId, "VelocityComponent")
-        local veloX, veloY = ComponentGetValue2(velocityCompId, "mVelocity")
-        local velocity = { veloX, veloY }
+        local velocity
+        if velocityCompId then
+            local veloX, veloY = ComponentGetValue2(velocityCompId, "mVelocity")
+            velocity = { veloX, veloY }
+        end
         local filename = EntityGetFilename(entityId)
         self:send("needNuid", { { ownerName, ownerGuid }, entityId, x, y, rotation, velocity, filename })
     end
