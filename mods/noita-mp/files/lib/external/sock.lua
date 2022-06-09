@@ -4,10 +4,10 @@
 -- @module sock
 
 local sock = {
-    _VERSION     = 'sock.lua v0.3.0',
+    _VERSION = 'sock.lua v0.3.0',
     _DESCRIPTION = 'A Lua networking library for LÖVE games',
-    _URL         = 'https://github.com/camchenry/sock.lua',
-    _LICENSE     = [[
+    _URL = 'https://github.com/camchenry/sock.lua',
+    _LICENSE = [[
         MIT License
 
         Copyright (c) 2016 Cameron McHenry
@@ -130,24 +130,24 @@ local Logger_mt = { __index = Logger }
 
 local function newLogger(source)
     local logger = setmetatable({
-        source   = source,
+        source = source,
         messages = {},
 
         -- Makes print info more concise, but should still log the full line
-        shortenLines   = true,
+        shortenLines = true,
         -- Print all incoming event data
         printEventData = true,
-        printErrors    = true,
-        printWarnings  = true,
+        printErrors = true,
+        printWarnings = true,
     }, Logger_mt)
 
     return logger
 end
 
 function Logger:log(event, data)
-    local time      = os.date("%X") -- something like 24:59:59
+    local time = os.date("%X") -- something like 24:59:59
     local shortLine = ("%s [%s] %s"):format(time, event, data)
-    local fullLine  = ("%s [%s %s] %s"):format(time, self.source, event, util.pformat(data)) --local fullLine  = ("[%s][%s][%s] %s"):format(self.source, time, event, data)
+    local fullLine = ("%s [%s %s] %s"):format(time, self.source, event, util.pformat(data)) --local fullLine  = ("[%s][%s][%s] %s"):format(self.source, time, event, data)
 
     -- The printed message may or may not be the full message
     local line = fullLine
@@ -181,7 +181,7 @@ local Listener_mt = { __index = Listener }
 local function newListener()
     local listener = setmetatable({
         triggers = {},
-        schemas  = {},
+        schemas = {},
     }, Listener_mt)
 
     return listener
@@ -935,11 +935,15 @@ end
 -- @tparam string event The event to trigger with this message.
 -- @param data The data to send.
 function Client:send(event, data)
+    data.networkMessageId = self.packetsSent
+
     local serializedMessage = self:__pack(event, data)
 
     self.connection:send(serializedMessage, self.sendChannel, self.sendMode)
 
     self.packetsSent = self.packetsSent + 1
+
+    self.acknowledge[data.networkMessageId] = { event = event, data = data, entityId = data.entityId, status = NetworkUtils.events.acknowledgement.sent }
 
     self:resetSendSettings()
 end
@@ -1401,36 +1405,36 @@ end
 -- -- Limit incoming/outgoing bandwidth to 1kB/s (1000 bytes/s)
 --server = sock.newServer("*", 22122, 10, 2, 1000, 1000)
 sock.newServer = function(address, port, maxPeers, maxChannels, inBandwidth, outBandwidth)
-    address      = address or "localhost"
-    port         = port or 22122
-    maxPeers     = maxPeers or 64
-    maxChannels  = maxChannels or 1
-    inBandwidth  = inBandwidth or 0
+    address = address or "localhost"
+    port = port or 22122
+    maxPeers = maxPeers or 64
+    maxChannels = maxChannels or 1
+    inBandwidth = inBandwidth or 0
     outBandwidth = outBandwidth or 0
 
     local server = setmetatable({
         address = address,
-        port    = port,
-        host    = nil,
+        port = port,
+        host = nil,
 
-        messageTimeout     = 0,
-        maxChannels        = maxChannels,
-        maxPeers           = maxPeers,
-        sendMode           = "reliable",
-        defaultSendMode    = "reliable",
-        sendChannel        = 0,
+        messageTimeout = 0,
+        maxChannels = maxChannels,
+        maxPeers = maxPeers,
+        sendMode = "reliable",
+        defaultSendMode = "reliable",
+        sendChannel = 0,
         defaultSendChannel = 0,
 
-        peers   = {},
+        peers = {},
         clients = {},
 
         listener = newListener(),
-        logger   = newLogger("SERVER"),
+        logger = newLogger("SERVER"),
 
-        serialize   = nil,
+        serialize = nil,
         deserialize = nil,
 
-        packetsSent     = 0,
+        packetsSent = 0,
         packetsReceived = 0,
 
     }, Server_mt)
@@ -1474,32 +1478,32 @@ end
 --client = sock.newClient("123.45.67.89", 1234, 2)
 sock.newClient = function(serverOrAddress, port, maxChannels)
     serverOrAddress = serverOrAddress or "localhost"
-    port            = port or 22122
-    maxChannels     = maxChannels or 1
+    port = port or 22122
+    maxChannels = maxChannels or 1
 
     local client = setmetatable({
         address = nil,
-        port    = nil,
-        host    = nil,
+        port = nil,
+        host = nil,
 
         connection = nil, -- aka peer
-        connectId  = nil,
+        connectId = nil,
 
-        messageTimeout     = 0,
-        maxChannels        = maxChannels,
-        sendMode           = "reliable",
-        defaultSendMode    = "reliable",
-        sendChannel        = 0,
+        messageTimeout = 0,
+        maxChannels = maxChannels,
+        sendMode = "reliable",
+        defaultSendMode = "reliable",
+        sendChannel = 0,
         defaultSendChannel = 0,
 
         listener = newListener(),
-        logger   = newLogger("CLIENT"),
+        logger = newLogger("CLIENT"),
 
-        serialize   = nil,
+        serialize = nil,
         deserialize = nil,
 
         packetsReceived = 0,
-        packetsSent     = 0,
+        packetsSent = 0,
 
     }, Client_mt)
 

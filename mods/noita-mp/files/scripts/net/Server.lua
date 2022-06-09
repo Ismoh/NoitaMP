@@ -84,12 +84,31 @@ function Server.new(sockServer)
     end
 
     ------------------------------------------------------------------------------------------------
+    --- Send acknowledgement
+    ------------------------------------------------------------------------------------------------
+    local function sendAck(networkMessageId)
+        self:send(NetworkUtils.events.acknowledgement.name, { networkMessageId, status = NetworkUtils.events.acknowledgement.ack })
+    end
+
+    ------------------------------------------------------------------------------------------------
+    --- onAcknowledgement
+    ------------------------------------------------------------------------------------------------
+    local function onAcknowledgement(networkMessageId, status)
+        if not self.acknowledge[networkMessageId].status then
+            logger:error(logger.channels.network, ("Unable to get acknowledgement with networkMessageId = %s"):format(networkMessageId))
+        end
+        self.acknowledge[networkMessageId].status = status
+    end
+
+    ------------------------------------------------------------------------------------------------
     --- onConnect
     ------------------------------------------------------------------------------------------------
     --- Callback when client connected to server.
     --- @param data number not in use atm
     --- @param peer table
     local function onConnect(data, peer)
+        sendAck(data.networkMessageId)
+
         local localPlayerInfo = util.getLocalPlayerInfo()
         self:sendToPeer(peer, NetworkUtils.events.playerInfo.name, { name = localPlayerInfo.name, guid = localPlayerInfo.guid })
         self:sendToPeer(peer, NetworkUtils.events.seed.name, { StatsGetValue("world_seed") })
@@ -104,6 +123,8 @@ function Server.new(sockServer)
     --- @param data table
     --- @param peer table
     local function onDisconnect(data, peer)
+        sendAck(data.networkMessageId)
+
         logger:debug(logger.channels.network, "Disconnected from server!", util.pformat(data))
         -- Let the other clients know, that one client disconnected
         self:sendToAllBut(peer, NetworkUtils.events.disconnect2.name, { peer.name, peer.guid })
@@ -115,6 +136,8 @@ function Server.new(sockServer)
     --- Callback when Server sent his playerInfo to the client
     --- @param data table { name, guid }
     local function onPlayerInfo(data, peer)
+        sendAck(data.networkMessageId)
+
         for i, client in pairs(self.clients) do
             if client == peer then
                 self.clients[i].name = data.name
@@ -128,19 +151,20 @@ function Server.new(sockServer)
     ------------------------------------------------------------------------------------------------
 
     local function onNeedNuid(data, peer)
+        sendAck(data.networkMessageId)
+
         logger:debug(logger.channels.network, ("Peer %s needs a new nuid. data = %s"):format(util.pformat(peer), util.pformat(data)))
 
-        local owner         = data.owner
+        local owner = data.owner
         local localEntityId = data.localEntityId
-        local x             = data.x
-        local y             = data.y
-        local rotation      = data.rotation
-        local velocity      = data.velocity
-        local filename      = data.filename
+        local x = data.x
+        local y = data.y
+        local rotation = data.rotation
+        local velocity = data.velocity
+        local filename = data.filename
 
         local newNuid = NuidUtils.getNextNuid()
-        self.sendNewNuid(owner, localEntityId, newNuid,
-            x, y, rotation, velocity, filename)
+        self.sendNewNuid(owner, localEntityId, newNuid, x, y, rotation, velocity, filename)
         EntityUtils.SpawnEntity(owner, newNuid, x, y, rotation, velocity, filename, localEntityId)
     end
 
@@ -301,6 +325,9 @@ function Server.new(sockServer)
         --self:setSchema(NetworkUtils.events.disconnect, { "code" })
         self:on(NetworkUtils.events.disconnect.name, onDisconnect)
 
+        self:setSchema(NetworkUtils.events.acknowledgement.name, NetworkUtils.events.acknowledgement.schema)
+        self:on(NetworkUtils.events.acknowledgement.name, onAcknowledgement)
+
         --self:setSchema(NetworkUtils.events.seed.name, NetworkUtils.events.seed.schema)
         --self:on(NetworkUtils.events.seed.name, onSeed)
 
@@ -368,8 +395,8 @@ function Server.new(sockServer)
         setCallbackAndSchemas()
 
         GamePrintImportant("Server started",
-            ("Your server is running on %s. Tell your friends to join!"):format(self:getAddress(), self:getPort()),
-            "")
+                ("Your server is running on %s. Tell your friends to join!"):format(self:getAddress(), self:getPort()),
+                "")
     end
 
     --- Stops the server.
@@ -397,8 +424,10 @@ function Server.new(sockServer)
     local sockServerUpdate = sockServer.update
     --- Updates the server by checking for network events and handling them.
     function self.update()
-        if not self.isRunning() then --if not self.host then
-            return -- server not established
+        if not self.isRunning() then
+            --if not self.host then
+            -- server not established
+            return
         end
 
         updateVariables()
@@ -410,16 +439,16 @@ function Server.new(sockServer)
 
     function self.sendNewNuid(owner, localEntityId, newNuid, x, y, rot, velocity, filename)
         self:sendToAll2("newNuid",
-            {
-                owner,
-                localEntityId,
-                newNuid,
-                x,
-                y,
-                rot,
-                velocity,
-                filename
-            })
+                {
+                    owner,
+                    localEntityId,
+                    newNuid,
+                    x,
+                    y,
+                    rot,
+                    velocity,
+                    filename
+                })
     end
 
     --- Checks if the current local user is the server
@@ -430,7 +459,8 @@ function Server.new(sockServer)
         --     error("Something really strange is going on. You are server and client at the same time?", 2)
         -- end
 
-        if _G.Server.isRunning() then --if _G.Server.host and _G.Server.guid == self.guid then
+        if _G.Server.isRunning() then
+            --if _G.Server.host and _G.Server.guid == self.guid then
             return true
         end
 
@@ -459,15 +489,14 @@ end
 _G.ServerInit = Server
 _G.Server = Server.new(sock.newServer())
 
-
 local startOnLoad = ModSettingGet("noita-mp.server_start_when_world_loaded")
 if startOnLoad then
     -- Polymorphism sample
     _G.Server.start(nil, nil)
 else
     GamePrintImportant("Server not started",
-        "Your server wasn't started yet. Check ModSettings to change this or Press M to open multiplayer menu.",
-        ""
+            "Your server wasn't started yet. Check ModSettings to change this or Press M to open multiplayer menu.",
+            ""
     )
 end
 

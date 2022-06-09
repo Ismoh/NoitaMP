@@ -19,6 +19,9 @@ NetworkUtils.events = {
     --- disconnect2 is used to let the other clients know, who was disconnected
     disconnect2 = { name = "disconnect2", schema = { "name", "guid" } },
 
+    --- acknowledgement is used to let the sender know if the message was acknowledged
+    acknowledgement = { name = "acknowledgement", schema = { "networkMessageId", "status" }, ack = "ack", sent = "sent" },
+
     --- seed is used to send the servers seed
     seed = { name = "seed", schema = { "seed" } },
 
@@ -31,6 +34,42 @@ NetworkUtils.events = {
     --- needNuid is used to ask for a nuid from client to servers
     needNuid = { name = "needNuid", schema = { "owner", "localEntityId", "x", "y", "rotation", "velocity", "filename" } }
 }
+
+function NetworkUtils.resend(event, data, entityId)
+    local clientOrServer = nil
+
+    if _G.whoAmI() == Client.iAm then
+        clientOrServer = Client
+    elseif _G.whoAmI() == Server.iAm then
+        clientOrServer = Server
+    else
+        logger:error("Unable to identify whether I am Client or Server..")
+        return nil
+    end
+
+    -- self.acknowledge[data.networkMessageId] = { event = event, data = data, entityId = data.entityId, status = NetworkUtils.events.acknowledgement.sent }
+    for i = 1, #clientOrServer.acknowledge or {} do
+        if clientOrServer.acknowledge[i].entityId == nil then
+            -- network message wasn't entity related
+            -- compare events
+            if clientOrServer.acknowledge[i].event == event then
+                return clientOrServer.acknowledge[i].status == NetworkUtils.events.acknowledgement.ack
+            end
+        elseif clientOrServer.acknowledge[i].entityId == entityId then
+            return clientOrServer.acknowledge[i].status == NetworkUtils.events.acknowledgement.ack
+        else
+            -- neither event nor entityId matches
+            -- compare networkMessageId
+            if data.networkMessageId then
+                if clientOrServer.acknowledge[i].data.networkMessageId == data.networkMessageId then
+                    return clientOrServer.acknowledge[i].status == NetworkUtils.events.acknowledgement.ack
+                end
+            end
+        end
+    end
+
+    logger:error(logger.channels.events.network, "Unable to get status of network message.")
+end
 
 -- Because of stack overflow errors when loading lua files,
 -- I decided to put Utils 'classes' into globals
