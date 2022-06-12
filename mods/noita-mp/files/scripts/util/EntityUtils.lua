@@ -42,7 +42,6 @@ local function filterEntities(entities, include, exclude)
             end
         end
         for i, componentName in ipairs(componentNames) do
-            ---@diagnostic disable-next-line: missing-parameter
             if EntityGetComponentIncludingDisabled(entityId, componentName) then
                 return true
             end
@@ -55,7 +54,7 @@ local function filterEntities(entities, include, exclude)
             local excluded = entityMatches(entityId, exclude.byFilename, exclude.byComponentsName)
 
             if included and not excluded then
-                local isNetworkEntity = NetworkVscUtils.isNetworkEntityByNuidVsc(entityId)
+                local isNetworkEntity         = NetworkVscUtils.isNetworkEntityByNuidVsc(entityId)
                 local hasNetworkLuaComponents = NetworkVscUtils.hasNetworkLuaComponents(entityId)
                 if not isNetworkEntity and not hasNetworkLuaComponents then
                     table.insert(filteredEntities, entityId)
@@ -107,7 +106,9 @@ function EntityUtils.getLocalPlayerEntityId()
             end
         end
     end
-    logger:warn(logger.channels.entity, "Unable to get local player entity id. Returning first entity id(%s), which was found.", playerEntityIds[1])
+    logger:warn(logger.channels.entity,
+                "Unable to get local player entity id. Returning first entity id(%s), which was found.",
+                playerEntityIds[1])
     return playerEntityIds[1]
 end
 
@@ -144,18 +145,19 @@ function EntityUtils.initNetworkVscs()
     --     error("You are not allowed to init network variable storage components, if not server!", 2)
     -- end
 
-    local radius = tonumber(ModSettingGetNextValue("noita-mp.radius_include_entities"))
+    local radius           = tonumber(ModSettingGetNextValue("noita-mp.radius_include_entities"))
     local filteredEntities = getFilteredEntities(radius, EntityUtils.include, EntityUtils.exclude)
-    local owner = localOwner
+    local owner            = localOwner
 
     for i = 1, #filteredEntities do
         local entityId = filteredEntities[i]
 
         if EntityUtils.isEntityAlive(entityId) then
-            local nuid = nil
+            local nuid          = nil
             local compId, value = NetworkVscUtils.isNetworkEntityByNuidVsc(entityId)
 
-            if not compId or value == "" or value == nil then -- if a nuid on an entity already exists, don't get a new nuid
+            if not compId or value == "" or value == nil then
+                -- if a nuid on an entity already exists, don't get a new nuid
                 if _G.whoAmI() == _G.Server.iAm then
                     nuid = NuidUtils.getNextNuid()
                 else
@@ -171,28 +173,30 @@ function EntityUtils.initNetworkVscs()
                 GlobalsUtils.setNuid(nuid, entityId)
 
                 local x, y, rotation, scaleX, scaleY = EntityGetTransform(entityId)
-                ---@diagnostic disable-next-line: missing-parameter
-                local veloCompId = EntityGetFirstComponent(entityId, "VelocityComponent")
-                local velo_x, velo_y = ComponentGetValue2(veloCompId, "mVelocity")
-                local fileName = EntityGetFilename(entityId)
-                _G.Server.sendNewNuid(owner, entityId, nuid, x, y, rotation, { velo_x, velo_y }, fileName)
+                local velocityCompId                 = EntityGetFirstComponent(entityId, "VelocityComponent")
+                local velocityX, velocityY           = ComponentGetValue2(velocityCompId, "mVelocity")
+                local fileName                       = EntityGetFilename(entityId)
+                _G.Server.sendNewNuid(owner, entityId, nuid, x, y, rotation, { velocityX, velocityY }, fileName)
             end
         end
     end
 end
 
---- Spwans an entity and applies the transform and velocity to it. Also adds the network_component.
----@param owner table { name, guid }
----@param nuid any
----@param x any
----@param y any
----@param rot any
----@param velocity table { x, y } - can be nil
----@param filename any
----@param localEntityId number this is the initial entity_id created by server OR client. It's owner specific! Every owner has its own entity ids.
----@return number entityId Returns the entity_id of a already existing entity, found by nuid or the newly created entity.
+--- Spawns an entity and applies the transform and velocity to it. Also adds the network_component.
+--- @param owner table owner { name, guid }
+--- @param nuid any
+--- @param x any
+--- @param y any
+--- @param rot any
+--- @param velocity table velocity { x, y } - can be nil
+--- @param filename any
+--- @param localEntityId number this is the initial entity_id created by server OR client. It's owner specific! Every
+--- owner has its own entity ids.
+--- @return number entityId Returns the entity_id of a already existing entity, found by nuid or the newly created
+--- entity.
 function EntityUtils.SpawnEntity(owner, nuid, x, y, rot, velocity, filename, localEntityId)
-    local localGuid = util.getLocalPlayerInfo().guid or util.getLocalPlayerInfo()[2]
+    local localGuid  = util.getLocalPlayerInfo().guid or util.getLocalPlayerInfo()[2]
+    local remoteName = owner.name or owner[1]
     local remoteGuid = owner.guid or owner[2]
 
     if localGuid == remoteGuid then
@@ -200,7 +204,7 @@ function EntityUtils.SpawnEntity(owner, nuid, x, y, rot, velocity, filename, loc
             return
         end
         -- if the owner sent by network is the local owner, don't spawn an additional entity, but update the nuid
-        NetworkVscUtils.addOrUpdateAllVscs(localEntityId, owner.name, owner.guid, nuid)
+        NetworkVscUtils.addOrUpdateAllVscs(localEntityId, remoteName, remoteGuid, nuid)
         return
     end
 
@@ -209,8 +213,13 @@ function EntityUtils.SpawnEntity(owner, nuid, x, y, rot, velocity, filename, loc
         local ownerNameByVsc, ownerGuidByVsc, nuidByVsc = NetworkVscUtils.getAllVcsValuesByEntityId(localEntityId)
         if ownerGuidByVsc ~= remoteGuid then
             logger:error("Trying to spawn entity(%s) locally, but owner does not match: remoteOwner(%s) ~= localOwner(%s). remoteNuid(%s) ~= localNuid(%s)",
-                localEntityId, owner.name, ownerNameByVsc, nuid, nuidByVsc)
+                         localEntityId, remoteName, ownerNameByVsc, nuid, nuidByVsc)
         end
+    end
+
+    -- include exclude list of entityIds which shouldn't be spawned
+    if filename:contains("player.xml") then
+        filename = "mods/noita-mp/data/enemies_gfx/client_player_base.xml"
     end
 
     local entityId = EntityLoad(filename, x, y)
@@ -218,15 +227,13 @@ function EntityUtils.SpawnEntity(owner, nuid, x, y, rot, velocity, filename, loc
         return
     end
 
-    NetworkVscUtils.addOrUpdateAllVscs(entityId, owner.name, owner.guid, nuid) --self:AddNetworkComponentToEntity(entity_id, owner, nuid)
+    NetworkVscUtils.addOrUpdateAllVscs(entityId, remoteName, remoteGuid, nuid)
     EntityApplyTransform(entityId, x, y, rot, 1, 1)
 
     if velocity then
-        ---@diagnostic disable-next-line: missing-parameter
-        local veloCompId = EntityGetFirstComponent(entityId, "VelocityComponent")
-        if veloCompId then
-            ---@diagnostic disable-next-line: redundant-parameter
-            ComponentSetValue2(veloCompId, "mVelocity", velocity[1], velocity[2])
+        local velocityCompId = EntityGetFirstComponent(entityId, "VelocityComponent")
+        if velocityCompId then
+            ComponentSetValue2(velocityCompId, "mVelocity", velocity[1], velocity[2])
         else
             logger:warn(logger.channels.entity, "Unable to get VelocityComponent.")
             --EntityAddComponent2(entityId, "VelocityComponent", {})
@@ -235,23 +242,26 @@ function EntityUtils.SpawnEntity(owner, nuid, x, y, rot, velocity, filename, loc
     return entityId
 end
 
-function EntityUtils.despawnClientEntities()
+function EntityUtils.destroyClientEntities()
     if _G.whoAmI() ~= _G.Client.iAm then
         error("You are not allowed to remove entities, if not client!", 2)
     end
 
-    local radius = tonumber(ModSettingGetNextValue("noita-mp.radius_exclude_entities"))
-    local x, y = EntityGetTransform(EntityUtils.getLocalPlayerEntityId())
-    local filteredEntities = EntityGetInRadiusWithTag(x, y, radius, "enemy") or {} --getFilteredEntities(radius, EntityUtils.include, EntityUtils.exclude)
+    local radius           = tonumber(ModSettingGetNextValue("noita-mp.radius_exclude_entities"))
+    local x, y             = EntityGetTransform(EntityUtils.getLocalPlayerEntityId())
+    local filteredEntities = EntityGetInRadiusWithTag(x, y, radius,
+                                                      "enemy") or {} --getFilteredEntities(radius, EntityUtils.include, EntityUtils.exclude)
 
     if #filteredEntities > 0 then
         -- local playerUnitIds = EntityGetWithTag("player_unit")
         -- for i = 1, #playerUnitIds do
-        local playerEntityId = EntityUtils.getLocalPlayerEntityId()
+        local playerEntityId  = EntityUtils.getLocalPlayerEntityId()
         local playerEntityIds = {}
         table.insertIfNotExist(playerEntityIds, playerEntityId)
-        table.insertAllButNotDuplicates(playerEntityIds, EntityUtils.get_player_inventory_contents("inventory_quick")) -- wands and items
-        table.insertAllButNotDuplicates(playerEntityIds, EntityUtils.get_player_inventory_contents("inventory_full")) -- spells
+        table.insertAllButNotDuplicates(playerEntityIds,
+                                        EntityUtils.get_player_inventory_contents("inventory_quick")) -- wands and items
+        table.insertAllButNotDuplicates(playerEntityIds,
+                                        EntityUtils.get_player_inventory_contents("inventory_full")) -- spells
         table.insertAllButNotDuplicates(playerEntityIds, EntityGetAllChildren(playerEntityId) or {})
 
         for i = 1, #playerEntityIds do
@@ -312,15 +322,12 @@ end
 
 function EntityUtils.modifyPhysicsEntities()
     if not util then
-        ---@diagnostic disable-next-line: lowercase-global
         util = require("util")
     end
     if not fu then
-        ---@diagnostic disable-next-line: lowercase-global
         fu = require("file_util")
     end
     if not nxml then
-        ---@diagnostic disable-next-line: lowercase-global
         nxml = require("nxml")
     end
 
@@ -340,12 +347,13 @@ function EntityUtils.modifyPhysicsEntities()
 <PhysicsImageComponent
   is_root = "1"
 ></PhysicsImageComponent>
-]]               ))
+]]))
                 ModTextFileSetContent(filePath, tostring(xml))
             end
         end
     else
-        logger:error("Unable to modify physics entities, because util(%s), fu(%s) and nxml(%s) seems to be nil", util, fu, nxml)
+        logger:error("Unable to modify physics entities, because util(%s), fu(%s) and nxml(%s) seems to be nil", util,
+                     fu, nxml)
     end
 end
 

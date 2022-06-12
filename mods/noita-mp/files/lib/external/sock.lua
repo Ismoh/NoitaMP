@@ -275,7 +275,7 @@ function Server:update()
 
     while event do
         if event.type == "connect" then
-            local eventClient = sock.newClient(event.peer)
+            local eventClient = ClientInit.new(sock.newClient(event.peer)) -- sock.newClient(event.peer)
             eventClient:establishClient(event.peer)
             eventClient:setSerialization(self.serialize, self.deserialize)
             table.insert(self.peers, event.peer)
@@ -790,14 +790,18 @@ function Server:getClientCount()
     return #self.clients
 end
 
+function Server:getRoundTripTime()
+    return 0
+end
+
 --- Connects to servers.
 -- @type Client
-local Client = {}
+local Client    = {}
 local Client_mt = { __index = Client }
 
 function Client:establishClient(serverOrAddress, port)
     serverOrAddress = serverOrAddress or self.address
-    port = port or self.port
+    port            = port or self.port
 
     -- Two different forms for client creation:
     -- 1. Pass in (address, port) and connect to that.
@@ -935,27 +939,20 @@ end
 -- @tparam string event The event to trigger with this message.
 -- @param data The data to send.
 function Client:send(event, data)
+    local networkMessageId = data[1]
+    if util.IsEmpty(networkMessageId) then
+        error("networkMessageId is empty!", 3)
+    end
+
     local serializedMessage = self:__pack(event, data)
 
     self.connection:send(serializedMessage, self.sendChannel, self.sendMode)
 
     self.packetsSent = self.packetsSent + 1
 
-    if not self.acknowledge then
-        self.acknowledge = {}
-    end
-
-    if not data.networkMessageId then
-        data.networkMessageId = self.packetsSent
-    end
-    
-    if not self.acknowledge[data.networkMessageId] then
-        self.acknowledge[data.networkMessageId] = {}
-    end
-
-    self.acknowledge[data.networkMessageId] = { event = event, data = data, entityId = data.entityId, status = NetworkUtils.events.acknowledgement.sent }
-
     self:resetSendSettings()
+
+    return networkMessageId
 end
 
 --- Add a callback to an event.

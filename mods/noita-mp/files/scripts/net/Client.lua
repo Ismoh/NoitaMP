@@ -4,7 +4,7 @@
 -- http://lua-users.org/wiki/LuaStyleGuide#:~:text=Lua%20internal%20variable%20naming%20%2D%20The,but%20not%20necessarily%2C%20e.g.%20_G%20.
 
 ----------------------------------------
--- 'Imports'
+--- 'Imports'
 ----------------------------------------
 local sock = require("sock")
 local util = require("util")
@@ -12,7 +12,7 @@ local util = require("util")
 ----------------------------------------------------------------------------------------------------
 --- Client
 ----------------------------------------------------------------------------------------------------
-Client = {}
+Client     = {}
 
 ----------------------------------------
 -- Global private variables:
@@ -40,21 +40,21 @@ function Client.new(sockClient)
     local self        = sockClient
 
     ------------------------------------
-    -- Private variables:
+    --- Private variables:
     ------------------------------------
 
     ------------------------------------
-    -- Public variables:
+    --- Public variables:
     ------------------------------------
+    self.iAm          = "CLIENT"
     self.name         = tostring(ModSettingGet("noita-mp.name"))
     -- guid might not be set here or will be overwritten at the end of the constructor. @see setGuid
     self.guid         = tostring(ModSettingGet("noita-mp.guid"))
-    self.iAm          = "CLIENT"
+    self.acknowledge  = {} -- sock.lua#Client:send -> self.acknowledge[packetsSent] = { event = event, data = data, entityId = data.entityId, status = NetworkUtils.events.acknowledgement.sent }
     self.transform    = { x = 0, y = 0 }
     self.health       = { current = 234, max = 2135 }
     self.serverInfo   = {}
     self.otherClients = {}
-    self.acknowledge  = {} -- sock.lua#Client:send -> self.acknowledge[packetsSent] = { event = event, data = data, entityId = data.entityId, status = NetworkUtils.events.acknowledgement.sent }
 
     ------------------------------------
     --- Private methods:
@@ -93,13 +93,19 @@ function Client.new(sockClient)
     local function sendAck(networkMessageId)
         local data = { networkMessageId, NetworkUtils.events.acknowledgement.ack }
         self:send(NetworkUtils.events.acknowledgement.name, data)
-        logger:debug(logger.channels.network, ("Sent ack with data = %s"):format(data))
+        logger:debug(logger.channels.network, ("Sent ack with data = %s"):format(util.pformat(data)))
     end
 
     ------------------------------------------------------------------------------------------------
     --- onAcknowledgement
     ------------------------------------------------------------------------------------------------
     local function onAcknowledgement(data)
+        logger:debug(logger.channels.network, "onAcknowledgement: Acknowledgement received.", util.pformat(data))
+
+        if util.IsEmpty(data.networkMessageId) then
+            error(("onAcknowledgement data.networkMessageId is empty: %s"):format(data.networkMessageId), 3)
+        end
+
         if not data.networkMessageId then
             logger:error(logger.channels.network,
                          ("Unable to get acknowledgement with networkMessageId = %s, data = %s, peer = %s")
@@ -120,16 +126,21 @@ function Client.new(sockClient)
     --- Callback when connected to server.
     --- @param data number not in use atm
     local function onConnect(data)
-        -- sendAck(data.networkMessageId)
-
         logger:debug(logger.channels.network, "Connected to server!", util.pformat(data))
+
+        if util.IsEmpty(data) then
+            error(("onConnect data is empty: %s"):format(data), 3)
+        end
+
+        -- sendAck(data.networkMessageId)
 
         local localPlayerInfo = util.getLocalPlayerInfo()
         local name            = localPlayerInfo.name
         local guid            = localPlayerInfo.guid
         local entityId        = localPlayerInfo.entityId
 
-        self:send(NetworkUtils.events.playerInfo.name, { name = name, guid = guid })
+        self:send(NetworkUtils.events.playerInfo.name,
+                  { NetworkUtils.getNextNetworkMessageId(), name, guid })
 
         if not NetworkVscUtils.hasNetworkLuaComponents(entityId) then
             NetworkVscUtils.addOrUpdateAllVscs(entityId, name, guid, nil)
@@ -144,11 +155,24 @@ function Client.new(sockClient)
     --- onConnect2
     ------------------------------------------------------------------------------------------------
     --- Callback when one of the other clients connected.
-    --- @param data table data = { "name", "guid" } @see NetworkUtils.events.disconnect2.schema
+    --- @param data table data = { "name", "guid" } @see NetworkUtils.events.connect2.schema
     local function onConnect2(data)
+        logger:debug(logger.channels.network, "Another client connected.", util.pformat(data))
+
+        if util.IsEmpty(data.networkMessageId) then
+            error(("onConnect2 data.networkMessageId is empty: %s"):format(data.networkMessageId), 3)
+        end
+
+        if util.IsEmpty(data.name) then
+            error(("onConnect2 data.name is empty: %s"):format(data.name), 3)
+        end
+
+        if util.IsEmpty(data.guid) then
+            error(("onConnect2 data.guid is empty: %s"):format(data.guid), 3)
+        end
+
         sendAck(data.networkMessageId)
 
-        logger:debug(logger.channels.network, "Another client connected.", util.pformat(data))
         table.insertIfNotExist(self.otherClients, { name = data.name, guid = data.guid })
     end
 
@@ -156,24 +180,43 @@ function Client.new(sockClient)
     --- onDisconnect
     ------------------------------------------------------------------------------------------------
     --- Callback when disconnected from server.
-    --- @param data table data.code = 0
+    --- @param data number data(.code) = 0
     local function onDisconnect(data)
+        logger:debug(logger.channels.network, "Disconnected from server!", util.pformat(data))
+
+        if util.IsEmpty(data) then
+            error(("onDisconnect data is empty: %s"):format(data), 3)
+        end
+
         -- sendAck(data.networkMessageId)
 
-        logger:debug(logger.channels.network, "Disconnected from server!", util.pformat(data))
-        self.serverInfo  = {}
-        self.acknowledge = {}
+        self.acknowledge  = {}
+        self.otherClients = {}
+        self.serverInfo   = {}
     end
 
     ------------------------------------------------------------------------------------------------
     --- onDisconnect2
     ------------------------------------------------------------------------------------------------
     --- Callback when one of the other clients disconnected.
-    --- @param data table { "name", "guid" } @see NetworkUtils.events.disconnect2.schema
+    --- @param data table data { "name", "guid" } @see NetworkUtils.events.disconnect2.schema
     local function onDisconnect2(data)
+        logger:debug(logger.channels.network, "onDisconnect2: Another client disconnected.", util.pformat(data))
+
+        if util.IsEmpty(data.networkMessageId) then
+            error(("onDisconnect2 data.networkMessageId is empty: %s"):format(data.networkMessageId), 3)
+        end
+
+        if util.IsEmpty(data.name) then
+            error(("onDisconnect2 data.name is empty: %s"):format(data.name), 3)
+        end
+
+        if util.IsEmpty(data.guid) then
+            error(("onDisconnect2 data.guid is empty: %s"):format(data.guid), 3)
+        end
+
         sendAck(data.networkMessageId)
 
-        logger:debug(logger.channels.network, "Another client disconnected.", util.pformat(data))
         for i = 1, #self.otherClients do
             -- table.insertIfNotExist(self.otherClients, { name = data.name, guid = data.guid })
         end
@@ -183,8 +226,22 @@ function Client.new(sockClient)
     --- onPlayerInfo
     ------------------------------------------------------------------------------------------------
     --- Callback when Server sent his playerInfo to the client
-    --- @param data table { name, guid }
+    --- @param data table data { networkMessageId, name, guid }
     local function onPlayerInfo(data)
+        logger:debug(logger.channels.network, "onPlayerInfo: Player info received.", util.pformat(data))
+
+        if util.IsEmpty(data.networkMessageId) then
+            error(("onPlayerInfo data.networkMessageId is empty: %s"):format(data.networkMessageId), 3)
+        end
+
+        if util.IsEmpty(data.name) then
+            error(("onPlayerInfo data.name is empty: %s"):format(data.name), 3)
+        end
+
+        if util.IsEmpty(data.guid) then
+            error(("onPlayerInfo data.guid is empty: %s"):format(data.guid), 3)
+        end
+
         sendAck(data.networkMessageId)
 
         self.serverInfo.name = data.name
@@ -195,14 +252,23 @@ function Client.new(sockClient)
     --- onSeed
     ------------------------------------------------------------------------------------------------
     --- Callback when Server sent his seed to the client
-    --- @param data table { seed = "" }
+    --- @param data table data { networkMessageId, seed }
     local function onSeed(data)
+        logger:debug(logger.channels.network, "onSeed: Seed from server received.", util.pformat(data))
+
+        if util.IsEmpty(data.networkMessageId) then
+            error(("onSeed data.networkMessageId is empty: %s"):format(data.networkMessageId), 3)
+        end
+
+        if util.IsEmpty(data.seed) then
+            error(("onSeed data.seed is empty: %s"):format(data.seed), 3)
+        end
+
         sendAck(data.networkMessageId)
 
         local serversSeed = tonumber(data.seed)
         logger:info(logger.channels.network,
-                    "Client received servers seed (%s) and stored it. Restarting Noita with that seed and auto connect now!",
-                    serversSeed)
+                    "Client received servers seed (%s) and stored it. Reloading map with that seed!", serversSeed)
 
         local localSeed = tonumber(StatsGetValue("world_seed"))
         if localSeed ~= serversSeed then
@@ -214,22 +280,57 @@ function Client.new(sockClient)
     --- onNewNuid
     ------------------------------------------------------------------------------------------------
     --- Callback when Server sent a new nuid to the client
-    --- @param data table { owner, localEntityId, newNuid, x, y, rotation, velocity, filename }
+    --- @param data table data { networkMessageId, owner { name, guid }, localEntityId, newNuid, x, y, rotation,
+    --- velocity { x, y }, filename }
     local function onNewNuid(data)
-        sendAck(data.networkMessageId)
-
         logger:debug(logger.channels.network, ("Received a new nuid! data = %s"):format(util.pformat(data)))
 
-        local owner         = {}
-        owner.name          = data[1].name or data[1][1]
-        owner.guid          = data[1].guid or data[1][2]
-        local localEntityId = data[2]
-        local newNuid       = data[3]
-        local x             = data[4]
-        local y             = data[5]
-        local rotation      = data[6]
-        local velocity      = data[7]
-        local filename      = data[8]
+        if util.IsEmpty(data.networkMessageId) then
+            error(("onNewNuid data.networkMessageId is empty: %s"):format(data.networkMessageId), 3)
+        end
+
+        if util.IsEmpty(data.owner) then
+            error(("onNewNuid data.owner is empty: %s"):format(data.owner), 3)
+        end
+
+        if util.IsEmpty(data.localEntityId) then
+            error(("onNewNuid data.localEntityId is empty: %s"):format(data.localEntityId), 3)
+        end
+
+        if util.IsEmpty(data.newNuid) then
+            error(("onNewNuid data.newNuid is empty: %s"):format(data.newNuid), 3)
+        end
+
+        if util.IsEmpty(data.x) then
+            error(("onNewNuid data.x is empty: %s"):format(data.x), 3)
+        end
+
+        if util.IsEmpty(data.y) then
+            error(("onNewNuid data.y is empty: %s"):format(data.y), 3)
+        end
+
+        if util.IsEmpty(data.rotation) then
+            error(("onNewNuid data.rotation is empty: %s"):format(data.rotation), 3)
+        end
+
+        if util.IsEmpty(data.velocity) then
+            error(("onNewNuid data.velocity is empty: %s"):format(data.velocity), 3)
+        end
+
+        if util.IsEmpty(data.filename) then
+            error(("onNewNuid data.filename is empty: %s"):format(data.filename), 3)
+        end
+
+        sendAck(data.networkMessageId)
+
+        local owner         = data.owner
+        local localEntityId = data.localEntityId
+        local newNuid       = data.newNuid
+        local x             = data.x
+        local y             = data.y
+        local rotation      = data.rotation
+        local velocity      = data.velocity
+        local filename      = data.filename
 
         EntityUtils.SpawnEntity(owner, newNuid, x, y, rotation, velocity, filename, localEntityId)
     end
@@ -293,10 +394,10 @@ function Client.new(sockClient)
         self:setSchema(NetworkUtils.events.seed.name, NetworkUtils.events.seed.schema)
         self:on(NetworkUtils.events.seed.name, onSeed)
 
-        self:setSchema(NetworkUtils.events.playerInfo, NetworkUtils.events.playerInfo.schema)
+        self:setSchema(NetworkUtils.events.playerInfo.name, NetworkUtils.events.playerInfo.schema)
         self:on(NetworkUtils.events.playerInfo.name, onPlayerInfo)
 
-        self:setSchema(NetworkUtils.events.newNuid, NetworkUtils.events.newNuid.schema)
+        self:setSchema(NetworkUtils.events.newNuid.name, NetworkUtils.events.newNuid.schema)
         self:on(NetworkUtils.events.newNuid.name, onNewNuid)
 
         -- self:setSchema("duplicatedGuid", { "newGuid" })
@@ -333,8 +434,8 @@ function Client.new(sockClient)
     local sockClientConnect = sockClient.connect
     --- Connects to a server on ip and port. Both can be nil, then ModSettings will be used.
     --- @param ip string localhost or 127.0.0.1 or nil
-    --- @param port number 1 - 65535 or nil
-    --- @param code number 0 = connecting first time, 1 = connected second time with loaded seed
+    --- @param port number port number from 1 to max of 65535 or nil
+    --- @param code number connection code 0 = connecting first time, 1 = connected second time with loaded seed
     function self.connect(ip, port, code)
 
         if self:isConnecting() or self:isConnected() then
@@ -375,7 +476,7 @@ function Client.new(sockClient)
     local sockClientDisconnect = sockClient.disconnect
     function self.disconnect()
         if self.isConnected() then
-            sockClientDisconnect()
+            sockClientDisconnect(self)
         else
             logger:info(logger.channels.network, "Client isn't connected, no need to disconnenct!")
         end
@@ -400,10 +501,40 @@ function Client.new(sockClient)
 
         updateVariables()
 
-        EntityUtils.despawnClientEntities()
+        EntityUtils.destroyClientEntities()
         EntityUtils.initNetworkVscs()
 
         sockClientUpdate(self)
+    end
+
+    --- Some inheritance: Save parent function (not polluting global 'self' space)
+    local sockClientSend = sockClient.send
+
+    function self:send(event, data)
+        if type(data) ~= "table" then
+            error("", 3)
+        end
+
+        if NetworkUtils.alreadySent(event, data) then
+            logger:info(logger.channels.network, ("Network message for %s for data %s already was acknowledged.")
+                    :format(event, util.pformat(data)))
+            return
+        end
+
+        local networkMessageId = sockClientSend(self, event, data)
+
+        if not self.acknowledge then
+            self.acknowledge = {}
+        end
+
+        if event ~= NetworkUtils.events.acknowledgement.name then
+            if not self.acknowledge[networkMessageId] then
+                self.acknowledge[networkMessageId] = {}
+            end
+
+            self.acknowledge[networkMessageId] = { event  = event, data = data, entityId = data.entityId,
+                                                   status = NetworkUtils.events.acknowledgement.sent, sentAt = os.time() }
+        end
     end
 
     function self.sendNeedNuid(ownerName, ownerGuid, entityId)
@@ -419,13 +550,14 @@ function Client.new(sockClient)
             velocity           = { veloX, veloY }
         end
         local filename = EntityGetFilename(entityId)
-        local data     = { { ownerName, ownerGuid }, entityId, x, y, rotation, velocity, filename }
+        local data     = { NetworkUtils.getNextNetworkMessageId(), { ownerName, ownerGuid }, entityId, x, y, rotation, velocity,
+                           filename }
 
-        if not NetworkUtils.resend(NetworkUtils.events.needNuid.name, data) then
-            logger:info(logger.channels.network,
-                        ("Network message for needNuid for entityId %s already was acknowledged."):format(entityId))
-            return
-        end
+        --if not NetworkUtils.alreadySent(NetworkUtils.events.needNuid.name, data) then
+        --    logger:info(logger.channels.network,
+        --                ("Network message for needNuid for entityId %s already was acknowledged."):format(entityId))
+        --    return
+        --end
 
         self:send(NetworkUtils.events.needNuid.name, data)
     end

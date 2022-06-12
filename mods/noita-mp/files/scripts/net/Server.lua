@@ -43,18 +43,19 @@ function Server.new(sockServer)
     ------------------------------------
 
     ------------------------------------
-    -- Public variables:
+    --- Public variables:
     ------------------------------------
+    self.iAm         = "SERVER"
     self.name        = tostring(ModSettingGet("noita-mp.name"))
     -- guid might not be set here or will be overwritten at the end of the constructor. @see setGuid
     self.guid        = tostring(ModSettingGet("noita-mp.guid"))
-    self.iAm         = "SERVER"
+    self.acknowledge = {} -- sock.lua#Client:send -> self.acknowledge[packetsSent] = { event = event, data = data, entityId = data.entityId, status = NetworkUtils.events.acknowledgement.sent }
     self.transform   = { x = 0, y = 0 }
     self.health      = { current = 234, max = 2135 }
-    self.acknowledge = {} -- sock.lua#Client:send -> self.acknowledge[packetsSent] = { event = event, data = data, entityId = data.entityId, status = NetworkUtils.events.acknowledgement.sent }
+
 
     ------------------------------------
-    -- Private methods:
+    --- Private methods:
     ------------------------------------
 
     ------------------------------------------------------------------------------------------------
@@ -97,6 +98,12 @@ function Server.new(sockServer)
     --- onAcknowledgement
     ------------------------------------------------------------------------------------------------
     local function onAcknowledgement(data, peer)
+        logger:debug(logger.channels.network, "onAcknowledgement: Acknowledgement received.", util.pformat(data))
+
+        if util.IsEmpty(data.networkMessageId) then
+            error(("onAcknowledgement data.networkMessageId is empty: %s"):format(data.networkMessageId), 3)
+        end
+
         if not data.networkMessageId then
             logger:error(logger.channels.network,
                          ("Unable to get acknowledgement with networkMessageId = %s, data = %s, peer = %s")
@@ -118,14 +125,30 @@ function Server.new(sockServer)
     --- @param data number not in use atm
     --- @param peer table
     local function onConnect(data, peer)
+        logger:debug(logger.channels.network, ("Peer %s connected! data = %s")
+                :format(util.pformat(peer), util.pformat(data)))
+
+        if util.IsEmpty(peer) then
+            error(("onConnect peer is empty: %s"):format(peer), 3)
+        end
+
+        if util.IsEmpty(data) then
+            error(("onConnect data is empty: %s"):format(data), 3)
+        end
+
         -- sendAck(data.networkMessageId)
 
         local localPlayerInfo = util.getLocalPlayerInfo()
+        local name            = localPlayerInfo.name
+        local guid            = localPlayerInfo.guid
+
         self:sendToPeer(peer, NetworkUtils.events.playerInfo.name,
-                        { name = localPlayerInfo.name, guid = localPlayerInfo.guid })
-        self:sendToPeer(peer, NetworkUtils.events.seed.name, { StatsGetValue("world_seed") })
+                        { NetworkUtils.getNextNetworkMessageId(), name, guid })
+        self:sendToPeer(peer, NetworkUtils.events.seed.name,
+                        { NetworkUtils.getNextNetworkMessageId(), StatsGetValue("world_seed") })
         -- Let the other clients know, that one client connected
-        self:sendToAllBut(peer, NetworkUtils.events.connect2.name, { name = peer.name, guid = peer.guid })
+        self:sendToAllBut(peer, NetworkUtils.events.connect2.name,
+                          { NetworkUtils.getNextNetworkMessageId(), peer.name, peer.guid })
     end
 
     ------------------------------------------------------------------------------------------------
@@ -135,19 +158,48 @@ function Server.new(sockServer)
     --- @param data table
     --- @param peer table
     local function onDisconnect(data, peer)
+        logger:debug(logger.channels.network, "Disconnected from server!", util.pformat(data))
+
+        if util.IsEmpty(peer) then
+            error(("onConnect peer is empty: %s"):format(peer), 3)
+        end
+
+        if util.IsEmpty(data) then
+            error(("onDisconnect data is empty: %s"):format(data), 3)
+        end
+
         -- sendAck(data.networkMessageId, peer)
 
         logger:debug(logger.channels.network, "Disconnected from server!", util.pformat(data))
         -- Let the other clients know, that one client disconnected
-        self:sendToAllBut(peer, NetworkUtils.events.disconnect2.name, { peer.name, peer.guid })
+        self:sendToAllBut(peer, NetworkUtils.events.disconnect2.name,
+                          { NetworkUtils.getNextNetworkMessageId(), peer.name, peer.guid })
     end
 
     ------------------------------------------------------------------------------------------------
     --- onPlayerInfo
     ------------------------------------------------------------------------------------------------
     --- Callback when Server sent his playerInfo to the client
-    --- @param data table { name, guid }
+    --- @param data table data { networkMessageId, name, guid }
     local function onPlayerInfo(data, peer)
+        logger:debug(logger.channels.network, "onPlayerInfo: Player info received.", util.pformat(data))
+
+        if util.IsEmpty(peer) then
+            error(("onConnect peer is empty: %s"):format(peer), 3)
+        end
+
+        if util.IsEmpty(data.networkMessageId) then
+            error(("onPlayerInfo data.networkMessageId is empty: %s"):format(data.networkMessageId), 3)
+        end
+
+        if util.IsEmpty(data.name) then
+            error(("onPlayerInfo data.name is empty: %s"):format(data.name), 3)
+        end
+
+        if util.IsEmpty(data.guid) then
+            error(("onPlayerInfo data.guid is empty: %s"):format(data.guid), 3)
+        end
+
         sendAck(data.networkMessageId, peer)
 
         for i, client in pairs(self.clients) do
@@ -161,12 +213,47 @@ function Server.new(sockServer)
     ------------------------------------------------------------------------------------------------
     --- onNeedNuid
     ------------------------------------------------------------------------------------------------
-
     local function onNeedNuid(data, peer)
-        sendAck(data.networkMessageId, peer)
+        logger:debug(logger.channels.network, ("Peer %s needs a new nuid. data = %s")
+                :format(util.pformat(peer), util.pformat(data)))
 
-        logger:debug(logger.channels.network,
-                     ("Peer %s needs a new nuid. data = %s"):format(util.pformat(peer), util.pformat(data)))
+        if util.IsEmpty(peer) then
+            error(("onNeedNuid peer is empty: %s"):format(peer), 3)
+        end
+
+        if util.IsEmpty(data.networkMessageId) then
+            error(("onNewNuid data.networkMessageId is empty: %s"):format(data.networkMessageId), 3)
+        end
+
+        if util.IsEmpty(data.owner) then
+            error(("onNewNuid data.owner is empty: %s"):format(data.owner), 3)
+        end
+
+        if util.IsEmpty(data.localEntityId) then
+            error(("onNewNuid data.localEntityId is empty: %s"):format(data.localEntityId), 3)
+        end
+
+        if util.IsEmpty(data.x) then
+            error(("onNewNuid data.x is empty: %s"):format(data.x), 3)
+        end
+
+        if util.IsEmpty(data.y) then
+            error(("onNewNuid data.y is empty: %s"):format(data.y), 3)
+        end
+
+        if util.IsEmpty(data.rotation) then
+            error(("onNewNuid data.rotation is empty: %s"):format(data.rotation), 3)
+        end
+
+        if util.IsEmpty(data.velocity) then
+            error(("onNewNuid data.velocity is empty: %s"):format(data.velocity), 3)
+        end
+
+        if util.IsEmpty(data.filename) then
+            error(("onNewNuid data.filename is empty: %s"):format(data.filename), 3)
+        end
+
+        sendAck(data.networkMessageId, peer)
 
         local owner         = data.owner
         local localEntityId = data.localEntityId
@@ -344,7 +431,7 @@ function Server.new(sockServer)
         --self:setSchema(NetworkUtils.events.seed.name, NetworkUtils.events.seed.schema)
         --self:on(NetworkUtils.events.seed.name, onSeed)
 
-        self:setSchema(NetworkUtils.events.playerInfo, NetworkUtils.events.playerInfo.schema)
+        self:setSchema(NetworkUtils.events.playerInfo.name, NetworkUtils.events.playerInfo.schema)
         self:on(NetworkUtils.events.playerInfo.name, onPlayerInfo)
 
         -- self:setSchema(NetworkUtils.events.newNuid.name, NetworkUtils.events.newNuid.schema)
@@ -454,16 +541,7 @@ function Server.new(sockServer)
 
     function self.sendNewNuid(owner, localEntityId, newNuid, x, y, rot, velocity, filename)
         self:sendToAll2("newNuid",
-                        {
-                            owner,
-                            localEntityId,
-                            newNuid,
-                            x,
-                            y,
-                            rot,
-                            velocity,
-                            filename
-                        })
+                        { NetworkUtils.getNextNetworkMessageId(), owner, localEntityId, newNuid, x, y, rot, velocity, filename })
     end
 
     --- Checks if the current local user is the server
