@@ -50,6 +50,7 @@ function Client.new(sockClient)
     self.name         = tostring(ModSettingGet("noita-mp.name"))
     -- guid might not be set here or will be overwritten at the end of the constructor. @see setGuid
     self.guid         = tostring(ModSettingGet("noita-mp.guid"))
+    self.nuid         = nil
     self.acknowledge  = {} -- sock.lua#Client:send -> self.acknowledge[packetsSent] = { event = event, data = data, entityId = data.entityId, status = NetworkUtils.events.acknowledgement.sent }
     self.transform    = { x = 0, y = 0 }
     self.health       = { current = 234, max = 2135 }
@@ -73,9 +74,9 @@ function Client.new(sockClient)
     local function setGuid()
         local guid = tostring(ModSettingGetNextValue("noita-mp.guid"))
 
-        --if DebugGetIsDevBuild() then
-        --    guid = ""
-        --end
+        if DebugGetIsDevBuild() then
+            guid = guid .. self.iAm
+        end
 
         if guid == "" or Guid.isPatternValid(guid) == false then
             guid = Guid:getGuid()
@@ -133,22 +134,6 @@ function Client.new(sockClient)
         end
 
         -- sendAck(data.networkMessageId)
-
-        local localPlayerInfo = util.getLocalPlayerInfo()
-        local name            = localPlayerInfo.name
-        local guid            = localPlayerInfo.guid
-        local entityId        = localPlayerInfo.entityId
-
-        self:send(NetworkUtils.events.playerInfo.name,
-                  { NetworkUtils.getNextNetworkMessageId(), name, guid })
-
-        if not NetworkVscUtils.hasNetworkLuaComponents(entityId) then
-            NetworkVscUtils.addOrUpdateAllVscs(entityId, name, guid, nil)
-        end
-
-        if not NetworkVscUtils.hasNuidSet(entityId) then
-            self.sendNeedNuid(name, guid, entityId)
-        end
     end
 
     ------------------------------------------------------------------------------------------------
@@ -190,7 +175,10 @@ function Client.new(sockClient)
 
         -- sendAck(data.networkMessageId)
 
+        EntityUtils.destroyByNuid(self.serverInfo.nuid)
+
         self.acknowledge  = {}
+        self.nuid         = nil
         self.otherClients = {}
         self.serverInfo   = {}
     end
@@ -242,10 +230,15 @@ function Client.new(sockClient)
             error(("onPlayerInfo data.guid is empty: %s"):format(data.guid), 3)
         end
 
+        if util.IsEmpty(data.nuid) then
+            error(("onPlayerInfo data.nuid is empty: %s"):format(data.nuid), 3)
+        end
+
         sendAck(data.networkMessageId)
 
         self.serverInfo.name = data.name
         self.serverInfo.guid = data.guid
+        self.serverInfo.nuid = data.nuid
     end
 
     ------------------------------------------------------------------------------------------------
@@ -274,6 +267,22 @@ function Client.new(sockClient)
         if localSeed ~= serversSeed then
             util.reloadMap(serversSeed)
         end
+
+        local localPlayerInfo = util.getLocalPlayerInfo()
+        local name            = localPlayerInfo.name
+        local guid            = localPlayerInfo.guid
+        local entityId        = localPlayerInfo.entityId
+
+        self:send(NetworkUtils.events.playerInfo.name,
+                  { NetworkUtils.getNextNetworkMessageId(), name, guid })
+
+        if not NetworkVscUtils.hasNetworkLuaComponents(entityId) then
+            NetworkVscUtils.addOrUpdateAllVscs(entityId, name, guid, nil)
+        end
+
+        if not NetworkVscUtils.hasNuidSet(entityId) then
+            self.sendNeedNuid(name, guid, entityId)
+        end
     end
 
     ------------------------------------------------------------------------------------------------
@@ -290,7 +299,7 @@ function Client.new(sockClient)
         end
 
         if util.IsEmpty(data.owner) then
-            error(("onNewNuid data.owner is empty: %s"):format(data.owner), 3)
+            error(("onNewNuid data.owner is empty: %s"):format(util.pformat(data.owner)), 3)
         end
 
         if util.IsEmpty(data.localEntityId) then
@@ -314,7 +323,7 @@ function Client.new(sockClient)
         end
 
         if util.IsEmpty(data.velocity) then
-            error(("onNewNuid data.velocity is empty: %s"):format(data.velocity), 3)
+            error(("onNewNuid data.velocity is empty: %s"):format(util.pformat(data.velocity)), 3)
         end
 
         if util.IsEmpty(data.filename) then
@@ -331,6 +340,12 @@ function Client.new(sockClient)
         local rotation      = data.rotation
         local velocity      = data.velocity
         local filename      = data.filename
+
+        if owner.guid == util.getLocalPlayerInfo().guid then
+            if localEntityId == util.getLocalPlayerInfo().entityId then
+                self.nuid = newNuid
+            end
+        end
 
         EntityUtils.SpawnEntity(owner, newNuid, x, y, rotation, velocity, filename, localEntityId)
     end
@@ -542,16 +557,19 @@ function Client.new(sockClient)
             return
         end
 
-        local x, y, rotation = EntityGetTransform(entityId)
-        local velocityCompId = EntityGetFirstComponent(entityId, "VelocityComponent")
-        local velocity       = {}
-        if velocityCompId then
-            local veloX, veloY = ComponentGetValue2(velocityCompId, "mVelocity")
-            velocity           = { veloX, veloY }
-        end
-        local filename = EntityGetFilename(entityId)
-        local data     = { NetworkUtils.getNextNetworkMessageId(), { ownerName, ownerGuid }, entityId, x, y, rotation, velocity,
-                           filename }
+        --local x, y, rotation = EntityGetTransform(entityId)
+        --local velocityCompId = EntityGetFirstComponent(entityId, "VelocityComponent")
+        --local velocity       = { 0, 0 }
+        --if velocityCompId then
+        --    local veloX, veloY = ComponentGetValue2(velocityCompId, "mVelocity")
+        --    velocity           = { veloX, veloY }
+        --end
+        --local filename = EntityGetFilename(entityId)
+
+        local x, y, rotation, velocity, filename = NoitaComponentUtils.getEntityData(entityId)
+        local data                               = { NetworkUtils.getNextNetworkMessageId(), { ownerName, ownerGuid },
+                                                     entityId, x, y, rotation, velocity, filename }
+
 
         --if not NetworkUtils.alreadySent(NetworkUtils.events.needNuid.name, data) then
         --    logger:info(logger.channels.network,

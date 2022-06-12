@@ -3,7 +3,7 @@ print("Initialise pathes, globals and extensions..")
 
 --#region
 -- github workflow stuff
-local varargs = { ... }
+local varargs          = { ... }
 local destination_path = nil
 if varargs and #varargs > 0 then
     print("'varargs' of init_.lua, see below:")
@@ -37,10 +37,12 @@ if ModSettingGet then
     require("GlobalsUtils")
     require("NetworkVscUtils")
     require("NetworkUtils")
+    require("NoitaComponentUtils")
     require("NuidUtils")
     require("guid")
     require("Server")
     require("Client")
 else
-    logger:warn(nil, "Utils didnt load in init_.lua, because it looks like the mod wasn't run in game, but maybe on Github.")
+    logger:warn(nil,
+                "Utils didnt load in init_.lua, because it looks like the mod wasn't run in game, but maybe on Github.")
 end

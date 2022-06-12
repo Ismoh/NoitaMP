@@ -33,7 +33,7 @@ NetworkUtils.events                  = {
     seed            = { name = "seed", schema = { "networkMessageId", "seed" } },
 
     --- playerInfo is used to send localPlayerInfo name and guid to all peers
-    playerInfo      = { name = "playerInfo", schema = { "networkMessageId", "name", "guid" } },
+    playerInfo      = { name = "playerInfo", schema = { "networkMessageId", "name", "guid", "nuid" } },
 
     --- newNuid is used to let clients spawn entities by the servers permission
     newNuid         = { name = "newNuid", schema = { "networkMessageId", "owner", "localEntityId", "newNuid", "x", "y", "rotation", "velocity", "filename" } },

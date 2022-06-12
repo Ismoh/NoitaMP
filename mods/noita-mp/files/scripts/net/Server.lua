@@ -49,6 +49,7 @@ function Server.new(sockServer)
     self.name        = tostring(ModSettingGet("noita-mp.name"))
     -- guid might not be set here or will be overwritten at the end of the constructor. @see setGuid
     self.guid        = tostring(ModSettingGet("noita-mp.guid"))
+    self.nuid        = nil
     self.acknowledge = {} -- sock.lua#Client:send -> self.acknowledge[packetsSent] = { event = event, data = data, entityId = data.entityId, status = NetworkUtils.events.acknowledgement.sent }
     self.transform   = { x = 0, y = 0 }
     self.health      = { current = 234, max = 2135 }
@@ -71,9 +72,9 @@ function Server.new(sockServer)
     local function setGuid()
         local guid = tostring(ModSettingGetNextValue("noita-mp.guid"))
 
-        --if DebugGetIsDevBuild() then
-        --    guid = ""
-        --end
+        if DebugGetIsDevBuild() then
+            guid = guid .. self.iAm
+        end
 
         if guid == "" or Guid.isPatternValid(guid) == false then
             guid = Guid:getGuid()
@@ -138,17 +139,22 @@ function Server.new(sockServer)
 
         -- sendAck(data.networkMessageId)
 
-        local localPlayerInfo = util.getLocalPlayerInfo()
-        local name            = localPlayerInfo.name
-        local guid            = localPlayerInfo.guid
+        local localPlayerInfo            = util.getLocalPlayerInfo()
+        local name                       = localPlayerInfo.name
+        local guid                       = localPlayerInfo.guid
+        local entityId                   = localPlayerInfo.entityId
+        local ownerName, ownerGuid, nuid = NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
 
         self:sendToPeer(peer, NetworkUtils.events.playerInfo.name,
-                        { NetworkUtils.getNextNetworkMessageId(), name, guid })
+                        { NetworkUtils.getNextNetworkMessageId(), name, guid, nuid })
         self:sendToPeer(peer, NetworkUtils.events.seed.name,
                         { NetworkUtils.getNextNetworkMessageId(), StatsGetValue("world_seed") })
         -- Let the other clients know, that one client connected
         self:sendToAllBut(peer, NetworkUtils.events.connect2.name,
                           { NetworkUtils.getNextNetworkMessageId(), peer.name, peer.guid })
+
+        local x, y, rotation, velocity, filename = NoitaComponentUtils.getEntityData(entityId)
+        self.sendNewNuid({ name, guid }, entityId, nuid, x, y, rotation, velocity, filename)
     end
 
     ------------------------------------------------------------------------------------------------
@@ -173,7 +179,8 @@ function Server.new(sockServer)
         logger:debug(logger.channels.network, "Disconnected from server!", util.pformat(data))
         -- Let the other clients know, that one client disconnected
         self:sendToAllBut(peer, NetworkUtils.events.disconnect2.name,
-                          { NetworkUtils.getNextNetworkMessageId(), peer.name, peer.guid })
+                          { NetworkUtils.getNextNetworkMessageId(), peer.name, peer.guid, peer.nuid })
+        EntityUtils.destroyByNuid(peer.nuid)
     end
 
     ------------------------------------------------------------------------------------------------
@@ -200,12 +207,17 @@ function Server.new(sockServer)
             error(("onPlayerInfo data.guid is empty: %s"):format(data.guid), 3)
         end
 
+        if util.IsEmpty(data.nuid) then
+            error(("onPlayerInfo data.nuid is empty: %s"):format(data.nuid), 3)
+        end
+
         sendAck(data.networkMessageId, peer)
 
         for i, client in pairs(self.clients) do
             if client == peer then
                 self.clients[i].name = data.name
                 self.clients[i].guid = data.guid
+                self.clients[i].nuid = data.nuid
             end
         end
     end
@@ -218,7 +230,7 @@ function Server.new(sockServer)
                 :format(util.pformat(peer), util.pformat(data)))
 
         if util.IsEmpty(peer) then
-            error(("onNeedNuid peer is empty: %s"):format(peer), 3)
+            error(("onNeedNuid peer is empty: %s"):format(util.pformat(peer)), 3)
         end
 
         if util.IsEmpty(data.networkMessageId) then
@@ -226,7 +238,7 @@ function Server.new(sockServer)
         end
 
         if util.IsEmpty(data.owner) then
-            error(("onNewNuid data.owner is empty: %s"):format(data.owner), 3)
+            error(("onNewNuid data.owner is empty: %s"):format(util.pformat(data.owner)), 3)
         end
 
         if util.IsEmpty(data.localEntityId) then
@@ -246,7 +258,7 @@ function Server.new(sockServer)
         end
 
         if util.IsEmpty(data.velocity) then
-            error(("onNewNuid data.velocity is empty: %s"):format(data.velocity), 3)
+            error(("onNewNuid data.velocity is empty: %s"):format(util.pformat(data.velocity)), 3)
         end
 
         if util.IsEmpty(data.filename) then
@@ -454,7 +466,6 @@ function Server.new(sockServer)
     local function updateVariables()
         local entityId = util.getLocalPlayerInfo().entityId
         if entityId then
-            ---@diagnostic disable-next-line: missing-parameter
             local hpCompId                    = EntityGetFirstComponentIncludingDisabled(entityId,
                                                                                          "DamageModelComponent")
             local hpCurrent                   = math.floor(tonumber(ComponentGetValue2(hpCompId, "hp")) * 25)
@@ -472,7 +483,7 @@ function Server.new(sockServer)
     local sockServerStart = sockServer.start
     --- Starts a server on ip and port. Both can be nil, then ModSettings will be used.
     --- @param ip string localhost or 127.0.0.1 or nil
-    --- @param port number 1 - 65535 or nil
+    --- @param port number port number from 1 to max of 65535 or nil
     function self.start(ip, port)
         if not ip then
             ip = tostring(ModSettingGet("noita-mp.server_ip"))
