@@ -18,7 +18,11 @@ NoitaComponentUtils = {}
 
 --#region Global public variables
 
-function NoitaComponentUtils.setEntityData(entityId, x, y, rotation, velocity)
+function NoitaComponentUtils.setEntityData(entityId, x, y, rotation, velocity, health)
+    if not EntityUtils.isEntityAlive(entityId) then
+        return
+    end
+
     EntityApplyTransform(entityId, x, y, rotation, 1, 1)
 
     local velocityCompId = EntityGetFirstComponent(entityId, "VelocityComponent")
@@ -30,15 +34,20 @@ function NoitaComponentUtils.setEntityData(entityId, x, y, rotation, velocity)
     end
 end
 
---- Fetches data like position, rotation, velocity and filename
+--- Fetches data like position, rotation, velocity, health and filename
 --- @param entityId number
---- @return number x
---- @return number y
+--- @return string filename
+--- @return table health { current, max }
 --- @return number rotation
 --- @return table velocity { x, y }
---- @return string filename
+--- @return number x
+--- @return number y
 function NoitaComponentUtils.getEntityData(entityId)
     -- owner?
+    local hpCompId       = EntityGetFirstComponentIncludingDisabled(entityId, "DamageModelComponent")
+    local hpCurrent      = math.floor(tonumber(ComponentGetValue2(hpCompId, "hp") or 0) * 25)
+    local hpMax          = math.floor(tonumber(ComponentGetValue2(hpCompId, "max_hp") or 0) * 25)
+    local health         = { current = hpCurrent, max = hpMax }
     local x, y, rotation = EntityGetTransform(entityId)
     local velocityCompId = EntityGetFirstComponent(entityId, "VelocityComponent")
     local velocity       = { 0, 0 }
@@ -47,7 +56,8 @@ function NoitaComponentUtils.getEntityData(entityId)
         velocity                   = { velocityX, velocityY }
     end
     local filename = EntityGetFilename(entityId)
-    return x, y, rotation, velocity, filename
+
+    return filename, health, rotation, velocity, x, y
 end
 
 function NoitaComponentUtils.getEntityDataByNuid(nuid)

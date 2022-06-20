@@ -74,10 +74,6 @@ function Client.new(sockClient)
     local function setGuid()
         local guid = tostring(ModSettingGetNextValue("noita-mp.guid"))
 
-        if DebugGetIsDevBuild() then
-            guid = guid .. self.iAm
-        end
-
         if guid == "" or Guid.isPatternValid(guid) == false then
             guid = Guid:getGuid()
             ModSettingSetNextValue("noita-mp.guid", guid, false)
@@ -85,6 +81,10 @@ function Client.new(sockClient)
             logger:debug(logger.channels.network, "Clients guid set to " .. guid)
         else
             logger:debug(logger.channels.network, "Clients guid was already set to " .. guid)
+        end
+
+        if DebugGetIsDevBuild() then
+            guid = guid .. self.iAm
         end
     end
 
@@ -350,6 +350,60 @@ function Client.new(sockClient)
         EntityUtils.SpawnEntity(owner, newNuid, x, y, rotation, velocity, filename, localEntityId)
     end
 
+    local function onEntityData(data)
+        logger:debug(logger.channels.network, ("Received entityData for nuid = %s! data = %s")
+                :format(data.nuid, util.pformat(data)))
+
+        if util.IsEmpty(data.networkMessageId) then
+            error(("onNewNuid data.networkMessageId is empty: %s"):format(data.networkMessageId), 3)
+        end
+
+        if util.IsEmpty(data.owner) then
+            error(("onNewNuid data.owner is empty: %s"):format(util.pformat(data.owner)), 3)
+        end
+
+        --if util.IsEmpty(data.localEntityId) then
+        --    error(("onNewNuid data.localEntityId is empty: %s"):format(data.localEntityId), 3)
+        --end
+
+        if util.IsEmpty(data.nuid) then
+            error(("onNewNuid data.nuid is empty: %s"):format(data.nuid), 3)
+        end
+
+        if util.IsEmpty(data.x) then
+            error(("onNewNuid data.x is empty: %s"):format(data.x), 3)
+        end
+
+        if util.IsEmpty(data.y) then
+            error(("onNewNuid data.y is empty: %s"):format(data.y), 3)
+        end
+
+        if util.IsEmpty(data.rotation) then
+            error(("onNewNuid data.rotation is empty: %s"):format(data.rotation), 3)
+        end
+
+        if util.IsEmpty(data.velocity) then
+            error(("onNewNuid data.velocity is empty: %s"):format(util.pformat(data.velocity)), 3)
+        end
+
+        if util.IsEmpty(data.health) then
+            error(("onNewNuid data.health is empty: %s"):format(data.health), 3)
+        end
+
+        sendAck(data.networkMessageId)
+
+        local owner                = data.owner
+        local nnuid, localEntityId = GlobalsUtils.getNuidEntityPair(data.nuid)
+        local nuid                 = data.nuid
+        local x                    = data.x
+        local y                    = data.y
+        local rotation             = data.rotation
+        local velocity             = data.velocity
+        local health               = data.health
+
+        NoitaComponentUtils.setEntityData(localEntityId, x, y, rotation, velocity, health)
+    end
+
     -- self:on(
     --     "entityAlive",
     --     function(data)
@@ -415,6 +469,9 @@ function Client.new(sockClient)
         self:setSchema(NetworkUtils.events.newNuid.name, NetworkUtils.events.newNuid.schema)
         self:on(NetworkUtils.events.newNuid.name, onNewNuid)
 
+        self:setSchema(NetworkUtils.events.entityData.name, NetworkUtils.events.entityData.schema)
+        self:on(NetworkUtils.events.entityData.name, onEntityData)
+
         -- self:setSchema("duplicatedGuid", { "newGuid" })
         -- self:setSchema("worldFiles", { "relDirPath", "fileName", "fileContent", "fileIndex", "amountOfFiles" })
         -- self:setSchema("worldFilesFinished", { "progress" })
@@ -429,13 +486,9 @@ function Client.new(sockClient)
     local function updateVariables()
         local entityId = util.getLocalPlayerInfo().entityId
         if entityId then
-            local hpCompId                    = EntityGetFirstComponentIncludingDisabled(entityId,
-                                                                                         "DamageModelComponent")
-            local hpCurrent                   = math.floor(tonumber(ComponentGetValue2(hpCompId, "hp")) * 25)
-            local hpMax                       = math.floor(tonumber(ComponentGetValue2(hpCompId, "max_hp")) * 25)
-            self.health                       = { current = hpCurrent, max = hpMax }
-            local x, y, rot, scale_x, scale_y = EntityGetTransform(entityId)
-            self.transform                    = { x = math.floor(x), y = math.floor(y) }
+            local filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
+            self.health                                      = health
+            self.transform                                   = { x = math.floor(x), y = math.floor(y) }
         end
     end
 
@@ -518,6 +571,7 @@ function Client.new(sockClient)
 
         EntityUtils.destroyClientEntities()
         EntityUtils.initNetworkVscs()
+        EntityUtils.syncEntityData()
 
         sockClientUpdate(self)
     end
@@ -566,9 +620,9 @@ function Client.new(sockClient)
         --end
         --local filename = EntityGetFilename(entityId)
 
-        local x, y, rotation, velocity, filename = NoitaComponentUtils.getEntityData(entityId)
-        local data                               = { NetworkUtils.getNextNetworkMessageId(), { ownerName, ownerGuid },
-                                                     entityId, x, y, rotation, velocity, filename }
+        local filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
+        local data                                       = { NetworkUtils.getNextNetworkMessageId(), { ownerName, ownerGuid },
+                                                             entityId, x, y, rotation, velocity, filename }
 
 
         --if not NetworkUtils.alreadySent(NetworkUtils.events.needNuid.name, data) then
@@ -578,6 +632,25 @@ function Client.new(sockClient)
         --end
 
         self:send(NetworkUtils.events.needNuid.name, data)
+    end
+
+    function self.sendEntityData(entityId)
+        if not EntityUtils.isEntityAlive(entityId) then
+            return
+        end
+
+        local compOwnerName, compOwnerGuid, compNuid     = NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
+        local filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
+        local data                                       = {
+            NetworkUtils.getNextNetworkMessageId(), { compOwnerName, compOwnerGuid }, compNuid, x, y, rotation, velocity, health
+        }
+
+        if util.IsEmpty(compNuid) then
+            -- this can happen, when entity spawned on client and network is slow
+            logger:error(logger.channels.network, "Unable to send entity data, because nuid is empty.")
+        end
+
+        self:send(NetworkUtils.events.entityData.name, data)
     end
 
     --- Checks if the current local user is a client

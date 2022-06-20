@@ -58,6 +58,7 @@ I wouldn't be able to create this mod without the help by
 - [@shebpamm](https://github.com/shebpamm)
 - @Coxas/Thighs
 - [@dextercd](https://github.com/dextercd)
+- [@BlueAmulet](https://github.com/BlueAmulet)
 
 I appreaciate your help a lot!
 If you spot anything I should mention, feel free to create a issue or get in touch with [me](https://github.com/Ismoh)!

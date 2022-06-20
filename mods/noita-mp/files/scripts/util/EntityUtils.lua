@@ -54,11 +54,11 @@ local function filterEntities(entities, include, exclude)
             local excluded = entityMatches(entityId, exclude.byFilename, exclude.byComponentsName)
 
             if included and not excluded then
-                local isNetworkEntity         = NetworkVscUtils.isNetworkEntityByNuidVsc(entityId)
-                local hasNetworkLuaComponents = NetworkVscUtils.hasNetworkLuaComponents(entityId)
-                if not isNetworkEntity and not hasNetworkLuaComponents then
-                    table.insert(filteredEntities, entityId)
-                end
+                -- local isNetworkEntity         = NetworkVscUtils.isNetworkEntityByNuidVsc(entityId)
+                -- local hasNetworkLuaComponents = NetworkVscUtils.hasNetworkLuaComponents(entityId)
+                -- if not isNetworkEntity and not hasNetworkLuaComponents then
+                table.insert(filteredEntities, entityId)
+                -- end
             end
         end
     end
@@ -150,30 +150,36 @@ function EntityUtils.initNetworkVscs()
     local owner            = localOwner
 
     for i = 1, #filteredEntities do
-        local entityId = filteredEntities[i]
+        local entityId                = filteredEntities[i]
 
-        if EntityUtils.isEntityAlive(entityId) then
-            local nuid          = nil
-            local compId, value = NetworkVscUtils.isNetworkEntityByNuidVsc(entityId)
+        local isNetworkEntity         = NetworkVscUtils.isNetworkEntityByNuidVsc(entityId)
+        local hasNetworkLuaComponents = NetworkVscUtils.hasNetworkLuaComponents(entityId)
+        if not isNetworkEntity and not hasNetworkLuaComponents then
 
-            if not compId or value == "" or value == nil then
-                -- if a nuid on an entity already exists, don't get a new nuid
-                if _G.whoAmI() == _G.Server.iAm then
-                    nuid = NuidUtils.getNextNuid()
+            if EntityUtils.isEntityAlive(entityId) then
+                local nuid          = nil
+                local compId, value = NetworkVscUtils.isNetworkEntityByNuidVsc(entityId)
+
+                if not compId or value == "" or value == nil then
+                    -- if a nuid on an entity already exists, don't get a new nuid
+                    if _G.whoAmI() == _G.Server.iAm then
+                        nuid = NuidUtils.getNextNuid()
+                    else
+                        _G.Client.sendNeedNuid(owner.name, owner.guid, entityId)
+                    end
                 else
-                    _G.Client.sendNeedNuid(owner.name, owner.guid, entityId)
+                    nuid = tonumber(value)
                 end
-            else
-                nuid = tonumber(value)
+
+                NetworkVscUtils.addOrUpdateAllVscs(entityId, owner.name, owner.guid, nuid)
+
+                if _G.whoAmI() == _G.Server.iAm then
+                    GlobalsUtils.setNuid(nuid, entityId)
+                    local filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
+                    _G.Server.sendNewNuid(owner, entityId, nuid, x, y, rotation, velocity, filename)
+                end
             end
 
-            NetworkVscUtils.addOrUpdateAllVscs(entityId, owner.name, owner.guid, nuid)
-
-            if _G.whoAmI() == _G.Server.iAm then
-                GlobalsUtils.setNuid(nuid, entityId)
-                local x, y, rotation, velocity, filename = NoitaComponentUtils.getEntityData(entityId)
-                _G.Server.sendNewNuid(owner, entityId, nuid, x, y, rotation, velocity, filename)
-            end
         end
     end
 end
@@ -227,6 +233,31 @@ function EntityUtils.SpawnEntity(owner, nuid, x, y, rotation, velocity, filename
     NoitaComponentUtils.setEntityData(entityId, x, y, rotation, velocity)
 
     return entityId
+end
+
+function EntityUtils.syncEntityData()
+    local radius           = tonumber(ModSettingGetNextValue("noita-mp.radius_include_entities"))
+    local filteredEntities = getFilteredEntities(radius, EntityUtils.include, EntityUtils.exclude)
+
+    for i = 1, #filteredEntities do
+        local entityId                = filteredEntities[i]
+        local isNetworkEntity         = NetworkVscUtils.isNetworkEntityByNuidVsc(entityId)
+        local hasNetworkLuaComponents = NetworkVscUtils.hasNetworkLuaComponents(entityId)
+        if isNetworkEntity and hasNetworkLuaComponents then
+            local clientOrServer = nil
+
+            if _G.whoAmI() == Client.iAm then
+                clientOrServer = Client
+            elseif _G.whoAmI() == Server.iAm then
+                clientOrServer = Server
+            else
+                error("Unable to identify whether I am Client or Server..", 3)
+            end
+
+            clientOrServer.sendEntityData(entityId)
+        end
+
+    end
 end
 
 function EntityUtils.destroyClientEntities()

@@ -36,10 +36,16 @@ NetworkUtils.events                  = {
     playerInfo      = { name = "playerInfo", schema = { "networkMessageId", "name", "guid", "nuid" } },
 
     --- newNuid is used to let clients spawn entities by the servers permission
-    newNuid         = { name = "newNuid", schema = { "networkMessageId", "owner", "localEntityId", "newNuid", "x", "y", "rotation", "velocity", "filename" } },
+    newNuid         = { name = "newNuid", schema = { "networkMessageId", "owner", "localEntityId", "newNuid", "x",
+                                                     "y", "rotation", "velocity", "filename" } },
 
     --- needNuid is used to ask for a nuid from client to servers
-    needNuid        = { name = "needNuid", schema = { "networkMessageId", "owner", "localEntityId", "x", "y", "rotation", "velocity", "filename" } }
+    needNuid        = { name = "needNuid", schema = { "networkMessageId", "owner", "localEntityId", "x", "y",
+                                                      "rotation", "velocity", "filename" } },
+
+    --- entityData is used to sync position, velocity and health
+    entityData      = { name = "entityData", schema = { "networkMessageId", "owner", "nuid", "x", "y", "rotation",
+                                                        "velocity", "health" } }
 }
 
 function NetworkUtils.getNextNetworkMessageId()

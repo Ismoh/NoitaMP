@@ -42,12 +42,6 @@ local function getUniqueness()
     end
     file:close()
 
-    if DebugGetIsDevBuild() then
-        result = result .. "noita_dev.exe"
-    else
-        result = result .. "noita.exe"
-    end
-
     local number = ""
     for i = 1, string.len(result) do
         local char = string.sub(result, i, i)
@@ -71,30 +65,41 @@ function Guid:getGuid()
     local counter = 0
     repeat
         guid = string.gsub(
-            guid,
-            x,
-            function(c)
-                local is_digit = math.random(0, 1)
-                if is_digit == 1 then
-                    return self.getRandomRange_0_to_9()
+                guid,
+                x,
+                function()
+                    local is_digit = math.random(0, 1)
+                    if is_digit == 1 then
+                        return self.getRandomRange_0_to_9()
+                    end
+                    return self.getRandomRange_aA_to_fF()
                 end
-                return self.getRandomRange_aA_to_fF()
-            end
         )
+
+        --if counter == 99 then
+        --    if DebugGetIsDevBuild() then
+        --        guid = guid .. "noita_dev.exe"
+        --    else
+        --        guid = guid .. "noita.exe"
+        --    end
+        --end
+
         is_valid = self.isPatternValid(guid)
         is_unique = self:isUnique(guid)
         logger:debug(logger.channels.guid,
-            "GUID (%s) is valid=%s and unique=%s. Generating GUID run-number %s",
-            guid,
-            is_valid,
-            is_unique,
-            counter
+                     "GUID (%s) is valid=%s and unique=%s. Generating GUID run-number %s",
+                     guid,
+                     is_valid,
+                     is_unique,
+                     counter
         )
 
         counter = counter + 1
+
         if counter > 100 then
-            local msg =
-            string.format("Tried to generate GUID %s times. Stopped it for now! This is a serious bug!", counter)
+            -- TODO: get rid of this!
+            local msg = string.format("Tried to generate GUID %s times. Stopped it for now! This is a serious bug!",
+                                      counter)
             logger:error(msg)
             error(msg, 2)
             break
