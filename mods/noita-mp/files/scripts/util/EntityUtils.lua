@@ -28,8 +28,13 @@ local localOwner = {
 --- Filters a table of entities by component name or filename. This include and exclude map is defined in EntityUtils.include/.exclude.
 --- Credits to @Horscht#6086!
 --- @param entities table Usually all entities in a specific radius to the player.
+--- @param include
+--- @param exclude
+--- @param additionalCheck1 function which has to return true of false, but can also be nil: additionalChecks1
+--- @param additionalCheck2 function which has to return true of false, but can also be nil: additionalChecks2
+--- @param additionalCheck3 function which has to return true of false, but can also be nil: additionalChecks3
 --- @return table filteredEntities
-local function filterEntities(entities, include, exclude)
+local function filterEntities(entities, include, exclude, additionalCheck1, additionalCheck2, additionalCheck3)
     local filteredEntities = {}
 
     local function entityMatches(entityId, filenames, componentNames)
@@ -57,7 +62,25 @@ local function filterEntities(entities, include, exclude)
                 -- local isNetworkEntity         = NetworkVscUtils.isNetworkEntityByNuidVsc(entityId)
                 -- local hasNetworkLuaComponents = NetworkVscUtils.hasNetworkLuaComponents(entityId)
                 -- if not isNetworkEntity and not hasNetworkLuaComponents then
-                table.insert(filteredEntities, entityId)
+
+                local addCheck1 = true
+                if additionalCheck1 then
+                    addCheck1 = additionalCheck1(entityId)
+                end
+
+                local addCheck2 = true
+                if additionalCheck2 then
+                    addCheck2 = additionalCheck2(entityId)
+                end
+
+                local addCheck3 = true
+                if additionalCheck3 then
+                    addCheck3 = additionalCheck3(entityId)
+                end
+
+                if addCheck1 and addCheck2 and addCheck3 then
+                    table.insert(filteredEntities, entityId)
+                end
                 -- end
             end
         end
@@ -68,9 +91,13 @@ end
 
 --- Gets all entities in a specific radius to the player entities. This can only be executed by server. Entities are filtered by EntityUtils.include/.exclude.
 --- @param radius number radius to detect entities.
+--- @param include
+--- @param exclude
+--- @param additionalCheck1 function which has to return true of false, but can also be nil
+--- @param additionalCheck2 function which has to return true of false, but can also be nil
 --- @return table filteredEntities
-local function getFilteredEntities(radius, include, exclude)
-    local entities = {}
+local function getFilteredEntities(radius, include, exclude, additionalCheck1, additionalCheck2)
+    local entities      = {}
 
     local playerUnitIds = EntityGetWithTag("player_unit")
     for i = 1, #playerUnitIds do
@@ -78,12 +105,12 @@ local function getFilteredEntities(radius, include, exclude)
         local x, y, rot, scaleX, scaleY = EntityGetTransform(playerUnitIds[i])
 
         -- find all entities in a specific radius based on the player units position
-        local entityIds = EntityGetInRadius(x, y, radius) or {}
+        local entityIds                 = EntityGetInRadius(x, y, radius) or {}
 
         table.insertAllButNotDuplicates(entities, entityIds)
     end
 
-    return filterEntities(entities, include, exclude)
+    return filterEntities(entities, include, exclude, additionalCheck1, additionalCheck2)
 end
 
 --#endregion
@@ -146,7 +173,14 @@ function EntityUtils.initNetworkVscs()
     -- end
 
     local radius           = tonumber(ModSettingGetNextValue("noita-mp.radius_include_entities"))
-    local filteredEntities = getFilteredEntities(radius, EntityUtils.include, EntityUtils.exclude)
+    local filteredEntities = getFilteredEntities(radius, EntityUtils.include, EntityUtils.exclude,
+                                                 function(entityId)
+                                                     return not NetworkVscUtils.isNetworkEntityByNuidVsc(entityId)
+                                                 end,
+                                                 function(entityId)
+                                                     return not
+                                                     NetworkVscUtils.hasNetworkLuaComponents(entityId)
+                                                 end)
     local owner            = localOwner
 
     for i = 1, #filteredEntities do
@@ -236,27 +270,68 @@ function EntityUtils.SpawnEntity(owner, nuid, x, y, rotation, velocity, filename
 end
 
 function EntityUtils.syncEntityData()
-    local radius           = tonumber(ModSettingGetNextValue("noita-mp.radius_include_entities"))
-    local filteredEntities = getFilteredEntities(radius, EntityUtils.include, EntityUtils.exclude)
+    local clientOrServer = nil
 
-    for i = 1, #filteredEntities do
-        local entityId                = filteredEntities[i]
-        local isNetworkEntity         = NetworkVscUtils.isNetworkEntityByNuidVsc(entityId)
-        local hasNetworkLuaComponents = NetworkVscUtils.hasNetworkLuaComponents(entityId)
-        if isNetworkEntity and hasNetworkLuaComponents then
-            local clientOrServer = nil
+    if _G.whoAmI() == Client.iAm then
+        clientOrServer = Client
+    elseif _G.whoAmI() == Server.iAm then
+        clientOrServer = Server
+    else
+        error("Unable to identify whether I am Client or Server..", 3)
+    end
 
-            if _G.whoAmI() == Client.iAm then
-                clientOrServer = Client
-            elseif _G.whoAmI() == Server.iAm then
-                clientOrServer = Server
-            else
-                error("Unable to identify whether I am Client or Server..", 3)
-            end
+    local anythingChanged  = function(entityId)
+        local filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
 
-            clientOrServer.sendEntityData(entityId)
+        if clientOrServer.entityCache[entityId] == nil then
+            clientOrServer.entityCache[entityId] = { health = health, rotation = rotation, velocity = velocity, x = x, y = y }
+            return true
         end
 
+        if clientOrServer.entityCache[entityId].health.current ~= health.current then
+            clientOrServer.entityCache[entityId] = { health = health, rotation = rotation, velocity = velocity, x = x, y = y }
+            return true
+        end
+
+        if clientOrServer.entityCache[entityId].health.max ~= health.max then
+            clientOrServer.entityCache[entityId] = { health = health, rotation = rotation, velocity = velocity, x = x, y = y }
+            return true
+        end
+
+        if clientOrServer.entityCache[entityId].rotation ~= rotation then
+            clientOrServer.entityCache[entityId] = { health = health, rotation = rotation, velocity = velocity, x = x, y = y }
+            return true
+        end
+
+        if clientOrServer.entityCache[entityId].velocity[1] ~= velocity[1] then
+            clientOrServer.entityCache[entityId] = { health = health, rotation = rotation, velocity = velocity, x = x, y = y }
+            return true
+        end
+
+        if clientOrServer.entityCache[entityId].velocity[2] ~= velocity[2] then
+            clientOrServer.entityCache[entityId] = { health = health, rotation = rotation, velocity = velocity, x = x, y = y }
+            return true
+        end
+
+        if clientOrServer.entityCache[entityId].x ~= x then
+            clientOrServer.entityCache[entityId] = { health = health, rotation = rotation, velocity = velocity, x = x, y = y }
+            return true
+        end
+
+        if clientOrServer.entityCache[entityId].y ~= y then
+            clientOrServer.entityCache[entityId] = { health = health, rotation = rotation, velocity = velocity, x = x, y = y }
+            return true
+        end
+    end
+
+    local radius           = tonumber(ModSettingGetNextValue("noita-mp.radius_include_entities"))
+    local filteredEntities = getFilteredEntities(radius, EntityUtils.include, EntityUtils.exclude,
+                                                 NetworkVscUtils.isNetworkEntityByNuidVsc,
+                                                 anythingChanged)
+
+    for i = 1, #filteredEntities do
+        local entityId = filteredEntities[i]
+        clientOrServer.sendEntityData(entityId)
     end
 end
 

@@ -53,11 +53,11 @@ function NoitaComponentUtils.getEntityData(entityId)
     local velocity       = { 0, 0 }
     if velocityCompId then
         local velocityX, velocityY = ComponentGetValue2(velocityCompId, "mVelocity")
-        velocity                   = { velocityX, velocityY }
+        velocity = { math.floor(velocityX), math.floor(velocityY) }
     end
     local filename = EntityGetFilename(entityId)
 
-    return filename, health, rotation, velocity, x, y
+    return filename, health, math.floor(rotation), velocity, math.floor(x), math.floor(y)
 end
 
 function NoitaComponentUtils.getEntityDataByNuid(nuid)

@@ -56,6 +56,7 @@ function Client.new(sockClient)
     self.health       = { current = 234, max = 2135 }
     self.serverInfo   = {}
     self.otherClients = {}
+    self.entityCache  = {}
 
     ------------------------------------
     --- Private methods:
@@ -648,9 +649,13 @@ function Client.new(sockClient)
         if util.IsEmpty(compNuid) then
             -- this can happen, when entity spawned on client and network is slow
             logger:error(logger.channels.network, "Unable to send entity data, because nuid is empty.")
+            self.sendNeedNuid(compOwnerName, compOwnerGuid, entityId)
+            return
         end
 
-        self:send(NetworkUtils.events.entityData.name, data)
+        if util.getLocalPlayerInfo().guid == compOwnerGuid then
+            self:send(NetworkUtils.events.entityData.name, data)
+        end
     end
 
     --- Checks if the current local user is a client

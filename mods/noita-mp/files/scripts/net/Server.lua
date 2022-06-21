@@ -53,6 +53,7 @@ function Server.new(sockServer)
     self.acknowledge = {} -- sock.lua#Client:send -> self.acknowledge[packetsSent] = { event = event, data = data, entityId = data.entityId, status = NetworkUtils.events.acknowledgement.sent }
     self.transform   = { x = 0, y = 0 }
     self.health      = { current = 234, max = 2135 }
+    self.entityCache = {}
 
 
     ------------------------------------
@@ -137,7 +138,7 @@ function Server.new(sockServer)
             error(("onConnect data is empty: %s"):format(data), 3)
         end
 
-        -- sendAck(data.networkMessageId)
+        -- sendAck(data.networkMessageId, peer)
 
         local localPlayerInfo            = util.getLocalPlayerInfo()
         local name                       = localPlayerInfo.name
@@ -320,7 +321,7 @@ function Server.new(sockServer)
             error(("onNewNuid data.health is empty: %s"):format(data.health), 3)
         end
 
-        sendAck(data.networkMessageId)
+        sendAck(data.networkMessageId, peer)
 
         local owner                = data.owner
         local nnuid, localEntityId = GlobalsUtils.getNuidEntityPair(data.nuid)
@@ -625,9 +626,12 @@ function Server.new(sockServer)
         if util.IsEmpty(compNuid) then
             -- nuid must not be empty, when Server!
             logger:error(logger.channels.network, "Unable to send entity data, because nuid is empty.")
+            return
         end
 
-        self:sendToAll2(NetworkUtils.events.entityData.name, data)
+        if util.getLocalPlayerInfo().guid == compOwnerGuid then
+            self:sendToAll2(NetworkUtils.events.entityData.name, data)
+        end
     end
 
     --- Checks if the current local user is the server
