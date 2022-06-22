@@ -45,19 +45,19 @@ end
 function NoitaComponentUtils.getEntityData(entityId)
     -- owner?
     local hpCompId       = EntityGetFirstComponentIncludingDisabled(entityId, "DamageModelComponent")
-    local hpCurrent      = math.floor(tonumber(ComponentGetValue2(hpCompId, "hp") or 0) * 25)
-    local hpMax          = math.floor(tonumber(ComponentGetValue2(hpCompId, "max_hp") or 0) * 25)
+    local hpCurrent      = math.round(tonumber(ComponentGetValue2(hpCompId, "hp") or 0) * 25, 0.01)
+    local hpMax          = math.round(tonumber(ComponentGetValue2(hpCompId, "max_hp") or 0) * 25, 0.01)
     local health         = { current = hpCurrent, max = hpMax }
     local x, y, rotation = EntityGetTransform(entityId)
     local velocityCompId = EntityGetFirstComponent(entityId, "VelocityComponent")
     local velocity       = { 0, 0 }
     if velocityCompId then
         local velocityX, velocityY = ComponentGetValue2(velocityCompId, "mVelocity")
-        velocity = { math.floor(velocityX), math.floor(velocityY) }
+        velocity                   = { math.round(velocityX, 0.01), math.round(velocityY, 0.01) }
     end
     local filename = EntityGetFilename(entityId)
 
-    return filename, health, math.floor(rotation), velocity, math.floor(x), math.floor(y)
+    return filename, health, math.round(rotation, 0.01), velocity, math.round(x, 0.01), math.round(y, 0.01)
 end
 
 function NoitaComponentUtils.getEntityDataByNuid(nuid)

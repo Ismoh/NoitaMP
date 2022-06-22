@@ -281,6 +281,33 @@ function Server.new(sockServer)
         EntityUtils.SpawnEntity(owner, newNuid, x, y, rotation, velocity, filename, localEntityId)
     end
 
+    ------------------------------------------------------------------------------------------------
+    --- onLostNuid
+    ------------------------------------------------------------------------------------------------
+    local function onLostNuid(data, peer)
+        logger:debug(logger.channels.network, ("Peer %s lost a nuid and ask for the entity to spawn. data = %s")
+                :format(util.pformat(peer), util.pformat(data)))
+
+        if util.IsEmpty(peer) then
+            error(("onLostNuid peer is empty: %s"):format(util.pformat(peer)), 3)
+        end
+
+        if util.IsEmpty(data.networkMessageId) then
+            error(("onLostNuid data.networkMessageId is empty: %s"):format(data.networkMessageId), 3)
+        end
+
+        if util.IsEmpty(data.nuid) then
+            error(("onLostNuid data.nuid is empty: %s"):format(util.pformat(data.nuid)), 3)
+        end
+
+        local nuid, entityId                             = GlobalsUtils.getNuidEntityPair(data.nuid)
+        local compOwnerName, compOwnerGuid, compNuid     = NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
+        local filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
+
+        self.sendNewNuid({ compOwnerName, compOwnerGuid },
+                         "unknown", nuid, x, y, rotation, velocity, filename)
+    end
+
     local function onEntityData(data, peer)
         logger:debug(logger.channels.network, ("Received entityData for nuid = %s! data = %s")
                 :format(data.nuid, util.pformat(data)))
@@ -508,6 +535,9 @@ function Server.new(sockServer)
 
         self:setSchema(NetworkUtils.events.needNuid.name, NetworkUtils.events.needNuid.schema)
         self:on(NetworkUtils.events.needNuid.name, onNeedNuid)
+
+        self:setSchema(NetworkUtils.events.lostNuid.name, NetworkUtils.events.lostNuid.schema)
+        self:on(NetworkUtils.events.lostNuid.name, onLostNuid)
 
         self:setSchema(NetworkUtils.events.entityData.name, NetworkUtils.events.entityData.schema)
         self:on(NetworkUtils.events.entityData.name, onEntityData)

@@ -34,7 +34,7 @@ local localOwner = {
 --- @param additionalCheck2 function which has to return true of false, but can also be nil: additionalChecks2
 --- @param additionalCheck3 function which has to return true of false, but can also be nil: additionalChecks3
 --- @return table filteredEntities
-local function filterEntities(entities, include, exclude, additionalCheck1, additionalCheck2, additionalCheck3)
+local function filterEntities(entities, include, exclude, additionalCheck1, additionalCheck2)
     local filteredEntities = {}
 
     local function entityMatches(entityId, filenames, componentNames)
@@ -73,12 +73,7 @@ local function filterEntities(entities, include, exclude, additionalCheck1, addi
                     addCheck2 = additionalCheck2(entityId)
                 end
 
-                local addCheck3 = true
-                if additionalCheck3 then
-                    addCheck3 = additionalCheck3(entityId)
-                end
-
-                if addCheck1 and addCheck2 and addCheck3 then
+                if addCheck1 and addCheck2 then
                     table.insert(filteredEntities, entityId)
                 end
                 -- end
@@ -117,18 +112,23 @@ end
 
 --#region Global public variables
 
--- include and exclude list is inside mods\noita-mp\config.lua
+EntityUtils.localPlayerEntityId = -1
 
 --#endregion
 
 --#region Global public functions
 
 function EntityUtils.getLocalPlayerEntityId()
+    if EntityUtils.isEntityAlive(EntityUtils.localPlayerEntityId) then
+        return EntityUtils.localPlayerEntityId
+    end
+
     local playerEntityIds = EntityGetWithTag("player_unit")
     for i = 1, #playerEntityIds do
         if NetworkVscUtils.hasNetworkLuaComponents(playerEntityIds[i]) then
             local compOwnerName, compOwnerGuid, compNuid = NetworkVscUtils.getAllVcsValuesByEntityId(playerEntityIds[i])
             if compOwnerGuid == localOwner.guid then
+                EntityUtils.localPlayerEntityId = playerEntityIds[i]
                 return playerEntityIds[i]
             end
         end
@@ -160,7 +160,7 @@ function EntityUtils.isEntityAlive(entityId)
     if EntityGetIsAlive(entityId) then
         return entityId
     end
-    logger:warn(logger.channels.entity, "Entity (%s) isn't alive anymore! Returning nil.", entityId)
+    logger:warn(logger.channels.entity, ("Entity (%s) isn't alive anymore! Returning nil."):format(entityId))
     return nil
 end
 
@@ -342,8 +342,14 @@ function EntityUtils.destroyClientEntities()
 
     local radius           = tonumber(ModSettingGetNextValue("noita-mp.radius_exclude_entities"))
     local x, y             = EntityGetTransform(EntityUtils.getLocalPlayerEntityId())
-    local filteredEntities = EntityGetInRadiusWithTag(x, y, radius,
-                                                      "enemy") or {} --getFilteredEntities(radius, EntityUtils.include, EntityUtils.exclude)
+    local filteredEntities = getFilteredEntities(radius, EntityUtils.include, EntityUtils.exclude,
+                                                 function(entityId)
+                                                     return not NetworkVscUtils.isNetworkEntityByNuidVsc(entityId)
+                                                 end,
+                                                 function(entityId)
+                                                     return not
+                                                     NetworkVscUtils.hasNetworkLuaComponents(entityId)
+                                                 end)
 
     if #filteredEntities > 0 then
         -- local playerUnitIds = EntityGetWithTag("player_unit")

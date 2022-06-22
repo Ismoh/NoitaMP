@@ -19,6 +19,7 @@ end
 
 dofile("mods/noita-mp/files/scripts/extensions/table_extensions.lua")
 dofile("mods/noita-mp/files/scripts/extensions/string_extensions.lua")
+dofile("mods/noita-mp/files/scripts/extensions/mathExtensions.lua")
 dofile("mods/noita-mp/files/scripts/init/init_logger.lua")
 local init_package_loading = dofile("mods/noita-mp/files/scripts/init/init_package_loading.lua")
 if destination_path then

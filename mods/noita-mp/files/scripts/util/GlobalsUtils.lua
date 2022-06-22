@@ -6,6 +6,7 @@
 --if not EntityUtils then
 --    EntityUtils = dofile_once("mods/noita-mp/files/scripts/util/EntityUtils.lua")
 --end
+--local util = dofile_once("mods/noita-mp/files/scripts/util/util.lua")
 
 -----------------
 -- GlobalsUtils:
@@ -48,12 +49,19 @@ function GlobalsUtils.parseXmlValueToNuidAndEntityId(xmlKey, xmlValue)
     end
 
     local entityId = nil
-    if xmlValue and xmlValue ~= "" then -- can be empty or nil, when there is no entityId stored in Noitas Globals
+    if xmlValue and xmlValue ~= "" then
+        -- can be empty or nil, when there is no entityId stored in Noitas Globals
         local foundEntityId = string.find(xmlValue, GlobalsUtils.nuidValueSubstring, 1, true)
         if foundEntityId ~= nil then
             entityId = tonumber(string.sub(xmlValue, GlobalsUtils.nuidValueSubstring:len()))
         else
             logger:error("Unable to get entityId number of value string (%s).", xmlValue)
+        end
+    end
+
+    if entityId == nil or entityId == "" then
+        if _G.whoAmI() == _G.Client.iAm and _G.Client.isConnected() then
+            _G.Client.sendLostNuid(nuid)
         end
     end
 

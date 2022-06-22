@@ -103,11 +103,12 @@ end
 --- Gets the local player information.
 --- @return table playerInfo { name, guid, entityId }
 function util.getLocalPlayerInfo()
+    local entityId         = EntityUtils.getLocalPlayerEntityId()
     local name, guid, nuid = NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
     return {
         name     = tostring(ModSettingGet("noita-mp.name")),
         guid     = tostring(ModSettingGet("noita-mp.guid")),
-        entityId = EntityUtils.getLocalPlayerEntityId(),
+        entityId = entityId,
         nuid     = nuid
     }
 end

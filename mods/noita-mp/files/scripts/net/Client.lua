@@ -612,27 +612,16 @@ function Client.new(sockClient)
             return
         end
 
-        --local x, y, rotation = EntityGetTransform(entityId)
-        --local velocityCompId = EntityGetFirstComponent(entityId, "VelocityComponent")
-        --local velocity       = { 0, 0 }
-        --if velocityCompId then
-        --    local veloX, veloY = ComponentGetValue2(velocityCompId, "mVelocity")
-        --    velocity           = { veloX, veloY }
-        --end
-        --local filename = EntityGetFilename(entityId)
-
         local filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
         local data                                       = { NetworkUtils.getNextNetworkMessageId(), { ownerName, ownerGuid },
                                                              entityId, x, y, rotation, velocity, filename }
 
-
-        --if not NetworkUtils.alreadySent(NetworkUtils.events.needNuid.name, data) then
-        --    logger:info(logger.channels.network,
-        --                ("Network message for needNuid for entityId %s already was acknowledged."):format(entityId))
-        --    return
-        --end
-
         self:send(NetworkUtils.events.needNuid.name, data)
+    end
+
+    function self.sendLostNuid(nuid)
+        local data = { NetworkUtils.getNextNetworkMessageId(), nuid }
+        self:send(NetworkUtils.events.lostNuid.name, data)
     end
 
     function self.sendEntityData(entityId)

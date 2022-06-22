@@ -43,10 +43,32 @@ NetworkUtils.events                  = {
     needNuid        = { name = "needNuid", schema = { "networkMessageId", "owner", "localEntityId", "x", "y",
                                                       "rotation", "velocity", "filename" } },
 
+    --- lostNuid is used to ask for the entity to spawn, when a client has a nuid stored, but no entityId (not sure
+    --- atm, why this is happening, but this is due to reduce out of sync stuff)
+    lostNuid        = { name = "lostNuid", schema = { "networkMessageId", "nuid" } },
+
     --- entityData is used to sync position, velocity and health
     entityData      = { name = "entityData", schema = { "networkMessageId", "owner", "nuid", "x", "y", "rotation",
                                                         "velocity", "health" } }
 }
+
+--- Copy from sock.lua, because I am lazy
+local function zipTable(items, keys, event)
+    local data = {}
+
+    -- convert variable at index 1 into the value for the key value at index 1, and so on
+    for i, value in ipairs(items) do
+        local key = keys[i]
+
+        if not key then
+            error("Event '" .. event .. "' missing data key. Is the schema different between server and client?")
+        end
+
+        data[key] = value
+    end
+
+    return data
+end
 
 function NetworkUtils.getNextNetworkMessageId()
     NetworkUtils.networkMessageIdCounter = NetworkUtils.networkMessageIdCounter + 1
@@ -71,8 +93,8 @@ function NetworkUtils.alreadySent(event, data, entityId)
         error("networkMessageId is empty!", 3)
     end
 
-    -- Is the networkMessageId already stored?
     if clientOrServer.acknowledge[networkMessageId] ~= nil then
+        -- Is the networkMessageId already stored?
         local acknowledgement = clientOrServer.acknowledge[networkMessageId]
         if acknowledgement.status == NetworkUtils.events.acknowledgement.ack then
             -- network message was already acknowledged
@@ -84,6 +106,27 @@ function NetworkUtils.alreadySent(event, data, entityId)
             return false -- resend after RTT
         end
     else
+        local alreadySent = false
+        -- We need to compare the data, because networkMessageId isn't stored
+        for key, value in pairs(clientOrServer.acknowledge) do
+            if value.event == event then
+                local eventSchema = nil
+                for key2, value2 in pairs(NetworkUtils.events) do
+                    if value2.name == event then
+                        eventSchema = value2.schema
+                        break
+                    end
+                end
+                --local readableData = zipTable(value.data, eventSchema, event)
+                for d1 = 1, #data do
+                    for d2 = 1, #value.data do
+                        if data[d1] == value.data[d2] then
+                            return true
+                        end
+                    end
+                end
+            end
+        end
         return false
     end
     --
