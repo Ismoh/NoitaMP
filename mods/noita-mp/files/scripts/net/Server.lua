@@ -154,7 +154,7 @@ function Server.new(sockServer)
         self:sendToAllBut(peer, NetworkUtils.events.connect2.name,
                           { NetworkUtils.getNextNetworkMessageId(), peer.name, peer.guid })
 
-        local filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
+        local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
         self.sendNewNuid({ name, guid }, entityId, nuid, x, y, rotation, velocity, filename)
     end
 
@@ -212,6 +212,16 @@ function Server.new(sockServer)
             error(("onPlayerInfo data.nuid is empty: %s"):format(data.nuid), 3)
         end
 
+        if util.IsEmpty(data.version) then
+            error(("onPlayerInfo data.version is empty: %s"):format(data.version), 3)
+        end
+
+        if _G.NoitaMPVersion ~= tostring(data.version) then
+            error(("Version mismatch: NoitaMP version of Client: %s and your version: %s")
+                          :format(data.version, _G.NoitaMPVersion), 3)
+            peer:disconnect()
+        end
+
         sendAck(data.networkMessageId, peer)
 
         for i, client in pairs(self.clients) do
@@ -266,6 +276,10 @@ function Server.new(sockServer)
             error(("onNewNuid data.filename is empty: %s"):format(data.filename), 3)
         end
 
+        if util.IsEmpty(data.isPolymorphed) then
+            error(("onNewNuid data.isPolymorphed is empty: %s"):format(data.isPolymorphed), 3)
+        end
+
         sendAck(data.networkMessageId, peer)
 
         local owner         = data.owner
@@ -275,10 +289,11 @@ function Server.new(sockServer)
         local rotation      = data.rotation
         local velocity      = data.velocity
         local filename      = data.filename
+        local isPolymorphed = data.isPolymorphed
 
         local newNuid       = NuidUtils.getNextNuid()
         self.sendNewNuid(owner, localEntityId, newNuid, x, y, rotation, velocity, filename)
-        EntityUtils.SpawnEntity(owner, newNuid, x, y, rotation, velocity, filename, localEntityId)
+        EntityUtils.SpawnEntity(owner, newNuid, x, y, rotation, velocity, filename, localEntityId, isPolymorphed)
     end
 
     ------------------------------------------------------------------------------------------------
@@ -300,9 +315,9 @@ function Server.new(sockServer)
             error(("onLostNuid data.nuid is empty: %s"):format(util.pformat(data.nuid)), 3)
         end
 
-        local nuid, entityId                             = GlobalsUtils.getNuidEntityPair(data.nuid)
-        local compOwnerName, compOwnerGuid, compNuid     = NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
-        local filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
+        local nuid, entityId                                                                     = GlobalsUtils.getNuidEntityPair(data.nuid)
+        --local compOwnerName, compOwnerGuid, compNuid     = NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
+        local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
 
         self.sendNewNuid({ compOwnerName, compOwnerGuid },
                          "unknown", nuid, x, y, rotation, velocity, filename)
@@ -348,7 +363,7 @@ function Server.new(sockServer)
             error(("onNewNuid data.health is empty: %s"):format(data.health), 3)
         end
 
-        sendAck(data.networkMessageId, peer)
+        --sendAck(data.networkMessageId, peer)
 
         local owner                = data.owner
         local nnuid, localEntityId = GlobalsUtils.getNuidEntityPair(data.nuid)
@@ -556,7 +571,7 @@ function Server.new(sockServer)
     local function updateVariables()
         local entityId = util.getLocalPlayerInfo().entityId
         if entityId then
-            local filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
+            local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
             self.health                                      = health
             self.transform                                   = { x = math.floor(x), y = math.floor(y) }
         end
@@ -619,6 +634,9 @@ function Server.new(sockServer)
         return true
     end
 
+    --local lastFrames = 0
+    --local diffFrames = 0
+    --local fps30 = 0
     --- Some inheritance: Save parent function (not polluting global 'self' space)
     local sockServerUpdate = sockServer.update
     --- Updates the server by checking for network events and handling them.
@@ -632,7 +650,23 @@ function Server.new(sockServer)
         updateVariables()
 
         EntityUtils.initNetworkVscs()
+
+        --local frames = GameGetFrameNum()
+        --if not lastFrames or lastFrames < frames then
+        --    diffFrames = frames - lastFrames
+        --    lastFrames = frames
+        --    fps30 = fps30 + 1
+        --end
+        --
+        --if diffFrames >= 30 then
+        --    fps30 = 30
+        --end
+        --
+        --local mod = fps30 % 30
+        --if mod == 0 then
+        --    fps30 = 0
         EntityUtils.syncEntityData()
+        --end
 
         sockServerUpdate(self)
     end
@@ -647,9 +681,9 @@ function Server.new(sockServer)
             return
         end
 
-        local compOwnerName, compOwnerGuid, compNuid     = NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
-        local filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
-        local data                                       = {
+        --local compOwnerName, compOwnerGuid, compNuid     = NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
+        local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
+        local data                                                                               = {
             NetworkUtils.getNextNetworkMessageId(), { compOwnerName, compOwnerGuid }, compNuid, x, y, rotation, velocity, health
         }
 

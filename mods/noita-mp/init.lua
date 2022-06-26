@@ -17,15 +17,17 @@ fu.SetAbsolutePathOfNoitaRootDirectory()
 -- Is used to stop Noita pausing game, when focus is gone (tab out game)
 ModMagicNumbersFileAdd("mods/noita-mp/files/data/magic_numbers.xml")
 
-local worldSeedMagicNumbersFileAbsPath = fu.GetAbsoluteDirectoryPathOfMods() .. "/temp/WorldSeed.xml"
-if fu.Exists(worldSeedMagicNumbersFileAbsPath) then
-    logger:debug("init.lua", "Loading " .. worldSeedMagicNumbersFileAbsPath)
-    ModMagicNumbersFileAdd(worldSeedMagicNumbersFileAbsPath)
-else
-    logger:debug("init.lua", "Unable to load " .. worldSeedMagicNumbersFileAbsPath)
-end
+--local worldSeedMagicNumbersFileAbsPath = fu.GetAbsoluteDirectoryPathOfMods() .. "/temp/WorldSeed.xml"
+--if fu.Exists(worldSeedMagicNumbersFileAbsPath) then
+--    logger:debug("init.lua", "Loading " .. worldSeedMagicNumbersFileAbsPath)
+--    ModMagicNumbersFileAdd(worldSeedMagicNumbersFileAbsPath)
+--else
+--    logger:debug("init.lua", "Unable to load " .. worldSeedMagicNumbersFileAbsPath)
+--end
 
 fu.Find7zipExecutable()
+
+_G.NoitaMPVersion                          = fu.getVersionByFile()
 
 local saveSlotsLastModifiedBeforeWorldInit = fu.getLastModifiedSaveSlots()
 

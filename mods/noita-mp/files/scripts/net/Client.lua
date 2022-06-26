@@ -235,6 +235,16 @@ function Client.new(sockClient)
             error(("onPlayerInfo data.nuid is empty: %s"):format(data.nuid), 3)
         end
 
+        if util.IsEmpty(data.version) then
+            error(("onPlayerInfo data.version is empty: %s"):format(data.version), 3)
+        end
+
+        if _G.NoitaMPVersion ~= tostring(data.version) then
+            error(("Version mismatch: NoitaMP version of Server: %s and your version: %s")
+                          :format(data.version, _G.NoitaMPVersion), 3)
+            _G.Client.disconnect()
+        end
+
         sendAck(data.networkMessageId)
 
         self.serverInfo.name = data.name
@@ -331,6 +341,10 @@ function Client.new(sockClient)
             error(("onNewNuid data.filename is empty: %s"):format(data.filename), 3)
         end
 
+        if util.IsEmpty(data.isPolymorphed) then
+            error(("onNewNuid data.isPolymorphed is empty: %s"):format(data.isPolymorphed), 3)
+        end
+
         sendAck(data.networkMessageId)
 
         local owner         = data.owner
@@ -341,6 +355,7 @@ function Client.new(sockClient)
         local rotation      = data.rotation
         local velocity      = data.velocity
         local filename      = data.filename
+        local isPolymorphed = data.isPolymorphed
 
         if owner.guid == util.getLocalPlayerInfo().guid then
             if localEntityId == util.getLocalPlayerInfo().entityId then
@@ -348,7 +363,7 @@ function Client.new(sockClient)
             end
         end
 
-        EntityUtils.SpawnEntity(owner, newNuid, x, y, rotation, velocity, filename, localEntityId)
+        EntityUtils.SpawnEntity(owner, newNuid, x, y, rotation, velocity, filename, localEntityId, isPolymorphed)
     end
 
     local function onEntityData(data)
@@ -391,7 +406,7 @@ function Client.new(sockClient)
             error(("onNewNuid data.health is empty: %s"):format(data.health), 3)
         end
 
-        sendAck(data.networkMessageId)
+        -- sendAck(data.networkMessageId) do not send ACK for position data, network will explode
 
         local owner                = data.owner
         local nnuid, localEntityId = GlobalsUtils.getNuidEntityPair(data.nuid)
@@ -487,9 +502,9 @@ function Client.new(sockClient)
     local function updateVariables()
         local entityId = util.getLocalPlayerInfo().entityId
         if entityId then
-            local filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
-            self.health                                      = health
-            self.transform                                   = { x = math.floor(x), y = math.floor(y) }
+            local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
+            self.health                                                                              = health
+            self.transform                                                                           = { x = math.floor(x), y = math.floor(y) }
         end
     end
 
@@ -560,6 +575,9 @@ function Client.new(sockClient)
         return sockClientIsConnected(self)
     end
 
+    --local lastFrames = 0
+    --local diffFrames = 0
+    --local fps30 = 0
     --- Some inheritance: Save parent function (not polluting global 'self' space)
     local sockClientUpdate = sockClient.update
     --- Updates the Client by checking for network events and handling them.
@@ -571,8 +589,24 @@ function Client.new(sockClient)
         updateVariables()
 
         EntityUtils.destroyClientEntities()
-        EntityUtils.initNetworkVscs()
+        --EntityUtils.initNetworkVscs()
+
+        --local frames = GameGetFrameNum()
+        --if not lastFrames or lastFrames < frames then
+        --    diffFrames = frames - lastFrames
+        --    lastFrames = frames
+        --    fps30 = fps30 + 1
+        --end
+        --
+        --if diffFrames >= 30 then
+        --    fps30 = 30
+        --end
+        --
+        --local mod = fps30 % 30
+        --if mod == 0 then
+        --    fps30 = 0
         EntityUtils.syncEntityData()
+        --end
 
         sockClientUpdate(self)
     end
@@ -612,9 +646,13 @@ function Client.new(sockClient)
             return
         end
 
-        local filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
-        local data                                       = { NetworkUtils.getNextNetworkMessageId(), { ownerName, ownerGuid },
-                                                             entityId, x, y, rotation, velocity, filename }
+        local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
+        local data                                                                               = { NetworkUtils.getNextNetworkMessageId(), { ownerName, ownerGuid },
+                                                                                                     entityId, x, y,
+                                                                                                     rotation,
+                                                                                                     velocity,
+                                                                                                     filename,
+                                                                                                     EntityUtils.isPlayerPolymorphed() }
 
         self:send(NetworkUtils.events.needNuid.name, data)
     end
@@ -629,9 +667,9 @@ function Client.new(sockClient)
             return
         end
 
-        local compOwnerName, compOwnerGuid, compNuid     = NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
-        local filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
-        local data                                       = {
+        --local compOwnerName, compOwnerGuid, compNuid     = NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
+        local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
+        local data                                                                               = {
             NetworkUtils.getNextNetworkMessageId(), { compOwnerName, compOwnerGuid }, compNuid, x, y, rotation, velocity, health
         }
 

@@ -79,6 +79,7 @@ Also special thanks to the ppl, who share their libraries, frameworks and other 
 - [EZGUI.lua](https://github.com/TheHorscht/EZGUI)
 - [lua-watcher.lua](https://github.com/EvandroLG/lua-watcher)
 - [lfs-ffi.lua](https://github.com/sonoro1234/luafilesystem)
+- [deepcopy.lua](https://gist.github.com/Deco/3985043)
 
 I had to build the network library by my own, because Noita provides its own lua51.dll. I had struggle to build it, if you are interested in,
 I've added all the necessary build files inside of .building/dll_building.7z and here you can see the [stackoverflow question](https://stackoverflow.com/questions/70048918/lua-5-1-package-loadlib-and-require-gcc-building-windows-dll) I've created.

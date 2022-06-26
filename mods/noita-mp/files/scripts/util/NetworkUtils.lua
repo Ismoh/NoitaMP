@@ -3,14 +3,15 @@
 -- Naming convention is found here:
 -- http://lua-users.org/wiki/LuaStyleGuide#:~:text=Lua%20internal%20variable%20naming%20%2D%20The,but%20not%20necessarily%2C%20e.g.%20_G%20.
 
-----------------------------------------
+-----------------------------------------------------------------------------------------------------------------------
 --- 'Imports'
-----------------------------------------
+-----------------------------------------------------------------------------------------------------------------------
 local util                           = require("util")
+local luaunit                        = require("luaunit")
 
-----------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------
 --- NetworkUtils
-----------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------
 NetworkUtils                         = {}
 
 NetworkUtils.networkMessageIdCounter = 0
@@ -33,15 +34,15 @@ NetworkUtils.events                  = {
     seed            = { name = "seed", schema = { "networkMessageId", "seed" } },
 
     --- playerInfo is used to send localPlayerInfo name and guid to all peers
-    playerInfo      = { name = "playerInfo", schema = { "networkMessageId", "name", "guid", "nuid" } },
+    playerInfo      = { name = "playerInfo", schema = { "networkMessageId", "name", "guid", "nuid", "version" } },
 
     --- newNuid is used to let clients spawn entities by the servers permission
     newNuid         = { name = "newNuid", schema = { "networkMessageId", "owner", "localEntityId", "newNuid", "x",
-                                                     "y", "rotation", "velocity", "filename" } },
+                                                     "y", "rotation", "velocity", "filename", "isPolymorphed" } },
 
     --- needNuid is used to ask for a nuid from client to servers
     needNuid        = { name = "needNuid", schema = { "networkMessageId", "owner", "localEntityId", "x", "y",
-                                                      "rotation", "velocity", "filename" } },
+                                                      "rotation", "velocity", "filename", "isPolymorphed" } },
 
     --- lostNuid is used to ask for the entity to spawn, when a client has a nuid stored, but no entityId (not sure
     --- atm, why this is happening, but this is due to reduce out of sync stuff)
@@ -75,7 +76,7 @@ function NetworkUtils.getNextNetworkMessageId()
     return NetworkUtils.networkMessageIdCounter
 end
 
-function NetworkUtils.alreadySent(event, data, entityId)
+function NetworkUtils.alreadySent(event, data)
     local clientOrServer = nil
 
     if _G.whoAmI() == Client.iAm then
@@ -101,34 +102,78 @@ function NetworkUtils.alreadySent(event, data, entityId)
             return true
         end
 
-        local pasted = os.time() - acknowledgement.sentAt
-        if pasted >= rtt then
-            return false -- resend after RTT
-        end
-    else
-        local alreadySent = false
-        -- We need to compare the data, because networkMessageId isn't stored
-        for key, value in pairs(clientOrServer.acknowledge) do
-            if value.event == event then
-                local eventSchema = nil
-                for key2, value2 in pairs(NetworkUtils.events) do
-                    if value2.name == event then
-                        eventSchema = value2.schema
-                        break
-                    end
-                end
-                --local readableData = zipTable(value.data, eventSchema, event)
-                for d1 = 1, #data do
-                    for d2 = 1, #value.data do
-                        if data[d1] == value.data[d2] then
-                            return true
-                        end
-                    end
-                end
+        --local pasted = os.time() - acknowledgement.sentAt
+        --if pasted >= rtt then
+        --    return false -- resend after RTT
+        --end
+    end
+
+    local alreadySent = false
+    -- We need to compare the data, because networkMessageId isn't stored
+    local data1       = table.deepcopy(data)
+    table.remove(data1, 1)
+
+    for key, value in pairs(clientOrServer.acknowledge) do
+        if value.event == event then
+            --local eventSchema = nil
+            --for key2, value2 in pairs(NetworkUtils.events) do
+            --    if value2.name == event then
+            --        eventSchema = value2.schema
+            --        break
+            --    end
+            --end
+            --local readableData = zipTable(value.data, eventSchema, event)
+            --for d1 = 1, #data do
+            --    for d2 = 1, #value.data do
+            --        if data[d1] == value.data[d2] then
+            --            return true
+            --        end
+            --    end
+            --end
+
+            local data2 = table.deepcopy(value.data)
+            table.remove(data2, 1)
+
+            -- if position of entity changes, while trying to get nuid, this compare will fail, because x and y is
+            -- different. Therefore there is an additional check below, for simply comparing onwerName, ownerGuid and
+            -- entityId, if this was already sent in combination.
+            local ran, errorMsg = pcall(luaunit.assertItemsEquals, data1, data2)
+            if ran and not errorMsg then
+                --if value.status ~= NetworkUtils.events.acknowledgement.ack then
+                --    local pasted = os.time() - value.sentAt
+                --    if pasted >= rtt then
+                --        return false -- resend after RTT
+                --    end
+                --end
+                return true
             end
         end
-        return false
+
+        -- double check if ownerName, ownerGuid and entityId already was sent
+        if event == NetworkUtils.events.needNuid.name and value.event == NetworkUtils.events.needNuid.name then
+            local eventSchema = nil
+            for key2, value2 in pairs(NetworkUtils.events) do
+                if value2.name == event then
+                    eventSchema = value2.schema
+                    break
+                end
+            end
+            local dataNow       = zipTable(data, eventSchema, event)
+            local ownerNameNow  = dataNow.owner[1] or data[2][1]
+            local ownerGuidNow  = dataNow.owner[2] or data[2][2]
+            local entityIdNow   = dataNow.localEntityId or data[3]
+
+            local dataPrev      = zipTable(value.data, eventSchema, event)
+            local ownerNamePrev = dataPrev.owner[1] or value.data[2][1]
+            local ownerGuidPrev = dataPrev.owner[2] or value.data[2][2]
+            local entityIdPrev  = dataPrev.localEntityId or value.data[3]
+
+            if ownerNameNow == ownerNamePrev and ownerGuidNow == ownerGuidPrev and entityIdNow == entityIdPrev then
+                return true
+            end
+        end
     end
+
     --
     ----
     --
@@ -153,7 +198,8 @@ function NetworkUtils.alreadySent(event, data, entityId)
     --    end
     --end
     --
-    logger:error(logger.channels.network, "Unable to get status of network message.")
+    logger:warn(logger.channels.network, "Unable to get status of network message.")
+    return false
 end
 
 -- Because of stack overflow errors when loading lua files,

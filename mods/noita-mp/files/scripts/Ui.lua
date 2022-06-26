@@ -143,7 +143,7 @@ function Ui.new()
     local function drawFolding()
         local text = ""
         if foldingOpen then
-            self.ezguiFoldingData.data.text = ("[- NoitaMP] v0.0.0-alpha")
+            self.ezguiFoldingData.data.text = ("[- NoitaMP] %s"):format(_G.NoitaMPVersion)
         else
             self.ezguiFoldingData.data.text = ("[+ NoitaMP]")
         end

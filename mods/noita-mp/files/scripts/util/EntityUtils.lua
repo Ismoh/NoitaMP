@@ -95,6 +95,9 @@ local function getFilteredEntities(radius, include, exclude, additionalCheck1, a
     local entities      = {}
 
     local playerUnitIds = EntityGetWithTag("player_unit")
+    if EntityUtils.isPlayerPolymorphed() then
+        table.insertIfNotExist(playerUnitIds, util.getLocalPlayerInfo().entityId)
+    end
     for i = 1, #playerUnitIds do
         -- get all player units
         local x, y, rot, scaleX, scaleY = EntityGetTransform(playerUnitIds[i])
@@ -118,9 +121,32 @@ EntityUtils.localPlayerEntityId = -1
 
 --#region Global public functions
 
+function EntityUtils.isPlayerPolymorphed()
+    local polymorphedEntityIds = EntityGetWithTag("polymorphed") or {}
+
+    for e = 1, #polymorphedEntityIds do
+        local componentIds = EntityGetComponentIncludingDisabled(polymorphedEntityIds[e],
+                                                                 "GameStatsComponent") or {}
+        for c = 1, #componentIds do
+            local isPlayer = ComponentGetValue2(componentIds[c], "is_player")
+            if isPlayer then
+                return true, polymorphedEntityIds[e]
+            end
+        end
+    end
+    return false, nil
+end
+
 function EntityUtils.getLocalPlayerEntityId()
     if EntityUtils.isEntityAlive(EntityUtils.localPlayerEntityId) then
+        -- TODO: I think this can lead to problems. Think of polymorphed minä. EntityId will change!
         return EntityUtils.localPlayerEntityId
+    end
+
+    local polymorphed, entityId = EntityUtils.isPlayerPolymorphed()
+
+    if polymorphed then
+        return entityId
     end
 
     local playerEntityIds = EntityGetWithTag("player_unit")
@@ -136,6 +162,7 @@ function EntityUtils.getLocalPlayerEntityId()
     logger:warn(logger.channels.entity,
                 "Unable to get local player entity id. Returning first entity id(%s), which was found.",
                 playerEntityIds[1])
+    EntityUtils.localPlayerEntityId = playerEntityIds[1]
     return playerEntityIds[1]
 end
 
@@ -209,7 +236,7 @@ function EntityUtils.initNetworkVscs()
 
                 if _G.whoAmI() == _G.Server.iAm then
                     GlobalsUtils.setNuid(nuid, entityId)
-                    local filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
+                    local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
                     _G.Server.sendNewNuid(owner, entityId, nuid, x, y, rotation, velocity, filename)
                 end
             end
@@ -230,7 +257,7 @@ end
 --- owner has its own entity ids.
 --- @return number entityId Returns the entity_id of a already existing entity, found by nuid or the newly created
 --- entity.
-function EntityUtils.SpawnEntity(owner, nuid, x, y, rotation, velocity, filename, localEntityId)
+function EntityUtils.SpawnEntity(owner, nuid, x, y, rotation, velocity, filename, localEntityId, isPolymorphed)
     local localGuid  = util.getLocalPlayerInfo().guid or util.getLocalPlayerInfo()[2]
     local remoteName = owner.name or owner[1]
     local remoteGuid = owner.guid or owner[2]
@@ -263,6 +290,17 @@ function EntityUtils.SpawnEntity(owner, nuid, x, y, rotation, velocity, filename
         return
     end
 
+    if isPolymorphed then
+        local compIds = EntityGetAllComponents(entityId) or {}
+        for i = 1, #compIds do
+            local compId   = compIds[i]
+            local compType = ComponentGetTypeName(compId)
+            if string.contains(compType, "AI") then
+                EntityRemoveComponent(entityId, compIdAi)
+            end
+        end
+    end
+
     NetworkVscUtils.addOrUpdateAllVscs(entityId, remoteName, remoteGuid, nuid)
     NoitaComponentUtils.setEntityData(entityId, x, y, rotation, velocity)
 
@@ -281,7 +319,7 @@ function EntityUtils.syncEntityData()
     end
 
     local anythingChanged  = function(entityId)
-        local filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
+        local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
 
         if clientOrServer.entityCache[entityId] == nil then
             clientOrServer.entityCache[entityId] = { health = health, rotation = rotation, velocity = velocity, x = x, y = y }
@@ -364,9 +402,10 @@ function EntityUtils.destroyClientEntities()
         table.insertAllButNotDuplicates(playerEntityIds, EntityGetAllChildren(playerEntityId) or {})
 
         for i = 1, #playerEntityIds do
-            local entityId = playerEntityIds[i]
-            if not NetworkVscUtils.hasNetworkLuaComponents(entityId) then
-                NetworkVscUtils.addOrUpdateAllVscs(entityId, localOwner.name, localOwner.guid, nil)
+            local entityId     = playerEntityIds[i]
+            local rootEntityId = EntityGetRootEntity(entityId)
+            if not NetworkVscUtils.hasNetworkLuaComponents(rootEntityId) then
+                NetworkVscUtils.addOrUpdateAllVscs(rootEntityId, localOwner.name, localOwner.guid, nil)
             end
             -- if not NetworkVscUtils.hasNuidSet(entityId) then
             --     Client.sendNeedNuid(localOwner, entityId)
@@ -380,7 +419,36 @@ function EntityUtils.destroyClientEntities()
     for i = 1, #filteredEntities do
         local entityId = filteredEntities[i]
         if EntityUtils.isEntityAlive(entityId) then
-            EntityKill(entityId)
+
+            local kill         = true
+            -- Does this entityId belongs to the player minä?
+            local componentIds = EntityGetAllComponents(entityId)
+            for i = 1, #componentIds do
+                local compId   = componentIds[i]
+                local compType = ComponentGetTypeName(compId)
+                if compType == "ProjectileComponent" then
+                    local whoShotEntityId = ComponentGetValue2(compId, "mWhoShot")
+                    if not util.IsEmpty(whoShotEntityId) and whoShotEntityId == EntityUtils.getLocalPlayerEntityId() then
+                        kill = false
+                        break
+                    end
+                end
+            end
+
+            if kill then
+                EntityKill(entityId)
+            else
+                if not NetworkVscUtils.isNetworkEntityByNuidVsc(entityId) then
+                    local ownerName, ownerGuid, nuid = NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
+                    if util.IsEmpty(ownerName) or util.IsEmpty(ownerGuid) then
+                        local localPlayerInfo = util.getLocalPlayerInfo()
+                        ownerName             = localPlayerInfo.name
+                        ownerGuid             = localPlayerInfo.guid
+                    end
+                    NetworkVscUtils.addOrUpdateAllVscs(entityId, ownerName, ownerGuid, nuid)
+                    _G.Client.sendNeedNuid(ownerName, ownerGuid, entityId)
+                end
+            end
         end
     end
 end
@@ -458,8 +526,8 @@ function EntityUtils.modifyPhysicsEntities()
             end
         end
     else
-        logger:error("Unable to modify physics entities, because util(%s), fu(%s) and nxml(%s) seems to be nil", util,
-                     fu, nxml)
+        logger:error("Unable to modify physics entities, because util(%s), fu(%s) and nxml(%s) seems to be nil",
+                     util, fu, nxml)
     end
 end
 

@@ -1,11 +1,22 @@
-local fu = {}
-local ffi = require("ffi")
+local fu      = {}
+local ffi     = require("ffi")
 local watcher = require("watcher")
-local lfs = require("lfs")
+local lfs     = require("lfs")
 
 if not logger then
     ---@diagnostic disable-next-line: lowercase-global
     logger = _G.logger
+end
+
+-----------------------------------------------------------------------------------------------------------------------
+--- Version
+-----------------------------------------------------------------------------------------------------------------------
+function fu.getVersionByFile()
+    local modsPath           = fu.GetAbsoluteDirectoryPathOfMods()
+    local versionAbsFilePath = ("%s%s.version"):format(modsPath, path_separator)
+    local content            = fu.ReadFile(versionAbsFilePath, "*l")
+    logger:info(nil, ("NoitaMP %s"):format(content))
+    return content
 end
 
 ----------------------------------------------------------------------------------------------------
@@ -28,11 +39,11 @@ function fu.ReplacePathSeparator(path)
         path = string.gsub(path, "\\", "/")
     else
         error(
-            ("file_util.lua | Unable to detect OS(%s[%s]), therefore not able to replace path separator!"):format(
-                _G.os_name,
-                _G.os_arch
-            ),
-            2
+                ("file_util.lua | Unable to detect OS(%s[%s]), therefore not able to replace path separator!"):format(
+                        _G.os_name,
+                        _G.os_arch
+                ),
+                2
         )
     end
     return path
@@ -61,16 +72,18 @@ function fu.SetAbsolutePathOfNoitaRootDirectory()
     local noita_root_directory_path = nil
 
     if _G.is_windows then
-        noita_root_directory_path = assert(io.popen("cd"):read("*l"), "Unable to run windows command 'cd' to get Noitas root directory!")
+        noita_root_directory_path = assert(io.popen("cd"):read("*l"),
+                                           "Unable to run windows command 'cd' to get Noitas root directory!")
     elseif _G.is_linux then
-        noita_root_directory_path = assert(io.popen("pwd"):read("*l"), "Unable to run ubuntu command 'pwd' to get Noitas root directory!")
+        noita_root_directory_path = assert(io.popen("pwd"):read("*l"),
+                                           "Unable to run ubuntu command 'pwd' to get Noitas root directory!")
     else
         error(
-            ("file_util.lua | Unable to detect OS(%s[%s]), therefore not able to replace path separator!"):format(
-                _G.os_name,
-                _G.os_arch
-            ),
-            2
+                ("file_util.lua | Unable to detect OS(%s[%s]), therefore not able to replace path separator!"):format(
+                        _G.os_name,
+                        _G.os_arch
+                ),
+                2
         )
     end
 
@@ -94,16 +107,16 @@ end
 --- otherwise it will return: '%appdata%\..\LocalLow\Nolla_Games_Noita' on windows
 --- @return string save06_parent_directory_path string of absolute path to '..\Noita' or '..\Nolla_Games_Noita'
 function fu.GetAbsoluteDirectoryPathOfParentSave()
-    local file = nil
-    local command = nil
+    local file                = nil
+    local command             = nil
     local find_directory_name = nil
 
     if _G.is_windows then
-        command = 'dir "%appdata%\\..\\LocalLow\\Nolla_Games_Noita\\.." /s/b/ad'
+        command             = 'dir "%appdata%\\..\\LocalLow\\Nolla_Games_Noita\\.." /s/b/ad'
         find_directory_name = "Nolla_Games_Noita"
 
         if DebugGetIsDevBuild() then
-            command = "dir .. /s/b/ad"
+            command             = "dir .. /s/b/ad"
             find_directory_name = "Noita"
         end
     else
@@ -112,10 +125,10 @@ function fu.GetAbsoluteDirectoryPathOfParentSave()
         --find_directory_name = "Nolla_Games_Noita"
     end
 
-    file = assert(io.popen(command, "r")) -- path where noita.exe is
+    file                               = assert(io.popen(command, "r")) -- path where noita.exe is
 
     local save06_parent_directory_path = nil
-    local line = ""
+    local line                         = ""
     while line ~= nil do
         line = file:read("*l")
         --logger:debug("file_util.lua | GetAbsoluteDirectoryPathOfParentSave line = " .. line)
@@ -128,8 +141,8 @@ function fu.GetAbsoluteDirectoryPathOfParentSave()
 
     if save06_parent_directory_path == nil or save06_parent_directory_path == "" then
         GamePrintImportant(
-            "Unable to find world files",
-            "Do yourself a favour and save&quit the game and start it again!", ""
+                "Unable to find world files",
+                "Do yourself a favour and save&quit the game and start it again!", ""
         )
     end
 
@@ -262,7 +275,7 @@ function fu.ReadBinaryFile(file_fullpath)
     end
     file_fullpath = fu.ReplacePathSeparator(file_fullpath)
     -- https://stackoverflow.com/a/31857671/3493998
-    local file = io.open(file_fullpath, "rb") -- r read mode and b binary mode
+    local file    = io.open(file_fullpath, "rb") -- r read mode and b binary mode
     if not file then
         error("Unable to open and read file: " .. file_fullpath)
     end
@@ -283,17 +296,21 @@ function fu.WriteBinaryFile(file_fullpath, file_content)
     fh:close()
 end
 
-function fu.ReadFile(file_fullpath)
+function fu.ReadFile(file_fullpath, mode)
+    if mode == nil then
+        mode = "*a"
+    end
+
     if type(file_fullpath) ~= "string" then
         error("file_util.lua | Parameter file_fullpath '" .. tostring(file_fullpath) .. "' is not type of string!")
     end
     file_fullpath = fu.ReplacePathSeparator(file_fullpath)
     -- https://stackoverflow.com/a/31857671/3493998
-    local file = io.open(file_fullpath, "r")
+    local file    = io.open(file_fullpath, "r")
     if not file then
         error("Unable to open and read file: " .. file_fullpath)
     end
-    local content = file:read "*a" -- *a or *all reads the whole file
+    local content = file:read(mode) -- *a or *all reads the whole file
     file:close()
     return content
 end
@@ -302,15 +319,17 @@ function fu.WriteFile(file_fullpath, file_content)
     if type(file_fullpath) ~= "string" then
         error("file_util.lua | Parameter file_fullpath '" .. tostring(file_fullpath) .. "' is not type of string!")
     end
-    file_fullpath = fu.ReplacePathSeparator(file_fullpath)
+    file_fullpath         = fu.ReplacePathSeparator(file_fullpath)
 
-    local segments = string.split(file_fullpath, path_separator) or {}
+    local segments        = string.split(file_fullpath, path_separator) or {}
     local pathPerSegments = ""
-    for i = 1, #segments do -- recursivly create directories
-        local segment = segments[i]
+    for i = 1, #segments do
+        -- recursivly create directories
+        local segment   = segments[i]
         pathPerSegments = pathPerSegments .. segment .. path_separator
         if not fu.Exists(pathPerSegments) then
-            if not pathPerSegments:contains(".") then -- dump check if it's a file
+            if not pathPerSegments:contains(".") then
+                -- dump check if it's a file
                 fu.MkDir(pathPerSegments)
             end
         end
@@ -352,7 +371,7 @@ end
 -- Lua implementation of PHP scandir function
 function fu.scanDir(directory)
     local i, t, popen = 0, {}, io.popen
-    local pfile = nil
+    local pfile       = nil
 
     if is_windows then
         pfile = popen('dir "' .. directory .. '" /b /ad')
@@ -360,9 +379,8 @@ function fu.scanDir(directory)
         pfile = popen('ls -a "' .. directory .. '"')
     end
 
-
     for filename in pfile:lines() do
-        i = i + 1
+        i    = i + 1
         t[i] = filename
     end
     pfile:close()
@@ -373,7 +391,7 @@ function fu.removeContentOfDirectory(absolutePath)
     local successRmDir, errorRmDir = lfs.rmdir(absolutePath)
 
     if not successRmDir or errorRmDir then
-        local command = ('rmdir /s /q "%s"'):format(absolutePath)
+        local command                 = ('rmdir /s /q "%s"'):format(absolutePath)
         local success, exitCode, code = os.execute(command)
         logger:debug(nil, "Tried to remove directory. success=%s, exictCode=%s, code=%s", success, exitCode, code)
     end
@@ -390,8 +408,8 @@ function fu.Find7zipExecutable()
         local f = io.popen("where.exe 7z", "r")
         if not f then
             error(
-                "Unable to find 7z.exe, please install 7z via https://7-zip.de/download.html and restart the Noita!",
-                2
+                    "Unable to find 7z.exe, please install 7z via https://7-zip.de/download.html and restart the Noita!",
+                    2
             )
             os.exit()
         end
@@ -400,8 +418,8 @@ function fu.Find7zipExecutable()
         logger:debug(nil, "file_util.lua | Found 7z.exe: " .. _G.seven_zip)
     else
         error(
-            "Unfortunately unix systems aren't supported yet. Please consider https://github.com/Ismoh/NoitaMP/issues!",
-            2
+                "Unfortunately unix systems aren't supported yet. Please consider https://github.com/Ismoh/NoitaMP/issues!",
+                2
         )
     end
 end
@@ -421,8 +439,8 @@ end
 ---@return string|number content binary content of archive
 function fu.Create7zipArchive(archive_name, absolute_directory_path_to_add_archive, absolute_destination_path)
     assert(
-        fu.Exists7zip(),
-        "Unable to find 7z.exe, please install 7z via https://7-zip.de/download.html and restart the Noita!"
+            fu.Exists7zip(),
+            "Unable to find 7z.exe, please install 7z via https://7-zip.de/download.html and restart the Noita!"
     )
 
     if type(archive_name) ~= "string" then
@@ -430,24 +448,23 @@ function fu.Create7zipArchive(archive_name, absolute_directory_path_to_add_archi
     end
     if type(absolute_directory_path_to_add_archive) ~= "string" then
         error(
-            "file_util.lua | Parameter absolute_directory_path_to_add_archive '" ..
-            tostring(absolute_directory_path_to_add_archive) .. "' is not type of string!"
+                "file_util.lua | Parameter absolute_directory_path_to_add_archive '" ..
+                        tostring(absolute_directory_path_to_add_archive) .. "' is not type of string!"
         )
     end
     if type(absolute_destination_path) ~= "string" then
         error(
-            "file_util.lua | Parameter absolute_destination_path '" ..
-            tostring(absolute_destination_path) .. "' is not type of string!"
+                "file_util.lua | Parameter absolute_destination_path '" ..
+                        tostring(absolute_destination_path) .. "' is not type of string!"
         )
     end
 
     absolute_directory_path_to_add_archive = fu.ReplacePathSeparator(absolute_directory_path_to_add_archive)
-    absolute_destination_path = fu.ReplacePathSeparator(absolute_destination_path)
+    absolute_destination_path              = fu.ReplacePathSeparator(absolute_destination_path)
 
-    local command =
-    'cd "' ..
-        absolute_destination_path ..
-        '" && 7z.exe a -t7z ' .. archive_name .. ' "' .. absolute_directory_path_to_add_archive .. '"'
+    local command                          = 'cd "' ..
+            absolute_destination_path ..
+            '" && 7z.exe a -t7z ' .. archive_name .. ' "' .. absolute_directory_path_to_add_archive .. '"'
     logger:debug(nil, "file_util.lua | Running: " .. command)
     os.execute(command)
 
@@ -463,10 +480,9 @@ function fu.Extract7zipArchive(archive_absolute_directory_path, archive_name, ex
     archive_absolute_directory_path = fu.ReplacePathSeparator(archive_absolute_directory_path)
     extract_absolute_directory_path = fu.ReplacePathSeparator(extract_absolute_directory_path)
 
-    local command =
-    'cd "' ..
-        archive_absolute_directory_path ..
-        '" && 7z.exe x -aoa ' .. archive_name .. ' -o"' .. extract_absolute_directory_path .. '"'
+    local command                   = 'cd "' ..
+            archive_absolute_directory_path ..
+            '" && 7z.exe x -aoa ' .. archive_name .. ' -o"' .. extract_absolute_directory_path .. '"'
     logger:debug(nil, "file_util.lua | Running: " .. command)
     os.execute(command)
 end
@@ -485,7 +501,8 @@ function fu.killNoitaAndRestart()
 
     fu.removeContentOfDirectory(_G.saveSlotMeta.dir)
 
-    os.execute(('start "" %s -no_logo_splashes -save_slot %s -gamemode 4'):format(exe, _G.saveSlotMeta.slot)) -- -gamemode 0
+    os.execute(('start "" %s -no_logo_splashes -save_slot %s -gamemode 4'):format(exe,
+                                                                                  _G.saveSlotMeta.slot)) -- -gamemode 0
     os.exit()
 end
 
@@ -500,10 +517,10 @@ function fu.saveAndRestartNoita()
 
         int SDL_PushEvent(SDL_Event * event);
     ]]
-    SDL = ffi.load("SDL2.dll")
+    SDL       = ffi.load("SDL2.dll")
 
     local evt = ffi.new("SDL_Event")
-    evt.type = 0x100 -- SDL_QUIT
+    evt.type  = 0x100 -- SDL_QUIT
     SDL.SDL_PushEvent(evt)
 
     if _G.Server then
@@ -514,7 +531,8 @@ function fu.saveAndRestartNoita()
     if DebugGetIsDevBuild() then
         exe = "noita_dev.exe"
     end
-    os.execute(('start "" %s -no_logo_splashes -save_slot %s -gamemode 4'):format(exe, _G.saveSlotMeta.slot)) -- -gamemode 0
+    os.execute(('start "" %s -no_logo_splashes -save_slot %s -gamemode 4'):format(exe,
+                                                                                  _G.saveSlotMeta.slot)) -- -gamemode 0
 end
 
 return fu

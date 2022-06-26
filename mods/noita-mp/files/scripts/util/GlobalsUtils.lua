@@ -12,14 +12,14 @@
 -- GlobalsUtils:
 -----------------
 --- class for GlobalsSetValue and GlobalsGetValue
-GlobalsUtils = {}
+GlobalsUtils                    = {}
 
 --#region Global public variables
 
 --- key for nuid
-GlobalsUtils.nuidKeyFormat = "nuid = %s"
-GlobalsUtils.nuidKeySubstring = "nuid = "
-GlobalsUtils.nuidValueFormat = "entityId = %s"
+GlobalsUtils.nuidKeyFormat      = "nuid = %s"
+GlobalsUtils.nuidKeySubstring   = "nuid = "
+GlobalsUtils.nuidValueFormat    = "entityId = %s"
 GlobalsUtils.nuidValueSubstring = "entityId = "
 
 --#endregion
@@ -39,7 +39,7 @@ function GlobalsUtils.parseXmlValueToNuidAndEntityId(xmlKey, xmlValue)
         logger:error("xmlKeyValue(%s) is not type of string!", xmlValue)
     end
 
-    local nuid = nil
+    local nuid      = nil
     local foundNuid = string.find(xmlKey, GlobalsUtils.nuidKeySubstring, 1, true)
     if foundNuid ~= nil then
         nuid = tonumber(string.sub(xmlKey, GlobalsUtils.nuidKeySubstring:len()))
@@ -60,8 +60,12 @@ function GlobalsUtils.parseXmlValueToNuidAndEntityId(xmlKey, xmlValue)
     end
 
     if entityId == nil or entityId == "" then
-        if _G.whoAmI() == _G.Client.iAm and _G.Client.isConnected() then
-            _G.Client.sendLostNuid(nuid)
+        if _G.whoAmI then
+            -- _G.whoAmI can be nil, when executed in Noita Components,
+            -- because those does not have access to globals
+            if _G.whoAmI() == _G.Client.iAm and _G.Client.isConnected() then
+                _G.Client.sendLostNuid(nuid)
+            end
         end
     end
 
@@ -72,7 +76,8 @@ function GlobalsUtils.setNuid(nuid, entityId, componentIdForOwnerName, component
     if not EntityUtils.isEntityAlive(entityId) then
         return
     end
-    GlobalsSetValue(GlobalsUtils.nuidKeyFormat:format(nuid), GlobalsUtils.nuidValueFormat:format(entityId)) -- also change stuff in nuid_update.lua
+    GlobalsSetValue(GlobalsUtils.nuidKeyFormat:format(nuid),
+                    GlobalsUtils.nuidValueFormat:format(entityId)) -- also change stuff in nuid_update.lua
 end
 
 -- function GlobalsUtils.getNuid(entityId)
@@ -83,7 +88,7 @@ end
 --- @return number nuid
 --- @return number entityId
 function GlobalsUtils.getNuidEntityPair(nuid)
-    local key = GlobalsUtils.nuidKeyFormat:format(nuid)
+    local key   = GlobalsUtils.nuidKeyFormat:format(nuid)
     ---@diagnostic disable-next-line: missing-parameter
     local value = GlobalsGetValue(key)
     return GlobalsUtils.parseXmlValueToNuidAndEntityId(key, value)

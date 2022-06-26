@@ -14,7 +14,8 @@ function util.Sleep(s)
     until os.clock() > ntime
 end
 
-function util.IsEmpty(var) -- if you change this also change NetworkVscUtils.lua
+function util.IsEmpty(var)
+    -- if you change this also change NetworkVscUtils.lua
     if var == nil then
         return true
     end
@@ -55,21 +56,22 @@ end
 
 --https://noita.fandom.com/wiki/Modding:_Utilities#Easier_entity_debugging
 function util.debug_entity(e)
-    local parent = EntityGetParent(e)
+    local parent   = EntityGetParent(e)
     local children = EntityGetAllChildren(e)
-    local comps = EntityGetAllComponents(e)
+    local comps    = EntityGetAllComponents(e)
 
-    local msg = "--- ENTITY DATA ---\n"
-    msg = msg .. ("Parent: [" .. parent .. "] name = " .. (EntityGetName(parent) or "") .. "\n")
+    local msg      = "--- ENTITY DATA ---\n"
+    msg            = msg .. ("Parent: [" .. parent .. "] name = " .. (EntityGetName(parent) or "") .. "\n")
 
-    msg = msg .. (" Entity: [" .. util.str(e) .. "] name = " .. (EntityGetName(e) or "") .. "\n")
-    msg = msg .. ("  Tags: " .. (EntityGetTags(e) or "") .. "\n")
+    msg            = msg .. (" Entity: [" .. util.str(e) .. "] name = " .. (EntityGetName(e) or "") .. "\n")
+    msg            = msg .. ("  Tags: " .. (EntityGetTags(e) or "") .. "\n")
     if (comps ~= nil) then
         for _, comp in ipairs(comps) do
             local comp_type = ComponentGetTypeName(comp) or ""
-            msg = msg .. ("  Comp: [" .. comp .. "] type = " .. comp_type)
+            msg             = msg .. ("  Comp: [" .. comp .. "] type = " .. comp_type)
             if comp_type == "VariableStorageComponent" then
-                msg = msg .. (" - " .. (ComponentGetValue2(comp, "name") or "") .. " = " .. (ComponentGetValue2(comp, "value_string") or ""))
+                msg = msg .. (" - " .. (ComponentGetValue2(comp, "name") or "") .. " = " .. (ComponentGetValue2(comp,
+                                                                                                                "value_string") or ""))
             end
             msg = msg .. "\n"
         end
@@ -81,12 +83,13 @@ function util.debug_entity(e)
 
     for _, child in ipairs(children) do
         local comps = EntityGetAllComponents(child)
-        msg = msg .. ("  Child: [" .. child .. "] name = " .. EntityGetName(child) .. "\n")
+        msg         = msg .. ("  Child: [" .. child .. "] name = " .. EntityGetName(child) .. "\n")
         for _, comp in ipairs(comps) do
             local comp_type = ComponentGetTypeName(comp) or ""
             msg = msg .. ("   Comp: [" .. comp .. "] type = " .. comp_type)
             if comp_type == "VariableStorageComponent" then
-                msg = msg .. (" - " .. (ComponentGetValue2(comp, "name") or "") .. " = " .. (ComponentGetValue2(comp, "value_string") or ""))
+                msg = msg .. (" - " .. (ComponentGetValue2(comp, "name") or "") .. " = " .. (ComponentGetValue2(comp,
+                                                                                                                "value_string") or ""))
             end
             msg = msg .. "\n"
         end
@@ -101,9 +104,33 @@ function util.pformat(var)
 end
 
 --- Gets the local player information.
+--- Including polymorphed entity id. When polymorphed, entityId will be the new one and not minäs anymore.
 --- @return table playerInfo { name, guid, entityId }
 function util.getLocalPlayerInfo()
-    local entityId         = EntityUtils.getLocalPlayerEntityId()
+    local ownerName = tostring(ModSettingGet("noita-mp.name"))
+    local ownerGuid = tostring(ModSettingGet("noita-mp.guid"))
+    local entityId  = EntityUtils.getLocalPlayerEntityId()
+
+    if EntityUtils.isPlayerPolymorphed() then
+        local nuid = nil
+
+        if _G.whoAmI() == Client.iAm then
+            if not NetworkVscUtils.hasNuidSet(entityId) then
+                Client.sendNeedNuid(ownerName, ownerGuid, entityId)
+            end
+        elseif _G.whoAmI() == Server.iAm then
+            if not NetworkVscUtils.hasNuidSet(entityId) then
+                nuid = NuidUtils.getNextNuid()
+            end
+        else
+            error("Unable to identify whether I am Client or Server..", 3)
+        end
+
+        if not NetworkVscUtils.isNetworkEntityByNuidVsc(entityId) then
+            NetworkVscUtils.addOrUpdateAllVscs(entityId, ownerName, ownerGuid, nuid)
+        end
+    end
+
     local name, guid, nuid = NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
     return {
         name     = tostring(ModSettingGet("noita-mp.name")),
