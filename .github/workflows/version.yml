@@ -16,5 +16,9 @@ jobs:
 
       - name: Output linked Issue list
         run: echo "${{ steps.links.outputs.issues }}"
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
+        run: echo "$GITHUB_CONTEXT"
       - name: Copy label from issue
         run: |
