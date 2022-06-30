@@ -24,5 +24,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          gh auth logout #https://github.com/cli/cli/issues/494
+          gh auth login
           cd ${{ github.workspace }}
           gh issue view ${{ steps.links.outputs.issues }} --json "labels"
