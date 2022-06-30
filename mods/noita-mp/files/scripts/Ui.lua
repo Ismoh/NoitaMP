@@ -171,9 +171,9 @@ function Ui.new()
             })
             table.insertAllButNotDuplicates(player, _G.Server.clients)
             for i = 2, #player do
-                player[i].name = string.ExtendOrCutStringToLength(player[i].name, 12, ".", true)
-                player[i].health = { current = i, max = 2 }
-                player[i].transform = { x = 123, y = 12334 }
+                --player[i].name = string.ExtendOrCutStringToLength(player[i].name, 12, ".", true)
+                --player[i].health = { current = i, max = 2 }
+                --player[i].transform = { x = 123, y = 12334 }
                 player[i].rtt = player[i]:getRoundTripTime()
             end
         else

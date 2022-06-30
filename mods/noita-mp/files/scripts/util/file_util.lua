@@ -20,7 +20,7 @@ function fu.getVersionByFile()
 end
 
 ----------------------------------------------------------------------------------------------------
--- Platform specific functions
+--- Platform specific functions
 ----------------------------------------------------------------------------------------------------
 
 --- Replaces windows path separator to unix path separator and vice versa.
@@ -63,8 +63,44 @@ function fu.RemoveTrailingPathSeparator(path)
     return path
 end
 
+-----------------------------------------------------------------------------------------------------------------------
+--- eNet specific commands
+-----------------------------------------------------------------------------------------------------------------------
+function fu.getPidOfRunningEnetHostByPort()
+    --if _G.whoAmI() == _G.Client.iAm then
+    --    error("Makes no sense to get PID of eNet, when client!", 2)
+    --    return
+    --end
+
+    local command = nil
+    if _G.is_windows then
+        command = ('netstat -abon | find /i "%s"'):format(_G.Server:getPort())
+    else
+        error("Unix system are not supported yet :(", 2)
+        return
+    end
+
+    local file    = assert(io.popen(command, "r"))
+    local content = file:read("*a")
+    file:close()
+    local cmdOutput = string.split(content, " ")
+    local pid       = cmdOutput[#cmdOutput]
+    return tonumber(pid)
+end
+
+function fu.killProcess(pid)
+    local command = nil
+    if _G.is_windows then
+        command = ('taskkill /PID %s /F'):format(pid)
+    else
+        error("Unix system are not supported yet :(", 2)
+        return
+    end
+    os.execute(command)
+end
+
 ----------------------------------------------------------------------------------------------------
--- Noita specific file, directory or path functions
+--- Noita specific file, directory or path functions
 ----------------------------------------------------------------------------------------------------
 
 --- Sets Noitas root absolute path to _G

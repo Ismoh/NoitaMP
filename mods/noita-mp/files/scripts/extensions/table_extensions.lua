@@ -5,13 +5,14 @@
 --- @param key any Number(index) or String(name matching) for indexing the table.
 --- @return boolean true if indexing by key does not return nil
 --- @return number index also returns the index of the found key
-table.contains = function(tbl, key)
+table.contains    = function(tbl, key)
     -- for index, value in ipairs(tbl) do
     --     if value == key then
     --         return true, index
     --     end
     -- end
-    for i = 1, #tbl do -- better performance? Yes reduced load from 111 to 80. still only 10fps
+    for i = 1, #tbl do
+        -- better performance? Yes reduced load from 111 to 80. still only 10fps
         local v = tbl[i]
         if v == key then
             return true, i
@@ -26,7 +27,7 @@ end
 --- @param ... any
 --- @return boolean true if all the values were in the table.
 table.containsAll = function(tbl, ...)
-    local arg = { ... }
+    local arg   = { ... }
     local count = 0
     for i = 1, #tbl do
         for c = 1, #arg do

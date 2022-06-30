@@ -282,10 +282,11 @@ function Client.new(sockClient)
         local localPlayerInfo = util.getLocalPlayerInfo()
         local name            = localPlayerInfo.name
         local guid            = localPlayerInfo.guid
+        local nuid            = localPlayerInfo.nuid -- Could be nil. Timing issue. Will be set after this.
         local entityId        = localPlayerInfo.entityId
 
         self:send(NetworkUtils.events.playerInfo.name,
-                  { NetworkUtils.getNextNetworkMessageId(), name, guid })
+                  { NetworkUtils.getNextNetworkMessageId(), name, guid, nuid, _G.NoitaMPVersion })
 
         if not NetworkVscUtils.hasNetworkLuaComponents(entityId) then
             NetworkVscUtils.addOrUpdateAllVscs(entityId, name, guid, nil)
@@ -341,6 +342,10 @@ function Client.new(sockClient)
             error(("onNewNuid data.filename is empty: %s"):format(data.filename), 3)
         end
 
+        if util.IsEmpty(data.health) then
+            error(("onNewNuid data.health is empty: %s"):format(data.health), 3)
+        end
+
         if util.IsEmpty(data.isPolymorphed) then
             error(("onNewNuid data.isPolymorphed is empty: %s"):format(data.isPolymorphed), 3)
         end
@@ -355,6 +360,7 @@ function Client.new(sockClient)
         local rotation      = data.rotation
         local velocity      = data.velocity
         local filename      = data.filename
+        local health        = data.health
         local isPolymorphed = data.isPolymorphed
 
         if owner.guid == util.getLocalPlayerInfo().guid then
@@ -363,7 +369,8 @@ function Client.new(sockClient)
             end
         end
 
-        EntityUtils.SpawnEntity(owner, newNuid, x, y, rotation, velocity, filename, localEntityId, isPolymorphed)
+        EntityUtils.SpawnEntity(owner, newNuid, x, y, rotation, velocity, filename, localEntityId, health,
+                                isPolymorphed)
     end
 
     local function onEntityData(data)
@@ -647,14 +654,13 @@ function Client.new(sockClient)
         end
 
         local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
-        local data                                                                               = { NetworkUtils.getNextNetworkMessageId(), { ownerName, ownerGuid },
-                                                                                                     entityId, x, y,
-                                                                                                     rotation,
-                                                                                                     velocity,
-                                                                                                     filename,
-                                                                                                     EntityUtils.isPlayerPolymorphed() }
+        local data                                                                               = {
+            NetworkUtils.getNextNetworkMessageId(), { ownerName, ownerGuid }, entityId, x, y, rotation, velocity,
+            filename, health, EntityUtils.isEntityPolymorphed(entityId)--EntityUtils.isPlayerPolymorphed()
+        }
 
-        self:send(NetworkUtils.events.needNuid.name, data)
+        self:send(NetworkUtils.events.needNuid.name,
+                  data)
     end
 
     function self.sendLostNuid(nuid)

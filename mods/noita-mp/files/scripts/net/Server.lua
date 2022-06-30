@@ -144,18 +144,19 @@ function Server.new(sockServer)
         local name                       = localPlayerInfo.name
         local guid                       = localPlayerInfo.guid
         local entityId                   = localPlayerInfo.entityId
+        local isPolymorphed              = EntityUtils.isEntityPolymorphed(entityId) --EntityUtils.isPlayerPolymorphed()
         local ownerName, ownerGuid, nuid = NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
 
         self:sendToPeer(peer, NetworkUtils.events.playerInfo.name,
-                        { NetworkUtils.getNextNetworkMessageId(), name, guid, nuid })
+                        { NetworkUtils.getNextNetworkMessageId(), name, guid, nuid, _G.NoitaMPVersion })
         self:sendToPeer(peer, NetworkUtils.events.seed.name,
                         { NetworkUtils.getNextNetworkMessageId(), StatsGetValue("world_seed") })
         -- Let the other clients know, that one client connected
         self:sendToAllBut(peer, NetworkUtils.events.connect2.name,
-                          { NetworkUtils.getNextNetworkMessageId(), peer.name, peer.guid })
+                          { NetworkUtils.getNextNetworkMessageId(), peer.name, peer.guid, nil, nil })
 
         local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
-        self.sendNewNuid({ name, guid }, entityId, nuid, x, y, rotation, velocity, filename)
+        self.sendNewNuid({ name, guid }, entityId, nuid, x, y, rotation, velocity, filename, health, isPolymorphed)
     end
 
     ------------------------------------------------------------------------------------------------
@@ -208,9 +209,9 @@ function Server.new(sockServer)
             error(("onPlayerInfo data.guid is empty: %s"):format(data.guid), 3)
         end
 
-        if util.IsEmpty(data.nuid) then
-            error(("onPlayerInfo data.nuid is empty: %s"):format(data.nuid), 3)
-        end
+        --if util.IsEmpty(data.nuid) then
+        --    error(("onPlayerInfo data.nuid is empty: %s"):format(data.nuid), 3)
+        --end
 
         if util.IsEmpty(data.version) then
             error(("onPlayerInfo data.version is empty: %s"):format(data.version), 3)
@@ -276,6 +277,10 @@ function Server.new(sockServer)
             error(("onNewNuid data.filename is empty: %s"):format(data.filename), 3)
         end
 
+        if util.IsEmpty(data.health) then
+            error(("onNewNuid data.health is empty: %s"):format(data.health), 3)
+        end
+
         if util.IsEmpty(data.isPolymorphed) then
             error(("onNewNuid data.isPolymorphed is empty: %s"):format(data.isPolymorphed), 3)
         end
@@ -289,11 +294,13 @@ function Server.new(sockServer)
         local rotation      = data.rotation
         local velocity      = data.velocity
         local filename      = data.filename
+        local health        = data.health
         local isPolymorphed = data.isPolymorphed
 
         local newNuid       = NuidUtils.getNextNuid()
-        self.sendNewNuid(owner, localEntityId, newNuid, x, y, rotation, velocity, filename)
-        EntityUtils.SpawnEntity(owner, newNuid, x, y, rotation, velocity, filename, localEntityId, isPolymorphed)
+        self.sendNewNuid(owner, localEntityId, newNuid, x, y, rotation, velocity, filename, health, isPolymorphed)
+        EntityUtils.SpawnEntity(owner, newNuid, x, y, rotation, velocity, filename, localEntityId, health,
+                                isPolymorphed)
     end
 
     ------------------------------------------------------------------------------------------------
@@ -315,12 +322,14 @@ function Server.new(sockServer)
             error(("onLostNuid data.nuid is empty: %s"):format(util.pformat(data.nuid)), 3)
         end
 
-        local nuid, entityId                                                                     = GlobalsUtils.getNuidEntityPair(data.nuid)
+        local nuid, entityId             = GlobalsUtils.getNuidEntityPair(data.nuid)
         --local compOwnerName, compOwnerGuid, compNuid     = NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
-        local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
+        local compOwnerName, compOwnerGuid, compNuid, filename,
+        health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
+        local isPolymorphed              = EntityUtils.isEntityPolymorphed(entityId) --EntityUtils.isPlayerPolymorphed() -- TODO, check if entityId is polymorphed and not the player
 
         self.sendNewNuid({ compOwnerName, compOwnerGuid },
-                         "unknown", nuid, x, y, rotation, velocity, filename)
+                         "unknown", nuid, x, y, rotation, velocity, filename, health, isPolymorphed)
     end
 
     local function onEntityData(data, peer)
@@ -572,8 +581,8 @@ function Server.new(sockServer)
         local entityId = util.getLocalPlayerInfo().entityId
         if entityId then
             local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
-            self.health                                      = health
-            self.transform                                   = { x = math.floor(x), y = math.floor(y) }
+            self.health                                                                              = health
+            self.transform                                                                           = { x = math.floor(x), y = math.floor(y) }
         end
     end
 
@@ -600,17 +609,19 @@ function Server.new(sockServer)
         logger:info(logger.channels.network, "Starting server on %s:%s ..", ip, port)
         --self = _G.ServerInit.new(sock.newServer(ip, port), false)
         --_G.Server = self
-        sockServerStart(self, ip, port)
-        logger:info(logger.channels.network, "Server started on %s:%s", self:getAddress(), self:getPort())
+        local success = sockServerStart(self, ip, port)
+        if success == true then
+            logger:info(logger.channels.network, "Server started on %s:%s", self:getAddress(), self:getPort())
 
-        setGuid()
-        setConfigSettings()
-        setCallbackAndSchemas()
+            setGuid()
+            setConfigSettings()
+            setCallbackAndSchemas()
 
-        GamePrintImportant("Server started",
-                           ("Your server is running on %s. Tell your friends to join!"):format(self:getAddress(),
-                                                                                               self:getPort()),
-                           "")
+            GamePrintImportant("Server started", ("Your server is running on %s. Tell your friends to join!")
+                    :format(self:getAddress(), self:getPort()))
+        else
+            GamePrintImportant("Server didnt started!", "Try again, otherwise restart Noita.")
+        end
     end
 
     --- Stops the server.
@@ -671,9 +682,10 @@ function Server.new(sockServer)
         sockServerUpdate(self)
     end
 
-    function self.sendNewNuid(owner, localEntityId, newNuid, x, y, rot, velocity, filename)
+    function self.sendNewNuid(owner, localEntityId, newNuid, x, y, rot, velocity, filename, health, isPolymorphed)
         self:sendToAll2("newNuid",
-                        { NetworkUtils.getNextNetworkMessageId(), owner, localEntityId, newNuid, x, y, rot, velocity, filename })
+                        { NetworkUtils.getNextNetworkMessageId(), owner, localEntityId, newNuid, x, y, rot, velocity,
+                          filename, health, isPolymorphed })
     end
 
     function self.sendEntityData(entityId)

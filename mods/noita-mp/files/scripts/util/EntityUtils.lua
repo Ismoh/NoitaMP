@@ -115,11 +115,23 @@ end
 
 --#region Global public variables
 
-EntityUtils.localPlayerEntityId = -1
+EntityUtils.localPlayerEntityId            = -1
+EntityUtils.localPlayerEntityIdPolymorphed = -1
 
 --#endregion
 
 --#region Global public functions
+
+function EntityUtils.isEntityPolymorphed(entityId)
+    local polymorphedEntityIds = EntityGetWithTag("polymorphed") or {}
+
+    for e = 1, #polymorphedEntityIds do
+        if polymorphedEntityIds[e] == entityId then
+            return true
+        end
+    end
+    return false
+end
 
 function EntityUtils.isPlayerPolymorphed()
     local polymorphedEntityIds = EntityGetWithTag("polymorphed") or {}
@@ -130,6 +142,7 @@ function EntityUtils.isPlayerPolymorphed()
         for c = 1, #componentIds do
             local isPlayer = ComponentGetValue2(componentIds[c], "is_player")
             if isPlayer then
+                EntityUtils.localPlayerEntityIdPolymorphed = polymorphedEntityIds[e]
                 return true, polymorphedEntityIds[e]
             end
         end
@@ -237,7 +250,9 @@ function EntityUtils.initNetworkVscs()
                 if _G.whoAmI() == _G.Server.iAm then
                     GlobalsUtils.setNuid(nuid, entityId)
                     local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
-                    _G.Server.sendNewNuid(owner, entityId, nuid, x, y, rotation, velocity, filename)
+                    --local isPolymorphed                                                                      = EntityUtils.isEntityPolymorphed(entityId)
+                    _G.Server.sendNewNuid(owner, entityId, nuid, x, y, rotation, velocity, filename, health,
+                                          false) -- TODO fix me
                 end
             end
 
@@ -257,7 +272,7 @@ end
 --- owner has its own entity ids.
 --- @return number entityId Returns the entity_id of a already existing entity, found by nuid or the newly created
 --- entity.
-function EntityUtils.SpawnEntity(owner, nuid, x, y, rotation, velocity, filename, localEntityId, isPolymorphed)
+function EntityUtils.SpawnEntity(owner, nuid, x, y, rotation, velocity, filename, localEntityId, health, isPolymorphed)
     local localGuid  = util.getLocalPlayerInfo().guid or util.getLocalPlayerInfo()[2]
     local remoteName = owner.name or owner[1]
     local remoteGuid = owner.guid or owner[2]
@@ -302,7 +317,7 @@ function EntityUtils.SpawnEntity(owner, nuid, x, y, rotation, velocity, filename
     end
 
     NetworkVscUtils.addOrUpdateAllVscs(entityId, remoteName, remoteGuid, nuid)
-    NoitaComponentUtils.setEntityData(entityId, x, y, rotation, velocity)
+    NoitaComponentUtils.setEntityData(entityId, x, y, rotation, velocity, health)
 
     return entityId
 end
@@ -436,18 +451,21 @@ function EntityUtils.destroyClientEntities()
             end
 
             if kill then
-                EntityKill(entityId)
-            else
-                if not NetworkVscUtils.isNetworkEntityByNuidVsc(entityId) then
-                    local ownerName, ownerGuid, nuid = NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
-                    if util.IsEmpty(ownerName) or util.IsEmpty(ownerGuid) then
-                        local localPlayerInfo = util.getLocalPlayerInfo()
-                        ownerName             = localPlayerInfo.name
-                        ownerGuid             = localPlayerInfo.guid
-                    end
-                    NetworkVscUtils.addOrUpdateAllVscs(entityId, ownerName, ownerGuid, nuid)
-                    _G.Client.sendNeedNuid(ownerName, ownerGuid, entityId)
+                if entityId ~= EntityUtils.localPlayerEntityId and
+                        entityId ~= EntityUtils.localPlayerEntityIdPolymorphed then
+                    EntityKill(entityId)
                 end
+            end
+        else
+            if not NetworkVscUtils.isNetworkEntityByNuidVsc(entityId) then
+                local ownerName, ownerGuid, nuid = NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
+                if util.IsEmpty(ownerName) or util.IsEmpty(ownerGuid) then
+                    local localPlayerInfo = util.getLocalPlayerInfo()
+                    ownerName             = localPlayerInfo.name
+                    ownerGuid             = localPlayerInfo.guid
+                end
+                NetworkVscUtils.addOrUpdateAllVscs(entityId, ownerName, ownerGuid, nuid)
+                _G.Client.sendNeedNuid(ownerName, ownerGuid, entityId)
             end
         end
     end
@@ -455,7 +473,9 @@ end
 
 function EntityUtils.destroyByNuid(nuid)
     local nNuid, entityId = GlobalsUtils.getNuidEntityPair(nuid)
-    if EntityUtils.isEntityAlive(entityId) then
+    if EntityUtils.isEntityAlive(entityId) and
+            entityId ~= EntityUtils.localPlayerEntityId and
+            entityId ~= EntityUtils.localPlayerEntityIdPolymorphed then
         EntityKill(entityId)
     end
 end

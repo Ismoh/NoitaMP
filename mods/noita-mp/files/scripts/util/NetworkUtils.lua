@@ -38,11 +38,12 @@ NetworkUtils.events                  = {
 
     --- newNuid is used to let clients spawn entities by the servers permission
     newNuid         = { name = "newNuid", schema = { "networkMessageId", "owner", "localEntityId", "newNuid", "x",
-                                                     "y", "rotation", "velocity", "filename", "isPolymorphed" } },
+                                                     "y", "rotation", "velocity", "filename", "health",
+                                                     "isPolymorphed" } },
 
     --- needNuid is used to ask for a nuid from client to servers
     needNuid        = { name = "needNuid", schema = { "networkMessageId", "owner", "localEntityId", "x", "y",
-                                                      "rotation", "velocity", "filename", "isPolymorphed" } },
+                                                      "rotation", "velocity", "filename", "health", "isPolymorphed" } },
 
     --- lostNuid is used to ask for the entity to spawn, when a client has a nuid stored, but no entityId (not sure
     --- atm, why this is happening, but this is due to reduce out of sync stuff)
