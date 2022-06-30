@@ -1,0 +1,20 @@
+name: Increase version on pull request
+on:
+  pull_request:
+    types: [ opened, edited ]
+jobs:
+  copy_label_and_increase_version:
+    name: Copy label and increase version
+    runs-on: ubuntu-latest
+    steps:
+      - name: Find Linked Issues
+        id: links
+        uses: hossainemruz/linked-issues@main
+        with:
+          pr_url: ${{github.event.pull_request.html_url}}
+          format: IssueNumber
+
+      - name: Output linked Issue list
+        run: echo "${{ steps.links.outputs.issues }}"
+      - name: Copy label from issue
+        run: |
