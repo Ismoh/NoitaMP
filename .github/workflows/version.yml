@@ -1,7 +1,7 @@
 name: Increase version on pull request
 on:
   pull_request:
-    types: [ opened, edited ]
+    types: [ opened, edited, synchronize ]
 jobs:
   copy_label_and_increase_version:
     name: Copy label and increase version
