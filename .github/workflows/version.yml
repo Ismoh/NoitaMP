@@ -20,7 +20,7 @@ jobs:
       #  env:
       #    GITHUB_CONTEXT: ${{ toJSON(github) }}
       #  run: echo "$GITHUB_CONTEXT"
-      - name: Copy label from issue
+      - name: Fetch associated issue context
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -30,6 +30,12 @@ jobs:
             issueUrl=$( echo ${{ github.event.pull_request.base.repo.issues_url }} | sed "s/{\/number}/\/$issueNumber/g" )
             echo $issueUrl
             labels=$( curl $issueUrl )
-            labels=${{ toJSON($labels) }}
             echo $labels
+            echo "issueContext$issueNumber=$(echo $labels)" >> $GITHUB_ENV
+          done
+      - name: Gather labels
+        run: |
+          for issueNumber in ${{ steps.links.outputs.issues }}
+          do
+            echo $issueContext$issueNumber
           done
