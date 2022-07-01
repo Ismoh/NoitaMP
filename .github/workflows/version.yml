@@ -29,6 +29,6 @@ jobs:
             echo $issueNumber
             issueUrl=$( echo ${{ github.event.pull_request.base.repo.issues_url }} | sed "s/{\/number}/\/$issueNumber/g" )
             echo $issueUrl
-            labels=$( curl $issueUrl )
+            labels=${{ toJSON( curl $issueUrl ) }}
             echo $labels
           done
