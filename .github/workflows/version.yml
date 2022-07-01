@@ -26,6 +26,9 @@ jobs:
         run: |
           for issueNumber in ${{ steps.links.outputs.issues }}
           do
+            echo $issueNumber
             issueUrl=$( echo ${{ github.event.pull_request.base.repo.issues_url }} | sed "s/{\/number}/\/$issueNumber/g" )
-            labels=$( toJSON(curl $issueUrl).labels )
+            echo $issueUrl
+            labels=$( toJSON(curl $issueUrl) )
+            echo $labels
           done
