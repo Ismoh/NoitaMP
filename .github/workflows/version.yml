@@ -29,7 +29,7 @@ jobs:
             echo $issueNumber
             issueUrl=$( echo ${{ github.event.pull_request.base.repo.issues_url }} | sed "s/{\/number}/\/$issueNumber/g" )
             echo $issueUrl
-            labels=$( curl $issueUrl | jq '. | labels')
+            labels=$( curl $issueUrl | jq '.{} | labels')
             echo $labels
             echo "issueContext$issueNumber=$(echo $labels)" >> $GITHUB_ENV
           done
