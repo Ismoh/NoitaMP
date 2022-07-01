@@ -24,7 +24,13 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh auth logout #https://github.com/cli/cli/issues/494
-          gh auth login
-          cd ${{ github.workspace }}
-          gh issue view ${{ steps.links.outputs.issues }} --json "labels"
+          #gh auth logout #https://github.com/cli/cli/issues/494
+          #gh auth login
+          #cd ${{ github.workspace }}
+          #gh issue view ${{ steps.links.outputs.issues }} --json "labels"
+          for issueNumber in ${{ steps.links.outputs.issues }}
+          do
+            issueUrl=$( ${{event.pull_request.base.repo.issues_url}} | sed "s/{\/number}/\/123/g" )
+            labels=$(toJSON(curl issueUrl).labels)
+          done
+          
