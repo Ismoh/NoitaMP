@@ -32,10 +32,6 @@ jobs:
             echo "issueContext$issueNumber=$(echo $labels)" >> $GITHUB_ENV
           done
       - name: Gather labels
-        uses: andymckay/labeler@master
-          with:
-            add-labels: "needs-triage, bug"
-            remove-labels: "in progress"
         run: |
           for issueNumber in ${{ steps.links.outputs.issues }}
           do
