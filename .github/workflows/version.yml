@@ -14,15 +14,13 @@ jobs:
           pr_url: ${{github.event.pull_request.html_url}}
           format: IssueNumber
 
-      - name: Output linked Issue list
-        run: echo "${{ steps.links.outputs.issues }}"
+      #- name: Output linked Issue list
+      #  run: echo "${{ steps.links.outputs.issues }}"
       #- name: Dump GitHub context
       #  env:
       #    GITHUB_CONTEXT: ${{ toJSON(github) }}
       #  run: echo "$GITHUB_CONTEXT"
       - name: Fetch associated issue context
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           for issueNumber in ${{ steps.links.outputs.issues }}
           do
@@ -34,8 +32,12 @@ jobs:
             echo "issueContext$issueNumber=$(echo $labels)" >> $GITHUB_ENV
           done
       - name: Gather labels
+        uses: andymckay/labeler@master
+          with:
+            add-labels: "needs-triage, bug"
+            remove-labels: "in progress"
         run: |
           for issueNumber in ${{ steps.links.outputs.issues }}
           do
-            echo $issueContext$issueNumber
+            echo $(issueContext$issueNumber)
           done
