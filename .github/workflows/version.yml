@@ -35,5 +35,5 @@ jobs:
         run: |
           for issueNumber in ${{ steps.links.outputs.issues }}
           do
-            echo ${{ env."issueContext$issueNumber" }}
+            echo ${{ env.$(echo issueContext$issueNumber) }}
           done
