@@ -52,8 +52,9 @@ I wouldn't be able to create this mod without the help by
 - @M127
 - @Pyry
 - Soler91
+- [@Shaw](https://github.com/ShawSumma)
 
-I appreaciate your help a lot!
+I appreciate your help a lot!
 If you spot anything I should mention, feel free to create a issue or get in touch with [me](https://github.com/Ismoh)!
 
 Also special thanks to the ppl, who share their libraries, frameworks and other stuff. See below!
