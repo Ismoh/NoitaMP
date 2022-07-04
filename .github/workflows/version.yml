@@ -30,7 +30,7 @@ jobs:
               labelNames="${labelNames:+$labelNames, }'$label'"
             done
           
-          labelNames+="["$labelNames"]"
+          labelNames="["$labelNames"]"
           done
           echo "labelNames="$labelNames
           echo "labelNames=$labelNames" >> GITHUB_ENV
