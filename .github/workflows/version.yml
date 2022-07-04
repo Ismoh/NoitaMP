@@ -31,18 +31,18 @@ jobs:
             echo $labels
             echo "issueContext$issueNumber=$(echo $labels)" >> $GITHUB_ENV
           done
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJSON(github) }}
-        run: echo "$GITHUB_CONTEXT"
-      - name: Add labels
-        uses: actions/github-script@v6
-        with:
-          script: |
-            for issueNumber in ${{ steps.links.outputs.issues }}
-            do
-              echo "issueContext${issueNumber}"
-            done
+#      - name: Dump GitHub context
+#        env:
+#          GITHUB_CONTEXT: ${{ toJSON(github) }}
+#        run: echo "$GITHUB_CONTEXT"
+#      - name: Add labels
+#        uses: actions/github-script@v6
+#        with:
+#          script: |
+#            for issueNumber in ${{ steps.links.outputs.issues }}
+#            do
+#              echo "issueContext${issueNumber}"
+#            done
       - name: Add labels
         run: |
           labels = []
