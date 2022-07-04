@@ -25,12 +25,14 @@ jobs:
             labels=$( curl $issueUrl | jq '.labels')
             echo "labels="$labels
           
+          labelNames="["
             for label in $( echo $labels | jq -r '.[] | .name' )
             do
               echo "label="$label
-              labelNames+="{$label},"
-              echo "labelNames="$labelNames
+              labelNames+="$label,"
             done
+          labelNames=$labelNames | sed -e '$s/,$//'
+          labelNames+="]"
           done
           echo "labelNames="$labelNames
           echo "labelNames=$labelNames" >> GITHUB_ENV
@@ -53,7 +55,7 @@ jobs:
               repo:context.repo.repo,
               labels: echo "${{ env.labelNames }}"
             })
-      
+
 #      - name: Add labels
 #        run: |
 #          labels=[]
