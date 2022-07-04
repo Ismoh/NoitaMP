@@ -14,15 +14,8 @@ jobs:
           pr_url: ${{github.event.pull_request.html_url}}
           format: IssueNumber
 
-      #- name: Output linked Issue list
-      #  run: echo "${{ steps.links.outputs.issues }}"
-      #- name: Dump GitHub context
-      #  env:
-      #    GITHUB_CONTEXT: ${{ toJSON(github) }}
-      #  run: echo "$GITHUB_CONTEXT"
       - name: Fetch associated issue context
         run: |
-#          labelNames=()
           labelNames=""
           for issueNumber in ${{ steps.links.outputs.issues }}
           do
@@ -35,17 +28,18 @@ jobs:
             for label in $( echo $labels | jq -r '.[] | .name' )
             do
               echo "label="$label
-#              labelNames=(${labelNames[@]} $label)
               labelNames+="{$label},"
               echo "labelNames="$labelNames
             done
           done
           echo "labelNames="$labelNames
           echo "labelNames=$labelNames" >> GITHUB_ENV
+
       - name: Dump GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
         run: echo "$GITHUB_CONTEXT"
+
       - name: Add labels
         uses: actions/github-script@v6
         with:
@@ -59,6 +53,7 @@ jobs:
               repo:context.repo.repo,
               labels: echo "${{ env.labelNames }}"
             })
+      
 #      - name: Add labels
 #        run: |
 #          labels=[]
