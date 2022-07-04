@@ -35,9 +35,23 @@ jobs:
         env:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
         run: echo "$GITHUB_CONTEXT"
-      - uses: actions/github-script@v6
+      - name: Add labels
+        uses: actions/github-script@v6
         with:
           script: |
+            labels = []
+            for issueNumber in ${{ steps.links.outputs.issues }}
+            do
+              issueContext=$(echo $issueNumber | sed "s/issueContext//g")
+              echo $issueContext
+              for label in $(echo $issueContext | sed "s/,/ /g")
+              do
+                echo $label
+                labels+=$(echo "\"$label\",")
+              done
+            done
+            echo $labels
+            
             github.rest.issues.addLabels({
               issue_number: context.issue.number,
               owner: context.repo.owner,
