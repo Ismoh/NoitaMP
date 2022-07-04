@@ -40,6 +40,9 @@ jobs:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
         run: echo "$GITHUB_CONTEXT"
 
+      - name: echo labelNames
+        run: echo ${{ env.labelNames }}
+
       - name: Add labels
         uses: actions/github-script@v6
         with:
