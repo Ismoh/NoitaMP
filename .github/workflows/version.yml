@@ -29,9 +29,9 @@ jobs:
             for label in $( echo $labels | jq -r '.[] | .name' )
             do
               echo "label="$label
-              labelNames+="$label,"
+              labelNames+="'$label',"
             done
-          labelNames=$labelNames | sed -e '$s/,$//'
+          labelNames= echo($labelNames | sed -e '$s/,$//')
           labelNames+="]"
           done
           echo "labelNames="$labelNames
