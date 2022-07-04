@@ -20,16 +20,20 @@ jobs:
       #  env:
       #    GITHUB_CONTEXT: ${{ toJSON(github) }}
       #  run: echo "$GITHUB_CONTEXT"
+      - name: Declare issues array
+        run: |
+          echo "issuesLabels=()" >> $GITHUB_ENV
       - name: Fetch associated issue context
         run: |
-          for issueNumber in ${{ steps.links.outputs.issues }}
+          for i in ${{ "${!steps.links.outputs.issues[@]}" }}
           do
+            issueNumber=${steps.links.outputs.issues[$i]}
             echo $issueNumber
             issueUrl=$( echo ${{ github.event.pull_request.base.repo.issues_url }} | sed "s/{\/number}/\/$issueNumber/g" )
             echo $issueUrl
             labels=$( curl $issueUrl | jq '.labels')
             echo $labels
-            echo "$issueNumber=$(echo $labels)" >> $GITHUB_ENV
+            echo "issuesLabels=(${issuesLabels[@]})" >> $GITHUB_ENV
           done
 #      - name: Dump GitHub context
 #        env:
@@ -48,7 +52,7 @@ jobs:
           labels=[]
           for issueNumber in ${{ steps.links.outputs.issues }}
           do
-            echo ${{ env.$issueNumber }}
+            echo ${{ env."issueContext${issueNumber}" }}
             issueContext="issueContext${issueNumber}"#$(echo $issueNumber | sed "s/issueContext//g")
             echo $issueContext
             for label in $(echo $issueContext | sed "s/,/ /g")
