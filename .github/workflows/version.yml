@@ -42,9 +42,9 @@ jobs:
           done
           echo "labelNames="$labelNames
           
-          curlResponse=`curl -v --write-out '%{http_code}' --output /dev/null --request POST \
+          curlResponse=`curl --verbose --write-out '%{http_code}' --output /dev/null --request POST \
           --header 'Accept: application/vnd.github.v3+json' \
-          --header 'Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+          --header 'Authorization: token ${{ github.token }}' \
           --header 'Content-Type: application/json' \
           --url 'https://api.github.com/repos/${{github.repository}}/issues/${{github.event.number}}/labels' \
           --data '{ \
