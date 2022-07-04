@@ -45,7 +45,7 @@ jobs:
 #            done
       - name: Add labels
         run: |
-          labels = []
+          labels=[]
           for issueNumber in ${{ steps.links.outputs.issues }}
           do
             issueContext=$(echo $issueNumber | sed "s/issueContext//g")
