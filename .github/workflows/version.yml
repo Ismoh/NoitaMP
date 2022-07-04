@@ -31,7 +31,7 @@ jobs:
               echo "label="$label
               labelNames+="'$label',"
             done
-          labelNames= echo($labelNames | sed -e '$s/,$//')
+          labelNames= echo $labelNames | sed -e '$labelNames/,$//'
           labelNames+="]"
           done
           echo "labelNames="$labelNames
