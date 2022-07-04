@@ -39,10 +39,10 @@ jobs:
           done
           echo $labelNames
           echo "labelNames=$labelNames" >> GITHUB_CONTEXT
-#      - name: Dump GitHub context
-#        env:
-#          GITHUB_CONTEXT: ${{ toJSON(github) }}
-#        run: echo "$GITHUB_CONTEXT"
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
+        run: echo "$GITHUB_CONTEXT"
       - name: Add labels
         uses: actions/github-script@v6
         with:
