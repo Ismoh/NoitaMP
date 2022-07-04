@@ -39,28 +39,28 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            labels = []
             for issueNumber in ${{ steps.links.outputs.issues }}
             do
-              issueContext=$(echo $issueNumber | sed "s/issueContext//g")
-              echo $issueContext
-              for label in $(echo $issueContext | sed "s/,/ /g")
-              do
-                echo $label
-                labels+=$(echo "\"$label\",")
-              done
+              echo "issueContext${issueNumber}"
             done
-            echo $labels
-            
-            github.rest.issues.addLabels({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              labels: [echo $labels]
-            })
-      - name: Gather labels
+      - name: Add labels
         run: |
+          labels = []
           for issueNumber in ${{ steps.links.outputs.issues }}
           do
-            echo "issueContext${issueNumber}"
+            issueContext=$(echo $issueNumber | sed "s/issueContext//g")
+            echo $issueContext
+            for label in $(echo $issueContext | sed "s/,/ /g")
+            do
+              echo $label
+              labels+=$(echo "\"$label\",")
+            done
           done
+          echo $labels
+
+          github.rest.issues.addLabels({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            labels: [echo $labels]
+          })
