@@ -52,11 +52,29 @@ jobs:
             echo "${{ env.labelNames }}"
             echo "$labelNames"
             
+            for issueNumber in ${{ steps.links.outputs.issues }}
+            do
+              echo "issueNumber="$issueNumber
+              issueUrl=$( echo ${{ github.event.pull_request.base.repo.issues_url }} | sed "s/{\/number}/\/$issueNumber/g" )
+              echo "issueUrl="$issueUrl
+              labels=$( curl $issueUrl | jq '.labels')
+              echo "labels="$labels
+              
+              for label in $( echo $labels | jq -r '.[] | .name' )
+              do
+                echo "label="$label
+                labelNames="${labelNames:+$labelNames, }'$label'"
+              done
+              
+              labelNames="["$labelNames"]"
+            done
+            echo "labelNames="$labelNames
+            
             github.rest.issues.addLabels({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo:context.repo.repo,
-              labels: ${{ env.labelNames }}
+              labels: $labelNames
             })
 
 #      - name: Add labels
