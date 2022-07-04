@@ -33,9 +33,11 @@ jobs:
           
             for label in $( echo $labels | jq -r '.[] | .name' )
             do
+              echo $label
               labelNames=(${labelNames[@]} $label)
             done
           done
+          echo $labelNames
           echo "labelNames=$labelNames" >> GITHUB_CONTEXT
 #      - name: Dump GitHub context
 #        env:
