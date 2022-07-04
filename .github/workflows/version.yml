@@ -50,13 +50,23 @@ jobs:
 #          --data-raw '{
 #            "labels": [$labelsNames]
 #          }'
+               
+          $(
+               curl \
+               --location \ 
+               --request POST 'https://api.github.com/repos/{repo_owner}/{repo_name}/issues/{pr_number}/labels' \
+               --header 'Accept: application/vnd.github.v3+json' \
+               --header 'Authorization: Bearer {GITHUB_PAT}' \
+               --header 'Content-Type: application/json' \
+               --data-raw '{ "labels": [ "enhancement" ] }'
+          )
 
-          curl \
-               -X POST \
-               -H "Accept: application/vnd.github+json" \
-               -H "Authorization: token <TOKEN>" \
-               https://api.github.com/repos/OWNER/REPO/issues/ISSUE_NUMBER/labels \
-               -d '{"labels":[$labelNames]}'
+#          curl \
+#               -X POST \
+#               -H "Accept: application/vnd.github+json" \
+#               -H "Authorization: token <TOKEN>" \
+#               https://api.github.com/repos/OWNER/REPO/issues/ISSUE_NUMBER/labels \
+#               -d '{"labels":[$labelNames]}'
 
 #          echo "labelNames=$labelNames" >> GITHUB_ENV
 
