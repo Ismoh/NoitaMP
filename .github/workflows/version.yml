@@ -22,6 +22,7 @@ jobs:
       #  run: echo "$GITHUB_CONTEXT"
       - name: Fetch associated issue context
         run: |
+          labelNames=()
           for issueNumber in ${{ steps.links.outputs.issues }}
           do
             echo $issueNumber
@@ -30,29 +31,29 @@ jobs:
             labels=$( curl $issueUrl | jq '.labels')
             echo $labels
           
-            labelNames=()
             for label in $( echo $labels | jq -r '.[] | .name' )
             do
               labelNames=(${labelNames[@]} $label)
             done
-          
-            github.rest.issues.addLabels({ issue_number: context.issue.number,
-                                           owner: context.repo.owner,
-                                           repo:context.repo.repo,
-                                           labels: $labelNames })
           done
+          echo "labelNames=$labelNames" >> GITHUB_CONTEXT
 #      - name: Dump GitHub context
 #        env:
 #          GITHUB_CONTEXT: ${{ toJSON(github) }}
 #        run: echo "$GITHUB_CONTEXT"
-#      - name: Add labels
-#        uses: actions/github-script@v6
-#        with:
-#          script: |
-#            for issueNumber in ${{ steps.links.outputs.issues }}
-#            do
-#              echo "issueContext${issueNumber}"
-#            done
+      - name: Add labels
+        uses: actions/github-script@v6
+        with:
+          script: |
+            echo "${{ env.labelNames }}"
+            echo "$labelNames"
+            
+            github.rest.issues.addLabels({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo:context.repo.repo,
+              labels: echo "${{ env.labelNames }}"
+            })
 #      - name: Add labels
 #        run: |
 #          labels=[]
