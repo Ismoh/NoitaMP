@@ -48,7 +48,8 @@ jobs:
           labels=[]
           for issueNumber in ${{ steps.links.outputs.issues }}
           do
-            issueContext=$(echo $issueNumber | sed "s/issueContext//g")
+            echo ${{ env."issueContext${issueNumber}" }}
+            issueContext="issueContext${issueNumber}"#$(echo $issueNumber | sed "s/issueContext//g")
             echo $issueContext
             for label in $(echo $issueContext | sed "s/,/ /g")
             do
