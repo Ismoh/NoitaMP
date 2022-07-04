@@ -25,20 +25,20 @@ jobs:
           labelNames=()
           for issueNumber in ${{ steps.links.outputs.issues }}
           do
-            echo $issueNumber
+            echo "issueNumber="$issueNumber
             issueUrl=$( echo ${{ github.event.pull_request.base.repo.issues_url }} | sed "s/{\/number}/\/$issueNumber/g" )
-            echo $issueUrl
+            echo "issueUrl="$issueUrl
             labels=$( curl $issueUrl | jq '.labels')
-            echo $labels
+            echo "labels="$labels
           
             for label in $( echo $labels | jq -r '.[] | .name' )
             do
-              echo $label
+              echo "label="$label
               labelNames=(${labelNames[@]} $label)
             done
           done
-          echo $labelNames
-          echo "labelNames=$labelNames" >> GITHUB_CONTEXT
+          echo "labelNames="$labelNames
+          echo "labelNames=$labelNames" >> GITHUB_ENV
       - name: Dump GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
