@@ -16,7 +16,6 @@ jobs:
 
       - name: Fetch associated issue context
         run: |
-          labelNames=""
           for issueNumber in ${{ steps.links.outputs.issues }}
           do
             echo "issueNumber="$issueNumber
@@ -25,13 +24,13 @@ jobs:
             labels=$( curl $issueUrl | jq '.labels')
             echo "labels="$labels
           
-          labelNames="["
             for label in $( echo $labels | jq -r '.[] | .name' )
             do
               echo "label="$label
-              labelNames="${labelNames:+$labelNames, }$label"
+              labelNames="${labelNames:+$labelNames, }'$label'"
             done
-          labelNames+="]"
+          
+          labelNames+="["$labelNames"]"
           done
           echo "labelNames="$labelNames
           echo "labelNames=$labelNames" >> GITHUB_ENV
