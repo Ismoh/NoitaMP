@@ -65,16 +65,16 @@ jobs:
                 echo "label="$label
                 labelNames="${labelNames:+$labelNames, }'$label'"
               done
-              
-              labelNames="["$labelNames"]"
+            
             done
             echo "labelNames="$labelNames
+            echo [$labelNames]
             
             github.rest.issues.addLabels({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo:context.repo.repo,
-              labels: $labelNames
+              labels: [$labelNames]
             })
 
 #      - name: Add labels
