@@ -36,12 +36,10 @@ jobs:
               labelNames=(${labelNames[@]} $label)
             done
           
-            github.rest.issues.addLabels({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              labels: $labelNames
-            })
+            github.rest.issues.addLabels({ issue_number: context.issue.number,
+                                           owner: context.repo.owner,
+                                           repo:context.repo.repo,
+                                           labels: $labelNames })
           done
 #      - name: Dump GitHub context
 #        env:
