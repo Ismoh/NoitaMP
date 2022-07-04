@@ -33,14 +33,14 @@ jobs:
             labelNames=()
             for label in $( echo $labels | jq -r '.[] | .name' )
             do
-              labelNames=(${labelNames[@]} label)
+              labelNames=(${labelNames[@]} $label)
             done
           
             github.rest.issues.addLabels({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              labels: [echo $labelNames]
+              labels: $labelNames
             })
           done
 #      - name: Dump GitHub context
