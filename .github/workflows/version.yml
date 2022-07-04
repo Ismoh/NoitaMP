@@ -49,7 +49,7 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            echo ${{ env.labelNames }}
+            echo "${{ env.labelNames }}"
             echo "$labelNames"
             
             github.rest.issues.addLabels({
