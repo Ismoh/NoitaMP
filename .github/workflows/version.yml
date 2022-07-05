@@ -40,7 +40,7 @@ jobs:
           done
           echo "labelNames="$labelNames
           data= echo "{\"labels\":[${labelNames}]}"
-          echo $data
+          echo "data="$data
         
           curlResponse=`curl --verbose --request POST \
           --header 'Accept: application/vnd.github.v3+json' \
