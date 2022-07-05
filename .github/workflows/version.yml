@@ -42,7 +42,7 @@ jobs:
           data="{\"labels\":[${labelNames}]}"
           echo "data="$data
         
-          curlResponse=`curl --verbose --request POST \
+          curlResponse=`curl --verbose --write-out '%{http_code}' --output /dev/null --request POST \
           --header 'Accept: application/vnd.github.v3+json' \
           --header 'Authorization: token ${{ github.token }}' \
           --header 'Content-Type: application/json' \
