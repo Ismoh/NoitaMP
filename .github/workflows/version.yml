@@ -3,25 +3,19 @@ on:
   pull_request:
     types: [ opened, edited, synchronize ]
 jobs:
-  copy_label_and_increase_version:
-    name: Copy label and increase version
+  find-linked-issues-and-copy-labels-to-pull-request:
+    name: Find linked issues and copy labels to pull request
+    id: first
     runs-on: ubuntu-latest
     steps:
-      - name: Find Linked Issues
+      - name: Find linked issues
         id: links
         uses: hossainemruz/linked-issues@main
         with:
           pr_url: ${{github.event.pull_request.html_url}}
           format: IssueNumber
       
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJSON(github) }}
-        run: echo "$GITHUB_CONTEXT"
-      
-      - name: Fetch associated issue context
-        env:
-          GITHUB_CONTEXT: ${{ toJSON(github) }}
+      - name: Add issues label to pull request}
         run: |
           for issueNumber in ${{ steps.links.outputs.issues }}
           do
@@ -58,63 +52,36 @@ jobs:
             echo "FAILURE"
             exit 1
           fi
+  
+          echo "::set-output name=labelNames::${labelNames}"
+        outputs:
+          labelNames: ${{ steps.first.outputs.labelNames }}
+          
+  increase-version-by-labels:
+    env:
+      VERSION_FILE_NAME: 'mods/noita-mp/.version'
+      VERSION_BUMP_FILE: 'version_fragment'
+    name: Increase version by labels
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
       
-      - name: echo labelNames
-        run: |
-          echo ${{ env.labelNames }}
-          env
-
-#      - name: Add labels
-#        uses: actions/github-script@v6.1.0
-#        with:
-#          script: |
-#            echo "${{ env.labelNames }}"
-#            echo "$labelNames"
-#
-#            for issueNumber in ${{ steps.links.outputs.issues }}
-#            do
-#              echo "issueNumber="$issueNumber
-#              issueUrl=$( echo ${{ github.event.pull_request.base.repo.issues_url }} | sed "s/{\/number}/\/$issueNumber/g" )
-#              echo "issueUrl="$issueUrl
-#              labels=$( curl $issueUrl | jq '.labels')
-#              echo "labels="$labels
-#
-#              for label in $( echo $labels | jq -r '.[] | .name' )
-#              do
-#                echo "label="$label
-#                labelNames="${labelNames:+$labelNames, }'$label'"
-#              done
-#
-#            done
-#            echo "labelNames="$labelNames
-#            echo [$labelNames]
-#
-#            github.rest.issues.addLabels({
-#              issue_number: context.issue.number,
-#              owner: context.repo.owner,
-#              repo:context.repo.repo,
-#              labels: [$labelNames]
-#            })
-
-#      - name: Add labels
-#        run: |
-#          labels=[]
-#          for issueNumber in ${{ steps.links.outputs.issues }}
-#          do
-#            echo ${{ env."issueContext${issueNumber}" }}
-#            issueContext="issueContext${issueNumber}"#$(echo $issueNumber | sed "s/issueContext//g")
-#            echo $issueContext
-#            for label in $(echo $issueContext | sed "s/,/ /g")
-#            do
-#              echo $label
-#              labels+=$(echo "\"$label\",")
-#            done
-#          done
-#          echo $labels
-#
-#          github.rest.issues.addLabels({
-#            issue_number: context.issue.number,
-#            owner: context.repo.owner,
-#            repo: context.repo.repo,
-#            labels: [echo $labels]
-#          })
+      - name: Get version fragment to bump
+          id: getVersionFragment
+          run: |
+            read -r versionFragment < ${{ env.VERSION_BUMP_FILE }}
+            echo "'$versionFragment' version will be incremented"
+            echo "::set-env name=VERSION_FRAGMENT::${versionFragment}"
+            
+      - name: Increase version
+        uses: HardNorth/github-version-generate@v1.1.2
+          with:
+            version-source: file
+            version-file: ${{ env.VERSION_FILE_NAME }}
+            next-version-increment-major: ${{ contains(env.VERSION_FRAGMENT, 'major') }}
+            next-version-increment-minor: ${{ contains(env.VERSION_FRAGMENT, 'minor') }}
+            next-version-increment-patch: ${{ contains(env.VERSION_FRAGMENT, 'patch') }}
+            next-version-cut-build-metadata: false
+            next-version-put-build-metadata: true
+            
+        
