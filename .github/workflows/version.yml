@@ -52,7 +52,7 @@ jobs:
             exit 1
           fi
         
-          echo "VERSION_FRAGMENT=${labelNames}" >> GITHUB_ENV
+          echo "VERSION_FRAGMENT=$labelNames" >> GITHUB_ENV
       - name: Test
         run: |
           echo $VERSION_FRAGMENT
