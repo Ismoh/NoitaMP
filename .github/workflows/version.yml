@@ -39,7 +39,7 @@ jobs:
         
           done
           echo "labelNames="$labelNames
-          $data="labels":[echo $labelNames]
+          data='"labels":[echo $labelNames]'
           echo $data
           $data
         
