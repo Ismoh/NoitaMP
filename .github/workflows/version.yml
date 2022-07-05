@@ -5,7 +5,6 @@ on:
 jobs:
   find-linked-issues-and-copy-labels-to-pull-request:
     name: Find linked issues and copy labels to pull request
-    id: first
     runs-on: ubuntu-latest
     steps:
       - name: Find linked issues
