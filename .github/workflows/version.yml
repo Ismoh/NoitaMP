@@ -52,9 +52,9 @@ jobs:
             echo "FAILURE"
             exit 1
           fi
-  
+        
           echo "::set-env name=VERSION_FRAGMENT::${labelNames}"
-          
+  
   increase-version-by-labels:
     env:
       VERSION_FILE_NAME: 'mods/noita-mp/.version'
@@ -69,16 +69,16 @@ jobs:
           read -r versionFragment < ${{ env.VERSION_BUMP_FILE }}
           echo "'$versionFragment' version will be incremented"
           echo "::set-env name=VERSION_FRAGMENT::${versionFragment}"
-            
+      
       - name: Increase version
         uses: HardNorth/github-version-generate@v1.1.2
-          with:
-            version-source: file
-            version-file: ${{ env.VERSION_FILE_NAME }}
-            next-version-increment-major: ${{ contains(env.VERSION_FRAGMENT, 'rework') }}
-            next-version-increment-minor: ${{ contains(env.VERSION_FRAGMENT, 'enhancement') }}
-            next-version-increment-patch: ${{ contains(env.VERSION_FRAGMENT, 'bug') }}
-            next-version-cut-build-metadata: false
-            next-version-put-build-metadata: true
+        with:
+          version-source: file
+          version-file: ${{ env.VERSION_FILE_NAME }}
+          next-version-increment-major: ${{ contains(env.VERSION_FRAGMENT, 'rework') }}
+          next-version-increment-minor: ${{ contains(env.VERSION_FRAGMENT, 'enhancement') }}
+          next-version-increment-patch: ${{ contains(env.VERSION_FRAGMENT, 'bug') }}
+          next-version-cut-build-metadata: false
+          next-version-put-build-metadata: true
             
         
