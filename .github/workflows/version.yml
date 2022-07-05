@@ -53,14 +53,11 @@ jobs:
             exit 1
           fi
   
-          echo "::set-output name=labelNames::${labelNames}"
-        outputs:
-          labelNames: ${{ steps.first.outputs.labelNames }}
+          echo "::set-env name=VERSION_FRAGMENT::${labelNames}"
           
   increase-version-by-labels:
     env:
       VERSION_FILE_NAME: 'mods/noita-mp/.version'
-      VERSION_BUMP_FILE: 'version_fragment'
     name: Increase version by labels
     runs-on: ubuntu-latest
     steps:
@@ -78,9 +75,9 @@ jobs:
           with:
             version-source: file
             version-file: ${{ env.VERSION_FILE_NAME }}
-            next-version-increment-major: ${{ contains(env.VERSION_FRAGMENT, 'major') }}
-            next-version-increment-minor: ${{ contains(env.VERSION_FRAGMENT, 'minor') }}
-            next-version-increment-patch: ${{ contains(env.VERSION_FRAGMENT, 'patch') }}
+            next-version-increment-major: ${{ contains(env.VERSION_FRAGMENT, 'rework') }}
+            next-version-increment-minor: ${{ contains(env.VERSION_FRAGMENT, 'enhancement') }}
+            next-version-increment-patch: ${{ contains(env.VERSION_FRAGMENT, 'bug') }}
             next-version-cut-build-metadata: false
             next-version-put-build-metadata: true
             
