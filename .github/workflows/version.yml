@@ -52,9 +52,14 @@ jobs:
             exit 1
           fi
         
-          echo "::set-env name=VERSION_FRAGMENT::${labelNames}"
+          echo "VERSION_FRAGMENT=${labelNames}" >> GITHUB_ENV
+      - name: Test
+        run: |
+          echo $VERSION_FRAGMENT
+          echo ${{ env.VERSION_FRAGMENT }}
   
   increase-version-by-labels:
+    needs: find-linked-issues-and-copy-labels-to-pull-request
     env:
       VERSION_FILE_NAME: 'mods/noita-mp/.version'
     name: Increase version by labels
