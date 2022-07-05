@@ -72,7 +72,7 @@ jobs:
         run: |
           read -r versionFragment < ${{ env.VERSION_BUMP_FILE }}
           echo "'$versionFragment' version will be incremented"
-          echo "::set-env name=VERSION_FRAGMENT::${versionFragment}"
+#          echo "::set-env name=VERSION_FRAGMENT::${versionFragment}"
       
       - name: Increase version
         uses: HardNorth/github-version-generate@v1.1.2
