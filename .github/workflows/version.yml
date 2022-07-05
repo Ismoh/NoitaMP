@@ -39,9 +39,8 @@ jobs:
         
           done
           echo "labelNames="$labelNames
-          data='"labels":[echo $labelNames]'
+          data= echo "\"labels\":[${labelNames}]"
           echo $data
-          $data
         
           echo `curl --verbose --request POST \
           --header 'Accept: application/vnd.github.v3+json' \
@@ -55,7 +54,7 @@ jobs:
           --header 'Authorization: token ${{ github.token }}' \
           --header 'Content-Type: application/json' \
           --url 'https://api.github.com/repos/${{github.repository}}/issues/${{github.event.number}}/labels' \
-          -d '{$data}'`
+          -d '{echo $data}'`
         
           echo "curlResponse="$curlResponse
         
