@@ -34,7 +34,7 @@ jobs:
             for label in $( echo $labels | jq -r '.[] | .name' )
             do
               echo "label="$label
-              labelNames="${labelNames:+$labelNames, }\"$label\""
+              labelNames="${labelNames:+$labelNames,}\"$label\""
             done
         
           done
