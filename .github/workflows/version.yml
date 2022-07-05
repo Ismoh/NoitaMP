@@ -51,7 +51,7 @@ jobs:
         
           echo "curlResponse="$curlResponse
         
-          if [ $curlResponse=="200" ]
+          if [[ $curlResponse == *"200"* ]]
           then
             echo "SUCCESS"
           else
