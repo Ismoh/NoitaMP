@@ -3,6 +3,8 @@ on:
   pull_request:
     types: [ opened, edited, synchronize ]
 jobs:
+  env:
+    VERSION_FRAGMENT: ""
   find-linked-issues-and-copy-labels-to-pull-request:
     name: Find linked issues and copy labels to pull request
     runs-on: ubuntu-latest
