@@ -39,7 +39,7 @@ jobs:
         
           done
           echo "labelNames="$labelNames
-          data= echo "{\"labels\":[${labelNames}]}"
+          data="{\"labels\":[${labelNames}]}"
           echo "data="$data
         
           curlResponse=`curl --verbose --request POST \
