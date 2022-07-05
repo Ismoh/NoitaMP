@@ -42,7 +42,7 @@ jobs:
           done
           echo "labelNames="$labelNames
           
-          curlResponse=`curl --verbose --write-out '%{http_code}' --output /dev/null --request POST \
+          curlResponse=`curl --verbose --request POST \
           --header 'Accept: application/vnd.github.v3+json' \
           --header 'Authorization: token ${{ github.token }}' \
           --header 'Content-Type: application/json' \
@@ -50,12 +50,20 @@ jobs:
           --data '{ \
             "labels": [ $labelNames ] \
           }'`
+  
+          curl \
+  -X POST \
+  -H "Accept: application/vnd.github+json" \
+  -H "Authorization: token <TOKEN>" \
+  https://api.github.com/repos/OWNER/REPO/issues/ISSUE_NUMBER/labels \
+  -d '{"labels":["bug","enhancement"]}'
     
           echo "curlResponse="$curlResponse
     
           if [ $curlResponse!="200" ]
           then
             echo "FAILURE"
+            exit 1
           else
             echo "SUCCESS"
           fi
