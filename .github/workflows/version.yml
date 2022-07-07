@@ -55,7 +55,7 @@ jobs:
             exit 1
           fi
         
-          echo "::set-output name=labelNames::$labelNames"
+          echo "::set-output name=labelNames::${labelNames}"
       - name: Test
         run: |
           echo $VERSION_FRAGMENT
@@ -64,8 +64,9 @@ jobs:
   increase-version-by-labels:
     needs: find-linked-issues-and-copy-labels-to-pull-request
     env:
+      LABEL_NAMES: $${{ steps.find-linked-issues-and-copy-labels-to-pull-request.outputs.labelNames }}
       VERSION_FILE_NAME: 'mods/noita-mp/.version'
-      VERSION_FRAGMENT: ${{ needs.find-linked-issues-and-copy-labels-to-pull-request.outputs.labelNames }}
+      VERSION_FRAGMENT: 'v2.3.1-alpha+894'
     name: Increase version by labels
     runs-on: ubuntu-latest
     steps:
@@ -75,7 +76,7 @@ jobs:
         id: getVersionFragment
         run: |
           echo $VERSION_BUMP_FILE
-          versionFragment=$(head -n 1 filename)
+          versionFragment=$(head -n 1 $VERSION_BUMP_FILE)
           echo "'$versionFragment' version will be incremented"
           echo "VERSION_FRAGMENT=$versionFragment" >> $GITHUB_ENV
       
@@ -84,9 +85,9 @@ jobs:
         with:
           version-source: file
           version-file: ${{ env.VERSION_FILE_NAME }}
-          next-version-increment-major: ${{ contains(env.VERSION_FRAGMENT, 'rework') }}
-          next-version-increment-minor: ${{ contains(env.VERSION_FRAGMENT, 'enhancement') }}
-          next-version-increment-patch: ${{ contains(env.VERSION_FRAGMENT, 'bug') }}
+          next-version-increment-major: ${{ contains(env.LABEL_NAMES, 'rework') }}
+          next-version-increment-minor: ${{ contains(env.LABEL_NAMES, 'enhancement') }}
+          next-version-increment-patch: ${{ contains(env.LABEL_NAMES, 'bug') }}
           next-version-cut-build-metadata: false
           next-version-put-build-metadata: true
             
