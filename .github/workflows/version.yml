@@ -62,7 +62,7 @@ jobs:
     env:
       LABEL_NAMES: ${{ needs.find-linked-issues-and-copy-labels-to-pull-request.outputs.labelNames }}
       VERSION_FILE_NAME: 'mods/noita-mp/.version'
-      VERSION_FRAGMENT: 'v2.3.1-alpha+894'
+      VERSION_FRAGMENT: 'will be fetched by file'
     name: Increase version by labels
     runs-on: ubuntu-latest
     steps:
@@ -91,10 +91,10 @@ jobs:
       - name: Commit version change
         run: |
           git fetch
-          git pull origin HEAD:${{ github.head_ref }}
+          git pull origin HEAD:${{ github.ref }}
           echo "$NEXT_VERSION+$(git log --oneline | wc -l)" >> $VERSION_FILE_NAME
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add $VERSION_FILE_NAME
           git commit -m "Updated version of this PR to $NEXT_VERSION"
-          git push origin HEAD:${{ github.head_ref }}
+          git push origin HEAD:${{ github.ref }}
