@@ -90,7 +90,7 @@ jobs:
           
       - name: Commit version change
         run: |
-          echo $NEXT_VERSION >> $VERSION_FILE_NAME
+          echo "$NEXT_VERSION+$(git log --oneline | wc -l)" >> $VERSION_FILE_NAME
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add $VERSION_FILE_NAME
