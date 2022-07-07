@@ -3,11 +3,11 @@ on:
   pull_request:
     types: [ opened, edited, synchronize ]
 jobs:
-  env:
-    VERSION_FRAGMENT: ""
   find-linked-issues-and-copy-labels-to-pull-request:
     name: Find linked issues and copy labels to pull request
     runs-on: ubuntu-latest
+    outputs:
+      labelNames: $${{ steps.add_labels.outputs.labelNames }}
     steps:
       - name: Find linked issues
         id: links
@@ -17,6 +17,7 @@ jobs:
           format: IssueNumber
       
       - name: Add issues label to pull request}
+        id: add_labels
         run: |
           for issueNumber in ${{ steps.links.outputs.issues }}
           do
@@ -54,7 +55,7 @@ jobs:
             exit 1
           fi
         
-          echo "VERSION_FRAGMENT=$labelNames" >> GITHUB_ENV
+          echo "::set-output name=labelNames::$labelNames"
       - name: Test
         run: |
           echo $VERSION_FRAGMENT
@@ -64,6 +65,7 @@ jobs:
     needs: find-linked-issues-and-copy-labels-to-pull-request
     env:
       VERSION_FILE_NAME: 'mods/noita-mp/.version'
+      VERSION_FRAGMENT: '{{ needs.find-linked-issues-and-copy-labels-to-pull-request.outputs.labelNames }}'
     name: Increase version by labels
     runs-on: ubuntu-latest
     steps:
