@@ -19,6 +19,8 @@ jobs:
       - name: Add issues label to pull request}
         id: add_labels
         run: |
+          echo ${{ toJSON(github) }}
+          
           for issueNumber in ${{ steps.links.outputs.issues }}
           do
             echo "issueNumber="$issueNumber
