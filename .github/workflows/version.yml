@@ -75,10 +75,8 @@ jobs:
         id: getVersionFragment
         run: |
           echo $VERSION_BUMP_FILE
-#          read -r versionFragment < ${{ env.VERSION_BUMP_FILE }}
           versionFragment=$(head -n 1 filename)
           echo "'$versionFragment' version will be incremented"
-#          echo "::set-env name=VERSION_FRAGMENT::${versionFragment}"
           echo "VERSION_FRAGMENT=$versionFragment" >> $GITHUB_ENV
       
       - name: Increase version
