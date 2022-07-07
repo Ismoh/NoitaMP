@@ -56,10 +56,6 @@ jobs:
           fi
         
           echo "::set-output name=labelNames::${labelNames}"
-      - name: Test
-        run: |
-          echo $VERSION_FRAGMENT
-          echo ${{ env.VERSION_FRAGMENT }}
   
   increase-version-by-labels:
     needs: find-linked-issues-and-copy-labels-to-pull-request
