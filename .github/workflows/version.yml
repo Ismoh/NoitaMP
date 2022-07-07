@@ -55,7 +55,7 @@ jobs:
             exit 1
           fi
         
-          echo "::set-output name=labelNames::labelNames"
+          echo "::set-output name=labelNames::${labelNames}"
   
   increase-version-by-labels:
     needs: find-linked-issues-and-copy-labels-to-pull-request
@@ -95,4 +95,4 @@ jobs:
           git config user.email github-actions@github.com
           git add $VERSION_FILE_NAME
           git commit -m "Updated version of this PR to $NEXT_VERSION"
-          git push
+          git push origin HEAD:${{ github.branch }}
