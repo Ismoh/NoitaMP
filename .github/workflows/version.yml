@@ -91,7 +91,7 @@ jobs:
       - name: Commit version change
         run: |
           git fetch
-          git pull
+          git pull origin HEAD:${{ github.head_ref }}
           echo "$NEXT_VERSION+$(git log --oneline | wc -l)" >> $VERSION_FILE_NAME
           git config user.name github-actions
           git config user.email github-actions@github.com
