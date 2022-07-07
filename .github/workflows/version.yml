@@ -64,7 +64,7 @@ jobs:
   increase-version-by-labels:
     needs: find-linked-issues-and-copy-labels-to-pull-request
     env:
-      LABEL_NAMES: $${{ steps.find-linked-issues-and-copy-labels-to-pull-request.outputs.labelNames }}
+      LABEL_NAMES: ${{ steps.find-linked-issues-and-copy-labels-to-pull-request.outputs.labelNames }}
       VERSION_FILE_NAME: 'mods/noita-mp/.version'
       VERSION_FRAGMENT: 'v2.3.1-alpha+894'
     name: Increase version by labels
