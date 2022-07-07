@@ -87,14 +87,16 @@ jobs:
           next-version-increment-patch: ${{ contains(env.LABEL_NAMES, 'bug') }}
           next-version-cut-build-metadata: false
           next-version-put-build-metadata: true
-          
-      - name: Commit version change
+  
+  
+      - uses: actions/checkout@v3
+        name: Commit version change
         run: |
           git fetch
-          git pull origin HEAD:${{ github.ref }}
+          git pull
           echo "$NEXT_VERSION+$(git log --oneline | wc -l)" >> $VERSION_FILE_NAME
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add $VERSION_FILE_NAME
           git commit -m "Updated version of this PR to $NEXT_VERSION"
-          git push origin HEAD:${{ github.ref }}
+          git push
