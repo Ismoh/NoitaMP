@@ -65,7 +65,7 @@ jobs:
     needs: find-linked-issues-and-copy-labels-to-pull-request
     env:
       VERSION_FILE_NAME: 'mods/noita-mp/.version'
-      VERSION_FRAGMENT: '{{ needs.find-linked-issues-and-copy-labels-to-pull-request.outputs.labelNames }}'
+      VERSION_FRAGMENT: '${{ needs.find-linked-issues-and-copy-labels-to-pull-request.outputs.labelNames }}'
     name: Increase version by labels
     runs-on: ubuntu-latest
     steps:
