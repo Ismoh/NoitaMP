@@ -55,7 +55,7 @@ jobs:
             exit 1
           fi
         
-          echo "::set-output name=labelNames::${labelNames}"
+          echo "::set-output name=labelNames::labelNames"
   
   increase-version-by-labels:
     needs: find-linked-issues-and-copy-labels-to-pull-request
@@ -87,5 +87,9 @@ jobs:
           next-version-increment-patch: ${{ contains(env.LABEL_NAMES, 'bug') }}
           next-version-cut-build-metadata: false
           next-version-put-build-metadata: true
+          
+      - name: Commit version change
+        run: |
+          echo
             
         
