@@ -65,7 +65,7 @@ jobs:
     needs: find-linked-issues-and-copy-labels-to-pull-request
     env:
       VERSION_FILE_NAME: 'mods/noita-mp/.version'
-      VERSION_FRAGMENT: '${{ needs.find-linked-issues-and-copy-labels-to-pull-request.outputs.labelNames }}'
+      VERSION_FRAGMENT: ${{ needs.find-linked-issues-and-copy-labels-to-pull-request.outputs.labelNames }}
     name: Increase version by labels
     runs-on: ubuntu-latest
     steps:
@@ -74,9 +74,12 @@ jobs:
       - name: Get version fragment to bump
         id: getVersionFragment
         run: |
-          read -r versionFragment < ${{ env.VERSION_BUMP_FILE }}
+          echo $VERSION_BUMP_FILE
+#          read -r versionFragment < ${{ env.VERSION_BUMP_FILE }}
+          versionFragment=$(head -n 1 filename)
           echo "'$versionFragment' version will be incremented"
 #          echo "::set-env name=VERSION_FRAGMENT::${versionFragment}"
+          echo "VERSION_FRAGMENT=$versionFragment" >> $GITHUB_ENV
       
       - name: Increase version
         uses: HardNorth/github-version-generate@v1.1.2
