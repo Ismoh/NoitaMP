@@ -92,6 +92,7 @@ jobs:
       - name: Commit version change
         run: |
           git fetch
+          git checkout ${{ github.head_ref }}
           git pull origin ${{ github.head_ref }}
           echo "$NEXT_VERSION+$(git log --oneline | wc -l)" >> $VERSION_FILE_NAME
           git config user.name github-actions
@@ -99,3 +100,4 @@ jobs:
           git add $VERSION_FILE_NAME
           git commit -m "Updated version of this PR to $NEXT_VERSION"
           git push origin ${{ github.head_ref }}
+          
