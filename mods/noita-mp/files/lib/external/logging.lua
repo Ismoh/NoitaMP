@@ -130,6 +130,10 @@ function logging.new(append, startLevel)
     end
   end
 
+  logger.getLevel = function(self)
+    return self.level
+  end
+
   -- generic log function.
   logger.log = function (self, level, ...)
     local order = LEVELS[level]

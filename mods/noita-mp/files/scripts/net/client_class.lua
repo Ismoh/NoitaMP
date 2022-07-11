@@ -9,7 +9,8 @@ local util = require("util")
 Client = {
     super = nil,
     address = nil,
-    port = nil
+    port = nil,
+    CLIENT = "CLIENT"
 }
 
 -- Derived class method new
@@ -93,7 +94,7 @@ function Client:createCallbacks()
             logger:debug(msg)
             GamePrint(msg)
 
-            local save06_parent_directory_path = fu.GetAbsoluteDirectoryPathOfParentSave06()
+            local save06_parent_directory_path = fu.GetAbsoluteDirectoryPathOfParentSave()
 
             -- if file_name ~= nil and file_name ~= ""
             -- then -- file in save06 | "" -> directory was sent
@@ -111,7 +112,7 @@ function Client:createCallbacks()
             fu.WriteBinaryFile(archive_directory .. _G.path_separator .. file_name, file_content)
 
             if fu.Exists(fu.GetAbsoluteDirectoryPathOfSave06()) then -- Create backup if save06 exists
-                os.execute('cd "' .. fu.GetAbsoluteDirectoryPathOfParentSave06() .. '" && move save06 save06_backup')
+                os.execute('cd "' .. fu.GetAbsoluteDirectoryPathOfParentSave() .. '" && move save06 save06_backup')
             end
 
             fu.Extract7zipArchive(archive_directory, file_name, save06_parent_directory_path)
@@ -281,17 +282,36 @@ function Client:update()
         return -- Client not established
     end
 
-    em:AddNetworkComponentsResumeCoroutine()
+    -- em:DespawnClientEntities(self.super)
 
-    em:UpdateEntities()
+    -- em:AddNetworkComponents()
+
+    -- em:UpdateEntities()
+
+    EntityUtils.despawnClientEntities()
 
     self.super:update()
 end
 
-function Client:sendNeedNuid(owner, entity_id, velocity)
+function Client:sendNeedNuid(owner, entity_id)
+    if not EntityUtils.isEntityAlive(entity_id) then
+        return
+    end
     local x, y, rot = EntityGetTransform(entity_id)
+    local velo_comp_id = EntityGetFirstComponent(entity_id, "VelocityComponent")
+    local velo_x, velo_y = ComponentGetValue2(velo_comp_id, "mVelocity")
+    local velocity = {velo_x, velo_y}
     local filename = EntityGetFilename(entity_id)
     self.super:send("needNuid", {owner, entity_id, x, y, rot, velocity, filename})
+end
+
+--- Checks if the current local user is a client
+--- @return boolean iAm true if client
+function Client:amIClient()
+    if self.super ~= nil then
+       return self.super.whoAmI == "CLIENT"
+    end
+    return false
 end
 
 -- Create a new global object of the server
