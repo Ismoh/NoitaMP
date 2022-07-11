@@ -96,7 +96,7 @@ jobs:
           body="{\"body\":\"Version will be automatically set to **$NEXT_VERSION** in **${{ github.base_ref }}**, when this pull request was merged.\"}"
           echo $body
           
-          curlResponse=`curl --verbose --request POST \
+          curlResponse=`curl --verbose --write-out '%{http_code}' --output /dev/null --request POST \
           --header 'Accept: application/vnd.github+json' \
           --header 'Authorization: token ${{ github.token }}' \
           --url 'https://api.github.com/repos/${{github.repository}}/issues/${{github.event.number}}/comments' \
