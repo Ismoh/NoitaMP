@@ -83,14 +83,12 @@ jobs:
       - name: Add comment to pull request
         run: |
           body="{\"body\":\"When this pull request was merged\\\:\r\n- Version will be automatically increase to **$NEXT_VERSION** in **${{ github.base_ref }}**\r\n- Tag **$NEXT_VERSION** will be created to the specific commit.\"}"
-          echo "body=$body"
           
           curlResponse=`curl --write-out '%{http_code}' --output /dev/null --request POST \
           --header 'Accept: application/vnd.github+json' \
           --header 'Authorization: token ${{ github.token }}' \
           --url 'https://api.github.com/repos/${{github.repository}}/issues/${{github.event.number}}/comments' \
           --data-raw "$body"`
-          echo "curlResponse="$curlResponse
           
           if [[ $curlResponse == *"201"* ]]
           then
@@ -101,16 +99,23 @@ jobs:
           fi
   
       - name: Commit version changes and tag it
-        if: github.event.pull_request.merged
+        env:
+          MERGED: ${{ github.event.pull_request.merged }}
+          ASDF: ${{ toJSON(github) }}
         run: |
-          git fetch
-          git checkout ${{ github.base_ref }}
-          git pull origin ${{ github.base_ref }}
-          echo "$NEXT_VERSION" > $VERSION_FILE_NAME
-          git config --local user.email "action@github.com"
-          git config --local user.name "github-actions"
-          git add $VERSION_FILE_NAME
-          git commit -m "Updated version of https://github.com/${{github.repository}}/pull/${{github.event.number}} to $NEXT_VERSION"
-          git tag $NEXT_VERSION -a "Automatic tag creation. For further information, see https://github.com/${{github.repository}}/pull/${{github.event.number}}"
-          git push origin ${{ github.base_ref }} --tags
+          if [ $MERGED == true ]
+          then
+            git fetch
+            git checkout ${{ github.base_ref }}
+            git pull origin ${{ github.base_ref }}
+            echo "$NEXT_VERSION" > $VERSION_FILE_NAME
+            git config --local user.email "action@github.com"VG
+            git config --local user.name "github-actions"
+            git add $VERSION_FILE_NAME
+            git commit -m "Updated version of https://github.com/${{github.repository}}/pull/${{github.event.number}} to $NEXT_VERSION"
+            git tag -a "$NEXT_VERSION" -m "Automatic tag creation. For further information, see https://github.com/${{github.repository}}/pull/${{github.event.number}}"
+            git push origin ${{ github.base_ref }} --tags
+          else
+            echo $ASDF
+          fi
           
