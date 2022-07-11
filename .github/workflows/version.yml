@@ -87,7 +87,25 @@ jobs:
           next-version-increment-patch: ${{ contains(env.LABEL_NAMES, 'bug') }}
           next-version-cut-build-metadata: false
           next-version-put-build-metadata: true
-  
+
+      - name: Add comment to pull request
+          run: |
+            curlResponse=`curl --verbose --write-out '%{http_code}' --output /dev/null --request POST \
+            --header 'Accept: application/vnd.github.v3+json' \
+            --header 'Authorization: token ${{ github.token }}' \
+            --header 'Content-Type: application/json' \
+            --url 'https://api.github.com/repos/${{github.repository}}/issues/${{github.event.number}}/comments' \
+            --data-raw '{"body":"FYI: After merging this PR, the version will be \"v$NEXT_VERSION+$(git log --oneline | wc -l)\""}'`
+    
+            echo "curlResponse="$curlResponse
+    
+            if [[ $curlResponse == *"201"* ]]
+            then
+              echo "SUCCESS"
+            else
+              echo "FAILURE"
+              exit 1
+            fi
   
       - name: Commit version change
         if: github.event.pull_request.merged
