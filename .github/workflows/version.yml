@@ -1,7 +1,7 @@
 name: Increase version on pull request
 on:
   pull_request:
-    types: [ opened, edited, synchronize ]
+    types: [ opened, edited, synchronize, closed ]
 jobs:
   find-linked-issues-and-copy-labels-to-pull-request:
     name: Find linked issues and copy labels to pull request
