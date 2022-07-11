@@ -90,13 +90,13 @@
     send_transform_update_message="1"
   ></CharacterDataComponent> -->
 
-  <!-- not sure, if this should stay -->
+  <!-- not sure, if this should stay 
   <GenomeDataComponent 
     herd_id="player"
     food_chain_rank="20"
     is_predator="1"
     berserk_dont_attack_friends="1"
-  ></GenomeDataComponent>
+  ></GenomeDataComponent>-->
 
   <!-- not sure, if this should stay -->
   <CharacterPlatformingComponent
@@ -243,15 +243,15 @@
       only_position="1"
     ></InheritTransformComponent>  
 
-    <!-- <HotspotComponent
+    <HotspotComponent
       _tags="hand"
       sprite_hotspot_name="hand"
       transform_with_scale="1"
-    ></HotspotComponent> -->
+    ></HotspotComponent>
 
   </Entity>
 
-  <SpriteComponent 
+  <!--<SpriteComponent 
     _tags="aiming_reticle" 
     alpha="1" 
     image_file="data/ui_gfx/mouse_cursor.png"
@@ -263,7 +263,7 @@
     special_scale_y="1"
     z_index="-10000"
     emissive="1"
-  ></SpriteComponent>
+  ></SpriteComponent>-->
 
   <SpriteStainsComponent>
   </SpriteStainsComponent>
@@ -323,9 +323,10 @@
   <AudioListenerComponent
     z="-60"
   ></AudioListenerComponent>
+  -->
   
   <GunComponent>
-  </GunComponent> -->
+  </GunComponent>
 
   <LiquidDisplacerComponent
     radius="1"

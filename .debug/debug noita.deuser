@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
-  <command>C:\Program Files (x86)\Steam\steamapps\common\Noita\noita_dev.exe</command>
+  <command>C:\Program Files (x86)\Steam\steamapps\common\Noita\noita_dev_log.exe</command>
   <working_directory>C:\Program Files (x86)\Steam\steamapps\common\Noita</working_directory>
   <symbols_directory></symbols_directory>
   <command_arguments>-debug_lua</command_arguments>

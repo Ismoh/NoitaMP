@@ -1,4 +1,3 @@
-local bitser = require("bitser")
 local pprint = require("pprint")
 
 local util = {}
@@ -13,7 +12,7 @@ function util.Sleep(s)
     until os.clock() > ntime
 end
 
-function util.IsEmpty(var)
+function util.IsEmpty(var) -- if you change this also change NetworkVscUtils.lua
     if var == nil then
         return true
     end
@@ -55,16 +54,16 @@ function util.ExtendAndCutStringToLength(var, length, char)
     return new_var
 end
 
-function util.serialise(data)
-    return bitser.dumps(data)
-end
+-- function util.serialise(data)
+--     return bitser.dumps(data)
+-- end
 
---- Deserialise data
----@param data any
----@return any
-function util.deserialise(data)
-    return bitser.loads(data)
-end
+-- --- Deserialise data
+-- ---@param data any
+-- ---@return any
+-- function util.deserialise(data)
+--     return bitser.loads(data)
+-- end
 
 --https://noita.fandom.com/wiki/Modding:_Utilities#Easier_entity_debugging
 function util.str(var)
@@ -88,13 +87,18 @@ function util.debug_entity(e)
     local comps = EntityGetAllComponents(e)
 
     local msg = "--- ENTITY DATA ---\n"
-    msg = msg .. ("Parent: [" .. parent .. "] " .. (EntityGetName(parent) or "nil") .. "\n")
+    msg = msg .. ("Parent: [" .. parent .. "] name = " .. (EntityGetName(parent) or "") .. "\n")
 
-    msg = msg .. (" Entity: [" .. util.str(e) .. "] " .. (EntityGetName(e) or "nil") .. "\n")
-    msg = msg .. ("  Tags: " .. (EntityGetTags(e) or "nil") .. "\n")
+    msg = msg .. (" Entity: [" .. util.str(e) .. "] name = " .. (EntityGetName(e) or "") .. "\n")
+    msg = msg .. ("  Tags: " .. (EntityGetTags(e) or "") .. "\n")
     if (comps ~= nil) then
         for _, comp in ipairs(comps) do
-            msg = msg .. ("  Comp: [" .. comp .. "] " .. (ComponentGetTypeName(comp) or "nil") .. "\n")
+            local comp_type = ComponentGetTypeName(comp) or ""
+            msg = msg .. ("  Comp: [" .. comp .. "] type = " .. comp_type)
+            if comp_type == "VariableStorageComponent" then
+                msg = msg .. (" - " .. (ComponentGetValue2(comp, "name") or "") .. " = " .. (ComponentGetValue2(comp, "value_string") or ""))
+            end
+            msg  = msg .."\n"
         end
     end
 
@@ -104,9 +108,14 @@ function util.debug_entity(e)
 
     for _, child in ipairs(children) do
         local comps = EntityGetAllComponents(child)
-        msg = msg .. ("  Child: [" .. child .. "] " .. EntityGetName(child) .. "\n")
+        msg = msg .. ("  Child: [" .. child .. "] name = " .. EntityGetName(child) .. "\n")
         for _, comp in ipairs(comps) do
-            msg = msg .. ("   Comp: [" .. comp .. "] " .. (ComponentGetTypeName(comp) or "nil") .. "\n")
+            local comp_type = ComponentGetTypeName(comp) or ""
+            msg = msg .. ("   Comp: [" .. comp .. "] type = " .. comp_type)
+            if comp_type == "VariableStorageComponent" then
+                msg = msg .. (" - " .. (ComponentGetValue2(comp, "name") or "") .. " = " .. (ComponentGetValue2(comp, "value_string") or ""))
+            end
+            msg  = msg .."\n"
         end
     end
     msg = msg .. ("--- END ENTITY DATA ---" .. "\n")
