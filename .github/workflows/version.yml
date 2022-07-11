@@ -99,6 +99,8 @@ jobs:
             echo "FAILURE"
             exit 1
           fi
+          
+          echo ${{ toJSON(github) }}
   
       - name: Commit version changes and tag it
         if: github.event.pull_request.merged
