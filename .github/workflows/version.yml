@@ -4,7 +4,7 @@ on:
     types: [ opened, edited, synchronize, closed ]
 jobs:
   find-linked-issues-and-copy-labels-to-pull-request:
-    name: Find linked issues and copy labels to pull request
+    name: Copy labels to pull request
     runs-on: ubuntu-latest
     outputs:
       labelNames: $${{ steps.add_labels.outputs.labelNames }}
@@ -16,36 +16,36 @@ jobs:
           pr_url: ${{github.event.pull_request.html_url}}
           format: IssueNumber
       
-      - name: Add issues label to pull request
+      - name: Add labels of associated/linked issue to the pull request
         id: add_labels
         run: |
           for issueNumber in ${{ steps.links.outputs.issues }}
           do
-            echo "issueNumber="$issueNumber
+#            echo "issueNumber="$issueNumber
             issueUrl=$( echo ${{ github.event.pull_request.base.repo.issues_url }} | sed "s/{\/number}/\/$issueNumber/g" )
-            echo "issueUrl="$issueUrl
+#            echo "issueUrl="$issueUrl
             labels=$( curl $issueUrl | jq '.labels')
             echo "labels="$labels
         
             for label in $( echo $labels | jq -r '.[] | .name' )
             do
-              echo "label="$label
+#              echo "label="$label
               labelNames="${labelNames:+$labelNames,}\"$label\""
             done
         
           done
           echo "labelNames="$labelNames
           data="{\"labels\":[${labelNames}]}"
-          echo "data="$data
+#          echo "data="$data
         
-          curlResponse=`curl --verbose --write-out '%{http_code}' --output /dev/null --request POST \
+          curlResponse=`curl --write-out '%{http_code}' --output /dev/null --request POST \
           --header 'Accept: application/vnd.github.v3+json' \
           --header 'Authorization: token ${{ github.token }}' \
           --header 'Content-Type: application/json' \
           --url 'https://api.github.com/repos/${{github.repository}}/issues/${{github.event.number}}/labels' \
           --data-raw $data`
         
-          echo "curlResponse="$curlResponse
+#          echo "curlResponse="$curlResponse
         
           if [[ $curlResponse == *"200"* ]]
           then
@@ -71,14 +71,7 @@ jobs:
           ref: ${{ github.head_ref }}
           fetch-depth: 0
       
-      - name: Get version fragment to bump
-        id: getVersionFragment
-        run: |
-          echo $VERSION_BUMP_FILE
-          versionFragment=$(head -n 1 $VERSION_BUMP_FILE)
-          echo "VERSION_FRAGMENT=$versionFragment" >> $GITHUB_ENV
-      
-      - name: Increase version
+      - name: Increase version depending on labels
         uses: HardNorth/github-version-generate@v1.1.2
         with:
           version-source: file
@@ -90,22 +83,22 @@ jobs:
           next-version-cut-build-metadata: false
           next-version-put-build-metadata: true
           
-      - name: Extend version with custom numbers
+      - name: Extend version with custom build numbers
         run: |
           echo "NEXT_VERSION=v$NEXT_VERSION+$(git log --oneline | wc -l)" >> $GITHUB_ENV
 
       - name: Add comment to pull request
         run: |
-          body="{\"body\":\"Version will be automatically increase to **$NEXT_VERSION** in **${{ github.base_ref }}**, when this pull request was merged.\"}"
+          body="{\"body\":\"When this pull request was merged\:\n- Version will be automatically increase to **$NEXT_VERSION** in **${{ github.base_ref }}**\n- Tag **$NEXT_VERSION** will be created to the specific commit.\"}"
           echo $body
           
-          curlResponse=`curl --verbose --write-out '%{http_code}' --output /dev/null --request POST \
+          curlResponse=`curl --write-out '%{http_code}' --output /dev/null --request POST \
           --header 'Accept: application/vnd.github+json' \
           --header 'Authorization: token ${{ github.token }}' \
           --url 'https://api.github.com/repos/${{github.repository}}/issues/${{github.event.number}}/comments' \
           --data-raw "$body"`
   
-          echo "curlResponse="$curlResponse
+#          echo "curlResponse="$curlResponse
   
           if [[ $curlResponse == *"201"* ]]
           then
@@ -115,7 +108,7 @@ jobs:
             exit 1
           fi
   
-      - name: Commit version change
+      - name: Commit version changes and tag it
         if: github.event.pull_request.merged
         run: |
           git fetch
@@ -125,7 +118,7 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "github-actions"
           git add $VERSION_FILE_NAME
-          git commit -m "Updated version of this PR to $NEXT_VERSION"
-          git tag $NEXT_VERSION -a "Automatic tag creation. For further information, see https://github.com/${{github.repository}}/pull/${{ github.event.number }}"
+          git commit -m "Updated version of https://github.com/${{github.repository}}/pull/${{github.event.number}} to $NEXT_VERSION"
+          git tag $NEXT_VERSION -a "Automatic tag creation. For further information, see https://github.com/${{github.repository}}/pull/${{github.event.number}}"
           git push origin ${{ github.base_ref }} --tags
           
