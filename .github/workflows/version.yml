@@ -101,7 +101,6 @@ jobs:
       - name: Commit version changes and tag it
         env:
           MERGED: ${{ github.event.pull_request.merged }}
-          ASDF: ${{ toJSON(github) }}
         run: |
           if [ $MERGED == true ]
           then
@@ -112,10 +111,10 @@ jobs:
             git config --local user.email "action@github.com"VG
             git config --local user.name "github-actions"
             git add $VERSION_FILE_NAME
-            git commit -m "Updated version of https://github.com/${{github.repository}}/pull/${{github.event.number}} to $NEXT_VERSION"
-            git tag -a "$NEXT_VERSION" -m "Automatic tag creation. For further information, see https://github.com/${{github.repository}}/pull/${{github.event.number}}"
+            git commit -m "Updated version to $NEXT_VERSION in https://github.com/${{github.repository}}/pull/${{github.event.number}}"
+            git tag -a "$NEXT_VERSION" -m "Automatic tag creation, **do not** consider tags as release. For further **technical** information, see https://github.com/${{github.repository}}/pull/${{github.event.number}}"
             git push origin ${{ github.base_ref }} --tags
           else
-            echo $ASDF
+            echo "Pull request is not merged yet, skipping..."
           fi
           
