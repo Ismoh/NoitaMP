@@ -1,0 +1,104 @@
+name: Increase version on pull request
+on:
+  pull_request:
+    types: [ opened, edited, synchronize ]
+jobs:
+  find-linked-issues-and-copy-labels-to-pull-request:
+    name: Find linked issues and copy labels to pull request
+    runs-on: ubuntu-latest
+    outputs:
+      labelNames: $${{ steps.add_labels.outputs.labelNames }}
+    steps:
+      - name: Find linked issues
+        id: links
+        uses: hossainemruz/linked-issues@main
+        with:
+          pr_url: ${{github.event.pull_request.html_url}}
+          format: IssueNumber
+      
+      - name: Add issues label to pull request
+        id: add_labels
+        run: |
+          for issueNumber in ${{ steps.links.outputs.issues }}
+          do
+            echo "issueNumber="$issueNumber
+            issueUrl=$( echo ${{ github.event.pull_request.base.repo.issues_url }} | sed "s/{\/number}/\/$issueNumber/g" )
+            echo "issueUrl="$issueUrl
+            labels=$( curl $issueUrl | jq '.labels')
+            echo "labels="$labels
+        
+            for label in $( echo $labels | jq -r '.[] | .name' )
+            do
+              echo "label="$label
+              labelNames="${labelNames:+$labelNames,}\"$label\""
+            done
+        
+          done
+          echo "labelNames="$labelNames
+          data="{\"labels\":[${labelNames}]}"
+          echo "data="$data
+        
+          curlResponse=`curl --verbose --write-out '%{http_code}' --output /dev/null --request POST \
+          --header 'Accept: application/vnd.github.v3+json' \
+          --header 'Authorization: token ${{ github.token }}' \
+          --header 'Content-Type: application/json' \
+          --url 'https://api.github.com/repos/${{github.repository}}/issues/${{github.event.number}}/labels' \
+          --data-raw $data`
+        
+          echo "curlResponse="$curlResponse
+        
+          if [[ $curlResponse == *"200"* ]]
+          then
+            echo "SUCCESS"
+          else
+            echo "FAILURE"
+            exit 1
+          fi
+        
+          echo "::set-output name=labelNames::${labelNames}"
+  
+  increase-version-by-labels:
+    needs: find-linked-issues-and-copy-labels-to-pull-request
+    env:
+      LABEL_NAMES: ${{ needs.find-linked-issues-and-copy-labels-to-pull-request.outputs.labelNames }}
+      VERSION_FILE_NAME: 'mods/noita-mp/.version'
+      VERSION_FRAGMENT: 'will be fetched by file'
+    name: Increase version by labels
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Get version fragment to bump
+        id: getVersionFragment
+        run: |
+          echo $VERSION_BUMP_FILE
+          versionFragment=$(head -n 1 $VERSION_BUMP_FILE)
+          echo "'${versionFragment}' version will be incremented"
+          echo "VERSION_FRAGMENT=$versionFragment" >> $GITHUB_ENV
+      
+      - name: Increase version
+        uses: HardNorth/github-version-generate@v1.1.2
+        with:
+          version-source: file
+          version-file: ${{ env.VERSION_FILE_NAME }}
+          version-file-extraction-pattern: '^v(.*)'
+          next-version-increment-major: ${{ contains(env.LABEL_NAMES, 'rework') }}
+          next-version-increment-minor: ${{ contains(env.LABEL_NAMES, 'enhancement') }}
+          next-version-increment-patch: ${{ contains(env.LABEL_NAMES, 'bug') }}
+          next-version-cut-build-metadata: false
+          next-version-put-build-metadata: true
+  
+  
+      - name: Commit version change
+        if: github.event.pull_request.merged
+        run: |
+          git fetch
+          git checkout ${{ github.head_ref }}
+          git pull origin ${{ github.head_ref }}
+          echo "v$NEXT_VERSION+$(git log --oneline | wc -l)" > $VERSION_FILE_NAME
+          git config --local user.email "action@github.com"
+          git config --local user.name "github-actions"
+          git add $VERSION_FILE_NAME
+          git commit -m "Updated version of this PR to $NEXT_VERSION"
+          git push origin ${{ github.head_ref }}
+          

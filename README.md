@@ -22,7 +22,7 @@
 [![stars](https://flat.badgen.net/github/stars/ismoh/noitamp)](https://github.com/Ismoh/NoitaMP/stargazers)
 [![forks](https://flat.badgen.net/github/forks/ismoh/noitamp)](https://github.com/Ismoh/NoitaMP/network/members)
 
-[![license](https://flat.badgen.net/github/license/ismoh/noitamp)](https://github.com/Ismoh/NoitaMP/blob/develop/LICENSE)
+[![license](https://flat.badgen.net/github/license/ismoh/noitamp)](https://github.com/Ismoh/NoitaMP/blob/master/LICENSE.md)
 
 </div>
 
@@ -53,14 +53,17 @@ Made with [contrib.rocks](https://contrib.rocks).
 
 I wouldn't be able to create this mod without the help by
 
+
+
 - [@EvaisaGiac](https://github.com/EvaisaGiac/)
 - [@TheHorscht](https://github.com/TheHorscht/)
 - [@Pyry](https://github.com/probable-basilisk)
 - [@DevonX](https://github.com/DevonX)
 - [@shebpamm](https://github.com/shebpamm)
 - @Coxas/Thighs
+- [@Shaw](https://github.com/ShawSumma)
 
-I appreaciate your help a lot!
+I appreciate your help a lot!
 If you spot anything I should mention, feel free to create a issue or get in touch with [me](https://github.com/Ismoh)!
 
 Also special thanks to the ppl, who share their libraries, frameworks and other stuff. See below!
