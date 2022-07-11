@@ -89,7 +89,7 @@ jobs:
 
       - name: Add comment to pull request
         run: |
-          body='{"body":"FYI: After merging this PR, version will be v${NEXT_VERSION}+$(git log --oneline | wc -l) in ${{ github.base_ref }}."}'
+          body="{\"body\":\"FYI\: After merging this PR, version will be \*\*v$NEXT_VERSION+$(git log --oneline | wc -l)\*\* in \*\*${{ github.base_ref }}\*\*.\"}"
           echo $body
           curlResponse=`curl --verbose --request POST \
           --header 'Accept: application/vnd.github+json' \
