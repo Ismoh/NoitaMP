@@ -101,16 +101,20 @@ jobs:
       - name: Commit version changes and tag it
         env:
           ASDF: ${{ toJSON(github) }}
-        if: github.event.pull_request.merged
         run: |
-          git fetch
-          git checkout ${{ github.base_ref }}
-          git pull origin ${{ github.base_ref }}
-          echo "$NEXT_VERSION" > $VERSION_FILE_NAME
-          git config --local user.email "action@github.com"
-          git config --local user.name "github-actions"
-          git add $VERSION_FILE_NAME
-          git commit -m "Updated version of https://github.com/${{github.repository}}/pull/${{github.event.number}} to $NEXT_VERSION"
-          git tag $NEXT_VERSION -a "Automatic tag creation. For further information, see https://github.com/${{github.repository}}/pull/${{github.event.number}}"
-          git push origin ${{ github.base_ref }} --tags
+          if [ github.event.pull_request.merged ]
+          then
+            git fetch
+            git checkout ${{ github.base_ref }}
+            git pull origin ${{ github.base_ref }}
+            echo "$NEXT_VERSION" > $VERSION_FILE_NAME
+            git config --local user.email "action@github.com"
+            git config --local user.name "github-actions"
+            git add $VERSION_FILE_NAME
+            git commit -m "Updated version of https://github.com/${{github.repository}}/pull/${{github.event.number}} to $NEXT_VERSION"
+            git tag $NEXT_VERSION -a "Automatic tag creation. For further information, see https://github.com/${{github.repository}}/pull/${{github.event.number}}"
+            git push origin ${{ github.base_ref }} --tags
+          else
+            echo $ASDF
+          fi
           
