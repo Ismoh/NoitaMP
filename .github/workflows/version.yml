@@ -21,22 +21,18 @@ jobs:
         run: |
           for issueNumber in ${{ steps.links.outputs.issues }}
           do
-#            echo "issueNumber="$issueNumber
             issueUrl=$( echo ${{ github.event.pull_request.base.repo.issues_url }} | sed "s/{\/number}/\/$issueNumber/g" )
-#            echo "issueUrl="$issueUrl
             labels=$( curl $issueUrl | jq '.labels')
             echo "labels="$labels
         
             for label in $( echo $labels | jq -r '.[] | .name' )
             do
-#              echo "label="$label
               labelNames="${labelNames:+$labelNames,}\"$label\""
             done
         
           done
           echo "labelNames="$labelNames
           data="{\"labels\":[${labelNames}]}"
-#          echo "data="$data
         
           curlResponse=`curl --write-out '%{http_code}' --output /dev/null --request POST \
           --header 'Accept: application/vnd.github.v3+json' \
@@ -44,8 +40,6 @@ jobs:
           --header 'Content-Type: application/json' \
           --url 'https://api.github.com/repos/${{github.repository}}/issues/${{github.event.number}}/labels' \
           --data-raw $data`
-        
-#          echo "curlResponse="$curlResponse
         
           if [[ $curlResponse == *"200"* ]]
           then
@@ -90,16 +84,13 @@ jobs:
       - name: Add comment to pull request
         run: |
           body="{\"body\":\"When this pull request was merged\:\n- Version will be automatically increase to **$NEXT_VERSION** in **${{ github.base_ref }}**\n- Tag **$NEXT_VERSION** will be created to the specific commit.\"}"
-          echo $body
           
           curlResponse=`curl --write-out '%{http_code}' --output /dev/null --request POST \
           --header 'Accept: application/vnd.github+json' \
           --header 'Authorization: token ${{ github.token }}' \
           --url 'https://api.github.com/repos/${{github.repository}}/issues/${{github.event.number}}/comments' \
           --data-raw "$body"`
-  
-#          echo "curlResponse="$curlResponse
-  
+          
           if [[ $curlResponse == *"201"* ]]
           then
             echo "SUCCESS"
