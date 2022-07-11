@@ -91,11 +91,12 @@ jobs:
         run: |
           body="{\\\"body\\\":\\\"FYI\\: After merging this PR, version will be v$NEXT_VERSION+$(git log --oneline | wc -l) in ${{ github.base_ref }}.\\\"}"
           echo $body
+          echo "$body"
           curlResponse=`curl --verbose --request POST \
           --header 'Accept: application/vnd.github+json' \
           --header 'Authorization: token ${{ github.token }}' \
           --url 'https://api.github.com/repos/${{github.repository}}/issues/${{github.event.number}}/comments' \
-          --data-raw '$body'`
+          --data-raw "$body"`
   
           echo "curlResponse="$curlResponse
   
