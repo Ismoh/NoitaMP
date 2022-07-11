@@ -68,7 +68,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          ref: ${{ github.head_ref }}
+          ref: '${{ github.head_ref }}'
+          fetch-depth: '1'
       
       - name: Get version fragment to bump
         id: getVersionFragment
