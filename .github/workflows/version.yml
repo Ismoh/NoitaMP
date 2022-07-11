@@ -91,7 +91,7 @@ jobs:
         run: |
           body="{\"body\":\"FYI: After merging this PR, version will be \'v$NEXT_VERSION+$(git log --oneline | wc -l)\' in \'${{ github.base_ref }}\'.\"}"
           echo $body
-          curlResponse=`curl --verbose --write-out '%{http_code}' --output /dev/null --request POST \
+          curlResponse=`curl --verbose --request POST \
           --header 'Accept: application/vnd.github.v3+json' \
           --header 'Authorization: token ${{ github.token }}' \
           --header 'Content-Type: application/json' \
