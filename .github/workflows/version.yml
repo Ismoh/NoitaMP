@@ -73,7 +73,6 @@ jobs:
         run: |
           echo $VERSION_BUMP_FILE
           versionFragment=$(head -n 1 $VERSION_BUMP_FILE)
-          echo "'${versionFragment}' version will be incremented"
           echo "VERSION_FRAGMENT=$versionFragment" >> $GITHUB_ENV
       
       - name: Increase version
@@ -90,13 +89,13 @@ jobs:
 
       - name: Add comment to pull request
         run: |
-          version="v$NEXT_VERSION+$(git log --oneline | wc -l)"
+          body='{"body":"FYI: After merging this PR, the version will be v$NEXT_VERSION+$(git log --oneline | wc -l)"'
           curlResponse=`curl --verbose --write-out '%{http_code}' --output /dev/null --request POST \
           --header 'Accept: application/vnd.github.v3+json' \
           --header 'Authorization: token ${{ github.token }}' \
           --header 'Content-Type: application/json' \
           --url 'https://api.github.com/repos/${{github.repository}}/issues/${{github.event.number}}/comments' \
-          --data-raw '{"body":"FYI: After merging this PR, the version will be $version"}'`
+          --data-raw $body`
   
           echo "curlResponse="$curlResponse
   
