@@ -83,7 +83,7 @@ jobs:
 
       - name: Add comment to pull request
         run: |
-          body="{\"body\":\"When this pull request was merged\\\:\r\n- Version will be automatically increase to **$NEXT_VERSION** in **${{ github.base_ref }}**\r\n- Tag **$NEXT_VERSION** will be created to the specific commit.\"}"
+          body="{\"body\":\"When this pull request was merged,\r\n- Version will be automatically increase to **$NEXT_VERSION** in **${{ github.base_ref }}**\r\n- Tag **$NEXT_VERSION** will be created to the specific commit.\"}"
           echo "body=$body"
           
           curlResponse=`curl --verbose --request POST \
