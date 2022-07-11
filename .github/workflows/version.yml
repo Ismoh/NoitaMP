@@ -73,7 +73,7 @@ jobs:
         run: |
           echo $VERSION_BUMP_FILE
           versionFragment=$(head -n 1 $VERSION_BUMP_FILE)
-          echo "'$versionFragment' version will be incremented"
+          echo "'${versionFragment}' version will be incremented"
           echo "VERSION_FRAGMENT=$versionFragment" >> $GITHUB_ENV
       
       - name: Increase version
@@ -90,13 +90,12 @@ jobs:
   
   
       - name: Commit version change
+        if: github.event.pull_request.merged
         run: |
           git fetch
           git checkout ${{ github.head_ref }}
           git pull origin ${{ github.head_ref }}
           echo "v$NEXT_VERSION+$(git log --oneline | wc -l)" > $VERSION_FILE_NAME
-          git config user.name github-actions
-          git config user.email github-actions@github.com
           git config --local user.email "action@github.com"
           git config --local user.name "github-actions"
           git add $VERSION_FILE_NAME
