@@ -1,5 +1,9 @@
 -- Used to provide silent reimplementations of os.execute and io.popen
 
+if not jit or jit.os ~= "Windows" then
+    return
+end
+
 local ffi = require("ffi")
 
 local C = ffi.C
