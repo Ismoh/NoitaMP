@@ -16,3 +16,12 @@ updates:
       time: "18:00"
       timezone: "Europe/Berlin"
     target-branch: "dependencies"
+
+  - package-ecosystem: "gitsubmodule"
+    directory: "."
+    schedule:
+      interval: "daily"
+      day: "thursday"
+      time: "18:00"
+      timezone: "Europe/Berlin"
+    target-branch: "dependencies"

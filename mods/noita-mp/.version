@@ -1,5 +1,1 @@
-v2.3.1-alpha+894
-
-https://semver.org/lang/de/#backusnaur-form-grammatik-f%C3%BCr-valide-semver-versionen
-
-Beispiel: 1.0.0-alpha < 1.0.0-alpha.1 < 1.0.0-alpha.beta < 1.0.0-beta < 1.0.0-beta.2 < 1.0.0-beta.11 < 1.0.0-rc.1 < 1.0.0
+v2.4.0-alpha+1045
