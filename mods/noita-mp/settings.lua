@@ -255,6 +255,14 @@ mod_settings         = {
                 change_fn      = mod_setting_change_callback, -- Called when the user interact with the settings widget.
             },
             {
+                id             = "toggle_profiler",
+                ui_name        = "Dis-/Enable profiler",
+                ui_description = "Dis-/Enable the profiler.",
+                value_default  = false,
+                scope          = MOD_SETTING_SCOPE_RUNTIME,
+                change_fn      = mod_setting_change_callback, -- Called when the user interact with the settings widget.
+            },
+            {
                 id             = "log_level_entity",
                 ui_name        = "Log level related to Entities",
                 ui_description = [[Set the current log level, for printing messages into console.

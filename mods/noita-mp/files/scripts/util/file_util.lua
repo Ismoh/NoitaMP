@@ -571,4 +571,32 @@ function fu.saveAndRestartNoita()
                                                                                   _G.saveSlotMeta.slot)) -- -gamemode 0
 end
 
+function fu.createProfilerLog(name)
+    local directory = fu.GetAbsoluteDirectoryPathOfMods() .. _G.path_separator .. "profilerReport" .. _G.path_separator
+    if fu.Exists(directory) == false then
+        fu.MkDir(directory)
+    end
+    profiler.attachPrintFunction(print, true)
+    profiler.report(directory .. name)
+end
+
+function fu.getAllModSpecificLuaScriptFilenames()
+    local command = nil
+    if _G.is_windows then
+        command = "for /f tokens^=* %i in ('where /r \"" .. fu.GetAbsoluteDirectoryPathOfMods() .. "\" *lua')do @echo/ %~nxi"
+    else
+        error("Unix system are not supported yet :(", 2)
+        return {}
+    end
+
+    local file    = assert(io.popen(command, "r"))
+    local content = file:read("*a")
+    file:close()
+    local filenames = string.split(content, "\n")
+    for i = 1, #filenames do
+        filenames[i] = string.trim(filenames[i]):gsub("%.lua", ""):lower()
+    end
+    return filenames
+end
+
 return fu

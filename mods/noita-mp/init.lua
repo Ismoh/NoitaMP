@@ -7,6 +7,7 @@ local ui = require("Ui").new()
 
 logger:debug("init.lua", "Starting to load noita-mp init.lua..")
 
+--_G.profiler = require("profiler")
 
 ----------------------------------------------------------------------------------------------------
 --- Stuff needs to be executed before anything else
@@ -88,15 +89,16 @@ function OnWorldInitialized()
     local make_zip = ModSettingGet("noita-mp.server_start_7zip_savegame")
     logger:debug(nil, "init.lua | make_zip = " .. tostring(make_zip))
     if make_zip then
-        local archive_name = "server_save06_" .. os.date("%Y-%m-%d_%H-%M-%S")
-        local destination = fu.GetAbsoluteDirectoryPathOfMods() .. _G.path_separator .. "_"
-        local archive_content =
-        fu.Create7zipArchive(archive_name .. "_from_server", fu.GetAbsoluteDirectoryPathOfSave06(), destination)
-        local msg =
-        ("init.lua | Server savegame [%s] was zipped with 7z to location [%s]."):format(archive_name, destination)
+        local archive_name    = "server_save06_" .. os.date("%Y-%m-%d_%H-%M-%S")
+        local destination     = fu.GetAbsoluteDirectoryPathOfMods() .. _G.path_separator .. "_"
+        local archive_content = fu.Create7zipArchive(archive_name .. "_from_server",
+                                                     fu.GetAbsoluteDirectoryPathOfSave06(), destination)
+        local msg             = ("init.lua | Server savegame [%s] was zipped with 7z to location [%s]."):format(archive_name,
+                                                                                                                destination)
         logger:debug(nil, msg)
         GamePrint(msg)
-        ModSettingSetNextValue("noita-mp.server_start_7zip_savegame", false, false) -- automatically start the server again
+        ModSettingSetNextValue("noita-mp.server_start_7zip_savegame", false,
+                               false) -- automatically start the server again
     end
 
     --logger:debug("init.lua | Initialise client and server stuff..")
@@ -128,6 +130,7 @@ end
 
 --- PreUpdate of world
 function OnWorldPreUpdate()
+    -- profiler.start()
     if not _G.saveSlotMeta then
         local saveSlotsLastModifiedAfterWorldInit = fu.getLastModifiedSaveSlots()
         for i = 1, #saveSlotsLastModifiedBeforeWorldInit do
@@ -157,6 +160,13 @@ function OnWorldPreUpdate()
     --dofile("mods/noita-mp/files/scripts/ui.lua")
 
     ui.update()
+
+    local directory = fu.GetAbsolutePathOfNoitaRootDirectory() .. _G.path_separator .. "noita-mp_profiler_reports" -- fu.GetAbsoluteDirectoryPathOfMods() .. _G.path_separator .. "profilerReports" .. _G.path_separator
+    if fu.Exists(directory) == false then
+        fu.MkDir(directory)
+    end
+    -- profiler.stop()
+    -- profiler.report(("%s%s%s"):format(directory, _G.path_separator, "init"))
 end
 
 function OnWorldPostUpdate()

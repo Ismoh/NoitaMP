@@ -333,8 +333,16 @@ function EntityUtils.syncEntityData()
         error("Unable to identify whether I am Client or Server..", 3)
     end
 
+
+    local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
+
+    if compOwnerGuid ~= util.getLocalPlayerInfo().guid then
+        -- if the owner of the entity is not the local player, don't sync it
+        return
+    end
+
     local anythingChanged  = function(entityId)
-        local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
+        -- local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
 
         if clientOrServer.entityCache[entityId] == nil then
             clientOrServer.entityCache[entityId] = { health = health, rotation = rotation, velocity = velocity, x = x, y = y }

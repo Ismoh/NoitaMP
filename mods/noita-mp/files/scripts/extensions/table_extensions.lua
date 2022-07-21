@@ -17,6 +17,12 @@ table.contains    = function(tbl, key)
         if v == key then
             return true, i
         end
+        --if type(v) == "string" and string.contains(v, key) then
+        --    return true, i
+        --end
+        if type(v) == "string" and v:lower() == key:lower() then
+            return true, i
+        end
     end
     return false, -1
 end
@@ -124,10 +130,17 @@ function table.insertAllButNotDuplicates(tbl1, tbl2)
         error("Unable to insert values of one to another table, when tbl2 isn't a table.")
     end
 
-    for i, v in ipairs(tbl2) do
-        if not table.contains(tbl1, v) then
-            table.insert(tbl1, v)
-        end
+    --for i, v in ipairs(tbl2) do
+    --    if not table.contains(tbl1, v) then
+    --        table.insert(tbl1, v)
+    --    end
+    --end
+    for i = 1, #tbl2 do
+        local v = tbl2[i]
+        --if not table.contains(tbl1, v) then
+        --    table.insert(tbl1, v)
+        --end
+        tbl1[i] = v
     end
 end
 

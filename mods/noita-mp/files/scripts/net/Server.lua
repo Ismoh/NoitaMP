@@ -628,6 +628,8 @@ function Server.new(sockServer)
     function self.stop()
         if self.isRunning() then
             self:destroy()
+
+            fu.createProfilerLog()
         else
             logger:info(logger.channels.network, "Server isn't running, there cannot be stopped.")
         end
