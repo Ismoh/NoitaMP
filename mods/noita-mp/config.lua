@@ -10,3 +10,8 @@ EntityUtils.exclude = {
     byComponentsName = {},
     byFilename = { "particle", "tree_entity.xml", "vegetation" }
 }
+
+EntityUtils.remove = {
+    byComponentsName = { "AIComponent", "AdvancedFishAIComponent", "AnimalAIComponent", "ControllerGoombaAIComponent", "FishAIComponent", "PhysicsAIComponent", "WormAIComponent" },
+    byFilename = {}
+}

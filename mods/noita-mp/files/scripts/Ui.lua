@@ -115,12 +115,7 @@ function Ui.new()
                 profiler.start()
             end,
             stopProfiler = function()
-                local directory = fu.GetAbsolutePathOfNoitaRootDirectory() .. _G.path_separator .. "noita-mp_profiler_reports" -- fu.GetAbsoluteDirectoryPathOfMods() .. _G.path_separator .. "profilerReports" .. _G.path_separator
-                if fu.Exists(directory) == false then
-                    fu.MkDir(directory)
-                end
-                profiler.stop()
-                profiler.report(("%s%s%s"):format(directory, _G.path_separator, "profilerOf" .. whoAmI()))
+                fu.createProfilerLog()
             end,
         },
         computed = {

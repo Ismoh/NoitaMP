@@ -51,7 +51,10 @@ NetworkUtils.events                  = {
 
     --- entityData is used to sync position, velocity and health
     entityData      = { name = "entityData", schema = { "networkMessageId", "owner", "nuid", "x", "y", "rotation",
-                                                        "velocity", "health" } }
+                                                        "velocity", "health" } },
+
+    --- deadNuids is used to let clients know, which entities were killed or destroyed
+    deadNuids       = { name = "deadNuids", schema = { "networkMessageId", "deadNuids" } },
 }
 
 --- Copy from sock.lua, because I am lazy

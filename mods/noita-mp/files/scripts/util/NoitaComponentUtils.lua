@@ -25,8 +25,8 @@ function NoitaComponentUtils.setEntityData(entityId, x, y, rotation, velocity, h
 
     local hpCompId = EntityGetFirstComponentIncludingDisabled(entityId, "DamageModelComponent")
     if hpCompId then
-        ComponentSetValue2(hpCompId, "hp", math.round(tonumber(health.current), 0.01))
-        ComponentSetValue2(hpCompId, "max_hp", math.round(tonumber(health.max), 0.01))
+        ComponentSetValue2(hpCompId, "hp", math.round(tonumber(health.current / 25), 0.01))
+        ComponentSetValue2(hpCompId, "max_hp", math.round(tonumber(health.max / 25), 0.01))
     else
         logger:debug(logger.channels.entity, ("Unable to get DamageModelComponent, because entity (%s) might not" ..
                 "have any DamageModelComponent."):format(entityId))
@@ -68,8 +68,7 @@ function NoitaComponentUtils.getEntityData(entityId)
     end
     local filename = EntityGetFilename(entityId)
 
-    return compOwnerName, compOwnerGuid, compNuid, filename, health, math.round(rotation, 0.1), velocity,
-    math.round(x, 0.1), math.round(y, 0.1)
+    return compOwnerName, compOwnerGuid, compNuid, filename, health, math.round(rotation, 0.1), velocity, math.round(x, 0.1), math.round(y, 0.1)
 end
 
 function NoitaComponentUtils.getEntityDataByNuid(nuid)

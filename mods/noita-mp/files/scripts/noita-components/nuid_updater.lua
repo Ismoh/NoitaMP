@@ -36,6 +36,7 @@ local function remove()
     local globalsNuid, globalsEntityId = GlobalsUtils.getNuidEntityPair(nuid)
 
     GlobalsUtils.setNuid(nuid, -99)
+    GlobalsUtils.setDeadNuid(nuid)
     logger:debug(logger.channels.nuid, ("Entity (%s) was killed and nuid (%s) in noitas global storage was updated: old=%s and new=-99"):format(currentEntityId, nuid, globalsEntityId))
 end
 

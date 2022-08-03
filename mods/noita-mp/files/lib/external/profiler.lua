@@ -227,7 +227,7 @@ function module.start()
         startTime   = getTime()
         stopTime    = nil
         debug.sethook(onDebugHook, "cr", 0)
-        isRunning   = true
+        isRunning = true
     end
 end
 
@@ -239,7 +239,6 @@ function module.stop()
     isRunning = false
 end
 
-local counterFilename = 0
 --[[Writes the profile report to file (will stop profiling if not stopped already)
 @param filename (string) <default: "profiler.log"> [File will be created and overwritten]
 ]]
@@ -248,13 +247,8 @@ function module.report(filename)
         module.stop()
     end
 
-    filename        = filename .. counterFilename .. ".log"
-    if fu.Exists(filename) then
-        counterFilename = counterFilename + 1
-        filename        = filename .. counterFilename .. ".log"
-    end
-
-    -- filename = filename or "profiler.log"
+    local now = os.time()
+    filename  = ("%s_%s.log"):format(filename, os.date("D%Y-%m-%dT%H-%M-%S", now)) or "profiler.log"
 
     table.sort(allReports, function(a, b)
         return a.timer > b.timer

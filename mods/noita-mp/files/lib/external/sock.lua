@@ -33,6 +33,7 @@ local sock = {
 }
 
 local enet = require("enet")
+local zstandard = require ("zstd")
 local util = require("util")
 local fu   = require("file_util")
 
@@ -273,9 +274,11 @@ function Server:start(ip, port)
 
     self:setBandwidthLimit(0, 0)
 
-    if bitserLoaded then
-        self:setSerialization(bitser.dumps, bitser.loads)
-    end
+    -- Serialization is set in Server.setConfigSettings()
+    --if bitserLoaded then
+    --    self:setSerialization(bitser.dumps, bitser.loads)
+    --end
+    --self:setSerialization(zstandard.compress, zstandard.decompress)
     return true
 end
 
@@ -833,9 +836,11 @@ function Client:establishClient(serverOrAddress, port)
         self.connectId  = self.connection:connect_id()
     end
 
-    if bitserLoaded then
-        self:setSerialization(bitser.dumps, bitser.loads)
-    end
+    -- Serialization is set in Client.setConfigSettings()
+    --if bitserLoaded then
+    --    self:setSerialization(bitser.dumps, bitser.loads)
+    --end
+    --self:setSerialization(zstandard.compress, zstandard.decompress)
 end
 
 --- Check for network events and handle them.

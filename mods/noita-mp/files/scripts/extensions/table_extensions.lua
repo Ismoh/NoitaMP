@@ -20,7 +20,7 @@ table.contains    = function(tbl, key)
         --if type(v) == "string" and string.contains(v, key) then
         --    return true, i
         --end
-        if type(v) == "string" and v:lower() == key:lower() then
+        if type(v) == "string" and type(key) == "string" and v:lower() == key:lower() then
             return true, i
         end
     end
@@ -135,12 +135,12 @@ function table.insertAllButNotDuplicates(tbl1, tbl2)
     --        table.insert(tbl1, v)
     --    end
     --end
+
     for i = 1, #tbl2 do
         local v = tbl2[i]
-        --if not table.contains(tbl1, v) then
-        --    table.insert(tbl1, v)
-        --end
-        tbl1[i] = v
+        if not table.contains(tbl1, v) then
+            table.insert(tbl1, v)
+        end
     end
 end
 

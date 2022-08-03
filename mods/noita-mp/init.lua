@@ -7,7 +7,7 @@ local ui = require("Ui").new()
 
 logger:debug("init.lua", "Starting to load noita-mp init.lua..")
 
---_G.profiler = require("profiler")
+_G.profiler = require("profiler")
 
 ----------------------------------------------------------------------------------------------------
 --- Stuff needs to be executed before anything else
@@ -130,7 +130,10 @@ end
 
 --- PreUpdate of world
 function OnWorldPreUpdate()
-    -- profiler.start()
+    if profiler.isRunning() and os.clock() >= 120 then
+        fu.createProfilerLog()
+    end
+
     if not _G.saveSlotMeta then
         local saveSlotsLastModifiedAfterWorldInit = fu.getLastModifiedSaveSlots()
         for i = 1, #saveSlotsLastModifiedBeforeWorldInit do
@@ -160,13 +163,6 @@ function OnWorldPreUpdate()
     --dofile("mods/noita-mp/files/scripts/ui.lua")
 
     ui.update()
-
-    local directory = fu.GetAbsolutePathOfNoitaRootDirectory() .. _G.path_separator .. "noita-mp_profiler_reports" -- fu.GetAbsoluteDirectoryPathOfMods() .. _G.path_separator .. "profilerReports" .. _G.path_separator
-    if fu.Exists(directory) == false then
-        fu.MkDir(directory)
-    end
-    -- profiler.stop()
-    -- profiler.report(("%s%s%s"):format(directory, _G.path_separator, "init"))
 end
 
 function OnWorldPostUpdate()

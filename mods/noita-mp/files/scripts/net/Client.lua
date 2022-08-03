@@ -6,13 +6,15 @@
 ----------------------------------------
 --- 'Imports'
 ----------------------------------------
-local sock = require("sock")
-local util = require("util")
+local sock        = require("sock")
+local util        = require("util")
+local zstandard   = require("zstd")
+local messagePack = require("MessagePack")
 
 ----------------------------------------------------------------------------------------------------
 --- Client
 ----------------------------------------------------------------------------------------------------
-Client     = {}
+Client            = {}
 
 ----------------------------------------
 -- Global private variables:
@@ -66,6 +68,37 @@ function Client.new(sockClient)
     --- Set clients settings
     ------------------------------------------------------------------------------------------------
     local function setConfigSettings()
+        local serialize   = function(anyValue)
+            --logger:debug(logger.channels.network, ("Serializing value: %s"):format(anyValue))
+            local serialized = messagePack.pack(anyValue)
+            local zstd       = zstandard:new()
+            --logger:debug(logger.channels.network, "Uncompressed size:", string.len(serialized))
+            local compressed, err = zstd:compress(serialized)
+            if err then
+                logger:error(logger.channels.network, "Error while compressing: " .. err)
+            end
+            --logger:debug(logger.channels.network, "Compressed size:", string.len(compressed))
+            --logger:debug(logger.channels.network, ("Serialized and compressed value: %s"):format(compressed))
+            zstd:free()
+            return compressed
+        end
+
+        local deserialize = function(anyValue)
+            --logger:debug(logger.channels.network, ("Serialized and compressed value: %s"):format(anyValue))
+            local zstd = zstandard:new()
+            --logger:debug(logger.channels.network, "Compressed size:", string.len(anyValue))
+            local decompressed, err = zstd:decompress(anyValue)
+            if err then
+                logger:error(logger.channels.network, "Error while decompressing: " .. err)
+            end
+            --logger:debug(logger.channels.network, "Uncompressed size:", string.len(decompressed))
+            local deserialized = messagePack.unpack(decompressed)
+            logger:debug(logger.channels.network, ("Deserialized and uncompressed value: %s"):format(deserialized))
+            zstd:free()
+            return deserialized
+        end
+
+        self:setSerialization(serialize, deserialize)
         self:setTimeout(320, 50000, 100000)
     end
 
@@ -427,6 +460,14 @@ function Client.new(sockClient)
         NoitaComponentUtils.setEntityData(localEntityId, x, y, rotation, velocity, health)
     end
 
+    local function onDeadNuids(data)
+        local deadNuids = data.deadNuids or data or {}
+        for i = 1, #deadNuids do
+            EntityUtils.destroyByNuid(deadNuids[i])
+            GlobalsUtils.removeDeadNuid(deadNuids[i])
+        end
+    end
+
     -- self:on(
     --     "entityAlive",
     --     function(data)
@@ -494,6 +535,9 @@ function Client.new(sockClient)
 
         self:setSchema(NetworkUtils.events.entityData.name, NetworkUtils.events.entityData.schema)
         self:on(NetworkUtils.events.entityData.name, onEntityData)
+
+        self:setSchema(NetworkUtils.events.deadNuids.name, NetworkUtils.events.deadNuids.schema)
+        self:on(NetworkUtils.events.deadNuids.name, onDeadNuids)
 
         -- self:setSchema("duplicatedGuid", { "newGuid" })
         -- self:setSchema("worldFiles", { "relDirPath", "fileName", "fileContent", "fileIndex", "amountOfFiles" })
@@ -596,24 +640,9 @@ function Client.new(sockClient)
         updateVariables()
 
         EntityUtils.destroyClientEntities()
-        --EntityUtils.initNetworkVscs()
-
-        --local frames = GameGetFrameNum()
-        --if not lastFrames or lastFrames < frames then
-        --    diffFrames = frames - lastFrames
-        --    lastFrames = frames
-        --    fps30 = fps30 + 1
-        --end
-        --
-        --if diffFrames >= 30 then
-        --    fps30 = 30
-        --end
-        --
-        --local mod = fps30 % 30
-        --if mod == 0 then
-        --    fps30 = 0
+        EntityUtils.initNetworkVscs()
         EntityUtils.syncEntityData()
-        --end
+        EntityUtils.syncDeadNuids()
 
         sockClientUpdate(self)
     end
@@ -659,8 +688,7 @@ function Client.new(sockClient)
             filename, health, EntityUtils.isEntityPolymorphed(entityId)--EntityUtils.isPlayerPolymorphed()
         }
 
-        self:send(NetworkUtils.events.needNuid.name,
-                  data)
+        self:send(NetworkUtils.events.needNuid.name, data)
     end
 
     function self.sendLostNuid(nuid)
@@ -689,6 +717,14 @@ function Client.new(sockClient)
         if util.getLocalPlayerInfo().guid == compOwnerGuid then
             self:send(NetworkUtils.events.entityData.name, data)
         end
+    end
+
+    function self.sendDeadNuids(deadNuids)
+        local data = {
+            NetworkUtils.getNextNetworkMessageId(), deadNuids
+        }
+        self:send(NetworkUtils.events.deadNuids.name, data)
+        onDeadNuids(deadNuids)
     end
 
     --- Checks if the current local user is a client

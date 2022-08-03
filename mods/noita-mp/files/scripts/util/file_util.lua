@@ -250,8 +250,8 @@ function fu.getLastModifiedSaveSlots()
         local save0X = save0 .. i
 
         watcher(save0X, function(lastModified)
-            logger:debug(nil, "SaveSlot(%s) directory was last modified at %s.", "save0" .. i, lastModified)
             if lastModified > 0 then
+                logger:debug(nil, "SaveSlot(%s) directory was last modified at %s.", "save0" .. i, lastModified)
                 table.insert(saveSlotLastModified, { dir = save0X, lastModified = lastModified, slot = i })
             end
         end)
@@ -571,13 +571,14 @@ function fu.saveAndRestartNoita()
                                                                                   _G.saveSlotMeta.slot)) -- -gamemode 0
 end
 
-function fu.createProfilerLog(name)
+function fu.createProfilerLog()
     local directory = fu.GetAbsoluteDirectoryPathOfMods() .. _G.path_separator .. "profilerReport" .. _G.path_separator
     if fu.Exists(directory) == false then
         fu.MkDir(directory)
     end
     profiler.attachPrintFunction(print, true)
-    profiler.report(directory .. name)
+    profiler.stop()
+    profiler.report(("%s%s%s"):format(directory, _G.path_separator, "profilerOf" .. whoAmI()))
 end
 
 function fu.getAllModSpecificLuaScriptFilenames()

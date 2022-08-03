@@ -21,6 +21,7 @@ GlobalsUtils.nuidKeyFormat      = "nuid = %s"
 GlobalsUtils.nuidKeySubstring   = "nuid = "
 GlobalsUtils.nuidValueFormat    = "entityId = %s"
 GlobalsUtils.nuidValueSubstring = "entityId = "
+GlobalsUtils.deadNuidsKey       = "deadNuids"
 
 --#endregion
 
@@ -73,11 +74,32 @@ function GlobalsUtils.parseXmlValueToNuidAndEntityId(xmlKey, xmlValue)
 end
 
 function GlobalsUtils.setNuid(nuid, entityId, componentIdForOwnerName, componentIdForOwnerGuid, componentIdForNuid)
-    if not EntityUtils.isEntityAlive(entityId) then
-        return
-    end
+    --if not EntityUtils.isEntityAlive(entityId) then
+    --    return
+    --end
     GlobalsSetValue(GlobalsUtils.nuidKeyFormat:format(nuid),
-                    GlobalsUtils.nuidValueFormat:format(entityId)) -- also change stuff in nuid_update.lua
+                    GlobalsUtils.nuidValueFormat:format(entityId)) -- also change stuff in nuid_updater.lua
+end
+
+function GlobalsUtils.setDeadNuid(nuid)
+    local oldDeadNuids = GlobalsGetValue(GlobalsUtils.deadNuidsKey, "")
+    GlobalsSetValue(GlobalsUtils.deadNuidsKey,
+                    ("%s,%s"):format(oldDeadNuids, nuid)) -- also change stuff in nuid_update.lua
+end
+
+function GlobalsUtils.getDeadNuids()
+    local globalsValue = GlobalsGetValue(GlobalsUtils.deadNuidsKey, "")
+    return string.split(globalsValue, ",")
+end
+
+function GlobalsUtils.removeDeadNuid(nuid)
+    local globalsValue    = GlobalsGetValue(GlobalsUtils.deadNuidsKey, "")
+    local deadNuids       = string.split(globalsValue, ",")
+    local contains, index = table.contains(deadNuids, nuid)
+    if contains then
+        table.remove(deadNuids, index)
+        GlobalsSetValue(GlobalsUtils.deadNuidsKey, table.concat(deadNuids, ","))
+    end
 end
 
 -- function GlobalsUtils.getNuid(entityId)

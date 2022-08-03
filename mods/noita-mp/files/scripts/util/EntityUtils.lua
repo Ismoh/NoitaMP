@@ -305,16 +305,16 @@ function EntityUtils.SpawnEntity(owner, nuid, x, y, rotation, velocity, filename
         return
     end
 
-    if isPolymorphed then
-        local compIds = EntityGetAllComponents(entityId) or {}
-        for i = 1, #compIds do
-            local compId   = compIds[i]
-            local compType = ComponentGetTypeName(compId)
-            if string.contains(compType, "AI") then
-                EntityRemoveComponent(entityId, compIdAi)
-            end
+    --if isPolymorphed then
+    local compIds = EntityGetAllComponents(entityId) or {}
+    for i = 1, #compIds do
+        local compId   = compIds[i]
+        local compType = ComponentGetTypeName(compId)
+        if table.contains(EntityUtils.remove.byComponentsName, compType) then
+            EntityRemoveComponent(entityId, compIdAi)
         end
     end
+    --end
 
     NetworkVscUtils.addOrUpdateAllVscs(entityId, remoteName, remoteGuid, nuid)
     NoitaComponentUtils.setEntityData(entityId, x, y, rotation, velocity, health)
@@ -323,6 +323,10 @@ function EntityUtils.SpawnEntity(owner, nuid, x, y, rotation, velocity, filename
 end
 
 function EntityUtils.syncEntityData()
+    if GameGetFrameNum() % 5 ~= 0 then -- TODO: add this to modSettings
+        return
+    end
+
     local clientOrServer = nil
 
     if _G.whoAmI() == Client.iAm then
@@ -333,16 +337,12 @@ function EntityUtils.syncEntityData()
         error("Unable to identify whether I am Client or Server..", 3)
     end
 
-
-    local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
-
-    if compOwnerGuid ~= util.getLocalPlayerInfo().guid then
-        -- if the owner of the entity is not the local player, don't sync it
-        return
-    end
-
     local anythingChanged  = function(entityId)
-        -- local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
+        local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
+        if compOwnerGuid ~= util.getLocalPlayerInfo().guid then
+            -- if the owner of the entity is not the local player, don't sync it
+            return false
+        end
 
         if clientOrServer.entityCache[entityId] == nil then
             clientOrServer.entityCache[entityId] = { health = health, rotation = rotation, velocity = velocity, x = x, y = y }
@@ -393,6 +393,22 @@ function EntityUtils.syncEntityData()
     for i = 1, #filteredEntities do
         local entityId = filteredEntities[i]
         clientOrServer.sendEntityData(entityId)
+    end
+end
+
+function EntityUtils.syncDeadNuids()
+    local deadNuids = NuidUtils.getEntityIdsByKillIndicator()
+    if #deadNuids > 0 then
+        local clientOrServer = nil
+        if _G.whoAmI() == Client.iAm then
+            clientOrServer = Client
+        elseif _G.whoAmI() == Server.iAm then
+            clientOrServer = Server
+        else
+            error("Unable to identify whether I am Client or Server..", 3)
+        end
+
+        clientOrServer.sendDeadNuids(deadNuids)
     end
 end
 
@@ -508,7 +524,7 @@ end
 ---@return table
 function EntityUtils.get_player_inventory_contents(inventory_type)
     local player = EntityUtils.getLocalPlayerEntityId() --EntityGetWithTag("player_unit")[1]
-    local out = {}
+    local out    = {}
     if player then
         for i, child in ipairs(EntityGetAllChildren(player) or {}) do
             if EntityGetName(child) == inventory_type then
@@ -538,7 +554,7 @@ function EntityUtils.modifyPhysicsEntities()
         for index, filePath in ipairs(files) do
             local content = ModTextFileGetContent(filePath)
             if not util.IsEmpty(content) then
-                content = content:gsub("kill_entity_after_initialized=\"1\"", "kill_entity_after_initialized=\"0\"")
+                content   = content:gsub("kill_entity_after_initialized=\"1\"", "kill_entity_after_initialized=\"0\"")
                 local xml = nxml.parse(content)
                 for element in xml:each_of("PhysicsImageShapeComponent") do
                     --if element.attr.image_file == root_physics_image_file then
