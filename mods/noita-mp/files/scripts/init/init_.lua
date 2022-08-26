@@ -32,8 +32,6 @@ else
     init_package_loading()
 end
 
-dofile("mods/noita-mp/files/scripts/extensions/globalsExtensions.lua")
-
 -- On Github we do not want to load the utils.
 -- Do a simple check by nil check:
 if ModSettingGet then
@@ -47,53 +45,7 @@ if ModSettingGet then
     require("guid")
     require("Server")
     require("Client")
-    local fu    = require("file_util")
-    _G.profiler = require("profiler")
-    -- profiler.attachPrintFunction(print, true)
-    profiler.start()
-
-    if false then -- if ModSettingGet("noita-mp.toggle_profiler") then
-        local allLuaScriptFilenames = fu.getAllModSpecificLuaScriptFilenames()
-
-        local directory             = fu.GetAbsolutePathOfNoitaRootDirectory().. _G.path_separator .. "noita-mp_profiler_reports" -- fu.GetAbsoluteDirectoryPathOfMods() .. _G.path_separator .. "profilerReports" .. _G.path_separator
-        if fu.Exists(directory) == false then
-            fu.MkDir(directory)
-        end
-
-        for k, v in pairs(_G.package.loaded._G) do
-            if table.contains(allLuaScriptFilenames, k) and k ~= "profiler" then
-                if type(v) == "table" then
-                    for kt, vt in pairs(v) do
-                        if type(vt) == "function" then
-                            local func                  = vt
-                            _G.package.loaded._G[k][kt] = function(...)
-                                -- local args = { ... }
-                                profiler.start()
-                                local r = {func(...)} -- local result = func(unpack(args))
-                                profiler.stop()
-                                profiler.report(("%s%s%s.%s"):format(directory, _G.path_separator, k, kt))
-                                return (table.unpack or unpack)(r) -- return result
-                            end
-                            logger:info(nil, ("Profiler enabled for %s.%s"):format(k, kt))
-                        end
-                    end
-                elseif type(v) == "function" then
-                    local func              = v
-                    _G.package.loaded._G[k] = function(...)
-                        -- local args = { ... }
-                        profiler.start()
-                        local r = {func(...)} -- local result = func(unpack(args))
-                        profiler.stop()
-                        profiler.report(("%s%s%s"):format(directory, _G.path_separator, k))
-                        return (table.unpack or unpack)(r) -- return result
-                    end
-                    logger:info(nil, ("Profiler enabled for %s.%s"):format(k, v))
-                end
-            end
-        end
-    end
 else
     logger:warn(nil,
                 "Utils didnt load in init_.lua, because it looks like the mod wasn't run in game, but maybe on Github.")
 end
-

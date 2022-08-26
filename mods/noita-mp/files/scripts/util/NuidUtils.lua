@@ -64,7 +64,7 @@ function NuidUtils.getNextNuid()
     return getNextNuid()
 end
 
---- If an entity died, the associated nuid-entityId-set will be updated with -99 as entityId.
+--- If an entity died, the associated nuid-entityId-set will be updated with entityId multiplied by -1.
 --- If this happens, KillEntityMsg has to be send by network.
 function NuidUtils.getEntityIdsByKillIndicator()
     local deadNuids            = GlobalsUtils.getDeadNuids()
@@ -77,7 +77,7 @@ function NuidUtils.getEntityIdsByKillIndicator()
         for v in xml:first_of("WorldStateComponent"):first_of("lua_globals"):each_of("E") do
             if string.contains(v.attr.key, "nuid") then
                 local nuid, entityId = GlobalsUtils.parseXmlValueToNuidAndEntityId(v.attr.key, v.attr.value)
-                if entityId == "-99" then
+                if math.sign(tonumber(entityId)) == -1 then
                     table.insertIfNotExist(deadNuids, nuid)
                 end
             end

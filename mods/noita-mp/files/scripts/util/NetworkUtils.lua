@@ -75,21 +75,35 @@ local function zipTable(items, keys, event)
     return data
 end
 
+
+--- Sometimes you don't care if it's the client or server, but you need one of them to send the messages.
+--- @return table Client or Server 'object'
+--- @public
+function NetworkUtils.getClientOrServer()
+    if _G.whoAmI() == Client.iAm then
+        return Client
+    elseif _G.whoAmI() == Server.iAm then
+        return Server
+    else
+        error("Unable to identify whether I am Client or Server..", 3)
+    end
+end
+
 function NetworkUtils.getNextNetworkMessageId()
     NetworkUtils.networkMessageIdCounter = NetworkUtils.networkMessageIdCounter + 1
     return NetworkUtils.networkMessageIdCounter
 end
 
 function NetworkUtils.alreadySent(event, data)
-    local clientOrServer = nil
+    local clientOrServer = NetworkUtils.getClientOrServer()
 
-    if _G.whoAmI() == Client.iAm then
-        clientOrServer = Client
-    elseif _G.whoAmI() == Server.iAm then
-        clientOrServer = Server
-    else
-        error("Unable to identify whether I am Client or Server..", 3)
-    end
+    --if _G.whoAmI() == Client.iAm then
+    --    clientOrServer = Client
+    --elseif _G.whoAmI() == Server.iAm then
+    --    clientOrServer = Server
+    --else
+    --    error("Unable to identify whether I am Client or Server..", 3)
+    --end
 
     local networkMessageId = data[1]
     local rtt              = clientOrServer:getRoundTripTime()

@@ -84,7 +84,7 @@ end
 function GlobalsUtils.setDeadNuid(nuid)
     local oldDeadNuids = GlobalsGetValue(GlobalsUtils.deadNuidsKey, "")
     GlobalsSetValue(GlobalsUtils.deadNuidsKey,
-                    ("%s,%s"):format(oldDeadNuids, nuid)) -- also change stuff in nuid_update.lua
+                    ("%s,%s"):format(oldDeadNuids, nuid)) -- also change stuff in nuid_updater.lua
 end
 
 function GlobalsUtils.getDeadNuids()
@@ -111,7 +111,6 @@ end
 --- @return number entityId
 function GlobalsUtils.getNuidEntityPair(nuid)
     local key   = GlobalsUtils.nuidKeyFormat:format(nuid)
-    ---@diagnostic disable-next-line: missing-parameter
     local value = GlobalsGetValue(key)
     return GlobalsUtils.parseXmlValueToNuidAndEntityId(key, value)
 end

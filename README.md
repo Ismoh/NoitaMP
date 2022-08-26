@@ -61,6 +61,8 @@ I wouldn't be able to create this mod without the help by
 - [@dextercd](https://github.com/dextercd)
 - [@BlueAmulet](https://github.com/BlueAmulet)
 - [@Shaw](https://github.com/ShawSumma)
+- [@Ramiels](https://github.com/Ramiels)
+- [@bruham](https://steamcommunity.com/id/bruham/myworkshopfiles/?appid=881100)
 
 I appreciate your help a lot!
 If you spot anything I should mention, feel free to create an issue or get in touch with [me](https://github.com/Ismoh)!

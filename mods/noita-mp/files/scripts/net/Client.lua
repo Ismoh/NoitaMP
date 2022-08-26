@@ -70,8 +70,8 @@ function Client.new(sockClient)
     local function setConfigSettings()
         local serialize   = function(anyValue)
             --logger:debug(logger.channels.network, ("Serializing value: %s"):format(anyValue))
-            local serialized = messagePack.pack(anyValue)
-            local zstd       = zstandard:new()
+            local serialized      = messagePack.pack(anyValue)
+            local zstd            = zstandard:new()
             --logger:debug(logger.channels.network, "Uncompressed size:", string.len(serialized))
             local compressed, err = zstd:compress(serialized)
             if err then
@@ -85,7 +85,7 @@ function Client.new(sockClient)
 
         local deserialize = function(anyValue)
             --logger:debug(logger.channels.network, ("Serialized and compressed value: %s"):format(anyValue))
-            local zstd = zstandard:new()
+            local zstd              = zstandard:new()
             --logger:debug(logger.channels.network, "Compressed size:", string.len(anyValue))
             local decompressed, err = zstd:decompress(anyValue)
             if err then
@@ -629,6 +629,7 @@ function Client.new(sockClient)
     --local lastFrames = 0
     --local diffFrames = 0
     --local fps30 = 0
+    local prevTime         = 0
     --- Some inheritance: Save parent function (not polluting global 'self' space)
     local sockClientUpdate = sockClient.update
     --- Updates the Client by checking for network events and handling them.
@@ -637,12 +638,20 @@ function Client.new(sockClient)
             return
         end
 
-        updateVariables()
-
         EntityUtils.destroyClientEntities()
         EntityUtils.initNetworkVscs()
-        EntityUtils.syncEntityData()
-        EntityUtils.syncDeadNuids()
+
+        local nowTime     = GameGetRealWorldTimeSinceStarted() * 1000 -- *1000 to get milliseconds
+        local elapsedTime = nowTime - prevTime
+        local oneTickInMs = 1000 / tonumber(ModSettingGet("noita-mp.tick_rate"))
+        if elapsedTime >= oneTickInMs then
+            prevTime = nowTime
+            updateVariables()
+
+            --EntityUtils.destroyClientEntities()
+            EntityUtils.syncEntityData()
+            EntityUtils.syncDeadNuids()
+        end
 
         sockClientUpdate(self)
     end

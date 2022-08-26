@@ -167,8 +167,8 @@ mod_settings         = {
                 ui_name            = "Radius to detect entities",
                 ui_description     = "Higher value = lower fps + small freezes. Value to low = DEsync! Default = 500",
                 allowed_characters = "1234567890",
-                value_default      = "500",
-                scope              = MOD_SETTING_SCOPE_RUNTIME_RESTART,
+                value_default      = "350",
+                scope              = MOD_SETTING_SCOPE_RUNTIME,
                 change_fn          = mod_setting_change_callback, -- Called when the user interact with the settings widget.
             },
         },
@@ -218,8 +218,8 @@ mod_settings         = {
                 ui_name            = "Radius to remove entities on clients",
                 ui_description     = "Higher value = better sync. Value to low = strange behaviour! Default = 500",
                 allowed_characters = "1234567890",
-                value_default      = "500",
-                scope              = MOD_SETTING_SCOPE_RUNTIME_RESTART,
+                value_default      = "350",
+                scope              = MOD_SETTING_SCOPE_RUNTIME,
                 change_fn          = mod_setting_change_callback, -- Called when the user interact with the settings widget.
             },
         },
@@ -242,6 +242,35 @@ mod_settings         = {
         },
     },
     {
+        category_id    = "group_of_performance_settings",
+        ui_name        = "Performance issues? Take a look!",
+        ui_description = [[When it comes to FPS drops,
+you can tweak these settings to keep NoitaMP running on your system.]],
+        settings       = {
+            {
+                id             = "tick_rate",
+                ui_name        = [[Change tick rate for sync network messages.
+x-message per second = tick rate x.]],
+                ui_description = [[Lower value = higher performance, but less sync.
+Default = 16. 128 tick rate = 128 messages a second.]],
+                value_default  = 16,
+                value_min      = 1,
+                value_max      = 128,
+                scope          = MOD_SETTING_SCOPE_RUNTIME,
+            },
+            {
+                id             = "change_detection",
+                ui_name        = "Define when something changed related to position and velocity.",
+                ui_description = [[Higher value = higher performance, but less sync.
+Default = 0.5. Think of 0.5 on x then a change was detected.]],
+                value_default  = 0.5,
+                value_min      = 0.1,
+                value_max      = 1,
+                scope          = MOD_SETTING_SCOPE_RUNTIME,
+            },
+        },
+    },
+    {
         category_id    = "debug",
         ui_name        = "Debug settings",
         ui_description = "Multiple debug settings",
@@ -250,6 +279,14 @@ mod_settings         = {
                 id             = "toggle_debug",
                 ui_name        = "Toggle debug (gui in game)",
                 ui_description = "Toggle network debug information on or off in running world.",
+                value_default  = false,
+                scope          = MOD_SETTING_SCOPE_RUNTIME,
+                change_fn      = mod_setting_change_callback, -- Called when the user interact with the settings widget.
+            },
+            {
+                id             = "toggle_radius",
+                ui_name        = "Toggle detection radius",
+                ui_description = "Toggle detection radius for entities ON or OFF.",
                 value_default  = false,
                 scope          = MOD_SETTING_SCOPE_RUNTIME,
                 change_fn      = mod_setting_change_callback, -- Called when the user interact with the settings widget.

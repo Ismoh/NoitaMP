@@ -130,9 +130,11 @@ end
 
 --- PreUpdate of world
 function OnWorldPreUpdate()
-    if profiler.isRunning() and os.clock() >= 120 then
-        fu.createProfilerLog()
-    end
+    --if profiler.isRunning() and os.clock() >= 120 then
+    --    fu.createProfilerLog()
+    --end
+
+    EntityUtils.addOrChangeDetectionRadiusDebug(util.getLocalPlayerInfo().entityId)
 
     if not _G.saveSlotMeta then
         local saveSlotsLastModifiedAfterWorldInit = fu.getLastModifiedSaveSlots()

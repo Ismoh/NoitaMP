@@ -28,8 +28,8 @@ local localOwner = {
 --- Filters a table of entities by component name or filename. This include and exclude map is defined in EntityUtils.include/.exclude.
 --- Credits to @Horscht#6086!
 --- @param entities table Usually all entities in a specific radius to the player.
---- @param include
---- @param exclude
+--- @param include table Table of component names or filenames to include.
+--- @param exclude table Table of component names or filenames to exclude.
 --- @param additionalCheck1 function which has to return true of false, but can also be nil: additionalChecks1
 --- @param additionalCheck2 function which has to return true of false, but can also be nil: additionalChecks2
 --- @param additionalCheck3 function which has to return true of false, but can also be nil: additionalChecks3
@@ -86,8 +86,8 @@ end
 
 --- Gets all entities in a specific radius to the player entities. This can only be executed by server. Entities are filtered by EntityUtils.include/.exclude.
 --- @param radius number radius to detect entities.
---- @param include
---- @param exclude
+--- @param include table Table of component names or filenames to include.
+--- @param exclude table Table of component names or filenames to exclude.
 --- @param additionalCheck1 function which has to return true of false, but can also be nil
 --- @param additionalCheck2 function which has to return true of false, but can also be nil
 --- @return table filteredEntities
@@ -311,7 +311,7 @@ function EntityUtils.SpawnEntity(owner, nuid, x, y, rotation, velocity, filename
         local compId   = compIds[i]
         local compType = ComponentGetTypeName(compId)
         if table.contains(EntityUtils.remove.byComponentsName, compType) then
-            EntityRemoveComponent(entityId, compIdAi)
+            EntityRemoveComponent(entityId, compId)
         end
     end
     --end
@@ -323,19 +323,20 @@ function EntityUtils.SpawnEntity(owner, nuid, x, y, rotation, velocity, filename
 end
 
 function EntityUtils.syncEntityData()
-    if GameGetFrameNum() % 5 ~= 0 then -- TODO: add this to modSettings
-        return
-    end
+    --if GameGetFrameNum() % 5 ~= 0 then
+    --    -- TODO: add this to modSettings
+    --    return
+    --end
 
-    local clientOrServer = nil
+    local clientOrServer   = NetworkUtils.getClientOrServer()
 
-    if _G.whoAmI() == Client.iAm then
-        clientOrServer = Client
-    elseif _G.whoAmI() == Server.iAm then
-        clientOrServer = Server
-    else
-        error("Unable to identify whether I am Client or Server..", 3)
-    end
+    --if _G.whoAmI() == Client.iAm then
+    --    clientOrServer = Client
+    --elseif _G.whoAmI() == Server.iAm then
+    --    clientOrServer = Server
+    --else
+    --    error("Unable to identify whether I am Client or Server..", 3)
+    --end
 
     local anythingChanged  = function(entityId)
         local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
@@ -359,7 +360,9 @@ function EntityUtils.syncEntityData()
             return true
         end
 
-        if clientOrServer.entityCache[entityId].rotation ~= rotation then
+        if clientOrServer.entityCache[entityId].rotation ~= rotation
+        --and math.abs(clientOrServer.entityCache[entityId].rotation) - math.abs(rotation) >= modSettings
+        then
             clientOrServer.entityCache[entityId] = { health = health, rotation = rotation, velocity = velocity, x = x, y = y }
             return true
         end
@@ -399,14 +402,14 @@ end
 function EntityUtils.syncDeadNuids()
     local deadNuids = NuidUtils.getEntityIdsByKillIndicator()
     if #deadNuids > 0 then
-        local clientOrServer = nil
-        if _G.whoAmI() == Client.iAm then
-            clientOrServer = Client
-        elseif _G.whoAmI() == Server.iAm then
-            clientOrServer = Server
-        else
-            error("Unable to identify whether I am Client or Server..", 3)
-        end
+        local clientOrServer = NetworkUtils.getClientOrServer()
+        --if _G.whoAmI() == Client.iAm then
+        --    clientOrServer = Client
+        --elseif _G.whoAmI() == Server.iAm then
+        --    clientOrServer = Server
+        --else
+        --    error("Unable to identify whether I am Client or Server..", 3)
+        --end
 
         clientOrServer.sendDeadNuids(deadNuids)
     end
@@ -497,11 +500,21 @@ end
 
 function EntityUtils.destroyByNuid(nuid)
     local nNuid, entityId = GlobalsUtils.getNuidEntityPair(nuid)
+
+    -- Dead entities are recognized by the kill indicator, which is the entityId multiplied by -1.
+    if math.sign(entityId) == -1 then
+        entityId = entityId * -1
+    end
+
     if EntityUtils.isEntityAlive(entityId) and
             entityId ~= EntityUtils.localPlayerEntityId and
             entityId ~= EntityUtils.localPlayerEntityIdPolymorphed then
         EntityKill(entityId)
     end
+
+    -- Remove entityId from cache
+    local clientOrServer                 = NetworkUtils.getClientOrServer()
+    clientOrServer.entityCache[entityId] = nil
 end
 
 -- --- Special thanks to @Coxas/Thighs:
@@ -576,6 +589,64 @@ function EntityUtils.modifyPhysicsEntities()
 end
 
 --#endregion
+
+function EntityUtils.addOrChangeDetectionRadiusDebug(player_entity)
+    local compIdInclude    = nil
+    local compIdExclude    = nil
+    local imageFileInclude = "mods/noita-mp/files/data/debug/radiusInclude24.png"
+    local imageFileExclude = "mods/noita-mp/files/data/debug/radiusExclude24.png"
+
+    local compIds          = EntityGetComponentIncludingDisabled(player_entity, "SpriteComponent") or {}
+    for i = 1, #compIds do
+        local compId = compIds[i]
+        if ComponentGetValue2(compId, "image_file") == imageFileInclude then
+            compIdInclude = compId
+        end
+        if ComponentGetValue2(compId, "image_file") == imageFileExclude then
+            compIdExclude = compId
+        end
+    end
+
+    if ModSettingGet("noita-mp.toggle_radius") then
+
+        if not compIdInclude then
+            compId = EntityAddComponent2(player_entity, "SpriteComponent", {
+                image_file        = imageFileInclude,
+                has_special_scale = true,
+                special_scale_x   = tonumber(ModSettingGet("noita-mp.radius_include_entities")) / 12,
+                special_scale_y   = tonumber(ModSettingGet("noita-mp.radius_include_entities")) / 12,
+                offset_x          = 12,
+                offset_y          = 12,
+                alpha             = 1
+            })
+        else
+            ComponentSetValue2(compIdInclude, "special_scale_x",
+                               tonumber(ModSettingGet("noita-mp.radius_include_entities")) / 12)
+            ComponentSetValue2(compIdInclude, "special_scale_y",
+                               tonumber(ModSettingGet("noita-mp.radius_include_entities")) / 12)
+        end
+
+        if not compIdExclude then
+            compId = EntityAddComponent2(player_entity, "SpriteComponent", {
+                image_file        = imageFileExclude,
+                has_special_scale = true,
+                special_scale_x   = tonumber(ModSettingGet("noita-mp.radius_exclude_entities")) / 12,
+                special_scale_y   = tonumber(ModSettingGet("noita-mp.radius_exclude_entities")) / 12,
+                offset_x          = 12,
+                offset_y          = 12,
+                alpha             = 1
+            })
+        else
+            ComponentSetValue2(compIdExclude, "special_scale_x",
+                               tonumber(ModSettingGet("noita-mp.radius_exclude_entities")) / 12)
+            ComponentSetValue2(compIdExclude, "special_scale_y",
+                               tonumber(ModSettingGet("noita-mp.radius_exclude_entities")) / 12)
+        end
+    else
+        EntityRemoveComponent(player_entity, compIdInclude)
+        EntityRemoveComponent(player_entity, compIdExclude)
+    end
+end
 
 
 -- Because of stack overflow errors when loading lua files,
