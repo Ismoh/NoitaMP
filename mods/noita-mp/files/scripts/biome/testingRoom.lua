@@ -5,7 +5,7 @@ RegisterSpawnFunction(0xffff0001, "spawn_enemy_a")
 RegisterSpawnFunction(0xffff0002, "spawn_enemy_b")
 
 function init(x, y)
-    LoadPixelScene("mods/noita-mp/data/biome_impl/biome_map.png", "", x, y, "", true)
+    LoadPixelScene("mods/noita-mp/data/biome_impl/testing-room-pixel-scene.png", "", x, y, "", true)
 end
 
 function spawn_enemy_a(x, y)
