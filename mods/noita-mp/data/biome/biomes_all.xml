@@ -1,0 +1,1030 @@
+<BiomesToLoad 
+	biome_image_map="data/biome_impl/biome_map.png"
+	biome_offset_y="14" >
+
+  <!-- index is between 0 and 10 -->
+
+  <!-- ground layer -->
+
+	<!-- Custom biomes -->
+  <Biome 
+		biome_filename="mods/noita-mp/files/data/biome/testing-room.xml"
+		height_index="10"
+		color="ffc81cb8">
+	</Biome>
+  <!-- /Custom biomes -->
+
+	<Biome 
+		biome_filename="data/biome/hills.xml" 
+		height_index="0"
+		color="ff36d517" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/hills.xml" 
+		height_index="0"
+		color="ff3d3e40" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/hills_flat.xml" 
+		height_index="0"
+		color="ff2DC010" >
+	</Biome>
+
+
+	<Biome 
+		biome_filename="data/biome/hills2.xml"
+		height_index="0"
+		color="ff33e311" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/empty.xml" 
+		height_index="0"
+		color="ff48E311" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/bridge.xml" 
+		height_index="0"
+		color="ffad8111" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/snowcave_tunnel.xml" 
+		height_index="0"
+		color="ff7be311" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/vault_entrance.xml" 
+		height_index="0"
+		color="ff008040" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/coalmine.xml" 
+		height_index="1" 
+		color="ffd57917" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/coalmine_alt.xml" 
+		height_index="1" 
+		color="ffD56517" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/excavationsite.xml" 
+		height_index="1" 
+		color="ff124445" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/excavationsite_cube_chamber.xml" 
+		height_index="1" 
+		color="ff24888a" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/snowcave.xml" 
+		height_index="4" 
+		color="ff1775d5" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/snowcave_secret_chamber.xml" 
+		height_index="4" 
+		color="ff18a0d6" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/fungicave.xml" 
+		height_index="3" 
+		color="ffe861f0" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/fungiforest.xml" 
+		height_index="3" 
+		color="ffa861ff" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/vault.xml" 
+		height_index="5" 
+		color="ff008000" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/vault_frozen.xml" 
+		height_index="5" 
+		color="ff0080a8" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/secret_entrance.xml" 
+		height_index="5" 
+		color="ffC00020" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/boss_victoryroom.xml" 
+		height_index="5" 
+		color="ff50eed7" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/boss_arena.xml" 
+		height_index="5" 
+		color="ff14EED7" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/boss_arena_top.xml" 
+		height_index="5" 
+		color="ff0da899" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/mountain_tree.xml" 
+		height_index="5" 
+		color="ff14E1D7" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/crypt.xml" 
+		height_index="6" 
+		color="ff786C42" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/wandcave.xml" 
+		height_index="6" 
+		color="ff006C42" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/snowcastle.xml" 
+		height_index="7" 
+		color="ff0046FF" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/snowcastle_cavern.xml" 
+		height_index="7" 
+		color="ff775ddb" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/snowcastle_hourglass_chamber.xml" 
+		height_index="1" 
+		color="ff18d6d6" >
+	</Biome>
+
+<!--
+	<Biome 
+		biome_filename="data/biome/lava.xml" 
+		height_index="9"
+		color="ffffe42c" >
+	</Biome>
+-->
+	<Biome 
+		biome_filename="data/biome/lava_90percent.xml" 
+		height_index="9"
+		color="ffFFA717" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/water.xml" 
+		height_index="9"
+		color="ff0000ff" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/gold.xml" 
+		height_index="9"
+		color="ffFFFF00" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/rainforest.xml" 
+		height_index="8"
+		color="ff808000" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/rainforest_open.xml" 
+		height_index="8"
+		color="ffA08400" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/solid_wall.xml" 
+		height_index="10"
+		color="ff3d3d3d" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/solid_wall_damage.xml" 
+		height_index="10"
+		color="ff684C4C" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/solid_wall_temple.xml" 
+		height_index="10"
+		color="ffB8A928" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/tower/solid_wall_tower.xml" 
+		height_index="10"
+		color="ff3f3d3e" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/tower/solid_wall_tower_1.xml" 
+		height_index="10"
+		color="ff3d3e37" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/tower/solid_wall_tower_2.xml" 
+		height_index="10"
+		color="ff3d3e38" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/tower/solid_wall_tower_3.xml" 
+		height_index="10"
+		color="ff3d3e39" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/tower/solid_wall_tower_4.xml" 
+		height_index="10"
+		color="ff3d3e3a" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/tower/solid_wall_tower_5.xml" 
+		height_index="10"
+		color="ff3d3e3b" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/tower/solid_wall_tower_6.xml" 
+		height_index="10"
+		color="ff3d3e3c" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/tower/solid_wall_tower_7.xml" 
+		height_index="10"
+		color="ff3d3e3d" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/tower/solid_wall_tower_8.xml" 
+		height_index="10"
+		color="ff3d3e3e" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/tower/solid_wall_tower_9.xml" 
+		height_index="10"
+		color="ff3d3e3f" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/tower/solid_wall_tower_10.xml" 
+		height_index="13"
+		color="ff3d3e41" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/solid_wall_hidden_cavern.xml" 
+		height_index="10"
+		color="ff42244d" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/the_end.xml" 
+		height_index="14"
+		color="ff3C0F0A" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/the_sky.xml" 
+		height_index="14"
+		color="ffD3E6F0" >
+	</Biome>
+
+
+	<Biome 
+		biome_filename="data/biome/magic_gate.xml" 
+		height_index="13"
+		color="ff9C6C42" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/secret_altar.xml" 
+		height_index="13"
+		color="ffC02020" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/sandcave.xml" 
+		height_index="12"
+		color="ffE1CD32" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/mountain_left.xml" 
+		height_index="0"
+		color="ff008080" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/mountain_left_2.xml" 
+		height_index="0"
+		color="ff018080" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/mountain_left_3.xml" 
+		height_index="0"
+		color="ff028080" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/mountain_left_entrance.xml" 
+		height_index="0"
+		color="ff208080" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/mountain_left_stub.xml" 
+		height_index="0"
+		color="ff608080" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/mountain_hall.xml" 
+		height_index="0"
+		color="ff204060" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/mountain_hall_trailer.xml" 
+		height_index="0"
+		color="ff224060" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/mountain_hall_2.xml" 
+		height_index="0"
+		color="ff214060" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/mountain_hall_3.xml" 
+		height_index="0"
+		color="ff224060" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/mountain_hall_4.xml" 
+		height_index="0"
+		color="ff234060" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/mountain_right.xml" 
+		height_index="0"
+		color="ff408080" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/mountain_right_entrance.xml" 
+		height_index="0"
+		color="ff418080" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/mountain_right_entrance_2.xml" 
+		height_index="0"
+		color="ff428080" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/mountain_right_2.xml" 
+		height_index="0"
+		color="ff438080" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/mountain_right_stub.xml" 
+		height_index="0"
+		color="ffE08080" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/mountain_top.xml" 
+		height_index="0"
+		color="ffC08080" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/mountain_floating_island.xml" 
+		height_index="0"
+		color="ffC08082" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/mountain_center.xml" 
+		height_index="0"
+		color="ffFF8080" >
+	</Biome>
+	<Biome 
+		biome_filename="data/biome/null.xml" 
+		height_index="0"
+		color="ffFF00FF" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/lavalake.xml" 
+		height_index="10"
+		color="ff3d5a3d" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/lavalake_pit.xml" 
+		height_index="10"
+		color="ff3d5a4f" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/lavalake_racing.xml" 
+		height_index="10"
+		color="ff4118d6" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/shop_room.xml" 
+		height_index="10"
+		color="ff3d5ab2" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/temple_altar_secret.xml"
+		height_index="0"
+		color="ff93cb5c" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/sandroom.xml" 
+		height_index="10"
+		color="ff3d5a5b" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/lava.xml"
+		height_index="10"
+		color="ffFF6A02" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/end_wall.xml"
+		height_index="0"
+		color="ff6dcba2" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/temple_wall.xml"
+		height_index="0"
+		color="ff6dcb28" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/temple_altar.xml"
+		height_index="0"
+		color="ff93cb4c" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/temple_altar_left.xml"
+		height_index="0"
+		color="ff93cb4d" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/temple_altar_right.xml"
+		height_index="0"
+		color="ff93cb4e" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/temple_altar_right_snowcave.xml"
+		height_index="0"
+		color="ff93cb4f" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/temple_altar_right_snowcastle.xml"
+		height_index="0"
+		color="ff93cb5a" >
+	</Biome>
+
+	<!-- empty temples, used for new_daily_run -->
+	<Biome 
+		biome_filename="data/biome/temple_altar_empty.xml"
+		height_index="0"
+		color="ff99cb4c" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/temple_altar_left_empty.xml"
+		height_index="0"
+		color="ff99cb4d" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/temple_altar_right_empty.xml"
+		height_index="0"
+		color="ff99cb4e" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/temple_altar_right_snowcave_empty.xml"
+		height_index="0"
+		color="ff99cb4f" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/temple_altar_right_snowcastle_empty.xml"
+		height_index="0"
+		color="ff99cb5a" >
+	</Biome>
+
+
+
+	<Biome 
+		biome_filename="data/biome/smokecave_left.xml" 
+		height_index="10"
+		color="ff3d5a52" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/smokecave_middle.xml" 
+		height_index="10"
+		color="ff3d5a51" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/smokecave_right.xml" 
+		height_index="10"
+		color="ff3d5a50" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/roadblock.xml" 
+		height_index="10"
+		color="fff0d517" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/temple_wall_ending.xml" 
+		height_index="10"
+		color="ff5a9628" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/ending_placeholder.xml" 
+		height_index="10"
+		color="ff5a9629" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/desert.xml" 
+		height_index="11"
+		color="ffcc9944" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/mountain_lake.xml" 
+		height_index="11"
+		color="fff7cf8d" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/laboratory.xml" 
+		height_index="11"
+		color="fff6cfad" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/pyramid_left.xml" 
+		height_index="11"
+		color="ff968f5f" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/pyramid_right.xml" 
+		height_index="12"
+		color="ff968f96" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/pyramid_top.xml" 
+		height_index="12"
+		color="ffc88f5f" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/pyramid_entrance.xml" 
+		height_index="13"
+		color="ff967f5f" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/pyramid_hallway.xml" 
+		height_index="13"
+		color="ff167f5f" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/pyramid.xml" 
+		height_index="13"
+		color="ff967f11" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/winter.xml" 
+		height_index="13"
+		color="ffD6D8E3" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/winter_caves.xml" 
+		height_index="13" 
+		color="ff77A5BD" >
+	</Biome>
+
+
+	<Biome 
+		biome_filename="data/biome/lake.xml" 
+		height_index="13"
+		color="ff1133F1" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/lake_deep.xml" 
+		height_index="13"
+		color="ff1158f1" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/lake_blood.xml" 
+		height_index="13"
+		color="ff1133F3" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/lake_statue.xml" 
+		height_index="13"
+		color="ff11A3FC" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/forest.xml" 
+		height_index="13"
+		color="ff006B1E" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/watercave.xml" 
+		height_index="13"
+		color="ff3046c1" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/town_under.xml" 
+		height_index="13"
+		color="ff6ba04b" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/liquidcave.xml" 
+		height_index="13"
+		color="ff89a04b" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/wizardcave.xml" 
+		height_index="13"
+		color="ff726186" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/wizardcave_entrance.xml" 
+		height_index="13"
+		color="ff804169" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/orbrooms/orbroom_00.xml" 
+		height_index="13"
+		color="ffffd100" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/orbrooms/orbroom_01.xml" 
+		height_index="13"
+		color="ffffd101" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/orbrooms/orbroom_02.xml" 
+		height_index="13"
+		color="ffffd102" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/orbrooms/orbroom_03.xml" 
+		height_index="13"
+		color="ffffd103" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/orbrooms/orbroom_04.xml" 
+		height_index="13"
+		color="ffffd104" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/orbrooms/orbroom_05.xml" 
+		height_index="13"
+		color="ffffd105" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/orbrooms/orbroom_06.xml" 
+		height_index="13"
+		color="ffffd106" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/orbrooms/orbroom_07.xml" 
+		height_index="13"
+		color="ffffd107" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/orbrooms/orbroom_08.xml" 
+		height_index="13"
+		color="ffffd108" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/orbrooms/orbroom_09.xml" 
+		height_index="13"
+		color="ffffd109" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/orbrooms/orbroom_10.xml" 
+		height_index="13"
+		color="ffffd110" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/orbrooms/orbroom_11.xml" 
+		height_index="13"
+		color="ffffd111" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/secret_lab.xml" 
+		height_index="13"
+		color="ffbaa345" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/dragoncave.xml" 
+		height_index="13"
+		color="ff364d24" >
+	</Biome>
+
+	<Biome 
+		biome_filename="data/biome/robot_egg.xml" 
+		height_index="13"
+		color="ff9e4302" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/boss_limbs_arena.xml" 
+		height_index="13"
+		color="ff085b77" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/niilo_testroom.xml" 
+		height_index="13"
+		color="ff39401a" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/niilo_testroom_b.xml" 
+		height_index="13"
+		color="ff39401b" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/niilo_testroom_c.xml" 
+		height_index="13"
+		color="ff39401c" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/niilo_testroom_d.xml" 
+		height_index="13"
+		color="ff39401d" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/essenceroom.xml" 
+		height_index="13"
+		color="ff157cb0" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/essenceroom_hell.xml" 
+		height_index="13"
+		color="ff157cb5" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/essenceroom_alc.xml" 
+		height_index="13"
+		color="ff157cb6" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/mystery_teleport.xml" 
+		height_index="13"
+		color="ff157cb7" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/essenceroom_air.xml" 
+		height_index="13"
+		color="ff157cb8" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/ocarina.xml" 
+		height_index="13"
+		color="ff57cace" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/alchemist_secret.xml" 
+		height_index="13"
+		color="ff57dace" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/mestari_secret.xml" 
+		height_index="13"
+		color="ff1f3b62" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/ghost_secret.xml" 
+		height_index="13"
+		color="ff1f3b64" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/clouds.xml" 
+		height_index="0"
+		color="ff36d5c9" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/greed_room.xml" 
+		height_index="0"
+		color="ff3f55d1" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/gourd_room.xml" 
+		height_index="0"
+		color="ff2e99d1" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/moon_room.xml" 
+		height_index="0"
+		color="ff567cb0" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/song_room.xml" 
+		height_index="0"
+		color="ff9d99d1" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/rainforest_dark.xml" 
+		height_index="0"
+		color="ff375c00" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/robobase.xml" 
+		height_index="0"
+		color="ff4e5267" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/funroom.xml" 
+		height_index="0"
+		color="ff0a95a4" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/rock_room.xml" 
+		height_index="0"
+		color="ff326655" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/null_room.xml" 
+		height_index="0"
+		color="ffe17e32" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/gun_room.xml" 
+		height_index="0"
+		color="ff39a760" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/roboroom.xml" 
+		height_index="0"
+		color="ff9d893d" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/scale.xml" 
+		height_index="0"
+		color="ffeba500" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/friend_1.xml" 
+		height_index="0"
+		color="ff6db55a" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/friend_2.xml" 
+		height_index="0"
+		color="ff6db55b" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/friend_3.xml" 
+		height_index="0"
+		color="ff6db55c" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/friend_4.xml" 
+		height_index="0"
+		color="ff6db55d" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/friend_5.xml" 
+		height_index="0"
+		color="ff6db55e" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/friend_6.xml" 
+		height_index="0"
+		color="ff6db55f" >
+	</Biome>
+	
+	<Biome 
+		biome_filename="data/biome/teleroom.xml" 
+		height_index="0"
+		color="ff5f8fab" >
+	</Biome>
+</BiomesToLoad>
