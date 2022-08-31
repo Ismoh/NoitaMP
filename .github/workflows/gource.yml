@@ -1,0 +1,26 @@
+name: Gource
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  action:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 'Gource Action'
+        uses: nbprojekt/gource-action@v1
+        with:
+          avatars_auto_fetch: true
+          gource_title: 'NoitaMP Gource master'
+          gource_resolution: '1080p'
+          gource_fps: 60
+          gource_font_size: 40
+          gource_auto_skip_seconds: 0.1
+          gource_seconds_per_day: 0.1
+      
+      - uses: actions/upload-artifact@v2
+        with:
+          name: gource
+          path: ./gource/gource.mp4
