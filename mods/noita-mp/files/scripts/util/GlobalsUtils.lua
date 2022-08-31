@@ -89,7 +89,12 @@ end
 
 function GlobalsUtils.getDeadNuids()
     local globalsValue = GlobalsGetValue(GlobalsUtils.deadNuidsKey, "")
-    return string.split(globalsValue, ",")
+    local deadNuids    = string.split(globalsValue, ",") or {}
+    if table.contains(deadNuids, "nil") then
+        --table.remove(deadNuids, table.indexOf(deadNuids, "nil"))
+        table.removeByValue(deadNuids, "nil")
+    end
+    return deadNuids
 end
 
 function GlobalsUtils.removeDeadNuid(nuid)

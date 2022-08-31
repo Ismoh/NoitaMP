@@ -178,10 +178,8 @@ local function addOrUpdateVscForNuid(entityId, nuid)
             entityId, NetworkVscUtils.variableStorageComponentName, NetworkVscUtils.name,
             NetworkVscUtils.componentNameOfNuid, NetworkVscUtils.valueString)
     if compNuid and compNuid ~= "" then
-        error(("It is not possible to re-set a nuid(%s) on a entity(%s), which already has one set(%s)! Returning nil!"):format(nuid,
-                                                                                                                                entityId,
-                                                                                                                                compNuid),
-              2)
+        error(("It is not possible to re-set a nuid(%s) on a entity(%s), which already has one set(%s)! Returning nil!")
+                      :format(nuid, entityId, compNuid), 2)
     end
 
     -- There already might be a nuid vsc without any nuid set, think of a client shooting projectiles

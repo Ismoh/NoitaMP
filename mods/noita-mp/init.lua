@@ -134,6 +134,10 @@ function OnWorldPreUpdate()
     --    fu.createProfilerLog()
     --end
 
+    if not util.getLocalPlayerInfo().entityId then
+        return
+    end
+
     EntityUtils.addOrChangeDetectionRadiusDebug(util.getLocalPlayerInfo().entityId)
 
     if not _G.saveSlotMeta then

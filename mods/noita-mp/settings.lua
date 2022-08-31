@@ -122,7 +122,7 @@ mod_settings         = {
 (Max length: 15 - Allowed characters:*.0123456789localhost)]],
                 value_default      = "*",
                 text_max_length    = 15,
-                allowed_characters = "*.0123456789localhost",
+                allowed_characters = "*.-0123456789abcdefghijklmnopqrstuvwxyz",
                 scope              = MOD_SETTING_SCOPE_RUNTIME,
                 change_fn          = mod_setting_change_callback, -- Called when the user interact with the settings widget.
             },
@@ -184,7 +184,7 @@ mod_settings         = {
                 ui_description     = "Type the servers IP in, you want to connect. (Max length: 15 - Allowed characters: .0123456789)",
                 value_default      = "localhost",
                 text_max_length    = 15,
-                allowed_characters = ".0123456789abcdefghijklmnopqrstuvwxyz",
+                allowed_characters = "*.-0123456789abcdefghijklmnopqrstuvwxyz",
                 scope              = MOD_SETTING_SCOPE_RUNTIME,
                 change_fn          = mod_setting_change_callback, -- Called when the user interact with the settings widget.
             },

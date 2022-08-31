@@ -350,42 +350,63 @@ function EntityUtils.syncEntityData()
             return true
         end
 
-        if clientOrServer.entityCache[entityId].health.current ~= health.current then
-            clientOrServer.entityCache[entityId] = { health = health, rotation = rotation, velocity = velocity, x = x, y = y }
-            return true
-        end
-
-        if clientOrServer.entityCache[entityId].health.max ~= health.max then
-            clientOrServer.entityCache[entityId] = { health = health, rotation = rotation, velocity = velocity, x = x, y = y }
-            return true
-        end
-
-        if clientOrServer.entityCache[entityId].rotation ~= rotation
-        --and math.abs(clientOrServer.entityCache[entityId].rotation) - math.abs(rotation) >= modSettings
+        if clientOrServer.entityCache[entityId].health.current ~= health.current and
+                (math.abs(health.current) <= math.abs(clientOrServer.entityCache[entityId].health.current) - 5 or
+                math.abs(health.current) >= math.abs(clientOrServer.entityCache[entityId].health.current) + 5)
         then
             clientOrServer.entityCache[entityId] = { health = health, rotation = rotation, velocity = velocity, x = x, y = y }
             return true
         end
 
-        if clientOrServer.entityCache[entityId].velocity[1] ~= velocity[1] then
+        if clientOrServer.entityCache[entityId].health.max ~= health.max and
+                (math.abs(health.max) <= math.abs(clientOrServer.entityCache[entityId].health.max) - 5 or
+                math.abs(health.max) >= math.abs(clientOrServer.entityCache[entityId].health.max) + 5)
+        then
             clientOrServer.entityCache[entityId] = { health = health, rotation = rotation, velocity = velocity, x = x, y = y }
             return true
         end
 
-        if clientOrServer.entityCache[entityId].velocity[2] ~= velocity[2] then
+        if clientOrServer.entityCache[entityId].rotation ~= rotation and
+                (math.abs(rotation) <= math.abs(clientOrServer.entityCache[entityId].rotation) - 1 or
+                math.abs(rotation) >= math.abs(clientOrServer.entityCache[entityId].rotation) + 1)
+        then
             clientOrServer.entityCache[entityId] = { health = health, rotation = rotation, velocity = velocity, x = x, y = y }
             return true
         end
 
-        if clientOrServer.entityCache[entityId].x ~= x then
+        if clientOrServer.entityCache[entityId].velocity[1] ~= velocity[1] and
+                (math.abs(velocity[1]) <= math.abs(clientOrServer.entityCache[entityId].velocity[1]) - 1 or
+                math.abs(velocity[1]) >= math.abs(clientOrServer.entityCache[entityId].velocity[1]) + 1)
+        then
             clientOrServer.entityCache[entityId] = { health = health, rotation = rotation, velocity = velocity, x = x, y = y }
             return true
         end
 
-        if clientOrServer.entityCache[entityId].y ~= y then
+        if clientOrServer.entityCache[entityId].velocity[2] ~= velocity[2] and
+                (math.abs(velocity[2]) <= math.abs(clientOrServer.entityCache[entityId].velocity[2]) - 1 or
+                math.abs(velocity[2]) >= math.abs(clientOrServer.entityCache[entityId].velocity[2]) + 1)
+        then
             clientOrServer.entityCache[entityId] = { health = health, rotation = rotation, velocity = velocity, x = x, y = y }
             return true
         end
+
+        if clientOrServer.entityCache[entityId].x ~= x and
+                (math.abs(x) <= math.abs(clientOrServer.entityCache[entityId].x) - 1 or
+                math.abs(x) >= math.abs(clientOrServer.entityCache[entityId].x) + 1)
+        then
+            clientOrServer.entityCache[entityId] = { health = health, rotation = rotation, velocity = velocity, x = x, y = y }
+            return true
+        end
+
+        if clientOrServer.entityCache[entityId].y ~= y and
+                (math.abs(y) <= math.abs(clientOrServer.entityCache[entityId].y) - 1 or
+                math.abs(y) >= math.abs(clientOrServer.entityCache[entityId].y) + 1)
+        then
+            clientOrServer.entityCache[entityId] = { health = health, rotation = rotation, velocity = velocity, x = x, y = y }
+            return true
+        end
+
+        return false
     end
 
     local radius           = tonumber(ModSettingGetNextValue("noita-mp.radius_include_entities"))
@@ -500,6 +521,10 @@ end
 
 function EntityUtils.destroyByNuid(nuid)
     local nNuid, entityId = GlobalsUtils.getNuidEntityPair(nuid)
+
+    if not EntityUtils.isEntityAlive(entityId) then
+        return
+    end
 
     -- Dead entities are recognized by the kill indicator, which is the entityId multiplied by -1.
     if math.sign(entityId) == -1 then

@@ -46,11 +46,11 @@ table.containsAll = function(tbl, ...)
 end
 
 -- https://stackoverflow.com/questions/1758991/how-to-remove-a-lua-table-entry-by-its-key
-function table.removeByKey(tbl, key)
+--function table.removeByKey(tbl, key)
     -- local element = table[key]
     -- table[key] = nil
     -- return element
-end
+--end
 
 function table.removeByValue(tbl, value)
     local index = table.indexOf(tbl, value)

@@ -36,6 +36,9 @@ NetworkUtils.events                  = {
     --- playerInfo is used to send localPlayerInfo name and guid to all peers
     playerInfo      = { name = "playerInfo", schema = { "networkMessageId", "name", "guid", "nuid", "version" } },
 
+    --- newGuid is used to send a new GUID to a client, which GUID isn't unique all peers
+    newGuid         = { name = "newGuid", schema = { "networkMessageId", "oldGuid", "newGuid" } },
+
     --- newNuid is used to let clients spawn entities by the servers permission
     newNuid         = { name = "newNuid", schema = { "networkMessageId", "owner", "localEntityId", "newNuid", "x",
                                                      "y", "rotation", "velocity", "filename", "health",
@@ -75,7 +78,6 @@ local function zipTable(items, keys, event)
     return data
 end
 
-
 --- Sometimes you don't care if it's the client or server, but you need one of them to send the messages.
 --- @return table Client or Server 'object'
 --- @public
@@ -95,7 +97,7 @@ function NetworkUtils.getNextNetworkMessageId()
 end
 
 function NetworkUtils.alreadySent(event, data)
-    local clientOrServer = NetworkUtils.getClientOrServer()
+    local clientOrServer   = NetworkUtils.getClientOrServer()
 
     --if _G.whoAmI() == Client.iAm then
     --    clientOrServer = Client
@@ -157,12 +159,12 @@ function NetworkUtils.alreadySent(event, data)
             -- entityId, if this was already sent in combination.
             local ran, errorMsg = pcall(luaunit.assertItemsEquals, data1, data2)
             if ran and not errorMsg then
-                --if value.status ~= NetworkUtils.events.acknowledgement.ack then
-                --    local pasted = os.time() - value.sentAt
-                --    if pasted >= rtt then
-                --        return false -- resend after RTT
-                --    end
-                --end
+                if value.status ~= NetworkUtils.events.acknowledgement.ack then
+                    local pasted = os.time() - value.sentAt
+                    if pasted >= rtt then
+                        return false -- resend after RTT
+                    end
+                end
                 return true
             end
         end

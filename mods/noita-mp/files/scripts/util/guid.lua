@@ -2,16 +2,16 @@
 -- https://gist.github.com/jrus/3197011
 -- https://stackoverflow.com/a/32353223/3493998
 
-local util = require("util")
+local util   = require("util")
 local logger = _G.logger
 
-local Guid = {
-    cached_guid = {},
-    getRandomRange_0_to_9 = function()
+local Guid   = {
+    cached_guid             = {},
+    getRandomRange_0_to_9   = function()
         return math.random(0, 9)
     end,
     getRandomRange_aA_to_fF = function()
-        local chars = { "a", "b", "c", "d", "e", "f" }
+        local chars      = { "a", "b", "c", "d", "e", "f" }
         local char_index = math.random(1, 6)
         return string.upper(chars[char_index])
     end
@@ -22,8 +22,8 @@ local Guid = {
 --- @return number number unique number of local computer
 local function getUniqueness()
     local command = nil
-    local file = nil
-    local result = nil
+    local file    = nil
+    local result  = nil
 
     if is_windows then
         command = 'wmic CPU get ProcessorId'
@@ -31,7 +31,7 @@ local function getUniqueness()
         command = "sudo dmidecode -t processor | grep -E ID |  sed 's/.*: //'"
     end
 
-    file = io.popen(command, "r")
+    file        = io.popen(command, "r")
     local count = 1
     for line in file:lines() do
         if count == 2 then
@@ -45,26 +45,39 @@ local function getUniqueness()
     local number = ""
     for i = 1, string.len(result) do
         local char = string.sub(result, i, i)
-        number = number .. string.byte(char)
+        number     = number .. string.byte(char)
     end
 
     return tonumber(number)
 end
 
+function Guid:getCachedGuids()
+    return self.cached_guid
+end
+
+function Guid:addGuidToCache(guid)
+    table.insertIfNotExist(self.cached_guid, guid)
+end
+
 --- Generates a pseudo GUID. Does not fulfil RFC standard! Should generate unique GUIDs, but repeats if there is a duplicate.
+--- @param inUsedGuids table list of already used GUIDs
 --- @return string guid
-function Guid:getGuid()
+function Guid:getGuid(inUsedGuids)
+    if not util.IsEmpty(inUsedGuids) and #inUsedGuids > 0 then
+        table.insertAllButNotDuplicates(self.cached_guid, inUsedGuids)
+    end
+
     math.randomseed(getUniqueness())
 
-    local x = "x"
-    local t = { x:rep(8), x:rep(4), x:rep(4), x:rep(4), x:rep(12) }
-    local guid = table.concat(t, "-")
-    local is_valid = false
+    local x         = "x"
+    local t         = { x:rep(8), x:rep(4), x:rep(4), x:rep(4), x:rep(12) }
+    local guid      = table.concat(t, "-")
+    local is_valid  = false
     local is_unique = false
 
-    local counter = 0
+    local counter   = 0
     repeat
-        guid = string.gsub(
+        guid      = string.gsub(
                 guid,
                 x,
                 function()
@@ -84,7 +97,7 @@ function Guid:getGuid()
         --    end
         --end
 
-        is_valid = self.isPatternValid(guid)
+        is_valid  = self.isPatternValid(guid)
         is_unique = self:isUnique(guid)
         logger:debug(logger.channels.guid,
                      "GUID (%s) is valid=%s and unique=%s. Generating GUID run-number %s",
@@ -95,6 +108,16 @@ function Guid:getGuid()
         )
 
         counter = counter + 1
+
+
+        -- make same exe (Noita.exe or Noita_dev.exe) playable on the same computer
+        -- is is executed when server guid is the same as clients
+        if not is_unique and not util.IsEmpty(inUsedGuids) then
+            logger:warn(logger.channels.guid,
+                        "GUID is not unique, but ifSameAsServer is true. Adding simply counter to GUID.")
+            guid      = guid .. counter
+            is_unique = self:isUnique(guid)
+        end
 
         if counter > 100 then
             -- TODO: get rid of this!
@@ -108,7 +131,8 @@ function Guid:getGuid()
     until is_valid and is_unique
 
     table.insert(self.cached_guid, guid)
-    logger:debug(logger.channels.guid, "guid.lua | guid = " .. guid .. " is valid = " .. tostring(is_valid) .. " and is unique = " .. tostring(is_unique))
+    logger:debug(logger.channels.guid,
+                 "guid.lua | guid = " .. guid .. " is valid = " .. tostring(is_valid) .. " and is unique = " .. tostring(is_unique))
     return guid
 end
 
@@ -124,8 +148,8 @@ function Guid.isPatternValid(guid)
     end
 
     local is_valid = false
-    local pattern = "%x%x%x%x%x%x%x%x%-%x%x%x%x%-%x%x%x%x%-%x%x%x%x%-%x%x%x%x%x%x%x%x%x%x%x%x"
-    local match = guid:match(pattern)
+    local pattern  = "%x%x%x%x%x%x%x%x%-%x%x%x%x%-%x%x%x%x%-%x%x%x%x%-%x%x%x%x%x%x%x%x%x%x%x%x"
+    local match    = guid:match(pattern)
 
     if match == guid then
         is_valid = true

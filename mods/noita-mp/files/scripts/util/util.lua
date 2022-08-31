@@ -110,10 +110,9 @@ function util.getLocalPlayerInfo()
     local ownerName = tostring(ModSettingGet("noita-mp.name"))
     local ownerGuid = tostring(ModSettingGet("noita-mp.guid"))
     local entityId  = EntityUtils.getLocalPlayerEntityId()
+    local nuid = nil
 
     if EntityUtils.isPlayerPolymorphed() then
-        local nuid = nil
-
         if _G.whoAmI() == Client.iAm then
             if not NetworkVscUtils.hasNuidSet(entityId) then
                 Client.sendNeedNuid(ownerName, ownerGuid, entityId)
@@ -125,10 +124,10 @@ function util.getLocalPlayerInfo()
         else
             error("Unable to identify whether I am Client or Server..", 3)
         end
+    end
 
-        if not NetworkVscUtils.isNetworkEntityByNuidVsc(entityId) then
-            NetworkVscUtils.addOrUpdateAllVscs(entityId, ownerName, ownerGuid, nuid)
-        end
+    if not NetworkVscUtils.isNetworkEntityByNuidVsc(entityId) then
+        NetworkVscUtils.addOrUpdateAllVscs(entityId, ownerName, ownerGuid, nuid)
     end
 
     local name, guid, nuid = NetworkVscUtils.getAllVcsValuesByEntityId(entityId)

@@ -214,7 +214,9 @@ function Server.new(sockServer)
         -- Let the other clients know, that one client disconnected
         self:sendToAllBut(peer, NetworkUtils.events.disconnect2.name,
                           { NetworkUtils.getNextNetworkMessageId(), peer.name, peer.guid, peer.nuid })
-        EntityUtils.destroyByNuid(peer.nuid)
+        if peer.nuid then
+            EntityUtils.destroyByNuid(peer.nuid)
+        end
     end
 
     ------------------------------------------------------------------------------------------------
@@ -255,6 +257,17 @@ function Server.new(sockServer)
             peer:disconnect()
         end
 
+        -- Make sure guids are unique. It's unlikely that two players have the same guid, but it can happen rarely.
+        if self.guid == data.guid or table.contains(Guid:getCachedGuids(), data.guid) then
+            logger:error(logger.channels.network, ("onPlayerInfo: guid %s is not unique!"):format(data.guid))
+            local newGuid     = Guid:getGuid({ data.guid })
+            local dataNewGuid = {
+                NetworkUtils.getNextNetworkMessageId(), data.guid, newGuid
+            }
+            self:sendToAll2(NetworkUtils.events.newGuid.name, dataNewGuid) asdbajghsd add processId to guid and save it an a processedId file.
+            data.guid = newGuid
+        end
+
         sendAck(data.networkMessageId, peer)
 
         for i, client in pairs(self.clients) do
@@ -262,6 +275,8 @@ function Server.new(sockServer)
                 self.clients[i].name = data.name
                 self.clients[i].guid = data.guid
                 self.clients[i].nuid = data.nuid
+
+                Guid:addGuidToCache(data.guid)
             end
         end
     end
@@ -354,7 +369,14 @@ function Server.new(sockServer)
             error(("onLostNuid data.nuid is empty: %s"):format(util.pformat(data.nuid)), 3)
         end
 
-        local nuid, entityId             = GlobalsUtils.getNuidEntityPair(data.nuid)
+        local nuid, entityId = GlobalsUtils.getNuidEntityPair(data.nuid)
+
+        if math.sign(entityId) == -1 then
+            logger:debug(logger.channels.network,
+                         ("onLostNuid(%s): Entity %s already dead."):format(data.nuid, entityId))
+            return
+        end
+
         --local compOwnerName, compOwnerGuid, compNuid     = NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
         local compOwnerName, compOwnerGuid, compNuid, filename,
         health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
@@ -423,8 +445,13 @@ function Server.new(sockServer)
     local function onDeadNuids(data, peer)
         local deadNuids = data.deadNuids or data or {}
         for i = 1, #deadNuids do
-            EntityUtils.destroyByNuid(deadNuids[i])
-            GlobalsUtils.removeDeadNuid(deadNuids[i])
+            local deadNuid = deadNuids[i]
+            if util.IsEmpty(deadNuid) or deadNuid == "nil" then
+                logger:error(logger.channels.network, ("onDeadNuids deadNuid is empty: %s"):format(deadNuid), 3)
+            else
+                EntityUtils.destroyByNuid(deadNuid)
+                GlobalsUtils.removeDeadNuid(deadNuid)
+            end
         end
         if peer then
             self:sendToAllBut(peer, NetworkUtils.events.deadNuids.name, data)
@@ -629,6 +656,13 @@ function Server.new(sockServer)
             local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
             self.health                                                                              = health
             self.transform                                                                           = { x = math.floor(x), y = math.floor(y) }
+
+            if not compNuid then
+                self.nuid = NuidUtils.getNextNuid()
+                NetworkVscUtils.addOrUpdateAllVscs(entityId, compOwnerName, compOwnerGuid, self.nuid)
+                self.sendNewNuid({ compOwnerName, compOwnerGuid }, entityId, self.nuid, x, y, rotation, velocity,
+                                 filename, health, EntityUtils.isEntityPolymorphed(entityId))
+            end
         end
     end
 
@@ -741,9 +775,13 @@ function Server.new(sockServer)
         }
 
         if util.IsEmpty(compNuid) then
-            -- nuid must not be empty, when Server!
-            logger:error(logger.channels.network, "Unable to send entity data, because nuid is empty.")
-            return
+            ---- nuid must not be empty, when Server!
+            --logger:error(logger.channels.network, "Unable to send entity data, because nuid is empty.")
+            --return
+            local newNuid = NuidUtils.getNextNuid()
+            NetworkVscUtils.addOrUpdateAllVscs(entityId, compOwnerName, compOwnerGuid, newNuid)
+            self.sendNewNuid({ compOwnerName, compOwnerGuid }, entityId, newNuid, x, y, rotation, velocity, filename,
+                             health, EntityUtils.isEntityPolymorphed(entityId))
         end
 
         if util.getLocalPlayerInfo().guid == compOwnerGuid then

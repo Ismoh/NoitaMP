@@ -209,7 +209,13 @@ function Client.new(sockClient)
 
         -- sendAck(data.networkMessageId)
 
-        EntityUtils.destroyByNuid(self.serverInfo.nuid)
+        if self.serverInfo.nuid then
+            EntityUtils.destroyByNuid(self.serverInfo.nuid)
+        end
+
+        -- TODO remove all NUIDS from entities. I now need a nuid-entityId-cache.
+        local nuid, entityId = GlobalsUtils.getNuidEntityPair(self.nuid)
+        NetworkVscUtils.addOrUpdateAllVscs(entityId, self.name, self.guid, nil)
 
         self.acknowledge  = {}
         self.nuid         = nil
@@ -272,10 +278,18 @@ function Client.new(sockClient)
             error(("onPlayerInfo data.version is empty: %s"):format(data.version), 3)
         end
 
+        if data.guid == self.guid then
+            logger:error(logger.channels.network,
+                         "onPlayerInfo: Clients GUID isn't unique! Server will fix this!")
+            --self.guid = Guid:getGuid({ self.guid })
+            --logger:info(logger.channels.network, "onPlayerInfo: New clients GUID: %s", self.guid)
+            self:disconnect()
+        end
+
         if _G.NoitaMPVersion ~= tostring(data.version) then
             error(("Version mismatch: NoitaMP version of Server: %s and your version: %s")
                           :format(data.version, _G.NoitaMPVersion), 3)
-            _G.Client.disconnect()
+            self:disconnect()
         end
 
         sendAck(data.networkMessageId)
@@ -283,6 +297,46 @@ function Client.new(sockClient)
         self.serverInfo.name = data.name
         self.serverInfo.guid = data.guid
         self.serverInfo.nuid = data.nuid
+    end
+
+    ------------------------------------------------------------------------------------------------
+    --- onNewGuid
+    ------------------------------------------------------------------------------------------------
+    --- Callback when Server sent a new GUID for a specific client.
+    --- @param data table data { "networkMessageId", "oldGuid", "newGuid" }
+    local function onNewGuid(data)
+        logger:debug(logger.channels.network, "onNewGuid: New GUID from server received.", util.pformat(data))
+
+        if util.IsEmpty(data.networkMessageId) then
+            error(("onNewGuid data.networkMessageId is empty: %s"):format(data.networkMessageId), 3)
+        end
+
+        if util.IsEmpty(data.oldGuid) then
+            error(("onNewGuid data.oldGuid is empty: %s"):format(data.oldGuid), 3)
+        end
+
+        if util.IsEmpty(data.newGuid) then
+            error(("onNewGuid data.newGuid is empty: %s"):format(data.newGuid), 3)
+        end
+
+        sendAck(data.networkMessageId)
+
+        if data.oldGuid == self.guid then
+            local entityId = util.getLocalPlayerInfo().entityId
+            local compOwnerName, compOwnerGuid, compNuid = NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
+
+            self.guid = data.newGuid
+            ModSettingSet("noita-mp.guid", self.guid)
+            ModSettingSet("noita-mp.guid_readonly", self.guid)
+
+            NetworkVscUtils.addOrUpdateAllVscs(entityId, compOwnerName, self.guid, compNuid)
+        else
+            for i = 1, #self.otherClients do
+                if self.otherClients[i].guid == data.oldGuid then
+                    self.otherClients[i].guid = data.newGuid
+                end
+            end
+        end
     end
 
     ------------------------------------------------------------------------------------------------
@@ -309,7 +363,7 @@ function Client.new(sockClient)
 
         local localSeed = tonumber(StatsGetValue("world_seed"))
         if localSeed ~= serversSeed then
-            util.reloadMap(serversSeed)
+            --util.reloadMap(serversSeed) TODO enable again, when custom map/biome isnt used anymore
         end
 
         local localPlayerInfo = util.getLocalPlayerInfo()
@@ -463,8 +517,13 @@ function Client.new(sockClient)
     local function onDeadNuids(data)
         local deadNuids = data.deadNuids or data or {}
         for i = 1, #deadNuids do
-            EntityUtils.destroyByNuid(deadNuids[i])
-            GlobalsUtils.removeDeadNuid(deadNuids[i])
+            local deadNuid = deadNuids[i]
+            if util.IsEmpty(deadNuid) or deadNuid == "nil" then
+                logger:error(logger.channels.network, ("onDeadNuids deadNuid is empty: %s"):format(deadNuid), 3)
+            else
+                EntityUtils.destroyByNuid(deadNuid)
+                GlobalsUtils.removeDeadNuid(deadNuid)
+            end
         end
     end
 
@@ -530,6 +589,9 @@ function Client.new(sockClient)
         self:setSchema(NetworkUtils.events.playerInfo.name, NetworkUtils.events.playerInfo.schema)
         self:on(NetworkUtils.events.playerInfo.name, onPlayerInfo)
 
+        self:setSchema(NetworkUtils.events.newGuid.name, NetworkUtils.events.newGuid.schema)
+        self:on(NetworkUtils.events.newGuid.name, onNewGuid)
+
         self:setSchema(NetworkUtils.events.newNuid.name, NetworkUtils.events.newNuid.schema)
         self:on(NetworkUtils.events.newNuid.name, onNewNuid)
 
@@ -556,6 +618,10 @@ function Client.new(sockClient)
             local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
             self.health                                                                              = health
             self.transform                                                                           = { x = math.floor(x), y = math.floor(y) }
+
+            if not compNuid then
+                self.sendNeedNuid(compOwnerName, compOwnerGuid, entityId)
+            end
         end
     end
 
@@ -613,7 +679,7 @@ function Client.new(sockClient)
         if self.isConnected() then
             sockClientDisconnect(self)
         else
-            logger:info(logger.channels.network, "Client isn't connected, no need to disconnenct!")
+            logger:info(logger.channels.network, "Client isn't connected, no need to disconnect!")
         end
     end
 
