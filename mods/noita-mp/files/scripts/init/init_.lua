@@ -21,6 +21,7 @@ dofile("mods/noita-mp/files/scripts/extensions/table_extensions.lua")
 dofile("mods/noita-mp/files/scripts/extensions/string_extensions.lua")
 dofile("mods/noita-mp/files/scripts/extensions/mathExtensions.lua")
 dofile("mods/noita-mp/files/scripts/extensions/ffi_extensions.lua")
+dofile("mods/noita-mp/files/scripts/extensions/globalExtensions.lua")
 dofile("mods/noita-mp/files/scripts/init/init_logger.lua")
 
 local init_package_loading = dofile("mods/noita-mp/files/scripts/init/init_package_loading.lua")
@@ -36,6 +37,7 @@ end
 -- Do a simple check by nil check:
 if ModSettingGet then
     -- Load utils
+    require("CustomProfiler")
     require("EntityUtils")
     require("GlobalsUtils")
     require("NetworkVscUtils")

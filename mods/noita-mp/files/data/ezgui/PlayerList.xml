@@ -39,6 +39,7 @@
   <Button @click="toggleDebug()">{{debug}}</Button>
   <Button @click="startProfiler()">Start profiling</Button>
   <Button @click="stopProfiler()">Stop profiling</Button>
+  <Button @click="reportCustomProfiler()">Report custom profiler</Button>
 
 </Layout>
 

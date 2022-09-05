@@ -6,11 +6,6 @@
 --- @return boolean true if indexing by key does not return nil
 --- @return number index also returns the index of the found key
 table.contains    = function(tbl, key)
-    -- for index, value in ipairs(tbl) do
-    --     if value == key then
-    --         return true, index
-    --     end
-    -- end
     for i = 1, #tbl do
         -- better performance? Yes reduced load from 111 to 80. still only 10fps
         local v = tbl[i]
@@ -22,6 +17,11 @@ table.contains    = function(tbl, key)
         --end
         if type(v) == "string" and type(key) == "string" and v:lower() == key:lower() then
             return true, i
+        end
+    end
+    for index, value in ipairs(tbl) do
+        if value == key then
+            return true, index
         end
     end
     return false, -1
@@ -47,9 +47,9 @@ end
 
 -- https://stackoverflow.com/questions/1758991/how-to-remove-a-lua-table-entry-by-its-key
 --function table.removeByKey(tbl, key)
-    -- local element = table[key]
-    -- table[key] = nil
-    -- return element
+-- local element = table[key]
+-- table[key] = nil
+-- return element
 --end
 
 function table.removeByValue(tbl, value)

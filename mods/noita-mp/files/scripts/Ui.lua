@@ -117,6 +117,9 @@ function Ui.new()
             stopProfiler = function()
                 fu.createProfilerLog()
             end,
+            reportCustomProfiler = function()
+                CustomProfiler.report(true)
+            end,
         },
         computed = {
             showKickBan = function()

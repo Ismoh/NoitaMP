@@ -1,37 +1,40 @@
 dofile_once("mods/noita-mp/files/scripts/extensions/string_extensions.lua")
 
-if not logger then -- logger is usually initialised by unsafe API, which isnt available in Noita Components.
-    logger = {}
+if not logger then
+    -- logger is usually initialised by unsafe API, which isnt available in Noita Components.
+    logger          = {}
 
     logger.channels = {
-        entity = "entity",
+        entity  = "entity",
         globals = "globals",
-        guid = "guid",
+        guid    = "guid",
         network = "network",
-        nuid = "nuid",
-        vsc = "vsc",
+        nuid    = "nuid",
+        vsc     = "vsc",
     }
 
-    local file = "unkown script - please define this in your Noita Component"
+    local file      = "unkown script - please define this in your Noita Component"
 
     local function log(level, channel, message)
-        local logLevelOfSettings = nil
-
-        if channel then -- also have a look on init_logger.lua
-            logLevelOfSettings = tostring(ModSettingGet(("noita-mp.log_level_%s"):format(channel)))
-            if not logLevelOfSettings:contains(level) then
-                return false
-            end
-        end
-
-        channel = string.ExtendOrCutStringToLength(channel, 7, " ")
-        level = string.ExtendOrCutStringToLength(level, 5, " ")
-
-        local msg = ("%s [%s][%s] %s ( in %s )"):format("00:00:00", channel, level, message, file)
-
-        if logLevelOfSettings ~= nil and logLevelOfSettings:find(level) then
-            print(msg)
-        end
+        return false -- TODO testing performance issues
+        --local logLevelOfSettings = nil
+        --
+        --if channel then
+        --    -- also have a look on init_logger.lua
+        --    logLevelOfSettings = tostring(ModSettingGet(("noita-mp.log_level_%s"):format(channel)))
+        --    if not logLevelOfSettings:contains(level) then
+        --        return false
+        --    end
+        --end
+        --
+        --channel   = string.ExtendOrCutStringToLength(channel, 7, " ")
+        --level     = string.ExtendOrCutStringToLength(level, 5, " ")
+        --
+        --local msg = ("%s [%s][%s] %s ( in %s )"):format("00:00:00", channel, level, message, file)
+        --
+        --if logLevelOfSettings ~= nil and logLevelOfSettings:find(level) then
+        --    print(msg)
+        --end
     end
 
     function logger:setFile(luaScriptName)

@@ -5,11 +5,26 @@
 
 dofile("mods/noita-mp/config.lua")
 
------------------
--- EntityUtils:
------------------
---- class for manipulating entities in Noita
+------------------------------------------------------------------------------------------------------------------------
+--- When NoitaComponents are accessing this file, they are not able to access the global variables defined in this file.
+--- Therefore, we need to redefine the global variables which we don't have access to, because of NoitaAPI restrictions.
+--- This is done by the following code:
+------------------------------------------------------------------------------------------------------------------------
+if not CustomProfiler then
+    CustomProfiler = {}
+    function CustomProfiler.start(functionName)
+        return 0
+    end
+    function CustomProfiler.stop(functionName, customProfilerCounter)
+        return 0
+    end
+end
+
+------------------------------------------------------------------------------------------------------------------------
+--- EntityUtils:
+------------------------------------------------------------------------------------------------------------------------
 if not EntityUtils then
+    --- class for manipulating entities in Noita
     EntityUtils = {}
 end
 
@@ -35,9 +50,11 @@ local localOwner = {
 --- @param additionalCheck3 function which has to return true of false, but can also be nil: additionalChecks3
 --- @return table filteredEntities
 local function filterEntities(entities, include, exclude, additionalCheck1, additionalCheck2)
+    local cpc              = CustomProfiler.start("EntityUtils.filterEntities")
     local filteredEntities = {}
 
     local function entityMatches(entityId, filenames, componentNames)
+        local cpc1 = CustomProfiler.start("EntityUtils.filterEntities.entityMatches")
         if not EntityUtils.isEntityAlive(entityId) then
             return
         end
@@ -51,6 +68,7 @@ local function filterEntities(entities, include, exclude, additionalCheck1, addi
                 return true
             end
         end
+        CustomProfiler.stop("EntityUtils.filterEntities.entityMatches", cpc1)
     end
 
     for i, entityId in ipairs(entities) do
@@ -65,12 +83,16 @@ local function filterEntities(entities, include, exclude, additionalCheck1, addi
 
                 local addCheck1 = true
                 if additionalCheck1 then
+                    local cpc2 = CustomProfiler.start("EntityUtils.filterEntities.additionalCheck1")
                     addCheck1 = additionalCheck1(entityId)
+                    CustomProfiler.stop("EntityUtils.filterEntities.additionalCheck1", cpc2)
                 end
 
                 local addCheck2 = true
                 if additionalCheck2 then
+                    local cpc3 = CustomProfiler.start("EntityUtils.filterEntities.additionalCheck2")
                     addCheck2 = additionalCheck2(entityId)
+                    CustomProfiler.stop("EntityUtils.filterEntities.additionalCheck2", cpc3)
                 end
 
                 if addCheck1 and addCheck2 then
@@ -81,6 +103,7 @@ local function filterEntities(entities, include, exclude, additionalCheck1, addi
         end
     end
 
+    CustomProfiler.stop("EntityUtils.filterEntities", cpc)
     return filteredEntities
 end
 
@@ -92,6 +115,7 @@ end
 --- @param additionalCheck2 function which has to return true of false, but can also be nil
 --- @return table filteredEntities
 local function getFilteredEntities(radius, include, exclude, additionalCheck1, additionalCheck2)
+    local cpc           = CustomProfiler.start("EntityUtils.getFilteredEntities")
     local entities      = {}
 
     local playerUnitIds = EntityGetWithTag("player_unit")
@@ -108,6 +132,7 @@ local function getFilteredEntities(radius, include, exclude, additionalCheck1, a
         table.insertAllButNotDuplicates(entities, entityIds)
     end
 
+    CustomProfiler.stop("EntityUtils.getFilteredEntities", cpc)
     return filterEntities(entities, include, exclude, additionalCheck1, additionalCheck2)
 end
 
@@ -123,17 +148,21 @@ EntityUtils.localPlayerEntityIdPolymorphed = -1
 --#region Global public functions
 
 function EntityUtils.isEntityPolymorphed(entityId)
+    local cpc                  = CustomProfiler.start("EntityUtils.isEntityPolymorphed")
     local polymorphedEntityIds = EntityGetWithTag("polymorphed") or {}
 
     for e = 1, #polymorphedEntityIds do
         if polymorphedEntityIds[e] == entityId then
+            CustomProfiler.stop("EntityUtils.isEntityPolymorphed")
             return true
         end
     end
+    CustomProfiler.stop("EntityUtils.isEntityPolymorphed", cpc)
     return false
 end
 
 function EntityUtils.isPlayerPolymorphed()
+    local cpc                  = CustomProfiler.start("EntityUtils.isPlayerPolymorphed")
     local polymorphedEntityIds = EntityGetWithTag("polymorphed") or {}
 
     for e = 1, #polymorphedEntityIds do
@@ -143,22 +172,27 @@ function EntityUtils.isPlayerPolymorphed()
             local isPlayer = ComponentGetValue2(componentIds[c], "is_player")
             if isPlayer then
                 EntityUtils.localPlayerEntityIdPolymorphed = polymorphedEntityIds[e]
+                CustomProfiler.stop("EntityUtils.isPlayerPolymorphed", cpc)
                 return true, polymorphedEntityIds[e]
             end
         end
     end
+    CustomProfiler.stop("EntityUtils.isPlayerPolymorphed", cpc)
     return false, nil
 end
 
 function EntityUtils.getLocalPlayerEntityId()
+    local cpc = CustomProfiler.start("EntityUtils.getLocalPlayerEntityId")
     if EntityUtils.isEntityAlive(EntityUtils.localPlayerEntityId) then
         -- TODO: I think this can lead to problems. Think of polymorphed minä. EntityId will change!
+        CustomProfiler.stop("EntityUtils.getLocalPlayerEntityId", cpc)
         return EntityUtils.localPlayerEntityId
     end
 
     local polymorphed, entityId = EntityUtils.isPlayerPolymorphed()
 
     if polymorphed then
+        CustomProfiler.stop("EntityUtils.getLocalPlayerEntityId", cpc)
         return entityId
     end
 
@@ -168,6 +202,7 @@ function EntityUtils.getLocalPlayerEntityId()
             local compOwnerName, compOwnerGuid, compNuid = NetworkVscUtils.getAllVcsValuesByEntityId(playerEntityIds[i])
             if compOwnerGuid == localOwner.guid then
                 EntityUtils.localPlayerEntityId = playerEntityIds[i]
+                CustomProfiler.stop("EntityUtils.getLocalPlayerEntityId", cpc)
                 return playerEntityIds[i]
             end
         end
@@ -176,6 +211,7 @@ function EntityUtils.getLocalPlayerEntityId()
                 "Unable to get local player entity id. Returning first entity id(%s), which was found.",
                 playerEntityIds[1])
     EntityUtils.localPlayerEntityId = playerEntityIds[1]
+    CustomProfiler.stop("EntityUtils.getLocalPlayerEntityId", cpc)
     return playerEntityIds[1]
 end
 
@@ -197,10 +233,13 @@ end
 --- @param entityId number Id of any entity.
 --- @return number|nil entityId returns the entityId if is alive, otherwise nil
 function EntityUtils.isEntityAlive(entityId)
+    local cpc = CustomProfiler.start("EntityUtils.isEntityAlive")
     if EntityGetIsAlive(entityId) then
+        CustomProfiler.stop("EntityUtils.isEntityAlive", cpc)
         return entityId
     end
     logger:warn(logger.channels.entity, ("Entity (%s) isn't alive anymore! Returning nil."):format(entityId))
+    CustomProfiler.stop("EntityUtils.isEntityAlive", cpc)
     return nil
 end
 
@@ -208,6 +247,7 @@ end
 --- If server then nuid is added.
 --- If client then nuid is needed.
 function EntityUtils.initNetworkVscs()
+    local cpc              = CustomProfiler.start("EntityUtils.initNetworkVscs")
     -- if _G.whoAmI() ~= _G.Server.iAm then
     --     error("You are not allowed to init network variable storage components, if not server!", 2)
     -- end
@@ -258,6 +298,7 @@ function EntityUtils.initNetworkVscs()
 
         end
     end
+    CustomProfiler.stop("EntityUtils.initNetworkVscs", cpc)
 end
 
 --- Spawns an entity and applies the transform and velocity to it. Also adds the network_component.
@@ -273,6 +314,7 @@ end
 --- @return number entityId Returns the entity_id of a already existing entity, found by nuid or the newly created
 --- entity.
 function EntityUtils.SpawnEntity(owner, nuid, x, y, rotation, velocity, filename, localEntityId, health, isPolymorphed)
+    local cpc        = CustomProfiler.start("EntityUtils.SpawnEntity")
     local localGuid  = util.getLocalPlayerInfo().guid or util.getLocalPlayerInfo()[2]
     local remoteName = owner.name or owner[1]
     local remoteGuid = owner.guid or owner[2]
@@ -319,10 +361,12 @@ function EntityUtils.SpawnEntity(owner, nuid, x, y, rotation, velocity, filename
     NetworkVscUtils.addOrUpdateAllVscs(entityId, remoteName, remoteGuid, nuid)
     NoitaComponentUtils.setEntityData(entityId, x, y, rotation, velocity, health)
 
+    CustomProfiler.stop("EntityUtils.SpawnEntity", cpc)
     return entityId
 end
 
 function EntityUtils.syncEntityData()
+    local cpc              = CustomProfiler.start("EntityUtils.syncEntityData")
     --if GameGetFrameNum() % 5 ~= 0 then
     --    -- TODO: add this to modSettings
     --    return
@@ -339,73 +383,84 @@ function EntityUtils.syncEntityData()
     --end
 
     local anythingChanged  = function(entityId)
+        local cpc1                                                                               = CustomProfiler.start("EntityUtils.syncEntityData.anythingChanged")
         local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
         if compOwnerGuid ~= util.getLocalPlayerInfo().guid then
             -- if the owner of the entity is not the local player, don't sync it
+            CustomProfiler.stop("EntityUtils.syncEntityData.anythingChanged", cpc1)
             return false
         end
 
         if clientOrServer.entityCache[entityId] == nil then
             clientOrServer.entityCache[entityId] = { health = health, rotation = rotation, velocity = velocity, x = x, y = y }
+            CustomProfiler.stop("EntityUtils.syncEntityData.anythingChanged", cpc1)
             return true
         end
 
         if clientOrServer.entityCache[entityId].health.current ~= health.current and
                 (math.abs(health.current) <= math.abs(clientOrServer.entityCache[entityId].health.current) - 5 or
-                math.abs(health.current) >= math.abs(clientOrServer.entityCache[entityId].health.current) + 5)
+                        math.abs(health.current) >= math.abs(clientOrServer.entityCache[entityId].health.current) + 5)
         then
             clientOrServer.entityCache[entityId] = { health = health, rotation = rotation, velocity = velocity, x = x, y = y }
+            CustomProfiler.stop("EntityUtils.syncEntityData.anythingChanged", cpc1)
             return true
         end
 
         if clientOrServer.entityCache[entityId].health.max ~= health.max and
                 (math.abs(health.max) <= math.abs(clientOrServer.entityCache[entityId].health.max) - 5 or
-                math.abs(health.max) >= math.abs(clientOrServer.entityCache[entityId].health.max) + 5)
+                        math.abs(health.max) >= math.abs(clientOrServer.entityCache[entityId].health.max) + 5)
         then
             clientOrServer.entityCache[entityId] = { health = health, rotation = rotation, velocity = velocity, x = x, y = y }
+            CustomProfiler.stop("EntityUtils.syncEntityData.anythingChanged", cpc1)
             return true
         end
 
         if clientOrServer.entityCache[entityId].rotation ~= rotation and
                 (math.abs(rotation) <= math.abs(clientOrServer.entityCache[entityId].rotation) - 1 or
-                math.abs(rotation) >= math.abs(clientOrServer.entityCache[entityId].rotation) + 1)
+                        math.abs(rotation) >= math.abs(clientOrServer.entityCache[entityId].rotation) + 1)
         then
             clientOrServer.entityCache[entityId] = { health = health, rotation = rotation, velocity = velocity, x = x, y = y }
+            CustomProfiler.stop("EntityUtils.syncEntityData.anythingChanged", cpc1)
             return true
         end
 
         if clientOrServer.entityCache[entityId].velocity[1] ~= velocity[1] and
                 (math.abs(velocity[1]) <= math.abs(clientOrServer.entityCache[entityId].velocity[1]) - 1 or
-                math.abs(velocity[1]) >= math.abs(clientOrServer.entityCache[entityId].velocity[1]) + 1)
+                        math.abs(velocity[1]) >= math.abs(clientOrServer.entityCache[entityId].velocity[1]) + 1)
         then
             clientOrServer.entityCache[entityId] = { health = health, rotation = rotation, velocity = velocity, x = x, y = y }
+            CustomProfiler.stop("EntityUtils.syncEntityData.anythingChanged", cpc1)
             return true
         end
 
         if clientOrServer.entityCache[entityId].velocity[2] ~= velocity[2] and
                 (math.abs(velocity[2]) <= math.abs(clientOrServer.entityCache[entityId].velocity[2]) - 1 or
-                math.abs(velocity[2]) >= math.abs(clientOrServer.entityCache[entityId].velocity[2]) + 1)
+                        math.abs(velocity[2]) >= math.abs(clientOrServer.entityCache[entityId].velocity[2]) + 1)
         then
             clientOrServer.entityCache[entityId] = { health = health, rotation = rotation, velocity = velocity, x = x, y = y }
+            CustomProfiler.stop("EntityUtils.syncEntityData.anythingChanged", cpc1)
             return true
         end
 
         if clientOrServer.entityCache[entityId].x ~= x and
                 (math.abs(x) <= math.abs(clientOrServer.entityCache[entityId].x) - 1 or
-                math.abs(x) >= math.abs(clientOrServer.entityCache[entityId].x) + 1)
+                        math.abs(x) >= math.abs(clientOrServer.entityCache[entityId].x) + 1)
         then
             clientOrServer.entityCache[entityId] = { health = health, rotation = rotation, velocity = velocity, x = x, y = y }
+            CustomProfiler.stop("EntityUtils.syncEntityData.anythingChanged", cpc1)
             return true
         end
 
         if clientOrServer.entityCache[entityId].y ~= y and
                 (math.abs(y) <= math.abs(clientOrServer.entityCache[entityId].y) - 1 or
-                math.abs(y) >= math.abs(clientOrServer.entityCache[entityId].y) + 1)
+                        math.abs(y) >= math.abs(clientOrServer.entityCache[entityId].y) + 1)
         then
             clientOrServer.entityCache[entityId] = { health = health, rotation = rotation, velocity = velocity, x = x, y = y }
+            CustomProfiler.stop("EntityUtils.syncEntityData.anythingChanged", cpc1)
             return true
         end
 
+        CustomProfiler.stop("EntityUtils.syncEntityData.anythingChanged", cpc1)
         return false
     end
 
@@ -418,9 +473,11 @@ function EntityUtils.syncEntityData()
         local entityId = filteredEntities[i]
         clientOrServer.sendEntityData(entityId)
     end
+    CustomProfiler.stop("EntityUtils.syncEntityData", cpc)
 end
 
 function EntityUtils.syncDeadNuids()
+    local cpc       = CustomProfiler.start("EntityUtils.syncDeadNuids")
     local deadNuids = NuidUtils.getEntityIdsByKillIndicator()
     if #deadNuids > 0 then
         local clientOrServer = NetworkUtils.getClientOrServer()
@@ -434,9 +491,11 @@ function EntityUtils.syncDeadNuids()
 
         clientOrServer.sendDeadNuids(deadNuids)
     end
+    CustomProfiler.stop("EntityUtils.syncDeadNuids", cpc)
 end
 
 function EntityUtils.destroyClientEntities()
+    local cpc = CustomProfiler.start("EntityUtils.destroyClientEntities")
     if _G.whoAmI() ~= _G.Client.iAm then
         error("You are not allowed to remove entities, if not client!", 2)
     end
@@ -517,12 +576,15 @@ function EntityUtils.destroyClientEntities()
             end
         end
     end
+    CustomProfiler.stop("EntityUtils.destroyClientEntities", cpc)
 end
 
 function EntityUtils.destroyByNuid(nuid)
+    local cpc             = CustomProfiler.start("EntityUtils.destroyByNuid")
     local nNuid, entityId = GlobalsUtils.getNuidEntityPair(nuid)
 
     if not EntityUtils.isEntityAlive(entityId) then
+        CustomProfiler.stop("EntityUtils.destroyByNuid", cpc)
         return
     end
 
@@ -540,6 +602,7 @@ function EntityUtils.destroyByNuid(nuid)
     -- Remove entityId from cache
     local clientOrServer                 = NetworkUtils.getClientOrServer()
     clientOrServer.entityCache[entityId] = nil
+    CustomProfiler.stop("EntityUtils.destroyByNuid", cpc)
 end
 
 -- --- Special thanks to @Coxas/Thighs:
@@ -561,6 +624,7 @@ end
 ---@param inventory_type any
 ---@return table
 function EntityUtils.get_player_inventory_contents(inventory_type)
+    local cpc    = CustomProfiler.start("EntityUtils.get_player_inventory_contents")
     local player = EntityUtils.getLocalPlayerEntityId() --EntityGetWithTag("player_unit")[1]
     local out    = {}
     if player then
@@ -573,10 +637,12 @@ function EntityUtils.get_player_inventory_contents(inventory_type)
             end
         end
     end
+    CustomProfiler.stop("EntityUtils.get_player_inventory_contents", cpc)
     return out
 end
 
 function EntityUtils.modifyPhysicsEntities()
+    local cpc = CustomProfiler.start("EntityUtils.modifyPhysicsEntities")
     if not util then
         util = require("util")
     end
@@ -611,11 +677,13 @@ function EntityUtils.modifyPhysicsEntities()
         logger:error("Unable to modify physics entities, because util(%s), fu(%s) and nxml(%s) seems to be nil",
                      util, fu, nxml)
     end
+    CustomProfiler.stop("EntityUtils.modifyPhysicsEntities", cpc)
 end
 
 --#endregion
 
 function EntityUtils.addOrChangeDetectionRadiusDebug(player_entity)
+    local cpc              = CustomProfiler.start("EntityUtils.addOrChangeDetectionRadiusDebug")
     local compIdInclude    = nil
     local compIdExclude    = nil
     local imageFileInclude = "mods/noita-mp/files/data/debug/radiusInclude24.png"
@@ -671,6 +739,7 @@ function EntityUtils.addOrChangeDetectionRadiusDebug(player_entity)
         EntityRemoveComponent(player_entity, compIdInclude)
         EntityRemoveComponent(player_entity, compIdExclude)
     end
+    CustomProfiler.stop("EntityUtils.addOrChangeDetectionRadiusDebug", cpc)
 end
 
 

@@ -84,6 +84,7 @@ function OnModPreInit()
 end
 
 function OnWorldInitialized()
+    local cpc = CustomProfiler.start("init.OnWorldInitialized")
     logger:debug(nil, "init.lua | OnWorldInitialized()")
 
     local make_zip = ModSettingGet("noita-mp.server_start_7zip_savegame")
@@ -106,9 +107,11 @@ function OnWorldInitialized()
     --dofile_once("mods/noita-mp/files/scripts/net/client_class.lua") -- run once to init client object
     --dofile_once("mods/noita-mp/files/scripts/net/Server.lua")
     --dofile_once("mods/noita-mp/files/scripts/net/Client.lua")
+    CustomProfiler.stop("init.OnWorldInitialized", cpc)
 end
 
 function OnPlayerSpawned(player_entity)
+    local cpc = CustomProfiler.start("init.OnPlayerSpawned")
     logger:info(nil, ("Player spawned with entityId = %s!"):format(player_entity))
     EntityUtils.localPlayerEntityId = player_entity
 
@@ -121,15 +124,20 @@ function OnPlayerSpawned(player_entity)
                                 execute_every_n_frame = 1,
                             })
     end
+    CustomProfiler.stop("init.OnPlayerSpawned", cpc)
 end
 
 function OnPausePreUpdate()
-    _G.Server.update()
-    _G.Client.update()
+    local cpc = CustomProfiler.start("init.OnPausePreUpdate")
+    Server.update()
+    Client.update()
+    CustomProfiler.updateFps()
+    CustomProfiler.stop("init.OnPausePreUpdate", cpc)
 end
 
 --- PreUpdate of world
 function OnWorldPreUpdate()
+    local cpc = CustomProfiler.start("init.OnWorldPreUpdate")
     --if profiler.isRunning() and os.clock() >= 120 then
     --    fu.createProfilerLog()
     --end
@@ -163,15 +171,20 @@ function OnWorldPreUpdate()
 
     --UpdateLogLevel()
 
-    _G.Server.update()
-    _G.Client.update()
+    Server.update()
+    Client.update()
 
     --dofile("mods/noita-mp/files/scripts/ui.lua")
 
     ui.update()
+
+    --CustomProfiler.updateFps()
+    CustomProfiler.stop("init.OnWorldPreUpdate", cpc)
 end
 
 function OnWorldPostUpdate()
-    _G.Server.update()
-    _G.Client.update()
+    local cpc = CustomProfiler.start("init.OnWorldPostUpdate")
+    Server.update()
+    Client.update()
+    CustomProfiler.stop("init.OnWorldPostUpdate", cpc)
 end

@@ -62,6 +62,7 @@ NetworkUtils.events                  = {
 
 --- Copy from sock.lua, because I am lazy
 local function zipTable(items, keys, event)
+    local cpc = CustomProfiler.start("NetworkUtils.zipTable")
     local data = {}
 
     -- convert variable at index 1 into the value for the key value at index 1, and so on
@@ -75,6 +76,7 @@ local function zipTable(items, keys, event)
         data[key] = value
     end
 
+    CustomProfiler.stop("NetworkUtils.zipTable", cpc)
     return data
 end
 
@@ -82,21 +84,28 @@ end
 --- @return table Client or Server 'object'
 --- @public
 function NetworkUtils.getClientOrServer()
+    local cpc = CustomProfiler.start("NetworkUtils.getClientOrServer")
     if _G.whoAmI() == Client.iAm then
+        CustomProfiler.stop("NetworkUtils.getClientOrServer", cpc)
         return Client
     elseif _G.whoAmI() == Server.iAm then
+        CustomProfiler.stop("NetworkUtils.getClientOrServer", cpc)
         return Server
     else
         error("Unable to identify whether I am Client or Server..", 3)
     end
+    CustomProfiler.stop("NetworkUtils.getClientOrServer", cpc)
 end
 
 function NetworkUtils.getNextNetworkMessageId()
+    local cpc = CustomProfiler.start("NetworkUtils.getNextNetworkMessageId")
     NetworkUtils.networkMessageIdCounter = NetworkUtils.networkMessageIdCounter + 1
+    CustomProfiler.stop("NetworkUtils.getNextNetworkMessageId", cpc)
     return NetworkUtils.networkMessageIdCounter
 end
 
 function NetworkUtils.alreadySent(event, data)
+    local cpc = CustomProfiler.start("NetworkUtils.alreadySent")
     local clientOrServer   = NetworkUtils.getClientOrServer()
 
     --if _G.whoAmI() == Client.iAm then
@@ -119,6 +128,7 @@ function NetworkUtils.alreadySent(event, data)
         local acknowledgement = clientOrServer.acknowledge[networkMessageId]
         if acknowledgement.status == NetworkUtils.events.acknowledgement.ack then
             -- network message was already acknowledged
+            CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
             return true
         end
 
@@ -162,9 +172,11 @@ function NetworkUtils.alreadySent(event, data)
                 if value.status ~= NetworkUtils.events.acknowledgement.ack then
                     local pasted = os.time() - value.sentAt
                     if pasted >= rtt then
+                        CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
                         return false -- resend after RTT
                     end
                 end
+                CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
                 return true
             end
         end
@@ -189,6 +201,7 @@ function NetworkUtils.alreadySent(event, data)
             local entityIdPrev  = dataPrev.localEntityId or value.data[3]
 
             if ownerNameNow == ownerNamePrev and ownerGuidNow == ownerGuidPrev and entityIdNow == entityIdPrev then
+                CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
                 return true
             end
         end
@@ -219,6 +232,7 @@ function NetworkUtils.alreadySent(event, data)
     --end
     --
     logger:warn(logger.channels.network, "Unable to get status of network message.")
+    CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
     return false
 end
 

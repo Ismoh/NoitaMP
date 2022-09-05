@@ -38,6 +38,7 @@ Server            = {}
 ---@param sockServer table sock.lua#newServer
 ---@return table Server
 function Server.new(sockServer)
+    local cpc = CustomProfiler.start("Server.new")
     local self       = sockServer
 
     ------------------------------------
@@ -66,7 +67,9 @@ function Server.new(sockServer)
     --- Set servers settings
     ------------------------------------------------------------------------------------------------
     local function setConfigSettings()
+        local cpc = CustomProfiler.start("Server.setConfigSettings")
         local serialize   = function(anyValue)
+            local cpc1 = CustomProfiler.start("Server.setConfigSettings.serialize")
             --logger:debug(logger.channels.network, ("Serializing value: %s"):format(anyValue))
             local serialized      = messagePack.pack(anyValue)
             local zstd            = zstandard:new()
@@ -78,10 +81,12 @@ function Server.new(sockServer)
             --logger:debug(logger.channels.network, "Compressed size:", string.len(compressed))
             --logger:debug(logger.channels.network, ("Serialized and compressed value: %s"):format(compressed))
             zstd:free()
+            CustomProfiler.stop("Server.setConfigSettings.serialize", cpc1)
             return compressed
         end
 
         local deserialize = function(anyValue)
+            local cpc2 = CustomProfiler.start("Server.setConfigSettings.deserialize")
             --logger:debug(logger.channels.network, ("Serialized and compressed value: %s"):format(anyValue))
             local zstd              = zstandard:new()
             --logger:debug(logger.channels.network, "Compressed size:", string.len(anyValue))
@@ -93,16 +98,19 @@ function Server.new(sockServer)
             local deserialized = messagePack.unpack(decompressed)
             logger:debug(logger.channels.network, ("Deserialized and uncompressed value: %s"):format(deserialized))
             zstd:free()
+            CustomProfiler.stop("Server.setConfigSettings.deserialize", cpc2)
             return deserialized
         end
 
         self:setSerialization(serialize, deserialize)
+        CustomProfiler.stop("Server.setConfigSettings", cpc)
     end
 
     ------------------------------------------------------------------------------------------------
     --- Set servers guid
     ------------------------------------------------------------------------------------------------
     local function setGuid()
+        local cpc = CustomProfiler.start("Server.setGuid")
         local guid = tostring(ModSettingGetNextValue("noita-mp.guid"))
 
         if guid == "" or Guid.isPatternValid(guid) == false then
@@ -117,21 +125,25 @@ function Server.new(sockServer)
         if DebugGetIsDevBuild() then
             guid = guid .. self.iAm
         end
+        CustomProfiler.stop("Server.setGuid", cpc)
     end
 
     ------------------------------------------------------------------------------------------------
     --- Send acknowledgement
     ------------------------------------------------------------------------------------------------
     local function sendAck(networkMessageId, peer)
+        local cpc = CustomProfiler.start("Server.sendAck")
         local data = { networkMessageId, NetworkUtils.events.acknowledgement.ack }
         self:sendToPeer(peer, NetworkUtils.events.acknowledgement.name, data)
         logger:debug(logger.channels.network, ("Sent ack with data = %s"):format(util.pformat(data)))
+        CustomProfiler.stop("Server.sendAck", cpc)
     end
 
     ------------------------------------------------------------------------------------------------
     --- onAcknowledgement
     ------------------------------------------------------------------------------------------------
     local function onAcknowledgement(data, peer)
+        local cpc = CustomProfiler.start("Server.onAcknowledgement")
         logger:debug(logger.channels.network, "onAcknowledgement: Acknowledgement received.", util.pformat(data))
 
         if util.IsEmpty(data.networkMessageId) then
@@ -150,6 +162,7 @@ function Server.new(sockServer)
         end
 
         self.acknowledge[data.networkMessageId].status = data.status
+        CustomProfiler.stop("Server.onAcknowledgement", cpc)
     end
 
     ------------------------------------------------------------------------------------------------
@@ -159,6 +172,7 @@ function Server.new(sockServer)
     --- @param data number not in use atm
     --- @param peer table
     local function onConnect(data, peer)
+        local cpc = CustomProfiler.start("Server.onConnect")
         logger:debug(logger.channels.network, ("Peer %s connected! data = %s")
                 :format(util.pformat(peer), util.pformat(data)))
 
@@ -189,6 +203,7 @@ function Server.new(sockServer)
 
         local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
         self.sendNewNuid({ name, guid }, entityId, nuid, x, y, rotation, velocity, filename, health, isPolymorphed)
+        CustomProfiler.stop("Server.onConnect", cpc)
     end
 
     ------------------------------------------------------------------------------------------------
@@ -198,6 +213,7 @@ function Server.new(sockServer)
     --- @param data table
     --- @param peer table
     local function onDisconnect(data, peer)
+        local cpc = CustomProfiler.start("Server.onDisconnect")
         logger:debug(logger.channels.network, "Disconnected from server!", util.pformat(data))
 
         if util.IsEmpty(peer) then
@@ -217,6 +233,7 @@ function Server.new(sockServer)
         if peer.nuid then
             EntityUtils.destroyByNuid(peer.nuid)
         end
+        CustomProfiler.stop("Server.onDisconnect", cpc)
     end
 
     ------------------------------------------------------------------------------------------------
@@ -225,6 +242,7 @@ function Server.new(sockServer)
     --- Callback when Server sent his playerInfo to the client
     --- @param data table data { networkMessageId, name, guid }
     local function onPlayerInfo(data, peer)
+        local cpc = CustomProfiler.start("Server.onPlayerInfo")
         logger:debug(logger.channels.network, "onPlayerInfo: Player info received.", util.pformat(data))
 
         if util.IsEmpty(peer) then
@@ -264,7 +282,7 @@ function Server.new(sockServer)
             local dataNewGuid = {
                 NetworkUtils.getNextNetworkMessageId(), data.guid, newGuid
             }
-            self:sendToAll2(NetworkUtils.events.newGuid.name, dataNewGuid) asdbajghsd add processId to guid and save it an a processedId file.
+            self:sendToAll2(NetworkUtils.events.newGuid.name, dataNewGuid) -- TODO add processId to guid and save it an a processedId file.
             data.guid = newGuid
         end
 
@@ -279,12 +297,14 @@ function Server.new(sockServer)
                 Guid:addGuidToCache(data.guid)
             end
         end
+        CustomProfiler.stop("Server.onPlayerInfo", cpc)
     end
 
     ------------------------------------------------------------------------------------------------
     --- onNeedNuid
     ------------------------------------------------------------------------------------------------
     local function onNeedNuid(data, peer)
+        local cpc = CustomProfiler.start("Server.onNeedNuid")
         logger:debug(logger.channels.network, ("Peer %s needs a new nuid. data = %s")
                 :format(util.pformat(peer), util.pformat(data)))
 
@@ -348,12 +368,14 @@ function Server.new(sockServer)
         self.sendNewNuid(owner, localEntityId, newNuid, x, y, rotation, velocity, filename, health, isPolymorphed)
         EntityUtils.SpawnEntity(owner, newNuid, x, y, rotation, velocity, filename, localEntityId, health,
                                 isPolymorphed)
+        CustomProfiler.stop("Server.onNeedNuid", cpc)
     end
 
     ------------------------------------------------------------------------------------------------
     --- onLostNuid
     ------------------------------------------------------------------------------------------------
     local function onLostNuid(data, peer)
+        local cpc = CustomProfiler.start("Server.onLostNuid")
         logger:debug(logger.channels.network, ("Peer %s lost a nuid and ask for the entity to spawn. data = %s")
                 :format(util.pformat(peer), util.pformat(data)))
 
@@ -384,9 +406,11 @@ function Server.new(sockServer)
 
         self.sendNewNuid({ compOwnerName, compOwnerGuid },
                          "unknown", nuid, x, y, rotation, velocity, filename, health, isPolymorphed)
+        CustomProfiler.stop("Server.onLostNuid", cpc)
     end
 
     local function onEntityData(data, peer)
+        local cpc = CustomProfiler.start("Server.onEntityData")
         logger:debug(logger.channels.network, ("Received entityData for nuid = %s! data = %s")
                 :format(data.nuid, util.pformat(data)))
 
@@ -440,9 +464,11 @@ function Server.new(sockServer)
         NoitaComponentUtils.setEntityData(localEntityId, x, y, rotation, velocity, health)
 
         --self:sendToAllBut(peer, NetworkUtils.events.entityData.name, data)
+        CustomProfiler.stop("Server.onEntityData", cpc)
     end
 
     local function onDeadNuids(data, peer)
+        local cpc = CustomProfiler.start("Server.onDeadNuids")
         local deadNuids = data.deadNuids or data or {}
         for i = 1, #deadNuids do
             local deadNuid = deadNuids[i]
@@ -456,11 +482,13 @@ function Server.new(sockServer)
         if peer then
             self:sendToAllBut(peer, NetworkUtils.events.deadNuids.name, data)
         end
+        CustomProfiler.stop("Server.onDeadNuids", cpc)
     end
 
     --self:sendToAllBut(peer, NetworkUtils.events.playerInfo.name)
 
     local function setClientInfo(data, peer)
+        local cpc = CustomProfiler.start("Server.setClientInfo")
         local name = data.name
         local guid = data.guid
 
@@ -483,6 +511,7 @@ function Server.new(sockServer)
                 self.clients[i].guid = guid
             end
         end
+        CustomProfiler.stop("Server.setClientInfo", cpc)
     end
 
     -- Called when someone connects to the server
@@ -609,6 +638,8 @@ function Server.new(sockServer)
     ------------------------------------------------------------------------------------------------
     --- Sets callbacks and schemas of the server.
     local function setCallbackAndSchemas()
+        local cpc = CustomProfiler.start("Server.setCallbackAndSchemas")
+
         --self:setSchema(NetworkUtils.events.connect, { "code" })
         self:on(NetworkUtils.events.connect.name, onConnect)
 
@@ -648,9 +679,11 @@ function Server.new(sockServer)
         -- self:setSchema("newNuid", { "owner", "localEntityId", "nuid", "x", "y", "rot", "velocity", "filename" })
         -- self:setSchema("entityAlive", { "owner", "localEntityId", "nuid", "isAlive" })
         -- self:setSchema("entityState", { "owner", "localEntityId", "nuid", "x", "y", "rot", "velocity", "health" })
+        CustomProfiler.stop("Server.setCallbackAndSchemas", cpc)
     end
 
     local function updateVariables()
+        local cpc = CustomProfiler.start("Server.updateVariables")
         local entityId = util.getLocalPlayerInfo().entityId
         if entityId then
             local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
@@ -664,6 +697,7 @@ function Server.new(sockServer)
                                  filename, health, EntityUtils.isEntityPolymorphed(entityId))
             end
         end
+        CustomProfiler.stop("Server.updateVariables", cpc)
     end
 
     -- Public methods:
@@ -675,6 +709,7 @@ function Server.new(sockServer)
     --- @param ip string localhost or 127.0.0.1 or nil
     --- @param port number port number from 1 to max of 65535 or nil
     function self.start(ip, port)
+        local cpc = CustomProfiler.start("Server.start")
         if not ip then
             ip = tostring(ModSettingGet("noita-mp.server_ip"))
         end
@@ -702,15 +737,18 @@ function Server.new(sockServer)
         else
             GamePrintImportant("Server didnt started!", "Try again, otherwise restart Noita.")
         end
+        CustomProfiler.stop("Server.start", cpc)
     end
 
     --- Stops the server.
     function self.stop()
+        local cpc = CustomProfiler.start("Server.stop")
         if self.isRunning() then
             self:destroy()
         else
             logger:info(logger.channels.network, "Server isn't running, there cannot be stopped.")
         end
+        CustomProfiler.stop("Server.stop", cpc)
     end
 
     --#endregion
@@ -718,10 +756,13 @@ function Server.new(sockServer)
     --#region Additional methods
 
     function self.isRunning()
+        local cpc = CustomProfiler.start("Server.isRunning")
         local status, result = pcall(self.getSocketAddress, self)
         if not status then
+            CustomProfiler.stop("Server.isRunning", cpc)
             return false
         end
+        CustomProfiler.stop("Server.isRunning", cpc)
         return true
     end
 
@@ -733,6 +774,7 @@ function Server.new(sockServer)
     local sockServerUpdate = sockServer.update
     --- Updates the server by checking for network events and handling them.
     function self.update()
+        local cpc = CustomProfiler.start("Server.update")
         if not self.isRunning() then
             --if not self.host then
             -- server not established
@@ -755,15 +797,19 @@ function Server.new(sockServer)
         end
 
         sockServerUpdate(self)
+        CustomProfiler.stop("Server.update", cpc)
     end
 
     function self.sendNewNuid(owner, localEntityId, newNuid, x, y, rot, velocity, filename, health, isPolymorphed)
+        local cpc = CustomProfiler.start("Server.sendNewNuid")
         self:sendToAll2("newNuid",
                         { NetworkUtils.getNextNetworkMessageId(), owner, localEntityId, newNuid, x, y, rot, velocity,
                           filename, health, isPolymorphed })
+        CustomProfiler.stop("Server.sendNewNuid", cpc)
     end
 
     function self.sendEntityData(entityId)
+        local cpc = CustomProfiler.start("Server.sendEntityData")
         if not EntityUtils.isEntityAlive(entityId) then
             return
         end
@@ -787,19 +833,23 @@ function Server.new(sockServer)
         if util.getLocalPlayerInfo().guid == compOwnerGuid then
             self:sendToAll2(NetworkUtils.events.entityData.name, data)
         end
+        CustomProfiler.stop("Server.sendEntityData", cpc)
     end
 
     function self.sendDeadNuids(deadNuids)
+        local cpc = CustomProfiler.start("Server.sendDeadNuids")
         local data = {
             NetworkUtils.getNextNetworkMessageId(), deadNuids
         }
         self:sendToAll2(NetworkUtils.events.deadNuids.name, data)
         onDeadNuids(deadNuids)
+        CustomProfiler.stop("Server.sendDeadNuids", cpc)
     end
 
     --- Checks if the current local user is the server
     --- @return boolean iAm true if server
     function self.amIServer()
+        local cpc = CustomProfiler.start("Server.amIServer")
         -- this can happen when you started and stop a server and then connected to a different server!
         -- if _G.Server.super and _G.Client.super then
         --     error("Something really strange is going on. You are server and client at the same time?", 2)
@@ -807,24 +857,30 @@ function Server.new(sockServer)
 
         if _G.Server.isRunning() then
             --if _G.Server.host and _G.Server.guid == self.guid then
+            CustomProfiler.stop("Server.amIServer", cpc)
             return true
         end
-
+        CustomProfiler.stop("Server.amIServer", cpc)
         return false
     end
 
     function self.kick(name)
+        local cpc = CustomProfiler.start("Server.kick")
         logger:debug(logger.channels.network, "Minä %s was kicked!", name)
+        CustomProfiler.stop("Server.kick", cpc)
     end
 
     function self.ban(name)
+        local cpc = CustomProfiler.start("Server.ban")
         logger:debug(logger.channels.network, "Minä %s was banned!", name)
+        CustomProfiler.stop("Server.ban", cpc)
     end
 
     --#endregion
 
     -- Apply some private methods
 
+    CustomProfiler.stop("Server.new", cpc)
     return self
 end
 

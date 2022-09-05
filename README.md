@@ -87,6 +87,8 @@ Also, special thanks to the people, who share their libraries, frameworks and ot
 - [libzstd.dll](https://github.com/facebook/zstd) for being able to compress and decompress data
 - [zstd.lua](https://github.com/sjnam/luajit-zstd) for easy to use libzstd.dll in Lua
 - [lua-MessagePack](https://framagit.org/fperrad/lua-MessagePack/-/tree/0.5.2) for serializing and deserializing data
+- [plotly.lua](https://github.com/kenloen/plotly.lua) for plotting profiled data
+- [dkjson.lua](https://github.com/LuaDist/dkjson) needed by plotly.lua
 
 I had to build the network library by my own, because Noita provides its own lua51.dll. I struggled to build it, if you are interested in,
 I've added all the necessary build files inside of .building/dll_building.7z and here you can see the [stackoverflow question](https://stackoverflow.com/questions/70048918/lua-5-1-package-loadlib-and-require-gcc-building-windows-dll) I've created.

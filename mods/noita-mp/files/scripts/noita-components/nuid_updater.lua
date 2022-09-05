@@ -35,6 +35,10 @@ local function remove()
     local ownerName, ownerGuid, nuid   = NetworkVscUtils.getAllVcsValuesByEntityId(currentEntityId)
     local globalsNuid, globalsEntityId = GlobalsUtils.getNuidEntityPair(nuid)
 
+    if not globalsEntityId then
+        globalsEntityId = currentEntityId
+    end
+
     GlobalsUtils.setNuid(nuid, tonumber(currentEntityId * -1))
     GlobalsUtils.setDeadNuid(nuid)
     logger:debug(logger.channels.nuid,

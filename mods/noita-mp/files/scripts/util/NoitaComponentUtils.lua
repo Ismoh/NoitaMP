@@ -19,7 +19,9 @@ NoitaComponentUtils = {}
 --#region Global public variables
 
 function NoitaComponentUtils.setEntityData(entityId, x, y, rotation, velocity, health)
+    local cpc = CustomProfiler.start("NoitaComponentUtils.setEntityData")
     if not EntityUtils.isEntityAlive(entityId) then
+        CustomProfiler.stop("NoitaComponentUtils.setEntityData", cpc)
         return
     end
 
@@ -42,6 +44,7 @@ function NoitaComponentUtils.setEntityData(entityId, x, y, rotation, velocity, h
                 "have any VelocityComponent."):format(entityId))
         --EntityAddComponent2(entityId, "VelocityComponent", {})
     end
+    CustomProfiler.stop("NoitaComponentUtils.setEntityData", cpc)
 end
 
 --- Fetches data like position, rotation, velocity, health and filename
@@ -53,6 +56,7 @@ end
 --- @return number x
 --- @return number y
 function NoitaComponentUtils.getEntityData(entityId)
+    local cpc = CustomProfiler.start("NoitaComponentUtils.getEntityData")
     local compOwnerName,
     compOwnerGuid, compNuid = NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
     local hpCompId          = EntityGetFirstComponentIncludingDisabled(entityId, "DamageModelComponent")
@@ -68,11 +72,14 @@ function NoitaComponentUtils.getEntityData(entityId)
     end
     local filename = EntityGetFilename(entityId)
 
+    CustomProfiler.stop("NoitaComponentUtils.getEntityData", cpc)
     return compOwnerName, compOwnerGuid, compNuid, filename, health, math.round(rotation, 0.1), velocity, math.round(x, 0.1), math.round(y, 0.1)
 end
 
 function NoitaComponentUtils.getEntityDataByNuid(nuid)
+    local cpc = CustomProfiler.start("NoitaComponentUtils.getEntityDataByNuid")
     local nNuid, entityId = GlobalsUtils.getNuidEntityPair(nuid)
+    CustomProfiler.stop("NoitaComponentUtils.getEntityDataByNuid", cpc)
     return NoitaComponentUtils.getEntityData(entityId)
 end
 
