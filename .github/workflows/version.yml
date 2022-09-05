@@ -65,7 +65,7 @@ jobs:
           fetch-depth: 0
       
       - name: Increase version depending on labels
-        uses: HardNorth/github-version-generate@v1.1.2
+        uses: HardNorth/github-version-generate@v1.2.0
         with:
           version-source: file
           version-file: ${{ env.VERSION_FILE_NAME }}
