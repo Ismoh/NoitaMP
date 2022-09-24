@@ -120,10 +120,15 @@ jobs:
         env:
           CHANGELOG: ${{ needs.generate-or-update-changelog.outputs.changelog }}
         run: |
+          echo ""
+          cat CHANGELOG.md
+          echo ""
+          echo $CHANGELOG
+          echo ""
           ls -R
-          ls -R /github/workspace
           ls -R ${{ github.workspace }}
-          mv ${{ github.workspace }}/CHANGELOG.md ${{ github.workspace }}/mods/noita-mp/CHANGELOG.md
+#          mv ${{ github.workspace }}/CHANGELOG.md ${{ github.workspace }}/mods/noita-mp/CHANGELOG.md
+          
           git fetch
           git checkout ${{ github.base_ref }}
           git pull origin ${{ github.base_ref }}
