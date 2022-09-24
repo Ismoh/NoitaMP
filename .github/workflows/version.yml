@@ -75,21 +75,21 @@ jobs:
           next-version-increment-patch: ${{ contains(env.LABEL_NAMES, 'bug') }}
           next-version-cut-build-metadata: false
           next-version-put-build-metadata: true
-          
+      
       - name: Extend version with custom build numbers
         run: |
           echo "NEXT_VERSION=v$NEXT_VERSION+$(git log --oneline | wc -l)" >> $GITHUB_ENV
-
+      
       - name: Add comment to pull request
         run: |
           body="{\"body\":\"When this pull request was merged\\\:\r\n- Version will be automatically increase to **$NEXT_VERSION** in **${{ github.base_ref }}**\r\n- Tag **$NEXT_VERSION** will be created to the specific commit.\"}"
-          
+        
           curlResponse=`curl --write-out '%{http_code}' --output /dev/null --request POST \
           --header 'Accept: application/vnd.github+json' \
           --header 'Authorization: token ${{ github.token }}' \
           --url 'https://api.github.com/repos/${{github.repository}}/issues/${{github.event.number}}/comments' \
           --data-raw "$body"`
-          
+        
           if [[ $curlResponse == *"201"* ]]
           then
             echo "SUCCESS"
@@ -97,7 +97,7 @@ jobs:
             echo "FAILURE"
             exit 1
           fi
-  
+      
       - name: Commit version changes and tag it
         env:
           MERGED: ${{ github.event.pull_request.merged }}
@@ -117,4 +117,16 @@ jobs:
           else
             echo "Pull request is not merged yet, skipping..."
           fi
-          
+  
+  update-change-log:
+    needs: increase-version-by-labels
+    runs-on: ubuntu-latest
+    steps:
+      - name: "✏ Generate release or tag changelog"
+        uses: heinrichreimer/github-changelog-generator-action@v2.3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          dateFormat: "%d.%m.%Y"
+          output: "CHANGELOG.md"
+          issueLineLabels: "ALL"
+          breakingLabels: "backwards-incompatible,breaking,rework,refactor"
