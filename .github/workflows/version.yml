@@ -127,7 +127,6 @@ jobs:
           echo ""
           ls -R
           ls -R ${{ github.workspace }}
-#          mv ${{ github.workspace }}/CHANGELOG.md ${{ github.workspace }}/mods/noita-mp/CHANGELOG.md
           
           git fetch
           git checkout ${{ github.base_ref }}
