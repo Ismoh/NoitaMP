@@ -97,8 +97,34 @@ jobs:
             echo "FAILURE"
             exit 1
           fi
-      
-      - name: Commit version changes and tag it
+          
+  generate-or-update-changelog:
+    needs: increase-version-by-labels
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Generate CHANGELOG.md"
+        uses: heinrichreimer/github-changelog-generator-action@v2.3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          dateFormat: "%d.%m.%Y"
+          output: "CHANGELOG.md"
+          issueLineLabels: "ALL"
+          breakingLabels: "backwards-incompatible,breaking,rework,refactor"
+      - name: Commit and push CHANGELOG.md
+        env:
+          CHANGELOG: ${{ needs.generate-or-update-changelog.outputs.changelog }}
+        run: |
+          git fetch
+          git checkout ${{ github.base_ref }}
+          git pull origin ${{ github.base_ref }}
+          echo "$CHANGELOG" > CHANGELOG.md
+          git config --local user.email "action@github.com"
+          git config --local user.name "github-actions"
+          git add CHANGELOG.md
+          git commit -m "Updated CHANGELOG.md in https://github.com/${{github.repository}}/pull/${{github.event.number}}"
+          git push origin ${{ github.base_ref }}
+
+      - name: Commit and push version changes and tag it
         env:
           MERGED: ${{ github.event.pull_request.merged }}
         run: |
@@ -108,7 +134,7 @@ jobs:
             git checkout ${{ github.base_ref }}
             git pull origin ${{ github.base_ref }}
             echo "$NEXT_VERSION" > $VERSION_FILE_NAME
-            git config --local user.email "action@github.com"VG
+            git config --local user.email "action@github.com"
             git config --local user.name "github-actions"
             git add $VERSION_FILE_NAME
             git commit -m "Updated version to $NEXT_VERSION in https://github.com/${{github.repository}}/pull/${{github.event.number}}"
