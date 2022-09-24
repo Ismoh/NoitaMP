@@ -51,13 +51,13 @@ jobs:
         
           echo "::set-output name=labelNames::${labelNames}"
   
-  increase-version-by-labels:
+  update-version:
     needs: find-linked-issues-and-copy-labels-to-pull-request
     env:
       LABEL_NAMES: ${{ needs.find-linked-issues-and-copy-labels-to-pull-request.outputs.labelNames }}
       VERSION_FILE_NAME: 'mods/noita-mp/.version'
       VERSION_FRAGMENT: 'will be fetched by file'
-    name: Increase version depending on labels
+    name: Increase version and create a tag, when merged
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -98,17 +98,6 @@ jobs:
             exit 1
           fi
   
-  generate-or-update-changelog:
-    needs: increase-version-by-labels
-    env:
-      VERSION_FILE_NAME: 'mods/noita-mp/.version'
-    name: Generate or update CHANGELOG.md
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      
       - name: Commit and push version changes and tag it, when merged
         env:
           MERGED: ${{ github.event.pull_request.merged }}
@@ -128,6 +117,17 @@ jobs:
           else
             echo "Pull request is not merged yet, therefore '$VERSION_FILE_NAME' will not be increased."
           fi
+  
+  update-changelog:
+    needs: update-version
+    env:
+      VERSION_FILE_NAME: 'mods/noita-mp/.version'
+    name: Update CHANGELOG.md, when merged
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       
       - name: Generate CHANGELOG.md, when merged
         if: ${{ github.event.pull_request.merged }}
@@ -141,7 +141,7 @@ jobs:
       
       - name: Commit and push CHANGELOG.md, when merged
         env:
-          CHANGELOG: ${{ needs.generate-or-update-changelog.outputs.changelog }}
+          CHANGELOG: ${{ needs.update-changelog.outputs.changelog }}
           MERGED: ${{ github.event.pull_request.merged }}
         run: |
           if [ $MERGED == true ]
