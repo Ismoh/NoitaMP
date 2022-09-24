@@ -1,8 +1,5 @@
 name: Changelog
 on:
-  tag:
-    types:
-      - created
   release:
     types:
       - created
