@@ -1,4 +1,4 @@
-name: Version and CHANGELOG update
+name: Version and changelog update
 on:
   pull_request:
     types: [ opened, edited, synchronize, closed ]
@@ -100,6 +100,8 @@ jobs:
   
   generate-or-update-changelog:
     needs: increase-version-by-labels
+    env:
+      VERSION_FILE_NAME: 'mods/noita-mp/.version'
     name: Generate or update CHANGELOG.md
     runs-on: ubuntu-latest
     steps:
@@ -124,7 +126,7 @@ jobs:
             git tag -a "$NEXT_VERSION" -m "Automatic tag creation, do not consider tags as release. For further technical information, see https://github.com/${{github.repository}}/pull/${{github.event.number}}"
             git push origin ${{ github.base_ref }} --tags
           else
-            echo "Pull request is not merged yet, therefore version will not be increased."
+            echo "Pull request is not merged yet, therefore '$VERSION_FILE_NAME' will not be increased."
           fi
       
       - name: Generate CHANGELOG.md, when merged
