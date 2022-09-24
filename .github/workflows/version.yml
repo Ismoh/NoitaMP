@@ -1,10 +1,10 @@
-name: Increase version on pull request
+name: Version and CHANGELOG update
 on:
   pull_request:
     types: [ opened, edited, synchronize, closed ]
 jobs:
   find-linked-issues-and-copy-labels-to-pull-request:
-    name: Copy labels to pull request
+    name: Copy labels from issue to pull request
     runs-on: ubuntu-latest
     outputs:
       labelNames: $${{ steps.add_labels.outputs.labelNames }}
@@ -57,7 +57,7 @@ jobs:
       LABEL_NAMES: ${{ needs.find-linked-issues-and-copy-labels-to-pull-request.outputs.labelNames }}
       VERSION_FILE_NAME: 'mods/noita-mp/.version'
       VERSION_FRAGMENT: 'will be fetched by file'
-    name: Increase version by labels
+    name: Increase version depending on labels
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -97,7 +97,7 @@ jobs:
             echo "FAILURE"
             exit 1
           fi
-          
+  
   generate-or-update-changelog:
     needs: increase-version-by-labels
     name: Generate or update CHANGELOG.md
@@ -106,38 +106,8 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          
-      - name: "Generate CHANGELOG.md"
-        uses: heinrichreimer/github-changelog-generator-action@v2.3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          dateFormat: "%d.%m.%Y"
-          output: "CHANGELOG.md"
-          issueLineLabels: "ALL"
-          breakingLabels: "backwards-incompatible,breaking,rework,refactor"
-          
-      - name: Commit and push CHANGELOG.md
-        env:
-          CHANGELOG: ${{ needs.generate-or-update-changelog.outputs.changelog }}
-        run: |
-          echo ""
-          cat CHANGELOG.md
-          echo ""
-          echo $CHANGELOG
-          echo ""
-          ls -R
-          ls -R ${{ github.workspace }}
-          
-          git fetch
-          git checkout ${{ github.head_ref }}
-          git pull origin ${{ github.head_ref }}
-          git config --local user.email "action@github.com"
-          git config --local user.name "github-actions"
-          git add CHANGELOG.md
-          git commit -m "Updated CHANGELOG.md in https://github.com/${{github.repository}}/pull/${{github.event.number}}"
-          git push origin ${{ github.head_ref }}
-
-      - name: Commit and push version changes and tag it
+      
+      - name: Commit and push version changes and tag it, when merged
         env:
           MERGED: ${{ github.event.pull_request.merged }}
         run: |
@@ -151,8 +121,38 @@ jobs:
             git config --local user.name "github-actions"
             git add $VERSION_FILE_NAME
             git commit -m "Updated version to $NEXT_VERSION in https://github.com/${{github.repository}}/pull/${{github.event.number}}"
-            git tag -a "$NEXT_VERSION" -m "Automatic tag creation, **do not** consider tags as release. For further **technical** information, see https://github.com/${{github.repository}}/pull/${{github.event.number}}"
+            git tag -a "$NEXT_VERSION" -m "Automatic tag creation, do not consider tags as release. For further technical information, see https://github.com/${{github.repository}}/pull/${{github.event.number}}"
             git push origin ${{ github.base_ref }} --tags
           else
-            echo "Pull request is not merged yet, skipping..."
+            echo "Pull request is not merged yet, therefore version will not be increased."
           fi
+      
+      - name: Generate CHANGELOG.md, when merged
+        if: ${{ github.event.pull_request.merged }}
+        uses: heinrichreimer/github-changelog-generator-action@v2.3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          dateFormat: "%d.%m.%Y"
+          output: "CHANGELOG.md"
+          issueLineLabels: "ALL"
+          breakingLabels: "backwards-incompatible,breaking,rework,refactor"
+      
+      - name: Commit and push CHANGELOG.md, when merged
+        env:
+          CHANGELOG: ${{ needs.generate-or-update-changelog.outputs.changelog }}
+          MERGED: ${{ github.event.pull_request.merged }}
+        run: |
+          if [ $MERGED == true ]
+          then
+            git fetch
+            git checkout ${{ github.base_ref }}
+            git pull origin ${{ github.base_ref }}
+            git config --local user.email "action@github.com"
+            git config --local user.name "github-actions"
+            git add CHANGELOG.md
+            git commit -m "Updated CHANGELOG.md in https://github.com/${{github.repository}}/pull/${{github.event.number}}"
+            git push origin ${{ github.base_ref }}
+          else
+            echo "Pull request is not merged yet, therefore CHANGELOG.md will not be updated."
+          fi
+      
