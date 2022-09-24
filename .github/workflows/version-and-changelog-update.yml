@@ -1,10 +1,10 @@
-name: Increase version on pull request
+name: Version and changelog update
 on:
   pull_request:
     types: [ opened, edited, synchronize, closed ]
 jobs:
   find-linked-issues-and-copy-labels-to-pull-request:
-    name: Copy labels to pull request
+    name: Copy labels from issue to pull request
     runs-on: ubuntu-latest
     outputs:
       labelNames: $${{ steps.add_labels.outputs.labelNames }}
@@ -51,13 +51,13 @@ jobs:
         
           echo "::set-output name=labelNames::${labelNames}"
   
-  increase-version-by-labels:
+  update-version:
     needs: find-linked-issues-and-copy-labels-to-pull-request
     env:
       LABEL_NAMES: ${{ needs.find-linked-issues-and-copy-labels-to-pull-request.outputs.labelNames }}
       VERSION_FILE_NAME: 'mods/noita-mp/.version'
       VERSION_FRAGMENT: 'will be fetched by file'
-    name: Increase version by labels
+    name: Increase version and create a tag, when merged
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -75,21 +75,21 @@ jobs:
           next-version-increment-patch: ${{ contains(env.LABEL_NAMES, 'bug') }}
           next-version-cut-build-metadata: false
           next-version-put-build-metadata: true
-          
+      
       - name: Extend version with custom build numbers
         run: |
           echo "NEXT_VERSION=v$NEXT_VERSION+$(git log --oneline | wc -l)" >> $GITHUB_ENV
-
+      
       - name: Add comment to pull request
         run: |
           body="{\"body\":\"When this pull request was merged\\\:\r\n- Version will be automatically increase to **$NEXT_VERSION** in **${{ github.base_ref }}**\r\n- Tag **$NEXT_VERSION** will be created to the specific commit.\"}"
-          
+        
           curlResponse=`curl --write-out '%{http_code}' --output /dev/null --request POST \
           --header 'Accept: application/vnd.github+json' \
           --header 'Authorization: token ${{ github.token }}' \
           --url 'https://api.github.com/repos/${{github.repository}}/issues/${{github.event.number}}/comments' \
           --data-raw "$body"`
-          
+        
           if [[ $curlResponse == *"201"* ]]
           then
             echo "SUCCESS"
@@ -98,7 +98,7 @@ jobs:
             exit 1
           fi
   
-      - name: Commit version changes and tag it
+      - name: Commit and push version changes and tag it, when merged
         env:
           MERGED: ${{ github.event.pull_request.merged }}
         run: |
@@ -108,13 +108,53 @@ jobs:
             git checkout ${{ github.base_ref }}
             git pull origin ${{ github.base_ref }}
             echo "$NEXT_VERSION" > $VERSION_FILE_NAME
-            git config --local user.email "action@github.com"VG
+            git config --local user.email "action@github.com"
             git config --local user.name "github-actions"
             git add $VERSION_FILE_NAME
             git commit -m "Updated version to $NEXT_VERSION in https://github.com/${{github.repository}}/pull/${{github.event.number}}"
-            git tag -a "$NEXT_VERSION" -m "Automatic tag creation, **do not** consider tags as release. For further **technical** information, see https://github.com/${{github.repository}}/pull/${{github.event.number}}"
+            git tag -a "$NEXT_VERSION" -m "Automatic tag creation, do not consider tags as release. For further technical information, see https://github.com/${{github.repository}}/pull/${{github.event.number}}"
             git push origin ${{ github.base_ref }} --tags
           else
-            echo "Pull request is not merged yet, skipping..."
+            echo "Pull request is not merged yet, therefore '$VERSION_FILE_NAME' will not be increased."
           fi
-          
+  
+  update-changelog:
+    needs: update-version
+    env:
+      VERSION_FILE_NAME: 'mods/noita-mp/.version'
+    name: Update CHANGELOG.md, when merged
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      
+      - name: Generate CHANGELOG.md, when merged
+        if: ${{ github.event.pull_request.merged }}
+        uses: heinrichreimer/github-changelog-generator-action@v2.3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          dateFormat: "%d.%m.%Y"
+          output: "CHANGELOG.md"
+          issueLineLabels: "ALL"
+          breakingLabels: "backwards-incompatible,breaking,rework,refactor"
+      
+      - name: Commit and push CHANGELOG.md, when merged
+        env:
+          CHANGELOG: ${{ needs.update-changelog.outputs.changelog }}
+          MERGED: ${{ github.event.pull_request.merged }}
+        run: |
+          if [ $MERGED == true ]
+          then
+            git fetch
+            git checkout ${{ github.base_ref }}
+            git pull origin ${{ github.base_ref }}
+            git config --local user.email "action@github.com"
+            git config --local user.name "github-actions"
+            git add CHANGELOG.md
+            git commit -m "Updated CHANGELOG.md in https://github.com/${{github.repository}}/pull/${{github.event.number}}"
+            git push origin ${{ github.base_ref }}
+          else
+            echo "Pull request is not merged yet, therefore CHANGELOG.md will not be updated."
+          fi
+      
