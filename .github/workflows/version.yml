@@ -100,8 +100,13 @@ jobs:
           
   generate-or-update-changelog:
     needs: increase-version-by-labels
+    name: Generate or update CHANGELOG.md
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          
       - name: "Generate CHANGELOG.md"
         uses: heinrichreimer/github-changelog-generator-action@v2.3
         with:
@@ -110,6 +115,7 @@ jobs:
           output: "CHANGELOG.md"
           issueLineLabels: "ALL"
           breakingLabels: "backwards-incompatible,breaking,rework,refactor"
+          
       - name: Commit and push CHANGELOG.md
         env:
           CHANGELOG: ${{ needs.generate-or-update-changelog.outputs.changelog }}
