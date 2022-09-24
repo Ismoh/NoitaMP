@@ -129,14 +129,13 @@ jobs:
           ls -R ${{ github.workspace }}
           
           git fetch
-          git checkout ${{ github.base_ref }}
-          git pull origin ${{ github.base_ref }}
-          echo "$CHANGELOG" > CHANGELOG.md
+          git checkout ${{ github.head_ref }}
+          git pull origin ${{ github.head_ref }}
           git config --local user.email "action@github.com"
           git config --local user.name "github-actions"
           git add CHANGELOG.md
           git commit -m "Updated CHANGELOG.md in https://github.com/${{github.repository}}/pull/${{github.event.number}}"
-          git push origin ${{ github.base_ref }}
+          git push origin ${{ github.head_ref }}
 
       - name: Commit and push version changes and tag it
         env:
