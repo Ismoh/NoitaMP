@@ -2,7 +2,7 @@
 
 ## [Unreleased](https://github.com/Ismoh/NoitaMP/tree/HEAD)
 
-[Full Changelog](https://github.com/Ismoh/NoitaMP/compare/v2.5.0-alpha+1065...HEAD)
+[Full Changelog](https://github.com/Ismoh/NoitaMP/compare/v2.6.0-alpha+1070...HEAD)
 
 **Implemented enhancements:**
 
@@ -14,6 +14,7 @@
 
 **Merged pull requests:**
 
+- Updating master with develop [\#74](https://github.com/Ismoh/NoitaMP/pull/74) ([Ismoh](https://github.com/Ismoh))
 - Develop [\#47](https://github.com/Ismoh/NoitaMP/pull/47) ([Ismoh](https://github.com/Ismoh))
 - Master into develop [\#45](https://github.com/Ismoh/NoitaMP/pull/45) ([Ismoh](https://github.com/Ismoh))
 - Develop into master [\#44](https://github.com/Ismoh/NoitaMP/pull/44) ([Ismoh](https://github.com/Ismoh))
@@ -35,6 +36,10 @@
 - Update the other branches [\#9](https://github.com/Ismoh/NoitaMP/pull/9) ([Ismoh](https://github.com/Ismoh))
 - Trying to use leafo/gh-actions-lua [\#6](https://github.com/Ismoh/NoitaMP/pull/6) ([Ismoh](https://github.com/Ismoh))
 - Time to be consistent with branches! [\#1](https://github.com/Ismoh/NoitaMP/pull/1) ([Ismoh](https://github.com/Ismoh))
+
+## [v2.6.0-alpha+1070](https://github.com/Ismoh/NoitaMP/tree/v2.6.0-alpha+1070) (24.09.2022)
+
+[Full Changelog](https://github.com/Ismoh/NoitaMP/compare/v2.5.0-alpha+1065...v2.6.0-alpha+1070)
 
 ## [v2.5.0-alpha+1065](https://github.com/Ismoh/NoitaMP/tree/v2.5.0-alpha+1065) (24.09.2022)
 
