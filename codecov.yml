@@ -15,7 +15,4 @@ ignore:
 - "LICENSE"
 - "README.md"
 - "SUPPORT.md"
-# - "noita-mp/files/lib"
-# - "mods/noita-mp/files/lib"
 - "luarocks-3.8.0/.codecov.yml"
-# - "mods"

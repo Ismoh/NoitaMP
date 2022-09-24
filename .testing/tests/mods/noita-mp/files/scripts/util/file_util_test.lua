@@ -147,7 +147,7 @@ end
     lu.assertIsPlusZero(index)
 end ]]
 
-function TestFileUtil:testGetAbsoluteDirectoryPathOfParentSave06()
+function TestFileUtil:testGetAbsoluteDirectoryPathOfParentSave()
     lu.skipIf(_G.is_linux, "Linux not supported yet!")
     -- Mock begin
     local mkdir_command = nil
@@ -163,7 +163,7 @@ function TestFileUtil:testGetAbsoluteDirectoryPathOfParentSave06()
     print(mkdir_command_result:read("*a"))
     -- Mock end
 
-    local path = fu.GetAbsoluteDirectoryPathOfParentSave06()
+    local path = fu.GetAbsoluteDirectoryPathOfParentSave()
     print(path)
     lu.assertNotNil(path)
     lu.assertStrContains(path, "Noita", "", "Parent directory of save06 does not contain Noita!")

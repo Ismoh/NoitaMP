@@ -3,7 +3,7 @@ print("Initialise pathes, globals and extensions..")
 
 --#region
 -- github workflow stuff
-local varargs = {...}
+local varargs = { ... }
 local destination_path = nil
 if varargs and #varargs > 0 then
     print("'varargs' of init_.lua, see below:")
@@ -17,8 +17,8 @@ end
 
 --#endregion
 
-dofile("mods/noita-mp/files/scripts/util/table_extensions.lua")
-dofile("mods/noita-mp/files/scripts/util/string_extensions.lua")
+dofile("mods/noita-mp/files/scripts/extensions/table_extensions.lua")
+dofile("mods/noita-mp/files/scripts/extensions/string_extensions.lua")
 dofile("mods/noita-mp/files/scripts/init/init_logger.lua")
 local init_package_loading = dofile("mods/noita-mp/files/scripts/init/init_package_loading.lua")
 if destination_path then
@@ -27,4 +27,16 @@ if destination_path then
 else
     print("Running init_package_loading.lua without any destination_path")
     init_package_loading()
+end
+
+-- On Github we do not want to load the utils.
+-- Do a simple check by nil check:
+if ModSettingGet then
+    -- Load utils
+    require("EntityUtils")
+    require("GlobalsUtils")
+    require("NetworkVscUtils")
+    require("NuidUtils")
+else
+    logger:warn("Utils didnt load in init_.lua, because it looks like the mod wasn't run in game, but maybe on Github.")
 end
