@@ -54,14 +54,18 @@ end
 --- Then the client restarts, empties his selected save slot, to be able to generate the correct world,
 --- with the servers seed.
 local function setSeedIfConnectedSecondTime()
+    local cpc  = CustomProfiler.start("ModSettingGet")
     local seed = tonumber(ModSettingGet("noita-mp.connect_server_seed"))
+    CustomProfiler.stop("ModSettingGet", cpc)
     logger:debug("init.lua", "Servers world seed = ", seed)
     if not seed and seed > 0 then
         if DebugGetIsDevBuild() then
             util.Sleep(5) -- needed to be able to attach debugger again
         end
 
+        local cpc1  = CustomProfiler.start("ModSettingGet")
         local saveSlotMetaDirectory = ModSettingGet("noita-mp.saveSlotMetaDirectory")
+        CustomProfiler.stop("ModSettingGet", cpc1)
         if saveSlotMetaDirectory then
             fu.removeContentOfDirectory(saveSlotMetaDirectory)
         else
@@ -87,7 +91,9 @@ function OnWorldInitialized()
     local cpc = CustomProfiler.start("init.OnWorldInitialized")
     logger:debug(nil, "init.lua | OnWorldInitialized()")
 
+    local cpc1  = CustomProfiler.start("ModSettingGet")
     local make_zip = ModSettingGet("noita-mp.server_start_7zip_savegame")
+    CustomProfiler.stop("ModSettingGet", cpc1)
     logger:debug(nil, "init.lua | make_zip = " .. tostring(make_zip))
     if make_zip then
         local archive_name    = "server_save06_" .. os.date("%Y-%m-%d_%H-%M-%S")
@@ -98,8 +104,10 @@ function OnWorldInitialized()
                                                                                                                 destination)
         logger:debug(nil, msg)
         GamePrint(msg)
+        local cpc1  = CustomProfiler.start("ModSettingSetNextValue")
         ModSettingSetNextValue("noita-mp.server_start_7zip_savegame", false,
                                false) -- automatically start the server again
+        CustomProfiler.stop("ModSettingSetNextValue", cpc1)
     end
 
     --logger:debug("init.lua | Initialise client and server stuff..")
@@ -162,7 +170,9 @@ function OnWorldPreUpdate()
                 if saveSlotMeta then
                     --- Set modSettings as well when changing this: ModSettingSetNextValue("noita-mp.saveSlotMetaDirectory", _G.saveSlotMeta, false)
                     _G.saveSlotMeta = saveSlotMeta
+                    local cpc1  = CustomProfiler.start("ModSettingSetNextValue")
                     ModSettingSetNextValue("noita-mp.saveSlotMetaDirectory", _G.saveSlotMeta.dir, false)
+                    CustomProfiler.stop("ModSettingSetNextValue", cpc1)
                     logger:info(nil, "Save slot found in '%s'", util.pformat(_G.saveSlotMeta))
                 end
             end

@@ -145,19 +145,33 @@ function CustomProfiler.report(clearCache)
                 --table.insertIfNotExist(fps2.y, entry.fps2)
             end
         end
-        fig1:add_trace { x = x, y = y, mode = "markers+lines", name = functionName }
+        fig1:add_trace {
+            x        = x,
+            y        = y,
+            mode     = "lines",
+            name     = functionName,
+            line     = { width = 1 },
+            --autobinx = false,
+            --histnorm = "count",
+            opacity  = 0.75,
+            --type     = "histogram"
+        }
     end
     --fig1:add_trace(fps1)
     --fig1:add_trace(fps2)
 
-    fig1:update_layout { title = "NoitaMP Profiler Report of " .. whoAmI() .. " " .. NoitaMPVersion,
-                         xaxis = { title = { text = "Frames" } },
-                         yaxis = { title = { text = "Execution time [ms]" } }
+    fig1:update_layout {
+        width  = 1920,
+        height = 1080,
+        --barmode = "overlay",
+        title  = "NoitaMP Profiler Report of " .. whoAmI() .. " " .. NoitaMPVersion,
+        xaxis  = { title = { text = "Frames" } },
+        yaxis  = { title = { text = "Execution time [ms]" } }
     }
-    fig1:update_config { scrollZoom = true,
-                         editable   = true,
-                         xaxis      = { title = { text = "Frames" } },
-                         yaxis      = { title = { text = "Execution time [ms]" } }
+    fig1:update_config {
+        scrollZoom = true,
+        --editable   = true,
+        responsive = true
     }
     fig1:tofile(dir .. path_separator .. filename)
 
