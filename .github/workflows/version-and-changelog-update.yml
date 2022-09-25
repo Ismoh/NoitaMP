@@ -9,6 +9,10 @@ jobs:
     outputs:
       labelNames: $${{ steps.add_labels.outputs.labelNames }}
     steps:
+      - name: the fyck is githubs variables?
+        run: |
+          echo 'Job context is ${{ toJSON(github) }}'
+      
       - name: Find linked issues
         id: links
         uses: hossainemruz/linked-issues@main
