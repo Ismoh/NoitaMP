@@ -9,11 +9,15 @@ jobs:
     outputs:
       labelNames: $${{ steps.add_labels.outputs.labelNames }}
     steps:
-      - name: the fyck is githubs variables?
-        run: |
-          echo 'Job context is ${{ toJSON(github) }}'
-      
+      - name: Is there a issue linked in "development"?
+        id: validator
+        uses: HarshCasper/validate-issues-over-pull-requests@v0.1.1
+        with:
+          prbody: ${{ github.event.pull_request.body }}
+          prurl: ${{ github.event.pull_request.url }}
+          
       - name: Find linked issues
+        if: ${{ steps.validator.outputs.valid == 1 }}
         id: links
         uses: hossainemruz/linked-issues@main
         with:
@@ -21,6 +25,7 @@ jobs:
           format: IssueNumber
       
       - name: Add labels of associated/linked issue to the pull request
+        if: ${{ steps.validator.outputs.valid == 1 }}
         id: add_labels
         run: |
           for issueNumber in ${{ steps.links.outputs.issues }}
