@@ -9,6 +9,8 @@ jobs:
     outputs:
       labelNames: $${{ steps.add_labels.outputs.labelNames }}
     steps:
+      - uses: actions/checkout@v3
+      
       - name: Is there a issue linked in "development"?
         id: validator
         uses: HarshCasper/validate-issues-over-pull-requests@v0.1.1
