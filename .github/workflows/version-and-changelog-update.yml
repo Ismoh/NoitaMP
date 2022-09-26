@@ -26,8 +26,6 @@ jobs:
         run: |
           gh pr comment $PRNUM --body "PR is not linked to any issue, please make the corresponding changes in the body by adding 'Fixes #issue-number' or 'Resolves #issue-number'. If your PR isn't linked to any issue, ignore this comment!"
   
-
-
       - name: Find linked issues
         if: ${{ steps.validator.outputs.valid == 1 }}
         id: links
@@ -54,7 +52,11 @@ jobs:
           done
           echo "labelNames="$labelNames
           data="{\"labels\":[${labelNames}]}"
-        
+  
+          commentList=gh api -H "Accept: application/vnd.github+json" /repos/${{github.repository}}/issues/${{github.event.number}}/comments
+          echo "commentList="$commentList
+          exit 1
+          
           curlResponse=`curl --write-out '%{http_code}' --output /dev/null --request POST \
           --header 'Accept: application/vnd.github.v3+json' \
           --header 'Authorization: token ${{ github.token }}' \
