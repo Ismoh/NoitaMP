@@ -106,7 +106,7 @@ jobs:
           commentList=`gh api -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/${{github.event.number}}/comments`
           echo "commentList="$commentList
           # https://jqplay.org/s/WsuVZ8f-YiB
-          commentIds=jq '.[] | select(.body | contains("Version will be automatically increase to")) | .id'
+          commentIds=`jq '.[] | select(.body | contains("Version will be automatically increase to")) | .id'`
           echo "commentIds="$commentIds
   
           for commentId in $commentIds do
