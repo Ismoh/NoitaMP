@@ -120,7 +120,7 @@ jobs:
             fi
           done
           
-          body="When this pull request was merged:  \n- Current Version **$CURRENT_VERSION** will be automatically increase to **$NEXT_VERSION** in **${{ github.base_ref }}**  \n- Tag **$NEXT_VERSION** will be created to the specific commit."
+          body="When this pull request was merged:[space][space][enter] - Current Version **$CURRENT_VERSION** will be automatically increase to **$NEXT_VERSION** in **${{ github.base_ref }}**  \n - Tag **$NEXT_VERSION** will be created to the specific commit."
           statusCode=`gh api --method POST -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/${{github.event.number}}/comments -f body="$body"`
           echo "statusCode="$statusCode
           
