@@ -175,6 +175,7 @@ jobs:
         env:
           CHANGELOG: ${{ needs.update-changelog.outputs.changelog }}
           MERGED: ${{ github.event.pull_request.merged }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           commentListResponse=`gh api -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/${{github.event.number}}/comments`
           echo "commentListResponse="$commentListResponse
