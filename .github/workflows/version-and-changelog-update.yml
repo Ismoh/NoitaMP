@@ -105,23 +105,26 @@ jobs:
         run: |
           commentList=`gh api -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/${{github.event.number}}/comments`
           echo "commentList="$commentList
-          exit 1
-          
-          
+          # https://jqplay.org/s/WsuVZ8f-YiB
+          commentIds=jq -e '.[] | select(.body | contains("Version will be automatically increase to")) | .id'
+          echo "commentIds="$commentIds
+  
+          for commentId in $commentIds do
+            statusCode=`gh api --method DELETE -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/${{github.event.number}}/comments/$commentId`
+            echo "statusCode="$statusCode
+            if [[ $statusCode != *"204"* ]]
+            then
+              echo "Unable to delete comment with id $commentId"
+            fi
+          done
           
           body="{\"body\":\"When this pull request was merged\\\:\r\n- Version will be automatically increase to **$NEXT_VERSION** in **${{ github.base_ref }}**\r\n- Tag **$NEXT_VERSION** will be created to the specific commit.\"}"
-        
-          curlResponse=`curl --write-out '%{http_code}' --output /dev/null --request POST \
-          --header 'Accept: application/vnd.github+json' \
-          --header 'Authorization: token ${{ github.token }}' \
-          --url 'https://api.github.com/repos/${{github.repository}}/issues/${{github.event.number}}/comments' \
-          --data-raw "$body"`
-        
-          if [[ $curlResponse == *"201"* ]]
+          statusCode=`gh api --method POST -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/${{github.event.number}}/comments -f body=$body`
+          echo "statusCode="$statusCode
+          
+          if [[ $statusCode != *"201"* ]]
           then
-            echo "SUCCESS"
-          else
-            echo "FAILURE"
+            echo "Unable to add comment to pull request"
             exit 1
           fi
   
