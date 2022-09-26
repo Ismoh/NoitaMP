@@ -101,7 +101,7 @@ jobs:
       
       - name: Add comment to pull request
         run: |
-          commentList=gh api -H "Accept: application/vnd.github+json" /repos/${{github.repository}}/issues/${{github.event.number}}/comments
+          commentList=`gh api -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/${{github.event.number}}/comments`
           echo "commentList="$commentList
           exit 1
           
