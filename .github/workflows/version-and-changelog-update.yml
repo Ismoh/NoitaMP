@@ -120,11 +120,11 @@ jobs:
             fi
           done
           
-          body="When this pull request was merged:\r\n- Current Version **$CURRENT_VERSION** will be automatically increase to **$NEXT_VERSION** in **${{ github.base_ref }}**\r\n- Tag **$NEXT_VERSION** will be created to the specific commit."
+          bodybody="When this pull request was merged:\n- Current Version **$CURRENT_VERSION** will be automatically increase to **$NEXT_VERSION** in **${{ github.base_ref }}**\n- Tag **$NEXT_VERSION** will be created to the specific commit."
           statusCode=`gh api --method POST -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/${{github.event.number}}/comments -f body="$body"`
           echo "statusCode="$statusCode
           
-          if [[ $statusCode == *""* ]]
+          if [[ $statusCode == "" ]]
           then
             echo "Unable to add comment to pull request!"
             exit 1
@@ -176,6 +176,24 @@ jobs:
           CHANGELOG: ${{ needs.update-changelog.outputs.changelog }}
           MERGED: ${{ github.event.pull_request.merged }}
         run: |
+        
+          bodybody="When this pull request was merged, then:\n$CHANGELOG"
+
+          statusCode=`gh api --method POST -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/${{github.event.number}}/comments -f body="$body"`
+
+          echo "statusCode="$statusCode
+
+          
+
+          if [[ $statusCode == "" ]]
+
+          then
+
+            echo "Unable to add comment to pull request!"
+
+            exit 1
+
+          fi
           if [ $MERGED == true ]
           then
             git fetch
