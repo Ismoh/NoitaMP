@@ -106,13 +106,13 @@ jobs:
           commentListResponse=`gh api -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/${{github.event.number}}/comments`
           echo "commentListResponse="$commentListResponse
           # https://jqplay.org/s/WsuVZ8f-YiB
-          commentIds=$(echo $commentListResponse | jq '.[] | select(.body | contains("Version will be automatically increase to")) | .id')
+          commentIds=$(echo $commentListResponse | jq '.[] | select(.body | contains("will be automatically increase to")) | .id')
           echo "commentIds="$commentIds
   
           for commentId in $commentIds
           do
             echo "commentId="$commentId
-            statusCode=`gh api --method DELETE -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/${{github.event.number}}/comments/$commentId`
+            statusCode=`gh api --method DELETE -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/comments/$commentId`
             echo "statusCode="$statusCode
             if [[ $statusCode != *"204"* ]]
             then
@@ -120,7 +120,7 @@ jobs:
             fi
           done
           
-          body="{\"body\":\"When this pull request was merged\\\:\r\n- Version will be automatically increase to **$NEXT_VERSION** in **${{ github.base_ref }}**\r\n- Tag **$NEXT_VERSION** will be created to the specific commit.\"}"
+          body="{\"body\":\"When this pull request was merged\\\:\r\n- Current Version **$CURRENT_VERSION** will be automatically increase to **$NEXT_VERSION** in **${{ github.base_ref }}**\r\n- Tag **$NEXT_VERSION** will be created to the specific commit.\"}"
           statusCode=`gh api --method POST -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/${{github.event.number}}/comments -f body=$body`
           echo "statusCode="$statusCode
           
