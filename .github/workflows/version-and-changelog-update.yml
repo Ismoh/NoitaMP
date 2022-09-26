@@ -52,10 +52,6 @@ jobs:
           done
           echo "labelNames="$labelNames
           data="{\"labels\":[${labelNames}]}"
-  
-          commentList=gh api -H "Accept: application/vnd.github+json" /repos/${{github.repository}}/issues/${{github.event.number}}/comments
-          echo "commentList="$commentList
-          exit 1
           
           curlResponse=`curl --write-out '%{http_code}' --output /dev/null --request POST \
           --header 'Accept: application/vnd.github.v3+json' \
@@ -105,6 +101,12 @@ jobs:
       
       - name: Add comment to pull request
         run: |
+          commentList=gh api -H "Accept: application/vnd.github+json" /repos/${{github.repository}}/issues/${{github.event.number}}/comments
+          echo "commentList="$commentList
+          exit 1
+          
+          
+          
           body="{\"body\":\"When this pull request was merged\\\:\r\n- Version will be automatically increase to **$NEXT_VERSION** in **${{ github.base_ref }}**\r\n- Tag **$NEXT_VERSION** will be created to the specific commit.\"}"
         
           curlResponse=`curl --write-out '%{http_code}' --output /dev/null --request POST \
