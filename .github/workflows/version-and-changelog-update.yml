@@ -100,6 +100,8 @@ jobs:
           echo "NEXT_VERSION=v$NEXT_VERSION+$(git log --oneline | wc -l)" >> $GITHUB_ENV
       
       - name: Add comment to pull request
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           commentList=`gh api -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/${{github.event.number}}/comments`
           echo "commentList="$commentList
