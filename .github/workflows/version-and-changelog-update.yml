@@ -120,7 +120,7 @@ jobs:
             fi
           done
           
-          body="When this pull request was merged: \ - Current Version **$CURRENT_VERSION** will be automatically increase to **$NEXT_VERSION** in **${{ github.base_ref }}** \ - Tag **$NEXT_VERSION** will be created to the specific commit."
+          body="When this pull request was merged: <br /> - Current Version **$CURRENT_VERSION** will be automatically increase to **$NEXT_VERSION** in **${{ github.base_ref }}** <br /> - Tag **$NEXT_VERSION** will be created to the specific commit."
           statusCode=`gh api --method POST -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/${{github.event.number}}/comments -f body="$body"`
           echo "statusCode="$statusCode
           
@@ -194,8 +194,8 @@ jobs:
             fi
           done
           
-          body="When this pull request was merged, CHANGELOG.md will be changed to: \ "$CHANGELOG
-          statusCode=`gh api --method POST -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/${{github.event.number}}/comments -f body="$body"`
+          body='When this pull request was merged, CHANGELOG.md will be changed to: <br /> "$CHANGELOG"'
+          statusCode=`gh api --method POST -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/${{github.event.number}}/comments -f body="$CHANGELOG"`
           echo "statusCode="$statusCode
           if [[ $statusCode == "" ]]
           then
