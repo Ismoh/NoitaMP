@@ -161,7 +161,7 @@ jobs:
         with:
           fetch-depth: 0
       
-      - name: Generate CHANGELOG.md, when merged
+      - name: Generate CHANGELOG.md
         id: generate_changelog
         uses: heinrichreimer/github-changelog-generator-action@v2.3
         with:
@@ -170,6 +170,7 @@ jobs:
           output: "CHANGELOG.md"
           issueLineLabels: "ALL"
           breakingLabels: "backwards-incompatible,breaking,rework,refactor"
+          futureRelease: $NEXT_VERSION
       
       - name: Commit and push CHANGELOG.md, when merged
         env:
