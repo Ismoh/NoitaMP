@@ -2,7 +2,7 @@ name: Gource
 on:
   push:
     branches:
-      - '**'
+      - 'develop'
 
 jobs:
   action:
