@@ -2,8 +2,6 @@ name: Version and changelog update
 on:
   pull_request:
     types: [ opened, edited, synchronize, closed ]
-env: # Global environment variables
-  NEXT_VERSION: # will be defined in the job
 jobs:
   find-linked-issues-and-copy-labels-to-pull-request:
     name: Copy labels from issue to pull request
@@ -99,7 +97,9 @@ jobs:
       
       - name: Extend version with custom build numbers
         run: |
-          echo "NEXT_VERSION=v$NEXT_VERSION+$(git log --oneline | wc -l)" >> $GITHUB_ENV
+          nextVersion="v$NEXT_VERSION+$(git log --oneline | wc -l)"
+          echo "NEXT_VERSION=$nextVersion" >> $GITHUB_ENV
+          echo "::set-output name=futureRelease::${nextVersion}"
       
       - name: Add comment to pull request
         env:
@@ -154,6 +154,8 @@ jobs:
   
   update-changelog:
     needs: update-version
+    env:
+      FUTURE_RELEASE: ${{ needs.update-version.outputs.futureRelease }}
     name: Update CHANGELOG.md
     runs-on: ubuntu-latest
     steps:
@@ -168,6 +170,8 @@ jobs:
           echo "NEXT_VERSION="$NEXT_VERSION
           echo "env.NEXT_VERSION="${{ env.NEXT_VERSION }}
           echo "env.next_version=""${{ env.next_version }}"
+          echo "FUTURE_RELEASE="$FUTURE_RELEASE
+          echo "env.FUTURE_RELEASE="${{ env.FUTURE_RELEASE }}
       
       - name: Generate CHANGELOG.md
         id: generate_changelog
@@ -178,7 +182,7 @@ jobs:
           output: "CHANGELOG.md"
           issueLineLabels: "ALL"
           breakingLabels: "backwards-incompatible,breaking,rework,refactor"
-          futureRelease: ${{ env.NEXT_VERSION }}
+          futureRelease: ${{ env.FUTURE_RELEASE }}
       
       - name: Commit and push CHANGELOG.md, when merged
         env:
