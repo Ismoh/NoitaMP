@@ -127,7 +127,7 @@ jobs:
         run: |
           nextVersion="v$NEXT_VERSION+$(git log --oneline | wc -l)"
           echo "nextVersion="$nextVersion
-          echo "NEXT_VERSION=$nextVersion" >> $GITHUB_ENV
+          echo "NEXT_VERSION=${nextVersion}" >> $GITHUB_ENV
           echo "::set-output name=futureRelease::${nextVersion}"
       
       - name: Add comment to pull request
@@ -211,7 +211,7 @@ jobs:
           output: "CHANGELOG.md"
           issueLineLabels: "ALL"
           breakingLabels: "backwards-incompatible,breaking,rework,refactor"
-          futureRelease: ${{ env.FUTURE_RELEASE }}
+          futureRelease: $FUTURE_RELEASE
       
       - name: Commit and push CHANGELOG.md, when merged
         env:
