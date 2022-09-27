@@ -2,6 +2,8 @@ name: Version and changelog update
 on:
   pull_request:
     types: [ opened, edited, synchronize, closed ]
+env: # Global environment variables
+  NEXT_VERSION: # will be defined in the job
 jobs:
   find-linked-issues-and-copy-labels-to-pull-request:
     name: Copy labels from issue to pull request
@@ -161,6 +163,8 @@ jobs:
           
       - name: Check environment
         run: |
+          echo "jobs.update-version.env.next_version="${{ jobs.update-version.env.next_version }}
+          echo "jobs.update-version.env.NEXT_VERSION="${{ jobs.update-version.env.NEXT_VERSION }}
           echo "NEXT_VERSION="$NEXT_VERSION
           echo "env.NEXT_VERSION="${{ env.NEXT_VERSION }}
           echo "env.next_version=""${{ env.next_version }}"
