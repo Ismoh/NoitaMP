@@ -2,6 +2,8 @@ name: Version and changelog update
 on:
   pull_request:
     types: [ opened, edited, synchronize, closed ]
+env: # global environment variables
+  NEXT_VERSION: 'will be set by the workflow'
 jobs:
   find-linked-issues-and-copy-labels-to-pull-request:
     name: Copy labels from issue to pull request
@@ -152,9 +154,7 @@ jobs:
   
   update-changelog:
     needs: update-version
-    env:
-      VERSION_FILE_NAME: 'mods/noita-mp/.version'
-    name: Update CHANGELOG.md, when merged
+    name: Update CHANGELOG.md
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
