@@ -7,7 +7,7 @@ jobs:
     name: Copy labels from issue to pull request
     runs-on: ubuntu-latest
     outputs:
-      labelNames: $${{ steps.add_labels.outputs.labelNames }}
+      labelNames: ${{ steps.add_labels.outputs.labelNames }}
     steps:
       - uses: actions/checkout@v3
       
@@ -93,7 +93,7 @@ jobs:
             exit 1
           fi
         
-          echo "::set-output name=labelNames::labelNames"
+          echo "::set-output name=labelNames::$labelNames"
   
   update-version:
     needs: find-linked-issues-and-copy-labels-to-pull-request
@@ -103,7 +103,7 @@ jobs:
       VERSION_FRAGMENT: 'will be fetched by file'
     name: Increase version and create a tag, when merged
     outputs:
-      futureRelease: $${{ steps.extend_version.outputs.futureRelease }}
+      futureRelease: ${{ steps.extend_version.outputs.futureRelease }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -128,7 +128,7 @@ jobs:
           nextVersion="v$NEXT_VERSION+$(git log --oneline | wc -l)"
           echo "nextVersion="$nextVersion
           echo "NEXT_VERSION=${nextVersion}" >> $GITHUB_ENV
-          echo "::set-output name=futureRelease::nextVersion"
+          echo "::set-output name=futureRelease::$nextVersion"
       
       - name: Add comment to pull request
         env:
