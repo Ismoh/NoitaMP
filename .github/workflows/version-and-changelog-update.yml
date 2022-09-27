@@ -170,7 +170,7 @@ jobs:
           output: "CHANGELOG.md"
           issueLineLabels: "ALL"
           breakingLabels: "backwards-incompatible,breaking,rework,refactor"
-          futureRelease: $NEXT_VERSION
+          futureRelease: ${{ env.NEXT_VERSION }}
       
       - name: Commit and push CHANGELOG.md, when merged
         env:
@@ -181,7 +181,7 @@ jobs:
           commentListResponse=`gh api -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/${{github.event.number}}/comments`
           echo "commentListResponse="$commentListResponse
           # https://jqplay.org/s/WsuVZ8f-YiB
-          commentIds=$(echo $commentListResponse | jq '.[] | select(.body | contains("CHANGELOG.md will be changed to")) | .id')
+          commentIds=$(echo $commentListResponse | jq '.[] | select(.body | contains("# Changelog ## [")) | .id')
           echo "commentIds="$commentIds
   
           for commentId in $commentIds
@@ -202,7 +202,6 @@ jobs:
           printf -v escapedChangelog "%q\n" $CHANGELOG
           echo "escapedChangelog="$escapedChangelog
           
-          body='When this pull request was merged, CHANGELOG.md will be changed to: <br /> "$CHANGELOG"'
           statusCode=`gh api --method POST -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/${{github.event.number}}/comments -f body="$CHANGELOG"`
           echo "statusCode="$statusCode
           if [[ $statusCode == "" ]]
