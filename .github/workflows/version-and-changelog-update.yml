@@ -162,7 +162,6 @@ jobs:
           fetch-depth: 0
       
       - name: Generate CHANGELOG.md, when merged
-        if: ${{ github.event.pull_request.merged }}
         uses: heinrichreimer/github-changelog-generator-action@v2.3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
