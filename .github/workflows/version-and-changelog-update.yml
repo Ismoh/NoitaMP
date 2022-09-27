@@ -77,6 +77,8 @@ jobs:
       VERSION_FILE_NAME: 'mods/noita-mp/.version'
       VERSION_FRAGMENT: 'will be fetched by file'
     name: Increase version and create a tag, when merged
+    outputs:
+      labelNames: $${{ steps.extend_version.outputs.futureRelease }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -96,8 +98,10 @@ jobs:
           next-version-put-build-metadata: true
       
       - name: Extend version with custom build numbers
+        id: extend_version
         run: |
           nextVersion="v$NEXT_VERSION+$(git log --oneline | wc -l)"
+          echo "nextVersion="$nextVersion
           echo "NEXT_VERSION=$nextVersion" >> $GITHUB_ENV
           echo "::set-output name=futureRelease::${nextVersion}"
       
