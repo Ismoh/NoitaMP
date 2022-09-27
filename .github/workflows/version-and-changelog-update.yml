@@ -24,7 +24,32 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PRNUM: ${{ github.event.pull_request.number }}
         run: |
-          gh pr comment $PRNUM --body "PR is not linked to any issue, please make the corresponding changes in the body by adding 'Fixes #issue-number' or 'Resolves #issue-number'. If your PR isn't linked to any issue, ignore this comment!"
+          commentListResponse=`gh api -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/${{github.event.number}}/comments`
+          echo "commentListResponse="$commentListResponse
+          # https://jqplay.org/s/WsuVZ8f-YiB
+          commentIds=$(echo $commentListResponse | jq '.[] | select(.body | contains("PR is not linked to any issue")) | .id')
+          echo "commentIds="$commentIds
+  
+          for commentId in $commentIds
+          do
+            echo "commentId="$commentId
+            statusCode=`gh api --method DELETE -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/comments/$commentId`
+            echo "statusCode="$statusCode
+            if [[ $statusCode == "" ]]
+            then
+              echo "Unable to delete comment with id "$commentId
+            fi
+          done
+  
+          body="PR is not linked to any issue, please make the corresponding changes in the body by adding 'Fixes #issue-number' or 'Resolves #issue-number'. If your PR isn't linked to any issue, ignore this comment!"
+          statusCode=`gh api --method POST -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/${{github.event.number}}/comments -f body="$body"`
+          echo "statusCode="$statusCode
+  
+          if [[ $statusCode == "" ]]
+          then
+            echo "Unable to add comment to pull request!"
+            exit 1
+          fi
   
       - name: Find linked issues
         if: ${{ steps.validator.outputs.valid == 1 }}
