@@ -93,7 +93,7 @@ jobs:
             exit 1
           fi
         
-          echo "::set-output name=labelNames::"$labelNames
+          echo "::set-output name=labelNames::$labelNames"
   
   update-version:
     needs: find-linked-issues-and-copy-labels-to-pull-request
@@ -128,7 +128,7 @@ jobs:
           nextVersion="v$NEXT_VERSION+$(git log --oneline | wc -l)"
           echo "nextVersion="$nextVersion
           echo "NEXT_VERSION=${nextVersion}" >> $GITHUB_ENV
-          echo "::set-output name=futureRelease::"$nextVersion}
+          echo "::set-output name=futureRelease::$nextVersion"
       
       - name: Add comment to pull request
         env:
@@ -151,7 +151,7 @@ jobs:
             fi
           done
           
-          body="When this pull request was merged: <br /> - Current Version **$CURRENT_VERSION** will be automatically increase to **$NEXT_VERSION** in **${{ github.base_ref }}** <br /> - Tag **$NEXT_VERSION** will be created to the specific commit."
+          body="When this pull request was merged: <br /> - Current Version v**$CURRENT_VERSION** will be automatically increase to **$NEXT_VERSION** in **${{ github.base_ref }}** <br /> - Tag **$NEXT_VERSION** will be created to the specific commit."
           statusCode=`gh api --method POST -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/${{github.event.number}}/comments -f body="$body"`
           echo "statusCode="$statusCode
           
@@ -211,7 +211,7 @@ jobs:
           output: "CHANGELOG.md"
           issueLineLabels: "ALL"
           breakingLabels: "backwards-incompatible,breaking,rework,refactor"
-          futureRelease: ${{ env.FUTURE_RELEASE }}
+          futureRelease: ${{ needs.update-version.outputs.futureRelease }}
       
       - name: Commit and push CHANGELOG.md, when merged
         env:
