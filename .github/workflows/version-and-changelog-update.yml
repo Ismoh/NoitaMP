@@ -2,8 +2,6 @@ name: Version and changelog update
 on:
   pull_request:
     types: [ opened, edited, synchronize, closed ]
-env: # global environment variables
-  NEXT_VERSION: 'will be set by the workflow'
 jobs:
   find-linked-issues-and-copy-labels-to-pull-request:
     name: Copy labels from issue to pull request
@@ -164,7 +162,8 @@ jobs:
       - name: Check environment
         run: |
           echo "NEXT_VERSION="$NEXT_VERSION
-          echo ${{ env.NEXT_VERSION }}
+          echo "env.NEXT_VERSION="${{ env.NEXT_VERSION }}
+          echo "env.next_version=""${{ env.next_version }}"
       
       - name: Generate CHANGELOG.md
         id: generate_changelog
@@ -186,7 +185,7 @@ jobs:
           commentListResponse=`gh api -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/${{github.event.number}}/comments`
           echo "commentListResponse="$commentListResponse
           # https://jqplay.org/s/WsuVZ8f-YiB
-          commentIds=$(echo $commentListResponse | jq '.[] | select(.body | contains("# Changelog ## [")) | .id')
+          commentIds=$(echo $commentListResponse | jq '.[] | select(.body | contains("# Changelog")) | .id')
           echo "commentIds="$commentIds
   
           for commentId in $commentIds
