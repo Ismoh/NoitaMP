@@ -211,7 +211,7 @@ jobs:
           output: "CHANGELOG.md"
           issueLineLabels: "ALL"
           breakingLabels: "backwards-incompatible,breaking,rework,refactor"
-          futureRelease: $FUTURE_RELEASE
+          futureRelease: ${{ env.FUTURE_RELEASE }}
       
       - name: Commit and push CHANGELOG.md, when merged
         env:
