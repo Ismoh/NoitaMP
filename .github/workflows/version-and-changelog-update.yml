@@ -78,7 +78,7 @@ jobs:
       VERSION_FRAGMENT: 'will be fetched by file'
     name: Increase version and create a tag, when merged
     outputs:
-      labelNames: $${{ steps.extend_version.outputs.futureRelease }}
+      futureRelease: $${{ steps.extend_version.outputs.futureRelease }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
