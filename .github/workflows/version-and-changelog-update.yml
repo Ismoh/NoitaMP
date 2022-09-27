@@ -7,9 +7,54 @@ jobs:
     name: Copy labels from issue to pull request
     runs-on: ubuntu-latest
     outputs:
-      labelNames: $${{ steps.add_labels.outputs.labelNames }}
+      labelNames: ${{ steps.add_labels.outputs.labelNames }}
     steps:
+      - uses: actions/checkout@v3
+      
+      - name: Is there a issue linked in "development"?
+        id: validator
+        uses: HarshCasper/validate-issues-over-pull-requests@v0.1.1
+        with:
+          prbody: ${{ github.event.pull_request.body }}
+          prurl: ${{ github.event.pull_request.url }}
+      
+      - name: "'Development' set?"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PRNUM: ${{ github.event.pull_request.number }}
+        run: |
+          commentListResponse=`gh api -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/${{github.event.number}}/comments`
+          echo "commentListResponse="$commentListResponse
+          # https://jqplay.org/s/WsuVZ8f-YiB
+          commentIds=$(echo $commentListResponse | jq '.[] | select(.body | contains("Your pull request is not linked to any issue")) | .id')
+          echo "commentIds="$commentIds
+        
+          for commentId in $commentIds
+          do
+            echo "commentId="$commentId
+            statusCode=`gh api --method DELETE -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/comments/$commentId`
+            echo "statusCode="$statusCode
+            if [[ $statusCode != "" ]]
+            then
+              echo "Unable to delete comment with id "$commentId
+            fi
+          done
+
+          if [ ${{ steps.validator.outputs.valid }} == 0 ]
+          then
+            body=":warning: :exclamation: Your pull request is not linked to any issue, please make the corresponding changes in the very first comments body by adding 'Fixes #issue-number' or 'Resolves #issue-number'. If your pull request isn't linked to any issue, ignore this comment!"
+            statusCode=`gh api --method POST -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/${{github.event.number}}/comments -f body="$body"`
+            echo "statusCode="$statusCode
+          
+            if [[ $statusCode == "" ]]
+            then
+              echo "Unable to add comment to pull request!"
+              exit 1
+            fi
+          fi
+      
       - name: Find linked issues
+        if: ${{ steps.validator.outputs.valid == 1 }}
         id: links
         uses: hossainemruz/linked-issues@main
         with:
@@ -17,6 +62,7 @@ jobs:
           format: IssueNumber
       
       - name: Add labels of associated/linked issue to the pull request
+        if: ${{ steps.validator.outputs.valid == 1 }}
         id: add_labels
         run: |
           for issueNumber in ${{ steps.links.outputs.issues }}
@@ -49,7 +95,7 @@ jobs:
             exit 1
           fi
         
-          echo "::set-output name=labelNames::${labelNames}"
+          echo "::set-output name=labelNames::$labelNames"
   
   update-version:
     needs: find-linked-issues-and-copy-labels-to-pull-request
@@ -58,6 +104,8 @@ jobs:
       VERSION_FILE_NAME: 'mods/noita-mp/.version'
       VERSION_FRAGMENT: 'will be fetched by file'
     name: Increase version and create a tag, when merged
+    outputs:
+      futureRelease: ${{ steps.extend_version.outputs.futureRelease }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -77,27 +125,44 @@ jobs:
           next-version-put-build-metadata: true
       
       - name: Extend version with custom build numbers
+        id: extend_version
         run: |
-          echo "NEXT_VERSION=v$NEXT_VERSION+$(git log --oneline | wc -l)" >> $GITHUB_ENV
+          nextVersion="v$NEXT_VERSION+$(git log --oneline | wc -l)"
+          echo "nextVersion="$nextVersion
+          echo "NEXT_VERSION=${nextVersion}" >> $GITHUB_ENV
+          echo "::set-output name=futureRelease::$nextVersion"
       
       - name: Add comment to pull request
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          body="{\"body\":\"When this pull request was merged\\\:\r\n- Version will be automatically increase to **$NEXT_VERSION** in **${{ github.base_ref }}**\r\n- Tag **$NEXT_VERSION** will be created to the specific commit.\"}"
+          commentListResponse=`gh api -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/${{github.event.number}}/comments`
+          echo "commentListResponse="$commentListResponse
+          # https://jqplay.org/s/WsuVZ8f-YiB
+          commentIds=$(echo $commentListResponse | jq '.[] | select(.body | contains("will be automatically increase to")) | .id')
+          echo "commentIds="$commentIds
         
-          curlResponse=`curl --write-out '%{http_code}' --output /dev/null --request POST \
-          --header 'Accept: application/vnd.github+json' \
-          --header 'Authorization: token ${{ github.token }}' \
-          --url 'https://api.github.com/repos/${{github.repository}}/issues/${{github.event.number}}/comments' \
-          --data-raw "$body"`
+          for commentId in $commentIds
+          do
+            echo "commentId="$commentId
+            statusCode=`gh api --method DELETE -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/comments/$commentId`
+            echo "statusCode="$statusCode
+            if [[ $statusCode != "" ]]
+            then
+              echo "Unable to delete comment with id "$commentId
+            fi
+          done
         
-          if [[ $curlResponse == *"201"* ]]
+          body="When this pull request was merged: <br /> - Current Version **v$CURRENT_VERSION** will be automatically increase to **$NEXT_VERSION** in **${{ github.base_ref }}** <br /> - Tag **$NEXT_VERSION** will be created to the specific commit."
+          statusCode=`gh api --method POST -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/${{github.event.number}}/comments -f body="$body"`
+          echo "statusCode="$statusCode
+        
+          if [[ $statusCode == "" ]]
           then
-            echo "SUCCESS"
-          else
-            echo "FAILURE"
+            echo "Unable to add comment to pull request!"
             exit 1
           fi
-  
+      
       - name: Commit and push version changes and tag it, when merged
         env:
           MERGED: ${{ github.event.pull_request.merged }}
@@ -121,16 +186,26 @@ jobs:
   update-changelog:
     needs: update-version
     env:
-      VERSION_FILE_NAME: 'mods/noita-mp/.version'
-    name: Update CHANGELOG.md, when merged
+      FUTURE_RELEASE: ${{ needs.update-version.outputs.futureRelease }}
+    name: Update CHANGELOG.md
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
       
-      - name: Generate CHANGELOG.md, when merged
-        if: ${{ github.event.pull_request.merged }}
+      - name: Check environment
+        run: |
+          echo "needs.update-version.env.next_version="${{ needs.update-version.env.next_version }}
+          echo "needs.update-version.env.NEXT_VERSION="${{ needs.update-version.env.NEXT_VERSION }}
+          echo "NEXT_VERSION="$NEXT_VERSION
+          echo "env.NEXT_VERSION="${{ env.NEXT_VERSION }}
+          echo "env.next_version=""${{ env.next_version }}"
+          echo "FUTURE_RELEASE="$FUTURE_RELEASE
+          echo "env.FUTURE_RELEASE="${{ env.FUTURE_RELEASE }}
+      
+      - name: Generate CHANGELOG.md
+        id: generate_changelog
         uses: heinrichreimer/github-changelog-generator-action@v2.3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -138,12 +213,45 @@ jobs:
           output: "CHANGELOG.md"
           issueLineLabels: "ALL"
           breakingLabels: "backwards-incompatible,breaking,rework,refactor"
+          futureRelease: ${{ env.FUTURE_RELEASE }}
       
       - name: Commit and push CHANGELOG.md, when merged
         env:
-          CHANGELOG: ${{ needs.update-changelog.outputs.changelog }}
+          CHANGELOG: ${{ steps.generate_changelog.outputs.changelog }}
           MERGED: ${{ github.event.pull_request.merged }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          commentListResponse=`gh api -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/${{github.event.number}}/comments`
+          echo "commentListResponse="$commentListResponse
+          # https://jqplay.org/s/WsuVZ8f-YiB
+          commentIds=$(echo $commentListResponse | jq '.[] | select(.body | contains("# Changelog")) | .id')
+          echo "commentIds="$commentIds
+        
+          for commentId in $commentIds
+          do
+            echo "commentId="$commentId
+            statusCode=`gh api --method DELETE -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/comments/$commentId`
+            echo "statusCode="$statusCode
+            if [[ $statusCode != "" ]]
+            then
+              echo "Unable to delete comment with id "$commentId
+            fi
+          done
+        
+          echo ""
+          echo "CHANGELOG="$CHANGELOG
+          echo ""
+        
+          printf -v escapedChangelog "%q\n" $CHANGELOG
+          echo "escapedChangelog="$escapedChangelog
+        
+          statusCode=`gh api --method POST -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/${{github.event.number}}/comments -f body="$CHANGELOG"`
+          echo "statusCode="$statusCode
+          if [[ $statusCode == "" ]]
+          then
+            echo "Unable to add comment to pull request!"
+          fi
+        
           if [ $MERGED == true ]
           then
             git fetch
@@ -157,4 +265,3 @@ jobs:
           else
             echo "Pull request is not merged yet, therefore CHANGELOG.md will not be updated."
           fi
-      
