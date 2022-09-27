@@ -163,8 +163,8 @@ jobs:
           
       - name: Check environment
         run: |
-          echo "update-version.env.next_version="${{ update-version.env.next_version }}
-          echo "update-version.env.NEXT_VERSION="${{ update-version.env.NEXT_VERSION }}
+          echo "needs.update-version.env.next_version="${{ needs.update-version.env.next_version }}
+          echo "needs.update-version.env.NEXT_VERSION="${{ needs.update-version.env.NEXT_VERSION }}
           echo "NEXT_VERSION="$NEXT_VERSION
           echo "env.NEXT_VERSION="${{ env.NEXT_VERSION }}
           echo "env.next_version=""${{ env.next_version }}"
