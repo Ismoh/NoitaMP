@@ -17,9 +17,8 @@ jobs:
         with:
           prbody: ${{ github.event.pull_request.body }}
           prurl: ${{ github.event.pull_request.url }}
-  
-      - name: PR has no valid Issue
-        if: ${{ steps.validator.outputs.valid == 0 }}
+      
+      - name: "'Development' set?"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PRNUM: ${{ github.event.pull_request.number }}
@@ -29,28 +28,31 @@ jobs:
           # https://jqplay.org/s/WsuVZ8f-YiB
           commentIds=$(echo $commentListResponse | jq '.[] | select(.body | contains("PR is not linked to any issue")) | .id')
           echo "commentIds="$commentIds
-  
+        
           for commentId in $commentIds
           do
             echo "commentId="$commentId
             statusCode=`gh api --method DELETE -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/comments/$commentId`
             echo "statusCode="$statusCode
-            if [[ $statusCode == "" ]]
+            if [[ $statusCode != "" ]]
             then
               echo "Unable to delete comment with id "$commentId
             fi
           done
-  
-          body="PR is not linked to any issue, please make the corresponding changes in the body by adding 'Fixes #issue-number' or 'Resolves #issue-number'. If your PR isn't linked to any issue, ignore this comment!"
-          statusCode=`gh api --method POST -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/${{github.event.number}}/comments -f body="$body"`
-          echo "statusCode="$statusCode
-  
-          if [[ $statusCode == "" ]]
+
+          if [ ${{ steps.validator.outputs.valid }} == 0 ]
           then
-            echo "Unable to add comment to pull request!"
-            exit 1
+            body="PR is not linked to any issue, please make the corresponding changes in the body by adding 'Fixes #issue-number' or 'Resolves #issue-number'. If your PR isn't linked to any issue, ignore this comment!"
+            statusCode=`gh api --method POST -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/${{github.event.number}}/comments -f body="$body"`
+            echo "statusCode="$statusCode
+          
+            if [[ $statusCode == "" ]]
+            then
+              echo "Unable to add comment to pull request!"
+              exit 1
+            fi
           fi
-  
+      
       - name: Find linked issues
         if: ${{ steps.validator.outputs.valid == 1 }}
         id: links
@@ -77,7 +79,7 @@ jobs:
           done
           echo "labelNames="$labelNames
           data="{\"labels\":[${labelNames}]}"
-          
+        
           curlResponse=`curl --write-out '%{http_code}' --output /dev/null --request POST \
           --header 'Accept: application/vnd.github.v3+json' \
           --header 'Authorization: token ${{ github.token }}' \
@@ -139,28 +141,28 @@ jobs:
           # https://jqplay.org/s/WsuVZ8f-YiB
           commentIds=$(echo $commentListResponse | jq '.[] | select(.body | contains("will be automatically increase to")) | .id')
           echo "commentIds="$commentIds
-  
+        
           for commentId in $commentIds
           do
             echo "commentId="$commentId
             statusCode=`gh api --method DELETE -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/comments/$commentId`
             echo "statusCode="$statusCode
-            if [[ $statusCode == "" ]]
+            if [[ $statusCode != "" ]]
             then
               echo "Unable to delete comment with id "$commentId
             fi
           done
-          
+        
           body="When this pull request was merged: <br /> - Current Version **v$CURRENT_VERSION** will be automatically increase to **$NEXT_VERSION** in **${{ github.base_ref }}** <br /> - Tag **$NEXT_VERSION** will be created to the specific commit."
           statusCode=`gh api --method POST -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/${{github.event.number}}/comments -f body="$body"`
           echo "statusCode="$statusCode
-          
+        
           if [[ $statusCode == "" ]]
           then
             echo "Unable to add comment to pull request!"
             exit 1
           fi
-  
+      
       - name: Commit and push version changes and tag it, when merged
         env:
           MERGED: ${{ github.event.pull_request.merged }}
@@ -191,7 +193,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          
+      
       - name: Check environment
         run: |
           echo "needs.update-version.env.next_version="${{ needs.update-version.env.next_version }}
@@ -224,32 +226,32 @@ jobs:
           # https://jqplay.org/s/WsuVZ8f-YiB
           commentIds=$(echo $commentListResponse | jq '.[] | select(.body | contains("# Changelog")) | .id')
           echo "commentIds="$commentIds
-  
+        
           for commentId in $commentIds
           do
             echo "commentId="$commentId
             statusCode=`gh api --method DELETE -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/comments/$commentId`
             echo "statusCode="$statusCode
-            if [[ $statusCode == "" ]]
+            if [[ $statusCode != "" ]]
             then
               echo "Unable to delete comment with id "$commentId
             fi
           done
-          
+        
           echo ""
           echo "CHANGELOG="$CHANGELOG
           echo ""
-  
+        
           printf -v escapedChangelog "%q\n" $CHANGELOG
           echo "escapedChangelog="$escapedChangelog
-          
+        
           statusCode=`gh api --method POST -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/${{github.event.number}}/comments -f body="$CHANGELOG"`
           echo "statusCode="$statusCode
           if [[ $statusCode == "" ]]
           then
             echo "Unable to add comment to pull request!"
           fi
-          
+        
           if [ $MERGED == true ]
           then
             git fetch
