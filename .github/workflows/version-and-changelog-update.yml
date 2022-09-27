@@ -162,6 +162,7 @@ jobs:
           fetch-depth: 0
       
       - name: Generate CHANGELOG.md, when merged
+        id: generate_changelog
         uses: heinrichreimer/github-changelog-generator-action@v2.3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -172,7 +173,7 @@ jobs:
       
       - name: Commit and push CHANGELOG.md, when merged
         env:
-          CHANGELOG: ${{ needs.update-changelog.outputs.changelog }}
+          CHANGELOG: ${{ steps.generate_changelog.outputs.changelog }}
           MERGED: ${{ github.event.pull_request.merged }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
