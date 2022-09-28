@@ -6,6 +6,8 @@ jobs:
   find-linked-issues-and-copy-labels-to-pull-request:
     name: Copy labels from issue to pull request
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
     outputs:
       labelNames: ${{ steps.add_labels.outputs.labelNames }}
     steps:
@@ -19,8 +21,6 @@ jobs:
           prurl: ${{ github.event.pull_request.url }}
       
       - name: "'Development' set?"
-        permissions:
-          pull-requests: write
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PRNUM: ${{ github.event.pull_request.number }}
