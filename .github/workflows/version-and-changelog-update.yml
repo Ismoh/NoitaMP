@@ -2,12 +2,12 @@ name: Version and changelog update
 on:
   pull_request:
     types: [ opened, edited, synchronize, closed ]
+permissions:
+  pull-requests: write
 jobs:
   find-linked-issues-and-copy-labels-to-pull-request:
     name: Copy labels from issue to pull request
     runs-on: ubuntu-latest
-    permissions:
-      pull-requests: write
     outputs:
       labelNames: ${{ steps.add_labels.outputs.labelNames }}
     steps:
