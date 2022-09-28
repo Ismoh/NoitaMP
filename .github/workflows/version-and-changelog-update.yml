@@ -22,7 +22,7 @@ jobs:
       
       - name: "'Development' set?"
         env:
-          GITHUB_TOKEN: ${{ secrets.WORKFLOW_PAT }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PRNUM: ${{ github.event.pull_request.number }}
           ACCESS_TOKEN: ${{ secrets.WORKFLOW_PAT }}
         run: |
