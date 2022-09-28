@@ -26,9 +26,7 @@ jobs:
           PRNUM: ${{ github.event.pull_request.number }}
           ACCESS_TOKEN: ${{ secrets.WORKFLOW_PAT }}
         run: |
-          gh auth login --with-token $ACCESS_TOKEN
-          
-          commentListResponse=`gh api -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/${{github.event.number}}/comments`
+          commentListResponse=`gh api -H 'Accept: application/vnd.github+json' -H 'Authorization: Bearer $ACCESS_TOKEN' /repos/${{github.repository}}/issues/${{github.event.number}}/comments`
           echo "commentListResponse="$commentListResponse
           # https://jqplay.org/s/WsuVZ8f-YiB
           commentIds=$(echo $commentListResponse | jq '.[] | select(.body | contains("Your pull request is not linked to any issue")) | .id')
@@ -37,7 +35,7 @@ jobs:
           for commentId in $commentIds
           do
             echo "commentId="$commentId
-            statusCode=`gh api --method DELETE -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/comments/$commentId`
+            statusCode=`gh api --method DELETE -H 'Accept: application/vnd.github+json' -H 'Authorization: Bearer $ACCESS_TOKEN' /repos/${{github.repository}}/issues/comments/$commentId`
             echo "statusCode="$statusCode
             if [[ $statusCode != "" ]]
             then
@@ -48,7 +46,7 @@ jobs:
           if [ ${{ steps.validator.outputs.valid }} == 0 ]
           then
             body=":warning: :exclamation: Your pull request is not linked to any issue, please make the corresponding changes in the very first comments body by adding 'Fixes #issue-number' or 'Resolves #issue-number'. If your pull request isn't linked to any issue, ignore this comment!"
-            statusCode=`gh api --method POST -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/${{github.event.number}}/comments -f body="$body"`
+            statusCode=`gh api --method POST -H 'Accept: application/vnd.github+json' -H 'Authorization: Bearer $ACCESS_TOKEN' /repos/${{github.repository}}/issues/${{github.event.number}}/comments -f body="$body"`
             echo "statusCode="$statusCode
           
             if [[ $statusCode == "" ]]
@@ -142,9 +140,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ACCESS_TOKEN: ${{ secrets.WORKFLOW_PAT }}
         run: |
-          gh auth login --with-token $ACCESS_TOKEN
-          
-          commentListResponse=`gh api -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/${{github.event.number}}/comments`
+          commentListResponse=`gh api -H 'Accept: application/vnd.github+json' -H 'Authorization: Bearer $ACCESS_TOKEN' /repos/${{github.repository}}/issues/${{github.event.number}}/comments`
           echo "commentListResponse="$commentListResponse
           # https://jqplay.org/s/WsuVZ8f-YiB
           commentIds=$(echo $commentListResponse | jq '.[] | select(.body | contains("will be automatically increase to")) | .id')
@@ -153,7 +149,7 @@ jobs:
           for commentId in $commentIds
           do
             echo "commentId="$commentId
-            statusCode=`gh api --method DELETE -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/comments/$commentId`
+            statusCode=`gh api --method DELETE -H 'Accept: application/vnd.github+json' -H 'Authorization: Bearer $ACCESS_TOKEN' /repos/${{github.repository}}/issues/comments/$commentId`
             echo "statusCode="$statusCode
             if [[ $statusCode != "" ]]
             then
@@ -162,7 +158,7 @@ jobs:
           done
         
           body="When this pull request was merged: <br /> - Current Version **v$CURRENT_VERSION** will be automatically increase to **$NEXT_VERSION** in **${{ github.base_ref }}** <br /> - Tag **$NEXT_VERSION** will be created to the specific commit."
-          statusCode=`gh api --method POST -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/${{github.event.number}}/comments -f body="$body"`
+          statusCode=`gh api --method POST -H 'Accept: application/vnd.github+json' -H 'Authorization: Bearer $ACCESS_TOKEN' /repos/${{github.repository}}/issues/${{github.event.number}}/comments -f body="$body"`
           echo "statusCode="$statusCode
         
           if [[ $statusCode == "" ]]
@@ -229,10 +225,10 @@ jobs:
           MERGED: ${{ github.event.pull_request.merged }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ACCESS_TOKEN: ${{ secrets.WORKFLOW_PAT }}
+        with:
+          token: ${{ secrets.WORKFLOW_PAT }}
         run: |
-          gh auth login --with-token $ACCESS_TOKEN
-          
-          commentListResponse=`gh api -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/${{github.event.number}}/comments`
+          commentListResponse=`gh api -H 'Accept: application/vnd.github+json' -H 'Authorization: Bearer $ACCESS_TOKEN' /repos/${{github.repository}}/issues/${{github.event.number}}/comments`
           echo "commentListResponse="$commentListResponse
           # https://jqplay.org/s/WsuVZ8f-YiB
           commentIds=$(echo $commentListResponse | jq '.[] | select(.body | contains("# Changelog")) | .id')
@@ -241,7 +237,7 @@ jobs:
           for commentId in $commentIds
           do
             echo "commentId="$commentId
-            statusCode=`gh api --method DELETE -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/comments/$commentId`
+            statusCode=`gh api --method DELETE -H 'Accept: application/vnd.github+json' -H 'Authorization: Bearer $ACCESS_TOKEN' /repos/${{github.repository}}/issues/comments/$commentId`
             echo "statusCode="$statusCode
             if [[ $statusCode != "" ]]
             then
@@ -256,7 +252,7 @@ jobs:
           printf -v escapedChangelog "%q\n" $CHANGELOG
           echo "escapedChangelog="$escapedChangelog
         
-          statusCode=`gh api --method POST -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/${{github.event.number}}/comments -f body="$CHANGELOG"`
+          statusCode=`gh api --method POST -H 'Accept: application/vnd.github+json' -H 'Authorization: Bearer $ACCESS_TOKEN' /repos/${{github.repository}}/issues/${{github.event.number}}/comments -f body="$CHANGELOG"`
           echo "statusCode="$statusCode
           if [[ $statusCode == "" ]]
           then
