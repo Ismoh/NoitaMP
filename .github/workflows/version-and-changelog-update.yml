@@ -19,6 +19,8 @@ jobs:
           prurl: ${{ github.event.pull_request.url }}
       
       - name: "'Development' set?"
+        permissions:
+          pull-requests: write
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PRNUM: ${{ github.event.pull_request.number }}
