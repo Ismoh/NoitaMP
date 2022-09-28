@@ -33,7 +33,7 @@ jobs:
           for commentId in $commentIds
           do
             echo "commentId="$commentId
-            statusCode=`curl -X DELETE -H 'Accept: application/vnd.github+json' -H 'Authorization: token ${{ github.token }}' https://api.github.com/repos/Ismoh/NoitaMP/issues/comments/$commentId`
+            statusCode=`curl -X DELETE -H 'Accept: application/vnd.github+json' -H 'Authorization: Bearer {{ secrets.WORKFLOW_PAT }}' https://api.github.com/repos/Ismoh/NoitaMP/issues/comments/$commentId`
             echo "statusCode="$statusCode
             if [[ $statusCode != "" ]]
             then
