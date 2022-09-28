@@ -225,7 +225,6 @@ jobs:
           MERGED: ${{ github.event.pull_request.merged }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ACCESS_TOKEN: ${{ secrets.WORKFLOW_PAT }}
-        with:
           token: ${{ secrets.WORKFLOW_PAT }}
         run: |
           commentListResponse=`gh api -H 'Accept: application/vnd.github+json' -H 'Authorization: Bearer $ACCESS_TOKEN' /repos/${{github.repository}}/issues/${{github.event.number}}/comments`
