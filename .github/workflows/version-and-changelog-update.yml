@@ -22,9 +22,12 @@ jobs:
       
       - name: "'Development' set?"
         env:
-          GH_TOKEN: ${{ secrets.WORKFLOW_PAT }}
+          GITHUB_TOKEN: ${{ secrets.WORKFLOW_PAT }}
           PRNUM: ${{ github.event.pull_request.number }}
+          ACCESS_TOKEN: ${{ secrets.WORKFLOW_PAT }}
         run: |
+          gh auth login --with-token $ACCESS_TOKEN
+          
           commentListResponse=`gh api -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/${{github.event.number}}/comments`
           echo "commentListResponse="$commentListResponse
           # https://jqplay.org/s/WsuVZ8f-YiB
