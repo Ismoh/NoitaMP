@@ -22,7 +22,7 @@ jobs:
       
       - name: "'Development' set?"
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.WORKFLOW_PAT }}
           PRNUM: ${{ github.event.pull_request.number }}
         run: |
           commentListResponse=`gh api -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/${{github.event.number}}/comments`
