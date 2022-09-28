@@ -26,8 +26,6 @@ jobs:
           PRNUM: ${{ github.event.pull_request.number }}
           ACCESS_TOKEN: ${{ secrets.WORKFLOW_PAT }}
         run: |
-          gh auth login --with-token $ACCESS_TOKEN
-          
           commentListResponse=`gh api -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/${{github.event.number}}/comments`
           echo "commentListResponse="$commentListResponse
           # https://jqplay.org/s/WsuVZ8f-YiB
@@ -142,8 +140,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ACCESS_TOKEN: ${{ secrets.WORKFLOW_PAT }}
         run: |
-          gh auth login --with-token $ACCESS_TOKEN
-          
           commentListResponse=`gh api -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/${{github.event.number}}/comments`
           echo "commentListResponse="$commentListResponse
           # https://jqplay.org/s/WsuVZ8f-YiB
@@ -229,9 +225,9 @@ jobs:
           MERGED: ${{ github.event.pull_request.merged }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ACCESS_TOKEN: ${{ secrets.WORKFLOW_PAT }}
+        with:
+          token: ${{ secrets.WORKFLOW_PAT }}
         run: |
-          gh auth login --with-token $ACCESS_TOKEN
-          
           commentListResponse=`gh api -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/${{github.event.number}}/comments`
           echo "commentListResponse="$commentListResponse
           # https://jqplay.org/s/WsuVZ8f-YiB
