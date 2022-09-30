@@ -47,7 +47,7 @@ jobs:
             printf -v escapedBody "%q\n" $body
 
             echo "escapedBody="$escapedBody
-            statusCode=`curl -X POST -H 'Accept: application/vnd.github+json' -H 'Authorization: token ${{ github.token }}' https://api.github.com/repos/Ismoh/NoitaMP/issues/${{github.event.number}}/comments -d '{"body":"$escapedBody"}'`
+            statusCode=`curl -X POST -H 'Accept: application/vnd.github+json' -H 'Authorization: token ${{ github.token }}' https://api.github.com/repos/Ismoh/NoitaMP/issues/${{github.event.number}}/comments -d '{"body":$escapedBody}'`
             echo "statusCode="$statusCode
           
             if [[ $statusCode == "" ]]
