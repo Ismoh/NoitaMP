@@ -2,8 +2,8 @@ name: Version and changelog update
 on:
   pull_request:
     types: [ opened, edited, synchronize, closed ]
-permissions:
-  pull-requests: write
+  pull_request_target:
+    types: [ opened, edited, synchronize, closed ]
 jobs:
   find-linked-issues-and-copy-labels-to-pull-request:
     name: Copy labels from issue to pull request
