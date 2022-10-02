@@ -46,7 +46,7 @@ jobs:
             body="\:warning\: \:exclamation\: Your pull request is not linked to any issue, please make the corresponding changes in the very first comments body by adding \'Fixes \#issue\-number\' or \'Resolves \#issue\-number\'. If your pull request isn\'t linked to any issue, ignore this comment!"
 
             echo "body="$body
-            body="{\"body\": "$body" }"
+            body="{\"body\": \"$body\" }"
             echo "body="$body
             statusCode=`curl -X POST -H 'Accept: application/vnd.github+json' -H 'Authorization: token ${{ github.token }}' https://api.github.com/repos/Ismoh/NoitaMP/issues/${{github.event.number}}/comments -d $body`
             echo "statusCode="$statusCode
