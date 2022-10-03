@@ -4,8 +4,6 @@ on:
     types: [ opened, edited, synchronize, closed ]
   pull_request_target:
     types: [ opened, edited, synchronize, closed ]
-permissions:
-  pull-requests: write
 jobs:
   find-linked-issues-and-copy-labels-to-pull-request:
     name: Copy labels from issue to pull request
@@ -26,7 +24,7 @@ jobs:
         env:
           PRNUM: ${{ github.event.pull_request.number }}
         run: |
-          commentListResponse=`curl -i -u Ismoh:${{ secrets.WORKFLOW_PAT }} -H 'Accept: application/vnd.github+json' https://api.github.com/repos/Ismoh/NoitaMP/issues/${{github.event.number}}/comments`
+          commentListResponse=`curl -u Ismoh:${{ secrets.WORKFLOW_PAT }} -H 'Accept: application/vnd.github+json' https://api.github.com/repos/Ismoh/NoitaMP/issues/${{github.event.number}}/comments`
           echo "commentListResponse="$commentListResponse
           # https://jqplay.org/s/WsuVZ8f-YiB
           commentIds=$(echo $commentListResponse | jq '.[] | select(.body | contains("Your pull request is not linked to any issue")) | .id')
@@ -35,7 +33,7 @@ jobs:
           for commentId in $commentIds
           do
             echo "commentId="$commentId
-            statusCode=`curl -i -u Ismoh:${{ secrets.WORKFLOW_PAT }} -X DELETE -H 'Accept: application/vnd.github+json' https://api.github.com/repos/Ismoh/NoitaMP/issues/comments/$commentId`
+            statusCode=`curl -u Ismoh:${{ secrets.WORKFLOW_PAT }} -X DELETE -H 'Accept: application/vnd.github+json' https://api.github.com/repos/Ismoh/NoitaMP/issues/comments/$commentId`
             echo "statusCode="$statusCode
             if [[ $statusCode != "" ]]
             then
@@ -45,8 +43,12 @@ jobs:
 
           if [ ${{ steps.validator.outputs.valid }} == 0 ]
           then
-            body=":warning: :exclamation: Your pull request is not linked to any issue, please make the corresponding changes in the very first comments body by adding 'Fixes #issue-number' or 'Resolves #issue-number'. If your pull request isn't linked to any issue, ignore this comment!"
-            statusCode=`curl -X POST -H 'Accept: application/vnd.github+json' -H 'Authorization: token ${{ github.token }}' https://api.github.com/repos/Ismoh/NoitaMP/issues/${{github.event.number}}/comments -d body="$body"`
+            body="\:warning\: \:exclamation\: Your pull request is not linked to any issue, please make the corresponding changes in the very first comments body by adding \'Fixes \#issue\-number\' or \'Resolves \#issue\-number\'. If your pull request isn\'t linked to any issue, ignore this comment!"
+
+            echo "body="$body
+            body="{\"body\": \"$body\" }"
+            echo "body="$body
+            statusCode=`curl -X POST -H 'Accept: application/vnd.github+json' -H 'Authorization: token ${{ github.token }}' https://api.github.com/repos/Ismoh/NoitaMP/issues/${{github.event.number}}/comments -d $body`
             echo "statusCode="$statusCode
           
             if [[ $statusCode == "" ]]
