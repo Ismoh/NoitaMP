@@ -11,6 +11,11 @@ jobs:
     outputs:
       labelNames: ${{ steps.add_labels.outputs.labelNames }}
     steps:
+      - name: Print GitHub context
+        run: echo "$GITHUB_CONTEXT"
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+          
       - uses: actions/checkout@v3
       
       - name: Is there a issue linked in "development"?
@@ -40,12 +45,10 @@ jobs:
               echo "Unable to delete comment with id "$commentId
             fi
           done
-  
-          echo "$GITHUB_CONTEXT"
 
           if [ ${{ steps.validator.outputs.valid }} == 0 ]
           then
-            body=":robot: _meep moop beep boop_<br/>Hi @${{ github.event.pull_request.user.login }}, <br/>your pull request is not linked to any issue, please make the corresponding changes in the **very first comment** by adding<br/>`Fixes #issue-number` or `Resolves #issue-number`.<br/>If your pull request isn't linked to any issue, ignore this comment!"
+            body=":robot: _meep moop beep boop_<br/>Hi @${{ github.event.pull_request.user.login }}, <br/>your pull request is not linked to any issue, please make the corresponding changes in the **very first comment** by adding<br/>\`Fixes #issue-number\` or \`Resolves #issue-number\`.<br/>If your pull request isn't linked to any issue, ignore this comment!"
             echo "body="$body
             #json=$(jq --arg body "$body" '{ $body }')
             json=$(printf '%s\n' "$body" | jq -R '{ body: . }')
