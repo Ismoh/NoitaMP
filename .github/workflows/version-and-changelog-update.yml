@@ -45,7 +45,7 @@ jobs:
 
           if [ ${{ steps.validator.outputs.valid }} == 0 ]
           then
-            body=":robot: _meep moop beep boop_<br/>Hi @${{  }}, <br/>your pull request is not linked to any issue, please make the corresponding changes in the **very first comment** by adding<br/>`Fixes #issue-number` or `Resolves #issue-number`.<br/>If your pull request isn't linked to any issue, ignore this comment!"
+            body=":robot: _meep moop beep boop_<br/>Hi @${{ github.event.pull_request.user.login }}, <br/>your pull request is not linked to any issue, please make the corresponding changes in the **very first comment** by adding<br/>`Fixes #issue-number` or `Resolves #issue-number`.<br/>If your pull request isn't linked to any issue, ignore this comment!"
             echo "body="$body
             #json=$(jq --arg body "$body" '{ $body }')
             json=$(printf '%s\n' "$body" | jq -R '{ body: . }')
