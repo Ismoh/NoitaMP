@@ -40,10 +40,12 @@ jobs:
               echo "Unable to delete comment with id "$commentId
             fi
           done
+  
+          echo "$GITHUB_CONTEXT"
 
           if [ ${{ steps.validator.outputs.valid }} == 0 ]
           then
-            body=":warning: :exclamation: Your pull request is not linked to any issue, please make the corresponding changes in the very first comments body by adding 'Fixes #issue-number' or 'Resolves #issue-number'. If your pull request isn't linked to any issue, ignore this comment!"
+            body=":robot: _meep moop beep boop_<br/>Hi @${{  }}, <br/>your pull request is not linked to any issue, please make the corresponding changes in the **very first comment** by adding<br/>`Fixes #issue-number` or `Resolves #issue-number`.<br/>If your pull request isn't linked to any issue, ignore this comment!"
             echo "body="$body
             #json=$(jq --arg body "$body" '{ $body }')
             json=$(printf '%s\n' "$body" | jq -R '{ body: . }')
@@ -156,8 +158,11 @@ jobs:
             fi
           done
         
-          body="When this pull request was merged: <br /> - Current Version **v$CURRENT_VERSION** will be automatically increase to **$NEXT_VERSION** in **${{ github.base_ref }}** <br /> - Tag **$NEXT_VERSION** will be created to the specific commit."
-          statusCode=`curl -X POST -H 'Accept: application/vnd.github+json' -H 'Authorization: token ${{ github.token }}' https://api.github.com/repos/Ismoh/NoitaMP/issues/${{github.event.number}}/comments -d body="$body"`
+          body=":information_source: When this pull request was merged: <br /> - Current Version **v$CURRENT_VERSION** will be automatically increase to **$NEXT_VERSION** in **${{ github.base_ref }}** <br /> - Tag **$NEXT_VERSION** will be created to the specific commit."
+          echo "body="$body
+          json=$(printf '%s\n' "$body" | jq -R '{ body: . }')
+          echo "json="$json
+          statusCode=`curl -X POST -H 'Accept: application/vnd.github+json' -H 'Authorization: token ${{ github.token }}' https://api.github.com/repos/Ismoh/NoitaMP/issues/${{github.event.number}}/comments -d body="$json"`
           echo "statusCode="$statusCode
         
           if [[ $statusCode == "" ]]
