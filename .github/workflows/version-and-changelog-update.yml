@@ -43,7 +43,7 @@ jobs:
 
           if [ ${{ steps.validator.outputs.valid }} == 0 ]
           then
-            body=":warning: :exclamation: Your pull request is not linked to any issue, please make the corresponding changes in the very first comments body by adding 'Fixes #issue-number' or 'Resolves #issue-number'. If your pull request isn't linked to any issue, ignore this comment!"
+            body="\"\:warning\: \:exclamation\: Your pull request is not linked to any issue, please make the corresponding changes in the very first comments body by adding \'Fixes #issue-number\' or \'Resolves #issue-number\'. If your pull request isn\'t linked to any issue, ignore this comment\!\""
             echo "body="$body
             json=$(jq --arg body "$body" '{ $body }')
             echo "json="$json
