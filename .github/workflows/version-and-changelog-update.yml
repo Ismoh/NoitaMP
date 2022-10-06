@@ -2,15 +2,20 @@ name: Version and changelog update
 on:
   pull_request:
     types: [ opened, edited, synchronize, closed ]
+  pull_request_target:
+    types: [ opened, edited, synchronize, closed ]
 jobs:
   find-linked-issues-and-copy-labels-to-pull-request:
     name: Copy labels from issue to pull request
     runs-on: ubuntu-latest
-    permissions:
-      pull-requests: write
     outputs:
       labelNames: ${{ steps.add_labels.outputs.labelNames }}
     steps:
+      - name: Print GitHub context
+        run: echo "$GITHUB_CONTEXT"
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+          
       - uses: actions/checkout@v3
       
       - name: Is there a issue linked in "development"?
@@ -22,19 +27,18 @@ jobs:
       
       - name: "'Development' set?"
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PRNUM: ${{ github.event.pull_request.number }}
         run: |
-          commentListResponse=`gh api -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/${{github.event.number}}/comments`
+          commentListResponse=`curl -u Ismoh:${{ secrets.WORKFLOW_PAT }} -H 'Accept: application/vnd.github+json' https://api.github.com/repos/Ismoh/NoitaMP/issues/${{github.event.number}}/comments`
           echo "commentListResponse="$commentListResponse
           # https://jqplay.org/s/WsuVZ8f-YiB
-          commentIds=$(echo $commentListResponse | jq '.[] | select(.body | contains("Your pull request is not linked to any issue")) | .id')
+          commentIds=$(echo $commentListResponse | jq '.[] | select(.body | contains("pull request is not linked to any issue")) | .id')
           echo "commentIds="$commentIds
         
           for commentId in $commentIds
           do
             echo "commentId="$commentId
-            statusCode=`gh api --method DELETE -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/comments/$commentId`
+            statusCode=`curl -u Ismoh:${{ secrets.WORKFLOW_PAT }} -X DELETE -H 'Accept: application/vnd.github+json' https://api.github.com/repos/Ismoh/NoitaMP/issues/comments/$commentId`
             echo "statusCode="$statusCode
             if [[ $statusCode != "" ]]
             then
@@ -44,11 +48,16 @@ jobs:
 
           if [ ${{ steps.validator.outputs.valid }} == 0 ]
           then
-            body=":warning: :exclamation: Your pull request is not linked to any issue, please make the corresponding changes in the very first comments body by adding 'Fixes #issue-number' or 'Resolves #issue-number'. If your pull request isn't linked to any issue, ignore this comment!"
-            statusCode=`gh api --method POST -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/${{github.event.number}}/comments -f body="$body"`
+            body=":robot: _meep moop beep boop_<br/><br/>Hi @${{ github.event.pull_request.user.login }}, <br/>your pull request is not linked to any issue, please make the corresponding changes in the **very first comment** by adding<br/>\`Fixes #issue-number\` or \`Resolves #issue-number\`.<br/>If your pull request isn't linked to any issue, **ignore** this comment!"
+            echo "body="$body
+            #json=$(jq --arg body "$body" '{ $body }')
+            json=$(printf '%s\n' "$body" | jq -R '{ body: . }')
+            echo "json="$json
+            statusCode=`curl -X POST -H 'Accept: application/vnd.github+json' -H 'Authorization: token ${{ github.token }}' https://api.github.com/repos/Ismoh/NoitaMP/issues/${{github.event.number}}/comments -d "$json"`
             echo "statusCode="$statusCode
-          
-            if [[ $statusCode == "" ]]
+            id=$(echo $statusCode | jq '.id')
+            echo "id="$id
+            if [[ "$id" == "" ]]
             then
               echo "Unable to add comment to pull request!"
               exit 1
@@ -135,10 +144,8 @@ jobs:
           echo "::set-output name=futureRelease::$nextVersion"
       
       - name: Add comment to pull request
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          commentListResponse=`gh api -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/${{github.event.number}}/comments`
+          commentListResponse=`curl -H 'Accept: application/vnd.github+json' -H 'Authorization: token ${{ github.token }}' https://api.github.com/repos/Ismoh/NoitaMP/issues/${{github.event.number}}/comments`
           echo "commentListResponse="$commentListResponse
           # https://jqplay.org/s/WsuVZ8f-YiB
           commentIds=$(echo $commentListResponse | jq '.[] | select(.body | contains("will be automatically increase to")) | .id')
@@ -147,7 +154,7 @@ jobs:
           for commentId in $commentIds
           do
             echo "commentId="$commentId
-            statusCode=`gh api --method DELETE -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/comments/$commentId`
+            statusCode=`curl -X DELETE -H 'Accept: application/vnd.github+json' -H 'Authorization: token ${{ github.token }}' https://api.github.com/repos/Ismoh/NoitaMP/issues/comments/$commentId`
             echo "statusCode="$statusCode
             if [[ $statusCode != "" ]]
             then
@@ -155,11 +162,15 @@ jobs:
             fi
           done
         
-          body="When this pull request was merged: <br /> - Current Version **v$CURRENT_VERSION** will be automatically increase to **$NEXT_VERSION** in **${{ github.base_ref }}** <br /> - Tag **$NEXT_VERSION** will be created to the specific commit."
-          statusCode=`gh api --method POST -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/${{github.event.number}}/comments -f body="$body"`
+          body=":robot: _meep moop beep boop_<br/><br/>:information_source: When this pull request was merged,<br/> the current version **v$CURRENT_VERSION** will be automatically increase to **$NEXT_VERSION** in **${{ github.base_ref }}**<br/>and a new tag with **$NEXT_VERSION** will be created to the specific commit."
+          echo "body="$body
+          json=$(printf '%s\n' "$body" | jq -R '{ body: . }')
+          echo "json="$json
+          statusCode=`curl -X POST -H 'Accept: application/vnd.github+json' -H 'Authorization: token ${{ github.token }}' https://api.github.com/repos/Ismoh/NoitaMP/issues/${{github.event.number}}/comments -d "$json"`
           echo "statusCode="$statusCode
-        
-          if [[ $statusCode == "" ]]
+          id=$(echo $statusCode | jq '.id')
+          echo "id="$id
+          if [[ "$id" == "" ]]
           then
             echo "Unable to add comment to pull request!"
             exit 1
@@ -221,9 +232,8 @@ jobs:
         env:
           CHANGELOG: ${{ steps.generate_changelog.outputs.changelog }}
           MERGED: ${{ github.event.pull_request.merged }}
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          commentListResponse=`gh api -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/${{github.event.number}}/comments`
+          commentListResponse=`curl -H 'Accept: application/vnd.github+json' -H 'Authorization: token ${{ github.token }}' https://api.github.com/repos/Ismoh/NoitaMP/issues/${{github.event.number}}/comments`
           echo "commentListResponse="$commentListResponse
           # https://jqplay.org/s/WsuVZ8f-YiB
           commentIds=$(echo $commentListResponse | jq '.[] | select(.body | contains("# Changelog")) | .id')
@@ -232,7 +242,7 @@ jobs:
           for commentId in $commentIds
           do
             echo "commentId="$commentId
-            statusCode=`gh api --method DELETE -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/comments/$commentId`
+            statusCode=`curl -X DELETE -H 'Accept: application/vnd.github+json' -H 'Authorization: token ${{ github.token }}' https://api.github.com/repos/Ismoh/NoitaMP/issues/comments/$commentId`
             echo "statusCode="$statusCode
             if [[ $statusCode != "" ]]
             then
@@ -243,13 +253,16 @@ jobs:
           echo ""
           echo "CHANGELOG="$CHANGELOG
           echo ""
-        
-          printf -v escapedChangelog "%q\n" $CHANGELOG
-          echo "escapedChangelog="$escapedChangelog
-        
-          statusCode=`gh api --method POST -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/issues/${{github.event.number}}/comments -f body="$CHANGELOG"`
+          
+          body=":robot: _meep moop beep boop_<br/><br/># Changelog<br/"$CHANGELOG
+          echo "body="$body
+          json=$(printf '%s\n' "$body" | jq -Rsa '{ body: . }')
+          echo "json="$json
+          statusCode=`curl -X POST -H 'Accept: application/vnd.github+json' -H 'Authorization: token ${{ github.token }}' https://api.github.com/repos/${{github.repository}}/issues/${{github.event.number}}/comments -d "$json"`
           echo "statusCode="$statusCode
-          if [[ $statusCode == "" ]]
+          id=$(echo $statusCode | jq '.id')
+          echo "id="$id
+          if [[ "$id" == "" ]]
           then
             echo "Unable to add comment to pull request!"
           fi
