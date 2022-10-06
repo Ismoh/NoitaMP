@@ -26,7 +26,7 @@ jobs:
           gource_seconds_per_day: 0.1
 
       - name: 'Upload gource video'
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: Gource
           path: ./gource/gource.mp4
