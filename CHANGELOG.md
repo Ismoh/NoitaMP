@@ -1,5 +1,13 @@
 # Changelog
 
+## [v2.6.2-alpha+1130](https://github.com/Ismoh/NoitaMP/tree/v2.6.2-alpha+1130) (06.10.2022)
+
+[Full Changelog](https://github.com/Ismoh/NoitaMP/compare/v2.6.1-alpha+1073...v2.6.2-alpha+1130)
+
+**Merged pull requests:**
+
+- Replaced wiki links from 'noita.fandom.com' to 'noita.wiki.gg' per official migration [\#79](https://github.com/Ismoh/NoitaMP/pull/79) [[documentation](https://github.com/Ismoh/NoitaMP/labels/documentation)] ([quiddity-wp](https://github.com/quiddity-wp))
+
 ## [v2.6.1-alpha+1073](https://github.com/Ismoh/NoitaMP/tree/v2.6.1-alpha+1073) (27.09.2022)
 
 [Full Changelog](https://github.com/Ismoh/NoitaMP/compare/v2.6.0-alpha+1070...v2.6.1-alpha+1073)
