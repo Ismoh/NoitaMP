@@ -10,7 +10,7 @@ jobs:
       temp_dir: ${{ github.workspace }}/temp
 
     steps:
-    - uses: actions/checkout@main
+    - uses: actions/checkout@v3.1.0
 
     - name: Install luaJIT 2.0.4
       run: |
