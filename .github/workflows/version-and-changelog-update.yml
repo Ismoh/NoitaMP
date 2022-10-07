@@ -254,7 +254,7 @@ jobs:
           echo "CHANGELOG="$CHANGELOG
           echo ""
           
-          body=":robot: _meep moop beep boop_<br/><br/># Changelog<br/"$CHANGELOG
+          body=":robot: _meep moop beep boop_<br/><br/>"$CHANGELOG
           echo "body="$body
           json=$(printf '%s\n' "$body" | jq -Rsa '{ body: . }')
           echo "json="$json
