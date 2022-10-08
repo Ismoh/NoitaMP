@@ -207,16 +207,6 @@ jobs:
         with:
           fetch-depth: 0
       
-      - name: Check environment
-        run: |
-          echo "needs.update-version.env.next_version="${{ needs.update-version.env.next_version }}
-          echo "needs.update-version.env.NEXT_VERSION="${{ needs.update-version.env.NEXT_VERSION }}
-          echo "NEXT_VERSION="$NEXT_VERSION
-          echo "env.NEXT_VERSION="${{ env.NEXT_VERSION }}
-          echo "env.next_version=""${{ env.next_version }}"
-          echo "FUTURE_RELEASE="$FUTURE_RELEASE
-          echo "env.FUTURE_RELEASE="${{ env.FUTURE_RELEASE }}
-      
       - name: Generate CHANGELOG.md
         id: generate_changelog
         uses: heinrichreimer/github-changelog-generator-action@v2.3
