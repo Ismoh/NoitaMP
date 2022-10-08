@@ -1,5 +1,13 @@
 # Changelog
 
+## [v2.6.4-alpha+1138](https://github.com/Ismoh/NoitaMP/tree/v2.6.4-alpha+1138) (07.10.2022)
+
+[Full Changelog](https://github.com/Ismoh/NoitaMP/compare/v2.6.3-alpha+1134...v2.6.4-alpha+1138)
+
+**Merged pull requests:**
+
+- Bump actions/checkout from 2 to 3.1.0 [\#82](https://github.com/Ismoh/NoitaMP/pull/82) [[dependencies](https://github.com/Ismoh/NoitaMP/labels/dependencies)] [[github_actions](https://github.com/Ismoh/NoitaMP/labels/github_actions)] ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v2.6.3-alpha+1134](https://github.com/Ismoh/NoitaMP/tree/v2.6.3-alpha+1134) (06.10.2022)
 
 [Full Changelog](https://github.com/Ismoh/NoitaMP/compare/v2.6.2-alpha+1130...v2.6.3-alpha+1134)
