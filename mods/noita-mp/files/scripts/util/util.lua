@@ -39,7 +39,7 @@ end
 --     return bitser.loads(data)
 -- end
 
---https://noita.fandom.com/wiki/Modding:_Utilities#Easier_entity_debugging
+--https://noita.wiki.gg/wiki/Modding:_Utilities#Easier_entity_debugging
 function util.str(var)
     if type(var) == "table" then
         local s = "{ "
@@ -54,7 +54,7 @@ function util.str(var)
     return tostring(var)
 end
 
---https://noita.fandom.com/wiki/Modding:_Utilities#Easier_entity_debugging
+--https://noita.wiki.gg/wiki/Modding:_Utilities#Easier_entity_debugging
 function util.debug_entity(e)
     local parent   = EntityGetParent(e)
     local children = EntityGetAllChildren(e)
