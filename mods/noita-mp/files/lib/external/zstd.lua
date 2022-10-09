@@ -90,7 +90,7 @@ local ptr_zstd_outbuffer_t = ffi_typeof "ZSTD_outBuffer[1]"
 
 
 --local zstd = ffi_load("libzstd")
-local zstd = ffi_load "mods/noita-mp/files/lib/external/platform-specific/windows/libzstd.dll"
+local zstd = ffi_load "mods/noita-mp/files/lib/external/dlls/libzstd.dll"
 
 
 local _M = {

@@ -13,28 +13,30 @@ if not logger then
         vsc     = "vsc",
     }
 
-    local file      = "unkown script - please define this in your Noita Component"
+    local file      = "unknown script - please define this in your Noita Component"
 
     local function log(level, channel, message)
-        return false -- TODO testing performance issues
-        --local logLevelOfSettings = nil
-        --
-        --if channel then
-        --    -- also have a look on init_logger.lua
-        --    logLevelOfSettings = tostring(ModSettingGet(("noita-mp.log_level_%s"):format(channel)))
-        --    if not logLevelOfSettings:contains(level) then
-        --        return false
-        --    end
-        --end
-        --
-        --channel   = string.ExtendOrCutStringToLength(channel, 7, " ")
-        --level     = string.ExtendOrCutStringToLength(level, 5, " ")
-        --
-        --local msg = ("%s [%s][%s] %s ( in %s )"):format("00:00:00", channel, level, message, file)
-        --
-        --if logLevelOfSettings ~= nil and logLevelOfSettings:find(level) then
-        --    print(msg)
-        --end
+        if ModSettingGet("noita-mp.toggle_logger") == false then
+            return
+        end
+
+        local logLevelOfSettings = nil
+        if channel then
+            -- also have a look on init_logger.lua
+            logLevelOfSettings = tostring(ModSettingGet(("noita-mp.log_level_%s"):format(channel)))
+            if not logLevelOfSettings:contains(level) then
+                return false
+            end
+        end
+
+        channel   = string.ExtendOrCutStringToLength(channel, 7, " ")
+        level     = string.ExtendOrCutStringToLength(level, 5, " ")
+
+        local msg = ("%s [%s][%s] %s ( in %s )"):format("00:00:00", channel, level, message, file)
+
+        if logLevelOfSettings ~= nil and logLevelOfSettings:find(level) then
+            print(msg)
+        end
     end
 
     function logger:setFile(luaScriptName)

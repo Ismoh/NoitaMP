@@ -12,10 +12,8 @@ return function(destination_path)
         "mods/noita-mp/files/scripts/util/?.lua;"
 
     package.cpath = package.cpath ..
-        ";./noita-mp/files/lib/external/platform-specific/windows/?.dll;" ..
-        ";./noita-mp/files/lib/external/platform-specific/linux/?.so;" ..
-        ";mods/noita-mp/files/lib/external/platform-specific/windows/?.dll;" ..
-        ";mods/noita-mp/files/lib/external/platform-specific/linux/?.so;"
+        ";./noita-mp/files/lib/external/dlls/?.dll;" ..
+        ";mods/noita-mp/files/lib/external/dlls/?.dll;"
 
     local fu = require("file_util")
     --[[ NoitaMP additions ]]
@@ -24,7 +22,7 @@ return function(destination_path)
         "mods/noita-mp/files/{module}",
         "mods/noita-mp/files/lib/{module}",
         "mods/noita-mp/files/lib/external/{module}",
-        "mods/noita-mp/files/lib/external/platform-specific/{platform}/{module}",
+        "mods/noita-mp/files/lib/external/dlls/{module}",
         "mods/noita-mp/files/scripts/{module}",
         "mods/noita-mp/files/scripts/components/{module}",
         "mods/noita-mp/files/scripts/init/{module}",

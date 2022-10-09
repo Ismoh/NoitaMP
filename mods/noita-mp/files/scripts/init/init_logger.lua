@@ -4,25 +4,28 @@ package.path               = package.path .. ";mods/noita-mp/files/lib/external/
 local Logging              = require("logging")
 
 local appender             = function(self, level, channel, message)
-    return false -- TODO testing performance issues
-    --if channel then
-    --    -- also have a look on dump_logger.lua
-    --    local logLevelPerChannel = tostring(ModSettingGet(("noita-mp.log_level_%s"):format(channel)))
-    --    if not logLevelPerChannel:contains(level) then
-    --        return false
-    --    end
-    --end
-    --
-    --local time      = os.date("%X")
-    --channel         = string.ExtendOrCutStringToLength(channel, 7, " ")
-    --level           = string.ExtendOrCutStringToLength(level, 5, " ")
-    ---- add file name to logs: https://stackoverflow.com/a/48469960/3493998
-    --local file_name = debug.getinfo(2, "S").source:sub(2)
-    --file_name       = file_name:match("^.*/(.*)$") or file_name
-    --local msg       = ("%s [%s][%s] %s ( in %s )"):format(time, channel, level, message, file_name)
-    --print(msg)
-    --
-    --return true
+    if ModSettingGet("noita-mp.toggle_logger") == false then
+        return
+    end
+
+    if channel then
+        -- also have a look on dump_logger.lua
+        local logLevelPerChannel = tostring(ModSettingGet(("noita-mp.log_level_%s"):format(channel)))
+        if not logLevelPerChannel:contains(level) then
+            return false
+        end
+    end
+
+    local time      = os.date("%X")
+    channel         = string.ExtendOrCutStringToLength(channel, 7, " ")
+    level           = string.ExtendOrCutStringToLength(level, 5, " ")
+    -- add file name to logs: https://stackoverflow.com/a/48469960/3493998
+    local file_name = debug.getinfo(2, "S").source:sub(2)
+    file_name       = file_name:match("^.*/(.*)$") or file_name
+    local msg       = ("%s [%s][%s] %s ( in %s )"):format(time, channel, level, message, file_name)
+    print(msg)
+
+    return true
 end
 
 local logger               = Logging.new(appender)

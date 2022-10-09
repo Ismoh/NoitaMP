@@ -84,14 +84,14 @@ local function filterEntities(entities, include, exclude, additionalCheck1, addi
                 local addCheck1 = true
                 if additionalCheck1 then
                     local cpc2 = CustomProfiler.start("EntityUtils.filterEntities.additionalCheck1")
-                    addCheck1 = additionalCheck1(entityId)
+                    addCheck1  = additionalCheck1(entityId)
                     CustomProfiler.stop("EntityUtils.filterEntities.additionalCheck1", cpc2)
                 end
 
                 local addCheck2 = true
                 if additionalCheck2 then
                     local cpc3 = CustomProfiler.start("EntityUtils.filterEntities.additionalCheck2")
-                    addCheck2 = additionalCheck2(entityId)
+                    addCheck2  = additionalCheck2(entityId)
                     CustomProfiler.stop("EntityUtils.filterEntities.additionalCheck2", cpc3)
                 end
 
@@ -142,6 +142,8 @@ end
 
 EntityUtils.localPlayerEntityId            = -1
 EntityUtils.localPlayerEntityIdPolymorphed = -1
+EntityUtils.cachedEntityIds                = {}
+EntityUtils.entityStatus                   = { new = 1, processed = 2, destroyed = 3 }
 
 --#endregion
 
@@ -299,6 +301,76 @@ function EntityUtils.initNetworkVscs()
         end
     end
     CustomProfiler.stop("EntityUtils.initNetworkVscs", cpc)
+end
+
+function EntityUtils.processEntityNetworking()
+    local cpc              = CustomProfiler.start("EntityUtils.processEntityNetworking")
+
+    local radius           = tonumber(ModSettingGetNextValue("noita-mp.radius_include_entities"))
+    local filteredEntities = getFilteredEntities(radius, EntityUtils.include, EntityUtils.exclude,
+                                                 function(entityId)
+                                                     return not NetworkVscUtils.isNetworkEntityByNuidVsc(entityId)
+                                                 end,
+                                                 function(entityId)
+                                                     return not
+                                                     NetworkVscUtils.hasNetworkLuaComponents(entityId)
+                                                 end)
+    local owner            = localOwner
+
+    for entityId, co in CoroutineUtils.iterator(filteredEntities) do
+        repeat
+            if not EntityUtils.isEntityAlive(entityId) then
+                EntityUtils.cachedEntityIds[entityId] = EntityUtils.entityStatus.destroyed
+                break -- work around for continue: repeat until true with break
+            end
+        until true
+
+        local isNetworkEntity         = NetworkVscUtils.isNetworkEntityByNuidVsc(entityId)
+        local hasNetworkLuaComponents = NetworkVscUtils.hasNetworkLuaComponents(entityId)
+        if not isNetworkEntity and not hasNetworkLuaComponents then
+
+            if EntityUtils.isEntityAlive(entityId) then
+                local nuid          = nil
+                local compId, value = NetworkVscUtils.isNetworkEntityByNuidVsc(entityId)
+
+                if not compId or value == "" or value == nil then
+                    -- if a nuid on an entity already exists, don't get a new nuid
+                    if _G.whoAmI() == _G.Server.iAm then
+                        nuid = NuidUtils.getNextNuid()
+                    else
+                        _G.Client.sendNeedNuid(owner.name, owner.guid, entityId)
+                    end
+                else
+                    nuid = tonumber(value)
+                end
+
+                NetworkVscUtils.addOrUpdateAllVscs(entityId, owner.name, owner.guid, nuid)
+
+                if _G.whoAmI() == _G.Server.iAm then
+                    GlobalsUtils.setNuid(nuid, entityId)
+                    local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
+                    --local isPolymorphed                                                                      = EntityUtils.isEntityPolymorphed(entityId)
+                    _G.Server.sendNewNuid(owner, entityId, nuid, x, y, rotation, velocity, filename, health,
+                                          false) -- TODO fix me
+                end
+            end
+        end
+
+        EntityUtils.cachedEntityIds[entityId] = EntityUtils.entityStatus.processed
+
+        if CustomProfiler.getDuration("EntityUtils.processEntityNetworking", cpc) > 25 then
+            logger:warn(logger.channels.entity,
+                        "EntityUtils.processEntityNetworking took too long. Breaking loop by returning entityId.")
+            break --return coroutine.yield(entityId) --co.yield(entityId)
+        end
+    end
+    --init network entities
+    --sending network messages on specific tick rate (ms)
+    --receive network messages on preUpdate
+    --send network messages on postUpdate
+    --Yield return iterator or index when execution time is greater equals 25ms (=40fps)
+    --Next frame continue on for loop
+    CustomProfiler.stop("EntityUtils.processEntityNetworking", cpc)
 end
 
 --- Spawns an entity and applies the transform and velocity to it. Also adds the network_component.
@@ -598,6 +670,8 @@ function EntityUtils.destroyByNuid(nuid)
             entityId ~= EntityUtils.localPlayerEntityIdPolymorphed then
         EntityKill(entityId)
     end
+
+    EntityUtils.cachedEntityIds[entityId] = EntityUtils.entityStatus.destroyed
 
     -- Remove entityId from cache
     local clientOrServer                 = NetworkUtils.getClientOrServer()

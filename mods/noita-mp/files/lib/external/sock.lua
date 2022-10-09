@@ -274,6 +274,7 @@ function Server:start(ip, port)
 
     self:setBandwidthLimit(0, 0)
 
+    logger:info(logger.channels.network, "Started server on " .. self.address .. ":" .. self.port)
     -- Serialization is set in Server.setConfigSettings()
     --if bitserLoaded then
     --    self:setSerialization(bitser.dumps, bitser.loads)
@@ -879,6 +880,7 @@ function Client:connect(code)
 
     -- number of channels for the client and server must match
     self.connection = self.host:connect(self.address .. ":" .. self.port, self.maxChannels, code)
+    logger:info(logger.channels.network, "Connecting to " .. self.address .. ":" .. self.port)
     self.connectId  = self.connection:connect_id()
 end
 

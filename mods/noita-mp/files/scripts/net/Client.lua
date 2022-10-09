@@ -69,9 +69,9 @@ function Client.new(sockClient)
     --- Set clients settings
     ------------------------------------------------------------------------------------------------
     local function setConfigSettings()
-        local cpc1 = CustomProfiler.start("Client.setConfigSettings")
+        local cpc1        = CustomProfiler.start("Client.setConfigSettings")
         local serialize   = function(anyValue)
-            local cpc2 = CustomProfiler.start("Client.setConfigSettings.serialize")
+            local cpc2            = CustomProfiler.start("Client.setConfigSettings.serialize")
             --logger:debug(logger.channels.network, ("Serializing value: %s"):format(anyValue))
             local serialized      = messagePack.pack(anyValue)
             local zstd            = zstandard:new()
@@ -88,7 +88,7 @@ function Client.new(sockClient)
         end
 
         local deserialize = function(anyValue)
-            local cpc3 = CustomProfiler.start("Client.setConfigSettings.deserialize")
+            local cpc3              = CustomProfiler.start("Client.setConfigSettings.deserialize")
             --logger:debug(logger.channels.network, ("Serialized and compressed value: %s"):format(anyValue))
             local zstd              = zstandard:new()
             --logger:debug(logger.channels.network, "Compressed size:", string.len(anyValue))
@@ -113,14 +113,14 @@ function Client.new(sockClient)
     --- Set clients guid
     ------------------------------------------------------------------------------------------------
     local function setGuid()
-        local cpc1 = CustomProfiler.start("Client.setGuid")
-        local cpc25  = CustomProfiler.start("ModSettingGetNextValue")
-        local guid = tostring(ModSettingGetNextValue("noita-mp.guid"))
+        local cpc1  = CustomProfiler.start("Client.setGuid")
+        local cpc25 = CustomProfiler.start("ModSettingGetNextValue")
+        local guid  = tostring(ModSettingGetNextValue("noita-mp.guid"))
         CustomProfiler.stop("ModSettingGetNextValue", cpc25)
 
         if guid == "" or Guid.isPatternValid(guid) == false then
-            guid = Guid:getGuid()
-            local cpc26  = CustomProfiler.start("ModSettingSetNextValue")
+            guid        = Guid:getGuid()
+            local cpc26 = CustomProfiler.start("ModSettingSetNextValue")
             ModSettingSetNextValue("noita-mp.guid", guid, false)
             CustomProfiler.stop("ModSettingSetNextValue", cpc26)
             self.guid = guid
@@ -355,10 +355,10 @@ function Client.new(sockClient)
             local compOwnerName, compOwnerGuid, compNuid = NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
 
             self.guid                                    = data.newGuid
-            local cpc27  = CustomProfiler.start("ModSettingSet")
+            local cpc27                                  = CustomProfiler.start("ModSettingSet")
             ModSettingSet("noita-mp.guid", self.guid)
             CustomProfiler.stop("ModSettingGet", cpc27)
-            local cpc28  = CustomProfiler.start("ModSettingSet")
+            local cpc28 = CustomProfiler.start("ModSettingSet")
             ModSettingSet("noita-mp.guid_readonly", self.guid)
             CustomProfiler.stop("ModSettingGet", cpc28)
 
@@ -550,12 +550,17 @@ function Client.new(sockClient)
         local velocity             = data.velocity
         local health               = data.health
 
-        NoitaComponentUtils.setEntityData(localEntityId, x, y, rotation, velocity, health)
+        if self.nuid ~= nuid then
+            NoitaComponentUtils.setEntityData(localEntityId, x, y, rotation, velocity, health)
+        else
+            logger:warn(logger.channels.network, ("Received entityData for self.nuid = %s! data = %s")
+                    :format(data.nuid, util.pformat(data)))
+        end
         CustomProfiler.stop("Client.onEntityData", cpc12)
     end
 
     local function onDeadNuids(data)
-        local cpc13 = CustomProfiler.start("Client.onDeadNuids")
+        local cpc13     = CustomProfiler.start("Client.onDeadNuids")
         local deadNuids = data.deadNuids or data or {}
         for i = 1, #deadNuids do
             local deadNuid = deadNuids[i]
@@ -658,7 +663,7 @@ function Client.new(sockClient)
     end
 
     local function updateVariables()
-        local cpc15 = CustomProfiler.start("Client.updateVariables")
+        local cpc15    = CustomProfiler.start("Client.updateVariables")
         local entityId = util.getLocalPlayerInfo().entityId
         if entityId then
             local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
@@ -694,14 +699,14 @@ function Client.new(sockClient)
         end
 
         if not ip then
-            local cpc29  = CustomProfiler.start("ModSettingGet")
-            ip = tostring(ModSettingGet("noita-mp.connect_server_ip"))
+            local cpc29 = CustomProfiler.start("ModSettingGet")
+            ip          = tostring(ModSettingGet("noita-mp.connect_server_ip"))
             CustomProfiler.stop("ModSettingGet", cpc29)
         end
 
         if not port then
-            local cpc30  = CustomProfiler.start("ModSettingGet")
-            port = tonumber(ModSettingGet("noita-mp.connect_server_port"))
+            local cpc30 = CustomProfiler.start("ModSettingGet")
+            port        = tonumber(ModSettingGet("noita-mp.connect_server_port"))
             CustomProfiler.stop("ModSettingGet", cpc30)
         end
 
@@ -761,16 +766,17 @@ function Client.new(sockClient)
         end
 
         EntityUtils.destroyClientEntities()
-        EntityUtils.initNetworkVscs()
+        EntityUtils.processEntityNetworking()
+        --EntityUtils.initNetworkVscs()
 
         local nowTime     = GameGetRealWorldTimeSinceStarted() * 1000 -- *1000 to get milliseconds
         local elapsedTime = nowTime - prevTime
-        local cpc31  = CustomProfiler.start("ModSettingGet")
+        local cpc31       = CustomProfiler.start("ModSettingGet")
         local oneTickInMs = 1000 / tonumber(ModSettingGet("noita-mp.tick_rate"))
         CustomProfiler.stop("ModSettingGet", cpc31)
         if elapsedTime >= oneTickInMs then
             prevTime = nowTime
-            updateVariables()
+            --updateVariables()
 
             --EntityUtils.destroyClientEntities()
             EntityUtils.syncEntityData()
@@ -791,7 +797,7 @@ function Client.new(sockClient)
         end
 
         if NetworkUtils.alreadySent(event, data) then
-            logger:info(logger.channels.network, ("Network message for %s for data %s already was acknowledged.")
+            logger:debug(logger.channels.network, ("Network message for %s for data %s already was acknowledged.")
                     :format(event, util.pformat(data)))
             return
         end
@@ -831,7 +837,7 @@ function Client.new(sockClient)
 
     function self.sendLostNuid(nuid)
         local cpc21 = CustomProfiler.start("Client.sendLostNuid")
-        local data = { NetworkUtils.getNextNetworkMessageId(), nuid }
+        local data  = { NetworkUtils.getNextNetworkMessageId(), nuid }
         self:send(NetworkUtils.events.lostNuid.name, data)
         CustomProfiler.stop("Client.sendLostNuid", cpc21)
     end
@@ -863,7 +869,7 @@ function Client.new(sockClient)
 
     function self.sendDeadNuids(deadNuids)
         local cpc23 = CustomProfiler.start("Client.sendDeadNuids")
-        local data = {
+        local data  = {
             NetworkUtils.getNextNetworkMessageId(), deadNuids
         }
         self:send(NetworkUtils.events.deadNuids.name, data)

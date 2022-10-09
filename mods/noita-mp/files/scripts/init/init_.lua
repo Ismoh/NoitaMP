@@ -47,6 +47,7 @@ if ModSettingGet then
     require("guid")
     require("Server")
     require("Client")
+    require("CoroutineUtils")
 else
     logger:warn(nil,
                 "Utils didnt load in init_.lua, because it looks like the mod wasn't run in game, but maybe on Github.")

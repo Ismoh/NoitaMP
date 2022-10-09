@@ -732,7 +732,7 @@ function Server.new(sockServer)
             setConfigSettings()
             setCallbackAndSchemas()
 
-            GamePrintImportant("Server started", ("Your server is running on %s. Tell your friends to join!")
+            GamePrintImportant("Server started", ("Your server is running on %s:%s. Tell your friends to join!")
                     :format(self:getAddress(), self:getPort()))
         else
             GamePrintImportant("Server didnt started!", "Try again, otherwise restart Noita.")
@@ -781,7 +781,8 @@ function Server.new(sockServer)
             return
         end
 
-        EntityUtils.initNetworkVscs()
+        EntityUtils.processEntityNetworking()
+        --EntityUtils.initNetworkVscs()
 
         local nowTime     = GameGetRealWorldTimeSinceStarted() * 1000 -- *1000 to get milliseconds
         local elapsedTime = nowTime - prevTime
@@ -789,7 +790,7 @@ function Server.new(sockServer)
         if elapsedTime >= oneTickInMs then
             prevTime = nowTime
             --if since % tonumber(ModSettingGet("noita-mp.tick_rate")) == 0 then
-            updateVariables()
+            --updateVariables()
 
             EntityUtils.syncEntityData()
             EntityUtils.syncDeadNuids()

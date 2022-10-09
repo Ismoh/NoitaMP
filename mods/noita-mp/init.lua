@@ -139,7 +139,6 @@ function OnPausePreUpdate()
     local cpc = CustomProfiler.start("init.OnPausePreUpdate")
     Server.update()
     Client.update()
-    CustomProfiler.updateFps()
     CustomProfiler.stop("init.OnPausePreUpdate", cpc)
 end
 
@@ -188,7 +187,6 @@ function OnWorldPreUpdate()
 
     ui.update()
 
-    --CustomProfiler.updateFps()
     CustomProfiler.stop("init.OnWorldPreUpdate", cpc)
 end
 

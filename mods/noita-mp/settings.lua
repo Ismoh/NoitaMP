@@ -244,14 +244,13 @@ mod_settings         = {
     {
         category_id    = "group_of_performance_settings",
         ui_name        = "Performance issues? Take a look!",
-        ui_description = [[When it comes to FPS drops,
-you can tweak these settings to keep NoitaMP running on your system.]],
+        ui_description = "When it comes to FPS drops, you can tweak these settings to keep NoitaMP running on your system.",
         settings       = {
             {
                 id             = "tick_rate",
-                ui_name        = [[Change tick rate for sync network messages.
-x-message per second = tick rate x.]],
-                ui_description = [[Lower value = higher performance, but less sync.
+                ui_name        = "Change tick rate for sync network messages.",
+                ui_description = [[x-message per second = tick rate x.
+Lower value = higher performance, but less sync.
 Default = 16. 128 tick rate = 128 messages a second.]],
                 value_default  = 16,
                 value_min      = 1,
@@ -296,6 +295,14 @@ Default = 0.5. Think of 0.5 on x then a change was detected.]],
                 ui_name        = "Dis-/Enable profiler",
                 ui_description = "Dis-/Enable the profiler.",
                 value_default  = false,
+                scope          = MOD_SETTING_SCOPE_RUNTIME,
+                change_fn      = mod_setting_change_callback, -- Called when the user interact with the settings widget.
+            },
+            {
+                id             = "toggle_logger",
+                ui_name        = "Dis-/Enable logger",
+                ui_description = "Dis-/Enable the logger, doesn't matter what is set below.",
+                value_default  = true,
                 scope          = MOD_SETTING_SCOPE_RUNTIME,
                 change_fn      = mod_setting_change_callback, -- Called when the user interact with the settings widget.
             },
