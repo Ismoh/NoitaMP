@@ -56,15 +56,18 @@ local function filterEntities(entities, include, exclude, additionalCheck1, addi
     local function entityMatches(entityId, filenames, componentNames)
         local cpc1 = CustomProfiler.start("EntityUtils.filterEntities.entityMatches")
         if not EntityUtils.isEntityAlive(entityId) then
+            CustomProfiler.stop("EntityUtils.filterEntities.entityMatches", cpc1)
             return
         end
         for i, filename in ipairs(filenames) do
             if EntityGetFilename(entityId):find(filename) then
+                CustomProfiler.stop("EntityUtils.filterEntities.entityMatches", cpc1)
                 return true
             end
         end
         for i, componentName in ipairs(componentNames) do
             if EntityGetComponentIncludingDisabled(entityId, componentName) then
+                CustomProfiler.stop("EntityUtils.filterEntities.entityMatches", cpc1)
                 return true
             end
         end

@@ -144,6 +144,15 @@ function table.insertAllButNotDuplicates(tbl1, tbl2)
     end
 end
 
+function table.size(T)
+    -- https://stackoverflow.com/a/64882015/3493998
+    local count = 0
+    for _ in pairs(T) do
+        count = count + 1
+    end
+    return count
+end
+
 ------------------------------------------------------------------------------------------------------------------------
 --[[ deepcopy.lua
 

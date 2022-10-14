@@ -756,13 +756,13 @@ function Server.new(sockServer)
     --#region Additional methods
 
     function self.isRunning()
-        local cpc = CustomProfiler.start("Server.isRunning")
+        --local cpc = CustomProfiler.start("Server.isRunning") DO NOT PROFILE, stack overflow error! See CustomProfiler.lua
         local status, result = pcall(self.getSocketAddress, self)
         if not status then
-            CustomProfiler.stop("Server.isRunning", cpc)
+            --CustomProfiler.stop("Server.isRunning", cpc)
             return false
         end
-        CustomProfiler.stop("Server.isRunning", cpc)
+        --CustomProfiler.stop("Server.isRunning", cpc)
         return true
     end
 
@@ -850,7 +850,7 @@ function Server.new(sockServer)
     --- Checks if the current local user is the server
     --- @return boolean iAm true if server
     function self.amIServer()
-        local cpc = CustomProfiler.start("Server.amIServer")
+        --local cpc = CustomProfiler.start("Server.amIServer") DO NOT PROFILE, stack overflow error! See CustomProfiler.lua
         -- this can happen when you started and stop a server and then connected to a different server!
         -- if _G.Server.super and _G.Client.super then
         --     error("Something really strange is going on. You are server and client at the same time?", 2)
@@ -858,10 +858,10 @@ function Server.new(sockServer)
 
         if _G.Server.isRunning() then
             --if _G.Server.host and _G.Server.guid == self.guid then
-            CustomProfiler.stop("Server.amIServer", cpc)
+            --CustomProfiler.stop("Server.amIServer", cpc)
             return true
         end
-        CustomProfiler.stop("Server.amIServer", cpc)
+        --CustomProfiler.stop("Server.amIServer", cpc)
         return false
     end
 

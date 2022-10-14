@@ -28,8 +28,6 @@ ModMagicNumbersFileAdd("mods/noita-mp/files/data/magic_numbers.xml")
 
 fu.Find7zipExecutable()
 
-_G.NoitaMPVersion                          = fu.getVersionByFile()
-
 local saveSlotsLastModifiedBeforeWorldInit = fu.getLastModifiedSaveSlots()
 
 EntityUtils.modifyPhysicsEntities()
@@ -37,18 +35,6 @@ EntityUtils.modifyPhysicsEntities()
 ----------------------------------------------------------------------------------------------------
 --- NoitaMP functions
 ----------------------------------------------------------------------------------------------------
-
-local function createGlobalWhoAmIFunction()
-    _G.whoAmI = function()
-        if _G.Server:amIServer() then
-            return "SERVER"
-        end
-        if _G.Client:amIClient() then
-            return "CLIENT"
-        end
-        return nil
-    end
-end
 
 --- When connecting the first time to a server, the server will send the servers' seed to the client.
 --- Then the client restarts, empties his selected save slot, to be able to generate the correct world,
@@ -82,8 +68,6 @@ end
 ----------------------------------------------------------------------------------------------------
 
 function OnModPreInit()
-    createGlobalWhoAmIFunction()
-
     setSeedIfConnectedSecondTime()
 end
 

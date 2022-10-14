@@ -37,7 +37,6 @@ end
 -- Do a simple check by nil check:
 if ModSettingGet then
     -- Load utils
-    require("CustomProfiler")
     require("EntityUtils")
     require("GlobalsUtils")
     require("NetworkVscUtils")
@@ -48,7 +47,22 @@ if ModSettingGet then
     require("Server")
     require("Client")
     require("CoroutineUtils")
+
+    _G.whoAmI         = function()
+        if _G.Server:amIServer() then
+            return "SERVER"
+        end
+        if _G.Client:amIClient() then
+            return "CLIENT"
+        end
+        return nil
+    end
+
+    local fu = require("file_util")
+    _G.NoitaMPVersion = fu.getVersionByFile()
+
+    require("CustomProfiler")
 else
     logger:warn(nil,
-                "Utils didnt load in init_.lua, because it looks like the mod wasn't run in game, but maybe on Github.")
+                "Utils didnt load in init_.lua, because it looks like the mod wasn't run in game, but maybe on GitHub.")
 end

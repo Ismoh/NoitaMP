@@ -39,7 +39,9 @@ Example:
 function __genOrderedIndex( t )
     local orderedIndex = {}
     for key in pairs(t) do
-        table.insert( orderedIndex, key )
+        if type(key) == "number" then
+            table.insert( orderedIndex, key )
+        end
     end
     table.sort( orderedIndex )
     return orderedIndex

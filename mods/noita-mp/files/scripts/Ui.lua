@@ -118,7 +118,7 @@ function Ui.new()
                 fu.createProfilerLog()
             end,
             reportCustomProfiler = function()
-                CustomProfiler.report(true)
+                CustomProfiler.report()
             end,
         },
         computed = {

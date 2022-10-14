@@ -7,17 +7,24 @@
 --- Naming convention is found here:
 --- http://lua-users.org/wiki/LuaStyleGuide#:~:text=Lua%20internal%20variable%20naming%20%2D%20The,but%20not%20necessarily%2C%20e.g.%20_G%20.
 
---local json                 = require("json")
-local plotly               = require("plotly")
-local util                 = require("util")
+local json                               = require("dkjson")
+local plotly                             = require("plotly")
+local util                               = require("util")
+local fu                                 = require("file_util")
 
-CustomProfiler             = {}
-CustomProfiler.keys        = { "", "", "", "", "" }
-CustomProfiler.reportCache = {}
-CustomProfiler.counter     = 0
-CustomProfiler.threshold   = 1 -- ms
-CustomProfiler.ceiling     = 100 -- ms
-
+CustomProfiler                           = {}
+CustomProfiler.keys                      = { "", "", "", "", "" }
+CustomProfiler.reportCache               = {}
+CustomProfiler.counter                   = 1
+CustomProfiler.threshold                 = 1 -- ms
+CustomProfiler.ceiling                   = 1001 -- ms
+CustomProfiler.maxEntries                = 100
+CustomProfiler.reportDirectory           = ("%s%sreports%s%s"):format(fu.GetAbsoluteDirectoryPathOfMods(),
+                                                                      path_separator, path_separator,
+                                                                      os.date("%Y-%m-%d_%H-%M-%S",
+                                                                              os.time()))
+CustomProfiler.reportFilename            = "report.html"
+CustomProfiler.reportJsonFilenamePattern = "%s.json"
 
 function CustomProfiler.start(functionName)
     if not ModSettingGetAtIndex("noita-mp.toggle_profiler") then
@@ -37,8 +44,14 @@ function CustomProfiler.start(functionName)
         stop     = nil,
         duration = nil,
     }
-    local returnCounter                                              = CustomProfiler.counter
-    CustomProfiler.counter                                           = CustomProfiler.counter + 1
+
+    if not CustomProfiler.reportCache[functionName]["size"] then
+        CustomProfiler.reportCache[functionName]["size"] = 0
+    end
+    CustomProfiler.reportCache[functionName]["size"] = CustomProfiler.reportCache[functionName]["size"] + 1
+
+    local returnCounter                              = CustomProfiler.counter
+    CustomProfiler.counter                           = CustomProfiler.counter + 1
     return returnCounter
 end
 
@@ -51,7 +64,6 @@ function CustomProfiler.getDuration(functionName, customProfilerCounter)
     local duration = stop - entry.start
     return duration
 end
-
 
 function CustomProfiler.stop(functionName, customProfilerCounter)
     if not ModSettingGetAtIndex("noita-mp.toggle_profiler") then
@@ -72,6 +84,7 @@ function CustomProfiler.stop(functionName, customProfilerCounter)
             entry.duration = duration
         else
             CustomProfiler.reportCache[functionName][customProfilerCounter] = nil
+            CustomProfiler.reportCache[functionName]["size"]                = CustomProfiler.reportCache[functionName]["size"] - 1
         end
     else
         for index = 1, #CustomProfiler.reportCache[functionName] do
@@ -84,43 +97,31 @@ function CustomProfiler.stop(functionName, customProfilerCounter)
                     entry.stop     = stop
                     entry.duration = duration
                 else
-                    CustomProfiler.reportCache[functionName][index] = nil
+                    CustomProfiler.reportCache[functionName][index]  = nil
+                    CustomProfiler.reportCache[functionName]["size"] = CustomProfiler.reportCache[functionName]["size"] - 1
                 end
                 break
             end
         end
     end
-end
 
-
---- Creates a report of all the functions that were profiled into profiler_2022-11-24_20-23-00.json
----@param clearCache boolean
----@return table
----@public
-function CustomProfiler.report(clearCache)
-    local dir      = fu.GetAbsoluteDirectoryPathOfMods() .. path_separator .. "reports"
-    local filename = ("%s_profiler_%s_%s.html"):format(os.date("%Y-%m-%d_%H-%M-%S", os.time()), whoAmI(),
-                                                       NoitaMPVersion)
-    local fig1     = plotly.figure()
-
-    if not fu.Exists(dir) then
-        fu.MkDir(dir)
-    end
-
-    for functionName in pairs(CustomProfiler.reportCache) do
+    if CustomProfiler.reportCache[functionName]["size"] >= CustomProfiler.maxEntries then
         local x = {}
         local y = {}
         for index in orderedPairs(CustomProfiler.reportCache[functionName]) do
-            local entry = CustomProfiler.reportCache[functionName][index]
-            if entry.frame and entry.duration then
-                if entry.duration > CustomProfiler.ceiling then
-                    entry.duration = CustomProfiler.ceiling
+            local entry2 = CustomProfiler.reportCache[functionName][index]
+            if entry2.frame and entry2.duration then
+                if entry2.duration > CustomProfiler.ceiling then
+                    entry2.duration = CustomProfiler.ceiling
                 end
-                table.insert(x, entry.frame)
-                table.insert(y, entry.duration)
+                table.insert(x, entry2.frame)
+                table.insert(y, entry2.duration)
+                CustomProfiler.reportCache[functionName][index]  = nil
+                CustomProfiler.reportCache[functionName]["size"] = CustomProfiler.reportCache[functionName]["size"] - 1
             end
+
         end
-        fig1:add_trace {
+        local data              = {
             x       = x,
             y       = y,
             mode    = "lines",
@@ -128,8 +129,18 @@ function CustomProfiler.report(clearCache)
             line    = { width = 1 },
             opacity = 0.75,
             font    = { size = 8 },
+
         }
+        local fig1              = plotly.figure()
+        fig1:write_trace_to_file(data, CustomProfiler.reportDirectory)
+        CustomProfiler.reportCache[functionName] = nil
     end
+end
+
+--- Creates a report of all the functions that were profiled into profiler_2022-11-24_20-23-00.json
+---@public
+function CustomProfiler.report()
+    local fig1 = plotly.figure()
 
     fig1:update_layout {
         width  = 1920,
@@ -142,13 +153,8 @@ function CustomProfiler.report(clearCache)
         scrollZoom = true,
         responsive = true
     }
-    fig1:tofile(dir .. path_separator .. filename)
-
-    if clearCache then
-        CustomProfiler.reportCache = {}
-    end
-
-    ModSettingSetNextValue("noita-mp.toggle_profiler", false, false)
+    fig1:tofilewithjsondatafile(CustomProfiler.reportDirectory .. path_separator .. CustomProfiler.reportFilename,
+                                CustomProfiler.reportDirectory)
 end
 
 -- Because of stack overflow errors when loading lua files,

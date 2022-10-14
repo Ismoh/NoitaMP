@@ -880,12 +880,12 @@ function Client.new(sockClient)
     --- Checks if the current local user is a client
     --- @return boolean iAm true if client
     function self.amIClient()
-        local cpc24 = CustomProfiler.start("Client.amIClient")
+        --local cpc24 = CustomProfiler.start("Client.amIClient") DO NOT PROFILE, stack overflow error! See CustomProfiler.lua
         if not _G.Server.amIServer() then
-            CustomProfiler.stop("Client.amIClient", cpc24)
+            --CustomProfiler.stop("Client.amIClient", cpc24)
             return true
         end
-        CustomProfiler.stop("Client.amIClient", cpc24)
+        --CustomProfiler.stop("Client.amIClient", cpc24)
         return false
     end
 

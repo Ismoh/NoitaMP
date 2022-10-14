@@ -394,6 +394,16 @@ function fu.MkDir(full_path)
     os.execute(command)
 end
 
+function fu.AppendToFile(filenameAbsolutePath, appendContent) -- TODO rework: have a look on plotly.lua ">>"
+    local file = io.open(filenameAbsolutePath, "a+")
+    for line in io.lines(filenameAbsolutePath) do
+        if line == nil then
+            file:write(appendContent)
+        end
+    end
+    file:close()
+end
+
 ---comment
 --- http://lua-users.org/wiki/SplitJoin -> Example: Split a file path string into components.
 ---@param str any
