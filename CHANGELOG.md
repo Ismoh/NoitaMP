@@ -1,5 +1,13 @@
 # Changelog
 
+## [v2.6.5-alpha+1143](https://github.com/Ismoh/NoitaMP/tree/v2.6.5-alpha+1143) (14.10.2022)
+
+[Full Changelog](https://github.com/Ismoh/NoitaMP/compare/v2.6.4-alpha+1138...v2.6.5-alpha+1143)
+
+**Merged pull requests:**
+
+- Bump HardNorth/github-version-generate from 1.2.0 to 1.3.0 [\#83](https://github.com/Ismoh/NoitaMP/pull/83) [[dependencies](https://github.com/Ismoh/NoitaMP/labels/dependencies)] [[github_actions](https://github.com/Ismoh/NoitaMP/labels/github_actions)] ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v2.6.4-alpha+1138](https://github.com/Ismoh/NoitaMP/tree/v2.6.4-alpha+1138) (07.10.2022)
 
 [Full Changelog](https://github.com/Ismoh/NoitaMP/compare/v2.6.3-alpha+1134...v2.6.4-alpha+1138)
