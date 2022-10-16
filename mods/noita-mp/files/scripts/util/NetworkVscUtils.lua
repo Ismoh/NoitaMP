@@ -22,16 +22,21 @@ local idcounter = 0
 --#region Global private functions
 
 local function isEmpty(var)
+    local cpc = CustomProfiler.start("NetworkVscUtils.isEmpty")
     -- if you change this also change NetworkVscUtils.lua
     if var == nil then
+        CustomProfiler.start("NetworkVscUtils.isEmpty", cpc)
         return true
     end
     if var == "" then
+        CustomProfiler.start("NetworkVscUtils.isEmpty", cpc)
         return true
     end
     if type(var) == "table" and not next(var) then
+        CustomProfiler.start("NetworkVscUtils.isEmpty", cpc)
         return true
     end
+    CustomProfiler.start("NetworkVscUtils.isEmpty", cpc)
     return false
 end
 
@@ -44,7 +49,9 @@ end
 --- @return number|boolean compId The specific componentId, which contains the searched value or false if there isn't any Component
 --- @return string value The components value
 local function checkIfSpecificVscExists(entityId, componentTypeName, fieldNameForMatch, matchValue, fieldNameForValue)
+    local cpc = CustomProfiler.start("NetworkVscUtils.checkIfSpecificVscExists")
     if not EntityUtils.isEntityAlive(entityId) then
+        CustomProfiler.stop("NetworkVscUtils.checkIfSpecificVscExists", cpc)
         return
     end
 
@@ -52,6 +59,7 @@ local function checkIfSpecificVscExists(entityId, componentTypeName, fieldNameFo
     if isEmpty(componentIds) then
         logger:debug(logger.channels.vsc, "Entity(%s) does not have any %s. Returning nil.", entityId,
                      componentTypeName)
+        CustomProfiler.stop("NetworkVscUtils.checkIfSpecificVscExists", cpc)
         return false
     end
 
@@ -65,11 +73,13 @@ local function checkIfSpecificVscExists(entityId, componentTypeName, fieldNameFo
             local value = tostring(ComponentGetValue2(componentId, fieldNameForValue))
             NetworkVscUtils.enableComponent(entityId, componentId)
             -- return componentId and value
+            CustomProfiler.stop("NetworkVscUtils.checkIfSpecificVscExists", cpc)
             return componentIds[i], value
         end
     end
     logger:warn(logger.channels.vsc, "Looks like the %s.%s does not exists on entity(%s). Returning nil!",
                 componentTypeName, fieldNameForMatch, entityId)
+    CustomProfiler.stop("NetworkVscUtils.checkIfSpecificVscExists", cpc)
     return false
 end
 
@@ -77,7 +87,9 @@ end
 ---@param entityId number Id of an entity provided by Noita
 ---@param ownerName string This is the owner of an entity. Owners name.
 local function addOrUpdateVscForOwnerName(entityId, ownerName)
+    local cpc = CustomProfiler.start("NetworkVscUtils.addOrUpdateVscForOwnerName")
     if not EntityUtils.isEntityAlive(entityId) then
+        CustomProfiler.stop("NetworkVscUtils.addOrUpdateVscForOwnerName", cpc)
         return
     end
 
@@ -100,6 +112,7 @@ local function addOrUpdateVscForOwnerName(entityId, ownerName)
                      entityId,
                      compOwnerName
         )
+        CustomProfiler.stop("NetworkVscUtils.addOrUpdateVscForOwnerName", cpc)
         return compId
     else
         compId = EntityAddComponent2(entityId, "VariableStorageComponent", {
@@ -113,15 +126,19 @@ local function addOrUpdateVscForOwnerName(entityId, ownerName)
                      compId,
                      entityId
         )
+        CustomProfiler.stop("NetworkVscUtils.addOrUpdateVscForOwnerName", cpc)
         return compId
     end
 
     logger:error("Unable to add ownerNameVsc! Returning nil!")
+    CustomProfiler.start("NetworkVscUtils.addOrUpdateVscForOwnerName", cpc)
     return nil
 end
 
 local function addOrUpdateVscForOwnerGuid(entityId, ownerGuid)
+    local cpc = CustomProfiler.start("NetworkVscUtils.addOrUpdateVscForOwnerGuid")
     if not EntityUtils.isEntityAlive(entityId) then
+        CustomProfiler.stop("NetworkVscUtils.addOrUpdateVscForOwnerGuid", cpc)
         return
     end
 
@@ -144,6 +161,7 @@ local function addOrUpdateVscForOwnerGuid(entityId, ownerGuid)
                      entityId,
                      compOwnerGuid
         )
+        CustomProfiler.stop("NetworkVscUtils.addOrUpdateVscForOwnerGuid", cpc)
         return compId
     else
         compId = EntityAddComponent2(entityId, "VariableStorageComponent", {
@@ -157,15 +175,19 @@ local function addOrUpdateVscForOwnerGuid(entityId, ownerGuid)
                      compId,
                      entityId
         )
+        CustomProfiler.stop("NetworkVscUtils.addOrUpdateVscForOwnerGuid", cpc)
         return compId
     end
 
     logger:error("Unable to add ownerGuidVsc! Returning nil!")
+    CustomProfiler.stop("NetworkVscUtils.addOrUpdateVscForOwnerGuid", cpc)
     return nil
 end
 
 local function addOrUpdateVscForNuid(entityId, nuid)
+    local cpc = CustomProfiler.start("NetworkVscUtils.addOrUpdateVscForNuid")
     if not EntityUtils.isEntityAlive(entityId) then
+        CustomProfiler.stop("NetworkVscUtils.addOrUpdateVscForNuid", cpc)
         return
     end
 
@@ -192,6 +214,7 @@ local function addOrUpdateVscForNuid(entityId, nuid)
                      compId,
                      entityId
         )
+        CustomProfiler.stop("NetworkVscUtils.addOrUpdateVscForNuid", cpc)
         return compId
     end
 
@@ -208,17 +231,21 @@ local function addOrUpdateVscForNuid(entityId, nuid)
                      compId,
                      entityId
         )
+        CustomProfiler.stop("NetworkVscUtils.addOrUpdateVscForNuid", cpc)
         return compId
     end
 
     logger:error("Unable to add nuidVsc! Returning nil!")
+    CustomProfiler.stop("NetworkVscUtils.addOrUpdateVscForNuid", cpc)
     return nil
 end
 
 --- Adds a LuaComponent for the nuid debugger.
 ---@param entityId number Id of an entity provided by Noita
 local function addNuidDebugger(entityId)
+    local cpc = CustomProfiler.start("NetworkVscUtils.addNuidDebugger")
     if not EntityUtils.isEntityAlive(entityId) then
+        CustomProfiler.stop("NetworkVscUtils.addNuidDebugger", cpc)
         return
     end
     local compId, compOwnerName = checkIfSpecificVscExists(
@@ -226,6 +253,7 @@ local function addNuidDebugger(entityId)
             NetworkVscUtils.componentNameOfNuidDebugger, "script_source_file")
     if compId then
         logger:debug(logger.channels.vsc, "Entity(%s) already has a nuid debugger.")
+        CustomProfiler.stop("NetworkVscUtils.addNuidDebugger", cpc)
         return compId
     else
         compId = EntityAddComponent2(entityId, "LuaComponent", {
@@ -240,17 +268,21 @@ local function addNuidDebugger(entityId)
                      compId,
                      entityId
         )
+        CustomProfiler.stop("NetworkVscUtils.addNuidDebugger", cpc)
         return compId
     end
 
     logger:error("Unable to add nuid debugger! Returning nil!")
+    CustomProfiler.stop("NetworkVscUtils.addNuidDebugger", cpc)
     return nil
 end
 
 --- Adds a LuaComponent for the nuid updater.
 ---@param entityId number Id of an entity provided by Noita
 local function addNuidUpdater(entityId)
+    local cpc = CustomProfiler.start("NetworkVscUtils.addNuidUpdater")
     if not EntityUtils.isEntityAlive(entityId) then
+        CustomProfiler.stop("NetworkVscUtils.addNuidUpdater", cpc)
         return
     end
     local compId, compOwnerName = checkIfSpecificVscExists(
@@ -258,6 +290,7 @@ local function addNuidUpdater(entityId)
             NetworkVscUtils.componentNameOfNuidUpdater, "script_source_file")
     if compId then
         logger:debug(logger.channels.vsc, "Entity(%s) already has a nuid updater.")
+        CustomProfiler.stop("NetworkVscUtils.addNuidUpdater", cpc)
         return compId
     else
         compId = EntityAddComponent2(entityId, "LuaComponent", {
@@ -274,15 +307,19 @@ local function addNuidUpdater(entityId)
                      compId,
                      entityId
         )
+        CustomProfiler.stop("NetworkVscUtils.addNuidUpdater", cpc)
         return compId
     end
 
     logger:error("Unable to add nuid updater! Returning nil!")
+    CustomProfiler.stop("NetworkVscUtils.addNuidUpdater", cpc)
     return nil
 end
 
 local function getNetworkComponents(entityId)
+    local cpc = CustomProfiler.start("NetworkVscUtils.getNetworkComponents")
     if not EntityUtils.isEntityAlive(entityId) then
+        CustomProfiler.stop("NetworkVscUtils.getNetworkComponents", cpc)
         return
     end
     local ownerNameCompId                            = checkIfSpecificVscExists(
@@ -301,6 +338,7 @@ local function getNetworkComponents(entityId)
             entityId, "LuaComponent", "script_source_file",
             NetworkVscUtils.componentNameOfNuidUpdater, "script_source_file")
 
+    CustomProfiler.stop("NetworkVscUtils.getNetworkComponents", cpc)
     return ownerNameCompId, ownerGuidCompId, nuidCompId, componentIdForNuidDebugger, componentIdForNuidUpdater
 end
 
@@ -331,7 +369,9 @@ NetworkVscUtils.componentNameOfNuidUpdater   = "nuid_updater.lua"
 ---@return integer|nil componentIdForOwnerGuid
 ---@return integer|nil componentIdForNuid
 function NetworkVscUtils.addOrUpdateAllVscs(entityId, ownerName, ownerGuid, nuid)
+    local cpc = CustomProfiler.start("NetworkVscUtils.addOrUpdateAllVscs")
     if not EntityUtils.isEntityAlive(entityId) then
+        CustomProfiler.stop("NetworkVscUtils.addOrUpdateAllVscs", cpc)
         return
     end
 
@@ -351,6 +391,7 @@ function NetworkVscUtils.addOrUpdateAllVscs(entityId, ownerName, ownerGuid, nuid
                               componentIdForNuidDebugger, componentIdForNuidUpdater), 2)
     end
 
+    CustomProfiler.stop("NetworkVscUtils.addOrUpdateAllVscs", cpc)
     return componentIdForOwnerName, componentIdForOwnerGuid, componentIdForNuid, componentIdForNuidDebugger, componentIdForNuidUpdater
 end
 
@@ -360,10 +401,13 @@ end
 --- @return string ownerGuid
 --- @return number nuid
 function NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
+    local cpc = CustomProfiler.start("NetworkVscUtils.getAllVcsValuesByEntityId")
     if not EntityUtils.isEntityAlive(entityId) then
+        CustomProfiler.stop("NetworkVscUtils.getAllVcsValuesByEntityId", cpc)
         return
     end
     local ownerNameCompId, ownerGuidCompId, nuidCompId, componentIdForNuidDebugger, componentIdForNuidUpdater = getNetworkComponents(entityId)
+    CustomProfiler.stop("NetworkVscUtils.getAllVcsValuesByEntityId", cpc)
     return NetworkVscUtils.getAllVcsValuesByComponentIds(ownerNameCompId, ownerGuidCompId, nuidCompId)
 end
 
@@ -375,17 +419,22 @@ end
 ---@return string ownerGuid
 ---@return number nuid
 function NetworkVscUtils.getAllVcsValuesByComponentIds(ownerNameCompId, ownerGuidCompId, nuidCompId)
+    local cpc = CustomProfiler.start("NetworkVscUtils.getAllVcsValuesByComponentIds")
     local compOwnerName = ComponentGetValue2(ownerNameCompId, NetworkVscUtils.valueString)
     local compOwnerGuid = ComponentGetValue2(ownerGuidCompId, NetworkVscUtils.valueString)
     local compNuid      = ComponentGetValue2(nuidCompId, NetworkVscUtils.valueString)
 
+    CustomProfiler.stop("NetworkVscUtils.getAllVcsValuesByComponentIds", cpc)
     return compOwnerName, compOwnerGuid, tonumber(compNuid)
 end
 
 function NetworkVscUtils.isNetworkEntityByNuidVsc(entityId)
+    local cpc = CustomProfiler.start("NetworkVscUtils.isNetworkEntityByNuidVsc")
     if not EntityUtils.isEntityAlive(entityId) then
+        CustomProfiler.stop("NetworkVscUtils.isNetworkEntityByNuidVsc", cpc)
         return
     end
+    CustomProfiler.stop("NetworkVscUtils.isNetworkEntityByNuidVsc", cpc)
     return checkIfSpecificVscExists(
             entityId, NetworkVscUtils.variableStorageComponentName, NetworkVscUtils.name,
             NetworkVscUtils.componentNameOfNuid, NetworkVscUtils.valueString)
@@ -395,21 +444,27 @@ end
 --- @param entityId number
 --- @return boolean|number return false|nuid : Returns false, if there is no NuidVsc or nuid is empty. Returns nuid, if set.
 function NetworkVscUtils.hasNuidSet(entityId)
+    local cpc = CustomProfiler.start("NetworkVscUtils.hasNuidSet")
     local nuidCompId, nuid = checkIfSpecificVscExists(entityId, NetworkVscUtils.variableStorageComponentName,
                                                       NetworkVscUtils.name,
                                                       NetworkVscUtils.componentNameOfNuid, NetworkVscUtils.valueString)
 
     if not nuidCompId then
+        CustomProfiler.stop("NetworkVscUtils.hasNuidSet", cpc)
         return false
     end
     if not nuid or nuid == "" then
+        CustomProfiler.stop("NetworkVscUtils.hasNuidSet", cpc)
         return false
     end
+    CustomProfiler.stop("NetworkVscUtils.hasNuidSet", cpc)
     return tonumber(nuid)
 end
 
 function NetworkVscUtils.hasNetworkLuaComponents(entityId)
+    local cpc = CustomProfiler.start("NetworkVscUtils.hasNetworkLuaComponents")
     if not EntityUtils.isEntityAlive(entityId) then
+        CustomProfiler.stop("NetworkVscUtils.hasNetworkLuaComponents", cpc)
         return
     end
     local has                  = false
@@ -423,11 +478,14 @@ function NetworkVscUtils.hasNetworkLuaComponents(entityId)
     if nuid_debugger and nuid_updater then
         has = true
     end
+    CustomProfiler.stop("NetworkVscUtils.hasNetworkLuaComponents", cpc)
     return has
 end
 
 function NetworkVscUtils.enableComponents(entityId)
+    local cpc = CustomProfiler.start("NetworkVscUtils.enableComponents")
     if not EntityUtils.isEntityAlive(entityId) then
+        CustomProfiler.stop("NetworkVscUtils.enableComponents", cpc)
         return
     end
     local ownerNameCompId, ownerGuidCompId, nuidCompId, componentIdForNuidDebugger, componentIdForNuidUpdater = getNetworkComponents(entityId)
@@ -436,10 +494,13 @@ function NetworkVscUtils.enableComponents(entityId)
     NetworkVscUtils.enableComponent(entityId, nuidCompId)
     NetworkVscUtils.enableComponent(entityId, componentIdForNuidDebugger)
     NetworkVscUtils.enableComponent(entityId, componentIdForNuidUpdater)
+    CustomProfiler.stop("NetworkVscUtils.enableComponents", cpc)
 end
 
 function NetworkVscUtils.enableComponent(entityId, componentId)
+    local cpc = CustomProfiler.start("NetworkVscUtils.enableComponent")
     if not EntityUtils.isEntityAlive(entityId) then
+        CustomProfiler.stop("NetworkVscUtils.enableComponent", cpc)
         return
     end
     if not ComponentGetIsEnabled(componentId) then
@@ -447,6 +508,7 @@ function NetworkVscUtils.enableComponent(entityId, componentId)
                     componentId)
         EntitySetComponentIsEnabled(entityId, componentId, true)
     end
+    CustomProfiler.stop("NetworkVscUtils.enableComponent", cpc)
 end
 
 --#endregion

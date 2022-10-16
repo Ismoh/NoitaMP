@@ -23,6 +23,7 @@ local xmlParsed = false
 --#region Global private functions
 
 local function getNextNuid()
+    local cpc = CustomProfiler.start("NuidUtils.getNextNuid")
     if _G.whoAmI() ~= _G.Server.iAm then
         error(("Unable to get next nuid, because looks like you aren't a server?! - whoAmI = %s"):format(whoAmI), 2)
     end
@@ -53,6 +54,7 @@ local function getNextNuid()
         xmlParsed = true
     end
     counter = counter + 1
+    CustomProfiler.stop("NuidUtils.getNextNuid", cpc)
     return counter
 end
 

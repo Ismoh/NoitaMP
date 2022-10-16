@@ -13,12 +13,11 @@ local util                               = require("util")
 local fu                                 = require("file_util")
 
 CustomProfiler                           = {}
-CustomProfiler.keys                      = { "", "", "", "", "" }
 CustomProfiler.reportCache               = {}
 CustomProfiler.counter                   = 1
-CustomProfiler.threshold                 = 1 -- ms
+CustomProfiler.threshold                 = 0.5 -- ms
 CustomProfiler.ceiling                   = 1001 -- ms
-CustomProfiler.maxEntries                = 100
+CustomProfiler.maxEntries                = 50 -- entries per trace
 CustomProfiler.reportDirectory           = ("%s%sreports%s%s"):format(fu.GetAbsoluteDirectoryPathOfMods(),
                                                                       path_separator, path_separator,
                                                                       os.date("%Y-%m-%d_%H-%M-%S",

@@ -152,9 +152,9 @@ function Ui.new()
     local function drawFolding()
         local text = ""
         if foldingOpen then
-            self.ezguiFoldingData.data.text = ("[- NoitaMP] %s"):format(_G.NoitaMPVersion)
+            self.ezguiFoldingData.data.text = ("[- NoitaMP] %s %s"):format(_G.NoitaMPVersion, GameGetFrameNum())
         else
-            self.ezguiFoldingData.data.text = ("[+ NoitaMP]")
+            self.ezguiFoldingData.data.text = ("[+ NoitaMP] %s"):format(GameGetFrameNum())
         end
 
         renderEzgui(0, height - 10, "mods/noita-mp/files/data/ezgui/FoldingMenu.xml", self.ezguiFoldingData)

@@ -174,9 +174,9 @@ function OnWorldPreUpdate()
     CustomProfiler.stop("init.OnWorldPreUpdate", cpc)
 end
 
-function OnWorldPostUpdate()
-    local cpc = CustomProfiler.start("init.OnWorldPostUpdate")
-    Server.update()
-    Client.update()
-    CustomProfiler.stop("init.OnWorldPostUpdate", cpc)
-end
+--function OnWorldPostUpdate()
+--    local cpc = CustomProfiler.start("init.OnWorldPostUpdate")
+--    Server.update()
+--    Client.update()
+--    CustomProfiler.stop("init.OnWorldPostUpdate", cpc)
+--end

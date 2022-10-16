@@ -107,6 +107,7 @@ end
 --- Including polymorphed entity id. When polymorphed, entityId will be the new one and not minäs anymore.
 --- @return table playerInfo { name, guid, entityId }
 function util.getLocalPlayerInfo()
+    local cpc = CustomProfiler.start("util.getLocalPlayerInfo")
     local ownerName = tostring(ModSettingGet("noita-mp.name"))
     local ownerGuid = tostring(ModSettingGet("noita-mp.guid"))
     local entityId  = EntityUtils.getLocalPlayerEntityId()
@@ -131,6 +132,7 @@ function util.getLocalPlayerInfo()
     end
 
     local name, guid, nuid = NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
+    CustomProfiler.stop("util.getLocalPlayerInfo", cpc)
     return {
         name     = tostring(ModSettingGet("noita-mp.name")),
         guid     = tostring(ModSettingGet("noita-mp.guid")),

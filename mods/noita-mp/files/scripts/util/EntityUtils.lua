@@ -307,6 +307,7 @@ function EntityUtils.initNetworkVscs()
 end
 
 function EntityUtils.processEntityNetworking()
+    -- TODO: FPS DROPS HERE
     local cpc              = CustomProfiler.start("EntityUtils.processEntityNetworking")
 
     local radius           = tonumber(ModSettingGetNextValue("noita-mp.radius_include_entities"))
@@ -441,13 +442,13 @@ function EntityUtils.SpawnEntity(owner, nuid, x, y, rotation, velocity, filename
 end
 
 function EntityUtils.syncEntityData()
-    local cpc              = CustomProfiler.start("EntityUtils.syncEntityData")
+    local cpc             = CustomProfiler.start("EntityUtils.syncEntityData")
     --if GameGetFrameNum() % 5 ~= 0 then
     --    -- TODO: add this to modSettings
     --    return
     --end
 
-    local clientOrServer   = NetworkUtils.getClientOrServer()
+    local clientOrServer  = NetworkUtils.getClientOrServer()
 
     --if _G.whoAmI() == Client.iAm then
     --    clientOrServer = Client
@@ -457,7 +458,7 @@ function EntityUtils.syncEntityData()
     --    error("Unable to identify whether I am Client or Server..", 3)
     --end
 
-    local anythingChanged  = function(entityId)
+    local anythingChanged = function(entityId)
         local cpc1                                                                               = CustomProfiler.start("EntityUtils.syncEntityData.anythingChanged")
         local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
         if compOwnerGuid ~= util.getLocalPlayerInfo().guid then
@@ -539,15 +540,20 @@ function EntityUtils.syncEntityData()
         return false
     end
 
-    local radius           = tonumber(ModSettingGetNextValue("noita-mp.radius_include_entities"))
+    local cpc2            = CustomProfiler.start("EntityUtils.syncEntityData.ModSettingGetNextValue")
+    local radius          = tonumber(ModSettingGetNextValue("noita-mp.radius_include_entities"))
+    CustomProfiler.stop("EntityUtils.syncEntityData.ModSettingGetNextValue", cpc2)
     local filteredEntities = getFilteredEntities(radius, EntityUtils.include, EntityUtils.exclude,
                                                  NetworkVscUtils.isNetworkEntityByNuidVsc,
                                                  anythingChanged)
 
+    local cpc2             = CustomProfiler.start("EntityUtils.syncEntityData.for")
     for i = 1, #filteredEntities do
+        -- TODO: FPS DROPS HERE!
         local entityId = filteredEntities[i]
         clientOrServer.sendEntityData(entityId)
     end
+    CustomProfiler.stop("EntityUtils.syncEntityData.for", cpc2)
     CustomProfiler.stop("EntityUtils.syncEntityData", cpc)
 end
 
@@ -677,8 +683,8 @@ function EntityUtils.destroyByNuid(nuid)
     EntityUtils.cachedEntityIds[entityId] = EntityUtils.entityStatus.destroyed
 
     -- Remove entityId from cache
-    local clientOrServer                 = NetworkUtils.getClientOrServer()
-    clientOrServer.entityCache[entityId] = nil
+    local clientOrServer                  = NetworkUtils.getClientOrServer()
+    clientOrServer.entityCache[entityId]  = nil
     CustomProfiler.stop("EntityUtils.destroyByNuid", cpc)
 end
 

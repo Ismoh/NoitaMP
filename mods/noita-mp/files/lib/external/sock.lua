@@ -426,6 +426,7 @@ function Server:sendToAll(event, data)
 end
 
 function Server:sendToAll2(event, data)
+    local cpc = CustomProfiler.start("Server:sendToAll2")
     local serializedMessage = self:__pack(event, data)
 
     for _, p in pairs(self.peers) do
@@ -434,6 +435,7 @@ function Server:sendToAll2(event, data)
     end
 
     self:resetSendSettings()
+    CustomProfiler.stop("Server:sendToAll2", cpc)
 end
 
 --- Send a message to a single peer. Useful to send data to a newly connected player
