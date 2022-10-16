@@ -129,6 +129,7 @@ function CustomProfiler.stop(functionName, customProfilerCounter)
             --mode    = "lines",
       textposition="auto",
             name    = functionName,
+      text = functionName,
             --line    = { width = 1 },
             opacity = 0.75,
             --font    = { size = 8 },
