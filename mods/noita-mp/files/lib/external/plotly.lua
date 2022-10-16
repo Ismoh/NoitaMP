@@ -3,7 +3,7 @@ local lfs         = require("lfs")
 
 local plotly      = {}
 
-plotly.cdn_main   = "<script src='https://cdn.plot.ly/plotly-2.9.0.min.js'></script>"
+plotly.cdn_main   = "<script src='https://cdn.plot.ly/plotly-2.16.0.min.js'></script>"
 plotly.header     = ""
 plotly.body       = ""
 plotly.id_count   = 1
