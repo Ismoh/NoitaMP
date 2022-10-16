@@ -1,5 +1,13 @@
 # Noita Multiplayer - NoitaMP
 
+## TL;DR
+
+**Currently work in progress and not working unless there is a GitHub release available!**
+
+If you want to get notifications, [join](https://discord.gg/DhMurdcw4k) my discord server. There is a MEE6 role assigment for NoitaMP in #noita-modding!
+
+## Badges
+
 <div align="center">
 
 [![platforms](https://img.shields.io/badge/platform-windows%20only-lightgrey?style=flat-square)](https://github.com/Ismoh/NoitaMP)[![ubuntu master](https://img.shields.io/github/workflow/status/ismoh/noitamp/Ubuntu%20Lua%20Unit%20Testing/master?label=&logo=ubuntu&style=flat-square)](https://github.com/Ismoh/NoitaMP/actions/workflows/ubuntu-latest-lua-unit-testing.yml?query=branch%3Amaster)[![windows master](https://img.shields.io/github/workflow/status/ismoh/noitamp/Windows%20Lua%20Unit%20Testing/master?label=&logo=windows&style=flat-square)](https://github.com/Ismoh/NoitaMP/actions/workflows/windows-latest-lua-unit-testing.yml?query=branch%3Amaster)
