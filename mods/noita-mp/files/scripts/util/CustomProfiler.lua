@@ -120,14 +120,18 @@ function CustomProfiler.stop(functionName, customProfilerCounter)
             end
 
         end
+        -- https://plotly.com/javascript/bar-charts/#grouped-bar-chart-with-direct-labels
         local data              = {
             x       = x,
             y       = y,
-            mode    = "lines",
+      type= "bar",
+            --mode    = "lines",
+      textposition="auto",
             name    = functionName,
-            line    = { width = 1 },
+      text = functionName,
+            --line    = { width = 1 },
             opacity = 0.75,
-            font    = { size = 8 },
+            --font    = { size = 8 },
 
         }
         local fig1              = plotly.figure()
@@ -146,7 +150,8 @@ function CustomProfiler.report()
         height = 1080,
         title  = "NoitaMP Profiler Report of " .. whoAmI() .. " " .. NoitaMPVersion,
         xaxis  = { title = { text = "Frames" } },
-        yaxis  = { title = { text = "Execution time [ms]" } }
+        yaxis  = { title = { text = "Execution time [ms]" } },
+    barmode="group"
     }
     fig1:update_config {
         scrollZoom = true,
