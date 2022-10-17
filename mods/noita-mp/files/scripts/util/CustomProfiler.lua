@@ -17,16 +17,16 @@ CustomProfiler.reportCache               = {}
 CustomProfiler.counter                   = 1
 CustomProfiler.threshold                 = 0.5 -- ms
 CustomProfiler.ceiling                   = 1001 -- ms
-CustomProfiler.maxEntries                = 50 -- entries per trace
-CustomProfiler.reportDirectory           = ("%s%sreports%s%s"):format(fu.GetAbsoluteDirectoryPathOfMods(),
-                                                                      path_separator, path_separator,
-                                                                      os.date("%Y-%m-%d_%H-%M-%S",
-                                                                              os.time()))
+CustomProfiler.maxEntries                = 100 -- entries per trace
+CustomProfiler.reportDirectory           = ("%s%sNoitaMP-Reports%s%s"):format(fu.getDesktopDirectory(),
+                                                                              path_separator, path_separator,
+                                                                              os.date("%Y-%m-%d_%H-%M-%S",
+                                                                                      os.time()))
 CustomProfiler.reportFilename            = "report.html"
 CustomProfiler.reportJsonFilenamePattern = "%s.json"
 
 function CustomProfiler.start(functionName)
-    if not ModSettingGetAtIndex("noita-mp.toggle_profiler") then
+    if not ModSettingGetNextValue("noita-mp.toggle_profiler") then
         return
     end
 
@@ -48,7 +48,6 @@ function CustomProfiler.start(functionName)
         CustomProfiler.reportCache[functionName]["size"] = 0
     end
     CustomProfiler.reportCache[functionName]["size"] = CustomProfiler.reportCache[functionName]["size"] + 1
-
     local returnCounter                              = CustomProfiler.counter
     CustomProfiler.counter                           = CustomProfiler.counter + 1
     return returnCounter
@@ -58,6 +57,9 @@ end
 --- @param functionName string Has to be the same as the one used in start()
 --- @param customProfilerCounter number Has to be the same as the one returned by start()
 function CustomProfiler.getDuration(functionName, customProfilerCounter)
+    if not ModSettingGetNextValue("noita-mp.toggle_profiler") then
+        return 0
+    end
     local entry    = CustomProfiler.reportCache[functionName][customProfilerCounter]
     local stop     = GameGetRealWorldTimeSinceStarted() * 1000
     local duration = stop - entry.start
@@ -65,7 +67,7 @@ function CustomProfiler.getDuration(functionName, customProfilerCounter)
 end
 
 function CustomProfiler.stop(functionName, customProfilerCounter)
-    if not ModSettingGetAtIndex("noita-mp.toggle_profiler") then
+    if not ModSettingGetNextValue("noita-mp.toggle_profiler") then
         return
     end
 
@@ -121,20 +123,20 @@ function CustomProfiler.stop(functionName, customProfilerCounter)
 
         end
         -- https://plotly.com/javascript/bar-charts/#grouped-bar-chart-with-direct-labels
-        local data              = {
-            x       = x,
-            y       = y,
-      type= "bar",
+        local data = {
+            x            = x,
+            y            = y,
+            type         = "bar",
             --mode    = "lines",
-      textposition="auto",
-            name    = functionName,
-      text = functionName,
+            textposition = "auto",
+            name         = functionName,
+            text         = functionName,
             --line    = { width = 1 },
-            opacity = 0.75,
+            opacity      = 0.75,
             --font    = { size = 8 },
 
         }
-        local fig1              = plotly.figure()
+        local fig1 = plotly.figure()
         fig1:write_trace_to_file(data, CustomProfiler.reportDirectory)
         CustomProfiler.reportCache[functionName] = nil
     end
@@ -146,12 +148,12 @@ function CustomProfiler.report()
     local fig1 = plotly.figure()
 
     fig1:update_layout {
-        width  = 1920,
-        height = 1080,
-        title  = "NoitaMP Profiler Report of " .. whoAmI() .. " " .. NoitaMPVersion,
-        xaxis  = { title = { text = "Frames" } },
-        yaxis  = { title = { text = "Execution time [ms]" } },
-    barmode="group"
+        width   = 1920,
+        height  = 1080,
+        title   = "NoitaMP Profiler Report of " .. whoAmI() .. " " .. NoitaMPVersion,
+        xaxis   = { title = { text = "Frames" } },
+        yaxis   = { title = { text = "Execution time [ms]" } },
+        barmode = "group"
     }
     fig1:update_config {
         scrollZoom = true,

@@ -1,0 +1,54 @@
+name: Git submodule updater
+
+on:
+  push:
+    branches:
+      - *
+  schedule:
+    - cron: '0 6 * * 0'
+  workflow_dispatch:
+
+jobs:
+  update-submodules:
+    name: Update submodules
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+          persist-credentials: false
+      
+#      - name: Import GPG key
+#        id: import-gpg
+#        uses: crazy-max/ghaction-import-gpg@v5.1.0
+#        with:
+#          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+#          passphrase: ${{ secrets.GPG_PASS }}
+#          git_config_global: true
+#          git_user_signingkey: true
+#          git_commit_gpgsign: true
+      
+      - name: Update submodules
+        run: |
+          git submodule foreach 'git fetch -t --unshallow
+            git checkout "$(git describe --tags --abbrev=0 origin/HEAD)"'
+          
+      - name: Try to commit
+        run: |
+          if git commit -am"$(
+              echo 'Update submodules (automated)'
+              echo
+              git submodule status | grep '^+' | cut '-d ' -f2-
+              )"; then
+            ./configure
+            make
+            git push
+          fi
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GH_PASS }}
+#          GIT_AUTHOR_NAME: ${{ steps.import-gpg.outputs.name }}
+#          GIT_AUTHOR_EMAIL: ${{ steps.import-gpg.outputs.email }}
+#          GIT_COMMITTER_NAME: ${{ steps.import-gpg.outputs.name }}
+#          GIT_COMMITTER_EMAIL: ${{ steps.import-gpg.outputs.email }}

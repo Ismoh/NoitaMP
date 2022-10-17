@@ -135,7 +135,7 @@ function fu.GetAbsolutePathOfNoitaRootDirectory()
 end
 
 ----------------------------------------------------------------------------------------------------
--- Noita world and savegame specific functions
+--- Noita world and savegame specific functions
 ----------------------------------------------------------------------------------------------------
 
 --- Return the parent directory of the savegame directory save06.
@@ -260,7 +260,7 @@ function fu.getLastModifiedSaveSlots()
 end
 
 ----------------------------------------------------------------------------------------------------
--- File and Directory checks, writing and reading
+--- File and Directory checks, writing and reading
 ----------------------------------------------------------------------------------------------------
 
 --- Checks if FILE or DIRECTORY exists
@@ -446,7 +446,7 @@ function fu.removeContentOfDirectory(absolutePath)
 end
 
 ----------------------------------------------------------------------------------------------------
--- 7zip stuff
+--- 7zip stuff
 ----------------------------------------------------------------------------------------------------
 
 function fu.Find7zipExecutable()
@@ -608,6 +608,21 @@ function fu.getAllModSpecificLuaScriptFilenames()
         filenames[i] = string.trim(filenames[i]):gsub("%.lua", ""):lower()
     end
     return filenames
+end
+
+function fu.getDesktopDirectory()
+    local command = nil
+    if _G.is_windows then
+        command = "echo %USERPROFILE%\\Desktop"
+    else
+        error("Unix system are not supported yet :(", 2)
+        return {}
+    end
+
+    local file    = assert(io.popen(command, "r"))
+    local content = file:read("*a")
+    file:close()
+    return string.trim(content)
 end
 
 return fu
