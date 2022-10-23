@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2022-10-23T17:45:18.281Z" agent="5.0 (Linux; Android 11; Lenovo TB-J706F) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36" etag="bkqf0_q4VucsyBgEgVkb" version="20.5.1" type="github">
+<mxfile host="app.diagrams.net" modified="2022-10-23T17:56:53.422Z" agent="5.0 (Linux; Android 11; Lenovo TB-J706F) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36" etag="-6Kiqn-O21EK5pLBsRmf" version="20.5.1" type="github">
   <diagram id="6a731a19-8d31-9384-78a2-239565b7b9f0" name="Page-1">
     <mxGraphModel dx="-45" dy="489" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="none" math="0" shadow="0">
       <root>
@@ -49,11 +49,11 @@
         <mxCell id="993" value="&lt;span&gt;First synchronous multiplayer mod&lt;/span&gt;" style="text;html=1;resizable=0;points=[];autosize=1;align=left;verticalAlign=top;spacingTop=-4;fontSize=35;fontFamily=Verdana;fontColor=#888888;" parent="1" vertex="1">
           <mxGeometry x="892" y="163" width="560" height="50" as="geometry" />
         </mxCell>
-        <mxCell id="994" value="&lt;div style=&quot;line-height: 150%&quot;&gt;IT&#39;S ALL ABOUT&amp;nbsp;&lt;br&gt;&lt;span&gt;VISION-TRACKING&lt;/span&gt;&lt;/div&gt;" style="text;html=1;resizable=0;points=[];autosize=1;align=left;verticalAlign=top;spacingTop=-4;fontSize=24;fontFamily=Verdana;fontColor=#DDDDDD;fontStyle=1" parent="1" vertex="1">
-          <mxGeometry x="1275" y="604" width="240" height="70" as="geometry" />
+        <mxCell id="994" value="&lt;div style=&quot;line-height: 150%&quot;&gt;HOW ABOUT A PRETTY GUI?&lt;/div&gt;" style="text;html=1;resizable=0;points=[];autosize=1;align=left;verticalAlign=top;spacingTop=-4;fontSize=24;fontFamily=Verdana;fontColor=#DDDDDD;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="1229" y="621" width="340" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="995" value="&lt;div&gt;GIVE ME SPACE&lt;/div&gt;" style="text;html=1;resizable=0;points=[];autosize=1;align=left;verticalAlign=top;spacingTop=-4;fontSize=24;fontFamily=Verdana;fontColor=#DDDDDD;fontStyle=1" parent="1" vertex="1">
-          <mxGeometry x="948.9999999999999" y="875" width="210" height="30" as="geometry" />
+        <mxCell id="995" value="&lt;div&gt;IT&#39;S ALL ABOUT WORLD&lt;/div&gt;&lt;div&gt;SYNCHRONISATION&lt;/div&gt;" style="text;html=1;resizable=0;points=[];autosize=1;align=left;verticalAlign=top;spacingTop=-4;fontSize=24;fontFamily=Verdana;fontColor=#DDDDDD;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="933.9999999999999" y="840" width="280" height="70" as="geometry" />
         </mxCell>
         <mxCell id="996" value="&lt;div style=&quot;line-height: 150%&quot;&gt;USE A CONSISTENT&amp;nbsp;&lt;br&gt;&lt;span&gt;STYLE&lt;/span&gt;&lt;/div&gt;" style="text;html=1;resizable=0;points=[];autosize=1;align=left;verticalAlign=top;spacingTop=-4;fontSize=24;fontFamily=Verdana;fontColor=#DDDDDD;fontStyle=1" parent="1" vertex="1">
           <mxGeometry x="1275" y="1102" width="270" height="70" as="geometry" />
@@ -334,6 +334,9 @@
             <mxPoint x="1195" y="1202" as="sourcePoint" />
             <mxPoint x="1201" y="1206" as="targetPoint" />
           </mxGeometry>
+        </mxCell>
+        <mxCell id="vVxRvkbvnoezQDwDTsV8-1062" value="First GitHub alpha release" style="text;html=1;resizable=0;autosize=1;align=left;verticalAlign=top;points=[];fillColor=none;strokeColor=none;rounded=0;fontSize=16;fontFamily=Verdana;fontColor=#888888;spacingTop=-4;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1273" y="431" width="210" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
