@@ -58,6 +58,12 @@ NetworkUtils.events                  = {
 
     --- deadNuids is used to let clients know, which entities were killed or destroyed
     deadNuids       = { name = "deadNuids", schema = { "networkMessageId", "deadNuids" } },
+
+    --- needModList is used to let clients sync enabled mods with the server
+    needModList     = { name = "needModList", schema = { "workshop", "external"} },
+
+    --- needModContent is used to sync mod content from server to client
+    needModContent  = { name = "needModContent", schema = { "items" }}
 }
 
 --- Copy from sock.lua, because I am lazy

@@ -19,6 +19,8 @@ Server            = {}
 -- Global private variables:
 ----------------------------------------
 
+local modListCached = nil
+
 ----------------------------------------
 -- Global private methods:
 ----------------------------------------
@@ -514,6 +516,39 @@ function Server.new(sockServer)
         CustomProfiler.stop("Server.setClientInfo", cpc011)
     end
 
+    local function onNeedModList(data, peer)
+        local cpc = CustomProfiler.start("Server.onMeedModList")
+        if modListCached == nil then
+            local modXML = fu.ReadFile(fu.GetAbsoluteDirectoryPathOfParentSave() .. "\\save00\\mod_config.xml")
+            local modList = {
+                workshop = {},
+                external = {}
+            }
+            modXML:gsub('<Mod([a-zA-Z_-"]+)>', function (item)
+                if item:find('enabled="1"') ~= nil then
+                    local workshopID
+                    local name
+                    item:gsub('workshop_item_id="([0-9]+)"', function (wID)
+                        workshopID = wID
+                    end)
+                    item:gsub('name="([a-zA-Z0-9_-]+)"', function (mID)
+                        name = mID
+                    end)
+                    if workshopID == nil or name == nil then 
+                        error("onNeedModList: Failed to parse mod_config.xml", 2)
+                    end
+                    table.insert((workshopID ~= "0" and modList.workshop or modList.external), {
+                            workshopID = workshopID,
+                            name = name
+                    })
+                end
+            end)
+            modListCached = modList
+        end
+        peer:send(NetworkUtils.events.needModList.name, {NetworkUtils.getNextNetworkMessageId(), modListCached.workshop, modListCached.external})
+        CustomProfiler.stop("Server.onMeedModList", cpc)
+    end
+
     -- Called when someone connects to the server
     -- self:on("connect", function(data, peer)
     --     logger:debug(logger.channels.network, "Someone connected to the server:", util.pformat(data))
@@ -669,6 +704,9 @@ function Server.new(sockServer)
 
         self:setSchema(NetworkUtils.events.deadNuids.name, NetworkUtils.events.deadNuids.schema)
         self:on(NetworkUtils.events.deadNuids.name, onDeadNuids)
+
+        self:setSchema(NetworkUtils.events.needModList.name, NetworkUtils.events.needModList.schema)
+        self:on(NetworkUtils.events.needModList.name, onNeedModList)
 
         -- self:setSchema("duplicatedGuid", { "newGuid" })
         -- self:setSchema("worldFiles", { "relDirPath", "fileName", "fileContent", "fileIndex", "amountOfFiles" })
