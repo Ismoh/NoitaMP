@@ -63,7 +63,7 @@ NetworkUtils.events                  = {
     needModList     = { name = "needModList", schema = { "workshop", "external"} },
 
     --- needModContent is used to sync mod content from server to client
-    needModContent  = { name = "needModContent", schema = { "items" }}
+    needModContent  = { name = "needModContent", schema = { "get", "items" }}
 }
 
 --- Copy from sock.lua, because I am lazy

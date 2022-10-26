@@ -549,6 +549,32 @@ function Server.new(sockServer)
         CustomProfiler.stop("Server.onMeedModList", cpc)
     end
 
+    local function onNeedModContent(data, peer)
+        local cpc = CustomProfiler.start("Server.onMeedModList")
+        local modsToGet = data.get
+        local res = {}
+        for i, mod in ipairs(modsToGet) do
+            local modId = "0"
+            for _=1, #modListCached.workshop do 
+                if modListCached.workshop[_].name == mod then modId = modListCached.workshop[_].workshopID end
+            end
+            local pathToMod
+            if modId ~= "0"then 
+                pathToMod =("C:/Program Files (x86)/Steam/steamapps/workshop/content/881100/%s/"):format(modId)
+            else 
+                pathToMod =("C:/Program Files (x86)/Steam/steamapps/common/Noita/mods/%s/"):format(mod)
+            end
+            local archiveName = ("%s_%s_mod_sync"):format(tostring(os.date("!")), mod)
+            fu.Create7zipArchive(archiveName, pathToMod, "C:/Program Files (x86)/Steam/steamapps/common/Noita/mods/noita-mp/")
+            table.insert(res, {
+                name = mod,
+                data = fu.ReadBinaryFile(archiveName)
+            })
+        end
+        peer:send(NetworkUtils.events.needModContent.name, {NetworkUtils.getNextNetworkMessageId(), modsToGet, res})
+        CustomProfiler.stop("Server.onMeedModList", cpc)
+    end
+
     -- Called when someone connects to the server
     -- self:on("connect", function(data, peer)
     --     logger:debug(logger.channels.network, "Someone connected to the server:", util.pformat(data))
@@ -707,6 +733,9 @@ function Server.new(sockServer)
 
         self:setSchema(NetworkUtils.events.needModList.name, NetworkUtils.events.needModList.schema)
         self:on(NetworkUtils.events.needModList.name, onNeedModList)
+
+        self:setSchema(NetworkUtils.events.needModContent.name, NetworkUtils.events.needModContent.schema)
+        self:on(NetworkUtils.events.needModContent.name, onNeedModContent)
 
         -- self:setSchema("duplicatedGuid", { "newGuid" })
         -- self:setSchema("worldFiles", { "relDirPath", "fileName", "fileContent", "fileIndex", "amountOfFiles" })
