@@ -19,7 +19,6 @@ Server            = {}
 -- Global private variables:
 ----------------------------------------
 
-local modListCached = nil
 
 ----------------------------------------
 -- Global private methods:
@@ -59,6 +58,7 @@ function Server.new(sockServer)
     self.transform   = { x = 0, y = 0 }
     self.health      = { current = 234, max = 2135 }
     self.entityCache = {}
+    self.modListCached = nil
 
 
     ------------------------------------
@@ -518,7 +518,7 @@ function Server.new(sockServer)
 
     local function onNeedModList(data, peer)
         local cpc = CustomProfiler.start("Server.onMeedModList")
-        if modListCached == nil then
+        if self.modListCached == nil then
             local modXML = fu.ReadFile(fu.GetAbsoluteDirectoryPathOfParentSave() .. "\\save00\\mod_config.xml")
             local modList = {
                 workshop = {},
@@ -543,9 +543,11 @@ function Server.new(sockServer)
                     })
                 end
             end)
-            modListCached = modList
+            self.modListCached = modList
         end
-        peer:send(NetworkUtils.events.needModList.name, {NetworkUtils.getNextNetworkMessageId(), modListCached.workshop, modListCached.external})
+        peer:send(NetworkUtils.events.needModList.name,
+            { NetworkUtils.getNextNetworkMessageId(), self.modListCached.workshop, self.modListCached.external })
+
         CustomProfiler.stop("Server.onMeedModList", cpc)
     end
 
@@ -555,8 +557,8 @@ function Server.new(sockServer)
         local res = {}
         for i, mod in ipairs(modsToGet) do
             local modId = "0"
-            for _=1, #modListCached.workshop do 
-                if modListCached.workshop[_].name == mod then modId = modListCached.workshop[_].workshopID end
+            for _ = 1, #self.modListCached.workshop do
+                if self.modListCached.workshop[_].name == mod then modId = self.modListCached.workshop[_].workshopID end
             end
             local pathToMod
             if modId ~= "0"then 
