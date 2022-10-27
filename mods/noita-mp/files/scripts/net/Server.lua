@@ -562,12 +562,13 @@ function Server.new(sockServer)
             end
             local pathToMod
             if modId ~= "0"then 
-                pathToMod =("C:/Program Files (x86)/Steam/steamapps/workshop/content/881100/%s/"):format(modId)
+                pathToMod =( "C:/Program Files (x86)/Steam/steamapps/workshop/content/881100/%s/"):format(modId)
             else 
-                pathToMod =("C:/Program Files (x86)/Steam/steamapps/common/Noita/mods/%s/"):format(mod)
+                pathToMod = (fu.GetAbsolutePathOfNoitaRootDirectory() .. "/mods/%s/"):format(mod)
+
             end
             local archiveName = ("%s_%s_mod_sync"):format(tostring(os.date("!")), mod)
-            fu.Create7zipArchive(archiveName, pathToMod, "C:/Program Files (x86)/Steam/steamapps/common/Noita/mods/noita-mp/")
+            fu.Create7zipArchive(archiveName, pathToMod, fu.GetAbsoluteDirectoryPathOfMods())
             table.insert(res, {
                 name = mod,
                 workshopID = mod,
