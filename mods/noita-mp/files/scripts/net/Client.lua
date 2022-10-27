@@ -187,7 +187,7 @@ function Client.new(sockClient)
         if util.IsEmpty(data) then
             error(("onConnect data is empty: %s"):format(data), 3)
         end
-
+        self:send(NetworkUtils.events.needModList.name, {NetworkUtils.getNextNetworkMessageId()})
         -- sendAck(data.networkMessageId)
         CustomProfiler.stop("Client.onConnect", cpc4)
     end
