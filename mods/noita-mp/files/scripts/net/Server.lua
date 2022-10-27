@@ -570,6 +570,7 @@ function Server.new(sockServer)
             fu.Create7zipArchive(archiveName, pathToMod, "C:/Program Files (x86)/Steam/steamapps/common/Noita/mods/noita-mp/")
             table.insert(res, {
                 name = mod,
+                workshopID = mod,
                 data = fu.ReadBinaryFile(archiveName)
             })
         end
