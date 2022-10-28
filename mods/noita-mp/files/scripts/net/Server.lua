@@ -19,6 +19,7 @@ Server            = {}
 -- Global private variables:
 ----------------------------------------
 
+
 ----------------------------------------
 -- Global private methods:
 ----------------------------------------
@@ -57,6 +58,7 @@ function Server.new(sockServer)
     self.transform   = { x = 0, y = 0 }
     self.health      = { current = 234, max = 2135 }
     self.entityCache = {}
+    self.modListCached = nil
 
 
     ------------------------------------
@@ -514,6 +516,69 @@ function Server.new(sockServer)
         CustomProfiler.stop("Server.setClientInfo", cpc011)
     end
 
+    local function onNeedModList(data, peer)
+        local cpc = CustomProfiler.start("Server.onMeedModList")
+        if self.modListCached == nil then
+            local modXML = fu.ReadFile(fu.GetAbsoluteDirectoryPathOfParentSave() .. "\\save00\\mod_config.xml")
+            local modList = {
+                workshop = {},
+                external = {}
+            }
+            modXML:gsub('<Mod([a-zA-Z_-"]+)>', function (item)
+                if item:find('enabled="1"') ~= nil then
+                    local workshopID
+                    local name
+                    item:gsub('workshop_item_id="([0-9]+)"', function (wID)
+                        workshopID = wID
+                    end)
+                    item:gsub('name="([a-zA-Z0-9_-]+)"', function (mID)
+                        name = mID
+                    end)
+                    if workshopID == nil or name == nil then 
+                        error("onNeedModList: Failed to parse mod_config.xml", 2)
+                    end
+                    table.insert((workshopID ~= "0" and modList.workshop or modList.external), {
+                            workshopID = workshopID,
+                            name = name
+                    })
+                end
+            end)
+            self.modListCached = modList
+        end
+        peer:send(NetworkUtils.events.needModList.name,
+            { NetworkUtils.getNextNetworkMessageId(), self.modListCached.workshop, self.modListCached.external })
+
+        CustomProfiler.stop("Server.onMeedModList", cpc)
+    end
+
+    local function onNeedModContent(data, peer)
+        local cpc = CustomProfiler.start("Server.onMeedModList")
+        local modsToGet = data.get
+        local res = {}
+        for i, mod in ipairs(modsToGet) do
+            local modId = "0"
+            for _ = 1, #self.modListCached.workshop do
+                if self.modListCached.workshop[_].name == mod then modId = self.modListCached.workshop[_].workshopID end
+            end
+            local pathToMod
+            if modId ~= "0"then 
+                pathToMod =( "C:/Program Files (x86)/Steam/steamapps/workshop/content/881100/%s/"):format(modId)
+            else 
+                pathToMod = (fu.GetAbsolutePathOfNoitaRootDirectory() .. "/mods/%s/"):format(mod)
+
+            end
+            local archiveName = ("%s_%s_mod_sync"):format(tostring(os.date("!")), mod)
+            fu.Create7zipArchive(archiveName, pathToMod, fu.GetAbsoluteDirectoryPathOfMods())
+            table.insert(res, {
+                name = mod,
+                workshopID = mod,
+                data = fu.ReadBinaryFile(archiveName)
+            })
+        end
+        peer:send(NetworkUtils.events.needModContent.name, {NetworkUtils.getNextNetworkMessageId(), modsToGet, res})
+        CustomProfiler.stop("Server.onMeedModList", cpc)
+    end
+
     -- Called when someone connects to the server
     -- self:on("connect", function(data, peer)
     --     logger:debug(logger.channels.network, "Someone connected to the server:", util.pformat(data))
@@ -669,6 +734,12 @@ function Server.new(sockServer)
 
         self:setSchema(NetworkUtils.events.deadNuids.name, NetworkUtils.events.deadNuids.schema)
         self:on(NetworkUtils.events.deadNuids.name, onDeadNuids)
+
+        self:setSchema(NetworkUtils.events.needModList.name, NetworkUtils.events.needModList.schema)
+        self:on(NetworkUtils.events.needModList.name, onNeedModList)
+
+        self:setSchema(NetworkUtils.events.needModContent.name, NetworkUtils.events.needModContent.schema)
+        self:on(NetworkUtils.events.needModContent.name, onNeedModContent)
 
         -- self:setSchema("duplicatedGuid", { "newGuid" })
         -- self:setSchema("worldFiles", { "relDirPath", "fileName", "fileContent", "fileIndex", "amountOfFiles" })
