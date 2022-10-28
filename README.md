@@ -100,3 +100,11 @@ Also, special thanks to the people, who share their libraries, frameworks and ot
 
 I had to build the network library by my own, because Noita provides its own lua51.dll. I struggled to build it, if you are interested in,
 I've added all the necessary build files inside of .building/dll_building.7z and here you can see the [stackoverflow question](https://stackoverflow.com/questions/70048918/lua-5-1-package-loadlib-and-require-gcc-building-windows-dll) I've created.
+
+## Roadmap
+
+<div align="center">
+
+![NoitaMP-Roadmap](.github/NoitaMP-Roadmap.svg)
+
+</div>
