@@ -14,8 +14,7 @@ local messagePack = require("MessagePack")
 ----------------------------------------------------------------------------------------------------
 --- Client
 ----------------------------------------------------------------------------------------------------
-Client = {}
-
+Client            = {}
 ----------------------------------------
 -- Global private variables:
 ----------------------------------------
@@ -39,8 +38,8 @@ Client = {}
 --- @param sockClient table sock.lua#newClient
 --- @return table Client
 function Client.new(sockClient)
-    local cpc  = CustomProfiler.start("Client.new")
-    local self = sockClient
+    local cpc         = CustomProfiler.start("Client.new")
+    local self        = sockClient
 
     ------------------------------------
     --- Private variables:
@@ -62,7 +61,7 @@ function Client.new(sockClient)
     self.entityCache  = {}
     self.missingMods  = nil
     self.requiredMods = nil
-    self.syncedMods = false
+    self.syncedMods   = false
 
     ------------------------------------
     --- Private methods:
@@ -72,8 +71,8 @@ function Client.new(sockClient)
     --- Set clients settings
     ------------------------------------------------------------------------------------------------
     local function setConfigSettings()
-        local cpc1      = CustomProfiler.start("Client.setConfigSettings")
-        local serialize = function(anyValue)
+        local cpc1        = CustomProfiler.start("Client.setConfigSettings")
+        local serialize   = function(anyValue)
             local cpc2            = CustomProfiler.start("Client.setConfigSettings.serialize")
             --logger:debug(logger.channels.network, ("Serializing value: %s"):format(anyValue))
             local serialized      = messagePack.pack(anyValue)
@@ -357,8 +356,8 @@ function Client.new(sockClient)
             local entityId                               = util.getLocalPlayerInfo().entityId
             local compOwnerName, compOwnerGuid, compNuid = NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
 
-            self.guid   = data.newGuid
-            local cpc27 = CustomProfiler.start("ModSettingSet")
+            self.guid                                    = data.newGuid
+            local cpc27                                  = CustomProfiler.start("ModSettingSet")
             ModSettingSet("noita-mp.guid", self.guid)
             CustomProfiler.stop("ModSettingGet", cpc27)
             local cpc28 = CustomProfiler.start("ModSettingSet")
@@ -578,6 +577,7 @@ function Client.new(sockClient)
     end
 
     local function onNeedModList(data)
+        local cpc        = CustomProfiler.start("Client.onNeedModList")
         local activeMods = ModGetActiveModIDs()
         local function contains(elem)
             for _, value in pairs(activeMods) do
@@ -607,9 +607,11 @@ function Client.new(sockClient)
             self.missingMods = conflicts
             logger:info("Mod conflicts detected: Missing " .. table.concat(conflicts, ", "))
         end
+        CustomProfiler.stop("Client.onNeedModList", cpc)
     end
 
     local function onNeedModContent(data)
+        local cpc = CustomProfiler.start("Client.onNeedModContent")
         for _, v in ipairs(data.items) do
             local modName = v.name
             local modID = v.workshopID
@@ -632,6 +634,7 @@ function Client.new(sockClient)
                 end
             end
         end
+        CustomProfiler.stop("Client.onNeedModContent", cpc)
     end
 
     -- self:on(
@@ -731,11 +734,9 @@ function Client.new(sockClient)
         local cpc15    = CustomProfiler.start("Client.updateVariables")
         local entityId = util.getLocalPlayerInfo().entityId
         if entityId then
-            local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils
-                .getEntityData(entityId)
+            local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
             self.health                                                                              = health
-            self.transform                                                                           = { x = math.floor(x),
-                y = math.floor(y) }
+            self.transform                                                                           = { x = math.floor(x), y = math.floor(y) }
 
             if not compNuid then
                 self.sendNeedNuid(compOwnerName, compOwnerGuid, entityId)
@@ -880,8 +881,8 @@ function Client.new(sockClient)
                 self.acknowledge[networkMessageId] = {}
             end
 
-            self.acknowledge[networkMessageId] = { event = event, data = data, entityId = data.entityId,
-                status = NetworkUtils.events.acknowledgement.sent, sentAt = os.time() }
+            self.acknowledge[networkMessageId] = { event  = event, data = data, entityId = data.entityId,
+                                                   status = NetworkUtils.events.acknowledgement.sent, sentAt = os.time() }
         end
         CustomProfiler.stop("Client.send", cpc19)
     end
@@ -895,7 +896,7 @@ function Client.new(sockClient)
         local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
         local data                                                                               = {
             NetworkUtils.getNextNetworkMessageId(), { ownerName, ownerGuid }, entityId, x, y, rotation, velocity,
-            filename, health, EntityUtils.isEntityPolymorphed(entityId) --EntityUtils.isPlayerPolymorphed()
+            filename, health, EntityUtils.isEntityPolymorphed(entityId)--EntityUtils.isPlayerPolymorphed()
         }
 
         self:send(NetworkUtils.events.needNuid.name, data)
@@ -918,8 +919,7 @@ function Client.new(sockClient)
         --local compOwnerName, compOwnerGuid, compNuid     = NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
         local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
         local data                                                                               = {
-            NetworkUtils.getNextNetworkMessageId(), { compOwnerName, compOwnerGuid }, compNuid, x, y, rotation, velocity,
-            health
+            NetworkUtils.getNextNetworkMessageId(), { compOwnerName, compOwnerGuid }, compNuid, x, y, rotation, velocity, health
         }
 
         if util.IsEmpty(compNuid) then
