@@ -1,5 +1,13 @@
 # Changelog
 
+## [v2.6.6-alpha+1162](https://github.com/Ismoh/NoitaMP/tree/v2.6.6-alpha+1162) (28.10.2022)
+
+[Full Changelog](https://github.com/Ismoh/NoitaMP/compare/v2.6.5-alpha+1143...v2.6.6-alpha+1162)
+
+**Merged pull requests:**
+
+- Bump HarshCasper/validate-issues-over-pull-requests from 0.1.1 to 0.1.2 [\#86](https://github.com/Ismoh/NoitaMP/pull/86) [[dependencies](https://github.com/Ismoh/NoitaMP/labels/dependencies)] [[github_actions](https://github.com/Ismoh/NoitaMP/labels/github_actions)] ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v2.6.5-alpha+1143](https://github.com/Ismoh/NoitaMP/tree/v2.6.5-alpha+1143) (14.10.2022)
 
 [Full Changelog](https://github.com/Ismoh/NoitaMP/compare/v2.6.4-alpha+1138...v2.6.5-alpha+1143)
