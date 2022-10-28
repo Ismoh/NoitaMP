@@ -26,8 +26,8 @@
   ],
   "lua.targetVersion": "5.1",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.formatOnSave": true,
-  "editor.formatOnPaste": true,
+  "editor.formatOnSave": false,
+  "editor.formatOnPaste": false,
   "[xml]": {
     "editor.defaultFormatter": "DotJoshJohnson.xml"
   },
