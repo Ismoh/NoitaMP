@@ -18,7 +18,9 @@ Ui = {}
 ----------------------------------------
 -- Global private variables:
 ----------------------------------------
-
+local missingModGuiButton1Hovered = false
+local missingModGuiButton2Hovered = false
+local missingModGuiDismissed = false
 ----------------------------------------
 -- Global private methods:
 ----------------------------------------
@@ -236,20 +238,13 @@ function Ui.new()
 
         menuWidth, menuHeight = renderEzgui(x, y, "mods/noita-mp/files/data/ezgui/PlayerList.xml", self.ezguiMenuData)
     end
-    ------------------------------------
-    -- Public methods:
-    ------------------------------------
-    local missingModGuiButton1Hovered = false
-    local missingModGuiButton2Hovered = false
-    local missingModGuiDismissed = false
-    function self.update()
-        drawFolding()
-        drawMenu()
+
+    local function drawModConflictWarning()
         if _G.whoAmI() == Client.iAm and Client.missingMods ~= nil and not missingModGuiDismissed then
             gui = gui or GuiCreate()
             GuiStartFrame(gui)
             GuiIdPushString(gui, "missingModGUI")
-            local warningMsg = "Warning: Server has mods that you do have enabled/installed. Missing mods are:"
+            local warningMsg = "Warning: Server has mods that you don't have enabled/installed. Missing mods are:"
             local npID = 1
             local button1ID = 2
             local button2ID = 3
@@ -277,7 +272,8 @@ function Ui.new()
             local clicked, _, hovered = GuiGetPreviousWidgetInfo(gui)
             if clicked then
                 missingModGuiDismissed = true
-                Client:send(NetworkUtils.events.needModContent.name, {NetworkUtils.getNextNetworkMessageId(), Client.missingMods})
+                Client:send(NetworkUtils.events.needModContent.name,
+                    { NetworkUtils.getNextNetworkMessageId(), Client.missingMods })
             end
             if hovered then
                 missingModGuiButton1Hovered = true
@@ -324,11 +320,22 @@ function Ui.new()
             GuiZSetForNextWidget(gui, 110)
             GuiImageNinePiece(gui, npID, 73, 73, w + 3, y - 71)
         end
+
+    end
+
+    ------------------------------------
+    -- Public methods:
+    ------------------------------------
+    function self.update()
+        drawFolding()
+        drawMenu()
+        drawModConflictWarning()
     end
 
     ------------------------------------
     -- Apply some private methods
     ------------------------------------
+
 
     return self
 end
