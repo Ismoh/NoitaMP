@@ -10,14 +10,7 @@ CoroutineUtils = {}
 
 --- Custom iterator for entities using coroutine.
 --- @param entities table indexed table of entities: entities[1]...entities[n]
---- @return function iterator as a coroutine
---function CoroutineUtils.iterator(entities)
---    return coroutine.wrap(function()
---        for i = 1, #entities do
---            coroutine.yield(entities[i])
---        end
---    end)
---end
+--- @return number entityId
 function CoroutineUtils.iterator(entities)
     if not co or coroutine.status(co) == 'dead' then
         co = coroutine.create(function()

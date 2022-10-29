@@ -49,23 +49,20 @@ end
 
 --- Fetches data like position, rotation, velocity, health and filename
 --- @param entityId number
---- @return string filename
---- @return table health { current, max }
---- @return number rotation
---- @return table velocity { x, y }
---- @return number x
---- @return number y
+--- @return string owner name, string owner guid, string nuid, string filename, table health { current, max }, number rotation, table velocity { x, y }, number x, number y
 function NoitaComponentUtils.getEntityData(entityId)
-    local cpc = CustomProfiler.start("NoitaComponentUtils.getEntityData")
-    local compOwnerName,
-    compOwnerGuid, compNuid = NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
-    local hpCompId          = EntityGetFirstComponentIncludingDisabled(entityId, "DamageModelComponent")
-    local hpCurrent         = math.round(tonumber(ComponentGetValue2(hpCompId, "hp") or 0) * 25, 0.01)
-    local hpMax             = math.round(tonumber(ComponentGetValue2(hpCompId, "max_hp") or 0) * 25, 0.01)
-    local health            = { current = hpCurrent, max = hpMax }
-    local x, y, rotation    = EntityGetTransform(entityId)
-    local velocityCompId    = EntityGetFirstComponent(entityId, "VelocityComponent")
-    local velocity          = { 0, 0 }
+    local cpc                                    = CustomProfiler.start("NoitaComponentUtils.getEntityData")
+    local compOwnerName, compOwnerGuid, compNuid = NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
+    local hpCompId                               = EntityGetFirstComponentIncludingDisabled(entityId,
+                                                                                            "DamageModelComponent")
+    local hpCurrent                              = math.round(tonumber(ComponentGetValue2(hpCompId, "hp") or 0) * 25,
+                                                              0.01)
+    local hpMax                                  = math.round(tonumber(ComponentGetValue2(hpCompId,
+                                                                                          "max_hp") or 0) * 25, 0.01)
+    local health                                 = { current = hpCurrent, max = hpMax }
+    local x, y, rotation                         = EntityGetTransform(entityId)
+    local velocityCompId                         = EntityGetFirstComponent(entityId, "VelocityComponent")
+    local velocity                               = { 0, 0 }
     if velocityCompId then
         local velocityX, velocityY = ComponentGetValue2(velocityCompId, "mVelocity")
         velocity                   = { math.round(velocityX, 0.1), math.round(velocityY, 0.1) }
@@ -73,11 +70,12 @@ function NoitaComponentUtils.getEntityData(entityId)
     local filename = EntityGetFilename(entityId)
 
     CustomProfiler.stop("NoitaComponentUtils.getEntityData", cpc)
-    return compOwnerName, compOwnerGuid, compNuid, filename, health, math.round(rotation, 0.1), velocity, math.round(x, 0.1), math.round(y, 0.1)
+    return compOwnerName, compOwnerGuid, compNuid, filename, health, math.round(
+            rotation, 0.1), velocity, math.round(x, 0.1), math.round(y, 0.1)
 end
 
 function NoitaComponentUtils.getEntityDataByNuid(nuid)
-    local cpc = CustomProfiler.start("NoitaComponentUtils.getEntityDataByNuid")
+    local cpc             = CustomProfiler.start("NoitaComponentUtils.getEntityDataByNuid")
     local nNuid, entityId = GlobalsUtils.getNuidEntityPair(nuid)
     CustomProfiler.stop("NoitaComponentUtils.getEntityDataByNuid", cpc)
     return NoitaComponentUtils.getEntityData(entityId)

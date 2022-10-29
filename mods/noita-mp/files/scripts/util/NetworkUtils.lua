@@ -60,15 +60,15 @@ NetworkUtils.events                  = {
     deadNuids       = { name = "deadNuids", schema = { "networkMessageId", "deadNuids" } },
 
     --- needModList is used to let clients sync enabled mods with the server
-    needModList     = { name = "needModList", schema = { "workshop", "external"} },
+    needModList     = { name = "needModList", schema = { "workshop", "external" } },
 
     --- needModContent is used to sync mod content from server to client
-    needModContent  = { name = "needModContent", schema = { "get", "items" }}
+    needModContent  = { name = "needModContent", schema = { "get", "items" } }
 }
 
 --- Copy from sock.lua, because I am lazy
 local function zipTable(items, keys, event)
-    local cpc = CustomProfiler.start("NetworkUtils.zipTable")
+    local cpc  = CustomProfiler.start("NetworkUtils.zipTable")
     local data = {}
 
     -- convert variable at index 1 into the value for the key value at index 1, and so on
@@ -104,14 +104,14 @@ function NetworkUtils.getClientOrServer()
 end
 
 function NetworkUtils.getNextNetworkMessageId()
-    local cpc = CustomProfiler.start("NetworkUtils.getNextNetworkMessageId")
+    local cpc                            = CustomProfiler.start("NetworkUtils.getNextNetworkMessageId")
     NetworkUtils.networkMessageIdCounter = NetworkUtils.networkMessageIdCounter + 1
     CustomProfiler.stop("NetworkUtils.getNextNetworkMessageId", cpc)
     return NetworkUtils.networkMessageIdCounter
 end
 
 function NetworkUtils.alreadySent(event, data)
-    local cpc = CustomProfiler.start("NetworkUtils.alreadySent")
+    local cpc              = CustomProfiler.start("NetworkUtils.alreadySent")
     local clientOrServer   = NetworkUtils.getClientOrServer()
 
     --if _G.whoAmI() == Client.iAm then

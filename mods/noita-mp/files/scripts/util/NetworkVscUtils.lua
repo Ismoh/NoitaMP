@@ -8,7 +8,7 @@
 --end
 
 -----------------
--- NetworkVscUtils:
+--- NetworkVscUtils:
 -----------------
 --- class for getting and setting values in VariableStorageComponents of Noita-API
 NetworkVscUtils = {}

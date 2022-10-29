@@ -50,10 +50,10 @@ if ModSettingGet then
 
     _G.whoAmI         = function()
         if _G.Server:amIServer() then
-            return "SERVER"
+            return _G.Server.iAm
         end
         if _G.Client:amIClient() then
-            return "CLIENT"
+            return _G.Client.iAm
         end
         return nil
     end

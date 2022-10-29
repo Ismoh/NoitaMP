@@ -16,20 +16,19 @@ local messagePack = require("MessagePack")
 Server            = {}
 
 ----------------------------------------
--- Global private variables:
-----------------------------------------
-
-
-----------------------------------------
--- Global private methods:
+--- Global private variables:
 ----------------------------------------
 
 ----------------------------------------
--- Access to global private variables
+--- Global private methods:
 ----------------------------------------
 
 ----------------------------------------
--- Global public variables:
+--- Access to global private variables
+----------------------------------------
+
+----------------------------------------
+--- Global public variables:
 ----------------------------------------
 
 ----------------------------------------------------------------------------------------------------
@@ -43,7 +42,7 @@ function Server.new(sockServer)
     local self       = sockServer
 
     ------------------------------------
-    -- Private variables:
+    --- Private variables:
     ------------------------------------
 
     ------------------------------------
@@ -368,7 +367,7 @@ function Server.new(sockServer)
 
         local newNuid       = NuidUtils.getNextNuid()
         self.sendNewNuid(owner, localEntityId, newNuid, x, y, rotation, velocity, filename, health, isPolymorphed)
-        EntityUtils.SpawnEntity(owner, newNuid, x, y, rotation, velocity, filename, localEntityId, health,
+        EntityUtils.spawnEntity(owner, newNuid, x, y, rotation, velocity, filename, localEntityId, health,
                                 isPolymorphed)
         CustomProfiler.stop("Server.onNeedNuid", cpc07)
     end
@@ -586,7 +585,7 @@ function Server.new(sockServer)
     --     local local_player_id = EntityUtils.getLocalPlayerEntityId()
     --     local x, y, rot, scale_x, scale_y = EntityGetTransform(local_player_id)
 
-    --     EntityUtils.SpawnEntity({ peer.name, peer.guid }, NuidUtils.getNextNuid(), x, y, rot,
+    --     EntityUtils.spawnEntity({ peer.name, peer.guid }, NuidUtils.getNextNuid(), x, y, rot,
     --         nil, "mods/noita-mp/data/enemies_gfx/client_player_base.xml", nil)
     -- end
     -- )
@@ -637,7 +636,7 @@ function Server.new(sockServer)
     --         -- tell the clients that there is a new entity, they have to spawn, besides the client, who sent the request
     --         self.sendNewNuid(data.owner, data.localEntityId, new_nuid, data.x, data.y, data.rot, data.velocity, data.filename)
     --         -- spawn the entity on server only
-    --         EntityUtils.SpawnEntity(data.owner, new_nuid, data.x, data.y, data.rot, data.velocity, data.filename, data.localEntityId) --em:SpawnEntity(data.owner, new_nuid, data.x, data.y, data.rot, data.velocity, data.filename, nil)
+    --         EntityUtils.spawnEntity(data.owner, new_nuid, data.x, data.y, data.rot, data.velocity, data.filename, data.localEntityId) --em:spawnEntity(data.owner, new_nuid, data.x, data.y, data.rot, data.velocity, data.filename, nil)
     --     end
     -- )
 
@@ -654,7 +653,7 @@ function Server.new(sockServer)
     --         end
 
     --         logger:debug(logger.channels.network, "Got a new nuid and spawning entity. For data content see above!")
-    --         em:SpawnEntity(data.owner, data.nuid, data.x, data.y, data.rot, data.velocity, data.filename, nil)
+    --         em:spawnEntity(data.owner, data.nuid, data.x, data.y, data.rot, data.velocity, data.filename, nil)
     --     end
     -- )
 

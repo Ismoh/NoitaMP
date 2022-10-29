@@ -495,7 +495,7 @@ function Client.new(sockClient)
             end
         end
 
-        EntityUtils.SpawnEntity(owner, newNuid, x, y, rotation, velocity, filename, localEntityId, health,
+        EntityUtils.spawnEntity(owner, newNuid, x, y, rotation, velocity, filename, localEntityId, health,
             isPolymorphed)
         CustomProfiler.stop("Client.onNewNuid", cpc11)
     end

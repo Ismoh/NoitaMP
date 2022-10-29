@@ -3,7 +3,11 @@
 -- Naming convention is found here:
 -- http://lua-users.org/wiki/LuaStyleGuide#:~:text=Lua%20internal%20variable%20naming%20%2D%20The,but%20not%20necessarily%2C%20e.g.%20_G%20.
 
+----------------------------------------
+--- 'Imports'
+----------------------------------------
 dofile("mods/noita-mp/config.lua")
+local util = require("util")
 
 ------------------------------------------------------------------------------------------------------------------------
 --- When NoitaComponents are accessing this file, they are not able to access the global variables defined in this file.
@@ -21,24 +25,33 @@ if not CustomProfiler then
 end
 
 ------------------------------------------------------------------------------------------------------------------------
---- EntityUtils:
+--- @see config.lua
 ------------------------------------------------------------------------------------------------------------------------
 if not EntityUtils then
-    --- class for manipulating entities in Noita
     EntityUtils = {}
 end
 
---#region Global private variables
+----------------------------------------
+--- private local variables:
+----------------------------------------
 
-local localOwner = {
+local localOwner                           = {
     name = tostring(ModSettingGet("noita-mp.name")),
     guid = tostring(ModSettingGet("noita-mp.guid"))
 }
 -- local localPlayerEntityId = nil do not cache, because players entityId will change when respawning
 
---#endregion
+----------------------------------------
+--- public global variables:
+----------------------------------------
 
---#region Global private functions
+EntityUtils.localPlayerEntityId            = -1
+EntityUtils.localPlayerEntityIdPolymorphed = -1
+EntityUtils.transformCache                 = {}
+
+----------------------------------------
+--- private local methods:
+----------------------------------------
 
 --- Filters a table of entities by component name or filename. This include and exclude map is defined in EntityUtils.include/.exclude.
 --- Credits to @Horscht#6086!
@@ -139,19 +152,15 @@ local function getFilteredEntities(radius, include, exclude, additionalCheck1, a
     return filterEntities(entities, include, exclude, additionalCheck1, additionalCheck2)
 end
 
---#endregion
+----------------------------------------
+--- public global methods:
+----------------------------------------
 
---#region Global public variables
-
-EntityUtils.localPlayerEntityId            = -1
-EntityUtils.localPlayerEntityIdPolymorphed = -1
-EntityUtils.cachedEntityIds                = {}
-EntityUtils.entityStatus                   = { new = 1, processed = 2, destroyed = 3 }
-
---#endregion
-
---#region Global public functions
-
+------------------------------------------------------------------------------------------------
+--- isEntityPolymorphed
+------------------------------------------------------------------------------------------------
+--- Checks if a specific entity is polymorphed.
+--- @param entityId number
 function EntityUtils.isEntityPolymorphed(entityId)
     local cpc                  = CustomProfiler.start("EntityUtils.isEntityPolymorphed")
     local polymorphedEntityIds = EntityGetWithTag("polymorphed") or {}
@@ -166,6 +175,10 @@ function EntityUtils.isEntityPolymorphed(entityId)
     return false
 end
 
+------------------------------------------------------------------------------------------------
+--- isEntityPolymorphed
+------------------------------------------------------------------------------------------------
+--- Checks if the local player is polymorphed.
 function EntityUtils.isPlayerPolymorphed()
     local cpc                  = CustomProfiler.start("EntityUtils.isPlayerPolymorphed")
     local polymorphedEntityIds = EntityGetWithTag("polymorphed") or {}
@@ -186,6 +199,11 @@ function EntityUtils.isPlayerPolymorphed()
     return false, nil
 end
 
+------------------------------------------------------------------------------------------------
+--- getLocalPlayerEntityId
+------------------------------------------------------------------------------------------------
+--- Returns the local player entity id.
+--- @return number localPlayerEntityId
 function EntityUtils.getLocalPlayerEntityId()
     local cpc = CustomProfiler.start("EntityUtils.getLocalPlayerEntityId")
     if EntityUtils.isEntityAlive(EntityUtils.localPlayerEntityId) then
@@ -220,20 +238,10 @@ function EntityUtils.getLocalPlayerEntityId()
     return playerEntityIds[1]
 end
 
--- --- Assuming this will be called before the other player units will be spawned.
--- --- @return number localPlayerEntityIds
--- function EntityUtils.getLocalPlayerEntityIds()
---     --if not localPlayerEntityId then
---     local playerEntityIds = EntityGetWithTag("player_unit")
---     --if #playerEntityIds > 2 then
---     --        error("Unable to detect the local player unit! This is a serious problem, which needs to be fixed!", 2) -- TODO
---     --    end
---     --    localPlayerEntityId = playerUnits[1]
---     --end
---     return playerEntityIds --return localPlayerEntityId
--- end
-
---- Looks like there were access to despawned entities, which might cause game crashing.
+------------------------------------------------------------------------------------------------
+--- isEntityAlive
+------------------------------------------------------------------------------------------------
+--- Looks like there were access to removed entities, which might cause game crashing.
 --- Use this function whenever you work with entity_id/entityId to stop client game crashing.
 --- @param entityId number Id of any entity.
 --- @return number|nil entityId returns the entityId if is alive, otherwise nil
@@ -248,135 +256,117 @@ function EntityUtils.isEntityAlive(entityId)
     return nil
 end
 
---- Initialise Network VSC.
---- If server then nuid is added.
---- If client then nuid is needed.
-function EntityUtils.initNetworkVscs()
-    local cpc              = CustomProfiler.start("EntityUtils.initNetworkVscs")
-    -- if _G.whoAmI() ~= _G.Server.iAm then
-    --     error("You are not allowed to init network variable storage components, if not server!", 2)
-    -- end
+------------------------------------------------------------------------------------------------
+--- processAndSyncEntityNetworking
+------------------------------------------------------------------------------------------------
+function EntityUtils.processAndSyncEntityNetworking()
+    local cpc              = CustomProfiler.start("EntityUtils.processAndSyncEntityNetworking")
+    local who              = whoAmI()
+    local playerX, playerY = EntityGetTransform(EntityUtils.getLocalPlayerEntityId())
+    local radius           = ModSettingGetNextValue("noita-mp.radius_include_entities")
+    local entityIds        = EntityGetInRadius(playerX, playerY, radius) or {}
 
-    local radius           = tonumber(ModSettingGetNextValue("noita-mp.radius_include_entities"))
-    local filteredEntities = getFilteredEntities(radius, EntityUtils.include, EntityUtils.exclude,
-                                                 function(entityId)
-                                                     return not NetworkVscUtils.isNetworkEntityByNuidVsc(entityId)
-                                                 end,
-                                                 function(entityId)
-                                                     return not
-                                                     NetworkVscUtils.hasNetworkLuaComponents(entityId)
-                                                 end)
-    local owner            = localOwner
-
-    for i = 1, #filteredEntities do
-        local entityId                = filteredEntities[i]
-
-        local isNetworkEntity         = NetworkVscUtils.isNetworkEntityByNuidVsc(entityId)
-        local hasNetworkLuaComponents = NetworkVscUtils.hasNetworkLuaComponents(entityId)
-        if not isNetworkEntity and not hasNetworkLuaComponents then
-
-            if EntityUtils.isEntityAlive(entityId) then
-                local nuid          = nil
-                local compId, value = NetworkVscUtils.isNetworkEntityByNuidVsc(entityId)
-
-                if not compId or value == "" or value == nil then
-                    -- if a nuid on an entity already exists, don't get a new nuid
-                    if _G.whoAmI() == _G.Server.iAm then
-                        nuid = NuidUtils.getNextNuid()
-                    else
-                        _G.Client.sendNeedNuid(owner.name, owner.guid, entityId)
-                    end
-                else
-                    nuid = tonumber(value)
-                end
-
-                NetworkVscUtils.addOrUpdateAllVscs(entityId, owner.name, owner.guid, nuid)
-
-                if _G.whoAmI() == _G.Server.iAm then
-                    GlobalsUtils.setNuid(nuid, entityId)
-                    local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
-                    --local isPolymorphed                                                                      = EntityUtils.isEntityPolymorphed(entityId)
-                    _G.Server.sendNewNuid(owner, entityId, nuid, x, y, rotation, velocity, filename, health,
-                                          false) -- TODO fix me
-                end
-            end
-
-        end
-    end
-    CustomProfiler.stop("EntityUtils.initNetworkVscs", cpc)
-end
-
-function EntityUtils.processEntityNetworking()
-    -- TODO: FPS DROPS HERE
-    local cpc              = CustomProfiler.start("EntityUtils.processEntityNetworking")
-
-    local radius           = tonumber(ModSettingGetNextValue("noita-mp.radius_include_entities"))
-    local filteredEntities = getFilteredEntities(radius, EntityUtils.include, EntityUtils.exclude,
-                                                 function(entityId)
-                                                     return not NetworkVscUtils.isNetworkEntityByNuidVsc(entityId)
-                                                 end,
-                                                 function(entityId)
-                                                     return not
-                                                     NetworkVscUtils.hasNetworkLuaComponents(entityId)
-                                                 end)
-    local owner            = localOwner
-
-    for entityId, co in CoroutineUtils.iterator(filteredEntities) do
+    for entityId in CoroutineUtils.iterator(entityIds) do
+        --[[ Just be double sure and check if entity is alive. If not next entityId ]]--
         repeat
             if not EntityUtils.isEntityAlive(entityId) then
-                EntityUtils.cachedEntityIds[entityId] = EntityUtils.entityStatus.destroyed
                 break -- work around for continue: repeat until true with break
             end
         until true
 
-        local isNetworkEntity         = NetworkVscUtils.isNetworkEntityByNuidVsc(entityId)
-        local hasNetworkLuaComponents = NetworkVscUtils.hasNetworkLuaComponents(entityId)
-        if not isNetworkEntity and not hasNetworkLuaComponents then
+        --[[ Check if entity can be ignored, because it is not necessary to sync it,
+             depending on config.lua: EntityUtils.include. ]]--
+        local exclude  = true
+        local filename = EntityGetFilename(entityId) or ""
 
-            if EntityUtils.isEntityAlive(entityId) then
-                local nuid          = nil
-                local compId, value = NetworkVscUtils.isNetworkEntityByNuidVsc(entityId)
-
-                if not compId or value == "" or value == nil then
-                    -- if a nuid on an entity already exists, don't get a new nuid
-                    if _G.whoAmI() == _G.Server.iAm then
-                        nuid = NuidUtils.getNextNuid()
-                    else
-                        _G.Client.sendNeedNuid(owner.name, owner.guid, entityId)
-                    end
-                else
-                    nuid = tonumber(value)
-                end
-
-                NetworkVscUtils.addOrUpdateAllVscs(entityId, owner.name, owner.guid, nuid)
-
-                if _G.whoAmI() == _G.Server.iAm then
-                    GlobalsUtils.setNuid(nuid, entityId)
-                    local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
-                    --local isPolymorphed                                                                      = EntityUtils.isEntityPolymorphed(entityId)
-                    _G.Server.sendNewNuid(owner, entityId, nuid, x, y, rotation, velocity, filename, health,
-                                          false) -- TODO fix me
+        if EntityUtils.include.byFilename[filename] or
+                table.contains(EntityUtils.include.byFilename, filename)
+        then
+            exclude = false
+        else
+            for i = 1, #EntityUtils.include.byComponentsName do
+                local componentTypeName = EntityUtils.include.byComponentsName[i]
+                local components        = EntityGetComponentIncludingDisabled(entityId, componentTypeName) or {}
+                if #components > 0 then
+                    -- Entity has a component, which is included in the config.lua.
+                    exclude = false
+                    break
                 end
             end
         end
+        repeat
+            if exclude then
+                break -- work around for continue: repeat until true with break
+            end
+        until true
 
-        EntityUtils.cachedEntityIds[entityId] = EntityUtils.entityStatus.processed
+        --[[ Check if entity has already all network components ]]--
+        local nuid = nil
+        if not NetworkVscUtils.isNetworkEntityByNuidVsc(entityId) or
+                not NetworkVscUtils.hasNetworkLuaComponents(entityId)
+        then
+            local localPlayerInfo = util.getLocalPlayerInfo()
+            local ownerName       = localPlayerInfo.name
+            local ownerGuid       = localPlayerInfo.guid
 
-        if CustomProfiler.getDuration("EntityUtils.processEntityNetworking", cpc) > 25 then
+            if who == Server.iAm then
+                nuid = NuidUtils.getNextNuid()
+                -- Server.sendNewNuid this will be executed below
+            elseif who == Client.iAm then
+                Client.sendNeedNuid(ownerName, ownerGuid, entityId)
+            else
+                logger:error(logger.channels.entity, "Unable to get whoAmI()!")
+            end
+
+            NetworkVscUtils.addOrUpdateAllVscs(entityId, ownerName, ownerGuid, nuid)
+        end
+
+        --[[ Check if moved ]]--
+        local moved                                                                                    = false
+        local compOwnerName, compOwnerGuid, compNuid, filenameUnused, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
+        if EntityUtils.transformCache[entityId] == nil then
+            EntityUtils.transformCache[entityId] = {
+                ownerName = compOwnerName,
+                ownerGuid = compOwnerGuid,
+                nuid      = compNuid,
+                filename  = filename,
+                health    = health,
+                rotation  = rotation,
+                velocity  = velocity,
+                x         = x,
+                y         = y
+            }
+            if who == Server.iAm then
+                Server.sendNewNuid({ compOwnerName, compOwnerGuid }, entityId, nuid, x, y, rotation, velocity, filename,
+                                   health, EntityUtils.isEntityPolymorphed(entityId))
+            end
+        else
+            changed
+            moved = true
+        end
+        --repeat
+        --    if not moved then
+        --        break -- work around for continue: repeat until true with break
+        --    end
+        --until true
+        if moved then
+            NetworkUtils.getClientOrServer().sendEntityData(entityId)
+        end
+
+        --[[ Check execution time to reduce lag ]]--
+        if CustomProfiler.getDuration("EntityUtils.processAndSyncEntityNetworking", cpc) > 25 then
             logger:warn(logger.channels.entity,
-                        "EntityUtils.processEntityNetworking took too long. Breaking loop by returning entityId.")
+                        "EntityUtils.processAndSyncEntityNetworking took too long. Breaking loop by returning entityId.")
             break --return coroutine.yield(entityId) --co.yield(entityId)
         end
     end
-    --init network entities
-    --sending network messages on specific tick rate (ms)
-    --receive network messages on preUpdate
-    --send network messages on postUpdate
-    --Yield return iterator or index when execution time is greater equals 25ms (=40fps)
-    --Next frame continue on for loop
-    CustomProfiler.stop("EntityUtils.processEntityNetworking", cpc)
+
+    CustomProfiler.stop("EntityUtils.processAndSyncEntityNetworking", cpc)
 end
 
+------------------------------------------------------------------------------------------------
+--- spawnEntity
+------------------------------------------------------------------------------------------------
 --- Spawns an entity and applies the transform and velocity to it. Also adds the network_component.
 --- @param owner table owner { name, guid }
 --- @param nuid any
@@ -389,8 +379,8 @@ end
 --- owner has its own entity ids.
 --- @return number entityId Returns the entity_id of a already existing entity, found by nuid or the newly created
 --- entity.
-function EntityUtils.SpawnEntity(owner, nuid, x, y, rotation, velocity, filename, localEntityId, health, isPolymorphed)
-    local cpc        = CustomProfiler.start("EntityUtils.SpawnEntity")
+function EntityUtils.spawnEntity(owner, nuid, x, y, rotation, velocity, filename, localEntityId, health, isPolymorphed)
+    local cpc        = CustomProfiler.start("EntityUtils.spawnEntity")
     local localGuid  = util.getLocalPlayerInfo().guid or util.getLocalPlayerInfo()[2]
     local remoteName = owner.name or owner[1]
     local remoteGuid = owner.guid or owner[2]
@@ -437,229 +427,29 @@ function EntityUtils.SpawnEntity(owner, nuid, x, y, rotation, velocity, filename
     NetworkVscUtils.addOrUpdateAllVscs(entityId, remoteName, remoteGuid, nuid)
     NoitaComponentUtils.setEntityData(entityId, x, y, rotation, velocity, health)
 
-    CustomProfiler.stop("EntityUtils.SpawnEntity", cpc)
+    CustomProfiler.stop("EntityUtils.spawnEntity", cpc)
     return entityId
 end
 
-function EntityUtils.syncEntityData()
-    local cpc             = CustomProfiler.start("EntityUtils.syncEntityData")
-    --if GameGetFrameNum() % 5 ~= 0 then
-    --    -- TODO: add this to modSettings
-    --    return
-    --end
-
-    local clientOrServer  = NetworkUtils.getClientOrServer()
-
-    --if _G.whoAmI() == Client.iAm then
-    --    clientOrServer = Client
-    --elseif _G.whoAmI() == Server.iAm then
-    --    clientOrServer = Server
-    --else
-    --    error("Unable to identify whether I am Client or Server..", 3)
-    --end
-
-    local anythingChanged = function(entityId)
-        local cpc1                                                                               = CustomProfiler.start("EntityUtils.syncEntityData.anythingChanged")
-        local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
-        if compOwnerGuid ~= util.getLocalPlayerInfo().guid then
-            -- if the owner of the entity is not the local player, don't sync it
-            CustomProfiler.stop("EntityUtils.syncEntityData.anythingChanged", cpc1)
-            return false
-        end
-
-        if clientOrServer.entityCache[entityId] == nil then
-            clientOrServer.entityCache[entityId] = { health = health, rotation = rotation, velocity = velocity, x = x, y = y }
-            CustomProfiler.stop("EntityUtils.syncEntityData.anythingChanged", cpc1)
-            return true
-        end
-
-        if clientOrServer.entityCache[entityId].health.current ~= health.current and
-                (math.abs(health.current) <= math.abs(clientOrServer.entityCache[entityId].health.current) - 5 or
-                        math.abs(health.current) >= math.abs(clientOrServer.entityCache[entityId].health.current) + 5)
-        then
-            clientOrServer.entityCache[entityId] = { health = health, rotation = rotation, velocity = velocity, x = x, y = y }
-            CustomProfiler.stop("EntityUtils.syncEntityData.anythingChanged", cpc1)
-            return true
-        end
-
-        if clientOrServer.entityCache[entityId].health.max ~= health.max and
-                (math.abs(health.max) <= math.abs(clientOrServer.entityCache[entityId].health.max) - 5 or
-                        math.abs(health.max) >= math.abs(clientOrServer.entityCache[entityId].health.max) + 5)
-        then
-            clientOrServer.entityCache[entityId] = { health = health, rotation = rotation, velocity = velocity, x = x, y = y }
-            CustomProfiler.stop("EntityUtils.syncEntityData.anythingChanged", cpc1)
-            return true
-        end
-
-        if clientOrServer.entityCache[entityId].rotation ~= rotation and
-                (math.abs(rotation) <= math.abs(clientOrServer.entityCache[entityId].rotation) - 1 or
-                        math.abs(rotation) >= math.abs(clientOrServer.entityCache[entityId].rotation) + 1)
-        then
-            clientOrServer.entityCache[entityId] = { health = health, rotation = rotation, velocity = velocity, x = x, y = y }
-            CustomProfiler.stop("EntityUtils.syncEntityData.anythingChanged", cpc1)
-            return true
-        end
-
-        if clientOrServer.entityCache[entityId].velocity[1] ~= velocity[1] and
-                (math.abs(velocity[1]) <= math.abs(clientOrServer.entityCache[entityId].velocity[1]) - 1 or
-                        math.abs(velocity[1]) >= math.abs(clientOrServer.entityCache[entityId].velocity[1]) + 1)
-        then
-            clientOrServer.entityCache[entityId] = { health = health, rotation = rotation, velocity = velocity, x = x, y = y }
-            CustomProfiler.stop("EntityUtils.syncEntityData.anythingChanged", cpc1)
-            return true
-        end
-
-        if clientOrServer.entityCache[entityId].velocity[2] ~= velocity[2] and
-                (math.abs(velocity[2]) <= math.abs(clientOrServer.entityCache[entityId].velocity[2]) - 1 or
-                        math.abs(velocity[2]) >= math.abs(clientOrServer.entityCache[entityId].velocity[2]) + 1)
-        then
-            clientOrServer.entityCache[entityId] = { health = health, rotation = rotation, velocity = velocity, x = x, y = y }
-            CustomProfiler.stop("EntityUtils.syncEntityData.anythingChanged", cpc1)
-            return true
-        end
-
-        if clientOrServer.entityCache[entityId].x ~= x and
-                (math.abs(x) <= math.abs(clientOrServer.entityCache[entityId].x) - 1 or
-                        math.abs(x) >= math.abs(clientOrServer.entityCache[entityId].x) + 1)
-        then
-            clientOrServer.entityCache[entityId] = { health = health, rotation = rotation, velocity = velocity, x = x, y = y }
-            CustomProfiler.stop("EntityUtils.syncEntityData.anythingChanged", cpc1)
-            return true
-        end
-
-        if clientOrServer.entityCache[entityId].y ~= y and
-                (math.abs(y) <= math.abs(clientOrServer.entityCache[entityId].y) - 1 or
-                        math.abs(y) >= math.abs(clientOrServer.entityCache[entityId].y) + 1)
-        then
-            clientOrServer.entityCache[entityId] = { health = health, rotation = rotation, velocity = velocity, x = x, y = y }
-            CustomProfiler.stop("EntityUtils.syncEntityData.anythingChanged", cpc1)
-            return true
-        end
-
-        CustomProfiler.stop("EntityUtils.syncEntityData.anythingChanged", cpc1)
-        return false
-    end
-
-    local cpc2            = CustomProfiler.start("EntityUtils.syncEntityData.ModSettingGetNextValue")
-    local radius          = tonumber(ModSettingGetNextValue("noita-mp.radius_include_entities"))
-    CustomProfiler.stop("EntityUtils.syncEntityData.ModSettingGetNextValue", cpc2)
-    local filteredEntities = getFilteredEntities(radius, EntityUtils.include, EntityUtils.exclude,
-                                                 NetworkVscUtils.isNetworkEntityByNuidVsc,
-                                                 anythingChanged)
-
-    local cpc2             = CustomProfiler.start("EntityUtils.syncEntityData.for")
-    for i = 1, #filteredEntities do
-        -- TODO: FPS DROPS HERE!
-        local entityId = filteredEntities[i]
-        clientOrServer.sendEntityData(entityId)
-    end
-    CustomProfiler.stop("EntityUtils.syncEntityData.for", cpc2)
-    CustomProfiler.stop("EntityUtils.syncEntityData", cpc)
-end
-
+------------------------------------------------------------------------------------------------
+--- syncDeadNuids
+------------------------------------------------------------------------------------------------
+--- Synchronises the dead nuids between server and client.
 function EntityUtils.syncDeadNuids()
     local cpc       = CustomProfiler.start("EntityUtils.syncDeadNuids")
     local deadNuids = NuidUtils.getEntityIdsByKillIndicator()
     if #deadNuids > 0 then
         local clientOrServer = NetworkUtils.getClientOrServer()
-        --if _G.whoAmI() == Client.iAm then
-        --    clientOrServer = Client
-        --elseif _G.whoAmI() == Server.iAm then
-        --    clientOrServer = Server
-        --else
-        --    error("Unable to identify whether I am Client or Server..", 3)
-        --end
-
         clientOrServer.sendDeadNuids(deadNuids)
     end
     CustomProfiler.stop("EntityUtils.syncDeadNuids", cpc)
 end
 
-function EntityUtils.destroyClientEntities()
-    local cpc = CustomProfiler.start("EntityUtils.destroyClientEntities")
-    if _G.whoAmI() ~= _G.Client.iAm then
-        error("You are not allowed to remove entities, if not client!", 2)
-    end
-
-    local radius           = tonumber(ModSettingGetNextValue("noita-mp.radius_exclude_entities"))
-    local x, y             = EntityGetTransform(EntityUtils.getLocalPlayerEntityId())
-    local filteredEntities = getFilteredEntities(radius, EntityUtils.include, EntityUtils.exclude,
-                                                 function(entityId)
-                                                     return not NetworkVscUtils.isNetworkEntityByNuidVsc(entityId)
-                                                 end,
-                                                 function(entityId)
-                                                     return not
-                                                     NetworkVscUtils.hasNetworkLuaComponents(entityId)
-                                                 end)
-
-    if #filteredEntities > 0 then
-        -- local playerUnitIds = EntityGetWithTag("player_unit")
-        -- for i = 1, #playerUnitIds do
-        local playerEntityId  = EntityUtils.getLocalPlayerEntityId()
-        local playerEntityIds = {}
-        table.insertIfNotExist(playerEntityIds, playerEntityId)
-        table.insertAllButNotDuplicates(playerEntityIds,
-                                        EntityUtils.get_player_inventory_contents("inventory_quick")) -- wands and items
-        table.insertAllButNotDuplicates(playerEntityIds,
-                                        EntityUtils.get_player_inventory_contents("inventory_full")) -- spells
-        table.insertAllButNotDuplicates(playerEntityIds, EntityGetAllChildren(playerEntityId) or {})
-
-        for i = 1, #playerEntityIds do
-            local entityId     = playerEntityIds[i]
-            local rootEntityId = EntityGetRootEntity(entityId)
-            if not NetworkVscUtils.hasNetworkLuaComponents(rootEntityId) then
-                NetworkVscUtils.addOrUpdateAllVscs(rootEntityId, localOwner.name, localOwner.guid, nil)
-            end
-            -- if not NetworkVscUtils.hasNuidSet(entityId) then
-            --     Client.sendNeedNuid(localOwner, entityId)
-            -- end
-        end
-
-        table.removeByTable(filteredEntities, playerEntityIds)
-        --end
-    end
-
-    for i = 1, #filteredEntities do
-        local entityId = filteredEntities[i]
-        if EntityUtils.isEntityAlive(entityId) then
-
-            local kill         = true
-            -- Does this entityId belongs to the player minä?
-            local componentIds = EntityGetAllComponents(entityId)
-            for i = 1, #componentIds do
-                local compId   = componentIds[i]
-                local compType = ComponentGetTypeName(compId)
-                if compType == "ProjectileComponent" then
-                    local whoShotEntityId = ComponentGetValue2(compId, "mWhoShot")
-                    if not util.IsEmpty(whoShotEntityId) and whoShotEntityId == EntityUtils.getLocalPlayerEntityId() then
-                        kill = false
-                        break
-                    end
-                end
-            end
-
-            if kill then
-                if entityId ~= EntityUtils.localPlayerEntityId and
-                        entityId ~= EntityUtils.localPlayerEntityIdPolymorphed then
-                    EntityKill(entityId)
-                end
-            end
-        else
-            if not NetworkVscUtils.isNetworkEntityByNuidVsc(entityId) then
-                local ownerName, ownerGuid, nuid = NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
-                if util.IsEmpty(ownerName) or util.IsEmpty(ownerGuid) then
-                    local localPlayerInfo = util.getLocalPlayerInfo()
-                    ownerName             = localPlayerInfo.name
-                    ownerGuid             = localPlayerInfo.guid
-                end
-                NetworkVscUtils.addOrUpdateAllVscs(entityId, ownerName, ownerGuid, nuid)
-                _G.Client.sendNeedNuid(ownerName, ownerGuid, entityId)
-            end
-        end
-    end
-    CustomProfiler.stop("EntityUtils.destroyClientEntities", cpc)
-end
-
+------------------------------------------------------------------------------------------------
+--- destroyByNuid
+------------------------------------------------------------------------------------------------
+--- Destroys the entity by the given nuid.
+--- @param nuid number The nuid of the entity.
 function EntityUtils.destroyByNuid(nuid)
     local cpc             = CustomProfiler.start("EntityUtils.destroyByNuid")
     local nNuid, entityId = GlobalsUtils.getNuidEntityPair(nuid)
@@ -688,83 +478,10 @@ function EntityUtils.destroyByNuid(nuid)
     CustomProfiler.stop("EntityUtils.destroyByNuid", cpc)
 end
 
--- --- Special thanks to @Coxas/Thighs:
--- --- @param playerUnitEntityId number Player units entity id. (local or remote)
--- --- @param inventoryType string inventoryType can be either "inventory_quick" or "inventory_full".
--- --- @return number|nil inventoryEntityId
--- function EntityUtils.getPlayerInventoryEntityId(playerUnitEntityId, inventoryType)
---     local playerChildrenEntityIds = EntityGetAllChildren(playerUnitEntityId) or {}
---     for i = 1, #playerChildrenEntityIds do
---         local childEntityId = playerChildrenEntityIds[i]
---         if EntityGetName(childEntityId) == inventoryType then
---             return childEntityId -- inventoryEntityId
---         end
---     end
---     return nil
--- end
-
---- Special thanks to @Horscht:
----@param inventory_type any
----@return table
-function EntityUtils.get_player_inventory_contents(inventory_type)
-    local cpc    = CustomProfiler.start("EntityUtils.get_player_inventory_contents")
-    local player = EntityUtils.getLocalPlayerEntityId() --EntityGetWithTag("player_unit")[1]
-    local out    = {}
-    if player then
-        for i, child in ipairs(EntityGetAllChildren(player) or {}) do
-            if EntityGetName(child) == inventory_type then
-                for i, item_entity in ipairs(EntityGetAllChildren(child) or {}) do
-                    table.insert(out, item_entity)
-                end
-                break
-            end
-        end
-    end
-    CustomProfiler.stop("EntityUtils.get_player_inventory_contents", cpc)
-    return out
-end
-
-function EntityUtils.modifyPhysicsEntities()
-    local cpc = CustomProfiler.start("EntityUtils.modifyPhysicsEntities")
-    if not util then
-        util = require("util")
-    end
-    if not fu then
-        fu = require("file_util")
-    end
-    if not nxml then
-        nxml = require("nxml")
-    end
-
-    if util and fu and nxml then
-        local files = fu.scanDir("data")
-        for index, filePath in ipairs(files) do
-            local content = ModTextFileGetContent(filePath)
-            if not util.IsEmpty(content) then
-                content   = content:gsub("kill_entity_after_initialized=\"1\"", "kill_entity_after_initialized=\"0\"")
-                local xml = nxml.parse(content)
-                for element in xml:each_of("PhysicsImageShapeComponent") do
-                    --if element.attr.image_file == root_physics_image_file then
-                    element.attr.is_root = "1"
-                    --end
-                end
-                xml:add_child(nxml.parse([[
-<PhysicsImageComponent
-  is_root = "1"
-></PhysicsImageComponent>
-]]))
-                ModTextFileSetContent(filePath, tostring(xml))
-            end
-        end
-    else
-        logger:error("Unable to modify physics entities, because util(%s), fu(%s) and nxml(%s) seems to be nil",
-                     util, fu, nxml)
-    end
-    CustomProfiler.stop("EntityUtils.modifyPhysicsEntities", cpc)
-end
-
---#endregion
-
+------------------------------------------------------------------------------------------------
+--- addOrChangeDetectionRadiusDebug
+------------------------------------------------------------------------------------------------
+--- Simply adds a ugly debug circle around the player to visualize the detection radius.
 function EntityUtils.addOrChangeDetectionRadiusDebug(player_entity)
     local cpc              = CustomProfiler.start("EntityUtils.addOrChangeDetectionRadiusDebug")
     local compIdInclude    = nil
@@ -825,12 +542,17 @@ function EntityUtils.addOrChangeDetectionRadiusDebug(player_entity)
     CustomProfiler.stop("EntityUtils.addOrChangeDetectionRadiusDebug", cpc)
 end
 
-
--- Because of stack overflow errors when loading lua files,
--- I decided to put Utils 'classes' into globals
+------------------------------------------------------------------------------------------------
+--- 'Class' in Lua Globals
+------------------------------------------------------------------------------------------------
+--- Because of stack overflow errors when loading lua files,
+--- I decided to put Utils 'classes' into globals
 _G.EntityUtils = EntityUtils
 
--- But still return for Noita Components,
--- which does not have access to _G,
--- because of own context/vm
+------------------------------------------------------------------------------------------------
+--- 'Class' as module return value
+------------------------------------------------------------------------------------------------
+--- But still return for Noita Components,
+--- which does not have access to _G,
+--- because of own context/vm
 return EntityUtils
