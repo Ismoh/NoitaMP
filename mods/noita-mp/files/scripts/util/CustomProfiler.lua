@@ -15,9 +15,9 @@ local fu                                 = require("file_util")
 CustomProfiler                           = {}
 CustomProfiler.reportCache               = {}
 CustomProfiler.counter                   = 1
-CustomProfiler.threshold                 = 0.5 -- ms
+CustomProfiler.threshold                 = 16.67 -- ms, ~60 fps
 CustomProfiler.ceiling                   = 1001 -- ms
-CustomProfiler.maxEntries                = 100 -- entries per trace
+CustomProfiler.maxEntries                = 50 -- entries per trace
 CustomProfiler.reportDirectory           = ("%s%sNoitaMP-Reports%s%s"):format(fu.getDesktopDirectory(),
                                                                               path_separator, path_separator,
                                                                               os.date("%Y-%m-%d_%H-%M-%S",

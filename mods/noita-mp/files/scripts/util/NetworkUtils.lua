@@ -125,7 +125,7 @@ function NetworkUtils.alreadySent(event, data)
 
     if clientOrServer.acknowledge[networkMessageId] ~= nil then
         -- Is the networkMessageId already stored?
-        local acknowledgement = clientOrServer.acknowledge[networkMessageId]
+        local acknowledgement = clientOrServer.acknowledge[networkMessageId] -- TODO: memory leak?
         if acknowledgement.status == NetworkUtils.events.acknowledgement.ack then
             -- network message was already acknowledged
             CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
@@ -161,7 +161,7 @@ function NetworkUtils.alreadySent(event, data)
             --    end
             --end
 
-            local data2 = table.deepcopy(value.data)
+            local data2 = table.deepcopy(value.data) -- TODO: memory leak?
             table.remove(data2, 1)
 
             -- if position of entity changes, while trying to get nuid, this compare will fail, because x and y is
