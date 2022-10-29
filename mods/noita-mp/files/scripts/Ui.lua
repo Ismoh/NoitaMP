@@ -18,7 +18,9 @@ Ui = {}
 ----------------------------------------
 -- Global private variables:
 ----------------------------------------
-
+local missingModGuiButton1Hovered = false
+local missingModGuiButton2Hovered = false
+local missingModGuiDismissed = false
 ----------------------------------------
 -- Global private methods:
 ----------------------------------------
@@ -237,17 +239,103 @@ function Ui.new()
         menuWidth, menuHeight = renderEzgui(x, y, "mods/noita-mp/files/data/ezgui/PlayerList.xml", self.ezguiMenuData)
     end
 
+    local function drawModConflictWarning()
+        if _G.whoAmI() == Client.iAm and Client.missingMods ~= nil and not missingModGuiDismissed then
+            gui = gui or GuiCreate()
+            GuiStartFrame(gui)
+            GuiIdPushString(gui, "missingModGUI")
+            local warningMsg = "Warning: Server has mods that you don't have enabled/installed. Missing mods are:"
+            local npID = 1
+            local button1ID = 2
+            local button2ID = 3
+            local y = 75
+            GuiZSet(gui, 100)
+            GuiText(gui, 75, y, warningMsg)
+            do
+                local msgW, msgH = GuiGetTextDimensions(gui, warningMsg)
+                y = y + msgH
+            end
+            for _, v in ipairs(Client.missingMods) do
+                GuiText(gui, 75, y, v)
+                local msgW, msgH = GuiGetTextDimensions(gui, v)
+                y = y + msgH
+            end
+            GuiZSetForNextWidget(gui, 110)
+            GuiImageNinePiece(gui, npID, 73, 73, 297, (y - 71) + 15)
+            if missingModGuiButton1Hovered then
+                GuiColorSetForNextWidget(gui, 1, 1, 0.69, 1)
+            else
+                GuiColorSetForNextWidget(gui, 1, 1, 1, 0.7)
+            end
+            GuiText(gui, 100, y + 5, "Install missing mods")
+            GuiImageNinePiece(gui, button1ID, 100, y + 5, 75, 11, 0)
+            local clicked, _, hovered = GuiGetPreviousWidgetInfo(gui)
+            if clicked then
+                missingModGuiDismissed = true
+                Client:send(NetworkUtils.events.needModContent.name,
+                    { NetworkUtils.getNextNetworkMessageId(), Client.missingMods })
+            end
+            if hovered then
+                missingModGuiButton1Hovered = true
+            else
+                missingModGuiButton1Hovered = false
+            end
+            if missingModGuiButton2Hovered then
+                GuiColorSetForNextWidget(gui, 1, 0, 0, 1)
+            else
+                GuiColorSetForNextWidget(gui, 1, 1, 1, 0.7)
+            end
+            GuiText(gui, 185, y + 5, "Continue without syncing (may cause issues)")
+            GuiImageNinePiece(gui, button2ID, 185, y + 5, 169, 11, 0)
+            clicked, _, hovered = GuiGetPreviousWidgetInfo(gui)
+            if clicked then
+                missingModGuiDismissed = true
+            end
+            if hovered then
+                missingModGuiButton2Hovered = true
+            else
+                missingModGuiButton2Hovered = false
+            end
+        end
+        if Client.syncedMods == true then
+            gui = gui or GuiCreate()
+            GuiStartFrame(gui)
+            GuiIdPushString(gui, "missingModGUI")
+            local warningMsg = "Mods synced. Enable the following mods and restart the game:"
+            local npID = 1
+            local y = 75
+            local w = nil
+            GuiZSet(gui, 100)
+            GuiText(gui, 75, y, warningMsg)
+            do
+                local msgW, msgH = GuiGetTextDimensions(gui, warningMsg)
+                w = msgW
+                y = y + msgH
+            end
+            for _, v in ipairs(Client.missingMods) do
+                GuiText(gui, 75, y, v)
+                local _, msgH = GuiGetTextDimensions(gui, v)
+                y = y + msgH
+            end
+            GuiZSetForNextWidget(gui, 110)
+            GuiImageNinePiece(gui, npID, 73, 73, w + 3, y - 71)
+        end
+
+    end
+
     ------------------------------------
     -- Public methods:
     ------------------------------------
     function self.update()
         drawFolding()
         drawMenu()
+        drawModConflictWarning()
     end
 
     ------------------------------------
     -- Apply some private methods
     ------------------------------------
+
 
     return self
 end
