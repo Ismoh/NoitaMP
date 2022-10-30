@@ -48,108 +48,45 @@ local localOwner                           = {
 EntityUtils.localPlayerEntityId            = -1
 EntityUtils.localPlayerEntityIdPolymorphed = -1
 EntityUtils.transformCache                 = {}
+local transformCacheMetatable              = {
+    __mode     = "kv",
+    __index    = function(t, k)
+        local v = t[k]
+        if util.IsEmpty(v) then
+            t.__len = t.__len - 1 -- dirty workaround to get __len in lua5.1
+        end
+        return v
+    end,
+    __newindex = function(t, k, v)
+        t.__len = t.__len + 1 -- dirty workaround to get __len in lua5.1
+        rawset(t, k, v)
+    end
+}
+setmetatable(EntityUtils.transformCache, { transformCacheMetatable })
 
 ----------------------------------------
 --- private local methods:
 ----------------------------------------
 
---- Filters a table of entities by component name or filename. This include and exclude map is defined in EntityUtils.include/.exclude.
---- Credits to @Horscht#6086!
---- @param entities table Usually all entities in a specific radius to the player.
---- @param include table Table of component names or filenames to include.
---- @param exclude table Table of component names or filenames to exclude.
---- @param additionalCheck1 function which has to return true of false, but can also be nil: additionalChecks1
---- @param additionalCheck2 function which has to return true of false, but can also be nil: additionalChecks2
---- @param additionalCheck3 function which has to return true of false, but can also be nil: additionalChecks3
---- @return table filteredEntities
-local function filterEntities(entities, include, exclude, additionalCheck1, additionalCheck2)
-    local cpc              = CustomProfiler.start("EntityUtils.filterEntities")
-    local filteredEntities = {}
-
-    local function entityMatches(entityId, filenames, componentNames)
-        local cpc1 = CustomProfiler.start("EntityUtils.filterEntities.entityMatches")
-        if not EntityUtils.isEntityAlive(entityId) then
-            CustomProfiler.stop("EntityUtils.filterEntities.entityMatches", cpc1)
-            return
-        end
-        for i, filename in ipairs(filenames) do
-            if EntityGetFilename(entityId):find(filename) then
-                CustomProfiler.stop("EntityUtils.filterEntities.entityMatches", cpc1)
-                return true
-            end
-        end
-        for i, componentName in ipairs(componentNames) do
-            if EntityGetComponentIncludingDisabled(entityId, componentName) then
-                CustomProfiler.stop("EntityUtils.filterEntities.entityMatches", cpc1)
-                return true
-            end
-        end
-        CustomProfiler.stop("EntityUtils.filterEntities.entityMatches", cpc1)
-    end
-
-    for i, entityId in ipairs(entities) do
-        if EntityGetRootEntity(entityId) == entityId then
-            local included = entityMatches(entityId, include.byFilename, include.byComponentsName)
-            local excluded = entityMatches(entityId, exclude.byFilename, exclude.byComponentsName)
-
-            if included and not excluded then
-                -- local isNetworkEntity         = NetworkVscUtils.isNetworkEntityByNuidVsc(entityId)
-                -- local hasNetworkLuaComponents = NetworkVscUtils.hasNetworkLuaComponents(entityId)
-                -- if not isNetworkEntity and not hasNetworkLuaComponents then
-
-                local addCheck1 = true
-                if additionalCheck1 then
-                    local cpc2 = CustomProfiler.start("EntityUtils.filterEntities.additionalCheck1")
-                    addCheck1  = additionalCheck1(entityId)
-                    CustomProfiler.stop("EntityUtils.filterEntities.additionalCheck1", cpc2)
+--- Special thanks to @Horscht:
+---@param inventory_type any
+---@return table
+local function get_player_inventory_contents(inventory_type)
+    local cpc    = CustomProfiler.start("EntityUtils.get_player_inventory_contents")
+    local player = EntityUtils.getLocalPlayerEntityId() --EntityGetWithTag("player_unit")[1]
+    local out    = {}
+    if player then
+        for i, child in ipairs(EntityGetAllChildren(player) or {}) do
+            if EntityGetName(child) == inventory_type then
+                for i, item_entity in ipairs(EntityGetAllChildren(child) or {}) do
+                    table.insert(out, item_entity)
                 end
-
-                local addCheck2 = true
-                if additionalCheck2 then
-                    local cpc3 = CustomProfiler.start("EntityUtils.filterEntities.additionalCheck2")
-                    addCheck2  = additionalCheck2(entityId)
-                    CustomProfiler.stop("EntityUtils.filterEntities.additionalCheck2", cpc3)
-                end
-
-                if addCheck1 and addCheck2 then
-                    table.insert(filteredEntities, entityId)
-                end
-                -- end
+                break
             end
         end
     end
-
-    CustomProfiler.stop("EntityUtils.filterEntities", cpc)
-    return filteredEntities
-end
-
---- Gets all entities in a specific radius to the player entities. This can only be executed by server. Entities are filtered by EntityUtils.include/.exclude.
---- @param radius number radius to detect entities.
---- @param include table Table of component names or filenames to include.
---- @param exclude table Table of component names or filenames to exclude.
---- @param additionalCheck1 function which has to return true of false, but can also be nil
---- @param additionalCheck2 function which has to return true of false, but can also be nil
---- @return table filteredEntities
-local function getFilteredEntities(radius, include, exclude, additionalCheck1, additionalCheck2)
-    local cpc           = CustomProfiler.start("EntityUtils.getFilteredEntities")
-    local entities      = {}
-
-    local playerUnitIds = EntityGetWithTag("player_unit")
-    if EntityUtils.isPlayerPolymorphed() then
-        table.insertIfNotExist(playerUnitIds, util.getLocalPlayerInfo().entityId)
-    end
-    for i = 1, #playerUnitIds do
-        -- get all player units
-        local x, y, rot, scaleX, scaleY = EntityGetTransform(playerUnitIds[i])
-
-        -- find all entities in a specific radius based on the player units position
-        local entityIds                 = EntityGetInRadius(x, y, radius) or {}
-
-        table.insertAllButNotDuplicates(entities, entityIds)
-    end
-
-    CustomProfiler.stop("EntityUtils.getFilteredEntities", cpc)
-    return filterEntities(entities, include, exclude, additionalCheck1, additionalCheck2)
+    CustomProfiler.stop("EntityUtils.get_player_inventory_contents", cpc)
+    return out
 end
 
 ----------------------------------------
@@ -239,6 +176,48 @@ function EntityUtils.getLocalPlayerEntityId()
 end
 
 ------------------------------------------------------------------------------------------------
+-- TODO: Rework this by adding and updating entityId to Server.entityId and Client.entityId! Dont forget polymorphism!
+--- isRemoteMinae
+------------------------------------------------------------------------------------------------
+function EntityUtils.isRemoteMinae(entityId)
+    local cpc = CustomProfiler.start("EntityUtils.isRemoteMinae")
+    if not EntityUtils.isEntityAlive(entityId) then
+        CustomProfiler.stop("EntityUtils.isRemoteMinae", cpc)
+        return false
+    end
+    local who = whoAmI()
+    if who == Server.iAm then
+        local clients = Server:getClients()
+        for i = 1, #clients do
+            local client                     = clients[i]
+            local clientsNuid                = client.nuid
+            local nuidRemote, entityIdRemote = GlobalsUtils.getNuidEntityPair(clientsNuid)
+            if not util.IsEmpty(entityIdRemote) and entityIdRemote == entityId then
+                CustomProfiler.stop("EntityUtils.isRemoteMinae", cpc)
+                return true
+            end
+        end
+    elseif who == Client.iAm then
+        local serverNuid, serverEntityId = GlobalsUtils.getNuidEntityPair(Client.serverInfo.nuid)
+        if entityId == serverEntityId then
+            CustomProfiler.stop("EntityUtils.isRemoteMinae", cpc)
+            return true
+        end
+        for i = 1, #Client.otherClients do
+            local client                     = Client.otherClients[i]
+            local clientsNuid                = client.nuid
+            local nuidRemote, entityIdRemote = GlobalsUtils.getNuidEntityPair(clientsNuid)
+            if not util.IsEmpty(entityIdRemote) and entityIdRemote == entityId then
+                CustomProfiler.stop("EntityUtils.isRemoteMinae", cpc)
+                return true
+            end
+        end
+    end
+    CustomProfiler.stop("EntityUtils.isRemoteMinae", cpc)
+    return false
+end
+
+------------------------------------------------------------------------------------------------
 --- isEntityAlive
 ------------------------------------------------------------------------------------------------
 --- Looks like there were access to removed entities, which might cause game crashing.
@@ -262,14 +241,50 @@ end
 function EntityUtils.processAndSyncEntityNetworking()
     local cpc              = CustomProfiler.start("EntityUtils.processAndSyncEntityNetworking")
     local who              = whoAmI()
-    local playerX, playerY = EntityGetTransform(EntityUtils.getLocalPlayerEntityId())
+    local localPlayerId    = EntityUtils.getLocalPlayerEntityId()
+    local playerX, playerY = EntityGetTransform(localPlayerId)
     local radius           = ModSettingGetNextValue("noita-mp.radius_include_entities")
     local entityIds        = EntityGetInRadius(playerX, playerY, radius) or {}
+    local playerEntityIds  = {}
+
+    if who == Client.iAm then
+        table.insertIfNotExist(playerEntityIds, localPlayerId)
+        table.insertAllButNotDuplicates(playerEntityIds,
+                                        get_player_inventory_contents("inventory_quick")) -- wands and items
+        table.insertAllButNotDuplicates(playerEntityIds,
+                                        get_player_inventory_contents("inventory_full")) -- spells
+        table.insertAllButNotDuplicates(playerEntityIds, EntityGetAllChildren(localPlayerId) or {})
+
+        for i = 1, #playerEntityIds do
+            local clientEntityId = playerEntityIds[i]
+            local rootEntityId   = EntityGetRootEntity(clientEntityId)
+            if not NetworkVscUtils.hasNetworkLuaComponents(rootEntityId) then
+                NetworkVscUtils.addOrUpdateAllVscs(rootEntityId, localOwner.name, localOwner.guid, nil)
+            end
+            -- if not NetworkVscUtils.hasNuidSet(entityId) then
+            --     Client.sendNeedNuid(localOwner, entityId)
+            -- end
+        end
+    end
 
     for entityId in CoroutineUtils.iterator(entityIds) do
+        --[[ Check if this entityId belongs to client ]]--
+        if who == Client.iAm then
+            if not table.contains(playerEntityIds, entityId) then
+                if EntityUtils.isEntityAlive(entityId) and
+                        entityId ~= EntityUtils.localPlayerEntityId and
+                        entityId ~= EntityUtils.localPlayerEntityIdPolymorphed and
+                        not EntityUtils.isRemoteMinae(entityId)
+                then
+                    EntityKill(entityId)
+                end
+            end
+        end
+
         --[[ Just be double sure and check if entity is alive. If not next entityId ]]--
         repeat
             if not EntityUtils.isEntityAlive(entityId) then
+                EntityUtils.transformCache[entityId] = nil
                 break -- work around for continue: repeat until true with break
             end
         until true
@@ -321,10 +336,31 @@ function EntityUtils.processAndSyncEntityNetworking()
             NetworkVscUtils.addOrUpdateAllVscs(entityId, ownerName, ownerGuid, nuid)
         end
 
-        --[[ Check if moved ]]--
-        local moved                                                                                    = false
-        local compOwnerName, compOwnerGuid, compNuid, filenameUnused, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
-        if EntityUtils.transformCache[entityId] == nil then
+        --[[ Check if moved or anything else changed ]]--
+        if not EntityUtils.isEntityAlive(entityId) then
+            EntityUtils.transformCache[entityId] = nil
+        elseif not EntityUtils.isRemoteMinae(entityId) then
+            local changed                                                                                  = false
+            local compOwnerName, compOwnerGuid, compNuid, filenameUnused, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
+            if EntityUtils.transformCache[entityId] == nil then
+                if who == Server.iAm then
+                    Server.sendNewNuid({ compOwnerName, compOwnerGuid }, entityId, nuid, x, y, rotation, velocity,
+                                       filename,
+                                       health, EntityUtils.isEntityPolymorphed(entityId))
+                end
+            else
+                local threshold = math.round(tonumber(ModSettingGetNextValue("noita-mp.change_detection")) / 100, 0.1)
+                if math.abs(EntityUtils.transformCache[entityId].health.current - health.current) > threshold or
+                        math.abs(EntityUtils.transformCache[entityId].health.max - health.max) > threshold or
+                        math.abs(EntityUtils.transformCache[entityId].rotation - rotation) > threshold or
+                        math.abs(EntityUtils.transformCache[entityId].velocity.x - velocity.x) > threshold or
+                        math.abs(EntityUtils.transformCache[entityId].velocity.y - velocity.y) > threshold or
+                        math.abs(EntityUtils.transformCache[entityId].x - x) > threshold or
+                        math.abs(EntityUtils.transformCache[entityId].y - y) > threshold
+                then
+                    changed = true
+                end
+            end
             EntityUtils.transformCache[entityId] = {
                 ownerName = compOwnerName,
                 ownerGuid = compOwnerGuid,
@@ -336,21 +372,14 @@ function EntityUtils.processAndSyncEntityNetworking()
                 x         = x,
                 y         = y
             }
-            if who == Server.iAm then
-                Server.sendNewNuid({ compOwnerName, compOwnerGuid }, entityId, nuid, x, y, rotation, velocity, filename,
-                                   health, EntityUtils.isEntityPolymorphed(entityId))
+            --repeat
+            --    if not changed then
+            --        break -- work around for continue: repeat until true with break
+            --    end
+            --until true
+            if changed then
+                NetworkUtils.getClientOrServer().sendEntityData(entityId)
             end
-        else
-            changed
-            moved = true
-        end
-        --repeat
-        --    if not moved then
-        --        break -- work around for continue: repeat until true with break
-        --    end
-        --until true
-        if moved then
-            NetworkUtils.getClientOrServer().sendEntityData(entityId)
         end
 
         --[[ Check execution time to reduce lag ]]--

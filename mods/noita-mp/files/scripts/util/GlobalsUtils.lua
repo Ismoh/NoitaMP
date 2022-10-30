@@ -112,8 +112,7 @@ end
 
 --- Builds a key string by nuid and returns nuid and entityId found by the globals.
 --- @param nuid number
---- @return number nuid
---- @return number entityId
+--- @return number nuid, number entityId
 function GlobalsUtils.getNuidEntityPair(nuid)
     local key   = GlobalsUtils.nuidKeyFormat:format(nuid)
     local value = GlobalsGetValue(key)

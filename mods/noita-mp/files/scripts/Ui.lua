@@ -330,6 +330,14 @@ function Ui.new()
         drawFolding()
         drawMenu()
         drawModConflictWarning()
+
+        if #NetworkUtils.getClientOrServer().transformCache >= 10000 then
+            gui = gui or GuiCreate()
+            GuiStartFrame(gui)
+            GuiIdPushString(gui, "possibleMemoryOverflow")
+            GuiColorSetForNextWidget(gui, 1, 0, 0, 1)
+            GuiText(gui, 100, 100, "Memory is about to overflow. Please save and quit the game.")
+        end
     end
 
     ------------------------------------
