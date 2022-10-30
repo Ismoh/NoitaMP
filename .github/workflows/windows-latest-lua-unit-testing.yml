@@ -69,6 +69,7 @@ jobs:
       - name: Set GitHub env variables
         shell: bash
         run: |
+          echo "" >> "${{ env.temp_dir }}\lua_path.txt"
           fixedpath=$(echo "${{ env.temp_dir }}/lua_path.txt" | sed -e 's_\\_/_g') ### replace \ with /
           cat $fixedpath
           echo "LUA_PATH=;;${{ env.lua_install_lib_dir }}\\?.lua;${{ env.lua_install_lib_dir }}\\?\\init.lua;${{ env.lua_install_lib_dir }}\\jit\\?.lua;${{ env.lua_install_lib_dir }}\\jit\\?\\init.lua;${{ env.lua_install_share_dir }}\\lua\\5.1\\?.lua;$(cat $fixedpath)" >> $GITHUB_ENV

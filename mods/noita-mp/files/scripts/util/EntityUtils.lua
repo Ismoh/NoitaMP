@@ -62,7 +62,7 @@ local transformCacheMetatable              = {
         rawset(t, k, v)
     end
 }
-setmetatable(EntityUtils.transformCache, { transformCacheMetatable })
+setmetatable(EntityUtils.transformCache, transformCacheMetatable)
 
 ----------------------------------------
 --- private local methods:
