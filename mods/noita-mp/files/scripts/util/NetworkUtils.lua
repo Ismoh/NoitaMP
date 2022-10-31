@@ -164,7 +164,7 @@ function NetworkUtils.alreadySent(event, data)
             table.remove(data2, 1)
 
             -- if position of entity changes, while trying to get nuid, this compare will fail, because x and y is
-            -- different. Therefore there is an additional check below, for simply comparing onwerName, ownerGuid and
+            -- different. Therefore there is an additional check below, for simply comparing ownerName, ownerGuid and
             -- entityId, if this was already sent in combination.
             local ran, errorMsg = pcall(luaunit.assertItemsEquals, data1, data2)
             if ran and not errorMsg then

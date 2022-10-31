@@ -165,12 +165,11 @@ function table.setNoitaMpDefaultMetaMethods(tbl, mode)
     if type(tbl) ~= "table" then
         error("Unable to set default metamethods for a non-table.")
     end
-    if type(mode) ~= "string" then
-        error("Unable to set default metamethods for a non-string mode.")
-    end
-
     if not mode then
         mode = "kv"
+    end
+    if type(mode) ~= "string" then
+        error("Unable to set default metamethods for a non-string mode.")
     end
 
     local mt = {
