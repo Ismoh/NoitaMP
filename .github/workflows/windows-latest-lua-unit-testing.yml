@@ -24,7 +24,7 @@ jobs:
           msystem: MINGW32
           update: true
 
-      - name: Make directories for Lua installation
+      - name: Make directories and files for Lua installation
         run: |
           ### https://gist.github.com/Egor-Skriptunoff/cb952f7eaf39b7b1bf739b818ece87cd
           ### http://lua-users.org/wiki/BuildingLuaInWindowsForNewbies
@@ -33,6 +33,7 @@ jobs:
           New-Item -Path "${{ env.lua_install_dir }}" -Name "lib" -ItemType "directory"
           New-Item -Path "${{ env.lua_install_dir }}" -Name "share" -ItemType "directory"
           New-Item -Path "${{ env.lua_install_dir }}" -Name "include" -ItemType "directory"
+          New-Item -Path "${{ env.temp_dir }}" -Name "lua_path.txt"
 
       - name: Build and install LuaJIT 2.0.4
         run: |
@@ -69,7 +70,6 @@ jobs:
       - name: Set GitHub env variables
         shell: bash
         run: |
-          echo "" >> "${{ env.temp_dir }}\lua_path.txt"
           fixedpath=$(echo "${{ env.temp_dir }}/lua_path.txt" | sed -e 's_\\_/_g') ### replace \ with /
           cat $fixedpath
           echo "LUA_PATH=;;${{ env.lua_install_lib_dir }}\\?.lua;${{ env.lua_install_lib_dir }}\\?\\init.lua;${{ env.lua_install_lib_dir }}\\jit\\?.lua;${{ env.lua_install_lib_dir }}\\jit\\?\\init.lua;${{ env.lua_install_share_dir }}\\lua\\5.1\\?.lua;$(cat $fixedpath)" >> $GITHUB_ENV
