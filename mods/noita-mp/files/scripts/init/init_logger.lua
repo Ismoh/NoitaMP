@@ -4,7 +4,8 @@ package.path               = package.path .. ";mods/noita-mp/files/lib/external/
 local Logging              = require("logging")
 
 local appender             = function(self, level, channel, message)
-    if ModSettingGet("noita-mp.toggle_logger") == false then
+    -- ModSettingGet = nil on GitHub Actions :)
+    if ModSettingGet and ModSettingGet("noita-mp.toggle_logger") == false then
         return
     end
 
