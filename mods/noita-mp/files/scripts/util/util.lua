@@ -16,6 +16,7 @@ end
 
 function util.IsEmpty(var)
     -- if you change this also change NetworkVscUtils.lua
+    -- if you change this also change table_extensions.lua
     if var == nil then
         return true
     end

@@ -175,16 +175,15 @@ function table.setNoitaMpDefaultMetaMethods(tbl, mode)
     local mt = {
         __len      = 0,
         __mode     = mode,
-        __index    = function(t, k)
-            local v = t[k]
-            if util.IsEmpty(v) then
-                t.__len = t.__len - 1 -- dirty workaround to get __len in lua5.1
+        __index    = function(self, k)
+            if not rawget(self, k) then -- value = rawget(self, k)
+                self.__len = self.__len - 1 -- dirty workaround to get __len in lua5.1
             end
-            return v
+            return rawget(self, k)
         end,
-        __newindex = function(t, k, v)
-            t.__len = t.__len + 1 -- dirty workaround to get __len in lua5.1
-            rawset(t, k, v)
+        __newindex = function(self, k, v)
+            self.__len = self.__len + 1 -- dirty workaround to get __len in lua5.1
+            rawset(self, k, v)
         end
     }
     setmetatable(tbl, mt)
