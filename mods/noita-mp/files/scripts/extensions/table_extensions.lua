@@ -145,6 +145,7 @@ function table.insertAllButNotDuplicates(tbl1, tbl2)
 end
 
 function table.size(T)
+    error("table.size is deprecated, use #table instead with meta-method __len.")
     -- https://stackoverflow.com/a/64882015/3493998
     local count = 0
     for _ in pairs(T) do
@@ -152,6 +153,44 @@ function table.size(T)
     end
     return count
 end
+
+--- Sets metamethods for the table, which are default metamethods for NoitaMP.
+--- __mode = "kv" is set, so the table can be used as a weak table on key and value.
+--- __index = decreases __len by 1, so the table can be used as a stack.
+--- __newindex = increases __len by 1, so the table can be used as a stack.
+--- __len isn't available in lua 5.1, so init it.
+--- @param tbl table table to set the metamethods
+--- @param mode string k or v or kv
+function table.setNoitaMpDefaultMetaMethods(tbl, mode)
+    if type(tbl) ~= "table" then
+        error("Unable to set default metamethods for a non-table.")
+    end
+    if type(mode) ~= "string" then
+        error("Unable to set default metamethods for a non-string mode.")
+    end
+
+    if not mode then
+        mode = "kv"
+    end
+
+    local mt = {
+        __len      = 0,
+        __mode     = mode,
+        __index    = function(t, k)
+            local v = t[k]
+            if util.IsEmpty(v) then
+                t.__len = t.__len - 1 -- dirty workaround to get __len in lua5.1
+            end
+            return v
+        end,
+        __newindex = function(t, k, v)
+            t.__len = t.__len + 1 -- dirty workaround to get __len in lua5.1
+            rawset(t, k, v)
+        end
+    }
+    setmetatable(tbl, mt)
+end
+
 
 ------------------------------------------------------------------------------------------------------------------------
 --[[ deepcopy.lua

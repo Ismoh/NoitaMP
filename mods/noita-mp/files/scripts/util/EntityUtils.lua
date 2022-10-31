@@ -48,21 +48,7 @@ local localOwner                           = {
 EntityUtils.localPlayerEntityId            = -1
 EntityUtils.localPlayerEntityIdPolymorphed = -1
 EntityUtils.transformCache                 = {}
-local transformCacheMetatable              = {
-    __mode     = "kv",
-    __index    = function(t, k)
-        local v = t[k]
-        if util.IsEmpty(v) then
-            t.__len = t.__len - 1 -- dirty workaround to get __len in lua5.1
-        end
-        return v
-    end,
-    __newindex = function(t, k, v)
-        t.__len = t.__len + 1 -- dirty workaround to get __len in lua5.1
-        rawset(t, k, v)
-    end
-}
-setmetatable(EntityUtils.transformCache, transformCacheMetatable)
+table.setNoitaMpDefaultMetaMethods(EntityUtils.transformCache)
 
 ----------------------------------------
 --- private local methods:
@@ -498,12 +484,8 @@ function EntityUtils.destroyByNuid(nuid)
             entityId ~= EntityUtils.localPlayerEntityIdPolymorphed then
         EntityKill(entityId)
     end
-
-    EntityUtils.cachedEntityIds[entityId] = EntityUtils.entityStatus.destroyed
-
-    -- Remove entityId from cache
-    local clientOrServer                  = NetworkUtils.getClientOrServer()
-    clientOrServer.entityCache[entityId]  = nil
+    -- Make sure cache is cleared correctly
+    EntityUtils.transformCache[entityId] = nil
     CustomProfiler.stop("EntityUtils.destroyByNuid", cpc)
 end
 

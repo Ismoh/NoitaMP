@@ -16,11 +16,11 @@ function CoroutineUtils.iterator(entities)
         co = coroutine.create(function()
             for i = 1, #entities do
                 local entityId = entities[i]
-                if EntityUtils.cachedEntityIds[entityId] ~= EntityUtils.entityStatus.processed and
-                        EntityUtils.cachedEntityIds[entityId] ~= EntityUtils.entityStatus.destroyed then
-                    EntityUtils.cachedEntityIds[entityId] = EntityUtils.entityStatus.new
+                --if EntityUtils.cachedEntityIds[entityId] ~= EntityUtils.entityStatus.processed and
+                --        EntityUtils.cachedEntityIds[entityId] ~= EntityUtils.entityStatus.destroyed then
+                --    EntityUtils.cachedEntityIds[entityId] = EntityUtils.entityStatus.new
                     coroutine.yield(entityId)
-                end
+                --end
             end
         end)
     end

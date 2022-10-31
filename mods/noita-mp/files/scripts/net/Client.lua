@@ -54,11 +54,12 @@ function Client.new(sockClient)
     self.guid         = tostring(ModSettingGet("noita-mp.guid"))
     self.nuid         = nil
     self.acknowledge  = {} -- sock.lua#Client:send -> self.acknowledge[packetsSent] = { event = event, data = data, entityId = data.entityId, status = NetworkUtils.events.acknowledgement.sent }
+    table.setNoitaMpDefaultMetaMethods(self.acknowledge)
+    self.acknowledgeMaxSize = 500
     self.transform    = { x = 0, y = 0 }
-    self.health       = { current = 234, max = 2135 }
+    self.health       = { current = 99, max = 100 }
     self.serverInfo   = {}
     self.otherClients = {}
-    self.entityCache  = {}
     self.missingMods  = nil
     self.requiredMods = nil
     self.syncedMods   = false
@@ -156,7 +157,7 @@ function Client.new(sockClient)
         logger:debug(logger.channels.network, "onAcknowledgement: Acknowledgement received.", util.pformat(data))
 
         if util.IsEmpty(data.networkMessageId) then
-            error(("onAcknowledgement data.networkMessageId is empty: %s"):format(data.networkMessageId), 3)
+            error(("onAcknowledgement data.networkMessageId is empty: %s"):format(data.networkMessageId), 2)
         end
 
         if not data.networkMessageId then
@@ -169,8 +170,11 @@ function Client.new(sockClient)
         if not self.acknowledge[data.networkMessageId] then
             self.acknowledge[data.networkMessageId] = {}
         end
-
         self.acknowledge[data.networkMessageId].status = data.status
+
+        if #self.acknowledge > self.acknowledgeMaxSize then
+            table.remove(self.acknowledge, 1)
+        end
         CustomProfiler.stop("Client.onAcknowledgement", cpc3)
     end
 

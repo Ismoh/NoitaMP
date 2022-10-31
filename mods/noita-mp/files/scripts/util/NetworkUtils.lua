@@ -113,20 +113,11 @@ end
 function NetworkUtils.alreadySent(event, data)
     local cpc              = CustomProfiler.start("NetworkUtils.alreadySent")
     local clientOrServer   = NetworkUtils.getClientOrServer()
-
-    --if _G.whoAmI() == Client.iAm then
-    --    clientOrServer = Client
-    --elseif _G.whoAmI() == Server.iAm then
-    --    clientOrServer = Server
-    --else
-    --    error("Unable to identify whether I am Client or Server..", 3)
-    --end
-
     local networkMessageId = data[1]
     local rtt              = clientOrServer:getRoundTripTime()
 
     if util.IsEmpty(networkMessageId) then
-        error("networkMessageId is empty!", 3)
+        error("networkMessageId is empty!", 2)
     end
 
     if clientOrServer.acknowledge[networkMessageId] ~= nil then
@@ -147,6 +138,7 @@ function NetworkUtils.alreadySent(event, data)
     local alreadySent = false
     -- We need to compare the data, because networkMessageId isn't stored
     local data1       = table.deepcopy(data)
+    table.setNoitaMpDefaultMetaMethods(data1)
     table.remove(data1, 1)
 
     for key, value in pairs(clientOrServer.acknowledge) do
@@ -168,6 +160,7 @@ function NetworkUtils.alreadySent(event, data)
             --end
 
             local data2 = table.deepcopy(value.data) -- TODO: memory leak?
+            table.setNoitaMpDefaultMetaMethods(data2)
             table.remove(data2, 1)
 
             -- if position of entity changes, while trying to get nuid, this compare will fail, because x and y is
@@ -185,6 +178,7 @@ function NetworkUtils.alreadySent(event, data)
                 CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
                 return true
             end
+            data2 = nil
         end
 
         -- double check if ownerName, ownerGuid and entityId already was sent
@@ -211,6 +205,7 @@ function NetworkUtils.alreadySent(event, data)
                 return true
             end
         end
+        data1 = nil
     end
 
     --
