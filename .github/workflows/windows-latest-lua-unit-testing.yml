@@ -33,6 +33,7 @@ jobs:
           New-Item -Path "${{ env.lua_install_dir }}" -Name "lib" -ItemType "directory"
           New-Item -Path "${{ env.lua_install_dir }}" -Name "share" -ItemType "directory"
           New-Item -Path "${{ env.lua_install_dir }}" -Name "include" -ItemType "directory"
+          New-Item -Path "${{ github.workspace }}" -Name "temp" -ItemType "directory"
           New-Item -Path "${{ env.temp_dir }}" -Name "lua_path.txt"
 
       - name: Build and install LuaJIT 2.0.4
