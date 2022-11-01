@@ -172,18 +172,30 @@ function table.setNoitaMpDefaultMetaMethods(tbl, mode)
         error("Unable to set default metamethods for a non-string mode.")
     end
 
+    tbl.size = 0 -- __len isn't available in lua 5.1, workaround.
+
     local mt = {
-        __len      = 0,
         __mode     = mode,
         __index    = function(self, k)
-            if not rawget(self, k) then -- value = rawget(self, k)
-                self.__len = self.__len - 1 -- dirty workaround to get __len in lua5.1
+            if not rawget(self, k) then
+                -- value = rawget(self, k)
+                self.size = self.size - 1 -- dirty workaround to get __len in lua5.1
             end
             return rawget(self, k)
         end,
         __newindex = function(self, k, v)
-            self.__len = self.__len + 1 -- dirty workaround to get __len in lua5.1
+            self.size = self.size + 1 -- dirty workaround to get __len in lua5.1
             rawset(self, k, v)
+        end,
+        __tostring = function(self)
+            local str = ""
+            for i = 1, self.size do
+                str = str .. tostring(self[i]) .. ", "
+            end
+            return str
+        end,
+        __len      = function(self)
+            return self.size
         end
     }
     setmetatable(tbl, mt)
@@ -626,3 +638,4 @@ do
 end
 ------------------------------------------------------------------------------------------------------------------------
 
+return table

@@ -837,9 +837,11 @@ function Client.new(sockClient)
             return
         end
 
-        EntityUtils.destroyClientEntities()
-        EntityUtils.processEntityNetworking()
+        --EntityUtils.destroyClientEntities()
+        --EntityUtils.processEntityNetworking()
         --EntityUtils.initNetworkVscs()
+
+        EntityUtils.processAndSyncEntityNetworking()
 
         local nowTime     = GameGetRealWorldTimeSinceStarted() * 1000 -- *1000 to get milliseconds
         local elapsedTime = nowTime - prevTime
@@ -851,8 +853,8 @@ function Client.new(sockClient)
             --updateVariables()
 
             --EntityUtils.destroyClientEntities()
-            EntityUtils.syncEntityData()
-            EntityUtils.syncDeadNuids()
+            --EntityUtils.syncEntityData()
+            --EntityUtils.syncDeadNuids()
         end
 
         sockClientUpdate(self)

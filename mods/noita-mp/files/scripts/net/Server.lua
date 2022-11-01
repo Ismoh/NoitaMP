@@ -855,8 +855,10 @@ function Server.new(sockServer)
             return
         end
 
-        EntityUtils.processEntityNetworking()
+        --EntityUtils.processEntityNetworking()
         --EntityUtils.initNetworkVscs()
+
+        EntityUtils.processAndSyncEntityNetworking()
 
         local nowTime     = GameGetRealWorldTimeSinceStarted() * 1000 -- *1000 to get milliseconds
         local elapsedTime = nowTime - prevTime
@@ -867,8 +869,8 @@ function Server.new(sockServer)
             --if since % tonumber(ModSettingGet("noita-mp.tick_rate")) == 0 then
             --updateVariables()
 
-            EntityUtils.syncEntityData()
-            EntityUtils.syncDeadNuids()
+            --EntityUtils.syncEntityData()
+            --EntityUtils.syncDeadNuids()
             --end
             CustomProfiler.stop("Server.update.tick", cpc1)
         end

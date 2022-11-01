@@ -2,6 +2,7 @@
 --- Imports by dofile, dofile_once and require
 ----------------------------------------------------------------------------------------------------
 dofile("mods/noita-mp/files/scripts/init/init_.lua")
+local util = require("util")
 local fu = require("file_util")
 local ui = require("Ui").new()
 
@@ -29,8 +30,6 @@ ModMagicNumbersFileAdd("mods/noita-mp/files/data/magic_numbers.xml")
 fu.Find7zipExecutable()
 
 local saveSlotsLastModifiedBeforeWorldInit = fu.getLastModifiedSaveSlots()
-
-EntityUtils.modifyPhysicsEntities()
 
 ----------------------------------------------------------------------------------------------------
 --- NoitaMP functions

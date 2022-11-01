@@ -3,11 +3,6 @@ local ffi     = require("ffi")
 local watcher = require("watcher")
 local lfs     = require("lfs")
 
-if not logger then
-    ---@diagnostic disable-next-line: lowercase-global
-    logger = _G.logger
-end
-
 -----------------------------------------------------------------------------------------------------------------------
 --- Version
 -----------------------------------------------------------------------------------------------------------------------

@@ -7,7 +7,19 @@
 --- 'Imports'
 ----------------------------------------
 dofile("mods/noita-mp/config.lua")
-local util = require("util")
+
+local util = nil
+if require then
+    util = require("util")
+else
+    -- Fix stupid Noita sandbox issue. Noita Components does not have access to require.
+    util = dofile("mods/noita-mp/files/scripts/util/util.lua")
+end
+
+if not table or not table.setNoitaMpDefaultMetaMethods then
+    -- Fix stupid Noita sandbox issue. Noita Components does not have access to require.
+    table = dofile_once("mods/noita-mp/files/scripts/extensions/table_extensions.lua")
+end
 
 ------------------------------------------------------------------------------------------------------------------------
 --- When NoitaComponents are accessing this file, they are not able to access the global variables defined in this file.

@@ -331,7 +331,7 @@ function Ui.new()
         drawMenu()
         drawModConflictWarning()
 
-        if #NetworkUtils.getClientOrServer().transformCache >= 10000 then
+        if #EntityUtils.transformCache >= 10000 then
             gui = gui or GuiCreate()
             GuiStartFrame(gui)
             GuiIdPushString(gui, "possibleMemoryOverflow")

@@ -94,13 +94,13 @@ jobs:
 
           # https://timheuer.com/blog/manually-force-a-failure-in-github-action-step/
           $testFail = Select-String -Path ${{ github.workspace }}\.testing\testresult.log -Pattern 'FAIL' -CaseSensitive
-          Write-Output "::set-output name=fail::$testFail"
+          echo "{fail}={$testFail}" >> $GITHUB_OUTPUT
 
           $testError = Select-String -Path ${{ github.workspace }}\.testing\testresult.log -Pattern 'ERROR' -CaseSensitive
-          Write-Output "::set-output name=error::$testError"
+          echo "{error}={$testError}" >> $GITHUB_OUTPUT
 
           $notFound = Get-Content -Path ${{ github.workspace }}\.testing\testresult.log
-          Write-Output "::set-output name=not_found::$notFound"
+          echo "{not_found}={$notFound}" >> $GITHUB_OUTPUT
 
       - name: Unit test failed?
         if: ${{ steps.lua_unit_tests.outputs.fail != '' || steps.lua_unit_tests.outputs.error != '' || steps.lua_unit_tests.outputs.not_found == '' }}

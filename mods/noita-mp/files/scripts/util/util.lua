@@ -1,4 +1,12 @@
-local pprint = require("pprint")
+local pprint = {}
+if require then
+    pprint = require("pprint")
+else
+    pprint.pformat = function(...)
+        print(...)
+    end
+    pprint.defaults = {}
+end
 
 local util = {}
 
