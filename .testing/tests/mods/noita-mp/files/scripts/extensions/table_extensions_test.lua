@@ -48,12 +48,18 @@ end
 function TestTableExtensions:testSetNoitaMpDefaultMetaMethods()
     local t = { 1, 2 }
     table.setNoitaMpDefaultMetaMethods(t)
+    logger:debug(nil, tostring(t))
 
     table.insert(t, 3)
+    logger:debug(nil, tostring(t))
     t[4] = 4
+    logger:debug(nil, tostring(t))
     t[5] = 5
+    logger:debug(nil, tostring(t))
     table.insert(t, 6)
+    logger:debug(nil, tostring(t))
     table.remove(t, 1)
+    logger:debug(nil, tostring(t))
 
     lu.assertEquals(t[1], 2)
     lu.assertEquals(#t, 5)
@@ -61,13 +67,20 @@ function TestTableExtensions:testSetNoitaMpDefaultMetaMethods()
 
     local t2 = { 1, 2, nil, 4, nil, 6 }
     table.setNoitaMpDefaultMetaMethods(t2)
+    logger:debug(nil, tostring(t2))
 
     table.insert(t2, 7)
+    logger:debug(nil, tostring(t2))
     t2[3] = 3
+    logger:debug(nil, tostring(t2))
     t2[5] = 5
+    logger:debug(nil, tostring(t2))
     table.remove(t2, 2)
+    logger:debug(nil, tostring(t2))
     table.remove(t2, 4)
+    logger:debug(nil, tostring(t2))
     table.remove(t2, 6)
+    logger:debug(nil, tostring(t2))
 
     lu.assertEquals(t2[1], 1)
     lu.assertEquals(#t2, 4)
