@@ -7,6 +7,7 @@
 --- 'Imports'
 ----------------------------------------
 local sock        = require("sock")
+local util        = require("util")
 local zstandard   = require("zstd")
 local messagePack = require("MessagePack")
 
@@ -38,7 +39,7 @@ Server            = {}
 ---@param sockServer table sock.lua#newServer
 ---@return table Server
 function Server.new(sockServer)
-    local cpc = CustomProfiler.start("Server.new")
+    local cpc        = CustomProfiler.start("Server.new")
     local self       = sockServer
 
     ------------------------------------
@@ -56,9 +57,9 @@ function Server.new(sockServer)
     self.acknowledge = {} -- sock.lua#Client:send -> self.acknowledge[packetsSent] = { event = event, data = data, entityId = data.entityId, status = NetworkUtils.events.acknowledgement.sent }
     table.setNoitaMpDefaultMetaMethods(self.acknowledge)
     self.acknowledgeMaxSize = 500
-    self.transform   = { x = 0, y = 0 }
-    self.health      = { current = 99, max = 100 }
-    self.modListCached = nil
+    self.transform          = { x = 0, y = 0 }
+    self.health             = { current = 99, max = 100 }
+    self.modListCached      = nil
 
 
     ------------------------------------
@@ -69,9 +70,9 @@ function Server.new(sockServer)
     --- Set servers settings
     ------------------------------------------------------------------------------------------------
     local function setConfigSettings()
-        local cpc0 = CustomProfiler.start("Server.setConfigSettings")
+        local cpc0        = CustomProfiler.start("Server.setConfigSettings")
         local serialize   = function(anyValue)
-            local cpc1 = CustomProfiler.start("Server.setConfigSettings.serialize")
+            local cpc1            = CustomProfiler.start("Server.setConfigSettings.serialize")
             --logger:debug(logger.channels.network, ("Serializing value: %s"):format(anyValue))
             local serialized      = messagePack.pack(anyValue)
             local zstd            = zstandard:new()
@@ -88,7 +89,7 @@ function Server.new(sockServer)
         end
 
         local deserialize = function(anyValue)
-            local cpc2 = CustomProfiler.start("Server.setConfigSettings.deserialize")
+            local cpc2              = CustomProfiler.start("Server.setConfigSettings.deserialize")
             --logger:debug(logger.channels.network, ("Serialized and compressed value: %s"):format(anyValue))
             local zstd              = zstandard:new()
             --logger:debug(logger.channels.network, "Compressed size:", string.len(anyValue))
@@ -113,7 +114,7 @@ function Server.new(sockServer)
     ------------------------------------------------------------------------------------------------
     local function setGuid()
         local cpc01 = CustomProfiler.start("Server.setGuid")
-        local guid = tostring(ModSettingGetNextValue("noita-mp.guid"))
+        local guid  = tostring(ModSettingGetNextValue("noita-mp.guid"))
 
         if guid == "" or Guid.isPatternValid(guid) == false then
             guid = Guid:getGuid()
@@ -135,7 +136,7 @@ function Server.new(sockServer)
     ------------------------------------------------------------------------------------------------
     local function sendAck(networkMessageId, peer)
         local cpc02 = CustomProfiler.start("Server.sendAck")
-        local data = { networkMessageId, NetworkUtils.events.acknowledgement.ack }
+        local data  = { networkMessageId, NetworkUtils.events.acknowledgement.ack }
         self:sendToPeer(peer, NetworkUtils.events.acknowledgement.name, data)
         logger:debug(logger.channels.network, ("Sent ack with data = %s"):format(util.pformat(data)))
         CustomProfiler.stop("Server.sendAck", cpc02)
@@ -287,7 +288,8 @@ function Server.new(sockServer)
             local dataNewGuid = {
                 NetworkUtils.getNextNetworkMessageId(), data.guid, newGuid
             }
-            self:sendToAll2(NetworkUtils.events.newGuid.name, dataNewGuid) -- TODO add processId to guid and save it an a processedId file.
+            self:sendToAll2(NetworkUtils.events.newGuid.name,
+                            dataNewGuid) -- TODO add processId to guid and save it an a processedId file.
             data.guid = newGuid
         end
 
@@ -473,7 +475,7 @@ function Server.new(sockServer)
     end
 
     local function onDeadNuids(data, peer)
-        local cpc010 = CustomProfiler.start("Server.onDeadNuids")
+        local cpc010    = CustomProfiler.start("Server.onDeadNuids")
         local deadNuids = data.deadNuids or data or {}
         for i = 1, #deadNuids do
             local deadNuid = deadNuids[i]
@@ -494,8 +496,8 @@ function Server.new(sockServer)
 
     local function setClientInfo(data, peer)
         local cpc011 = CustomProfiler.start("Server.setClientInfo")
-        local name = data.name
-        local guid = data.guid
+        local name   = data.name
+        local guid   = data.guid
 
         if not name then
             error("Unable to get clients name!", 2)
@@ -522,63 +524,65 @@ function Server.new(sockServer)
     local function onNeedModList(data, peer)
         local cpc = CustomProfiler.start("Server.onMeedModList")
         if self.modListCached == nil then
-            local modXML = fu.ReadFile(fu.GetAbsoluteDirectoryPathOfParentSave() .. "\\save00\\mod_config.xml")
+            local modXML  = fu.ReadFile(fu.GetAbsoluteDirectoryPathOfParentSave() .. "\\save00\\mod_config.xml")
             local modList = {
                 workshop = {},
                 external = {}
             }
-            modXML:gsub('<Mod([a-zA-Z_-"]+)>', function (item)
+            modXML:gsub('<Mod([a-zA-Z_-"]+)>', function(item)
                 if item:find('enabled="1"') ~= nil then
                     local workshopID
                     local name
-                    item:gsub('workshop_item_id="([0-9]+)"', function (wID)
+                    item:gsub('workshop_item_id="([0-9]+)"', function(wID)
                         workshopID = wID
                     end)
-                    item:gsub('name="([a-zA-Z0-9_-]+)"', function (mID)
+                    item:gsub('name="([a-zA-Z0-9_-]+)"', function(mID)
                         name = mID
                     end)
-                    if workshopID == nil or name == nil then 
+                    if workshopID == nil or name == nil then
                         error("onNeedModList: Failed to parse mod_config.xml", 2)
                     end
                     table.insert((workshopID ~= "0" and modList.workshop or modList.external), {
-                            workshopID = workshopID,
-                            name = name
+                        workshopID = workshopID,
+                        name       = name
                     })
                 end
             end)
             self.modListCached = modList
         end
         peer:send(NetworkUtils.events.needModList.name,
-            { NetworkUtils.getNextNetworkMessageId(), self.modListCached.workshop, self.modListCached.external })
+                  { NetworkUtils.getNextNetworkMessageId(), self.modListCached.workshop, self.modListCached.external })
 
         CustomProfiler.stop("Server.onMeedModList", cpc)
     end
 
     local function onNeedModContent(data, peer)
-        local cpc = CustomProfiler.start("Server.onMeedModList")
+        local cpc       = CustomProfiler.start("Server.onMeedModList")
         local modsToGet = data.get
-        local res = {}
+        local res       = {}
         for i, mod in ipairs(modsToGet) do
             local modId = "0"
             for _ = 1, #self.modListCached.workshop do
-                if self.modListCached.workshop[_].name == mod then modId = self.modListCached.workshop[_].workshopID end
+                if self.modListCached.workshop[_].name == mod then
+                    modId = self.modListCached.workshop[_].workshopID
+                end
             end
             local pathToMod
-            if modId ~= "0"then 
-                pathToMod =( "C:/Program Files (x86)/Steam/steamapps/workshop/content/881100/%s/"):format(modId)
-            else 
+            if modId ~= "0" then
+                pathToMod = ("C:/Program Files (x86)/Steam/steamapps/workshop/content/881100/%s/"):format(modId)
+            else
                 pathToMod = (fu.GetAbsolutePathOfNoitaRootDirectory() .. "/mods/%s/"):format(mod)
 
             end
             local archiveName = ("%s_%s_mod_sync"):format(tostring(os.date("!")), mod)
             fu.Create7zipArchive(archiveName, pathToMod, fu.GetAbsoluteDirectoryPathOfMods())
             table.insert(res, {
-                name = mod,
+                name       = mod,
                 workshopID = mod,
-                data = fu.ReadBinaryFile(archiveName)
+                data       = fu.ReadBinaryFile(archiveName)
             })
         end
-        peer:send(NetworkUtils.events.needModContent.name, {NetworkUtils.getNextNetworkMessageId(), modsToGet, res})
+        peer:send(NetworkUtils.events.needModContent.name, { NetworkUtils.getNextNetworkMessageId(), modsToGet, res })
         CustomProfiler.stop("Server.onMeedModList", cpc)
     end
 
@@ -757,7 +761,7 @@ function Server.new(sockServer)
     end
 
     local function updateVariables()
-        local cpc013 = CustomProfiler.start("Server.updateVariables")
+        local cpc013   = CustomProfiler.start("Server.updateVariables")
         local entityId = util.getLocalPlayerInfo().entityId
         if entityId then
             local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
@@ -865,7 +869,7 @@ function Server.new(sockServer)
         local oneTickInMs = 1000 / tonumber(ModSettingGet("noita-mp.tick_rate"))
         if elapsedTime >= oneTickInMs then
             local cpc1 = CustomProfiler.start("Server.update.tick")
-            prevTime = nowTime
+            prevTime   = nowTime
             --if since % tonumber(ModSettingGet("noita-mp.tick_rate")) == 0 then
             --updateVariables()
 
@@ -918,7 +922,7 @@ function Server.new(sockServer)
 
     function self.sendDeadNuids(deadNuids)
         local cpc019 = CustomProfiler.start("Server.sendDeadNuids")
-        local data = {
+        local data   = {
             NetworkUtils.getNextNetworkMessageId(), deadNuids
         }
         self:sendToAll2(NetworkUtils.events.deadNuids.name, data)

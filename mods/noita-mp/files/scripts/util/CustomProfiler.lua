@@ -17,7 +17,7 @@ CustomProfiler.reportCache               = {}
 CustomProfiler.counter                   = 1
 CustomProfiler.threshold                 = 16.67 -- ms, ~60 fps
 CustomProfiler.ceiling                   = 1001 -- ms
-CustomProfiler.maxEntries                = 50 -- entries per trace
+CustomProfiler.maxEntries                = 25 -- entries per trace
 CustomProfiler.reportDirectory           = ("%s%sNoitaMP-Reports%s%s"):format(fu.getDesktopDirectory(),
                                                                               path_separator, path_separator,
                                                                               os.date("%Y-%m-%d_%H-%M-%S",
@@ -42,6 +42,8 @@ function CustomProfiler.start(functionName)
         start    = start,
         stop     = nil,
         duration = nil,
+        memoryStart = collectgarbage("count") / 1024,
+        memoryStop  = nil,
     }
 
     if not CustomProfiler.reportCache[functionName]["size"] then
@@ -83,7 +85,9 @@ function CustomProfiler.stop(functionName, customProfilerCounter)
             -- only profile functions that take longer than 30ms (1000ms / 30ms per frame = 33fps)
             entry.stop     = stop
             entry.duration = duration
+            entry.memoryStop = collectgarbage("count") / 1024
         else
+            table.setNoitaMpDefaultMetaMethods(CustomProfiler.reportCache[functionName][customProfilerCounter], "v")
             CustomProfiler.reportCache[functionName][customProfilerCounter] = nil
             CustomProfiler.reportCache[functionName]["size"]                = CustomProfiler.reportCache[functionName]["size"] - 1
         end
@@ -97,7 +101,9 @@ function CustomProfiler.stop(functionName, customProfilerCounter)
                 if duration >= CustomProfiler.threshold then
                     entry.stop     = stop
                     entry.duration = duration
+                    entry.memoryStop = collectgarbage("count") / 1024
                 else
+                    table.setNoitaMpDefaultMetaMethods(CustomProfiler.reportCache[functionName][index], "v")
                     CustomProfiler.reportCache[functionName][index]  = nil
                     CustomProfiler.reportCache[functionName]["size"] = CustomProfiler.reportCache[functionName]["size"] - 1
                 end
@@ -107,8 +113,17 @@ function CustomProfiler.stop(functionName, customProfilerCounter)
     end
 
     if CustomProfiler.reportCache[functionName]["size"] >= CustomProfiler.maxEntries then
+        if not fu.Exists(CustomProfiler.reportDirectory) then
+            fu.MkDir(CustomProfiler.reportDirectory)
+        end
+
         local x = {}
         local y = {}
+        local xMemoryStart = {}
+        local yMemoryStart = {}
+        local xMemoryStop = {}
+        local yMemoryStop = {}
+
         for index in orderedPairs(CustomProfiler.reportCache[functionName]) do
             local entry2 = CustomProfiler.reportCache[functionName][index]
             if entry2.frame and entry2.duration then
@@ -117,13 +132,18 @@ function CustomProfiler.stop(functionName, customProfilerCounter)
                 end
                 table.insert(x, entry2.frame)
                 table.insert(y, entry2.duration)
+                table.insert(xMemoryStart, entry2.frame)
+                table.insert(yMemoryStart, entry2.memoryStart)
+                table.insert(xMemoryStop, entry2.frame)
+                table.insert(yMemoryStop, entry2.memoryStop)
+                table.setNoitaMpDefaultMetaMethods(CustomProfiler.reportCache[functionName][index], "v")
                 CustomProfiler.reportCache[functionName][index]  = nil
                 CustomProfiler.reportCache[functionName]["size"] = CustomProfiler.reportCache[functionName]["size"] - 1
             end
-
         end
+
         -- https://plotly.com/javascript/bar-charts/#grouped-bar-chart-with-direct-labels
-        local data = {
+        local dataTime = {
             x            = x,
             y            = y,
             type         = "bar",
@@ -134,10 +154,40 @@ function CustomProfiler.stop(functionName, customProfilerCounter)
             --line    = { width = 1 },
             opacity      = 0.75,
             --font    = { size = 8 },
-
         }
-        local fig1 = plotly.figure()
-        fig1:write_trace_to_file(data, CustomProfiler.reportDirectory)
+        local figTime = plotly.figure()
+        figTime:write_trace_to_file(dataTime, CustomProfiler.reportDirectory)
+
+        local dataMemoryStart = {
+            x            = xMemoryStart,
+            y            = yMemoryStart,
+            type         = "bar",
+            --mode    = "lines",
+            textposition = "auto",
+            name         = functionName .. " mb start",
+            text         = functionName .. " mb start",
+            --line    = { width = 1 },
+            opacity      = 0.75,
+            --font    = { size = 8 },
+        }
+        local figMemoryStart = plotly.figure()
+        figMemoryStart:write_trace_to_file(dataMemoryStart, CustomProfiler.reportDirectory)
+
+        local dataMemoryStop = {
+            x            = xMemoryStop,
+            y            = yMemoryStop,
+            type         = "bar",
+            --mode    = "lines",
+            textposition = "auto",
+            name         = functionName .. " mb stop",
+            text         = functionName .. " mb stop",
+            --line    = { width = 1 },
+            opacity      = 0.75,
+            --font    = { size = 8 },
+        }
+        local figMemoryStop = plotly.figure()
+        figMemoryStop:write_trace_to_file(dataMemoryStop, CustomProfiler.reportDirectory)
+
         CustomProfiler.reportCache[functionName] = nil
     end
 end

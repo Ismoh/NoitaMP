@@ -60,11 +60,52 @@ local localOwner                           = {
 EntityUtils.localPlayerEntityId            = -1
 EntityUtils.localPlayerEntityIdPolymorphed = -1
 EntityUtils.transformCache                 = {}
-table.setNoitaMpDefaultMetaMethods(EntityUtils.transformCache)
+table.setNoitaMpDefaultMetaMethods(EntityUtils.transformCache, "v")
 
 ----------------------------------------
 --- private local methods:
 ----------------------------------------
+
+--- Prevent "holes" in the cache, by using a sequence id as the key.
+--- This way, we can always iterate over the cache, without having to check if the key exists.
+--- It also reduces the amount of memory used by the cache.
+--- In addition the pool of available sequence ids is limited, which prevents the cache from growing indefinitely.
+--- It simply overwrites the oldest entry in the cache.
+--- @return number sequenceId
+local function getNextIndex()
+    local cpc = CustomProfiler.start("EntityUtils.transformCache.getNextIndex")
+    -- If there is any "hole" in the cache, then return that index.
+    for i = 1, #EntityUtils.transformCache do
+        if not EntityUtils.transformCache[i] then
+            CustomProfiler.stop("EntityUtils.transformCache.getNextIndex", cpc)
+            return i
+        end
+    end
+
+    -- If there is no "hole" and pool is full, then overwrite the oldest entry.
+    if #EntityUtils.transformCache + 1 >= EntityUtils.maxPoolSize then
+        CustomProfiler.stop("EntityUtils.transformCache.getNextIndex", cpc)
+        return #EntityUtils.transformCache + 1 - EntityUtils.maxPoolSize
+    end
+
+    -- If there is no "hole" in the cache, then return the next index.
+    CustomProfiler.stop("EntityUtils.transformCache.getNextIndex", cpc)
+    return #EntityUtils.transformCache + 1
+end
+
+--- Downside of this approach is that we can't use the cache as a map, because the keys are the entityIds.
+--- That's why we need to use the sequence id as the key, and the entityId as the value.
+local function getIndexByEntityId(entityId)
+    local cpc = CustomProfiler.start("EntityUtils.transformCache.getIndexByEntityId")
+    for i = 1, #EntityUtils.transformCache do
+        if EntityUtils.transformCache[i] and EntityUtils.transformCache[i].entityId == entityId then
+            CustomProfiler.stop("EntityUtils.transformCache.getIndexByEntityId", cpc)
+            return i
+        end
+    end
+    CustomProfiler.stop("EntityUtils.transformCache.getIndexByEntityId", cpc)
+    return nil
+end
 
 --- Special thanks to @Horscht:
 ---@param inventory_type any
@@ -230,13 +271,15 @@ function EntityUtils.isEntityAlive(entityId)
     end
     logger:warn(logger.channels.entity, ("Entity (%s) isn't alive anymore! Returning nil."):format(entityId))
     CustomProfiler.stop("EntityUtils.isEntityAlive", cpc)
-    return nil
+    return false
 end
 
 ------------------------------------------------------------------------------------------------
 --- processAndSyncEntityNetworking
 ------------------------------------------------------------------------------------------------
+local prevIndex = 1
 function EntityUtils.processAndSyncEntityNetworking()
+    local start            = GameGetRealWorldTimeSinceStarted() * 1000
     local cpc              = CustomProfiler.start("EntityUtils.processAndSyncEntityNetworking")
     local who              = whoAmI()
     local localPlayerId    = EntityUtils.getLocalPlayerEntityId()
@@ -265,129 +308,140 @@ function EntityUtils.processAndSyncEntityNetworking()
         end
     end
 
-    for entityId in CoroutineUtils.iterator(entityIds) do
-        --[[ Check if this entityId belongs to client ]]--
-        if who == Client.iAm then
-            if not table.contains(playerEntityIds, entityId) then
-                if EntityUtils.isEntityAlive(entityId) and
-                        entityId ~= EntityUtils.localPlayerEntityId and
-                        entityId ~= EntityUtils.localPlayerEntityIdPolymorphed and
-                        not EntityUtils.isRemoteMinae(entityId)
-                then
-                    EntityKill(entityId)
-                end
-            end
-        end
+    for index = prevIndex, #entityIds do -- entityId in CoroutineUtils.iterator(entityIds) do
+        repeat -- repeat until true with break works like continue
+            local cacheIndex = getIndexByEntityId(entityId)
 
-        --[[ Just be double sure and check if entity is alive. If not next entityId ]]--
-        repeat
+            --[[ Just be double sure and check if entity is alive. If not next entityId ]]--
             if not EntityUtils.isEntityAlive(entityId) then
-                EntityUtils.transformCache[entityId] = nil
+                if cacheIndex then
+                    EntityUtils.transformCache[cacheIndex] = nil
+                end
                 break -- work around for continue: repeat until true with break
             end
-        until true
 
-        --[[ Check if entity can be ignored, because it is not necessary to sync it,
-             depending on config.lua: EntityUtils.include. ]]--
-        local exclude  = true
-        local filename = EntityGetFilename(entityId) or ""
-
-        if EntityUtils.include.byFilename[filename] or
-                table.contains(EntityUtils.include.byFilename, filename)
-        then
-            exclude = false
-        else
-            for i = 1, #EntityUtils.include.byComponentsName do
-                local componentTypeName = EntityUtils.include.byComponentsName[i]
-                local components        = EntityGetComponentIncludingDisabled(entityId, componentTypeName) or {}
-                if #components > 0 then
-                    -- Entity has a component, which is included in the config.lua.
-                    exclude = false
-                    break
+            --[[ Check if this entityId belongs to client ]]--
+            if who == Client.iAm then
+                if not table.contains(playerEntityIds, entityId) then
+                    if EntityUtils.isEntityAlive(entityId) and
+                            entityId ~= EntityUtils.localPlayerEntityId and
+                            entityId ~= EntityUtils.localPlayerEntityIdPolymorphed and
+                            not EntityUtils.isRemoteMinae(entityId)
+                    then
+                        EntityKill(entityId)
+                        break -- work around for continue: repeat until true with break
+                    end
                 end
             end
-        end
-        repeat
+
+            --[[ Check if entity can be ignored, because it is not necessary to sync it,
+                 depending on config.lua: EntityUtils.include. ]]--
+            local exclude  = true
+            local filename = EntityGetFilename(entityId)
+
+            if EntityUtils.include.byFilename[filename] or
+                    table.contains(EntityUtils.include.byFilename, filename)
+            then
+                exclude = false
+            else
+                for i = 1, #EntityUtils.include.byComponentsName do
+                    local componentTypeName = EntityUtils.include.byComponentsName[i]
+                    local components        = EntityGetComponentIncludingDisabled(entityId, componentTypeName) or {}
+                    if #components > 0 then
+                        -- Entity has a component, which is included in the config.lua.
+                        exclude = false
+                        break
+                    end
+                end
+            end
             if exclude then
                 break -- work around for continue: repeat until true with break
             end
-        until true
 
-        --[[ Check if entity has already all network components ]]--
-        local nuid = nil
-        if not NetworkVscUtils.isNetworkEntityByNuidVsc(entityId) or
-                not NetworkVscUtils.hasNetworkLuaComponents(entityId)
-        then
-            local localPlayerInfo = util.getLocalPlayerInfo()
-            local ownerName       = localPlayerInfo.name
-            local ownerGuid       = localPlayerInfo.guid
+            --[[ Check if entity has already all network components ]]--
+            local nuid = nil
+            if not NetworkVscUtils.isNetworkEntityByNuidVsc(entityId) or
+                    not NetworkVscUtils.hasNetworkLuaComponents(entityId)
+            then
+                local localPlayerInfo = util.getLocalPlayerInfo()
+                local ownerName       = localPlayerInfo.name
+                local ownerGuid       = localPlayerInfo.guid
 
-            if who == Server.iAm then
-                nuid = NuidUtils.getNextNuid()
-                -- Server.sendNewNuid this will be executed below
-            elseif who == Client.iAm then
-                Client.sendNeedNuid(ownerName, ownerGuid, entityId)
-            else
-                logger:error(logger.channels.entity, "Unable to get whoAmI()!")
-            end
-
-            NetworkVscUtils.addOrUpdateAllVscs(entityId, ownerName, ownerGuid, nuid)
-        end
-
-        --[[ Check if moved or anything else changed ]]--
-        if not EntityUtils.isEntityAlive(entityId) then
-            EntityUtils.transformCache[entityId] = nil
-        elseif not EntityUtils.isRemoteMinae(entityId) then
-            local changed                                                                                  = false
-            local compOwnerName, compOwnerGuid, compNuid, filenameUnused, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
-            if EntityUtils.transformCache[entityId] == nil then
                 if who == Server.iAm then
-                    Server.sendNewNuid({ compOwnerName, compOwnerGuid }, entityId, nuid, x, y, rotation, velocity,
-                                       filename,
-                                       health, EntityUtils.isEntityPolymorphed(entityId))
+                    nuid = NuidUtils.getNextNuid()
+                    -- Server.sendNewNuid this will be executed below
+                elseif who == Client.iAm then
+                    Client.sendNeedNuid(ownerName, ownerGuid, entityId)
+                else
+                    logger:error(logger.channels.entity, "Unable to get whoAmI()!")
                 end
-            else
-                local threshold = math.round(tonumber(ModSettingGetNextValue("noita-mp.change_detection")) / 100, 0.1)
-                if math.abs(EntityUtils.transformCache[entityId].health.current - health.current) > threshold or
-                        math.abs(EntityUtils.transformCache[entityId].health.max - health.max) > threshold or
-                        math.abs(EntityUtils.transformCache[entityId].rotation - rotation) > threshold or
-                        math.abs(EntityUtils.transformCache[entityId].velocity.x - velocity.x) > threshold or
-                        math.abs(EntityUtils.transformCache[entityId].velocity.y - velocity.y) > threshold or
-                        math.abs(EntityUtils.transformCache[entityId].x - x) > threshold or
-                        math.abs(EntityUtils.transformCache[entityId].y - y) > threshold
-                then
-                    changed = true
-                end
-            end
-            EntityUtils.transformCache[entityId] = {
-                ownerName = compOwnerName,
-                ownerGuid = compOwnerGuid,
-                nuid      = compNuid,
-                filename  = filename,
-                health    = health,
-                rotation  = rotation,
-                velocity  = velocity,
-                x         = x,
-                y         = y
-            }
-            --repeat
-            --    if not changed then
-            --        break -- work around for continue: repeat until true with break
-            --    end
-            --until true
-            if changed then
-                NetworkUtils.getClientOrServer().sendEntityData(entityId)
-            end
-        end
 
-        --[[ Check execution time to reduce lag ]]--
-        if CustomProfiler.getDuration("EntityUtils.processAndSyncEntityNetworking", cpc) > 25 then
-            logger:warn(logger.channels.entity,
-                        "EntityUtils.processAndSyncEntityNetworking took too long. Breaking loop by returning entityId.")
-            break --return coroutine.yield(entityId) --co.yield(entityId)
-        end
+                NetworkVscUtils.addOrUpdateAllVscs(entityId, ownerName, ownerGuid, nuid)
+            end
+
+            --[[ Check if moved or anything else changed, but only on each tick ]]--
+            if NetworkUtils.isTick() and not EntityUtils.isRemoteMinae(entityId) then
+                local changed                                                                                  = false
+                local compOwnerName, compOwnerGuid, compNuid, filenameUnused, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
+
+                --[[ Entity is new and not in cache, that's why cacheIndex is nil ]]--
+                if not cacheIndex or EntityUtils.transformCache[cacheIndex] == nil then
+                    if who == Server.iAm then
+                        Server.sendNewNuid({ compOwnerName, compOwnerGuid }, entityId, nuid, x, y, rotation, velocity,
+                                           filename,
+                                           health, EntityUtils.isEntityPolymorphed(entityId))
+                    end
+                else
+                    --[[ Entity is already in cache, so check if something changed ]]--
+                    local threshold = math.round(tonumber(ModSettingGetNextValue("noita-mp.change_detection")) / 100,
+                                                 0.1)
+                    if math.abs(EntityUtils.transformCache[cacheIndex].health.current - health.current) > threshold or
+                            math.abs(EntityUtils.transformCache[cacheIndex].health.max - health.max) > threshold or
+                            math.abs(EntityUtils.transformCache[cacheIndex].rotation - rotation) > threshold or
+                            math.abs(EntityUtils.transformCache[cacheIndex].velocity.x - velocity.x) > threshold or
+                            math.abs(EntityUtils.transformCache[cacheIndex].velocity.y - velocity.y) > threshold or
+                            math.abs(EntityUtils.transformCache[cacheIndex].x - x) > threshold or
+                            math.abs(EntityUtils.transformCache[cacheIndex].y - y) > threshold
+                    then
+                        changed = true
+                    end
+                end
+
+                if not cacheIndex then
+                    cacheIndex = getNextIndex()
+                end
+
+                EntityUtils.transformCache[cacheIndex] = {
+                    entityId  = entityId,
+                    ownerName = compOwnerName,
+                    ownerGuid = compOwnerGuid,
+                    nuid      = compNuid,
+                    filename  = filename,
+                    health    = health,
+                    rotation  = rotation,
+                    velocity  = velocity,
+                    x         = x,
+                    y         = y
+                }
+                if changed then
+                    NetworkUtils.getClientOrServer().sendEntityData(entityId)
+                end
+            end
+
+            --[[ Check execution time to reduce lag ]]--
+            local executionTime = GameGetRealWorldTimeSinceStarted() * 1000 - start
+            if executionTime >= EntityUtils.maxExecutionTime then
+                logger:warn(logger.channels.entity,
+                            "EntityUtils.processAndSyncEntityNetworking took too long. Breaking loop by returning entityId.")
+                prevIndex = index
+                return -- completely end function, because it took too long
+            end
+
+            break
+        until true
     end
 
+    prevIndex = 1 -- TODO ??????????????? WRONG?
     CustomProfiler.stop("EntityUtils.processAndSyncEntityNetworking", cpc)
 end
 

@@ -4,30 +4,36 @@
 ------------------------------------------------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------------------------------------------------
---- CoroutineUtils:
+--- CoroutineUtils: -- TODO: REMOVE THIS FILE
 ------------------------------------------------------------------------------------------------------------------------
 CoroutineUtils = {}
+CoroutineUtils.co = nil
 
+local prevEntities = {}
 --- Custom iterator for entities using coroutine.
 --- @param entities table indexed table of entities: entities[1]...entities[n]
 --- @return number entityId
 function CoroutineUtils.iterator(entities)
-    if not co or coroutine.status(co) == 'dead' then
-        co = coroutine.create(function()
+    --if #entities ~= #prevEntities then
+    --    coroutine.s
+    --end
+    if not CoroutineUtils.co or coroutine.status(CoroutineUtils.co) == 'dead' then
+        CoroutineUtils.co = coroutine.create(function()
+            if not prevEntities then
+                prevEntities = entities
+            end
             for i = 1, #entities do
                 local entityId = entities[i]
-                --if EntityUtils.cachedEntityIds[entityId] ~= EntityUtils.entityStatus.processed and
-                --        EntityUtils.cachedEntityIds[entityId] ~= EntityUtils.entityStatus.destroyed then
-                --    EntityUtils.cachedEntityIds[entityId] = EntityUtils.entityStatus.new
+                if EntityUtils.isEntityAlive(entityId) then
                     coroutine.yield(entityId)
-                --end
+                end
             end
         end)
     end
     local iterator = function()
-        local status, result = coroutine.resume(co)
+        local status, result = coroutine.resume(CoroutineUtils.co)
         if status then
-            return result, co
+            return result, CoroutineUtils.co
         else
             logger:error(logger.channels.entity, result)
         end

@@ -62,10 +62,10 @@ function NoitaComponentUtils.getEntityData(entityId)
     local health                                 = { current = hpCurrent, max = hpMax }
     local x, y, rotation                         = EntityGetTransform(entityId)
     local velocityCompId                         = EntityGetFirstComponent(entityId, "VelocityComponent")
-    local velocity                               = { 0, 0 }
+    local velocity                               = { x = 0, y = 0 }
     if velocityCompId then
         local velocityX, velocityY = ComponentGetValue2(velocityCompId, "mVelocity")
-        velocity                   = { math.round(velocityX, 0.1), math.round(velocityY, 0.1) }
+        velocity                   = { x = math.round(velocityX, 0.1), y = math.round(velocityY, 0.1) }
     end
     local filename = EntityGetFilename(entityId)
 

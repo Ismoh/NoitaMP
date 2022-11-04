@@ -237,6 +237,22 @@ function NetworkUtils.alreadySent(event, data)
     return false
 end
 
+local prevTimeInMs = 0
+function NetworkUtils.isTick() -- TODO: ADD LuaDoc
+    local cpc         = CustomProfiler.start("NetworkUtils.isTick")
+    local nowTimeInMs     = GameGetRealWorldTimeSinceStarted() * 1000
+    local elapsedTime = nowTimeInMs - prevTimeInMs
+    local oneTickInMs = 1000 / tonumber(ModSettingGet("noita-mp.tick_rate"))
+    CustomProfiler.stop("ModSettingGet", cpc31)
+    if elapsedTime >= oneTickInMs then
+        prevTimeInMs = nowTimeInMs
+        CustomProfiler.stop("NetworkUtils.isTick", cpc)
+        return true
+    end
+    CustomProfiler.stop("NetworkUtils.isTick", cpc)
+    return false
+end
+
 -- Because of stack overflow errors when loading lua files,
 -- I decided to put Utils 'classes' into globals
 _G.NetworkUtils = NetworkUtils
