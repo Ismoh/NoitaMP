@@ -77,6 +77,16 @@ function CustomProfiler.stop(functionName, customProfilerCounter)
         return
     end
 
+    if not CustomProfiler.reportCache[functionName] then
+        logger:warn(logger.channels.profiler, "No entry found for function '%s'. Profiling will be skipped.", functionName)
+        return
+    end
+
+    if not CustomProfiler.reportCache[functionName][customProfilerCounter] then
+        logger:warn(logger.channels.profiler, "No entry found for function '%s' with counter '%s'. Profiling will be skipped.", functionName, customProfilerCounter)
+        return
+    end
+
     local entry = CustomProfiler.reportCache[functionName][customProfilerCounter]
     if entry then
         local stop     = GameGetRealWorldTimeSinceStarted() * 1000

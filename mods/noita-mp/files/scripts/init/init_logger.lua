@@ -41,12 +41,13 @@ if logger then
     --end
 
     logger.channels = {
-        entity  = "entity",
-        globals = "globals",
-        guid    = "guid",
-        network = "network",
-        nuid    = "nuid",
-        vsc     = "vsc",
+        entity   = "entity",
+        globals  = "globals",
+        guid     = "guid",
+        network  = "network",
+        nuid     = "nuid",
+        vsc      = "vsc",
+        profiler = "profiler",
     }
 
     if not _G.logger then

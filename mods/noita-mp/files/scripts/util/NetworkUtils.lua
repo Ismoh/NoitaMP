@@ -238,12 +238,14 @@ function NetworkUtils.alreadySent(event, data)
 end
 
 local prevTimeInMs = 0
-function NetworkUtils.isTick() -- TODO: ADD LuaDoc
+function NetworkUtils.isTick()
+    -- TODO: ADD LuaDoc
     local cpc         = CustomProfiler.start("NetworkUtils.isTick")
-    local nowTimeInMs     = GameGetRealWorldTimeSinceStarted() * 1000
+    local nowTimeInMs = GameGetRealWorldTimeSinceStarted() * 1000
     local elapsedTime = nowTimeInMs - prevTimeInMs
+    local cpc2        = CustomProfiler.start("ModSettingGet")
     local oneTickInMs = 1000 / tonumber(ModSettingGet("noita-mp.tick_rate"))
-    CustomProfiler.stop("ModSettingGet", cpc31)
+    CustomProfiler.stop("ModSettingGet", cpc2)
     if elapsedTime >= oneTickInMs then
         prevTimeInMs = nowTimeInMs
         CustomProfiler.stop("NetworkUtils.isTick", cpc)

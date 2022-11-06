@@ -72,24 +72,24 @@ table.setNoitaMpDefaultMetaMethods(EntityUtils.transformCache, "v")
 --- In addition the pool of available sequence ids is limited, which prevents the cache from growing indefinitely.
 --- It simply overwrites the oldest entry in the cache.
 --- @return number sequenceId
-local function getNextIndex()
-    local cpc = CustomProfiler.start("EntityUtils.transformCache.getNextIndex")
+local function getNextFreeCacheIndex()
+    local cpc = CustomProfiler.start("EntityUtils.getNextFreeCacheIndex")
     -- If there is any "hole" in the cache, then return that index.
     for i = 1, #EntityUtils.transformCache do
         if not EntityUtils.transformCache[i] then
-            CustomProfiler.stop("EntityUtils.transformCache.getNextIndex", cpc)
+            CustomProfiler.stop("EntityUtils.getNextFreeCacheIndex", cpc)
             return i
         end
     end
 
     -- If there is no "hole" and pool is full, then overwrite the oldest entry.
     if #EntityUtils.transformCache + 1 >= EntityUtils.maxPoolSize then
-        CustomProfiler.stop("EntityUtils.transformCache.getNextIndex", cpc)
+        CustomProfiler.stop("EntityUtils.getNextFreeCacheIndex", cpc)
         return #EntityUtils.transformCache + 1 - EntityUtils.maxPoolSize
     end
 
     -- If there is no "hole" in the cache, then return the next index.
-    CustomProfiler.stop("EntityUtils.transformCache.getNextIndex", cpc)
+    CustomProfiler.stop("EntityUtils.getNextFreeCacheIndex", cpc)
     return #EntityUtils.transformCache + 1
 end
 
@@ -277,7 +277,7 @@ end
 ------------------------------------------------------------------------------------------------
 --- processAndSyncEntityNetworking
 ------------------------------------------------------------------------------------------------
-local prevIndex = 1
+local prevEntityIndex = 1
 function EntityUtils.processAndSyncEntityNetworking()
     local start            = GameGetRealWorldTimeSinceStarted() * 1000
     local cpc              = CustomProfiler.start("EntityUtils.processAndSyncEntityNetworking")
@@ -308,8 +308,10 @@ function EntityUtils.processAndSyncEntityNetworking()
         end
     end
 
-    for index = prevIndex, #entityIds do -- entityId in CoroutineUtils.iterator(entityIds) do
+    for entityIndex = prevEntityIndex, #entityIds do
+        -- entityId in CoroutineUtils.iterator(entityIds) do
         repeat -- repeat until true with break works like continue
+            local entityId   = EntityGetRootEntity(entityIds[entityIndex])
             local cacheIndex = getIndexByEntityId(entityId)
 
             --[[ Just be double sure and check if entity is alive. If not next entityId ]]--
@@ -338,19 +340,23 @@ function EntityUtils.processAndSyncEntityNetworking()
                  depending on config.lua: EntityUtils.include. ]]--
             local exclude  = true
             local filename = EntityGetFilename(entityId)
-
-            if EntityUtils.include.byFilename[filename] or
-                    table.contains(EntityUtils.include.byFilename, filename)
-            then
+            -- if already in cache, ignore it, because it was already processed
+            if EntityUtils.transformCache[cacheIndex] and EntityUtils.transformCache[cacheIndex].entityId == entityId then
                 exclude = false
             else
-                for i = 1, #EntityUtils.include.byComponentsName do
-                    local componentTypeName = EntityUtils.include.byComponentsName[i]
-                    local components        = EntityGetComponentIncludingDisabled(entityId, componentTypeName) or {}
-                    if #components > 0 then
-                        -- Entity has a component, which is included in the config.lua.
-                        exclude = false
-                        break
+                if EntityUtils.include.byFilename[filename] or
+                        table.contains(EntityUtils.include.byFilename, filename)
+                then
+                    exclude = false
+                else
+                    for i = 1, #EntityUtils.include.byComponentsName do
+                        local componentTypeName = EntityUtils.include.byComponentsName[i]
+                        local components        = EntityGetComponentIncludingDisabled(entityId, componentTypeName) or {}
+                        if #components > 0 then
+                            -- Entity has a component, which is included in the config.lua.
+                            exclude = false
+                            break
+                        end
                     end
                 end
             end
@@ -395,20 +401,20 @@ function EntityUtils.processAndSyncEntityNetworking()
                     --[[ Entity is already in cache, so check if something changed ]]--
                     local threshold = math.round(tonumber(ModSettingGetNextValue("noita-mp.change_detection")) / 100,
                                                  0.1)
-                    if math.abs(EntityUtils.transformCache[cacheIndex].health.current - health.current) > threshold or
-                            math.abs(EntityUtils.transformCache[cacheIndex].health.max - health.max) > threshold or
-                            math.abs(EntityUtils.transformCache[cacheIndex].rotation - rotation) > threshold or
-                            math.abs(EntityUtils.transformCache[cacheIndex].velocity.x - velocity.x) > threshold or
-                            math.abs(EntityUtils.transformCache[cacheIndex].velocity.y - velocity.y) > threshold or
-                            math.abs(EntityUtils.transformCache[cacheIndex].x - x) > threshold or
-                            math.abs(EntityUtils.transformCache[cacheIndex].y - y) > threshold
+                    if math.abs(EntityUtils.transformCache[cacheIndex].health.current - health.current) >= threshold or
+                            math.abs(EntityUtils.transformCache[cacheIndex].health.max - health.max) >= threshold or
+                            math.abs(EntityUtils.transformCache[cacheIndex].rotation - rotation) >= threshold or
+                            math.abs(EntityUtils.transformCache[cacheIndex].velocity.x - velocity.x) >= threshold or
+                            math.abs(EntityUtils.transformCache[cacheIndex].velocity.y - velocity.y) >= threshold or
+                            math.abs(EntityUtils.transformCache[cacheIndex].x - x) >= threshold or
+                            math.abs(EntityUtils.transformCache[cacheIndex].y - y) >= threshold
                     then
                         changed = true
                     end
                 end
 
                 if not cacheIndex then
-                    cacheIndex = getNextIndex()
+                    cacheIndex = getNextFreeCacheIndex()
                 end
 
                 EntityUtils.transformCache[cacheIndex] = {
@@ -433,15 +439,18 @@ function EntityUtils.processAndSyncEntityNetworking()
             if executionTime >= EntityUtils.maxExecutionTime then
                 logger:warn(logger.channels.entity,
                             "EntityUtils.processAndSyncEntityNetworking took too long. Breaking loop by returning entityId.")
-                prevIndex = index
+                -- when executionTime is too long, return the next entityCacheIndex to continue with it
+                prevEntityIndex = entityIndex + 1
+
+                CustomProfiler.stop("EntityUtils.processAndSyncEntityNetworking", cpc)
                 return -- completely end function, because it took too long
             end
 
             break
         until true
     end
-
-    prevIndex = 1 -- TODO ??????????????? WRONG?
+    -- when all entities are processed, reset the entityCacheIndex to 1 to start with the first entity again
+    prevEntityIndex = 1
     CustomProfiler.stop("EntityUtils.processAndSyncEntityNetworking", cpc)
 end
 

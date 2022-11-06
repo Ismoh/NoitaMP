@@ -8,6 +8,7 @@
 ----------------------------------------
 local sock        = require("sock")
 local util        = require("util")
+local fu          = require("file_util")
 local zstandard   = require("zstd")
 local messagePack = require("MessagePack")
 
