@@ -298,9 +298,10 @@ function EntityUtils.processAndSyncEntityNetworking()
 
         for i = 1, #playerEntityIds do
             local clientEntityId = playerEntityIds[i]
-            local rootEntityId   = EntityGetRootEntity(clientEntityId)
-            if not NetworkVscUtils.hasNetworkLuaComponents(rootEntityId) then
-                NetworkVscUtils.addOrUpdateAllVscs(rootEntityId, localOwner.name, localOwner.guid, nil)
+            --local rootEntityId   = EntityGetRootEntity(clientEntityId)
+            if not NetworkVscUtils.hasNetworkLuaComponents(clientEntityId--[[rootEntityId]]) then
+                NetworkVscUtils.addOrUpdateAllVscs(clientEntityId--[[rootEntityId]], localOwner.name, localOwner.guid,
+                                                   nil)
             end
             -- if not NetworkVscUtils.hasNuidSet(entityId) then
             --     Client.sendNeedNuid(localOwner, entityId)
@@ -311,7 +312,7 @@ function EntityUtils.processAndSyncEntityNetworking()
     for entityIndex = prevEntityIndex, #entityIds do
         -- entityId in CoroutineUtils.iterator(entityIds) do
         repeat -- repeat until true with break works like continue
-            local entityId   = EntityGetRootEntity(entityIds[entityIndex])
+            local entityId   = --[[EntityGetRootEntity(]]entityIds[entityIndex] --[[)]]
             local cacheIndex = getIndexByEntityId(entityId)
 
             --[[ Just be double sure and check if entity is alive. If not next entityId ]]--
@@ -337,13 +338,29 @@ function EntityUtils.processAndSyncEntityNetworking()
             end
 
             --[[ Check if entity can be ignored, because it is not necessary to sync it,
-                 depending on config.lua: EntityUtils.include. ]]--
+                 depending on config.lua: EntityUtils.include and EntityUtils.exclude ]]--
             local exclude  = true
             local filename = EntityGetFilename(entityId)
             -- if already in cache, ignore it, because it was already processed
             if EntityUtils.transformCache[cacheIndex] and EntityUtils.transformCache[cacheIndex].entityId == entityId then
                 exclude = false
             else
+                if EntityUtils.exclude.byFilename[filename] or
+                        table.contains(EntityUtils.exclude.byFilename, filename)
+                then
+                    exclude = true
+                    --break -- work around for continue: repeat until true with break
+                else
+                    for i = 1, #EntityUtils.exclude.byComponentsName do
+                        local componentTypeName = EntityUtils.exclude.byComponentsName[i]
+                        local components        = EntityGetComponentIncludingDisabled(entityId, componentTypeName) or {}
+                        if #components > 0 then
+                            exclude = true
+                            break -- work around for continue: repeat until true with break
+                        end
+                    end
+                end
+
                 if EntityUtils.include.byFilename[filename] or
                         table.contains(EntityUtils.include.byFilename, filename)
                 then
@@ -503,7 +520,6 @@ function EntityUtils.spawnEntity(owner, nuid, x, y, rotation, velocity, filename
         return
     end
 
-    --if isPolymorphed then
     local compIds = EntityGetAllComponents(entityId) or {}
     for i = 1, #compIds do
         local compId   = compIds[i]
@@ -512,7 +528,6 @@ function EntityUtils.spawnEntity(owner, nuid, x, y, rotation, velocity, filename
             EntityRemoveComponent(entityId, compId)
         end
     end
-    --end
 
     NetworkVscUtils.addOrUpdateAllVscs(entityId, remoteName, remoteGuid, nuid)
     NoitaComponentUtils.setEntityData(entityId, x, y, rotation, velocity, health)

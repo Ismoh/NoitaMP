@@ -25,18 +25,18 @@ local function isEmpty(var)
     local cpc = CustomProfiler.start("NetworkVscUtils.isEmpty")
     -- if you change this also change NetworkVscUtils.lua
     if var == nil then
-        CustomProfiler.start("NetworkVscUtils.isEmpty", cpc)
+        CustomProfiler.stop("NetworkVscUtils.isEmpty", cpc)
         return true
     end
     if var == "" then
-        CustomProfiler.start("NetworkVscUtils.isEmpty", cpc)
+        CustomProfiler.stop("NetworkVscUtils.isEmpty", cpc)
         return true
     end
     if type(var) == "table" and not next(var) then
-        CustomProfiler.start("NetworkVscUtils.isEmpty", cpc)
+        CustomProfiler.stop("NetworkVscUtils.isEmpty", cpc)
         return true
     end
-    CustomProfiler.start("NetworkVscUtils.isEmpty", cpc)
+    CustomProfiler.stop("NetworkVscUtils.isEmpty", cpc)
     return false
 end
 

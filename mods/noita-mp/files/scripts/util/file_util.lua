@@ -355,7 +355,7 @@ function fu.WriteFile(file_fullpath, file_content)
     local segments        = string.split(file_fullpath, path_separator) or {}
     local pathPerSegments = ""
     for i = 1, #segments do
-        -- recursivly create directories
+        -- recursively create directories
         local segment   = segments[i]
         pathPerSegments = pathPerSegments .. segment .. path_separator
         if not fu.Exists(pathPerSegments) then

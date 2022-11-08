@@ -33,7 +33,7 @@ local sock = {
 }
 
 local enet = require("enet")
-local zstandard = require ("zstd")
+--local zstandard = require ("zstd")
 local util = require("util")
 local fu   = require("file_util")
 

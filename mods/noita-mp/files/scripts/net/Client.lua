@@ -834,6 +834,7 @@ function Client.new(sockClient)
     function self.update()
         local cpc18 = CustomProfiler.start("Client.update")
         if not self.isConnected() and not self:isConnecting() or self:isDisconnected() then
+            CustomProfiler.stop("Client.update", cpc18)
             return
         end
 

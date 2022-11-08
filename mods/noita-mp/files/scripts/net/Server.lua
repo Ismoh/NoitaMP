@@ -857,6 +857,7 @@ function Server.new(sockServer)
         if not self.isRunning() then
             --if not self.host then
             -- server not established
+            CustomProfiler.stop("Server.update", cpc016)
             return
         end
 
