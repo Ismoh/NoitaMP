@@ -6,6 +6,9 @@
 # *.zip
 # *.tar.gz
 
+# CMake folder
+build/
+
 # Object files
 # *.o
 # *.os
