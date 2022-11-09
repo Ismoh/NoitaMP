@@ -140,7 +140,7 @@ jobs:
           COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COVERALLS_DEBUG: true
         run: |
-          #${{ env.lua_install_bin_dir }}\luacov-coveralls.bat -v
+          ${{ env.lua_install_bin_dir }}\luacov-coveralls.bat -v
 
       - name: Fix codecov path issue
         shell: pwsh
