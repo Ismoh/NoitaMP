@@ -145,6 +145,10 @@ function table.insertAllButNotDuplicates(tbl1, tbl2)
 end
 
 function table.size(T)
+    if not T then
+        return 0
+    end
+
     -- https://stackoverflow.com/a/64882015/3493998
     local count = 0
     for _ in pairs(T) do

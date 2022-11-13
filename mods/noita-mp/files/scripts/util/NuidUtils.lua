@@ -92,7 +92,7 @@ function NuidUtils.getEntityIdsByKillIndicator()
         local deadNuid            = deadNuids[i]
         local deadNuid_, entityId = GlobalsUtils.getNuidEntityPair(deadNuid)
         entityId                  = math.abs(entityId) -- Remove the kill indicator: -1 -> 1
-        for j = 1, #clientOrServer.acknowledge do
+        for j = 1, #clientOrServer.acknowledge do -- TODO FIX ME!
             local ack = clientOrServer.acknowledge[j]
             if ack and ack.data.localEntityId == entityId then
                 table.setNoitaMpDefaultMetaMethods(clientOrServer.acknowledge[j], "v")

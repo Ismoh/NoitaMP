@@ -28,7 +28,7 @@ NetworkUtils.events                  = {
     disconnect2     = { name = "disconnect2", schema = { "networkMessageId", "name", "guid" } },
 
     --- acknowledgement is used to let the sender know if the message was acknowledged
-    acknowledgement = { name = "acknowledgement", schema = { "networkMessageId", "status" }, ack = "ack", sent = "sent" },
+    acknowledgement = { name = "acknowledgement", schema = { "networkMessageId", "event", "status" }, ack = "ack", sent = "sent" },
 
     --- seed is used to send the servers seed
     seed            = { name = "seed", schema = { "networkMessageId", "seed" } },
@@ -40,9 +40,15 @@ NetworkUtils.events                  = {
     newGuid         = { name = "newGuid", schema = { "networkMessageId", "oldGuid", "newGuid" } },
 
     --- newNuid is used to let clients spawn entities by the servers permission
-    newNuid         = { name = "newNuid", schema = { "networkMessageId", "owner", "localEntityId", "newNuid", "x",
-                                                     "y", "rotation", "velocity", "filename", "health",
-                                                     "isPolymorphed" } },
+    newNuid         = {
+        --- constant name for the event
+        name             = "newNuid",
+        --- network schema to decode the message
+        schema           = { "networkMessageId", "owner", "localEntityId", "newNuid", "x", "y", "rotation", "velocity",
+                             "filename", "health", "isPolymorphed" },
+        --- identifier whether to send this message again, if it wasn't acknowledged
+        resendIdentifier = { "newNuid" }
+    },
 
     --- needNuid is used to ask for a nuid from client to servers
     needNuid        = { name = "needNuid", schema = { "networkMessageId", "owner", "localEntityId", "x", "y",
@@ -130,23 +136,32 @@ function NetworkUtils.alreadySent(event, data, peer, who)
 
     if who == Server.iAm then
         if Server.acknowledge[peer.connectId] then
+            -- [[ if the event isn't store in the cache, it wasn't already send ]] --
+            if not Server.acknowledge[peer.connectId][event] then
+                Server.acknowledge[peer.connectId][event] = {}
+                CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
+                return false
+            end
+
             --[[ Is there already a cache for the specific peer? ]]--
-            if Server.acknowledge[peer.connectId][networkMessageId] then
+            if Server.acknowledge[peer.connectId][event][networkMessageId] then
                 --[[ if the network message is already stored ]]--
-                if Server.acknowledge[peer.connectId][networkMessageId].status == NetworkUtils.events.acknowledgement.ack then
+                if Server.acknowledge[peer.connectId][event][networkMessageId].status == NetworkUtils.events.acknowledgement.ack then
                     --[[ and the status is 'ack' ]]--
                     CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
                     return true
                 end
             end
 
-            for i in pairs(Server.acknowledge[peer.connectId]) do
-                if Server.acknowledge[peer.connectId][i].status == NetworkUtils.events.acknowledgement.sent then
-                    if Server.acknowledge[peer.connectId][i].event == event then
-                        if Server.acknowledge[peer.connectId][i].data == data then -- TODO check data of all entries without == (deep compare)
-                            CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
-                            return true
-                        end
+            for i in pairs(Server.acknowledge[peer.connectId][event]) do
+                --[[ if the networkMessageId is not stored, but data might be the same ]]--
+                for rI = 1, #(NetworkUtils.events[event].resendIdentifier or {}) do
+                    --[[ check resendIdentifiers ]]--
+                    local resendIdentifier = NetworkUtils.events[event].resendIdentifier[rI]
+                    if data[resendIdentifier] == Server.acknowledge[peer.connectId][event][i].data[resendIdentifier] then
+                        --[[ if data of the resendIdentifier is the same, it was already sent ]]--
+                        CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
+                        return true
                     end
                 end
             end
@@ -159,27 +174,35 @@ function NetworkUtils.alreadySent(event, data, peer, who)
     end
 
     if who == Client.iAm then
+        -- [[ if the event isn't store in the cache, it wasn't already send ]] --
+        if not Client.acknowledge[event] then
+            CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
+            return false
+        end
+
         --[[ if the network message is already stored ]]--
-        if Client.acknowledge[networkMessageId] then
-            if Client.acknowledge[networkMessageId].status == NetworkUtils.events.acknowledgement.ack then
+        if Client.acknowledge[event][networkMessageId] then
+            if Client.acknowledge[event][networkMessageId].status == NetworkUtils.events.acknowledgement.ack then
                 CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
                 return true
             end
         end
 
-        for i = 1, #Client.acknowledge do
-            if Client.acknowledge[i].status == NetworkUtils.events.acknowledgement.sent then
-                if Client.acknowledge[i].event == event then
-                    if Client.acknowledge[i].data == data then
-                        CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
-                        return true
-                    end
+        for i in pairs(Client.acknowledge[event]) do
+            --[[ if the networkMessageId is not stored, but data might be the same ]]--
+            for rI = 1, #(NetworkUtils.events[event].resendIdentifier or {}) do
+                --[[ check resendIdentifiers ]]--
+                local resendIdentifier = NetworkUtils.events[event].resendIdentifier[rI]
+                if data[resendIdentifier] == Client.acknowledge[event][i].data[resendIdentifier] then
+                    --[[ if the resendIdentifier is different, then it's a different event ]]--
+                    CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
+                    return true
                 end
             end
         end
     end
 
-    logger:warn(logger.channels.network, "Unable to get status of network message.")
+    --logger:warn(logger.channels.network, "Unable to get status of network message.")
     CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
     return false
 

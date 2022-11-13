@@ -141,9 +141,12 @@ function Client.new(sockClient)
     ------------------------------------------------------------------------------------------------
     --- Send acknowledgement
     ------------------------------------------------------------------------------------------------
-    local function sendAck(networkMessageId)
+    local function sendAck(networkMessageId, event)
         local cpc2 = CustomProfiler.start("Client.sendAck")
-        local data = { networkMessageId, NetworkUtils.events.acknowledgement.ack }
+        if not event then
+            error("event is nil", 2)
+        end
+        local data = { networkMessageId, event, NetworkUtils.events.acknowledgement.ack }
         self:send(NetworkUtils.events.acknowledgement.name, data)
         logger:debug(logger.channels.network, ("Sent ack with data = %s"):format(util.pformat(data)))
         CustomProfiler.stop("Client.sendAck", cpc2)
@@ -167,10 +170,15 @@ function Client.new(sockClient)
             return
         end
 
-        if not self.acknowledge[data.networkMessageId] then
-            self.acknowledge[data.networkMessageId] = {}
+        if util.IsEmpty(data.event) then
+            error(("onAcknowledgement data.event is empty: %s"):format(data.event), 2)
         end
-        self.acknowledge[data.networkMessageId].status = data.status
+
+        if not self.acknowledge[data.event][data.networkMessageId] then
+            self.acknowledge[data.event][data.networkMessageId] = {}
+        end
+        self.acknowledge[data.event][data.networkMessageId].status  = data.status
+        self.acknowledge[data.event][data.networkMessageId].ackedAt = os.clock()
 
         if #self.acknowledge > self.acknowledgeMaxSize then
             table.remove(self.acknowledge, 1)
@@ -216,7 +224,7 @@ function Client.new(sockClient)
             error(("onConnect2 data.guid is empty: %s"):format(data.guid), 3)
         end
 
-        sendAck(data.networkMessageId)
+        sendAck(data.networkMessageId, NetworkUtils.events.connect2.name)
 
         table.insertIfNotExist(self.otherClients, { name = data.name, guid = data.guid })
         CustomProfiler.stop("Client.onConnect2", cpc5)
@@ -273,7 +281,7 @@ function Client.new(sockClient)
             error(("onDisconnect2 data.guid is empty: %s"):format(data.guid), 3)
         end
 
-        sendAck(data.networkMessageId)
+        sendAck(data.networkMessageId, NetworkUtils.events.disconnect2.name)
 
         for i = 1, #self.otherClients do
             -- table.insertIfNotExist(self.otherClients, { name = data.name, guid = data.guid })
@@ -324,7 +332,7 @@ function Client.new(sockClient)
             self:disconnect()
         end
 
-        sendAck(data.networkMessageId)
+        sendAck(data.networkMessageId, NetworkUtils.events.playerInfo.name)
 
         self.serverInfo.name = data.name
         self.serverInfo.guid = data.guid
@@ -354,7 +362,7 @@ function Client.new(sockClient)
             error(("onNewGuid data.newGuid is empty: %s"):format(data.newGuid), 3)
         end
 
-        sendAck(data.networkMessageId)
+        sendAck(data.networkMessageId, NetworkUtils.events.newGuid.name)
 
         if data.oldGuid == self.guid then
             local entityId                               = util.getLocalPlayerInfo().entityId
@@ -396,7 +404,7 @@ function Client.new(sockClient)
             error(("onSeed data.seed is empty: %s"):format(data.seed), 3)
         end
 
-        sendAck(data.networkMessageId)
+        sendAck(data.networkMessageId, NetworkUtils.events.seed.name)
 
         local serversSeed = tonumber(data.seed)
         logger:info(logger.channels.network,
@@ -480,7 +488,7 @@ function Client.new(sockClient)
             error(("onNewNuid data.isPolymorphed is empty: %s"):format(data.isPolymorphed), 3)
         end
 
-        sendAck(data.networkMessageId)
+        sendAck(data.networkMessageId, NetworkUtils.events.newNuid.name)
 
         local owner         = data.owner
         local localEntityId = data.localEntityId
@@ -884,16 +892,18 @@ function Client.new(sockClient)
         end
 
         if event ~= NetworkUtils.events.acknowledgement.name then
-            if not self.acknowledge[networkMessageId] then
-                self.acknowledge[networkMessageId] = {}
+            if not self.acknowledge[event] then
+                self.acknowledge[event] = {}
+            end
+            if not self.acknowledge[event][networkMessageId] then
+                self.acknowledge[event][networkMessageId] = {}
             end
 
-            self.acknowledge[networkMessageId] = {
-                event    = event,
-                data     = data,
-                entityId = data.entityId,
-                status   = NetworkUtils.events.acknowledgement.sent,
-                sentAt   = os.time()
+            self.acknowledge[event][networkMessageId] = {
+                data    = data,
+                status  = NetworkUtils.events.acknowledgement.sent,
+                sentAt  = os.clock(),
+                ackedAt = nil
             }
         end
         CustomProfiler.stop("Client.send", cpc19)
@@ -967,6 +977,19 @@ function Client.new(sockClient)
         end
         --CustomProfiler.stop("Client.amIClient", cpc24)
         return false
+    end
+
+    --- Mainly for profiling. Returns then network cache, aka acknowledge.
+    --- @return number cacheSize
+    function self.getAckCacheSize()
+        if not self.acknowledge then
+            return 0
+        end
+        local count = 0
+        for e = 1, #self.acknowledge do
+            count = count + table.size(self.acknowledge[e])
+        end
+        return count
     end
 
     --#endregion

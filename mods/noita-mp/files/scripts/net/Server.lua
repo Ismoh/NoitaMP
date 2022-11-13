@@ -135,9 +135,12 @@ function Server.new(sockServer)
     ------------------------------------------------------------------------------------------------
     --- Send acknowledgement
     ------------------------------------------------------------------------------------------------
-    local function sendAck(networkMessageId, peer)
+    local function sendAck(networkMessageId, peer, event)
         local cpc02 = CustomProfiler.start("Server.sendAck")
-        local data  = { networkMessageId, NetworkUtils.events.acknowledgement.ack }
+        if not event then
+            error("event is nil", 2)
+        end
+        local data = { networkMessageId, event, NetworkUtils.events.acknowledgement.ack }
         self:sendToPeer(peer, NetworkUtils.events.acknowledgement.name, data)
         logger:debug(logger.channels.network, ("Sent ack with data = %s"):format(util.pformat(data)))
         CustomProfiler.stop("Server.sendAck", cpc02)
@@ -161,10 +164,15 @@ function Server.new(sockServer)
             return
         end
 
-        if not self.acknowledge[peer.connectId][data.networkMessageId] then
-            self.acknowledge[peer.connectId][data.networkMessageId] = {}
+        if util.IsEmpty(data.event) then
+            error(("onAcknowledgement data.event is empty: %s"):format(data.event), 2)
         end
-        self.acknowledge[peer.connectId][data.networkMessageId].status = data.status
+
+        if not self.acknowledge[peer.connectId][data.event][data.networkMessageId] then
+            self.acknowledge[peer.connectId][data.event][data.networkMessageId] = {}
+        end
+        self.acknowledge[peer.connectId][data.event][data.networkMessageId].status  = data.status
+        self.acknowledge[peer.connectId][data.event][data.networkMessageId].ackedAt = os.clock()
 
         if #self.acknowledge[peer.connectId] > self.acknowledgeMaxSize then
             table.remove(self.acknowledge[peer.connectId], 1)
@@ -246,6 +254,10 @@ function Server.new(sockServer)
         if peer.nuid then
             EntityUtils.destroyByNuid(peer.nuid)
         end
+
+        -- clear acknowledge cache for disconnected peer
+        self.acknowledge[peer.connectId] = nil
+
         CustomProfiler.stop("Server.onDisconnect", cpc05)
     end
 
@@ -300,7 +312,7 @@ function Server.new(sockServer)
             data.guid = newGuid
         end
 
-        sendAck(data.networkMessageId, peer)
+        sendAck(data.networkMessageId, peer, NetworkUtils.events.playerInfo.name)
 
         for i, client in pairs(self.clients) do
             if client == peer then
@@ -366,7 +378,7 @@ function Server.new(sockServer)
             error(("onNewNuid data.isPolymorphed is empty: %s"):format(data.isPolymorphed), 3)
         end
 
-        sendAck(data.networkMessageId, peer)
+        sendAck(data.networkMessageId, peer, NetworkUtils.events.needNuid.name)
 
         local owner         = data.owner
         local localEntityId = data.localEntityId
@@ -411,7 +423,7 @@ function Server.new(sockServer)
             logger:debug(logger.channels.network,
                          ("onLostNuid(%s): Entity %s already dead."):format(data.nuid, entityId))
             CustomProfiler.stop("Server.onLostNuid", cpc08)
-            sendAck(data.networkMessageId, peer)
+            sendAck(data.networkMessageId, peer, NetworkUtils.events.lostNuid.name)
             return
         end
 
@@ -808,22 +820,27 @@ function Server.new(sockServer)
 
         sockServerSend(self, peer, event, data)
 
+        if not self.acknowledge then
+            self.acknowledge = {}
+        end
         if not self.acknowledge[peer.connectId] then
             self.acknowledge[peer.connectId] = {}
         end
 
-        local networkMessageId = data[1] or data.networkMessageId
         if event ~= NetworkUtils.events.acknowledgement.name then
-            if not self.acknowledge[peer.connectId][networkMessageId] then
-                self.acknowledge[peer.connectId][networkMessageId] = {}
+            if not self.acknowledge[peer.connectId][event] then
+                self.acknowledge[peer.connectId][event] = {}
+            end
+            local networkMessageId = data[1] or data.networkMessageId
+            if not self.acknowledge[peer.connectId][event][networkMessageId] then
+                self.acknowledge[peer.connectId][event][networkMessageId] = {}
             end
 
-            self.acknowledge[peer.connectId][networkMessageId] = {
-                event    = event,
-                data     = data,
-                entityId = data.entityId,
-                status   = NetworkUtils.events.acknowledgement.sent,
-                sentAt   = os.time()
+            self.acknowledge[peer.connectId][event][networkMessageId] = {
+                data    = data,
+                status  = NetworkUtils.events.acknowledgement.sent,
+                sentAt  = os.clock(),
+                ackedAt = nil
             }
         end
         CustomProfiler.stop("Server.send", cpc022)
@@ -1041,6 +1058,22 @@ function Server.new(sockServer)
         local cpc021 = CustomProfiler.start("Server.ban")
         logger:debug(logger.channels.network, "Minä %s was banned!", name)
         CustomProfiler.stop("Server.ban", cpc021)
+    end
+
+    --- Mainly for profiling. Returns then network cache, aka acknowledge.
+    --- @return number cacheSize
+    function self.getAckCacheSize()
+        if not self.acknowledge then
+            return 0
+        end
+        local count = 0
+        for p in pairs(self.acknowledge) do
+            local peer = self.acknowledge[p]
+            for e in pairs(peer) do
+                count = count + table.size(peer[e])
+            end
+        end
+        return count
     end
 
     --#endregion

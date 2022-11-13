@@ -269,7 +269,7 @@ function EntityUtils.isEntityAlive(entityId)
         CustomProfiler.stop("EntityUtils.isEntityAlive", cpc)
         return entityId
     end
-    logger:warn(logger.channels.entity, ("Entity (%s) isn't alive anymore! Returning nil."):format(entityId))
+    logger:info(logger.channels.entity, ("Entity (%s) isn't alive anymore! Returning nil."):format(entityId))
     CustomProfiler.stop("EntityUtils.isEntityAlive", cpc)
     return false
 end
@@ -567,23 +567,25 @@ function EntityUtils.destroyByNuid(nuid)
     local cpc             = CustomProfiler.start("EntityUtils.destroyByNuid")
     local nNuid, entityId = GlobalsUtils.getNuidEntityPair(nuid)
 
+    if math.sign(entityId) == -1 then
+        -- Dead entities are recognized by the kill indicator '-', which is the entityId multiplied by -1.
+        entityId = math.abs(entityId) -- might be kill indicator is set: -entityId -> entityId
+    end
+
     if not EntityUtils.isEntityAlive(entityId) then
         CustomProfiler.stop("EntityUtils.destroyByNuid", cpc)
         return
     end
 
-    -- Dead entities are recognized by the kill indicator, which is the entityId multiplied by -1.
-    if math.sign(entityId) == -1 then
-        entityId = entityId * -1
-    end
-
-    if EntityUtils.isEntityAlive(entityId) and
-            entityId ~= EntityUtils.localPlayerEntityId and
-            entityId ~= EntityUtils.localPlayerEntityIdPolymorphed then
+    if entityId ~= EntityUtils.localPlayerEntityId and
+            entityId ~= EntityUtils.localPlayerEntityIdPolymorphed
+    then
         EntityKill(entityId)
     end
+
     -- Make sure cache is cleared correctly
-    EntityUtils.transformCache[entityId] = nil
+    local cacheIndex = getIndexByEntityId(entityId)
+    EntityUtils.transformCache[cacheIndex] = nil
     CustomProfiler.stop("EntityUtils.destroyByNuid", cpc)
 end
 

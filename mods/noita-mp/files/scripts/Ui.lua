@@ -156,11 +156,11 @@ function Ui.new()
         if foldingOpen then
             self.ezguiFoldingData.data.text = ("[- NoitaMP] %s eCache:%s pCache:%s nCache:%s %s")
                     :format(_G.NoitaMPVersion, table.size(EntityUtils.transformCache), CustomProfiler.getSize(),
-                            table.size(NetworkUtils.getClientOrServer().acknowledge), GameGetFrameNum())
+                            NetworkUtils.getClientOrServer().getAckCacheSize(), GameGetFrameNum())
         else
             self.ezguiFoldingData.data.text = ("[+ NoitaMP] eCache:%s pCache:%s nCache:%s %s")
                     :format(table.size(EntityUtils.transformCache), CustomProfiler.getSize(),
-                            table.size(NetworkUtils.getClientOrServer().acknowledge), GameGetFrameNum())
+                            NetworkUtils.getClientOrServer().getAckCacheSize(), GameGetFrameNum())
         end
 
         renderEzgui(0, height - 10, "mods/noita-mp/files/data/ezgui/FoldingMenu.xml", self.ezguiFoldingData)
