@@ -329,7 +329,8 @@ function EntityUtils.processAndSyncEntityNetworking()
                     if EntityUtils.isEntityAlive(entityId) and
                             entityId ~= EntityUtils.localPlayerEntityId and
                             entityId ~= EntityUtils.localPlayerEntityIdPolymorphed and
-                            not EntityUtils.isRemoteMinae(entityId)
+                            not EntityUtils.isRemoteMinae(entityId) and
+                            not NetworkVscUtils.hasNetworkLuaComponents(entityId)
                     then
                         EntityKill(entityId)
                         break -- work around for continue: repeat until true with break
@@ -382,7 +383,7 @@ function EntityUtils.processAndSyncEntityNetworking()
             end
 
             --[[ Check if entity has already all network components ]]--
-            local nuid = nil
+            local ownerName_, ownerGuid_, nuid = NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
             if not NetworkVscUtils.isNetworkEntityByNuidVsc(entityId) or
                     not NetworkVscUtils.hasNetworkLuaComponents(entityId)
             then
@@ -390,10 +391,10 @@ function EntityUtils.processAndSyncEntityNetworking()
                 local ownerName       = localPlayerInfo.name
                 local ownerGuid       = localPlayerInfo.guid
 
-                if who == Server.iAm then
+                if who == Server.iAm and not nuid then
                     nuid = NuidUtils.getNextNuid()
                     -- Server.sendNewNuid this will be executed below
-                elseif who == Client.iAm then
+                elseif who == Client.iAm and not nuid then
                     Client.sendNeedNuid(ownerName, ownerGuid, entityId)
                 else
                     logger:error(logger.channels.entity, "Unable to get whoAmI()!")
@@ -410,6 +411,13 @@ function EntityUtils.processAndSyncEntityNetworking()
                 --[[ Entity is new and not in cache, that's why cacheIndex is nil ]]--
                 if not cacheIndex or EntityUtils.transformCache[cacheIndex] == nil then
                     if who == Server.iAm then
+                        if not nuid then
+                            nuid = compNuid
+                            if not nuid then
+                                nuid = NuidUtils.getNextNuid()
+                                NetworkVscUtils.addOrUpdateAllVscs(entityId, compOwnerName, compOwnerGuid, nuid)
+                            end
+                        end
                         Server.sendNewNuid({ compOwnerName, compOwnerGuid }, entityId, nuid, x, y, rotation, velocity,
                                            filename,
                                            health, EntityUtils.isEntityPolymorphed(entityId))

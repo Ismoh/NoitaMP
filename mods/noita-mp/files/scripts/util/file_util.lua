@@ -2,6 +2,7 @@ local fu      = {}
 local ffi     = require("ffi")
 local watcher = require("watcher")
 local lfs     = require("lfs")
+local json    = require("json")
 
 -----------------------------------------------------------------------------------------------------------------------
 --- Version
@@ -10,8 +11,10 @@ function fu.getVersionByFile()
     local modsPath           = fu.GetAbsoluteDirectoryPathOfMods()
     local versionAbsFilePath = ("%s%s.version"):format(modsPath, path_separator)
     local content            = fu.ReadFile(versionAbsFilePath, "*l")
-    logger:info(nil, ("NoitaMP %s"):format(content))
-    return content
+    local jsonTable          = json.decode(content)
+    local version            = jsonTable.version
+    logger:info(nil, ("NoitaMP %s"):format(version))
+    return version
 end
 
 ----------------------------------------------------------------------------------------------------
@@ -118,7 +121,7 @@ function fu.SetAbsolutePathOfNoitaRootDirectory()
         )
     end
 
-    noita_root_directory_path = fu.ReplacePathSeparator(noita_root_directory_path)
+    noita_root_directory_path    = fu.ReplacePathSeparator(noita_root_directory_path)
 
     _G.noita_root_directory_path = noita_root_directory_path
 
@@ -196,7 +199,7 @@ function fu.GetAbsoluteDirectoryPathOfMods()
         fu.SetAbsolutePathOfNoitaRootDirectory()
     end
     local p = _G.noita_root_directory_path .. "/mods/noita-mp"
-    p = fu.ReplacePathSeparator(p)
+    p       = fu.ReplacePathSeparator(p)
     return p
 end
 
@@ -204,7 +207,7 @@ end
 --- @return string "mods/noita-mp"
 function fu.GetRelativeDirectoryPathOfMods()
     local p = "mods/noita-mp"
-    p = fu.ReplacePathSeparator(p)
+    p       = fu.ReplacePathSeparator(p)
     return p
 end
 
@@ -212,7 +215,7 @@ end
 --- @return string "/mods/noita-mp/files/libs"
 function fu.GetRelativeDirectoryPathOfRequiredLibs()
     local p = "mods/noita-mp/files/libs"
-    p = fu.ReplacePathSeparator(p)
+    p       = fu.ReplacePathSeparator(p)
     return p
 end
 
@@ -224,7 +227,7 @@ function fu.GetAbsoluteDirectoryPathOfRequiredLibs()
         fu.SetAbsolutePathOfNoitaRootDirectory()
     end
     local p = _G.noita_root_directory_path .. "/mods/noita-mp/files/libs"
-    p = fu.ReplacePathSeparator(p)
+    p       = fu.ReplacePathSeparator(p)
     return p
 end
 
@@ -238,7 +241,7 @@ end
 --- see _G.saveSlotMeta
 ---@return table
 function fu.getLastModifiedSaveSlots()
-    local save0 = fu.GetAbsoluteDirectoryPathOfParentSave() .. path_separator .. "save0"
+    local save0                = fu.GetAbsoluteDirectoryPathOfParentSave() .. path_separator .. "save0"
 
     local saveSlotLastModified = {}
     for i = 0, 6, 1 do
@@ -293,7 +296,7 @@ function fu.IsDirectory(full_path)
     if type(full_path) ~= "string" then
         error("file_util.lua | Parameter full_path '" .. tostring(full_path) .. "' is not type of string!")
     end
-    local exists = fu.Exists(full_path)
+    local exists  = fu.Exists(full_path)
     --logger:debug("file_util.lua | Directory " .. full_path .. " exists = " .. tostring(exists))
     local is_file = fu.IsFile(full_path)
     --logger:debug("file_util.lua | Is the directory a file? " .. full_path .. " is_file = " .. tostring(is_file))
@@ -321,7 +324,7 @@ function fu.WriteBinaryFile(file_fullpath, file_content)
     end
     file_fullpath = fu.ReplacePathSeparator(file_fullpath)
     -- http://lua-users.org/wiki/FileInputOutput
-    local fh = assert(io.open(file_fullpath, "wb"))
+    local fh      = assert(io.open(file_fullpath, "wb"))
     fh:write(file_content)
     fh:flush()
     fh:close()
@@ -378,7 +381,7 @@ function fu.MkDir(full_path)
         error("file_util.lua | Parameter file_fullpath '" .. tostring(full_path) .. "' is not type of string!")
     end
     -- https://stackoverflow.com/a/1690932/3493998
-    full_path = fu.ReplacePathSeparator(full_path)
+    full_path     = fu.ReplacePathSeparator(full_path)
 
     local command = nil
     if _G.is_windows then
@@ -389,7 +392,8 @@ function fu.MkDir(full_path)
     os.execute(command)
 end
 
-function fu.AppendToFile(filenameAbsolutePath, appendContent) -- TODO rework: have a look on plotly.lua ">>"
+function fu.AppendToFile(filenameAbsolutePath, appendContent)
+    -- TODO rework: have a look on plotly.lua ">>"
     local file = io.open(filenameAbsolutePath, "a+")
     for line in io.lines(filenameAbsolutePath) do
         if line == nil then
@@ -455,7 +459,7 @@ function fu.Find7zipExecutable()
             os.exit()
         end
         local response = f:read("*a")
-        _G.seven_zip = tostring(fu.ReplacePathSeparator(response))
+        _G.seven_zip   = tostring(fu.ReplacePathSeparator(response))
         logger:debug(nil, "file_util.lua | Found 7z.exe: " .. _G.seven_zip)
     else
         error(

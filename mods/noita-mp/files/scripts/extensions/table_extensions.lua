@@ -145,7 +145,6 @@ function table.insertAllButNotDuplicates(tbl1, tbl2)
 end
 
 function table.size(T)
-    error("table.size is deprecated, use #table instead with meta-method __len.")
     -- https://stackoverflow.com/a/64882015/3493998
     local count = 0
     for _ in pairs(T) do
@@ -175,28 +174,28 @@ function table.setNoitaMpDefaultMetaMethods(tbl, mode)
     --tbl.size = 0 -- __len isn't available in lua 5.1, workaround.
 
     local mt = {
-        __mode     = mode, -- Make it a weak table with "k" or "v" or "kv"
-    --    __index    = function(self, k)
-    --        if not rawget(self, k) then
-    --            -- value = rawget(self, k)
-    --            self.size = self.size - 1 -- dirty workaround to get __len in lua5.1
-    --        end
-    --        return rawget(self, k)
-    --    end,
-    --    __newindex = function(self, k, v)
-    --        self.size = self.size + 1 -- dirty workaround to get __len in lua5.1
-    --        rawset(self, k, v)
-    --    end,
-    --    __tostring = function(self)
-    --        local str = ""
-    --        for i = 1, self.size do
-    --            str = str .. tostring(self[i]) .. ", "
-    --        end
-    --        return str
-    --    end,
-    --    __len      = function(self)
-    --        return self.size
-    --    end
+        __mode = mode, -- Make it a weak table with "k" or "v" or "kv"
+        --    __index    = function(self, k)
+        --        if not rawget(self, k) then
+        --            -- value = rawget(self, k)
+        --            self.size = self.size - 1 -- dirty workaround to get __len in lua5.1
+        --        end
+        --        return rawget(self, k)
+        --    end,
+        --    __newindex = function(self, k, v)
+        --        self.size = self.size + 1 -- dirty workaround to get __len in lua5.1
+        --        rawset(self, k, v)
+        --    end,
+        --    __tostring = function(self)
+        --        local str = ""
+        --        for i = 1, self.size do
+        --            str = str .. tostring(self[i]) .. ", "
+        --        end
+        --        return str
+        --    end,
+        --    __len      = function(self)
+        --        return self.size
+        --    end
     }
     setmetatable(tbl, mt)
 end

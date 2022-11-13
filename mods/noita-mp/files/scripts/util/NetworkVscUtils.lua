@@ -397,9 +397,7 @@ end
 
 --- Returns all Network Vsc values by its entity id.
 --- @param entityId number Entity Id provided by Noita
---- @return string ownerName
---- @return string ownerGuid
---- @return number nuid
+--- @return string ownerName, string ownerGuid, number nuid
 function NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
     local cpc = CustomProfiler.start("NetworkVscUtils.getAllVcsValuesByEntityId")
     if not EntityUtils.isEntityAlive(entityId) then

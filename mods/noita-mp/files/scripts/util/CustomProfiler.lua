@@ -247,6 +247,14 @@ function CustomProfiler.report()
                                 CustomProfiler.reportDirectory)
 end
 
+function CustomProfiler.getSize()
+    local size = 0
+    for i = 1, #CustomProfiler.reportCache do
+        size = size + tonumber(CustomProfiler.reportCache[i]["size"])
+    end
+    return size
+end
+
 -- Because of stack overflow errors when loading lua files,
 -- I decided to put Utils 'classes' into globals
 _G.CustomProfiler = CustomProfiler
