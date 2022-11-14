@@ -419,7 +419,7 @@ function Server.new(sockServer)
 
         local nuid, entityId = GlobalsUtils.getNuidEntityPair(data.nuid)
 
-        if not entityId or EntityUtils.isEntityAlive(entityId) or math.sign(entityId) == -1 then
+        if not entityId or not EntityUtils.isEntityAlive(entityId) then
             logger:debug(logger.channels.network,
                          ("onLostNuid(%s): Entity %s already dead."):format(data.nuid, entityId))
             CustomProfiler.stop("Server.onLostNuid", cpc08)

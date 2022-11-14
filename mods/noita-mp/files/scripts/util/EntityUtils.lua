@@ -567,7 +567,12 @@ function EntityUtils.destroyByNuid(nuid)
     local cpc             = CustomProfiler.start("EntityUtils.destroyByNuid")
     local nNuid, entityId = GlobalsUtils.getNuidEntityPair(nuid)
 
-    if math.sign(entityId) == -1 then
+    if not entityId then
+        CustomProfiler.stop("EntityUtils.destroyByNuid", cpc)
+        return
+    end
+
+    if entityId < 0 then
         -- Dead entities are recognized by the kill indicator '-', which is the entityId multiplied by -1.
         entityId = math.abs(entityId) -- might be kill indicator is set: -entityId -> entityId
     end
@@ -585,7 +590,9 @@ function EntityUtils.destroyByNuid(nuid)
 
     -- Make sure cache is cleared correctly
     local cacheIndex = getIndexByEntityId(entityId)
-    EntityUtils.transformCache[cacheIndex] = nil
+    if cacheIndex then
+        EntityUtils.transformCache[cacheIndex] = nil
+    end
     CustomProfiler.stop("EntityUtils.destroyByNuid", cpc)
 end
 
