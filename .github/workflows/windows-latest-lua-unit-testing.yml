@@ -65,7 +65,7 @@ jobs:
           Start-Process -FilePath "${{ env.lua_install_bin_dir }}\luajit.exe" -ArgumentList " -v" -Wait -NoNewWindow
           Start-Process -FilePath "${{ env.lua_install_bin_dir }}\luajit.exe" -ArgumentList " -e `"print(_VERSION)`"" -Wait -NoNewWindow
 
-      - name: Run lua script to adjust lua package pathes
+      - name: Run lua script to adjust lua package paths
         run: |
           Start-Process -FilePath "${{ env.lua_install_bin_dir }}\luajit.exe" -ArgumentList " ${{ github.workspace }}\mods\noita-mp\files\scripts\init\init_.lua ${{ env.temp_dir }}" -Wait -NoNewWindow
 
