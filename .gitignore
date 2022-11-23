@@ -6,8 +6,12 @@
 # *.zip
 # *.tar.gz
 
-# CMake folder
-build/
+# Visual studio folder
+.vs/
+
+# cache dll output files
+Debug/
+out/
 
 # Object files
 # *.o
