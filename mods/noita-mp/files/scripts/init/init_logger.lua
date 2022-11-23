@@ -57,7 +57,7 @@ else
     print("ERROR: Unable to init logger! logger is nil.")
 end
 
--- Reset pathes
+-- Reset paths
 package.path = default_package_path
 
 _G.logger:info(nil, "_G.logger initialised!")

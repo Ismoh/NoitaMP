@@ -38,8 +38,8 @@ Client            = {}
 --- @param sockClient table sock.lua#newClient
 --- @return table Client
 function Client.new(sockClient)
-    local cpc         = CustomProfiler.start("Client.new")
-    local self        = sockClient
+    local cpc               = CustomProfiler.start("Client.new")
+    local self              = sockClient
 
     ------------------------------------
     --- Private variables:
@@ -48,21 +48,21 @@ function Client.new(sockClient)
     ------------------------------------
     --- Public variables:
     ------------------------------------
-    self.iAm          = "CLIENT"
-    self.name         = tostring(ModSettingGet("noita-mp.name"))
+    self.iAm                = "CLIENT"
+    self.name               = tostring(ModSettingGet("noita-mp.name"))
     -- guid might not be set here or will be overwritten at the end of the constructor. @see setGuid
-    self.guid         = tostring(ModSettingGet("noita-mp.guid"))
-    self.nuid         = nil
-    self.acknowledge  = {} -- sock.lua#Client:send -> self.acknowledge[packetsSent] = { event = event, data = data, entityId = data.entityId, status = NetworkUtils.events.acknowledgement.sent }
-    table.setNoitaMpDefaultMetaMethods(self.acknowledge)
+    self.guid               = tostring(ModSettingGet("noita-mp.guid"))
+    self.nuid               = nil
+    self.acknowledge        = {} -- sock.lua#Client:send -> self.acknowledge[packetsSent] = { event = event, data = data, entityId = data.entityId, status = NetworkUtils.events.acknowledgement.sent }
+    --table.setNoitaMpDefaultMetaMethods(self.acknowledge, "v")
     self.acknowledgeMaxSize = 500
-    self.transform    = { x = 0, y = 0 }
-    self.health       = { current = 99, max = 100 }
-    self.serverInfo   = {}
-    self.otherClients = {}
-    self.missingMods  = nil
-    self.requiredMods = nil
-    self.syncedMods   = false
+    self.transform          = { x = 0, y = 0 }
+    self.health             = { current = 99, max = 100 }
+    self.serverInfo         = {}
+    self.otherClients       = {}
+    self.missingMods        = nil
+    self.requiredMods       = nil
+    self.syncedMods         = false
 
     ------------------------------------
     --- Private methods:
@@ -141,9 +141,12 @@ function Client.new(sockClient)
     ------------------------------------------------------------------------------------------------
     --- Send acknowledgement
     ------------------------------------------------------------------------------------------------
-    local function sendAck(networkMessageId)
+    local function sendAck(networkMessageId, event)
         local cpc2 = CustomProfiler.start("Client.sendAck")
-        local data = { networkMessageId, NetworkUtils.events.acknowledgement.ack }
+        if not event then
+            error("event is nil", 2)
+        end
+        local data = { networkMessageId, event, NetworkUtils.events.acknowledgement.ack }
         self:send(NetworkUtils.events.acknowledgement.name, data)
         logger:debug(logger.channels.network, ("Sent ack with data = %s"):format(util.pformat(data)))
         CustomProfiler.stop("Client.sendAck", cpc2)
@@ -162,15 +165,20 @@ function Client.new(sockClient)
 
         if not data.networkMessageId then
             logger:error(logger.channels.network,
-                ("Unable to get acknowledgement with networkMessageId = %s, data = %s, peer = %s")
-                :format(networkMessageId, util.pformat(data), util.pformat(peer)))
+                         ("Unable to get acknowledgement with networkMessageId = %s, data = %s, peer = %s")
+                                 :format(networkMessageId, util.pformat(data), util.pformat(peer)))
             return
         end
 
-        if not self.acknowledge[data.networkMessageId] then
-            self.acknowledge[data.networkMessageId] = {}
+        if util.IsEmpty(data.event) then
+            error(("onAcknowledgement data.event is empty: %s"):format(data.event), 2)
         end
-        self.acknowledge[data.networkMessageId].status = data.status
+
+        if not self.acknowledge[data.event][data.networkMessageId] then
+            self.acknowledge[data.event][data.networkMessageId] = {}
+        end
+        self.acknowledge[data.event][data.networkMessageId].status  = data.status
+        self.acknowledge[data.event][data.networkMessageId].ackedAt = os.clock()
 
         if #self.acknowledge > self.acknowledgeMaxSize then
             table.remove(self.acknowledge, 1)
@@ -190,7 +198,7 @@ function Client.new(sockClient)
         if util.IsEmpty(data) then
             error(("onConnect data is empty: %s"):format(data), 3)
         end
-        self:send(NetworkUtils.events.needModList.name, {NetworkUtils.getNextNetworkMessageId()})
+        self:send(NetworkUtils.events.needModList.name, { NetworkUtils.getNextNetworkMessageId() })
         -- sendAck(data.networkMessageId)
         CustomProfiler.stop("Client.onConnect", cpc4)
     end
@@ -216,7 +224,7 @@ function Client.new(sockClient)
             error(("onConnect2 data.guid is empty: %s"):format(data.guid), 3)
         end
 
-        sendAck(data.networkMessageId)
+        sendAck(data.networkMessageId, NetworkUtils.events.connect2.name)
 
         table.insertIfNotExist(self.otherClients, { name = data.name, guid = data.guid })
         CustomProfiler.stop("Client.onConnect2", cpc5)
@@ -273,7 +281,7 @@ function Client.new(sockClient)
             error(("onDisconnect2 data.guid is empty: %s"):format(data.guid), 3)
         end
 
-        sendAck(data.networkMessageId)
+        sendAck(data.networkMessageId, NetworkUtils.events.disconnect2.name)
 
         for i = 1, #self.otherClients do
             -- table.insertIfNotExist(self.otherClients, { name = data.name, guid = data.guid })
@@ -312,7 +320,7 @@ function Client.new(sockClient)
 
         if data.guid == self.guid then
             logger:error(logger.channels.network,
-                "onPlayerInfo: Clients GUID isn't unique! Server will fix this!")
+                         "onPlayerInfo: Clients GUID isn't unique! Server will fix this!")
             --self.guid = Guid:getGuid({ self.guid })
             --logger:info(logger.channels.network, "onPlayerInfo: New clients GUID: %s", self.guid)
             self:disconnect()
@@ -320,11 +328,11 @@ function Client.new(sockClient)
 
         if _G.NoitaMPVersion ~= tostring(data.version) then
             error(("Version mismatch: NoitaMP version of Server: %s and your version: %s")
-                :format(data.version, _G.NoitaMPVersion), 3)
+                          :format(data.version, _G.NoitaMPVersion), 3)
             self:disconnect()
         end
 
-        sendAck(data.networkMessageId)
+        sendAck(data.networkMessageId, NetworkUtils.events.playerInfo.name)
 
         self.serverInfo.name = data.name
         self.serverInfo.guid = data.guid
@@ -354,7 +362,7 @@ function Client.new(sockClient)
             error(("onNewGuid data.newGuid is empty: %s"):format(data.newGuid), 3)
         end
 
-        sendAck(data.networkMessageId)
+        sendAck(data.networkMessageId, NetworkUtils.events.newGuid.name)
 
         if data.oldGuid == self.guid then
             local entityId                               = util.getLocalPlayerInfo().entityId
@@ -396,11 +404,11 @@ function Client.new(sockClient)
             error(("onSeed data.seed is empty: %s"):format(data.seed), 3)
         end
 
-        sendAck(data.networkMessageId)
+        sendAck(data.networkMessageId, NetworkUtils.events.seed.name)
 
         local serversSeed = tonumber(data.seed)
         logger:info(logger.channels.network,
-            "Client received servers seed (%s) and stored it. Reloading map with that seed!", serversSeed)
+                    "Client received servers seed (%s) and stored it. Reloading map with that seed!", serversSeed)
 
         local localSeed = tonumber(StatsGetValue("world_seed"))
         if localSeed ~= serversSeed then
@@ -414,7 +422,7 @@ function Client.new(sockClient)
         local entityId        = localPlayerInfo.entityId
 
         self:send(NetworkUtils.events.playerInfo.name,
-            { NetworkUtils.getNextNetworkMessageId(), name, guid, nuid, _G.NoitaMPVersion })
+                  { NetworkUtils.getNextNetworkMessageId(), name, guid, nuid, _G.NoitaMPVersion })
 
         if not NetworkVscUtils.hasNetworkLuaComponents(entityId) then
             NetworkVscUtils.addOrUpdateAllVscs(entityId, name, guid, nil)
@@ -480,7 +488,7 @@ function Client.new(sockClient)
             error(("onNewNuid data.isPolymorphed is empty: %s"):format(data.isPolymorphed), 3)
         end
 
-        sendAck(data.networkMessageId)
+        sendAck(data.networkMessageId, NetworkUtils.events.newNuid.name)
 
         local owner         = data.owner
         local localEntityId = data.localEntityId
@@ -500,14 +508,14 @@ function Client.new(sockClient)
         end
 
         EntityUtils.spawnEntity(owner, newNuid, x, y, rotation, velocity, filename, localEntityId, health,
-            isPolymorphed)
+                                isPolymorphed)
         CustomProfiler.stop("Client.onNewNuid", cpc11)
     end
 
     local function onEntityData(data)
         local cpc12 = CustomProfiler.start("Client.onEntityData")
         logger:debug(logger.channels.network, ("Received entityData for nuid = %s! data = %s")
-            :format(data.nuid, util.pformat(data)))
+                :format(data.nuid, util.pformat(data)))
 
         if util.IsEmpty(data.networkMessageId) then
             error(("onNewNuid data.networkMessageId is empty: %s"):format(data.networkMessageId), 3)
@@ -560,7 +568,7 @@ function Client.new(sockClient)
             NoitaComponentUtils.setEntityData(localEntityId, x, y, rotation, velocity, health)
         else
             logger:warn(logger.channels.network, ("Received entityData for self.nuid = %s! data = %s")
-                :format(data.nuid, util.pformat(data)))
+                    :format(data.nuid, util.pformat(data)))
         end
         CustomProfiler.stop("Client.onEntityData", cpc12)
     end
@@ -593,7 +601,7 @@ function Client.new(sockClient)
         end
 
         self.requiredMods = data.workshop
-        local conflicts = {}
+        local conflicts   = {}
         for _, v in ipairs(data.workshop) do
             if not contains(v.name) then
                 table.insert(conflicts, v)
@@ -618,14 +626,14 @@ function Client.new(sockClient)
         local cpc = CustomProfiler.start("Client.onNeedModContent")
         for _, v in ipairs(data.items) do
             local modName = v.name
-            local modID = v.workshopID
+            local modID   = v.workshopID
             local modData = v.data
             if modID == "0" then
                 if not fu.IsDirectory((fu.GetAbsolutePathOfNoitaRootDirectory() .. "/mods/%s/"):format(modName)) then
                     local fileName = ("%s_%s_mod_sync.7z"):format(tostring(os.date("!")), modName)
                     fu.WriteBinaryFile(fu.GetAbsoluteDirectoryPathOfMods() .. "/" .. fileName, modData)
                     fu.Extract7zipArchive(fu.GetAbsoluteDirectoryPathOfMods(), fileName,
-                        (fu.GetAbsolutePathOfNoitaRootDirectory() .. "/mods/%s/"):format(modName))
+                                          (fu.GetAbsolutePathOfNoitaRootDirectory() .. "/mods/%s/"):format(modName))
                 end
             else
                 if not fu.IsDirectory(("C:/Program Files (x86)/Steam/steamapps/workshop/content/881100/%s/"):format(modID)) then
@@ -633,7 +641,7 @@ function Client.new(sockClient)
                         local fileName = ("%s_%s_mod_sync.7z"):format(tostring(os.date("!")), modName)
                         fu.WriteBinaryFile(fu.GetAbsoluteDirectoryPathOfMods() .. "/" .. fileName, modData)
                         fu.Extract7zipArchive(fu.GetAbsoluteDirectoryPathOfMods(), fileName,
-                            (fu.GetAbsolutePathOfNoitaRootDirectory() .. "/mods/%s/"):format(modName))
+                                              (fu.GetAbsolutePathOfNoitaRootDirectory() .. "/mods/%s/"):format(modName))
                     end
                 end
             end
@@ -750,7 +758,7 @@ function Client.new(sockClient)
     end
 
     ------------------------------------
-    -- Public methods:
+    --- Public methods:
     ------------------------------------
 
     --#region Connect and disconnect
@@ -766,7 +774,7 @@ function Client.new(sockClient)
 
         if self:isConnecting() or self:isConnected() then
             logger:warn(logger.channels.network, "Client is still connected to %s:%s. Disconnecting!",
-                self:getAddress(), self:getPort())
+                        self:getAddress(), self:getPort())
             self:disconnect()
         end
 
@@ -793,8 +801,8 @@ function Client.new(sockClient)
         end
 
         GamePrintImportant("Client is connecting..",
-            "You are trying to connect to " .. self:getAddress() .. ":" .. self:getPort() .. "!",
-            ""
+                           "You are trying to connect to " .. self:getAddress() .. ":" .. self:getPort() .. "!",
+                           ""
         )
 
         sockClientConnect(self, code)
@@ -834,6 +842,7 @@ function Client.new(sockClient)
     function self.update()
         local cpc18 = CustomProfiler.start("Client.update")
         if not self.isConnected() and not self:isConnecting() or self:isDisconnected() then
+            CustomProfiler.stop("Client.update", cpc18)
             return
         end
 
@@ -854,7 +863,7 @@ function Client.new(sockClient)
 
             --EntityUtils.destroyClientEntities()
             --EntityUtils.syncEntityData()
-            --EntityUtils.syncDeadNuids()
+            EntityUtils.syncDeadNuids()
         end
 
         sockClientUpdate(self)
@@ -863,16 +872,16 @@ function Client.new(sockClient)
 
     --- Some inheritance: Save parent function (not polluting global 'self' space)
     local sockClientSend = sockClient.send
-
     function self:send(event, data)
         local cpc19 = CustomProfiler.start("Client.send")
         if type(data) ~= "table" then
-            error("", 3)
+            error("", 2)
         end
 
-        if NetworkUtils.alreadySent(event, data) then
+        if NetworkUtils.alreadySent(event, data, self, self.iAm) then
             logger:debug(logger.channels.network, ("Network message for %s for data %s already was acknowledged.")
-                :format(event, util.pformat(data)))
+                    :format(event, util.pformat(data)))
+            CustomProfiler.stop("Client.send", cpc19)
             return
         end
 
@@ -883,12 +892,19 @@ function Client.new(sockClient)
         end
 
         if event ~= NetworkUtils.events.acknowledgement.name then
-            if not self.acknowledge[networkMessageId] then
-                self.acknowledge[networkMessageId] = {}
+            if not self.acknowledge[event] then
+                self.acknowledge[event] = {}
+            end
+            if not self.acknowledge[event][networkMessageId] then
+                self.acknowledge[event][networkMessageId] = {}
             end
 
-            self.acknowledge[networkMessageId] = { event  = event, data = data, entityId = data.entityId,
-                                                   status = NetworkUtils.events.acknowledgement.sent, sentAt = os.time() }
+            self.acknowledge[event][networkMessageId] = {
+                data    = data,
+                status  = NetworkUtils.events.acknowledgement.sent,
+                sentAt  = os.clock(),
+                ackedAt = nil
+            }
         end
         CustomProfiler.stop("Client.send", cpc19)
     end
@@ -961,6 +977,19 @@ function Client.new(sockClient)
         end
         --CustomProfiler.stop("Client.amIClient", cpc24)
         return false
+    end
+
+    --- Mainly for profiling. Returns then network cache, aka acknowledge.
+    --- @return number cacheSize
+    function self.getAckCacheSize()
+        if not self.acknowledge then
+            return 0
+        end
+        local count = 0
+        for e = 1, #self.acknowledge do
+            count = count + table.size(self.acknowledge[e])
+        end
+        return count
     end
 
     --#endregion

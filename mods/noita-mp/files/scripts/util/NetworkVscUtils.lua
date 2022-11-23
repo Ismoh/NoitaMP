@@ -25,18 +25,18 @@ local function isEmpty(var)
     local cpc = CustomProfiler.start("NetworkVscUtils.isEmpty")
     -- if you change this also change NetworkVscUtils.lua
     if var == nil then
-        CustomProfiler.start("NetworkVscUtils.isEmpty", cpc)
+        CustomProfiler.stop("NetworkVscUtils.isEmpty", cpc)
         return true
     end
     if var == "" then
-        CustomProfiler.start("NetworkVscUtils.isEmpty", cpc)
+        CustomProfiler.stop("NetworkVscUtils.isEmpty", cpc)
         return true
     end
     if type(var) == "table" and not next(var) then
-        CustomProfiler.start("NetworkVscUtils.isEmpty", cpc)
+        CustomProfiler.stop("NetworkVscUtils.isEmpty", cpc)
         return true
     end
-    CustomProfiler.start("NetworkVscUtils.isEmpty", cpc)
+    CustomProfiler.stop("NetworkVscUtils.isEmpty", cpc)
     return false
 end
 
@@ -397,9 +397,7 @@ end
 
 --- Returns all Network Vsc values by its entity id.
 --- @param entityId number Entity Id provided by Noita
---- @return string ownerName
---- @return string ownerGuid
---- @return number nuid
+--- @return string ownerName, string ownerGuid, number nuid
 function NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
     local cpc = CustomProfiler.start("NetworkVscUtils.getAllVcsValuesByEntityId")
     if not EntityUtils.isEntityAlive(entityId) then

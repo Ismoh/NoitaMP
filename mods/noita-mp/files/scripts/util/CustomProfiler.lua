@@ -15,7 +15,7 @@ local fu                                 = require("file_util")
 CustomProfiler                           = {}
 CustomProfiler.reportCache               = {}
 CustomProfiler.counter                   = 1
-CustomProfiler.threshold                 = 16.67 -- ms, ~60 fps
+CustomProfiler.threshold                 = 16.5 --ms = 60.60 fps
 CustomProfiler.ceiling                   = 1001 -- ms
 CustomProfiler.maxEntries                = 25 -- entries per trace
 CustomProfiler.reportDirectory           = ("%s%sNoitaMP-Reports%s%s"):format(fu.getDesktopDirectory(),
@@ -38,10 +38,10 @@ function CustomProfiler.start(functionName)
     local start                                                      = GameGetRealWorldTimeSinceStarted() * 1000
 
     CustomProfiler.reportCache[functionName][CustomProfiler.counter] = {
-        frame    = frame,
-        start    = start,
-        stop     = nil,
-        duration = nil,
+        frame       = frame,
+        start       = start,
+        stop        = nil,
+        duration    = nil,
         memoryStart = collectgarbage("count") / 1024,
         memoryStop  = nil,
     }
@@ -68,6 +68,12 @@ function CustomProfiler.getDuration(functionName, customProfilerCounter)
     return duration
 end
 
+function CustomProfiler.stopAll()
+    for i, v in ipairs(CustomProfiler.reportCache) do
+        CustomProfiler.stop(v)
+    end
+end
+
 function CustomProfiler.stop(functionName, customProfilerCounter)
     if not ModSettingGetNextValue("noita-mp.toggle_profiler") then
         return
@@ -78,12 +84,15 @@ function CustomProfiler.stop(functionName, customProfilerCounter)
     end
 
     if not CustomProfiler.reportCache[functionName] then
-        logger:warn(logger.channels.profiler, "No entry found for function '%s'. Profiling will be skipped.", functionName)
+        logger:warn(logger.channels.profiler, "No entry found for function '%s'. Profiling will be skipped.",
+                    functionName)
         return
     end
 
     if not CustomProfiler.reportCache[functionName][customProfilerCounter] then
-        logger:warn(logger.channels.profiler, "No entry found for function '%s' with counter '%s'. Profiling will be skipped.", functionName, customProfilerCounter)
+        logger:warn(logger.channels.profiler,
+                    "No entry found for function '%s' with counter '%s'. Profiling will be skipped.", functionName,
+                    customProfilerCounter)
         return
     end
 
@@ -93,13 +102,17 @@ function CustomProfiler.stop(functionName, customProfilerCounter)
         local duration = stop - entry.start
         if duration >= CustomProfiler.threshold then
             -- only profile functions that take longer than 30ms (1000ms / 30ms per frame = 33fps)
-            entry.stop     = stop
-            entry.duration = duration
+            entry.stop       = stop
+            entry.duration   = duration
             entry.memoryStop = collectgarbage("count") / 1024
         else
             table.setNoitaMpDefaultMetaMethods(CustomProfiler.reportCache[functionName][customProfilerCounter], "v")
             CustomProfiler.reportCache[functionName][customProfilerCounter] = nil
             CustomProfiler.reportCache[functionName]["size"]                = CustomProfiler.reportCache[functionName]["size"] - 1
+            if CustomProfiler.reportCache[functionName]["size"] == 0 then
+                table.setNoitaMpDefaultMetaMethods(CustomProfiler.reportCache[functionName], "kv")
+                CustomProfiler.reportCache[functionName] = nil
+            end
         end
     else
         for index = 1, #CustomProfiler.reportCache[functionName] do
@@ -109,30 +122,37 @@ function CustomProfiler.stop(functionName, customProfilerCounter)
                 local stop     = GameGetRealWorldTimeSinceStarted() * 1000
                 local duration = stop - entry.start
                 if duration >= CustomProfiler.threshold then
-                    entry.stop     = stop
-                    entry.duration = duration
+                    entry.stop       = stop
+                    entry.duration   = duration
                     entry.memoryStop = collectgarbage("count") / 1024
                 else
                     table.setNoitaMpDefaultMetaMethods(CustomProfiler.reportCache[functionName][index], "v")
                     CustomProfiler.reportCache[functionName][index]  = nil
                     CustomProfiler.reportCache[functionName]["size"] = CustomProfiler.reportCache[functionName]["size"] - 1
+                    if CustomProfiler.reportCache[functionName]["size"] == 0 then
+                        table.setNoitaMpDefaultMetaMethods(CustomProfiler.reportCache[functionName], "kv")
+                        CustomProfiler.reportCache[functionName] = nil
+                    end
                 end
                 break
             end
         end
     end
 
-    if CustomProfiler.reportCache[functionName]["size"] >= CustomProfiler.maxEntries then
+    if CustomProfiler.reportCache[functionName] and
+            CustomProfiler.reportCache[functionName]["size"] and
+            CustomProfiler.reportCache[functionName]["size"] >= CustomProfiler.maxEntries
+    then
         if not fu.Exists(CustomProfiler.reportDirectory) then
             fu.MkDir(CustomProfiler.reportDirectory)
         end
 
-        local x = {}
-        local y = {}
+        local x            = {}
+        local y            = {}
         local xMemoryStart = {}
         local yMemoryStart = {}
-        local xMemoryStop = {}
-        local yMemoryStop = {}
+        local xMemoryStop  = {}
+        local yMemoryStop  = {}
 
         for index in orderedPairs(CustomProfiler.reportCache[functionName]) do
             local entry2 = CustomProfiler.reportCache[functionName][index]
@@ -149,6 +169,10 @@ function CustomProfiler.stop(functionName, customProfilerCounter)
                 table.setNoitaMpDefaultMetaMethods(CustomProfiler.reportCache[functionName][index], "v")
                 CustomProfiler.reportCache[functionName][index]  = nil
                 CustomProfiler.reportCache[functionName]["size"] = CustomProfiler.reportCache[functionName]["size"] - 1
+                if CustomProfiler.reportCache[functionName]["size"] == 0 then
+                    table.setNoitaMpDefaultMetaMethods(CustomProfiler.reportCache[functionName], "kv")
+                    CustomProfiler.reportCache[functionName] = nil
+                end
             end
         end
 
@@ -165,7 +189,7 @@ function CustomProfiler.stop(functionName, customProfilerCounter)
             opacity      = 0.75,
             --font    = { size = 8 },
         }
-        local figTime = plotly.figure()
+        local figTime  = plotly.figure()
         figTime:write_trace_to_file(dataTime, CustomProfiler.reportDirectory)
 
         local dataMemoryStart = {
@@ -180,7 +204,7 @@ function CustomProfiler.stop(functionName, customProfilerCounter)
             opacity      = 0.75,
             --font    = { size = 8 },
         }
-        local figMemoryStart = plotly.figure()
+        local figMemoryStart  = plotly.figure()
         figMemoryStart:write_trace_to_file(dataMemoryStart, CustomProfiler.reportDirectory)
 
         local dataMemoryStop = {
@@ -195,7 +219,7 @@ function CustomProfiler.stop(functionName, customProfilerCounter)
             opacity      = 0.75,
             --font    = { size = 8 },
         }
-        local figMemoryStop = plotly.figure()
+        local figMemoryStop  = plotly.figure()
         figMemoryStop:write_trace_to_file(dataMemoryStop, CustomProfiler.reportDirectory)
 
         CustomProfiler.reportCache[functionName] = nil
@@ -221,6 +245,14 @@ function CustomProfiler.report()
     }
     fig1:tofilewithjsondatafile(CustomProfiler.reportDirectory .. path_separator .. CustomProfiler.reportFilename,
                                 CustomProfiler.reportDirectory)
+end
+
+function CustomProfiler.getSize()
+    local size = 0
+    for i = 1, #CustomProfiler.reportCache do
+        size = size + tonumber(CustomProfiler.reportCache[i]["size"])
+    end
+    return size
 end
 
 -- Because of stack overflow errors when loading lua files,

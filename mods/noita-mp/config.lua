@@ -8,18 +8,18 @@ if not EntityUtils then
     _G.EntityUtils = {}
 end
 
-EntityUtils.maxExecutionTime = 20 -- ms
-EntityUtils.maxPoolSize = 10000
-EntityUtils.include     = {
+EntityUtils.maxExecutionTime = 20 --ms = 50 fps
+EntityUtils.maxPoolSize      = 10000
+EntityUtils.include          = {
     byComponentsName = { "VelocityComponent", "PhysicsBodyComponent", "PhysicsBody2Component", "ItemComponent", "PotionComponent" },
     byFilename       = {}
 }
-EntityUtils.exclude     = {
+EntityUtils.exclude          = {
     byComponentsName = {},
     byFilename       = { "particle", "tree_entity.xml", "vegetation" }
 }
 
-EntityUtils.remove      = {
+EntityUtils.remove           = {
     byComponentsName = { "AIComponent", "AdvancedFishAIComponent", "AnimalAIComponent", "ControllerGoombaAIComponent", "FishAIComponent", "PhysicsAIComponent", "WormAIComponent" },
     byFilename       = {}
 }

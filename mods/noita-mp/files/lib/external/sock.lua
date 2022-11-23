@@ -33,7 +33,7 @@ local sock = {
 }
 
 local enet = require("enet")
-local zstandard = require ("zstd")
+--local zstandard = require ("zstd")
 local util = require("util")
 local fu   = require("file_util")
 
@@ -70,11 +70,15 @@ local function zipTable(items, keys, event)
     for i, value in pairs(items) do
         local key = keys[i]
 
-        if not key then
+        if type(i) == "number" and not key then
             error("Event '" .. event .. "' missing data key. Is the schema different between server and client?")
         end
 
-        data[key] = value
+        if type(i) == "number" then
+            data[key] = value
+        else
+            data[i] = value
+        end
     end
 
     return data
@@ -82,7 +86,7 @@ end
 
 --- All of the possible connection statuses for a client connection.
 -- @see Client:getState
-sock.CONNECTION_STATES = {
+sock.CONNECTION_STATES    = {
     "disconnected", -- Disconnected from the server.
     "connecting", -- In the process of connecting to the server.
     "acknowledging_connect", --
@@ -97,7 +101,7 @@ sock.CONNECTION_STATES = {
 }
 
 --- States that represent the client connecting to a server.
-sock.CONNECTING_STATES = {
+sock.CONNECTING_STATES    = {
     "connecting", -- In the process of connecting to the server.
     "acknowledging_connect", --
     "connection_pending", --
@@ -112,7 +116,7 @@ sock.DISCONNECTING_STATES = {
 }
 
 --- Valid modes for sending messages.
-sock.SEND_MODES        = {
+sock.SEND_MODES           = {
     "reliable", -- Message is guaranteed to arrive, and arrive in the order in which it is sent.
     "unsequenced", -- Message has no guarantee on the order that it arrives.
     "unreliable", -- Message is not guaranteed to arrive.
@@ -398,6 +402,7 @@ end
 -- @tparam string event The event to trigger with this message.
 -- @param data The data to send.
 function Server:sendToAllBut(client, event, data)
+    error("Server:sendToAllBut is deprecated, because cache wont work. Use Server:sendToPeer instead.", 2)
     local serializedMessage = self:__pack(event, data)
 
     for _, p in pairs(self.peers) do
@@ -416,9 +421,10 @@ end
 --@usage
 --server:sendToAll("gameStarting", true)
 function Server:sendToAll(event, data)
+    error("Server:sendToAll is deprecated, because cache wont work. Use Server:sendToPeer instead.", 2)
     local serializedMessage = self:__pack(event, data)
 
-    self.packetsSent = self.packetsSent + #self.peers
+    self.packetsSent        = self.packetsSent + #self.peers
 
     self.host:broadcast(serializedMessage, self.sendChannel, self.sendMode)
 
@@ -426,7 +432,8 @@ function Server:sendToAll(event, data)
 end
 
 function Server:sendToAll2(event, data)
-    local cpc = CustomProfiler.start("Server:sendToAll2")
+    error("Server:sendToAll2 is deprecated, because cache wont work. Use Server:sendToPeer instead.", 2)
+    local cpc               = CustomProfiler.start("Server:sendToAll2")
     local serializedMessage = self:__pack(event, data)
 
     for _, p in pairs(self.peers) do
@@ -439,21 +446,17 @@ function Server:sendToAll2(event, data)
 end
 
 --- Send a message to a single peer. Useful to send data to a newly connected player
--- without sending to everyone who already received it.
--- @tparam enet_peer peer The enet peer to receive the message.
--- @tparam string event The event to trigger with this message.
--- @param data data to send to the peer.
---@usage
---server:sendToPeer(peer, "initialGameInfo", {...})
+--- without sending to everyone who already received it.
+--- @param peer enet_peer The enet peer to receive the message.
+--- @param event string The event to trigger with this message.
+--- @param data table to send to the peer.
+--- Usage: server:sendToPeer(peer, "initialGameInfo", {...})
 function Server:sendToPeer(peer, event, data)
-    --local serializedMessage = self:__pack(event, data)
-
+    local cpc        = CustomProfiler.start("Server:sendToPeer")
     self.packetsSent = self.packetsSent + 1
-
     peer:send(event, data)
-    --peer:send(serializedMessage, self.sendChannel, self.sendMode)
-
     self:resetSendSettings()
+    CustomProfiler.stop("Server:sendToPeer", cpc)
 end
 
 --- Add a callback to an event.
@@ -469,7 +472,7 @@ function Server:on(event, callback)
 end
 
 function Server:_activateTriggers(event, data, client)
-    local result = self.listener:trigger(event, data, client)
+    local result         = self.listener:trigger(event, data, client)
 
     self.packetsReceived = self.packetsReceived + 1
 
@@ -883,7 +886,7 @@ function Client:connect(code)
     -- number of channels for the client and server must match
     self.connection = self.host:connect(self.address .. ":" .. self.port, self.maxChannels, code)
     logger:info(logger.channels.network, "Connecting to " .. self.address .. ":" .. self.port)
-    self.connectId  = self.connection:connect_id()
+    self.connectId = self.connection:connect_id()
 end
 
 --- Disconnect from the server, if connected. The client will disconnect the
@@ -961,7 +964,7 @@ end
 -- @tparam string event The event to trigger with this message.
 -- @param data The data to send.
 function Client:send(event, data)
-    local networkMessageId = data[1]
+    local networkMessageId = data[1] or data.networkMessageId
     if util.IsEmpty(networkMessageId) then
         error("networkMessageId is empty!", 3)
     end
@@ -990,7 +993,7 @@ function Client:on(event, callback)
 end
 
 function Client:_activateTriggers(event, data)
-    local result = self.listener:trigger(event, data)
+    local result         = self.listener:trigger(event, data)
 
     self.packetsReceived = self.packetsReceived + 1
 

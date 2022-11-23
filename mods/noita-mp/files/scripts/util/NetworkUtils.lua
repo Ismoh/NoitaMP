@@ -28,7 +28,7 @@ NetworkUtils.events                  = {
     disconnect2     = { name = "disconnect2", schema = { "networkMessageId", "name", "guid" } },
 
     --- acknowledgement is used to let the sender know if the message was acknowledged
-    acknowledgement = { name = "acknowledgement", schema = { "networkMessageId", "status" }, ack = "ack", sent = "sent" },
+    acknowledgement = { name = "acknowledgement", schema = { "networkMessageId", "event", "status" }, ack = "ack", sent = "sent" },
 
     --- seed is used to send the servers seed
     seed            = { name = "seed", schema = { "networkMessageId", "seed" } },
@@ -40,9 +40,15 @@ NetworkUtils.events                  = {
     newGuid         = { name = "newGuid", schema = { "networkMessageId", "oldGuid", "newGuid" } },
 
     --- newNuid is used to let clients spawn entities by the servers permission
-    newNuid         = { name = "newNuid", schema = { "networkMessageId", "owner", "localEntityId", "newNuid", "x",
-                                                     "y", "rotation", "velocity", "filename", "health",
-                                                     "isPolymorphed" } },
+    newNuid         = {
+        --- constant name for the event
+        name             = "newNuid",
+        --- network schema to decode the message
+        schema           = { "networkMessageId", "owner", "localEntityId", "newNuid", "x", "y", "rotation", "velocity",
+                             "filename", "health", "isPolymorphed" },
+        --- identifier whether to send this message again, if it wasn't acknowledged
+        resendIdentifier = { "newNuid" }
+    },
 
     --- needNuid is used to ask for a nuid from client to servers
     needNuid        = { name = "needNuid", schema = { "networkMessageId", "owner", "localEntityId", "x", "y",
@@ -60,10 +66,10 @@ NetworkUtils.events                  = {
     deadNuids       = { name = "deadNuids", schema = { "networkMessageId", "deadNuids" } },
 
     --- needModList is used to let clients sync enabled mods with the server
-    needModList     = { name = "needModList", schema = { "workshop", "external" } },
+    needModList     = { name = "needModList", schema = { "networkMessageId", "workshop", "external" } },
 
     --- needModContent is used to sync mod content from server to client
-    needModContent  = { name = "needModContent", schema = { "get", "items" } }
+    needModContent  = { name = "needModContent", schema = { "networkMessageId", "get", "items" } }
 }
 
 --- Copy from sock.lua, because I am lazy
@@ -110,131 +116,208 @@ function NetworkUtils.getNextNetworkMessageId()
     return NetworkUtils.networkMessageIdCounter
 end
 
-function NetworkUtils.alreadySent(event, data)
+--- Checks if the event within its data was already sent
+--- @param event string
+--- @param data table
+--- @param peer table If Server, then it's the peer, if Client, then it's the 'self' object
+--- @param who string Server.iAm or Client.iAm
+--- @return boolean
+function NetworkUtils.alreadySent(event, data, peer, who)
     local cpc              = CustomProfiler.start("NetworkUtils.alreadySent")
-    local clientOrServer   = NetworkUtils.getClientOrServer()
-    local networkMessageId = data[1]
-    local rtt              = clientOrServer:getRoundTripTime()
+    local networkMessageId = data[1] or data.networkMessageId
 
     if util.IsEmpty(networkMessageId) then
         error("networkMessageId is empty!", 2)
     end
 
-    if clientOrServer.acknowledge[networkMessageId] ~= nil then
-        -- Is the networkMessageId already stored?
-        local acknowledgement = clientOrServer.acknowledge[networkMessageId] -- TODO: memory leak?
-        if acknowledgement.status == NetworkUtils.events.acknowledgement.ack then
-            -- network message was already acknowledged
-            CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
-            return true
-        end
-
-        --local pasted = os.time() - acknowledgement.sentAt
-        --if pasted >= rtt then
-        --    return false -- resend after RTT
-        --end
+    if not peer then
+        error("'peer' must not be nil! When Server, then peer. When Client, then self.", 2)
     end
 
-    local alreadySent = false
-    -- We need to compare the data, because networkMessageId isn't stored
-    local data1       = table.deepcopy(data)
-    table.setNoitaMpDefaultMetaMethods(data1)
-    table.remove(data1, 1)
+    if who == Server.iAm then
+        if Server.acknowledge[peer.connectId] then
+            -- [[ if the event isn't store in the cache, it wasn't already send ]] --
+            if not Server.acknowledge[peer.connectId][event] then
+                Server.acknowledge[peer.connectId][event] = {}
+                CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
+                return false
+            end
 
-    for key, value in pairs(clientOrServer.acknowledge) do
-        if value.event == event then
-            --local eventSchema = nil
-            --for key2, value2 in pairs(NetworkUtils.events) do
-            --    if value2.name == event then
-            --        eventSchema = value2.schema
-            --        break
-            --    end
-            --end
-            --local readableData = zipTable(value.data, eventSchema, event)
-            --for d1 = 1, #data do
-            --    for d2 = 1, #value.data do
-            --        if data[d1] == value.data[d2] then
-            --            return true
-            --        end
-            --    end
-            --end
+            --[[ Is there already a cache for the specific peer? ]]--
+            if Server.acknowledge[peer.connectId][event][networkMessageId] then
+                --[[ if the network message is already stored ]]--
+                if Server.acknowledge[peer.connectId][event][networkMessageId].status == NetworkUtils.events.acknowledgement.ack then
+                    --[[ and the status is 'ack' ]]--
+                    CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
+                    return true
+                end
+            end
 
-            local data2 = table.deepcopy(value.data) -- TODO: memory leak?
-            table.setNoitaMpDefaultMetaMethods(data2)
-            table.remove(data2, 1)
-
-            -- if position of entity changes, while trying to get nuid, this compare will fail, because x and y is
-            -- different. Therefore there is an additional check below, for simply comparing ownerName, ownerGuid and
-            -- entityId, if this was already sent in combination.
-            local ran, errorMsg = pcall(luaunit.assertItemsEquals, data1, data2)
-            if ran and not errorMsg then
-                if value.status ~= NetworkUtils.events.acknowledgement.ack then
-                    local pasted = os.time() - value.sentAt
-                    if pasted >= rtt then
+            for i in pairs(Server.acknowledge[peer.connectId][event]) do
+                --[[ if the networkMessageId is not stored, but data might be the same ]]--
+                for rI = 1, #(NetworkUtils.events[event].resendIdentifier or {}) do
+                    --[[ check resendIdentifiers ]]--
+                    local resendIdentifier = NetworkUtils.events[event].resendIdentifier[rI]
+                    if data[resendIdentifier] == Server.acknowledge[peer.connectId][event][i].data[resendIdentifier] then
+                        --[[ if data of the resendIdentifier is the same, it was already sent ]]--
                         CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
-                        return false -- resend after RTT
+                        return true
                     end
                 end
-                CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
-                return true
             end
-            data2 = nil
+        else
+            --[[ there is no cache for the specific peer ]]--
+            Server.acknowledge[peer.connectId] = {}
+            CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
+            return false
         end
-
-        -- double check if ownerName, ownerGuid and entityId already was sent
-        if event == NetworkUtils.events.needNuid.name and value.event == NetworkUtils.events.needNuid.name then
-            local eventSchema = nil
-            for key2, value2 in pairs(NetworkUtils.events) do
-                if value2.name == event then
-                    eventSchema = value2.schema
-                    break
-                end
-            end
-            local dataNow       = zipTable(data, eventSchema, event)
-            local ownerNameNow  = dataNow.owner[1] or data[2][1]
-            local ownerGuidNow  = dataNow.owner[2] or data[2][2]
-            local entityIdNow   = dataNow.localEntityId or data[3]
-
-            local dataPrev      = zipTable(value.data, eventSchema, event)
-            local ownerNamePrev = dataPrev.owner[1] or value.data[2][1]
-            local ownerGuidPrev = dataPrev.owner[2] or value.data[2][2]
-            local entityIdPrev  = dataPrev.localEntityId or value.data[3]
-
-            if ownerNameNow == ownerNamePrev and ownerGuidNow == ownerGuidPrev and entityIdNow == entityIdPrev then
-                CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
-                return true
-            end
-        end
-        data1 = nil
     end
 
-    --
-    ----
-    --
-    ---- self.acknowledge[data.networkMessageId] = { event = event, data = data, entityId = data.entityId, status = NetworkUtils.events.acknowledgement.sent }
-    --for i = 1, #clientOrServer.acknowledge or {} do
-    --    if clientOrServer.acknowledge[i].entityId == nil then
-    --        -- network message wasn't entity related
-    --        -- compare events
-    --        if clientOrServer.acknowledge[i].event == event then
-    --            return clientOrServer.acknowledge[i].status == NetworkUtils.events.acknowledgement.ack
-    --        end
-    --    elseif clientOrServer.acknowledge[i].entityId == entityId then
-    --        return clientOrServer.acknowledge[i].status == NetworkUtils.events.acknowledgement.ack
-    --    else
-    --        -- neither event nor entityId matches
-    --        -- compare networkMessageId
-    --        if data.networkMessageId then
-    --            if clientOrServer.acknowledge[i].data.networkMessageId == data.networkMessageId then
-    --                return clientOrServer.acknowledge[i].status == NetworkUtils.events.acknowledgement.ack
-    --            end
-    --        end
-    --    end
-    --end
-    --
-    logger:warn(logger.channels.network, "Unable to get status of network message.")
+    if who == Client.iAm then
+        -- [[ if the event isn't store in the cache, it wasn't already send ]] --
+        if not peer.acknowledge[event] then
+            CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
+            return false
+        end
+
+        --[[ if the network message is already stored ]]--
+        if peer.acknowledge[event][networkMessageId] then
+            if peer.acknowledge[event][networkMessageId].status == NetworkUtils.events.acknowledgement.ack then
+                CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
+                return true
+            end
+        end
+
+        for i in pairs(peer.acknowledge[event]) do
+            --[[ if the networkMessageId is not stored, but data might be the same ]]--
+            for rI = 1, #(NetworkUtils.events[event].resendIdentifier or {}) do
+                --[[ check resendIdentifiers ]]--
+                local resendIdentifier = NetworkUtils.events[event].resendIdentifier[rI]
+                if data[resendIdentifier] == peer.acknowledge[event][i].data[resendIdentifier] then
+                    --[[ if the resendIdentifier is different, then it's a different event ]]--
+                    CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
+                    return true
+                end
+            end
+        end
+    end
+
+    --logger:warn(logger.channels.network, "Unable to get status of network message.")
     CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
     return false
+
+    --local alreadySent      = false
+    ---- We need to compare the data, because networkMessageId isn't stored
+    --local data1            = table.deepcopy(data)
+    --data1.networkMessageId = nil
+    --table.setNoitaMpDefaultMetaMethods(data1)
+    ----table.remove(data1, 1)
+    --
+    --for key, value in pairs(clientOrServer.acknowledge) do
+    --    if value.event == event then
+    --        --local eventSchema = nil
+    --        --for key2, value2 in pairs(NetworkUtils.events) do
+    --        --    if value2.name == event then
+    --        --        eventSchema = value2.schema
+    --        --        break
+    --        --    end
+    --        --end
+    --        --local readableData = zipTable(value.data, eventSchema, event)
+    --        --for d1 = 1, #data do
+    --        --    for d2 = 1, #value.data do
+    --        --        if data[d1] == value.data[d2] then
+    --        --            return true
+    --        --        end
+    --        --    end
+    --        --end
+    --
+    --        if event == NetworkUtils.events.newNuid.name then
+    --            if data.localEntityId == value.data.localEntityId and
+    --                    value.status ~= NetworkUtils.events.acknowledgement.ack
+    --            then
+    --                CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
+    --                return true
+    --            end
+    --        end
+    --
+    --        local data2            = table.deepcopy(value.data) -- TODO: memory leak?
+    --        data2.networkMessageId = nil
+    --        table.setNoitaMpDefaultMetaMethods(data2)
+    --        --table.remove(data2, 1)
+    --
+    --        -- if position of entity changes, while trying to get nuid, this compare will fail, because x and y is
+    --        -- different. Therefore there is an additional check below, for simply comparing ownerName, ownerGuid and
+    --        -- entityId, if this was already sent in combination.
+    --        local ran, errorMsg = pcall(luaunit.assertItemsEquals, data1, data2)
+    --        if ran and not errorMsg then
+    --            if value.status ~= NetworkUtils.events.acknowledgement.ack then
+    --                local pasted = os.time() - value.sentAt
+    --                if pasted >= rtt then
+    --                    CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
+    --                    return false -- resend after RTT
+    --                end
+    --            end
+    --            CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
+    --            return true
+    --        end
+    --        data2 = nil
+    --    end
+    --
+    --    -- double check if ownerName, ownerGuid and entityId already was sent
+    --    if event == NetworkUtils.events.needNuid.name and value.event == NetworkUtils.events.needNuid.name then
+    --        local eventSchema = nil
+    --        for key2, value2 in pairs(NetworkUtils.events) do
+    --            if value2.name == event then
+    --                eventSchema = value2.schema
+    --                break
+    --            end
+    --        end
+    --        local dataNow       = zipTable(data, eventSchema, event)
+    --        local ownerNameNow  = dataNow.owner[1] or data[2][1]
+    --        local ownerGuidNow  = dataNow.owner[2] or data[2][2]
+    --        local entityIdNow   = dataNow.localEntityId or data[3]
+    --
+    --        local dataPrev      = zipTable(value.data, eventSchema, event)
+    --        local ownerNamePrev = dataPrev.owner[1] or value.data[2][1]
+    --        local ownerGuidPrev = dataPrev.owner[2] or value.data[2][2]
+    --        local entityIdPrev  = dataPrev.localEntityId or value.data[3]
+    --
+    --        if ownerNameNow == ownerNamePrev and ownerGuidNow == ownerGuidPrev and entityIdNow == entityIdPrev then
+    --            CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
+    --            return true
+    --        end
+    --    end
+    --    data1 = nil
+    --end
+    --
+    ----
+    ------
+    ----
+    ------ self.acknowledge[data.networkMessageId] = { event = event, data = data, entityId = data.entityId, status = NetworkUtils.events.acknowledgement.sent }
+    ----for i = 1, #clientOrServer.acknowledge or {} do
+    ----    if clientOrServer.acknowledge[i].entityId == nil then
+    ----        -- network message wasn't entity related
+    ----        -- compare events
+    ----        if clientOrServer.acknowledge[i].event == event then
+    ----            return clientOrServer.acknowledge[i].status == NetworkUtils.events.acknowledgement.ack
+    ----        end
+    ----    elseif clientOrServer.acknowledge[i].entityId == entityId then
+    ----        return clientOrServer.acknowledge[i].status == NetworkUtils.events.acknowledgement.ack
+    ----    else
+    ----        -- neither event nor entityId matches
+    ----        -- compare networkMessageId
+    ----        if data.networkMessageId then
+    ----            if clientOrServer.acknowledge[i].data.networkMessageId == data.networkMessageId then
+    ----                return clientOrServer.acknowledge[i].status == NetworkUtils.events.acknowledgement.ack
+    ----            end
+    ----        end
+    ----    end
+    ----end
+    ----
+    --logger:warn(logger.channels.network, "Unable to get status of network message.")
+    --clientOrServer.acknowledge[networkMessageId] = { event = event, data = data, status = NetworkUtils.events.acknowledgement.sent }
+    --CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
+    --return false
 end
 
 local prevTimeInMs = 0

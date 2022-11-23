@@ -269,7 +269,7 @@ function EntityUtils.isEntityAlive(entityId)
         CustomProfiler.stop("EntityUtils.isEntityAlive", cpc)
         return entityId
     end
-    logger:warn(logger.channels.entity, ("Entity (%s) isn't alive anymore! Returning nil."):format(entityId))
+    logger:info(logger.channels.entity, ("Entity (%s) isn't alive anymore! Returning nil."):format(entityId))
     CustomProfiler.stop("EntityUtils.isEntityAlive", cpc)
     return false
 end
@@ -298,9 +298,10 @@ function EntityUtils.processAndSyncEntityNetworking()
 
         for i = 1, #playerEntityIds do
             local clientEntityId = playerEntityIds[i]
-            local rootEntityId   = EntityGetRootEntity(clientEntityId)
-            if not NetworkVscUtils.hasNetworkLuaComponents(rootEntityId) then
-                NetworkVscUtils.addOrUpdateAllVscs(rootEntityId, localOwner.name, localOwner.guid, nil)
+            --local rootEntityId   = EntityGetRootEntity(clientEntityId)
+            if not NetworkVscUtils.hasNetworkLuaComponents(clientEntityId--[[rootEntityId]]) then
+                NetworkVscUtils.addOrUpdateAllVscs(clientEntityId--[[rootEntityId]], localOwner.name, localOwner.guid,
+                                                   nil)
             end
             -- if not NetworkVscUtils.hasNuidSet(entityId) then
             --     Client.sendNeedNuid(localOwner, entityId)
@@ -311,7 +312,7 @@ function EntityUtils.processAndSyncEntityNetworking()
     for entityIndex = prevEntityIndex, #entityIds do
         -- entityId in CoroutineUtils.iterator(entityIds) do
         repeat -- repeat until true with break works like continue
-            local entityId   = EntityGetRootEntity(entityIds[entityIndex])
+            local entityId   = --[[EntityGetRootEntity(]]entityIds[entityIndex] --[[)]]
             local cacheIndex = getIndexByEntityId(entityId)
 
             --[[ Just be double sure and check if entity is alive. If not next entityId ]]--
@@ -328,7 +329,8 @@ function EntityUtils.processAndSyncEntityNetworking()
                     if EntityUtils.isEntityAlive(entityId) and
                             entityId ~= EntityUtils.localPlayerEntityId and
                             entityId ~= EntityUtils.localPlayerEntityIdPolymorphed and
-                            not EntityUtils.isRemoteMinae(entityId)
+                            not EntityUtils.isRemoteMinae(entityId) and
+                            not NetworkVscUtils.hasNetworkLuaComponents(entityId)
                     then
                         EntityKill(entityId)
                         break -- work around for continue: repeat until true with break
@@ -337,13 +339,29 @@ function EntityUtils.processAndSyncEntityNetworking()
             end
 
             --[[ Check if entity can be ignored, because it is not necessary to sync it,
-                 depending on config.lua: EntityUtils.include. ]]--
+                 depending on config.lua: EntityUtils.include and EntityUtils.exclude ]]--
             local exclude  = true
             local filename = EntityGetFilename(entityId)
             -- if already in cache, ignore it, because it was already processed
             if EntityUtils.transformCache[cacheIndex] and EntityUtils.transformCache[cacheIndex].entityId == entityId then
                 exclude = false
             else
+                if EntityUtils.exclude.byFilename[filename] or
+                        table.contains(EntityUtils.exclude.byFilename, filename)
+                then
+                    exclude = true
+                    --break -- work around for continue: repeat until true with break
+                else
+                    for i = 1, #EntityUtils.exclude.byComponentsName do
+                        local componentTypeName = EntityUtils.exclude.byComponentsName[i]
+                        local components        = EntityGetComponentIncludingDisabled(entityId, componentTypeName) or {}
+                        if #components > 0 then
+                            exclude = true
+                            break -- work around for continue: repeat until true with break
+                        end
+                    end
+                end
+
                 if EntityUtils.include.byFilename[filename] or
                         table.contains(EntityUtils.include.byFilename, filename)
                 then
@@ -365,7 +383,7 @@ function EntityUtils.processAndSyncEntityNetworking()
             end
 
             --[[ Check if entity has already all network components ]]--
-            local nuid = nil
+            local ownerName_, ownerGuid_, nuid = NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
             if not NetworkVscUtils.isNetworkEntityByNuidVsc(entityId) or
                     not NetworkVscUtils.hasNetworkLuaComponents(entityId)
             then
@@ -373,10 +391,10 @@ function EntityUtils.processAndSyncEntityNetworking()
                 local ownerName       = localPlayerInfo.name
                 local ownerGuid       = localPlayerInfo.guid
 
-                if who == Server.iAm then
+                if who == Server.iAm and not nuid then
                     nuid = NuidUtils.getNextNuid()
                     -- Server.sendNewNuid this will be executed below
-                elseif who == Client.iAm then
+                elseif who == Client.iAm and not nuid then
                     Client.sendNeedNuid(ownerName, ownerGuid, entityId)
                 else
                     logger:error(logger.channels.entity, "Unable to get whoAmI()!")
@@ -393,6 +411,13 @@ function EntityUtils.processAndSyncEntityNetworking()
                 --[[ Entity is new and not in cache, that's why cacheIndex is nil ]]--
                 if not cacheIndex or EntityUtils.transformCache[cacheIndex] == nil then
                     if who == Server.iAm then
+                        if not nuid then
+                            nuid = compNuid
+                            if not nuid then
+                                nuid = NuidUtils.getNextNuid()
+                                NetworkVscUtils.addOrUpdateAllVscs(entityId, compOwnerName, compOwnerGuid, nuid)
+                            end
+                        end
                         Server.sendNewNuid({ compOwnerName, compOwnerGuid }, entityId, nuid, x, y, rotation, velocity,
                                            filename,
                                            health, EntityUtils.isEntityPolymorphed(entityId))
@@ -503,7 +528,6 @@ function EntityUtils.spawnEntity(owner, nuid, x, y, rotation, velocity, filename
         return
     end
 
-    --if isPolymorphed then
     local compIds = EntityGetAllComponents(entityId) or {}
     for i = 1, #compIds do
         local compId   = compIds[i]
@@ -512,7 +536,6 @@ function EntityUtils.spawnEntity(owner, nuid, x, y, rotation, velocity, filename
             EntityRemoveComponent(entityId, compId)
         end
     end
-    --end
 
     NetworkVscUtils.addOrUpdateAllVscs(entityId, remoteName, remoteGuid, nuid)
     NoitaComponentUtils.setEntityData(entityId, x, y, rotation, velocity, health)
@@ -544,23 +567,32 @@ function EntityUtils.destroyByNuid(nuid)
     local cpc             = CustomProfiler.start("EntityUtils.destroyByNuid")
     local nNuid, entityId = GlobalsUtils.getNuidEntityPair(nuid)
 
+    if not entityId then
+        CustomProfiler.stop("EntityUtils.destroyByNuid", cpc)
+        return
+    end
+
+    if entityId < 0 then
+        -- Dead entities are recognized by the kill indicator '-', which is the entityId multiplied by -1.
+        entityId = math.abs(entityId) -- might be kill indicator is set: -entityId -> entityId
+    end
+
     if not EntityUtils.isEntityAlive(entityId) then
         CustomProfiler.stop("EntityUtils.destroyByNuid", cpc)
         return
     end
 
-    -- Dead entities are recognized by the kill indicator, which is the entityId multiplied by -1.
-    if math.sign(entityId) == -1 then
-        entityId = entityId * -1
-    end
-
-    if EntityUtils.isEntityAlive(entityId) and
-            entityId ~= EntityUtils.localPlayerEntityId and
-            entityId ~= EntityUtils.localPlayerEntityIdPolymorphed then
+    if entityId ~= EntityUtils.localPlayerEntityId and
+            entityId ~= EntityUtils.localPlayerEntityIdPolymorphed
+    then
         EntityKill(entityId)
     end
+
     -- Make sure cache is cleared correctly
-    EntityUtils.transformCache[entityId] = nil
+    local cacheIndex = getIndexByEntityId(entityId)
+    if cacheIndex then
+        EntityUtils.transformCache[cacheIndex] = nil
+    end
     CustomProfiler.stop("EntityUtils.destroyByNuid", cpc)
 end
 

@@ -83,8 +83,11 @@ end
 
 function GlobalsUtils.setDeadNuid(nuid)
     local oldDeadNuids = GlobalsGetValue(GlobalsUtils.deadNuidsKey, "")
-    GlobalsSetValue(GlobalsUtils.deadNuidsKey,
-                    ("%s,%s"):format(oldDeadNuids, nuid)) -- also change stuff in nuid_updater.lua
+    if oldDeadNuids == "" then
+        GlobalsSetValue(GlobalsUtils.deadNuidsKey, nuid)
+    else
+        GlobalsSetValue(GlobalsUtils.deadNuidsKey, ("%s,%s"):format(oldDeadNuids, nuid))
+    end
 end
 
 function GlobalsUtils.getDeadNuids()
@@ -103,7 +106,12 @@ function GlobalsUtils.removeDeadNuid(nuid)
     local contains, index = table.contains(deadNuids, nuid)
     if contains then
         table.remove(deadNuids, index)
-        GlobalsSetValue(GlobalsUtils.deadNuidsKey, table.concat(deadNuids, ","))
+        if not next(deadNuids) then
+            -- if deadNuids is empty
+            GlobalsSetValue(GlobalsUtils.deadNuidsKey, "")
+        else
+            GlobalsSetValue(GlobalsUtils.deadNuidsKey, table.concat(deadNuids, ","))
+        end
     end
 end
 

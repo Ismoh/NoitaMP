@@ -85,6 +85,21 @@ function NuidUtils.getEntityIdsByKillIndicator()
             end
         end
     end
+
+    -- Remove all dead nuids from client or server acknowledge cache
+    local clientOrServer = NetworkUtils.getClientOrServer()
+    for i = 1, #deadNuids do
+        local deadNuid            = deadNuids[i]
+        local deadNuid_, entityId = GlobalsUtils.getNuidEntityPair(deadNuid)
+        entityId                  = math.abs(entityId) -- Remove the kill indicator: -1 -> 1
+        for j = 1, #clientOrServer.acknowledge do -- TODO FIX ME!
+            local ack = clientOrServer.acknowledge[j]
+            if ack and ack.data.localEntityId == entityId then
+                table.setNoitaMpDefaultMetaMethods(clientOrServer.acknowledge[j], "v")
+                clientOrServer.acknowledge[j] = nil
+            end
+        end
+    end
     return deadNuids
 end
 

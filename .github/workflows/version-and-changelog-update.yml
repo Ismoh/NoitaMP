@@ -183,12 +183,12 @@ jobs:
             git fetch
             git checkout ${{ github.base_ref }}
             git pull origin ${{ github.base_ref }}
-            echo "$NEXT_VERSION" > $VERSION_FILE_NAME
+            echo "{\"version\":\"$NEXT_VERSION\"}" > $VERSION_FILE_NAME
             git config --local user.email "action@github.com"
             git config --local user.name "github-actions"
             git add $VERSION_FILE_NAME
             git commit -m "Updated version to $NEXT_VERSION in https://github.com/${{github.repository}}/pull/${{github.event.number}}"
-            git tag -a "$NEXT_VERSION" -m "Automatic tag creation, do not consider tags as release. For further technical information, see https://github.com/${{github.repository}}/pull/${{github.event.number}}"
+            git tag -a "$NEXT_VERSION" -m "Automatic tag creation, do not consider tags as releases. For further technical information, see https://github.com/${{github.repository}}/pull/${{github.event.number}}"
             git push origin ${{ github.base_ref }} --tags
           else
             echo "Pull request is not merged yet, therefore '$VERSION_FILE_NAME' will not be increased."
@@ -242,7 +242,7 @@ jobs:
           echo "CHANGELOG="$CHANGELOG
           echo ""
           
-          body=":robot: _meep moop beep boop_<br/><br/>"$CHANGELOG
+          body=":robot: _meep moop beep boop_<br/><br/>  "$CHANGELOG
           echo "body="$body
           json=$(printf '%s\n' "$body" | jq -Rsa '{ body: . }')
           echo "json="$json
