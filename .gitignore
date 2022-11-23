@@ -12,6 +12,10 @@
 # cache dll output files
 Debug/
 out/
+noitamp_cache.lib
+noitamp_cache.pdb
+noitamp_cache.exp
+*.pdb
 
 # Object files
 # *.o
@@ -45,4 +49,3 @@ out/
 # *.i*86
 # *.x86_64
 # *.hex
-

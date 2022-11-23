@@ -7,13 +7,13 @@ static int l_mult50(lua_State* L)
     return 1;
 }
 
-int luaopen_cache(lua_State* L)
+__declspec(dllexport) int luaopen_cache(lua_State* L)
 {
     static const luaL_reg cachelib[] =
     {
          {"mult50", l_mult50},
          {NULL, NULL}
     };
-    luaL_register(L, "cache", cachelib);
+    luaL_openlib(L, "cache", cachelib, 0);
     return 1;
 }
