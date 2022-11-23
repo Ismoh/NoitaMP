@@ -1,6 +1,0 @@
-cmake_minimum_required(VERSION 3.13)
-project(noita_mp)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY bin)
-set(SOURCE_FILES mods/noita-mp/cache.c)
-include_directories(BEFORE .building/LuaJIT-2.0.4/src)
-add_library(noita_mp SHARED mods/noita-mp/cache.c)
