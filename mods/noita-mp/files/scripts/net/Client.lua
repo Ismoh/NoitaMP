@@ -198,7 +198,17 @@ function Client.new(sockClient)
         if util.IsEmpty(data) then
             error(("onConnect data is empty: %s"):format(data), 3)
         end
+
+        local localPlayerInfo = util.getLocalPlayerInfo()
+        local name            = localPlayerInfo.name
+        local guid            = localPlayerInfo.guid
+        local nuid            = localPlayerInfo.nuid -- Could be nil. Timing issue. Will be set after this.
+
+        self:send(NetworkUtils.events.playerInfo.name,
+                  { NetworkUtils.getNextNetworkMessageId(), name, guid, _G.NoitaMPVersion, nuid })
+
         self:send(NetworkUtils.events.needModList.name, { NetworkUtils.getNextNetworkMessageId() })
+
         -- sendAck(data.networkMessageId)
         CustomProfiler.stop("Client.onConnect", cpc4)
     end
@@ -246,7 +256,7 @@ function Client.new(sockClient)
         -- sendAck(data.networkMessageId)
 
         if self.serverInfo.nuid then
-            EntityUtils.destroyByNuid(self.serverInfo.nuid)
+            EntityUtils.destroyByNuid(self, self.serverInfo.nuid)
         end
 
         -- TODO remove all NUIDS from entities. I now need a nuid-entityId-cache.
@@ -422,7 +432,7 @@ function Client.new(sockClient)
         local entityId        = localPlayerInfo.entityId
 
         self:send(NetworkUtils.events.playerInfo.name,
-                  { NetworkUtils.getNextNetworkMessageId(), name, guid, nuid, _G.NoitaMPVersion })
+                  { NetworkUtils.getNextNetworkMessageId(), name, guid, _G.NoitaMPVersion, nuid })
 
         if not NetworkVscUtils.hasNetworkLuaComponents(entityId) then
             NetworkVscUtils.addOrUpdateAllVscs(entityId, name, guid, nil)
@@ -581,7 +591,7 @@ function Client.new(sockClient)
             if util.IsEmpty(deadNuid) or deadNuid == "nil" then
                 logger:error(logger.channels.network, ("onDeadNuids deadNuid is empty: %s"):format(deadNuid), 3)
             else
-                EntityUtils.destroyByNuid(deadNuid)
+                EntityUtils.destroyByNuid(self, deadNuid)
                 GlobalsUtils.removeDeadNuid(deadNuid)
             end
         end
@@ -878,7 +888,7 @@ function Client.new(sockClient)
             error("", 2)
         end
 
-        if NetworkUtils.alreadySent(event, data, self, self.iAm) then
+        if NetworkUtils.alreadySent(self, event, data) then
             logger:debug(logger.channels.network, ("Network message for %s for data %s already was acknowledged.")
                     :format(event, util.pformat(data)))
             CustomProfiler.stop("Client.send", cpc19)

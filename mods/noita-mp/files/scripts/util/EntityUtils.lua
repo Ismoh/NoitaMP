@@ -128,6 +128,39 @@ local function get_player_inventory_contents(inventory_type)
     return out
 end
 
+--- Checks if the entity filename is in the include or exclude list of filenames.
+--- @param filename string current entity filename
+--- @param filenames table list of filenames
+--- @return boolean true if filename is in filenames list otherwise false
+local function findByFilename(filename, filenames)
+    local cpc = CustomProfiler.start("EntityUtils.findByFilename")
+    for i = 1, #filenames do
+        if filename:find(filenames[i]) then
+            CustomProfiler.stop("EntityUtils.findByFilename", cpc)
+            return true
+        end
+    end
+    CustomProfiler.stop("EntityUtils.findByFilename", cpc)
+    return false
+end
+
+local function getParentsUntilRootEntity(entityId)
+    local cpc            = CustomProfiler.start("EntityUtils.getParentsUntilRootEntity")
+    local parentNuids    = {}
+    local parentEntityId = EntityGetParent(entityId)
+
+    while parentEntityId do
+        local parentNuid = NetworkVscUtils.hasNuidSet(parentEntityId)
+        if not parentNuid then
+            error("nuid not set fix this!")
+        end
+        table.insert(parentNuids, 1, parentNuid)
+        parentEntityId = EntityGetParent(parentEntityId)
+    end
+    CustomProfiler.stop("EntityUtils.getParentsUntilRootEntity", cpc)
+    return parents
+end
+
 ----------------------------------------
 --- public global methods:
 ----------------------------------------
@@ -206,9 +239,9 @@ function EntityUtils.getLocalPlayerEntityId()
             end
         end
     end
-    logger:warn(logger.channels.entity,
-                "Unable to get local player entity id. Returning first entity id(%s), which was found.",
-                playerEntityIds[1])
+    logger:debug(logger.channels.entity,
+                 "Unable to get local player entity id. Returning first entity id(%s), which was found.",
+                 playerEntityIds[1])
     EntityUtils.localPlayerEntityId = playerEntityIds[1]
     CustomProfiler.stop("EntityUtils.getLocalPlayerEntityId", cpc)
     return playerEntityIds[1]
@@ -347,10 +380,11 @@ function EntityUtils.processAndSyncEntityNetworking()
                 exclude = false
             else
                 if EntityUtils.exclude.byFilename[filename] or
-                        table.contains(EntityUtils.exclude.byFilename, filename)
+                        --table.contains(EntityUtils.exclude.byFilename, filename) or
+                        findByFilename(filename, EntityUtils.exclude.byFilename)
                 then
                     exclude = true
-                    --break -- work around for continue: repeat until true with break
+                    break -- work around for continue: repeat until true with break
                 else
                     for i = 1, #EntityUtils.exclude.byComponentsName do
                         local componentTypeName = EntityUtils.exclude.byComponentsName[i]
@@ -363,7 +397,8 @@ function EntityUtils.processAndSyncEntityNetworking()
                 end
 
                 if EntityUtils.include.byFilename[filename] or
-                        table.contains(EntityUtils.include.byFilename, filename)
+                        --table.contains(EntityUtils.include.byFilename, filename) or
+                        findByFilename(filename, EntityUtils.include.byFilename)
                 then
                     exclude = false
                 else
@@ -418,6 +453,9 @@ function EntityUtils.processAndSyncEntityNetworking()
                                 NetworkVscUtils.addOrUpdateAllVscs(entityId, compOwnerName, compOwnerGuid, nuid)
                             end
                         end
+                        -- TODO: check if entityId has parents and if so, send them too. How many parents?
+                        -- TODO: EntityGetParent(entityId) returns 0, if there is no parent
+                        local parents = getParentsUntilRootEntity(entityId)
                         Server.sendNewNuid({ compOwnerName, compOwnerGuid }, entityId, nuid, x, y, rotation, velocity,
                                            filename,
                                            health, EntityUtils.isEntityPolymorphed(entityId))
@@ -563,7 +601,7 @@ end
 ------------------------------------------------------------------------------------------------
 --- Destroys the entity by the given nuid.
 --- @param nuid number The nuid of the entity.
-function EntityUtils.destroyByNuid(nuid)
+function EntityUtils.destroyByNuid(peer, nuid)
     local cpc             = CustomProfiler.start("EntityUtils.destroyByNuid")
     local nNuid, entityId = GlobalsUtils.getNuidEntityPair(nuid)
 
@@ -576,6 +614,8 @@ function EntityUtils.destroyByNuid(nuid)
         -- Dead entities are recognized by the kill indicator '-', which is the entityId multiplied by -1.
         entityId = math.abs(entityId) -- might be kill indicator is set: -entityId -> entityId
     end
+
+    NetworkUtils.removeFromCacheByEntityId(peer, entityId)
 
     if not EntityUtils.isEntityAlive(entityId) then
         CustomProfiler.stop("EntityUtils.destroyByNuid", cpc)

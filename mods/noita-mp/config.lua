@@ -16,7 +16,12 @@ EntityUtils.include          = {
 }
 EntityUtils.exclude          = {
     byComponentsName = {},
-    byFilename       = { "particle", "tree_entity.xml", "vegetation" }
+    byFilename       = {
+        --"particle",
+        "tree_entity.xml",
+        "vegetation",
+        -- TODO: REMOVE ME: child spawning issues, should be fixed "data/entities/misc/custom_cards/", -- This somehow occurs when changing wands in inventory
+    }
 }
 
 EntityUtils.remove           = {
