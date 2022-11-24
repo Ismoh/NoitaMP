@@ -385,9 +385,7 @@ function Client.new(sockClient)
             local cpc28 = CustomProfiler.start("ModSettingSet")
             ModSettingSet("noita-mp.guid_readonly", self.guid)
             CustomProfiler.stop("ModSettingGet", cpc28)
-            if compOwnerName then
-                NetworkVscUtils.addOrUpdateAllVscs(entityId, compOwnerName, self.guid, compNuid)
-            end
+            NetworkVscUtils.addOrUpdateAllVscs(entityId, compOwnerName, self.guid, compNuid)
         else
             for i = 1, #self.otherClients do
                 if self.otherClients[i].guid == data.oldGuid then

@@ -60,8 +60,8 @@ function NoitaComponentUtils.getEntityData(entityId)
     local cpc                                    = CustomProfiler.start("NoitaComponentUtils.getEntityData")
     local compOwnerName, compOwnerGuid, compNuid = NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
     local hpCompId                               = EntityGetFirstComponentIncludingDisabled(entityId, "DamageModelComponent") or 0
-    local hpCurrent                              = math.round(tonumber(ComponentGetValue2(hpCompId, "hp") or 0) * 25, 0.01)
-    local hpMax                                  = math.round(tonumber(ComponentGetValue2(hpCompId, "max_hp") or 0) * 25, 0.01)
+    local hpCurrent                              = math.round(ComponentGetValue2(hpCompId, "hp") * 25, 0.01)
+    local hpMax                                  = math.round(ComponentGetValue2(hpCompId, "max_hp") * 25, 0.01)
     local health                                 = { current = hpCurrent, max = hpMax }
     local x, y, rotation                         = EntityGetTransform(entityId)
     local velocityCompId                         = EntityGetFirstComponent(entityId, "VelocityComponent")

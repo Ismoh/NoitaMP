@@ -417,6 +417,9 @@ function NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
     CustomProfiler.stop("NetworkVscUtils.getAllVcsValuesByEntityId", cpc)
     if ownerNameCompId and ownerGuidCompId and nuidCompId then
         return NetworkVscUtils.getAllVcsValuesByComponentIds(ownerNameCompId, ownerGuidCompId, nuidCompId)
+    else
+        logger:error(logger.channels.vsc, ("getAllVcsValuesByEntityId: Got unexpected nil id. entityId, = %s ownerNameCompId = %s, ownerGuidCompId = %s, nuidCompId = %s"):format(entityId, ownerNameCompId, ownerGuidCompId, nuidCompId))
+        error()
     end
 end
 
@@ -434,6 +437,7 @@ function NetworkVscUtils.getAllVcsValuesByComponentIds(ownerNameCompId, ownerGui
     local compNuid      = ComponentGetValue2(nuidCompId, NetworkVscUtils.valueString)
 
     CustomProfiler.stop("NetworkVscUtils.getAllVcsValuesByComponentIds", cpc)
+    ---@diagnostic disable-next-line: return-type-mismatch
     return compOwnerName, compOwnerGuid, tonumber(compNuid)
 end
 
@@ -467,7 +471,8 @@ function NetworkVscUtils.hasNuidSet(entityId)
         return false
     end
     CustomProfiler.stop("NetworkVscUtils.hasNuidSet", cpc)
-    return tonumber(nuid) or 0
+    ---@diagnostic disable-next-line: return-type-mismatch
+    return tonumber(nuid)
 end
 
 function NetworkVscUtils.hasNetworkLuaComponents(entityId)
