@@ -18,6 +18,12 @@ NoitaComponentUtils = {}
 
 --#region Global public variables
 
+---@param entityId number
+---@param x number
+---@param y number
+---@param rotation number
+---@param velocity Vec2?
+---@param health number
 function NoitaComponentUtils.setEntityData(entityId, x, y, rotation, velocity, health)
     local cpc = CustomProfiler.start("NoitaComponentUtils.setEntityData")
     if not EntityUtils.isEntityAlive(entityId) then
@@ -37,7 +43,7 @@ function NoitaComponentUtils.setEntityData(entityId, x, y, rotation, velocity, h
     EntityApplyTransform(entityId, x, y, rotation, 1, 1)
 
     local velocityCompId = EntityGetFirstComponent(entityId, "VelocityComponent")
-    if velocityCompId then
+    if velocity and velocityCompId then
         ComponentSetValue2(velocityCompId, "mVelocity", velocity.x or velocity[1], velocity.y or velocity[2])
     else
         logger:debug(logger.channels.entity, ("Unable to get VelocityComponent, because entity (%s) might not" ..
@@ -49,16 +55,13 @@ end
 
 --- Fetches data like position, rotation, velocity, health and filename
 --- @param entityId number
---- @return string owner name, string owner guid, string nuid, string filename, table health { current, max }, number rotation, table velocity { x, y }, number x, number y
+--- @return string ownername, string ownerguid, number nuid, string filename, EntityHealthData health, number rotation, Vec2 velocity, number x, number y
 function NoitaComponentUtils.getEntityData(entityId)
     local cpc                                    = CustomProfiler.start("NoitaComponentUtils.getEntityData")
     local compOwnerName, compOwnerGuid, compNuid = NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
-    local hpCompId                               = EntityGetFirstComponentIncludingDisabled(entityId,
-                                                                                            "DamageModelComponent")
-    local hpCurrent                              = math.round(tonumber(ComponentGetValue2(hpCompId, "hp") or 0) * 25,
-                                                              0.01)
-    local hpMax                                  = math.round(tonumber(ComponentGetValue2(hpCompId,
-                                                                                          "max_hp") or 0) * 25, 0.01)
+    local hpCompId                               = EntityGetFirstComponentIncludingDisabled(entityId, "DamageModelComponent") or 0
+    local hpCurrent                              = math.round(tonumber(ComponentGetValue2(hpCompId, "hp") or 0) * 25, 0.01)
+    local hpMax                                  = math.round(tonumber(ComponentGetValue2(hpCompId, "max_hp") or 0) * 25, 0.01)
     local health                                 = { current = hpCurrent, max = hpMax }
     local x, y, rotation                         = EntityGetTransform(entityId)
     local velocityCompId                         = EntityGetFirstComponent(entityId, "VelocityComponent")
@@ -68,10 +71,13 @@ function NoitaComponentUtils.getEntityData(entityId)
         velocity                   = { x = math.round(velocityX, 0.1), y = math.round(velocityY, 0.1) }
     end
     local filename = EntityGetFilename(entityId)
-
     CustomProfiler.stop("NoitaComponentUtils.getEntityData", cpc)
-    return compOwnerName, compOwnerGuid, compNuid, filename, health, math.round(
+    if compOwnerName and compOwnerGuid and compNuid then
+        return compOwnerName, compOwnerGuid, compNuid, filename, health, math.round(
             rotation, 0.1), velocity, math.round(x, 0.1), math.round(y, 0.1)
+    end
+    logger:error(logger.channels.entity, ("getEntityData: Got unexpected nil value in network VSC. entityId, = %s compOwnerName = %s, compOwnerGuid = %s, compNuid = %s"):format(entityId, compOwnerName,compOwnerGuid, compNuid))
+    error()
 end
 
 function NoitaComponentUtils.getEntityDataByNuid(nuid)

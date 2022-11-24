@@ -21,7 +21,7 @@ local logging = {
   _DESCRIPTION = "A simple API to use logging features in Lua",
   _VERSION = "LuaLogging 1.6.0",
 }
-
+---@alias log-levels "DEBUG"|"INFO"|"WARN"|"ERROR"|"FATAL"|"OFF"
 local LEVELS = { "DEBUG", "INFO", "WARN", "ERROR", "FATAL", "OFF" }
 local MAX_LEVELS = #LEVELS
 for i, level in ipairs(LEVELS) do
@@ -94,18 +94,19 @@ end
 
 -------------------------------------------------------------------------------
 -- Creates a new logger object
--- @param append Function used by the logger to append a message with a
--- log-level to the log stream.
--- @param startLevel log-level to start with
--- @return Table representing the new logger object.
--- @return String if there was any error setting the custom levels if provided
+--- @param append function by the logger to append a message with a
+--- log-level to the log stream.
+--- @param startLevel log-levels?
+--- @return Logger representing the new logger object.
+--- @return string? if there was any error setting the custom levels if provided
 -------------------------------------------------------------------------------
 function logging.new(append, startLevel)
   assert(type(append) == "function", "Appender must be a function, got: %s.", type(append))
   startLevel = startLevel or defaultLevel
   assert(LEVELS[startLevel], "startLevel must be a valid log-level constant if given")
-
   local LEVEL_FUNCS = {}
+  ---@class Logger
+  ---@field level_order string
 
   local logger = {}
   logger.append = append
@@ -159,6 +160,7 @@ function logging.new(append, startLevel)
   for i = 1, MAX_LEVELS do
     local level = LEVELS[i]
     if logger[level:lower()] then
+      ---@diagnostic disable-next-line: return-type-mismatch
       return nil, "'" .. level .. "' is not a proper level name since there is already a property '" .. level:lower() .. "'"
     end
     LEVEL_FUNCS[i] = function(self, channel, ...)
@@ -198,6 +200,7 @@ function logging.compilePattern(pattern)
     ["line"] = "info.currentline",
     ["function"] = '(info.name or "unknown function")',
   }
+  ---@type boolean|string
   local inject_info = false
   for placeholder, needs_info in pairs(placeholders) do
     local count
@@ -343,9 +346,9 @@ function logging.defaultLogger(logger)
 end
 
 --- Returns a table of patterns, indexed by loglevel.
--- @param patterns (table, optional) table containing logPattern strings per level, defaults to `{}`
--- @param default (string, optional) the logPattern to be used for levels not yet present in 'patterns'.
--- @return table, with a logPattern for every log-level constant
+---@param patterns table? table containing logPattern strings per level, defaults to `{}`
+---@param default string? the logPattern to be used for levels not yet present in 'patterns'.
+---@return table target with a logPattern for every log-level constant
 function logging.buildLogPatterns(patterns, default)
   patterns = patterns or {}
   assert(type(default) == "string" or type(default) == "nil", "expected default logPattern (2nd argument) to be a string or nil, got: %s", tostring(default))

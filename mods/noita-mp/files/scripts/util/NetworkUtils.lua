@@ -97,7 +97,7 @@ local function zipTable(items, keys, event)
 end
 
 --- Sometimes you don't care if it's the client or server, but you need one of them to send the messages.
---- @return table Client or Server 'object'
+--- @return Client|Server Client or Server 'object'
 --- @public
 function NetworkUtils.getClientOrServer()
     local cpc = CustomProfiler.start("NetworkUtils.getClientOrServer")
@@ -200,8 +200,8 @@ function NetworkUtils.alreadySent(peer, event, data)
     for i in pairs(peer.acknowledge[event]) do
         --[[ if the networkMessageId is not stored, but data might be the same ]]--
         if NetworkUtils.events[event].resendIdentifier then
+            local same = false -- if there are multiple resendIdentifiers, they all need to be the same
             for rI = 1, #NetworkUtils.events[event].resendIdentifier do
-                local same             = false -- if there are multiple resendIdentifiers, they all need to be the same
                 --[[ check resendIdentifiers ]]--
                 local resendIdentifier = NetworkUtils.events[event].resendIdentifier[rI]
                 if data[resendIdentifier] == peer.acknowledge[event][i].data[resendIdentifier] then

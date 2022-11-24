@@ -1505,6 +1505,8 @@ end
 -- -- Client that will connect to 123.45.67.89:1234, using two channels
 -- -- NOTE: Server must also allocate two channels!
 --client = sock.newClient("123.45.67.89", 1234, 2)
+---@class SockClient
+---@return SockClient
 sock.newClient = function(serverOrAddress, port, maxChannels)
     serverOrAddress = serverOrAddress or "localhost"
     port            = port or 22122

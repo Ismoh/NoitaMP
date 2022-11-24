@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global
 #!/usr/bin/env lua
 dofile("mods/noita-mp/files/scripts/init/init_.lua")
 

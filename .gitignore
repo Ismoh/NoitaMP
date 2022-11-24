@@ -6,6 +6,17 @@
 # *.zip
 # *.tar.gz
 
+# Visual studio folder
+.vs/
+
+# cache dll output files
+Debug/
+out/
+noitamp_cache.lib
+noitamp_cache.pdb
+noitamp_cache.exp
+*.pdb
+
 # Object files
 # *.o
 # *.os
@@ -38,4 +49,3 @@
 # *.i*86
 # *.x86_64
 # *.hex
-

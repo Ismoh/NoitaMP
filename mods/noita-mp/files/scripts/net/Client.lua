@@ -13,6 +13,7 @@ local messagePack = require("MessagePack")
 
 ----------------------------------------------------------------------------------------------------
 --- Client
+---@type Client
 ----------------------------------------------------------------------------------------------------
 Client            = {}
 ----------------------------------------
@@ -36,11 +37,11 @@ Client            = {}
 ----------------------------------------------------------------------------------------------------
 --- Creates a new instance of client 'class'.
 --- @param sockClient table sock.lua#newClient
---- @return table Client
+--- @return Client Client
 function Client.new(sockClient)
     local cpc               = CustomProfiler.start("Client.new")
     local self              = sockClient
-
+    ---@cast self Client
     ------------------------------------
     --- Private variables:
     ------------------------------------
@@ -63,7 +64,6 @@ function Client.new(sockClient)
     self.missingMods        = nil
     self.requiredMods       = nil
     self.syncedMods         = false
-
     ------------------------------------
     --- Private methods:
     ------------------------------------
@@ -385,8 +385,9 @@ function Client.new(sockClient)
             local cpc28 = CustomProfiler.start("ModSettingSet")
             ModSettingSet("noita-mp.guid_readonly", self.guid)
             CustomProfiler.stop("ModSettingGet", cpc28)
-
-            NetworkVscUtils.addOrUpdateAllVscs(entityId, compOwnerName, self.guid, compNuid)
+            if compOwnerName then
+                NetworkVscUtils.addOrUpdateAllVscs(entityId, compOwnerName, self.guid, compNuid)
+            end
         else
             for i = 1, #self.otherClients do
                 if self.otherClients[i].guid == data.oldGuid then
@@ -633,6 +634,8 @@ function Client.new(sockClient)
     end
 
     local function onNeedModContent(data)
+        ---@module "file_util"
+        local fu = dofile_once("mods/noita-mp/files/scripts/util/file_util.lua")
         local cpc = CustomProfiler.start("Client.onNeedModContent")
         for _, v in ipairs(data.items) do
             local modName = v.name
@@ -777,7 +780,7 @@ function Client.new(sockClient)
     local sockClientConnect = sockClient.connect
     --- Connects to a server on ip and port. Both can be nil, then ModSettings will be used.
     --- @param ip string localhost or 127.0.0.1 or nil
-    --- @param port number port number from 1 to max of 65535 or nil
+    --- @param port number? port number from 1 to max of 65535 or nil
     --- @param code number connection code 0 = connecting first time, 1 = connected second time with loaded seed
     function self.connect(ip, port, code)
         local cpc16 = CustomProfiler.start("Client.connect")
@@ -796,12 +799,12 @@ function Client.new(sockClient)
 
         if not port then
             local cpc30 = CustomProfiler.start("ModSettingGet")
-            port        = tonumber(ModSettingGet("noita-mp.connect_server_port"))
+            port = tonumber(ModSettingGet("noita-mp.connect_server_port")) or error("noita-mp.connect_server_port wasn't a number")
             CustomProfiler.stop("ModSettingGet", cpc30)
         end
 
-        port = tonumber(port)
-
+        port = tonumber(port) or error("noita-mp.connect_server_port wasn't a number")
+        ---@cast port number
         self.disconnect()
         _G.Client.disconnect() -- stop if any server is already running
 

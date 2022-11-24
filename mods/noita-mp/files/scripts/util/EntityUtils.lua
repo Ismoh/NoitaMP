@@ -108,8 +108,8 @@ local function getIndexByEntityId(entityId)
 end
 
 --- Special thanks to @Horscht:
----@param inventory_type any
----@return table
+---@param inventory_type string
+---@return number[]
 local function get_player_inventory_contents(inventory_type)
     local cpc    = CustomProfiler.start("EntityUtils.get_player_inventory_contents")
     local player = EntityUtils.getLocalPlayerEntityId() --EntityGetWithTag("player_unit")[1]
@@ -117,7 +117,7 @@ local function get_player_inventory_contents(inventory_type)
     if player then
         for i, child in ipairs(EntityGetAllChildren(player) or {}) do
             if EntityGetName(child) == inventory_type then
-                for i, item_entity in ipairs(EntityGetAllChildren(child) or {}) do
+                for _, item_entity in ipairs(EntityGetAllChildren(child) or {}) do
                     table.insert(out, item_entity)
                 end
                 break
@@ -158,7 +158,7 @@ local function getParentsUntilRootEntity(entityId)
         parentEntityId = EntityGetParent(parentEntityId)
     end
     CustomProfiler.stop("EntityUtils.getParentsUntilRootEntity", cpc)
-    return parents
+    return parentNuids
 end
 
 ----------------------------------------
@@ -224,6 +224,7 @@ function EntityUtils.getLocalPlayerEntityId()
     local polymorphed, entityId = EntityUtils.isPlayerPolymorphed()
 
     if polymorphed then
+        ---@cast entityId number
         CustomProfiler.stop("EntityUtils.getLocalPlayerEntityId", cpc)
         return entityId
     end
@@ -295,14 +296,14 @@ end
 --- Looks like there were access to removed entities, which might cause game crashing.
 --- Use this function whenever you work with entity_id/entityId to stop client game crashing.
 --- @param entityId number Id of any entity.
---- @return number|nil entityId returns the entityId if is alive, otherwise nil
+--- @return number|false entityId returns the entityId if is alive, otherwise false
 function EntityUtils.isEntityAlive(entityId)
     local cpc = CustomProfiler.start("EntityUtils.isEntityAlive")
     if EntityGetIsAlive(entityId) then
         CustomProfiler.stop("EntityUtils.isEntityAlive", cpc)
         return entityId
     end
-    logger:info(logger.channels.entity, ("Entity (%s) isn't alive anymore! Returning nil."):format(entityId))
+    logger:info(logger.channels.entity, ("Entity (%s) isn't alive anymore! Returning false."):format(entityId))
     CustomProfiler.stop("EntityUtils.isEntityAlive", cpc)
     return false
 end
@@ -318,6 +319,7 @@ function EntityUtils.processAndSyncEntityNetworking()
     local localPlayerId    = EntityUtils.getLocalPlayerEntityId()
     local playerX, playerY = EntityGetTransform(localPlayerId)
     local radius           = ModSettingGetNextValue("noita-mp.radius_include_entities")
+    ---@cast radius number
     local entityIds        = EntityGetInRadius(playerX, playerY, radius) or {}
     local playerEntityIds  = {}
 
@@ -333,8 +335,7 @@ function EntityUtils.processAndSyncEntityNetworking()
             local clientEntityId = playerEntityIds[i]
             --local rootEntityId   = EntityGetRootEntity(clientEntityId)
             if not NetworkVscUtils.hasNetworkLuaComponents(clientEntityId--[[rootEntityId]]) then
-                NetworkVscUtils.addOrUpdateAllVscs(clientEntityId--[[rootEntityId]], localOwner.name, localOwner.guid,
-                                                   nil)
+                NetworkVscUtils.addOrUpdateAllVscs(clientEntityId--[[rootEntityId]], localOwner.name, localOwner.guid)
             end
             -- if not NetworkVscUtils.hasNuidSet(entityId) then
             --     Client.sendNeedNuid(localOwner, entityId)
@@ -521,16 +522,16 @@ end
 --- spawnEntity
 ------------------------------------------------------------------------------------------------
 --- Spawns an entity and applies the transform and velocity to it. Also adds the network_component.
---- @param owner table owner { name, guid }
---- @param nuid any
---- @param x any
---- @param y any
---- @param rot any
---- @param velocity table velocity { x, y } - can be nil
---- @param filename any
+--- @param owner EntityOwner
+--- @param nuid number
+--- @param x number
+--- @param y number
+--- @param rotation number
+--- @param velocity Vec2? - can be nil
+--- @param filename string
 --- @param localEntityId number this is the initial entity_id created by server OR client. It's owner specific! Every
 --- owner has its own entity ids.
---- @return number entityId Returns the entity_id of a already existing entity, found by nuid or the newly created
+--- @return number? entityId Returns the entity_id of a already existing entity, found by nuid or the newly created
 --- entity.
 function EntityUtils.spawnEntity(owner, nuid, x, y, rotation, velocity, filename, localEntityId, health, isPolymorphed)
     local cpc        = CustomProfiler.start("EntityUtils.spawnEntity")

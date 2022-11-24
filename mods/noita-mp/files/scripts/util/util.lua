@@ -114,7 +114,7 @@ end
 
 --- Gets the local player information.
 --- Including polymorphed entity id. When polymorphed, entityId will be the new one and not minäs anymore.
---- @return table playerInfo { name, guid, entityId }
+--- @return PlayerInfo playerInfo
 function util.getLocalPlayerInfo()
     local cpc = CustomProfiler.start("util.getLocalPlayerInfo")
     local ownerName = tostring(ModSettingGet("noita-mp.name"))

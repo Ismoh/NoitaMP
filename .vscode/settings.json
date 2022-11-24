@@ -22,7 +22,11 @@
     "mod_setting_tooltip",
     "ngx",
     "EXPORT_ASSERT_TO_GLOBALS",
-    "gui"
+    "gui",
+    "networkMessageId",
+    "peer",
+    "fu",
+    "util"
   ],
   "lua.targetVersion": "5.1",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
@@ -35,5 +39,8 @@
   "Lua.workspace.checkThirdParty": false,
   "[lua]": {
     "editor.defaultFormatter": "sumneko.lua"
-  }
+  },
+  "Lua.diagnostics.disable": [
+    "lowercase-global"
+  ]
 }

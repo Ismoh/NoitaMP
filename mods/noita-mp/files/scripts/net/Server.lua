@@ -14,6 +14,7 @@ local messagePack = require("MessagePack")
 
 ----------------------------------------------------------------------------------------------------
 --- Server
+---@type Server
 ----------------------------------------------------------------------------------------------------
 Server            = {}
 
@@ -38,7 +39,7 @@ Server            = {}
 ----------------------------------------------------------------------------------------------------
 --- Creates a new instance of server 'class'
 ---@param sockServer table sock.lua#newServer
----@return table Server
+---@return Server Server
 function Server.new(sockServer)
     local cpc               = CustomProfiler.start("Server.new")
     local self              = sockServer
@@ -882,7 +883,7 @@ function Server.new(sockServer)
     local sockServerStart = sockServer.start
     --- Starts a server on ip and port. Both can be nil, then ModSettings will be used.
     --- @param ip string localhost or 127.0.0.1 or nil
-    --- @param port number port number from 1 to max of 65535 or nil
+    --- @param port number? port number from 1 to max of 65535 or nil
     function self.start(ip, port)
         local cpc014 = CustomProfiler.start("Server.start")
         if not ip then
@@ -890,7 +891,7 @@ function Server.new(sockServer)
         end
 
         if not port then
-            port = tonumber(ModSettingGet("noita-mp.server_port"))
+            port = tonumber(ModSettingGet("noita-mp.server_port")) or error("noita-mp.server_port wasn't a number")
         end
 
         self.stop()
@@ -910,7 +911,7 @@ function Server.new(sockServer)
             GamePrintImportant("Server started", ("Your server is running on %s:%s. Tell your friends to join!")
                     :format(self:getAddress(), self:getPort()))
         else
-            GamePrintImportant("Server didnt started!", "Try again, otherwise restart Noita.")
+            GamePrintImportant("Server didn't start!", "Try again, otherwise restart Noita.")
         end
         CustomProfiler.stop("Server.start", cpc014)
     end

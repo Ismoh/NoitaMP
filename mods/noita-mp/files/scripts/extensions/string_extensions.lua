@@ -4,7 +4,7 @@
 ---@param var string any string you want to extend or cut
 ---@param length number
 ---@param char any
----@param makeItVisible boolean
+---@param makeItVisible? boolean
 ---@return string
 string.ExtendOrCutStringToLength = function(var, length, char, makeItVisible)
     if type(var) ~= "string" then
@@ -76,5 +76,6 @@ end
 --- @param pattern string String, Char, Regex
 --- @return integer found 0 if not found. Greater 0 if found.
 string.contains = function(str, pattern)
+    ---@diagnostic disable-next-line: redundant-return-value
     return string.find(str:lower(), pattern:lower(), 1, true)
 end

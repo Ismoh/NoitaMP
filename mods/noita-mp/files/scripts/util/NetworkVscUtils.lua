@@ -46,8 +46,8 @@ end
 --- @param fieldNameForMatch string Components attribute to match the specific component you are searching for: "name", "script_source_file", "etc". component.name = "brah": 'name' -> fieldNameForMatch
 --- @param matchValue string The components attribute value, you want to match to: component.name = "brah": 'brah' -> matchValue Have a look on NetworkVscUtils.componentNameOf___
 --- @param fieldNameForValue string "name", "script_source_file", "etc"
---- @return number|boolean compId The specific componentId, which contains the searched value or false if there isn't any Component
---- @return string value The components value
+--- @return number|false? compId The specific componentId, which contains the searched value or false if there isn't any Component
+--- @return string? value The components value
 local function checkIfSpecificVscExists(entityId, componentTypeName, fieldNameForMatch, matchValue, fieldNameForValue)
     local cpc = CustomProfiler.start("NetworkVscUtils.checkIfSpecificVscExists")
     if not EntityUtils.isEntityAlive(entityId) then
@@ -130,7 +130,7 @@ local function addOrUpdateVscForOwnerName(entityId, ownerName)
     end
 
     logger:error("Unable to add ownerNameVsc! Returning nil!")
-    CustomProfiler.start("NetworkVscUtils.addOrUpdateVscForOwnerName", cpc)
+    CustomProfiler.stop("NetworkVscUtils.addOrUpdateVscForOwnerName", cpc)
     return nil
 end
 
@@ -206,7 +206,7 @@ local function addOrUpdateVscForNuid(entityId, nuid)
     end
 
     -- There already might be a nuid vsc without any nuid set, think of a client shooting projectiles
-    if compId and not compNuid or compNuid == "" then
+    if compId and (not compNuid or compNuid == "") then
         ComponentSetValue2(compId, NetworkVscUtils.valueString, nuid)
         logger:debug(logger.channels.vsc,
                      "Nuid(%s) was set to already existing VSC(%s, %s) on entity(%s)",
@@ -371,10 +371,12 @@ NetworkVscUtils.componentNameOfNuidUpdater   = "nuid_updater.lua"
 ---@param entityId number Id of an entity provided by Noita
 ---@param ownerName string Owners name. Cannot be nil.
 ---@param ownerGuid string Owners guid. Cannot be nil.
----@param nuid number Network unique identifier. Can only be nil on clients, but not on server.
+---@param nuid number? Network unique identifier. Can only be nil on clients, but not on server.
 ---@return integer|nil componentIdForOwnerName
 ---@return integer|nil componentIdForOwnerGuid
 ---@return integer|nil componentIdForNuid
+---@return integer|nil componentIdForNuidDebugger
+---@return integer|nil componentIdForNuidDebugger
 function NetworkVscUtils.addOrUpdateAllVscs(entityId, ownerName, ownerGuid, nuid)
     local cpc = CustomProfiler.start("NetworkVscUtils.addOrUpdateAllVscs")
     if not EntityUtils.isEntityAlive(entityId) then
@@ -404,16 +406,18 @@ end
 
 --- Returns all Network Vsc values by its entity id.
 --- @param entityId number Entity Id provided by Noita
---- @return string ownerName, string ownerGuid, number nuid
+--- @return string? ownerName, string? ownerGuid, number? nuid
 function NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
     local cpc = CustomProfiler.start("NetworkVscUtils.getAllVcsValuesByEntityId")
     if not EntityUtils.isEntityAlive(entityId) then
         CustomProfiler.stop("NetworkVscUtils.getAllVcsValuesByEntityId", cpc)
         return
     end
-    local ownerNameCompId, ownerGuidCompId, nuidCompId, componentIdForNuidDebugger, componentIdForNuidUpdater = getNetworkComponents(entityId)
+    local ownerNameCompId, ownerGuidCompId, nuidCompId, _, _ = getNetworkComponents(entityId)
     CustomProfiler.stop("NetworkVscUtils.getAllVcsValuesByEntityId", cpc)
-    return NetworkVscUtils.getAllVcsValuesByComponentIds(ownerNameCompId, ownerGuidCompId, nuidCompId)
+    if ownerNameCompId and ownerGuidCompId and nuidCompId then
+        return NetworkVscUtils.getAllVcsValuesByComponentIds(ownerNameCompId, ownerGuidCompId, nuidCompId)
+    end
 end
 
 --- Returns all Network Vsc values by its component ids.
@@ -463,7 +467,7 @@ function NetworkVscUtils.hasNuidSet(entityId)
         return false
     end
     CustomProfiler.stop("NetworkVscUtils.hasNuidSet", cpc)
-    return tonumber(nuid)
+    return tonumber(nuid) or 0
 end
 
 function NetworkVscUtils.hasNetworkLuaComponents(entityId)

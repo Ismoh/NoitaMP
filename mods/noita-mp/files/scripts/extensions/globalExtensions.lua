@@ -60,7 +60,7 @@ function orderedNext(t, state)
         key = t.__orderedIndex[1]
     else
         -- fetch the next value
-        for i = 1,table.getn(t.__orderedIndex) do
+        for i = 1, #(t.__orderedIndex) do
             if t.__orderedIndex[i] == state then
                 key = t.__orderedIndex[i+1]
             end
