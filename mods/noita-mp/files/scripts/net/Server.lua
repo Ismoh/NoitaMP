@@ -14,6 +14,7 @@ local messagePack = require("MessagePack")
 
 ----------------------------------------------------------------------------------------------------
 --- Server
+---@type Server
 ----------------------------------------------------------------------------------------------------
 Server            = {}
 
@@ -38,7 +39,7 @@ Server            = {}
 ----------------------------------------------------------------------------------------------------
 --- Creates a new instance of server 'class'
 ---@param sockServer table sock.lua#newServer
----@return table Server
+---@return Server Server
 function Server.new(sockServer)
     local cpc               = CustomProfiler.start("Server.new")
     local self              = sockServer
@@ -55,7 +56,7 @@ function Server.new(sockServer)
     -- guid might not be set here or will be overwritten at the end of the constructor. @see setGuid
     self.guid               = tostring(ModSettingGet("noita-mp.guid"))
     self.nuid               = nil
-    self.acknowledge        = {} -- sock.lua#Client:send -> self.acknowledge[packetsSent] = { event = event, data = data, entityId = data.entityId, status = NetworkUtils.events.acknowledgement.sent }
+    --self.acknowledge        = {} -- sock.lua#Client:send -> self.acknowledge[packetsSent] = { event = event, data = data, entityId = data.entityId, status = NetworkUtils.events.acknowledgement.sent }
     --table.setNoitaMpDefaultMetaMethods(self.acknowledge, "v")
     self.acknowledgeMaxSize = 500
     self.transform          = { x = 0, y = 0 }
@@ -168,16 +169,26 @@ function Server.new(sockServer)
             error(("onAcknowledgement data.event is empty: %s"):format(data.event), 2)
         end
 
-        if not self.acknowledge[peer.connectId][data.event][data.networkMessageId] then
-            self.acknowledge[peer.connectId][data.event][data.networkMessageId] = {}
+        if not peer.acknowledge[data.event][data.networkMessageId] then
+            peer.acknowledge[data.event][data.networkMessageId] = {}
         end
-        self.acknowledge[peer.connectId][data.event][data.networkMessageId].status  = data.status
-        self.acknowledge[peer.connectId][data.event][data.networkMessageId].ackedAt = os.clock()
+        peer.acknowledge[data.event][data.networkMessageId].status  = data.status
+        peer.acknowledge[data.event][data.networkMessageId].ackedAt = os.clock()
 
-        if #self.acknowledge[peer.connectId] > self.acknowledgeMaxSize then
-            table.remove(self.acknowledge[peer.connectId], 1)
+        if #peer.acknowledge[data.event] > self.acknowledgeMaxSize then
+            table.remove(peer.acknowledge[data.event], 1)
             logger:info(logger.channels.network, "Removed oldest acknowledgement from self.acknowledge[peer]")
         end
+        --if not self.acknowledge[peer.connectId][data.event][data.networkMessageId] then
+        --    self.acknowledge[peer.connectId][data.event][data.networkMessageId] = {}
+        --end
+        --self.acknowledge[peer.connectId][data.event][data.networkMessageId].status  = data.status
+        --self.acknowledge[peer.connectId][data.event][data.networkMessageId].ackedAt = os.clock()
+        --
+        --if #self.acknowledge[peer.connectId] > self.acknowledgeMaxSize then
+        --    table.remove(self.acknowledge[peer.connectId], 1)
+        --    logger:info(logger.channels.network, "Removed oldest acknowledgement from self.acknowledge[peer]")
+        --end
         CustomProfiler.stop("Server.onAcknowledgement", cpc03)
     end
 
@@ -215,7 +226,7 @@ function Server.new(sockServer)
         end
 
         self:send(peer, NetworkUtils.events.playerInfo.name,
-                  { NetworkUtils.getNextNetworkMessageId(), name, guid, nuid, _G.NoitaMPVersion })
+                  { NetworkUtils.getNextNetworkMessageId(), name, guid, _G.NoitaMPVersion, nuid })
         self:send(peer, NetworkUtils.events.seed.name,
                   { NetworkUtils.getNextNetworkMessageId(), StatsGetValue("world_seed") })
         -- Let the other clients know, that a new client connected
@@ -252,11 +263,11 @@ function Server.new(sockServer)
         self:sendToAllBut(peer, NetworkUtils.events.disconnect2.name,
                           { NetworkUtils.getNextNetworkMessageId(), peer.name, peer.guid, peer.nuid })
         if peer.nuid then
-            EntityUtils.destroyByNuid(peer.nuid)
+            EntityUtils.destroyByNuid(peer, peer.nuid)
         end
 
         -- clear acknowledge cache for disconnected peer
-        self.acknowledge[peer.connectId] = nil
+        peer.acknowledge = nil
 
         CustomProfiler.stop("Server.onDisconnect", cpc05)
     end
@@ -503,7 +514,7 @@ function Server.new(sockServer)
             if util.IsEmpty(deadNuid) or deadNuid == "nil" then
                 logger:error(logger.channels.network, ("onDeadNuids deadNuid is empty: %s"):format(deadNuid), 3)
             else
-                EntityUtils.destroyByNuid(deadNuid)
+                EntityUtils.destroyByNuid(peer, deadNuid)
                 GlobalsUtils.removeDeadNuid(deadNuid)
             end
         end
@@ -811,38 +822,38 @@ function Server.new(sockServer)
             error("", 2)
         end
 
-        if NetworkUtils.alreadySent(event, data, peer, self.iAm) then
-            logger:debug(logger.channels.network, ("Network message for %s for data %s already was acknowledged.")
-                    :format(event, util.pformat(data)))
-            CustomProfiler.stop("Server.send", cpc022)
-            return
-        end
+        --if NetworkUtils.alreadySent(peer, event, data) then
+        --    logger:debug(logger.channels.network, ("Network message for %s for data %s already was acknowledged.")
+        --            :format(event, util.pformat(data)))
+        --    CustomProfiler.stop("Server.send", cpc022)
+        --    return
+        --end
 
         sockServerSend(self, peer, event, data)
 
-        if not self.acknowledge then
-            self.acknowledge = {}
-        end
-        if not self.acknowledge[peer.connectId] then
-            self.acknowledge[peer.connectId] = {}
-        end
-
-        if event ~= NetworkUtils.events.acknowledgement.name then
-            if not self.acknowledge[peer.connectId][event] then
-                self.acknowledge[peer.connectId][event] = {}
-            end
-            local networkMessageId = data[1] or data.networkMessageId
-            if not self.acknowledge[peer.connectId][event][networkMessageId] then
-                self.acknowledge[peer.connectId][event][networkMessageId] = {}
-            end
-
-            self.acknowledge[peer.connectId][event][networkMessageId] = {
-                data    = data,
-                status  = NetworkUtils.events.acknowledgement.sent,
-                sentAt  = os.clock(),
-                ackedAt = nil
-            }
-        end
+        --if not self.acknowledge then
+        --    self.acknowledge = {}
+        --end
+        --if not self.acknowledge[peer.connectId] then
+        --    self.acknowledge[peer.connectId] = {}
+        --end
+        --
+        --if event ~= NetworkUtils.events.acknowledgement.name then
+        --    if not self.acknowledge[peer.connectId][event] then
+        --        self.acknowledge[peer.connectId][event] = {}
+        --    end
+        --    local networkMessageId = data[1] or data.networkMessageId
+        --    if not self.acknowledge[peer.connectId][event][networkMessageId] then
+        --        self.acknowledge[peer.connectId][event][networkMessageId] = {}
+        --    end
+        --
+        --    self.acknowledge[peer.connectId][event][networkMessageId] = {
+        --        data    = data,
+        --        status  = NetworkUtils.events.acknowledgement.sent,
+        --        sentAt  = os.clock(),
+        --        ackedAt = nil
+        --    }
+        --end
         CustomProfiler.stop("Server.send", cpc022)
     end
 
@@ -872,7 +883,7 @@ function Server.new(sockServer)
     local sockServerStart = sockServer.start
     --- Starts a server on ip and port. Both can be nil, then ModSettings will be used.
     --- @param ip string localhost or 127.0.0.1 or nil
-    --- @param port number port number from 1 to max of 65535 or nil
+    --- @param port number? port number from 1 to max of 65535 or nil
     function self.start(ip, port)
         local cpc014 = CustomProfiler.start("Server.start")
         if not ip then
@@ -880,7 +891,7 @@ function Server.new(sockServer)
         end
 
         if not port then
-            port = tonumber(ModSettingGet("noita-mp.server_port"))
+            port = tonumber(ModSettingGet("noita-mp.server_port")) or error("noita-mp.server_port wasn't a number")
         end
 
         self.stop()
@@ -900,7 +911,7 @@ function Server.new(sockServer)
             GamePrintImportant("Server started", ("Your server is running on %s:%s. Tell your friends to join!")
                     :format(self:getAddress(), self:getPort()))
         else
-            GamePrintImportant("Server didnt started!", "Try again, otherwise restart Noita.")
+            GamePrintImportant("Server didn't start!", "Try again, otherwise restart Noita.")
         end
         CustomProfiler.stop("Server.start", cpc014)
     end
@@ -974,19 +985,7 @@ function Server.new(sockServer)
     function self.sendNewNuid(owner, localEntityId, newNuid, x, y, rot, velocity, filename, health, isPolymorphed)
         local cpc017 = CustomProfiler.start("Server.sendNewNuid")
         local event  = NetworkUtils.events.newNuid.name
-        local data   = {
-            networkMessageId = NetworkUtils.getNextNetworkMessageId(),
-            owner            = owner,
-            localEntityId    = localEntityId,
-            newNuid          = newNuid,
-            x                = x,
-            y                = y,
-            rotation         = rot,
-            velocity         = velocity,
-            filename         = filename,
-            health           = health,
-            isPolymorphed    = isPolymorphed
-        }
+        local data   = { NetworkUtils.getNextNetworkMessageId(), owner, localEntityId, newNuid, x, y, rot, velocity, filename, health, isPolymorphed }
         self:sendToAll(event, data)
         CustomProfiler.stop("Server.sendNewNuid", cpc017)
     end
@@ -1026,7 +1025,7 @@ function Server.new(sockServer)
             NetworkUtils.getNextNetworkMessageId(), deadNuids
         }
         self:sendToAll(NetworkUtils.events.deadNuids.name, data)
-        onDeadNuids(deadNuids)
+        --onDeadNuids(deadNuids, self) TODO: remove?
         CustomProfiler.stop("Server.sendDeadNuids", cpc019)
     end
 
@@ -1067,10 +1066,12 @@ function Server.new(sockServer)
             return 0
         end
         local count = 0
-        for p in pairs(self.acknowledge) do
-            local peer = self.acknowledge[p]
-            for e in pairs(peer) do
-                count = count + table.size(peer[e])
+        for c in pairs(self.clients) do
+            for p in pairs(self.clients[c].acknowledge) do
+                local peer = self.clients[c].acknowledge[p]
+                for e in pairs(peer) do
+                    count = count + table.size(peer[e])
+                end
             end
         end
         return count

@@ -1,3 +1,4 @@
+---@diagnostic disable: param-type-mismatch
 #!/usr/bin/env lua
 dofile("mods/noita-mp/files/scripts/init/init_.lua")
 

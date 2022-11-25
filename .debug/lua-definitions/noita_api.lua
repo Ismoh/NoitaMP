@@ -1,5 +1,5 @@
 ---Current modding API version: 7
-
+---@meta
 ---@param filename string
 ---@param pos_x number 0
 ---@param pos_y number 0
@@ -49,17 +49,17 @@ function EntityGetAllComponents(entity_id) end
 function EntityGetComponent(entity_id, component_type_name, tag) end
 ---@param entity_id number
 ---@param component_type_name string
----@param tag string ""
+---@param tag string? ""
 ---@return number|nil component_id
 function EntityGetFirstComponent(entity_id, component_type_name, tag) end
 ---@param entity_id number
 ---@param component_type_name string
----@param tag string ""
+---@param tag string? ""
 ---@return number[]|nil component_id
 function EntityGetComponentIncludingDisabled(entity_id, component_type_name, tag) end
 ---@param entity_id number
 ---@param component_type_name string
----@param tag string ""
+---@param tag string? ""
 ---@return number|nil component_id
 function EntityGetFirstComponentIncludingDisabled(entity_id, component_type_name, tag) end
 ---@param entity_id number
@@ -262,8 +262,8 @@ function ComponentGetValue2(component_id, field_name) end
 ---Sets the value of a field. Value(s) should have a type matching the field type. Reports error if the values weren't given in correct type, the field type is not supported, or the component does not exist.
 ---@param component_id number
 ---@param field_name string
----@param value_or_values any
-function ComponentSetValue2(component_id, field_name, value_or_values) end
+---@param ... any
+function ComponentSetValue2(component_id, field_name, ...) end
 ---Returns one or many values matching the type or subtypes of the requested field in a component subobject. Reports error and returns nil if the field type is not supported or 'object_name' is not a metaobject.
 ---@param component_id number
 ---@param object_name string
@@ -496,9 +496,9 @@ function GameTriggerGameOver() end
 ---@param y number
 ---@param background_file string
 ---@param skip_biome_checks boolean false
----@param skip_edge_textures boolean false
----@param color_to_material_table table<string, string> {}
----@param background_z_index number 50
+---@param skip_edge_textures boolean? false
+---@param color_to_material_table? table<string, string> {}
+---@param background_z_index? number 50
 function LoadPixelScene(materials_filename, colors_filename, x, y, background_file, skip_biome_checks, skip_edge_textures, color_to_material_table, background_z_index) end
 ---@param background_file string
 ---@param x number
@@ -696,7 +696,7 @@ function EntityGetClosestWormDetractor(pos_x, pos_y) end
 function GamePrint(log_line) end
 ---@param title string
 ---@param description string ""
----@param ui_custom_decoration_file string ""
+---@param ui_custom_decoration_file string? ""
 function GamePrintImportant(title, description, ui_custom_decoration_file) end
 ---@return number x, number y
 function DEBUG_GetMouseWorld() end
@@ -727,7 +727,7 @@ function GameIsModeFullyDeterministic() end
 ---@param value string
 function GlobalsSetValue(key, value) end
 ---@param key string
----@param default_value string ""
+---@param default_value string? ""
 function GlobalsGetValue(key, default_value) end
 ---@param key string
 ---@return string string
@@ -1117,9 +1117,9 @@ function GuiImage(gui, id, x, y, sprite_filename, alpha, scale, scale_y, rotatio
 ---@param y number
 ---@param width number
 ---@param height number
----@param alpha number 1
----@param sprite_filename string "data/ui_gfx/decorations/9piece0_gray.png"
----@param sprite_highlight_filename string "data/ui_gfx/decorations/9piece0_gray.png"
+---@param alpha number? 1
+---@param sprite_filename string? "data/ui_gfx/decorations/9piece0_gray.png"
+---@param sprite_highlight_filename string? "data/ui_gfx/decorations/9piece0_gray.png"
 function GuiImageNinePiece(gui, id, x, y, width, height, alpha, sprite_filename, sprite_highlight_filename) end
 ---The old parameter order where 'id' is the last parameter is still supported. The function dynamically picks the correct order based on the type of the 4th parameter.
 ---@param gui userdata
@@ -1230,8 +1230,8 @@ function GuiGetScreenDimensions(gui) end
 ---Returns size of the given text in the gui coordinate system.
 ---@param gui userdata
 ---@param text string
----@param scale number 1
----@param line_spacing number 2
+---@param scale number? 1
+---@param line_spacing number? 2
 ---@return number width, number height
 function GuiGetTextDimensions(gui, text, scale, line_spacing) end
 ---Returns size of the given image in the gui coordinate system.

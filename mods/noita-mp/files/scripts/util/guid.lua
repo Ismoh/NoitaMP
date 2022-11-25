@@ -33,6 +33,7 @@ local function getUniqueness()
 
     file        = io.popen(command, "r")
     local count = 1
+    if file then
     for line in file:lines() do
         if count == 2 then
             result = line
@@ -41,13 +42,14 @@ local function getUniqueness()
         count = count + 1
     end
     file:close()
-
+    end
     local number = ""
     for i = 1, string.len(result) do
         local char = string.sub(result, i, i)
         number     = number .. string.byte(char)
     end
 
+    ---@diagnostic disable-next-line: return-type-mismatch
     return tonumber(number)
 end
 
@@ -60,10 +62,11 @@ function Guid:addGuidToCache(guid)
 end
 
 --- Generates a pseudo GUID. Does not fulfil RFC standard! Should generate unique GUIDs, but repeats if there is a duplicate.
---- @param inUsedGuids table list of already used GUIDs
+--- @param inUsedGuids table? list of already used GUIDs
 --- @return string guid
 function Guid:getGuid(inUsedGuids)
     if not util.IsEmpty(inUsedGuids) and #inUsedGuids > 0 then
+        ---@cast inUsedGuids table
         table.insertAllButNotDuplicates(self.cached_guid, inUsedGuids)
     end
 

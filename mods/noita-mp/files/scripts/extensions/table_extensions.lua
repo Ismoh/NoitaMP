@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global, redundant-parameter, need-check-nil
 -- Used to extend default lua implementations of table
 
 --- Return true, if the key is contained in the tbl. NOTE: Doesn't check for duplicates inside the table.
@@ -163,13 +164,11 @@ end
 --- __newindex = increases __len by 1, so the table can be used as a stack.
 --- __len isn't available in lua 5.1, so init it.
 --- @param tbl table table to set the metamethods
---- @param mode string k or v or kv
+--- @param mode? string k or v or kv
 function table.setNoitaMpDefaultMetaMethods(tbl, mode)
+    mode = mode or "kv"
     if type(tbl) ~= "table" then
         error("Unable to set default metamethods for a non-table.")
-    end
-    if not mode then
-        mode = "kv"
     end
     if type(mode) ~= "string" then
         error("Unable to set default metamethods for a non-string mode.")

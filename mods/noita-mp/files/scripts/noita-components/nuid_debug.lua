@@ -35,23 +35,30 @@ if ModSettingGet("noita-mp.toggle_debug") then
         return screenWidth + ((x - camX) * 1.5), screenHeight + ((y - camY) * 1.5)
     end
 
-    local data = { compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y }
+    local data = {
+        owner         = compOwnerName,
+        --guid          = compOwnerGuid,
+        nuid          = compNuid,
+        filename      = filename,
+        healthCurrent = health.current,
+        healthMax     = health.max,
+        --rotation      = rotation,
+        vX            = velocity.x,
+        vY            = velocity.y,
+        x             = x,
+        y             = y
+    }
+    table.setNoitaMpDefaultMetaMethods(data, "kv")
 
-    for i = 1, #data do
+    local i = 0
+    for name, value in pairs(data) do
         local entityX, entityY = getEntityPositionOnScreen()
-        local entry            = data[i]
-        local text             = ""
-        if type(entry) == "table" then
-            for key, value in pairs(entry) do
-                text = ("%s %s"):format(text, value)
-            end
-        else
-            text = ("%s %s"):format(text, data[i])
-        end
-        local textLength = string.len(text)
-        local textMid    = entityX - (textLength * 2)
-
+        local text             = ("%s: %s"):format(name, value)
+        local textLength       = string.len(text)
+        local textMid          = entityX - (textLength * 2)
         GuiText(gui, textMid, entityY + (i * 6), text)
+        i = i + 1
     end
 
+    data = nil
 end

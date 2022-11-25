@@ -13,6 +13,7 @@ local messagePack = require("MessagePack")
 
 ----------------------------------------------------------------------------------------------------
 --- Client
+---@type Client
 ----------------------------------------------------------------------------------------------------
 Client            = {}
 ----------------------------------------
@@ -36,11 +37,11 @@ Client            = {}
 ----------------------------------------------------------------------------------------------------
 --- Creates a new instance of client 'class'.
 --- @param sockClient table sock.lua#newClient
---- @return table Client
+--- @return Client Client
 function Client.new(sockClient)
     local cpc               = CustomProfiler.start("Client.new")
     local self              = sockClient
-
+    ---@cast self Client
     ------------------------------------
     --- Private variables:
     ------------------------------------
@@ -63,7 +64,6 @@ function Client.new(sockClient)
     self.missingMods        = nil
     self.requiredMods       = nil
     self.syncedMods         = false
-
     ------------------------------------
     --- Private methods:
     ------------------------------------
@@ -198,7 +198,17 @@ function Client.new(sockClient)
         if util.IsEmpty(data) then
             error(("onConnect data is empty: %s"):format(data), 3)
         end
+
+        local localPlayerInfo = util.getLocalPlayerInfo()
+        local name            = localPlayerInfo.name
+        local guid            = localPlayerInfo.guid
+        local nuid            = localPlayerInfo.nuid -- Could be nil. Timing issue. Will be set after this.
+
+        self:send(NetworkUtils.events.playerInfo.name,
+                  { NetworkUtils.getNextNetworkMessageId(), name, guid, _G.NoitaMPVersion, nuid })
+
         self:send(NetworkUtils.events.needModList.name, { NetworkUtils.getNextNetworkMessageId() })
+
         -- sendAck(data.networkMessageId)
         CustomProfiler.stop("Client.onConnect", cpc4)
     end
@@ -246,7 +256,7 @@ function Client.new(sockClient)
         -- sendAck(data.networkMessageId)
 
         if self.serverInfo.nuid then
-            EntityUtils.destroyByNuid(self.serverInfo.nuid)
+            EntityUtils.destroyByNuid(self, self.serverInfo.nuid)
         end
 
         -- TODO remove all NUIDS from entities. I now need a nuid-entityId-cache.
@@ -375,7 +385,6 @@ function Client.new(sockClient)
             local cpc28 = CustomProfiler.start("ModSettingSet")
             ModSettingSet("noita-mp.guid_readonly", self.guid)
             CustomProfiler.stop("ModSettingGet", cpc28)
-
             NetworkVscUtils.addOrUpdateAllVscs(entityId, compOwnerName, self.guid, compNuid)
         else
             for i = 1, #self.otherClients do
@@ -422,7 +431,7 @@ function Client.new(sockClient)
         local entityId        = localPlayerInfo.entityId
 
         self:send(NetworkUtils.events.playerInfo.name,
-                  { NetworkUtils.getNextNetworkMessageId(), name, guid, nuid, _G.NoitaMPVersion })
+                  { NetworkUtils.getNextNetworkMessageId(), name, guid, _G.NoitaMPVersion, nuid })
 
         if not NetworkVscUtils.hasNetworkLuaComponents(entityId) then
             NetworkVscUtils.addOrUpdateAllVscs(entityId, name, guid, nil)
@@ -581,7 +590,7 @@ function Client.new(sockClient)
             if util.IsEmpty(deadNuid) or deadNuid == "nil" then
                 logger:error(logger.channels.network, ("onDeadNuids deadNuid is empty: %s"):format(deadNuid), 3)
             else
-                EntityUtils.destroyByNuid(deadNuid)
+                EntityUtils.destroyByNuid(self, deadNuid)
                 GlobalsUtils.removeDeadNuid(deadNuid)
             end
         end
@@ -623,6 +632,8 @@ function Client.new(sockClient)
     end
 
     local function onNeedModContent(data)
+        ---@module "file_util"
+        local fu = dofile_once("mods/noita-mp/files/scripts/util/file_util.lua")
         local cpc = CustomProfiler.start("Client.onNeedModContent")
         for _, v in ipairs(data.items) do
             local modName = v.name
@@ -767,7 +778,7 @@ function Client.new(sockClient)
     local sockClientConnect = sockClient.connect
     --- Connects to a server on ip and port. Both can be nil, then ModSettings will be used.
     --- @param ip string localhost or 127.0.0.1 or nil
-    --- @param port number port number from 1 to max of 65535 or nil
+    --- @param port number? port number from 1 to max of 65535 or nil
     --- @param code number connection code 0 = connecting first time, 1 = connected second time with loaded seed
     function self.connect(ip, port, code)
         local cpc16 = CustomProfiler.start("Client.connect")
@@ -786,12 +797,12 @@ function Client.new(sockClient)
 
         if not port then
             local cpc30 = CustomProfiler.start("ModSettingGet")
-            port        = tonumber(ModSettingGet("noita-mp.connect_server_port"))
+            port = tonumber(ModSettingGet("noita-mp.connect_server_port")) or error("noita-mp.connect_server_port wasn't a number")
             CustomProfiler.stop("ModSettingGet", cpc30)
         end
 
-        port = tonumber(port)
-
+        port = tonumber(port) or error("noita-mp.connect_server_port wasn't a number")
+        ---@cast port number
         self.disconnect()
         _G.Client.disconnect() -- stop if any server is already running
 
@@ -878,7 +889,7 @@ function Client.new(sockClient)
             error("", 2)
         end
 
-        if NetworkUtils.alreadySent(event, data, self, self.iAm) then
+        if NetworkUtils.alreadySent(self, event, data) then
             logger:debug(logger.channels.network, ("Network message for %s for data %s already was acknowledged.")
                     :format(event, util.pformat(data)))
             CustomProfiler.stop("Client.send", cpc19)
