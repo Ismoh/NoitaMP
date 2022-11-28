@@ -93,13 +93,32 @@ static int l_cacheReadByNuid(lua_State* L)
 
 static int l_cacheDeleteByEntityId(lua_State* L)
 {
-
+    int idToSearch = luaL_checkinteger(L, 1);
+    for (int i = 0; i < currentSize; i++)
+    {
+        CacheEntry* entry = entries+i;
+        if (entry->entityId == idToSearch) {
+            memmove(entries+i+1, entries+i, ((currentSize-1) - i) * cacheSize);
+            currentSize--;
+            realloc(entries, cacheSize * currentSize);
+        };
+    }
 }
 
 static int l_cacheDeleteByNuid(lua_State* L)
 {
-
+    int idToSearch = luaL_checkinteger(L, 1);
+    for (int i = 0; i < currentSize; i++)
+    {
+        CacheEntry* entry = entries+i;
+        if (entry->nuid == idToSearch) {
+            memmove(entries+i+1, entries+i, ((currentSize-1) - i) * cacheSize);
+            currentSize--;
+            realloc(entries, cacheSize * currentSize);
+        };
+    }
 }
+
 __declspec(dllexport) int luaopen_cache(lua_State* L)
 {
     static const luaL_reg cachelib[] =
