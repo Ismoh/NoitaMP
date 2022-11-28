@@ -260,9 +260,9 @@ local function addNuidDebugger(entityId)
         return compId
     else
         compId = EntityAddComponent2(entityId, "LuaComponent", {
-            script_source_file     = "mods/noita-mp/files/scripts/noita-components/nuid_debug.lua",
+            script_source_file    = "mods/noita-mp/files/scripts/noita-components/nuid_debug.lua",
             --script_enabled_changed = "mods/noita-mp/files/scripts/noita-components/lua_component_enabler.lua",
-            execute_every_n_frame  = 1,
+            execute_every_n_frame = 1,
         })
         ComponentAddTag(compId, "enabled_in_hand")
         ComponentAddTag(compId, "enabled_in_world")
@@ -299,11 +299,11 @@ local function addNuidUpdater(entityId)
         return compId
     else
         compId = EntityAddComponent2(entityId, "LuaComponent", {
-            script_source_file     = "mods/noita-mp/files/scripts/noita-components/nuid_updater.lua",
+            script_source_file    = "mods/noita-mp/files/scripts/noita-components/nuid_updater.lua",
             --script_enabled_changed = "mods/noita-mp/files/scripts/noita-components/lua_component_enabler.lua",
-            execute_on_added       = true,
-            execute_on_removed     = true,
-            execute_every_n_frame  = -1, -- = -1 -> execute only on add/remove/event
+            execute_on_added      = true,
+            execute_on_removed    = true,
+            execute_every_n_frame = -1, -- = -1 -> execute only on add/remove/event
         })
         ComponentAddTag(compId, "enabled_in_hand")
         ComponentAddTag(compId, "enabled_in_world")
@@ -406,7 +406,7 @@ end
 
 --- Returns all Network Vsc values by its entity id.
 --- @param entityId number Entity Id provided by Noita
---- @return string? ownerName, string? ownerGuid, number? nuid
+--- @return string? ownerName, string? ownerGuid, number? nuid - nuid can be nil
 function NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
     local cpc = CustomProfiler.start("NetworkVscUtils.getAllVcsValuesByEntityId")
     if not EntityUtils.isEntityAlive(entityId) then
@@ -415,11 +415,13 @@ function NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
     end
     local ownerNameCompId, ownerGuidCompId, nuidCompId, _, _ = getNetworkComponents(entityId)
     CustomProfiler.stop("NetworkVscUtils.getAllVcsValuesByEntityId", cpc)
-    if ownerNameCompId and ownerGuidCompId and nuidCompId then
+    if ownerNameCompId and ownerGuidCompId then
         return NetworkVscUtils.getAllVcsValuesByComponentIds(ownerNameCompId, ownerGuidCompId, nuidCompId)
     else
-        logger:error(logger.channels.vsc, ("getAllVcsValuesByEntityId: Got unexpected nil id. entityId, = %s ownerNameCompId = %s, ownerGuidCompId = %s, nuidCompId = %s"):format(entityId, ownerNameCompId, ownerGuidCompId, nuidCompId))
-        error()
+        local msg = ("getAllVcsValuesByEntityId: Got unexpected nil id. entityId, = %s ownerNameCompId = %s, ownerGuidCompId = %s, nuidCompId = %s"):format(
+                entityId, ownerNameCompId, ownerGuidCompId, nuidCompId)
+        logger:error(logger.channels.vsc, msg)
+        error(msg, 2)
     end
 end
 
