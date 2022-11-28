@@ -63,7 +63,7 @@ static void l_createCacheReturnTable(lua_State* L, CacheEntry* entry) {
 }
 static int l_cacheReadByEntityId(lua_State* L)
 {
-    int idToSearch = luaL_checknumber(L, 1);
+    int idToSearch = luaL_checkinteger(L, 1);
     for (int i = 0; i < currentSize; i++)
     {
         CacheEntry* entry = entries+i;
@@ -78,7 +78,7 @@ static int l_cacheReadByEntityId(lua_State* L)
 
 static int l_cacheReadByNuid(lua_State* L) 
 {
-    int idToSearch = luaL_checknumber(L, 1);
+    int idToSearch = luaL_checkinteger(L, 1);
     for (int i = 0; i < currentSize; i++)
     {
         CacheEntry* entry = entries+i;
