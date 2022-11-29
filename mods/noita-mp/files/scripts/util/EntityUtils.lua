@@ -486,7 +486,7 @@ function EntityUtils.processAndSyncEntityNetworking()
                         changed = true
                     end
                 end
-                cache.set(entityId, compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y)
+                cache.set(entityId, compNuid, compOwnerGuid, compOwnerName, filename, x, y, rotation, health, velocity)
                 if changed then
                     NetworkUtils.getClientOrServer().sendEntityData(entityId)
                 end
