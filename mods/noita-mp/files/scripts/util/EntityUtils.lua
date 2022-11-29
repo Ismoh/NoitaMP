@@ -16,6 +16,64 @@ else
     util = dofile("mods/noita-mp/files/scripts/util/util.lua")
 end
 
+if package and package.loadlib then
+    require "noitamp_cache"
+else
+    local cacheData = {}
+    cache = {
+        set = function(entityId, ownerName, ownerGuid, nuid, filename, health, rotation, velocity, x, y)
+            table.insert(cacheData, {
+                entityId = entityId,
+                ownerName = ownerName,
+                ownerGuid = ownerGuid,
+                nuid = nuid,
+                filename = filename,
+                health = health,
+                rotation = rotation, 
+                velocity = velocity,
+                x = x,
+                y = y
+            })
+        end,
+        get = function (id)
+            for _, value in ipairs(cacheData) do
+                if value.entityId == id then return value end
+            end
+        end,
+        getNuid = function (id)
+            for _, value in ipairs(cacheData) do
+                if value.nuid == id then return value end
+            end
+        end,
+        delete = function (id)
+            local shifting = false
+            for _, value in ipairs(cacheData) do
+                if value.entityId == id then
+                    cacheData[_] = nil
+                    shifting = true
+                end
+                if shifting then
+                    cacheData[_-1] = value
+                    cacheData[_] = nil
+                end
+            end
+        end,
+        deleteNuid = function (id)
+            local shifting = false
+            for _, value in ipairs(cacheData) do
+                if value.nuid == id then
+                    cacheData[_] = nil
+                    shifting = true
+                end
+                if shifting then
+                    cacheData[_-1] = value
+                    cacheData[_] = nil
+                end
+            end
+        end
+    }
+end
+
 if not table or not table.setNoitaMpDefaultMetaMethods then
     -- Fix stupid Noita sandbox issue. Noita Components does not have access to require.
     table = dofile_once("mods/noita-mp/files/scripts/extensions/table_extensions.lua")
@@ -59,53 +117,9 @@ local localOwner                           = {
 
 EntityUtils.localPlayerEntityId            = -1
 EntityUtils.localPlayerEntityIdPolymorphed = -1
-EntityUtils.transformCache                 = {}
-table.setNoitaMpDefaultMetaMethods(EntityUtils.transformCache, "v")
-
 ----------------------------------------
 --- private local methods:
 ----------------------------------------
-
---- Prevent "holes" in the cache, by using a sequence id as the key.
---- This way, we can always iterate over the cache, without having to check if the key exists.
---- It also reduces the amount of memory used by the cache.
---- In addition the pool of available sequence ids is limited, which prevents the cache from growing indefinitely.
---- It simply overwrites the oldest entry in the cache.
---- @return number sequenceId
-local function getNextFreeCacheIndex()
-    local cpc = CustomProfiler.start("EntityUtils.getNextFreeCacheIndex")
-    -- If there is any "hole" in the cache, then return that index.
-    for i = 1, #EntityUtils.transformCache do
-        if not EntityUtils.transformCache[i] then
-            CustomProfiler.stop("EntityUtils.getNextFreeCacheIndex", cpc)
-            return i
-        end
-    end
-
-    -- If there is no "hole" and pool is full, then overwrite the oldest entry.
-    if #EntityUtils.transformCache + 1 >= EntityUtils.maxPoolSize then
-        CustomProfiler.stop("EntityUtils.getNextFreeCacheIndex", cpc)
-        return #EntityUtils.transformCache + 1 - EntityUtils.maxPoolSize
-    end
-
-    -- If there is no "hole" in the cache, then return the next index.
-    CustomProfiler.stop("EntityUtils.getNextFreeCacheIndex", cpc)
-    return #EntityUtils.transformCache + 1
-end
-
---- Downside of this approach is that we can't use the cache as a map, because the keys are the entityIds.
---- That's why we need to use the sequence id as the key, and the entityId as the value.
-local function getIndexByEntityId(entityId)
-    local cpc = CustomProfiler.start("EntityUtils.transformCache.getIndexByEntityId")
-    for i = 1, #EntityUtils.transformCache do
-        if EntityUtils.transformCache[i] and EntityUtils.transformCache[i].entityId == entityId then
-            CustomProfiler.stop("EntityUtils.transformCache.getIndexByEntityId", cpc)
-            return i
-        end
-    end
-    CustomProfiler.stop("EntityUtils.transformCache.getIndexByEntityId", cpc)
-    return nil
-end
 
 --- Special thanks to @Horscht:
 ---@param inventory_type string
@@ -347,14 +361,9 @@ function EntityUtils.processAndSyncEntityNetworking()
         -- entityId in CoroutineUtils.iterator(entityIds) do
         repeat -- repeat until true with break works like continue
             local entityId   = --[[EntityGetRootEntity(]]entityIds[entityIndex] --[[)]]
-            local cacheIndex = getIndexByEntityId(entityId)
-
             --[[ Just be double sure and check if entity is alive. If not next entityId ]]--
             if not EntityUtils.isEntityAlive(entityId) then
-                if cacheIndex then
-                    EntityUtils.transformCache[cacheIndex] = nil
-                end
-                break -- work around for continue: repeat until true with break
+                cache.delete(entityId)                break -- work around for continue: repeat until true with break
             end
 
             --[[ Check if this entityId belongs to client ]]--
@@ -376,8 +385,9 @@ function EntityUtils.processAndSyncEntityNetworking()
                  depending on config.lua: EntityUtils.include and EntityUtils.exclude ]]--
             local exclude  = true
             local filename = EntityGetFilename(entityId)
+            local cachedValue = cache.get(entityId)
             -- if already in cache, ignore it, because it was already processed
-            if EntityUtils.transformCache[cacheIndex] and EntityUtils.transformCache[cacheIndex].entityId == entityId then
+            if cachedValue and cachedValue.entityId == entityId then
                 exclude = false
             else
                 if EntityUtils.exclude.byFilename[filename] or
@@ -444,8 +454,8 @@ function EntityUtils.processAndSyncEntityNetworking()
                 local changed                                                                                  = false
                 local compOwnerName, compOwnerGuid, compNuid, filenameUnused, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
 
-                --[[ Entity is new and not in cache, that's why cacheIndex is nil ]]--
-                if not cacheIndex or EntityUtils.transformCache[cacheIndex] == nil then
+                --[[ Entity is new and not in cache, that's why cachedValue is nil ]]--
+                if cachedValue == nil then
                     if who == Server.iAm then
                         if not nuid then
                             nuid = compNuid
@@ -465,34 +475,18 @@ function EntityUtils.processAndSyncEntityNetworking()
                     --[[ Entity is already in cache, so check if something changed ]]--
                     local threshold = math.round(tonumber(ModSettingGetNextValue("noita-mp.change_detection")) / 100,
                                                  0.1)
-                    if math.abs(EntityUtils.transformCache[cacheIndex].health.current - health.current) >= threshold or
-                            math.abs(EntityUtils.transformCache[cacheIndex].health.max - health.max) >= threshold or
-                            math.abs(EntityUtils.transformCache[cacheIndex].rotation - rotation) >= threshold or
-                            math.abs(EntityUtils.transformCache[cacheIndex].velocity.x - velocity.x) >= threshold or
-                            math.abs(EntityUtils.transformCache[cacheIndex].velocity.y - velocity.y) >= threshold or
-                            math.abs(EntityUtils.transformCache[cacheIndex].x - x) >= threshold or
-                            math.abs(EntityUtils.transformCache[cacheIndex].y - y) >= threshold
+                    if math.abs(cachedValue.health.current - health.current) >= threshold or
+                            math.abs(cachedValue.health.max - health.max) >= threshold or
+                            math.abs(cachedValue.rotation - rotation) >= threshold or
+                            math.abs(cachedValue.velocity.x - velocity.x) >= threshold or
+                            math.abs(cachedValue.velocity.y - velocity.y) >= threshold or
+                            math.abs(cachedValue.x - x) >= threshold or
+                            math.abs(cachedValue.y - y) >= threshold
                     then
                         changed = true
                     end
                 end
-
-                if not cacheIndex then
-                    cacheIndex = getNextFreeCacheIndex()
-                end
-
-                EntityUtils.transformCache[cacheIndex] = {
-                    entityId  = entityId,
-                    ownerName = compOwnerName,
-                    ownerGuid = compOwnerGuid,
-                    nuid      = compNuid,
-                    filename  = filename,
-                    health    = health,
-                    rotation  = rotation,
-                    velocity  = velocity,
-                    x         = x,
-                    y         = y
-                }
+                cache.set(entityId, compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y)
                 if changed then
                     NetworkUtils.getClientOrServer().sendEntityData(entityId)
                 end
@@ -629,11 +623,7 @@ function EntityUtils.destroyByNuid(peer, nuid)
         EntityKill(entityId)
     end
 
-    -- Make sure cache is cleared correctly
-    local cacheIndex = getIndexByEntityId(entityId)
-    if cacheIndex then
-        EntityUtils.transformCache[cacheIndex] = nil
-    end
+    cache.deleteNuid(nuid)
     CustomProfiler.stop("EntityUtils.destroyByNuid", cpc)
 end
 
