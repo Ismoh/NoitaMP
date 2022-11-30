@@ -155,11 +155,11 @@ function Ui.new()
         local text = ""
         if foldingOpen then
             self.ezguiFoldingData.data.text = ("[- NoitaMP] %s eCache:%s pCache:%s nCache:%s %s")
-                    :format(_G.NoitaMPVersion, cache.size, CustomProfiler.getSize(),
+                    :format(_G.NoitaMPVersion, cache.size(), CustomProfiler.getSize(),
                             NetworkUtils.getClientOrServer().getAckCacheSize(), GameGetFrameNum())
         else
             self.ezguiFoldingData.data.text = ("[+ NoitaMP] eCache:%s pCache:%s nCache:%s %s")
-                    :format(cache.size, CustomProfiler.getSize(),
+                    :format(cache.size(), CustomProfiler.getSize(),
                             NetworkUtils.getClientOrServer().getAckCacheSize(), GameGetFrameNum())
         end
 
@@ -334,7 +334,7 @@ function Ui.new()
         drawMenu()
         drawModConflictWarning()
 
-        if cache.size >= 10000 then
+        if cache.size() >= 10000 then
             gui = gui or GuiCreate()
             GuiStartFrame(gui)
             GuiIdPushString(gui, "possibleMemoryOverflow")
