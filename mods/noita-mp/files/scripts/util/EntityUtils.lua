@@ -16,9 +16,7 @@ else
     util = dofile("mods/noita-mp/files/scripts/util/util.lua")
 end
 
-if package and package.loadlib then
-    require "noitamp_cache"
-else
+if require == nil then
     local cacheData = {}
     cache = {
         set = function(entityId, compNuid, compOwnerGuid, compOwnerName, filename, x, y, rotation, velX, velY, currentHealth, maxHealth)

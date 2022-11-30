@@ -5,7 +5,7 @@ dofile("mods/noita-mp/files/scripts/init/init_.lua")
 local util = require("util")
 local fu = require("file_util")
 local ui = require("Ui").new()
-
+require 'noitamp_cache'
 logger:debug("init.lua", "Starting to load noita-mp init.lua..")
 
 _G.profiler = require("profiler")

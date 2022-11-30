@@ -21,6 +21,11 @@ typedef struct CacheEntry
 
 CacheEntry *entries;
 int currentSize = 0;
+static int l_cacheSize(lua_State *L) 
+{
+    lua_pushinteger(L, currentSize);
+    return 1;
+}
 static int l_cacheWrite(lua_State *L)
 {
     int entityId = luaL_checkint(L, 1);
@@ -170,6 +175,7 @@ __declspec(dllexport) int luaopen_noitamp_cache(lua_State *L)
             {"getNuid", l_cacheReadByNuid},
             {"delete", l_cacheDeleteByEntityId},
             {"deleteNuid", l_cacheDeleteByNuid},
+            {"size", l_cacheSize},
             {NULL, NULL}};
     luaL_openlib(L, "cache", cachelib, 0);
     return 1;
