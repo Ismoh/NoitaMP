@@ -42,5 +42,12 @@
   },
   "Lua.diagnostics.disable": [
     "lowercase-global"
-  ]
+  ],
+  "files.associations": {
+    "stdbool.h": "c",
+    "stdio.h": "c"
+  },
+  "[c]": {
+    "editor.defaultFormatter": "ms-vscode.cpptools"
+  }
 }

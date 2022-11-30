@@ -21,31 +21,59 @@ if package and package.loadlib then
 else
     local cacheData = {}
     cache = {
-        set = function(entityId, ownerName, ownerGuid, nuid, filename, health, rotation, velocity, x, y)
+        set = function(entityId, compNuid, compOwnerGuid, compOwnerName, filename, x, y, rotation, velX, velY, currentHealth, maxHealth)
+            local cpc = CustomProfiler.start("EntityUtils.CachePolyfillSet")
+            for _, value in ipairs(cacheData) do
+                if value.entityId == entityId then
+                    cacheData[_] = {
+                        entityId = entityId,
+                        ownerName = compOwnerName,
+                        ownerGuid = compOwnerGuid,
+                        nuid = compNuid,
+                        filename = filename,
+                        currentHealth = currentHealth,
+                        maxHealth = maxHealth,
+                        velX = velX,
+                        velY = velY,
+                        rotation = rotation, 
+                        x = x,
+                        y = y
+                    }
+                    return   
+                end
+            end
             table.insert(cacheData, {
                 entityId = entityId,
-                ownerName = ownerName,
-                ownerGuid = ownerGuid,
-                nuid = nuid,
+                ownerName = compOwnerName,
+                ownerGuid = compOwnerGuid,
+                nuid = compNuid,
                 filename = filename,
-                health = health,
+                currentHealth = currentHealth,
+                maxHealth = maxHealth,
+                velX = velX,
+                velY = velY,
                 rotation = rotation, 
-                velocity = velocity,
                 x = x,
                 y = y
             })
+            CustomProfiler.stop("EntityUtils.CachePolyfillSet", cpc)
         end,
         get = function (id)
+            local cpc = CustomProfiler.start("EntityUtils.CachePolyfillGet")
             for _, value in ipairs(cacheData) do
                 if value.entityId == id then return value end
             end
+            CustomProfiler.stop("EntityUtils.CachePolyfillGet", cpc)
         end,
         getNuid = function (id)
+            local cpc = CustomProfiler.start("EntityUtils.CachePolyfillGet")
             for _, value in ipairs(cacheData) do
                 if value.nuid == id then return value end
             end
+            CustomProfiler.stop("EntityUtils.CachePolyfillGet", cpc)
         end,
         delete = function (id)
+            local cpc = CustomProfiler.start("EntityUtils.CachePolyfillDelete")
             local shifting = false
             for _, value in ipairs(cacheData) do
                 if value.entityId == id then
@@ -57,8 +85,10 @@ else
                     cacheData[_] = nil
                 end
             end
+            CustomProfiler.stop("EntityUtils.CachePolyfillDelete", cpc)
         end,
         deleteNuid = function (id)
+            local cpc = CustomProfiler.start("EntityUtils.CachePolyfillDelete")
             local shifting = false
             for _, value in ipairs(cacheData) do
                 if value.nuid == id then
@@ -70,6 +100,7 @@ else
                     cacheData[_] = nil
                 end
             end
+            CustomProfiler.stop("EntityUtils.CachePolyfillDelete", cpc)
         end
     }
 end
@@ -86,9 +117,11 @@ end
 ------------------------------------------------------------------------------------------------------------------------
 if not CustomProfiler then
     CustomProfiler = {}
+    ---@diagnostic disable-next-line: duplicate-set-field
     function CustomProfiler.start(functionName)
         return 0
     end
+    ---@diagnostic disable-next-line: duplicate-set-field
     function CustomProfiler.stop(functionName, customProfilerCounter)
         return 0
     end
@@ -475,18 +508,18 @@ function EntityUtils.processAndSyncEntityNetworking()
                     --[[ Entity is already in cache, so check if something changed ]]--
                     local threshold = math.round(tonumber(ModSettingGetNextValue("noita-mp.change_detection")) / 100,
                                                  0.1)
-                    if math.abs(cachedValue.health.current - health.current) >= threshold or
-                            math.abs(cachedValue.health.max - health.max) >= threshold or
+                    if math.abs(cachedValue.currentHealth - health.current) >= threshold or
+                            math.abs(cachedValue.maxHealth - health.max) >= threshold or
                             math.abs(cachedValue.rotation - rotation) >= threshold or
-                            math.abs(cachedValue.velocity.x - velocity.x) >= threshold or
-                            math.abs(cachedValue.velocity.y - velocity.y) >= threshold or
+                            math.abs(cachedValue.velX - velocity.x) >= threshold or
+                            math.abs(cachedValue.velY - velocity.y) >= threshold or
                             math.abs(cachedValue.x - x) >= threshold or
                             math.abs(cachedValue.y - y) >= threshold
                     then
                         changed = true
                     end
                 end
-                cache.set(entityId, compNuid, compOwnerGuid, compOwnerName, filename, x, y, rotation, health, velocity)
+                cache.set(entityId, compNuid, compOwnerGuid, compOwnerName, filename, x, y, rotation, velocity.x, velocity.y, health.current, health.max)
                 if changed then
                     NetworkUtils.getClientOrServer().sendEntityData(entityId)
                 end

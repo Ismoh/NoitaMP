@@ -12,6 +12,7 @@ local plotly                             = require("plotly")
 local util                               = require("util")
 local fu                                 = require("file_util")
 
+---@class CustomProfiler
 CustomProfiler                           = {}
 CustomProfiler.reportCache               = {}
 CustomProfiler.counter                   = 1
@@ -25,9 +26,12 @@ CustomProfiler.reportDirectory           = ("%s%sNoitaMP-Reports%s%s"):format(fu
 CustomProfiler.reportFilename            = "report.html"
 CustomProfiler.reportJsonFilenamePattern = "%s.json"
 
+---@param functionName string
+---@return integer
+---@diagnostic disable-next-line: duplicate-set-field
 function CustomProfiler.start(functionName)
     if not ModSettingGetNextValue("noita-mp.toggle_profiler") then
-        return
+        return -1
     end
 
     if not CustomProfiler.reportCache[functionName] then
@@ -73,7 +77,9 @@ function CustomProfiler.stopAll()
         CustomProfiler.stop(v)
     end
 end
-
+---@param functionName string
+---@param customProfilerCounter integer
+---@diagnostic disable-next-line: duplicate-set-field
 function CustomProfiler.stop(functionName, customProfilerCounter)
     if not ModSettingGetNextValue("noita-mp.toggle_profiler") then
         return
