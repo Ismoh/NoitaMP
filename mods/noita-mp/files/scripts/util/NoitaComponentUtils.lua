@@ -75,14 +75,17 @@ function NoitaComponentUtils.getEntityData(entityId)
     end
     local filename = EntityGetFilename(entityId)
     CustomProfiler.stop("NoitaComponentUtils.getEntityData", cpc)
-    if compOwnerName and compOwnerGuid then
-        ---@diagnostic disable-next-line: return-type-mismatch
+    --if compOwnerName and compOwnerGuid and compNuid then
+    ---@diagnostic disable-next-line: return-type-mismatch
         return compOwnerName, compOwnerGuid, compNuid, filename, health, math.round(
-            rotation, 0.1), velocity, math.round(x, 0.1), math.round(y, 0.1)
-    end
-    local msg = ("getEntityData: Got unexpected nil value in network VSC. entityId, = %s compOwnerName = %s, compOwnerGuid = %s, compNuid = %s"):format(entityId, compOwnerName,compOwnerGuid, compNuid)
-    logger:error(logger.channels.entity, msg)
-    error(msg, 2)
+                rotation, 0.1), velocity, math.round(x, 0.1), math.round(y, 0.1)
+    --end
+    --local msg = ("getEntityData: Got unexpected nil value in network VSC. entityId, = %s compOwnerName = %s, compOwnerGuid = %s, compNuid = %s"):format(entityId,
+    --compOwnerName,
+    --                                                                                                                                                   compOwnerGuid,
+    --                                                                                                                                                                                                                                                                                                      compNuid)
+    --logger:error(logger.channels.entity, msg)
+    --error(msg, 2)
 end
 
 function NoitaComponentUtils.getEntityDataByNuid(nuid)

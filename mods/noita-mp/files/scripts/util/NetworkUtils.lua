@@ -96,6 +96,20 @@ local function zipTable(items, keys, event)
     return data
 end
 
+local function getIndexFromSchema(data, schema, resendIdentifier)
+    local cpc = CustomProfiler.start("NetworkUtils.getIndexFromSchema")
+
+    for i, value in ipairs(data) do
+        if schema[i] == resendIdentifier then
+            CustomProfiler.stop("NetworkUtils.getIndexFromSchema", cpc)
+            return i
+        end
+    end
+
+    CustomProfiler.stop("NetworkUtils.getIndexFromSchema", cpc)
+    return nil
+end
+
 --- Sometimes you don't care if it's the client or server, but you need one of them to send the messages.
 --- @return Client|Server Client or Server 'object'
 --- @public
@@ -143,46 +157,6 @@ function NetworkUtils.alreadySent(peer, event, data)
         error("'networkMessageId' must not be nil!", 2)
     end
 
-    --if who == Server.iAm then
-    --    if Server.acknowledge[peer.connectId] then
-    --        -- [[ if the event isn't store in the cache, it wasn't already send ]] --
-    --        if not Server.acknowledge[peer.connectId][event] then
-    --            Server.acknowledge[peer.connectId][event] = {}
-    --            CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
-    --            return false
-    --        end
-    --
-    --        --[[ Is there already a cache for the specific peer? ]]--
-    --        if Server.acknowledge[peer.connectId][event][networkMessageId] then
-    --            --[[ if the network message is already stored ]]--
-    --            if Server.acknowledge[peer.connectId][event][networkMessageId].status == NetworkUtils.events.acknowledgement.ack then
-    --                --[[ and the status is 'ack' ]]--
-    --                CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
-    --                return true
-    --            end
-    --        end
-    --
-    --        for i in pairs(Server.acknowledge[peer.connectId][event]) do
-    --            --[[ if the networkMessageId is not stored, but data might be the same ]]--
-    --            for rI = 1, #(NetworkUtils.events[event].resendIdentifier or {}) do
-    --                --[[ check resendIdentifiers ]]--
-    --                local resendIdentifier = NetworkUtils.events[event].resendIdentifier[rI]
-    --                if data[resendIdentifier] == Server.acknowledge[peer.connectId][event][i].data[resendIdentifier] then
-    --                    --[[ if data of the resendIdentifier is the same, it was already sent ]]--
-    --                    CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
-    --                    return true
-    --                end
-    --            end
-    --        end
-    --    else
-    --        --[[ there is no cache for the specific peer ]]--
-    --        Server.acknowledge[peer.connectId] = {}
-    --        CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
-    --        return false
-    --    end
-    --end
-
-    --if who == Client.iAm then
     -- [[ if the event isn't store in the cache, it wasn't already send ]] --
     if not peer.acknowledge[event] then
         CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
@@ -203,10 +177,20 @@ function NetworkUtils.alreadySent(peer, event, data)
             local same = false -- if there are multiple resendIdentifiers, they all need to be the same
             for rI = 1, #NetworkUtils.events[event].resendIdentifier do
                 --[[ check resendIdentifiers ]]--
-                local resendIdentifier = NetworkUtils.events[event].resendIdentifier[rI]
-                if data[resendIdentifier] == peer.acknowledge[event][i].data[resendIdentifier] then
+                local resendIdentifier      = NetworkUtils.events[event].resendIdentifier[rI]
+                local resendIdentifierIndex = getIndexFromSchema(data, NetworkUtils.events[event].schema, resendIdentifier)
+                if data[resendIdentifierIndex] ~= nil and
+                        peer.acknowledge[event][i].data[resendIdentifierIndex] ~= nil and
+                        data[resendIdentifierIndex] == peer.acknowledge[event][i].data[resendIdentifierIndex]
+                then
                     --[[ if the data of resendIdentifier is the same, then it was already sent ]]--
-                    CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
+                    if peer.acknowledge[event][i].status == NetworkUtils.events.acknowledgement.ack then
+                        CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
+                        return true
+                    else
+                        CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
+                        return false
+                    end
                     same = true
                 else
                     same = false
@@ -216,22 +200,22 @@ function NetworkUtils.alreadySent(peer, event, data)
                 CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
                 return true
             end
-        else
-            --[[ if there is no resendIdentifier, then we need to check data in depth ]]--
-            local sendData = zipTable(table.deepcopy(data), NetworkUtils.events[event].schema, event)
-            table.setNoitaMpDefaultMetaMethods(sendData, "kv")
-            sendData.networkMessageId = nil
-
-            local cacheData           = zipTable(table.deepcopy(peer.acknowledge[event][i].data),
-                                                 NetworkUtils.events[event].schema, event)
-            table.setNoitaMpDefaultMetaMethods(cacheData, "kv")
-            cacheData.networkMessageId = nil
-            local ran, errorMsg        = pcall(luaunit.assertItemsEquals, data1, data2)
-            if ran and not errorMsg then
-                return true
-            end
-            CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
         end
+
+        --[[ if there is no resendIdentifier, then we need to check data in depth ]]--
+        local sendData = zipTable(table.deepcopy(data), NetworkUtils.events[event].schema, event)
+        table.setNoitaMpDefaultMetaMethods(sendData, "kv")
+        sendData.networkMessageId = nil
+
+        local cacheData           = zipTable(table.deepcopy(peer.acknowledge[event][i].data),
+                                             NetworkUtils.events[event].schema, event)
+        table.setNoitaMpDefaultMetaMethods(cacheData, "kv")
+        cacheData.networkMessageId = nil
+        local ran, errorMsg        = pcall(luaunit.assertItemsEquals, sendData, cacheData)
+        if ran and not errorMsg then
+            return true
+        end
+        CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
     end
     --end
 
