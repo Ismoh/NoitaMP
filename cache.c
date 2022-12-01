@@ -1,18 +1,16 @@
 #include ".building/LuaJIT-2.0.4/src/lua.h"
 #include ".building/LuaJIT-2.0.4/src/lauxlib.h"
 #define cacheSize sizeof(CacheEntry)
-#define false 0
-#define true 1
 typedef struct CacheEntry
 {
     int entityId;
     int nuid;
-    int ownerGuid;
-    double rotation;
+    char *ownerGuid;
     char *ownerName;
     char *filepath;
     double x;
     double y;
+    double rotation;
     double velX;
     double velY;
     double currentHealth;
@@ -36,7 +34,7 @@ static int l_cacheWrite(lua_State *L)
         {
             entry->entityId = entityId;
             entry->nuid = luaL_checkint(L, 2);
-            entry->ownerGuid = luaL_checkint(L, 3);
+            entry->ownerGuid = luaL_checkstring(L, 3);
             entry->ownerName = luaL_checkstring(L, 4);
             entry->filepath = luaL_checkstring(L, 5);
             entry->x = luaL_checknumber(L, 6);
@@ -54,7 +52,7 @@ static int l_cacheWrite(lua_State *L)
     CacheEntry *newEntry = entries + (currentSize - 1);
     newEntry->entityId = entityId;
     newEntry->nuid = luaL_checkint(L, 2);
-    newEntry->ownerGuid = luaL_checkint(L, 3);
+    newEntry->ownerGuid = luaL_checkstring(L, 3);
     newEntry->ownerName = luaL_checkstring(L, 4);
     newEntry->filepath = luaL_checkstring(L, 5);
     newEntry->x = luaL_checknumber(L, 6);
@@ -75,7 +73,7 @@ static void l_createCacheReturnTable(lua_State *L, CacheEntry *entry)
     lua_pushinteger(L, entry->nuid);
     lua_setfield(L, -2, "nuid");
 
-    lua_pushinteger(L, entry->ownerGuid);
+    lua_pushstring(L, entry->ownerGuid);
     lua_setfield(L, -2, "ownerGuid");
 
     lua_pushstring(L, entry->ownerName);
@@ -96,6 +94,9 @@ static void l_createCacheReturnTable(lua_State *L, CacheEntry *entry)
     lua_pushnumber(L, entry->velY);
     lua_setfield(L, -2, "velY");
 
+    lua_pushnumber(L, entry->rotation);
+    lua_setfield(L, -2, "rotation");
+    
     lua_pushnumber(L, entry->currentHealth);
     lua_setfield(L, -2, "currentHealth");
 
@@ -145,9 +146,12 @@ static int l_cacheDeleteByEntityId(lua_State *L)
             memmove(entries + i + 1, entries + i, ((currentSize - 1) - i) * cacheSize);
             currentSize--;
             realloc(entries, cacheSize * currentSize);
+            lua_pushboolean(L, 1);
+            return 1;
         };
     }
-    return 0;
+    lua_pushboolean(L, 0);
+    return 1;
 }
 
 static int l_cacheDeleteByNuid(lua_State *L)
@@ -161,9 +165,12 @@ static int l_cacheDeleteByNuid(lua_State *L)
             memmove(entries + i + 1, entries + i, ((currentSize - 1) - i) * cacheSize);
             currentSize--;
             realloc(entries, cacheSize * currentSize);
+            lua_pushboolean(L, 1);
+            return 1;
         };
     }
-    return 0;
+    lua_pushboolean(L, 0);
+    return 1;
 }
 
 __declspec(dllexport) int luaopen_noitamp_cache(lua_State *L)
