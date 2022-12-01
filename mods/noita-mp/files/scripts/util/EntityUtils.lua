@@ -312,7 +312,7 @@ end
 --- Looks like there were access to removed entities, which might cause game crashing.
 --- Use this function whenever you work with entity_id/entityId to stop client game crashing.
 --- @param entityId number Id of any entity.
---- @return number|boolean entityId returns the entityId if is alive, otherwise false
+--- @return number|false entityId returns the entityId if is alive, otherwise false
 function EntityUtils.isEntityAlive(entityId)
     local cpc = CustomProfiler.start("EntityUtils.isEntityAlive")
     if EntityGetIsAlive(entityId) then
@@ -339,6 +339,19 @@ function EntityUtils.processAndSyncEntityNetworking()
     local entityIds        = EntityGetInRadius(playerX, playerY, radius)
     local playerEntityIds  = {}
 
+    --[[ Make sure child entities are already added to the entityIds list
+     otherwise nuid isn't set when extracting parents. ]]--
+    for i = 1, #entityIds do
+        local childEntityIds = EntityGetAllChildren(entityIds[i])
+        if not util.IsEmpty(childEntityIds) then
+            table.insertAllButNotDuplicates(entityIds, childEntityIds)
+        end
+    end
+
+    --[[ Sort entityIds to process entities in the same order.
+    In addition parent entities will be processed before children. ]]--
+    table.sort(entityIds)
+
     if who == Client.iAm then
         table.insertIfNotExist(playerEntityIds, localPlayerId)
         table.insertAllButNotDuplicates(playerEntityIds,
@@ -358,19 +371,6 @@ function EntityUtils.processAndSyncEntityNetworking()
             -- end
         end
     end
-
-    --[[ Make sure child entities are already added to the entityIds list
-     otherwise nuid isn't set when extracting parents. ]]--
-    for i = 1, #entityIds do
-        local childEntityIds = EntityGetAllChildren(entityIds[i])
-        if not util.IsEmpty(childEntityIds) then
-            table.insertAllButNotDuplicates(entityIds, childEntityIds)
-        end
-    end
-
-    --[[ Sort entityIds to process entities in the same order.
-    In addition parent entities will be processed before children. ]]--
-    table.sort(entityIds)
 
     for entityIndex = prevEntityIndex, #entityIds do
         -- entityId in CoroutineUtils.iterator(entityIds) do
@@ -632,7 +632,7 @@ end
 --- @param nuid number The nuid of the entity.
 function EntityUtils.destroyByNuid(peer, nuid)
     local cpc             = CustomProfiler.start("EntityUtils.destroyByNuid")
-    local nNuid, entityId = GlobalsUtils.getNuidEntityPair(nuid)
+    local _, entityId = GlobalsUtils.getNuidEntityPair(nuid)
 
     if not entityId then
         CustomProfiler.stop("EntityUtils.destroyByNuid", cpc)
@@ -647,6 +647,10 @@ function EntityUtils.destroyByNuid(peer, nuid)
     NetworkUtils.removeFromCacheByEntityId(peer, entityId)
 
     if not EntityUtils.isEntityAlive(entityId) then
+        local cacheIndex = getIndexByEntityId(entityId)
+        if cacheIndex then
+            EntityUtils.transformCache[cacheIndex] = nil
+        end
         CustomProfiler.stop("EntityUtils.destroyByNuid", cpc)
         return
     end
