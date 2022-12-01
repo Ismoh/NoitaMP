@@ -189,17 +189,33 @@ local function findByFilename(filename, filenames)
     return false
 end
 
-local function getParentsUntilRootEntity(entityId)
+local function getParentsUntilRootEntity(who, entityId)
     local cpc            = CustomProfiler.start("EntityUtils.getParentsUntilRootEntity")
     local parentNuids    = {}
-    local parentEntityId = EntityGetParent(entityId)
+    local parentEntityId = EntityGetParent(entityId) -- returns 0, if entity has no parent
 
-    while parentEntityId do
+    while parentEntityId and parentEntityId > 0 do
         local parentNuid = NetworkVscUtils.hasNuidSet(parentEntityId)
         if not parentNuid then
-            error("nuid not set fix this!")
+            local localPlayer = util.getLocalPlayerInfo()
+            local ownerName = localPlayer.name
+            local ownerGuid = localPlayer.guid
+            if who == Server.iAm and not parentNuid then
+                parentNuid = NuidUtils.getNextNuid()
+                NetworkVscUtils.addOrUpdateAllVscs(parentEntityId, ownerName, ownerGuid, parentNuid)
+                local _, _, _, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(parentEntityId)
+                Server.sendNewNuid({ ownerName, ownerGuid }, parentEntityId, parentNuid, x, y, rotation, velocity,
+                                   filename, health, EntityUtils.isEntityPolymorphed(entityId))
+            elseif who == Client.iAm and not parentNuid then
+                Client.sendNeedNuid(ownerName, ownerGuid, entityId)
+                -- TODO: return and wait for nuid? Otherwise child will never know who is the parent.
+            else
+                logger:error(logger.channels.entity, "Unable to get whoAmI()!")
+            end
         end
-        table.insert(parentNuids, 1, parentNuid)
+        if type(parentNuid) == "number" then
+            table.insert(parentNuids, 1, parentNuid)
+        end
         parentEntityId = EntityGetParent(parentEntityId)
     end
     CustomProfiler.stop("EntityUtils.getParentsUntilRootEntity", cpc)
@@ -365,8 +381,21 @@ function EntityUtils.processAndSyncEntityNetworking()
     local playerX, playerY = EntityGetTransform(localPlayerId)
     local radius           = ModSettingGetNextValue("noita-mp.radius_include_entities")
     ---@cast radius number
-    local entityIds        = EntityGetInRadius(playerX, playerY, radius) or {}
+    local entityIds        = EntityGetInRadius(playerX, playerY, radius)
     local playerEntityIds  = {}
+
+    --[[ Make sure child entities are already added to the entityIds list
+     otherwise nuid isn't set when extracting parents. ]]--
+    for i = 1, #entityIds do
+        local childEntityIds = EntityGetAllChildren(entityIds[i])
+        if not util.IsEmpty(childEntityIds) then
+            table.insertAllButNotDuplicates(entityIds, childEntityIds)
+        end
+    end
+
+    --[[ Sort entityIds to process entities in the same order.
+    In addition parent entities will be processed before children. ]]--
+    table.sort(entityIds)
 
     if who == Client.iAm then
         table.insertIfNotExist(playerEntityIds, localPlayerId)
@@ -460,7 +489,7 @@ function EntityUtils.processAndSyncEntityNetworking()
             end
 
             --[[ Check if entity has already all network components ]]--
-            local ownerName_, ownerGuid_, nuid = NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
+            local nuid = NetworkVscUtils.hasNuidSet(entityId)
             if not NetworkVscUtils.isNetworkEntityByNuidVsc(entityId) or
                     not NetworkVscUtils.hasNetworkLuaComponents(entityId)
             then
@@ -497,7 +526,7 @@ function EntityUtils.processAndSyncEntityNetworking()
                         end
                         -- TODO: check if entityId has parents and if so, send them too. How many parents?
                         -- TODO: EntityGetParent(entityId) returns 0, if there is no parent
-                        local parents = getParentsUntilRootEntity(entityId)
+                        local parents = getParentsUntilRootEntity(who, entityId)
                         Server.sendNewNuid({ compOwnerName, compOwnerGuid }, entityId, nuid, x, y, rotation, velocity,
                                            filename,
                                            health, EntityUtils.isEntityPolymorphed(entityId))
@@ -556,8 +585,7 @@ end
 --- @param filename string
 --- @param localEntityId number this is the initial entity_id created by server OR client. It's owner specific! Every
 --- owner has its own entity ids.
---- @return number? entityId Returns the entity_id of a already existing entity, found by nuid or the newly created
---- entity.
+--- @return number? entityId Returns the entity_id of a already existing entity, found by nuid or the newly created entity.
 function EntityUtils.spawnEntity(owner, nuid, x, y, rotation, velocity, filename, localEntityId, health, isPolymorphed)
     local cpc        = CustomProfiler.start("EntityUtils.spawnEntity")
     local localGuid  = util.getLocalPlayerInfo().guid or util.getLocalPlayerInfo()[2]
@@ -629,7 +657,7 @@ end
 --- @param nuid number The nuid of the entity.
 function EntityUtils.destroyByNuid(peer, nuid)
     local cpc             = CustomProfiler.start("EntityUtils.destroyByNuid")
-    local nNuid, entityId = GlobalsUtils.getNuidEntityPair(nuid)
+    local _, entityId = GlobalsUtils.getNuidEntityPair(nuid)
 
     if not entityId then
         CustomProfiler.stop("EntityUtils.destroyByNuid", cpc)
@@ -644,6 +672,10 @@ function EntityUtils.destroyByNuid(peer, nuid)
     NetworkUtils.removeFromCacheByEntityId(peer, entityId)
 
     if not EntityUtils.isEntityAlive(entityId) then
+        local cacheIndex = getIndexByEntityId(entityId)
+        if cacheIndex then
+            EntityUtils.transformCache[cacheIndex] = nil
+        end
         CustomProfiler.stop("EntityUtils.destroyByNuid", cpc)
         return
     end

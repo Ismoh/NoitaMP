@@ -59,13 +59,16 @@ end
 function NoitaComponentUtils.getEntityData(entityId)
     local cpc                                    = CustomProfiler.start("NoitaComponentUtils.getEntityData")
     local compOwnerName, compOwnerGuid, compNuid = NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
-    local hpCompId                               = EntityGetFirstComponentIncludingDisabled(entityId, "DamageModelComponent") or 0
-    local hpCurrent                              = math.round(ComponentGetValue2(hpCompId, "hp") * 25, 0.01)
-    local hpMax                                  = math.round(ComponentGetValue2(hpCompId, "max_hp") * 25, 0.01)
-    local health                                 = { current = hpCurrent, max = hpMax }
-    local x, y, rotation                         = EntityGetTransform(entityId)
-    local velocityCompId                         = EntityGetFirstComponent(entityId, "VelocityComponent")
-    local velocity                               = { x = 0, y = 0 }
+    local hpCompId                               = EntityGetFirstComponentIncludingDisabled(entityId, "DamageModelComponent")
+    local health                                 = { current = 0, max = 0 }
+    if hpCompId then
+        local hpCurrent = math.round(ComponentGetValue2(hpCompId, "hp") * 25, 0.01)
+        local hpMax     = math.round(ComponentGetValue2(hpCompId, "max_hp") * 25, 0.01)
+        health          = { current = hpCurrent, max = hpMax }
+    end
+    local x, y, rotation = EntityGetTransform(entityId)
+    local velocityCompId = EntityGetFirstComponent(entityId, "VelocityComponent")
+    local velocity       = { x = 0, y = 0 }
     if velocityCompId then
         local velocityX, velocityY = ComponentGetValue2(velocityCompId, "mVelocity")
         velocity                   = { x = math.round(velocityX, 0.1), y = math.round(velocityY, 0.1) }
