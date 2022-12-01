@@ -8,7 +8,7 @@ if not EntityUtils then
     _G.EntityUtils = {}
 end
 
-EntityUtils.maxExecutionTime = 20 --ms = 50 fps
+EntityUtils.maxExecutionTime = 35 --ms = 1000 / 35 = 28,57 fps
 EntityUtils.maxPoolSize      = 10000
 EntityUtils.include          = {
     byComponentsName = { "VelocityComponent", "PhysicsBodyComponent", "PhysicsBody2Component", "ItemComponent", "PotionComponent" },
@@ -20,7 +20,7 @@ EntityUtils.exclude          = {
         --"particle",
         "tree_entity.xml",
         "vegetation",
-        -- TODO: REMOVE ME: child spawning issues, should be fixed "data/entities/misc/custom_cards/", -- This somehow occurs when changing wands in inventory
+        "custom_cards",
     }
 }
 

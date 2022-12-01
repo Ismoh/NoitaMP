@@ -234,9 +234,9 @@ function Client.new(sockClient)
             error(("onConnect2 data.guid is empty: %s"):format(data.guid), 3)
         end
 
-        sendAck(data.networkMessageId, NetworkUtils.events.connect2.name)
-
         table.insertIfNotExist(self.otherClients, { name = data.name, guid = data.guid })
+
+        sendAck(data.networkMessageId, NetworkUtils.events.connect2.name)
         CustomProfiler.stop("Client.onConnect2", cpc5)
     end
 
@@ -253,8 +253,6 @@ function Client.new(sockClient)
             error(("onDisconnect data is empty: %s"):format(data), 3)
         end
 
-        -- sendAck(data.networkMessageId)
-
         if self.serverInfo.nuid then
             EntityUtils.destroyByNuid(self, self.serverInfo.nuid)
         end
@@ -267,6 +265,8 @@ function Client.new(sockClient)
         self.nuid         = nil
         self.otherClients = {}
         self.serverInfo   = {}
+
+        -- sendAck(data.networkMessageId)
         CustomProfiler.stop("Client.onDisconnect", cpc6)
     end
 
@@ -291,11 +291,11 @@ function Client.new(sockClient)
             error(("onDisconnect2 data.guid is empty: %s"):format(data.guid), 3)
         end
 
-        sendAck(data.networkMessageId, NetworkUtils.events.disconnect2.name)
-
         for i = 1, #self.otherClients do
             -- table.insertIfNotExist(self.otherClients, { name = data.name, guid = data.guid })
         end
+
+        sendAck(data.networkMessageId, NetworkUtils.events.disconnect2.name)
         CustomProfiler.stop("Client.onDisconnect2", cpc7)
     end
 
@@ -342,12 +342,11 @@ function Client.new(sockClient)
             self:disconnect()
         end
 
-        sendAck(data.networkMessageId, NetworkUtils.events.playerInfo.name)
-
         self.serverInfo.name = data.name
         self.serverInfo.guid = data.guid
         self.serverInfo.nuid = data.nuid
 
+        sendAck(data.networkMessageId, NetworkUtils.events.playerInfo.name)
         CustomProfiler.stop("Client.onPlayerInfo", cpc8)
     end
 
@@ -372,8 +371,6 @@ function Client.new(sockClient)
             error(("onNewGuid data.newGuid is empty: %s"):format(data.newGuid), 3)
         end
 
-        sendAck(data.networkMessageId, NetworkUtils.events.newGuid.name)
-
         if data.oldGuid == self.guid then
             local entityId                               = util.getLocalPlayerInfo().entityId
             local compOwnerName, compOwnerGuid, compNuid = NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
@@ -393,6 +390,8 @@ function Client.new(sockClient)
                 end
             end
         end
+
+        sendAck(data.networkMessageId, NetworkUtils.events.newGuid.name)
         CustomProfiler.stop("Client.onNewGuid", cpc9)
     end
 
@@ -412,8 +411,6 @@ function Client.new(sockClient)
         if util.IsEmpty(data.seed) then
             error(("onSeed data.seed is empty: %s"):format(data.seed), 3)
         end
-
-        sendAck(data.networkMessageId, NetworkUtils.events.seed.name)
 
         local serversSeed = tonumber(data.seed)
         logger:info(logger.channels.network,
@@ -440,6 +437,8 @@ function Client.new(sockClient)
         if not NetworkVscUtils.hasNuidSet(entityId) then
             self.sendNeedNuid(name, guid, entityId)
         end
+
+        sendAck(data.networkMessageId, NetworkUtils.events.seed.name)
         CustomProfiler.stop("Client.onSeed", cpc10)
     end
 
@@ -497,8 +496,6 @@ function Client.new(sockClient)
             error(("onNewNuid data.isPolymorphed is empty: %s"):format(data.isPolymorphed), 3)
         end
 
-        sendAck(data.networkMessageId, NetworkUtils.events.newNuid.name)
-
         local owner         = data.owner
         local localEntityId = data.localEntityId
         local newNuid       = data.newNuid
@@ -518,6 +515,8 @@ function Client.new(sockClient)
 
         EntityUtils.spawnEntity(owner, newNuid, x, y, rotation, velocity, filename, localEntityId, health,
                                 isPolymorphed)
+
+        sendAck(data.networkMessageId, NetworkUtils.events.newNuid.name)
         CustomProfiler.stop("Client.onNewNuid", cpc11)
     end
 
@@ -562,8 +561,6 @@ function Client.new(sockClient)
             error(("onNewNuid data.health is empty: %s"):format(data.health), 3)
         end
 
-        -- sendAck(data.networkMessageId) do not send ACK for position data, network will explode
-
         local owner                = data.owner
         local gNuid, localEntityId = GlobalsUtils.getNuidEntityPair(data.nuid)
         local nuid                 = data.nuid
@@ -579,6 +576,8 @@ function Client.new(sockClient)
             logger:warn(logger.channels.network, ("Received entityData for self.nuid = %s! data = %s")
                     :format(data.nuid, util.pformat(data)))
         end
+
+        -- sendAck(data.networkMessageId) do not send ACK for position data, network will explode
         CustomProfiler.stop("Client.onEntityData", cpc12)
     end
 
@@ -592,6 +591,7 @@ function Client.new(sockClient)
             else
                 EntityUtils.destroyByNuid(self, deadNuid)
                 GlobalsUtils.removeDeadNuid(deadNuid)
+                EntityUtils.removeFromCacheByNuid(deadNuid)
             end
         end
         CustomProfiler.stop("Client.onDeadNuids", cpc13)

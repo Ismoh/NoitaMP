@@ -60,7 +60,7 @@ local localOwner                           = {
 EntityUtils.localPlayerEntityId            = -1
 EntityUtils.localPlayerEntityIdPolymorphed = -1
 EntityUtils.transformCache                 = {}
-table.setNoitaMpDefaultMetaMethods(EntityUtils.transformCache, "v")
+--table.setNoitaMpDefaultMetaMethods(EntityUtils.transformCache, "v")
 
 ----------------------------------------
 --- private local methods:
@@ -153,8 +153,8 @@ local function getParentsUntilRootEntity(who, entityId)
         local parentNuid = NetworkVscUtils.hasNuidSet(parentEntityId)
         if not parentNuid then
             local localPlayer = util.getLocalPlayerInfo()
-            local ownerName = localPlayer.name
-            local ownerGuid = localPlayer.guid
+            local ownerName   = localPlayer.name
+            local ownerGuid   = localPlayer.guid
             if who == Server.iAm and not parentNuid then
                 parentNuid = NuidUtils.getNextNuid()
                 NetworkVscUtils.addOrUpdateAllVscs(parentEntityId, ownerName, ownerGuid, parentNuid)
@@ -362,13 +362,12 @@ function EntityUtils.processAndSyncEntityNetworking()
 
         for i = 1, #playerEntityIds do
             local clientEntityId = playerEntityIds[i]
-            --local rootEntityId   = EntityGetRootEntity(clientEntityId)
-            if not NetworkVscUtils.hasNetworkLuaComponents(clientEntityId--[[rootEntityId]]) then
-                NetworkVscUtils.addOrUpdateAllVscs(clientEntityId--[[rootEntityId]], localOwner.name, localOwner.guid)
+            if not NetworkVscUtils.hasNetworkLuaComponents(clientEntityId) then
+                NetworkVscUtils.addOrUpdateAllVscs(clientEntityId, localOwner.name, localOwner.guid)
             end
-            -- if not NetworkVscUtils.hasNuidSet(entityId) then
-            --     Client.sendNeedNuid(localOwner, entityId)
-            -- end
+            if not NetworkVscUtils.hasNuidSet(clientEntityId) then
+                Client.sendNeedNuid(localOwner, clientEntityId)
+            end
         end
     end
 
@@ -631,7 +630,20 @@ end
 --- Destroys the entity by the given nuid.
 --- @param nuid number The nuid of the entity.
 function EntityUtils.destroyByNuid(peer, nuid)
-    local cpc             = CustomProfiler.start("EntityUtils.destroyByNuid")
+    local cpc = CustomProfiler.start("EntityUtils.destroyByNuid")
+
+    if not peer or type(peer) ~= "table" then
+        error(("EntityUtils.destroyByNuid: peer is not a table: %s"):format(util.pformat(peer)), 2)
+    end
+
+    if not nuid then
+        error(("EntityUtils.destroyByNuid: nuid must not be nil: %s"):format(util.pformat(nuid)), 2)
+    end
+
+    if type(nuid) ~= "number" then
+        nuid = tonumber(nuid)
+    end
+
     local _, entityId = GlobalsUtils.getNuidEntityPair(nuid)
 
     if not entityId then
@@ -667,6 +679,22 @@ function EntityUtils.destroyByNuid(peer, nuid)
         EntityUtils.transformCache[cacheIndex] = nil
     end
     CustomProfiler.stop("EntityUtils.destroyByNuid", cpc)
+end
+
+function EntityUtils.removeFromCacheByNuid(deadNuid)
+    local deadNuid, entityId = GlobalsUtils.getNuidEntityPair(deadNuid)
+    if entityId and type(entityId) == "number" then
+        -- might be kill indicator is set: -entityId -> entityId
+        entityId         = math.abs(entityId)
+        local cacheIndex = getIndexByEntityId(entityId)
+        if cacheIndex then
+            EntityUtils.transformCache[cacheIndex] = nil
+        end
+    else
+        logger:warn(logger.channels.entity,
+                    ("EntityUtils.removeFromCacheByNuid: entityId not found for nuid: %s, entityId: %s")
+                            :format(deadNuid, entityId))
+    end
 end
 
 ------------------------------------------------------------------------------------------------

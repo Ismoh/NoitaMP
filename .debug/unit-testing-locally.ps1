@@ -106,7 +106,8 @@ $files = Get-ChildItem -Path "D:\______BACKUP\NoitaMP_repo\NoitaMP\.testing\test
 foreach ($file in $files) # https://stackoverflow.com/a/11568420/3493998
 {
     Write-Host "Running lua file $file"
+    Start-Process -FilePath "C:\Program Files (x86)\LuaJIT-2.0.4\bin\luajit.exe" -ArgumentList $file.FullName,"-o","text","--verbose","D:\______BACKUP\NoitaMP_repo\NoitaMP" -Wait -NoNewWindow
     # https://stackoverflow.com/a/45330000/3493998
-    & 'C:\Program Files (x86)\LuaJIT-2.0.4\bin\luajit.exe' $file.FullName -o text --verbose >> "D:\______BACKUP\NoitaMP_repo\NoitaMP\.testing\testresult.log"
+    # & 'C:\Program Files (x86)\LuaJIT-2.0.4\bin\luajit.exe' $file.FullName -o text --verbose >> "D:\______BACKUP\NoitaMP_repo\NoitaMP\.testing\testresult.log"
     type ..\\.testing\testresult.log
 }

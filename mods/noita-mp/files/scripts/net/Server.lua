@@ -211,8 +211,6 @@ function Server.new(sockServer)
             error(("onConnect data is empty: %s"):format(data), 3)
         end
 
-        -- sendAck(data.networkMessageId, peer)
-
         local localPlayerInfo            = util.getLocalPlayerInfo()
         local name                       = localPlayerInfo.name
         local guid                       = localPlayerInfo.guid
@@ -235,6 +233,8 @@ function Server.new(sockServer)
 
         local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
         self.sendNewNuid({ name, guid }, entityId, nuid, x, y, rotation, velocity, filename, health, isPolymorphed)
+
+        -- sendAck(data.networkMessageId, peer)
         CustomProfiler.stop("Server.onConnect", cpc04)
     end
 
@@ -256,8 +256,6 @@ function Server.new(sockServer)
             error(("onDisconnect data is empty: %s"):format(data), 3)
         end
 
-        -- sendAck(data.networkMessageId, peer)
-
         logger:debug(logger.channels.network, "Disconnected from server!", util.pformat(data))
         -- Let the other clients know, that one client disconnected
         self:sendToAllBut(peer, NetworkUtils.events.disconnect2.name,
@@ -269,6 +267,7 @@ function Server.new(sockServer)
         -- clear acknowledge cache for disconnected peer
         peer.acknowledge = nil
 
+        -- sendAck(data.networkMessageId, peer)
         CustomProfiler.stop("Server.onDisconnect", cpc05)
     end
 
@@ -323,8 +322,6 @@ function Server.new(sockServer)
             data.guid = newGuid
         end
 
-        sendAck(data.networkMessageId, peer, NetworkUtils.events.playerInfo.name)
-
         for i, client in pairs(self.clients) do
             if client == peer then
                 self.clients[i].name = data.name
@@ -334,6 +331,8 @@ function Server.new(sockServer)
                 Guid:addGuidToCache(data.guid)
             end
         end
+
+        sendAck(data.networkMessageId, peer, NetworkUtils.events.playerInfo.name)
         CustomProfiler.stop("Server.onPlayerInfo", cpc06)
     end
 
@@ -389,8 +388,6 @@ function Server.new(sockServer)
             error(("onNewNuid data.isPolymorphed is empty: %s"):format(data.isPolymorphed), 3)
         end
 
-        sendAck(data.networkMessageId, peer, NetworkUtils.events.needNuid.name)
-
         local owner         = data.owner
         local localEntityId = data.localEntityId
         local x             = data.x
@@ -405,6 +402,8 @@ function Server.new(sockServer)
         self.sendNewNuid(owner, localEntityId, newNuid, x, y, rotation, velocity, filename, health, isPolymorphed)
         EntityUtils.spawnEntity(owner, newNuid, x, y, rotation, velocity, filename, localEntityId, health,
                                 isPolymorphed)
+
+        sendAck(data.networkMessageId, peer, NetworkUtils.events.needNuid.name)
         CustomProfiler.stop("Server.onNeedNuid", cpc07)
     end
 
@@ -445,6 +444,8 @@ function Server.new(sockServer)
 
         self.sendNewNuid({ compOwnerName, compOwnerGuid },
                          "unknown", nuid, x, y, rotation, velocity, filename, health, isPolymorphed)
+
+        sendAck(data.networkMessageId, peer, NetworkUtils.events.lostNuid.name)
         CustomProfiler.stop("Server.onLostNuid", cpc08)
     end
 
@@ -489,8 +490,6 @@ function Server.new(sockServer)
             error(("onNewNuid data.health is empty: %s"):format(data.health), 3)
         end
 
-        --sendAck(data.networkMessageId, peer)
-
         local owner                = data.owner
         local nnuid, localEntityId = GlobalsUtils.getNuidEntityPair(data.nuid)
         local nuid                 = data.nuid
@@ -503,6 +502,8 @@ function Server.new(sockServer)
         NoitaComponentUtils.setEntityData(localEntityId, x, y, rotation, velocity, health)
 
         --self:sendToAllBut(peer, NetworkUtils.events.entityData.name, data)
+
+        --sendAck(data.networkMessageId, peer)
         CustomProfiler.stop("Server.onEntityData", cpc09)
     end
 
@@ -514,8 +515,11 @@ function Server.new(sockServer)
             if util.IsEmpty(deadNuid) or deadNuid == "nil" then
                 logger:error(logger.channels.network, ("onDeadNuids deadNuid is empty: %s"):format(deadNuid), 3)
             else
-                EntityUtils.destroyByNuid(peer, deadNuid)
+                if peer then
+                    EntityUtils.destroyByNuid(peer, deadNuid)
+                end
                 GlobalsUtils.removeDeadNuid(deadNuid)
+                EntityUtils.removeFromCacheByNuid(deadNuid)
             end
         end
         if peer then
@@ -1025,7 +1029,8 @@ function Server.new(sockServer)
             NetworkUtils.getNextNetworkMessageId(), deadNuids
         }
         self:sendToAll(NetworkUtils.events.deadNuids.name, data)
-        --onDeadNuids(deadNuids, self) TODO: remove?
+        -- peer is nil when server, because a callback is executed manually
+        onDeadNuids(deadNuids, nil)
         CustomProfiler.stop("Server.sendDeadNuids", cpc019)
     end
 
@@ -1062,9 +1067,6 @@ function Server.new(sockServer)
     --- Mainly for profiling. Returns then network cache, aka acknowledge.
     --- @return number cacheSize
     function self.getAckCacheSize()
-        if not self.acknowledge then
-            return 0
-        end
         local count = 0
         for c in pairs(self.clients) do
             for p in pairs(self.clients[c].acknowledge) do
