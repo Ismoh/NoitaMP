@@ -27,13 +27,17 @@ static int l_cacheSize(lua_State *L)
 static int l_cacheWrite(lua_State *L)
 {
     int entityId = luaL_checkint(L, 1);
+    int nuid = lua_tointeger(L, 2);
+    if (nuid == NULL) {
+        nuid = -1;
+    };
     for (int i = 0; i < currentSize; i++)
     {
         CacheEntry *entry = entries + i;
         if (entry->entityId == entityId)
         {
             entry->entityId = entityId;
-            entry->nuid = luaL_checkint(L, 2);
+            entry->nuid = nuid;
             entry->ownerGuid = luaL_checkstring(L, 3);
             entry->ownerName = luaL_checkstring(L, 4);
             entry->filepath = luaL_checkstring(L, 5);
@@ -51,7 +55,7 @@ static int l_cacheWrite(lua_State *L)
     entries = realloc(entries, cacheSize * currentSize);
     CacheEntry *newEntry = entries + (currentSize - 1);
     newEntry->entityId = entityId;
-    newEntry->nuid = luaL_checkint(L, 2);
+    newEntry->nuid = nuid;
     newEntry->ownerGuid = luaL_checkstring(L, 3);
     newEntry->ownerName = luaL_checkstring(L, 4);
     newEntry->filepath = luaL_checkstring(L, 5);
@@ -70,9 +74,13 @@ static void l_createCacheReturnTable(lua_State *L, CacheEntry *entry)
     lua_createtable(L, 0, 4);
     lua_pushinteger(L, entry->entityId);
     lua_setfield(L, -2, "entityId");
-    lua_pushinteger(L, entry->nuid);
-    lua_setfield(L, -2, "nuid");
-
+    if (entry->nuid == -1) {
+        lua_pushnil(L);
+        lua_setfield(L, -2, "nuid");
+    } else {
+        lua_pushinteger(L, entry->nuid);
+        lua_setfield(L, -2, "nuid");
+    }
     lua_pushstring(L, entry->ownerGuid);
     lua_setfield(L, -2, "ownerGuid");
 
