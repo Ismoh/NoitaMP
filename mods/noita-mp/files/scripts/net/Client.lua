@@ -591,7 +591,7 @@ function Client.new(sockClient)
             else
                 EntityUtils.destroyByNuid(self, deadNuid)
                 GlobalsUtils.removeDeadNuid(deadNuid)
-                EntityUtils.removeFromCacheByNuid(deadNuid)
+                cache.deleteNuid(deadNuid)
             end
         end
         CustomProfiler.stop("Client.onDeadNuids", cpc13)

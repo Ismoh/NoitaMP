@@ -519,7 +519,7 @@ function Server.new(sockServer)
                     EntityUtils.destroyByNuid(peer, deadNuid)
                 end
                 GlobalsUtils.removeDeadNuid(deadNuid)
-                EntityUtils.removeFromCacheByNuid(deadNuid)
+                cache.deleteNuid(deadNuid)
             end
         end
         if peer then

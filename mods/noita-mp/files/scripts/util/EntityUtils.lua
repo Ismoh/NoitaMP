@@ -684,10 +684,7 @@ function EntityUtils.destroyByNuid(peer, nuid)
     NetworkUtils.removeFromCacheByEntityId(peer, entityId)
 
     if not EntityUtils.isEntityAlive(entityId) then
-        local cacheIndex = getIndexByEntityId(entityId)
-        if cacheIndex then
-            EntityUtils.transformCache[cacheIndex] = nil
-        end
+        cache.delete(entityId)
         CustomProfiler.stop("EntityUtils.destroyByNuid", cpc)
         return
     end
@@ -700,22 +697,6 @@ function EntityUtils.destroyByNuid(peer, nuid)
 
     cache.deleteNuid(nuid)
     CustomProfiler.stop("EntityUtils.destroyByNuid", cpc)
-end
-
-function EntityUtils.removeFromCacheByNuid(deadNuid)
-    local deadNuid, entityId = GlobalsUtils.getNuidEntityPair(deadNuid)
-    if entityId and type(entityId) == "number" then
-        -- might be kill indicator is set: -entityId -> entityId
-        entityId         = math.abs(entityId)
-        local cacheIndex = getIndexByEntityId(entityId)
-        if cacheIndex then
-            EntityUtils.transformCache[cacheIndex] = nil
-        end
-    else
-        logger:warn(logger.channels.entity,
-                    ("EntityUtils.removeFromCacheByNuid: entityId not found for nuid: %s, entityId: %s")
-                            :format(deadNuid, entityId))
-    end
 end
 
 ------------------------------------------------------------------------------------------------
