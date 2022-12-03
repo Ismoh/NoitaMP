@@ -37,7 +37,6 @@ build = {
       ["files.lib.external.ezgui.string_buffer"] = "files/lib/external/ezgui/string_buffer.lua",
       ["files.lib.external.ezgui.utils"] = "files/lib/external/ezgui/utils.lua",
       ["files.lib.external.json"] = "files/lib/external/json.lua",
-      ["lfs"] = "lua_modules/lib/lua/5.1/lfs.dll",
       ["files.lib.external.lfs_ffi"] = "files/lib/external/lfs_ffi.lua",
       ["files.lib.external.logging"] = "files/lib/external/logging.lua",
       ["files.lib.external.logging.console"] = "files/lib/external/logging/console.lua",
@@ -87,7 +86,27 @@ build = {
       ["files.scripts.util.util"] = "files/scripts/util/util.lua",
       init = "init.lua",
       modSettingsUpdater = "modSettingsUpdater.lua",
-      settings = "settings.lua"
+      settings = "settings.lua",
+      ["tests.config_test"] = "tests/config_test.lua",
+      ["tests.files.scripts.extensions.string_extensions_test"] = "tests/files/scripts/extensions/string_extensions_test.lua",
+      ["tests.files.scripts.extensions.table_extensions_test"] = "tests/files/scripts/extensions/table_extensions_test.lua",
+      ["tests.files.scripts.init.init__test"] = "tests/files/scripts/init/init__test.lua",
+      ["tests.files.scripts.init.init_logger_test"] = "tests/files/scripts/init/init_logger_test.lua",
+      ["tests.files.scripts.init.init_package_loading_test"] = "tests/files/scripts/init/init_package_loading_test.lua",
+      ["tests.files.scripts.net.Server_test"] = "tests/files/scripts/net/Server_test.lua",
+      ["tests.files.scripts.util.EntityUtils_test"] = "tests/files/scripts/util/EntityUtils_test.lua",
+      ["tests.files.scripts.util.GlobalsUtils_test"] = "tests/files/scripts/util/GlobalsUtils_test.lua",
+      ["tests.files.scripts.util.NetworkUtils_test"] = "tests/files/scripts/util/NetworkUtils_test.lua",
+      ["tests.files.scripts.util.NetworkVscUtils_test"] = "tests/files/scripts/util/NetworkVscUtils_test.lua",
+      ["tests.files.scripts.util.NuidUtils_test"] = "tests/files/scripts/util/NuidUtils_test.lua",
+      ["tests.files.scripts.util.file_util_test"] = "tests/files/scripts/util/file_util_test.lua",
+      ["tests.files.scripts.util.guid_test"] = "tests/files/scripts/util/guid_test.lua",
+      ["tests.files.scripts.util.util_test"] = "tests/files/scripts/util/util_test.lua",
+      ["tests.init_test"] = "tests/init_test.lua",
+      ["tests.testAll"] = "tests/testAll.lua"
+   },
+   copy_directories = {
+      "tests"
    }
 }
 test = {

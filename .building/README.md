@@ -20,7 +20,7 @@
    echo Maps to path: %ABS_PATH%
    
    REM // init luarocks
-   %ABS_PATH%\luarocks --lua-version=5.1 init --output=%INIT_PATH% --homepage=https://github.com/Ismoh/NoitaMP --lua-versions=5.1
+   %ABS_PATH%\luarocks --lua-version="5.1" init noita-mp --output="%INIT_PATH%" --homepage="https://github.com/Ismoh/NoitaMP" --lua-versions="5.1" --license="GNU GPL v3"
    ```
    [source](https://stackoverflow.com/questions/1645843/resolve-absolute-path-from-relative-path-and-or-file-name)
 4. Result should look like this:
@@ -42,7 +42,7 @@
 5. If you run `luarocks` in `\NoitaMP\mods\noita-mp` directory, it should work now.
 
 ## Create a rockspec
-luarocks write_rockspec --license="GNU GPL v3" --lua-versions=5.1 --rockspec-format="3.0"
+luarocks write_rockspec --license="GNU GPL v3" --lua-versions="5.1" --rockspec-format="3.0"
 
 ## Run unit test
 luarocks test
