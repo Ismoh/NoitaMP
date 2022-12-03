@@ -422,7 +422,10 @@ function EntityUtils.processAndSyncEntityNetworking()
             local entityId   = --[[EntityGetRootEntity(]]entityIds[entityIndex] --[[)]]
             --[[ Just be double sure and check if entity is alive. If not next entityId ]]--
             if not EntityUtils.isEntityAlive(entityId) then
-                EntityCache.delete(entityId)                break -- work around for continue: repeat until true with break
+                if type(entityId) == "number" then EntityCache.delete(entityId) else
+                    logger:error(logger.channels.entity, ("processAndSyncEntityNetworking: entityId with entityIndex %s was not a number"):format(entityIndex))
+                end
+                break -- work around for continue: repeat until true with break
             end
 
             --[[ Check if this entityId belongs to client ]]--
@@ -695,7 +698,9 @@ function EntityUtils.destroyByNuid(peer, nuid)
         EntityKill(entityId)
     end
 
-    EntityCache.deleteNuid(nuid)
+    if type(nuid) ~= "number" then error(("EntityUtils.destroyByNuid nuid was not a number"), 2) else
+        EntityCache.deleteNuid(nuid)
+    end
     CustomProfiler.stop("EntityUtils.destroyByNuid", cpc)
 end
 
