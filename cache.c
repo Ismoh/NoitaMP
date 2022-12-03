@@ -192,6 +192,6 @@ __declspec(dllexport) int luaopen_noitamp_cache(lua_State *L)
             {"deleteNuid", l_cacheDeleteByNuid},
             {"size", l_cacheSize},
             {NULL, NULL}};
-    luaL_openlib(L, "cache", cachelib, 0);
+    luaL_openlib(L, "EntityCache", cachelib, 0);
     return 1;
 }

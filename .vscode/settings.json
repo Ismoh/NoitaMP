@@ -26,7 +26,8 @@
     "networkMessageId",
     "peer",
     "fu",
-    "util"
+    "util",
+    "EntityCache"
   ],
   "lua.targetVersion": "5.1",
   "editor.defaultFormatter": "esbenp.prettier-vscode",

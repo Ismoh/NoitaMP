@@ -18,7 +18,7 @@ end
 
 if require == nil then
     local cacheData = {}
-    cache = {
+    EntityCache = {
         set = function(entityId, compNuid, compOwnerGuid, compOwnerName, filename, x, y, rotation, velX, velY, currentHealth, maxHealth)
             local cpc = CustomProfiler.start("EntityUtils.CachePolyfillSet")
             for _, value in ipairs(cacheData) do
@@ -422,7 +422,7 @@ function EntityUtils.processAndSyncEntityNetworking()
             local entityId   = --[[EntityGetRootEntity(]]entityIds[entityIndex] --[[)]]
             --[[ Just be double sure and check if entity is alive. If not next entityId ]]--
             if not EntityUtils.isEntityAlive(entityId) then
-                cache.delete(entityId)                break -- work around for continue: repeat until true with break
+                EntityCache.delete(entityId)                break -- work around for continue: repeat until true with break
             end
 
             --[[ Check if this entityId belongs to client ]]--
@@ -444,7 +444,7 @@ function EntityUtils.processAndSyncEntityNetworking()
                  depending on config.lua: EntityUtils.include and EntityUtils.exclude ]]--
             local exclude  = true
             local filename = EntityGetFilename(entityId)
-            local cachedValue = cache.get(entityId)
+            local cachedValue = EntityCache.get(entityId)
             -- if already in cache, ignore it, because it was already processed
             if cachedValue and cachedValue.entityId == entityId then
                 exclude = false
@@ -545,7 +545,7 @@ function EntityUtils.processAndSyncEntityNetworking()
                         changed = true
                     end
                 end
-                cache.set(entityId, compNuid, compOwnerGuid, compOwnerName, filename, x, y, rotation, velocity.x, velocity.y, health.current, health.max)
+                EntityCache.set(entityId, compNuid, compOwnerGuid, compOwnerName, filename, x, y, rotation, velocity.x, velocity.y, health.current, health.max)
                 if changed then
                     NetworkUtils.getClientOrServer().sendEntityData(entityId)
                 end
@@ -684,7 +684,7 @@ function EntityUtils.destroyByNuid(peer, nuid)
     NetworkUtils.removeFromCacheByEntityId(peer, entityId)
 
     if not EntityUtils.isEntityAlive(entityId) then
-        cache.delete(entityId)
+        EntityCache.delete(entityId)
         CustomProfiler.stop("EntityUtils.destroyByNuid", cpc)
         return
     end
@@ -695,7 +695,7 @@ function EntityUtils.destroyByNuid(peer, nuid)
         EntityKill(entityId)
     end
 
-    cache.deleteNuid(nuid)
+    EntityCache.deleteNuid(nuid)
     CustomProfiler.stop("EntityUtils.destroyByNuid", cpc)
 end
 
