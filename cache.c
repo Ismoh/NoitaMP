@@ -19,7 +19,7 @@ typedef struct CacheEntry
 
 CacheEntry *entries;
 int currentSize = 0;
-static int l_cacheSize(lua_State *L) 
+static int l_cacheSize(lua_State *L)
 {
     lua_pushinteger(L, currentSize);
     return 1;
@@ -28,7 +28,8 @@ static int l_cacheWrite(lua_State *L)
 {
     int entityId = luaL_checkint(L, 1);
     int nuid = lua_tointeger(L, 2);
-    if (nuid == NULL) {
+    if (nuid == NULL)
+    {
         nuid = -1;
     };
     for (int i = 0; i < currentSize; i++)
@@ -74,10 +75,13 @@ static void l_createCacheReturnTable(lua_State *L, CacheEntry *entry)
     lua_createtable(L, 0, 4);
     lua_pushinteger(L, entry->entityId);
     lua_setfield(L, -2, "entityId");
-    if (entry->nuid == -1) {
+    if (entry->nuid == -1)
+    {
         lua_pushnil(L);
         lua_setfield(L, -2, "nuid");
-    } else {
+    }
+    else
+    {
         lua_pushinteger(L, entry->nuid);
         lua_setfield(L, -2, "nuid");
     }
@@ -104,7 +108,7 @@ static void l_createCacheReturnTable(lua_State *L, CacheEntry *entry)
 
     lua_pushnumber(L, entry->rotation);
     lua_setfield(L, -2, "rotation");
-    
+
     lua_pushnumber(L, entry->currentHealth);
     lua_setfield(L, -2, "currentHealth");
 
@@ -153,7 +157,7 @@ static int l_cacheDeleteByEntityId(lua_State *L)
         {
             memmove(entries + i + 1, entries + i, ((currentSize - 1) - i) * cacheSize);
             currentSize--;
-            realloc(entries, cacheSize * currentSize);
+            entries = realloc(entries, cacheSize * currentSize);
             lua_pushboolean(L, 1);
             return 1;
         };
@@ -172,7 +176,7 @@ static int l_cacheDeleteByNuid(lua_State *L)
         {
             memmove(entries + i + 1, entries + i, ((currentSize - 1) - i) * cacheSize);
             currentSize--;
-            realloc(entries, cacheSize * currentSize);
+            entries = realloc(entries, cacheSize * currentSize);
             lua_pushboolean(L, 1);
             return 1;
         };
