@@ -922,6 +922,17 @@ function Client.new(sockClient)
 
     function self.sendNeedNuid(ownerName, ownerGuid, entityId)
         local cpc20 = CustomProfiler.start("Client.sendNeedNuid")
+
+        if not ownerName then
+            error("ownerName is nil")
+        end
+        if not ownerGuid then
+            error("ownerGuid is nil")
+        end
+        if not entityId then
+            error("entityId is nil")
+        end
+
         if not EntityUtils.isEntityAlive(entityId) then
             return
         end
