@@ -1,4 +1,6 @@
-# Install luarocks on Windows
+# Install luarocks on Windows with Lua 5.1 and LuaJIT-2.0.4
+
+## Install and init luarocks
 
 1. Open `cmd.exe` as *administrator*
 2. Change directory to `NoitaMP\mods\noita-mp`, like `cd fullPathTo\NoitaMP\mods\noita-mp`.
@@ -22,7 +24,7 @@
    REM // init luarocks
    %ABS_PATH%\luarocks --lua-version="5.1" init noita-mp --output="%INIT_PATH%" --homepage="https://github.com/Ismoh/NoitaMP" --lua-versions="5.1" --license="GNU GPL v3"
    ```
-   [source](https://stackoverflow.com/questions/1645843/resolve-absolute-path-from-relative-path-and-or-file-name)
+   [source for above](https://stackoverflow.com/questions/1645843/resolve-absolute-path-from-relative-path-and-or-file-name)
 4. Result should look like this:
    ```cmd
    Initializing project 'noita-mp' for Lua 5.1 ...
@@ -39,7 +41,24 @@
    Preparing ./luarocks.bat ...
    Preparing ./lua.bat for version 5.1...
    ```
-5. If you run `luarocks` in `\NoitaMP\mods\noita-mp` directory, it should work now.
+5. If you run `luarocks` in `NoitaMP\mods\noita-mp` directory, it should work now.
+
+## Make use of LuaJIT-2.0.4
+1. Check LuaJITs doc for compiling it on [Windows](https://luajit.org/install.html#windows).
+2. After compiling LuaJIT, copy the following files into destination directory: ([Double check here on 3.](https://gist.github.com/Egor-Skriptunoff/cb952f7eaf39b7b1bf739b818ece87cd))
+   - `luajit.exe` and `lua51.dll` (`lua51.lib`?) into `NoitaMP\LuaJIT-2.0.4\bin`
+   - Install jit.* modules by copying `NoitaMP\.building\LuaJIT-2.0.4\src\jit` into `NoitaMP\LuaJIT-2.0.4\jit`
+   - Add includes by copying `lauxlib.h`, `lua.h`, `lua.hpp`, `luaconf.h`, `lualib.h` from `NoitaMP\.building\LuaJIT-2.0.4\src` into `NoitaMP\LuaJIT-2.0.4\include`
+3. Change `config-5.1.lua` like so, but use your local absolute path to `NoitaMP\LuaJIT-2.0.4\`:
+   ```lua
+   lua_interpreter = "luajit.exe"
+   variables = {
+    LUA_BINDIR = "yourAbsolutePathTo\\NoitaMP\\LuaJIT-2.0.4\\bin", -- LUA_BINDIR = "C:\\msys64\\mingw32\\bin",
+    LUA_DIR = "yourAbsolutePathTo\\NoitaMP\\LuaJIT-2.0.4", -- LUA_DIR = "C:\\msys64\\mingw32",
+    LUA_INCDIR = "yourAbsolutePathTo\\NoitaMP\\LuaJIT-2.0.4\\include" -- LUA_INCDIR = "C:\\msys64\\mingw32/include/lua5.1"
+   }
+   ```
+4. Run `luarocks` in `\NoitaMP\mods\noita-mp` directory again. Done!
 
 ## Create a rockspec
 luarocks write_rockspec --license="GNU GPL v3" --lua-versions="5.1" --rockspec-format="3.0"

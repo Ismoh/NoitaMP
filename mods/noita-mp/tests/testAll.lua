@@ -2,13 +2,13 @@ dofile("../noita-mp/files/scripts/init/init_package_loading.lua")
 
 local lfs = require("lfs")
 
-function showFolder(folder)
-    print('=====================  ' .. folder)
-    local path = system.pathForFile(folder, system.ResourceDirectory)
-    for file in lfs.dir(path) do
-        print(file)
-    end
-end
+--function showFolder(folder)
+--    print('=====================  ' .. folder)
+--    local path = system.pathForFile(folder, system.ResourceDirectory)
+--    for file in lfs.dir(path) do
+--        print(file)
+--    end
+--end
 
 local isWindows = string.find(os.getenv("OS"), "indows")
 
