@@ -65,3 +65,7 @@ luarocks write_rockspec --license="GNU GPL v3" --lua-versions="5.1" --rockspec-f
 
 ## Run unit test
 luarocks test
+
+
+## Check for updates on dependencies
+Run `luarocks list` in `NoitaMP\mods\noita-mp` directory.

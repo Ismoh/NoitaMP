@@ -9,7 +9,8 @@ description = {
    license = "GNU GPL v3"
 }
 dependencies = {
-   "lua ~> 5.1"
+   "lua ~> 5.1",
+   "nsew = 0.0.4",
 }
 build = {
    type = "builtin",
