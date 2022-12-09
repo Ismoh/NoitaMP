@@ -1,7 +1,9 @@
 #include ".building/LuaJIT-2.0.4/src/lua.h"
 #include ".building/LuaJIT-2.0.4/src/lauxlib.h"
-#define cacheSize sizeof(CacheEntry)
-typedef struct CacheEntry
+
+#pragma region EntityCache
+#define entityCacheSize sizeof(EntityCacheEntry)
+typedef struct EntityCacheEntry
 {
     int entityId;
     int nuid;
@@ -15,21 +17,21 @@ typedef struct CacheEntry
     double velY;
     double currentHealth;
     double maxHealth;
-} CacheEntry;
+} EntityCacheEntry;
 
-CacheEntry *entries;
-int currentSize = 0;
-static int l_cacheSize(lua_State *L)
+EntityCacheEntry *entityEntries;
+int entityCurrentSize = 0;
+static int l_entityCacheSize(lua_State *L)
 {
-    lua_pushinteger(L, currentSize);
+    lua_pushinteger(L, entityCurrentSize);
     return 1;
 }
-static int l_cacheUsage(lua_State *L)
+static int l_entityCacheUsage(lua_State *L)
 {
-    lua_pushnumber(L, currentSize * cacheSize);
+    lua_pushnumber(L, entityCurrentSize * entityCacheSize);
     return 1;
 }
-static int l_cacheWrite(lua_State *L)
+static int l_entityCacheWrite(lua_State *L)
 {
     int entityId = luaL_checkint(L, 1);
     int nuid = lua_tointeger(L, 2);
@@ -37,9 +39,9 @@ static int l_cacheWrite(lua_State *L)
     {
         nuid = -1;
     };
-    for (int i = 0; i < currentSize; i++)
+    for (int i = 0; i < entityCurrentSize; i++)
     {
-        CacheEntry *entry = entries + i;
+        EntityCacheEntry *entry = entityEntries + i;
         if (entry->entityId == entityId)
         {
             entry->entityId = entityId;
@@ -57,9 +59,9 @@ static int l_cacheWrite(lua_State *L)
             return 0;
         };
     }
-    ++currentSize;
-    entries = realloc(entries, cacheSize * currentSize);
-    CacheEntry *newEntry = entries + (currentSize - 1);
+    ++entityCurrentSize;
+    entityEntries = realloc(entityEntries, entityCacheSize * entityCurrentSize);
+    EntityCacheEntry *newEntry = entityEntries + (entityCurrentSize - 1);
     newEntry->entityId = entityId;
     newEntry->nuid = nuid;
     newEntry->ownerGuid = luaL_checkstring(L, 3);
@@ -75,7 +77,7 @@ static int l_cacheWrite(lua_State *L)
     return 0;
 }
 
-static void l_createCacheReturnTable(lua_State *L, CacheEntry *entry)
+static void l_createEntityCacheReturnTable(lua_State *L, EntityCacheEntry *entry)
 {
     lua_createtable(L, 0, 4);
     lua_pushinteger(L, entry->entityId);
@@ -120,12 +122,12 @@ static void l_createCacheReturnTable(lua_State *L, CacheEntry *entry)
     lua_pushnumber(L, entry->maxHealth);
     lua_setfield(L, -2, "maxHealth");
 }
-static int l_cacheReadByEntityId(lua_State *L)
+static int l_entityCacheReadByEntityId(lua_State *L)
 {
     int idToSearch = luaL_checkinteger(L, 1);
-    for (int i = 0; i < currentSize; i++)
+    for (int i = 0; i < entityCurrentSize; i++)
     {
-        CacheEntry *entry = entries + i;
+        EntityCacheEntry *entry = entityEntries + i;
         if (entry->entityId == idToSearch)
         {
             l_createCacheReturnTable(L, entry);
@@ -136,12 +138,12 @@ static int l_cacheReadByEntityId(lua_State *L)
     return 1;
 }
 
-static int l_cacheReadByNuid(lua_State *L)
+static int l_entityCacheReadByNuid(lua_State *L)
 {
     int idToSearch = luaL_checkinteger(L, 1);
-    for (int i = 0; i < currentSize; i++)
+    for (int i = 0; i < entityCurrentSize; i++)
     {
-        CacheEntry *entry = entries + i;
+        EntityCacheEntry *entry = entityEntries + i;
         if (entry->nuid == idToSearch)
         {
             l_createCacheReturnTable(L, entry);
@@ -152,17 +154,17 @@ static int l_cacheReadByNuid(lua_State *L)
     return 1;
 }
 
-static int l_cacheDeleteByEntityId(lua_State *L)
+static int l_entityCacheDeleteByEntityId(lua_State *L)
 {
     int idToSearch = luaL_checkinteger(L, 1);
-    for (int i = 0; i < currentSize; i++)
+    for (int i = 0; i < entityCurrentSize; i++)
     {
-        CacheEntry *entry = entries + i;
+        EntityCacheEntry *entry = entityEntries + i;
         if (entry->entityId == idToSearch)
         {
-            memmove(entries + i + 1, entries + i, ((currentSize - 1) - i) * cacheSize);
-            currentSize--;
-            entries = realloc(entries, cacheSize * currentSize);
+            memmove(entityEntries + i + 1, entityEntries + i, ((entityCurrentSize - 1) - i) * entityCacheSize);
+            entityCurrentSize--;
+            entityEntries = realloc(entityEntries, entityCacheSize * entityCurrentSize);
             lua_pushboolean(L, 1);
             return 1;
         };
@@ -171,17 +173,17 @@ static int l_cacheDeleteByEntityId(lua_State *L)
     return 1;
 }
 
-static int l_cacheDeleteByNuid(lua_State *L)
+static int l_entityCacheDeleteByNuid(lua_State *L)
 {
     int idToSearch = luaL_checkinteger(L, 1);
-    for (int i = 0; i < currentSize; i++)
+    for (int i = 0; i < entityCurrentSize; i++)
     {
-        CacheEntry *entry = entries + i;
+        EntityCacheEntry *entry = entityEntries + i;
         if (entry->nuid == idToSearch)
         {
-            memmove(entries + i + 1, entries + i, ((currentSize - 1) - i) * cacheSize);
-            currentSize--;
-            entries = realloc(entries, cacheSize * currentSize);
+            memmove(entityEntries + i + 1, entityEntries + i, ((entityCurrentSize - 1) - i) * entityCacheSize);
+            entityCurrentSize--;
+            entityEntries = realloc(entityEntries, entityCacheSize * entityCurrentSize);
             lua_pushboolean(L, 1);
             return 1;
         };
@@ -189,19 +191,23 @@ static int l_cacheDeleteByNuid(lua_State *L)
     lua_pushboolean(L, 0);
     return 1;
 }
+#pragma endregion
+#pragma region NetworkCache
+#pragma endregion
 
 __declspec(dllexport) int luaopen_noitamp_cache(lua_State *L)
 {
-    static const luaL_reg cachelib[] =
+    static const luaL_reg eCachelib[] =
         {
-            {"set", l_cacheWrite},
-            {"get", l_cacheReadByEntityId},
-            {"getNuid", l_cacheReadByNuid},
-            {"delete", l_cacheDeleteByEntityId},
-            {"deleteNuid", l_cacheDeleteByNuid},
-            {"size", l_cacheSize},
-            {"usage", l_cacheUsage},
+            {"set", l_entityCacheWrite},
+            {"get", l_entityCacheReadByEntityId},
+            {"getNuid", l_entityCacheReadByNuid},
+            {"delete", l_entityCacheDeleteByEntityId},
+            {"deleteNuid", l_entityCacheDeleteByNuid},
+            {"size", l_entityCacheSize},
+            {"usage", l_entityCacheUsage},
             {NULL, NULL}};
-    luaL_openlib(L, "EntityCache", cachelib, 0);
+    luaL_openlib(L, "EntityCache", eCachelib, 0);
     return 1;
 }
+
