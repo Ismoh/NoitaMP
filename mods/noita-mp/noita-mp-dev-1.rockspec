@@ -10,7 +10,7 @@ description = {
 }
 dependencies = {
    "lua ~> 5.1",
-   "nsew = 0.0.4",
+   "Noita-Synchronise-Expansive-Worlds = 0.0.4",
 }
 build = {
    type = "builtin",

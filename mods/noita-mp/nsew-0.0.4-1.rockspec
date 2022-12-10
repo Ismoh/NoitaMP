@@ -1,8 +1,9 @@
 rockspec_format = "3.0"
-package = "Noita-Synchronise-Expansive-Worlds"
-version = "dev-1"
+package = "nsew"
+version = "0.0.4-1"
 source = {
-    url = "git://github.com/dextercd/Noita-Synchronise-Expansive-Worlds"
+    url = "git://github.com/dextercd/Noita-Synchronise-Expansive-Worlds",
+    tag = "0.0.4"
 }
 description = {
     homepage = "https://github.com/dextercd/Noita-Synchronise-Expansive-Worlds",

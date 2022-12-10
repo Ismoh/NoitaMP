@@ -69,3 +69,7 @@ luarocks test
 
 ## Check for updates on dependencies
 Run `luarocks list` in `NoitaMP\mods\noita-mp` directory.
+
+
+## Install all dependencies defined in noita-mp-*.rockspec
+Run `luarocks install --only-deps noita-mp-*.rockspec`. Replace `*` with the version number of the rockspec.
