@@ -15,7 +15,7 @@ jobs:
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
           
-      - uses: actions/checkout@v3.1.0
+      - uses: actions/checkout@v3.2.0
       
       - name: Is there a issue linked in "development"?
         id: validator
@@ -118,7 +118,7 @@ jobs:
       futureRelease: ${{ steps.extend_version.outputs.futureRelease }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3.1.0
+      - uses: actions/checkout@v3.2.0
         with:
           fetch-depth: 0
       
@@ -202,7 +202,7 @@ jobs:
     name: Update CHANGELOG.md
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3.1.0
+      - uses: actions/checkout@v3.2.0
         with:
           fetch-depth: 0
       
