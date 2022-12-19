@@ -1,6 +1,6 @@
 rockspec_format = "3.0"
 package = "noita-mp"
-version = "dev-1"
+version = "2.7.0-2" -- Needs to be updated manually and the same as in `.version` file.
 source = {
    url = "git+https://github.com/Ismoh/NoitaMP.git"
 }
@@ -10,7 +10,9 @@ description = {
 }
 dependencies = {
    "lua ~> 5.1",
-   "nsew = 0.0.4",
+   "luafilesystem = 1.8.0-1",
+   "luafilesystem-ffi = scm-1",
+   "luaunit = 3.4-1",
 }
 build = {
    type = "builtin",

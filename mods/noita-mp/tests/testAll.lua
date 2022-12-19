@@ -51,7 +51,7 @@ else
     error("Not implemented yet, because OS is not Windows. :(")
 end
 
-local testFiles = showFolder(lfs.currentdir() .. "/tests/")
+--local testFiles = showFolder(lfs.currentdir() .. "/tests/")
 local testFiles = scanDir(noitaMpDirectory .. "/tests/")
 for i, file in ipairs(testFiles) do
     if string.find(file, "test") then
