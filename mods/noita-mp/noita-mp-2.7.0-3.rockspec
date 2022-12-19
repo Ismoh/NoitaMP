@@ -1,6 +1,6 @@
 rockspec_format = "3.0"
 package         = "noita-mp"
-version         = "2.7.0-2" -- Needs to be updated manually and the same as in `.version` file.
+version         = "2.7.0-3" -- Needs to be updated manually and the same as in `.version` file.
 source          = {
     url = "git+https://github.com/Ismoh/NoitaMP.git"
 }
@@ -66,10 +66,10 @@ build           = {
         ["tests.files.scripts.util.guid_test"]                    = "tests/files/scripts/util/guid_test.lua",
         ["tests.files.scripts.util.util_test"]                    = "tests/files/scripts/util/util_test.lua",
         ["tests.init_test"]                                       = "tests/init_test.lua",
-        ["tests.testAll"]                                         = "tests/testAll.lua"
+        ["tests.startUnitTests"]                                  = "tests/startUnitTests.lua"
     },
 }
 test            = {
     type   = "command",
-    script = "tests/testAll.lua",
+    script = "tests/startUnitTests.lua",
 }
