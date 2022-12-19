@@ -61,7 +61,7 @@
 4. Run `luarocks` in `\NoitaMP\mods\noita-mp` directory again. Done!
 
 ## Create a rockspec
-luarocks write_rockspec --license="GNU GPL v3" --lua-versions="5.1" --rockspec-format="3.0"
+`luarocks write_rockspec --license="GNU GPL v3" --lua-versions="5.1" --rockspec-format="3.0"`
 
 ## Run unit test
 luarocks test
