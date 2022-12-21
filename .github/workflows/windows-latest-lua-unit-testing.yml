@@ -34,6 +34,8 @@ jobs:
           echo Maps to path: %ABS_PATH%
   
           REM // change luarocks config
+          %ABS_PATH%\luarocks config --local lua_interpreter luajit.exe
+          %ABS_PATH%\luarocks config --local lua_dir %INIT_PATH%\..\..\LuaJIT-2.0.4
           %ABS_PATH%\luarocks config --local variables.LUA_BINDIR %INIT_PATH%\..\..\LuaJIT-2.0.4\bin
           %ABS_PATH%\luarocks config --local variables.LUA_DIR %INIT_PATH%\..\..\LuaJIT-2.0.4
           %ABS_PATH%\luarocks config --local variables.LUA_INCDIR %INIT_PATH%\..\..\LuaJIT-2.0.4\include
