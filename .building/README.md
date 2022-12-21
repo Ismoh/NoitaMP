@@ -22,7 +22,7 @@
    echo Maps to path: %ABS_PATH%
    
    REM // init luarocks
-   %ABS_PATH%\luarocks --lua-dir="%ABS_PATH\..\..\LuaJIT-2.0.4\bin\" --lua-version="5.1" init noita-mp --output="%INIT_PATH%" --homepage="https://github.com/Ismoh/NoitaMP" --lua-versions="5.1" --license="GNU GPL v3"
+   %ABS_PATH%\luarocks --lua-dir="%ABS_PATH%\..\..\LuaJIT-2.0.4\bin\" --lua-version="5.1" init noita-mp --output="%INIT_PATH%" --homepage="https://github.com/Ismoh/NoitaMP" --lua-versions="5.1" --license="GNU GPL v3"
    ```
    [source for above](https://stackoverflow.com/questions/1645843/resolve-absolute-path-from-relative-path-and-or-file-name)
 4. Result should look like this:
