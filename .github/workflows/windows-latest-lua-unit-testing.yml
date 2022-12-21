@@ -53,6 +53,8 @@ jobs:
         run: |
           cd ${{ github.workspace}}\mods\noita-mp\
           luarocks test > result.log
+          
+          type result.log
         
           # https://timheuer.com/blog/manually-force-a-failure-in-github-action-step/
           $testFail = Select-String -Path ${{ github.workspace }}\mods\noita-mp\result.log -Pattern 'FAIL' -CaseSensitive
@@ -70,8 +72,6 @@ jobs:
           echo "steps.lua_unit_tests.outputs.fail = ${{ steps.lua_unit_tests.outputs.fail }}"
           echo "steps.lua_unit_tests.outputs.error = ${{ steps.lua_unit_tests.outputs.error }}"
           echo "steps.lua_unit_tests.outputs.not_found = ${{ steps.lua_unit_tests.outputs.not_found }}"
-          echo "Unit tests failed!"
-          # exit 1
       
       - name: Install dependencies
         shell: cmd
@@ -82,21 +82,20 @@ jobs:
           luarocks install dkjson
           luarocks install luafilesystem
           luarocks install luacov-coveralls
-          ls -R
       
       - name: Generate coverage report with luacov
         run: |
           dir -Path ${{ github.workspace }}\mods\noita-mp\tests -Filter *.lua -Recurse | %{& '${{ github.workspace }}\mods\noita-mp\lua.bat' -lluacov $_.FullName -o text --verbose }
         
-          Start-Process -FilePath "${{ env.lua_install_bin_dir }}\luacov.bat" -Wait -NoNewWindow
+          Start-Process -FilePath "${{ github.workspace }}\mods\noita-mp\lua.bat" -Wait -NoNewWindow
       
-      # - name: Generate coverage report with luacov-coveralls
-      #   shell: cmd
-      #   env:
-      #     COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #     COVERALLS_DEBUG: true
-      #   run: |
-      #     ${{ env.lua_install_bin_dir }}\luacov-coveralls.bat -v
+      - name: Generate coverage report with luacov-coveralls
+        shell: cmd
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COVERALLS_DEBUG: true
+        run: |
+          ${{ github.workspace }}\mods\noita-mp\lua_modules\bin\luacov-coveralls.bat -v
       
       - name: Fix codecov path issue
         # shell: pwsh
