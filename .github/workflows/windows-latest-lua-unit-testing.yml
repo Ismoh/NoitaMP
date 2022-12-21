@@ -1,36 +1,36 @@
 name: Windows Lua Unit Testing
 
-on: [push, pull_request]
+on: [ push, pull_request ]
 
 jobs:
   lua-unit-testing-on-windows-latest:
     name: "LuaUnit on Windows-latest (mingw32)"
     runs-on: windows-latest
-
+    
     steps:
       - uses: actions/checkout@v3.1.0
-
+      
       - name: Dump GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
         run: echo "$GITHUB_CONTEXT"
-        
+      
       - name: Run LuaUnit 3.4
         id: lua_unit_tests
         run: |
-          ls -R
+          cd ${{ github.workspace}}\mods\noita-mp\
           luarocks test > result.log
-
+        
           # https://timheuer.com/blog/manually-force-a-failure-in-github-action-step/
-          $testFail = Select-String -Path ${{ github.workspace }}\.testing\testresult.log -Pattern 'FAIL' -CaseSensitive
+          $testFail = Select-String -Path ${{ github.workspace }}\mods\noita-mp\result.log -Pattern 'FAIL' -CaseSensitive
           echo "{fail}={$testFail}" >> $GITHUB_OUTPUT
-
-          $testError = Select-String -Path ${{ github.workspace }}\.testing\testresult.log -Pattern 'ERROR' -CaseSensitive
+        
+          $testError = Select-String -Path ${{ github.workspace }}\mods\noita-mp\result.log -Pattern 'ERROR' -CaseSensitive
           echo "{error}={$testError}" >> $GITHUB_OUTPUT
-
-          $notFound = Get-Content -Path ${{ github.workspace }}\.testing\testresult.log
+        
+          $notFound = Get-Content -Path ${{ github.workspace }}\mods\noita-mp\result.log
           echo "{not_found}={$notFound}" >> $GITHUB_OUTPUT
-
+      
       - name: Unit test failed?
         if: ${{ steps.lua_unit_tests.outputs.fail != '' || steps.lua_unit_tests.outputs.error != '' || steps.lua_unit_tests.outputs.not_found == '' }}
         run: |
@@ -39,33 +39,22 @@ jobs:
           echo "steps.lua_unit_tests.outputs.not_found = ${{ steps.lua_unit_tests.outputs.not_found }}"
           echo "Unit tests failed!"
           # exit 1
-
-      - name: Install luarocks 3.8.0
-        run: |
-          Invoke-WebRequest -Uri "http://luarocks.github.io/luarocks/releases/luarocks-3.8.0-windows-32.zip" -OutFile "${{ github.workspace }}\luarocks-3.8.0-win32.zip"
-          Expand-Archive -Path ${{ github.workspace }}\luarocks-3.8.0-win32.zip -DestinationPath "${{ env.temp_dir }}"
-
-          Start-Process -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-windows-32\luarocks.exe" -ArgumentList " --version " -Wait -NoNewWindow
-
+      
       - name: Install dependencies
         run: |
-          #echo "C:\msys64\mingw32\bin" >> $GITHUB_PATH
-          #cp C:\ProgramData\chocolatey\lib\mingw\tools\install\mingw64\bin\x86_64-w64-mingw32-gcc.exe C:\ProgramData\chocolatey\lib\mingw\tools\install\mingw64\bin\mingw32-gcc.exe
-
-          Start-Process -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-windows-32\luarocks.exe" -ArgumentList "--lua-dir=${{ env.lua_install_dir }} --lua-version=5.1 --tree=${{ env.lua_install_dir }} install luacov" -Wait -NoNewWindow
-          Start-Process -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-windows-32\luarocks.exe" -ArgumentList "--lua-dir=${{ env.lua_install_dir }} --lua-version=5.1 --tree=${{ env.lua_install_dir }} install lua-path" -Wait -NoNewWindow
-          Start-Process -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-windows-32\luarocks.exe" -ArgumentList "--lua-dir=${{ env.lua_install_dir }} --lua-version=5.1 --tree=${{ env.lua_install_dir }} install dkjson" -Wait -NoNewWindow
-          Start-Process -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-windows-32\luarocks.exe" -ArgumentList "--lua-dir=${{ env.lua_install_dir }} --lua-version=5.1 --tree=${{ env.lua_install_dir }} install luafilesystem" -Wait -NoNewWindow
-          Start-Process -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-windows-32\luarocks.exe" -ArgumentList "--lua-dir=${{ env.lua_install_dir }} --lua-version=5.1 --tree=${{ env.lua_install_dir }} install luacov-coveralls" -Wait -NoNewWindow
-
-          ls -R ${{ env.lua_install_dir }}
-
+          cd ${{ github.workspace}}\mods\noita-mp\
+          luarocks install luacov
+          luarocks install lua-path
+          luarocks install dkjson
+          luarocks install luafilesystem
+          luarocks install luacov-coveralls
+      
       - name: Generate coverage report with luacov
         run: |
           dir -Path ${{ github.workspace }}\.testing\tests -Filter *.lua -Recurse | %{& '${{ env.lua_install_bin_dir }}\luajit.exe' -lluacov $_.FullName -o text --verbose }
-
+        
           Start-Process -FilePath "${{ env.lua_install_bin_dir }}\luacov.bat" -Wait -NoNewWindow
-
+      
       # - name: Generate coverage report with luacov-coveralls
       #   shell: cmd
       #   env:
@@ -73,7 +62,7 @@ jobs:
       #     COVERALLS_DEBUG: true
       #   run: |
       #     ${{ env.lua_install_bin_dir }}\luacov-coveralls.bat -v
-
+      
       - name: Fix codecov path issue
         # shell: pwsh
         run: |
@@ -82,10 +71,10 @@ jobs:
           # $content = $content.Replace("\", "/")
           # $content > ${{ github.workspace }}/luacov.report.out
           # Write-Host $content
-
+          
           $(cat ${{ github.workspace }}/luacov.report.out | sed -e 's_\\_/_g') > ${{ github.workspace }}/luacov.report.out
           cat ${{ github.workspace }}/luacov.report.out
-
+      
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
         with:

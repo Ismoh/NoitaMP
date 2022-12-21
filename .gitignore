@@ -5,10 +5,11 @@
 *.src.rock
 *.zip
 *.tar.gz
+mods/noita-mp/.luarocks
 mods/noita-mp/luarocks.bat
 mods/noita-mp/lua.bat
+/mods/noita-mp/lua_modules/bin/
 mods/noita-mp/lua_modules/lib/luarocks
-mods/noita-mp/.luarocks
 
 # Visual studio folder
 .vs/
