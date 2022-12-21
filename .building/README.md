@@ -21,10 +21,10 @@
    echo Relative path: %REL_PATH%
    echo Maps to path: %ABS_PATH%
    
-   REM // change luarocks config  
-   %ABS_PATH%\luarocks config variables.LUA_BINDIR %INIT_PATH%\..\..\LuaJIT-2.0.4\bin
-   %ABS_PATH%\luarocks config variables.LUA_DIR %INIT_PATH%\..\..\LuaJIT-2.0.4
-   %ABS_PATH%\luarocks config variables.LUA_INCDIR %INIT_PATH%\..\..\LuaJIT-2.0.4\include
+   REM // make use of LuaJIT-2.0.4  
+   %ABS_PATH%\luarocks config --local variables.LUA_BINDIR %INIT_PATH%\..\..\LuaJIT-2.0.4\bin
+   %ABS_PATH%\luarocks config --local variables.LUA_DIR %INIT_PATH%\..\..\LuaJIT-2.0.4
+   %ABS_PATH%\luarocks config --local variables.LUA_INCDIR %INIT_PATH%\..\..\LuaJIT-2.0.4\include
    
    REM // init luarocks
    %ABS_PATH%\luarocks --lua-version="5.1" init noita-mp --output="%INIT_PATH%" --homepage="https://github.com/Ismoh/NoitaMP" --lua-versions="5.1" --license="GNU GPL v3"
