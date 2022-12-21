@@ -39,23 +39,13 @@ jobs:
           
           REM // init luarocks
           %ABS_PATH%\luarocks --lua-dir="%INIT_PATH%\..\..\LuaJIT-2.0.4" --lua-version="5.1" init noita-mp --output="%INIT_PATH%" --homepage="https://github.com/Ismoh/NoitaMP" --lua-versions="5.1" --license="GNU GPL v3"
-          
+  
           REM // change luarocks config
           %ABS_PATH%\luarocks config --scope="project" lua_interpreter luajit.exe
           %ABS_PATH%\luarocks config --scope="project" lua_dir %INIT_PATH%\..\..\LuaJIT-2.0.4
           %ABS_PATH%\luarocks config --scope="project" variables.LUA_BINDIR %INIT_PATH%\..\..\LuaJIT-2.0.4\bin
           %ABS_PATH%\luarocks config --scope="project" variables.LUA_DIR %INIT_PATH%\..\..\LuaJIT-2.0.4
           %ABS_PATH%\luarocks config --scope="project" variables.LUA_INCDIR %INIT_PATH%\..\..\LuaJIT-2.0.4\include
-          
-      - name: Make use of LuaJIT-2.0.4
-        shell: cmd
-        run: |
-          echo 'lua_interpreter = "luajit.exe" ^
-            variables = { ^
-            LUA_BINDIR = "yourAbsolutePathTo\\NoitaMP\\LuaJIT-2.0.4\\bin", -- LUA_BINDIR = "C:\\msys64\\mingw32\\bin", ^
-            LUA_DIR = "yourAbsolutePathTo\\NoitaMP\\LuaJIT-2.0.4", -- LUA_DIR = "C:\\msys64\\mingw32", ^
-            LUA_INCDIR = "yourAbsolutePathTo\\NoitaMP\\LuaJIT-2.0.4\\include" -- LUA_INCDIR = "C:\\msys64\\mingw32/include/lua5.1" ^
-          }' > ${{ github.workspace}}\mods\noita-mp\.luarocks\config-5.1.lua
       
       - name: Run LuaUnit 3.4
         shell: cmd
