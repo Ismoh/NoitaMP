@@ -1,3 +1,5 @@
+local params = ...
+
 local lu   = require("luaunit")
 
 TestServer = {}
@@ -14,4 +16,4 @@ function TestServer:test()
     --
 end
 
-lu.LuaUnit.run()
+lu.LuaUnit.run(params)

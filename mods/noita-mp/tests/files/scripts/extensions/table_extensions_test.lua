@@ -1,3 +1,5 @@
+local params = ...
+
 local lu            = require("luaunit")
 
 TestTableExtensions = {}
@@ -84,4 +86,4 @@ function TestTableExtensions:testSetNoitaMpDefaultMetaMethods()
     lu.assertEquals(t2[5], nil)
 end
 
-lu.LuaUnit.run()
+lu.LuaUnit.run(params)

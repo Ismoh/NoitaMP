@@ -1,5 +1,4 @@
 dofile("../noita-mp/files/scripts/init/init_package_loading.lua")
---dofile("../noita-mp/files/scripts/init/init_.lua")
 
 local lfs = require("lfs")
 
@@ -43,10 +42,13 @@ if not ModSettingGet then
     end
 end
 
+dofile("mods/noita-mp/files/scripts/init/init_.lua")
+
 for _, testFile in ipairs(testFiles) do
     print("")
     print("")
     print("##################################################")
     print("Running test: " .. testFile)
-    dofile(testFile)
+    --dofile(testFile)
+    assert(loadfile(testFile))("--verbose", "--error", "--failure")
 end

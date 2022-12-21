@@ -1,3 +1,5 @@
+local params = ...
+
 local lu           = require("luaunit")
 local NetworkUtils = require("NetworkUtils")
 local sock         = require("sock")
@@ -42,4 +44,4 @@ function TestNetworkUtils:testAlreadySent()
     lu.assertIsTrue(result)
 end
 
-lu.LuaUnit.run()
+lu.LuaUnit.run(params)

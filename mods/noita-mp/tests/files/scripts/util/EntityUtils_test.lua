@@ -1,3 +1,5 @@
+local params = ...
+
 local lu        = require("luaunit")
 
 TestEntityUtils = {}
@@ -10,4 +12,4 @@ function TestEntityUtils:tearDown()
 
 end
 
-lu.LuaUnit.run()
+lu.LuaUnit.run(params)

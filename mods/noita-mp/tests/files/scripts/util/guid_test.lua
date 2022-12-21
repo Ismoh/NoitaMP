@@ -1,3 +1,5 @@
+local params = ...
+
 local lu   = require("luaunit")
 local Guid = require("guid")
 
@@ -43,4 +45,4 @@ function TestGuid:testRandomness()
     end
 end
 
-lu.LuaUnit.run()
+lu.LuaUnit.run(params)

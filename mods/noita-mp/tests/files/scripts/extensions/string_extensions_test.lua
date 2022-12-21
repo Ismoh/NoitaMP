@@ -1,3 +1,5 @@
+local params = ...
+
 local lu = require("luaunit")
 
 TestStringExtensions = {}
@@ -30,4 +32,4 @@ function TestStringExtensions:testExtendAndCutStringToLength()
     lu.assertEquals(actual2, expected2)
 end
 
-lu.LuaUnit.run()
+lu.LuaUnit.run(params)

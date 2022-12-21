@@ -1,3 +1,5 @@
+local params = ...
+
 local lu     = require("luaunit")
 local fu     = require("file_util")
 
@@ -273,4 +275,4 @@ function TestFileUtil:testCreate7zipArchive()
     --fu.Create7zipArchive()
 end
 
-lu.LuaUnit.run()
+lu.LuaUnit.run(params)

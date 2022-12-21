@@ -1,3 +1,5 @@
+local params = ...
+
 local lu = require("luaunit")
 
 TestInit_ = {}
@@ -10,4 +12,4 @@ function TestInit_:tearDown()
 
 end
 
-lu.LuaUnit.run()
+lu.LuaUnit.run(params)

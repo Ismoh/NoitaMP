@@ -1,3 +1,5 @@
+local params = ...
+
 local lu   = require("luaunit")
 local util = require("util")
 
@@ -40,4 +42,4 @@ function TestUtil:testIsEmpty()
     lu.assertIsTrue(util.IsEmpty({}))
 end
 
-lu.LuaUnit.run()
+lu.LuaUnit.run(params)
