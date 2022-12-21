@@ -65,6 +65,7 @@
 
 ## Run unit test
 Change dir to `NoitaMP\mods\noita-mp` and run `luarocks test`.
+If you want to store logs, run `luarocks test > result.log`.
 
 ## Check for updates on dependencies
 Run `luarocks list` in `NoitaMP\mods\noita-mp` directory.
