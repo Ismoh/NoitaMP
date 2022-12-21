@@ -10,12 +10,44 @@ jobs:
     steps:
       - uses: actions/checkout@v3.1.0
       
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJSON(github) }}
-        run: echo "$GITHUB_CONTEXT"
+      #- name: Dump GitHub context
+      #  env:
+      #    GITHUB_CONTEXT: ${{ toJSON(github) }}
+      #  run: echo "$GITHUB_CONTEXT"
+      
+      - name: Install and init luarocks
+        shell: cmd
+        run: |
+          cd ${{ github.workspace}}\mods\noita-mp\
+          set INIT_PATH=%CD%
+          
+          REM // resolve absolute path
+          set REL_PATH=..\..\.building\luarocks-3.9.1-windows-32
+          set ABS_PATH=
+          rem // Save current directory and change to target directory
+          pushd %REL_PATH%
+          rem // Save value of CD variable (current directory)
+          set ABS_PATH=%CD%
+          rem // Restore original directory
+          popd
+          echo Relative path: %REL_PATH%
+          echo Maps to path: %ABS_PATH%
+          
+          REM // init luarocks
+          %ABS_PATH%\luarocks --lua-version="5.1" init noita-mp --output="%INIT_PATH%" --homepage="https://github.com/Ismoh/NoitaMP" --lua-versions="5.1" --license="GNU GPL v3"
+          
+      - name: Make use of LuaJIT-2.0.4
+        shell: cmd
+        run: |
+          echo 'lua_interpreter = "luajit.exe" ^
+            variables = { ^
+            LUA_BINDIR = "yourAbsolutePathTo\\NoitaMP\\LuaJIT-2.0.4\\bin", -- LUA_BINDIR = "C:\\msys64\\mingw32\\bin", ^
+            LUA_DIR = "yourAbsolutePathTo\\NoitaMP\\LuaJIT-2.0.4", -- LUA_DIR = "C:\\msys64\\mingw32", ^
+            LUA_INCDIR = "yourAbsolutePathTo\\NoitaMP\\LuaJIT-2.0.4\\include" -- LUA_INCDIR = "C:\\msys64\\mingw32/include/lua5.1" ^
+          }' > ${{ github.workspace}}\mods\noita-mp\.luarocks\config-5.1.lua
       
       - name: Run LuaUnit 3.4
+        shell: cmd
         id: lua_unit_tests
         run: |
           cd ${{ github.workspace}}\mods\noita-mp\
@@ -41,6 +73,7 @@ jobs:
           # exit 1
       
       - name: Install dependencies
+        shell: cmd
         run: |
           cd ${{ github.workspace}}\mods\noita-mp\
           luarocks install luacov
@@ -48,10 +81,11 @@ jobs:
           luarocks install dkjson
           luarocks install luafilesystem
           luarocks install luacov-coveralls
+          ls -R
       
       - name: Generate coverage report with luacov
         run: |
-          dir -Path ${{ github.workspace }}\.testing\tests -Filter *.lua -Recurse | %{& '${{ env.lua_install_bin_dir }}\luajit.exe' -lluacov $_.FullName -o text --verbose }
+          dir -Path ${{ github.workspace }}\mods\noita-mp\tests -Filter *.lua -Recurse | %{& '${{ github.workspace }}\mods\noita-mp\lua.bat' -lluacov $_.FullName -o text --verbose }
         
           Start-Process -FilePath "${{ env.lua_install_bin_dir }}\luacov.bat" -Wait -NoNewWindow
       
