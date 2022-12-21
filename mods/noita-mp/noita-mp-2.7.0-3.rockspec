@@ -16,7 +16,7 @@ dependencies    = {
 }
 build           = {
     type    = "builtin",
-    modules = {
+    modules = { -- change this to copy_directories? Does package path work without `modules`?
         config                                                    = "config.lua",
         ["files.scripts.DefaultBiomeMap"]                         = "files/scripts/DefaultBiomeMap.lua",
         ["files.scripts.Ui"]                                      = "files/scripts/Ui.lua",

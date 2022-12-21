@@ -1,24 +1,20 @@
----@diagnostic disable: undefined-global
-#!/usr/bin/env lua
-dofile("mods/noita-mp/files/scripts/init/init_.lua")
-
 local lu           = require("luaunit")
 local NetworkUtils = require("NetworkUtils")
-local sock = require("sock")
+local sock         = require("sock")
 
 TestNetworkUtils   = {}
 
 function TestNetworkUtils:setUp()
-    print("\nsetUp")
+
 end
 
 function TestNetworkUtils:tearDown()
-    print("tearDown\n")
+
 end
 
 function TestNetworkUtils:testAlreadySent()
-    local event = NetworkUtils.events.newNuid.name
-    local data  = {
+    local event  = NetworkUtils.events.newNuid.name
+    local data   = {
         networkMessageId = 367,
         owner            = { "ownerName", "ownerGuid" },
         localEntityId    = 4673,
@@ -46,4 +42,4 @@ function TestNetworkUtils:testAlreadySent()
     lu.assertIsTrue(result)
 end
 
-os.exit(lu.LuaUnit.run())
+lu.LuaUnit.run()

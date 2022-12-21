@@ -1,14 +1,10 @@
----@diagnostic disable: param-type-mismatch
-#!/usr/bin/env lua
-dofile("mods/noita-mp/files/scripts/init/init_.lua")
-
-local lu = require("luaunit")
+local lu   = require("luaunit")
 local Guid = require("guid")
 
-TestGuid = {}
+TestGuid   = {}
 
 function TestGuid:setUp()
-    print("\nsetUp")
+
     -- Mock Noita Api global functions
     _G.DebugGetIsDevBuild = function()
         return false
@@ -17,13 +13,13 @@ function TestGuid:setUp()
     --- Mocked in guid_test.lua
     --- @param id string
     --- @return nil nil Returns nil in this case.
-    _G.ModSettingGet = function(id)
+    _G.ModSettingGet      = function(id)
         return nil
     end
 end
 
 function TestGuid:tearDown()
-    print("tearDown\n")
+
 end
 
 function TestGuid:testGetGuid()
@@ -47,4 +43,4 @@ function TestGuid:testRandomness()
     end
 end
 
-os.exit(lu.LuaUnit.run())
+lu.LuaUnit.run()

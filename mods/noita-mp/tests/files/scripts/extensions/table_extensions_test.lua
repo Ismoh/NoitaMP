@@ -1,16 +1,13 @@
-#!/usr/bin/env lua
-dofile("mods/noita-mp/files/scripts/init/init_.lua")
-
 local lu            = require("luaunit")
 
 TestTableExtensions = {}
 
 function TestTableExtensions:setUp()
-    print("\nsetUp")
+
 end
 
 function TestTableExtensions:tearDown()
-    print("tearDown\n")
+
 end
 
 function TestTableExtensions:testTableContains()
@@ -87,4 +84,4 @@ function TestTableExtensions:testSetNoitaMpDefaultMetaMethods()
     lu.assertEquals(t2[5], nil)
 end
 
-os.exit(lu.LuaUnit.run())
+lu.LuaUnit.run()

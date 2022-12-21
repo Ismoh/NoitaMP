@@ -1,15 +1,13 @@
-dofile("mods/noita-mp/files/scripts/init/init_.lua")
-
 local lu = require("luaunit")
 
 TestStringExtensions = {}
 
 function TestStringExtensions:setUp()
-    print("\nsetUp")
+
 end
 
 function TestStringExtensions:tearDown()
-    print("tearDown\n")
+
 end
 
 function TestStringExtensions:testExtendAndCutStringToLength()
@@ -32,4 +30,4 @@ function TestStringExtensions:testExtendAndCutStringToLength()
     lu.assertEquals(actual2, expected2)
 end
 
-os.exit(lu.LuaUnit.run())
+lu.LuaUnit.run()

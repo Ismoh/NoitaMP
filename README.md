@@ -6,22 +6,22 @@
 
 If you want to get notifications, [join](https://discord.gg/DhMurdcw4k) my discord server. There is a MEE6 role assigment for NoitaMP in #noita-modding!
 
-## Badges
-
+---
 <div align="center">
 
 [![latest release](https://img.shields.io/github/v/release/ismoh/noitamp?include_prereleases&label=latest%20release&style=flat-square)](https://github.com/Ismoh/NoitaMP/releases)
-![GitHub release (release name instead of tag name)](https://img.shields.io/github/v/release/ismoh/noitamp?display_name=release&include_prereleases&sort=date&style=flat-square)
-![GitHub tag (latest SemVer pre-release)](https://img.shields.io/github/v/tag/ismoh/noitamp?include_prereleases&sort=semver&style=flat-square)
-![.version](https://img.shields.io/badge/dynamic/json?label=.version&query=version&url=https%3A%2F%2Fraw.githubusercontent.com%2FIsmoh%2FNoitaMP%2Fdevelop%2Fmods%2Fnoita-mp%2F.version&style=flat-square)
+[![GitHub release](https://img.shields.io/github/v/release/ismoh/noitamp?display_name=release&include_prereleases&sort=date&style=flat-square)](https://github.com/Ismoh/NoitaMP/releases)
+[![GitHub tag](https://img.shields.io/github/v/tag/ismoh/noitamp?include_prereleases&sort=semver&style=flat-square)](https://github.com/Ismoh/NoitaMP/tags)
+[![.version](https://img.shields.io/badge/dynamic/json?label=.version&query=version&url=https%3A%2F%2Fraw.githubusercontent.com%2FIsmoh%2FNoitaMP%2Fdevelop%2Fmods%2Fnoita-mp%2F.version&style=flat-square)](https://github.com/Ismoh/NoitaMP/blob/develop/mods/noita-mp/.version)
 [![amount of releases](https://flat.badgen.net/github/releases/ismoh/noitamp)](https://github.com/Ismoh/NoitaMP/releases)
 
 [![last-commit](https://img.shields.io/github/last-commit/ismoh/noitamp?style=flat-square)](https://github.com/Ismoh/NoitaMP/commit/develop)
+[![luarocks-version](https://img.shields.io/badge/luarocks-v3.9.1-brightgreen?style=flat-square)](https://github.com/Ismoh/NoitaMP/blob/develop/.building/luarocks-3.9.1-windows-32)
 
-[![platform](https://img.shields.io/badge/platform-ubuntu%20%7C%20windows-lightgrey?style=flat-square)](https://github.com/Ismoh/NoitaMP)[![ubuntu master](https://img.shields.io/github/workflow/status/ismoh/noitamp/Ubuntu%20Lua%20Unit%20Testing/master?label=&logo=ubuntu&style=flat-square)](https://github.com/Ismoh/NoitaMP/actions/workflows/ubuntu-latest-lua-unit-testing.yml?query=branch%3Amaster)[![windows master](https://img.shields.io/github/workflow/status/ismoh/noitamp/Windows%20Lua%20Unit%20Testing/master?label=&logo=windows&style=flat-square)](https://github.com/Ismoh/NoitaMP/actions/workflows/windows-latest-lua-unit-testing.yml?query=branch%3Amaster)
+[![platform](https://img.shields.io/badge/platform-ubuntu%20%7C%20windows-lightgrey?style=flat-square)](https://github.com/Ismoh/NoitaMP)
+[![ubuntu master](https://img.shields.io/github/workflow/status/ismoh/noitamp/Ubuntu%20Lua%20Unit%20Testing/master?label=&logo=ubuntu&style=flat-square)](https://github.com/Ismoh/NoitaMP/actions/workflows/ubuntu-latest-lua-unit-testing.yml?query=branch%3Amaster)
+[![windows master](https://img.shields.io/github/workflow/status/ismoh/noitamp/Windows%20Lua%20Unit%20Testing/master?label=&logo=windows&style=flat-square)](https://github.com/Ismoh/NoitaMP/actions/workflows/windows-latest-lua-unit-testing.yml?query=branch%3Amaster) [![issues](https://flat.badgen.net/github/issues/ismoh/noitamp)](https://github.com/Ismoh/NoitaMP/issues?q=is%3Aissue)
 
-
-[![issues](https://flat.badgen.net/github/issues/ismoh/noitamp)](https://github.com/Ismoh/NoitaMP/issues?q=is%3Aissue)
 [![open-issues](https://flat.badgen.net/github/open-issues/ismoh/noitamp)](https://github.com/Ismoh/NoitaMP/issues)
 [![open-issues-help-wanted](https://flat.badgen.net/github/label-issues/ismoh/noitamp/help_wanted/open)](https://github.com/Ismoh/NoitaMP/issues?q=is%3Aopen+is%3Aissue+label%3A%22help_wanted%22)
 
@@ -38,6 +38,8 @@ If you want to get notifications, [join](https://discord.gg/DhMurdcw4k) my disco
 [![license](https://flat.badgen.net/github/license/ismoh/noitamp)](https://github.com/Ismoh/NoitaMP/blob/master/LICENSE.md)
 
 </div>
+
+---
 
 I love to play [Noita](https://noitagame.com/)! You should give it a try!
 Usually I like to play with my friends. Truly Noita is made for being a single-player game,

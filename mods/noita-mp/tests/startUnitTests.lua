@@ -1,4 +1,5 @@
 dofile("../noita-mp/files/scripts/init/init_package_loading.lua")
+--dofile("../noita-mp/files/scripts/init/init_.lua")
 
 local lfs = require("lfs")
 
@@ -6,7 +7,7 @@ local lfs = require("lfs")
 function getAllFilesInside(folder)
     local files = {}
     for entry in lfs.dir(folder) do
-        if entry ~= "." and entry ~= ".." then
+        if entry ~= "." and entry ~= ".." and not entry:find("startUnitTests") then
             local path = folder .. "/" .. entry
             local mode = lfs.attributes(path, "mode")
             if mode == "file" then
@@ -27,7 +28,25 @@ end
 
 local testFiles = getAllFilesInside(lfs.currentdir() .. "/tests")
 
+local doFile    = dofile
+if not ModSettingGet then
+    local pathToMods = lfs.currentdir() .. "/../.."
+    print("pathToMods: " .. pathToMods)
+    dofile = function(path)
+        if path:sub(1, 4) == "mods" then
+            local pathToMod = pathToMods .. "/" .. path
+            print("dofile path: " .. pathToMod)
+            return doFile(pathToMod)
+        else
+            return doFile(path)
+        end
+    end
+end
+
 for _, testFile in ipairs(testFiles) do
+    print("")
+    print("")
+    print("##################################################")
     print("Running test: " .. testFile)
     dofile(testFile)
 end

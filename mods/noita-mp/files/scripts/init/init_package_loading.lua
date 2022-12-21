@@ -2,7 +2,7 @@
 
 function getNoitaMpRootDirectory()
     -- Get the current directory of the script or the executable
-    local currentDirectory = io.popen("cd"):read()
+    local currentDirectory = io.popen("cd"):read("*a")
     print("currentDirectory: " .. currentDirectory)
 
     -- Check if we are inside of noita-mp directory. Don't forget to escape the dash!
@@ -45,12 +45,13 @@ local fu                                     = require("file_util")
 --[[ NoitaMP additions ]]
 -- A list of paths to lua script modules
 local paths                                  = {
-    "noita-mp/lua_modules/share/lua/5.1/{module}",
-    "noita-mp/lua_modules/lib/lua/5.1/{module}",
+    noitaMpRootDirectory .. "/lua_modules/share/lua/5.1/{module}",
+    noitaMpRootDirectory .. "/lua_modules/lib/lua/5.1/{module}",
+    noitaMpRootDirectory .. "/files/scripts/util/{module}",
+
+    "mods/noita-mp/lua_modules/share/lua/5.1/{module}",
+    "mods/noita-mp/lua_modules/lib/lua/5.1/{module}",
     "mods/noita-mp/files/{module}",
-    "mods/noita-mp/files/lib/{module}",
-    "mods/noita-mp/files/lib/external/{module}",
-    "mods/noita-mp/files/lib/external/dlls/{module}",
     "mods/noita-mp/files/scripts/{module}",
     "mods/noita-mp/files/scripts/components/{module}",
     "mods/noita-mp/files/scripts/init/{module}",
