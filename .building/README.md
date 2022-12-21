@@ -64,12 +64,11 @@
 `luarocks write_rockspec --license="GNU GPL v3" --lua-versions="5.1" --rockspec-format="3.0"`
 
 ## Run unit test
-luarocks test
-
+Change dir to `NoitaMP\mods\noita-mp` and run `luarocks test`.
 
 ## Check for updates on dependencies
 Run `luarocks list` in `NoitaMP\mods\noita-mp` directory.
 
-
 ## Install all dependencies defined in noita-mp-*.rockspec
 Run `luarocks install --only-deps noita-mp-*.rockspec`. Replace `*` with the version number of the rockspec.
+Simply type in `luarocks install --only-deps noita` and hit tab to autocomplete the rockspec name.
