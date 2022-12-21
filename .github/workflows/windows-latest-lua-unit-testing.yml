@@ -78,9 +78,6 @@ jobs:
         run: |
           cd ${{ github.workspace}}\mods\noita-mp\
           luarocks install luacov && ^
-          luarocks install lua-path && ^
-          luarocks install dkjson && ^
-          luarocks install luafilesystem && ^
           luarocks install luacov-coveralls
       
       - name: Generate coverage report with luacov
