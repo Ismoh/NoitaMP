@@ -32,6 +32,8 @@ jobs:
           popd
           echo Relative path: %REL_PATH%
           echo Maps to path: %ABS_PATH%
+
+          %ABS_PATH%\luarocks init noita-mp
   
           REM // change luarocks config
           %ABS_PATH%\luarocks config --scope="project" lua_interpreter luajit.exe
