@@ -72,6 +72,8 @@ jobs:
           %ABS_PATH%\luarocks config --scope="project" variables.LUA_BINDIR %INIT_PATH%\..\..\LuaJIT-2.0.4\bin
           %ABS_PATH%\luarocks config --scope="project" variables.LUA_DIR %INIT_PATH%\..\..\LuaJIT-2.0.4
           %ABS_PATH%\luarocks config --scope="project" variables.LUA_INCDIR %INIT_PATH%\..\..\LuaJIT-2.0.4\include
+  
+          %ABS_PATH%\luarocks config
       
       - name: Run LuaUnit 3.4
         shell: cmd
