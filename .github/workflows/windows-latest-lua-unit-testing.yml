@@ -30,7 +30,7 @@ jobs:
   
           ### Install binaries
           Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\luajit.exe" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\bin"
-          Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\lua51.dll" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\bin"
+          # Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\lua51.dll" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\bin"
   
           ### modules written in lua
           Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\jit\" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\lua\jit\"
