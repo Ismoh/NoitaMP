@@ -27,7 +27,7 @@ jobs:
   
           ### Build LuaJIT 2.0.4
           cd ${{ github.workspace }}\.building\LuaJIT-2.0.4
-          mingw32-make PLAT=mingw -m32
+          mingw32-make
   
           ### Install binaries
           Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\luajit.exe" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\bin"
