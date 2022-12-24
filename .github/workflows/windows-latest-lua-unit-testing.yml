@@ -9,6 +9,11 @@ jobs:
     
     steps:
       - uses: actions/checkout@v3.1.0
+      - uses: msys2/setup-msys2@v2
+        with:
+          msystem: mingw32
+          install: mingw-w32-i686-mingw32-gcc
+          update: true
   
       #- name: Dump GitHub context
       #  env:
@@ -18,30 +23,27 @@ jobs:
       - name: Build and install LuaJIT-2.0.4
         shell: cmd
         run: |
-          ### https://gist.github.com/Egor-Skriptunoff/cb952f7eaf39b7b1bf739b818ece87cd
-          ### http://lua-users.org/wiki/BuildingLuaInWindowsForNewbies
-  
-          ### Build LuaJIT 2.0.4
+          :: Build LuaJIT 2.0.4
           call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86 10.0.22000.0 -vcvars_ver=14
           cd ${{ github.workspace }}\.building\LuaJIT-2.0.4\src
           msvcbuild
   
-          ### Install binaries
+          :: Install binaries
           Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\luajit.exe" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\bin"
           Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\lua51.dll" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\bin"
   
-          ### modules written in lua
+          :: 'Install' JIT modules
           Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\jit\" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\lua\jit\"
   
-          ### includes
+          :: 'Install' JIT includes
           Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\luaconf.h" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\include"
           Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\lua.h" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\include"
           Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\lualib.h" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\include"
           Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\lauxlib.h" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\include"
           Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\lua.hpp" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\include"
   
-          Start-Process -FilePath "${{ github.workspace }}\LuaJIT-2.0.4\bin\luajit.exe" -ArgumentList " -v" -Wait -NoNewWindow
-          Start-Process -FilePath "${{ github.workspace }}\LuaJIT-2.0.4\bin\luajit.exe" -ArgumentList " -e `"print(_VERSION)`"" -Wait -NoNewWindow
+          call "${{ github.workspace }}\LuaJIT-2.0.4\bin\luajit.exe" -v
+          call "${{ github.workspace }}\LuaJIT-2.0.4\bin\luajit.exe" -e 'print(_VERSION)'
       
       - name: Install and init luarocks
         shell: cmd
