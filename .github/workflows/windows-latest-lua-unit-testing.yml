@@ -19,36 +19,28 @@ jobs:
       #    GITHUB_CONTEXT: ${{ toJSON(github) }}
       #  run: echo "$GITHUB_CONTEXT"
       
-      - name: Build and install LuaJIT 2.0.4
+      - name: Build and install LuaJIT-2.0.4
         run: |
           ### https://gist.github.com/Egor-Skriptunoff/cb952f7eaf39b7b1bf739b818ece87cd
           ### http://lua-users.org/wiki/BuildingLuaInWindowsForNewbies
   
-          ### Build
-          New-Item -Path "${{ github.workspace }}" -Name "temp" -ItemType "directory"
-          New-Item -Path "${{ github.workspace }}\temp" -Name "LuaJIT-2.0.4" -ItemType "directory"
-          Copy-Item -Path "${{ github.workspace }}\.building\LuaJIT-2.0.4\" -Destination "${{ github.workspace }}\temp\LuaJIT-2.0.4\" -Recurse
-          cd ${{ github.workspace }}\temp\LuaJIT-2.0.4\
+          ### Build LuaJIT 2.0.4
+          cd ${{ github.workspace }}\.building\LuaJIT-2.0.4
           mingw32-make PLAT=mingw
   
           ### Install binaries
-          New-Item -Path "${{ github.workspace }}" -Name "LuaJIT-2.0.4" -ItemType "directory"
-          New-Item -Path "${{ github.workspace }}\LuaJIT-2.0.4" -Name "bin" -ItemType "directory"
-          Copy-Item "${{ github.workspace }}\temp\LuaJIT-2.0.4\src\luajit.exe" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\bin"
-          Copy-Item "${{ github.workspace }}\temp\LuaJIT-2.0.4\src\lua51.dll" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\bin"
+          Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\luajit.exe" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\bin"
+          Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\lua51.dll" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\bin"
   
           ### modules written in lua
-          New-Item -Path "${{ github.workspace }}\LuaJIT-2.0.4" -Name "lua" -ItemType "directory"
-          New-Item -Path "${{ github.workspace }}\LuaJIT-2.0.4\lua" -Name "jit" -ItemType "directory"
-          Copy-Item "${{ github.workspace }}\temp\LuaJIT-2.0.4\src\jit\" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\lua\jit\"
+          Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\jit\" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\lua\jit\"
   
           ### includes
-          New-Item -Path "${{ github.workspace }}\LuaJIT-2.0.4" -Name "include" -ItemType "directory"
-          Copy-Item "${{ github.workspace }}\temp\LuaJIT-2.0.4\src\luaconf.h" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\include"
-          Copy-Item "${{ github.workspace }}\temp\LuaJIT-2.0.4\src\lua.h" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\include"
-          Copy-Item "${{ github.workspace }}\temp\LuaJIT-2.0.4\src\lualib.h" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\include"
-          Copy-Item "${{ github.workspace }}\temp\LuaJIT-2.0.4\src\lauxlib.h" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\include"
-          Copy-Item "${{ github.workspace }}\temp\LuaJIT-2.0.4\src\lua.hpp" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\include"
+          Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\luaconf.h" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\include"
+          Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\lua.h" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\include"
+          Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\lualib.h" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\include"
+          Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\lauxlib.h" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\include"
+          Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\lua.hpp" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\include"
   
           Start-Process -FilePath "${{ github.workspace }}\LuaJIT-2.0.4\bin\luajit.exe" -ArgumentList " -v" -Wait -NoNewWindow
           Start-Process -FilePath "${{ github.workspace }}\LuaJIT-2.0.4\bin\luajit.exe" -ArgumentList " -e `"print(_VERSION)`"" -Wait -NoNewWindow
