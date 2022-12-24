@@ -9,11 +9,6 @@ jobs:
     
     steps:
       - uses: actions/checkout@v3.1.0
-      - uses: msys2/setup-msys2@v2
-        with:
-          msystem: MINGW32
-          env: i686
-          update: true
   
       #- name: Dump GitHub context
       #  env:
@@ -26,8 +21,9 @@ jobs:
           ### http://lua-users.org/wiki/BuildingLuaInWindowsForNewbies
   
           ### Build LuaJIT 2.0.4
-          cd ${{ github.workspace }}\.building\LuaJIT-2.0.4
-          mingw32-make
+          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86 10.0.22000.0 -vcvars_ver=14
+          cd ${{ github.workspace }}\.building\LuaJIT-2.0.4\src
+          msvcbuild
   
           ### Install binaries
           Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\luajit.exe" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\bin"
