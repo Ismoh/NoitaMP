@@ -23,9 +23,8 @@ jobs:
       - name: Build and install LuaJIT-2.0.4
         shell: cmd
         run: |
-          where.exe mingw32-gcc
-          ls -R C:\
-          ls -R D:\
+          where.exe i686-w64-mingw32-gcc
+          # ls -R D:\
           
           :: Build LuaJIT 2.0.4
           call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86 10.0.22000.0 -vcvars_ver=14
@@ -76,9 +75,9 @@ jobs:
           %ABS_PATH%\luarocks config --scope="project" variables.LUA_BINDIR %INIT_PATH%\..\..\LuaJIT-2.0.4\bin
           %ABS_PATH%\luarocks config --scope="project" variables.LUA_DIR %INIT_PATH%\..\..\LuaJIT-2.0.4
           %ABS_PATH%\luarocks config --scope="project" variables.LUA_INCDIR %INIT_PATH%\..\..\LuaJIT-2.0.4\include
-          %ABS_PATH%\luarocks config --scope="project" variables.CC mingw32-gcc
+          %ABS_PATH%\luarocks config --scope="project" variables.CC i686-w64-mingw32-gcc
           %ABS_PATH%\luarocks config --scope="project" variables.CFLAGS -O2
-          %ABS_PATH%\luarocks config --scope="project" variables.LD mingw32-gcc
+          %ABS_PATH%\luarocks config --scope="project" variables.LD i686-w64-mingw32-gcc
           %ABS_PATH%\luarocks config --scope="project" variables.MAKE mingw32-make
   
           %ABS_PATH%\luarocks config
