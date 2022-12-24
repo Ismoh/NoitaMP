@@ -16,6 +16,7 @@ jobs:
       #  run: echo "$GITHUB_CONTEXT"
       
       - name: Build and install LuaJIT-2.0.4
+        shell: cmd
         run: |
           ### https://gist.github.com/Egor-Skriptunoff/cb952f7eaf39b7b1bf739b818ece87cd
           ### http://lua-users.org/wiki/BuildingLuaInWindowsForNewbies
