@@ -77,9 +77,9 @@ jobs:
           %ABS_PATH%\luarocks config --scope="project" variables.LUA_BINDIR %INIT_PATH%\..\..\LuaJIT-2.0.4\bin
           %ABS_PATH%\luarocks config --scope="project" variables.LUA_DIR %INIT_PATH%\..\..\LuaJIT-2.0.4
           %ABS_PATH%\luarocks config --scope="project" variables.LUA_INCDIR %INIT_PATH%\..\..\LuaJIT-2.0.4\include
-          %ABS_PATH%\luarocks config --scope="project" variables.CC call ${{ github.workspace}}\msys64\mingw32\bin\gcc.exe
-          %ABS_PATH%\luarocks config --scope="project" variables.CFLAGS "-v"
-          %ABS_PATH%\luarocks config --scope="project" variables.LD call ${{ github.workspace}}\msys64\mingw32\bin\gcc.exe
+          %ABS_PATH%\luarocks config --scope="project" variables.CC ${{ github.workspace}}\msys64\mingw32\bin\gcc.exe
+          %ABS_PATH%\luarocks config --scope="project" variables.CFLAGS "--verbose"
+          %ABS_PATH%\luarocks config --scope="project" variables.LD ${{ github.workspace}}\msys64\mingw32\bin\gcc.exe
           %ABS_PATH%\luarocks config --scope="project" variables.MAKE mingw32-make
   
           %ABS_PATH%\luarocks config
