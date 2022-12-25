@@ -13,7 +13,7 @@ jobs:
         with:
           msystem: mingw32
           install: mingw-w64-i686-gcc
-          location: ${{ github.workspace }}\msys2\
+          location: ${{ github.workspace }}\ # NoitaMP\msys64\mingw32
           update: true
   
       #- name: Dump GitHub context
@@ -76,9 +76,9 @@ jobs:
           %ABS_PATH%\luarocks config --scope="project" variables.LUA_BINDIR %INIT_PATH%\..\..\LuaJIT-2.0.4\bin
           %ABS_PATH%\luarocks config --scope="project" variables.LUA_DIR %INIT_PATH%\..\..\LuaJIT-2.0.4
           %ABS_PATH%\luarocks config --scope="project" variables.LUA_INCDIR %INIT_PATH%\..\..\LuaJIT-2.0.4\include
-          %ABS_PATH%\luarocks config --scope="project" variables.CC i686-w64-mingw32-gcc
+          %ABS_PATH%\luarocks config --scope="project" variables.CC ${{ github.workspace}}\msys64\mingw32\bin\i686-w64-mingw32-gcc.exe
           %ABS_PATH%\luarocks config --scope="project" variables.CFLAGS -O2
-          %ABS_PATH%\luarocks config --scope="project" variables.LD i686-w64-mingw32-gcc
+          %ABS_PATH%\luarocks config --scope="project" variables.LD ${{ github.workspace}}\msys64\mingw32\bin\i686-w64-mingw32-gcc.exe
           %ABS_PATH%\luarocks config --scope="project" variables.MAKE mingw32-make
   
           %ABS_PATH%\luarocks config
