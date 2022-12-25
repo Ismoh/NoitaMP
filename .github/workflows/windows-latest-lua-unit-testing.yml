@@ -4,17 +4,12 @@ on: [ push, pull_request ]
 
 jobs:
   lua-unit-testing-on-windows-latest:
-    name: "LuaUnit on Windows-latest (mingw32)"
+    name: "LuaUnit on Windows-latest (MSVC)"
     runs-on: windows-latest
     
     steps:
       - uses: actions/checkout@v3.1.0
-      - uses: msys2/setup-msys2@v2
-        with:
-          msystem: mingw32
-          install: mingw-w64-i686-gcc
-          location: ${{ github.workspace }}\ # NoitaMP\msys64\mingw32
-          update: true
+
   
       #- name: Dump GitHub context
       #  env:
@@ -70,18 +65,17 @@ jobs:
           echo Maps to path: %ABS_PATH%
           
           REM // init luarocks
-          %ABS_PATH%\luarocks --lua-dir="%INIT_PATH%\..\..\LuaJIT-2.0.4" --lua-version="5.1" init noita-mp --output="%INIT_PATH%" --homepage="https://github.com/Ismoh/NoitaMP" --lua-versions="5.1" --license="GNU GPL v3"
+          %ABS_PATH%\luarocks --lua-dir="${{ github.workspace}}\LuaJIT-2.0.4" --lua-version="5.1" init noita-mp --output="${{ github.workspace}}\mods\noita-mp" --homepage="https://github.com/Ismoh/NoitaMP" --lua-versions="5.1" --license="GNU GPL v3"
   
           REM // change luarocks config
           %ABS_PATH%\luarocks config --scope="project" lua_interpreter luajit.exe
-          %ABS_PATH%\luarocks config --scope="project" lua_dir %INIT_PATH%\..\..\LuaJIT-2.0.4
-          %ABS_PATH%\luarocks config --scope="project" variables.LUA_BINDIR %INIT_PATH%\..\..\LuaJIT-2.0.4\bin
-          %ABS_PATH%\luarocks config --scope="project" variables.LUA_DIR %INIT_PATH%\..\..\LuaJIT-2.0.4
-          %ABS_PATH%\luarocks config --scope="project" variables.LUA_INCDIR %INIT_PATH%\..\..\LuaJIT-2.0.4\include
-          %ABS_PATH%\luarocks config --scope="project" variables.CC ${{ github.workspace}}\msys64\mingw32\bin\gcc.exe
+          %ABS_PATH%\luarocks config --scope="project" lua_dir ${{ github.workspace}}\LuaJIT-2.0.4
+          %ABS_PATH%\luarocks config --scope="project" variables.LUA_BINDIR ${{ github.workspace}}\LuaJIT-2.0.4\bin
+          %ABS_PATH%\luarocks config --scope="project" variables.LUA_DIR ${{ github.workspace}}\LuaJIT-2.0.4
+          %ABS_PATH%\luarocks config --scope="project" variables.LUA_INCDIR ${{ github.workspace}}\LuaJIT-2.0.4\include
+          
           %ABS_PATH%\luarocks config --scope="project" variables.CFLAGS "GODDAMNIT"
-          %ABS_PATH%\luarocks config --scope="project" variables.LD ${{ github.workspace}}\msys64\mingw32\bin\gcc.exe
-          %ABS_PATH%\luarocks config --scope="project" variables.MAKE mingw32-make
+          
   
           %ABS_PATH%\luarocks config
       
