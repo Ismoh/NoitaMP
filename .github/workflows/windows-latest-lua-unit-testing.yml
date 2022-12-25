@@ -53,6 +53,7 @@ jobs:
       - name: Install and init luarocks
         shell: cmd
         run: |
+          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86 10.0.22000.0 -vcvars_ver=14
           cd ${{ github.workspace}}\mods\noita-mp\
           set INIT_PATH=%CD%
           
@@ -119,8 +120,9 @@ jobs:
       - name: Install dependencies
         shell: cmd
         run: |
+          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86 10.0.22000.0 -vcvars_ver=14
           cd ${{ github.workspace}}\mods\noita-mp\
-          luarocks install luacov && ^
+          luarocks install luacov
           luarocks install luacov-coveralls
       
       - name: Generate coverage report with luacov
