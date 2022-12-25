@@ -9,20 +9,10 @@ jobs:
     
     steps:
       - uses: actions/checkout@v3.1.0
-
-  
-      #- name: Dump GitHub context
-      #  env:
-      #    GITHUB_CONTEXT: ${{ toJSON(github) }}
-      #  run: echo "$GITHUB_CONTEXT"
       
       - name: Build and install LuaJIT-2.0.4
         shell: cmd
         run: |
-          where.exe i686-w64-mingw32-gcc
-          where.exe mingw32-gcc
-          ls -R ${{ github.workspace }}
-          
           :: Build LuaJIT 2.0.4
           call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86 10.0.22000.0 -vcvars_ver=14
           cd ${{ github.workspace }}\.building\LuaJIT-2.0.4\src
@@ -126,7 +116,6 @@ jobs:
         run: |
           call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86 10.0.22000.0 -vcvars_ver=14
           cd ${{ github.workspace }}\mods\noita-mp\
-          luarocks path
           luarocks path --append
           lua -lluacov ${{ github.workspace }}\mods\noita-mp\tests\startUnitTests.lua -o text --verbose
       
@@ -136,7 +125,8 @@ jobs:
           COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COVERALLS_DEBUG: true
         run: |
-          ${{ github.workspace }}\mods\noita-mp\lua_modules\bin\luacov-coveralls.bat -v
+          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86 10.0.22000.0 -vcvars_ver=14
+          ${{ github.workspace }}\mods\noita-mp\lua_modules\bin\luacov-coveralls.bat --verbose
       
       - name: Fix codecov path issue
         # shell: pwsh
