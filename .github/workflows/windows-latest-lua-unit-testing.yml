@@ -122,9 +122,13 @@ jobs:
           luarocks --lua-dir="${{ github.workspace}}\LuaJIT-2.0.4" install luacov-coveralls
       
       - name: Generate coverage report with luacov
+        shell: cmd
         run: |
           call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86 10.0.22000.0 -vcvars_ver=14
-          ${{ github.workspace }}\LuaJIT-2.0.4\bin\luajit.exe -lluacov ${{ github.workspace }}\mods\noita-mp\tests\startUnitTests.lua -o text --verbose
+          cd ${{ github.workspace }}\mods\noita-mp\
+          luarocks show
+          luarocks path
+          lua -lluacov ${{ github.workspace }}\mods\noita-mp\tests\startUnitTests.lua -o text --verbose
       
       - name: Generate coverage report with luacov-coveralls
         shell: cmd
