@@ -31,6 +31,7 @@ jobs:
           :: Install binaries
           Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\luajit.exe" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\bin"
           Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\lua51.dll" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\bin"
+          Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\lua51.lib" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\bin"
   
           :: 'Install' JIT modules
           Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\jit\" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\lua\jit\"
@@ -116,8 +117,9 @@ jobs:
         run: |
           call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86 10.0.22000.0 -vcvars_ver=14
           cd ${{ github.workspace}}\mods\noita-mp\
-          luarocks install luacov
-          luarocks install luacov-coveralls
+          luarocks config
+          luarocks --lua-dir="${{ github.workspace}}\LuaJIT-2.0.4" install luacov
+          luarocks --lua-dir="${{ github.workspace}}\LuaJIT-2.0.4" install luacov-coveralls
       
       - name: Generate coverage report with luacov
         run: |
