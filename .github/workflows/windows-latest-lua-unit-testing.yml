@@ -123,9 +123,8 @@ jobs:
       
       - name: Generate coverage report with luacov
         run: |
-          #dir -Path ${{ github.workspace }}\mods\noita-mp\tests -Filter *.lua -Recurse | %{& '${{ github.workspace }}\mods\noita-mp\lua.bat' -lluacov $_.FullName -o text --verbose }
-          #Start-Process -FilePath "${{ github.workspace }}\mods\noita-mp\lua.bat" -Wait -NoNewWindow
-          ${{ github.workspace }}\mods\noita-mp\lua.bat -lluacov ${{ github.workspace }}\mods\noita-mp\tests\startUnitTests.lua -o text --verbose
+          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86 10.0.22000.0 -vcvars_ver=14
+          ${{ github.workspace }}\LuaJIT-2.0.4\bin\luajit.exe -lluacov ${{ github.workspace }}\mods\noita-mp\tests\startUnitTests.lua -o text --verbose
       
       - name: Generate coverage report with luacov-coveralls
         shell: cmd
