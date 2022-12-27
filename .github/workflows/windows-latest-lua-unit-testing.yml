@@ -36,8 +36,8 @@ jobs:
           Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\lauxlib.h" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\include"
           Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\lua.hpp" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\include"
 
-          Start-Process -FilePath "luajit.exe" -WorkingDirectory "${{ github.workspace }}\LuaJIT-2.0.4\bin\" -ArgumentList "-v" -Wait -NoNewWindow
-          Start-Process -FilePath "luajit.exe" -WorkingDirectory "${{ github.workspace }}\LuaJIT-2.0.4\bin\" -ArgumentList "-e 'print(_VERSION)'" -Wait -NoNewWindow
+          Start-Process -FilePath "luajit.exe" -WorkingDirectory "${{ github.workspace }}\LuaJIT-2.0.4\bin" -ArgumentList "-v" -Wait -NoNewWindow
+          Start-Process -FilePath "luajit.exe" -WorkingDirectory "${{ github.workspace }}\LuaJIT-2.0.4\bin" -ArgumentList "-e 'print(_VERSION)'" -Wait -NoNewWindow
       
       - name: Install and init luarocks
         shell: cmd
