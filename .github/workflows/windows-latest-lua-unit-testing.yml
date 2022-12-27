@@ -38,8 +38,8 @@ jobs:
           
           ls -R
 
-          Start-Process -FilePath "luajit.exe" -WorkingDirectory "${{ github.workspace }}\LuaJIT-2.0.4\bin" -ArgumentList "-v" -Wait -NoNewWindow
-          Start-Process -FilePath "luajit.exe" -WorkingDirectory "${{ github.workspace }}\LuaJIT-2.0.4\bin" -ArgumentList "-e \"print(_VERSION)\"" -Wait -NoNewWindow
+          Start-Process -FilePath "${{ github.workspace }}\LuaJIT-2.0.4\bin\luajit.exe" -ArgumentList "-v" -Wait -NoNewWindow
+          Start-Process -FilePath "${{ github.workspace }}\LuaJIT-2.0.4\bin\luajit.exe" -ArgumentList "-e 'print(_VERSION)'" -Wait -NoNewWindow
       
       - name: Install and init luarocks
         shell: cmd
