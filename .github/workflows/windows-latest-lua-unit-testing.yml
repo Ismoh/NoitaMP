@@ -21,23 +21,23 @@ jobs:
       - name: Install LuaJIT-2.0.4
         shell: pwsh
         run: |
-          :: Install binaries
+          # Install binaries
           Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\luajit.exe" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\bin"
           Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\lua51.dll" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\bin"
           Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\lua51.lib" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\bin"
   
-          :: 'Install' JIT modules
+          # 'Install' JIT modules
           Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\jit\" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\lua\jit\"
   
-          :: 'Install' JIT includes
+          # 'Install' JIT includes
           Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\luaconf.h" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\include"
           Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\lua.h" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\include"
           Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\lualib.h" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\include"
           Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\lauxlib.h" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\include"
           Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\lua.hpp" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\include"
   
-          call "${{ github.workspace }}\LuaJIT-2.0.4\bin\luajit.exe" -v
-          call "${{ github.workspace }}\LuaJIT-2.0.4\bin\luajit.exe" -e 'print(_VERSION)'
+          .\${{ github.workspace }}\LuaJIT-2.0.4\bin\luajit.exe -v
+          .\${{ github.workspace }}\LuaJIT-2.0.4\bin\luajit.exe -e 'print(_VERSION)'
       
       - name: Install and init luarocks
         shell: cmd
