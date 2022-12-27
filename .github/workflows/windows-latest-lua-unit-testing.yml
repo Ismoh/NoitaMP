@@ -105,7 +105,6 @@ jobs:
       - name: Install dependencies
         shell: cmd
         run: |
-          call "C
           cd ${{ github.workspace}}\mods\noita-mp\
           luarocks config
           luarocks --lua-dir="${{ github.workspace}}\LuaJIT-2.0.4" install luacov
