@@ -116,7 +116,7 @@ jobs:
         run: |
           cd ${{ github.workspace }}\mods\noita-mp\
           luarocks path --append
-          lua -lluacov --root ${{ github.workspace}}\mods\noita-mp\ --verbose ${{ github.workspace }}\mods\noita-mp\tests\startUnitTests.lua
+          lua -lluacov --verbose ${{ github.workspace }}\mods\noita-mp\tests\startUnitTests.lua
           
           ls -R ${{ github.workspace }}\
       
@@ -126,8 +126,8 @@ jobs:
           COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COVERALLS_DEBUG: true
         run: |
-          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86 10.0.22000.0 -vcvars_ver=14
-          ${{ github.workspace }}\mods\noita-mp\lua_modules\bin\luacov-coveralls.bat --verbose
+          
+          ${{ github.workspace }}\mods\noita-mp\lua_modules\bin\luacov-coveralls.bat --root ${{ github.workspace}}\mods\noita-mp\ --verbose
       
       - name: Fix codecov path issue
         # shell: pwsh
