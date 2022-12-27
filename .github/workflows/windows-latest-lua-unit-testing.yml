@@ -105,7 +105,7 @@ jobs:
       - name: Install dependencies
         shell: cmd
         run: |
-          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86 10.0.22000.0 -vcvars_ver=14
+          call "C
           cd ${{ github.workspace}}\mods\noita-mp\
           luarocks config
           luarocks --lua-dir="${{ github.workspace}}\LuaJIT-2.0.4" install luacov
