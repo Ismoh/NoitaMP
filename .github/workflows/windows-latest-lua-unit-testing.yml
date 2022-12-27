@@ -38,23 +38,36 @@ jobs:
           ls -R
           Start-Process -FilePath "${{ github.workspace }}\LuaJIT-2.0.4\bin\luajit.exe" -ArgumentList "-v" -Wait -NoNewWindow
           Start-Process -FilePath "${{ github.workspace }}\LuaJIT-2.0.4\bin\luajit.exe" -ArgumentList "-e `"print(_VERSION)`"" -Wait -NoNewWindow
-      
+
       - name: Install and init luarocks
         shell: cmd
         run: |
-          :: Init luarocks project
-          ${{ github.workspace }}\.building\luarocks-3.9.1-windows-32\luarocks --lua-dir="${{ github.workspace}}\LuaJIT-2.0.4" --lua-version="5.1" init noita-mp --output="${{ github.workspace}}\mods\noita-mp" --homepage="https://github.com/Ismoh/NoitaMP" --lua-versions="5.1" --license="GNU GPL v3"
+          cd ${{ github.workspace}}\mods\noita-mp\
+          set INIT_PATH=%CD%
+          REM // resolve absolute path
+          set REL_PATH=..\..\.building\luarocks-3.9.1-windows-32
+          set ABS_PATH=
+          rem // Save current directory and change to target directory
+          pushd %REL_PATH%
+          rem // Save value of CD variable (current directory)
+          set ABS_PATH=%CD%
+          rem // Restore original directory
+          popd
+          echo Relative path: %REL_PATH%
+          echo Maps to path: %ABS_PATH%
+  
+          REM // init luarocks
+          %ABS_PATH%\luarocks --lua-dir="${{ github.workspace}}\LuaJIT-2.0.4" --lua-version="5.1" init noita-mp --output="${{ github.workspace}}\mods\noita-mp" --homepage="https://github.com/Ismoh/NoitaMP" --lua-versions="5.1" --license="GNU GPL v3"
   
           :: Change luarocks projects config
           cd ${{ github.workspace }}\mods\noita-mp
-          ${{ github.workspace }}\.building\luarocks-3.9.1-windows-32\luarocks config --scope="project" lua_interpreter luajit.exe
-          ${{ github.workspace }}\.building\luarocks-3.9.1-windows-32\luarocks config --scope="project" lua_dir ${{ github.workspace}}\LuaJIT-2.0.4
-          ${{ github.workspace }}\.building\luarocks-3.9.1-windows-32\luarocks config --scope="project" variables.LUA_BINDIR ${{ github.workspace}}\LuaJIT-2.0.4\bin
-          ${{ github.workspace }}\.building\luarocks-3.9.1-windows-32\luarocks config --scope="project" variables.LUA_DIR ${{ github.workspace}}\LuaJIT-2.0.4
-          ${{ github.workspace }}\.building\luarocks-3.9.1-windows-32\luarocks config --scope="project" variables.LUA_INCDIR ${{ github.workspace}}\LuaJIT-2.0.4\include
-          ${{ github.workspace }}\.building\luarocks-3.9.1-windows-32\luarocks config --scope="project" variables.CFLAGS "GODDAMNIT"
-          ${{ github.workspace }}\.building\luarocks-3.9.1-windows-32\luarocks config
-          ls -R
+          luarocks config --scope="project" lua_interpreter luajit.exe
+          luarocks config --scope="project" lua_dir ${{ github.workspace}}\LuaJIT-2.0.4
+          luarocks config --scope="project" variables.LUA_BINDIR ${{ github.workspace}}\LuaJIT-2.0.4\bin
+          luarocks config --scope="project" variables.LUA_DIR ${{ github.workspace}}\LuaJIT-2.0.4
+          luarocks config --scope="project" variables.LUA_INCDIR ${{ github.workspace}}\LuaJIT-2.0.4\include
+          luarocks config --scope="project" variables.CFLAGS "GODDAMNIT"
+          luarocks config
       
       - name: Fix LuaRocks bug
         shell: sh
