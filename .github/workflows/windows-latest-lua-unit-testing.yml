@@ -103,19 +103,21 @@ jobs:
           echo "steps.lua_unit_tests.outputs.not_found = ${{ steps.lua_unit_tests.outputs.not_found }}"
       
       - name: Install dependencies
+        shell: cmd
         run: |
           cd ${{ github.workspace}}\mods\noita-mp\
           luarocks config
-          luarocks --lua-dir="${{ github.workspace}}\LuaJIT-2.0.4" install luacov
-          luarocks --lua-dir="${{ github.workspace}}\LuaJIT-2.0.4" install luacov-coveralls
+          luarocks install luacov
+          luarocks install luacov-coveralls
       
       - name: Generate coverage report with luacov
+        shell: cmd
         run: |
           cd ${{ github.workspace }}\mods\noita-mp\
           luarocks path --append
           lua -lluacov ${{ github.workspace }}\mods\noita-mp\tests\startUnitTests.lua --verbose
           
-      - name: Generate coverage report with luacov
+      - name: where is luacov?
         run: |    
           ls -R ${{ github.workspace }}\
       
