@@ -45,9 +45,7 @@ jobs:
         shell: cmd
         run: |
           :: Init luarocks project
-          ${{ github.workspace }}\.building\luarocks-3.9.1-windows-32\luarocks --lua-dir="${{ github.workspace}}\LuaJIT-2.0.4" ^
-          --lua-version="5.1" init noita-mp --output="${{ github.workspace}}\mods\noita-mp" ^
-          --homepage="https://github.com/Ismoh/NoitaMP" --lua-versions="5.1" --license="GNU GPL v3"
+          ${{ github.workspace }}\.building\luarocks-3.9.1-windows-32\luarocks --lua-dir="${{ github.workspace}}\LuaJIT-2.0.4" --lua-version="5.1" init noita-mp --output="${{ github.workspace}}\mods\noita-mp" --homepage="https://github.com/Ismoh/NoitaMP" --lua-versions="5.1" --license="GNU GPL v3"
   
           :: Change luarocks projects config
           cd ${{ github.workspace }}\mods\noita-mp
