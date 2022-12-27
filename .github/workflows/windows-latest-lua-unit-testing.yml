@@ -113,6 +113,7 @@ jobs:
           cd ${{ github.workspace }}\mods\noita-mp\
           luarocks path --append
           lua -lluacov ${{ github.workspace }}\mods\noita-mp\tests\startUnitTests.lua --verbose
+          ls -R
           
       - name: where is luacov?
         run: |    
