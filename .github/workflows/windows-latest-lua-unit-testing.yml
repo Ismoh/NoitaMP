@@ -6,10 +6,10 @@ jobs:
   lua-unit-testing-on-windows-latest:
     name: "LuaUnit on Windows-latest (MSVC)"
     runs-on: windows-latest
-    
+  
     steps:
       - uses: actions/checkout@v3.1.0
-      
+    
       - name: Build LuaJIT-2.0.4
         shell: cmd
         run: |
@@ -17,7 +17,7 @@ jobs:
           call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86 10.0.22000.0 -vcvars_ver=14
           cd ${{ github.workspace }}\.building\LuaJIT-2.0.4\src
           msvcbuild
-
+    
       - name: Install LuaJIT-2.0.4
         shell: pwsh
         run: |
@@ -25,21 +25,21 @@ jobs:
           Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\luajit.exe" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\bin"
           Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\lua51.dll" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\bin"
           Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\lua51.lib" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\bin"
-  
+        
           # 'Install' JIT modules
           Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\jit\*" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\lua\jit\" -Recurse
-  
+        
           # 'Install' JIT includes
           Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\luaconf.h" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\include"
           Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\lua.h" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\include"
           Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\lualib.h" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\include"
           Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\lauxlib.h" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\include"
           Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\lua.hpp" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\include"
-          
+        
           # Test luajit.exe
           Start-Process -FilePath "${{ github.workspace }}\LuaJIT-2.0.4\bin\luajit.exe" -ArgumentList "-v" -Wait -NoNewWindow
           Start-Process -FilePath "${{ github.workspace }}\LuaJIT-2.0.4\bin\luajit.exe" -ArgumentList "-e `"print(_VERSION)`"" -Wait -NoNewWindow
-
+      
       - name: Install and init luarocks
         shell: cmd
         run: |
@@ -56,10 +56,10 @@ jobs:
           popd
           echo Relative path: %REL_PATH%
           echo Maps to path: %ABS_PATH%
-  
+        
           REM // init luarocks
           %ABS_PATH%\luarocks --lua-dir="${{ github.workspace}}\LuaJIT-2.0.4" --lua-version="5.1" init noita-mp --output="${{ github.workspace}}\mods\noita-mp" --homepage="https://github.com/Ismoh/NoitaMP" --lua-versions="5.1" --license="GNU GPL v3"
-  
+        
           REM // change luarocks projects config
           %ABS_PATH%\luarocks config --scope="project" lua_interpreter luajit.exe
           %ABS_PATH%\luarocks config --scope="project" lua_dir ${{ github.workspace}}\LuaJIT-2.0.4
@@ -68,7 +68,7 @@ jobs:
           %ABS_PATH%\luarocks config --scope="project" variables.LUA_INCDIR ${{ github.workspace}}\LuaJIT-2.0.4\include
           %ABS_PATH%\luarocks config --scope="project" variables.CFLAGS "GODDAMNIT"
           %ABS_PATH%\luarocks config
-
+      
       - name: Fix LuaRocks bug
         run: |
           cd ${{ github.workspace}}\mods\noita-mp\.luarocks
@@ -92,13 +92,6 @@ jobs:
         
           # $notFound = Get-Content -Path ${{ github.workspace }}\mods\noita-mp\result.log
           # echo "{not_found}={$notFound}" >> $GITHUB_OUTPUT
-      
-#      - name: Unit test failed?
-#        if: ${{ steps.lua_unit_tests.outputs.fail != '' || steps.lua_unit_tests.outputs.error != '' || steps.lua_unit_tests.outputs.not_found == '' }}
-#        run: |
-#          echo "steps.lua_unit_tests.outputs.fail = ${{ steps.lua_unit_tests.outputs.fail }}"
-#          echo "steps.lua_unit_tests.outputs.error = ${{ steps.lua_unit_tests.outputs.error }}"
-#          echo "steps.lua_unit_tests.outputs.not_found = ${{ steps.lua_unit_tests.outputs.not_found }}"
       
       - name: Install dependencies
         shell: pwsh
@@ -129,7 +122,7 @@ jobs:
       
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
-        with.
+        with:
           directory: ${{ github.workspace }}\mods\noita-mp\
           file: ${{ github.workspace }}\mods\noita-mp\luacov.report.out
           flags: unittesting
