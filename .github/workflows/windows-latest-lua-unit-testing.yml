@@ -108,11 +108,10 @@ jobs:
           luarocks install luacov-coveralls
       
       - name: Generate coverage report with luacov
-        shell: cmd
+        shell: pwsh
         run: |
-          cd ${{ github.workspace }}\mods\noita-mp\
-          luarocks path --append
-          ${{ github.workspace }}\LuaJIT-2.0.4\bin\luajit.exe -lluacov ${{ github.workspace }}\mods\noita-mp\tests\startUnitTests.lua -o text --verbose
+          dir -Path ${{ github.workspace }}\mods\noita-mp\tests -Filter *.lua -Recurse | %{& '${{ github.workspace }}\mods\noita-mp\lua.bat' -lluacov $_.FullName -o text --verbose }
+          Start-Process -FilePath "${{ github.workspace }}\mods\noita-mp\lua_modules\bin\luacov.bat" -Wait -NoNewWindow
           ls -R
           
       - name: where is luacov?
