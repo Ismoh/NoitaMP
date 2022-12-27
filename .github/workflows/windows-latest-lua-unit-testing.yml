@@ -10,14 +10,17 @@ jobs:
     steps:
       - uses: actions/checkout@v3.1.0
       
-      - name: Build and install LuaJIT-2.0.4
+      - name: Build LuaJIT-2.0.4
         shell: cmd
         run: |
           :: Build LuaJIT 2.0.4
           call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86 10.0.22000.0 -vcvars_ver=14
           cd ${{ github.workspace }}\.building\LuaJIT-2.0.4\src
           msvcbuild
-  
+
+      - name: Install LuaJIT-2.0.4
+        shell: cmd
+        run: |
           :: Install binaries
           Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\luajit.exe" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\bin"
           Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\lua51.dll" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\bin"
@@ -39,7 +42,6 @@ jobs:
       - name: Install and init luarocks
         shell: cmd
         run: |
-          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86 10.0.22000.0 -vcvars_ver=14
           cd ${{ github.workspace}}\mods\noita-mp\
           set INIT_PATH=%CD%
           
@@ -64,10 +66,7 @@ jobs:
           %ABS_PATH%\luarocks config --scope="project" variables.LUA_BINDIR ${{ github.workspace}}\LuaJIT-2.0.4\bin
           %ABS_PATH%\luarocks config --scope="project" variables.LUA_DIR ${{ github.workspace}}\LuaJIT-2.0.4
           %ABS_PATH%\luarocks config --scope="project" variables.LUA_INCDIR ${{ github.workspace}}\LuaJIT-2.0.4\include
-          
           %ABS_PATH%\luarocks config --scope="project" variables.CFLAGS "GODDAMNIT"
-          
-  
           %ABS_PATH%\luarocks config
       
       - name: Fix LuaRocks bug
