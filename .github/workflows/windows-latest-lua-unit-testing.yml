@@ -39,7 +39,7 @@ jobs:
           ls -R
 
           Start-Process -FilePath "${{ github.workspace }}\LuaJIT-2.0.4\bin\luajit.exe" -ArgumentList "-v" -Wait -NoNewWindow
-          Start-Process -FilePath "${{ github.workspace }}\LuaJIT-2.0.4\bin\luajit.exe" -ArgumentList "-e 'print(_VERSION)'" -Wait -NoNewWindow
+          Start-Process -FilePath "${{ github.workspace }}\LuaJIT-2.0.4\bin\luajit.exe" -ArgumentList "-e `"print(_VERSION)`"" -Wait -NoNewWindow
       
       - name: Install and init luarocks
         shell: cmd
@@ -51,13 +51,13 @@ jobs:
   
           :: Change luarocks projects config
           cd ${{ github.workspace }}\mods\noita-mp
-          luarocks config --scope="project" lua_interpreter luajit.exe
-          luarocks config --scope="project" lua_dir ${{ github.workspace}}\LuaJIT-2.0.4
-          luarocks config --scope="project" variables.LUA_BINDIR ${{ github.workspace}}\LuaJIT-2.0.4\bin
-          luarocks config --scope="project" variables.LUA_DIR ${{ github.workspace}}\LuaJIT-2.0.4
-          luarocks config --scope="project" variables.LUA_INCDIR ${{ github.workspace}}\LuaJIT-2.0.4\include
-          luarocks config --scope="project" variables.CFLAGS "GODDAMNIT"
-          luarocks config
+          ${{ github.workspace }}\.building\luarocks-3.9.1-windows-32\luarocks config --scope="project" lua_interpreter luajit.exe
+          ${{ github.workspace }}\.building\luarocks-3.9.1-windows-32\luarocks config --scope="project" lua_dir ${{ github.workspace}}\LuaJIT-2.0.4
+          ${{ github.workspace }}\.building\luarocks-3.9.1-windows-32\luarocks config --scope="project" variables.LUA_BINDIR ${{ github.workspace}}\LuaJIT-2.0.4\bin
+          ${{ github.workspace }}\.building\luarocks-3.9.1-windows-32\luarocks config --scope="project" variables.LUA_DIR ${{ github.workspace}}\LuaJIT-2.0.4
+          ${{ github.workspace }}\.building\luarocks-3.9.1-windows-32\luarocks config --scope="project" variables.LUA_INCDIR ${{ github.workspace}}\LuaJIT-2.0.4\include
+          ${{ github.workspace }}\.building\luarocks-3.9.1-windows-32\luarocks config --scope="project" variables.CFLAGS "GODDAMNIT"
+          ${{ github.workspace }}\.building\luarocks-3.9.1-windows-32\luarocks config
       
       - name: Fix LuaRocks bug
         run: |
