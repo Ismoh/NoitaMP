@@ -106,6 +106,7 @@ jobs:
           luarocks config
           luarocks install luacov
           luarocks install luacov-coveralls
+          luarocks path --append
       
       - name: Generate coverage report with luacov
         shell: pwsh
