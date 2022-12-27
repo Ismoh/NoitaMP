@@ -136,13 +136,13 @@ jobs:
           # $content > ${{ github.workspace }}/luacov.report.out
           # Write-Host $content
           
-          $(cat ${{ github.workspace }}/luacov.report.out | sed -e 's_\\_/_g') > ${{ github.workspace }}/luacov.report.out
-          cat ${{ github.workspace }}/luacov.report.out
+          # $(cat ${{ github.workspace }}/luacov.report.out | sed -e 's_\\_/_g') > ${{ github.workspace }}/luacov.report.out
+          # cat ${{ github.workspace }}/luacov.report.out
       
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
         with:
-          directory: ${{ github.workspace }}
+          directory: ${{ github.workspace }}\mods\noita-mp\
           flags: unittesting
           functionalities: network
           name: Windows Lua Unit Testing
