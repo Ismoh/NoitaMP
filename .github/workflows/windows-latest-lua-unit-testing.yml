@@ -126,7 +126,7 @@ jobs:
           COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COVERALLS_DEBUG: true
         run: |
-          luarocks path --append
+          ${{ github.workspace }}\mods\noita-mp\luarocks path --append
           ${{ github.workspace }}\mods\noita-mp\lua_modules\bin\luacov-coveralls.bat --root ${{ github.workspace}}\mods\noita-mp\ --verbose
       
       - name: Fix codecov path issue
