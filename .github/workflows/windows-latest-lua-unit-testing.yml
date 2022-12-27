@@ -72,7 +72,7 @@ jobs:
       - name: Fix LuaRocks bug
         shell: sh
         run: |
-          cd ${{ github.workspace}}/mods/noita-mp/.luarocks
+          cd ${{ github.workspace}}\mods\noita-mp\.luarocks
           sed -i 's/GODDAMNIT/\-v \-O2/g' config-5.1.lua
           cat config-5.1.lua
       
