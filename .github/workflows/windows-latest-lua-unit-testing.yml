@@ -19,7 +19,7 @@ jobs:
           msvcbuild
 
       - name: Install LuaJIT-2.0.4
-        shell: cmd
+        shell: pwsh
         run: |
           :: Install binaries
           Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\luajit.exe" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\bin"
