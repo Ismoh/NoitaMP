@@ -80,7 +80,7 @@ jobs:
         id: lua_unit_tests
         run: |
           cd ${{ github.workspace}}\mods\noita-mp\
-          Start-Process -FilePath "luarocks" -ArgumentList "test > result.log" -Wait -NoNewWindow
+          Start-Process -FilePath "luarocks.bat" -ArgumentList "test > result.log" -Wait -NoNewWindow
           ls -R
         
           # https://timheuer.com/blog/manually-force-a-failure-in-github-action-step/
