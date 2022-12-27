@@ -116,7 +116,7 @@ jobs:
         run: |
           cd ${{ github.workspace }}\mods\noita-mp\
           luarocks path --append
-          lua -lluacov --verbose ${{ github.workspace }}\mods\noita-mp\tests\startUnitTests.lua
+          lua -lluacov ${{ github.workspace }}\mods\noita-mp\tests\startUnitTests.lua --verbose
       - name: Generate coverage report with luacov
 
         shell: cmd
