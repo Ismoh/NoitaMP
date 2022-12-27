@@ -35,9 +35,7 @@ jobs:
           Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\lualib.h" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\include"
           Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\lauxlib.h" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\include"
           Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\lua.hpp" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\include"
-          
           ls -R
-
           Start-Process -FilePath "${{ github.workspace }}\LuaJIT-2.0.4\bin\luajit.exe" -ArgumentList "-v" -Wait -NoNewWindow
           Start-Process -FilePath "${{ github.workspace }}\LuaJIT-2.0.4\bin\luajit.exe" -ArgumentList "-e `"print(_VERSION)`"" -Wait -NoNewWindow
       
@@ -56,10 +54,12 @@ jobs:
           ${{ github.workspace }}\.building\luarocks-3.9.1-windows-32\luarocks config --scope="project" variables.LUA_INCDIR ${{ github.workspace}}\LuaJIT-2.0.4\include
           ${{ github.workspace }}\.building\luarocks-3.9.1-windows-32\luarocks config --scope="project" variables.CFLAGS "GODDAMNIT"
           ${{ github.workspace }}\.building\luarocks-3.9.1-windows-32\luarocks config
+          ls -R
       
       - name: Fix LuaRocks bug
+        shell: sh
         run: |
-          cd ${{ github.workspace}}\mods\noita-mp\.luarocks
+          cd ${{ github.workspace}}/mods/noita-mp/.luarocks
           sed -i 's/GODDAMNIT/\-v \-O2/g' config-5.1.lua
           cat config-5.1.lua
       
