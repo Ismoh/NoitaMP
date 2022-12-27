@@ -103,7 +103,6 @@ jobs:
           echo "steps.lua_unit_tests.outputs.not_found = ${{ steps.lua_unit_tests.outputs.not_found }}"
       
       - name: Install dependencies
-        shell: cmd
         run: |
           cd ${{ github.workspace}}\mods\noita-mp\
           luarocks config
@@ -111,15 +110,12 @@ jobs:
           luarocks --lua-dir="${{ github.workspace}}\LuaJIT-2.0.4" install luacov-coveralls
       
       - name: Generate coverage report with luacov
-        shell: cmd
         run: |
           cd ${{ github.workspace }}\mods\noita-mp\
           luarocks path --append
           lua -lluacov ${{ github.workspace }}\mods\noita-mp\tests\startUnitTests.lua --verbose
+          
       - name: Generate coverage report with luacov
-
-        shell: cmd
-
         run: |    
           ls -R ${{ github.workspace }}\
       
@@ -129,7 +125,7 @@ jobs:
           COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COVERALLS_DEBUG: true
         run: |
-          
+          luarocks path --append
           ${{ github.workspace }}\mods\noita-mp\lua_modules\bin\luacov-coveralls.bat --root ${{ github.workspace}}\mods\noita-mp\ --verbose
       
       - name: Fix codecov path issue

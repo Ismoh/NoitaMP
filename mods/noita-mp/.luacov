@@ -1,44 +1,17 @@
 -- Configuration file for LuaCov
-
 return {
-    statsfile = "luacov.stats.out",
-    reportfile = "luacov.report.out"
-    exclude = {
-
-        ".building",
-
-        ".debug",
-
-        ".github",
-
-        ".testing",
-
-        ".vscode",
-
-        "docs",
-
-        ".gitattritbutes",
-
-        ".gitignore",
-
+    statsfile  = "luacov.stats.out",
+    reportfile = "luacov.report.out",
+    exclude    = {
+        ".luarocks",
+        "data/",
+        "lua_modules/",
         ".luacov",
-
-        "CODE_OF_CONDUCT.md",
-
-        "codecov.yml",
-
-        "CONTRIBUTING.md",
-
-        "coveralls.yml",
-
-        "LICENSE",
-
-        "README.md",
-
-        "SUPPORT.md",
-
-        "luarocks-3.8.0/.codecov.yml",
-
+        ".version",
+        "lua.bat",
+        "luarocks.bat",
+        "mod.xml",
+        "modSettingsUpdater.lua",
+        "noita-mp-*"
     }
-
 }
