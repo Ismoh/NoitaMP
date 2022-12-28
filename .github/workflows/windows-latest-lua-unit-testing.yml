@@ -154,11 +154,12 @@ jobs:
       - name: Generate coverage report with luacov
         shell: cmd
         run: |
-          echo "$GITHUB_PATH"
-          type lua.bat
+          set
           cd ${{ github.workspace }}\mods\noita-mp\
+          type lua.bat
           call lua.bat -lluacov ${{ github.workspace }}\mods\noita-mp\tests\startUnitTests.lua -o text --verbose
-          call ${{ github.workspace }}\mods\noita-mp\lua_modules\bin\luacov.bat
+          ls -R
+          call ${{ github.workspace }}\mods\noita-mp\lua_modules\bin\luacov.bat -c=${{ github.workspace }}\mods\noita-mp\.luacov
           
           if exist ${{ github.workspace }}\mods\noita-mp\luacov.stats.out (
             echo "LuaCov report successfully"
