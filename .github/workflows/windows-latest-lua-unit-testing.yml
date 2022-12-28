@@ -17,7 +17,7 @@ jobs:
           call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86 10.0.22000.0 -vcvars_ver=14
           cd ${{ github.workspace }}\.building\LuaJIT-2.0.4\src
           msvcbuild
-          dir "luajit.exe" /s
+          if exist luajit.exe echo "LuaJIT-2.0.4 built successfully" || echo "LuaJIT-2.0.4 build failed" exit 1
     
       - name: Install LuaJIT-2.0.4
         shell: pwsh
@@ -70,8 +70,8 @@ jobs:
           %ABS_PATH%\luarocks config --scope="project" variables.CFLAGS "GODDAMNIT"
           %ABS_PATH%\luarocks config
   
-          dir "lua.bat" /s
-          dir "luarocks.bat" /s
+          if exist lua.bat echo "LuaRocks project init successfully" || echo "LuaRocks project init failed" exit 1
+          if exist luarocks.bat echo "LuaRocks project init successfully" || echo "LuaRocks project init failed" exit 1
       
       - name: Fix LuaRocks bug
         run: |
@@ -83,9 +83,9 @@ jobs:
         shell: cmd
         id: lua_unit_tests
         run: |
-          ls -R
           cd ${{ github.workspace}}\mods\noita-mp\
           call luarocks.bat test > result.log
+          if exist result.log echo "LuaUnit tests successfully" || echo "LuaUnit tests failed" exit 1
           type result.log
       
       - name: Install dependencies
@@ -96,7 +96,8 @@ jobs:
           call luarocks.bat install luacov
           call luarocks.bat install luacov-coveralls
           call luarocks.bat path --append >> $GITHUB_PATH
-          ls -R
+          if exist ${{ github.workspace }}\mods\noita-mp\lua_modules\bin\luacov.bat echo "LuaCov install successfully" || echo "LuaCov install failed" exit 1
+          if exist ${{ github.workspace }}\mods\noita-mp\lua_modules\bin\luacov-coveralls.bat echo "LuaCov Coveralls install successfully" || echo "LuaCov Coveralls install failed" exit 1
       
       - name: Generate coverage report with luacov
         shell: pwsh
@@ -104,16 +105,18 @@ jobs:
           dir -Path ${{ github.workspace }}\mods\noita-mp\tests -Filter *.lua -Recurse | %{& '${{ github.workspace }}\mods\noita-mp\lua.bat' -lluacov $_.FullName -o text --verbose }
           Start-Process -FilePath "${{ github.workspace }}\mods\noita-mp\lua_modules\bin\luacov.bat" -Wait -NoNewWindow
           ls -R
+          if exist ${{ github.workspace }}\mods\noita-mp\luacov.stats.out echo "LuaCov report successfully" || echo "LuaCov report failed" exit 1
       
       - name: Generate coverage report with luacov-coveralls
-        shell: pwsh
+        shell: cmd
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COVERALLS_DEBUG: true
         run: |
           cd ${{ github.workspace}}\mods\noita-mp\
-          Start-Process -FilePath "luarocks" -ArgumentList "path --append" -Wait -NoNewWindow
-          Start-Process -FilePath "${{ github.workspace }}\mods\noita-mp\lua_modules\bin\luacov-coveralls.bat" -ArgumentList "--root ${{ github.workspace}}\mods\noita-mp\ --verbose" -Wait -NoNewWindow
+          call luarocks path --append
+          call ${{ github.workspace }}\mods\noita-mp\lua_modules\bin\luacov-coveralls.bat --root ${{ github.workspace}}\mods\noita-mp\ --verbose
+          if exist ${{ github.workspace }}\mods\noita-mp\luacov.report.out echo "LuaCov Coveralls report successfully" || echo "LuaCov Coveralls report failed" exit 1
       
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
