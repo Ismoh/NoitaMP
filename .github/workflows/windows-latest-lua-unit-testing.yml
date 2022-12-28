@@ -141,9 +141,9 @@ jobs:
           call luarocks path --lr-path >> lpath.txt
           call luarocks path --lr-cpath >> cpath.txt
           call luarocks path --lr-bin >> path.txt
-          setx LUA_PATH /f mypaths.txt
-          setx LUA_CPATH /f mypaths.txt
-          setx PATH /f mypaths.txt
+          setx LUA_PATH /f lpath.txt
+          setx LUA_CPATH /f cpath.txt
+          setx PATH /f path.txt
     
       - name: Generate coverage report with luacov
         shell: cmd
