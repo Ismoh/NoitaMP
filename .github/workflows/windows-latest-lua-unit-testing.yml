@@ -6,9 +6,6 @@ jobs:
   lua-unit-testing-on-windows-latest:
     name: "LuaUnit on Windows-latest (MSVC)"
     runs-on: windows-latest
-    env:
-      LUA_PATH: ""
-      LUA_CPATH: ""
       
     steps:
       - uses: actions/checkout@v3.1.0
@@ -148,11 +145,14 @@ jobs:
       - name: Set LuaRocks path into GitHub action path
         run: |
           cd ${{ github.workspace }}\mods\noita-mp\
-          Get-Content lpath.txt | Out-File -Append -FilePath $env:LUA_PATH -Encoding utf8
-          Get-Content lpath.txt | Out-File -Append -FilePath $env:GITHUB_PATH -Encoding utf8
-          Get-Content cpath.txt | Out-File -Append -FilePath $env:LUA_CPATH -Encoding utf8
-          Get-Content cpath.txt | Out-File -Append -FilePath $env:GITHUB_PATH -Encoding utf8
-          Get-Content path.txt | Out-File -Append -FilePath $env:GITHUB_PATH -Encoding utf8
+          $lpath = Get-Content lpath.txt -Raw
+          echo $lpath | Out-File -Append -FilePath $env:LUA_PATH -Encoding utf8
+          echo $lpath | Out-File -Append -FilePath $env:GITHUB_PATH -Encoding utf8
+          $cpath = Get-Content cpath.txt -Raw
+          echo $cpath | Out-File -Append -FilePath $env:LUA_CPATH -Encoding utf8
+          echo $cpath | Out-File -Append -FilePath $env:GITHUB_PATH -Encoding utf8
+          $path = Get-Content path.txt -Raw
+          echo $path | Out-File -Append -FilePath $env:GITHUB_PATH -Encoding utf8
     
       - name: Generate coverage report with luacov
         shell: cmd
