@@ -146,13 +146,15 @@ jobs:
         run: |
           cd ${{ github.workspace }}\mods\noita-mp\
           $lpath = Get-Content lpath.txt -Raw
-          echo $lpath | Out-File -Append -FilePath $env:LUA_PATH -Encoding utf8
-          echo $lpath | Out-File -Append -FilePath $env:GITHUB_PATH -Encoding utf8
+          echo $lpath
+          echo "$lpath"
+          echo "$lpath" | Out-File -Append -FilePath $env:LUA_PATH -Encoding utf8
+          echo "$lpath" | Out-File -Append -FilePath $env:GITHUB_PATH -Encoding utf8
           $cpath = Get-Content cpath.txt -Raw
-          echo $cpath | Out-File -Append -FilePath $env:LUA_CPATH -Encoding utf8
-          echo $cpath | Out-File -Append -FilePath $env:GITHUB_PATH -Encoding utf8
+          echo "$cpath" | Out-File -Append -FilePath $env:LUA_CPATH -Encoding utf8
+          echo "$cpath" | Out-File -Append -FilePath $env:GITHUB_PATH -Encoding utf8
           $path = Get-Content path.txt -Raw
-          echo $path | Out-File -Append -FilePath $env:GITHUB_PATH -Encoding utf8
+          echo "$path" | Out-File -Append -FilePath $env:GITHUB_PATH -Encoding utf8
     
       - name: Generate coverage report with luacov
         shell: cmd
