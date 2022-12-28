@@ -141,16 +141,7 @@ jobs:
           call luarocks path --lr-path >> $GITHUB_PATH
           call luarocks path --lr-cpath >> $GITHUB_PATH
           call luarocks path --lr-bin >> $GITHUB_PATH
-          type lpath.txt
-          type cpath.txt
-          type bpath.txt
-          
-      - name: Append LuaRocks path written in files into GitHub path
-        run: |
-          echo "${{ github.workspace }}\mods\noita-mp\lpath.txt" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
-          echo "${{ github.workspace }}\mods\noita-mp\cpath.txt" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
-          echo "${{ github.workspace }}\mods\noita-mp\bpath.txt" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
-      
+    
       - name: Generate coverage report with luacov
         shell: cmd
         run: |
