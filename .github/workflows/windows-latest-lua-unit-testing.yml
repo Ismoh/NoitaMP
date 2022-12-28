@@ -91,12 +91,13 @@ jobs:
       - name: Install dependencies
         shell: cmd
         run: |
+          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86 10.0.22000.0 -vcvars_ver=14
           cd ${{ github.workspace}}\mods\noita-mp\
           call luarocks.bat config
           call luarocks.bat install luacov
           call luarocks.bat install luacov-coveralls
           call luarocks.bat path --append >> $GITHUB_PATH
-          if exist ${{ github.workspace }}\mods\noita-mp\lua_modules\bin\luacov.bat echo "LuaCov install successfully" || echo "::error::LuaCov install failed"
+          if exist ${{ github.workspace }}\mods\noita-mp\lua_modules\bin\luacov.bat (echo "LuaCov install successfully") else (echo "::error::LuaCov install failed" && exit 1)
           if exist ${{ github.workspace }}\mods\noita-mp\lua_modules\bin\luacov-coveralls.bat echo "LuaCov Coveralls install successfully" || echo "::error::LuaCov Coveralls install failed"
       
       - name: Generate coverage report with luacov
@@ -116,7 +117,7 @@ jobs:
           cd ${{ github.workspace}}\mods\noita-mp\
           call luarocks path --append
           call ${{ github.workspace }}\mods\noita-mp\lua_modules\bin\luacov-coveralls.bat --root ${{ github.workspace}}\mods\noita-mp\ --verbose
-          if exist ${{ github.workspace }}\mods\noita-mp\luacov.report.out echo "LuaCov Coveralls report successfully" || echo "::error::LuaCov Coveralls report failed. Unable to find luacov.report.out"
+          if exist ${{ github.workspace }}\mods\noita-mp\luacov.report.out (echo "LuaCov Coveralls report successfully") else (echo "::error::LuaCov Coveralls report failed. Unable to find luacov.report.out" && exit 1)
       
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
