@@ -6,9 +6,6 @@ jobs:
   lua-unit-testing-on-windows-latest:
     name: "LuaUnit on Windows-latest (MSVC)"
     runs-on: windows-latest
-    env:
-      LUA_PATH: ""
-      LUA_CPATH: ""
     
     steps:
       - uses: actions/checkout@v3.1.0
@@ -148,14 +145,17 @@ jobs:
       - name: Set LuaRocks path into GitHub action path
         run: |
           cd ${{ github.workspace }}\mods\noita-mp\
+          
           $lpath = Get-Content lpath.txt -Raw
-          echo $lpath
-          echo "$lpath"
-          echo "$lpath" | Out-File -Append -FilePath $env:LUA_PATH -Encoding utf8
+          echo "LUA_PATH=$lpath"
+          echo "LUA_PATH=$lpath" >> $GITHUB_ENV
           echo "$lpath" | Out-File -Append -FilePath $env:GITHUB_PATH -Encoding utf8
+          
           $cpath = Get-Content cpath.txt -Raw
-          echo "$cpath" | Out-File -Append -FilePath $env:LUA_CPATH -Encoding utf8
+          echo "LUA_CPATH=$cpath"
+          echo "LUA_CPATH=$cpath" >> $GITHUB_ENV
           echo "$cpath" | Out-File -Append -FilePath $env:GITHUB_PATH -Encoding utf8
+          
           $path = Get-Content path.txt -Raw
           echo "$path" | Out-File -Append -FilePath $env:GITHUB_PATH -Encoding utf8
     
