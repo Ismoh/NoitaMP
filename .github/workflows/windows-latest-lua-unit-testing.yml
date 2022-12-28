@@ -138,9 +138,9 @@ jobs:
         shell: cmd
         run: |
           cd ${{ github.workspace }}\mods\noita-mp\
-          call luarocks path --lr-path >> lpath.txt
-          call luarocks path --lr-cpath >> cpath.txt
-          call luarocks path --lr-bin >> bpath.txt
+          call luarocks path --lr-path >> $GITHUB_PATH
+          call luarocks path --lr-cpath >> $GITHUB_PATH
+          call luarocks path --lr-bin >> $GITHUB_PATH
           type lpath.txt
           type cpath.txt
           type bpath.txt
@@ -155,6 +155,7 @@ jobs:
         shell: cmd
         run: |
           set
+          echo "%PATH%"
           cd ${{ github.workspace }}\mods\noita-mp\
           type lua.bat
           call lua.bat -lluacov ${{ github.workspace }}\mods\noita-mp\tests\startUnitTests.lua -o text --verbose
