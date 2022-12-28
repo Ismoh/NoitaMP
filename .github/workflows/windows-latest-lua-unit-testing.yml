@@ -119,7 +119,7 @@ jobs:
           call luarocks.bat config
           call luarocks.bat install luacov
           call luarocks.bat install luacov-coveralls
-          call luarocks.bat path --append >> $GITHUB_PATH
+
           
           if exist ${{ github.workspace }}\mods\noita-mp\lua_modules\bin\luacov.bat (
             echo "LuaCov install successfully"
@@ -133,10 +133,17 @@ jobs:
             echo "::error::LuaCov Coveralls install failed"
             exit 1
           )
+          
+      - name: Set LuaRocks path to GitHub path
+        shell: cmd
+        run: |
+          cd ${{ github.workspace }}\mods\noita-mp\
+          luarocks path >> $GITHUB_PATH
       
       - name: Generate coverage report with luacov
         shell: cmd
         run: |
+          echo "$PATH"
           cd ${{ github.workspace }}\mods\noita-mp\
           call luarocks.bat path --append
           call lua.bat -lluacov ${{ github.workspace }}\mods\noita-mp\tests\startUnitTests.lua -o text --verbose
