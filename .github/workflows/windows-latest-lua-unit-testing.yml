@@ -80,31 +80,22 @@ jobs:
           cat config-5.1.lua
       
       - name: Run LuaUnit 3.4
-        shell: pwsh
+        shell: cmd
         id: lua_unit_tests
         run: |
           ls -R
           cd ${{ github.workspace}}\mods\noita-mp\
-          Start-Process -FilePath "cd ${{ github.workspace}}\mods\noita-mp\luarocks.bat" -ArgumentList "test > result.log" -Wait -NoNewWindow
-        
-          # https://timheuer.com/blog/manually-force-a-failure-in-github-action-step/
-          # $testFail = Select-String -Path ${{ github.workspace }}\mods\noita-mp\result.log -Pattern 'FAIL' -CaseSensitive
-          # echo "{fail}={$testFail}" >> $GITHUB_OUTPUT
-        
-          # $testError = Select-String -Path ${{ github.workspace }}\mods\noita-mp\result.log -Pattern 'ERROR' -CaseSensitive
-          # echo "{error}={$testError}" >> $GITHUB_OUTPUT
-        
-          # $notFound = Get-Content -Path ${{ github.workspace }}\mods\noita-mp\result.log
-          # echo "{not_found}={$notFound}" >> $GITHUB_OUTPUT
+          call luarocks.bat test > result.log
+          type result.log
       
       - name: Install dependencies
-        shell: pwsh
+        shell: cmd
         run: |
           cd ${{ github.workspace}}\mods\noita-mp\
-          Start-Process -FilePath "luarocks" -ArgumentList "config" -Wait -NoNewWindow
-          Start-Process -FilePath "luarocks" -ArgumentList "install luacov" -Wait -NoNewWindow
-          Start-Process -FilePath "luarocks" -ArgumentList "install luacov-coveralls" -Wait -NoNewWindow
-          Start-Process -FilePath "luarocks" -ArgumentList "path --append" -Wait -NoNewWindow
+          call luarocks.bat config
+          call luarocks.bat install luacov
+          call luarocks.bat install luacov-coveralls
+          call luarocks.bat path --append >> $GITHUB_PATH
           ls -R
       
       - name: Generate coverage report with luacov
