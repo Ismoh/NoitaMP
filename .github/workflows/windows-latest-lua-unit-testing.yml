@@ -154,9 +154,9 @@ jobs:
       - name: Generate coverage report with luacov
         shell: cmd
         run: |
-          echo "$PATH"
+          echo "$GITHUB_PATH"
+          type lua.bat
           cd ${{ github.workspace }}\mods\noita-mp\
-          call luarocks.bat path --append
           call lua.bat -lluacov ${{ github.workspace }}\mods\noita-mp\tests\startUnitTests.lua -o text --verbose
           call ${{ github.workspace }}\mods\noita-mp\lua_modules\bin\luacov.bat
           
