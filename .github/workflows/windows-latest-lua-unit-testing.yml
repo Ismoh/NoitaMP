@@ -134,20 +134,22 @@ jobs:
             exit 1
           )
           
-      - name: Set LuaRocks path to GitHub path
+      - name: Write LuaRocks path into files
         shell: cmd
         run: |
           cd ${{ github.workspace }}\mods\noita-mp\
           call luarocks path --lr-path >> lpath.txt
           call luarocks path --lr-cpath >> cpath.txt
-          call luarocks path --lr-bin >> path.txt
+          call luarocks path --lr-bin >> bpath.txt
           type lpath.txt
           type cpath.txt
-          type path.txt
-          type lpath.txt >> $GITHUB_PATH
-          type cpath.txt >> $GITHUB_PATH
-          type path.txt >> $GITHUB_PATH
+          type bpath.txt
           
+      - name: Append LuaRocks path written in files into GitHub path
+        run: |
+          echo "${{ github.workspace }}\mods\noita-mp\lpath.txt" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+          echo "${{ github.workspace }}\mods\noita-mp\cpath.txt" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+          echo "${{ github.workspace }}\mods\noita-mp\bpath.txt" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
       
       - name: Generate coverage report with luacov
         shell: cmd
@@ -172,7 +174,6 @@ jobs:
           COVERALLS_DEBUG: true
         run: |
           cd ${{ github.workspace}}\mods\noita-mp\
-          call luarocks path --append
           call ${{ github.workspace }}\mods\noita-mp\lua_modules\bin\luacov-coveralls.bat --root ${{ github.workspace}}\mods\noita-mp\ --verbose
           
           if exist ${{ github.workspace }}\mods\noita-mp\luacov.report.out (
