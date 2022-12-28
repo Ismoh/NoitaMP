@@ -141,9 +141,6 @@ jobs:
           call luarocks path --lr-path >> lpath.txt
           call luarocks path --lr-cpath >> cpath.txt
           call luarocks path --lr-bin >> path.txt
-          setx LUA_PATH /f lpath.txt
-          setx LUA_CPATH /f cpath.txt
-          setx PATH /f path.txt
   
       - name: Set LuaRocks path into GitHub action path
         run: |
