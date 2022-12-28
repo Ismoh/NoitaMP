@@ -17,6 +17,7 @@ jobs:
           call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86 10.0.22000.0 -vcvars_ver=14
           cd ${{ github.workspace }}\.building\LuaJIT-2.0.4\src
           msvcbuild
+          dir "luajit.exe" /s
     
       - name: Install LuaJIT-2.0.4
         shell: pwsh
@@ -68,6 +69,9 @@ jobs:
           %ABS_PATH%\luarocks config --scope="project" variables.LUA_INCDIR ${{ github.workspace}}\LuaJIT-2.0.4\include
           %ABS_PATH%\luarocks config --scope="project" variables.CFLAGS "GODDAMNIT"
           %ABS_PATH%\luarocks config
+  
+          dir "lua.bat" /s
+          dir "luarocks.bat" /s
       
       - name: Fix LuaRocks bug
         run: |
@@ -79,9 +83,9 @@ jobs:
         shell: pwsh
         id: lua_unit_tests
         run: |
-          cd ${{ github.workspace}}\mods\noita-mp\
-          Start-Process -FilePath "luarocks.bat" -ArgumentList "test > result.log" -Wait -NoNewWindow
           ls -R
+          cd ${{ github.workspace}}\mods\noita-mp\
+          Start-Process -FilePath "cd ${{ github.workspace}}\mods\noita-mp\luarocks.bat" -ArgumentList "test > result.log" -Wait -NoNewWindow
         
           # https://timheuer.com/blog/manually-force-a-failure-in-github-action-step/
           # $testFail = Select-String -Path ${{ github.workspace }}\mods\noita-mp\result.log -Pattern 'FAIL' -CaseSensitive
