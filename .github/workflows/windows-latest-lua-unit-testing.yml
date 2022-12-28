@@ -135,11 +135,10 @@ jobs:
           )
       
       - name: Generate coverage report with luacov
-        shell: pwsh
+        shell: cmd
         run: |
-          dir -Path ${{ github.workspace }}\mods\noita-mp\tests -Filter *.lua -Recurse | %{& '${{ github.workspace }}\mods\noita-mp\lua.bat' -lluacov $_.FullName -o text --verbose }
-          Start-Process -FilePath "${{ github.workspace }}\mods\noita-mp\lua_modules\bin\luacov.bat" -Wait -NoNewWindow
-          ls -R
+          call ${{ github.workspace }}\mods\noita-mp\lua.bat -lluacov ${{ github.workspace }}\mods\noita-mp\tests\startUnitTests.lua -o text --verbose
+          call ${{ github.workspace }}\mods\noita-mp\lua_modules\bin\luacov.bat
           
           if exist ${{ github.workspace }}\mods\noita-mp\luacov.stats.out (
             echo "LuaCov report successfully"
