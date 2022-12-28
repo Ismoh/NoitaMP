@@ -138,9 +138,12 @@ jobs:
         shell: cmd
         run: |
           cd ${{ github.workspace }}\mods\noita-mp\
-          call luarocks path --lr-path >> $GITHUB_PATH
-          call luarocks path --lr-cpath >> $GITHUB_PATH
-          call luarocks path --lr-bin >> $GITHUB_PATH
+          call luarocks path --lr-path >> lpath.txt
+          call luarocks path --lr-cpath >> cpath.txt
+          call luarocks path --lr-bin >> path.txt
+          setx LUA_PATH /f mypaths.txt
+          setx LUA_CPATH /f mypaths.txt
+          setx PATH /f mypaths.txt
     
       - name: Generate coverage report with luacov
         shell: cmd
