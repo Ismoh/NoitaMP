@@ -138,9 +138,9 @@ jobs:
         shell: cmd
         run: |
           cd ${{ github.workspace }}\mods\noita-mp\
-          luarocks path --lr-path >> lpath.txt
-          luarocks path --lr-cpath >> cpath.txt
-          luarocks path --lr-bin >> path.txt
+          call luarocks path --lr-path >> lpath.txt
+          call luarocks path --lr-cpath >> cpath.txt
+          call luarocks path --lr-bin >> path.txt
           type lpath.txt
           type cpath.txt
           type path.txt
