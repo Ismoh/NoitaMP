@@ -5,7 +5,7 @@ local lu   = require("luaunit")
 TestConfig = {}
 
 function TestConfig:setUp()
-    print("\n setUp")
+
 end
 
 function TestConfig:tearDown()

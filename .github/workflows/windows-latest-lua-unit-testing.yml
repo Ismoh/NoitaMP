@@ -94,6 +94,13 @@ jobs:
           cd ${{ github.workspace}}\mods\noita-mp\.luarocks
           sed -i 's/GODDAMNIT/\-v \-O2/g' config-5.1.lua
           cat config-5.1.lua
+          
+#      - name: Build and install cache.dll
+#        shell: cmd
+#        run: |
+#          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86 10.0.22000.0 -vcvars_ver=14
+#          cd ${{ github.workspace }}\
+#          msbuild noitamp_cache.vcxproj
       
       - name: Run LuaUnit 3.4
         shell: cmd
