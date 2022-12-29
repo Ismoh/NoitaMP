@@ -154,13 +154,12 @@ jobs:
           cd ${{ github.workspace }}\mods\noita-mp\
           
           $lpath = Get-Content lpath.txt -Raw
-          echo "LUA_PATH=$lpath"
-          echo "LUA_PATH=$lpath" >> $GITHUB_ENV
+          echo "LUA_PATH=$lpath" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+
           echo "$lpath" | Out-File -Append -FilePath $env:GITHUB_PATH -Encoding utf8
           
           $cpath = Get-Content cpath.txt -Raw
-          echo "LUA_CPATH=$cpath"
-          echo "LUA_CPATH=$cpath" >> $GITHUB_ENV
+          echo "LUA_CPATH=$cpath" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
           echo "$cpath" | Out-File -Append -FilePath $env:GITHUB_PATH -Encoding utf8
           
           $path = Get-Content path.txt -Raw
@@ -191,7 +190,7 @@ jobs:
           COVERALLS_DEBUG: true
         run: |
           cd ${{ github.workspace}}\mods\noita-mp\
-          call ${{ github.workspace }}\mods\noita-mp\lua_modules\bin\luacov-coveralls.bat --root ${{ github.workspace}}\mods\noita-mp\ --verbose
+          call ${{ github.workspace }}\mods\noita-mp\lua_modules\bin\luacov-coveralls.bat --verbose
           
           if exist ${{ github.workspace }}\mods\noita-mp\luacov.report.out (
             echo "LuaCov Coveralls report successfully"
