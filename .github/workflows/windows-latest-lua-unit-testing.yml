@@ -127,8 +127,6 @@ jobs:
           call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86 10.0.22000.0 -vcvars_ver=14
           cd ${{ github.workspace}}\mods\noita-mp\
   
-          call luarocks.bat install luasocket
-          call luarocks.bat install uuid
           call luarocks.bat install luacov
           call luarocks.bat install luacov-coveralls
           
@@ -172,13 +170,10 @@ jobs:
       - name: Generate coverage report with luacov
         shell: cmd
         run: |
-          set
-          echo "%PATH%"
           cd ${{ github.workspace }}\mods\noita-mp\
-          type lua.bat
           call lua.bat -lluacov ${{ github.workspace }}\mods\noita-mp\tests\startUnitTests.lua -o text --verbose
-          ls -R
           call ${{ github.workspace }}\mods\noita-mp\lua_modules\bin\luacov.bat -c=${{ github.workspace }}\mods\noita-mp\.luacov
+          ls -R
           
           if exist ${{ github.workspace }}\mods\noita-mp\luacov.stats.out (
             echo "LuaCov report successfully"
@@ -192,7 +187,7 @@ jobs:
         uses: codecov/codecov-action@v3
         with:
           directory: ${{ github.workspace }}\mods\noita-mp\
-          file: ${{ github.workspace }}\mods\noita-mp\luacov.report.out
+          file: ${{ github.workspace }}\mods\noita-mp\luacov.stats.out
           flags: unittesting
           functionalities: network
           name: Windows Lua Unit Testing
