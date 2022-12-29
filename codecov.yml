@@ -19,7 +19,8 @@ coverage:
 github_checks:
   annotations: true
 fixes:
-  - "*/noita-mp::mods/noita-mp"
+  - "*\\noita-mp::mods\\noita-mp"
+  - "D:\\a\\NoitaMP\\NoitaMP\\mods\\noita-mp\\..\\..\\::“
 ignore:
   - ^.building.*
   - ^.debug.*
