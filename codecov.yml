@@ -20,22 +20,6 @@ github_checks:
   annotations: true
 fixes:
   - "*\\noita-mp::mods\\noita-mp"
-  - "D:\\a\\NoitaMP\\NoitaMP\\mods\\noita-mp\\..\\..\\::“
-ignore:
-  - ^.building.*
-  - ^.debug.*
-  - ^.github.*
-  - ^.testing.*
-  - ^.vscode.*
-  - ^docs.*
-  - ^.gitattritbutes.*
-  - ^.gitignore.*
-  - ^.luacov.*
-  - ^CODE_OF_CONDUCT.md.*
-  - ^codecov.yml.*
-  - ^CONTRIBUTING.md.*
-  - ^coveralls.yml.*
-  - ^LICENSE.*
-  - ^README.md.*
-  - ^SUPPORT.md.*
-  - ^luarocks-3.8.0/.codecov.yml.*
+  - "D:\\a\\NoitaMP\\NoitaMP\\mods\\noita-mp\\..\\..\\::"
+
+
