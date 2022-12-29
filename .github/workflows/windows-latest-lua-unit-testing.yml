@@ -189,6 +189,17 @@ jobs:
             exit 1
           )
   
+      - name: Fix codecov path issue
+        run: |
+          # ls -R
+          # $content = Get-Content -Path ${{ github.workspace }}/luacov.report.out
+          # $content = $content.Replace("\", "/")
+          # $content > ${{ github.workspace }}/luacov.report.out
+          # Write-Host $content
+    
+          $(cat ${{ github.workspace }}/mods/noita-mp/luacov.report.out | sed -e 's_\\_/_g') > ${{ github.workspace }}/mods/noita-mp/luacov.report.out
+          cat ${{ github.workspace }}/mods/noita-mp/luacov.report.out
+  
       - name: Upload coverage to Codecov
         continue-on-error: true
         uses: codecov/codecov-action@v3
