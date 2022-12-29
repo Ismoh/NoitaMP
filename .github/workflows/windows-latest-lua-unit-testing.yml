@@ -182,12 +182,17 @@ jobs:
             exit 1
           )
   
+          if exist ${{ github.workspace }}\mods\noita-mp\luacov.report.out (
+            echo "LuaCov report successfully"
+          ) else (
+            echo "::error::LuaCov report failed. Unable to find luacov.report.out"
+            exit 1
+          )
+  
       - name: Upload coverage to Codecov
         continue-on-error: true
         uses: codecov/codecov-action@v3
         with:
-          directory: ${{ github.workspace }}\mods\noita-mp\
-          file: ${{ github.workspace }}\mods\noita-mp\luacov.stats.out
           flags: unittesting
           functionalities: network
           name: Windows Lua Unit Testing
