@@ -183,7 +183,7 @@ jobs:
           COVERALLS_DEBUG: true
         run: |
           cd ${{ github.workspace}}\mods\noita-mp\
-          call ${{ github.workspace }}\mods\noita-mp\lua_modules\bin\luacov-coveralls.bat --root ${{ github.workspace}}\mods\noita-mp\ --verbose
+          call ${{ github.workspace }}\mods\noita-mp\lua_modules\bin\luacov-coveralls.bat --verbose
           
           if exist ${{ github.workspace }}\mods\noita-mp\luacov.report.out (
             echo "LuaCov Coveralls report successfully"
