@@ -189,6 +189,13 @@ jobs:
             exit 1
           )
   
+      - name: Upload coverage report to Coveralls
+        run : |
+          cd ${{ github.workspace }}\mods\noita-mp\
+          sed -i 's/..\\noita-mp/mods\\noita-mp/g' luacov.report.out
+          cat luacov.report.out
+          sed -i 's/D:\\a\\NoitaMP\\NoitaMP\\mods\\noita-mp\\..\\..\\//g' luacov.report.out
+          cat luacov.report.out
 
       - name: Upload coverage to Codecov
         continue-on-error: true
