@@ -42,6 +42,9 @@ jobs:
           Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\lualib.h" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\include"
           Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\lauxlib.h" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\include"
           Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\lua.hpp" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\include"
+  
+          # 'Install' JIT library
+          Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\lua51.lib" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\lib"
         
           # Test luajit.exe
           Start-Process -FilePath "${{ github.workspace }}\LuaJIT-2.0.4\bin\luajit.exe" -ArgumentList "-v" -Wait -NoNewWindow
@@ -123,10 +126,11 @@ jobs:
         run: |
           call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86 10.0.22000.0 -vcvars_ver=14
           cd ${{ github.workspace}}\mods\noita-mp\
-          call luarocks.bat config
+  
+          call luarocks.bat install luasocket
+          call luarocks.bat install uuid
           call luarocks.bat install luacov
           call luarocks.bat install luacov-coveralls
-
           
           if exist ${{ github.workspace }}\mods\noita-mp\lua_modules\bin\luacov.bat (
             echo "LuaCov install successfully"

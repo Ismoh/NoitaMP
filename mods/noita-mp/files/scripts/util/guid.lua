@@ -1,57 +1,10 @@
--- https://stackoverflow.com/questions/23013973/lua-pattern-for-guid
--- https://gist.github.com/jrus/3197011
--- https://stackoverflow.com/a/32353223/3493998
-
 local util   = require("util")
-local logger = _G.logger
+local socket = require("socket")
+local uuid   = require("uuid")
 
 local Guid   = {
     cached_guid             = {},
-    getRandomRange_0_to_9   = function()
-        return math.random(0, 9)
-    end,
-    getRandomRange_aA_to_fF = function()
-        local chars      = { "a", "b", "c", "d", "e", "f" }
-        local char_index = math.random(1, 6)
-        return string.upper(chars[char_index])
-    end
 }
-
---- Get processor id and use it for unique player identification.
---- To be able to test networking locally, noita.exe or noita_dex.exe is added.
---- @return number number unique number of local computer
-local function getUniqueness()
-    local command = nil
-    local file    = nil
-    local result  = nil
-
-    if is_windows then
-        command = 'wmic CPU get ProcessorId'
-    else
-        command = "sudo dmidecode -t processor | grep -E ID |  sed 's/.*: //'"
-    end
-
-    file        = io.popen(command, "r")
-    local count = 1
-    if file then
-    for line in file:lines() do
-        if count == 2 then
-            result = line
-            break
-        end
-        count = count + 1
-    end
-    file:close()
-    end
-    local number = ""
-    for i = 1, string.len(result) do
-        local char = string.sub(result, i, i)
-        number     = number .. string.byte(char)
-    end
-
-    ---@diagnostic disable-next-line: return-type-mismatch
-    return tonumber(number)
-end
 
 function Guid:getCachedGuids()
     return self.cached_guid
@@ -62,80 +15,24 @@ function Guid:addGuidToCache(guid)
 end
 
 --- Generates a pseudo GUID. Does not fulfil RFC standard! Should generate unique GUIDs, but repeats if there is a duplicate.
+--- Based on https://github.com/Tieske/uuid !
 --- @param inUsedGuids table? list of already used GUIDs
 --- @return string guid
 function Guid:getGuid(inUsedGuids)
     if not util.IsEmpty(inUsedGuids) and #inUsedGuids > 0 then
         ---@cast inUsedGuids table
         table.insertAllButNotDuplicates(self.cached_guid, inUsedGuids)
+        logger:debug(logger.channels.guid, ("Guid:getGuid() - inUsedGuids: %s"):format(util.ToString(inUsedGuids)))
     end
 
-    math.randomseed(getUniqueness())
-
-    local x         = "x"
-    local t         = { x:rep(8), x:rep(4), x:rep(4), x:rep(4), x:rep(12) }
-    local guid      = table.concat(t, "-")
-    local is_valid  = false
-    local is_unique = false
-
-    local counter   = 0
     repeat
-        guid      = string.gsub(
-                guid,
-                x,
-                function()
-                    local is_digit = math.random(0, 1)
-                    if is_digit == 1 then
-                        return self.getRandomRange_0_to_9()
-                    end
-                    return self.getRandomRange_aA_to_fF()
-                end
-        )
-
-        --if counter == 99 then
-        --    if DebugGetIsDevBuild() then
-        --        guid = guid .. "noita_dev.exe"
-        --    else
-        --        guid = guid .. "noita.exe"
-        --    end
-        --end
-
-        is_valid  = self.isPatternValid(guid)
-        is_unique = self:isUnique(guid)
-        logger:debug(logger.channels.guid,
-                     "GUID (%s) is valid=%s and unique=%s. Generating GUID run-number %s",
-                     guid,
-                     is_valid,
-                     is_unique,
-                     counter
-        )
-
-        counter = counter + 1
-
-
-        -- make same exe (Noita.exe or Noita_dev.exe) playable on the same computer
-        -- is is executed when server guid is the same as clients
-        if not is_unique and not util.IsEmpty(inUsedGuids) then
-            logger:warn(logger.channels.guid,
-                        "GUID is not unique, but ifSameAsServer is true. Adding simply counter to GUID.")
-            guid      = guid .. counter
-            is_unique = self:isUnique(guid)
-        end
-
-        if counter > 100 then
-            -- TODO: get rid of this!
-            local msg = string.format("Tried to generate GUID %s times. Stopped it for now! This is a serious bug!",
-                                      counter)
-            logger:error(msg)
-            error(msg, 2)
-            break
-        end
-
-    until is_valid and is_unique
+        uuid.randomseed(socket.gettime() * 10000)
+        guid = uuid()
+        print("guid " .. guid)
+    until self:isUnique(guid) and self.isPatternValid(guid)
 
     table.insert(self.cached_guid, guid)
-    logger:debug(logger.channels.guid,
-                 "guid.lua | guid = " .. guid .. " is valid = " .. tostring(is_valid) .. " and is unique = " .. tostring(is_unique))
+
     return guid
 end
 

@@ -59,16 +59,18 @@
 ## Make use of LuaJIT-2.0.4
 1. Check LuaJITs doc for compiling it on [Windows](https://luajit.org/install.html#windows).
 2. After compiling LuaJIT, copy the following files into destination directory: ([Double check here on 3.](https://gist.github.com/Egor-Skriptunoff/cb952f7eaf39b7b1bf739b818ece87cd))
-   - `luajit.exe` and `lua51.dll` (`lua51.lib`?) into `NoitaMP\LuaJIT-2.0.4\bin`
+   - `luajit.exe` and `lua51.dll` into `NoitaMP\LuaJIT-2.0.4\bin`
+   - `lua51.lib` into `NoitaMP\LuaJIT-2.0.4\lib`
    - Install jit.* modules by copying `NoitaMP\.building\LuaJIT-2.0.4\src\jit` into `NoitaMP\LuaJIT-2.0.4\jit`
    - Add includes by copying `lauxlib.h`, `lua.h`, `lua.hpp`, `luaconf.h`, `lualib.h` from `NoitaMP\.building\LuaJIT-2.0.4\src` into `NoitaMP\LuaJIT-2.0.4\include`
 3. Change `config-5.1.lua` like so, but use your local absolute path to `NoitaMP\LuaJIT-2.0.4\`:
    ```lua
    lua_interpreter = "luajit.exe"
    variables = {
+    LUA_DIR    = "yourAbsolutePathTo\\NoitaMP\\LuaJIT-2.0.4", -- LUA_DIR = "C:\\msys64\\mingw32",
     LUA_BINDIR = "yourAbsolutePathTo\\NoitaMP\\LuaJIT-2.0.4\\bin", -- LUA_BINDIR = "C:\\msys64\\mingw32\\bin",
-    LUA_DIR = "yourAbsolutePathTo\\NoitaMP\\LuaJIT-2.0.4", -- LUA_DIR = "C:\\msys64\\mingw32",
-    LUA_INCDIR = "yourAbsolutePathTo\\NoitaMP\\LuaJIT-2.0.4\\include" -- LUA_INCDIR = "C:\\msys64\\mingw32/include/lua5.1"
+    LUA_INCDIR = "yourAbsolutePathTo\\NoitaMP\\LuaJIT-2.0.4\\include", -- LUA_INCDIR = "C:\\msys64\\mingw32/include/lua5.1",
+    LUA_LIBDIR = "yourAbsolutePathTo\\NoitaMP\\LuaJIT-2.0.4\\lib"
    }
    ```
 4. Run `luarocks` in `\NoitaMP\mods\noita-mp` directory again. Done!
@@ -82,6 +84,16 @@ If you want to store logs, run `luarocks test > result.log`.
 
 ## Check for updates on dependencies
 Run `luarocks list` in `NoitaMP\mods\noita-mp` directory.
+
+## Install dependencies
+Run
+```
+call "C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Auxiliary\Build\vcvarsall.bat" x86 10.0.22000.0 -vcvars_ver=14
+luarocks install {name}
+```
+in `NoitaMP\mods\noita-mp` directory.
+
+
 
 ## Install all dependencies defined in noita-mp-*.rockspec
 Run `luarocks install --only-deps noita-mp-*.rockspec`. Replace `*` with the version number of the rockspec.

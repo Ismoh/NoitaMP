@@ -13,15 +13,10 @@ function TestStringExtensions:tearDown()
 end
 
 function TestStringExtensions:testExtendAndCutStringToLength()
-    lu.assertErrorMsgEquals("var is not a string.", string.ExtendOrCutStringToLength, 1)
+    lu.assertErrorMsgEquals("length is not a number.", string.ExtendOrCutStringToLength, 1)
     lu.assertErrorMsgEquals("length is not a number.", string.ExtendOrCutStringToLength, "var", "length")
-    lu.assertErrorMsgContains(
-        "char is not a character. string.len(char) > 1 = ",
-        string.ExtendOrCutStringToLength,
-        "var",
-        1,
-        "character"
-    )
+    lu.assertErrorMsgContains("char is not a character. string.len(char) > 1 = ",
+        string.ExtendOrCutStringToLength, "var", 1, "character")
 
     local expected = "12345"
     local actual = string.ExtendOrCutStringToLength("12345678910", 5, " ")

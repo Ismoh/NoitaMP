@@ -82,8 +82,8 @@ function TestTableExtensions:testSetNoitaMpDefaultMetaMethods()
     logger:debug(nil, tostring(t2))
 
     lu.assertEquals(t2[1], 1)
-    lu.assertEquals(#t2, 4)
-    lu.assertEquals(t2[5], nil)
+    lu.assertEquals(#t2, 5)
+    lu.assertEquals(t2[5], 7)
 end
 
 lu.LuaUnit.run(params)
