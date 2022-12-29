@@ -193,7 +193,7 @@ jobs:
         continue-on-error: true
         uses: codecov/codecov-action@v3
         with:
-          file: ${{ github.workspace }}\mods\noita-mp\luacov.report.out
+          file: mods/noita-mp/luacov.report.out
           flags: unittesting
           functionalities: network
           name: Windows Lua Unit Testing
