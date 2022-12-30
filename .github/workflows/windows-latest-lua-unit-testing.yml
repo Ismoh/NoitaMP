@@ -122,6 +122,7 @@ jobs:
           type result.log
           
       - name: Failed unit tests?
+        shell: cmd
         run: |
           cd ${{ github.workspace}}/mods/noita-mp
           
