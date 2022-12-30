@@ -75,7 +75,7 @@ local function encode_table(val, stack)
       n = n + 1
     end
     if n ~= #val then
-      logger:error(nil, "invalid table: sparse array")--error("invalid table: sparse array")
+      print("ERROR: invalid table: sparse array")--error("invalid table: sparse array")
     end
     -- Encode
     for i, v in ipairs(val) do
@@ -88,9 +88,10 @@ local function encode_table(val, stack)
     -- Treat as an object
     for k, v in pairs(val) do
       if type(k) ~= "string" then
-        logger:error(nil, ("invalid table: mixed or invalid key types: k = %s"):format(k))--error(("invalid table: mixed or invalid key types: k = %s"):format(k))
+        print(("ERROR: invalid table: mixed or invalid key types: k = %s"):format(k))--error(("invalid table: mixed or invalid key types: k = %s"):format(k))
+      else
+        table.insert(res, encode(k, stack) .. ":" .. encode(v, stack))
       end
-      table.insert(res, encode(k, stack) .. ":" .. encode(v, stack))
     end
     stack[val] = nil
     return "{" .. table.concat(res, ",") .. "}"
