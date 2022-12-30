@@ -1,5 +1,13 @@
 # Noita Multiplayer
 
+### Table of Contents
+- [TL:DR](#tldr)  
+- [Documentation](#documentation)  
+- [Our awesome and valuable Contributors](#our-awesome-and-valuable-contributors)  
+- [Credits, Supporter and special thanks](#credits-supporter-and-special-thanks)  
+- [Used libraries, frameworks and other stuff](#used-libraries-frameworks-and-other-stuff)
+- [Roadmap](#roadmap)
+
 ## TL;DR
 
 **Currently work in progress and not working unless there is a GitHub release available!**
@@ -32,8 +40,9 @@ If you want to get notifications, [join](https://discord.gg/DhMurdcw4k) my disco
 [![Codecov](https://img.shields.io/codecov/c/gh/Ismoh/NoitaMP?logo=codecov&style=flat-square)](https://codecov.io/gh/Ismoh/NoitaMP)
 
 [![watchers](https://flat.badgen.net/github/watchers/ismoh/noitamp)](https://github.com/Ismoh/NoitaMP/watchers)
-[![stars](https://flat.badgen.net/github/stars/ismoh/noitamp)](https://github.com/Ismoh/NoitaMP/stargazers)
 [![forks](https://flat.badgen.net/github/forks/ismoh/noitamp)](https://github.com/Ismoh/NoitaMP/network/members)
+[![stars](https://flat.badgen.net/github/stars/ismoh/noitamp)](https://github.com/Ismoh/NoitaMP/stargazers)
+
 
 [![license](https://flat.badgen.net/github/license/ismoh/noitamp)](https://github.com/Ismoh/NoitaMP/blob/master/LICENSE.md)
 
@@ -64,7 +73,7 @@ Installation, configuration and support can be found on the [docs](https://ismoh
   <img src="https://contrib.rocks/image?repo=Ismoh/NoitaMP" />
 </a>
 
-## Credits | Supporter | Special Thanks 
+## Credits, Supporter and special thanks 
 
 I wouldn't be able to create this mod without the help by
 
