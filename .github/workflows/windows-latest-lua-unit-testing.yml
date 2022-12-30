@@ -120,6 +120,15 @@ jobs:
           )
           
           type result.log
+          
+      - name: Failed unit tests?
+        shell: sh
+        run: |
+          error=$(cat result.log | sed 's/.*error //' | cut -d " " -f 1)
+          echo "$error"
+          fail=$(cat result.log | sed 's/.*failures //' | cut -d " " -f 1)
+
+          echo "$fail"
       
       - name: Install dependencies
         shell: cmd
