@@ -192,11 +192,11 @@ jobs:
       - name: Fix wrong paths in luacov.report.out
         run : |
           cd ${{ github.workspace }}\mods\noita-mp\
-          sed -i 's/..\\noita-mp/mods\\noita-mp/g' luacov.report.out
+          sed -i 's/\.\.\\noita-mp/mods\\noita-mp/g' luacov.report.out
           cat luacov.report.out
-          sed -i 's/D:\\a\\NoitaMP\\NoitaMP\\mods\\noita-mp\\..\\..\\mods\\noita-mp/mods\\noita-mp/g' luacov.report.out
+          sed -i 's/D:\\a\\NoitaMP\\NoitaMP\\momods\\noita-mp\\\.\.\\\.\.\\momods\\noita-mp/mods\\noita-mp/g' luacov.report.out
           cat luacov.report.out
-          sed -i 's/D:\\a\\NoitaMP\\NoitaMP\\mods\\noita-mp/mods\\noita-mp/g' luacov.report.out
+          sed -i 's/D:\\a\\NoitaMP\\NoitaMP\\momods\\noita-mp/mods\\noita-mp/g' luacov.report.out
           cat luacov.report.out
 
       - name: Upload coverage to Codecov
