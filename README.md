@@ -1,4 +1,5 @@
 # Noita Multiplayer
+[![latest release](https://img.shields.io/github/v/release/ismoh/noitamp?include_prereleases&label=latest%20release&style=for-the-badge)](https://github.com/Ismoh/NoitaMP/releases)
 
 ### Table of Contents
 - [TL:DR](#tldr)  
@@ -15,38 +16,27 @@
 If you want to get notifications, [join](https://discord.gg/DhMurdcw4k) my discord server. There is a MEE6 role assigment for NoitaMP in #noita-modding!
 
 ---
-<div align="center">
 
-[![latest release](https://img.shields.io/github/v/release/ismoh/noitamp?include_prereleases&label=latest%20release&style=flat-square)](https://github.com/Ismoh/NoitaMP/releases)
-[![GitHub release](https://img.shields.io/github/v/release/ismoh/noitamp?display_name=release&include_prereleases&sort=date&style=flat-square)](https://github.com/Ismoh/NoitaMP/releases)
-[![GitHub tag](https://img.shields.io/github/v/tag/ismoh/noitamp?include_prereleases&sort=semver&style=flat-square)](https://github.com/Ismoh/NoitaMP/tags)
-[![.version](https://img.shields.io/badge/dynamic/json?label=.version&query=version&url=https%3A%2F%2Fraw.githubusercontent.com%2FIsmoh%2FNoitaMP%2Fdevelop%2Fmods%2Fnoita-mp%2F.version&style=flat-square)](https://github.com/Ismoh/NoitaMP/blob/develop/mods/noita-mp/.version)
-[![amount of releases](https://flat.badgen.net/github/releases/ismoh/noitamp)](https://github.com/Ismoh/NoitaMP/releases)
+[![latest release](https://img.shields.io/github/v/release/ismoh/noitamp?include_prereleases&label=latest%20release&style=for-the-badge)](https://github.com/Ismoh/NoitaMP/releases)
+[![GitHub release](https://img.shields.io/github/v/release/ismoh/noitamp?display_name=release&include_prereleases&sort=date&style=for-the-badge)](https://github.com/Ismoh/NoitaMP/releases)
+[![GitHub tag](https://img.shields.io/github/v/tag/ismoh/noitamp?include_prereleases&sort=semver&style=for-the-badge)](https://github.com/Ismoh/NoitaMP/tags)
+[![.version](https://img.shields.io/badge/dynamic/json?label=.version&query=version&url=https%3A%2F%2Fraw.githubusercontent.com%2FIsmoh%2FNoitaMP%2Fdevelop%2Fmods%2Fnoita-mp%2F.version&style=for-the-badge)](https://github.com/Ismoh/NoitaMP/blob/develop/mods/noita-mp/.version)
 
-[![last-commit](https://img.shields.io/github/last-commit/ismoh/noitamp?style=flat-square)](https://github.com/Ismoh/NoitaMP/commit/develop)
-[![luarocks-version](https://img.shields.io/badge/luarocks-v3.9.1-brightgreen?style=flat-square)](https://github.com/Ismoh/NoitaMP/blob/develop/.building/luarocks-3.9.1-windows-32)
+[![last-commit](https://img.shields.io/github/last-commit/ismoh/noitamp?style=for-the-badge)](https://github.com/Ismoh/NoitaMP/commit/develop)
+[![luarocks-version](https://img.shields.io/badge/luarocks-v3.9.1-brightgreen?style=for-the-badge)](https://github.com/Ismoh/NoitaMP/blob/develop/.building/luarocks-3.9.1-windows-32)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/ismoh/noitamp/windows-latest-lua-unit-testing.yml?label=Tests%20&logo=windows&style=for-the-badge)
 
-[![platform](https://img.shields.io/badge/platform-ubuntu%20%7C%20windows-lightgrey?style=flat-square)](https://github.com/Ismoh/NoitaMP)
-[![ubuntu master](https://img.shields.io/github/workflow/status/ismoh/noitamp/Ubuntu%20Lua%20Unit%20Testing/master?label=&logo=ubuntu&style=flat-square)](https://github.com/Ismoh/NoitaMP/actions/workflows/ubuntu-latest-lua-unit-testing.yml?query=branch%3Amaster)
-[![windows master](https://img.shields.io/github/workflow/status/ismoh/noitamp/Windows%20Lua%20Unit%20Testing/master?label=&logo=windows&style=flat-square)](https://github.com/Ismoh/NoitaMP/actions/workflows/windows-latest-lua-unit-testing.yml?query=branch%3Amaster) [![issues](https://flat.badgen.net/github/issues/ismoh/noitamp)](https://github.com/Ismoh/NoitaMP/issues?q=is%3Aissue)
+[![GitHub issues by-label](https://img.shields.io/github/issues/ismoh/noitamp/help_wanted?style=for-the-badge)](https://github.com/Ismoh/NoitaMP/issues?q=is%3Aopen+is%3Aissue+label%3A%22help_wanted%22)
+[![GitHub issues](https://img.shields.io/github/issues/ismoh/noitamp?style=for-the-badge)](https://github.com/Ismoh/NoitaMP/issues)
+[![Coveralls](https://img.shields.io/coveralls/github/Ismoh/NoitaMP?logo=coveralls&style=for-the-badge)](https://coveralls.io/github/Ismoh/NoitaMP)
+[![Codecov](https://img.shields.io/codecov/c/gh/Ismoh/NoitaMP?logo=codecov&style=for-the-badge)](https://codecov.io/gh/Ismoh/NoitaMP)
 
-[![open-issues](https://flat.badgen.net/github/open-issues/ismoh/noitamp)](https://github.com/Ismoh/NoitaMP/issues)
-[![open-issues-help-wanted](https://flat.badgen.net/github/label-issues/ismoh/noitamp/help_wanted/open)](https://github.com/Ismoh/NoitaMP/issues?q=is%3Aopen+is%3Aissue+label%3A%22help_wanted%22)
+[![GitHub watchers](https://img.shields.io/github/watchers/ismoh/noitamp?style=for-the-badge)](https://github.com/Ismoh/NoitaMP/watchers)
+[![GitHub forks](https://img.shields.io/github/forks/ismoh/noitamp?style=for-the-badge)](https://github.com/Ismoh/NoitaMP/network/members)
+[![GitHub Repo stars](https://img.shields.io/github/stars/ismoh/noitamp?style=for-the-badge)](https://github.com/Ismoh/NoitaMP/stargazers)
+![GitHub Sponsors](https://img.shields.io/github/sponsors/ismoh?style=for-the-badge)
 
-[![ubuntu - unit testing on develop](https://img.shields.io/github/workflow/status/ismoh/noitamp/Ubuntu%20Lua%20Unit%20Testing/develop?label=tests&logo=ubuntu&style=flat-square)](https://github.com/Ismoh/NoitaMP/actions/workflows/ubuntu-latest-lua-unit-testing.yml?query=branch%3Adevelop)
-[![windows - unit testing on develop](https://img.shields.io/github/workflow/status/ismoh/noitamp/Windows%20Lua%20Unit%20Testing/develop?label=tests&logo=windows&style=flat-square)](https://github.com/Ismoh/NoitaMP/actions/workflows/windows-latest-lua-unit-testing.yml?query=branch%3Adevelop)
-
-[![Coveralls](https://img.shields.io/coveralls/github/Ismoh/NoitaMP?logo=coveralls&style=flat-square)](https://coveralls.io/github/Ismoh/NoitaMP)
-[![Codecov](https://img.shields.io/codecov/c/gh/Ismoh/NoitaMP?logo=codecov&style=flat-square)](https://codecov.io/gh/Ismoh/NoitaMP)
-
-[![watchers](https://flat.badgen.net/github/watchers/ismoh/noitamp)](https://github.com/Ismoh/NoitaMP/watchers)
-[![forks](https://flat.badgen.net/github/forks/ismoh/noitamp)](https://github.com/Ismoh/NoitaMP/network/members)
-[![stars](https://flat.badgen.net/github/stars/ismoh/noitamp)](https://github.com/Ismoh/NoitaMP/stargazers)
-
-
-[![license](https://flat.badgen.net/github/license/ismoh/noitamp)](https://github.com/Ismoh/NoitaMP/blob/master/LICENSE.md)
-
-</div>
+[![GitHub](https://img.shields.io/github/license/ismoh/noitamp?style=for-the-badge)](https://github.com/Ismoh/NoitaMP/blob/master/LICENSE.md)
 
 ---
 

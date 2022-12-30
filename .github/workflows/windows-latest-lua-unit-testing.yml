@@ -210,7 +210,6 @@ jobs:
           verbose: true
       
       - name: Generate coverage report with luacov-coveralls
-        continue-on-error: true
         shell: cmd
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
