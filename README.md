@@ -24,10 +24,11 @@ If you want to get notifications, [join](https://discord.gg/DhMurdcw4k) my disco
 
 [![last-commit](https://img.shields.io/github/last-commit/ismoh/noitamp?style=for-the-badge)](https://github.com/Ismoh/NoitaMP/commit/develop)
 [![luarocks-version](https://img.shields.io/badge/luarocks-v3.9.1-brightgreen?style=for-the-badge)](https://github.com/Ismoh/NoitaMP/blob/develop/.building/luarocks-3.9.1-windows-32)
-![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/ismoh/noitamp/windows-latest-lua-unit-testing.yml?label=Tests%20&logo=windows&style=for-the-badge)
 
 [![GitHub issues by-label](https://img.shields.io/github/issues/ismoh/noitamp/help_wanted?style=for-the-badge)](https://github.com/Ismoh/NoitaMP/issues?q=is%3Aopen+is%3Aissue+label%3A%22help_wanted%22)
 [![GitHub issues](https://img.shields.io/github/issues/ismoh/noitamp?style=for-the-badge)](https://github.com/Ismoh/NoitaMP/issues)
+
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/ismoh/noitamp/windows-latest-lua-unit-testing.yml?label=Tests%20&logo=windows&style=for-the-badge)
 [![Coveralls](https://img.shields.io/coveralls/github/Ismoh/NoitaMP?logo=coveralls&style=for-the-badge)](https://coveralls.io/github/Ismoh/NoitaMP)
 [![Codecov](https://img.shields.io/codecov/c/gh/Ismoh/NoitaMP?logo=codecov&style=for-the-badge)](https://codecov.io/gh/Ismoh/NoitaMP)
 
@@ -49,8 +50,8 @@ Let's see, if I can do so?! I am new to Lua and modding, but someone said to me:
 
 <div align="center">
 
-[![gif](misc/2022-06-21_teaser.gif)](misc/2022-06-21_teaser.gif)
-
+[![gif](miscs/2022-06-21_teaser.gif)](miscs/2022-06-21_teaser.gif)
+21.06.2022 teaser
 </div>
 
 ## Documentation
