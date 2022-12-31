@@ -127,19 +127,19 @@ jobs:
           cd ${{ github.workspace}}/mods/noita-mp
           
           for /F "tokens=9 delims= " %%a in ('findstr /I "failure*" result.log') do set "failCount=%%a"
-          echo "failCount: %failCount%"
+          echo "failCount:%failCount%"
           if NOT %failCount% == 0 (
             echo "::error title=LuaUnit tests failed::%failCount% failures occurred!"
             exit 1
           )
   
           for /F "tokens=9 delims= " %%a in ('findstr /I "error*" result.log') do set "errorCount=%%a"
-          echo "errorCount: %errorCount%"
-          if NOT [%errorCount%]==[] (
-          if NOT %errorCount% == 0 (
-            echo "::error title=LuaUnit tests errored::%errorCount% errors occurred!"
-            exit 1
-          )
+          echo "errorCount:%errorCount%"
+          if "%~errorCount%" == "" (
+            if NOT %errorCount% == 0 (
+              echo "::error title=LuaUnit tests errored::%errorCount% errors occurred!"
+              exit 1
+            )
           )
       
       - name: Install dependencies
