@@ -135,7 +135,7 @@ jobs:
   
           for /F "tokens=9 delims= " %%a in ('findstr /I "error*" result.log') do set "errorCount=%%a"
           echo "errorCount:%errorCount%"
-          if NOT "%errorCount%" == "" (
+          IF NOT "%~1" == "" (
             if NOT %errorCount% == 0 (
               echo "::error title=LuaUnit tests errored::%errorCount% errors occurred!"
               exit 1
