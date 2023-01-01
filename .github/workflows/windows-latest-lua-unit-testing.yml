@@ -135,7 +135,7 @@ jobs:
   
           for /F "tokens=9 delims= " %%a in ('findstr /I "error*" result.log') do set "errorCount=%%a"
           echo "errorCount:%errorCount%"
-          if [%errorCount%]==[] (
+          if "%errorCount%" == "" (
             echo "no errors"
           ) else (
             if not %errorCount% == 0 (
