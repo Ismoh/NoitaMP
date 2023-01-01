@@ -112,6 +112,7 @@ jobs:
       LABEL_NAMES: ${{ needs.find-linked-issues-and-copy-labels-to-pull-request.outputs.labelNames }}
       VERSION_FILE_NAME: 'mods/noita-mp/.version'
       VERSION_FRAGMENT: 'will be fetched by file'
+      VERSION_EXTRACT_PATTERN: '"version": "([^"]+)",'
     name: Increase version and create a tag, when merged
     outputs:
       futureRelease: ${{ steps.extend_version.outputs.futureRelease }}
@@ -126,7 +127,6 @@ jobs:
         with:
           version-source: file
           version-file: ${{ env.VERSION_FILE_NAME }}
-          version-file-extraction-pattern: '^v(.*)'
           next-version-increment-major: ${{ contains(env.LABEL_NAMES, 'rework') }}
           next-version-increment-minor: ${{ contains(env.LABEL_NAMES, 'enhancement') }}
           next-version-increment-patch: ${{ contains(env.LABEL_NAMES, 'bug') }}
