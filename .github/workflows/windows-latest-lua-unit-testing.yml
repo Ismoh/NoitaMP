@@ -133,7 +133,9 @@ jobs:
             exit 1
           )
   
-          for /F "tokens=9 delims= " %%a in ('findstr /I "error*" result.log') do
+          FOR /F "tokens=9 delims= " %%a IN ('findstr /I "error*" result.log') DO (
+            echo "%%a"
+            echo "%%~a"
             IF /i "%%~a"=="" (
               echo "no errors"
             ) ELSE (
@@ -144,7 +146,8 @@ jobs:
                 exit 1
               )
             )
-      
+          )
+          
       - name: Install dependencies
         shell: cmd
         run: |
