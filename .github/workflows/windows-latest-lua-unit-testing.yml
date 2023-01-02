@@ -133,20 +133,15 @@ jobs:
             exit 1
           )
   
-          FOR /F "tokens=9 delims= " %%a IN ('findstr /I "error*" result.log') DO (
-            echo "%%a"
-            echo "%%~a"
-            IF /i "%%~a"=="" (
-              echo "no errors"
-            ) ELSE (
-              SET "errorCount=%%a"
-              echo "errorCount:%errorCount%"
-              if not %errorCount% == 0 (
-                echo "::error title=LuaUnit tests errored::%errorCount% errors occurred!"
-                exit 1
-              )
+          FOR /F "tokens=9 delims= " %%a IN ('findstr /I "error*" result.log') DO SET "errorCount=%%~a"
+          IF NOT %errorCount% == %%a (
+            echo "errorCount:%errorCount%"
+            IF NOT %errorCount% == 0 (
+              echo "::error title=LuaUnit tests errored::%errorCount% errors occurred!"
+              exit 1
             )
           )
+          
           
       - name: Install dependencies
         shell: cmd
