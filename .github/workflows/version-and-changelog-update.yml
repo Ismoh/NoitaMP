@@ -27,7 +27,7 @@ jobs:
         env:
           PRNUM: ${{ github.event.pull_request.number }}
         run: |
-          commentListResponse=`curl -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -H 'Accept: application/vnd.github+json' https://api.github.com/repos/Ismoh/NoitaMP/issues/${{github.event.number}}/comments`
+          commentListResponse=`curl -u Ismoh:${{ secrets.WORKFLOW_PAT }} -H 'Accept: application/vnd.github+json' https://api.github.com/repos/Ismoh/NoitaMP/issues/${{github.event.number}}/comments`
           echo "commentListResponse="$commentListResponse
           # https://jqplay.org/s/WsuVZ8f-YiB
           commentIds=$(echo $commentListResponse | jq '.[] | select(.body | contains("pull request is not linked to any issue")) | .id')
