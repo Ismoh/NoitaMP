@@ -15,6 +15,20 @@ jobs:
           GITHUB_CONTEXT: ${{ toJson(github) }}
           
       - uses: actions/checkout@v3.1.0
+  
+      - name: Find linked issues
+        uses: Ismoh-Games/find-linked-issues@v0.0.1-alpha
+        id: find-linked-issues
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repo: ${{ github.repository }} # optional
+          pull-request-number: ${{ github.event.pull_request.number }} # optional
+          copy-issues-labels: true # optional
+          
+      - name: Result of finding linked issues
+        run: |
+          echo "Is pull request linked to issues: ${{ steps.find-linked-issues.outputs.is-pull-request-linked-to-issues }}"
+          echo "Linked issues: ${{ steps.find-linked-issues.outputs.linked-issues }}"
       
       - name: Is there a issue linked in "development"?
         id: validator
