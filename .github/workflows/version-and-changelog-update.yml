@@ -15,9 +15,9 @@ jobs:
           GITHUB_CONTEXT: ${{ toJson(github) }}
           
       - uses: actions/checkout@v3.1.0
-  
+
       - name: Find linked issues
-        uses: Ismoh-Games/find-linked-issues@v0.0.1-alpha
+        uses: Ismoh-Games/find-linked-issues@v0.0.2-alpha
         id: find-linked-issues
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
