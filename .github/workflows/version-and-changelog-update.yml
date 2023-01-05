@@ -32,7 +32,7 @@ jobs:
       
       - name: Is there a issue linked in "development"?
         id: validator
-        uses: Ismoh/validate-issues-over-pull-requests@v0.1.3
+        uses: HarshCasper/validate-issues-over-pull-requests@v0.1.2
         with:
           prbody: ${{ github.event.pull_request.body }}
           prurl: ${{ github.event.pull_request.url }}
