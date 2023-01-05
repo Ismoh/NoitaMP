@@ -18,7 +18,7 @@ jobs:
       lua_install_include_dir: ${{ github.workspace }}\Lua\include
 
     steps:
-      - uses: actions/checkout@v3.1.0
+      - uses: actions/checkout@v3.3.0
       - uses: msys2/setup-msys2@v2
         with:
           msystem: MINGW32
