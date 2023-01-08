@@ -20,7 +20,7 @@ jobs:
         id: find-linked-issues
         uses: Ismoh-Games/find-linked-issues@v0.0.4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.WORKFLOW_PAT }}
           repository: ${{ github.repository }}
           pull-request-number: ${{ github.event.pull_request.number }}
           pull-request-body: ${{ github.event.pull_request.body }}
