@@ -1,5 +1,7 @@
 name: Version and changelog update
 on:
+  pull_request:
+    types: [ opened, edited, synchronize, closed ]
   pull_request_target:
     types: [ opened, edited, synchronize, closed ]
 jobs:
