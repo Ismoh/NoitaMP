@@ -9,12 +9,12 @@ jobs:
     outputs:
       labelNames: ${{ steps.find-linked-issues.outputs.pull-request-labels }}
     steps:
+      - uses: actions/checkout@v3.3.0
+      
       - name: Print GitHub context
         run: echo "$GITHUB_CONTEXT"
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
-          
-      - uses: actions/checkout@v3.1.0
 
       - name: Find linked issues
         id: find-linked-issues
