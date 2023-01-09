@@ -633,7 +633,7 @@ function Client.new(sockClient)
 
     local function onNeedModContent(data)
         ---@module "file_util"
-        local fu = dofile_once("mods/noita-mp/files/scripts/util/file_util.lua")
+        local fu  = dofile_once("mods/noita-mp/files/scripts/util/file_util.lua")
         local cpc = CustomProfiler.start("Client.onNeedModContent")
         for _, v in ipairs(data.items) do
             local modName = v.name
@@ -797,7 +797,7 @@ function Client.new(sockClient)
 
         if not port then
             local cpc30 = CustomProfiler.start("ModSettingGet")
-            port = tonumber(ModSettingGet("noita-mp.connect_server_port")) or error("noita-mp.connect_server_port wasn't a number")
+            port        = tonumber(ModSettingGet("noita-mp.connect_server_port")) or error("noita-mp.connect_server_port wasn't a number")
             CustomProfiler.stop("ModSettingGet", cpc30)
         end
 
@@ -910,12 +910,14 @@ function Client.new(sockClient)
                 self.acknowledge[event][networkMessageId] = {}
             end
 
-            self.acknowledge[event][networkMessageId] = {
-                data    = data,
-                status  = NetworkUtils.events.acknowledgement.sent,
-                sentAt  = os.clock(),
-                ackedAt = nil
-            }
+            if NetworkUtils.events[event].isCacheable == true then
+                self.acknowledge[event][networkMessageId] = {
+                    data    = data,
+                    status  = NetworkUtils.events.acknowledgement.sent,
+                    sentAt  = os.clock(),
+                    ackedAt = nil
+                }
+            end
         end
         CustomProfiler.stop("Client.send", cpc19)
     end
