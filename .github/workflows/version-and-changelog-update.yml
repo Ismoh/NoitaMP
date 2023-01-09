@@ -91,7 +91,7 @@ jobs:
         with:
           version-source: file
           version-file: ${{ env.VERSION_FILE_NAME }}
-          version-file-extraction-pattern: '{"version":"([^"]+)"}'
+          version-file-extraction-pattern: '{"version":"v([^"]+)"}'
           next-version-increment-major: ${{ contains(env.LABEL_NAMES, 'rework') }}
           next-version-increment-minor: ${{ contains(env.LABEL_NAMES, 'enhancement') }}
           next-version-increment-patch: ${{ contains(env.LABEL_NAMES, 'bug') }}
@@ -148,7 +148,7 @@ jobs:
             git fetch
             git checkout ${{ github.base_ref }}
             git pull origin ${{ github.base_ref }}
-            echo "{\"version\":\"$NEXT_VERSION\"}" > $VERSION_FILE_NAME
+            echo "{\"version\":\"v$NEXT_VERSION\"}" > $VERSION_FILE_NAME
             git config --local user.email "action@github.com"
             git config --local user.name "github-actions"
             git add $VERSION_FILE_NAME
