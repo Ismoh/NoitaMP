@@ -85,7 +85,7 @@ jobs:
         with:
           version-source: file
           version-file: ${{ env.VERSION_FILE_NAME }}
-          version-file-extraction-pattern: '"version": "([^"]+)",'
+          version-file-extraction-pattern: /"version":"([^"]+)/"
           next-version-increment-major: ${{ contains(env.LABEL_NAMES, 'rework') }}
           next-version-increment-minor: ${{ contains(env.LABEL_NAMES, 'enhancement') }}
           next-version-increment-patch: ${{ contains(env.LABEL_NAMES, 'bug') }}
