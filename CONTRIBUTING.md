@@ -23,16 +23,22 @@ Everything will be explained here and if there are still questions, you can ask 
 NoitaMP is a mod that uses the [Noita API](https://noita.wiki.gg/wiki/Modding), but there is something that you need to know about the API.\
 The API is a Lua library that is used to interact with the game.\
 The API is not a mod, it is a library that is used to create mods.\
-There are different Lua contexts in Noita, but the most important one is the `init.lua` context.\
-Let me try to explain it with an example:\
+There are different Lua contexts in Noita, but the most important one is the `init.lua` context.
 
-Assume we need a value in NoitaMP, which can only be fetched in LuaComponents.\
+Let me try to explain it with an example:
+![NoitaMP](miscs/Unbenanntes%20Diagramm.drawio.png)
+In the diagram above you can see the default Noita modding structure.\
+There are different Lua contexts. One for `init.lua` and one context per each `LuaComponent`.\
+You are able to use Noita API functions in each context, but you are not able to use functions from other contexts.\
+In addition, unrestricted Lua code is only available in the `init.lua` context.\
+This is why NoitaMP is only accessible in the `init.lua` context.
+
+Assume we need a value in NoitaMP, which can only be fetched in LuaComponents. So in different Lua contexts!\
 Then we would set a global "foo" variable in the `LuaComponent` context\
 and afterwards we would use the `init.lua` context to fetch the value of the global "foo" variable.\
 See diagram below for a better understanding:
 
-![NoitaMP](https://i.imgur.com/0Z7ZQ9M.png)
-
+![NoitaMP](miscs/Unbenanntes%20Diagramm%20(1).drawio.png)
 
 Please note that this is just an example and there are other ways to do this.
 In addition, please note that `GlobalsSetValue` and `GlobalsGetValue` has nothing to do with Lua globals `_G`.
