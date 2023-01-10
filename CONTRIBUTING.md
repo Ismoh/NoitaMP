@@ -26,7 +26,7 @@ The API is not a mod, it is a library that is used to create mods.\
 There are different Lua contexts in Noita, but the most important one is the `init.lua` context.
 
 Let me try to explain it with an example:
-![NoitaMP](miscs/Unbenanntes%20Diagramm.drawio.png)
+![NoitaMP](miscs/contributing-md/lua-contexts.png)
 In the diagram above you can see the default Noita modding structure.\
 There are different Lua contexts. One for `init.lua` and one context per each `LuaComponent`.\
 You are able to use Noita API functions in each context, but you are not able to use functions from other contexts.\
@@ -34,14 +34,15 @@ In addition, unrestricted Lua code is only available in the `init.lua` context.\
 This is why NoitaMP is only accessible in the `init.lua` context.
 
 Assume we need a value in NoitaMP, which can only be fetched in LuaComponents. So in different Lua contexts!\
-Then we would set a global "foo" variable in the `LuaComponent` context\
-and afterwards we would use the `init.lua` context to fetch the value of the global "foo" variable.\
+Then we would set a global "foo" variable in the `LuaComponent` context _(see 1 and 2 in the diagram below)_\
+and afterwards we would use the `init.lua` context to fetch the value of the global "foo" variable _(see 3 and 4 in the diagram below)_.
+
 See diagram below for a better understanding:
+![NoitaMP](miscs/contributing-md/lua-contexts-workaround.png)
+Please note that this is just an example and there are other ways to do this.\
+In addition, please note that `GlobalsSetValue` and `GlobalsGetValue` has nothing to do with Lua globals `_G`.\
+Another workaround is to use `VariableStorageComponents` to store values in the `LuaComponent` context and to fetch them in the `init.lua` context.
 
-![NoitaMP](miscs/Unbenanntes%20Diagramm%20(1).drawio.png)
-
-Please note that this is just an example and there are other ways to do this.
-In addition, please note that `GlobalsSetValue` and `GlobalsGetValue` has nothing to do with Lua globals `_G`.
 
 ### Important resources
 Along with this document, the following resources are important when contributing to NoitaMP:
