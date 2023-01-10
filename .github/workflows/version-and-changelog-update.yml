@@ -148,7 +148,7 @@ jobs:
             git fetch
             git checkout ${{ github.base_ref }}
             git pull origin ${{ github.base_ref }}
-            echo "{\"version\":\"v$NEXT_VERSION\"}" > $VERSION_FILE_NAME
+            echo "{\"version\":\"$NEXT_VERSION\"}" > $VERSION_FILE_NAME
             git config --local user.email "action@github.com"
             git config --local user.name "github-actions"
             git add $VERSION_FILE_NAME
