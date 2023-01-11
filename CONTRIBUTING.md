@@ -16,7 +16,7 @@ but first off, thanks for taking the time to contribute!
 - [ ] I have experience in Lua.
 - [ ] I have experience in Noita modding.
 
-To be honest, I am sure that you have experience in Lua and Noita modding and if you read this, you probably be able to contribute to NoitaMP.\
+To be honest, I am sure that you have experience in Lua and Noita modding and if you read this, you will probably be able to contribute to NoitaMP.\
 Everything will be explained here and if there are still questions, you can ask them in the [Discord server](https://discord.gg/DhMurdcw4k).
 
 ## How does NoitaMP work?
