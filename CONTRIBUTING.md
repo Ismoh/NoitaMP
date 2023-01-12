@@ -5,8 +5,8 @@ but first off, thanks for taking the time to contribute!
 
 ## Table of Contents
 - [Requirements](#requirements)
+- [How does NoitaMP work?](#how-does-noitamp-work)
 - [Important resources](#important-resources)
-- 
 
 ## Requirements
 - [ ] I have read the [Contributing](CONTRIBUTING.md) document.
