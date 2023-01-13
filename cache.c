@@ -291,6 +291,14 @@ static int l_networkCacheRead(lua_State *L)
     return 1;
 }
 
+static int l_networkCacheRemoveOldest(lua_State *L)
+{
+    memmove(networkEntries + 1, networkEntries, ((networkCurrentSize - 1)) * sizeof(NetworkCacheEntry));
+    networkCurrentSize--;
+    networkEntries = realloc(networkEntries, sizeof(NetworkCacheEntry) * networkCurrentSize);
+    return 0;
+}
+
 #pragma endregion
 
 __declspec(dllexport) int luaopen_noitamp_cache(lua_State *L)
@@ -312,6 +320,7 @@ __declspec(dllexport) int luaopen_noitamp_cache(lua_State *L)
             {"get", l_networkCacheRead},
             {"size", l_networkCacheSize},
             {"usage", l_networkCacheUsage},
+            {"removeOldest", l_networkCacheRemoveOldest},
             {NULL, NULL}};
     luaL_openlib(L, "NetworkCache", nCachelib, 0);
     return 1;
