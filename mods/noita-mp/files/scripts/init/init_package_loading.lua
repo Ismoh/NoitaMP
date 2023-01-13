@@ -2,18 +2,13 @@
 
 function getNoitaMpRootDirectory()
     -- Get the current directory of the script or the executable
-    local currentDirectory = io.popen("cd"):read("*a")
-    print("currentDirectory: " .. currentDirectory)
-
-    -- Check if we are inside of noita-mp directory. Don't forget to escape the dash!
-    local startsAtI, endsAtI   = string.find(currentDirectory,
-                                             "noita%-mp") -- https://stackoverflow.com/a/20223010/3493998
-    local noitaMpRootDirectory = nil
-    if not startsAtI then
-        error("The current directory is not inside the noita-mp directory. Please run it again somewhere inside the noita-mp directory.")
-    else
-        noitaMpRootDirectory = string.sub(currentDirectory, 1, endsAtI)
-    end
+    local gameDirectory = io.popen("cd"):read("*a"):sub(1, -2) .. "\\mods\\noita-mp" -- original were return game directory, not mod, also with \n at the and
+	
+	-- why do we need to check if MOD is inside MOD DIRECTORY? it's already here, if it can launch
+    
+	print("currentDirectory: " .. gameDirectory)
+	-- io.open(gameDirectory..'\\dir_test.txt', 'w') -- test if we are REALLY inside directory we are looking for, doesn't need it really
+    local noitaMpRootDirectory = gameDirectory
     print("noitaMpRootDirectory: " .. noitaMpRootDirectory)
     return noitaMpRootDirectory
 end
