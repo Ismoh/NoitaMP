@@ -1,5 +1,5 @@
-#include ".building/LuaJIT-2.0.4/src/lua.h"
-#include ".building/LuaJIT-2.0.4/src/lauxlib.h"
+#include <lua.h>
+#include <lauxlib.h>
 
 #pragma region EntityCache
 #define entityCacheSize sizeof(EntityCacheEntry)

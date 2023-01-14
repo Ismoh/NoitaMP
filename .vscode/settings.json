@@ -48,7 +48,9 @@
   ],
   "files.associations": {
     "stdbool.h": "c",
-    "stdio.h": "c"
+    "stdio.h": "c",
+    "lua.h": "c",
+    "lauxlib.h": "c"
   },
   "[c]": {
     "editor.defaultFormatter": "ms-vscode.cpptools"
