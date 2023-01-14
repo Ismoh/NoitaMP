@@ -43,7 +43,8 @@
     "editor.defaultFormatter": "sumneko.lua"
   },
   "Lua.diagnostics.disable": [
-    "lowercase-global"
+    "lowercase-global",
+    "undefined-field"
   ],
   "files.associations": {
     "stdbool.h": "c",

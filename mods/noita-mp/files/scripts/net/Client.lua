@@ -172,7 +172,7 @@ function Client.new(sockClient)
             error(("onAcknowledgement data.event is empty: %s"):format(data.event), 2)
         end
 
-        NetworkCache.set(0, data.networkMessageId, data.event, data.status, os.clock(), 0, "NOCHECKSUM")
+        NetworkCache.set(self.clientCacheID or 0, data.networkMessageId, data.event, data.status, os.clock(), 0, "NOCHECKSUM")
         if NetworkCache.size() > self.acknowledgeMaxSize then
             NetworkCache.removeOldest()
         end
@@ -913,12 +913,14 @@ function Client.new(sockClient)
                             --- if data is an entity health table
                         else if d.current and d.max then
                                 d = tostring(d.current) .. tostring(d.max)
-                            end
+                        else
+                            d = ""
+                        end
                         end
                     end
                     sum = sum .. d
-                end
-                NetworkCache.set(0, networkMessageId, event, NetworkUtils.events.acknowledgement.sent, 0, os.clock(), md5.sumhexa(sum))
+                            end
+                NetworkCache.set(self.clientCacheID or 0, networkMessageId, event, NetworkUtils.events.acknowledgement.sent, 0, os.clock(), md5.sumhexa(sum))
             end
         end
         CustomProfiler.stop("Client.send", cpc19)

@@ -230,7 +230,12 @@ static int l_networkCacheWrite(lua_State *L)
             entry->peerNum = peerNum;
             entry->messageId = messageId;
             entry->event = event;
-            entry->status = luaL_checkint(L, 4);
+            char *status = luaL_checkstring(L, 4);
+            if (status == "ack") {
+                entry->status = 0;
+            } else {
+                entry->status = 1;
+            }
             entry->ackedAt = luaL_checkint(L, 5);
             entry->sendAt = luaL_checkint(L, 6);
             entry->dataChecksum = luaL_checkstring(L, 7);
@@ -243,7 +248,12 @@ static int l_networkCacheWrite(lua_State *L)
     newEntry->peerNum = peerNum;
     newEntry->messageId = messageId;
     newEntry->event = event;
-    newEntry->status = luaL_checkint(L, 4);
+    char *status = luaL_checkstring(L, 4);
+    if (status == "ack") {
+        newEntry->status = 0;
+    } else {
+        newEntry->status = 1;
+    }
     newEntry->ackedAt = luaL_checkint(L, 5);
     newEntry->sendAt = luaL_checkint(L, 6);
     newEntry->dataChecksum = luaL_checkstring(L, 7);

@@ -151,8 +151,7 @@ function NetworkUtils.alreadySent(peer, event, data)
     if not data then
         error("'data' must not be nil!", 2)
     end
-
-    local networkMessageId = data[1] or data.networkMessageId
+    local networkMessageId = data[1]
     if not networkMessageId then
         error("'networkMessageId' must not be nil!", 2)
     end
@@ -164,7 +163,7 @@ function NetworkUtils.alreadySent(peer, event, data)
     end
 
     --[[ if the network message is already stored ]]--
-    local message = NetworkCache.get(clientCacheID, data.event, data.networkMessageId)
+    local message = NetworkCache.get(clientCacheID, event, networkMessageId)
     if message ~= nil then
         if message.status == NetworkUtils.events.acknowledgement.ack then
             CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
@@ -195,7 +194,9 @@ function NetworkUtils.alreadySent(peer, event, data)
                 --- if data is an entity health table
             else if d.current and d.max then
                     d = tostring(d.current) .. tostring(d.max)
-                end
+            else
+                d = ""
+            end
             end
         end
         sum = sum .. d
