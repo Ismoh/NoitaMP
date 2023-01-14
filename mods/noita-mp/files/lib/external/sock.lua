@@ -37,6 +37,12 @@ local enet = require("enet")
 local util = require("util")
 local fu   = require("file_util")
 
+nextclientCacheID = 0
+function getNextClientCacheID()
+    nextclientCacheID = nextclientCacheID + 1
+    return nextclientCacheID
+end
+
 print("sock.lua | lua-enet version = master branch 21.10.2015")
 print("sock.lua | enet version = " .. enet.linked_version()) -- 1.3.17
 
@@ -292,6 +298,7 @@ function Server:update()
             local eventClient = ClientInit.new(sock.newClient(event.peer)) -- sock.newClient(event.peer)
             eventClient:establishClient(event.peer)
             eventClient:setSerialization(self.serialize, self.deserialize)
+            eventClient.clientCacheID = getNextClientCacheID()
             table.insert(self.peers, event.peer)
             table.insert(self.clients, eventClient)
             self:_activateTriggers("connect", event.data, eventClient)

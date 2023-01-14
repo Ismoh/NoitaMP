@@ -27,7 +27,8 @@
     "peer",
     "fu",
     "util",
-    "EntityCache"
+    "EntityCache",
+    "NetworkCache"
   ],
   "lua.targetVersion": "5.1",
   "editor.defaultFormatter": "esbenp.prettier-vscode",

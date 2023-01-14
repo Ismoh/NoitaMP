@@ -684,8 +684,6 @@ function EntityUtils.destroyByNuid(peer, nuid)
         entityId = math.abs(entityId) -- might be kill indicator is set: -entityId -> entityId
     end
 
-    NetworkUtils.removeFromCacheByEntityId(peer, entityId)
-
     if not EntityUtils.isEntityAlive(entityId) then
         EntityCache.delete(entityId)
         CustomProfiler.stop("EntityUtils.destroyByNuid", cpc)

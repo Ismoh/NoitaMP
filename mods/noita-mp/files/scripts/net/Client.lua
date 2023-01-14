@@ -54,8 +54,6 @@ function Client.new(sockClient)
     -- guid might not be set here or will be overwritten at the end of the constructor. @see setGuid
     self.guid               = tostring(ModSettingGet("noita-mp.guid"))
     self.nuid               = nil
-    self.acknowledge        = {} -- sock.lua#Client:send -> self.acknowledge[packetsSent] = { event = event, data = data, entityId = data.entityId, status = NetworkUtils.events.acknowledgement.sent }
-    --table.setNoitaMpDefaultMetaMethods(self.acknowledge, "v")
     self.acknowledgeMaxSize = 500
     self.transform          = { x = 0, y = 0 }
     self.health             = { current = 99, max = 100 }
@@ -174,14 +172,9 @@ function Client.new(sockClient)
             error(("onAcknowledgement data.event is empty: %s"):format(data.event), 2)
         end
 
-        if not self.acknowledge[data.event][data.networkMessageId] then
-            self.acknowledge[data.event][data.networkMessageId] = {}
-        end
-        self.acknowledge[data.event][data.networkMessageId].status  = data.status
-        self.acknowledge[data.event][data.networkMessageId].ackedAt = os.clock()
-
-        if #self.acknowledge > self.acknowledgeMaxSize then
-            table.remove(self.acknowledge, 1)
+        NetworkCache.set(0, data.networkMessageId, data.event, data.status, os.clock(), 0, "NOCHECKSUM")
+        if NetworkCache.size() > self.acknowledgeMaxSize then
+            NetworkCache.removeOldest()
         end
         CustomProfiler.stop("Client.onAcknowledgement", cpc3)
     end
@@ -261,7 +254,6 @@ function Client.new(sockClient)
         local nuid, entityId = GlobalsUtils.getNuidEntityPair(self.nuid)
         NetworkVscUtils.addOrUpdateAllVscs(entityId, self.name, self.guid, nil)
 
-        self.acknowledge  = {}
         self.nuid         = nil
         self.otherClients = {}
         self.serverInfo   = {}
@@ -897,26 +889,36 @@ function Client.new(sockClient)
         end
 
         local networkMessageId = sockClientSend(self, event, data)
-
-        if not self.acknowledge then
-            self.acknowledge = {}
-        end
-
         if event ~= NetworkUtils.events.acknowledgement.name then
-            if not self.acknowledge[event] then
-                self.acknowledge[event] = {}
-            end
-            if not self.acknowledge[event][networkMessageId] then
-                self.acknowledge[event][networkMessageId] = {}
-            end
-
             if NetworkUtils.events[event].isCacheable == true then
-                self.acknowledge[event][networkMessageId] = {
-                    data    = data,
-                    status  = NetworkUtils.events.acknowledgement.sent,
-                    sentAt  = os.clock(),
-                    ackedAt = nil
-                }
+                local md5 = dofile_once("mods/noita-mp/files/lib/external/md5.lua")
+                local sum = ""
+                --- start at 2 so the networkMessageId is not included in the checksum
+                for i = 2, #data do
+                    local d = data[i]
+                    if type(d) == "number" then
+                        d = tostring(d)
+                    end
+                    if type(d) == "boolean" then
+                        if d == true then
+                            d = "1"
+                        else
+                            d = "0"
+                        end
+                    end
+                    if type(d) == "table" then
+                        --- if data is a vec2
+                        if d.x and d.y then
+                            d = tostring(d.x) .. tostring(d.y)
+                            --- if data is an entity health table
+                        else if d.current and d.max then
+                                d = tostring(d.current) .. tostring(d.max)
+                            end
+                        end
+                    end
+                    sum = sum .. d
+                end
+                NetworkCache.set(0, networkMessageId, event, NetworkUtils.events.acknowledgement.sent, 0, os.clock(), md5.sumhexa(sum))
             end
         end
         CustomProfiler.stop("Client.send", cpc19)
@@ -995,14 +997,7 @@ function Client.new(sockClient)
     --- Mainly for profiling. Returns then network cache, aka acknowledge.
     --- @return number cacheSize
     function self.getAckCacheSize()
-        if not self.acknowledge then
-            return 0
-        end
-        local count = 0
-        for e = 1, #self.acknowledge do
-            count = count + table.size(self.acknowledge[e])
-        end
-        return count
+        return NetworkCache.size()
     end
 
     --#endregion

@@ -169,16 +169,7 @@ function Server.new(sockServer)
             error(("onAcknowledgement data.event is empty: %s"):format(data.event), 2)
         end
 
-        if not peer.acknowledge[data.event][data.networkMessageId] then
-            peer.acknowledge[data.event][data.networkMessageId] = {}
-        end
-        peer.acknowledge[data.event][data.networkMessageId].status  = data.status
-        peer.acknowledge[data.event][data.networkMessageId].ackedAt = os.clock()
-
-        if #peer.acknowledge[data.event] > self.acknowledgeMaxSize then
-            table.remove(peer.acknowledge[data.event], 1)
-            logger:info(logger.channels.network, "Removed oldest acknowledgement from self.acknowledge[peer]")
-        end
+        NetworkCache.set(peer.clientCacheID, data.networkMessageId, data.event, data.status, os.clock(), 0, "NOCHECKSUM")
         --if not self.acknowledge[peer.connectId][data.event][data.networkMessageId] then
         --    self.acknowledge[peer.connectId][data.event][data.networkMessageId] = {}
         --end
@@ -265,8 +256,7 @@ function Server.new(sockServer)
         end
 
         -- clear acknowledge cache for disconnected peer
-        peer.acknowledge = nil
-
+        NetworkCache.clear(peer.clientCacheID)
         -- sendAck(data.networkMessageId, peer)
         CustomProfiler.stop("Server.onDisconnect", cpc05)
     end

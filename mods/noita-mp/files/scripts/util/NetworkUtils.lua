@@ -6,9 +6,6 @@
 -----------------------------------------------------------------------------------------------------------------------
 --- 'Imports'
 -----------------------------------------------------------------------------------------------------------------------
-local util                           = require("util")
-local luaunit                        = require("luaunit")
-
 -----------------------------------------------------------------------------------------------------------------------
 --- NetworkUtils
 -----------------------------------------------------------------------------------------------------------------------
@@ -144,7 +141,7 @@ end
 --- @return boolean
 function NetworkUtils.alreadySent(peer, event, data)
     local cpc = CustomProfiler.start("NetworkUtils.alreadySent")
-
+    local clientCacheID = peer.clientCacheID or 0
     if not peer then
         error("'peer' must not be nil! When Server, then peer. When Client, then self.", 2)
     end
@@ -161,64 +158,52 @@ function NetworkUtils.alreadySent(peer, event, data)
     end
 
     -- [[ if the event isn't store in the cache, it wasn't already send ]] --
-    if not peer.acknowledge[event] then
+    if not NetworkUtils.events[event].isCacheable then
         CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
         return false
     end
 
     --[[ if the network message is already stored ]]--
-    if peer.acknowledge[event][networkMessageId] then
-        if peer.acknowledge[event][networkMessageId].status == NetworkUtils.events.acknowledgement.ack then
+    local message = NetworkCache.get(clientCacheID, data.event, data.networkMessageId)
+    if message ~= nil then
+        if message.status == NetworkUtils.events.acknowledgement.ack then
             CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
             return true
         end
     end
 
-    for i in pairs(peer.acknowledge[event]) do
-        --[[ if the networkMessageId is not stored, but data might be the same ]]--
-        if NetworkUtils.events[event].resendIdentifier then
-            local same = false -- if there are multiple resendIdentifiers, they all need to be the same
-            for rI = 1, #NetworkUtils.events[event].resendIdentifier do
-                --[[ check resendIdentifiers ]]--
-                local resendIdentifier      = NetworkUtils.events[event].resendIdentifier[rI]
-                local resendIdentifierIndex = getIndexFromSchema(data, NetworkUtils.events[event].schema, resendIdentifier)
-                if data[resendIdentifierIndex] ~= nil and
-                        peer.acknowledge[event][i].data[resendIdentifierIndex] ~= nil and
-                        data[resendIdentifierIndex] == peer.acknowledge[event][i].data[resendIdentifierIndex]
-                then
-                    --[[ if the data of resendIdentifier is the same, then it was already sent ]]--
-                    if peer.acknowledge[event][i].status == NetworkUtils.events.acknowledgement.ack then
-                        CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
-                        return true
-                    else
-                        CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
-                        return false
-                    end
-                    same = true
-                else
-                    same = false
+    --- Compare if the current data matches the cached checksum
+    local md5 = dofile_once("mods/noita-mp/files/lib/external/md5.lua")
+    local sum = ""
+    --- start at 2 so the networkMessageId is not included in the checksum
+    for i = 2, #data do
+        local d = data[i]
+        if type(d) == "number" then
+            d = tostring(d)
+        end
+        if type(d) == "boolean" then
+            if d == true then
+                d = "1"
+            else
+                d = "0"
+            end
+        end
+        if type(d) == "table" then
+            --- if data is a vec2
+            if d.x and d.y then
+                d = tostring(d.x) .. tostring(d.y)
+                --- if data is an entity health table
+            else if d.current and d.max then
+                    d = tostring(d.current) .. tostring(d.max)
                 end
             end
-            if same then
-                CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
-                return true
-            end
         end
-
-        --[[ if there is no resendIdentifier, then we need to check data in depth ]]--
-        local sendData = zipTable(table.deepcopy(data), NetworkUtils.events[event].schema, event)
-        table.setNoitaMpDefaultMetaMethods(sendData, "kv")
-        sendData.networkMessageId = nil
-
-        local cacheData           = zipTable(table.deepcopy(peer.acknowledge[event][i].data),
-                                             NetworkUtils.events[event].schema, event)
-        table.setNoitaMpDefaultMetaMethods(cacheData, "kv")
-        cacheData.networkMessageId = nil
-        local ran, errorMsg        = pcall(luaunit.assertItemsEquals, sendData, cacheData)
-        if ran and not errorMsg then
-            return true
-        end
-        CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
+        sum = sum .. d
+    end
+    sum = md5.sumhexa(sum)
+    local matchingData = NetworkCache.getChecksum(clientCacheID, md5.sumhexa(sum))
+    if matchingData ~= nil then
+        return true;
     end
     --end
 
@@ -338,46 +323,6 @@ function NetworkUtils.alreadySent(peer, event, data)
     --clientOrServer.acknowledge[networkMessageId] = { event = event, data = data, status = NetworkUtils.events.acknowledgement.sent }
     --CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
     --return false
-end
-
-function NetworkUtils.removeFromCacheByEntityId(peer, entityId)
-    local cpc = CustomProfiler.start("NetworkUtils.removeFromCacheByEntityId")
-    if not peer then
-        error("peer is nil")
-    end
-    if not entityId then
-        logger:warn(logger.channels.entity, "entityId is nil while trying to remove from cache.")
-        return
-    end
-
-    for event in pairs(peer.acknowledge) do
-        for i in pairs(peer.acknowledge[event]) do
-            --[[ if the networkMessageId is not stored, but data might be the same ]]--
-
-            if peer.acknowledge[event][i].data.localEntityId then
-                if entityId == peer.acknowledge[event][i].data.localEntityId then
-                    table.setNoitaMpDefaultMetaMethods(peer.acknowledge[event][i], "v")
-                    peer.acknowledge[event][i] = nil
-                end
-            end
-        end
-    end
-
-    CustomProfiler.stop("NetworkUtils.removeFromCacheByEntityId", cpc)
-    ---- Remove all dead nuids from client or server acknowledge cache
-    --local clientOrServer = NetworkUtils.getClientOrServer()
-    --for i = 1, #deadNuids do
-    --    local deadNuid            = deadNuids[i]
-    --    local deadNuid_, entityId = GlobalsUtils.getNuidEntityPair(deadNuid)
-    --    entityId                  = math.abs(entityId) -- Remove the kill indicator: -1 -> 1
-    --    for j = 1, #clientOrServer.acknowledge do -- TODO FIX ME!
-    --        local ack = clientOrServer.acknowledge[j]
-    --        if ack and ack.data.localEntityId == entityId then
-    --            table.setNoitaMpDefaultMetaMethods(clientOrServer.acknowledge[j], "v")
-    --            clientOrServer.acknowledge[j] = nil
-    --        end
-    --    end
-    --end
 end
 
 local prevTimeInMs = 0

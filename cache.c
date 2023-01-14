@@ -201,6 +201,7 @@ typedef struct NetworkCacheEntry
     int status;
     unsigned int ackedAt;
     unsigned int sendAt;
+    char *dataChecksum;
 } NetworkCacheEntry;
 
 NetworkCacheEntry *networkEntries;
@@ -218,15 +219,34 @@ static int l_networkCacheUsage(lua_State *L)
 
 static int l_networkCacheWrite(lua_State *L)
 {
+    int peerNum = luaL_checkint(L, 1);
+    int messageId = luaL_checkint(L, 2);
+    int event = luaL_checkstring(L, 3);
+    for (int i = 0; i < networkCurrentSize; i++)
+    {
+        NetworkCacheEntry *entry = networkEntries + i;
+        if (entry->messageId == messageId && entry->peerNum == peerNum && entry->event == event)
+        {
+            entry->peerNum = peerNum;
+            entry->messageId = messageId;
+            entry->event = event;
+            entry->status = luaL_checkint(L, 4);
+            entry->ackedAt = luaL_checkint(L, 5);
+            entry->sendAt = luaL_checkint(L, 6);
+            entry->dataChecksum = luaL_checkstring(L, 7);
+            return 0;
+        };
+    }
     ++networkCurrentSize;
     networkEntries = realloc(networkEntries, sizeof(NetworkCacheEntry) * networkCurrentSize);
     NetworkCacheEntry *newEntry = networkEntries + (networkCurrentSize - 1);
-    newEntry->peerNum = luaL_checkint(L, 1);
-    newEntry->messageId = luaL_checkint(L, 2);
-    newEntry->event = luaL_checkstring(L, 3);
+    newEntry->peerNum = peerNum;
+    newEntry->messageId = messageId;
+    newEntry->event = event;
     newEntry->status = luaL_checkint(L, 4);
     newEntry->ackedAt = luaL_checkint(L, 5);
     newEntry->sendAt = luaL_checkint(L, 6);
+    newEntry->dataChecksum = luaL_checkstring(L, 7);
     return 0;
 }
 
@@ -238,6 +258,9 @@ static void l_createNetworkCacheReturnTable(lua_State *L, NetworkCacheEntry *ent
 
     lua_pushinteger(L, entry->messageId);
     lua_setfield(L, -2, "messageId");
+
+    lua_pushstring(L, entry->dataChecksum);
+    lua_setfield(L, -2, "dataChecksum");
 
     if (entry->status == 0)
     {
@@ -291,6 +314,23 @@ static int l_networkCacheRead(lua_State *L)
     return 1;
 }
 
+static int l_networkCacheReadByChecksum(lua_State *L)
+{
+    int peerToSearch = luaL_checkinteger(L, 1);
+    char *sumToSearch = luaL_checkstring(L, 2);
+    for (int i = 0; i < networkCurrentSize; i++)
+    {
+        NetworkCacheEntry *entry = networkEntries + i;
+        if (entry->peerNum == peerToSearch && entry->dataChecksum == sumToSearch)
+        {
+            l_createNetworkCacheReturnTable(L, entry);
+            return 1;
+        };
+    }
+    lua_pushnil(L);
+    return 1;
+}
+
 static int l_networkCacheRemoveOldest(lua_State *L)
 {
     memmove(networkEntries + 1, networkEntries, ((networkCurrentSize - 1)) * sizeof(NetworkCacheEntry));
@@ -299,6 +339,28 @@ static int l_networkCacheRemoveOldest(lua_State *L)
     return 0;
 }
 
+static int l_networkCacheClear(lua_State *L)
+{
+    int peerToClear = luaL_checkinteger(L, 1);
+    while (1)
+    {
+        int found = 0;
+        for (int i = 0; i < networkCurrentSize; i++)
+        {
+            NetworkCacheEntry *entry = networkEntries + i;
+            if (entry->peerNum == peerToClear)
+            {
+                found = 1;
+                memmove(networkEntries + i + 1, networkEntries + i, ((networkCurrentSize - 1) - i) * sizeof(NetworkCacheEntry));
+                networkCurrentSize--;
+                networkEntries = realloc(networkEntries, sizeof(NetworkCacheEntry) * networkCurrentSize);
+            };
+        }
+        if (found == 0) {
+            return 0;
+        }
+    }
+}
 #pragma endregion
 
 __declspec(dllexport) int luaopen_noitamp_cache(lua_State *L)
@@ -318,9 +380,11 @@ __declspec(dllexport) int luaopen_noitamp_cache(lua_State *L)
         {
             {"set", l_networkCacheWrite},
             {"get", l_networkCacheRead},
+            {"getChecksum", l_networkCacheReadByChecksum},
             {"size", l_networkCacheSize},
             {"usage", l_networkCacheUsage},
             {"removeOldest", l_networkCacheRemoveOldest},
+            {"clear", l_networkCacheClear},
             {NULL, NULL}};
     luaL_openlib(L, "NetworkCache", nCachelib, 0);
     return 1;
