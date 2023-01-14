@@ -12,19 +12,19 @@ if varargs and #varargs > 0 then
         print("'varargs' of init_.lua, see below:")
         print(unpack(varargs))
 
-        destination_path = varargs[1]
-        print("destination_path = " .. tostring(destination_path))
-        if varargs[2] then
-            print("WARNING: varargs[2] is set and should only be used locally to fix unit testing paths!")
-            local workDir = varargs[2]
-            print("Current working directory: " .. workDir)
-            local dofile     = _G.dofile
-            _G.dofile        = function(path)
-                print("Trying to load file: " .. path)
-                print("Trying to load file with DOFILE: " .. workDir .. "/" .. path)
-                return dofile(workDir .. "/" .. path)
-            end
-        end
+        --destination_path = varargs[1]
+        --print("destination_path = " .. tostring(destination_path))
+        --if varargs[2] then
+        --    print("WARNING: varargs[2] is set and should only be used locally to fix unit testing paths!")
+        --    local workDir = varargs[2]
+        --    print("Current working directory: " .. workDir)
+        --    local dofile     = _G.dofile
+        --    _G.dofile        = function(path)
+        --        print("Trying to load file: " .. path)
+        --        print("Trying to load file with DOFILE: " .. workDir .. "/" .. path)
+        --        return dofile(workDir .. "/" .. path)
+        --    end
+        --end
     end
 else
     print("no 'varargs' set.")
@@ -39,13 +39,13 @@ dofile("mods/noita-mp/files/scripts/extensions/ffi_extensions.lua")
 dofile("mods/noita-mp/files/scripts/extensions/globalExtensions.lua")
 
 local init_package_loading = dofile("mods/noita-mp/files/scripts/init/init_package_loading.lua")
-if destination_path then
-    print("Running init_package_loading.lua with destination_path = " .. tostring(destination_path))
-    init_package_loading(destination_path)
-else
-    print("Running init_package_loading.lua without any destination_path")
-    init_package_loading()
-end
+--if destination_path then
+--    print("Running init_package_loading.lua with destination_path = " .. tostring(destination_path))
+--    init_package_loading(destination_path)
+--else
+--    print("Running init_package_loading.lua without any destination_path")
+--    init_package_loading()
+--end
 
 dofile("mods/noita-mp/files/scripts/init/init_logger.lua")
 

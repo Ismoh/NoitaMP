@@ -326,12 +326,12 @@ Error:   You will only see errors.]],
                 ui_name        = "Log level  related to Globals",
                 ui_description = [[Set the current log level, for printing messages into console.
 Debug:   You will see debug, warning, info and errors.
-Warning: You will see warnings, info and errors.
 Info:     You will see info and errors.
+Warning: You will see warnings, info and errors.
 Error:   You will only see errors.]],
                 value_default  = "error",
                 values         = {
-                    { "debug, warn, info, error", "Debug" }, { "warn, info, error", "Warning" }, { "info, error", "Info" }, { "error", "Error" }
+                    { "debug, info, warn, error", "Debug" }, { "info, warn, error", "Info" }, { "warn, error", "Warning" }, { "error", "Error" }
                 },
                 scope          = MOD_SETTING_SCOPE_RUNTIME,
                 change_fn      = mod_setting_change_callback, -- Called when the user interact with the settings widget.
@@ -341,12 +341,12 @@ Error:   You will only see errors.]],
                 ui_name        = "Log level  related to Guids",
                 ui_description = [[Set the current log level, for printing messages into console.
 Debug:   You will see debug, warning, info and errors.
-Warning: You will see warnings, info and errors.
 Info:     You will see info and errors.
+Warning: You will see warnings, info and errors.
 Error:   You will only see errors.]],
                 value_default  = "error",
                 values         = {
-                    { "debug, warn, info, error", "Debug" }, { "warn, info, error", "Warning" }, { "info, error", "Info" }, { "error", "Error" }
+                    { "debug, info, warn, error", "Debug" }, { "info, warn, error", "Info" }, { "warn, error", "Warning" }, { "error", "Error" }
                 },
                 scope          = MOD_SETTING_SCOPE_RUNTIME,
                 change_fn      = mod_setting_change_callback, -- Called when the user interact with the settings widget.
@@ -356,12 +356,12 @@ Error:   You will only see errors.]],
                 ui_name        = "Log level related to Client and Server",
                 ui_description = [[Set the current log level, for printing messages into console.
 Debug:   You will see debug, warning, info and errors.
-Warning: You will see warnings, info and errors.
 Info:     You will see info and errors.
+Warning: You will see warnings, info and errors.
 Error:   You will only see errors.]],
                 value_default  = "error",
                 values         = {
-                    { "debug, warn, info, error", "Debug" }, { "warn, info, error", "Warning" }, { "info, error", "Info" }, { "error", "Error" }
+                    { "debug, info, warn, error", "Debug" }, { "info, warn, error", "Info" }, { "warn, error", "Warning" }, { "error", "Error" }
                 },
                 scope          = MOD_SETTING_SCOPE_RUNTIME,
                 change_fn      = mod_setting_change_callback, -- Called when the user interact with the settings widget.
@@ -371,12 +371,12 @@ Error:   You will only see errors.]],
                 ui_name        = "Log level related to Nuids",
                 ui_description = [[Set the current log level, for printing messages into console.
 Debug:   You will see debug, warning, info and errors.
-Warning: You will see warnings, info and errors.
 Info:     You will see info and errors.
+Warning: You will see warnings, info and errors.
 Error:   You will only see errors.]],
                 value_default  = "error",
                 values         = {
-                    { "debug, warn, info, error", "Debug" }, { "warn, info, error", "Warning" }, { "info, error", "Info" }, { "error", "Error" }
+                    { "debug, info, warn, error", "Debug" }, { "info, warn, error", "Info" }, { "warn, error", "Warning" }, { "error", "Error" }
                 },
                 scope          = MOD_SETTING_SCOPE_RUNTIME,
                 change_fn      = mod_setting_change_callback, -- Called when the user interact with the settings widget.
@@ -385,12 +385,12 @@ Error:   You will only see errors.]],
                 ui_name        = "Log level related to Network VariableStorageComponents",
                 ui_description = [[Set the current log level, for printing messages into console.
 Debug:   You will see debug, warning, info and errors.
-Warning: You will see warnings, info and errors.
 Info:     You will see info and errors.
+Warning: You will see warnings, info and errors.
 Error:   You will only see errors.]],
                 value_default  = "error",
                 values         = {
-                    { "debug, warn, info, error", "Debug" }, { "warn, info, error", "Warning" }, { "info, error", "Info" }, { "error", "Error" }
+                    { "debug, info, warn, error", "Debug" }, { "info, warn, error", "Info" }, { "warn, error", "Warning" }, { "error", "Error" }
                 },
                 scope          = MOD_SETTING_SCOPE_RUNTIME,
                 change_fn      = mod_setting_change_callback, -- Called when the user interact with the settings widget.

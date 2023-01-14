@@ -411,7 +411,7 @@ function EntityUtils.processAndSyncEntityNetworking()
                 NetworkVscUtils.addOrUpdateAllVscs(clientEntityId, localOwner.name, localOwner.guid)
             end
             if not NetworkVscUtils.hasNuidSet(clientEntityId) then
-                Client.sendNeedNuid(localOwner, clientEntityId)
+                Client.sendNeedNuid(localOwner.name, localOwner.guid, clientEntityId)
             end
         end
     end
