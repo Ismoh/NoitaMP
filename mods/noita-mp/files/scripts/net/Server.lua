@@ -1057,16 +1057,7 @@ function Server.new(sockServer)
     --- Mainly for profiling. Returns then network cache, aka acknowledge.
     --- @return number cacheSize
     function self.getAckCacheSize()
-        local count = 0
-        for c in pairs(self.clients) do
-            for p in pairs(self.clients[c].acknowledge) do
-                local peer = self.clients[c].acknowledge[p]
-                for e in pairs(peer) do
-                    count = count + table.size(peer[e])
-                end
-            end
-        end
-        return count
+        return NetworkCache.size()
     end
 
     --#endregion
