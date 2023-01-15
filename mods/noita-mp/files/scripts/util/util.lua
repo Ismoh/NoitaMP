@@ -140,7 +140,7 @@ function util.getLocalPlayerInfo()
         NetworkVscUtils.addOrUpdateAllVscs(entityId, ownerName, ownerGuid, nuid)
     end
 
-    local name, guid, nuid = NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
+    local _, _, nuid = NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
     CustomProfiler.stop("util.getLocalPlayerInfo", cpc)
     return {
         name     = tostring(ModSettingGet("noita-mp.name")),
