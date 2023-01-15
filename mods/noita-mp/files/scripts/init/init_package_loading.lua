@@ -2,7 +2,7 @@
 
 function getNoitaMpRootDirectory()
     -- Get the current directory of the script or the executable
-    local currentDirectory = io.popen("cd"):read("*a")
+    local currentDirectory = io.popen("cd"):read("*l") .. "/" .. debug.getinfo(1).source
     print("currentDirectory: " .. currentDirectory)
 
     -- Check if we are inside of noita-mp directory. Don't forget to escape the dash!
