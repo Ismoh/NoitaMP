@@ -1,5 +1,5 @@
 local default_package_path = package.path
-package.path               = package.path .. ";mods/noita-mp/files/lib/external/?.lua;"
+package.path               = package.path .. ";mods/noita-mp/lua_modules/share/lua/5.1/?.lua;"
 
 local Logging              = require("logging")
 

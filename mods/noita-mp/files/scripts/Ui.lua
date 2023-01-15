@@ -6,7 +6,7 @@
 ----------------------------------------
 -- 'Imports'
 ----------------------------------------
-local renderEzgui                 = dofile_once("mods/noita-mp/files/lib/external/ezgui/EZGUI.lua").init("mods/noita-mp/files/lib/external/ezgui")
+local renderEzgui                 = dofile_once("mods/noita-mp/lua_modules/share/lua/5.1/ezgui/EZGUI.lua").init("mods/noita-mp/lua_modules/share/lua/5.1/ezgui")
 
 ----------------------------------------------------------------------------------------------------
 --- Ui

@@ -53,6 +53,7 @@ dofile("mods/noita-mp/files/scripts/init/init_logger.lua")
 -- Do a simple check by nil check:
 if ModSettingGet then
     -- Load utils
+    require 'noitamp_cache'
     require("EntityUtils")
     require("GlobalsUtils")
     require("NetworkVscUtils")

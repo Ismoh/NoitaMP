@@ -1,3 +1,5 @@
+_G.isTestLuaContext = true
+
 dofile("../noita-mp/files/scripts/init/init_package_loading.lua")
 
 local lfs = require("lfs")

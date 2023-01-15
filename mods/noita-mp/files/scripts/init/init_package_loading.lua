@@ -2,7 +2,7 @@
 
 function getNoitaMpRootDirectory()
     -- Get the current directory of the script or the executable
-    local currentDirectory = io.popen("cd"):read("*a")
+    local currentDirectory = io.popen("cd"):read("*l") .. "/" .. debug.getinfo(1).source
     print("currentDirectory: " .. currentDirectory)
 
     -- Check if we are inside of noita-mp directory. Don't forget to escape the dash!
@@ -24,38 +24,46 @@ local noitaMpRootDirectory = getNoitaMpRootDirectory()
 local default_package_path = package.path
 print("package.path = " .. package.path)
 package.path = package.path .. ";"
+-- [[ LuaRocks modules ]]--
 package.path = package.path .. noitaMpRootDirectory .. "\\lua_modules\\share\\lua\\5.1\\?.lua;"
-package.path = package.path .. noitaMpRootDirectory .. "\\files\\scripts\\util\\?.lua;"
-package.path = package.path .. noitaMpRootDirectory .. "\\files\\lib\\external\\?.lua;"
 package.path = package.path .. "mods\\noita-mp\\lua_modules\\share\\lua\\5.1\\?.lua;"
+-- [[ NoitaMP classes ]]--
+package.path = package.path .. noitaMpRootDirectory .. "\\files\\scripts\\net\\?.lua;"
+package.path = package.path .. noitaMpRootDirectory .. "\\files\\scripts\\util\\?.lua;"
+package.path = package.path .. "mods\\noita-mp\\files\\scripts\\net\\?.lua;"
 package.path = package.path .. "mods\\noita-mp\\files\\scripts\\util\\?.lua;"
-package.path = package.path .. "mods\\noita-mp\\files\\lib\\external\\?.lua;"
 print("package.path = " .. package.path)
 
 package.cpath = package.cpath .. ";" ..
-        --[[ Outside of Noita ]]--
+        -- [[ LuaRocks libraries ]]--
         noitaMpRootDirectory .. "\\lua_modules\\lib\\lua\\5.1\\?.dll;" ..
-        noitaMpRootDirectory .. "\\files\\lib\\external\\dlls\\?.dll;" ..
-        --[[ Inside of Noita ]]--
-        "mods\\noita-mp\\lua_modules\\lib\\lua\\5.1\\?.dll;" ..
-        "mods\\noita-mp\\files\\lib\\external\\dlls\\?.dll;"
+        "mods\\noita-mp\\lua_modules\\lib\\lua\\5.1\\?.dll;"
 print("package.cpath = " .. package.cpath)
 
 local fu                                     = require("file_util")
 --[[ NoitaMP additions ]]
 -- A list of paths to lua script modules
 local paths                                  = {
+    -- [[ LuaRocks modules, running outside of noita.exe ]]--
     noitaMpRootDirectory .. "/lua_modules/share/lua/5.1/{module}",
     noitaMpRootDirectory .. "/lua_modules/lib/lua/5.1/{module}",
+    -- [[ NoitaMP classes, running outside of noita.exe ]]--
+    noitaMpRootDirectory .. "/files/scripts/{module}",
+    noitaMpRootDirectory .. "/files/scripts/extensions/{module}",
+    noitaMpRootDirectory .. "/files/scripts/init/{module}",
+    noitaMpRootDirectory .. "/files/scripts/net/{module}",
+    --noitaMpRootDirectory .. "/files/scripts/noita-components/{module}", not needed outside of noita?
     noitaMpRootDirectory .. "/files/scripts/util/{module}",
 
+    -- [[ LuaRocks modules ]]--
     "mods/noita-mp/lua_modules/share/lua/5.1/{module}",
     "mods/noita-mp/lua_modules/lib/lua/5.1/{module}",
-    "mods/noita-mp/files/{module}",
+    -- [[ NoitaMP classes ]]--
     "mods/noita-mp/files/scripts/{module}",
-    "mods/noita-mp/files/scripts/components/{module}",
+    "mods/noita-mp/files/scripts/extensions/{module}",
     "mods/noita-mp/files/scripts/init/{module}",
     "mods/noita-mp/files/scripts/net/{module}",
+    --"mods/noita-mp/files/scripts/noita-components/{module}", not needed outside of noita?
     "mods/noita-mp/files/scripts/util/{module}"
 }
 

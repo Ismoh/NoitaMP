@@ -1,47 +1,95 @@
-local params       = ...
+local params           = ...
 
-local lu           = require("luaunit")
-local NetworkUtils = require("NetworkUtils")
-local sock         = require("sock")
+-- [[ Mock Noita API functions, which are needed before/during require is used ]] --
+ModSettingGetNextValue = function()
+    -- return false to disable CustomProfiler
+    return false
+end
+ModSettingSetNextValue = function(id, value, is_default)
+    print("ModSettingSetNextValue: " .. id .. " = " .. tostring(value) .. " (is_default: " .. tostring(is_default) .. ")")
+end
+GamePrintImportant     = function(title, description, ui_custom_decoration_file)
+    print("GamePrintImportant: " .. title .. " - " .. description .. " - " .. " (ui_custom_decoration_file: " .. tostring(ui_custom_decoration_file) .. ")")
+end
 
-TestNetworkUtils   = {}
+-- [[ require ]] --
+require("noitamp_cache")
+require("EntityUtils")
+require("NetworkUtils")
+require("guid")
+require("CustomProfiler")
+require("Server")
+require("Client")
 
+local lu         = require("luaunit")
+local util       = require("util")
+
+-- [[ Test ]] --
+TestNetworkUtils = {}
+
+--- Setup function for each test.
 function TestNetworkUtils:setUp()
-
 end
 
+--- Teardown function for each test.
 function TestNetworkUtils:tearDown()
-
 end
 
+--- Tests if the function NetworkUtils.alreadySent() returns true,
+--- if the client send a message, which was already sent.
 function TestNetworkUtils:testAlreadySent()
-    --local event  = NetworkUtils.events.newNuid.name
-    --local data   = {
-    --    networkMessageId = 367,
-    --    owner            = { "ownerName", "ownerGuid" },
-    --    localEntityId    = 4673,
-    --    newNuid          = 4,
-    --    x                = 0.25,
-    --    y                = 3.55,
-    --    rotation         = 49,
-    --    velocity         = { x = 0, y = 3 },
-    --    filename         = "/mods/",
-    --    health           = { current = 123, max = 125 },
-    --    isPolymorphed    = false
-    --}
-    --
-    --local server = sock.newServer("*", 22122)
-    --local client = sock.newClient("*", 22122)
-    --
-    --client.connect("*", 22122)
-    --
-    --local result = NetworkUtils.alreadySent(client, event, data)
-    --lu.assertIsFalse(result)
-    --
-    --server.send(client, event, data)
-    --
-    --local result = NetworkUtils.alreadySent(client, event, data)
-    --lu.assertIsTrue(result)
+    lu.assertErrorMsgContains("'peer' must not be nil!", NetworkUtils.alreadySent, nil, event, data)
+    local peer = Client
+    lu.assertErrorMsgContains("'event' must not be nil!", NetworkUtils.alreadySent, peer, nil, data)
+    lu.assertErrorMsgContains("is unknown. Did you add this event in NetworkUtils.events?", NetworkUtils.alreadySent,
+                              peer, "ASDF", data)
+    lu.assertErrorMsgContains("'data' must not be nil!", NetworkUtils.alreadySent, peer, "needNuid", nil)
+
+    -- [[ Mock functions inside of Client.sendNeedNuid ]] --
+    EntityUtils.isEntityAlive       = function(entityId)
+        return true
+    end
+    EntityUtils.isEntityPolymorphed = function(entityId)
+        return false
+    end
+
+    Server.start("*", 1337)
+    Client.connect("localhost", 1337, 0)
+
+    -- [[ Prepare data and send the event message ]] --
+    local ownerName = "TestOwnerName"
+    local ownerGuid = Guid:getGuid()
+    local entityId  = 456378
+
+    -- [[ Mock functions inside of Client.sendNeedNuid ]] --
+    if not NoitaComponentUtils then
+        NoitaComponentUtils = {}
+    end
+    NoitaComponentUtils.getEntityData = function(entityId)
+        local compOwnerName = ownerName
+        local compOwnerGuid = ownerGuid
+        local compNuid      = 484
+        local filename      = "data/entities/player.xml"
+        local health        = { current = 100, max = 100 }
+        local rotation      = 139
+        local velocity      = { x = 0, y = 0 }
+        local x             = 0
+        local y             = 0
+        return compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y
+    end
+
+    Client.sendNeedNuid(ownerName, ownerGuid, entityId)
+
+    local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
+    local data                                                                               = {
+        NetworkUtils.getNextNetworkMessageId(), { ownerName, ownerGuid }, entityId, x, y, rotation, velocity,
+        filename, health, EntityUtils.isEntityPolymorphed(entityId)
+    }
+
+    print(("Let's see if this was already sent: entity %s with data %s"):format(entityId, util.pformat(data)))
+    -- [[ Check if the message was already sent ]] --
+    lu.assertIs(NetworkUtils.alreadySent(peer, "needNuid", data), true,
+                "The message was already sent, but the function NetworkUtils.alreadySent() returned false!")
 end
 
 lu.LuaUnit.run(params)

@@ -10,6 +10,7 @@ local sock        = require("sock")
 local util        = require("util")
 local zstandard   = require("zstd")
 local messagePack = require("MessagePack")
+local md5         = require("md5")
 
 ----------------------------------------------------------------------------------------------------
 --- Client
@@ -172,7 +173,8 @@ function Client.new(sockClient)
             error(("onAcknowledgement data.event is empty: %s"):format(data.event), 2)
         end
 
-        NetworkCache.set(self.clientCacheID or 0, data.networkMessageId, data.event, data.status, os.clock(), 0, "NOCHECKSUM")
+        NetworkCache.set(self.clientCacheID or 0, data.networkMessageId, data.event, data.status, os.clock(), 0,
+                         "NOCHECKSUM")
         if NetworkCache.size() > self.acknowledgeMaxSize then
             NetworkCache.removeOldest()
         end
@@ -891,7 +893,6 @@ function Client.new(sockClient)
         local networkMessageId = sockClientSend(self, event, data)
         if event ~= NetworkUtils.events.acknowledgement.name then
             if NetworkUtils.events[event].isCacheable == true then
-                local md5 = dofile_once("mods/noita-mp/files/lib/external/md5.lua")
                 local sum = ""
                 --- start at 2 so the networkMessageId is not included in the checksum
                 for i = 2, #data do
@@ -911,16 +912,18 @@ function Client.new(sockClient)
                         if d.x and d.y then
                             d = tostring(d.x) .. tostring(d.y)
                             --- if data is an entity health table
-                        else if d.current and d.max then
-                                d = tostring(d.current) .. tostring(d.max)
                         else
-                            d = ""
-                        end
+                            if d.current and d.max then
+                                d = tostring(d.current) .. tostring(d.max)
+                            else
+                                d = ""
+                            end
                         end
                     end
                     sum = sum .. d
-                            end
-                NetworkCache.set(self.clientCacheID or 0, networkMessageId, event, NetworkUtils.events.acknowledgement.sent, 0, os.clock(), md5.sumhexa(sum))
+                end
+                NetworkCache.set(self.clientCacheID or 0, networkMessageId, event,
+                                 NetworkUtils.events.acknowledgement.sent, 0, os.clock(), md5.sumhexa(sum))
             end
         end
         CustomProfiler.stop("Client.send", cpc19)
@@ -948,6 +951,10 @@ function Client.new(sockClient)
             NetworkUtils.getNextNetworkMessageId(), { ownerName, ownerGuid }, entityId, x, y, rotation, velocity,
             filename, health, EntityUtils.isEntityPolymorphed(entityId)--EntityUtils.isPlayerPolymorphed()
         }
+
+        if isTestLuaContext then
+            print(("Sending need nuid for entity %s with data %s"):format(entityId, util.pformat(data)))
+        end
 
         self:send(NetworkUtils.events.needNuid.name, data)
         CustomProfiler.stop("Client.sendNeedNuid", cpc20)

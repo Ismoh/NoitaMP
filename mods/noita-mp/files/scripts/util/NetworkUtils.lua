@@ -6,6 +6,8 @@
 -----------------------------------------------------------------------------------------------------------------------
 --- 'Imports'
 -----------------------------------------------------------------------------------------------------------------------
+local md5                            = require("md5")
+
 -----------------------------------------------------------------------------------------------------------------------
 --- NetworkUtils
 -----------------------------------------------------------------------------------------------------------------------
@@ -46,7 +48,7 @@ NetworkUtils.events                  = {
         --- identifier whether to send this message again, if it wasn't acknowledged
         resendIdentifier = { "newNuid" },
         --- identifier whether to cache this message, if it wasn't acknowledged
-        isCacheable = true
+        isCacheable      = true
     },
 
     --- needNuid is used to ask for a nuid from client to servers
@@ -55,7 +57,7 @@ NetworkUtils.events                  = {
         schema           = { "networkMessageId", "owner", "localEntityId", "x", "y",
                              "rotation", "velocity", "filename", "health", "isPolymorphed" },
         resendIdentifier = { "localEntityId", "filename" },
-        isCacheable = true
+        isCacheable      = true
     },
 
     --- lostNuid is used to ask for the entity to spawn, when a client has a nuid stored, but no entityId (not sure
@@ -141,16 +143,21 @@ end
 --- @return boolean
 function NetworkUtils.alreadySent(peer, event, data)
     local cpc = CustomProfiler.start("NetworkUtils.alreadySent")
-    local clientCacheID = peer.clientCacheID or 0
+
     if not peer then
         error("'peer' must not be nil! When Server, then peer. When Client, then self.", 2)
     end
     if not event then
         error("'event' must not be nil!", 2)
     end
+    if not NetworkUtils.events[event] then
+        error(("'event' \"%s\" is unknown. Did you add this event in NetworkUtils.events?"):format(event), 2)
+    end
     if not data then
         error("'data' must not be nil!", 2)
     end
+
+    local clientCacheID    = peer.clientCacheID or 0
     local networkMessageId = data[1]
     if not networkMessageId then
         error("'networkMessageId' must not be nil!", 2)
@@ -172,7 +179,6 @@ function NetworkUtils.alreadySent(peer, event, data)
     end
 
     --- Compare if the current data matches the cached checksum
-    local md5 = dofile_once("mods/noita-mp/files/lib/external/md5.lua")
     local sum = ""
     --- start at 2 so the networkMessageId is not included in the checksum
     for i = 2, #data do
@@ -192,16 +198,17 @@ function NetworkUtils.alreadySent(peer, event, data)
             if d.x and d.y then
                 d = tostring(d.x) .. tostring(d.y)
                 --- if data is an entity health table
-            else if d.current and d.max then
-                    d = tostring(d.current) .. tostring(d.max)
             else
-                d = ""
-            end
+                if d.current and d.max then
+                    d = tostring(d.current) .. tostring(d.max)
+                else
+                    d = ""
+                end
             end
         end
         sum = sum .. d
     end
-    sum = md5.sumhexa(sum)
+    sum                = md5.sumhexa(sum)
     local matchingData = NetworkCache.getChecksum(clientCacheID, md5.sumhexa(sum))
     if matchingData ~= nil then
         return true;
