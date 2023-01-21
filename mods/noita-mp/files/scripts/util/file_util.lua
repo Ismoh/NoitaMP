@@ -535,8 +535,13 @@ end
 --cd "C:\Program Files (x86)\Steam\steamapps\common\Noita\mods\noita-mp\_" && 7z.exe x -aoa test.7z -o"C:\Program Files (x86)\Steam\steamapps\common\Noita\save06_test"
 
 ----------------------------------------------------------------------------------------------------
--- Noita restart, yay!
+--- Noita restart, yay!
 ----------------------------------------------------------------------------------------------------
+
+--- Credits to dextercd!
+function fu.restartNoita()
+    require("ffi").cast("void(__fastcall*)()", 0x0066e120)()
+end
 
 function fu.killNoitaAndRestart()
     local exe = "noita.exe"
