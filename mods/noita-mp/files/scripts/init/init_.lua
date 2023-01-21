@@ -6,7 +6,7 @@ print("Initialise paths, globals and extensions..")
 local varargs          = { ... }
 local destination_path = nil
 if varargs and #varargs > 0 then
-    if ModSettingGet then
+    if require then
         print("ERROR: Do not add any arguments when running this script in-game!")
     else
         print("'varargs' of init_.lua, see below:")
@@ -49,9 +49,9 @@ local init_package_loading = dofile("mods/noita-mp/files/scripts/init/init_packa
 
 dofile("mods/noita-mp/files/scripts/init/init_logger.lua")
 
--- On Github we do not want to load the utils.
--- Do a simple check by nil check:
-if ModSettingGet then
+-- We simply want to load all dependencies, when inGame and in init.lua-Context,
+-- but we don't when in NoitaComponents or in unit testing!
+if require and not isTestLuaContext then
     -- Load utils
     require 'noitamp_cache'
     require("EntityUtils")

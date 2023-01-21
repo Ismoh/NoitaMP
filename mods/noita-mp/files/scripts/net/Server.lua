@@ -81,7 +81,7 @@ function Server.new(sockServer)
             --logger:debug(logger.channels.network, "Uncompressed size:", string.len(serialized))
             local compressed, err = zstd:compress(serialized)
             if err then
-                logger:error(logger.channels.network, "Error while compressing: " .. err)
+                error("Error while compressing: " .. err, 2)
             end
             --logger:debug(logger.channels.network, "Compressed size:", string.len(compressed))
             --logger:debug(logger.channels.network, ("Serialized and compressed value: %s"):format(compressed))
@@ -97,11 +97,11 @@ function Server.new(sockServer)
             --logger:debug(logger.channels.network, "Compressed size:", string.len(anyValue))
             local decompressed, err = zstd:decompress(anyValue)
             if err then
-                logger:error(logger.channels.network, "Error while decompressing: " .. err)
+                error("Error while decompressing: " .. err, 2)
             end
             --logger:debug(logger.channels.network, "Uncompressed size:", string.len(decompressed))
             local deserialized = messagePack.unpack(decompressed)
-            logger:debug(logger.channels.network, ("Deserialized and uncompressed value: %s"):format(deserialized))
+            Logger.debug(Logger.channels.network, ("Deserialized and uncompressed value: %s"):format(deserialized))
             zstd:free()
             CustomProfiler.stop("Server.setConfigSettings.deserialize", cpc2)
             return deserialized
@@ -122,9 +122,9 @@ function Server.new(sockServer)
             guid = Guid:getGuid()
             ModSettingSetNextValue("noita-mp.guid", guid, false)
             self.guid = guid
-            logger:debug(logger.channels.network, "Servers guid set to " .. guid)
+            Logger.debug(Logger.channels.network, "Servers guid set to " .. guid)
         else
-            logger:debug(logger.channels.network, "Servers guid was already set to " .. guid)
+            Logger.debug(Logger.channels.network, "Servers guid was already set to " .. guid)
         end
 
         if DebugGetIsDevBuild() then
@@ -143,7 +143,7 @@ function Server.new(sockServer)
         end
         local data = { networkMessageId, event, NetworkUtils.events.acknowledgement.ack }
         self:sendToPeer(peer, NetworkUtils.events.acknowledgement.name, data)
-        logger:debug(logger.channels.network, ("Sent ack with data = %s"):format(util.pformat(data)))
+        Logger.debug(Logger.channels.network, ("Sent ack with data = %s"):format(util.pformat(data)))
         CustomProfiler.stop("Server.sendAck", cpc02)
     end
 
@@ -152,16 +152,15 @@ function Server.new(sockServer)
     ------------------------------------------------------------------------------------------------
     local function onAcknowledgement(data, peer)
         local cpc03 = CustomProfiler.start("Server.onAcknowledgement")
-        logger:debug(logger.channels.network, "onAcknowledgement: Acknowledgement received.", util.pformat(data))
+        Logger.debug(Logger.channels.network, "onAcknowledgement: Acknowledgement received.", util.pformat(data))
 
         if util.IsEmpty(data.networkMessageId) then
             error(("onAcknowledgement data.networkMessageId is empty: %s"):format(data.networkMessageId), 2)
         end
 
         if not data.networkMessageId then
-            logger:error(logger.channels.network,
-                         ("Unable to get acknowledgement with networkMessageId = %s, data = %s, peer = %s")
-                                 :format(networkMessageId, data, peer))
+            error(("Unable to get acknowledgement with networkMessageId = %s, data = %s, peer = %s")
+                                 :format(networkMessageId, data, peer), 2)
             return
         end
 
@@ -191,7 +190,7 @@ function Server.new(sockServer)
     --- @param peer table
     local function onConnect(data, peer)
         local cpc04 = CustomProfiler.start("Server.onConnect")
-        logger:debug(logger.channels.network, ("Peer %s connected! data = %s")
+        Logger.debug(Logger.channels.network, ("Peer %s connected! data = %s")
                 :format(util.pformat(peer), util.pformat(data)))
 
         if util.IsEmpty(peer) then
@@ -237,7 +236,7 @@ function Server.new(sockServer)
     --- @param peer table
     local function onDisconnect(data, peer)
         local cpc05 = CustomProfiler.start("Server.onDisconnect")
-        logger:debug(logger.channels.network, "Disconnected from server!", util.pformat(data))
+        Logger.debug(Logger.channels.network, "Disconnected from server!", util.pformat(data))
 
         if util.IsEmpty(peer) then
             error(("onConnect peer is empty: %s"):format(peer), 3)
@@ -247,7 +246,7 @@ function Server.new(sockServer)
             error(("onDisconnect data is empty: %s"):format(data), 3)
         end
 
-        logger:debug(logger.channels.network, "Disconnected from server!", util.pformat(data))
+        Logger.debug(Logger.channels.network, "Disconnected from server!", util.pformat(data))
         -- Let the other clients know, that one client disconnected
         self:sendToAllBut(peer, NetworkUtils.events.disconnect2.name,
                           { NetworkUtils.getNextNetworkMessageId(), peer.name, peer.guid, peer.nuid })
@@ -268,7 +267,7 @@ function Server.new(sockServer)
     --- @param data table data { networkMessageId, name, guid }
     local function onPlayerInfo(data, peer)
         local cpc06 = CustomProfiler.start("Server.onPlayerInfo")
-        logger:debug(logger.channels.network, "onPlayerInfo: Player info received.", util.pformat(data))
+        Logger.debug(Logger.channels.network, "onPlayerInfo: Player info received.", util.pformat(data))
 
         if util.IsEmpty(peer) then
             error(("onConnect peer is empty: %s"):format(peer), 3)
@@ -302,7 +301,7 @@ function Server.new(sockServer)
 
         -- Make sure guids are unique. It's unlikely that two players have the same guid, but it can happen rarely.
         if self.guid == data.guid or table.contains(Guid:getCachedGuids(), data.guid) then
-            logger:error(logger.channels.network, ("onPlayerInfo: guid %s is not unique!"):format(data.guid))
+            error(("onPlayerInfo: guid %s is not unique!"):format(data.guid), 2)
             local newGuid     = Guid:getGuid({ data.guid })
             local dataNewGuid = {
                 NetworkUtils.getNextNetworkMessageId(), data.guid, newGuid
@@ -331,7 +330,7 @@ function Server.new(sockServer)
     ------------------------------------------------------------------------------------------------
     local function onNeedNuid(data, peer)
         local cpc07 = CustomProfiler.start("Server.onNeedNuid")
-        logger:debug(logger.channels.network, ("Peer %s needs a new nuid. data = %s")
+        Logger.debug(Logger.channels.network, ("Peer %s needs a new nuid. data = %s")
                 :format(util.pformat(peer), util.pformat(data)))
 
         if util.IsEmpty(peer) then
@@ -402,7 +401,7 @@ function Server.new(sockServer)
     ------------------------------------------------------------------------------------------------
     local function onLostNuid(data, peer)
         local cpc08 = CustomProfiler.start("Server.onLostNuid")
-        logger:debug(logger.channels.network, ("Peer %s lost a nuid and ask for the entity to spawn. data = %s")
+        Logger.debug(Logger.channels.network, ("Peer %s lost a nuid and ask for the entity to spawn. data = %s")
                 :format(util.pformat(peer), util.pformat(data)))
 
         if util.IsEmpty(peer) then
@@ -420,7 +419,7 @@ function Server.new(sockServer)
         local nuid, entityId = GlobalsUtils.getNuidEntityPair(data.nuid)
 
         if not entityId or not EntityUtils.isEntityAlive(entityId) then
-            logger:debug(logger.channels.network,
+            Logger.debug(Logger.channels.network,
                          ("onLostNuid(%s): Entity %s already dead."):format(data.nuid, entityId))
             CustomProfiler.stop("Server.onLostNuid", cpc08)
             sendAck(data.networkMessageId, peer, NetworkUtils.events.lostNuid.name)
@@ -441,7 +440,7 @@ function Server.new(sockServer)
 
     local function onEntityData(data, peer)
         local cpc09 = CustomProfiler.start("Server.onEntityData")
-        logger:debug(logger.channels.network, ("Received entityData for nuid = %s! data = %s")
+        Logger.debug(Logger.channels.network, ("Received entityData for nuid = %s! data = %s")
                 :format(data.nuid, util.pformat(data)))
 
         if util.IsEmpty(data.networkMessageId) then
@@ -503,7 +502,7 @@ function Server.new(sockServer)
         for i = 1, #deadNuids do
             local deadNuid = deadNuids[i]
             if util.IsEmpty(deadNuid) or deadNuid == "nil" then
-                logger:error(logger.channels.network, ("onDeadNuids deadNuid is empty: %s"):format(deadNuid), 3)
+                error(("onDeadNuids deadNuid is empty: %s"):format(deadNuid), 2)
             else
                 if peer then
                     EntityUtils.destroyByNuid(peer, deadNuid)
@@ -891,12 +890,12 @@ function Server.new(sockServer)
         self.stop()
         _G.Server.stop() -- stop if any server is already running
 
-        logger:info(logger.channels.network, "Starting server on %s:%s ..", ip, port)
+        Logger.info(Logger.channels.network, "Starting server on %s:%s ..", ip, port)
         --self = _G.ServerInit.new(sock.newServer(ip, port), false)
         --_G.Server = self
         local success = sockServerStart(self, ip, port)
         if success == true then
-            logger:info(logger.channels.network, "Server started on %s:%s", self:getAddress(), self:getPort())
+            Logger.info(Logger.channels.network, "Server started on %s:%s", self:getAddress(), self:getPort())
 
             setGuid()
             setConfigSettings()
@@ -916,7 +915,7 @@ function Server.new(sockServer)
         if self.isRunning() then
             self:destroy()
         else
-            logger:info(logger.channels.network, "Server isn't running, there cannot be stopped.")
+            Logger.info(Logger.channels.network, "Server isn't running, there cannot be stopped.")
         end
         CustomProfiler.stop("Server.stop", cpc015)
     end
@@ -1044,13 +1043,13 @@ function Server.new(sockServer)
 
     function self.kick(name)
         local cpc020 = CustomProfiler.start("Server.kick")
-        logger:debug(logger.channels.network, "Minä %s was kicked!", name)
+        Logger.debug(Logger.channels.network, "Minä %s was kicked!", name)
         CustomProfiler.stop("Server.kick", cpc020)
     end
 
     function self.ban(name)
         local cpc021 = CustomProfiler.start("Server.ban")
-        logger:debug(logger.channels.network, "Minä %s was banned!", name)
+        Logger.debug(Logger.channels.network, "Minä %s was banned!", name)
         CustomProfiler.stop("Server.ban", cpc021)
     end
 
@@ -1073,18 +1072,18 @@ end
 -- Because of stack overflow errors when loading lua files,
 -- I decided to put Utils 'classes' into globals
 _G.ServerInit     = Server
-_G.Server         = Server.new(sock.newServer())
+_G.Server         = ServerInit.new(sock.newServer())
 
-local startOnLoad = ModSettingGet("noita-mp.server_start_when_world_loaded")
-if startOnLoad then
-    -- Polymorphism sample
-    _G.Server.start(nil, nil)
-else
-    GamePrintImportant("Server not started",
-                       "Your server wasn't started yet. Check ModSettings to change this or Press M to open multiplayer menu.",
-                       ""
-    )
-end
+--local startOnLoad = ModSettingGet("noita-mp.server_start_when_world_loaded")
+--if startOnLoad then
+--    -- Polymorphism sample
+--    _G.Server.start(nil, nil)
+--else
+--    GamePrintImportant("Server not started",
+--                       "Your server wasn't started yet. Check ModSettings to change this or Press M to open multiplayer menu.",
+--                       ""
+--    )
+--end
 
 
 -- But still return for Noita Components,

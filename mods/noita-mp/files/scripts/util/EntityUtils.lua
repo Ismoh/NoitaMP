@@ -18,84 +18,88 @@ end
 
 if require == nil then
     local cacheData = {}
-    EntityCache = {
-        set = function(entityId, compNuid, compOwnerGuid, compOwnerName, filename, x, y, rotation, velX, velY, currentHealth, maxHealth)
+    EntityCache     = {
+        set        = function(entityId, compNuid, compOwnerGuid, compOwnerName, filename, x, y, rotation, velX, velY, currentHealth, maxHealth)
             local cpc = CustomProfiler.start("EntityUtils.CachePolyfillSet")
             for _, value in ipairs(cacheData) do
                 if value.entityId == entityId then
                     cacheData[_] = {
-                        entityId = entityId,
-                        ownerName = compOwnerName,
-                        ownerGuid = compOwnerGuid,
-                        nuid = compNuid,
-                        filename = filename,
+                        entityId      = entityId,
+                        ownerName     = compOwnerName,
+                        ownerGuid     = compOwnerGuid,
+                        nuid          = compNuid,
+                        filename      = filename,
                         currentHealth = currentHealth,
-                        maxHealth = maxHealth,
-                        velX = velX,
-                        velY = velY,
-                        rotation = rotation, 
-                        x = x,
-                        y = y
+                        maxHealth     = maxHealth,
+                        velX          = velX,
+                        velY          = velY,
+                        rotation      = rotation,
+                        x             = x,
+                        y             = y
                     }
-                    return   
+                    return
                 end
             end
             table.insert(cacheData, {
-                entityId = entityId,
-                ownerName = compOwnerName,
-                ownerGuid = compOwnerGuid,
-                nuid = compNuid,
-                filename = filename,
+                entityId      = entityId,
+                ownerName     = compOwnerName,
+                ownerGuid     = compOwnerGuid,
+                nuid          = compNuid,
+                filename      = filename,
                 currentHealth = currentHealth,
-                maxHealth = maxHealth,
-                velX = velX,
-                velY = velY,
-                rotation = rotation, 
-                x = x,
-                y = y
+                maxHealth     = maxHealth,
+                velX          = velX,
+                velY          = velY,
+                rotation      = rotation,
+                x             = x,
+                y             = y
             })
             CustomProfiler.stop("EntityUtils.CachePolyfillSet", cpc)
         end,
-        get = function (id)
+        get        = function(id)
             local cpc = CustomProfiler.start("EntityUtils.CachePolyfillGet")
             for _, value in ipairs(cacheData) do
-                if value.entityId == id then return value end
+                if value.entityId == id then
+                    return value
+                end
             end
             CustomProfiler.stop("EntityUtils.CachePolyfillGet", cpc)
         end,
-        getNuid = function (id)
+        getNuid    = function(id)
             local cpc = CustomProfiler.start("EntityUtils.CachePolyfillGet")
             for _, value in ipairs(cacheData) do
-                if value.nuid == id then return value end
+                if value.nuid == id then
+                    return value
+                end
             end
             CustomProfiler.stop("EntityUtils.CachePolyfillGet", cpc)
         end,
-        delete = function (id)
-            local cpc = CustomProfiler.start("EntityUtils.CachePolyfillDelete")
+        delete     = function(id)
+            local cpc      = CustomProfiler.start("EntityUtils.CachePolyfillDelete")
             local shifting = false
             for _, value in ipairs(cacheData) do
                 if value.entityId == id then
                     cacheData[_] = nil
-                    shifting = true
+                    shifting     = true
                 end
                 if shifting then
-                    cacheData[_-1] = value
-                    cacheData[_] = nil
+                    cacheData[_ - 1] = value
+                    cacheData[_]     = nil
                 end
             end
             CustomProfiler.stop("EntityUtils.CachePolyfillDelete", cpc)
         end,
-        deleteNuid = function (id)
-            local cpc = CustomProfiler.start("EntityUtils.CachePolyfillDelete")
+        deleteNuid = function(id)
+            local cpc      = CustomProfiler.start("EntityUtils.CachePolyfillDelete")
             local shifting = false
             for _, value in ipairs(cacheData) do
                 if value.nuid == id then
                     cacheData[_] = nil
-                    shifting = true
+                    shifting     = true
                 end
                 if shifting then
-                    cacheData[_-1] = value
-                    cacheData[_] = nil
+                    cacheData[_ - 1] = value
+                    cacheData[_]     = nil
                 end
             end
             CustomProfiler.stop("EntityUtils.CachePolyfillDelete", cpc)
@@ -210,7 +214,7 @@ local function getParentsUntilRootEntity(who, entityId)
                 Client.sendNeedNuid(ownerName, ownerGuid, entityId)
                 -- TODO: return and wait for nuid? Otherwise child will never know who is the parent.
             else
-                logger:error(logger.channels.entity, "Unable to get whoAmI()!")
+                error("Unable to get whoAmI()!", 2)
             end
         end
         if type(parentNuid) == "number" then
@@ -301,7 +305,7 @@ function EntityUtils.getLocalPlayerEntityId()
             end
         end
     end
-    logger:debug(logger.channels.entity,
+    Logger.debug(Logger.channels.entity,
                  "Unable to get local player entity id. Returning first entity id(%s), which was found.",
                  playerEntityIds[1])
     EntityUtils.localPlayerEntityId = playerEntityIds[1]
@@ -364,7 +368,7 @@ function EntityUtils.isEntityAlive(entityId)
         CustomProfiler.stop("EntityUtils.isEntityAlive", cpc)
         return entityId
     end
-    logger:info(logger.channels.entity, ("Entity (%s) isn't alive anymore! Returning false."):format(entityId))
+    Logger.info(Logger.channels.entity, ("Entity (%s) isn't alive anymore! Returning false."):format(entityId))
     CustomProfiler.stop("EntityUtils.isEntityAlive", cpc)
     return false
 end
@@ -419,11 +423,14 @@ function EntityUtils.processAndSyncEntityNetworking()
     for entityIndex = prevEntityIndex, #entityIds do
         -- entityId in CoroutineUtils.iterator(entityIds) do
         repeat -- repeat until true with break works like continue
-            local entityId   = --[[EntityGetRootEntity(]]entityIds[entityIndex] --[[)]]
+            local entityId = --[[EntityGetRootEntity(]]entityIds[entityIndex] --[[)]]
             --[[ Just be double sure and check if entity is alive. If not next entityId ]]--
             if not EntityUtils.isEntityAlive(entityId) then
-                if type(entityId) == "number" then EntityCache.delete(entityId) else
-                    logger:error(logger.channels.entity, ("processAndSyncEntityNetworking: entityId with entityIndex %s was not a number"):format(entityIndex))
+                if type(entityId) == "number" then
+                    EntityCache.delete(entityId)
+                else
+                    error(("processAndSyncEntityNetworking: entityId with entityIndex %s was not a number"):format(entityIndex),
+                          2)
                 end
                 break -- work around for continue: repeat until true with break
             end
@@ -445,8 +452,8 @@ function EntityUtils.processAndSyncEntityNetworking()
 
             --[[ Check if entity can be ignored, because it is not necessary to sync it,
                  depending on config.lua: EntityUtils.include and EntityUtils.exclude ]]--
-            local exclude  = true
-            local filename = EntityGetFilename(entityId)
+            local exclude     = true
+            local filename    = EntityGetFilename(entityId)
             local cachedValue = EntityCache.get(entityId)
             -- if already in cache, ignore it, because it was already processed
             if cachedValue and cachedValue.entityId == entityId then
@@ -505,7 +512,7 @@ function EntityUtils.processAndSyncEntityNetworking()
                 elseif who == Client.iAm and not nuid then
                     Client.sendNeedNuid(ownerName, ownerGuid, entityId)
                 else
-                    logger:error(logger.channels.entity, "Unable to get whoAmI()!")
+                    error("Unable to get whoAmI()!", 2)
                 end
 
                 NetworkVscUtils.addOrUpdateAllVscs(entityId, ownerName, ownerGuid, nuid)
@@ -548,7 +555,8 @@ function EntityUtils.processAndSyncEntityNetworking()
                         changed = true
                     end
                 end
-                EntityCache.set(entityId, compNuid, compOwnerGuid, compOwnerName, filename, x, y, rotation, velocity.x, velocity.y, health.current, health.max)
+                EntityCache.set(entityId, compNuid, compOwnerGuid, compOwnerName, filename, x, y, rotation, velocity.x,
+                                velocity.y, health.current, health.max)
                 if changed then
                     NetworkUtils.getClientOrServer().sendEntityData(entityId)
                 end
@@ -557,7 +565,7 @@ function EntityUtils.processAndSyncEntityNetworking()
             --[[ Check execution time to reduce lag ]]--
             local executionTime = GameGetRealWorldTimeSinceStarted() * 1000 - start
             if executionTime >= EntityUtils.maxExecutionTime then
-                logger:warn(logger.channels.entity,
+                Logger.warn(Logger.channels.entity,
                             "EntityUtils.processAndSyncEntityNetworking took too long. Breaking loop by returning entityId.")
                 -- when executionTime is too long, return the next entityCacheIndex to continue with it
                 prevEntityIndex = entityIndex + 1
@@ -607,8 +615,8 @@ function EntityUtils.spawnEntity(owner, nuid, x, y, rotation, velocity, filename
     if EntityUtils.isEntityAlive(localEntityId) and NetworkVscUtils.hasNetworkLuaComponents(localEntityId) then
         local ownerNameByVsc, ownerGuidByVsc, nuidByVsc = NetworkVscUtils.getAllVcsValuesByEntityId(localEntityId)
         if ownerGuidByVsc ~= remoteGuid then
-            logger:error("Trying to spawn entity(%s) locally, but owner does not match: remoteOwner(%s) ~= localOwner(%s). remoteNuid(%s) ~= localNuid(%s)",
-                         localEntityId, remoteName, ownerNameByVsc, nuid, nuidByVsc)
+            error(("Trying to spawn entity(%s) locally, but owner does not match: remoteOwner(%s) ~= localOwner(%s). remoteNuid(%s) ~= localNuid(%s)")
+                          :format(localEntityId, remoteName, ownerNameByVsc, nuid, nuidByVsc), 2)
         end
     end
 
@@ -696,7 +704,9 @@ function EntityUtils.destroyByNuid(peer, nuid)
         EntityKill(entityId)
     end
 
-    if type(nuid) ~= "number" then error(("EntityUtils.destroyByNuid nuid was not a number"), 2) else
+    if type(nuid) ~= "number" then
+        error(("EntityUtils.destroyByNuid nuid was not a number"), 2)
+    else
         EntityCache.deleteNuid(nuid)
     end
     CustomProfiler.stop("EntityUtils.destroyByNuid", cpc)

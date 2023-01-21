@@ -80,7 +80,7 @@ function Client.new(sockClient)
             --logger:debug(logger.channels.network, "Uncompressed size:", string.len(serialized))
             local compressed, err = zstd:compress(serialized)
             if err then
-                logger:error(logger.channels.network, "Error while compressing: " .. err)
+                error("Error while compressing: " .. err, 2)
             end
             --logger:debug(logger.channels.network, "Compressed size:", string.len(compressed))
             --logger:debug(logger.channels.network, ("Serialized and compressed value: %s"):format(compressed))
@@ -96,11 +96,11 @@ function Client.new(sockClient)
             --logger:debug(logger.channels.network, "Compressed size:", string.len(anyValue))
             local decompressed, err = zstd:decompress(anyValue)
             if err then
-                logger:error(logger.channels.network, "Error while decompressing: " .. err)
+                error("Error while decompressing: " .. err, 2)
             end
             --logger:debug(logger.channels.network, "Uncompressed size:", string.len(decompressed))
             local deserialized = messagePack.unpack(decompressed)
-            logger:debug(logger.channels.network, ("Deserialized and uncompressed value: %s"):format(deserialized))
+            Logger.debug(Logger.channels.network, ("Deserialized and uncompressed value: %s"):format(deserialized))
             zstd:free()
             CustomProfiler.stop("Client.setConfigSettings.deserialize", cpc3)
             return deserialized
@@ -126,9 +126,9 @@ function Client.new(sockClient)
             ModSettingSetNextValue("noita-mp.guid", guid, false)
             CustomProfiler.stop("ModSettingSetNextValue", cpc26)
             self.guid = guid
-            logger:debug(logger.channels.network, "Clients guid set to " .. guid)
+            Logger.debug(Logger.channels.network, "Clients guid set to " .. guid)
         else
-            logger:debug(logger.channels.network, "Clients guid was already set to " .. guid)
+            Logger.debug(Logger.channels.network, "Clients guid was already set to " .. guid)
         end
 
         if DebugGetIsDevBuild() then
@@ -147,7 +147,7 @@ function Client.new(sockClient)
         end
         local data = { networkMessageId, event, NetworkUtils.events.acknowledgement.ack }
         self:send(NetworkUtils.events.acknowledgement.name, data)
-        logger:debug(logger.channels.network, ("Sent ack with data = %s"):format(util.pformat(data)))
+        Logger.debug(Logger.channels.network, ("Sent ack with data = %s"):format(util.pformat(data)))
         CustomProfiler.stop("Client.sendAck", cpc2)
     end
 
@@ -156,16 +156,15 @@ function Client.new(sockClient)
     ------------------------------------------------------------------------------------------------
     local function onAcknowledgement(data)
         local cpc3 = CustomProfiler.start("Client.onAcknowledgement")
-        logger:debug(logger.channels.network, "onAcknowledgement: Acknowledgement received.", util.pformat(data))
+        Logger.debug(Logger.channels.network, "onAcknowledgement: Acknowledgement received.", util.pformat(data))
 
         if util.IsEmpty(data.networkMessageId) then
             error(("onAcknowledgement data.networkMessageId is empty: %s"):format(data.networkMessageId), 2)
         end
 
         if not data.networkMessageId then
-            logger:error(logger.channels.network,
-                         ("Unable to get acknowledgement with networkMessageId = %s, data = %s, peer = %s")
-                                 :format(networkMessageId, util.pformat(data), util.pformat(peer)))
+            error(("Unable to get acknowledgement with networkMessageId = %s, data = %s, peer = %s")
+                          :format(networkMessageId, util.pformat(data), util.pformat(peer)), 2)
             return
         end
 
@@ -188,7 +187,7 @@ function Client.new(sockClient)
     --- @param data number not in use atm
     local function onConnect(data)
         local cpc4 = CustomProfiler.start("Client.onConnect")
-        logger:debug(logger.channels.network, "Connected to server!", util.pformat(data))
+        Logger.debug(Logger.channels.network, "Connected to server!", util.pformat(data))
 
         if util.IsEmpty(data) then
             error(("onConnect data is empty: %s"):format(data), 3)
@@ -215,7 +214,7 @@ function Client.new(sockClient)
     --- @param data table data = { "name", "guid" } @see NetworkUtils.events.connect2.schema
     local function onConnect2(data)
         local cpc5 = CustomProfiler.start("Client.onConnect2")
-        logger:debug(logger.channels.network, "Another client connected.", util.pformat(data))
+        Logger.debug(Logger.channels.network, "Another client connected.", util.pformat(data))
 
         if util.IsEmpty(data.networkMessageId) then
             error(("onConnect2 data.networkMessageId is empty: %s"):format(data.networkMessageId), 3)
@@ -242,7 +241,7 @@ function Client.new(sockClient)
     --- @param data number data(.code) = 0
     local function onDisconnect(data)
         local cpc6 = CustomProfiler.start("Client.onDisconnect")
-        logger:debug(logger.channels.network, "Disconnected from server!", util.pformat(data))
+        Logger.debug(Logger.channels.network, "Disconnected from server!", util.pformat(data))
 
         if util.IsEmpty(data) then
             error(("onDisconnect data is empty: %s"):format(data), 3)
@@ -271,7 +270,7 @@ function Client.new(sockClient)
     --- @param data table data { "name", "guid" } @see NetworkUtils.events.disconnect2.schema
     local function onDisconnect2(data)
         local cpc7 = CustomProfiler.start("Client.onDisconnect2")
-        logger:debug(logger.channels.network, "onDisconnect2: Another client disconnected.", util.pformat(data))
+        Logger.debug(Logger.channels.network, "onDisconnect2: Another client disconnected.", util.pformat(data))
 
         if util.IsEmpty(data.networkMessageId) then
             error(("onDisconnect2 data.networkMessageId is empty: %s"):format(data.networkMessageId), 3)
@@ -300,7 +299,7 @@ function Client.new(sockClient)
     --- @param data table data { networkMessageId, name, guid }
     local function onPlayerInfo(data)
         local cpc8 = CustomProfiler.start("Client.onPlayerInfo")
-        logger:debug(logger.channels.network, "onPlayerInfo: Player info received.", util.pformat(data))
+        Logger.debug(Logger.channels.network, "onPlayerInfo: Player info received.", util.pformat(data))
 
         if util.IsEmpty(data.networkMessageId) then
             error(("onPlayerInfo data.networkMessageId is empty: %s"):format(data.networkMessageId), 3)
@@ -323,8 +322,7 @@ function Client.new(sockClient)
         end
 
         if data.guid == self.guid then
-            logger:error(logger.channels.network,
-                         "onPlayerInfo: Clients GUID isn't unique! Server will fix this!")
+            error("onPlayerInfo: Clients GUID isn't unique! Server will fix this!", 2)
             --self.guid = Guid:getGuid({ self.guid })
             --logger:info(logger.channels.network, "onPlayerInfo: New clients GUID: %s", self.guid)
             self:disconnect()
@@ -351,7 +349,7 @@ function Client.new(sockClient)
     --- @param data table data { "networkMessageId", "oldGuid", "newGuid" }
     local function onNewGuid(data)
         local cpc9 = CustomProfiler.start("Client.onNewGuid")
-        logger:debug(logger.channels.network, "onNewGuid: New GUID from server received.", util.pformat(data))
+        Logger.debug(Logger.channels.network, "onNewGuid: New GUID from server received.", util.pformat(data))
 
         if util.IsEmpty(data.networkMessageId) then
             error(("onNewGuid data.networkMessageId is empty: %s"):format(data.networkMessageId), 3)
@@ -396,7 +394,7 @@ function Client.new(sockClient)
     --- @param data table data { networkMessageId, seed }
     local function onSeed(data)
         local cpc10 = CustomProfiler.start("Client.onSeed")
-        logger:debug(logger.channels.network, "onSeed: Seed from server received.", util.pformat(data))
+        Logger.debug(Logger.channels.network, "onSeed: Seed from server received.", util.pformat(data))
 
         if util.IsEmpty(data.networkMessageId) then
             error(("onSeed data.networkMessageId is empty: %s"):format(data.networkMessageId), 3)
@@ -407,7 +405,7 @@ function Client.new(sockClient)
         end
 
         local serversSeed = tonumber(data.seed)
-        logger:info(logger.channels.network,
+        Logger.info(Logger.channels.network,
                     "Client received servers seed (%s) and stored it. Reloading map with that seed!", serversSeed)
 
         local localSeed = tonumber(StatsGetValue("world_seed"))
@@ -444,7 +442,7 @@ function Client.new(sockClient)
     --- velocity { x, y }, filename }
     local function onNewNuid(data)
         local cpc11 = CustomProfiler.start("Client.onNewNuid")
-        logger:debug(logger.channels.network, ("Received a new nuid! data = %s"):format(util.pformat(data)))
+        Logger.debug(Logger.channels.network, ("Received a new nuid! data = %s"):format(util.pformat(data)))
 
         if util.IsEmpty(data.networkMessageId) then
             error(("onNewNuid data.networkMessageId is empty: %s"):format(data.networkMessageId), 3)
@@ -516,7 +514,7 @@ function Client.new(sockClient)
 
     local function onEntityData(data)
         local cpc12 = CustomProfiler.start("Client.onEntityData")
-        logger:debug(logger.channels.network, ("Received entityData for nuid = %s! data = %s")
+        Logger.debug(Logger.channels.network, ("Received entityData for nuid = %s! data = %s")
                 :format(data.nuid, util.pformat(data)))
 
         if util.IsEmpty(data.networkMessageId) then
@@ -567,7 +565,7 @@ function Client.new(sockClient)
         if self.nuid ~= nuid then
             NoitaComponentUtils.setEntityData(localEntityId, x, y, rotation, velocity, health)
         else
-            logger:warn(logger.channels.network, ("Received entityData for self.nuid = %s! data = %s")
+            Logger.warn(Logger.channels.network, ("Received entityData for self.nuid = %s! data = %s")
                     :format(data.nuid, util.pformat(data)))
         end
 
@@ -581,7 +579,7 @@ function Client.new(sockClient)
         for i = 1, #deadNuids do
             local deadNuid = deadNuids[i]
             if util.IsEmpty(deadNuid) or deadNuid == "nil" then
-                logger:error(logger.channels.network, ("onDeadNuids deadNuid is empty: %s"):format(deadNuid), 3)
+                error(("onDeadNuids deadNuid is empty: %s"):format(deadNuid), 2)
             else
                 EntityUtils.destroyByNuid(self, deadNuid)
                 GlobalsUtils.removeDeadNuid(deadNuid)
@@ -620,7 +618,7 @@ function Client.new(sockClient)
         -- Display a prompt if mod conflicts are detected
         if #conflicts > 0 then
             self.missingMods = conflicts
-            logger:info("Mod conflicts detected: Missing " .. table.concat(conflicts, ", "))
+            Logger.info("Mod conflicts detected: Missing " .. table.concat(conflicts, ", "))
         end
         CustomProfiler.stop("Client.onNeedModList", cpc)
     end
@@ -778,7 +776,7 @@ function Client.new(sockClient)
         local cpc16 = CustomProfiler.start("Client.connect")
 
         if self:isConnecting() or self:isConnected() then
-            logger:warn(logger.channels.network, "Client is still connected to %s:%s. Disconnecting!",
+            Logger.warn(Logger.channels.network, "Client is still connected to %s:%s. Disconnecting!",
                         self:getAddress(), self:getPort())
             self:disconnect()
         end
@@ -800,7 +798,7 @@ function Client.new(sockClient)
         self.disconnect()
         _G.Client.disconnect() -- stop if any server is already running
 
-        logger:info(logger.channels.network, "Connecting to server on %s:%s", ip, port)
+        Logger.info(Logger.channels.network, "Connecting to server on %s:%s", ip, port)
         if not self.host then
             self:establishClient(ip, port)
         end
@@ -823,7 +821,7 @@ function Client.new(sockClient)
         if self.isConnected() then
             sockClientDisconnect(self)
         else
-            logger:info(logger.channels.network, "Client isn't connected, no need to disconnect!")
+            Logger.info(Logger.channels.network, "Client isn't connected, no need to disconnect!")
         end
         CustomProfiler.stop("Client.disconnect", cpc17)
     end
@@ -884,7 +882,7 @@ function Client.new(sockClient)
         end
 
         if NetworkUtils.alreadySent(self, event, data) then
-            logger:debug(logger.channels.network, ("Network message for %s for data %s already was acknowledged.")
+            Logger.debug(Logger.channels.network, ("Network message for %s for data %s already was acknowledged.")
                     :format(event, util.pformat(data)))
             CustomProfiler.stop("Client.send", cpc19)
             return
@@ -981,7 +979,7 @@ function Client.new(sockClient)
 
         if util.IsEmpty(compNuid) then
             -- this can happen, when entity spawned on client and network is slow
-            logger:error(logger.channels.network, "Unable to send entity data, because nuid is empty.")
+            error("Unable to send entity data, because nuid is empty.", 2)
             self.sendNeedNuid(compOwnerName, compOwnerGuid, entityId)
             return
         end

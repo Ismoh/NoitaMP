@@ -22,7 +22,7 @@ function Guid:getGuid(inUsedGuids)
     if not util.IsEmpty(inUsedGuids) and #inUsedGuids > 0 then
         ---@cast inUsedGuids table
         table.insertAllButNotDuplicates(self.cached_guid, inUsedGuids)
-        logger:debug(logger.channels.guid, ("Guid:getGuid() - inUsedGuids: %s"):format(util.ToString(inUsedGuids)))
+        Logger.debug(Logger.channels.guid, ("Guid:getGuid() - inUsedGuids: %s"):format(util.ToString(inUsedGuids)))
     end
 
     repeat
@@ -62,12 +62,12 @@ end
 --- @return boolean true if GUID is unique.
 function Guid:isUnique(guid)
     if guid == nil or guid == "" or type(guid) ~= "string" then
-        logger:debug(logger.channels.guid, "guid.lua | guid is nil, empty or not a string. Returning false!")
+        Logger.debug(Logger.channels.guid, "guid.lua | guid is nil, empty or not a string. Returning false!")
         return false
     end
     local is_unique = true
     if table.contains(self.cached_guid, guid) == true then
-        logger:debug(logger.channels.guid, "guid.lua | guid (" .. guid .. ") isn't unique, therefore it's not valid!")
+        Logger.debug(Logger.channels.guid, "guid.lua | guid (" .. guid .. ") isn't unique, therefore it's not valid!")
         is_unique = false
     end
     return is_unique

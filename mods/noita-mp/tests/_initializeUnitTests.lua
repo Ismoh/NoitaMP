@@ -8,7 +8,7 @@ local lfs = require("lfs")
 function getAllFilesInside(folder)
     local files = {}
     for entry in lfs.dir(folder) do
-        if entry ~= "." and entry ~= ".." and not entry:find("startUnitTests") then
+        if entry ~= "." and entry ~= ".." and not entry:find("_initializeUnitTests") then
             local path = folder .. "/" .. entry
             local mode = lfs.attributes(path, "mode")
             if mode == "file" then
@@ -66,6 +66,25 @@ if not ModSettingGet then
             return gDofile(path)
         end
     end
+end
+
+----------------------------------------
+--- Setup global mocked functions
+----------------------------------------
+ModSettingGet          = function(id)
+    print("ModSettingGet: " .. id)
+
+    if id:contains("noita-mp.log_level_") then
+        return { "trace, debug, info, warn", "TRACE"}
+    end
+    if id == "noita-mp.name" then
+        return "noita-mp.name"
+    end
+    if id == "noita-mp.guid" then
+        return "noita-mp.guid"
+    end
+
+    error(("Mod setting '%s' is not mocked! Add it!"):format(id), 2)
 end
 
 dofile("mods/noita-mp/files/scripts/init/init_.lua")

@@ -186,7 +186,7 @@ jobs:
         shell: cmd
         run: |
           cd ${{ github.workspace }}\mods\noita-mp\
-          call lua.bat -lluacov ${{ github.workspace }}\mods\noita-mp\tests\startUnitTests.lua -o text --verbose
+          call lua.bat -lluacov ${{ github.workspace }}\mods\noita-mp\tests\_initializeUnitTests.lua -o text --verbose
           call ${{ github.workspace }}\mods\noita-mp\lua_modules\bin\luacov.bat -c=${{ github.workspace }}\mods\noita-mp\.luacov
           ls -R
           

@@ -166,13 +166,13 @@ function Logger:log(event, data)
 
     if self.printEventData then
         --print(line)
-        _G.logger:info(_G.logger.channels.network, fullLine)
+        _G.Logger.info(_G.Logger.channels.network, fullLine)
     elseif self.printWarnings and event == "warning" then
         --print(line)
-        _G.logger:warn(_G.logger.channels.network, fullLine)
+        _G.Logger.warn(_G.Logger.channels.network, fullLine)
     elseif self.printErrors and event == "error" then
         --print(line)
-        _G.logger:error(_G.logger.channels.network, fullLine)
+        error(fullLine, 2)
     end
 
     -- The logged message is always the full message
@@ -280,7 +280,7 @@ function Server:start(ip, port)
 
     self:setBandwidthLimit(0, 0)
 
-    logger:info(logger.channels.network, "Started server on " .. self.address .. ":" .. self.port)
+    Logger.info(Logger.channels.network, "Started server on " .. self.address .. ":" .. self.port)
     -- Serialization is set in Server.setConfigSettings()
     --if bitserLoaded then
     --    self:setSerialization(bitser.dumps, bitser.loads)
@@ -888,7 +888,7 @@ function Client:connect(code)
 
     -- number of channels for the client and server must match
     self.connection = self.host:connect(self.address .. ":" .. self.port, self.maxChannels, code)
-    logger:info(logger.channels.network, "Connecting to " .. self.address .. ":" .. self.port)
+    Logger.info(Logger.channels.network, "Connecting to " .. self.address .. ":" .. self.port)
     self.connectId = self.connection:connect_id()
 end
 

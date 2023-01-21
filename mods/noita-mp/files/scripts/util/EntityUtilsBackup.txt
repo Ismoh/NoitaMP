@@ -212,7 +212,7 @@ function EntityUtils.getLocalPlayerEntityId()
             end
         end
     end
-    logger:warn(logger.channels.entity,
+    logger:warn(Logger.channels.entity,
                 "Unable to get local player entity id. Returning first entity id(%s), which was found.",
                 playerEntityIds[1])
     EntityUtils.localPlayerEntityId = playerEntityIds[1]
@@ -243,7 +243,7 @@ function EntityUtils.isEntityAlive(entityId)
         CustomProfiler.stop("EntityUtils.isEntityAlive", cpc)
         return entityId
     end
-    logger:warn(logger.channels.entity, ("Entity (%s) isn't alive anymore! Returning nil."):format(entityId))
+    logger:warn(Logger.channels.entity, ("Entity (%s) isn't alive anymore! Returning nil."):format(entityId))
     CustomProfiler.stop("EntityUtils.isEntityAlive", cpc)
     return nil
 end
@@ -363,7 +363,7 @@ function EntityUtils.processEntityNetworking()
         EntityUtils.cachedEntityIds[entityId] = EntityUtils.entityStatus.processed
 
         if CustomProfiler.getDuration("EntityUtils.processEntityNetworking", cpc) > 25 then
-            logger:warn(logger.channels.entity,
+            logger:warn(Logger.channels.entity,
                         "EntityUtils.processEntityNetworking took too long. Breaking loop by returning entityId.")
             break --return coroutine.yield(entityId) --co.yield(entityId)
         end

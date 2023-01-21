@@ -90,13 +90,13 @@ function CustomProfiler.stop(functionName, customProfilerCounter)
     end
 
     if not CustomProfiler.reportCache[functionName] then
-        logger:warn(logger.channels.profiler, "No entry found for function '%s'. Profiling will be skipped.",
+        Logger.warn(Logger.channels.profiler, "No entry found for function '%s'. Profiling will be skipped.",
                     functionName)
         return
     end
 
     if not CustomProfiler.reportCache[functionName][customProfilerCounter] then
-        logger:warn(logger.channels.profiler,
+        Logger.warn(Logger.channels.profiler,
                     "No entry found for function '%s' with counter '%s'. Profiling will be skipped.", functionName,
                     customProfilerCounter)
         return

@@ -159,8 +159,17 @@ I know it is not easy to write tests, but it is very important to do so.\
 If you are not able to write tests, then please ask for help in the Discord server.\
 I will help you to write tests for your functions.\
 I will not accept any pull requests without tests, sorry.\
-How to write tests?\
-ADD HERE EXAMPLE\
+### Location of tests
+`mods/noita-mp/tests/`
+### How to run tests
+See LuaRocks section above.
+
+### How to write tests?
+Simple example by adding a new function to an existing test class:\
+_Assume you've added a new event to **NetworkUtils.events**, then make sure to extend the **TestNetworkUtils** table in **NetworkUtils_test.lua**.)_
+```lua
+```
+
 How to run tests?\
 `luarocks test >> result.log`
 

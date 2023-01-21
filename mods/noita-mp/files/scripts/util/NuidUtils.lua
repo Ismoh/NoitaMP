@@ -3,12 +3,15 @@
 -- Naming convention is found here:
 -- http://lua-users.org/wiki/LuaStyleGuide#:~:text=Lua%20internal%20variable%20naming%20%2D%20The,but%20not%20necessarily%2C%20e.g.%20_G%20.
 
+----------------------------------------
+--- 'Imports'
+----------------------------------------
 local util      = require("util")
 local fu        = require("file_util")
 local nxml      = require("nxml")
 
 -----------------
--- NuidUtils:
+--- NuidUtils:
 -----------------
 --- class for getting the current network unique identifier
 NuidUtils       = {}
@@ -47,7 +50,7 @@ local function getNextNuid()
                     end
                 end
             end
-            logger:info(logger.channels.nuid,
+            Logger.info(Logger.channels.nuid,
                         "Loaded nuids after loading a savegame. Latest nuid from world_state.xml aka Globals = %s.",
                         counter)
         end

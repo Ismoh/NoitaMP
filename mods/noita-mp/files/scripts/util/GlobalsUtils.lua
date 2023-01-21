@@ -34,10 +34,10 @@ GlobalsUtils.deadNuidsKey       = "deadNuids"
 --- @return number entityId
 function GlobalsUtils.parseXmlValueToNuidAndEntityId(xmlKey, xmlValue)
     if type(xmlKey) ~= "string" then
-        logger:error("xmlKey(%s) is not type of string!", xmlKey)
+        error(("xmlKey(%s) is not type of string!"):format(xmlKey), 2)
     end
     if type(xmlValue) ~= "string" then
-        logger:error("xmlKeyValue(%s) is not type of string!", xmlValue)
+        error(("xmlKeyValue(%s) is not type of string!"):format(xmlValue), 2)
     end
 
     local nuid      = nil
@@ -45,7 +45,7 @@ function GlobalsUtils.parseXmlValueToNuidAndEntityId(xmlKey, xmlValue)
     if foundNuid ~= nil then
         nuid = tonumber(string.sub(xmlKey, GlobalsUtils.nuidKeySubstring:len()))
     else
-        logger:info(logger.channels.globals, "Unable to get nuid number of key string (%s).", xmlKey)
+        Logger.info(Logger.channels.globals, "Unable to get nuid number of key string (%s).", xmlKey)
         return nil, nil
     end
 
@@ -56,7 +56,7 @@ function GlobalsUtils.parseXmlValueToNuidAndEntityId(xmlKey, xmlValue)
         if foundEntityId ~= nil then
             entityId = tonumber(string.sub(xmlValue, GlobalsUtils.nuidValueSubstring:len()))
         else
-            logger:error("Unable to get entityId number of value string (%s).", xmlValue)
+            error(("Unable to get entityId number of value string (%s)."):format(xmlValue), 2)
         end
     end
 

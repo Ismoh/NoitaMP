@@ -36,7 +36,7 @@ function NoitaComponentUtils.setEntityData(entityId, x, y, rotation, velocity, h
         ComponentSetValue2(hpCompId, "hp", math.round(tonumber(health.current / 25), 0.01))
         ComponentSetValue2(hpCompId, "max_hp", math.round(tonumber(health.max / 25), 0.01))
     else
-        logger:debug(logger.channels.entity, ("Unable to get DamageModelComponent, because entity (%s) might not" ..
+        Logger.debug(Logger.channels.entity, ("Unable to get DamageModelComponent, because entity (%s) might not" ..
                 "have any DamageModelComponent."):format(entityId))
     end
 
@@ -46,7 +46,7 @@ function NoitaComponentUtils.setEntityData(entityId, x, y, rotation, velocity, h
     if velocity and velocityCompId then
         ComponentSetValue2(velocityCompId, "mVelocity", velocity.x or velocity[1], velocity.y or velocity[2])
     else
-        logger:debug(logger.channels.entity, ("Unable to get VelocityComponent, because entity (%s) might not" ..
+        Logger.debug(Logger.channels.entity, ("Unable to get VelocityComponent, because entity (%s) might not" ..
                 "have any VelocityComponent."):format(entityId))
         --EntityAddComponent2(entityId, "VelocityComponent", {})
     end

@@ -1,5 +1,4 @@
-dofile_once("mods/noita-mp/files/scripts/noita-components/dump_logger.lua")
-logger:setFile("lua_component_enabler")
+dofile_once("mods/noita-mp/files/scripts/init/init_logger.lua")
 EntityUtils = dofile_once("mods/noita-mp/files/scripts/util/EntityUtils.lua")
 NetworkVscUtils = dofile_once("mods/noita-mp/files/scripts/util/NetworkVscUtils.lua")
 

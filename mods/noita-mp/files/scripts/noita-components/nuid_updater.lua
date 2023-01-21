@@ -1,5 +1,4 @@
-dofile_once("mods/noita-mp/files/scripts/noita-components/dump_logger.lua")
-logger:setFile("nuid_updater")
+dofile_once("mods/noita-mp/files/scripts/init/init_logger.lua")
 dofile_once("mods/noita-mp/files/scripts/extensions/string_extensions.lua")
 EntityUtils          = dofile_once("mods/noita-mp/files/scripts/util/EntityUtils.lua")
 NetworkVscUtils      = dofile_once("mods/noita-mp/files/scripts/util/NetworkVscUtils.lua")
@@ -14,7 +13,7 @@ local executeOnAdded = GetValueBool("executeOnAdded", true)
 --#region executeOnAdded = added() and executeOnRemove = remove()
 
 local function added()
-    logger:debug(logger.channels.nuid, "nuid_updater.lua added..")
+    Logger.debug(Logger.channels.nuid, "nuid_updater.lua added..")
     local currentEntityId = GetUpdatedEntityID()
     if not EntityUtils.isEntityAlive(currentEntityId) then
         return
@@ -24,13 +23,13 @@ local function added()
 
     if currentEntityId ~= globalsEntityId then
         GlobalsUtils.setNuid(nuid, currentEntityId)
-        logger:debug(logger.channels.nuid,
+        Logger.debug(Logger.channels.nuid,
                      "nuid in noitas global storage was set: nuid = %s and entity_id = %s", nuid, currentEntityId)
     end
 end
 
 local function remove()
-    logger:debug(logger.channels.nuid, "nuid_updater.lua remove..")
+    Logger.debug(Logger.channels.nuid, "nuid_updater.lua remove..")
     local currentEntityId              = GetUpdatedEntityID()
     local ownerName, ownerGuid, nuid   = NetworkVscUtils.getAllVcsValuesByEntityId(currentEntityId)
     local globalsNuid, globalsEntityId = GlobalsUtils.getNuidEntityPair(nuid)
@@ -41,7 +40,7 @@ local function remove()
 
     GlobalsUtils.setNuid(nuid, tonumber(currentEntityId * -1))
     GlobalsUtils.setDeadNuid(nuid)
-    logger:debug(logger.channels.nuid,
+    Logger.debug(Logger.channels.nuid,
                  ("Entity (%s) was killed and nuid (%s) in noitas global storage was updated: old=%s and new=-%s")
                          :format(currentEntityId, nuid, globalsEntityId, tonumber(globalsEntityId * -1)))
 end

@@ -105,7 +105,7 @@ function util.debug_entity(e)
     end
     msg = msg .. ("--- END ENTITY DATA ---" .. "\n")
 
-    logger:debug(nil, msg)
+    Logger.debug(nil, msg)
 end
 
 function util.pformat(var)
