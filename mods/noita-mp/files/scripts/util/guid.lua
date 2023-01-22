@@ -28,7 +28,6 @@ function Guid:getGuid(inUsedGuids)
     repeat
         uuid.randomseed(socket.gettime() * 10000)
         guid = uuid()
-        print("guid " .. guid)
     until self:isUnique(guid) and self.isPatternValid(guid)
 
     table.insert(self.cached_guid, guid)

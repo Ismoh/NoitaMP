@@ -18,7 +18,6 @@ function getAllFilesInside(folder)
                 --print("Found directory: " .. path)
                 local subfiles = getAllFilesInside(path)
                 for _, subfile in ipairs(subfiles) do
-                    print("Found file: " .. subfile)
                     table.insert(files, subfile)
                 end
             end
@@ -33,27 +32,18 @@ local init      = true
 local gPrint    = print
 local gDofile   = dofile
 if not ModSettingGet then
-    --print            = function(...)
-    --    local noitaMpRootDir = lfs.currentdir()
-    --    local filePath       = noitaMpRootDir .. "/tests/result.log"
-    --
-    --    if init then
-    --        local createFile = io.open(filePath, "w")
-    --        createFile:write(os.clock())
-    --        createFile:close()
-    --        init = false
-    --    end
-    --
-    --    local file, err = io.open(filePath, "r+")
-    --    if err then
-    --        gPrint("Error opening file: " .. err)
-    --    end
-    --    --local content = file:read("*a")
-    --    file:write("\n" .. content .. "\n" .. ...)
-    --    file:flush()
-    --    file:close()
-    --    gPrint(...)
-    --end
+    ----------------------------------------
+    --- MOCKING NOITA API GLOBAL FUNCTIONS:
+    --- Only add ids, which are necessary for initialization of tests.
+    --- DO NOT add ids, which are used in a test. Add those inside of the test itself!
+    ----------------------------------------
+    ModSettingGet    = function(id)
+        print("ModSettingGet: " .. id)
+        if id == "noita-mp.log_level_initialize" then
+            return { "trace, debug, info, warn", "TRACE" }
+        end
+        error(("Mod setting '%s' is not mocked! Add it!"):format(id), 2)
+    end
 
     local pathToMods = lfs.currentdir() .. "/../.."
     print("pathToMods: " .. pathToMods)
@@ -66,25 +56,6 @@ if not ModSettingGet then
             return gDofile(path)
         end
     end
-end
-
-----------------------------------------
---- Setup global mocked functions
-----------------------------------------
-ModSettingGet          = function(id)
-    print("ModSettingGet: " .. id)
-
-    if id:contains("noita-mp.log_level_") then
-        return { "trace, debug, info, warn", "TRACE"}
-    end
-    if id == "noita-mp.name" then
-        return "noita-mp.name"
-    end
-    if id == "noita-mp.guid" then
-        return "noita-mp.guid"
-    end
-
-    error(("Mod setting '%s' is not mocked! Add it!"):format(id), 2)
 end
 
 dofile("mods/noita-mp/files/scripts/init/init_.lua")

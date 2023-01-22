@@ -11,13 +11,6 @@ function TestGuid:setUp()
     _G.DebugGetIsDevBuild = function()
         return false
     end
-
-    --- Mocked in guid_test.lua
-    --- @param id string
-    --- @return nil nil Returns nil in this case.
-    _G.ModSettingGet      = function(id)
-        return nil
-    end
 end
 
 function TestGuid:tearDown()

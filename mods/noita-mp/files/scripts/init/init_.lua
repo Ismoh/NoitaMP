@@ -1,6 +1,9 @@
 -- Init lua scripts to set necessary defaults, like lua paths, logger init and extensions
 print("Initialise paths, globals and extensions..")
 
+-- assert(loadfile("mods/noita-mp/tests/_initializeUnitTests.lua"))("--verbose", "--error", "--failure")
+
+
 --#region
 -- github workflow stuff
 local varargs          = { ... }
@@ -63,7 +66,6 @@ if require and not isTestLuaContext then
     require("guid")
     require("Server")
     require("Client")
-    require("CoroutineUtils")
 
     _G.whoAmI         = function()
         if _G.Server:amIServer() then

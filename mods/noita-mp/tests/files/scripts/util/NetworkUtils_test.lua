@@ -1,6 +1,21 @@
 local params           = ...
 
 -- [[ Mock Noita API functions, which are needed before/during require is used ]] --
+-- Make absolutely sure, that the already mocked Noita API function is not overwritten
+local mockedModSettingGet = ModSettingGet
+ModSettingGet    = function(id)
+    if string.contains(id, "noita-mp.log_level_") then
+        return { "trace, debug, info, warn", "TRACE" }
+    end
+    if id == "noita-mp.name" then
+        return "noita-mp.name"
+    end
+    if id == "noita-mp.guid" then
+        return "noita-mp.guid"
+    end
+
+    mockedModSettingGet(id)
+end
 ModSettingGetNextValue = function()
     -- return false to disable CustomProfiler
     return false
@@ -39,13 +54,14 @@ TestNetworkUtils = {}
 
 --- Setup function for each test.
 function TestNetworkUtils:setUp()
+
 end
 
 --- Teardown function for each test.
 function TestNetworkUtils:tearDown()
 end
 
-function TestNetworkUtils:alreadySentErrors()
+function TestNetworkUtils:testAlreadySentErrors()
     lu.assertErrorMsgContains("'peer' must not be nil!",
                               NetworkUtils.alreadySent, nil, event, data)
     lu.assertErrorMsgContains("'event' must not be nil!",
@@ -56,37 +72,37 @@ function TestNetworkUtils:alreadySentErrors()
                               NetworkUtils.alreadySent, peer, "needNuid", nil)
 end
 
-function TestNetworkUtils:alreadySentConnect2()
+function TestNetworkUtils:testAlreadySentConnect2()
 
 end
 
-function TestNetworkUtils:alreadySentDisconnect2()
+function TestNetworkUtils:testAlreadySentDisconnect2()
 
 end
 
-function TestNetworkUtils:alreadySentAcknowledgement()
+function TestNetworkUtils:testAlreadySentAcknowledgement()
 
 end
 
-function TestNetworkUtils:alreadySentSeed()
+function TestNetworkUtils:testAlreadySentSeed()
 
 end
 
-function TestNetworkUtils:alreadySentPlayerInfo()
+function TestNetworkUtils:testAlreadySentPlayerInfo()
 
 end
 
-function TestNetworkUtils:alreadySentNewGuid()
+function TestNetworkUtils:testAlreadySentNewGuid()
 
 end
 
-function TestNetworkUtils:alreadySentNewNuid()
+function TestNetworkUtils:testAlreadySentNewNuid()
 
 end
 
 --- Tests if the function NetworkUtils.alreadySent() returns true,
 --- if the client send a message, which was already sent.
-function TestNetworkUtils:alreadySentNeedNuidShouldFail()
+function TestNetworkUtils:testAlreadySentNeedNuidShouldFail()
     -- [[ Mock functions inside of Client.sendNeedNuid ]] --
     EntityUtils.isEntityAlive       = function(entityId)
         return true
@@ -138,7 +154,7 @@ end
 
 --- Tests if the function NetworkUtils.alreadySent() returns true,
 --- if the client send a message, which was already sent.
-function TestNetworkUtils:alreadySentNeedNuidShouldSucceed()
+function TestNetworkUtils:testAlreadySentNeedNuidShouldSucceed()
     -- [[ Mock functions inside of Client.sendNeedNuid ]] --
     EntityUtils.isEntityAlive       = function(entityId)
         return true
@@ -188,23 +204,23 @@ function TestNetworkUtils:alreadySentNeedNuidShouldSucceed()
     Server.stop()
 end
 
-function TestNetworkUtils:alreadySentLostNuid()
+function TestNetworkUtils:testAlreadySentLostNuid()
 
 end
 
-function TestNetworkUtils:alreadySentEntityData()
+function TestNetworkUtils:testAlreadySentEntityData()
 
 end
 
-function TestNetworkUtils:alreadySentDeadNuids()
+function TestNetworkUtils:testAlreadySentDeadNuids()
 
 end
 
-function TestNetworkUtils:alreadySentNeedModList()
+function TestNetworkUtils:testAlreadySentNeedModList()
 
 end
 
-function TestNetworkUtils:alreadySentNeedModContent()
+function TestNetworkUtils:testAlreadySentNeedModContent()
 
 end
 
