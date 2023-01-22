@@ -41,7 +41,7 @@ end
 require("noitamp_cache")
 require("EntityUtils")
 require("NetworkUtils")
-require("guid")
+require("GuidUtils")
 require("CustomProfiler")
 require("Server")
 require("Client")
@@ -67,9 +67,9 @@ function TestNetworkUtils:testAlreadySentErrors()
     lu.assertErrorMsgContains("'event' must not be nil!",
                               NetworkUtils.alreadySent, Client, nil, data)
     lu.assertErrorMsgContains("is unknown. Did you add this event in NetworkUtils.events?",
-                              NetworkUtils.alreadySent, peer, "ASDF", data)
+                              NetworkUtils.alreadySent, Client, "ASDF", data)
     lu.assertErrorMsgContains("'data' must not be nil!",
-                              NetworkUtils.alreadySent, peer, "needNuid", nil)
+                              NetworkUtils.alreadySent, Client, "needNuid", nil)
 end
 
 function TestNetworkUtils:testAlreadySentConnect2()
@@ -116,7 +116,7 @@ function TestNetworkUtils:testAlreadySentNeedNuidShouldFail()
 
     -- [[ Prepare data and send the event message ]] --
     local ownerName = "TestOwnerName"
-    local ownerGuid = Guid:getGuid()
+    local ownerGuid = GuidUtils:getGuid()
     local entityId  = 456378
 
     -- [[ Mock functions inside of Client.sendNeedNuid ]] --
@@ -146,7 +146,7 @@ function TestNetworkUtils:testAlreadySentNeedNuidShouldFail()
 
     print(("Let's see if this was already sent: entity %s with data %s"):format(entityId, util.pformat(data)))
     -- [[ Check if the message was already sent ]] --
-    lu.assertIs(NetworkUtils.alreadySent(peer, "needNuid", data), true,
+    lu.assertIs(NetworkUtils.alreadySent(Client, "needNuid", data), true,
                 "The message was already sent, but the function NetworkUtils.alreadySent() returned false!")
     Client.disconnect()
     Server.stop()
@@ -168,7 +168,7 @@ function TestNetworkUtils:testAlreadySentNeedNuidShouldSucceed()
 
     -- [[ Prepare data and send the event message ]] --
     local ownerName = "TestOwnerName"
-    local ownerGuid = Guid:getGuid()
+    local ownerGuid = GuidUtils:getGuid()
     local entityId  = 456378
 
     -- [[ Mock functions inside of Client.sendNeedNuid ]] --
@@ -198,7 +198,7 @@ function TestNetworkUtils:testAlreadySentNeedNuidShouldSucceed()
 
     print(("Let's see if this was already sent: entity %s with data %s"):format(entityId, util.pformat(data)))
     -- [[ Check if the message was already sent ]] --
-    lu.assertIs(NetworkUtils.alreadySent(peer, "needNuid", data), true,
+    lu.assertIs(NetworkUtils.alreadySent(Client, "needNuid", data), true,
                 "The message was already sent, but the function NetworkUtils.alreadySent() returned false!")
     Client.disconnect()
     Server.stop()

@@ -2,15 +2,15 @@ local util   = require("util")
 local socket = require("socket")
 local uuid   = require("uuid")
 
-local Guid   = {
-    cached_guid             = {},
+local GuidUtils = {
+    cached_guid = {},
 }
 
-function Guid:getCachedGuids()
+function GuidUtils:getCachedGuids()
     return self.cached_guid
 end
 
-function Guid:addGuidToCache(guid)
+function GuidUtils:addGuidToCache(guid)
     table.insertIfNotExist(self.cached_guid, guid)
 end
 
@@ -18,7 +18,7 @@ end
 --- Based on https://github.com/Tieske/uuid !
 --- @param inUsedGuids table? list of already used GUIDs
 --- @return string guid
-function Guid:getGuid(inUsedGuids)
+function GuidUtils:getGuid(inUsedGuids)
     if not util.IsEmpty(inUsedGuids) and #inUsedGuids > 0 then
         ---@cast inUsedGuids table
         table.insertAllButNotDuplicates(self.cached_guid, inUsedGuids)
@@ -38,7 +38,7 @@ end
 --- Validates a guid only on its pattern.
 --- @param guid string
 --- @return boolean true if GUID-pattern matches
-function Guid.isPatternValid(guid)
+function GuidUtils.isPatternValid(guid)
     if type(guid) ~= "string" then
         return false
     end
@@ -59,14 +59,12 @@ end
 --- Validates if the given guid is unique or already generated.
 --- @param guid string
 --- @return boolean true if GUID is unique.
-function Guid:isUnique(guid)
+function GuidUtils:isUnique(guid)
     if guid == nil or guid == "" or type(guid) ~= "string" then
-        Logger.debug(Logger.channels.guid, "guid.lua | guid is nil, empty or not a string. Returning false!")
-        return false
+        error("'guid' is nil, empty or not a string.", 2)
     end
     local is_unique = true
     if table.contains(self.cached_guid, guid) == true then
-        Logger.debug(Logger.channels.guid, "guid.lua | guid (" .. guid .. ") isn't unique, therefore it's not valid!")
         is_unique = false
     end
     return is_unique
@@ -74,9 +72,9 @@ end
 
 -- Because of stack overflow errors when loading lua files,
 -- I decided to put Utils 'classes' into globals
-_G.Guid = Guid
+_G.GuidUtils = GuidUtils
 
 -- But still return for Noita Components,
 -- which does not have access to _G,
 -- because of own context/vm
-return Guid
+return GuidUtils

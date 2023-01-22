@@ -45,50 +45,47 @@ Logger.channels = {
 --- @return boolean true if logged, false if not logged
 function Logger.log(level, channel, message)
     if not level then
-        error("You're kidding! 'level' is nil!", 2)
+        error("Unable to log, because 'level' must not be nil!", 2)
     end
     if not Logger.level[level] then
-        error(("You're kidding! Log level '%s' is not valid!"):format(level), 2)
+        error(("Unable to log, because log level '%s' is not valid!"):format(level), 2)
     end
     if not channel then
-        error("You're kidding! 'channel' is nil!", 2)
+        error("Unable to log, because 'channel' must not be nil!", 2)
     end
     if not Logger.channels[channel] then
-        error(("You're kidding! Log channel '%s' is not valid!"):format(channel), 2)
+        error(("Unable to log, because log channel '%s' is not valid!"):format(channel), 2)
     end
     if not message then
-        error("You're kidding! 'message' is nil!", 2)
+        error("Unable to log, because 'message' must not be nil!", 2)
+    end
+    if message:contains("%") then
+        error("There is a directive (%) in your log message. Use string.format! Message = '" .. message .. "'", 2)
     end
 
     if level == "off" then
         return false
     end
 
-    if message:contains("%") then
-        error("There is a directive (%) in your log message. Use string.format! Message = '" .. message .. "'", 2)
+    local logLevelOfSettings = ModSettingGet(("noita-mp.log_level_%s"):format(channel)) -- i.e.: { "debug, info, warn", "DEBUG" }
+    if not logLevelOfSettings then
+        error(("Looks like you missed to add 'noita-mp.log_level_%s' in settings.lua"):format(channel), 2)
     end
 
-    local logLevelOfSettings = nil
-    if channel then
-        logLevelOfSettings = ModSettingGet(("noita-mp.log_level_%s"):format(channel))
-        if not logLevelOfSettings then
-            error(("Looks like you missed to add 'noita-mp.log_level_%s' in settings.lua"):format(channel), 2)
-        end
-
-        if isTestLuaContext then
-            local util   = require("util")
-            local pprint = require("pprint")
-            pprint.pprint(logLevelOfSettings)
-            print(("level = %s, channel = %s, logLevelOfSettings = %s, not table.contains(logLevelOfSettings, level) = %s")
-                          :format(level, channel, util.pformat(logLevelOfSettings),
-                                  not table.contains(logLevelOfSettings, level)))
-        end
-        if not table.contains(logLevelOfSettings, level) then
-            return false
-        end
+    --if isTestLuaContext then
+    --    local util   = require("util")
+    --    local pprint = require("pprint")
+    --    pprint.pprint(logLevelOfSettings)
+    --    print(("level = %s, channel = %s, logLevelOfSettings = %s, string.contains(logLevelOfSettings[1], level) = %s")
+    --                  :format(level, channel, util.pformat(logLevelOfSettings),
+    --                          string.contains(logLevelOfSettings[1], level)))
+    --end
+    if not string.contains(logLevelOfSettings[1], level) then
+        -- If Logger.debug(), but Log level is on info, then do not log!
+        return false
     end
 
-    channel = string.ExtendOrCutStringToLength(channel, 8, " ")
+    channel = string.ExtendOrCutStringToLength(channel, 10, " ")
     level   = string.ExtendOrCutStringToLength(level, 5, " ")
 
     local msg
@@ -97,18 +94,18 @@ function Logger.log(level, channel, message)
         -- add file name to logs: https://stackoverflow.com/a/48469960/3493998
         local file_name = debug.getinfo(2, "S").source:sub(2)
         file_name       = file_name:match("^.*/(.*)$") or file_name
-        msg             = ("%s [%s][%s] %s \n(in %s)")
-                :format(time, channel, level, message, file_name)
+        msg             = ("%s [%s][%s] %s \n(in %s)\n")
+                :format(time, level, channel, message, file_name)
     else
         msg = ("%s [%s][%s] %s")
-                :format("--:--:--", channel, level, message)
+                :format("--:--:--", level, channel, message)
     end
 
-    if logLevelOfSettings ~= nil and table.contains(logLevelOfSettings, level) then
-        print(msg)
-        return true
-    end
-    return false
+    --if logLevelOfSettings ~= nil and table.contains(logLevelOfSettings, level) then
+    print(msg)
+    return true
+    --end
+    --return false
 end
 
 function Logger.trace(channel, formattedMessage)

@@ -3,7 +3,7 @@
 -- * [Examples](https://github.com/camchenry/sock.lua/tree/master/examples)
 -- @module sock
 
-local sock = {
+local sock              = {
     _VERSION     = 'sock.lua v0.3.0',
     _DESCRIPTION = 'A Lua networking library for LÖVE games',
     _URL         = 'https://github.com/camchenry/sock.lua',
@@ -32,19 +32,19 @@ local sock = {
     ]]
 }
 
-local enet = require("enet")
+local enet              = require("enet")
 --local zstandard = require ("zstd")
-local util = require("util")
-local fu   = require("file_util")
+local util              = require("util")
+local fu                = require("file_util")
 
-nextclientCacheID = 0
-function getNextClientCacheID()
-    nextclientCacheID = nextclientCacheID + 1
-    return nextclientCacheID
-end
+--local nextClientCacheId = 0
+--local function getNextClientCacheId()
+--    nextClientCacheId = nextClientCacheId + 1
+--    return nextClientCacheId
+--end
 
-print("sock.lua | lua-enet version = master branch 21.10.2015")
-print("sock.lua | enet version = " .. enet.linked_version()) -- 1.3.17
+_G.Logger.info(_G.Logger.channels.initialize, "lua-enet version = master branch 21.10.2015")
+_G.Logger.info(_G.Logger.channels.initialize, "enet version = " .. enet.linked_version()) -- 1.3.17
 
 -- Current folder trick
 -- http://kiki.to/blog/2014/04/12/rule-5-beware-of-multiple-files/
@@ -280,7 +280,7 @@ function Server:start(ip, port)
 
     self:setBandwidthLimit(0, 0)
 
-    Logger.info(Logger.channels.network, "Started server on " .. self.address .. ":" .. self.port)
+    _G.Logger.info(_G.Logger.channels.network, "Started server on " .. self.address .. ":" .. self.port)
     -- Serialization is set in Server.setConfigSettings()
     --if bitserLoaded then
     --    self:setSerialization(bitser.dumps, bitser.loads)
@@ -298,7 +298,7 @@ function Server:update()
             local eventClient = ClientInit.new(sock.newClient(event.peer)) -- sock.newClient(event.peer)
             eventClient:establishClient(event.peer)
             eventClient:setSerialization(self.serialize, self.deserialize)
-            eventClient.clientCacheID = getNextClientCacheID()
+            eventClient.clientCacheId = tonumber(eventClient.guid, 16) --getNextClientCacheId()
             table.insert(self.peers, event.peer)
             table.insert(self.clients, eventClient)
             self:_activateTriggers("connect", event.data, eventClient)
@@ -888,7 +888,7 @@ function Client:connect(code)
 
     -- number of channels for the client and server must match
     self.connection = self.host:connect(self.address .. ":" .. self.port, self.maxChannels, code)
-    Logger.info(Logger.channels.network, "Connecting to " .. self.address .. ":" .. self.port)
+    _G.Logger.info(_G.Logger.channels.network, "Connecting to " .. self.address .. ":" .. self.port)
     self.connectId = self.connection:connect_id()
 end
 

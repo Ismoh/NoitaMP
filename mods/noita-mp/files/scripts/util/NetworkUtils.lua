@@ -156,8 +156,11 @@ function NetworkUtils.alreadySent(peer, event, data)
     if not data then
         error("'data' must not be nil!", 2)
     end
+    if not peer.clientCacheId then
+        peer.clientCacheId = tonumber(peer.guid, 16) --error("peer.clientCacheId must not be nil!", 2)
+    end
 
-    local clientCacheID    = peer.clientCacheID or 0
+    local clientCacheId    = peer.clientCacheId
     local networkMessageId = data[1]
     if not networkMessageId then
         error("'networkMessageId' must not be nil!", 2)
@@ -170,7 +173,8 @@ function NetworkUtils.alreadySent(peer, event, data)
     end
 
     --[[ if the network message is already stored ]]--
-    local message = NetworkCache.get(clientCacheID, event, networkMessageId)
+    print(("Got message by cache with clientCacheId '%s', event '%s' and networkMessageId '%s'"):format(clientCacheId, event, networkMessageId))
+    local message = NetworkCache.get(clientCacheId, event, networkMessageId)
     if message ~= nil then
         if message.status == NetworkUtils.events.acknowledgement.ack then
             CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
@@ -209,7 +213,7 @@ function NetworkUtils.alreadySent(peer, event, data)
         sum = sum .. d
     end
     sum                = md5.sumhexa(sum)
-    local matchingData = NetworkCache.getChecksum(clientCacheID, md5.sumhexa(sum))
+    local matchingData = NetworkCache.getChecksum(clientCacheId, md5.sumhexa(sum))
     if matchingData ~= nil then
         return true;
     end

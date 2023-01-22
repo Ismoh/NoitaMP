@@ -63,7 +63,7 @@ if require and not isTestLuaContext then
     require("NetworkUtils")
     require("NoitaComponentUtils")
     require("NuidUtils")
-    require("guid")
+    require("GuidUtils")
     require("Server")
     require("Client")
 

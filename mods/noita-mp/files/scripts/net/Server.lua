@@ -118,8 +118,8 @@ function Server.new(sockServer)
         local cpc01 = CustomProfiler.start("Server.setGuid")
         local guid  = tostring(ModSettingGetNextValue("noita-mp.guid"))
 
-        if guid == "" or Guid.isPatternValid(guid) == false then
-            guid = Guid:getGuid()
+        if guid == "" or GuidUtils.isPatternValid(guid) == false then
+            guid = GuidUtils:getGuid()
             ModSettingSetNextValue("noita-mp.guid", guid, false)
             self.guid = guid
             Logger.debug(Logger.channels.network, "Servers guid set to " .. guid)
@@ -160,7 +160,7 @@ function Server.new(sockServer)
 
         if not data.networkMessageId then
             error(("Unable to get acknowledgement with networkMessageId = %s, data = %s, peer = %s")
-                                 :format(networkMessageId, data, peer), 2)
+                          :format(networkMessageId, data, peer), 2)
             return
         end
 
@@ -168,7 +168,12 @@ function Server.new(sockServer)
             error(("onAcknowledgement data.event is empty: %s"):format(data.event), 2)
         end
 
-        NetworkCache.set(peer.clientCacheID, data.networkMessageId, data.event, data.status, os.clock(), 0, "NOCHECKSUM")
+        if not peer.clientCacheId then
+            peer.clientCacheId = tonumber(peer.guid, 16) --error("peer.clientCacheId must not be nil!", 2)
+        end
+
+        NetworkCache.set(peer.clientCacheId, data.networkMessageId, data.event, data.status, os.clock(), 0,
+                         "NOCHECKSUM")
         --if not self.acknowledge[peer.connectId][data.event][data.networkMessageId] then
         --    self.acknowledge[peer.connectId][data.event][data.networkMessageId] = {}
         --end
@@ -255,7 +260,11 @@ function Server.new(sockServer)
         end
 
         -- clear acknowledge cache for disconnected peer
-        NetworkCache.clear(peer.clientCacheID)
+        if not peer.clientCacheId then
+            peer.clientCacheId = tonumber(peer.guid, 16) --error("peer.clientCacheId must not be nil!", 2)
+        end
+        NetworkCache.clear(peer.clientCacheId)
+
         -- sendAck(data.networkMessageId, peer)
         CustomProfiler.stop("Server.onDisconnect", cpc05)
     end
@@ -300,9 +309,9 @@ function Server.new(sockServer)
         end
 
         -- Make sure guids are unique. It's unlikely that two players have the same guid, but it can happen rarely.
-        if self.guid == data.guid or table.contains(Guid:getCachedGuids(), data.guid) then
+        if self.guid == data.guid or table.contains(GuidUtils:getCachedGuids(), data.guid) then
             error(("onPlayerInfo: guid %s is not unique!"):format(data.guid), 2)
-            local newGuid     = Guid:getGuid({ data.guid })
+            local newGuid     = GuidUtils:getGuid({ data.guid })
             local dataNewGuid = {
                 NetworkUtils.getNextNetworkMessageId(), data.guid, newGuid
             }
@@ -317,7 +326,7 @@ function Server.new(sockServer)
                 self.clients[i].guid = data.guid
                 self.clients[i].nuid = data.nuid
 
-                Guid:addGuidToCache(data.guid)
+                GuidUtils:addGuidToCache(data.guid)
             end
         end
 
@@ -532,8 +541,8 @@ function Server.new(sockServer)
             error("Unable to get clients guid!", 2)
         end
 
-        -- if not Guid:isUnique(guid) then
-        --     guid = Guid:getGuid({ guid })
+        -- if not GuidUtils:isUnique(guid) then
+        --     guid = GuidUtils:getGuid({ guid })
         --     self:sendToPeer(peer, "duplicatedGuid", { guid })
         -- end
 
@@ -890,12 +899,12 @@ function Server.new(sockServer)
         self.stop()
         _G.Server.stop() -- stop if any server is already running
 
-        Logger.info(Logger.channels.network, "Starting server on %s:%s ..", ip, port)
+        Logger.info(Logger.channels.network, ("Starting server on %s:%s.."):format(ip, port))
         --self = _G.ServerInit.new(sock.newServer(ip, port), false)
         --_G.Server = self
         local success = sockServerStart(self, ip, port)
         if success == true then
-            Logger.info(Logger.channels.network, "Server started on %s:%s", self:getAddress(), self:getPort())
+            Logger.info(Logger.channels.network, ("Server started on %s:%s"):format(self:getAddress(), self:getPort()))
 
             setGuid()
             setConfigSettings()
@@ -1071,8 +1080,8 @@ end
 
 -- Because of stack overflow errors when loading lua files,
 -- I decided to put Utils 'classes' into globals
-_G.ServerInit     = Server
-_G.Server         = ServerInit.new(sock.newServer())
+_G.ServerInit = Server
+_G.Server     = ServerInit.new(sock.newServer())
 
 --local startOnLoad = ModSettingGet("noita-mp.server_start_when_world_loaded")
 --if startOnLoad then

@@ -43,18 +43,24 @@ end
 
 function TestLogger:testLog()
     local level = "off"
-    local logged = Logger.log(level, nil, "asd")
+    local logged = Logger.log(level, Logger.channels.testing, "asd")
     lu.assertIsFalse(logged)
 end
 
 function TestLogger:testTrace()
+    TestLogger.mockedLogLevel = { "trace, debug, info, warn", "TRACE" }
     lu.assertIsTrue(Logger.trace(Logger.channels.testing, "This should be logged, trace level!"))
+    lu.assertIsTrue(Logger.debug(Logger.channels.testing, "This should be logged, debug level!"))
+    lu.assertIsTrue(Logger.info(Logger.channels.testing, "This should be logged, info level!"))
+    lu.assertIsTrue(Logger.warn(Logger.channels.testing, "This should be logged, warn level!"))
 end
 
 function TestLogger:testDebug()
     TestLogger.mockedLogLevel = { "debug, info, warn", "DEBUG" }
     lu.assertIsFalse(Logger.trace(Logger.channels.testing, "This should NOT be logged!"))
     lu.assertIsTrue(Logger.debug(Logger.channels.testing, "This should be logged, debug level!"))
+    lu.assertIsTrue(Logger.info(Logger.channels.testing, "This should be logged, info level!"))
+    lu.assertIsTrue(Logger.warn(Logger.channels.testing, "This should be logged, warn level!"))
 end
 
 function TestLogger:testInfo()
@@ -62,6 +68,7 @@ function TestLogger:testInfo()
     lu.assertIsFalse(Logger.trace(Logger.channels.testing, "This should NOT be logged!"))
     lu.assertIsFalse(Logger.debug(Logger.channels.testing, "This should NOT be logged!"))
     lu.assertIsTrue(Logger.info(Logger.channels.testing, "This should be logged, info level!"))
+    lu.assertIsTrue(Logger.warn(Logger.channels.testing, "This should be logged, warn level!"))
 end
 
 function TestLogger:testWarn()

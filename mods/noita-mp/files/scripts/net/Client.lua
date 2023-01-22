@@ -120,8 +120,8 @@ function Client.new(sockClient)
         local guid  = tostring(ModSettingGetNextValue("noita-mp.guid"))
         CustomProfiler.stop("ModSettingGetNextValue", cpc25)
 
-        if guid == "" or Guid.isPatternValid(guid) == false then
-            guid        = Guid:getGuid()
+        if guid == "" or GuidUtils.isPatternValid(guid) == false then
+            guid        = GuidUtils:getGuid()
             local cpc26 = CustomProfiler.start("ModSettingSetNextValue")
             ModSettingSetNextValue("noita-mp.guid", guid, false)
             CustomProfiler.stop("ModSettingSetNextValue", cpc26)
@@ -165,14 +165,17 @@ function Client.new(sockClient)
         if not data.networkMessageId then
             error(("Unable to get acknowledgement with networkMessageId = %s, data = %s, peer = %s")
                           :format(networkMessageId, util.pformat(data), util.pformat(peer)), 2)
-            return
         end
 
         if util.IsEmpty(data.event) then
             error(("onAcknowledgement data.event is empty: %s"):format(data.event), 2)
         end
 
-        NetworkCache.set(self.clientCacheID or 0, data.networkMessageId, data.event, data.status, os.clock(), 0,
+        if not self.clientCacheId then
+            self.clientCacheId = tonumber(self.guid, 16) --error("self.clientCacheId must not be nil!", 2)
+        end
+
+        NetworkCache.set(self.clientCacheId, data.networkMessageId, data.event, data.status, os.clock(), 0,
                          "NOCHECKSUM")
         if NetworkCache.size() > self.acknowledgeMaxSize then
             NetworkCache.removeOldest()
@@ -323,7 +326,7 @@ function Client.new(sockClient)
 
         if data.guid == self.guid then
             error("onPlayerInfo: Clients GUID isn't unique! Server will fix this!", 2)
-            --self.guid = Guid:getGuid({ self.guid })
+            --self.guid = GuidUtils:getGuid({ self.guid })
             --logger:info(logger.channels.network, "onPlayerInfo: New clients GUID: %s", self.guid)
             self:disconnect()
         end
@@ -776,8 +779,8 @@ function Client.new(sockClient)
         local cpc16 = CustomProfiler.start("Client.connect")
 
         if self:isConnecting() or self:isConnected() then
-            Logger.warn(Logger.channels.network, "Client is still connected to %s:%s. Disconnecting!",
-                        self:getAddress(), self:getPort())
+            Logger.warn(Logger.channels.network, ("Client is still connected to %s:%s. Disconnecting!")
+                    :format(self:getAddress(), self:getPort()))
             self:disconnect()
         end
 
@@ -798,7 +801,7 @@ function Client.new(sockClient)
         self.disconnect()
         _G.Client.disconnect() -- stop if any server is already running
 
-        Logger.info(Logger.channels.network, "Connecting to server on %s:%s", ip, port)
+        Logger.info(Logger.channels.network, ("Connecting to server on %s:%s"):format(ip, port))
         if not self.host then
             self:establishClient(ip, port)
         end
@@ -920,7 +923,10 @@ function Client.new(sockClient)
                     end
                     sum = sum .. d
                 end
-                NetworkCache.set(self.clientCacheID or 0, networkMessageId, event,
+                if not self.clientCacheId then
+                    self.clientCacheId = tonumber(self.guid, 16) --error("self.clientCacheId must not be nil!", 2)
+                end
+                NetworkCache.set(self.clientCacheId, networkMessageId, event,
                                  NetworkUtils.events.acknowledgement.sent, 0, os.clock(), md5.sumhexa(sum))
             end
         end
