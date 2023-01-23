@@ -104,6 +104,29 @@ jobs:
 #          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86 10.0.22000.0 -vcvars_ver=14
 #          cd ${{ github.workspace }}\
 #          msbuild noitamp_cache.vcxproj
+
+      - name: Install dependencies
+        shell: cmd
+        run: |
+          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86 10.0.22000.0 -vcvars_ver=14
+          cd ${{ github.workspace}}\mods\noita-mp\
+
+          call luarocks.bat install luafilesystem
+          call luarocks.bat install luacov
+          call luarocks.bat install luacov-coveralls
+  
+          if exist ${{ github.workspace }}\mods\noita-mp\lua_modules\bin\luacov.bat (
+            echo "LuaCov install successfully"
+          ) else (
+            echo "::error::LuaCov install failed"
+            exit 1
+          )
+          if exist ${{ github.workspace }}\mods\noita-mp\lua_modules\bin\luacov-coveralls.bat (
+            echo "LuaCov Coveralls install successfully"
+          ) else (
+            echo "::error::LuaCov Coveralls install failed"
+            exit 1
+          )
       
       - name: Run LuaUnit 3.4
         shell: cmd
@@ -130,31 +153,6 @@ jobs:
           echo "failOrErrorCount:%failOrErrorCount%"
           if NOT %failOrErrorCount% == 0 (
             echo "::error title=LuaUnit tests failed::%failOrErrorCount% failures or errors occurred!"
-            exit 1
-          )
-  
-
-          
-          
-      - name: Install dependencies
-        shell: cmd
-        run: |
-          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86 10.0.22000.0 -vcvars_ver=14
-          cd ${{ github.workspace}}\mods\noita-mp\
-  
-          call luarocks.bat install luacov
-          call luarocks.bat install luacov-coveralls
-          
-          if exist ${{ github.workspace }}\mods\noita-mp\lua_modules\bin\luacov.bat (
-            echo "LuaCov install successfully"
-          ) else (
-            echo "::error::LuaCov install failed"
-            exit 1
-          )
-          if exist ${{ github.workspace }}\mods\noita-mp\lua_modules\bin\luacov-coveralls.bat (
-            echo "LuaCov Coveralls install successfully"
-          ) else (
-            echo "::error::LuaCov Coveralls install failed"
             exit 1
           )
           

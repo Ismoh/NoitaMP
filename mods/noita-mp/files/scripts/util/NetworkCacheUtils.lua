@@ -60,7 +60,11 @@ end
 
 --- @return data { ackedAt, dataChecksum, event, messageId, sentAt, status}
 function NetworkCacheUtils.get(peerGuid, networkMessageId, event)
-    local data = NetworkCache.get(GuidUtils.toNumber(peerGuid), event, networkMessageId)
+    Logger.info(Logger.channels.testing,
+                ("NetworkCacheUtils.get(%s, %s, %s)"):format(peerGuid, networkMessageId, event))
+    Logger.info(Logger.channels.testing,
+                ("NetworkCache.get(%s, %s, %s)"):format(GuidUtils.toNumber(peerGuid), event, networkMessageId))
+    local data = NetworkCache.get(GuidUtils.toNumber(peerGuid), event, tonumber(networkMessageId))
     return data
 end
 

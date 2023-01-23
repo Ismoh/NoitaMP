@@ -177,7 +177,7 @@ function NetworkUtils.alreadySent(peer, event, data)
     --[[ if the network message is already stored ]]--
     print(("peer.guid = '%s'"):format(peer.guid))
     print(("peer.clientCacheId = '%s'"):format(peer.clientCacheId))
-    local message = NetworkCacheUtils.get(clientCacheId, event, networkMessageId)
+    local message = NetworkCacheUtils.get(peer.guid, networkMessageId, event)
     if message ~= nil then
         print(("Got message %s by cache with clientCacheId '%s', event '%s' and networkMessageId '%s'")
                       :format(message, clientCacheId, event, networkMessageId))
