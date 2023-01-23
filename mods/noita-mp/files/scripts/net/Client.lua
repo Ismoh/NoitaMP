@@ -172,7 +172,7 @@ function Client.new(sockClient)
         end
 
         if not self.clientCacheId then
-            self.clientCacheId = tonumber(self.guid, 16) --error("self.clientCacheId must not be nil!", 2)
+            self.clientCacheId = GuidUtils.toNumber(peer.guid) --error("self.clientCacheId must not be nil!", 2)
         end
 
         NetworkCache.set(self.clientCacheId, data.networkMessageId, data.event, data.status, os.clock(), 0,
@@ -924,7 +924,7 @@ function Client.new(sockClient)
                     sum = sum .. d
                 end
                 if not self.clientCacheId then
-                    self.clientCacheId = tonumber(self.guid, 16) --error("self.clientCacheId must not be nil!", 2)
+                    self.clientCacheId = GuidUtils.toNumber(peer.guid) --error("self.clientCacheId must not be nil!", 2)
                 end
                 NetworkCache.set(self.clientCacheId, networkMessageId, event,
                                  NetworkUtils.events.acknowledgement.sent, 0, os.clock(), md5.sumhexa(sum))

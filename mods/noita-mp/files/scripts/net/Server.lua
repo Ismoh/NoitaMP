@@ -169,7 +169,7 @@ function Server.new(sockServer)
         end
 
         if not peer.clientCacheId then
-            peer.clientCacheId = tonumber(peer.guid, 16) --error("peer.clientCacheId must not be nil!", 2)
+            peer.clientCacheId = GuidUtils.toNumber(peer.guid) --error("peer.clientCacheId must not be nil!", 2)
         end
 
         NetworkCache.set(peer.clientCacheId, data.networkMessageId, data.event, data.status, os.clock(), 0,
@@ -261,7 +261,7 @@ function Server.new(sockServer)
 
         -- clear acknowledge cache for disconnected peer
         if not peer.clientCacheId then
-            peer.clientCacheId = tonumber(peer.guid, 16) --error("peer.clientCacheId must not be nil!", 2)
+            peer.clientCacheId = GuidUtils.toNumber(peer.guid) --error("peer.clientCacheId must not be nil!", 2)
         end
         NetworkCache.clear(peer.clientCacheId)
 

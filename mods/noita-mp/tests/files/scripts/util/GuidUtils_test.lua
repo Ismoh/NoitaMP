@@ -39,4 +39,11 @@ function TestGuidUtils:testRandomness()
     end
 end
 
+function TestGuidUtils:testToNumber()
+    local guid   = GuidUtils:getGuid()
+    local number = GuidUtils.toNumber(guid)
+    lu.assertNotIsNil(number)
+    lu.assertIsTrue(type(number) == "number", "GuidUtils.toNumber didn't return a number!")
+end
+
 lu.LuaUnit.run(params)

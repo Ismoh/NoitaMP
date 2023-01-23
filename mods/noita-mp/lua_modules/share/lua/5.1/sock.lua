@@ -33,15 +33,9 @@ local sock              = {
 }
 
 local enet              = require("enet")
---local zstandard = require ("zstd")
 local util              = require("util")
 local fu                = require("file_util")
 
---local nextClientCacheId = 0
---local function getNextClientCacheId()
---    nextClientCacheId = nextClientCacheId + 1
---    return nextClientCacheId
---end
 
 _G.Logger.info(_G.Logger.channels.initialize, "lua-enet version = master branch 21.10.2015")
 _G.Logger.info(_G.Logger.channels.initialize, "enet version = " .. enet.linked_version()) -- 1.3.17
@@ -298,7 +292,7 @@ function Server:update()
             local eventClient = ClientInit.new(sock.newClient(event.peer)) -- sock.newClient(event.peer)
             eventClient:establishClient(event.peer)
             eventClient:setSerialization(self.serialize, self.deserialize)
-            eventClient.clientCacheId = tonumber(eventClient.guid, 16) --getNextClientCacheId()
+            eventClient.clientCacheId = GuidUtils.toNumber(peer.guid) --getNextClientCacheId()
             table.insert(self.peers, event.peer)
             table.insert(self.clients, eventClient)
             self:_activateTriggers("connect", event.data, eventClient)

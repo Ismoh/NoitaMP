@@ -1,6 +1,6 @@
-local util   = require("util")
-local socket = require("socket")
-local uuid   = require("uuid")
+local util      = require("util")
+local socket    = require("socket")
+local uuid      = require("uuid")
 
 local GuidUtils = {
     cached_guid = {},
@@ -68,6 +68,16 @@ function GuidUtils:isUnique(guid)
         is_unique = false
     end
     return is_unique
+end
+
+function GuidUtils.toNumber(guid)
+    if not GuidUtils.isPatternValid(guid) then
+        error(("Guid '%s' is not a valid guid!"):format(guid), 2)
+    end
+    local guidWithoutDashes = string.gsub(guid, "%-", "")
+    guidWithoutDashes       = guidWithoutDashes:upper()
+    local number            = tonumber(guidWithoutDashes, 16)
+    return number
 end
 
 -- Because of stack overflow errors when loading lua files,

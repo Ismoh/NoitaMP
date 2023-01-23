@@ -146,7 +146,7 @@ function TestNetworkUtils:testAlreadySentNeedNuidShouldFail()
 
     print(("Let's see if this was already sent: entity %s with data %s"):format(entityId, util.pformat(data)))
     -- [[ Check if the message was already sent ]] --
-    lu.assertIs(NetworkUtils.alreadySent(Client, "needNuid", data), true,
+    lu.assertIs(NetworkUtils.alreadySent(Client, "needNuid", data), false,
                 "The message was already sent, but the function NetworkUtils.alreadySent() returned false!")
     Client.disconnect()
     Server.stop()

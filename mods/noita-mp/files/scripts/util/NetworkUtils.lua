@@ -7,6 +7,7 @@
 --- 'Imports'
 -----------------------------------------------------------------------------------------------------------------------
 local md5                            = require("md5")
+local util                           = require("util")
 
 -----------------------------------------------------------------------------------------------------------------------
 --- NetworkUtils
@@ -156,8 +157,9 @@ function NetworkUtils.alreadySent(peer, event, data)
     if not data then
         error("'data' must not be nil!", 2)
     end
-    if not peer.clientCacheId then
-        peer.clientCacheId = tonumber(peer.guid, 16) --error("peer.clientCacheId must not be nil!", 2)
+    if util.IsEmpty(peer.clientCacheId) then
+        Logger.info(Logger.channels.testing, ("peer.guid = '%s'"):format(peer.guid))
+        peer.clientCacheId = GuidUtils.toNumber(peer.guid) --error("peer.clientCacheId must not be nil!", 2)
     end
 
     local clientCacheId    = peer.clientCacheId
@@ -173,10 +175,15 @@ function NetworkUtils.alreadySent(peer, event, data)
     end
 
     --[[ if the network message is already stored ]]--
-    print(("Got message by cache with clientCacheId '%s', event '%s' and networkMessageId '%s'"):format(clientCacheId, event, networkMessageId))
+    print(("peer.guid = '%s'"):format(peer.guid))
+    print(("peer.clientCacheId = '%s'"):format(peer.clientCacheId))
     local message = NetworkCache.get(clientCacheId, event, networkMessageId)
     if message ~= nil then
+        print(("Got message %s by cache with clientCacheId '%s', event '%s' and networkMessageId '%s'")
+                      :format(message, clientCacheId, event, networkMessageId))
         if message.status == NetworkUtils.events.acknowledgement.ack then
+            print(("2Got message %s by cache with clientCacheId '%s', event '%s' and networkMessageId '%s'")
+                          :format(message, clientCacheId, event, networkMessageId))
             CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
             return true
         end
