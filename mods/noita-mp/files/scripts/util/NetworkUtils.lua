@@ -3,15 +3,15 @@
 -- Naming convention is found here:
 -- http://lua-users.org/wiki/LuaStyleGuide#:~:text=Lua%20internal%20variable%20naming%20%2D%20The,but%20not%20necessarily%2C%20e.g.%20_G%20.
 
------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------
 --- 'Imports'
------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------
 local md5                            = require("md5")
 local util                           = require("util")
 
------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------
 --- NetworkUtils
------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------
 NetworkUtils                         = {}
 
 NetworkUtils.networkMessageIdCounter = 0
@@ -177,7 +177,7 @@ function NetworkUtils.alreadySent(peer, event, data)
     --[[ if the network message is already stored ]]--
     print(("peer.guid = '%s'"):format(peer.guid))
     print(("peer.clientCacheId = '%s'"):format(peer.clientCacheId))
-    local message = NetworkCache.get(clientCacheId, event, networkMessageId)
+    local message = NetworkCacheUtils.get(clientCacheId, event, networkMessageId)
     if message ~= nil then
         print(("Got message %s by cache with clientCacheId '%s', event '%s' and networkMessageId '%s'")
                       :format(message, clientCacheId, event, networkMessageId))
@@ -190,37 +190,8 @@ function NetworkUtils.alreadySent(peer, event, data)
     end
 
     --- Compare if the current data matches the cached checksum
-    local sum = ""
-    --- start at 2 so the networkMessageId is not included in the checksum
-    for i = 2, #data do
-        local d = data[i]
-        if type(d) == "number" then
-            d = tostring(d)
-        end
-        if type(d) == "boolean" then
-            if d == true then
-                d = "1"
-            else
-                d = "0"
-            end
-        end
-        if type(d) == "table" then
-            --- if data is a vec2
-            if d.x and d.y then
-                d = tostring(d.x) .. tostring(d.y)
-                --- if data is an entity health table
-            else
-                if d.current and d.max then
-                    d = tostring(d.current) .. tostring(d.max)
-                else
-                    d = ""
-                end
-            end
-        end
-        sum = sum .. d
-    end
-    sum                = md5.sumhexa(sum)
-    local matchingData = NetworkCache.getChecksum(clientCacheId, md5.sumhexa(sum))
+    local sum = NetworkCacheUtils.getSum(data)
+    local matchingData = NetworkCacheUtils.getByChecksum(peer.guid, md5.sumhexa(sum))
     if matchingData ~= nil then
         return true;
     end

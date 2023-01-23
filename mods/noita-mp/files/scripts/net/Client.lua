@@ -892,42 +892,12 @@ function Client.new(sockClient)
         end
 
         local networkMessageId = sockClientSend(self, event, data)
+
         if event ~= NetworkUtils.events.acknowledgement.name then
             if NetworkUtils.events[event].isCacheable == true then
-                local sum = ""
-                --- start at 2 so the networkMessageId is not included in the checksum
-                for i = 2, #data do
-                    local d = data[i]
-                    if type(d) == "number" then
-                        d = tostring(d)
-                    end
-                    if type(d) == "boolean" then
-                        if d == true then
-                            d = "1"
-                        else
-                            d = "0"
-                        end
-                    end
-                    if type(d) == "table" then
-                        --- if data is a vec2
-                        if d.x and d.y then
-                            d = tostring(d.x) .. tostring(d.y)
-                            --- if data is an entity health table
-                        else
-                            if d.current and d.max then
-                                d = tostring(d.current) .. tostring(d.max)
-                            else
-                                d = ""
-                            end
-                        end
-                    end
-                    sum = sum .. d
-                end
-                if not self.clientCacheId then
-                    self.clientCacheId = GuidUtils.toNumber(peer.guid) --error("self.clientCacheId must not be nil!", 2)
-                end
-                NetworkCache.set(self.clientCacheId, networkMessageId, event,
-                                 NetworkUtils.events.acknowledgement.sent, 0, os.clock(), md5.sumhexa(sum))
+                local sum = NetworkCacheUtils.getSum(data)
+                NetworkCacheUtils.set(self.guid, networkMessageId, event,
+                                      NetworkUtils.events.acknowledgement.sent, 0, os.clock(), md5.sumhexa(sum))
             end
         end
         CustomProfiler.stop("Client.send", cpc19)

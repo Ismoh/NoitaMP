@@ -22,7 +22,7 @@ function GuidUtils:getGuid(inUsedGuids)
     if not util.IsEmpty(inUsedGuids) and #inUsedGuids > 0 then
         ---@cast inUsedGuids table
         table.insertAllButNotDuplicates(self.cached_guid, inUsedGuids)
-        Logger.debug(Logger.channels.guid, ("Guid:getGuid() - inUsedGuids: %s"):format(util.ToString(inUsedGuids)))
+        Logger.debug(Logger.channels.guid, ("Guid:getGuid() - inUsedGuids: %s"):format(util.pformat(inUsedGuids)))
     end
 
     repeat

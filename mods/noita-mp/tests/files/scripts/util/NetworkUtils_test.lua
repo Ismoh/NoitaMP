@@ -1,30 +1,15 @@
 local params           = ...
 
 -- [[ Mock Noita API functions, which are needed before/during require is used ]] --
--- Make absolutely sure, that the already mocked Noita API function is not overwritten
-local mockedModSettingGet = ModSettingGet
-ModSettingGet    = function(id)
-    if string.contains(id, "noita-mp.log_level_") then
-        return { "trace, debug, info, warn", "TRACE" }
-    end
-    if id == "noita-mp.name" then
-        return "noita-mp.name"
-    end
+mockedModSettingGetNextValue = ModSettingGetNextValue
+ModSettingGetNextValue = function(id)
     if id == "noita-mp.guid" then
-        return "noita-mp.guid"
+        return GuidUtils:getGuid()
     end
 
-    mockedModSettingGet(id)
-end
-ModSettingGetNextValue = function()
-    -- return false to disable CustomProfiler
-    return false
-end
-ModSettingSetNextValue = function(id, value, is_default)
-    print("ModSettingSetNextValue: " .. id .. " = " .. tostring(value) .. " (is_default: " .. tostring(is_default) .. ")")
-end
-GamePrintImportant     = function(title, description, ui_custom_decoration_file)
-    print("GamePrintImportant: " .. title .. " - " .. description .. " - " .. " (ui_custom_decoration_file: " .. tostring(ui_custom_decoration_file) .. ")")
+    if mockedModSettingGetNextValue then
+        mockedModSettingGetNextValue(id)
+    end
 end
 --logger.log = function(channel, text)
 --    local level = "TESTING"
@@ -54,14 +39,38 @@ TestNetworkUtils = {}
 
 --- Setup function for each test.
 function TestNetworkUtils:setUp()
+    -- Make absolutely sure, that the already mocked Noita API function is not overwritten
+    local mockedModSettingGet = ModSettingGet
+    ModSettingGet    = function(id)
+        if string.contains(id, "noita-mp.log_level_") then
+            return { "trace, debug, info, warn", "TRACE" }
+        end
+        if id == "noita-mp.name" then
+            return "noita-mp.name"
+        end
+        if id == "noita-mp.guid" then
+            return "noita-mp.guid"
+        end
 
+        mockedModSettingGet(id)
+    end
+    ModSettingGetNextValue = function()
+        -- return false to disable CustomProfiler
+        return false
+    end
+    ModSettingSetNextValue = function(id, value, is_default)
+        print("ModSettingSetNextValue: " .. id .. " = " .. tostring(value) .. " (is_default: " .. tostring(is_default) .. ")")
+    end
+    GamePrintImportant     = function(title, description, ui_custom_decoration_file)
+        print("GamePrintImportant: " .. title .. " - " .. description .. " - " .. " (ui_custom_decoration_file: " .. tostring(ui_custom_decoration_file) .. ")")
+    end
 end
 
 --- Teardown function for each test.
 function TestNetworkUtils:tearDown()
 end
 
-function TestNetworkUtils:testAlreadySentErrors()
+function TestNetworkUtils:testAlreadySent()
     lu.assertErrorMsgContains("'peer' must not be nil!",
                               NetworkUtils.alreadySent, nil, event, data)
     lu.assertErrorMsgContains("'event' must not be nil!",
