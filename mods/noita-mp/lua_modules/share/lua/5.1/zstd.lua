@@ -126,7 +126,7 @@ if not zstd then
 end
 
 if not zstd then
-    error("Unable to ffi_load zstd!")
+    error("Unable to ffi_load zstd!", 2)
 end
 
 
