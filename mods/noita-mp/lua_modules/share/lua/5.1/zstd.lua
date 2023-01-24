@@ -89,10 +89,7 @@ local ptr_zstd_inbuffer_t = ffi_typeof "ZSTD_inBuffer[1]"
 local ptr_zstd_outbuffer_t = ffi_typeof "ZSTD_outBuffer[1]"
 
 
-local zstd = ffi_load("libzstd")
-if not zstd then
-   zstd = ffi_load "mods/noita-mp/lua_modules/lib/lua/5.1/libzstd.dll"
-end
+local zstd = ffi_load "zstd"
 
 
 local _M = {
