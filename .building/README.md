@@ -98,3 +98,8 @@ in `NoitaMP\mods\noita-mp` directory.
 ## Install all dependencies defined in noita-mp-*.rockspec
 Run `luarocks install --only-deps noita-mp-*.rockspec`. Replace `*` with the version number of the rockspec.
 Simply type in `luarocks install --only-deps noita` and hit tab to autocomplete the rockspec name.
+
+
+## Build zstandard
+https://fuchsia.googlesource.com/third_party/zstd/+/refs/tags/v1.3.7/build/
+https://stackoverflow.com/questions/44290672/how-to-download-visual-studio-community-edition-2015-not-2017 use ISO Image community

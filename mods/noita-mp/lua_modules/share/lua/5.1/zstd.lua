@@ -89,9 +89,30 @@ local ptr_zstd_inbuffer_t = ffi_typeof "ZSTD_inBuffer[1]"
 local ptr_zstd_outbuffer_t = ffi_typeof "ZSTD_outBuffer[1]"
 
 
-local zstd = ffi_load("libzstd")
+local zstd = nil
+local status, err = pcall(ffi_load, "libzstd")
+if err then
+   print(("Unable to load zstd: status '%s', error '%s'"):format(status, err))
+   local status2, err2 = pcall(ffi_load, "mods/noita-mp/lua_modules/lib/lua/5.1/libzstd")
+   if err2 then
+      print(("Unable to load zstd: status '%s', error '%s'"):format(status2, err2))
+      local status3, err3 = pcall(ffi_load, "libzstdx64")
+      if err3 then
+         print(("Unable to load zstd: status '%s', error '%s'"):format(status3, err3))
+         local status4, err4 = pcall(ffi_load, "mods/noita-mp/lua_modules/lib/lua/5.1/libzstdx64")
+         if err4 then
+            print(("Unable to load zstd: status '%s', error '%s'"):format(status4, err4))
+         end
+      end
+   else
+      zstd = ffi_load("mods/noita-mp/lua_modules/lib/lua/5.1/libzstd")
+   end
+else
+   zstd = ffi_load("libzstd")
+end
+
 if not zstd then
-   zstd = ffi_load("mods/noita-mp/lua_modules/lib/lua/5.1/libzstd")
+    error("Unable to ffi_load zstd!")
 end
 
 
