@@ -90,25 +90,39 @@ local ptr_zstd_outbuffer_t = ffi_typeof "ZSTD_outBuffer[1]"
 
 
 local zstd = nil
+
 local status, err = pcall(ffi_load, "libzstd")
-if err then
-   print(("Unable to load zstd: status '%s', error '%s'"):format(status, err))
-   local status2, err2 = pcall(ffi_load, "mods/noita-mp/lua_modules/lib/lua/5.1/libzstd")
-   if err2 then
-      print(("Unable to load zstd: status '%s', error '%s'"):format(status2, err2))
-      local status3, err3 = pcall(ffi_load, "libzstdx64")
-      if err3 then
-         print(("Unable to load zstd: status '%s', error '%s'"):format(status3, err3))
-         local status4, err4 = pcall(ffi_load, "mods/noita-mp/lua_modules/lib/lua/5.1/libzstdx64")
-         if err4 then
-            print(("Unable to load zstd: status '%s', error '%s'"):format(status4, err4))
-         end
-      end
-   else
-      zstd = ffi_load("mods/noita-mp/lua_modules/lib/lua/5.1/libzstd")
-   end
+if status == true then
+   zstd = err
 else
-   zstd = ffi_load("libzstd")
+   print(("Unable to load 'libzstd': status '%s', error '%s'"):format(status, err))
+end
+
+if not zstd then
+   local status2, err2 = pcall(ffi_load, "libzstdx64")
+   if status2 == true then
+      zstd = err2
+   else
+      print(("Unable to load 'libzstdx64': status '%s', error '%s'"):format(status2, err2))
+   end
+end
+
+if not zstd then
+   local status3, err3 = pcall(ffi_load, "mods/noita-mp/lua_modules/lib/lua/5.1/libzstd")
+   if status3 == true then
+      zstd = err3
+   else
+      print(("Unable to load 'mods/noita-mp/lua_modules/lib/lua/5.1/libzstd': status '%s', error '%s'"):format(status3, err3))
+   end
+end
+
+if not zstd then
+   local status4, err4 = pcall(ffi_load, "mods/noita-mp/lua_modules/lib/lua/5.1/libzstdx64")
+   if status4 == true then
+      zstd = err4
+   else
+      print(("Unable to load 'mods/noita-mp/lua_modules/lib/lua/5.1/libzstdx64': status '%s', error '%s'"):format(status4, err4))
+   end
 end
 
 if not zstd then
