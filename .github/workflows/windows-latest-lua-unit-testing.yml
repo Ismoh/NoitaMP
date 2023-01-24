@@ -127,6 +127,16 @@ jobs:
             echo "::error::LuaCov Coveralls install failed"
             exit 1
           )
+          
+      - name: Install zstandard library
+        shell: cmd
+        run: |
+          git add
+          git remote add origin https://github.com/facebook/zstd.git
+          git checkout tags/v1.5.2 -b v1.5.2-branch
+          call "build.generic.cmd VS2015 Win32 Release v120"
+          move
+          
       
       - name: Run LuaUnit 3.4
         shell: cmd
