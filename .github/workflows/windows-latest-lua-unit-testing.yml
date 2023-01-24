@@ -133,6 +133,8 @@ jobs:
         id: lua_unit_tests
         run: |
           cd ${{ github.workspace}}\mods\noita-mp\
+          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86 10.0.22000.0 -vcvars_ver=14
+          
           call luarocks.bat test > result.log
           
           if exist result.log (
