@@ -1,4 +1,4 @@
-local params = ...
+local params        = ...
 
 local lu            = require("luaunit")
 
@@ -7,7 +7,7 @@ TestTableExtensions = {}
 function TestTableExtensions:setUp()
     -- Make absolutely sure, that the already mocked Noita API function is not overwritten
     local mockedModSettingGet = ModSettingGet
-    ModSettingGet    = function(id)
+    ModSettingGet             = function(id)
         if string.contains(id, "noita-mp.log_level_") then
             return { "off", "OFF" }
         end
@@ -98,6 +98,28 @@ function TestTableExtensions:testSetNoitaMpDefaultMetaMethods()
     lu.assertEquals(t2[1], 1)
     lu.assertEquals(#t2, 5)
     lu.assertEquals(t2[5], 7)
+end
+
+function TestTableExtensions:testContentToString()
+    local tbl         = { "asdf", 2, 234, "qwerty" }
+    local expectedStr = "asdf,2,234,qwerty"
+    local str         = table.contentToString(tbl)
+    lu.assertEquals(str, expectedStr)
+
+    local tbl2         = { "asdf", 2, 234, "qwerty", { "123asd", "456qwe" } }
+    local expectedStr2 = "asdf,2,234,qwerty,123asd,456qwe"
+    local str2         = table.contentToString(tbl2)
+    lu.assertEquals(str2, expectedStr2)
+
+    local tbl3         = { "asdf", 2, 234, "qwerty", { "123asd", "456qwe" }, { name = "name", guid = "guid" } }
+    local expectedStr3 = "asdf,2,234,qwerty,123asd,456qwe,name,guid"
+    local str3         = table.contentToString(tbl3)
+    lu.assertEquals(str3, expectedStr3)
+
+    local tbl4         = { { name = "test", guid = "guid" }, 1234, 3, 1.2, 3.4, 0.5, { 12, 3 } }
+    local expectedStr4 = "test,guid,1234,3,1.2,3.4,0.5,12,3"
+    local str4         = table.contentToString(tbl4)
+    lu.assertEquals(str4, expectedStr4)
 end
 
 lu.LuaUnit.run(params)

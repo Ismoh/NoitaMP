@@ -1,8 +1,8 @@
-local params           = ...
+local params                 = ...
 
 -- [[ Mock Noita API functions, which are needed before/during require is used ]] --
 mockedModSettingGetNextValue = ModSettingGetNextValue
-ModSettingGetNextValue = function(id)
+ModSettingGetNextValue       = function(id)
     if id == "noita-mp.guid" then
         return GuidUtils:getGuid()
     end
@@ -41,7 +41,7 @@ TestNetworkUtils = {}
 function TestNetworkUtils:setUp()
     -- Make absolutely sure, that the already mocked Noita API function is not overwritten
     local mockedModSettingGet = ModSettingGet
-    ModSettingGet    = function(id)
+    ModSettingGet             = function(id)
         if string.contains(id, "noita-mp.log_level_") then
             return { "trace, debug, info, warn", "TRACE" }
         end
@@ -54,14 +54,14 @@ function TestNetworkUtils:setUp()
 
         mockedModSettingGet(id)
     end
-    ModSettingGetNextValue = function()
+    ModSettingGetNextValue    = function()
         -- return false to disable CustomProfiler
         return false
     end
-    ModSettingSetNextValue = function(id, value, is_default)
+    ModSettingSetNextValue    = function(id, value, is_default)
         print("ModSettingSetNextValue: " .. id .. " = " .. tostring(value) .. " (is_default: " .. tostring(is_default) .. ")")
     end
-    GamePrintImportant     = function(title, description, ui_custom_decoration_file)
+    GamePrintImportant        = function(title, description, ui_custom_decoration_file)
         print("GamePrintImportant: " .. title .. " - " .. description .. " - " .. " (ui_custom_decoration_file: " .. tostring(ui_custom_decoration_file) .. ")")
     end
 end
@@ -109,9 +109,9 @@ function TestNetworkUtils:testAlreadySentNewNuid()
 
 end
 
---- Tests if the function NetworkUtils.alreadySent() returns true,
---- if the client send a message, which was already sent.
-function TestNetworkUtils:testAlreadySentNeedNuidShouldFail()
+--- Tests if the function NetworkUtils.alreadySent() returns TRUE,
+--- if the client send a message, which WAS already sent.
+function TestNetworkUtils:testAlreadySentNeedNuidShouldReturnTrue()
     -- [[ Mock functions inside of Client.sendNeedNuid ]] --
     EntityUtils.isEntityAlive       = function(entityId)
         return true
@@ -155,15 +155,15 @@ function TestNetworkUtils:testAlreadySentNeedNuidShouldFail()
 
     print(("Let's see if this was already sent: entity %s with data %s"):format(entityId, util.pformat(data)))
     -- [[ Check if the message was already sent ]] --
-    lu.assertIs(NetworkUtils.alreadySent(Client, "needNuid", data), false,
+    lu.assertIs(NetworkUtils.alreadySent(Client, "needNuid", data), true,
                 "The message was already sent, but the function NetworkUtils.alreadySent() returned false!")
     Client.disconnect()
     Server.stop()
 end
 
---- Tests if the function NetworkUtils.alreadySent() returns true,
---- if the client send a message, which was already sent.
-function TestNetworkUtils:testAlreadySentNeedNuidShouldSucceed()
+--- Tests if the function NetworkUtils.alreadySent() returns FALSE,
+--- if the client send a message, which WASN'T already sent.
+function TestNetworkUtils:testAlreadySentNeedNuidShouldReturnFalse()
     -- [[ Mock functions inside of Client.sendNeedNuid ]] --
     EntityUtils.isEntityAlive       = function(entityId)
         return true
@@ -199,6 +199,9 @@ function TestNetworkUtils:testAlreadySentNeedNuidShouldSucceed()
 
     Client.sendNeedNuid(ownerName, ownerGuid, entityId)
 
+    -- [[ CHANGE entityId to simulate a new NeedNuid networkMessage ]] --
+    entityId                                                                                 = entityId + 1
+
     local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
     local data                                                                               = {
         NetworkUtils.getNextNetworkMessageId(), { ownerName, ownerGuid }, entityId, x, y, rotation, velocity,
@@ -207,7 +210,7 @@ function TestNetworkUtils:testAlreadySentNeedNuidShouldSucceed()
 
     print(("Let's see if this was already sent: entity %s with data %s"):format(entityId, util.pformat(data)))
     -- [[ Check if the message was already sent ]] --
-    lu.assertIs(NetworkUtils.alreadySent(Client, "needNuid", data), true,
+    lu.assertIs(NetworkUtils.alreadySent(Client, "needNuid", data), false,
                 "The message was already sent, but the function NetworkUtils.alreadySent() returned false!")
     Client.disconnect()
     Server.stop()

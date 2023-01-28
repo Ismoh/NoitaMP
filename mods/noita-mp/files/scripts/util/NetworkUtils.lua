@@ -17,27 +17,61 @@ NetworkUtils                         = {}
 NetworkUtils.networkMessageIdCounter = 0
 
 NetworkUtils.events                  = {
-    connect         = { name = "connect", schema = { "code" }, isCacheable = false },
+    connect         = {
+        name        = "connect",
+        schema      = { "code" },
+        isCacheable = false
+    },
 
     --- connect2 is used to let the other clients know, who was connected
-    connect2        = { name = "connect2", schema = { "name", "guid" }, isCacheable = false },
+    connect2        = {
+        name        = "connect2",
+        schema      = { "name", "guid" },
+        isCacheable = false
+    },
 
-    disconnect      = { name = "disconnect", schema = { "code" }, isCacheable = false },
+    disconnect      = {
+        name        = "disconnect",
+        schema      = { "code" },
+        isCacheable = false
+    },
 
     --- disconnect2 is used to let the other clients know, who was disconnected
-    disconnect2     = { name = "disconnect2", schema = { "networkMessageId", "name", "guid" }, isCacheable = false },
+    disconnect2     = {
+        name        = "disconnect2",
+        schema      = { "networkMessageId", "name", "guid" },
+        isCacheable = false
+    },
 
     --- acknowledgement is used to let the sender know if the message was acknowledged
-    acknowledgement = { name = "acknowledgement", schema = { "networkMessageId", "event", "status" }, ack = "ack", sent = "sent", isCacheable = true },
+    acknowledgement = {
+        name        = "acknowledgement",
+        schema      = { "networkMessageId", "event", "status" },
+        ack         = "ack",
+        sent        = "sent",
+        isCacheable = true
+    },
 
     --- seed is used to send the servers seed
-    seed            = { name = "seed", schema = { "networkMessageId", "seed" }, isCacheable = true },
+    seed            = {
+        name        = "seed",
+        schema      = { "networkMessageId", "seed" },
+        isCacheable = true
+    },
 
     --- playerInfo is used to send localPlayerInfo name and guid to all peers
-    playerInfo      = { name = "playerInfo", schema = { "networkMessageId", "name", "guid", "version", "nuid" }, isCacheable = true },
+    playerInfo      = {
+        name        = "playerInfo",
+        schema      = { "networkMessageId", "name", "guid", "version", "nuid" },
+        isCacheable = true
+    },
 
     --- newGuid is used to send a new GUID to a client, which GUID isn't unique all peers
-    newGuid         = { name = "newGuid", schema = { "networkMessageId", "oldGuid", "newGuid" }, isCacheable = true },
+    newGuid         = {
+        name        = "newGuid",
+        schema      = { "networkMessageId", "oldGuid", "newGuid" },
+        isCacheable = true
+    },
 
     --- newNuid is used to let clients spawn entities by the servers permission
     newNuid         = {
@@ -63,20 +97,39 @@ NetworkUtils.events                  = {
 
     --- lostNuid is used to ask for the entity to spawn, when a client has a nuid stored, but no entityId (not sure
     --- atm, why this is happening, but this is due to reduce out of sync stuff)
-    lostNuid        = { name = "lostNuid", schema = { "networkMessageId", "nuid" }, isCacheable = true },
+    lostNuid        = {
+        name        = "lostNuid",
+        schema      = { "networkMessageId", "nuid" },
+        isCacheable = true
+    },
 
     --- entityData is used to sync position, velocity and health
-    entityData      = { name = "entityData", schema = { "networkMessageId", "owner", "nuid", "x", "y", "rotation",
-                                                        "velocity", "health" }, isCacheable = false },
+    entityData      = {
+        name        = "entityData",
+        schema      = { "networkMessageId", "owner", "nuid", "x", "y", "rotation", "velocity", "health" },
+        isCacheable = false
+    },
 
     --- deadNuids is used to let clients know, which entities were killed or destroyed
-    deadNuids       = { name = "deadNuids", schema = { "networkMessageId", "deadNuids" }, isCacheable = true },
+    deadNuids       = {
+        name        = "deadNuids",
+        schema      = { "networkMessageId", "deadNuids" },
+        isCacheable = true
+    },
 
     --- needModList is used to let clients sync enabled mods with the server
-    needModList     = { name = "needModList", schema = { "networkMessageId", "workshop", "external" }, isCacheable = true },
+    needModList     = {
+        name        = "needModList",
+        schema      = { "networkMessageId", "workshop", "external" },
+        isCacheable = true
+    },
 
     --- needModContent is used to sync mod content from server to client
-    needModContent  = { name = "needModContent", schema = { "networkMessageId", "get", "items" }, isCacheable = true }
+    needModContent  = {
+        name        = "needModContent",
+        schema      = { "networkMessageId", "get", "items" },
+        isCacheable = true
+    }
 }
 
 --- Copy from sock.lua, because I am lazy
@@ -190,8 +243,7 @@ function NetworkUtils.alreadySent(peer, event, data)
     end
 
     --- Compare if the current data matches the cached checksum
-    local sum = NetworkCacheUtils.getSum(data)
-    local matchingData = NetworkCacheUtils.getByChecksum(peer.guid, md5.sumhexa(sum))
+    local matchingData = NetworkCacheUtils.getByChecksum(peer.guid, data, event)
     if matchingData ~= nil then
         return true;
     end

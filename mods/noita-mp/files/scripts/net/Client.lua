@@ -10,7 +10,6 @@ local sock        = require("sock")
 local util        = require("util")
 local zstandard   = require("zstd")
 local messagePack = require("MessagePack")
-local md5         = require("md5")
 
 ----------------------------------------------------------------------------------------------------
 --- Client
@@ -895,9 +894,8 @@ function Client.new(sockClient)
 
         if event ~= NetworkUtils.events.acknowledgement.name then
             if NetworkUtils.events[event].isCacheable == true then
-                local sum = NetworkCacheUtils.getSum(data)
                 NetworkCacheUtils.set(self.guid, networkMessageId, event,
-                                      NetworkUtils.events.acknowledgement.sent, 0, os.clock(), md5.sumhexa(sum))
+                                      NetworkUtils.events.acknowledgement.sent, 0, os.clock(), data)
             end
         end
         CustomProfiler.stop("Client.send", cpc19)

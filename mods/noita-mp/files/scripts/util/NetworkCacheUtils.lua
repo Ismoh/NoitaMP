@@ -10,43 +10,34 @@
 ------------------------------------------------------------------------------------------------------------------------
 --- 'Imports'
 ------------------------------------------------------------------------------------------------------------------------
-
+local util        = require("util")
+local md5         = require("md5")
 
 ------------------------------------------------------------------------------------------------------------------------
 --- NetworkUtils
 ------------------------------------------------------------------------------------------------------------------------
 NetworkCacheUtils = {}
 
-function NetworkCacheUtils.getSum(data)
-    local sum = ""
-    --- start at 2 so the networkMessageId is not included in the checksum
-    for i = 2, #data do
-        local d = data[i]
-        if type(d) == "number" then
-            d = tostring(d)
-        end
-        if type(d) == "boolean" then
-            if d == true then
-                d = "1"
-            else
-                d = "0"
-            end
-        end
-        if type(d) == "table" then
-            --- if data is a vec2
-            if d.x and d.y then
-                d = tostring(d.x) .. tostring(d.y)
-                --- if data is an entity health table
-            else
-                if d.current and d.max then
-                    d = tostring(d.current) .. tostring(d.max)
-                else
-                    d = ""
-                end
-            end
-        end
-        sum = sum .. d
+function NetworkCacheUtils.getSum(event, data)
+    Logger.trace(Logger.channels.testing, "getSum: " .. util.pformat(data))
+    if not event or type(event) ~= "string" then
+        error(("Unable to calculate sum, when event is nil or not a string: '%s'"):format(event), 2)
     end
+    if not data or type(data) ~= "table" then
+        error(("Unable to calculate sum, when data is nil or not a table: '%s'"):format(data), 2)
+    end
+    if not NetworkUtils.events[event].isCacheable then
+        error(("Event '%s' shouldn't be cached!"):format(event), 2)
+    end
+
+    local sumWithNetworkMessageId = table.contentToString(data)
+    Logger.trace(Logger.channels.testing, ("sumWithNetworkMessageId = %s"):format(sumWithNetworkMessageId))
+    local firstCommaIndex = string.find(sumWithNetworkMessageId:lower(), ",", 1, true) + 1
+    Logger.trace(Logger.channels.testing, ("firstCommaIndex = %s"):format(firstCommaIndex))
+    local sum = string.sub(sumWithNetworkMessageId, firstCommaIndex)
+
+    Logger.trace(Logger.channels.testing, "getSum-end: " .. util.pformat(data))
+    Logger.trace(Logger.channels.testing, ("sum = %s"):format(sum))
     return sum
 end
 
@@ -54,12 +45,21 @@ end
 --- @param peerGuid string peer.guid
 --- @param networkMessageId number
 ---
-function NetworkCacheUtils.set(peerGuid, networkMessageId, event, status, ackedAt, sendAt, dataChecksum)
+function NetworkCacheUtils.set(peerGuid, networkMessageId, event, status, ackedAt, sendAt, data)
+    if not NetworkUtils.events[event].isCacheable then
+        error(("Event '%s' shouldn't be cached!"):format(event), 2)
+    end
+    local sum          = NetworkCacheUtils.getSum(event, data)
+    local dataChecksum = md5.sumhexa(sum)
     NetworkCache.set(GuidUtils.toNumber(peerGuid), networkMessageId, event, status, ackedAt, sendAt, dataChecksum)
+    return dataChecksum
 end
 
---- @return data { ackedAt, dataChecksum, event, messageId, sentAt, status}
+--- @return table data { ackedAt, dataChecksum, event, messageId, sentAt, status}
 function NetworkCacheUtils.get(peerGuid, networkMessageId, event)
+    if not NetworkUtils.events[event].isCacheable then
+        error(("Event '%s' shouldn't be cached!"):format(event), 2)
+    end
     Logger.info(Logger.channels.testing,
                 ("NetworkCacheUtils.get(%s, %s, %s)"):format(peerGuid, networkMessageId, event))
     Logger.info(Logger.channels.testing,
@@ -68,8 +68,13 @@ function NetworkCacheUtils.get(peerGuid, networkMessageId, event)
     return data
 end
 
---- @return data { ackedAt, dataChecksum, event, messageId, sentAt, status}
-function NetworkCacheUtils.getByChecksum(peerGuid, checksum)
-    local data = NetworkCache.getChecksum(GuidUtils.toNumber(peerGuid), checksum)
-    return data
+--- @return table cacheData { ackedAt, dataChecksum, event, messageId, sentAt, status}
+function NetworkCacheUtils.getByChecksum(peerGuid, data, event)
+    if not NetworkUtils.events[event].isCacheable then
+        error(("Event '%s' shouldn't be cached!"):format(event), 2)
+    end
+    local sum          = NetworkCacheUtils.getSum(event, data)
+    local dataChecksum = md5.sumhexa(sum)
+    local cacheData    = NetworkCache.getChecksum(GuidUtils.toNumber(peerGuid), dataChecksum)
+    return cacheData
 end

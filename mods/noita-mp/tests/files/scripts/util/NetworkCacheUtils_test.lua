@@ -35,12 +35,19 @@ function TestNetworkCacheUtils:tearDown()
 end
 
 function TestNetworkCacheUtils:testGetSum()
+    local dataSimple  = { 9999,
+                          { name = "test", guid = "guid" }, 1234, 3, 1.2, 3.4, 0.5, { 12, 3 } }
+    local sumSimple   = NetworkCacheUtils.getSum(NetworkUtils.events.newNuid.name, dataSimple)
+    local sumExpected = "test,guid,1234,3,1.2,3.4,0.5,12,3"
+    lu.assertEquals(sumSimple, sumExpected)
+
     local guid             = GuidUtils:getGuid()
     local networkMessageId = NetworkUtils.getNextNetworkMessageId()
-    local data             = { networkMessageId, { name = "test", guid = guid },
-                               1234, 3, 1.2, 3.4, 0.5, { 12, 3 }, "/test/filename.xml", { current = 57, max = 100 }, false }
-    local sum              = NetworkCacheUtils.getSum(data)
-    local sum2             = NetworkCacheUtils.getSum(data)
+    local data             = { networkMessageId,
+                               { name = "test", guid = guid }, 1234, 3, 1.2, 3.4, 0.5, { 12, 3 },
+                               "/test/filename.xml", { current = 57, max = 100 }, false }
+    local sum              = NetworkCacheUtils.getSum(NetworkUtils.events.newNuid.name, data)
+    local sum2             = NetworkCacheUtils.getSum(NetworkUtils.events.newNuid.name, data)
     lu.assertEquals(sum, sum2)
 end
 
@@ -49,24 +56,19 @@ function TestNetworkCacheUtils:testSet()
     local networkMessageId = NetworkUtils.getNextNetworkMessageId()
     local data             = { networkMessageId, { name = "test", guid = guid },
                                1234, 3, 1.2, 3.4, 0.5, { 12, 3 }, "/test/filename.xml", { current = 57, max = 100 }, false }
-    local sum              = NetworkCacheUtils.getSum(data)
-    local checksum         = md5.sumhexa(sum)
-    NetworkCacheUtils.set(guid, networkMessageId, NetworkUtils.events.newNuid.name, NetworkUtils.events.acknowledgement.sent,
-                          0, os.clock(), checksum)
-    local cached = NetworkCacheUtils.get(guid, networkMessageId, NetworkUtils.events.newNuid.name)
-    lu.assertEquals(checksum, cached.dataChecksum)
+    local expectedChecksum = NetworkCacheUtils.set(guid, networkMessageId, NetworkUtils.events.newNuid.name,
+                                                   NetworkUtils.events.acknowledgement.sent, 0, os.clock(), data)
+    local cached           = NetworkCacheUtils.get(guid, networkMessageId, NetworkUtils.events.newNuid.name)
+    lu.assertEquals(cached.dataChecksum, expectedChecksum)
 
     local guid2             = GuidUtils:getGuid({ guid })
     local networkMessageId2 = NetworkUtils.getNextNetworkMessageId()
     local data2             = { networkMessageId2--[[ different ]], { name = "test2", guid = guid2 },
                                 1234, 5--[[ different ]], 1.2, 3.4, 0.5, { 12, 3 }, "/test/filename.xml", { current = 57, max = 100 }, false }
-    local sum2              = NetworkCacheUtils.getSum(data2)
-    local checksum2         = md5.sumhexa(sum2)
-    NetworkCacheUtils.set(guid2, networkMessageId2, NetworkUtils.events.newNuid.name,
-                          NetworkUtils.events.acknowledgement.sent,
-                          0, os.clock(), checksum2)
-    local cached2 = NetworkCacheUtils.getByChecksum(guid2, checksum2)
-    lu.assertEquals(checksum2, cached2.dataChecksum)
+    local expectedChecksum2 = NetworkCacheUtils.set(guid2, networkMessageId2, NetworkUtils.events.newNuid.name,
+                                                    NetworkUtils.events.acknowledgement.sent, 0, os.clock(), data2)
+    local cached2           = NetworkCacheUtils.getByChecksum(guid2, data2, NetworkUtils.events.newNuid.name)
+    lu.assertEquals(cached2.dataChecksum, expectedChecksum2)
 end
 
 function TestNetworkCacheUtils:testGet()
