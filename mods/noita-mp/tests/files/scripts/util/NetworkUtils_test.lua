@@ -208,10 +208,10 @@ function TestNetworkUtils:testAlreadySentNeedNuidShouldReturnFalse()
         filename, health, EntityUtils.isEntityPolymorphed(entityId)
     }
 
-    print(("Let's see if this was already sent: entity %s with data %s"):format(entityId, util.pformat(data)))
-    -- [[ Check if the message was already sent ]] --
+    print(("Let's see if this WASN'T already sent: entity %s with data %s"):format(entityId, util.pformat(data)))
+    -- [[ Check if the message WASN'T already sent ]] --
     lu.assertIs(NetworkUtils.alreadySent(Client, "needNuid", data), false,
-                "The message was already sent, but the function NetworkUtils.alreadySent() returned false!")
+                "The message WASN'T already sent, but the function NetworkUtils.alreadySent() returned true!")
     Client.disconnect()
     Server.stop()
 end
