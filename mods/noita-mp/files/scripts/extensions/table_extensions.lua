@@ -218,6 +218,7 @@ function table.contentToString(tbl)
     Logger.trace(Logger.channels.testing, ("str = %s"):format(str))
     if not str or str == "" then
         -- I don't like pairs, but in this case, I don't have a better idea yet
+        -- TODO: Gustavo: the risky thing about that is that pairs() iteration order is not guaranteed, so you might have different sums for the same table
         for key, value in pairs(tbl) do
             Logger.trace(Logger.channels.testing, ("value = %s"):format(value))
             if type(value) == "table" then
