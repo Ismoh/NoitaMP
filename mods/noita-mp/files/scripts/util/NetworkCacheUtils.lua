@@ -32,7 +32,12 @@ function NetworkCacheUtils.getSum(event, data)
 
     local sumWithNetworkMessageId = table.contentToString(data)
     Logger.trace(Logger.channels.testing, ("sumWithNetworkMessageId = %s"):format(sumWithNetworkMessageId))
-    local firstCommaIndex = string.find(sumWithNetworkMessageId:lower(), ",", 1, true) + 1
+    local firstCommaIndex = string.find(sumWithNetworkMessageId:lower(), ",", 1, true)
+    if firstCommaIndex then
+        firstCommaIndex = firstCommaIndex + 1
+    else
+        return "" -- TODO: ModList does not contain 'data'?
+    end
     Logger.trace(Logger.channels.testing, ("firstCommaIndex = %s"):format(firstCommaIndex))
     local sum = string.sub(sumWithNetworkMessageId, firstCommaIndex)
 
@@ -78,3 +83,12 @@ function NetworkCacheUtils.getByChecksum(peerGuid, data, event)
     local cacheData    = NetworkCache.getChecksum(GuidUtils.toNumber(peerGuid), dataChecksum)
     return cacheData
 end
+
+-- Because of stack overflow errors when loading lua files,
+-- I decided to put Utils 'classes' into globals
+_G.NetworkCacheUtils = NetworkCacheUtils
+
+-- But still return for Noita Components,
+-- which does not have access to _G,
+-- because of own context/vm
+return NetworkCacheUtils

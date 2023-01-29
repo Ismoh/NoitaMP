@@ -1,12 +1,16 @@
+-- Disable log channel testing in Noita
+if BaabInstruction then
+    ModSettingSet("noita-mp.log_level_testing", "off")
+end
 ----------------------------------------------------------------------------------------------------
 --- Imports by dofile, dofile_once and require
 ----------------------------------------------------------------------------------------------------
 dofile("mods/noita-mp/files/scripts/init/init_.lua")
 local util = require("util")
-local fu = require("file_util")
-local ui = require("Ui").new()
+local fu   = require("file_util")
+local ui   = require("Ui").new()
 
-Logger.debug("init.lua", "Starting to load noita-mp init.lua..")
+Logger.debug(Logger.channels.initialize, "Starting to load noita-mp init.lua..")
 
 _G.profiler = require("profiler")
 
@@ -42,13 +46,13 @@ local function setSeedIfConnectedSecondTime()
     local cpc  = CustomProfiler.start("ModSettingGet")
     local seed = tonumber(ModSettingGet("noita-mp.connect_server_seed"))
     CustomProfiler.stop("ModSettingGet", cpc)
-    Logger.debug("init.lua", "Servers world seed = ", seed)
+    Logger.debug(Logger.channels.initialize, ("Servers world seed = %s"):format(seed))
     if not seed and seed > 0 then
         if DebugGetIsDevBuild() then
             util.Sleep(5) -- needed to be able to attach debugger again
         end
 
-        local cpc1  = CustomProfiler.start("ModSettingGet")
+        local cpc1                  = CustomProfiler.start("ModSettingGet")
         local saveSlotMetaDirectory = ModSettingGet("noita-mp.saveSlotMetaDirectory")
         CustomProfiler.stop("ModSettingGet", cpc1)
         if saveSlotMetaDirectory then
@@ -74,7 +78,7 @@ function OnWorldInitialized()
     local cpc = CustomProfiler.start("init.OnWorldInitialized")
     Logger.debug(Logger.channels.initialize, "OnWorldInitialized()")
 
-    local cpc1  = CustomProfiler.start("ModSettingGet")
+    local cpc1     = CustomProfiler.start("ModSettingGet")
     local make_zip = ModSettingGet("noita-mp.server_start_7zip_savegame")
     CustomProfiler.stop("ModSettingGet", cpc1)
     Logger.debug(Logger.channels.initialize, "make_zip = " .. tostring(make_zip))
@@ -87,7 +91,7 @@ function OnWorldInitialized()
                                                                                                                 destination)
         Logger.debug(Logger.channels.initialize, msg)
         GamePrint(msg)
-        local cpc1  = CustomProfiler.start("ModSettingSetNextValue")
+        local cpc1 = CustomProfiler.start("ModSettingSetNextValue")
         ModSettingSetNextValue("noita-mp.server_start_7zip_savegame", false,
                                false) -- automatically start the server again
         CustomProfiler.stop("ModSettingSetNextValue", cpc1)
@@ -152,10 +156,11 @@ function OnWorldPreUpdate()
                 if saveSlotMeta then
                     --- Set modSettings as well when changing this: ModSettingSetNextValue("noita-mp.saveSlotMetaDirectory", _G.saveSlotMeta, false)
                     _G.saveSlotMeta = saveSlotMeta
-                    local cpc1  = CustomProfiler.start("ModSettingSetNextValue")
+                    local cpc1      = CustomProfiler.start("ModSettingSetNextValue")
                     ModSettingSetNextValue("noita-mp.saveSlotMetaDirectory", _G.saveSlotMeta.dir, false)
                     CustomProfiler.stop("ModSettingSetNextValue", cpc1)
-                    Logger.info(Logger.channels.initialize, "Save slot found in '%s'", util.pformat(_G.saveSlotMeta))
+                    Logger.info(Logger.channels.initialize,
+                                ("Save slot found in '%s'"):format(util.pformat(_G.saveSlotMeta)))
                 end
             end
         end

@@ -57,6 +57,7 @@ dofile("mods/noita-mp/files/scripts/init/init_logger.lua")
 if require and not isTestLuaContext then
     -- Load utils
     require 'noitamp_cache'
+    require("NetworkCacheUtils")
     require("EntityUtils")
     require("GlobalsUtils")
     require("NetworkVscUtils")

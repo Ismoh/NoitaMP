@@ -289,10 +289,10 @@ function Server:update()
 
     while event do
         if event.type == "connect" then
-            local eventClient = ClientInit.new(sock.newClient(event.peer)) -- sock.newClient(event.peer)
+            local eventClient = ClientInit.new(sock.newClient(event.peer))
             eventClient:establishClient(event.peer)
             eventClient:setSerialization(self.serialize, self.deserialize)
-            eventClient.clientCacheId = GuidUtils.toNumber(peer.guid) --getNextClientCacheId()
+            eventClient.clientCacheId = GuidUtils.toNumber(eventClient.guid)
             table.insert(self.peers, event.peer)
             table.insert(self.clients, eventClient)
             self:_activateTriggers("connect", event.data, eventClient)

@@ -249,7 +249,8 @@ function fu.getLastModifiedSaveSlots()
 
         watcher(save0X, function(lastModified)
             if lastModified > 0 then
-                Logger.debug(nil, "SaveSlot(%s) directory was last modified at %s.", "save0" .. i, lastModified)
+                Logger.debug(Logger.channels.initialize,
+                             ("SaveSlot(%s) directory was last modified at %s."):format("save0" .. i, lastModified))
                 table.insert(saveSlotLastModified, { dir = save0X, lastModified = lastModified, slot = i })
             end
         end)
@@ -438,7 +439,8 @@ function fu.removeContentOfDirectory(absolutePath)
     if not successRmDir or errorRmDir then
         local command                 = ('rmdir /s /q "%s"'):format(absolutePath)
         local success, exitCode, code = os.execute(command)
-        Logger.debug(nil, "Tried to remove directory. success=%s, exictCode=%s, code=%s", success, exitCode, code)
+        Logger.debug(Logger.channels.testing,
+                     ("Tried to remove directory. success=%s, exictCode=%s, code=%s"):format(success, exitCode, code))
     end
 
     lfs.mkdir(absolutePath)
@@ -460,7 +462,7 @@ function fu.Find7zipExecutable()
         end
         local response = f:read("*a")
         _G.seven_zip   = tostring(fu.ReplacePathSeparator(response))
-        Logger.debug(nil, "file_util.lua | Found 7z.exe: " .. _G.seven_zip)
+        Logger.debug(Logger.channels.testing, "file_util.lua | Found 7z.exe: " .. _G.seven_zip)
     else
         error(
                 "Unfortunately unix systems aren't supported yet. Please consider https://github.com/Ismoh/NoitaMP/issues!",
@@ -510,7 +512,7 @@ function fu.Create7zipArchive(archive_name, absolute_directory_path_to_add_archi
     local command                          = 'cd "' ..
             absolute_destination_path ..
             '" && 7z.exe a -t7z ' .. archive_name .. ' "' .. absolute_directory_path_to_add_archive .. '"'
-    Logger.debug(nil, "file_util.lua | Running: " .. command)
+    Logger.debug(Logger.channels.testing, "file_util.lua | Running: " .. command)
     os.execute(command)
 
     local archive_full_path = absolute_destination_path .. _G.path_separator .. archive_name .. ".7z"
@@ -528,7 +530,7 @@ function fu.Extract7zipArchive(archive_absolute_directory_path, archive_name, ex
     local command                   = 'cd "' ..
             archive_absolute_directory_path ..
             '" && 7z.exe x -aoa ' .. archive_name .. ' -o"' .. extract_absolute_directory_path .. '"'
-    Logger.debug(nil, "file_util.lua | Running: " .. command)
+    Logger.debug(Logger.channels.testing, "file_util.lua | Running: " .. command)
     os.execute(command)
 end
 

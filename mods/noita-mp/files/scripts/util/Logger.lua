@@ -59,7 +59,8 @@ function Logger.log(level, channel, message)
     if not message then
         error("Unable to log, because 'message' must not be nil!", 2)
     end
-    if message:contains("%") then
+    -- string.contains is not available in NoitaComponents and Logger.lua is also used in NoitaComponents.
+    if string.contains and message:contains("%") then
         error("There is a directive (%) in your log message. Use string.format! Message = '" .. message .. "'", 2)
     end
 
@@ -72,24 +73,22 @@ function Logger.log(level, channel, message)
         error(("Looks like you missed to add 'noita-mp.log_level_%s' in settings.lua"):format(channel), 2)
     end
 
-    --if isTestLuaContext then
-    --    local util   = require("util")
-    --    local pprint = require("pprint")
-    --    pprint.pprint(logLevelOfSettings)
-    --    print(("level = %s, channel = %s, logLevelOfSettings = %s, string.contains(logLevelOfSettings[1], level) = %s")
-    --                  :format(level, channel, util.pformat(logLevelOfSettings),
-    --                          string.contains(logLevelOfSettings[1], level)))
-    --end
-    if not string.contains(logLevelOfSettings[1], level) then
+    -- Stupid workaround fix for stupid ModSettings:
+    -- default_value cannot be a table and is a string, i.e. default_value = "OFF"
+    if type(logLevelOfSettings) == "string" then
+        logLevelOfSettings = { logLevelOfSettings, logLevelOfSettings }
+    end
+
+    -- string.contains is not available in NoitaComponents and Logger.lua is also used in NoitaComponents.
+    if string.contains and not string.contains(logLevelOfSettings[1], level) then
         -- If Logger.debug(), but Log level is on info, then do not log!
         return false
     end
 
-    channel = string.ExtendOrCutStringToLength(channel, 10, " ")
-    level   = string.ExtendOrCutStringToLength(level, 5, " ")
-
     local msg
     if require then
+        channel         = string.ExtendOrCutStringToLength(channel, 10, " ")
+        level           = string.ExtendOrCutStringToLength(level, 5, " ")
         local time      = os.date("%X")
         -- add file name to logs: https://stackoverflow.com/a/48469960/3493998
         local file_name = debug.getinfo(2, "S").source:sub(2)
@@ -101,11 +100,8 @@ function Logger.log(level, channel, message)
                 :format("--:--:--", level, channel, message)
     end
 
-    --if logLevelOfSettings ~= nil and table.contains(logLevelOfSettings, level) then
     print(msg)
     return true
-    --end
-    --return false
 end
 
 function Logger.trace(channel, formattedMessage)

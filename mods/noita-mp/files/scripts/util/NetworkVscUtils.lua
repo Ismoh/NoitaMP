@@ -57,8 +57,8 @@ local function checkIfSpecificVscExists(entityId, componentTypeName, fieldNameFo
 
     local componentIds = EntityGetComponentIncludingDisabled(entityId, componentTypeName) or {}
     if isEmpty(componentIds) then
-        Logger.debug(Logger.channels.vsc, "Entity(%s) does not have any %s. Returning nil.", entityId,
-                     componentTypeName)
+        Logger.debug(Logger.channels.vsc,
+                     ("Entity(%s) does not have any %s. Returning nil."):format(entityId, componentTypeName))
         CustomProfiler.stop("NetworkVscUtils.checkIfSpecificVscExists", cpc)
         return false
     end
@@ -74,8 +74,9 @@ local function checkIfSpecificVscExists(entityId, componentTypeName, fieldNameFo
             return componentIds[i], value
         end
     end
-    Logger.warn(Logger.channels.vsc, "Looks like the %s.%s does not exists on entity(%s). Returning nil!",
-                componentTypeName, fieldNameForMatch, entityId)
+    Logger.warn(Logger.channels.vsc,
+                ("Looks like the %s.%s does not exists on entity(%s). Returning nil!")
+                        :format(componentTypeName, fieldNameForMatch, entityId))
     CustomProfiler.stop("NetworkVscUtils.checkIfSpecificVscExists", cpc)
     return false
 end
@@ -101,13 +102,9 @@ local function addOrUpdateVscForOwnerName(entityId, ownerName)
     if compId then
         ComponentSetValue2(compId, NetworkVscUtils.valueString, ownerName)
         Logger.debug(Logger.channels.vsc,
-                     "Owner.name(%s) was set to already existing VSC(%s, %s) on entity(%s). Previous owner name = %s",
-                     ownerName,
-                     NetworkVscUtils.componentNameOfOwnersName,
-                     compId,
-                     entityId,
-                     compOwnerName
-        )
+                     ("Owner.name(%s) was set to already existing VSC(%s, %s) on entity(%s). Previous owner name = %s")
+                             :format(ownerName, NetworkVscUtils.componentNameOfOwnersName, compId, entityId,
+                                     compOwnerName))
         CustomProfiler.stop("NetworkVscUtils.addOrUpdateVscForOwnerName", cpc)
         return compId
     else
@@ -118,12 +115,8 @@ local function addOrUpdateVscForOwnerName(entityId, ownerName)
         ComponentAddTag(compId, "enabled_in_hand")
         ComponentAddTag(compId, "enabled_in_world")
         Logger.debug(Logger.channels.vsc,
-                     "VariableStorageComponent (%s = %s) added with noita componentId = %s to entityId = %s!",
-                     NetworkVscUtils.componentNameOfOwnersName,
-                     ownerName,
-                     compId,
-                     entityId
-        )
+                     ("VariableStorageComponent (%s = %s) added with noita componentId = %s to entityId = %s!")
+                             :format(NetworkVscUtils.componentNameOfOwnersName, ownerName, compId, entityId))
         CustomProfiler.stop("NetworkVscUtils.addOrUpdateVscForOwnerName", cpc)
         return compId
     end
@@ -151,13 +144,9 @@ local function addOrUpdateVscForOwnerGuid(entityId, ownerGuid)
     if compId then
         ComponentSetValue2(compId, NetworkVscUtils.valueString, ownerGuid)
         Logger.debug(Logger.channels.vsc,
-                     "Owner.guid(%s) was set to already existing VSC(%s, %s) on entity(%s). Previous owner guid = %s",
-                     ownerGuid,
-                     NetworkVscUtils.componentNameOfOwnersGuid,
-                     compId,
-                     entityId,
-                     compOwnerGuid
-        )
+                     ("Owner.guid(%s) was set to already existing VSC(%s, %s) on entity(%s). Previous owner guid = %s")
+                             :format(ownerGuid, NetworkVscUtils.componentNameOfOwnersGuid, compId, entityId,
+                                     compOwnerGuid))
         CustomProfiler.stop("NetworkVscUtils.addOrUpdateVscForOwnerGuid", cpc)
         return compId
     else
@@ -168,12 +157,8 @@ local function addOrUpdateVscForOwnerGuid(entityId, ownerGuid)
         ComponentAddTag(compId, "enabled_in_hand")
         ComponentAddTag(compId, "enabled_in_world")
         Logger.debug(Logger.channels.vsc,
-                     "VariableStorageComponent (%s = %s) added with noita componentId = %s to entityId = %s!",
-                     NetworkVscUtils.componentNameOfOwnersName,
-                     ownerGuid,
-                     compId,
-                     entityId
-        )
+                     ("VariableStorageComponent (%s = %s) added with noita componentId = %s to entityId = %s!")
+                             :format(NetworkVscUtils.componentNameOfOwnersName, ownerGuid, compId, entityId))
         CustomProfiler.stop("NetworkVscUtils.addOrUpdateVscForOwnerGuid", cpc)
         return compId
     end
@@ -206,12 +191,8 @@ local function addOrUpdateVscForNuid(entityId, nuid)
     if compId and (not compNuid or compNuid == "") then
         ComponentSetValue2(compId, NetworkVscUtils.valueString, nuid)
         Logger.debug(Logger.channels.vsc,
-                     "Nuid(%s) was set to already existing VSC(%s, %s) on entity(%s)",
-                     nuid,
-                     NetworkVscUtils.componentNameOfNuid,
-                     compId,
-                     entityId
-        )
+                     ("Nuid(%s) was set to already existing VSC(%s, %s) on entity(%s)")
+                             :format(nuid, NetworkVscUtils.componentNameOfNuid, compId, entityId))
         CustomProfiler.stop("NetworkVscUtils.addOrUpdateVscForNuid", cpc)
         return compId
     end
@@ -225,12 +206,8 @@ local function addOrUpdateVscForNuid(entityId, nuid)
         ComponentAddTag(compId, "enabled_in_hand")
         ComponentAddTag(compId, "enabled_in_world")
         Logger.debug(Logger.channels.vsc,
-                     "VariableStorageComponent (%s = %s) added with noita componentId = %s to entityId = %s!",
-                     NetworkVscUtils.componentNameOfNuid,
-                     nuid,
-                     compId,
-                     entityId
-        )
+                     ("VariableStorageComponent (%s = %s) added with noita componentId = %s to entityId = %s!")
+                             :format(NetworkVscUtils.componentNameOfNuid, nuid, compId, entityId))
         CustomProfiler.stop("NetworkVscUtils.addOrUpdateVscForNuid", cpc)
         return compId
     end
@@ -252,7 +229,7 @@ local function addNuidDebugger(entityId)
             entityId, "LuaComponent", "script_source_file",
             NetworkVscUtils.componentNameOfNuidDebugger, "script_source_file")
     if compId then
-        Logger.debug(Logger.channels.vsc, "Entity(%s) already has a nuid debugger.")
+        Logger.debug(Logger.channels.vsc, ("Entity(%s) already has a nuid debugger."):format(entityId))
         CustomProfiler.stop("NetworkVscUtils.addNuidDebugger", cpc)
         return compId
     else
@@ -264,12 +241,8 @@ local function addNuidDebugger(entityId)
         ComponentAddTag(compId, "enabled_in_hand")
         ComponentAddTag(compId, "enabled_in_world")
         Logger.debug(Logger.channels.vsc,
-                     "LuaComponent (%s = %s) added with noita componentId = %s to entityId = %s!",
-                     NetworkVscUtils.componentNameOfNuidDebugger,
-                     "nuid_debug.lua",
-                     compId,
-                     entityId
-        )
+                     ("LuaComponent (%s = %s) added with noita componentId = %s to entityId = %s!")
+                             :format(NetworkVscUtils.componentNameOfNuidDebugger, "nuid_debug.lua", compId, entityId))
         CustomProfiler.stop("NetworkVscUtils.addNuidDebugger", cpc)
         return compId
     end
@@ -291,7 +264,7 @@ local function addNuidUpdater(entityId)
             entityId, "LuaComponent", "script_source_file",
             NetworkVscUtils.componentNameOfNuidUpdater, "script_source_file")
     if compId then
-        Logger.debug(Logger.channels.vsc, "Entity(%s) already has a nuid updater.")
+        Logger.debug(Logger.channels.vsc, ("Entity(%s) already has a nuid updater."):format(entityId))
         CustomProfiler.stop("NetworkVscUtils.addNuidUpdater", cpc)
         return compId
     else
@@ -305,12 +278,8 @@ local function addNuidUpdater(entityId)
         ComponentAddTag(compId, "enabled_in_hand")
         ComponentAddTag(compId, "enabled_in_world")
         Logger.debug(Logger.channels.vsc,
-                     "LuaComponent (%s = %s) added with noita componentId = %s to entityId = %s!",
-                     NetworkVscUtils.componentNameOfNuidUpdater,
-                     "nuid_updater.lua",
-                     compId,
-                     entityId
-        )
+                     ("LuaComponent (%s = %s) added with noita componentId = %s to entityId = %s!")
+                             :format(NetworkVscUtils.componentNameOfNuidUpdater, "nuid_updater.lua", compId, entityId))
         CustomProfiler.stop("NetworkVscUtils.addNuidUpdater", cpc)
         return compId
     end

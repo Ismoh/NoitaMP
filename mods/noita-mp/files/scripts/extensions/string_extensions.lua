@@ -77,6 +77,12 @@ end
 --- @param pattern string String, Char, Regex
 --- @return boolean found: 'true' if found, else 'false'.
 string.contains                  = function(str, pattern)
+    if not str or str == "" then
+        error("str must not be nil!", 2)
+    end
+    if not pattern or pattern == "" then
+        error("pattern must not be nil!", 2)
+    end
     local found = string.find(str:lower(), pattern:lower(), 1, true)
     if not found or found < 1 then
         found = false

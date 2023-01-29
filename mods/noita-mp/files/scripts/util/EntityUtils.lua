@@ -306,8 +306,8 @@ function EntityUtils.getLocalPlayerEntityId()
         end
     end
     Logger.debug(Logger.channels.entity,
-                 "Unable to get local player entity id. Returning first entity id(%s), which was found.",
-                 playerEntityIds[1])
+                 ("Unable to get local player entity id. Returning first entity id(%s), which was found.")
+                         :format(playerEntityIds[1]))
     EntityUtils.localPlayerEntityId = playerEntityIds[1]
     CustomProfiler.stop("EntityUtils.getLocalPlayerEntityId", cpc)
     return playerEntityIds[1]
@@ -615,7 +615,8 @@ function EntityUtils.spawnEntity(owner, nuid, x, y, rotation, velocity, filename
     if EntityUtils.isEntityAlive(localEntityId) and NetworkVscUtils.hasNetworkLuaComponents(localEntityId) then
         local ownerNameByVsc, ownerGuidByVsc, nuidByVsc = NetworkVscUtils.getAllVcsValuesByEntityId(localEntityId)
         if ownerGuidByVsc ~= remoteGuid then
-            error(("Trying to spawn entity(%s) locally, but owner does not match: remoteOwner(%s) ~= localOwner(%s). remoteNuid(%s) ~= localNuid(%s)")
+            error(("Trying to spawn entity(%s) locally, but owner does not match: " +
+                    "remoteOwner(%s) ~= localOwner(%s). remoteNuid(%s) ~= localNuid(%s)")
                           :format(localEntityId, remoteName, ownerNameByVsc, nuid, nuidByVsc), 2)
         end
     end

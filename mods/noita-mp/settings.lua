@@ -308,10 +308,10 @@ DEBUG:   You will see debug, info and warnings.
 INFO:    You will see info and warnings.
 WARNING: You will see only warnings.
 ]],
-                value_default  = "off",
+                value_default  = "OFF",
                 values         = {
-                    { "off", "OFF"},
-                    { "trace, debug, info, warn", "TRACE"},
+                    { "off", "OFF" },
+                    { "trace, debug, info, warn", "TRACE" },
                     { "debug, info, warn", "DEBUG" },
                     { "info, warn", "INFO" },
                     { "warn", "WARNING" },
@@ -329,31 +329,10 @@ DEBUG:   You will see debug, info and warnings.
 INFO:    You will see info and warnings.
 WARNING: You will see only warnings.
 ]],
-                value_default  = "off",
+                value_default  = "OFF",
                 values         = {
-                    { "off", "OFF"},
-                    { "trace, debug, info, warn", "TRACE"},
-                    { "debug, info, warn", "DEBUG" },
-                    { "info, warn", "INFO" },
-                    { "warn", "WARNING" },
-                },
-                scope          = MOD_SETTING_SCOPE_RUNTIME,
-                change_fn      = mod_setting_change_callback, -- Called when the user interact with the settings widget.
-            },
-            {
-                id             = "log_level_guid",
-                ui_name        = "Log level related to GUID",
-                ui_description = [[Set the current log level, for printing messages into console.
-OFF:     You will see nothing.
-TRACE:   You will see trace, debug, info and warnings.
-DEBUG:   You will see debug, info and warnings.
-INFO:    You will see info and warnings.
-WARNING: You will see only warnings.
-]],
-                value_default  = "off",
-                values         = {
-                    { "off", "OFF"},
-                    { "trace, debug, info, warn", "TRACE"},
+                    { "off", "OFF" },
+                    { "trace, debug, info, warn", "TRACE" },
                     { "debug, info, warn", "DEBUG" },
                     { "info, warn", "INFO" },
                     { "warn", "WARNING" },
@@ -371,10 +350,10 @@ DEBUG:   You will see debug, info and warnings.
 INFO:    You will see info and warnings.
 WARNING: You will see only warnings.
 ]],
-                value_default  = "off",
+                value_default  = "OFF",
                 values         = {
-                    { "off", "OFF"},
-                    { "trace, debug, info, warn", "TRACE"},
+                    { "off", "OFF" },
+                    { "trace, debug, info, warn", "TRACE" },
                     { "debug, info, warn", "DEBUG" },
                     { "info, warn", "INFO" },
                     { "warn", "WARNING" },
@@ -392,10 +371,10 @@ DEBUG:   You will see debug, info and warnings.
 INFO:    You will see info and warnings.
 WARNING: You will see only warnings.
 ]],
-                value_default  = "off",
+                value_default  = "OFF",
                 values         = {
-                    { "off", "OFF"},
-                    { "trace, debug, info, warn", "TRACE"},
+                    { "off", "OFF" },
+                    { "trace, debug, info, warn", "TRACE" },
                     { "debug, info, warn", "DEBUG" },
                     { "info, warn", "INFO" },
                     { "warn", "WARNING" },
@@ -413,10 +392,10 @@ DEBUG:   You will see debug, info and warnings.
 INFO:    You will see info and warnings.
 WARNING: You will see only warnings.
 ]],
-                value_default  = "off",
+                value_default  = "OFF",
                 values         = {
-                    { "off", "OFF"},
-                    { "trace, debug, info, warn", "TRACE"},
+                    { "off", "OFF" },
+                    { "trace, debug, info, warn", "TRACE" },
                     { "debug, info, warn", "DEBUG" },
                     { "info, warn", "INFO" },
                     { "warn", "WARNING" },
@@ -434,17 +413,18 @@ DEBUG:   You will see debug, info and warnings.
 INFO:    You will see info and warnings.
 WARNING: You will see only warnings.
 ]],
-                value_default  = "off",
+                value_default  = "OFF",
                 values         = {
-                    { "off", "OFF"},
-                    { "trace, debug, info, warn", "TRACE"},
+                    { "off", "OFF" },
+                    { "trace, debug, info, warn", "TRACE" },
                     { "debug, info, warn", "DEBUG" },
                     { "info, warn", "INFO" },
                     { "warn", "WARNING" },
                 },
                 scope          = MOD_SETTING_SCOPE_RUNTIME,
                 change_fn      = mod_setting_change_callback, -- Called when the user interact with the settings widget.
-            }, {
+            },
+            {
                 id             = "log_level_vsc",
                 ui_name        = "Log level related to Network VariableStorageComponents",
                 ui_description = [[Set the current log level, for printing messages into console.
@@ -454,16 +434,22 @@ DEBUG:   You will see debug, info and warnings.
 INFO:    You will see info and warnings.
 WARNING: You will see only warnings.
 ]],
-                value_default  = "off",
+                value_default  = "OFF",
                 values         = {
-                    { "off", "OFF"},
-                    { "trace, debug, info, warn", "TRACE"},
+                    { "off", "OFF" },
+                    { "trace, debug, info, warn", "TRACE" },
                     { "debug, info, warn", "DEBUG" },
                     { "info, warn", "INFO" },
                     { "warn", "WARNING" },
                 },
                 scope          = MOD_SETTING_SCOPE_RUNTIME,
                 change_fn      = mod_setting_change_callback, -- Called when the user interact with the settings widget.
+            },
+            {
+                id            = "log_level_testing",
+                value_default = "OFF",
+                hidden        = true,
+                change_fn     = mod_setting_change_callback, -- Called when the user interact with the settings widget.
             },
         },
     },

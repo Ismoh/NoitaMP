@@ -23,8 +23,8 @@ local function added()
 
     if currentEntityId ~= globalsEntityId then
         GlobalsUtils.setNuid(nuid, currentEntityId)
-        Logger.debug(Logger.channels.nuid,
-                     "nuid in noitas global storage was set: nuid = %s and entity_id = %s", nuid, currentEntityId)
+        Logger.debug(Logger.channels.nuid, ("nuid in noitas global storage was set: nuid = %s and entity_id = %s")
+                :format(nuid, currentEntityId))
     end
 end
 
