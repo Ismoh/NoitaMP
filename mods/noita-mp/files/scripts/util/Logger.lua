@@ -34,7 +34,8 @@ Logger.channels = {
     vsc        = "vsc",
     profiler   = "profiler",
     initialize = "initialize",
-    testing    = "testing"
+    testing    = "testing",
+    cache      = "cache"
 }
 
 --- Main function for logging, which simply uses `print()`.
@@ -93,7 +94,7 @@ function Logger.log(level, channel, message)
         -- add file name to logs: https://stackoverflow.com/a/48469960/3493998
         local file_name = debug.getinfo(2, "S").source:sub(2)
         file_name       = file_name:match("^.*/(.*)$") or file_name
-        msg             = ("%s [%s][%s] %s \n(in %s)\n")
+        msg             = ("%s [%s][%s] %s \n(in %s)")
                 :format(time, level, channel, message, file_name)
     else
         msg = ("%s [%s][%s] %s")

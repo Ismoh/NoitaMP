@@ -30,19 +30,16 @@ function NetworkCacheUtils.getSum(event, data)
         error(("Event '%s' shouldn't be cached!"):format(event), 2)
     end
 
-    local sumWithNetworkMessageId = table.contentToString(data)
-    Logger.trace(Logger.channels.testing, ("sumWithNetworkMessageId = %s"):format(sumWithNetworkMessageId))
-    local firstCommaIndex = string.find(sumWithNetworkMessageId:lower(), ",", 1, true)
-    if firstCommaIndex then
-        firstCommaIndex = firstCommaIndex + 1
-    else
-        return "" -- TODO: ModList does not contain 'data'?
-    end
-    Logger.trace(Logger.channels.testing, ("firstCommaIndex = %s"):format(firstCommaIndex))
-    local sum = string.sub(sumWithNetworkMessageId, firstCommaIndex)
+    local dataCopy = table.deepcopy(data)
+    Logger.trace(Logger.channels.testing, "dataCopy: " .. util.pformat(dataCopy))
+    dataCopy = NetworkUtils.getClientOrServer().zipTable(data, NetworkUtils.events[event].schema, event)
+    Logger.trace(Logger.channels.testing, "dataCopy zipped: " .. util.pformat(dataCopy))
+    dataCopy.networkMessageId = nil
+    Logger.trace(Logger.channels.testing, "dataCopy without networkMessageId: " .. util.pformat(dataCopy))
 
-    Logger.trace(Logger.channels.testing, "getSum-end: " .. util.pformat(data))
+    local sum = table.contentToString(dataCopy)
     Logger.trace(Logger.channels.testing, ("sum = %s"):format(sum))
+    Logger.trace(Logger.channels.testing, "getSum-end: " .. util.pformat(dataCopy))
     return sum
 end
 
@@ -54,9 +51,13 @@ function NetworkCacheUtils.set(peerGuid, networkMessageId, event, status, ackedA
     if not NetworkUtils.events[event].isCacheable then
         error(("Event '%s' shouldn't be cached!"):format(event), 2)
     end
-    local sum          = NetworkCacheUtils.getSum(event, data)
-    local dataChecksum = md5.sumhexa(sum)
-    NetworkCache.set(GuidUtils.toNumber(peerGuid), networkMessageId, event, status, ackedAt, sendAt, dataChecksum)
+    local sum           = NetworkCacheUtils.getSum(event, data)
+    local dataChecksum  = md5.sumhexa(sum)
+    local clientCacheId = GuidUtils.toNumber(peerGuid)
+    NetworkCache.set(clientCacheId, networkMessageId, event, status, ackedAt, sendAt, dataChecksum)
+    Logger.info(Logger.channels.cache,
+                ("Set nCache for clientCacheId %s, networkMessageId %s, event %s, status %s, ackedAt %s, sendAt %s, dataChecksum %s")
+                        :format(clientCacheId, networkMessageId, event, status, ackedAt, sendAt, dataChecksum))
     return dataChecksum
 end
 
@@ -69,7 +70,11 @@ function NetworkCacheUtils.get(peerGuid, networkMessageId, event)
                 ("NetworkCacheUtils.get(%s, %s, %s)"):format(peerGuid, networkMessageId, event))
     Logger.info(Logger.channels.testing,
                 ("NetworkCache.get(%s, %s, %s)"):format(GuidUtils.toNumber(peerGuid), event, networkMessageId))
-    local data = NetworkCache.get(GuidUtils.toNumber(peerGuid), event, tonumber(networkMessageId))
+    local clientCacheId = GuidUtils.toNumber(peerGuid)
+    local data          = NetworkCache.get(clientCacheId, event, tonumber(networkMessageId))
+    Logger.info(Logger.channels.cache,
+                ("Get nCache by clientCacheId %s, event %s, networkMessageId %s, data %s")
+                        :format(clientCacheId, event, networkMessageId, util.pformat(data)))
     return data
 end
 
@@ -78,9 +83,13 @@ function NetworkCacheUtils.getByChecksum(peerGuid, data, event)
     if not NetworkUtils.events[event].isCacheable then
         error(("Event '%s' shouldn't be cached!"):format(event), 2)
     end
-    local sum          = NetworkCacheUtils.getSum(event, data)
-    local dataChecksum = md5.sumhexa(sum)
-    local cacheData    = NetworkCache.getChecksum(GuidUtils.toNumber(peerGuid), dataChecksum)
+    local sum           = NetworkCacheUtils.getSum(event, data)
+    local dataChecksum  = md5.sumhexa(sum)
+    local clientCacheId = GuidUtils.toNumber(peerGuid)
+    local cacheData     = NetworkCache.getChecksum(clientCacheId, dataChecksum)
+    Logger.info(Logger.channels.cache,
+                ("Get nCache by clientCacheId %s, dataChecksum %s, event %s, cacheData %s")
+                        :format(clientCacheId, dataChecksum, event, util.pformat(cacheData)))
     return cacheData
 end
 

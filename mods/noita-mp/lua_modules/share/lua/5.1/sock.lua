@@ -3,7 +3,7 @@
 -- * [Examples](https://github.com/camchenry/sock.lua/tree/master/examples)
 -- @module sock
 
-local sock              = {
+local sock = {
     _VERSION     = 'sock.lua v0.3.0',
     _DESCRIPTION = 'A Lua networking library for LÖVE games',
     _URL         = 'https://github.com/camchenry/sock.lua',
@@ -32,10 +32,9 @@ local sock              = {
     ]]
 }
 
-local enet              = require("enet")
-local util              = require("util")
-local fu                = require("file_util")
-
+local enet = require("enet")
+local util = require("util")
+local fu   = require("file_util")
 
 _G.Logger.info(_G.Logger.channels.initialize, "lua-enet version = master branch 21.10.2015")
 _G.Logger.info(_G.Logger.channels.initialize, "enet version = " .. enet.linked_version()) -- 1.3.17
@@ -1469,6 +1468,10 @@ sock.newServer = function(address, port, maxPeers, maxChannels, inBandwidth, out
 
                                 }, Server_mt)
 
+    server.zipTable = function(items, keys, event)
+        return zipTable(items, keys, event)
+    end
+
     -- -- ip, max peers, max channels, in bandwidth, out bandwidth
     -- -- number of channels for the client and server must match
     -- server.host = enet.host_create(server.address .. ":" .. server.port, server.maxPeers, server.maxChannels)
@@ -1538,6 +1541,10 @@ sock.newClient = function(serverOrAddress, port, maxChannels)
                                        packetsSent        = 0,
 
                                    }, Client_mt)
+
+    client.zipTable = function(items, keys, event)
+        return zipTable(items, keys, event)
+    end
 
     -- -- Two different forms for client creation:
     -- -- 1. Pass in (address, port) and connect to that.

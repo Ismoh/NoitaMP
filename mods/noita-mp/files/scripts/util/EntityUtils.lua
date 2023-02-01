@@ -602,10 +602,7 @@ function EntityUtils.spawnEntity(owner, nuid, x, y, rotation, velocity, filename
     local remoteName = owner.name or owner[1]
     local remoteGuid = owner.guid or owner[2]
 
-    if localGuid == remoteGuid then
-        if not EntityUtils.isEntityAlive(localEntityId) then
-            return
-        end
+    if localGuid == remoteGuid and EntityUtils.isEntityAlive(localEntityId) then
         -- if the owner sent by network is the local owner, don't spawn an additional entity, but update the nuid
         NetworkVscUtils.addOrUpdateAllVscs(localEntityId, remoteName, remoteGuid, nuid)
         return
@@ -614,9 +611,9 @@ function EntityUtils.spawnEntity(owner, nuid, x, y, rotation, velocity, filename
     -- double check, if there is already an entity with this NUID and return the entity_id
     if EntityUtils.isEntityAlive(localEntityId) and NetworkVscUtils.hasNetworkLuaComponents(localEntityId) then
         local ownerNameByVsc, ownerGuidByVsc, nuidByVsc = NetworkVscUtils.getAllVcsValuesByEntityId(localEntityId)
-        if ownerGuidByVsc ~= remoteGuid then
-            error(("Trying to spawn entity(%s) locally, but owner does not match: " +
-                    "remoteOwner(%s) ~= localOwner(%s). remoteNuid(%s) ~= localNuid(%s)")
+        -- if guid is not equal, but nuid is the same, then something is broken for sure!
+        if ownerGuidByVsc ~= remoteGuid and nuidByVsc == nuid then
+            error(("Trying to spawn entity(%s) locally, but owner does not match: remoteOwner(%s) ~= localOwner(%s). remoteNuid(%s) ~= localNuid(%s)")
                           :format(localEntityId, remoteName, ownerNameByVsc, nuid, nuidByVsc), 2)
         end
     end

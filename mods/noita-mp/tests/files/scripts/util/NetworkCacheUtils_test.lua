@@ -36,10 +36,16 @@ end
 
 function TestNetworkCacheUtils:testGetSum()
     local dataSimple  = { 9999,
-                          { name = "test", guid = "guid" }, 1234, 3, 1.2, 3.4, 0.5, { 12, 3 } }
+                          { name = "test", guid = "guid" }, 1234, 3, 1.2, 3.4, 0.5, { 12, 4 } }
     local sumSimple   = NetworkCacheUtils.getSum(NetworkUtils.events.newNuid.name, dataSimple)
-    local sumExpected = "test,guid,1234,3,1.2,3.4,0.5,12,3"
+    local sumExpected = "test,guid,1.2,12,4,0.5,3.4,3,1234"
     lu.assertEquals(sumSimple, sumExpected)
+
+    local dataSimple2  = { 9999,
+                          { name = "test", guid = "guid" }, 9876, 33, 1.22, 3.44, 0.55, { 24, 8 } }
+    local sumSimple2   = NetworkCacheUtils.getSum(NetworkUtils.events.newNuid.name, dataSimple2)
+    local sumExpected2 = "test,guid,1.22,24,8,0.55,3.44,33,9876"
+    lu.assertEquals(sumSimple2, sumExpected2)
 
     local guid             = GuidUtils:getGuid()
     local networkMessageId = NetworkUtils.getNextNetworkMessageId()

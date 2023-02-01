@@ -310,13 +310,12 @@ function Server.new(sockServer)
 
         -- Make sure guids are unique. It's unlikely that two players have the same guid, but it can happen rarely.
         if self.guid == data.guid or table.contains(GuidUtils:getCachedGuids(), data.guid) then
-            error(("onPlayerInfo: guid %s is not unique!"):format(data.guid), 2)
+            Logger.warn(Logger.channels.network, ("onPlayerInfo: guid %s is not unique!"):format(data.guid))
             local newGuid     = GuidUtils:getGuid({ data.guid })
             local dataNewGuid = {
                 NetworkUtils.getNextNetworkMessageId(), data.guid, newGuid
             }
-            self:sendToAll(NetworkUtils.events.newGuid.name,
-                           dataNewGuid) -- TODO add processId to guid and save it an a processedId file.
+            self:sendToAll(NetworkUtils.events.newGuid.name, dataNewGuid)
             data.guid = newGuid
         end
 

@@ -408,7 +408,8 @@ function Client.new(sockClient)
 
         local serversSeed = tonumber(data.seed)
         Logger.info(Logger.channels.network,
-                    "Client received servers seed (%s) and stored it. Reloading map with that seed!", serversSeed)
+                    ("Client received servers seed (%s) and stored it. Reloading map with that seed!")
+                            :format(serversSeed))
 
         local localSeed = tonumber(StatsGetValue("world_seed"))
         if localSeed ~= serversSeed then

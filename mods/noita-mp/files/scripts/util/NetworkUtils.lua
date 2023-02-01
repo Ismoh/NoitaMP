@@ -131,26 +131,6 @@ NetworkUtils.events                  = {
     }
 }
 
---- Copy from sock.lua, because I am lazy
-local function zipTable(items, keys, event)
-    local cpc  = CustomProfiler.start("NetworkUtils.zipTable")
-    local data = {}
-
-    -- convert variable at index 1 into the value for the key value at index 1, and so on
-    for i, value in ipairs(items) do
-        local key = keys[i]
-
-        if not key then
-            error("Event '" .. event .. "' missing data key. Is the schema different between server and client?")
-        end
-
-        data[key] = value
-    end
-
-    CustomProfiler.stop("NetworkUtils.zipTable", cpc)
-    return data
-end
-
 local function getIndexFromSchema(data, schema, resendIdentifier)
     local cpc = CustomProfiler.start("NetworkUtils.getIndexFromSchema")
 
