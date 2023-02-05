@@ -25,8 +25,8 @@ NetworkUtils.events                  = {
     --- connect2 is used to let the other clients know, who was connected
     connect2        = {
         name        = "connect2",
-        schema      = { "name", "guid" },
-        isCacheable = false
+        schema      = { "networkMessageId", "name", "guid" },
+        isCacheable = true
     },
 
     disconnect      = {
@@ -79,8 +79,6 @@ NetworkUtils.events                  = {
         --- network schema to decode the message
         schema           = { "networkMessageId", "owner", "localEntityId", "newNuid", "x", "y", "rotation", "velocity",
                              "filename", "health", "isPolymorphed" },
-        --- identifier whether to send this message again, if it wasn't acknowledged
-        resendIdentifier = { "newNuid" },
         --- identifier whether to cache this message, if it wasn't acknowledged
         isCacheable      = true
     },
@@ -90,7 +88,6 @@ NetworkUtils.events                  = {
         name             = "needNuid",
         schema           = { "networkMessageId", "owner", "localEntityId", "x", "y",
                              "rotation", "velocity", "filename", "health", "isPolymorphed" },
-        resendIdentifier = { "localEntityId", "filename" },
         isCacheable      = true
     },
 
@@ -222,7 +219,7 @@ function NetworkUtils.alreadySent(peer, event, data)
     end
 
     --- Compare if the current data matches the cached checksum
-    local matchingData = NetworkCacheUtils.getByChecksum(peer.guid, data, event)
+    local matchingData = NetworkCacheUtils.getByChecksum(peer.guid, event, data)
     if matchingData ~= nil then
         return true;
     end

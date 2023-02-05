@@ -2,32 +2,47 @@
 --- Created by Ismoh-PC.
 --- DateTime: 23.01.2023 17:37
 ---
-local params = ...
+local params                       = ...
+
+--- Make absolutely sure, that the already mocked Noita API function is not overwritten
+local mockedModSettingGetNextValue = ModSettingGetNextValue
+ModSettingGetNextValue             = function(id)
+    if id == "noita-mp.toggle_profiler" then
+        return false
+    end
+    if id == "noita-mp.guid" then
+        return "noita-mp.guid"
+    end
+
+    if mockedModSettingGetNextValue then
+        mockedModSettingGetNextValue(id)
+    end
+
+    error(("Trying to access '%s', but it isn't mocked yet!"):format(id), 2)
+end
+
+if not ModSettingSetNextValue then
+    ModSettingSetNextValue = function(id)
+        Logger.trace(Logger.channels.testing, ("Mocked ModSettingSetNextValue id %s."):format(id))
+        return id
+    end
+end
 
 -- [[ require ]] --
 require("NetworkUtils")
 require("NetworkCacheUtils")
 require("noitamp_cache")
 require("CustomProfiler")
-local lu                           = require("luaunit")
-local md5                          = require("md5")
+require("Server")
+require("Client")
+local lu              = require("luaunit")
+local md5             = require("md5")
 
 -- [[ Test ]] --
-TestNetworkCacheUtils              = {}
+TestNetworkCacheUtils = {}
 
 --- Setup function for each test.
---- Make absolutely sure, that the already mocked Noita API function is not overwritten
-local mockedModSettingGetNextValue = ModSettingGetNextValue
 function TestNetworkCacheUtils:setUp()
-    ModSettingGetNextValue = function(id)
-        if id == "noita-mp.toggle_profiler" then
-            return false
-        end
-        if mockedModSettingGetNextValue then
-            mockedModSettingGetNextValue(id)
-        end
-        error(("Trying to access '%s', but it isn't mocked yet!"):format(id), 2)
-    end
 end
 
 --- Teardown function for each test.
@@ -42,7 +57,7 @@ function TestNetworkCacheUtils:testGetSum()
     lu.assertEquals(sumSimple, sumExpected)
 
     local dataSimple2  = { 9999,
-                          { name = "test", guid = "guid" }, 9876, 33, 1.22, 3.44, 0.55, { 24, 8 } }
+                           { name = "test", guid = "guid" }, 9876, 33, 1.22, 3.44, 0.55, { 24, 8 } }
     local sumSimple2   = NetworkCacheUtils.getSum(NetworkUtils.events.newNuid.name, dataSimple2)
     local sumExpected2 = "test,guid,1.22,24,8,0.55,3.44,33,9876"
     lu.assertEquals(sumSimple2, sumExpected2)
@@ -73,7 +88,7 @@ function TestNetworkCacheUtils:testSet()
                                 1234, 5--[[ different ]], 1.2, 3.4, 0.5, { 12, 3 }, "/test/filename.xml", { current = 57, max = 100 }, false }
     local expectedChecksum2 = NetworkCacheUtils.set(guid2, networkMessageId2, NetworkUtils.events.newNuid.name,
                                                     NetworkUtils.events.acknowledgement.sent, 0, os.clock(), data2)
-    local cached2           = NetworkCacheUtils.getByChecksum(guid2, data2, NetworkUtils.events.newNuid.name)
+    local cached2           = NetworkCacheUtils.getByChecksum(guid2, NetworkUtils.events.newNuid.name, data2)
     lu.assertEquals(cached2.dataChecksum, expectedChecksum2)
 end
 

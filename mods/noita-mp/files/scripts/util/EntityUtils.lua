@@ -602,8 +602,8 @@ function EntityUtils.spawnEntity(owner, nuid, x, y, rotation, velocity, filename
     local remoteName = owner.name or owner[1]
     local remoteGuid = owner.guid or owner[2]
 
-    if localGuid == remoteGuid and EntityUtils.isEntityAlive(localEntityId) then
-        -- if the owner sent by network is the local owner, don't spawn an additional entity, but update the nuid
+    if localGuid == remoteGuid and EntityUtils.isEntityAlive(localEntityId) and not NetworkVscUtils.hasNuidSet(localEntityId) then
+        -- if the owner sent by network is the local owner, don't spawn an additional entity, but update the nuid, when nuid is not set already
         NetworkVscUtils.addOrUpdateAllVscs(localEntityId, remoteName, remoteGuid, nuid)
         return
     end

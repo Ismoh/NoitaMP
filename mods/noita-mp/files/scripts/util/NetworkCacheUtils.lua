@@ -20,12 +20,13 @@ NetworkCacheUtils = {}
 
 function NetworkCacheUtils.getSum(event, data)
     Logger.trace(Logger.channels.testing, "getSum: " .. util.pformat(data))
-    if not event or type(event) ~= "string" then
+    if not event or util.IsEmpty(event) or type(event) ~= "string" then
         error(("Unable to calculate sum, when event is nil or not a string: '%s'"):format(event), 2)
     end
-    if not data or type(data) ~= "table" then
+    if not data or util.IsEmpty(data) or type(data) ~= "table" then
         error(("Unable to calculate sum, when data is nil or not a table: '%s'"):format(data), 2)
     end
+
     if not NetworkUtils.events[event].isCacheable then
         error(("Event '%s' shouldn't be cached!"):format(event), 2)
     end
@@ -48,9 +49,32 @@ end
 --- @param networkMessageId number
 ---
 function NetworkCacheUtils.set(peerGuid, networkMessageId, event, status, ackedAt, sendAt, data)
+    if not peerGuid or util.IsEmpty(peerGuid) or type(peerGuid) ~= "string" then
+        error(("peerGuid '%s' must not be nil or empty or isn't type of string!"):format(peerGuid), 2)
+    end
+    if not networkMessageId or util.IsEmpty(networkMessageId) or type(networkMessageId) ~= "number" then
+        error(("networkMessageId '%s' must not be nil or empty or isn't type of number!"):format(networkMessageId), 2)
+    end
+    if not event or util.IsEmpty(event) or type(event) ~= "string" then
+        error(("event '%s' must not be nil or empty or isn't type of string!"):format(event), 2)
+    end
+    if not status or util.IsEmpty(status) or type(status) ~= "string" then
+        error(("status '%s' must not be nil or empty or isn't type of string!"):format(status), 2)
+    end
+    if not ackedAt or util.IsEmpty(ackedAt) or type(ackedAt) ~= "number" then
+        error(("ackedAt '%s' must not be nil or empty or isn't type of number!"):format(ackedAt), 2)
+    end
+    if not sendAt or util.IsEmpty(sendAt) or type(sendAt) ~= "number" then
+        error(("sendAt '%s' must not be nil or empty or isn't type of number!"):format(sendAt), 2)
+    end
+    if not data or util.IsEmpty(data) or type(data) ~= "table" then
+        error(("data '%s' must not be nil or empty or isn't type of table!"):format(util.pformat(data)), 2)
+    end
+
     if not NetworkUtils.events[event].isCacheable then
         error(("Event '%s' shouldn't be cached!"):format(event), 2)
     end
+
     local sum           = NetworkCacheUtils.getSum(event, data)
     local dataChecksum  = md5.sumhexa(sum)
     local clientCacheId = GuidUtils.toNumber(peerGuid)
@@ -63,6 +87,20 @@ end
 
 --- @return table data { ackedAt, dataChecksum, event, messageId, sentAt, status}
 function NetworkCacheUtils.get(peerGuid, networkMessageId, event)
+    if not peerGuid or util.IsEmpty(peerGuid) or type(peerGuid) ~= "string" then
+        error(("peerGuid '%s' must not be nil or empty or isn't type of string!"):format(peerGuid), 2)
+    end
+    if not networkMessageId or util.IsEmpty(networkMessageId) or type(networkMessageId) ~= "number" then
+        error(("networkMessageId '%s' must not be nil or empty or isn't type of number!"):format(networkMessageId), 2)
+    end
+    if not event or util.IsEmpty(event) or type(event) ~= "string" then
+        error(("event '%s' must not be nil or empty or isn't type of string!"):format(event), 2)
+    end
+
+    if not NetworkUtils.events[event].isCacheable then
+        error(("Event '%s' shouldn't be cached!"):format(event), 2)
+    end
+
     if not NetworkUtils.events[event].isCacheable then
         error(("Event '%s' shouldn't be cached!"):format(event), 2)
     end
@@ -79,10 +117,21 @@ function NetworkCacheUtils.get(peerGuid, networkMessageId, event)
 end
 
 --- @return table cacheData { ackedAt, dataChecksum, event, messageId, sentAt, status}
-function NetworkCacheUtils.getByChecksum(peerGuid, data, event)
+function NetworkCacheUtils.getByChecksum(peerGuid, event, data)
+    if not peerGuid or util.IsEmpty(peerGuid) or type(peerGuid) ~= "string" then
+        error(("peerGuid '%s' must not be nil or empty or isn't type of string!"):format(peerGuid), 2)
+    end
+    if not event or util.IsEmpty(event) or type(event) ~= "string" then
+        error(("event '%s' must not be nil or empty or isn't type of string!"):format(event), 2)
+    end
+    if not data or util.IsEmpty(data) or type(data) ~= "table" then
+        error(("data '%s' must not be nil or empty or isn't type of table!"):format(util.pformat(data)), 2)
+    end
+
     if not NetworkUtils.events[event].isCacheable then
         error(("Event '%s' shouldn't be cached!"):format(event), 2)
     end
+
     local sum           = NetworkCacheUtils.getSum(event, data)
     local dataChecksum  = md5.sumhexa(sum)
     local clientCacheId = GuidUtils.toNumber(peerGuid)

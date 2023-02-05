@@ -81,9 +81,17 @@ function TestNetworkUtils:testAlreadySent()
                               NetworkUtils.alreadySent, Client, "needNuid", nil)
 end
 
-function TestNetworkUtils:testAlreadySentConnect2()
-
-end
+--function TestNetworkUtils:testAlreadySentConnect2()
+--    Server.start("*", 1337)
+--    Client.connect("localhost", 1337, 0)
+--    local client2 = ClientInit.new(sock.newClient())
+--
+--    local data        = { NetworkUtils.getNextNetworkMessageId(), ModSettingGet("noita-mp.name"), ModSettingGet("noita-mp.guid") }
+--
+--    local alreadySent = NetworkUtils.alreadySent(clients, NetworkUtils.events.connect2.name, data)
+--    lu.assertIs(alreadySent, true,
+--                "The message was already sent, but the function NetworkUtils.alreadySent() returned false!")
+--end
 
 function TestNetworkUtils:testAlreadySentDisconnect2()
 
@@ -106,7 +114,40 @@ function TestNetworkUtils:testAlreadySentNewGuid()
 end
 
 function TestNetworkUtils:testAlreadySentNewNuid()
+    -- [[ Mocked data ]] --
+    local owner         = { name = "ownerName", guid = "ownerGuid" }
+    local localEntityId = 123
+    local newNuid       = 6
+    local x             = 0
+    local y             = 1
+    local rotation      = 4.73
+    local velocity      = { x = 2, y = 3 }
+    local filename      = "player.xml"
+    local health        = { current = 45, max = 100 }
+    local isPolymorphed = false
 
+    -- [[ actual sending ]] --
+    Server.start("*", 1337)
+    Client.connect("localhost", 1337, 0)
+    Server.sendNewNuid(owner, localEntityId, newNuid, x, y, rotation, velocity, filename, health, isPolymorphed)
+
+    -- [[ pseudo sending, but checking if the data was already sent ]] --
+    local data        = {
+        NetworkUtils.getNextNetworkMessageId(),
+        owner,
+        localEntityId,
+        newNuid,
+        x, y,
+        rotation,
+        velocity,
+        filename,
+        health,
+        isPolymorphed
+    }
+
+    local alreadySent = NetworkUtils.alreadySent(Client, NetworkUtils.events.newNuid.name, data)
+    lu.assertIs(alreadySent, true,
+                "The message was already sent, but the function NetworkUtils.alreadySent() returned false!")
 end
 
 --- Tests if the function NetworkUtils.alreadySent() returns TRUE,

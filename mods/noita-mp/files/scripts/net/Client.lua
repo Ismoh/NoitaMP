@@ -351,18 +351,18 @@ function Client.new(sockClient)
     --- @param data table data { "networkMessageId", "oldGuid", "newGuid" }
     local function onNewGuid(data)
         local cpc9 = CustomProfiler.start("Client.onNewGuid")
-        Logger.debug(Logger.channels.network, "onNewGuid: New GUID from server received.", util.pformat(data))
+        Logger.debug(Logger.channels.network, ("onNewGuid: New GUID from server received."):format(util.pformat(data)))
 
         if util.IsEmpty(data.networkMessageId) then
-            error(("onNewGuid data.networkMessageId is empty: %s"):format(data.networkMessageId), 3)
+            error(("onNewGuid data.networkMessageId is empty: %s"):format(data.networkMessageId), 2)
         end
 
         if util.IsEmpty(data.oldGuid) then
-            error(("onNewGuid data.oldGuid is empty: %s"):format(data.oldGuid), 3)
+            error(("onNewGuid data.oldGuid is empty: %s"):format(data.oldGuid), 2)
         end
 
         if util.IsEmpty(data.newGuid) then
-            error(("onNewGuid data.newGuid is empty: %s"):format(data.newGuid), 3)
+            error(("onNewGuid data.newGuid is empty: %s"):format(data.newGuid), 2)
         end
 
         if data.oldGuid == self.guid then
@@ -954,7 +954,7 @@ function Client.new(sockClient)
 
         if util.IsEmpty(compNuid) then
             -- this can happen, when entity spawned on client and network is slow
-            error("Unable to send entity data, because nuid is empty.", 2)
+            Logger.debug(Logger.channels.network, "Unable to send entity data, because nuid is empty.")
             self.sendNeedNuid(compOwnerName, compOwnerGuid, entityId)
             return
         end

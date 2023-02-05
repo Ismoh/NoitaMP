@@ -70,7 +70,8 @@ local function zipTable(items, keys, event)
         local key = keys[i]
 
         if not key then
-            error("Event '" .. event .. "' missing data key. Is the schema different between server and client?")
+            error(("Missing data key for event '%s'! items = %s schema = %s")
+                          :format(event, util.pformat(items), util.pformat(keys)), 2)
         end
 
         data[key] = value
@@ -1434,39 +1435,39 @@ end
 -- -- Limit incoming/outgoing bandwidth to 1kB/s (1000 bytes/s)
 --server = sock.newServer("*", 22122, 10, 2, 1000, 1000)
 sock.newServer = function(address, port, maxPeers, maxChannels, inBandwidth, outBandwidth)
-    address      = address or "localhost"
-    port         = port or 22122
-    maxPeers     = maxPeers or 64
-    maxChannels  = maxChannels or 1
-    inBandwidth  = inBandwidth or 0
-    outBandwidth = outBandwidth or 0
+    address         = address or "localhost"
+    port            = port or 22122
+    maxPeers        = maxPeers or 64
+    maxChannels     = maxChannels or 1
+    inBandwidth     = inBandwidth or 0
+    outBandwidth    = outBandwidth or 0
 
-    local server = setmetatable({
-                                    address            = address,
-                                    port               = port,
-                                    host               = nil,
+    local server    = setmetatable({
+                                       address            = address,
+                                       port               = port,
+                                       host               = nil,
 
-                                    messageTimeout     = 0,
-                                    maxChannels        = maxChannels,
-                                    maxPeers           = maxPeers,
-                                    sendMode           = "reliable",
-                                    defaultSendMode    = "reliable",
-                                    sendChannel        = 0,
-                                    defaultSendChannel = 0,
+                                       messageTimeout     = 0,
+                                       maxChannels        = maxChannels,
+                                       maxPeers           = maxPeers,
+                                       sendMode           = "reliable",
+                                       defaultSendMode    = "reliable",
+                                       sendChannel        = 0,
+                                       defaultSendChannel = 0,
 
-                                    peers              = {},
-                                    clients            = {},
+                                       peers              = {},
+                                       clients            = {},
 
-                                    listener           = newListener(),
-                                    logger             = newLogger("SERVER"),
+                                       listener           = newListener(),
+                                       logger             = newLogger("SERVER"),
 
-                                    serialize          = nil,
-                                    deserialize        = nil,
+                                       serialize          = nil,
+                                       deserialize        = nil,
 
-                                    packetsSent        = 0,
-                                    packetsReceived    = 0,
+                                       packetsSent        = 0,
+                                       packetsReceived    = 0,
 
-                                }, Server_mt)
+                                   }, Server_mt)
 
     server.zipTable = function(items, keys, event)
         return zipTable(items, keys, event)

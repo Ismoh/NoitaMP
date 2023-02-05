@@ -37,17 +37,6 @@ function util.IsEmpty(var)
     return false
 end
 
--- function util.serialise(data)
---     return bitser.dumps(data)
--- end
-
--- --- Deserialise data
--- ---@param data any
--- ---@return any
--- function util.deserialise(data)
---     return bitser.loads(data)
--- end
-
 --https://noita.wiki.gg/wiki/Modding:_Utilities#Easier_entity_debugging
 function util.str(var)
     if type(var) == "table" then

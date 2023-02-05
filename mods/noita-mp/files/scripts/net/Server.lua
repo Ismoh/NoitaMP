@@ -218,18 +218,25 @@ function Server.new(sockServer)
             NetworkVscUtils.addOrUpdateAllVscs(entityId, name, guid, nuid)
         end
 
+        if peer.guid == guid then
+            local oldGuid = peer.guid
+            peer.guid     = GuidUtils:getGuid({ guid })
+            self.sendNewGuid(peer, oldGuid, peer.guid)
+        end
+
         self:send(peer, NetworkUtils.events.playerInfo.name,
                   { NetworkUtils.getNextNetworkMessageId(), name, guid, _G.NoitaMPVersion, nuid })
+
         self:send(peer, NetworkUtils.events.seed.name,
                   { NetworkUtils.getNextNetworkMessageId(), StatsGetValue("world_seed") })
+
         -- Let the other clients know, that a new client connected
         self:sendToAllBut(peer, NetworkUtils.events.connect2.name,
-                          { NetworkUtils.getNextNetworkMessageId(), peer.name, peer.guid, nil, nil })
+                          { NetworkUtils.getNextNetworkMessageId(), peer.name, peer.guid })
 
         local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
         self.sendNewNuid({ name, guid }, entityId, nuid, x, y, rotation, velocity, filename, health, isPolymorphed)
 
-        -- sendAck(data.networkMessageId, peer)
         CustomProfiler.stop("Server.onConnect", cpc04)
     end
 
@@ -748,8 +755,14 @@ function Server.new(sockServer)
         --self:setSchema(NetworkUtils.events.connect, { "code" })
         self:on(NetworkUtils.events.connect.name, onConnect)
 
+        self:setSchema(NetworkUtils.events.connect2.name, NetworkUtils.events.connect2.schema)
+        --self:on(NetworkUtils.events.connect2.name, onConnect2)
+
         --self:setSchema(NetworkUtils.events.disconnect, { "code" })
         self:on(NetworkUtils.events.disconnect.name, onDisconnect)
+
+        self:setSchema(NetworkUtils.events.disconnect2.name, NetworkUtils.events.disconnect2.schema)
+        --self:on(NetworkUtils.events.disconnect2.name, onDisconnect2)
 
         self:setSchema(NetworkUtils.events.acknowledgement.name, NetworkUtils.events.acknowledgement.schema)
         self:on(NetworkUtils.events.acknowledgement.name, onAcknowledgement)
@@ -981,6 +994,14 @@ function Server.new(sockServer)
 
         sockServerUpdate(self)
         CustomProfiler.stop("Server.update", cpc016)
+    end
+
+    function self.sendNewGuid(peer, oldGuid, newGuid)
+        local cpc025 = CustomProfiler.start("Server.sendNewGuid")
+        local event  = NetworkUtils.events.newGuid.name
+        local data   = { NetworkUtils.getNextNetworkMessageId(), oldGuid, newGuid }
+        self:send(peer, event, data)
+        CustomProfiler.stop("Server.sendNewGuid", cpc025)
     end
 
     function self.sendNewNuid(owner, localEntityId, newNuid, x, y, rot, velocity, filename, health, isPolymorphed)
