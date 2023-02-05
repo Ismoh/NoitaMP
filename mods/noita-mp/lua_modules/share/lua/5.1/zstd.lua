@@ -88,46 +88,10 @@ local arr_utint8_t = ffi_typeof "uint8_t[?]"
 local ptr_zstd_inbuffer_t = ffi_typeof "ZSTD_inBuffer[1]"
 local ptr_zstd_outbuffer_t = ffi_typeof "ZSTD_outBuffer[1]"
 
-
-local zstd = nil
-
-local status, err = pcall(ffi_load, "libzstd")
-if status == true then
-   zstd = err
-else
-   print(("Unable to load 'libzstd': status '%s', error '%s'"):format(status, err))
-end
-
-if not zstd then
-   local status2, err2 = pcall(ffi_load, "libzstdx64")
-   if status2 == true then
-      zstd = err2
-   else
-      print(("Unable to load 'libzstdx64': status '%s', error '%s'"):format(status2, err2))
-   end
-end
-
-if not zstd then
-   local status3, err3 = pcall(ffi_load, "mods/noita-mp/lua_modules/lib/lua/5.1/libzstd")
-   if status3 == true then
-      zstd = err3
-   else
-      print(("Unable to load 'mods/noita-mp/lua_modules/lib/lua/5.1/libzstd': status '%s', error '%s'"):format(status3, err3))
-   end
-end
-
-if not zstd then
-   local status4, err4 = pcall(ffi_load, "mods/noita-mp/lua_modules/lib/lua/5.1/libzstdx64")
-   if status4 == true then
-      zstd = err4
-   else
-      print(("Unable to load 'mods/noita-mp/lua_modules/lib/lua/5.1/libzstdx64': status '%s', error '%s'"):format(status4, err4))
-   end
-end
-
-if not zstd then
-    error("Unable to ffi_load zstd!", 2)
-end
+local fu = require("file_util")
+local path = fu.GetAbsolutePathOfNoitaRootDirectory() .. "/lua_modules/lib/lua/5.1/libzstd"
+print(path)
+local zstd = ffi_load(path)
 
 
 local _M = {
