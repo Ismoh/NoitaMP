@@ -31,9 +31,9 @@ function NetworkCacheUtils.getSum(event, data)
         error(("Event '%s' shouldn't be cached!"):format(event), 2)
     end
 
-    local dataCopy = table.deepcopy(data)
-    Logger.trace(Logger.channels.testing, "dataCopy: " .. util.pformat(dataCopy))
-    dataCopy = NetworkUtils.getClientOrServer().zipTable(data, NetworkUtils.events[event].schema, event)
+    --local dataCopy = table.deepcopy(data)
+    Logger.trace(Logger.channels.testing, "data: " .. util.pformat(data))
+    local dataCopy = NetworkUtils.getClientOrServer().zipTable(data, NetworkUtils.events[event].schema, event)
     Logger.trace(Logger.channels.testing, "dataCopy zipped: " .. util.pformat(dataCopy))
     dataCopy.networkMessageId = nil
     Logger.trace(Logger.channels.testing, "dataCopy without networkMessageId: " .. util.pformat(dataCopy))
