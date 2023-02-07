@@ -17,21 +17,24 @@ NetworkUtils.networkMessageIdCounter = 0
 
 NetworkUtils.events                  = {
     connect         = {
-        name        = "connect",
-        schema      = { "code" },
-        isCacheable = false
+        name             = "connect",
+        schema           = { "code" },
+        resendIdentifier = "none",
+        isCacheable      = false
     },
 
     --- connect2 is used to let the other clients know, who was connected
     connect2        = {
-        name        = "connect2",
-        schema      = { "networkMessageId", "name", "guid" },
-        isCacheable = true
+        name             = "connect2",
+        schema           = { "networkMessageId", "name", "guid" },
+        resendIdentifier = { "name", "guid" },
+        isCacheable      = true
     },
 
     disconnect      = {
         name        = "disconnect",
         schema      = { "code" },
+        resendIdentifier = "none",
         isCacheable = false
     },
 
@@ -39,6 +42,7 @@ NetworkUtils.events                  = {
     disconnect2     = {
         name        = "disconnect2",
         schema      = { "networkMessageId", "name", "guid" },
+        resendIdentifier = { "name", "guid" },
         isCacheable = false
     },
 
@@ -48,6 +52,7 @@ NetworkUtils.events                  = {
         schema      = { "networkMessageId", "event", "status" },
         ack         = "ack",
         sent        = "sent",
+        resendIdentifier = { "event", "status" },
         isCacheable = true
     },
 
@@ -55,6 +60,7 @@ NetworkUtils.events                  = {
     seed            = {
         name        = "seed",
         schema      = { "networkMessageId", "seed" },
+        resendIdentifier = { "seed" },
         isCacheable = true
     },
 
@@ -62,6 +68,7 @@ NetworkUtils.events                  = {
     playerInfo      = {
         name        = "playerInfo",
         schema      = { "networkMessageId", "name", "guid", "version", "nuid" },
+        resendIdentifier = { "name", "guid", "version", "nuid" },
         isCacheable = true
     },
 
@@ -69,26 +76,31 @@ NetworkUtils.events                  = {
     newGuid         = {
         name        = "newGuid",
         schema      = { "networkMessageId", "oldGuid", "newGuid" },
+        resendIdentifier = { "oldGuid", "NewGuid" },
         isCacheable = true
     },
 
     --- newNuid is used to let clients spawn entities by the servers permission
     newNuid         = {
         --- constant name for the event
-        name             = "newNuid",
+        name        = "newNuid",
         --- network schema to decode the message
-        schema           = { "networkMessageId", "owner", "localEntityId", "newNuid", "x", "y", "rotation", "velocity",
-                             "filename", "health", "isPolymorphed" },
+        schema      = { "networkMessageId", "owner", "localEntityId", "newNuid", "x", "y", "rotation", "velocity",
+                        "filename", "health", "isPolymorphed" },
+        --- resendIdentifier defines the schema for detection of resend mechanism.
+        --- Based on the values the network message will be send again.
+        resendIdentifier = { "owner", "localEntityId", "newNuid", "filename" },
         --- identifier whether to cache this message, if it wasn't acknowledged
-        isCacheable      = true
+        isCacheable = true
     },
 
     --- needNuid is used to ask for a nuid from client to servers
     needNuid        = {
-        name             = "needNuid",
-        schema           = { "networkMessageId", "owner", "localEntityId", "x", "y",
-                             "rotation", "velocity", "filename", "health", "isPolymorphed" },
-        isCacheable      = true
+        name        = "needNuid",
+        schema      = { "networkMessageId", "owner", "localEntityId", "x", "y",
+                        "rotation", "velocity", "filename", "health", "isPolymorphed" },
+        resendIdentifier = { "owner", "localEntityId", "filename" },
+        isCacheable = true
     },
 
     --- lostNuid is used to ask for the entity to spawn, when a client has a nuid stored, but no entityId (not sure
@@ -96,6 +108,7 @@ NetworkUtils.events                  = {
     lostNuid        = {
         name        = "lostNuid",
         schema      = { "networkMessageId", "nuid" },
+        resendIdentifier = { "nuid" },
         isCacheable = true
     },
 
@@ -103,6 +116,7 @@ NetworkUtils.events                  = {
     entityData      = {
         name        = "entityData",
         schema      = { "networkMessageId", "owner", "nuid", "x", "y", "rotation", "velocity", "health" },
+        resendIdentifier = { "owner", "nuid", "x", "y", "rotation", "velocity", "health" },
         isCacheable = false
     },
 
@@ -110,6 +124,7 @@ NetworkUtils.events                  = {
     deadNuids       = {
         name        = "deadNuids",
         schema      = { "networkMessageId", "deadNuids" },
+        resendIdentifier = { "deadNuids" },
         isCacheable = true
     },
 
@@ -117,6 +132,7 @@ NetworkUtils.events                  = {
     needModList     = {
         name        = "needModList",
         schema      = { "networkMessageId", "workshop", "external" },
+        resendIdentifier = { "workshop", "external" },
         isCacheable = true
     },
 
@@ -124,6 +140,7 @@ NetworkUtils.events                  = {
     needModContent  = {
         name        = "needModContent",
         schema      = { "networkMessageId", "get", "items" },
+        resendIdentifier = { "get", "items" },
         isCacheable = true
     }
 }
