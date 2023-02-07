@@ -37,8 +37,17 @@ function NetworkCacheUtils.getSum(event, data)
     Logger.trace(Logger.channels.testing, "dataCopy zipped: " .. util.pformat(dataCopy))
     dataCopy.networkMessageId = nil
     Logger.trace(Logger.channels.testing, "dataCopy without networkMessageId: " .. util.pformat(dataCopy))
-
-    local sum = table.contentToString(dataCopy)
+    local sum = ""
+    if NetworkUtils.events[event].resendIdentifiers ~= nil then
+        local newData = {}
+        for i=1, #NetworkUtils.events[event].resendIdentifiers do 
+            local v = NetworkUtils.events[event].resendIdentifiers[i]
+            newData[v] = dataCopy[v]
+            sum = table.contentToString(newData)
+        end
+    else
+        sum = table.contentToString(dataCopy)
+    end
     Logger.trace(Logger.channels.testing, ("sum = %s"):format(sum))
     Logger.trace(Logger.channels.testing, "getSum-end: " .. util.pformat(dataCopy))
     return sum
