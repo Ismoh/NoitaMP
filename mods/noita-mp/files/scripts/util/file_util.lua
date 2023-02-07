@@ -129,6 +129,9 @@ function fu.SetAbsolutePathOfNoitaRootDirectory()
 end
 
 function fu.GetAbsolutePathOfNoitaRootDirectory()
+    if not _G.noita_root_directory_path then
+        fu.SetAbsolutePathOfNoitaRootDirectory()
+    end
     return _G.noita_root_directory_path
 end
 

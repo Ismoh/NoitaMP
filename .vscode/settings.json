@@ -37,7 +37,7 @@
   "[xml]": {
     "editor.defaultFormatter": "DotJoshJohnson.xml"
   },
-  "Lua.runtime.version": "LuaJIT",
+  "Lua.runtime.version": "Lua 5.4",
   "Lua.workspace.checkThirdParty": false,
   "[lua]": {
     "editor.defaultFormatter": "sumneko.lua"

@@ -89,7 +89,7 @@ local ptr_zstd_inbuffer_t = ffi_typeof "ZSTD_inBuffer[1]"
 local ptr_zstd_outbuffer_t = ffi_typeof "ZSTD_outBuffer[1]"
 
 local fu = require("file_util")
-local zstd = ffi_load(fu.GetAbsolutePathOfNoitaRootDirectory() .. "/lua_modules/lib/lua/5.1/libzstd")
+local zstd = ffi_load(fu.GetAbsolutePathOfNoitaRootDirectory() .. "\\mods\\noita-mp\\lua_modules\\lib\\lua\\5.1\\libzstd")
 local file    = assert(io.popen("zstd -vvV", "r"))
 local zstdVersion = file:read("*a")
 print("zstd version = " .. zstdVersion)
