@@ -40,8 +40,11 @@ function NetworkCacheUtils.getSum(event, data)
     local sum = ""
     if NetworkUtils.events[event].resendIdentifiers ~= nil then
         local newData = {}
-        for i=1, #NetworkUtils.events[event].resendIdentifiers do 
+        for i=1, #NetworkUtils.events[event].resendIdentifiers do
             local v = NetworkUtils.events[event].resendIdentifiers[i]
+            if dataCopy[v] == nil then
+                error(("dataCopy: data for event %s was missing %s resendIdentifier"):format(event, v), 2)
+            end
             newData[v] = dataCopy[v]
             sum = table.contentToString(newData)
         end
