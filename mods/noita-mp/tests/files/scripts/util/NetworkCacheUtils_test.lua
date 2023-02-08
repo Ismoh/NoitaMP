@@ -28,6 +28,26 @@ if not ModSettingSetNextValue then
     end
 end
 
+--- Make absolutely sure, that the already mocked Noita API function is not overwritten
+local mockedModSettingGet = ModSettingGet
+ModSettingGet             = function(id)
+    if string.contains(id, "noita-mp.log_level_") then
+        return { "trace, debug, info, warn", "TRACE" }
+    end
+    if id == "noita-mp.name" then
+        return "noita-mp.name"
+    end
+    if id == "noita-mp.guid" then
+        return "noita-mp.guid"
+    end
+
+    if mockedModSettingGet then
+        mockedModSettingGet(id)
+    end
+
+    error(("Mod setting '%s' is not mocked! Add it!"):format(id), 2)
+end
+
 -- [[ require ]] --
 require("NetworkUtils")
 require("NetworkCacheUtils")
@@ -50,10 +70,9 @@ function TestNetworkCacheUtils:tearDown()
 end
 
 function TestNetworkCacheUtils:testGetSum()
-    local dataSimple  = { 9999,
-                          { name = "test", guid = "guid" }, 1234, 3, 1.2, 3.4, 0.5, { 12, 4 } }
+    local dataSimple  = { 9999, { name = "test", guid = "guid" }, 1234, 3, 1.2, 3.4, 0.5, { 12, 4 }, "player.xml", { max = 100, current = 48 }, false }
     local sumSimple   = NetworkCacheUtils.getSum(NetworkUtils.events.newNuid.name, dataSimple)
-    local sumExpected = "test,guid,1.2,12,4,0.5,3.4,3,1234"
+    local sumExpected = "test,guid,3,player.xml,1234"
     lu.assertEquals(sumSimple, sumExpected)
 
     local dataSimple2  = { 9999,

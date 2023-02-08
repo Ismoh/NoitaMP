@@ -637,16 +637,16 @@ function Client.new(sockClient)
             if modID == "0" then
                 if not fu.IsDirectory((fu.GetAbsolutePathOfNoitaRootDirectory() .. "/mods/%s/"):format(modName)) then
                     local fileName = ("%s_%s_mod_sync.7z"):format(tostring(os.date("!")), modName)
-                    fu.WriteBinaryFile(fu.GetAbsoluteDirectoryPathOfMods() .. "/" .. fileName, modData)
-                    fu.Extract7zipArchive(fu.GetAbsoluteDirectoryPathOfMods(), fileName,
+                    fu.WriteBinaryFile(fu.GetAbsoluteDirectoryPathOfNoitaMP() .. "/" .. fileName, modData)
+                    fu.Extract7zipArchive(fu.GetAbsoluteDirectoryPathOfNoitaMP(), fileName,
                                           (fu.GetAbsolutePathOfNoitaRootDirectory() .. "/mods/%s/"):format(modName))
                 end
             else
                 if not fu.IsDirectory(("C:/Program Files (x86)/Steam/steamapps/workshop/content/881100/%s/"):format(modID)) then
                     if not fu.IsDirectory((fu.GetAbsolutePathOfNoitaRootDirectory() .. "/mods/%s/"):format(modName)) then
                         local fileName = ("%s_%s_mod_sync.7z"):format(tostring(os.date("!")), modName)
-                        fu.WriteBinaryFile(fu.GetAbsoluteDirectoryPathOfMods() .. "/" .. fileName, modData)
-                        fu.Extract7zipArchive(fu.GetAbsoluteDirectoryPathOfMods(), fileName,
+                        fu.WriteBinaryFile(fu.GetAbsoluteDirectoryPathOfNoitaMP() .. "/" .. fileName, modData)
+                        fu.Extract7zipArchive(fu.GetAbsoluteDirectoryPathOfNoitaMP(), fileName,
                                               (fu.GetAbsolutePathOfNoitaRootDirectory() .. "/mods/%s/"):format(modName))
                     end
                 end

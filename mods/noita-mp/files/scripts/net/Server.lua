@@ -615,7 +615,7 @@ function Server.new(sockServer)
 
             end
             local archiveName = ("%s_%s_mod_sync"):format(tostring(os.date("!")), mod)
-            fu.Create7zipArchive(archiveName, pathToMod, fu.GetAbsoluteDirectoryPathOfMods())
+            fu.Create7zipArchive(archiveName, pathToMod, fu.GetAbsoluteDirectoryPathOfNoitaMP())
             table.insert(res, {
                 name       = mod,
                 workshopID = mod,

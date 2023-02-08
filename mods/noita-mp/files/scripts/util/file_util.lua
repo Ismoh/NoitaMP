@@ -8,7 +8,7 @@ local json    = require("json")
 --- Version
 -----------------------------------------------------------------------------------------------------------------------
 function fu.getVersionByFile()
-    local modsPath           = fu.GetAbsoluteDirectoryPathOfMods()
+    local modsPath           = fu.GetAbsoluteDirectoryPathOfNoitaMP()
     local versionAbsFilePath = ("%s%s.version"):format(modsPath, path_separator)
     local content            = fu.ReadFile(versionAbsFilePath, "*l")
     local jsonTable          = json.decode(content)
@@ -100,17 +100,15 @@ end
 ----------------------------------------------------------------------------------------------------
 --- Noita specific file, directory or path functions
 ----------------------------------------------------------------------------------------------------
-
---- Sets Noitas root absolute path to _G
+local noitaRootDirectory = nil
+--- Sets root directory of noita.exe, i.e. C:\Program Files (x86)\Steam\steamapps\common\Noita
 function fu.SetAbsolutePathOfNoitaRootDirectory()
-    local noita_root_directory_path = nil
-
     if _G.is_windows then
-        noita_root_directory_path = assert(io.popen("cd"):read("*l"),
-                                           "Unable to run windows command 'cd' to get Noitas root directory!")
+        noitaRootDirectory = assert(io.popen("cd"):read("*l"),
+                                    "Unable to run windows command 'cd' to get Noitas root directory!")
     elseif _G.is_linux then
-        noita_root_directory_path = assert(io.popen("pwd"):read("*l"),
-                                           "Unable to run ubuntu command 'pwd' to get Noitas root directory!")
+        noitaRootDirectory = assert(io.popen("pwd"):read("*l"),
+                                    "Unable to run ubuntu command 'pwd' to get Noitas root directory!")
     else
         error(
                 ("file_util.lua | Unable to detect OS(%s[%s]), therefore not able to replace path separator!"):format(
@@ -121,18 +119,25 @@ function fu.SetAbsolutePathOfNoitaRootDirectory()
         )
     end
 
-    noita_root_directory_path    = fu.ReplacePathSeparator(noita_root_directory_path)
+    noitaRootDirectory = fu.ReplacePathSeparator(noitaRootDirectory)
 
-    _G.noita_root_directory_path = noita_root_directory_path
-
-    --logger:debug("file_util.lua | Absolute path of Noitas root directory set to " .. _G.noita_root_directory_path)
+    if isTestLuaContext then
+        Logger.trace(Logger.channels.testing,
+                     ("Absolute path of Noitas root directory set to %s, but we need to fix path! Removing \\mods\\noita-mp.")
+                             :format(noitaRootDirectory))
+        local i, _         = string.find(noitaRootDirectory, "mods")
+        noitaRootDirectory = string.sub(noitaRootDirectory, 0, i - 1)
+        Logger.trace(Logger.channels.testing,
+                     ("NEW absolute path of Noitas root directory set to %s.")
+                             :format(noitaRootDirectory))
+    end
 end
 
 function fu.GetAbsolutePathOfNoitaRootDirectory()
-    if not _G.noita_root_directory_path then
+    if not noitaRootDirectory then
         fu.SetAbsolutePathOfNoitaRootDirectory()
     end
-    return _G.noita_root_directory_path
+    return noitaRootDirectory
 end
 
 ----------------------------------------------------------------------------------------------------
@@ -195,20 +200,20 @@ function fu.GetAbsoluteDirectoryPathOfSave06()
 end
 
 --- Returns the ABSOLUTE path of the mods folder.
---- If _G.noita_root_directory_path is not set yet, then it will be
---- @return string _G.noita_root_directory_path .. "/mods"
-function fu.GetAbsoluteDirectoryPathOfMods()
-    if not _G.noita_root_directory_path then
+--- If fu.GetAbsolutePathOfNoitaRootDirectory() is not set yet, then it will be
+--- @return string fu.GetAbsolutePathOfNoitaRootDirectory() .. "/mods/noita-mp"
+function fu.GetAbsoluteDirectoryPathOfNoitaMP()
+    if not fu.GetAbsolutePathOfNoitaRootDirectory() then
         fu.SetAbsolutePathOfNoitaRootDirectory()
     end
-    local p = _G.noita_root_directory_path .. "/mods/noita-mp"
+    local p = fu.GetAbsolutePathOfNoitaRootDirectory() .. "/mods/noita-mp"
     p       = fu.ReplacePathSeparator(p)
     return p
 end
 
 --- Returns the RELATIVE path of the mods folder.
 --- @return string "mods/noita-mp"
-function fu.GetRelativeDirectoryPathOfMods()
+function fu.GetRelativeDirectoryPathOfNoitaMP()
     local p = "mods/noita-mp"
     p       = fu.ReplacePathSeparator(p)
     return p
@@ -223,13 +228,13 @@ function fu.GetRelativeDirectoryPathOfRequiredLibs()
 end
 
 --- Returns the ABSOLUTE path of the library folder required for this mod.
---- If _G.noita_root_directory_path is not set yet, then it will be
---- @return string _G.noita_root_directory_path .. "/mods/noita-mp/files/libs"
+--- If fu.GetAbsolutePathOfNoitaRootDirectory() is not set yet, then it will be
+--- @return string fu.GetAbsolutePathOfNoitaRootDirectory() .. "/mods/noita-mp/files/libs"
 function fu.GetAbsoluteDirectoryPathOfRequiredLibs()
-    if not _G.noita_root_directory_path then
+    if not fu.GetAbsolutePathOfNoitaRootDirectory() then
         fu.SetAbsolutePathOfNoitaRootDirectory()
     end
-    local p = _G.noita_root_directory_path .. "/mods/noita-mp/files/libs"
+    local p = fu.GetAbsolutePathOfNoitaRootDirectory() .. "/mods/noita-mp/files/libs"
     p       = fu.ReplacePathSeparator(p)
     return p
 end
@@ -591,7 +596,7 @@ function fu.saveAndRestartNoita()
 end
 
 function fu.createProfilerLog()
-    local directory = fu.GetAbsoluteDirectoryPathOfMods() .. _G.path_separator .. "profilerReport" .. _G.path_separator
+    local directory = fu.GetAbsoluteDirectoryPathOfNoitaMP() .. _G.path_separator .. "profilerReport" .. _G.path_separator
     if fu.Exists(directory) == false then
         fu.MkDir(directory)
     end
@@ -603,7 +608,7 @@ end
 function fu.getAllModSpecificLuaScriptFilenames()
     local command = nil
     if _G.is_windows then
-        command = "for /f tokens^=* %i in ('where /r \"" .. fu.GetAbsoluteDirectoryPathOfMods() .. "\" *lua')do @echo/ %~nxi"
+        command = "for /f tokens^=* %i in ('where /r \"" .. fu.GetAbsoluteDirectoryPathOfNoitaMP() .. "\" *lua')do @echo/ %~nxi"
     else
         error("Unix system are not supported yet :(", 2)
         return {}

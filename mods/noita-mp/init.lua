@@ -23,7 +23,7 @@ fu.SetAbsolutePathOfNoitaRootDirectory()
 -- Is used to stop Noita pausing game, when focus is gone (tab out game)
 ModMagicNumbersFileAdd("mods/noita-mp/files/data/magic_numbers.xml")
 
---local worldSeedMagicNumbersFileAbsPath = fu.GetAbsoluteDirectoryPathOfMods() .. "/temp/WorldSeed.xml"
+--local worldSeedMagicNumbersFileAbsPath = fu.GetAbsoluteDirectoryPathOfNoitaMP() .. "/temp/WorldSeed.xml"
 --if fu.Exists(worldSeedMagicNumbersFileAbsPath) then
 --    logger:debug("init.lua", "Loading " .. worldSeedMagicNumbersFileAbsPath)
 --    ModMagicNumbersFileAdd(worldSeedMagicNumbersFileAbsPath)
@@ -84,7 +84,7 @@ function OnWorldInitialized()
     Logger.debug(Logger.channels.initialize, "make_zip = " .. tostring(make_zip))
     if make_zip then
         local archive_name    = "server_save06_" .. os.date("%Y-%m-%d_%H-%M-%S")
-        local destination     = fu.GetAbsoluteDirectoryPathOfMods() .. _G.path_separator .. "_"
+        local destination     = fu.GetAbsoluteDirectoryPathOfNoitaMP() .. _G.path_separator .. "_"
         local archive_content = fu.Create7zipArchive(archive_name .. "_from_server",
                                                      fu.GetAbsoluteDirectoryPathOfSave06(), destination)
         local msg             = ("init.lua | Server savegame [%s] was zipped with 7z to location [%s]."):format(archive_name,
