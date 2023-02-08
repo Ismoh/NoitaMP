@@ -19,7 +19,6 @@ NetworkUtils.events                  = {
     connect         = {
         name              = "connect",
         schema            = { "code" },
-        resendIdentifiers = { "none" },
         isCacheable       = false
     },
 
@@ -34,7 +33,6 @@ NetworkUtils.events                  = {
     disconnect      = {
         name              = "disconnect",
         schema            = { "code" },
-        resendIdentifiers = { "none" },
         isCacheable       = false
     },
 
