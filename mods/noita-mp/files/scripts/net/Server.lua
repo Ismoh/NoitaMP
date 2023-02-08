@@ -836,38 +836,22 @@ function Server.new(sockServer)
             error("", 2)
         end
 
-        --if NetworkUtils.alreadySent(peer, event, data) then
-        --    logger:debug(logger.channels.network, ("Network message for %s for data %s already was acknowledged.")
-        --            :format(event, util.pformat(data)))
-        --    CustomProfiler.stop("Server.send", cpc022)
-        --    return
-        --end
+        if NetworkUtils.alreadySent(peer, event, data) then
+            logger:debug(logger.channels.network, ("Network message for %s for data %s already was acknowledged.")
+                    :format(event, util.pformat(data)))
+            CustomProfiler.stop("Server.send", cpc022)
+            return
+        end
 
-        sockServerSend(self, peer, event, data)
+        local networkMessageId = sockServerSend(self, peer, event, data)
 
-        --if not self.acknowledge then
-        --    self.acknowledge = {}
-        --end
-        --if not self.acknowledge[peer.connectId] then
-        --    self.acknowledge[peer.connectId] = {}
-        --end
-        --
-        --if event ~= NetworkUtils.events.acknowledgement.name then
-        --    if not self.acknowledge[peer.connectId][event] then
-        --        self.acknowledge[peer.connectId][event] = {}
-        --    end
-        --    local networkMessageId = data[1] or data.networkMessageId
-        --    if not self.acknowledge[peer.connectId][event][networkMessageId] then
-        --        self.acknowledge[peer.connectId][event][networkMessageId] = {}
-        --    end
-        --
-        --    self.acknowledge[peer.connectId][event][networkMessageId] = {
-        --        data    = data,
-        --        status  = NetworkUtils.events.acknowledgement.sent,
-        --        sentAt  = os.clock(),
-        --        ackedAt = nil
-        --    }
-        --end
+        if event ~= NetworkUtils.events.acknowledgement.name then
+            if NetworkUtils.events[event].isCacheable == true then
+                NetworkCacheUtils.set(self.guid, networkMessageId, event,
+                                      NetworkUtils.events.acknowledgement.sent, 0, os.clock(), data)
+            end
+        end
+
         CustomProfiler.stop("Server.send", cpc022)
     end
 
@@ -1004,10 +988,10 @@ function Server.new(sockServer)
         CustomProfiler.stop("Server.sendNewGuid", cpc025)
     end
 
-    function self.sendNewNuid(owner, localEntityId, newNuid, x, y, rot, velocity, filename, health, isPolymorphed)
+    function self.sendNewNuid(owner, localEntityId, newNuid, x, y, rotation, velocity, filename, health, isPolymorphed)
         local cpc017 = CustomProfiler.start("Server.sendNewNuid")
         local event  = NetworkUtils.events.newNuid.name
-        local data   = { NetworkUtils.getNextNetworkMessageId(), owner, localEntityId, newNuid, x, y, rot, velocity, filename, health, isPolymorphed }
+        local data   = { NetworkUtils.getNextNetworkMessageId(), owner, localEntityId, newNuid, x, y, rotation, velocity, filename, health, isPolymorphed }
         self:sendToAll(event, data)
         CustomProfiler.stop("Server.sendNewNuid", cpc017)
     end
