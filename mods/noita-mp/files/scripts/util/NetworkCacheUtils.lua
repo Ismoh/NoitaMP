@@ -31,7 +31,6 @@ function NetworkCacheUtils.getSum(event, data)
         error(("Event '%s' shouldn't be cached!"):format(event), 2)
     end
 
-    --local dataCopy = table.deepcopy(data)
     Logger.trace(Logger.channels.testing, "data: " .. util.pformat(data))
     local dataCopy = NetworkUtils.getClientOrServer().zipTable(data, NetworkUtils.events[event].schema, event)
     Logger.trace(Logger.channels.testing, "dataCopy zipped: " .. util.pformat(dataCopy))
@@ -117,9 +116,9 @@ function NetworkCacheUtils.get(peerGuid, networkMessageId, event)
         error(("Event '%s' shouldn't be cached!"):format(event), 2)
     end
     Logger.info(Logger.channels.testing,
-                ("NetworkCacheUtils.get(%s, %s, %s)"):format(peerGuid, networkMessageId, event))
+                ("NetworkCacheUtils.get(peerGuid %s, networkMessageId %s, event %s)"):format(peerGuid, networkMessageId, event))
     Logger.info(Logger.channels.testing,
-                ("NetworkCache.get(%s, %s, %s)"):format(GuidUtils.toNumber(peerGuid), event, networkMessageId))
+                ("NetworkCache.get(clientCacheId %s, networkMessageId %s, event %s)"):format(GuidUtils.toNumber(peerGuid), networkMessageId, event))
     local clientCacheId = GuidUtils.toNumber(peerGuid)
     local data          = NetworkCache.get(clientCacheId, event, tonumber(networkMessageId))
     Logger.info(Logger.channels.cache,

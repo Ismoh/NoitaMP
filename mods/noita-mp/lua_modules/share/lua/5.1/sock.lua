@@ -449,11 +449,16 @@ end
 --- @param data table to send to the peer.
 --- Usage: server:sendToPeer(peer, "initialGameInfo", {...})
 function Server:sendToPeer(peer, event, data)
-    local cpc        = CustomProfiler.start("Server:sendToPeer")
+    local cpc              = CustomProfiler.start("Server:sendToPeer")
+    local networkMessageId = data[1] or data.networkMessageId
+    if util.IsEmpty(networkMessageId) then
+        error("networkMessageId is empty!", 3)
+    end
     self.packetsSent = self.packetsSent + 1
     peer:send(event, data)
     self:resetSendSettings()
     CustomProfiler.stop("Server:sendToPeer", cpc)
+    return networkMessageId
 end
 
 --- Add a callback to an event.
@@ -967,11 +972,8 @@ function Client:send(event, data)
     end
 
     local serializedMessage = self:__pack(event, data)
-
     self.connection:send(serializedMessage, self.sendChannel, self.sendMode)
-
     self.packetsSent = self.packetsSent + 1
-
     self:resetSendSettings()
 
     return networkMessageId

@@ -145,7 +145,7 @@ function TestNetworkUtils:testAlreadySentNewNuid()
         isPolymorphed
     }
 
-    local alreadySent = NetworkUtils.alreadySent(Client, NetworkUtils.events.newNuid.name, data)
+    local alreadySent = NetworkUtils.alreadySent(Server, NetworkUtils.events.newNuid.name, data)
     lu.assertIs(alreadySent, true,
                 "The message was already sent, but the function NetworkUtils.alreadySent() returned false!")
 end
@@ -217,6 +217,7 @@ function TestNetworkUtils:testAlreadySentNeedNuidShouldReturnFalse()
     Client.connect("localhost", 1337, 0)
 
     -- [[ Prepare data and send the event message ]] --
+    local event = NetworkUtils.events.needNuid
     local ownerName = "TestOwnerName"
     local ownerGuid = GuidUtils:getGuid()
     local entityId  = 456378
@@ -251,7 +252,7 @@ function TestNetworkUtils:testAlreadySentNeedNuidShouldReturnFalse()
 
     print(("Let's see if this WASN'T already sent: entity %s with data %s"):format(entityId, util.pformat(data)))
     -- [[ Check if the message WASN'T already sent ]] --
-    lu.assertIs(NetworkUtils.alreadySent(Client, "needNuid", data), false,
+    lu.assertIs(NetworkUtils.alreadySent(Client, event, data), false,
                 "The message WASN'T already sent, but the function NetworkUtils.alreadySent() returned true!")
     Client.disconnect()
     Server.stop()
