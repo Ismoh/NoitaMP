@@ -39,13 +39,13 @@ function NetworkCacheUtils.getSum(event, data)
     local sum = ""
     if NetworkUtils.events[event].resendIdentifiers ~= nil then
         local newData = {}
-        for i=1, #NetworkUtils.events[event].resendIdentifiers do
+        for i = 1, #NetworkUtils.events[event].resendIdentifiers do
             local v = NetworkUtils.events[event].resendIdentifiers[i]
             if dataCopy[v] == nil then
                 error(("dataCopy: data for event %s was missing %s resendIdentifier"):format(event, v), 2)
             end
             newData[v] = dataCopy[v]
-            sum = table.contentToString(newData)
+            sum        = table.contentToString(newData)
         end
     else
         sum = table.contentToString(dataCopy)
@@ -89,6 +89,11 @@ function NetworkCacheUtils.set(peerGuid, networkMessageId, event, status, ackedA
     local sum           = NetworkCacheUtils.getSum(event, data)
     local dataChecksum  = md5.sumhexa(sum)
     local clientCacheId = GuidUtils.toNumber(peerGuid)
+    print(("NetworkCache.set(clientCacheId %s, networkMessageId %s, event %s, status %s, ackedAt %s, sendAt %s, dataChecksum %s)")
+                  :format(clientCacheId, networkMessageId, event, status, ackedAt, sendAt, dataChecksum))
+    Logger.trace(Logger.channels.testing,
+                 ("NetworkCache.set(clientCacheId %s, networkMessageId %s, event %s, status %s, ackedAt %s, sendAt %s, dataChecksum %s)")
+                         :format(clientCacheId, networkMessageId, event, status, ackedAt, sendAt, dataChecksum))
     NetworkCache.set(clientCacheId, networkMessageId, event, status, ackedAt, sendAt, dataChecksum)
     Logger.info(Logger.channels.cache,
                 ("Set nCache for clientCacheId %s, networkMessageId %s, event %s, status %s, ackedAt %s, sendAt %s, dataChecksum %s")
@@ -116,9 +121,11 @@ function NetworkCacheUtils.get(peerGuid, networkMessageId, event)
         error(("Event '%s' shouldn't be cached!"):format(event), 2)
     end
     Logger.info(Logger.channels.testing,
-                ("NetworkCacheUtils.get(peerGuid %s, networkMessageId %s, event %s)"):format(peerGuid, networkMessageId, event))
+                ("NetworkCacheUtils.get(peerGuid %s, networkMessageId %s, event %s)"):format(peerGuid, networkMessageId,
+                                                                                             event))
     Logger.info(Logger.channels.testing,
-                ("NetworkCache.get(clientCacheId %s, networkMessageId %s, event %s)"):format(GuidUtils.toNumber(peerGuid), networkMessageId, event))
+                ("NetworkCache.get(clientCacheId %s, networkMessageId %s, event %s)"):format(GuidUtils.toNumber(peerGuid),
+                                                                                             networkMessageId, event))
     local clientCacheId = GuidUtils.toNumber(peerGuid)
     local data          = NetworkCache.get(clientCacheId, event, tonumber(networkMessageId))
     Logger.info(Logger.channels.cache,

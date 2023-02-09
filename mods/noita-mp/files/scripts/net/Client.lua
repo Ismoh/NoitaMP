@@ -324,10 +324,8 @@ function Client.new(sockClient)
         end
 
         if data.guid == self.guid then
-            error("onPlayerInfo: Clients GUID isn't unique! Server will fix this!", 2)
-            --self.guid = GuidUtils:getGuid({ self.guid })
-            --logger:info(logger.channels.network, "onPlayerInfo: New clients GUID: %s", self.guid)
-            self:disconnect()
+            Logger.warn(Logger.channels.network,
+                        ("onPlayerInfo: Clients GUID %s isn't unique! Server will fix this!"):format(self.guid))
         end
 
         if _G.NoitaMPVersion ~= tostring(data.version) then
@@ -797,16 +795,13 @@ function Client.new(sockClient)
         end
 
         port = tonumber(port) or error("noita-mp.connect_server_port wasn't a number")
-        ---@cast port number
-        self.disconnect()
-        _G.Client.disconnect() -- stop if any server is already running
 
-        Logger.info(Logger.channels.network, ("Connecting to server on %s:%s"):format(ip, port))
+        Logger.info(Logger.channels.network, ("Trying to connect to server on %s:%s"):format(ip, port))
         if not self.host then
             self:establishClient(ip, port)
         end
 
-        GamePrintImportant("Client is connecting..",
+        GamePrintImportant("Client is trying to connect to server..",
                            "You are trying to connect to " .. self:getAddress() .. ":" .. self:getPort() .. "!",
                            ""
         )
@@ -996,7 +991,7 @@ function Client.new(sockClient)
     --#endregion
 
     ------------------------------------
-    -- Apply some private methods
+    --- Apply some private methods
     ------------------------------------
     setGuid()
     setConfigSettings()

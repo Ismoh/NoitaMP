@@ -847,7 +847,7 @@ function Server.new(sockServer)
 
         if event ~= NetworkUtils.events.acknowledgement.name then
             if NetworkUtils.events[event].isCacheable == true then
-                NetworkCacheUtils.set(self.guid, networkMessageId, event,
+                NetworkCacheUtils.set(peer.guid, networkMessageId, event,
                                       NetworkUtils.events.acknowledgement.sent, 0, os.clock(), data)
             end
         end
@@ -857,7 +857,13 @@ function Server.new(sockServer)
 
     function self:sendToAll(event, data)
         local cpc023 = CustomProfiler.start("Server.sendToAll")
+        if util.IsEmpty(self.clients) then
+            Logger.trace(Logger.channels.testing,
+                         ("Unable to send anything, when there are no clients %s!"):format(util.pformat(self.clients)))
+        end
         for i = 1, #self.clients do
+            Logger.trace(Logger.channels.testing,
+                         ("Sending data %s to client %s!"):format(util.pformat(data), util.pformat(self.clients[i])))
             self:send(self.clients[i], event, data)
         end
         CustomProfiler.stop("Server.sendToAll", cpc023)

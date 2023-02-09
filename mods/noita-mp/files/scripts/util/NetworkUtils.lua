@@ -17,9 +17,9 @@ NetworkUtils.networkMessageIdCounter = 0
 
 NetworkUtils.events                  = {
     connect         = {
-        name              = "connect",
-        schema            = { "code" },
-        isCacheable       = false
+        name        = "connect",
+        schema      = { "code" },
+        isCacheable = false
     },
 
     --- connect2 is used to let the other clients know, who was connected
@@ -31,9 +31,9 @@ NetworkUtils.events                  = {
     },
 
     disconnect      = {
-        name              = "disconnect",
-        schema            = { "code" },
-        isCacheable       = false
+        name        = "disconnect",
+        schema      = { "code" },
+        isCacheable = false
     },
 
     --- disconnect2 is used to let the other clients know, who was disconnected
@@ -213,6 +213,7 @@ function NetworkUtils.alreadySent(peer, event, data)
 
     -- [[ if the event isn't store in the cache, it wasn't already send ]] --
     if not NetworkUtils.events[event].isCacheable then
+        Logger.trace(Logger.channels.testing, ("event %s is not cacheable!"):format(event))
         CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
         return false
     end
@@ -230,11 +231,19 @@ function NetworkUtils.alreadySent(peer, event, data)
             CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
             return true
         end
+    else
+        Logger.trace(Logger.channels.testing,
+                     ("NetworkUtils.alreadySent: NetworkCacheUtils.get(peer.guid %s, networkMessageId %s, event %s) returned message = nil")
+                             :format(peer.guid, networkMessageId, event))
     end
     --- Compare if the current data matches the cached checksum
     local matchingData = NetworkCacheUtils.getByChecksum(peer.guid, event, data)
     if matchingData ~= nil then
         return true;
+    else
+        Logger.trace(Logger.channels.testing,
+                     ("NetworkUtils.alreadySent: NetworkCacheUtils.getByChecksum(peer.guid %s, event %s, data %s) returned matchingData = nil")
+                             :format(peer.guid, event, data))
     end
     CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
     return false

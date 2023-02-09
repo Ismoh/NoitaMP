@@ -40,8 +40,8 @@ TestNetworkUtils = {}
 --- Setup function for each test.
 function TestNetworkUtils:setUp()
     -- Make absolutely sure, that the already mocked Noita API function is not overwritten
-    local mockedModSettingGet = ModSettingGet
-    ModSettingGet             = function(id)
+    local mockedModSettingGet        = ModSettingGet
+    ModSettingGet                    = function(id)
         if string.contains(id, "noita-mp.log_level_") then
             return { "trace, debug, info, warn", "TRACE" }
         end
@@ -54,20 +54,25 @@ function TestNetworkUtils:setUp()
 
         mockedModSettingGet(id)
     end
-    ModSettingGetNextValue    = function()
+    ModSettingGetNextValue           = function()
         -- return false to disable CustomProfiler
         return false
     end
-    ModSettingSetNextValue    = function(id, value, is_default)
+    ModSettingSetNextValue           = function(id, value, is_default)
         print("ModSettingSetNextValue: " .. id .. " = " .. tostring(value) .. " (is_default: " .. tostring(is_default) .. ")")
     end
-    GamePrintImportant        = function(title, description, ui_custom_decoration_file)
+    GamePrintImportant               = function(title, description, ui_custom_decoration_file)
         print("GamePrintImportant: " .. title .. " - " .. description .. " - " .. " (ui_custom_decoration_file: " .. tostring(ui_custom_decoration_file) .. ")")
+    end
+    GameGetRealWorldTimeSinceStarted = function()
+        return os.clock()
     end
 end
 
 --- Teardown function for each test.
 function TestNetworkUtils:tearDown()
+    Server.stop()
+    Client.disconnect()
 end
 
 function TestNetworkUtils:testAlreadySent()
@@ -115,20 +120,47 @@ end
 
 function TestNetworkUtils:testAlreadySentNewNuid()
     -- [[ Mocked data ]] --
-    local owner         = { name = "ownerName", guid = "ownerGuid" }
-    local localEntityId = 123
-    local newNuid       = 6
-    local x             = 0
-    local y             = 1
-    local rotation      = 4.73
-    local velocity      = { x = 2, y = 3 }
-    local filename      = "player.xml"
-    local health        = { current = 45, max = 100 }
-    local isPolymorphed = false
+    local owner          = { name = "ownerName", guid = "ownerGuid" }
+    local localEntityId  = 123
+    local newNuid        = 6
+    local x              = 0
+    local y              = 1
+    local rotation       = 4.73
+    local velocity       = { x = 2, y = 3 }
+    local filename       = "player.xml"
+    local health         = { current = 45, max = 100 }
+    local isPolymorphed  = false
+
+    EntityGetTransform   = function(entity_id)
+        return x, y, rotation, 1, 1
+    end
+    EntityGetInRadius    = function(pos_x, pos_y, radius)
+        return { localEntityId }
+    end
+    EntityGetAllChildren = function(entity_id)
+        return nil
+    end
+    EntityGetFilename    = function(entity_id)
+        return filename
+    end
 
     -- [[ actual sending ]] --
     Server.start("*", 1337)
+    Logger.trace(Logger.channels.testing, ("Server guid = %s"):format(Server.guid))
+    Server.update()
+
+    Logger.trace(Logger.channels.testing, ("Client guid = %s"):format(Client.guid))
+    if Server.guid == Client.guid then
+        -- make 100% sure, clients guid is unique
+        Client.guid = GuidUtils:getGuid({ Server.guid })
+        Logger.trace(Logger.channels.testing, ("Client guid = %s"):format(Client.guid))
+    end
     Client.connect("localhost", 1337, 0)
+    Client.update()
+
+    Server.update()
+    Client.update()
+
     Server.sendNewNuid(owner, localEntityId, newNuid, x, y, rotation, velocity, filename, health, isPolymorphed)
 
     -- [[ pseudo sending, but checking if the data was already sent ]] --
@@ -145,7 +177,7 @@ function TestNetworkUtils:testAlreadySentNewNuid()
         isPolymorphed
     }
 
-    local alreadySent = NetworkUtils.alreadySent(Server, NetworkUtils.events.newNuid.name, data)
+    local alreadySent = NetworkUtils.alreadySent(Client, NetworkUtils.events.newNuid.name, data)
     lu.assertIs(alreadySent, true,
                 "The message was already sent, but the function NetworkUtils.alreadySent() returned false!")
 end
@@ -217,7 +249,7 @@ function TestNetworkUtils:testAlreadySentNeedNuidShouldReturnFalse()
     Client.connect("localhost", 1337, 0)
 
     -- [[ Prepare data and send the event message ]] --
-    local event = NetworkUtils.events.needNuid
+    local event     = NetworkUtils.events.needNuid.name
     local ownerName = "TestOwnerName"
     local ownerGuid = GuidUtils:getGuid()
     local entityId  = 456378
