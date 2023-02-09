@@ -233,7 +233,8 @@ function table.contentToString(tbl)
             Logger.trace(Logger.channels.testing, ("str = %s"):format(str))
         end
     end
-    Logger.trace(Logger.channels.testing, ("str = %s"):format(str))
+    str = str:gsub("%s", "")
+    Logger.trace(Logger.channels.testing, ("contentToString end str = '%s'"):format(str))
     return str
 end
 
