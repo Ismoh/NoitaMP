@@ -3,6 +3,7 @@ local ffi     = require("ffi")
 local watcher = require("watcher")
 local lfs     = require("lfs")
 local json    = require("json")
+local util    = require("util")
 
 -----------------------------------------------------------------------------------------------------------------------
 --- Version
@@ -11,8 +12,12 @@ function fu.getVersionByFile()
     local modsPath           = fu.GetAbsoluteDirectoryPathOfNoitaMP()
     local versionAbsFilePath = ("%s%s.version"):format(modsPath, path_separator)
     local content            = fu.ReadFile(versionAbsFilePath, "*l")
-    local jsonTable          = json.decode(content)
-    local version            = jsonTable.version
+    if not content or util.IsEmpty(content) then
+        error(("Unable to read NoitaMP version. Check if '%s' exists!")
+                      :format(fu.GetAbsolutePathOfNoitaRootDirectory() + "/.version"), 2)
+    end
+    local jsonTable = json.decode(content)
+    local version   = jsonTable.version
     Logger.info(Logger.channels.initialize, ("NoitaMP %s"):format(version))
     return version
 end

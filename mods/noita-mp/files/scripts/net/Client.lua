@@ -10,6 +10,7 @@ local sock        = require("sock")
 local util        = require("util")
 local zstandard   = require("zstd")
 local messagePack = require("MessagePack")
+local fu          = require("file_util")
 
 ----------------------------------------------------------------------------------------------------
 --- Client
@@ -144,7 +145,7 @@ function Client.new(sockClient)
         if not event then
             error("event is nil", 2)
         end
-        local data = { networkMessageId, event, NetworkUtils.events.acknowledgement.ack }
+        local data = { networkMessageId, event, NetworkUtils.events.acknowledgement.ack, os.clock() }
         self:send(NetworkUtils.events.acknowledgement.name, data)
         Logger.debug(Logger.channels.network, ("Sent ack with data = %s"):format(util.pformat(data)))
         CustomProfiler.stop("Client.sendAck", cpc2)
@@ -163,19 +164,30 @@ function Client.new(sockClient)
 
         if not data.networkMessageId then
             error(("Unable to get acknowledgement with networkMessageId = %s, data = %s, peer = %s")
-                          :format(networkMessageId, util.pformat(data), util.pformat(peer)), 2)
+                          :format(networkMessageId, util.pformat(data), util.pformat(self)), 2)
         end
 
         if util.IsEmpty(data.event) then
             error(("onAcknowledgement data.event is empty: %s"):format(data.event), 2)
         end
 
-        if not self.clientCacheId then
-            self.clientCacheId = GuidUtils.toNumber(peer.guid) --error("self.clientCacheId must not be nil!", 2)
+        if util.IsEmpty(data.status) then
+            error(("onAcknowledgement data.status is empty: %s"):format(data.status), 2)
         end
 
-        NetworkCache.set(self.clientCacheId, data.networkMessageId, data.event, data.status, os.clock(), 0,
-                         "NOCHECKSUM")
+        if util.IsEmpty(data.ackedAt) then
+            error(("onAcknowledgement data.ackedAt is empty: %s"):format(data.ackedAt), 2)
+        end
+
+        if not self.clientCacheId then
+            self.clientCacheId = GuidUtils.toNumber(peer.guid)
+        end
+
+        local cachedData = NetworkCacheUtils.get(self.guid, data.networkMessageId, data.event)
+        -- update previous cached network message
+        NetworkCacheUtils.set(self.guid, data.networkMessageId, data.event, data.status, data.ackedAt,
+                              cachedData.sentAt, cachedData)
+
         if NetworkCache.size() > self.acknowledgeMaxSize then
             NetworkCache.removeOldest()
         end
@@ -201,9 +213,10 @@ function Client.new(sockClient)
         local nuid            = localPlayerInfo.nuid -- Could be nil. Timing issue. Will be set after this.
 
         self:send(NetworkUtils.events.playerInfo.name,
-                  { NetworkUtils.getNextNetworkMessageId(), name, guid, _G.NoitaMPVersion, nuid })
+                  { NetworkUtils.getNextNetworkMessageId(), name, guid, fu.getVersionByFile(), nuid })
 
-        self:send(NetworkUtils.events.needModList.name, { NetworkUtils.getNextNetworkMessageId() })
+        self:send(NetworkUtils.events.needModList.name,
+                  { NetworkUtils.getNextNetworkMessageId(), {}, {} }) -- TODO: GUSTAVO pls fix this, I don't know what I should put here!
 
         -- sendAck(data.networkMessageId)
         CustomProfiler.stop("Client.onConnect", cpc4)
@@ -328,9 +341,9 @@ function Client.new(sockClient)
                         ("onPlayerInfo: Clients GUID %s isn't unique! Server will fix this!"):format(self.guid))
         end
 
-        if _G.NoitaMPVersion ~= tostring(data.version) then
+        if fu.getVersionByFile() ~= tostring(data.version) then
             error(("Version mismatch: NoitaMP version of Server: %s and your version: %s")
-                          :format(data.version, _G.NoitaMPVersion), 3)
+                          :format(data.version, fu.getVersionByFile()), 3)
             self:disconnect()
         end
 
@@ -421,7 +434,7 @@ function Client.new(sockClient)
         local entityId        = localPlayerInfo.entityId
 
         self:send(NetworkUtils.events.playerInfo.name,
-                  { NetworkUtils.getNextNetworkMessageId(), name, guid, _G.NoitaMPVersion, nuid })
+                  { NetworkUtils.getNextNetworkMessageId(), name, guid, fu.getVersionByFile(), nuid })
 
         if not NetworkVscUtils.hasNetworkLuaComponents(entityId) then
             NetworkVscUtils.addOrUpdateAllVscs(entityId, name, guid, nil)

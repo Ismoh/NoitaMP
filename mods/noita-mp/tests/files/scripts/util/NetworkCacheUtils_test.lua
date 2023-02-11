@@ -11,7 +11,7 @@ ModSettingGetNextValue             = function(id)
         return false
     end
     if id == "noita-mp.guid" then
-        return "noita-mp.guid"
+        return GuidUtils:getGuid()
     end
 
     if mockedModSettingGetNextValue then
@@ -38,7 +38,7 @@ ModSettingGet             = function(id)
         return "noita-mp.name"
     end
     if id == "noita-mp.guid" then
-        return "noita-mp.guid"
+        return GuidUtils:getGuid()
     end
 
     if mockedModSettingGet then
@@ -72,6 +72,9 @@ function TestNetworkCacheUtils:tearDown()
 end
 
 function TestNetworkCacheUtils:testGetSum()
+    NetworkUtils.getClientOrServer = function()
+        return Server
+    end
     local dataSimple  = { 9999, { name = "test", guid = "guid" }, 1234, 3, 1.2, 3.4, 0.5, { 12, 4 }, "player.xml", { max = 100, current = 48 }, false }
     local sumSimple   = NetworkCacheUtils.getSum(NetworkUtils.events.newNuid.name, dataSimple)
     local sumExpected = "test,guid,3,player.xml,1234"

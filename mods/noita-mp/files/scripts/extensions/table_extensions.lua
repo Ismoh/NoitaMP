@@ -207,22 +207,27 @@ function table.contentToString(tbl)
     if not tbl or type(tbl) ~= "table" then
         error("'tbl' must not be nil and type of table!", 2)
     end
-    Logger.trace(Logger.channels.testing, ("tbl = %s"):format(tbl))
+    if not util then
+        util = require("util")
+    end
+
+    --Logger.trace(Logger.channels.testing, ("tbl = %s"):format(util.pformat(tbl)))
     local status, err = pcall(table.concat, tbl, ",")
     local str         = nil
     if status == true then
         str = err
+        Logger.trace(Logger.channels.testing, ("table.concat(tbl, ',') = %s"):format(str))
     else
         Logger.warn(Logger.channels.testing, ("table.concat(tbl, ',') = %s"):format(err))
     end
-    Logger.trace(Logger.channels.testing, ("str = %s"):format(str))
+    --Logger.trace(Logger.channels.testing, ("str = %s"):format(str))
     if not str or str == "" then
         -- I don't like pairs, but in this case, I don't have a better idea yet
         -- TODO: Gustavo: the risky thing about that is that pairs() iteration order is not guaranteed, so you might have different sums for the same table
         for key, value in pairs(tbl) do
-            Logger.trace(Logger.channels.testing, ("value = %s"):format(value))
+            --Logger.trace(Logger.channels.testing, ("value = %s"):format(util.pformat(value)))
             if type(value) == "table" then
-                Logger.trace(Logger.channels.testing, ("value = %s is table!"):format(tbl))
+                --Logger.trace(Logger.channels.testing, ("value = %s is table!"):format(util.pformat(tbl)))
                 value = table.contentToString(value)
             end
             if not str or str == "" then
@@ -230,11 +235,11 @@ function table.contentToString(tbl)
             else
                 str = ("%s,%s"):format(str, value)
             end
-            Logger.trace(Logger.channels.testing, ("str = %s"):format(str))
+            --Logger.trace(Logger.channels.testing, ("str = %s"):format(str))
         end
     end
     str = str:gsub("%s", "")
-    Logger.trace(Logger.channels.testing, ("contentToString end str = '%s'"):format(str))
+    --Logger.trace(Logger.channels.testing, ("contentToString end str = '%s'"):format(str))
     return str
 end
 

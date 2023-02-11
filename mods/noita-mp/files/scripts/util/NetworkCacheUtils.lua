@@ -34,7 +34,11 @@ function NetworkCacheUtils.getSum(event, data)
     Logger.trace(Logger.channels.testing, "data: " .. util.pformat(data))
     local dataCopy = NetworkUtils.getClientOrServer().zipTable(data, NetworkUtils.events[event].schema, event)
     Logger.trace(Logger.channels.testing, "dataCopy zipped: " .. util.pformat(dataCopy))
-    dataCopy.networkMessageId = nil
+    if event ~= NetworkUtils.events.acknowledgement.name then
+        -- when event is NOT acknowledgement, remove networkMessageId,
+        -- but we need the networkMessageId to find the previous cached network message, when the event is acknowledgement
+        dataCopy.networkMessageId = nil
+    end
     Logger.trace(Logger.channels.testing, "dataCopy without networkMessageId: " .. util.pformat(dataCopy))
     local sum = ""
     if NetworkUtils.events[event].resendIdentifiers ~= nil then
@@ -42,7 +46,7 @@ function NetworkCacheUtils.getSum(event, data)
         for i = 1, #NetworkUtils.events[event].resendIdentifiers do
             local v = NetworkUtils.events[event].resendIdentifiers[i]
             if dataCopy[v] == nil then
-                error(("dataCopy: data for event %s was missing %s resendIdentifier"):format(event, v), 2)
+                error(("dataCopy: data for event '%s' was missing '%s' resendIdentifier"):format(event, v), 2)
             end
             newData[v] = dataCopy[v]
             sum        = table.contentToString(newData)
@@ -50,8 +54,7 @@ function NetworkCacheUtils.getSum(event, data)
     else
         sum = table.contentToString(dataCopy)
     end
-    Logger.trace(Logger.channels.testing, ("sum = %s"):format(sum))
-    Logger.trace(Logger.channels.testing, "getSum-end: " .. util.pformat(dataCopy))
+    Logger.trace(Logger.channels.testing, ("sum from %s = %s"):format(util.pformat(dataCopy), sum))
     return sum
 end
 

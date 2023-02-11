@@ -141,7 +141,7 @@ function Server.new(sockServer)
         if not event then
             error("event is nil", 2)
         end
-        local data = { networkMessageId, event, NetworkUtils.events.acknowledgement.ack }
+        local data = { networkMessageId, event, NetworkUtils.events.acknowledgement.ack, os.clock() }
         self:sendToPeer(peer, NetworkUtils.events.acknowledgement.name, data)
         Logger.debug(Logger.channels.network, ("Sent ack with data = %s"):format(util.pformat(data)))
         CustomProfiler.stop("Server.sendAck", cpc02)
@@ -161,29 +161,32 @@ function Server.new(sockServer)
         if not data.networkMessageId then
             error(("Unable to get acknowledgement with networkMessageId = %s, data = %s, peer = %s")
                           :format(networkMessageId, data, peer), 2)
-            return
         end
 
         if util.IsEmpty(data.event) then
             error(("onAcknowledgement data.event is empty: %s"):format(data.event), 2)
         end
 
-        if not peer.clientCacheId then
-            peer.clientCacheId = GuidUtils.toNumber(peer.guid) --error("peer.clientCacheId must not be nil!", 2)
+        if util.IsEmpty(data.status) then
+            error(("onAcknowledgement data.status is empty: %s"):format(data.status), 2)
         end
 
-        NetworkCache.set(peer.clientCacheId, data.networkMessageId, data.event, data.status, os.clock(), 0,
-                         "NOCHECKSUM")
-        --if not self.acknowledge[peer.connectId][data.event][data.networkMessageId] then
-        --    self.acknowledge[peer.connectId][data.event][data.networkMessageId] = {}
-        --end
-        --self.acknowledge[peer.connectId][data.event][data.networkMessageId].status  = data.status
-        --self.acknowledge[peer.connectId][data.event][data.networkMessageId].ackedAt = os.clock()
-        --
-        --if #self.acknowledge[peer.connectId] > self.acknowledgeMaxSize then
-        --    table.remove(self.acknowledge[peer.connectId], 1)
-        --    logger:info(logger.channels.network, "Removed oldest acknowledgement from self.acknowledge[peer]")
-        --end
+        if util.IsEmpty(data.ackedAt) then
+            error(("onAcknowledgement data.ackedAt is empty: %s"):format(data.ackedAt), 2)
+        end
+
+        if not peer.clientCacheId then
+            peer.clientCacheId = GuidUtils.toNumber(peer.guid)
+        end
+
+        local cachedData = NetworkCacheUtils.get(self.guid, data.networkMessageId, data.event)
+        -- update previous cached network message
+        NetworkCacheUtils.set(self.guid, data.networkMessageId, data.event, data.status, data.ackedAt,
+                              cachedData.sentAt, cachedData)
+
+        if NetworkCache.size() > self.acknowledgeMaxSize then
+            NetworkCache.removeOldest()
+        end
         CustomProfiler.stop("Server.onAcknowledgement", cpc03)
     end
 
@@ -225,7 +228,7 @@ function Server.new(sockServer)
         end
 
         self:send(peer, NetworkUtils.events.playerInfo.name,
-                  { NetworkUtils.getNextNetworkMessageId(), name, guid, _G.NoitaMPVersion, nuid })
+                  { NetworkUtils.getNextNetworkMessageId(), name, guid, fu.getVersionByFile(), nuid })
 
         self:send(peer, NetworkUtils.events.seed.name,
                   { NetworkUtils.getNextNetworkMessageId(), StatsGetValue("world_seed") })
@@ -309,9 +312,9 @@ function Server.new(sockServer)
             error(("onPlayerInfo data.version is empty: %s"):format(data.version), 3)
         end
 
-        if _G.NoitaMPVersion ~= tostring(data.version) then
+        if fu.getVersionByFile() ~= tostring(data.version) then
             error(("Version mismatch: NoitaMP version of Client: %s and your version: %s")
-                          :format(data.version, _G.NoitaMPVersion), 3)
+                          :format(data.version, fu.getVersionByFile()), 3)
             peer:disconnect()
         end
 
@@ -837,7 +840,7 @@ function Server.new(sockServer)
         end
 
         if NetworkUtils.alreadySent(peer, event, data) then
-            logger:debug(logger.channels.network, ("Network message for %s for data %s already was acknowledged.")
+            Logger.debug(Logger.channels.network, ("Network message for %s for data %s already was acknowledged.")
                     :format(event, util.pformat(data)))
             CustomProfiler.stop("Server.send", cpc022)
             return

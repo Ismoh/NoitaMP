@@ -49,7 +49,10 @@ function TestNetworkUtils:setUp()
             return "noita-mp.name"
         end
         if id == "noita-mp.guid" then
-            return "noita-mp.guid"
+            return GuidUtils:getGuid()
+        end
+        if id == "noita-mp.tick_rate" then
+            return 1
         end
 
         mockedModSettingGet(id)
@@ -67,12 +70,15 @@ function TestNetworkUtils:setUp()
     GameGetRealWorldTimeSinceStarted = function()
         return os.clock()
     end
+
+    print("\n-------------------------------------------------------")
 end
 
 --- Teardown function for each test.
 function TestNetworkUtils:tearDown()
     Server.stop()
     Client.disconnect()
+    print("\n-------------------------------------------------------")
 end
 
 function TestNetworkUtils:testAlreadySent()
@@ -120,29 +126,72 @@ end
 
 function TestNetworkUtils:testAlreadySentNewNuid()
     -- [[ Mocked data ]] --
-    local owner          = { name = "ownerName", guid = "ownerGuid" }
-    local localEntityId  = 123
-    local newNuid        = 6
-    local x              = 0
-    local y              = 1
-    local rotation       = 4.73
-    local velocity       = { x = 2, y = 3 }
-    local filename       = "player.xml"
-    local health         = { current = 45, max = 100 }
-    local isPolymorphed  = false
+    local owner                         = { name = "ownerName", guid = GuidUtils:getGuid() }
+    local localEntityId                 = 123
+    local newNuid                       = 6
+    local x                             = 0
+    local y                             = 1
+    local rotation                      = 4.73
+    local velocity                      = { x = 2, y = 3 }
+    local filename                      = "player.xml"
+    local health                        = { current = 45, max = 100 }
+    local isPolymorphed                 = false
 
-    EntityGetTransform   = function(entity_id)
-        return x, y, rotation, 1, 1
+    EntityGetWithTag                    = function(tag)
+        return {}
     end
-    EntityGetInRadius    = function(pos_x, pos_y, radius)
-        return { localEntityId }
+    EntityGetComponentIncludingDisabled = function(entityId, componentTypeName)
+        return {}
     end
-    EntityGetAllChildren = function(entity_id)
-        return nil
+    StatsGetValue                       = function(key)
+        return "2118579845"
     end
-    EntityGetFilename    = function(entity_id)
-        return filename
+
+    -- [[ Mock functions inside Server.update() and Client.update() ]] --
+    require("NetworkVscUtils")
+    local originalProcessAndSyncEntityNetworking = EntityUtils.processAndSyncEntityNetworking
+    EntityUtils.processAndSyncEntityNetworking   = function()
+        Logger.trace(Logger.channels.testing, "EntityUtils.processAndSyncEntityNetworking mocked, is doing nothing!")
     end
+    local originalSyncDeadNuids                  = EntityUtils.syncDeadNuids
+    EntityUtils.syncDeadNuids                    = function()
+        Logger.trace(Logger.channels.testing, "EntityUtils.syncDeadNuids mocked, is doing nothing!")
+    end
+    local originalIsNetworkEntityByNuidVsc       = NetworkVscUtils.isNetworkEntityByNuidVsc
+    NetworkVscUtils.isNetworkEntityByNuidVsc     = function(entityId)
+        return true
+    end
+    local originalGetAllVcsValuesByEntityId      = NetworkVscUtils.getAllVcsValuesByEntityId
+    NetworkVscUtils.getAllVcsValuesByEntityId    = function(entityId)
+        return owner.name, owner.guid, newNuid
+    end
+    local originalSpawnEntity                    = EntityUtils.spawnEntity
+    EntityUtils.spawnEntity                      = function(owner, newNuid, x, y, rotation, velocity, filename, localEntityId, health,
+                                                            isPolymorphed)
+        return 'boom boom pow'
+    end
+    local originalHasNetworkLuaComponents        = NetworkVscUtils.hasNetworkLuaComponents
+    NetworkVscUtils.hasNetworkLuaComponents      = function(entityId)
+        return true
+    end
+    local fu                                     = require("file_util")
+    local originalReadFile                       = fu.ReadFile
+    fu.ReadFile                                  = function(path)
+        if path == fu.GetAbsoluteDirectoryPathOfParentSave() .. "\\save00\\mod_config.xml" then
+            return "<Mods>\n</Mods>"
+        end
+        return originalReadFile(path)
+    end
+    local originalGetLocalPlayerInfo             = util.getLocalPlayerInfo
+    util.getLocalPlayerInfo                      = function()
+        return {
+            name     = owner.name,
+            guid     = owner.guid,
+            entityId = localEntityId,
+            nuid     = newNuid
+        }
+    end
+
 
     -- [[ actual sending ]] --
     Server.start("*", 1337)
@@ -163,8 +212,11 @@ function TestNetworkUtils:testAlreadySentNewNuid()
 
     Server.sendNewNuid(owner, localEntityId, newNuid, x, y, rotation, velocity, filename, health, isPolymorphed)
 
+    Server.update()
+    Client.update()
+
     -- [[ pseudo sending, but checking if the data was already sent ]] --
-    local data        = {
+    local data                                 = {
         NetworkUtils.getNextNetworkMessageId(),
         owner,
         localEntityId,
@@ -177,7 +229,18 @@ function TestNetworkUtils:testAlreadySentNewNuid()
         isPolymorphed
     }
 
-    local alreadySent = NetworkUtils.alreadySent(Client, NetworkUtils.events.newNuid.name, data)
+    -- [[ Make sure mocked function are set back to originals ]] --
+    EntityUtils.processAndSyncEntityNetworking = originalProcessAndSyncEntityNetworking
+    EntityUtils.syncDeadNuids                  = originalSyncDeadNuids
+    NetworkVscUtils.isNetworkEntityByNuidVsc   = originalIsNetworkEntityByNuidVsc
+    NetworkVscUtils.getAllVcsValuesByEntityId  = originalGetAllVcsValuesByEntityId
+    EntityUtils.spawnEntity                    = originalSpawnEntity
+    NetworkVscUtils.hasNetworkLuaComponents    = originalHasNetworkLuaComponents
+    fu.ReadFile                                = originalReadFile
+    util.getLocalPlayerInfo                    = originalGetLocalPlayerInfo
+
+    local alreadySent                          = NetworkUtils.alreadySent(Server.clients[1], NetworkUtils.events.newNuid.name,
+                                                                          data)
     lu.assertIs(alreadySent, true,
                 "The message was already sent, but the function NetworkUtils.alreadySent() returned false!")
 end

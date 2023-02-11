@@ -53,13 +53,13 @@ local init_package_loading = dofile("mods/noita-mp/files/scripts/init/init_packa
 dofile("mods/noita-mp/files/scripts/init/init_logger.lua")
 
 _G.whoAmI = function()
-    if _G.Server:amIServer() then
-        return _G.Server.iAm
+    if Server.amIServer() then
+        return Server.iAm
     end
-    if _G.Client:amIClient() then
-        return _G.Client.iAm
+    if Client.amIClient() then
+        return Client.iAm
     end
-    return nil
+    return "UNKNOWN"
 end
 
 -- We simply want to load all dependencies, when inGame and in init.lua-Context,
@@ -79,7 +79,6 @@ if require and not isTestLuaContext then
     require("Client")
 
     local fu          = require("file_util")
-    _G.NoitaMPVersion = fu.getVersionByFile()
 
     require("CustomProfiler")
 else

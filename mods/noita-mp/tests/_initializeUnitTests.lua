@@ -38,11 +38,16 @@ if not ModSettingGet then
     --- DO NOT add ids, which are used in a test. Add those inside of the test itself!
     ----------------------------------------
     ModSettingGet    = function(id)
-        print("ModSettingGet: " .. id)
         if id == "noita-mp.log_level_initialize" then
             return { "trace, debug, info, warn", "TRACE" }
         end
-        error(("Mod setting '%s' is not mocked! Add it!"):format(id), 2)
+        error(("ModSettingGet '%s' is not mocked! Add it!"):format(id), 2)
+    end
+    ModSettingGetNextValue = function(id)
+        if id == "noita-mp.toggle_profiler" then
+            return false
+        end
+        error(("ModSettingGetNextValue '%s' is not mocked! Add it!"):format(id), 2)
     end
 
     local pathToMods = lfs.currentdir() .. "/../.."

@@ -112,16 +112,17 @@ function util.getLocalPlayerInfo()
     local nuid = nil
 
     if EntityUtils.isPlayerPolymorphed() then
-        if _G.whoAmI() == Client.iAm then
+        local who = _G.whoAmI()
+        if who == Client.iAm then
             if not NetworkVscUtils.hasNuidSet(entityId) then
                 Client.sendNeedNuid(ownerName, ownerGuid, entityId)
             end
-        elseif _G.whoAmI() == Server.iAm then
+        elseif who == Server.iAm then
             if not NetworkVscUtils.hasNuidSet(entityId) then
                 nuid = NuidUtils.getNextNuid()
             end
         else
-            error("Unable to identify whether I am Client or Server..", 3)
+            error(("Unable to identify whether I am Client or Server.. whoAmI() == %s"):format(who), 2)
         end
     end
 

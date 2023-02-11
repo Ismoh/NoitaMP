@@ -47,11 +47,11 @@ NetworkUtils.events                  = {
     --- acknowledgement is used to let the sender know if the message was acknowledged
     acknowledgement = {
         name              = "acknowledgement",
-        schema            = { "networkMessageId", "event", "status" },
+        schema            = { "networkMessageId", "event", "status", "ackedAt" },
         ack               = "ack",
         sent              = "sent",
-        resendIdentifiers = { "event", "status" },
-        isCacheable       = true
+        resendIdentifiers = { "networkMessageId", "status" },
+        isCacheable       = false
     },
 
     --- seed is used to send the servers seed
@@ -66,7 +66,7 @@ NetworkUtils.events                  = {
     playerInfo      = {
         name              = "playerInfo",
         schema            = { "networkMessageId", "name", "guid", "version", "nuid" },
-        resendIdentifiers = { "name", "guid", "version", "nuid" },
+        resendIdentifiers = { "name", "guid", "version" },
         isCacheable       = true
     },
 
@@ -74,7 +74,7 @@ NetworkUtils.events                  = {
     newGuid         = {
         name              = "newGuid",
         schema            = { "networkMessageId", "oldGuid", "newGuid" },
-        resendIdentifiers = { "oldGuid", "NewGuid" },
+        resendIdentifiers = { "oldGuid", "newGuid" },
         isCacheable       = true
     },
 
@@ -162,14 +162,15 @@ end
 --- @public
 function NetworkUtils.getClientOrServer()
     local cpc = CustomProfiler.start("NetworkUtils.getClientOrServer")
-    if _G.whoAmI() == Client.iAm then
+    local who = _G.whoAmI()
+    if who == Client.iAm then
         CustomProfiler.stop("NetworkUtils.getClientOrServer", cpc)
         return Client
-    elseif _G.whoAmI() == Server.iAm then
+    elseif who == Server.iAm then
         CustomProfiler.stop("NetworkUtils.getClientOrServer", cpc)
         return Server
     else
-        error("Unable to identify whether I am Client or Server..", 3)
+        error(("Unable to identify whether I am Client or Server.. whoAmI() == %s"):format(who), 2)
     end
     CustomProfiler.stop("NetworkUtils.getClientOrServer", cpc)
 end
