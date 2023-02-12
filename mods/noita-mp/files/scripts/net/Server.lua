@@ -837,13 +837,14 @@ function Server.new(sockServer)
         local cpc022 = CustomProfiler.start("Server.send")
         if type(data) ~= "table" then
             error("", 2)
+            return false
         end
 
         if NetworkUtils.alreadySent(peer, event, data) then
             Logger.debug(Logger.channels.network, ("Network message for %s for data %s already was acknowledged.")
                     :format(event, util.pformat(data)))
             CustomProfiler.stop("Server.send", cpc022)
-            return
+            return false
         end
 
         local networkMessageId = sockServerSend(self, peer, event, data)
@@ -854,33 +855,38 @@ function Server.new(sockServer)
                                       NetworkUtils.events.acknowledgement.sent, 0, os.clock(), data)
             end
         end
-
         CustomProfiler.stop("Server.send", cpc022)
+        return true
     end
 
     function self:sendToAll(event, data)
         local cpc023 = CustomProfiler.start("Server.sendToAll")
+        local sent   = false
         if util.IsEmpty(self.clients) then
             Logger.trace(Logger.channels.testing,
                          ("Unable to send anything, when there are no clients %s!"):format(util.pformat(self.clients)))
+            return sent
         end
         for i = 1, #self.clients do
             Logger.trace(Logger.channels.testing,
-                         ("Sending data %s to client %s!"):format(util.pformat(data), util.pformat(self.clients[i])))
-            self:send(self.clients[i], event, data)
+                         ("Sending event '%s' with data '%s' to client.name '%s'!"):format(event, util.pformat(data),
+                                                                                           self.clients[i].name))
+            sent = self:send(self.clients[i], event, data)
         end
         CustomProfiler.stop("Server.sendToAll", cpc023)
+        return sent
     end
 
     function self:sendToAllBut(peer, event, data)
         local cpc024 = CustomProfiler.start("Server.sendToAllBut")
+        local sent   = false
         for i = 1, #self.clients do
-            local client = self.clients[i]
-            if client.connectId ~= peer.connectId then
-                self:send(client, event, data)
+            if self.clients[i].connectId ~= peer.connectId then
+                sent = self:send(self.clients[i], event, data)
             end
         end
         CustomProfiler.stop("Server.sendToAllBut", cpc024)
+        return sent
     end
 
 
@@ -1001,8 +1007,9 @@ function Server.new(sockServer)
         local cpc017 = CustomProfiler.start("Server.sendNewNuid")
         local event  = NetworkUtils.events.newNuid.name
         local data   = { NetworkUtils.getNextNetworkMessageId(), owner, localEntityId, newNuid, x, y, rotation, velocity, filename, health, isPolymorphed }
-        self:sendToAll(event, data)
+        local sent   = self:sendToAll(event, data)
         CustomProfiler.stop("Server.sendNewNuid", cpc017)
+        return sent
     end
 
     function self.sendEntityData(entityId)

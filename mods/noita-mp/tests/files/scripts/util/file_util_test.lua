@@ -79,7 +79,7 @@ function TestFileUtil:testReplacePathSeparatorOnUnix()
     _G.path_separator = old_path_separator
 end
 
-function TestFileUtil:testReplacePathSeparatorUnkownOs()
+function TestFileUtil:testReplacePathSeparatorUnknownOs()
     local old_is_windows = _G.is_windows
     local old_is_linux   = _G.is_linux
 

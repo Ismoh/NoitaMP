@@ -20,6 +20,12 @@ end
 --- @return string guid
 function GuidUtils:getGuid(inUsedGuids)
     if not util.IsEmpty(inUsedGuids) and #inUsedGuids > 0 then
+        for i = 1, #inUsedGuids do
+            if not GuidUtils.isPatternValid(inUsedGuids[i]) then
+                error(("Already in used guid '%s' is not a valid guid!"):format(inUsedGuids[i]), 2)
+            end
+        end
+
         ---@cast inUsedGuids table
         table.insertAllButNotDuplicates(self.cached_guid, inUsedGuids)
         Logger.debug(Logger.channels.guid, ("Guid:getGuid() - inUsedGuids: %s"):format(util.pformat(inUsedGuids)))

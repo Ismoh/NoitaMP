@@ -41,7 +41,7 @@ NetworkUtils.events                  = {
         name              = "disconnect2",
         schema            = { "networkMessageId", "name", "guid" },
         resendIdentifiers = { "name", "guid" },
-        isCacheable       = false
+        isCacheable       = true
     },
 
     --- acknowledgement is used to let the sender know if the message was acknowledged
@@ -190,7 +190,7 @@ end
 function NetworkUtils.alreadySent(peer, event, data)
     local cpc = CustomProfiler.start("NetworkUtils.alreadySent")
     if not peer then
-        error("'peer' must not be nil! When Server, then peer. When Client, then self.", 2)
+        error("'peer' must not be nil! When Server, then peer or Server.clients[i]. When Client, then self.", 2)
     end
     if not event then
         error("'event' must not be nil!", 2)

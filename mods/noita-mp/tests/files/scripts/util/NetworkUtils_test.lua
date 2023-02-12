@@ -3,24 +3,10 @@ local params                 = ...
 -- [[ Mock Noita API functions, which are needed before/during require is used ]] --
 mockedModSettingGetNextValue = ModSettingGetNextValue
 ModSettingGetNextValue       = function(id)
-    if id == "noita-mp.guid" then
-        return GuidUtils:getGuid()
-    end
-
     if mockedModSettingGetNextValue then
         mockedModSettingGetNextValue(id)
     end
 end
---logger.log = function(channel, text)
---    local level = "TESTING"
---    local file = "file"
---    local msg = ("%s [%s][%s] %s ( in %s )"):format("00:00:00", channel, level, text, file)
---    print(msg)
---end
---logger.debug = logger.log
---logger.info = logger.log
---logger.warn = logger.log
---logger.error = logger.log
 
 -- [[ require ]] --
 require("noitamp_cache")
@@ -46,10 +32,12 @@ function TestNetworkUtils:setUp()
             return { "trace, debug, info, warn", "TRACE" }
         end
         if id == "noita-mp.name" then
-            return "noita-mp.name"
+            Logger.warn(Logger.channels.testing, ("RESET this value manually in your current test: %s"):format(id))
+            return "RESET THIS!!"
         end
         if id == "noita-mp.guid" then
-            return GuidUtils:getGuid()
+            Logger.warn(Logger.channels.testing, ("RESET this value manually in your current test: %s"):format(id))
+            return "RESET THIS"
         end
         if id == "noita-mp.tick_rate" then
             return 1
@@ -70,14 +58,13 @@ function TestNetworkUtils:setUp()
     GameGetRealWorldTimeSinceStarted = function()
         return os.clock()
     end
-
-    print("\n-------------------------------------------------------")
+    ModGetActiveModIDs               = function()
+        return { "noita-mp" }
+    end
 end
 
 --- Teardown function for each test.
 function TestNetworkUtils:tearDown()
-    Server.stop()
-    Client.disconnect()
     print("\n-------------------------------------------------------")
 end
 
@@ -92,32 +79,218 @@ function TestNetworkUtils:testAlreadySent()
                               NetworkUtils.alreadySent, Client, "needNuid", nil)
 end
 
---function TestNetworkUtils:testAlreadySentConnect2()
---    Server.start("*", 1337)
---    Client.connect("localhost", 1337, 0)
---    local client2 = ClientInit.new(sock.newClient())
---
---    local data        = { NetworkUtils.getNextNetworkMessageId(), ModSettingGet("noita-mp.name"), ModSettingGet("noita-mp.guid") }
---
---    local alreadySent = NetworkUtils.alreadySent(clients, NetworkUtils.events.connect2.name, data)
---    lu.assertIs(alreadySent, true,
---                "The message was already sent, but the function NetworkUtils.alreadySent() returned false!")
---end
+function TestNetworkUtils:testAlreadySentConnect2()
+    -- [[ Prepare mocked data for sending Connect2! ]] --
+    local networkMessageId = NetworkUtils.getNextNetworkMessageId()
+    local name             = "ClientOwnerName"
+    local guid             = GuidUtils:getGuid()
+
+    local data             = {
+        networkMessageId,
+        name,
+        guid
+    }
+
+    local event            = NetworkUtils.events.connect2.name
+
+    -- [[ Expected checksum in NetworkCache ]] --
+    local md5              = require("md5")
+    local expectedChecksum = md5.sumhexa(NetworkCacheUtils.getSum(event, data))
+
+    -- [[ Set up client and server, but do not do a actual start and connect, because this would execute to many other functions ]] --
+    local sock             = require("sock")
+    local Server           = ServerInit.new(sock.newServer("*", 1337))
+    Server.name            = "ServerOwnerName"
+    Server.guid            = GuidUtils:getGuid({ guid })
+    local Client           = ClientInit.new(sock.newClient("*", 1337))
+    Client.name            = name
+    Client.guid            = guid
+
+    -- [[ Mock functions ]] --
+    Client.connection      = {}
+    Client.connection.send = function(serializedMessage, sendChannel, sendMode)
+        Logger.trace(Logger.channels.testing,
+                     ("Mocked 'self.connection:send(serializedMessage %s, self.sendChannel %s, self.sendMode %s)' executed!")
+                             :format(util.pformat(serializedMessage), sendChannel, sendMode))
+    end
+
+    -- [[ Send message ]] --
+    Server.clients[1]      = Client
+    local sent             = Server:sendToAll(NetworkUtils.events.connect2.name,
+                                              { NetworkUtils.getNextNetworkMessageId(), Client.name, Client.guid })
+    lu.assertIsTrue(sent, "Server didn't send network message. Is the client set in Server.clients?")
+
+    local cachedData = NetworkCacheUtils.getByChecksum(Server.clients[1].guid, event, data)
+    lu.assertEquals(cachedData.dataChecksum, expectedChecksum,
+                    "Checksum in NetworkCache isn't equal! Something bad is broken!")
+    Logger.trace(Logger.channels.testing,
+                 ("Actual checksum '%s' == '%s' expected checksum"):format(cachedData.dataChecksum, expectedChecksum))
+
+    local alreadySent = NetworkUtils.alreadySent(Server.clients[1], event, data)
+    lu.assertIsTrue(alreadySent,
+                    "NetworkMessage was already send, but NetworkUtils.alreadySent didn't find it in the cache?")
+end
 
 function TestNetworkUtils:testAlreadySentDisconnect2()
+    -- [[ Prepare mocked data for sending Disconnect2! ]] --
+    local networkMessageId = NetworkUtils.getNextNetworkMessageId()
+    local name             = "ClientOwnerName"
+    local guid             = GuidUtils:getGuid()
 
+    local data             = {
+        networkMessageId,
+        name,
+        guid
+    }
+
+    local event            = NetworkUtils.events.disconnect2.name
+
+    -- [[ Expected checksum in NetworkCache ]] --
+    local md5              = require("md5")
+    local expectedChecksum = md5.sumhexa(NetworkCacheUtils.getSum(event, data))
+
+    -- [[ Set up client and server, but do not do a actual start and connect, because this would execute to many other functions ]] --
+    local sock             = require("sock")
+    local Server           = ServerInit.new(sock.newServer("*", 1337))
+    Server.name            = "ServerOwnerName"
+    Server.guid            = GuidUtils:getGuid({ guid })
+    local Client           = ClientInit.new(sock.newClient("*", 1337))
+    Client.name            = name
+    Client.guid            = guid
+
+    -- [[ Mock functions ]] --
+    Client.connection      = {}
+    Client.connection.send = function(serializedMessage, sendChannel, sendMode)
+        Logger.trace(Logger.channels.testing,
+                     ("Mocked 'self.connection:send(serializedMessage %s, self.sendChannel %s, self.sendMode %s)' executed!")
+                             :format(util.pformat(serializedMessage), sendChannel, sendMode))
+    end
+
+    -- [[ Send message ]] --
+    Server.clients[1]      = Client
+    local sent             = Server:sendToAll(event, data)
+    lu.assertIsTrue(sent, "Server didn't send network message. Is the client set in Server.clients?")
+
+    local cachedData = NetworkCacheUtils.getByChecksum(Server.clients[1].guid, event, data)
+    lu.assertEquals(cachedData.dataChecksum, expectedChecksum,
+                    "Checksum in NetworkCache isn't equal! Something bad is broken!")
+    Logger.trace(Logger.channels.testing,
+                 ("Actual checksum '%s' == '%s' expected checksum"):format(cachedData.dataChecksum, expectedChecksum))
+
+    local alreadySent = NetworkUtils.alreadySent(Server.clients[1], event, data)
+    lu.assertIsTrue(alreadySent,
+                    "NetworkMessage was already send, but NetworkUtils.alreadySent didn't find it in the cache?")
 end
 
 function TestNetworkUtils:testAlreadySentAcknowledgement()
-
+    lu.assertIsFalse(NetworkUtils.events.acknowledgement.isCacheable,
+                     "Acknowledgement network messages won't be cached or resend!")
 end
 
 function TestNetworkUtils:testAlreadySentSeed()
+    -- [[ Prepare mocked data for sending Seed! ]] --
+    local networkMessageId = NetworkUtils.getNextNetworkMessageId()
+    local seed             = "4294967295"
 
+    local data             = {
+        networkMessageId,
+        seed
+    }
+
+    local event            = NetworkUtils.events.seed.name
+
+    -- [[ Expected checksum in NetworkCache ]] --
+    local md5              = require("md5")
+    local expectedChecksum = md5.sumhexa(NetworkCacheUtils.getSum(event, data))
+
+    -- [[ Set up client and server, but do not do a actual start and connect, because this would execute to many other functions ]] --
+    local sock             = require("sock")
+    local Server           = ServerInit.new(sock.newServer("*", 1337))
+    Server.name            = "ServerOwnerName"
+    Server.guid            = GuidUtils:getGuid({ guid })
+    local Client           = ClientInit.new(sock.newClient("*", 1337))
+    Client.name            = name
+    Client.guid            = guid
+
+    -- [[ Mock functions ]] --
+    Client.connection      = {}
+    Client.connection.send = function(serializedMessage, sendChannel, sendMode)
+        Logger.trace(Logger.channels.testing,
+                     ("Mocked 'self.connection:send(serializedMessage %s, self.sendChannel %s, self.sendMode %s)' executed!")
+                             :format(util.pformat(serializedMessage), sendChannel, sendMode))
+    end
+
+    -- [[ Send message ]] --
+    Server.clients[1]      = Client
+    local sent             = Server:send(Server.clients[1], event, data)
+    lu.assertIsTrue(sent, "Server didn't send network message. Is the client set in Server.clients?")
+
+    local cachedData = NetworkCacheUtils.getByChecksum(Server.clients[1].guid, event, data)
+    lu.assertEquals(cachedData.dataChecksum, expectedChecksum,
+                    "Checksum in NetworkCache isn't equal! Something bad is broken!")
+    Logger.trace(Logger.channels.testing,
+                 ("Actual checksum '%s' == '%s' expected checksum"):format(cachedData.dataChecksum, expectedChecksum))
+
+    local alreadySent = NetworkUtils.alreadySent(Server.clients[1], event, data)
+    lu.assertIsTrue(alreadySent,
+                    "NetworkMessage was already send, but NetworkUtils.alreadySent didn't find it in the cache?")
 end
 
 function TestNetworkUtils:testAlreadySentPlayerInfo()
+    local fu               = require("file_util")
 
+    -- [[ Prepare mocked data for sending PlayerInfo! ]] --
+    local networkMessageId = NetworkUtils.getNextNetworkMessageId()
+    local name             = "ClientOwnerName"
+    local guid             = GuidUtils:getGuid()
+    local version          = fu.getVersionByFile()
+    local nuid             = nil
+
+    local data             = {
+        networkMessageId,
+        name,
+        guid,
+        version,
+        nuid
+    }
+
+    local event            = NetworkUtils.events.playerInfo.name
+
+    -- [[ Expected checksum in NetworkCache ]] --
+    local md5              = require("md5")
+    local expectedChecksum = md5.sumhexa(NetworkCacheUtils.getSum(event, data))
+
+    -- [[ Set up client and server, but do not do a actual start and connect, because this would execute to many other functions ]] --
+    local sock             = require("sock")
+    local Server           = ServerInit.new(sock.newServer("*", 1337))
+    Server.name            = "ServerOwnerName"
+    Server.guid            = GuidUtils:getGuid({ guid })
+    local Client           = ClientInit.new(sock.newClient("*", 1337))
+    Client.name            = name
+    Client.guid            = guid
+
+    -- [[ Mock functions ]] --
+    Client.connection      = {}
+    Client.connection.send = function(serializedMessage, sendChannel, sendMode)
+        Logger.trace(Logger.channels.testing,
+                     ("Mocked 'self.connection:send(serializedMessage %s, self.sendChannel %s, self.sendMode %s)' executed!")
+                             :format(util.pformat(serializedMessage), sendChannel, sendMode))
+    end
+
+    -- [[ Send message ]] --
+    Server.clients[1]      = Client
+    local sent             = Server:send(Server.clients[1], event, data)
+    lu.assertIsTrue(sent, "Server didn't send network message. Is the client set in Server.clients?")
+
+    local cachedData = NetworkCacheUtils.getByChecksum(Server.clients[1].guid, event, data)
+    lu.assertEquals(cachedData.dataChecksum, expectedChecksum,
+                    "Checksum in NetworkCache isn't equal! Something bad is broken!")
+    Logger.trace(Logger.channels.testing,
+                 ("Actual checksum '%s' == '%s' expected checksum"):format(cachedData.dataChecksum, expectedChecksum))
+
+    local alreadySent = NetworkUtils.alreadySent(Server.clients[1], event, data)
+    lu.assertIsTrue(alreadySent,
+                    "NetworkMessage was already send, but NetworkUtils.alreadySent didn't find it in the cache?")
 end
 
 function TestNetworkUtils:testAlreadySentNewGuid()
@@ -125,103 +298,26 @@ function TestNetworkUtils:testAlreadySentNewGuid()
 end
 
 function TestNetworkUtils:testAlreadySentNewNuid()
-    -- [[ Mocked data ]] --
-    local owner                         = { name = "ownerName", guid = GuidUtils:getGuid() }
-    local localEntityId                 = 123
-    local newNuid                       = 6
-    local x                             = 0
-    local y                             = 1
-    local rotation                      = 4.73
-    local velocity                      = { x = 2, y = 3 }
-    local filename                      = "player.xml"
-    local health                        = { current = 45, max = 100 }
-    local isPolymorphed                 = false
+    -- [[ Prepare mocked data for sending a new nuid! ]] --
+    local networkMessageId = NetworkUtils.getNextNetworkMessageId()
+    local owner            = { name = "ServerOwnerName", guid = GuidUtils:getGuid() }
+    local localEntityId    = 3456
+    local newNuid          = 34
+    local x                = 6
+    local y                = 7
+    local rotation         = 5.67
+    local velocity         = { x = 2, y = 5 }
+    local filename         = "player.xml"
+    local health           = { current = 490, max = 1000 }
+    local isPolymorphed    = false
 
-    EntityGetWithTag                    = function(tag)
-        return {}
-    end
-    EntityGetComponentIncludingDisabled = function(entityId, componentTypeName)
-        return {}
-    end
-    StatsGetValue                       = function(key)
-        return "2118579845"
-    end
-
-    -- [[ Mock functions inside Server.update() and Client.update() ]] --
-    require("NetworkVscUtils")
-    local originalProcessAndSyncEntityNetworking = EntityUtils.processAndSyncEntityNetworking
-    EntityUtils.processAndSyncEntityNetworking   = function()
-        Logger.trace(Logger.channels.testing, "EntityUtils.processAndSyncEntityNetworking mocked, is doing nothing!")
-    end
-    local originalSyncDeadNuids                  = EntityUtils.syncDeadNuids
-    EntityUtils.syncDeadNuids                    = function()
-        Logger.trace(Logger.channels.testing, "EntityUtils.syncDeadNuids mocked, is doing nothing!")
-    end
-    local originalIsNetworkEntityByNuidVsc       = NetworkVscUtils.isNetworkEntityByNuidVsc
-    NetworkVscUtils.isNetworkEntityByNuidVsc     = function(entityId)
-        return true
-    end
-    local originalGetAllVcsValuesByEntityId      = NetworkVscUtils.getAllVcsValuesByEntityId
-    NetworkVscUtils.getAllVcsValuesByEntityId    = function(entityId)
-        return owner.name, owner.guid, newNuid
-    end
-    local originalSpawnEntity                    = EntityUtils.spawnEntity
-    EntityUtils.spawnEntity                      = function(owner, newNuid, x, y, rotation, velocity, filename, localEntityId, health,
-                                                            isPolymorphed)
-        return 'boom boom pow'
-    end
-    local originalHasNetworkLuaComponents        = NetworkVscUtils.hasNetworkLuaComponents
-    NetworkVscUtils.hasNetworkLuaComponents      = function(entityId)
-        return true
-    end
-    local fu                                     = require("file_util")
-    local originalReadFile                       = fu.ReadFile
-    fu.ReadFile                                  = function(path)
-        if path == fu.GetAbsoluteDirectoryPathOfParentSave() .. "\\save00\\mod_config.xml" then
-            return "<Mods>\n</Mods>"
-        end
-        return originalReadFile(path)
-    end
-    local originalGetLocalPlayerInfo             = util.getLocalPlayerInfo
-    util.getLocalPlayerInfo                      = function()
-        return {
-            name     = owner.name,
-            guid     = owner.guid,
-            entityId = localEntityId,
-            nuid     = newNuid
-        }
-    end
-
-
-    -- [[ actual sending ]] --
-    Server.start("*", 1337)
-    Logger.trace(Logger.channels.testing, ("Server guid = %s"):format(Server.guid))
-    Server.update()
-
-    Logger.trace(Logger.channels.testing, ("Client guid = %s"):format(Client.guid))
-    if Server.guid == Client.guid then
-        -- make 100% sure, clients guid is unique
-        Client.guid = GuidUtils:getGuid({ Server.guid })
-        Logger.trace(Logger.channels.testing, ("Client guid = %s"):format(Client.guid))
-    end
-    Client.connect("localhost", 1337, 0)
-    Client.update()
-
-    Server.update()
-    Client.update()
-
-    Server.sendNewNuid(owner, localEntityId, newNuid, x, y, rotation, velocity, filename, health, isPolymorphed)
-
-    Server.update()
-    Client.update()
-
-    -- [[ pseudo sending, but checking if the data was already sent ]] --
-    local data                                 = {
-        NetworkUtils.getNextNetworkMessageId(),
+    local data             = {
+        networkMessageId,
         owner,
         localEntityId,
         newNuid,
-        x, y,
+        x,
+        y,
         rotation,
         velocity,
         filename,
@@ -229,20 +325,47 @@ function TestNetworkUtils:testAlreadySentNewNuid()
         isPolymorphed
     }
 
-    -- [[ Make sure mocked function are set back to originals ]] --
-    EntityUtils.processAndSyncEntityNetworking = originalProcessAndSyncEntityNetworking
-    EntityUtils.syncDeadNuids                  = originalSyncDeadNuids
-    NetworkVscUtils.isNetworkEntityByNuidVsc   = originalIsNetworkEntityByNuidVsc
-    NetworkVscUtils.getAllVcsValuesByEntityId  = originalGetAllVcsValuesByEntityId
-    EntityUtils.spawnEntity                    = originalSpawnEntity
-    NetworkVscUtils.hasNetworkLuaComponents    = originalHasNetworkLuaComponents
-    fu.ReadFile                                = originalReadFile
-    util.getLocalPlayerInfo                    = originalGetLocalPlayerInfo
+    local event            = NetworkUtils.events.newNuid.name
 
-    local alreadySent                          = NetworkUtils.alreadySent(Server.clients[1], NetworkUtils.events.newNuid.name,
-                                                                          data)
-    lu.assertIs(alreadySent, true,
-                "The message was already sent, but the function NetworkUtils.alreadySent() returned false!")
+    -- [[ Expected checksum in NetworkCache ]] --
+    local md5              = require("md5")
+    local expectedChecksum = md5.sumhexa(NetworkCacheUtils.getSum(event, data))
+
+    -- [[ Set up client and server, but do not do a actual start and connect, because this would execute to many other functions ]] --
+    local sock             = require("sock")
+    local Server           = ServerInit.new(sock.newServer("*", 1337))
+    Server.name            = owner.name
+    Server.guid            = owner.guid
+    local Client           = ClientInit.new(sock.newClient("*", 1337))
+    Client.name            = "ClientOwnerName"
+    if Server.guid == Client.guid then
+        Client.guid = GuidUtils:getGuid({ Server.guid })
+    end
+
+    -- [[ Mock functions ]] --
+    Client.connection      = {}
+    Client.connection.send = function(serializedMessage, sendChannel, sendMode)
+        Logger.trace(Logger.channels.testing,
+                     ("Mocked 'self.connection:send(serializedMessage %s, self.sendChannel %s, self.sendMode %s)' executed!")
+                             :format(util.pformat(serializedMessage), sendChannel, sendMode))
+    end
+
+    -- [[ Send message ]] --
+    Server.clients[1]      = Client
+    local sent             = Server.sendNewNuid(owner, localEntityId, newNuid, x, y, rotation, velocity, filename,
+                                                health,
+                                                isPolymorphed)
+    lu.assertIsTrue(sent, "Server didn't send network message. Is the client set in Server.clients?")
+
+    local cachedData = NetworkCacheUtils.getByChecksum(Server.clients[1].guid, event, data)
+    lu.assertEquals(cachedData.dataChecksum, expectedChecksum,
+                    "Checksum in NetworkCache isn't equal! Something bad is broken!")
+    Logger.trace(Logger.channels.testing,
+                 ("Actual checksum '%s' == '%s' expected checksum"):format(cachedData.dataChecksum, expectedChecksum))
+
+    local alreadySent = NetworkUtils.alreadySent(Server.clients[1], event, data)
+    lu.assertIsTrue(alreadySent,
+                    "NetworkMessage was already send, but NetworkUtils.alreadySent didn't find it in the cache?")
 end
 
 --- Tests if the function NetworkUtils.alreadySent() returns TRUE,
