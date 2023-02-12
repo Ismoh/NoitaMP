@@ -140,10 +140,10 @@ end
 --- @return table cacheData { ackedAt, dataChecksum, event, messageId, sentAt, status}
 function NetworkCacheUtils.getByChecksum(peerGuid, event, data)
     if not peerGuid or util.IsEmpty(peerGuid) or type(peerGuid) ~= "string" then
-        error(("peerGuid '%s' must not be nil or empty or isn't type of string!"):format(peerGuid), 2)
+        error(("peerGuid '%s' must not be nil or empty or isn't type of string!"):format(util.pformat(peerGuid)), 2)
     end
     if not event or util.IsEmpty(event) or type(event) ~= "string" then
-        error(("event '%s' must not be nil or empty or isn't type of string!"):format(event), 2)
+        error(("event '%s' must not be nil or empty or isn't type of string!"):format(util.pformat(event)), 2)
     end
     if not data or util.IsEmpty(data) or type(data) ~= "table" then
         error(("data '%s' must not be nil or empty or isn't type of table!"):format(util.pformat(data)), 2)

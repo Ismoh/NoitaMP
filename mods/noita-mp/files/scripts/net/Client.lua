@@ -889,14 +889,15 @@ function Client.new(sockClient)
     function self:send(event, data)
         local cpc19 = CustomProfiler.start("Client.send")
         if type(data) ~= "table" then
-            error("", 2)
+            error(("Data is not type of table: %s"):format(data), 2)
+            return false
         end
 
         if NetworkUtils.alreadySent(self, event, data) then
             Logger.debug(Logger.channels.network, ("Network message for %s for data %s already was acknowledged.")
                     :format(event, util.pformat(data)))
             CustomProfiler.stop("Client.send", cpc19)
-            return
+            return false
         end
 
         local networkMessageId = sockClientSend(self, event, data)
@@ -908,6 +909,7 @@ function Client.new(sockClient)
             end
         end
         CustomProfiler.stop("Client.send", cpc19)
+        return true
     end
 
     function self.sendNeedNuid(ownerName, ownerGuid, entityId)
@@ -944,8 +946,9 @@ function Client.new(sockClient)
     function self.sendLostNuid(nuid)
         local cpc21 = CustomProfiler.start("Client.sendLostNuid")
         local data  = { NetworkUtils.getNextNetworkMessageId(), nuid }
-        self:send(NetworkUtils.events.lostNuid.name, data)
+        local sent = self:send(NetworkUtils.events.lostNuid.name, data)
         CustomProfiler.stop("Client.sendLostNuid", cpc21)
+        return sent
     end
 
     function self.sendEntityData(entityId)
@@ -978,9 +981,10 @@ function Client.new(sockClient)
         local data  = {
             NetworkUtils.getNextNetworkMessageId(), deadNuids
         }
-        self:send(NetworkUtils.events.deadNuids.name, data)
+        local sent = self:send(NetworkUtils.events.deadNuids.name, data)
         onDeadNuids(deadNuids)
         CustomProfiler.stop("Client.sendDeadNuids", cpc23)
+        return sent
     end
 
     --- Checks if the current local user is a client

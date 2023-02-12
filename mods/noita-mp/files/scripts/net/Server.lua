@@ -999,8 +999,9 @@ function Server.new(sockServer)
         local cpc025 = CustomProfiler.start("Server.sendNewGuid")
         local event  = NetworkUtils.events.newGuid.name
         local data   = { NetworkUtils.getNextNetworkMessageId(), oldGuid, newGuid }
-        self:send(peer, event, data)
+        local sent = self:send(peer, event, data)
         CustomProfiler.stop("Server.sendNewGuid", cpc025)
+        return sent
     end
 
     function self.sendNewNuid(owner, localEntityId, newNuid, x, y, rotation, velocity, filename, health, isPolymorphed)
