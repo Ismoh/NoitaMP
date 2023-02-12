@@ -643,8 +643,26 @@ end
 function TestNetworkUtils:testAlreadySentNeedModList()
     -- [[ Prepare mocked data for sending Seed! ]] --
     local networkMessageId = NetworkUtils.getNextNetworkMessageId()
-    local workshop         = "???!" -- TODO: GUSTAVO please insert a reasonable value here <3
-    local external         = "???!" -- TODO: GUSTAVO please insert a reasonable value here <3
+    local workshop         = {
+        {
+            workshop_id = "2721954559",
+            name = "spells_evolutions"
+        }, 
+        {
+            workshop_id = "2826066666",
+            name = "always-cast-anvil"
+        }
+    }
+    local external         = {
+        {
+            workshop_id = nil,
+            name = "mould_n"
+        }, 
+        {
+            workshop_id = nil,
+            name = "noita-mp"
+        }
+    }
 
     local data             = {
         networkMessageId,
@@ -674,7 +692,7 @@ function TestNetworkUtils:testAlreadySentNeedModList()
 
     -- [[ Send message ]] --
     local sent             = Client:send(event,
-                                         data) -- TODO: GUSTAVO pls fix this, I don't know what I should put here!
+                                         data) 
     lu.assertIsTrue(sent, "Client didn't send network message. Is the client set in Server.clients?")
 
     local cachedData = NetworkCacheUtils.getByChecksum(Client.guid, event, data)
@@ -691,8 +709,28 @@ end
 function TestNetworkUtils:testAlreadySentNeedModContent()
     -- [[ Prepare mocked data for sending Seed! ]] --
     local networkMessageId = NetworkUtils.getNextNetworkMessageId()
-    local get              = "???" -- TODO: GUSTAVO please insert a reasonable value here <3
-    local items            = "???" -- TODO: GUSTAVO please insert a reasonable value here <3
+    local get              = {
+        {
+            workshop_id = nil,
+            name = "mould_n"
+        }, 
+        {
+            workshop_id = nil,
+            name = "noita-mp"
+        }
+    }
+    local items            ={
+        {
+            workshop_id = nil,
+            name = "mould_n",
+            data = "10101001010101010101001011010101010"
+        }, 
+        {
+            workshop_id = nil,
+            name = "noita-mp",
+            data = "some binary"
+        }
+    }
 
     local data             = {
         networkMessageId,
@@ -722,7 +760,7 @@ function TestNetworkUtils:testAlreadySentNeedModContent()
 
     -- [[ Send message ]] --
     local sent             = Client:send(event,
-                                         data) -- TODO: GUSTAVO pls fix this, I don't know what I should put here!
+                                         data)
     lu.assertIsTrue(sent, "Client didn't send network message. Is the client set in Server.clients?")
 
     local cachedData = NetworkCacheUtils.getByChecksum(Client.guid, event, data)
