@@ -216,7 +216,7 @@ function Client.new(sockClient)
                   { NetworkUtils.getNextNetworkMessageId(), name, guid, fu.getVersionByFile(), nuid })
 
         self:send(NetworkUtils.events.needModList.name,
-                  { NetworkUtils.getNextNetworkMessageId(), {}, {} }) -- TODO: GUSTAVO pls fix this, I don't know what I should put here!
+                  { NetworkUtils.getNextNetworkMessageId(), nil, nil})
 
         -- sendAck(data.networkMessageId)
         CustomProfiler.stop("Client.onConnect", cpc4)
