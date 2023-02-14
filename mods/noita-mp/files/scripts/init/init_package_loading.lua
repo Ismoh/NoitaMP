@@ -100,7 +100,7 @@ _G.os_name                                   = current_platform
 _G.os_arch                                   = current_architecture
 
 -- https://stackoverflow.com/a/14425862/3493998
-_G.path_separator                            = tostring(package.config:sub(1, 1))
+_G.pathSeparator                            = tostring(package.config:sub(1, 1))
 
 if _G.os_name == "Windows" then
     _G.is_windows = true
@@ -110,7 +110,7 @@ if _G.os_name == "Linux" then
 end
 
 print("init_package_loading.lua | Detected OS " .. _G.os_name ..
-              "(" .. _G.os_arch .. ") with path separator '" .. _G.path_separator .. "'.")
+              "(" .. _G.os_arch .. ") with path separator '" .. _G.pathSeparator .. "'.")
 
 --[[ NoitaMP additions ]]
 if current_clib_extension then
@@ -161,10 +161,10 @@ if current_clib_extension then
     if destination_path then
         print("destination_path was set to export LPATH and CPATH!")
 
-        local lua_path_file          = fu.RemoveTrailingPathSeparator(destination_path) .. _G.path_separator .. "lua_path.txt"
+        local lua_path_file          = fu.RemoveTrailingPathSeparator(destination_path) .. _G.pathSeparator .. "lua_path.txt"
         local lua_path_file_content  = ";" .. package.path
 
-        local lua_cpath_file         = fu.RemoveTrailingPathSeparator(destination_path) .. _G.path_separator .. "lua_cpath.txt"
+        local lua_cpath_file         = fu.RemoveTrailingPathSeparator(destination_path) .. _G.pathSeparator .. "lua_cpath.txt"
         local lua_cpath_file_content = ";" .. package.cpath
 
         fu.WriteFile(lua_path_file, lua_path_file_content)

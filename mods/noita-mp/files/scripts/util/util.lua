@@ -101,45 +101,6 @@ function util.pformat(var)
     return pprint.pformat(var, pprint.defaults)
 end
 
---- Gets the local player information.
---- Including polymorphed entity id. When polymorphed, entityId will be the new one and not minäs anymore.
---- @return PlayerInfo playerInfo
-function util.getLocalPlayerInfo()
-    local cpc = CustomProfiler.start("util.getLocalPlayerInfo")
-    local ownerName = tostring(ModSettingGet("noita-mp.name"))
-    local ownerGuid = tostring(ModSettingGet("noita-mp.guid"))
-    local entityId  = EntityUtils.getLocalPlayerEntityId()
-    local nuid = nil
-
-    if EntityUtils.isPlayerPolymorphed() then
-        local who = _G.whoAmI()
-        if who == Client.iAm then
-            if not NetworkVscUtils.hasNuidSet(entityId) then
-                Client.sendNeedNuid(ownerName, ownerGuid, entityId)
-            end
-        elseif who == Server.iAm then
-            if not NetworkVscUtils.hasNuidSet(entityId) then
-                nuid = NuidUtils.getNextNuid()
-            end
-        else
-            error(("Unable to identify whether I am Client or Server.. whoAmI() == %s"):format(who), 2)
-        end
-    end
-
-    if not NetworkVscUtils.isNetworkEntityByNuidVsc(entityId) then
-        NetworkVscUtils.addOrUpdateAllVscs(entityId, ownerName, ownerGuid, nuid)
-    end
-
-    local _, _, nuid = NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
-    CustomProfiler.stop("util.getLocalPlayerInfo", cpc)
-    return {
-        name     = tostring(ModSettingGet("noita-mp.name")),
-        guid     = tostring(ModSettingGet("noita-mp.guid")),
-        entityId = entityId,
-        nuid     = nuid
-    }
-end
-
 --- Reloads the whole world with a specific seed. No need to restart the game and use magic numbers.
 ---@param seed number max = 4294967295
 function util.reloadMap(seed)

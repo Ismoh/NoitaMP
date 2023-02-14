@@ -1,8 +1,8 @@
 ------------------------------------------------------------------------------------------------------------------------
 --- This config.lua is for configurable settings, like 'which entities and how should be synced?!'.
---- And in addition for Mod compatibility
 --- Furthermore it holds ModSettings, which shouldn't be set by Noita,
 --- because one computer shares ModSettings in multiple Noita.exe instances.
+--- And in addition for Mod compatibility!
 ------------------------------------------------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------------------------------------------------
@@ -40,11 +40,6 @@ EntityUtils.remove                   = {
 }
 
 ------------------------------------------------------------------------------------------------------------------------
---- And in addition for Mod compatibility
-------------------------------------------------------------------------------------------------------------------------
-
-
-------------------------------------------------------------------------------------------------------------------------
 --- Furthermore it holds ModSettings, which shouldn't be set by Noita,
 --- because one computer shares ModSettings in multiple Noita.exe instances.
 ------------------------------------------------------------------------------------------------------------------------
@@ -53,27 +48,22 @@ local NoitaApiModSettingGet          = ModSettingGet
 local NoitaApiModSettingSetNextValue = ModSettingSetNextValue
 local NoitaApiModSettingGetNextValue = ModSettingGetNextValue
 
---- Do not set the value here. Do it in game!
-local name                           = nil
---- Do not set the value here. Do it in game!
-local guid                           = nil
-
 ModSettingSet                        = function(id, value)
     if id == "noita-mp.name" then
-        name = value
+        MinaUtils.setLocalMinaName(value)
     end
     if id == "noita-mp.guid" then
-        guid = value
+        MinaUtils.setLocalMinaGuid(value)
     end
     NoitaApiModSettingSet(id, value)
 end
 
 ModSettingGet                        = function(id)
-    if id == "noita-mp.name" and name then
-        return name
+    if id == "noita-mp.name" then
+        return MinaUtils.getLocalMinaName()
     end
-    if id == "noita-mp.guid" and guid then
-        return guid
+    if id == "noita-mp.guid" then
+        return MinaUtils.getLocalMinaGuid()
     end
     return NoitaApiModSettingGet(id)
 end
@@ -97,3 +87,9 @@ ModSettingGetNextValue               = function(id)
     end
     return NoitaApiModSettingGetNextValue(id)
 end
+
+
+
+------------------------------------------------------------------------------------------------------------------------
+--- And in addition for Mod compatibility
+------------------------------------------------------------------------------------------------------------------------

@@ -10,7 +10,7 @@ local util    = require("util")
 -----------------------------------------------------------------------------------------------------------------------
 function fu.getVersionByFile()
     local modsPath           = fu.GetAbsoluteDirectoryPathOfNoitaMP()
-    local versionAbsFilePath = ("%s%s.version"):format(modsPath, path_separator)
+    local versionAbsFilePath = ("%s%s.version"):format(modsPath, pathSeparator)
     local content            = fu.ReadFile(versionAbsFilePath, "*l")
     if not content or util.IsEmpty(content) then
         error(("Unable to read NoitaMP version. Check if '%s' exists!")
@@ -60,7 +60,7 @@ function fu.RemoveTrailingPathSeparator(path)
     if type(path) ~= "string" then
         error("path is not a string")
     end
-    if string.sub(path, -1, -1) == _G.path_separator then
+    if string.sub(path, -1, -1) == _G.pathSeparator then
         path = string.sub(path, 1, -2)
     end
     return path
@@ -200,7 +200,7 @@ end
 --- Returns fullpath of save06 directory on devBuild or release
 --- @return string directory_path_of_save06 : noita installation path\save06 or %appdata%\..\LocalLow\Nolla_Games_Noita\save06 on windows and unknown for unix systems
 function fu.GetAbsoluteDirectoryPathOfSave06()
-    local directory_path_of_save06 = fu.GetAbsoluteDirectoryPathOfParentSave() .. _G.path_separator .. "save06"
+    local directory_path_of_save06 = fu.GetAbsoluteDirectoryPathOfParentSave() .. _G.pathSeparator .. "save06"
     return directory_path_of_save06
 end
 
@@ -248,13 +248,13 @@ end
 --- @param saveSlotAbsDirectoryPath string Absolute directory path to the current selected save slot.
 --- @return string absPath world_state.xml absolute file path
 function fu.GetAbsDirPathOfWorldStateXml(saveSlotAbsDirectoryPath)
-    return ("%s%s%s"):format(saveSlotAbsDirectoryPath, path_separator, "world_state.xml")
+    return ("%s%s%s"):format(saveSlotAbsDirectoryPath, pathSeparator, "world_state.xml")
 end
 
 --- see _G.saveSlotMeta
 ---@return table
 function fu.getLastModifiedSaveSlots()
-    local save0                = fu.GetAbsoluteDirectoryPathOfParentSave() .. path_separator .. "save0"
+    local save0                = fu.GetAbsoluteDirectoryPathOfParentSave() .. pathSeparator .. "save0"
 
     local saveSlotLastModified = {}
     for i = 0, 6, 1 do
@@ -271,20 +271,25 @@ function fu.getLastModifiedSaveSlots()
     return saveSlotLastModified
 end
 
+--- Returns absolute path of NoitaMP settings directory,
+--- @return string absPath i.e. "C:\Program Files (x86)\Steam\steamapps\common\Noita\mods\noita-mp\settings"
+function fu.getAbsolutePathOfNoitaMpSettingsDirectory()
+    return fu.GetAbsoluteDirectoryPathOfNoitaMP() .. pathSeparator .. "settings"
+end
+
 ----------------------------------------------------------------------------------------------------
 --- File and Directory checks, writing and reading
 ----------------------------------------------------------------------------------------------------
 
 --- Checks if FILE or DIRECTORY exists
---- @param full_path string full path
+--- @param absolutePath string full path
 --- @return boolean
-function fu.Exists(full_path)
+function fu.exists(absolutePath)
     -- https://stackoverflow.com/a/21637809/3493998
-    if type(full_path) ~= "string" then
-        error("file_util.lua | Parameter full_path '" .. tostring(full_path) .. "' is not type of string!")
+    if type(absolutePath) ~= "string" then
+        error("Parameter 'absolutePath' '" .. tostring(absolutePath) .. "' is not type of string!", 2)
     end
-    local exists = os.rename(full_path, full_path) and true or false
-    --logger:debug("file_util.lua | File or directory " .. full_path .. " exists = " .. tostring(exists))
+    local exists = os.rename(absolutePath, absolutePath) and true or false
     return exists
 end
 
@@ -293,7 +298,7 @@ function fu.IsFile(full_path)
     if type(full_path) ~= "string" then
         error("file_util.lua | Parameter full_path '" .. tostring(full_path) .. "' is not type of string!")
     end
-    if not fu.Exists(full_path) then
+    if not fu.exists(full_path) then
         --logger:debug("file_util.lua | Path '" .. tostring(full_path) .. "' does not exist!")
         return false
     end
@@ -310,7 +315,7 @@ function fu.IsDirectory(full_path)
     if type(full_path) ~= "string" then
         error("file_util.lua | Parameter full_path '" .. tostring(full_path) .. "' is not type of string!")
     end
-    local exists  = fu.Exists(full_path)
+    local exists  = fu.exists(full_path)
     --logger:debug("file_util.lua | Directory " .. full_path .. " exists = " .. tostring(exists))
     local is_file = fu.IsFile(full_path)
     --logger:debug("file_util.lua | Is the directory a file? " .. full_path .. " is_file = " .. tostring(is_file))
@@ -369,13 +374,13 @@ function fu.WriteFile(file_fullpath, file_content)
     end
     file_fullpath         = fu.ReplacePathSeparator(file_fullpath)
 
-    local segments        = string.split(file_fullpath, path_separator) or {}
+    local segments        = string.split(file_fullpath, pathSeparator) or {}
     local pathPerSegments = ""
     for i = 1, #segments do
         -- recursively create directories
         local segment   = segments[i]
-        pathPerSegments = pathPerSegments .. segment .. path_separator
-        if not fu.Exists(pathPerSegments) then
+        pathPerSegments = pathPerSegments .. segment .. pathSeparator
+        if not fu.exists(pathPerSegments) then
             if not pathPerSegments:contains(".") then
                 -- dump check if it's a file
                 fu.MkDir(pathPerSegments)
@@ -408,11 +413,16 @@ end
 
 function fu.AppendToFile(filenameAbsolutePath, appendContent)
     -- TODO rework: have a look on plotly.lua ">>"
-    local file = io.open(filenameAbsolutePath, "a+")
+    local isEmpty = true
+    local file    = io.open(filenameAbsolutePath, "a+")
     for line in io.lines(filenameAbsolutePath) do
+        isEmpty = false
         if line == nil then
             file:write(appendContent)
         end
+    end
+    if isEmpty then
+        file:write(appendContent)
     end
     file:close()
 end
@@ -453,7 +463,7 @@ function fu.removeContentOfDirectory(absolutePath)
         local command                 = ('rmdir /s /q "%s"'):format(absolutePath)
         local success, exitCode, code = os.execute(command)
         Logger.debug(Logger.channels.testing,
-                     ("Tried to remove directory. success=%s, exictCode=%s, code=%s"):format(success, exitCode, code))
+                     ("Tried to remove directory. success=%s, exitCode=%s, code=%s"):format(success, exitCode, code))
     end
 
     lfs.mkdir(absolutePath)
@@ -484,7 +494,7 @@ function fu.Find7zipExecutable()
     end
 end
 
-function fu.Exists7zip()
+function fu.exists7zip()
     if _G.seven_zip then
         return true
     else
@@ -499,7 +509,7 @@ end
 ---@return string|number content binary content of archive
 function fu.Create7zipArchive(archive_name, absolute_directory_path_to_add_archive, absolute_destination_path)
     assert(
-            fu.Exists7zip(),
+            fu.exists7zip(),
             "Unable to find 7z.exe, please install 7z via https://7-zip.de/download.html and restart the Noita!"
     )
 
@@ -528,7 +538,7 @@ function fu.Create7zipArchive(archive_name, absolute_directory_path_to_add_archi
     Logger.debug(Logger.channels.testing, "file_util.lua | Running: " .. command)
     os.execute(command)
 
-    local archive_full_path = absolute_destination_path .. _G.path_separator .. archive_name .. ".7z"
+    local archive_full_path = absolute_destination_path .. _G.pathSeparator .. archive_name .. ".7z"
     return fu.ReadBinaryFile(archive_full_path)
 end
 
@@ -601,13 +611,13 @@ function fu.saveAndRestartNoita()
 end
 
 function fu.createProfilerLog()
-    local directory = fu.GetAbsoluteDirectoryPathOfNoitaMP() .. _G.path_separator .. "profilerReport" .. _G.path_separator
-    if fu.Exists(directory) == false then
+    local directory = fu.GetAbsoluteDirectoryPathOfNoitaMP() .. _G.pathSeparator .. "profilerReport" .. _G.pathSeparator
+    if fu.exists(directory) == false then
         fu.MkDir(directory)
     end
     profiler.attachPrintFunction(print, true)
     profiler.stop()
-    profiler.report(("%s%s%s"):format(directory, _G.path_separator, "profilerOf" .. whoAmI()))
+    profiler.report(("%s%s%s"):format(directory, _G.pathSeparator, "profilerOf" .. whoAmI()))
 end
 
 function fu.getAllModSpecificLuaScriptFilenames()

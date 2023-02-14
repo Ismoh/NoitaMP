@@ -207,7 +207,7 @@ function Client.new(sockClient)
             error(("onConnect data is empty: %s"):format(data), 3)
         end
 
-        local localPlayerInfo = util.getLocalPlayerInfo()
+        local localPlayerInfo = MinaUtils.getLocalMinaInformation()
         local name            = localPlayerInfo.name
         local guid            = localPlayerInfo.guid
         local nuid            = localPlayerInfo.nuid -- Could be nil. Timing issue. Will be set after this.
@@ -377,7 +377,7 @@ function Client.new(sockClient)
         end
 
         if data.oldGuid == self.guid then
-            local entityId                               = util.getLocalPlayerInfo().entityId
+            local entityId                               = MinaUtils.getLocalMinaInformation().entityId
             local compOwnerName, compOwnerGuid, compNuid = NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
 
             self.guid                                    = data.newGuid
@@ -427,7 +427,7 @@ function Client.new(sockClient)
             --util.reloadMap(serversSeed) TODO enable again, when custom map/biome isn't used anymore
         end
 
-        local localPlayerInfo = util.getLocalPlayerInfo()
+        local localPlayerInfo = MinaUtils.getLocalMinaInformation()
         local name            = localPlayerInfo.name
         local guid            = localPlayerInfo.guid
         local nuid            = localPlayerInfo.nuid -- Could be nil. Timing issue. Will be set after this.
@@ -513,8 +513,8 @@ function Client.new(sockClient)
         local health        = data.health
         local isPolymorphed = data.isPolymorphed
 
-        if owner.guid == util.getLocalPlayerInfo().guid then
-            if localEntityId == util.getLocalPlayerInfo().entityId then
+        if owner.guid == MinaUtils.getLocalMinaInformation().guid then
+            if localEntityId == MinaUtils.getLocalMinaInformation().entityId then
                 self.nuid = newNuid
             end
         end
@@ -761,7 +761,7 @@ function Client.new(sockClient)
 
     local function updateVariables()
         local cpc15    = CustomProfiler.start("Client.updateVariables")
-        local entityId = util.getLocalPlayerInfo().entityId
+        local entityId = MinaUtils.getLocalMinaInformation().entityId
         if entityId then
             local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
             self.health                                                                              = health
@@ -932,7 +932,7 @@ function Client.new(sockClient)
         local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
         local data                                                                               = {
             NetworkUtils.getNextNetworkMessageId(), { ownerName, ownerGuid }, entityId, x, y, rotation, velocity,
-            filename, health, EntityUtils.isEntityPolymorphed(entityId)--EntityUtils.isPlayerPolymorphed()
+            filename, health, EntityUtils.isEntityPolymorphed(entityId)
         }
 
         if isTestLuaContext then
@@ -970,7 +970,7 @@ function Client.new(sockClient)
             return
         end
 
-        if util.getLocalPlayerInfo().guid == compOwnerGuid then
+        if MinaUtils.getLocalMinaInformation().guid == compOwnerGuid then
             self:send(NetworkUtils.events.entityData.name, data)
         end
         CustomProfiler.stop("Client.sendEntityData", cpc22)
