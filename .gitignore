@@ -21,9 +21,9 @@ mods/noita-mp/lua_modules/lib/luarocks
 # cache dll output files
 Debug/
 out/
-noitamp_cache.lib
-noitamp_cache.pdb
-noitamp_cache.exp
+luaExtensions.lib
+luaExtensions.pdb
+luaExtensions.exp
 *.pdb
 
 # Object files
