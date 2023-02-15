@@ -14,8 +14,12 @@ require("EntityUtils")
 require("NetworkUtils")
 require("GuidUtils")
 require("CustomProfiler")
-require("Server")
-require("Client")
+if not Server then
+    require("Server")
+end
+if not Client then
+    require("Client")
+end
 
 local lu         = require("luaunit")
 local util       = require("util")

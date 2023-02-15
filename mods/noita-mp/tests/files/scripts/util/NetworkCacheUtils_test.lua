@@ -53,10 +53,14 @@ require("NetworkUtils")
 require("NetworkCacheUtils")
 require("noitamp_cache")
 require("CustomProfiler")
-require("Server")
-require("Client")
+if not Server then
+    require("Server")
+end
+if not Client then
+    require("Client")
+end
+
 local lu              = require("luaunit")
-local md5             = require("md5")
 
 -- [[ Test ]] --
 TestNetworkCacheUtils = {}
@@ -72,12 +76,9 @@ function TestNetworkCacheUtils:tearDown()
 end
 
 function TestNetworkCacheUtils:testGetSum()
-    NetworkUtils.getClientOrServer = function()
-        return Server
-    end
-    local dataSimple  = { 9999, { name = "test", guid = "guid" }, 1234, 3, 1.2, 3.4, 0.5, { 12, 4 }, "player.xml", { max = 100, current = 48 }, false }
-    local sumSimple   = NetworkCacheUtils.getSum(NetworkUtils.events.newNuid.name, dataSimple)
-    local sumExpected = "test,guid,3,player.xml,1234"
+    local dataSimple               = { 9999, { name = "test", guid = "guid" }, 1234, 3, 1.2, 3.4, 0.5, { 12, 4 }, "player.xml", { max = 100, current = 48 }, false }
+    local sumSimple                = NetworkCacheUtils.getSum(NetworkUtils.events.newNuid.name, dataSimple)
+    local sumExpected              = "test,guid,3,player.xml,1234"
     lu.assertEquals(sumSimple, sumExpected)
 
     local dataSimple2  = { 9999, { name = "test", guid = "guid" }, 9876, 33, 1.22, 3.44, 0.55, { 24, 8 }, "player.xml", { max = 200, current = 123 }, false }

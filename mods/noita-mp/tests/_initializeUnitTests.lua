@@ -28,8 +28,6 @@ end
 
 local testFiles = getAllFilesInside(lfs.currentdir() .. "/tests")
 
-local init      = true
-local gPrint    = print
 local gDofile   = dofile
 if not ModSettingGet then
     ----------------------------------------
@@ -37,20 +35,38 @@ if not ModSettingGet then
     --- Only add ids, which are necessary for initialization of tests.
     --- DO NOT add ids, which are used in a test. Add those inside of the test itself!
     ----------------------------------------
-    ModSettingGet    = function(id)
-        if id == "noita-mp.log_level_initialize" then
+    ModSettingGet          = function(id)
+        if string.contains(id, "noita-mp.log_level_") then
             return { "trace, debug, info, warn", "TRACE" }
         end
+        if id == "noita-mp.guid" then
+            return MinaUtils.getLocalMinaGuid()
+        end
+
         error(("ModSettingGet '%s' is not mocked! Add it!"):format(id), 2)
     end
+
     ModSettingGetNextValue = function(id)
         if id == "noita-mp.toggle_profiler" then
             return false
         end
+        if id == "noita-mp.guid" then
+            return MinaUtils.getLocalMinaGuid()
+        end
+
         error(("ModSettingGetNextValue '%s' is not mocked! Add it!"):format(id), 2)
     end
 
-    local pathToMods = lfs.currentdir() .. "/../.."
+    ModSettingSetNextValue = function(id, value, is_default)
+        Logger.trace(Logger.channels.testing, ("Mocked ModSettingSetNextValue(%s, %s, %s)")
+                :format(id, value, is_default))
+    end
+
+    DebugGetIsDevBuild     = function()
+        return false
+    end
+
+    local pathToMods       = lfs.currentdir() .. "/../.."
     print("pathToMods: " .. pathToMods)
     dofile = function(path)
         if path:sub(1, 4) == "mods" then

@@ -150,8 +150,7 @@ local localOwner                           = {
 --- public global variables:
 ----------------------------------------
 
-EntityUtils.localPlayerEntityId            = -1
-EntityUtils.localPlayerEntityIdPolymorphed = -1
+
 ----------------------------------------
 --- private local methods:
 ----------------------------------------
@@ -161,7 +160,7 @@ EntityUtils.localPlayerEntityIdPolymorphed = -1
 ---@return number[]
 local function get_player_inventory_contents(inventory_type)
     local cpc    = CustomProfiler.start("EntityUtils.get_player_inventory_contents")
-    local player = EntityUtils.getLocalPlayerEntityId() --EntityGetWithTag("player_unit")[1]
+    local player = MinaUtils.getLocalMinaEntityId() --EntityGetWithTag("player_unit")[1]
     local out    = {}
     if player then
         for i, child in ipairs(EntityGetAllChildren(player) or {}) do
@@ -201,7 +200,7 @@ local function getParentsUntilRootEntity(who, entityId)
     while parentEntityId and parentEntityId > 0 do
         local parentNuid = NetworkVscUtils.hasNuidSet(parentEntityId)
         if not parentNuid then
-            local localPlayer = util.getLocalPlayerInfo()
+            local localPlayer = MinaUtils.getLocalMinaInformation()
             local ownerName   = localPlayer.name
             local ownerGuid   = localPlayer.guid
             if who == Server.iAm and not parentNuid then
@@ -247,70 +246,6 @@ function EntityUtils.isEntityPolymorphed(entityId)
     end
     CustomProfiler.stop("EntityUtils.isEntityPolymorphed", cpc)
     return false
-end
-
-------------------------------------------------------------------------------------------------
---- isEntityPolymorphed
-------------------------------------------------------------------------------------------------
---- Checks if the local player is polymorphed.
-function EntityUtils.isPlayerPolymorphed()
-    local cpc                  = CustomProfiler.start("EntityUtils.isPlayerPolymorphed")
-    local polymorphedEntityIds = EntityGetWithTag("polymorphed") or {}
-
-    for e = 1, #polymorphedEntityIds do
-        local componentIds = EntityGetComponentIncludingDisabled(polymorphedEntityIds[e],
-                                                                 "GameStatsComponent") or {}
-        for c = 1, #componentIds do
-            local isPlayer = ComponentGetValue2(componentIds[c], "is_player")
-            if isPlayer then
-                EntityUtils.localPlayerEntityIdPolymorphed = polymorphedEntityIds[e]
-                CustomProfiler.stop("EntityUtils.isPlayerPolymorphed", cpc)
-                return true, polymorphedEntityIds[e]
-            end
-        end
-    end
-    CustomProfiler.stop("EntityUtils.isPlayerPolymorphed", cpc)
-    return false, nil
-end
-
-------------------------------------------------------------------------------------------------
---- getLocalPlayerEntityId
-------------------------------------------------------------------------------------------------
---- Returns the local player entity id.
---- @return number localPlayerEntityId
-function EntityUtils.getLocalPlayerEntityId()
-    local cpc = CustomProfiler.start("EntityUtils.getLocalPlayerEntityId")
-    if EntityUtils.isEntityAlive(EntityUtils.localPlayerEntityId) then
-        -- TODO: I think this can lead to problems. Think of polymorphed minä. EntityId will change!
-        CustomProfiler.stop("EntityUtils.getLocalPlayerEntityId", cpc)
-        return EntityUtils.localPlayerEntityId
-    end
-
-    local polymorphed, entityId = EntityUtils.isPlayerPolymorphed()
-
-    if polymorphed then
-        ---@cast entityId number
-        CustomProfiler.stop("EntityUtils.getLocalPlayerEntityId", cpc)
-        return entityId
-    end
-
-    local playerEntityIds = EntityGetWithTag("player_unit")
-    for i = 1, #playerEntityIds do
-        if NetworkVscUtils.hasNetworkLuaComponents(playerEntityIds[i]) then
-            local compOwnerName, compOwnerGuid, compNuid = NetworkVscUtils.getAllVcsValuesByEntityId(playerEntityIds[i])
-            if compOwnerGuid == localOwner.guid then
-                EntityUtils.localPlayerEntityId = playerEntityIds[i]
-                CustomProfiler.stop("EntityUtils.getLocalPlayerEntityId", cpc)
-                return playerEntityIds[i]
-            end
-        end
-    end
-    Logger.debug(Logger.channels.entity,
-                 ("Unable to get local player entity id. Returning first entity id(%s), which was found.")
-                         :format(playerEntityIds[1]))
-    EntityUtils.localPlayerEntityId = playerEntityIds[1]
-    CustomProfiler.stop("EntityUtils.getLocalPlayerEntityId", cpc)
-    return playerEntityIds[1]
 end
 
 ------------------------------------------------------------------------------------------------
@@ -381,7 +316,7 @@ function EntityUtils.processAndSyncEntityNetworking()
     local start            = GameGetRealWorldTimeSinceStarted() * 1000
     local cpc              = CustomProfiler.start("EntityUtils.processAndSyncEntityNetworking")
     local who              = whoAmI()
-    local localPlayerId    = EntityUtils.getLocalPlayerEntityId()
+    local localPlayerId    = MinaUtils.getLocalMinaEntityId()
     local playerX, playerY = EntityGetTransform(localPlayerId)
     local radius           = ModSettingGetNextValue("noita-mp.radius_include_entities")
     ---@cast radius number
@@ -502,7 +437,7 @@ function EntityUtils.processAndSyncEntityNetworking()
             if not NetworkVscUtils.isNetworkEntityByNuidVsc(entityId) or
                     not NetworkVscUtils.hasNetworkLuaComponents(entityId)
             then
-                local localPlayerInfo = util.getLocalPlayerInfo()
+                local localPlayerInfo = MinaUtils.getLocalMinaInformation()
                 local ownerName       = localPlayerInfo.name
                 local ownerGuid       = localPlayerInfo.guid
 
@@ -598,7 +533,7 @@ end
 --- @return number? entityId Returns the entity_id of a already existing entity, found by nuid or the newly created entity.
 function EntityUtils.spawnEntity(owner, nuid, x, y, rotation, velocity, filename, localEntityId, health, isPolymorphed)
     local cpc        = CustomProfiler.start("EntityUtils.spawnEntity")
-    local localGuid  = util.getLocalPlayerInfo().guid or util.getLocalPlayerInfo()[2]
+    local localGuid  = MinaUtils.getLocalMinaInformation().guid or MinaUtils.getLocalMinaInformation()[2]
     local remoteName = owner.name or owner[1]
     local remoteGuid = owner.guid or owner[2]
 

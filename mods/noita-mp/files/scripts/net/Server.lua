@@ -209,11 +209,11 @@ function Server.new(sockServer)
             error(("onConnect data is empty: %s"):format(data), 3)
         end
 
-        local localPlayerInfo            = util.getLocalPlayerInfo()
+        local localPlayerInfo            = MinaUtils.getLocalMinaInformation()
         local name                       = localPlayerInfo.name
         local guid                       = localPlayerInfo.guid
         local entityId                   = localPlayerInfo.entityId
-        local isPolymorphed              = EntityUtils.isEntityPolymorphed(entityId) --EntityUtils.isPlayerPolymorphed()
+        local isPolymorphed              = EntityUtils.isEntityPolymorphed(entityId)
         local ownerName, ownerGuid, nuid = NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
 
         if not nuid then
@@ -447,7 +447,7 @@ function Server.new(sockServer)
         --local compOwnerName, compOwnerGuid, compNuid     = NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
         local compOwnerName, compOwnerGuid, compNuid, filename,
         health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
-        local isPolymorphed              = EntityUtils.isEntityPolymorphed(entityId) --EntityUtils.isPlayerPolymorphed() -- TODO, check if entityId is polymorphed and not the player
+        local isPolymorphed              = EntityUtils.isEntityPolymorphed(entityId)
 
         self.sendNewNuid({ compOwnerName, compOwnerGuid },
                          "unknown", nuid, x, y, rotation, velocity, filename, health, isPolymorphed)
@@ -633,7 +633,7 @@ function Server.new(sockServer)
     -- self:on("connect", function(data, peer)
     --     logger:debug(logger.channels.network, "Someone connected to the server:", util.pformat(data))
 
-    --     local local_player_id = EntityUtils.getLocalPlayerEntityId()
+    --     local local_player_id = MinaUtils.getLocalMinaEntityId()
     --     local x, y, rot, scale_x, scale_y = EntityGetTransform(local_player_id)
 
     --     EntityUtils.spawnEntity({ peer.name, peer.guid }, NuidUtils.getNextNuid(), x, y, rot,
@@ -811,7 +811,7 @@ function Server.new(sockServer)
 
     local function updateVariables()
         local cpc013   = CustomProfiler.start("Server.updateVariables")
-        local entityId = util.getLocalPlayerInfo().entityId
+        local entityId = MinaUtils.getLocalMinaInformation().entityId
         if entityId then
             local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
             self.health                                                                              = health
@@ -1036,7 +1036,7 @@ function Server.new(sockServer)
                              health, EntityUtils.isEntityPolymorphed(entityId))
         end
 
-        if util.getLocalPlayerInfo().guid == compOwnerGuid then
+        if MinaUtils.getLocalMinaInformation().guid == compOwnerGuid then
             self:sendToAll(NetworkUtils.events.entityData.name, data)
         end
         CustomProfiler.stop("Server.sendEntityData", cpc018)
@@ -1062,7 +1062,7 @@ function Server.new(sockServer)
         --     error("Something really strange is going on. You are server and client at the same time?", 2)
         -- end
 
-        if _G.Server.isRunning() then
+        if self.isRunning() then
             --if _G.Server.host and _G.Server.guid == self.guid then
             --CustomProfiler.stop("Server.amIServer", cpc)
             return true

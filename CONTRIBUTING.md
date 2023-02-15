@@ -99,16 +99,16 @@ end
 
 #### Using init.lua context only
 If you are able to use the `init.lua` context only, then you can use the NoitaMP functions directly.\
-For example, if you want to get local player/Minä, then you can use the NoitaMP function `util.getLocalPlayerInfo()`:
+For example, if you want to get local player/Minä, then you can use the NoitaMP function `MinaUtils.getLocalMinaInformation()`:
 ```lua
 --- Gets the local player information.
 --- Including polymorphed entity id. When polymorphed, entityId will be the new one and not minäs anymore.
 --- @return PlayerInfo playerInfo
-function util.getLocalPlayerInfo()
+function MinaUtils.getLocalMinaInformation()
   -- more code
   local ownerName = tostring(ModSettingGet("noita-mp.name"))
   local ownerGuid = tostring(ModSettingGet("noita-mp.guid"))
-  local entityId  = EntityUtils.getLocalPlayerEntityId()
+  local entityId  = MinaUtils.getLocalMinaEntityId()
   local nuid = nil
   -- yet another code fragment
 end

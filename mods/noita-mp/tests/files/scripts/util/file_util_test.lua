@@ -42,11 +42,11 @@ end
 function TestFileUtil:testReplacePathSeparatorOnWindows()
     local old_is_windows     = _G.is_windows
     local old_is_linux       = _G.is_linux
-    local old_path_separator = _G.path_separator
+    local old_pathSeparator = _G.pathSeparator
 
     _G.is_windows            = true -- TODO: is there a better way to mock?
     _G.is_linux              = false -- TODO: is there a better way to mock?
-    _G.path_separator        = "\\" -- TODO: is there a better way to mock?
+    _G.pathSeparator        = "\\" -- TODO: is there a better way to mock?
 
     local path_unix          = "/test/path/123"
     local path_windows       = fu.ReplacePathSeparator(path_unix)
@@ -56,17 +56,17 @@ function TestFileUtil:testReplacePathSeparatorOnWindows()
 
     _G.is_windows     = old_is_windows
     _G.is_linux       = old_is_linux
-    _G.path_separator = old_path_separator
+    _G.pathSeparator = old_pathSeparator
 end
 
 function TestFileUtil:testReplacePathSeparatorOnUnix()
     local old_is_windows     = _G.is_windows
     local old_is_linux       = _G.is_linux
-    local old_path_separator = _G.path_separator
+    local old_pathSeparator = _G.pathSeparator
 
     _G.is_windows            = false -- TODO: is there a better way to mock?
     _G.is_linux              = true -- TODO: is there a better way to mock?
-    _G.path_separator        = "/" -- TODO: is there a better way to mock?
+    _G.pathSeparator        = "/" -- TODO: is there a better way to mock?
 
     local path_windows       = "\\test\\path\\123"
     local path_unix          = fu.ReplacePathSeparator(path_windows)
@@ -76,7 +76,7 @@ function TestFileUtil:testReplacePathSeparatorOnUnix()
 
     _G.is_windows     = old_is_windows
     _G.is_linux       = old_is_linux
-    _G.path_separator = old_path_separator
+    _G.pathSeparator = old_pathSeparator
 end
 
 function TestFileUtil:testReplacePathSeparatorUnknownOs()
@@ -93,11 +93,11 @@ function TestFileUtil:testReplacePathSeparatorUnknownOs()
 end
 
 function TestFileUtil:testRemoveTrailingPathSeparator()
-    local path   = tostring(_G.path_separator .. "persistent" .. _G.path_separator .. "flags" .. _G.path_separator)
+    local path   = tostring(_G.pathSeparator .. "persistent" .. _G.pathSeparator .. "flags" .. _G.pathSeparator)
     local result = fu.RemoveTrailingPathSeparator(path)
 
     lu.assertNotEquals(path, result)
-    lu.assertEquals(_G.path_separator .. "persistent" .. _G.path_separator .. "flags", result)
+    lu.assertEquals(_G.pathSeparator .. "persistent" .. _G.pathSeparator .. "flags", result)
 end
 
 ----------------------------------------------------------------------------------------------------
@@ -127,7 +127,7 @@ end
 
 function TestFileUtil:testGetAbsolutePathOfNoitaRootDirectory()
     lu.assertStrContains(fu.GetAbsolutePathOfNoitaRootDirectory(),
-                         _G.path_separator) -- TODO: Need a better test for this!
+                         _G.pathSeparator) -- TODO: Need a better test for this!
 end
 
 ----------------------------------------------------------------------------------------------------
@@ -215,9 +215,9 @@ end
 ----------------------------------------------------------------------------------------------------
 
 function TestFileUtil:testExists()
-    lu.assertNotIsTrue(fu.Exists("nonexistingfile.asdf"))
-    lu.assertErrorMsgContains("is not type of string!", fu.Exists)
-    lu.assertIsTrue(fu.Exists(fu.GetAbsoluteDirectoryPathOfNoitaMP() .. "/mod.xml"))
+    lu.assertNotIsTrue(fu.exists("nonexistingfile.asdf"))
+    lu.assertErrorMsgContains("is not type of string!", fu.exists)
+    lu.assertIsTrue(fu.exists(fu.GetAbsoluteDirectoryPathOfNoitaMP() .. "/mod.xml"))
 end
 
 function TestFileUtil:testIsFile()
@@ -245,7 +245,7 @@ function TestFileUtil:testWriteBinaryFile()
 
     local full_path = fu.GetAbsolutePathOfNoitaRootDirectory() .. "/write-temporary-binary-test-file.txt"
     fu.WriteBinaryFile(full_path, "File Content")
-    lu.assertIsTrue(fu.Exists(full_path))
+    lu.assertIsTrue(fu.exists(full_path))
     os.remove(full_path)
 end
 
@@ -262,7 +262,7 @@ function TestFileUtil:testWriteFile()
 
     local full_path = fu.GetAbsolutePathOfNoitaRootDirectory() .. "/write-temporary-test-file.txt"
     fu.WriteFile(full_path, "File Content")
-    lu.assertIsTrue(fu.Exists(full_path))
+    lu.assertIsTrue(fu.exists(full_path))
     os.remove(full_path)
 end
 
@@ -272,7 +272,7 @@ function TestFileUtil:testMkDir()
     -- TODO: windows
     -- local dir_path = fu.GetAbsolutePathOfNoitaRootDirectory() .. "/tests/temp-test-dir"
     -- fu.MkDir(dir_path)
-    -- lu.assertIsTrue(fu.Exists(dir_path))
+    -- lu.assertIsTrue(fu.exists(dir_path))
     -- lu.assertIsTrue(fu.IsDirectory(dir_path))
 end
 
@@ -283,9 +283,9 @@ end
 function TestFileUtil:testExists7zip()
     local old    = _G.seven_zip
     _G.seven_zip = false -- mock
-    lu.assertNotIsTrue(fu.Exists7zip())
+    lu.assertNotIsTrue(fu.exists7zip())
     _G.seven_zip = true -- mock
-    lu.assertIsTrue(fu.Exists7zip())
+    lu.assertIsTrue(fu.exists7zip())
     _G.seven_zip = old
 end
 
