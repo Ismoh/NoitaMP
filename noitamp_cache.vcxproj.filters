@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="cache.c">
+    <ClCompile Include="luaExtensions.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
