@@ -97,6 +97,20 @@ jobs:
           next-version-increment-patch: ${{ contains(env.LABEL_NAMES, 'bug') }}
           next-version-cut-build-metadata: false
           next-version-put-build-metadata: true
+          
+      - name: Update LuaRocks rockspec
+        run: |
+          git fetch
+          git checkout ${{ github.base_ref }}
+          git pull origin ${{ github.base_ref }}
+          git config --local user.email "action@github.com"
+          git config --local user.name "github-actions"
+  
+          rockspeck_file=$(find ${{ github.workspace}}\mods\noita-mp ".rockspec")
+          rename 's/$CURRENT_VERSION/$NEXT_VERSION/' ${{github.workspace}}\mods\noita-mp\*.rockspec
+          git commit -m "Updated version to $NEXT_VERSION in https://github.com/${{github.repository}}/pull/${{github.event.number}}"
+          git tag -a "$NEXT_VERSION" -m "Automatic tag creation, do not consider tags as releases. For further technical information, see https://github.com/${{github.repository}}/pull/${{github.event.number}}"
+          git push origin ${{ github.base_ref }} --tags
       
       - name: Extend version with custom build numbers
         id: extend_version

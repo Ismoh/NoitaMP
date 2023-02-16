@@ -114,12 +114,6 @@ function Ui.new()
             toggleDebug          = function()
                 debug = not debug
             end,
-            startProfiler        = function()
-                profiler.start()
-            end,
-            stopProfiler         = function()
-                fu.createProfilerLog()
-            end,
             reportCustomProfiler = function()
                 CustomProfiler.report()
             end,
@@ -335,7 +329,7 @@ function Ui.new()
         drawMenu()
         drawModConflictWarning()
 
-        if EntityCache.size() >= 10000 then
+        if EntityCache.size() >= EntityUtils.maxPoolSize then
             gui = gui or GuiCreate()
             GuiStartFrame(gui)
             GuiIdPushString(gui, "possibleMemoryOverflow")

@@ -14,7 +14,7 @@
 2. Change directory to `NoitaMP\mods\noita-mp`, like `cd fullPathTo\NoitaMP\mods\noita-mp`.
 3. Run the following command as *administrator* in `cmd.exe`:
    ```cmd
-   REM // cd fullPathTo\NoitaMP\mods\noita-mp
+   cd fullPathTo\NoitaMP\mods\noita-mp
    set INIT_PATH=%CD%
    
    REM // resolve absolute path

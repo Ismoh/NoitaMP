@@ -7,9 +7,6 @@ local params                       = ...
 --- Make absolutely sure, that the already mocked Noita API function is not overwritten
 local mockedModSettingGetNextValue = ModSettingGetNextValue
 ModSettingGetNextValue             = function(id)
-    if id == "noita-mp.toggle_profiler" then
-        return false
-    end
     if id == "noita-mp.guid" then
         return GuidUtils:getGuid()
     end

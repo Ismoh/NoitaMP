@@ -19,6 +19,7 @@ local md5         = require("md5")
 NetworkCacheUtils = {}
 
 function NetworkCacheUtils.getSum(event, data)
+    local cpc = CustomProfiler.start("NetworkCacheUtils.getSum")
     Logger.trace(Logger.channels.testing, "getSum: " .. util.pformat(data))
     if not event or util.IsEmpty(event) or type(event) ~= "string" then
         error(("Unable to calculate sum, when event is nil or not a string: '%s'"):format(event), 2)
@@ -55,6 +56,7 @@ function NetworkCacheUtils.getSum(event, data)
         sum = table.contentToString(dataCopy)
     end
     Logger.trace(Logger.channels.testing, ("sum from %s = %s"):format(util.pformat(dataCopy), sum))
+    CustomProfiler.stop("NetworkCacheUtils.getSum", cpc)
     return sum
 end
 
@@ -63,6 +65,7 @@ end
 --- @param networkMessageId number
 ---
 function NetworkCacheUtils.set(peerGuid, networkMessageId, event, status, ackedAt, sendAt, data)
+    local cpc = CustomProfiler.start("NetworkCacheUtils.set")
     if not peerGuid or util.IsEmpty(peerGuid) or type(peerGuid) ~= "string" then
         error(("peerGuid '%s' must not be nil or empty or isn't type of string!"):format(peerGuid), 2)
     end
@@ -101,11 +104,13 @@ function NetworkCacheUtils.set(peerGuid, networkMessageId, event, status, ackedA
     Logger.info(Logger.channels.cache,
                 ("Set nCache for clientCacheId %s, networkMessageId %s, event %s, status %s, ackedAt %s, sendAt %s, dataChecksum %s")
                         :format(clientCacheId, networkMessageId, event, status, ackedAt, sendAt, dataChecksum))
+    CustomProfiler.stop("NetworkCacheUtils.set", cpc)
     return dataChecksum
 end
 
 --- @return table data { ackedAt, dataChecksum, event, messageId, sentAt, status}
 function NetworkCacheUtils.get(peerGuid, networkMessageId, event)
+    local cpc = CustomProfiler.start("NetworkCacheUtils.get")
     if not peerGuid or util.IsEmpty(peerGuid) or type(peerGuid) ~= "string" then
         error(("peerGuid '%s' must not be nil or empty or isn't type of string!"):format(peerGuid), 2)
     end
@@ -134,11 +139,13 @@ function NetworkCacheUtils.get(peerGuid, networkMessageId, event)
     Logger.info(Logger.channels.cache,
                 ("Get nCache by clientCacheId %s, event %s, networkMessageId %s, data %s")
                         :format(clientCacheId, event, networkMessageId, util.pformat(data)))
+    CustomProfiler.stop("NetworkCacheUtils.get", cpc)
     return data
 end
 
 --- @return table cacheData { ackedAt, dataChecksum, event, messageId, sentAt, status}
 function NetworkCacheUtils.getByChecksum(peerGuid, event, data)
+    local cpc = CustomProfiler.start("NetworkCacheUtils.getByChecksum")
     if not peerGuid or util.IsEmpty(peerGuid) or type(peerGuid) ~= "string" then
         error(("peerGuid '%s' must not be nil or empty or isn't type of string!"):format(util.pformat(peerGuid)), 2)
     end
@@ -160,6 +167,7 @@ function NetworkCacheUtils.getByChecksum(peerGuid, event, data)
     Logger.info(Logger.channels.cache,
                 ("Get nCache by clientCacheId %s, dataChecksum %s, event %s, cacheData %s")
                         :format(clientCacheId, dataChecksum, event, util.pformat(cacheData)))
+    CustomProfiler.stop("NetworkCacheUtils.getByChecksum", cpc)
     return cacheData
 end
 

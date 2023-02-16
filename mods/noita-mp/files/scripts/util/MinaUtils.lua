@@ -58,6 +58,7 @@ function MinaUtils.getLocalMinaEntityId()
     return localMinaEntityIdPolymorphed
 end
 
+--- Returns the entity id of the local mina. It also takes care of polymorphism!
 function MinaUtils.getLocalMinaEntityId()
     local cpc                   = CustomProfiler.start("MinaUtils.getLocalMinaEntityId")
     --if EntityUtils.isEntityAlive(EntityUtils.localPlayerEntityId) then
@@ -93,6 +94,8 @@ function MinaUtils.getLocalMinaEntityId()
     return playerEntityIds[1]
 end
 
+--- Returns a table of information about mina:
+--- name, guid, entityId and nuid (if nuid is set, can be nil)
 function MinaUtils.getLocalMinaInformation()
     local cpc       = CustomProfiler.start("MinaUtils.getLocalMinaInformation")
     local ownerName = MinaUtils.getLocalMinaName()
@@ -129,6 +132,7 @@ function MinaUtils.getLocalMinaInformation()
     }
 end
 
+--- Checks if local mina is polymorphed. Returns true|false, entityId|nil
 function MinaUtils.isLocalMinaPolymorphed()
     local cpc                  = CustomProfiler.start("MinaUtils.isLocalMinaPolymorphed")
     local polymorphedEntityIds = EntityGetWithTag("polymorphed") or {}

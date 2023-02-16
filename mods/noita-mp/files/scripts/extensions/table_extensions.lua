@@ -203,6 +203,9 @@ function table.setNoitaMpDefaultMetaMethods(tbl, mode)
     setmetatable(tbl, mt)
 end
 
+--- We need a simple and 'fast' way to convert a lua table into a string.
+--- @param tbl table Example: { "Name", 2, 234, "string" }
+--- @return string Example: "Name,2,234,string"
 function table.contentToString(tbl)
     if not tbl or type(tbl) ~= "table" then
         error("'tbl' must not be nil and type of table!", 2)

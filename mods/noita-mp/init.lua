@@ -12,30 +12,14 @@ local ui   = require("Ui").new()
 
 Logger.debug(Logger.channels.initialize, "Starting to load noita-mp init.lua..")
 
-_G.profiler = require("profiler")
-
 ----------------------------------------------------------------------------------------------------
 --- Stuff needs to be executed before anything else
 ----------------------------------------------------------------------------------------------------
-
 fu.SetAbsolutePathOfNoitaRootDirectory()
-
 NoitaMpSettings.clearAndCreateSettings()
-
-
 -- Is used to stop Noita pausing game, when focus is gone (tab out game)
 ModMagicNumbersFileAdd("mods/noita-mp/files/data/magic_numbers.xml")
-
---local worldSeedMagicNumbersFileAbsPath = fu.GetAbsoluteDirectoryPathOfNoitaMP() .. "/temp/WorldSeed.xml"
---if fu.exists(worldSeedMagicNumbersFileAbsPath) then
---    logger:debug("init.lua", "Loading " .. worldSeedMagicNumbersFileAbsPath)
---    ModMagicNumbersFileAdd(worldSeedMagicNumbersFileAbsPath)
---else
---    logger:debug("init.lua", "Unable to load " .. worldSeedMagicNumbersFileAbsPath)
---end
-
 fu.Find7zipExecutable()
-
 local saveSlotsLastModifiedBeforeWorldInit = fu.getLastModifiedSaveSlots()
 
 ----------------------------------------------------------------------------------------------------
@@ -99,12 +83,6 @@ function OnWorldInitialized()
                                false) -- automatically start the server again
         CustomProfiler.stop("ModSettingSetNextValue", cpc1)
     end
-
-    --logger:debug("init.lua | Initialise client and server stuff..")
-    --dofile_once("mods/noita-mp/files/scripts/net/server_class.lua") -- run once to init server object
-    --dofile_once("mods/noita-mp/files/scripts/net/client_class.lua") -- run once to init client object
-    --dofile_once("mods/noita-mp/files/scripts/net/Server.lua")
-    --dofile_once("mods/noita-mp/files/scripts/net/Client.lua")
     CustomProfiler.stop("init.OnWorldInitialized", cpc)
 end
 
@@ -169,12 +147,8 @@ function OnWorldPreUpdate()
         end
     end
 
-    --UpdateLogLevel()
-
     Server.update()
     Client.update()
-
-    --dofile("mods/noita-mp/files/scripts/ui.lua")
 
     ui.update()
 

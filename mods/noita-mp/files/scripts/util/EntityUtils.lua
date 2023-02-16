@@ -8,8 +8,6 @@
 ----------------------------------------
 dofile("mods/noita-mp/config.lua")
 
-local util = nil
-
 ------------------------------------------------------------------------------------------------------------------------
 --- When NoitaComponents are accessing this file, they are not able to access the global variables defined in this file.
 --- Therefore, we need to redefine the global variables which we don't have access to, because of NoitaAPI restrictions.

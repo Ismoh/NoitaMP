@@ -610,16 +610,6 @@ function fu.saveAndRestartNoita()
                                                                                   _G.saveSlotMeta.slot)) -- -gamemode 0
 end
 
-function fu.createProfilerLog()
-    local directory = fu.GetAbsoluteDirectoryPathOfNoitaMP() .. _G.pathSeparator .. "profilerReport" .. _G.pathSeparator
-    if fu.exists(directory) == false then
-        fu.MkDir(directory)
-    end
-    profiler.attachPrintFunction(print, true)
-    profiler.stop()
-    profiler.report(("%s%s%s"):format(directory, _G.pathSeparator, "profilerOf" .. whoAmI()))
-end
-
 function fu.getAllFilesInDirectory(directory, fileExtension)
     local command = nil
     if _G.is_windows then

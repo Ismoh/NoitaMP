@@ -6,7 +6,6 @@
 ----------------------------------------
 --- 'Imports'
 ----------------------------------------
-local util      = require("util")
 local fu        = require("file_util")
 local nxml      = require("nxml")
 
@@ -16,14 +15,8 @@ local nxml      = require("nxml")
 --- class for getting the current network unique identifier
 NuidUtils       = {}
 
---#region Global private variables
-
 local counter   = 0
 local xmlParsed = false
-
---#endregion
-
---#region Global private functions
 
 local function getNextNuid()
     local cpc = CustomProfiler.start("NuidUtils.getNextNuid")
@@ -61,10 +54,6 @@ local function getNextNuid()
     return counter
 end
 
---#endregion
-
---#region Global public functions
-
 function NuidUtils.getNextNuid()
     return getNextNuid()
 end
@@ -72,6 +61,7 @@ end
 --- If an entity died, the associated nuid-entityId-set will be updated with entityId multiplied by -1.
 --- If this happens, KillEntityMsg has to be send by network.
 function NuidUtils.getEntityIdsByKillIndicator()
+    local cpc = CustomProfiler.start("NuidUtils.getEntityIdsByKillIndicator")
     local deadNuids            = GlobalsUtils.getDeadNuids()
     local worldStateXmlAbsPath = fu.GetAbsDirPathOfWorldStateXml(_G.saveSlotMeta.dir)
     if fu.exists(worldStateXmlAbsPath) then
@@ -88,10 +78,9 @@ function NuidUtils.getEntityIdsByKillIndicator()
             end
         end
     end
+    CustomProfiler.stop("NuidUtils.getEntityIdsByKillIndicator", cpc)
     return deadNuids
 end
-
---#endregion
 
 -- Because of stack overflow errors when loading lua files,
 -- I decided to put Utils 'classes' into globals

@@ -16,7 +16,6 @@ jobs:
           :: Build LuaJIT 2.0.4
           call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86 10.0.22000.0 -vcvars_ver=14
           cd ${{ github.workspace }}\.building\LuaJIT-2.0.4\src
-          setenv /release /x86
           msvcbuild
           
           if exist luajit.exe (
@@ -99,12 +98,28 @@ jobs:
           sed -i 's/GODDAMNIT/\-v \-O2/g' config-5.1.lua
           cat config-5.1.lua
           
-#      - name: Build and install cache.dll
-#        shell: cmd
-#        run: |
-#          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86 10.0.22000.0 -vcvars_ver=14
-#          cd ${{ github.workspace }}\
-#          msbuild noitamp_cache.vcxproj
+      - name: luaExtensions changes?
+        shell: pswh
+        id: lua_extensions_has_changed
+        run: |
+          # https://www.meziantou.net/executing-github-actions-jobs-or-steps-only-when-specific-files-change.htm
+          # Diff HEAD with the previous commit
+          $diff = git diff --name-only HEAD^ HEAD
+          
+          # Check if luaExtensions.c has changed (added, modified, deleted)
+          $SourceDiff = $diff | Where-Object { $_ -match 'luaExtensions.c' }
+          $HasDiff = $SourceDiff.Length -gt 0
+    
+          # Set the output named "changed"
+          Write-Host "::set-output name=changed::$HasDiff"
+          
+      - name: Build and install cache.dll
+        shell: cmd
+        if: steps.lua_extensions_has_changed.outputs.changed == 'True'
+        run: |
+          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86 10.0.22000.0 -vcvars_ver=14
+          cd ${{ github.workspace }}\
+          msbuild .\luaExtensions.vcxproj
 
       - name: Install dependencies
         shell: cmd
@@ -115,6 +130,7 @@ jobs:
           call luarocks.bat install luafilesystem
           call luarocks.bat install luacov
           call luarocks.bat install luacov-coveralls
+          call luarocks.bat install winapi
   
           if exist ${{ github.workspace }}\mods\noita-mp\lua_modules\bin\luacov.bat (
             echo "LuaCov install successfully"

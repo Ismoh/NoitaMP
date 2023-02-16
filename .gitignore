@@ -10,6 +10,7 @@ mods/noita-mp/settings
 *.src.rock
 *.zip
 *.tar.gz
+mods/noita-mp/.gitignore
 mods/noita-mp/.luarocks
 mods/noita-mp/luarocks.bat
 mods/noita-mp/lua.bat
@@ -18,7 +19,7 @@ mods/noita-mp/lua_modules/lib/luarocks
 # Visual studio folder
 .vs/
 
-# cache dll output files
+# luaExtensions dll output files
 Debug/
 out/
 luaExtensions.lib

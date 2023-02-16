@@ -171,7 +171,7 @@ _Assume you've added a new event to **NetworkUtils.events**, then make sure to e
 ```
 
 How to run tests?\
-`luarocks test >> result.log`
+`luarocks test > result.log`
 
 If there are any questions left, then please ask them on [Discord](https://discord.gg/DhMurdcw4k).
 

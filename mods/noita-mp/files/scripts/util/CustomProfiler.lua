@@ -76,11 +76,11 @@ function CustomProfiler.stopAll()
     end
 end
 ---@param functionName string
----@param customProfilerCounter integer
+---@param customProfilerCounter number
 ---@diagnostic disable-next-line: duplicate-set-field
 function CustomProfiler.stop(functionName, customProfilerCounter)
     if not ModSettingGetNextValue("noita-mp.toggle_profiler") then
-        return
+        return 0
     end
 
     if util.IsEmpty(CustomProfiler.reportCache) then
