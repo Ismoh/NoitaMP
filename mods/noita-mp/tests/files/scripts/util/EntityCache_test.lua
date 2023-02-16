@@ -4,11 +4,11 @@ require("luaExtensions")
 
 TestEntityCache = {}
 
-local guid1 = GuidUtils:getGuid()
-local guid2 = GuidUtils:getGuid({ guid1 })
-local guid3 = GuidUtils:getGuid({ guid1, guid2 })
-local guid4 = GuidUtils:getGuid({ guid1, guid2, guid3 })
-local guid5 = GuidUtils:getGuid({ guid1, guid2, guid3, guid4 })
+local guid1     = GuidUtils:getGuid()
+local guid2     = GuidUtils:getGuid({ guid1 })
+local guid3     = GuidUtils:getGuid({ guid1, guid2 })
+local guid4     = GuidUtils:getGuid({ guid1, guid2, guid3 })
+local guid5     = GuidUtils:getGuid({ guid1, guid2, guid3, guid4 })
 
 function TestEntityCache:setUp()
     Logger.trace(Logger.channels.testing, ("EntityCache.size() = %s"):format(EntityCache.size()))
