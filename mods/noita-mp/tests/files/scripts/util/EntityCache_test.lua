@@ -11,19 +11,14 @@ local guid4 = GuidUtils:getGuid({ guid1, guid2, guid3 })
 local guid5 = GuidUtils:getGuid({ guid1, guid2, guid3, guid4 })
 
 function TestEntityCache:setUp()
-    EntityCache.set(1, 213, guid1, "compOwnerName",
-                    "data/entities/items/flute.xml", 0, 0, 1, 57, 0, 100, 100)
-    EntityCache.set(2, 222, guid2, "compOwnerName2",
-                    "data/entities/items/eye.xml", 10, 0, 1, 57, 0, 10, 100)
-    EntityCache.set(3, 231, guid3, "compOwnerName3",
-                    "data/entities/items/eye.xml", 10, 0, 1, 57, 0, 50, 90)
-    EntityCache.set(4, 402, guid4, "compOwnerName4",
-                    "data/entities/items/eye.xml", 10, 0, 1, 57, 0, 1, 100)
-    EntityCache.set(5, 102, guid5, "compOwnerName5",
-                    "data/entities/items/eye.xml", 10, 0, 1, 57, 0, 100, 100)
+    Logger.trace(Logger.channels.testing, ("EntityCache.size() = %s"):format(EntityCache.size()))
+    Logger.trace(Logger.channels.testing, ("EntityCache.usage() = %s"):format(EntityCache.usage()))
 end
 
 function TestEntityCache:testGet()
+    EntityCache.set(1, 213, guid1, "compOwnerName",
+                    "data/entities/items/flute.xml", 0, 0, 1, 57, 0, 100, 100)
+
     local data = EntityCache.get(1)
     lu.assertEquals(data, {
         entityId      = 1,
@@ -39,9 +34,14 @@ function TestEntityCache:testGet()
         currentHealth = 100,
         maxHealth     = 100
     })
+
+    EntityCache.delete(1)
 end
 
 function TestEntityCache:testGetNuid()
+    EntityCache.set(1, 213, guid1, "compOwnerName",
+                    "data/entities/items/flute.xml", 0, 0, 1, 57, 0, 100, 100)
+
     local data = EntityCache.getNuid(213)
     lu.assertEquals(data, {
         entityId      = 1,
@@ -57,16 +57,24 @@ function TestEntityCache:testGetNuid()
         currentHealth = 100,
         maxHealth     = 100
     })
+
+    EntityCache.delete(1)
 end
 
 function TestEntityCache:testDelete()
-    local hasDeleted = EntityCache.delete(1)
+    EntityCache.set(3, 231, guid3, "compOwnerName3",
+                    "data/entities/items/eye.xml", 10, 0, 1, 57, 0, 50, 90)
+
+    local hasDeleted = EntityCache.delete(3)
     lu.assertEquals(hasDeleted, true)
-    local data = EntityCache.get(1)
+    local data = EntityCache.get(3)
     lu.assertIsNil(data)
 end
 
 function TestEntityCache:testDeleteNuid()
+    EntityCache.set(2, 222, guid2, "compOwnerName2",
+                    "data/entities/items/eye.xml", 10, 0, 1, 57, 0, 10, 100)
+
     local hasDeleted = EntityCache.deleteNuid(222)
     lu.assertEquals(hasDeleted, true)
     local data = EntityCache.getNuid(222)
@@ -74,11 +82,27 @@ function TestEntityCache:testDeleteNuid()
 end
 
 function TestEntityCache:testSize()
-    lu.assertAlmostEquals(EntityCache.size(), 5, 2)
+    EntityCache.set(4, 402, guid4, "compOwnerName4",
+                    "data/entities/items/eye.xml", 10, 0, 1, 57, 0, 1, 100)
+    EntityCache.set(5, 102, guid5, "compOwnerName5",
+                    "data/entities/items/eye.xml", 10, 0, 1, 57, 0, 100, 100)
+
+    lu.assertEquals(EntityCache.size(), 2)
+
+    EntityCache.delete(4)
+    EntityCache.delete(5)
 end
 
 function TestEntityCache:testUsage()
+    EntityCache.set(4, 402, guid4, "compOwnerName4",
+                    "data/entities/items/eye.xml", 10, 0, 1, 57, 0, 1, 100)
+    EntityCache.set(5, 102, guid5, "compOwnerName5",
+                    "data/entities/items/eye.xml", 10, 0, 1, 57, 0, 100, 100)
+
     lu.assertNotIsNaN(EntityCache.usage())
+
+    EntityCache.delete(4)
+    EntityCache.delete(5)
 end
 
 lu.LuaUnit.run(params)
