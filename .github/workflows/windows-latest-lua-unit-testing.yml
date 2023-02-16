@@ -104,18 +104,18 @@ jobs:
         run: |
           # https://www.meziantou.net/executing-github-actions-jobs-or-steps-only-when-specific-files-change.htm
           # Diff HEAD with the previous commit
-          $diff = git diff --name-only HEAD^ HEAD
+          # $diff = git diff --name-only HEAD^ HEAD
           
           # Check if luaExtensions.c has changed (added, modified, deleted)
-          $SourceDiff = $diff | Where-Object { $_ -match 'luaExtensions.c' }
-          $HasDiff = $SourceDiff.Length -gt 0
+          # $SourceDiff = $diff | Where-Object { $_ -match 'luaExtensions.c' }
+          # $HasDiff = $SourceDiff.Length -gt 0
     
           # Set the output named "changed"
-          Write-Host "::set-output name=changed::$HasDiff"
+          # Write-Host "::set-output name=changed::$HasDiff"
           
       - name: Build and install cache.dll
         shell: cmd
-        if: steps.lua_extensions_has_changed.outputs.changed == 'True'
+        # if: steps.lua_extensions_has_changed.outputs.changed == 'True'
         run: |
           call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86 10.0.22000.0 -vcvars_ver=14
           cd ${{ github.workspace }}\
