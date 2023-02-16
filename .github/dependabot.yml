@@ -15,7 +15,7 @@ updates:
       day: "thursday"
       time: "18:00"
       timezone: "Europe/Berlin"
-    target-branch: "develop"
+    target-branch: "dependencies"
 
   - package-ecosystem: "gitsubmodule"
     directory: "."
@@ -24,4 +24,4 @@ updates:
       day: "thursday"
       time: "18:00"
       timezone: "Europe/Berlin"
-    target-branch: "develop"
+    target-branch: "dependencies"

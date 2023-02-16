@@ -1,164 +1,258 @@
 name: Windows Lua Unit Testing
 
-on: [push, pull_request]
+on: [ push, pull_request ]
 
 jobs:
   lua-unit-testing-on-windows-latest:
-    name: "LuaUnit on Windows-latest (mingw32)"
+    name: "LuaUnit on Windows-latest (MSVC)"
     runs-on: windows-latest
-
-    env:
-      temp_dir: ${{ github.workspace }}\temp
-      lua_temp_dir: ${{ github.workspace }}\temp\lua-5.1.5
-      luajit_temp_dir: ${{ github.workspace }}\temp\luaJIT-2.0.4
-      lua_install_dir: ${{ github.workspace }}\Lua
-      lua_install_bin_dir: ${{ github.workspace }}\Lua\bin
-      lua_install_lib_dir: ${{ github.workspace }}\Lua\lib
-      lua_install_share_dir: ${{ github.workspace }}\Lua\share
-      lua_install_include_dir: ${{ github.workspace }}\Lua\include
-
+    
     steps:
       - uses: actions/checkout@v3.1.0
-      - uses: msys2/setup-msys2@v2
-        with:
-          msystem: MINGW32
-          update: true
-
-      - name: Make directories for Lua installation
+    
+      - name: Build LuaJIT-2.0.4
+        shell: cmd
         run: |
-          ### https://gist.github.com/Egor-Skriptunoff/cb952f7eaf39b7b1bf739b818ece87cd
-          ### http://lua-users.org/wiki/BuildingLuaInWindowsForNewbies
-          New-Item -Path "${{ github.workspace }}" -Name "Lua" -ItemType "directory"
-          New-Item -Path "${{ env.lua_install_dir }}" -Name "bin" -ItemType "directory"
-          New-Item -Path "${{ env.lua_install_dir }}" -Name "lib" -ItemType "directory"
-          New-Item -Path "${{ env.lua_install_dir }}" -Name "share" -ItemType "directory"
-          New-Item -Path "${{ env.lua_install_dir }}" -Name "include" -ItemType "directory"
-
-      - name: Build and install LuaJIT 2.0.4
+          :: Build LuaJIT 2.0.4
+          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86 10.0.22000.0 -vcvars_ver=14
+          cd ${{ github.workspace }}\.building\LuaJIT-2.0.4\src
+          msvcbuild
+          
+          if exist luajit.exe (
+            echo "LuaJIT-2.0.4 built successfully"
+          ) else (
+            echo "::error::LuaJIT-2.0.4 build failed"
+            exit 1
+          )
+    
+      - name: Install LuaJIT-2.0.4
+        shell: pwsh
         run: |
-          ### https://gist.github.com/Egor-Skriptunoff/cb952f7eaf39b7b1bf739b818ece87cd
-          ### http://lua-users.org/wiki/BuildingLuaInWindowsForNewbies
-
-          ### Build
-          Copy-Item -Path "${{ github.workspace }}\.building\LuaJIT-2.0.4\" -Destination "${{ env.luajit_temp_dir }}\" -Recurse
-          cd ${{ env.luajit_temp_dir }}\
-          mingw32-make PLAT=mingw
-
-          ### Install
-          ### binaries
-          Copy-Item "${{ env.luajit_temp_dir }}\src\luajit.exe" -Destination "${{ env.lua_install_bin_dir }}\"
-          Copy-Item "${{ env.luajit_temp_dir }}\src\lua51.dll" -Destination "${{ env.lua_install_bin_dir }}\"
-
-          ### modules written in lua
-          Copy-Item "${{ env.luajit_temp_dir }}\src\jit\" -Destination "${{ env.lua_install_lib_dir }}\jit\"
-
-          ### includes
-          Copy-Item "${{ env.luajit_temp_dir }}\src\luaconf.h" -Destination "${{ env.lua_install_include_dir }}\"
-          Copy-Item "${{ env.luajit_temp_dir }}\src\lua.h" -Destination "${{ env.lua_install_include_dir }}\"
-          Copy-Item "${{ env.luajit_temp_dir }}\src\lualib.h" -Destination "${{ env.lua_install_include_dir }}\"
-          Copy-Item "${{ env.luajit_temp_dir }}\src\lauxlib.h" -Destination "${{ env.lua_install_include_dir }}\"
-          Copy-Item "${{ env.luajit_temp_dir }}\src\lua.hpp" -Destination "${{ env.lua_install_include_dir }}\"
-
-          Start-Process -FilePath "${{ env.lua_install_bin_dir }}\luajit.exe" -ArgumentList " -v" -Wait -NoNewWindow
-          Start-Process -FilePath "${{ env.lua_install_bin_dir }}\luajit.exe" -ArgumentList " -e `"print(_VERSION)`"" -Wait -NoNewWindow
-
-      - name: Run lua script to adjust lua package pathes
+          # Install binaries
+          Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\luajit.exe" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\bin"
+          Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\lua51.dll" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\bin"
+          Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\lua51.lib" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\bin"
+        
+          # 'Install' JIT modules
+          Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\jit\*" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\lua\jit\" -Recurse
+        
+          # 'Install' JIT includes
+          Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\luaconf.h" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\include"
+          Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\lua.h" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\include"
+          Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\lualib.h" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\include"
+          Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\lauxlib.h" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\include"
+          Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\lua.hpp" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\include"
+  
+          # 'Install' JIT library
+          Copy-Item "${{ github.workspace }}\.building\LuaJIT-2.0.4\src\lua51.lib" -Destination "${{ github.workspace }}\LuaJIT-2.0.4\lib"
+        
+          # Test luajit.exe
+          Start-Process -FilePath "${{ github.workspace }}\LuaJIT-2.0.4\bin\luajit.exe" -ArgumentList "-v" -Wait -NoNewWindow
+          Start-Process -FilePath "${{ github.workspace }}\LuaJIT-2.0.4\bin\luajit.exe" -ArgumentList "-e `"print(_VERSION)`"" -Wait -NoNewWindow
+      
+      - name: Install and init luarocks
+        shell: cmd
         run: |
-          Start-Process -FilePath "${{ env.lua_install_bin_dir }}\luajit.exe" -ArgumentList " ${{ github.workspace }}\mods\noita-mp\files\scripts\init\init_.lua ${{ env.temp_dir }}" -Wait -NoNewWindow
-
-      - name: Set GitHub env variables
-        shell: bash
+          cd ${{ github.workspace}}\mods\noita-mp\
+          set INIT_PATH=%CD%
+          REM // resolve absolute path
+          set REL_PATH=..\..\.building\luarocks-3.9.1-windows-32
+          set ABS_PATH=
+          rem // Save current directory and change to target directory
+          pushd %REL_PATH%
+          rem // Save value of CD variable (current directory)
+          set ABS_PATH=%CD%
+          rem // Restore original directory
+          popd
+          echo Relative path: %REL_PATH%
+          echo Maps to path: %ABS_PATH%
+        
+          REM // init luarocks
+          %ABS_PATH%\luarocks --lua-dir="${{ github.workspace}}\LuaJIT-2.0.4" --lua-version="5.1" init noita-mp --output="${{ github.workspace}}\mods\noita-mp" --homepage="https://github.com/Ismoh/NoitaMP" --lua-versions="5.1" --license="GNU GPL v3"
+        
+          REM // change luarocks projects config
+          %ABS_PATH%\luarocks config --scope="project" lua_interpreter luajit.exe
+          %ABS_PATH%\luarocks config --scope="project" lua_dir ${{ github.workspace}}\LuaJIT-2.0.4
+          %ABS_PATH%\luarocks config --scope="project" variables.LUA_BINDIR ${{ github.workspace}}\LuaJIT-2.0.4\bin
+          %ABS_PATH%\luarocks config --scope="project" variables.LUA_DIR ${{ github.workspace}}\LuaJIT-2.0.4
+          %ABS_PATH%\luarocks config --scope="project" variables.LUA_INCDIR ${{ github.workspace}}\LuaJIT-2.0.4\include
+          %ABS_PATH%\luarocks config --scope="project" variables.CFLAGS "GODDAMNIT"
+          %ABS_PATH%\luarocks config
+  
+          if exist lua.bat (
+            echo "LuaRocks project init successfully"
+          ) else (
+            echo "::error::LuaRocks project init failed. Unable to find lua.bat"
+            exit 1
+          )
+          if exist luarocks.bat (
+            echo "LuaRocks project init successfully"
+          ) else (
+            echo "::error::LuaRocks project init failed. Unable to find luarocks.bat"
+            exit 1
+          )
+      
+      - name: Fix LuaRocks bug
         run: |
-          fixedpath=$(echo "${{ env.temp_dir }}/lua_path.txt" | sed -e 's_\\_/_g') ### replace \ with /
-          cat $fixedpath
-          echo "LUA_PATH=;;${{ env.lua_install_lib_dir }}\\?.lua;${{ env.lua_install_lib_dir }}\\?\\init.lua;${{ env.lua_install_lib_dir }}\\jit\\?.lua;${{ env.lua_install_lib_dir }}\\jit\\?\\init.lua;${{ env.lua_install_share_dir }}\\lua\\5.1\\?.lua;$(cat $fixedpath)" >> $GITHUB_ENV
-
-          fixedpath=$(echo "${{ env.temp_dir }}/lua_cpath.txt" | sed -e 's_\\_/_g') ### replace \ with /
-          cat $fixedpath
-          echo "LUA_CPATH=$(cat $fixedpath)" >> $GITHUB_ENV
-
-      - name: Run LuaUnit 3.4
-        id: lua_unit_tests
+          cd ${{ github.workspace}}\mods\noita-mp\.luarocks
+          sed -i 's/GODDAMNIT/\-v \-O2/g' config-5.1.lua
+          cat config-5.1.lua
+          
+        #- name: luaExtensions changes?
+        #shell: pwsh
+        #id: lua_extensions_has_changed
+          #run: |
+          # https://www.meziantou.net/executing-github-actions-jobs-or-steps-only-when-specific-files-change.htm
+          # Diff HEAD with the previous commit
+          #$diff = git diff --name-only HEAD^ HEAD
+          
+          # Check if luaExtensions.c has changed (added, modified, deleted)
+          #$SourceDiff = $diff | Where-Object { $_ -match 'luaExtensions.c' }
+          #$HasDiff = $SourceDiff.Length -gt 0
+    
+          # Set the output named "changed"
+          #Write-Host "::set-output name=changed::$HasDiff"
+          
+      - name: Build and install luaExtensions.dll
+        shell: cmd
+        # if: steps.lua_extensions_has_changed.outputs.changed == 'True'
         run: |
-          $files = Get-ChildItem -Path ${{ github.workspace }}\.testing\tests -Filter *.lua -Recurse
-          foreach ($file in $files) # https://stackoverflow.com/a/11568420/3493998
-          {
-            Write-Host "Running lua file $file"
-            # https://stackoverflow.com/a/45330000/3493998
-            & '${{ env.lua_install_bin_dir }}\luajit.exe' $file.FullName -o text --verbose > ${{ github.workspace }}\.testing\testresult.log
-            type ${{ github.workspace }}\.testing\testresult.log
-          }        
-
-          # https://timheuer.com/blog/manually-force-a-failure-in-github-action-step/
-          $testFail = Select-String -Path ${{ github.workspace }}\.testing\testresult.log -Pattern 'FAIL' -CaseSensitive
-          Write-Output "::set-output name=fail::$testFail"
-
-          $testError = Select-String -Path ${{ github.workspace }}\.testing\testresult.log -Pattern 'ERROR' -CaseSensitive
-          Write-Output "::set-output name=error::$testError"
-
-          $notFound = Get-Content -Path ${{ github.workspace }}\.testing\testresult.log
-          Write-Output "::set-output name=not_found::$notFound"
-
-      - name: Unit test failed?
-        if: ${{ steps.lua_unit_tests.outputs.fail != '' || steps.lua_unit_tests.outputs.error != '' || steps.lua_unit_tests.outputs.not_found == '' }}
-        run: |
-          echo "steps.lua_unit_tests.outputs.fail = ${{ steps.lua_unit_tests.outputs.fail }}"
-          echo "steps.lua_unit_tests.outputs.error = ${{ steps.lua_unit_tests.outputs.error }}"
-          echo "steps.lua_unit_tests.outputs.not_found = ${{ steps.lua_unit_tests.outputs.not_found }}"
-          echo "Unit tests failed!"
-          exit 1
-
-      - name: Install luarocks 3.8.0
-        run: |
-          Invoke-WebRequest -Uri "http://luarocks.github.io/luarocks/releases/luarocks-3.8.0-windows-32.zip" -OutFile "${{ github.workspace }}\luarocks-3.8.0-win32.zip"
-          Expand-Archive -Path ${{ github.workspace }}\luarocks-3.8.0-win32.zip -DestinationPath "${{ env.temp_dir }}"
-
-          Start-Process -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-windows-32\luarocks.exe" -ArgumentList " --version " -Wait -NoNewWindow
+          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86 10.0.22000.0 -vcvars_ver=14
+          cd ${{ github.workspace }}\
+          msbuild .\luaExtensions.vcxproj
 
       - name: Install dependencies
+        shell: cmd
         run: |
-          #echo "C:\msys64\mingw32\bin" >> $GITHUB_PATH
-          #cp C:\ProgramData\chocolatey\lib\mingw\tools\install\mingw64\bin\x86_64-w64-mingw32-gcc.exe C:\ProgramData\chocolatey\lib\mingw\tools\install\mingw64\bin\mingw32-gcc.exe
+          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86 10.0.22000.0 -vcvars_ver=14
+          cd ${{ github.workspace}}\mods\noita-mp\
+
+          call luarocks.bat install luafilesystem
+          call luarocks.bat install luacov
+          call luarocks.bat install luacov-coveralls
+          call luarocks.bat install winapi
+  
+          if exist ${{ github.workspace }}\mods\noita-mp\lua_modules\bin\luacov.bat (
+            echo "LuaCov install successfully"
+          ) else (
+            echo "::error::LuaCov install failed"
+            exit 1
+          )
+          if exist ${{ github.workspace }}\mods\noita-mp\lua_modules\bin\luacov-coveralls.bat (
+            echo "LuaCov Coveralls install successfully"
+          ) else (
+            echo "::error::LuaCov Coveralls install failed"
+            exit 1
+          )
+      
+      - name: Run LuaUnit 3.4
+        shell: cmd
+        id: lua_unit_tests
+        run: |
+          cd ${{ github.workspace}}\mods\noita-mp\
+          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86 10.0.22000.0 -vcvars_ver=14
           
-          Start-Process -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-windows-32\luarocks.exe" -ArgumentList "--lua-dir=${{ env.lua_install_dir }} --lua-version=5.1 --tree=${{ env.lua_install_dir }} install luacov" -Wait -NoNewWindow
-          Start-Process -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-windows-32\luarocks.exe" -ArgumentList "--lua-dir=${{ env.lua_install_dir }} --lua-version=5.1 --tree=${{ env.lua_install_dir }} install lua-path" -Wait -NoNewWindow
-          Start-Process -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-windows-32\luarocks.exe" -ArgumentList "--lua-dir=${{ env.lua_install_dir }} --lua-version=5.1 --tree=${{ env.lua_install_dir }} install dkjson" -Wait -NoNewWindow
-          Start-Process -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-windows-32\luarocks.exe" -ArgumentList "--lua-dir=${{ env.lua_install_dir }} --lua-version=5.1 --tree=${{ env.lua_install_dir }} install luafilesystem" -Wait -NoNewWindow
-          Start-Process -FilePath "${{ env.temp_dir }}\luarocks-3.8.0-windows-32\luarocks.exe" -ArgumentList "--lua-dir=${{ env.lua_install_dir }} --lua-version=5.1 --tree=${{ env.lua_install_dir }} install luacov-coveralls" -Wait -NoNewWindow
-
-          ls -R ${{ env.lua_install_dir }}
-
-      - name: Generate coverage report with luacov
+          call luarocks.bat test > result.log
+          
+          if exist result.log (
+            echo "LuaUnit tests successfully"
+          ) else (
+            echo "::error::LuaUnit tests failed. Unable to find result.log"
+            exit 1
+          )
+          
+          type result.log
+          
+      - name: Failed unit tests?
+        shell: cmd
         run: |
-          dir -Path ${{ github.workspace }}\.testing\tests -Filter *.lua -Recurse | %{& '${{ env.lua_install_bin_dir }}\luajit.exe' -lluacov $_.FullName -o text --verbose }
+          cd ${{ github.workspace}}/mods/noita-mp
+          
+          for /F "tokens=9 delims= " %%a in ('findstr /I "Ran*" result.log') do set "failOrErrorCount=%%a"
+          echo "failOrErrorCount:%failOrErrorCount%"
+          if NOT %failOrErrorCount% == 0 (
+            echo "::error title=LuaUnit tests failed::%failOrErrorCount% failures or errors occurred!"
+            exit 1
+          )
+          
+      - name: Write LuaRocks path into files
+        shell: cmd
+        run: |
+          cd ${{ github.workspace }}\mods\noita-mp\
+          call luarocks path --lr-path >> lpath.txt
+          call luarocks path --lr-cpath >> cpath.txt
+          call luarocks path --lr-bin >> path.txt
+  
+      - name: Set LuaRocks path into GitHub action path
+        run: |
+          cd ${{ github.workspace }}\mods\noita-mp\
+          
+          $lpath = Get-Content lpath.txt -Raw
+          echo "LUA_PATH=$lpath" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
 
-          Start-Process -FilePath "${{ env.lua_install_bin_dir }}\luacov.bat" -Wait -NoNewWindow
+          echo "$lpath" | Out-File -Append -FilePath $env:GITHUB_PATH -Encoding utf8
+          
+          $cpath = Get-Content cpath.txt -Raw
+          echo "LUA_CPATH=$cpath" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          echo "$cpath" | Out-File -Append -FilePath $env:GITHUB_PATH -Encoding utf8
+          
+          $path = Get-Content path.txt -Raw
+          echo "$path" | Out-File -Append -FilePath $env:GITHUB_PATH -Encoding utf8
+    
+      - name: Generate coverage report with luacov
+        shell: cmd
+        run: |
+          cd ${{ github.workspace }}\mods\noita-mp\
+          call lua.bat -lluacov ${{ github.workspace }}\mods\noita-mp\tests\_initializeUnitTests.lua -o text --verbose
+          call ${{ github.workspace }}\mods\noita-mp\lua_modules\bin\luacov.bat -c=${{ github.workspace }}\mods\noita-mp\.luacov
+          ls -R
+          
+          if exist ${{ github.workspace }}\mods\noita-mp\luacov.stats.out (
+            echo "LuaCov report successfully"
+          ) else (
+            echo "::error::LuaCov report failed. Unable to find luacov.stats.out"
+            exit 1
+          )
+  
+          if exist ${{ github.workspace }}\mods\noita-mp\luacov.report.out (
+            echo "LuaCov report successfully"
+          ) else (
+            echo "::error::LuaCov report failed. Unable to find luacov.report.out"
+            exit 1
+          )
+  
+      - name: Fix wrong paths in luacov.report.out
+        run : |
+          cd ${{ github.workspace }}\mods\noita-mp\
+          cat luacov.report.out
+          sed -i 's/\.\.\noita\-mp/mods\\noita\-mp/g' luacov.report.out
+          cat luacov.report.out
+          sed -i 's/D\:\\a\\NoitaMP\\NoitaMP\\mods\\noita\-mp\\\.\.\\\.\.\\mods\\noita\-mp/mods\\noita\-mp/g' luacov.report.out
+          cat luacov.report.out
+          sed -i 's/D\:\\a\\NoitaMP\\NoitaMP\\mods\\noita\-mp/mods\\noita\-mp/g' luacov.report.out
+          cat luacov.report.out
 
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          file: mods/noita-mp/luacov.report.out
+          flags: unittesting
+          functionalities: network
+          name: Windows Lua Unit Testing
+          verbose: true
+      
       - name: Generate coverage report with luacov-coveralls
         shell: cmd
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COVERALLS_DEBUG: true
         run: |
-          ${{ env.lua_install_bin_dir }}\luacov-coveralls.bat -v
-
-      - name: Fix codecov path issue
-        shell: pwsh
-        run: |
-          ls -R
-          $content = Get-Content -Path ${{ github.workspace }}/luacov.report.out
-          $content = $content.Replace("\", "/")
-          $content > ${{ github.workspace }}/luacov.report.out
-          Write-Host $content
-
-          #$(cat ${{ github.workspace }}/luacov.report.out | sed -e 's_\\_/_g') > ${{ github.workspace }}/luacov.report.out
-          #cat ${{ github.workspace }}/luacov.report.out
-
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
-        with:
-          directory: ${{ github.workspace }}
-          flags: unittesting
-          functionalities: network
-          name: Windows Lua Unit Testing
-          verbose: true
+          cd ${{ github.workspace}}\mods\noita-mp\
+          call ${{ github.workspace }}\mods\noita-mp\lua_modules\bin\luacov-coveralls.bat --verbose --root=${{ github.workspace}}\mods\noita-mp\
+          
+          if exist ${{ github.workspace }}\mods\noita-mp\luacov.report.out (
+            echo "LuaCov Coveralls report successfully"
+          ) else (
+            echo "::error::LuaCov Coveralls report failed. Unable to find luacov.report.out"
+            exit 1
+          )

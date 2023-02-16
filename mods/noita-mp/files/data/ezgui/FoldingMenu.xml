@@ -1,0 +1,8 @@
+<Layout>
+    <Button @click="toggleFoling()">{{text}}</Button>
+</Layout>
+<Style>
+Button {
+    border: false;
+}
+</Style>

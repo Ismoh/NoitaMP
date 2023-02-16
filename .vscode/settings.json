@@ -1,5 +1,5 @@
 {
-  "Lua.workspace.library": [".debug/noita_api.lua"],
+  "Lua.workspace.library": [".debug/noita_api.lua", "${3rd}/love2d/library"],
   "Lua.workspace.maxPreload": 2000,
   "cmake.configureOnOpen": false,
   "Lua.diagnostics.globals": [
@@ -22,10 +22,37 @@
     "mod_setting_tooltip",
     "ngx",
     "EXPORT_ASSERT_TO_GLOBALS",
-    "gui"
+    "gui",
+    "networkMessageId",
+    "peer",
+    "fu",
+    "util",
+    "EntityCache",
+    "NetworkCache"
   ],
   "lua.targetVersion": "5.1",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.formatOnSave": true,
-  "editor.formatOnPaste": true
+  "editor.formatOnSave": false,
+  "editor.formatOnPaste": false,
+  "[xml]": {
+    "editor.defaultFormatter": "DotJoshJohnson.xml"
+  },
+  "Lua.runtime.version": "Lua 5.4",
+  "Lua.workspace.checkThirdParty": false,
+  "[lua]": {
+    "editor.defaultFormatter": "sumneko.lua"
+  },
+  "Lua.diagnostics.disable": [
+    "lowercase-global",
+    "undefined-field"
+  ],
+  "files.associations": {
+    "stdbool.h": "c",
+    "stdio.h": "c",
+    "lua.h": "c",
+    "lauxlib.h": "c"
+  },
+  "[c]": {
+    "editor.defaultFormatter": "ms-vscode.cpptools"
+  }
 }
