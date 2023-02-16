@@ -113,7 +113,7 @@ jobs:
           # Set the output named "changed"
           #Write-Host "::set-output name=changed::$HasDiff"
           
-      - name: Build and install cache.dll
+      - name: Build and install luaExtensions.dll
         shell: cmd
         # if: steps.lua_extensions_has_changed.outputs.changed == 'True'
         run: |
