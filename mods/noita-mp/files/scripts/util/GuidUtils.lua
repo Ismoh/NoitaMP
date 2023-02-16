@@ -63,7 +63,6 @@ function GuidUtils:getGuid(inUsedGuids)
         Logger.debug(Logger.channels.guid, ("Guid:getGuid() - inUsedGuids: %s"):format(util.pformat(inUsedGuids)))
     end
 
-    local guid = nil
     repeat
         uuid.randomseed(socket.gettime() * 10000)
         guid = uuid()

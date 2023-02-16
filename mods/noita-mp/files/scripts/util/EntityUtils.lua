@@ -17,29 +17,35 @@ if require then
     util = require("util")
 else
     -- Fix stupid Noita sandbox issue. Noita Components does not have access to require.
-    util                   = dofile("mods/noita-mp/files/scripts/util/util.lua")
-    EntityCache            = {}
-    EntityCache.delete     = function(entityId)
-        Logger.warn(Logger.channels.entity,
-                    ("NoitaComponents with their restricted Lua context are trying to use EntityCache.delete(entityId %s)")
-                            :format(entityId))
+    if not util then
+        util                   = dofile("mods/noita-mp/files/scripts/util/util.lua")
     end
-    EntityCache.get        = function(entityId)
-        Logger.warn(Logger.channels.entity,
-                    ("NoitaComponents with their restricted Lua context are trying to use EntityCache.get(entityId %s)")
-                            :format(entityId))
-    end
-    EntityCache.set        = function(entityId, compNuid, compOwnerGuid, compOwnerName, filename, x, y, rotation, velocityX,
-                                      velocityY, healthCurrent, healthMax)
-        Logger.warn(Logger.channels.entity,
-                    ("NoitaComponents with their restricted Lua context are trying to use EntityCache.set(entityId %s, compNuid %s, compOwnerGuid %s, compOwnerName %s, filename %s, x %s, y %s, rotation %s, velocityX %s, velocityY %s, healthCurrent %s, healthMax %s)")
-                            :format(entityId, compNuid, compOwnerGuid, compOwnerName, filename, x, y, rotation,
-                                    velocityX, velocityY, healthCurrent, healthMax))
-    end
-    EntityCache.deleteNuid = function(nuid)
-        Logger.warn(Logger.channels.entity,
-                    ("NoitaComponents with their restricted Lua context are trying to use EntityCache.deleteNuid(nuid %s)")
-                            :format(nuid))
+
+    if not EntityCache then
+        EntityCache            = {}
+        EntityCache.delete     = function(entityId)
+            Logger.warn(Logger.channels.entity,
+                        ("NoitaComponents with their restricted Lua context are trying to use EntityCache.delete(entityId %s)")
+                                :format(entityId))
+            print("TEST 123")
+        end
+        EntityCache.get        = function(entityId)
+            Logger.warn(Logger.channels.entity,
+                        ("NoitaComponents with their restricted Lua context are trying to use EntityCache.get(entityId %s)")
+                                :format(entityId))
+        end
+        EntityCache.set        = function(entityId, compNuid, compOwnerGuid, compOwnerName, filename, x, y, rotation, velocityX,
+                                          velocityY, healthCurrent, healthMax)
+            Logger.warn(Logger.channels.entity,
+                        ("NoitaComponents with their restricted Lua context are trying to use EntityCache.set(entityId %s, compNuid %s, compOwnerGuid %s, compOwnerName %s, filename %s, x %s, y %s, rotation %s, velocityX %s, velocityY %s, healthCurrent %s, healthMax %s)")
+                                :format(entityId, compNuid, compOwnerGuid, compOwnerName, filename, x, y, rotation,
+                                        velocityX, velocityY, healthCurrent, healthMax))
+        end
+        EntityCache.deleteNuid = function(nuid)
+            Logger.warn(Logger.channels.entity,
+                        ("NoitaComponents with their restricted Lua context are trying to use EntityCache.deleteNuid(nuid %s)")
+                                :format(nuid))
+        end
     end
 
     if not CustomProfiler then
