@@ -101,7 +101,7 @@ jobs:
       - name: Update LuaRocks rockspec
         shell: bash
         run: |
-          apt-get install rename
+          sudo apt-get install rename
           
           git fetch
           git checkout ${{ github.base_ref }}
