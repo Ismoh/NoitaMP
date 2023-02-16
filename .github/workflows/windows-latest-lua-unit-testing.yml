@@ -99,7 +99,7 @@ jobs:
           cat config-5.1.lua
           
       - name: luaExtensions changes?
-        shell: pswh
+        shell: pwsh
         id: lua_extensions_has_changed
         run: |
           # https://www.meziantou.net/executing-github-actions-jobs-or-steps-only-when-specific-files-change.htm
