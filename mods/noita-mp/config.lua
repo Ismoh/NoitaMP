@@ -48,7 +48,20 @@ local NoitaApiModSettingGet          = ModSettingGet
 local NoitaApiModSettingSetNextValue = ModSettingSetNextValue
 local NoitaApiModSettingGetNextValue = ModSettingGetNextValue
 
-ModSettingSet                        = function(id, value)
+if not util then
+    if require then
+        util = require("util")
+    else
+        -- when NoitaComponents with their own restricted LuaContext load this file,
+        -- util isn't available!
+        util = dofile_once("mods/noita-mp/files/scripts/util/util.lua")
+        if not MinaUtils and not require then
+            MinaUtils = dofile_once("mods/noita-mp/files/scripts/util/MinaUtils.lua")
+        end
+    end
+end
+
+ModSettingSet          = function(id, value)
     if id == "noita-mp.name" then
         MinaUtils.setLocalMinaName(value)
     end
@@ -58,17 +71,31 @@ ModSettingSet                        = function(id, value)
     NoitaApiModSettingSet(id, value)
 end
 
-ModSettingGet                        = function(id)
+ModSettingGet          = function(id)
     if id == "noita-mp.name" then
-        return MinaUtils.getLocalMinaName()
+        local name = MinaUtils.getLocalMinaName()
+        if not util.IsEmpty(name) then
+            return name
+        else
+            name = NoitaApiModSettingGet(id)
+            MinaUtils.setLocalMinaName(name)
+            return name
+        end
     end
     if id == "noita-mp.guid" then
-        return MinaUtils.getLocalMinaGuid()
+        local guid = MinaUtils.getLocalMinaGuid()
+        if not util.IsEmpty(guid) then
+            return guid
+        else
+            guid = NoitaApiModSettingGet(id)
+            MinaUtils.setLocalMinaGuid(guid)
+            return guid
+        end
     end
     return NoitaApiModSettingGet(id)
 end
 
-ModSettingSetNextValue               = function(id, value, is_default)
+ModSettingSetNextValue = function(id, value, is_default)
     if id == "noita-mp.name" then
         name = value
     end
@@ -78,12 +105,18 @@ ModSettingSetNextValue               = function(id, value, is_default)
     NoitaApiModSettingSetNextValue(id, value, is_default)
 end
 
-ModSettingGetNextValue               = function(id)
+ModSettingGetNextValue = function(id)
     if id == "noita-mp.name" and name then
-        return name
+        local name = MinaUtils.getLocalMinaName()
+        if not util.IsEmpty(name) then
+            return name
+        end
     end
     if id == "noita-mp.guid" and guid then
-        return guid
+        local guid = MinaUtils.getLocalMinaGuid()
+        if not util.IsEmpty(guid) then
+            return guid
+        end
     end
     return NoitaApiModSettingGetNextValue(id)
 end

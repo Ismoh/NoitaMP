@@ -34,9 +34,10 @@ require("NetworkUtils")
 require("NoitaComponentUtils")
 require("NuidUtils")
 require("GuidUtils")
+require("NoitaMpSettings")
+require("CustomProfiler")
 require("Server")
 require("Client")
-require("CustomProfiler")
 
 _G.whoAmI = function()
     if Server:amIServer() then

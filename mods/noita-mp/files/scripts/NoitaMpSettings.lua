@@ -35,6 +35,7 @@ function NoitaMpSettings.clearAndCreateSettings()
 end
 
 function NoitaMpSettings.writeSettings(key, value)
+    local cpc = CustomProfiler.start("NoitaMpSettings.writeSettings")
     if util.IsEmpty(key) or type(key) ~= "string" then
         error(("'key' must not be nil or is not type of string!"):format(key), 2)
     end
@@ -43,10 +44,14 @@ function NoitaMpSettings.writeSettings(key, value)
         error(("'value' must not be nil or is not type of string!"):format(value), 2)
     end
 
-    local pid          = winapi.get_current_pid()
+    local pid = winapi.get_current_pid()
 
-    local settingsFile = ("%s%s%s%s.lua")
-            :format(fu.getAbsolutePathOfNoitaMpSettingsDirectory(), pathSeparator, pid, whoAmI())
+    local who = "CLIENT"
+    if whoAmI then
+        who = whoAmI()
+    end
+    local settingsFile = ("%s%s%s%s.json")
+            :format(fu.getAbsolutePathOfNoitaMpSettingsDirectory(), pathSeparator, pid, who)
 
     if not fu.exists(settingsFile) then
         fu.WriteFile(settingsFile, "{}")
@@ -60,10 +65,13 @@ function NoitaMpSettings.writeSettings(key, value)
     fu.WriteFile(settingsFile, json.encode(contentJson))
     Logger.trace(Logger.channels.testing, ("Wrote custom setting: %s = %s"):format(key, value))
 
-    return fu.ReadFile(settingsFile)
+    local result = fu.ReadFile(settingsFile)
+    CustomProfiler.stop("NoitaMpSettings.writeSettings", cpc)
+    return result
 end
 
 function NoitaMpSettings.getSetting(key)
+    local cpc          = CustomProfiler.start("NoitaMpSettings.getSetting")
     local pid          = winapi.get_current_pid()
 
     local settingsFile = ("%s%s%s%s.json")
@@ -79,7 +87,9 @@ function NoitaMpSettings.getSetting(key)
     if util.IsEmpty(contentJson[key]) then
         error(("Unable to find '%s' in NoitaMpSettings: %s"):format(key, contentString), 2)
     end
-    return contentJson[key]
+    local value = contentJson[key]
+    CustomProfiler.stop("NoitaMpSettings.getSetting", cpc)
+    return value
 end
 
 -- Because of stack overflow errors when loading lua files,

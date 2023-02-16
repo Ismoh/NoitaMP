@@ -9,123 +9,57 @@
 dofile("mods/noita-mp/config.lua")
 
 local util = nil
-if require then
-    util = require("util")
-else
-    -- Fix stupid Noita sandbox issue. Noita Components does not have access to require.
-    util = dofile("mods/noita-mp/files/scripts/util/util.lua")
-end
-
-if require == nil then
-    local cacheData = {}
-    EntityCache     = {
-        set        = function(entityId, compNuid, compOwnerGuid, compOwnerName, filename, x, y, rotation, velX, velY, currentHealth, maxHealth)
-            local cpc = CustomProfiler.start("EntityUtils.CachePolyfillSet")
-            for _, value in ipairs(cacheData) do
-                if value.entityId == entityId then
-                    cacheData[_] = {
-                        entityId      = entityId,
-                        ownerName     = compOwnerName,
-                        ownerGuid     = compOwnerGuid,
-                        nuid          = compNuid,
-                        filename      = filename,
-                        currentHealth = currentHealth,
-                        maxHealth     = maxHealth,
-                        velX          = velX,
-                        velY          = velY,
-                        rotation      = rotation,
-                        x             = x,
-                        y             = y
-                    }
-                    return
-                end
-            end
-            table.insert(cacheData, {
-                entityId      = entityId,
-                ownerName     = compOwnerName,
-                ownerGuid     = compOwnerGuid,
-                nuid          = compNuid,
-                filename      = filename,
-                currentHealth = currentHealth,
-                maxHealth     = maxHealth,
-                velX          = velX,
-                velY          = velY,
-                rotation      = rotation,
-                x             = x,
-                y             = y
-            })
-            CustomProfiler.stop("EntityUtils.CachePolyfillSet", cpc)
-        end,
-        get        = function(id)
-            local cpc = CustomProfiler.start("EntityUtils.CachePolyfillGet")
-            for _, value in ipairs(cacheData) do
-                if value.entityId == id then
-                    return value
-                end
-            end
-            CustomProfiler.stop("EntityUtils.CachePolyfillGet", cpc)
-        end,
-        getNuid    = function(id)
-            local cpc = CustomProfiler.start("EntityUtils.CachePolyfillGet")
-            for _, value in ipairs(cacheData) do
-                if value.nuid == id then
-                    return value
-                end
-            end
-            CustomProfiler.stop("EntityUtils.CachePolyfillGet", cpc)
-        end,
-        delete     = function(id)
-            local cpc      = CustomProfiler.start("EntityUtils.CachePolyfillDelete")
-            local shifting = false
-            for _, value in ipairs(cacheData) do
-                if value.entityId == id then
-                    cacheData[_] = nil
-                    shifting     = true
-                end
-                if shifting then
-                    cacheData[_ - 1] = value
-                    cacheData[_]     = nil
-                end
-            end
-            CustomProfiler.stop("EntityUtils.CachePolyfillDelete", cpc)
-        end,
-        deleteNuid = function(id)
-            local cpc      = CustomProfiler.start("EntityUtils.CachePolyfillDelete")
-            local shifting = false
-            for _, value in ipairs(cacheData) do
-                if value.nuid == id then
-                    cacheData[_] = nil
-                    shifting     = true
-                end
-                if shifting then
-                    cacheData[_ - 1] = value
-                    cacheData[_]     = nil
-                end
-            end
-            CustomProfiler.stop("EntityUtils.CachePolyfillDelete", cpc)
-        end
-    }
-end
-
-if not table or not table.setNoitaMpDefaultMetaMethods then
-    -- Fix stupid Noita sandbox issue. Noita Components does not have access to require.
-    table = dofile_once("mods/noita-mp/files/scripts/extensions/table_extensions.lua")
-end
 
 ------------------------------------------------------------------------------------------------------------------------
 --- When NoitaComponents are accessing this file, they are not able to access the global variables defined in this file.
 --- Therefore, we need to redefine the global variables which we don't have access to, because of NoitaAPI restrictions.
 --- This is done by the following code:
 ------------------------------------------------------------------------------------------------------------------------
-if not CustomProfiler then
-    CustomProfiler = {}
-    ---@diagnostic disable-next-line: duplicate-set-field
-    function CustomProfiler.start(functionName)
-        return 0
+if require then
+    util = require("util")
+else
+    -- Fix stupid Noita sandbox issue. Noita Components does not have access to require.
+    util                   = dofile("mods/noita-mp/files/scripts/util/util.lua")
+    EntityCache            = {}
+    EntityCache.delete     = function(entityId)
+        Logger.warn(Logger.channels.entity,
+                    ("NoitaComponents with their restricted Lua context are trying to use EntityCache.delete(entityId %s)")
+                            :format(entityId))
     end
-    ---@diagnostic disable-next-line: duplicate-set-field
-    function CustomProfiler.stop(functionName, customProfilerCounter)
-        return 0
+    EntityCache.get        = function(entityId)
+        Logger.warn(Logger.channels.entity,
+                    ("NoitaComponents with their restricted Lua context are trying to use EntityCache.get(entityId %s)")
+                            :format(entityId))
+    end
+    EntityCache.set        = function(entityId, compNuid, compOwnerGuid, compOwnerName, filename, x, y, rotation, velocityX,
+                                      velocityY, healthCurrent, healthMax)
+        Logger.warn(Logger.channels.entity,
+                    ("NoitaComponents with their restricted Lua context are trying to use EntityCache.set(entityId %s, compNuid %s, compOwnerGuid %s, compOwnerName %s, filename %s, x %s, y %s, rotation %s, velocityX %s, velocityY %s, healthCurrent %s, healthMax %s)")
+                            :format(entityId, compNuid, compOwnerGuid, compOwnerName, filename, x, y, rotation,
+                                    velocityX, velocityY, healthCurrent, healthMax))
+    end
+    EntityCache.deleteNuid = function(nuid)
+        Logger.warn(Logger.channels.entity,
+                    ("NoitaComponents with their restricted Lua context are trying to use EntityCache.deleteNuid(nuid %s)")
+                            :format(nuid))
+    end
+
+    if not CustomProfiler then
+        CustomProfiler = {}
+        ---@diagnostic disable-next-line: duplicate-set-field
+        function CustomProfiler.start(functionName)
+            Logger.warn(Logger.channels.entity,
+                        ("NoitaComponents with their restricted Lua context are trying to use CustomProfiler.start(functionName %s)")
+                                :format(functionName))
+            return 0
+        end
+        ---@diagnostic disable-next-line: duplicate-set-field
+        function CustomProfiler.stop(functionName, customProfilerCounter)
+            Logger.warn(Logger.channels.entity,
+                        ("NoitaComponents with their restricted Lua context are trying to use CustomProfiler.stop(functionName %s, customProfilerCounter %s)")
+                                :format(functionName, customProfilerCounter))
+            return -1
+        end
     end
 end
 
@@ -140,11 +74,6 @@ end
 --- private local variables:
 ----------------------------------------
 
-local localOwner                           = {
-    name = tostring(ModSettingGet("noita-mp.name")),
-    guid = tostring(ModSettingGet("noita-mp.guid"))
-}
--- local localPlayerEntityId = nil do not cache, because players entityId will change when respawning
 
 ----------------------------------------
 --- public global variables:
@@ -347,10 +276,11 @@ function EntityUtils.processAndSyncEntityNetworking()
         for i = 1, #playerEntityIds do
             local clientEntityId = playerEntityIds[i]
             if not NetworkVscUtils.hasNetworkLuaComponents(clientEntityId) then
-                NetworkVscUtils.addOrUpdateAllVscs(clientEntityId, localOwner.name, localOwner.guid)
+                NetworkVscUtils.addOrUpdateAllVscs(clientEntityId, MinaUtils.getLocalMinaName(),
+                                                   MinaUtils.getLocalMinaGuid())
             end
             if not NetworkVscUtils.hasNuidSet(clientEntityId) then
-                Client.sendNeedNuid(localOwner.name, localOwner.guid, clientEntityId)
+                Client.sendNeedNuid(MinaUtils.getLocalMinaName(), MinaUtils.getLocalMinaGuid(), clientEntityId)
             end
         end
     end

@@ -39,8 +39,19 @@ if not ModSettingGet then
         if string.contains(id, "noita-mp.log_level_") then
             return { "trace, debug, info, warn", "TRACE" }
         end
+        if id == "noita-mp.name" then
+            local name = MinaUtils.getLocalMinaName()
+            if util.IsEmpty(name) then
+                name = "initializeUnitTests"
+            end
+            return name
+        end
         if id == "noita-mp.guid" then
-            return MinaUtils.getLocalMinaGuid()
+            local guid = MinaUtils.getLocalMinaGuid()
+            if util.IsEmpty(guid) then
+                guid = GuidUtils:getGuid()
+            end
+            return guid
         end
 
         error(("ModSettingGet '%s' is not mocked! Add it!"):format(id), 2)

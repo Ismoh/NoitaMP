@@ -620,10 +620,10 @@ function fu.createProfilerLog()
     profiler.report(("%s%s%s"):format(directory, _G.pathSeparator, "profilerOf" .. whoAmI()))
 end
 
-function fu.getAllModSpecificLuaScriptFilenames()
+function fu.getAllFilesInDirectory(directory, fileExtension)
     local command = nil
     if _G.is_windows then
-        command = "for /f tokens^=* %i in ('where /r \"" .. fu.GetAbsoluteDirectoryPathOfNoitaMP() .. "\" *lua')do @echo/ %~nxi"
+        command = "for /f tokens^=* %i in ('where /r \"" .. directory .. "\" *" .. fileExtension .. "')do @echo/ %~nxi"
     else
         error("Unix system are not supported yet :(", 2)
         return {}
@@ -634,7 +634,7 @@ function fu.getAllModSpecificLuaScriptFilenames()
     file:close()
     local filenames = string.split(content, "\n")
     for i = 1, #filenames do
-        filenames[i] = string.trim(filenames[i]):gsub("%.lua", ""):lower()
+        filenames[i] = string.trim(filenames[i]):gsub("%." .. fileExtension, ""):lower()
     end
     return filenames
 end

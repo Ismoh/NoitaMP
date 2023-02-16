@@ -24,7 +24,10 @@ function MinaUtils.setLocalMinaName(name)
 end
 
 function MinaUtils.getLocalMinaName()
-    return name --NoitaMpSettings.getSetting("name")
+    --if util.IsEmpty(localMinaName) then
+    --    MinaUtils.setLocalMinaName(ModSettingGet("noita-mp.name"))
+    --end
+    return localMinaName
 end
 
 function MinaUtils.setLocalMinaGuid(guid)
@@ -33,7 +36,10 @@ function MinaUtils.setLocalMinaGuid(guid)
 end
 
 function MinaUtils.getLocalMinaGuid()
-    return guid --NoitaMpSettings.getSetting("guid")
+    --if util.IsEmpty(localMinaGuid) then
+    --    MinaUtils.setLocalMinaGuid(ModSettingGet("noita-mp.guid"))
+    --end
+    return localMinaGuid
 end
 
 function MinaUtils.setLocalMinaEntityId(entityId)
@@ -72,7 +78,7 @@ function MinaUtils.getLocalMinaEntityId()
     for i = 1, #playerEntityIds do
         if NetworkVscUtils.hasNetworkLuaComponents(playerEntityIds[i]) then
             local compOwnerName, compOwnerGuid, compNuid = NetworkVscUtils.getAllVcsValuesByEntityId(playerEntityIds[i])
-            if compOwnerGuid == localOwner.guid then
+            if compOwnerGuid == localMinaGuid then
                 EntityUtils.localPlayerEntityId = playerEntityIds[i]
                 CustomProfiler.stop("MinaUtils.getLocalMinaEntityId", cpc)
                 return playerEntityIds[i]
@@ -89,8 +95,8 @@ end
 
 function MinaUtils.getLocalMinaInformation()
     local cpc       = CustomProfiler.start("MinaUtils.getLocalMinaInformation")
-    local ownerName = tostring(ModSettingGet("noita-mp.name"))
-    local ownerGuid = tostring(ModSettingGet("noita-mp.guid"))
+    local ownerName = MinaUtils.getLocalMinaName()
+    local ownerGuid = MinaUtils.getLocalMinaGuid()
     local entityId  = MinaUtils.getLocalMinaEntityId()
     local nuid      = nil
 
@@ -116,8 +122,8 @@ function MinaUtils.getLocalMinaInformation()
     local _, _, nuid = NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
     CustomProfiler.stop("MinaUtils.getLocalMinaInformation", cpc)
     return {
-        name     = tostring(ModSettingGet("noita-mp.name")),
-        guid     = tostring(ModSettingGet("noita-mp.guid")),
+        name     = ownerName,
+        guid     = ownerGuid,
         entityId = entityId,
         nuid     = nuid
     }

@@ -114,8 +114,8 @@ function TestNetworkUtils:testAlreadySentConnect2()
     Client.connection      = {}
     Client.connection.send = function(serializedMessage, sendChannel, sendMode)
         Logger.trace(Logger.channels.testing,
-                     ("Mocked 'self.connection:send(serializedMessage %s, self.sendChannel %s, self.sendMode %s)' executed!")
-                             :format(util.pformat(serializedMessage), sendChannel, sendMode))
+                     ("Mocked 'self.connection:send(serializedMessage %s, self.sendChannel, self.sendMode)' executed!")
+                             :format(util.pformat(serializedMessage)))
     end
 
     -- [[ Send message ]] --
@@ -166,8 +166,8 @@ function TestNetworkUtils:testAlreadySentDisconnect2()
     Client.connection      = {}
     Client.connection.send = function(serializedMessage, sendChannel, sendMode)
         Logger.trace(Logger.channels.testing,
-                     ("Mocked 'self.connection:send(serializedMessage %s, self.sendChannel %s, self.sendMode %s)' executed!")
-                             :format(util.pformat(serializedMessage), sendChannel, sendMode))
+                     ("Mocked 'self.connection:send(serializedMessage %s, self.sendChannel, self.sendMode)' executed!")
+                             :format(util.pformat(serializedMessage)))
     end
 
     -- [[ Send message ]] --
@@ -220,8 +220,8 @@ function TestNetworkUtils:testAlreadySentSeed()
     Client.connection      = {}
     Client.connection.send = function(serializedMessage, sendChannel, sendMode)
         Logger.trace(Logger.channels.testing,
-                     ("Mocked 'self.connection:send(serializedMessage %s, self.sendChannel %s, self.sendMode %s)' executed!")
-                             :format(util.pformat(serializedMessage), sendChannel, sendMode))
+                     ("Mocked 'self.connection:send(serializedMessage %s, self.sendChannel, self.sendMode)' executed!")
+                             :format(util.pformat(serializedMessage)))
     end
 
     -- [[ Send message ]] --
@@ -277,8 +277,8 @@ function TestNetworkUtils:testAlreadySentPlayerInfo()
     Client.connection      = {}
     Client.connection.send = function(serializedMessage, sendChannel, sendMode)
         Logger.trace(Logger.channels.testing,
-                     ("Mocked 'self.connection:send(serializedMessage %s, self.sendChannel %s, self.sendMode %s)' executed!")
-                             :format(util.pformat(serializedMessage), sendChannel, sendMode))
+                     ("Mocked 'self.connection:send(serializedMessage %s, self.sendChannel, self.sendMode)' executed!")
+                             :format(util.pformat(serializedMessage)))
     end
 
     -- [[ Send message ]] --
@@ -328,8 +328,8 @@ function TestNetworkUtils:testAlreadySentNewGuid()
     Client.connection      = {}
     Client.connection.send = function(serializedMessage, sendChannel, sendMode)
         Logger.trace(Logger.channels.testing,
-                     ("Mocked 'self.connection:send(serializedMessage %s, self.sendChannel %s, self.sendMode %s)' executed!")
-                             :format(util.pformat(serializedMessage), sendChannel, sendMode))
+                     ("Mocked 'self.connection:send(serializedMessage %s, self.sendChannel, self.sendMode)' executed!")
+                             :format(util.pformat(serializedMessage)))
     end
 
     -- [[ Send message ]] --
@@ -397,8 +397,8 @@ function TestNetworkUtils:testAlreadySentNewNuid()
     Client.connection      = {}
     Client.connection.send = function(serializedMessage, sendChannel, sendMode)
         Logger.trace(Logger.channels.testing,
-                     ("Mocked 'self.connection:send(serializedMessage %s, self.sendChannel %s, self.sendMode %s)' executed!")
-                             :format(util.pformat(serializedMessage), sendChannel, sendMode))
+                     ("Mocked 'self.connection:send(serializedMessage %s, self.sendChannel, self.sendMode)' executed!")
+                             :format(util.pformat(serializedMessage)))
     end
 
     -- [[ Send message ]] --
@@ -553,8 +553,8 @@ function TestNetworkUtils:testAlreadySentLostNuid()
     Client.connection      = {}
     Client.connection.send = function(serializedMessage, sendChannel, sendMode)
         Logger.trace(Logger.channels.testing,
-                     ("Mocked 'self.connection:send(serializedMessage %s, self.sendChannel %s, self.sendMode %s)' executed!")
-                             :format(util.pformat(serializedMessage), sendChannel, sendMode))
+                     ("Mocked 'self.connection:send(serializedMessage %s, self.sendChannel, self.sendMode)' executed!")
+                             :format(util.pformat(serializedMessage)))
     end
 
     -- [[ Send message ]] --
@@ -603,8 +603,8 @@ function TestNetworkUtils:testAlreadySentDeadNuids()
     Client.connection           = {}
     Client.connection.send      = function(serializedMessage, sendChannel, sendMode)
         Logger.trace(Logger.channels.testing,
-                     ("Mocked 'self.connection:send(serializedMessage %s, self.sendChannel %s, self.sendMode %s)' executed!")
-                             :format(util.pformat(serializedMessage), sendChannel, sendMode))
+                     ("Mocked 'self.connection:send(serializedMessage %s, self.sendChannel, self.sendMode)' executed!")
+                             :format(util.pformat(serializedMessage)))
     end
     local originalDestroyByNuid = EntityUtils.destroyByNuid
     EntityUtils.destroyByNuid   = function(peer, deadNuid)
@@ -650,21 +650,21 @@ function TestNetworkUtils:testAlreadySentNeedModList()
     local workshop         = {
         {
             workshop_id = "2721954559",
-            name = "spells_evolutions"
-        }, 
+            name        = "spells_evolutions"
+        },
         {
             workshop_id = "2826066666",
-            name = "always-cast-anvil"
+            name        = "always-cast-anvil"
         }
     }
     local external         = {
         {
             workshop_id = nil,
-            name = "mould_n"
-        }, 
+            name        = "mould_n"
+        },
         {
             workshop_id = nil,
-            name = "noita-mp"
+            name        = "noita-mp"
         }
     }
 
@@ -690,13 +690,13 @@ function TestNetworkUtils:testAlreadySentNeedModList()
     Client.connection      = {}
     Client.connection.send = function(serializedMessage, sendChannel, sendMode)
         Logger.trace(Logger.channels.testing,
-                     ("Mocked 'self.connection:send(serializedMessage %s, self.sendChannel %s, self.sendMode %s)' executed!")
-                             :format(util.pformat(serializedMessage), sendChannel, sendMode))
+                     ("Mocked 'self.connection:send(serializedMessage %s, self.sendChannel, self.sendMode)' executed!")
+                             :format(util.pformat(serializedMessage)))
     end
 
     -- [[ Send message ]] --
     local sent             = Client:send(event,
-                                         data) 
+                                         data)
     lu.assertIsTrue(sent, "Client didn't send network message. Is the client set in Server.clients?")
 
     local cachedData = NetworkCacheUtils.getByChecksum(Client.guid, event, data)
@@ -716,23 +716,23 @@ function TestNetworkUtils:testAlreadySentNeedModContent()
     local get              = {
         {
             workshop_id = nil,
-            name = "mould_n"
-        }, 
+            name        = "mould_n"
+        },
         {
             workshop_id = nil,
-            name = "noita-mp"
+            name        = "noita-mp"
         }
     }
-    local items            ={
+    local items            = {
         {
             workshop_id = nil,
-            name = "mould_n",
-            data = "10101001010101010101001011010101010"
-        }, 
+            name        = "mould_n",
+            data        = "10101001010101010101001011010101010"
+        },
         {
             workshop_id = nil,
-            name = "noita-mp",
-            data = "some binary"
+            name        = "noita-mp",
+            data        = "some binary"
         }
     }
 
@@ -758,8 +758,8 @@ function TestNetworkUtils:testAlreadySentNeedModContent()
     Client.connection      = {}
     Client.connection.send = function(serializedMessage, sendChannel, sendMode)
         Logger.trace(Logger.channels.testing,
-                     ("Mocked 'self.connection:send(serializedMessage %s, self.sendChannel %s, self.sendMode %s)' executed!")
-                             :format(util.pformat(serializedMessage), sendChannel, sendMode))
+                     ("Mocked 'self.connection:send(serializedMessage %s, self.sendChannel, self.sendMode)' executed!")
+                             :format(util.pformat(serializedMessage)))
     end
 
     -- [[ Send message ]] --

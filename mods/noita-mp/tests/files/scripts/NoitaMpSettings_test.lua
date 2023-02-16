@@ -5,41 +5,20 @@
 local params        = ...
 
 local lu            = require("luaunit")
+local fu            = require("file_util")
 
 TestNoitaMpSettings = {}
 
 function TestNoitaMpSettings:setUp()
-
-    local mockedModSettingGetNextValue = ModSettingGetNextValue
-    ModSettingGetNextValue             = function(id)
-        if id == "noita-mp.guid" then
-            return MinaUtils.getLocalMinaGuid()
-        end
-    end
-
-    if not NoitaMpSettings then
-        require("NoitaMpSettings")
-    end
-    if not GuidUtils then
-        require("GuidUtils")
-    end
-    if not CustomProfiler then
-        require("CustomProfiler")
-    end
-    if not Server then
-        require("Server")
-    end
-    if not Client then
-        require("Client")
-    end
 end
 
 function TestNoitaMpSettings:tearDown()
-
 end
 
 function TestNoitaMpSettings:testClearAndCreateSettings()
-
+    NoitaMpSettings.clearAndCreateSettings()
+    local files = fu.getAllFilesInDirectory(fu.getAbsolutePathOfNoitaMpSettingsDirectory(), "json")
+    lu.assertEquals(files, {}, "Settings directory wasn't empty!")
 end
 
 function TestNoitaMpSettings:testWriteSettings()
