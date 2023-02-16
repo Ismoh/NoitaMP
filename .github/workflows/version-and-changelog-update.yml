@@ -108,8 +108,10 @@ jobs:
   
           sudo apt install rename
           
-          rename 's/$CURRENT_VERSION/$NEXT_VERSION/' ${{github.workspace}}\mods\noita-mp\*.rockspec
+          echo "${{ toJson(github) }}"
+  
           sed -i 's/$CURRENT_VERSION/$NEXT_VERSION/' ${{github.workspace}}\mods\noita-mp\*.rockspec
+          rename 's/$CURRENT_VERSION/$NEXT_VERSION/' ${{github.workspace}}\mods\noita-mp\*.rockspec
           
           ls -R ${{github.workspace}}\mods\noita-mp\
           cat ${{github.workspace}}\mods\noita-mp\*.rockspec
