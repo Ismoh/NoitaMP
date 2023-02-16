@@ -22,6 +22,8 @@ mods/noita-mp/lua_modules/lib/luarocks
 # luaExtensions dll output files
 Debug/
 out/
+mods/noita-mp/lua_modules/lib/lua/5.1/noitamp_cache.exp
+mods/noita-mp/lua_modules/lib/lua/5.1/noitamp_cache.lib
 luaExtensions.lib
 luaExtensions.pdb
 luaExtensions.exp
