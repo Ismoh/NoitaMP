@@ -105,6 +105,9 @@ jobs:
           git pull origin ${{ github.base_ref }}
           git config --local user.email "action@github.com"
           git config --local user.name "github-actions"
+  
+          sudo apt install rename
+          
           rename 's/$CURRENT_VERSION/$NEXT_VERSION/' ${{github.workspace}}\mods\noita-mp\*.rockspec
           sed -i 's/$CURRENT_VERSION/$NEXT_VERSION/' ${{github.workspace}}\mods\noita-mp\*.rockspec
           
