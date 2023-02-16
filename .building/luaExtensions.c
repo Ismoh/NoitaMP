@@ -373,7 +373,7 @@ static int l_networkCacheClear(lua_State *L)
 }
 #pragma endregion
 
-__declspec(dllexport) int luaopen_noitamp_cache(lua_State *L)
+__declspec(dllexport) int luaopen_luaExtensions(lua_State *L)
 {
     static const luaL_reg eCachelib[] =
         {

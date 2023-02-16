@@ -9,7 +9,7 @@ ModSettingGetNextValue       = function(id)
 end
 
 -- [[ require ]] --
-require("noitamp_cache")
+require("luaExtensions")
 require("EntityUtils")
 require("NetworkUtils")
 require("GuidUtils")

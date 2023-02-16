@@ -51,7 +51,7 @@ end
 -- [[ require ]] --
 require("NetworkUtils")
 require("NetworkCacheUtils")
-require("noitamp_cache")
+require("luaExtensions")
 require("CustomProfiler")
 if not Server then
     require("Server")

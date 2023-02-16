@@ -25,7 +25,7 @@ dofile("mods/noita-mp/files/scripts/init/init_logger.lua")
 -- We simply want to load all dependencies, when inGame and in init.lua-Context,
 -- and when in NoitaComponents or in unit testing!Ø
 require("MinaUtils")
-require("noitamp_cache")
+require("luaExtensions")
 require("NetworkCacheUtils")
 require("EntityUtils")
 require("GlobalsUtils")
