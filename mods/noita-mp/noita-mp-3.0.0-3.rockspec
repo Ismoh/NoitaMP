@@ -1,6 +1,6 @@
 rockspec_format = "3.0"
 package         = "noita-mp"
-version         = "2.7.0-3" -- Needs to be updated manually and the same as in `.version` file.
+version         = "3.0.0-3" -- Needs to be updated manually and the same as in `.version` file.
 source          = {
     url = "git+https://github.com/Ismoh/NoitaMP.git"
 }
@@ -45,7 +45,7 @@ build           = {
         ["files.scripts.util.NoitaComponentUtils"]                = "files/scripts/util/NoitaComponentUtils.lua",
         ["files.scripts.util.NuidUtils"]                          = "files/scripts/util/NuidUtils.lua",
         ["files.scripts.util.file_util"]                          = "files/scripts/util/file_util.lua",
-        ["files.scripts.util.guid"]                               = "files/scripts/util/guid.lua",
+        ["files.scripts.util.GuidUtils"]                               = "files/scripts/util/GuidUtils.lua",
         ["files.scripts.util.util"]                               = "files/scripts/util/util.lua",
         init                                                      = "init.lua",
         modSettingsUpdater                                        = "modSettingsUpdater.lua",
@@ -63,13 +63,13 @@ build           = {
         ["tests.files.scripts.util.NetworkVscUtils_test"]         = "tests/files/scripts/util/NetworkVscUtils_test.lua",
         ["tests.files.scripts.util.NuidUtils_test"]               = "tests/files/scripts/util/NuidUtils_test.lua",
         ["tests.files.scripts.util.file_util_test"]               = "tests/files/scripts/util/file_util_test.lua",
-        ["tests.files.scripts.util.guid_test"]                    = "tests/files/scripts/util/guid_test.lua",
+        ["tests.files.scripts.util.GuidUtils_test"]                    = "tests/files/scripts/util/GuidUtils_test.lua",
         ["tests.files.scripts.util.util_test"]                    = "tests/files/scripts/util/util_test.lua",
         ["tests.init_test"]                                       = "tests/init_test.lua",
-        ["tests.startUnitTests"]                                  = "tests/startUnitTests.lua"
+        ["tests._initializeUnitTests"]                                  = "tests/_initializeUnitTests.lua"
     },
 }
 test            = {
     type   = "command",
-    script = "tests/startUnitTests.lua",
+    script = "tests/_initializeUnitTests.lua",
 }

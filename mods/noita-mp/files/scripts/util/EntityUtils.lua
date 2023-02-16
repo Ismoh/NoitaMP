@@ -8,31 +8,62 @@
 ----------------------------------------
 dofile("mods/noita-mp/config.lua")
 
-local util = nil
-if require then
-    util = require("util")
-else
-    -- Fix stupid Noita sandbox issue. Noita Components does not have access to require.
-    util = dofile("mods/noita-mp/files/scripts/util/util.lua")
-end
-
-if not table or not table.setNoitaMpDefaultMetaMethods then
-    -- Fix stupid Noita sandbox issue. Noita Components does not have access to require.
-    table = dofile_once("mods/noita-mp/files/scripts/extensions/table_extensions.lua")
-end
-
 ------------------------------------------------------------------------------------------------------------------------
 --- When NoitaComponents are accessing this file, they are not able to access the global variables defined in this file.
 --- Therefore, we need to redefine the global variables which we don't have access to, because of NoitaAPI restrictions.
 --- This is done by the following code:
 ------------------------------------------------------------------------------------------------------------------------
-if not CustomProfiler then
-    CustomProfiler = {}
-    function CustomProfiler.start(functionName)
-        return 0
+if require then
+    util = require("util")
+else
+    -- Fix stupid Noita sandbox issue. Noita Components does not have access to require.
+    if not util then
+        util                   = dofile("mods/noita-mp/files/scripts/util/util.lua")
     end
-    function CustomProfiler.stop(functionName, customProfilerCounter)
-        return 0
+
+    if not EntityCache then
+        EntityCache            = {}
+        EntityCache.delete     = function(entityId)
+            Logger.warn(Logger.channels.entity,
+                        ("NoitaComponents with their restricted Lua context are trying to use EntityCache.delete(entityId %s)")
+                                :format(entityId))
+            print("TEST 123")
+        end
+        EntityCache.get        = function(entityId)
+            Logger.warn(Logger.channels.entity,
+                        ("NoitaComponents with their restricted Lua context are trying to use EntityCache.get(entityId %s)")
+                                :format(entityId))
+        end
+        EntityCache.set        = function(entityId, compNuid, compOwnerGuid, compOwnerName, filename, x, y, rotation, velocityX,
+                                          velocityY, healthCurrent, healthMax)
+            Logger.warn(Logger.channels.entity,
+                        ("NoitaComponents with their restricted Lua context are trying to use EntityCache.set(entityId %s, compNuid %s, compOwnerGuid %s, compOwnerName %s, filename %s, x %s, y %s, rotation %s, velocityX %s, velocityY %s, healthCurrent %s, healthMax %s)")
+                                :format(entityId, compNuid, compOwnerGuid, compOwnerName, filename, x, y, rotation,
+                                        velocityX, velocityY, healthCurrent, healthMax))
+        end
+        EntityCache.deleteNuid = function(nuid)
+            Logger.warn(Logger.channels.entity,
+                        ("NoitaComponents with their restricted Lua context are trying to use EntityCache.deleteNuid(nuid %s)")
+                                :format(nuid))
+        end
+    end
+
+    if not CustomProfiler then
+        CustomProfiler = {}
+        ---@diagnostic disable-next-line: duplicate-set-field
+        function CustomProfiler.start(functionName)
+            Logger.warn(Logger.channels.entity,
+                        ("NoitaComponents with their restricted Lua context are trying to use CustomProfiler.start(functionName %s)")
+                                :format(functionName))
+            return 0
+        end
+        ---@diagnostic disable-next-line: duplicate-set-field
+        function CustomProfiler.stop(functionName, customProfilerCounter)
+            Logger.warn(Logger.channels.entity,
+                        ("NoitaComponents with their restricted Lua context are trying to use CustomProfiler.stop(functionName %s, customProfilerCounter %s)")
+                                :format(functionName, customProfilerCounter))
+            return -1
+        end
     end
 end
 
@@ -47,72 +78,22 @@ end
 --- private local variables:
 ----------------------------------------
 
-local localOwner                           = {
-    name = tostring(ModSettingGet("noita-mp.name")),
-    guid = tostring(ModSettingGet("noita-mp.guid"))
-}
--- local localPlayerEntityId = nil do not cache, because players entityId will change when respawning
 
 ----------------------------------------
 --- public global variables:
 ----------------------------------------
 
-EntityUtils.localPlayerEntityId            = -1
-EntityUtils.localPlayerEntityIdPolymorphed = -1
-EntityUtils.transformCache                 = {}
---table.setNoitaMpDefaultMetaMethods(EntityUtils.transformCache, "v")
 
 ----------------------------------------
 --- private local methods:
 ----------------------------------------
-
---- Prevent "holes" in the cache, by using a sequence id as the key.
---- This way, we can always iterate over the cache, without having to check if the key exists.
---- It also reduces the amount of memory used by the cache.
---- In addition the pool of available sequence ids is limited, which prevents the cache from growing indefinitely.
---- It simply overwrites the oldest entry in the cache.
---- @return number sequenceId
-local function getNextFreeCacheIndex()
-    local cpc = CustomProfiler.start("EntityUtils.getNextFreeCacheIndex")
-    -- If there is any "hole" in the cache, then return that index.
-    for i = 1, #EntityUtils.transformCache do
-        if not EntityUtils.transformCache[i] then
-            CustomProfiler.stop("EntityUtils.getNextFreeCacheIndex", cpc)
-            return i
-        end
-    end
-
-    -- If there is no "hole" and pool is full, then overwrite the oldest entry.
-    if #EntityUtils.transformCache + 1 >= EntityUtils.maxPoolSize then
-        CustomProfiler.stop("EntityUtils.getNextFreeCacheIndex", cpc)
-        return #EntityUtils.transformCache + 1 - EntityUtils.maxPoolSize
-    end
-
-    -- If there is no "hole" in the cache, then return the next index.
-    CustomProfiler.stop("EntityUtils.getNextFreeCacheIndex", cpc)
-    return #EntityUtils.transformCache + 1
-end
-
---- Downside of this approach is that we can't use the cache as a map, because the keys are the entityIds.
---- That's why we need to use the sequence id as the key, and the entityId as the value.
-local function getIndexByEntityId(entityId)
-    local cpc = CustomProfiler.start("EntityUtils.transformCache.getIndexByEntityId")
-    for i = 1, #EntityUtils.transformCache do
-        if EntityUtils.transformCache[i] and EntityUtils.transformCache[i].entityId == entityId then
-            CustomProfiler.stop("EntityUtils.transformCache.getIndexByEntityId", cpc)
-            return i
-        end
-    end
-    CustomProfiler.stop("EntityUtils.transformCache.getIndexByEntityId", cpc)
-    return nil
-end
 
 --- Special thanks to @Horscht:
 ---@param inventory_type string
 ---@return number[]
 local function get_player_inventory_contents(inventory_type)
     local cpc    = CustomProfiler.start("EntityUtils.get_player_inventory_contents")
-    local player = EntityUtils.getLocalPlayerEntityId() --EntityGetWithTag("player_unit")[1]
+    local player = MinaUtils.getLocalMinaEntityId() --EntityGetWithTag("player_unit")[1]
     local out    = {}
     if player then
         for i, child in ipairs(EntityGetAllChildren(player) or {}) do
@@ -152,7 +133,7 @@ local function getParentsUntilRootEntity(who, entityId)
     while parentEntityId and parentEntityId > 0 do
         local parentNuid = NetworkVscUtils.hasNuidSet(parentEntityId)
         if not parentNuid then
-            local localPlayer = util.getLocalPlayerInfo()
+            local localPlayer = MinaUtils.getLocalMinaInformation()
             local ownerName   = localPlayer.name
             local ownerGuid   = localPlayer.guid
             if who == Server.iAm and not parentNuid then
@@ -165,7 +146,7 @@ local function getParentsUntilRootEntity(who, entityId)
                 Client.sendNeedNuid(ownerName, ownerGuid, entityId)
                 -- TODO: return and wait for nuid? Otherwise child will never know who is the parent.
             else
-                logger:error(logger.channels.entity, "Unable to get whoAmI()!")
+                error("Unable to get whoAmI()!", 2)
             end
         end
         if type(parentNuid) == "number" then
@@ -198,70 +179,6 @@ function EntityUtils.isEntityPolymorphed(entityId)
     end
     CustomProfiler.stop("EntityUtils.isEntityPolymorphed", cpc)
     return false
-end
-
-------------------------------------------------------------------------------------------------
---- isEntityPolymorphed
-------------------------------------------------------------------------------------------------
---- Checks if the local player is polymorphed.
-function EntityUtils.isPlayerPolymorphed()
-    local cpc                  = CustomProfiler.start("EntityUtils.isPlayerPolymorphed")
-    local polymorphedEntityIds = EntityGetWithTag("polymorphed") or {}
-
-    for e = 1, #polymorphedEntityIds do
-        local componentIds = EntityGetComponentIncludingDisabled(polymorphedEntityIds[e],
-                                                                 "GameStatsComponent") or {}
-        for c = 1, #componentIds do
-            local isPlayer = ComponentGetValue2(componentIds[c], "is_player")
-            if isPlayer then
-                EntityUtils.localPlayerEntityIdPolymorphed = polymorphedEntityIds[e]
-                CustomProfiler.stop("EntityUtils.isPlayerPolymorphed", cpc)
-                return true, polymorphedEntityIds[e]
-            end
-        end
-    end
-    CustomProfiler.stop("EntityUtils.isPlayerPolymorphed", cpc)
-    return false, nil
-end
-
-------------------------------------------------------------------------------------------------
---- getLocalPlayerEntityId
-------------------------------------------------------------------------------------------------
---- Returns the local player entity id.
---- @return number localPlayerEntityId
-function EntityUtils.getLocalPlayerEntityId()
-    local cpc = CustomProfiler.start("EntityUtils.getLocalPlayerEntityId")
-    if EntityUtils.isEntityAlive(EntityUtils.localPlayerEntityId) then
-        -- TODO: I think this can lead to problems. Think of polymorphed minä. EntityId will change!
-        CustomProfiler.stop("EntityUtils.getLocalPlayerEntityId", cpc)
-        return EntityUtils.localPlayerEntityId
-    end
-
-    local polymorphed, entityId = EntityUtils.isPlayerPolymorphed()
-
-    if polymorphed then
-        ---@cast entityId number
-        CustomProfiler.stop("EntityUtils.getLocalPlayerEntityId", cpc)
-        return entityId
-    end
-
-    local playerEntityIds = EntityGetWithTag("player_unit")
-    for i = 1, #playerEntityIds do
-        if NetworkVscUtils.hasNetworkLuaComponents(playerEntityIds[i]) then
-            local compOwnerName, compOwnerGuid, compNuid = NetworkVscUtils.getAllVcsValuesByEntityId(playerEntityIds[i])
-            if compOwnerGuid == localOwner.guid then
-                EntityUtils.localPlayerEntityId = playerEntityIds[i]
-                CustomProfiler.stop("EntityUtils.getLocalPlayerEntityId", cpc)
-                return playerEntityIds[i]
-            end
-        end
-    end
-    logger:debug(logger.channels.entity,
-                 "Unable to get local player entity id. Returning first entity id(%s), which was found.",
-                 playerEntityIds[1])
-    EntityUtils.localPlayerEntityId = playerEntityIds[1]
-    CustomProfiler.stop("EntityUtils.getLocalPlayerEntityId", cpc)
-    return playerEntityIds[1]
 end
 
 ------------------------------------------------------------------------------------------------
@@ -319,7 +236,7 @@ function EntityUtils.isEntityAlive(entityId)
         CustomProfiler.stop("EntityUtils.isEntityAlive", cpc)
         return entityId
     end
-    logger:info(logger.channels.entity, ("Entity (%s) isn't alive anymore! Returning false."):format(entityId))
+    Logger.info(Logger.channels.entity, ("Entity (%s) isn't alive anymore! Returning false."):format(entityId))
     CustomProfiler.stop("EntityUtils.isEntityAlive", cpc)
     return false
 end
@@ -332,7 +249,7 @@ function EntityUtils.processAndSyncEntityNetworking()
     local start            = GameGetRealWorldTimeSinceStarted() * 1000
     local cpc              = CustomProfiler.start("EntityUtils.processAndSyncEntityNetworking")
     local who              = whoAmI()
-    local localPlayerId    = EntityUtils.getLocalPlayerEntityId()
+    local localPlayerId    = MinaUtils.getLocalMinaEntityId()
     local playerX, playerY = EntityGetTransform(localPlayerId)
     local radius           = ModSettingGetNextValue("noita-mp.radius_include_entities")
     ---@cast radius number
@@ -363,10 +280,11 @@ function EntityUtils.processAndSyncEntityNetworking()
         for i = 1, #playerEntityIds do
             local clientEntityId = playerEntityIds[i]
             if not NetworkVscUtils.hasNetworkLuaComponents(clientEntityId) then
-                NetworkVscUtils.addOrUpdateAllVscs(clientEntityId, localOwner.name, localOwner.guid)
+                NetworkVscUtils.addOrUpdateAllVscs(clientEntityId, MinaUtils.getLocalMinaName(),
+                                                   MinaUtils.getLocalMinaGuid())
             end
             if not NetworkVscUtils.hasNuidSet(clientEntityId) then
-                Client.sendNeedNuid(localOwner.name, localOwner.guid, clientEntityId)
+                Client.sendNeedNuid(MinaUtils.getLocalMinaName(), MinaUtils.getLocalMinaGuid(), clientEntityId)
             end
         end
     end
@@ -374,13 +292,14 @@ function EntityUtils.processAndSyncEntityNetworking()
     for entityIndex = prevEntityIndex, #entityIds do
         -- entityId in CoroutineUtils.iterator(entityIds) do
         repeat -- repeat until true with break works like continue
-            local entityId   = --[[EntityGetRootEntity(]]entityIds[entityIndex] --[[)]]
-            local cacheIndex = getIndexByEntityId(entityId)
-
+            local entityId = --[[EntityGetRootEntity(]]entityIds[entityIndex] --[[)]]
             --[[ Just be double sure and check if entity is alive. If not next entityId ]]--
             if not EntityUtils.isEntityAlive(entityId) then
-                if cacheIndex then
-                    EntityUtils.transformCache[cacheIndex] = nil
+                if type(entityId) == "number" then
+                    EntityCache.delete(entityId)
+                else
+                    error(("processAndSyncEntityNetworking: entityId with entityIndex %s was not a number"):format(entityIndex),
+                          2)
                 end
                 break -- work around for continue: repeat until true with break
             end
@@ -402,10 +321,11 @@ function EntityUtils.processAndSyncEntityNetworking()
 
             --[[ Check if entity can be ignored, because it is not necessary to sync it,
                  depending on config.lua: EntityUtils.include and EntityUtils.exclude ]]--
-            local exclude  = true
-            local filename = EntityGetFilename(entityId)
+            local exclude     = true
+            local filename    = EntityGetFilename(entityId)
+            local cachedValue = EntityCache.get(entityId)
             -- if already in cache, ignore it, because it was already processed
-            if EntityUtils.transformCache[cacheIndex] and EntityUtils.transformCache[cacheIndex].entityId == entityId then
+            if cachedValue and cachedValue.entityId == entityId then
                 exclude = false
             else
                 if EntityUtils.exclude.byFilename[filename] or
@@ -451,7 +371,7 @@ function EntityUtils.processAndSyncEntityNetworking()
             if not NetworkVscUtils.isNetworkEntityByNuidVsc(entityId) or
                     not NetworkVscUtils.hasNetworkLuaComponents(entityId)
             then
-                local localPlayerInfo = util.getLocalPlayerInfo()
+                local localPlayerInfo = MinaUtils.getLocalMinaInformation()
                 local ownerName       = localPlayerInfo.name
                 local ownerGuid       = localPlayerInfo.guid
 
@@ -461,7 +381,7 @@ function EntityUtils.processAndSyncEntityNetworking()
                 elseif who == Client.iAm and not nuid then
                     Client.sendNeedNuid(ownerName, ownerGuid, entityId)
                 else
-                    logger:error(logger.channels.entity, "Unable to get whoAmI()!")
+                    error("Unable to get whoAmI()!", 2)
                 end
 
                 NetworkVscUtils.addOrUpdateAllVscs(entityId, ownerName, ownerGuid, nuid)
@@ -472,8 +392,8 @@ function EntityUtils.processAndSyncEntityNetworking()
                 local changed                                                                                  = false
                 local compOwnerName, compOwnerGuid, compNuid, filenameUnused, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
 
-                --[[ Entity is new and not in cache, that's why cacheIndex is nil ]]--
-                if not cacheIndex or EntityUtils.transformCache[cacheIndex] == nil then
+                --[[ Entity is new and not in cache, that's why cachedValue is nil ]]--
+                if cachedValue == nil then
                     if who == Server.iAm then
                         if not nuid then
                             nuid = compNuid
@@ -493,34 +413,19 @@ function EntityUtils.processAndSyncEntityNetworking()
                     --[[ Entity is already in cache, so check if something changed ]]--
                     local threshold = math.round(tonumber(ModSettingGetNextValue("noita-mp.change_detection")) / 100,
                                                  0.1)
-                    if math.abs(EntityUtils.transformCache[cacheIndex].health.current - health.current) >= threshold or
-                            math.abs(EntityUtils.transformCache[cacheIndex].health.max - health.max) >= threshold or
-                            math.abs(EntityUtils.transformCache[cacheIndex].rotation - rotation) >= threshold or
-                            math.abs(EntityUtils.transformCache[cacheIndex].velocity.x - velocity.x) >= threshold or
-                            math.abs(EntityUtils.transformCache[cacheIndex].velocity.y - velocity.y) >= threshold or
-                            math.abs(EntityUtils.transformCache[cacheIndex].x - x) >= threshold or
-                            math.abs(EntityUtils.transformCache[cacheIndex].y - y) >= threshold
+                    if math.abs(cachedValue.currentHealth - health.current) >= threshold or
+                            math.abs(cachedValue.maxHealth - health.max) >= threshold or
+                            math.abs(cachedValue.rotation - rotation) >= threshold or
+                            math.abs(cachedValue.velX - velocity.x) >= threshold or
+                            math.abs(cachedValue.velY - velocity.y) >= threshold or
+                            math.abs(cachedValue.x - x) >= threshold or
+                            math.abs(cachedValue.y - y) >= threshold
                     then
                         changed = true
                     end
                 end
-
-                if not cacheIndex then
-                    cacheIndex = getNextFreeCacheIndex()
-                end
-
-                EntityUtils.transformCache[cacheIndex] = {
-                    entityId  = entityId,
-                    ownerName = compOwnerName,
-                    ownerGuid = compOwnerGuid,
-                    nuid      = compNuid,
-                    filename  = filename,
-                    health    = health,
-                    rotation  = rotation,
-                    velocity  = velocity,
-                    x         = x,
-                    y         = y
-                }
+                EntityCache.set(entityId, compNuid, compOwnerGuid, compOwnerName, filename, x, y, rotation, velocity.x,
+                                velocity.y, health.current, health.max)
                 if changed then
                     NetworkUtils.getClientOrServer().sendEntityData(entityId)
                 end
@@ -529,7 +434,7 @@ function EntityUtils.processAndSyncEntityNetworking()
             --[[ Check execution time to reduce lag ]]--
             local executionTime = GameGetRealWorldTimeSinceStarted() * 1000 - start
             if executionTime >= EntityUtils.maxExecutionTime then
-                logger:warn(logger.channels.entity,
+                Logger.warn(Logger.channels.entity,
                             "EntityUtils.processAndSyncEntityNetworking took too long. Breaking loop by returning entityId.")
                 -- when executionTime is too long, return the next entityCacheIndex to continue with it
                 prevEntityIndex = entityIndex + 1
@@ -562,15 +467,12 @@ end
 --- @return number? entityId Returns the entity_id of a already existing entity, found by nuid or the newly created entity.
 function EntityUtils.spawnEntity(owner, nuid, x, y, rotation, velocity, filename, localEntityId, health, isPolymorphed)
     local cpc        = CustomProfiler.start("EntityUtils.spawnEntity")
-    local localGuid  = util.getLocalPlayerInfo().guid or util.getLocalPlayerInfo()[2]
+    local localGuid  = MinaUtils.getLocalMinaInformation().guid or MinaUtils.getLocalMinaInformation()[2]
     local remoteName = owner.name or owner[1]
     local remoteGuid = owner.guid or owner[2]
 
-    if localGuid == remoteGuid then
-        if not EntityUtils.isEntityAlive(localEntityId) then
-            return
-        end
-        -- if the owner sent by network is the local owner, don't spawn an additional entity, but update the nuid
+    if localGuid == remoteGuid and EntityUtils.isEntityAlive(localEntityId) and not NetworkVscUtils.hasNuidSet(localEntityId) then
+        -- if the owner sent by network is the local owner, don't spawn an additional entity, but update the nuid, when nuid is not set already
         NetworkVscUtils.addOrUpdateAllVscs(localEntityId, remoteName, remoteGuid, nuid)
         return
     end
@@ -578,9 +480,10 @@ function EntityUtils.spawnEntity(owner, nuid, x, y, rotation, velocity, filename
     -- double check, if there is already an entity with this NUID and return the entity_id
     if EntityUtils.isEntityAlive(localEntityId) and NetworkVscUtils.hasNetworkLuaComponents(localEntityId) then
         local ownerNameByVsc, ownerGuidByVsc, nuidByVsc = NetworkVscUtils.getAllVcsValuesByEntityId(localEntityId)
-        if ownerGuidByVsc ~= remoteGuid then
-            logger:error("Trying to spawn entity(%s) locally, but owner does not match: remoteOwner(%s) ~= localOwner(%s). remoteNuid(%s) ~= localNuid(%s)",
-                         localEntityId, remoteName, ownerNameByVsc, nuid, nuidByVsc)
+        -- if guid is not equal, but nuid is the same, then something is broken for sure!
+        if ownerGuidByVsc ~= remoteGuid and nuidByVsc == nuid then
+            error(("Trying to spawn entity(%s) locally, but owner does not match: remoteOwner(%s) ~= localOwner(%s). remoteNuid(%s) ~= localNuid(%s)")
+                          :format(localEntityId, remoteName, ownerNameByVsc, nuid, nuidByVsc), 2)
         end
     end
 
@@ -656,13 +559,8 @@ function EntityUtils.destroyByNuid(peer, nuid)
         entityId = math.abs(entityId) -- might be kill indicator is set: -entityId -> entityId
     end
 
-    NetworkUtils.removeFromCacheByEntityId(peer, entityId)
-
     if not EntityUtils.isEntityAlive(entityId) then
-        local cacheIndex = getIndexByEntityId(entityId)
-        if cacheIndex then
-            EntityUtils.transformCache[cacheIndex] = nil
-        end
+        EntityCache.delete(entityId)
         CustomProfiler.stop("EntityUtils.destroyByNuid", cpc)
         return
     end
@@ -673,28 +571,12 @@ function EntityUtils.destroyByNuid(peer, nuid)
         EntityKill(entityId)
     end
 
-    -- Make sure cache is cleared correctly
-    local cacheIndex = getIndexByEntityId(entityId)
-    if cacheIndex then
-        EntityUtils.transformCache[cacheIndex] = nil
+    if type(nuid) ~= "number" then
+        error(("EntityUtils.destroyByNuid nuid was not a number"), 2)
+    else
+        EntityCache.deleteNuid(nuid)
     end
     CustomProfiler.stop("EntityUtils.destroyByNuid", cpc)
-end
-
-function EntityUtils.removeFromCacheByNuid(deadNuid)
-    local deadNuid, entityId = GlobalsUtils.getNuidEntityPair(deadNuid)
-    if entityId and type(entityId) == "number" then
-        -- might be kill indicator is set: -entityId -> entityId
-        entityId         = math.abs(entityId)
-        local cacheIndex = getIndexByEntityId(entityId)
-        if cacheIndex then
-            EntityUtils.transformCache[cacheIndex] = nil
-        end
-    else
-        logger:warn(logger.channels.entity,
-                    ("EntityUtils.removeFromCacheByNuid: entityId not found for nuid: %s, entityId: %s")
-                            :format(deadNuid, entityId))
-    end
 end
 
 ------------------------------------------------------------------------------------------------

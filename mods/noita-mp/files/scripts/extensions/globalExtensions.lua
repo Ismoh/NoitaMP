@@ -4,31 +4,7 @@
 --- DateTime: 17.07.2022 17:25
 ---
 
---local fu       = require("file_util")
---profiler = require("profiler")
---
---local gRequire = _G.require
---
---_G.require     = function(name)
---    profiler.start()
---    local required = gRequire(name)
---    profiler.stop()
---    return required
---end
-
---function wrap(f)
---    return function(...)
---        start()
---        local r = {f(...)}
---        stop()
---        return (table.unpack or unpack)(r)
---    end
---end
---
---for k, v in pairs(lib) do
---    if type(v) == 'function' then lib[k] = wrap(v) end
---end
-
+-- http://lua-users.org/wiki/SortedIteration
 --[[
 Ordered table iterator, allow to iterate on the natural order of the keys of a
 table.

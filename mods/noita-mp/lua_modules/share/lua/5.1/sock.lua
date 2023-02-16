@@ -33,12 +33,11 @@ local sock = {
 }
 
 local enet = require("enet")
---local zstandard = require ("zstd")
 local util = require("util")
 local fu   = require("file_util")
 
-print("sock.lua | lua-enet version = master branch 21.10.2015")
-print("sock.lua | enet version = " .. enet.linked_version()) -- 1.3.17
+_G.Logger.info(_G.Logger.channels.initialize, "lua-enet version = master branch 21.10.2015")
+_G.Logger.info(_G.Logger.channels.initialize, "enet version = " .. enet.linked_version()) -- 1.3.17
 
 -- Current folder trick
 -- http://kiki.to/blog/2014/04/12/rule-5-beware-of-multiple-files/
@@ -71,7 +70,8 @@ local function zipTable(items, keys, event)
         local key = keys[i]
 
         if not key then
-            error("Event '" .. event .. "' missing data key. Is the schema different between server and client?")
+            error(("Missing data key for event '%s'! items = %s schema = %s")
+                          :format(event, util.pformat(items), util.pformat(keys)), 2)
         end
 
         data[key] = value
@@ -160,13 +160,13 @@ function Logger:log(event, data)
 
     if self.printEventData then
         --print(line)
-        _G.logger:info(_G.logger.channels.network, fullLine)
+        _G.Logger.info(_G.Logger.channels.network, fullLine)
     elseif self.printWarnings and event == "warning" then
         --print(line)
-        _G.logger:warn(_G.logger.channels.network, fullLine)
+        _G.Logger.warn(_G.Logger.channels.network, fullLine)
     elseif self.printErrors and event == "error" then
         --print(line)
-        _G.logger:error(_G.logger.channels.network, fullLine)
+        error(fullLine, 2)
     end
 
     -- The logged message is always the full message
@@ -274,7 +274,7 @@ function Server:start(ip, port)
 
     self:setBandwidthLimit(0, 0)
 
-    logger:info(logger.channels.network, "Started server on " .. self.address .. ":" .. self.port)
+    _G.Logger.info(_G.Logger.channels.network, "Started server on " .. self.address .. ":" .. self.port)
     -- Serialization is set in Server.setConfigSettings()
     --if bitserLoaded then
     --    self:setSerialization(bitser.dumps, bitser.loads)
@@ -289,9 +289,10 @@ function Server:update()
 
     while event do
         if event.type == "connect" then
-            local eventClient = ClientInit.new(sock.newClient(event.peer)) -- sock.newClient(event.peer)
+            local eventClient = ClientInit.new(sock.newClient(event.peer))
             eventClient:establishClient(event.peer)
             eventClient:setSerialization(self.serialize, self.deserialize)
+            eventClient.clientCacheId = GuidUtils.toNumber(eventClient.guid)
             table.insert(self.peers, event.peer)
             table.insert(self.clients, eventClient)
             self:_activateTriggers("connect", event.data, eventClient)
@@ -448,11 +449,16 @@ end
 --- @param data table to send to the peer.
 --- Usage: server:sendToPeer(peer, "initialGameInfo", {...})
 function Server:sendToPeer(peer, event, data)
-    local cpc        = CustomProfiler.start("Server:sendToPeer")
+    local cpc              = CustomProfiler.start("Server:sendToPeer")
+    local networkMessageId = data[1] or data.networkMessageId
+    if util.IsEmpty(networkMessageId) then
+        error("networkMessageId is empty!", 3)
+    end
     self.packetsSent = self.packetsSent + 1
     peer:send(event, data)
     self:resetSendSettings()
     CustomProfiler.stop("Server:sendToPeer", cpc)
+    return networkMessageId
 end
 
 --- Add a callback to an event.
@@ -881,7 +887,7 @@ function Client:connect(code)
 
     -- number of channels for the client and server must match
     self.connection = self.host:connect(self.address .. ":" .. self.port, self.maxChannels, code)
-    logger:info(logger.channels.network, "Connecting to " .. self.address .. ":" .. self.port)
+    _G.Logger.info(_G.Logger.channels.network, "Connecting to " .. self.address .. ":" .. self.port)
     self.connectId = self.connection:connect_id()
 end
 
@@ -966,11 +972,8 @@ function Client:send(event, data)
     end
 
     local serializedMessage = self:__pack(event, data)
-
     self.connection:send(serializedMessage, self.sendChannel, self.sendMode)
-
     self.packetsSent = self.packetsSent + 1
-
     self:resetSendSettings()
 
     return networkMessageId
@@ -1434,39 +1437,43 @@ end
 -- -- Limit incoming/outgoing bandwidth to 1kB/s (1000 bytes/s)
 --server = sock.newServer("*", 22122, 10, 2, 1000, 1000)
 sock.newServer = function(address, port, maxPeers, maxChannels, inBandwidth, outBandwidth)
-    address      = address or "localhost"
-    port         = port or 22122
-    maxPeers     = maxPeers or 64
-    maxChannels  = maxChannels or 1
-    inBandwidth  = inBandwidth or 0
-    outBandwidth = outBandwidth or 0
+    address         = address or "localhost"
+    port            = port or 22122
+    maxPeers        = maxPeers or 64
+    maxChannels     = maxChannels or 1
+    inBandwidth     = inBandwidth or 0
+    outBandwidth    = outBandwidth or 0
 
-    local server = setmetatable({
-                                    address            = address,
-                                    port               = port,
-                                    host               = nil,
+    local server    = setmetatable({
+                                       address            = address,
+                                       port               = port,
+                                       host               = nil,
 
-                                    messageTimeout     = 0,
-                                    maxChannels        = maxChannels,
-                                    maxPeers           = maxPeers,
-                                    sendMode           = "reliable",
-                                    defaultSendMode    = "reliable",
-                                    sendChannel        = 0,
-                                    defaultSendChannel = 0,
+                                       messageTimeout     = 0,
+                                       maxChannels        = maxChannels,
+                                       maxPeers           = maxPeers,
+                                       sendMode           = "reliable",
+                                       defaultSendMode    = "reliable",
+                                       sendChannel        = 0,
+                                       defaultSendChannel = 0,
 
-                                    peers              = {},
-                                    clients            = {},
+                                       peers              = {},
+                                       clients            = {},
 
-                                    listener           = newListener(),
-                                    logger             = newLogger("SERVER"),
+                                       listener           = newListener(),
+                                       logger             = newLogger("SERVER"),
 
-                                    serialize          = nil,
-                                    deserialize        = nil,
+                                       serialize          = nil,
+                                       deserialize        = nil,
 
-                                    packetsSent        = 0,
-                                    packetsReceived    = 0,
+                                       packetsSent        = 0,
+                                       packetsReceived    = 0,
 
-                                }, Server_mt)
+                                   }, Server_mt)
+
+    server.zipTable = function(items, keys, event)
+        return zipTable(items, keys, event)
+    end
 
     -- -- ip, max peers, max channels, in bandwidth, out bandwidth
     -- -- number of channels for the client and server must match
@@ -1537,6 +1544,10 @@ sock.newClient = function(serverOrAddress, port, maxChannels)
                                        packetsSent        = 0,
 
                                    }, Client_mt)
+
+    client.zipTable = function(items, keys, event)
+        return zipTable(items, keys, event)
+    end
 
     -- -- Two different forms for client creation:
     -- -- 1. Pass in (address, port) and connect to that.

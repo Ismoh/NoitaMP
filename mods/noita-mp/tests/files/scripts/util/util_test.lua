@@ -1,19 +1,12 @@
 local params = ...
 
-local lu   = require("luaunit")
-local util = require("util")
+local lu     = require("luaunit")
+local util   = require("util")
 
-TestUtil   = {}
+TestUtil     = {}
 
 function TestUtil:setUp()
 
-
-    --- Mocked in guid_test.lua
-    --- @param id string
-    --- @return nil nil Returns nil in this case.
-    _G.ModSettingGet = function(id)
-        return nil
-    end
 end
 
 function TestUtil:tearDown()
@@ -28,7 +21,7 @@ function TestUtil:testSleep()
     util.Sleep(seconds_to_wait)
     local timestamp_after = os.clock()
     local diff            = timestamp_before + seconds_to_wait
-    logger:debug("timestamp_before=%s, timestamp_after=%s, diff=%s", timestamp_before, timestamp_after, diff)
+    Logger.debug(Logger.channels.testing,("timestamp_before=%s, timestamp_after=%s, diff=%s"):format(timestamp_before, timestamp_after, diff))
     lu.almostEquals(diff, timestamp_after, 0.1)
 end
 

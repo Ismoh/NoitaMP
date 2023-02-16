@@ -26,7 +26,9 @@
     "networkMessageId",
     "peer",
     "fu",
-    "util"
+    "util",
+    "EntityCache",
+    "NetworkCache"
   ],
   "lua.targetVersion": "5.1",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
@@ -35,12 +37,22 @@
   "[xml]": {
     "editor.defaultFormatter": "DotJoshJohnson.xml"
   },
-  "Lua.runtime.version": "LuaJIT",
+  "Lua.runtime.version": "Lua 5.4",
   "Lua.workspace.checkThirdParty": false,
   "[lua]": {
     "editor.defaultFormatter": "sumneko.lua"
   },
   "Lua.diagnostics.disable": [
-    "lowercase-global"
-  ]
+    "lowercase-global",
+    "undefined-field"
+  ],
+  "files.associations": {
+    "stdbool.h": "c",
+    "stdio.h": "c",
+    "lua.h": "c",
+    "lauxlib.h": "c"
+  },
+  "[c]": {
+    "editor.defaultFormatter": "ms-vscode.cpptools"
+  }
 }

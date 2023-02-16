@@ -37,17 +37,6 @@ function util.IsEmpty(var)
     return false
 end
 
--- function util.serialise(data)
---     return bitser.dumps(data)
--- end
-
--- --- Deserialise data
--- ---@param data any
--- ---@return any
--- function util.deserialise(data)
---     return bitser.loads(data)
--- end
-
 --https://noita.wiki.gg/wiki/Modding:_Utilities#Easier_entity_debugging
 function util.str(var)
     if type(var) == "table" then
@@ -105,49 +94,11 @@ function util.debug_entity(e)
     end
     msg = msg .. ("--- END ENTITY DATA ---" .. "\n")
 
-    logger:debug(nil, msg)
+    Logger.debug(Logger.channels.testing, msg)
 end
 
 function util.pformat(var)
     return pprint.pformat(var, pprint.defaults)
-end
-
---- Gets the local player information.
---- Including polymorphed entity id. When polymorphed, entityId will be the new one and not minäs anymore.
---- @return PlayerInfo playerInfo
-function util.getLocalPlayerInfo()
-    local cpc = CustomProfiler.start("util.getLocalPlayerInfo")
-    local ownerName = tostring(ModSettingGet("noita-mp.name"))
-    local ownerGuid = tostring(ModSettingGet("noita-mp.guid"))
-    local entityId  = EntityUtils.getLocalPlayerEntityId()
-    local nuid = nil
-
-    if EntityUtils.isPlayerPolymorphed() then
-        if _G.whoAmI() == Client.iAm then
-            if not NetworkVscUtils.hasNuidSet(entityId) then
-                Client.sendNeedNuid(ownerName, ownerGuid, entityId)
-            end
-        elseif _G.whoAmI() == Server.iAm then
-            if not NetworkVscUtils.hasNuidSet(entityId) then
-                nuid = NuidUtils.getNextNuid()
-            end
-        else
-            error("Unable to identify whether I am Client or Server..", 3)
-        end
-    end
-
-    if not NetworkVscUtils.isNetworkEntityByNuidVsc(entityId) then
-        NetworkVscUtils.addOrUpdateAllVscs(entityId, ownerName, ownerGuid, nuid)
-    end
-
-    local _, _, nuid = NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
-    CustomProfiler.stop("util.getLocalPlayerInfo", cpc)
-    return {
-        name     = tostring(ModSettingGet("noita-mp.name")),
-        guid     = tostring(ModSettingGet("noita-mp.guid")),
-        entityId = entityId,
-        nuid     = nuid
-    }
 end
 
 --- Reloads the whole world with a specific seed. No need to restart the game and use magic numbers.

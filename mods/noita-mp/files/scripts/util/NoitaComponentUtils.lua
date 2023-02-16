@@ -8,16 +8,6 @@
 -----------------
 NoitaComponentUtils = {}
 
---#region Global private variables
-
---#endregion
-
---#region Global private functions
-
---#endregion
-
---#region Global public variables
-
 ---@param entityId number
 ---@param x number
 ---@param y number
@@ -36,7 +26,7 @@ function NoitaComponentUtils.setEntityData(entityId, x, y, rotation, velocity, h
         ComponentSetValue2(hpCompId, "hp", math.round(tonumber(health.current / 25), 0.01))
         ComponentSetValue2(hpCompId, "max_hp", math.round(tonumber(health.max / 25), 0.01))
     else
-        logger:debug(logger.channels.entity, ("Unable to get DamageModelComponent, because entity (%s) might not" ..
+        Logger.debug(Logger.channels.entity, ("Unable to get DamageModelComponent, because entity (%s) might not" ..
                 "have any DamageModelComponent."):format(entityId))
     end
 
@@ -46,7 +36,7 @@ function NoitaComponentUtils.setEntityData(entityId, x, y, rotation, velocity, h
     if velocity and velocityCompId then
         ComponentSetValue2(velocityCompId, "mVelocity", velocity.x or velocity[1], velocity.y or velocity[2])
     else
-        logger:debug(logger.channels.entity, ("Unable to get VelocityComponent, because entity (%s) might not" ..
+        Logger.debug(Logger.channels.entity, ("Unable to get VelocityComponent, because entity (%s) might not" ..
                 "have any VelocityComponent."):format(entityId))
         --EntityAddComponent2(entityId, "VelocityComponent", {})
     end
@@ -59,7 +49,8 @@ end
 function NoitaComponentUtils.getEntityData(entityId)
     local cpc                                    = CustomProfiler.start("NoitaComponentUtils.getEntityData")
     local compOwnerName, compOwnerGuid, compNuid = NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
-    local hpCompId                               = EntityGetFirstComponentIncludingDisabled(entityId, "DamageModelComponent")
+    local hpCompId                               = EntityGetFirstComponentIncludingDisabled(entityId,
+                                                                                            "DamageModelComponent")
     local health                                 = { current = 0, max = 0 }
     if hpCompId then
         local hpCurrent = math.round(ComponentGetValue2(hpCompId, "hp") * 25, 0.01)
@@ -75,16 +66,9 @@ function NoitaComponentUtils.getEntityData(entityId)
     end
     local filename = EntityGetFilename(entityId)
     CustomProfiler.stop("NoitaComponentUtils.getEntityData", cpc)
-    --if compOwnerName and compOwnerGuid and compNuid then
-        return compOwnerName, compOwnerGuid, compNuid, filename, health, math.round(
-                rotation, 0.1), velocity, math.round(x, 0.1), math.round(y, 0.1)
-    --end
-    --local msg = ("getEntityData: Got unexpected nil value in network VSC. entityId, = %s compOwnerName = %s, compOwnerGuid = %s, compNuid = %s"):format(entityId,
-    --                                                                                                                                                   compOwnerName,
-    --                                                                                                                                                   compOwnerGuid,
-    --                                                                                                                                                   compNuid)
-    --logger:error(logger.channels.entity, msg)
-    --error(msg, 2)
+    ---@diagnostic disable-next-line: return-type-mismatch
+    return compOwnerName, compOwnerGuid, compNuid, filename, health, math.round(
+            rotation, 0.1), velocity, math.round(x, 0.1), math.round(y, 0.1)
 end
 
 function NoitaComponentUtils.getEntityDataByNuid(nuid)
@@ -93,13 +77,6 @@ function NoitaComponentUtils.getEntityDataByNuid(nuid)
     CustomProfiler.stop("NoitaComponentUtils.getEntityDataByNuid", cpc)
     return NoitaComponentUtils.getEntityData(entityId)
 end
-
---#endregion
-
---#region Global public functions
-
---#endregion
-
 
 -- Because of stack overflow errors when loading lua files,
 -- I decided to put Utils 'classes' into globals

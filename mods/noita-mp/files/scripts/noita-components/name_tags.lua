@@ -1,5 +1,4 @@
-dofile_once("mods/noita-mp/files/scripts/noita-components/dump_logger.lua")
-logger:setFile("name_tags")
+dofile_once("mods/noita-mp/files/scripts/init/init_logger.lua")
 EntityUtils = dofile_once("mods/noita-mp/files/scripts/util/EntityUtils.lua")
 
 function PlayerNameFunction(entity_id, playerName)

@@ -19,11 +19,12 @@ string.ExtendOrCutStringToLength = function(var, length, char, makeItVisible)
 
     local returnString = ""
 
-    local len = string.len(var)
+    local len          = string.len(var)
 
     if len > length then
         returnString = var:sub(1, length)
-        if makeItVisible then -- check if you want to add ".." -> "longString" -> "longStr.."
+        if makeItVisible then
+            -- check if you want to add ".." -> "longString" -> "longStr.."
             returnString = returnString:sub(1, length - 2)
             returnString = returnString .. ".."
         end
@@ -40,7 +41,7 @@ string.ExtendOrCutStringToLength = function(var, length, char, makeItVisible)
     return returnString
 end
 
-string.trim = function(s)
+string.trim                      = function(s)
     if type(s) ~= "string" then
         error("Unable to trim(s), because s is not a string.", 2)
     end
@@ -52,16 +53,16 @@ end
 -- http://lua-users.org/wiki/SplitJoin
 -- Function: Split a string with a pattern, Take Two
 -- Compatibility: Lua-5.1
-string.split = function(str, pat)
-    local t = {}
-    local fpat = "(.-)" .. pat
-    local last_end = 1
+string.split                     = function(str, pat)
+    local t         = {}
+    local fpat      = "(.-)" .. pat
+    local last_end  = 1
     local s, e, cap = str:find(fpat, 1)
     while s do
         if s ~= 1 or cap ~= "" then
             table.insert(t, cap)
         end
-        last_end = e + 1
+        last_end  = e + 1
         s, e, cap = str:find(fpat, last_end)
     end
     if last_end <= #str then
@@ -74,8 +75,19 @@ end
 --- Contains on lower case
 --- @param str string String
 --- @param pattern string String, Char, Regex
---- @return integer found 0 if not found. Greater 0 if found.
-string.contains = function(str, pattern)
-    ---@diagnostic disable-next-line: redundant-return-value
-    return string.find(str:lower(), pattern:lower(), 1, true)
+--- @return boolean found: 'true' if found, else 'false'.
+string.contains                  = function(str, pattern)
+    if not str or str == "" then
+        error("str must not be nil!", 2)
+    end
+    if not pattern or pattern == "" then
+        error("pattern must not be nil!", 2)
+    end
+    local found = string.find(str:lower(), pattern:lower(), 1, true)
+    if not found or found < 1 then
+        found = false
+    else
+        found = true
+    end
+    return found
 end

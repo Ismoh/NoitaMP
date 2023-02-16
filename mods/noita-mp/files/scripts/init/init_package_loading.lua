@@ -24,38 +24,46 @@ local noitaMpRootDirectory = getNoitaMpRootDirectory()
 local default_package_path = package.path
 print("package.path = " .. package.path)
 package.path = package.path .. ";"
+-- [[ LuaRocks modules ]]--
 package.path = package.path .. noitaMpRootDirectory .. "\\lua_modules\\share\\lua\\5.1\\?.lua;"
-package.path = package.path .. noitaMpRootDirectory .. "\\files\\scripts\\util\\?.lua;"
-package.path = package.path .. noitaMpRootDirectory .. "\\files\\lib\\external\\?.lua;"
 package.path = package.path .. "mods\\noita-mp\\lua_modules\\share\\lua\\5.1\\?.lua;"
+-- [[ NoitaMP classes ]]--
+package.path = package.path .. noitaMpRootDirectory .. "\\files\\scripts\\net\\?.lua;"
+package.path = package.path .. noitaMpRootDirectory .. "\\files\\scripts\\util\\?.lua;"
+package.path = package.path .. "mods\\noita-mp\\files\\scripts\\net\\?.lua;"
 package.path = package.path .. "mods\\noita-mp\\files\\scripts\\util\\?.lua;"
-package.path = package.path .. "mods\\noita-mp\\files\\lib\\external\\?.lua;"
 print("package.path = " .. package.path)
 
 package.cpath = package.cpath .. ";" ..
-        --[[ Outside of Noita ]]--
+        -- [[ LuaRocks libraries ]]--
         noitaMpRootDirectory .. "\\lua_modules\\lib\\lua\\5.1\\?.dll;" ..
-        noitaMpRootDirectory .. "\\files\\lib\\external\\dlls\\?.dll;" ..
-        --[[ Inside of Noita ]]--
-        "mods\\noita-mp\\lua_modules\\lib\\lua\\5.1\\?.dll;" ..
-        "mods\\noita-mp\\files\\lib\\external\\dlls\\?.dll;"
+        "mods\\noita-mp\\lua_modules\\lib\\lua\\5.1\\?.dll;"
 print("package.cpath = " .. package.cpath)
 
 local fu                                     = require("file_util")
 --[[ NoitaMP additions ]]
 -- A list of paths to lua script modules
 local paths                                  = {
+    -- [[ LuaRocks modules, running outside of noita.exe ]]--
     noitaMpRootDirectory .. "/lua_modules/share/lua/5.1/{module}",
     noitaMpRootDirectory .. "/lua_modules/lib/lua/5.1/{module}",
+    -- [[ NoitaMP classes, running outside of noita.exe ]]--
+    noitaMpRootDirectory .. "/files/scripts/{module}",
+    noitaMpRootDirectory .. "/files/scripts/extensions/{module}",
+    noitaMpRootDirectory .. "/files/scripts/init/{module}",
+    noitaMpRootDirectory .. "/files/scripts/net/{module}",
+    --noitaMpRootDirectory .. "/files/scripts/noita-components/{module}", not needed outside of noita?
     noitaMpRootDirectory .. "/files/scripts/util/{module}",
 
+    -- [[ LuaRocks modules ]]--
     "mods/noita-mp/lua_modules/share/lua/5.1/{module}",
     "mods/noita-mp/lua_modules/lib/lua/5.1/{module}",
-    "mods/noita-mp/files/{module}",
+    -- [[ NoitaMP classes ]]--
     "mods/noita-mp/files/scripts/{module}",
-    "mods/noita-mp/files/scripts/components/{module}",
+    "mods/noita-mp/files/scripts/extensions/{module}",
     "mods/noita-mp/files/scripts/init/{module}",
     "mods/noita-mp/files/scripts/net/{module}",
+    --"mods/noita-mp/files/scripts/noita-components/{module}", not needed outside of noita?
     "mods/noita-mp/files/scripts/util/{module}"
 }
 
@@ -92,7 +100,7 @@ _G.os_name                                   = current_platform
 _G.os_arch                                   = current_architecture
 
 -- https://stackoverflow.com/a/14425862/3493998
-_G.path_separator                            = tostring(package.config:sub(1, 1))
+_G.pathSeparator                            = tostring(package.config:sub(1, 1))
 
 if _G.os_name == "Windows" then
     _G.is_windows = true
@@ -102,7 +110,7 @@ if _G.os_name == "Linux" then
 end
 
 print("init_package_loading.lua | Detected OS " .. _G.os_name ..
-              "(" .. _G.os_arch .. ") with path separator '" .. _G.path_separator .. "'.")
+              "(" .. _G.os_arch .. ") with path separator '" .. _G.pathSeparator .. "'.")
 
 --[[ NoitaMP additions ]]
 if current_clib_extension then
@@ -153,10 +161,10 @@ if current_clib_extension then
     if destination_path then
         print("destination_path was set to export LPATH and CPATH!")
 
-        local lua_path_file          = fu.RemoveTrailingPathSeparator(destination_path) .. _G.path_separator .. "lua_path.txt"
+        local lua_path_file          = fu.RemoveTrailingPathSeparator(destination_path) .. _G.pathSeparator .. "lua_path.txt"
         local lua_path_file_content  = ";" .. package.path
 
-        local lua_cpath_file         = fu.RemoveTrailingPathSeparator(destination_path) .. _G.path_separator .. "lua_cpath.txt"
+        local lua_cpath_file         = fu.RemoveTrailingPathSeparator(destination_path) .. _G.pathSeparator .. "lua_cpath.txt"
         local lua_cpath_file_content = ";" .. package.cpath
 
         fu.WriteFile(lua_path_file, lua_path_file_content)

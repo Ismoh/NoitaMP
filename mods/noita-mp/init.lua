@@ -1,34 +1,25 @@
+-- Disable log channel testing in Noita
+if BaabInstruction then
+    ModSettingSet("noita-mp.log_level_testing", "off")
+end
 ----------------------------------------------------------------------------------------------------
 --- Imports by dofile, dofile_once and require
 ----------------------------------------------------------------------------------------------------
 dofile("mods/noita-mp/files/scripts/init/init_.lua")
 local util = require("util")
-local fu = require("file_util")
-local ui = require("Ui").new()
+local fu   = require("file_util")
+local ui   = require("Ui").new()
 
-logger:debug("init.lua", "Starting to load noita-mp init.lua..")
-
-_G.profiler = require("profiler")
+Logger.debug(Logger.channels.initialize, "Starting to load noita-mp init.lua..")
 
 ----------------------------------------------------------------------------------------------------
 --- Stuff needs to be executed before anything else
 ----------------------------------------------------------------------------------------------------
-
 fu.SetAbsolutePathOfNoitaRootDirectory()
-
+NoitaMpSettings.clearAndCreateSettings()
 -- Is used to stop Noita pausing game, when focus is gone (tab out game)
 ModMagicNumbersFileAdd("mods/noita-mp/files/data/magic_numbers.xml")
-
---local worldSeedMagicNumbersFileAbsPath = fu.GetAbsoluteDirectoryPathOfMods() .. "/temp/WorldSeed.xml"
---if fu.Exists(worldSeedMagicNumbersFileAbsPath) then
---    logger:debug("init.lua", "Loading " .. worldSeedMagicNumbersFileAbsPath)
---    ModMagicNumbersFileAdd(worldSeedMagicNumbersFileAbsPath)
---else
---    logger:debug("init.lua", "Unable to load " .. worldSeedMagicNumbersFileAbsPath)
---end
-
 fu.Find7zipExecutable()
-
 local saveSlotsLastModifiedBeforeWorldInit = fu.getLastModifiedSaveSlots()
 
 ----------------------------------------------------------------------------------------------------
@@ -42,13 +33,13 @@ local function setSeedIfConnectedSecondTime()
     local cpc  = CustomProfiler.start("ModSettingGet")
     local seed = tonumber(ModSettingGet("noita-mp.connect_server_seed"))
     CustomProfiler.stop("ModSettingGet", cpc)
-    logger:debug("init.lua", "Servers world seed = ", seed)
+    Logger.debug(Logger.channels.initialize, ("Servers world seed = %s"):format(seed))
     if not seed and seed > 0 then
         if DebugGetIsDevBuild() then
             util.Sleep(5) -- needed to be able to attach debugger again
         end
 
-        local cpc1  = CustomProfiler.start("ModSettingGet")
+        local cpc1                  = CustomProfiler.start("ModSettingGet")
         local saveSlotMetaDirectory = ModSettingGet("noita-mp.saveSlotMetaDirectory")
         CustomProfiler.stop("ModSettingGet", cpc1)
         if saveSlotMetaDirectory then
@@ -72,38 +63,32 @@ end
 
 function OnWorldInitialized()
     local cpc = CustomProfiler.start("init.OnWorldInitialized")
-    logger:debug(nil, "init.lua | OnWorldInitialized()")
+    Logger.debug(Logger.channels.initialize, "OnWorldInitialized()")
 
-    local cpc1  = CustomProfiler.start("ModSettingGet")
+    local cpc1     = CustomProfiler.start("ModSettingGet")
     local make_zip = ModSettingGet("noita-mp.server_start_7zip_savegame")
     CustomProfiler.stop("ModSettingGet", cpc1)
-    logger:debug(nil, "init.lua | make_zip = " .. tostring(make_zip))
+    Logger.debug(Logger.channels.initialize, "make_zip = " .. tostring(make_zip))
     if make_zip then
         local archive_name    = "server_save06_" .. os.date("%Y-%m-%d_%H-%M-%S")
-        local destination     = fu.GetAbsoluteDirectoryPathOfMods() .. _G.path_separator .. "_"
+        local destination     = fu.GetAbsoluteDirectoryPathOfNoitaMP() .. pathSeparator .. "_"
         local archive_content = fu.Create7zipArchive(archive_name .. "_from_server",
                                                      fu.GetAbsoluteDirectoryPathOfSave06(), destination)
         local msg             = ("init.lua | Server savegame [%s] was zipped with 7z to location [%s]."):format(archive_name,
                                                                                                                 destination)
-        logger:debug(nil, msg)
+        Logger.debug(Logger.channels.initialize, msg)
         GamePrint(msg)
-        local cpc1  = CustomProfiler.start("ModSettingSetNextValue")
+        local cpc1 = CustomProfiler.start("ModSettingSetNextValue")
         ModSettingSetNextValue("noita-mp.server_start_7zip_savegame", false,
                                false) -- automatically start the server again
         CustomProfiler.stop("ModSettingSetNextValue", cpc1)
     end
-
-    --logger:debug("init.lua | Initialise client and server stuff..")
-    --dofile_once("mods/noita-mp/files/scripts/net/server_class.lua") -- run once to init server object
-    --dofile_once("mods/noita-mp/files/scripts/net/client_class.lua") -- run once to init client object
-    --dofile_once("mods/noita-mp/files/scripts/net/Server.lua")
-    --dofile_once("mods/noita-mp/files/scripts/net/Client.lua")
     CustomProfiler.stop("init.OnWorldInitialized", cpc)
 end
 
 function OnPlayerSpawned(player_entity)
     local cpc = CustomProfiler.start("init.OnPlayerSpawned")
-    logger:info(nil, ("Player spawned with entityId = %s!"):format(player_entity))
+    Logger.info(Logger.channels.initialize, ("Player spawned with entityId = %s!"):format(player_entity))
     EntityUtils.localPlayerEntityId = player_entity
 
     if not GameHasFlagRun("nameTags_script_applied") then
@@ -132,11 +117,11 @@ function OnWorldPreUpdate()
     --    fu.createProfilerLog()
     --end
 
-    if not util.getLocalPlayerInfo().entityId then
+    if not MinaUtils.getLocalMinaInformation().entityId then
         return
     end
 
-    EntityUtils.addOrChangeDetectionRadiusDebug(util.getLocalPlayerInfo().entityId)
+    EntityUtils.addOrChangeDetectionRadiusDebug(MinaUtils.getLocalMinaInformation().entityId)
 
     if not _G.saveSlotMeta then
         local saveSlotsLastModifiedAfterWorldInit = fu.getLastModifiedSaveSlots()
@@ -152,21 +137,18 @@ function OnWorldPreUpdate()
                 if saveSlotMeta then
                     --- Set modSettings as well when changing this: ModSettingSetNextValue("noita-mp.saveSlotMetaDirectory", _G.saveSlotMeta, false)
                     _G.saveSlotMeta = saveSlotMeta
-                    local cpc1  = CustomProfiler.start("ModSettingSetNextValue")
+                    local cpc1      = CustomProfiler.start("ModSettingSetNextValue")
                     ModSettingSetNextValue("noita-mp.saveSlotMetaDirectory", _G.saveSlotMeta.dir, false)
                     CustomProfiler.stop("ModSettingSetNextValue", cpc1)
-                    logger:info(nil, "Save slot found in '%s'", util.pformat(_G.saveSlotMeta))
+                    Logger.info(Logger.channels.initialize,
+                                ("Save slot found in '%s'"):format(util.pformat(_G.saveSlotMeta)))
                 end
             end
         end
     end
 
-    --UpdateLogLevel()
-
     Server.update()
     Client.update()
-
-    --dofile("mods/noita-mp/files/scripts/ui.lua")
 
     ui.update()
 

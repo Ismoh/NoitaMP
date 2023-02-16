@@ -97,6 +97,28 @@ jobs:
           next-version-increment-patch: ${{ contains(env.LABEL_NAMES, 'bug') }}
           next-version-cut-build-metadata: false
           next-version-put-build-metadata: true
+          
+        #- name: Update LuaRocks rockspec
+        #shell: bash
+          #run: |
+          #sudo apt-get install rename
+  
+          #git fetch
+          #git checkout ${{ github.base_ref }}
+          #git pull origin ${{ github.base_ref }}
+          #git config --local user.email "action@github.com"
+          #git config --local user.name "github-actions"
+  
+          #currentVersionShort="$CURRENT_VERSION_MAJOR.$CURRENT_VERSION_MINOR.$CURRENT_VERSION_PATCH"
+          #nextVersionShort="$NEXT_VERSION_MAJOR.$NEXT_VERSION_MINOR.$NEXT_VERSION_PATCH"
+          #cd ${{github.workspace}}/mods/noita-mp/
+          #oldFilename=$(basename *.rockspec)
+          #echo "$oldFilename"
+          #newFilename=echo "${oldFilename//[/d./d./d]/"$nextVersionShort"}"
+          #ls -R
+          #cat ${{github.workspace}}/mods/noita-mp/*.rockspec
+          #git commit -m "Updated *.rockspec to $NEXT_VERSION in https://github.com/${{github.repository}}/pull/${{github.event.number}}"
+          #git push origin ${{ github.base_ref }}
       
       - name: Extend version with custom build numbers
         id: extend_version
@@ -104,7 +126,7 @@ jobs:
           nextVersion="v$NEXT_VERSION+$(git log --oneline | wc -l)"
           echo "nextVersion="$nextVersion
           echo "NEXT_VERSION=${nextVersion}" >> $GITHUB_ENV
-          echo "::set-output name=futureRelease::$nextVersion"
+          echo "{futureRelease}={$nextVersion}" >> $GITHUB_OUTPUT
       
       - name: Add comment to pull request
         run: |

@@ -27,4 +27,10 @@ function TestStringExtensions:testExtendAndCutStringToLength()
     lu.assertEquals(actual2, expected2)
 end
 
+function TestStringExtensions:testContains()
+    lu.assertIsTrue(string.contains("The brown red Fox!", "Fox"))
+    lu.assertIsTrue(string.contains("noita-mp.log_level_testing", "noita-mp.log_level_"))
+    lu.assertIsFalse(string.contains("ASDF", "Noita is nice, but abandoned!"))
+end
+
 lu.LuaUnit.run(params)

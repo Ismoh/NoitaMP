@@ -98,18 +98,60 @@ jobs:
           sed -i 's/GODDAMNIT/\-v \-O2/g' config-5.1.lua
           cat config-5.1.lua
           
-#      - name: Build and install cache.dll
-#        shell: cmd
-#        run: |
-#          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86 10.0.22000.0 -vcvars_ver=14
-#          cd ${{ github.workspace }}\
-#          msbuild noitamp_cache.vcxproj
+        #- name: luaExtensions changes?
+        #shell: pwsh
+        #id: lua_extensions_has_changed
+          #run: |
+          # https://www.meziantou.net/executing-github-actions-jobs-or-steps-only-when-specific-files-change.htm
+          # Diff HEAD with the previous commit
+          #$diff = git diff --name-only HEAD^ HEAD
+          
+          # Check if luaExtensions.c has changed (added, modified, deleted)
+          #$SourceDiff = $diff | Where-Object { $_ -match 'luaExtensions.c' }
+          #$HasDiff = $SourceDiff.Length -gt 0
+    
+          # Set the output named "changed"
+          #Write-Host "::set-output name=changed::$HasDiff"
+          
+      - name: Build and install luaExtensions.dll
+        shell: cmd
+        # if: steps.lua_extensions_has_changed.outputs.changed == 'True'
+        run: |
+          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86 10.0.22000.0 -vcvars_ver=14
+          cd ${{ github.workspace }}\
+          msbuild .\luaExtensions.vcxproj
+
+      - name: Install dependencies
+        shell: cmd
+        run: |
+          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86 10.0.22000.0 -vcvars_ver=14
+          cd ${{ github.workspace}}\mods\noita-mp\
+
+          call luarocks.bat install luafilesystem
+          call luarocks.bat install luacov
+          call luarocks.bat install luacov-coveralls
+          call luarocks.bat install winapi
+  
+          if exist ${{ github.workspace }}\mods\noita-mp\lua_modules\bin\luacov.bat (
+            echo "LuaCov install successfully"
+          ) else (
+            echo "::error::LuaCov install failed"
+            exit 1
+          )
+          if exist ${{ github.workspace }}\mods\noita-mp\lua_modules\bin\luacov-coveralls.bat (
+            echo "LuaCov Coveralls install successfully"
+          ) else (
+            echo "::error::LuaCov Coveralls install failed"
+            exit 1
+          )
       
       - name: Run LuaUnit 3.4
         shell: cmd
         id: lua_unit_tests
         run: |
           cd ${{ github.workspace}}\mods\noita-mp\
+          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86 10.0.22000.0 -vcvars_ver=14
+          
           call luarocks.bat test > result.log
           
           if exist result.log (
@@ -130,31 +172,6 @@ jobs:
           echo "failOrErrorCount:%failOrErrorCount%"
           if NOT %failOrErrorCount% == 0 (
             echo "::error title=LuaUnit tests failed::%failOrErrorCount% failures or errors occurred!"
-            exit 1
-          )
-  
-
-          
-          
-      - name: Install dependencies
-        shell: cmd
-        run: |
-          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86 10.0.22000.0 -vcvars_ver=14
-          cd ${{ github.workspace}}\mods\noita-mp\
-  
-          call luarocks.bat install luacov
-          call luarocks.bat install luacov-coveralls
-          
-          if exist ${{ github.workspace }}\mods\noita-mp\lua_modules\bin\luacov.bat (
-            echo "LuaCov install successfully"
-          ) else (
-            echo "::error::LuaCov install failed"
-            exit 1
-          )
-          if exist ${{ github.workspace }}\mods\noita-mp\lua_modules\bin\luacov-coveralls.bat (
-            echo "LuaCov Coveralls install successfully"
-          ) else (
-            echo "::error::LuaCov Coveralls install failed"
             exit 1
           )
           
@@ -186,7 +203,7 @@ jobs:
         shell: cmd
         run: |
           cd ${{ github.workspace }}\mods\noita-mp\
-          call lua.bat -lluacov ${{ github.workspace }}\mods\noita-mp\tests\startUnitTests.lua -o text --verbose
+          call lua.bat -lluacov ${{ github.workspace }}\mods\noita-mp\tests\_initializeUnitTests.lua -o text --verbose
           call ${{ github.workspace }}\mods\noita-mp\lua_modules\bin\luacov.bat -c=${{ github.workspace }}\mods\noita-mp\.luacov
           ls -R
           

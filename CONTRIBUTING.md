@@ -99,16 +99,16 @@ end
 
 #### Using init.lua context only
 If you are able to use the `init.lua` context only, then you can use the NoitaMP functions directly.\
-For example, if you want to get local player/Minä, then you can use the NoitaMP function `util.getLocalPlayerInfo()`:
+For example, if you want to get local player/Minä, then you can use the NoitaMP function `MinaUtils.getLocalMinaInformation()`:
 ```lua
 --- Gets the local player information.
 --- Including polymorphed entity id. When polymorphed, entityId will be the new one and not minäs anymore.
 --- @return PlayerInfo playerInfo
-function util.getLocalPlayerInfo()
+function MinaUtils.getLocalMinaInformation()
   -- more code
   local ownerName = tostring(ModSettingGet("noita-mp.name"))
   local ownerGuid = tostring(ModSettingGet("noita-mp.guid"))
-  local entityId  = EntityUtils.getLocalPlayerEntityId()
+  local entityId  = MinaUtils.getLocalMinaEntityId()
   local nuid = nil
   -- yet another code fragment
 end
@@ -159,10 +159,19 @@ I know it is not easy to write tests, but it is very important to do so.\
 If you are not able to write tests, then please ask for help in the Discord server.\
 I will help you to write tests for your functions.\
 I will not accept any pull requests without tests, sorry.\
-How to write tests?\
-ADD HERE EXAMPLE\
+### Location of tests
+`mods/noita-mp/tests/`
+### How to run tests
+See LuaRocks section above.
+
+### How to write tests?
+Simple example by adding a new function to an existing test class:\
+_Assume you've added a new event to **NetworkUtils.events**, then make sure to extend the **TestNetworkUtils** table in **NetworkUtils_test.lua**.)_
+```lua
+```
+
 How to run tests?\
-`luarocks test >> result.log`
+`luarocks test > result.log`
 
 If there are any questions left, then please ask them on [Discord](https://discord.gg/DhMurdcw4k).
 

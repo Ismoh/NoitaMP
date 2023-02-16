@@ -6,7 +6,8 @@
 ----------------------------------------
 -- 'Imports'
 ----------------------------------------
-local renderEzgui                 = dofile_once("mods/noita-mp/files/lib/external/ezgui/EZGUI.lua").init("mods/noita-mp/files/lib/external/ezgui")
+local renderEzgui                 = dofile_once("mods/noita-mp/lua_modules/share/lua/5.1/ezgui/EZGUI.lua").init("mods/noita-mp/lua_modules/share/lua/5.1/ezgui")
+local fu = require("file_util")
 
 ----------------------------------------------------------------------------------------------------
 --- Ui
@@ -113,12 +114,6 @@ function Ui.new()
             toggleDebug          = function()
                 debug = not debug
             end,
-            startProfiler        = function()
-                profiler.start()
-            end,
-            stopProfiler         = function()
-                fu.createProfilerLog()
-            end,
             reportCustomProfiler = function()
                 CustomProfiler.report()
             end,
@@ -155,11 +150,11 @@ function Ui.new()
         local text = ""
         if foldingOpen then
             self.ezguiFoldingData.data.text = ("[- NoitaMP] %s eCache:%s pCache:%s nCache:%s %s")
-                    :format(_G.NoitaMPVersion, table.size(EntityUtils.transformCache), CustomProfiler.getSize(),
+                    :format(fu.getVersionByFile(), EntityCache.size(), CustomProfiler.getSize(),
                             NetworkUtils.getClientOrServer().getAckCacheSize(), GameGetFrameNum())
         else
             self.ezguiFoldingData.data.text = ("[+ NoitaMP] eCache:%s pCache:%s nCache:%s %s")
-                    :format(table.size(EntityUtils.transformCache), CustomProfiler.getSize(),
+                    :format(EntityCache.size(), CustomProfiler.getSize(),
                             NetworkUtils.getClientOrServer().getAckCacheSize(), GameGetFrameNum())
         end
 
@@ -334,7 +329,7 @@ function Ui.new()
         drawMenu()
         drawModConflictWarning()
 
-        if #EntityUtils.transformCache >= 10000 then
+        if EntityCache.size() >= EntityUtils.maxPoolSize then
             gui = gui or GuiCreate()
             GuiStartFrame(gui)
             GuiIdPushString(gui, "possibleMemoryOverflow")

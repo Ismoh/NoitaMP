@@ -14,7 +14,7 @@
 2. Change directory to `NoitaMP\mods\noita-mp`, like `cd fullPathTo\NoitaMP\mods\noita-mp`.
 3. Run the following command as *administrator* in `cmd.exe`:
    ```cmd
-   REM // cd fullPathTo\NoitaMP\mods\noita-mp
+   cd fullPathTo\NoitaMP\mods\noita-mp
    set INIT_PATH=%CD%
    
    REM // resolve absolute path
@@ -98,3 +98,26 @@ in `NoitaMP\mods\noita-mp` directory.
 ## Install all dependencies defined in noita-mp-*.rockspec
 Run `luarocks install --only-deps noita-mp-*.rockspec`. Replace `*` with the version number of the rockspec.
 Simply type in `luarocks install --only-deps noita` and hit tab to autocomplete the rockspec name.
+
+
+## Build zstandard
+~~https://fuchsia.googlesource.com/third_party/zstd/+/refs/tags/v1.3.7/build/~~
+~~https://stackoverflow.com/questions/44290672/how-to-download-visual-studio-community-edition-2015-not-2017 use ISO Image community~~
+~~As Visual Studio doesn't seem to be working, I am trying to use MSYS2 again:~~\
+~~[Install MSYS2](https://www.msys2.org/). I used msys2.exe~~\
+~~Then `pacman -Syu`, after that [Install mingw32 toolchain](https://docs.epics-controls.org/projects/how-tos/en/latest/getting-started/installation-windows-msys2.html), but only use `pacman -S mingw-w64-i686-toolchain` to be sure to have 32bit toolchain.~~\
+~~`pacman -S mingw-w64-i686-cmake`~~
+~~Make sure MSYS2 path is set in windows PATH:~~\
+~~![system-path-variable.JPG](../miscs/.building/system-path-variable.JPG)~~\
+~~Then change LuaRocks CC variable:~~
+~~```~~
+~~luarocks config --scope="project" variables.CC gcc && ^~~
+~~luarocks config --scope="project" variables.LD gcc~~
+~~```~~
+~~After that in cmd as admin:~~\
+~~`luarocks install lua-zstd ZSTD_DIR=D:\______BACKUP\NoitaMP_repo\NoitaMP\.building\zstd-v1.5.2-win32`~~
+All of this fails! Simply use prebuild dll from https://github.com/facebook/zstd/releases zstd-v1.5.2-win32.zip
+
+
+
+
