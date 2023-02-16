@@ -1,6 +1,6 @@
 rockspec_format = "3.0"
 package         = "noita-mp"
-version         = "2.7.0-3" -- Needs to be updated manually and the same as in `.version` file.
+version         = "3.0.0-3" -- Needs to be updated manually and the same as in `.version` file.
 source          = {
     url = "git+https://github.com/Ismoh/NoitaMP.git"
 }
