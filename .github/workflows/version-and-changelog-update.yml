@@ -111,7 +111,7 @@ jobs:
           currentVersionShort="$CURRENT_VERSION_MAJOR.$CURRENT_VERSION_MINOR.$CURRENT_VERSION_PATCH"
           nextVersionShort="$NEXT_VERSION_MAJOR.$NEXT_VERSION_MINOR.$NEXT_VERSION_PATCH"
           sed -i 's/$currentVersionShort/$nextVersionShort/' ${{github.workspace}}/mods/noita-mp/*.rockspec
-          rename 's/$currentVersionShort/$nextVersionShort/' ${{github.workspace}}/mods/noita-mp/*.rockspec
+          # rename 's/$currentVersionShort/$nextVersionShort/' ${{github.workspace}}/mods/noita-mp/*.rockspec
           
           ls -R ${{github.workspace}}\mods\noita-mp\
           cat ${{github.workspace}}\mods\noita-mp\*.rockspec
@@ -125,7 +125,7 @@ jobs:
           nextVersion="v$NEXT_VERSION+$(git log --oneline | wc -l)"
           echo "nextVersion="$nextVersion
           echo "NEXT_VERSION=${nextVersion}" >> $GITHUB_ENV
-          echo "::set-output name=futureRelease::$nextVersion"
+          echo "{futureRelease}={$nextVersion}" >> $GITHUB_OUTPUT
       
       - name: Add comment to pull request
         run: |
