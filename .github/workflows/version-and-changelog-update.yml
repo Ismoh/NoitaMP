@@ -20,13 +20,14 @@ jobs:
 
       - name: Find linked issues
         id: find-linked-issues
-        uses: Ismoh-Games/find-linked-issues@v0.0.5
+        uses: Ismoh-Games/find-linked-issues@v0.0.8
         with:
           token: ${{ secrets.WORKFLOW_PAT }}
           repository: ${{ github.repository }}
           pull-request-number: ${{ github.event.pull_request.number }}
           pull-request-body: ${{ github.event.pull_request.body }}
           copy-issues-labels: true
+          include-closed-issues: true
           
       - name: Echo output
         run: |
