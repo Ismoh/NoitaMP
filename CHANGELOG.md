@@ -1,8 +1,8 @@
 # Changelog
 
-## [Unreleased](https://github.com/Ismoh/NoitaMP/tree/HEAD)
+## [v3.0.0-alpha+1285](https://github.com/Ismoh/NoitaMP/tree/v3.0.0-alpha+1285) (09.01.2023)
 
-[Full Changelog](https://github.com/Ismoh/NoitaMP/compare/v2.5.0-alpha+1065...HEAD)
+[Full Changelog](https://github.com/Ismoh/NoitaMP/compare/v3.0.0-alpha+1285...v3.0.0-alpha+1285)
 
 **Implemented enhancements:**
 
@@ -14,6 +14,7 @@
 
 **Merged pull requests:**
 
+- Updating master with develop [\#74](https://github.com/Ismoh/NoitaMP/pull/74) ([Ismoh](https://github.com/Ismoh))
 - Develop [\#47](https://github.com/Ismoh/NoitaMP/pull/47) ([Ismoh](https://github.com/Ismoh))
 - Master into develop [\#45](https://github.com/Ismoh/NoitaMP/pull/45) ([Ismoh](https://github.com/Ismoh))
 - Develop into master [\#44](https://github.com/Ismoh/NoitaMP/pull/44) ([Ismoh](https://github.com/Ismoh))
@@ -35,6 +36,51 @@
 - Update the other branches [\#9](https://github.com/Ismoh/NoitaMP/pull/9) ([Ismoh](https://github.com/Ismoh))
 - Trying to use leafo/gh-actions-lua [\#6](https://github.com/Ismoh/NoitaMP/pull/6) ([Ismoh](https://github.com/Ismoh))
 - Time to be consistent with branches! [\#1](https://github.com/Ismoh/NoitaMP/pull/1) ([Ismoh](https://github.com/Ismoh))
+
+## [v3.0.0-alpha+1285](https://github.com/Ismoh/NoitaMP/tree/v3.0.0-alpha+1285) (09.01.2023)
+
+[Full Changelog](https://github.com/Ismoh/NoitaMP/compare/v2.6.6-alpha+1223...v3.0.0-alpha+1285)
+
+## [v2.6.6-alpha+1223](https://github.com/Ismoh/NoitaMP/tree/v2.6.6-alpha+1223) (28.10.2022)
+
+[Full Changelog](https://github.com/Ismoh/NoitaMP/compare/v2.6.6-alpha+1162...v2.6.6-alpha+1223)
+
+## [v2.6.6-alpha+1162](https://github.com/Ismoh/NoitaMP/tree/v2.6.6-alpha+1162) (28.10.2022)
+
+[Full Changelog](https://github.com/Ismoh/NoitaMP/compare/v2.6.5-alpha+1143...v2.6.6-alpha+1162)
+
+## [v2.6.5-alpha+1143](https://github.com/Ismoh/NoitaMP/tree/v2.6.5-alpha+1143) (14.10.2022)
+
+[Full Changelog](https://github.com/Ismoh/NoitaMP/compare/v2.6.4-alpha+1138...v2.6.5-alpha+1143)
+
+## [v2.6.4-alpha+1138](https://github.com/Ismoh/NoitaMP/tree/v2.6.4-alpha+1138) (07.10.2022)
+
+[Full Changelog](https://github.com/Ismoh/NoitaMP/compare/v2.6.3-alpha+1134...v2.6.4-alpha+1138)
+
+## [v2.6.3-alpha+1134](https://github.com/Ismoh/NoitaMP/tree/v2.6.3-alpha+1134) (06.10.2022)
+
+[Full Changelog](https://github.com/Ismoh/NoitaMP/compare/v2.6.2-alpha+1130...v2.6.3-alpha+1134)
+
+## [v2.6.2-alpha+1130](https://github.com/Ismoh/NoitaMP/tree/v2.6.2-alpha+1130) (06.10.2022)
+
+[Full Changelog](https://github.com/Ismoh/NoitaMP/compare/v2.6.1-alpha+1073...v2.6.2-alpha+1130)
+
+## [v2.6.1-alpha+1073](https://github.com/Ismoh/NoitaMP/tree/v2.6.1-alpha+1073) (27.09.2022)
+
+[Full Changelog](https://github.com/Ismoh/NoitaMP/compare/v2.6.0-alpha+1070...v2.6.1-alpha+1073)
+
+**Implemented enhancements:**
+
+- Include changelog generator [\#72](https://github.com/Ismoh/NoitaMP/issues/72) [[enhancement](https://github.com/Ismoh/NoitaMP/labels/enhancement)]
+- Integrate gource.io, because it's fun [\#69](https://github.com/Ismoh/NoitaMP/issues/69) [[enhancement](https://github.com/Ismoh/NoitaMP/labels/enhancement)]
+
+**Fixed bugs:**
+
+- Developer want to fix version increase [\#78](https://github.com/Ismoh/NoitaMP/issues/78) [[bug](https://github.com/Ismoh/NoitaMP/labels/bug)]
+
+## [v2.6.0-alpha+1070](https://github.com/Ismoh/NoitaMP/tree/v2.6.0-alpha+1070) (24.09.2022)
+
+[Full Changelog](https://github.com/Ismoh/NoitaMP/compare/v2.5.0-alpha+1065...v2.6.0-alpha+1070)
 
 ## [v2.5.0-alpha+1065](https://github.com/Ismoh/NoitaMP/tree/v2.5.0-alpha+1065) (24.09.2022)
 
@@ -59,11 +105,11 @@
 **Implemented enhancements:**
 
 - Misaligned UI positions [\#43](https://github.com/Ismoh/NoitaMP/issues/43) [[bug](https://github.com/Ismoh/NoitaMP/labels/bug)] [[enhancement](https://github.com/Ismoh/NoitaMP/labels/enhancement)]
-- Developer want to add player names in game [\#41](https://github.com/Ismoh/NoitaMP/issues/41) [[enhancement](https://github.com/Ismoh/NoitaMP/labels/enhancement)] [[help wanted](https://github.com/Ismoh/NoitaMP/labels/help%20wanted)] [[good first issue](https://github.com/Ismoh/NoitaMP/labels/good%20first%20issue)]
-- Game crash [\#28](https://github.com/Ismoh/NoitaMP/issues/28) [[bug](https://github.com/Ismoh/NoitaMP/labels/bug)] [[enhancement](https://github.com/Ismoh/NoitaMP/labels/enhancement)] [[help wanted](https://github.com/Ismoh/NoitaMP/labels/help%20wanted)]
+- Developer want to add player names in game [\#41](https://github.com/Ismoh/NoitaMP/issues/41) [[enhancement](https://github.com/Ismoh/NoitaMP/labels/enhancement)] [[help_wanted](https://github.com/Ismoh/NoitaMP/labels/help_wanted)] [[good_first_issue](https://github.com/Ismoh/NoitaMP/labels/good_first_issue)]
+- Game crash [\#28](https://github.com/Ismoh/NoitaMP/issues/28) [[bug](https://github.com/Ismoh/NoitaMP/labels/bug)] [[enhancement](https://github.com/Ismoh/NoitaMP/labels/enhancement)] [[help_wanted](https://github.com/Ismoh/NoitaMP/labels/help_wanted)]
 - Rework NUID [\#26](https://github.com/Ismoh/NoitaMP/issues/26) [[bug](https://github.com/Ismoh/NoitaMP/labels/bug)] [[enhancement](https://github.com/Ismoh/NoitaMP/labels/enhancement)]
-- Show players name in game [\#23](https://github.com/Ismoh/NoitaMP/issues/23) [[enhancement](https://github.com/Ismoh/NoitaMP/labels/enhancement)] [[help wanted](https://github.com/Ismoh/NoitaMP/labels/help%20wanted)] [[good first issue](https://github.com/Ismoh/NoitaMP/labels/good%20first%20issue)]
-- Art [\#22](https://github.com/Ismoh/NoitaMP/issues/22) [[enhancement](https://github.com/Ismoh/NoitaMP/labels/enhancement)] [[help wanted](https://github.com/Ismoh/NoitaMP/labels/help%20wanted)]
+- Show players name in game [\#23](https://github.com/Ismoh/NoitaMP/issues/23) [[enhancement](https://github.com/Ismoh/NoitaMP/labels/enhancement)] [[help_wanted](https://github.com/Ismoh/NoitaMP/labels/help_wanted)] [[good_first_issue](https://github.com/Ismoh/NoitaMP/labels/good_first_issue)]
+- Art [\#22](https://github.com/Ismoh/NoitaMP/issues/22) [[enhancement](https://github.com/Ismoh/NoitaMP/labels/enhancement)] [[help_wanted](https://github.com/Ismoh/NoitaMP/labels/help_wanted)]
 
 **Fixed bugs:**
 

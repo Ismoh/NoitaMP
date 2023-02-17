@@ -1,10 +1,33 @@
+# Generated files
+mods/noita-mp/luacov.stats.out
+mods/noita-mp/result.log
+mods/noita-mp/settings
+
 # Compiled Lua sources
 # luac.out
 
 # luarocks build files
-# *.src.rock
-# *.zip
-# *.tar.gz
+*.src.rock
+*.zip
+*.tar.gz
+mods/noita-mp/.gitignore
+mods/noita-mp/.luarocks
+mods/noita-mp/luarocks.bat
+mods/noita-mp/lua.bat
+mods/noita-mp/lua_modules/lib/luarocks
+
+# Visual studio folder
+.vs/
+
+# luaExtensions dll output files
+Debug/
+out/
+mods/noita-mp/lua_modules/lib/lua/5.1/noitamp_cache.exp
+mods/noita-mp/lua_modules/lib/lua/5.1/noitamp_cache.lib
+luaExtensions.lib
+luaExtensions.pdb
+luaExtensions.exp
+*.pdb
 
 # Object files
 # *.o
@@ -38,4 +61,3 @@
 # *.i*86
 # *.x86_64
 # *.hex
-

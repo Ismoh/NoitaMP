@@ -1,0 +1,17 @@
+-- Configuration file for LuaCov
+return {
+    statsfile  = "luacov.stats.out",
+    reportfile = "luacov.report.out",
+    exclude    = {
+        ".luarocks",
+        "data/",
+        "lua_modules/",
+        ".luacov",
+        ".version",
+        "lua.bat",
+        "luarocks.bat",
+        "mod.xml",
+        "modSettingsUpdater.lua",
+        "noita-mp-*"
+    }
+}

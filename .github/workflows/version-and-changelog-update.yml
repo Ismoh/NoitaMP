@@ -2,54 +2,74 @@ name: Version and changelog update
 on:
   pull_request:
     types: [ opened, edited, synchronize, closed ]
+  pull_request_target:
+    types: [ opened, edited, synchronize, closed ]
 jobs:
   find-linked-issues-and-copy-labels-to-pull-request:
     name: Copy labels from issue to pull request
     runs-on: ubuntu-latest
     outputs:
-      labelNames: $${{ steps.add_labels.outputs.labelNames }}
+      labelNames: ${{ steps.find-linked-issues.outputs.pull-request-labels }}
     steps:
-      - name: Find linked issues
-        id: links
-        uses: hossainemruz/linked-issues@main
-        with:
-          pr_url: ${{github.event.pull_request.html_url}}
-          format: IssueNumber
+      - uses: actions/checkout@v3.3.0
       
-      - name: Add labels of associated/linked issue to the pull request
-        id: add_labels
+      - name: Print GitHub context
+        run: echo "$GITHUB_CONTEXT"
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+
+      - name: Find linked issues
+        id: find-linked-issues
+        uses: Ismoh-Games/find-linked-issues@v0.0.5
+        with:
+          token: ${{ secrets.WORKFLOW_PAT }}
+          repository: ${{ github.repository }}
+          pull-request-number: ${{ github.event.pull_request.number }}
+          pull-request-body: ${{ github.event.pull_request.body }}
+          copy-issues-labels: true
+          
+      - name: Echo output
         run: |
-          for issueNumber in ${{ steps.links.outputs.issues }}
+          echo "is-pull-request-linked-to-issues: ${{ steps.find-linked-issues.outputs.is-pull-request-linked-to-issues }}"
+          echo "linked-issues: ${{ steps.find-linked-issues.outputs.linked-issues }}"
+          echo "pull-request-labels: ${{ steps.find-linked-issues.outputs.pull-request-labels }}"
+      
+      - name: Linked issue found?
+        run: |
+          commentListResponse=`curl -u Ismoh:${{ secrets.WORKFLOW_PAT }} -H 'Accept: application/vnd.github+json' https://api.github.com/repos/Ismoh/NoitaMP/issues/${{github.event.number}}/comments`
+          echo "commentListResponse="$commentListResponse
+          # https://jqplay.org/s/WsuVZ8f-YiB
+          commentIds=$(echo $commentListResponse | jq '.[] | select(.body | contains("pull request is not linked to any issue")) | .id')
+          echo "commentIds="$commentIds
+        
+          for commentId in $commentIds
           do
-            issueUrl=$( echo ${{ github.event.pull_request.base.repo.issues_url }} | sed "s/{\/number}/\/$issueNumber/g" )
-            labels=$( curl $issueUrl | jq '.labels')
-            echo "labels="$labels
-        
-            for label in $( echo $labels | jq -r '.[] | .name' )
-            do
-              labelNames="${labelNames:+$labelNames,}\"$label\""
-            done
-        
+            echo "commentId="$commentId
+            statusCode=`curl -u Ismoh:${{ secrets.WORKFLOW_PAT }} -X DELETE -H 'Accept: application/vnd.github+json' https://api.github.com/repos/Ismoh/NoitaMP/issues/comments/$commentId`
+            echo "statusCode="$statusCode
+            if [[ $statusCode != "" ]]
+            then
+              echo "Unable to delete comment with id "$commentId
+            fi
           done
-          echo "labelNames="$labelNames
-          data="{\"labels\":[${labelNames}]}"
-        
-          curlResponse=`curl --write-out '%{http_code}' --output /dev/null --request POST \
-          --header 'Accept: application/vnd.github.v3+json' \
-          --header 'Authorization: token ${{ github.token }}' \
-          --header 'Content-Type: application/json' \
-          --url 'https://api.github.com/repos/${{github.repository}}/issues/${{github.event.number}}/labels' \
-          --data-raw $data`
-        
-          if [[ $curlResponse == *"200"* ]]
+
+          if [ ${{ steps.find-linked-issues.outputs.is-pull-request-linked-to-issues }} == 'False' ]
           then
-            echo "SUCCESS"
-          else
-            echo "FAILURE"
-            exit 1
+            body=":robot: _meep moop beep boop_<br/><br/>Hi @${{ github.event.pull_request.user.login }}, <br/>your pull request is not linked to any issue, please make the corresponding changes in the **very first comment** by adding<br/>\`Fixes #issue-number\` or \`Resolves #issue-number\`.<br/>If your pull request isn't linked to any issue, **ignore** this comment!"
+            echo "body="$body
+            #json=$(jq --arg body "$body" '{ $body }')
+            json=$(printf '%s\n' "$body" | jq -R '{ body: . }')
+            echo "json="$json
+            statusCode=`curl -X POST -H 'Accept: application/vnd.github+json' -H 'Authorization: token ${{ github.token }}' https://api.github.com/repos/Ismoh/NoitaMP/issues/${{github.event.number}}/comments -d "$json"`
+            echo "statusCode="$statusCode
+            id=$(echo $statusCode | jq '.id')
+            echo "id="$id
+            if [[ "$id" == "" ]]
+            then
+              echo "Unable to add comment to pull request!"
+              exit 1
+            fi
           fi
-        
-          echo "::set-output name=labelNames::${labelNames}"
   
   update-version:
     needs: find-linked-issues-and-copy-labels-to-pull-request
@@ -58,46 +78,89 @@ jobs:
       VERSION_FILE_NAME: 'mods/noita-mp/.version'
       VERSION_FRAGMENT: 'will be fetched by file'
     name: Increase version and create a tag, when merged
+    outputs:
+      futureRelease: ${{ steps.extend_version.outputs.futureRelease }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v3.1.0
         with:
           fetch-depth: 0
       
       - name: Increase version depending on labels
-        uses: HardNorth/github-version-generate@v1.2.0
+        uses: HardNorth/github-version-generate@v1.3.0
         with:
           version-source: file
           version-file: ${{ env.VERSION_FILE_NAME }}
-          version-file-extraction-pattern: '^v(.*)'
+          version-file-extraction-pattern: '{"version":"v([^"]+)"}'
           next-version-increment-major: ${{ contains(env.LABEL_NAMES, 'rework') }}
           next-version-increment-minor: ${{ contains(env.LABEL_NAMES, 'enhancement') }}
           next-version-increment-patch: ${{ contains(env.LABEL_NAMES, 'bug') }}
           next-version-cut-build-metadata: false
           next-version-put-build-metadata: true
+          
+        #- name: Update LuaRocks rockspec
+        #shell: bash
+          #run: |
+          #sudo apt-get install rename
+  
+          #git fetch
+          #git checkout ${{ github.base_ref }}
+          #git pull origin ${{ github.base_ref }}
+          #git config --local user.email "action@github.com"
+          #git config --local user.name "github-actions"
+  
+          #currentVersionShort="$CURRENT_VERSION_MAJOR.$CURRENT_VERSION_MINOR.$CURRENT_VERSION_PATCH"
+          #nextVersionShort="$NEXT_VERSION_MAJOR.$NEXT_VERSION_MINOR.$NEXT_VERSION_PATCH"
+          #cd ${{github.workspace}}/mods/noita-mp/
+          #oldFilename=$(basename *.rockspec)
+          #echo "$oldFilename"
+          #newFilename=echo "${oldFilename//[/d./d./d]/"$nextVersionShort"}"
+          #ls -R
+          #cat ${{github.workspace}}/mods/noita-mp/*.rockspec
+          #git commit -m "Updated *.rockspec to $NEXT_VERSION in https://github.com/${{github.repository}}/pull/${{github.event.number}}"
+          #git push origin ${{ github.base_ref }}
       
       - name: Extend version with custom build numbers
+        id: extend_version
         run: |
-          echo "NEXT_VERSION=v$NEXT_VERSION+$(git log --oneline | wc -l)" >> $GITHUB_ENV
+          nextVersion="v$NEXT_VERSION+$(git log --oneline | wc -l)"
+          echo "nextVersion="$nextVersion
+          echo "NEXT_VERSION=${nextVersion}" >> $GITHUB_ENV
+          echo "{futureRelease}={$nextVersion}" >> $GITHUB_OUTPUT
       
       - name: Add comment to pull request
         run: |
-          body="{\"body\":\"When this pull request was merged\\\:\r\n- Version will be automatically increase to **$NEXT_VERSION** in **${{ github.base_ref }}**\r\n- Tag **$NEXT_VERSION** will be created to the specific commit.\"}"
+          commentListResponse=`curl -H 'Accept: application/vnd.github+json' -H 'Authorization: token ${{ github.token }}' https://api.github.com/repos/Ismoh/NoitaMP/issues/${{github.event.number}}/comments`
+          echo "commentListResponse="$commentListResponse
+          # https://jqplay.org/s/WsuVZ8f-YiB
+          commentIds=$(echo $commentListResponse | jq '.[] | select(.body | contains("will be automatically increase to")) | .id')
+          echo "commentIds="$commentIds
         
-          curlResponse=`curl --write-out '%{http_code}' --output /dev/null --request POST \
-          --header 'Accept: application/vnd.github+json' \
-          --header 'Authorization: token ${{ github.token }}' \
-          --url 'https://api.github.com/repos/${{github.repository}}/issues/${{github.event.number}}/comments' \
-          --data-raw "$body"`
+          for commentId in $commentIds
+          do
+            echo "commentId="$commentId
+            statusCode=`curl -X DELETE -H 'Accept: application/vnd.github+json' -H 'Authorization: token ${{ github.token }}' https://api.github.com/repos/Ismoh/NoitaMP/issues/comments/$commentId`
+            echo "statusCode="$statusCode
+            if [[ $statusCode != "" ]]
+            then
+              echo "Unable to delete comment with id "$commentId
+            fi
+          done
         
-          if [[ $curlResponse == *"201"* ]]
+          body=":robot: _meep moop beep boop_<br/><br/>:information_source: When this pull request was merged,<br/> the current version **v$CURRENT_VERSION** will be automatically increase to **$NEXT_VERSION** in **${{ github.base_ref }}**<br/>and a new tag with **$NEXT_VERSION** will be created to the specific commit."
+          echo "body="$body
+          json=$(printf '%s\n' "$body" | jq -R '{ body: . }')
+          echo "json="$json
+          statusCode=`curl -X POST -H 'Accept: application/vnd.github+json' -H 'Authorization: token ${{ github.token }}' https://api.github.com/repos/Ismoh/NoitaMP/issues/${{github.event.number}}/comments -d "$json"`
+          echo "statusCode="$statusCode
+          id=$(echo $statusCode | jq '.id')
+          echo "id="$id
+          if [[ "$id" == "" ]]
           then
-            echo "SUCCESS"
-          else
-            echo "FAILURE"
+            echo "Unable to add comment to pull request!"
             exit 1
           fi
-  
+      
       - name: Commit and push version changes and tag it, when merged
         env:
           MERGED: ${{ github.event.pull_request.merged }}
@@ -107,12 +170,12 @@ jobs:
             git fetch
             git checkout ${{ github.base_ref }}
             git pull origin ${{ github.base_ref }}
-            echo "$NEXT_VERSION" > $VERSION_FILE_NAME
+            echo "{\"version\":\"$NEXT_VERSION\"}" > $VERSION_FILE_NAME
             git config --local user.email "action@github.com"
             git config --local user.name "github-actions"
             git add $VERSION_FILE_NAME
             git commit -m "Updated version to $NEXT_VERSION in https://github.com/${{github.repository}}/pull/${{github.event.number}}"
-            git tag -a "$NEXT_VERSION" -m "Automatic tag creation, do not consider tags as release. For further technical information, see https://github.com/${{github.repository}}/pull/${{github.event.number}}"
+            git tag -a "$NEXT_VERSION" -m "Automatic tag creation, do not consider tags as releases. For further technical information, see https://github.com/${{github.repository}}/pull/${{github.event.number}}"
             git push origin ${{ github.base_ref }} --tags
           else
             echo "Pull request is not merged yet, therefore '$VERSION_FILE_NAME' will not be increased."
@@ -121,16 +184,16 @@ jobs:
   update-changelog:
     needs: update-version
     env:
-      VERSION_FILE_NAME: 'mods/noita-mp/.version'
-    name: Update CHANGELOG.md, when merged
+      FUTURE_RELEASE: ${{ needs.update-version.outputs.futureRelease }}
+    name: Update CHANGELOG.md
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v3.1.0
         with:
           fetch-depth: 0
       
-      - name: Generate CHANGELOG.md, when merged
-        if: ${{ github.event.pull_request.merged }}
+      - name: Generate CHANGELOG.md
+        id: generate_changelog
         uses: heinrichreimer/github-changelog-generator-action@v2.3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -138,12 +201,47 @@ jobs:
           output: "CHANGELOG.md"
           issueLineLabels: "ALL"
           breakingLabels: "backwards-incompatible,breaking,rework,refactor"
+          futureRelease: ${{ env.FUTURE_RELEASE }}
       
       - name: Commit and push CHANGELOG.md, when merged
         env:
-          CHANGELOG: ${{ needs.update-changelog.outputs.changelog }}
+          CHANGELOG: ${{ steps.generate_changelog.outputs.changelog }}
           MERGED: ${{ github.event.pull_request.merged }}
         run: |
+          commentListResponse=`curl -H 'Accept: application/vnd.github+json' -H 'Authorization: token ${{ github.token }}' https://api.github.com/repos/Ismoh/NoitaMP/issues/${{github.event.number}}/comments`
+          echo "commentListResponse="$commentListResponse
+          # https://jqplay.org/s/WsuVZ8f-YiB
+          commentIds=$(echo $commentListResponse | jq '.[] | select(.body | contains("# Changelog")) | .id')
+          echo "commentIds="$commentIds
+        
+          for commentId in $commentIds
+          do
+            echo "commentId="$commentId
+            statusCode=`curl -X DELETE -H 'Accept: application/vnd.github+json' -H 'Authorization: token ${{ github.token }}' https://api.github.com/repos/Ismoh/NoitaMP/issues/comments/$commentId`
+            echo "statusCode="$statusCode
+            if [[ $statusCode != "" ]]
+            then
+              echo "Unable to delete comment with id "$commentId
+            fi
+          done
+        
+          echo ""
+          echo "CHANGELOG="$CHANGELOG
+          echo ""
+          
+          body=":robot: _meep moop beep boop_<br/><br/>  "$CHANGELOG
+          echo "body="$body
+          json=$(printf '%s\n' "$body" | jq -Rsa '{ body: . }')
+          echo "json="$json
+          statusCode=`curl -X POST -H 'Accept: application/vnd.github+json' -H 'Authorization: token ${{ github.token }}' https://api.github.com/repos/${{github.repository}}/issues/${{github.event.number}}/comments -d "$json"`
+          echo "statusCode="$statusCode
+          id=$(echo $statusCode | jq '.id')
+          echo "id="$id
+          if [[ "$id" == "" ]]
+          then
+            echo "Unable to add comment to pull request!"
+          fi
+        
           if [ $MERGED == true ]
           then
             git fetch
@@ -157,4 +255,3 @@ jobs:
           else
             echo "Pull request is not merged yet, therefore CHANGELOG.md will not be updated."
           fi
-      

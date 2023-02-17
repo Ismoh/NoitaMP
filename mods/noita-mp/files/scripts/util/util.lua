@@ -1,7 +1,17 @@
-local pprint = require("pprint")
+local pprint = {}
+if require then
+    pprint = require("pprint")
+else
+    pprint.pformat = function(...)
+        print(...)
+    end
+    pprint.defaults = {}
+end
 
 local util = {}
 
+--- Wait for n seconds.
+---@param s number seconds to wait
 function util.Sleep(s)
     if type(s) ~= "number" then
         error("Unable to wait if parameter 'seconds' isn't a number: " .. type(s))
@@ -12,7 +22,9 @@ function util.Sleep(s)
     until os.clock() > ntime
 end
 
-function util.IsEmpty(var) -- if you change this also change NetworkVscUtils.lua
+function util.IsEmpty(var)
+    -- if you change this also change NetworkVscUtils.lua
+    -- if you change this also change table_extensions.lua
     if var == nil then
         return true
     end
@@ -25,47 +37,7 @@ function util.IsEmpty(var) -- if you change this also change NetworkVscUtils.lua
     return false
 end
 
---- Extends @var to the @length with @char. Example 1: "test", 6, " " = "test  " | Example 2: "verylongstring", 5, " " = "veryl"
----@param var string any string you want to extend or cut
----@param length number
----@param char any
----@return string
-function util.ExtendAndCutStringToLength(var, length, char)
-    if type(var) ~= "string" then
-        error("var is not a string.", 2)
-    end
-    if type(length) ~= "number" then
-        error("length is not a number.", 2)
-    end
-    if type(char) ~= "string" or string.len(char) > 1 then
-        error("char is not a character. string.len(char) > 1 = " .. string.len(char), 2)
-    end
-
-    local new_var = ""
-    local len = string.len(var)
-    for i = 1, length, 1 do
-        local char_of_var = var:sub(i, i)
-        if char_of_var ~= "" then
-            new_var = new_var .. char_of_var
-        else
-            new_var = new_var .. char
-        end
-    end
-    return new_var
-end
-
--- function util.serialise(data)
---     return bitser.dumps(data)
--- end
-
--- --- Deserialise data
--- ---@param data any
--- ---@return any
--- function util.deserialise(data)
---     return bitser.loads(data)
--- end
-
---https://noita.fandom.com/wiki/Modding:_Utilities#Easier_entity_debugging
+--https://noita.wiki.gg/wiki/Modding:_Utilities#Easier_entity_debugging
 function util.str(var)
     if type(var) == "table" then
         local s = "{ "
@@ -80,25 +52,26 @@ function util.str(var)
     return tostring(var)
 end
 
---https://noita.fandom.com/wiki/Modding:_Utilities#Easier_entity_debugging
+--https://noita.wiki.gg/wiki/Modding:_Utilities#Easier_entity_debugging
 function util.debug_entity(e)
-    local parent = EntityGetParent(e)
+    local parent   = EntityGetParent(e)
     local children = EntityGetAllChildren(e)
-    local comps = EntityGetAllComponents(e)
+    local comps    = EntityGetAllComponents(e)
 
-    local msg = "--- ENTITY DATA ---\n"
-    msg = msg .. ("Parent: [" .. parent .. "] name = " .. (EntityGetName(parent) or "") .. "\n")
+    local msg      = "--- ENTITY DATA ---\n"
+    msg            = msg .. ("Parent: [" .. parent .. "] name = " .. (EntityGetName(parent) or "") .. "\n")
 
-    msg = msg .. (" Entity: [" .. util.str(e) .. "] name = " .. (EntityGetName(e) or "") .. "\n")
-    msg = msg .. ("  Tags: " .. (EntityGetTags(e) or "") .. "\n")
+    msg            = msg .. (" Entity: [" .. util.str(e) .. "] name = " .. (EntityGetName(e) or "") .. "\n")
+    msg            = msg .. ("  Tags: " .. (EntityGetTags(e) or "") .. "\n")
     if (comps ~= nil) then
         for _, comp in ipairs(comps) do
             local comp_type = ComponentGetTypeName(comp) or ""
-            msg = msg .. ("  Comp: [" .. comp .. "] type = " .. comp_type)
+            msg             = msg .. ("  Comp: [" .. comp .. "] type = " .. comp_type)
             if comp_type == "VariableStorageComponent" then
-                msg = msg .. (" - " .. (ComponentGetValue2(comp, "name") or "") .. " = " .. (ComponentGetValue2(comp, "value_string") or ""))
+                msg = msg .. (" - " .. (ComponentGetValue2(comp, "name") or "") .. " = " .. (ComponentGetValue2(comp,
+                                                                                                                "value_string") or ""))
             end
-            msg  = msg .."\n"
+            msg = msg .. "\n"
         end
     end
 
@@ -108,30 +81,41 @@ function util.debug_entity(e)
 
     for _, child in ipairs(children) do
         local comps = EntityGetAllComponents(child)
-        msg = msg .. ("  Child: [" .. child .. "] name = " .. EntityGetName(child) .. "\n")
+        msg         = msg .. ("  Child: [" .. child .. "] name = " .. EntityGetName(child) .. "\n")
         for _, comp in ipairs(comps) do
             local comp_type = ComponentGetTypeName(comp) or ""
             msg = msg .. ("   Comp: [" .. comp .. "] type = " .. comp_type)
             if comp_type == "VariableStorageComponent" then
-                msg = msg .. (" - " .. (ComponentGetValue2(comp, "name") or "") .. " = " .. (ComponentGetValue2(comp, "value_string") or ""))
+                msg = msg .. (" - " .. (ComponentGetValue2(comp, "name") or "") .. " = " .. (ComponentGetValue2(comp,
+                                                                                                                "value_string") or ""))
             end
-            msg  = msg .."\n"
+            msg = msg .. "\n"
         end
     end
     msg = msg .. ("--- END ENTITY DATA ---" .. "\n")
 
-    logger:debug(msg)
+    Logger.debug(Logger.channels.testing, msg)
 end
 
-function util.pprint(var)
-    pprint(var)
+function util.pformat(var)
+    return pprint.pformat(var, pprint.defaults)
 end
 
-function util.getLocalOwner()
-    return {
-        username = tostring(ModSettingGet("noita-mp.username")),
-        guid = tostring(ModSettingGet("noita-mp.guid"))
-    }
+--- Reloads the whole world with a specific seed. No need to restart the game and use magic numbers.
+---@param seed number max = 4294967295
+function util.reloadMap(seed)
+    SetWorldSeed(seed)
+    BiomeMapLoad_KeepPlayer("mods/noita-mp/files/scripts/DefaultBiomeMap.lua", "data/biome/_pixel_scenes.xml")
+end
+
+function util.copyToClipboard(copy)
+    local command = nil
+    if _G.is_windows then
+        command = ('echo "%s" | clip'):format(copy)
+    else
+        command = ('echo "%s" | xclip -sel clip'):format(copy)
+    end
+    os.execute(command)
 end
 
 return util

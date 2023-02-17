@@ -1,15 +1,13 @@
-dofile_once("mods/noita-mp/files/scripts/noita-components/dump_logger.lua")
-logger:setFile("name_tags")
+dofile_once("mods/noita-mp/files/scripts/init/init_logger.lua")
 EntityUtils = dofile_once("mods/noita-mp/files/scripts/util/EntityUtils.lua")
-
 
 function PlayerNameFunction(entity_id, playerName)
     gui = gui or GuiCreate()
     GuiStartFrame(gui)
     local screenWidth, screenHeight = GuiGetScreenDimensions(gui)
-    screenWidth, screenHeight = screenWidth / 2, screenHeight / 2
+    screenWidth, screenHeight       = screenWidth / 2, screenHeight / 2
 
-    local x, y = EntityGetTransform(entity_id)
+    local x, y                      = EntityGetTransform(entity_id)
 
     local function getEntityPositionOnScreen()
         local camX, camY = GameGetCameraPos()
@@ -18,7 +16,7 @@ function PlayerNameFunction(entity_id, playerName)
 
     local entityX, entityY = getEntityPositionOnScreen()
     local playerNameLength = string.len(playerName)
-    local playerNameMid = entityX - (playerNameLength * 2)
+    local playerNameMid    = entityX - (playerNameLength * 2)
 
     GuiText(gui, playerNameMid, entityY, playerName)
 end
@@ -29,19 +27,19 @@ if not EntityUtils.isEntityAlive(entityId) then
     return
 end
 
-username = username or nil
+name = name or nil
 
-if not username then
-    ---@diagnostic disable-next-line: missing-parameter
+if not name then
     local vsc = EntityGetComponentIncludingDisabled(entityId, "VariableStorageComponent") or {}
     for i = 1, #vsc do
         local variable_storage_component_name = ComponentGetValue2(vsc[i], "name") or nil
-        if variable_storage_component_name == "noita-mp.nc_owner.username" then -- see NetworkComponent.component_name_owner_username = "noita-mp.nc_owner.username"
-            username = ComponentGetValue2(vsc[i], "value_string")
+        if variable_storage_component_name == "noita-mp.nc_owner.name" then
+            -- see NetworkComponent.component_name_owner_username = "noita-mp.nc_owner.username"
+            name = ComponentGetValue2(vsc[i], "value_string")
         end
     end
 end
 
-if username then
-    PlayerNameFunction(entityId, username)
+if name then
+    PlayerNameFunction(entityId, name)
 end
