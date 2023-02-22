@@ -167,9 +167,31 @@ function OnWorldPreUpdate()
     CustomProfiler.stop("init.OnWorldPreUpdate", cpc)
 end
 
---function OnWorldPostUpdate()
---    local cpc = CustomProfiler.start("init.OnWorldPostUpdate")
---    Server.update()
---    Client.update()
---    CustomProfiler.stop("init.OnWorldPostUpdate", cpc)
---end
+----------------------------------------------------------------------------------------------------
+--- Patch every XML file to remove the CameraBoundComponent
+----------------------------------------------------------------------------------------------------
+do
+    Server.entityCameraBindings = {}
+    function patchModTree(path)
+        --- Works on windows only 
+        for dir in io.popen(('dir "%s" /b'):format(path)):lines() do
+            local file = (path .. "\\" ..  dir)
+            if fu.IsDirectory(file) then
+                patchModTree(file)
+            else
+                local s, e = file:find("%.xml$")
+                if s and e then
+                    print(file)
+                end
+            end
+        end
+    end
+    local enabledMods = ModGetActiveModIDs()
+    local modFolderPath = fu.GetAbsolutePathOfNoitaRootDirectory() .. "/mods/"
+    for i=1, #enabledMods do
+        local v = enabledMods[i]
+        if v ~= "noita-mp" then
+            patchModTree(fu.ReplacePathSeparator(modFolderPath .. v))
+        end
+    end
+end
