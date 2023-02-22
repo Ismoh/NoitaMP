@@ -171,7 +171,8 @@ end
 --- Patch every XML file to remove the CameraBoundComponent
 ----------------------------------------------------------------------------------------------------
 do
-    Logger.info(Logger.channels.initialize, "Starting to patch XML files to remove CameraBoundComponents")
+    Logger.info(Logger.channels.initialize, "Starting to patch XML files to remove CameraBoundComponents. Might take a while.")
+    local timer = os.time()
     Server.entityCameraBindings = {}
     local rootNoitaPath = fu.GetAbsolutePathOfNoitaRootDirectory() .. "/"
     local function patchXMLFile(file)
@@ -234,4 +235,5 @@ do
     end
     local filesToPatch = dofile("mods/noita-mp/files/scripts/init/vanillaFilesToPatch.lua")
     for i=1, #filesToPatch do patchXMLFile(filesToPatch[i]) end
+    Logger.info(Logger.channels.initialize, ("Finished patching XML files. Took %sms."):format(os.time() - timer))
 end
