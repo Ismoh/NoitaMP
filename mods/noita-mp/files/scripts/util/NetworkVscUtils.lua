@@ -402,10 +402,10 @@ function NetworkVscUtils.getAllVcsValuesByComponentIds(ownerNameCompId, ownerGui
     local compOwnerGuid = ComponentGetValue2(ownerGuidCompId, NetworkVscUtils.valueString)
     local compNuid      = ComponentGetValue2(nuidCompId, NetworkVscUtils.valueString)
 
-    if util.IsEmpty(compOwnerName) then
+    if Utils.IsEmpty(compOwnerName) then
         error(("Something really bad went wrong! compOwnerName must not be empty: %s"):format(compOwnerName), 2)
     end
-    if util.IsEmpty(compOwnerGuid) then
+    if Utils.IsEmpty(compOwnerGuid) then
         error(("Something really bad went wrong! compOwnerGuid must not be empty: %s"):format(compOwnerGuid), 2)
     end
 

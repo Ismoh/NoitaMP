@@ -91,7 +91,7 @@ function Ui.new()
                 showAddress = not showAddress
             end,
             copyAddress          = function()
-                util.copyToClipboard(("%s:%s"):format(_G.Server:getAddress(), _G.Server:getPort()))
+                Utils.copyToClipboard(("%s:%s"):format(_G.Server:getAddress(), _G.Server:getPort()))
             end,
             kick                 = function(data, element, arg1)
                 _G.Server.kick(arg1)

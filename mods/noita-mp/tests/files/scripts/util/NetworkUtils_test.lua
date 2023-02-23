@@ -22,7 +22,7 @@ if not Client then
 end
 
 local lu         = require("luaunit")
-local util       = require("util")
+local Utils       = require("Utils")
 
 -- [[ Test ]] --
 TestNetworkUtils = {}
@@ -115,7 +115,7 @@ function TestNetworkUtils:testAlreadySentConnect2()
     Client.connection.send = function(serializedMessage, sendChannel, sendMode)
         Logger.trace(Logger.channels.testing,
                      ("Mocked 'self.connection:send(serializedMessage %s, self.sendChannel, self.sendMode)' executed!")
-                             :format(util.pformat(serializedMessage)))
+                             :format(Utils.pformat(serializedMessage)))
     end
 
     -- [[ Send message ]] --
@@ -167,7 +167,7 @@ function TestNetworkUtils:testAlreadySentDisconnect2()
     Client.connection.send = function(serializedMessage, sendChannel, sendMode)
         Logger.trace(Logger.channels.testing,
                      ("Mocked 'self.connection:send(serializedMessage %s, self.sendChannel, self.sendMode)' executed!")
-                             :format(util.pformat(serializedMessage)))
+                             :format(Utils.pformat(serializedMessage)))
     end
 
     -- [[ Send message ]] --
@@ -221,7 +221,7 @@ function TestNetworkUtils:testAlreadySentSeed()
     Client.connection.send = function(serializedMessage, sendChannel, sendMode)
         Logger.trace(Logger.channels.testing,
                      ("Mocked 'self.connection:send(serializedMessage %s, self.sendChannel, self.sendMode)' executed!")
-                             :format(util.pformat(serializedMessage)))
+                             :format(Utils.pformat(serializedMessage)))
     end
 
     -- [[ Send message ]] --
@@ -278,7 +278,7 @@ function TestNetworkUtils:testAlreadySentPlayerInfo()
     Client.connection.send = function(serializedMessage, sendChannel, sendMode)
         Logger.trace(Logger.channels.testing,
                      ("Mocked 'self.connection:send(serializedMessage %s, self.sendChannel, self.sendMode)' executed!")
-                             :format(util.pformat(serializedMessage)))
+                             :format(Utils.pformat(serializedMessage)))
     end
 
     -- [[ Send message ]] --
@@ -329,7 +329,7 @@ function TestNetworkUtils:testAlreadySentNewGuid()
     Client.connection.send = function(serializedMessage, sendChannel, sendMode)
         Logger.trace(Logger.channels.testing,
                      ("Mocked 'self.connection:send(serializedMessage %s, self.sendChannel, self.sendMode)' executed!")
-                             :format(util.pformat(serializedMessage)))
+                             :format(Utils.pformat(serializedMessage)))
     end
 
     -- [[ Send message ]] --
@@ -398,7 +398,7 @@ function TestNetworkUtils:testAlreadySentNewNuid()
     Client.connection.send = function(serializedMessage, sendChannel, sendMode)
         Logger.trace(Logger.channels.testing,
                      ("Mocked 'self.connection:send(serializedMessage %s, self.sendChannel, self.sendMode)' executed!")
-                             :format(util.pformat(serializedMessage)))
+                             :format(Utils.pformat(serializedMessage)))
     end
 
     -- [[ Send message ]] --
@@ -463,7 +463,7 @@ function TestNetworkUtils:testAlreadySentNeedNuidShouldReturnTrue()
         filename, health, EntityUtils.isEntityPolymorphed(entityId)
     }
 
-    print(("Let's see if this was already sent: entity %s with data %s"):format(entityId, util.pformat(data)))
+    print(("Let's see if this was already sent: entity %s with data %s"):format(entityId, Utils.pformat(data)))
     -- [[ Check if the message was already sent ]] --
     lu.assertIs(NetworkUtils.alreadySent(Client, "needNuid", data), true,
                 "The message was already sent, but the function NetworkUtils.alreadySent() returned false!")
@@ -519,7 +519,7 @@ function TestNetworkUtils:testAlreadySentNeedNuidShouldReturnFalse()
         filename, health, EntityUtils.isEntityPolymorphed(entityId)
     }
 
-    print(("Let's see if this WASN'T already sent: entity %s with data %s"):format(entityId, util.pformat(data)))
+    print(("Let's see if this WASN'T already sent: entity %s with data %s"):format(entityId, Utils.pformat(data)))
     -- [[ Check if the message WASN'T already sent ]] --
     lu.assertIs(NetworkUtils.alreadySent(Client, event, data), false,
                 "The message WASN'T already sent, but the function NetworkUtils.alreadySent() returned true!")
@@ -554,7 +554,7 @@ function TestNetworkUtils:testAlreadySentLostNuid()
     Client.connection.send = function(serializedMessage, sendChannel, sendMode)
         Logger.trace(Logger.channels.testing,
                      ("Mocked 'self.connection:send(serializedMessage %s, self.sendChannel, self.sendMode)' executed!")
-                             :format(util.pformat(serializedMessage)))
+                             :format(Utils.pformat(serializedMessage)))
     end
 
     -- [[ Send message ]] --
@@ -604,13 +604,13 @@ function TestNetworkUtils:testAlreadySentDeadNuids()
     Client.connection.send      = function(serializedMessage, sendChannel, sendMode)
         Logger.trace(Logger.channels.testing,
                      ("Mocked 'self.connection:send(serializedMessage %s, self.sendChannel, self.sendMode)' executed!")
-                             :format(util.pformat(serializedMessage)))
+                             :format(Utils.pformat(serializedMessage)))
     end
     local originalDestroyByNuid = EntityUtils.destroyByNuid
     EntityUtils.destroyByNuid   = function(peer, deadNuid)
         Logger.trace(Logger.channels.testing,
                      ("Mocked 'EntityUtils.destroyByNuid' on '%s' destroyed a dead nuid '%s'!")
-                             :format(util.pformat(peer), deadNuid))
+                             :format(Utils.pformat(peer), deadNuid))
     end
     require("GlobalsUtils")
     local originalRemoveDeadNuid = GlobalsUtils.removeDeadNuid
@@ -691,7 +691,7 @@ function TestNetworkUtils:testAlreadySentNeedModList()
     Client.connection.send = function(serializedMessage, sendChannel, sendMode)
         Logger.trace(Logger.channels.testing,
                      ("Mocked 'self.connection:send(serializedMessage %s, self.sendChannel, self.sendMode)' executed!")
-                             :format(util.pformat(serializedMessage)))
+                             :format(Utils.pformat(serializedMessage)))
     end
 
     -- [[ Send message ]] --
@@ -759,7 +759,7 @@ function TestNetworkUtils:testAlreadySentNeedModContent()
     Client.connection.send = function(serializedMessage, sendChannel, sendMode)
         Logger.trace(Logger.channels.testing,
                      ("Mocked 'self.connection:send(serializedMessage %s, self.sendChannel, self.sendMode)' executed!")
-                             :format(util.pformat(serializedMessage)))
+                             :format(Utils.pformat(serializedMessage)))
     end
 
     -- [[ Send message ]] --

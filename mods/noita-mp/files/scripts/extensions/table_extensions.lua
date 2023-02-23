@@ -210,8 +210,8 @@ function table.contentToString(tbl)
     if not tbl or type(tbl) ~= "table" then
         error("'tbl' must not be nil and type of table!", 2)
     end
-    if not util then
-        util = require("util")
+    if not Utils then
+        Utils = require("Utils")
     end
 
     --Logger.trace(Logger.channels.testing, ("tbl = %s"):format(util.pformat(tbl)))

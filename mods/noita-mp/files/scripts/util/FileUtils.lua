@@ -4,14 +4,14 @@ local ffi       = require("ffi")
 local watcher   = require("watcher")
 local lfs       = require("lfs")
 local json      = require("json")
-local util      = require("util")
+local Utils      = require("Utils")
 
 --- @return string
 function FileUtils.GetVersionByFile()
     local modsPath           = FileUtils.GetAbsoluteDirectoryPathOfNoitaMP()
     local versionAbsFilePath = ("%s%s.version"):format(modsPath, pathSeparator)
     local content            = FileUtils.ReadFile(versionAbsFilePath, "*l")
-    if not content or util.IsEmpty(content) then
+    if not content or Utils.IsEmpty(content) then
         error(("Unable to read NoitaMP version. Check if '%s' exists!")
         :format(FileUtils.GetAbsolutePathOfNoitaRootDirectory() + "/.version"), 2)
     end
@@ -103,7 +103,7 @@ function FileUtils.SetAbsolutePathOfNoitaRootDirectory()
         noitaRootDirectory = assert(io.popen("pwd"):read("*l"),
             "Unable to run ubuntu command 'pwd' to get Noitas root directory!")
     else
-        error(("file_util.lua | Unable to detect OS(%s[%s]), therefore not able to replace path separator!")
+        error(("FileUtils.lua | Unable to detect OS(%s[%s]), therefore not able to replace path separator!")
         :format(_G.os_name, _G.os_arch), 2)
     end
     noitaRootDirectory = FileUtils.ReplacePathSeparator(noitaRootDirectory)
@@ -160,7 +160,7 @@ function FileUtils.GetAbsoluteDirectoryPathOfParentSave()
     local line                         = ""
     while line ~= nil do
         line = file:read("*l")
-        --logger:debug("file_util.lua | GetAbsoluteDirectoryPathOfParentSave line = " .. line)
+        --logger:debug("FileUtils.lua | GetAbsoluteDirectoryPathOfParentSave line = " .. line)
         if string.find(line, find_directory_name) then
             save06_parent_directory_path = line
             break
@@ -280,10 +280,10 @@ end
 function FileUtils.IsFile(full_path)
     -- https://stackoverflow.com/a/21637809/3493998
     if type(full_path) ~= "string" then
-        error("file_util.lua | Parameter full_path '" .. tostring(full_path) .. "' is not type of string!")
+        error("FileUtils.lua | Parameter full_path '" .. tostring(full_path) .. "' is not type of string!")
     end
     if not FileUtils.Exists(full_path) then
-        --logger:debug("file_util.lua | Path '" .. tostring(full_path) .. "' does not exist!")
+        --logger:debug("FileUtils.lua | Path '" .. tostring(full_path) .. "' does not exist!")
         return false
     end
     local f = io.open(full_path)
@@ -299,12 +299,12 @@ end
 function FileUtils.IsDirectory(full_path)
     -- https://stackoverflow.com/a/21637809/3493998
     if type(full_path) ~= "string" then
-        error("file_util.lua | Parameter full_path '" .. tostring(full_path) .. "' is not type of string!")
+        error("FileUtils.lua | Parameter full_path '" .. tostring(full_path) .. "' is not type of string!")
     end
     local exists  = FileUtils.Exists(full_path)
-    --logger:debug("file_util.lua | Directory " .. full_path .. " exists = " .. tostring(exists))
+    --logger:debug("FileUtils.lua | Directory " .. full_path .. " exists = " .. tostring(exists))
     local is_file = FileUtils.IsFile(full_path)
-    --logger:debug("file_util.lua | Is the directory a file? " .. full_path .. " is_file = " .. tostring(is_file))
+    --logger:debug("FileUtils.lua | Is the directory a file? " .. full_path .. " is_file = " .. tostring(is_file))
     return (exists and not is_file)
 end
 
@@ -312,7 +312,7 @@ end
 --- @return string|number
 function FileUtils.ReadBinaryFile(file_fullpath)
     if type(file_fullpath) ~= "string" then
-        error("file_util.lua | Parameter file_fullpath '" .. tostring(file_fullpath) .. "' is not type of string!")
+        error("FileUtils.lua | Parameter file_fullpath '" .. tostring(file_fullpath) .. "' is not type of string!")
     end
     file_fullpath = FileUtils.ReplacePathSeparator(file_fullpath)
     -- https://stackoverflow.com/a/31857671/3493998
@@ -329,7 +329,7 @@ end
 --- @param file_content any
 function FileUtils.WriteBinaryFile(file_fullpath, file_content)
     if type(file_fullpath) ~= "string" then
-        error("file_util.lua | Parameter file_fullpath '" .. tostring(file_fullpath) .. "' is not type of string!")
+        error("FileUtils.lua | Parameter file_fullpath '" .. tostring(file_fullpath) .. "' is not type of string!")
     end
     file_fullpath = FileUtils.ReplacePathSeparator(file_fullpath)
     -- http://lua-users.org/wiki/FileInputOutput
@@ -347,7 +347,7 @@ function FileUtils.ReadFile(file_fullpath, mode)
     end
 
     if type(file_fullpath) ~= "string" then
-        error("file_util.lua | Parameter file_fullpath '" .. tostring(file_fullpath) .. "' is not type of string!")
+        error("FileUtils.lua | Parameter file_fullpath '" .. tostring(file_fullpath) .. "' is not type of string!")
     end
     file_fullpath = FileUtils.ReplacePathSeparator(file_fullpath)
     -- https://stackoverflow.com/a/31857671/3493998
@@ -364,7 +364,7 @@ end
 ---@param file_content string
 function FileUtils.WriteFile(file_fullpath, file_content)
     if type(file_fullpath) ~= "string" then
-        error("file_util.lua | Parameter file_fullpath '" .. tostring(file_fullpath) .. "' is not type of string!")
+        error("FileUtils.lua | Parameter file_fullpath '" .. tostring(file_fullpath) .. "' is not type of string!")
     end
     file_fullpath         = FileUtils.ReplacePathSeparator(file_fullpath)
 
@@ -392,7 +392,7 @@ end
 --- @param full_path string
 function FileUtils.MkDir(full_path)
     if type(full_path) ~= "string" then
-        error("file_util.lua | Parameter file_fullpath '" .. tostring(full_path) .. "' is not type of string!")
+        error("FileUtils.lua | Parameter file_fullpath '" .. tostring(full_path) .. "' is not type of string!")
     end
     -- https://stackoverflow.com/a/1690932/3493998
     full_path     = FileUtils.ReplacePathSeparator(full_path)
@@ -479,7 +479,7 @@ function FileUtils.Find7zipExecutable()
         end
         local response = f:read("*a")
         _G.seven_zip   = tostring(FileUtils.ReplacePathSeparator(response))
-        Logger.debug(Logger.channels.testing, "file_util.lua | Found 7z.exe: " .. _G.seven_zip)
+        Logger.debug(Logger.channels.testing, "FileUtils.lua | Found 7z.exe: " .. _G.seven_zip)
     else
         error(
             "Unfortunately unix systems aren't supported yet. Please consider https://github.com/Ismoh/NoitaMP/issues!",
@@ -508,17 +508,17 @@ function FileUtils.Create7zipArchive(archive_name, absolute_directory_path_to_ad
     )
 
     if type(archive_name) ~= "string" then
-        error("file_util.lua | Parameter archive_name '" .. tostring(archive_name) .. "' is not type of string!")
+        error("FileUtils.lua | Parameter archive_name '" .. tostring(archive_name) .. "' is not type of string!")
     end
     if type(absolute_directory_path_to_add_archive) ~= "string" then
         error(
-            "file_util.lua | Parameter absolute_directory_path_to_add_archive '" ..
+            "FileUtils.lua | Parameter absolute_directory_path_to_add_archive '" ..
             tostring(absolute_directory_path_to_add_archive) .. "' is not type of string!"
         )
     end
     if type(absolute_destination_path) ~= "string" then
         error(
-            "file_util.lua | Parameter absolute_destination_path '" ..
+            "FileUtils.lua | Parameter absolute_destination_path '" ..
             tostring(absolute_destination_path) .. "' is not type of string!"
         )
     end
@@ -529,7 +529,7 @@ function FileUtils.Create7zipArchive(archive_name, absolute_directory_path_to_ad
     local command                          = 'cd "' ..
         absolute_destination_path ..
         '" && 7z.exe a -t7z ' .. archive_name .. ' "' .. absolute_directory_path_to_add_archive .. '"'
-    Logger.debug(Logger.channels.testing, "file_util.lua | Running: " .. command)
+    Logger.debug(Logger.channels.testing, "FileUtils.lua | Running: " .. command)
     os.execute(command)
 
     local archive_full_path = absolute_destination_path .. _G.pathSeparator .. archive_name .. ".7z"
@@ -546,7 +546,7 @@ function FileUtils.Extract7zipArchive(archive_absolute_directory_path, archive_n
     local command                   = 'cd "' ..
         archive_absolute_directory_path ..
         '" && 7z.exe x -aoa ' .. archive_name .. ' -o"' .. extract_absolute_directory_path .. '"'
-    Logger.debug(Logger.channels.testing, "file_util.lua | Running: " .. command)
+    Logger.debug(Logger.channels.testing, "FileUtils.lua | Running: " .. command)
     os.execute(command)
 end
 

@@ -14,7 +14,7 @@ local fu        = require("FileUtils")
 local lfs       = require("lfs")
 local winapi    = require("winapi")
 local json      = require("json")
-local util      = require("util")
+local Utils      = require("Utils")
 
 ------------------------------------------------------------------------------------------------------------------------
 --- NoitaMpSettings
@@ -36,11 +36,11 @@ end
 
 function NoitaMpSettings.writeSettings(key, value)
     local cpc = CustomProfiler.start("NoitaMpSettings.writeSettings")
-    if util.IsEmpty(key) or type(key) ~= "string" then
+    if Utils.IsEmpty(key) or type(key) ~= "string" then
         error(("'key' must not be nil or is not type of string!"):format(key), 2)
     end
 
-    if util.IsEmpty(value) or type(value) ~= "string" then
+    if Utils.IsEmpty(value) or type(value) ~= "string" then
         error(("'value' must not be nil or is not type of string!"):format(value), 2)
     end
 
@@ -84,7 +84,7 @@ function NoitaMpSettings.getSetting(key)
     local contentString = fu.ReadFile(settingsFile)
     local contentJson   = json.decode(contentString)
 
-    if util.IsEmpty(contentJson[key]) then
+    if Utils.IsEmpty(contentJson[key]) then
         error(("Unable to find '%s' in NoitaMpSettings: %s"):format(key, contentString), 2)
     end
     local value = contentJson[key]

@@ -9,7 +9,7 @@
 
 local json                               = require("dkjson")
 local plotly                             = require("plotly")
-local util                               = require("util")
+local Utils                               = require("Utils")
 local fu                                 = require("file_util")
 
 ---@class CustomProfiler
@@ -83,7 +83,7 @@ function CustomProfiler.stop(functionName, customProfilerCounter)
         return 0
     end
 
-    if util.IsEmpty(CustomProfiler.reportCache) then
+    if Utils.IsEmpty(CustomProfiler.reportCache) then
         return
     end
 

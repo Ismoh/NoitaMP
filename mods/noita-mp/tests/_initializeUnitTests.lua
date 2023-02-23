@@ -41,14 +41,14 @@ if not ModSettingGet then
         end
         if id == "noita-mp.name" then
             local name = MinaUtils.getLocalMinaName()
-            if util.IsEmpty(name) then
+            if Utils.IsEmpty(name) then
                 name = "initializeUnitTests"
             end
             return name
         end
         if id == "noita-mp.guid" then
             local guid = MinaUtils.getLocalMinaGuid()
-            if util.IsEmpty(guid) then
+            if Utils.IsEmpty(guid) then
                 guid = GuidUtils:getGuid()
             end
             return guid

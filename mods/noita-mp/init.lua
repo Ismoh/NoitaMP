@@ -6,7 +6,7 @@ end
 --- Imports by dofile, dofile_once and require
 ----------------------------------------------------------------------------------------------------
 dofile("mods/noita-mp/files/scripts/init/init_.lua")
-local util = require("util")
+local Utils = require("Utils")
 local fu   = require("FileUtils")
 local ui   = require("Ui").new()
 
@@ -36,7 +36,7 @@ local function setSeedIfConnectedSecondTime()
     Logger.debug(Logger.channels.initialize, ("Servers world seed = %s"):format(seed))
     if not seed and seed > 0 then
         if DebugGetIsDevBuild() then
-            util.Sleep(5) -- needed to be able to attach debugger again
+            Utils.Sleep(5) -- needed to be able to attach debugger again
         end
 
         local cpc1                  = CustomProfiler.start("ModSettingGet")
@@ -141,7 +141,7 @@ function OnWorldPreUpdate()
                     ModSettingSetNextValue("noita-mp.saveSlotMetaDirectory", _G.saveSlotMeta.dir, false)
                     CustomProfiler.stop("ModSettingSetNextValue", cpc1)
                     Logger.info(Logger.channels.initialize,
-                                ("Save slot found in '%s'"):format(util.pformat(_G.saveSlotMeta)))
+                                ("Save slot found in '%s'"):format(Utils.pformat(_G.saveSlotMeta)))
                 end
             end
         end
