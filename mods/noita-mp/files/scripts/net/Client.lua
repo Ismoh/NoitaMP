@@ -10,7 +10,7 @@ local sock        = require("sock")
 local util        = require("util")
 local zstandard   = require("zstd")
 local messagePack = require("MessagePack")
-local fu          = require("file_util")
+local fu          = require("FileUtils")
 
 ----------------------------------------------------------------------------------------------------
 --- Client
@@ -213,7 +213,7 @@ function Client.new(sockClient)
         local nuid            = localPlayerInfo.nuid -- Could be nil. Timing issue. Will be set after this.
 
         self:send(NetworkUtils.events.playerInfo.name,
-                  { NetworkUtils.getNextNetworkMessageId(), name, guid, fu.getVersionByFile(), nuid })
+                  { NetworkUtils.getNextNetworkMessageId(), name, guid, fu.GetVersionByFile(), nuid })
 
         self:send(NetworkUtils.events.needModList.name,
                   { NetworkUtils.getNextNetworkMessageId(), nil, nil})
@@ -341,9 +341,9 @@ function Client.new(sockClient)
                         ("onPlayerInfo: Clients GUID %s isn't unique! Server will fix this!"):format(self.guid))
         end
 
-        if fu.getVersionByFile() ~= tostring(data.version) then
+        if fu.GetVersionByFile() ~= tostring(data.version) then
             error(("Version mismatch: NoitaMP version of Server: %s and your version: %s")
-                          :format(data.version, fu.getVersionByFile()), 3)
+                          :format(data.version, fu.GetVersionByFile()), 3)
             self:disconnect()
         end
 
@@ -434,7 +434,7 @@ function Client.new(sockClient)
         local entityId        = localPlayerInfo.entityId
 
         self:send(NetworkUtils.events.playerInfo.name,
-                  { NetworkUtils.getNextNetworkMessageId(), name, guid, fu.getVersionByFile(), nuid })
+                  { NetworkUtils.getNextNetworkMessageId(), name, guid, fu.GetVersionByFile(), nuid })
 
         if not NetworkVscUtils.hasNetworkLuaComponents(entityId) then
             NetworkVscUtils.addOrUpdateAllVscs(entityId, name, guid, nil)
@@ -638,8 +638,6 @@ function Client.new(sockClient)
     end
 
     local function onNeedModContent(data)
-        ---@module "file_util"
-        local fu  = dofile_once("mods/noita-mp/files/scripts/util/file_util.lua")
         local cpc = CustomProfiler.start("Client.onNeedModContent")
         for _, v in ipairs(data.items) do
             local modName = v.name

@@ -5,7 +5,7 @@
 local params        = ...
 
 local lu            = require("luaunit")
-local fu            = require("file_util")
+local fu            = require("FileUtils")
 
 TestNoitaMpSettings = {}
 
@@ -17,7 +17,7 @@ end
 
 function TestNoitaMpSettings:testClearAndCreateSettings()
     NoitaMpSettings.clearAndCreateSettings()
-    local files = fu.getAllFilesInDirectory(fu.getAbsolutePathOfNoitaMpSettingsDirectory(), "json")
+    local files = fu.GetAllFilesInDirectory(fu.GetAbsolutePathOfNoitaMpSettingsDirectory(), "json")
     lu.assertEquals(files, {}, "Settings directory wasn't empty!")
 end
 

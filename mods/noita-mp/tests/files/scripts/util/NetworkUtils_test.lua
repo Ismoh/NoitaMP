@@ -241,13 +241,13 @@ function TestNetworkUtils:testAlreadySentSeed()
 end
 
 function TestNetworkUtils:testAlreadySentPlayerInfo()
-    local fu               = require("file_util")
+    local fu               = require("FileUtils")
 
     -- [[ Prepare mocked data for sending PlayerInfo! ]] --
     local networkMessageId = NetworkUtils.getNextNetworkMessageId()
     local name             = "ClientOwnerName"
     local guid             = GuidUtils:getGuid()
-    local version          = fu.getVersionByFile()
+    local version          = fu.GetVersionByFile()
     local nuid             = nil
 
     local data             = {

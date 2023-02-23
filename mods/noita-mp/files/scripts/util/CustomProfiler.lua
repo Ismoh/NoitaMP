@@ -20,7 +20,7 @@ CustomProfiler.threshold                 = 16.5 --ms = 60.60 fps
 CustomProfiler.ceiling                   = 1001 -- ms
 CustomProfiler.maxEntries                = 25 -- entries per trace
 CustomProfiler.reportDirectory           = ("%s%sNoitaMP-Reports%s%s")
-        :format(fu.getDesktopDirectory(), pathSeparator, pathSeparator, os.date("%Y-%m-%d_%H-%M-%S", os.time()))
+        :format(fu.GetDesktopDirectory(), pathSeparator, pathSeparator, os.date("%Y-%m-%d_%H-%M-%S", os.time()))
 CustomProfiler.reportFilename            = "report.html"
 CustomProfiler.reportJsonFilenamePattern = "%s.json"
 
@@ -147,7 +147,7 @@ function CustomProfiler.stop(functionName, customProfilerCounter)
             CustomProfiler.reportCache[functionName]["size"] and
             CustomProfiler.reportCache[functionName]["size"] >= CustomProfiler.maxEntries
     then
-        if not fu.exists(CustomProfiler.reportDirectory) then
+        if not fu.Exists(CustomProfiler.reportDirectory) then
             fu.MkDir(CustomProfiler.reportDirectory)
         end
 

@@ -15,7 +15,7 @@ ModSettingGet             = function(id)
 end
 
 local lu                  = require("luaunit")
-local fu                  = require("file_util")
+local fu                  = require("FileUtils")
 
 TestFileUtil              = {}
 
@@ -215,9 +215,9 @@ end
 ----------------------------------------------------------------------------------------------------
 
 function TestFileUtil:testExists()
-    lu.assertNotIsTrue(fu.exists("nonexistingfile.asdf"))
-    lu.assertErrorMsgContains("is not type of string!", fu.exists)
-    lu.assertIsTrue(fu.exists(fu.GetAbsoluteDirectoryPathOfNoitaMP() .. "/mod.xml"))
+    lu.assertNotIsTrue(fu.Exists("nonexistingfile.asdf"))
+    lu.assertErrorMsgContains("is not type of string!", fu.Exists)
+    lu.assertIsTrue(fu.Exists(fu.GetAbsoluteDirectoryPathOfNoitaMP() .. "/mod.xml"))
 end
 
 function TestFileUtil:testIsFile()
@@ -245,7 +245,7 @@ function TestFileUtil:testWriteBinaryFile()
 
     local full_path = fu.GetAbsolutePathOfNoitaRootDirectory() .. "/write-temporary-binary-test-file.txt"
     fu.WriteBinaryFile(full_path, "File Content")
-    lu.assertIsTrue(fu.exists(full_path))
+    lu.assertIsTrue(fu.Exists(full_path))
     os.remove(full_path)
 end
 
@@ -262,7 +262,7 @@ function TestFileUtil:testWriteFile()
 
     local full_path = fu.GetAbsolutePathOfNoitaRootDirectory() .. "/write-temporary-test-file.txt"
     fu.WriteFile(full_path, "File Content")
-    lu.assertIsTrue(fu.exists(full_path))
+    lu.assertIsTrue(fu.Exists(full_path))
     os.remove(full_path)
 end
 
@@ -283,9 +283,9 @@ end
 function TestFileUtil:testExists7zip()
     local old    = _G.seven_zip
     _G.seven_zip = false -- mock
-    lu.assertNotIsTrue(fu.exists7zip())
+    lu.assertNotIsTrue(fu.Exists7zip())
     _G.seven_zip = true -- mock
-    lu.assertIsTrue(fu.exists7zip())
+    lu.assertIsTrue(fu.Exists7zip())
     _G.seven_zip = old
 end
 

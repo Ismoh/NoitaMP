@@ -8,7 +8,7 @@
 ----------------------------------------
 local sock        = require("sock")
 local util        = require("util")
-local fu          = require("file_util")
+local fu          = require("FileUtils")
 local zstandard   = require("zstd")
 local messagePack = require("MessagePack")
 
@@ -228,7 +228,7 @@ function Server.new(sockServer)
         end
 
         self:send(peer, NetworkUtils.events.playerInfo.name,
-                  { NetworkUtils.getNextNetworkMessageId(), name, guid, fu.getVersionByFile(), nuid })
+                  { NetworkUtils.getNextNetworkMessageId(), name, guid, fu.GetVersionByFile(), nuid })
 
         self:send(peer, NetworkUtils.events.seed.name,
                   { NetworkUtils.getNextNetworkMessageId(), StatsGetValue("world_seed") })
@@ -312,9 +312,9 @@ function Server.new(sockServer)
             error(("onPlayerInfo data.version is empty: %s"):format(data.version), 3)
         end
 
-        if fu.getVersionByFile() ~= tostring(data.version) then
+        if fu.GetVersionByFile() ~= tostring(data.version) then
             error(("Version mismatch: NoitaMP version of Client: %s and your version: %s")
-                          :format(data.version, fu.getVersionByFile()), 3)
+                          :format(data.version, fu.GetVersionByFile()), 3)
             peer:disconnect()
         end
 

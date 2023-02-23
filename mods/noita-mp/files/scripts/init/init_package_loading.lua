@@ -40,7 +40,7 @@ package.cpath = package.cpath .. ";" ..
         "mods\\noita-mp\\lua_modules\\lib\\lua\\5.1\\?.dll;"
 print("package.cpath = " .. package.cpath)
 
-local fu                                     = require("file_util")
+local fu                                     = require("FileUtils")
 --[[ NoitaMP additions ]]
 -- A list of paths to lua script modules
 local paths                                  = {

@@ -10,7 +10,7 @@
 ------------------------------------------------------------------------------------------------------------------------
 --- 'Imports'
 ------------------------------------------------------------------------------------------------------------------------
-local fu        = require("file_util")
+local fu        = require("FileUtils")
 local lfs       = require("lfs")
 local winapi    = require("winapi")
 local json      = require("json")
@@ -23,9 +23,9 @@ NoitaMpSettings = {}
 
 function NoitaMpSettings.clearAndCreateSettings()
     local cpc         = CustomProfiler.start("NoitaMpSettings.clearAndCreateSettings")
-    local settingsDir = fu.getAbsolutePathOfNoitaMpSettingsDirectory()
-    if fu.exists(settingsDir) then
-        fu.removeContentOfDirectory(settingsDir)
+    local settingsDir = fu.GetAbsolutePathOfNoitaMpSettingsDirectory()
+    if fu.Exists(settingsDir) then
+        fu.RemoveContentOfDirectory(settingsDir)
         Logger.info(Logger.channels.initialize, ("Removed old settings in '%s'!"):format(settingsDir))
     else
         lfs.mkdir(settingsDir)
@@ -51,9 +51,9 @@ function NoitaMpSettings.writeSettings(key, value)
         who = whoAmI()
     end
     local settingsFile = ("%s%s%s%s.json")
-            :format(fu.getAbsolutePathOfNoitaMpSettingsDirectory(), pathSeparator, pid, who)
+            :format(fu.GetAbsolutePathOfNoitaMpSettingsDirectory(), pathSeparator, pid, who)
 
-    if not fu.exists(settingsFile) then
+    if not fu.Exists(settingsFile) then
         fu.WriteFile(settingsFile, "{}")
     end
 
@@ -75,9 +75,9 @@ function NoitaMpSettings.getSetting(key)
     local pid          = winapi.get_current_pid()
 
     local settingsFile = ("%s%s%s%s.json")
-            :format(fu.getAbsolutePathOfNoitaMpSettingsDirectory(), pathSeparator, pid, whoAmI())
+            :format(fu.GetAbsolutePathOfNoitaMpSettingsDirectory(), pathSeparator, pid, whoAmI())
 
-    if not fu.exists(settingsFile) then
+    if not fu.Exists(settingsFile) then
         fu.WriteFile(settingsFile, "{}")
     end
 

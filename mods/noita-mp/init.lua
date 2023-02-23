@@ -7,7 +7,7 @@ end
 ----------------------------------------------------------------------------------------------------
 dofile("mods/noita-mp/files/scripts/init/init_.lua")
 local util = require("util")
-local fu   = require("file_util")
+local fu   = require("FileUtils")
 local ui   = require("Ui").new()
 
 Logger.debug(Logger.channels.initialize, "Starting to load noita-mp init.lua..")
@@ -20,7 +20,7 @@ NoitaMpSettings.clearAndCreateSettings()
 -- Is used to stop Noita pausing game, when focus is gone (tab out game)
 ModMagicNumbersFileAdd("mods/noita-mp/files/data/magic_numbers.xml")
 fu.Find7zipExecutable()
-local saveSlotsLastModifiedBeforeWorldInit = fu.getLastModifiedSaveSlots()
+local saveSlotsLastModifiedBeforeWorldInit = fu.GetLastModifiedSaveSlots()
 
 ----------------------------------------------------------------------------------------------------
 --- NoitaMP functions
@@ -43,7 +43,7 @@ local function setSeedIfConnectedSecondTime()
         local saveSlotMetaDirectory = ModSettingGet("noita-mp.saveSlotMetaDirectory")
         CustomProfiler.stop("ModSettingGet", cpc1)
         if saveSlotMetaDirectory then
-            fu.removeContentOfDirectory(saveSlotMetaDirectory)
+            fu.RemoveContentOfDirectory(saveSlotMetaDirectory)
         else
             error("Unable to emptying selected save slot!", 2)
         end
@@ -124,7 +124,7 @@ function OnWorldPreUpdate()
     EntityUtils.addOrChangeDetectionRadiusDebug(MinaUtils.getLocalMinaInformation().entityId)
 
     if not _G.saveSlotMeta then
-        local saveSlotsLastModifiedAfterWorldInit = fu.getLastModifiedSaveSlots()
+        local saveSlotsLastModifiedAfterWorldInit = fu.GetLastModifiedSaveSlots()
         for i = 1, #saveSlotsLastModifiedBeforeWorldInit do
             for j = 1, #saveSlotsLastModifiedAfterWorldInit do
                 local saveSlotMeta
