@@ -479,7 +479,7 @@ function EntityUtils.spawnEntity(owner, nuid, x, y, rotation, velocity, filename
 
     -- double check, if there is already an entity with this NUID and return the entity_id
     if EntityUtils.isEntityAlive(localEntityId) and NetworkVscUtils.hasNetworkLuaComponents(localEntityId) then
-        local ownerNameByVsc, ownerGuidByVsc, nuidByVsc = NetworkVscUtils.getAllVcsValuesByEntityId(localEntityId)
+        local ownerNameByVsc, ownerGuidByVsc, nuidByVsc = NetworkVscUtils.getAllVscValuesByEntityId(localEntityId)
         -- if guid is not equal, but nuid is the same, then something is broken for sure!
         if ownerGuidByVsc ~= remoteGuid and nuidByVsc == nuid then
             error(("Trying to spawn entity(%s) locally, but owner does not match: remoteOwner(%s) ~= localOwner(%s). remoteNuid(%s) ~= localNuid(%s)")

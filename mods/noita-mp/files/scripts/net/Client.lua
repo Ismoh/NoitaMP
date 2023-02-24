@@ -378,7 +378,7 @@ function Client.new(sockClient)
 
         if data.oldGuid == self.guid then
             local entityId                               = MinaUtils.getLocalMinaInformation().entityId
-            local compOwnerName, compOwnerGuid, compNuid = NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
+            local compOwnerName, compOwnerGuid, compNuid = NetworkVscUtils.getAllVscValuesByEntityId(entityId)
 
             self.guid                                    = data.newGuid
             local cpc27                                  = CustomProfiler.start("ModSettingSet")
@@ -955,7 +955,7 @@ function Client.new(sockClient)
             return
         end
 
-        --local compOwnerName, compOwnerGuid, compNuid     = NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
+        --local compOwnerName, compOwnerGuid, compNuid     = NetworkVscUtils.getAllVscValuesByEntityId(entityId)
         local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
         local data                                                                               = {
             NetworkUtils.getNextNetworkMessageId(), { compOwnerName, compOwnerGuid }, compNuid, x, y, rotation, velocity, health

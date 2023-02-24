@@ -214,7 +214,7 @@ function Server.new(sockServer)
         local guid                       = localPlayerInfo.guid
         local entityId                   = localPlayerInfo.entityId
         local isPolymorphed              = EntityUtils.isEntityPolymorphed(entityId)
-        local ownerName, ownerGuid, nuid = NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
+        local ownerName, ownerGuid, nuid = NetworkVscUtils.getAllVscValuesByEntityId(entityId)
 
         if not nuid then
             nuid = NuidUtils.getNextNuid()
@@ -444,7 +444,7 @@ function Server.new(sockServer)
             return
         end
 
-        --local compOwnerName, compOwnerGuid, compNuid     = NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
+        --local compOwnerName, compOwnerGuid, compNuid     = NetworkVscUtils.getAllVscValuesByEntityId(entityId)
         local compOwnerName, compOwnerGuid, compNuid, filename,
         health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
         local isPolymorphed              = EntityUtils.isEntityPolymorphed(entityId)
@@ -1020,7 +1020,7 @@ function Server.new(sockServer)
             return
         end
 
-        --local compOwnerName, compOwnerGuid, compNuid     = NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
+        --local compOwnerName, compOwnerGuid, compNuid     = NetworkVscUtils.getAllVscValuesByEntityId(entityId)
         local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
         local data                                                                               = {
             NetworkUtils.getNextNetworkMessageId(), { compOwnerName, compOwnerGuid }, compNuid, x, y, rotation, velocity, health
