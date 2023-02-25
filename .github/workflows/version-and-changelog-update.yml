@@ -20,7 +20,7 @@ jobs:
 
       - name: Find linked issues
         id: find-linked-issues
-        uses: Ismoh-Games/find-linked-issues@v0.0.8
+        uses: Ismoh-Games/find-linked-issues@v0.0.9
         with:
           token: ${{ secrets.WORKFLOW_PAT }}
           repository: ${{ github.repository }}

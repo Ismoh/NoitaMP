@@ -18,33 +18,32 @@ if require then
 else
     -- Fix stupid Noita sandbox issue. Noita Components does not have access to require.
     if not util then
-        util                   = dofile("mods/noita-mp/files/scripts/util/util.lua")
+        util = dofile("mods/noita-mp/files/scripts/util/util.lua")
     end
 
     if not EntityCache then
         EntityCache            = {}
         EntityCache.delete     = function(entityId)
-            Logger.warn(Logger.channels.entity,
-                        ("NoitaComponents with their restricted Lua context are trying to use EntityCache.delete(entityId %s)")
-                                :format(entityId))
-            print("TEST 123")
+            --Logger.trace(Logger.channels.entity,
+            --            ("NoitaComponents with their restricted Lua context are trying to use EntityCache.delete(entityId %s)")
+            --                    :format(entityId))
         end
         EntityCache.get        = function(entityId)
-            Logger.warn(Logger.channels.entity,
-                        ("NoitaComponents with their restricted Lua context are trying to use EntityCache.get(entityId %s)")
-                                :format(entityId))
+            --Logger.trace(Logger.channels.entity,
+            --            ("NoitaComponents with their restricted Lua context are trying to use EntityCache.get(entityId %s)")
+            --                    :format(entityId))
         end
         EntityCache.set        = function(entityId, compNuid, compOwnerGuid, compOwnerName, filename, x, y, rotation, velocityX,
                                           velocityY, healthCurrent, healthMax)
-            Logger.warn(Logger.channels.entity,
-                        ("NoitaComponents with their restricted Lua context are trying to use EntityCache.set(entityId %s, compNuid %s, compOwnerGuid %s, compOwnerName %s, filename %s, x %s, y %s, rotation %s, velocityX %s, velocityY %s, healthCurrent %s, healthMax %s)")
-                                :format(entityId, compNuid, compOwnerGuid, compOwnerName, filename, x, y, rotation,
-                                        velocityX, velocityY, healthCurrent, healthMax))
+            --Logger.trace(Logger.channels.entity,
+            --            ("NoitaComponents with their restricted Lua context are trying to use EntityCache.set(entityId %s, compNuid %s, compOwnerGuid %s, compOwnerName %s, filename %s, x %s, y %s, rotation %s, velocityX %s, velocityY %s, healthCurrent %s, healthMax %s)")
+            --                    :format(entityId, compNuid, compOwnerGuid, compOwnerName, filename, x, y, rotation,
+            --                            velocityX, velocityY, healthCurrent, healthMax))
         end
         EntityCache.deleteNuid = function(nuid)
-            Logger.warn(Logger.channels.entity,
-                        ("NoitaComponents with their restricted Lua context are trying to use EntityCache.deleteNuid(nuid %s)")
-                                :format(nuid))
+            --Logger.trace(Logger.channels.entity,
+            --            ("NoitaComponents with their restricted Lua context are trying to use EntityCache.deleteNuid(nuid %s)")
+            --                    :format(nuid))
         end
     end
 
@@ -52,16 +51,16 @@ else
         CustomProfiler = {}
         ---@diagnostic disable-next-line: duplicate-set-field
         function CustomProfiler.start(functionName)
-            Logger.warn(Logger.channels.entity,
-                        ("NoitaComponents with their restricted Lua context are trying to use CustomProfiler.start(functionName %s)")
-                                :format(functionName))
-            return 0
+            --Logger.trace(Logger.channels.entity,
+            --            ("NoitaComponents with their restricted Lua context are trying to use CustomProfiler.start(functionName %s)")
+            --                    :format(functionName))
+            return -1
         end
         ---@diagnostic disable-next-line: duplicate-set-field
         function CustomProfiler.stop(functionName, customProfilerCounter)
-            Logger.warn(Logger.channels.entity,
-                        ("NoitaComponents with their restricted Lua context are trying to use CustomProfiler.stop(functionName %s, customProfilerCounter %s)")
-                                :format(functionName, customProfilerCounter))
+            --Logger.trace(Logger.channels.entity,
+            --            ("NoitaComponents with their restricted Lua context are trying to use CustomProfiler.stop(functionName %s, customProfilerCounter %s)")
+            --                    :format(functionName, customProfilerCounter))
             return -1
         end
     end
@@ -236,7 +235,7 @@ function EntityUtils.isEntityAlive(entityId)
         CustomProfiler.stop("EntityUtils.isEntityAlive", cpc)
         return entityId
     end
-    Logger.info(Logger.channels.entity, ("Entity (%s) isn't alive anymore! Returning false."):format(entityId))
+    Logger.trace(Logger.channels.entity, ("Entity (%s) isn't alive anymore! Returning false."):format(entityId))
     CustomProfiler.stop("EntityUtils.isEntityAlive", cpc)
     return false
 end
@@ -402,12 +401,13 @@ function EntityUtils.processAndSyncEntityNetworking()
                                 NetworkVscUtils.addOrUpdateAllVscs(entityId, compOwnerName, compOwnerGuid, nuid)
                             end
                         end
-                        -- TODO: check if entityId has parents and if so, send them too. How many parents?
-                        -- TODO: EntityGetParent(entityId) returns 0, if there is no parent
-                        local parents = getParentsUntilRootEntity(who, entityId)
-                        Server.sendNewNuid({ compOwnerName, compOwnerGuid }, entityId, nuid, x, y, rotation, velocity,
-                                           filename,
-                                           health, EntityUtils.isEntityPolymorphed(entityId))
+                        ---- TODO: check if entityId has parents and if so, send them too. How many parents?
+                        ---- TODO: EntityGetParent(entityId) returns 0, if there is no parent
+                        --local parents = getParentsUntilRootEntity(who, entityId)
+                        --Server.sendNewNuid({ compOwnerName, compOwnerGuid }, entityId, nuid, x, y, rotation, velocity,
+                        --                   filename,
+                        --                   health, EntityUtils.isEntityPolymorphed(entityId))
+                        local serialisedEntity = EntitySerialisationUtils.serialiseRootEntity(entityId)
                     end
                 else
                     --[[ Entity is already in cache, so check if something changed ]]--

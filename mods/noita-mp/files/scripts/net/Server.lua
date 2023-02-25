@@ -971,9 +971,6 @@ function Server.new(sockServer)
             return
         end
 
-        --EntityUtils.processEntityNetworking()
-        --EntityUtils.initNetworkVscs()
-
         EntityUtils.processAndSyncEntityNetworking()
 
         local nowTime     = GameGetRealWorldTimeSinceStarted() * 1000 -- *1000 to get milliseconds

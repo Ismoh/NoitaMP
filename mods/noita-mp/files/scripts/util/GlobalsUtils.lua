@@ -20,14 +20,14 @@ else
     -- Fix stupid Noita sandbox issue. Noita Components does not have access to require.
     CustomProfiler       = {}
     CustomProfiler.start = function(functionName)
-        Logger.warn(Logger.channels.entity,
-                    ("NoitaComponents with their restricted Lua context are trying to use CustomProfiler.start(functionName %s)")
-                            :format(functionName))
+        --Logger.trace(Logger.channels.globals,
+        --            ("NoitaComponents with their restricted Lua context are trying to use CustomProfiler.start(functionName %s)")
+        --                    :format(functionName))
     end
     CustomProfiler.stop  = function(functionName, customProfilerCounter)
-        Logger.warn(Logger.channels.entity,
-                    ("NoitaComponents with their restricted Lua context are trying to use CustomProfiler.stop(functionName %s, customProfilerCounter %s)")
-                            :format(functionName, customProfilerCounter))
+        --Logger.trace(Logger.channels.globals,
+        --            ("NoitaComponents with their restricted Lua context are trying to use CustomProfiler.stop(functionName %s, customProfilerCounter %s)")
+        --                    :format(functionName, customProfilerCounter))
     end
 end
 

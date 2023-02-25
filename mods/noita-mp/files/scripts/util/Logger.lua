@@ -26,16 +26,17 @@ Logger.level    = {
 }
 
 Logger.channels = {
-    entity     = "entity",
-    globals    = "globals",
-    guid       = "guid",
-    network    = "network",
-    nuid       = "nuid",
-    vsc        = "vsc",
-    profiler   = "profiler",
-    initialize = "initialize",
-    testing    = "testing",
-    cache      = "cache"
+    entity              = "entity",
+    globals             = "globals",
+    guid                = "guid",
+    network             = "network",
+    nuid                = "nuid",
+    vsc                 = "vsc",
+    profiler            = "profiler",
+    initialize          = "initialize",
+    testing             = "testing",
+    cache               = "cache",
+    entitySerialisation = "entitySerialisation"
 }
 
 --- Main function for logging, which simply uses `print()`.

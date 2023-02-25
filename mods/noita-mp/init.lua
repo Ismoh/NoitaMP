@@ -170,70 +170,70 @@ end
 ----------------------------------------------------------------------------------------------------
 --- Patch every XML file to remove the CameraBoundComponent
 ----------------------------------------------------------------------------------------------------
-do
-    Logger.info(Logger.channels.initialize, "Starting to patch XML files to remove CameraBoundComponents. Might take a while.")
-    local timer = os.time()
-    Server.entityCameraBindings = {}
-    local rootNoitaPath = fu.GetAbsolutePathOfNoitaRootDirectory() .. "/"
-    local function patchXMLFile(file)
-        local data = ModTextFileGetContent(file)
-        local dS, dE = data:find("<CameraBoundComponent[^<>]*>%s*</CameraBoundComponent>")
-        if dS and dE then
-            print(data:sub(dS, dE))
-        else
-            dS, dE = data:find("<CameraBoundComponent[^<>]*>")
-        end
-        if dS and dE then
-            local comp = data:sub(dS, dE)
-            local newData = data:gsub("<CameraBoundComponent[^<>]*>%s*</CameraBoundComponent>", ""):gsub("<CameraBoundComponent[^<>]*>", "")
-            ModTextFileSetContent(file, newData)
-
-            local enabled = (comp:match('enabled%s*=%s*"([01])"') == "1") or true
-            local dist = (tonumber(comp:match('distance%s*=%s*"([0-9]+)"'))) or 250
-            local dist_respawn = (tonumber(comp:match('distance_border%s*=%s*"([0-9]+)"'))) or 20
-            local max_count = (tonumber(comp:match('max_count%s*=%s*"([0-9]+)"'))) or 10
-            local freeze_on_distance_kill = (comp:match('freeze_on_distance_kill%s*=%s*"([01])"') == "1") or 1
-            local freeze_on_max_count_kill = (comp:match('freeze_on_max_count_kill%s*=%s*"([01])"') == "1") or 1
-            
-            Server.entityCameraBindings[file] = {
-                enabled = enabled,
-                dist = dist,
-                dist_respawn = dist_respawn,
-                max_count = max_count,
-                freeze_on_distance_kill = freeze_on_distance_kill,
-                freeze_on_max_count_kill = freeze_on_max_count_kill
-            }
-        end
-    end
-    local function patchModTree(path)
-        Logger.debug(Logger.channels.initialize, ("Patching dir %s"):format(path))
-        --- Works on windows only 
-        for dir in io.popen(('dir "%s" /b'):format(fu.ReplacePathSeparator(rootNoitaPath .. path))):lines() do
-            local file = path .. "/" ..  dir
-            if fu.IsDirectory(rootNoitaPath .. file) then
-                -- Ignore git folders
-                local s, e = file:find("%.git$")
-                if s and e then
-                    
-                else
-                    patchModTree(file)
-                end
-            else
-                local s, e = file:find("%.xml$")
-                if s and e then
-                    patchXMLFile(file)
-                end
-            end
-        end
-    end
-    local enabledMods = ModGetActiveModIDs()
-    for i=1, #enabledMods do
-        local v = enabledMods[i]
-        if v ~= "noita-mp" then
-            patchModTree("mods/" .. v)
-        end
-    end
-    local filesToPatch = dofile("mods/noita-mp/files/scripts/init/vanillaFilesToPatch.lua")
-    for i=1, #filesToPatch do patchXMLFile(filesToPatch[i]) end
-    Logger.info(Logger.channels.initialize, ("Finished patching XML files. Took %sms."):format(os.time() - timer))
-end
+--do
+--    Logger.info(Logger.channels.initialize, "Starting to patch XML files to remove CameraBoundComponents. Might take a while.")
+--    local timer = os.time()
+--    Server.entityCameraBindings = {}
+--    local rootNoitaPath = fu.GetAbsolutePathOfNoitaRootDirectory() .. "/"
+--    local function patchXMLFile(file)
+--        local data = ModTextFileGetContent(file)
+--        local dS, dE = data:find("<CameraBoundComponent[^<>]*>%s*</CameraBoundComponent>")
+--        if dS and dE then
+--            print(data:sub(dS, dE))
+--        else
+--            dS, dE = data:find("<CameraBoundComponent[^<>]*>")
+--        end
+--        if dS and dE then
+--            local comp = data:sub(dS, dE)
+--            local newData = data:gsub("<CameraBoundComponent[^<>]*>%s*</CameraBoundComponent>", ""):gsub("<CameraBoundComponent[^<>]*>", "")
+--            ModTextFileSetContent(file, newData)
+--
+--            local enabled = (comp:match('enabled%s*=%s*"([01])"') == "1") or true
+--            local dist = (tonumber(comp:match('distance%s*=%s*"([0-9]+)"'))) or 250
+--            local dist_respawn = (tonumber(comp:match('distance_border%s*=%s*"([0-9]+)"'))) or 20
+--            local max_count = (tonumber(comp:match('max_count%s*=%s*"([0-9]+)"'))) or 10
+--            local freeze_on_distance_kill = (comp:match('freeze_on_distance_kill%s*=%s*"([01])"') == "1") or 1
+--            local freeze_on_max_count_kill = (comp:match('freeze_on_max_count_kill%s*=%s*"([01])"') == "1") or 1
+--
+--            Server.entityCameraBindings[file] = {
+--                enabled = enabled,
+--                dist = dist,
+--                dist_respawn = dist_respawn,
+--                max_count = max_count,
+--                freeze_on_distance_kill = freeze_on_distance_kill,
+--                freeze_on_max_count_kill = freeze_on_max_count_kill
+--            }
+--        end
+--    end
+--    local function patchModTree(path)
+--        Logger.debug(Logger.channels.initialize, ("Patching dir %s"):format(path))
+--        --- Works on windows only
+--        for dir in io.popen(('dir "%s" /b'):format(fu.ReplacePathSeparator(rootNoitaPath .. path))):lines() do
+--            local file = path .. "/" ..  dir
+--            if fu.IsDirectory(rootNoitaPath .. file) then
+--                -- Ignore git folders
+--                local s, e = file:find("%.git$")
+--                if s and e then
+--
+--                else
+--                    patchModTree(file)
+--                end
+--            else
+--                local s, e = file:find("%.xml$")
+--                if s and e then
+--                    patchXMLFile(file)
+--                end
+--            end
+--        end
+--    end
+--    local enabledMods = ModGetActiveModIDs()
+--    for i=1, #enabledMods do
+--        local v = enabledMods[i]
+--        if v ~= "noita-mp" then
+--            patchModTree("mods/" .. v)
+--        end
+--    end
+--    local filesToPatch = dofile("mods/noita-mp/files/scripts/init/vanillaFilesToPatch.lua")
+--    for i=1, #filesToPatch do patchXMLFile(filesToPatch[i]) end
+--    Logger.info(Logger.channels.initialize, ("Finished patching XML files. Took %sms."):format(os.time() - timer))
+--end
