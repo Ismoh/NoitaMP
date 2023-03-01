@@ -10,7 +10,7 @@
 local json                               = require("dkjson")
 local plotly                             = require("plotly")
 local Utils                               = require("Utils")
-local fu                                 = require("file_util")
+local fu                                 = require("FileUtils")
 
 ---@class CustomProfiler
 CustomProfiler                           = {}
