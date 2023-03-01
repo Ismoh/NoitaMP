@@ -12,10 +12,10 @@ else
     print("no 'varargs' set.")
 end
 
-dofile("mods/noita-mp/files/scripts/extensions/table_extensions.lua")
-dofile("mods/noita-mp/files/scripts/extensions/string_extensions.lua")
+dofile("mods/noita-mp/files/scripts/extensions/tableExtensions.lua")
+dofile("mods/noita-mp/files/scripts/extensions/stringExtensions.lua")
 dofile("mods/noita-mp/files/scripts/extensions/mathExtensions.lua")
-dofile("mods/noita-mp/files/scripts/extensions/ffi_extensions.lua")
+dofile("mods/noita-mp/files/scripts/extensions/ffiExtensions.lua")
 dofile("mods/noita-mp/files/scripts/extensions/globalExtensions.lua")
 dofile("mods/noita-mp/files/scripts/init/init_package_loading.lua")
 dofile("mods/noita-mp/files/scripts/init/init_logger.lua")

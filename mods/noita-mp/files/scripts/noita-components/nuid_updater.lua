@@ -1,5 +1,5 @@
 dofile_once("mods/noita-mp/files/scripts/init/init_logger.lua")
-dofile_once("mods/noita-mp/files/scripts/extensions/string_extensions.lua")
+dofile_once("mods/noita-mp/files/scripts/extensions/stringExtensions.lua")
 EntityUtils          = dofile_once("mods/noita-mp/files/scripts/util/EntityUtils.lua")
 NetworkVscUtils      = dofile_once("mods/noita-mp/files/scripts/util/NetworkVscUtils.lua")
 GlobalsUtils         = dofile_once("mods/noita-mp/files/scripts/util/GlobalsUtils.lua")
