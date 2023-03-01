@@ -7,9 +7,8 @@ end
 ----------------------------------------------------------------------------------------------------
 dofile("mods/noita-mp/files/scripts/init/init_.lua")
 local Utils = require("Utils")
-local fu   = require("FileUtils")
-local ui   = require("Ui").new()
-
+local fu    = require("FileUtils")
+local ui    = require("Ui").new()
 Logger.debug(Logger.channels.initialize, "Starting to load noita-mp init.lua..")
 
 ----------------------------------------------------------------------------------------------------
@@ -73,14 +72,15 @@ function OnWorldInitialized()
         local archive_name    = "server_save06_" .. os.date("%Y-%m-%d_%H-%M-%S")
         local destination     = fu.GetAbsoluteDirectoryPathOfNoitaMP() .. pathSeparator .. "_"
         local archive_content = fu.Create7zipArchive(archive_name .. "_from_server",
-                                                     fu.GetAbsoluteDirectoryPathOfSave06(), destination)
-        local msg             = ("init.lua | Server savegame [%s] was zipped with 7z to location [%s]."):format(archive_name,
-                                                                                                                destination)
+            fu.GetAbsoluteDirectoryPathOfSave06(), destination)
+        local msg             = ("init.lua | Server savegame [%s] was zipped with 7z to location [%s]."):format(
+            archive_name,
+            destination)
         Logger.debug(Logger.channels.initialize, msg)
         GamePrint(msg)
         local cpc1 = CustomProfiler.start("ModSettingSetNextValue")
         ModSettingSetNextValue("noita-mp.server_start_7zip_savegame", false,
-                               false) -- automatically start the server again
+            false) -- automatically start the server again
         CustomProfiler.stop("ModSettingSetNextValue", cpc1)
     end
     CustomProfiler.stop("init.OnWorldInitialized", cpc)
@@ -94,11 +94,11 @@ function OnPlayerSpawned(player_entity)
     if not GameHasFlagRun("nameTags_script_applied") then
         GameAddFlagRun("nameTags_script_applied")
         EntityAddComponent2(player_entity,
-                            "LuaComponent",
-                            {
-                                script_source_file    = "mods/noita-mp/files/scripts/noita-components/name_tags.lua",
-                                execute_every_n_frame = 1,
-                            })
+            "LuaComponent",
+            {
+                script_source_file    = "mods/noita-mp/files/scripts/noita-components/name_tags.lua",
+                execute_every_n_frame = 1,
+            })
     end
     CustomProfiler.stop("init.OnPlayerSpawned", cpc)
 end
@@ -141,7 +141,7 @@ function OnWorldPreUpdate()
                     ModSettingSetNextValue("noita-mp.saveSlotMetaDirectory", _G.saveSlotMeta.dir, false)
                     CustomProfiler.stop("ModSettingSetNextValue", cpc1)
                     Logger.info(Logger.channels.initialize,
-                                ("Save slot found in '%s'"):format(Utils.pformat(_G.saveSlotMeta)))
+                        ("Save slot found in '%s'"):format(Utils.pformat(_G.saveSlotMeta)))
                 end
             end
         end
@@ -149,7 +149,6 @@ function OnWorldPreUpdate()
 
     Server.update()
     Client.update()
-
     ui.update()
 
     local cpc1 = CustomProfiler.start("init.OnWorldPreUpdate.collectgarbage.count")
@@ -162,14 +161,7 @@ function OnWorldPreUpdate()
         collectgarbage("collect")
         CustomProfiler.stop("init.OnWorldPreUpdate.collectgarbage.collect", cpc2)
     end
-    CustomProfiler.stop("init.OnWorldPreUpdate.collectgarbage.count", cpc1)
 
+    CustomProfiler.stop("init.OnWorldPreUpdate.collectgarbage.count", cpc1)
     CustomProfiler.stop("init.OnWorldPreUpdate", cpc)
 end
-
---function OnWorldPostUpdate()
---    local cpc = CustomProfiler.start("init.OnWorldPostUpdate")
---    Server.update()
---    Client.update()
---    CustomProfiler.stop("init.OnWorldPostUpdate", cpc)
---end
