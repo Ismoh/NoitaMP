@@ -86,7 +86,7 @@ function TestFileUtil:testReplacePathSeparatorUnknownOs()
     _G.is_windows        = false -- TODO: is there a better way to mock?
     _G.is_linux          = false -- TODO: is there a better way to mock?
 
-    lu.assertErrorMsgContains("file_util.lua | Unable to detect OS", fu.ReplacePathSeparator, "path doesnt matter")
+    lu.assertErrorMsgContains("FileUtils.lua | Unable to detect OS", fu.ReplacePathSeparator, "path doesnt matter")
 
     _G.is_windows = old_is_windows
     _G.is_linux   = old_is_linux
@@ -118,7 +118,7 @@ function TestFileUtil:testSetAbsolutePathOfNoitaRootDirectoryUnknownOs()
     _G.is_windows        = false -- TODO: is there a better way to mock?
     _G.is_linux          = false -- TODO: is there a better way to mock?
 
-    lu.assertErrorMsgContains("file_util.lua | Unable to detect OS", fu.SetAbsolutePathOfNoitaRootDirectory,
+    lu.assertErrorMsgContains("FileUtils.lua | Unable to detect OS", fu.SetAbsolutePathOfNoitaRootDirectory,
                               "path doesnt matter")
 
     _G.is_windows = old_is_windows

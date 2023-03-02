@@ -30,10 +30,10 @@ end
 --- @return string path
 function FileUtils.ReplacePathSeparator(path)
     if type(path) == "string" then
-        if _G.is_windows then
+        if (_G.is_windows or _G.os_name == "Windows") then
             ---@diagnostic disable-next-line: redundant-return-value
             return path:gsub("/", "\\")
-        elseif _G.is_linux then
+        elseif (_G.is_linux) then
             ---@diagnostic disable-next-line: redundant-return-value
             return path:gsub("\\", "/")
         end
