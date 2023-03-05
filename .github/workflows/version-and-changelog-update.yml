@@ -105,8 +105,8 @@ jobs:
           #sudo apt-get install rename
   
           #git fetch
-          #git checkout ${{ github.head_ref }}
-          #git pull origin ${{ github.head_ref }}
+          #git checkout ${{ github.base_ref }}
+          #git pull origin ${{ github.base_ref }}
           #git config --local user.email "action@github.com"
           #git config --local user.name "github-actions"
   
@@ -119,7 +119,7 @@ jobs:
           #ls -R
           #cat ${{github.workspace}}/mods/noita-mp/*.rockspec
           #git commit -m "Updated *.rockspec to $NEXT_VERSION in https://github.com/${{github.repository}}/pull/${{github.event.number}}"
-          #git push origin ${{ github.head_ref }}
+          #git push origin ${{ github.base_ref }}
       
       - name: Extend version with custom build numbers
         id: extend_version
@@ -148,7 +148,7 @@ jobs:
             fi
           done
         
-          body=":robot: _meep moop beep boop_<br/><br/>:information_source: When this pull request was merged,<br/> the current version **v$CURRENT_VERSION** will be automatically increase to **$NEXT_VERSION** in **${{ github.head_ref }}**<br/>and a new tag with **$NEXT_VERSION** will be created to the specific commit."
+          body=":robot: _meep moop beep boop_<br/><br/>:information_source: When this pull request was merged,<br/> the current version **v$CURRENT_VERSION** will be automatically increase to **$NEXT_VERSION** in **${{ github.base_ref }}**<br/>and a new tag with **$NEXT_VERSION** will be created to the specific commit."
           echo "body="$body
           json=$(printf '%s\n' "$body" | jq -R '{ body: . }')
           echo "json="$json
