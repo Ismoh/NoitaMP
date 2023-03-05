@@ -32,7 +32,11 @@ function TestFileUtil:setUp()
 end
 
 function TestFileUtil:tearDown()
-
+    -- Make sure OS detection isn't broken, when changed in tests
+    _G.is_windows = true
+    _G.is_linux   = false
+    local current_platform, current_architecture = os_name.getOS()
+    _G.pathSeparator = tostring(package.config:sub(1, 1))
 end
 
 ----------------------------------------------------------------------------------------------------
@@ -40,42 +44,42 @@ end
 ----------------------------------------------------------------------------------------------------
 
 function TestFileUtil:testReplacePathSeparatorOnWindows()
-    local old_is_windows     = _G.is_windows
-    local old_is_linux       = _G.is_linux
+    local old_is_windows    = _G.is_windows
+    local old_is_linux      = _G.is_linux
     local old_pathSeparator = _G.pathSeparator
 
-    _G.is_windows            = true -- TODO: is there a better way to mock?
-    _G.is_linux              = false -- TODO: is there a better way to mock?
+    _G.is_windows           = true -- TODO: is there a better way to mock?
+    _G.is_linux             = false -- TODO: is there a better way to mock?
     _G.pathSeparator        = "\\" -- TODO: is there a better way to mock?
 
-    local path_unix          = "/test/path/123"
-    local path_windows       = fu.ReplacePathSeparator(path_unix)
+    local path_unix         = "/test/path/123"
+    local path_windows      = fu.ReplacePathSeparator(path_unix)
 
     lu.assertNotEquals(path_unix, path_windows)
     lu.assertEquals([[\test\path\123]], path_windows)
 
-    _G.is_windows     = old_is_windows
-    _G.is_linux       = old_is_linux
+    _G.is_windows    = old_is_windows
+    _G.is_linux      = old_is_linux
     _G.pathSeparator = old_pathSeparator
 end
 
 function TestFileUtil:testReplacePathSeparatorOnUnix()
-    local old_is_windows     = _G.is_windows
-    local old_is_linux       = _G.is_linux
+    local old_is_windows    = _G.is_windows
+    local old_is_linux      = _G.is_linux
     local old_pathSeparator = _G.pathSeparator
 
-    _G.is_windows            = false -- TODO: is there a better way to mock?
-    _G.is_linux              = true -- TODO: is there a better way to mock?
+    _G.is_windows           = false -- TODO: is there a better way to mock?
+    _G.is_linux             = true -- TODO: is there a better way to mock?
     _G.pathSeparator        = "/" -- TODO: is there a better way to mock?
 
-    local path_windows       = "\\test\\path\\123"
-    local path_unix          = fu.ReplacePathSeparator(path_windows)
+    local path_windows      = "\\test\\path\\123"
+    local path_unix         = fu.ReplacePathSeparator(path_windows)
 
     lu.assertNotEquals(path_windows, path_unix)
     lu.assertEquals("/test/path/123", path_unix)
 
-    _G.is_windows     = old_is_windows
-    _G.is_linux       = old_is_linux
+    _G.is_windows    = old_is_windows
+    _G.is_linux      = old_is_linux
     _G.pathSeparator = old_pathSeparator
 end
 
@@ -126,6 +130,7 @@ function TestFileUtil:testSetAbsolutePathOfNoitaRootDirectoryUnknownOs()
 end
 
 function TestFileUtil:testGetAbsolutePathOfNoitaRootDirectory()
+    Logger.trace(Logger.channels.testing, ("Need to verify absolute path of root noita: %s"):format(fu.GetAbsolutePathOfNoitaRootDirectory()))
     lu.assertStrContains(fu.GetAbsolutePathOfNoitaRootDirectory(),
                          _G.pathSeparator) -- TODO: Need a better test for this!
 end
