@@ -312,8 +312,8 @@ EntitySerialisationUtils.componentObjectMemberNames = {
     "m_drug_fx_current"
 }
 
-EntitySerialisationUtils.serialiseRootEntity        = function(entityId)
-    local cpc = CustomProfiler.start("EntitySerialisationUtils.serialiseRootEntity")
+EntitySerialisationUtils.serialiseEntireRootEntity        = function(entityId)
+    local cpc = CustomProfiler.start("EntitySerialisationUtils.serialiseEntireRootEntity")
     if util.IsEmpty(entityId) then
         error(("Unable to serialise entity, because entityId is %s"):format(entityId), 2)
     end
@@ -325,9 +325,10 @@ EntitySerialisationUtils.serialiseRootEntity        = function(entityId)
     if rootEntityId ~= entityId then
         Logger.trace(Logger.channels.entity,
                      ("Skipping serialisation of entity, because it isn't root. Root is %s!"):format(rootEntityId))
-        return
+        return nil
     end
 
+    local finished = false
     local root              = {
         attributes = EntitySerialisationUtils.serialiseEntityAttributes(rootEntityId),
         tags       = EntitySerialisationUtils.serialiseEntityTags(rootEntityId),
@@ -342,14 +343,15 @@ EntitySerialisationUtils.serialiseRootEntity        = function(entityId)
         root.children[i].attributes = EntitySerialisationUtils.serialiseEntityAttributes(childEntityId)
         root.children[i].tags       = EntitySerialisationUtils.serialiseEntityTags(childEntityId)
         root.children[i].components = EntitySerialisationUtils.serialiseEntityComponents(childEntityId)
+        finished = true
     end
 
-    CustomProfiler.stop("EntitySerialisationUtils.serialiseRootEntity", cpc)
-    return root
+    CustomProfiler.stop("EntitySerialisationUtils.serialiseEntireRootEntity", cpc)
+    return finished, root
 end
 
 EntitySerialisationUtils.serialiseEntityAttributes  = function(entityId)
-    CustomProfiler.start("EntitySerialisationUtils.serialiseEntityAttributes")
+    local cpc = CustomProfiler.start("EntitySerialisationUtils.serialiseEntityAttributes")
     if util.IsEmpty(entityId) then
         error(("Unable to serialise entity attributes, because entityId is %s"):format(entityId), 2)
     end
@@ -365,7 +367,7 @@ EntitySerialisationUtils.serialiseEntityAttributes  = function(entityId)
 end
 
 EntitySerialisationUtils.serialiseEntityTags        = function(entityId)
-    CustomProfiler.start("EntitySerialisationUtils.serialiseEntityTags")
+    local cpc = CustomProfiler.start("EntitySerialisationUtils.serialiseEntityTags")
     if util.IsEmpty(entityId) then
         error(("Unable to serialise entitys attributes, because entityId is %s"):format(entityId), 2)
     end

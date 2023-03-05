@@ -16,28 +16,28 @@ NetworkUtils                         = {}
 NetworkUtils.networkMessageIdCounter = 0
 
 NetworkUtils.events                  = {
-    connect         = {
+    connect           = {
         name        = "connect",
         schema      = { "code" },
         isCacheable = false
     },
 
     --- connect2 is used to let the other clients know, who was connected
-    connect2        = {
+    connect2          = {
         name              = "connect2",
         schema            = { "networkMessageId", "name", "guid" },
         resendIdentifiers = { "name", "guid" },
         isCacheable       = true
     },
 
-    disconnect      = {
+    disconnect        = {
         name        = "disconnect",
         schema      = { "code" },
         isCacheable = false
     },
 
     --- disconnect2 is used to let the other clients know, who was disconnected
-    disconnect2     = {
+    disconnect2       = {
         name              = "disconnect2",
         schema            = { "networkMessageId", "name", "guid" },
         resendIdentifiers = { "name", "guid" },
@@ -45,7 +45,7 @@ NetworkUtils.events                  = {
     },
 
     --- acknowledgement is used to let the sender know if the message was acknowledged
-    acknowledgement = {
+    acknowledgement   = {
         name              = "acknowledgement",
         schema            = { "networkMessageId", "event", "status", "ackedAt" },
         ack               = "ack",
@@ -55,7 +55,7 @@ NetworkUtils.events                  = {
     },
 
     --- seed is used to send the servers seed
-    seed            = {
+    seed              = {
         name              = "seed",
         schema            = { "networkMessageId", "seed" },
         resendIdentifiers = { "seed" },
@@ -63,7 +63,7 @@ NetworkUtils.events                  = {
     },
 
     --- playerInfo is used to send localPlayerInfo name and guid to all peers
-    playerInfo      = {
+    playerInfo        = {
         name              = "playerInfo",
         schema            = { "networkMessageId", "name", "guid", "version", "nuid" },
         resendIdentifiers = { "name", "guid", "version" },
@@ -71,7 +71,7 @@ NetworkUtils.events                  = {
     },
 
     --- newGuid is used to send a new GUID to a client, which GUID isn't unique all peers
-    newGuid         = {
+    newGuid           = {
         name              = "newGuid",
         schema            = { "networkMessageId", "oldGuid", "newGuid" },
         resendIdentifiers = { "oldGuid", "newGuid" },
@@ -79,7 +79,7 @@ NetworkUtils.events                  = {
     },
 
     --- newNuid is used to let clients spawn entities by the servers permission
-    newNuid         = {
+    newNuid           = {
         --- constant name for the event
         name              = "newNuid",
         --- network schema to decode the message
@@ -92,8 +92,15 @@ NetworkUtils.events                  = {
         isCacheable       = true
     },
 
+    newNuidSerialised = {
+        name              = "newNuidSerialised",
+        schema            = { "networkMessageId", "ownerName", "ownerGuid", "entityId", "serialisedEntity" },
+        resendIdentifiers = { "ownerName", "ownerGuid", "entityId" },
+        isCacheable       = true
+    },
+
     --- needNuid is used to ask for a nuid from client to servers
-    needNuid        = {
+    needNuid          = {
         name              = "needNuid",
         schema            = { "networkMessageId", "owner", "localEntityId", "x", "y",
                               "rotation", "velocity", "filename", "health", "isPolymorphed" },
@@ -103,7 +110,7 @@ NetworkUtils.events                  = {
 
     --- lostNuid is used to ask for the entity to spawn, when a client has a nuid stored, but no entityId (not sure
     --- atm, why this is happening, but this is due to reduce out of sync stuff)
-    lostNuid        = {
+    lostNuid          = {
         name              = "lostNuid",
         schema            = { "networkMessageId", "nuid" },
         resendIdentifiers = { "nuid" },
@@ -111,7 +118,7 @@ NetworkUtils.events                  = {
     },
 
     --- entityData is used to sync position, velocity and health
-    entityData      = {
+    entityData        = {
         name              = "entityData",
         schema            = { "networkMessageId", "owner", "nuid", "x", "y", "rotation", "velocity", "health" },
         resendIdentifiers = { "owner", "nuid", "x", "y", "rotation", "velocity", "health" },
@@ -119,7 +126,7 @@ NetworkUtils.events                  = {
     },
 
     --- deadNuids is used to let clients know, which entities were killed or destroyed
-    deadNuids       = {
+    deadNuids         = {
         name              = "deadNuids",
         schema            = { "networkMessageId", "deadNuids" },
         resendIdentifiers = { "deadNuids" },
@@ -127,7 +134,7 @@ NetworkUtils.events                  = {
     },
 
     --- needModList is used to let clients sync enabled mods with the server
-    needModList     = {
+    needModList       = {
         name              = "needModList",
         schema            = { "networkMessageId", "workshop", "external" },
         resendIdentifiers = { "workshop", "external" },
@@ -135,7 +142,7 @@ NetworkUtils.events                  = {
     },
 
     --- needModContent is used to sync mod content from server to client
-    needModContent  = {
+    needModContent    = {
         name              = "needModContent",
         schema            = { "networkMessageId", "get", "items" },
         resendIdentifiers = { "get", "items" },

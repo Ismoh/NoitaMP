@@ -17,14 +17,14 @@ CustomProfiler.reportCache               = {}
 CustomProfiler.counter                   = 1
 CustomProfiler.threshold                 = 16.5 --ms = 60.60 fps
 CustomProfiler.ceiling                   = 1001 -- ms
-CustomProfiler.maxEntries                = 25 -- entries per trace
+CustomProfiler.maxEntries                = 50 -- entries per trace
 CustomProfiler.reportDirectory           = ("%s%sNoitaMP-Reports%s%s")
         :format(fu.getDesktopDirectory(), pathSeparator, pathSeparator, os.date("%Y-%m-%d_%H-%M-%S", os.time()))
 CustomProfiler.reportFilename            = "report.html"
 CustomProfiler.reportJsonFilenamePattern = "%s.json"
 
 ---@param functionName string
----@return integer
+---@return number
 ---@diagnostic disable-next-line: duplicate-set-field
 function CustomProfiler.start(functionName)
     if not ModSettingGetNextValue("noita-mp.toggle_profiler") then
@@ -92,12 +92,12 @@ function CustomProfiler.stop(functionName, customProfilerCounter)
         return
     end
 
-    if not CustomProfiler.reportCache[functionName][customProfilerCounter] then
-        Logger.warn(Logger.channels.profiler,
-                    "No entry found for function '%s' with counter '%s'. Profiling will be skipped.", functionName,
-                    customProfilerCounter)
-        return
-    end
+    --if not CustomProfiler.reportCache[functionName][customProfilerCounter] then
+    --    Logger.warn(Logger.channels.profiler,
+    --                "No entry found for function '%s' with counter '%s'. Profiling will be skipped.", functionName,
+    --                customProfilerCounter)
+    --    return
+    --end
 
     local entry = CustomProfiler.reportCache[functionName][customProfilerCounter]
     if entry then
@@ -109,11 +109,11 @@ function CustomProfiler.stop(functionName, customProfilerCounter)
             entry.duration   = duration
             entry.memoryStop = collectgarbage("count") / 1024
         else
-            table.setNoitaMpDefaultMetaMethods(CustomProfiler.reportCache[functionName][customProfilerCounter], "v")
+            --table.setNoitaMpDefaultMetaMethods(CustomProfiler.reportCache[functionName][customProfilerCounter], "v")
             CustomProfiler.reportCache[functionName][customProfilerCounter] = nil
             CustomProfiler.reportCache[functionName]["size"]                = CustomProfiler.reportCache[functionName]["size"] - 1
             if CustomProfiler.reportCache[functionName]["size"] == 0 then
-                table.setNoitaMpDefaultMetaMethods(CustomProfiler.reportCache[functionName], "kv")
+                --table.setNoitaMpDefaultMetaMethods(CustomProfiler.reportCache[functionName], "kv")
                 CustomProfiler.reportCache[functionName] = nil
             end
         end
@@ -129,11 +129,11 @@ function CustomProfiler.stop(functionName, customProfilerCounter)
                     entry.duration   = duration
                     entry.memoryStop = collectgarbage("count") / 1024
                 else
-                    table.setNoitaMpDefaultMetaMethods(CustomProfiler.reportCache[functionName][index], "v")
+                    --table.setNoitaMpDefaultMetaMethods(CustomProfiler.reportCache[functionName][index], "v")
                     CustomProfiler.reportCache[functionName][index]  = nil
                     CustomProfiler.reportCache[functionName]["size"] = CustomProfiler.reportCache[functionName]["size"] - 1
                     if CustomProfiler.reportCache[functionName]["size"] == 0 then
-                        table.setNoitaMpDefaultMetaMethods(CustomProfiler.reportCache[functionName], "kv")
+                        --table.setNoitaMpDefaultMetaMethods(CustomProfiler.reportCache[functionName], "kv")
                         CustomProfiler.reportCache[functionName] = nil
                     end
                 end
@@ -169,11 +169,11 @@ function CustomProfiler.stop(functionName, customProfilerCounter)
                 table.insert(yMemoryStart, entry2.memoryStart)
                 table.insert(xMemoryStop, entry2.frame)
                 table.insert(yMemoryStop, entry2.memoryStop)
-                table.setNoitaMpDefaultMetaMethods(CustomProfiler.reportCache[functionName][index], "v")
+                --table.setNoitaMpDefaultMetaMethods(CustomProfiler.reportCache[functionName][index], "v")
                 CustomProfiler.reportCache[functionName][index]  = nil
                 CustomProfiler.reportCache[functionName]["size"] = CustomProfiler.reportCache[functionName]["size"] - 1
                 if CustomProfiler.reportCache[functionName]["size"] == 0 then
-                    table.setNoitaMpDefaultMetaMethods(CustomProfiler.reportCache[functionName], "kv")
+                    --table.setNoitaMpDefaultMetaMethods(CustomProfiler.reportCache[functionName], "kv")
                     CustomProfiler.reportCache[functionName] = nil
                 end
             end
@@ -232,12 +232,14 @@ end
 --- Creates a report of all the functions that were profiled into profiler_2022-11-24_20-23-00.json
 ---@public
 function CustomProfiler.report()
+    CustomProfiler.stopAll()
+
     local fig1 = plotly.figure()
 
     fig1:update_layout {
         width   = 1920,
         height  = 1080,
-        title   = "NoitaMP Profiler Report of " .. whoAmI() .. " " .. NoitaMPVersion,
+        title   = "NoitaMP Profiler Report of " .. whoAmI() .. " " .. fu.getVersionByFile(),
         xaxis   = { title = { text = "Frames" } },
         yaxis   = { title = { text = "Execution time [ms]" } },
         barmode = "group"

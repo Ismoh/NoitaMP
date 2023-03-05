@@ -996,7 +996,7 @@ function Server.new(sockServer)
         local cpc025 = CustomProfiler.start("Server.sendNewGuid")
         local event  = NetworkUtils.events.newGuid.name
         local data   = { NetworkUtils.getNextNetworkMessageId(), oldGuid, newGuid }
-        local sent = self:send(peer, event, data)
+        local sent   = self:send(peer, event, data)
         CustomProfiler.stop("Server.sendNewGuid", cpc025)
         return sent
     end
@@ -1007,6 +1007,29 @@ function Server.new(sockServer)
         local data   = { NetworkUtils.getNextNetworkMessageId(), owner, localEntityId, newNuid, x, y, rotation, velocity, filename, health, isPolymorphed }
         local sent   = self:sendToAll(event, data)
         CustomProfiler.stop("Server.sendNewNuid", cpc017)
+        return sent
+    end
+
+    function self.sendNewNuidSerialised(ownerName, ownerGuid, entityId, serialisedEntity)
+        local cpc = CustomProfiler.start("Server.sendNewNuidSerialised")
+
+        if util.IsEmpty(ownerName) then
+            error(("ownerName must not be nil or empty %s"):format(ownerName), 2)
+        end
+        if util.IsEmpty(ownerGuid) then
+            error(("ownerGuid must not be nil or empty %s"):format(ownerGuid), 2)
+        end
+        if util.IsEmpty(entityId) then
+            error(("entityId must not be nil or empty %s"):format(entityId), 2)
+        end
+        if util.IsEmpty(serialisedEntity) then
+            error(("serialisedEntity must not be nil or empty %s"):format(serialisedEntity), 2)
+        end
+
+        local event = NetworkUtils.events.newNuidSerialised.name
+        local data  = { NetworkUtils.getNextNetworkMessageId(), ownerName, ownerGuid, entityId, serialisedEntity }
+        local sent  = self:sendToAll(event, data)
+        CustomProfiler.stop("Server.sendNewNuidSerialised", cpc)
         return sent
     end
 

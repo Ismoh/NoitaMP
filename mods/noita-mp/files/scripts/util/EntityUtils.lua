@@ -255,14 +255,14 @@ function EntityUtils.processAndSyncEntityNetworking()
     local entityIds        = EntityGetInRadius(playerX, playerY, radius)
     local playerEntityIds  = {}
 
-    --[[ Make sure child entities are already added to the entityIds list
-     otherwise nuid isn't set when extracting parents. ]]--
-    for i = 1, #entityIds do
-        local childEntityIds = EntityGetAllChildren(entityIds[i])
-        if not util.IsEmpty(childEntityIds) then
-            table.insertAllButNotDuplicates(entityIds, childEntityIds)
-        end
-    end
+    ----[[ Make sure child entities are already added to the entityIds list
+    -- otherwise nuid isn't set when extracting parents. ]]--
+    --for i = 1, #entityIds do
+    --    local childEntityIds = EntityGetAllChildren(entityIds[i])
+    --    if not util.IsEmpty(childEntityIds) then
+    --        table.insertAllButNotDuplicates(entityIds, childEntityIds)
+    --    end
+    --end
 
     --[[ Sort entityIds to process entities in the same order.
     In addition parent entities will be processed before children. ]]--
@@ -291,7 +291,7 @@ function EntityUtils.processAndSyncEntityNetworking()
     for entityIndex = prevEntityIndex, #entityIds do
         -- entityId in CoroutineUtils.iterator(entityIds) do
         repeat -- repeat until true with break works like continue
-            local entityId = --[[EntityGetRootEntity(]]entityIds[entityIndex] --[[)]]
+            local entityId = EntityGetRootEntity(entityIds[entityIndex])
             --[[ Just be double sure and check if entity is alive. If not next entityId ]]--
             if not EntityUtils.isEntityAlive(entityId) then
                 if type(entityId) == "number" then
@@ -312,7 +312,20 @@ function EntityUtils.processAndSyncEntityNetworking()
                             not EntityUtils.isRemoteMinae(entityId) and
                             not NetworkVscUtils.hasNetworkLuaComponents(entityId)
                     then
-                        EntityKill(entityId)
+                        local distance                   = -1
+                        local localX, localY             = EntityGetTransform(MinaUtils.getLocalMinaEntityId())
+                        --for i = 1, #Client.otherClients do -- TODO NOT YET IMPLEMENTED
+                        --    local remoteX, remoteY = EntityGetTransform(Client.otherClients[i].)
+                        --end
+                        local nuidRemote, entityIdRemote = GlobalsUtils.getNuidEntityPair(Client.serverInfo.nuid) -- TODO rework with getRemoteMina
+                        local remoteX, remoteY           = EntityGetTransform(entityIdRemote)
+                        distance                         = get_distance2(localX, localY, remoteX, remoteY)
+
+                        if distance <= (tonumber(ModSettingGet("noita-mp.radius_include_entities")) * 1.5) then
+                            EntityKill(entityId)
+                        else
+                            Client.sendNeedNuid(MinaUtils.getLocalMinaName(), MinaUtils.getLocalMinaGuid(), entityId)
+                        end
                         break -- work around for continue: repeat until true with break
                     end
                 end
@@ -323,44 +336,46 @@ function EntityUtils.processAndSyncEntityNetworking()
             local exclude     = true
             local filename    = EntityGetFilename(entityId)
             local cachedValue = EntityCache.get(entityId)
-            -- if already in cache, ignore it, because it was already processed
-            if cachedValue and cachedValue.entityId == entityId then
-                exclude = false
+            ---- if already in cache, ignore it, because it was already processed
+            --if cachedValue and cachedValue.entityId == entityId then
+            --    exclude = false
+            --else
+            if EntityUtils.exclude.byFilename[filename] or
+                    --table.contains(EntityUtils.exclude.byFilename, filename) or
+                    findByFilename(filename, EntityUtils.exclude.byFilename)
+            then
+                exclude = true
+                break -- work around for continue: repeat until true with break
             else
-                if EntityUtils.exclude.byFilename[filename] or
-                        --table.contains(EntityUtils.exclude.byFilename, filename) or
-                        findByFilename(filename, EntityUtils.exclude.byFilename)
-                then
-                    exclude = true
-                    break -- work around for continue: repeat until true with break
-                else
-                    for i = 1, #EntityUtils.exclude.byComponentsName do
-                        local componentTypeName = EntityUtils.exclude.byComponentsName[i]
-                        local components        = EntityGetComponentIncludingDisabled(entityId, componentTypeName) or {}
-                        if #components > 0 then
-                            exclude = true
-                            break -- work around for continue: repeat until true with break
-                        end
-                    end
-                end
-
-                if EntityUtils.include.byFilename[filename] or
-                        --table.contains(EntityUtils.include.byFilename, filename) or
-                        findByFilename(filename, EntityUtils.include.byFilename)
-                then
-                    exclude = false
-                else
-                    for i = 1, #EntityUtils.include.byComponentsName do
-                        local componentTypeName = EntityUtils.include.byComponentsName[i]
-                        local components        = EntityGetComponentIncludingDisabled(entityId, componentTypeName) or {}
-                        if #components > 0 then
-                            -- Entity has a component, which is included in the config.lua.
-                            exclude = false
-                            break
-                        end
+                for i = 1, #EntityUtils.exclude.byComponentsName do
+                    local componentTypeName = EntityUtils.exclude.byComponentsName[i]
+                    local components        = EntityGetComponentIncludingDisabled(entityId,
+                                                                                  componentTypeName) or {}
+                    if #components > 0 then
+                        exclude = true
+                        break -- work around for continue: repeat until true with break
                     end
                 end
             end
+
+            if EntityUtils.include.byFilename[filename] or
+                    --table.contains(EntityUtils.include.byFilename, filename) or
+                    findByFilename(filename, EntityUtils.include.byFilename)
+            then
+                exclude = false
+            else
+                for i = 1, #EntityUtils.include.byComponentsName do
+                    local componentTypeName = EntityUtils.include.byComponentsName[i]
+                    local components        = EntityGetComponentIncludingDisabled(entityId,
+                                                                                  componentTypeName) or {}
+                    if #components > 0 then
+                        -- Entity has a component, which is included in the config.lua.
+                        exclude = false
+                        break
+                    end
+                end
+            end
+            --end
             if exclude then
                 break -- work around for continue: repeat until true with break
             end
@@ -386,30 +401,51 @@ function EntityUtils.processAndSyncEntityNetworking()
                 NetworkVscUtils.addOrUpdateAllVscs(entityId, ownerName, ownerGuid, nuid)
             end
 
+            --[[ Entity is new and not in cache, that's why cachedValue is nil ]]--
+            local compOwnerName, compOwnerGuid, compNuid, filenameUnused, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
+            if cachedValue == nil then
+                if who == Server.iAm then
+                    if not nuid then
+                        nuid = compNuid
+                        if not nuid then
+                            nuid = NuidUtils.getNextNuid()
+                            NetworkVscUtils.addOrUpdateAllVscs(entityId, compOwnerName, compOwnerGuid, nuid)
+                        end
+                    end
+                    --Server.sendNewNuid({ compOwnerName, compOwnerGuid }, entityId, nuid, x, y, rotation, velocity,
+                    --                   filename, health, EntityUtils.isEntityPolymorphed(entityId))
+                    local finished, serialisedEntity = EntitySerialisationUtils.serialiseEntireRootEntity(entityId)
+                    if finished == true then
+                        Server.sendNewNuidSerialised(compOwnerName, compOwnerGuid, entityId, serialisedEntity)
+                    end
+                end
+            end
+
             --[[ Check if moved or anything else changed, but only on each tick ]]--
             if NetworkUtils.isTick() and not EntityUtils.isRemoteMinae(entityId) then
-                local changed                                                                                  = false
-                local compOwnerName, compOwnerGuid, compNuid, filenameUnused, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
+                local changed = false
+                --local compOwnerName, compOwnerGuid, compNuid, filenameUnused, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
 
-                --[[ Entity is new and not in cache, that's why cachedValue is nil ]]--
-                if cachedValue == nil then
-                    if who == Server.iAm then
-                        if not nuid then
-                            nuid = compNuid
-                            if not nuid then
-                                nuid = NuidUtils.getNextNuid()
-                                NetworkVscUtils.addOrUpdateAllVscs(entityId, compOwnerName, compOwnerGuid, nuid)
-                            end
-                        end
-                        ---- TODO: check if entityId has parents and if so, send them too. How many parents?
-                        ---- TODO: EntityGetParent(entityId) returns 0, if there is no parent
-                        --local parents = getParentsUntilRootEntity(who, entityId)
-                        --Server.sendNewNuid({ compOwnerName, compOwnerGuid }, entityId, nuid, x, y, rotation, velocity,
-                        --                   filename,
-                        --                   health, EntityUtils.isEntityPolymorphed(entityId))
-                        local serialisedEntity = EntitySerialisationUtils.serialiseRootEntity(entityId)
-                    end
-                else
+                ----[[ Entity is new and not in cache, that's why cachedValue is nil ]]--
+                --if cachedValue == nil then
+                --    if who == Server.iAm then
+                --        if not nuid then
+                --            nuid = compNuid
+                --            if not nuid then
+                --                nuid = NuidUtils.getNextNuid()
+                --                NetworkVscUtils.addOrUpdateAllVscs(entityId, compOwnerName, compOwnerGuid, nuid)
+                --            end
+                --        end
+                --        ---- TODO: check if entityId has parents and if so, send them too. How many parents?
+                --        ---- TODO: EntityGetParent(entityId) returns 0, if there is no parent
+                --        --local parents = getParentsUntilRootEntity(who, entityId)
+                --        --Server.sendNewNuid({ compOwnerName, compOwnerGuid }, entityId, nuid, x, y, rotation, velocity,
+                --        --                   filename,
+                --        --                   health, EntityUtils.isEntityPolymorphed(entityId))
+                --        local serialisedEntity = EntitySerialisationUtils.serialiseEntireRootEntity(entityId)
+                --    end
+                --else
+                if cachedValue then
                     --[[ Entity is already in cache, so check if something changed ]]--
                     local threshold = math.round(tonumber(ModSettingGetNextValue("noita-mp.change_detection")) / 100,
                                                  0.1)
@@ -424,7 +460,9 @@ function EntityUtils.processAndSyncEntityNetworking()
                         changed = true
                     end
                 end
-                EntityCache.set(entityId, compNuid, compOwnerGuid, compOwnerName, filename, x, y, rotation, velocity.x,
+                --end
+                EntityCache.set(entityId, compNuid, compOwnerGuid, compOwnerName, filename, x, y, rotation,
+                                velocity.x,
                                 velocity.y, health.current, health.max)
                 if changed then
                     NetworkUtils.getClientOrServer().sendEntityData(entityId)

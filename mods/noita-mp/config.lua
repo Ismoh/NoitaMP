@@ -27,7 +27,7 @@ EntityUtils.include                  = {
 EntityUtils.exclude                  = {
     byComponentsName = {},
     byFilename       = {
-        --"particle",
+        "particle",
         "tree_entity.xml",
         "vegetation",
         "custom_cards",
@@ -36,7 +36,7 @@ EntityUtils.exclude                  = {
 
 EntityUtils.remove                   = {
     byComponentsName = { "AIComponent", "AdvancedFishAIComponent", "AnimalAIComponent", "ControllerGoombaAIComponent", "FishAIComponent", "PhysicsAIComponent", "WormAIComponent" },
-    byFilename       = {}
+    byFilename       = { }
 }
 
 ------------------------------------------------------------------------------------------------------------------------
