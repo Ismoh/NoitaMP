@@ -92,9 +92,9 @@ NetworkUtils.events                  = {
         isCacheable       = true
     },
 
-    newNuidSerialised = {
-        name              = "newNuidSerialised",
-        schema            = { "networkMessageId", "ownerName", "ownerGuid", "entityId", "serialisedEntity" },
+    newNuidSerialized = {
+        name              = "newNuidSerialized",
+        schema            = { "networkMessageId", "ownerName", "ownerGuid", "entityId", "serializedEntity" },
         resendIdentifiers = { "ownerName", "ownerGuid", "entityId" },
         isCacheable       = true
     },

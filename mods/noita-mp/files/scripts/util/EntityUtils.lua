@@ -312,21 +312,31 @@ function EntityUtils.processAndSyncEntityNetworking()
                             not EntityUtils.isRemoteMinae(entityId) and
                             not NetworkVscUtils.hasNetworkLuaComponents(entityId)
                     then
-                        local distance                   = -1
-                        local localX, localY             = EntityGetTransform(MinaUtils.getLocalMinaEntityId())
-                        --for i = 1, #Client.otherClients do -- TODO NOT YET IMPLEMENTED
-                        --    local remoteX, remoteY = EntityGetTransform(Client.otherClients[i].)
-                        --end
-                        local nuidRemote, entityIdRemote = GlobalsUtils.getNuidEntityPair(Client.serverInfo.nuid) -- TODO rework with getRemoteMina
-                        local remoteX, remoteY           = EntityGetTransform(entityIdRemote)
-                        distance                         = get_distance2(localX, localY, remoteX, remoteY)
-
-                        if distance <= (tonumber(ModSettingGet("noita-mp.radius_include_entities")) * 1.5) then
-                            EntityKill(entityId)
-                        else
-                            Client.sendNeedNuid(MinaUtils.getLocalMinaName(), MinaUtils.getLocalMinaGuid(), entityId)
+                        local distance                    = -1
+                        local localMinaEntityId           = MinaUtils.getLocalMinaEntityId()
+                        local isPolymorphed, polyEntityId = MinaUtils.isLocalMinaPolymorphed()
+                        if isPolymorphed then
+                            localMinaEntityId = polyEntityId
                         end
-                        break -- work around for continue: repeat until true with break
+                        if EntityUtils.isEntityAlive(localMinaEntityId) then
+                            local localX, localY             = EntityGetTransform(localMinaEntityId)
+                            --for i = 1, #Client.otherClients do -- TODO NOT YET IMPLEMENTED
+                            --    local remoteX, remoteY = EntityGetTransform(Client.otherClients[i].)
+                            --end
+                            local nuidRemote, entityIdRemote = GlobalsUtils.getNuidEntityPair(Client.serverInfo.nuid) -- TODO rework with getRemoteMina
+                            if EntityUtils.isEntityAlive(entityIdRemote) then
+                                local remoteX, remoteY = EntityGetTransform(entityIdRemote)
+                                distance               = get_distance2(localX, localY, remoteX, remoteY)
+
+                                if distance <= (tonumber(ModSettingGet("noita-mp.radius_include_entities")) * 1.5) then
+                                    EntityKill(entityId)
+                                else
+                                    Client.sendNeedNuid(MinaUtils.getLocalMinaName(), MinaUtils.getLocalMinaGuid(),
+                                                        entityId)
+                                end
+                                break -- work around for continue: repeat until true with break
+                            end
+                        end
                     end
                 end
             end
@@ -414,9 +424,9 @@ function EntityUtils.processAndSyncEntityNetworking()
                     end
                     --Server.sendNewNuid({ compOwnerName, compOwnerGuid }, entityId, nuid, x, y, rotation, velocity,
                     --                   filename, health, EntityUtils.isEntityPolymorphed(entityId))
-                    local finished, serialisedEntity = EntitySerialisationUtils.serialiseEntireRootEntity(entityId)
+                    local finished, serializedEntity = EntitySerialisationUtils.serializeEntireRootEntity(entityId)
                     if finished == true then
-                        Server.sendNewNuidSerialised(compOwnerName, compOwnerGuid, entityId, serialisedEntity)
+                        Server.sendNewNuidserialized(compOwnerName, compOwnerGuid, entityId, serializedEntity)
                     end
                 end
             end
@@ -442,7 +452,7 @@ function EntityUtils.processAndSyncEntityNetworking()
                 --        --Server.sendNewNuid({ compOwnerName, compOwnerGuid }, entityId, nuid, x, y, rotation, velocity,
                 --        --                   filename,
                 --        --                   health, EntityUtils.isEntityPolymorphed(entityId))
-                --        local serialisedEntity = EntitySerialisationUtils.serialiseEntireRootEntity(entityId)
+                --        local serializedEntity = EntitySerialisationUtils.serializeEntireRootEntity(entityId)
                 --    end
                 --else
                 if cachedValue then
@@ -461,9 +471,8 @@ function EntityUtils.processAndSyncEntityNetworking()
                     end
                 end
                 --end
-                EntityCache.set(entityId, compNuid, compOwnerGuid, compOwnerName, filename, x, y, rotation,
-                                velocity.x,
-                                velocity.y, health.current, health.max)
+                EntityCacheUtils.set(entityId, nuid, compOwnerGuid, compOwnerName, filename, x, y, rotation,
+                                     velocity.x, velocity.y, health.current, health.max)
                 if changed then
                     NetworkUtils.getClientOrServer().sendEntityData(entityId)
                 end

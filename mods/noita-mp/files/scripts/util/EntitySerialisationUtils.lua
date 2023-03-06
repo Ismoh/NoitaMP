@@ -48,8 +48,8 @@ end
 --- EntitySerialisationUtils
 ----------------------------------------
 --- Utils class only for serialisation of entities.
-EntitySerialisationUtils                            = {}
-EntitySerialisationUtils.componentTags              = {
+EntitySerialisationUtils                             = {}
+EntitySerialisationUtils.componentTags               = {
     "activate",
     "aiming_reticle",
     "air",
@@ -223,7 +223,7 @@ EntitySerialisationUtils.componentTags              = {
     "wizard_orb_id",
     "worm_shot_homing"
 }
-EntitySerialisationUtils.materialTags               = {
+EntitySerialisationUtils.materialTags                = {
     "acid",
     "alchemy",
     "blood",
@@ -296,7 +296,7 @@ EntitySerialisationUtils.materialTags               = {
     "vapour",
     "water"
 }
-EntitySerialisationUtils.componentObjectMemberNames = {
+EntitySerialisationUtils.componentObjectMemberNames  = {
     "attack_melee_finish_config_explosion",
     "config",
     "config_explosion",
@@ -312,10 +312,13 @@ EntitySerialisationUtils.componentObjectMemberNames = {
     "m_drug_fx_current"
 }
 
-EntitySerialisationUtils.serialiseEntireRootEntity        = function(entityId)
-    local cpc = CustomProfiler.start("EntitySerialisationUtils.serialiseEntireRootEntity")
+EntitySerialisationUtils.serializeEntireRootEntity   = function(entityId)
+    local cpc = CustomProfiler.start("EntitySerialisationUtils.serializeEntireRootEntity")
     if util.IsEmpty(entityId) then
-        error(("Unable to serialise entity, because entityId is %s"):format(entityId), 2)
+        error(("Unable to serialize entity, because entityId is %s"):format(entityId), 2)
+    end
+    if not EntityUtils.isEntityAlive(entityId) then
+        error("NOITA SUCKS!", 2)
     end
 
     local rootEntityId = EntityGetRootEntity(entityId)
@@ -328,11 +331,11 @@ EntitySerialisationUtils.serialiseEntireRootEntity        = function(entityId)
         return nil
     end
 
-    local finished = false
+    local finished          = false
     local root              = {
-        attributes = EntitySerialisationUtils.serialiseEntityAttributes(rootEntityId),
-        tags       = EntitySerialisationUtils.serialiseEntityTags(rootEntityId),
-        components = EntitySerialisationUtils.serialiseEntityComponents(rootEntityId),
+        attributes = EntitySerialisationUtils.serializeEntityAttributes(rootEntityId),
+        tags       = EntitySerialisationUtils.serializeEntityTags(rootEntityId),
+        components = EntitySerialisationUtils.serializeEntityComponents(rootEntityId),
         children   = {}
     }
 
@@ -340,20 +343,23 @@ EntitySerialisationUtils.serialiseEntireRootEntity        = function(entityId)
     for i = 1, #childrenEntityIds do
         local childEntityId         = childrenEntityIds[i]
         root.children[i]            = {}
-        root.children[i].attributes = EntitySerialisationUtils.serialiseEntityAttributes(childEntityId)
-        root.children[i].tags       = EntitySerialisationUtils.serialiseEntityTags(childEntityId)
-        root.children[i].components = EntitySerialisationUtils.serialiseEntityComponents(childEntityId)
-        finished = true
+        root.children[i].attributes = EntitySerialisationUtils.serializeEntityAttributes(childEntityId)
+        root.children[i].tags       = EntitySerialisationUtils.serializeEntityTags(childEntityId)
+        root.children[i].components = EntitySerialisationUtils.serializeEntityComponents(childEntityId)
+        finished                    = true
     end
 
-    CustomProfiler.stop("EntitySerialisationUtils.serialiseEntireRootEntity", cpc)
+    CustomProfiler.stop("EntitySerialisationUtils.serializeEntireRootEntity", cpc)
     return finished, root
 end
 
-EntitySerialisationUtils.serialiseEntityAttributes  = function(entityId)
-    local cpc = CustomProfiler.start("EntitySerialisationUtils.serialiseEntityAttributes")
+EntitySerialisationUtils.serializeEntityAttributes   = function(entityId)
+    local cpc = CustomProfiler.start("EntitySerialisationUtils.serializeEntityAttributes")
     if util.IsEmpty(entityId) then
-        error(("Unable to serialise entity attributes, because entityId is %s"):format(entityId), 2)
+        error(("Unable to serialize entity attributes, because entityId is %s"):format(entityId), 2)
+    end
+    if not EntityUtils.isEntityAlive(entityId) then
+        error("NOITA SUCKS!", 2)
     end
 
     local attributes                                                                                                                        = {}
@@ -362,24 +368,30 @@ EntitySerialisationUtils.serialiseEntityAttributes  = function(entityId)
     attributes.transform                                                                                                                    = {}
     attributes.transform.x, attributes.transform.y, attributes.transform.rotation, attributes.transform.scaleX, attributes.transform.scaleY = EntityGetTransform(entityId)
 
-    CustomProfiler.stop("EntitySerialisationUtils.serialiseEntityAttributes", cpc)
+    CustomProfiler.stop("EntitySerialisationUtils.serializeEntityAttributes", cpc)
     return attributes
 end
 
-EntitySerialisationUtils.serialiseEntityTags        = function(entityId)
-    local cpc = CustomProfiler.start("EntitySerialisationUtils.serialiseEntityTags")
+EntitySerialisationUtils.serializeEntityTags         = function(entityId)
+    local cpc = CustomProfiler.start("EntitySerialisationUtils.serializeEntityTags")
     if util.IsEmpty(entityId) then
-        error(("Unable to serialise entitys attributes, because entityId is %s"):format(entityId), 2)
+        error(("Unable to serialize entitys attributes, because entityId is %s"):format(entityId), 2)
+    end
+    if not EntityUtils.isEntityAlive(entityId) then
+        error("NOITA SUCKS!", 2)
     end
     local tags = EntityGetTags(entityId)
-    CustomProfiler.stop("EntitySerialisationUtils.serialiseEntityTags", cpc)
+    CustomProfiler.stop("EntitySerialisationUtils.serializeEntityTags", cpc)
     return tags
 end
 
-EntitySerialisationUtils.serialiseEntityComponents  = function(entityId)
-    local cpc = CustomProfiler.start("EntitySerialisationUtils.serialiseEntityComponents")
+EntitySerialisationUtils.serializeEntityComponents   = function(entityId)
+    local cpc = CustomProfiler.start("EntitySerialisationUtils.serializeEntityComponents")
     if util.IsEmpty(entityId) then
-        error(("Unable to serialise entity's attributes, because entityId is %s"):format(entityId), 2)
+        error(("Unable to serialize entity's attributes, because entityId is %s"):format(entityId), 2)
+    end
+    if not EntityUtils.isEntityAlive(entityId) then
+        error("NOITA SUCKS!", 2)
     end
 
     local components   = {}
@@ -389,7 +401,7 @@ EntitySerialisationUtils.serialiseEntityComponents  = function(entityId)
         local componentId       = componentIds[i]
         components[i]           = {}
         components[i].isEnabled = ComponentGetIsEnabled(componentId)
-        components[i].tags      = EntitySerialisationUtils.serialiseComponentTags(componentId)
+        components[i].tags      = EntitySerialisationUtils.serializeComponentTags(componentId)
         components[i].type      = ComponentGetTypeName(componentId)
         -- Credits to NathanSkimScam#4544
         local members           = ComponentGetMembers(componentId) or {}
@@ -407,12 +419,12 @@ EntitySerialisationUtils.serialiseEntityComponents  = function(entityId)
         end
     end
 
-    CustomProfiler.stop("EntitySerialisationUtils.serialiseEntityComponents", cpc)
+    CustomProfiler.stop("EntitySerialisationUtils.serializeEntityComponents", cpc)
     return components
 end
 
-EntitySerialisationUtils.serialiseComponentTags     = function(componentId)
-    local cpc  = CustomProfiler.start("EntitySerialisationUtils.serialiseComponentTags")
+EntitySerialisationUtils.serializeComponentTags      = function(componentId)
+    local cpc  = CustomProfiler.start("EntitySerialisationUtils.serializeComponentTags")
     local tags = {}
     for i = 1, #EntitySerialisationUtils.componentTags do
         local tag = EntitySerialisationUtils.componentTags[i]
@@ -420,6 +432,112 @@ EntitySerialisationUtils.serialiseComponentTags     = function(componentId)
             tags[tag] = true
         end
     end
-    CustomProfiler.stop("EntitySerialisationUtils.serialiseComponentTags", cpc)
+    CustomProfiler.stop("EntitySerialisationUtils.serializeComponentTags", cpc)
     return tags
+end
+
+EntitySerialisationUtils.deserializeEntireRootEntity = function(serializedRootEntity)
+    local cpc      = CustomProfiler.start("EntitySerialisationUtils.deserializeEntireRootEntity")
+    local entityId = EntityLoad(serializedRootEntity.attributes.filename, serializedRootEntity.transform.x,
+                                serializedRootEntity.transform.y)
+    if not EntityUtils.isEntityAlive(entityId) then
+        error("NOITA SUCKS!", 2)
+    end
+    local finished = false
+    finished       = EntitySerialisationUtils.deserializeEntityAttributes(entityId, serializedRootEntity)
+    finished       = EntitySerialisationUtils.deserializeEntityTags(entityId, serializedRootEntity)
+
+    CustomProfiler.stop("EntitySerialisationUtils.deserializeEntireRootEntity", cpc)
+end
+
+EntitySerialisationUtils.deserializeEntityAttributes = function(entityId, serializedRootEntity)
+    local cpc = CustomProfiler.start("EntitySerialisationUtils.deserializeEntityAttributes")
+    if util.IsEmpty(entityId) then
+        error(("Unable to deserialize entity attributes, because entityId is %s"):format(entityId), 2)
+    end
+    if not EntityUtils.isEntityAlive(entityId) then
+        error("NOITA SUCKS!", 2)
+    end
+
+    EntitySetName(entityId, serializedRootEntity.attributes.name)
+
+    EntityApplyTransform(entityId, serializedRootEntity.transform.x, serializedRootEntity.transform.y,
+                         serializedRootEntity.transform.rotation, serializedRootEntity.transform.scaleX,
+                         serializedRootEntity.transform.scaleY)
+
+    CustomProfiler.stop("EntitySerialisationUtils.deserializeEntityAttributes", cpc)
+    return true
+end
+
+EntitySerialisationUtils.deserializeEntityTags       = function(entityId, serializedRootEntity)
+    local cpc = CustomProfiler.start("EntitySerialisationUtils.deserializeEntityTags")
+    if util.IsEmpty(entityId) then
+        error(("Unable to serialize entitys attributes, because entityId is %s"):format(entityId), 2)
+    end
+    if not EntityUtils.isEntityAlive(entityId) then
+        error("NOITA SUCKS!", 2)
+    end
+
+    local tags = string.split(serializedRootEntity.tags or {}, ",")
+    for i = 1, #tags do
+        if not EntityHasTag(serializedRootEntity.tags[i]) then
+            EntityAddTag(serializedRootEntity.tags[i])
+        end
+    end
+
+    CustomProfiler.stop("EntitySerialisationUtils.deserializeEntityTags", cpc)
+    return true
+end
+
+EntitySerialisationUtils.deserializeEntityComponents = function(entityId, serializedRootEntity)
+    local cpc = CustomProfiler.start("EntitySerialisationUtils.deserializeEntityComponents")
+    if util.IsEmpty(entityId) then
+        error(("Unable to serialize entity's attributes, because entityId is %s"):format(entityId), 2)
+    end
+    if not EntityUtils.isEntityAlive(entityId) then
+        error("NOITA SUCKS!", 2)
+    end
+
+    local components   = {}
+    local componentIds = EntityGetAllComponents(entityId)
+
+    for i = 1, #componentIds do
+        local componentId = componentIds[i]
+        EntityRemoveComponent(entityId, componentId)
+    end
+
+    for i = 1, #serializedRootEntity.components do
+        local componentType                          = serializedRootEntity.components[i].type
+        local isEnabled                              = serializedRootEntity.components[i].isEnabled
+        -- remove non noita values
+        serializedRootEntity.components[i].type      = nil
+        serializedRootEntity.components[i].isEnabled = nil
+
+        local componentId                            = EntityAddComponent2(entityId, componentType,
+                                                                           serializedRootEntity.components[i])
+        if EntityUtils.remove.byComponentsName[componentType] then
+            -- some components shouldn't be enabled at all in multiplayer?
+            -- TODO: remove or do not add at all? instead of disabling?
+            isEnabled = false
+        end
+
+        EntitySetComponentIsEnabled(entityId, componentId, isEnabled)
+
+        --local members           = ComponentGetMembers(componentId) or {}
+        --for k, v in pairs(members) do
+        --    if v ~= "" then
+        --        components[i][k] = v
+        --    else
+        --        if EntitySerialisationUtils.componentObjectMemberNames[k] then
+        --            local memberObject = ComponentObjectGetMembers(componentId, k)
+        --            if not util.IsEmpty(memberObject) then
+        --                components[i][k] = memberObject
+        --            end
+        --        end
+        --    end
+        --end
+    end
+
+    CustomProfiler.stop("EntitySerialisationUtils.deserializeEntityComponents", cpc)
+    return components
 end
