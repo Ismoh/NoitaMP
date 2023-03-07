@@ -27,6 +27,7 @@ local function getOS()
 
     raw_os_name = (raw_os_name):lower()
     raw_arch_name = (raw_arch_name):lower()
+    print(("Detected os '%s' on arch '%s'!"):format(raw_os_name, raw_arch_name))
 
     local os_patterns = {
         ["windows"] = "Windows",

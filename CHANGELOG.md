@@ -1,5 +1,21 @@
 # Changelog
 
+## [v4.1.0-alpha+1195](https://github.com/Ismoh/NoitaMP/tree/v4.1.0-alpha+1195) (05.03.2023)
+
+[Full Changelog](https://github.com/Ismoh/NoitaMP/compare/v4.1.0-alpha+1184...v4.1.0-alpha+1195)
+
+## [v4.1.0-alpha+1184](https://github.com/Ismoh/NoitaMP/tree/v4.1.0-alpha+1184) (05.03.2023)
+
+[Full Changelog](https://github.com/Ismoh/NoitaMP/compare/v4.0.1-alpha+792...v4.1.0-alpha+1184)
+
+**Implemented enhancements:**
+
+- Developer want to sync children and components [\#107](https://github.com/Ismoh/NoitaMP/issues/107) [[enhancement](https://github.com/Ismoh/NoitaMP/labels/enhancement)]
+
+**Closed issues:**
+
+- Update CHANGELOG.md [\#112](https://github.com/Ismoh/NoitaMP/issues/112) [[documentation](https://github.com/Ismoh/NoitaMP/labels/documentation)] [[github_actions](https://github.com/Ismoh/NoitaMP/labels/github_actions)]
+
 ## [v4.0.1-alpha+792](https://github.com/Ismoh/NoitaMP/tree/v4.0.1-alpha+792) (17.02.2023)
 
 [Full Changelog](https://github.com/Ismoh/NoitaMP/compare/v4.0.0-alpha+1302...v4.0.1-alpha+792)
