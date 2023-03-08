@@ -1,5 +1,3 @@
-local params              = ...
-
 --- Make absolutely sure, that the already mocked Noita API function is not overwritten
 local mockedModSettingGet = ModSettingGet
 ModSettingGet             = function(id)
@@ -14,7 +12,6 @@ ModSettingGet             = function(id)
     error(("Mod setting '%s' is not mocked! Add it!"):format(id), 2)
 end
 
-local lu                  = require("luaunit")
 local fu                  = require("FileUtils")
 local os_name             = require("os_name")
 
@@ -295,5 +292,3 @@ end
 function TestFileUtil:testCreate7zipArchive()
     --fu.Create7zipArchive()
 end
-
-lu.LuaUnit.run(params)

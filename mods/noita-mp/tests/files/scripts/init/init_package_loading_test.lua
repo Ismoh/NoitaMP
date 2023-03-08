@@ -1,6 +1,3 @@
-local params = ...
-
-local lu = require("luaunit")
 
 TestInitPackageLoading = {}
 
@@ -11,5 +8,3 @@ end
 function TestInitPackageLoading:tearDown()
 
 end
-
-lu.LuaUnit.run(params)

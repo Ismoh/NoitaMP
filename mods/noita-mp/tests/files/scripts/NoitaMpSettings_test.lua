@@ -1,10 +1,3 @@
----
---- Created by Ismoh.
---- DateTime: 14.02.2023 12:01
----
-local params        = ...
-
-local lu            = require("luaunit")
 local fu            = require("FileUtils")
 
 TestNoitaMpSettings = {}
@@ -43,5 +36,3 @@ function TestNoitaMpSettings:testGetSetting()
     local nameSetting = NoitaMpSettings.getSetting("name")
     lu.assertEquals(nameSetting, name)
 end
-
-lu.LuaUnit.run(params)

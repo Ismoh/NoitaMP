@@ -1,9 +1,3 @@
----
---- Created by Ismoh-PC.
---- DateTime: 23.01.2023 17:37
----
-local params                       = ...
-
 --- Make absolutely sure, that the already mocked Noita API function is not overwritten
 local mockedModSettingGetNextValue = ModSettingGetNextValue
 ModSettingGetNextValue             = function(id)
@@ -113,5 +107,3 @@ function TestNetworkCacheUtils:testGet()
     --local guid             = GuidUtils:getGuid()
     --NetworkCacheUtils.get(guid, networkMessageId, event)
 end
-
-lu.LuaUnit.run(params)

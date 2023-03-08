@@ -1,11 +1,3 @@
----
---- Created by Ismoh-PC.
---- DateTime: 22.01.2023 01:15
----
-local params = ...
-
-local lu      = require("luaunit")
-
 TestLogger = {}
 TestLogger.mockedLogLevel = { "trace, debug, info, warn", "TRACE" }
 
@@ -78,5 +70,3 @@ function TestLogger:testWarn()
     lu.assertIsFalse(Logger.info(Logger.channels.testing, "This should NOT be logged!"))
     lu.assertIsTrue(Logger.warn(Logger.channels.testing, "This should be logged, warn level!"))
 end
-
-lu.LuaUnit.run(params)

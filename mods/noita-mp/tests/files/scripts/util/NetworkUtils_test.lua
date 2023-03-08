@@ -1,5 +1,3 @@
-local params                 = ...
-
 -- [[ Mock Noita API functions, which are needed before/during require is used ]] --
 mockedModSettingGetNextValue = ModSettingGetNextValue
 ModSettingGetNextValue       = function(id)
@@ -777,5 +775,3 @@ function TestNetworkUtils:testAlreadySentNeedModContent()
     lu.assertIsTrue(alreadySent,
                     "NetworkMessage was already send, but NetworkUtils.alreadySent didn't find it in the cache?")
 end
-
-lu.LuaUnit.run(params)

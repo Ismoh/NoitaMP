@@ -66,10 +66,10 @@ build           = {
         ["tests.files.scripts.util.GuidUtils_test"]                    = "tests/files/scripts/util/GuidUtils_test.lua",
         ["tests.files.scripts.util.util_test"]                    = "tests/files/scripts/util/util_test.lua",
         ["tests.init_test"]                                       = "tests/init_test.lua",
-        ["tests._initializeUnitTests"]                                  = "tests/_initializeUnitTests.lua"
+        ["tests.unitTestRunner"]                                  = "tests/unitTestRunner.lua"
     },
 }
 test            = {
     type   = "command",
-    script = "tests/_initializeUnitTests.lua",
+    script = "tests/unitTestRunner.lua",
 }

@@ -1,8 +1,9 @@
 _G.isTestLuaContext = true
-
 dofile("../noita-mp/files/scripts/init/init_package_loading.lua")
 
 local lfs = require("lfs")
+local params = ...
+lu     = require("luaunit")
 
 --- Returns a list of all files in a directory
 function getAllFilesInside(folder)
@@ -93,10 +94,8 @@ end
 dofile("mods/noita-mp/files/scripts/init/init_.lua")
 
 for _, testFile in ipairs(testFiles) do
-    print("")
-    print("")
-    print("##################################################")
-    print("Running test: " .. testFile)
-    --dofile(testFile)
-    assert(loadfile(testFile))("--verbose", "--error", "--failure")
+    dofile(testFile)
+    print("Loaded test " .. testFile)
 end
+
+lu.LuaUnit.run(params)

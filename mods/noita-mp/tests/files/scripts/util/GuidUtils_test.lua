@@ -1,6 +1,3 @@
-local params    = ...
-
-local lu        = require("luaunit")
 local GuidUtils = require("GuidUtils")
 
 TestGuidUtils   = {}
@@ -45,5 +42,3 @@ function TestGuidUtils:testToNumber()
     lu.assertNotIsNil(number)
     lu.assertIsTrue(type(number) == "number", "GuidUtils.toNumber didn't return a number!")
 end
-
-lu.LuaUnit.run(params)

@@ -1,7 +1,3 @@
-local params        = ...
-
-local lu            = require("luaunit")
-
 TestTableExtensions = {}
 
 function TestTableExtensions:setUp()
@@ -121,5 +117,3 @@ function TestTableExtensions:testContentToString()
     local str4         = table.contentToString(tbl4)
     lu.assertEquals(str4, expectedStr4)
 end
-
-lu.LuaUnit.run(params)
