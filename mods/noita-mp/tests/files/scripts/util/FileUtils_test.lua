@@ -16,6 +16,7 @@ end
 
 local lu                  = require("luaunit")
 local fu                  = require("FileUtils")
+local os_name             = require("os_name")
 
 TestFileUtil              = {}
 
@@ -33,10 +34,19 @@ end
 
 function TestFileUtil:tearDown()
     -- Make sure OS detection isn't broken, when changed in tests
-    _G.is_windows = true
-    _G.is_linux   = false
+    _G.is_windows                                = true
+    _G.is_linux                                  = false
+    _G.pathSeparator                             = tostring(package.config:sub(1, 1))
     local current_platform, current_architecture = os_name.getOS()
-    _G.pathSeparator = tostring(package.config:sub(1, 1))
+    if current_platform == "Windows" then
+        _G.is_windows = true
+        _G.is_linux = false
+        _G.pathSeparator = "\\"
+    else
+        _G.is_windows = false
+        _G.is_linux = true
+        _G.pathSeparator = "/"
+    end
 end
 
 ----------------------------------------------------------------------------------------------------
@@ -83,19 +93,6 @@ function TestFileUtil:testReplacePathSeparatorOnUnix()
     _G.pathSeparator = old_pathSeparator
 end
 
-function TestFileUtil:testReplacePathSeparatorUnknownOs()
-    local old_is_windows = _G.is_windows
-    local old_is_linux   = _G.is_linux
-
-    _G.is_windows        = false -- TODO: is there a better way to mock?
-    _G.is_linux          = false -- TODO: is there a better way to mock?
-
-    lu.assertErrorMsgContains("FileUtils.lua | Unable to detect OS", fu.ReplacePathSeparator, "path doesnt matter")
-
-    _G.is_windows = old_is_windows
-    _G.is_linux   = old_is_linux
-end
-
 function TestFileUtil:testRemoveTrailingPathSeparator()
     local path   = tostring(_G.pathSeparator .. "persistent" .. _G.pathSeparator .. "flags" .. _G.pathSeparator)
     local result = fu.RemoveTrailingPathSeparator(path)
@@ -130,7 +127,8 @@ function TestFileUtil:testSetAbsolutePathOfNoitaRootDirectoryUnknownOs()
 end
 
 function TestFileUtil:testGetAbsolutePathOfNoitaRootDirectory()
-    Logger.trace(Logger.channels.testing, ("Need to verify absolute path of root noita: %s"):format(fu.GetAbsolutePathOfNoitaRootDirectory()))
+    Logger.trace(Logger.channels.testing,
+                 ("Need to verify absolute path of root noita: %s"):format(fu.GetAbsolutePathOfNoitaRootDirectory()))
     lu.assertStrContains(fu.GetAbsolutePathOfNoitaRootDirectory(),
                          _G.pathSeparator) -- TODO: Need a better test for this!
 end

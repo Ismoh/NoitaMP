@@ -90,24 +90,26 @@ package.path = default_package_path
 --[[ NoitaMP additions ]]
 -- A dot character represent current working directory
 local root_dir                               = "."
-local current_platform, current_architecture = os_name.getOS()
-
-local cpaths, lpaths                         = {}, {}
-local current_clib_extension                 = extensions[current_platform]
 
 --[[ NoitaMP additions ]]
+_G.is_windows                                = true
+_G.is_linux                                  = false
+_G.pathSeparator                             = tostring(package.config:sub(1, 1))
+local current_platform, current_architecture = os_name.getOS()
+if current_platform == "Windows" then
+    _G.is_windows = true
+    _G.is_linux = false
+    _G.pathSeparator = "\\"
+else
+    _G.is_windows = false
+    _G.is_linux = true
+    _G.pathSeparator = "/"
+end
 _G.os_name       = current_platform
 _G.os_arch       = current_architecture
 
--- https://stackoverflow.com/a/14425862/3493998
-_G.pathSeparator = tostring(package.config:sub(1, 1))
-
-if _G.os_name == "Windows" then
-    _G.is_windows = true
-end
-if _G.os_name == "Linux" then
-    _G.is_linux = true
-end
+local cpaths, lpaths                         = {}, {}
+local current_clib_extension                 = extensions[current_platform]
 
 print("init_package_loading.lua | Detected OS " .. _G.os_name ..
 "(" .. _G.os_arch .. ") with path separator '" .. _G.pathSeparator .. "'.")
