@@ -425,6 +425,7 @@ function EntityUtils.processAndSyncEntityNetworking()
                     --Server.sendNewNuid({ compOwnerName, compOwnerGuid }, entityId, nuid, x, y, rotation, velocity,
                     --                   filename, health, EntityUtils.isEntityPolymorphed(entityId))
                     local finished, serializedEntity = EntitySerialisationUtils.serializeEntireRootEntity(entityId)
+                    local ONLYFORTESTING = EntitySerialisationUtils.deserializeEntireRootEntity(serializedEntity)
                     if finished == true then
                         Server.sendNewNuidserialized(compOwnerName, compOwnerGuid, entityId, serializedEntity)
                     end

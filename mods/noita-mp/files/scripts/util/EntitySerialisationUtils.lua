@@ -313,646 +313,177 @@ EntitySerialisationUtils.componentObjectMemberNames  = {
 }
 EntitySerialisationUtils.componentMemberTypes        = {
     additive                                     = "boolean",
-    additive                                     = "boolean",
-    additive                                     = "boolean",
-    additive                                     = "boolean",
-    additive                                     = "boolean",
-    additive                                     = "boolean",
-    additive                                     = "boolean",
-    additive                                     = "boolean",
-    additive                                     = "boolean",
-    additive                                     = "boolean",
-    additive                                     = "boolean",
-    additive                                     = "boolean",
-    additive                                     = "boolean",
-    additive                                     = "boolean",
-    additive                                     = "boolean",
-    additive                                     = "boolean",
-    additive                                     = "boolean",
-    additive                                     = "boolean",
-    affect_physics_bodies                        = "boolean",
     affect_physics_bodies                        = "boolean",
     air_needed                                   = "boolean",
-    air_needed                                   = "boolean",
-    apply_terminal_velocity                      = "boolean",
     apply_terminal_velocity                      = "boolean",
     auto_play                                    = "boolean",
-    auto_play                                    = "boolean",
-    auto_play                                    = "boolean",
-    auto_play                                    = "boolean",
-    auto_play                                    = "boolean",
-    auto_play                                    = "boolean",
-    auto_play                                    = "boolean",
-    auto_play                                    = "boolean",
-    auto_play                                    = "boolean",
-    auto_play                                    = "boolean",
-    auto_play                                    = "boolean",
-    auto_play                                    = "boolean",
-    auto_play_if_enabled                         = "boolean",
-    auto_play_if_enabled                         = "boolean",
-    auto_play_if_enabled                         = "boolean",
-    auto_play_if_enabled                         = "boolean",
-    auto_play_if_enabled                         = "boolean",
-    auto_play_if_enabled                         = "boolean",
-    auto_play_if_enabled                         = "boolean",
-    auto_play_if_enabled                         = "boolean",
-    auto_play_if_enabled                         = "boolean",
-    auto_play_if_enabled                         = "boolean",
-    auto_play_if_enabled                         = "boolean",
     auto_play_if_enabled                         = "boolean",
     berserk_dont_attack_friends                  = "boolean",
-    berserk_dont_attack_friends                  = "boolean",
-    blood_spray_create_some_cosmetic             = "boolean",
     blood_spray_create_some_cosmetic             = "boolean",
     calculate_material_lowpass                   = "boolean",
-    calculate_material_lowpass                   = "boolean",
-    calculate_material_lowpass                   = "boolean",
-    calculate_material_lowpass                   = "boolean",
-    calculate_material_lowpass                   = "boolean",
-    calculate_material_lowpass                   = "boolean",
-    calculate_material_lowpass                   = "boolean",
-    calculate_material_lowpass                   = "boolean",
-    calculate_material_lowpass                   = "boolean",
-    calculate_material_lowpass                   = "boolean",
-    calculate_material_lowpass                   = "boolean",
-    calculate_material_lowpass                   = "boolean",
-    call_init_function                           = "boolean",
-    call_init_function                           = "boolean",
-    call_init_function                           = "boolean",
-    call_init_function                           = "boolean",
-    call_init_function                           = "boolean",
-    call_init_function                           = "boolean",
-    call_init_function                           = "boolean",
     call_init_function                           = "boolean",
     camera_bound                                 = "boolean",
-    camera_bound                                 = "boolean",
-    can_kick                                     = "boolean",
     can_kick                                     = "boolean",
     center_camera_on_this_entity                 = "boolean",
-    center_camera_on_this_entity                 = "boolean",
-    collide_with_gas_and_fire                    = "boolean",
     collide_with_gas_and_fire                    = "boolean",
     collide_with_grid                            = "boolean",
-    collide_with_grid                            = "boolean",
-    color_is_based_on_pos                        = "boolean",
     color_is_based_on_pos                        = "boolean",
     cosmetic_force_create                        = "boolean",
-    cosmetic_force_create                        = "boolean",
-    create_ragdoll                               = "boolean",
     create_ragdoll                               = "boolean",
     create_real_particles                        = "boolean",
-    create_real_particles                        = "boolean",
-    dead                                         = "boolean",
     dead                                         = "boolean",
     displace_liquid                              = "boolean",
-    displace_liquid                              = "boolean",
-    draw_as_long                                 = "boolean",
     draw_as_long                                 = "boolean",
     drop_as_item                                 = "boolean",
-    drop_as_item                                 = "boolean",
-    drop_items_on_death                          = "boolean",
     drop_items_on_death                          = "boolean",
     eff_hg_update_box2d                          = "boolean",
-    eff_hg_update_box2d                          = "boolean",
-    effect_hit_ground                            = "boolean",
     effect_hit_ground                            = "boolean",
     emissive                                     = "boolean",
-    emissive                                     = "boolean",
-    emissive                                     = "boolean",
-    emissive                                     = "boolean",
-    emissive                                     = "boolean",
-    emissive                                     = "boolean",
-    emissive                                     = "boolean",
-    emissive                                     = "boolean",
-    emissive                                     = "boolean",
-    emissive                                     = "boolean",
-    emissive                                     = "boolean",
-    emissive                                     = "boolean",
-    emissive                                     = "boolean",
-    emissive                                     = "boolean",
-    emissive                                     = "boolean",
-    emissive                                     = "boolean",
-    emissive                                     = "boolean",
-    emissive                                     = "boolean",
-    emit_cosmetic_particles                      = "boolean",
     emit_cosmetic_particles                      = "boolean",
     emit_real_particles                          = "boolean",
-    emit_real_particles                          = "boolean",
-    enable_coroutines                            = "boolean",
-    enable_coroutines                            = "boolean",
-    enable_coroutines                            = "boolean",
-    enable_coroutines                            = "boolean",
-    enable_coroutines                            = "boolean",
-    enable_coroutines                            = "boolean",
-    enable_coroutines                            = "boolean",
     enable_coroutines                            = "boolean",
     enabled                                      = "boolean",
-    enabled                                      = "boolean",
-    enabled                                      = "boolean",
-    enabled                                      = "boolean",
     execute_on_added                             = "boolean",
-    execute_on_added                             = "boolean",
-    execute_on_added                             = "boolean",
-    execute_on_added                             = "boolean",
-    execute_on_added                             = "boolean",
-    execute_on_added                             = "boolean",
-    execute_on_added                             = "boolean",
-    execute_on_added                             = "boolean",
-    execute_on_removed                           = "boolean",
-    execute_on_removed                           = "boolean",
-    execute_on_removed                           = "boolean",
-    execute_on_removed                           = "boolean",
-    execute_on_removed                           = "boolean",
-    execute_on_removed                           = "boolean",
-    execute_on_removed                           = "boolean",
     execute_on_removed                           = "boolean",
     fade_based_on_lifetime                       = "boolean",
-    fade_based_on_lifetime                       = "boolean",
-    fade_stains_towards_srite_top                = "boolean",
     fade_stains_towards_srite_top                = "boolean",
     falling_damages                              = "boolean",
-    falling_damages                              = "boolean",
-    fire_cells_dont_ignite_damagemodel           = "boolean",
     fire_cells_dont_ignite_damagemodel           = "boolean",
     fly_model_player                             = "boolean",
-    fly_model_player                             = "boolean",
-    fly_smooth_y                                 = "boolean",
     fly_smooth_y                                 = "boolean",
     flying_needs_recharge                        = "boolean",
-    flying_needs_recharge                        = "boolean",
-    fog_of_war_hole                              = "boolean",
-    fog_of_war_hole                              = "boolean",
-    fog_of_war_hole                              = "boolean",
-    fog_of_war_hole                              = "boolean",
-    fog_of_war_hole                              = "boolean",
-    fog_of_war_hole                              = "boolean",
-    fog_of_war_hole                              = "boolean",
-    fog_of_war_hole                              = "boolean",
-    fog_of_war_hole                              = "boolean",
-    fog_of_war_hole                              = "boolean",
-    fog_of_war_hole                              = "boolean",
-    fog_of_war_hole                              = "boolean",
-    fog_of_war_hole                              = "boolean",
-    fog_of_war_hole                              = "boolean",
-    fog_of_war_hole                              = "boolean",
     fog_of_war_hole                              = "boolean",
     freeze_on_distance_kill                      = "boolean",
-    freeze_on_distance_kill                      = "boolean",
-    freeze_on_max_count_kill                     = "boolean",
     freeze_on_max_count_kill                     = "boolean",
     gamepad_fire_on_thumbstick_extend            = "boolean",
-    gamepad_fire_on_thumbstick_extend            = "boolean",
-    gamepad_indirect_aiming_enabled              = "boolean",
     gamepad_indirect_aiming_enabled              = "boolean",
     halftime_materials                           = "boolean",
-    halftime_materials                           = "boolean",
-    has_opened_inventory_edit                    = "boolean",
     has_opened_inventory_edit                    = "boolean",
     has_special_scale                            = "boolean",
-    has_special_scale                            = "boolean",
-    has_special_scale                            = "boolean",
-    has_special_scale                            = "boolean",
-    has_special_scale                            = "boolean",
-    has_special_scale                            = "boolean",
-    has_special_scale                            = "boolean",
-    has_special_scale                            = "boolean",
-    has_special_scale                            = "boolean",
-    has_special_scale                            = "boolean",
-    has_special_scale                            = "boolean",
-    has_special_scale                            = "boolean",
-    has_special_scale                            = "boolean",
-    has_special_scale                            = "boolean",
-    has_special_scale                            = "boolean",
-    has_special_scale                            = "boolean",
-    image_animation_loop                         = "boolean",
     image_animation_loop                         = "boolean",
     image_animation_raytrace_from_center         = "boolean",
-    image_animation_raytrace_from_center         = "boolean",
-    image_animation_use_entity_rotation          = "boolean",
     image_animation_use_entity_rotation          = "boolean",
     isBroken                                     = "boolean",
-    isBroken                                     = "boolean",
-    is_death_handled                             = "boolean",
     is_death_handled                             = "boolean",
     is_emitting                                  = "boolean",
-    is_emitting                                  = "boolean",
-    is_emitting                                  = "boolean",
-    is_emitting                                  = "boolean",
-    is_enemy                                     = "boolean",
     is_enemy                                     = "boolean",
     is_immune_to_kicks                           = "boolean",
-    is_immune_to_kicks                           = "boolean",
-    is_in_npc                                    = "boolean",
     is_in_npc                                    = "boolean",
     is_item                                      = "boolean",
-    is_item                                      = "boolean",
-    is_on_fire                                   = "boolean",
     is_on_fire                                   = "boolean",
     is_on_ground                                 = "boolean",
-    is_on_ground                                 = "boolean",
-    is_on_slippery_ground                        = "boolean",
     is_on_slippery_ground                        = "boolean",
     is_player                                    = "boolean",
-    is_player                                    = "boolean",
-    is_predator                                  = "boolean",
     is_predator                                  = "boolean",
     is_text_sprite                               = "boolean",
-    is_text_sprite                               = "boolean",
-    is_text_sprite                               = "boolean",
-    is_text_sprite                               = "boolean",
-    is_text_sprite                               = "boolean",
-    is_text_sprite                               = "boolean",
-    is_text_sprite                               = "boolean",
-    is_text_sprite                               = "boolean",
-    is_text_sprite                               = "boolean",
-    is_text_sprite                               = "boolean",
-    is_text_sprite                               = "boolean",
-    is_text_sprite                               = "boolean",
-    is_text_sprite                               = "boolean",
-    is_text_sprite                               = "boolean",
-    is_text_sprite                               = "boolean",
-    is_text_sprite                               = "boolean",
-    is_trail                                     = "boolean",
     is_trail                                     = "boolean",
     keyboard_look                                = "boolean",
-    keyboard_look                                = "boolean",
-    kill_entity_after_finished                   = "boolean",
-    kill_entity_after_finished                   = "boolean",
-    kill_entity_after_finished                   = "boolean",
-    kill_entity_after_finished                   = "boolean",
-    kill_entity_after_finished                   = "boolean",
-    kill_entity_after_finished                   = "boolean",
-    kill_entity_after_finished                   = "boolean",
-    kill_entity_after_finished                   = "boolean",
-    kill_entity_after_finished                   = "boolean",
-    kill_entity_after_finished                   = "boolean",
-    kill_entity_after_finished                   = "boolean",
-    kill_entity_after_finished                   = "boolean",
-    kill_entity_after_finished                   = "boolean",
-    kill_entity_after_finished                   = "boolean",
-    kill_entity_after_finished                   = "boolean",
     kill_entity_after_finished                   = "boolean",
     kill_now                                     = "boolean",
-    kill_now                                     = "boolean",
-    kill_when_empty                              = "boolean",
     kill_when_empty                              = "boolean",
     limit_to_max_velocity                        = "boolean",
-    limit_to_max_velocity                        = "boolean",
-    mActive                                      = "boolean",
     mActive                                      = "boolean",
     mAirAreWeInWater                             = "boolean",
-    mAirAreWeInWater                             = "boolean",
-    mAirDoWeHave                                 = "boolean",
     mAirDoWeHave                                 = "boolean",
     mButtonDownAction                            = "boolean",
-    mButtonDownAction                            = "boolean",
-    mButtonDownChangeItemL                       = "boolean",
     mButtonDownChangeItemL                       = "boolean",
     mButtonDownChangeItemR                       = "boolean",
-    mButtonDownChangeItemR                       = "boolean",
-    mButtonDownDig                               = "boolean",
     mButtonDownDig                               = "boolean",
     mButtonDownDown                              = "boolean",
-    mButtonDownDown                              = "boolean",
-    mButtonDownDropItem                          = "boolean",
     mButtonDownDropItem                          = "boolean",
     mButtonDownEat                               = "boolean",
-    mButtonDownEat                               = "boolean",
-    mButtonDownFire                              = "boolean",
     mButtonDownFire                              = "boolean",
     mButtonDownFire2                             = "boolean",
-    mButtonDownFire2                             = "boolean",
-    mButtonDownFly                               = "boolean",
     mButtonDownFly                               = "boolean",
     mButtonDownHolsterItem                       = "boolean",
-    mButtonDownHolsterItem                       = "boolean",
-    mButtonDownInteract                          = "boolean",
     mButtonDownInteract                          = "boolean",
     mButtonDownInventory                         = "boolean",
-    mButtonDownInventory                         = "boolean",
-    mButtonDownJump                              = "boolean",
     mButtonDownJump                              = "boolean",
     mButtonDownKick                              = "boolean",
-    mButtonDownKick                              = "boolean",
-    mButtonDownLeft                              = "boolean",
     mButtonDownLeft                              = "boolean",
     mButtonDownLeftClick                         = "boolean",
-    mButtonDownLeftClick                         = "boolean",
-    mButtonDownRight                             = "boolean",
     mButtonDownRight                             = "boolean",
     mButtonDownRightClick                        = "boolean",
-    mButtonDownRightClick                        = "boolean",
-    mButtonDownRun                               = "boolean",
     mButtonDownRun                               = "boolean",
     mButtonDownThrow                             = "boolean",
-    mButtonDownThrow                             = "boolean",
-    mButtonDownTransformDown                     = "boolean",
     mButtonDownTransformDown                     = "boolean",
     mButtonDownTransformLeft                     = "boolean",
-    mButtonDownTransformLeft                     = "boolean",
-    mButtonDownTransformRight                    = "boolean",
     mButtonDownTransformRight                    = "boolean",
     mButtonDownTransformUp                       = "boolean",
-    mButtonDownTransformUp                       = "boolean",
-    mButtonDownUp                                = "boolean",
     mButtonDownUp                                = "boolean",
     mCollidedHorizontally                        = "boolean",
-    mCollidedHorizontally                        = "boolean",
-    mCrouching                                   = "boolean",
     mCrouching                                   = "boolean",
     mDisplay_FireRateWaitBar                     = "boolean",
-    mDisplay_FireRateWaitBar                     = "boolean",
-    mFallIsOnGround                              = "boolean",
     mFallIsOnGround                              = "boolean",
     mFireTriedIgniting                           = "boolean",
-    mFireTriedIgniting                           = "boolean",
-    mForceFireOnNextUpdate                       = "boolean",
     mForceFireOnNextUpdate                       = "boolean",
     mForceRefresh                                = "boolean",
-    mForceRefresh                                = "boolean",
-    mHasChildIconsCached                         = "boolean",
     mHasChildIconsCached                         = "boolean",
     mHasGamepadControlsPrev                      = "boolean",
-    mHasGamepadControlsPrev                      = "boolean",
-    mHasReachedInf                               = "boolean"
-    mHasReachedInf                               = "boolean"
-    mInitialized                                 = "boolean",
+    mHasReachedInf                               = "boolean",
     mInitialized                                 = "boolean",
     mIsOnFire                                    = "boolean",
-    mIsOnFire                                    = "boolean",
-    mIsPrecisionJumping                          = "boolean",
     mIsPrecisionJumping                          = "boolean",
     mItemHolstered                               = "boolean",
-    mItemHolstered                               = "boolean",
-    mModAppendsDone                              = "boolean",
-    mModAppendsDone                              = "boolean",
-    mModAppendsDone                              = "boolean",
-    mModAppendsDone                              = "boolean",
-    mModAppendsDone                              = "boolean",
-    mModAppendsDone                              = "boolean",
-    mModAppendsDone                              = "boolean",
     mModAppendsDone                              = "boolean",
     mRequireTriggerPull                          = "boolean",
-    mRequireTriggerPull                          = "boolean",
-    mShouldCrouch                                = "boolean",
     mShouldCrouch                                = "boolean",
     mShouldCrouchPrev                            = "boolean",
-    mShouldCrouchPrev                            = "boolean",
-    m_has_emitted                                = "boolean",
     m_has_emitted                                = "boolean",
     materials_create_messages                    = "boolean",
-    materials_create_messages                    = "boolean",
-    materials_damage                             = "boolean",
     materials_damage                             = "boolean",
     materials_damage_proportional_to_maxhp       = "boolean",
-    materials_damage_proportional_to_maxhp       = "boolean",
-    mouse_look                                   = "boolean",
     mouse_look                                   = "boolean",
     move_camera_with_aim                         = "boolean",
-    move_camera_with_aim                         = "boolean",
-    never_ragdollify_on_death                    = "boolean",
-    never_ragdollify_on_death                    = "boolean",
-    never_ragdollify_on_death                    = "boolean",
-    never_ragdollify_on_death                    = "boolean",
-    never_ragdollify_on_death                    = "boolean",
-    never_ragdollify_on_death                    = "boolean",
-    never_ragdollify_on_death                    = "boolean",
-    never_ragdollify_on_death                    = "boolean",
-    never_ragdollify_on_death                    = "boolean",
-    never_ragdollify_on_death                    = "boolean",
-    never_ragdollify_on_death                    = "boolean",
-    never_ragdollify_on_death                    = "boolean",
-    never_ragdollify_on_death                    = "boolean",
-    never_ragdollify_on_death                    = "boolean",
-    never_ragdollify_on_death                    = "boolean",
     never_ragdollify_on_death                    = "boolean",
     on_death_spill                               = "boolean",
-    on_death_spill                               = "boolean",
-    particle_single_width                        = "boolean",
     particle_single_width                        = "boolean",
     physics_objects_damage                       = "boolean",
-    physics_objects_damage                       = "boolean",
-    play_on_component_enable                     = "boolean",
-    play_on_component_enable                     = "boolean",
-    play_on_component_enable                     = "boolean",
-    play_on_component_enable                     = "boolean",
-    play_on_component_enable                     = "boolean",
-    play_on_component_enable                     = "boolean",
-    play_on_component_enable                     = "boolean",
-    play_on_component_enable                     = "boolean",
-    play_on_component_enable                     = "boolean",
-    play_on_component_enable                     = "boolean",
-    play_on_component_enable                     = "boolean",
     play_on_component_enable                     = "boolean",
     play_only_if_visible                         = "boolean",
-    play_only_if_visible                         = "boolean",
-    polymorph_hax                                = "boolean",
     polymorph_hax                                = "boolean",
     ragdollify_child_entity_sprites              = "boolean",
-    ragdollify_child_entity_sprites              = "boolean",
-    ragdollify_disintegrate_nonroot              = "boolean",
     ragdollify_disintegrate_nonroot              = "boolean",
     randomize_position_inside_hitbox             = "boolean",
-    randomize_position_inside_hitbox             = "boolean",
-    remove_after_executed                        = "boolean",
-    remove_after_executed                        = "boolean",
-    remove_after_executed                        = "boolean",
-    remove_after_executed                        = "boolean",
-    remove_after_executed                        = "boolean",
-    remove_after_executed                        = "boolean",
-    remove_after_executed                        = "boolean",
     remove_after_executed                        = "boolean",
     remove_latest_event_on_destroyed             = "boolean",
-    remove_latest_event_on_destroyed             = "boolean",
-    render_back                                  = "boolean",
-    render_back                                  = "boolean",
-    render_back                                  = "boolean",
     render_back                                  = "boolean",
     render_on_grid                               = "boolean",
-    render_on_grid                               = "boolean",
-    render_ultrabright                           = "boolean",
     render_ultrabright                           = "boolean",
     report_damage                                = "boolean",
-    report_damage                                = "boolean",
-    report_death                                 = "boolean",
     report_death                                 = "boolean",
     report_new_biomes                            = "boolean",
-    report_new_biomes                            = "boolean",
-    rotate_to_surface_normal                     = "boolean",
     rotate_to_surface_normal                     = "boolean",
     run_animation_velocity_switching_enabled     = "boolean",
-    run_animation_velocity_switching_enabled     = "boolean",
-    send_message_on_event_dead                   = "boolean",
     send_message_on_event_dead                   = "boolean",
     send_transform_update_message                = "boolean",
-    send_transform_update_message                = "boolean",
-    set_latest_event_position                    = "boolean",
     set_latest_event_position                    = "boolean",
     set_magic_creation                           = "boolean",
-    set_magic_creation                           = "boolean",
-    set_projectile_to_liquid                     = "boolean",
     set_projectile_to_liquid                     = "boolean",
     set_speed_parameter                          = "boolean",
-    set_speed_parameter                          = "boolean",
-    set_speed_parameter                          = "boolean",
-    set_speed_parameter                          = "boolean",
-    set_speed_parameter                          = "boolean",
-    set_speed_parameter                          = "boolean",
-    set_speed_parameter                          = "boolean",
-    set_speed_parameter                          = "boolean",
-    set_speed_parameter                          = "boolean",
-    set_speed_parameter                          = "boolean",
-    set_speed_parameter                          = "boolean",
-    set_speed_parameter                          = "boolean",
-    set_speed_parameter_only_based_on_x_movement = "boolean",
-    set_speed_parameter_only_based_on_x_movement = "boolean",
-    set_speed_parameter_only_based_on_x_movement = "boolean",
-    set_speed_parameter_only_based_on_x_movement = "boolean",
-    set_speed_parameter_only_based_on_x_movement = "boolean",
-    set_speed_parameter_only_based_on_x_movement = "boolean",
-    set_speed_parameter_only_based_on_x_movement = "boolean",
-    set_speed_parameter_only_based_on_x_movement = "boolean",
-    set_speed_parameter_only_based_on_x_movement = "boolean",
-    set_speed_parameter_only_based_on_x_movement = "boolean",
-    set_speed_parameter_only_based_on_x_movement = "boolean",
     set_speed_parameter_only_based_on_x_movement = "boolean",
     set_speed_parameter_only_based_on_y_movement = "boolean",
-    set_speed_parameter_only_based_on_y_movement = "boolean",
-    set_speed_parameter_only_based_on_y_movement = "boolean",
-    set_speed_parameter_only_based_on_y_movement = "boolean",
-    set_speed_parameter_only_based_on_y_movement = "boolean",
-    set_speed_parameter_only_based_on_y_movement = "boolean",
-    set_speed_parameter_only_based_on_y_movement = "boolean",
-    set_speed_parameter_only_based_on_y_movement = "boolean",
-    set_speed_parameter_only_based_on_y_movement = "boolean",
-    set_speed_parameter_only_based_on_y_movement = "boolean",
-    set_speed_parameter_only_based_on_y_movement = "boolean",
-    set_speed_parameter_only_based_on_y_movement = "boolean",
-    smooth_filtering                             = "boolean",
-    smooth_filtering                             = "boolean",
-    smooth_filtering                             = "boolean",
-    smooth_filtering                             = "boolean",
-    smooth_filtering                             = "boolean",
-    smooth_filtering                             = "boolean",
-    smooth_filtering                             = "boolean",
-    smooth_filtering                             = "boolean",
-    smooth_filtering                             = "boolean",
-    smooth_filtering                             = "boolean",
-    smooth_filtering                             = "boolean",
-    smooth_filtering                             = "boolean",
-    smooth_filtering                             = "boolean",
-    smooth_filtering                             = "boolean",
-    smooth_filtering                             = "boolean",
     smooth_filtering                             = "boolean",
     sprite_centered                              = "boolean",
-    sprite_centered                              = "boolean",
-    sprite_random_rotation                       = "boolean",
     sprite_random_rotation                       = "boolean",
     suck_gold                                    = "boolean",
-    suck_gold                                    = "boolean",
-    suck_health                                  = "boolean",
     suck_health                                  = "boolean",
     suck_static_materials                        = "boolean",
-    suck_static_materials                        = "boolean",
-    transform_with_scale                         = "boolean",
     transform_with_scale                         = "boolean",
     ui_force_report_damage                       = "boolean",
-    ui_force_report_damage                       = "boolean",
-    ui_is_parent                                 = "boolean",
-    ui_is_parent                                 = "boolean",
-    ui_is_parent                                 = "boolean",
-    ui_is_parent                                 = "boolean",
-    ui_is_parent                                 = "boolean",
-    ui_is_parent                                 = "boolean",
-    ui_is_parent                                 = "boolean",
-    ui_is_parent                                 = "boolean",
-    ui_is_parent                                 = "boolean",
-    ui_is_parent                                 = "boolean",
-    ui_is_parent                                 = "boolean",
-    ui_is_parent                                 = "boolean",
-    ui_is_parent                                 = "boolean",
-    ui_is_parent                                 = "boolean",
-    ui_is_parent                                 = "boolean",
     ui_is_parent                                 = "boolean",
     ui_report_damage                             = "boolean",
-    ui_report_damage                             = "boolean",
-    update_properties                            = "boolean",
     update_properties                            = "boolean",
     update_transform                             = "boolean",
-    update_transform                             = "boolean",
-    update_transform                             = "boolean",
-    update_transform                             = "boolean",
-    update_transform                             = "boolean",
-    update_transform                             = "boolean",
-    update_transform                             = "boolean",
-    update_transform                             = "boolean",
-    update_transform                             = "boolean",
-    update_transform                             = "boolean",
-    update_transform                             = "boolean",
-    update_transform                             = "boolean",
-    update_transform                             = "boolean",
-    update_transform                             = "boolean",
-    update_transform                             = "boolean",
-    update_transform                             = "boolean",
-    update_transform_rotation                    = "boolean",
-    update_transform_rotation                    = "boolean",
-    update_transform_rotation                    = "boolean",
-    update_transform_rotation                    = "boolean",
-    update_transform_rotation                    = "boolean",
-    update_transform_rotation                    = "boolean",
-    update_transform_rotation                    = "boolean",
-    update_transform_rotation                    = "boolean",
-    update_transform_rotation                    = "boolean",
-    update_transform_rotation                    = "boolean",
-    update_transform_rotation                    = "boolean",
-    update_transform_rotation                    = "boolean",
-    update_transform_rotation                    = "boolean",
-    update_transform_rotation                    = "boolean",
-    update_transform_rotation                    = "boolean",
     update_transform_rotation                    = "boolean",
     updates_velocity                             = "boolean",
-    updates_velocity                             = "boolean",
-    use_material_inventory                       = "boolean",
     use_material_inventory                       = "boolean",
     use_rotation_from_entity                     = "boolean",
-    use_rotation_from_entity                     = "boolean",
-    use_rotation_from_velocity_component         = "boolean",
     use_rotation_from_velocity_component         = "boolean",
     use_velocity_as_rotation                     = "boolean",
-    use_velocity_as_rotation                     = "boolean",
     value_bool                                   = "boolean",
-    value_bool                                   = "boolean",
-    value_bool                                   = "boolean",
-    value_bool                                   = "boolean",
-    value_bool                                   = "boolean",
-    value_bool                                   = "boolean",
-    value_bool                                   = "boolean",
-    value_bool                                   = "boolean",
-    value_bool                                   = "boolean",
-    value_bool                                   = "boolean",
-    value_bool                                   = "boolean",
-    value_bool                                   = "boolean",
-    value_bool                                   = "boolean",
-    value_bool                                   = "boolean",
-    velocity_always_away_from_center             = "boolean",
-    velocity_always_away_from_center             = "boolean",
+    --velocity_always_away_from_center             = "boolean", can be number AND boolean!
     visible                                      = "boolean",
-    visible                                      = "boolean",
-    visible                                      = "boolean",
-    visible                                      = "boolean",
-    visible                                      = "boolean",
-    visible                                      = "boolean",
-    visible                                      = "boolean",
-    visible                                      = "boolean",
-    visible                                      = "boolean",
-    visible                                      = "boolean",
-    visible                                      = "boolean",
-    visible                                      = "boolean",
-    visible                                      = "boolean",
-    visible                                      = "boolean",
-    visible                                      = "boolean",
-    visible                                      = "boolean",
-    wait_for_kill_flag_on_death                  = "boolean",
     wait_for_kill_flag_on_death                  = "boolean",
 }
 
@@ -1025,6 +556,10 @@ EntitySerialisationUtils.serializeEntityTags         = function(entityId)
         error("NOITA SUCKS!", 2)
     end
     local tags = EntityGetTags(entityId)
+    if util.IsEmpty(tags) then
+        -- let's remove tags, when there aren't any
+        tags = nil
+    end
     CustomProfiler.stop("EntitySerialisationUtils.serializeEntityTags", cpc)
     return tags
 end
@@ -1069,12 +604,17 @@ end
 
 EntitySerialisationUtils.serializeComponentTags      = function(componentId)
     local cpc  = CustomProfiler.start("EntitySerialisationUtils.serializeComponentTags")
-    local tags = {}
+    local tags = ""
     for i = 1, #EntitySerialisationUtils.componentTags do
         local tag = EntitySerialisationUtils.componentTags[i]
         if ComponentHasTag(componentId, tag) then
-            tags[tag] = true
+            tags = ("%s,%s"):format(tags, tag)
         end
+    end
+    tags = tags:sub(2) -- ",shoot_pos,foo,bar" -> "shoot_pos,foo,bar"
+    if util.IsEmpty(tags) then
+        -- let's remove tags, when there aren't any
+        tags = nil
     end
     CustomProfiler.stop("EntitySerialisationUtils.serializeComponentTags", cpc)
     return tags
@@ -1082,14 +622,15 @@ end
 
 EntitySerialisationUtils.deserializeEntireRootEntity = function(serializedRootEntity)
     local cpc      = CustomProfiler.start("EntitySerialisationUtils.deserializeEntireRootEntity")
-    local entityId = EntityLoad(serializedRootEntity.attributes.filename, serializedRootEntity.transform.x,
-                                serializedRootEntity.transform.y)
+    local entityId = EntityLoad(serializedRootEntity.attributes.filename, serializedRootEntity.attributes.transform.x,
+                                serializedRootEntity.attributes.transform.y)
     if not EntityUtils.isEntityAlive(entityId) then
         error("NOITA SUCKS!", 2)
     end
     local finished = false
     finished       = EntitySerialisationUtils.deserializeEntityAttributes(entityId, serializedRootEntity)
     finished       = EntitySerialisationUtils.deserializeEntityTags(entityId, serializedRootEntity)
+    finished       = EntitySerialisationUtils.deserializeEntityComponents(entityId, serializedRootEntity)
 
     CustomProfiler.stop("EntitySerialisationUtils.deserializeEntireRootEntity", cpc)
 end
@@ -1105,9 +646,12 @@ EntitySerialisationUtils.deserializeEntityAttributes = function(entityId, serial
 
     EntitySetName(entityId, serializedRootEntity.attributes.name)
 
-    EntityApplyTransform(entityId, serializedRootEntity.transform.x, serializedRootEntity.transform.y,
-                         serializedRootEntity.transform.rotation, serializedRootEntity.transform.scaleX,
-                         serializedRootEntity.transform.scaleY)
+    EntityApplyTransform(entityId,
+                         serializedRootEntity.attributes.transform.x,
+                         serializedRootEntity.attributes.transform.y,
+                         serializedRootEntity.attributes.transform.rotation,
+                         serializedRootEntity.attributes.transform.scaleX,
+                         serializedRootEntity.attributes.transform.scaleY)
 
     CustomProfiler.stop("EntitySerialisationUtils.deserializeEntityAttributes", cpc)
     return true
@@ -1122,13 +666,12 @@ EntitySerialisationUtils.deserializeEntityTags       = function(entityId, serial
         error("NOITA SUCKS!", 2)
     end
 
-    local tags = string.split(serializedRootEntity.tags or {}, ",")
+    local tags = string.split(serializedRootEntity.tags or "", ",")
     for i = 1, #tags do
-        if not EntityHasTag(serializedRootEntity.tags[i]) then
-            EntityAddTag(serializedRootEntity.tags[i])
+        if not EntityHasTag(entityId, tags[i]) then
+            EntityAddTag(entityId, tags[i])
         end
     end
-
     CustomProfiler.stop("EntitySerialisationUtils.deserializeEntityTags", cpc)
     return true
 end
@@ -1152,36 +695,65 @@ EntitySerialisationUtils.deserializeEntityComponents = function(entityId, serial
 
     for i = 1, #serializedRootEntity.components do
         local componentType                          = serializedRootEntity.components[i].type
-        local isEnabled                              = serializedRootEntity.components[i].isEnabled
-        -- remove non noita values
+        local componentIsEnabled                     = serializedRootEntity.components[i].isEnabled
+        -- remove non noita component values
         serializedRootEntity.components[i].type      = nil
         serializedRootEntity.components[i].isEnabled = nil
 
-        local componentId                            = EntityAddComponent2(entityId, componentType,
-                                                                           serializedRootEntity.components[i])
-        if EntityUtils.remove.byComponentsName[componentType] then
-            -- some components shouldn't be enabled at all in multiplayer?
-            -- TODO: remove or do not add at all? instead of disabling?
-            isEnabled = false
+        --- some components shouldn't be enabled or even added in multiplayer?
+        if not table.contains(EntityUtils.remove.byComponentsName, componentType) then
+            -- TODO: add 'isOtherMinaInRange' to if
+            local componentId = EntityAddComponent2(entityId, componentType)
+            EntitySerialisationUtils.deserializeComponentTags(entityId, componentId, serializedRootEntity.components[i])
+            -- remove non noita component values
+            serializedRootEntity.components[i].tags = nil
+
+            for k, v in pairs(serializedRootEntity.components[i]) do
+                -- convert strings, which are booleans to boolean
+                if EntitySerialisationUtils.componentMemberTypes[k] then
+                    if EntitySerialisationUtils.componentMemberTypes[k] == "number" then
+                        -- convert strings, which are numbers to number
+                        local num = tonumber(v)
+                        if num ~= nil and type(num) == "number" then
+                            v = num
+                        end
+                    end
+                    if EntitySerialisationUtils.componentMemberTypes[k] == "boolean" then
+                        v = toBoolean(v)
+                    end
+                    ComponentSetValue2(componentId, k, v)
+                else
+                    -- If there is anything, we don't track the type of, use the old api function as a fallback
+                    ComponentSetValue(componentId, k, v)
+                end
+            end
+            EntitySetComponentIsEnabled(entityId, componentId, componentIsEnabled)
         end
-
-        EntitySetComponentIsEnabled(entityId, componentId, isEnabled)
-
-        --local members           = ComponentGetMembers(componentId) or {}
-        --for k, v in pairs(members) do
-        --    if v ~= "" then
-        --        components[i][k] = v
-        --    else
-        --        if EntitySerialisationUtils.componentObjectMemberNames[k] then
-        --            local memberObject = ComponentObjectGetMembers(componentId, k)
-        --            if not util.IsEmpty(memberObject) then
-        --                components[i][k] = memberObject
-        --            end
-        --        end
-        --    end
-        --end
     end
 
     CustomProfiler.stop("EntitySerialisationUtils.deserializeEntityComponents", cpc)
-    return components
+    return true
+end
+
+EntitySerialisationUtils.deserializeComponentTags    = function(entityId, componentId, serialisedComponent)
+    local cpc = CustomProfiler.start("EntitySerialisationUtils.serializeComponentTags")
+    if util.IsEmpty(entityId) then
+        error(("Unable to deserialize components tags, because entityId is %s, componentId")
+                      :format(entityId, componentId), 2)
+    end
+    if util.IsEmpty(componentId) then
+        error(("Unable to deserialize components tags, because componentId is %s"):format(componentId), 2)
+    end
+    if not EntityUtils.isEntityAlive(entityId) then
+        error("NOITA SUCKS!", 2)
+    end
+
+    local tags = string.split(serialisedComponent.tags or "", ",")
+    for i = 1, #tags do
+        if not ComponentHasTag(componentId, tags[i]) then
+            ComponentAddTag(componentId, tags[i])
+        end
+    end
+    CustomProfiler.stop("EntitySerialisationUtils.serializeComponentTags", cpc)
+    return true
 end
