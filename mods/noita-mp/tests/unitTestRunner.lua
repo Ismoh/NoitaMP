@@ -1,8 +1,8 @@
 _G.isTestLuaContext = true
+local params = ...
 dofile("../noita-mp/files/scripts/init/init_package_loading.lua")
 
 local lfs = require("lfs")
-local params = ...
 lu     = require("luaunit")
 
 --- Returns a list of all files in a directory
