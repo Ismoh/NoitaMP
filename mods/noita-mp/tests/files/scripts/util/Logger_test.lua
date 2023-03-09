@@ -2,15 +2,6 @@ TestLogger = {}
 TestLogger.mockedLogLevel = { "trace, debug, info, warn", "TRACE" }
 
 function TestLogger:setUp()
-    -- Make absolutely sure, that the already mocked Noita API function is not overwritten
-    local mockedModSettingGet = ModSettingGet
-    ---@param id string
-    ModSettingGet = function(id)
-        if string.contains(id, "noita-mp.log_level_") then
-            return TestLogger.mockedLogLevel
-        end
-        mockedModSettingGet(id)
-    end
 
 end
 

@@ -1,4 +1,3 @@
-require("luaExtensions")
 TestEntityCache = {}
 
 local guid1     = GuidUtils:getGuid()

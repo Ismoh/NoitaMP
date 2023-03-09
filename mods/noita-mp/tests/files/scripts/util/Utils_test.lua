@@ -1,5 +1,3 @@
-local Utils   = require("Utils")
-
 TestUtil     = {}
 
 function TestUtil:setUp()

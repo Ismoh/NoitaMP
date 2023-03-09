@@ -1,18 +1,3 @@
---- Make absolutely sure, that the already mocked Noita API function is not overwritten
-local mockedModSettingGet = ModSettingGet
-ModSettingGet             = function(id)
-    if string.contains(id, "noita-mp.log_level_") then
-        return { "trace, debug, info, warn", "TRACE" }
-    end
-
-    if mockedModSettingGet then
-        mockedModSettingGet(id)
-    end
-
-    error(("Mod setting '%s' is not mocked! Add it!"):format(id), 2)
-end
-
-local fu                  = require("FileUtils")
 local os_name             = require("os_name")
 
 TestFileUtil              = {}

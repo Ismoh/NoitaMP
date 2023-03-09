@@ -1,17 +1,3 @@
--- [[ Mock Noita API functions, which are needed before/during require is used ]] --
-mockedModSettingGetNextValue = ModSettingGetNextValue
-ModSettingGetNextValue       = function(id)
-    if mockedModSettingGetNextValue then
-        mockedModSettingGetNextValue(id)
-    end
-end
-
--- [[ require ]] --
-require("luaExtensions")
-require("EntityUtils")
-require("NetworkUtils")
-require("GuidUtils")
-require("CustomProfiler")
 if not Server then
     require("Server")
 end
@@ -19,9 +5,6 @@ if not Client then
     require("Client")
 end
 
-local Utils       = require("Utils")
-
--- [[ Test ]] --
 TestNetworkUtils = {}
 
 --- Setup function for each test.
