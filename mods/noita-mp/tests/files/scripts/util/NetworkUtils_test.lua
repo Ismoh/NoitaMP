@@ -19,7 +19,6 @@ if not Client then
     require("Client")
 end
 
-local lu         = require("luaunit")
 local Utils       = require("Utils")
 
 -- [[ Test ]] --
