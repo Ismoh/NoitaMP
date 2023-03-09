@@ -1,7 +1,3 @@
-local params = ...
-
-local lu = require("luaunit")
-
 TestStringExtensions = {}
 
 function TestStringExtensions:setUp()
@@ -32,5 +28,3 @@ function TestStringExtensions:testContains()
     lu.assertIsTrue(string.contains("noita-mp.log_level_testing", "noita-mp.log_level_"))
     lu.assertIsFalse(string.contains("ASDF", "Noita is nice, but abandoned!"))
 end
-
-lu.LuaUnit.run(params)

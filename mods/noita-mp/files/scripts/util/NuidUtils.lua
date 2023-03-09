@@ -6,7 +6,7 @@
 ----------------------------------------
 --- 'Imports'
 ----------------------------------------
-local fu        = require("file_util")
+local fu        = require("FileUtils")
 local nxml      = require("nxml")
 
 -----------------
@@ -27,7 +27,7 @@ local function getNextNuid()
     -- Are there any nuids saved in globals, if so get the highest nuid?
     if not xmlParsed then
         local worldStateXmlAbsPath = fu.GetAbsDirPathOfWorldStateXml(_G.saveSlotMeta.dir)
-        if fu.exists(worldStateXmlAbsPath) then
+        if fu.Exists(worldStateXmlAbsPath) then
             local f   = io.open(worldStateXmlAbsPath, "r")
             local xml = nxml.parse(f:read("*a"))
             f:close()
@@ -64,7 +64,7 @@ function NuidUtils.getEntityIdsByKillIndicator()
     local cpc = CustomProfiler.start("NuidUtils.getEntityIdsByKillIndicator")
     local deadNuids            = GlobalsUtils.getDeadNuids()
     local worldStateXmlAbsPath = fu.GetAbsDirPathOfWorldStateXml(_G.saveSlotMeta.dir)
-    if fu.exists(worldStateXmlAbsPath) then
+    if fu.Exists(worldStateXmlAbsPath) then
         local f   = io.open(worldStateXmlAbsPath, "r")
         local xml = nxml.parse(f:read("*a"))
         f:close()

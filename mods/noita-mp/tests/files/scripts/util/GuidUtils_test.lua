@@ -1,17 +1,7 @@
-local params    = ...
-
-local lu        = require("luaunit")
-local GuidUtils = require("GuidUtils")
-
 TestGuidUtils   = {}
 
 function TestGuidUtils:setUp()
-    -- Make absolutely sure, that the already mocked Noita API function is not overwritten
-    local mockedDebugGetIsDevBuild = DebugGetIsDevBuild
-    -- Mock Noita Api global functions
-    DebugGetIsDevBuild             = function()
-        return DebugGetIsDevBuild or false
-    end
+
 end
 
 function TestGuidUtils:tearDown()
@@ -45,5 +35,3 @@ function TestGuidUtils:testToNumber()
     lu.assertNotIsNil(number)
     lu.assertIsTrue(type(number) == "number", "GuidUtils.toNumber didn't return a number!")
 end
-
-lu.LuaUnit.run(params)

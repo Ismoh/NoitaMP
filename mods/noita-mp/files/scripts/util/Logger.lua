@@ -65,7 +65,7 @@ function Logger.log(level, channel, message)
         error("There is a directive (%) in your log message. Use string.format! Message = '" .. message .. "'", 2)
     end
 
-    if level == "off" then
+    if string.lower(level) == "off" then
         return false
     end
 
@@ -94,11 +94,9 @@ function Logger.log(level, channel, message)
         -- add file name to logs: https://stackoverflow.com/a/48469960/3493998
         local file_name = debug.getinfo(2, "S").source:sub(2)
         file_name       = file_name:match("^.*/(.*)$") or file_name
-        msg             = ("%s [%s][%s] %s \n(in %s)")
-                :format(time, level, channel, message, file_name)
+        msg             = ("%s [%s][%s] %s \n(in %s)"):format(time, level, channel, message, file_name)
     else
-        msg = ("%s [%s][%s] %s")
-                :format("--:--:--", level, channel, message)
+        msg = ("%s [%s][%s] %s"):format("--:--:--", level, channel, message)
     end
 
     print(msg)
