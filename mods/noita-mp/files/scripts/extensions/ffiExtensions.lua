@@ -4,12 +4,6 @@ if not jit or jit.os ~= "Windows" then
     return
 end
 
-if executedAlready then
-    return
-else
-    executedAlready = true
-end
-
 local ffi = require("ffi")
 
 local C   = ffi.C
