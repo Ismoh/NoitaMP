@@ -4,11 +4,17 @@ if not jit or jit.os ~= "Windows" then
     return
 end
 
+if executedAlready then
+    return
+else
+    executedAlready = true
+end
+
 local ffi = require("ffi")
 
-local C = ffi.C
+local C   = ffi.C
 
-ffi.cdef[[
+ffi.cdef [[
 typedef bool BOOL;
 typedef uint16_t WORD;
 typedef uint32_t DWORD;
@@ -95,37 +101,37 @@ BOOL ReadFile(
 DWORD GetLastError();
 ]]
 
-local EXIT_FAILURE = 1
+local EXIT_FAILURE         = 1
 local STARTF_USESHOWWINDOW = 1
 local STARTF_USESTDHANDLES = 0x100
-local SW_HIDE = 0
-local CREATE_NO_WINDOW = 0x8000000
-local INFINITE = -1
-local HANDLE_FLAG_INHERIT = 1
-local STD_INPUT_HANDLE = -10
-local STD_ERROR_HANDLE = -12
-local ERROR_BROKEN_PIPE = 109
+local SW_HIDE              = 0
+local CREATE_NO_WINDOW     = 0x8000000
+local INFINITE             = -1
+local HANDLE_FLAG_INHERIT  = 1
+local STD_INPUT_HANDLE     = -10
+local STD_ERROR_HANDLE     = -12
+local ERROR_BROKEN_PIPE    = 109
 
 function os.execute(commandLine)
-    local si = ffi.new("STARTUPINFOA")
-    si.cb = ffi.sizeof(si)
-    si.dwFlags = STARTF_USESHOWWINDOW
+    local si       = ffi.new("STARTUPINFOA")
+    si.cb          = ffi.sizeof(si)
+    si.dwFlags     = STARTF_USESHOWWINDOW
     si.wShowWindow = SW_HIDE
 
-    local pi = ffi.new("PROCESS_INFORMATION")
+    local pi       = ffi.new("PROCESS_INFORMATION")
     if not C.CreateProcessA(nil, "cmd /C " .. commandLine, nil, nil, 0, CREATE_NO_WINDOW, nil, nil, si, pi) then
         return EXIT_FAILURE
     end
     C.WaitForSingleObject(pi.hProcess, INFINITE)
     local exitcode = ffi.new("DWORD[1]")
-    local ok = C.GetExitCodeProcess(pi.hProcess, exitcode)
+    local ok       = C.GetExitCodeProcess(pi.hProcess, exitcode)
     C.CloseHandle(pi.hProcess)
     C.CloseHandle(pi.hThread)
     return ok and exitcode[0] or EXIT_FAILURE
 end
 
-local pfile = {}
-local pfile_mt = {__index = pfile}
+local pfile    = {}
+local pfile_mt = { __index = pfile }
 
 local function checkclosed(pfile)
     if pfile.pi == nil then
@@ -152,33 +158,39 @@ function pfile:read(n)
     end
 
     if type(n) == "number" then
-        if not fetch(function() return #self.buffer < n end) then
+        if not fetch(function()
+            return #self.buffer < n
+        end) then
             return nil
         end
-        local out = self.buffer:sub(1, n)
+        local out   = self.buffer:sub(1, n)
         self.buffer = self.buffer:sub(n + 1)
         if out == "" then
             out = nil
         end
         return out
     elseif n == "*a" then
-        if not fetch(function() return true end) then
+        if not fetch(function()
+            return true
+        end) then
             return nil
         end
-        local out = self.buffer
+        local out   = self.buffer
         self.buffer = ""
         return out
     elseif n == "*l" then
-        if not fetch(function() return not self.buffer:find("\n", nil, true) end) then
+        if not fetch(function()
+            return not self.buffer:find("\n", nil, true)
+        end) then
             return nil
         end
         local out
         local npos = self.buffer:find("\n", nil, true)
         if npos then
-            out = self.buffer:sub(1, npos-1)
-            self.buffer = self.buffer:sub(npos+1)
+            out         = self.buffer:sub(1, npos - 1)
+            self.buffer = self.buffer:sub(npos + 1)
         else
-            out = self.buffer
+            out         = self.buffer
             self.buffer = ""
             if out == "" then
                 out = nil
@@ -192,7 +204,9 @@ end
 
 function pfile:lines()
     checkclosed(self)
-    return function() return self:read("*l") end
+    return function()
+        return self:read("*l")
+    end
 end
 
 function pfile:close()
@@ -201,27 +215,28 @@ function pfile:close()
     C.CloseHandle(self.pipe_outRd[0])
     C.WaitForSingleObject(pi.hProcess, INFINITE)
     local res = C.CloseHandle(pi.hProcess) and C.CloseHandle(pi.hThread)
-    self.pi = nil
+    self.pi   = nil
     return res
 end
 
 function io.popen(commandLine)
-    local sa = ffi.new("SECURITY_ATTRIBUTES", ffi.sizeof("SECURITY_ATTRIBUTES"), nil, true)
+    local sa                     = ffi.new("SECURITY_ATTRIBUTES", ffi.sizeof("SECURITY_ATTRIBUTES"), nil, true)
 
-    local pipe_outRd, pipe_outWr=ffi.new("HANDLE[1]"), ffi.new("HANDLE[1]")
-    if not C.CreatePipe(pipe_outRd, pipe_outWr, sa, 0) or not C.SetHandleInformation(pipe_outRd[0], HANDLE_FLAG_INHERIT, 0) then
+    local pipe_outRd, pipe_outWr = ffi.new("HANDLE[1]"), ffi.new("HANDLE[1]")
+    if not C.CreatePipe(pipe_outRd, pipe_outWr, sa, 0) or not C.SetHandleInformation(pipe_outRd[0], HANDLE_FLAG_INHERIT,
+                                                                                     0) then
         return
     end
 
-    local si = ffi.new("STARTUPINFOA")
-    si.cb = ffi.sizeof(si)
-    si.dwFlags = STARTF_USESHOWWINDOW + STARTF_USESTDHANDLES
+    local si       = ffi.new("STARTUPINFOA")
+    si.cb          = ffi.sizeof(si)
+    si.dwFlags     = STARTF_USESHOWWINDOW + STARTF_USESTDHANDLES
     si.wShowWindow = SW_HIDE
-    si.hStdInput = C.GetStdHandle(STD_INPUT_HANDLE)
-    si.hStdOutput = pipe_outWr[0]
-    si.hStdError = C.GetStdHandle(STD_ERROR_HANDLE)
+    si.hStdInput   = C.GetStdHandle(STD_INPUT_HANDLE)
+    si.hStdOutput  = pipe_outWr[0]
+    si.hStdError   = C.GetStdHandle(STD_ERROR_HANDLE)
 
-    local pi = ffi.new("PROCESS_INFORMATION")
+    local pi       = ffi.new("PROCESS_INFORMATION")
     if not C.CreateProcessA(nil, "cmd /C " .. commandLine, nil, nil, 1, CREATE_NO_WINDOW, nil, nil, si, pi) then
         return
     end
@@ -229,11 +244,11 @@ function io.popen(commandLine)
 
     local size = 4096
     return setmetatable({
-        pi = pi,
-        pipe_outRd = pipe_outRd,
-        size = size,
-        byteBuf = ffi.new("char[?]", size),
-        bytesRead = ffi.new("DWORD[1]"),
-        buffer = ""
-    }, pfile_mt)
+                            pi         = pi,
+                            pipe_outRd = pipe_outRd,
+                            size       = size,
+                            byteBuf    = ffi.new("char[?]", size),
+                            bytesRead  = ffi.new("DWORD[1]"),
+                            buffer     = ""
+                        }, pfile_mt)
 end

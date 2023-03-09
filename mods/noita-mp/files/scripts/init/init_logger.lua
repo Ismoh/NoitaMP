@@ -6,5 +6,5 @@ if not _G.Logger then
     end
     Logger.info(Logger.channels.initialize, "_G.Logger initialised!")
 else
-    error("ERROR: Unable to init Logger! _G.Logger is nil.", 2)
+    Logger.info(Logger.channels.initialize, "_G.Logger was already initialised!")
 end
