@@ -269,22 +269,26 @@ function EntityUtils.processAndSyncEntityNetworking()
     table.sort(entityIds)
 
     if who == Client.iAm then
-        table.insertIfNotExist(playerEntityIds, localPlayerId)
-        table.insertAllButNotDuplicates(playerEntityIds,
-                                        get_player_inventory_contents("inventory_quick")) -- wands and items
-        table.insertAllButNotDuplicates(playerEntityIds,
-                                        get_player_inventory_contents("inventory_full")) -- spells
-        table.insertAllButNotDuplicates(playerEntityIds, EntityGetAllChildren(localPlayerId) or {})
-
-        for i = 1, #playerEntityIds do
-            local clientEntityId = playerEntityIds[i]
-            if not NetworkVscUtils.hasNetworkLuaComponents(clientEntityId) then
-                NetworkVscUtils.addOrUpdateAllVscs(clientEntityId, MinaUtils.getLocalMinaName(),
-                                                   MinaUtils.getLocalMinaGuid())
-            end
-            if not NetworkVscUtils.hasNuidSet(clientEntityId) then
-                Client.sendNeedNuid(MinaUtils.getLocalMinaName(), MinaUtils.getLocalMinaGuid(), clientEntityId)
-            end
+        --table.insertIfNotExist(playerEntityIds, localPlayerId)
+        --table.insertAllButNotDuplicates(playerEntityIds,
+        --                                get_player_inventory_contents("inventory_quick")) -- wands and items
+        --table.insertAllButNotDuplicates(playerEntityIds,
+        --                                get_player_inventory_contents("inventory_full")) -- spells
+        --table.insertAllButNotDuplicates(playerEntityIds, EntityGetAllChildren(localPlayerId) or {})
+        --
+        --for i = 1, #playerEntityIds do
+        --    local clientEntityId = playerEntityIds[i]
+        --    if not NetworkVscUtils.hasNetworkLuaComponents(clientEntityId) then
+        --        NetworkVscUtils.addOrUpdateAllVscs(clientEntityId, MinaUtils.getLocalMinaName(),
+        --                                           MinaUtils.getLocalMinaGuid())
+        --    end
+        --    if not NetworkVscUtils.hasNuidSet(clientEntityId) then
+        --        Client.sendNeedNuid(MinaUtils.getLocalMinaName(), MinaUtils.getLocalMinaGuid(), clientEntityId)
+        --    end
+        --end
+        if not NetworkVscUtils.hasNuidSet(localPlayerId) then
+            Client.sendNeedNuid(MinaUtils.getLocalMinaName(), MinaUtils.getLocalMinaGuid(),
+                                EntityGetRootEntity(localPlayerId))
         end
     end
 
@@ -425,9 +429,9 @@ function EntityUtils.processAndSyncEntityNetworking()
                     --Server.sendNewNuid({ compOwnerName, compOwnerGuid }, entityId, nuid, x, y, rotation, velocity,
                     --                   filename, health, EntityUtils.isEntityPolymorphed(entityId))
                     local finished, serializedEntity = EntitySerialisationUtils.serializeEntireRootEntity(entityId)
-                    local ONLYFORTESTING = EntitySerialisationUtils.deserializeEntireRootEntity(serializedEntity)
+                    --local ONLYFORTESTING = EntitySerialisationUtils.deserializeEntireRootEntity(serializedEntity)
                     if finished == true then
-                        Server.sendNewNuidserialized(compOwnerName, compOwnerGuid, entityId, serializedEntity)
+                        Server.sendNewNuidSerialized(compOwnerName, compOwnerGuid, entityId, serializedEntity)
                     end
                 end
             end

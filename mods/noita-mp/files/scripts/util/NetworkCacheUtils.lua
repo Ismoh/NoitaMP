@@ -95,6 +95,7 @@ function NetworkCacheUtils.set(peerGuid, networkMessageId, event, status, ackedA
     local sum           = NetworkCacheUtils.getSum(event, data)
     local dataChecksum  = md5.sumhexa(sum)
     local clientCacheId = GuidUtils.toNumber(peerGuid)
+    print(("NetworkCache.set: %s"):format(util.pformat(data)))
     print(("NetworkCache.set(clientCacheId %s, networkMessageId %s, event %s, status %s, ackedAt %s, sendAt %s, dataChecksum %s)")
                   :format(clientCacheId, networkMessageId, event, status, ackedAt, sendAt, dataChecksum))
     Logger.trace(Logger.channels.testing,

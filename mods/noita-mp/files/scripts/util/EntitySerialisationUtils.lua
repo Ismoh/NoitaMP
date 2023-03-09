@@ -521,9 +521,9 @@ EntitySerialisationUtils.serializeEntireRootEntity   = function(entityId)
         root.children[i].attributes = EntitySerialisationUtils.serializeEntityAttributes(childEntityId)
         root.children[i].tags       = EntitySerialisationUtils.serializeEntityTags(childEntityId)
         root.children[i].components = EntitySerialisationUtils.serializeEntityComponents(childEntityId)
-        finished                    = true
     end
 
+    finished                    = true
     CustomProfiler.stop("EntitySerialisationUtils.serializeEntireRootEntity", cpc)
     return finished, root
 end

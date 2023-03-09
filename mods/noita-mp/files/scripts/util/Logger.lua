@@ -66,7 +66,7 @@ function Logger.log(level, channel, message)
         error("There is a directive (%) in your log message. Use string.format! Message = '" .. message .. "'", 2)
     end
 
-    if level == "off" then
+    if string.lower(level) == "off" then
         return false
     end
 
