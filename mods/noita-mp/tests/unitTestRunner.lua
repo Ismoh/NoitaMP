@@ -9,7 +9,7 @@ lu     = require("luaunit")
 function getAllFilesInside(folder)
     local files = {}
     for entry in lfs.dir(folder) do
-        if entry ~= "." and entry ~= ".." and not entry:find("_initializeUnitTests") then
+        if entry ~= "." and entry ~= ".." and not entry:find("unitTestRunner") then
             local path = folder .. "/" .. entry
             local mode = lfs.attributes(path, "mode")
             if mode == "file" then
@@ -95,7 +95,7 @@ dofile("mods/noita-mp/files/scripts/init/init_.lua")
 
 for _, testFile in ipairs(testFiles) do
     dofile(testFile)
-    print("Loaded test " .. testFile)
+    print("Loaded test " .. _ .. " " .. testFile)
 end
 
 lu.LuaUnit.run(params)
