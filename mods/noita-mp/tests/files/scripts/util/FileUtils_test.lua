@@ -1,9 +1,8 @@
-local os_name             = require("os_name")
-
-TestFileUtil              = {}
+local os_name = require("os_name")
+local fu      = require("FileUtils")
+TestFileUtil  = {}
 
 function TestFileUtil:setUp()
-
     -- Mock Noita Api global functions
     _G.DebugGetIsDevBuild = function()
         return false
@@ -21,12 +20,12 @@ function TestFileUtil:tearDown()
     _G.pathSeparator                             = tostring(package.config:sub(1, 1))
     local current_platform, current_architecture = os_name.getOS()
     if current_platform == "Windows" then
-        _G.is_windows = true
-        _G.is_linux = false
+        _G.is_windows    = true
+        _G.is_linux      = false
         _G.pathSeparator = "\\"
     else
-        _G.is_windows = false
-        _G.is_linux = true
+        _G.is_windows    = false
+        _G.is_linux      = true
         _G.pathSeparator = "/"
     end
 end

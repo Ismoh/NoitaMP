@@ -1,12 +1,18 @@
 TestLogger = {}
 TestLogger.mockedLogLevel = { "trace, debug, info, warn", "TRACE" }
 
+local globalModSettingsGet = ModSettingGet
 function TestLogger:setUp()
-
+    ModSettingGet = function(id)
+        if string.contains(id, "noita-mp.log_level_") then
+            return TestLogger.mockedLogLevel
+        end
+        globalModSettingsGet(id)
+    end
 end
 
 function TestLogger:tearDown()
-
+    ModSettingGet = globalModSettingsGet
 end
 
 function TestLogger:errors()
