@@ -341,6 +341,16 @@ static int l_networkCacheReadByChecksum(lua_State *L)
     return 1;
 }
 
+static int l_networkCacheReadAll(lua_State *L)
+{
+    for (int i = 0; i < networkCurrentSize; i++)
+        {
+            NetworkCacheEntry *entry = networkEntries + i;
+            l_createNetworkCacheReturnTable(L, entry);
+        }
+        return 1;
+}
+
 static int l_networkCacheRemoveOldest(lua_State *L)
 {
     memmove(networkEntries + 1, networkEntries, ((networkCurrentSize - 1)) * sizeof(NetworkCacheEntry));
@@ -395,6 +405,7 @@ __declspec(dllexport) int luaopen_luaExtensions(lua_State *L)
             {"usage", l_networkCacheUsage},
             {"removeOldest", l_networkCacheRemoveOldest},
             {"clear", l_networkCacheClear},
+            {"getAll", l_networkCacheReadAll},
             {NULL, NULL}};
     luaL_openlib(L, "NetworkCache", nCachelib, 0);
     return 1;
