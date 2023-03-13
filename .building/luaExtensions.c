@@ -1,6 +1,6 @@
 #include <lua.h>
 #include <lauxlib.h>
-
+#include <string.h>
 #pragma region EntityCache
 #define entityCacheSize sizeof(EntityCacheEntry)
 typedef struct EntityCacheEntry
@@ -231,7 +231,7 @@ static int l_networkCacheWrite(lua_State *L)
             entry->messageId = messageId;
             entry->event = event;
             char *status = luaL_checkstring(L, 4);
-            if (status == "ack") {
+            if (strcmp(status, "ack")) {
                 entry->status = 0;
             } else {
                 entry->status = 1;
@@ -249,7 +249,7 @@ static int l_networkCacheWrite(lua_State *L)
     newEntry->messageId = messageId;
     newEntry->event = event;
     char *status = luaL_checkstring(L, 4);
-    if (status == "ack") {
+    if (!strcmp(status, "ack")) {
         newEntry->status = 0;
     } else {
         newEntry->status = 1;
