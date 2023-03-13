@@ -231,9 +231,12 @@ static int l_networkCacheWrite(lua_State *L)
             entry->messageId = messageId;
             entry->event = event;
             char *status = luaL_checkstring(L, 4);
-            if (strcmp(status, "ack")) {
+            if (!strcmp(status, "ack"))
+            {
                 entry->status = 0;
-            } else {
+            }
+            else
+            {
                 entry->status = 1;
             }
             entry->ackedAt = luaL_checkint(L, 5);
@@ -249,9 +252,12 @@ static int l_networkCacheWrite(lua_State *L)
     newEntry->messageId = messageId;
     newEntry->event = event;
     char *status = luaL_checkstring(L, 4);
-    if (!strcmp(status, "ack")) {
+    if (!strcmp(status, "ack"))
+    {
         newEntry->status = 0;
-    } else {
+    }
+    else
+    {
         newEntry->status = 1;
     }
     newEntry->ackedAt = luaL_checkint(L, 5);
@@ -347,7 +353,7 @@ static int l_networkCacheReadAll(lua_State *L)
     for (int i = 0; i < networkCurrentSize; i++)
     {
         NetworkCacheEntry *entry = networkEntries + i;
-        lua_pushnumber(L, i+1);
+        lua_pushnumber(L, i + 1);
         l_createNetworkCacheReturnTable(L, entry);
         lua_settable(L, -3);
     }
@@ -365,24 +371,17 @@ static int l_networkCacheRemoveOldest(lua_State *L)
 static int l_networkCacheClear(lua_State *L)
 {
     int peerToClear = luaL_checkinteger(L, 1);
-    while (1)
+    for (int i = 0; i < networkCurrentSize; i++)
     {
-        int found = 0;
-        for (int i = 0; i < networkCurrentSize; i++)
+        NetworkCacheEntry *entry = networkEntries + i;
+        if (entry->peerNum == peerToClear)
         {
-            NetworkCacheEntry *entry = networkEntries + i;
-            if (entry->peerNum == peerToClear)
-            {
-                found = 1;
-                memmove(networkEntries + i, networkEntries + i + 1, ((networkCurrentSize - 1) - i) * sizeof(NetworkCacheEntry));
-                networkCurrentSize--;
-                networkEntries = realloc(networkEntries, sizeof(NetworkCacheEntry) * networkCurrentSize);
-            };
-        }
-        if (found == 0) {
-            return 0;
-        }
+            memmove(networkEntries + i, networkEntries + i + 1, ((networkCurrentSize - 1) - i) * sizeof(NetworkCacheEntry));
+            networkCurrentSize--;
+            networkEntries = realloc(networkEntries, sizeof(NetworkCacheEntry) * networkCurrentSize);
+        };
     }
+    return 0;
 }
 #pragma endregion
 
