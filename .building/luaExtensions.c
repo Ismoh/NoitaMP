@@ -343,11 +343,14 @@ static int l_networkCacheReadByChecksum(lua_State *L)
 
 static int l_networkCacheReadAll(lua_State *L)
 {
+    lua_createtable(L, 0, 4);
     for (int i = 0; i < networkCurrentSize; i++)
-        {
-            NetworkCacheEntry *entry = networkEntries + i;
-            l_createNetworkCacheReturnTable(L, entry);
-        }
+    {
+        NetworkCacheEntry *entry = networkEntries + i;
+        lua_pushnumber(L, i+1);
+        l_createNetworkCacheReturnTable(L, entry);
+        lua_settable(L, -3);
+    }
     return 1;
 }
 
