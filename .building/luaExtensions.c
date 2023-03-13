@@ -162,7 +162,7 @@ static int l_entityCacheDeleteByEntityId(lua_State *L)
         EntityCacheEntry *entry = entityEntries + i;
         if (entry->entityId == idToSearch)
         {
-            memmove(entityEntries + i + 1, entityEntries + i, ((entityCurrentSize - 1) - i) * entityCacheSize);
+            memmove(entityEntries + i, entityEntries + i + 1, ((entityCurrentSize - 1) - i) * entityCacheSize);
             entityCurrentSize--;
             entityEntries = realloc(entityEntries, entityCacheSize * entityCurrentSize);
             lua_pushboolean(L, 1);
@@ -181,7 +181,7 @@ static int l_entityCacheDeleteByNuid(lua_State *L)
         EntityCacheEntry *entry = entityEntries + i;
         if (entry->nuid == idToSearch)
         {
-            memmove(entityEntries + i + 1, entityEntries + i, ((entityCurrentSize - 1) - i) * entityCacheSize);
+            memmove(entityEntries + i, entityEntries + i + 1, ((entityCurrentSize - 1) - i) * entityCacheSize);
             entityCurrentSize--;
             entityEntries = realloc(entityEntries, entityCacheSize * entityCurrentSize);
             lua_pushboolean(L, 1);
@@ -348,12 +348,12 @@ static int l_networkCacheReadAll(lua_State *L)
             NetworkCacheEntry *entry = networkEntries + i;
             l_createNetworkCacheReturnTable(L, entry);
         }
-        return 1;
+    return 1;
 }
 
 static int l_networkCacheRemoveOldest(lua_State *L)
 {
-    memmove(networkEntries + 1, networkEntries, ((networkCurrentSize - 1)) * sizeof(NetworkCacheEntry));
+    memmove(networkEntries, networkEntries + 1, ((networkCurrentSize - 1)) * sizeof(NetworkCacheEntry));
     networkCurrentSize--;
     networkEntries = realloc(networkEntries, sizeof(NetworkCacheEntry) * networkCurrentSize);
     return 0;
@@ -371,7 +371,7 @@ static int l_networkCacheClear(lua_State *L)
             if (entry->peerNum == peerToClear)
             {
                 found = 1;
-                memmove(networkEntries + i + 1, networkEntries + i, ((networkCurrentSize - 1) - i) * sizeof(NetworkCacheEntry));
+                memmove(networkEntries + i, networkEntries + i + 1, ((networkCurrentSize - 1) - i) * sizeof(NetworkCacheEntry));
                 networkCurrentSize--;
                 networkEntries = realloc(networkEntries, sizeof(NetworkCacheEntry) * networkCurrentSize);
             };
