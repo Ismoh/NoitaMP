@@ -184,9 +184,14 @@ function Client.new(sockClient)
         end
 
         local cachedData = NetworkCacheUtils.get(self.guid, data.networkMessageId, data.event)
-        if util.IsEmpty(cachedData) or type(cachedData.dataChecksum) ~= "string" or util.IsEmpty(cachedData.dataChecksum) then
-            error(("Unable to get cached data, because it is nil '%s' or checksum is not of type string: %s or dataChecksum is empty")
-                          :format(cachedData.dataChecksum), 2)
+        if util.IsEmpty(cachedData) then
+            NetworkCacheUtils.logAll()
+            error(("Unable to get cached data, because it is nil '%s'"):format(cachedData), 2)
+        end
+        if util.IsEmpty(cachedData.dataChecksum) or type(cachedData.dataChecksum) ~= "string" then
+            NetworkCacheUtils.logAll()
+            error(("Unable to get cachedData.dataChecksum, because it is nil '%s' or checksum is not of type string, type: %s")
+                          :format(cachedData.dataChecksum, type(cachedData.dataChecksum)), 2)
         end
         -- update previous cached network message
         NetworkCacheUtils.ack(self.guid, data.networkMessageId, data.event,

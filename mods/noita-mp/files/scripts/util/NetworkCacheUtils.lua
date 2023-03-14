@@ -10,13 +10,137 @@
 ------------------------------------------------------------------------------------------------------------------------
 --- 'Imports'
 ------------------------------------------------------------------------------------------------------------------------
-local util        = require("util")
-local md5         = require("md5")
+local util               = require("util")
+local md5                = require("md5")
 
 ------------------------------------------------------------------------------------------------------------------------
---- NetworkUtils
+--- NetworkCache
 ------------------------------------------------------------------------------------------------------------------------
-NetworkCacheUtils = {}
+NetworkCache             = {}
+
+NetworkCache.set         = function(clientCacheId, networkMessageId, event, status, ackedAt, sendAt, dataChecksum)
+    local cpc = CustomProfiler.start("NetworkCache.set")
+
+    if util.IsEmpty(clientCacheId) or type(clientCacheId) ~= "number" then
+        error(("clientCacheId must not be nil or empty '%s' or type is not number '%s'")
+                      :format(clientCacheId, type(clientCacheId)), 2)
+    end
+    if util.IsEmpty(networkMessageId) or type(networkMessageId) ~= "number" then
+        error(("networkMessageId must not be nil or empty '%s' or type is not number '%s'")
+                      :format(networkMessageId, type(networkMessageId)), 2)
+    end
+    if util.IsEmpty(event) or type(event) ~= "string" then
+        error(("event must not be nil or empty '%s' or type is not string '%s'")
+                      :format(event, type(event)), 2)
+    end
+    if util.IsEmpty(status) or type(status) ~= "string" then
+        error(("status must not be nil or empty '%s' or type is not string '%s'")
+                      :format(status, type(status)), 2)
+    end
+    if util.IsEmpty(ackedAt) or type(ackedAt) ~= "number" then
+        error(("ackedAt must not be nil or empty '%s' or type is not number '%s'")
+                      :format(ackedAt, type(ackedAt)), 2)
+    end
+    if util.IsEmpty(sendAt) or type(sendAt) ~= "number" then
+        error(("sendAt must not be nil or empty '%s' or type is not number '%s'")
+                      :format(sendAt, type(sendAt)), 2)
+    end
+    if util.IsEmpty(dataChecksum) or type(dataChecksum) ~= "string" then
+        error(("dataChecksum must not be nil or empty '%s' or type is not string '%s'")
+                      :format(dataChecksum, type(dataChecksum)), 2)
+    end
+
+    if not NetworkCache.cache then
+        NetworkCache[clientCacheId] = {}
+    end
+    NetworkCache[clientCacheId][networkMessageId] = {
+        clientCacheId    = clientCacheId,
+        networkMessageId = networkMessageId,
+        event            = event,
+        status           = status,
+        ackedAt          = ackedAt,
+        sendAt           = sendAt,
+        dataChecksum     = dataChecksum
+    }
+    CustomProfiler.stop("NetworkCache.set", cpc)
+end
+
+NetworkCache.get         = function(clientCacheId, event, networkMessageId)
+    local cpc = CustomProfiler.start("NetworkCache.get")
+
+    if util.IsEmpty(clientCacheId) or type(clientCacheId) ~= "number" then
+        error(("clientCacheId must not be nil or empty '%s' or type is not number '%s'")
+                      :format(clientCacheId, type(clientCacheId)), 2)
+    end
+    if util.IsEmpty(event) or type(event) ~= "string" then
+        error(("event must not be nil or empty '%s' or type is not string '%s'")
+                      :format(event, type(event)), 2)
+    end
+    if util.IsEmpty(networkMessageId) or type(networkMessageId) ~= "number" then
+        error(("networkMessageId must not be nil or empty '%s' or type is not number '%s'")
+                      :format(networkMessageId, type(networkMessageId)), 2)
+    end
+
+    if not NetworkCache[clientCacheId] then
+        Logger.trace(Logger.channels.cache,
+                     ("There is no cache entry for clientCacheId %s, event %s and networkMessageId %s")
+                             :format(clientCacheId, event, networkMessageId))
+        CustomProfiler.stop("NetworkCache.get", cpc)
+        return nil
+    end
+    if not NetworkCache[clientCacheId][networkMessageId] then
+        CustomProfiler.stop("NetworkCache.get", cpc)
+        return nil
+    end
+    if not NetworkCache[clientCacheId][networkMessageId].event == event then
+        CustomProfiler.stop("NetworkCache.get", cpc)
+        return nil
+    end
+
+    CustomProfiler.stop("NetworkCache.get", cpc)
+    return NetworkCache[clientCacheId][networkMessageId]
+end
+
+NetworkCache.getChecksum = function(clientCacheId, dataChecksum)
+    local cpc = CustomProfiler.start("NetworkCache.getChecksum")
+
+    if util.IsEmpty(clientCacheId) or type(clientCacheId) ~= "number" then
+        error(("clientCacheId must not be nil or empty '%s' or type is not number '%s'")
+                      :format(clientCacheId, type(clientCacheId)), 2)
+    end
+    if util.IsEmpty(dataChecksum) or type(dataChecksum) ~= "string" then
+        error(("dataChecksum must not be nil or empty '%s' or type is not string '%s'")
+                      :format(dataChecksum, type(dataChecksum)), 2)
+    end
+
+    if not NetworkCache[clientCacheId] then
+        Logger.trace(Logger.channels.cache,
+                     ("There is no cache entry for clientCacheId %s and dataChecksum %s")
+                             :format(clientCacheId, dataChecksum))
+        CustomProfiler.stop("NetworkCache.getChecksum", cpc)
+        return nil
+    end
+
+    local found, index = table.contains(NetworkCache[clientCacheId], dataChecksum)
+    if found then
+        CustomProfiler.stop("NetworkCache.getChecksum", cpc)
+        return NetworkCache[clientCacheId][index]
+    end
+
+    for entry in NetworkCache[clientCacheId] do
+        if entry.dataChecksum == dataChecksum then
+            CustomProfiler.stop("NetworkCache.getChecksum", cpc)
+            return entry
+        end
+    end
+
+    CustomProfiler.stop("NetworkCache.get", cpc)
+    return nil
+end
+------------------------------------------------------------------------------------------------------------------------
+--- NetworkCacheUtils
+------------------------------------------------------------------------------------------------------------------------
+NetworkCacheUtils        = {}
 
 function NetworkCacheUtils.getSum(event, data)
     local cpc = CustomProfiler.start("NetworkCacheUtils.getSum")
@@ -194,7 +318,7 @@ function NetworkCacheUtils.getByChecksum(peerGuid, event, data)
     return cacheData
 end
 
-NetworkCacheUtils.ack = function(peerGuid, networkMessageId, event, status, ackedAt, sendAt, checksum)
+NetworkCacheUtils.ack    = function(peerGuid, networkMessageId, event, status, ackedAt, sendAt, checksum)
     local cpc = CustomProfiler.start("NetworkCacheUtils.ack")
     if not peerGuid or util.IsEmpty(peerGuid) or type(peerGuid) ~= "string" then
         error(("peerGuid '%s' must not be nil or empty or isn't type of string!"):format(peerGuid), 2)
@@ -233,9 +357,22 @@ NetworkCacheUtils.ack = function(peerGuid, networkMessageId, event, status, acke
     CustomProfiler.stop("NetworkCacheUtils.ack", cpc)
 end
 
+NetworkCacheUtils.logAll = function()
+    local all = NetworkCache.getAll()
+    for i = 1, #all do
+        if not util.IsEmpty(all[i].dataChecksum) and string.contains(all[i].dataChecksum, "%%") then
+            all[i].dataChecksum = string.gsub(all[i].dataChecksum, "percent sign")
+        end
+        Logger.trace(Logger.channels.cache,
+                     ("event = %s, messageId = %s, dataChecksum = %s, status = %s, ackedAt = %s, sentAt = %s")
+                             :format(all[i].event, all[i].messageId, all[i].dataChecksum, all[i].status, all[i].ackedAt,
+                                     all[i].sentAt))
+    end
+end
+
 -- Because of stack overflow errors when loading lua files,
 -- I decided to put Utils 'classes' into globals
-_G.NetworkCacheUtils  = NetworkCacheUtils
+_G.NetworkCacheUtils     = NetworkCacheUtils
 
 -- But still return for Noita Components,
 -- which does not have access to _G,

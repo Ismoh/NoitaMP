@@ -37,6 +37,12 @@ else
     end
 end
 
+----------------------------------------
+--- EntityCache
+----------------------------------------
+--EntityCache.set      = function(entityId, nuid, ownerGuid, ownerName, filepath, x, y, rotation, velX, velY, currentHealth, maxHealth)
+--
+--end
 
 ----------------------------------------
 --- EntityCacheUtils
