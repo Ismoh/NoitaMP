@@ -40,17 +40,65 @@ end
 ----------------------------------------
 --- EntityCache
 ----------------------------------------
---EntityCache.set      = function(entityId, nuid, ownerGuid, ownerName, filepath, x, y, rotation, velX, velY, currentHealth, maxHealth)
---
---end
+EntityCache            = {}
 
+EntityCache.set        = function(entityId, nuid, ownerGuid, ownerName, filepath, x, y, rotation, velX, velY, currentHealth, maxHealth)
+    local cpc = CustomProfiler.start("EntityCache.set")
+    if not EntityCache[entityId] then
+        EntityCache[entityId] = {
+            entityId      = entityId,
+            nuid          = nuid,
+            ownerGuid     = ownerGuid,
+            ownerName     = ownerName,
+            filename      = filepath,
+            x             = x,
+            y             = y,
+            rotation      = rotation,
+            velX          = velX,
+            velY          = velY,
+            currentHealth = currentHealth,
+            maxHealth     = maxHealth
+        }
+    end
+    CustomProfiler.stop("EntityCache.set", cpc)
+end
+
+EntityCache.get        = function(entityId)
+    local cpc = CustomProfiler.start("EntityCache.get")
+    if EntityCache[entityId] then
+        CustomProfiler.stop("EntityCache.get", cpc)
+        return EntityCache[entityId]
+    end
+    CustomProfiler.stop("EntityCache.get", cpc)
+    return nil
+end
+
+EntityCache.delete     = function(entityId)
+    local cpc             = CustomProfiler.start("EntityCache.delete")
+    EntityCache[entityId] = nil
+    CustomProfiler.stop("EntityCache.delete", cpc)
+end
+
+EntityCache.deleteNuid = function(nuid)
+    local cpc = CustomProfiler.start("EntityCache.deleteNuid")
+    for entry in pairs(EntityCache) do
+        if entry.nuid == nuid then
+            EntityCache[entry.entityId] = nil
+        end
+    end
+    CustomProfiler.stop("EntityCache.deleteNuid", cpc)
+end
+
+EntityCache.size       = function()
+    return table.size(EntityCache)
+end
 ----------------------------------------
 --- EntityCacheUtils
 ----------------------------------------
 --- Utils class only for cache of entities.
-EntityCacheUtils     = {}
+EntityCacheUtils       = {}
 
-EntityCacheUtils.set = function(entityId, nuid, ownerGuid, ownerName, filepath, x, y, rotation, velX, velY, currentHealth, maxHealth)
+EntityCacheUtils.set   = function(entityId, nuid, ownerGuid, ownerName, filepath, x, y, rotation, velX, velY, currentHealth, maxHealth)
     if util.IsEmpty(entityId) then
         error(("entityId must not be nil or empty!"):format(entityId), 2)
     end

@@ -311,8 +311,7 @@ function EntityUtils.processAndSyncEntityNetworking()
             if who == Client.iAm then
                 if not table.contains(playerEntityIds, entityId) then
                     if EntityUtils.isEntityAlive(entityId) and
-                            entityId ~= EntityUtils.localPlayerEntityId and
-                            entityId ~= EntityUtils.localPlayerEntityIdPolymorphed and
+                            entityId ~= MinaUtils.getLocalMinaEntityId() and
                             not EntityUtils.isRemoteMinae(entityId) and
                             not NetworkVscUtils.hasNetworkLuaComponents(entityId)
                     then
@@ -617,8 +616,8 @@ function EntityUtils.destroyByNuid(peer, nuid)
         return
     end
 
-    if entityId ~= EntityUtils.localPlayerEntityId and
-            entityId ~= EntityUtils.localPlayerEntityIdPolymorphed
+    if entityId ~= MinaUtils.getLocalMinaEntityId() and
+            entityId ~= MinaUtils.getLocalPolymorphedMinaEntityId
     then
         EntityKill(entityId)
     end

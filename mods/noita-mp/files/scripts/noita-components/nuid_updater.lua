@@ -6,12 +6,6 @@ GlobalsUtils         = dofile_once("mods/noita-mp/files/scripts/util/GlobalsUtil
 
 local executeOnAdded = GetValueBool("executeOnAdded", true)
 
---#region local functions
-
---#endregion
-
---#region executeOnAdded = added() and executeOnRemove = remove()
-
 local function added()
     Logger.debug(Logger.channels.nuid, "nuid_updater.lua added..")
     local currentEntityId = GetUpdatedEntityID()
@@ -45,11 +39,6 @@ local function remove()
                          :format(currentEntityId, nuid, globalsEntityId, tonumber(globalsEntityId * -1)))
 end
 
---#endregion
-
-
---#region Decision maker if executed on added or remove
-
 if executeOnAdded then
     -- this was executed on added
     added()
@@ -61,4 +50,3 @@ if not executeOnAdded then
     remove()
 end
 
---#endregion

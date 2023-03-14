@@ -384,8 +384,8 @@ function NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
     if ownerNameCompId and ownerGuidCompId then
         return NetworkVscUtils.getAllVcsValuesByComponentIds(ownerNameCompId, ownerGuidCompId, nuidCompId)
     else
-        error(("getAllVcsValuesByEntityId: Got unexpected nil id. entityId, = %s ownerNameCompId = %s, ownerGuidCompId = %s, nuidCompId = %s")
-                      :format(entityId, ownerNameCompId, ownerGuidCompId, nuidCompId), 2)
+        --error(("getAllVcsValuesByEntityId: Got unexpected nil id. entityId, = %s ownerNameCompId = %s, ownerGuidCompId = %s, nuidCompId = %s")
+        --              :format(entityId, ownerNameCompId, ownerGuidCompId, nuidCompId), 2)
     end
 end
 

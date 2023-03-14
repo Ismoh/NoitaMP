@@ -89,7 +89,6 @@ end
 function OnPlayerSpawned(player_entity)
     local cpc = CustomProfiler.start("init.OnPlayerSpawned")
     Logger.info(Logger.channels.initialize, ("Player spawned with entityId = %s!"):format(player_entity))
-    EntityUtils.localPlayerEntityId = player_entity
 
     if not GameHasFlagRun("nameTags_script_applied") then
         GameAddFlagRun("nameTags_script_applied")
