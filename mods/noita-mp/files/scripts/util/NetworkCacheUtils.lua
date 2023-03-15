@@ -51,9 +51,9 @@ NetworkCache.set         = function(clientCacheId, networkMessageId, event, stat
     end
 
     if not NetworkCache.cache then
-        NetworkCache[clientCacheId] = {}
+        NetworkCache.cache[clientCacheId] = {}
     end
-    NetworkCache[clientCacheId][networkMessageId] = {
+    NetworkCache.cache[clientCacheId][networkMessageId] = {
         clientCacheId    = clientCacheId,
         networkMessageId = networkMessageId,
         event            = event,
@@ -81,24 +81,24 @@ NetworkCache.get         = function(clientCacheId, event, networkMessageId)
                       :format(networkMessageId, type(networkMessageId)), 2)
     end
 
-    if not NetworkCache[clientCacheId] then
+    if not NetworkCache.cache[clientCacheId] then
         Logger.trace(Logger.channels.cache,
                      ("There is no cache entry for clientCacheId %s, event %s and networkMessageId %s")
                              :format(clientCacheId, event, networkMessageId))
         CustomProfiler.stop("NetworkCache.get", cpc)
         return nil
     end
-    if not NetworkCache[clientCacheId][networkMessageId] then
+    if not NetworkCache.cache[clientCacheId][networkMessageId] then
         CustomProfiler.stop("NetworkCache.get", cpc)
         return nil
     end
-    if not NetworkCache[clientCacheId][networkMessageId].event == event then
+    if not NetworkCache.cache[clientCacheId][networkMessageId].event == event then
         CustomProfiler.stop("NetworkCache.get", cpc)
         return nil
     end
 
     CustomProfiler.stop("NetworkCache.get", cpc)
-    return NetworkCache[clientCacheId][networkMessageId]
+    return NetworkCache.cache[clientCacheId][networkMessageId]
 end
 
 NetworkCache.getChecksum = function(clientCacheId, dataChecksum)
@@ -113,7 +113,7 @@ NetworkCache.getChecksum = function(clientCacheId, dataChecksum)
                       :format(dataChecksum, type(dataChecksum)), 2)
     end
 
-    if not NetworkCache[clientCacheId] then
+    if not NetworkCache.cache[clientCacheId] then
         Logger.trace(Logger.channels.cache,
                      ("There is no cache entry for clientCacheId %s and dataChecksum %s")
                              :format(clientCacheId, dataChecksum))
@@ -121,13 +121,13 @@ NetworkCache.getChecksum = function(clientCacheId, dataChecksum)
         return nil
     end
 
-    local found, index = table.contains(NetworkCache[clientCacheId], dataChecksum)
+    local found, index = table.contains(NetworkCache.cache[clientCacheId], dataChecksum)
     if found then
         CustomProfiler.stop("NetworkCache.getChecksum", cpc)
-        return NetworkCache[clientCacheId][index]
+        return NetworkCache.cache[clientCacheId][index]
     end
 
-    for entry in NetworkCache[clientCacheId] do
+    for entry in NetworkCache.cache[clientCacheId] do
         if entry.dataChecksum == dataChecksum then
             CustomProfiler.stop("NetworkCache.getChecksum", cpc)
             return entry
@@ -137,6 +137,11 @@ NetworkCache.getChecksum = function(clientCacheId, dataChecksum)
     CustomProfiler.stop("NetworkCache.get", cpc)
     return nil
 end
+
+NetworkCache.size        = function()
+    return table.size(NetworkCache.cache)
+end
+
 ------------------------------------------------------------------------------------------------------------------------
 --- NetworkCacheUtils
 ------------------------------------------------------------------------------------------------------------------------
