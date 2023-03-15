@@ -58,7 +58,7 @@ function MinaUtils.getLocalMinaEntityId()
     local playerEntityIds = EntityGetWithTag("player_unit")
     for i = 1, #playerEntityIds do
         if NetworkVscUtils.hasNetworkLuaComponents(playerEntityIds[i]) then
-            local compOwnerName, compOwnerGuid, compNuid = NetworkVscUtils.getAllVcsValuesByEntityId(playerEntityIds[i])
+            local compOwnerName, compOwnerGuid, compNuid = NetworkVscUtils.getAllVscValuesByEntityId(playerEntityIds[i])
             if compOwnerGuid == localMinaGuid then
                 CustomProfiler.stop("MinaUtils.getLocalMinaEntityId", cpc)
                 return playerEntityIds[i]
@@ -106,7 +106,7 @@ function MinaUtils.getLocalMinaInformation()
         NetworkVscUtils.addOrUpdateAllVscs(entityId, ownerName, ownerGuid, nuid)
     end
 
-    local _, _, nuid = NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
+    local _, _, nuid = NetworkVscUtils.getAllVscValuesByEntityId(entityId)
     CustomProfiler.stop("MinaUtils.getLocalMinaInformation", cpc)
     return {
         name     = ownerName,
@@ -128,7 +128,7 @@ function MinaUtils.isLocalMinaPolymorphed()
             for c = 1, #componentIds do
                 local isPlayer = ComponentGetValue2(componentIds[c], "is_player")
                 if isPlayer then
-                    local compOwnerName, compOwnerGuid, compNuid = NetworkVscUtils.getAllVcsValuesByEntityId(polymorphedEntityIds[e])
+                    local compOwnerName, compOwnerGuid, compNuid = NetworkVscUtils.getAllVscValuesByEntityId(polymorphedEntityIds[e])
                     if compOwnerGuid == localMinaGuid then
                         CustomProfiler.stop("MinaUtils.isLocalMinaPolymorphed", cpc)
                         return true, polymorphedEntityIds[e]

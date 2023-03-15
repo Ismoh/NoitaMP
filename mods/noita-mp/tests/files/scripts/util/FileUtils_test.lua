@@ -1,26 +1,8 @@
-local params              = ...
-
---- Make absolutely sure, that the already mocked Noita API function is not overwritten
-local mockedModSettingGet = ModSettingGet
-ModSettingGet             = function(id)
-    if string.contains(id, "noita-mp.log_level_") then
-        return { "trace, debug, info, warn", "TRACE" }
-    end
-
-    if mockedModSettingGet then
-        mockedModSettingGet(id)
-    end
-
-    error(("Mod setting '%s' is not mocked! Add it!"):format(id), 2)
-end
-
-local lu                  = require("luaunit")
-local fu                  = require("file_util")
-
-TestFileUtil              = {}
+local os_name = require("os_name")
+local fu      = require("FileUtils")
+TestFileUtil  = {}
 
 function TestFileUtil:setUp()
-
     -- Mock Noita Api global functions
     _G.DebugGetIsDevBuild = function()
         return false
@@ -32,7 +14,20 @@ function TestFileUtil:setUp()
 end
 
 function TestFileUtil:tearDown()
-
+    -- Make sure OS detection isn't broken, when changed in tests
+    _G.is_windows                                = true
+    _G.is_linux                                  = false
+    _G.pathSeparator                             = tostring(package.config:sub(1, 1))
+    local current_platform, current_architecture = os_name.getOS()
+    if current_platform == "Windows" then
+        _G.is_windows    = true
+        _G.is_linux      = false
+        _G.pathSeparator = "\\"
+    else
+        _G.is_windows    = false
+        _G.is_linux      = true
+        _G.pathSeparator = "/"
+    end
 end
 
 ----------------------------------------------------------------------------------------------------
@@ -40,56 +35,43 @@ end
 ----------------------------------------------------------------------------------------------------
 
 function TestFileUtil:testReplacePathSeparatorOnWindows()
-    local old_is_windows     = _G.is_windows
-    local old_is_linux       = _G.is_linux
+    local old_is_windows    = _G.is_windows
+    local old_is_linux      = _G.is_linux
     local old_pathSeparator = _G.pathSeparator
 
-    _G.is_windows            = true -- TODO: is there a better way to mock?
-    _G.is_linux              = false -- TODO: is there a better way to mock?
+    _G.is_windows           = true -- TODO: is there a better way to mock?
+    _G.is_linux             = false -- TODO: is there a better way to mock?
     _G.pathSeparator        = "\\" -- TODO: is there a better way to mock?
 
-    local path_unix          = "/test/path/123"
-    local path_windows       = fu.ReplacePathSeparator(path_unix)
+    local path_unix         = "/test/path/123"
+    local path_windows      = fu.ReplacePathSeparator(path_unix)
 
     lu.assertNotEquals(path_unix, path_windows)
     lu.assertEquals([[\test\path\123]], path_windows)
 
-    _G.is_windows     = old_is_windows
-    _G.is_linux       = old_is_linux
+    _G.is_windows    = old_is_windows
+    _G.is_linux      = old_is_linux
     _G.pathSeparator = old_pathSeparator
 end
 
 function TestFileUtil:testReplacePathSeparatorOnUnix()
-    local old_is_windows     = _G.is_windows
-    local old_is_linux       = _G.is_linux
+    local old_is_windows    = _G.is_windows
+    local old_is_linux      = _G.is_linux
     local old_pathSeparator = _G.pathSeparator
 
-    _G.is_windows            = false -- TODO: is there a better way to mock?
-    _G.is_linux              = true -- TODO: is there a better way to mock?
+    _G.is_windows           = false -- TODO: is there a better way to mock?
+    _G.is_linux             = true -- TODO: is there a better way to mock?
     _G.pathSeparator        = "/" -- TODO: is there a better way to mock?
 
-    local path_windows       = "\\test\\path\\123"
-    local path_unix          = fu.ReplacePathSeparator(path_windows)
+    local path_windows      = "\\test\\path\\123"
+    local path_unix         = fu.ReplacePathSeparator(path_windows)
 
     lu.assertNotEquals(path_windows, path_unix)
     lu.assertEquals("/test/path/123", path_unix)
 
-    _G.is_windows     = old_is_windows
-    _G.is_linux       = old_is_linux
+    _G.is_windows    = old_is_windows
+    _G.is_linux      = old_is_linux
     _G.pathSeparator = old_pathSeparator
-end
-
-function TestFileUtil:testReplacePathSeparatorUnknownOs()
-    local old_is_windows = _G.is_windows
-    local old_is_linux   = _G.is_linux
-
-    _G.is_windows        = false -- TODO: is there a better way to mock?
-    _G.is_linux          = false -- TODO: is there a better way to mock?
-
-    lu.assertErrorMsgContains("file_util.lua | Unable to detect OS", fu.ReplacePathSeparator, "path doesnt matter")
-
-    _G.is_windows = old_is_windows
-    _G.is_linux   = old_is_linux
 end
 
 function TestFileUtil:testRemoveTrailingPathSeparator()
@@ -118,7 +100,7 @@ function TestFileUtil:testSetAbsolutePathOfNoitaRootDirectoryUnknownOs()
     _G.is_windows        = false -- TODO: is there a better way to mock?
     _G.is_linux          = false -- TODO: is there a better way to mock?
 
-    lu.assertErrorMsgContains("file_util.lua | Unable to detect OS", fu.SetAbsolutePathOfNoitaRootDirectory,
+    lu.assertErrorMsgContains("FileUtils.lua | Unable to detect OS", fu.SetAbsolutePathOfNoitaRootDirectory,
                               "path doesnt matter")
 
     _G.is_windows = old_is_windows
@@ -126,6 +108,8 @@ function TestFileUtil:testSetAbsolutePathOfNoitaRootDirectoryUnknownOs()
 end
 
 function TestFileUtil:testGetAbsolutePathOfNoitaRootDirectory()
+    Logger.trace(Logger.channels.testing,
+                 ("Need to verify absolute path of root noita: %s"):format(fu.GetAbsolutePathOfNoitaRootDirectory()))
     lu.assertStrContains(fu.GetAbsolutePathOfNoitaRootDirectory(),
                          _G.pathSeparator) -- TODO: Need a better test for this!
 end
@@ -215,9 +199,9 @@ end
 ----------------------------------------------------------------------------------------------------
 
 function TestFileUtil:testExists()
-    lu.assertNotIsTrue(fu.exists("nonexistingfile.asdf"))
-    lu.assertErrorMsgContains("is not type of string!", fu.exists)
-    lu.assertIsTrue(fu.exists(fu.GetAbsoluteDirectoryPathOfNoitaMP() .. "/mod.xml"))
+    lu.assertNotIsTrue(fu.Exists("nonexistingfile.asdf"))
+    lu.assertErrorMsgContains("is not type of string!", fu.Exists)
+    lu.assertIsTrue(fu.Exists(fu.GetAbsoluteDirectoryPathOfNoitaMP() .. "/mod.xml"))
 end
 
 function TestFileUtil:testIsFile()
@@ -245,7 +229,7 @@ function TestFileUtil:testWriteBinaryFile()
 
     local full_path = fu.GetAbsolutePathOfNoitaRootDirectory() .. "/write-temporary-binary-test-file.txt"
     fu.WriteBinaryFile(full_path, "File Content")
-    lu.assertIsTrue(fu.exists(full_path))
+    lu.assertIsTrue(fu.Exists(full_path))
     os.remove(full_path)
 end
 
@@ -262,7 +246,7 @@ function TestFileUtil:testWriteFile()
 
     local full_path = fu.GetAbsolutePathOfNoitaRootDirectory() .. "/write-temporary-test-file.txt"
     fu.WriteFile(full_path, "File Content")
-    lu.assertIsTrue(fu.exists(full_path))
+    lu.assertIsTrue(fu.Exists(full_path))
     os.remove(full_path)
 end
 
@@ -283,14 +267,12 @@ end
 function TestFileUtil:testExists7zip()
     local old    = _G.seven_zip
     _G.seven_zip = false -- mock
-    lu.assertNotIsTrue(fu.exists7zip())
+    lu.assertNotIsTrue(fu.Exists7zip())
     _G.seven_zip = true -- mock
-    lu.assertIsTrue(fu.exists7zip())
+    lu.assertIsTrue(fu.Exists7zip())
     _G.seven_zip = old
 end
 
 function TestFileUtil:testCreate7zipArchive()
     --fu.Create7zipArchive()
 end
-
-lu.LuaUnit.run(params)

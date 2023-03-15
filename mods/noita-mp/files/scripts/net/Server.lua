@@ -7,8 +7,8 @@
 --- 'Imports'
 ----------------------------------------
 local sock        = require("sock")
-local util        = require("util")
-local fu          = require("file_util")
+local Utils        = require("Utils")
+local fu          = require("FileUtils")
 local zstandard   = require("zstd")
 local messagePack = require("MessagePack")
 
@@ -143,7 +143,7 @@ function Server.new(sockServer)
         end
         local data = { networkMessageId, event, NetworkUtils.events.acknowledgement.ack, os.clock() }
         self:sendToPeer(peer, NetworkUtils.events.acknowledgement.name, data)
-        Logger.debug(Logger.channels.network, ("Sent ack with data = %s"):format(util.pformat(data)))
+        Logger.debug(Logger.channels.network, ("Sent ack with data = %s"):format(Utils.pformat(data)))
         CustomProfiler.stop("Server.sendAck", cpc02)
     end
 
@@ -152,9 +152,9 @@ function Server.new(sockServer)
     ------------------------------------------------------------------------------------------------
     local function onAcknowledgement(data, peer)
         local cpc03 = CustomProfiler.start("Server.onAcknowledgement")
-        Logger.debug(Logger.channels.network, "onAcknowledgement: Acknowledgement received.", util.pformat(data))
+        Logger.debug(Logger.channels.network, "onAcknowledgement: Acknowledgement received.", Utils.pformat(data))
 
-        if util.IsEmpty(data.networkMessageId) then
+        if Utils.IsEmpty(data.networkMessageId) then
             error(("onAcknowledgement data.networkMessageId is empty: %s"):format(data.networkMessageId), 2)
         end
 
@@ -163,15 +163,15 @@ function Server.new(sockServer)
                           :format(networkMessageId, data, peer), 2)
         end
 
-        if util.IsEmpty(data.event) then
+        if Utils.IsEmpty(data.event) then
             error(("onAcknowledgement data.event is empty: %s"):format(data.event), 2)
         end
 
-        if util.IsEmpty(data.status) then
+        if Utils.IsEmpty(data.status) then
             error(("onAcknowledgement data.status is empty: %s"):format(data.status), 2)
         end
 
-        if util.IsEmpty(data.ackedAt) then
+        if Utils.IsEmpty(data.ackedAt) then
             error(("onAcknowledgement data.ackedAt is empty: %s"):format(data.ackedAt), 2)
         end
 
@@ -208,13 +208,13 @@ function Server.new(sockServer)
     local function onConnect(data, peer)
         local cpc04 = CustomProfiler.start("Server.onConnect")
         Logger.debug(Logger.channels.network, ("Peer %s connected! data = %s")
-                :format(util.pformat(peer), util.pformat(data)))
+                :format(Utils.pformat(peer), Utils.pformat(data)))
 
-        if util.IsEmpty(peer) then
+        if Utils.IsEmpty(peer) then
             error(("onConnect peer is empty: %s"):format(peer), 3)
         end
 
-        if util.IsEmpty(data) then
+        if Utils.IsEmpty(data) then
             error(("onConnect data is empty: %s"):format(data), 3)
         end
 
@@ -223,7 +223,7 @@ function Server.new(sockServer)
         local guid                       = localPlayerInfo.guid
         local entityId                   = localPlayerInfo.entityId
         local isPolymorphed              = EntityUtils.isEntityPolymorphed(entityId)
-        local ownerName, ownerGuid, nuid = NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
+        local ownerName, ownerGuid, nuid = NetworkVscUtils.getAllVscValuesByEntityId(entityId)
 
         if not nuid then
             nuid = NuidUtils.getNextNuid()
@@ -237,7 +237,7 @@ function Server.new(sockServer)
         end
 
         self:send(peer, NetworkUtils.events.playerInfo.name,
-                  { NetworkUtils.getNextNetworkMessageId(), name, guid, fu.getVersionByFile(), nuid })
+                  { NetworkUtils.getNextNetworkMessageId(), name, guid, fu.GetVersionByFile(), nuid })
 
         self:send(peer, NetworkUtils.events.seed.name,
                   { NetworkUtils.getNextNetworkMessageId(), StatsGetValue("world_seed") })
@@ -260,17 +260,17 @@ function Server.new(sockServer)
     --- @param peer table
     local function onDisconnect(data, peer)
         local cpc05 = CustomProfiler.start("Server.onDisconnect")
-        Logger.debug(Logger.channels.network, "Disconnected from server!", util.pformat(data))
+        Logger.debug(Logger.channels.network, "Disconnected from server!", Utils.pformat(data))
 
-        if util.IsEmpty(peer) then
+        if Utils.IsEmpty(peer) then
             error(("onConnect peer is empty: %s"):format(peer), 3)
         end
 
-        if util.IsEmpty(data) then
+        if Utils.IsEmpty(data) then
             error(("onDisconnect data is empty: %s"):format(data), 3)
         end
 
-        Logger.debug(Logger.channels.network, "Disconnected from server!", util.pformat(data))
+        Logger.debug(Logger.channels.network, "Disconnected from server!", Utils.pformat(data))
         -- Let the other clients know, that one client disconnected
         self:sendToAllBut(peer, NetworkUtils.events.disconnect2.name,
                           { NetworkUtils.getNextNetworkMessageId(), peer.name, peer.guid, peer.nuid })
@@ -295,35 +295,35 @@ function Server.new(sockServer)
     --- @param data table data { networkMessageId, name, guid }
     local function onPlayerInfo(data, peer)
         local cpc06 = CustomProfiler.start("Server.onPlayerInfo")
-        Logger.debug(Logger.channels.network, "onPlayerInfo: Player info received.", util.pformat(data))
+        Logger.debug(Logger.channels.network, "onPlayerInfo: Player info received.", Utils.pformat(data))
 
-        if util.IsEmpty(peer) then
+        if Utils.IsEmpty(peer) then
             error(("onConnect peer is empty: %s"):format(peer), 3)
         end
 
-        if util.IsEmpty(data.networkMessageId) then
+        if Utils.IsEmpty(data.networkMessageId) then
             error(("onPlayerInfo data.networkMessageId is empty: %s"):format(data.networkMessageId), 3)
         end
 
-        if util.IsEmpty(data.name) then
+        if Utils.IsEmpty(data.name) then
             error(("onPlayerInfo data.name is empty: %s"):format(data.name), 3)
         end
 
-        if util.IsEmpty(data.guid) then
+        if Utils.IsEmpty(data.guid) then
             error(("onPlayerInfo data.guid is empty: %s"):format(data.guid), 3)
         end
 
-        --if util.IsEmpty(data.nuid) then
+        --if Utils.IsEmpty(data.nuid) then
         --    error(("onPlayerInfo data.nuid is empty: %s"):format(data.nuid), 3)
         --end
 
-        if util.IsEmpty(data.version) then
+        if Utils.IsEmpty(data.version) then
             error(("onPlayerInfo data.version is empty: %s"):format(data.version), 3)
         end
 
-        if fu.getVersionByFile() ~= tostring(data.version) then
+        if fu.GetVersionByFile() ~= tostring(data.version) then
             error(("Version mismatch: NoitaMP version of Client: %s and your version: %s")
-                          :format(data.version, fu.getVersionByFile()), 3)
+                          :format(data.version, fu.GetVersionByFile()), 3)
             peer:disconnect()
         end
 
@@ -358,49 +358,49 @@ function Server.new(sockServer)
     local function onNeedNuid(data, peer)
         local cpc07 = CustomProfiler.start("Server.onNeedNuid")
         Logger.debug(Logger.channels.network, ("Peer %s needs a new nuid. data = %s")
-                :format(util.pformat(peer), util.pformat(data)))
+                :format(Utils.pformat(peer), Utils.pformat(data)))
 
-        if util.IsEmpty(peer) then
-            error(("onNeedNuid peer is empty: %s"):format(util.pformat(peer)), 3)
+        if Utils.IsEmpty(peer) then
+            error(("onNeedNuid peer is empty: %s"):format(Utils.pformat(peer)), 3)
         end
 
-        if util.IsEmpty(data.networkMessageId) then
+        if Utils.IsEmpty(data.networkMessageId) then
             error(("onNewNuid data.networkMessageId is empty: %s"):format(data.networkMessageId), 3)
         end
 
-        if util.IsEmpty(data.owner) then
-            error(("onNewNuid data.owner is empty: %s"):format(util.pformat(data.owner)), 3)
+        if Utils.IsEmpty(data.owner) then
+            error(("onNewNuid data.owner is empty: %s"):format(Utils.pformat(data.owner)), 3)
         end
 
-        if util.IsEmpty(data.localEntityId) then
+        if Utils.IsEmpty(data.localEntityId) then
             error(("onNewNuid data.localEntityId is empty: %s"):format(data.localEntityId), 3)
         end
 
-        if util.IsEmpty(data.x) then
+        if Utils.IsEmpty(data.x) then
             error(("onNewNuid data.x is empty: %s"):format(data.x), 3)
         end
 
-        if util.IsEmpty(data.y) then
+        if Utils.IsEmpty(data.y) then
             error(("onNewNuid data.y is empty: %s"):format(data.y), 3)
         end
 
-        if util.IsEmpty(data.rotation) then
+        if Utils.IsEmpty(data.rotation) then
             error(("onNewNuid data.rotation is empty: %s"):format(data.rotation), 3)
         end
 
-        if util.IsEmpty(data.velocity) then
-            error(("onNewNuid data.velocity is empty: %s"):format(util.pformat(data.velocity)), 3)
+        if Utils.IsEmpty(data.velocity) then
+            error(("onNewNuid data.velocity is empty: %s"):format(Utils.pformat(data.velocity)), 3)
         end
 
-        if util.IsEmpty(data.filename) then
+        if Utils.IsEmpty(data.filename) then
             error(("onNewNuid data.filename is empty: %s"):format(data.filename), 3)
         end
 
-        if util.IsEmpty(data.health) then
+        if Utils.IsEmpty(data.health) then
             error(("onNewNuid data.health is empty: %s"):format(data.health), 3)
         end
 
-        if util.IsEmpty(data.isPolymorphed) then
+        if Utils.IsEmpty(data.isPolymorphed) then
             error(("onNewNuid data.isPolymorphed is empty: %s"):format(data.isPolymorphed), 3)
         end
 
@@ -429,18 +429,18 @@ function Server.new(sockServer)
     local function onLostNuid(data, peer)
         local cpc08 = CustomProfiler.start("Server.onLostNuid")
         Logger.debug(Logger.channels.network, ("Peer %s lost a nuid and ask for the entity to spawn. data = %s")
-                :format(util.pformat(peer), util.pformat(data)))
+                :format(Utils.pformat(peer), Utils.pformat(data)))
 
-        if util.IsEmpty(peer) then
-            error(("onLostNuid peer is empty: %s"):format(util.pformat(peer)), 3)
+        if Utils.IsEmpty(peer) then
+            error(("onLostNuid peer is empty: %s"):format(Utils.pformat(peer)), 3)
         end
 
-        if util.IsEmpty(data.networkMessageId) then
+        if Utils.IsEmpty(data.networkMessageId) then
             error(("onLostNuid data.networkMessageId is empty: %s"):format(data.networkMessageId), 3)
         end
 
-        if util.IsEmpty(data.nuid) then
-            error(("onLostNuid data.nuid is empty: %s"):format(util.pformat(data.nuid)), 3)
+        if Utils.IsEmpty(data.nuid) then
+            error(("onLostNuid data.nuid is empty: %s"):format(Utils.pformat(data.nuid)), 3)
         end
 
         local nuid, entityId = GlobalsUtils.getNuidEntityPair(data.nuid)
@@ -453,7 +453,7 @@ function Server.new(sockServer)
             return
         end
 
-        --local compOwnerName, compOwnerGuid, compNuid     = NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
+        --local compOwnerName, compOwnerGuid, compNuid     = NetworkVscUtils.getAllVscValuesByEntityId(entityId)
         local compOwnerName, compOwnerGuid, compNuid, filename,
         health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
         local isPolymorphed              = EntityUtils.isEntityPolymorphed(entityId)
@@ -468,41 +468,41 @@ function Server.new(sockServer)
     local function onEntityData(data, peer)
         local cpc09 = CustomProfiler.start("Server.onEntityData")
         Logger.debug(Logger.channels.network, ("Received entityData for nuid = %s! data = %s")
-                :format(data.nuid, util.pformat(data)))
+                :format(data.nuid, Utils.pformat(data)))
 
-        if util.IsEmpty(data.networkMessageId) then
+        if Utils.IsEmpty(data.networkMessageId) then
             error(("onNewNuid data.networkMessageId is empty: %s"):format(data.networkMessageId), 3)
         end
 
-        if util.IsEmpty(data.owner) then
-            error(("onNewNuid data.owner is empty: %s"):format(util.pformat(data.owner)), 3)
+        if Utils.IsEmpty(data.owner) then
+            error(("onNewNuid data.owner is empty: %s"):format(Utils.pformat(data.owner)), 3)
         end
 
-        --if util.IsEmpty(data.localEntityId) then
+        --if Utils.IsEmpty(data.localEntityId) then
         --    error(("onNewNuid data.localEntityId is empty: %s"):format(data.localEntityId), 3)
         --end
 
-        if util.IsEmpty(data.nuid) then
+        if Utils.IsEmpty(data.nuid) then
             error(("onNewNuid data.nuid is empty: %s"):format(data.nuid), 3)
         end
 
-        if util.IsEmpty(data.x) then
+        if Utils.IsEmpty(data.x) then
             error(("onNewNuid data.x is empty: %s"):format(data.x), 3)
         end
 
-        if util.IsEmpty(data.y) then
+        if Utils.IsEmpty(data.y) then
             error(("onNewNuid data.y is empty: %s"):format(data.y), 3)
         end
 
-        if util.IsEmpty(data.rotation) then
+        if Utils.IsEmpty(data.rotation) then
             error(("onNewNuid data.rotation is empty: %s"):format(data.rotation), 3)
         end
 
-        if util.IsEmpty(data.velocity) then
-            error(("onNewNuid data.velocity is empty: %s"):format(util.pformat(data.velocity)), 3)
+        if Utils.IsEmpty(data.velocity) then
+            error(("onNewNuid data.velocity is empty: %s"):format(Utils.pformat(data.velocity)), 3)
         end
 
-        if util.IsEmpty(data.health) then
+        if Utils.IsEmpty(data.health) then
             error(("onNewNuid data.health is empty: %s"):format(data.health), 3)
         end
 
@@ -528,7 +528,7 @@ function Server.new(sockServer)
         local deadNuids = data.deadNuids or data or {}
         for i = 1, #deadNuids do
             local deadNuid = deadNuids[i]
-            if util.IsEmpty(deadNuid) or deadNuid == "nil" then
+            if Utils.IsEmpty(deadNuid) or deadNuid == "nil" then
                 error(("onDeadNuids deadNuid is empty: %s"):format(deadNuid), 2)
             else
                 if peer then
@@ -640,7 +640,7 @@ function Server.new(sockServer)
 
     -- Called when someone connects to the server
     -- self:on("connect", function(data, peer)
-    --     logger:debug(logger.channels.network, "Someone connected to the server:", util.pformat(data))
+    --     logger:debug(logger.channels.network, "Someone connected to the server:", Utils.pformat(data))
 
     --     local local_player_id = MinaUtils.getLocalMinaEntityId()
     --     local x, y, rot, scale_x, scale_y = EntityGetTransform(local_player_id)
@@ -653,8 +653,8 @@ function Server.new(sockServer)
     -- self:on(
     --     "clientInfo",
     --     function(data, peer)
-    --         logger:debug(logger.channels.network, "on_clientInfo: data =", util.pformat(data))
-    --         logger:debug(logger.channels.network, "on_clientInfo: peer =", util.pformat(peer))
+    --         logger:debug(logger.channels.network, "on_clientInfo: data =", Utils.pformat(data))
+    --         logger:debug(logger.channels.network, "on_clientInfo: peer =", Utils.pformat(peer))
     --         setClientInfo(data, peer)
     --     end
     -- )
@@ -662,8 +662,8 @@ function Server.new(sockServer)
     -- self:on(
     --     "worldFilesFinished",
     --     function(data, peer)
-    --         logger:debug(logger.channels.network, "on_worldFilesFinished: data =", util.pformat(data))
-    --         logger:debug(logger.channels.network, "on_worldFilesFinished: peer =", util.pformat(peer))
+    --         logger:debug(logger.channels.network, "on_worldFilesFinished: data =", Utils.pformat(data))
+    --         logger:debug(logger.channels.network, "on_worldFilesFinished: peer =", Utils.pformat(peer))
     --         -- Send restart command
     --         peer:send("restart", { "Restart now!" })
     --     end
@@ -673,7 +673,7 @@ function Server.new(sockServer)
     -- self:on(
     --     "disconnect",
     --     function(data)
-    --         logger:debug(logger.channels.network, "on_disconnect: data =", util.pformat(data))
+    --         logger:debug(logger.channels.network, "on_disconnect: data =", Utils.pformat(data))
     --     end
     -- )
 
@@ -681,16 +681,16 @@ function Server.new(sockServer)
     -- self:on(
     --     "receive",
     --     function(data, channel, client)
-    --         logger:debug(logger.channels.network, "on_receive: data =", util.pformat(data))
-    --         logger:debug(logger.channels.network, "on_receive: channel =", util.pformat(channel))
-    --         logger:debug(logger.channels.network, "on_receive: client =", util.pformat(client))
+    --         logger:debug(logger.channels.network, "on_receive: data =", Utils.pformat(data))
+    --         logger:debug(logger.channels.network, "on_receive: channel =", Utils.pformat(channel))
+    --         logger:debug(logger.channels.network, "on_receive: client =", Utils.pformat(client))
     --     end
     -- )
 
     -- self:on(
     --     "needNuid",
     --     function(data)
-    --         logger:debug(logger.channels.network, "%s (%s) needs a new nuid.", data.owner.name, data.owner.guid, util.pformat(data))
+    --         logger:debug(logger.channels.network, "%s (%s) needs a new nuid.", data.owner.name, data.owner.guid, Utils.pformat(data))
 
     --         local new_nuid = NuidUtils.getNextNuid()
     --         -- tell the clients that there is a new entity, they have to spawn, besides the client, who sent the request
@@ -703,7 +703,7 @@ function Server.new(sockServer)
     -- self:on(
     --     "newNuid",
     --     function(data)
-    --         logger:debug(logger.channels.network, util.pformat(data))
+    --         logger:debug(logger.channels.network, Utils.pformat(data))
 
     --         if self.guid == data.owner.guid then
     --             logger:debug(logger.channels.network,
@@ -720,7 +720,7 @@ function Server.new(sockServer)
     -- self:on(
     --     "entityAlive",
     --     function(data)
-    --         logger:debug(logger.channels.network, util.pformat(data))
+    --         logger:debug(logger.channels.network, Utils.pformat(data))
 
     --         self:sendToAll2("entityAlive", data)
     --         em:DespawnEntity(data.owner, data.localEntityId, data.nuid, data.isAlive)
@@ -730,7 +730,7 @@ function Server.new(sockServer)
     -- self:on(
     --     "entityState",
     --     function(data)
-    --         logger:debug(logger.channels.network, util.pformat(data))
+    --         logger:debug(logger.channels.network, Utils.pformat(data))
 
     --         local nc = em:GetNetworkComponent(data.owner, data.localEntityId, data.nuid)
     --         if nc then
@@ -851,7 +851,7 @@ function Server.new(sockServer)
 
         if NetworkUtils.alreadySent(peer, event, data) then
             Logger.debug(Logger.channels.network, ("Network message for %s for data %s already was acknowledged.")
-                    :format(event, util.pformat(data)))
+                    :format(event, Utils.pformat(data)))
             CustomProfiler.stop("Server.send", cpc022)
             return false
         end
@@ -871,14 +871,14 @@ function Server.new(sockServer)
     function self:sendToAll(event, data)
         local cpc023 = CustomProfiler.start("Server.sendToAll")
         local sent   = false
-        if util.IsEmpty(self.clients) then
+        if Utils.IsEmpty(self.clients) then
             Logger.trace(Logger.channels.testing,
-                         ("Unable to send anything, when there are no clients %s!"):format(util.pformat(self.clients)))
+                         ("Unable to send anything, when there are no clients %s!"):format(Utils.pformat(self.clients)))
             return sent
         end
         for i = 1, #self.clients do
             Logger.trace(Logger.channels.testing,
-                         ("Sending event '%s' with data '%s' to client.name '%s'!"):format(event, util.pformat(data),
+                         ("Sending event '%s' with data '%s' to client.name '%s'!"):format(event, Utils.pformat(data),
                                                                                            self.clients[i].name))
             sent = self:send(self.clients[i], event, data)
         end
@@ -1049,13 +1049,13 @@ function Server.new(sockServer)
             return
         end
 
-        --local compOwnerName, compOwnerGuid, compNuid     = NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
+        --local compOwnerName, compOwnerGuid, compNuid     = NetworkVscUtils.getAllVscValuesByEntityId(entityId)
         local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
         local data                                                                               = {
             NetworkUtils.getNextNetworkMessageId(), { compOwnerName, compOwnerGuid }, compNuid, x, y, rotation, velocity, health
         }
 
-        if util.IsEmpty(compNuid) then
+        if Utils.IsEmpty(compNuid) then
             ---- nuid must not be empty, when Server!
             --logger:error(logger.channels.network, "Unable to send entity data, because nuid is empty.")
             --return

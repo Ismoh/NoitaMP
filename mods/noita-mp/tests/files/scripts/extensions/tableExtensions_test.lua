@@ -1,25 +1,7 @@
-local params        = ...
-
-local lu            = require("luaunit")
-
 TestTableExtensions = {}
 
 function TestTableExtensions:setUp()
-    -- Make absolutely sure, that the already mocked Noita API function is not overwritten
-    local mockedModSettingGet = ModSettingGet
-    ModSettingGet             = function(id)
-        if string.contains(id, "noita-mp.log_level_") then
-            return { "off", "OFF" }
-        end
-        if id == "noita-mp.name" then
-            return "testName"
-        end
-        if id == "noita-mp.guid" then
-            return GuidUtils:getGuid()
-        end
 
-        mockedModSettingGet(id)
-    end
 end
 
 function TestTableExtensions:tearDown()
@@ -121,5 +103,3 @@ function TestTableExtensions:testContentToString()
     local str4         = table.contentToString(tbl4)
     lu.assertEquals(str4, expectedStr4)
 end
-
-lu.LuaUnit.run(params)

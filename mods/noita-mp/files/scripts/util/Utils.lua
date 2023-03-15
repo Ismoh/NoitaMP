@@ -8,11 +8,12 @@ else
     pprint.defaults = {}
 end
 
-local util = {}
+--- @class Utils
+local Utils = {}
 
 --- Wait for n seconds.
 ---@param s number seconds to wait
-function util.Sleep(s)
+function Utils.Sleep(s)
     if type(s) ~= "number" then
         error("Unable to wait if parameter 'seconds' isn't a number: " .. type(s))
     end
@@ -22,9 +23,9 @@ function util.Sleep(s)
     until os.clock() > ntime
 end
 
-function util.IsEmpty(var)
+function Utils.IsEmpty(var)
     -- if you change this also change NetworkVscUtils.lua
-    -- if you change this also change table_extensions.lua
+    -- if you change this also change tableExtensions.lua
     if var == nil then
         return true
     end
@@ -38,14 +39,14 @@ function util.IsEmpty(var)
 end
 
 --https://noita.wiki.gg/wiki/Modding:_Utilities#Easier_entity_debugging
-function util.str(var)
+function Utils.Str(var)
     if type(var) == "table" then
         local s = "{ "
         for k, v in pairs(var) do
             if type(k) ~= "number" then
                 k = '"' .. k .. '"'
             end
-            s = s .. "[" .. k .. "] = " .. util.str(v) .. ","
+            s = s .. "[" .. k .. "] = " .. Utils.Str(v) .. ","
         end
         return s .. "} "
     end
@@ -53,7 +54,7 @@ function util.str(var)
 end
 
 --https://noita.wiki.gg/wiki/Modding:_Utilities#Easier_entity_debugging
-function util.debug_entity(e)
+function Utils.DebugEntity(e)
     local parent   = EntityGetParent(e)
     local children = EntityGetAllChildren(e)
     local comps    = EntityGetAllComponents(e)
@@ -61,7 +62,7 @@ function util.debug_entity(e)
     local msg      = "--- ENTITY DATA ---\n"
     msg            = msg .. ("Parent: [" .. parent .. "] name = " .. (EntityGetName(parent) or "") .. "\n")
 
-    msg            = msg .. (" Entity: [" .. util.str(e) .. "] name = " .. (EntityGetName(e) or "") .. "\n")
+    msg            = msg .. (" Entity: [" .. Utils.Str(e) .. "] name = " .. (EntityGetName(e) or "") .. "\n")
     msg            = msg .. ("  Tags: " .. (EntityGetTags(e) or "") .. "\n")
     if (comps ~= nil) then
         for _, comp in ipairs(comps) do
@@ -97,18 +98,18 @@ function util.debug_entity(e)
     Logger.debug(Logger.channels.testing, msg)
 end
 
-function util.pformat(var)
+function Utils.pformat(var)
     return pprint.pformat(var, pprint.defaults)
 end
 
 --- Reloads the whole world with a specific seed. No need to restart the game and use magic numbers.
 ---@param seed number max = 4294967295
-function util.reloadMap(seed)
+function Utils.ReloadMap(seed)
     SetWorldSeed(seed)
     BiomeMapLoad_KeepPlayer("mods/noita-mp/files/scripts/DefaultBiomeMap.lua", "data/biome/_pixel_scenes.xml")
 end
 
-function util.copyToClipboard(copy)
+function Utils.CopyToClipboard(copy)
     local command = nil
     if _G.is_windows then
         command = ('echo "%s" | clip'):format(copy)
@@ -118,4 +119,4 @@ function util.copyToClipboard(copy)
     os.execute(command)
 end
 
-return util
+return Utils

@@ -1,7 +1,3 @@
-local params = ...
-local lu     = require("luaunit")
-require("luaExtensions")
-
 TestEntityCache = {}
 
 local guid1     = GuidUtils:getGuid()
@@ -104,5 +100,3 @@ function TestEntityCache:testUsage()
     EntityCache.delete(4)
     EntityCache.delete(5)
 end
-
-lu.LuaUnit.run(params)

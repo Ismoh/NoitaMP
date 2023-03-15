@@ -10,11 +10,11 @@
 ------------------------------------------------------------------------------------------------------------------------
 --- 'Imports'
 ------------------------------------------------------------------------------------------------------------------------
-local fu        = require("file_util")
+local fu        = require("FileUtils")
 local lfs       = require("lfs")
 local winapi    = require("winapi")
 local json      = require("json")
-local util      = require("util")
+local Utils      = require("Utils")
 
 ------------------------------------------------------------------------------------------------------------------------
 --- NoitaMpSettings
@@ -23,9 +23,9 @@ NoitaMpSettings = {}
 
 function NoitaMpSettings.clearAndCreateSettings()
     local cpc         = CustomProfiler.start("NoitaMpSettings.clearAndCreateSettings")
-    local settingsDir = fu.getAbsolutePathOfNoitaMpSettingsDirectory()
-    if fu.exists(settingsDir) then
-        fu.removeContentOfDirectory(settingsDir)
+    local settingsDir = fu.GetAbsolutePathOfNoitaMpSettingsDirectory()
+    if fu.Exists(settingsDir) then
+        fu.RemoveContentOfDirectory(settingsDir)
         Logger.info(Logger.channels.initialize, ("Removed old settings in '%s'!"):format(settingsDir))
     else
         lfs.mkdir(settingsDir)
@@ -36,11 +36,11 @@ end
 
 function NoitaMpSettings.writeSettings(key, value)
     local cpc = CustomProfiler.start("NoitaMpSettings.writeSettings")
-    if util.IsEmpty(key) or type(key) ~= "string" then
+    if Utils.IsEmpty(key) or type(key) ~= "string" then
         error(("'key' must not be nil or is not type of string!"):format(key), 2)
     end
 
-    if util.IsEmpty(value) or type(value) ~= "string" then
+    if Utils.IsEmpty(value) or type(value) ~= "string" then
         error(("'value' must not be nil or is not type of string!"):format(value), 2)
     end
 
@@ -51,9 +51,9 @@ function NoitaMpSettings.writeSettings(key, value)
         who = whoAmI()
     end
     local settingsFile = ("%s%s%s%s.json")
-            :format(fu.getAbsolutePathOfNoitaMpSettingsDirectory(), pathSeparator, pid, who)
+            :format(fu.GetAbsolutePathOfNoitaMpSettingsDirectory(), pathSeparator, pid, who)
 
-    if not fu.exists(settingsFile) then
+    if not fu.Exists(settingsFile) then
         fu.WriteFile(settingsFile, "{}")
     end
 
@@ -75,16 +75,16 @@ function NoitaMpSettings.getSetting(key)
     local pid          = winapi.get_current_pid()
 
     local settingsFile = ("%s%s%s%s.json")
-            :format(fu.getAbsolutePathOfNoitaMpSettingsDirectory(), pathSeparator, pid, whoAmI())
+            :format(fu.GetAbsolutePathOfNoitaMpSettingsDirectory(), pathSeparator, pid, whoAmI())
 
-    if not fu.exists(settingsFile) then
+    if not fu.Exists(settingsFile) then
         fu.WriteFile(settingsFile, "{}")
     end
 
     local contentString = fu.ReadFile(settingsFile)
     local contentJson   = json.decode(contentString)
 
-    if util.IsEmpty(contentJson[key]) then
+    if Utils.IsEmpty(contentJson[key]) then
         error(("Unable to find '%s' in NoitaMpSettings: %s"):format(key, contentString), 2)
     end
     local value = contentJson[key]

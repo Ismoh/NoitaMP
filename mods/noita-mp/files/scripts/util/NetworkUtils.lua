@@ -6,7 +6,7 @@
 ------------------------------------------------------------------------------------------------------------------------
 --- 'Imports'
 ------------------------------------------------------------------------------------------------------------------------
-local util                           = require("util")
+local Utils                           = require("Utils")
 
 ------------------------------------------------------------------------------------------------------------------------
 --- NetworkUtils
@@ -208,7 +208,7 @@ function NetworkUtils.alreadySent(peer, event, data)
     if not data then
         error("'data' must not be nil!", 2)
     end
-    if util.IsEmpty(peer.clientCacheId) then
+    if Utils.IsEmpty(peer.clientCacheId) then
         Logger.info(Logger.channels.testing, ("peer.guid = '%s'"):format(peer.guid))
         peer.clientCacheId = GuidUtils.toNumber(peer.guid) --error("peer.clientCacheId must not be nil!", 2)
     end
