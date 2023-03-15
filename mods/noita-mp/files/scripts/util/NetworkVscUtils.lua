@@ -74,9 +74,9 @@ local function checkIfSpecificVscExists(entityId, componentTypeName, fieldNameFo
             return componentIds[i], value
         end
     end
-    Logger.warn(Logger.channels.vsc,
-                ("Looks like the %s.%s does not exists on entity(%s). Returning nil!")
-                        :format(componentTypeName, fieldNameForMatch, entityId))
+    Logger.trace(Logger.channels.vsc,
+                 ("Looks like the %s.%s does not exists on entity(%s). Returning nil!")
+                         :format(componentTypeName, fieldNameForMatch, entityId))
     CustomProfiler.stop("NetworkVscUtils.checkIfSpecificVscExists", cpc)
     return false
 end

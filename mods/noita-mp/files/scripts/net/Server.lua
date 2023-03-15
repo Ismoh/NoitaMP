@@ -1102,13 +1102,13 @@ function Server.new(sockServer)
 
     function self.kick(name)
         local cpc020 = CustomProfiler.start("Server.kick")
-        Logger.debug(Logger.channels.network, "Minä %s was kicked!", name)
+        Logger.debug(Logger.channels.network, "Mina %s was kicked!", name)
         CustomProfiler.stop("Server.kick", cpc020)
     end
 
     function self.ban(name)
         local cpc021 = CustomProfiler.start("Server.ban")
-        Logger.debug(Logger.channels.network, "Minä %s was banned!", name)
+        Logger.debug(Logger.channels.network, "Mina %s was banned!", name)
         CustomProfiler.stop("Server.ban", cpc021)
     end
 

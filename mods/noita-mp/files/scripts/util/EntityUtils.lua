@@ -18,7 +18,7 @@ if require then
 else
     -- Fix stupid Noita sandbox issue. Noita Components does not have access to require.
     if not Utils then
-        Utils                   = dofile("mods/noita-mp/files/scripts/util/Utils.lua")
+        Utils = dofile("mods/noita-mp/files/scripts/util/Utils.lua")
     end
 
     if not EntityCache then
@@ -636,23 +636,24 @@ end
 --- Simply adds a ugly debug circle around the player to visualize the detection radius.
 function EntityUtils.addOrChangeDetectionRadiusDebug(player_entity)
     local cpc              = CustomProfiler.start("EntityUtils.addOrChangeDetectionRadiusDebug")
+
     local compIdInclude    = nil
     local compIdExclude    = nil
     local imageFileInclude = "mods/noita-mp/files/data/debug/radiusInclude24.png"
     local imageFileExclude = "mods/noita-mp/files/data/debug/radiusExclude24.png"
 
-    local compIds          = EntityGetComponentIncludingDisabled(player_entity, "SpriteComponent") or {}
-    for i = 1, #compIds do
-        local compId = compIds[i]
-        if ComponentGetValue2(compId, "image_file") == imageFileInclude then
-            compIdInclude = compId
-        end
-        if ComponentGetValue2(compId, "image_file") == imageFileExclude then
-            compIdExclude = compId
-        end
-    end
-
     if ModSettingGet("noita-mp.toggle_radius") then
+
+        local compIds = EntityGetComponentIncludingDisabled(player_entity, "SpriteComponent") or {}
+        for i = 1, #compIds do
+            local compId = compIds[i]
+            if ComponentGetValue2(compId, "image_file") == imageFileInclude then
+                compIdInclude = compId
+            end
+            if ComponentGetValue2(compId, "image_file") == imageFileExclude then
+                compIdExclude = compId
+            end
+        end
 
         if not compIdInclude then
             compId = EntityAddComponent2(player_entity, "SpriteComponent", {
@@ -688,8 +689,12 @@ function EntityUtils.addOrChangeDetectionRadiusDebug(player_entity)
                                tonumber(ModSettingGet("noita-mp.radius_exclude_entities")) / 12)
         end
     else
-        EntityRemoveComponent(player_entity, compIdInclude)
-        EntityRemoveComponent(player_entity, compIdExclude)
+        if compIdInclude then
+            EntityRemoveComponent(player_entity, compIdInclude)
+        end
+        if compIdExclude then
+            EntityRemoveComponent(player_entity, compIdExclude)
+        end
     end
     CustomProfiler.stop("EntityUtils.addOrChangeDetectionRadiusDebug", cpc)
 end
