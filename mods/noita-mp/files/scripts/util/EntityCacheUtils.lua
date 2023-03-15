@@ -9,13 +9,13 @@
 --- This is done by the following code:
 ------------------------------------------------------------------------------------------------------------------------
 if require then
-    if not util then
-        util = require("util")
+    if not Utils then
+        Utils = require("Utils")
     end
 else
     -- Fix stupid Noita sandbox issue. Noita Components does not have access to require.
-    if not util then
-        util = dofile("mods/noita-mp/files/scripts/util/util.lua")
+    if not Utils then
+        Utils = dofile("mods/noita-mp/files/scripts/util/Utils.lua")
     end
 
     if not CustomProfiler then
@@ -99,40 +99,40 @@ end
 EntityCacheUtils       = {}
 
 EntityCacheUtils.set   = function(entityId, nuid, ownerGuid, ownerName, filepath, x, y, rotation, velX, velY, currentHealth, maxHealth)
-    if util.IsEmpty(entityId) then
+    if Utils.IsEmpty(entityId) then
         error(("entityId must not be nil or empty!"):format(entityId), 2)
     end
-    if util.IsEmpty(nuid) then
+    if Utils.IsEmpty(nuid) then
         error(("nuid must not be nil or empty!"):format(nuid), 2)
     end
-    if util.IsEmpty(ownerGuid) then
+    if Utils.IsEmpty(ownerGuid) then
         error(("ownerGuid must not be nil or empty!"):format(ownerGuid), 2)
     end
-    if util.IsEmpty(ownerName) then
+    if Utils.IsEmpty(ownerName) then
         error(("ownerName must not be nil or empty!"):format(ownerName), 2)
     end
-    if util.IsEmpty(filepath) then
+    if Utils.IsEmpty(filepath) then
         error(("filepath must not be nil or empty!"):format(filepath), 2)
     end
-    if util.IsEmpty(x) then
+    if Utils.IsEmpty(x) then
         error(("x must not be nil or empty!"):format(x), 2)
     end
-    if util.IsEmpty(y) then
+    if Utils.IsEmpty(y) then
         error(("y must not be nil or empty!"):format(y), 2)
     end
-    if util.IsEmpty(rotation) then
+    if Utils.IsEmpty(rotation) then
         error(("rotation must not be nil or empty!"):format(rotation), 2)
     end
-    if util.IsEmpty(velX) then
+    if Utils.IsEmpty(velX) then
         error(("velX must not be nil or empty!"):format(velX), 2)
     end
-    if util.IsEmpty(velY) then
+    if Utils.IsEmpty(velY) then
         error(("velY must not be nil or empty!"):format(velY), 2)
     end
-    if util.IsEmpty(currentHealth) then
+    if Utils.IsEmpty(currentHealth) then
         error(("currentHealth must not be nil or empty!"):format(currentHealth), 2)
     end
-    if util.IsEmpty(maxHealth) then
+    if Utils.IsEmpty(maxHealth) then
         error(("maxHealth must not be nil or empty!"):format(maxHealth), 2)
     end
 

@@ -184,11 +184,11 @@ function Client.new(sockClient)
         end
 
         local cachedData = NetworkCacheUtils.get(self.guid, data.networkMessageId, data.event)
-        if util.IsEmpty(cachedData) then
+        if Utils.IsEmpty(cachedData) then
             NetworkCacheUtils.logAll()
             error(("Unable to get cached data, because it is nil '%s'"):format(cachedData), 2)
         end
-        if util.IsEmpty(cachedData.dataChecksum) or type(cachedData.dataChecksum) ~= "string" then
+        if Utils.IsEmpty(cachedData.dataChecksum) or type(cachedData.dataChecksum) ~= "string" then
             NetworkCacheUtils.logAll()
             error(("Unable to get cachedData.dataChecksum, because it is nil '%s' or checksum is not of type string, type: %s")
                           :format(cachedData.dataChecksum, type(cachedData.dataChecksum)), 2)
@@ -537,25 +537,25 @@ function Client.new(sockClient)
     local function onNewNuidSerialized(data)
         local cpc32 = CustomProfiler.start("Client.onNewNuidSerialized")
         Logger.debug(Logger.channels.network,
-                     ("Received a new nuid onNewNuidSerialized! data = %s"):format(util.pformat(data)))
+                     ("Received a new nuid onNewNuidSerialized! data = %s"):format(Utils.pformat(data)))
 
-        if util.IsEmpty(data.networkMessageId) then
+        if Utils.IsEmpty(data.networkMessageId) then
             error(("onNewNuidSerialized data.networkMessageId is empty: %s"):format(data.networkMessageId), 2)
         end
 
-        if util.IsEmpty(data.ownerName) then
-            error(("onNewNuidSerialized data.ownerName is empty: %s"):format(util.pformat(data.ownerName)), 2)
+        if Utils.IsEmpty(data.ownerName) then
+            error(("onNewNuidSerialized data.ownerName is empty: %s"):format(Utils.pformat(data.ownerName)), 2)
         end
 
-        if util.IsEmpty(data.ownerGuid) then
-            error(("onNewNuidSerialized data.ownerGuid is empty: %s"):format(util.pformat(data.ownerGuid)), 2)
+        if Utils.IsEmpty(data.ownerGuid) then
+            error(("onNewNuidSerialized data.ownerGuid is empty: %s"):format(Utils.pformat(data.ownerGuid)), 2)
         end
 
-        if util.IsEmpty(data.entityId) then
+        if Utils.IsEmpty(data.entityId) then
             error(("onNewNuidSerialized data.entityId is empty: %s"):format(data.entityId), 2)
         end
 
-        if util.IsEmpty(data.serializedEntity) then
+        if Utils.IsEmpty(data.serializedEntity) then
             error(("onNewNuidSerialized data.serializedEntity is empty: %s"):format(data.serializedEntity), 2)
         end
 

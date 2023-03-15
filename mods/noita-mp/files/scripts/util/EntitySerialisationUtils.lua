@@ -18,11 +18,11 @@
 --- This is done by the following code:
 ------------------------------------------------------------------------------------------------------------------------
 if require then
-    util = require("util")
+    Utils = require("Utils")
 else
     -- Fix stupid Noita sandbox issue. Noita Components does not have access to require.
-    if not util then
-        util = dofile("mods/noita-mp/files/scripts/util/util.lua")
+    if not Utils then
+        Utils = dofile("mods/noita-mp/files/scripts/util/Utils.lua")
     end
 
     if not CustomProfiler then
@@ -489,7 +489,7 @@ EntitySerialisationUtils.componentMemberTypes        = {
 
 EntitySerialisationUtils.serializeEntireRootEntity   = function(entityId)
     local cpc = CustomProfiler.start("EntitySerialisationUtils.serializeEntireRootEntity")
-    if util.IsEmpty(entityId) then
+    if Utils.IsEmpty(entityId) then
         error(("Unable to serialize entity, because entityId is %s"):format(entityId), 2)
     end
     if not EntityUtils.isEntityAlive(entityId) then
@@ -497,7 +497,7 @@ EntitySerialisationUtils.serializeEntireRootEntity   = function(entityId)
     end
 
     local rootEntityId = EntityGetRootEntity(entityId)
-    if not rootEntityId or util.IsEmpty(rootEntityId) then
+    if not rootEntityId or Utils.IsEmpty(rootEntityId) then
         error(("Broken Noita API: EntityGetRootEntity(entityId %s) returned nil!"):format(entityId), 2)
     end
     if rootEntityId ~= entityId then
@@ -530,7 +530,7 @@ end
 
 EntitySerialisationUtils.serializeEntityAttributes   = function(entityId)
     local cpc = CustomProfiler.start("EntitySerialisationUtils.serializeEntityAttributes")
-    if util.IsEmpty(entityId) then
+    if Utils.IsEmpty(entityId) then
         error(("Unable to serialize entity attributes, because entityId is %s"):format(entityId), 2)
     end
     if not EntityUtils.isEntityAlive(entityId) then
@@ -549,14 +549,14 @@ end
 
 EntitySerialisationUtils.serializeEntityTags         = function(entityId)
     local cpc = CustomProfiler.start("EntitySerialisationUtils.serializeEntityTags")
-    if util.IsEmpty(entityId) then
+    if Utils.IsEmpty(entityId) then
         error(("Unable to serialize entitys attributes, because entityId is %s"):format(entityId), 2)
     end
     if not EntityUtils.isEntityAlive(entityId) then
         error("NOITA SUCKS!", 2)
     end
     local tags = EntityGetTags(entityId)
-    if util.IsEmpty(tags) then
+    if Utils.IsEmpty(tags) then
         -- let's remove tags, when there aren't any
         tags = nil
     end
@@ -566,7 +566,7 @@ end
 
 EntitySerialisationUtils.serializeEntityComponents   = function(entityId)
     local cpc = CustomProfiler.start("EntitySerialisationUtils.serializeEntityComponents")
-    if util.IsEmpty(entityId) then
+    if Utils.IsEmpty(entityId) then
         error(("Unable to serialize entity's attributes, because entityId is %s"):format(entityId), 2)
     end
     if not EntityUtils.isEntityAlive(entityId) then
@@ -590,7 +590,7 @@ EntitySerialisationUtils.serializeEntityComponents   = function(entityId)
             else
                 if EntitySerialisationUtils.componentObjectMemberNames[k] then
                     local memberObject = ComponentObjectGetMembers(componentId, k)
-                    if not util.IsEmpty(memberObject) then
+                    if not Utils.IsEmpty(memberObject) then
                         components[i][k] = memberObject
                     end
                 end
@@ -612,7 +612,7 @@ EntitySerialisationUtils.serializeComponentTags      = function(componentId)
         end
     end
     tags = tags:sub(2) -- ",shoot_pos,foo,bar" -> "shoot_pos,foo,bar"
-    if util.IsEmpty(tags) then
+    if Utils.IsEmpty(tags) then
         -- let's remove tags, when there aren't any
         tags = nil
     end
@@ -637,7 +637,7 @@ end
 
 EntitySerialisationUtils.deserializeEntityAttributes = function(entityId, serializedRootEntity)
     local cpc = CustomProfiler.start("EntitySerialisationUtils.deserializeEntityAttributes")
-    if util.IsEmpty(entityId) then
+    if Utils.IsEmpty(entityId) then
         error(("Unable to deserialize entity attributes, because entityId is %s"):format(entityId), 2)
     end
     if not EntityUtils.isEntityAlive(entityId) then
@@ -659,7 +659,7 @@ end
 
 EntitySerialisationUtils.deserializeEntityTags       = function(entityId, serializedRootEntity)
     local cpc = CustomProfiler.start("EntitySerialisationUtils.deserializeEntityTags")
-    if util.IsEmpty(entityId) then
+    if Utils.IsEmpty(entityId) then
         error(("Unable to serialize entitys attributes, because entityId is %s"):format(entityId), 2)
     end
     if not EntityUtils.isEntityAlive(entityId) then
@@ -678,7 +678,7 @@ end
 
 EntitySerialisationUtils.deserializeEntityComponents = function(entityId, serializedRootEntity)
     local cpc = CustomProfiler.start("EntitySerialisationUtils.deserializeEntityComponents")
-    if util.IsEmpty(entityId) then
+    if Utils.IsEmpty(entityId) then
         error(("Unable to serialize entity's attributes, because entityId is %s"):format(entityId), 2)
     end
     if not EntityUtils.isEntityAlive(entityId) then
@@ -737,11 +737,11 @@ end
 
 EntitySerialisationUtils.deserializeComponentTags    = function(entityId, componentId, serialisedComponent)
     local cpc = CustomProfiler.start("EntitySerialisationUtils.serializeComponentTags")
-    if util.IsEmpty(entityId) then
+    if Utils.IsEmpty(entityId) then
         error(("Unable to deserialize components tags, because entityId is %s, componentId")
                       :format(entityId, componentId), 2)
     end
-    if util.IsEmpty(componentId) then
+    if Utils.IsEmpty(componentId) then
         error(("Unable to deserialize components tags, because componentId is %s"):format(componentId), 2)
     end
     if not EntityUtils.isEntityAlive(entityId) then

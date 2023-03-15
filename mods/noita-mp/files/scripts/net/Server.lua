@@ -180,11 +180,11 @@ function Server.new(sockServer)
         end
 
         local cachedData = NetworkCacheUtils.get(self.guid, data.networkMessageId, data.event)
-        if util.IsEmpty(cachedData) then
+        if Utils.IsEmpty(cachedData) then
             NetworkCacheUtils.logAll()
             error(("Unable to get cached data, because it is nil '%s'"):format(cachedData), 2)
         end
-        if util.IsEmpty(cachedData.dataChecksum) or type(cachedData.dataChecksum) ~= "string" then
+        if Utils.IsEmpty(cachedData.dataChecksum) or type(cachedData.dataChecksum) ~= "string" then
             NetworkCacheUtils.logAll()
             error(("Unable to get cachedData.dataChecksum, because it is nil '%s' or checksum is not of type string, type: %s")
                           :format(cachedData.dataChecksum, type(cachedData.dataChecksum)), 2)
@@ -1022,16 +1022,16 @@ function Server.new(sockServer)
     function self.sendNewNuidSerialized(ownerName, ownerGuid, entityId, serializedEntity)
         local cpc026 = CustomProfiler.start("Server.sendNewNuidSerialized")
 
-        if util.IsEmpty(ownerName) then
+        if Utils.IsEmpty(ownerName) then
             error(("ownerName must not be nil or empty %s"):format(ownerName), 2)
         end
-        if util.IsEmpty(ownerGuid) then
+        if Utils.IsEmpty(ownerGuid) then
             error(("ownerGuid must not be nil or empty %s"):format(ownerGuid), 2)
         end
-        if util.IsEmpty(entityId) then
+        if Utils.IsEmpty(entityId) then
             error(("entityId must not be nil or empty %s"):format(entityId), 2)
         end
-        if util.IsEmpty(serializedEntity) then
+        if Utils.IsEmpty(serializedEntity) then
             error(("serializedEntity must not be nil or empty %s"):format(serializedEntity), 2)
         end
 
