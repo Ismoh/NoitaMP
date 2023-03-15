@@ -29,6 +29,9 @@ function MinaUtils.getLocalMinaName()
 end
 
 function MinaUtils.setLocalMinaGuid(guid)
+    if guid == nil or guid == "" or guid == " " then
+        guid = GuidUtils:getGuid()
+    end
     localMinaGuid = guid
     NoitaMpSettings.writeSettings("guid", localMinaGuid)
 end
