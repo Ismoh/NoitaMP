@@ -523,7 +523,7 @@ EntitySerialisationUtils.serializeEntireRootEntity   = function(entityId)
         root.children[i].components = EntitySerialisationUtils.serializeEntityComponents(childEntityId)
     end
 
-    finished                    = true
+    finished = true
     CustomProfiler.stop("EntitySerialisationUtils.serializeEntireRootEntity", cpc)
     return finished, root
 end
@@ -721,10 +721,28 @@ EntitySerialisationUtils.deserializeEntityComponents = function(entityId, serial
                     if EntitySerialisationUtils.componentMemberTypes[k] == "boolean" then
                         v = toBoolean(v)
                     end
-                    ComponentSetValue2(componentId, k, v)
+                    if Utils.IsEmpty(componentId) then
+                        Logger.warn(Logger.channels.entitySerialisation,
+                                    ("componentId is empty: %s"):format(componentId))
+                    elseif Utils.IsEmpty(k) then
+                        Logger.warn(Logger.channels.entitySerialisation, ("k is empty: %s"):format(k))
+                    elseif Utils.IsEmpty(v) then
+                        Logger.warn(Logger.channels.entitySerialisation, ("v is empty: %s"):format(v))
+                    else
+                        ComponentSetValue2(componentId, k, v)
+                    end
                 else
                     -- If there is anything, we don't track the type of, use the old api function as a fallback
-                    ComponentSetValue(componentId, k, v)
+                    if Utils.IsEmpty(componentId) then
+                        Logger.warn(Logger.channels.entitySerialisation,
+                                    ("componentId is empty: %s"):format(componentId))
+                    elseif Utils.IsEmpty(k) then
+                        Logger.warn(Logger.channels.entitySerialisation, ("k is empty: %s"):format(k))
+                    elseif Utils.IsEmpty(v) then
+                        Logger.warn(Logger.channels.entitySerialisation, ("v is empty: %s"):format(v))
+                    else
+                        ComponentSetValue(componentId, k, v)
+                    end
                 end
             end
             EntitySetComponentIsEnabled(entityId, componentId, componentIsEnabled)

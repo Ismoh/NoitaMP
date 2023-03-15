@@ -50,7 +50,7 @@ NetworkCache.set         = function(clientCacheId, networkMessageId, event, stat
                       :format(dataChecksum, type(dataChecksum)), 2)
     end
 
-    if not NetworkCache.cache then
+    if not NetworkCache.cache[clientCacheId] then
         NetworkCache.cache[clientCacheId] = {}
     end
     NetworkCache.cache[clientCacheId][networkMessageId] = {
@@ -79,6 +79,11 @@ NetworkCache.get         = function(clientCacheId, event, networkMessageId)
     if Utils.IsEmpty(networkMessageId) or type(networkMessageId) ~= "number" then
         error(("networkMessageId must not be nil or empty '%s' or type is not number '%s'")
                       :format(networkMessageId, type(networkMessageId)), 2)
+    end
+
+    if not NetworkCache.cache then
+        NetworkCache.cache = {}
+        return nil
     end
 
     if not NetworkCache.cache[clientCacheId] then
@@ -127,10 +132,10 @@ NetworkCache.getChecksum = function(clientCacheId, dataChecksum)
         return NetworkCache.cache[clientCacheId][index]
     end
 
-    for entry in NetworkCache.cache[clientCacheId] do
-        if entry.dataChecksum == dataChecksum then
+    for k, v in pairs(NetworkCache.cache[clientCacheId]) do
+        if v.dataChecksum == dataChecksum then
             CustomProfiler.stop("NetworkCache.getChecksum", cpc)
-            return entry
+            return v
         end
     end
 
@@ -140,6 +145,14 @@ end
 
 NetworkCache.size        = function()
     return table.size(NetworkCache.cache)
+end
+
+NetworkCache.getAll      = function()
+    return NetworkCache.cache
+end
+
+NetworkCache.clear       = function(clientCacheId)
+    NetworkCache.cache[clientCacheId] = nil
 end
 
 ------------------------------------------------------------------------------------------------------------------------
@@ -257,7 +270,7 @@ function NetworkCacheUtils.set(peerGuid, networkMessageId, event, status, ackedA
     return dataChecksum
 end
 
---- @return table data { ackedAt, dataChecksum, event, messageId, sentAt, status}
+--- @return table data { ackedAt, dataChecksum, event, messageId, sendAt, status}
 function NetworkCacheUtils.get(peerGuid, networkMessageId, event)
     local cpc = CustomProfiler.start("NetworkCacheUtils.get")
     if not peerGuid or Utils.IsEmpty(peerGuid) or type(peerGuid) ~= "string" then
@@ -284,8 +297,6 @@ function NetworkCacheUtils.get(peerGuid, networkMessageId, event)
                 ("NetworkCache.get(clientCacheId %s, networkMessageId %s, event %s)"):format(GuidUtils.toNumber(peerGuid),
                                                                                              networkMessageId, event))
 
-    local iHaveNoFuckingIdea = NetworkCache.getAll()
-
     local clientCacheId      = GuidUtils.toNumber(peerGuid)
     local data               = NetworkCache.get(clientCacheId, event, tonumber(networkMessageId))
     Logger.info(Logger.channels.cache,
@@ -295,7 +306,7 @@ function NetworkCacheUtils.get(peerGuid, networkMessageId, event)
     return data
 end
 
---- @return table cacheData { ackedAt, dataChecksum, event, messageId, sentAt, status}
+--- @return table cacheData { ackedAt, dataChecksum, event, messageId, sendAt, status}
 function NetworkCacheUtils.getByChecksum(peerGuid, event, data)
     local cpc = CustomProfiler.start("NetworkCacheUtils.getByChecksum")
     if not peerGuid or Utils.IsEmpty(peerGuid) or type(peerGuid) ~= "string" then
@@ -369,9 +380,9 @@ NetworkCacheUtils.logAll = function()
             all[i].dataChecksum = string.gsub(all[i].dataChecksum, "percent sign")
         end
         Logger.trace(Logger.channels.cache,
-                     ("event = %s, messageId = %s, dataChecksum = %s, status = %s, ackedAt = %s, sentAt = %s")
+                     ("event = %s, messageId = %s, dataChecksum = %s, status = %s, ackedAt = %s, sendAt = %s")
                              :format(all[i].event, all[i].messageId, all[i].dataChecksum, all[i].status, all[i].ackedAt,
-                                     all[i].sentAt))
+                                     all[i].sendAt))
     end
 end
 

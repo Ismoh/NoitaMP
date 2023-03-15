@@ -44,8 +44,8 @@ EntityCache            = {}
 
 EntityCache.set        = function(entityId, nuid, ownerGuid, ownerName, filepath, x, y, rotation, velX, velY, currentHealth, maxHealth)
     local cpc = CustomProfiler.start("EntityCache.set")
-    if not EntityCache[entityId] then
-        EntityCache[entityId] = {
+    if not EntityCache.cache[entityId] then
+        EntityCache.cache[entityId] = {
             entityId      = entityId,
             nuid          = nuid,
             ownerGuid     = ownerGuid,
@@ -65,9 +65,13 @@ end
 
 EntityCache.get        = function(entityId)
     local cpc = CustomProfiler.start("EntityCache.get")
-    if EntityCache[entityId] then
+    if not EntityCache.cache then
+        EntityCache.cache = {}
+        return nil
+    end
+    if EntityCache.cache[entityId] then
         CustomProfiler.stop("EntityCache.get", cpc)
-        return EntityCache[entityId]
+        return EntityCache.cache[entityId]
     end
     CustomProfiler.stop("EntityCache.get", cpc)
     return nil
@@ -75,7 +79,7 @@ end
 
 EntityCache.delete     = function(entityId)
     local cpc             = CustomProfiler.start("EntityCache.delete")
-    EntityCache[entityId] = nil
+    EntityCache.cache[entityId] = nil
     CustomProfiler.stop("EntityCache.delete", cpc)
 end
 
@@ -83,14 +87,14 @@ EntityCache.deleteNuid = function(nuid)
     local cpc = CustomProfiler.start("EntityCache.deleteNuid")
     for entry in pairs(EntityCache) do
         if entry.nuid == nuid then
-            EntityCache[entry.entityId] = nil
+            EntityCache.cache[entry.entityId] = nil
         end
     end
     CustomProfiler.stop("EntityCache.deleteNuid", cpc)
 end
 
 EntityCache.size       = function()
-    return table.size(EntityCache)
+    return table.size(EntityCache.cache)
 end
 ----------------------------------------
 --- EntityCacheUtils

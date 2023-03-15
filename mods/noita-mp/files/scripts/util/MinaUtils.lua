@@ -29,9 +29,6 @@ function MinaUtils.getLocalMinaName()
 end
 
 function MinaUtils.setLocalMinaGuid(guid)
-    if guid == nil or guid == "" or guid == " " then
-        guid = GuidUtils:getGuid()
-    end
     localMinaGuid = guid
     NoitaMpSettings.writeSettings("guid", localMinaGuid)
 end
@@ -65,7 +62,7 @@ function MinaUtils.getLocalMinaEntityId()
             end
         end
     end
-    if util.IsEmpty(playerEntityIds) then
+    if Utils.IsEmpty(playerEntityIds) then
         Logger.warn(Logger.channels.entity,
                     ("There isn't any Minä spawned yet or all died! EntityGetWithTag('player_unit') = {}")
                             :format(playerEntityIds))

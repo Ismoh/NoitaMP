@@ -191,7 +191,7 @@ function Server.new(sockServer)
         end
         -- update previous cached network message
         NetworkCacheUtils.ack(self.guid, data.networkMessageId, data.event,
-                              data.status, os.clock(), cachedData.sentAt, cachedData.dataChecksum)
+                              data.status, os.clock(), cachedData.sendAt, cachedData.dataChecksum)
 
         if NetworkCache.size() > self.acknowledgeMaxSize then
             NetworkCache.removeOldest()

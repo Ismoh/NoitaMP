@@ -184,6 +184,9 @@ end
 local entityGetComponent                       = _G.EntityGetComponent
 EntityGetComponent                             = function(entity_id, component_type_name, tag)
     if EntityGetIsAlive(entity_id) then
+        if not tag then
+            return entityGetComponent(entity_id, component_type_name)
+        end
         return entityGetComponent(entity_id, component_type_name, tag)
     else
         Logger.warn(Logger.channels.entity,
@@ -196,6 +199,9 @@ end
 local entityGetFirstComponent                  = _G.EntityGetFirstComponent
 EntityGetFirstComponent                        = function(entity_id, component_type_name, tag)
     if EntityGetIsAlive(entity_id) then
+        if not tag then
+            return entityGetFirstComponent(entity_id, component_type_name)
+        end
         return entityGetFirstComponent(entity_id, component_type_name, tag)
     else
         Logger.warn(Logger.channels.entity,
@@ -208,6 +214,9 @@ end
 local entityGetComponentIncludingDisabled      = _G.EntityGetComponentIncludingDisabled
 EntityGetComponentIncludingDisabled            = function(entity_id, component_type_name, tag)
     if EntityGetIsAlive(entity_id) then
+        if not tag then
+            return entityGetComponentIncludingDisabled(entity_id, component_type_name)
+        end
         return entityGetComponentIncludingDisabled(entity_id, component_type_name, tag)
     else
         Logger.warn(Logger.channels.entity,
@@ -220,6 +229,9 @@ end
 local entityGetFirstComponentIncludingDisabled = _G.EntityGetFirstComponentIncludingDisabled
 EntityGetFirstComponentIncludingDisabled       = function(entity_id, component_type_name, tag)
     if EntityGetIsAlive(entity_id) then
+        if not tag then
+            return entityGetFirstComponentIncludingDisabled(entity_id, component_type_name)
+        end
         return entityGetFirstComponentIncludingDisabled(entity_id, component_type_name, tag)
     else
         Logger.warn(Logger.channels.entity,
@@ -339,7 +351,7 @@ EntitySetComponentIsEnabled                    = function(entity_id, component_i
     else
         Logger.warn(Logger.channels.entity,
                     ("Unable to EntitySetComponentIsEnabled(entity_id %s, component_id %s, is_enabled %s), because entity isn't alive anymore!")
-                            :format(entity_id, tag, enabled))
+                            :format(entity_id, component_id, is_enabled))
     end
 end
 
@@ -484,6 +496,9 @@ end
 local entityAddComponent2                      = _G.EntityAddComponent2
 EntityAddComponent2                            = function(entity_id, component_type_name, table_of_component_values)
     if EntityGetIsAlive(entity_id) then
+        if not table_of_component_values then
+            return entityAddComponent2(entity_id, component_type_name)
+        end
         return entityAddComponent2(entity_id, component_type_name, table_of_component_values)
     else
         Logger.warn(Logger.channels.entity,
