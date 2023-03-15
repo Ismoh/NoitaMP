@@ -1,4 +1,4 @@
-local util   = require("util")
+local Utils   = require("Utils")
 local socket = require("socket")
 local uuid   = require("uuid")
 
@@ -51,7 +51,7 @@ end
 --- @return string guid
 function GuidUtils:getGuid(inUsedGuids)
     local cpc = CustomProfiler.start("GuidUtils:getGuid")
-    if not util.IsEmpty(inUsedGuids) and #inUsedGuids > 0 then
+    if not Utils.IsEmpty(inUsedGuids) and #inUsedGuids > 0 then
         for i = 1, #inUsedGuids do
             if not GuidUtils.isPatternValid(inUsedGuids[i]) then
                 error(("Already in used guid '%s' is not a valid guid!"):format(inUsedGuids[i]), 2)
@@ -60,7 +60,7 @@ function GuidUtils:getGuid(inUsedGuids)
 
         ---@cast inUsedGuids table
         table.insertAllButNotDuplicates(self.cached_guid, inUsedGuids)
-        Logger.debug(Logger.channels.guid, ("Guid:getGuid() - inUsedGuids: %s"):format(util.pformat(inUsedGuids)))
+        Logger.debug(Logger.channels.guid, ("Guid:getGuid() - inUsedGuids: %s"):format(Utils.pformat(inUsedGuids)))
     end
 
     repeat
@@ -81,7 +81,7 @@ function GuidUtils.isPatternValid(guid)
     if type(guid) ~= "string" then
         return false
     end
-    if util.IsEmpty(guid) then
+    if Utils.IsEmpty(guid) then
         return false
     end
 

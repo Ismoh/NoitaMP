@@ -33,8 +33,8 @@ local sock = {
 }
 
 local enet = require("enet")
-local util = require("util")
-local fu   = require("file_util")
+local Utils = require("Utils")
+local fu   = require("FileUtils")
 
 _G.Logger.info(_G.Logger.channels.initialize, "lua-enet version = master branch 21.10.2015")
 _G.Logger.info(_G.Logger.channels.initialize, "enet version = " .. enet.linked_version()) -- 1.3.17
@@ -71,7 +71,7 @@ local function zipTable(items, keys, event)
 
         if not key then
             error(("Missing data key for event '%s'! items = %s schema = %s")
-                          :format(event, util.pformat(items), util.pformat(keys)), 2)
+                          :format(event, Utils.pformat(items), Utils.pformat(keys)), 2)
         end
 
         data[key] = value
@@ -150,7 +150,7 @@ function Logger:log(event, data)
     local time      = os.date("%X") -- something like 24:59:59
     local shortLine = ("%s [%s] %s"):format(time, event, data)
     local fullLine  = ("%s [%s %s] %s"):format(time, self.source, event,
-                                               util.pformat(data)) --local fullLine  = ("[%s][%s][%s] %s"):format(self.source, time, event, data)
+                                               Utils.pformat(data)) --local fullLine  = ("[%s][%s][%s] %s"):format(self.source, time, event, data)
 
     -- The printed message may or may not be the full message
     local line      = fullLine
@@ -264,8 +264,8 @@ function Server:start(ip, port)
     if not self.host then
         --error("Failed to create the host. Is there another server running on :" .. self.port .. "?")
         self:log("", { "Failed to create the host. Is there another server running on :" .. self.port .. "?" })
-        local pid = fu.getPidOfRunningEnetHostByPort()
-        fu.killProcess(pid)
+        local pid = fu.GetPidOfRunningEnetHostByPort()
+        fu.KillProcess(pid)
         return false
     end
 
@@ -451,7 +451,7 @@ end
 function Server:sendToPeer(peer, event, data)
     local cpc              = CustomProfiler.start("Server:sendToPeer")
     local networkMessageId = data[1] or data.networkMessageId
-    if util.IsEmpty(networkMessageId) then
+    if Utils.IsEmpty(networkMessageId) then
         error("networkMessageId is empty!", 3)
     end
     self.packetsSent = self.packetsSent + 1
@@ -967,7 +967,7 @@ end
 -- @param data The data to send.
 function Client:send(event, data)
     local networkMessageId = data[1] or data.networkMessageId
-    if util.IsEmpty(networkMessageId) then
+    if Utils.IsEmpty(networkMessageId) then
         error("networkMessageId is empty!", 3)
     end
 

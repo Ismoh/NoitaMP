@@ -20,7 +20,7 @@ jobs:
 
       - name: Find linked issues
         id: find-linked-issues
-        uses: Ismoh-Games/find-linked-issues@v0.0.9
+        uses: Ismoh-Games/find-linked-issues@v0.0.10
         with:
           token: ${{ secrets.WORKFLOW_PAT }}
           repository: ${{ github.repository }}
@@ -169,7 +169,7 @@ jobs:
           if [ $MERGED == true ]
           then
             git fetch
-            git checkout ${{ github.base_ref }} # base_ref
+            git checkout ${{ github.base_ref }}
             git pull origin ${{ github.base_ref }}
             echo "{\"version\":\"$NEXT_VERSION\"}" > $VERSION_FILE_NAME
             git config --local user.email "action@github.com"
@@ -177,7 +177,7 @@ jobs:
             git add $VERSION_FILE_NAME
             git commit -m "Updated version to $NEXT_VERSION in https://github.com/${{github.repository}}/pull/${{github.event.number}}"
             git tag -a "$NEXT_VERSION" -m "Automatic tag creation, do not consider tags as releases. For further technical information, see https://github.com/${{github.repository}}/pull/${{github.event.number}}"
-            git push --force origin ${{ github.base_ref }} --tags
+            git push origin ${{ github.base_ref }} --tags
           else
             echo "Pull request is not merged yet, therefore '$VERSION_FILE_NAME' will not be increased."
           fi

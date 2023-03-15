@@ -49,13 +49,13 @@ local NoitaApiModSettingGet          = ModSettingGet
 local NoitaApiModSettingSetNextValue = ModSettingSetNextValue
 local NoitaApiModSettingGetNextValue = ModSettingGetNextValue
 
-if not util then
+if not Utils then
     if require then
-        util = require("util")
+        Utils = require("Utils")
     else
         -- when NoitaComponents with their own restricted LuaContext load this file,
         -- util isn't available!
-        util = dofile_once("mods/noita-mp/files/scripts/util/util.lua")
+        Utils = dofile_once("mods/noita-mp/files/scripts/util/Utils.lua")
         if not MinaUtils and not require then
             MinaUtils = dofile_once("mods/noita-mp/files/scripts/util/MinaUtils.lua")
         end
@@ -75,7 +75,7 @@ end
 ModSettingGet                                  = function(id)
     if id == "noita-mp.name" then
         local name = MinaUtils.getLocalMinaName()
-        if not util.IsEmpty(name) then
+        if not Utils.IsEmpty(name) then
             return name
         else
             name = NoitaApiModSettingGet(id)
@@ -85,7 +85,7 @@ ModSettingGet                                  = function(id)
     end
     if id == "noita-mp.guid" then
         local guid = MinaUtils.getLocalMinaGuid()
-        if not util.IsEmpty(guid) then
+        if not Utils.IsEmpty(guid) then
             return guid
         else
             guid = NoitaApiModSettingGet(id)
@@ -109,13 +109,13 @@ end
 ModSettingGetNextValue                         = function(id)
     if id == "noita-mp.name" and name then
         local name = MinaUtils.getLocalMinaName()
-        if not util.IsEmpty(name) then
+        if not Utils.IsEmpty(name) then
             return name
         end
     end
     if id == "noita-mp.guid" and guid then
         local guid = MinaUtils.getLocalMinaGuid()
-        if not util.IsEmpty(guid) then
+        if not Utils.IsEmpty(guid) then
             return guid
         end
     end

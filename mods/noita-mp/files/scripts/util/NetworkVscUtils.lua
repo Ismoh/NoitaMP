@@ -373,14 +373,14 @@ end
 --- Returns all Network Vsc values by its entity id.
 --- @param entityId number Entity Id provided by Noita
 --- @return string? ownerName, string? ownerGuid, number? nuid - nuid can be nil
-function NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
-    local cpc = CustomProfiler.start("NetworkVscUtils.getAllVcsValuesByEntityId")
+function NetworkVscUtils.getAllVscValuesByEntityId(entityId)
+    local cpc = CustomProfiler.start("NetworkVscUtils.getAllVscValuesByEntityId")
     if not EntityUtils.isEntityAlive(entityId) then
-        CustomProfiler.stop("NetworkVscUtils.getAllVcsValuesByEntityId", cpc)
+        CustomProfiler.stop("NetworkVscUtils.getAllVscValuesByEntityId", cpc)
         return
     end
     local ownerNameCompId, ownerGuidCompId, nuidCompId, _, _ = getNetworkComponents(entityId)
-    CustomProfiler.stop("NetworkVscUtils.getAllVcsValuesByEntityId", cpc)
+    CustomProfiler.stop("NetworkVscUtils.getAllVscValuesByEntityId", cpc)
     if ownerNameCompId and ownerGuidCompId then
         return NetworkVscUtils.getAllVcsValuesByComponentIds(ownerNameCompId, ownerGuidCompId, nuidCompId)
     else
@@ -402,10 +402,10 @@ function NetworkVscUtils.getAllVcsValuesByComponentIds(ownerNameCompId, ownerGui
     local compOwnerGuid = ComponentGetValue2(ownerGuidCompId, NetworkVscUtils.valueString)
     local compNuid      = ComponentGetValue2(nuidCompId, NetworkVscUtils.valueString)
 
-    if util.IsEmpty(compOwnerName) then
+    if Utils.IsEmpty(compOwnerName) then
         error(("Something really bad went wrong! compOwnerName must not be empty: %s"):format(compOwnerName), 2)
     end
-    if util.IsEmpty(compOwnerGuid) then
+    if Utils.IsEmpty(compOwnerGuid) then
         error(("Something really bad went wrong! compOwnerGuid must not be empty: %s"):format(compOwnerGuid), 2)
     end
 

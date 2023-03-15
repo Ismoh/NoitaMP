@@ -14,11 +14,11 @@ dofile("mods/noita-mp/config.lua")
 --- This is done by the following code:
 ------------------------------------------------------------------------------------------------------------------------
 if require then
-    util = require("util")
+    Utils = require("Utils")
 else
     -- Fix stupid Noita sandbox issue. Noita Components does not have access to require.
-    if not util then
-        util = dofile("mods/noita-mp/files/scripts/util/util.lua")
+    if not Utils then
+        Utils                   = dofile("mods/noita-mp/files/scripts/util/Utils.lua")
     end
 
     if not EntityCache then
@@ -197,7 +197,7 @@ function EntityUtils.isRemoteMinae(entityId)
             local client                     = clients[i]
             local clientsNuid                = client.nuid
             local nuidRemote, entityIdRemote = GlobalsUtils.getNuidEntityPair(clientsNuid)
-            if not util.IsEmpty(entityIdRemote) and entityIdRemote == entityId then
+            if not Utils.IsEmpty(entityIdRemote) and entityIdRemote == entityId then
                 CustomProfiler.stop("EntityUtils.isRemoteMinae", cpc)
                 return true
             end
@@ -212,7 +212,7 @@ function EntityUtils.isRemoteMinae(entityId)
             local client                     = Client.otherClients[i]
             local clientsNuid                = client.nuid
             local nuidRemote, entityIdRemote = GlobalsUtils.getNuidEntityPair(clientsNuid)
-            if not util.IsEmpty(entityIdRemote) and entityIdRemote == entityId then
+            if not Utils.IsEmpty(entityIdRemote) and entityIdRemote == entityId then
                 CustomProfiler.stop("EntityUtils.isRemoteMinae", cpc)
                 return true
             end
@@ -530,7 +530,7 @@ function EntityUtils.spawnEntity(owner, nuid, x, y, rotation, velocity, filename
 
     -- double check, if there is already an entity with this NUID and return the entity_id
     if EntityUtils.isEntityAlive(localEntityId) and NetworkVscUtils.hasNetworkLuaComponents(localEntityId) then
-        local ownerNameByVsc, ownerGuidByVsc, nuidByVsc = NetworkVscUtils.getAllVcsValuesByEntityId(localEntityId)
+        local ownerNameByVsc, ownerGuidByVsc, nuidByVsc = NetworkVscUtils.getAllVscValuesByEntityId(localEntityId)
         -- if guid is not equal, but nuid is the same, then something is broken for sure!
         if ownerGuidByVsc ~= remoteGuid and nuidByVsc == nuid then
             error(("Trying to spawn entity(%s) locally, but owner does not match: remoteOwner(%s) ~= localOwner(%s). remoteNuid(%s) ~= localNuid(%s)")
@@ -587,11 +587,11 @@ function EntityUtils.destroyByNuid(peer, nuid)
     local cpc = CustomProfiler.start("EntityUtils.destroyByNuid")
 
     if not peer or type(peer) ~= "table" then
-        error(("EntityUtils.destroyByNuid: peer is not a table: %s"):format(util.pformat(peer)), 2)
+        error(("EntityUtils.destroyByNuid: peer is not a table: %s"):format(Utils.pformat(peer)), 2)
     end
 
     if not nuid then
-        error(("EntityUtils.destroyByNuid: nuid must not be nil: %s"):format(util.pformat(nuid)), 2)
+        error(("EntityUtils.destroyByNuid: nuid must not be nil: %s"):format(Utils.pformat(nuid)), 2)
     end
 
     if type(nuid) ~= "number" then
