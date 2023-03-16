@@ -41,9 +41,13 @@ end
 --- EntityCache
 ----------------------------------------
 EntityCache            = {}
-
+EntityCache.usingC =  not _G.disableLuaExtensionsDLL
+EntityCache.cache = {}
 EntityCache.set        = function(entityId, nuid, ownerGuid, ownerName, filepath, x, y, rotation, velX, velY, currentHealth, maxHealth)
     local cpc = CustomProfiler.start("EntityCache.set")
+    if EntityCache.usingC then
+        return EntityCacheC.set(entityId, nuid, ownerGuid, ownerName, filepath, x, y, rotation, velX, velY, currentHealth, maxHealth)
+    end
     if not EntityCache.cache[entityId] then
         EntityCache.cache[entityId] = {
             entityId      = entityId,
@@ -65,6 +69,9 @@ end
 
 EntityCache.get        = function(entityId)
     local cpc = CustomProfiler.start("EntityCache.get")
+    if EntityCache.usingC then 
+        return EntityCacheC.get(entityId)
+    end
     if not EntityCache.cache then
         EntityCache.cache = {}
         return nil
@@ -77,14 +84,28 @@ EntityCache.get        = function(entityId)
     return nil
 end
 
+EntityCache.getNuid        = function(nuid)
+    local cpc = CustomProfiler.start("EntityCache.getNuid")
+    if EntityCache.usingC then 
+        return EntityCacheC.getNuid(nuid)
+    end
+    error("EntityCache.getNuid requires the luaExtensions dll to be enabled", 2)
+end
+
 EntityCache.delete     = function(entityId)
     local cpc             = CustomProfiler.start("EntityCache.delete")
+    if EntityCache.usingC then 
+        return EntityCacheC.delete(entityId)
+    end
     EntityCache.cache[entityId] = nil
     CustomProfiler.stop("EntityCache.delete", cpc)
 end
 
 EntityCache.deleteNuid = function(nuid)
     local cpc = CustomProfiler.start("EntityCache.deleteNuid")
+    if EntityCache.usingC then 
+        return EntityCacheC.deleteNuid(nuid)
+    end
     for entry in pairs(EntityCache) do
         if entry.nuid == nuid then
             EntityCache.cache[entry.entityId] = nil
@@ -94,7 +115,17 @@ EntityCache.deleteNuid = function(nuid)
 end
 
 EntityCache.size       = function()
+    if EntityCache.usingC then
+        return EntityCacheC.size()
+    end
     return table.size(EntityCache.cache)
+end
+
+EntityCache.usage = function ()
+    if not EntityCache.usingC then
+        error("EntityCache.usage requires the luaExtensions dll to be enabled", 2)
+    end
+    return EntityCacheC.usage()
 end
 ----------------------------------------
 --- EntityCacheUtils

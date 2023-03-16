@@ -191,6 +191,20 @@ static int l_entityCacheDeleteByNuid(lua_State *L)
     lua_pushboolean(L, 0);
     return 1;
 }
+
+static int l_entityCacheReadAll(lua_State *L)
+{
+    lua_createtable(L, 0, 4);
+    for (int i = 0; i < entityCurrentSize; i++)
+    {
+        EntityCacheEntry *entry = entityEntries + i;
+        lua_pushnumber(L, i + 1);
+        l_createEntityCacheReturnTable(L, entry);
+        lua_settable(L, -3);
+    }
+    return 1;
+}
+
 #pragma endregion
 #pragma region NetworkCache
 typedef struct NetworkCacheEntry
@@ -362,10 +376,12 @@ static int l_networkCacheReadAll(lua_State *L)
 
 static int l_networkCacheRemoveOldest(lua_State *L)
 {
+    NetworkCacheEntry *entry = networkEntries;
+    lua_pushnumber(L, entry->messageId);
     memmove(networkEntries, networkEntries + 1, ((networkCurrentSize - 1)) * sizeof(NetworkCacheEntry));
     networkCurrentSize--;
     networkEntries = realloc(networkEntries, sizeof(NetworkCacheEntry) * networkCurrentSize);
-    return 0;
+    return 1;
 }
 
 static int l_networkCacheClear(lua_State *L)
@@ -396,8 +412,9 @@ __declspec(dllexport) int luaopen_luaExtensions(lua_State *L)
             {"deleteNuid", l_entityCacheDeleteByNuid},
             {"size", l_entityCacheSize},
             {"usage", l_entityCacheUsage},
+            {"getAll", l_entityCacheReadAll},
             {NULL, NULL}};
-    luaL_openlib(L, "EntityCache", eCachelib, 0);
+    luaL_openlib(L, "EntityCacheC", eCachelib, 0);
     static const luaL_reg nCachelib[] =
         {
             {"set", l_networkCacheWrite},
@@ -409,6 +426,6 @@ __declspec(dllexport) int luaopen_luaExtensions(lua_State *L)
             {"clear", l_networkCacheClear},
             {"getAll", l_networkCacheReadAll},
             {NULL, NULL}};
-    luaL_openlib(L, "NetworkCache", nCachelib, 0);
+    luaL_openlib(L, "NetworkCacheC", nCachelib, 0);
     return 1;
 }

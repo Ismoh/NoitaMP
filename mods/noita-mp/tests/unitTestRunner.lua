@@ -1,4 +1,5 @@
 _G.isTestLuaContext = true
+_G.disableLuaExtensionsDLL = true
 local params = ...
 dofile("../noita-mp/files/scripts/init/init_package_loading.lua")
 

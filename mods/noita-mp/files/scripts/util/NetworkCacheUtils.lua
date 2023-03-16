@@ -17,7 +17,8 @@ local md5         = require("md5")
 --- NetworkCache
 ------------------------------------------------------------------------------------------------------------------------
 NetworkCache             = {}
-
+NetworkCache.cache = {}
+NetworkCache.usingC =  not _G.disableLuaExtensionsDLL
 NetworkCache.set         = function(clientCacheId, networkMessageId, event, status, ackedAt, sendAt, dataChecksum)
     local cpc = CustomProfiler.start("NetworkCache.set")
 
@@ -50,6 +51,9 @@ NetworkCache.set         = function(clientCacheId, networkMessageId, event, stat
                       :format(dataChecksum, type(dataChecksum)), 2)
     end
 
+    if NetworkCache.usingC then 
+        return NetworkCacheC.set(clientCacheId, networkMessageId, event, status, ackedAt, sendAt, dataChecksum)
+    end
     if not NetworkCache.cache[clientCacheId] then
         NetworkCache.cache[clientCacheId] = {}
     end
@@ -79,6 +83,10 @@ NetworkCache.get         = function(clientCacheId, event, networkMessageId)
     if Utils.IsEmpty(networkMessageId) or type(networkMessageId) ~= "number" then
         error(("networkMessageId must not be nil or empty '%s' or type is not number '%s'")
                       :format(networkMessageId, type(networkMessageId)), 2)
+    end
+
+    if NetworkCache.usingC then
+        return NetworkCacheC.get(clientCacheId, event, networkMessageId)
     end
 
     if not NetworkCache.cache then
@@ -118,6 +126,9 @@ NetworkCache.getChecksum = function(clientCacheId, dataChecksum)
                       :format(dataChecksum, type(dataChecksum)), 2)
     end
 
+    if NetworkCache.usingC then
+        return NetworkCacheC.getChecksum(clientCacheId, dataChecksum)
+    end
     if not NetworkCache.cache[clientCacheId] then
         Logger.trace(Logger.channels.cache,
                      ("There is no cache entry for clientCacheId %s and dataChecksum %s")
@@ -144,14 +155,30 @@ NetworkCache.getChecksum = function(clientCacheId, dataChecksum)
 end
 
 NetworkCache.size        = function()
+    if NetworkCache.usingC then
+        return NetworkCacheC.size()
+    end
     return table.size(NetworkCache.cache)
 end
 
+NetworkCache.usage = function ()
+    if not NetworkCache.usingC then
+        error("NetworkCache.usage requires the luaExtensions dll to be enabled", 2)
+    end
+    return NetworkCacheC.usage()
+end
+
 NetworkCache.getAll      = function()
+    if NetworkCache.usingC then
+        return NetworkCacheC.getAll()
+    end
     return NetworkCache.cache
 end
 
 NetworkCache.clear       = function(clientCacheId)
+    if NetworkCache.usingC then 
+        return NetworkCacheC.clear(clientCacheId)
+    end
     NetworkCache.cache[clientCacheId] = nil
 end
 

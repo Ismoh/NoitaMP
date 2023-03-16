@@ -28,7 +28,9 @@
     "fu",
     "util",
     "EntityCache",
-    "NetworkCache"
+    "NetworkCache",
+    "EntityCacheC",
+    "NetworkCacheC"
   ],
   "lua.targetVersion": "5.1",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
