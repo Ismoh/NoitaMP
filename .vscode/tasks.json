@@ -40,6 +40,14 @@
         "command": "luarocks install --only-deps noita-mp-4.0.1-4.rockspec"
       },
       "problemMatcher": []
+    },
+    {
+      "label": "LuaRocks test",
+      "type": "shell",
+      "windows": {
+        "command": "luarocks test ${input:luaRocksTestCommand}"
+      },
+      "problemMatcher": []
     }
   ],
   "inputs": [
@@ -47,6 +55,12 @@
       "id": "luaRocksInstallPackageName",
       "description": "Write LuaRocks package name, you want to install!",
       "type": "promptString"
+    },
+    {
+      "id": "luaRocksTestCommand",
+      "description": "Keep blank for console output otherwise write in file!",
+      "type": "pickString",
+      "options": ["", " > result.log"]
     }
   ]
 }
