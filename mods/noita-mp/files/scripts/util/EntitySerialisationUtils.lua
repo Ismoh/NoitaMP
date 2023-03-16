@@ -34,6 +34,7 @@ else
             --                    :format(functionName))
             return -1
         end
+
         ---@diagnostic disable-next-line: duplicate-set-field
         function CustomProfiler.stop(functionName, customProfilerCounter)
             --Logger.trace(Logger.channels.entity,
@@ -542,7 +543,7 @@ EntitySerialisationUtils.serializeEntireRootEntity   = function(entityId)
     end
     if rootEntityId ~= entityId then
         Logger.trace(Logger.channels.entity,
-                     ("Skipping serialisation of entity, because it isn't root. Root is %s!"):format(rootEntityId))
+            ("Skipping serialisation of entity, because it isn't root. Root is %s!"):format(rootEntityId))
         return nil
     end
 
@@ -578,10 +579,13 @@ EntitySerialisationUtils.serializeEntityAttributes   = function(entityId)
     end
 
     local attributes                                                                                                                        = {}
-    attributes.name                                                                                                                         = EntityGetName(entityId)
-    attributes.filename                                                                                                                     = EntityGetFilename(entityId)
+    attributes.name                                                                                                                         = EntityGetName(
+        entityId)
+    attributes.filename                                                                                                                     = EntityGetFilename(
+        entityId)
     attributes.transform                                                                                                                    = {}
-    attributes.transform.x, attributes.transform.y, attributes.transform.rotation, attributes.transform.scaleX, attributes.transform.scaleY = EntityGetTransform(entityId)
+    attributes.transform.x, attributes.transform.y, attributes.transform.rotation, attributes.transform.scaleX, attributes.transform.scaleY =
+        EntityGetTransform(entityId)
 
     CustomProfiler.stop("EntitySerialisationUtils.serializeEntityAttributes", cpc)
     return attributes
@@ -682,7 +686,7 @@ end
 EntitySerialisationUtils.deserializeEntireRootEntity = function(serializedRootEntity)
     local cpc      = CustomProfiler.start("EntitySerialisationUtils.deserializeEntireRootEntity")
     local entityId = EntityLoad(serializedRootEntity.attributes.filename, serializedRootEntity.attributes.transform.x,
-                                serializedRootEntity.attributes.transform.y)
+        serializedRootEntity.attributes.transform.y)
     if not EntityUtils.isEntityAlive(entityId) then
         error("NOITA SUCKS!", 2)
     end
@@ -706,11 +710,11 @@ EntitySerialisationUtils.deserializeEntityAttributes = function(entityId, serial
     EntitySetName(entityId, serializedRootEntity.attributes.name)
 
     EntityApplyTransform(entityId,
-                         serializedRootEntity.attributes.transform.x,
-                         serializedRootEntity.attributes.transform.y,
-                         serializedRootEntity.attributes.transform.rotation,
-                         serializedRootEntity.attributes.transform.scaleX,
-                         serializedRootEntity.attributes.transform.scaleY)
+        serializedRootEntity.attributes.transform.x,
+        serializedRootEntity.attributes.transform.y,
+        serializedRootEntity.attributes.transform.rotation,
+        serializedRootEntity.attributes.transform.scaleX,
+        serializedRootEntity.attributes.transform.scaleY)
 
     CustomProfiler.stop("EntitySerialisationUtils.deserializeEntityAttributes", cpc)
     return true
@@ -794,7 +798,7 @@ EntitySerialisationUtils.deserializeEntityComponents = function(entityId, serial
                 -- If there is anything, we don't track the type of, use the old api function as a fallback
                 if Utils.IsEmpty(componentId) then
                     Logger.warn(Logger.channels.entitySerialisation,
-                                ("componentId is empty: %s"):format(componentId))
+                        ("componentId is empty: %s"):format(componentId))
                 elseif Utils.IsEmpty(k) then
                     Logger.warn(Logger.channels.entitySerialisation, ("k is empty: %s"):format(k))
                 elseif Utils.IsEmpty(v) then
@@ -816,7 +820,7 @@ EntitySerialisationUtils.deserializeComponentTags    = function(entityId, compon
     local cpc = CustomProfiler.start("EntitySerialisationUtils.serializeComponentTags")
     if Utils.IsEmpty(entityId) then
         error(("Unable to deserialize components tags, because entityId is %s, componentId")
-                      :format(entityId, componentId), 2)
+            :format(entityId, componentId), 2)
     end
     if Utils.IsEmpty(componentId) then
         error(("Unable to deserialize components tags, because componentId is %s"):format(componentId), 2)
