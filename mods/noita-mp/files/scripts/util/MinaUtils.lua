@@ -63,9 +63,9 @@ function MinaUtils.getLocalMinaEntityId()
         end
     end
     if Utils.IsEmpty(playerEntityIds) then
-        Logger.warn(Logger.channels.entity,
-                    ("There isn't any Minä spawned yet or all died! EntityGetWithTag('player_unit') = {}")
-                            :format(playerEntityIds))
+        Logger.trace(Logger.channels.entity,
+                     ("There isn't any Mina spawned yet or all died! EntityGetWithTag('player_unit') = {}")
+                             :format(playerEntityIds))
         return nil
     end
     Logger.debug(Logger.channels.entity,

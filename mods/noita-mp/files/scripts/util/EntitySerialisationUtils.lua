@@ -296,6 +296,46 @@ EntitySerialisationUtils.materialTags                = {
     "vapour",
     "water"
 }
+EntitySerialisationUtils.unsupportedDataTypes        = {
+    "colors",
+    "debug_path",
+    "imgui",
+    "input",
+    "job_result_receiver",
+    "jump_trajectories",
+    "leftJoint",
+    "links",
+    "mAiStateStack",
+    "mBody",
+    "mCachedTargetSpriteTag",
+    "mCurrentJob",
+    "mData",
+    "mFallbackLogic",
+    "mLastPurchasedAction",
+    "mLocalPosition",
+    "mLogic",
+    "mLuaManager",
+    "mNode",
+    "mPersistentValues",
+    "mPhysicsCollisionHax",
+    "mRenderList",
+    "mSelectedLogic",
+    "mSprite",
+    "mState",
+    "mStates",
+    "mTextureHandle",
+    "mTriggers",
+    "m_cached_image_animation",
+    "m_collision_angles",
+    "m_ingestion_satiation_material_cache",
+    "materials",
+    "path",
+    "path_next_node",
+    "path_previous_node",
+    "randomized_position",
+    "rightJoint",
+    "sprite",
+}
 EntitySerialisationUtils.componentObjectMemberNames  = {
     "attack_melee_finish_config_explosion",
     "config",
@@ -509,7 +549,7 @@ EntitySerialisationUtils.serializeEntireRootEntity   = function(entityId)
     local finished          = false
     local root              = {
         attributes = EntitySerialisationUtils.serializeEntityAttributes(rootEntityId),
-        tags       = EntitySerialisationUtils.serializeEntityTags(rootEntityId),
+        _tags      = EntitySerialisationUtils.serializeEntityTags(rootEntityId),
         components = EntitySerialisationUtils.serializeEntityComponents(rootEntityId),
         children   = {}
     }
@@ -519,7 +559,7 @@ EntitySerialisationUtils.serializeEntireRootEntity   = function(entityId)
         local childEntityId         = childrenEntityIds[i]
         root.children[i]            = {}
         root.children[i].attributes = EntitySerialisationUtils.serializeEntityAttributes(childEntityId)
-        root.children[i].tags       = EntitySerialisationUtils.serializeEntityTags(childEntityId)
+        root.children[i]._tags      = EntitySerialisationUtils.serializeEntityTags(childEntityId)
         root.children[i].components = EntitySerialisationUtils.serializeEntityComponents(childEntityId)
     end
 
@@ -577,21 +617,40 @@ EntitySerialisationUtils.serializeEntityComponents   = function(entityId)
     local componentIds = EntityGetAllComponents(entityId)
 
     for i = 1, #componentIds do
-        local componentId       = componentIds[i]
-        components[i]           = {}
-        components[i].isEnabled = ComponentGetIsEnabled(componentId)
-        components[i].tags      = EntitySerialisationUtils.serializeComponentTags(componentId)
-        components[i].type      = ComponentGetTypeName(componentId)
-        -- Credits to NathanSkimScam#4544
-        local members           = ComponentGetMembers(componentId) or {}
+        local componentId      = componentIds[i]
+        components[i]          = {}
+        components[i]._enabled = ComponentGetIsEnabled(componentId)
+        components[i]._tags    = EntitySerialisationUtils.serializeComponentTags(componentId)
+        components[i].type     = ComponentGetTypeName(componentId)
+
+        local members          = ComponentGetMembers(componentId) or {}
         for k, v in pairs(members) do
-            if v ~= "" then
-                components[i][k] = v
-            else
-                if EntitySerialisationUtils.componentObjectMemberNames[k] then
+            -- skip unsupported data types
+            if not table.contains(EntitySerialisationUtils.unsupportedDataTypes, k) then
+                if table.contains(EntitySerialisationUtils.componentObjectMemberNames, k) then
+                    components[i][k]   = {}
+                    -- Check for object values like tables
                     local memberObject = ComponentObjectGetMembers(componentId, k)
-                    if not Utils.IsEmpty(memberObject) then
-                        components[i][k] = memberObject
+                    for kObj, vObj in pairs(memberObject) do
+                        -- if member objects contains other member objects we cannot access them and need to skip those
+                        if not table.contains(EntitySerialisationUtils.componentObjectMemberNames, kObj) then
+                            vObj = ComponentObjectGetValue2(componentId, k, kObj)
+                            if not Utils.IsEmpty(vObj) then
+                                components[i][k][kObj] = vObj
+                            end
+                        end
+                    end
+                else
+                    -- Check for vector values, where ComponentGetValue2 returns more than one value
+                    local returnedValues = { ComponentGetValue2(componentId, k) }
+                    if #returnedValues > 1 then
+                        v = { ComponentGetValueVector2(componentId, k) }
+                    else
+                        -- else get value with correct value type: string, number, boolean
+                        v = ComponentGetValue2(componentId, k)
+                    end
+                    if not Utils.IsEmpty(v) then
+                        components[i][k] = v
                     end
                 end
             end
@@ -694,11 +753,11 @@ EntitySerialisationUtils.deserializeEntityComponents = function(entityId, serial
     end
 
     for i = 1, #serializedRootEntity.components do
-        local componentType                          = serializedRootEntity.components[i].type
-        local componentIsEnabled                     = serializedRootEntity.components[i].isEnabled
+        local componentType                     = serializedRootEntity.components[i].type
+        local componentIsEnabled                = serializedRootEntity.components[i]._enabled
         -- remove non noita component values
-        serializedRootEntity.components[i].type      = nil
-        serializedRootEntity.components[i].isEnabled = nil
+        serializedRootEntity.components[i].type = nil
+        --serializedRootEntity.components[i]._enabled = nil
 
         --- some components shouldn't be enabled or even added in multiplayer?
         if not table.contains(EntityUtils.remove.byComponentsName, componentType) then
@@ -706,44 +765,44 @@ EntitySerialisationUtils.deserializeEntityComponents = function(entityId, serial
             local componentId = EntityAddComponent2(entityId, componentType)
             EntitySerialisationUtils.deserializeComponentTags(entityId, componentId, serializedRootEntity.components[i])
             -- remove non noita component values
-            serializedRootEntity.components[i].tags = nil
+            --serializedRootEntity.components[i]._tags = nil
 
             for k, v in pairs(serializedRootEntity.components[i]) do
                 -- convert strings, which are booleans to boolean
-                if EntitySerialisationUtils.componentMemberTypes[k] then
-                    if EntitySerialisationUtils.componentMemberTypes[k] == "number" then
-                        -- convert strings, which are numbers to number
-                        local num = tonumber(v)
-                        if num ~= nil and type(num) == "number" then
-                            v = num
-                        end
-                    end
-                    if EntitySerialisationUtils.componentMemberTypes[k] == "boolean" then
-                        v = toBoolean(v)
-                    end
-                    if Utils.IsEmpty(componentId) then
-                        Logger.warn(Logger.channels.entitySerialisation,
-                                    ("componentId is empty: %s"):format(componentId))
-                    elseif Utils.IsEmpty(k) then
-                        Logger.warn(Logger.channels.entitySerialisation, ("k is empty: %s"):format(k))
-                    elseif Utils.IsEmpty(v) then
-                        Logger.warn(Logger.channels.entitySerialisation, ("v is empty: %s"):format(v))
-                    else
-                        ComponentSetValue2(componentId, k, v)
-                    end
+                --if EntitySerialisationUtils.componentMemberTypes[k] then
+                --    if EntitySerialisationUtils.componentMemberTypes[k] == "number" then
+                --        -- convert strings, which are numbers to number
+                --        local num = tonumber(v)
+                --        if num ~= nil and type(num) == "number" then
+                --            v = num
+                --        end
+                --    end
+                --    if EntitySerialisationUtils.componentMemberTypes[k] == "boolean" then
+                --        v = toBoolean(v)
+                --    end
+                --    if Utils.IsEmpty(componentId) then
+                --        Logger.warn(Logger.channels.entitySerialisation,
+                --                    ("componentId is empty: %s"):format(componentId))
+                --    elseif Utils.IsEmpty(k) then
+                --        Logger.warn(Logger.channels.entitySerialisation, ("k is empty: %s"):format(k))
+                --    elseif Utils.IsEmpty(v) then
+                --        Logger.warn(Logger.channels.entitySerialisation, ("v is empty: %s"):format(v))
+                --    else
+                --        ComponentSetValue2(componentId, k, v)
+                --    end
+                --else
+                -- If there is anything, we don't track the type of, use the old api function as a fallback
+                if Utils.IsEmpty(componentId) then
+                    Logger.warn(Logger.channels.entitySerialisation,
+                                ("componentId is empty: %s"):format(componentId))
+                elseif Utils.IsEmpty(k) then
+                    Logger.warn(Logger.channels.entitySerialisation, ("k is empty: %s"):format(k))
+                elseif Utils.IsEmpty(v) then
+                    Logger.warn(Logger.channels.entitySerialisation, ("v is empty: %s"):format(v))
                 else
-                    -- If there is anything, we don't track the type of, use the old api function as a fallback
-                    if Utils.IsEmpty(componentId) then
-                        Logger.warn(Logger.channels.entitySerialisation,
-                                    ("componentId is empty: %s"):format(componentId))
-                    elseif Utils.IsEmpty(k) then
-                        Logger.warn(Logger.channels.entitySerialisation, ("k is empty: %s"):format(k))
-                    elseif Utils.IsEmpty(v) then
-                        Logger.warn(Logger.channels.entitySerialisation, ("v is empty: %s"):format(v))
-                    else
-                        ComponentSetValue(componentId, k, v)
-                    end
+                    ComponentSetValue(componentId, k, v)
                 end
+                --end
             end
             EntitySetComponentIsEnabled(entityId, componentId, componentIsEnabled)
         end
@@ -766,7 +825,7 @@ EntitySerialisationUtils.deserializeComponentTags    = function(entityId, compon
         error("NOITA SUCKS!", 2)
     end
 
-    local tags = string.split(serialisedComponent.tags or "", ",")
+    local tags = string.split(serialisedComponent._tags or "", ",")
     for i = 1, #tags do
         if not ComponentHasTag(componentId, tags[i]) then
             ComponentAddTag(componentId, tags[i])

@@ -7,18 +7,18 @@
 --- Naming convention is found here:
 --- http://lua-users.org/wiki/LuaStyleGuide#:~:text=Lua%20internal%20variable%20naming%20%2D%20The,but%20not%20necessarily%2C%20e.g.%20_G%20.
 
-local plotly                             = require("plotly")
-local Utils                               = require("Utils")
-local fu                                 = require("FileUtils")
+local plotly                   = require("plotly")
+local Utils                    = require("Utils")
+local fu                       = require("FileUtils")
 
 ---@class CustomProfiler
-CustomProfiler                           = {}
-CustomProfiler.reportCache               = {}
-CustomProfiler.counter                   = 1
-CustomProfiler.threshold                 = 16.5 --ms = 60.60 fps
-CustomProfiler.ceiling                   = 1001 -- ms
-CustomProfiler.maxEntries                = 50 -- entries per trace
-CustomProfiler.reportDirectory           = ("%s%sNoitaMP-Reports%s%s")
+CustomProfiler                 = {}
+CustomProfiler.reportCache     = {}
+CustomProfiler.counter         = 1
+CustomProfiler.threshold       = 16.5 --ms = 60.60 fps
+CustomProfiler.ceiling         = 1001 -- ms
+CustomProfiler.maxEntries      = 50 -- entries per trace
+CustomProfiler.reportDirectory = ("%s%sNoitaMP-Reports%s%s")
         :format(fu.GetDesktopDirectory(), pathSeparator, pathSeparator, os.date("%Y-%m-%d_%H-%M-%S", os.time()))
 CustomProfiler.reportFilename            = "report.html"
 CustomProfiler.reportJsonFilenamePattern = "%s.json"
@@ -87,8 +87,8 @@ function CustomProfiler.stop(functionName, customProfilerCounter)
     end
 
     if not CustomProfiler.reportCache[functionName] then
-        Logger.warn(Logger.channels.profiler, "No entry found for function '%s'. Profiling will be skipped.",
-                    functionName)
+        Logger.warn(Logger.channels.profiler,
+                    ("No entry found for function '%s'. Profiling will be skipped."):format(functionName))
         return
     end
 

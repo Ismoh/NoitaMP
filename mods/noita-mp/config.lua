@@ -22,21 +22,18 @@ end
 EntityUtils.maxExecutionTime         = 35 --ms = 1000 / 35 = 28,57 fps
 EntityUtils.maxPoolSize              = 10000
 EntityUtils.include                  = {
-    byComponentsName = { "VelocityComponent", "PhysicsBodyComponent", "PhysicsBody2Component", "ItemComponent", "PotionComponent" },
+    byComponentsName = { "VelocityComponent", "PhysicsBodyComponent", "PhysicsBody2Component", "ItemComponent",
+                         "PotionComponent" },
     byFilename       = {}
 }
 EntityUtils.exclude                  = {
-    byComponentsName = {},
-    byFilename       = {
-        "particle",
-        "tree_entity.xml",
-        "vegetation",
-        "custom_cards",
-    }
+    byComponentsName = { "WorldStateComponent" },
+    byFilename       = { "particle", "tree_entity.xml", "vegetation", "custom_cards" }
 }
 
 EntityUtils.remove                   = {
-    byComponentsName = { "AIComponent", "AdvancedFishAIComponent", "AnimalAIComponent", "ControllerGoombaAIComponent", "FishAIComponent", "PhysicsAIComponent", "WormAIComponent" },
+    byComponentsName = { "AIComponent", "AdvancedFishAIComponent", "AnimalAIComponent", "ControllerGoombaAIComponent",
+                         "FishAIComponent", "PhysicsAIComponent", "WormAIComponent" },
     byFilename       = { }
 }
 
@@ -144,18 +141,6 @@ EntityKill                                     = function(entity_id)
         Logger.warn(Logger.channels.entity,
                     ("Unable to EntityKill(entity '%s'), because entity isn't alive anymore!"):format(entity_id))
     end
-end
-
-local entityAddComponent                       = _G.EntityAddComponent
-EntityAddComponent                             = function(entity_id, component_type_name, table_of_component_values)
-    if EntityGetIsAlive(entity_id) then
-        return entityAddComponent(entity_id, component_type_name, table_of_component_values)
-    else
-        Logger.warn(Logger.channels.entity,
-                    ("Unable to EntityAddComponent(entity_id %s, component_type_name %s, table_of_component_values %s), because entity isn't alive anymore!")
-                            :format(entity_id, component_type_name, table_of_component_values))
-    end
-    return nil
 end
 
 local entityRemoveComponent                    = _G.EntityRemoveComponent
@@ -437,67 +422,114 @@ EntityGetFilename                              = function(entity_id)
 end
 
 local componentAddTag                          = _G.ComponentAddTag
-ComponentAddTag                                = function(component_id, tag)
-    if ComponentGetIsEnabled(component_id) then
-        componentAddTag(component_id, tag)
-    else
-        Logger.warn(Logger.channels.entity,
-                    ("Unable to ComponentAddTag(component_id %s, tag %s), because component doesn't exist!")
-                            :format(component_id, tag))
-    end
+ComponentAddTag           = function(component_id, tag)
+    --if ComponentGetIsEnabled(component_id) then
+    componentAddTag(component_id, tag)
+    --else
+    --    Logger.warn(Logger.channels.entity,
+    --                ("Unable to ComponentAddTag(component_id %s, tag %s), because component doesn't exist!")
+    --                        :format(component_id, tag))
+    --end
 end
 
 local componentRemoveTag                       = _G.ComponentRemoveTag
-ComponentRemoveTag                             = function(component_id, tag)
-    if ComponentGetIsEnabled(component_id) then
-        componentRemoveTag(component_id, tag)
-    else
-        Logger.warn(Logger.channels.entity,
-                    ("Unable to ComponentRemoveTag(component_id %s, tag %s), because component doesn't exist!")
-                            :format(component_id, tag))
-    end
+ComponentRemoveTag        = function(component_id, tag)
+    --if ComponentGetIsEnabled(component_id) then
+    componentRemoveTag(component_id, tag)
+    --else
+    --    Logger.warn(Logger.channels.entity,
+    --                ("Unable to ComponentRemoveTag(component_id %s, tag %s), because component doesn't exist!")
+    --                        :format(component_id, tag))
+    --end
 end
 
 local componentHasTag                          = _G.ComponentHasTag
-ComponentHasTag                                = function(component_id, tag)
-    if ComponentGetIsEnabled(component_id) then
-        return componentHasTag(component_id, tag)
-    else
-        Logger.warn(Logger.channels.entity,
-                    ("Unable to ComponentHasTag(component_id %s, tag %s), because component doesn't exist!")
-                            :format(component_id, tag))
-    end
-    return nil
+ComponentHasTag           = function(component_id, tag)
+    --if ComponentGetIsEnabled(component_id) then
+    return componentHasTag(component_id, tag)
+    --else
+    --    Logger.warn(Logger.channels.entity,
+    --                ("Unable to ComponentHasTag(component_id %s, tag %s), because component doesn't exist!")
+    --                        :format(component_id, tag))
+    --end
+    --return nil
 end
 
-local componentGetValue2                       = _G.ComponentGetValue2
-ComponentGetValue2                             = function(component_id, field_name)
-    if ComponentGetIsEnabled(component_id) then
-        return componentGetValue2(component_id, field_name)
-    else
-        Logger.warn(Logger.channels.entity,
-                    ("Unable to ComponentGetValue2(component_id %s, field_name %s), because component doesn't exist!")
-                            :format(component_id, field_name))
-    end
-    return nil
+local componentGetValue2  = _G.ComponentGetValue2
+ComponentGetValue2        = function(component_id, field_name)
+    --if ComponentGetIsEnabled(component_id) then
+    return componentGetValue2(component_id, field_name)
+    --else
+    --    Logger.warn(Logger.channels.entity,
+    --                ("Unable to ComponentGetValue2(component_id %s, field_name %s), because component doesn't exist!")
+    --                        :format(component_id, field_name))
+    --end
+    --return nil
 end
 
-local componentSetValue2                       = _G.ComponentSetValue2
-ComponentSetValue2                             = function(component_id, field_name, ...)
-    if ComponentGetIsEnabled(component_id) then
-        componentSetValue2(component_id, field_name, ...)
-    else
-        Logger.warn(Logger.channels.entity,
-                    ("Unable to ComponentSetValue2(component_id %s, field_name %s, ... %s), because component doesn't exist!")
-                            :format(component_id, field_name, ...))
+local componentSetValue   = _G.ComponentSetValue
+ComponentSetValue         = function(component_id, variable_name, value_string)
+    --if ComponentGetIsEnabled(component_id) then
+    if not value_string then
+        error(("value_string must not be nil! ComponentSetValue(component_id '%s', variable_name '%s', value_string '%s')")
+                      :format(component_id, variable_name, value_string), 2)
     end
+    componentSetValue(component_id, variable_name, ("%s"):format(value_string))
+    --else
+    --    Logger.warn(Logger.channels.entity,
+    --                ("Unable to ComponentSetValue(component_id %s, variable_name %s, value_string %s), because component doesn't exist!")
+    --                        :format(component_id, variable_name, value_string))
+    --end
 end
 
-local entityAddComponent2                      = _G.EntityAddComponent2
-EntityAddComponent2                            = function(entity_id, component_type_name, table_of_component_values)
+local componentSetValue2  = _G.ComponentSetValue2
+ComponentSetValue2        = function(component_id, field_name, value_string)
+    --if ComponentGetIsEnabled(component_id) then
+    if not value_string then
+        error(("value_string must not be nil! ComponentSetValue2(component_id '%s', field_name '%s', value_string '%s')")
+                      :format(component_id, field_name, value_string), 2)
+    end
+    componentSetValue2(component_id, field_name, value_string)
+    --else
+    --    Logger.warn(Logger.channels.entity,
+    --                ("Unable to ComponentSetValue2(component_id %s, field_name %s, value_string %s), because component doesn't exist!")
+    --                        :format(component_id, field_name, value_string))
+    --end
+end
+
+local entityAddComponent  = _G.EntityAddComponent
+EntityAddComponent        = function(entity_id, component_type_name, table_of_component_values)
     if EntityGetIsAlive(entity_id) then
-        if not table_of_component_values then
+        return entityAddComponent(entity_id, component_type_name, table_of_component_values)
+    else
+        Logger.warn(Logger.channels.entity,
+                    ("Unable to EntityAddComponent(entity_id %s, component_type_name %s, table_of_component_values %s), because entity isn't alive anymore!")
+                            :format(entity_id, component_type_name, table_of_component_values))
+    end
+    return nil
+end
+
+local entityAddComponent2 = _G.EntityAddComponent2
+EntityAddComponent2       = function(entity_id, component_type_name, table_of_component_values)
+    if EntityGetIsAlive(entity_id) then
+        if Utils.IsEmpty(table_of_component_values) then
             return entityAddComponent2(entity_id, component_type_name)
+        else
+            if type(table_of_component_values) ~= "table" then
+                error(("table_of_component_values is not a table: %s -> %s")
+                              :format(type(table_of_component_values), Utils.pformat(table_of_component_values)), 2)
+            end
+            for k, v in pairs(table_of_component_values) do
+                if Utils.IsEmpty(k) then
+                    error(("k is empty: %s"):format(k), 2)
+                end
+                if Utils.IsEmpty(v) then
+                    error(("v is empty: %s"):format(v), 2)
+                end
+                --if type(v) == "boolean" then
+                --    error(("v is type of boolean: type(%s) = %s"):format(v, type(v)), 2)
+                --end
+            end
         end
         return entityAddComponent2(entity_id, component_type_name, table_of_component_values)
     else
@@ -508,40 +540,40 @@ EntityAddComponent2                            = function(entity_id, component_t
     return nil
 end
 
-local componentGetMembers                      = _G.ComponentGetMembers
-ComponentGetMembers                            = function(component_id)
-    if ComponentGetIsEnabled(component_id) then
-        return componentGetMembers(component_id)
-    else
-        Logger.warn(Logger.channels.entity,
-                    ("Unable to ComponentGetMembers(component_id %s), because component doesn't exist!")
-                            :format(component_id))
-    end
-    return nil
+local componentGetMembers = _G.ComponentGetMembers
+ComponentGetMembers       = function(component_id)
+    --if ComponentGetIsEnabled(component_id) then
+    return componentGetMembers(component_id)
+    --else
+    --    Logger.warn(Logger.channels.entity,
+    --                ("Unable to ComponentGetMembers(component_id %s), because component doesn't exist!")
+    --                        :format(component_id))
+    --end
+    --return nil
 end
 
 local componentObjectGetMembers                = _G.ComponentObjectGetMembers
-ComponentObjectGetMembers                      = function(component_id, object_name)
-    if ComponentGetIsEnabled(component_id) then
-        return componentObjectGetMembers(component_id, object_name)
-    else
-        Logger.warn(Logger.channels.entity,
-                    ("Unable to ComponentGetMembers(component_id %s, object_name %s), because component doesn't exist!")
-                            :format(component_id, object_name))
-    end
-    return nil
+ComponentObjectGetMembers = function(component_id, object_name)
+    --if ComponentGetIsEnabled(component_id) then
+    return componentObjectGetMembers(component_id, object_name)
+    --else
+    --    Logger.warn(Logger.channels.entity,
+    --                ("Unable to ComponentGetMembers(component_id %s, object_name %s), because component doesn't exist!")
+    --                        :format(component_id, object_name))
+    --end
+    --return nil
 end
 
 local componentGetTypeName                     = _G.ComponentGetTypeName
-ComponentGetTypeName                           = function(component_id)
-    if ComponentGetIsEnabled(component_id) then
-        return componentGetTypeName(component_id)
-    else
-        Logger.warn(Logger.channels.entity,
-                    ("Unable to ComponentGetMembers(component_id %s), because component doesn't exist!")
-                            :format(component_id))
-    end
-    return nil
+ComponentGetTypeName      = function(component_id)
+    --if ComponentGetIsEnabled(component_id) then
+    return componentGetTypeName(component_id)
+    --else
+    --    Logger.warn(Logger.channels.entity,
+    --                ("Unable to ComponentGetMembers(component_id %s), because component doesn't exist!")
+    --                        :format(component_id))
+    --end
+    --return nil
 end
 ------------------------------------------------------------------------------------------------------------------------
 --- And in addition for Mod compatibility
