@@ -49,8 +49,24 @@ end
 --- EntitySerialisationUtils
 ----------------------------------------
 --- Utils class only for serialisation of entities.
-EntitySerialisationUtils                             = {}
-EntitySerialisationUtils.componentTags               = {
+EntitySerialisationUtils                            = {}
+
+--- It can happen, that there are more than on component per type.
+--- Then we need to know how to determine those.
+--- The keys/members listed below can help!
+EntitySerialisationUtils.componentIdentifier        = {
+    AudioComponent = "event_root",
+    AudioLoopComponent = "event_name",
+    --HitboxComponent = "?",
+    HotspotComponent = "sprite_hotspot_name",
+    ItemComponent = "mItemUid",
+    LuaComponent = "script_source_file",
+    ParticleEmitterComponent = "emitted_material_name",
+    SpriteComponent = "image_file",
+    SpriteOffsetAnimatorComponent = "sprite_id",
+    VariableStorageComponent = "name",
+}
+EntitySerialisationUtils.componentTags              = {
     "activate",
     "aiming_reticle",
     "air",
@@ -75,32 +91,32 @@ EntitySerialisationUtils.componentTags               = {
     "counter",
     "crouch_sensor",
     "crouched",
-    "curse",
     "curse_cloud_script",
+    "curse",
     "death_reward",
-    "disabled",
     "disabled_at_start",
     "disabled_by_liquid",
+    "disabled",
     "driver",
     "driverless",
     "duck_timer",
-    "earth",
     "earth_disable",
+    "earth",
     "effect_curse_damage",
     "effect_curse_lifetime",
     "effect_curse_wither_type",
-    "effect_protection",
     "effect_protection_all",
+    "effect_protection",
     "effect_resistance",
-    "effect_worm",
     "effect_worm_attractor",
     "effect_worm_detractor",
+    "effect_worm",
     "electricity_effect",
     "enable_when_player_seen",
     "enabled_at_start",
     "enabled_by_liquid",
-    "enabled_by_meditation",
     "enabled_by_meditation_early",
+    "enabled_by_meditation",
     "enabled_by_script",
     "enabled_in_hand",
     "enabled_in_inventory",
@@ -111,8 +127,8 @@ EntitySerialisationUtils.componentTags               = {
     "evil_eye_in_hand",
     "eyespot_object",
     "fart",
-    "fire",
     "fire_disable",
+    "fire",
     "first",
     "flying_energy_bar",
     "fungal_disease",
@@ -120,12 +136,12 @@ EntitySerialisationUtils.componentTags               = {
     "ghost_id",
     "grow",
     "gun",
-    "hand",
     "hand_hotspot",
     "hand_l",
+    "hand",
     "head",
-    "health_bar",
     "health_bar_back",
+    "health_bar",
     "helmet",
     "hitbox_default",
     "hitbox_weak_spot",
@@ -136,13 +152,13 @@ EntitySerialisationUtils.componentTags               = {
     "igniter",
     "ingestion",
     "invincible",
-    "item",
     "item_bg",
-    "item_identified",
     "item_identified__LEGACY",
+    "item_identified",
     "item_locked",
     "item_unidentified",
     "item_unlocked",
+    "item",
     "jetpack",
     "kick_count",
     "kick_pos",
@@ -154,8 +170,8 @@ EntitySerialisationUtils.componentTags               = {
     "lukki_enable",
     "lurker_data",
     "lurkershot_id",
-    "magic_eye",
     "magic_eye_check",
+    "magic_eye",
     "mana_bar",
     "melee_buildup_particles",
     "modulate_radius",
@@ -177,11 +193,11 @@ EntitySerialisationUtils.componentTags               = {
     "perk_component",
     "perk_reroll_disable",
     "pingpong_path",
-    "player_amulet",
     "player_amulet_gem",
+    "player_amulet",
     "player_hat",
-    "player_hat2",
     "player_hat2_shadow",
+    "player_hat2",
     "polyp_homing",
     "protection_all_short",
     "reload_bar",
@@ -189,9 +205,9 @@ EntitySerialisationUtils.componentTags               = {
     "risky_critical",
     "sacred_barrel",
     "second",
-    "shield",
     "shield_hit",
     "shield_ring",
+    "shield",
     "shoot_pos",
     "shop_cost",
     "smoke",
@@ -224,23 +240,23 @@ EntitySerialisationUtils.componentTags               = {
     "wizard_orb_id",
     "worm_shot_homing"
 }
-EntitySerialisationUtils.materialTags                = {
+EntitySerialisationUtils.materialTags               = {
     "acid",
     "alchemy",
     "blood",
     "box2d",
-    "burnable",
     "burnable_fast",
+    "burnable",
     "cold",
     "corrodible",
     "earth",
-    "evaporable",
     "evaporable_by_fire",
     "evaporable_custom",
     "evaporable_fast",
-    "fire",
+    "evaporable",
     "fire_lava",
     "fire_strong",
+    "fire",
     "food",
     "freezable",
     "frozen",
@@ -255,36 +271,36 @@ EntitySerialisationUtils.materialTags                = {
     "impure",
     "indestructible",
     "lava",
-    "liquid",
     "liquid_common",
+    "liquid",
     "magic_faster",
     "magic_liquid",
     "magic_polymorph",
     "matter_eater_ignore_list",
     "meat",
-    "meltable",
     "meltable_by_fire",
-    "meltable_metal",
     "meltable_metal_generic",
+    "meltable_metal",
     "meltable_to_acid",
     "meltable_to_blood",
     "meltable_to_cold",
-    "meltable_to_lava",
     "meltable_to_lava_fast",
+    "meltable_to_lava",
     "meltable_to_poison",
     "meltable_to_radioactive",
     "meltable_to_slime",
     "meltable_to_water",
-    "molten",
+    "meltable",
     "molten_metal",
+    "molten",
     "plant",
     "radioactive",
-    "regenerative",
     "regenerative_gas",
+    "regenerative",
     "requires_air",
-    "rust",
     "rust_box2d",
     "rust_oxide",
+    "rust",
     "sand_ground",
     "sand_metal",
     "sand_other",
@@ -297,47 +313,65 @@ EntitySerialisationUtils.materialTags                = {
     "vapour",
     "water"
 }
-EntitySerialisationUtils.unsupportedDataTypes        = {
+EntitySerialisationUtils.unsupportedDataTypes       = {
     "colors",
+    "count_per_material_type",
     "debug_path",
+    "effects_previous",
     "imgui",
+    "ingestion_effect_causes_many",
+    "ingestion_effect_causes",
+    "ingestion_effects",
     "input",
     "job_result_receiver",
     "jump_trajectories",
     "leftJoint",
     "links",
+    "m_cached_image_animation",
+    "m_collision_angles",
+    "m_ingestion_satiation_material_cache",
     "mAiStateStack",
+    "materials",
     "mBody",
     "mCachedTargetSpriteTag",
+    "mCollisionMessageMaterialCountsThisFrame",
+    "mCollisionMessageMaterials",
     "mCurrentJob",
+    "mDamageMaterials",
+    "mDamageMaterialsHowMuch",
     "mData",
     "mFallbackLogic",
     "mLastPurchasedAction",
     "mLocalPosition",
     "mLogic",
     "mLuaManager",
+    "mMaterialDamageThisFrame",
     "mNode",
     "mPersistentValues",
     "mPhysicsCollisionHax",
     "mRenderList",
     "mSelectedLogic",
     "mSprite",
+    "mStainEffectsSmoothedForUI",
     "mState",
     "mStates",
     "mTextureHandle",
     "mTriggers",
-    "m_cached_image_animation",
-    "m_collision_angles",
-    "m_ingestion_satiation_material_cache",
-    "materials",
-    "path",
     "path_next_node",
     "path_previous_node",
+    "path",
     "randomized_position",
     "rightJoint",
     "sprite",
+    "stain_effects",
 }
-EntitySerialisationUtils.componentObjectMemberNames  = {
+--- Looks like some internal types aren't correct.
+--- i.e.: ComponentGetValue2 returns number instead of boolean for 'friend_firemage'.
+EntitySerialisationUtils.typeFixes                  = {
+    friend_firemage = toBoolean,
+    friend_thundermage = toBoolean
+}
+EntitySerialisationUtils.componentObjectMemberNames = {
     "attack_melee_finish_config_explosion",
     "config",
     "config_explosion",
@@ -352,186 +386,17 @@ EntitySerialisationUtils.componentObjectMemberNames  = {
     "laser",
     "m_drug_fx_current"
 }
-EntitySerialisationUtils.componentMemberTypes        = {
-    additive                                     = "boolean",
-    affect_physics_bodies                        = "boolean",
-    air_needed                                   = "boolean",
-    apply_terminal_velocity                      = "boolean",
-    auto_play                                    = "boolean",
-    auto_play_if_enabled                         = "boolean",
-    berserk_dont_attack_friends                  = "boolean",
-    blood_spray_create_some_cosmetic             = "boolean",
-    calculate_material_lowpass                   = "boolean",
-    call_init_function                           = "boolean",
-    camera_bound                                 = "boolean",
-    can_kick                                     = "boolean",
-    center_camera_on_this_entity                 = "boolean",
-    collide_with_gas_and_fire                    = "boolean",
-    collide_with_grid                            = "boolean",
-    color_is_based_on_pos                        = "boolean",
-    cosmetic_force_create                        = "boolean",
-    create_ragdoll                               = "boolean",
-    create_real_particles                        = "boolean",
-    dead                                         = "boolean",
-    displace_liquid                              = "boolean",
-    draw_as_long                                 = "boolean",
-    drop_as_item                                 = "boolean",
-    drop_items_on_death                          = "boolean",
-    eff_hg_update_box2d                          = "boolean",
-    effect_hit_ground                            = "boolean",
-    emissive                                     = "boolean",
-    emit_cosmetic_particles                      = "boolean",
-    emit_real_particles                          = "boolean",
-    enable_coroutines                            = "boolean",
-    enabled                                      = "boolean",
-    execute_on_added                             = "boolean",
-    execute_on_removed                           = "boolean",
-    fade_based_on_lifetime                       = "boolean",
-    fade_stains_towards_srite_top                = "boolean",
-    falling_damages                              = "boolean",
-    fire_cells_dont_ignite_damagemodel           = "boolean",
-    fly_model_player                             = "boolean",
-    fly_smooth_y                                 = "boolean",
-    flying_needs_recharge                        = "boolean",
-    fog_of_war_hole                              = "boolean",
-    freeze_on_distance_kill                      = "boolean",
-    freeze_on_max_count_kill                     = "boolean",
-    gamepad_fire_on_thumbstick_extend            = "boolean",
-    gamepad_indirect_aiming_enabled              = "boolean",
-    halftime_materials                           = "boolean",
-    has_opened_inventory_edit                    = "boolean",
-    has_special_scale                            = "boolean",
-    image_animation_loop                         = "boolean",
-    image_animation_raytrace_from_center         = "boolean",
-    image_animation_use_entity_rotation          = "boolean",
-    isBroken                                     = "boolean",
-    is_death_handled                             = "boolean",
-    is_emitting                                  = "boolean",
-    is_enemy                                     = "boolean",
-    is_immune_to_kicks                           = "boolean",
-    is_in_npc                                    = "boolean",
-    is_item                                      = "boolean",
-    is_on_fire                                   = "boolean",
-    is_on_ground                                 = "boolean",
-    is_on_slippery_ground                        = "boolean",
-    is_player                                    = "boolean",
-    is_predator                                  = "boolean",
-    is_text_sprite                               = "boolean",
-    is_trail                                     = "boolean",
-    keyboard_look                                = "boolean",
-    kill_entity_after_finished                   = "boolean",
-    kill_now                                     = "boolean",
-    kill_when_empty                              = "boolean",
-    limit_to_max_velocity                        = "boolean",
-    mActive                                      = "boolean",
-    mAirAreWeInWater                             = "boolean",
-    mAirDoWeHave                                 = "boolean",
-    mButtonDownAction                            = "boolean",
-    mButtonDownChangeItemL                       = "boolean",
-    mButtonDownChangeItemR                       = "boolean",
-    mButtonDownDig                               = "boolean",
-    mButtonDownDown                              = "boolean",
-    mButtonDownDropItem                          = "boolean",
-    mButtonDownEat                               = "boolean",
-    mButtonDownFire                              = "boolean",
-    mButtonDownFire2                             = "boolean",
-    mButtonDownFly                               = "boolean",
-    mButtonDownHolsterItem                       = "boolean",
-    mButtonDownInteract                          = "boolean",
-    mButtonDownInventory                         = "boolean",
-    mButtonDownJump                              = "boolean",
-    mButtonDownKick                              = "boolean",
-    mButtonDownLeft                              = "boolean",
-    mButtonDownLeftClick                         = "boolean",
-    mButtonDownRight                             = "boolean",
-    mButtonDownRightClick                        = "boolean",
-    mButtonDownRun                               = "boolean",
-    mButtonDownThrow                             = "boolean",
-    mButtonDownTransformDown                     = "boolean",
-    mButtonDownTransformLeft                     = "boolean",
-    mButtonDownTransformRight                    = "boolean",
-    mButtonDownTransformUp                       = "boolean",
-    mButtonDownUp                                = "boolean",
-    mCollidedHorizontally                        = "boolean",
-    mCrouching                                   = "boolean",
-    mDisplay_FireRateWaitBar                     = "boolean",
-    mFallIsOnGround                              = "boolean",
-    mFireTriedIgniting                           = "boolean",
-    mForceFireOnNextUpdate                       = "boolean",
-    mForceRefresh                                = "boolean",
-    mHasChildIconsCached                         = "boolean",
-    mHasGamepadControlsPrev                      = "boolean",
-    mHasReachedInf                               = "boolean",
-    mInitialized                                 = "boolean",
-    mIsOnFire                                    = "boolean",
-    mIsPrecisionJumping                          = "boolean",
-    mItemHolstered                               = "boolean",
-    mModAppendsDone                              = "boolean",
-    mRequireTriggerPull                          = "boolean",
-    mShouldCrouch                                = "boolean",
-    mShouldCrouchPrev                            = "boolean",
-    m_has_emitted                                = "boolean",
-    materials_create_messages                    = "boolean",
-    materials_damage                             = "boolean",
-    materials_damage_proportional_to_maxhp       = "boolean",
-    mouse_look                                   = "boolean",
-    move_camera_with_aim                         = "boolean",
-    never_ragdollify_on_death                    = "boolean",
-    on_death_spill                               = "boolean",
-    particle_single_width                        = "boolean",
-    physics_objects_damage                       = "boolean",
-    play_on_component_enable                     = "boolean",
-    play_only_if_visible                         = "boolean",
-    polymorph_hax                                = "boolean",
-    ragdollify_child_entity_sprites              = "boolean",
-    ragdollify_disintegrate_nonroot              = "boolean",
-    randomize_position_inside_hitbox             = "boolean",
-    remove_after_executed                        = "boolean",
-    remove_latest_event_on_destroyed             = "boolean",
-    render_back                                  = "boolean",
-    render_on_grid                               = "boolean",
-    render_ultrabright                           = "boolean",
-    report_damage                                = "boolean",
-    report_death                                 = "boolean",
-    report_new_biomes                            = "boolean",
-    rotate_to_surface_normal                     = "boolean",
-    run_animation_velocity_switching_enabled     = "boolean",
-    send_message_on_event_dead                   = "boolean",
-    send_transform_update_message                = "boolean",
-    set_latest_event_position                    = "boolean",
-    set_magic_creation                           = "boolean",
-    set_projectile_to_liquid                     = "boolean",
-    set_speed_parameter                          = "boolean",
-    set_speed_parameter_only_based_on_x_movement = "boolean",
-    set_speed_parameter_only_based_on_y_movement = "boolean",
-    smooth_filtering                             = "boolean",
-    sprite_centered                              = "boolean",
-    sprite_random_rotation                       = "boolean",
-    suck_gold                                    = "boolean",
-    suck_health                                  = "boolean",
-    suck_static_materials                        = "boolean",
-    transform_with_scale                         = "boolean",
-    ui_force_report_damage                       = "boolean",
-    ui_is_parent                                 = "boolean",
-    ui_report_damage                             = "boolean",
-    update_properties                            = "boolean",
-    update_transform                             = "boolean",
-    update_transform_rotation                    = "boolean",
-    updates_velocity                             = "boolean",
-    use_material_inventory                       = "boolean",
-    use_rotation_from_entity                     = "boolean",
-    use_rotation_from_velocity_component         = "boolean",
-    use_velocity_as_rotation                     = "boolean",
-    value_bool                                   = "boolean",
-    --velocity_always_away_from_center             = "boolean", can be number AND boolean!
-    visible                                      = "boolean",
-    wait_for_kill_flag_on_death                  = "boolean",
-}
 
-EntitySerialisationUtils.serializeEntireRootEntity   = function(entityId)
+
+--- @param entityId number
+--- @param nuid number|nil nuid can only be nil, when being Client
+EntitySerialisationUtils.serializeEntireRootEntity   = function(entityId, nuid)
     local cpc = CustomProfiler.start("EntitySerialisationUtils.serializeEntireRootEntity")
     if Utils.IsEmpty(entityId) then
         error(("Unable to serialize entity, because entityId is %s"):format(entityId), 2)
+    end
+    if whoAmI() == "SERVER" and Utils.IsEmpty(nuid) then
+        error(("Unable to serialize entity, because nuid is '%s' and you're Server!"):format(nuid), 2)
     end
     if not EntityUtils.isEntityAlive(entityId) then
         error("NOITA SUCKS!", 2)
@@ -549,6 +414,7 @@ EntitySerialisationUtils.serializeEntireRootEntity   = function(entityId)
 
     local finished          = false
     local root              = {
+        nuid       = nuid,
         attributes = EntitySerialisationUtils.serializeEntityAttributes(rootEntityId),
         _tags      = EntitySerialisationUtils.serializeEntityTags(rootEntityId),
         components = EntitySerialisationUtils.serializeEntityComponents(rootEntityId),
@@ -557,11 +423,14 @@ EntitySerialisationUtils.serializeEntireRootEntity   = function(entityId)
 
     local childrenEntityIds = EntityGetAllChildren(rootEntityId) or {}
     for i = 1, #childrenEntityIds do
-        local childEntityId         = childrenEntityIds[i]
-        root.children[i]            = {}
-        root.children[i].attributes = EntitySerialisationUtils.serializeEntityAttributes(childEntityId)
-        root.children[i]._tags      = EntitySerialisationUtils.serializeEntityTags(childEntityId)
-        root.children[i].components = EntitySerialisationUtils.serializeEntityComponents(childEntityId)
+        local childEntityId = childrenEntityIds[i]
+        if not table.contains(EntitySerialisationUtils.ignore.byFilenameOrPath, EntityGetFilename(childEntityId))
+            and not table.contains(EntitySerialisationUtils.ignore.byEntityName, EntityGetName(childEntityId)) then
+            root.children[i]            = {}
+            root.children[i].attributes = EntitySerialisationUtils.serializeEntityAttributes(childEntityId)
+            root.children[i]._tags      = EntitySerialisationUtils.serializeEntityTags(childEntityId)
+            root.children[i].components = EntitySerialisationUtils.serializeEntityComponents(childEntityId)
+        end
     end
 
     finished = true
@@ -621,40 +490,50 @@ EntitySerialisationUtils.serializeEntityComponents   = function(entityId)
     local componentIds = EntityGetAllComponents(entityId)
 
     for i = 1, #componentIds do
-        local componentId      = componentIds[i]
-        components[i]          = {}
-        components[i]._enabled = ComponentGetIsEnabled(componentId)
-        components[i]._tags    = EntitySerialisationUtils.serializeComponentTags(componentId)
-        components[i].type     = ComponentGetTypeName(componentId)
+        local componentId = componentIds[i]
+        local componentType = ComponentGetTypeName(componentId)
+        if not table.contains(EntitySerialisationUtils.ignore.byComponentsType, componentType) then
+            components[i]          = {}
+            components[i]._enabled = ComponentGetIsEnabled(componentId)
+            components[i]._tags    = EntitySerialisationUtils.serializeComponentTags(componentId)
+            components[i].type     = componentType
 
-        local members          = ComponentGetMembers(componentId) or {}
-        for k, v in pairs(members) do
-            -- skip unsupported data types
-            if not table.contains(EntitySerialisationUtils.unsupportedDataTypes, k) then
-                if table.contains(EntitySerialisationUtils.componentObjectMemberNames, k) then
-                    components[i][k]   = {}
-                    -- Check for object values like tables
-                    local memberObject = ComponentObjectGetMembers(componentId, k)
-                    for kObj, vObj in pairs(memberObject) do
-                        -- if member objects contains other member objects we cannot access them and need to skip those
-                        if not table.contains(EntitySerialisationUtils.componentObjectMemberNames, kObj) then
-                            vObj = ComponentObjectGetValue2(componentId, k, kObj)
-                            if not Utils.IsEmpty(vObj) then
-                                components[i][k][kObj] = vObj
+            local members          = ComponentGetMembers(componentId) or {}
+            for k, v in pairs(members) do
+                -- skip unsupported data types
+                if not table.contains(EntitySerialisationUtils.unsupportedDataTypes, k)
+                    and not table.contains(EntitySerialisationUtils.ignore.byMemberKey, k) then
+                    if table.contains(EntitySerialisationUtils.componentObjectMemberNames, k) then
+                        components[i][k]   = {}
+                        -- Check for object values like tables
+                        local memberObject = ComponentObjectGetMembers(componentId, k) or {}
+                        for kObj, vObj in pairs(memberObject) do
+                            -- if member objects contains other member objects we cannot access them and need to skip those
+                            if not table.contains(EntitySerialisationUtils.componentObjectMemberNames, kObj) then
+                                vObj = ComponentObjectGetValue2(componentId, k, kObj)
+                                if not Utils.IsEmpty(vObj) then
+                                    components[i][k][kObj] = vObj
+                                end
                             end
                         end
-                    end
-                else
-                    -- Check for vector values, where ComponentGetValue2 returns more than one value
-                    local returnedValues = { ComponentGetValue2(componentId, k) }
-                    if #returnedValues > 1 then
-                        v = { ComponentGetValueVector2(componentId, k) }
                     else
-                        -- else get value with correct value type: string, number, boolean
-                        v = ComponentGetValue2(componentId, k)
-                    end
-                    if not Utils.IsEmpty(v) then
+                        -- Check for vector values, where ComponentGetValue2 returns more than one value
+                        local returnedValues = { ComponentGetValue2(componentId, k) }
+                        if #returnedValues > 1 then
+                            if k == "friend_firemage" then
+                                print("bla!")
+                            end
+                            v = returnedValues
+                        else
+                            -- else get value with correct value type: string, number, boolean
+                            v = returnedValues[1]
+                        end
+                        --if not v then -- if not Utils.IsEmpty(v) then -- only check nil not empty string!
+                        if EntitySerialisationUtils.typeFixes[k] then
+                            v = EntitySerialisationUtils.typeFixes[k](v)
+                        end
                         components[i][k] = v
+                        --end
                     end
                 end
             end
@@ -684,12 +563,31 @@ EntitySerialisationUtils.serializeComponentTags      = function(componentId)
 end
 
 EntitySerialisationUtils.deserializeEntireRootEntity = function(serializedRootEntity)
-    local cpc      = CustomProfiler.start("EntitySerialisationUtils.deserializeEntireRootEntity")
-    local entityId = EntityLoad(serializedRootEntity.attributes.filename, serializedRootEntity.attributes.transform.x,
-        serializedRootEntity.attributes.transform.y)
+    local cpc = CustomProfiler.start("EntitySerialisationUtils.deserializeEntireRootEntity")
+    if Utils.IsEmpty(serializedRootEntity) then
+        error(("Unable to deserialize entity, because serializedRootEntity is '%s'"):format(serializedRootEntity), 2)
+    end
+    if whoAmI() == "CLIENT" and Utils.IsEmpty(serializedRootEntity.nuid) then
+        error(("Unable to deserialize entity, because serializedRootEntity.nuid is '%s' and on Clients nuid has already be set from Server!")
+            :format(serializedRootEntity.nuid), 2)
+    end
+
+    local serialisedNuid = serializedRootEntity.nuid
+    local _, entityId = GlobalsUtils.getNuidEntityPair(serialisedNuid)
+
+    if Utils.IsEmpty(serialisedNuid) or Utils.IsEmpty(entityId) then
+        entityId = EntityLoad(serializedRootEntity.attributes.filename, serializedRootEntity.attributes.transform.x,
+            serializedRootEntity.attributes.transform.y)
+    end
+
+    if Utils.IsEmpty(entityId) then
+        error(("Unable to find entityId '%s' for serializedRootEntity '%s'!"):format(entityId, Utils.pformat(serializedRootEntity)), 2)
+    end
+
     if not EntityUtils.isEntityAlive(entityId) then
         error("NOITA SUCKS!", 2)
     end
+
     local finished = false
     finished       = EntitySerialisationUtils.deserializeEntityAttributes(entityId, serializedRootEntity)
     finished       = EntitySerialisationUtils.deserializeEntityTags(entityId, serializedRootEntity)
@@ -748,67 +646,88 @@ EntitySerialisationUtils.deserializeEntityComponents = function(entityId, serial
         error("NOITA SUCKS!", 2)
     end
 
-    local components   = {}
-    local componentIds = EntityGetAllComponents(entityId)
-
-    for i = 1, #componentIds do
-        local componentId = componentIds[i]
-        EntityRemoveComponent(entityId, componentId)
-    end
+    local processedComponentIds = {}
 
     for i = 1, #serializedRootEntity.components do
-        local componentType                     = serializedRootEntity.components[i].type
-        local componentIsEnabled                = serializedRootEntity.components[i]._enabled
-        -- remove non noita component values
-        serializedRootEntity.components[i].type = nil
-        --serializedRootEntity.components[i]._enabled = nil
+        -- there will be gaps/holes, when there are components, which were completely ignored by serialisation!
+        if not Utils.IsEmpty(serializedRootEntity.components[i]) then
+            local componentType      = serializedRootEntity.components[i].type
+            local componentIsEnabled = serializedRootEntity.components[i]._enabled
 
-        --- some components shouldn't be enabled or even added in multiplayer?
-        if not table.contains(EntityUtils.remove.byComponentsName, componentType) then
-            -- TODO: add 'isOtherMinaInRange' to if
-            local componentId = EntityAddComponent2(entityId, componentType)
-            EntitySerialisationUtils.deserializeComponentTags(entityId, componentId, serializedRootEntity.components[i])
-            -- remove non noita component values
-            --serializedRootEntity.components[i]._tags = nil
+            if componentType == "LuaComponent" then
+                print("ASFLDJNOSUIFDGHJOSDFJIUG")
+            end
 
-            for k, v in pairs(serializedRootEntity.components[i]) do
-                -- convert strings, which are booleans to boolean
-                --if EntitySerialisationUtils.componentMemberTypes[k] then
-                --    if EntitySerialisationUtils.componentMemberTypes[k] == "number" then
-                --        -- convert strings, which are numbers to number
-                --        local num = tonumber(v)
-                --        if num ~= nil and type(num) == "number" then
-                --            v = num
-                --        end
-                --    end
-                --    if EntitySerialisationUtils.componentMemberTypes[k] == "boolean" then
-                --        v = toBoolean(v)
-                --    end
-                --    if Utils.IsEmpty(componentId) then
-                --        Logger.warn(Logger.channels.entitySerialisation,
-                --                    ("componentId is empty: %s"):format(componentId))
-                --    elseif Utils.IsEmpty(k) then
-                --        Logger.warn(Logger.channels.entitySerialisation, ("k is empty: %s"):format(k))
-                --    elseif Utils.IsEmpty(v) then
-                --        Logger.warn(Logger.channels.entitySerialisation, ("v is empty: %s"):format(v))
-                --    else
-                --        ComponentSetValue2(componentId, k, v)
-                --    end
-                --else
-                -- If there is anything, we don't track the type of, use the old api function as a fallback
+            local allComponentsPerType = EntityGetComponentIncludingDisabled(entityId, componentType) or {}
+            table.removeByTable(allComponentsPerType, processedComponentIds)                            -- remove already processed components, otherwise next possible match will be used
+            if not table.contains(EntitySerialisationUtils.ignore.byComponentsType, componentType) then --- some components shouldn't be enabled or even added in multiplayer?
+                -- TODO: add 'isOtherMinaInRange' to if
+                local componentId = nil
+                if Utils.IsEmpty(allComponentsPerType) then
+                    componentId = EntityAddComponent2(entityId, componentType)
+                elseif #allComponentsPerType == 1 then
+                    componentId = allComponentsPerType[1]
+                else
+                    for c = 1, #allComponentsPerType do
+                        if EntitySerialisationUtils.componentIdentifier[componentType] then
+                            local compareValue = ComponentGetValue2(allComponentsPerType[c],
+                                EntitySerialisationUtils.componentIdentifier[componentType])
+                            if serializedRootEntity.components[i][EntitySerialisationUtils.componentIdentifier[componentType]] == compareValue then
+                                componentId = allComponentsPerType[c]
+                                break
+                            end
+                        else
+                            if #allComponentsPerType > 1 then
+                                print("for debugging only")
+                                error("No fycking idea how to match components from server to client!", 2)
+                            end
+                            componentId = allComponentsPerType[c]
+                            break
+                        end
+                    end
+                end
+
+                processedComponentIds[i] = componentId
+
                 if Utils.IsEmpty(componentId) then
                     Logger.warn(Logger.channels.entitySerialisation,
-                        ("componentId is empty: %s"):format(componentId))
-                elseif Utils.IsEmpty(k) then
-                    Logger.warn(Logger.channels.entitySerialisation, ("k is empty: %s"):format(k))
-                elseif Utils.IsEmpty(v) then
-                    Logger.warn(Logger.channels.entitySerialisation, ("v is empty: %s"):format(v))
+                        ("componentId must not be nil or empty! '%s' No fycking idea how to match components from server to client!")
+                        :format(componentId))
+                    -- error(
+                    --     ("componentId must not be nil or empty! '%s' No fycking idea how to match components from server to client!")
+                    --     :format(componentId), 2)
                 else
-                    ComponentSetValue(componentId, k, v)
+                    EntitySerialisationUtils.deserializeComponentTags(entityId, componentId,
+                        serializedRootEntity.components[i])
+
+                    for k, v in pairs(serializedRootEntity.components[i]) do
+                        if k ~= "type" and k ~= "_enabled" and k ~= "_tags" then
+                            if Utils.IsEmpty(componentId) then
+                                Logger.warn(Logger.channels.entitySerialisation,
+                                    ("componentId is empty: %s"):format(componentId))
+                            elseif Utils.IsEmpty(k) then
+                                Logger.warn(Logger.channels.entitySerialisation, ("k is empty: %s"):format(k))
+                            elseif Utils.IsEmpty(v) then
+                                --Logger.warn(Logger.channels.entitySerialisation, ("v is empty: %s"):format(v))
+                            else
+                                if table.contains(EntitySerialisationUtils.componentObjectMemberNames, k) then
+                                    for kObj, vObj in pairs(v) do
+                                        ComponentObjectSetValue2(componentId, k, kObj, vObj)
+                                    end
+                                elseif type(v) == "table" then -- if v is a table, we need to use the additional and optional parameters
+                                    ComponentSetValue2(componentId,
+                                        k, v[1], v[2], v[3], v[4], v[5], v[6], v[7], v[8],
+                                        v[9], v[10], v[11], v[12], v[13], v[14], v[15], v[16], v[17], v[18], v[19],
+                                        v[20])
+                                else
+                                    ComponentSetValue2(componentId, k, v)
+                                end
+                            end
+                        end
+                    end
+                    EntitySetComponentIsEnabled(entityId, componentId, componentIsEnabled)
                 end
-                --end
             end
-            EntitySetComponentIsEnabled(entityId, componentId, componentIsEnabled)
         end
     end
 

@@ -18,7 +18,7 @@ local md5         = require("md5")
 ------------------------------------------------------------------------------------------------------------------------
 NetworkCache             = {}
 NetworkCache.cache = {}
-NetworkCache.usingC =  not _G.disableLuaExtensionsDLL
+NetworkCache.usingC = false -- not _G.disableLuaExtensionsDLL
 NetworkCache.set         = function(clientCacheId, networkMessageId, event, status, ackedAt, sendAt, dataChecksum)
     local cpc = CustomProfiler.start("NetworkCache.set")
 

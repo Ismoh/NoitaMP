@@ -27,6 +27,7 @@ else
             --                    :format(functionName))
             return -1
         end
+
         ---@diagnostic disable-next-line: duplicate-set-field
         function CustomProfiler.stop(functionName, customProfilerCounter)
             --Logger.trace(Logger.channels.entity,
@@ -41,12 +42,14 @@ end
 --- EntityCache
 ----------------------------------------
 EntityCache            = {}
-EntityCache.usingC =  not _G.disableLuaExtensionsDLL
-EntityCache.cache = {}
-EntityCache.set        = function(entityId, nuid, ownerGuid, ownerName, filepath, x, y, rotation, velX, velY, currentHealth, maxHealth)
+EntityCache.usingC     = false -- not _G.disableLuaExtensionsDLL
+EntityCache.cache      = {}
+EntityCache.set        = function(entityId, nuid, ownerGuid, ownerName, filepath, x, y, rotation, velX, velY,
+                                  currentHealth, maxHealth)
     local cpc = CustomProfiler.start("EntityCache.set")
     if EntityCache.usingC then
-        return EntityCacheC.set(entityId, nuid, ownerGuid, ownerName, filepath, x, y, rotation, velX, velY, currentHealth, maxHealth)
+        return EntityCacheC.set(entityId, nuid, ownerGuid, ownerName, filepath, x, y, rotation, velX, velY, currentHealth,
+        maxHealth)
     end
     if not EntityCache.cache[entityId] then
         EntityCache.cache[entityId] = {
@@ -69,7 +72,7 @@ end
 
 EntityCache.get        = function(entityId)
     local cpc = CustomProfiler.start("EntityCache.get")
-    if EntityCache.usingC then 
+    if EntityCache.usingC then
         return EntityCacheC.get(entityId)
     end
     if not EntityCache.cache then
@@ -84,17 +87,17 @@ EntityCache.get        = function(entityId)
     return nil
 end
 
-EntityCache.getNuid        = function(nuid)
+EntityCache.getNuid    = function(nuid)
     local cpc = CustomProfiler.start("EntityCache.getNuid")
-    if EntityCache.usingC then 
+    if EntityCache.usingC then
         return EntityCacheC.getNuid(nuid)
     end
     error("EntityCache.getNuid requires the luaExtensions dll to be enabled", 2)
 end
 
 EntityCache.delete     = function(entityId)
-    local cpc             = CustomProfiler.start("EntityCache.delete")
-    if EntityCache.usingC then 
+    local cpc = CustomProfiler.start("EntityCache.delete")
+    if EntityCache.usingC then
         return EntityCacheC.delete(entityId)
     end
     EntityCache.cache[entityId] = nil
@@ -103,7 +106,7 @@ end
 
 EntityCache.deleteNuid = function(nuid)
     local cpc = CustomProfiler.start("EntityCache.deleteNuid")
-    if EntityCache.usingC then 
+    if EntityCache.usingC then
         return EntityCacheC.deleteNuid(nuid)
     end
     for entry in pairs(EntityCache) do
@@ -121,7 +124,7 @@ EntityCache.size       = function()
     return table.size(EntityCache.cache)
 end
 
-EntityCache.usage = function ()
+EntityCache.usage      = function()
     if not EntityCache.usingC then
         error("EntityCache.usage requires the luaExtensions dll to be enabled", 2)
     end
@@ -133,7 +136,8 @@ end
 --- Utils class only for cache of entities.
 EntityCacheUtils       = {}
 
-EntityCacheUtils.set   = function(entityId, nuid, ownerGuid, ownerName, filepath, x, y, rotation, velX, velY, currentHealth, maxHealth)
+EntityCacheUtils.set   = function(entityId, nuid, ownerGuid, ownerName, filepath, x, y, rotation, velX, velY,
+                                  currentHealth, maxHealth)
     if Utils.IsEmpty(entityId) then
         error(("entityId must not be nil or empty!"):format(entityId), 2)
     end
@@ -172,5 +176,5 @@ EntityCacheUtils.set   = function(entityId, nuid, ownerGuid, ownerName, filepath
     end
 
     EntityCache.set(entityId, nuid, ownerGuid, ownerName, filepath, x, y, rotation,
-                    velX, velY, currentHealth, maxHealth)
+        velX, velY, currentHealth, maxHealth)
 end

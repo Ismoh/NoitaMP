@@ -48,6 +48,14 @@
         "command": "luarocks test ${input:luaRocksTestCommand}"
       },
       "problemMatcher": []
+    },
+    {
+      "label": "LDoc generate",
+      "type": "shell",
+      "windows": {
+        "command": "${workspaceFolder}\\mods\\noita-mp\\lua_modules\\bin\\ldoc.bat -v -i --fatalwarnings -a -d ${workspaceFolder}\\docs\\ldoc files\\scripts\\"
+      },
+      "problemMatcher": []
     }
   ],
   "inputs": [

@@ -3,9 +3,9 @@
 -- Naming convention is found here:
 -- http://lua-users.org/wiki/LuaStyleGuide#:~:text=Lua%20internal%20variable%20naming%20%2D%20The,but%20not%20necessarily%2C%20e.g.%20_G%20.
 
-----------------------------------------
+----------------------------------------------------------------------------------------------------
 -- 'Imports'
-----------------------------------------
+----------------------------------------------------------------------------------------------------
 local renderEzgui                 = dofile_once("mods/noita-mp/lua_modules/share/lua/5.1/ezgui/EZGUI.lua").init(
     "mods/noita-mp/lua_modules/share/lua/5.1/ezgui")
 local fu                          = require("FileUtils")
@@ -17,20 +17,19 @@ local fu                          = require("FileUtils")
 ----------------------------------------------------------------------------------------------------
 Ui = {}
 
-----------------------------------------
--- Global private variables:
-----------------------------------------
+----------------------------------------------------------------------------------------------------
+--- Global private variables:
+----------------------------------------------------------------------------------------------------
 local missingModGuiButton1Hovered = false
 local missingModGuiButton2Hovered = false
 local missingModGuiDismissed      = false
-----------------------------------------
--- Global private methods:
-----------------------------------------
+----------------------------------------------------------------------------------------------------
+--- Global private methods:
+----------------------------------------------------------------------------------------------------
 
---- Returns width and height depending on resolution.
+--- Returns width and height depending on resolution. name=value LDoc issue?
 --- GuiGetScreenDimensions( gui:obj ) -> width:number,height:number [Returns dimensions of viewport in the gui coordinate system (which is equal to the coordinates of the screen bottom right corner in gui coordinates). The values returned may change depending on the game resolution because the UI is scaled for pixel-perfect text rendering.]
---- @return number width
---- @return number height
+--- @return number width, number height
 function GetWidthAndHeightByResolution()
     local gui           = GuiCreate()
     local width, height = GuiGetScreenDimensions(gui)

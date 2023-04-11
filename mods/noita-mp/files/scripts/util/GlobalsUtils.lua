@@ -47,8 +47,8 @@ GlobalsUtils.deadNuidsKey       = "deadNuids"
 --- Parses key and value string to nuid and entityId.
 --- @param xmlKey string GlobalsUtils.nuidKeyFormat = "nuid = %s"
 --- @param xmlValue string GlobalsUtils.nuidValueFormat = "entityId = %s"
---- @return number nuid
---- @return number entityId
+--- @return number|nil nuid
+--- @return number|nil entityId
 function GlobalsUtils.parseXmlValueToNuidAndEntityId(xmlKey, xmlValue)
     local cpc = CustomProfiler.start("GlobalsUtils.parseXmlValueToNuidAndEntityId")
     if type(xmlKey) ~= "string" then
@@ -78,7 +78,7 @@ function GlobalsUtils.parseXmlValueToNuidAndEntityId(xmlKey, xmlValue)
         end
     end
 
-    if entityId == nil or entityId == "" then
+    if Utils.IsEmpty(entityId) then
         if _G.whoAmI then
             -- _G.whoAmI can be nil, when executed in Noita Components,
             -- because those does not have access to globals
@@ -94,7 +94,7 @@ end
 function GlobalsUtils.setNuid(nuid, entityId, componentIdForOwnerName, componentIdForOwnerGuid, componentIdForNuid)
     local cpc = CustomProfiler.start("GlobalsUtils.setNuid")
     GlobalsSetValue(GlobalsUtils.nuidKeyFormat:format(nuid),
-                    GlobalsUtils.nuidValueFormat:format(entityId)) -- also change stuff in nuid_updater.lua
+        GlobalsUtils.nuidValueFormat:format(entityId))             -- also change stuff in nuid_updater.lua
     CustomProfiler.stop("GlobalsUtils.setNuid", cpc)
 end
 
@@ -140,14 +140,14 @@ end
 
 --- Builds a key string by nuid and returns nuid and entityId found by the globals.
 --- @param nuid number
---- @return number nuid, number entityId
+--- @return number|nil nuid, number|nil entityId
 function GlobalsUtils.getNuidEntityPair(nuid)
-    local cpc            = CustomProfiler.start("GlobalsUtils.getNuidEntityPair")
-    local key            = GlobalsUtils.nuidKeyFormat:format(nuid)
-    local value          = GlobalsGetValue(key)
-    local nuid, entityId = GlobalsUtils.parseXmlValueToNuidAndEntityId(key, value)
+    local cpc                          = CustomProfiler.start("GlobalsUtils.getNuidEntityPair")
+    local key                          = GlobalsUtils.nuidKeyFormat:format(nuid)
+    local value                        = GlobalsGetValue(key)
+    local nuidGlobals, entityIdGlobals = GlobalsUtils.parseXmlValueToNuidAndEntityId(key, value)
     CustomProfiler.stop("GlobalsUtils.getNuidEntityPair", cpc)
-    return nuid, entityId
+    return nuidGlobals, entityIdGlobals
 end
 
 -- Because of stack overflow errors when loading lua files,

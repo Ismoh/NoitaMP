@@ -1019,7 +1019,7 @@ function Server.new(sockServer)
     --    return sent
     --end
 
-    function self.sendNewNuidSerialized(ownerName, ownerGuid, entityId, serializedEntity)
+    function self.sendNewNuidSerialized(ownerName, ownerGuid, entityId, serializedEntity, nuid)
         local cpc026 = CustomProfiler.start("Server.sendNewNuidSerialized")
 
         if Utils.IsEmpty(ownerName) then
@@ -1034,11 +1034,19 @@ function Server.new(sockServer)
         if Utils.IsEmpty(serializedEntity) then
             error(("serializedEntity must not be nil or empty %s"):format(serializedEntity), 2)
         end
+        if Utils.IsEmpty(nuid) then
+            error(("nuid must not be nil or empty %s"):format(nuid), 2)
+        end
 
         local event = NetworkUtils.events.newNuidSerialized.name
-        local data  = { NetworkUtils.getNextNetworkMessageId(), ownerName, ownerGuid, entityId, serializedEntity }
+        local data  = { NetworkUtils.getNextNetworkMessageId(), ownerName, ownerGuid, entityId, serializedEntity, nuid }
         local sent  = self:sendToAll(event, data)
         CustomProfiler.stop("Server.sendNewNuidSerialized", cpc026)
+
+        -- FOR TESTING ONLY, DO NOT MERGE
+        print(Utils.pformat(data))
+        --os.exit()
+
         return sent
     end
 

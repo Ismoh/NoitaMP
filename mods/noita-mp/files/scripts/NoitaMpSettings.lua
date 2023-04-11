@@ -1,24 +1,16 @@
----
+--- NoitaMpSettings.
 --- Created by Ismoh.
 --- DateTime: 14.02.2023 11:47
----
--- OOP class definition is found here: Closure approach
--- http://lua-users.org/wiki/ObjectOrientationClosureApproach
--- Naming convention is found here:
--- http://lua-users.org/wiki/LuaStyleGuide#:~:text=Lua%20internal%20variable%20naming%20%2D%20The,but%20not%20necessarily%2C%20e.g.%20_G%20.
 
-------------------------------------------------------------------------------------------------------------------------
 --- 'Imports'
-------------------------------------------------------------------------------------------------------------------------
 local fu        = require("FileUtils")
 local lfs       = require("lfs")
 local winapi    = require("winapi")
 local json      = require("json")
 local Utils      = require("Utils")
 
-------------------------------------------------------------------------------------------------------------------------
---- NoitaMpSettings
-------------------------------------------------------------------------------------------------------------------------
+
+-- NoitaMpSettings
 NoitaMpSettings = {}
 
 function NoitaMpSettings.clearAndCreateSettings()

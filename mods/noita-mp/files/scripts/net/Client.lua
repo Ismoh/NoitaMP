@@ -1,41 +1,16 @@
--- OOP class definition is found here: Closure approach
--- http://lua-users.org/wiki/ObjectOrientationClosureApproach
--- Naming convention is found here:
--- http://lua-users.org/wiki/LuaStyleGuide#:~:text=Lua%20internal%20variable%20naming%20%2D%20The,but%20not%20necessarily%2C%20e.g.%20_G%20.
+--- Client.
+--- @type Client
+Client            = {}
 
-----------------------------------------
 --- 'Imports'
-----------------------------------------
 local sock        = require("sock")
 local Utils        = require("Utils")
 local zstandard   = require("zstd")
 local messagePack = require("MessagePack")
 local fu          = require("FileUtils")
 
-----------------------------------------------------------------------------------------------------
---- Client
----@type Client
-----------------------------------------------------------------------------------------------------
-Client            = {}
-----------------------------------------
--- Global private variables:
-----------------------------------------
 
-----------------------------------------
--- Global private methods:
-----------------------------------------
-
-----------------------------------------
--- Access to global private variables
-----------------------------------------
-
-----------------------------------------
--- Global public variables:
-----------------------------------------
-
-----------------------------------------------------------------------------------------------------
---- Client constructor
-----------------------------------------------------------------------------------------------------
+--- Client constructor.
 --- Creates a new instance of client 'class'.
 --- @param sockClient table sock.lua#newClient
 --- @return Client Client
@@ -43,13 +18,6 @@ function Client.new(sockClient)
     local cpc               = CustomProfiler.start("Client.new")
     local self              = sockClient
     ---@cast self Client
-    ------------------------------------
-    --- Private variables:
-    ------------------------------------
-
-    ------------------------------------
-    --- Public variables:
-    ------------------------------------
     self.iAm                = "CLIENT"
     self.name               = tostring(ModSettingGet("noita-mp.name"))
     -- guid might not be set here or will be overwritten at the end of the constructor. @see setGuid
@@ -63,13 +31,8 @@ function Client.new(sockClient)
     self.missingMods        = nil
     self.requiredMods       = nil
     self.syncedMods         = false
-    ------------------------------------
-    --- Private methods:
-    ------------------------------------
 
-    ------------------------------------------------------------------------------------------------
     --- Set clients settings
-    ------------------------------------------------------------------------------------------------
     local function setConfigSettings()
         local cpc1        = CustomProfiler.start("Client.setConfigSettings")
         local serialize   = function(anyValue)
@@ -111,9 +74,8 @@ function Client.new(sockClient)
         CustomProfiler.stop("Client.setConfigSettings", cpc1)
     end
 
-    ------------------------------------------------------------------------------------------------
+    
     --- Set clients guid
-    ------------------------------------------------------------------------------------------------
     local function setGuid()
         local cpc1  = CustomProfiler.start("Client.setGuid")
         local cpc25 = CustomProfiler.start("ModSettingGetNextValue")
@@ -137,9 +99,8 @@ function Client.new(sockClient)
         CustomProfiler.stop("Client.setGuid", cpc1)
     end
 
-    ------------------------------------------------------------------------------------------------
+    
     --- Send acknowledgement
-    ------------------------------------------------------------------------------------------------
     local function sendAck(networkMessageId, event)
         local cpc2 = CustomProfiler.start("Client.sendAck")
         if not event then
@@ -151,9 +112,8 @@ function Client.new(sockClient)
         CustomProfiler.stop("Client.sendAck", cpc2)
     end
 
-    ------------------------------------------------------------------------------------------------
+    
     --- onAcknowledgement
-    ------------------------------------------------------------------------------------------------
     local function onAcknowledgement(data)
         local cpc3 = CustomProfiler.start("Client.onAcknowledgement")
         Logger.debug(Logger.channels.network, "onAcknowledgement: Acknowledgement received.", Utils.pformat(data))
@@ -203,9 +163,8 @@ function Client.new(sockClient)
         CustomProfiler.stop("Client.onAcknowledgement", cpc3)
     end
 
-    ------------------------------------------------------------------------------------------------
+    
     --- onConnect
-    ------------------------------------------------------------------------------------------------
     --- Callback when connected to server.
     --- @param data number not in use atm
     local function onConnect(data)
@@ -559,13 +518,21 @@ function Client.new(sockClient)
             error(("onNewNuidSerialized data.serializedEntity is empty: %s"):format(data.serializedEntity), 2)
         end
 
+        if Utils.IsEmpty(data.nuid) then
+            error(("onNewNuidSerialized data.nuid is empty: %s"):format(data.nuid), 2)
+        end
+
+         -- FOR TESTING ONLY, DO NOT MERGE
+         print(Utils.pformat(data))
+         --os.exit()
+
         --if ownerGuid == MinaUtils.getLocalMinaInformation().guid then
         --    if entityId == MinaUtils.getLocalMinaInformation().entityId then
         --        self.nuid = newNuid
         --    end
         --end
 
-        EntitySerialisationUtils.deserializeEntireRootEntity(data.serializedEntity)
+        EntitySerialisationUtils.deserializeEntireRootEntity(data.serializedEntity, data.nuid)
 
         sendAck(data.networkMessageId, NetworkUtils.events.newNuidSerialized.name)
         CustomProfiler.stop("Client.onNewNuidSerialized", cpc32)
