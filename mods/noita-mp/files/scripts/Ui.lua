@@ -1,35 +1,27 @@
--- OOP class definition is found here: Closure approach
--- http://lua-users.org/wiki/ObjectOrientationClosureApproach
--- Naming convention is found here:
--- http://lua-users.org/wiki/LuaStyleGuide#:~:text=Lua%20internal%20variable%20naming%20%2D%20The,but%20not%20necessarily%2C%20e.g.%20_G%20.
-
-----------------------------------------------------------------------------------------------------
--- 'Imports'
-----------------------------------------------------------------------------------------------------
-local renderEzgui                 = dofile_once("mods/noita-mp/lua_modules/share/lua/5.1/ezgui/EZGUI.lua").init(
-    "mods/noita-mp/lua_modules/share/lua/5.1/ezgui")
-local fu                          = require("FileUtils")
-
-----------------------------------------------------------------------------------------------------
---- Ui
+--- Ui: NoitaMP UI.
 --- @see PlayerList.xml
 --- @see FoldingMenu.xml
-----------------------------------------------------------------------------------------------------
-Ui = {}
+Ui                = {}
 
-----------------------------------------------------------------------------------------------------
+-- 'Imports'
+local renderEzgui = dofile_once("mods/noita-mp/lua_modules/share/lua/5.1/ezgui/EZGUI.lua").init(
+    "mods/noita-mp/lua_modules/share/lua/5.1/ezgui")
+local fu          = require("FileUtils")
+
+
 --- Global private variables:
-----------------------------------------------------------------------------------------------------
+
 local missingModGuiButton1Hovered = false
 local missingModGuiButton2Hovered = false
 local missingModGuiDismissed      = false
-----------------------------------------------------------------------------------------------------
---- Global private methods:
-----------------------------------------------------------------------------------------------------
 
---- Returns width and height depending on resolution. name=value LDoc issue?
+--- Global private methods:
+
+
+--- Returns width and height depending on resolution.
 --- GuiGetScreenDimensions( gui:obj ) -> width:number,height:number [Returns dimensions of viewport in the gui coordinate system (which is equal to the coordinates of the screen bottom right corner in gui coordinates). The values returned may change depending on the game resolution because the UI is scaled for pixel-perfect text rendering.]
---- @return number width, number height
+--- @return number width
+--- @return number height
 function GetWidthAndHeightByResolution()
     local gui           = GuiCreate()
     local width, height = GuiGetScreenDimensions(gui)
@@ -38,35 +30,34 @@ function GetWidthAndHeightByResolution()
     return width / 2, height / 2
 end
 
-----------------------------------------
 -- Access to global private variables
-----------------------------------------
 
-----------------------------------------
+
+
 -- Global public variables:
-----------------------------------------
 
-----------------------------------------------------------------------------------------------------
+
+
 --- Ui constructor
-----------------------------------------------------------------------------------------------------
+
 function Ui.new()
     local self = {}
 
-    ------------------------------------
-    -- Private variables:
-    ------------------------------------
-    local debug           = false -- DebugGetIsDevBuild()
-    local foldingOpen     = false
-    local showAddress     = false
-    local width, height   = GetWidthAndHeightByResolution()
-    local menuWidth       = 241
-    local menuHeight      = 113
-    local x               = -menuWidth
-    local y               = height - menuHeight - 10
 
-    ------------------------------------
+    -- Private variables:
+
+    local debug         = false -- DebugGetIsDevBuild()
+    local foldingOpen   = false
+    local showAddress   = false
+    local width, height = GetWidthAndHeightByResolution()
+    local menuWidth     = 241
+    local menuHeight    = 113
+    local x             = -menuWidth
+    local y             = height - menuHeight - 10
+
+
     -- Public variables:
-    ------------------------------------
+
     self.ezguiFoldingData = {
         data    = {
             text = "",
@@ -141,9 +132,9 @@ function Ui.new()
     }
 
 
-    ------------------------------------
+
     -- Private methods:
-    ------------------------------------
+
 
     --- Draws [+ NoitaMP] or [- NoitaMP]
     local function drawFolding()
@@ -207,7 +198,12 @@ function Ui.new()
                 player[i].name      = string.ExtendOrCutStringToLength(player[i].name, 12, ".", true)
                 player[i].health    = { current = i, max = 2 }
                 player[i].transform = { x = 123, y = 12334 }
-                player[i].rtt       = player[i]:getRoundTripTime()
+                local getRoundTripTime = player[i].getRoundTripTime
+                if not Utils.IsEmpty(getRoundTripTime) then
+                    player[i].rtt       = player[i]:getRoundTripTime()
+                else
+                    player[i].rtt       = "?"
+                end
             end
         end
         self.ezguiMenuData.data.player = player
@@ -317,13 +313,44 @@ function Ui.new()
         end
     end
 
-    ------------------------------------
+    local function drawMinaPositions()
+        if whoAmI() == Client.iAm then
+            local otherMinas = Client.otherClients or {}
+            if Utils.IsEmpty(Client.serverInfo) then
+                return
+            end
+            otherMinas[#otherMinas + 1] = Client.serverInfo
+
+            gui = gui or GuiCreate()
+            GuiStartFrame(gui)
+            GuiIdPushString(gui, "minaPositions")
+            --local npID = 2
+            local x = 100
+            local y = 100
+            local w = nil
+            GuiZSet(gui, 101)
+            for _, mina in ipairs(otherMinas) do
+                local text = ("%s: %s/%s, x %s, y %s")
+                    :format(mina.name, mina.currentHealth, mina.maxHealth, mina.x, mina.y)
+                GuiText(gui, 75, y, text)
+                do
+                    local msgW, msgH = GuiGetTextDimensions(gui, text)
+                    w                = msgW
+                    y                = y + msgH
+                end
+                GuiZSetForNextWidget(gui, 111)
+                --GuiImageNinePiece(gui, npID, 73, 73, w + 3, y - 71)
+            end
+        end
+    end
+
     -- Public methods:
-    ------------------------------------
+
     function self.update()
         drawFolding()
         drawMenu()
         drawModConflictWarning()
+        drawMinaPositions()
         if EntityCache.size() >= EntityUtils.maxPoolSize then
             gui = gui or GuiCreate()
             GuiStartFrame(gui)
@@ -333,9 +360,8 @@ function Ui.new()
         end
     end
 
-    ------------------------------------
     -- Apply some private methods
-    ------------------------------------
+
 
 
     return self

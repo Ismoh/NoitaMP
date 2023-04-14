@@ -1,3 +1,4 @@
+--- testingroom.lua
 dofile_once("data/scripts/biome_scripts.lua")
 
 RegisterSpawnFunction(0xffffeedd, "init")

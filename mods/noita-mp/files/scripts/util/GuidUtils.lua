@@ -2,15 +2,15 @@ local Utils   = require("Utils")
 local socket = require("socket")
 local uuid   = require("uuid")
 
-------------------------------------------------------------------------------------------------------------------------
---- 'Imports'
-------------------------------------------------------------------------------------------------------------------------
 
-------------------------------------------------------------------------------------------------------------------------
+--- 'Imports'
+
+
+
 --- When NoitaComponents are accessing this file, they are not able to access the global variables defined in this file.
 --- Therefore, we need to redefine the global variables which we don't have access to, because of NoitaAPI restrictions.
 --- This is done by the following code:
-------------------------------------------------------------------------------------------------------------------------
+
 if require then
     if not CustomProfiler then
         require("CustomProfiler")
@@ -30,9 +30,9 @@ else
     end
 end
 
-------------------------------------------------------------------------------------------------------------------------
+
 --- GuidUtils
-------------------------------------------------------------------------------------------------------------------------
+
 local GuidUtils = {
     cached_guid = {},
 }

@@ -3,15 +3,15 @@
 -- Naming convention is found here:
 -- http://lua-users.org/wiki/LuaStyleGuide#:~:text=Lua%20internal%20variable%20naming%20%2D%20The,but%20not%20necessarily%2C%20e.g.%20_G%20.
 
-------------------------------------------------------------------------------------------------------------------------
---- 'Imports'
-------------------------------------------------------------------------------------------------------------------------
 
-------------------------------------------------------------------------------------------------------------------------
+--- 'Imports'
+
+
+
 --- When NoitaComponents are accessing this file, they are not able to access the global variables defined in this file.
 --- Therefore, we need to redefine the global variables which we don't have access to, because of NoitaAPI restrictions.
 --- This is done by the following code:
-------------------------------------------------------------------------------------------------------------------------
+
 if require then
     if not CustomProfiler then
         require("CustomProfiler")
@@ -31,9 +31,7 @@ else
     end
 end
 
------------------
 --- GlobalsUtils:
------------------
 --- class for GlobalsSetValue and GlobalsGetValue
 GlobalsUtils                    = {}
 

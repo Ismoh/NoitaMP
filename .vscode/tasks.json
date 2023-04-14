@@ -34,6 +34,14 @@
       "problemMatcher": []
     },
     {
+      "label": "LuaRocks remove {packagename}",
+      "type": "shell",
+      "windows": {
+        "command": "luarocks remove ${input:luaRocksInstallPackageName}"
+      },
+      "problemMatcher": []
+    },
+    {
       "label": "LuaRocks install or update dependencies",
       "type": "shell",
       "windows": {
@@ -50,10 +58,10 @@
       "problemMatcher": []
     },
     {
-      "label": "LDoc generate",
+      "label": "Generate Lua docs",
       "type": "shell",
       "windows": {
-        "command": "${workspaceFolder}\\mods\\noita-mp\\lua_modules\\bin\\ldoc.bat -v -i --fatalwarnings -a -d ${workspaceFolder}\\docs\\ldoc files\\scripts\\"
+        "command": "C: && cd ${userHome}\\.vscode\\extensions\\sumneko.lua-3.6.18-win32-x64\\server\\bin\\lua-language-server.exe --loglevel=trace --doc \"${workspaceFolder}\\mods\\noita-mp\\files\\scripts\\extensions\\tableExtensions.lua\""
       },
       "problemMatcher": []
     }

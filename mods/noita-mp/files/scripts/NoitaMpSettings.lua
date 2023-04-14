@@ -1,6 +1,6 @@
---- NoitaMpSettings.
---- Created by Ismoh.
---- DateTime: 14.02.2023 11:47
+--- NoitaMpSettings: Replacement for Noita ModSettings.
+-- @classmod NoitaMpSettings
+NoitaMpSettings = {}
 
 --- 'Imports'
 local fu        = require("FileUtils")
@@ -9,9 +9,6 @@ local winapi    = require("winapi")
 local json      = require("json")
 local Utils      = require("Utils")
 
-
--- NoitaMpSettings
-NoitaMpSettings = {}
 
 function NoitaMpSettings.clearAndCreateSettings()
     local cpc         = CustomProfiler.start("NoitaMpSettings.clearAndCreateSettings")

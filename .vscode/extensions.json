@@ -1,6 +1,7 @@
 {
     "recommendations": [
         "esbenp.prettier-vscode",
-        "nvquangqui.darcula-intellij-theme-for-dart"
+        "nvquangqui.darcula-intellij-theme-for-dart",
+        "sumneko.lua"
     ]
 }

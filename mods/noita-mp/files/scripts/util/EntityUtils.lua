@@ -3,16 +3,16 @@
 -- Naming convention is found here:
 -- http://lua-users.org/wiki/LuaStyleGuide#:~:text=Lua%20internal%20variable%20naming%20%2D%20The,but%20not%20necessarily%2C%20e.g.%20_G%20.
 
-----------------------------------------
+
 --- 'Imports'
-----------------------------------------
+
 dofile("mods/noita-mp/config.lua")
 
-------------------------------------------------------------------------------------------------------------------------
+
 --- When NoitaComponents are accessing this file, they are not able to access the global variables defined in this file.
 --- Therefore, we need to redefine the global variables which we don't have access to, because of NoitaAPI restrictions.
 --- This is done by the following code:
-------------------------------------------------------------------------------------------------------------------------
+
 if require then
     Utils = require("Utils")
 else
@@ -67,15 +67,15 @@ else
     end
 end
 
-------------------------------------------------------------------------------------------------------------------------
+
 --- @see config.lua
-------------------------------------------------------------------------------------------------------------------------
+
 if not EntityUtils then
     EntityUtils = {}
 end
 
 --- Contains all entities, which are alive
-EntityUtils.aliveEntityIds = {}
+EntityUtils.aliveEntityIds = { -1 }
 
 --- Contains the highest alive entity id
 EntityUtils.previousHighestAliveEntityId = 1
@@ -92,29 +92,50 @@ end
 
 --- Make sure this is only be executed once in OnWorldPREUpdate!
 OnEntityLoaded = function()
-    for i = 1, getHighestAliveEntityId() + 10 do
+    local cpc = CustomProfiler.start("EntityUtils.OnEntityLoaded")
+    for i, value in ipairs(EntityUtils.aliveEntityIds) do
         local entityId = EntityUtils.aliveEntityIds[i]
-        if Utils.IsEmpty(entityId) then
+        if Utils.IsEmpty(entityId) or entityId <= 0 then
             entityId = i
         end
 
-        entityId = EntityGetRootEntity(entityId)
-
-        if EntityGetIsAlive(entityId) and
-            not table.contains(EntityUtils.aliveEntityIds, entityId) -- Entity isn't in the aliveEntityIds list already
-        then
-            EntityUtils.aliveEntityIds[i] = entityId
-            EntityUtils.previousHighestAliveEntityId = entityId
-
-            -- Add NoitaMP Variable Storage Components
-            local hasNuid, nuid = NetworkVscUtils.hasNuidSet(entityId)
-            if not hasNuid and Server.amIServer() then
-                nuid = NuidUtils.getNextNuid()
+        if not Utils.IsEmpty(entityId) and EntityGetIsAlive(entityId) then
+            if entityId > EntityUtils.previousHighestAliveEntityId then
+                EntityUtils.previousHighestAliveEntityId = entityId
             end
-            local spawnX, spawnY = EntityGetTransform(entityId)
-            NetworkVscUtils.addOrUpdateAllVscs(entityId, MinaUtils.getLocalMinaName(), MinaUtils.getLocalMinaGuid(), nuid, spawnX, spawnY)
+            if EntityUtils.aliveEntityIds[i] == -1 then
+                EntityUtils.aliveEntityIds[i] = nil -- get rid of pseudo entityId -1
+            end
+            entityId = EntityGetRootEntity(entityId)
+
+            if EntityGetIsAlive(entityId) and
+                not table.contains(EntityUtils.aliveEntityIds, entityId) -- Entity isn't in the aliveEntityIds list already
+            then
+                EntityUtils.aliveEntityIds[i] = entityId                 -- only store root entityIds here
+                if entityId > EntityUtils.previousHighestAliveEntityId then
+                    EntityUtils.previousHighestAliveEntityId = entityId
+                end
+
+                -- Add NoitaMP Variable Storage Components
+                local hasNuid, nuid = NetworkVscUtils.hasNuidSet(entityId)
+                if not hasNuid and Server.amIServer() then
+                    nuid = NuidUtils.getNextNuid()
+                end
+                local spawnX, spawnY = EntityGetTransform(entityId)
+                NetworkVscUtils.addOrUpdateAllVscs(entityId, MinaUtils.getLocalMinaName(), MinaUtils.getLocalMinaGuid(), nuid, spawnX, spawnY)
+            end
+        else
+            EntityUtils.aliveEntityIds[i] = nil -- get rid of pseudo entityId -1
+        end
+
+        -- fake new entityIds by adding indices, to fetch possible new entities as soon as possible!
+        if i <= EntityUtils.previousHighestAliveEntityId + 1 then
+            if EntityUtils.aliveEntityIds[i + 1] == nil then
+                EntityUtils.aliveEntityIds[i + 1] = -1
+            end
         end
     end
+    CustomProfiler.stop("EntityUtils.OnEntityLoaded", cpc)
 end
 
 --- Make sure this is onlt be executed once in OnWorldPOSTUpdate!
@@ -192,13 +213,13 @@ local function getParentsUntilRootEntity(who, entityId)
     return parentNuids
 end
 
-----------------------------------------
---- public global methods:
-----------------------------------------
 
-------------------------------------------------------------------------------------------------
+--- public global methods:
+
+
+
 --- isEntityPolymorphed
-------------------------------------------------------------------------------------------------
+
 --- Checks if a specific entity is polymorphed.
 --- @param entityId number
 function EntityUtils.isEntityPolymorphed(entityId)
@@ -215,10 +236,9 @@ function EntityUtils.isEntityPolymorphed(entityId)
     return false
 end
 
-------------------------------------------------------------------------------------------------
 -- TODO: Rework this by adding and updating entityId to Server.entityId and Client.entityId! Dont forget polymorphism!
 --- isRemoteMinae
-------------------------------------------------------------------------------------------------
+
 function EntityUtils.isRemoteMinae(entityId)
     local cpc = CustomProfiler.start("EntityUtils.isRemoteMinae")
     if not EntityUtils.isEntityAlive(entityId) then
@@ -257,9 +277,8 @@ function EntityUtils.isRemoteMinae(entityId)
     return false
 end
 
-------------------------------------------------------------------------------------------------
 --- isEntityAlive
-------------------------------------------------------------------------------------------------
+
 --- Looks like there were access to removed entities, which might cause game crashing.
 --- Use this function whenever you work with entity_id/entityId to stop client game crashing.
 --- @param entityId number Id of any entity.
@@ -275,9 +294,8 @@ function EntityUtils.isEntityAlive(entityId)
     return false
 end
 
-------------------------------------------------------------------------------------------------
 --- processAndSyncEntityNetworking
-------------------------------------------------------------------------------------------------
+
 local prevEntityIndex = 1
 function EntityUtils.processAndSyncEntityNetworking()
     local start            = GameGetRealWorldTimeSinceStarted() * 1000
@@ -290,8 +308,9 @@ function EntityUtils.processAndSyncEntityNetworking()
     local entityIds        = EntityGetInRadius(playerX, playerY, radius)
     local playerEntityIds  = {}
 
-    ----[[ Make sure child entities are already added to the entityIds list
-    -- otherwise nuid isn't set when extracting parents. ]]--
+    --[[ Make sure child entities are already added to the entityIds list
+    -- otherwise nuid isn't set when extracting parents. ]]
+                                                            --
     --for i = 1, #entityIds do
     --    local childEntityIds = EntityGetAllChildren(entityIds[i])
     --    if not util.IsEmpty(childEntityIds) then
@@ -388,7 +407,7 @@ function EntityUtils.processAndSyncEntityNetworking()
             local exclude     = true
             local filename    = EntityGetFilename(entityId)
             local cachedValue = EntityCache.get(entityId)
-            ---- if already in cache, ignore it, because it was already processed
+            -- if already in cache, ignore it, because it was already processed
             --if cachedValue and cachedValue.entityId == entityId then
             --    exclude = false
             --else
@@ -483,7 +502,8 @@ function EntityUtils.processAndSyncEntityNetworking()
                 local changed = false
                 --local compOwnerName, compOwnerGuid, compNuid, filenameUnused, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
 
-                ----[[ Entity is new and not in cache, that's why cachedValue is nil ]]--
+                --[[ Entity is new and not in cache, that's why cachedValue is nil ]]
+                                                                                      --
                 --if cachedValue == nil then
                 --    if who == Server.iAm then
                 --        if not nuid then
@@ -493,8 +513,8 @@ function EntityUtils.processAndSyncEntityNetworking()
                 --                NetworkVscUtils.addOrUpdateAllVscs(entityId, compOwnerName, compOwnerGuid, nuid)
                 --            end
                 --        end
-                --        ---- TODO: check if entityId has parents and if so, send them too. How many parents?
-                --        ---- TODO: EntityGetParent(entityId) returns 0, if there is no parent
+                --         TODO: check if entityId has parents and if so, send them too. How many parents?
+                --         TODO: EntityGetParent(entityId) returns 0, if there is no parent
                 --        --local parents = getParentsUntilRootEntity(who, entityId)
                 --        --Server.sendNewNuid({ compOwnerName, compOwnerGuid }, entityId, nuid, x, y, rotation, velocity,
                 --        --                   filename,
@@ -547,9 +567,8 @@ function EntityUtils.processAndSyncEntityNetworking()
     CustomProfiler.stop("EntityUtils.processAndSyncEntityNetworking", cpc)
 end
 
-------------------------------------------------------------------------------------------------
 --- spawnEntity
-------------------------------------------------------------------------------------------------
+
 --- Spawns an entity and applies the transform and velocity to it. Also adds the network_component.
 --- @param owner EntityOwner
 --- @param nuid number
@@ -609,9 +628,8 @@ function EntityUtils.spawnEntity(owner, nuid, x, y, rotation, velocity, filename
     return entityId
 end
 
-------------------------------------------------------------------------------------------------
 --- syncDeadNuids
-------------------------------------------------------------------------------------------------
+
 --- Synchronises the dead nuids between server and client.
 function EntityUtils.syncDeadNuids()
     local cpc       = CustomProfiler.start("EntityUtils.syncDeadNuids")
@@ -623,9 +641,8 @@ function EntityUtils.syncDeadNuids()
     CustomProfiler.stop("EntityUtils.syncDeadNuids", cpc)
 end
 
-------------------------------------------------------------------------------------------------
 --- destroyByNuid
-------------------------------------------------------------------------------------------------
+
 --- Destroys the entity by the given nuid.
 --- @param nuid number The nuid of the entity.
 function EntityUtils.destroyByNuid(peer, nuid)
@@ -675,9 +692,8 @@ function EntityUtils.destroyByNuid(peer, nuid)
     CustomProfiler.stop("EntityUtils.destroyByNuid", cpc)
 end
 
-------------------------------------------------------------------------------------------------
 --- addOrChangeDetectionRadiusDebug
-------------------------------------------------------------------------------------------------
+
 --- Simply adds a ugly debug circle around the player to visualize the detection radius.
 function EntityUtils.addOrChangeDetectionRadiusDebug(player_entity)
     local cpc              = CustomProfiler.start("EntityUtils.addOrChangeDetectionRadiusDebug")
@@ -743,16 +759,15 @@ function EntityUtils.addOrChangeDetectionRadiusDebug(player_entity)
     CustomProfiler.stop("EntityUtils.addOrChangeDetectionRadiusDebug", cpc)
 end
 
-------------------------------------------------------------------------------------------------
 --- 'Class' in Lua Globals
-------------------------------------------------------------------------------------------------
+
 --- Because of stack overflow errors when loading lua files,
 --- I decided to put Utils 'classes' into globals
 _G.EntityUtils = EntityUtils
 
-------------------------------------------------------------------------------------------------
+
 --- 'Class' as module return value
-------------------------------------------------------------------------------------------------
+
 --- But still return for Noita Components,
 --- which does not have access to _G,
 --- because of own context/vm

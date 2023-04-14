@@ -1,22 +1,19 @@
----
+--- EntitySerialisationUtils: Utils class only for serialisation of entities.
+EntitySerialisationUtils = {}
+
 --- Created by Ismoh-PC.
 --- DateTime: 25.02.2023 15:47
 ---
--- OOP class definition is found here: Closure approach
--- http://lua-users.org/wiki/ObjectOrientationClosureApproach
--- Naming convention is found here:
--- http://lua-users.org/wiki/LuaStyleGuide#:~:text=Lua%20internal%20variable%20naming%20%2D%20The,but%20not%20necessarily%2C%20e.g.%20_G%20.
 
-----------------------------------------
+
 --- 'Imports'
-----------------------------------------
 
 
-------------------------------------------------------------------------------------------------------------------------
+
+
 --- When NoitaComponents are accessing this file, they are not able to access the global variables defined in this file.
 --- Therefore, we need to redefine the global variables which we don't have access to, because of NoitaAPI restrictions.
 --- This is done by the following code:
-------------------------------------------------------------------------------------------------------------------------
 if require then
     Utils = require("Utils")
 else
@@ -45,11 +42,6 @@ else
     end
 end
 
-----------------------------------------
---- EntitySerialisationUtils
-----------------------------------------
---- Utils class only for serialisation of entities.
-EntitySerialisationUtils                            = {}
 
 --- It can happen, that there are more than on component per type.
 --- Then we need to know how to determine those.
@@ -57,10 +49,10 @@ EntitySerialisationUtils                            = {}
 EntitySerialisationUtils.componentIdentifier        = {
     AudioComponent = "event_root",
     AudioLoopComponent = "event_name",
-    --HitboxComponent = "?",
     HotspotComponent = "sprite_hotspot_name",
     ItemComponent = "mItemUid",
     LuaComponent = "script_source_file",
+    MagicConvertMaterialComponent = "from_material",
     ParticleEmitterComponent = "emitted_material_name",
     SpriteComponent = "image_file",
     SpriteOffsetAnimatorComponent = "sprite_id",
@@ -711,6 +703,9 @@ EntitySerialisationUtils.deserializeEntityComponents = function(entityId, serial
                                 --Logger.warn(Logger.channels.entitySerialisation, ("v is empty: %s"):format(v))
                             else
                                 if table.contains(EntitySerialisationUtils.componentObjectMemberNames, k) then
+                                    if k == "impl_position" or k == "delay" or k == "physics_explosion_power" then
+                                        print("ASDASDGFFGDSG")
+                                    end
                                     for kObj, vObj in pairs(v) do
                                         ComponentObjectSetValue2(componentId, k, kObj, vObj)
                                     end

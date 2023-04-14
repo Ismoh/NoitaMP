@@ -50,12 +50,24 @@ end
 
 EntitySerialisationUtils.ignore      = {
     --- Components listed in byComponentsName will be ignored in serialisation
-    byComponentsType = { "CharacterDataComponent", "CharacterPlatformingComponent", "ControlsComponent",
-        "Inventory2Component", "InventoryGuiComponent", "WalletComponent",
-        "AIComponent", "AdvancedFishAIComponent", "AnimalAIComponent", "ControllerGoombaAIComponent", "FishAIComponent",
-        "PhysicsAIComponent", "WormAIComponent",
+    byComponentsType = {
+        "AdvancedFishAIComponent",
+        "AIComponent",
+        "AnimalAIComponent",
+        "CharacterDataComponent",
+        "CharacterPlatformingComponent",
+        "ControllerGoombaAIComponent",
+        "ControlsComponent",
+        "FishAIComponent",
         "HitboxComponent", -- Unable to determine HitboxComponents by values, if there are more than one, everyone could match?
         "HotspotComponent", -- Unable to determine HotspotComponent by values, if there are more than one, everyone could match?
+        "Inventory2Component",
+        "InventoryGuiComponent",
+        "LightComponent", -- Unable to determine LightComponent by values, if there are more than one, everyone could match?
+        "MATERIAL",
+        "PhysicsAIComponent",
+        "WalletComponent",
+        "WormAIComponent",
     },
     --- Entities with the name listed in byEntityName will be ignored in serialisation
     byEntityName     = { "cape" },

@@ -3,15 +3,12 @@
 -- Naming convention is found here:
 -- http://lua-users.org/wiki/LuaStyleGuide#:~:text=Lua%20internal%20variable%20naming%20%2D%20The,but%20not%20necessarily%2C%20e.g.%20_G%20.
 
-----------------------------------------
+
 --- 'Imports'
-----------------------------------------
 local fu        = require("FileUtils")
 local nxml      = require("nxml")
 
------------------
 --- NuidUtils:
------------------
 --- class for getting the current network unique identifier
 NuidUtils       = {}
 

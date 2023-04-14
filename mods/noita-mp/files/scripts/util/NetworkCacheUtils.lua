@@ -7,15 +7,15 @@
 -- Naming convention is found here:
 -- http://lua-users.org/wiki/LuaStyleGuide#:~:text=Lua%20internal%20variable%20naming%20%2D%20The,but%20not%20necessarily%2C%20e.g.%20_G%20.
 
-------------------------------------------------------------------------------------------------------------------------
+
 --- 'Imports'
-------------------------------------------------------------------------------------------------------------------------
+
 local Utils        = require("Utils")
 local md5         = require("md5")
 
-------------------------------------------------------------------------------------------------------------------------
+
 --- NetworkCache
-------------------------------------------------------------------------------------------------------------------------
+
 NetworkCache             = {}
 NetworkCache.cache = {}
 NetworkCache.usingC = false -- not _G.disableLuaExtensionsDLL
@@ -182,9 +182,9 @@ NetworkCache.clear       = function(clientCacheId)
     NetworkCache.cache[clientCacheId] = nil
 end
 
-------------------------------------------------------------------------------------------------------------------------
+
 --- NetworkCacheUtils
-------------------------------------------------------------------------------------------------------------------------
+
 NetworkCacheUtils        = {}
 
 function NetworkCacheUtils.getSum(event, data)

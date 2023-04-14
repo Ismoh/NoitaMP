@@ -8,28 +8,13 @@
 table.contains    = function(tbl, key)
     if Utils.IsEmpty(tbl) then
         return false, -1
-        --error(("tbl must not be empty or nil '%s'"):format(Utils.pformat(tbl)), 2)
     end
     if Utils.IsEmpty(key) then
-        --Logger.warn(Logger.channels.general, ("key is empty '%s':'%s'"):format(Utils.pformat(tbl), key))
         return false, -1
     end
-    for i = 1, #tbl do
-        -- better performance? Yes reduced load from 111 to 80.
-        local v = tbl[i]
+    for k, v in pairs(tbl) do
         if v == key then
-            return true, i
-        end
-        --if type(v) == "string" and string.contains(v, key) then
-        --    return true, i
-        --end
-        if type(v) == "string" and type(key) == "string" and v:lower() == key:lower() then
-            return true, i
-        end
-    end
-    for index, value in ipairs(tbl) do
-        if value == key then
-            return true, index
+            return true, k
         end
     end
     return false, -1
@@ -253,7 +238,7 @@ function table.contentToString(tbl)
     return str
 end
 
-------------------------------------------------------------------------------------------------------------------------
+
 --[[ deepcopy.lua
 
     Deep-copy function for Lua - v0.2
@@ -264,7 +249,7 @@ end
       - Maintains common upvalues between copied functions (for Lua 5.2 only)
 
     TODO
-    ----
+    --
       - Document usage (properly) and provide examples
       - Implement handling of LuaJIT FFI ctypes
       - Provide option to only set metatables, not copy (as if they were
@@ -276,7 +261,7 @@ end
       - Handle C functions
 
     Usage
-    -----
+    --
         copy = table.deecopy(orig)
         copy = table.deecopy(orig, params, customcopyfunc_list)
 
@@ -324,7 +309,7 @@ end
     string keys prefixed with a single underscore are reserved.
 
     License
-    -------
+    --
     Copyright (C) 2012 Declan White
 
     Permission is hereby granted, free of charge, to any person obtaining a
@@ -690,6 +675,6 @@ do
         end
     end
 end
-------------------------------------------------------------------------------------------------------------------------
+
 
 return table

@@ -1,13 +1,15 @@
----
+--- EntityCache.
+EntityCache = {}
+
 --- Created by Ismoh
 --- DateTime: 06.03.2023 14:03
 ---
 
-------------------------------------------------------------------------------------------------------------------------
+
 --- When NoitaComponents are accessing this file, they are not able to access the global variables defined in this file.
 --- Therefore, we need to redefine the global variables which we don't have access to, because of NoitaAPI restrictions.
 --- This is done by the following code:
-------------------------------------------------------------------------------------------------------------------------
+
 if require then
     if not Utils then
         Utils = require("Utils")
@@ -38,10 +40,6 @@ else
     end
 end
 
-----------------------------------------
---- EntityCache
-----------------------------------------
-EntityCache            = {}
 EntityCache.usingC     = false -- not _G.disableLuaExtensionsDLL
 EntityCache.cache      = {}
 EntityCache.set        = function(entityId, nuid, ownerGuid, ownerName, filepath, x, y, rotation, velX, velY,
@@ -130,9 +128,8 @@ EntityCache.usage      = function()
     end
     return EntityCacheC.usage()
 end
-----------------------------------------
+
 --- EntityCacheUtils
-----------------------------------------
 --- Utils class only for cache of entities.
 EntityCacheUtils       = {}
 

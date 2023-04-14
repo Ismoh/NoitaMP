@@ -3,18 +3,18 @@
 -- Naming convention is found here:
 -- http://lua-users.org/wiki/LuaStyleGuide#:~:text=Lua%20internal%20variable%20naming%20%2D%20The,but%20not%20necessarily%2C%20e.g.%20_G%20.
 
-------------------------------------------------------------------------------------------------------------------------
+
 --- 'Imports'
-------------------------------------------------------------------------------------------------------------------------
 
 
-------------------------------------------------------------------------------------------------------------------------
+
+
 --- MinaUtils
-------------------------------------------------------------------------------------------------------------------------
-MinaUtils                          = {}
 
-local localMinaName                = nil
-local localMinaGuid                = nil
+MinaUtils           = {}
+
+local localMinaName = nil
+local localMinaGuid = nil
 
 function MinaUtils.setLocalMinaName(name)
     localMinaName = name
@@ -64,13 +64,13 @@ function MinaUtils.getLocalMinaEntityId()
     end
     if Utils.IsEmpty(playerEntityIds) then
         Logger.trace(Logger.channels.entity,
-                     ("There isn't any Mina spawned yet or all died! EntityGetWithTag('player_unit') = {}")
-                             :format(playerEntityIds))
+            ("There isn't any Mina spawned yet or all died! EntityGetWithTag('player_unit') = {}")
+            :format(playerEntityIds))
         return nil
     end
     Logger.debug(Logger.channels.entity,
-                 ("Unable to get local player entity id. Returning first entity id(%s), which was found.")
-                         :format(playerEntityIds[1]))
+        ("Unable to get local player entity id. Returning first entity id(%s), which was found.")
+        :format(playerEntityIds[1]))
     CustomProfiler.stop("MinaUtils.getLocalMinaEntityId", cpc)
     return playerEntityIds[1]
 end
@@ -99,17 +99,27 @@ function MinaUtils.getLocalMinaInformation()
         end
     end
 
-    if not NetworkVscUtils.isNetworkEntityByNuidVsc(entityId) then
-        NetworkVscUtils.addOrUpdateAllVscs(entityId, ownerName, ownerGuid, nuid)
+    local transform = nil
+    local health = nil
+    if not Utils.IsEmpty(entityId) then
+        local is, nuidComponentId, nuid = NetworkVscUtils.isNetworkEntityByNuidVsc(entityId)
+        if not is or Utils.IsEmpty(nuidComponentId) then
+            NetworkVscUtils.addOrUpdateAllVscs(entityId, ownerName, ownerGuid, nuid)
+        end
+        local _name, _guid, _nuid = NetworkVscUtils.getAllVscValuesByEntityId(entityId)
+        local _name, _guid, _nuid, _filename, _health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
+        health = _health
+        transform = { x = x, y = y }
     end
 
-    local _, _, nuid = NetworkVscUtils.getAllVscValuesByEntityId(entityId)
     CustomProfiler.stop("MinaUtils.getLocalMinaInformation", cpc)
     return {
-        name     = ownerName,
-        guid     = ownerGuid,
-        entityId = entityId,
-        nuid     = nuid
+        name      = ownerName,
+        guid      = ownerGuid,
+        entityId  = entityId,
+        nuid      = nuid,
+        transform = transform,
+        health    = health
     }
 end
 
@@ -121,7 +131,7 @@ function MinaUtils.isLocalMinaPolymorphed()
     for e = 1, #polymorphedEntityIds do
         if EntityUtils.isEntityAlive(polymorphedEntityIds[e]) then
             local componentIds = EntityGetComponentIncludingDisabled(polymorphedEntityIds[e],
-                                                                     "GameStatsComponent") or {}
+                    "GameStatsComponent") or {}
             for c = 1, #componentIds do
                 local isPlayer = ComponentGetValue2(componentIds[c], "is_player")
                 if isPlayer then
@@ -131,7 +141,7 @@ function MinaUtils.isLocalMinaPolymorphed()
                         return true, polymorphedEntityIds[e]
                     else
                         Logger.warn(Logger.channels.entity, ("Found polymorphed Mina, but isn't local one! %s, %s, %s")
-                                :format(compOwnerName, compOwnerGuid, compNuid))
+                            :format(compOwnerName, compOwnerGuid, compNuid))
                     end
                 end
             end

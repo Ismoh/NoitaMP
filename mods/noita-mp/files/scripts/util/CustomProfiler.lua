@@ -23,9 +23,8 @@ CustomProfiler.reportDirectory = ("%s%sNoitaMP-Reports%s%s")
 CustomProfiler.reportFilename            = "report.html"
 CustomProfiler.reportJsonFilenamePattern = "%s.json"
 
----@param functionName string
----@return number
----@diagnostic disable-next-line: duplicate-set-field
+--- @param functionName string
+--- @return number
 function CustomProfiler.start(functionName)
     if not ModSettingGetNextValue("noita-mp.toggle_profiler") then
         return -1

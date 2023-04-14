@@ -3,11 +3,11 @@
 -- Naming convention is found here:
 -- http://lua-users.org/wiki/LuaStyleGuide#:~:text=Lua%20internal%20variable%20naming%20%2D%20The,but%20not%20necessarily%2C%20e.g.%20_G%20.
 
-------------------------------------------------------------------------------------------------------------------------
+
 --- When NoitaComponents are accessing this file, they are not able to access the global variables defined in this file.
 --- Therefore, we need to redefine the global variables which we don't have access to, because of NoitaAPI restrictions.
 --- This is done by the following code:
-------------------------------------------------------------------------------------------------------------------------
+
 if require then
     Utils = require("Utils")
 else
@@ -17,10 +17,8 @@ else
     end
 end
 
------------------
 --- NetworkVscUtils:
------------------
---- class for getting and setting values in VariableStorageComponents of Noita-API
+--- @class NetworkVscUtils for getting and setting values in VariableStorageComponents of Noita-API
 NetworkVscUtils = {}
 
 
@@ -57,7 +55,7 @@ local function checkIfSpecificVscExists(entityId, componentTypeName, fieldNameFo
         local compName    = tostring(ComponentGetValue2(componentId, fieldNameForMatch))
         if string.find(compName, matchValue, 1, true) then
             -- if the name of the component match to the one we are searching for, then get the value
-            local value = tostring(ComponentGetValue2(componentId, fieldNameForValue))
+            local value = ComponentGetValue2(componentId, fieldNameForValue)
             CustomProfiler.stop("NetworkVscUtils.checkIfSpecificVscExists", cpc)
             return componentIds[i], value
         end
@@ -170,6 +168,15 @@ local function addOrUpdateVscForNuid(entityId, nuid)
     local compId, compNuid = checkIfSpecificVscExists(
         entityId, NetworkVscUtils.variableStorageComponentName, NetworkVscUtils.name,
         NetworkVscUtils.componentNameOfNuid, "value_int")
+    if compNuid == 0 or compNuid == -1 then
+        compNuid = nil
+    end
+
+    if compId and nuid == compNuid then
+        CustomProfiler.stop("NetworkVscUtils.addOrUpdateVscForNuid", cpc)
+        return compId
+    end
+
     if compNuid and compNuid ~= "" and compNuid ~= -1 and compNuid ~= "-1" and compNuid ~= 0 and compNuid ~= "0" then
         error(("It is not possible to re-set a nuid(%s) on a entity(%s), which already has one set(%s)! Returning nil!")
             :format(nuid, entityId, compNuid), 2)
@@ -291,7 +298,7 @@ local function addOrUpdateVscForSpawnY(entityId, spawnY)
     -- If compId isn't set, there is no vsc. Add one!
     if not compIdY then
         compIdY = EntityAddComponent2(entityId, "VariableStorageComponent", {
-            name      = NetworkVscUtils.componentNameOfSpawnY,
+            name        = NetworkVscUtils.componentNameOfSpawnY,
             value_float = spawnY
         })
         -- ComponentAddTag(compId, "enabled_in_hand")
@@ -500,7 +507,11 @@ function NetworkVscUtils.getAllVcsValuesByComponentIds(ownerNameCompId, ownerGui
     local cpc           = CustomProfiler.start("NetworkVscUtils.getAllVcsValuesByComponentIds")
     local compOwnerName = ComponentGetValue2(ownerNameCompId, NetworkVscUtils.valueString)
     local compOwnerGuid = ComponentGetValue2(ownerGuidCompId, NetworkVscUtils.valueString)
-    local compNuid      = ComponentGetValue2(nuidCompId, NetworkVscUtils.valueString)
+    local compNuid      = ComponentGetValue2(nuidCompId, "value_int")
+
+    if compNuid == 0 or compNuid == -1 then
+        compNuid = nil
+    end
 
     if Utils.IsEmpty(compOwnerName) then
         error(("Something really bad went wrong! compOwnerName must not be empty: %s"):format(compOwnerName), 2)
@@ -510,20 +521,38 @@ function NetworkVscUtils.getAllVcsValuesByComponentIds(ownerNameCompId, ownerGui
     end
 
     CustomProfiler.stop("NetworkVscUtils.getAllVcsValuesByComponentIds", cpc)
-    ---@diagnostic disable-next-line: return-type-mismatch
-    return compOwnerName, compOwnerGuid, tonumber(compNuid)
+    return compOwnerName, compOwnerGuid, compNuid
 end
 
+--- Returns true, componentId and nuid if the entity has a NetworkVsc.
+--- @param entityId number entityId provided by Noita
+--- @return boolean isNetworkEntity
+--- @return number componentId
+--- @return number|nil nuid
 function NetworkVscUtils.isNetworkEntityByNuidVsc(entityId)
     local cpc = CustomProfiler.start("NetworkVscUtils.isNetworkEntityByNuidVsc")
     if not EntityUtils.isEntityAlive(entityId) then
         CustomProfiler.stop("NetworkVscUtils.isNetworkEntityByNuidVsc", cpc)
-        return
+        return false, -1, -1
+    end
+    local componentId, value = checkIfSpecificVscExists(
+        entityId, NetworkVscUtils.variableStorageComponentName, NetworkVscUtils.name,
+        NetworkVscUtils.componentNameOfNuid, "value_int")
+    if Utils.IsEmpty(componentId) or Utils.IsEmpty(value) then
+        CustomProfiler.stop("NetworkVscUtils.isNetworkEntityByNuidVsc", cpc)
+        return false, -1, -1
     end
     CustomProfiler.stop("NetworkVscUtils.isNetworkEntityByNuidVsc", cpc)
-    return checkIfSpecificVscExists(
-        entityId, NetworkVscUtils.variableStorageComponentName, NetworkVscUtils.name,
-        NetworkVscUtils.componentNameOfNuid, NetworkVscUtils.valueString)
+    if not componentId then
+        componentId = -1
+    end
+    if not value then
+        value = -1
+    end
+    if value == 0 or value == -1 then
+        value = nil
+    end
+    return true, componentId, value
 end
 
 --- Checks if the nuid Vsc exists, if so returns nuid
@@ -534,15 +563,15 @@ function NetworkVscUtils.hasNuidSet(entityId)
     local cpc              = CustomProfiler.start("NetworkVscUtils.hasNuidSet")
     local nuidCompId, nuid = checkIfSpecificVscExists(entityId, NetworkVscUtils.variableStorageComponentName,
         NetworkVscUtils.name,
-        NetworkVscUtils.componentNameOfNuid, NetworkVscUtils.valueString)
+        NetworkVscUtils.componentNameOfNuid, "value_int")
 
     if not nuidCompId then
         CustomProfiler.stop("NetworkVscUtils.hasNuidSet", cpc)
         return false, -1
     end
-    if not nuid or nuid == "" then
+    if Utils.IsEmpty(nuid) or nuid == 0 or nuid == -1 then
         CustomProfiler.stop("NetworkVscUtils.hasNuidSet", cpc)
-        return false, -1
+        return false, nuid
     end
     CustomProfiler.stop("NetworkVscUtils.hasNuidSet", cpc)
     ---@diagnostic disable-next-line: return-type-mismatch
