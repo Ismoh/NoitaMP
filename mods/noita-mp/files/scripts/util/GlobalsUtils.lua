@@ -18,7 +18,7 @@ if require then
     end
 else
     if not CustomProfiler then
-        -- Fix stupid Noita sandbox issue. Noita Components does not have access to require.
+        ---@type CustomProfiler
         CustomProfiler       = {}
         
         ---@diagnostic disable-next-line: duplicate-doc-alias

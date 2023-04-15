@@ -39,7 +39,7 @@ ClientInit
 
 # CustomProfiler
 
- Fix stupid Noita sandbox issue. Noita Components does not have access to require.
+Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 
 
 ```lua
@@ -53,22 +53,22 @@ CustomProfiler
 
 
 ```lua
-table
+CustomProfiler
 ```
 
 
 ```lua
-table
+CustomProfiler
 ```
 
 
 ```lua
-table
+CustomProfiler
 ```
 
 
 ```lua
-table
+CustomProfiler
 ```
 
 
@@ -193,7 +193,7 @@ Starts the profiler. This has to be called before the function (or first line of
 @*param* `functionName` — The name of the function that you want to measure. This has to be the same as the one used in CustomProfiler.stop(functionName, customProfilerCounter)
 
 @*return* `returnCounter` — The counter that is used to determine the order of the function calls. This has to be passed to CustomProfiler.stop(functionName, customProfilerCounter)
-See: [CustomProfiler.stop](file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/util/EntitySerialisationUtils.lua#39#17) functionName, customProfilerCounter)
+See: [CustomProfiler.stop](file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/util/EntitySerialisationUtils.lua#40#17) functionName, customProfilerCounter)
 
 ## stop
 

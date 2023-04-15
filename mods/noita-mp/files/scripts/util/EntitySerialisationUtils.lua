@@ -23,6 +23,7 @@ else
     end
 
     if not CustomProfiler then
+        ---@type CustomProfiler
         CustomProfiler = {}
         
         ---@diagnostic disable-next-line: duplicate-doc-alias
