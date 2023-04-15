@@ -1,26 +1,19 @@
--- OOP class definition is found here: Closure approach
--- http://lua-users.org/wiki/ObjectOrientationClosureApproach
--- Naming convention is found here:
--- http://lua-users.org/wiki/LuaStyleGuide#:~:text=Lua%20internal%20variable%20naming%20%2D%20The,but%20not%20necessarily%2C%20e.g.%20_G%20.
-
-
---- 'Imports'
-
-
-
-
---- MinaUtils
-
+---Util class for fetching information about local and remote minas.
+---@class MinaUtils
 MinaUtils           = {}
 
 local localMinaName = nil
 local localMinaGuid = nil
 
+---Setter for local mina name. It also saves it to settings file.
+---@param name string
 function MinaUtils.setLocalMinaName(name)
     localMinaName = name
     NoitaMpSettings.writeSettings("name", localMinaName)
 end
 
+---Getter for local mina name. ~It also loads it from settings file.~
+---@return string localMinaName
 function MinaUtils.getLocalMinaName()
     --if util.IsEmpty(localMinaName) then
     --    MinaUtils.setLocalMinaName(ModSettingGet("noita-mp.name"))
@@ -28,11 +21,15 @@ function MinaUtils.getLocalMinaName()
     return localMinaName
 end
 
+---Setter for local mina guid. It also saves it to settings file.
+---@param guid string
 function MinaUtils.setLocalMinaGuid(guid)
     localMinaGuid = guid
     NoitaMpSettings.writeSettings("guid", localMinaGuid)
 end
 
+---Getter for local mina guid. ~It also loads it from settings file.~
+---@return string localMinaGuid
 function MinaUtils.getLocalMinaGuid()
     --if util.IsEmpty(localMinaGuid) then
     --    MinaUtils.setLocalMinaGuid(ModSettingGet("noita-mp.guid"))
@@ -40,14 +37,13 @@ function MinaUtils.getLocalMinaGuid()
     return localMinaGuid
 end
 
---- Returns the entity id of the local mina. It also takes care of polymorphism!
---- @return number|nil localMinaEntityId
+---Getter for local mina entity id. It also takes care of polymorphism!
+---@return number|nil localMinaEntityId or nil if not found/dead
 function MinaUtils.getLocalMinaEntityId()
     local cpc                   = CustomProfiler.start("MinaUtils.getLocalMinaEntityId")
     local polymorphed, entityId = MinaUtils.isLocalMinaPolymorphed()
 
     if polymorphed then
-        ---@cast entityId number
         CustomProfiler.stop("MinaUtils.getLocalMinaEntityId", cpc)
         return entityId
     end
@@ -75,22 +71,28 @@ function MinaUtils.getLocalMinaEntityId()
     return playerEntityIds[1]
 end
 
---- Returns a table of information about mina:
---- name, guid, entityId and nuid (if nuid is set, can be nil)
+---Getter for local mina information. It also takes care of polymorphism!
+---@see MinaInformation
+---@return MinaInformation localMinaInformation
 function MinaUtils.getLocalMinaInformation()
-    local cpc       = CustomProfiler.start("MinaUtils.getLocalMinaInformation")
-    local ownerName = MinaUtils.getLocalMinaName()
-    local ownerGuid = MinaUtils.getLocalMinaGuid()
-    local entityId  = MinaUtils.getLocalMinaEntityId()
-    local nuid      = nil
+    local cpc                                = CustomProfiler.start("MinaUtils.getLocalMinaInformation")
+    local ownerName                          = MinaUtils.getLocalMinaName()
+    local ownerGuid                          = MinaUtils.getLocalMinaGuid()
+    local entityId                           = MinaUtils.getLocalMinaEntityId()
+    local nuid                               = nil
 
-    if MinaUtils.isLocalMinaPolymorphed() then
+    local isPolymorphed, polymorphedEntityId = MinaUtils.isLocalMinaPolymorphed()
+    if isPolymorphed then
+        entityId = polymorphedEntityId
         local who = _G.whoAmI()
         if who == Client.iAm then
+            ---@diagnostic disable-next-line: param-type-mismatch
             if not NetworkVscUtils.hasNuidSet(entityId) then
+                ---@diagnostic disable-next-line: param-type-mismatch
                 Client.sendNeedNuid(ownerName, ownerGuid, entityId)
             end
         elseif who == Server.iAm then
+            ---@diagnostic disable-next-line: param-type-mismatch
             if not NetworkVscUtils.hasNuidSet(entityId) then
                 nuid = NuidUtils.getNextNuid()
             end
@@ -102,28 +104,45 @@ function MinaUtils.getLocalMinaInformation()
     local transform = nil
     local health = nil
     if not Utils.IsEmpty(entityId) then
+        ---@diagnostic disable-next-line: param-type-mismatch
         local is, nuidComponentId, nuid = NetworkVscUtils.isNetworkEntityByNuidVsc(entityId)
         if not is or Utils.IsEmpty(nuidComponentId) then
+            ---@diagnostic disable-next-line: param-type-mismatch
             NetworkVscUtils.addOrUpdateAllVscs(entityId, ownerName, ownerGuid, nuid)
         end
+        ---@diagnostic disable-next-line: param-type-mismatch
         local _name, _guid, _nuid = NetworkVscUtils.getAllVscValuesByEntityId(entityId)
         local _name, _guid, _nuid, _filename, _health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
         health = _health
+        ---@class Transform
+        ---@field x number
+        ---@field y number
         transform = { x = x, y = y }
     end
 
     CustomProfiler.stop("MinaUtils.getLocalMinaInformation", cpc)
-    return {
+    ---@class MinaInformation
+    ---@see Transform
+    ---@see Health
+    MinaInformation = {
+        ---@type string
         name      = ownerName,
+        ---@type string
         guid      = ownerGuid,
+        ---@type number|nil
         entityId  = entityId,
+        ---@type number|nil
         nuid      = nuid,
+        ---@type Transform
         transform = transform,
+        ---@type Health
         health    = health
     }
+    return MinaInformation
 end
 
---- Checks if local mina is polymorphed. Returns true|false, entityId|nil
+---Checks if local mina is polymorphed. Returns true, entityId | false, nil
+---@return boolean isPolymorphed, number|nil entityId
 function MinaUtils.isLocalMinaPolymorphed()
     local cpc                  = CustomProfiler.start("MinaUtils.isLocalMinaPolymorphed")
     local polymorphedEntityIds = EntityGetWithTag("polymorphed") or {}
@@ -151,11 +170,11 @@ function MinaUtils.isLocalMinaPolymorphed()
     return false, nil
 end
 
--- Because of stack overflow errors when loading lua files,
--- I decided to put Utils 'classes' into globals
+--[[ Because of stack overflow errors when loading lua files,
+     I decided to put Utils 'classes' into globals ]]
 _G.MinaUtils = MinaUtils
 
--- But still return for Noita Components,
--- which does not have access to _G,
--- because of own context/vm
+--[[ But still return for Noita Components,
+     which does not have access to _G,
+     because of own context/vm ]]
 return MinaUtils

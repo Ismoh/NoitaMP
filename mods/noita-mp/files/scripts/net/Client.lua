@@ -1,6 +1,9 @@
---- Client.
---- @type Client
-Client            = {}
+---ClientInit class extends [SockClient#](/#SockClient)
+---@see SockClient
+---@source sock.lua#1520#1
+---@source sock.lua:1520:1
+---@class ClientInit
+ClientInit        = {}
 
 --- 'Imports'
 local sock        = require("sock")
@@ -9,15 +12,13 @@ local zstandard   = require("zstd")
 local messagePack = require("MessagePack")
 local fu          = require("FileUtils")
 
-
---- Client constructor.
---- Creates a new instance of client 'class'.
---- @param sockClient table sock.lua#newClient
---- @return Client Client
-function Client.new(sockClient)
-    local cpc               = CustomProfiler.start("Client.new")
+---ClientInit 'constructor'. Creates a new extended instance of sockClient 'class'.
+---@param sockClient SockClient
+---@return SockClient self
+function ClientInit.new(sockClient)
+    local cpc               = CustomProfiler.start("ClientInit.new")
+    ---@class SockClient
     local self              = sockClient
-    ---@cast self Client
     self.iAm                = "CLIENT"
     self.name               = tostring(ModSettingGet("noita-mp.name"))
     -- guid might not be set here or will be overwritten at the end of the constructor. @see setGuid
@@ -34,9 +35,9 @@ function Client.new(sockClient)
 
     --- Set clients settings
     local function setConfigSettings()
-        local cpc1        = CustomProfiler.start("Client.setConfigSettings")
+        local cpc1        = CustomProfiler.start("ClientInit.setConfigSettings")
         local serialize   = function(anyValue)
-            local cpc2            = CustomProfiler.start("Client.setConfigSettings.serialize")
+            local cpc2            = CustomProfiler.start("ClientInit.setConfigSettings.serialize")
             --logger:debug(logger.channels.network, ("Serializing value: %s"):format(anyValue))
             local serialized      = messagePack.pack(anyValue)
             local zstd            = zstandard:new()
@@ -48,12 +49,12 @@ function Client.new(sockClient)
             --logger:debug(logger.channels.network, "Compressed size:", string.len(compressed))
             --logger:debug(logger.channels.network, ("Serialized and compressed value: %s"):format(compressed))
             zstd:free()
-            CustomProfiler.stop("Client.setConfigSettings.serialize", cpc2)
+            CustomProfiler.stop("ClientInit.setConfigSettings.serialize", cpc2)
             return compressed
         end
 
         local deserialize = function(anyValue)
-            local cpc3              = CustomProfiler.start("Client.setConfigSettings.deserialize")
+            local cpc3              = CustomProfiler.start("ClientInit.setConfigSettings.deserialize")
             --logger:debug(logger.channels.network, ("Serialized and compressed value: %s"):format(anyValue))
             local zstd              = zstandard:new()
             --logger:debug(logger.channels.network, "Compressed size:", string.len(anyValue))
@@ -65,19 +66,19 @@ function Client.new(sockClient)
             local deserialized = messagePack.unpack(decompressed)
             Logger.debug(Logger.channels.network, ("Deserialized and uncompressed value: %s"):format(deserialized))
             zstd:free()
-            CustomProfiler.stop("Client.setConfigSettings.deserialize", cpc3)
+            CustomProfiler.stop("ClientInit.setConfigSettings.deserialize", cpc3)
             return deserialized
         end
 
         self:setSerialization(serialize, deserialize)
         self:setTimeout(320, 50000, 100000)
-        CustomProfiler.stop("Client.setConfigSettings", cpc1)
+        CustomProfiler.stop("ClientInit.setConfigSettings", cpc1)
     end
 
 
     --- Set clients guid
     local function setGuid()
-        local cpc1  = CustomProfiler.start("Client.setGuid")
+        local cpc1  = CustomProfiler.start("ClientInit.setGuid")
         local cpc25 = CustomProfiler.start("ModSettingGetNextValue")
         local guid  = tostring(ModSettingGetNextValue("noita-mp.guid"))
         CustomProfiler.stop("ModSettingGetNextValue", cpc25)
@@ -96,26 +97,26 @@ function Client.new(sockClient)
         if DebugGetIsDevBuild() then
             guid = guid .. self.iAm
         end
-        CustomProfiler.stop("Client.setGuid", cpc1)
+        CustomProfiler.stop("ClientInit.setGuid", cpc1)
     end
 
 
     --- Send acknowledgement
     local function sendAck(networkMessageId, event)
-        local cpc2 = CustomProfiler.start("Client.sendAck")
+        local cpc2 = CustomProfiler.start("ClientInit.sendAck")
         if not event then
             error("event is nil", 2)
         end
         local data = { networkMessageId, event, NetworkUtils.events.acknowledgement.ack, os.clock() }
         self:send(NetworkUtils.events.acknowledgement.name, data)
         Logger.debug(Logger.channels.network, ("Sent ack with data = %s"):format(Utils.pformat(data)))
-        CustomProfiler.stop("Client.sendAck", cpc2)
+        CustomProfiler.stop("ClientInit.sendAck", cpc2)
     end
 
 
     --- onAcknowledgement
     local function onAcknowledgement(data)
-        local cpc3 = CustomProfiler.start("Client.onAcknowledgement")
+        local cpc3 = CustomProfiler.start("ClientInit.onAcknowledgement")
         Logger.debug(Logger.channels.network, "onAcknowledgement: Acknowledgement received.", Utils.pformat(data))
 
         if Utils.IsEmpty(data.networkMessageId) then
@@ -160,7 +161,7 @@ function Client.new(sockClient)
         if NetworkCache.size() > self.acknowledgeMaxSize then
             NetworkCache.removeOldest()
         end
-        CustomProfiler.stop("Client.onAcknowledgement", cpc3)
+        CustomProfiler.stop("ClientInit.onAcknowledgement", cpc3)
     end
 
 
@@ -168,7 +169,7 @@ function Client.new(sockClient)
     --- Callback when connected to server.
     --- @param data number not in use atm
     local function onConnect(data)
-        local cpc4 = CustomProfiler.start("Client.onConnect")
+        local cpc4 = CustomProfiler.start("ClientInit.onConnect")
         Logger.debug(Logger.channels.network, "Connected to server!", Utils.pformat(data))
 
         if Utils.IsEmpty(data) then
@@ -180,7 +181,7 @@ function Client.new(sockClient)
         self:send(NetworkUtils.events.needModList.name, { NetworkUtils.getNextNetworkMessageId(), {}, {} })
 
         -- sendAck(data.networkMessageId)
-        CustomProfiler.stop("Client.onConnect", cpc4)
+        CustomProfiler.stop("ClientInit.onConnect", cpc4)
     end
 
 
@@ -188,7 +189,7 @@ function Client.new(sockClient)
     --- Callback when one of the other clients connected.
     --- @param data table data = { "name", "guid" } @see NetworkUtils.events.connect2.schema
     local function onConnect2(data)
-        local cpc5 = CustomProfiler.start("Client.onConnect2")
+        local cpc5 = CustomProfiler.start("ClientInit.onConnect2")
         Logger.debug(Logger.channels.network, "Another client connected.", Utils.pformat(data))
 
         if Utils.IsEmpty(data.networkMessageId) then
@@ -206,7 +207,7 @@ function Client.new(sockClient)
         table.insertIfNotExist(self.otherClients, { name = data.name, guid = data.guid, transofrm = data.transform })
 
         sendAck(data.networkMessageId, NetworkUtils.events.connect2.name)
-        CustomProfiler.stop("Client.onConnect2", cpc5)
+        CustomProfiler.stop("ClientInit.onConnect2", cpc5)
     end
 
 
@@ -214,7 +215,7 @@ function Client.new(sockClient)
     --- Callback when disconnected from server.
     --- @param data number data(.code) = 0
     local function onDisconnect(data)
-        local cpc6 = CustomProfiler.start("Client.onDisconnect")
+        local cpc6 = CustomProfiler.start("ClientInit.onDisconnect")
         Logger.debug(Logger.channels.network, "Disconnected from server!", Utils.pformat(data))
 
         if Utils.IsEmpty(data) then
@@ -234,7 +235,7 @@ function Client.new(sockClient)
         self.serverInfo   = {}
 
         -- sendAck(data.networkMessageId)
-        CustomProfiler.stop("Client.onDisconnect", cpc6)
+        CustomProfiler.stop("ClientInit.onDisconnect", cpc6)
     end
 
 
@@ -242,7 +243,7 @@ function Client.new(sockClient)
     --- Callback when one of the other clients disconnected.
     --- @param data table data { "name", "guid" } @see NetworkUtils.events.disconnect2.schema
     local function onDisconnect2(data)
-        local cpc7 = CustomProfiler.start("Client.onDisconnect2")
+        local cpc7 = CustomProfiler.start("ClientInit.onDisconnect2")
         Logger.debug(Logger.channels.network, "onDisconnect2: Another client disconnected.", Utils.pformat(data))
 
         if Utils.IsEmpty(data.networkMessageId) then
@@ -265,7 +266,7 @@ function Client.new(sockClient)
         end
 
         sendAck(data.networkMessageId, NetworkUtils.events.disconnect2.name)
-        CustomProfiler.stop("Client.onDisconnect2", cpc7)
+        CustomProfiler.stop("ClientInit.onDisconnect2", cpc7)
     end
 
 
@@ -273,7 +274,7 @@ function Client.new(sockClient)
     --- Callback when Server sent his minaInformation to the client
     --- @param data table data @see NetworkUtils.events.minaInformation.schema
     local function onMinaInformation(data)
-        local cpc8 = CustomProfiler.start("Client.onMinaInformation")
+        local cpc8 = CustomProfiler.start("ClientInit.onMinaInformation")
         Logger.debug(Logger.channels.network, "onMinaInformation: Player info received.", Utils.pformat(data))
 
         if Utils.IsEmpty(data.networkMessageId) then
@@ -329,7 +330,7 @@ function Client.new(sockClient)
         self.serverInfo.health = data.health
 
         sendAck(data.networkMessageId, NetworkUtils.events.minaInformation.name)
-        CustomProfiler.stop("Client.onMinaInformation", cpc8)
+        CustomProfiler.stop("ClientInit.onMinaInformation", cpc8)
     end
 
 
@@ -337,7 +338,7 @@ function Client.new(sockClient)
     --- Callback when Server sent a new GUID for a specific client.
     --- @param data table data { "networkMessageId", "oldGuid", "newGuid" }
     local function onNewGuid(data)
-        local cpc9 = CustomProfiler.start("Client.onNewGuid")
+        local cpc9 = CustomProfiler.start("ClientInit.onNewGuid")
         Logger.debug(Logger.channels.network, ("onNewGuid: New GUID from server received."):format(Utils.pformat(data)))
 
         if Utils.IsEmpty(data.networkMessageId) then
@@ -373,7 +374,7 @@ function Client.new(sockClient)
         end
 
         sendAck(data.networkMessageId, NetworkUtils.events.newGuid.name)
-        CustomProfiler.stop("Client.onNewGuid", cpc9)
+        CustomProfiler.stop("ClientInit.onNewGuid", cpc9)
     end
 
 
@@ -381,7 +382,7 @@ function Client.new(sockClient)
     --- Callback when Server sent his seed to the client
     --- @param data table data { networkMessageId, seed }
     local function onSeed(data)
-        local cpc10 = CustomProfiler.start("Client.onSeed")
+        local cpc10 = CustomProfiler.start("ClientInit.onSeed")
         Logger.debug(Logger.channels.network, "onSeed: Seed from server received.", Utils.pformat(data))
 
         if Utils.IsEmpty(data.networkMessageId) then
@@ -408,13 +409,12 @@ function Client.new(sockClient)
         if not NetworkVscUtils.hasNetworkLuaComponents(entityId) then
             NetworkVscUtils.addOrUpdateAllVscs(entityId, name, guid, nil)
         end
-
         if not NetworkVscUtils.hasNuidSet(entityId) then
             self.sendNeedNuid(name, guid, entityId)
         end
 
         sendAck(data.networkMessageId, NetworkUtils.events.seed.name)
-        CustomProfiler.stop("Client.onSeed", cpc10)
+        CustomProfiler.stop("ClientInit.onSeed", cpc10)
     end
 
 
@@ -423,7 +423,7 @@ function Client.new(sockClient)
     --- @param data table data { networkMessageId, owner { name, guid }, localEntityId, newNuid, x, y, rotation,
     --- velocity { x, y }, filename }
     local function onNewNuid(data)
-        local cpc11 = CustomProfiler.start("Client.onNewNuid")
+        local cpc11 = CustomProfiler.start("ClientInit.onNewNuid")
         Logger.debug(Logger.channels.network, ("Received a new nuid! data = %s"):format(Utils.pformat(data)))
 
         if Utils.IsEmpty(data.networkMessageId) then
@@ -491,11 +491,11 @@ function Client.new(sockClient)
             isPolymorphed)
 
         sendAck(data.networkMessageId, NetworkUtils.events.newNuid.name)
-        CustomProfiler.stop("Client.onNewNuid", cpc11)
+        CustomProfiler.stop("ClientInit.onNewNuid", cpc11)
     end
 
     local function onNewNuidSerialized(data)
-        local cpc32 = CustomProfiler.start("Client.onNewNuidSerialized")
+        local cpc32 = CustomProfiler.start("ClientInit.onNewNuidSerialized")
         Logger.debug(Logger.channels.network,
             ("Received a new nuid onNewNuidSerialized! data = %s"):format(Utils.pformat(data)))
 
@@ -536,11 +536,11 @@ function Client.new(sockClient)
         EntitySerialisationUtils.deserializeEntireRootEntity(data.serializedEntity, data.nuid)
 
         sendAck(data.networkMessageId, NetworkUtils.events.newNuidSerialized.name)
-        CustomProfiler.stop("Client.onNewNuidSerialized", cpc32)
+        CustomProfiler.stop("ClientInit.onNewNuidSerialized", cpc32)
     end
 
     local function onEntityData(data)
-        local cpc12 = CustomProfiler.start("Client.onEntityData")
+        local cpc12 = CustomProfiler.start("ClientInit.onEntityData")
         Logger.debug(Logger.channels.network, ("Received entityData for nuid = %s! data = %s")
             :format(data.nuid, Utils.pformat(data)))
 
@@ -597,11 +597,11 @@ function Client.new(sockClient)
         end
 
         -- sendAck(data.networkMessageId) do not send ACK for position data, network will explode
-        CustomProfiler.stop("Client.onEntityData", cpc12)
+        CustomProfiler.stop("ClientInit.onEntityData", cpc12)
     end
 
     local function onDeadNuids(data)
-        local cpc13     = CustomProfiler.start("Client.onDeadNuids")
+        local cpc13     = CustomProfiler.start("ClientInit.onDeadNuids")
         local deadNuids = data.deadNuids or data or {}
         for i = 1, #deadNuids do
             local deadNuid = deadNuids[i]
@@ -647,11 +647,11 @@ function Client.new(sockClient)
             self.missingMods = conflicts
             Logger.info("Mod conflicts detected: Missing " .. table.concat(conflicts, ", "))
         end
-        CustomProfiler.stop("Client.onNeedModList", cpc)
+        CustomProfiler.stop("ClientInit.onNeedModList", cpc)
     end
 
     local function onNeedModContent(data)
-        local cpc = CustomProfiler.start("Client.onNeedModContent")
+        local cpc = CustomProfiler.start("ClientInit.onNeedModContent")
         for _, v in ipairs(data.items) do
             local modName = v.name
             local modID   = v.workshopID
@@ -674,7 +674,7 @@ function Client.new(sockClient)
                 end
             end
         end
-        CustomProfiler.stop("Client.onNeedModContent", cpc)
+        CustomProfiler.stop("ClientInit.onNeedModContent", cpc)
     end
 
     -- self:on(
@@ -717,7 +717,7 @@ function Client.new(sockClient)
     --- setCallbackAndSchemas
     --- Sets callbacks and schemas of the client.
     local function setCallbackAndSchemas()
-        local cpc14 = CustomProfiler.start("Client.setCallbackAndSchemas")
+        local cpc14 = CustomProfiler.start("ClientInit.setCallbackAndSchemas")
         --self:setSchema(NetworkUtils.events.connect, { "code" })
         self:on(NetworkUtils.events.connect.name, onConnect)
 
@@ -760,7 +760,7 @@ function Client.new(sockClient)
         self:setSchema(NetworkUtils.events.newNuidSerialized.name, NetworkUtils.events.newNuidSerialized.schema)
         self:on(NetworkUtils.events.newNuidSerialized.name, onNewNuidSerialized)
 
-        CustomProfiler.stop("Client.setCallbackAndSchemas", cpc14)
+        CustomProfiler.stop("ClientInit.setCallbackAndSchemas", cpc14)
     end
 
     --- Some inheritance: Save parent function (not polluting global 'self' space)
@@ -770,7 +770,7 @@ function Client.new(sockClient)
     --- @param port number? port number from 1 to max of 65535 or nil
     --- @param code number connection code 0 = connecting first time, 1 = connected second time with loaded seed
     function self.connect(ip, port, code)
-        local cpc16 = CustomProfiler.start("Client.connect")
+        local cpc16 = CustomProfiler.start("ClientInit.connect")
 
         if self:isConnecting() or self:isConnected() then
             Logger.warn(Logger.channels.network, ("Client is still connected to %s:%s. Disconnecting!")
@@ -797,7 +797,7 @@ function Client.new(sockClient)
             self:establishClient(ip, port)
         end
 
-        GamePrintImportant("Client is trying to connect to server..",
+        GamePrintImportant("ClientInit is trying to connect to server..",
             "You are trying to connect to " .. self:getAddress() .. ":" .. self:getPort() .. "!",
             ""
         )
@@ -805,19 +805,19 @@ function Client.new(sockClient)
         sockClientConnect(self, code)
 
         -- FYI: If you want to send data after connected, do it in the "connect" callback function
-        CustomProfiler.stop("Client.connect", cpc16)
+        CustomProfiler.stop("ClientInit.connect", cpc16)
     end
 
     --- Some inheritance: Save parent function (not polluting global 'self' space)
     local sockClientDisconnect = sockClient.disconnect
     function self.disconnect()
-        local cpc17 = CustomProfiler.start("Client.disconnect")
+        local cpc17 = CustomProfiler.start("ClientInit.disconnect")
         if self.isConnected() then
             sockClientDisconnect(self)
         else
             Logger.info(Logger.channels.network, "Client isn't connected, no need to disconnect!")
         end
-        CustomProfiler.stop("Client.disconnect", cpc17)
+        CustomProfiler.stop("ClientInit.disconnect", cpc17)
     end
 
     --#endregion
@@ -837,9 +837,9 @@ function Client.new(sockClient)
     local sockClientUpdate = sockClient.update
     --- Updates the Client by checking for network events and handling them.
     function self.update()
-        local cpc18 = CustomProfiler.start("Client.update")
+        local cpc18 = CustomProfiler.start("ClientInit.update")
         if not self.isConnected() and not self:isConnecting() or self:isDisconnected() then
-            CustomProfiler.stop("Client.update", cpc18)
+            CustomProfiler.stop("ClientInit.update", cpc18)
             return
         end
 
@@ -866,13 +866,13 @@ function Client.new(sockClient)
         end
 
         sockClientUpdate(self)
-        CustomProfiler.stop("Client.update", cpc18)
+        CustomProfiler.stop("ClientInit.update", cpc18)
     end
 
     --- Some inheritance: Save parent function (not polluting global 'self' space)
     local sockClientSend = sockClient.send
     function self:send(event, data)
-        local cpc19 = CustomProfiler.start("Client.send")
+        local cpc19 = CustomProfiler.start("ClientInit.send")
         if type(data) ~= "table" then
             error(("Data is not type of table: %s"):format(data), 2)
             return false
@@ -881,7 +881,7 @@ function Client.new(sockClient)
         if NetworkUtils.alreadySent(self, event, data) then
             Logger.debug(Logger.channels.network, ("Network message for %s for data %s already was acknowledged.")
                 :format(event, Utils.pformat(data)))
-            CustomProfiler.stop("Client.send", cpc19)
+            CustomProfiler.stop("ClientInit.send", cpc19)
             return false
         end
 
@@ -893,12 +893,16 @@ function Client.new(sockClient)
                     NetworkUtils.events.acknowledgement.sent, 0, os.clock(), data)
             end
         end
-        CustomProfiler.stop("Client.send", cpc19)
+        CustomProfiler.stop("ClientInit.send", cpc19)
         return true
     end
 
+    ---Sends a message to the server that the client needs a nuid.
+    ---@param ownerName string
+    ---@param ownerGuid string
+    ---@param entityId number
     function self.sendNeedNuid(ownerName, ownerGuid, entityId)
-        local cpc20 = CustomProfiler.start("Client.sendNeedNuid")
+        local cpc20 = CustomProfiler.start("ClientInit.sendNeedNuid")
 
         if not ownerName then
             error("ownerName is nil")
@@ -925,19 +929,19 @@ function Client.new(sockClient)
         end
 
         self:send(NetworkUtils.events.needNuid.name, data)
-        CustomProfiler.stop("Client.sendNeedNuid", cpc20)
+        CustomProfiler.stop("ClientInit.sendNeedNuid", cpc20)
     end
 
     function self.sendLostNuid(nuid)
-        local cpc21 = CustomProfiler.start("Client.sendLostNuid")
+        local cpc21 = CustomProfiler.start("ClientInit.sendLostNuid")
         local data  = { NetworkUtils.getNextNetworkMessageId(), nuid }
         local sent  = self:send(NetworkUtils.events.lostNuid.name, data)
-        CustomProfiler.stop("Client.sendLostNuid", cpc21)
+        CustomProfiler.stop("ClientInit.sendLostNuid", cpc21)
         return sent
     end
 
     function self.sendEntityData(entityId)
-        local cpc22 = CustomProfiler.start("Client.sendEntityData")
+        local cpc22 = CustomProfiler.start("ClientInit.sendEntityData")
         if not EntityUtils.isEntityAlive(entityId) then
             return
         end
@@ -958,22 +962,22 @@ function Client.new(sockClient)
         if MinaUtils.getLocalMinaInformation().guid == compOwnerGuid then
             self:send(NetworkUtils.events.entityData.name, data)
         end
-        CustomProfiler.stop("Client.sendEntityData", cpc22)
+        CustomProfiler.stop("ClientInit.sendEntityData", cpc22)
     end
 
     function self.sendDeadNuids(deadNuids)
-        local cpc23 = CustomProfiler.start("Client.sendDeadNuids")
+        local cpc23 = CustomProfiler.start("ClientInit.sendDeadNuids")
         local data  = {
             NetworkUtils.getNextNetworkMessageId(), deadNuids
         }
         local sent  = self:send(NetworkUtils.events.deadNuids.name, data)
         onDeadNuids(deadNuids)
-        CustomProfiler.stop("Client.sendDeadNuids", cpc23)
+        CustomProfiler.stop("ClientInit.sendDeadNuids", cpc23)
         return sent
     end
 
     function self.sendMinaInformation()
-        local cpc24     = CustomProfiler.start("Client.sendMinaInformation")
+        local cpc24     = CustomProfiler.start("ClientInit.sendMinaInformation")
         local minaInfo  = MinaUtils.getLocalMinaInformation()
         local name      = minaInfo.name
         local guid      = minaInfo.guid
@@ -985,19 +989,19 @@ function Client.new(sockClient)
             NetworkUtils.getNextNetworkMessageId(), fu.GetVersionByFile(), name, guid, entityId, nuid, transform, health
         }
         local sent      = self:send(NetworkUtils.events.minaInformation.name, data)
-        CustomProfiler.stop("Client.sendMinaInformation", cpc24)
+        CustomProfiler.stop("ClientInit.sendMinaInformation", cpc24)
         return sent
     end
 
     --- Checks if the current local user is a client
     --- @return boolean iAm true if client
     function self.amIClient()
-        --local cpc24 = CustomProfiler.start("Client.amIClient") DO NOT PROFILE, stack overflow error! See CustomProfiler.lua
+        --local cpc24 = CustomProfiler.start("ClientInit.amIClient") DO NOT PROFILE, stack overflow error! See CustomProfiler.lua
         if not _G.Server.amIServer() then
-            --CustomProfiler.stop("Client.amIClient", cpc24)
+            --CustomProfiler.stop("ClientInit.amIClient", cpc24)
             return true
         end
-        --CustomProfiler.stop("Client.amIClient", cpc24)
+        --CustomProfiler.stop("ClientInit.amIClient", cpc24)
         return false
     end
 
@@ -1016,18 +1020,20 @@ function Client.new(sockClient)
     setConfigSettings()
     setCallbackAndSchemas()
 
-    CustomProfiler.stop("Client.new", cpc)
+    CustomProfiler.stop("ClientInit.new", cpc)
     return self
 end
 
--- Init this object:
+--[[ Because of stack overflow errors when loading lua files,
+     I decided to put Utils 'classes' into globals ]]
 
--- Because of stack overflow errors when loading lua files,
--- I decided to put Utils 'classes' into globals
-_G.ClientInit = Client
-_G.Client     = Client.new(sock.newClient())
+_G.ClientInit = ClientInit
 
--- But still return for Noita Components,
--- which does not have access to _G,
--- because of own context/vm
+---@see SockClient
+---@diagnostic disable-next-line: duplicate-index
+_G.Client     = ClientInit.new(sock.newClient())
+
+--[[ But still return for Noita Components,
+     which does not have access to _G,
+     because of own context/vm ]]
 return Client

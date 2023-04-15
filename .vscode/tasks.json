@@ -61,7 +61,7 @@
       "label": "Generate Lua docs",
       "type": "shell",
       "windows": {
-        "command": "C: && cd ${userHome}\\.vscode\\extensions\\sumneko.lua-3.6.18-win32-x64\\server\\bin\\lua-language-server.exe --loglevel=trace --doc \"${workspaceFolder}\\mods\\noita-mp\\files\\scripts\\extensions\\tableExtensions.lua\""
+        "command": "${userHome}\\.vscode\\extensions\\sumneko.lua-3.6.18-win32-x64\\server\\bin\\lua-language-server.exe --logpath \"${workspaceFolder}\\docs\\lua-docs\" --configpath \"${workspaceFolder}\\docs\\lua-docs\\lua-language-server-config.lua\" --doc \"${workspaceFolder}\\mods\\noita-mp\\files\\scripts\" && cd ${workspaceFolder}\\docs\\lua-docs\\ && DEL /f *.log"
       },
       "problemMatcher": []
     }

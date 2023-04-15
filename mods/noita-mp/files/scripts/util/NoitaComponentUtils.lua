@@ -25,7 +25,7 @@ function NoitaComponentUtils.setEntityData(entityId, x, y, rotation, velocity, h
         ComponentSetValue2(hpCompId, "max_hp", math.round(tonumber(health.max / 25), 0.01))
     else
         Logger.debug(Logger.channels.entity, ("Unable to get DamageModelComponent, because entity (%s) might not" ..
-                "have any DamageModelComponent."):format(entityId))
+            "have any DamageModelComponent."):format(entityId))
     end
 
     EntityApplyTransform(entityId, x, y, rotation, 1, 1)
@@ -35,7 +35,7 @@ function NoitaComponentUtils.setEntityData(entityId, x, y, rotation, velocity, h
         ComponentSetValue2(velocityCompId, "mVelocity", velocity.x or velocity[1], velocity.y or velocity[2])
     else
         Logger.debug(Logger.channels.entity, ("Unable to get VelocityComponent, because entity (%s) might not" ..
-                "have any VelocityComponent."):format(entityId))
+            "have any VelocityComponent."):format(entityId))
         --EntityAddComponent2(entityId, "VelocityComponent", {})
     end
     CustomProfiler.stop("NoitaComponentUtils.setEntityData", cpc)
@@ -43,12 +43,15 @@ end
 
 --- Fetches data like position, rotation, velocity, health and filename
 --- @param entityId number
---- @return string ownername, string ownerguid, number nuid, string filename, EntityHealthData health, number rotation, Vec2 velocity, number x, number y
+--- @return string ownername, string ownerguid, number nuid, string filename, Health health, number rotation, Vec2 velocity, number x, number y
 function NoitaComponentUtils.getEntityData(entityId)
     local cpc                                    = CustomProfiler.start("NoitaComponentUtils.getEntityData")
     local compOwnerName, compOwnerGuid, compNuid = NetworkVscUtils.getAllVscValuesByEntityId(entityId)
     local hpCompId                               = EntityGetFirstComponentIncludingDisabled(entityId,
-                                                                                            "DamageModelComponent")
+        "DamageModelComponent")
+    ---@class Health
+    ---@field current number
+    ---@field max number
     local health                                 = { current = 0, max = 0 }
     if hpCompId then
         local hpCurrent = math.round(ComponentGetValue2(hpCompId, "hp") * 25, 0.01)
@@ -66,7 +69,7 @@ function NoitaComponentUtils.getEntityData(entityId)
     CustomProfiler.stop("NoitaComponentUtils.getEntityData", cpc)
     ---@diagnostic disable-next-line: return-type-mismatch
     return compOwnerName, compOwnerGuid, compNuid, filename, health, math.round(
-            rotation, 0.1), velocity, math.round(x, 0.1), math.round(y, 0.1)
+        rotation, 0.1), velocity, math.round(x, 0.1), math.round(y, 0.1)
 end
 
 function NoitaComponentUtils.getEntityDataByNuid(nuid)

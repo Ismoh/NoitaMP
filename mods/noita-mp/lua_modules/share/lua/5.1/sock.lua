@@ -243,7 +243,7 @@ function Listener:trigger(event, data, client)
 end
 
 --- Manages all clients and receives network events.
--- @type Server
+---@class SockServer
 local Server    = {}
 local Server_mt = { __index = Server }
 
@@ -818,7 +818,7 @@ function Server:getRoundTripTime()
 end
 
 --- Connects to servers.
--- @type Client
+---@class SockClient
 local Client    = {}
 local Client_mt = { __index = Client }
 
@@ -1512,8 +1512,11 @@ end
 -- -- Client that will connect to 123.45.67.89:1234, using two channels
 -- -- NOTE: Server must also allocate two channels!
 --client = sock.newClient("123.45.67.89", 1234, 2)
----@class SockClient
----@return SockClient
+---Creates a new Client instance.
+---@param serverOrAddress string|nil
+---@param port number|nil
+---@param maxChannels number|nil
+---@return SockClient client
 sock.newClient = function(serverOrAddress, port, maxChannels)
     serverOrAddress = serverOrAddress or "localhost"
     port            = port or 22122

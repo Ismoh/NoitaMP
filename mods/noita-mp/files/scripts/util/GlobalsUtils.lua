@@ -17,17 +17,20 @@ if require then
         require("CustomProfiler")
     end
 else
-    -- Fix stupid Noita sandbox issue. Noita Components does not have access to require.
-    CustomProfiler       = {}
-    CustomProfiler.start = function(functionName)
-        --Logger.trace(Logger.channels.globals,
-        --            ("NoitaComponents with their restricted Lua context are trying to use CustomProfiler.start(functionName %s)")
-        --                    :format(functionName))
-    end
-    CustomProfiler.stop  = function(functionName, customProfilerCounter)
-        --Logger.trace(Logger.channels.globals,
-        --            ("NoitaComponents with their restricted Lua context are trying to use CustomProfiler.stop(functionName %s, customProfilerCounter %s)")
-        --                    :format(functionName, customProfilerCounter))
+    if not CustomProfiler then
+        -- Fix stupid Noita sandbox issue. Noita Components does not have access to require.
+        CustomProfiler       = {}
+        ---@param functionName string
+        CustomProfiler.start = function(functionName)
+            --Logger.trace(Logger.channels.globals,
+            --            ("NoitaComponents with their restricted Lua context are trying to use CustomProfiler.start(functionName %s)")
+            --                    :format(functionName))
+        end
+        CustomProfiler.stop  = function(functionName, customProfilerCounter)
+            --Logger.trace(Logger.channels.globals,
+            --            ("NoitaComponents with their restricted Lua context are trying to use CustomProfiler.stop(functionName %s, customProfilerCounter %s)")
+            --                    :format(functionName, customProfilerCounter))
+        end
     end
 end
 
@@ -92,7 +95,7 @@ end
 function GlobalsUtils.setNuid(nuid, entityId, componentIdForOwnerName, componentIdForOwnerGuid, componentIdForNuid)
     local cpc = CustomProfiler.start("GlobalsUtils.setNuid")
     GlobalsSetValue(GlobalsUtils.nuidKeyFormat:format(nuid),
-        GlobalsUtils.nuidValueFormat:format(entityId))             -- also change stuff in nuid_updater.lua
+        GlobalsUtils.nuidValueFormat:format(entityId)) -- also change stuff in nuid_updater.lua
     CustomProfiler.stop("GlobalsUtils.setNuid", cpc)
 end
 

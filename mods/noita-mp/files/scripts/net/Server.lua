@@ -1,6 +1,5 @@
---- Server.
---- @type Server
-Server = {}
+---@class ServerInit
+ServerInit = {}
 
 
 --- 'Imports'
@@ -10,12 +9,13 @@ local fu          = require("FileUtils")
 local zstandard   = require("zstd")
 local messagePack = require("MessagePack")
 
---- Server constructor
+--- ServerInit constructor
 --- Creates a new instance of server 'class'
----@param sockServer table sock.lua#newServer
----@return Server Server
-function Server.new(sockServer)
+---@param sockServer SockServer
+---@return SockServer self
+function ServerInit.new(sockServer)
     local cpc  = CustomProfiler.start("Server.new")
+    ---@class SockServer
     local self = sockServer
 
 
@@ -186,8 +186,8 @@ function Server.new(sockServer)
         if Utils.IsEmpty(data) then
             error(("onConnect data is empty: %s"):format(data), 3)
         end
-	
-	if Utils.IsEmpty(MinaUtils.getLocalMinaInformation().nuid) then
+
+        if Utils.IsEmpty(MinaUtils.getLocalMinaInformation().nuid) then
             local entityId = MinaUtils.getLocalMinaEntityId()
             local hasNuid, nuid = NetworkVscUtils.hasNuidSet(entityId)
             if not hasNuid or Utils.IsEmpty(nuid) then
@@ -195,7 +195,7 @@ function Server.new(sockServer)
                 NetworkVscUtils.addOrUpdateAllVscs(entityId, MinaUtils.getLocalMinaName(), MinaUtils.getLocalMinaGuid(), nuid, nil, nil)
             end
         end
-	
+
         self.sendMinaInformation()
 
         self:send(peer, NetworkUtils.events.seed.name,
@@ -1110,11 +1110,9 @@ function Server.new(sockServer)
     return self
 end
 
--- Init this object:
-
 -- Because of stack overflow errors when loading lua files,
 -- I decided to put Utils 'classes' into globals
-_G.ServerInit = Server
+_G.ServerInit = ServerInit
 _G.Server     = ServerInit.new(sock.newServer())
 
 --local startOnLoad = ModSettingGet("noita-mp.server_start_when_world_loaded")
