@@ -96,6 +96,7 @@ if not Utils then
         -- util isn't available!
         Utils = dofile_once("mods/noita-mp/files/scripts/util/Utils.lua")
         if not MinaUtils and not require then
+            ---@type MinaUtils
             MinaUtils = dofile_once("mods/noita-mp/files/scripts/util/MinaUtils.lua")
         end
     end

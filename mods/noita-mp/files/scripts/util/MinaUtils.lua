@@ -1,6 +1,6 @@
 ---Util class for fetching information about local and remote minas.
 ---@class MinaUtils
-MinaUtils           = {}
+local MinaUtils           = {}
 
 local localMinaName = nil
 local localMinaGuid = nil
@@ -170,11 +170,8 @@ function MinaUtils.isLocalMinaPolymorphed()
     return false, nil
 end
 
---[[ Because of stack overflow errors when loading lua files,
-     I decided to put Utils 'classes' into globals ]]
+---Globally accessible MinaUtils in _G.MinaUtils.
+---@alias _G.MinaUtils MinaUtils
 _G.MinaUtils = MinaUtils
 
---[[ But still return for Noita Components,
-     which does not have access to _G,
-     because of own context/vm ]]
 return MinaUtils

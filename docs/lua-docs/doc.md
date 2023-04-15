@@ -13,23 +13,6 @@ SockClient
 # ClientInit
 
 ClientInit class extends [SockClient#](file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/net/%23SockClient)
-
-## new
-
-
-```lua
-function ClientInit.new(sockClient: SockClient)
-  -> self: SockClient
-```
-
-ClientInit 'constructor'. Creates a new extended instance of sockClient 'class'.
-
-
----
-
-# ClientInit
-
-ClientInit class extends [SockClient#](file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/net/%23SockClient)
 See: [SockClient](file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/net/Client.lua#20#14)
 
 
@@ -41,6 +24,23 @@ ClientInit
 ```lua
 ClientInit
 ```
+
+
+---
+
+# ClientInit
+
+ClientInit class extends [SockClient#](file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/net/%23SockClient)
+
+## new
+
+
+```lua
+function ClientInit.new(sockClient: SockClient)
+  -> self: SockClient
+```
+
+ClientInit 'constructor'. Creates a new extended instance of sockClient 'class'.
 
 
 ---
@@ -1755,104 +1755,6 @@ MinaUtils
 ```
 
 
-```lua
-MinaUtils
-```
-
-
----
-
-# MinaUtils.getLocalMinaEntityId
-
-Getter for local mina entity id. It also takes care of polymorphism!
-
-@*return* `localMinaEntityId` — or nil if not found/dead
-
-
-```lua
-function MinaUtils.getLocalMinaEntityId()
-  -> localMinaEntityId: number|nil
-```
-
-
----
-
-# MinaUtils.getLocalMinaGuid
-
-Getter for local mina guid. ~It also loads it from settings file.~
-
-
-```lua
-function MinaUtils.getLocalMinaGuid()
-  -> localMinaGuid: string
-```
-
-
----
-
-# MinaUtils.getLocalMinaInformation
-
-Getter for local mina information. It also takes care of polymorphism!
-See: [MinaInformation](file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/util/MinaUtils.lua#124#14)
-
-
-```lua
-function MinaUtils.getLocalMinaInformation()
-  -> localMinaInformation: MinaInformation
-```
-
-
----
-
-# MinaUtils.getLocalMinaName
-
-Getter for local mina name. ~It also loads it from settings file.~
-
-
-```lua
-function MinaUtils.getLocalMinaName()
-  -> localMinaName: string
-```
-
-
----
-
-# MinaUtils.isLocalMinaPolymorphed
-
-Checks if local mina is polymorphed. Returns true, entityId | false, nil
-
-
-```lua
-function MinaUtils.isLocalMinaPolymorphed()
-  -> isPolymorphed: boolean
-  2. entityId: number|nil
-```
-
-
----
-
-# MinaUtils.setLocalMinaGuid
-
-Setter for local mina guid. It also saves it to settings file.
-
-
-```lua
-function MinaUtils.setLocalMinaGuid(guid: string)
-```
-
-
----
-
-# MinaUtils.setLocalMinaName
-
-Setter for local mina name. It also saves it to settings file.
-
-
-```lua
-function MinaUtils.setLocalMinaName(name: string)
-```
-
-
 ---
 
 # NetworkCache
@@ -2155,38 +2057,6 @@ integer
 
  NetworkVscUtils:
 
-
-```lua
-unknown
-```
-
-
-```lua
-unknown
-```
-
-
-```lua
-unknown
-```
-
-
-```lua
-NetworkVscUtils
-```
-
-
-```lua
-NetworkVscUtils
-```
-
-
----
-
-# NetworkVscUtils
-
- NetworkVscUtils:
-
 ## addOrUpdateAllVscs
 
 
@@ -2352,6 +2222,38 @@ string
 
 ```lua
 string
+```
+
+
+---
+
+# NetworkVscUtils
+
+ NetworkVscUtils:
+
+
+```lua
+unknown
+```
+
+
+```lua
+unknown
+```
+
+
+```lua
+unknown
+```
+
+
+```lua
+NetworkVscUtils
+```
+
+
+```lua
+NetworkVscUtils
 ```
 
 
@@ -2793,22 +2695,6 @@ SockServer
 
 # ServerInit
 
-## new
-
-
-```lua
-function ServerInit.new(sockServer: SockServer)
-  -> self: SockServer
-```
-
- ServerInit constructor
- Creates a new instance of server 'class'
-
-
----
-
-# ServerInit
-
  Because of stack overflow errors when loading lua files,
  I decided to put Utils 'classes' into globals
 
@@ -2821,6 +2707,22 @@ ServerInit
 ```lua
 ServerInit
 ```
+
+
+---
+
+# ServerInit
+
+## new
+
+
+```lua
+function ServerInit.new(sockServer: SockServer)
+  -> self: SockServer
+```
+
+ ServerInit constructor
+ Creates a new instance of server 'class'
 
 
 ---
@@ -3296,56 +3198,6 @@ function Ui.new()
 
 # Utils
 
-
-```lua
-Utils
-```
-
-
-```lua
-Utils
-```
-
-
-```lua
-any
-```
-
-
-```lua
-Utils
-```
-
-
-```lua
-any
-```
-
-
-```lua
-Utils
-```
-
-
-```lua
-any
-```
-
-
-```lua
-Utils
-```
-
-
-```lua
-any
-```
-
-
----
-
-# Utils
-
 ## CopyToClipboard
 
 
@@ -3412,6 +3264,56 @@ function Utils.pformat(var: any)
 
 ---
 
+# Utils
+
+
+```lua
+Utils
+```
+
+
+```lua
+Utils
+```
+
+
+```lua
+any
+```
+
+
+```lua
+Utils
+```
+
+
+```lua
+any
+```
+
+
+```lua
+Utils
+```
+
+
+```lua
+any
+```
+
+
+```lua
+Utils
+```
+
+
+```lua
+any
+```
+
+
+---
+
 # _G
 
 
@@ -3423,6 +3325,18 @@ A global variable (not a function) that holds the global environment (see [§2.2
 
 ```lua
 _G
+```
+
+
+---
+
+# _G.MinaUtils
+
+Globally accessible MinaUtils in _G.MinaUtils.
+
+
+```lua
+MinaUtils
 ```
 
 

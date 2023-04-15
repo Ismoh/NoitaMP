@@ -21,6 +21,37 @@
     {
         "defines": [
             {
+                "extends": {
+                    "finish": 50022,
+                    "start": 50020,
+                    "type": "table",
+                    "view": "ClientInit"
+                },
+                "file": "file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/net/Client.lua",
+                "finish": 50010,
+                "start": 50000,
+                "type": "setglobal"
+            },
+            {
+                "extends": {
+                    "finish": 10290026,
+                    "start": 10290016,
+                    "type": "getglobal",
+                    "view": "ClientInit"
+                },
+                "file": "file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/net/Client.lua",
+                "finish": 10290013,
+                "start": 10290000,
+                "type": "setfield"
+            }
+        ],
+        "desc": "ClientInit class extends [SockClient#](file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/net/%23SockClient)\nSee: [SockClient](file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/net/Client.lua#20#14)",
+        "name": "ClientInit",
+        "type": "variable"
+    },
+    {
+        "defines": [
+            {
                 "file": "file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/net/Client.lua",
                 "finish": 40020,
                 "start": 40010,
@@ -61,37 +92,6 @@
         ],
         "name": "ClientInit",
         "type": "type"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
-                    "finish": 50022,
-                    "start": 50020,
-                    "type": "table",
-                    "view": "ClientInit"
-                },
-                "file": "file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/net/Client.lua",
-                "finish": 50010,
-                "start": 50000,
-                "type": "setglobal"
-            },
-            {
-                "extends": {
-                    "finish": 10290026,
-                    "start": 10290016,
-                    "type": "getglobal",
-                    "view": "ClientInit"
-                },
-                "file": "file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/net/Client.lua",
-                "finish": 10290013,
-                "start": 10290000,
-                "type": "setfield"
-            }
-        ],
-        "desc": "ClientInit class extends [SockClient#](file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/net/%23SockClient)\nSee: [SockClient](file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/net/Client.lua#20#14)",
-        "name": "ClientInit",
-        "type": "variable"
     },
     {
         "defines": [
@@ -4741,21 +4741,9 @@
         "defines": [
             {
                 "extends": {
-                    "finish": 20024,
-                    "start": 20022,
-                    "type": "table",
-                    "view": "MinaUtils"
-                },
-                "file": "file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/util/MinaUtils.lua",
-                "finish": 20009,
-                "start": 20000,
-                "type": "setglobal"
-            },
-            {
-                "extends": {
                     "finish": 1740024,
                     "start": 1740015,
-                    "type": "getglobal",
+                    "type": "getlocal",
                     "view": "MinaUtils"
                 },
                 "file": "file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/util/MinaUtils.lua",
@@ -4766,201 +4754,6 @@
         ],
         "desc": "Util class for fetching information about local and remote minas.",
         "name": "MinaUtils",
-        "type": "variable"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
-                    "args": [],
-                    "desc": "Getter for local mina entity id. It also takes care of polymorphism!\n\n@*return* `localMinaEntityId` — or nil if not found/dead",
-                    "finish": 710003,
-                    "returns": [
-                        {
-                            "type": "function.return",
-                            "view": "number|nil"
-                        }
-                    ],
-                    "start": 410000,
-                    "type": "function",
-                    "view": "function MinaUtils.getLocalMinaEntityId()\n  -> localMinaEntityId: number|nil"
-                },
-                "file": "file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/util/MinaUtils.lua",
-                "finish": 410039,
-                "start": 410009,
-                "type": "setfield"
-            }
-        ],
-        "desc": "Getter for local mina entity id. It also takes care of polymorphism!\n\n@*return* `localMinaEntityId` — or nil if not found/dead",
-        "name": "MinaUtils.getLocalMinaEntityId",
-        "type": "variable"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
-                    "args": [],
-                    "desc": "Getter for local mina guid. ~It also loads it from settings file.~",
-                    "finish": 370003,
-                    "returns": [
-                        {
-                            "type": "function.return",
-                            "view": "string"
-                        }
-                    ],
-                    "start": 320000,
-                    "type": "function",
-                    "view": "function MinaUtils.getLocalMinaGuid()\n  -> localMinaGuid: string"
-                },
-                "file": "file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/util/MinaUtils.lua",
-                "finish": 320035,
-                "start": 320009,
-                "type": "setfield"
-            }
-        ],
-        "desc": "Getter for local mina guid. ~It also loads it from settings file.~",
-        "name": "MinaUtils.getLocalMinaGuid",
-        "type": "variable"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
-                    "args": [],
-                    "desc": "Getter for local mina information. It also takes care of polymorphism!\nSee: [MinaInformation](file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/util/MinaUtils.lua#124#14)",
-                    "finish": 1410003,
-                    "returns": [
-                        {
-                            "type": "function.return",
-                            "view": "MinaInformation"
-                        }
-                    ],
-                    "start": 760000,
-                    "type": "function",
-                    "view": "function MinaUtils.getLocalMinaInformation()\n  -> localMinaInformation: MinaInformation"
-                },
-                "file": "file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/util/MinaUtils.lua",
-                "finish": 760042,
-                "start": 760009,
-                "type": "setfield"
-            }
-        ],
-        "desc": "Getter for local mina information. It also takes care of polymorphism!\nSee: [MinaInformation](file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/util/MinaUtils.lua#124#14)",
-        "name": "MinaUtils.getLocalMinaInformation",
-        "type": "variable"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
-                    "args": [],
-                    "desc": "Getter for local mina name. ~It also loads it from settings file.~",
-                    "finish": 210003,
-                    "returns": [
-                        {
-                            "type": "function.return",
-                            "view": "string"
-                        }
-                    ],
-                    "start": 160000,
-                    "type": "function",
-                    "view": "function MinaUtils.getLocalMinaName()\n  -> localMinaName: string"
-                },
-                "file": "file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/util/MinaUtils.lua",
-                "finish": 160035,
-                "start": 160009,
-                "type": "setfield"
-            }
-        ],
-        "desc": "Getter for local mina name. ~It also loads it from settings file.~",
-        "name": "MinaUtils.getLocalMinaName",
-        "type": "variable"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
-                    "args": [],
-                    "desc": "Checks if local mina is polymorphed. Returns true, entityId | false, nil",
-                    "finish": 1700003,
-                    "returns": [
-                        {
-                            "type": "function.return",
-                            "view": "boolean"
-                        },
-                        {
-                            "type": "function.return",
-                            "view": "number|nil"
-                        }
-                    ],
-                    "start": 1450000,
-                    "type": "function",
-                    "view": "function MinaUtils.isLocalMinaPolymorphed()\n  -> isPolymorphed: boolean\n  2. entityId: number|nil"
-                },
-                "file": "file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/util/MinaUtils.lua",
-                "finish": 1450041,
-                "start": 1450009,
-                "type": "setfield"
-            }
-        ],
-        "desc": "Checks if local mina is polymorphed. Returns true, entityId | false, nil",
-        "name": "MinaUtils.isLocalMinaPolymorphed",
-        "type": "variable"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
-                    "args": [
-                        {
-                            "finish": 250040,
-                            "start": 250036,
-                            "type": "local",
-                            "view": "string"
-                        }
-                    ],
-                    "desc": "Setter for local mina guid. It also saves it to settings file.",
-                    "finish": 280003,
-                    "start": 250000,
-                    "type": "function",
-                    "view": "function MinaUtils.setLocalMinaGuid(guid: string)"
-                },
-                "file": "file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/util/MinaUtils.lua",
-                "finish": 250035,
-                "start": 250009,
-                "type": "setfield"
-            }
-        ],
-        "desc": "Setter for local mina guid. It also saves it to settings file.",
-        "name": "MinaUtils.setLocalMinaGuid",
-        "type": "variable"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
-                    "args": [
-                        {
-                            "finish": 90040,
-                            "start": 90036,
-                            "type": "local",
-                            "view": "string"
-                        }
-                    ],
-                    "desc": "Setter for local mina name. It also saves it to settings file.",
-                    "finish": 120003,
-                    "start": 90000,
-                    "type": "function",
-                    "view": "function MinaUtils.setLocalMinaName(name: string)"
-                },
-                "file": "file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/util/MinaUtils.lua",
-                "finish": 90035,
-                "start": 90009,
-                "type": "setfield"
-            }
-        ],
-        "desc": "Setter for local mina name. It also saves it to settings file.",
-        "name": "MinaUtils.setLocalMinaName",
         "type": "variable"
     },
     {
@@ -5788,73 +5581,6 @@
     {
         "defines": [
             {
-                "extends": {
-                    "finish": 20085,
-                    "start": 20018,
-                    "type": "select",
-                    "view": "unknown"
-                },
-                "file": "file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/noita-components/lua_component_enabler.lua",
-                "finish": 20015,
-                "start": 20000,
-                "type": "setglobal"
-            },
-            {
-                "extends": {
-                    "finish": 40089,
-                    "start": 40022,
-                    "type": "select",
-                    "view": "unknown"
-                },
-                "file": "file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/noita-components/nuid_debug.lua",
-                "finish": 40015,
-                "start": 40000,
-                "type": "setglobal"
-            },
-            {
-                "extends": {
-                    "finish": 30090,
-                    "start": 30023,
-                    "type": "select",
-                    "view": "unknown"
-                },
-                "file": "file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/noita-components/nuid_updater.lua",
-                "finish": 30015,
-                "start": 30000,
-                "type": "setglobal"
-            },
-            {
-                "extends": {
-                    "finish": 210020,
-                    "start": 210018,
-                    "type": "table",
-                    "view": "NetworkVscUtils"
-                },
-                "file": "file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/util/NetworkVscUtils.lua",
-                "finish": 210015,
-                "start": 210000,
-                "type": "setglobal"
-            },
-            {
-                "extends": {
-                    "finish": 6050036,
-                    "start": 6050021,
-                    "type": "getglobal",
-                    "view": "NetworkVscUtils"
-                },
-                "file": "file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/util/NetworkVscUtils.lua",
-                "finish": 6050018,
-                "start": 6050000,
-                "type": "setfield"
-            }
-        ],
-        "desc": " NetworkVscUtils:",
-        "name": "NetworkVscUtils",
-        "type": "variable"
-    },
-    {
-        "defines": [
-            {
                 "file": "file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/util/NetworkVscUtils.lua",
                 "finish": 200026,
                 "start": 200011,
@@ -6265,6 +5991,73 @@
         ],
         "name": "NetworkVscUtils",
         "type": "type"
+    },
+    {
+        "defines": [
+            {
+                "extends": {
+                    "finish": 20085,
+                    "start": 20018,
+                    "type": "select",
+                    "view": "unknown"
+                },
+                "file": "file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/noita-components/lua_component_enabler.lua",
+                "finish": 20015,
+                "start": 20000,
+                "type": "setglobal"
+            },
+            {
+                "extends": {
+                    "finish": 40089,
+                    "start": 40022,
+                    "type": "select",
+                    "view": "unknown"
+                },
+                "file": "file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/noita-components/nuid_debug.lua",
+                "finish": 40015,
+                "start": 40000,
+                "type": "setglobal"
+            },
+            {
+                "extends": {
+                    "finish": 30090,
+                    "start": 30023,
+                    "type": "select",
+                    "view": "unknown"
+                },
+                "file": "file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/noita-components/nuid_updater.lua",
+                "finish": 30015,
+                "start": 30000,
+                "type": "setglobal"
+            },
+            {
+                "extends": {
+                    "finish": 210020,
+                    "start": 210018,
+                    "type": "table",
+                    "view": "NetworkVscUtils"
+                },
+                "file": "file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/util/NetworkVscUtils.lua",
+                "finish": 210015,
+                "start": 210000,
+                "type": "setglobal"
+            },
+            {
+                "extends": {
+                    "finish": 6050036,
+                    "start": 6050021,
+                    "type": "getglobal",
+                    "view": "NetworkVscUtils"
+                },
+                "file": "file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/util/NetworkVscUtils.lua",
+                "finish": 6050018,
+                "start": 6050000,
+                "type": "setfield"
+            }
+        ],
+        "desc": " NetworkVscUtils:",
+        "name": "NetworkVscUtils",
+        "type": "variable"
     },
     {
         "defines": [
@@ -7288,6 +7081,37 @@
     {
         "defines": [
             {
+                "extends": {
+                    "finish": 10015,
+                    "start": 10013,
+                    "type": "table",
+                    "view": "ServerInit"
+                },
+                "file": "file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/net/Server.lua",
+                "finish": 10010,
+                "start": 10000,
+                "type": "setglobal"
+            },
+            {
+                "extends": {
+                    "finish": 11140026,
+                    "start": 11140016,
+                    "type": "getglobal",
+                    "view": "ServerInit"
+                },
+                "file": "file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/net/Server.lua",
+                "finish": 11140013,
+                "start": 11140000,
+                "type": "setfield"
+            }
+        ],
+        "desc": " Because of stack overflow errors when loading lua files,\n I decided to put Utils 'classes' into globals",
+        "name": "ServerInit",
+        "type": "variable"
+    },
+    {
+        "defines": [
+            {
                 "file": "file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/net/Server.lua",
                 "finish": 20,
                 "start": 10,
@@ -7327,37 +7151,6 @@
         ],
         "name": "ServerInit",
         "type": "type"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
-                    "finish": 10015,
-                    "start": 10013,
-                    "type": "table",
-                    "view": "ServerInit"
-                },
-                "file": "file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/net/Server.lua",
-                "finish": 10010,
-                "start": 10000,
-                "type": "setglobal"
-            },
-            {
-                "extends": {
-                    "finish": 11140026,
-                    "start": 11140016,
-                    "type": "getglobal",
-                    "view": "ServerInit"
-                },
-                "file": "file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/net/Server.lua",
-                "finish": 11140013,
-                "start": 11140000,
-                "type": "setfield"
-            }
-        ],
-        "desc": " Because of stack overflow errors when loading lua files,\n I decided to put Utils 'classes' into globals",
-        "name": "ServerInit",
-        "type": "variable"
     },
     {
         "defines": [
@@ -8681,120 +8474,6 @@
     {
         "defines": [
             {
-                "extends": {
-                    "finish": 2050032,
-                    "start": 2050016,
-                    "type": "select",
-                    "view": "Utils"
-                },
-                "file": "file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/extensions/tableExtensions.lua",
-                "finish": 2050013,
-                "start": 2050008,
-                "type": "setglobal"
-            },
-            {
-                "extends": {
-                    "finish": 140032,
-                    "start": 140016,
-                    "type": "select",
-                    "view": "Utils"
-                },
-                "file": "file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/util/EntityCacheUtils.lua",
-                "finish": 140013,
-                "start": 140008,
-                "type": "setglobal"
-            },
-            {
-                "extends": {
-                    "finish": 190068,
-                    "start": 190016,
-                    "type": "select",
-                    "view": "any"
-                },
-                "file": "file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/util/EntityCacheUtils.lua",
-                "finish": 190013,
-                "start": 190008,
-                "type": "setglobal"
-            },
-            {
-                "extends": {
-                    "finish": 170028,
-                    "start": 170012,
-                    "type": "select",
-                    "view": "Utils"
-                },
-                "file": "file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/util/EntitySerialisationUtils.lua",
-                "finish": 170009,
-                "start": 170004,
-                "type": "setglobal"
-            },
-            {
-                "extends": {
-                    "finish": 210068,
-                    "start": 210016,
-                    "type": "select",
-                    "view": "any"
-                },
-                "file": "file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/util/EntitySerialisationUtils.lua",
-                "finish": 210013,
-                "start": 210008,
-                "type": "setglobal"
-            },
-            {
-                "extends": {
-                    "finish": 160028,
-                    "start": 160012,
-                    "type": "select",
-                    "view": "Utils"
-                },
-                "file": "file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/util/EntityUtils.lua",
-                "finish": 160009,
-                "start": 160004,
-                "type": "setglobal"
-            },
-            {
-                "extends": {
-                    "finish": 200068,
-                    "start": 200016,
-                    "type": "select",
-                    "view": "any"
-                },
-                "file": "file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/util/EntityUtils.lua",
-                "finish": 200013,
-                "start": 200008,
-                "type": "setglobal"
-            },
-            {
-                "extends": {
-                    "finish": 110028,
-                    "start": 110012,
-                    "type": "select",
-                    "view": "Utils"
-                },
-                "file": "file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/util/NetworkVscUtils.lua",
-                "finish": 110009,
-                "start": 110004,
-                "type": "setglobal"
-            },
-            {
-                "extends": {
-                    "finish": 150068,
-                    "start": 150016,
-                    "type": "select",
-                    "view": "any"
-                },
-                "file": "file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/util/NetworkVscUtils.lua",
-                "finish": 150013,
-                "start": 150008,
-                "type": "setglobal"
-            }
-        ],
-        "name": "Utils",
-        "type": "variable"
-    },
-    {
-        "defines": [
-            {
                 "file": "file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/util/Utils.lua",
                 "finish": 100016,
                 "start": 100011,
@@ -8979,6 +8658,120 @@
         "defines": [
             {
                 "extends": {
+                    "finish": 2050032,
+                    "start": 2050016,
+                    "type": "select",
+                    "view": "Utils"
+                },
+                "file": "file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/extensions/tableExtensions.lua",
+                "finish": 2050013,
+                "start": 2050008,
+                "type": "setglobal"
+            },
+            {
+                "extends": {
+                    "finish": 140032,
+                    "start": 140016,
+                    "type": "select",
+                    "view": "Utils"
+                },
+                "file": "file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/util/EntityCacheUtils.lua",
+                "finish": 140013,
+                "start": 140008,
+                "type": "setglobal"
+            },
+            {
+                "extends": {
+                    "finish": 190068,
+                    "start": 190016,
+                    "type": "select",
+                    "view": "any"
+                },
+                "file": "file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/util/EntityCacheUtils.lua",
+                "finish": 190013,
+                "start": 190008,
+                "type": "setglobal"
+            },
+            {
+                "extends": {
+                    "finish": 170028,
+                    "start": 170012,
+                    "type": "select",
+                    "view": "Utils"
+                },
+                "file": "file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/util/EntitySerialisationUtils.lua",
+                "finish": 170009,
+                "start": 170004,
+                "type": "setglobal"
+            },
+            {
+                "extends": {
+                    "finish": 210068,
+                    "start": 210016,
+                    "type": "select",
+                    "view": "any"
+                },
+                "file": "file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/util/EntitySerialisationUtils.lua",
+                "finish": 210013,
+                "start": 210008,
+                "type": "setglobal"
+            },
+            {
+                "extends": {
+                    "finish": 160028,
+                    "start": 160012,
+                    "type": "select",
+                    "view": "Utils"
+                },
+                "file": "file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/util/EntityUtils.lua",
+                "finish": 160009,
+                "start": 160004,
+                "type": "setglobal"
+            },
+            {
+                "extends": {
+                    "finish": 200068,
+                    "start": 200016,
+                    "type": "select",
+                    "view": "any"
+                },
+                "file": "file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/util/EntityUtils.lua",
+                "finish": 200013,
+                "start": 200008,
+                "type": "setglobal"
+            },
+            {
+                "extends": {
+                    "finish": 110028,
+                    "start": 110012,
+                    "type": "select",
+                    "view": "Utils"
+                },
+                "file": "file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/util/NetworkVscUtils.lua",
+                "finish": 110009,
+                "start": 110004,
+                "type": "setglobal"
+            },
+            {
+                "extends": {
+                    "finish": 150068,
+                    "start": 150016,
+                    "type": "select",
+                    "view": "any"
+                },
+                "file": "file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/util/NetworkVscUtils.lua",
+                "finish": 150013,
+                "start": 150008,
+                "type": "setglobal"
+            }
+        ],
+        "name": "Utils",
+        "type": "variable"
+    },
+    {
+        "defines": [
+            {
+                "extends": {
                     "finish": 680007,
                     "start": 680005,
                     "type": "table",
@@ -8993,6 +8786,34 @@
         "desc": "\nA global variable (not a function) that holds the global environment (see [§2.2](http://www.lua.org/manual/5.4/manual.html#2.2)). Lua itself does not use this variable; changing its value does not affect any environment, nor vice versa.\n\n[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-_G)\n",
         "name": "_G",
         "type": "variable"
+    },
+    {
+        "defines": [
+            {
+                "extends": {
+                    "finish": 1730032,
+                    "start": 1730023,
+                    "type": "doc.type",
+                    "types": [
+                        {
+                            "finish": 1730032,
+                            "start": 1730023,
+                            "type": "doc.type.name",
+                            "view": "MinaUtils"
+                        }
+                    ],
+                    "view": "MinaUtils"
+                },
+                "file": "file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/util/MinaUtils.lua",
+                "finish": 1730032,
+                "start": 1730010,
+                "type": "doc.alias"
+            }
+        ],
+        "desc": "Globally accessible MinaUtils in _G.MinaUtils.",
+        "fields": [],
+        "name": "_G.MinaUtils",
+        "type": "type"
     },
     {
         "defines": [
