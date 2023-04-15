@@ -1,8 +1,15 @@
 ---Util class for fetching information about local and remote minas.
 ---@class MinaUtils
-local MinaUtils           = {}
+local MinaUtils     = {}
 
+---Stores local mina name.
+---@private
+---@type string
 local localMinaName = nil
+
+---Stores local mina guid.
+---@private
+---@type string
 local localMinaGuid = nil
 
 ---Setter for local mina name. It also saves it to settings file.

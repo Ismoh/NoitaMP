@@ -1,6 +1,6 @@
 # Client
 
-See: [SockClient](file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/net/Client.lua#20#14)
+See: [SockClient](file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/net/Client.lua#18#14)
 
 
 ```lua
@@ -12,25 +12,7 @@ SockClient
 
 # ClientInit
 
-ClientInit class extends [SockClient#](file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/net/%23SockClient)
-See: [SockClient](file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/net/Client.lua#20#14)
-
-
-```lua
-ClientInit
-```
-
-
-```lua
-ClientInit
-```
-
-
----
-
-# ClientInit
-
-ClientInit class extends [SockClient#](file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/net/%23SockClient)
+ClientInit class for creating a new extended instance of SockClient.
 
 ## new
 
@@ -40,20 +22,173 @@ function ClientInit.new(sockClient: SockClient)
   -> self: SockClient
 ```
 
-ClientInit 'constructor'. Creates a new extended instance of sockClient 'class'.
+
+---
+
+# ClientInit
+
+ClientInit class for creating a new extended instance of SockClient.
+
+
+```lua
+ClientInit
+```
 
 
 ---
 
-# ClientInit.new
+# CustomProfiler
 
-ClientInit 'constructor'. Creates a new extended instance of sockClient 'class'.
+Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
+
+## ceiling
 
 
 ```lua
-function ClientInit.new(sockClient: SockClient)
-  -> self: SockClient
+integer
 ```
+
+The ceiling in milliseconds. If a function takes longer than this ceiling, it will be truncated.
+ Default: 1001 ms
+
+## counter
+
+
+```lua
+integer
+```
+
+The counter that is used to determine the order of the function calls.
+
+## getDuration
+
+
+```lua
+function CustomProfiler.getDuration(functionName: string, customProfilerCounter: number)
+  -> duration: number
+```
+
+Simply returns the duration of a specific function. This is used to determine the duration of a function.
+
+@*param* `functionName` — The name of the function that you want to measure. This has to be the same as the one used in @see CustomProfiler.start(functionName)
+
+@*param* `customProfilerCounter` — The counter that is used to determine the order of the function calls. This has to same as the one returned by @see CustomProfiler.start(functionName)
+
+@*return* `duration` — The duration of the function in milliseconds.
+
+## getSize
+
+
+```lua
+function CustomProfiler.getSize()
+  -> size: number
+```
+
+Returns the size of the report cache.
+
+## maxEntries
+
+
+```lua
+integer
+```
+
+The maximum amount of entries per trace.
+ Default: 50
+
+## report
+
+
+```lua
+function CustomProfiler.report()
+```
+
+Creates a report of all the functions that were profiled into profiler_2022-11-24_20-23-00.json
+
+## reportCache
+
+
+```lua
+{ [string]: table<number, table<string, number>> }
+```
+
+A cache that stores all the data that is used to generate the report.
+
+## reportDirectory
+
+
+```lua
+string
+```
+
+The directory where the report will be saved.
+
+## reportFilename
+
+
+```lua
+string
+```
+
+The filename of the report.
+ Default: report.html
+
+## reportJsonFilenamePattern
+
+
+```lua
+string
+```
+
+The filename pattern of the report.
+ Default: %s.json
+
+## start
+
+
+```lua
+function CustomProfiler.start(functionName: string)
+  -> returnCounter: number
+```
+
+Starts the profiler. This has to be called before the function (or first line of function code) that you want to measure.
+
+@*param* `functionName` — The name of the function that you want to measure. This has to be the same as the one used in @see CustomProfiler.stop(functionName, customProfilerCounter)
+
+@*return* `returnCounter` — The counter that is used to determine the order of the function calls. This has to be passed to @see CustomProfiler.stop(functionName, customProfilerCounter)
+
+## stop
+
+
+```lua
+function CustomProfiler.stop(functionName: string, customProfilerCounter: number)
+  -> integer
+```
+
+Stops the profiler. This has to be called after the function (or last line of function code, but before any `return`) that you want to measure.
+
+@*param* `functionName` — The name of the function that you want to measure. This has to be the same as the one used in @see CustomProfiler.start(functionName)
+
+@*param* `customProfilerCounter` — The counter that is used to determine the order of the function calls. This has to same as the one returned by @see CustomProfiler.start(functionName)
+
+## stopAll
+
+
+```lua
+function CustomProfiler.stopAll()
+```
+
+Stops all profiled functions. Is used to get a correct report.
+
+## threshold
+
+
+```lua
+number
+```
+
+The threshold in milliseconds. If a function takes longer than this threshold, it will be reported.
+ Default: 16.5ms = 60.60 fps
 
 
 ---
@@ -69,11 +204,6 @@ CustomProfiler
 
 
 ```lua
-CustomProfiler
-```
-
-
-```lua
 table
 ```
 
@@ -95,258 +225,12 @@ table
 
 ```lua
 table
-```
-
-
----
-
-# CustomProfiler
-
-## ceiling
-
-
-```lua
-integer
-```
-
- ms
-
-## counter
-
-
-```lua
-integer
-```
-
-## getDuration
-
-
-```lua
-function CustomProfiler.getDuration(functionName: string, customProfilerCounter: number)
-  -> integer
-```
-
- Simply returns the duration of a specific function. This is used to determine the duration of a function.
-
-@*param* `functionName` — Has to be the same as the one used in start()
-
-@*param* `customProfilerCounter` — Has to be the same as the one returned by start()
-
-## getSize
-
-
-```lua
-function CustomProfiler.getSize()
-  -> unknown
-```
-
-## maxEntries
-
-
-```lua
-integer
-```
-
- entries per trace
-
-## report
-
-
-```lua
-function CustomProfiler.report()
-```
-
- Creates a report of all the functions that were profiled into profiler_2022-11-24_20-23-00.json
-
-## reportCache
-
-
-```lua
-table
-```
-
-## reportDirectory
-
-
-```lua
-string
-```
-
-## reportFilename
-
-
-```lua
-string
-```
-
-## reportJsonFilenamePattern
-
-
-```lua
-string
-```
-
-## start
-
-
-```lua
-function CustomProfiler.start(functionName: string)
-  -> number
-```
-
-## stop
-
-
-```lua
-function CustomProfiler.stop(functionName: string, customProfilerCounter: number)
-  -> integer|nil
-```
-
-## stopAll
-
-
-```lua
-function CustomProfiler.stopAll()
-```
-
-## threshold
-
-
-```lua
-number
-```
-
-ms = 60.60 fps
-
-
----
-
-# CustomProfiler.ceiling
-
- ms
-
-
-```lua
-integer
-```
-
-
----
-
-# CustomProfiler.counter
-
-
-```lua
-integer
-```
-
-
-```lua
-integer
-```
-
-
----
-
-# CustomProfiler.getDuration
-
- Simply returns the duration of a specific function. This is used to determine the duration of a function.
-
-@*param* `functionName` — Has to be the same as the one used in start()
-
-@*param* `customProfilerCounter` — Has to be the same as the one returned by start()
-
-
-```lua
-function CustomProfiler.getDuration(functionName: string, customProfilerCounter: number)
-  -> integer
-```
-
-
----
-
-# CustomProfiler.getSize
-
-
-```lua
-function CustomProfiler.getSize()
-  -> unknown
-```
-
-
----
-
-# CustomProfiler.maxEntries
-
- entries per trace
-
-
-```lua
-integer
-```
-
-
----
-
-# CustomProfiler.report
-
- Creates a report of all the functions that were profiled into profiler_2022-11-24_20-23-00.json
-
-
-```lua
-function CustomProfiler.report()
-```
-
-
----
-
-# CustomProfiler.reportCache
-
-
-```lua
-table
-```
-
-
----
-
-# CustomProfiler.reportDirectory
-
-
-```lua
-string
-```
-
-
----
-
-# CustomProfiler.reportFilename
-
-
-```lua
-string
-```
-
-
----
-
-# CustomProfiler.reportJsonFilenamePattern
-
-
-```lua
-string
 ```
 
 
 ---
 
 # CustomProfiler.start
-
-
-```lua
-function CustomProfiler.start(functionName: string)
-  -> number
-```
 
 
 ```lua
@@ -383,12 +267,6 @@ function CustomProfiler.start(functionName: any)
 
 
 ```lua
-function CustomProfiler.stop(functionName: string, customProfilerCounter: number)
-  -> integer|nil
-```
-
-
-```lua
 function CustomProfiler.stop(functionName: any, customProfilerCounter: any)
   -> integer
 ```
@@ -413,28 +291,6 @@ function CustomProfiler.stop(functionName: any, customProfilerCounter: any)
 
 ```lua
 function CustomProfiler.stop(functionName: any, customProfilerCounter: any)
-```
-
-
----
-
-# CustomProfiler.stopAll
-
-
-```lua
-function CustomProfiler.stopAll()
-```
-
-
----
-
-# CustomProfiler.threshold
-
-ms = 60.60 fps
-
-
-```lua
-number
 ```
 
 
@@ -1649,19 +1505,19 @@ function Logger.warn(channel: any, formattedMessage: any)
 
 # MinaInformation
 
-
----
-
-# MinaInformation
-
 See:
-  * [Transform](file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/util/MinaUtils.lua#117#18)
+  * [Transform](file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/util/MinaUtils.lua#124#18)
   * [Health](file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/util/NoitaComponentUtils.lua#52#14)
 
 
 ```lua
 table
 ```
+
+
+---
+
+# MinaInformation
 
 
 ---
@@ -1701,7 +1557,7 @@ function MinaUtils.getLocalMinaInformation()
 ```
 
 Getter for local mina information. It also takes care of polymorphism!
-See: [MinaInformation](file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/util/MinaUtils.lua#124#14)
+See: [MinaInformation](file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/util/MinaUtils.lua#131#14)
 
 ## getLocalMinaName
 
@@ -2057,6 +1913,38 @@ integer
 
  NetworkVscUtils:
 
+
+```lua
+unknown
+```
+
+
+```lua
+unknown
+```
+
+
+```lua
+unknown
+```
+
+
+```lua
+NetworkVscUtils
+```
+
+
+```lua
+NetworkVscUtils
+```
+
+
+---
+
+# NetworkVscUtils
+
+ NetworkVscUtils:
+
 ## addOrUpdateAllVscs
 
 
@@ -2222,38 +2110,6 @@ string
 
 ```lua
 string
-```
-
-
----
-
-# NetworkVscUtils
-
- NetworkVscUtils:
-
-
-```lua
-unknown
-```
-
-
-```lua
-unknown
-```
-
-
-```lua
-unknown
-```
-
-
-```lua
-NetworkVscUtils
-```
-
-
-```lua
-NetworkVscUtils
 ```
 
 
@@ -3198,6 +3054,56 @@ function Ui.new()
 
 # Utils
 
+
+```lua
+Utils
+```
+
+
+```lua
+Utils
+```
+
+
+```lua
+any
+```
+
+
+```lua
+Utils
+```
+
+
+```lua
+any
+```
+
+
+```lua
+Utils
+```
+
+
+```lua
+any
+```
+
+
+```lua
+Utils
+```
+
+
+```lua
+any
+```
+
+
+---
+
+# Utils
+
 ## CopyToClipboard
 
 
@@ -3264,56 +3170,6 @@ function Utils.pformat(var: any)
 
 ---
 
-# Utils
-
-
-```lua
-Utils
-```
-
-
-```lua
-Utils
-```
-
-
-```lua
-any
-```
-
-
-```lua
-Utils
-```
-
-
-```lua
-any
-```
-
-
-```lua
-Utils
-```
-
-
-```lua
-any
-```
-
-
-```lua
-Utils
-```
-
-
-```lua
-any
-```
-
-
----
-
 # _G
 
 
@@ -3330,6 +3186,30 @@ _G
 
 ---
 
+# _G.ClientInit
+
+Globally accessible ClientInit in _G.ClientInit.
+
+
+```lua
+ClientInit
+```
+
+
+---
+
+# _G.CustomProfiler
+
+Globally accessible CustomProfiler in _G.CustomProfiler.
+
+
+```lua
+CustomProfiler
+```
+
+
+---
+
 # _G.MinaUtils
 
 Globally accessible MinaUtils in _G.MinaUtils.
@@ -3337,6 +3217,18 @@ Globally accessible MinaUtils in _G.MinaUtils.
 
 ```lua
 MinaUtils
+```
+
+
+---
+
+# _G.SockClient
+
+Globally accessible SockClient in _G.SockClient.
+
+
+```lua
+SockClient
 ```
 
 

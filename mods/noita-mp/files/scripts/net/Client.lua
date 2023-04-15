@@ -1,9 +1,7 @@
----ClientInit class extends [SockClient#](/#SockClient)
+---ClientInit class for creating a new extended instance of SockClient.
 ---@see SockClient
----@source sock.lua#1520#1
----@source sock.lua:1520:1
 ---@class ClientInit
-ClientInit        = {}
+local ClientInit  = {}
 
 --- 'Imports'
 local sock        = require("sock")
@@ -12,7 +10,7 @@ local zstandard   = require("zstd")
 local messagePack = require("MessagePack")
 local fu          = require("FileUtils")
 
----ClientInit 'constructor'. Creates a new extended instance of sockClient 'class'.
+
 ---@param sockClient SockClient
 ---@return SockClient self
 function ClientInit.new(sockClient)
@@ -1024,16 +1022,13 @@ function ClientInit.new(sockClient)
     return self
 end
 
---[[ Because of stack overflow errors when loading lua files,
-     I decided to put Utils 'classes' into globals ]]
-
+---Globally accessible ClientInit in _G.ClientInit.
+---@alias _G.ClientInit ClientInit
 _G.ClientInit = ClientInit
 
+---Globally accessible SockClient in _G.SockClient.
 ---@see SockClient
----@diagnostic disable-next-line: duplicate-index
-_G.Client     = ClientInit.new(sock.newClient())
+---@alias _G.SockClient SockClient
+_G.Client = ClientInit.new(sock.newClient())
 
---[[ But still return for Noita Components,
-     which does not have access to _G,
-     because of own context/vm ]]
 return Client

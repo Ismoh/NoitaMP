@@ -1,30 +1,40 @@
----
---- Created by Ismoh.
---- DateTime: 03.09.2022 20:23
----
---- OOP class definition is found here: Closure approach
---- http://lua-users.org/wiki/ObjectOrientationClosureApproach
---- Naming convention is found here:
---- http://lua-users.org/wiki/LuaStyleGuide#:~:text=Lua%20internal%20variable%20naming%20%2D%20The,but%20not%20necessarily%2C%20e.g.%20_G%20.
+local plotly                             = require("plotly")
+local Utils                              = require("Utils")
+local fu                                 = require("FileUtils")
 
-local plotly                   = require("plotly")
-local Utils                    = require("Utils")
-local fu                       = require("FileUtils")
-
+---Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 ---@class CustomProfiler
-CustomProfiler                 = {}
-CustomProfiler.reportCache     = {}
-CustomProfiler.counter         = 1
-CustomProfiler.threshold       = 16.5 --ms = 60.60 fps
-CustomProfiler.ceiling         = 1001 -- ms
-CustomProfiler.maxEntries      = 50 -- entries per trace
-CustomProfiler.reportDirectory = ("%s%sNoitaMP-Reports%s%s")
-        :format(fu.GetDesktopDirectory(), pathSeparator, pathSeparator, os.date("%Y-%m-%d_%H-%M-%S", os.time()))
-CustomProfiler.reportFilename            = "report.html"
-CustomProfiler.reportJsonFilenamePattern = "%s.json"
+local CustomProfiler                     = {}
 
---- @param functionName string
---- @return number
+---@type table<string, table<number, table<string, number>>> A cache that stores all the data that is used to generate the report.
+CustomProfiler.reportCache               = {}
+
+---@private
+---@type number The counter that is used to determine the order of the function calls.
+CustomProfiler.counter                   = 1
+
+---@type number The threshold in milliseconds. If a function takes longer than this threshold, it will be reported.
+CustomProfiler.threshold                 = 16.5 -- Default: 16.5ms = 60.60 fps
+
+---@type number The ceiling in milliseconds. If a function takes longer than this ceiling, it will be truncated.
+CustomProfiler.ceiling                   = 1001 -- Default: 1001 ms
+
+---@type number The maximum amount of entries per trace.
+CustomProfiler.maxEntries                = 50 -- Default: 50
+
+---@type string The directory where the report will be saved.
+CustomProfiler.reportDirectory           = ("%s%sNoitaMP-Reports%s%s")
+    :format(fu.GetDesktopDirectory(), pathSeparator, pathSeparator, os.date("%Y-%m-%d_%H-%M-%S", os.time()))
+
+---@type string The filename of the report.
+CustomProfiler.reportFilename            = "report.html" -- Default: report.html
+
+---@type string The filename pattern of the report.
+CustomProfiler.reportJsonFilenamePattern = "%s.json" -- Default: %s.json
+
+---Starts the profiler. This has to be called before the function (or first line of function code) that you want to measure.
+---@param functionName string The name of the function that you want to measure. This has to be the same as the one used in @see CustomProfiler.stop(functionName, customProfilerCounter)
+---@return number returnCounter The counter that is used to determine the order of the function calls. This has to be passed to @see CustomProfiler.stop(functionName, customProfilerCounter)
 function CustomProfiler.start(functionName)
     if not ModSettingGetNextValue("noita-mp.toggle_profiler") then
         return -1
@@ -55,9 +65,10 @@ function CustomProfiler.start(functionName)
     return returnCounter
 end
 
---- Simply returns the duration of a specific function. This is used to determine the duration of a function.
---- @param functionName string Has to be the same as the one used in start()
---- @param customProfilerCounter number Has to be the same as the one returned by start()
+---Simply returns the duration of a specific function. This is used to determine the duration of a function.
+---@param functionName string The name of the function that you want to measure. This has to be the same as the one used in @see CustomProfiler.start(functionName)
+---@param customProfilerCounter number The counter that is used to determine the order of the function calls. This has to same as the one returned by @see CustomProfiler.start(functionName)
+---@return number duration The duration of the function in milliseconds.
 function CustomProfiler.getDuration(functionName, customProfilerCounter)
     if not ModSettingGetNextValue("noita-mp.toggle_profiler") then
         return 0
@@ -68,27 +79,29 @@ function CustomProfiler.getDuration(functionName, customProfilerCounter)
     return duration
 end
 
+---Stops all profiled functions. Is used to get a correct report.
 function CustomProfiler.stopAll()
     for i, v in ipairs(CustomProfiler.reportCache) do
         CustomProfiler.stop(v)
     end
 end
----@param functionName string
----@param customProfilerCounter number
----@diagnostic disable-next-line: duplicate-set-field
+
+---Stops the profiler. This has to be called after the function (or last line of function code, but before any `return`) that you want to measure.
+---@param functionName string The name of the function that you want to measure. This has to be the same as the one used in @see CustomProfiler.start(functionName)
+---@param customProfilerCounter number The counter that is used to determine the order of the function calls. This has to same as the one returned by @see CustomProfiler.start(functionName)
 function CustomProfiler.stop(functionName, customProfilerCounter)
     if not ModSettingGetNextValue("noita-mp.toggle_profiler") then
         return 0
     end
 
     if Utils.IsEmpty(CustomProfiler.reportCache) then
-        return
+        return 0
     end
 
     if not CustomProfiler.reportCache[functionName] then
         Logger.warn(Logger.channels.profiler,
-                    ("No entry found for function '%s'. Profiling will be skipped."):format(functionName))
-        return
+            ("No entry found for function '%s'. Profiling will be skipped."):format(functionName))
+        return 0
     end
 
     --if not CustomProfiler.reportCache[functionName][customProfilerCounter] then
@@ -142,8 +155,8 @@ function CustomProfiler.stop(functionName, customProfilerCounter)
     end
 
     if CustomProfiler.reportCache[functionName] and
-            CustomProfiler.reportCache[functionName]["size"] and
-            CustomProfiler.reportCache[functionName]["size"] >= CustomProfiler.maxEntries
+        CustomProfiler.reportCache[functionName]["size"] and
+        CustomProfiler.reportCache[functionName]["size"] >= CustomProfiler.maxEntries
     then
         if not fu.Exists(CustomProfiler.reportDirectory) then
             fu.MkDir(CustomProfiler.reportDirectory)
@@ -226,10 +239,10 @@ function CustomProfiler.stop(functionName, customProfilerCounter)
 
         CustomProfiler.reportCache[functionName] = nil
     end
+    return 0
 end
 
---- Creates a report of all the functions that were profiled into profiler_2022-11-24_20-23-00.json
----@public
+---Creates a report of all the functions that were profiled into profiler_2022-11-24_20-23-00.json
 function CustomProfiler.report()
     CustomProfiler.stopAll()
 
@@ -248,9 +261,11 @@ function CustomProfiler.report()
         responsive = true
     }
     fig1:tofilewithjsondatafile(CustomProfiler.reportDirectory .. pathSeparator .. CustomProfiler.reportFilename,
-                                CustomProfiler.reportDirectory)
+        CustomProfiler.reportDirectory)
 end
 
+---Returns the size of the report cache.
+---@return number size
 function CustomProfiler.getSize()
     local size = 0
     for i = 1, #CustomProfiler.reportCache do
@@ -259,11 +274,8 @@ function CustomProfiler.getSize()
     return size
 end
 
--- Because of stack overflow errors when loading lua files,
--- I decided to put Utils 'classes' into globals
+---Globally accessible CustomProfiler in _G.CustomProfiler.
+---@alias _G.CustomProfiler CustomProfiler
 _G.CustomProfiler = CustomProfiler
 
--- But still return for Noita Components,
--- which does not have access to _G,
--- because of own context/vm
 return CustomProfiler
