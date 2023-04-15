@@ -20,7 +20,10 @@ else
     if not CustomProfiler then
         -- Fix stupid Noita sandbox issue. Noita Components does not have access to require.
         CustomProfiler       = {}
-        ---@param functionName string
+        
+        ---@diagnostic disable-next-line: duplicate-doc-alias
+        ---@alias CustomProfiler.start function(functionName: string): number
+        ---@diagnostic disable-next-line: duplicate-set-field
         CustomProfiler.start = function(functionName)
             --Logger.trace(Logger.channels.globals,
             --            ("NoitaComponents with their restricted Lua context are trying to use CustomProfiler.start(functionName %s)")

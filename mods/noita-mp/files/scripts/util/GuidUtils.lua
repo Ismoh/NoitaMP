@@ -1,4 +1,4 @@
-local Utils   = require("Utils")
+local Utils  = require("Utils")
 local socket = require("socket")
 local uuid   = require("uuid")
 
@@ -18,6 +18,10 @@ if require then
 else
     -- Fix stupid Noita sandbox issue. Noita Components does not have access to require.
     CustomProfiler       = {}
+    
+    ---@diagnostic disable-next-line: duplicate-doc-alias
+    ---@alias CustomProfiler.start function(functionName: string): number
+    ---@diagnostic disable-next-line: duplicate-set-field
     CustomProfiler.start = function(functionName)
         --Logger.trace(Logger.channels.guid,
         --            ("NoitaComponents with their restricted Lua context are trying to use CustomProfiler.start(functionName %s)")

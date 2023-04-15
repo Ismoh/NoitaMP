@@ -33,8 +33,9 @@ CustomProfiler.reportFilename            = "report.html" -- Default: report.html
 CustomProfiler.reportJsonFilenamePattern = "%s.json" -- Default: %s.json
 
 ---Starts the profiler. This has to be called before the function (or first line of function code) that you want to measure.
----@param functionName string The name of the function that you want to measure. This has to be the same as the one used in @see CustomProfiler.stop(functionName, customProfilerCounter)
----@return number returnCounter The counter that is used to determine the order of the function calls. This has to be passed to @see CustomProfiler.stop(functionName, customProfilerCounter)
+---@see CustomProfiler.stop(functionName, customProfilerCounter)
+---@param functionName string The name of the function that you want to measure. This has to be the same as the one used in CustomProfiler.stop(functionName, customProfilerCounter)
+---@return number returnCounter The counter that is used to determine the order of the function calls. This has to be passed to CustomProfiler.stop(functionName, customProfilerCounter)
 function CustomProfiler.start(functionName)
     if not ModSettingGetNextValue("noita-mp.toggle_profiler") then
         return -1

@@ -39,6 +39,43 @@ ClientInit
 
 # CustomProfiler
 
+ Fix stupid Noita sandbox issue. Noita Components does not have access to require.
+
+
+```lua
+CustomProfiler
+```
+
+
+```lua
+CustomProfiler
+```
+
+
+```lua
+table
+```
+
+
+```lua
+table
+```
+
+
+```lua
+table
+```
+
+
+```lua
+table
+```
+
+
+---
+
+# CustomProfiler
+
 Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 
 ## ceiling
@@ -153,9 +190,10 @@ function CustomProfiler.start(functionName: string)
 
 Starts the profiler. This has to be called before the function (or first line of function code) that you want to measure.
 
-@*param* `functionName` — The name of the function that you want to measure. This has to be the same as the one used in @see CustomProfiler.stop(functionName, customProfilerCounter)
+@*param* `functionName` — The name of the function that you want to measure. This has to be the same as the one used in CustomProfiler.stop(functionName, customProfilerCounter)
 
-@*return* `returnCounter` — The counter that is used to determine the order of the function calls. This has to be passed to @see CustomProfiler.stop(functionName, customProfilerCounter)
+@*return* `returnCounter` — The counter that is used to determine the order of the function calls. This has to be passed to CustomProfiler.stop(functionName, customProfilerCounter)
+See: [CustomProfiler.stop](file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/util/EntitySerialisationUtils.lua#39#17) functionName, customProfilerCounter)
 
 ## stop
 
@@ -193,38 +231,31 @@ The threshold in milliseconds. If a function takes longer than this threshold, i
 
 ---
 
-# CustomProfiler
-
- Fix stupid Noita sandbox issue. Noita Components does not have access to require.
+# CustomProfiler.start
 
 
 ```lua
-CustomProfiler
+function
 ```
 
 
 ```lua
-table
+function
 ```
 
 
 ```lua
-table
+function
 ```
 
 
 ```lua
-table
+function
 ```
 
 
 ```lua
-table
-```
-
-
-```lua
-table
+function
 ```
 
 
@@ -252,7 +283,7 @@ function CustomProfiler.start(functionName: any)
 
 
 ```lua
-function CustomProfiler.start(functionName: string)
+function CustomProfiler.start(functionName: any)
 ```
 
 
@@ -1526,6 +1557,18 @@ table
 
 Util class for fetching information about local and remote minas.
 
+
+```lua
+MinaUtils
+```
+
+
+---
+
+# MinaUtils
+
+Util class for fetching information about local and remote minas.
+
 ## getLocalMinaEntityId
 
 
@@ -1597,18 +1640,6 @@ function MinaUtils.setLocalMinaName(name: string)
 ```
 
 Setter for local mina name. It also saves it to settings file.
-
-
----
-
-# MinaUtils
-
-Util class for fetching information about local and remote minas.
-
-
-```lua
-MinaUtils
-```
 
 
 ---
@@ -1913,38 +1944,6 @@ integer
 
  NetworkVscUtils:
 
-
-```lua
-unknown
-```
-
-
-```lua
-unknown
-```
-
-
-```lua
-unknown
-```
-
-
-```lua
-NetworkVscUtils
-```
-
-
-```lua
-NetworkVscUtils
-```
-
-
----
-
-# NetworkVscUtils
-
- NetworkVscUtils:
-
 ## addOrUpdateAllVscs
 
 
@@ -2110,6 +2109,38 @@ string
 
 ```lua
 string
+```
+
+
+---
+
+# NetworkVscUtils
+
+ NetworkVscUtils:
+
+
+```lua
+unknown
+```
+
+
+```lua
+unknown
+```
+
+
+```lua
+unknown
+```
+
+
+```lua
+NetworkVscUtils
+```
+
+
+```lua
+NetworkVscUtils
 ```
 
 
@@ -2551,6 +2582,22 @@ SockServer
 
 # ServerInit
 
+## new
+
+
+```lua
+function ServerInit.new(sockServer: SockServer)
+  -> self: SockServer
+```
+
+ ServerInit constructor
+ Creates a new instance of server 'class'
+
+
+---
+
+# ServerInit
+
  Because of stack overflow errors when loading lua files,
  I decided to put Utils 'classes' into globals
 
@@ -2563,22 +2610,6 @@ ServerInit
 ```lua
 ServerInit
 ```
-
-
----
-
-# ServerInit
-
-## new
-
-
-```lua
-function ServerInit.new(sockServer: SockServer)
-  -> self: SockServer
-```
-
- ServerInit constructor
- Creates a new instance of server 'class'
 
 
 ---
@@ -3054,56 +3085,6 @@ function Ui.new()
 
 # Utils
 
-
-```lua
-Utils
-```
-
-
-```lua
-Utils
-```
-
-
-```lua
-any
-```
-
-
-```lua
-Utils
-```
-
-
-```lua
-any
-```
-
-
-```lua
-Utils
-```
-
-
-```lua
-any
-```
-
-
-```lua
-Utils
-```
-
-
-```lua
-any
-```
-
-
----
-
-# Utils
-
 ## CopyToClipboard
 
 
@@ -3165,6 +3146,56 @@ https://noita.wiki.gg/wiki/Modding:_Utilities#Easier_entity_debugging
 
 ```lua
 function Utils.pformat(var: any)
+```
+
+
+---
+
+# Utils
+
+
+```lua
+Utils
+```
+
+
+```lua
+Utils
+```
+
+
+```lua
+any
+```
+
+
+```lua
+Utils
+```
+
+
+```lua
+any
+```
+
+
+```lua
+Utils
+```
+
+
+```lua
+any
+```
+
+
+```lua
+Utils
+```
+
+
+```lua
+any
 ```
 
 

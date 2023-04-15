@@ -24,6 +24,9 @@ else
 
     if not CustomProfiler then
         CustomProfiler = {}
+        
+        ---@diagnostic disable-next-line: duplicate-doc-alias
+        ---@alias CustomProfiler.start function(functionName: string): number
         ---@diagnostic disable-next-line: duplicate-set-field
         function CustomProfiler.start(functionName)
             --Logger.trace(Logger.channels.entity,
