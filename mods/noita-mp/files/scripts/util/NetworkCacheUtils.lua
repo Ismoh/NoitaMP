@@ -10,48 +10,54 @@
 
 --- 'Imports'
 
-local Utils        = require("Utils")
-local md5         = require("md5")
+--local Utils        = require("Utils")
+if not md5 then
+    if not require then
+        md5 = {}
+    else
+        md5 = require("md5")
+    end
+end
 
 
 --- NetworkCache
 
 NetworkCache             = {}
-NetworkCache.cache = {}
-NetworkCache.usingC = false -- not _G.disableLuaExtensionsDLL
+NetworkCache.cache       = {}
+NetworkCache.usingC      = false -- not _G.disableLuaExtensionsDLL
 NetworkCache.set         = function(clientCacheId, networkMessageId, event, status, ackedAt, sendAt, dataChecksum)
     local cpc = CustomProfiler.start("NetworkCache.set")
 
     if Utils.IsEmpty(clientCacheId) or type(clientCacheId) ~= "number" then
         error(("clientCacheId must not be nil or empty '%s' or type is not number '%s'")
-                      :format(clientCacheId, type(clientCacheId)), 2)
+            :format(clientCacheId, type(clientCacheId)), 2)
     end
     if Utils.IsEmpty(networkMessageId) or type(networkMessageId) ~= "number" then
         error(("networkMessageId must not be nil or empty '%s' or type is not number '%s'")
-                      :format(networkMessageId, type(networkMessageId)), 2)
+            :format(networkMessageId, type(networkMessageId)), 2)
     end
     if Utils.IsEmpty(event) or type(event) ~= "string" then
         error(("event must not be nil or empty '%s' or type is not string '%s'")
-                      :format(event, type(event)), 2)
+            :format(event, type(event)), 2)
     end
     if Utils.IsEmpty(status) or type(status) ~= "string" then
         error(("status must not be nil or empty '%s' or type is not string '%s'")
-                      :format(status, type(status)), 2)
+            :format(status, type(status)), 2)
     end
     if Utils.IsEmpty(ackedAt) or type(ackedAt) ~= "number" then
         error(("ackedAt must not be nil or empty '%s' or type is not number '%s'")
-                      :format(ackedAt, type(ackedAt)), 2)
+            :format(ackedAt, type(ackedAt)), 2)
     end
     if Utils.IsEmpty(sendAt) or type(sendAt) ~= "number" then
         error(("sendAt must not be nil or empty '%s' or type is not number '%s'")
-                      :format(sendAt, type(sendAt)), 2)
+            :format(sendAt, type(sendAt)), 2)
     end
     if Utils.IsEmpty(dataChecksum) or type(dataChecksum) ~= "string" then
         error(("dataChecksum must not be nil or empty '%s' or type is not string '%s'")
-                      :format(dataChecksum, type(dataChecksum)), 2)
+            :format(dataChecksum, type(dataChecksum)), 2)
     end
 
-    if NetworkCache.usingC then 
+    if NetworkCache.usingC then
         return NetworkCacheC.set(clientCacheId, networkMessageId, event, status, ackedAt, sendAt, dataChecksum)
     end
     if not NetworkCache.cache[clientCacheId] then
@@ -74,15 +80,15 @@ NetworkCache.get         = function(clientCacheId, event, networkMessageId)
 
     if Utils.IsEmpty(clientCacheId) or type(clientCacheId) ~= "number" then
         error(("clientCacheId must not be nil or empty '%s' or type is not number '%s'")
-                      :format(clientCacheId, type(clientCacheId)), 2)
+            :format(clientCacheId, type(clientCacheId)), 2)
     end
     if Utils.IsEmpty(event) or type(event) ~= "string" then
         error(("event must not be nil or empty '%s' or type is not string '%s'")
-                      :format(event, type(event)), 2)
+            :format(event, type(event)), 2)
     end
     if Utils.IsEmpty(networkMessageId) or type(networkMessageId) ~= "number" then
         error(("networkMessageId must not be nil or empty '%s' or type is not number '%s'")
-                      :format(networkMessageId, type(networkMessageId)), 2)
+            :format(networkMessageId, type(networkMessageId)), 2)
     end
 
     if NetworkCache.usingC then
@@ -96,8 +102,8 @@ NetworkCache.get         = function(clientCacheId, event, networkMessageId)
 
     if not NetworkCache.cache[clientCacheId] then
         Logger.trace(Logger.channels.cache,
-                     ("There is no cache entry for clientCacheId %s, event %s and networkMessageId %s")
-                             :format(clientCacheId, event, networkMessageId))
+            ("There is no cache entry for clientCacheId %s, event %s and networkMessageId %s")
+            :format(clientCacheId, event, networkMessageId))
         CustomProfiler.stop("NetworkCache.get", cpc)
         return nil
     end
@@ -119,11 +125,11 @@ NetworkCache.getChecksum = function(clientCacheId, dataChecksum)
 
     if Utils.IsEmpty(clientCacheId) or type(clientCacheId) ~= "number" then
         error(("clientCacheId must not be nil or empty '%s' or type is not number '%s'")
-                      :format(clientCacheId, type(clientCacheId)), 2)
+            :format(clientCacheId, type(clientCacheId)), 2)
     end
     if Utils.IsEmpty(dataChecksum) or type(dataChecksum) ~= "string" then
         error(("dataChecksum must not be nil or empty '%s' or type is not string '%s'")
-                      :format(dataChecksum, type(dataChecksum)), 2)
+            :format(dataChecksum, type(dataChecksum)), 2)
     end
 
     if NetworkCache.usingC then
@@ -131,8 +137,8 @@ NetworkCache.getChecksum = function(clientCacheId, dataChecksum)
     end
     if not NetworkCache.cache[clientCacheId] then
         Logger.trace(Logger.channels.cache,
-                     ("There is no cache entry for clientCacheId %s and dataChecksum %s")
-                             :format(clientCacheId, dataChecksum))
+            ("There is no cache entry for clientCacheId %s and dataChecksum %s")
+            :format(clientCacheId, dataChecksum))
         CustomProfiler.stop("NetworkCache.getChecksum", cpc)
         return nil
     end
@@ -161,7 +167,7 @@ NetworkCache.size        = function()
     return table.size(NetworkCache.cache)
 end
 
-NetworkCache.usage = function ()
+NetworkCache.usage       = function()
     if not NetworkCache.usingC then
         error("NetworkCache.usage requires the luaExtensions dll to be enabled", 2)
     end
@@ -176,7 +182,7 @@ NetworkCache.getAll      = function()
 end
 
 NetworkCache.clear       = function(clientCacheId)
-    if NetworkCache.usingC then 
+    if NetworkCache.usingC then
         return NetworkCacheC.clear(clientCacheId)
     end
     NetworkCache.cache[clientCacheId] = nil
@@ -185,7 +191,7 @@ end
 
 --- NetworkCacheUtils
 
-NetworkCacheUtils        = {}
+NetworkCacheUtils = {}
 
 function NetworkCacheUtils.getSum(event, data)
     local cpc = CustomProfiler.start("NetworkCacheUtils.getSum")
@@ -270,7 +276,7 @@ function NetworkCacheUtils.set(peerGuid, networkMessageId, event, status, ackedA
     local dataChecksum = ("%s"):format(md5.sumhexa(sum))
     if type(dataChecksum) ~= "string" then
         Logger.warn(Logger.channels.cache,
-                    ("dataChecksum is a string '%s'. Converting it to a string!."):format(dataChecksum))
+            ("dataChecksum is a string '%s'. Converting it to a string!."):format(dataChecksum))
         dataChecksum = tostring(dataChecksum)
         Logger.warn(Logger.channels.cache, ("dataChecksum converted to string '%s'."):format(dataChecksum))
     end
@@ -283,16 +289,16 @@ function NetworkCacheUtils.set(peerGuid, networkMessageId, event, status, ackedA
 
     Logger.trace(Logger.channels.cache, ("NetworkCache.set: %s"):format(Utils.pformat(data)))
     Logger.trace(Logger.channels.cache,
-                 ("NetworkCache.set(clientCacheId %s, networkMessageId %s, event %s, status %s, ackedAt %s, sendAt %s, dataChecksum %s)")
-                         :format(clientCacheId, networkMessageId, event, status, ackedAt, sendAt, dataChecksum))
+        ("NetworkCache.set(clientCacheId %s, networkMessageId %s, event %s, status %s, ackedAt %s, sendAt %s, dataChecksum %s)")
+        :format(clientCacheId, networkMessageId, event, status, ackedAt, sendAt, dataChecksum))
     Logger.trace(Logger.channels.testing,
-                 ("NetworkCache.set(clientCacheId %s, networkMessageId %s, event %s, status %s, ackedAt %s, sendAt %s, dataChecksum %s)")
-                         :format(clientCacheId, networkMessageId, event, status, ackedAt, sendAt, dataChecksum))
+        ("NetworkCache.set(clientCacheId %s, networkMessageId %s, event %s, status %s, ackedAt %s, sendAt %s, dataChecksum %s)")
+        :format(clientCacheId, networkMessageId, event, status, ackedAt, sendAt, dataChecksum))
 
     NetworkCache.set(clientCacheId, networkMessageId, event, status, ackedAt, sendAt, dataChecksum)
     Logger.info(Logger.channels.cache,
-                ("Set nCache for clientCacheId %s, networkMessageId %s, event %s, status %s, ackedAt %s, sendAt %s, dataChecksum %s")
-                        :format(clientCacheId, networkMessageId, event, status, ackedAt, sendAt, dataChecksum))
+        ("Set nCache for clientCacheId %s, networkMessageId %s, event %s, status %s, ackedAt %s, sendAt %s, dataChecksum %s")
+        :format(clientCacheId, networkMessageId, event, status, ackedAt, sendAt, dataChecksum))
     CustomProfiler.stop("NetworkCacheUtils.set", cpc)
     return dataChecksum
 end
@@ -318,17 +324,17 @@ function NetworkCacheUtils.get(peerGuid, networkMessageId, event)
         error(("Event '%s' shouldn't be cached!"):format(event), 2)
     end
     Logger.info(Logger.channels.testing,
-                ("NetworkCacheUtils.get(peerGuid %s, networkMessageId %s, event %s)"):format(peerGuid, networkMessageId,
-                                                                                             event))
+        ("NetworkCacheUtils.get(peerGuid %s, networkMessageId %s, event %s)"):format(peerGuid, networkMessageId,
+            event))
     Logger.info(Logger.channels.testing,
-                ("NetworkCache.get(clientCacheId %s, networkMessageId %s, event %s)"):format(GuidUtils.toNumber(peerGuid),
-                                                                                             networkMessageId, event))
+        ("NetworkCache.get(clientCacheId %s, networkMessageId %s, event %s)"):format(GuidUtils.toNumber(peerGuid),
+            networkMessageId, event))
 
-    local clientCacheId      = GuidUtils.toNumber(peerGuid)
-    local data               = NetworkCache.get(clientCacheId, event, tonumber(networkMessageId))
+    local clientCacheId = GuidUtils.toNumber(peerGuid)
+    local data          = NetworkCache.get(clientCacheId, event, tonumber(networkMessageId))
     Logger.info(Logger.channels.cache,
-                ("Get nCache by clientCacheId %s, event %s, networkMessageId %s, data %s")
-                        :format(clientCacheId, event, networkMessageId, Utils.pformat(data)))
+        ("Get nCache by clientCacheId %s, event %s, networkMessageId %s, data %s")
+        :format(clientCacheId, event, networkMessageId, Utils.pformat(data)))
     CustomProfiler.stop("NetworkCacheUtils.get", cpc)
     return data
 end
@@ -355,8 +361,8 @@ function NetworkCacheUtils.getByChecksum(peerGuid, event, data)
     local clientCacheId = GuidUtils.toNumber(peerGuid)
     local cacheData     = NetworkCache.getChecksum(clientCacheId, dataChecksum)
     Logger.info(Logger.channels.cache,
-                ("Get nCache by clientCacheId %s, dataChecksum %s, event %s, cacheData %s")
-                        :format(clientCacheId, dataChecksum, event, Utils.pformat(cacheData)))
+        ("Get nCache by clientCacheId %s, dataChecksum %s, event %s, cacheData %s")
+        :format(clientCacheId, dataChecksum, event, Utils.pformat(cacheData)))
     CustomProfiler.stop("NetworkCacheUtils.getByChecksum", cpc)
     return cacheData
 end
@@ -388,15 +394,15 @@ NetworkCacheUtils.ack    = function(peerGuid, networkMessageId, event, status, a
     local clientCacheId = GuidUtils.toNumber(peerGuid)
 
     Logger.trace(Logger.channels.cache,
-                 ("NetworkCache.ack(clientCacheId %s, networkMessageId %s, event %s, status %s, ackedAt %s, sendAt %s, dataChecksum %s)")
-                         :format(clientCacheId, networkMessageId, event, status, ackedAt, sendAt, checksum))
+        ("NetworkCache.ack(clientCacheId %s, networkMessageId %s, event %s, status %s, ackedAt %s, sendAt %s, dataChecksum %s)")
+        :format(clientCacheId, networkMessageId, event, status, ackedAt, sendAt, checksum))
     Logger.trace(Logger.channels.testing,
-                 ("NetworkCache.set(clientCacheId %s, networkMessageId %s, event %s, status %s, ackedAt %s, sendAt %s, dataChecksum %s)")
-                         :format(clientCacheId, networkMessageId, event, status, ackedAt, sendAt, checksum))
+        ("NetworkCache.set(clientCacheId %s, networkMessageId %s, event %s, status %s, ackedAt %s, sendAt %s, dataChecksum %s)")
+        :format(clientCacheId, networkMessageId, event, status, ackedAt, sendAt, checksum))
     NetworkCache.set(clientCacheId, networkMessageId, event, status, ackedAt, sendAt, tostring(checksum))
     Logger.info(Logger.channels.cache,
-                ("Set nCache for clientCacheId %s, networkMessageId %s, event %s, status %s, ackedAt %s, sendAt %s, dataChecksum %s")
-                        :format(clientCacheId, networkMessageId, event, status, ackedAt, sendAt, checksum))
+        ("Set nCache for clientCacheId %s, networkMessageId %s, event %s, status %s, ackedAt %s, sendAt %s, dataChecksum %s")
+        :format(clientCacheId, networkMessageId, event, status, ackedAt, sendAt, checksum))
     CustomProfiler.stop("NetworkCacheUtils.ack", cpc)
 end
 
@@ -407,17 +413,12 @@ NetworkCacheUtils.logAll = function()
             all[i].dataChecksum = string.gsub(all[i].dataChecksum, "percent sign")
         end
         Logger.trace(Logger.channels.cache,
-                     ("event = %s, messageId = %s, dataChecksum = %s, status = %s, ackedAt = %s, sendAt = %s")
-                             :format(all[i].event, all[i].messageId, all[i].dataChecksum, all[i].status, all[i].ackedAt,
-                                     all[i].sendAt))
+            ("event = %s, messageId = %s, dataChecksum = %s, status = %s, ackedAt = %s, sendAt = %s")
+            :format(all[i].event, all[i].messageId, all[i].dataChecksum, all[i].status, all[i].ackedAt,
+                all[i].sendAt))
     end
 end
 
--- Because of stack overflow errors when loading lua files,
--- I decided to put Utils 'classes' into globals
-_G.NetworkCacheUtils     = NetworkCacheUtils
 
--- But still return for Noita Components,
--- which does not have access to _G,
--- because of own context/vm
 return NetworkCacheUtils
+

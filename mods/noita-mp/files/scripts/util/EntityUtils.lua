@@ -6,7 +6,7 @@
 
 --- 'Imports'
 
-dofile("mods/noita-mp/config.lua")
+dofile_once("mods/noita-mp/config.lua")
 
 
 --- When NoitaComponents are accessing this file, they are not able to access the global variables defined in this file.
@@ -47,28 +47,28 @@ else
         end
     end
 
-    if not CustomProfiler then
-        ---@type CustomProfiler
-        CustomProfiler = {}
+    -- if not CustomProfiler then
+    --     ---@type CustomProfiler
+    --     CustomProfiler = {}
         
-        ---@diagnostic disable-next-line: duplicate-doc-alias
-        ---@alias CustomProfiler.start function(functionName: string): number
-        ---@diagnostic disable-next-line: duplicate-set-field
-        function CustomProfiler.start(functionName)
-            --Logger.trace(Logger.channels.entity,
-            --            ("NoitaComponents with their restricted Lua context are trying to use CustomProfiler.start(functionName %s)")
-            --                    :format(functionName))
-            return -1
-        end
+    --     ---@diagnostic disable-next-line: duplicate-doc-alias
+    --     ---@alias CustomProfiler.start function(functionName: string): number
+    --     ---@diagnostic disable-next-line: duplicate-set-field
+    --     function CustomProfiler.start(functionName)
+    --         --Logger.trace(Logger.channels.entity,
+    --         --            ("NoitaComponents with their restricted Lua context are trying to use CustomProfiler.start(functionName %s)")
+    --         --                    :format(functionName))
+    --         return -1
+    --     end
 
-        ---@diagnostic disable-next-line: duplicate-set-field
-        function CustomProfiler.stop(functionName, customProfilerCounter)
-            --Logger.trace(Logger.channels.entity,
-            --            ("NoitaComponents with their restricted Lua context are trying to use CustomProfiler.stop(functionName %s, customProfilerCounter %s)")
-            --                    :format(functionName, customProfilerCounter))
-            return -1
-        end
-    end
+    --     ---@diagnostic disable-next-line: duplicate-set-field
+    --     function CustomProfiler.stop(functionName, customProfilerCounter)
+    --         --Logger.trace(Logger.channels.entity,
+    --         --            ("NoitaComponents with their restricted Lua context are trying to use CustomProfiler.stop(functionName %s, customProfilerCounter %s)")
+    --         --                    :format(functionName, customProfilerCounter))
+    --         return -1
+    --     end
+    -- end
 end
 
 

@@ -177,8 +177,8 @@ function MinaUtils.isLocalMinaPolymorphed()
     return false, nil
 end
 
----Globally accessible MinaUtils in _G.MinaUtils.
----@alias _G.MinaUtils MinaUtils
-_G.MinaUtils = MinaUtils
+----Globally accessible MinaUtils in _G.MinaUtils.
+----@alias _G.MinaUtils MinaUtils
+--_G.MinaUtils = MinaUtils
 
 return MinaUtils

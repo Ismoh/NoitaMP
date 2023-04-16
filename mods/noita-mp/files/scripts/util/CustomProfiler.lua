@@ -275,8 +275,8 @@ function CustomProfiler.getSize()
     return size
 end
 
----Globally accessible CustomProfiler in _G.CustomProfiler.
----@alias _G.CustomProfiler CustomProfiler
-_G.CustomProfiler = CustomProfiler
+----Globally accessible CustomProfiler in _G.CustomProfiler.
+----@alias _G.CustomProfiler CustomProfiler
+--_G.CustomProfiler = CustomProfiler
 
 return CustomProfiler

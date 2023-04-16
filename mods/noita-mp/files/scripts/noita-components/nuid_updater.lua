@@ -1,3 +1,4 @@
+dofile_once("mods/noita-mp/files/scripts/init/init_.lua")
 dofile_once("mods/noita-mp/files/scripts/init/init_logger.lua")
 dofile_once("mods/noita-mp/files/scripts/extensions/stringExtensions.lua")
 EntityUtils          = dofile_once("mods/noita-mp/files/scripts/util/EntityUtils.lua")

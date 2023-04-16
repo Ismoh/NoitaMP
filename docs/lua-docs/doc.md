@@ -4,22 +4,17 @@ See: [SockClient](file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/f
 
 
 ```lua
+unknown
+```
+
+
+```lua
 SockClient
 ```
 
 
----
-
-# ClientInit
-
-ClientInit class for creating a new extended instance of SockClient.
-
-## new
-
-
 ```lua
-function ClientInit.new(sockClient: SockClient)
-  -> self: SockClient
+SockClient
 ```
 
 
@@ -37,38 +32,16 @@ ClientInit
 
 ---
 
-# CustomProfiler
+# ClientInit
 
-Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
+ClientInit class for creating a new extended instance of SockClient.
 
-
-```lua
-CustomProfiler
-```
+## new
 
 
 ```lua
-CustomProfiler
-```
-
-
-```lua
-CustomProfiler
-```
-
-
-```lua
-CustomProfiler
-```
-
-
-```lua
-CustomProfiler
-```
-
-
-```lua
-CustomProfiler
+function ClientInit.new(sockClient: SockClient)
+  -> self: SockClient
 ```
 
 
@@ -193,7 +166,7 @@ Starts the profiler. This has to be called before the function (or first line of
 @*param* `functionName` — The name of the function that you want to measure. This has to be the same as the one used in CustomProfiler.stop(functionName, customProfilerCounter)
 
 @*return* `returnCounter` — The counter that is used to determine the order of the function calls. This has to be passed to CustomProfiler.stop(functionName, customProfilerCounter)
-See: [CustomProfiler.stop](file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/util/EntitySerialisationUtils.lua#40#17) functionName, customProfilerCounter)
+See: [CustomProfiler.stop](file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/util/GlobalsUtils.lua#32#8) functionName, customProfilerCounter)
 
 ## stop
 
@@ -231,31 +204,28 @@ The threshold in milliseconds. If a function takes longer than this threshold, i
 
 ---
 
-# CustomProfiler.start
+# CustomProfiler
+
+Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 
 
 ```lua
-function
+unknown
 ```
 
 
 ```lua
-function
+CustomProfiler
 ```
 
 
 ```lua
-function
+CustomProfiler
 ```
 
 
 ```lua
-function
-```
-
-
-```lua
-function
+CustomProfiler
 ```
 
 
@@ -266,19 +236,6 @@ function
 
 ```lua
 function CustomProfiler.start(functionName: any)
-  -> integer
-```
-
-
-```lua
-function CustomProfiler.start(functionName: any)
-  -> integer
-```
-
-
-```lua
-function CustomProfiler.start(functionName: any)
-  -> integer
 ```
 
 
@@ -287,32 +244,24 @@ function CustomProfiler.start(functionName: any)
 ```
 
 
+---
+
+# CustomProfiler.start
+
+
 ```lua
-function CustomProfiler.start(functionName: any)
+function
+```
+
+
+```lua
+function
 ```
 
 
 ---
 
 # CustomProfiler.stop
-
-
-```lua
-function CustomProfiler.stop(functionName: any, customProfilerCounter: any)
-  -> integer
-```
-
-
-```lua
-function CustomProfiler.stop(functionName: any, customProfilerCounter: any)
-  -> integer
-```
-
-
-```lua
-function CustomProfiler.stop(functionName: any, customProfilerCounter: any)
-  -> integer
-```
 
 
 ```lua
@@ -470,6 +419,16 @@ boolean
 
 
 ```lua
+unknown
+```
+
+
+```lua
+unknown
+```
+
+
+```lua
 table
 ```
 
@@ -489,6 +448,16 @@ function EntityCacheUtils.set(entityId: any, nuid: any, ownerGuid: any, ownerNam
 # EntitySerialisationUtils
 
  EntitySerialisationUtils: Utils class only for serialisation of entities.
+
+
+```lua
+unknown
+```
+
+
+```lua
+unknown
+```
 
 
 ```lua
@@ -681,6 +650,16 @@ table
 
  Because of stack overflow errors when loading lua files,
  I decided to put Utils 'classes' into globals
+
+
+```lua
+unknown
+```
+
+
+```lua
+table
+```
 
 
 ```lua
@@ -1263,6 +1242,16 @@ table
 
 
 ```lua
+unknown
+```
+
+
+```lua
+table
+```
+
+
+```lua
 table
 ```
 
@@ -1401,6 +1390,16 @@ function GlobalsUtils.setNuid(nuid: any, entityId: any, componentIdForOwnerName:
 
 
 ```lua
+unknown
+```
+
+
+```lua
+table
+```
+
+
+```lua
 table
 ```
 
@@ -1536,6 +1535,11 @@ function Logger.warn(channel: any, formattedMessage: any)
 
 # MinaInformation
 
+
+---
+
+# MinaInformation
+
 See:
   * [Transform](file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/util/MinaUtils.lua#124#18)
   * [Health](file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/files/scripts/util/NoitaComponentUtils.lua#52#14)
@@ -1543,23 +1547,6 @@ See:
 
 ```lua
 table
-```
-
-
----
-
-# MinaInformation
-
-
----
-
-# MinaUtils
-
-Util class for fetching information about local and remote minas.
-
-
-```lua
-MinaUtils
 ```
 
 
@@ -1640,6 +1627,23 @@ function MinaUtils.setLocalMinaName(name: string)
 ```
 
 Setter for local mina name. It also saves it to settings file.
+
+
+---
+
+# MinaUtils
+
+Util class for fetching information about local and remote minas.
+
+
+```lua
+unknown
+```
+
+
+```lua
+MinaUtils
+```
 
 
 ---
@@ -1762,6 +1766,16 @@ boolean
 
 
 ```lua
+unknown
+```
+
+
+```lua
+table
+```
+
+
+```lua
 table
 ```
 
@@ -1849,6 +1863,16 @@ function NetworkCacheUtils.set(peerGuid: string, networkMessageId: number, event
 
  Because of stack overflow errors when loading lua files,
  I decided to put Utils 'classes' into globals
+
+
+```lua
+unknown
+```
+
+
+```lua
+table
+```
 
 
 ```lua
@@ -2125,6 +2149,16 @@ unknown
 
 
 ```lua
+NetworkVscUtils
+```
+
+
+```lua
+unknown
+```
+
+
+```lua
 unknown
 ```
 
@@ -2377,6 +2411,16 @@ table
 
 
 ```lua
+unknown
+```
+
+
+```lua
+table
+```
+
+
+```lua
 table
 ```
 
@@ -2449,6 +2493,16 @@ table
 ```
 
 
+```lua
+unknown
+```
+
+
+```lua
+table
+```
+
+
 ---
 
 # NoitaMpSettings.clearAndCreateSettings
@@ -2487,6 +2541,16 @@ function NoitaMpSettings.writeSettings(key: any, value: any)
 
  NuidUtils:
  class for getting the current network unique identifier
+
+
+```lua
+unknown
+```
+
+
+```lua
+table
+```
 
 
 ```lua
@@ -2571,6 +2635,16 @@ unknown
 ---
 
 # Server
+
+
+```lua
+unknown
+```
+
+
+```lua
+SockServer
+```
 
 
 ```lua
@@ -3160,12 +3234,7 @@ Utils
 
 
 ```lua
-Utils
-```
-
-
-```lua
-any
+unknown
 ```
 
 
@@ -3175,7 +3244,12 @@ Utils
 
 
 ```lua
-any
+Utils
+```
+
+
+```lua
+Utils
 ```
 
 
@@ -3217,6 +3291,18 @@ _G
 
 ---
 
+# _G.Client
+
+Globally accessible Client in _G.Client.
+
+
+```lua
+Client
+```
+
+
+---
+
 # _G.ClientInit
 
 Globally accessible ClientInit in _G.ClientInit.
@@ -3241,6 +3327,66 @@ CustomProfiler
 
 ---
 
+# _G.EntityCacheUtils
+
+Globally accessible EntityCacheUtils in _G.EntityCacheUtils.
+
+
+```lua
+EntityCacheUtils
+```
+
+
+---
+
+# _G.EntitySerialisationUtils
+
+Globally accessible EntitySerialisationUtils in _G.EntitySerialisationUtils.
+
+
+```lua
+EntitySerialisationUtils
+```
+
+
+---
+
+# _G.EntityUtils
+
+Globally accessible EntityUtils in _G.EntityUtils.
+
+
+```lua
+EntityUtils
+```
+
+
+---
+
+# _G.GlobalsUtils
+
+Globally accessible GlobalsUtils in _G.GlobalsUtils.
+
+
+```lua
+GlobalsUtils
+```
+
+
+---
+
+# _G.GuidUtils
+
+Globally accessible GuidUtils in _G.GuidUtils.
+
+
+```lua
+GuidUtils
+```
+
+
+---
+
 # _G.MinaUtils
 
 Globally accessible MinaUtils in _G.MinaUtils.
@@ -3253,6 +3399,90 @@ MinaUtils
 
 ---
 
+# _G.NetworkCacheUtils
+
+Globally accessible NetworkCacheUtils in _G.NetworkCacheUtils.
+
+
+```lua
+NetworkCacheUtils
+```
+
+
+---
+
+# _G.NetworkUtils
+
+Globally accessible NetworkUtils in _G.NetworkUtils.
+
+
+```lua
+NetworkUtils
+```
+
+
+---
+
+# _G.NetworkVscUtils
+
+Globally accessible NetworkVscUtils in _G.NetworkVscUtils.
+
+
+```lua
+NetworkVscUtils
+```
+
+
+---
+
+# _G.NoitaComponentUtils
+
+Globally accessible NoitaComponentUtils in _G.NoitaComponentUtils.
+
+
+```lua
+NoitaComponentUtils
+```
+
+
+---
+
+# _G.NoitaMpSettings
+
+Globally accessible NoitaMpSettings in _G.NoitaMpSettings.
+
+
+```lua
+NoitaMpSettings
+```
+
+
+---
+
+# _G.NuidUtils
+
+Globally accessible NuidUtils in _G.NuidUtils.
+
+
+```lua
+NuidUtils
+```
+
+
+---
+
+# _G.Server
+
+Globally accessible Server in _G.Server.
+
+
+```lua
+Server
+```
+
+
+---
+
 # _G.SockClient
 
 Globally accessible SockClient in _G.SockClient.
@@ -3260,6 +3490,18 @@ Globally accessible SockClient in _G.SockClient.
 
 ```lua
 SockClient
+```
+
+
+---
+
+# _G.Utils
+
+Globally accessible Utils in _G.Utils.
+
+
+```lua
+Utils
 ```
 
 

@@ -1,5 +1,5 @@
 --- EntitySerialisationUtils: Utils class only for serialisation of entities.
-EntitySerialisationUtils = {}
+local EntitySerialisationUtils = {}
 
 --- Created by Ismoh-PC.
 --- DateTime: 25.02.2023 15:47
@@ -18,32 +18,32 @@ if require then
     Utils = require("Utils")
 else
     -- Fix stupid Noita sandbox issue. Noita Components does not have access to require.
-    if not Utils then
-        Utils = dofile("mods/noita-mp/files/scripts/util/Utils.lua")
-    end
+    -- if not Utils then
+    --     Utils = dofile("mods/noita-mp/files/scripts/util/Utils.lua")
+    -- end
 
-    if not CustomProfiler then
-        ---@type CustomProfiler
-        CustomProfiler = {}
+    -- if not CustomProfiler then
+    --     ---@type CustomProfiler
+    --     CustomProfiler = {}
         
-        ---@diagnostic disable-next-line: duplicate-doc-alias
-        ---@alias CustomProfiler.start function(functionName: string): number
-        ---@diagnostic disable-next-line: duplicate-set-field
-        function CustomProfiler.start(functionName)
-            --Logger.trace(Logger.channels.entity,
-            --            ("NoitaComponents with their restricted Lua context are trying to use CustomProfiler.start(functionName %s)")
-            --                    :format(functionName))
-            return -1
-        end
+    --     ---@diagnostic disable-next-line: duplicate-doc-alias
+    --     ---@alias CustomProfiler.start function(functionName: string): number
+    --     ---@diagnostic disable-next-line: duplicate-set-field
+    --     function CustomProfiler.start(functionName)
+    --         --Logger.trace(Logger.channels.entity,
+    --         --            ("NoitaComponents with their restricted Lua context are trying to use CustomProfiler.start(functionName %s)")
+    --         --                    :format(functionName))
+    --         return -1
+    --     end
 
-        ---@diagnostic disable-next-line: duplicate-set-field
-        function CustomProfiler.stop(functionName, customProfilerCounter)
-            --Logger.trace(Logger.channels.entity,
-            --            ("NoitaComponents with their restricted Lua context are trying to use CustomProfiler.stop(functionName %s, customProfilerCounter %s)")
-            --                    :format(functionName, customProfilerCounter))
-            return -1
-        end
-    end
+    --     ---@diagnostic disable-next-line: duplicate-set-field
+    --     function CustomProfiler.stop(functionName, customProfilerCounter)
+    --         --Logger.trace(Logger.channels.entity,
+    --         --            ("NoitaComponents with their restricted Lua context are trying to use CustomProfiler.stop(functionName %s, customProfilerCounter %s)")
+    --         --                    :format(functionName, customProfilerCounter))
+    --         return -1
+    --     end
+    -- end
 end
 
 
@@ -756,3 +756,5 @@ EntitySerialisationUtils.deserializeComponentTags    = function(entityId, compon
     CustomProfiler.stop("EntitySerialisationUtils.serializeComponentTags", cpc)
     return true
 end
+
+return EntitySerialisationUtils
