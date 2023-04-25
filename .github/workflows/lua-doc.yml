@@ -21,6 +21,15 @@ jobs:
           ${{ github.workspace }}\\.building\\lua-language-server-3.6.18-win32-x64\\bin\\lua-language-server.exe --logpath \"${{ github.workspace }}\\docs\\lua-docs\" --configpath \"${{ github.workspace }}\\docs\\lua-docs\\lua-language-server-config.lua\" --doc \"${{ github.workspace }}\\mods\\noita-mp\\files\\scripts\"
           cd ${{ github.workspace }}\\docs\\lua-docs\\ 
           DEL /f *.log
+      
+      - name: 'Fix wrong paths in lua docs'
+        shell: pwsh
+        run: |
+          $env:Path += ";C:\Program Files\Git\usr\bin"
+          Get-Command sed
+          cd ${{ github.workspace }}\\docs\\lua-docs\\
+          $path = echo "file:///d%3A/a/NoitaMP/NoitaMP/"
+          sed -i 's#$path##g' ${{ github.workspace }}\\docs\\lua-docs\\doc.md
 
       - name: 'Commit lua docs'
         shell: pwsh
@@ -29,15 +38,5 @@ jobs:
           git config --global user.email \"action@github.com\"
           git config --global user.name \"github-actions\"
           git add .
-          git commit -m \"Updated generated lua docs\"
+          git commit -m "Updated generated lua docs"
           git push origin
-      
-      - name: 'Fix wrong paths in lua docs'
-        shell: pwsh
-        run: |
-          cd ${{ github.workspace }}\\docs\\lua-docs\\
-          "Set-Alias -Name sed -Value 'C:\\Program Files\\Git\\usr\\bin\\sed.exe'
-          $path = echo ${{ github.workspace }} | sed 's#\\#/#g'
-          sed -i 's#$path##g' ${{ github.workspace }}\\docs\\lua-docs\\doc.md
-
-          
