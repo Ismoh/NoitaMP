@@ -21,6 +21,16 @@ jobs:
           ${{ github.workspace }}\\.building\\lua-language-server-3.6.18-win32-x64\\bin\\lua-language-server.exe --logpath \"${{ github.workspace }}\\docs\\lua-docs\" --configpath \"${{ github.workspace }}\\docs\\lua-docs\\lua-language-server-config.lua\" --doc \"${{ github.workspace }}\\mods\\noita-mp\\files\\scripts\"
           cd ${{ github.workspace }}\\docs\\lua-docs\\ 
           DEL /f *.log
+
+          git config --global user.email "action@github.com"
+
+          git config --global user.name "github-actions"
+
+          git add .
+
+          git commit -m "Updated generated lua docs"
+
+          git push origin
       
       - name: 'Fix wrong paths in lua docs'
         shell: pwsh
@@ -30,12 +40,9 @@ jobs:
           cd ${{ github.workspace }}\\docs\\lua-docs\\
           sed 's#file:///d%3A/a/NoitaMP/NoitaMP/##g' ${{ github.workspace }}\\docs\\lua-docs\\doc.md
 
-      - name: 'Commit lua docs'
-        shell: pwsh
-        run: |
           cd ${{ github.workspace }}\\docs\\lua-docs\\
-          git config --global user.email \"action@github.com\"
-          git config --global user.name \"github-actions\"
+          git config --global user.email "action@github.com"
+          git config --global user.name "github-actions"
           git add .
           git commit -m "Updated generated lua docs"
-          git push
+          git push origin
