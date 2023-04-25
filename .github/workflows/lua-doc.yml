@@ -1,14 +1,14 @@
 name: Generate lua doc
 run-name: ${{ github.actor }} is generating lua docs 🚀
 on: push
-jobs:
-  action:
-    runs-on: windows-latest
 
-    steps:
-      - uses: actions/checkout@v3.3.0
-      
-      - name: 'Generate lua docs'
-      - run: |
-          scoop install lua-language-server
-          dir "lua-language-server" /s
+jobs:
+  name: 'Generate lua docs'
+  runs-on: windows-latest
+  steps:
+    - uses: actions/checkout@v3.3.0
+
+    - name: 'Install lua-language-server'
+    - run: |
+        scoop install lua-language-server
+        dir "lua-language-server" /s
