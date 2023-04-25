@@ -1,4 +1,4 @@
-name: Generate lua doc
+name: Generate lua docs
 run-name: github-actions[bot] is generating lua docs `:page_with_curl:`
 on: push
 
