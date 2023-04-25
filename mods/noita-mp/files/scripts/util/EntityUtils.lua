@@ -283,10 +283,11 @@ end
 
 --- isEntityAlive
 
---- Looks like there were access to removed entities, which might cause game crashing.
---- Use this function whenever you work with entity_id/entityId to stop client game crashing.
---- @param entityId number Id of any entity.
---- @return number|false entityId returns the entityId if is alive, otherwise false
+---Looks like there were access to removed entities, which might cause game crashing.
+---Use this function whenever you work with entity_id/entityId to stop client game crashing.
+---@param entityId number Id of any entity.
+---@return number|false entityId returns the entityId if is alive, otherwise false
+---@deprecated Use EntityGetIsAlive instead
 function EntityUtils.isEntityAlive(entityId)
     local cpc = CustomProfiler.start("EntityUtils.isEntityAlive")
     if EntityGetIsAlive(entityId) then

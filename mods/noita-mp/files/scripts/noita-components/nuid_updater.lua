@@ -1,15 +1,16 @@
 dofile_once("mods/noita-mp/files/scripts/init/init_.lua")
-dofile_once("mods/noita-mp/files/scripts/init/init_logger.lua")
-dofile_once("mods/noita-mp/files/scripts/extensions/stringExtensions.lua")
-EntityUtils          = dofile_once("mods/noita-mp/files/scripts/util/EntityUtils.lua")
-NetworkVscUtils      = dofile_once("mods/noita-mp/files/scripts/util/NetworkVscUtils.lua")
-GlobalsUtils         = dofile_once("mods/noita-mp/files/scripts/util/GlobalsUtils.lua")
+-- dofile_once("mods/noita-mp/files/scripts/init/init_logger.lua")
+-- dofile_once("mods/noita-mp/files/scripts/extensions/stringExtensions.lua")
+-- NetworkVscUtils      = dofile_once("mods/noita-mp/files/scripts/util/NetworkVscUtils.lua")
+-- GlobalsUtils         = dofile_once("mods/noita-mp/files/scripts/util/GlobalsUtils.lua")
 local executeOnAdded = GetValueBool("executeOnAdded", 1)
 
 if executeOnAdded then
     Logger.debug(Logger.channels.nuid, "nuid_updater.lua added..")
     local currentEntityId = GetUpdatedEntityID()
-    if not EntityUtils.isEntityAlive(currentEntityId) then return end
+    if not EntityGetIsAlive(currentEntityId) then
+        return
+    end
     local ownerName, ownerGuid, nuid   = NetworkVscUtils.getAllVscValuesByEntityId(currentEntityId)
     local globalsNuid, globalsEntityId = GlobalsUtils.getNuidEntityPair(nuid)
     if currentEntityId ~= globalsEntityId then

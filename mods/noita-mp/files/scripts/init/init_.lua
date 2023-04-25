@@ -22,13 +22,26 @@ dofile("mods/noita-mp/files/scripts/extensions/globalExtensions.lua")
 if require then
     dofile("mods/noita-mp/files/scripts/init/init_package_loading.lua")
 end
-dofile("mods/noita-mp/files/scripts/init/init_logger.lua")
 
 
+if not _G.Logger then
+    if not require then
+        _G.Logger = dofile_once("mods/noita-mp/files/scripts/util/Logger.lua")
+    else
+        ---Globally accessible Logger in _G.Logger.
+        ---@alias _G.Logger Logger
+        _G.Logger = require("Logger")
+    end
+    Logger.info(Logger.channels.initialize, "Logger initialised!")
+else
+    Logger.info(Logger.channels.initialize, "_G.Logger was already initialised!")
+end
 
 if not _G.Utils then
+    -- If require is not available, we are in Noita Components lua context and should use dofile_once instead.
+    -- But make sure to load files only when needed, to avoid loading them into memory.
     if not require then
-        _G.Utils = dofile_once("mods/noita-mp/files/scripts/util/Utils.lua")
+        -- _G.Utils = dofile_once("mods/noita-mp/files/scripts/util/Utils.lua")
     else
         ---Globally accessible Utils in _G.Utils.
         ---@alias _G.Utils Utils
@@ -36,8 +49,10 @@ if not _G.Utils then
     end
 end
 if not _G.MinaUtils then
+    -- If require is not available, we are in Noita Components lua context and should use dofile_once instead.
+    -- But make sure to load files only when needed, to avoid loading them into memory.
     if not require then
-        _G.MinaUtils = dofile_once("mods/noita-mp/files/scripts/util/MinaUtils.lua")
+        --_G.MinaUtils = dofile_once("mods/noita-mp/files/scripts/util/MinaUtils.lua")
     else
         ---Globally accessible MinaUtils in _G.MinaUtils.
         ---@alias _G.MinaUtils MinaUtils
@@ -53,8 +68,10 @@ if not _G.EntityCache then
 end
 
 if not _G.NetworkCacheUtils then
+    -- If require is not available, we are in Noita Components lua context and should use dofile_once instead.
+    -- But make sure to load files only when needed, to avoid loading them into memory.
     if not require then
-        _G.NetworkCacheUtils = dofile_once("mods/noita-mp/files/scripts/util/NetworkCacheUtils.lua")
+        --_G.NetworkCacheUtils = dofile_once("mods/noita-mp/files/scripts/util/NetworkCacheUtils.lua")
     else
         ---Globally accessible NetworkCacheUtils in _G.NetworkCacheUtils.
         ---@alias _G.NetworkCacheUtils NetworkCacheUtils
@@ -63,8 +80,10 @@ if not _G.NetworkCacheUtils then
 end
 
 if not _G.EntitySerialisationUtils then
+    -- If require is not available, we are in Noita Components lua context and should use dofile_once instead.
+    -- But make sure to load files only when needed, to avoid loading them into memory.
     if not require then
-        _G.EntitySerialisationUtils = dofile_once("mods/noita-mp/files/scripts/util/EntitySerialisationUtils.lua")
+        --_G.EntitySerialisationUtils = dofile_once("mods/noita-mp/files/scripts/util/EntitySerialisationUtils.lua")
     else
         ---Globally accessible EntitySerialisationUtils in _G.EntitySerialisationUtils.
         ---@alias _G.EntitySerialisationUtils EntitySerialisationUtils
@@ -73,8 +92,10 @@ if not _G.EntitySerialisationUtils then
 end
 
 if not _G.EntityCacheUtils then
+    -- If require is not available, we are in Noita Components lua context and should use dofile_once instead.
+    -- But make sure to load files only when needed, to avoid loading them into memory.
     if not require then
-        _G.EntityCacheUtils = dofile_once("mods/noita-mp/files/scripts/util/EntityCacheUtils.lua")
+        --_G.EntityCacheUtils = dofile_once("mods/noita-mp/files/scripts/util/EntityCacheUtils.lua")
     else
         ---Globally accessible EntityCacheUtils in _G.EntityCacheUtils.
         ---@alias _G.EntityCacheUtils EntityCacheUtils
@@ -113,8 +134,10 @@ if not _G.NetworkVscUtils then
 end
 
 if not _G.NetworkUtils then
+    -- If require is not available, we are in Noita Components lua context and should use dofile_once instead.
+    -- But make sure to load files only when needed, to avoid loading them into memory.
     if not require then
-        _G.NetworkUtils = dofile_once("mods/noita-mp/files/scripts/util/NetworkUtils.lua")
+        --_G.NetworkUtils = dofile_once("mods/noita-mp/files/scripts/util/NetworkUtils.lua")
     else
         ---Globally accessible NetworkUtils in _G.NetworkUtils.
         ---@alias _G.NetworkUtils NetworkUtils
@@ -123,8 +146,10 @@ if not _G.NetworkUtils then
 end
 
 if not _G.NoitaComponentUtils then
+    -- If require is not available, we are in Noita Components lua context and should use dofile_once instead.
+    -- But make sure to load files only when needed, to avoid loading them into memory.
     if not require then
-        _G.NoitaComponentUtils = dofile_once("mods/noita-mp/files/scripts/util/NoitaComponentUtils.lua")
+        --_G.NoitaComponentUtils = dofile_once("mods/noita-mp/files/scripts/util/NoitaComponentUtils.lua")
     else
         ---Globally accessible NoitaComponentUtils in _G.NoitaComponentUtils.
         ---@alias _G.NoitaComponentUtils NoitaComponentUtils
@@ -133,8 +158,10 @@ if not _G.NoitaComponentUtils then
 end
 
 if not _G.NuidUtils then
+    -- If require is not available, we are in Noita Components lua context and should use dofile_once instead.
+    -- But make sure to load files only when needed, to avoid loading them into memory.
     if not require then
-        _G.NuidUtils = dofile_once("mods/noita-mp/files/scripts/util/NuidUtils.lua")
+        --_G.NuidUtils = dofile_once("mods/noita-mp/files/scripts/util/NuidUtils.lua")
     else
         ---Globally accessible NuidUtils in _G.NuidUtils.
         ---@alias _G.NuidUtils NuidUtils
@@ -143,8 +170,10 @@ if not _G.NuidUtils then
 end
 
 if not _G.GuidUtils then
+    -- If require is not available, we are in Noita Components lua context and should use dofile_once instead.
+    -- But make sure to load files only when needed, to avoid loading them into memory.
     if not require then
-        _G.GuidUtils = dofile_once("mods/noita-mp/files/scripts/util/GuidUtils.lua")
+        --_G.GuidUtils = dofile_once("mods/noita-mp/files/scripts/util/GuidUtils.lua")
     else
         ---Globally accessible GuidUtils in _G.GuidUtils.
         ---@alias _G.GuidUtils GuidUtils
@@ -153,8 +182,10 @@ if not _G.GuidUtils then
 end
 
 if not _G.NoitaMpSettings then
+    -- If require is not available, we are in Noita Components lua context and should use dofile_once instead.
+    -- But make sure to load files only when needed, to avoid loading them into memory.
     if not require then
-        _G.NoitaMpSettings = dofile_once("mods/noita-mp/files/scripts/util/NoitaMpSettings.lua")
+        --_G.NoitaMpSettings = dofile_once("mods/noita-mp/files/scripts/util/NoitaMpSettings.lua")
     else
         ---Globally accessible NoitaMpSettings in _G.NoitaMpSettings.
         ---@alias _G.NoitaMpSettings NoitaMpSettings
@@ -163,8 +194,10 @@ if not _G.NoitaMpSettings then
 end
 
 if not _G.CustomProfiler then
+    -- If require is not available, we are in Noita Components lua context and should use dofile_once instead.
+    -- But make sure to load files only when needed, to avoid loading them into memory.
     if not require then
-        _G.CustomProfiler = dofile_once("mods/noita-mp/files/scripts/util/CustomProfiler.lua")
+        --_G.CustomProfiler = dofile_once("mods/noita-mp/files/scripts/util/CustomProfiler.lua")
     else
         ---Globally accessible CustomProfiler in _G.CustomProfiler.
         ---@alias _G.CustomProfiler CustomProfiler
@@ -173,8 +206,10 @@ if not _G.CustomProfiler then
 end
 
 if not _G.Server then
+    -- If require is not available, we are in Noita Components lua context and should use dofile_once instead.
+    -- But make sure to load files only when needed, to avoid loading them into memory.
     if not require then
-        _G.Server = dofile_once("mods/noita-mp/files/scripts/server/Server.lua")
+        --_G.Server = dofile_once("mods/noita-mp/files/scripts/server/Server.lua")
     else
         ---Globally accessible Server in _G.Server.
         ---@alias _G.Server Server
@@ -183,8 +218,10 @@ if not _G.Server then
 end
 
 if not _G.Client then
+    -- If require is not available, we are in Noita Components lua context and should use dofile_once instead.
+    -- But make sure to load files only when needed, to avoid loading them into memory.
     if not require then
-        _G.Client = dofile_once("mods/noita-mp/files/scripts/client/Client.lua")
+        --_G.Client = dofile_once("mods/noita-mp/files/scripts/client/Client.lua")
     else
         ---Globally accessible Client in _G.Client.
         ---@alias _G.Client Client

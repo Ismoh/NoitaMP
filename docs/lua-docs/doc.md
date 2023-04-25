@@ -4,17 +4,27 @@ See: [SockClient](file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/mods/noita-mp/f
 
 
 ```lua
-unknown
-```
-
-
-```lua
 SockClient
 ```
 
 
 ```lua
 SockClient
+```
+
+
+---
+
+# ClientInit
+
+ClientInit class for creating a new extended instance of SockClient.
+
+## new
+
+
+```lua
+function ClientInit.new(sockClient: SockClient)
+  -> self: SockClient
 ```
 
 
@@ -32,16 +42,23 @@ ClientInit
 
 ---
 
-# ClientInit
+# CustomProfiler
 
-ClientInit class for creating a new extended instance of SockClient.
-
-## new
+Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 
 
 ```lua
-function ClientInit.new(sockClient: SockClient)
-  -> self: SockClient
+CustomProfiler
+```
+
+
+```lua
+CustomProfiler
+```
+
+
+```lua
+CustomProfiler
 ```
 
 
@@ -204,33 +221,6 @@ The threshold in milliseconds. If a function takes longer than this threshold, i
 
 ---
 
-# CustomProfiler
-
-Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
-
-
-```lua
-unknown
-```
-
-
-```lua
-CustomProfiler
-```
-
-
-```lua
-CustomProfiler
-```
-
-
-```lua
-CustomProfiler
-```
-
-
----
-
 # CustomProfiler.start
 
 
@@ -278,28 +268,6 @@ function CustomProfiler.stop(functionName: any, customProfilerCounter: any)
 
 # EntityCache
 
- EntityCache.
-
-
-```lua
-table
-```
-
-
-```lua
-table
-```
-
-
----
-
-# EntityCache.cache
-
-
-```lua
-table
-```
-
 
 ```lua
 table
@@ -309,11 +277,6 @@ table
 ---
 
 # EntityCache.delete
-
-
-```lua
-function EntityCache.delete(entityId: any)
-```
 
 
 ```lua
@@ -331,11 +294,6 @@ function EntityCache.deleteNuid(nuid: any)
 ```
 
 
-```lua
-function EntityCache.deleteNuid(nuid: any)
-```
-
-
 ---
 
 # EntityCache.get
@@ -343,22 +301,6 @@ function EntityCache.deleteNuid(nuid: any)
 
 ```lua
 function EntityCache.get(entityId: any)
-  -> unknown|nil
-```
-
-
-```lua
-function EntityCache.get(entityId: any)
-```
-
-
----
-
-# EntityCache.getNuid
-
-
-```lua
-function EntityCache.getNuid(nuid: any)
 ```
 
 
@@ -368,45 +310,7 @@ function EntityCache.getNuid(nuid: any)
 
 
 ```lua
-function EntityCache.set(entityId: any, nuid: any, ownerGuid: any, ownerName: any, filepath: any, x: any, y: any, rotation: any, velX: any, velY: any, currentHealth: any, maxHealth: any)
-```
-
-
-```lua
 function EntityCache.set(entityId: any, compNuid: any, compOwnerGuid: any, compOwnerName: any, filename: any, x: any, y: any, rotation: any, velocityX: any, velocityY: any, healthCurrent: any, healthMax: any)
-```
-
-
----
-
-# EntityCache.size
-
-
-```lua
-function EntityCache.size()
-  -> integer|unknown
-```
-
-
----
-
-# EntityCache.usage
-
-
-```lua
-function EntityCache.usage()
-```
-
-
----
-
-# EntityCache.usingC
-
- not _G.disableLuaExtensionsDLL
-
-
-```lua
-boolean
 ```
 
 
@@ -414,229 +318,15 @@ boolean
 
 # EntityCacheUtils
 
- EntityCacheUtils
- Utils class only for cache of entities.
-
-
-```lua
-unknown
-```
-
-
-```lua
-unknown
-```
-
 
 ```lua
 table
-```
-
-
----
-
-# EntityCacheUtils.set
-
-
-```lua
-function EntityCacheUtils.set(entityId: any, nuid: any, ownerGuid: any, ownerName: any, filepath: any, x: any, y: any, rotation: any, velX: any, velY: any, currentHealth: any, maxHealth: any)
 ```
 
 
 ---
 
 # EntitySerialisationUtils
-
- EntitySerialisationUtils: Utils class only for serialisation of entities.
-
-
-```lua
-unknown
-```
-
-
-```lua
-unknown
-```
-
-
-```lua
-table
-```
-
-
----
-
-# EntitySerialisationUtils.componentIdentifier
-
- It can happen, that there are more than on component per type.
- Then we need to know how to determine those.
- The keys/members listed below can help!
-
-
-```lua
-table
-```
-
-
----
-
-# EntitySerialisationUtils.componentObjectMemberNames
-
-
-```lua
-table
-```
-
-
----
-
-# EntitySerialisationUtils.componentTags
-
-
-```lua
-table
-```
-
-
----
-
-# EntitySerialisationUtils.deserializeComponentTags
-
-
-```lua
-function EntitySerialisationUtils.deserializeComponentTags(entityId: any, componentId: any, serialisedComponent: any)
-  -> boolean
-```
-
-
----
-
-# EntitySerialisationUtils.deserializeEntireRootEntity
-
-
-```lua
-function EntitySerialisationUtils.deserializeEntireRootEntity(serializedRootEntity: any)
-```
-
-
----
-
-# EntitySerialisationUtils.deserializeEntityAttributes
-
-
-```lua
-function EntitySerialisationUtils.deserializeEntityAttributes(entityId: any, serializedRootEntity: any)
-  -> boolean
-```
-
-
----
-
-# EntitySerialisationUtils.deserializeEntityComponents
-
-
-```lua
-function EntitySerialisationUtils.deserializeEntityComponents(entityId: any, serializedRootEntity: any)
-  -> boolean
-```
-
-
----
-
-# EntitySerialisationUtils.deserializeEntityTags
-
-
-```lua
-function EntitySerialisationUtils.deserializeEntityTags(entityId: any, serializedRootEntity: any)
-  -> boolean
-```
-
-
----
-
-# EntitySerialisationUtils.materialTags
-
-
-```lua
-table
-```
-
-
----
-
-# EntitySerialisationUtils.serializeComponentTags
-
-
-```lua
-function EntitySerialisationUtils.serializeComponentTags(componentId: any)
-  -> string|nil
-```
-
-
----
-
-# EntitySerialisationUtils.serializeEntireRootEntity
-
-@*param* `nuid` — nuid can only be nil, when being Client
-
-
-```lua
-function EntitySerialisationUtils.serializeEntireRootEntity(entityId: number, nuid: number|nil)
-  -> boolean|nil
-  2. table|nil
-```
-
-
----
-
-# EntitySerialisationUtils.serializeEntityAttributes
-
-
-```lua
-function EntitySerialisationUtils.serializeEntityAttributes(entityId: any)
-  -> table
-```
-
-
----
-
-# EntitySerialisationUtils.serializeEntityComponents
-
-
-```lua
-function EntitySerialisationUtils.serializeEntityComponents(entityId: any)
-  -> table
-```
-
-
----
-
-# EntitySerialisationUtils.serializeEntityTags
-
-
-```lua
-function EntitySerialisationUtils.serializeEntityTags(entityId: any)
-  -> unknown|nil
-```
-
-
----
-
-# EntitySerialisationUtils.typeFixes
-
- Looks like some internal types aren't correct.
- i.e.: ComponentGetValue2 returns number instead of boolean for 'friend_firemage'.
-
-
-```lua
-table
-```
-
-
----
-
-# EntitySerialisationUtils.unsupportedDataTypes
 
 
 ```lua
@@ -659,26 +349,6 @@ unknown
 
 ```lua
 table
-```
-
-
-```lua
-unknown
-```
-
-
-```lua
-unknown
-```
-
-
-```lua
-unknown
-```
-
-
-```lua
-unknown
 ```
 
 
@@ -734,8 +404,8 @@ function EntityUtils.destroyByNuid(peer: any, nuid: number)
 
 # EntityUtils.isEntityAlive
 
- Looks like there were access to removed entities, which might cause game crashing.
- Use this function whenever you work with entity_id/entityId to stop client game crashing.
+Looks like there were access to removed entities, which might cause game crashing.
+Use this function whenever you work with entity_id/entityId to stop client game crashing.
 
 @*param* `entityId` — Id of any entity.
 
@@ -1242,11 +912,6 @@ table
 
 
 ```lua
-unknown
-```
-
-
-```lua
 table
 ```
 
@@ -1390,11 +1055,6 @@ function GlobalsUtils.setNuid(nuid: any, entityId: any, componentIdForOwnerName:
 
 
 ```lua
-unknown
-```
-
-
-```lua
 table
 ```
 
@@ -1432,6 +1092,11 @@ number
 
 ```lua
 unknown
+```
+
+
+```lua
+table
 ```
 
 
@@ -1556,6 +1221,18 @@ table
 
 Util class for fetching information about local and remote minas.
 
+
+```lua
+MinaUtils
+```
+
+
+---
+
+# MinaUtils
+
+Util class for fetching information about local and remote minas.
+
 ## getLocalMinaEntityId
 
 
@@ -1627,23 +1304,6 @@ function MinaUtils.setLocalMinaName(name: string)
 ```
 
 Setter for local mina name. It also saves it to settings file.
-
-
----
-
-# MinaUtils
-
-Util class for fetching information about local and remote minas.
-
-
-```lua
-unknown
-```
-
-
-```lua
-MinaUtils
-```
 
 
 ---
@@ -1761,19 +1421,6 @@ boolean
 
 # NetworkCacheUtils
 
- Because of stack overflow errors when loading lua files,
- I decided to put Utils 'classes' into globals
-
-
-```lua
-unknown
-```
-
-
-```lua
-table
-```
-
 
 ```lua
 table
@@ -1863,11 +1510,6 @@ function NetworkCacheUtils.set(peerGuid: string, networkMessageId: number, event
 
  Because of stack overflow errors when loading lua files,
  I decided to put Utils 'classes' into globals
-
-
-```lua
-unknown
-```
 
 
 ```lua
@@ -2154,21 +1796,6 @@ NetworkVscUtils
 
 
 ```lua
-unknown
-```
-
-
-```lua
-unknown
-```
-
-
-```lua
-unknown
-```
-
-
-```lua
 NetworkVscUtils
 ```
 
@@ -2401,17 +2028,7 @@ string
 
 
 ```lua
-unknown
-```
-
-
-```lua
 table
-```
-
-
-```lua
-unknown
 ```
 
 
@@ -2494,11 +2111,6 @@ table
 
 
 ```lua
-unknown
-```
-
-
-```lua
 table
 ```
 
@@ -2541,11 +2153,6 @@ function NoitaMpSettings.writeSettings(key: any, value: any)
 
  NuidUtils:
  class for getting the current network unique identifier
-
-
-```lua
-unknown
-```
 
 
 ```lua
@@ -2638,11 +2245,6 @@ unknown
 
 
 ```lua
-unknown
-```
-
-
-```lua
 SockServer
 ```
 
@@ -2650,22 +2252,6 @@ SockServer
 ```lua
 SockServer
 ```
-
-
----
-
-# ServerInit
-
-## new
-
-
-```lua
-function ServerInit.new(sockServer: SockServer)
-  -> self: SockServer
-```
-
- ServerInit constructor
- Creates a new instance of server 'class'
 
 
 ---
@@ -2684,6 +2270,22 @@ ServerInit
 ```lua
 ServerInit
 ```
+
+
+---
+
+# ServerInit
+
+## new
+
+
+```lua
+function ServerInit.new(sockServer: SockServer)
+  -> self: SockServer
+```
+
+ ServerInit constructor
+ Creates a new instance of server 'class'
 
 
 ---
@@ -3234,11 +2836,6 @@ Utils
 
 
 ```lua
-unknown
-```
-
-
-```lua
 Utils
 ```
 
@@ -3250,16 +2847,6 @@ Utils
 
 ```lua
 Utils
-```
-
-
-```lua
-Utils
-```
-
-
-```lua
-any
 ```
 
 
@@ -3382,6 +2969,18 @@ Globally accessible GuidUtils in _G.GuidUtils.
 
 ```lua
 GuidUtils
+```
+
+
+---
+
+# _G.Logger
+
+Globally accessible Logger in _G.Logger.
+
+
+```lua
+Logger
 ```
 
 
@@ -5230,6 +4829,21 @@ Returns `true` if and only if `m` is below `n` when they are compared as unsigne
 ```lua
 function math.ult(m: integer, n: integer)
   -> boolean
+```
+
+
+---
+
+# md5
+
+
+```lua
+table
+```
+
+
+```lua
+unknown
 ```
 
 

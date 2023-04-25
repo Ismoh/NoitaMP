@@ -1,9 +1,10 @@
-dofile_once("mods/noita-mp/files/scripts/init/init_logger.lua")
-dofile_once("mods/noita-mp/files/scripts/extensions/tableExtensions.lua")
-dofile_once("mods/noita-mp/files/scripts/extensions/mathExtensions.lua")
-EntityUtils         = dofile_once("mods/noita-mp/files/scripts/util/EntityUtils.lua")
-NetworkVscUtils     = dofile_once("mods/noita-mp/files/scripts/util/NetworkVscUtils.lua")
-NoitaComponentUtils = dofile_once("mods/noita-mp/files/scripts/util/NoitaComponentUtils.lua")
+dofile_once("mods/noita-mp/files/scripts/init/init_.lua")
+-- dofile_once("mods/noita-mp/files/scripts/init/init_logger.lua")
+-- dofile_once("mods/noita-mp/files/scripts/extensions/tableExtensions.lua")
+-- dofile_once("mods/noita-mp/files/scripts/extensions/mathExtensions.lua")
+-- EntityUtils         = dofile_once("mods/noita-mp/files/scripts/util/EntityUtils.lua")
+-- NetworkVscUtils     = dofile_once("mods/noita-mp/files/scripts/util/NetworkVscUtils.lua")
+-- NoitaComponentUtils = dofile_once("mods/noita-mp/files/scripts/util/NoitaComponentUtils.lua")
 if ModSettingGet("noita-mp.toggle_debug") then
     local entityId = GetUpdatedEntityID()
     if not EntityUtils.isEntityAlive(entityId) then return end

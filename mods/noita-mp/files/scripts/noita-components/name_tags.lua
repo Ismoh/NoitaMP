@@ -1,5 +1,6 @@
-dofile_once("mods/noita-mp/files/scripts/init/init_logger.lua")
-EntityUtils = dofile_once("mods/noita-mp/files/scripts/util/EntityUtils.lua")
+dofile_once("mods/noita-mp/files/scripts/init/init_.lua")
+-- dofile_once("mods/noita-mp/files/scripts/init/init_logger.lua")
+-- EntityUtils = dofile_once("mods/noita-mp/files/scripts/util/EntityUtils.lua")
 
 function PlayerNameFunction(entity_id, playerName)
     gui = gui or GuiCreate()
