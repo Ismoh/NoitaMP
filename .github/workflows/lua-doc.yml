@@ -23,8 +23,7 @@ jobs:
           DEL /f *.log
           git config --global user.email "action@github.com"
           git config --global user.name "github-actions"
-          git add ${{ github.workspace }}\\docs\\lua-docs\\doc.md
-          git add ${{ github.workspace }}\\docs\\lua-docs\\doc.json
+          git add .
           git commit -m "Updated generated lua docs"
           git push origin
       
@@ -34,11 +33,10 @@ jobs:
           $env:Path += ";C:\Program Files\Git\usr\bin"
           Get-Command sed
           cd ${{ github.workspace }}\\docs\\lua-docs\\
-          sed -i 's#file:///d%3A/a/NoitaMP/NoitaMP/##g' ${{ github.workspace }}\\docs\\lua-docs\\doc.md
-          sed -i 's#file:///d%3A/a/NoitaMP/NoitaMP/##g' ${{ github.workspace }}\\docs\\lua-docs\\doc.json
+          sed -i 's#file:///d%3A/a/NoitaMP/NoitaMP/docs/lua-docs/##g' ${{ github.workspace }}\\docs\\lua-docs\\doc.md
+          sed -i 's#file:///d%3A/a/NoitaMP/NoitaMP/docs/lua-docs/##g' ${{ github.workspace }}\\docs\\lua-docs\\doc.json
           git config --global user.email "action@github.com"
           git config --global user.name "github-actions"
-          git add ${{ github.workspace }}\\docs\\lua-docs\\doc.md
-          git add ${{ github.workspace }}\\docs\\lua-docs\\doc.json
+          git add .
           git commit -m "Updated generated lua docs"
           git push origin

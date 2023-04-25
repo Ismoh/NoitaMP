@@ -57,14 +57,6 @@
       },
       "problemMatcher": []
     },
-    {
-      "label": "Generate Lua docs",
-      "type": "shell",
-      "windows": {
-        "command": "${workspaceFolder}\\bin\\lua-language-server.exe --logpath \"${workspaceFolder}\\docs\\lua-docs\" --configpath \"${workspaceFolder}\\docs\\lua-docs\\lua-language-server-config.lua\" --doc \"${workspaceFolder}\\mods\\noita-mp\\files\\scripts\" && cd ${workspaceFolder}\\docs\\lua-docs\\ && DEL /f *.log && powershell -command \"Set-Alias -Name sed -Value 'C:\\Program Files\\Git\\usr\\bin\\sed.exe' ($path = echo ${workspaceFolder} | sed 's#\\#/#g') -And (sed -i 's#$path##g' ${workspaceFolder}\\docs\\lua-docs\\doc.md)\" "
-      },
-      "problemMatcher": []
-    }
   ],
   "inputs": [
     {
