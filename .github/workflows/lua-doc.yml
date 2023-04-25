@@ -28,8 +28,7 @@ jobs:
           $env:Path += ";C:\Program Files\Git\usr\bin"
           Get-Command sed
           cd ${{ github.workspace }}\\docs\\lua-docs\\
-          $path = echo "file:///d%3A/a/NoitaMP/NoitaMP/"
-          sed -i 's#$path##g' ${{ github.workspace }}\\docs\\lua-docs\\doc.md
+          sed 's#file:///d%3A/a/NoitaMP/NoitaMP/##g' ${{ github.workspace }}\\docs\\lua-docs\\doc.md
 
       - name: 'Commit lua docs'
         shell: pwsh
