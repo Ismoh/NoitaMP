@@ -39,4 +39,4 @@ jobs:
           git config --global user.name \"github-actions\"
           git add .
           git commit -m "Updated generated lua docs"
-          git push origin
+          git push
