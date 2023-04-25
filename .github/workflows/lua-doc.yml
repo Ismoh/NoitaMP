@@ -6,10 +6,11 @@ jobs:
   generate-lua-docs:
     name: 'Generate lua docs'
     runs-on: windows-latest
+
     steps:
       - uses: actions/checkout@v3.3.0
 
       - name: 'Install lua-language-server'
-      - run: |
+        run: |
           scoop install lua-language-server
           dir "lua-language-server" /s

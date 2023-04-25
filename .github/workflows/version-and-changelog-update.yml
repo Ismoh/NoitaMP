@@ -83,7 +83,7 @@ jobs:
       futureRelease: ${{ steps.extend_version.outputs.futureRelease }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3.1.0
+      - uses: actions/checkout@v3.3.0
         with:
           fetch-depth: 0
       
