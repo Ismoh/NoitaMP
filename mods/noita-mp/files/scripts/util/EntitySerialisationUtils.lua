@@ -25,7 +25,7 @@ else
     -- if not CustomProfiler then
     --     ---@type CustomProfiler
     --     CustomProfiler = {}
-        
+
     --     ---@diagnostic disable-next-line: duplicate-doc-alias
     --     ---@alias CustomProfiler.start function(functionName: string): number
     --     ---@diagnostic disable-next-line: duplicate-set-field
@@ -50,7 +50,7 @@ end
 --- It can happen, that there are more than on component per type.
 --- Then we need to know how to determine those.
 --- The keys/members listed below can help!
-EntitySerialisationUtils.componentIdentifier        = {
+EntitySerialisationUtils.componentIdentifier           = {
     AudioComponent = "event_root",
     AudioLoopComponent = "event_name",
     HotspotComponent = "sprite_hotspot_name",
@@ -62,7 +62,7 @@ EntitySerialisationUtils.componentIdentifier        = {
     SpriteOffsetAnimatorComponent = "sprite_id",
     VariableStorageComponent = "name",
 }
-EntitySerialisationUtils.componentTags              = {
+EntitySerialisationUtils.componentTags                 = {
     "activate",
     "aiming_reticle",
     "air",
@@ -236,7 +236,7 @@ EntitySerialisationUtils.componentTags              = {
     "wizard_orb_id",
     "worm_shot_homing"
 }
-EntitySerialisationUtils.materialTags               = {
+EntitySerialisationUtils.materialTags                  = {
     "acid",
     "alchemy",
     "blood",
@@ -309,7 +309,7 @@ EntitySerialisationUtils.materialTags               = {
     "vapour",
     "water"
 }
-EntitySerialisationUtils.unsupportedDataTypes       = {
+EntitySerialisationUtils.unsupportedDataTypes          = {
     "colors",
     "count_per_material_type",
     "debug_path",
@@ -363,11 +363,23 @@ EntitySerialisationUtils.unsupportedDataTypes       = {
 }
 --- Looks like some internal types aren't correct.
 --- i.e.: ComponentGetValue2 returns number instead of boolean for 'friend_firemage'.
-EntitySerialisationUtils.typeFixes                  = {
+EntitySerialisationUtils.typeFixes                     = {
     friend_firemage = toBoolean,
     friend_thundermage = toBoolean
 }
-EntitySerialisationUtils.componentObjectMemberNames = {
+EntitySerialisationUtils.componentObjectSetValue2Fixes = {
+    ["impl_position"] = function(vObj)
+        if type(vObj) ~= "table" then
+            return { vObj, vObj }
+        end
+    end,
+    ["physics_explosion_power"] = function(vObj)
+        if type(vObj) ~= "table" then
+            return { vObj, vObj }
+        end
+    end,
+}
+EntitySerialisationUtils.componentObjectMemberNames    = {
     "attack_melee_finish_config_explosion",
     "config",
     "config_explosion",
@@ -496,6 +508,9 @@ EntitySerialisationUtils.serializeEntityComponents   = function(entityId)
 
             local members          = ComponentGetMembers(componentId) or {}
             for k, v in pairs(members) do
+                if k == "impl_position" or k == "physics_explosion_power" or k == "delay" then
+                    print("bla!")
+                end
                 -- skip unsupported data types
                 if not table.contains(EntitySerialisationUtils.unsupportedDataTypes, k)
                     and not table.contains(EntitySerialisationUtils.ignore.byMemberKey, k) then
@@ -504,9 +519,15 @@ EntitySerialisationUtils.serializeEntityComponents   = function(entityId)
                         -- Check for object values like tables
                         local memberObject = ComponentObjectGetMembers(componentId, k) or {}
                         for kObj, vObj in pairs(memberObject) do
+                            if vObj == "impl_position" or vObj == "physics_explosion_power" or vObj == "delay" then
+                                print("bla!")
+                            end
                             -- if member objects contains other member objects we cannot access them and need to skip those
                             if not table.contains(EntitySerialisationUtils.componentObjectMemberNames, kObj) then
                                 vObj = ComponentObjectGetValue2(componentId, k, kObj)
+                                if EntitySerialisationUtils.componentObjectSetValue2Fixes[k] then
+                                    vObj = EntitySerialisationUtils.componentObjectSetValue2Fixes[k](vObj)
+                                end
                                 if not Utils.IsEmpty(vObj) then
                                     components[i][k][kObj] = vObj
                                 end
@@ -647,15 +668,15 @@ EntitySerialisationUtils.deserializeEntityComponents = function(entityId, serial
     for i = 1, #serializedRootEntity.components do
         -- there will be gaps/holes, when there are components, which were completely ignored by serialisation!
         if not Utils.IsEmpty(serializedRootEntity.components[i]) then
-            local componentType      = serializedRootEntity.components[i].type
-            local componentIsEnabled = serializedRootEntity.components[i]._enabled
+            local componentType        = serializedRootEntity.components[i].type
+            local componentIsEnabled   = serializedRootEntity.components[i]._enabled
+            local allComponentsPerType = EntityGetComponentIncludingDisabled(entityId, componentType) or {}
+            table.removeByTable(allComponentsPerType, processedComponentIds) -- remove already processed components, otherwise next possible match will be used
 
-            if componentType == "LuaComponent" then
+            if componentType == "SpriteParticleEmitterComponent" and #allComponentsPerType > 1 then
                 print("ASFLDJNOSUIFDGHJOSDFJIUG")
             end
 
-            local allComponentsPerType = EntityGetComponentIncludingDisabled(entityId, componentType) or {}
-            table.removeByTable(allComponentsPerType, processedComponentIds)                            -- remove already processed components, otherwise next possible match will be used
             if not table.contains(EntitySerialisationUtils.ignore.byComponentsType, componentType) then --- some components shouldn't be enabled or even added in multiplayer?
                 -- TODO: add 'isOtherMinaInRange' to if
                 local componentId = nil
@@ -674,8 +695,22 @@ EntitySerialisationUtils.deserializeEntityComponents = function(entityId, serial
                             end
                         else
                             if #allComponentsPerType > 1 then
-                                print("for debugging only")
-                                error("No fycking idea how to match components from server to client!", 2)
+                                Logger.warn(Logger.channels.entitySerialisation,
+                                    ("There are %s components of type '%s' on entity '%s'! Unable to deserialise!")
+                                    :format(#allComponentsPerType, componentType, entityId))
+                                if not EntitySerialisationUtils.gitHubIssues then
+                                    EntitySerialisationUtils.gitHubIssues = {}
+                                end
+
+                                if not EntitySerialisationUtils.gitHubIssues[componentType] then
+                                    EntitySerialisationUtils.gitHubIssues[componentType] = false
+                                    local title = ("[Runtime]+Entity+deserialisation+failed+on+'%s'")
+                                        :format(componentType)
+                                    local url = ("https://github.com/Ismoh/NoitaMP/issues/new?title=%s&labels=bug&projects=ismoh/1&milestone=synchronisation&template=component_missmatch_bug_report.md")
+                                        :format(title)
+                                    Utils.openUrl(url)
+                                    EntitySerialisationUtils.gitHubIssues[componentType] = true -- Let's save some memory and just save a true/false value
+                                end
                             end
                             componentId = allComponentsPerType[c]
                             break
@@ -707,10 +742,15 @@ EntitySerialisationUtils.deserializeEntityComponents = function(entityId, serial
                                 --Logger.warn(Logger.channels.entitySerialisation, ("v is empty: %s"):format(v))
                             else
                                 if table.contains(EntitySerialisationUtils.componentObjectMemberNames, k) then
-                                    if k == "impl_position" or k == "delay" or k == "physics_explosion_power" then
-                                        print("ASDASDGFFGDSG")
+                                    if k == "impl_position" or k == "physics_explosion_power" or k == "delay" then
+                                        print("bla!")
                                     end
                                     for kObj, vObj in pairs(v) do
+                                        if vObj == "impl_position" or vObj == "physics_explosion_power" or vObj == "delay" then
+                                            print("bla!")
+                                        end
+                                        print(("ComponentObjectSetValue2 componentType %s, k %s, v %s, kObj %s, vObj %s")
+                                            :format(componentType, k, Utils.pformat(v), kObj, vObj))
                                         ComponentObjectSetValue2(componentId, k, kObj, vObj)
                                     end
                                 elseif type(v) == "table" then -- if v is a table, we need to use the additional and optional parameters

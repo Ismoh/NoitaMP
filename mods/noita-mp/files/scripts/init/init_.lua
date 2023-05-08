@@ -48,6 +48,17 @@ if not _G.Utils then
         _G.Utils = require("Utils")
     end
 end
+if not _G.FileUtils then
+    -- If require is not available, we are in Noita Components lua context and should use dofile_once instead.
+    -- But make sure to load files only when needed, to avoid loading them into memory.
+    if not require then
+        -- _G.FileUtils = dofile_once("mods/noita-mp/files/scripts/util/FileUtils.lua")
+    else
+        ---Globally accessible FileUtils in _G.FileUtils.
+        ---@alias _G.FileUtils FileUtils
+        _G.FileUtils = require("FileUtils")
+    end
+end
 if not _G.MinaUtils then
     -- If require is not available, we are in Noita Components lua context and should use dofile_once instead.
     -- But make sure to load files only when needed, to avoid loading them into memory.
@@ -63,7 +74,10 @@ end
 if not _G.EntityCache then
     if not require then
     else
-        require("luaExtensions")
+        ---Globally accessible EntityCache in _G.EntityCache.
+        ---@alias _G.EntityCache EntityCache
+        _G.EntityCache = require("EntityCache")
+        --require("luaExtensions")
     end
 end
 
@@ -149,7 +163,7 @@ if not _G.NoitaComponentUtils then
     -- If require is not available, we are in Noita Components lua context and should use dofile_once instead.
     -- But make sure to load files only when needed, to avoid loading them into memory.
     if not require then
-        --_G.NoitaComponentUtils = dofile_once("mods/noita-mp/files/scripts/util/NoitaComponentUtils.lua")
+        _G.NoitaComponentUtils = dofile_once("mods/noita-mp/files/scripts/util/NoitaComponentUtils.lua")
     else
         ---Globally accessible NoitaComponentUtils in _G.NoitaComponentUtils.
         ---@alias _G.NoitaComponentUtils NoitaComponentUtils
@@ -240,3 +254,30 @@ if require then
         return "UNKNOWN"
     end
 end
+
+
+---Checks if mandatory mods are installed and enabled.
+local checkMandatoryDependencyMods = function()
+    if require then
+        local activeMods = ModGetActiveModIDs()
+        print(Utils.pformat(activeMods))
+
+        if not ModIsEnabled("NoitaDearImGui") then
+            error("Please install NoitaDearImGui mod: https://github.com/dextercd/Noita-Dear-ImGui/releases/tag/release-1.9.0", 2)
+        end
+        if not FileUtils.Exists(("%s\\..\\NoitaPatcher"):format(FileUtils.GetAbsoluteDirectoryPathOfNoitaMP())) then
+            error("Please install NoitaPatcher mod: https://github.com/dextercd/NoitaPatcher/releases/tag/release-1.10.1", 2)
+        end
+        if not FileUtils.Exists(("%s\\..\\nsew"):format(FileUtils.GetAbsoluteDirectoryPathOfNoitaMP())) then
+            error("Please install NSEW mod: https://github.com/dextercd/Noita-Synchronise-Expansive-Worlds/releases/tag/release-0.0.5", 2)
+        end
+        if not ModIsEnabled("EnableLogger") then
+            error("Please install EnableLogger mod: https://steamcommunity.com/sharedfiles/filedetails/?id=2124936579&searchtext=logger", 2)
+        end
+        if not ModIsEnabled("minidump") then
+            error("Please install minidump mod: https://github.com/dextercd/Noita-Minidump/releases/tag/release-1.1.2", 2)
+        end
+    end
+end
+
+checkMandatoryDependencyMods()

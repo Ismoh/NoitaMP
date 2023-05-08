@@ -70,7 +70,7 @@ function Utils.DebugEntity(e)
             msg             = msg .. ("  Comp: [" .. comp .. "] type = " .. comp_type)
             if comp_type == "VariableStorageComponent" then
                 msg = msg .. (" - " .. (ComponentGetValue2(comp, "name") or "") .. " = " .. (ComponentGetValue2(comp,
-                                                                                                                "value_string") or ""))
+                    "value_string") or ""))
             end
             msg = msg .. "\n"
         end
@@ -88,7 +88,7 @@ function Utils.DebugEntity(e)
             msg = msg .. ("   Comp: [" .. comp .. "] type = " .. comp_type)
             if comp_type == "VariableStorageComponent" then
                 msg = msg .. (" - " .. (ComponentGetValue2(comp, "name") or "") .. " = " .. (ComponentGetValue2(comp,
-                                                                                                                "value_string") or ""))
+                    "value_string") or ""))
             end
             msg = msg .. "\n"
         end
@@ -115,6 +115,16 @@ function Utils.CopyToClipboard(copy)
         command = ('echo "%s" | clip'):format(copy)
     else
         command = ('echo "%s" | xclip -sel clip'):format(copy)
+    end
+    os.execute(command)
+end
+
+function Utils.openUrl(url)
+    local command = nil
+    if _G.is_windows then
+        command = ("rundll32 url.dll,FileProtocolHandler %s"):format(url) -- command = ('explorer "%s"'):format(url)
+    else
+        command = ('open "%s"'):format(url)
     end
     os.execute(command)
 end

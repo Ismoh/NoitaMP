@@ -41,8 +41,7 @@ local function getNextNuid()
                 end
             end
             Logger.info(Logger.channels.nuid,
-                        "Loaded nuids after loading a savegame. Latest nuid from world_state.xml aka Globals = %s.",
-                        counter)
+                ("Loaded nuids after loading a savegame. Latest nuid from world_state.xml aka Globals = %s."):format(counter))
         end
         xmlParsed = true
     end
@@ -58,7 +57,7 @@ end
 --- If an entity died, the associated nuid-entityId-set will be updated with entityId multiplied by -1.
 --- If this happens, KillEntityMsg has to be send by network.
 function NuidUtils.getEntityIdsByKillIndicator()
-    local cpc = CustomProfiler.start("NuidUtils.getEntityIdsByKillIndicator")
+    local cpc                  = CustomProfiler.start("NuidUtils.getEntityIdsByKillIndicator")
     local deadNuids            = GlobalsUtils.getDeadNuids()
     local worldStateXmlAbsPath = fu.GetAbsDirPathOfWorldStateXml(_G.saveSlotMeta.dir)
     if fu.Exists(worldStateXmlAbsPath) then

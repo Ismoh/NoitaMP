@@ -76,7 +76,7 @@ EntitySerialisationUtils.ignore      = {
     --- Component members listed in byMemberKey will be ignored on serialisation
     byMemberKey      = { "mUpdateFrame", "mFramesOnGround", "mLastFrameOnGround", "mFramesNotSwimming",
         "mAirFramesNotInWater", "mLastCheckTime", "mLastExecutionFrame", "mNextExecutionTime", "mTimesExecuted",
-        "mRenderListHandle" }
+        "mRenderListHandle", "physics_explosion_power", "delay" }
 }
 
 ------------------------------------------------------------------------------------------------------------------------

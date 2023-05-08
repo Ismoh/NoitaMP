@@ -1003,7 +1003,7 @@ function ServerInit.new(sockServer)
         CustomProfiler.stop("Server.sendNewNuidSerialized", cpc026)
 
         -- FOR TESTING ONLY, DO NOT MERGE
-        print(Utils.pformat(data))
+        --print(Utils.pformat(data))
         --os.exit()
 
         return sent

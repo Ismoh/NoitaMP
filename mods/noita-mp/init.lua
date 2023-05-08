@@ -6,18 +6,16 @@ end
 
 --- Imports by dofile, dofile_once and require
 dofile("mods/noita-mp/files/scripts/init/init_.lua")
-local Utils = require("Utils")
-local fu    = require("FileUtils")
-local ui    = require("Ui").new()
+local ui = require("Ui").new()
 Logger.debug(Logger.channels.initialize, "Starting to load noita-mp init.lua..")
 
 --- Stuff needs to be executed before anything else
-fu.SetAbsolutePathOfNoitaRootDirectory()
+FileUtils.SetAbsolutePathOfNoitaRootDirectory()
 NoitaMpSettings.clearAndCreateSettings()
 -- Is used to stop Noita pausing game, when focus is gone (tab out game)
 ModMagicNumbersFileAdd("mods/noita-mp/files/data/magic_numbers.xml")
-fu.Find7zipExecutable()
-local saveSlotsLastModifiedBeforeWorldInit = fu.GetLastModifiedSaveSlots()
+FileUtils.Find7zipExecutable()
+local saveSlotsLastModifiedBeforeWorldInit = FileUtils.GetLastModifiedSaveSlots()
 
 
 --- NoitaMP functions
@@ -39,7 +37,7 @@ local function setSeedIfConnectedSecondTime()
         local saveSlotMetaDirectory = ModSettingGet("noita-mp.saveSlotMetaDirectory")
         CustomProfiler.stop("ModSettingGet", cpc1)
         if saveSlotMetaDirectory then
-            fu.RemoveContentOfDirectory(saveSlotMetaDirectory)
+            FileUtils.RemoveContentOfDirectory(saveSlotMetaDirectory)
         else
             error("Unable to emptying selected save slot!", 2)
         end
@@ -54,6 +52,7 @@ end
 
 function OnModPreInit()
     setSeedIfConnectedSecondTime()
+    print(("NoitaMP %s"):format(FileUtils.GetVersionByFile()))
 end
 
 function OnWorldInitialized()
@@ -66,9 +65,9 @@ function OnWorldInitialized()
     Logger.debug(Logger.channels.initialize, "make_zip = " .. tostring(make_zip))
     if make_zip then
         local archive_name    = "server_save06_" .. os.date("%Y-%m-%d_%H-%M-%S")
-        local destination     = fu.GetAbsoluteDirectoryPathOfNoitaMP() .. pathSeparator .. "_"
-        local archive_content = fu.Create7zipArchive(archive_name .. "_from_server",
-            fu.GetAbsoluteDirectoryPathOfSave06(), destination)
+        local destination     = FileUtils.GetAbsoluteDirectoryPathOfNoitaMP() .. pathSeparator .. "_"
+        local archive_content = FileUtils.Create7zipArchive(archive_name .. "_from_server",
+            FileUtils.GetAbsoluteDirectoryPathOfSave06(), destination)
         local msg             = ("init.lua | Server savegame [%s] was zipped with 7z to location [%s]."):format(
             archive_name, destination)
         Logger.debug(Logger.channels.initialize, msg)
@@ -120,7 +119,7 @@ function OnWorldPreUpdate()
     OnEntityLoaded()
 
     --if profiler.isRunning() and os.clock() >= 120 then
-    --    fu.createProfilerLog()
+    --    FileUtils.createProfilerLog()
     --end
 
     if not MinaUtils.getLocalMinaInformation().entityId then
@@ -130,7 +129,7 @@ function OnWorldPreUpdate()
     EntityUtils.addOrChangeDetectionRadiusDebug(MinaUtils.getLocalMinaInformation().entityId)
 
     if not _G.saveSlotMeta then
-        local saveSlotsLastModifiedAfterWorldInit = fu.GetLastModifiedSaveSlots()
+        local saveSlotsLastModifiedAfterWorldInit = FileUtils.GetLastModifiedSaveSlots()
         for i = 1, #saveSlotsLastModifiedBeforeWorldInit do
             for j = 1, #saveSlotsLastModifiedAfterWorldInit do
                 local saveSlotMeta

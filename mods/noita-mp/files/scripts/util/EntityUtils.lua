@@ -50,7 +50,7 @@ else
     -- if not CustomProfiler then
     --     ---@type CustomProfiler
     --     CustomProfiler = {}
-        
+
     --     ---@diagnostic disable-next-line: duplicate-doc-alias
     --     ---@alias CustomProfiler.start function(functionName: string): number
     --     ---@diagnostic disable-next-line: duplicate-set-field
@@ -315,7 +315,7 @@ function EntityUtils.processAndSyncEntityNetworking()
 
     --[[ Make sure child entities are already added to the entityIds list
     -- otherwise nuid isn't set when extracting parents. ]]
-                                                            --
+    --
     --for i = 1, #entityIds do
     --    local childEntityIds = EntityGetAllChildren(entityIds[i])
     --    if not util.IsEmpty(childEntityIds) then
@@ -426,7 +426,7 @@ function EntityUtils.processAndSyncEntityNetworking()
                 for i = 1, #EntityUtils.exclude.byComponentsName do
                     local componentTypeName = EntityUtils.exclude.byComponentsName[i]
                     local components        = EntityGetComponentIncludingDisabled(entityId,
-                            componentTypeName) or {}
+                        componentTypeName) or {}
                     if #components > 0 then
                         exclude = true
                         break -- work around for continue: repeat until true with break
@@ -443,7 +443,7 @@ function EntityUtils.processAndSyncEntityNetworking()
                 for i = 1, #EntityUtils.include.byComponentsName do
                     local componentTypeName = EntityUtils.include.byComponentsName[i]
                     local components        = EntityGetComponentIncludingDisabled(entityId,
-                            componentTypeName) or {}
+                        componentTypeName) or {}
                     if #components > 0 then
                         -- Entity has a component, which is included in the config.lua.
                         exclude = false
@@ -508,7 +508,7 @@ function EntityUtils.processAndSyncEntityNetworking()
                 --local compOwnerName, compOwnerGuid, compNuid, filenameUnused, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
 
                 --[[ Entity is new and not in cache, that's why cachedValue is nil ]]
-                                                                                      --
+                --
                 --if cachedValue == nil then
                 --    if who == Server.iAm then
                 --        if not nuid then
