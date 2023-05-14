@@ -1,6 +1,6 @@
 # Client
 
-See: [SockClient](../../mods/noita-mp/files/scripts/net/Client.lua#18#14)
+See: [SockClient](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/net/Client.lua#16#14)
 
 
 ```lua
@@ -37,6 +37,28 @@ ClientInit class for creating a new extended instance of SockClient.
 ```lua
 function ClientInit.new(sockClient: SockClient)
   -> self: SockClient
+```
+
+
+---
+
+# CustomProfiler
+
+Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
+
+
+```lua
+CustomProfiler
+```
+
+
+```lua
+CustomProfiler
+```
+
+
+```lua
+CustomProfiler
 ```
 
 
@@ -161,7 +183,7 @@ Starts the profiler. This has to be called before the function (or first line of
 @*param* `functionName` — The name of the function that you want to measure. This has to be the same as the one used in CustomProfiler.stop(functionName, customProfilerCounter)
 
 @*return* `returnCounter` — The counter that is used to determine the order of the function calls. This has to be passed to CustomProfiler.stop(functionName, customProfilerCounter)
-See: [CustomProfiler.stop](../../mods/noita-mp/files/scripts/util/GuidUtils.lua#30#4) functionName, customProfilerCounter)
+See: [CustomProfiler.stop](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/GuidUtils.lua#30#4) functionName, customProfilerCounter)
 
 ## stop
 
@@ -199,23 +221,16 @@ The threshold in milliseconds. If a function takes longer than this threshold, i
 
 ---
 
-# CustomProfiler
-
-Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
+# CustomProfiler.start
 
 
 ```lua
-CustomProfiler
+function
 ```
 
 
 ```lua
-CustomProfiler
-```
-
-
-```lua
-CustomProfiler
+function
 ```
 
 
@@ -231,21 +246,6 @@ function CustomProfiler.start(functionName: any)
 
 ```lua
 function CustomProfiler.start(functionName: any)
-```
-
-
----
-
-# CustomProfiler.start
-
-
-```lua
-function
-```
-
-
-```lua
-function
 ```
 
 
@@ -473,9 +473,13 @@ unknown
 
 # EntityUtils.processAndSyncEntityNetworking
 
+comment
+
+@*param* `startFrameTime` — Time at the very beginning of the frame.
+
 
 ```lua
-function EntityUtils.processAndSyncEntityNetworking()
+function EntityUtils.processAndSyncEntityNetworking(startFrameTime: number)
 ```
 
 
@@ -514,11 +518,16 @@ function EntityUtils.syncDeadNuids()
 
 ---
 
-# FileUtils
+# EntityUtils.timeFramesDelta
+
+ Time(Frames) between coroutines.
+ coroutines.lua: "this function should be called once per game logic update with the amount of time
+ that has passed since it was last called"
+See: ~coroutines.lua~ wake_up_waiting_threads
 
 
 ```lua
-FileUtils
+integer
 ```
 
 
@@ -618,13 +627,13 @@ function FileUtils.GetAbsDirPathOfWorldStateXml(saveSlotAbsDirectoryPath: string
 
 ```lua
 function FileUtils.GetAbsoluteDirectoryPathOfNoitaMP()
-  -> fu.GetAbsolutePathOfNoitaRootDirectory: string
+  -> FileUtils.GetAbsolutePathOfNoitaRootDirectory: string
 ```
 
  Returns the ABSOLUTE path of the mods folder.
- If fu.GetAbsolutePathOfNoitaRootDirectory() is not set yet, then it will be
+ If FileUtils.GetAbsolutePathOfNoitaRootDirectory() is not set yet, then it will be
 
-@*return* `fu.GetAbsolutePathOfNoitaRootDirectory` — ) .. "/mods/noita-mp"
+@*return* `FileUtils.GetAbsolutePathOfNoitaRootDirectory` — ) .. "/mods/noita-mp"
 
 ## GetAbsoluteDirectoryPathOfParentSave
 
@@ -645,13 +654,13 @@ function FileUtils.GetAbsoluteDirectoryPathOfParentSave()
 
 ```lua
 function FileUtils.GetAbsoluteDirectoryPathOfRequiredLibs()
-  -> fu.GetAbsolutePathOfNoitaRootDirectory: string
+  -> FileUtils.GetAbsolutePathOfNoitaRootDirectory: string
 ```
 
  Returns the ABSOLUTE path of the library folder required for this mod.
- If fu.GetAbsolutePathOfNoitaRootDirectory() is not set yet, then it will be
+ If FileUtils.GetAbsolutePathOfNoitaRootDirectory() is not set yet, then it will be
 
-@*return* `fu.GetAbsolutePathOfNoitaRootDirectory` — ) .. "/mods/noita-mp/files/libs"
+@*return* `FileUtils.GetAbsolutePathOfNoitaRootDirectory` — ) .. "/mods/noita-mp/files/libs"
 
 ## GetAbsoluteDirectoryPathOfSave06
 
@@ -890,6 +899,21 @@ function FileUtils.WriteBinaryFile(file_fullpath: string, file_content: any)
 
 ```lua
 function FileUtils.WriteFile(file_fullpath: string, file_content: string)
+```
+
+
+---
+
+# FileUtils
+
+
+```lua
+FileUtils
+```
+
+
+```lua
+FileUtils
 ```
 
 
@@ -1221,12 +1245,24 @@ function Logger.warn(channel: any, formattedMessage: any)
 # MinaInformation
 
 See:
-  * [Transform](../../mods/noita-mp/files/scripts/util/MinaUtils.lua#124#18)
-  * [Health](../../mods/noita-mp/files/scripts/util/NoitaComponentUtils.lua#52#14)
+  * [Transform](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/MinaUtils.lua#124#18)
+  * [Health](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/NoitaComponentUtils.lua#52#14)
 
 
 ```lua
 table
+```
+
+
+---
+
+# MinaUtils
+
+Util class for fetching information about local and remote minas.
+
+
+```lua
+MinaUtils
 ```
 
 
@@ -1267,7 +1303,7 @@ function MinaUtils.getLocalMinaInformation()
 ```
 
 Getter for local mina information. It also takes care of polymorphism!
-See: [MinaInformation](../../mods/noita-mp/files/scripts/util/MinaUtils.lua#131#14)
+See: [MinaInformation](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/MinaUtils.lua#131#14)
 
 ## getLocalMinaName
 
@@ -1307,18 +1343,6 @@ function MinaUtils.setLocalMinaName(name: string)
 ```
 
 Setter for local mina name. It also saves it to settings file.
-
-
----
-
-# MinaUtils
-
-Util class for fetching information about local and remote minas.
-
-
-```lua
-MinaUtils
-```
 
 
 ---
@@ -1625,33 +1649,6 @@ integer
 
  NetworkVscUtils:
 
-
-```lua
-unknown
-```
-
-
-```lua
-NetworkVscUtils
-```
-
-
-```lua
-NetworkVscUtils
-```
-
-
-```lua
-NetworkVscUtils
-```
-
-
----
-
-# NetworkVscUtils
-
- NetworkVscUtils:
-
 ## addOrUpdateAllVscs
 
 
@@ -1677,6 +1674,36 @@ function NetworkVscUtils.addOrUpdateAllVscs(entityId: number, ownerName: string,
 @*param* `spawnX` — X position of the entity, when spawned. Can only be set once! Can be nil.
 
 @*param* `spawnY` — Y position of the entity, when spawned. Can only be set once! Can be nil.
+
+## checkIfSpecificVscExists
+
+
+```lua
+function NetworkVscUtils.checkIfSpecificVscExists(entityId: number, componentTypeName: string, fieldNameForMatch: string, matchValue: string, fieldNameForValue: string)
+  -> compId: (number|false)?
+  2. value: string?
+```
+
+ Checks if an entity already has a specific VariableStorageComponent.
+
+@*param* `entityId` — Id of an entity provided by Noita
+
+@*param* `componentTypeName` — "VariableStorageComponent", "LuaComponent", etc
+
+@*param* `fieldNameForMatch` — Components attribute to match the specific component you are searching for: "name", "script_source_file", "etc". component.name = "brah": 'name' -> fieldNameForMatch
+
+@*param* `matchValue` — The components attribute value, you want to match to: component.name = "brah": 'brah' -> matchValue Have a look on NetworkVscUtils.componentNameOf___
+
+@*param* `fieldNameForValue` — name
+
+@*return* `compId` — The specific componentId, which contains the searched value or false if there isn't any Component
+
+@*return* `value` — The components value
+
+```lua
+compId:
+    | false
+```
 
 ## componentNameOfNuid
 
@@ -1822,6 +1849,33 @@ string
 
 ---
 
+# NetworkVscUtils
+
+ NetworkVscUtils:
+
+
+```lua
+unknown
+```
+
+
+```lua
+NetworkVscUtils
+```
+
+
+```lua
+NetworkVscUtils
+```
+
+
+```lua
+NetworkVscUtils
+```
+
+
+---
+
 # NetworkVscUtils.addOrUpdateAllVscs
 
  Simply adds or updates all needed Network Variable Storage Components.
@@ -1846,6 +1900,39 @@ function NetworkVscUtils.addOrUpdateAllVscs(entityId: number, ownerName: string,
   3. componentIdForNuid: integer|nil
   4. componentIdForNuidDebugger: integer|nil
   5. componentIdForNuidDebugger: integer|nil
+```
+
+
+---
+
+# NetworkVscUtils.checkIfSpecificVscExists
+
+ Checks if an entity already has a specific VariableStorageComponent.
+
+@*param* `entityId` — Id of an entity provided by Noita
+
+@*param* `componentTypeName` — "VariableStorageComponent", "LuaComponent", etc
+
+@*param* `fieldNameForMatch` — Components attribute to match the specific component you are searching for: "name", "script_source_file", "etc". component.name = "brah": 'name' -> fieldNameForMatch
+
+@*param* `matchValue` — The components attribute value, you want to match to: component.name = "brah": 'brah' -> matchValue Have a look on NetworkVscUtils.componentNameOf___
+
+@*param* `fieldNameForValue` — name
+
+@*return* `compId` — The specific componentId, which contains the searched value or false if there isn't any Component
+
+@*return* `value` — The components value
+
+```lua
+compId:
+    | false
+```
+
+
+```lua
+function NetworkVscUtils.checkIfSpecificVscExists(entityId: number, componentTypeName: string, fieldNameForMatch: string, matchValue: string, fieldNameForValue: string)
+  -> compId: (number|false)?
+  2. value: string?
 ```
 
 
@@ -2064,6 +2151,19 @@ table
 
 ---
 
+# NoitaComponentUtils.addOrGetNetworkSpriteStatusIndicator
+
+Adds a SpriteComponent to indicate network status visually.
+
+
+```lua
+function NoitaComponentUtils.addOrGetNetworkSpriteStatusIndicator(entityId: number)
+  -> compId: number|nil
+```
+
+
+---
+
 # NoitaComponentUtils.getEntityData
 
  Fetches data like position, rotation, velocity, health and filename
@@ -2109,6 +2209,20 @@ function NoitaComponentUtils.getEntityDataByNuid(nuid: any)
 
 ```lua
 function NoitaComponentUtils.setEntityData(entityId: number, x: number, y: number, rotation: number, velocity?: Vec2, health: number)
+```
+
+
+---
+
+# NoitaComponentUtils.setNetworkSpriteIndicatorStatus
+
+Sets the SpriteComponent to a specific status by setting image_file.
+
+@*param* `status` — off, processed, serialised, sent, acked
+
+
+```lua
+function NoitaComponentUtils.setNetworkSpriteIndicatorStatus(entityId: number, status: string)
 ```
 
 
@@ -2231,11 +2345,11 @@ function OnEntityLoaded()
 
 # OnEntityRemoved
 
- Make sure this is onlt be executed once in OnWorldPOSTUpdate!
+ Make sure this is only be executed once!
 
 
 ```lua
-function OnEntityRemoved()
+function OnEntityRemoved(entityId: any, nuid: any)
 ```
 
 
@@ -2257,6 +2371,11 @@ function PlayerNameFunction(entity_id: any, playerName: any)
 ```lua
 unknown
 ```
+
+
+---
+
+# SerialisedEntity
 
 
 ---
@@ -2523,7 +2642,7 @@ table
 
 
 ```lua
-function SockClient.update()
+function SockClient.update(startFrameTime: any)
 ```
 
  Updates the Client by checking for network events and handling them.
@@ -2726,7 +2845,7 @@ table
 
 
 ```lua
-function SockServer.update()
+function SockServer.update(startFrameTime: any)
 ```
 
  Updates the server by checking for network events and handling them.
@@ -2774,41 +2893,6 @@ table
 ```lua
 function Ui.new()
   -> table
-```
-
-
----
-
-# Utils
-
-
-```lua
-Utils
-```
-
-
-```lua
-Utils
-```
-
-
-```lua
-Utils
-```
-
-
-```lua
-Utils
-```
-
-
-```lua
-Utils
-```
-
-
-```lua
-any
 ```
 
 
@@ -2884,6 +2968,41 @@ function Utils.openUrl(url: any)
 
 ```lua
 function Utils.pformat(var: any)
+```
+
+
+---
+
+# Utils
+
+
+```lua
+Utils
+```
+
+
+```lua
+Utils
+```
+
+
+```lua
+Utils
+```
+
+
+```lua
+Utils
+```
+
+
+```lua
+Utils
+```
+
+
+```lua
+any
 ```
 
 
@@ -3913,16 +4032,6 @@ unknown
 
 ```lua
 unknown
-```
-
-
----
-
-# init
-
-
-```lua
-function init(x: any, y: any)
 ```
 
 
@@ -5635,36 +5744,6 @@ function setmetatable(table: table, metatable?: table)
 
 ```lua
 string
-```
-
-
----
-
-# spawn_enemy_a
-
-
-```lua
-function spawn_enemy_a(x: any, y: any)
-```
-
-
----
-
-# spawn_enemy_b
-
-
-```lua
-function spawn_enemy_b(x: any, y: any)
-```
-
-
----
-
-# spawn_small_enemies
-
-
-```lua
-function spawn_small_enemies()
 ```
 
 
