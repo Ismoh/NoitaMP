@@ -79,6 +79,59 @@ function NoitaComponentUtils.getEntityDataByNuid(nuid)
     return NoitaComponentUtils.getEntityData(entityId)
 end
 
+---Adds a SpriteComponent to indicate network status visually.
+---@param entityId number
+---@return number|nil compId
+function NoitaComponentUtils.addOrGetNetworkSpriteStatusIndicator(entityId)
+    local cpc = CustomProfiler.start("NoitaComponentUtils.addNetworkSpriteStatusIndicator")
+    if not EntityUtils.isEntityAlive(entityId) then
+        CustomProfiler.stop("NoitaComponentUtils.addNetworkSpriteStatusIndicator", cpc)
+        return nil
+    end
+    local compId, compOwnerName = NetworkVscUtils.checkIfSpecificVscExists(
+        entityId, "SpriteComponent", "image_file",
+        "network_indicator.png", "image_file")
+    if compId then
+        Logger.debug(Logger.channels.vsc, ("Entity(%s) already has a network indicator."):format(entityId))
+        CustomProfiler.stop("NoitaComponentUtils.addNetworkSpriteStatusIndicator", cpc)
+        return compId
+    else
+        compId = EntityAddComponent2(entityId, "SpriteComponent", {
+            image_file = "mods/noita-mp/files/data/debug/network_indicator_off.png",
+            offset_x = 0,
+            offset_y = 0,
+            alpha = 1,
+            visible = true,
+            z_index = 0.6,
+            update_transform = true,
+            special_scale_x = 1,
+            special_scale_y = 1
+        })
+        --ComponentAddTag(compId, "enabled_in_hand")
+        --ComponentAddTag(compId, "enabled_in_world")
+        Logger.debug(Logger.channels.vsc,
+            ("%s(%s) added with noita componentId = %s to entityId = %s!")
+            :format("SpriteComponent", "network_indicator.png", compId, entityId))
+        CustomProfiler.stop("NoitaComponentUtils.addNetworkSpriteStatusIndicator", cpc)
+        return compId
+    end
+
+    error("Unable to add network indicator!", 2)
+    CustomProfiler.stop("NoitaComponentUtils.addNetworkSpriteStatusIndicator", cpc)
+    return nil
+end
+
+---Sets the SpriteComponent to a specific status by setting image_file.
+---@param entityId number
+---@param status string off, processed, serialised, sent, acked
+function NoitaComponentUtils.setNetworkSpriteIndicatorStatus(entityId, status)
+    local componentId = NoitaComponentUtils.addOrGetNetworkSpriteStatusIndicator(entityId)
+    if not Utils.IsEmpty(componentId) then
+        ComponentSetValue2(componentId, "image_file",
+            ("mods/noita-mp/files/data/debug/network_indicator_%s.png"):format(status))
+    end
+end
+
 -- Because of stack overflow errors when loading lua files,
 -- I decided to put Utils 'classes' into globals
 _G.NoitaComponentUtils = NoitaComponentUtils

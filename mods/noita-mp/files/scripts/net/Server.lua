@@ -4,8 +4,6 @@ ServerInit = {}
 
 --- 'Imports'
 local sock        = require("sock")
-local Utils       = require("Utils")
-local fu          = require("FileUtils")
 local zstandard   = require("zstd")
 local messagePack = require("MessagePack")
 
@@ -166,6 +164,10 @@ function ServerInit.new(sockServer)
         if NetworkCache.size() > self.acknowledgeMaxSize then
             NetworkCache.removeOldest()
         end
+
+
+        --NoitaComponentUtils.setNetworkSpriteIndicatorStatus(entityId, "acked")
+
         CustomProfiler.stop("Server.onAcknowledgement", cpc03)
     end
 
@@ -291,9 +293,9 @@ function ServerInit.new(sockServer)
         end
 
 
-        if fu.GetVersionByFile() ~= tostring(data.version) then
+        if FileUtils.GetVersionByFile() ~= tostring(data.version) then
             error(("Version mismatch: NoitaMP version of Client: %s and your version: %s")
-                :format(data.version, fu.GetVersionByFile()), 3)
+                :format(data.version, FileUtils.GetVersionByFile()), 3)
             peer:disconnect()
         end
 
@@ -338,43 +340,43 @@ function ServerInit.new(sockServer)
         end
 
         if Utils.IsEmpty(data.networkMessageId) then
-            error(("onNewNuid data.networkMessageId is empty: %s"):format(data.networkMessageId), 3)
+            error(("onNeedNuid data.networkMessageId is empty: %s"):format(data.networkMessageId), 3)
         end
 
         if Utils.IsEmpty(data.owner) then
-            error(("onNewNuid data.owner is empty: %s"):format(Utils.pformat(data.owner)), 3)
+            error(("onNeedNuid data.owner is empty: %s"):format(Utils.pformat(data.owner)), 3)
         end
 
         if Utils.IsEmpty(data.localEntityId) then
-            error(("onNewNuid data.localEntityId is empty: %s"):format(data.localEntityId), 3)
+            error(("onNeedNuid data.localEntityId is empty: %s"):format(data.localEntityId), 3)
         end
 
         if Utils.IsEmpty(data.x) then
-            error(("onNewNuid data.x is empty: %s"):format(data.x), 3)
+            error(("onNeedNuid data.x is empty: %s"):format(data.x), 3)
         end
 
         if Utils.IsEmpty(data.y) then
-            error(("onNewNuid data.y is empty: %s"):format(data.y), 3)
+            error(("onNeedNuid data.y is empty: %s"):format(data.y), 3)
         end
 
         if Utils.IsEmpty(data.rotation) then
-            error(("onNewNuid data.rotation is empty: %s"):format(data.rotation), 3)
+            error(("onNeedNuid data.rotation is empty: %s"):format(data.rotation), 3)
         end
 
         if Utils.IsEmpty(data.velocity) then
-            error(("onNewNuid data.velocity is empty: %s"):format(Utils.pformat(data.velocity)), 3)
+            error(("onNeedNuid data.velocity is empty: %s"):format(Utils.pformat(data.velocity)), 3)
         end
 
         if Utils.IsEmpty(data.filename) then
-            error(("onNewNuid data.filename is empty: %s"):format(data.filename), 3)
+            error(("onNeedNuid data.filename is empty: %s"):format(data.filename), 3)
         end
 
         if Utils.IsEmpty(data.health) then
-            error(("onNewNuid data.health is empty: %s"):format(data.health), 3)
+            error(("onNeedNuid data.health is empty: %s"):format(data.health), 3)
         end
 
         if Utils.IsEmpty(data.isPolymorphed) then
-            error(("onNewNuid data.isPolymorphed is empty: %s"):format(data.isPolymorphed), 3)
+            error(("onNeedNuid data.isPolymorphed is empty: %s"):format(data.isPolymorphed), 3)
         end
 
         local owner         = data.owner
@@ -548,7 +550,7 @@ function ServerInit.new(sockServer)
     local function onNeedModList(data, peer)
         local cpc = CustomProfiler.start("Server.onMeedModList")
         if self.modListCached == nil then
-            local modXML  = fu.ReadFile(fu.GetAbsoluteDirectoryPathOfParentSave() .. "\\save00\\mod_config.xml")
+            local modXML  = FileUtils.ReadFile(FileUtils.GetAbsoluteDirectoryPathOfParentSave() .. "\\save00\\mod_config.xml")
             local modList = {
                 workshop = {},
                 external = {}
@@ -595,14 +597,14 @@ function ServerInit.new(sockServer)
             if modId ~= "0" then
                 pathToMod = ("C:/Program Files (x86)/Steam/steamapps/workshop/content/881100/%s/"):format(modId)
             else
-                pathToMod = (fu.GetAbsolutePathOfNoitaRootDirectory() .. "/mods/%s/"):format(mod)
+                pathToMod = (FileUtils.GetAbsolutePathOfNoitaRootDirectory() .. "/mods/%s/"):format(mod)
             end
             local archiveName = ("%s_%s_mod_sync"):format(tostring(os.date("!")), mod)
-            fu.Create7zipArchive(archiveName, pathToMod, fu.GetAbsoluteDirectoryPathOfNoitaMP())
+            FileUtils.Create7zipArchive(archiveName, pathToMod, FileUtils.GetAbsoluteDirectoryPathOfNoitaMP())
             table.insert(res, {
                 name       = mod,
                 workshopID = mod,
-                data       = fu.ReadBinaryFile(archiveName)
+                data       = FileUtils.ReadBinaryFile(archiveName)
             })
         end
         peer:send(NetworkUtils.events.needModContent.name, { NetworkUtils.getNextNetworkMessageId(), modsToGet, res })
@@ -920,7 +922,7 @@ function ServerInit.new(sockServer)
     --- Some inheritance: Save parent function (not polluting global 'self' space)
     local sockServerUpdate = sockServer.update
     --- Updates the server by checking for network events and handling them.
-    function self.update()
+    function self.update(startFrameTime)
         local cpc016 = CustomProfiler.start("Server.update")
         if not self.isRunning() then
             --if not self.host then
@@ -939,7 +941,7 @@ function ServerInit.new(sockServer)
         end
         self.sendMinaInformation()
 
-        EntityUtils.processAndSyncEntityNetworking()
+        EntityUtils.processAndSyncEntityNetworking(startFrameTime)
 
         local nowTime     = GameGetRealWorldTimeSinceStarted() * 1000 -- *1000 to get milliseconds
         local elapsedTime = nowTime - prevTime
@@ -1006,6 +1008,10 @@ function ServerInit.new(sockServer)
         --print(Utils.pformat(data))
         --os.exit()
 
+        if sent == true then
+            NoitaComponentUtils.setNetworkSpriteIndicatorStatus(entityId, "sent")
+        end
+
         return sent
     end
 
@@ -1059,7 +1065,7 @@ function ServerInit.new(sockServer)
         local transform = minaInfo.transform
         local health    = minaInfo.health
         local data      = {
-            NetworkUtils.getNextNetworkMessageId(), fu.GetVersionByFile(), name, guid, entityId, nuid, transform, health
+            NetworkUtils.getNextNetworkMessageId(), FileUtils.GetVersionByFile(), name, guid, entityId, nuid, transform, health
         }
         local sent      = self:sendToAll(NetworkUtils.events.minaInformation.name, data)
         CustomProfiler.stop("Server.sendMinaInformation", cpc24)

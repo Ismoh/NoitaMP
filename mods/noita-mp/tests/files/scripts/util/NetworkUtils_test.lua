@@ -222,13 +222,12 @@ function TestNetworkUtils:testAlreadySentSeed()
 end
 
 function TestNetworkUtils:testAlreadySentMinaInformation()
-    local fu               = require("FileUtils")
 
     -- [[ Prepare mocked data for sending MinaInformation! ]] --
     local networkMessageId = NetworkUtils.getNextNetworkMessageId()
     local name             = "ClientOwnerName"
     local guid             = GuidUtils:getGuid()
-    local version          = fu.GetVersionByFile()
+    local version          = FileUtils.GetVersionByFile()
     local nuid             = nil
 
     local data             = {

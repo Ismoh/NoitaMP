@@ -5,10 +5,8 @@ local ClientInit  = {}
 
 --- 'Imports'
 local sock        = require("sock")
-local Utils       = require("Utils")
 local zstandard   = require("zstd")
 local messagePack = require("MessagePack")
-local fu          = require("FileUtils")
 
 
 ---@param sockClient SockClient
@@ -313,9 +311,9 @@ function ClientInit.new(sockClient)
                 ("onMinaInformation: Clients GUID %s isn't unique! Server will fix this!"):format(self.guid))
         end
 
-        if fu.GetVersionByFile() ~= tostring(data.version) then
+        if FileUtils.GetVersionByFile() ~= tostring(data.version) then
             error(("Version mismatch: NoitaMP version of Server: %s and your version: %s")
-                :format(data.version, fu.GetVersionByFile()), 3)
+                :format(data.version, FileUtils.GetVersionByFile()), 3)
             self.disconnect()
         end
 
@@ -398,7 +396,7 @@ function ClientInit.new(sockClient)
 
         local localSeed = tonumber(StatsGetValue("world_seed"))
         if localSeed ~= serversSeed then
-            --Utils.reloadMap(serversSeed) TODO enable again, when custom map/biome isn't used anymore
+            Utils.ReloadMap(serversSeed)
         end
 
         local entityId = MinaUtils.getLocalMinaEntityId()
@@ -522,7 +520,7 @@ function ClientInit.new(sockClient)
         end
 
         -- FOR TESTING ONLY, DO NOT MERGE
-        print(Utils.pformat(data))
+        --print(Utils.pformat(data))
         --os.exit()
 
         --if ownerGuid == MinaUtils.getLocalMinaInformation().guid then
@@ -655,19 +653,19 @@ function ClientInit.new(sockClient)
             local modID   = v.workshopID
             local modData = v.data
             if modID == "0" then
-                if not fu.IsDirectory((fu.GetAbsolutePathOfNoitaRootDirectory() .. "/mods/%s/"):format(modName)) then
+                if not FileUtils.IsDirectory((FileUtils.GetAbsolutePathOfNoitaRootDirectory() .. "/mods/%s/"):format(modName)) then
                     local fileName = ("%s_%s_mod_sync.7z"):format(tostring(os.date("!")), modName)
-                    fu.WriteBinaryFile(fu.GetAbsoluteDirectoryPathOfNoitaMP() .. "/" .. fileName, modData)
-                    fu.Extract7zipArchive(fu.GetAbsoluteDirectoryPathOfNoitaMP(), fileName,
-                        (fu.GetAbsolutePathOfNoitaRootDirectory() .. "/mods/%s/"):format(modName))
+                    FileUtils.WriteBinaryFile(FileUtils.GetAbsoluteDirectoryPathOfNoitaMP() .. "/" .. fileName, modData)
+                    FileUtils.Extract7zipArchive(FileUtils.GetAbsoluteDirectoryPathOfNoitaMP(), fileName,
+                        (FileUtils.GetAbsolutePathOfNoitaRootDirectory() .. "/mods/%s/"):format(modName))
                 end
             else
-                if not fu.IsDirectory(("C:/Program Files (x86)/Steam/steamapps/workshop/content/881100/%s/"):format(modID)) then
-                    if not fu.IsDirectory((fu.GetAbsolutePathOfNoitaRootDirectory() .. "/mods/%s/"):format(modName)) then
+                if not FileUtils.IsDirectory(("C:/Program Files (x86)/Steam/steamapps/workshop/content/881100/%s/"):format(modID)) then
+                    if not FileUtils.IsDirectory((FileUtils.GetAbsolutePathOfNoitaRootDirectory() .. "/mods/%s/"):format(modName)) then
                         local fileName = ("%s_%s_mod_sync.7z"):format(tostring(os.date("!")), modName)
-                        fu.WriteBinaryFile(fu.GetAbsoluteDirectoryPathOfNoitaMP() .. "/" .. fileName, modData)
-                        fu.Extract7zipArchive(fu.GetAbsoluteDirectoryPathOfNoitaMP(), fileName,
-                            (fu.GetAbsolutePathOfNoitaRootDirectory() .. "/mods/%s/"):format(modName))
+                        FileUtils.WriteBinaryFile(FileUtils.GetAbsoluteDirectoryPathOfNoitaMP() .. "/" .. fileName, modData)
+                        FileUtils.Extract7zipArchive(FileUtils.GetAbsoluteDirectoryPathOfNoitaMP(), fileName,
+                            (FileUtils.GetAbsolutePathOfNoitaRootDirectory() .. "/mods/%s/"):format(modName))
                     end
                 end
             end
@@ -834,7 +832,7 @@ function ClientInit.new(sockClient)
     --- Some inheritance: Save parent function (not polluting global 'self' space)
     local sockClientUpdate = sockClient.update
     --- Updates the Client by checking for network events and handling them.
-    function self.update()
+    function self.update(startFrameTime)
         local cpc18 = CustomProfiler.start("ClientInit.update")
         if not self.isConnected() and not self:isConnecting() or self:isDisconnected() then
             CustomProfiler.stop("ClientInit.update", cpc18)
@@ -847,7 +845,7 @@ function ClientInit.new(sockClient)
         --EntityUtils.processEntityNetworking()
         --EntityUtils.initNetworkVscs()
 
-        EntityUtils.processAndSyncEntityNetworking()
+        EntityUtils.processAndSyncEntityNetworking(startFrameTime)
 
         local nowTime     = GameGetRealWorldTimeSinceStarted() * 1000 -- *1000 to get milliseconds
         local elapsedTime = nowTime - prevTime
@@ -984,7 +982,7 @@ function ClientInit.new(sockClient)
         local transform = minaInfo.transform
         local health    = minaInfo.health
         local data      = {
-            NetworkUtils.getNextNetworkMessageId(), fu.GetVersionByFile(), name, guid, entityId, nuid, transform, health
+            NetworkUtils.getNextNetworkMessageId(), FileUtils.GetVersionByFile(), name, guid, entityId, nuid, transform, health
         }
         local sent      = self:send(NetworkUtils.events.minaInformation.name, data)
         CustomProfiler.stop("ClientInit.sendMinaInformation", cpc24)

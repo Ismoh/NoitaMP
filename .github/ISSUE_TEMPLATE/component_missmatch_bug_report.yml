@@ -35,7 +35,7 @@ body:
     validations:
       required: true
   - type: textarea
-    id: description
+    id: additional_info
     attributes:
-      label: Description
+      label: Additional information
       description: If you have any additional information, please add it here.

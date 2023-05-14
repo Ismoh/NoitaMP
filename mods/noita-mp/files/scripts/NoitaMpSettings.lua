@@ -3,18 +3,16 @@
 NoitaMpSettings = {}
 
 --- 'Imports'
-local fu        = require("FileUtils")
 local lfs       = require("lfs")
 local winapi    = require("winapi")
 local json      = require("json")
-local Utils      = require("Utils")
 
 
 function NoitaMpSettings.clearAndCreateSettings()
     local cpc         = CustomProfiler.start("NoitaMpSettings.clearAndCreateSettings")
-    local settingsDir = fu.GetAbsolutePathOfNoitaMpSettingsDirectory()
-    if fu.Exists(settingsDir) then
-        fu.RemoveContentOfDirectory(settingsDir)
+    local settingsDir = FileUtils.GetAbsolutePathOfNoitaMpSettingsDirectory()
+    if FileUtils.Exists(settingsDir) then
+        FileUtils.RemoveContentOfDirectory(settingsDir)
         Logger.info(Logger.channels.initialize, ("Removed old settings in '%s'!"):format(settingsDir))
     else
         lfs.mkdir(settingsDir)
@@ -40,21 +38,21 @@ function NoitaMpSettings.writeSettings(key, value)
         who = whoAmI()
     end
     local settingsFile = ("%s%s%s%s.json")
-            :format(fu.GetAbsolutePathOfNoitaMpSettingsDirectory(), pathSeparator, pid, who)
+            :format(FileUtils.GetAbsolutePathOfNoitaMpSettingsDirectory(), pathSeparator, pid, who)
 
-    if not fu.Exists(settingsFile) then
-        fu.WriteFile(settingsFile, "{}")
+    if not FileUtils.Exists(settingsFile) then
+        FileUtils.WriteFile(settingsFile, "{}")
     end
 
-    local contentString = fu.ReadFile(settingsFile)
+    local contentString = FileUtils.ReadFile(settingsFile)
     local contentJson   = json.decode(contentString)
 
     contentJson[key]    = value
 
-    fu.WriteFile(settingsFile, json.encode(contentJson))
+    FileUtils.WriteFile(settingsFile, json.encode(contentJson))
     Logger.trace(Logger.channels.testing, ("Wrote custom setting: %s = %s"):format(key, value))
 
-    local result = fu.ReadFile(settingsFile)
+    local result = FileUtils.ReadFile(settingsFile)
     CustomProfiler.stop("NoitaMpSettings.writeSettings", cpc)
     return result
 end
@@ -64,13 +62,13 @@ function NoitaMpSettings.getSetting(key)
     local pid          = winapi.get_current_pid()
 
     local settingsFile = ("%s%s%s%s.json")
-            :format(fu.GetAbsolutePathOfNoitaMpSettingsDirectory(), pathSeparator, pid, whoAmI())
+            :format(FileUtils.GetAbsolutePathOfNoitaMpSettingsDirectory(), pathSeparator, pid, whoAmI())
 
-    if not fu.Exists(settingsFile) then
-        fu.WriteFile(settingsFile, "{}")
+    if not FileUtils.Exists(settingsFile) then
+        FileUtils.WriteFile(settingsFile, "{}")
     end
 
-    local contentString = fu.ReadFile(settingsFile)
+    local contentString = FileUtils.ReadFile(settingsFile)
     local contentJson   = json.decode(contentString)
 
     if Utils.IsEmpty(contentJson[key]) then

@@ -1,5 +1,3 @@
-local fu            = require("FileUtils")
-
 TestNoitaMpSettings = {}
 
 function TestNoitaMpSettings:setUp()
@@ -10,7 +8,7 @@ end
 
 function TestNoitaMpSettings:testClearAndCreateSettings()
     NoitaMpSettings.clearAndCreateSettings()
-    local files = fu.GetAllFilesInDirectory(fu.GetAbsolutePathOfNoitaMpSettingsDirectory(), "json")
+    local files = FileUtils.GetAllFilesInDirectory(FileUtils.GetAbsolutePathOfNoitaMpSettingsDirectory(), "json")
     lu.assertEquals(files, {}, "Settings directory wasn't empty!")
 end
 

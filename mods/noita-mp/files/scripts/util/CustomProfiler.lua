@@ -1,6 +1,4 @@
 local plotly                             = require("plotly")
-local Utils                              = require("Utils")
-local fu                                 = require("FileUtils")
 
 ---Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 ---@class CustomProfiler
@@ -24,7 +22,7 @@ CustomProfiler.maxEntries                = 50 -- Default: 50
 
 ---@type string The directory where the report will be saved.
 CustomProfiler.reportDirectory           = ("%s%sNoitaMP-Reports%s%s")
-    :format(fu.GetDesktopDirectory(), pathSeparator, pathSeparator, os.date("%Y-%m-%d_%H-%M-%S", os.time()))
+    :format(FileUtils.GetDesktopDirectory(), pathSeparator, pathSeparator, os.date("%Y-%m-%d_%H-%M-%S", os.time()))
 
 ---@type string The filename of the report.
 CustomProfiler.reportFilename            = "report.html" -- Default: report.html
@@ -159,8 +157,8 @@ function CustomProfiler.stop(functionName, customProfilerCounter)
         CustomProfiler.reportCache[functionName]["size"] and
         CustomProfiler.reportCache[functionName]["size"] >= CustomProfiler.maxEntries
     then
-        if not fu.Exists(CustomProfiler.reportDirectory) then
-            fu.MkDir(CustomProfiler.reportDirectory)
+        if not FileUtils.Exists(CustomProfiler.reportDirectory) then
+            FileUtils.MkDir(CustomProfiler.reportDirectory)
         end
 
         local x            = {}
@@ -252,7 +250,7 @@ function CustomProfiler.report()
     fig1:update_layout {
         width   = 1920,
         height  = 1080,
-        title   = "NoitaMP Profiler Report of " .. whoAmI() .. " " .. fu.getVersionByFile(),
+        title   = "NoitaMP Profiler Report of " .. whoAmI() .. " " .. FileUtils.GetVersionByFile(),
         xaxis   = { title = { text = "Frames" } },
         yaxis   = { title = { text = "Execution time [ms]" } },
         barmode = "group"

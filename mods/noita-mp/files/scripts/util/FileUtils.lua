@@ -187,8 +187,8 @@ function FileUtils.GetAbsoluteDirectoryPathOfSave06()
 end
 
 --- Returns the ABSOLUTE path of the mods folder.
---- If fu.GetAbsolutePathOfNoitaRootDirectory() is not set yet, then it will be
---- @return string fu.GetAbsolutePathOfNoitaRootDirectory() .. "/mods/noita-mp"
+--- If FileUtils.GetAbsolutePathOfNoitaRootDirectory() is not set yet, then it will be
+--- @return string FileUtils.GetAbsolutePathOfNoitaRootDirectory() .. "/mods/noita-mp"
 function FileUtils.GetAbsoluteDirectoryPathOfNoitaMP()
     if not FileUtils.GetAbsolutePathOfNoitaRootDirectory() then
         FileUtils.SetAbsolutePathOfNoitaRootDirectory()
@@ -215,8 +215,8 @@ function FileUtils.GetRelativeDirectoryPathOfRequiredLibs()
 end
 
 --- Returns the ABSOLUTE path of the library folder required for this mod.
---- If fu.GetAbsolutePathOfNoitaRootDirectory() is not set yet, then it will be
---- @return string fu.GetAbsolutePathOfNoitaRootDirectory() .. "/mods/noita-mp/files/libs"
+--- If FileUtils.GetAbsolutePathOfNoitaRootDirectory() is not set yet, then it will be
+--- @return string FileUtils.GetAbsolutePathOfNoitaRootDirectory() .. "/mods/noita-mp/files/libs"
 function FileUtils.GetAbsoluteDirectoryPathOfRequiredLibs()
     if not FileUtils.GetAbsolutePathOfNoitaRootDirectory() then
         FileUtils.SetAbsolutePathOfNoitaRootDirectory()

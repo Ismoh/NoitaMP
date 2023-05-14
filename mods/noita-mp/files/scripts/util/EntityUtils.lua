@@ -73,7 +73,6 @@ end
 
 
 --- @see config.lua
-
 if not EntityUtils then
     EntityUtils = {}
 end
@@ -83,6 +82,12 @@ EntityUtils.aliveEntityIds = { -1 }
 
 --- Contains the highest alive entity id
 EntityUtils.previousHighestAliveEntityId = 1
+
+--- Time(Frames) between coroutines.
+--- @see coroutines.lua#wake_up_waiting_threads
+--- coroutines.lua: "this function should be called once per game logic update with the amount of time
+--- that has passed since it was last called"
+EntityUtils.timeFramesDelta = 1
 
 function getHighestAliveEntityId()
     local lastHighestEntityId = 0
@@ -127,6 +132,8 @@ OnEntityLoaded = function()
                 end
                 local spawnX, spawnY = EntityGetTransform(entityId)
                 NetworkVscUtils.addOrUpdateAllVscs(entityId, MinaUtils.getLocalMinaName(), MinaUtils.getLocalMinaGuid(), nuid, spawnX, spawnY)
+
+                NoitaComponentUtils.setNetworkSpriteIndicatorStatus(entityId, "processed")
             end
         else
             EntityUtils.aliveEntityIds[i] = nil -- get rid of pseudo entityId -1
@@ -142,9 +149,20 @@ OnEntityLoaded = function()
     CustomProfiler.stop("EntityUtils.OnEntityLoaded", cpc)
 end
 
---- Make sure this is onlt be executed once in OnWorldPOSTUpdate!
-OnEntityRemoved = function()
-
+--- Make sure this is only be executed once!
+OnEntityRemoved = function(entityId, nuid)
+    local cpc = CustomProfiler.start("OnEntityRemoved")
+    local _nuid, _entityId = GlobalsUtils.getNuidEntityPair(nuid)
+    if entityId ~= _entityId then
+        error(("EntityUtils.OnEntityRemoved: entityId %s ~= _entityId %s"):format(entityId, _entityId), 2)
+    end
+    if nuid ~= _nuid then
+        error(("EntityUtils.OnEntityRemoved: nuid %s ~= _nuid %s"):format(nuid, _nuid), 2)
+    end
+    EntityCache.delete(entityId)
+    --NetworkCacheUtils.delete
+    GlobalsUtils.setDeadNuid(nuid)
+    CustomProfiler.stop("OnEntityRemoved", cpc)
 end
 
 --- Special thanks to @Horscht:
@@ -205,7 +223,7 @@ local function getParentsUntilRootEntity(who, entityId)
                 Client.sendNeedNuid(ownerName, ownerGuid, entityId)
                 -- TODO: return and wait for nuid? Otherwise child will never know who is the parent.
             else
-                error("Unable to get whoAmI()!", 2)
+                error("Unable to get whoAmI() unused!", 2)
             end
         end
         if type(parentNuid) == "number" then
@@ -302,7 +320,10 @@ end
 --- processAndSyncEntityNetworking
 
 local prevEntityIndex = 1
-function EntityUtils.processAndSyncEntityNetworking()
+
+---comment
+---@param startFrameTime number Time at the very beginning of the frame.
+function EntityUtils.processAndSyncEntityNetworking(startFrameTime)
     local start            = GameGetRealWorldTimeSinceStarted() * 1000
     local cpc              = CustomProfiler.start("EntityUtils.processAndSyncEntityNetworking")
     local who              = whoAmI()
@@ -482,7 +503,7 @@ function EntityUtils.processAndSyncEntityNetworking()
             --
             local compOwnerName, compOwnerGuid, compNuid, filenameUnused, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(
                 entityId)
-            if cachedValue == nil then
+            if cachedValue == nil or cachedValue.fullySerialised == false then
                 if who == Server.iAm then
                     if not hasNuid then
                         nuid = compNuid
@@ -493,10 +514,19 @@ function EntityUtils.processAndSyncEntityNetworking()
                     end
                     --Server.sendNewNuid({ compOwnerName, compOwnerGuid }, entityId, nuid, x, y, rotation, velocity,
                     --                   filename, health, EntityUtils.isEntityPolymorphed(entityId))
-                    local finished, serializedEntity = EntitySerialisationUtils.serializeEntireRootEntity(entityId, nuid)
-                    local ONLYFORTESTING = EntitySerialisationUtils.deserializeEntireRootEntity(serializedEntity)
+                    local finished, serializedEntity = EntitySerialisationUtils.serializeEntireRootEntity(entityId, nuid, startFrameTime)
+                    --local ONLYFORTESTING = EntitySerialisationUtils.deserializeEntireRootEntity(serializedEntity)
                     if finished == true then
                         Server.sendNewNuidSerialized(compOwnerName, compOwnerGuid, entityId, serializedEntity, nuid)
+                    else
+                        Logger.warn(Logger.channels.entity,
+                            "EntitySerialisationUtils.serializeEntireRootEntity took too long. Breaking loop by returning entityId.")
+                        -- when executionTime is too long, return the next entityCacheIndex to continue with it
+                        --prevEntityIndex = entityIndex + 1
+                        EntityCacheUtils.set(entityId, nuid, compOwnerGuid, compOwnerName, filename, x, y, rotation,
+                                            velocity.x, velocity.y, health.current, health.max, finished, serializedEntity)
+                        CustomProfiler.stop("EntityUtils.processAndSyncEntityNetworking", cpc)
+                        return -- completely end function, because it took too long
                     end
                 end
             end
@@ -545,7 +575,7 @@ function EntityUtils.processAndSyncEntityNetworking()
                 end
                 --end
                 EntityCacheUtils.set(entityId, nuid, compOwnerGuid, compOwnerName, filename, x, y, rotation,
-                    velocity.x, velocity.y, health.current, health.max)
+                    velocity.x, velocity.y, health.current, health.max, true, nil)
                 if changed then
                     NetworkUtils.getClientOrServer().sendEntityData(entityId)
                 end

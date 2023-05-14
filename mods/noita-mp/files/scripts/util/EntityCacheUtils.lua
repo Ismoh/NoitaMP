@@ -1,9 +1,9 @@
 --- EntityCacheUtils
 --- Utils class only for cache of entities.
-local EntityCacheUtils       = {}
+local EntityCacheUtils = {}
 
-EntityCacheUtils.set = function(entityId, nuid, ownerGuid, ownerName, filepath, x, y, rotation, velX, velY,
-                                currentHealth, maxHealth)
+EntityCacheUtils.set   = function(entityId, nuid, ownerGuid, ownerName, filepath, x, y, rotation, velX, velY,
+                                  currentHealth, maxHealth, fullySerialised, serialisedRootEntity)
     if Utils.IsEmpty(entityId) then
         error(("entityId must not be nil or empty!"):format(entityId), 2)
     end
@@ -42,8 +42,7 @@ EntityCacheUtils.set = function(entityId, nuid, ownerGuid, ownerName, filepath, 
     end
 
     EntityCache.set(entityId, nuid, ownerGuid, ownerName, filepath, x, y, rotation,
-        velX, velY, currentHealth, maxHealth)
+        velX, velY, currentHealth, maxHealth, fullySerialised, serialisedRootEntity)
 end
 
 return EntityCacheUtils
-

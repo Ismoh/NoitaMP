@@ -106,14 +106,16 @@ function OnPlayerSpawned(player_entity)
 end
 
 function OnPausePreUpdate()
+    local startFrameTime = GameGetRealWorldTimeSinceStarted()
     local cpc = CustomProfiler.start("init.OnPausePreUpdate")
-    Server.update()
-    Client.update()
+    Server.update(startFrameTime)
+    Client.update(startFrameTime)
     CustomProfiler.stop("init.OnPausePreUpdate", cpc)
 end
 
 --- PreUpdate of world
 function OnWorldPreUpdate()
+    local startFrameTime = GameGetRealWorldTimeSinceStarted()
     local cpc = CustomProfiler.start("init.OnWorldPreUpdate")
 
     OnEntityLoaded()
@@ -152,8 +154,8 @@ function OnWorldPreUpdate()
         end
     end
 
-    Server.update()
-    Client.update()
+    Server.update(startFrameTime)
+    Client.update(startFrameTime)
     ui.update()
 
     local cpc1 = CustomProfiler.start("init.OnWorldPreUpdate.collectgarbage.count")
@@ -173,6 +175,12 @@ end
 
 function OnWorldPostUpdate()
     local cpc = CustomProfiler.start("init.OnWorldPostUpdate")
-    OnEntityRemoved()
+
+    if EntityCache.size() >= 500 then
+        -- TODO: add distance check to minas
+        --for i = 1, #EntityCache.cache do
+        EntityCache.delete(EntityCache.cache[1])
+        --end
+    end
     CustomProfiler.stop("init.OnWorldPostUpdate", cpc)
 end

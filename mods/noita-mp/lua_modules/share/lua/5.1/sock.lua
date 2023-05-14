@@ -33,8 +33,6 @@ local sock = {
 }
 
 local enet = require("enet")
-local Utils = require("Utils")
-local fu   = require("FileUtils")
 
 _G.Logger.info(_G.Logger.channels.initialize, "lua-enet version = master branch 21.10.2015")
 _G.Logger.info(_G.Logger.channels.initialize, "enet version = " .. enet.linked_version()) -- 1.3.17
@@ -264,8 +262,8 @@ function Server:start(ip, port)
     if not self.host then
         --error("Failed to create the host. Is there another server running on :" .. self.port .. "?")
         self:log("", { "Failed to create the host. Is there another server running on :" .. self.port .. "?" })
-        local pid = fu.GetPidOfRunningEnetHostByPort()
-        fu.KillProcess(pid)
+        local pid = FileUtils.GetPidOfRunningEnetHostByPort()
+        FileUtils.KillProcess(pid)
         return false
     end
 

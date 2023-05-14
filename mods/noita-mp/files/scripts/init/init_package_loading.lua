@@ -40,8 +40,11 @@ package.cpath = package.cpath .. ";" ..
     "mods\\noita-mp\\lua_modules\\lib\\lua\\5.1\\?.dll;"
 print("package.cpath = " .. package.cpath)
 
-local fu = require("FileUtils")
 --[[ NoitaMP additions ]]
+if not FileUtils then
+    FileUtils = require("FileUtils")
+end
+
 -- A list of paths to lua script modules
 local paths        = {
     -- [[ LuaRocks modules, running outside of noita.exe ]]--
@@ -157,26 +160,26 @@ if current_clib_extension then
     --package.cpath = table.concat(cpaths, ";")
 
     --[[ NoitaMP additions ]]
-    package.path  = fu.ReplacePathSeparator(table.concat(lpaths, ";"))
-    package.cpath = fu.ReplacePathSeparator(table.concat(cpaths, ";"))
+    package.path  = FileUtils.ReplacePathSeparator(table.concat(lpaths, ";"))
+    package.cpath = FileUtils.ReplacePathSeparator(table.concat(cpaths, ";"))
 
     if destination_path then
         print("destination_path was set to export LPATH and CPATH!")
 
-        local lua_path_file          = fu.RemoveTrailingPathSeparator(destination_path) ..
+        local lua_path_file          = FileUtils.RemoveTrailingPathSeparator(destination_path) ..
             _G.pathSeparator .. "lua_path.txt"
         local lua_path_file_content  = ";" .. package.path
 
-        local lua_cpath_file         = fu.RemoveTrailingPathSeparator(destination_path) ..
+        local lua_cpath_file         = FileUtils.RemoveTrailingPathSeparator(destination_path) ..
             _G.pathSeparator .. "lua_cpath.txt"
         local lua_cpath_file_content = ";" .. package.cpath
 
-        fu.WriteFile(lua_path_file, lua_path_file_content)
+        FileUtils.WriteFile(lua_path_file, lua_path_file_content)
 
         print("init_package_loading.lua | File (" .. lua_path_file ..
         ") created with content: " .. lua_path_file_content)
 
-        fu.WriteFile(lua_cpath_file, lua_cpath_file_content)
+        FileUtils.WriteFile(lua_cpath_file, lua_cpath_file_content)
         print("init_package_loading.lua | File (" .. lua_cpath_file ..
         ") created with content: " .. lua_cpath_file_content)
     else

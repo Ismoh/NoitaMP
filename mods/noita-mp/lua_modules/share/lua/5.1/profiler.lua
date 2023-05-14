@@ -77,8 +77,6 @@ new table using the matched key names:
 `profiler.configuration(overrides)
 ]]
 
-local fu                   = require("FileUtils")
-
 --[[ Configuration ]]--
 
 local config               = {

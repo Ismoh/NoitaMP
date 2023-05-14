@@ -59,7 +59,7 @@ EntitySerialisationUtils.ignore      = {
         "ControllerGoombaAIComponent",
         "ControlsComponent",
         "FishAIComponent",
-        "HitboxComponent", -- Unable to determine HitboxComponents by values, if there are more than one, everyone could match?
+        "HitboxComponent",  -- Unable to determine HitboxComponents by values, if there are more than one, everyone could match?
         "HotspotComponent", -- Unable to determine HotspotComponent by values, if there are more than one, everyone could match?
         "Inventory2Component",
         "InventoryGuiComponent",
@@ -74,9 +74,25 @@ EntitySerialisationUtils.ignore      = {
     --- Entities with filename or better to say filepath listed in byFilenameOrPath will be ignored on serialisation
     byFilenameOrPath = {},
     --- Component members listed in byMemberKey will be ignored on serialisation
-    byMemberKey      = { "mUpdateFrame", "mFramesOnGround", "mLastFrameOnGround", "mFramesNotSwimming",
-        "mAirFramesNotInWater", "mLastCheckTime", "mLastExecutionFrame", "mNextExecutionTime", "mTimesExecuted",
-        "mRenderListHandle", "physics_explosion_power", "delay" }
+    byMemberKey      = {
+        "delay",
+        "m_frame_created",
+        "mAirFramesNotInWater",
+        "mFramesNotSwimming",
+        "mFramesOnGround",
+        "mFromMaterialArray",
+        "mLastCheckTime",
+        "mLastExecutionFrame",
+        "mLastFrameOnGround",
+        "mNextExecutionTime",
+        "mPixelSprite",
+        "mRenderListHandle",
+        "mTimesExecuted",
+        "mToMaterialArray",
+        "mUpdateFrame",
+        "physics_explosion_power",
+        "player_polymorph_count",
+    }
 }
 
 ------------------------------------------------------------------------------------------------------------------------

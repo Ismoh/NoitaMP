@@ -23,7 +23,7 @@ else
     -- if not CustomProfiler then
     --     ---@type CustomProfiler
     --     CustomProfiler = {}
-        
+
     --     ---@diagnostic disable-next-line: duplicate-doc-alias
     --     ---@alias CustomProfiler.start function(functionName: string): number
     --     ---@diagnostic disable-next-line: duplicate-set-field
@@ -47,11 +47,11 @@ end
 EntityCache.usingC     = false -- not _G.disableLuaExtensionsDLL
 EntityCache.cache      = {}
 EntityCache.set        = function(entityId, nuid, ownerGuid, ownerName, filepath, x, y, rotation, velX, velY,
-                                  currentHealth, maxHealth)
+                                  currentHealth, maxHealth, fullySerialised, serialisedRootEntity)
     local cpc = CustomProfiler.start("EntityCache.set")
     if EntityCache.usingC then
         return EntityCacheC.set(entityId, nuid, ownerGuid, ownerName, filepath, x, y, rotation, velX, velY, currentHealth,
-        maxHealth)
+            maxHealth)
     end
     if not EntityCache.cache[entityId] then
         EntityCache.cache[entityId] = {
@@ -68,8 +68,22 @@ EntityCache.set        = function(entityId, nuid, ownerGuid, ownerName, filepath
             currentHealth = currentHealth,
             maxHealth     = maxHealth
         }
+        if Utils.IsEmpty(fullySerialised) or fullySerialised == true then
+            --EntityCache.cache[entityId].fullySerialised = true
+            --EntityCache.cache[entityId].serialisedRootEntity = nil -- free a bit memory
+        else
+            EntityCache.cache[entityId].fullySerialised = fullySerialised
+            EntityCache.cache[entityId].serialisedRootEntity = serialisedRootEntity
+        end
     end
     CustomProfiler.stop("EntityCache.set", cpc)
+end
+
+EntityCache.contains   = function(entityId)
+    if EntityCache.cache[entityId] then
+        return true
+    end
+    return false
 end
 
 EntityCache.get        = function(entityId)
@@ -120,10 +134,21 @@ EntityCache.deleteNuid = function(nuid)
 end
 
 EntityCache.size       = function()
+    local cpc = CustomProfiler.start("EntityCache.size")
     if EntityCache.usingC then
+        CustomProfiler.stop("EntityCache.size", cpc)
         return EntityCacheC.size()
     end
-    return table.size(EntityCache.cache)
+    local size = 0
+    for i, entry in pairs(EntityCache.cache) do
+        if EntityGetIsAlive(entry.entityId) then
+            size = size + 1
+        else
+            OnEntityRemoved(entry.entityId, entry.nuid)
+        end
+    end
+    CustomProfiler.stop("EntityCache.size", cpc)
+    return size
 end
 
 EntityCache.usage      = function()

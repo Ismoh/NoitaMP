@@ -6,7 +6,6 @@ Ui                = {}
 -- 'Imports'
 local renderEzgui = dofile_once("mods/noita-mp/lua_modules/share/lua/5.1/ezgui/EZGUI.lua").init(
     "mods/noita-mp/lua_modules/share/lua/5.1/ezgui")
-local fu          = require("FileUtils")
 
 
 --- Global private variables:
@@ -141,7 +140,7 @@ function Ui.new()
         local text = ""
         if foldingOpen then
             self.ezguiFoldingData.data.text = ("[- NoitaMP] %s eCache:%s pCache:%s nCache:%s %s")
-                :format(fu.GetVersionByFile(), EntityCache.size(), CustomProfiler.getSize(),
+                :format(FileUtils.GetVersionByFile(), EntityCache.size(), CustomProfiler.getSize(),
                     NetworkUtils.getClientOrServer().getAckCacheSize(), GameGetFrameNum())
         else
             self.ezguiFoldingData.data.text = ("[+ NoitaMP] eCache:%s pCache:%s nCache:%s %s")

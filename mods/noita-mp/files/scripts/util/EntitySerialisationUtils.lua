@@ -396,9 +396,12 @@ EntitySerialisationUtils.componentObjectMemberNames    = {
 }
 
 
---- @param entityId number
---- @param nuid number|nil nuid can only be nil, when being Client
-EntitySerialisationUtils.serializeEntireRootEntity   = function(entityId, nuid)
+--- @param entityId number entityId to be serialized.
+--- @param nuid number|nil nuid can only be nil, when being Client.
+--- @param startFrameTime number Time at the very beginning of the frame.
+--- @return boolean|nil finished Indicates, if the serialization was finished.
+--- @return SerialisedEntity|nil serialisedEntity The entire serialised entity.
+EntitySerialisationUtils.serializeEntireRootEntity   = function(entityId, nuid, startFrameTime)
     local cpc = CustomProfiler.start("EntitySerialisationUtils.serializeEntireRootEntity")
     if Utils.IsEmpty(entityId) then
         error(("Unable to serialize entity, because entityId is %s"):format(entityId), 2)
@@ -407,7 +410,9 @@ EntitySerialisationUtils.serializeEntireRootEntity   = function(entityId, nuid)
         error(("Unable to serialize entity, because nuid is '%s' and you're Server!"):format(nuid), 2)
     end
     if not EntityUtils.isEntityAlive(entityId) then
-        error("NOITA SUCKS!", 2)
+        -- skip, because entity already died.
+        CustomProfiler.stop("EntitySerialisationUtils.serializeEntireRootEntity", cpc)
+        return true, nil
     end
 
     local rootEntityId = EntityGetRootEntity(entityId)
@@ -417,17 +422,24 @@ EntitySerialisationUtils.serializeEntireRootEntity   = function(entityId, nuid)
     if rootEntityId ~= entityId then
         Logger.trace(Logger.channels.entity,
             ("Skipping serialisation of entity, because it isn't root. Root is %s!"):format(rootEntityId))
-        return nil
+        CustomProfiler.stop("EntitySerialisationUtils.serializeEntireRootEntity", cpc)
+        return true, nil
     end
 
-    local finished          = false
-    local root              = {
+    --- @class SerialisedEntity
+    local root                 = {
         nuid       = nuid,
         attributes = EntitySerialisationUtils.serializeEntityAttributes(rootEntityId),
         _tags      = EntitySerialisationUtils.serializeEntityTags(rootEntityId),
-        components = EntitySerialisationUtils.serializeEntityComponents(rootEntityId),
+        components = {},
         children   = {}
     }
+    local finished, components = EntitySerialisationUtils.serializeEntityComponents(rootEntityId, startFrameTime)
+    root.components            = components
+    if not finished then
+        CustomProfiler.stop("EntitySerialisationUtils.serializeEntireRootEntity", cpc)
+        return false, root
+    end
 
     local childrenEntityIds = EntityGetAllChildren(rootEntityId) or {}
     for i = 1, #childrenEntityIds do
@@ -437,11 +449,19 @@ EntitySerialisationUtils.serializeEntireRootEntity   = function(entityId, nuid)
             root.children[i]            = {}
             root.children[i].attributes = EntitySerialisationUtils.serializeEntityAttributes(childEntityId)
             root.children[i]._tags      = EntitySerialisationUtils.serializeEntityTags(childEntityId)
-            root.children[i].components = EntitySerialisationUtils.serializeEntityComponents(childEntityId)
+            root.children[i].components = {}
+
+            local finished, components  = EntitySerialisationUtils.serializeEntityComponents(childEntityId, startFrameTime)
+            root.children[i].components = components
+            if not finished then
+                CustomProfiler.stop("EntitySerialisationUtils.serializeEntireRootEntity", cpc)
+                return false, root
+            end
         end
     end
 
     finished = true
+    NoitaComponentUtils.setNetworkSpriteIndicatorStatus(entityId, "serialised")
     CustomProfiler.stop("EntitySerialisationUtils.serializeEntireRootEntity", cpc)
     return finished, root
 end
@@ -452,7 +472,8 @@ EntitySerialisationUtils.serializeEntityAttributes   = function(entityId)
         error(("Unable to serialize entity attributes, because entityId is %s"):format(entityId), 2)
     end
     if not EntityUtils.isEntityAlive(entityId) then
-        error("NOITA SUCKS!", 2)
+        -- skip, because entity already died.
+        return nil
     end
 
     local attributes                                                                                                                        = {}
@@ -474,7 +495,8 @@ EntitySerialisationUtils.serializeEntityTags         = function(entityId)
         error(("Unable to serialize entitys attributes, because entityId is %s"):format(entityId), 2)
     end
     if not EntityUtils.isEntityAlive(entityId) then
-        error("NOITA SUCKS!", 2)
+        -- skip, because entity already died.
+        return nil
     end
     local tags = EntityGetTags(entityId)
     if Utils.IsEmpty(tags) then
@@ -485,19 +507,34 @@ EntitySerialisationUtils.serializeEntityTags         = function(entityId)
     return tags
 end
 
-EntitySerialisationUtils.serializeEntityComponents   = function(entityId)
+---comment
+---@param entityId number
+---@param startFrameTime number
+---@return boolean finished Indicates, if the serialization was finished.
+---@return serialisedComponents components The serialised components.
+EntitySerialisationUtils.serializeEntityComponents   = function(entityId, startFrameTime)
     local cpc = CustomProfiler.start("EntitySerialisationUtils.serializeEntityComponents")
     if Utils.IsEmpty(entityId) then
         error(("Unable to serialize entity's attributes, because entityId is %s"):format(entityId), 2)
     end
     if not EntityUtils.isEntityAlive(entityId) then
-        error("NOITA SUCKS!", 2)
+        -- skip, because entity already died.
+        return true, nil
     end
 
     local components   = {}
     local componentIds = EntityGetAllComponents(entityId)
 
-    for i = 1, #componentIds do
+    local _i           = 1
+    if EntityCache.contains(entityId) then
+        local cachedEntity = EntityCache.get(entityId)
+        _i = #cachedEntity.serialisedRootEntity.components or 1
+        for i = 1, #cachedEntity.serialisedRootEntity.components do
+            _i = i
+        end
+    end
+
+    for i = _i, #componentIds do
         local componentId = componentIds[i]
         local componentType = ComponentGetTypeName(componentId)
         if not table.contains(EntitySerialisationUtils.ignore.byComponentsType, componentType) then
@@ -509,7 +546,7 @@ EntitySerialisationUtils.serializeEntityComponents   = function(entityId)
             local members          = ComponentGetMembers(componentId) or {}
             for k, v in pairs(members) do
                 if k == "impl_position" or k == "physics_explosion_power" or k == "delay" then
-                    print("bla!")
+                    --print("bla!")
                 end
                 -- skip unsupported data types
                 if not table.contains(EntitySerialisationUtils.unsupportedDataTypes, k)
@@ -520,7 +557,7 @@ EntitySerialisationUtils.serializeEntityComponents   = function(entityId)
                         local memberObject = ComponentObjectGetMembers(componentId, k) or {}
                         for kObj, vObj in pairs(memberObject) do
                             if vObj == "impl_position" or vObj == "physics_explosion_power" or vObj == "delay" then
-                                print("bla!")
+                                --print("bla!")
                             end
                             -- if member objects contains other member objects we cannot access them and need to skip those
                             if not table.contains(EntitySerialisationUtils.componentObjectMemberNames, kObj) then
@@ -538,7 +575,7 @@ EntitySerialisationUtils.serializeEntityComponents   = function(entityId)
                         local returnedValues = { ComponentGetValue2(componentId, k) }
                         if #returnedValues > 1 then
                             if k == "friend_firemage" then
-                                print("bla!")
+                                --print("bla!")
                             end
                             v = returnedValues
                         else
@@ -555,10 +592,16 @@ EntitySerialisationUtils.serializeEntityComponents   = function(entityId)
                 end
             end
         end
+
+        local now = GameGetRealWorldTimeSinceStarted()
+        if startFrameTime - now >= EntityUtils.maxExecutionTime then
+            -- stop execution, when we are running out of time
+            return false, components
+        end
     end
 
     CustomProfiler.stop("EntitySerialisationUtils.serializeEntityComponents", cpc)
-    return components
+    return true, components
 end
 
 EntitySerialisationUtils.serializeComponentTags      = function(componentId)
@@ -602,7 +645,8 @@ EntitySerialisationUtils.deserializeEntireRootEntity = function(serializedRootEn
     end
 
     if not EntityUtils.isEntityAlive(entityId) then
-        error("NOITA SUCKS!", 2)
+        -- skip, because entity already died.
+        return nil
     end
 
     local finished = false
@@ -619,7 +663,8 @@ EntitySerialisationUtils.deserializeEntityAttributes = function(entityId, serial
         error(("Unable to deserialize entity attributes, because entityId is %s"):format(entityId), 2)
     end
     if not EntityUtils.isEntityAlive(entityId) then
-        error("NOITA SUCKS!", 2)
+        -- skip, because entity already died.
+        return nil
     end
 
     EntitySetName(entityId, serializedRootEntity.attributes.name)
@@ -641,7 +686,8 @@ EntitySerialisationUtils.deserializeEntityTags       = function(entityId, serial
         error(("Unable to serialize entitys attributes, because entityId is %s"):format(entityId), 2)
     end
     if not EntityUtils.isEntityAlive(entityId) then
-        error("NOITA SUCKS!", 2)
+        -- skip, because entity already died.
+        return nil
     end
 
     local tags = string.split(serializedRootEntity.tags or "", ",")
@@ -660,7 +706,8 @@ EntitySerialisationUtils.deserializeEntityComponents = function(entityId, serial
         error(("Unable to serialize entity's attributes, because entityId is %s"):format(entityId), 2)
     end
     if not EntityUtils.isEntityAlive(entityId) then
-        error("NOITA SUCKS!", 2)
+        -- skip, because entity already died.
+        return nil
     end
 
     local processedComponentIds = {}
@@ -674,7 +721,7 @@ EntitySerialisationUtils.deserializeEntityComponents = function(entityId, serial
             table.removeByTable(allComponentsPerType, processedComponentIds) -- remove already processed components, otherwise next possible match will be used
 
             if componentType == "SpriteParticleEmitterComponent" and #allComponentsPerType > 1 then
-                print("ASFLDJNOSUIFDGHJOSDFJIUG")
+                --print("ASFLDJNOSUIFDGHJOSDFJIUG")
             end
 
             if not table.contains(EntitySerialisationUtils.ignore.byComponentsType, componentType) then --- some components shouldn't be enabled or even added in multiplayer?
@@ -706,7 +753,7 @@ EntitySerialisationUtils.deserializeEntityComponents = function(entityId, serial
                                     EntitySerialisationUtils.gitHubIssues[componentType] = false
                                     local title = ("[Runtime]+Entity+deserialisation+failed+on+'%s'")
                                         :format(componentType)
-                                    local url = ("https://github.com/Ismoh/NoitaMP/issues/new?title=%s&labels=bug&projects=ismoh/1&milestone=synchronisation&template=component_missmatch_bug_report.md")
+                                    local url = ("https://github.com/Ismoh/NoitaMP/issues/new?labels=bug&projects=ismoh/1&milestone=synchronisation&template=component_missmatch_bug_report.yml&title=%s")
                                         :format(title)
                                     Utils.openUrl(url)
                                     EntitySerialisationUtils.gitHubIssues[componentType] = true -- Let's save some memory and just save a true/false value
@@ -743,15 +790,15 @@ EntitySerialisationUtils.deserializeEntityComponents = function(entityId, serial
                             else
                                 if table.contains(EntitySerialisationUtils.componentObjectMemberNames, k) then
                                     if k == "impl_position" or k == "physics_explosion_power" or k == "delay" then
-                                        print("bla!")
+                                        --print("bla!")
                                     end
                                     for kObj, vObj in pairs(v) do
                                         if vObj == "impl_position" or vObj == "physics_explosion_power" or vObj == "delay" then
-                                            print("bla!")
+                                            --print("bla!")
                                         end
-                                        print(("ComponentObjectSetValue2 componentType %s, k %s, v %s, kObj %s, vObj %s")
-                                            :format(componentType, k, Utils.pformat(v), kObj, vObj))
-                                        ComponentObjectSetValue2(componentId, k, kObj, vObj)
+                                        -- print(("ComponentObjectSetValue2 componentType %s, k %s, v %s, kObj %s, vObj %s")
+                                        --     :format(componentType, k, Utils.pformat(v), kObj, vObj))
+                                        -- ComponentObjectSetValue2(componentId, k, kObj, vObj)
                                     end
                                 elseif type(v) == "table" then -- if v is a table, we need to use the additional and optional parameters
                                     ComponentSetValue2(componentId,
@@ -784,7 +831,8 @@ EntitySerialisationUtils.deserializeComponentTags    = function(entityId, compon
         error(("Unable to deserialize components tags, because componentId is %s"):format(componentId), 2)
     end
     if not EntityUtils.isEntityAlive(entityId) then
-        error("NOITA SUCKS!", 2)
+        -- skip, because entity already died.
+        return nil
     end
 
     local tags = string.split(serialisedComponent._tags or "", ",")
