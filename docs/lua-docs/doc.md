@@ -1,6 +1,6 @@
 # Client
 
-See: [SockClient](../../mods/noita-mp/files/scripts/net/Client.lua#16#14)
+See: [SockClient](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/net/Client.lua#16#14)
 
 
 ```lua
@@ -10,6 +10,18 @@ SockClient
 
 ```lua
 SockClient
+```
+
+
+---
+
+# ClientInit
+
+ClientInit class for creating a new extended instance of SockClient.
+
+
+```lua
+ClientInit
 ```
 
 
@@ -30,13 +42,23 @@ function ClientInit.new(sockClient: SockClient)
 
 ---
 
-# ClientInit
+# CustomProfiler
 
-ClientInit class for creating a new extended instance of SockClient.
+Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 
 
 ```lua
-ClientInit
+CustomProfiler
+```
+
+
+```lua
+CustomProfiler
+```
+
+
+```lua
+CustomProfiler
 ```
 
 
@@ -161,7 +183,7 @@ Starts the profiler. This has to be called before the function (or first line of
 @*param* `functionName` — The name of the function that you want to measure. This has to be the same as the one used in CustomProfiler.stop(functionName, customProfilerCounter)
 
 @*return* `returnCounter` — The counter that is used to determine the order of the function calls. This has to be passed to CustomProfiler.stop(functionName, customProfilerCounter)
-See: [CustomProfiler.stop](../../mods/noita-mp/files/scripts/util/GuidUtils.lua#30#4) functionName, customProfilerCounter)
+See: [CustomProfiler.stop](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/GuidUtils.lua#30#4) functionName, customProfilerCounter)
 
 ## stop
 
@@ -195,28 +217,6 @@ number
 
 The threshold in milliseconds. If a function takes longer than this threshold, it will be reported.
  Default: 16.5ms = 60.60 fps
-
-
----
-
-# CustomProfiler
-
-Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
-
-
-```lua
-CustomProfiler
-```
-
-
-```lua
-CustomProfiler
-```
-
-
-```lua
-CustomProfiler
-```
 
 
 ---
@@ -1089,6 +1089,8 @@ function GlobalsUtils.setNuid(nuid: any, entityId: any, componentIdForOwnerName:
 
 # Gui
 
+Everything regarding ImGui: Credits to dextercd#7326
+
 ## new
 
 
@@ -1101,14 +1103,6 @@ function Gui.new()
 ---
 
 # GuidUtils
-
- Because of stack overflow errors when loading lua files,
- I decided to put Utils 'classes' into globals
-
-
-```lua
-table
-```
 
 
 ```lua
@@ -1258,12 +1252,24 @@ function Logger.warn(channel: any, formattedMessage: any)
 # MinaInformation
 
 See:
-  * [Transform](../../mods/noita-mp/files/scripts/util/MinaUtils.lua#124#18)
-  * [Health](../../mods/noita-mp/files/scripts/util/NoitaComponentUtils.lua#52#14)
+  * [Transform](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/MinaUtils.lua#124#18)
+  * [Health](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/NoitaComponentUtils.lua#52#14)
 
 
 ```lua
 table
+```
+
+
+---
+
+# MinaUtils
+
+Util class for fetching information about local and remote minas.
+
+
+```lua
+MinaUtils
 ```
 
 
@@ -1304,7 +1310,7 @@ function MinaUtils.getLocalMinaInformation()
 ```
 
 Getter for local mina information. It also takes care of polymorphism!
-See: [MinaInformation](../../mods/noita-mp/files/scripts/util/MinaUtils.lua#131#14)
+See: [MinaInformation](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/MinaUtils.lua#131#14)
 
 ## getLocalMinaName
 
@@ -1344,18 +1350,6 @@ function MinaUtils.setLocalMinaName(name: string)
 ```
 
 Setter for local mina name. It also saves it to settings file.
-
-
----
-
-# MinaUtils
-
-Util class for fetching information about local and remote minas.
-
-
-```lua
-MinaUtils
-```
 
 
 ---
@@ -2244,52 +2238,39 @@ function NoitaComponentUtils.setNetworkSpriteIndicatorStatus(entityId: number, s
 # NoitaMpSettings
 
  NoitaMpSettings: Replacement for Noita ModSettings.
- @classmod NoitaMpSettings
 
 
 ```lua
-table
-```
-
-
-```lua
-table
-```
-
-
-```lua
-table
+NoitaMpSettings
 ```
 
 
 ---
 
-# NoitaMpSettings.clearAndCreateSettings
+# NoitaMpSettings
+
+ NoitaMpSettings: Replacement for Noita ModSettings.
+
+## clearAndCreateSettings
 
 
 ```lua
 function NoitaMpSettings.clearAndCreateSettings()
 ```
 
-
----
-
-# NoitaMpSettings.getSetting
+## get
 
 
 ```lua
-function NoitaMpSettings.getSetting(key: any)
-  -> unknown
+function NoitaMpSettings.get(key: any)
+  -> string
 ```
 
-
----
-
-# NoitaMpSettings.writeSettings
+## set
 
 
 ```lua
-function NoitaMpSettings.writeSettings(key: any, value: any)
+function NoitaMpSettings.set(key: any, value: any)
   -> unknown
 ```
 
@@ -2368,6 +2349,16 @@ function OnEntityRemoved(entityId: any, nuid: any)
 
 ---
 
+# OnWorldInitialized
+
+
+```lua
+function OnWorldInitialized()
+```
+
+
+---
+
 # PlayerNameFunction
 
 
@@ -2403,6 +2394,26 @@ SockServer
 
 ```lua
 SockServer
+```
+
+
+---
+
+# Server.address
+
+
+```lua
+unknown
+```
+
+
+---
+
+# Server.port
+
+
+```lua
+unknown
 ```
 
 
@@ -5696,6 +5707,23 @@ Loads the given module, returns any value returned by the searcher(`true` when `
 function require(modname: string)
   -> unknown
   2. loaderdata: unknown
+```
+
+
+---
+
+# run_count
+
+ https://github.com/dextercd/Noita-Component-Explorer/blob/main/component-explorer/entities/imgui_warning.lua
+
+
+```lua
+integer
+```
+
+
+```lua
+unknown
 ```
 
 
