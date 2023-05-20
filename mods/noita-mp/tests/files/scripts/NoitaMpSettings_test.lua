@@ -12,25 +12,25 @@ function TestNoitaMpSettings:testClearAndCreateSettings()
     lu.assertEquals(files, {}, "Settings directory wasn't empty!")
 end
 
-function TestNoitaMpSettings:testWriteSettings()
-    lu.assertError(NoitaMpSettings.writeSettings, "key", nil)
-    lu.assertError(NoitaMpSettings.writeSettings, nil, "value")
-    lu.assertError(NoitaMpSettings.writeSettings, "key", "")
-    lu.assertError(NoitaMpSettings.writeSettings, "", "value")
+function TestNoitaMpSettings:testSet()
+    lu.assertError(NoitaMpSettings.set, "key", nil)
+    lu.assertError(NoitaMpSettings.set, nil, "value")
+    lu.assertError(NoitaMpSettings.set, "key", "")
+    lu.assertError(NoitaMpSettings.set, "", "value")
 
     local name = "TestName1"
     local guid = GuidUtils:getGuid()
-    NoitaMpSettings.writeSettings("name", name)
-    local content = NoitaMpSettings.writeSettings("guid", guid)
+    NoitaMpSettings.set("name", name)
+    local content = NoitaMpSettings.set("guid", guid)
     lu.assertStrContains(content, name)
     lu.assertStrContains(content, guid)
 end
 
-function TestNoitaMpSettings:testGetSetting()
-    lu.assertErrorMsgContains("", NoitaMpSettings.getSetting, "asd")
+function TestNoitaMpSettings:testGet()
+    lu.assertErrorMsgContains("", NoitaMpSettings.get, "asd")
 
     local name = "NameExists"
-    NoitaMpSettings.writeSettings("name", name)
-    local nameSetting = NoitaMpSettings.getSetting("name")
+    NoitaMpSettings.set("name", name)
+    local nameSetting = NoitaMpSettings.get("name")
     lu.assertEquals(nameSetting, name)
 end

@@ -1,11 +1,10 @@
 --- NoitaMpSettings: Replacement for Noita ModSettings.
--- @classmod NoitaMpSettings
-NoitaMpSettings = {}
+--- @class NoitaMpSettings
+local NoitaMpSettings = {}
 
---- 'Imports'
-local lfs       = require("lfs")
-local winapi    = require("winapi")
-local json      = require("json")
+local lfs             = require("lfs")
+local winapi          = require("winapi")
+local json            = require("json")
 
 
 function NoitaMpSettings.clearAndCreateSettings()
@@ -21,14 +20,14 @@ function NoitaMpSettings.clearAndCreateSettings()
     CustomProfiler.stop("NoitaMpSettings.clearAndCreateSettings", cpc)
 end
 
-function NoitaMpSettings.writeSettings(key, value)
-    local cpc = CustomProfiler.start("NoitaMpSettings.writeSettings")
+function NoitaMpSettings.set(key, value)
+    local cpc = CustomProfiler.start("NoitaMpSettings.set")
     if Utils.IsEmpty(key) or type(key) ~= "string" then
         error(("'key' must not be nil or is not type of string!"):format(key), 2)
     end
 
-    if Utils.IsEmpty(value) or type(value) ~= "string" then
-        error(("'value' must not be nil or is not type of string!"):format(value), 2)
+    if type(value) ~= "string" then
+        error(("'value' is not type of string!"):format(value), 2)
     end
 
     local pid = winapi.get_current_pid()
@@ -38,7 +37,7 @@ function NoitaMpSettings.writeSettings(key, value)
         who = whoAmI()
     end
     local settingsFile = ("%s%s%s%s.json")
-            :format(FileUtils.GetAbsolutePathOfNoitaMpSettingsDirectory(), pathSeparator, pid, who)
+        :format(FileUtils.GetAbsolutePathOfNoitaMpSettingsDirectory(), pathSeparator, pid, who)
 
     if not FileUtils.Exists(settingsFile) then
         FileUtils.WriteFile(settingsFile, "{}")
@@ -53,16 +52,16 @@ function NoitaMpSettings.writeSettings(key, value)
     Logger.trace(Logger.channels.testing, ("Wrote custom setting: %s = %s"):format(key, value))
 
     local result = FileUtils.ReadFile(settingsFile)
-    CustomProfiler.stop("NoitaMpSettings.writeSettings", cpc)
+    CustomProfiler.stop("NoitaMpSettings.set", cpc)
     return result
 end
 
-function NoitaMpSettings.getSetting(key)
-    local cpc          = CustomProfiler.start("NoitaMpSettings.getSetting")
+function NoitaMpSettings.get(key)
+    local cpc          = CustomProfiler.start("NoitaMpSettings.get")
     local pid          = winapi.get_current_pid()
 
     local settingsFile = ("%s%s%s%s.json")
-            :format(FileUtils.GetAbsolutePathOfNoitaMpSettingsDirectory(), pathSeparator, pid, whoAmI())
+        :format(FileUtils.GetAbsolutePathOfNoitaMpSettingsDirectory(), pathSeparator, pid, whoAmI())
 
     if not FileUtils.Exists(settingsFile) then
         FileUtils.WriteFile(settingsFile, "{}")
@@ -72,18 +71,14 @@ function NoitaMpSettings.getSetting(key)
     local contentJson   = json.decode(contentString)
 
     if Utils.IsEmpty(contentJson[key]) then
-        error(("Unable to find '%s' in NoitaMpSettings: %s"):format(key, contentString), 2)
+        --error(("Unable to find '%s' in NoitaMpSettings: %s"):format(key, contentString), 2)
+        CustomProfiler.stop("NoitaMpSettings.get", cpc)
+        return ""
     end
     local value = contentJson[key]
-    CustomProfiler.stop("NoitaMpSettings.getSetting", cpc)
+    CustomProfiler.stop("NoitaMpSettings.get", cpc)
     return value
 end
 
--- Because of stack overflow errors when loading lua files,
--- I decided to put Utils 'classes' into globals
-_G.NoitaMpSettings = NoitaMpSettings
-
--- But still return for Noita Components,
--- which does not have access to _G,
--- because of own context/vm
 return NoitaMpSettings
+

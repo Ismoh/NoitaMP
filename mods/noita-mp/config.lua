@@ -48,7 +48,7 @@ if not EntitySerialisationUtils then
     _G.EntitySerialisationUtils = {}
 end
 
-EntitySerialisationUtils.ignore      = {
+EntitySerialisationUtils.ignore                = {
     --- Components listed in byComponentsName will be ignored in serialisation
     byComponentsType = {
         "AdvancedFishAIComponent",
@@ -99,26 +99,29 @@ EntitySerialisationUtils.ignore      = {
 --- Furthermore it holds ModSettings, which shouldn't be set by Noita, because one computer shares ModSettings in
 ---  multiple Noita.exe instances.
 ------------------------------------------------------------------------------------------------------------------------
-local NoitaApiModSettingSet          = ModSettingSet
-local NoitaApiModSettingGet          = ModSettingGet
-local NoitaApiModSettingSetNextValue = ModSettingSetNextValue
-local NoitaApiModSettingGetNextValue = ModSettingGetNextValue
+local NoitaApiModSettingSet                    = ModSettingSet
+local NoitaApiModSettingGet                    = ModSettingGet
+local NoitaApiModSettingSetNextValue           = ModSettingSetNextValue
+local NoitaApiModSettingGetNextValue           = ModSettingGetNextValue
 
-if not Utils then
-    if require then
-        Utils = require("Utils")
-    else
-        -- when NoitaComponents with their own restricted LuaContext load this file,
-        -- util isn't available!
-        Utils = dofile_once("mods/noita-mp/files/scripts/util/Utils.lua")
-        if not MinaUtils and not require then
-            ----@type MinaUtils
-            --MinaUtils = dofile_once("mods/noita-mp/files/scripts/util/MinaUtils.lua")
-        end
-    end
-end
+-- if not Utils then
+--     if require then
+--         Utils = require("Utils")
+--     else
+--         -- when NoitaComponents with their own restricted LuaContext load this file,
+--         -- util isn't available!
+--         Utils = dofile_once("mods/noita-mp/files/scripts/util/Utils.lua")
+--         if not MinaUtils and not require then
+--             ----@type MinaUtils
+--             --MinaUtils = dofile_once("mods/noita-mp/files/scripts/util/MinaUtils.lua")
+--         end
+--     end
+-- end
 
 ModSettingSet                                  = function(id, value)
+    if id:contains("noita-mp") then
+        error("Get rid off ModSettings!", 2)
+    end
     if id == "noita-mp.name" then
         MinaUtils.setLocalMinaName(value)
     end
@@ -129,6 +132,9 @@ ModSettingSet                                  = function(id, value)
 end
 
 ModSettingGet                                  = function(id)
+    if id:contains("noita-mp") then
+        error("Get rid off ModSettings!", 2)
+    end
     if id == "noita-mp.name" then
         local name = MinaUtils.getLocalMinaName()
         if not Utils.IsEmpty(name) then
@@ -153,6 +159,9 @@ ModSettingGet                                  = function(id)
 end
 
 ModSettingSetNextValue                         = function(id, value, is_default)
+    if id:contains("noita-mp") then
+        error("Get rid off ModSettings!", 2)
+    end
     if id == "noita-mp.name" then
         name = value
     end
@@ -163,6 +172,9 @@ ModSettingSetNextValue                         = function(id, value, is_default)
 end
 
 ModSettingGetNextValue                         = function(id)
+    if id:contains("noita-mp") then
+        error("Get rid off ModSettings!", 2)
+    end
     if id == "noita-mp.name" and name then
         local name = MinaUtils.getLocalMinaName()
         if not Utils.IsEmpty(name) then

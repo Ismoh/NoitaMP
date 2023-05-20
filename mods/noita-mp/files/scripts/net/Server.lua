@@ -860,11 +860,13 @@ function ServerInit.new(sockServer)
     function self.start(ip, port)
         local cpc014 = CustomProfiler.start("Server.start")
         if not ip then
-            ip = tostring(ModSettingGet("noita-mp.server_ip"))
+            --ip = tostring(ModSettingGet("noita-mp.server_ip"))
+            ip = self:getAddress()
         end
 
         if not port then
-            port = tonumber(ModSettingGet("noita-mp.server_port")) or error("noita-mp.server_port wasn't a number")
+            --port = tonumber(ModSettingGet("noita-mp.server_port")) or error("noita-mp.server_port wasn't a number")
+            port = self:getPort()
         end
 
         self.stop()
