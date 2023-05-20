@@ -19,18 +19,6 @@ SockClient
 
 ClientInit class for creating a new extended instance of SockClient.
 
-
-```lua
-ClientInit
-```
-
-
----
-
-# ClientInit
-
-ClientInit class for creating a new extended instance of SockClient.
-
 ## new
 
 
@@ -42,23 +30,13 @@ function ClientInit.new(sockClient: SockClient)
 
 ---
 
-# CustomProfiler
+# ClientInit
 
-Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
-
-
-```lua
-CustomProfiler
-```
+ClientInit class for creating a new extended instance of SockClient.
 
 
 ```lua
-CustomProfiler
-```
-
-
-```lua
-CustomProfiler
+ClientInit
 ```
 
 
@@ -217,6 +195,28 @@ number
 
 The threshold in milliseconds. If a function takes longer than this threshold, it will be reported.
  Default: 16.5ms = 60.60 fps
+
+
+---
+
+# CustomProfiler
+
+Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
+
+
+```lua
+CustomProfiler
+```
+
+
+```lua
+CustomProfiler
+```
+
+
+```lua
+CustomProfiler
+```
 
 
 ---
@@ -528,6 +528,21 @@ See: ~coroutines.lua~ wake_up_waiting_threads
 
 ```lua
 integer
+```
+
+
+---
+
+# FileUtils
+
+
+```lua
+FileUtils
+```
+
+
+```lua
+FileUtils
 ```
 
 
@@ -904,21 +919,6 @@ function FileUtils.WriteFile(file_fullpath: string, file_content: string)
 
 ---
 
-# FileUtils
-
-
-```lua
-FileUtils
-```
-
-
-```lua
-FileUtils
-```
-
-
----
-
 # GetWidthAndHeightByResolution
 
  Returns width and height depending on resolution.
@@ -1082,6 +1082,19 @@ function GlobalsUtils.setDeadNuid(nuid: any)
 
 ```lua
 function GlobalsUtils.setNuid(nuid: any, entityId: any, componentIdForOwnerName: any, componentIdForOwnerGuid: any, componentIdForNuid: any)
+```
+
+
+---
+
+# Gui
+
+## new
+
+
+```lua
+function Gui.new()
+  -> table
 ```
 
 
@@ -1260,18 +1273,6 @@ table
 
 Util class for fetching information about local and remote minas.
 
-
-```lua
-MinaUtils
-```
-
-
----
-
-# MinaUtils
-
-Util class for fetching information about local and remote minas.
-
 ## getLocalMinaEntityId
 
 
@@ -1343,6 +1344,18 @@ function MinaUtils.setLocalMinaName(name: string)
 ```
 
 Setter for local mina name. It also saves it to settings file.
+
+
+---
+
+# MinaUtils
+
+Util class for fetching information about local and remote minas.
+
+
+```lua
+MinaUtils
+```
 
 
 ---
@@ -2908,6 +2921,41 @@ function Ui.new()
 
 # Utils
 
+
+```lua
+Utils
+```
+
+
+```lua
+Utils
+```
+
+
+```lua
+Utils
+```
+
+
+```lua
+Utils
+```
+
+
+```lua
+Utils
+```
+
+
+```lua
+any
+```
+
+
+---
+
+# Utils
+
 ## CopyToClipboard
 
 
@@ -2976,41 +3024,6 @@ function Utils.openUrl(url: any)
 
 ```lua
 function Utils.pformat(var: any)
-```
-
-
----
-
-# Utils
-
-
-```lua
-Utils
-```
-
-
-```lua
-Utils
-```
-
-
-```lua
-Utils
-```
-
-
-```lua
-Utils
-```
-
-
-```lua
-Utils
-```
-
-
-```lua
-any
 ```
 
 
@@ -4001,11 +4014,6 @@ function getmetatable(object: any)
 ---
 
 # gui
-
-
-```lua
-unknown
-```
 
 
 ```lua
