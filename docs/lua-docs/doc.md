@@ -2788,6 +2788,14 @@ function SockServer.sendNewGuid(peer: any, oldGuid: any, newGuid: any)
   -> boolean
 ```
 
+## sendNewNuid
+
+
+```lua
+function SockServer.sendNewNuid(owner: any, localEntityId: any, newNuid: any, x: any, y: any, rotation: any, velocity: any, filename: any, health: any, isPolymorphed: any)
+  -> boolean
+```
+
 ## sendNewNuidSerialized
 
 
@@ -3993,6 +4001,11 @@ function getmetatable(object: any)
 ---
 
 # gui
+
+
+```lua
+unknown
+```
 
 
 ```lua

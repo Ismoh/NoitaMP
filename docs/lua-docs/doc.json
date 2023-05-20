@@ -846,14 +846,14 @@
             },
             {
                 "extends": {
-                    "finish": 8000028,
-                    "start": 8000017,
+                    "finish": 8050028,
+                    "start": 8050017,
                     "type": "getglobal",
                     "view": "table"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/EntityUtils.lua",
-                "finish": 8000014,
-                "start": 8000000,
+                "finish": 8050014,
+                "start": 8050000,
                 "type": "setfield"
             }
         ],
@@ -867,21 +867,21 @@
                 "extends": {
                     "args": [
                         {
-                            "finish": 7320066,
-                            "start": 7320053,
+                            "finish": 7370066,
+                            "start": 7370053,
                             "type": "local",
                             "view": "any"
                         }
                     ],
                     "desc": " Simply adds a ugly debug circle around the player to visualize the detection radius.",
-                    "finish": 7940003,
-                    "start": 7320000,
+                    "finish": 7990003,
+                    "start": 7370000,
                     "type": "function",
                     "view": "function EntityUtils.addOrChangeDetectionRadiusDebug(player_entity: any)"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/EntityUtils.lua",
-                "finish": 7320052,
-                "start": 7320009,
+                "finish": 7370052,
+                "start": 7370009,
                 "type": "setfield"
             }
         ],
@@ -914,28 +914,28 @@
                 "extends": {
                     "args": [
                         {
-                            "finish": 6820039,
-                            "start": 6820035,
+                            "finish": 6870039,
+                            "start": 6870035,
                             "type": "local",
                             "view": "any"
                         },
                         {
                             "desc": "The nuid of the entity.",
-                            "finish": 6820045,
-                            "start": 6820041,
+                            "finish": 6870045,
+                            "start": 6870041,
                             "type": "local",
                             "view": "number"
                         }
                     ],
                     "desc": " Destroys the entity by the given nuid.\n\n@*param* `nuid` — The nuid of the entity.",
-                    "finish": 7270003,
-                    "start": 6820000,
+                    "finish": 7320003,
+                    "start": 6870000,
                     "type": "function",
                     "view": "function EntityUtils.destroyByNuid(peer: any, nuid: number)"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/EntityUtils.lua",
-                "finish": 6820034,
-                "start": 6820009,
+                "finish": 6870034,
+                "start": 6870009,
                 "type": "setfield"
             }
         ],
@@ -950,27 +950,27 @@
                     "args": [
                         {
                             "desc": "Id of any entity.",
-                            "finish": 3080043,
-                            "start": 3080035,
+                            "finish": 3120043,
+                            "start": 3120035,
                             "type": "local",
                             "view": "number"
                         }
                     ],
                     "desc": "Looks like there were access to removed entities, which might cause game crashing.\nUse this function whenever you work with entity_id/entityId to stop client game crashing.\n\n@*param* `entityId` — Id of any entity.\n\n@*return* `entityId` — returns the entityId if is alive, otherwise false",
-                    "finish": 3170003,
+                    "finish": 3210003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "number|false"
                         }
                     ],
-                    "start": 3080000,
+                    "start": 3120000,
                     "type": "function",
                     "view": "function EntityUtils.isEntityAlive(entityId: number)\n  -> entityId: number|false"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/EntityUtils.lua",
-                "finish": 3080034,
-                "start": 3080009,
+                "finish": 3120034,
+                "start": 3120009,
                 "type": "setfield"
             }
         ],
@@ -984,27 +984,27 @@
                 "extends": {
                     "args": [
                         {
-                            "finish": 2460049,
-                            "start": 2460041,
+                            "finish": 2500049,
+                            "start": 2500041,
                             "type": "local",
                             "view": "number"
                         }
                     ],
                     "desc": " Checks if a specific entity is polymorphed.",
-                    "finish": 2580003,
+                    "finish": 2620003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "boolean"
                         }
                     ],
-                    "start": 2460000,
+                    "start": 2500000,
                     "type": "function",
                     "view": "function EntityUtils.isEntityPolymorphed(entityId: number)\n  -> boolean"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/EntityUtils.lua",
-                "finish": 2460040,
-                "start": 2460009,
+                "finish": 2500040,
+                "start": 2500009,
                 "type": "setfield"
             }
         ],
@@ -1018,26 +1018,26 @@
                 "extends": {
                     "args": [
                         {
-                            "finish": 2630043,
-                            "start": 2630035,
+                            "finish": 2670043,
+                            "start": 2670035,
                             "type": "local",
                             "view": "any"
                         }
                     ],
-                    "finish": 2990003,
+                    "finish": 3030003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "boolean"
                         }
                     ],
-                    "start": 2630000,
+                    "start": 2670000,
                     "type": "function",
                     "view": "function EntityUtils.isRemoteMinae(entityId: any)\n  -> boolean"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/EntityUtils.lua",
-                "finish": 2630034,
-                "start": 2630009,
+                "finish": 2670034,
+                "start": 2670009,
                 "type": "setfield"
             }
         ],
@@ -1094,21 +1094,21 @@
                     "args": [
                         {
                             "desc": "Time at the very beginning of the frame.",
-                            "finish": 3250066,
-                            "start": 3250052,
+                            "finish": 3290066,
+                            "start": 3290052,
                             "type": "local",
                             "view": "number"
                         }
                     ],
                     "desc": "comment\n\n@*param* `startFrameTime` — Time at the very beginning of the frame.",
-                    "finish": 6020003,
-                    "start": 3250000,
+                    "finish": 6070003,
+                    "start": 3290000,
                     "type": "function",
                     "view": "function EntityUtils.processAndSyncEntityNetworking(startFrameTime: number)"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/EntityUtils.lua",
-                "finish": 3250051,
-                "start": 3250009,
+                "finish": 3290051,
+                "start": 3290009,
                 "type": "setfield"
             }
         ],
@@ -1122,83 +1122,83 @@
                 "extends": {
                     "args": [
                         {
-                            "finish": 6170038,
-                            "start": 6170033,
+                            "finish": 6220038,
+                            "start": 6220033,
                             "type": "local",
                             "view": "EntityOwner"
                         },
                         {
-                            "finish": 6170044,
-                            "start": 6170040,
+                            "finish": 6220044,
+                            "start": 6220040,
                             "type": "local",
                             "view": "number"
                         },
                         {
-                            "finish": 6170047,
-                            "start": 6170046,
+                            "finish": 6220047,
+                            "start": 6220046,
                             "type": "local",
                             "view": "number"
                         },
                         {
-                            "finish": 6170050,
-                            "start": 6170049,
+                            "finish": 6220050,
+                            "start": 6220049,
                             "type": "local",
                             "view": "number"
                         },
                         {
-                            "finish": 6170060,
-                            "start": 6170052,
+                            "finish": 6220060,
+                            "start": 6220052,
                             "type": "local",
                             "view": "number"
                         },
                         {
                             "desc": "- can be nil",
-                            "finish": 6170070,
-                            "start": 6170062,
+                            "finish": 6220070,
+                            "start": 6220062,
                             "type": "local",
                             "view": "Vec2?"
                         },
                         {
-                            "finish": 6170080,
-                            "start": 6170072,
+                            "finish": 6220080,
+                            "start": 6220072,
                             "type": "local",
                             "view": "string"
                         },
                         {
                             "desc": "this is the initial entity_id created by server OR client. It's owner specific! Every",
-                            "finish": 6170095,
-                            "start": 6170082,
+                            "finish": 6220095,
+                            "start": 6220082,
                             "type": "local",
                             "view": "number"
                         },
                         {
-                            "finish": 6170103,
-                            "start": 6170097,
+                            "finish": 6220103,
+                            "start": 6220097,
                             "type": "local",
                             "view": "any"
                         },
                         {
-                            "finish": 6170118,
-                            "start": 6170105,
+                            "finish": 6220118,
+                            "start": 6220105,
                             "type": "local",
                             "view": "any"
                         }
                     ],
                     "desc": " Spawns an entity and applies the transform and velocity to it. Also adds the network_component.\n\n@*param* `velocity` — - can be nil\n\n@*param* `localEntityId` — this is the initial entity_id created by server OR client. It's owner specific! Every\n\n owner has its own entity ids.\n\n@*return* `entityId` — Returns the entity_id of a already existing entity, found by nuid or the newly created entity.",
-                    "finish": 6630003,
+                    "finish": 6680003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "number?"
                         }
                     ],
-                    "start": 6170000,
+                    "start": 6220000,
                     "type": "function",
                     "view": "function EntityUtils.spawnEntity(owner: EntityOwner, nuid: number, x: number, y: number, rotation: number, velocity?: Vec2, filename: string, localEntityId: number, health: any, isPolymorphed: any)\n  -> entityId: number?"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/EntityUtils.lua",
-                "finish": 6170032,
-                "start": 6170009,
+                "finish": 6220032,
+                "start": 6220009,
                 "type": "setfield"
             }
         ],
@@ -1212,14 +1212,14 @@
                 "extends": {
                     "args": [],
                     "desc": " Synchronises the dead nuids between server and client.",
-                    "finish": 6760003,
-                    "start": 6680000,
+                    "finish": 6810003,
+                    "start": 6730000,
                     "type": "function",
                     "view": "function EntityUtils.syncDeadNuids()"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/EntityUtils.lua",
-                "finish": 6680034,
-                "start": 6680009,
+                "finish": 6730034,
+                "start": 6730009,
                 "type": "setfield"
             }
         ],
@@ -2200,7 +2200,7 @@
                 "extends": {
                     "args": [],
                     "desc": " Returns width and height depending on resolution.\n GuiGetScreenDimensions( gui:obj ) -> width:number,height:number [Returns dimensions of viewport in the gui coordinate system (which is equal to the coordinates of the screen bottom right corner in gui coordinates). The values returned may change depending on the game resolution because the UI is scaled for pixel-perfect text rendering.]",
-                    "finish": 290003,
+                    "finish": 300003,
                     "returns": [
                         {
                             "type": "function.return",
@@ -2211,13 +2211,13 @@
                             "view": "number"
                         }
                     ],
-                    "start": 230000,
+                    "start": 240000,
                     "type": "function",
                     "view": "function GetWidthAndHeightByResolution()\n  -> width: number\n  2. height: number"
                 },
                 "file": "../../mods/noita-mp/files/scripts/Ui.lua",
-                "finish": 230038,
-                "start": 230009,
+                "finish": 240038,
+                "start": 240009,
                 "type": "setglobal"
             }
         ],
@@ -5137,14 +5137,14 @@
             },
             {
                 "extends": {
-                    "finish": 1360044,
-                    "start": 1360025,
+                    "finish": 1370044,
+                    "start": 1370025,
                     "type": "getglobal",
                     "view": "table"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/NoitaComponentUtils.lua",
-                "finish": 1360022,
-                "start": 1360000,
+                "finish": 1370022,
+                "start": 1370000,
                 "type": "setfield"
             }
         ],
@@ -5165,7 +5165,7 @@
                         }
                     ],
                     "desc": "Adds a SpriteComponent to indicate network status visually.",
-                    "finish": 1210003,
+                    "finish": 1220003,
                     "returns": [
                         {
                             "type": "function.return",
@@ -5378,28 +5378,28 @@
                 "extends": {
                     "args": [
                         {
-                            "finish": 1260069,
-                            "start": 1260061,
+                            "finish": 1270069,
+                            "start": 1270061,
                             "type": "local",
                             "view": "number"
                         },
                         {
                             "desc": "off, processed, serialised, sent, acked",
-                            "finish": 1260077,
-                            "start": 1260071,
+                            "finish": 1270077,
+                            "start": 1270071,
                             "type": "local",
                             "view": "string"
                         }
                     ],
                     "desc": "Sets the SpriteComponent to a specific status by setting image_file.\n\n@*param* `status` — off, processed, serialised, sent, acked",
-                    "finish": 1320003,
-                    "start": 1260000,
+                    "finish": 1330003,
+                    "start": 1270000,
                     "type": "function",
                     "view": "function NoitaComponentUtils.setNetworkSpriteIndicatorStatus(entityId: number, status: string)"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/NoitaComponentUtils.lua",
-                "finish": 1260060,
-                "start": 1260009,
+                "finish": 1270060,
+                "start": 1270009,
                 "type": "setfield"
             }
         ],
@@ -5672,7 +5672,7 @@
                             "view": "any"
                         }
                     ],
-                    "finish": 1650003,
+                    "finish": 1690003,
                     "start": 1520018,
                     "type": "function",
                     "view": "function OnEntityRemoved(entityId: any, nuid: any)"
@@ -6869,6 +6869,87 @@
                 "extends": {
                     "args": [
                         {
+                            "finish": 9730035,
+                            "start": 9730030,
+                            "type": "local",
+                            "view": "any"
+                        },
+                        {
+                            "finish": 9730050,
+                            "start": 9730037,
+                            "type": "local",
+                            "view": "any"
+                        },
+                        {
+                            "finish": 9730059,
+                            "start": 9730052,
+                            "type": "local",
+                            "view": "any"
+                        },
+                        {
+                            "finish": 9730062,
+                            "start": 9730061,
+                            "type": "local",
+                            "view": "any"
+                        },
+                        {
+                            "finish": 9730065,
+                            "start": 9730064,
+                            "type": "local",
+                            "view": "any"
+                        },
+                        {
+                            "finish": 9730075,
+                            "start": 9730067,
+                            "type": "local",
+                            "view": "any"
+                        },
+                        {
+                            "finish": 9730085,
+                            "start": 9730077,
+                            "type": "local",
+                            "view": "any"
+                        },
+                        {
+                            "finish": 9730095,
+                            "start": 9730087,
+                            "type": "local",
+                            "view": "any"
+                        },
+                        {
+                            "finish": 9730103,
+                            "start": 9730097,
+                            "type": "local",
+                            "view": "any"
+                        },
+                        {
+                            "finish": 9730118,
+                            "start": 9730105,
+                            "type": "local",
+                            "view": "any"
+                        }
+                    ],
+                    "finish": 9800007,
+                    "returns": [
+                        {
+                            "type": "function.return",
+                            "view": "boolean"
+                        }
+                    ],
+                    "start": 9730004,
+                    "type": "function",
+                    "view": "function SockServer.sendNewNuid(owner: any, localEntityId: any, newNuid: any, x: any, y: any, rotation: any, velocity: any, filename: any, health: any, isPolymorphed: any)\n  -> boolean"
+                },
+                "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
+                "finish": 9730029,
+                "name": "sendNewNuid",
+                "start": 9730013,
+                "type": "setfield"
+            },
+            {
+                "extends": {
+                    "args": [
+                        {
                             "finish": 9820049,
                             "start": 9820040,
                             "type": "local",
@@ -7167,20 +7248,20 @@
             {
                 "extends": {
                     "args": [],
-                    "finish": 3660003,
+                    "finish": 3720003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "table"
                         }
                     ],
-                    "start": 410000,
+                    "start": 420000,
                     "type": "function",
                     "view": "function Ui.new()\n  -> table"
                 },
                 "file": "../../mods/noita-mp/files/scripts/Ui.lua",
-                "finish": 410015,
-                "start": 410009,
+                "finish": 420015,
+                "start": 420009,
                 "type": "setfield"
             }
         ],
@@ -8240,26 +8321,26 @@
         "defines": [
             {
                 "extends": {
-                    "finish": 7610014,
-                    "start": 7530021,
+                    "finish": 7660014,
+                    "start": 7580021,
                     "type": "select",
                     "view": "unknown"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/EntityUtils.lua",
-                "finish": 7530018,
-                "start": 7530012,
+                "finish": 7580018,
+                "start": 7580012,
                 "type": "setglobal"
             },
             {
                 "extends": {
-                    "finish": 7780014,
-                    "start": 7700021,
+                    "finish": 7830014,
+                    "start": 7750021,
                     "type": "select",
                     "view": "unknown"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/EntityUtils.lua",
-                "finish": 7700018,
-                "start": 7700012,
+                "finish": 7750018,
+                "start": 7750012,
                 "type": "setglobal"
             }
         ],
@@ -9593,50 +9674,62 @@
         "defines": [
             {
                 "extends": {
-                    "finish": 2330036,
-                    "start": 2330018,
+                    "finish": 1330028,
+                    "start": 1330010,
                     "type": "binary",
                     "view": "unknown"
                 },
                 "file": "../../mods/noita-mp/files/scripts/Ui.lua",
-                "finish": 2330015,
-                "start": 2330012,
+                "finish": 1330007,
+                "start": 1330004,
                 "type": "setglobal"
             },
             {
                 "extends": {
-                    "finish": 2900036,
-                    "start": 2900018,
+                    "finish": 2370036,
+                    "start": 2370018,
                     "type": "binary",
                     "view": "unknown"
                 },
                 "file": "../../mods/noita-mp/files/scripts/Ui.lua",
-                "finish": 2900015,
-                "start": 2900012,
+                "finish": 2370015,
+                "start": 2370012,
                 "type": "setglobal"
             },
             {
                 "extends": {
-                    "finish": 3220036,
-                    "start": 3220018,
+                    "finish": 2940036,
+                    "start": 2940018,
                     "type": "binary",
                     "view": "unknown"
                 },
                 "file": "../../mods/noita-mp/files/scripts/Ui.lua",
-                "finish": 3220015,
-                "start": 3220012,
+                "finish": 2940015,
+                "start": 2940012,
                 "type": "setglobal"
             },
             {
                 "extends": {
-                    "finish": 3530036,
-                    "start": 3530018,
+                    "finish": 3260036,
+                    "start": 3260018,
                     "type": "binary",
                     "view": "unknown"
                 },
                 "file": "../../mods/noita-mp/files/scripts/Ui.lua",
-                "finish": 3530015,
-                "start": 3530012,
+                "finish": 3260015,
+                "start": 3260012,
+                "type": "setglobal"
+            },
+            {
+                "extends": {
+                    "finish": 3570036,
+                    "start": 3570018,
+                    "type": "binary",
+                    "view": "unknown"
+                },
+                "file": "../../mods/noita-mp/files/scripts/Ui.lua",
+                "finish": 3570015,
+                "start": 3570012,
                 "type": "setglobal"
             },
             {
