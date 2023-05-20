@@ -6,6 +6,7 @@ Ui                = {}
 -- 'Imports'
 local renderEzgui = dofile_once("mods/noita-mp/lua_modules/share/lua/5.1/ezgui/EZGUI.lua").init(
     "mods/noita-mp/lua_modules/share/lua/5.1/ezgui")
+local textInput = require("input-manager.text_input")
 
 
 --- Global private variables:
@@ -129,6 +130,9 @@ function Ui.new()
             end,
         }
     }
+
+    gui = gui or GuiCreate()
+    self.nameTextInput = textInput.create(gui, 25, height - 25, 200, "Type in your name!", 20, nil, nil, 100)
 
 
 
@@ -357,6 +361,8 @@ function Ui.new()
             GuiColorSetForNextWidget(gui, 1, 0, 0, 1)
             GuiText(gui, 100, 100, "Memory is about to overflow. Please save and quit the game.")
         end
+        self.nameTextInput:draw()
+        self.nameTextInput:update()
     end
 
     -- Apply some private methods

@@ -153,10 +153,14 @@ end
 OnEntityRemoved = function(entityId, nuid)
     local cpc = CustomProfiler.start("OnEntityRemoved")
     local _nuid, _entityId = GlobalsUtils.getNuidEntityPair(nuid)
-    if entityId ~= _entityId then
+
+    -- _entityId can be nil if the entity was removed before it was fully loaded
+    if not Utils.IsEmpty(_entityId) and entityId ~= _entityId then
         error(("EntityUtils.OnEntityRemoved: entityId %s ~= _entityId %s"):format(entityId, _entityId), 2)
     end
-    if nuid ~= _nuid then
+
+    -- _nuid can be nil if the entity was removed before it was fully loaded
+    if not Utils.IsEmpty(_nuid) and nuid ~= _nuid then
         error(("EntityUtils.OnEntityRemoved: nuid %s ~= _nuid %s"):format(nuid, _nuid), 2)
     end
     EntityCache.delete(entityId)
@@ -493,7 +497,8 @@ function EntityUtils.processAndSyncEntityNetworking(startFrameTime)
                 elseif who == Client.iAm and not hasNuid then
                     Client.sendNeedNuid(ownerName, ownerGuid, entityId)
                 else
-                    error("Unable to get whoAmI()!", 2)
+                    --error("Unable to get whoAmI()!", 2)
+                    return
                 end
 
                 NetworkVscUtils.addOrUpdateAllVscs(entityId, ownerName, ownerGuid, nuid)
@@ -512,8 +517,8 @@ function EntityUtils.processAndSyncEntityNetworking(startFrameTime)
                             NetworkVscUtils.addOrUpdateAllVscs(entityId, compOwnerName, compOwnerGuid, nuid)
                         end
                     end
-                    --Server.sendNewNuid({ compOwnerName, compOwnerGuid }, entityId, nuid, x, y, rotation, velocity,
-                    --                   filename, health, EntityUtils.isEntityPolymorphed(entityId))
+                    Server.sendNewNuid({ compOwnerName, compOwnerGuid }, entityId, nuid, x, y, rotation, velocity,
+                        filename, health, EntityUtils.isEntityPolymorphed(entityId))
                     local finished, serializedEntity = EntitySerialisationUtils.serializeEntireRootEntity(entityId, nuid, startFrameTime)
                     --local ONLYFORTESTING = EntitySerialisationUtils.deserializeEntireRootEntity(serializedEntity)
                     if finished == true then
@@ -524,7 +529,7 @@ function EntityUtils.processAndSyncEntityNetworking(startFrameTime)
                         -- when executionTime is too long, return the next entityCacheIndex to continue with it
                         --prevEntityIndex = entityIndex + 1
                         EntityCacheUtils.set(entityId, nuid, compOwnerGuid, compOwnerName, filename, x, y, rotation,
-                                            velocity.x, velocity.y, health.current, health.max, finished, serializedEntity)
+                            velocity.x, velocity.y, health.current, health.max, finished, serializedEntity)
                         CustomProfiler.stop("EntityUtils.processAndSyncEntityNetworking", cpc)
                         return -- completely end function, because it took too long
                     end

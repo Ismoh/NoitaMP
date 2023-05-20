@@ -526,12 +526,13 @@ EntitySerialisationUtils.serializeEntityComponents   = function(entityId, startF
     local componentIds = EntityGetAllComponents(entityId)
 
     local _i           = 1
+    local cachedEntity = nil
     if EntityCache.contains(entityId) then
-        local cachedEntity = EntityCache.get(entityId)
+        cachedEntity = EntityCache.get(entityId)
         _i = #cachedEntity.serialisedRootEntity.components or 1
-        for i = 1, #cachedEntity.serialisedRootEntity.components do
-            _i = i
-        end
+        --for i = 1, #cachedEntity.serialisedRootEntity.components do
+        --    _i = i
+        --end
     end
 
     for i = _i, #componentIds do
@@ -591,10 +592,13 @@ EntitySerialisationUtils.serializeEntityComponents   = function(entityId, startF
                     end
                 end
             end
+        else
+            -- we need to store ignored components for stupid lua table size/count
+            components[i]          = {}
         end
 
         local now = GameGetRealWorldTimeSinceStarted()
-        if startFrameTime - now >= EntityUtils.maxExecutionTime then
+        if now - startFrameTime >= EntityUtils.maxExecutionTime then
             -- stop execution, when we are running out of time
             return false, components
         end

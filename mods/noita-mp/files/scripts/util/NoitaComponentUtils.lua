@@ -98,11 +98,12 @@ function NoitaComponentUtils.addOrGetNetworkSpriteStatusIndicator(entityId)
     else
         compId = EntityAddComponent2(entityId, "SpriteComponent", {
             image_file = "mods/noita-mp/files/data/debug/network_indicator_off.png",
+            ui_is_parent = false,
             offset_x = 0,
-            offset_y = 0,
+            offset_y = -3,
             alpha = 1,
             visible = true,
-            z_index = 0.6,
+            z_index = 255,
             update_transform = true,
             special_scale_x = 1,
             special_scale_y = 1

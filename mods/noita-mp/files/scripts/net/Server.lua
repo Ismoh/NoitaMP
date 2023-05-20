@@ -971,14 +971,14 @@ function ServerInit.new(sockServer)
         return sent
     end
 
-    --function self.sendNewNuid(owner, localEntityId, newNuid, x, y, rotation, velocity, filename, health, isPolymorphed)
-    --    local cpc017 = CustomProfiler.start("Server.sendNewNuid")
-    --    local event  = NetworkUtils.events.newNuid.name
-    --    local data   = { NetworkUtils.getNextNetworkMessageId(), owner, localEntityId, newNuid, x, y, rotation, velocity, filename, health, isPolymorphed }
-    --    local sent   = self:sendToAll(event, data)
-    --    CustomProfiler.stop("Server.sendNewNuid", cpc017)
-    --    return sent
-    --end
+    function self.sendNewNuid(owner, localEntityId, newNuid, x, y, rotation, velocity, filename, health, isPolymorphed)
+       local cpc017 = CustomProfiler.start("Server.sendNewNuid")
+       local event  = NetworkUtils.events.newNuid.name
+       local data   = { NetworkUtils.getNextNetworkMessageId(), owner, localEntityId, newNuid, x, y, rotation, velocity, filename, health, isPolymorphed }
+       local sent   = self:sendToAll(event, data)
+       CustomProfiler.stop("Server.sendNewNuid", cpc017)
+       return sent
+    end
 
     function self.sendNewNuidSerialized(ownerName, ownerGuid, entityId, serializedEntity, nuid)
         local cpc026 = CustomProfiler.start("Server.sendNewNuidSerialized")

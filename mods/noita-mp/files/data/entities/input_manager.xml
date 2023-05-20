@@ -1,0 +1,8 @@
+<Entity name="input_manager" tags="input_manager">
+    <ControlsComponent
+        _enabled="1" 
+        enabled="1" 
+    ></ControlsComponent>
+
+    <StreamingKeepAliveComponent/>
+</Entity>
