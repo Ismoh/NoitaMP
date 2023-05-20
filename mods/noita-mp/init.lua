@@ -7,6 +7,7 @@ end
 --- Imports by dofile, dofile_once and require
 dofile("mods/noita-mp/files/scripts/init/init_.lua")
 local ui = require("Ui").new()
+local gui = require("Gui").new()
 Logger.debug(Logger.channels.initialize, "Starting to load noita-mp init.lua..")
 
 --- Stuff needs to be executed before anything else
@@ -117,6 +118,8 @@ end
 function OnWorldPreUpdate()
     local startFrameTime = GameGetRealWorldTimeSinceStarted()
     local cpc = CustomProfiler.start("init.OnWorldPreUpdate")
+
+    gui.update()
 
     OnEntityLoaded()
 
