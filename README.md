@@ -116,6 +116,25 @@ I've added all the necessary build files inside of .building/dll_building.7z and
 
 ## Roadmap
 
+```mermaid
+gantt
+    title NoitaMP Roadmap
+    dateFormat  DD-MM-YYYY
+    section Init
+    Noita API |1|             :done, 10-11-2021, 2d
+    section Networking
+    eNet, lua-enet, sock.lua  :done, 12-11-2021, 21-11-2021
+    3rd Network Rework        :active, 26-02-2023, 14-06-2023
+    section GitHub
+    Workflow actions          :done, 14-12-2021, 1d
+    Workflow actions          :done, 14-12-2021, 1d
+    Workflow actions          :done, 15-12-2021, 1d
+    section TODO
+    need to update it, but no time atm :( :done, 15-12-2021, 26-02-2023
+    section Neo
+    Oracle, Do you think you're the one?! :asd, 14-06-2023, 01-01-2024
+  ```
+
 <div align="center">
 
 ![NoitaMP-Roadmap](.github/NoitaMP-Roadmap.svg)
