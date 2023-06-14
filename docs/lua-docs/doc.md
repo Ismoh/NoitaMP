@@ -19,6 +19,18 @@ SockClient
 
 ClientInit class for creating a new extended instance of SockClient.
 
+
+```lua
+ClientInit
+```
+
+
+---
+
+# ClientInit
+
+ClientInit class for creating a new extended instance of SockClient.
+
 ## new
 
 
@@ -30,13 +42,23 @@ function ClientInit.new(sockClient: SockClient)
 
 ---
 
-# ClientInit
+# CustomProfiler
 
-ClientInit class for creating a new extended instance of SockClient.
+Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 
 
 ```lua
-ClientInit
+CustomProfiler
+```
+
+
+```lua
+CustomProfiler
+```
+
+
+```lua
+CustomProfiler
 ```
 
 
@@ -195,28 +217,6 @@ number
 
 The threshold in milliseconds. If a function takes longer than this threshold, it will be reported.
  Default: 16.5ms = 60.60 fps
-
-
----
-
-# CustomProfiler
-
-Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
-
-
-```lua
-CustomProfiler
-```
-
-
-```lua
-CustomProfiler
-```
-
-
-```lua
-CustomProfiler
-```
 
 
 ---
@@ -1089,6 +1089,8 @@ function GlobalsUtils.setNuid(nuid: any, entityId: any, componentIdForOwnerName:
 
 # Gui
 
+Everything regarding ImGui: Credits to dextercd#7326
+
 ## new
 
 
@@ -1101,14 +1103,6 @@ function Gui.new()
 ---
 
 # GuidUtils
-
- Because of stack overflow errors when loading lua files,
- I decided to put Utils 'classes' into globals
-
-
-```lua
-table
-```
 
 
 ```lua
@@ -1273,6 +1267,18 @@ table
 
 Util class for fetching information about local and remote minas.
 
+
+```lua
+MinaUtils
+```
+
+
+---
+
+# MinaUtils
+
+Util class for fetching information about local and remote minas.
+
 ## getLocalMinaEntityId
 
 
@@ -1344,18 +1350,6 @@ function MinaUtils.setLocalMinaName(name: string)
 ```
 
 Setter for local mina name. It also saves it to settings file.
-
-
----
-
-# MinaUtils
-
-Util class for fetching information about local and remote minas.
-
-
-```lua
-MinaUtils
-```
 
 
 ---
@@ -2244,52 +2238,39 @@ function NoitaComponentUtils.setNetworkSpriteIndicatorStatus(entityId: number, s
 # NoitaMpSettings
 
  NoitaMpSettings: Replacement for Noita ModSettings.
- @classmod NoitaMpSettings
 
 
 ```lua
-table
-```
-
-
-```lua
-table
-```
-
-
-```lua
-table
+NoitaMpSettings
 ```
 
 
 ---
 
-# NoitaMpSettings.clearAndCreateSettings
+# NoitaMpSettings
+
+ NoitaMpSettings: Replacement for Noita ModSettings.
+
+## clearAndCreateSettings
 
 
 ```lua
 function NoitaMpSettings.clearAndCreateSettings()
 ```
 
-
----
-
-# NoitaMpSettings.getSetting
+## get
 
 
 ```lua
-function NoitaMpSettings.getSetting(key: any)
-  -> unknown
+function NoitaMpSettings.get(key: any)
+  -> string
 ```
 
-
----
-
-# NoitaMpSettings.writeSettings
+## set
 
 
 ```lua
-function NoitaMpSettings.writeSettings(key: any, value: any)
+function NoitaMpSettings.set(key: any, value: any)
   -> unknown
 ```
 
@@ -2368,6 +2349,16 @@ function OnEntityRemoved(entityId: any, nuid: any)
 
 ---
 
+# OnWorldInitialized
+
+
+```lua
+function OnWorldInitialized()
+```
+
+
+---
+
 # PlayerNameFunction
 
 
@@ -2403,6 +2394,26 @@ SockServer
 
 ```lua
 SockServer
+```
+
+
+---
+
+# Server.address
+
+
+```lua
+unknown
+```
+
+
+---
+
+# Server.port
+
+
+```lua
+unknown
 ```
 
 
@@ -5696,6 +5707,23 @@ Loads the given module, returns any value returned by the searcher(`true` when `
 function require(modname: string)
   -> unknown
   2. loaderdata: unknown
+```
+
+
+---
+
+# run_count
+
+ https://github.com/dextercd/Noita-Component-Explorer/blob/main/component-explorer/entities/imgui_warning.lua
+
+
+```lua
+integer
+```
+
+
+```lua
+unknown
 ```
 
 
