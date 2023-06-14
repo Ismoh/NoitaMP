@@ -519,10 +519,15 @@ function EntityUtils.processAndSyncEntityNetworking(startFrameTime)
                     end
                     Server.sendNewNuid({ compOwnerName, compOwnerGuid }, entityId, nuid, x, y, rotation, velocity,
                         filename, health, EntityUtils.isEntityPolymorphed(entityId))
-                    local finished, serializedEntity = EntitySerialisationUtils.serializeEntireRootEntity(entityId, nuid, startFrameTime)
+                    --local finished, serializedEntity = EntitySerialisationUtils.serializeEntireRootEntity(entityId, nuid, startFrameTime)
                     --local ONLYFORTESTING = EntitySerialisationUtils.deserializeEntireRootEntity(serializedEntity)
+                    local serializedEntityString = NoitaPatcherUtils.serializeEntity(entityId)
+                    local finished               = false
+                    if not Utils.IsEmpty(serializedEntityString) then
+                        finished = true
+                    end
                     if finished == true then
-                        Server.sendNewNuidSerialized(compOwnerName, compOwnerGuid, entityId, serializedEntity, nuid)
+                        Server.sendNewNuidSerialized(compOwnerName, compOwnerGuid, entityId, serializedEntityString, nuid)
                     else
                         Logger.warn(Logger.channels.entity,
                             "EntitySerialisationUtils.serializeEntireRootEntity took too long. Breaking loop by returning entityId.")

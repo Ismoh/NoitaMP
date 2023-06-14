@@ -664,7 +664,7 @@ end
 -- @tparam function deserialize The deserialization function to use.
 -- @usage
 --bitser = require "bitser" -- or any library you like
---server = sock.newServer("localhost", 22122)
+--server = sock.newServer("localhost", 1337)
 --server:setSerialization(bitser.dumps, bitser.loads)
 function Server:setSerialization(serialize, deserialize)
     assert(type(serialize) == "function", "Serialize must be a function, got: '" .. type(serialize) .. "'")
@@ -1213,7 +1213,7 @@ end
 -- @tparam function deserialize The deserialization function to use.
 -- @usage
 --bitser = require "bitser" -- or any library you like
---client = sock.newClient("localhost", 22122)
+--client = sock.newClient("localhost", 1337)
 --client:setSerialization(bitser.dumps, bitser.loads)
 function Client:setSerialization(serialize, deserialize)
     assert(type(serialize) == "function", "Serialize must be a function, got: '" .. type(serialize) .. "'")
@@ -1406,7 +1406,7 @@ end
 
 --- Creates a new Server object.
 -- @tparam ?string address Hostname or IP address to bind to. (default: "localhost")
--- @tparam ?number port Port to listen to for data. (default: 22122)
+-- @tparam ?number port Port to listen to for data. (default: 1337)
 -- @tparam ?number maxPeers Maximum peers that can connect to the server. (default: 64)
 -- @tparam ?number maxChannels Maximum channels available to send and receive data. (default: 1)
 -- @tparam ?number inBandwidth Maximum incoming bandwidth (default: 0)
@@ -1417,26 +1417,26 @@ end
 -- @usage
 --local sock = require "sock"
 --
--- -- Local server hosted on localhost:22122 (by default)
+-- -- Local server hosted on localhost:1337 (by default)
 --server = sock.newServer()
 --
 -- -- Local server only, on port 1234
 --server = sock.newServer("localhost", 1234)
 --
--- -- Server hosted on static IP 123.45.67.89, on port 22122
---server = sock.newServer("123.45.67.89", 22122)
+-- -- Server hosted on static IP 123.45.67.89, on port 1337
+--server = sock.newServer("123.45.67.89", 1337)
 --
--- -- Server hosted on any IP, on port 22122
---server = sock.newServer("*", 22122)
+-- -- Server hosted on any IP, on port 1337
+--server = sock.newServer("*", 1337)
 --
 -- -- Limit peers to 10, channels to 2
---server = sock.newServer("*", 22122, 10, 2)
+--server = sock.newServer("*", 1337, 10, 2)
 --
 -- -- Limit incoming/outgoing bandwidth to 1kB/s (1000 bytes/s)
---server = sock.newServer("*", 22122, 10, 2, 1000, 1000)
+--server = sock.newServer("*", 1337, 10, 2, 1000, 1000)
 sock.newServer = function(address, port, maxPeers, maxChannels, inBandwidth, outBandwidth)
     address         = address or "localhost"
-    port            = port or 22122
+    port            = port or 1337
     maxPeers        = maxPeers or 64
     maxChannels     = maxChannels or 1
     inBandwidth     = inBandwidth or 0
@@ -1493,7 +1493,7 @@ end
 
 --- Creates a new Client instance.
 -- @tparam ?string/peer serverOrAddress Usually the IP address or hostname to connect to. It can also be an enet peer. (default: "localhost")
--- @tparam ?number port Port number of the server to connect to. (default: 22122)
+-- @tparam ?number port Port number of the server to connect to. (default: 1337)
 -- @tparam ?number maxChannels Maximum channels available to send and receive data. (default: 1)
 -- @return A new Client object.
 -- @see Client
@@ -1501,7 +1501,7 @@ end
 -- @usage
 --local sock = require "sock"
 --
--- -- Client that will connect to localhost:22122 (by default)
+-- -- Client that will connect to localhost:1337 (by default)
 --client = sock.newClient()
 --
 -- -- Client that will connect to localhost:1234
@@ -1517,7 +1517,7 @@ end
 ---@return SockClient client
 sock.newClient = function(serverOrAddress, port, maxChannels)
     serverOrAddress = serverOrAddress or "localhost"
-    port            = port or 22122
+    port            = port or 1337
     maxChannels     = maxChannels or 1
 
     local client    = setmetatable({

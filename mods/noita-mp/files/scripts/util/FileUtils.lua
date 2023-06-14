@@ -259,6 +259,11 @@ function FileUtils.GetAbsolutePathOfNoitaMpSettingsDirectory()
     return FileUtils.GetAbsoluteDirectoryPathOfNoitaMP() .. pathSeparator .. "settings"
 end
 
+function FileUtils.GetRelativePathOfNoitaMpSettingsDirectory()
+    return FileUtils.GetRelativeDirectoryPathOfNoitaMP() .. pathSeparator .. "settings"
+end
+
+
 
 --- File and Directory checks, writing and reading
 

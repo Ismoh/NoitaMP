@@ -16,7 +16,7 @@ local localMinaGuid = nil
 ---@param name string
 function MinaUtils.setLocalMinaName(name)
     localMinaName = name
-    NoitaMpSettings.set("name", localMinaName)
+    NoitaMpSettings.set("noita-mp.nickname", localMinaName)
 end
 
 ---Getter for local mina name. ~It also loads it from settings file.~
@@ -32,7 +32,7 @@ end
 ---@param guid string
 function MinaUtils.setLocalMinaGuid(guid)
     localMinaGuid = guid
-    NoitaMpSettings.set("guid", localMinaGuid)
+    NoitaMpSettings.set("noita-mp.guid", localMinaGuid)
 end
 
 ---Getter for local mina guid. ~It also loads it from settings file.~

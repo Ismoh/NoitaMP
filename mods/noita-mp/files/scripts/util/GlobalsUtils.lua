@@ -20,7 +20,7 @@ else
     if not CustomProfiler then
         ---@type CustomProfiler
         CustomProfiler       = {}
-        
+
         ---@diagnostic disable-next-line: duplicate-doc-alias
         ---@alias CustomProfiler.start function(functionName: string): number
         ---@diagnostic disable-next-line: duplicate-set-field
@@ -154,11 +154,20 @@ function GlobalsUtils.getNuidEntityPair(nuid)
     return nuidGlobals, entityIdGlobals
 end
 
--- Because of stack overflow errors when loading lua files,
--- I decided to put Utils 'classes' into globals
-_G.GlobalsUtils = GlobalsUtils
+function GlobalsUtils.setUpdateGui(bool)
+    local cpc = CustomProfiler.start("GlobalsUtils.getUpdateGui")
+    local key = "updateGui"
+    local value = GlobalsSetValue(key, tostring(bool))
+    CustomProfiler.stop("GlobalsUtils.getUpdateGui", cpc)
+    return value
+end
 
--- But still return for Noita Components,
--- which does not have access to _G,
--- because of own context/vm
+function GlobalsUtils.getUpdateGui()
+    local cpc = CustomProfiler.start("GlobalsUtils.getUpdateGui")
+    local key = "updateGui"
+    local value = GlobalsGetValue(key)
+    CustomProfiler.stop("GlobalsUtils.getUpdateGui", cpc)
+    return value
+end
+
 return GlobalsUtils

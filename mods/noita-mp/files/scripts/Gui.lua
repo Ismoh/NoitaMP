@@ -18,7 +18,7 @@ local imGui = load_imgui({ version = "1.10.0", mod = "noita-mp" })
 
 --- Can't know the width before creating the window.. Just an initial value, it's updated to the real value once we can call imgui.GetWindowWidth()
 local menuBarWidth = 100
-local function getMenuBarPosition()
+local function getMenuBarPosition(position)
     local cpc = CustomProfiler.start("Gui.getMenuBarPosition")
 
     local menuBarHeight = imGui.GetFontSize() + 2 * imGui.GetStyle().FramePadding_y
@@ -30,16 +30,20 @@ local function getMenuBarPosition()
 
     local rx, ry
 
-    local side = "top"
+    local side = position
 
-    if side == "top" then
-        ry = 0
-    elseif side == "bottom" then
-        ry = 1
-    elseif side == "left" then
+    if side == "top-left" then
         rx = 0
-    elseif side == "right" then
+        ry = 0
+    elseif side == "top-right" then
         rx = 1
+        ry = 0
+    elseif side == "bottom-left" then
+        rx = 0
+        ry = 1
+    elseif side == "bottom-right" then
+        rx = 1
+        ry = 1
     end
 
     local roffset = 0
@@ -53,7 +57,7 @@ local function getMenuBarPosition()
     local vx, vy = imGui.GetMainViewportWorkPos()
 
     CustomProfiler.stop("Gui.getMenuBarPosition", cpc)
-    return vx + aw * rx - 2, vy + ah * ry
+    return vx + aw * rx - 2, vy + ah * ry + 20
 end
 
 local function tooltipHelper(tooltip)
@@ -78,19 +82,28 @@ function Gui.new()
     local cpc = CustomProfiler.start("Gui.new")
     local self = {}
     self.shortcuts = {
-        about     = "CTRL + A",
-        bugReport = "CTRL + B",
-        play      = "CTRL + P",
-        settings  = "CTRL + S",
+        about     = "CTRL + ALT + A",
+        bugReport = "CTRL + ALT + B",
+        play      = "CTRL + ALT + P",
+        settings  = "CTRL + ALT + S",
     }
     self.menuBarLabel = "NoitaMP"
+    self.menuBarPosition = "top-left"
     self.playLabel = "NoitaMp - Play"
     self.settingsLabel = "NoitaMp - Settings"
     self.aboutLabel = "NoitaMp - About"
     self.showFirstTime = true
     self.showPlayMenu = false
     self.showSettings = false
+    self.showSettingsSaved = false
     self.showAbout = false
+
+    function self.setShowSettingsSaved(show)
+        self.showSettingsSaved = show
+        if show then
+            showSettingsSavedTimer = GameGetRealWorldTimeSinceStarted()
+        end
+    end
 
     function self.update()
         local cpcUpdate = CustomProfiler.start("Gui.update")
@@ -136,7 +149,7 @@ function Gui.new()
         )
 
         imGui.SetNextWindowViewport(imGui.GetMainViewportID())
-        imGui.SetNextWindowPos(getMenuBarPosition())
+        imGui.SetNextWindowPos(getMenuBarPosition(self.menuBarPosition))
         imGui.SetNextWindowSize(0, 0)
 
         if imGui.Begin(self.menuBarLabel, nil, windowFlags) then
@@ -260,6 +273,16 @@ function Gui.new()
                 if isServerIpChanged then
                     Server.address = serverIp
                 end
+                local isServerPortChanged, serverPort = imGui.InputTextWithHint("Server Port", "Use '1 - 65535'!", tostring(Client:getPort()))
+                if isServerPortChanged then
+                    Client.port = serverPort
+                end
+
+                imGui.Separator()
+                if imGui.Button("Join Server..") then
+                    Client.connect(serverIp, serverPort)
+                    self.showPlayMenu = false
+                end
             end
             imGui.End()
         end
@@ -267,6 +290,8 @@ function Gui.new()
         CustomProfiler.stop("Gui.drawPlayMenu", cpc)
     end
 
+    local base = 1
+    local showSettingsSavedTimer = 10
     function self.drawSettings()
         local cpc = CustomProfiler.start("Gui.drawSettings")
 
@@ -284,14 +309,88 @@ function Gui.new()
         local isCollapsed
         isCollapsed, self.showSettings = imGui.Begin(self.settingsLabel, self.showSettings, windowFlags)
         if isCollapsed then
+            -- Basic settings
+            imGui.Text("Basic Settings:")
+
             -- Player name
-            local isPlayerNameChanged, _playerName = imGui.InputTextWithHint("Name", "Type in your Nickname!", MinaUtils.getLocalMinaName())
+            local isPlayerNameChanged, playerName = imGui.InputTextWithHint("Nickname", "Type in your Nickname!", MinaUtils.getLocalMinaName())
             if isPlayerNameChanged then
-                MinaUtils.setLocalMinaName(_playerName)
+                MinaUtils.setLocalMinaName(playerName)
+            end
+            -- Guid
+            imGui.LabelText("Guid", MinaUtils.getLocalMinaGuid())
+
+            -- Gui settings
+            imGui.Separator()
+            imGui.Text("Gui Settings:")
+            if imGui.BeginCombo("NoitaMP position", self.menuBarPosition) then
+                if imGui.Selectable("Top left", self.menuBarPosition == "top-left") then
+                    self.menuBarPosition = "top-left"
+                    NoitaMpSettings.set("noita-mp.gui.position", self.menuBarPosition)
+                end
+                if imGui.Selectable("Top right", self.menuBarPosition == "top-right") then
+                    self.menuBarPosition = "top-right"
+                    NoitaMpSettings.set("noita-mp.gui.position", self.menuBarPosition)
+                end
+                if imGui.Selectable("Bottom left", self.menuBarPosition == "bottom-left") then
+                    self.menuBarPosition = "bottom-left"
+                    NoitaMpSettings.set("noita-mp.gui.position", self.menuBarPosition)
+                end
+                if imGui.Selectable("Bottom right", self.menuBarPosition == "bottom-right") then
+                    self.menuBarPosition = "bottom-right"
+                    NoitaMpSettings.set("noita-mp.gui.position", self.menuBarPosition)
+                end
+                imGui.EndCombo()
             end
 
-            -- Guid
-            imGui.Text(("Guid: %s"):format(MinaUtils.getLocalMinaGuid()))
+            -- Logger settings
+            imGui.Separator()
+            imGui.Text("Logger Settings:")
+
+            -- Advanced settings
+            imGui.Separator()
+            imGui.Text("Advanced Settings:")
+
+            -- Entity detection radius
+            local sliderFlags = bit.bor(
+                imGui.SliderFlags.AlwaysClamp,
+                imGui.SliderFlags.Logarithmic,
+                imGui.SliderFlags.NoRoundToFormat
+            )
+            local isEntityDetectionRadiusChanged, entityDetectionRadius = imGui.SliderInt("Entity detection radius",
+                NoitaMpSettings.get("noita-mp.entity-detection-radius", "number"), 350, 1024, "%d", sliderFlags);
+            imGui.SameLine()
+            tooltipHelper("'CTRL + Click' to input value.");
+            if isEntityDetectionRadiusChanged then
+                NoitaMpSettings.set("noita-mp.entity-detection-radius", entityDetectionRadius)
+            end
+            -- Tick rate
+            local tickRate = NoitaMpSettings.get("noita-mp.tick-rate", "number")
+            local isTickRateChanged, _base = imGui.SliderInt("Tick rate", base, 1, 8, "%d", sliderFlags);
+            if isTickRateChanged then
+                base = _base
+                tickRate = math.pow(2, base - 1) -- https://www.wolframalpha.com/input?i2d=true&i=Power%5B2%2Cn-1%5D
+                NoitaMpSettings.set("noita-mp.tick-rate", tickRate)
+            end
+            imGui.SameLine()
+            imGui.Text(("= %s"):format(tickRate))
+            imGui.SameLine()
+            tooltipHelper("'CTRL + Click' to input value.");
+
+            -- Save settings
+            if imGui.Button("Save Settings") then
+                NoitaMpSettings.save()
+                NetworkVscUtils.addOrUpdateAllVscs(MinaUtils.getLocalMinaEntityId(), MinaUtils.getLocalMinaName(), MinaUtils.getLocalMinaGuid())
+                GlobalsUtils.setUpdateGui(true)
+            end
+            if self.showSettingsSaved then
+                imGui.SameLine()
+                imGui.Text(("Saved into '%s'!"):format(FileUtils.GetRelativePathOfNoitaMpSettingsDirectory()))
+                if GameGetRealWorldTimeSinceStarted() >= showSettingsSavedTimer + 10 then
+                    self.showSettingsSaved = false
+                    showSettingsSavedTimer = GameGetRealWorldTimeSinceStarted()
+                end
+            end
             imGui.End()
         end
 
@@ -353,7 +452,16 @@ function Gui.new()
     function self.checkShortcuts()
         local cpc = CustomProfiler.start("Gui.checkShortcuts")
 
+        if imGui.IsKeyDown(imGui.Key.LeftShift) then
+            -- make sure that there are no ComponentExplorer shortcut conflicts
+            return
+        end
+
         if not imGui.IsKeyDown(imGui.Key.LeftCtrl) then
+            return
+        end
+
+        if not imGui.IsKeyDown(imGui.Key.LeftAlt) then
             return
         end
 

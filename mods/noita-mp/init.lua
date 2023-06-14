@@ -7,7 +7,6 @@ end
 --- Imports by dofile, dofile_once and require
 dofile("mods/noita-mp/files/scripts/init/init_.lua")
 local ui = require("Ui").new()
-local gui = require("Gui").new()
 Logger.debug(Logger.channels.initialize, "Starting to load noita-mp init.lua..")
 
 --- Stuff needs to be executed before anything else
@@ -15,9 +14,8 @@ FileUtils.SetAbsolutePathOfNoitaRootDirectory()
 NoitaMpSettings.clearAndCreateSettings()
 -- Is used to stop Noita pausing game, when focus is gone (tab out game)
 ModMagicNumbersFileAdd("mods/noita-mp/files/data/magic_numbers.xml")
-FileUtils.Find7zipExecutable()
+--FileUtils.Find7zipExecutable()
 local saveSlotsLastModifiedBeforeWorldInit = FileUtils.GetLastModifiedSaveSlots()
-
 
 --- NoitaMP functions
 
@@ -119,7 +117,7 @@ function OnWorldPreUpdate()
     local startFrameTime = GameGetRealWorldTimeSinceStarted()
     local cpc = CustomProfiler.start("init.OnWorldPreUpdate")
 
-    gui.update()
+    guiI.update()
 
     OnEntityLoaded()
 

@@ -120,9 +120,9 @@ local NoitaApiModSettingGetNextValue           = ModSettingGetNextValue
 
 ModSettingSet                                  = function(id, value)
     if id:contains("noita-mp") then
-        error("Get rid off ModSettings!", 2)
+        --error("Get rid off ModSettings!", 2)
     end
-    if id == "noita-mp.name" then
+    if id == "noita-mp.nickname" then
         MinaUtils.setLocalMinaName(value)
     end
     if id == "noita-mp.guid" then
@@ -133,9 +133,9 @@ end
 
 ModSettingGet                                  = function(id)
     if id:contains("noita-mp") then
-        error("Get rid off ModSettings!", 2)
+        --error("Get rid off ModSettings!", 2)
     end
-    if id == "noita-mp.name" then
+    if id == "noita-mp.nickname" then
         local name = MinaUtils.getLocalMinaName()
         if not Utils.IsEmpty(name) then
             return name
@@ -160,9 +160,9 @@ end
 
 ModSettingSetNextValue                         = function(id, value, is_default)
     if id:contains("noita-mp") then
-        error("Get rid off ModSettings!", 2)
+        --error("Get rid off ModSettings!", 2)
     end
-    if id == "noita-mp.name" then
+    if id == "noita-mp.nickname" then
         name = value
     end
     if id == "noita-mp.guid" then
@@ -173,9 +173,9 @@ end
 
 ModSettingGetNextValue                         = function(id)
     if id:contains("noita-mp") then
-        error("Get rid off ModSettings!", 2)
+        --error("Get rid off ModSettings!", 2)
     end
-    if id == "noita-mp.name" and name then
+    if id == "noita-mp.nickname" and name then
         local name = MinaUtils.getLocalMinaName()
         if not Utils.IsEmpty(name) then
             return name
