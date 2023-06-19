@@ -120,8 +120,41 @@ I've added all the necessary build files inside of .building/dll_building.7z and
 
 ## Roadmap
 
+```mermaid
+gantt
+    title NoitaMP Roadmap
+    dateFormat  DD-MM-YYYY
+    section Init
+    Noita API |1|             :done, 10-11-2021, 2d
+    section Networking
+    eNet, lua-enet, sock.lua  :done, 12-11-2021, 21-11-2021
+    3rd Network Rework        :active, 26-02-2023, 14-06-2023
+    section GitHub
+    Workflow actions          :done, 14-12-2021, 1d
+    Workflow actions          :done, 14-12-2021, 1d
+    Workflow actions          :done, 15-12-2021, 1d
+    section TODO
+    need to update it, but no time atm :( :done, 15-12-2021, 26-02-2023
+    section Neo
+    Oracle, Do you think you're the one?! :asd, 14-06-2023, 01-01-2024
+  ```
+
 <div align="center">
 
 ![NoitaMP-Roadmap](.github/NoitaMP-Roadmap.svg)
 
 </div>
+
+## [![Repography logo](https://images.repography.com/logo.svg)](https://repography.com) / Recent activity [![Time period](https://images.repography.com/36027144/Ismoh/NoitaMP/recent-activity/jAELA8Z3rdlroh0bPJvficEtziU3iyDdNnTghMkIcw0/_530-g9qI7Ne9TS6ZHbAFiMyTtIpN5ijgQKz3hwdxrU_badge.svg)](https://repography.com)
+
+[![Timeline graph](https://images.repography.com/36027144/Ismoh/NoitaMP/recent-activity/jAELA8Z3rdlroh0bPJvficEtziU3iyDdNnTghMkIcw0/_530-g9qI7Ne9TS6ZHbAFiMyTtIpN5ijgQKz3hwdxrU_timeline.svg)](https://github.com/Ismoh/NoitaMP/commits)
+
+[![Issue status graph](https://images.repography.com/36027144/Ismoh/NoitaMP/recent-activity/jAELA8Z3rdlroh0bPJvficEtziU3iyDdNnTghMkIcw0/_530-g9qI7Ne9TS6ZHbAFiMyTtIpN5ijgQKz3hwdxrU_issues.svg)](https://github.com/Ismoh/NoitaMP/issues)
+
+[![Pull request status graph](https://images.repography.com/36027144/Ismoh/NoitaMP/recent-activity/jAELA8Z3rdlroh0bPJvficEtziU3iyDdNnTghMkIcw0/_530-g9qI7Ne9TS6ZHbAFiMyTtIpN5ijgQKz3hwdxrU_prs.svg)](https://github.com/Ismoh/NoitaMP/pulls)
+
+[![Trending topics](https://images.repography.com/36027144/Ismoh/NoitaMP/recent-activity/jAELA8Z3rdlroh0bPJvficEtziU3iyDdNnTghMkIcw0/_530-g9qI7Ne9TS6ZHbAFiMyTtIpN5ijgQKz3hwdxrU_words.svg)](https://github.com/Ismoh/NoitaMP/commits)
+
+[![Top contributors](https://images.repography.com/36027144/Ismoh/NoitaMP/recent-activity/jAELA8Z3rdlroh0bPJvficEtziU3iyDdNnTghMkIcw0/_530-g9qI7Ne9TS6ZHbAFiMyTtIpN5ijgQKz3hwdxrU_users.svg)](https://github.com/Ismoh/NoitaMP/graphs/contributors)
+
+[![Activity map](https://images.repography.com/36027144/Ismoh/NoitaMP/recent-activity/jAELA8Z3rdlroh0bPJvficEtziU3iyDdNnTghMkIcw0/_530-g9qI7Ne9TS6ZHbAFiMyTtIpN5ijgQKz3hwdxrU_map.svg)](https://github.com/Ismoh/NoitaMP/commits)
