@@ -66,6 +66,8 @@ jobs:
           )
       
       - name: Fix LuaRocks bug
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "github-actions"
@@ -76,6 +78,8 @@ jobs:
           cat config-5.1.lua
 
       - name: Update LuaRocks
+        # env:
+        #   GH_TOKEN: ${{ github.token }}
         shell: cmd
         run: |
           git config --local user.email "action@github.com"
@@ -88,7 +92,9 @@ jobs:
           
           git commit -m "Update LuaRocks dependencies" -a || echo "No changes to commit"
 
-      - name: Update noitapatcher
+      - name: Update NoitaPatcher
+        env:
+          GH_TOKEN: ${{ github.token }} 
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "github-actions"
@@ -120,7 +126,9 @@ jobs:
 
           git commit -m "Update NoitaPatcher dependencies" -a || echo "No changes to commit"
 
-      - name: Update nsew
+      - name: Update NSEW
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "github-actions"
@@ -156,6 +164,8 @@ jobs:
           git commit -m "Update nsew dependencies" -a || echo "No changes to commit"
 
       - name: Push changes
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "github-actions"
