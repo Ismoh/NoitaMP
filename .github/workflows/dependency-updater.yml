@@ -8,15 +8,45 @@ jobs:
   update-dependencies:
     strategy:
       matrix:
-        dependency: [luarocks, noitapatcher, nsew]
-        destination: ["", mods\noita-mp\lua_modules, mods\noita-mp\lua_modules]
+        dependency: [
+          luarocks,
+          dextercd/NoitaPatcher,
+          dextercd/Noita-Synchronise-Expansive-Worlds
+          ]
+        command: [
+          call "C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Auxiliary\Build\vcvarsall.bat" x86 10.0.22000.0 -vcvars_ver=14 && luarocks install --only-deps noita-mp-3.0.0-3.rockspec,
+          gh release download --repo dextercd/NoitaPatcher --pattern "*.zip" --dir "{{ github.workspace }}\temp",
+          gh release download --repo dextercd/Noita-Synchronise-Expansive-Worlds --pattern "*.zip" --dir "{{ github.workspace }}\temp"
+          ]
+        LUA_BINDIR: [
+          ${{ github.workspace }}\mods\noita-mp\lua_modules\bin\lua\5.1,
+          ${{ github.workspace }}\mods\noita-mp\lua_modules\bin\lua\5.1,
+          ${{ github.workspace }}\mods\noita-mp\lua_modules\bin\lua\5.1
+          ]
+        LUA_LIBDIR: [
+          ${{ github.workspace }}\mods\noita-mp\lua_modules\lib\lua\5.1,
+          ${{ github.workspace }}\mods\noita-mp\lua_modules\lib\lua\5.1\noitapatcher.dll,
+          ${{ github.workspace }}\mods\noita-mp\lua_modules\lib\lua\5.1\nsew_native.dll
+          ]
+        LUA_INCDIR: [
+          ${{ github.workspace }}\mods\noita-mp\lua_modules\share\lua\5.1,
+          ${{ github.workspace }}\.debug\lua-definitions,
+          ${{ github.workspace }}\mods\noita-mp\lua_modules\share\lua\5.1\nsew
+          ]        
+
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
 
+      - name: Update ${{ matrix.dependency }}
+        run: |
+          ${{ matrix.command }}
+          git commit -m "Update ${{ matrix.dependency }} dependency" -a || echo "No changes to commit"
+
       - name: Update LuaRocks
         run: |
           call "C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Auxiliary\Build\vcvarsall.bat" x86 10.0.22000.0 -vcvars_ver=14 && luarocks install --only-deps noita-mp-3.0.0-3.rockspec
+          git commit -m "Update LuaRocks dependencies" -a || echo "No changes to commit"
 
       - name: Update noitapatcher
         run: |
@@ -33,7 +63,7 @@ jobs:
           $releaseCreatedAt = [Datetime]$releaseCreatedAt
 
           if ($lastModifiedDate -lt $releaseCreatedAt) {
-            echo "Noitapatcher is up to date"
+            echo "NoitaPatcher is up to date"
             exit 0
           } else {
             git checkout -b dependency-updates master || git checkout dependency-updates
@@ -42,5 +72,41 @@ jobs:
 
           Expand-Archive -Path "{{ github.workspace }}\temp\*.zip" -DestinationPath "{{ github.workspace }}\temp"
           Copy-Item -Path "{{ github.workspace }}\temp\noitapatcher.dll" -Destination $noitaptacherPath -Force
-          Copy-Item -Path "{{ github.workspace }}\temp\modules\noitapatcher.lua" -Destination "{{ github.workspace }}\mods\noita-mp\lua_modules\lib\lua\5.1" -Force
+          Copy-Item -Path "{{ github.workspace }}\temp\modules\noitapatcher.lua" -Destination "{{ github.workspace }}\.debug\lua-definitions" -Force
           Remove-Item -Path "{{ github.workspace }}\temp" -Recurse -Force
+
+          git commit -m "Update NoitaPatcher dependencies" -a || echo "No changes to commit"
+
+    - name: Update nsew
+        run: |
+          $nsewPath = "{{ github.workspace }}\mods\noita-mp\lua_modules\lib\lua\5.1\nsew_native.dll"
+
+          if (Test-Path $neswPath) {
+            $lastModifiedDate = (Get-Item $nsewPath).CreationTime.ToString("yyyy-MM-ddThh:mm:ssZ")
+          } else {
+            $lastModifiedDate = "2021-11-10T00:00:00Z"
+          }
+          $lastModifiedDate = [Datetime]::ParseExact($lastModifiedDate, "yyyy-MM-ddThh:mm:ssZ", $null)
+
+          $releaseCreatedAt = gh release view --repo dextercd/Noita-Synchronise-Expansive-Worlds --json createdAt --jq .createdAt
+          $releaseCreatedAt = [Datetime]$releaseCreatedAt
+
+          if ($lastModifiedDate -lt $releaseCreatedAt) {
+            echo "Noita-Synchronise-Expansive-Worlds is up to date"
+            exit 0
+          } else {
+            git checkout -b dependency-updates master || git checkout dependency-updates
+            gh release download --repo dextercd/Noita-Synchronise-Expansive-Worlds --pattern "*.zip" --dir "{{ github.workspace }}\temp"
+          }
+
+          Expand-Archive -Path "{{ github.workspace }}\temp\*.zip" -DestinationPath "{{ github.workspace }}\temp"
+          Copy-Item -Path "{{ github.workspace }}\temp\nsew\nsew_native.dll" -Destination $nsewPath -Force
+          Copy-Item -Path "{{ github.workspace }}\temp\nsew\*.lua" -Destination "{{ github.workspace }}\mods\noita-mp\lua_modules\share\lua\5.1\nsew" -Force
+          Remove-Item -Path "{{ github.workspace }}\temp" -Recurse -Force
+
+          git commit -m "Update nsew dependencies" -a || echo "No changes to commit"
+
+    - name: Push changes
+      run: |
+        git push origin dependency-updates
+        gh pr create --title "Update dependencies" --body "This PR was automatically created by the dependency updater workflow. Resolves #117" --base master --head dependency-updates || echo "PR already exists"
