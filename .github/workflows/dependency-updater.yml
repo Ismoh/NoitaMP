@@ -1,0 +1,46 @@
+name: Update dependecies now and then
+on:
+  schedule:
+    # Weekly on saturday
+    - cron: "0 0 * * 6"
+
+jobs:
+  update-dependencies:
+    strategy:
+      matrix:
+        dependency: [luarocks, noitapatcher, nsew]
+        destination: ["", mods\noita-mp\lua_modules, mods\noita-mp\lua_modules]
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Update LuaRocks
+        run: |
+          call "C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Auxiliary\Build\vcvarsall.bat" x86 10.0.22000.0 -vcvars_ver=14 && luarocks install --only-deps noita-mp-3.0.0-3.rockspec
+
+      - name: Update noitapatcher
+        run: |
+          $noitaptacherPath = "{{ github.workspace }}\mods\noita-mp\lua_modules\lib\lua\5.1\noitapatcher.dll"
+
+          if (Test-Path $noitaptacherPath) {
+            $lastModifiedDate = (Get-Item $noitapatcherPath).CreationTime.ToString("yyyy-MM-ddThh:mm:ssZ")
+          } else {
+            $lastModifiedDate = "2021-11-10T00:00:00Z"
+          }
+          $lastModifiedDate = [Datetime]::ParseExact($lastModifiedDate, "yyyy-MM-ddThh:mm:ssZ", $null)
+
+          $releaseCreatedAt = gh release view --repo dextercd/NoitaPatcher --json createdAt --jq .createdAt
+          $releaseCreatedAt = [Datetime]$releaseCreatedAt
+
+          if ($lastModifiedDate -lt $releaseCreatedAt) {
+            echo "Noitapatcher is up to date"
+            exit 0
+          } else {
+            git checkout -b dependency-updates master || git checkout dependency-updates
+            gh release download --repo dextercd/NoitaPatcher --pattern "*.zip" --dir "{{ github.workspace }}\temp"
+          }
+
+          Expand-Archive -Path "{{ github.workspace }}\temp\*.zip" -DestinationPath "{{ github.workspace }}\temp"
+          Copy-Item -Path "{{ github.workspace }}\temp\noitapatcher.dll" -Destination $noitaptacherPath -Force
+          Copy-Item -Path "{{ github.workspace }}\temp\modules\noitapatcher.lua" -Destination "{{ github.workspace }}\mods\noita-mp\lua_modules\lib\lua\5.1" -Force
+          Remove-Item -Path "{{ github.workspace }}\temp" -Recurse -Force
