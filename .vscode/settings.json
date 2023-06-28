@@ -54,5 +54,8 @@
   },
   "[c]": {
     "editor.defaultFormatter": "ms-vscode.cpptools"
+  },
+  "yaml.schemas": {
+    "https://json.schemastore.org/github-workflow.json": "file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/.github/workflows/dependency-updater.yml"
   }
 }

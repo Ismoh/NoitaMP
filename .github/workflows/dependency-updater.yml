@@ -58,7 +58,7 @@ jobs:
 
           git commit -m "Update NoitaPatcher dependencies" -a || echo "No changes to commit"
 
-    - name: Update nsew
+      - name: Update nsew
         run: |
           $nsewPath = "{{ github.workspace }}\mods\noita-mp\lua_modules\lib\lua\5.1\nsew_native.dll"
 
@@ -87,7 +87,7 @@ jobs:
 
           git commit -m "Update nsew dependencies" -a || echo "No changes to commit"
 
-    - name: Push changes
-      run: |
-        git push origin dependency-updates
-        gh pr create --title "Update dependencies" --body "This PR was automatically created by the dependency updater workflow. Resolves #117" --base master --head dependency-updates || echo "PR already exists"
+      - name: Push changes
+        run: |
+          git push origin dependency-updates
+          gh pr create --title "Update dependencies" --body "This PR was automatically created by the dependency updater workflow. Resolves #117" --base master --head dependency-updates || echo "PR already exists"
