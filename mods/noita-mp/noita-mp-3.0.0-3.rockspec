@@ -11,7 +11,6 @@ description     = {
 dependencies    = {
     "lua ~> 5.1",
     "luafilesystem = 1.8.0-1",
-    "luafilesystem-ffi = scm-1",
     "luaunit = 3.4-1",
 }
 build           = {
