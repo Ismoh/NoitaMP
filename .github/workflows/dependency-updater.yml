@@ -84,7 +84,7 @@ jobs:
           git checkout -b dependency-updates master || git checkout dependency-updates
           call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86 10.0.22000.0 -vcvars_ver=14
           cd ${{ github.workspace }}\mods\noita-mp\
-          luarocks install --only-deps noita-mp-3.0.0-3.rockspec
+          # luarocks install --only-deps ${{ github.workspace }}\mods\noita-mp\noita-mp-3.0.0-3.rockspec
           
           git commit -m "Update LuaRocks dependencies" -a || echo "No changes to commit"
 
