@@ -13,9 +13,19 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Create new branch
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "github-actions"
+          git checkout -b dependency-updates master || git checkout dependency-updates
+
       - name: Install and init luarocks
         shell: cmd
         run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "github-actions"
+          git checkout -b dependency-updates master || git checkout dependency-updates
+          
           cd ${{ github.workspace}}\mods\noita-mp\
           set INIT_PATH=%CD%
           REM // resolve absolute path
@@ -57,6 +67,10 @@ jobs:
       
       - name: Fix LuaRocks bug
         run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "github-actions"
+          git checkout -b dependency-updates master || git checkout dependency-updates
+
           cd ${{ github.workspace}}\mods\noita-mp\.luarocks
           sed -i 's/GODDAMNIT/\-v \-O2/g' config-5.1.lua
           cat config-5.1.lua
@@ -64,16 +78,22 @@ jobs:
       - name: Update LuaRocks
         shell: cmd
         run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "github-actions"
+          
           git checkout -b dependency-updates master || git checkout dependency-updates
           call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86 10.0.22000.0 -vcvars_ver=14
           cd ${{ github.workspace }}\mods\noita-mp\
           luarocks install --only-deps noita-mp-3.0.0-3.rockspec
-          git config --local user.email "action@github.com"
-          git config --local user.name "github-actions"
+          
           git commit -m "Update LuaRocks dependencies" -a || echo "No changes to commit"
 
       - name: Update noitapatcher
         run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "github-actions"
+          git checkout -b dependency-updates master || git checkout dependency-updates
+                    
           $noitaptacherPath = "${{ github.workspace }}\mods\noita-mp\lua_modules\lib\lua\5.1\noitapatcher.dll"
 
           if (Test-Path $noitaptacherPath) {
@@ -90,9 +110,6 @@ jobs:
             echo "NoitaPatcher is up to date"
             exit 0
           } else {
-            git config --local user.email "action@github.com"
-            git config --local user.name "github-actions"
-            git checkout -b dependency-updates master || git checkout dependency-updates
             gh release download --repo dextercd/NoitaPatcher --pattern "*.zip" --dir "{{ github.workspace }}\temp"
           }
 
@@ -105,6 +122,10 @@ jobs:
 
       - name: Update nsew
         run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "github-actions"
+          git checkout -b dependency-updates master || git checkout dependency-updates
+
           $nsewPath = "${{ github.workspace }}\mods\noita-mp\lua_modules\lib\lua\5.1\nsew_native.dll"
 
           if (Test-Path $neswPath) {
@@ -138,5 +159,7 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "github-actions"
+          git checkout -b dependency-updates master || git checkout dependency-updates
+          
           git push origin dependency-updates
           gh pr create --title "Update dependencies" --body "This PR was automatically created by the dependency updater workflow. Resolves #117" --base master --head dependency-updates || echo "PR already exists"
