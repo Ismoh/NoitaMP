@@ -7,9 +7,9 @@ external_deps_dirs = {
 }
 lua_interpreter = "luajit.exe"
 variables = {
-   CFLAGS = "-O2 -v",
-   LUA_BINDIR = "D:\\______BACKUP\\NoitaMP_repo\\NoitaMP\\LuaJIT-2.0.4\\bin",
-   LUA_DIR = "D:\\______BACKUP\\NoitaMP_repo\\NoitaMP\\LuaJIT-2.0.4",
-   LUA_INCDIR = "D:\\______BACKUP\\NoitaMP_repo\\NoitaMP\\LuaJIT-2.0.4\\include",
-   LUA_LIBDIR = "D:\\______BACKUP\\NoitaMP_repo\\NoitaMP\\LuaJIT-2.0.4\\lib"
+   CFLAGS = "-v -O2",
+   LUA_BINDIR = "D:\\a\\NoitaMP\\NoitaMP\\LuaJIT-2.0.4\\bin",
+   LUA_DIR = "D:\\a\\NoitaMP\\NoitaMP\\LuaJIT-2.0.4",
+   LUA_INCDIR = "D:\\a\\NoitaMP\\NoitaMP\\LuaJIT-2.0.4\\include",
+   LUA_LIBDIR = "D:\\a\\NoitaMP\\NoitaMP\\LuaJIT-2.0.4/bin"
 }
