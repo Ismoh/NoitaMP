@@ -3,6 +3,7 @@ on:
   schedule:
     # Weekly on saturday
     - cron: "0 0 * * 6"
+  push:
 
 jobs:
   update-dependencies:
