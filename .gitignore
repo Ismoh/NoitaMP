@@ -11,6 +11,9 @@ mods/noita-mp/settings
 *.zip
 *.tar.gz
 mods/noita-mp/.gitignore
+mods/noita-mp/.luarocks
+mods/noita-mp/luarocks.bat
+mods/noita-mp/lua.bat
 mods/noita-mp/lua_modules/lib/luarocks
 
 # Visual studio folder
