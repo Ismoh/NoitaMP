@@ -16,7 +16,9 @@ jobs:
       - name: Update LuaRocks
         shell: cmd
         run: |
-          call "C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Auxiliary\Build\vcvarsall.bat" x86 10.0.22000.0 -vcvars_ver=14 && luarocks install --only-deps noita-mp-3.0.0-3.rockspec
+          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86 10.0.22000.0 -vcvars_ver=14
+          cd mods\noita-mp\
+          luarocks.bat install --only-deps noita-mp-3.0.0-3.rockspec
           git config --local user.email "action@github.com"
           git config --local user.name "github-actions"
           git commit -m "Update LuaRocks dependencies" -a || echo "No changes to commit"
