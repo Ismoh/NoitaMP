@@ -6,22 +6,9 @@ on:
 
 jobs:
   update-dependencies:
-    strategy:
-      matrix:
-        dependency: ['luarocks', 'dextercd/NoitaPatcher', 'dextercd/Noita-Synchronise-Expansive-Worlds']
-        command: ['call "C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Auxiliary\Build\vcvarsall.bat" x86 10.0.22000.0 -vcvars_ver=14 && luarocks install --only-deps noita-mp-3.0.0-3.rockspec', 'gh release download --repo dextercd/NoitaPatcher --pattern "*.zip" --dir "{{ github.workspace }}\temp"', 'gh release download --repo dextercd/Noita-Synchronise-Expansive-Worlds --pattern "*.zip" --dir "{{ github.workspace }}\temp"']
-        LUA_BINDIR: ['${{ github.workspace }}\mods\noita-mp\lua_modules\bin\lua\5.1', '${{ github.workspace }}\mods\noita-mp\lua_modules\bin\lua\5.1', '${{ github.workspace }}\mods\noita-mp\lua_modules\bin\lua\5.1']
-        LUA_LIBDIR: ['${{ github.workspace }}\mods\noita-mp\lua_modules\lib\lua\5.1', '${{ github.workspace }}\mods\noita-mp\lua_modules\lib\lua\5.1\noitapatcher.dll', '${{ github.workspace }}\mods\noita-mp\lua_modules\lib\lua\5.1\nsew_native.dll']
-        LUA_INCDIR: ['${{ github.workspace }}\mods\noita-mp\lua_modules\share\lua\5.1', '${{ github.workspace }}\.debug\lua-definitions', '${{ github.workspace }}\mods\noita-mp\lua_modules\share\lua\5.1\nsew']
-
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
-
-      - name: Update ${{ matrix.dependency }}
-        run: |
-          ${{ matrix.command }}
-          git commit -m "Update ${{ matrix.dependency }} dependency" -a || echo "No changes to commit"
 
       - name: Update LuaRocks
         run: |
