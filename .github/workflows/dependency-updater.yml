@@ -112,7 +112,7 @@ jobs:
           $releaseCreatedAt = gh release view --repo dextercd/NoitaPatcher --json createdAt --jq .createdAt
           $releaseCreatedAt = [Datetime]$releaseCreatedAt
 
-          if ($lastModifiedDate -lt $releaseCreatedAt) {
+          if ($releaseCreatedAt -lt $lastModifiedDate) {
             echo "NoitaPatcher is up to date"
             exit 0
           } else {
@@ -146,7 +146,7 @@ jobs:
           $releaseCreatedAt = gh release view --repo dextercd/Noita-Synchronise-Expansive-Worlds --json createdAt --jq .createdAt
           $releaseCreatedAt = [Datetime]$releaseCreatedAt
 
-          if ($lastModifiedDate -lt $releaseCreatedAt) {
+          if ($releaseCreatedAt -lt $lastModifiedDate) {
             echo "Noita-Synchronise-Expansive-Worlds is up to date"
             exit 0
           } else {
