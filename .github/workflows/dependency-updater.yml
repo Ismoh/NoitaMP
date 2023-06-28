@@ -17,6 +17,8 @@ jobs:
         shell: cmd
         run: |
           call "C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Auxiliary\Build\vcvarsall.bat" x86 10.0.22000.0 -vcvars_ver=14 && luarocks install --only-deps noita-mp-3.0.0-3.rockspec
+          git config --local user.email "action@github.com"
+          git config --local user.name "github-actions"
           git commit -m "Update LuaRocks dependencies" -a || echo "No changes to commit"
 
       - name: Update noitapatcher
@@ -37,6 +39,8 @@ jobs:
             echo "NoitaPatcher is up to date"
             exit 0
           } else {
+            git config --local user.email "action@github.com"
+            git config --local user.name "github-actions"
             git checkout -b dependency-updates master || git checkout dependency-updates
             gh release download --repo dextercd/NoitaPatcher --pattern "*.zip" --dir "{{ github.workspace }}\temp"
           }
@@ -66,6 +70,8 @@ jobs:
             echo "Noita-Synchronise-Expansive-Worlds is up to date"
             exit 0
           } else {
+            git config --local user.email "action@github.com"
+            git config --local user.name "github-actions"
             git checkout -b dependency-updates master || git checkout dependency-updates
             gh release download --repo dextercd/Noita-Synchronise-Expansive-Worlds --pattern "*.zip" --dir "{{ github.workspace }}\temp"
           }
@@ -79,5 +85,7 @@ jobs:
 
       - name: Push changes
         run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "github-actions"
           git push origin dependency-updates
           gh pr create --title "Update dependencies" --body "This PR was automatically created by the dependency updater workflow. Resolves #117" --base master --head dependency-updates || echo "PR already exists"
