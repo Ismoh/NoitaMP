@@ -102,7 +102,7 @@ jobs:
                     
           $noitaptacherPath = "${{ github.workspace }}\mods\noita-mp\lua_modules\lib\lua\5.1\noitapatcher.dll"
 
-          if (Test-Path $noitaptacherPath) {
+          if ([System.IO.File]::Exists($noitaptacherPath)) {
             $lastModifiedDate = (Get-Item $noitapatcherPath).CreationTime.ToString("yyyy-MM-ddThh:mm:ssZ")
           } else {
             $lastModifiedDate = "2021-11-10T00:00:00Z"
@@ -136,7 +136,7 @@ jobs:
 
           $nsewPath = "${{ github.workspace }}\mods\noita-mp\lua_modules\lib\lua\5.1\nsew_native.dll"
 
-          if (Test-Path $neswPath) {
+          if ([System.IO.File]::Exists($neswPath)) {
             $lastModifiedDate = (Get-Item $nsewPath).CreationTime.ToString("yyyy-MM-ddThh:mm:ssZ")
           } else {
             $lastModifiedDate = "2021-11-10T00:00:00Z"
