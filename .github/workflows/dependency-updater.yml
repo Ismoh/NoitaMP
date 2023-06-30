@@ -1,7 +1,7 @@
-name: Update dependecies now and then
+name: Update dependecies every saturday at 00:00 UTC
 on:
   schedule:
-    # Weekly on saturday
+    # Weekly on saturday at 00:00 UTC
     - cron: "0 0 * * 6"
   push:
     branches:
@@ -174,7 +174,7 @@ jobs:
           git add -f "${{ github.workspace }}\mods\noita-mp\lua_modules\share\lua\5.1\nsew\*.lua"
           git commit -m "Updated nsew dependencies" -a || echo "No changes to commit"
 
-      - name: Push changes
+      - name: Push changes and create a pull request
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
