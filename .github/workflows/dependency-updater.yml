@@ -27,7 +27,10 @@ jobs:
           git remote update
           git fetch
           git checkout -b dependency-updates origin/develop
-          git pull origin/dependency-updates
+          git remote update
+          git fetch
+          git pull develop
+          git pull dependency-updates
 
       # - name: Install and init luarocks
       #   shell: cmd
