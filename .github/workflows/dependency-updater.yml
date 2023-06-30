@@ -26,7 +26,7 @@ jobs:
           git config --local user.name "github-actions"
           git remote update
           git fetch
-          git checkout -b dependency-updates origin/dependency-updates
+          git checkout -b dependency-updates origin/develop
 
       - name: Install and init luarocks
         shell: cmd
