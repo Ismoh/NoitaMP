@@ -153,6 +153,9 @@ jobs:
 
           Expand-Archive -Path "${{ github.workspace }}\temp\nsew-*.zip" -DestinationPath "${{ github.workspace }}\temp\nsew" -Force
           Copy-Item -Path "${{ github.workspace }}\temp\nsew\nsew\nsew_native.dll" -Destination $nsewPath -Force
+          if (![System.IO.File]::Exists(${{ github.workspace }}\mods\noita-mp\lua_modules\share\lua\5.1\nsew)) {
+            New-Item -Path "${{ github.workspace }}\mods\noita-mp\lua_modules\share\lua\5.1\nsew" -ItemType Directory -Force
+          }
           Copy-Item -Path "${{ github.workspace }}\temp\nsew\nsew\*.lua" -Destination "${{ github.workspace }}\mods\noita-mp\lua_modules\share\lua\5.1\nsew" -Force
 
           cd ${{ github.workspace }}\temp
@@ -169,5 +172,6 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          git pull origin dependency-updates
           git push origin dependency-updates
           gh pr create --title "Update dependencies" --body "This PR was automatically created by the dependency updater workflow.\nResolves #117" --base develop --head dependency-updates || echo "PR already exists"
