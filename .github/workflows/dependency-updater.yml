@@ -1,0 +1,175 @@
+name: Update dependecies now and then
+on:
+  schedule:
+    # Weekly on saturday
+    - cron: "0 0 * * 6"
+  push:
+
+jobs:
+  update-dependencies:
+    name: Update dependencies
+    runs-on: windows-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Create new branch
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "github-actions"
+          git checkout -b dependency-updates master || git checkout dependency-updates
+
+      - name: Install and init luarocks
+        shell: cmd
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "github-actions"
+          git checkout -b dependency-updates master || git checkout dependency-updates
+          
+          cd ${{ github.workspace}}\mods\noita-mp\
+          set INIT_PATH=%CD%
+          REM // resolve absolute path
+          set REL_PATH=..\..\.building\luarocks-3.9.1-windows-32
+          set ABS_PATH=
+          rem // Save current directory and change to target directory
+          pushd %REL_PATH%
+          rem // Save value of CD variable (current directory)
+          set ABS_PATH=%CD%
+          rem // Restore original directory
+          popd
+          echo Relative path: %REL_PATH%
+          echo Maps to path: %ABS_PATH%
+        
+          REM // init luarocks
+          %ABS_PATH%\luarocks --lua-dir="${{ github.workspace}}\LuaJIT-2.0.4" --lua-version="5.1" init noita-mp --output="${{ github.workspace}}\mods\noita-mp" --homepage="https://github.com/Ismoh/NoitaMP" --lua-versions="5.1" --license="GNU GPL v3"
+        
+          REM // change luarocks projects config
+          %ABS_PATH%\luarocks config --scope="project" lua_interpreter luajit.exe
+          %ABS_PATH%\luarocks config --scope="project" lua_dir ${{ github.workspace}}\LuaJIT-2.0.4
+          %ABS_PATH%\luarocks config --scope="project" variables.LUA_BINDIR ${{ github.workspace}}\LuaJIT-2.0.4\bin
+          %ABS_PATH%\luarocks config --scope="project" variables.LUA_DIR ${{ github.workspace}}\LuaJIT-2.0.4
+          %ABS_PATH%\luarocks config --scope="project" variables.LUA_INCDIR ${{ github.workspace}}\LuaJIT-2.0.4\include
+          %ABS_PATH%\luarocks config --scope="project" variables.CFLAGS "GODDAMNIT"
+          %ABS_PATH%\luarocks config
+  
+          if exist lua.bat (
+            echo "LuaRocks project init successfully"
+          ) else (
+            echo "::error::LuaRocks project init failed. Unable to find lua.bat"
+            exit 1
+          )
+          if exist luarocks.bat (
+            echo "LuaRocks project init successfully"
+          ) else (
+            echo "::error::LuaRocks project init failed. Unable to find luarocks.bat"
+            exit 1
+          )
+      
+      - name: Fix LuaRocks bug
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "github-actions"
+          git checkout -b dependency-updates master || git checkout dependency-updates
+
+          cd ${{ github.workspace}}\mods\noita-mp\.luarocks
+          sed -i 's/GODDAMNIT/\-v \-O2/g' config-5.1.lua
+          cat config-5.1.lua
+
+      - name: Update LuaRocks
+        # env:
+        #   GH_TOKEN: ${{ github.token }}
+        shell: cmd
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "github-actions"
+          
+          git checkout -b dependency-updates master || git checkout dependency-updates
+          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86 10.0.22000.0 -vcvars_ver=14
+          cd ${{ github.workspace }}\mods\noita-mp\
+          # luarocks install --only-deps ${{ github.workspace }}\mods\noita-mp\noita-mp-3.0.0-3.rockspec
+          
+          git commit -m "Update LuaRocks dependencies" -a || echo "No changes to commit"
+
+      - name: Update NoitaPatcher
+        env:
+          GH_TOKEN: ${{ github.token }} 
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "github-actions"
+          git checkout -b dependency-updates master || git checkout dependency-updates
+                    
+          $noitaptacherPath = "${{ github.workspace }}\mods\noita-mp\lua_modules\lib\lua\5.1\noitapatcher.dll"
+
+          if ([System.IO.File]::Exists($noitaptacherPath)) {
+            $lastModifiedDate = (Get-Item $noitapatcherPath).CreationTime.ToString("yyyy-MM-ddThh:mm:ssZ")
+          } else {
+            $lastModifiedDate = "2021-11-10T00:00:00Z"
+          }
+          $lastModifiedDate = [Datetime]::ParseExact($lastModifiedDate, "yyyy-MM-ddThh:mm:ssZ", $null)
+
+          $releaseCreatedAt = gh release view --repo dextercd/NoitaPatcher --json createdAt --jq .createdAt
+          $releaseCreatedAt = [Datetime]$releaseCreatedAt
+
+          if ($releaseCreatedAt -lt $lastModifiedDate) {
+            echo "NoitaPatcher is up to date"
+            exit 0
+          } else {
+            gh release download --repo dextercd/NoitaPatcher --pattern "*.zip" --dir "{{ github.workspace }}\temp"
+          }
+
+          Expand-Archive -Path "${{ github.workspace }}\temp\*.zip" -DestinationPath "{{ github.workspace }}\temp"
+          Copy-Item -Path "${{ github.workspace }}\temp\noitapatcher.dll" -Destination $noitaptacherPath -Force
+          Copy-Item -Path "${{ github.workspace }}\temp\modules\noitapatcher.lua" -Destination "{{ github.workspace }}\.debug\lua-definitions" -Force
+          Remove-Item -Path "${{ github.workspace }}\temp" -Recurse -Force
+
+          git commit -m "Update NoitaPatcher dependencies" -a || echo "No changes to commit"
+
+      - name: Update NSEW
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "github-actions"
+          git checkout -b dependency-updates master || git checkout dependency-updates
+
+          $nsewPath = "${{ github.workspace }}\mods\noita-mp\lua_modules\lib\lua\5.1\nsew_native.dll"
+
+          if ([System.IO.File]::Exists($neswPath)) {
+            $lastModifiedDate = (Get-Item $nsewPath).CreationTime.ToString("yyyy-MM-ddThh:mm:ssZ")
+          } else {
+            $lastModifiedDate = "2021-11-10T00:00:00Z"
+          }
+          $lastModifiedDate = [Datetime]::ParseExact($lastModifiedDate, "yyyy-MM-ddThh:mm:ssZ", $null)
+
+          $releaseCreatedAt = gh release view --repo dextercd/Noita-Synchronise-Expansive-Worlds --json createdAt --jq .createdAt
+          $releaseCreatedAt = [Datetime]$releaseCreatedAt
+
+          if ($releaseCreatedAt -lt $lastModifiedDate) {
+            echo "Noita-Synchronise-Expansive-Worlds is up to date"
+            exit 0
+          } else {
+            git config --local user.email "action@github.com"
+            git config --local user.name "github-actions"
+            git checkout -b dependency-updates master || git checkout dependency-updates
+            gh release download --repo dextercd/Noita-Synchronise-Expansive-Worlds --pattern "*.zip" --dir "{{ github.workspace }}\temp"
+          }
+
+          Expand-Archive -Path "${{ github.workspace }}\temp\*.zip" -DestinationPath "{{ github.workspace }}\temp"
+          Copy-Item -Path "${{ github.workspace }}\temp\nsew\nsew_native.dll" -Destination $nsewPath -Force
+          Copy-Item -Path "${{ github.workspace }}\temp\nsew\*.lua" -Destination "{{ github.workspace }}\mods\noita-mp\lua_modules\share\lua\5.1\nsew" -Force
+          Remove-Item -Path "${{ github.workspace }}\temp" -Recurse -Force
+
+          git commit -m "Update nsew dependencies" -a || echo "No changes to commit"
+
+      - name: Push changes
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "github-actions"
+          git checkout -b dependency-updates master || git checkout dependency-updates
+          
+          git push origin dependency-updates
+          gh pr create --title "Update dependencies" --body "This PR was automatically created by the dependency updater workflow. Resolves #117" --base master --head dependency-updates || echo "PR already exists"
