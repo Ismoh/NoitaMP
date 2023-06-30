@@ -87,7 +87,7 @@ jobs:
       #     cd ${{ github.workspace }}\mods\noita-mp\
       #     # luarocks install --only-deps ${{ github.workspace }}\mods\noita-mp\noita-mp-3.0.0-3.rockspec
           
-      #     git commit -m "Update LuaRocks dependencies" -a || echo "No changes to commit"
+      #     git commit -m "Updated LuaRocks dependencies" -a || echo "No changes to commit"
 
       - name: Update NoitaPatcher
         env:
@@ -124,7 +124,7 @@ jobs:
 
           git add -f $noitaptacherPath
           git add "${{ github.workspace }}\.debug\lua-definitions\noitapatcher.lua"
-          git commit -m "Update NoitaPatcher dependencies" -a || echo "No changes to commit"
+          git commit -m "Updated NoitaPatcher dependencies" -a || echo "No changes to commit"
 
       - name: Update Noita-Synchronise-Expansive-Worlds
         env:
@@ -150,9 +150,6 @@ jobs:
             echo "Noita-Synchronise-Expansive-Worlds is up to date"
             exit 0
           } else {
-            git config --local user.email "action@github.com"
-            git config --local user.name "github-actions"
-            git checkout -b dependency-updates develop || git checkout dependency-updates
             gh release download --repo dextercd/Noita-Synchronise-Expansive-Worlds --pattern "*.zip" --dir "${{ github.workspace }}\temp"
           }
 
@@ -162,16 +159,12 @@ jobs:
             New-Item -Path "${{ github.workspace }}\mods\noita-mp\lua_modules\share\lua\5.1\nsew" -ItemType Directory -Force
           }
           Copy-Item -Path "${{ github.workspace }}\temp\nsew\nsew\*.lua" -Destination "${{ github.workspace }}\mods\noita-mp\lua_modules\share\lua\5.1\nsew" -Force
-
-          cd ${{ github.workspace }}\temp
-          ls -R
-
           cd ${{ github.workspace }} # go back to root otherwise we cannot delete the temp folder
           Remove-Item -Path "${{ github.workspace }}\temp" -Recurse -Force
 
           git add -f $nsewPath
           git add -f "${{ github.workspace }}\mods\noita-mp\lua_modules\share\lua\5.1\nsew\*.lua"
-          git commit -m "Update nsew dependencies" -a || echo "No changes to commit"
+          git commit -m "Updated nsew dependencies" -a || echo "No changes to commit"
 
       - name: Push changes
         env:
@@ -179,4 +172,4 @@ jobs:
         run: |
           git pull origin dependency-updates
           git push origin dependency-updates
-          gh pr list --head "dependency-updates" || gh pr create --title "Update dependencies" --body "This PR was automatically created by the dependency updater workflow.Resolves #117" --base develop --head dependency-updates
+          gh pr list --head "dependency-updates" || gh pr create --title "Update dependencies" --body "This PR was automatically created by the dependency updater workflow. Resolves #117" --base develop --head dependency-updates
