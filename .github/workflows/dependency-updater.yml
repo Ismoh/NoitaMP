@@ -172,6 +172,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          git fetch origin dependency-updates
           git pull origin dependency-updates
           git push origin dependency-updates
           gh pr create --title "Update dependencies" --body "This PR was automatically created by the dependency updater workflow.\nResolves #117" --base develop --head dependency-updates || echo "PR already exists"
