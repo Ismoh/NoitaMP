@@ -4,6 +4,8 @@ on:
     # Weekly on saturday
     - cron: "0 0 * * 6"
   push:
+    branches:
+      - develop
 
 jobs:
   update-dependencies:
@@ -12,19 +14,21 @@ jobs:
     
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: develop
 
-      - name: Create new branch
+      - name: Checkout or create new branch 'dependency-updates'
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "github-actions"
-          git checkout -b dependency-updates master || git checkout dependency-updates
+          #git checkout -b dependency-updates develop || git checkout dependency-updates
 
       - name: Install and init luarocks
         shell: cmd
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "github-actions"
-          git checkout -b dependency-updates master || git checkout dependency-updates
+          #git config --local user.email "action@github.com"
+          #git config --local user.name "github-actions"
+          #git checkout -b dependency-updates develop || git checkout dependency-updates
           
           cd ${{ github.workspace}}\mods\noita-mp\
           set INIT_PATH=%CD%
@@ -69,9 +73,9 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "github-actions"
-          git checkout -b dependency-updates master || git checkout dependency-updates
+          #git config --local user.email "action@github.com"
+          #git config --local user.name "github-actions"
+          #git checkout -b dependency-updates develop || git checkout dependency-updates
 
           cd ${{ github.workspace}}\mods\noita-mp\.luarocks
           sed -i 's/GODDAMNIT/\-v \-O2/g' config-5.1.lua
@@ -82,10 +86,10 @@ jobs:
         #   GH_TOKEN: ${{ github.token }}
         shell: cmd
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "github-actions"
-          
-          git checkout -b dependency-updates master || git checkout dependency-updates
+          #git config --local user.email "action@github.com"
+          #git config --local user.name "github-actions"          
+          #git checkout -b dependency-updates develop || git checkout dependency-updates
+
           call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86 10.0.22000.0 -vcvars_ver=14
           cd ${{ github.workspace }}\mods\noita-mp\
           # luarocks install --only-deps ${{ github.workspace }}\mods\noita-mp\noita-mp-3.0.0-3.rockspec
@@ -96,23 +100,27 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }} 
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "github-actions"
-          git checkout -b dependency-updates master || git checkout dependency-updates
+          #git config --local user.email "action@github.com"
+          #git config --local user.name "github-actions"
+          #git checkout -b dependency-updates develop || git checkout dependency-updates
                     
           $noitaptacherPath = "${{ github.workspace }}\mods\noita-mp\lua_modules\lib\lua\5.1\noitapatcher.dll"
 
           if ([System.IO.File]::Exists($noitaptacherPath)) {
-            $lastModifiedDate = (Get-Item $noitapatcherPath).CreationTime.ToString("yyyy-MM-ddThh:mm:ssZ")
+            $creationTime = (Get-Item $noitapatcherPath).CreationTime.ToString("yyyy-MM-ddThh:mm:ssZ")
           } else {
-            $lastModifiedDate = "2021-11-10T00:00:00Z"
+            $creationTime = "2021-11-10T00:00:00Z"
           }
-          $lastModifiedDate = [Datetime]::ParseExact($lastModifiedDate, "yyyy-MM-ddThh:mm:ssZ", $null)
+          $creationTime = [Datetime]::ParseExact($creationTime, "yyyy-MM-ddThh:mm:ssZ", $null)
 
           $releaseCreatedAt = gh release view --repo dextercd/NoitaPatcher --json createdAt --jq .createdAt
           $releaseCreatedAt = [Datetime]$releaseCreatedAt
 
-          if ($releaseCreatedAt -lt $lastModifiedDate) {
+          echo "NoitaPatcher was created at $creationTime"
+          echo "Latest release was created at $releaseCreatedAt"
+          echo $releaseCreatedAt -lt $creationTime
+
+          if ($releaseCreatedAt -lt $creationTime) {
             echo "NoitaPatcher is up to date"
             exit 0
           } else {
@@ -126,37 +134,41 @@ jobs:
 
           git commit -m "Update NoitaPatcher dependencies" -a || echo "No changes to commit"
 
-      - name: Update NSEW
+      - name: Update Noita-Synchronise-Expansive-Worlds
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "github-actions"
-          git checkout -b dependency-updates master || git checkout dependency-updates
+          git checkout -b dependency-updates develop || git checkout dependency-updates
 
           $nsewPath = "${{ github.workspace }}\mods\noita-mp\lua_modules\lib\lua\5.1\nsew_native.dll"
 
           if ([System.IO.File]::Exists($neswPath)) {
-            $lastModifiedDate = (Get-Item $nsewPath).CreationTime.ToString("yyyy-MM-ddThh:mm:ssZ")
+            $creationTime = (Get-Item $nsewPath).CreationTime.ToString("yyyy-MM-ddThh:mm:ssZ")
           } else {
-            $lastModifiedDate = "2021-11-10T00:00:00Z"
+            $creationTime = "2021-11-10T00:00:00Z"
           }
-          $lastModifiedDate = [Datetime]::ParseExact($lastModifiedDate, "yyyy-MM-ddThh:mm:ssZ", $null)
+          $creationTime = [Datetime]::ParseExact($creationTime, "yyyy-MM-ddThh:mm:ssZ", $null)
 
           $releaseCreatedAt = gh release view --repo dextercd/Noita-Synchronise-Expansive-Worlds --json createdAt --jq .createdAt
           $releaseCreatedAt = [Datetime]$releaseCreatedAt
 
-          if ($releaseCreatedAt -lt $lastModifiedDate) {
+          echo "Noita-Synchronise-Expansive-Worlds was created at $creationTime"
+          echo "Latest release was created at $releaseCreatedAt"
+          echo $releaseCreatedAt -lt $creationTime
+
+          if ($releaseCreatedAt -lt $creationTime) {
             echo "Noita-Synchronise-Expansive-Worlds is up to date"
             exit 0
           } else {
             git config --local user.email "action@github.com"
             git config --local user.name "github-actions"
-            git checkout -b dependency-updates master || git checkout dependency-updates
+            git checkout -b dependency-updates develop || git checkout dependency-updates
             gh release download --repo dextercd/Noita-Synchronise-Expansive-Worlds --pattern "*.zip" --dir "{{ github.workspace }}\temp"
           }
 
-          Expand-Archive -Path "${{ github.workspace }}\temp\*.zip" -DestinationPath "{{ github.workspace }}\temp"
+          Expand-Archive -Path "${{ github.workspace }}\temp\nsew-*.zip" -DestinationPath "{{ github.workspace }}\temp"
           Copy-Item -Path "${{ github.workspace }}\temp\nsew\nsew_native.dll" -Destination $nsewPath -Force
           Copy-Item -Path "${{ github.workspace }}\temp\nsew\*.lua" -Destination "{{ github.workspace }}\mods\noita-mp\lua_modules\share\lua\5.1\nsew" -Force
           Remove-Item -Path "${{ github.workspace }}\temp" -Recurse -Force
@@ -169,7 +181,7 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "github-actions"
-          git checkout -b dependency-updates master || git checkout dependency-updates
+          git checkout -b dependency-updates develop || git checkout dependency-updates
           
           git push origin dependency-updates
-          gh pr create --title "Update dependencies" --body "This PR was automatically created by the dependency updater workflow. Resolves #117" --base master --head dependency-updates || echo "PR already exists"
+          gh pr create --title "Update dependencies" --body "This PR was automatically created by the dependency updater workflow. Resolves #117" --base develop --head dependency-updates || echo "PR already exists"
