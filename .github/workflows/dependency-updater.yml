@@ -21,9 +21,9 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "github-actions"
-          git checkout -b dependency-updates develop || git checkout dependency-updates
-          git fetch origin dependency-updates
-          git pull origin dependency-updates
+          git fetch origin
+          git checkout -b origin/dependency-updates develop || git checkout origin/dependency-updates
+          git pull origin/dependency-updates
 
       - name: Install and init luarocks
         shell: cmd
@@ -175,4 +175,4 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           git push origin dependency-updates
-          gh pr create --title "Update dependencies" --body "This PR was automatically created by the dependency updater workflow.\nResolves #117" --base develop --head dependency-updates || echo "PR already exists"
+          gh pr create --title "Update dependencies" --body "This PR was automatically created by the dependency updater workflow.Resolves #117" --base develop --head dependency-updates || echo "PR already exists"
