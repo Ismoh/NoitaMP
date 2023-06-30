@@ -179,4 +179,4 @@ jobs:
         run: |
           git pull origin dependency-updates
           git push origin dependency-updates
-          gh pr create --title "Update dependencies" --body "This PR was automatically created by the dependency updater workflow.Resolves #117" --base develop --head dependency-updates || echo "PR already exists"
+          gh pr list --head "dependency-updates" || gh pr create --title "Update dependencies" --body "This PR was automatically created by the dependency updater workflow.Resolves #117" --base develop --head dependency-updates
