@@ -153,7 +153,7 @@ jobs:
 
           Expand-Archive -Path "${{ github.workspace }}\temp\nsew-*.zip" -DestinationPath "${{ github.workspace }}\temp\nsew" -Force
           Copy-Item -Path "${{ github.workspace }}\temp\nsew\nsew\nsew_native.dll" -Destination $nsewPath -Force
-          if (![System.IO.File]::Exists(${{ github.workspace }}\mods\noita-mp\lua_modules\share\lua\5.1\nsew)) {
+          if (![System.IO.File]::Exists("${{ github.workspace }}\mods\noita-mp\lua_modules\share\lua\5.1\nsew")) {
             New-Item -Path "${{ github.workspace }}\mods\noita-mp\lua_modules\share\lua\5.1\nsew" -ItemType Directory -Force
           }
           Copy-Item -Path "${{ github.workspace }}\temp\nsew\nsew\*.lua" -Destination "${{ github.workspace }}\mods\noita-mp\lua_modules\share\lua\5.1\nsew" -Force
