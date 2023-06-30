@@ -25,11 +25,7 @@ jobs:
 
       - name: Install and init luarocks
         shell: cmd
-        run: |
-          #git config --local user.email "action@github.com"
-          #git config --local user.name "github-actions"
-          #git checkout -b dependency-updates develop || git checkout dependency-updates
-          
+        run: |          
           cd ${{ github.workspace}}\mods\noita-mp\
           set INIT_PATH=%CD%
           REM // resolve absolute path
@@ -73,10 +69,6 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          #git config --local user.email "action@github.com"
-          #git config --local user.name "github-actions"
-          #git checkout -b dependency-updates develop || git checkout dependency-updates
-
           cd ${{ github.workspace}}\mods\noita-mp\.luarocks
           sed -i 's/GODDAMNIT/\-v \-O2/g' config-5.1.lua
           cat config-5.1.lua
@@ -86,10 +78,6 @@ jobs:
         #   GH_TOKEN: ${{ github.token }}
         shell: cmd
         run: |
-          #git config --local user.email "action@github.com"
-          #git config --local user.name "github-actions"          
-          #git checkout -b dependency-updates develop || git checkout dependency-updates
-
           call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86 10.0.22000.0 -vcvars_ver=14
           cd ${{ github.workspace }}\mods\noita-mp\
           # luarocks install --only-deps ${{ github.workspace }}\mods\noita-mp\noita-mp-3.0.0-3.rockspec
@@ -99,11 +87,7 @@ jobs:
       - name: Update NoitaPatcher
         env:
           GH_TOKEN: ${{ github.token }} 
-        run: |
-          #git config --local user.email "action@github.com"
-          #git config --local user.name "github-actions"
-          #git checkout -b dependency-updates develop || git checkout dependency-updates
-                    
+        run: |                    
           $noitaptacherPath = "${{ github.workspace }}\mods\noita-mp\lua_modules\lib\lua\5.1\noitapatcher.dll"
 
           if ([System.IO.File]::Exists($noitaptacherPath)) {
@@ -137,16 +121,14 @@ jobs:
           cd ${{ github.workspace }} # go back to root otherwise we cannot delete the temp folder
           Remove-Item -Path "${{ github.workspace }}\temp" -Recurse -Force
 
+          git add $noitaptacherPath
+          git add "${{ github.workspace }}\.debug\lua-definitions\noitapatcher.lua"
           git commit -m "Update NoitaPatcher dependencies" -a || echo "No changes to commit"
 
       - name: Update Noita-Synchronise-Expansive-Worlds
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "github-actions"
-          git checkout -b dependency-updates develop || git checkout dependency-updates
-
           $nsewPath = "${{ github.workspace }}\mods\noita-mp\lua_modules\lib\lua\5.1\nsew_native.dll"
 
           if ([System.IO.File]::Exists($neswPath)) {
@@ -179,15 +161,13 @@ jobs:
           cd ${{ github.workspace }} # go back to root otherwise we cannot delete the temp folder
           Remove-Item -Path "${{ github.workspace }}\temp" -Recurse -Force
 
+          git add $nsewPath
+          git add "${{ github.workspace }}\mods\noita-mp\lua_modules\share\lua\5.1\nsew\*.lua"
           git commit -m "Update nsew dependencies" -a || echo "No changes to commit"
 
       - name: Push changes
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "github-actions"
-          git checkout -b dependency-updates develop || git checkout dependency-updates
-          
           git push origin dependency-updates
-          gh pr create --title "Update dependencies" --body "This PR was automatically created by the dependency updater workflow. Resolves #117" --base develop --head dependency-updates || echo "PR already exists"
+          gh pr create --title "Update dependencies" --body "This PR was automatically created by the dependency updater workflow.\nResolves #117" --base develop --head dependency-updates || echo "PR already exists"
