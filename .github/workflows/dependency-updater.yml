@@ -112,16 +112,12 @@ jobs:
           }
 
           Expand-Archive -Path "${{ github.workspace }}\temp\NoitaPatcher*.zip" -DestinationPath "${{ github.workspace }}\temp" -Force
-
-          cd ${{ github.workspace }}\temp
-          ls -R
-
           Copy-Item -Path "${{ github.workspace }}\temp\NoitaPatcher\noitapatcher.dll" -Destination $noitaptacherPath -Force
           Copy-Item -Path "${{ github.workspace }}\temp\NoitaPatcher\modules\noitapatcher.lua" -Destination "${{ github.workspace }}\.debug\lua-definitions" -Force
           cd ${{ github.workspace }} # go back to root otherwise we cannot delete the temp folder
           Remove-Item -Path "${{ github.workspace }}\temp" -Recurse -Force
 
-          git add $noitaptacherPath
+          git add -f $noitaptacherPath
           git add "${{ github.workspace }}\.debug\lua-definitions\noitapatcher.lua"
           git commit -m "Update NoitaPatcher dependencies" -a || echo "No changes to commit"
 
@@ -158,11 +154,15 @@ jobs:
           Expand-Archive -Path "${{ github.workspace }}\temp\nsew-*.zip" -DestinationPath "${{ github.workspace }}\temp\nsew" -Force
           Copy-Item -Path "${{ github.workspace }}\temp\nsew\nsew\nsew_native.dll" -Destination $nsewPath -Force
           Copy-Item -Path "${{ github.workspace }}\temp\nsew\nsew\*.lua" -Destination "${{ github.workspace }}\mods\noita-mp\lua_modules\share\lua\5.1\nsew" -Force
+
+          cd ${{ github.workspace }}\temp
+          ls -R
+
           cd ${{ github.workspace }} # go back to root otherwise we cannot delete the temp folder
           Remove-Item -Path "${{ github.workspace }}\temp" -Recurse -Force
 
-          git add $nsewPath
-          git add "${{ github.workspace }}\mods\noita-mp\lua_modules\share\lua\5.1\nsew\*.lua"
+          git add -f $nsewPath
+          git add -f "${{ github.workspace }}\mods\noita-mp\lua_modules\share\lua\5.1\nsew\*.lua"
           git commit -m "Update nsew dependencies" -a || echo "No changes to commit"
 
       - name: Push changes
