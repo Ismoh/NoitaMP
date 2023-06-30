@@ -124,13 +124,14 @@ jobs:
             echo "NoitaPatcher is up to date"
             exit 0
           } else {
-            gh release download --repo dextercd/NoitaPatcher --pattern "*.zip" --dir "{{ github.workspace }}\temp"
+            gh release download --repo dextercd/NoitaPatcher --pattern "*.zip" --dir "${{ github.workspace }}\temp"
+            cd ${{ github.workspace }}
             ls -R
           }
 
-          Expand-Archive -Path ${{ github.workspace }}\temp\NoitaPatcher*.zip -DestinationPath "{{ github.workspace }}\temp" # [] is a wildcard
+          Expand-Archive -Path "${{ github.workspace }}\temp\NoitaPatcher*.zip" -DestinationPath "${{ github.workspace }}\temp"
           Copy-Item -Path "${{ github.workspace }}\temp\noitapatcher.dll" -Destination $noitaptacherPath -Force
-          Copy-Item -Path "${{ github.workspace }}\temp\modules\noitapatcher.lua" -Destination "{{ github.workspace }}\.debug\lua-definitions" -Force
+          Copy-Item -Path "${{ github.workspace }}\temp\modules\noitapatcher.lua" -Destination "${{ github.workspace }}\.debug\lua-definitions" -Force
           Remove-Item -Path "${{ github.workspace }}\temp" -Recurse -Force
 
           git commit -m "Update NoitaPatcher dependencies" -a || echo "No changes to commit"
@@ -166,12 +167,12 @@ jobs:
             git config --local user.email "action@github.com"
             git config --local user.name "github-actions"
             git checkout -b dependency-updates develop || git checkout dependency-updates
-            gh release download --repo dextercd/Noita-Synchronise-Expansive-Worlds --pattern "*.zip" --dir "{{ github.workspace }}\temp"
+            gh release download --repo dextercd/Noita-Synchronise-Expansive-Worlds --pattern "*.zip" --dir "${{ github.workspace }}\temp"
           }
 
-          Expand-Archive -Path ${{ github.workspace }}\temp\nsew-*.zip -DestinationPath "{{ github.workspace }}\temp" # [] is a wildcard
+          Expand-Archive -Path ${{ github.workspace }}\temp\nsew-*.zip -DestinationPath "${{ github.workspace }}\temp" # [] is a wildcard
           Copy-Item -Path "${{ github.workspace }}\temp\nsew\nsew_native.dll" -Destination $nsewPath -Force
-          Copy-Item -Path "${{ github.workspace }}\temp\nsew\*.lua" -Destination "{{ github.workspace }}\mods\noita-mp\lua_modules\share\lua\5.1\nsew" -Force
+          Copy-Item -Path "${{ github.workspace }}\temp\nsew\*.lua" -Destination "${{ github.workspace }}\mods\noita-mp\lua_modules\share\lua\5.1\nsew" -Force
           Remove-Item -Path "${{ github.workspace }}\temp" -Recurse -Force
 
           git commit -m "Update nsew dependencies" -a || echo "No changes to commit"
