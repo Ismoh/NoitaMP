@@ -24,9 +24,10 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "github-actions"
+          git remote -v
           git fetch origin
-          git checkout -b origin dependency-updates develop
-          git pull origin dependency-updates
+          git branch -avv
+          git switch -c dependency-updates --track origin/dependency-updates
 
       - name: Install and init luarocks
         shell: cmd
