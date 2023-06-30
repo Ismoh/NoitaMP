@@ -185,5 +185,5 @@ jobs:
           if ($prTitleArray.Count -gt 0) {
             echo "PR already exists. Nothing to do!"
           } else {
-            gh pr create --title "Update dependencies" --body "This PR was automatically created by the dependency updater workflow. Resolves #117" --base develop --head dependency-updates
+            gh pr create --title "Update dependencies" --body "This PR was automatically created by the dependency updater workflow. Resolves #117" --base develop --head dependency-updates --assignee Ismoh --reviewer Ismoh
           }
