@@ -19,11 +19,13 @@ jobs:
           fetch-depth: 0
 
       - name: Checkout or create new branch 'dependency-updates'
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "github-actions"
           git fetch origin
-          git checkout --track origin/dependency-updates develop
+          git checkout -b origin/dependency-updates develop
           git pull origin/dependency-updates
 
       - name: Install and init luarocks
