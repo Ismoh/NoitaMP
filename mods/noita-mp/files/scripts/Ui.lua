@@ -6,15 +6,16 @@
 ----------------------------------------
 -- 'Imports'
 ----------------------------------------
-local renderEzgui                 = dofile_once("mods/noita-mp/lua_modules/share/lua/5.1/ezgui/EZGUI.lua").init("mods/noita-mp/lua_modules/share/lua/5.1/ezgui")
-local fu = require("file_util")
+local renderEzgui                 = dofile_once("mods/noita-mp/lua_modules/share/lua/5.1/ezgui/EZGUI.lua").init(
+    "mods/noita-mp/lua_modules/share/lua/5.1/ezgui")
+local fu                          = require("FileUtils")
 
 ----------------------------------------------------------------------------------------------------
 --- Ui
 --- @see PlayerList.xml
 --- @see FoldingMenu.xml
 ----------------------------------------------------------------------------------------------------
-Ui                                = {}
+Ui = {}
 
 ----------------------------------------
 -- Global private variables:
@@ -50,7 +51,7 @@ end
 --- Ui constructor
 ----------------------------------------------------------------------------------------------------
 function Ui.new()
-    local self            = {}
+    local self = {}
 
     ------------------------------------
     -- Private variables:
@@ -87,31 +88,31 @@ function Ui.new()
             cellWidth        = 50,
         },
         methods  = {
-            toggleAddress        = function()
+            toggleAddress = function()
                 showAddress = not showAddress
             end,
-            copyAddress          = function()
-                util.copyToClipboard(("%s:%s"):format(_G.Server:getAddress(), _G.Server:getPort()))
+            copyAddress = function()
+                Utils.copyToClipboard(("%s:%s"):format(_G.Server:getAddress(), _G.Server:getPort()))
             end,
-            kick                 = function(data, element, arg1)
+            kick = function(data, element, arg1)
                 _G.Server.kick(arg1)
             end,
-            ban                  = function(data, element, arg1)
+            ban = function(data, element, arg1)
                 _G.Server.ban(arg1)
             end,
-            start                = function()
+            start = function()
                 _G.Server.start(nil, nil)
             end,
-            stop                 = function()
+            stop = function()
                 _G.Server.stop()
             end,
-            connect              = function()
+            connect = function()
                 _G.Client.connect()
             end,
-            disconnect           = function()
+            disconnect = function()
                 _G.Client.disconnect()
             end,
-            toggleDebug          = function()
+            toggleDebug = function()
                 debug = not debug
             end,
             reportCustomProfiler = function()
@@ -150,12 +151,12 @@ function Ui.new()
         local text = ""
         if foldingOpen then
             self.ezguiFoldingData.data.text = ("[- NoitaMP] %s eCache:%s pCache:%s nCache:%s %s")
-                    :format(fu.getVersionByFile(), EntityCache.size(), CustomProfiler.getSize(),
-                            NetworkUtils.getClientOrServer().getAckCacheSize(), GameGetFrameNum())
+                :format(fu.GetVersionByFile(), EntityCache.size(), CustomProfiler.getSize(),
+                    NetworkUtils.getClientOrServer().getAckCacheSize(), GameGetFrameNum())
         else
             self.ezguiFoldingData.data.text = ("[+ NoitaMP] eCache:%s pCache:%s nCache:%s %s")
-                    :format(EntityCache.size(), CustomProfiler.getSize(),
-                            NetworkUtils.getClientOrServer().getAckCacheSize(), GameGetFrameNum())
+                :format(EntityCache.size(), CustomProfiler.getSize(),
+                    NetworkUtils.getClientOrServer().getAckCacheSize(), GameGetFrameNum())
         end
 
         renderEzgui(0, height - 10, "mods/noita-mp/files/data/ezgui/FoldingMenu.xml", self.ezguiFoldingData)
@@ -181,9 +182,6 @@ function Ui.new()
             })
             table.insertAllButNotDuplicates(player, _G.Server.clients)
             for i = 2, #player do
-                --player[i].name = string.ExtendOrCutStringToLength(player[i].name, 12, ".", true)
-                --player[i].health = { current = i, max = 2 }
-                --player[i].transform = { x = 123, y = 12334 }
                 player[i].rtt = player[i]:getRoundTripTime()
             end
         else
@@ -271,7 +269,7 @@ function Ui.new()
             if clicked then
                 missingModGuiDismissed = true
                 Client:send(NetworkUtils.events.needModContent.name,
-                            { NetworkUtils.getNextNetworkMessageId(), Client.missingMods })
+                    { NetworkUtils.getNextNetworkMessageId(), Client.missingMods })
             end
             if hovered then
                 missingModGuiButton1Hovered = true
@@ -318,7 +316,6 @@ function Ui.new()
             GuiZSetForNextWidget(gui, 110)
             GuiImageNinePiece(gui, npID, 73, 73, w + 3, y - 71)
         end
-
     end
 
     ------------------------------------
@@ -328,7 +325,6 @@ function Ui.new()
         drawFolding()
         drawMenu()
         drawModConflictWarning()
-
         if EntityCache.size() >= EntityUtils.maxPoolSize then
             gui = gui or GuiCreate()
             GuiStartFrame(gui)

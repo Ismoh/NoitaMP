@@ -48,7 +48,7 @@ end
 --- @return string ownername, string ownerguid, number nuid, string filename, EntityHealthData health, number rotation, Vec2 velocity, number x, number y
 function NoitaComponentUtils.getEntityData(entityId)
     local cpc                                    = CustomProfiler.start("NoitaComponentUtils.getEntityData")
-    local compOwnerName, compOwnerGuid, compNuid = NetworkVscUtils.getAllVcsValuesByEntityId(entityId)
+    local compOwnerName, compOwnerGuid, compNuid = NetworkVscUtils.getAllVscValuesByEntityId(entityId)
     local hpCompId                               = EntityGetFirstComponentIncludingDisabled(entityId,
                                                                                             "DamageModelComponent")
     local health                                 = { current = 0, max = 0 }

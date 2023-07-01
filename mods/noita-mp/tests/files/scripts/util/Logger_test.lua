@@ -1,29 +1,18 @@
----
---- Created by Ismoh-PC.
---- DateTime: 22.01.2023 01:15
----
-local params = ...
-
-local lu      = require("luaunit")
-
 TestLogger = {}
 TestLogger.mockedLogLevel = { "trace, debug, info, warn", "TRACE" }
 
+local globalModSettingsGet = ModSettingGet
 function TestLogger:setUp()
-    -- Make absolutely sure, that the already mocked Noita API function is not overwritten
-    local mockedModSettingGet = ModSettingGet
-    ---@param id string
     ModSettingGet = function(id)
         if string.contains(id, "noita-mp.log_level_") then
             return TestLogger.mockedLogLevel
         end
-        mockedModSettingGet(id)
+        globalModSettingsGet(id)
     end
-
 end
 
 function TestLogger:tearDown()
-
+    ModSettingGet = globalModSettingsGet
 end
 
 function TestLogger:errors()
@@ -78,5 +67,3 @@ function TestLogger:testWarn()
     lu.assertIsFalse(Logger.info(Logger.channels.testing, "This should NOT be logged!"))
     lu.assertIsTrue(Logger.warn(Logger.channels.testing, "This should be logged, warn level!"))
 end
-
-lu.LuaUnit.run(params)

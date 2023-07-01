@@ -44,7 +44,7 @@
   },
   "Lua.diagnostics.disable": [
     "lowercase-global",
-    "undefined-field"
+    "deprecated"
   ],
   "files.associations": {
     "stdbool.h": "c",

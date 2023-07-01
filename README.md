@@ -82,9 +82,12 @@ I wouldn't be able to create this mod without the help by
 - [@ofoxsmith](https://github.com/ofoxsmith)
 
 
-I also want to say thank you to the supporter of this project on [Github](https://github.com/sponsors/Ismoh) or [Patreon](https://www.patreon.com/ismoh):
+I also want to say thank you to the supporter of this project on [GitHub](https://github.com/sponsors/Ismoh) or [Patreon](https://www.patreon.com/ismoh):
 
-- [stefnotch](https://github.com/stefnotch) one-time 20$ 18.11.22
+|                    Name                     |  Amount  |    Type    |     Start      |
+|:-------------------------------------------:|:--------:|:----------:|:--------------:|
+|  [stefnotch](https://github.com/stefnotch)  |   20$    |  one-time  |  Nov 18, 2022  |
+|    [den3606](https://github.com/den3606)    |    1$    |  monthly   |  Feb 8, 2023   |
 
 If you spot anything I should mention, feel free to create an issue or get in touch with [me](https://github.com/Ismoh)!
 

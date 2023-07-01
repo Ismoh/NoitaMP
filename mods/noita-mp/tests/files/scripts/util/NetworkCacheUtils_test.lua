@@ -1,55 +1,3 @@
----
---- Created by Ismoh-PC.
---- DateTime: 23.01.2023 17:37
----
-local params                       = ...
-
---- Make absolutely sure, that the already mocked Noita API function is not overwritten
-local mockedModSettingGetNextValue = ModSettingGetNextValue
-ModSettingGetNextValue             = function(id)
-    if id == "noita-mp.guid" then
-        return GuidUtils:getGuid()
-    end
-
-    if mockedModSettingGetNextValue then
-        mockedModSettingGetNextValue(id)
-    end
-
-    error(("Trying to access '%s', but it isn't mocked yet!"):format(id), 2)
-end
-
-if not ModSettingSetNextValue then
-    ModSettingSetNextValue = function(id)
-        Logger.trace(Logger.channels.testing, ("Mocked ModSettingSetNextValue id %s."):format(id))
-        return id
-    end
-end
-
---- Make absolutely sure, that the already mocked Noita API function is not overwritten
-local mockedModSettingGet = ModSettingGet
-ModSettingGet             = function(id)
-    if string.contains(id, "noita-mp.log_level_") then
-        return { "trace, debug, info, warn", "TRACE" }
-    end
-    if id == "noita-mp.name" then
-        return "noita-mp.name"
-    end
-    if id == "noita-mp.guid" then
-        return GuidUtils:getGuid()
-    end
-
-    if mockedModSettingGet then
-        mockedModSettingGet(id)
-    end
-
-    error(("Mod setting '%s' is not mocked! Add it!"):format(id), 2)
-end
-
--- [[ require ]] --
-require("NetworkUtils")
-require("NetworkCacheUtils")
-require("luaExtensions")
-require("CustomProfiler")
 if not Server then
     require("Server")
 end
@@ -57,9 +5,6 @@ if not Client then
     require("Client")
 end
 
-local lu              = require("luaunit")
-
--- [[ Test ]] --
 TestNetworkCacheUtils = {}
 
 --- Setup function for each test.
@@ -113,5 +58,3 @@ function TestNetworkCacheUtils:testGet()
     --local guid             = GuidUtils:getGuid()
     --NetworkCacheUtils.get(guid, networkMessageId, event)
 end
-
-lu.LuaUnit.run(params)
