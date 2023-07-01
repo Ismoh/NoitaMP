@@ -1,16 +1,22 @@
 # Changelog
 
-## [v4.1.0-alpha+1195](https://github.com/Ismoh/NoitaMP/tree/v4.1.0-alpha+1195) (05.03.2023)
+## [Unreleased](https://github.com/Ismoh/NoitaMP/tree/HEAD)
 
-[Full Changelog](https://github.com/Ismoh/NoitaMP/compare/v4.1.0-alpha+1184...v4.1.0-alpha+1195)
+[Full Changelog](https://github.com/Ismoh/NoitaMP/compare/v4.1.0-alpha+1257...HEAD)
 
-## [v4.1.0-alpha+1184](https://github.com/Ismoh/NoitaMP/tree/v4.1.0-alpha+1184) (05.03.2023)
+**Merged pull requests:**
 
-[Full Changelog](https://github.com/Ismoh/NoitaMP/compare/v4.0.1-alpha+792...v4.1.0-alpha+1184)
+- Updating master [\#125](https://github.com/Ismoh/NoitaMP/pull/125) ([Ismoh](https://github.com/Ismoh))
+
+## [v4.1.0-alpha+1257](https://github.com/Ismoh/NoitaMP/tree/v4.1.0-alpha+1257) (01.07.2023)
+
+[Full Changelog](https://github.com/Ismoh/NoitaMP/compare/v4.0.1-alpha+792...v4.1.0-alpha+1257)
 
 **Implemented enhancements:**
 
+- General improvements and just cleaning up the codebase [\#113](https://github.com/Ismoh/NoitaMP/issues/113) [[enhancement](https://github.com/Ismoh/NoitaMP/labels/enhancement)] [[good_first_issue](https://github.com/Ismoh/NoitaMP/labels/good_first_issue)]
 - Developer want to sync children and components [\#107](https://github.com/Ismoh/NoitaMP/issues/107) [[enhancement](https://github.com/Ismoh/NoitaMP/labels/enhancement)]
+- PvP Arena [\#36](https://github.com/Ismoh/NoitaMP/issues/36) [[enhancement](https://github.com/Ismoh/NoitaMP/labels/enhancement)]
 
 **Closed issues:**
 
