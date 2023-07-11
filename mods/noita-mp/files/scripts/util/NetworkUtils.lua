@@ -97,6 +97,14 @@ NetworkUtils.events                  = {
         resendIdentifiers = { "owner", "localEntityId", "filename" },
         isCacheable       = true
     },
+    --- needNuidSerialised is used to ask for a nuid from client to servers
+    needNuidSerialised = {
+        name              = "needNuidSerialised",
+        schema            = { "networkMessageId", "owner", "localEntityId", "x", "y",
+            "rotation", "velocity", "filename", "health", "isPolymorphed", "serialisedEntity" },
+        resendIdentifiers = { "owner", "localEntityId", "filename" },
+        isCacheable       = true
+    },
     --- lostNuid is used to ask for the entity to spawn, when a client has a nuid stored, but no entityId (not sure
     --- atm, why this is happening, but this is due to reduce out of sync stuff)
     lostNuid          = {
