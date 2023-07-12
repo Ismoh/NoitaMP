@@ -51,6 +51,7 @@ Let's see, if I can do so?! I am new to Lua and modding, but someone said to me:
 <div align="center">
 
 [![gif](miscs/2022-06-21_teaser.gif)](miscs/2022-06-21_teaser.gif)
+
 21.06.2022 teaser
 </div>
 
