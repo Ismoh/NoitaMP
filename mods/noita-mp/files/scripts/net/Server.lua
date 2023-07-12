@@ -974,15 +974,16 @@ function ServerInit.new(sockServer)
     end
 
     function self.sendNewNuid(owner, localEntityId, newNuid, x, y, rotation, velocity, filename, health, isPolymorphed)
-       local cpc017 = CustomProfiler.start("Server.sendNewNuid")
-       local event  = NetworkUtils.events.newNuid.name
-       local data   = { NetworkUtils.getNextNetworkMessageId(), owner, localEntityId, newNuid, x, y, rotation, velocity, filename, health, isPolymorphed }
-       local sent   = self:sendToAll(event, data)
-       CustomProfiler.stop("Server.sendNewNuid", cpc017)
-       return sent
+        local cpc017 = CustomProfiler.start("Server.sendNewNuid")
+        local event  = NetworkUtils.events.newNuid.name
+        local data   = { NetworkUtils.getNextNetworkMessageId(), owner, localEntityId, newNuid, x, y, rotation, velocity, filename, health,
+            isPolymorphed }
+        local sent   = self:sendToAll(event, data)
+        CustomProfiler.stop("Server.sendNewNuid", cpc017)
+        return sent
     end
 
-    function self.sendNewNuidSerialized(ownerName, ownerGuid, entityId, serializedEntity, nuid)
+    function self.sendNewNuidSerialized(ownerName, ownerGuid, entityId, serializedEntityString, nuid, x, y)
         local cpc026 = CustomProfiler.start("Server.sendNewNuidSerialized")
 
         if Utils.IsEmpty(ownerName) then
@@ -994,15 +995,21 @@ function ServerInit.new(sockServer)
         if Utils.IsEmpty(entityId) then
             error(("entityId must not be nil or empty %s"):format(entityId), 2)
         end
-        if Utils.IsEmpty(serializedEntity) then
-            error(("serializedEntity must not be nil or empty %s"):format(serializedEntity), 2)
+        if Utils.IsEmpty(serializedEntityString) or type(serializedEntityString) ~= "string" then
+            error(("serializedEntityString must not be nil or empty %s or is not of type 'string'."):format(serializedEntityString), 2)
         end
         if Utils.IsEmpty(nuid) then
             error(("nuid must not be nil or empty %s"):format(nuid), 2)
         end
+        if Utils.IsEmpty(x) then
+            error(("x must not be nil or empty %s"):format(x), 2)
+        end
+        if Utils.IsEmpty(y) then
+            error(("y must not be nil or empty %s"):format(y), 2)
+        end
 
         local event = NetworkUtils.events.newNuidSerialized.name
-        local data  = { NetworkUtils.getNextNetworkMessageId(), ownerName, ownerGuid, entityId, serializedEntity, nuid }
+        local data  = { NetworkUtils.getNextNetworkMessageId(), ownerName, ownerGuid, entityId, serializedEntityString, nuid, x, y }
         local sent  = self:sendToAll(event, data)
         CustomProfiler.stop("Server.sendNewNuidSerialized", cpc026)
 

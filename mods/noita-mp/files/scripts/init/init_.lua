@@ -23,6 +23,18 @@ if require then
     dofile("mods/noita-mp/files/scripts/init/init_package_loading.lua")
 end
 
+if not _G.NoitaPatcherUtils then
+    -- If require is not available, we are in Noita Components lua context and should use dofile_once instead.
+    -- But make sure to load files only when needed, to avoid loading them into memory.
+    if not require then
+        -- NoitaPatcher won't be available in Noita Components context!
+    else
+        print("Initialise NoitaPatcherUtils..")
+        ---Globally accessible noitapatcher in _G.noitapatcher.
+        ---@alias _G.NoitaPatcherUtils NoitaPatcherUtils
+        _G.NoitaPatcherUtils = require("NoitaPatcherUtils")
+    end
+end
 
 if not _G.Logger then
     if not require then
@@ -240,18 +252,6 @@ if not _G.Client then
         ---Globally accessible Client in _G.Client.
         ---@alias _G.Client Client
         _G.Client = require("Client")
-    end
-end
-
-if not _G.NoitaPatcherUtils then
-    -- If require is not available, we are in Noita Components lua context and should use dofile_once instead.
-    -- But make sure to load files only when needed, to avoid loading them into memory.
-    if not require then
-        -- NoitaPatcher won't be available in Noita Components context!
-    else
-        ---Globally accessible noitapatcher in _G.noitapatcher.
-        ---@alias _G.NoitaPatcherUtils NoitaPatcherUtils
-        _G.NoitaPatcherUtils = require("NoitaPatcherUtils")
     end
 end
 

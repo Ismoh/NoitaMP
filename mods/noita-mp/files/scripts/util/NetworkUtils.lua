@@ -85,8 +85,8 @@ NetworkUtils.events                  = {
     },
     newNuidSerialized = {
         name              = "newNuidSerialized",
-        schema            = { "networkMessageId", "ownerName", "ownerGuid", "entityId", "serializedEntity", "nuid" },
-        resendIdentifiers = { "ownerName", "ownerGuid", "entityId" },
+        schema            = { "networkMessageId", "ownerName", "ownerGuid", "entityId", "serializedEntityString", "nuid", "x", "y" },
+        resendIdentifiers = { "ownerName", "ownerGuid", "entityId", "nuid" },
         isCacheable       = true
     },
     --- needNuid is used to ask for a nuid from client to servers

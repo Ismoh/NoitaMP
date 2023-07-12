@@ -206,40 +206,6 @@ local function findByFilename(filename, filenames)
     return false
 end
 
-local function getParentsUntilRootEntity(who, entityId)
-    local cpc            = CustomProfiler.start("EntityUtils.getParentsUntilRootEntity")
-    local parentNuids    = {}
-    local parentEntityId = EntityGetParent(entityId) -- returns 0, if entity has no parent
-
-    while parentEntityId and parentEntityId > 0 do
-        local hasParentNuid, parentNuid = NetworkVscUtils.hasNuidSet(parentEntityId)
-        if not parentNuid then
-            local localPlayer = MinaUtils.getLocalMinaInformation()
-            local ownerName   = localPlayer.name
-            local ownerGuid   = localPlayer.guid
-            if who == Server.iAm and not parentNuid then
-                parentNuid = NuidUtils.getNextNuid()
-                NetworkVscUtils.addOrUpdateAllVscs(parentEntityId, ownerName, ownerGuid, parentNuid)
-                local _, _, _, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(parentEntityId)
-                Server.sendNewNuid({ ownerName, ownerGuid }, parentEntityId, parentNuid, x, y, rotation, velocity,
-                    filename, health, EntityUtils.isEntityPolymorphed(entityId))
-            elseif who == Client.iAm and not parentNuid then
-                Client.sendNeedNuid(ownerName, ownerGuid, entityId)
-                -- TODO: return and wait for nuid? Otherwise child will never know who is the parent.
-            else
-                error("Unable to get whoAmI() unused!", 2)
-            end
-        end
-        if type(parentNuid) == "number" then
-            table.insert(parentNuids, 1, parentNuid)
-        end
-        parentEntityId = EntityGetParent(parentEntityId)
-    end
-    CustomProfiler.stop("EntityUtils.getParentsUntilRootEntity", cpc)
-    return parentNuids
-end
-
-
 --- public global methods:
 
 
@@ -517,8 +483,8 @@ function EntityUtils.processAndSyncEntityNetworking(startFrameTime)
                             NetworkVscUtils.addOrUpdateAllVscs(entityId, compOwnerName, compOwnerGuid, nuid)
                         end
                     end
-                    Server.sendNewNuid({ compOwnerName, compOwnerGuid }, entityId, nuid, x, y, rotation, velocity,
-                        filename, health, EntityUtils.isEntityPolymorphed(entityId))
+                    --Server.sendNewNuid({ compOwnerName, compOwnerGuid }, entityId, nuid, x, y, rotation, velocity,
+                    --    filename, health, EntityUtils.isEntityPolymorphed(entityId))
                     --local finished, serializedEntity = EntitySerialisationUtils.serializeEntireRootEntity(entityId, nuid, startFrameTime)
                     --local ONLYFORTESTING = EntitySerialisationUtils.deserializeEntireRootEntity(serializedEntity)
                     local serializedEntityString = NoitaPatcherUtils.serializeEntity(entityId)
@@ -527,16 +493,16 @@ function EntityUtils.processAndSyncEntityNetworking(startFrameTime)
                         finished = true
                     end
                     if finished == true then
-                        Server.sendNewNuidSerialized(compOwnerName, compOwnerGuid, entityId, serializedEntityString, nuid)
+                        Server.sendNewNuidSerialized(compOwnerName, compOwnerGuid, entityId, serializedEntityString, nuid, x, y)
                     else
-                        Logger.warn(Logger.channels.entity,
-                            "EntitySerialisationUtils.serializeEntireRootEntity took too long. Breaking loop by returning entityId.")
-                        -- when executionTime is too long, return the next entityCacheIndex to continue with it
-                        --prevEntityIndex = entityIndex + 1
-                        EntityCacheUtils.set(entityId, nuid, compOwnerGuid, compOwnerName, filename, x, y, rotation,
-                            velocity.x, velocity.y, health.current, health.max, finished, serializedEntity)
-                        CustomProfiler.stop("EntityUtils.processAndSyncEntityNetworking", cpc)
-                        return -- completely end function, because it took too long
+                        -- Logger.warn(Logger.channels.entity,
+                        --     "EntitySerialisationUtils.serializeEntireRootEntity took too long. Breaking loop by returning entityId.")
+                        -- -- when executionTime is too long, return the next entityCacheIndex to continue with it
+                        -- --prevEntityIndex = entityIndex + 1
+                        -- EntityCacheUtils.set(entityId, nuid, compOwnerGuid, compOwnerName, filename, x, y, rotation,
+                        --     velocity.x, velocity.y, health.current, health.max, finished, serializedEntityString)
+                        -- CustomProfiler.stop("EntityUtils.processAndSyncEntityNetworking", cpc)
+                        -- return -- completely end function, because it took too long
                     end
                 end
             end

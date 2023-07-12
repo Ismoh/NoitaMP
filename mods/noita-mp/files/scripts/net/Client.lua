@@ -511,12 +511,20 @@ function ClientInit.new(sockClient)
             error(("onNewNuidSerialized data.entityId is empty: %s"):format(data.entityId), 2)
         end
 
-        if Utils.IsEmpty(data.serializedEntity) then
-            error(("onNewNuidSerialized data.serializedEntity is empty: %s"):format(data.serializedEntity), 2)
+        if Utils.IsEmpty(data.serializedEntityString) then
+            error(("onNewNuidSerialized data.serializedEntityString is empty: %s"):format(data.serializedEntityString), 2)
         end
 
         if Utils.IsEmpty(data.nuid) then
             error(("onNewNuidSerialized data.nuid is empty: %s"):format(data.nuid), 2)
+        end
+
+        if Utils.IsEmpty(data.x) then
+            error(("onNewNuidSerialized data.x is empty: %s"):format(data.x), 2)
+        end
+
+        if Utils.IsEmpty(data.y) then
+            error(("onNewNuidSerialized data.y is empty: %s"):format(data.y), 2)
         end
 
         -- FOR TESTING ONLY, DO NOT MERGE
@@ -529,7 +537,13 @@ function ClientInit.new(sockClient)
         --    end
         --end
 
-        EntitySerialisationUtils.deserializeEntireRootEntity(data.serializedEntity, data.nuid)
+        local nuid, entityId = GlobalsUtils.getNuidEntityPair(data.nuid)
+
+        if Utils.IsEmpty(entityId) then
+            entityId = EntityCreateNew(data.nuid)
+        end
+
+        entityId = NoitaPatcherUtils.deserializeEntity(entityId, data.serializedEntityString, data.x, data.y) --EntitySerialisationUtils.deserializeEntireRootEntity(data.serializedEntity, data.nuid)
 
         sendAck(data.networkMessageId, NetworkUtils.events.newNuidSerialized.name)
         CustomProfiler.stop("ClientInit.onNewNuidSerialized", cpc32)
