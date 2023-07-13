@@ -1,7 +1,9 @@
 # Noita Multiplayer
+
 [![latest release](https://img.shields.io/github/v/release/ismoh/noitamp?include_prereleases&label=latest%20release&style=for-the-badge)](https://github.com/Ismoh/NoitaMP/releases)
 
 ### Table of Contents
+
 - [TL:DR](#tldr)  
 - [Documentation](#documentation)  
 - [Our awesome and valuable Contributors](#our-awesome-and-valuable-contributors)  
@@ -65,7 +67,7 @@ Installation, configuration and support can be found on the [docs](https://ismoh
   <img src="https://contrib.rocks/image?repo=Ismoh/NoitaMP" />
 </a>
 
-## Credits, Supporter and special thanks 
+## Credits, Supporter and special thanks
 
 I wouldn't be able to create this mod without the help by
 
@@ -82,13 +84,15 @@ I wouldn't be able to create this mod without the help by
 - [@bruham](https://steamcommunity.com/id/bruham/myworkshopfiles/?appid=881100)
 - [@ofoxsmith](https://github.com/ofoxsmith)
 
-
 I also want to say thank you to the supporter of this project on [GitHub](https://github.com/sponsors/Ismoh) or [Patreon](https://www.patreon.com/ismoh):
 
 |                    Name                     |  Amount  |    Type    |     Start      |
 |:-------------------------------------------:|:--------:|:----------:|:--------------:|
 |  [stefnotch](https://github.com/stefnotch)  |   20$    |  one-time  |  Nov 18, 2022  |
-|    [den3606](https://github.com/den3606)    |    1$    |  monthly   |  Feb 8, 2023   |
+|  [den3606](https://github.com/den3606)      |    1$    |  monthly   |  Feb 8, 2023   |
+|  [clragon](https://github.com/clragon)      |   25$    |  one-time  |  Feb 17, 2023  |
+|  [stefnotch](https://github.com/stefnotch)  |   20$    |  one-time  |  Jul 13, 2023  |
+|  [conga lyne](https://github.com/Conga0)    |   25$    |  monthly   |  Jul 13, 2023  |
 
 If you spot anything I should mention, feel free to create an issue or get in touch with [me](https://github.com/Ismoh)!
 
