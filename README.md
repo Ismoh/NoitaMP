@@ -85,7 +85,11 @@ I wouldn't be able to create this mod without the help by
 - [@ofoxsmith](https://github.com/ofoxsmith)
 - [@Myzumi](https://github.com/Myzumi)
 
-I also want to say thank you to the supporter of this project on [GitHub](https://github.com/sponsors/Ismoh) or [Patreon](https://www.patreon.com/ismoh):
+I also want to say thank you to the sponsors of this project on
+
+- [GitHub](https://github.com/sponsors/Ismoh)
+- [Patreon](https://www.patreon.com/ismoh)
+- [Discord](https://donatebot.io/checkout/747169041457872917)
 
 |                    Name                     |  Amount  |    Type    |     Start      |
 |:-------------------------------------------:|:--------:|:----------:|:--------------:|
@@ -94,6 +98,7 @@ I also want to say thank you to the supporter of this project on [GitHub](https:
 |  [clragon](https://github.com/clragon)      |   25$    |  one-time  |  Feb 17, 2023  |
 |  [stefnotch](https://github.com/stefnotch)  |   20$    |  one-time  |  Jul 13, 2023  |
 |  [conga lyne](https://github.com/Conga0)    |   25$    |  monthly   |  Jul 13, 2023  |
+|  [clragon](https://github.com/clragon)      |   20$    |  one-time  |  Jul 13, 2023  |
 
 If you spot anything I should mention, feel free to create an issue or get in touch with [me](https://github.com/Ismoh)!
 
