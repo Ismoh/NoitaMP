@@ -91,11 +91,12 @@ jobs:
       #     git commit -m "Updated LuaRocks dependencies" -a || echo "No changes to commit"
 
       - name: Update NoitaPatcher
-        shell: powershell
+        shell: pwsh
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           ls -R ${{ github.workspace }}\
+
           $noitaptacherPath = "${{ github.workspace }}\mods\noita-mp\lua_modules\lib\lua\5.1\noitapatcher.dll"
 
           if ([System.IO.File]::Exists($noitaptacherPath)) {
