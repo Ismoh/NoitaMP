@@ -180,8 +180,8 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          git pull origin dependency-updates || echo "There are no changes!"; Exit 0
-          git push origin dependency-updates
+          git pull origin dependency-updates
+          git push origin dependency-updates || echo "There are no changes!"; Exit 0
 
           $prTitleArray = gh pr list --head "dependency-updates" --json "title" | ConvertFrom-Json
           if ($prTitleArray.Count -gt 0) {
