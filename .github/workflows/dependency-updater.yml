@@ -5,8 +5,8 @@ on:
     - cron: "0 0 * * 6"
   push:
     branches:
-      - master
       - develop
+      - master
 
 jobs:
   update-dependencies:
@@ -130,7 +130,7 @@ jobs:
           git add ${{ github.workspace }}\mods\noita-mp\lua_modules\lib\lua\5.1\noitapatcher.version
           git add -f $noitaptacherPath
           git add "${{ github.workspace }}\.debug\lua-definitions\noitapatcher.lua"
-          git commit -m "Updated NoitaPatcher dependencies" -a || echo "No changes to commit"
+          git commit -m "Updated NoitaPatcher dependencies" -a || echo "No changes to commit" && exit 0
 
       - name: Update Noita-Synchronise-Expansive-Worlds
         env:
@@ -174,7 +174,7 @@ jobs:
           git add ${{ github.workspace }}\mods\noita-mp\lua_modules\lib\lua\5.1\nsew.version
           git add -f $nsewPath
           git add -f "${{ github.workspace }}\mods\noita-mp\lua_modules\share\lua\5.1\nsew\*.lua"
-          git commit -m "Updated nsew dependencies" -a || echo "No changes to commit"
+          git commit -m "Updated nsew dependencies" -a || echo "No changes to commit" && exit 0
 
       - name: Push changes and create a pull request
         env:
