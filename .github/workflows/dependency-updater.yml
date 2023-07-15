@@ -1,12 +1,8 @@
-name: Update dependecies every saturday at 00:00 UTC
+name: Update dependecies
 on:
   schedule:
     # Weekly on saturday at 00:00 UTC
     - cron: "0 0 * * 6"
-  push:
-    branches:
-      - develop
-      - master
 
 jobs:
   update-dependencies:
