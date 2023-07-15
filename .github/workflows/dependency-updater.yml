@@ -113,7 +113,7 @@ jobs:
 
           if ($releaseCreatedAt -lt $creationTime) {
             echo "NoitaPatcher is up to date"
-            exit 0
+            Exit 0
           } else {
             gh release download --repo dextercd/NoitaPatcher --pattern "*.zip" --dir "${{ github.workspace }}\temp"
           }
@@ -130,7 +130,7 @@ jobs:
           git add ${{ github.workspace }}\mods\noita-mp\lua_modules\lib\lua\5.1\noitapatcher.version
           git add -f $noitaptacherPath
           git add "${{ github.workspace }}\.debug\lua-definitions\noitapatcher.lua"
-          git commit -m "Updated NoitaPatcher dependencies" -a || echo "No changes to commit" && exit 0
+          git commit -m "Updated NoitaPatcher dependencies" -a || echo "No changes to commit" && Exit 0
 
       - name: Update Noita-Synchronise-Expansive-Worlds
         env:
@@ -154,7 +154,7 @@ jobs:
 
           if ($releaseCreatedAt -lt $creationTime) {
             echo "Noita-Synchronise-Expansive-Worlds is up to date"
-            exit 0
+            Exit 0
           } else {
             gh release download --repo dextercd/Noita-Synchronise-Expansive-Worlds --pattern "*.zip" --dir "${{ github.workspace }}\temp"
           }
@@ -174,7 +174,7 @@ jobs:
           git add ${{ github.workspace }}\mods\noita-mp\lua_modules\lib\lua\5.1\nsew.version
           git add -f $nsewPath
           git add -f "${{ github.workspace }}\mods\noita-mp\lua_modules\share\lua\5.1\nsew\*.lua"
-          git commit -m "Updated nsew dependencies" -a || echo "No changes to commit" && exit 0
+          git commit -m "Updated nsew dependencies" -a || echo "No changes to commit" && Exit 0
 
       - name: Push changes and create a pull request
         env:
