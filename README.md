@@ -83,8 +83,8 @@ I wouldn't be able to create this mod without the help by
 - [@Ramiels](https://github.com/Ramiels)
 - [@bruham](https://steamcommunity.com/id/bruham/myworkshopfiles/?appid=881100)
 - [@ofoxsmith](https://github.com/ofoxsmith)
-- [@Myzumi](https://github.com/Myzumi)
 - [@Nathan](https://github.com/Nathdsgfiugaoiysfnhuah/)
+- [@Myzumi](https://github.com/Myzumi)
 
 I also want to say thank you to the sponsors of this project on
 
