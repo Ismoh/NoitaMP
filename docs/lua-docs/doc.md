@@ -1,6 +1,6 @@
-#L Client
+# Client
 
-See: [SockClient](../../mods/noita-mp/files/scripts/net/Client.lua#L16#L14)
+See: [SockClient](../../mods/noita-mp/files/scripts/net/Client.lua#L16#14)
 
 
 ```lua
@@ -15,7 +15,7 @@ SockClient
 
 ---
 
-#L Client.port
+# Client.port
 
 
 ```lua
@@ -25,11 +25,11 @@ unknown
 
 ---
 
-#L ClientInit
+# ClientInit
 
 ClientInit class for creating a new extended instance of SockClient.
 
-#L#L new
+## new
 
 
 ```lua
@@ -40,7 +40,7 @@ function ClientInit.new(sockClient: SockClient)
 
 ---
 
-#L ClientInit
+# ClientInit
 
 ClientInit class for creating a new extended instance of SockClient.
 
@@ -52,11 +52,11 @@ ClientInit
 
 ---
 
-#L CustomProfiler
+# CustomProfiler
 
 Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 
-#L#L ceiling
+## ceiling
 
 
 ```lua
@@ -66,7 +66,7 @@ integer
 The ceiling in milliseconds. If a function takes longer than this ceiling, it will be truncated.
  Default: 1001 ms
 
-#L#L counter
+## counter
 
 
 ```lua
@@ -75,7 +75,7 @@ integer
 
 The counter that is used to determine the order of the function calls.
 
-#L#L getDuration
+## getDuration
 
 
 ```lua
@@ -91,7 +91,7 @@ Simply returns the duration of a specific function. This is used to determine th
 
 @*return* `duration` — The duration of the function in milliseconds.
 
-#L#L getSize
+## getSize
 
 
 ```lua
@@ -101,7 +101,7 @@ function CustomProfiler.getSize()
 
 Returns the size of the report cache.
 
-#L#L maxEntries
+## maxEntries
 
 
 ```lua
@@ -111,7 +111,7 @@ integer
 The maximum amount of entries per trace.
  Default: 50
 
-#L#L report
+## report
 
 
 ```lua
@@ -120,7 +120,7 @@ function CustomProfiler.report()
 
 Creates a report of all the functions that were profiled into profiler_2022-11-24_20-23-00.json
 
-#L#L reportCache
+## reportCache
 
 
 ```lua
@@ -129,7 +129,7 @@ Creates a report of all the functions that were profiled into profiler_2022-11-2
 
 A cache that stores all the data that is used to generate the report.
 
-#L#L reportDirectory
+## reportDirectory
 
 
 ```lua
@@ -138,7 +138,7 @@ string
 
 The directory where the report will be saved.
 
-#L#L reportFilename
+## reportFilename
 
 
 ```lua
@@ -148,7 +148,7 @@ string
 The filename of the report.
  Default: report.html
 
-#L#L reportJsonFilenamePattern
+## reportJsonFilenamePattern
 
 
 ```lua
@@ -158,7 +158,7 @@ string
 The filename pattern of the report.
  Default: %s.json
 
-#L#L start
+## start
 
 
 ```lua
@@ -171,9 +171,9 @@ Starts the profiler. This has to be called before the function (or first line of
 @*param* `functionName` — The name of the function that you want to measure. This has to be the same as the one used in CustomProfiler.stop(functionName, customProfilerCounter)
 
 @*return* `returnCounter` — The counter that is used to determine the order of the function calls. This has to be passed to CustomProfiler.stop(functionName, customProfilerCounter)
-See: [CustomProfiler.stop](../../mods/noita-mp/files/scripts/util/GuidUtils.lua#L30#L4) functionName, customProfilerCounter)
+See: [CustomProfiler.stop](../../mods/noita-mp/files/scripts/util/GuidUtils.lua#L30#4) functionName, customProfilerCounter)
 
-#L#L stop
+## stop
 
 
 ```lua
@@ -187,7 +187,7 @@ Stops the profiler. This has to be called after the function (or last line of fu
 
 @*param* `customProfilerCounter` — The counter that is used to determine the order of the function calls. This has to same as the one returned by @see CustomProfiler.start(functionName)
 
-#L#L stopAll
+## stopAll
 
 
 ```lua
@@ -196,7 +196,7 @@ function CustomProfiler.stopAll()
 
 Stops all profiled functions. Is used to get a correct report.
 
-#L#L threshold
+## threshold
 
 
 ```lua
@@ -209,7 +209,7 @@ The threshold in milliseconds. If a function takes longer than this threshold, i
 
 ---
 
-#L CustomProfiler
+# CustomProfiler
 
 Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 
@@ -231,7 +231,7 @@ CustomProfiler
 
 ---
 
-#L CustomProfiler.start
+# CustomProfiler.start
 
 
 ```lua
@@ -246,7 +246,7 @@ function
 
 ---
 
-#L CustomProfiler.start
+# CustomProfiler.start
 
 
 ```lua
@@ -261,7 +261,7 @@ function CustomProfiler.start(functionName: any)
 
 ---
 
-#L CustomProfiler.stop
+# CustomProfiler.stop
 
 
 ```lua
@@ -276,7 +276,7 @@ function CustomProfiler.stop(functionName: any, customProfilerCounter: any)
 
 ---
 
-#L EntityCache
+# EntityCache
 
 
 ```lua
@@ -291,7 +291,7 @@ table
 
 ---
 
-#L EntityCache.delete
+# EntityCache.delete
 
 
 ```lua
@@ -301,7 +301,7 @@ function EntityCache.delete(entityId: any)
 
 ---
 
-#L EntityCache.deleteNuid
+# EntityCache.deleteNuid
 
 
 ```lua
@@ -311,7 +311,7 @@ function EntityCache.deleteNuid(nuid: any)
 
 ---
 
-#L EntityCache.get
+# EntityCache.get
 
 
 ```lua
@@ -321,7 +321,7 @@ function EntityCache.get(entityId: any)
 
 ---
 
-#L EntityCache.set
+# EntityCache.set
 
 
 ```lua
@@ -331,7 +331,7 @@ function EntityCache.set(entityId: any, compNuid: any, compOwnerGuid: any, compO
 
 ---
 
-#L EntityCacheUtils
+# EntityCacheUtils
 
 
 ```lua
@@ -341,7 +341,7 @@ table
 
 ---
 
-#L EntitySerialisationUtils
+# EntitySerialisationUtils
 
 
 ```lua
@@ -351,7 +351,7 @@ table
 
 ---
 
-#L EntityUtils
+# EntityUtils
 
  Because of stack overflow errors when loading lua files,
  I decided to put Utils 'classes' into globals
@@ -379,7 +379,7 @@ table
 
 ---
 
-#L EntityUtils.addOrChangeDetectionRadiusDebug
+# EntityUtils.addOrChangeDetectionRadiusDebug
 
  Simply adds a ugly debug circle around the player to visualize the detection radius.
 
@@ -391,7 +391,7 @@ function EntityUtils.addOrChangeDetectionRadiusDebug(player_entity: any)
 
 ---
 
-#L EntityUtils.aliveEntityIds
+# EntityUtils.aliveEntityIds
 
  Contains all entities, which are alive
 
@@ -403,7 +403,7 @@ table
 
 ---
 
-#L EntityUtils.destroyByNuid
+# EntityUtils.destroyByNuid
 
  Destroys the entity by the given nuid.
 
@@ -417,7 +417,7 @@ function EntityUtils.destroyByNuid(peer: any, nuid: number)
 
 ---
 
-#L EntityUtils.isEntityAlive
+# EntityUtils.isEntityAlive
 
 Looks like there were access to removed entities, which might cause game crashing.
 Use this function whenever you work with entity_id/entityId to stop client game crashing.
@@ -435,7 +435,7 @@ function EntityUtils.isEntityAlive(entityId: number)
 
 ---
 
-#L EntityUtils.isEntityPolymorphed
+# EntityUtils.isEntityPolymorphed
 
  Checks if a specific entity is polymorphed.
 
@@ -448,7 +448,7 @@ function EntityUtils.isEntityPolymorphed(entityId: number)
 
 ---
 
-#L EntityUtils.isRemoteMinae
+# EntityUtils.isRemoteMinae
 
 
 ```lua
@@ -459,7 +459,7 @@ function EntityUtils.isRemoteMinae(entityId: any)
 
 ---
 
-#L EntityUtils.previousHighestAliveEntityId
+# EntityUtils.previousHighestAliveEntityId
 
  Contains the highest alive entity id
 
@@ -481,7 +481,7 @@ unknown
 
 ---
 
-#L EntityUtils.processAndSyncEntityNetworking
+# EntityUtils.processAndSyncEntityNetworking
 
 comment
 
@@ -495,7 +495,7 @@ function EntityUtils.processAndSyncEntityNetworking(startFrameTime: number)
 
 ---
 
-#L EntityUtils.spawnEntity
+# EntityUtils.spawnEntity
 
  Spawns an entity and applies the transform and velocity to it. Also adds the network_component.
 
@@ -516,7 +516,7 @@ function EntityUtils.spawnEntity(owner: EntityOwner, nuid: number, x: number, y:
 
 ---
 
-#L EntityUtils.syncDeadNuids
+# EntityUtils.syncDeadNuids
 
  Synchronises the dead nuids between server and client.
 
@@ -528,7 +528,7 @@ function EntityUtils.syncDeadNuids()
 
 ---
 
-#L EntityUtils.timeFramesDelta
+# EntityUtils.timeFramesDelta
 
  Time(Frames) between coroutines.
  coroutines.lua: "this function should be called once per game logic update with the amount of time
@@ -543,16 +543,16 @@ integer
 
 ---
 
-#L FileUtils
+# FileUtils
 
-#L#L AppendToFile
+## AppendToFile
 
 
 ```lua
 function FileUtils.AppendToFile(filenameAbsolutePath: string, appendContent: string)
 ```
 
-#L#L Create7zipArchive
+## Create7zipArchive
 
 
 ```lua
@@ -569,7 +569,7 @@ oita-mp\_
 
 @*return* `content` — binary content of archive
 
-#L#L Exists
+## Exists
 
 
 ```lua
@@ -581,7 +581,7 @@ function FileUtils.Exists(absolutePath: string)
 
 @*param* `absolutePath` — full path
 
-#L#L Exists7zip
+## Exists7zip
 
 
 ```lua
@@ -589,7 +589,7 @@ function FileUtils.Exists7zip()
   -> boolean
 ```
 
-#L#L Extract7zipArchive
+## Extract7zipArchive
 
 
 ```lua
@@ -602,7 +602,7 @@ function FileUtils.Extract7zipArchive(archive_absolute_directory_path: string, a
 
 @*param* `extract_absolute_directory_path` — C:\Users\Ismoh-PC\AppData\LocalLow\Nolla_Games_Noita
 
-#L#L FestartNoita
+## FestartNoita
 
 
 ```lua
@@ -611,14 +611,14 @@ function FileUtils.FestartNoita()
 
  Credits to dextercd!
 
-#L#L Find7zipExecutable
+## Find7zipExecutable
 
 
 ```lua
 function FileUtils.Find7zipExecutable()
 ```
 
-#L#L GetAbsDirPathOfWorldStateXml
+## GetAbsDirPathOfWorldStateXml
 
 
 ```lua
@@ -632,7 +632,7 @@ function FileUtils.GetAbsDirPathOfWorldStateXml(saveSlotAbsDirectoryPath: string
 
 @*return* `absPath` — world_state.xml absolute file path
 
-#L#L GetAbsoluteDirectoryPathOfNoitaMP
+## GetAbsoluteDirectoryPathOfNoitaMP
 
 
 ```lua
@@ -645,7 +645,7 @@ function FileUtils.GetAbsoluteDirectoryPathOfNoitaMP()
 
 @*return* `FileUtils.GetAbsolutePathOfNoitaRootDirectory` — ) .. "/mods/noita-mp"
 
-#L#L GetAbsoluteDirectoryPathOfParentSave
+## GetAbsoluteDirectoryPathOfParentSave
 
 
 ```lua
@@ -659,7 +659,7 @@ function FileUtils.GetAbsoluteDirectoryPathOfParentSave()
 
 @*return* `save06_parent_directory_path` — string of absolute path to '..\Noita' or '..\Nolla_Games_Noita'
 
-#L#L GetAbsoluteDirectoryPathOfRequiredLibs
+## GetAbsoluteDirectoryPathOfRequiredLibs
 
 
 ```lua
@@ -672,7 +672,7 @@ function FileUtils.GetAbsoluteDirectoryPathOfRequiredLibs()
 
 @*return* `FileUtils.GetAbsolutePathOfNoitaRootDirectory` — ) .. "/mods/noita-mp/files/libs"
 
-#L#L GetAbsoluteDirectoryPathOfSave06
+## GetAbsoluteDirectoryPathOfSave06
 
 
 ```lua
@@ -684,7 +684,7 @@ function FileUtils.GetAbsoluteDirectoryPathOfSave06()
 
 @*return* `directory_path_of_save06` — : noita installation path\save06 or %appdata%\..\LocalLow\Nolla_Games_Noita\save06 on windows and unknown for unix systems
 
-#L#L GetAbsolutePathOfNoitaMpSettingsDirectory
+## GetAbsolutePathOfNoitaMpSettingsDirectory
 
 
 ```lua
@@ -696,7 +696,7 @@ function FileUtils.GetAbsolutePathOfNoitaMpSettingsDirectory()
 
 @*return* `absPath` — i.e. "C:\Program Files (x86)\Steam\steamapps\common\Noita\mods\noita-mp\settings"
 
-#L#L GetAbsolutePathOfNoitaRootDirectory
+## GetAbsolutePathOfNoitaRootDirectory
 
 
 ```lua
@@ -704,7 +704,7 @@ function FileUtils.GetAbsolutePathOfNoitaRootDirectory()
   -> string
 ```
 
-#L#L GetAllFilesInDirectory
+## GetAllFilesInDirectory
 
 
 ```lua
@@ -712,7 +712,7 @@ function FileUtils.GetAllFilesInDirectory(directory: any, fileExtension: any)
   -> table
 ```
 
-#L#L GetDesktopDirectory
+## GetDesktopDirectory
 
 
 ```lua
@@ -720,7 +720,7 @@ function FileUtils.GetDesktopDirectory()
   -> string|table
 ```
 
-#L#L GetLastModifiedSaveSlots
+## GetLastModifiedSaveSlots
 
 
 ```lua
@@ -730,7 +730,7 @@ function FileUtils.GetLastModifiedSaveSlots()
 
  see _G.saveSlotMeta
 
-#L#L GetPidOfRunningEnetHostByPort
+## GetPidOfRunningEnetHostByPort
 
 
 ```lua
@@ -741,7 +741,7 @@ function FileUtils.GetPidOfRunningEnetHostByPort()
 
  eNet specific commands
 
-#L#L GetRelativeDirectoryPathOfNoitaMP
+## GetRelativeDirectoryPathOfNoitaMP
 
 
 ```lua
@@ -753,7 +753,7 @@ function FileUtils.GetRelativeDirectoryPathOfNoitaMP()
 
 @*return* — mods/noita-mp
 
-#L#L GetRelativeDirectoryPathOfRequiredLibs
+## GetRelativeDirectoryPathOfRequiredLibs
 
 
 ```lua
@@ -765,7 +765,7 @@ function FileUtils.GetRelativeDirectoryPathOfRequiredLibs()
 
 @*return* — /mods/noita-mp/files/libs
 
-#L#L GetRelativePathOfNoitaMpSettingsDirectory
+## GetRelativePathOfNoitaMpSettingsDirectory
 
 
 ```lua
@@ -773,7 +773,7 @@ function FileUtils.GetRelativePathOfNoitaMpSettingsDirectory()
   -> unknown
 ```
 
-#L#L GetVersionByFile
+## GetVersionByFile
 
 
 ```lua
@@ -781,7 +781,7 @@ function FileUtils.GetVersionByFile()
   -> string
 ```
 
-#L#L IsDirectory
+## IsDirectory
 
 
 ```lua
@@ -789,7 +789,7 @@ function FileUtils.IsDirectory(full_path: string)
   -> boolean
 ```
 
-#L#L IsFile
+## IsFile
 
 
 ```lua
@@ -797,28 +797,28 @@ function FileUtils.IsFile(full_path: string)
   -> boolean
 ```
 
-#L#L KillNoitaAndRestart
+## KillNoitaAndRestart
 
 
 ```lua
 function FileUtils.KillNoitaAndRestart()
 ```
 
-#L#L KillProcess
+## KillProcess
 
 
 ```lua
 function FileUtils.KillProcess(pid: any)
 ```
 
-#L#L MkDir
+## MkDir
 
 
 ```lua
 function FileUtils.MkDir(full_path: string)
 ```
 
-#L#L ReadBinaryFile
+## ReadBinaryFile
 
 
 ```lua
@@ -826,7 +826,7 @@ function FileUtils.ReadBinaryFile(file_fullpath: string)
   -> string|number
 ```
 
-#L#L ReadFile
+## ReadFile
 
 
 ```lua
@@ -834,14 +834,14 @@ function FileUtils.ReadFile(file_fullpath: string, mode?: string)
   -> unknown
 ```
 
-#L#L RemoveContentOfDirectory
+## RemoveContentOfDirectory
 
 
 ```lua
 function FileUtils.RemoveContentOfDirectory(absolutePath: any)
 ```
 
-#L#L RemoveTrailingPathSeparator
+## RemoveTrailingPathSeparator
 
 
 ```lua
@@ -856,7 +856,7 @@ function FileUtils.RemoveTrailingPathSeparator(path: string)
 
 @*return* `path` — \persistent\flags
 
-#L#L ReplacePathSeparator
+## ReplacePathSeparator
 
 
 ```lua
@@ -867,7 +867,7 @@ function FileUtils.ReplacePathSeparator(path: string)
  Replaces windows path separator to unix path separator and vice versa.
  Error if path is not a string.
 
-#L#L SaveAndRestartNoita
+## SaveAndRestartNoita
 
 
 ```lua
@@ -876,7 +876,7 @@ function FileUtils.SaveAndRestartNoita()
 
  This executes c code to sent SDL_QUIT command to the app
 
-#L#L ScanDir
+## ScanDir
 
 
 ```lua
@@ -886,7 +886,7 @@ function FileUtils.ScanDir(directory: any)
 
  Lua implementation of PHP scandir function
 
-#L#L SetAbsolutePathOfNoitaRootDirectory
+## SetAbsolutePathOfNoitaRootDirectory
 
 
 ```lua
@@ -895,7 +895,7 @@ function FileUtils.SetAbsolutePathOfNoitaRootDirectory()
 
  Sets root directory of noita.exe, i.e. C:\Program Files (x86)\Steam\steamapps\common\Noita
 
-#L#L SplitPath
+## SplitPath
 
 
 ```lua
@@ -905,14 +905,14 @@ function FileUtils.SplitPath(str: any)
 
  http://lua-users.org/wiki/SplitJoin -> Example: Split a file path string into components.
 
-#L#L WriteBinaryFile
+## WriteBinaryFile
 
 
 ```lua
 function FileUtils.WriteBinaryFile(file_fullpath: string, file_content: any)
 ```
 
-#L#L WriteFile
+## WriteFile
 
 
 ```lua
@@ -922,7 +922,7 @@ function FileUtils.WriteFile(file_fullpath: string, file_content: string)
 
 ---
 
-#L FileUtils
+# FileUtils
 
 
 ```lua
@@ -937,7 +937,7 @@ FileUtils
 
 ---
 
-#L GetWidthAndHeightByResolution
+# GetWidthAndHeightByResolution
 
  Returns width and height depending on resolution.
  GuiGetScreenDimensions( gui:obj ) -> width:number,height:number [Returns dimensions of viewport in the gui coordinate system (which is equal to the coordinates of the screen bottom right corner in gui coordinates). The values returned may change depending on the game resolution because the UI is scaled for pixel-perfect text rendering.]
@@ -952,7 +952,7 @@ function GetWidthAndHeightByResolution()
 
 ---
 
-#L GlobalsUtils
+# GlobalsUtils
 
  GlobalsUtils:
  class for GlobalsSetValue and GlobalsGetValue
@@ -975,7 +975,7 @@ table
 
 ---
 
-#L GlobalsUtils.deadNuidsKey
+# GlobalsUtils.deadNuidsKey
 
 
 ```lua
@@ -985,7 +985,7 @@ string
 
 ---
 
-#L GlobalsUtils.getDeadNuids
+# GlobalsUtils.getDeadNuids
 
 
 ```lua
@@ -996,7 +996,7 @@ function GlobalsUtils.getDeadNuids()
 
 ---
 
-#L GlobalsUtils.getNuidEntityPair
+# GlobalsUtils.getNuidEntityPair
 
  Builds a key string by nuid and returns nuid and entityId found by the globals.
 
@@ -1010,7 +1010,7 @@ function GlobalsUtils.getNuidEntityPair(nuid: number)
 
 ---
 
-#L GlobalsUtils.getUpdateGui
+# GlobalsUtils.getUpdateGui
 
 
 ```lua
@@ -1021,7 +1021,7 @@ function GlobalsUtils.getUpdateGui()
 
 ---
 
-#L GlobalsUtils.nuidKeyFormat
+# GlobalsUtils.nuidKeyFormat
 
  key for nuid
 
@@ -1033,7 +1033,7 @@ string
 
 ---
 
-#L GlobalsUtils.nuidKeySubstring
+# GlobalsUtils.nuidKeySubstring
 
 
 ```lua
@@ -1043,7 +1043,7 @@ string
 
 ---
 
-#L GlobalsUtils.nuidValueFormat
+# GlobalsUtils.nuidValueFormat
 
 
 ```lua
@@ -1053,7 +1053,7 @@ string
 
 ---
 
-#L GlobalsUtils.nuidValueSubstring
+# GlobalsUtils.nuidValueSubstring
 
 
 ```lua
@@ -1063,7 +1063,7 @@ string
 
 ---
 
-#L GlobalsUtils.parseXmlValueToNuidAndEntityId
+# GlobalsUtils.parseXmlValueToNuidAndEntityId
 
  Parses key and value string to nuid and entityId.
 
@@ -1081,7 +1081,7 @@ function GlobalsUtils.parseXmlValueToNuidAndEntityId(xmlKey: string, xmlValue: s
 
 ---
 
-#L GlobalsUtils.removeDeadNuid
+# GlobalsUtils.removeDeadNuid
 
 
 ```lua
@@ -1091,7 +1091,7 @@ function GlobalsUtils.removeDeadNuid(nuid: any)
 
 ---
 
-#L GlobalsUtils.setDeadNuid
+# GlobalsUtils.setDeadNuid
 
 
 ```lua
@@ -1101,7 +1101,7 @@ function GlobalsUtils.setDeadNuid(nuid: any)
 
 ---
 
-#L GlobalsUtils.setNuid
+# GlobalsUtils.setNuid
 
 
 ```lua
@@ -1111,7 +1111,7 @@ function GlobalsUtils.setNuid(nuid: any, entityId: any, componentIdForOwnerName:
 
 ---
 
-#L GlobalsUtils.setUpdateGui
+# GlobalsUtils.setUpdateGui
 
 
 ```lua
@@ -1122,11 +1122,11 @@ function GlobalsUtils.setUpdateGui(bool: any)
 
 ---
 
-#L Gui
+# Gui
 
-Everything regarding ImGui: Credits to dextercd#L7326
+Everything regarding ImGui: Credits to dextercd#7326
 
-#L#L new
+## new
 
 
 ```lua
@@ -1137,7 +1137,7 @@ function Gui.new()
 
 ---
 
-#L GuidUtils
+# GuidUtils
 
 
 ```lua
@@ -1147,16 +1147,16 @@ table
 
 ---
 
-#L Health
+# Health
 
-#L#L current
+## current
 
 
 ```lua
 number
 ```
 
-#L#L max
+## max
 
 
 ```lua
@@ -1166,7 +1166,7 @@ number
 
 ---
 
-#L Logger
+# Logger
 
  Class for being able to log per level
 
@@ -1193,7 +1193,7 @@ table
 
 ---
 
-#L Logger.channels
+# Logger.channels
 
 
 ```lua
@@ -1203,7 +1203,7 @@ table
 
 ---
 
-#L Logger.debug
+# Logger.debug
 
 
 ```lua
@@ -1214,7 +1214,7 @@ function Logger.debug(channel: any, formattedMessage: any)
 
 ---
 
-#L Logger.info
+# Logger.info
 
 
 ```lua
@@ -1225,7 +1225,7 @@ function Logger.info(channel: any, formattedMessage: any)
 
 ---
 
-#L Logger.level
+# Logger.level
 
 
 ```lua
@@ -1235,7 +1235,7 @@ table
 
 ---
 
-#L Logger.log
+# Logger.log
 
  Main function for logging, which simply uses `print()`.
  By the way, if you want to log error, simply use `error()`.
@@ -1257,7 +1257,7 @@ function Logger.log(level: string, channel: string, message: string)
 
 ---
 
-#L Logger.trace
+# Logger.trace
 
 
 ```lua
@@ -1268,7 +1268,7 @@ function Logger.trace(channel: any, formattedMessage: any)
 
 ---
 
-#L Logger.warn
+# Logger.warn
 
 
 ```lua
@@ -1279,11 +1279,11 @@ function Logger.warn(channel: any, formattedMessage: any)
 
 ---
 
-#L MinaInformation
+# MinaInformation
 
 See:
-  * [Transform](../../mods/noita-mp/files/scripts/util/MinaUtils.lua#L139#L18)
-  * [Health](../../mods/noita-mp/files/scripts/util/NoitaComponentUtils.lua#L52#L14)
+  * [Transform](../../mods/noita-mp/files/scripts/util/MinaUtils.lua#L139#18)
+  * [Health](../../mods/noita-mp/files/scripts/util/NoitaComponentUtils.lua#L52#14)
 
 
 ```lua
@@ -1293,12 +1293,12 @@ table
 
 ---
 
-#L MinaInformation
+# MinaInformation
 
 
 ---
 
-#L MinaUtils
+# MinaUtils
 
 Util class for fetching information about local and remote minas.
 
@@ -1310,11 +1310,11 @@ MinaUtils
 
 ---
 
-#L MinaUtils
+# MinaUtils
 
 Util class for fetching information about local and remote minas.
 
-#L#L getLocalMinaEntityId
+## getLocalMinaEntityId
 
 
 ```lua
@@ -1326,7 +1326,7 @@ Getter for local mina entity id. It also takes care of polymorphism!
 
 @*return* `localMinaEntityId` — or nil if not found/dead
 
-#L#L getLocalMinaGuid
+## getLocalMinaGuid
 
 
 ```lua
@@ -1336,7 +1336,7 @@ function MinaUtils.getLocalMinaGuid()
 
 Getter for local mina guid. ~It also loads it from settings file.~
 
-#L#L getLocalMinaInformation
+## getLocalMinaInformation
 
 
 ```lua
@@ -1345,9 +1345,9 @@ function MinaUtils.getLocalMinaInformation()
 ```
 
 Getter for local mina information. It also takes care of polymorphism!
-See: [MinaInformation](../../mods/noita-mp/files/scripts/util/MinaUtils.lua#L149#L4)
+See: [MinaInformation](../../mods/noita-mp/files/scripts/util/MinaUtils.lua#L149#4)
 
-#L#L getLocalMinaName
+## getLocalMinaName
 
 
 ```lua
@@ -1357,7 +1357,7 @@ function MinaUtils.getLocalMinaName()
 
 Getter for local mina name. ~It also loads it from settings file.~
 
-#L#L getLocalMinaNuid
+## getLocalMinaNuid
 
 
 ```lua
@@ -1369,7 +1369,7 @@ Getter for local mina nuid. It also takes care of polymorphism!
 
 @*return* `nuid` — if not found/dead
 
-#L#L isLocalMinaPolymorphed
+## isLocalMinaPolymorphed
 
 
 ```lua
@@ -1380,7 +1380,7 @@ function MinaUtils.isLocalMinaPolymorphed()
 
 Checks if local mina is polymorphed. Returns true, entityId | false, nil
 
-#L#L setLocalMinaGuid
+## setLocalMinaGuid
 
 
 ```lua
@@ -1389,7 +1389,7 @@ function MinaUtils.setLocalMinaGuid(guid: string)
 
 Setter for local mina guid. It also saves it to settings file.
 
-#L#L setLocalMinaName
+## setLocalMinaName
 
 
 ```lua
@@ -1401,7 +1401,7 @@ Setter for local mina name. It also saves it to settings file.
 
 ---
 
-#L NetworkCache
+# NetworkCache
 
 
 ```lua
@@ -1411,7 +1411,7 @@ table
 
 ---
 
-#L NetworkCache.cache
+# NetworkCache.cache
 
 
 ```lua
@@ -1426,7 +1426,7 @@ table
 
 ---
 
-#L NetworkCache.clear
+# NetworkCache.clear
 
 
 ```lua
@@ -1436,7 +1436,7 @@ function NetworkCache.clear(clientCacheId: any)
 
 ---
 
-#L NetworkCache.get
+# NetworkCache.get
 
 
 ```lua
@@ -1447,7 +1447,7 @@ function NetworkCache.get(clientCacheId: any, event: any, networkMessageId: any)
 
 ---
 
-#L NetworkCache.getAll
+# NetworkCache.getAll
 
 
 ```lua
@@ -1458,7 +1458,7 @@ function NetworkCache.getAll()
 
 ---
 
-#L NetworkCache.getChecksum
+# NetworkCache.getChecksum
 
 
 ```lua
@@ -1469,7 +1469,7 @@ function NetworkCache.getChecksum(clientCacheId: any, dataChecksum: any)
 
 ---
 
-#L NetworkCache.set
+# NetworkCache.set
 
 
 ```lua
@@ -1479,7 +1479,7 @@ function NetworkCache.set(clientCacheId: any, networkMessageId: any, event: any,
 
 ---
 
-#L NetworkCache.size
+# NetworkCache.size
 
 
 ```lua
@@ -1490,7 +1490,7 @@ function NetworkCache.size()
 
 ---
 
-#L NetworkCache.usage
+# NetworkCache.usage
 
 
 ```lua
@@ -1500,7 +1500,7 @@ function NetworkCache.usage()
 
 ---
 
-#L NetworkCache.usingC
+# NetworkCache.usingC
 
  not _G.disableLuaExtensionsDLL
 
@@ -1512,7 +1512,7 @@ boolean
 
 ---
 
-#L NetworkCacheUtils
+# NetworkCacheUtils
 
 
 ```lua
@@ -1527,7 +1527,7 @@ table
 
 ---
 
-#L NetworkCacheUtils.ack
+# NetworkCacheUtils.ack
 
 
 ```lua
@@ -1537,7 +1537,7 @@ function NetworkCacheUtils.ack(peerGuid: any, networkMessageId: any, event: any,
 
 ---
 
-#L NetworkCacheUtils.get
+# NetworkCacheUtils.get
 
 @*return* `data` — { ackedAt, dataChecksum, event, messageId, sendAt, status}
 
@@ -1550,7 +1550,7 @@ function NetworkCacheUtils.get(peerGuid: any, networkMessageId: any, event: any)
 
 ---
 
-#L NetworkCacheUtils.getByChecksum
+# NetworkCacheUtils.getByChecksum
 
 @*return* `cacheData` — { ackedAt, dataChecksum, event, messageId, sendAt, status}
 
@@ -1563,7 +1563,7 @@ function NetworkCacheUtils.getByChecksum(peerGuid: any, event: any, data: any)
 
 ---
 
-#L NetworkCacheUtils.getSum
+# NetworkCacheUtils.getSum
 
 
 ```lua
@@ -1574,7 +1574,7 @@ function NetworkCacheUtils.getSum(event: any, data: any)
 
 ---
 
-#L NetworkCacheUtils.logAll
+# NetworkCacheUtils.logAll
 
 
 ```lua
@@ -1584,7 +1584,7 @@ function NetworkCacheUtils.logAll()
 
 ---
 
-#L NetworkCacheUtils.set
+# NetworkCacheUtils.set
 
  Manipulates parameters to use Cache-CAPI.
 
@@ -1599,7 +1599,7 @@ function NetworkCacheUtils.set(peerGuid: string, networkMessageId: number, event
 
 ---
 
-#L NetworkUtils
+# NetworkUtils
 
  Because of stack overflow errors when loading lua files,
  I decided to put Utils 'classes' into globals
@@ -1622,7 +1622,7 @@ table
 
 ---
 
-#L NetworkUtils.alreadySent
+# NetworkUtils.alreadySent
 
  Checks if the event within its data was already sent
 
@@ -1637,7 +1637,7 @@ function NetworkUtils.alreadySent(peer: table, event: string, data: table)
 
 ---
 
-#L NetworkUtils.events
+# NetworkUtils.events
 
 
 ```lua
@@ -1647,7 +1647,7 @@ table
 
 ---
 
-#L NetworkUtils.getClientOrServer
+# NetworkUtils.getClientOrServer
 
  Sometimes you don't care if it's the client or server, but you need one of them to send the messages.
 
@@ -1662,7 +1662,7 @@ function NetworkUtils.getClientOrServer()
 
 ---
 
-#L NetworkUtils.getNextNetworkMessageId
+# NetworkUtils.getNextNetworkMessageId
 
 
 ```lua
@@ -1673,7 +1673,7 @@ function NetworkUtils.getNextNetworkMessageId()
 
 ---
 
-#L NetworkUtils.isTick
+# NetworkUtils.isTick
 
 
 ```lua
@@ -1684,7 +1684,7 @@ function NetworkUtils.isTick()
 
 ---
 
-#L NetworkUtils.networkMessageIdCounter
+# NetworkUtils.networkMessageIdCounter
 
 
 ```lua
@@ -1699,11 +1699,11 @@ integer
 
 ---
 
-#L NetworkVscUtils
+# NetworkVscUtils
 
  NetworkVscUtils:
 
-#L#L addOrUpdateAllVscs
+## addOrUpdateAllVscs
 
 
 ```lua
@@ -1729,7 +1729,7 @@ function NetworkVscUtils.addOrUpdateAllVscs(entityId: number, ownerName: string,
 
 @*param* `spawnY` — Y position of the entity, when spawned. Can only be set once! Can be nil.
 
-#L#L checkIfSpecificVscExists
+## checkIfSpecificVscExists
 
 
 ```lua
@@ -1759,56 +1759,56 @@ compId:
     | false
 ```
 
-#L#L componentNameOfNuid
+## componentNameOfNuid
 
 
 ```lua
 string
 ```
 
-#L#L componentNameOfNuidDebugger
+## componentNameOfNuidDebugger
 
 
 ```lua
 string
 ```
 
-#L#L componentNameOfNuidUpdater
+## componentNameOfNuidUpdater
 
 
 ```lua
 string
 ```
 
-#L#L componentNameOfOwnersGuid
+## componentNameOfOwnersGuid
 
 
 ```lua
 string
 ```
 
-#L#L componentNameOfOwnersName
+## componentNameOfOwnersName
 
 
 ```lua
 string
 ```
 
-#L#L componentNameOfSpawnX
+## componentNameOfSpawnX
 
 
 ```lua
 string
 ```
 
-#L#L componentNameOfSpawnY
+## componentNameOfSpawnY
 
 
 ```lua
 string
 ```
 
-#L#L getAllVcsValuesByComponentIds
+## getAllVcsValuesByComponentIds
 
 
 ```lua
@@ -1826,7 +1826,7 @@ function NetworkVscUtils.getAllVcsValuesByComponentIds(ownerNameCompId: number, 
 
 @*param* `nuidCompId` — Component Id of the NuidVsc
 
-#L#L getAllVscValuesByEntityId
+## getAllVscValuesByEntityId
 
 
 ```lua
@@ -1842,7 +1842,7 @@ function NetworkVscUtils.getAllVscValuesByEntityId(entityId: number)
 
 @*return* `ownerName,ownerGuid,nuid` — - nuid can be nil
 
-#L#L hasNetworkLuaComponents
+## hasNetworkLuaComponents
 
 
 ```lua
@@ -1850,7 +1850,7 @@ function NetworkVscUtils.hasNetworkLuaComponents(entityId: any)
   -> boolean|nil
 ```
 
-#L#L hasNuidSet
+## hasNuidSet
 
 
 ```lua
@@ -1865,7 +1865,7 @@ function NetworkVscUtils.hasNuidSet(entityId: number)
 
 @*return* `nuid` — Returns 'true, nuid', if set.
 
-#L#L isNetworkEntityByNuidVsc
+## isNetworkEntityByNuidVsc
 
 
 ```lua
@@ -1879,21 +1879,21 @@ function NetworkVscUtils.isNetworkEntityByNuidVsc(entityId: number)
 
 @*param* `entityId` — entityId provided by Noita
 
-#L#L name
+## name
 
 
 ```lua
 string
 ```
 
-#L#L valueString
+## valueString
 
 
 ```lua
 string
 ```
 
-#L#L variableStorageComponentName
+## variableStorageComponentName
 
 
 ```lua
@@ -1903,7 +1903,7 @@ string
 
 ---
 
-#L NetworkVscUtils
+# NetworkVscUtils
 
  NetworkVscUtils:
 
@@ -1930,7 +1930,7 @@ NetworkVscUtils
 
 ---
 
-#L NetworkVscUtils.addOrUpdateAllVscs
+# NetworkVscUtils.addOrUpdateAllVscs
 
  Simply adds or updates all needed Network Variable Storage Components.
 
@@ -1959,7 +1959,7 @@ function NetworkVscUtils.addOrUpdateAllVscs(entityId: number, ownerName: string,
 
 ---
 
-#L NetworkVscUtils.checkIfSpecificVscExists
+# NetworkVscUtils.checkIfSpecificVscExists
 
  Checks if an entity already has a specific VariableStorageComponent.
 
@@ -1992,7 +1992,7 @@ function NetworkVscUtils.checkIfSpecificVscExists(entityId: number, componentTyp
 
 ---
 
-#L NetworkVscUtils.componentNameOfNuid
+# NetworkVscUtils.componentNameOfNuid
 
 
 ```lua
@@ -2002,7 +2002,7 @@ string
 
 ---
 
-#L NetworkVscUtils.componentNameOfNuidDebugger
+# NetworkVscUtils.componentNameOfNuidDebugger
 
 
 ```lua
@@ -2012,7 +2012,7 @@ string
 
 ---
 
-#L NetworkVscUtils.componentNameOfNuidUpdater
+# NetworkVscUtils.componentNameOfNuidUpdater
 
 
 ```lua
@@ -2022,7 +2022,7 @@ string
 
 ---
 
-#L NetworkVscUtils.componentNameOfOwnersGuid
+# NetworkVscUtils.componentNameOfOwnersGuid
 
 
 ```lua
@@ -2032,7 +2032,7 @@ string
 
 ---
 
-#L NetworkVscUtils.componentNameOfOwnersName
+# NetworkVscUtils.componentNameOfOwnersName
 
 
 ```lua
@@ -2042,7 +2042,7 @@ string
 
 ---
 
-#L NetworkVscUtils.componentNameOfSpawnX
+# NetworkVscUtils.componentNameOfSpawnX
 
 
 ```lua
@@ -2052,7 +2052,7 @@ string
 
 ---
 
-#L NetworkVscUtils.componentNameOfSpawnY
+# NetworkVscUtils.componentNameOfSpawnY
 
 
 ```lua
@@ -2062,7 +2062,7 @@ string
 
 ---
 
-#L NetworkVscUtils.getAllVcsValuesByComponentIds
+# NetworkVscUtils.getAllVcsValuesByComponentIds
 
  Returns all Network Vsc values by its component ids.
 
@@ -2083,7 +2083,7 @@ function NetworkVscUtils.getAllVcsValuesByComponentIds(ownerNameCompId: number, 
 
 ---
 
-#L NetworkVscUtils.getAllVscValuesByEntityId
+# NetworkVscUtils.getAllVscValuesByEntityId
 
  Returns all Network Vsc values by its entity id.
 
@@ -2102,7 +2102,7 @@ function NetworkVscUtils.getAllVscValuesByEntityId(entityId: number)
 
 ---
 
-#L NetworkVscUtils.hasNetworkLuaComponents
+# NetworkVscUtils.hasNetworkLuaComponents
 
 
 ```lua
@@ -2113,7 +2113,7 @@ function NetworkVscUtils.hasNetworkLuaComponents(entityId: any)
 
 ---
 
-#L NetworkVscUtils.hasNuidSet
+# NetworkVscUtils.hasNuidSet
 
  Checks if the nuid Vsc exists, if so returns nuid
 
@@ -2131,7 +2131,7 @@ function NetworkVscUtils.hasNuidSet(entityId: number)
 
 ---
 
-#L NetworkVscUtils.isNetworkEntityByNuidVsc
+# NetworkVscUtils.isNetworkEntityByNuidVsc
 
  Returns true, componentId and nuid if the entity has a NetworkVsc.
 
@@ -2148,7 +2148,7 @@ function NetworkVscUtils.isNetworkEntityByNuidVsc(entityId: number)
 
 ---
 
-#L NetworkVscUtils.name
+# NetworkVscUtils.name
 
 
 ```lua
@@ -2158,7 +2158,7 @@ string
 
 ---
 
-#L NetworkVscUtils.valueString
+# NetworkVscUtils.valueString
 
 
 ```lua
@@ -2168,7 +2168,7 @@ string
 
 ---
 
-#L NetworkVscUtils.variableStorageComponentName
+# NetworkVscUtils.variableStorageComponentName
 
 
 ```lua
@@ -2178,7 +2178,7 @@ string
 
 ---
 
-#L NoitaComponentUtils
+# NoitaComponentUtils
 
  NoitaComponentUtils:
 
@@ -2205,7 +2205,7 @@ table
 
 ---
 
-#L NoitaComponentUtils.addOrGetNetworkSpriteStatusIndicator
+# NoitaComponentUtils.addOrGetNetworkSpriteStatusIndicator
 
 Adds a SpriteComponent to indicate network status visually.
 
@@ -2218,7 +2218,7 @@ function NoitaComponentUtils.addOrGetNetworkSpriteStatusIndicator(entityId: numb
 
 ---
 
-#L NoitaComponentUtils.getEntityData
+# NoitaComponentUtils.getEntityData
 
  Fetches data like position, rotation, velocity, health and filename
 
@@ -2239,7 +2239,7 @@ function NoitaComponentUtils.getEntityData(entityId: number)
 
 ---
 
-#L NoitaComponentUtils.getEntityDataByNuid
+# NoitaComponentUtils.getEntityDataByNuid
 
 
 ```lua
@@ -2258,7 +2258,7 @@ function NoitaComponentUtils.getEntityDataByNuid(nuid: any)
 
 ---
 
-#L NoitaComponentUtils.setEntityData
+# NoitaComponentUtils.setEntityData
 
 
 ```lua
@@ -2268,7 +2268,7 @@ function NoitaComponentUtils.setEntityData(entityId: number, x: number, y: numbe
 
 ---
 
-#L NoitaComponentUtils.setNetworkSpriteIndicatorStatus
+# NoitaComponentUtils.setNetworkSpriteIndicatorStatus
 
 Sets the SpriteComponent to a specific status by setting image_file.
 
@@ -2282,7 +2282,7 @@ function NoitaComponentUtils.setNetworkSpriteIndicatorStatus(entityId: number, s
 
 ---
 
-#L NoitaMpSettings
+# NoitaMpSettings
 
  NoitaMpSettings: Replacement for Noita ModSettings.
 
@@ -2294,18 +2294,18 @@ NoitaMpSettings
 
 ---
 
-#L NoitaMpSettings
+# NoitaMpSettings
 
  NoitaMpSettings: Replacement for Noita ModSettings.
 
-#L#L clearAndCreateSettings
+## clearAndCreateSettings
 
 
 ```lua
 function NoitaMpSettings.clearAndCreateSettings()
 ```
 
-#L#L get
+## get
 
 
 ```lua
@@ -2313,21 +2313,21 @@ function NoitaMpSettings.get(key: any, dataType: any)
   -> boolean|string|number
 ```
 
-#L#L load
+## load
 
 
 ```lua
 function NoitaMpSettings.load()
 ```
 
-#L#L save
+## save
 
 
 ```lua
 function NoitaMpSettings.save()
 ```
 
-#L#L set
+## set
 
 
 ```lua
@@ -2338,7 +2338,7 @@ function NoitaMpSettings.set(key: any, value: any)
 
 ---
 
-#L NoitaPatcherUtils
+# NoitaPatcherUtils
 
 
 ```lua
@@ -2348,7 +2348,7 @@ table
 
 ---
 
-#L NuidUtils
+# NuidUtils
 
  NuidUtils:
  class for getting the current network unique identifier
@@ -2371,7 +2371,7 @@ table
 
 ---
 
-#L NuidUtils.getEntityIdsByKillIndicator
+# NuidUtils.getEntityIdsByKillIndicator
 
  If an entity died, the associated nuid-entityId-set will be updated with entityId multiplied by -1.
  If this happens, KillEntityMsg has to be send by network.
@@ -2385,7 +2385,7 @@ function NuidUtils.getEntityIdsByKillIndicator()
 
 ---
 
-#L NuidUtils.getNextNuid
+# NuidUtils.getNextNuid
 
 
 ```lua
@@ -2396,7 +2396,7 @@ function NuidUtils.getNextNuid()
 
 ---
 
-#L OnEntityLoaded
+# OnEntityLoaded
 
  Make sure this is only be executed once in OnWorldPREUpdate!
 
@@ -2408,7 +2408,7 @@ function OnEntityLoaded()
 
 ---
 
-#L OnEntityRemoved
+# OnEntityRemoved
 
  Make sure this is only be executed once!
 
@@ -2420,7 +2420,7 @@ function OnEntityRemoved(entityId: any, nuid: any)
 
 ---
 
-#L OnProjectileFired
+# OnProjectileFired
 
  Must define these callbacks else you get errors every
  time a projectile is fired. Functions are empty since
@@ -2434,7 +2434,7 @@ function OnProjectileFired()
 
 ---
 
-#L OnProjectileFiredPost
+# OnProjectileFiredPost
 
 
 ```lua
@@ -2444,7 +2444,7 @@ function OnProjectileFiredPost()
 
 ---
 
-#L OnWorldInitialized
+# OnWorldInitialized
 
 
 ```lua
@@ -2454,7 +2454,7 @@ function OnWorldInitialized()
 
 ---
 
-#L PlayerNameFunction
+# PlayerNameFunction
 
 
 ```lua
@@ -2464,7 +2464,7 @@ function PlayerNameFunction(entity_id: any, playerName: any)
 
 ---
 
-#L SDL
+# SDL
 
 
 ```lua
@@ -2474,12 +2474,12 @@ unknown
 
 ---
 
-#L SerialisedEntity
+# SerialisedEntity
 
 
 ---
 
-#L Server
+# Server
 
 
 ```lua
@@ -2494,7 +2494,7 @@ SockServer
 
 ---
 
-#L Server.address
+# Server.address
 
 
 ```lua
@@ -2504,7 +2504,7 @@ unknown
 
 ---
 
-#L Server.port
+# Server.port
 
 
 ```lua
@@ -2514,9 +2514,9 @@ unknown
 
 ---
 
-#L ServerInit
+# ServerInit
 
-#L#L new
+## new
 
 
 ```lua
@@ -2530,7 +2530,7 @@ function ServerInit.new(sockServer: SockServer)
 
 ---
 
-#L ServerInit
+# ServerInit
 
  Because of stack overflow errors when loading lua files,
  I decided to put Utils 'classes' into globals
@@ -2548,7 +2548,7 @@ ServerInit
 
 ---
 
-#L ServerInit.new
+# ServerInit.new
 
  ServerInit constructor
  Creates a new instance of server 'class'
@@ -2562,16 +2562,16 @@ function ServerInit.new(sockServer: SockServer)
 
 ---
 
-#L SockClient
+# SockClient
 
-#L#L acknowledgeMaxSize
+## acknowledgeMaxSize
 
 
 ```lua
 integer
 ```
 
-#L#L amIClient
+## amIClient
 
 
 ```lua
@@ -2583,14 +2583,14 @@ function SockClient.amIClient()
 
 @*return* `iAm` — true if client
 
-#L#L clientCacheId
+## clientCacheId
 
 
 ```lua
 integer
 ```
 
-#L#L connect
+## connect
 
 
 ```lua
@@ -2605,14 +2605,14 @@ function SockClient.connect(ip: string, port?: number, code: number)
 
 @*param* `code` — connection code 0 = connecting first time, 1 = connected second time with loaded seed
 
-#L#L disconnect
+## disconnect
 
 
 ```lua
 function SockClient.disconnect()
 ```
 
-#L#L getAckCacheSize
+## getAckCacheSize
 
 
 ```lua
@@ -2622,7 +2622,7 @@ function SockClient.getAckCacheSize()
 
  Mainly for profiling. Returns then network cache, aka acknowledge.
 
-#L#L guid
+## guid
 
 
 ```lua
@@ -2631,21 +2631,21 @@ boolean|string|number
 
  guid might not be set here or will be overwritten at the end of the constructor. @see setGuid
 
-#L#L health
+## health
 
 
 ```lua
 table
 ```
 
-#L#L iAm
+## iAm
 
 
 ```lua
 string
 ```
 
-#L#L isConnected
+## isConnected
 
 
 ```lua
@@ -2653,42 +2653,42 @@ function SockClient.isConnected()
   -> unknown
 ```
 
-#L#L missingMods
+## missingMods
 
 
 ```lua
 nil
 ```
 
-#L#L name
+## name
 
 
 ```lua
 boolean|string|number
 ```
 
-#L#L nuid
+## nuid
 
 
 ```lua
 nil
 ```
 
-#L#L otherClients
+## otherClients
 
 
 ```lua
 table
 ```
 
-#L#L requiredMods
+## requiredMods
 
 
 ```lua
 nil
 ```
 
-#L#L send
+## send
 
 
 ```lua
@@ -2696,7 +2696,7 @@ function SockClient.send(self: SockClient, event: any, data: any)
   -> boolean
 ```
 
-#L#L sendDeadNuids
+## sendDeadNuids
 
 
 ```lua
@@ -2704,14 +2704,14 @@ function SockClient.sendDeadNuids(deadNuids: any)
   -> boolean
 ```
 
-#L#L sendEntityData
+## sendEntityData
 
 
 ```lua
 function SockClient.sendEntityData(entityId: any)
 ```
 
-#L#L sendLostNuid
+## sendLostNuid
 
 
 ```lua
@@ -2719,7 +2719,7 @@ function SockClient.sendLostNuid(nuid: any)
   -> boolean
 ```
 
-#L#L sendMinaInformation
+## sendMinaInformation
 
 
 ```lua
@@ -2727,7 +2727,7 @@ function SockClient.sendMinaInformation()
   -> boolean
 ```
 
-#L#L sendNeedNuid
+## sendNeedNuid
 
 
 ```lua
@@ -2736,28 +2736,28 @@ function SockClient.sendNeedNuid(ownerName: string, ownerGuid: string, entityId:
 
 Sends a message to the server that the client needs a nuid.
 
-#L#L serverInfo
+## serverInfo
 
 
 ```lua
 table
 ```
 
-#L#L syncedMods
+## syncedMods
 
 
 ```lua
 boolean
 ```
 
-#L#L transform
+## transform
 
 
 ```lua
 table
 ```
 
-#L#L update
+## update
 
 
 ```lua
@@ -2769,9 +2769,9 @@ function SockClient.update(startFrameTime: any)
 
 ---
 
-#L SockServer
+# SockServer
 
-#L#L acknowledgeMaxSize
+## acknowledgeMaxSize
 
 
 ```lua
@@ -2781,7 +2781,7 @@ integer
 self.acknowledge        = {} -- sock.lua#LClient:send -> self.acknowledge[packetsSent] = { event = event, data = data, entityId = data.entityId, status = NetworkUtils.events.acknowledgement.sent }
 table.setNoitaMpDefaultMetaMethods(self.acknowledge, "v")
 
-#L#L amIServer
+## amIServer
 
 
 ```lua
@@ -2793,14 +2793,14 @@ function SockServer.amIServer()
 
 @*return* `iAm` — true if server
 
-#L#L ban
+## ban
 
 
 ```lua
 function SockServer.ban(name: any)
 ```
 
-#L#L getAckCacheSize
+## getAckCacheSize
 
 
 ```lua
@@ -2810,7 +2810,7 @@ function SockServer.getAckCacheSize()
 
  Mainly for profiling. Returns then network cache, aka acknowledge.
 
-#L#L guid
+## guid
 
 
 ```lua
@@ -2819,21 +2819,21 @@ boolean|string|number
 
  guid might not be set here or will be overwritten at the end of the constructor. @see setGuid
 
-#L#L health
+## health
 
 
 ```lua
 table
 ```
 
-#L#L iAm
+## iAm
 
 
 ```lua
 string
 ```
 
-#L#L isRunning
+## isRunning
 
 
 ```lua
@@ -2841,35 +2841,35 @@ function SockServer.isRunning()
   -> boolean
 ```
 
-#L#L kick
+## kick
 
 
 ```lua
 function SockServer.kick(name: any)
 ```
 
-#L#L modListCached
+## modListCached
 
 
 ```lua
 nil
 ```
 
-#L#L name
+## name
 
 
 ```lua
 boolean|string|number
 ```
 
-#L#L nuid
+## nuid
 
 
 ```lua
 nil
 ```
 
-#L#L send
+## send
 
 
 ```lua
@@ -2877,21 +2877,21 @@ function SockServer.send(self: SockServer, peer: any, event: any, data: any)
   -> boolean
 ```
 
-#L#L sendDeadNuids
+## sendDeadNuids
 
 
 ```lua
 function SockServer.sendDeadNuids(deadNuids: any)
 ```
 
-#L#L sendEntityData
+## sendEntityData
 
 
 ```lua
 function SockServer.sendEntityData(entityId: any)
 ```
 
-#L#L sendMinaInformation
+## sendMinaInformation
 
 
 ```lua
@@ -2899,7 +2899,7 @@ function SockServer.sendMinaInformation()
   -> boolean
 ```
 
-#L#L sendNewGuid
+## sendNewGuid
 
 
 ```lua
@@ -2907,7 +2907,7 @@ function SockServer.sendNewGuid(peer: any, oldGuid: any, newGuid: any)
   -> boolean
 ```
 
-#L#L sendNewNuid
+## sendNewNuid
 
 
 ```lua
@@ -2915,7 +2915,7 @@ function SockServer.sendNewNuid(owner: any, localEntityId: any, newNuid: any, x:
   -> boolean
 ```
 
-#L#L sendNewNuidSerialized
+## sendNewNuidSerialized
 
 
 ```lua
@@ -2923,7 +2923,7 @@ function SockServer.sendNewNuidSerialized(ownerName: any, ownerGuid: any, entity
   -> boolean
 ```
 
-#L#L sendToAll
+## sendToAll
 
 
 ```lua
@@ -2931,7 +2931,7 @@ function SockServer.sendToAll(self: SockServer, event: any, data: any)
   -> boolean
 ```
 
-#L#L sendToAllBut
+## sendToAllBut
 
 
 ```lua
@@ -2939,7 +2939,7 @@ function SockServer.sendToAllBut(self: SockServer, peer: any, event: any, data: 
   -> boolean
 ```
 
-#L#L start
+## start
 
 
 ```lua
@@ -2952,7 +2952,7 @@ function SockServer.start(ip: string, port?: number)
 
 @*param* `port` — port number from 1 to max of 65535 or nil
 
-#L#L stop
+## stop
 
 
 ```lua
@@ -2961,14 +2961,14 @@ function SockServer.stop()
 
  Stops the server.
 
-#L#L transform
+## transform
 
 
 ```lua
 table
 ```
 
-#L#L update
+## update
 
 
 ```lua
@@ -2980,16 +2980,16 @@ function SockServer.update(startFrameTime: any)
 
 ---
 
-#L Transform
+# Transform
 
-#L#L x
+## x
 
 
 ```lua
 number
 ```
 
-#L#L y
+## y
 
 
 ```lua
@@ -2999,7 +2999,7 @@ number
 
 ---
 
-#L Ui
+# Ui
 
  Ui: NoitaMP UI.
 See:
@@ -3014,7 +3014,7 @@ table
 
 ---
 
-#L Ui.new
+# Ui.new
 
 
 ```lua
@@ -3025,25 +3025,25 @@ function Ui.new()
 
 ---
 
-#L Utils
+# Utils
 
-#L#L CopyToClipboard
+## CopyToClipboard
 
 
 ```lua
 function Utils.CopyToClipboard(copy: any)
 ```
 
-#L#L DebugEntity
+## DebugEntity
 
 
 ```lua
 function Utils.DebugEntity(e: any)
 ```
 
-https://noita.wiki.gg/wiki/Modding:_Utilities#LEasier_entity_debugging
+https://noita.wiki.gg/wiki/Modding:_Utilities#Easier_entity_debugging
 
-#L#L IsEmpty
+## IsEmpty
 
 
 ```lua
@@ -3051,7 +3051,7 @@ function Utils.IsEmpty(var: any)
   -> boolean
 ```
 
-#L#L ReloadMap
+## ReloadMap
 
 
 ```lua
@@ -3062,7 +3062,7 @@ function Utils.ReloadMap(seed: number)
 
 @*param* `seed` — max = 4294967295
 
-#L#L Sleep
+## Sleep
 
 
 ```lua
@@ -3073,7 +3073,7 @@ function Utils.Sleep(s: number)
 
 @*param* `s` — seconds to wait
 
-#L#L Str
+## Str
 
 
 ```lua
@@ -3081,16 +3081,16 @@ function Utils.Str(var: any)
   -> string|unknown
 ```
 
-https://noita.wiki.gg/wiki/Modding:_Utilities#LEasier_entity_debugging
+https://noita.wiki.gg/wiki/Modding:_Utilities#Easier_entity_debugging
 
-#L#L openUrl
+## openUrl
 
 
 ```lua
 function Utils.openUrl(url: any)
 ```
 
-#L#L pformat
+## pformat
 
 
 ```lua
@@ -3100,7 +3100,7 @@ function Utils.pformat(var: any)
 
 ---
 
-#L Utils
+# Utils
 
 
 ```lua
@@ -3135,12 +3135,12 @@ any
 
 ---
 
-#L _G
+# _G
 
 
-A global variable (not a function) that holds the global environment (see [§2.2](http://www.lua.org/manual/5.4/manual.html#L2.2)). Lua itself does not use this variable; changing its value does not affect any environment, nor vice versa.
+A global variable (not a function) that holds the global environment (see [§2.2](http://www.lua.org/manual/5.4/manual.html#2.2)). Lua itself does not use this variable; changing its value does not affect any environment, nor vice versa.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-_G)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-_G)
 
 
 
@@ -3151,7 +3151,7 @@ _G
 
 ---
 
-#L _G.Client
+# _G.Client
 
 Globally accessible Client in _G.Client.
 
@@ -3163,7 +3163,7 @@ Client
 
 ---
 
-#L _G.ClientInit
+# _G.ClientInit
 
 Globally accessible ClientInit in _G.ClientInit.
 
@@ -3175,7 +3175,7 @@ ClientInit
 
 ---
 
-#L _G.CustomProfiler
+# _G.CustomProfiler
 
 Globally accessible CustomProfiler in _G.CustomProfiler.
 
@@ -3187,7 +3187,7 @@ CustomProfiler
 
 ---
 
-#L _G.EntityCache
+# _G.EntityCache
 
 Globally accessible EntityCache in _G.EntityCache.
 
@@ -3199,7 +3199,7 @@ EntityCache
 
 ---
 
-#L _G.EntityCacheUtils
+# _G.EntityCacheUtils
 
 Globally accessible EntityCacheUtils in _G.EntityCacheUtils.
 
@@ -3211,7 +3211,7 @@ EntityCacheUtils
 
 ---
 
-#L _G.EntitySerialisationUtils
+# _G.EntitySerialisationUtils
 
 Globally accessible EntitySerialisationUtils in _G.EntitySerialisationUtils.
 
@@ -3223,7 +3223,7 @@ EntitySerialisationUtils
 
 ---
 
-#L _G.EntityUtils
+# _G.EntityUtils
 
 Globally accessible EntityUtils in _G.EntityUtils.
 
@@ -3235,7 +3235,7 @@ EntityUtils
 
 ---
 
-#L _G.FileUtils
+# _G.FileUtils
 
 Globally accessible FileUtils in _G.FileUtils.
 
@@ -3247,7 +3247,7 @@ FileUtils
 
 ---
 
-#L _G.GlobalsUtils
+# _G.GlobalsUtils
 
 Globally accessible GlobalsUtils in _G.GlobalsUtils.
 
@@ -3259,7 +3259,7 @@ GlobalsUtils
 
 ---
 
-#L _G.GuidUtils
+# _G.GuidUtils
 
 Globally accessible GuidUtils in _G.GuidUtils.
 
@@ -3271,7 +3271,7 @@ GuidUtils
 
 ---
 
-#L _G.Logger
+# _G.Logger
 
 Globally accessible Logger in _G.Logger.
 
@@ -3283,7 +3283,7 @@ Logger
 
 ---
 
-#L _G.MinaUtils
+# _G.MinaUtils
 
 Globally accessible MinaUtils in _G.MinaUtils.
 
@@ -3295,7 +3295,7 @@ MinaUtils
 
 ---
 
-#L _G.NetworkCacheUtils
+# _G.NetworkCacheUtils
 
 Globally accessible NetworkCacheUtils in _G.NetworkCacheUtils.
 
@@ -3307,7 +3307,7 @@ NetworkCacheUtils
 
 ---
 
-#L _G.NetworkUtils
+# _G.NetworkUtils
 
 Globally accessible NetworkUtils in _G.NetworkUtils.
 
@@ -3319,7 +3319,7 @@ NetworkUtils
 
 ---
 
-#L _G.NetworkVscUtils
+# _G.NetworkVscUtils
 
 Globally accessible NetworkVscUtils in _G.NetworkVscUtils.
 
@@ -3331,7 +3331,7 @@ NetworkVscUtils
 
 ---
 
-#L _G.NoitaComponentUtils
+# _G.NoitaComponentUtils
 
 Globally accessible NoitaComponentUtils in _G.NoitaComponentUtils.
 
@@ -3343,7 +3343,7 @@ NoitaComponentUtils
 
 ---
 
-#L _G.NoitaMpSettings
+# _G.NoitaMpSettings
 
 Globally accessible NoitaMpSettings in _G.NoitaMpSettings.
 
@@ -3355,7 +3355,7 @@ NoitaMpSettings
 
 ---
 
-#L _G.NoitaPatcherUtils
+# _G.NoitaPatcherUtils
 
 Globally accessible noitapatcher in _G.noitapatcher.
 
@@ -3367,7 +3367,7 @@ NoitaPatcherUtils
 
 ---
 
-#L _G.NuidUtils
+# _G.NuidUtils
 
 Globally accessible NuidUtils in _G.NuidUtils.
 
@@ -3379,7 +3379,7 @@ NuidUtils
 
 ---
 
-#L _G.Server
+# _G.Server
 
 Globally accessible Server in _G.Server.
 
@@ -3391,7 +3391,7 @@ Server
 
 ---
 
-#L _G.SockClient
+# _G.SockClient
 
 Globally accessible SockClient in _G.SockClient.
 
@@ -3403,7 +3403,7 @@ SockClient
 
 ---
 
-#L _G.Utils
+# _G.Utils
 
 Globally accessible Utils in _G.Utils.
 
@@ -3415,7 +3415,7 @@ Utils
 
 ---
 
-#L _G.guiI
+# _G.guiI
 
 Globally accessible gui instance in _G.gui.
 
@@ -3427,12 +3427,12 @@ guiI
 
 ---
 
-#L _VERSION
+# _VERSION
 
 
 A global variable (not a function) that holds a string containing the running Lua version.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-_VERSION)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-_VERSION)
 
 
 
@@ -3443,7 +3443,7 @@ string
 
 ---
 
-#L __genOrderedIndex
+# __genOrderedIndex
 
 
 ```lua
@@ -3454,12 +3454,12 @@ function __genOrderedIndex(t: any)
 
 ---
 
-#L arg
+# arg
 
 
 Command-line arguments of Lua Standalone.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-arg)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-arg)
 
 
 
@@ -3470,12 +3470,12 @@ string[]
 
 ---
 
-#L assert
+# assert
 
 
 Raises an error if the value of its argument v is false (i.e., `nil` or `false`); otherwise, returns all its arguments. In case of error, `message` is the error object; when absent, it defaults to `"assertion failed!"`
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-assert)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-assert)
 
 
 ```lua
@@ -3487,12 +3487,12 @@ function assert(v?: <T>, message?: any, ...any)
 
 ---
 
-#L collectgarbage
+# collectgarbage
 
 
 This function is a generic interface to the garbage collector. It performs different functions according to its first argument, `opt`.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-collectgarbage)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-collectgarbage)
 
 
 ```lua
@@ -3516,7 +3516,7 @@ function collectgarbage(opt?: "collect"|"count"|"generational"|"incremental"|"is
 
 ---
 
-#L compId
+# compId
 
 
 ```lua
@@ -3531,12 +3531,12 @@ unknown
 
 ---
 
-#L coroutine
+# coroutine
 
 
 
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-coroutine)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-coroutine)
 
 
 
@@ -3547,12 +3547,12 @@ coroutinelib
 
 ---
 
-#L coroutine.close
+# coroutine.close
 
 
 Closes coroutine `co` , closing all its pending to-be-closed variables and putting the coroutine in a dead state.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-coroutine.close)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-coroutine.close)
 
 
 ```lua
@@ -3564,12 +3564,12 @@ function coroutine.close(co: thread)
 
 ---
 
-#L coroutine.create
+# coroutine.create
 
 
 Creates a new coroutine, with body `f`. `f` must be a function. Returns this new coroutine, an object with type `"thread"`.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-coroutine.create)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-coroutine.create)
 
 
 ```lua
@@ -3580,12 +3580,12 @@ function coroutine.create(f: fun(...any):...unknown)
 
 ---
 
-#L coroutine.isyieldable
+# coroutine.isyieldable
 
 
 Returns true when the coroutine `co` can yield. The default for `co` is the running coroutine.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-coroutine.isyieldable)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-coroutine.isyieldable)
 
 
 ```lua
@@ -3596,12 +3596,12 @@ function coroutine.isyieldable(co?: thread)
 
 ---
 
-#L coroutine.resume
+# coroutine.resume
 
 
 Starts or continues the execution of coroutine `co`.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-coroutine.resume)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-coroutine.resume)
 
 
 ```lua
@@ -3613,12 +3613,12 @@ function coroutine.resume(co: thread, val1?: any, ...any)
 
 ---
 
-#L coroutine.running
+# coroutine.running
 
 
 Returns the running coroutine plus a boolean, true when the running coroutine is the main one.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-coroutine.running)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-coroutine.running)
 
 
 ```lua
@@ -3630,16 +3630,16 @@ function coroutine.running()
 
 ---
 
-#L coroutine.status
+# coroutine.status
 
 
 Returns the status of coroutine `co`.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-coroutine.status)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-coroutine.status)
 
 
 ```lua
-return #L1:
+return #1:
     | "running" -- Is running.
     | "suspended" -- Is suspended or not started.
     | "normal" -- Is active but not running.
@@ -3655,12 +3655,12 @@ function coroutine.status(co: thread)
 
 ---
 
-#L coroutine.wrap
+# coroutine.wrap
 
 
 Creates a new coroutine, with body `f`; `f` must be a function. Returns a function that resumes the coroutine each time it is called.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-coroutine.wrap)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-coroutine.wrap)
 
 
 ```lua
@@ -3671,12 +3671,12 @@ function coroutine.wrap(f: fun(...any):...unknown)
 
 ---
 
-#L coroutine.yield
+# coroutine.yield
 
 
 Suspends the execution of the calling coroutine.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-coroutine.yield)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-coroutine.yield)
 
 
 ```lua
@@ -3687,12 +3687,12 @@ Suspends the execution of the calling coroutine.
 
 ---
 
-#L debug
+# debug
 
 
 
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-debug)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-debug)
 
 
 
@@ -3703,12 +3703,12 @@ debuglib
 
 ---
 
-#L debug.debug
+# debug.debug
 
 
 Enters an interactive mode with the user, running each string that the user enters.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-debug.debug)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-debug.debug)
 
 
 ```lua
@@ -3718,12 +3718,12 @@ function debug.debug()
 
 ---
 
-#L debug.getfenv
+# debug.getfenv
 
 
 Returns the environment of object `o` .
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-debug.getfenv)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-debug.getfenv)
 
 
 ```lua
@@ -3734,12 +3734,12 @@ function debug.getfenv(o: any)
 
 ---
 
-#L debug.gethook
+# debug.gethook
 
 
 Returns the current hook settings of the thread.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-debug.gethook)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-debug.gethook)
 
 
 ```lua
@@ -3752,12 +3752,12 @@ function debug.gethook(co?: thread)
 
 ---
 
-#L debug.getinfo
+# debug.getinfo
 
 
 Returns a table with information about a function.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-debug.getinfo)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-debug.getinfo)
 
 
 ---
@@ -3783,12 +3783,12 @@ function debug.getinfo(thread: thread, f: integer|fun(...any):...unknown, what?:
 
 ---
 
-#L debug.getlocal
+# debug.getlocal
 
 
 Returns the name and the value of the local variable with index `local` of the function at level `f` of the stack.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-debug.getlocal)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-debug.getlocal)
 
 
 ```lua
@@ -3800,12 +3800,12 @@ function debug.getlocal(thread: thread, f: integer|fun(...any):...unknown, index
 
 ---
 
-#L debug.getmetatable
+# debug.getmetatable
 
 
 Returns the metatable of the given value.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-debug.getmetatable)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-debug.getmetatable)
 
 
 ```lua
@@ -3816,12 +3816,12 @@ function debug.getmetatable(object: any)
 
 ---
 
-#L debug.getregistry
+# debug.getregistry
 
 
 Returns the registry table.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-debug.getregistry)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-debug.getregistry)
 
 
 ```lua
@@ -3832,12 +3832,12 @@ function debug.getregistry()
 
 ---
 
-#L debug.getupvalue
+# debug.getupvalue
 
 
 Returns the name and the value of the upvalue with index `up` of the function.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-debug.getupvalue)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-debug.getupvalue)
 
 
 ```lua
@@ -3849,7 +3849,7 @@ function debug.getupvalue(f: fun(...any):...unknown, up: integer)
 
 ---
 
-#L debug.getuservalue
+# debug.getuservalue
 
 
 Returns the `n`-th user value associated
@@ -3857,7 +3857,7 @@ to the userdata `u` plus a boolean,
 `false` if the userdata does not have that value.
 
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-debug.getuservalue)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-debug.getuservalue)
 
 
 ```lua
@@ -3869,17 +3869,17 @@ function debug.getuservalue(u: userdata, n?: integer)
 
 ---
 
-#L debug.setcstacklimit
+# debug.setcstacklimit
 
 
-#L#L#L **Deprecated in `Lua 5.4.2`**
+### **Deprecated in `Lua 5.4.2`**
 
 Sets a new limit for the C stack. This limit controls how deeply nested calls can go in Lua, with the intent of avoiding a stack overflow.
 
 In case of success, this function returns the old limit. In case of error, it returns `false`.
 
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-debug.setcstacklimit)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-debug.setcstacklimit)
 
 
 ```lua
@@ -3890,12 +3890,12 @@ function debug.setcstacklimit(limit: integer)
 
 ---
 
-#L debug.setfenv
+# debug.setfenv
 
 
 Sets the environment of the given `object` to the given `table` .
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-debug.setfenv)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-debug.setfenv)
 
 
 ```lua
@@ -3906,12 +3906,12 @@ function debug.setfenv(object: <T>, env: table)
 
 ---
 
-#L debug.sethook
+# debug.sethook
 
 
 Sets the given function as a hook.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-debug.sethook)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-debug.sethook)
 
 
 ---
@@ -3931,12 +3931,12 @@ function debug.sethook(thread: thread, hook: fun(...any):...unknown, mask: strin
 
 ---
 
-#L debug.setlocal
+# debug.setlocal
 
 
 Assigns the `value` to the local variable with index `local` of the function at `level` of the stack.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-debug.setlocal)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-debug.setlocal)
 
 
 ```lua
@@ -3947,12 +3947,12 @@ function debug.setlocal(thread: thread, level: integer, index: integer, value: a
 
 ---
 
-#L debug.setmetatable
+# debug.setmetatable
 
 
 Sets the metatable for the given value to the given table (which can be `nil`).
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-debug.setmetatable)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-debug.setmetatable)
 
 
 ```lua
@@ -3963,12 +3963,12 @@ function debug.setmetatable(value: <T>, meta?: table)
 
 ---
 
-#L debug.setupvalue
+# debug.setupvalue
 
 
 Assigns the `value` to the upvalue with index `up` of the function.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-debug.setupvalue)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-debug.setupvalue)
 
 
 ```lua
@@ -3979,7 +3979,7 @@ function debug.setupvalue(f: fun(...any):...unknown, up: integer, value: any)
 
 ---
 
-#L debug.setuservalue
+# debug.setuservalue
 
 
 Sets the given `value` as
@@ -3987,7 +3987,7 @@ the `n`-th user value associated to the given `udata`.
 `udata` must be a full userdata.
 
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-debug.setuservalue)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-debug.setuservalue)
 
 
 ```lua
@@ -3998,12 +3998,12 @@ function debug.setuservalue(udata: userdata, value: any, n?: integer)
 
 ---
 
-#L debug.traceback
+# debug.traceback
 
 
 Returns a string with a traceback of the call stack. The optional message string is appended at the beginning of the traceback.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-debug.traceback)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-debug.traceback)
 
 
 ```lua
@@ -4014,12 +4014,12 @@ function debug.traceback(thread: thread, message?: any, level?: integer)
 
 ---
 
-#L debug.upvalueid
+# debug.upvalueid
 
 
 Returns a unique identifier (as a light userdata) for the upvalue numbered `n` from the given function.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-debug.upvalueid)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-debug.upvalueid)
 
 
 ```lua
@@ -4030,12 +4030,12 @@ function debug.upvalueid(f: fun(...any):...unknown, n: integer)
 
 ---
 
-#L debug.upvaluejoin
+# debug.upvaluejoin
 
 
 Make the `n1`-th upvalue of the Lua closure `f1` refer to the `n2`-th upvalue of the Lua closure `f2`.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-debug.upvaluejoin)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-debug.upvaluejoin)
 
 
 ```lua
@@ -4045,12 +4045,12 @@ function debug.upvaluejoin(f1: fun(...any):...unknown, n1: integer, f2: fun(...a
 
 ---
 
-#L dofile
+# dofile
 
 
 Opens the named file and executes its content as a Lua chunk. When called without arguments, `dofile` executes the content of the standard input (`stdin`). Returns all values returned by the chunk. In case of errors, `dofile` propagates the error to its caller. (That is, `dofile` does not run in protected mode.)
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-dofile)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-dofile)
 
 
 ```lua
@@ -4061,7 +4061,7 @@ function dofile(filename?: string)
 
 ---
 
-#L enabled_changed
+# enabled_changed
 
 
 ```lua
@@ -4071,7 +4071,7 @@ function enabled_changed(entityId: any, isEnabled: any)
 
 ---
 
-#L error
+# error
 
 
 Terminates the last protected function called and returns message as the error object.
@@ -4079,7 +4079,7 @@ Terminates the last protected function called and returns message as the error o
 Usually, `error` adds some information about the error position at the beginning of the message, if the message is a string.
 
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-error)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-error)
 
 
 ```lua
@@ -4089,7 +4089,7 @@ function error(message: any, level?: integer)
 
 ---
 
-#L getHighestAliveEntityId
+# getHighestAliveEntityId
 
 
 ```lua
@@ -4100,7 +4100,7 @@ function getHighestAliveEntityId()
 
 ---
 
-#L getNoitaMpRootDirectory
+# getNoitaMpRootDirectory
 
 
 ```lua
@@ -4111,12 +4111,12 @@ function getNoitaMpRootDirectory()
 
 ---
 
-#L getfenv
+# getfenv
 
 
 Returns the current environment in use by the function. `f` can be a Lua function or a number that specifies the function at that stack level.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-getfenv)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-getfenv)
 
 
 ```lua
@@ -4127,12 +4127,12 @@ function getfenv(f?: integer|fun(...any):...unknown)
 
 ---
 
-#L getmetatable
+# getmetatable
 
 
 If object does not have a metatable, returns nil. Otherwise, if the object's metatable has a __metatable field, returns the associated value. Otherwise, returns the metatable of the given object.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-getmetatable)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-getmetatable)
 
 
 ```lua
@@ -4143,7 +4143,7 @@ function getmetatable(object: any)
 
 ---
 
-#L gui
+# gui
 
 
 ```lua
@@ -4178,7 +4178,7 @@ unknown
 
 ---
 
-#L guiI
+# guiI
 
 
 ```lua
@@ -4188,7 +4188,7 @@ table
 
 ---
 
-#L guid
+# guid
 
 
 ```lua
@@ -4198,12 +4198,12 @@ unknown
 
 ---
 
-#L io
+# io
 
 
 
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-io)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-io)
 
 
 
@@ -4214,12 +4214,12 @@ iolib
 
 ---
 
-#L io.close
+# io.close
 
 
 Close `file` or default output file.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-io.close)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-io.close)
 
 
 ```lua
@@ -4239,12 +4239,12 @@ function io.close(file?: file*)
 
 ---
 
-#L io.flush
+# io.flush
 
 
 Saves any written data to default output file.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-io.flush)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-io.flush)
 
 
 ```lua
@@ -4254,12 +4254,12 @@ function io.flush()
 
 ---
 
-#L io.input
+# io.input
 
 
 Sets `file` as the default input file.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-io.input)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-io.input)
 
 
 ```lua
@@ -4269,7 +4269,7 @@ function io.input(file: string|file*)
 
 ---
 
-#L io.lines
+# io.lines
 
 
 ------
@@ -4280,7 +4280,7 @@ end
 ```
 
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-io.lines)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-io.lines)
 
 
 ```lua
@@ -4300,12 +4300,12 @@ function io.lines(filename?: string, ...string|integer|"L"|"a"|"l"...(+1))
 
 ---
 
-#L io.open
+# io.open
 
 
 Opens a file, in the mode specified in the string `mode`.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-io.open)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-io.open)
 
 
 ```lua
@@ -4334,12 +4334,12 @@ function io.open(filename: string, mode?: "a"|"a+"|"a+b"|"ab"|"r"...(+7))
 
 ---
 
-#L io.output
+# io.output
 
 
 Sets `file` as the default output file.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-io.output)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-io.output)
 
 
 ```lua
@@ -4349,12 +4349,12 @@ function io.output(file: string|file*)
 
 ---
 
-#L io.popen
+# io.popen
 
 
 Starts program prog in a separated process.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-io.popen)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-io.popen)
 
 
 ```lua
@@ -4379,12 +4379,12 @@ function io.popen(commandLine: any)
 
 ---
 
-#L io.read
+# io.read
 
 
 Reads the `file`, according to the given formats, which specify what to read.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-io.read)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-io.read)
 
 
 ```lua
@@ -4405,12 +4405,12 @@ function io.read(...string|integer|"L"|"a"|"l"...(+1))
 
 ---
 
-#L io.tmpfile
+# io.tmpfile
 
 
 In case of success, returns a handle for a temporary file.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-io.tmpfile)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-io.tmpfile)
 
 
 ```lua
@@ -4421,16 +4421,16 @@ function io.tmpfile()
 
 ---
 
-#L io.type
+# io.type
 
 
 Checks whether `obj` is a valid file handle.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-io.type)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-io.type)
 
 
 ```lua
-return #L1:
+return #1:
     | "file" -- Is an open file handle.
     | "closed file" -- Is a closed file handle.
     | `nil` -- Is not a file handle.
@@ -4445,12 +4445,12 @@ function io.type(file: file*)
 
 ---
 
-#L io.write
+# io.write
 
 
 Writes the value of each of its arguments to default output file.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-io.write)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-io.write)
 
 
 ```lua
@@ -4462,7 +4462,7 @@ function io.write(...any)
 
 ---
 
-#L ipairs
+# ipairs
 
 
 Returns three values (an iterator function, the table `t`, and `0`) so that the construction
@@ -4472,7 +4472,7 @@ Returns three values (an iterator function, the table `t`, and `0`) so that the 
 will iterate over the key–value pairs `(1,t[1]), (2,t[2]), ...`, up to the first absent index.
 
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-ipairs)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-ipairs)
 
 
 ```lua
@@ -4485,7 +4485,7 @@ function ipairs(t: <T:table>)
 
 ---
 
-#L is_linux
+# is_linux
 
 
 ```lua
@@ -4505,7 +4505,7 @@ boolean
 
 ---
 
-#L is_windows
+# is_windows
 
 NoitaMP additions 
 
@@ -4527,7 +4527,7 @@ boolean
 
 ---
 
-#L load
+# load
 
 
 Loads a chunk.
@@ -4535,7 +4535,7 @@ Loads a chunk.
 If `chunk` is a string, the chunk is this string. If `chunk` is a function, `load` calls it repeatedly to get the chunk pieces. Each call to `chunk` must return a string that concatenates with previous results. A return of an empty string, `nil`, or no value signals the end of the chunk.
 
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-load)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-load)
 
 
 ```lua
@@ -4555,12 +4555,12 @@ function load(chunk: string|function, chunkname?: string, mode?: "b"|"bt"|"t", e
 
 ---
 
-#L loadfile
+# loadfile
 
 
 Loads a chunk from file `filename` or from the standard input, if no file name is given.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-loadfile)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-loadfile)
 
 
 ```lua
@@ -4580,12 +4580,12 @@ function loadfile(filename?: string, mode?: "b"|"bt"|"t", env?: table)
 
 ---
 
-#L loadstring
+# loadstring
 
 
 Loads a chunk from the given string.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-loadstring)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-loadstring)
 
 
 ```lua
@@ -4597,12 +4597,12 @@ function loadstring(text: string, chunkname?: string)
 
 ---
 
-#L math
+# math
 
 
 
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-math)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-math)
 
 
 
@@ -4613,12 +4613,12 @@ mathlib
 
 ---
 
-#L math.abs
+# math.abs
 
 
 Returns the absolute value of `x`.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-math.abs)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-math.abs)
 
 
 ```lua
@@ -4629,12 +4629,12 @@ function math.abs(x: <Number:number>)
 
 ---
 
-#L math.acos
+# math.acos
 
 
 Returns the arc cosine of `x` (in radians).
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-math.acos)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-math.acos)
 
 
 ```lua
@@ -4645,12 +4645,12 @@ function math.acos(x: number)
 
 ---
 
-#L math.asin
+# math.asin
 
 
 Returns the arc sine of `x` (in radians).
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-math.asin)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-math.asin)
 
 
 ```lua
@@ -4661,12 +4661,12 @@ function math.asin(x: number)
 
 ---
 
-#L math.atan
+# math.atan
 
 
 Returns the arc tangent of `y/x` (in radians).
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-math.atan)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-math.atan)
 
 
 ```lua
@@ -4677,12 +4677,12 @@ function math.atan(y: number, x?: number)
 
 ---
 
-#L math.atan2
+# math.atan2
 
 
 Returns the arc tangent of `y/x` (in radians).
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-math.atan2)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-math.atan2)
 
 
 ```lua
@@ -4693,12 +4693,12 @@ function math.atan2(y: number, x: number)
 
 ---
 
-#L math.ceil
+# math.ceil
 
 
 Returns the smallest integral value larger than or equal to `x`.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-math.ceil)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-math.ceil)
 
 
 ```lua
@@ -4709,12 +4709,12 @@ function math.ceil(x: number)
 
 ---
 
-#L math.cos
+# math.cos
 
 
 Returns the cosine of `x` (assumed to be in radians).
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-math.cos)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-math.cos)
 
 
 ```lua
@@ -4725,12 +4725,12 @@ function math.cos(x: number)
 
 ---
 
-#L math.cosh
+# math.cosh
 
 
 Returns the hyperbolic cosine of `x` (assumed to be in radians).
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-math.cosh)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-math.cosh)
 
 
 ```lua
@@ -4741,12 +4741,12 @@ function math.cosh(x: number)
 
 ---
 
-#L math.deg
+# math.deg
 
 
 Converts the angle `x` from radians to degrees.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-math.deg)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-math.deg)
 
 
 ```lua
@@ -4757,12 +4757,12 @@ function math.deg(x: number)
 
 ---
 
-#L math.exp
+# math.exp
 
 
 Returns the value `e^x` (where `e` is the base of natural logarithms).
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-math.exp)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-math.exp)
 
 
 ```lua
@@ -4773,12 +4773,12 @@ function math.exp(x: number)
 
 ---
 
-#L math.floor
+# math.floor
 
 
 Returns the largest integral value smaller than or equal to `x`.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-math.floor)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-math.floor)
 
 
 ```lua
@@ -4789,12 +4789,12 @@ function math.floor(x: number)
 
 ---
 
-#L math.fmod
+# math.fmod
 
 
 Returns the remainder of the division of `x` by `y` that rounds the quotient towards zero.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-math.fmod)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-math.fmod)
 
 
 ```lua
@@ -4805,12 +4805,12 @@ function math.fmod(x: number, y: number)
 
 ---
 
-#L math.frexp
+# math.frexp
 
 
 Decompose `x` into tails and exponents. Returns `m` and `e` such that `x = m * (2 ^ e)`, `e` is an integer and the absolute value of `m` is in the range [0.5, 1) (or zero when `x` is zero).
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-math.frexp)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-math.frexp)
 
 
 ```lua
@@ -4822,12 +4822,12 @@ function math.frexp(x: number)
 
 ---
 
-#L math.ldexp
+# math.ldexp
 
 
 Returns `m * (2 ^ e)` .
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-math.ldexp)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-math.ldexp)
 
 
 ```lua
@@ -4838,12 +4838,12 @@ function math.ldexp(m: number, e: number)
 
 ---
 
-#L math.log
+# math.log
 
 
 Returns the logarithm of `x` in the given base.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-math.log)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-math.log)
 
 
 ```lua
@@ -4854,12 +4854,12 @@ function math.log(x: number, base?: integer)
 
 ---
 
-#L math.log10
+# math.log10
 
 
 Returns the base-10 logarithm of x.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-math.log10)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-math.log10)
 
 
 ```lua
@@ -4870,12 +4870,12 @@ function math.log10(x: number)
 
 ---
 
-#L math.max
+# math.max
 
 
 Returns the argument with the maximum value, according to the Lua operator `<`.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-math.max)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-math.max)
 
 
 ```lua
@@ -4886,12 +4886,12 @@ function math.max(x: <Number:number>, ...<Number:number>)
 
 ---
 
-#L math.min
+# math.min
 
 
 Returns the argument with the minimum value, according to the Lua operator `<`.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-math.min)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-math.min)
 
 
 ```lua
@@ -4902,12 +4902,12 @@ function math.min(x: <Number:number>, ...<Number:number>)
 
 ---
 
-#L math.modf
+# math.modf
 
 
 Returns the integral part of `x` and the fractional part of `x`.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-math.modf)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-math.modf)
 
 
 ```lua
@@ -4919,12 +4919,12 @@ function math.modf(x: number)
 
 ---
 
-#L math.pow
+# math.pow
 
 
 Returns `x ^ y` .
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-math.pow)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-math.pow)
 
 
 ```lua
@@ -4935,12 +4935,12 @@ function math.pow(x: number, y: number)
 
 ---
 
-#L math.rad
+# math.rad
 
 
 Converts the angle `x` from degrees to radians.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-math.rad)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-math.rad)
 
 
 ```lua
@@ -4951,7 +4951,7 @@ function math.rad(x: number)
 
 ---
 
-#L math.random
+# math.random
 
 
 * `math.random()`: Returns a float in the range [0,1).
@@ -4959,7 +4959,7 @@ function math.rad(x: number)
 * `math.random(m, n)`: Returns a integer in the range [m, n].
 
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-math.random)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-math.random)
 
 
 ```lua
@@ -4970,7 +4970,7 @@ function math.random(m: integer, n: integer)
 
 ---
 
-#L math.randomseed
+# math.randomseed
 
 
 * `math.randomseed(x, y)`: Concatenate `x` and `y` into a 128-bit `seed` to reinitialize the pseudo-random generator.
@@ -4978,7 +4978,7 @@ function math.random(m: integer, n: integer)
 * `math.randomseed()`: Generates a seed with a weak attempt for randomness.
 
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-math.randomseed)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-math.randomseed)
 
 
 ```lua
@@ -4988,7 +4988,7 @@ function math.randomseed(x?: integer, y?: integer)
 
 ---
 
-#L math.round
+# math.round
 
  This way, you can round on any bracket:
  math.round(119.68, 6.4) -- 121.6 (= 19 * 6.4)
@@ -5008,7 +5008,7 @@ function math.round(v: any, bracket: any)
 
 ---
 
-#L math.sign
+# math.sign
 
 
 ```lua
@@ -5019,12 +5019,12 @@ function math.sign(v: any)
 
 ---
 
-#L math.sin
+# math.sin
 
 
 Returns the sine of `x` (assumed to be in radians).
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-math.sin)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-math.sin)
 
 
 ```lua
@@ -5035,12 +5035,12 @@ function math.sin(x: number)
 
 ---
 
-#L math.sinh
+# math.sinh
 
 
 Returns the hyperbolic sine of `x` (assumed to be in radians).
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-math.sinh)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-math.sinh)
 
 
 ```lua
@@ -5051,12 +5051,12 @@ function math.sinh(x: number)
 
 ---
 
-#L math.sqrt
+# math.sqrt
 
 
 Returns the square root of `x`.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-math.sqrt)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-math.sqrt)
 
 
 ```lua
@@ -5067,12 +5067,12 @@ function math.sqrt(x: number)
 
 ---
 
-#L math.tan
+# math.tan
 
 
 Returns the tangent of `x` (assumed to be in radians).
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-math.tan)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-math.tan)
 
 
 ```lua
@@ -5083,12 +5083,12 @@ function math.tan(x: number)
 
 ---
 
-#L math.tanh
+# math.tanh
 
 
 Returns the hyperbolic tangent of `x` (assumed to be in radians).
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-math.tanh)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-math.tanh)
 
 
 ```lua
@@ -5099,12 +5099,12 @@ function math.tanh(x: number)
 
 ---
 
-#L math.tointeger
+# math.tointeger
 
 
 If the value `x` is convertible to an integer, returns that integer.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-math.tointeger)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-math.tointeger)
 
 
 ```lua
@@ -5115,16 +5115,16 @@ function math.tointeger(x: any)
 
 ---
 
-#L math.type
+# math.type
 
 
 Returns `"integer"` if `x` is an integer, `"float"` if it is a float, or `nil` if `x` is not a number.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-math.type)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-math.type)
 
 
 ```lua
-return #L1:
+return #1:
     | "integer"
     | "float"
     | 'nil'
@@ -5139,12 +5139,12 @@ function math.type(x: any)
 
 ---
 
-#L math.ult
+# math.ult
 
 
 Returns `true` if and only if `m` is below `n` when they are compared as unsigned integers.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-math.ult)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-math.ult)
 
 
 ```lua
@@ -5155,7 +5155,7 @@ function math.ult(m: integer, n: integer)
 
 ---
 
-#L md5
+# md5
 
 
 ```lua
@@ -5170,12 +5170,12 @@ unknown
 
 ---
 
-#L module
+# module
 
 
 Creates a module.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-module)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-module)
 
 
 ```lua
@@ -5185,7 +5185,7 @@ function module(name: string, ...any)
 
 ---
 
-#L name
+# name
 
 
 ```lua
@@ -5200,7 +5200,7 @@ unknown
 
 ---
 
-#L newproxy
+# newproxy
 
 
 ```lua
@@ -5211,7 +5211,7 @@ function newproxy(proxy: boolean|table|userdata)
 
 ---
 
-#L next
+# next
 
 
 Allows a program to traverse all fields of a table. Its first argument is a table and its second argument is an index in this table. A call to `next` returns the next index of the table and its associated value. When called with `nil` as its second argument, `next` returns an initial index and its associated value. When called with the last index, or with `nil` in an empty table, `next` returns `nil`. If the second argument is absent, then it is interpreted as `nil`. In particular, you can use `next(t)` to check whether a table is empty.
@@ -5221,7 +5221,7 @@ The order in which the indices are enumerated is not specified, *even for numeri
 The behavior of `next` is undefined if, during the traversal, you assign any value to a non-existent field in the table. You may however modify existing fields. In particular, you may set existing fields to nil.
 
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-next)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-next)
 
 
 ```lua
@@ -5233,7 +5233,7 @@ function next(table: table<<K>, <V>>, index?: <K>)
 
 ---
 
-#L orderedNext
+# orderedNext
 
 
 ```lua
@@ -5245,7 +5245,7 @@ function orderedNext(t: any, state: any)
 
 ---
 
-#L orderedPairs
+# orderedPairs
 
 
 ```lua
@@ -5258,12 +5258,12 @@ function orderedPairs(t: any)
 
 ---
 
-#L os
+# os
 
 
 
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-os)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-os)
 
 
 
@@ -5274,12 +5274,12 @@ oslib
 
 ---
 
-#L os.clock
+# os.clock
 
 
 Returns an approximation of the amount in seconds of CPU time used by the program.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-os.clock)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-os.clock)
 
 
 ```lua
@@ -5290,12 +5290,12 @@ function os.clock()
 
 ---
 
-#L os.date
+# os.date
 
 
 Returns a string or a table containing date and time, formatted according to the given string `format`.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-os.date)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-os.date)
 
 
 ```lua
@@ -5306,12 +5306,12 @@ function os.date(format?: string, time?: integer)
 
 ---
 
-#L os.difftime
+# os.difftime
 
 
 Returns the difference, in seconds, from time `t1` to time `t2`.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-os.difftime)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-os.difftime)
 
 
 ```lua
@@ -5322,12 +5322,12 @@ function os.difftime(t2: integer, t1: integer)
 
 ---
 
-#L os.execute
+# os.execute
 
 
 Passes `command` to be executed by an operating system shell.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-os.execute)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-os.execute)
 
 
 ```lua
@@ -5353,12 +5353,12 @@ function os.execute(commandLine: any)
 
 ---
 
-#L os.exit
+# os.exit
 
 
 Calls the ISO C function `exit` to terminate the host program.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-os.exit)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-os.exit)
 
 
 ```lua
@@ -5368,12 +5368,12 @@ function os.exit(code?: boolean|integer, close?: boolean)
 
 ---
 
-#L os.getenv
+# os.getenv
 
 
 Returns the value of the process environment variable `varname`.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-os.getenv)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-os.getenv)
 
 
 ```lua
@@ -5384,12 +5384,12 @@ function os.getenv(varname: string)
 
 ---
 
-#L os.remove
+# os.remove
 
 
 Deletes the file with the given name.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-os.remove)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-os.remove)
 
 
 ```lua
@@ -5401,12 +5401,12 @@ function os.remove(filename: string)
 
 ---
 
-#L os.rename
+# os.rename
 
 
 Renames the file or directory named `oldname` to `newname`.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-os.rename)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-os.rename)
 
 
 ```lua
@@ -5418,12 +5418,12 @@ function os.rename(oldname: string, newname: string)
 
 ---
 
-#L os.setlocale
+# os.setlocale
 
 
 Sets the current locale of the program.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-os.setlocale)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-os.setlocale)
 
 
 ```lua
@@ -5445,12 +5445,12 @@ function os.setlocale(locale: string|nil, category?: "all"|"collate"|"ctype"|"mo
 
 ---
 
-#L os.time
+# os.time
 
 
 Returns the current time when called without arguments, or a time representing the local date and time specified by the given table.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-os.time)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-os.time)
 
 
 ```lua
@@ -5461,12 +5461,12 @@ function os.time(date?: osdate)
 
 ---
 
-#L os.tmpname
+# os.tmpname
 
 
 Returns a string with a file name that can be used for a temporary file.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-os.tmpname)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-os.tmpname)
 
 
 ```lua
@@ -5477,7 +5477,7 @@ function os.tmpname()
 
 ---
 
-#L os_arch
+# os_arch
 
 
 ```lua
@@ -5487,7 +5487,7 @@ unknown
 
 ---
 
-#L os_name
+# os_name
 
 
 ```lua
@@ -5497,12 +5497,12 @@ string
 
 ---
 
-#L package
+# package
 
 
 
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-package)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-package)
 
 
 
@@ -5513,12 +5513,12 @@ packagelib
 
 ---
 
-#L package.config
+# package.config
 
 
 A string describing some compile-time configurations for packages.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-package.config)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-package.config)
 
 
 
@@ -5529,7 +5529,7 @@ string
 
 ---
 
-#L package.cpath
+# package.cpath
 
 
 ```lua
@@ -5544,12 +5544,12 @@ string
 
 ---
 
-#L package.loaders
+# package.loaders
 
 
 A table used by `require` to control how to load modules.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-package.loaders)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-package.loaders)
 
 
 
@@ -5560,12 +5560,12 @@ table
 
 ---
 
-#L package.loadlib
+# package.loadlib
 
 
 Dynamically links the host program with the C library `libname`.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-package.loadlib)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-package.loadlib)
 
 
 ```lua
@@ -5576,7 +5576,7 @@ function package.loadlib(libname: string, funcname: string)
 
 ---
 
-#L package.path
+# package.path
 
  [[ LuaRocks modules ]]--
 
@@ -5628,12 +5628,12 @@ string
 
 ---
 
-#L package.searchers
+# package.searchers
 
 
 A table used by `require` to control how to load modules.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-package.searchers)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-package.searchers)
 
 
 
@@ -5644,12 +5644,12 @@ table
 
 ---
 
-#L package.searchpath
+# package.searchpath
 
 
 Searches for the given `name` in the given `path`.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-package.searchpath)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-package.searchpath)
 
 
 ```lua
@@ -5661,12 +5661,12 @@ function package.searchpath(name: string, path: string, sep?: string, rep?: stri
 
 ---
 
-#L package.seeall
+# package.seeall
 
 
 Sets a metatable for `module` with its `__index` field referring to the global environment, so that this module inherits values from the global environment. To be used as an option to function `module` .
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-package.seeall)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-package.seeall)
 
 
 ```lua
@@ -5676,21 +5676,21 @@ function package.seeall(module: table)
 
 ---
 
-#L pairs
+# pairs
 
 
 If `t` has a metamethod `__pairs`, calls it with t as argument and returns the first three results from the call.
 
-Otherwise, returns three values: the [next](http://www.lua.org/manual/5.4/manual.html#Lpdf-next) function, the table `t`, and `nil`, so that the construction
+Otherwise, returns three values: the [next](http://www.lua.org/manual/5.4/manual.html#pdf-next) function, the table `t`, and `nil`, so that the construction
 ```lua
     for k,v in pairs(t) do body end
 ```
 will iterate over all key–value pairs of table `t`.
 
-See function [next](http://www.lua.org/manual/5.4/manual.html#Lpdf-next) for the caveats of modifying the table during its traversal.
+See function [next](http://www.lua.org/manual/5.4/manual.html#pdf-next) for the caveats of modifying the table during its traversal.
 
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-pairs)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-pairs)
 
 
 ```lua
@@ -5702,7 +5702,7 @@ function pairs(t: <T:table>)
 
 ---
 
-#L pathSeparator
+# pathSeparator
 
 
 ```lua
@@ -5722,13 +5722,13 @@ string
 
 ---
 
-#L pcall
+# pcall
 
 
 Calls the function `f` with the given arguments in *protected mode*. This means that any error inside `f` is not propagated; instead, `pcall` catches the error and returns a status code. Its first result is the status code (a boolean), which is true if the call succeeds without errors. In such case, `pcall` also returns all results from the call, after this first result. In case of any error, `pcall` returns `false` plus the error object.
 
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-pcall)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-pcall)
 
 
 ```lua
@@ -5741,14 +5741,14 @@ function pcall(f: fun(...any):...unknown, arg1?: any, ...any)
 
 ---
 
-#L print
+# print
 
 
-Receives any number of arguments and prints their values to `stdout`, converting each argument to a string following the same rules of [tostring](http://www.lua.org/manual/5.4/manual.html#Lpdf-tostring).
-The function print is not intended for formatted output, but only as a quick way to show a value, for instance for debugging. For complete control over the output, use [string.format](http://www.lua.org/manual/5.4/manual.html#Lpdf-string.format) and [io.write](http://www.lua.org/manual/5.4/manual.html#Lpdf-io.write).
+Receives any number of arguments and prints their values to `stdout`, converting each argument to a string following the same rules of [tostring](http://www.lua.org/manual/5.4/manual.html#pdf-tostring).
+The function print is not intended for formatted output, but only as a quick way to show a value, for instance for debugging. For complete control over the output, use [string.format](http://www.lua.org/manual/5.4/manual.html#pdf-string.format) and [io.write](http://www.lua.org/manual/5.4/manual.html#pdf-io.write).
 
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-print)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-print)
 
 
 ```lua
@@ -5758,12 +5758,12 @@ function print(...any)
 
 ---
 
-#L rawequal
+# rawequal
 
 
 Checks whether v1 is equal to v2, without invoking the `__eq` metamethod.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-rawequal)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-rawequal)
 
 
 ```lua
@@ -5774,12 +5774,12 @@ function rawequal(v1: any, v2: any)
 
 ---
 
-#L rawget
+# rawget
 
 
 Gets the real value of `table[index]`, without invoking the `__index` metamethod.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-rawget)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-rawget)
 
 
 ```lua
@@ -5790,12 +5790,12 @@ function rawget(table: table, index: any)
 
 ---
 
-#L rawlen
+# rawlen
 
 
 Returns the length of the object `v`, without invoking the `__len` metamethod.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-rawlen)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-rawlen)
 
 
 ```lua
@@ -5806,14 +5806,14 @@ function rawlen(v: string|table)
 
 ---
 
-#L rawset
+# rawset
 
 
 Sets the real value of `table[index]` to `value`, without using the `__newindex` metavalue. `table` must be a table, `index` any value different from `nil` and `NaN`, and `value` any Lua value.
 This function returns `table`.
 
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-rawset)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-rawset)
 
 
 ```lua
@@ -5824,12 +5824,12 @@ function rawset(table: table, index: any, value: any)
 
 ---
 
-#L require
+# require
 
 
 Loads the given module, returns any value returned by the searcher(`true` when `nil`). Besides that value, also returns as a second result the loader data returned by the searcher, which indicates how `require` found the module. (For instance, if the module came from a file, this loader data is the file path.)
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-require)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-require)
 
 
 ```lua
@@ -5841,7 +5841,7 @@ function require(modname: string)
 
 ---
 
-#L run_count
+# run_count
 
  https://github.com/dextercd/Noita-Component-Explorer/blob/main/component-explorer/entities/imgui_warning.lua
 
@@ -5858,34 +5858,34 @@ unknown
 
 ---
 
-#L select
+# select
 
 
-If `index` is a number, returns all arguments after argument number `index`; a negative number indexes from the end (`-1` is the last argument). Otherwise, `index` must be the string `"#L"`, and `select` returns the total number of extra arguments it received.
+If `index` is a number, returns all arguments after argument number `index`; a negative number indexes from the end (`-1` is the last argument). Otherwise, `index` must be the string `"#"`, and `select` returns the total number of extra arguments it received.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-select)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-select)
 
 
 ```lua
 index:
-    | "#L"
+    | "#"
 ```
 
 
 ```lua
-function select(index: integer|"#L", ...any)
+function select(index: integer|"#", ...any)
   -> any
 ```
 
 
 ---
 
-#L setfenv
+# setfenv
 
 
 Sets the environment to be used by the given function.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-setfenv)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-setfenv)
 
 
 ```lua
@@ -5896,17 +5896,17 @@ function setfenv(f: fun(...any):...integer|unknown, table: table)
 
 ---
 
-#L setmetatable
+# setmetatable
 
 
 Sets the metatable for the given table. If `metatable` is `nil`, removes the metatable of the given table. If the original metatable has a `__metatable` field, raises an error.
 
 This function returns `table`.
 
-To change the metatable of other types from Lua code, you must use the debug library ([§6.10](http://www.lua.org/manual/5.4/manual.html#L6.10)).
+To change the metatable of other types from Lua code, you must use the debug library ([§6.10](http://www.lua.org/manual/5.4/manual.html#6.10)).
 
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-setmetatable)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-setmetatable)
 
 
 ```lua
@@ -5917,7 +5917,7 @@ function setmetatable(table: table, metatable?: table)
 
 ---
 
-#L seven_zip
+# seven_zip
 
 
 ```lua
@@ -5927,7 +5927,7 @@ string
 
 ---
 
-#L showSettingsSavedTimer
+# showSettingsSavedTimer
 
 
 ```lua
@@ -5937,7 +5937,7 @@ unknown
 
 ---
 
-#L stack._top
+# stack._top
 
 
 ```lua
@@ -5947,12 +5947,12 @@ unknown
 
 ---
 
-#L string
+# string
 
 
 
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-string)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-string)
 
 
 
@@ -5963,7 +5963,7 @@ stringlib
 
 ---
 
-#L string.ExtendOrCutStringToLength
+# string.ExtendOrCutStringToLength
 
 @*param* `var` — any string you want to extend or cut
 
@@ -5978,12 +5978,12 @@ function string.ExtendOrCutStringToLength(var: string, length: number, char: any
 
 ---
 
-#L string.byte
+# string.byte
 
 
 Returns the internal numeric codes of the characters `s[i], s[i+1], ..., s[j]`.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-string.byte)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-string.byte)
 
 
 ```lua
@@ -5994,12 +5994,12 @@ function string.byte(s: string|number, i?: integer, j?: integer)
 
 ---
 
-#L string.char
+# string.char
 
 
 Returns a string with length equal to the number of arguments, in which each character has the internal numeric code equal to its corresponding argument.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-string.char)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-string.char)
 
 
 ```lua
@@ -6010,7 +6010,7 @@ function string.char(byte: integer, ...integer)
 
 ---
 
-#L string.contains
+# string.contains
 
 @*param* `str` — String
 
@@ -6029,12 +6029,12 @@ function string.contains(str: string, pattern: string)
 
 ---
 
-#L string.dump
+# string.dump
 
 
 Returns a string containing a binary representation (a *binary chunk*) of the given function.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-string.dump)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-string.dump)
 
 
 ```lua
@@ -6045,12 +6045,12 @@ function string.dump(f: fun(...any):...unknown, strip?: boolean)
 
 ---
 
-#L string.find
+# string.find
 
 
-Looks for the first match of `pattern` (see [§6.4.1](http://www.lua.org/manual/5.4/manual.html#L6.4.1)) in the string.
+Looks for the first match of `pattern` (see [§6.4.1](http://www.lua.org/manual/5.4/manual.html#6.4.1)) in the string.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-string.find)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-string.find)
 
 @*return* `start`
 
@@ -6069,12 +6069,12 @@ function string.find(s: string|number, pattern: string|number, init?: integer, p
 
 ---
 
-#L string.format
+# string.format
 
 
 Returns a formatted version of its variable number of arguments following the description given in its first argument.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-string.format)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-string.format)
 
 
 ```lua
@@ -6085,10 +6085,10 @@ function string.format(s: string|number, ...any)
 
 ---
 
-#L string.gmatch
+# string.gmatch
 
 
-Returns an iterator function that, each time it is called, returns the next captures from `pattern` (see [§6.4.1](http://www.lua.org/manual/5.4/manual.html#L6.4.1)) over the string s.
+Returns an iterator function that, each time it is called, returns the next captures from `pattern` (see [§6.4.1](http://www.lua.org/manual/5.4/manual.html#6.4.1)) over the string s.
 
 As an example, the following loop will iterate over all the words from string s, printing one per line:
 ```lua
@@ -6100,7 +6100,7 @@ As an example, the following loop will iterate over all the words from string s,
 ```
 
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-string.gmatch)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-string.gmatch)
 
 
 ```lua
@@ -6111,12 +6111,12 @@ function string.gmatch(s: string|number, pattern: string|number, init?: integer)
 
 ---
 
-#L string.gsub
+# string.gsub
 
 
-Returns a copy of s in which all (or the first `n`, if given) occurrences of the `pattern` (see [§6.4.1](http://www.lua.org/manual/5.4/manual.html#L6.4.1)) have been replaced by a replacement string specified by `repl`.
+Returns a copy of s in which all (or the first `n`, if given) occurrences of the `pattern` (see [§6.4.1](http://www.lua.org/manual/5.4/manual.html#6.4.1)) have been replaced by a replacement string specified by `repl`.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-string.gsub)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-string.gsub)
 
 
 ```lua
@@ -6128,12 +6128,12 @@ function string.gsub(s: string|number, pattern: string|number, repl: string|numb
 
 ---
 
-#L string.len
+# string.len
 
 
 Returns its length.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-string.len)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-string.len)
 
 
 ```lua
@@ -6144,12 +6144,12 @@ function string.len(s: string|number)
 
 ---
 
-#L string.lower
+# string.lower
 
 
 Returns a copy of this string with all uppercase letters changed to lowercase.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-string.lower)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-string.lower)
 
 
 ```lua
@@ -6160,12 +6160,12 @@ function string.lower(s: string|number)
 
 ---
 
-#L string.match
+# string.match
 
 
-Looks for the first match of `pattern` (see [§6.4.1](http://www.lua.org/manual/5.4/manual.html#L6.4.1)) in the string.
+Looks for the first match of `pattern` (see [§6.4.1](http://www.lua.org/manual/5.4/manual.html#6.4.1)) in the string.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-string.match)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-string.match)
 
 
 ```lua
@@ -6176,12 +6176,12 @@ function string.match(s: string|number, pattern: string|number, init?: integer)
 
 ---
 
-#L string.pack
+# string.pack
 
 
-Returns a binary string containing the values `v1`, `v2`, etc. packed (that is, serialized in binary form) according to the format string `fmt` (see [§6.4.2](http://www.lua.org/manual/5.4/manual.html#L6.4.2)) .
+Returns a binary string containing the values `v1`, `v2`, etc. packed (that is, serialized in binary form) according to the format string `fmt` (see [§6.4.2](http://www.lua.org/manual/5.4/manual.html#6.4.2)) .
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-string.pack)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-string.pack)
 
 
 ```lua
@@ -6192,12 +6192,12 @@ function string.pack(fmt: string, v1: string|number, v2: any, ...string|number)
 
 ---
 
-#L string.packsize
+# string.packsize
 
 
-Returns the size of a string resulting from `string.pack` with the given format string `fmt` (see [§6.4.2](http://www.lua.org/manual/5.4/manual.html#L6.4.2)) .
+Returns the size of a string resulting from `string.pack` with the given format string `fmt` (see [§6.4.2](http://www.lua.org/manual/5.4/manual.html#6.4.2)) .
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-string.packsize)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-string.packsize)
 
 
 ```lua
@@ -6208,12 +6208,12 @@ function string.packsize(fmt: string)
 
 ---
 
-#L string.rep
+# string.rep
 
 
 Returns a string that is the concatenation of `n` copies of the string `s` separated by the string `sep`.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-string.rep)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-string.rep)
 
 
 ```lua
@@ -6224,12 +6224,12 @@ function string.rep(s: string|number, n: integer, sep?: string|number)
 
 ---
 
-#L string.reverse
+# string.reverse
 
 
 Returns a string that is the string `s` reversed.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-string.reverse)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-string.reverse)
 
 
 ```lua
@@ -6240,7 +6240,7 @@ function string.reverse(s: string|number)
 
 ---
 
-#L string.split
+# string.split
 
  http://lua-users.org/wiki/SplitJoin
  Function: Split a string with a pattern, Take Two
@@ -6255,12 +6255,12 @@ function string.split(str: any, pat: any)
 
 ---
 
-#L string.sub
+# string.sub
 
 
 Returns the substring of the string that starts at `i` and continues until `j`.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-string.sub)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-string.sub)
 
 
 ```lua
@@ -6271,7 +6271,7 @@ function string.sub(s: string|number, i: integer, j?: integer)
 
 ---
 
-#L string.trim
+# string.trim
 
 
 ```lua
@@ -6282,12 +6282,12 @@ function string.trim(s: any)
 
 ---
 
-#L string.unpack
+# string.unpack
 
 
-Returns the values packed in string according to the format string `fmt` (see [§6.4.2](http://www.lua.org/manual/5.4/manual.html#L6.4.2)) .
+Returns the values packed in string according to the format string `fmt` (see [§6.4.2](http://www.lua.org/manual/5.4/manual.html#6.4.2)) .
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-string.unpack)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-string.unpack)
 
 
 ```lua
@@ -6299,12 +6299,12 @@ function string.unpack(fmt: string, s: string, pos?: integer)
 
 ---
 
-#L string.upper
+# string.upper
 
 
 Returns a copy of this string with all lowercase letters changed to uppercase.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-string.upper)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-string.upper)
 
 
 ```lua
@@ -6315,12 +6315,12 @@ function string.upper(s: string|number)
 
 ---
 
-#L table
+# table
 
 
 
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-table)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-table)
 
 
 
@@ -6331,12 +6331,12 @@ tablelib
 
 ---
 
-#L table.concat
+# table.concat
 
 
 Given a list where all elements are strings or numbers, returns the string `list[i]..sep..list[i+1] ··· sep..list[j]`.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-table.concat)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-table.concat)
 
 
 ```lua
@@ -6347,7 +6347,7 @@ function table.concat(list: table, sep?: string, i?: integer, j?: integer)
 
 ---
 
-#L table.contains
+# table.contains
 
 @*param* `tbl` — Table to check.
 
@@ -6369,13 +6369,13 @@ function table.contains(tbl: table, key: any)
 
 ---
 
-#L table.containsAll
+# table.containsAll
 
 @*param* `tbl` — The table to check within for the values passed in the following parameters.
 
 @*return* `true` — if all the values were in the table.
 
- https://gist.github.com/HoraceBury/9307117#Lfile-tablelib-lua-L293-L313
+ https://gist.github.com/HoraceBury/9307117#file-tablelib-lua-L293-L313
  Returns true if all the arg parameters are contained in the tbl.
 
 
@@ -6387,7 +6387,7 @@ function table.containsAll(tbl: table, ...any)
 
 ---
 
-#L table.contentToString
+# table.contentToString
 
  We need a simple and 'fast' way to convert a lua table into a string.
 
@@ -6404,12 +6404,12 @@ function table.contentToString(tbl: table)
 
 ---
 
-#L table.foreach
+# table.foreach
 
 
 Executes the given f over all elements of table. For each element, f is called with the index and respective value as arguments. If f returns a non-nil value, then the loop is broken, and this value is returned as the final value of foreach.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-table.foreach)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-table.foreach)
 
 
 ```lua
@@ -6420,12 +6420,12 @@ function table.foreach(list: any, callback: fun(key: string, value: any):<T>|nil
 
 ---
 
-#L table.foreachi
+# table.foreachi
 
 
 Executes the given f over the numerical indices of table. For each index, f is called with the index and respective value as arguments. Indices are visited in sequential order, from 1 to n, where n is the size of the table. If f returns a non-nil value, then the loop is broken and this value is returned as the result of foreachi.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-table.foreachi)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-table.foreachi)
 
 
 ```lua
@@ -6436,12 +6436,12 @@ function table.foreachi(list: any, callback: fun(key: string, value: any):<T>|ni
 
 ---
 
-#L table.getn
+# table.getn
 
 
-Returns the number of elements in the table. This function is equivalent to `#Llist`.
+Returns the number of elements in the table. This function is equivalent to `#list`.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-table.getn)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-table.getn)
 
 
 ```lua
@@ -6452,7 +6452,7 @@ function table.getn(list: <T>[])
 
 ---
 
-#L table.indexOf
+# table.indexOf
 
  https://stackoverflow.com/a/52922737/3493998
 
@@ -6465,12 +6465,12 @@ function table.indexOf(tbl: any, value: any)
 
 ---
 
-#L table.insert
+# table.insert
 
 
 Inserts element `value` at position `pos` in `list`.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-table.insert)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-table.insert)
 
 
 ```lua
@@ -6480,7 +6480,7 @@ function table.insert(list: table, pos: integer, value: any)
 
 ---
 
-#L table.insertAll
+# table.insertAll
 
  DEPRECATED use table.insertAllButNotDuplicates(tbl1, tbl2)
  Adds all values of tbl2 into tbl1.
@@ -6493,7 +6493,7 @@ function table.insertAll(tbl1: table, tbl2: table)
 
 ---
 
-#L table.insertAllButNotDuplicates
+# table.insertAllButNotDuplicates
 
  Adds all values of tbl2 into tbl1, but not duplicates.
 
@@ -6505,7 +6505,7 @@ function table.insertAllButNotDuplicates(tbl1: table, tbl2: table)
 
 ---
 
-#L table.insertIfNotExist
+# table.insertIfNotExist
 
  Adds a value to a table, if this value doesn't exist in the table
 
@@ -6517,12 +6517,12 @@ function table.insertIfNotExist(tbl: table, value: any)
 
 ---
 
-#L table.maxn
+# table.maxn
 
 
 Returns the largest positive numerical index of the given table, or zero if the table has no positive numerical indices.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-table.maxn)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-table.maxn)
 
 
 ```lua
@@ -6533,7 +6533,7 @@ function table.maxn(table: table)
 
 ---
 
-#L table.move
+# table.move
 
 
 Moves elements from table `a1` to table `a2`.
@@ -6544,7 +6544,7 @@ return a2
 ```
 
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-table.move)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-table.move)
 
 
 ```lua
@@ -6555,12 +6555,12 @@ function table.move(a1: table, f: integer, e: integer, t: integer, a2?: table)
 
 ---
 
-#L table.pack
+# table.pack
 
 
 Returns a new table with all arguments stored into keys `1`, `2`, etc. and with a field `"n"` with the total number of arguments.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-table.pack)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-table.pack)
 
 
 ```lua
@@ -6571,12 +6571,12 @@ function table.pack(...any)
 
 ---
 
-#L table.remove
+# table.remove
 
 
 Removes from `list` the element at position `pos`, returning the value of the removed element.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-table.remove)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-table.remove)
 
 
 ```lua
@@ -6587,7 +6587,7 @@ function table.remove(list: table, pos?: integer)
 
 ---
 
-#L table.removeByTable
+# table.removeByTable
 
  Removes all values in tbl1 by the values of tbl2
 
@@ -6602,7 +6602,7 @@ function table.removeByTable(tbl1: table, tbl2: table)
 
 ---
 
-#L table.removeByValue
+# table.removeByValue
 
 
 ```lua
@@ -6613,7 +6613,7 @@ function table.removeByValue(tbl: any, value: any)
 
 ---
 
-#L table.setNoitaMpDefaultMetaMethods
+# table.setNoitaMpDefaultMetaMethods
 
  Sets metamethods for the table, which are default metamethods for NoitaMP.
  __mode = "kv" is set, so the table can be used as a weak table on key and value.
@@ -6633,7 +6633,7 @@ function table.setNoitaMpDefaultMetaMethods(tbl: table, mode?: string)
 
 ---
 
-#L table.size
+# table.size
 
 
 ```lua
@@ -6644,12 +6644,12 @@ function table.size(T: any)
 
 ---
 
-#L table.sort
+# table.sort
 
 
-Sorts list elements in a given order, *in-place*, from `list[1]` to `list[#Llist]`.
+Sorts list elements in a given order, *in-place*, from `list[1]` to `list[#list]`.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-table.sort)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-table.sort)
 
 
 ```lua
@@ -6659,17 +6659,17 @@ function table.sort(list: <T>[], comp?: fun(a: <T>, b: <T>):boolean)
 
 ---
 
-#L table.unpack
+# table.unpack
 
 
 Returns the elements from the given list. This function is equivalent to
 ```lua
     return list[i], list[i+1], ···, list[j]
 ```
-By default, `i` is `1` and `j` is `#Llist`.
+By default, `i` is `1` and `j` is `#list`.
 
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-table.unpack)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-table.unpack)
 
 
 ```lua
@@ -6680,7 +6680,7 @@ function table.unpack(list: <T>[], i?: integer, j?: integer)
 
 ---
 
-#L toBoolean
+# toBoolean
 
 
 ```lua
@@ -6691,15 +6691,15 @@ function toBoolean(value: any)
 
 ---
 
-#L tonumber
+# tonumber
 
 
 When called with no `base`, `tonumber` tries to convert its argument to a number. If the argument is already a number or a string convertible to a number, then `tonumber` returns this number; otherwise, it returns `fail`.
 
-The conversion of strings can result in integers or floats, according to the lexical conventions of Lua (see [§3.1](http://www.lua.org/manual/5.4/manual.html#L3.1)). The string may have leading and trailing spaces and a sign.
+The conversion of strings can result in integers or floats, according to the lexical conventions of Lua (see [§3.1](http://www.lua.org/manual/5.4/manual.html#3.1)). The string may have leading and trailing spaces and a sign.
 
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-tonumber)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-tonumber)
 
 
 ```lua
@@ -6710,17 +6710,17 @@ function tonumber(e: any)
 
 ---
 
-#L tostring
+# tostring
 
 
 Receives a value of any type and converts it to a string in a human-readable format.
 
 If the metatable of `v` has a `__tostring` field, then `tostring` calls the corresponding value with `v` as argument, and uses the result of the call as its result. Otherwise, if the metatable of `v` has a `__name` field with a string value, `tostring` may use that string in its final result.
 
-For complete control of how numbers are converted, use [string.format](http://www.lua.org/manual/5.4/manual.html#Lpdf-string.format).
+For complete control of how numbers are converted, use [string.format](http://www.lua.org/manual/5.4/manual.html#pdf-string.format).
 
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-tostring)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-tostring)
 
 
 ```lua
@@ -6731,13 +6731,13 @@ function tostring(v: any)
 
 ---
 
-#L type
+# type
 
 
 Returns the type of its only argument, coded as a string. The possible results of this function are `"nil"` (a string, not the value `nil`), `"number"`, `"string"`, `"boolean"`, `"table"`, `"function"`, `"thread"`, and `"userdata"`.
 
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-type)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-type)
 
 
 ```lua
@@ -6761,7 +6761,7 @@ function type(v: any)
 
 ---
 
-#L unpack
+# unpack
 
 
 Returns the elements from the given `list`. This function is equivalent to
@@ -6770,7 +6770,7 @@ Returns the elements from the given `list`. This function is equivalent to
 ```
 
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-unpack)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-unpack)
 
 
 ```lua
@@ -6781,12 +6781,12 @@ function unpack(list: <T>[], i?: integer, j?: integer)
 
 ---
 
-#L utf8
+# utf8
 
 
 
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-utf8)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-utf8)
 
 
 
@@ -6797,12 +6797,12 @@ utf8lib
 
 ---
 
-#L utf8.char
+# utf8.char
 
 
 Receives zero or more integers, converts each one to its corresponding UTF-8 byte sequence and returns a string with the concatenation of all these sequences.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-utf8.char)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-utf8.char)
 
 
 ```lua
@@ -6813,12 +6813,12 @@ function utf8.char(code: integer, ...integer)
 
 ---
 
-#L utf8.codepoint
+# utf8.codepoint
 
 
 Returns the codepoints (as integers) from all characters in `s` that start between byte position `i` and `j` (both included).
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-utf8.codepoint)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-utf8.codepoint)
 
 
 ```lua
@@ -6830,7 +6830,7 @@ function utf8.codepoint(s: string, i?: integer, j?: integer, lax?: boolean)
 
 ---
 
-#L utf8.codes
+# utf8.codes
 
 
 Returns values so that the construction
@@ -6842,7 +6842,7 @@ end
 will iterate over all UTF-8 characters in string s, with p being the position (in bytes) and c the code point of each character. It raises an error if it meets any invalid byte sequence.
 
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-utf8.codes)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-utf8.codes)
 
 
 ```lua
@@ -6853,12 +6853,12 @@ function utf8.codes(s: string, lax?: boolean)
 
 ---
 
-#L utf8.len
+# utf8.len
 
 
 Returns the number of UTF-8 characters in string `s` that start between positions `i` and `j` (both inclusive).
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-utf8.len)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-utf8.len)
 
 
 ```lua
@@ -6870,12 +6870,12 @@ function utf8.len(s: string, i?: integer, j?: integer, lax?: boolean)
 
 ---
 
-#L utf8.offset
+# utf8.offset
 
 
 Returns the position (in bytes) where the encoding of the `n`-th character of `s` (counting from position `i`) starts.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-utf8.offset)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-utf8.offset)
 
 
 ```lua
@@ -6886,12 +6886,12 @@ function utf8.offset(s: string, n: integer, i?: integer)
 
 ---
 
-#L warn
+# warn
 
 
 Emits a warning with a message composed by the concatenation of all its arguments (which should be strings).
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-warn)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-warn)
 
 
 ```lua
@@ -6901,7 +6901,7 @@ function warn(message: string, ...any)
 
 ---
 
-#L whoAmI
+# whoAmI
 
 
 ```lua
@@ -6912,12 +6912,12 @@ function _G.whoAmI()
 
 ---
 
-#L xpcall
+# xpcall
 
 
 Calls function `f` with the given arguments in protected mode with a new message handler.
 
-[View documents](http://www.lua.org/manual/5.4/manual.html#Lpdf-xpcall)
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-xpcall)
 
 
 ```lua
