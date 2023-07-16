@@ -561,7 +561,7 @@ end
 --- Noita restart, yay!
 
 
---- Credits to dextercd!
+--- Credits to @dextercd !
 function FileUtils.FestartNoita()
     require("ffi").cast("void(__fastcall*)()", 0x0066e120)()
 end

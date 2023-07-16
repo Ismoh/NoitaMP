@@ -1,4 +1,4 @@
----Everything regarding ImGui: Credits to dextercd#7326
+---Everything regarding ImGui: Credits to @dextercd
 --- @class Gui
 local Gui = {}
 
@@ -397,7 +397,7 @@ function Gui.new()
 
                 NetworkVscUtils.addOrUpdateAllVscs(MinaUtils.getLocalMinaEntityId(), MinaUtils.getLocalMinaName(), MinaUtils.getLocalMinaGuid(),
                     MinaUtils.getLocalMinaNuid())
-                    
+
                 GlobalsUtils.setUpdateGui(true)
             end
             if self.showSettingsSaved then

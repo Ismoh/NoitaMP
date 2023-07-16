@@ -76,7 +76,7 @@ local function _pairs(t)
   end
 end
 
--- Thanks to dextercd#7326 on Discord for helping me debug this and coming up with the final working version
+--- Thanks to @dextercd on Discord for helping me debug this and coming up with the final working version
 local function make_observable(t, key, prev_keys, callback)
   if type(t) ~= "table" or getmetatable(t) then
     return
