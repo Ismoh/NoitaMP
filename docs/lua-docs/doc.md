@@ -1,6 +1,6 @@
 # Client
 
-See: [SockClient](../../mods/noita-mp/files/scripts/net/Client.lua#16#14)
+See: [SockClient](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/net/Client.lua#16#14)
 
 
 ```lua
@@ -29,18 +29,6 @@ unknown
 
 ClientInit class for creating a new extended instance of SockClient.
 
-
-```lua
-ClientInit
-```
-
-
----
-
-# ClientInit
-
-ClientInit class for creating a new extended instance of SockClient.
-
 ## new
 
 
@@ -52,23 +40,13 @@ function ClientInit.new(sockClient: SockClient)
 
 ---
 
-# CustomProfiler
+# ClientInit
 
-Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
-
-
-```lua
-CustomProfiler
-```
+ClientInit class for creating a new extended instance of SockClient.
 
 
 ```lua
-CustomProfiler
-```
-
-
-```lua
-CustomProfiler
+ClientInit
 ```
 
 
@@ -193,7 +171,7 @@ Starts the profiler. This has to be called before the function (or first line of
 @*param* `functionName` — The name of the function that you want to measure. This has to be the same as the one used in CustomProfiler.stop(functionName, customProfilerCounter)
 
 @*return* `returnCounter` — The counter that is used to determine the order of the function calls. This has to be passed to CustomProfiler.stop(functionName, customProfilerCounter)
-See: [CustomProfiler.stop](../../mods/noita-mp/files/scripts/util/GuidUtils.lua#30#4) functionName, customProfilerCounter)
+See: [CustomProfiler.stop](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/GuidUtils.lua#30#4) functionName, customProfilerCounter)
 
 ## stop
 
@@ -227,6 +205,28 @@ number
 
 The threshold in milliseconds. If a function takes longer than this threshold, it will be reported.
  Default: 16.5ms = 60.60 fps
+
+
+---
+
+# CustomProfiler
+
+Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
+
+
+```lua
+CustomProfiler
+```
+
+
+```lua
+CustomProfiler
+```
+
+
+```lua
+CustomProfiler
+```
 
 
 ---
@@ -1281,18 +1281,30 @@ function Logger.warn(channel: any, formattedMessage: any)
 
 # MinaInformation
 
+See:
+  * [Transform](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/MinaUtils.lua#139#18)
+  * [Health](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/NoitaComponentUtils.lua#52#14)
+
+
+```lua
+table
+```
+
 
 ---
 
 # MinaInformation
 
-See:
-  * [Transform](../../mods/noita-mp/files/scripts/util/MinaUtils.lua#139#18)
-  * [Health](../../mods/noita-mp/files/scripts/util/NoitaComponentUtils.lua#52#14)
+
+---
+
+# MinaUtils
+
+Util class for fetching information about local and remote minas.
 
 
 ```lua
-table
+MinaUtils
 ```
 
 
@@ -1333,7 +1345,7 @@ function MinaUtils.getLocalMinaInformation()
 ```
 
 Getter for local mina information. It also takes care of polymorphism!
-See: [MinaInformation](../../mods/noita-mp/files/scripts/util/MinaUtils.lua#149#4)
+See: [MinaInformation](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/MinaUtils.lua#149#4)
 
 ## getLocalMinaName
 
@@ -1385,18 +1397,6 @@ function MinaUtils.setLocalMinaName(name: string)
 ```
 
 Setter for local mina name. It also saves it to settings file.
-
-
----
-
-# MinaUtils
-
-Util class for fetching information about local and remote minas.
-
-
-```lua
-MinaUtils
-```
 
 
 ---
@@ -2626,7 +2626,7 @@ function SockClient.getAckCacheSize()
 
 
 ```lua
-string
+boolean|string|number
 ```
 
  guid might not be set here or will be overwritten at the end of the constructor. @see setGuid
@@ -2664,7 +2664,7 @@ nil
 
 
 ```lua
-string
+boolean|string|number
 ```
 
 ## nuid
@@ -2814,7 +2814,7 @@ function SockServer.getAckCacheSize()
 
 
 ```lua
-string
+boolean|string|number
 ```
 
  guid might not be set here or will be overwritten at the end of the constructor. @see setGuid
@@ -2859,7 +2859,7 @@ nil
 
 
 ```lua
-string
+boolean|string|number
 ```
 
 ## nuid
@@ -3027,41 +3027,6 @@ function Ui.new()
 
 # Utils
 
-
-```lua
-Utils
-```
-
-
-```lua
-Utils
-```
-
-
-```lua
-Utils
-```
-
-
-```lua
-Utils
-```
-
-
-```lua
-Utils
-```
-
-
-```lua
-any
-```
-
-
----
-
-# Utils
-
 ## CopyToClipboard
 
 
@@ -3130,6 +3095,41 @@ function Utils.openUrl(url: any)
 
 ```lua
 function Utils.pformat(var: any)
+```
+
+
+---
+
+# Utils
+
+
+```lua
+Utils
+```
+
+
+```lua
+Utils
+```
+
+
+```lua
+Utils
+```
+
+
+```lua
+Utils
+```
+
+
+```lua
+Utils
+```
+
+
+```lua
+any
 ```
 
 
