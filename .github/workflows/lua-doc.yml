@@ -35,6 +35,7 @@ jobs:
           Get-Command sed
           cd ${{ github.workspace }}\\docs\\lua-docs\\
           sed -i 's#file:///d%3A/a/NoitaMP/NoitaMP/#../../#g' ${{ github.workspace }}\\docs\\lua-docs\\doc.md
+          sed -i 's:#:#L' ${{ github.workspace }}\\docs\\lua-docs\\doc.md
           sed -i 's#file:///d%3A/a/NoitaMP/NoitaMP/#../../#g' ${{ github.workspace }}\\docs\\lua-docs\\doc.json
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
