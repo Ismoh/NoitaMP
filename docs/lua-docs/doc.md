@@ -56,6 +56,28 @@ function ClientInit.new(sockClient: SockClient)
 
 Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 
+
+```lua
+CustomProfiler
+```
+
+
+```lua
+CustomProfiler
+```
+
+
+```lua
+CustomProfiler
+```
+
+
+---
+
+# CustomProfiler
+
+Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
+
 ## ceiling
 
 
@@ -209,23 +231,16 @@ The threshold in milliseconds. If a function takes longer than this threshold, i
 
 ---
 
-# CustomProfiler
-
-Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
+# CustomProfiler.start
 
 
 ```lua
-CustomProfiler
+function
 ```
 
 
 ```lua
-CustomProfiler
-```
-
-
-```lua
-CustomProfiler
+function
 ```
 
 
@@ -241,21 +256,6 @@ function CustomProfiler.start(functionName: any)
 
 ```lua
 function CustomProfiler.start(functionName: any)
-```
-
-
----
-
-# CustomProfiler.start
-
-
-```lua
-function
-```
-
-
-```lua
-function
 ```
 
 
@@ -538,21 +538,6 @@ See: ~coroutines.lua~ wake_up_waiting_threads
 
 ```lua
 integer
-```
-
-
----
-
-# FileUtils
-
-
-```lua
-FileUtils
-```
-
-
-```lua
-FileUtils
 ```
 
 
@@ -937,6 +922,21 @@ function FileUtils.WriteFile(file_fullpath: string, file_content: string)
 
 ---
 
+# FileUtils
+
+
+```lua
+FileUtils
+```
+
+
+```lua
+FileUtils
+```
+
+
+---
+
 # GetWidthAndHeightByResolution
 
  Returns width and height depending on resolution.
@@ -1281,19 +1281,19 @@ function Logger.warn(channel: any, formattedMessage: any)
 
 # MinaInformation
 
+
+---
+
+# MinaInformation
+
 See:
-  * [Transform](../../mods/noita-mp/files/scripts/util/MinaUtils.lua#124#18)
+  * [Transform](../../mods/noita-mp/files/scripts/util/MinaUtils.lua#139#18)
   * [Health](../../mods/noita-mp/files/scripts/util/NoitaComponentUtils.lua#52#14)
 
 
 ```lua
 table
 ```
-
-
----
-
-# MinaInformation
 
 
 ---
@@ -1333,7 +1333,7 @@ function MinaUtils.getLocalMinaInformation()
 ```
 
 Getter for local mina information. It also takes care of polymorphism!
-See: [MinaInformation](../../mods/noita-mp/files/scripts/util/MinaUtils.lua#134#4)
+See: [MinaInformation](../../mods/noita-mp/files/scripts/util/MinaUtils.lua#149#4)
 
 ## getLocalMinaName
 
@@ -1344,6 +1344,18 @@ function MinaUtils.getLocalMinaName()
 ```
 
 Getter for local mina name. ~It also loads it from settings file.~
+
+## getLocalMinaNuid
+
+
+```lua
+function MinaUtils.getLocalMinaNuid()
+  -> nuid: number
+```
+
+Getter for local mina nuid. It also takes care of polymorphism!
+
+@*return* `nuid` — if not found/dead
 
 ## isLocalMinaPolymorphed
 
