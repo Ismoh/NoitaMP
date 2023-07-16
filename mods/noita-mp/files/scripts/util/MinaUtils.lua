@@ -22,9 +22,9 @@ end
 ---Getter for local mina name. ~It also loads it from settings file.~
 ---@return string localMinaName
 function MinaUtils.getLocalMinaName()
-    --if util.IsEmpty(localMinaName) then
-    --    MinaUtils.setLocalMinaName(ModSettingGet("noita-mp.name"))
-    --end
+    if Utils.IsEmpty(localMinaName) then
+        localMinaName = NoitaMpSettings.get("noita-mp.nickname", "string")
+    end
     return localMinaName
 end
 
@@ -38,9 +38,9 @@ end
 ---Getter for local mina guid. ~It also loads it from settings file.~
 ---@return string localMinaGuid
 function MinaUtils.getLocalMinaGuid()
-    --if util.IsEmpty(localMinaGuid) then
-    --    MinaUtils.setLocalMinaGuid(ModSettingGet("noita-mp.guid"))
-    --end
+    if Utils.IsEmpty(localMinaGuid) then
+        localMinaGuid = NoitaMpSettings.get("noita-mp.guid", "string")
+    end
     return localMinaGuid
 end
 

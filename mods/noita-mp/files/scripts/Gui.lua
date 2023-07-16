@@ -92,17 +92,22 @@ function Gui.new()
     self.playLabel = "NoitaMp - Play"
     self.settingsLabel = "NoitaMp - Settings"
     self.aboutLabel = "NoitaMp - About"
+    self.showAbout = false
     self.showFirstTime = true
+    self.showMissingSettings = false
     self.showPlayMenu = false
     self.showSettings = false
     self.showSettingsSaved = false
-    self.showAbout = false
 
     function self.setShowSettingsSaved(show)
         self.showSettingsSaved = show
         if show then
             showSettingsSavedTimer = GameGetRealWorldTimeSinceStarted()
         end
+    end
+
+    function self.setShowMissingSettings(show)
+        self.showMissingSettings = show
     end
 
     function self.update()
@@ -123,7 +128,7 @@ function Gui.new()
             end
         end
 
-        if self.showSettings then
+        if self.showSettings or self.showMissingSettings then
             self.drawSettings()
         end
 
@@ -309,8 +314,14 @@ function Gui.new()
         local isCollapsed
         isCollapsed, self.showSettings = imGui.Begin(self.settingsLabel, self.showSettings, windowFlags)
         if isCollapsed then
+            if self.showMissingSettings then
+                imGui.PushStyleColor(imGui.Col.Text, 255, 0, 0)
+                imGui.Text("Some of the 'Mandatory' settings are missing!\n Please set them first and *restart* your run! \n Thanks <3")
+                imGui.PopStyleColor()
+            end
+
             -- Basic settings
-            imGui.Text("Basic Settings:")
+            imGui.Text("Mandatory:")
 
             -- Player name
             local isPlayerNameChanged, playerName = imGui.InputTextWithHint("Nickname", "Type in your Nickname!", MinaUtils.getLocalMinaName())
@@ -322,8 +333,8 @@ function Gui.new()
 
             -- Gui settings
             imGui.Separator()
-            imGui.Text("Gui Settings:")
-            if imGui.BeginCombo("NoitaMP position", self.menuBarPosition) then
+            imGui.Text("Graphical user interface:")
+            if imGui.BeginCombo("Position of 'NoitaMP' user interface", self.menuBarPosition) then
                 if imGui.Selectable("Top left", self.menuBarPosition == "top-left") then
                     self.menuBarPosition = "top-left"
                     NoitaMpSettings.set("noita-mp.gui.position", self.menuBarPosition)
@@ -345,11 +356,11 @@ function Gui.new()
 
             -- Logger settings
             imGui.Separator()
-            imGui.Text("Logger Settings:")
+            imGui.Text("Logger:")
 
             -- Advanced settings
             imGui.Separator()
-            imGui.Text("Advanced Settings:")
+            imGui.Text("Advanced:")
 
             -- Entity detection radius
             local sliderFlags = bit.bor(
@@ -380,7 +391,13 @@ function Gui.new()
             -- Save settings
             if imGui.Button("Save Settings") then
                 NoitaMpSettings.save()
-                NetworkVscUtils.addOrUpdateAllVscs(MinaUtils.getLocalMinaEntityId(), MinaUtils.getLocalMinaName(), MinaUtils.getLocalMinaGuid(), MinaUtils.getLocalMinaNuid())
+                if not Utils.IsEmpty(MinaUtils.getLocalMinaName()) and not Utils.IsEmpty(MinaUtils.getLocalMinaGuid()) then
+                    guiI.setShowMissingSettings(false)
+                end
+
+                NetworkVscUtils.addOrUpdateAllVscs(MinaUtils.getLocalMinaEntityId(), MinaUtils.getLocalMinaName(), MinaUtils.getLocalMinaGuid(),
+                    MinaUtils.getLocalMinaNuid())
+                    
                 GlobalsUtils.setUpdateGui(true)
             end
             if self.showSettingsSaved then

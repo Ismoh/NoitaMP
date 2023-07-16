@@ -16,9 +16,9 @@ function ClientInit.new(sockClient)
     ---@class SockClient
     local self              = sockClient
     self.iAm                = "CLIENT"
-    self.name               = tostring(ModSettingGet("noita-mp.name"))
+    self.name               = NoitaMpSettings.get("noita-mp.nickname", "string")
     -- guid might not be set here or will be overwritten at the end of the constructor. @see setGuid
-    self.guid               = tostring(ModSettingGet("noita-mp.guid"))
+    self.guid               = NoitaMpSettings.get("noita-mp.guid", "string")
     self.nuid               = nil
     self.acknowledgeMaxSize = 500
     self.transform          = { x = 0, y = 0 }
@@ -74,16 +74,12 @@ function ClientInit.new(sockClient)
 
     --- Set clients guid
     local function setGuid()
-        local cpc1  = CustomProfiler.start("ClientInit.setGuid")
-        local cpc25 = CustomProfiler.start("ModSettingGetNextValue")
-        local guid  = tostring(ModSettingGetNextValue("noita-mp.guid"))
-        CustomProfiler.stop("ModSettingGetNextValue", cpc25)
+        local cpc1 = CustomProfiler.start("ClientInit.setGuid")
+        local guid = NoitaMpSettings.get("noita-mp.guid", "string")
 
         if guid == "" or GuidUtils.isPatternValid(guid) == false then
-            guid        = GuidUtils:getGuid()
-            local cpc26 = CustomProfiler.start("ModSettingSetNextValue")
-            ModSettingSetNextValue("noita-mp.guid", guid, false)
-            CustomProfiler.stop("ModSettingSetNextValue", cpc26)
+            guid = GuidUtils:getGuid()
+            NoitaMpSettings.set("noita-mp.guid", guid)
             self.guid = guid
             Logger.debug(Logger.channels.network, "Clients guid set to " .. guid)
         else
@@ -354,12 +350,7 @@ function ClientInit.new(sockClient)
             local compOwnerName, compOwnerGuid, compNuid = NetworkVscUtils.getAllVscValuesByEntityId(entityId)
 
             self.guid                                    = data.newGuid
-            local cpc27                                  = CustomProfiler.start("ModSettingSet")
-            ModSettingSet("noita-mp.guid", self.guid)
-            CustomProfiler.stop("ModSettingGet", cpc27)
-            local cpc28 = CustomProfiler.start("ModSettingSet")
-            ModSettingSet("noita-mp.guid_readonly", self.guid)
-            CustomProfiler.stop("ModSettingGet", cpc28)
+            NoitaMpSettings.set("noita-mp.guid", self.guid)
             NetworkVscUtils.addOrUpdateAllVscs(entityId, compOwnerName, self.guid, compNuid)
         else
             for i = 1, #self.otherClients do

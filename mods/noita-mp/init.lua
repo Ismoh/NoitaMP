@@ -86,8 +86,8 @@ function OnPlayerSpawned(player_entity)
         MinaUtils.setLocalMinaGuid(GuidUtils:getGuid())
     end
 
-    MinaUtils.setLocalMinaName(ModSettingGet("noita-mp.name"))
-    MinaUtils.setLocalMinaGuid(ModSettingGet("noita-mp.guid"))
+    MinaUtils.setLocalMinaName(NoitaMpSettings.get("noita-mp.nickname", "string"))
+    MinaUtils.setLocalMinaGuid(NoitaMpSettings.get("noita-mp.guid", "string"))
 
     local spawnX, spawnY = EntityGetTransform(player_entity)
     NetworkVscUtils.addOrUpdateAllVscs(player_entity, MinaUtils.getLocalMinaName(), MinaUtils.getLocalMinaGuid(), nil, spawnX, spawnY)
@@ -116,6 +116,10 @@ end
 function OnWorldPreUpdate()
     local startFrameTime = GameGetRealWorldTimeSinceStarted()
     local cpc = CustomProfiler.start("init.OnWorldPreUpdate")
+
+    if Utils.IsEmpty(MinaUtils.getLocalMinaName()) or Utils.IsEmpty(MinaUtils.getLocalMinaGuid()) then
+        guiI.setShowMissingSettings(true)
+    end
 
     guiI.update()
 

@@ -24,9 +24,9 @@ function ServerInit.new(sockServer)
     -- Public variables:
 
     self.iAm                = "SERVER"
-    self.name               = tostring(ModSettingGet("noita-mp.name"))
+    self.name               = NoitaMpSettings.get("noita-mp.nickname", "string")
     -- guid might not be set here or will be overwritten at the end of the constructor. @see setGuid
-    self.guid               = tostring(ModSettingGet("noita-mp.guid"))
+    self.guid               = NoitaMpSettings.get("noita-mp.guid", "string")
     self.nuid               = nil
     --self.acknowledge        = {} -- sock.lua#Client:send -> self.acknowledge[packetsSent] = { event = event, data = data, entityId = data.entityId, status = NetworkUtils.events.acknowledgement.sent }
     --table.setNoitaMpDefaultMetaMethods(self.acknowledge, "v")
@@ -86,12 +86,12 @@ function ServerInit.new(sockServer)
     --- Set servers guid
     local function setGuid()
         local cpc01 = CustomProfiler.start("Server.setGuid")
-        local guid  = tostring(ModSettingGetNextValue("noita-mp.guid"))
+        local guid  = NoitaMpSettings.get("noita-mp.guid", "string")
 
         if guid == "" or GuidUtils.isPatternValid(guid) == false then
             guid = GuidUtils:getGuid()
-            ModSettingSetNextValue("noita-mp.guid", guid, false)
             self.guid = guid
+            NoitaMpSettings.set("noita-mp.guid", self.guid)
             Logger.debug(Logger.channels.network, "Servers guid set to " .. guid)
         else
             Logger.debug(Logger.channels.network, "Servers guid was already set to " .. guid)
@@ -443,7 +443,7 @@ function ServerInit.new(sockServer)
 
         --self.sendNewNuid({ compOwnerName, compOwnerGuid },
         --                 "unknown", nuid, x, y, rotation, velocity, filename, health, isPolymorphed)
-        local serializedEntityString = NoitaPatcherUtils.serializeEntity(entityId)
+        local serializedEntityString                                                                      = NoitaPatcherUtils.serializeEntity(entityId)
         self.sendNewNuidSerialized(compOwnerName, compOwnerGuid, entityId, serializedEntityString, compNuid, x, y)
 
         sendAck(data.networkMessageId, peer, NetworkUtils.events.lostNuid.name)

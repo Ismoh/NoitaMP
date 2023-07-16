@@ -42,6 +42,21 @@ local isMoreThanOneNoitaProcessRunning = function()
     return noitaCount > 1
 end
 
+local getSettingsFilePath              = function()
+    local path = ("%s%ssettings.json"):format(FileUtils.GetAbsolutePathOfNoitaMpSettingsDirectory(), pathSeparator)
+
+    if isMoreThanOneNoitaProcessRunning() then
+        local who = "CLIENT" -- see Client.iAm
+
+        if whoAmI then
+            who = whoAmI()
+        end
+
+        path = ("%s%slocal%ssettings-%s.json")
+            :format(FileUtils.GetAbsolutePathOfNoitaMpSettingsDirectory(), pathSeparator, pathSeparator, who)
+    end
+    return path
+end
 
 
 function NoitaMpSettings.clearAndCreateSettings()
@@ -63,19 +78,8 @@ function NoitaMpSettings.set(key, value)
         error(("'key' must not be nil or is not type of string!"):format(key), 2)
     end
 
-    local pid = ""
-    local who = ""
-    if isMoreThanOneNoitaProcessRunning() then
-        pid = winapi.get_current_pid()
-        if whoAmI then
-            who = whoAmI()
-        end
-    end
-
-    local settingsFile = ("%s%ssettings%s%s.json")
-        :format(FileUtils.GetAbsolutePathOfNoitaMpSettingsDirectory(), pathSeparator, pid, who)
-
-    if Utils.IsEmpty(cachedSettings) or not FileUtils.Exists(settingsFile) then
+    local settingsFilePath = getSettingsFilePath()
+    if Utils.IsEmpty(cachedSettings) or not FileUtils.Exists(settingsFilePath) then
         NoitaMpSettings.load()
     end
 
@@ -88,19 +92,8 @@ end
 function NoitaMpSettings.get(key, dataType)
     local cpc = CustomProfiler.start("NoitaMpSettings.get")
 
-    local pid = ""
-    local who = ""
-    if isMoreThanOneNoitaProcessRunning() then
-        pid = winapi.get_current_pid()
-        if whoAmI then
-            who = whoAmI()
-        end
-    end
-
-    local settingsFile = ("%s%ssettings%s%s.json")
-        :format(FileUtils.GetAbsolutePathOfNoitaMpSettingsDirectory(), pathSeparator, pid, who)
-
-    if Utils.IsEmpty(cachedSettings) or not FileUtils.Exists(settingsFile) then
+    local settingsFilePath = getSettingsFilePath()
+    if Utils.IsEmpty(cachedSettings) or not FileUtils.Exists(settingsFilePath) then
         NoitaMpSettings.load()
     end
 
@@ -114,39 +107,24 @@ function NoitaMpSettings.get(key, dataType)
 end
 
 function NoitaMpSettings.load()
-    local pid = ""
-    local who = ""
-    if isMoreThanOneNoitaProcessRunning() then
-        pid = winapi.get_current_pid()
-        if whoAmI then
-            who = whoAmI()
-        end
-    end
+    local settingsFilePath = getSettingsFilePath()
 
-    local settingsFile = ("%s%ssettings%s%s.json")
-        :format(FileUtils.GetAbsolutePathOfNoitaMpSettingsDirectory(), pathSeparator, pid, who)
-
-    if not FileUtils.Exists(settingsFile) then
+    if not FileUtils.Exists(settingsFilePath) then
         NoitaMpSettings.save()
     end
 
-    local contentString = FileUtils.ReadFile(settingsFile)
+    local contentString = FileUtils.ReadFile(settingsFilePath)
     cachedSettings      = json.decode(contentString)
 end
 
 function NoitaMpSettings.save()
-    local pid = ""
-    local who = ""
-    if isMoreThanOneNoitaProcessRunning() then
-        pid = winapi.get_current_pid()
-        if whoAmI then
-            who = whoAmI()
-        end
+    local settingsFilePath = getSettingsFilePath()
+
+    if Utils.IsEmpty(cachedSettings["pid"]) then
+        cachedSettings["pid"] = winapi.get_current_pid()
     end
 
-    local settingsFile = ("%s%ssettings%s%s.json")
-        :format(FileUtils.GetAbsolutePathOfNoitaMpSettingsDirectory(), pathSeparator, pid, who)
-    FileUtils.WriteFile(settingsFile, json.encode(cachedSettings))
+    FileUtils.WriteFile(settingsFilePath, json.encode(cachedSettings))
     if guiI then
         guiI.setShowSettingsSaved(true)
     end
