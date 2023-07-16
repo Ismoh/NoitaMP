@@ -459,7 +459,7 @@ function EntityUtils.processAndSyncEntityNetworking(startFrameTime)
 
                 if who == Server.iAm and not hasNuid then
                     nuid = NuidUtils.getNextNuid()
-                    -- Server.sendNewNuid this will be executed below
+                    -- Server.sendNewNuidSerialized this will be executed below
                 elseif who == Client.iAm and not hasNuid then
                     Client.sendNeedNuid(ownerName, ownerGuid, entityId)
                 else

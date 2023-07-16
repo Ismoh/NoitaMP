@@ -380,7 +380,7 @@ function Gui.new()
             -- Save settings
             if imGui.Button("Save Settings") then
                 NoitaMpSettings.save()
-                NetworkVscUtils.addOrUpdateAllVscs(MinaUtils.getLocalMinaEntityId(), MinaUtils.getLocalMinaName(), MinaUtils.getLocalMinaGuid())
+                NetworkVscUtils.addOrUpdateAllVscs(MinaUtils.getLocalMinaEntityId(), MinaUtils.getLocalMinaName(), MinaUtils.getLocalMinaGuid(), MinaUtils.getLocalMinaNuid())
                 GlobalsUtils.setUpdateGui(true)
             end
             if self.showSettingsSaved then

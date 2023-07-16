@@ -78,6 +78,21 @@ function MinaUtils.getLocalMinaEntityId()
     return playerEntityIds[1]
 end
 
+---Getter for local mina nuid. It also takes care of polymorphism!
+---@return number nuid if not found/dead
+function MinaUtils.getLocalMinaNuid()
+    local cpc = CustomProfiler.start("MinaUtils.getLocalMinaNuid")
+    local entityId = MinaUtils.getLocalMinaEntityId()
+    local ownerName, ownerGuid, nuid = NetworkVscUtils.getAllVscValuesByEntityId(entityId)
+    local nuid_, entityId_ = GlobalsUtils.getNuidEntityPair(nuid)
+    if nuid ~= nuid_ or entityId ~= entityId_ then
+        error(("Something bad happen! Nuid or entityId missmatch: nuid %s ~= nuid_ and/or entityId %s ~= entityId_ %s")
+            :format(nuid, nuid_, entityId, entityId_), 2)
+    end
+    CustomProfiler.stop("MinaUtils.getLocalMinaNuid", cpc)
+    return tonumber(nuid) or -1
+end
+
 ---Getter for local mina information. It also takes care of polymorphism!
 ---@see MinaInformation
 ---@return MinaInformation localMinaInformation
@@ -157,7 +172,7 @@ function MinaUtils.isLocalMinaPolymorphed()
     for e = 1, #polymorphedEntityIds do
         if EntityUtils.isEntityAlive(polymorphedEntityIds[e]) then
             local componentIds = EntityGetComponentIncludingDisabled(polymorphedEntityIds[e],
-                    "GameStatsComponent") or {}
+                "GameStatsComponent") or {}
             for c = 1, #componentIds do
                 local isPlayer = ComponentGetValue2(componentIds[c], "is_player")
                 if isPlayer then
