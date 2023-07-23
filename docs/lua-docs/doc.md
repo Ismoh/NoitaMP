@@ -609,7 +609,7 @@ function FileUtils.Extract7zipArchive(archive_absolute_directory_path: string, a
 function FileUtils.FestartNoita()
 ```
 
- Credits to dextercd!
+ Credits to @dextercd !
 
 ## Find7zipExecutable
 
@@ -1124,7 +1124,7 @@ function GlobalsUtils.setUpdateGui(bool: any)
 
 # Gui
 
-Everything regarding ImGui: Credits to dextercd#7326
+Everything regarding ImGui: Credits to @dextercd
 
 ## new
 

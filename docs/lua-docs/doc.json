@@ -1434,10 +1434,10 @@
                 "type": "setfield"
             },
             {
-                "desc": " Credits to dextercd!",
+                "desc": " Credits to @dextercd !",
                 "extends": {
                     "args": [],
-                    "desc": " Credits to dextercd!",
+                    "desc": " Credits to @dextercd !",
                     "finish": 5660003,
                     "start": 5640000,
                     "type": "function",
@@ -2674,7 +2674,7 @@
                 "type": "doc.class"
             }
         ],
-        "desc": "Everything regarding ImGui: Credits to dextercd#7326",
+        "desc": "Everything regarding ImGui: Credits to @dextercd",
         "fields": [
             {
                 "extends": {
