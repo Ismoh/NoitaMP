@@ -1,6 +1,6 @@
 # Client
 
-See: [SockClient](../../mods/noita-mp/files/scripts/net/Client.lua#L16#14)
+See: [SockClient](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/net/Client.lua#16#14)
 
 
 ```lua
@@ -47,6 +47,28 @@ ClientInit class for creating a new extended instance of SockClient.
 
 ```lua
 ClientInit
+```
+
+
+---
+
+# CustomProfiler
+
+Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
+
+
+```lua
+CustomProfiler
+```
+
+
+```lua
+CustomProfiler
+```
+
+
+```lua
+CustomProfiler
 ```
 
 
@@ -171,7 +193,7 @@ Starts the profiler. This has to be called before the function (or first line of
 @*param* `functionName` — The name of the function that you want to measure. This has to be the same as the one used in CustomProfiler.stop(functionName, customProfilerCounter)
 
 @*return* `returnCounter` — The counter that is used to determine the order of the function calls. This has to be passed to CustomProfiler.stop(functionName, customProfilerCounter)
-See: [CustomProfiler.stop](../../mods/noita-mp/files/scripts/util/GuidUtils.lua#L30#4) functionName, customProfilerCounter)
+See: [CustomProfiler.stop](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/GuidUtils.lua#30#4) functionName, customProfilerCounter)
 
 ## stop
 
@@ -209,23 +231,16 @@ The threshold in milliseconds. If a function takes longer than this threshold, i
 
 ---
 
-# CustomProfiler
-
-Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
+# CustomProfiler.start
 
 
 ```lua
-CustomProfiler
+function CustomProfiler.start(functionName: any)
 ```
 
 
 ```lua
-CustomProfiler
-```
-
-
-```lua
-CustomProfiler
+function CustomProfiler.start(functionName: any)
 ```
 
 
@@ -241,21 +256,6 @@ function
 
 ```lua
 function
-```
-
-
----
-
-# CustomProfiler.start
-
-
-```lua
-function CustomProfiler.start(functionName: any)
-```
-
-
-```lua
-function CustomProfiler.start(functionName: any)
 ```
 
 
@@ -1281,19 +1281,19 @@ function Logger.warn(channel: any, formattedMessage: any)
 
 # MinaInformation
 
+
+---
+
+# MinaInformation
+
 See:
-  * [Transform](../../mods/noita-mp/files/scripts/util/MinaUtils.lua#L139#18)
-  * [Health](../../mods/noita-mp/files/scripts/util/NoitaComponentUtils.lua#L52#14)
+  * [Transform](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/MinaUtils.lua#139#18)
+  * [Health](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/NoitaComponentUtils.lua#52#14)
 
 
 ```lua
 table
 ```
-
-
----
-
-# MinaInformation
 
 
 ---
@@ -1345,7 +1345,7 @@ function MinaUtils.getLocalMinaInformation()
 ```
 
 Getter for local mina information. It also takes care of polymorphism!
-See: [MinaInformation](../../mods/noita-mp/files/scripts/util/MinaUtils.lua#L149#4)
+See: [MinaInformation](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/MinaUtils.lua#149#4)
 
 ## getLocalMinaName
 
@@ -2258,11 +2258,36 @@ function NoitaComponentUtils.getEntityDataByNuid(nuid: any)
 
 ---
 
+# NoitaComponentUtils.getInitialSerializedEntityString
+
+Get initial serialized entity string to determine if the entity already exists on the server.
+
+
+```lua
+function NoitaComponentUtils.getInitialSerializedEntityString(entityId: number)
+  -> string
+```
+
+
+---
+
 # NoitaComponentUtils.setEntityData
 
 
 ```lua
 function NoitaComponentUtils.setEntityData(entityId: number, x: number, y: number, rotation: number, velocity?: Vec2, health: number)
+```
+
+
+---
+
+# NoitaComponentUtils.setInitialSerializedEntityString
+
+Set initial serialized entity string to determine if the entity already exists on the server.
+
+
+```lua
+function NoitaComponentUtils.setInitialSerializedEntityString(entityId: number, initialSerializedEntityString: string)
 ```
 
 
@@ -2277,18 +2302,6 @@ Sets the SpriteComponent to a specific status by setting image_file.
 
 ```lua
 function NoitaComponentUtils.setNetworkSpriteIndicatorStatus(entityId: number, status: string)
-```
-
-
----
-
-# NoitaMpSettings
-
- NoitaMpSettings: Replacement for Noita ModSettings.
-
-
-```lua
-NoitaMpSettings
 ```
 
 
@@ -2333,6 +2346,18 @@ function NoitaMpSettings.save()
 ```lua
 function NoitaMpSettings.set(key: any, value: any)
   -> table
+```
+
+
+---
+
+# NoitaMpSettings
+
+ NoitaMpSettings: Replacement for Noita ModSettings.
+
+
+```lua
+NoitaMpSettings
 ```
 
 
@@ -2516,22 +2541,6 @@ unknown
 
 # ServerInit
 
-## new
-
-
-```lua
-function ServerInit.new(sockServer: SockServer)
-  -> self: SockServer
-```
-
- ServerInit constructor
- Creates a new instance of server 'class'
-
-
----
-
-# ServerInit
-
  Because of stack overflow errors when loading lua files,
  I decided to put Utils 'classes' into globals
 
@@ -2544,6 +2553,22 @@ ServerInit
 ```lua
 ServerInit
 ```
+
+
+---
+
+# ServerInit
+
+## new
+
+
+```lua
+function ServerInit.new(sockServer: SockServer)
+  -> self: SockServer
+```
+
+ ServerInit constructor
+ Creates a new instance of server 'class'
 
 
 ---
@@ -2778,7 +2803,7 @@ function SockClient.update(startFrameTime: any)
 integer
 ```
 
-self.acknowledge        = {} -- sock.lua#LClient:send -> self.acknowledge[packetsSent] = { event = event, data = data, entityId = data.entityId, status = NetworkUtils.events.acknowledgement.sent }
+self.acknowledge        = {} -- sock.lua#Client:send -> self.acknowledge[packetsSent] = { event = event, data = data, entityId = data.entityId, status = NetworkUtils.events.acknowledgement.sent }
 table.setNoitaMpDefaultMetaMethods(self.acknowledge, "v")
 
 ## amIServer
@@ -2919,7 +2944,7 @@ function SockServer.sendNewNuid(owner: any, localEntityId: any, newNuid: any, x:
 
 
 ```lua
-function SockServer.sendNewNuidSerialized(ownerName: any, ownerGuid: any, entityId: any, serializedEntityString: any, nuid: any, x: any, y: any)
+function SockServer.sendNewNuidSerialized(ownerName: any, ownerGuid: any, entityId: any, serializedEntityString: any, nuid: any, x: any, y: any, initialSerializedEntityString: any)
   -> boolean
 ```
 
