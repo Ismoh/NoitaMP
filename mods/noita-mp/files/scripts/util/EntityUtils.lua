@@ -125,6 +125,9 @@ OnEntityLoaded = function()
                     EntityUtils.previousHighestAliveEntityId = entityId
                 end
 
+                local initialSerializedEntityString = NoitaPatcherUtils.serializeEntity(entityId)
+                NoitaComponentUtils.setInitialSerializedEntityString(entityId, initialSerializedEntityString)
+
                 -- Add NoitaMP Variable Storage Components
                 local hasNuid, nuid = NetworkVscUtils.hasNuidSet(entityId)
                 if not hasNuid and Server.amIServer() then

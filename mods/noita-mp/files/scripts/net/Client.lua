@@ -518,6 +518,10 @@ function ClientInit.new(sockClient)
             error(("onNewNuidSerialized data.y is empty: %s"):format(data.y), 2)
         end
 
+        if Utils.IsEmpty(data.initialSerializedEntityString) then
+            error(("onNewNuidSerialized data.initialSerializedEntityString is empty: %s"):format(data.initialSerializedEntityString), 2)
+        end
+
         -- FOR TESTING ONLY, DO NOT MERGE
         --print(Utils.pformat(data))
         --os.exit()
@@ -531,8 +535,17 @@ function ClientInit.new(sockClient)
         local nuid, entityId = GlobalsUtils.getNuidEntityPair(data.nuid)
 
         if Utils.IsEmpty(entityId) then
-            entityId = EntityCreateNew(data.nuid)
+            local closestEntityId = EntityGetClosest(data.x, data.y)
+            local initialSerializedEntityString = NoitaComponentUtils.getInitialSerializedEntityString(closestEntityId)
+            if initialSerializedEntityString == data.initialSerializedEntityString then
+                entityId = closestEntityId
+            end
+        else
+            if EntityCache.contains(entityId) then
+                local cachedEntity = EntityCache.get(entityId)
+            end
         end
+
 
         entityId = NoitaPatcherUtils.deserializeEntity(entityId, data.serializedEntityString, data.x, data.y) --EntitySerialisationUtils.deserializeEntireRootEntity(data.serializedEntity, data.nuid)
 

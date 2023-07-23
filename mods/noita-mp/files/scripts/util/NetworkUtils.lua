@@ -16,32 +16,32 @@ NetworkUtils                         = {}
 NetworkUtils.networkMessageIdCounter = 0
 
 NetworkUtils.events                  = {
-    connect           = {
+    connect            = {
         name        = "connect",
         schema      = { "code" },
         isCacheable = false
     },
     --- connect2 is used to let the other clients know, who was connected
-    connect2          = {
+    connect2           = {
         name              = "connect2",
         schema            = { "networkMessageId", "name", "guid" },
         resendIdentifiers = { "name", "guid" },
         isCacheable       = true
     },
-    disconnect        = {
+    disconnect         = {
         name        = "disconnect",
         schema      = { "code" },
         isCacheable = false
     },
     --- disconnect2 is used to let the other clients know, who was disconnected
-    disconnect2       = {
+    disconnect2        = {
         name              = "disconnect2",
         schema            = { "networkMessageId", "name", "guid" },
         resendIdentifiers = { "name", "guid" },
         isCacheable       = true
     },
     --- acknowledgement is used to let the sender know if the message was acknowledged
-    acknowledgement   = {
+    acknowledgement    = {
         name              = "acknowledgement",
         schema            = { "networkMessageId", "event", "status", "ackedAt" },
         ack               = "ack",
@@ -50,28 +50,28 @@ NetworkUtils.events                  = {
         isCacheable       = false
     },
     --- seed is used to send the servers seed
-    seed              = {
+    seed               = {
         name              = "seed",
         schema            = { "networkMessageId", "seed" },
         resendIdentifiers = { "seed" },
         isCacheable       = true
     },
     --- minaInformation is used to send local mina name, guid, etc pp to all peers. @see MinaUtils.getLocalMinaInformation()
-    minaInformation   = {
+    minaInformation    = {
         name              = "minaInformation",
         schema            = { "networkMessageId", "version", "name", "guid", "entityId", "nuid", "transform", "health" },
         resendIdentifiers = { "version", "name", "guid" },
         isCacheable       = true
     },
     --- newGuid is used to send a new GUID to a client, which GUID isn't unique all peers
-    newGuid           = {
+    newGuid            = {
         name              = "newGuid",
         schema            = { "networkMessageId", "oldGuid", "newGuid" },
         resendIdentifiers = { "oldGuid", "newGuid" },
         isCacheable       = true
     },
     --- newNuid is used to let clients spawn entities by the servers permission
-    newNuid           = {
+    newNuid            = {
         --- constant name for the event
         name              = "newNuid",
         --- network schema to decode the message
@@ -83,14 +83,15 @@ NetworkUtils.events                  = {
         --- identifier whether to cache this message, if it wasn't acknowledged
         isCacheable       = true
     },
-    newNuidSerialized = {
+    newNuidSerialized  = {
         name              = "newNuidSerialized",
-        schema            = { "networkMessageId", "ownerName", "ownerGuid", "entityId", "serializedEntityString", "nuid", "x", "y" },
+        schema            = { "networkMessageId", "ownerName", "ownerGuid", "entityId", "serializedEntityString", "nuid", "x", "y",
+            "initialSerializedEntityString" },
         resendIdentifiers = { "ownerName", "ownerGuid", "entityId", "nuid" },
         isCacheable       = true
     },
     --- needNuid is used to ask for a nuid from client to servers
-    needNuid          = {
+    needNuid           = {
         name              = "needNuid",
         schema            = { "networkMessageId", "owner", "localEntityId", "x", "y",
             "rotation", "velocity", "filename", "health", "isPolymorphed" },
@@ -107,35 +108,35 @@ NetworkUtils.events                  = {
     },
     --- lostNuid is used to ask for the entity to spawn, when a client has a nuid stored, but no entityId (not sure
     --- atm, why this is happening, but this is due to reduce out of sync stuff)
-    lostNuid          = {
+    lostNuid           = {
         name              = "lostNuid",
         schema            = { "networkMessageId", "nuid" },
         resendIdentifiers = { "nuid" },
         isCacheable       = true
     },
     --- entityData is used to sync position, velocity and health
-    entityData        = {
+    entityData         = {
         name              = "entityData",
         schema            = { "networkMessageId", "owner", "nuid", "x", "y", "rotation", "velocity", "health" },
         resendIdentifiers = { "owner", "nuid", "x", "y", "rotation", "velocity", "health" },
         isCacheable       = false
     },
     --- deadNuids is used to let clients know, which entities were killed or destroyed
-    deadNuids         = {
+    deadNuids          = {
         name              = "deadNuids",
         schema            = { "networkMessageId", "deadNuids" },
         resendIdentifiers = { "deadNuids" },
         isCacheable       = true
     },
     --- needModList is used to let clients sync enabled mods with the server
-    needModList       = {
+    needModList        = {
         name              = "needModList",
         schema            = { "networkMessageId", "workshop", "external" },
         resendIdentifiers = { "workshop", "external" },
         isCacheable       = true
     },
     --- needModContent is used to sync mod content from server to client
-    needModContent    = {
+    needModContent     = {
         name              = "needModContent",
         schema            = { "networkMessageId", "get", "items" },
         resendIdentifiers = { "get", "items" },

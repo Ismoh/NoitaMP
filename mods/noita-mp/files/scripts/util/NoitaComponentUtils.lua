@@ -133,6 +133,53 @@ function NoitaComponentUtils.setNetworkSpriteIndicatorStatus(entityId, status)
     end
 end
 
+---Set initial serialized entity string to determine if the entity already exists on the server.
+---@param entityId number
+---@param initialSerializedEntityString string
+function NoitaComponentUtils.setInitialSerializedEntityString(entityId, initialSerializedEntityString)
+    local cpc = CustomProfiler.start("NoitaComponentUtils.setInitialSerializedEntityString")
+    if not EntityUtils.isEntityAlive(entityId) then
+        CustomProfiler.stop("NoitaComponentUtils.setInitialSerializedEntityString", cpc)
+        error("Unable to set initial serialized entity string, because entity is not alive!", 2)
+    end
+    if Utils.IsEmpty(initialSerializedEntityString) then
+        CustomProfiler.stop("NoitaComponentUtils.setInitialSerializedEntityString", cpc)
+        error("Unable to set initial serialized entity string, because it is empty!", 2)
+    end
+    local compId = EntityAddComponent2(entityId, NetworkVscUtils.variableStorageComponentName,
+        {
+            name         = "InitialSerializedEntityString",
+            value_string = initialSerializedEntityString
+        })
+    CustomProfiler.stop("NoitaComponentUtils.setInitialSerializedEntityString", cpc)
+end
+
+---Get initial serialized entity string to determine if the entity already exists on the server.
+---@param entityId number
+---@return string
+function NoitaComponentUtils.getInitialSerializedEntityString(entityId)
+    local cpc = CustomProfiler.start("NoitaComponentUtils.getInitialSerializedEntityString")
+    if not EntityUtils.isEntityAlive(entityId) then
+        CustomProfiler.stop("NoitaComponentUtils.getInitialSerializedEntityString", cpc)
+        error("Unable to get initial serialized entity string, because entity is not alive!", 2)
+    end
+
+    local componentIds = EntityGetComponentIncludingDisabled(entityId, NetworkVscUtils.variableStorageComponentName) or {}
+    local serializedString = nil
+    for i = 1, #componentIds do
+        local componentId = componentIds[i]
+        serializedString  = ComponentGetValue2(componentId, "InitialSerializedEntityString")
+    end
+
+    if Utils.IsEmpty(serializedString) then
+        CustomProfiler.stop("NoitaComponentUtils.getInitialSerializedEntityString", cpc)
+        error("Unable to get initial serialized entity string, because it is empty!", 2)
+    end
+
+    CustomProfiler.stop("NoitaComponentUtils.getInitialSerializedEntityString", cpc)
+    return serializedString
+end
+
 -- Because of stack overflow errors when loading lua files,
 -- I decided to put Utils 'classes' into globals
 _G.NoitaComponentUtils = NoitaComponentUtils
