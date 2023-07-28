@@ -29,12 +29,9 @@ unknown
 
 ClientInit class for creating a new extended instance of SockClient.
 
-## new
-
 
 ```lua
-function ClientInit.new(sockClient: SockClient)
-  -> self: SockClient
+ClientInit
 ```
 
 
@@ -44,9 +41,12 @@ function ClientInit.new(sockClient: SockClient)
 
 ClientInit class for creating a new extended instance of SockClient.
 
+## new
+
 
 ```lua
-ClientInit
+function ClientInit.new(sockClient: SockClient)
+  -> self: SockClient
 ```
 
 
@@ -235,12 +235,12 @@ The threshold in milliseconds. If a function takes longer than this threshold, i
 
 
 ```lua
-function CustomProfiler.start(functionName: any)
+function
 ```
 
 
 ```lua
-function CustomProfiler.start(functionName: any)
+function
 ```
 
 
@@ -250,12 +250,12 @@ function CustomProfiler.start(functionName: any)
 
 
 ```lua
-function
+function CustomProfiler.start(functionName: any)
 ```
 
 
 ```lua
-function
+function CustomProfiler.start(functionName: any)
 ```
 
 
@@ -475,7 +475,7 @@ integer
 
 
 ```lua
-unknown
+integer
 ```
 
 
@@ -538,6 +538,21 @@ See: ~coroutines.lua~ wake_up_waiting_threads
 
 ```lua
 integer
+```
+
+
+---
+
+# FileUtils
+
+
+```lua
+FileUtils
+```
+
+
+```lua
+FileUtils
 ```
 
 
@@ -922,21 +937,6 @@ function FileUtils.WriteFile(file_fullpath: string, file_content: string)
 
 ---
 
-# FileUtils
-
-
-```lua
-FileUtils
-```
-
-
-```lua
-FileUtils
-```
-
-
----
-
 # GetWidthAndHeightByResolution
 
  Returns width and height depending on resolution.
@@ -1172,12 +1172,17 @@ number
 
 
 ```lua
+table
+```
+
+
+```lua
 unknown
 ```
 
 
 ```lua
-table
+unknown
 ```
 
 
@@ -1281,13 +1286,8 @@ function Logger.warn(channel: any, formattedMessage: any)
 
 # MinaInformation
 
-
----
-
-# MinaInformation
-
 See:
-  * [Transform](../../mods/noita-mp/files/scripts/util/MinaUtils.lua#L139#18)
+  * [Transform](../../mods/noita-mp/files/scripts/util/MinaUtils.lua#L142#18)
   * [Health](../../mods/noita-mp/files/scripts/util/NoitaComponentUtils.lua#L52#14)
 
 
@@ -1298,14 +1298,7 @@ table
 
 ---
 
-# MinaUtils
-
-Util class for fetching information about local and remote minas.
-
-
-```lua
-MinaUtils
-```
+# MinaInformation
 
 
 ---
@@ -1345,7 +1338,7 @@ function MinaUtils.getLocalMinaInformation()
 ```
 
 Getter for local mina information. It also takes care of polymorphism!
-See: [MinaInformation](../../mods/noita-mp/files/scripts/util/MinaUtils.lua#L149#4)
+See: [MinaInformation](../../mods/noita-mp/files/scripts/util/MinaUtils.lua#L152#4)
 
 ## getLocalMinaName
 
@@ -1397,6 +1390,29 @@ function MinaUtils.setLocalMinaName(name: string)
 ```
 
 Setter for local mina name. It also saves it to settings file.
+
+
+---
+
+# MinaUtils
+
+Util class for fetching information about local and remote minas.
+
+
+```lua
+MinaUtils
+```
+
+
+---
+
+# ModSettingGet
+
+
+```lua
+function _G.ModSettingGet(id: any)
+  -> string|table
+```
 
 
 ---
@@ -2265,7 +2281,18 @@ Get initial serialized entity string to determine if the entity already exists o
 
 ```lua
 function NoitaComponentUtils.getInitialSerializedEntityString(entityId: number)
-  -> string
+  -> initialSerializedEntityString: string|nil
+```
+
+
+---
+
+# NoitaComponentUtils.hasInitialSerializedEntityString
+
+
+```lua
+function NoitaComponentUtils.hasInitialSerializedEntityString(entityId: any)
+  -> boolean
 ```
 
 
@@ -2285,9 +2312,12 @@ function NoitaComponentUtils.setEntityData(entityId: number, x: number, y: numbe
 
 Set initial serialized entity string to determine if the entity already exists on the server.
 
+@*return* `if` — success
+
 
 ```lua
 function NoitaComponentUtils.setInitialSerializedEntityString(entityId: number, initialSerializedEntityString: string)
+  -> if: boolean
 ```
 
 
@@ -2302,6 +2332,18 @@ Sets the SpriteComponent to a specific status by setting image_file.
 
 ```lua
 function NoitaComponentUtils.setNetworkSpriteIndicatorStatus(entityId: number, status: string)
+```
+
+
+---
+
+# NoitaMpSettings
+
+ NoitaMpSettings: Replacement for Noita ModSettings.
+
+
+```lua
+NoitaMpSettings
 ```
 
 
@@ -2326,6 +2368,14 @@ function NoitaMpSettings.get(key: any, dataType: any)
   -> boolean|string|number
 ```
 
+## isMoreThanOneNoitaProcessRunning
+
+
+```lua
+function NoitaMpSettings.isMoreThanOneNoitaProcessRunning()
+  -> boolean
+```
+
 ## load
 
 
@@ -2346,18 +2396,6 @@ function NoitaMpSettings.save()
 ```lua
 function NoitaMpSettings.set(key: any, value: any)
   -> table
-```
-
-
----
-
-# NoitaMpSettings
-
- NoitaMpSettings: Replacement for Noita ModSettings.
-
-
-```lua
-NoitaMpSettings
 ```
 
 
@@ -2423,6 +2461,7 @@ function NuidUtils.getNextNuid()
 
 # OnEntityLoaded
 
+local guesses = 1
  Make sure this is only be executed once in OnWorldPREUpdate!
 
 
@@ -3107,6 +3146,13 @@ function Utils.Str(var: any)
 ```
 
 https://noita.wiki.gg/wiki/Modding:_Utilities#Easier_entity_debugging
+
+## execLua
+
+
+```lua
+function Utils.execLua(pid: any)
+```
 
 ## openUrl
 
@@ -4084,6 +4130,12 @@ function dofile(filename?: string)
 ```
 
 
+```lua
+function dofile(path: any)
+  -> unknown
+```
+
+
 ---
 
 # enabled_changed
@@ -4109,17 +4161,6 @@ Usually, `error` adds some information about the error position at the beginning
 
 ```lua
 function error(message: any, level?: integer)
-```
-
-
----
-
-# getHighestAliveEntityId
-
-
-```lua
-function getHighestAliveEntityId()
-  -> integer
 ```
 
 
@@ -4218,6 +4259,16 @@ table
 
 ```lua
 unknown
+```
+
+
+---
+
+# init
+
+
+```lua
+function init()
 ```
 
 
