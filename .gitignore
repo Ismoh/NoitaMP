@@ -2,6 +2,7 @@
 mods/noita-mp/luacov.stats.out
 mods/noita-mp/result.log
 mods/noita-mp/settings
+profiler.bat
 
 # Compiled Lua sources
 # luac.out
