@@ -94,7 +94,7 @@ NetworkUtils.events                  = {
     needNuid           = {
         name              = "needNuid",
         schema            = { "networkMessageId", "owner", "localEntityId", "x", "y",
-            "rotation", "velocity", "filename", "health", "isPolymorphed" },
+            "rotation", "velocity", "filename", "health", "isPolymorphed", "initialSerializedEntityString" },
         resendIdentifiers = { "owner", "localEntityId", "filename" },
         isCacheable       = true
     },

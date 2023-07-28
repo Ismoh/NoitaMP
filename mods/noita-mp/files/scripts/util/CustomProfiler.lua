@@ -1,4 +1,5 @@
 local plotly                             = require("plotly")
+local winapi                             = require("winapi")
 
 ---Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 ---@class CustomProfiler
@@ -272,6 +273,15 @@ function CustomProfiler.getSize()
     end
     return size
 end
+
+function init()
+    local content = ('cd "%s" && cmd /k lua.bat files\\scripts\\bin\\profiler.lua'):format(FileUtils.GetAbsoluteDirectoryPathOfNoitaMP())
+    content = content .. " %1"
+    FileUtils.WriteFile(("%s/profiler.bat"):format(FileUtils.GetAbsoluteDirectoryPathOfNoitaMP()), content)
+    Utils.execLua(winapi.get_current_pid())
+end
+
+init()
 
 ----Globally accessible CustomProfiler in _G.CustomProfiler.
 ----@alias _G.CustomProfiler CustomProfiler

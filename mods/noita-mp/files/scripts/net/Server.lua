@@ -341,67 +341,91 @@ function ServerInit.new(sockServer)
             :format(Utils.pformat(peer), Utils.pformat(data)))
 
         if Utils.IsEmpty(peer) then
-            error(("onNeedNuid peer is empty: %s"):format(Utils.pformat(peer)), 3)
+            error(("onNeedNuid peer is empty: %s"):format(Utils.pformat(peer)), 2)
         end
 
         if Utils.IsEmpty(data.networkMessageId) then
-            error(("onNeedNuid data.networkMessageId is empty: %s"):format(data.networkMessageId), 3)
+            error(("onNeedNuid data.networkMessageId is empty: %s"):format(data.networkMessageId), 2)
         end
 
         if Utils.IsEmpty(data.owner) then
-            error(("onNeedNuid data.owner is empty: %s"):format(Utils.pformat(data.owner)), 3)
+            error(("onNeedNuid data.owner is empty: %s"):format(Utils.pformat(data.owner)), 2)
         end
 
         if Utils.IsEmpty(data.localEntityId) then
-            error(("onNeedNuid data.localEntityId is empty: %s"):format(data.localEntityId), 3)
+            error(("onNeedNuid data.localEntityId is empty: %s"):format(data.localEntityId), 2)
         end
 
         if Utils.IsEmpty(data.x) then
-            error(("onNeedNuid data.x is empty: %s"):format(data.x), 3)
+            error(("onNeedNuid data.x is empty: %s"):format(data.x), 2)
         end
 
         if Utils.IsEmpty(data.y) then
-            error(("onNeedNuid data.y is empty: %s"):format(data.y), 3)
+            error(("onNeedNuid data.y is empty: %s"):format(data.y), 2)
         end
 
         if Utils.IsEmpty(data.rotation) then
-            error(("onNeedNuid data.rotation is empty: %s"):format(data.rotation), 3)
+            error(("onNeedNuid data.rotation is empty: %s"):format(data.rotation), 2)
         end
 
         if Utils.IsEmpty(data.velocity) then
-            error(("onNeedNuid data.velocity is empty: %s"):format(Utils.pformat(data.velocity)), 3)
+            error(("onNeedNuid data.velocity is empty: %s"):format(Utils.pformat(data.velocity)), 2)
         end
 
         if Utils.IsEmpty(data.filename) then
-            error(("onNeedNuid data.filename is empty: %s"):format(data.filename), 3)
+            error(("onNeedNuid data.filename is empty: %s"):format(data.filename), 2)
         end
 
         if Utils.IsEmpty(data.health) then
-            error(("onNeedNuid data.health is empty: %s"):format(data.health), 3)
+            error(("onNeedNuid data.health is empty: %s"):format(data.health), 2)
         end
 
         if Utils.IsEmpty(data.isPolymorphed) then
-            error(("onNeedNuid data.isPolymorphed is empty: %s"):format(data.isPolymorphed), 3)
+            error(("onNeedNuid data.isPolymorphed is empty: %s"):format(data.isPolymorphed), 2)
         end
 
-        local owner                 = data.owner
-        local localEntityId         = data.localEntityId
-        local x                     = data.x
-        local y                     = data.y
-        local rotation              = data.rotation
-        local velocity              = data.velocity
-        local filename              = data.filename
-        local health                = data.health
-        local isPolymorphed         = data.isPolymorphed
+        if Utils.IsEmpty(data.initialSerializedEntityString) then
+            error(("onNeedNuid data.initialSerializedEntityString is empty: %s"):format(data.initialSerializedEntityString), 2)
+        end
 
-        local newNuid               = NuidUtils.getNextNuid()
-        local serverEntityId        = EntityUtils.spawnEntity(owner, newNuid, x, y, rotation, velocity, filename, localEntityId, health,
-            isPolymorphed)
-        local serialzedEntityString = NoitaPatcherUtils.serializeEntity(serverEntityId)
+        local owner                         = data.owner
+        local localEntityId                 = data.localEntityId
+        local x                             = data.x
+        local y                             = data.y
+        local rotation                      = data.rotation
+        local velocity                      = data.velocity
+        local filename                      = data.filename
+        local health                        = data.health
+        local isPolymorphed                 = data.isPolymorphed
 
-        --self.sendNewNuid(owner, localEntityId, newNuid, x, y, rotation, velocity, filename, health, isPolymorphed)
-        self.sendNewNuidSerialized(owner.name or owner[1], owner.guid or owner[2], localEntityId, serialzedEntityString, newNuid, x, y,
-            NoitaComponentUtils.getInitialSerializedEntityString(serverEntityId))
+        local initialSerializedEntityString = nil
+        local serializedEntityString        = nil
+        local closestServerEntityId         = EntityGetClosest(x, y)
+        local nuid                          = nil
+
+        if not Utils.IsEmpty(closestServerEntityId) then
+            initialSerializedEntityString = NoitaComponentUtils.getInitialSerializedEntityString(closestServerEntityId)
+            if initialSerializedEntityString == data.initialSerializedEntityString then -- entity on server and client are the same
+                if not NetworkVscUtils.hasNuidSet(closestServerEntityId) then
+                    local ownerName, ownerGuid, nuid = NoitaComponentUtils.getEntityData(closestServerEntityId)
+                    if Utils.IsEmpty(nuid) or nuid < 0 then
+                        nuid = NuidUtils.getNextNuid()
+                        NetworkVscUtils.addOrUpdateAllVscs(closestServerEntityId, ownerName, ownerGuid, nuid)
+                    end
+                end
+                serializedEntityString = NoitaPatcherUtils.serializeEntity(closestServerEntityId)
+            else -- create new entity on server
+                nuid                          = NuidUtils.getNextNuid()
+                local serverEntityId          = EntityUtils.spawnEntity(owner, nuid, x, y, rotation,
+                    velocity, filename, localEntityId, health, isPolymorphed)
+                initialSerializedEntityString = NoitaPatcherUtils.serializeEntity(serverEntityId)
+                NoitaComponentUtils.setInitialSerializedEntityString(serverEntityId, initialSerializedEntityString)
+                serializedEntityString = initialSerializedEntityString
+            end
+        end
+
+        self.sendNewNuidSerialized(owner.name or owner[1], owner.guid or owner[2], localEntityId,
+            serializedEntityString, nuid, x, y, initialSerializedEntityString)
 
         sendAck(data.networkMessageId, peer, NetworkUtils.events.needNuid.name)
         CustomProfiler.stop("Server.onNeedNuid", cpc07)

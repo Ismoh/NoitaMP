@@ -85,6 +85,9 @@ function MinaUtils.getLocalMinaNuid()
     local entityId = MinaUtils.getLocalMinaEntityId()
     local ownerName, ownerGuid, nuid = NetworkVscUtils.getAllVscValuesByEntityId(entityId)
     local nuid_, entityId_ = GlobalsUtils.getNuidEntityPair(nuid)
+    if Utils.IsEmpty(nuid_) and Utils.IsEmpty(entityId_) then
+        return -1
+    end
     if nuid ~= nuid_ or entityId ~= entityId_ then
         error(("Something bad happen! Nuid or entityId missmatch: nuid %s ~= nuid_ and/or entityId %s ~= entityId_ %s")
             :format(nuid, nuid_, entityId, entityId_), 2)

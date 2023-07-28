@@ -11,6 +11,9 @@ local base64 = require("base64")
 function OnProjectileFired() end
 function OnProjectileFiredPost() end
 
+---comment
+---@param entityId number
+---@return string encoded
 function NoitaPatcherUtils.serializeEntity(entityId)
     local binaryString = np.SerializeEntity(entityId)
     local encoded = base64.encode(binaryString)

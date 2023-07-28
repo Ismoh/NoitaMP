@@ -146,7 +146,16 @@ end
 --- @param nuid number
 --- @return number|nil nuid, number|nil entityId
 function GlobalsUtils.getNuidEntityPair(nuid)
-    local cpc                          = CustomProfiler.start("GlobalsUtils.getNuidEntityPair")
+    local cpc = CustomProfiler.start("GlobalsUtils.getNuidEntityPair")
+    if Utils.IsEmpty(nuid) then
+        --print("Nuid is nil. Unable to return entityId then!")
+        CustomProfiler.stop("GlobalsUtils.getNuidEntityPair", cpc)
+        return nil, nil
+        --error(("nuid(%s) is empty!"):format(nuid), 2)
+    end
+    if type(nuid) ~= "number" then
+        error(("nuid(%s) is not type of number!"):format(nuid), 2)
+    end
     local key                          = GlobalsUtils.nuidKeyFormat:format(nuid)
     local value                        = GlobalsGetValue(key)
     local nuidGlobals, entityIdGlobals = GlobalsUtils.parseXmlValueToNuidAndEntityId(key, value)

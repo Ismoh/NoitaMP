@@ -78,10 +78,10 @@ if not EntityUtils then
 end
 
 --- Contains all entities, which are alive
-EntityUtils.aliveEntityIds = { -1 }
+EntityUtils.aliveEntityIds = {}
 
 --- Contains the highest alive entity id
-EntityUtils.previousHighestAliveEntityId = 1
+EntityUtils.previousHighestAliveEntityId = 0
 
 --- Time(Frames) between coroutines.
 --- @see coroutines.lua#wake_up_waiting_threads
@@ -89,64 +89,68 @@ EntityUtils.previousHighestAliveEntityId = 1
 --- that has passed since it was last called"
 EntityUtils.timeFramesDelta = 1
 
-function getHighestAliveEntityId()
-    local lastHighestEntityId = 0
-    if #EntityUtils.aliveEntityIds < EntityUtils.previousHighestAliveEntityId then
-        lastHighestEntityId = EntityUtils.previousHighestAliveEntityId
-    else
-        lastHighestEntityId = #EntityUtils.aliveEntityIds
-    end
-    return lastHighestEntityId
-end
+-- function getHighestAliveEntityId()
+--     local lastHighestEntityId = 0
+--     if #EntityUtils.aliveEntityIds < EntityUtils.previousHighestAliveEntityId then
+--         lastHighestEntityId = EntityUtils.previousHighestAliveEntityId
+--     else
+--         lastHighestEntityId = #EntityUtils.aliveEntityIds
+--     end
+--     return lastHighestEntityId
+-- end
 
+--local guesses = 1
 --- Make sure this is only be executed once in OnWorldPREUpdate!
 OnEntityLoaded = function()
     local cpc = CustomProfiler.start("EntityUtils.OnEntityLoaded")
-    for i, value in ipairs(EntityUtils.aliveEntityIds) do
-        local entityId = EntityUtils.aliveEntityIds[i]
-        if Utils.IsEmpty(entityId) or entityId <= 0 then
-            entityId = i
-        end
 
-        if not Utils.IsEmpty(entityId) and EntityGetIsAlive(entityId) then
+    for guessEntityId = EntityUtils.previousHighestAliveEntityId, EntityUtils.previousHighestAliveEntityId + 1024, 1 do
+        local entityId = guessEntityId
+        while EntityGetIsAlive(entityId) do
             if entityId > EntityUtils.previousHighestAliveEntityId then
                 EntityUtils.previousHighestAliveEntityId = entityId
             end
-            if EntityUtils.aliveEntityIds[i] == -1 then
-                EntityUtils.aliveEntityIds[i] = nil -- get rid of pseudo entityId -1
-            end
-            entityId = EntityGetRootEntity(entityId)
 
-            if EntityGetIsAlive(entityId) and
-                not table.contains(EntityUtils.aliveEntityIds, entityId) -- Entity isn't in the aliveEntityIds list already
-            then
-                EntityUtils.aliveEntityIds[i] = entityId                 -- only store root entityIds here
-                if entityId > EntityUtils.previousHighestAliveEntityId then
-                    EntityUtils.previousHighestAliveEntityId = entityId
+            -- DEBUG ONLY
+            local debugEntityId = FileUtils.ReadFile(("%s%s%s"):format(
+                FileUtils.GetAbsoluteDirectoryPathOfNoitaMP(), pathSeparator, "debugOnEntityLoaded"))
+            if not Utils.IsEmpty(debugEntityId) then
+                if entityId >= tonumber(debugEntityId) then
+                    local debug = true
+                end
+            end
+
+            local rootEntity = EntityGetRootEntity(entityId) or entityId
+
+            if EntityGetIsAlive(rootEntity) then
+                if rootEntity > EntityUtils.previousHighestAliveEntityId then
+                    EntityUtils.previousHighestAliveEntityId = rootEntity
                 end
 
-                local initialSerializedEntityString = NoitaPatcherUtils.serializeEntity(entityId)
-                NoitaComponentUtils.setInitialSerializedEntityString(entityId, initialSerializedEntityString)
+                if not NoitaComponentUtils.hasInitialSerializedEntityString(rootEntity) then
+                    local initialSerializedEntityString = NoitaPatcherUtils.serializeEntity(rootEntity)
+                    local success = NoitaComponentUtils.setInitialSerializedEntityString(rootEntity, initialSerializedEntityString)
 
-                -- Add NoitaMP Variable Storage Components
-                local hasNuid, nuid = NetworkVscUtils.hasNuidSet(entityId)
-                if not hasNuid and Server.amIServer() then
-                    nuid = NuidUtils.getNextNuid()
+                    if not success then
+                        error("Unable to add serialized string!", 2)
+                    else
+                        --print(("Added iSES %s[...] to %s"):format(string.sub(initialSerializedEntityString, 1, 5), rootEntity))
+                    end
+                    -- free memory
+                    initialSerializedEntityString = nil
+
+                    -- Add NoitaMP Variable Storage Components
+                    local hasNuid, nuid = NetworkVscUtils.hasNuidSet(rootEntity)
+                    if not hasNuid and Server.amIServer() then
+                        nuid = NuidUtils.getNextNuid()
+                    end
+                    local spawnX, spawnY = EntityGetTransform(rootEntity)
+                    NetworkVscUtils.addOrUpdateAllVscs(rootEntity, MinaUtils.getLocalMinaName(), MinaUtils.getLocalMinaGuid(), nuid, spawnX, spawnY)
+
+                    NoitaComponentUtils.setNetworkSpriteIndicatorStatus(rootEntity, "processed")
                 end
-                local spawnX, spawnY = EntityGetTransform(entityId)
-                NetworkVscUtils.addOrUpdateAllVscs(entityId, MinaUtils.getLocalMinaName(), MinaUtils.getLocalMinaGuid(), nuid, spawnX, spawnY)
-
-                NoitaComponentUtils.setNetworkSpriteIndicatorStatus(entityId, "processed")
             end
-        else
-            EntityUtils.aliveEntityIds[i] = nil -- get rid of pseudo entityId -1
-        end
-
-        -- fake new entityIds by adding indices, to fetch possible new entities as soon as possible!
-        if i <= EntityUtils.previousHighestAliveEntityId + 1 then
-            if EntityUtils.aliveEntityIds[i + 1] == nil then
-                EntityUtils.aliveEntityIds[i + 1] = -1
-            end
+            entityId = EntityUtils.previousHighestAliveEntityId + 1
         end
     end
     CustomProfiler.stop("EntityUtils.OnEntityLoaded", cpc)
@@ -496,7 +500,8 @@ function EntityUtils.processAndSyncEntityNetworking(startFrameTime)
                         finished = true
                     end
                     if finished == true then
-                        Server.sendNewNuidSerialized(compOwnerName, compOwnerGuid, entityId, serializedEntityString, nuid, x, y)
+                        Server.sendNewNuidSerialized(compOwnerName, compOwnerGuid, entityId, serializedEntityString, nuid, x, y,
+                            NoitaComponentUtils.getInitialSerializedEntityString(entityId))
                     else
                         -- Logger.warn(Logger.channels.entity,
                         --     "EntitySerialisationUtils.serializeEntireRootEntity took too long. Breaking loop by returning entityId.")

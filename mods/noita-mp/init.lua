@@ -57,6 +57,7 @@ end
 function OnWorldInitialized()
     local cpc = CustomProfiler.start("init.OnWorldInitialized")
     Logger.debug(Logger.channels.initialize, "OnWorldInitialized()")
+    --OnEntityLoaded()
 
     local cpc1     = CustomProfiler.start("ModSettingGet")
     local make_zip = ModSettingGet("noita-mp.server_start_7zip_savegame")
@@ -81,6 +82,7 @@ end
 function OnPlayerSpawned(player_entity)
     local cpc = CustomProfiler.start("init.OnPlayerSpawned")
     Logger.info(Logger.channels.initialize, ("Player spawned with entityId = %s!"):format(player_entity))
+    OnEntityLoaded()
 
     if Utils.IsEmpty(MinaUtils.getLocalMinaGuid()) then
         MinaUtils.setLocalMinaGuid(GuidUtils:getGuid())
@@ -107,6 +109,7 @@ end
 function OnPausePreUpdate()
     local startFrameTime = GameGetRealWorldTimeSinceStarted()
     local cpc = CustomProfiler.start("init.OnPausePreUpdate")
+    --OnEntityLoaded()
     Server.update(startFrameTime)
     Client.update(startFrameTime)
     CustomProfiler.stop("init.OnPausePreUpdate", cpc)
@@ -117,13 +120,13 @@ function OnWorldPreUpdate()
     local startFrameTime = GameGetRealWorldTimeSinceStarted()
     local cpc = CustomProfiler.start("init.OnWorldPreUpdate")
 
+    OnEntityLoaded()
+
     if Utils.IsEmpty(MinaUtils.getLocalMinaName()) or Utils.IsEmpty(MinaUtils.getLocalMinaGuid()) then
         guiI.setShowMissingSettings(true)
     end
 
     guiI.update()
-
-    OnEntityLoaded()
 
     --if profiler.isRunning() and os.clock() >= 120 then
     --    FileUtils.createProfilerLog()
@@ -161,7 +164,7 @@ function OnWorldPreUpdate()
 
     Server.update(startFrameTime)
     Client.update(startFrameTime)
-    ui.update()
+    --ui.update()
 
     local cpc1 = CustomProfiler.start("init.OnWorldPreUpdate.collectgarbage.count")
     if collectgarbage("count") >= 250000 then
@@ -180,6 +183,7 @@ end
 
 function OnWorldPostUpdate()
     local cpc = CustomProfiler.start("init.OnWorldPostUpdate")
+    OnEntityLoaded()
 
     if EntityCache.size() >= 500 then
         -- TODO: add distance check to minas

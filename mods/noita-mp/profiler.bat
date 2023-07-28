@@ -1,0 +1,1 @@
+cd "C:\Program Files (x86)\Steam\steamapps\common\Noita\mods\noita-mp" && cmd /k lua.bat files\scripts\bin\profiler.lua %1

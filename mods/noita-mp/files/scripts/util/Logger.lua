@@ -70,7 +70,7 @@ function Logger.log(level, channel, message)
         return false
     end
 
-    local logLevelOfSettings = ModSettingGet(("noita-mp.log_level_%s"):format(channel)) -- i.e.: { "debug, info, warn", "DEBUG" }
+    local logLevelOfSettings = ModSettingGet(("noita-mp.log_level_%s"):format(channel)) -- i.e.: { "trace", "debug, info, warn", "DEBUG" }
     if not logLevelOfSettings then
         print(("[warn] Looks like you missed to add 'noita-mp.log_level_%s' in settings.lua"):format(channel))
         logLevelOfSettings = { "off", "OFF"}

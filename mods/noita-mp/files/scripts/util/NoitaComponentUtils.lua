@@ -136,8 +136,11 @@ end
 ---Set initial serialized entity string to determine if the entity already exists on the server.
 ---@param entityId number
 ---@param initialSerializedEntityString string
+---@return boolean if success
 function NoitaComponentUtils.setInitialSerializedEntityString(entityId, initialSerializedEntityString)
     local cpc = CustomProfiler.start("NoitaComponentUtils.setInitialSerializedEntityString")
+
+    entityId = EntityGetRootEntity(entityId)
     if not EntityUtils.isEntityAlive(entityId) then
         CustomProfiler.stop("NoitaComponentUtils.setInitialSerializedEntityString", cpc)
         error("Unable to set initial serialized entity string, because entity is not alive!", 2)
@@ -148,32 +151,49 @@ function NoitaComponentUtils.setInitialSerializedEntityString(entityId, initialS
     end
     local compId = EntityAddComponent2(entityId, NetworkVscUtils.variableStorageComponentName,
         {
-            name         = "InitialSerializedEntityString",
+            name         = "noita-mp.nc_initialSerializedEntityString",
             value_string = initialSerializedEntityString
         })
     CustomProfiler.stop("NoitaComponentUtils.setInitialSerializedEntityString", cpc)
+
+    return not Utils.IsEmpty(compId)
+end
+
+function NoitaComponentUtils.hasInitialSerializedEntityString(entityId)
+    if Utils.IsEmpty(NoitaComponentUtils.getInitialSerializedEntityString(entityId)) then
+        return false
+    end
+    return true
 end
 
 ---Get initial serialized entity string to determine if the entity already exists on the server.
 ---@param entityId number
----@return string
+---@return string|nil initialSerializedEntityString
 function NoitaComponentUtils.getInitialSerializedEntityString(entityId)
     local cpc = CustomProfiler.start("NoitaComponentUtils.getInitialSerializedEntityString")
-    if not EntityUtils.isEntityAlive(entityId) then
+
+    local rootEntityId = EntityGetRootEntity(entityId)
+    if not EntityUtils.isEntityAlive(rootEntityId) then
         CustomProfiler.stop("NoitaComponentUtils.getInitialSerializedEntityString", cpc)
-        error("Unable to get initial serialized entity string, because entity is not alive!", 2)
+        error(("Unable to get initial serialized entity (%s) string, because entity is not alive!"):format(rootEntityId), 2)
     end
 
-    local componentIds = EntityGetComponentIncludingDisabled(entityId, NetworkVscUtils.variableStorageComponentName) or {}
+    local componentIds = EntityGetComponentIncludingDisabled(rootEntityId, NetworkVscUtils.variableStorageComponentName) or {}
     local serializedString = nil
     for i = 1, #componentIds do
         local componentId = componentIds[i]
-        serializedString  = ComponentGetValue2(componentId, "InitialSerializedEntityString")
+        -- get the components name
+        local compName    = tostring(ComponentGetValue2(componentId, "name"))
+        if string.find(compName, "noita-mp.nc_initialSerializedEntityString", 1, true) then
+            -- if the name of the component match to the one we are searching for, then get the value
+            serializedString = ComponentGetValue2(componentId, "value_string")
+        end
     end
 
     if Utils.IsEmpty(serializedString) then
         CustomProfiler.stop("NoitaComponentUtils.getInitialSerializedEntityString", cpc)
-        error("Unable to get initial serialized entity string, because it is empty!", 2)
+        --print(("Unable to get initial serialized entity string, because it is empty! Root %s Child %s"):format(rootEntityId, entityId), 2)
+        return nil
     end
 
     CustomProfiler.stop("NoitaComponentUtils.getInitialSerializedEntityString", cpc)

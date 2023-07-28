@@ -297,6 +297,7 @@ function Gui.new()
 
     local base = 1
     local showSettingsSavedTimer = 10
+    local oldMina = nil
     function self.drawSettings()
         local cpc = CustomProfiler.start("Gui.drawSettings")
 
@@ -314,6 +315,11 @@ function Gui.new()
         local isCollapsed
         isCollapsed, self.showSettings = imGui.Begin(self.settingsLabel, self.showSettings, windowFlags)
         if isCollapsed then
+            -- store previous Mina settings for being able using multiple instances locally
+            if Utils.IsEmpty(oldMina) then
+                oldMina = MinaUtils.getLocalMinaInformation()
+            end
+
             if self.showMissingSettings then
                 imGui.PushStyleColor(imGui.Col.Text, 255, 0, 0)
                 imGui.Text("Some of the 'Mandatory' settings are missing!\n Please set them first and *restart* your run! \n Thanks <3")
@@ -390,9 +396,36 @@ function Gui.new()
 
             -- Save settings
             if imGui.Button("Save Settings") then
+                if NoitaMpSettings.isMoreThanOneNoitaProcessRunning() then
+                    local newGuid = GuidUtils:getGuid({ MinaUtils.getLocalMinaGuid() })
+                    MinaUtils.setLocalMinaGuid(newGuid)
+                end
+
                 NoitaMpSettings.save()
+
                 if not Utils.IsEmpty(MinaUtils.getLocalMinaName()) and not Utils.IsEmpty(MinaUtils.getLocalMinaGuid()) then
                     guiI.setShowMissingSettings(false)
+                end
+
+                local x, y = EntityGetTransform(MinaUtils.getLocalMinaEntityId())
+                local entityIds = EntityGetInRadius(x, y, 2048) or {}
+                for i = 1, #entityIds do
+                    local componentIds = EntityGetComponentIncludingDisabled(entityIds[i], NetworkVscUtils.variableStorageComponentName) or {}
+                    for i = 1, #componentIds do
+                        local name = ComponentGetValue(componentIds[i], "name")
+                        if name == NetworkVscUtils.componentNameOfOwnersName then
+                            local value = ComponentGetValue2(componentIds[i], "value_string")
+                            if value == oldMina.name then
+                                ComponentSetValue2(componentIds[i], "value_string", MinaUtils.getLocalMinaName())
+                            end
+                        end
+                        if name == NetworkVscUtils.componentNameOfOwnersGuid then
+                            local value = ComponentGetValue2(componentIds[i], "value_string")
+                            if value == oldMina.guid then
+                                ComponentSetValue2(componentIds[i], "value_string", MinaUtils.getLocalMinaGuid())
+                            end
+                        end
+                    end
                 end
 
                 NetworkVscUtils.addOrUpdateAllVscs(MinaUtils.getLocalMinaEntityId(), MinaUtils.getLocalMinaName(), MinaUtils.getLocalMinaGuid(),

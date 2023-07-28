@@ -387,7 +387,9 @@ function ClientInit.new(sockClient)
 
         local localSeed = tonumber(StatsGetValue("world_seed"))
         if localSeed ~= serversSeed then
-            Utils.ReloadMap(serversSeed)
+            if not DebugGetIsDevBuild() then
+                Utils.ReloadMap(serversSeed)
+            end
         end
 
         local entityId = MinaUtils.getLocalMinaEntityId()
@@ -539,6 +541,8 @@ function ClientInit.new(sockClient)
             local initialSerializedEntityString = NoitaComponentUtils.getInitialSerializedEntityString(closestEntityId)
             if initialSerializedEntityString == data.initialSerializedEntityString then
                 entityId = closestEntityId
+            else
+                entityId = EntityCreateNew(data.nuid)
             end
         else
             if EntityCache.contains(entityId) then
@@ -548,6 +552,26 @@ function ClientInit.new(sockClient)
 
 
         entityId = NoitaPatcherUtils.deserializeEntity(entityId, data.serializedEntityString, data.x, data.y) --EntitySerialisationUtils.deserializeEntireRootEntity(data.serializedEntity, data.nuid)
+
+        -- include exclude list of entityIds which shouldn't be spawned
+        -- if filename:contains("player.xml") then
+        --     filename = "mods/noita-mp/data/enemies_gfx/client_player_base.xml"
+        -- end
+
+        -- local entityId = EntityLoad(filename, x, y)
+        -- if not EntityUtils.isEntityAlive(entityId) then
+        --     return
+        -- end
+
+        local compIds = EntityGetAllComponents(entityId) or {}
+        for i = 1, #compIds do
+            local compId   = compIds[i]
+            local compType = ComponentGetTypeName(compId)
+            if table.contains(EntityUtils.remove.byComponentsName, compType) or
+                table.contains(EntitySerialisationUtils.ignore.byComponentsType) then
+                EntityRemoveComponent(entityId, compId)
+            end
+        end
 
         sendAck(data.networkMessageId, NetworkUtils.events.newNuidSerialized.name)
         CustomProfiler.stop("ClientInit.onNewNuidSerialized", cpc32)
@@ -935,7 +959,7 @@ function ClientInit.new(sockClient)
         local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
         local data                                                                               = {
             NetworkUtils.getNextNetworkMessageId(), { ownerName, ownerGuid }, entityId, x, y, rotation, velocity,
-            filename, health, EntityUtils.isEntityPolymorphed(entityId)
+            filename, health, EntityUtils.isEntityPolymorphed(entityId), NoitaComponentUtils.getInitialSerializedEntityString(entityId)
         }
 
         if isTestLuaContext then

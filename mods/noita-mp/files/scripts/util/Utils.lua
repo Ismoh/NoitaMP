@@ -129,4 +129,33 @@ function Utils.openUrl(url)
     os.execute(command)
 end
 
+function Utils.execLua(pid)
+    local command = nil
+    if _G.is_windows then
+        --command = ('cd "%s" && start "NoitaMP - Profiler" profiler.bat %s 2>&1 &'):format(FileUtils.GetAbsoluteDirectoryPathOfNoitaMP(), parameter)
+        command = ('start "NoitaMP - Profiler" /D "%s" profiler.bat %s 2>&1 &'):format(FileUtils.GetAbsoluteDirectoryPathOfNoitaMP(), pid)
+        print(command)
+    else
+        error("Unix system are not supported yet :(", 2)
+    end
+    os.execute(command)
+
+
+    -- local command = nil
+    -- if _G.is_windows then
+    --     command = ('cd "%s" && lua.bat files\\scripts\\bin\\profiler.lua'):format(FileUtils.GetAbsoluteDirectoryPathOfNoitaMP())
+    -- else
+    --     error("Unix system are not supported yet :(", 2)
+    --     return
+    -- end
+
+    -- local file    = assert(io.popen(command, "r"))
+    -- local content = file:read("*a")
+    -- file:close()
+    -- local cmdOutput = string.split(content, " ")
+    -- local pid       = cmdOutput[#cmdOutput]
+    -- return tonumber(pid)
+
+end
+
 return Utils

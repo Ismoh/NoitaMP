@@ -26,7 +26,24 @@ local convertToDataType                = function(value, dataType)
     return tostring(value)
 end
 
-local isMoreThanOneNoitaProcessRunning = function()
+local getSettingsFilePath              = function()
+    local path = ("%s%ssettings.json"):format(FileUtils.GetAbsolutePathOfNoitaMpSettingsDirectory(), pathSeparator)
+
+    if NoitaMpSettings.isMoreThanOneNoitaProcessRunning() then
+        local who = "CLIENT" -- see Client.iAm
+
+        if whoAmI then
+            who = whoAmI()
+        end
+
+        path = ("%s%slocal%ssettings-%s.json")
+            :format(FileUtils.GetAbsolutePathOfNoitaMpSettingsDirectory(), pathSeparator, pathSeparator, who)
+    end
+    return path
+end
+
+
+function NoitaMpSettings.isMoreThanOneNoitaProcessRunning()
     local cpc = CustomProfiler.start("NoitaMpSettings.isMoreThanOneNoitaProcessRunning")
     local pids = winapi.get_processes()
     local noitaCount = 0
@@ -41,23 +58,6 @@ local isMoreThanOneNoitaProcessRunning = function()
     CustomProfiler.stop("NoitaMpSettings.isMoreThanOneNoitaProcessRunning", cpc)
     return noitaCount > 1
 end
-
-local getSettingsFilePath              = function()
-    local path = ("%s%ssettings.json"):format(FileUtils.GetAbsolutePathOfNoitaMpSettingsDirectory(), pathSeparator)
-
-    if isMoreThanOneNoitaProcessRunning() then
-        local who = "CLIENT" -- see Client.iAm
-
-        if whoAmI then
-            who = whoAmI()
-        end
-
-        path = ("%s%slocal%ssettings-%s.json")
-            :format(FileUtils.GetAbsolutePathOfNoitaMpSettingsDirectory(), pathSeparator, pathSeparator, who)
-    end
-    return path
-end
-
 
 function NoitaMpSettings.clearAndCreateSettings()
     -- local cpc         = CustomProfiler.start("NoitaMpSettings.clearAndCreateSettings")
