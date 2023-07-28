@@ -56,6 +56,28 @@ ClientInit
 
 Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 
+
+```lua
+CustomProfiler
+```
+
+
+```lua
+CustomProfiler
+```
+
+
+```lua
+CustomProfiler
+```
+
+
+---
+
+# CustomProfiler
+
+Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
+
 ## ceiling
 
 
@@ -209,23 +231,16 @@ The threshold in milliseconds. If a function takes longer than this threshold, i
 
 ---
 
-# CustomProfiler
-
-Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
+# CustomProfiler.start
 
 
 ```lua
-CustomProfiler
+function CustomProfiler.start(functionName: any)
 ```
 
 
 ```lua
-CustomProfiler
-```
-
-
-```lua
-CustomProfiler
+function CustomProfiler.start(functionName: any)
 ```
 
 
@@ -241,21 +256,6 @@ function
 
 ```lua
 function
-```
-
-
----
-
-# CustomProfiler.start
-
-
-```lua
-function CustomProfiler.start(functionName: any)
-```
-
-
-```lua
-function CustomProfiler.start(functionName: any)
 ```
 
 
@@ -1281,6 +1281,11 @@ function Logger.warn(channel: any, formattedMessage: any)
 
 # MinaInformation
 
+
+---
+
+# MinaInformation
+
 See:
   * [Transform](../../mods/noita-mp/files/scripts/util/MinaUtils.lua#L139#18)
   * [Health](../../mods/noita-mp/files/scripts/util/NoitaComponentUtils.lua#L52#14)
@@ -1289,11 +1294,6 @@ See:
 ```lua
 table
 ```
-
-
----
-
-# MinaInformation
 
 
 ---
@@ -2258,11 +2258,36 @@ function NoitaComponentUtils.getEntityDataByNuid(nuid: any)
 
 ---
 
+# NoitaComponentUtils.getInitialSerializedEntityString
+
+Get initial serialized entity string to determine if the entity already exists on the server.
+
+
+```lua
+function NoitaComponentUtils.getInitialSerializedEntityString(entityId: number)
+  -> string
+```
+
+
+---
+
 # NoitaComponentUtils.setEntityData
 
 
 ```lua
 function NoitaComponentUtils.setEntityData(entityId: number, x: number, y: number, rotation: number, velocity?: Vec2, health: number)
+```
+
+
+---
+
+# NoitaComponentUtils.setInitialSerializedEntityString
+
+Set initial serialized entity string to determine if the entity already exists on the server.
+
+
+```lua
+function NoitaComponentUtils.setInitialSerializedEntityString(entityId: number, initialSerializedEntityString: string)
 ```
 
 
@@ -2277,18 +2302,6 @@ Sets the SpriteComponent to a specific status by setting image_file.
 
 ```lua
 function NoitaComponentUtils.setNetworkSpriteIndicatorStatus(entityId: number, status: string)
-```
-
-
----
-
-# NoitaMpSettings
-
- NoitaMpSettings: Replacement for Noita ModSettings.
-
-
-```lua
-NoitaMpSettings
 ```
 
 
@@ -2333,6 +2346,18 @@ function NoitaMpSettings.save()
 ```lua
 function NoitaMpSettings.set(key: any, value: any)
   -> table
+```
+
+
+---
+
+# NoitaMpSettings
+
+ NoitaMpSettings: Replacement for Noita ModSettings.
+
+
+```lua
+NoitaMpSettings
 ```
 
 
@@ -2516,22 +2541,6 @@ unknown
 
 # ServerInit
 
-## new
-
-
-```lua
-function ServerInit.new(sockServer: SockServer)
-  -> self: SockServer
-```
-
- ServerInit constructor
- Creates a new instance of server 'class'
-
-
----
-
-# ServerInit
-
  Because of stack overflow errors when loading lua files,
  I decided to put Utils 'classes' into globals
 
@@ -2544,6 +2553,22 @@ ServerInit
 ```lua
 ServerInit
 ```
+
+
+---
+
+# ServerInit
+
+## new
+
+
+```lua
+function ServerInit.new(sockServer: SockServer)
+  -> self: SockServer
+```
+
+ ServerInit constructor
+ Creates a new instance of server 'class'
 
 
 ---
@@ -2919,7 +2944,7 @@ function SockServer.sendNewNuid(owner: any, localEntityId: any, newNuid: any, x:
 
 
 ```lua
-function SockServer.sendNewNuidSerialized(ownerName: any, ownerGuid: any, entityId: any, serializedEntityString: any, nuid: any, x: any, y: any)
+function SockServer.sendNewNuidSerialized(ownerName: any, ownerGuid: any, entityId: any, serializedEntityString: any, nuid: any, x: any, y: any, initialSerializedEntityString: any)
   -> boolean
 ```
 
