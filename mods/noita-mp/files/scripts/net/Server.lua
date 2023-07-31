@@ -974,7 +974,8 @@ function Server.new(sockServer)
     --local lastFrames = 0
     --local diffFrames = 0
     --local fps30 = 0
-    local prevTime         = 0
+    local prevEntitySync = 0
+    local prevWorldSync = 0
     --- Some inheritance: Save parent function (not polluting global 'self' space)
     local sockServerUpdate = sockServer.update
     --- Updates the server by checking for network events and handling them.
@@ -990,9 +991,7 @@ function Server.new(sockServer)
         EntityUtils.processAndSyncEntityNetworking()
 
         local nowTime     = GameGetRealWorldTimeSinceStarted() * 1000 -- *1000 to get milliseconds
-        local elapsedTime = nowTime - prevTime
-        local oneTickInMs = 1000 / tonumber(ModSettingGet("noita-mp.tick_rate"))
-        if elapsedTime >= oneTickInMs then
+        if (nowTime - prevEntitySync) >= (1000 / tonumber(ModSettingGet("noita-mp.tick_rate"))) then
             local cpc1 = CustomProfiler.start("Server.update.tick")
             prevTime   = nowTime
             --if since % tonumber(ModSettingGet("noita-mp.tick_rate")) == 0 then
@@ -1004,6 +1003,9 @@ function Server.new(sockServer)
             CustomProfiler.stop("Server.update.tick", cpc1)
         end
 
+        if (nowTime - prevWorldSync) >= (1000 / tonumber(ModSettingGet("noita-mp.worldsync_tick"))) then
+            WorldUtils.SyncLocalRegions()
+        end
         sockServerUpdate(self)
         CustomProfiler.stop("Server.update", cpc016)
     end
