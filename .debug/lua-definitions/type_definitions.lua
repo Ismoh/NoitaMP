@@ -51,6 +51,8 @@ local Client = {}
 ---@param ownerGuid any
 ---@param entityId number
 function Client.sendNeedNuid(ownerName, ownerGuid, entityId) end
+---@return boolean
+function Client.amIClient() end
 
 ---@class Server
 ---@field iAm "SERVER"

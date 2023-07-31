@@ -258,6 +258,17 @@ Default = 16. 128 tick rate = 128 messages a second.]],
                 scope          = MOD_SETTING_SCOPE_RUNTIME,
             },
             {
+                id             = "worldsync_tick",
+                ui_name        = "Change tick rate for world synchronisation.",
+                ui_description = [[x-message per second = tick rate x.
+Lower value = higher performance, but less sync.
+Default = 10. 128 tick rate = 128 messages a second.]],
+                value_default  = 10,
+                value_min      = 1,
+                value_max      = 128,
+                scope          = MOD_SETTING_SCOPE_RUNTIME,
+            },
+            {
                 id             = "change_detection",
                 ui_name        = "Define when something changed related to position and velocity.",
                 ui_description = [[Higher value = higher performance, but less sync.

@@ -140,6 +140,12 @@ NetworkUtils.events                  = {
         schema            = { "networkMessageId", "get", "items" },
         resendIdentifiers = { "get", "items" },
         isCacheable       = true
+    },
+
+    sendWorldData = {
+        name = "sendWorldData",
+        schema = { "start_x", "start_y", "width", "height", "data"},
+        isCacheable = false
     }
 }
 
