@@ -1,6 +1,6 @@
 #include <lua.h>
 #include <lauxlib.h>
-
+#include <string.h>
 #pragma region EntityCache
 #define entityCacheSize sizeof(EntityCacheEntry)
 typedef struct EntityCacheEntry
@@ -162,7 +162,7 @@ static int l_entityCacheDeleteByEntityId(lua_State *L)
         EntityCacheEntry *entry = entityEntries + i;
         if (entry->entityId == idToSearch)
         {
-            memmove(entityEntries + i + 1, entityEntries + i, ((entityCurrentSize - 1) - i) * entityCacheSize);
+            memmove(entityEntries + i, entityEntries + i + 1, ((entityCurrentSize - 1) - i) * entityCacheSize);
             entityCurrentSize--;
             entityEntries = realloc(entityEntries, entityCacheSize * entityCurrentSize);
             lua_pushboolean(L, 1);
@@ -181,7 +181,7 @@ static int l_entityCacheDeleteByNuid(lua_State *L)
         EntityCacheEntry *entry = entityEntries + i;
         if (entry->nuid == idToSearch)
         {
-            memmove(entityEntries + i + 1, entityEntries + i, ((entityCurrentSize - 1) - i) * entityCacheSize);
+            memmove(entityEntries + i, entityEntries + i + 1, ((entityCurrentSize - 1) - i) * entityCacheSize);
             entityCurrentSize--;
             entityEntries = realloc(entityEntries, entityCacheSize * entityCurrentSize);
             lua_pushboolean(L, 1);
@@ -191,6 +191,20 @@ static int l_entityCacheDeleteByNuid(lua_State *L)
     lua_pushboolean(L, 0);
     return 1;
 }
+
+static int l_entityCacheReadAll(lua_State *L)
+{
+    lua_createtable(L, 0, 4);
+    for (int i = 0; i < entityCurrentSize; i++)
+    {
+        EntityCacheEntry *entry = entityEntries + i;
+        lua_pushnumber(L, i + 1);
+        l_createEntityCacheReturnTable(L, entry);
+        lua_settable(L, -3);
+    }
+    return 1;
+}
+
 #pragma endregion
 #pragma region NetworkCache
 typedef struct NetworkCacheEntry
@@ -231,9 +245,12 @@ static int l_networkCacheWrite(lua_State *L)
             entry->messageId = messageId;
             entry->event = event;
             char *status = luaL_checkstring(L, 4);
-            if (status == "ack") {
+            if (!strcmp(status, "ack"))
+            {
                 entry->status = 0;
-            } else {
+            }
+            else
+            {
                 entry->status = 1;
             }
             entry->ackedAt = luaL_checkint(L, 5);
@@ -249,9 +266,12 @@ static int l_networkCacheWrite(lua_State *L)
     newEntry->messageId = messageId;
     newEntry->event = event;
     char *status = luaL_checkstring(L, 4);
-    if (status == "ack") {
+    if (!strcmp(status, "ack"))
+    {
         newEntry->status = 0;
-    } else {
+    }
+    else
+    {
         newEntry->status = 1;
     }
     newEntry->ackedAt = luaL_checkint(L, 5);
@@ -341,35 +361,43 @@ static int l_networkCacheReadByChecksum(lua_State *L)
     return 1;
 }
 
+static int l_networkCacheReadAll(lua_State *L)
+{
+    lua_createtable(L, 0, 4);
+    for (int i = 0; i < networkCurrentSize; i++)
+    {
+        NetworkCacheEntry *entry = networkEntries + i;
+        lua_pushnumber(L, i + 1);
+        l_createNetworkCacheReturnTable(L, entry);
+        lua_settable(L, -3);
+    }
+    return 1;
+}
+
 static int l_networkCacheRemoveOldest(lua_State *L)
 {
-    memmove(networkEntries + 1, networkEntries, ((networkCurrentSize - 1)) * sizeof(NetworkCacheEntry));
+    NetworkCacheEntry *entry = networkEntries;
+    lua_pushnumber(L, entry->messageId);
+    memmove(networkEntries, networkEntries + 1, ((networkCurrentSize - 1)) * sizeof(NetworkCacheEntry));
     networkCurrentSize--;
     networkEntries = realloc(networkEntries, sizeof(NetworkCacheEntry) * networkCurrentSize);
-    return 0;
+    return 1;
 }
 
 static int l_networkCacheClear(lua_State *L)
 {
     int peerToClear = luaL_checkinteger(L, 1);
-    while (1)
+    for (int i = 0; i < networkCurrentSize; i++)
     {
-        int found = 0;
-        for (int i = 0; i < networkCurrentSize; i++)
+        NetworkCacheEntry *entry = networkEntries + i;
+        if (entry->peerNum == peerToClear)
         {
-            NetworkCacheEntry *entry = networkEntries + i;
-            if (entry->peerNum == peerToClear)
-            {
-                found = 1;
-                memmove(networkEntries + i + 1, networkEntries + i, ((networkCurrentSize - 1) - i) * sizeof(NetworkCacheEntry));
-                networkCurrentSize--;
-                networkEntries = realloc(networkEntries, sizeof(NetworkCacheEntry) * networkCurrentSize);
-            };
-        }
-        if (found == 0) {
-            return 0;
-        }
+            memmove(networkEntries + i, networkEntries + i + 1, ((networkCurrentSize - 1) - i) * sizeof(NetworkCacheEntry));
+            networkCurrentSize--;
+            networkEntries = realloc(networkEntries, sizeof(NetworkCacheEntry) * networkCurrentSize);
+        };
     }
+    return 0;
 }
 #pragma endregion
 
@@ -384,8 +412,9 @@ __declspec(dllexport) int luaopen_luaExtensions(lua_State *L)
             {"deleteNuid", l_entityCacheDeleteByNuid},
             {"size", l_entityCacheSize},
             {"usage", l_entityCacheUsage},
+            {"getAll", l_entityCacheReadAll},
             {NULL, NULL}};
-    luaL_openlib(L, "EntityCache", eCachelib, 0);
+    luaL_openlib(L, "EntityCacheC", eCachelib, 0);
     static const luaL_reg nCachelib[] =
         {
             {"set", l_networkCacheWrite},
@@ -395,7 +424,8 @@ __declspec(dllexport) int luaopen_luaExtensions(lua_State *L)
             {"usage", l_networkCacheUsage},
             {"removeOldest", l_networkCacheRemoveOldest},
             {"clear", l_networkCacheClear},
+            {"getAll", l_networkCacheReadAll},
             {NULL, NULL}};
-    luaL_openlib(L, "NetworkCache", nCachelib, 0);
+    luaL_openlib(L, "NetworkCacheC", nCachelib, 0);
     return 1;
 }

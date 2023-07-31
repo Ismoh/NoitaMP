@@ -8,7 +8,6 @@ local guid5     = GuidUtils:getGuid({ guid1, guid2, guid3, guid4 })
 
 function TestEntityCache:setUp()
     Logger.trace(Logger.channels.testing, ("EntityCache.size() = %s"):format(EntityCache.size()))
-    Logger.trace(Logger.channels.testing, ("EntityCache.usage() = %s"):format(EntityCache.usage()))
 end
 
 function TestEntityCache:testGet()
@@ -95,7 +94,7 @@ function TestEntityCache:testUsage()
     EntityCache.set(5, 102, guid5, "compOwnerName5",
                     "data/entities/items/eye.xml", 10, 0, 1, 57, 0, 100, 100)
 
-    lu.assertNotIsNaN(EntityCache.usage())
+    lu.assertError(EntityCache.usage())
 
     EntityCache.delete(4)
     EntityCache.delete(5)

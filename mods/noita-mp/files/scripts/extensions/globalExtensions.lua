@@ -12,14 +12,14 @@ table.
 Example:
 ]]
 
-function __genOrderedIndex( t )
+function __genOrderedIndex(t)
     local orderedIndex = {}
     for key in pairs(t) do
         if type(key) == "number" then
-            table.insert( orderedIndex, key )
+            table.insert(orderedIndex, key)
         end
     end
-    table.sort( orderedIndex )
+    table.sort(orderedIndex)
     return orderedIndex
 end
 
@@ -32,13 +32,13 @@ function orderedNext(t, state)
     --print("orderedNext: state = "..tostring(state) )
     if state == nil then
         -- the first time, generate the index
-        t.__orderedIndex = __genOrderedIndex( t )
-        key = t.__orderedIndex[1]
+        t.__orderedIndex = __genOrderedIndex(t)
+        key              = t.__orderedIndex[1]
     else
         -- fetch the next value
         for i = 1, table.getn(t.__orderedIndex) do
             if t.__orderedIndex[i] == state then
-                key = t.__orderedIndex[i+1]
+                key = t.__orderedIndex[i + 1]
             end
         end
     end
@@ -56,4 +56,26 @@ function orderedPairs(t)
     -- Equivalent of the pairs() function on tables. Allows to iterate
     -- in order
     return orderedNext, t, nil
+end
+
+function toBoolean(value)
+    if type(value) == "nil" or type(value) == "userdata" or type(value) == "function" or
+            type(value) == "thread" or type(value) == "table" then
+        error(("Unable toBoolean when value %s is not 'string' or 'number' type: type = %s"):format(value, type(value)),
+              2)
+    end
+    if type(value) == "string" then
+        return string.contains(value, "true") or value == "1"
+    end
+    if type(value) == "number" then
+        if value == 1 then
+            return true
+        else
+            return false
+        end
+    end
+    if type(value) == "boolean" then
+        return value
+    end
+    error(("Unable to convert to boolean! value = %s"):format(value), 2)
 end

@@ -18,33 +18,32 @@ if require then
 else
     -- Fix stupid Noita sandbox issue. Noita Components does not have access to require.
     if not Utils then
-        Utils                   = dofile("mods/noita-mp/files/scripts/util/Utils.lua")
+        Utils = dofile("mods/noita-mp/files/scripts/util/Utils.lua")
     end
 
     if not EntityCache then
         EntityCache            = {}
         EntityCache.delete     = function(entityId)
-            Logger.warn(Logger.channels.entity,
-                        ("NoitaComponents with their restricted Lua context are trying to use EntityCache.delete(entityId %s)")
-                                :format(entityId))
-            print("TEST 123")
+            --Logger.trace(Logger.channels.entity,
+            --            ("NoitaComponents with their restricted Lua context are trying to use EntityCache.delete(entityId %s)")
+            --                    :format(entityId))
         end
         EntityCache.get        = function(entityId)
-            Logger.warn(Logger.channels.entity,
-                        ("NoitaComponents with their restricted Lua context are trying to use EntityCache.get(entityId %s)")
-                                :format(entityId))
+            --Logger.trace(Logger.channels.entity,
+            --            ("NoitaComponents with their restricted Lua context are trying to use EntityCache.get(entityId %s)")
+            --                    :format(entityId))
         end
         EntityCache.set        = function(entityId, compNuid, compOwnerGuid, compOwnerName, filename, x, y, rotation, velocityX,
                                           velocityY, healthCurrent, healthMax)
-            Logger.warn(Logger.channels.entity,
-                        ("NoitaComponents with their restricted Lua context are trying to use EntityCache.set(entityId %s, compNuid %s, compOwnerGuid %s, compOwnerName %s, filename %s, x %s, y %s, rotation %s, velocityX %s, velocityY %s, healthCurrent %s, healthMax %s)")
-                                :format(entityId, compNuid, compOwnerGuid, compOwnerName, filename, x, y, rotation,
-                                        velocityX, velocityY, healthCurrent, healthMax))
+            --Logger.trace(Logger.channels.entity,
+            --            ("NoitaComponents with their restricted Lua context are trying to use EntityCache.set(entityId %s, compNuid %s, compOwnerGuid %s, compOwnerName %s, filename %s, x %s, y %s, rotation %s, velocityX %s, velocityY %s, healthCurrent %s, healthMax %s)")
+            --                    :format(entityId, compNuid, compOwnerGuid, compOwnerName, filename, x, y, rotation,
+            --                            velocityX, velocityY, healthCurrent, healthMax))
         end
         EntityCache.deleteNuid = function(nuid)
-            Logger.warn(Logger.channels.entity,
-                        ("NoitaComponents with their restricted Lua context are trying to use EntityCache.deleteNuid(nuid %s)")
-                                :format(nuid))
+            --Logger.trace(Logger.channels.entity,
+            --            ("NoitaComponents with their restricted Lua context are trying to use EntityCache.deleteNuid(nuid %s)")
+            --                    :format(nuid))
         end
     end
 
@@ -52,16 +51,16 @@ else
         CustomProfiler = {}
         ---@diagnostic disable-next-line: duplicate-set-field
         function CustomProfiler.start(functionName)
-            Logger.warn(Logger.channels.entity,
-                        ("NoitaComponents with their restricted Lua context are trying to use CustomProfiler.start(functionName %s)")
-                                :format(functionName))
-            return 0
+            --Logger.trace(Logger.channels.entity,
+            --            ("NoitaComponents with their restricted Lua context are trying to use CustomProfiler.start(functionName %s)")
+            --                    :format(functionName))
+            return -1
         end
         ---@diagnostic disable-next-line: duplicate-set-field
         function CustomProfiler.stop(functionName, customProfilerCounter)
-            Logger.warn(Logger.channels.entity,
-                        ("NoitaComponents with their restricted Lua context are trying to use CustomProfiler.stop(functionName %s, customProfilerCounter %s)")
-                                :format(functionName, customProfilerCounter))
+            --Logger.trace(Logger.channels.entity,
+            --            ("NoitaComponents with their restricted Lua context are trying to use CustomProfiler.stop(functionName %s, customProfilerCounter %s)")
+            --                    :format(functionName, customProfilerCounter))
             return -1
         end
     end
@@ -236,7 +235,7 @@ function EntityUtils.isEntityAlive(entityId)
         CustomProfiler.stop("EntityUtils.isEntityAlive", cpc)
         return entityId
     end
-    Logger.info(Logger.channels.entity, ("Entity (%s) isn't alive anymore! Returning false."):format(entityId))
+    Logger.trace(Logger.channels.entity, ("Entity (%s) isn't alive anymore! Returning false."):format(entityId))
     CustomProfiler.stop("EntityUtils.isEntityAlive", cpc)
     return false
 end
@@ -256,43 +255,47 @@ function EntityUtils.processAndSyncEntityNetworking()
     local entityIds        = EntityGetInRadius(playerX, playerY, radius)
     local playerEntityIds  = {}
 
-    --[[ Make sure child entities are already added to the entityIds list
-     otherwise nuid isn't set when extracting parents. ]]--
-    for i = 1, #entityIds do
-        local childEntityIds = EntityGetAllChildren(entityIds[i])
-        if not Utils.IsEmpty(childEntityIds) then
-            table.insertAllButNotDuplicates(entityIds, childEntityIds)
-        end
-    end
+    ----[[ Make sure child entities are already added to the entityIds list
+    -- otherwise nuid isn't set when extracting parents. ]]--
+    --for i = 1, #entityIds do
+    --    local childEntityIds = EntityGetAllChildren(entityIds[i])
+    --    if not util.IsEmpty(childEntityIds) then
+    --        table.insertAllButNotDuplicates(entityIds, childEntityIds)
+    --    end
+    --end
 
     --[[ Sort entityIds to process entities in the same order.
     In addition parent entities will be processed before children. ]]--
     table.sort(entityIds)
 
     if who == Client.iAm then
-        table.insertIfNotExist(playerEntityIds, localPlayerId)
-        table.insertAllButNotDuplicates(playerEntityIds,
-                                        get_player_inventory_contents("inventory_quick")) -- wands and items
-        table.insertAllButNotDuplicates(playerEntityIds,
-                                        get_player_inventory_contents("inventory_full")) -- spells
-        table.insertAllButNotDuplicates(playerEntityIds, EntityGetAllChildren(localPlayerId) or {})
-
-        for i = 1, #playerEntityIds do
-            local clientEntityId = playerEntityIds[i]
-            if not NetworkVscUtils.hasNetworkLuaComponents(clientEntityId) then
-                NetworkVscUtils.addOrUpdateAllVscs(clientEntityId, MinaUtils.getLocalMinaName(),
-                                                   MinaUtils.getLocalMinaGuid())
-            end
-            if not NetworkVscUtils.hasNuidSet(clientEntityId) then
-                Client.sendNeedNuid(MinaUtils.getLocalMinaName(), MinaUtils.getLocalMinaGuid(), clientEntityId)
-            end
+        --table.insertIfNotExist(playerEntityIds, localPlayerId)
+        --table.insertAllButNotDuplicates(playerEntityIds,
+        --                                get_player_inventory_contents("inventory_quick")) -- wands and items
+        --table.insertAllButNotDuplicates(playerEntityIds,
+        --                                get_player_inventory_contents("inventory_full")) -- spells
+        --table.insertAllButNotDuplicates(playerEntityIds, EntityGetAllChildren(localPlayerId) or {})
+        --
+        --for i = 1, #playerEntityIds do
+        --    local clientEntityId = playerEntityIds[i]
+        --    if not NetworkVscUtils.hasNetworkLuaComponents(clientEntityId) then
+        --        NetworkVscUtils.addOrUpdateAllVscs(clientEntityId, MinaUtils.getLocalMinaName(),
+        --                                           MinaUtils.getLocalMinaGuid())
+        --    end
+        --    if not NetworkVscUtils.hasNuidSet(clientEntityId) then
+        --        Client.sendNeedNuid(MinaUtils.getLocalMinaName(), MinaUtils.getLocalMinaGuid(), clientEntityId)
+        --    end
+        --end
+        if not NetworkVscUtils.hasNuidSet(localPlayerId) then
+            Client.sendNeedNuid(MinaUtils.getLocalMinaName(), MinaUtils.getLocalMinaGuid(),
+                                EntityGetRootEntity(localPlayerId))
         end
     end
 
     for entityIndex = prevEntityIndex, #entityIds do
         -- entityId in CoroutineUtils.iterator(entityIds) do
         repeat -- repeat until true with break works like continue
-            local entityId = --[[EntityGetRootEntity(]]entityIds[entityIndex] --[[)]]
+            local entityId = EntityGetRootEntity(entityIds[entityIndex])
             --[[ Just be double sure and check if entity is alive. If not next entityId ]]--
             if not EntityUtils.isEntityAlive(entityId) then
                 if type(entityId) == "number" then
@@ -308,13 +311,35 @@ function EntityUtils.processAndSyncEntityNetworking()
             if who == Client.iAm then
                 if not table.contains(playerEntityIds, entityId) then
                     if EntityUtils.isEntityAlive(entityId) and
-                            entityId ~= EntityUtils.localPlayerEntityId and
-                            entityId ~= EntityUtils.localPlayerEntityIdPolymorphed and
+                            entityId ~= MinaUtils.getLocalMinaEntityId() and
                             not EntityUtils.isRemoteMinae(entityId) and
                             not NetworkVscUtils.hasNetworkLuaComponents(entityId)
                     then
-                        EntityKill(entityId)
-                        break -- work around for continue: repeat until true with break
+                        local distance                    = -1
+                        local localMinaEntityId           = MinaUtils.getLocalMinaEntityId()
+                        local isPolymorphed, polyEntityId = MinaUtils.isLocalMinaPolymorphed()
+                        if isPolymorphed then
+                            localMinaEntityId = polyEntityId
+                        end
+                        if EntityUtils.isEntityAlive(localMinaEntityId) then
+                            local localX, localY             = EntityGetTransform(localMinaEntityId)
+                            --for i = 1, #Client.otherClients do -- TODO NOT YET IMPLEMENTED
+                            --    local remoteX, remoteY = EntityGetTransform(Client.otherClients[i].)
+                            --end
+                            local nuidRemote, entityIdRemote = GlobalsUtils.getNuidEntityPair(Client.serverInfo.nuid) -- TODO rework with getRemoteMina
+                            if EntityUtils.isEntityAlive(entityIdRemote) then
+                                local remoteX, remoteY = EntityGetTransform(entityIdRemote)
+                                distance               = get_distance2(localX, localY, remoteX, remoteY)
+
+                                if distance <= (tonumber(ModSettingGet("noita-mp.radius_include_entities")) * 1.5) then
+                                    EntityKill(entityId)
+                                else
+                                    Client.sendNeedNuid(MinaUtils.getLocalMinaName(), MinaUtils.getLocalMinaGuid(),
+                                                        entityId)
+                                end
+                                break -- work around for continue: repeat until true with break
+                            end
+                        end
                     end
                 end
             end
@@ -324,44 +349,46 @@ function EntityUtils.processAndSyncEntityNetworking()
             local exclude     = true
             local filename    = EntityGetFilename(entityId)
             local cachedValue = EntityCache.get(entityId)
-            -- if already in cache, ignore it, because it was already processed
-            if cachedValue and cachedValue.entityId == entityId then
-                exclude = false
+            ---- if already in cache, ignore it, because it was already processed
+            --if cachedValue and cachedValue.entityId == entityId then
+            --    exclude = false
+            --else
+            if EntityUtils.exclude.byFilename[filename] or
+                    --table.contains(EntityUtils.exclude.byFilename, filename) or
+                    findByFilename(filename, EntityUtils.exclude.byFilename)
+            then
+                exclude = true
+                break -- work around for continue: repeat until true with break
             else
-                if EntityUtils.exclude.byFilename[filename] or
-                        --table.contains(EntityUtils.exclude.byFilename, filename) or
-                        findByFilename(filename, EntityUtils.exclude.byFilename)
-                then
-                    exclude = true
-                    break -- work around for continue: repeat until true with break
-                else
-                    for i = 1, #EntityUtils.exclude.byComponentsName do
-                        local componentTypeName = EntityUtils.exclude.byComponentsName[i]
-                        local components        = EntityGetComponentIncludingDisabled(entityId, componentTypeName) or {}
-                        if #components > 0 then
-                            exclude = true
-                            break -- work around for continue: repeat until true with break
-                        end
-                    end
-                end
-
-                if EntityUtils.include.byFilename[filename] or
-                        --table.contains(EntityUtils.include.byFilename, filename) or
-                        findByFilename(filename, EntityUtils.include.byFilename)
-                then
-                    exclude = false
-                else
-                    for i = 1, #EntityUtils.include.byComponentsName do
-                        local componentTypeName = EntityUtils.include.byComponentsName[i]
-                        local components        = EntityGetComponentIncludingDisabled(entityId, componentTypeName) or {}
-                        if #components > 0 then
-                            -- Entity has a component, which is included in the config.lua.
-                            exclude = false
-                            break
-                        end
+                for i = 1, #EntityUtils.exclude.byComponentsName do
+                    local componentTypeName = EntityUtils.exclude.byComponentsName[i]
+                    local components        = EntityGetComponentIncludingDisabled(entityId,
+                                                                                  componentTypeName) or {}
+                    if #components > 0 then
+                        exclude = true
+                        break -- work around for continue: repeat until true with break
                     end
                 end
             end
+
+            if EntityUtils.include.byFilename[filename] or
+                    --table.contains(EntityUtils.include.byFilename, filename) or
+                    findByFilename(filename, EntityUtils.include.byFilename)
+            then
+                exclude = false
+            else
+                for i = 1, #EntityUtils.include.byComponentsName do
+                    local componentTypeName = EntityUtils.include.byComponentsName[i]
+                    local components        = EntityGetComponentIncludingDisabled(entityId,
+                                                                                  componentTypeName) or {}
+                    if #components > 0 then
+                        -- Entity has a component, which is included in the config.lua.
+                        exclude = false
+                        break
+                    end
+                end
+            end
+            --end
             if exclude then
                 break -- work around for continue: repeat until true with break
             end
@@ -387,29 +414,52 @@ function EntityUtils.processAndSyncEntityNetworking()
                 NetworkVscUtils.addOrUpdateAllVscs(entityId, ownerName, ownerGuid, nuid)
             end
 
+            --[[ Entity is new and not in cache, that's why cachedValue is nil ]]--
+            local compOwnerName, compOwnerGuid, compNuid, filenameUnused, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
+            if cachedValue == nil then
+                if who == Server.iAm then
+                    if not nuid then
+                        nuid = compNuid
+                        if not nuid then
+                            nuid = NuidUtils.getNextNuid()
+                            NetworkVscUtils.addOrUpdateAllVscs(entityId, compOwnerName, compOwnerGuid, nuid)
+                        end
+                    end
+                    --Server.sendNewNuid({ compOwnerName, compOwnerGuid }, entityId, nuid, x, y, rotation, velocity,
+                    --                   filename, health, EntityUtils.isEntityPolymorphed(entityId))
+                    local finished, serializedEntity = EntitySerialisationUtils.serializeEntireRootEntity(entityId)
+                    --local ONLYFORTESTING = EntitySerialisationUtils.deserializeEntireRootEntity(serializedEntity)
+                    if finished == true then
+                        Server.sendNewNuidSerialized(compOwnerName, compOwnerGuid, entityId, serializedEntity)
+                    end
+                end
+            end
+
             --[[ Check if moved or anything else changed, but only on each tick ]]--
             if NetworkUtils.isTick() and not EntityUtils.isRemoteMinae(entityId) then
-                local changed                                                                                  = false
-                local compOwnerName, compOwnerGuid, compNuid, filenameUnused, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
+                local changed = false
+                --local compOwnerName, compOwnerGuid, compNuid, filenameUnused, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
 
-                --[[ Entity is new and not in cache, that's why cachedValue is nil ]]--
-                if cachedValue == nil then
-                    if who == Server.iAm then
-                        if not nuid then
-                            nuid = compNuid
-                            if not nuid then
-                                nuid = NuidUtils.getNextNuid()
-                                NetworkVscUtils.addOrUpdateAllVscs(entityId, compOwnerName, compOwnerGuid, nuid)
-                            end
-                        end
-                        -- TODO: check if entityId has parents and if so, send them too. How many parents?
-                        -- TODO: EntityGetParent(entityId) returns 0, if there is no parent
-                        local parents = getParentsUntilRootEntity(who, entityId)
-                        Server.sendNewNuid({ compOwnerName, compOwnerGuid }, entityId, nuid, x, y, rotation, velocity,
-                                           filename,
-                                           health, EntityUtils.isEntityPolymorphed(entityId))
-                    end
-                else
+                ----[[ Entity is new and not in cache, that's why cachedValue is nil ]]--
+                --if cachedValue == nil then
+                --    if who == Server.iAm then
+                --        if not nuid then
+                --            nuid = compNuid
+                --            if not nuid then
+                --                nuid = NuidUtils.getNextNuid()
+                --                NetworkVscUtils.addOrUpdateAllVscs(entityId, compOwnerName, compOwnerGuid, nuid)
+                --            end
+                --        end
+                --        ---- TODO: check if entityId has parents and if so, send them too. How many parents?
+                --        ---- TODO: EntityGetParent(entityId) returns 0, if there is no parent
+                --        --local parents = getParentsUntilRootEntity(who, entityId)
+                --        --Server.sendNewNuid({ compOwnerName, compOwnerGuid }, entityId, nuid, x, y, rotation, velocity,
+                --        --                   filename,
+                --        --                   health, EntityUtils.isEntityPolymorphed(entityId))
+                --        local serializedEntity = EntitySerialisationUtils.serializeEntireRootEntity(entityId)
+                --    end
+                --else
+                if cachedValue then
                     --[[ Entity is already in cache, so check if something changed ]]--
                     local threshold = math.round(tonumber(ModSettingGetNextValue("noita-mp.change_detection")) / 100,
                                                  0.1)
@@ -424,8 +474,9 @@ function EntityUtils.processAndSyncEntityNetworking()
                         changed = true
                     end
                 end
-                EntityCache.set(entityId, compNuid, compOwnerGuid, compOwnerName, filename, x, y, rotation, velocity.x,
-                                velocity.y, health.current, health.max)
+                --end
+                EntityCacheUtils.set(entityId, nuid, compOwnerGuid, compOwnerName, filename, x, y, rotation,
+                                     velocity.x, velocity.y, health.current, health.max)
                 if changed then
                     NetworkUtils.getClientOrServer().sendEntityData(entityId)
                 end
@@ -565,8 +616,8 @@ function EntityUtils.destroyByNuid(peer, nuid)
         return
     end
 
-    if entityId ~= EntityUtils.localPlayerEntityId and
-            entityId ~= EntityUtils.localPlayerEntityIdPolymorphed
+    if entityId ~= MinaUtils.getLocalMinaEntityId() and
+            entityId ~= MinaUtils.getLocalPolymorphedMinaEntityId
     then
         EntityKill(entityId)
     end
@@ -585,23 +636,24 @@ end
 --- Simply adds a ugly debug circle around the player to visualize the detection radius.
 function EntityUtils.addOrChangeDetectionRadiusDebug(player_entity)
     local cpc              = CustomProfiler.start("EntityUtils.addOrChangeDetectionRadiusDebug")
+
     local compIdInclude    = nil
     local compIdExclude    = nil
     local imageFileInclude = "mods/noita-mp/files/data/debug/radiusInclude24.png"
     local imageFileExclude = "mods/noita-mp/files/data/debug/radiusExclude24.png"
 
-    local compIds          = EntityGetComponentIncludingDisabled(player_entity, "SpriteComponent") or {}
-    for i = 1, #compIds do
-        local compId = compIds[i]
-        if ComponentGetValue2(compId, "image_file") == imageFileInclude then
-            compIdInclude = compId
-        end
-        if ComponentGetValue2(compId, "image_file") == imageFileExclude then
-            compIdExclude = compId
-        end
-    end
-
     if ModSettingGet("noita-mp.toggle_radius") then
+
+        local compIds = EntityGetComponentIncludingDisabled(player_entity, "SpriteComponent") or {}
+        for i = 1, #compIds do
+            local compId = compIds[i]
+            if ComponentGetValue2(compId, "image_file") == imageFileInclude then
+                compIdInclude = compId
+            end
+            if ComponentGetValue2(compId, "image_file") == imageFileExclude then
+                compIdExclude = compId
+            end
+        end
 
         if not compIdInclude then
             compId = EntityAddComponent2(player_entity, "SpriteComponent", {
@@ -637,8 +689,12 @@ function EntityUtils.addOrChangeDetectionRadiusDebug(player_entity)
                                tonumber(ModSettingGet("noita-mp.radius_exclude_entities")) / 12)
         end
     else
-        EntityRemoveComponent(player_entity, compIdInclude)
-        EntityRemoveComponent(player_entity, compIdExclude)
+        if compIdInclude then
+            EntityRemoveComponent(player_entity, compIdInclude)
+        end
+        if compIdExclude then
+            EntityRemoveComponent(player_entity, compIdExclude)
+        end
     end
     CustomProfiler.stop("EntityUtils.addOrChangeDetectionRadiusDebug", cpc)
 end

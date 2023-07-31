@@ -26,16 +26,17 @@ Logger.level    = {
 }
 
 Logger.channels = {
-    entity     = "entity",
-    globals    = "globals",
-    guid       = "guid",
-    network    = "network",
-    nuid       = "nuid",
-    vsc        = "vsc",
-    profiler   = "profiler",
-    initialize = "initialize",
-    testing    = "testing",
-    cache      = "cache"
+    entity              = "entity",
+    globals             = "globals",
+    guid                = "guid",
+    network             = "network",
+    nuid                = "nuid",
+    vsc                 = "vsc",
+    profiler            = "profiler",
+    initialize          = "initialize",
+    testing             = "testing",
+    cache               = "cache",
+    entitySerialisation = "entitySerialisation"
 }
 
 --- Main function for logging, which simply uses `print()`.
@@ -80,9 +81,9 @@ function Logger.log(level, channel, message)
         logLevelOfSettings = { logLevelOfSettings, logLevelOfSettings }
     end
 
-    -- string.contains is not available in NoitaComponents and Logger.lua is also used in NoitaComponents.
-    if string.contains and not string.contains(logLevelOfSettings[1], level) then
-        -- If Logger.debug(), but Log level is on info, then do not log!
+    if string.contains and not string.contains(logLevelOfSettings[1], level)
+            -- string.contains is not available in NoitaComponents and Logger.lua is also used in NoitaComponents.
+            or not string.find(logLevelOfSettings[1]:lower(), level:lower(), 1, true) then
         return false
     end
 

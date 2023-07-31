@@ -80,6 +80,7 @@ I wouldn't be able to create this mod without the help by
 - [@Ramiels](https://github.com/Ramiels)
 - [@bruham](https://steamcommunity.com/id/bruham/myworkshopfiles/?appid=881100)
 - [@ofoxsmith](https://github.com/ofoxsmith)
+- [@Nathan](https://github.com/Nathdsgfiugaoiysfnhuah/)
 
 
 I also want to say thank you to the supporter of this project on [GitHub](https://github.com/sponsors/Ismoh) or [Patreon](https://www.patreon.com/ismoh):

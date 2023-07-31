@@ -8,7 +8,7 @@
 --- @return number index also returns the index of the found key
 table.contains    = function(tbl, key)
     for i = 1, #tbl do
-        -- better performance? Yes reduced load from 111 to 80. still only 10fps
+        -- better performance? Yes reduced load from 111 to 80.
         local v = tbl[i]
         if v == key then
             return true, i

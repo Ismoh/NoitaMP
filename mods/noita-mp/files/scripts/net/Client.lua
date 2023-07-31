@@ -184,9 +184,18 @@ function Client.new(sockClient)
         end
 
         local cachedData = NetworkCacheUtils.get(self.guid, data.networkMessageId, data.event)
+        if Utils.IsEmpty(cachedData) then
+            NetworkCacheUtils.logAll()
+            error(("Unable to get cached data, because it is nil '%s'"):format(cachedData), 2)
+        end
+        if Utils.IsEmpty(cachedData.dataChecksum) or type(cachedData.dataChecksum) ~= "string" then
+            NetworkCacheUtils.logAll()
+            error(("Unable to get cachedData.dataChecksum, because it is nil '%s' or checksum is not of type string, type: %s")
+                          :format(cachedData.dataChecksum, type(cachedData.dataChecksum)), 2)
+        end
         -- update previous cached network message
-        NetworkCacheUtils.set(self.guid, data.networkMessageId, data.event, data.status, data.ackedAt,
-                              cachedData.sentAt, cachedData)
+        NetworkCacheUtils.ack(self.guid, data.networkMessageId, data.event,
+                              data.status, os.clock(), cachedData.sendAt, cachedData.dataChecksum)
 
         if NetworkCache.size() > self.acknowledgeMaxSize then
             NetworkCache.removeOldest()
@@ -215,8 +224,7 @@ function Client.new(sockClient)
         self:send(NetworkUtils.events.playerInfo.name,
                   { NetworkUtils.getNextNetworkMessageId(), name, guid, fu.GetVersionByFile(), nuid })
 
-        self:send(NetworkUtils.events.needModList.name,
-                  { NetworkUtils.getNextNetworkMessageId(), nil, nil})
+        self:send(NetworkUtils.events.needModList.name, { NetworkUtils.getNextNetworkMessageId(), {}, {} })
 
         -- sendAck(data.networkMessageId)
         CustomProfiler.stop("Client.onConnect", cpc4)
@@ -526,6 +534,43 @@ function Client.new(sockClient)
         CustomProfiler.stop("Client.onNewNuid", cpc11)
     end
 
+    local function onNewNuidSerialized(data)
+        local cpc32 = CustomProfiler.start("Client.onNewNuidSerialized")
+        Logger.debug(Logger.channels.network,
+                     ("Received a new nuid onNewNuidSerialized! data = %s"):format(Utils.pformat(data)))
+
+        if Utils.IsEmpty(data.networkMessageId) then
+            error(("onNewNuidSerialized data.networkMessageId is empty: %s"):format(data.networkMessageId), 2)
+        end
+
+        if Utils.IsEmpty(data.ownerName) then
+            error(("onNewNuidSerialized data.ownerName is empty: %s"):format(Utils.pformat(data.ownerName)), 2)
+        end
+
+        if Utils.IsEmpty(data.ownerGuid) then
+            error(("onNewNuidSerialized data.ownerGuid is empty: %s"):format(Utils.pformat(data.ownerGuid)), 2)
+        end
+
+        if Utils.IsEmpty(data.entityId) then
+            error(("onNewNuidSerialized data.entityId is empty: %s"):format(data.entityId), 2)
+        end
+
+        if Utils.IsEmpty(data.serializedEntity) then
+            error(("onNewNuidSerialized data.serializedEntity is empty: %s"):format(data.serializedEntity), 2)
+        end
+
+        --if ownerGuid == MinaUtils.getLocalMinaInformation().guid then
+        --    if entityId == MinaUtils.getLocalMinaInformation().entityId then
+        --        self.nuid = newNuid
+        --    end
+        --end
+
+        EntitySerialisationUtils.deserializeEntireRootEntity(data.serializedEntity)
+
+        sendAck(data.networkMessageId, NetworkUtils.events.newNuidSerialized.name)
+        CustomProfiler.stop("Client.onNewNuidSerialized", cpc32)
+    end
+
     local function onEntityData(data)
         local cpc12 = CustomProfiler.start("Client.onEntityData")
         Logger.debug(Logger.channels.network, ("Received entityData for nuid = %s! data = %s")
@@ -744,15 +789,9 @@ function Client.new(sockClient)
 
         self:setSchema(NetworkUtils.events.needModContent.name, NetworkUtils.events.needModContent.schema)
         self:on(NetworkUtils.events.needModContent.name, onNeedModContent)
-        -- self:setSchema("duplicatedGuid", { "newGuid" })
-        -- self:setSchema("worldFiles", { "relDirPath", "fileName", "fileContent", "fileIndex", "amountOfFiles" })
-        -- self:setSchema("worldFilesFinished", { "progress" })
-        -- self:setSchema("seed", { "seed" })
-        -- self:setSchema("clientInfo", { "name", "guid" })
-        -- self:setSchema("needNuid", { "owner", "localEntityId", "x", "y", "rot", "velocity", "filename" })
-        -- self:setSchema("newNuid", { "owner", "localEntityId", "nuid", "x", "y", "rot", "velocity", "filename" })
-        -- self:setSchema("entityAlive", { "owner", "localEntityId", "nuid", "isAlive" })
-        -- self:setSchema("entityState", { "owner", "localEntityId", "nuid", "x", "y", "rot", "velocity", "health" })
+
+        self:setSchema(NetworkUtils.events.newNuidSerialized.name, NetworkUtils.events.newNuidSerialized.schema)
+        self:on(NetworkUtils.events.newNuidSerialized.name, onNewNuidSerialized)
 
         CustomProfiler.stop("Client.setCallbackAndSchemas", cpc14)
     end
@@ -944,7 +983,7 @@ function Client.new(sockClient)
     function self.sendLostNuid(nuid)
         local cpc21 = CustomProfiler.start("Client.sendLostNuid")
         local data  = { NetworkUtils.getNextNetworkMessageId(), nuid }
-        local sent = self:send(NetworkUtils.events.lostNuid.name, data)
+        local sent  = self:send(NetworkUtils.events.lostNuid.name, data)
         CustomProfiler.stop("Client.sendLostNuid", cpc21)
         return sent
     end
@@ -979,7 +1018,7 @@ function Client.new(sockClient)
         local data  = {
             NetworkUtils.getNextNetworkMessageId(), deadNuids
         }
-        local sent = self:send(NetworkUtils.events.deadNuids.name, data)
+        local sent  = self:send(NetworkUtils.events.deadNuids.name, data)
         onDeadNuids(deadNuids)
         CustomProfiler.stop("Client.sendDeadNuids", cpc23)
         return sent

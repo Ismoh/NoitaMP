@@ -180,9 +180,18 @@ function Server.new(sockServer)
         end
 
         local cachedData = NetworkCacheUtils.get(self.guid, data.networkMessageId, data.event)
+        if Utils.IsEmpty(cachedData) then
+            NetworkCacheUtils.logAll()
+            error(("Unable to get cached data, because it is nil '%s'"):format(cachedData), 2)
+        end
+        if Utils.IsEmpty(cachedData.dataChecksum) or type(cachedData.dataChecksum) ~= "string" then
+            NetworkCacheUtils.logAll()
+            error(("Unable to get cachedData.dataChecksum, because it is nil '%s' or checksum is not of type string, type: %s")
+                          :format(cachedData.dataChecksum, type(cachedData.dataChecksum)), 2)
+        end
         -- update previous cached network message
-        NetworkCacheUtils.set(self.guid, data.networkMessageId, data.event, data.status, data.ackedAt,
-                              cachedData.sentAt, cachedData)
+        NetworkCacheUtils.ack(self.guid, data.networkMessageId, data.event,
+                              data.status, os.clock(), cachedData.sendAt, cachedData.dataChecksum)
 
         if NetworkCache.size() > self.acknowledgeMaxSize then
             NetworkCache.removeOldest()
@@ -238,7 +247,7 @@ function Server.new(sockServer)
                           { NetworkUtils.getNextNetworkMessageId(), peer.name, peer.guid })
 
         local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
-        self.sendNewNuid({ name, guid }, entityId, nuid, x, y, rotation, velocity, filename, health, isPolymorphed)
+        --self.sendNewNuid({ name, guid }, entityId, nuid, x, y, rotation, velocity, filename, health, isPolymorphed)
 
         CustomProfiler.stop("Server.onConnect", cpc04)
     end
@@ -321,11 +330,11 @@ function Server.new(sockServer)
         -- Make sure guids are unique. It's unlikely that two players have the same guid, but it can happen rarely.
         if self.guid == data.guid or table.contains(GuidUtils:getCachedGuids(), data.guid) then
             Logger.warn(Logger.channels.network, ("onPlayerInfo: guid %s is not unique!"):format(data.guid))
-            local newGuid     = GuidUtils:getGuid({ data.guid })
-            local dataNewGuid = {
-                NetworkUtils.getNextNetworkMessageId(), data.guid, newGuid
-            }
-            self:sendToAll(NetworkUtils.events.newGuid.name, dataNewGuid)
+            local newGuid = GuidUtils:getGuid({ data.guid })
+            --local dataNewGuid = {
+            --    NetworkUtils.getNextNetworkMessageId(), data.guid, newGuid
+            --}
+            self.sendNewGuid(peer, data.guid, newGuid)--self:sendToAll(NetworkUtils.events.newGuid.name, dataNewGuid)
             data.guid = newGuid
         end
 
@@ -406,7 +415,7 @@ function Server.new(sockServer)
         local isPolymorphed = data.isPolymorphed
 
         local newNuid       = NuidUtils.getNextNuid()
-        self.sendNewNuid(owner, localEntityId, newNuid, x, y, rotation, velocity, filename, health, isPolymorphed)
+        --self.sendNewNuid(owner, localEntityId, newNuid, x, y, rotation, velocity, filename, health, isPolymorphed)
         EntityUtils.spawnEntity(owner, newNuid, x, y, rotation, velocity, filename, localEntityId, health,
                                 isPolymorphed)
 
@@ -449,8 +458,8 @@ function Server.new(sockServer)
         health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
         local isPolymorphed              = EntityUtils.isEntityPolymorphed(entityId)
 
-        self.sendNewNuid({ compOwnerName, compOwnerGuid },
-                         "unknown", nuid, x, y, rotation, velocity, filename, health, isPolymorphed)
+        --self.sendNewNuid({ compOwnerName, compOwnerGuid },
+        --                 "unknown", nuid, x, y, rotation, velocity, filename, health, isPolymorphed)
 
         sendAck(data.networkMessageId, peer, NetworkUtils.events.lostNuid.name)
         CustomProfiler.stop("Server.onLostNuid", cpc08)
@@ -827,8 +836,8 @@ function Server.new(sockServer)
             if not compNuid then
                 self.nuid = NuidUtils.getNextNuid()
                 NetworkVscUtils.addOrUpdateAllVscs(entityId, compOwnerName, compOwnerGuid, self.nuid)
-                self.sendNewNuid({ compOwnerName, compOwnerGuid }, entityId, self.nuid, x, y, rotation, velocity,
-                                 filename, health, EntityUtils.isEntityPolymorphed(entityId))
+                --self.sendNewNuid({ compOwnerName, compOwnerGuid }, entityId, self.nuid, x, y, rotation, velocity,
+                --                 filename, health, EntityUtils.isEntityPolymorphed(entityId))
             end
         end
         CustomProfiler.stop("Server.updateVariables", cpc013)
@@ -978,9 +987,6 @@ function Server.new(sockServer)
             return
         end
 
-        --EntityUtils.processEntityNetworking()
-        --EntityUtils.initNetworkVscs()
-
         EntityUtils.processAndSyncEntityNetworking()
 
         local nowTime     = GameGetRealWorldTimeSinceStarted() * 1000 -- *1000 to get milliseconds
@@ -1006,17 +1012,40 @@ function Server.new(sockServer)
         local cpc025 = CustomProfiler.start("Server.sendNewGuid")
         local event  = NetworkUtils.events.newGuid.name
         local data   = { NetworkUtils.getNextNetworkMessageId(), oldGuid, newGuid }
-        local sent = self:send(peer, event, data)
+        local sent   = self:send(peer, event, data)
         CustomProfiler.stop("Server.sendNewGuid", cpc025)
         return sent
     end
 
-    function self.sendNewNuid(owner, localEntityId, newNuid, x, y, rotation, velocity, filename, health, isPolymorphed)
-        local cpc017 = CustomProfiler.start("Server.sendNewNuid")
-        local event  = NetworkUtils.events.newNuid.name
-        local data   = { NetworkUtils.getNextNetworkMessageId(), owner, localEntityId, newNuid, x, y, rotation, velocity, filename, health, isPolymorphed }
-        local sent   = self:sendToAll(event, data)
-        CustomProfiler.stop("Server.sendNewNuid", cpc017)
+    --function self.sendNewNuid(owner, localEntityId, newNuid, x, y, rotation, velocity, filename, health, isPolymorphed)
+    --    local cpc017 = CustomProfiler.start("Server.sendNewNuid")
+    --    local event  = NetworkUtils.events.newNuid.name
+    --    local data   = { NetworkUtils.getNextNetworkMessageId(), owner, localEntityId, newNuid, x, y, rotation, velocity, filename, health, isPolymorphed }
+    --    local sent   = self:sendToAll(event, data)
+    --    CustomProfiler.stop("Server.sendNewNuid", cpc017)
+    --    return sent
+    --end
+
+    function self.sendNewNuidSerialized(ownerName, ownerGuid, entityId, serializedEntity)
+        local cpc026 = CustomProfiler.start("Server.sendNewNuidSerialized")
+
+        if Utils.IsEmpty(ownerName) then
+            error(("ownerName must not be nil or empty %s"):format(ownerName), 2)
+        end
+        if Utils.IsEmpty(ownerGuid) then
+            error(("ownerGuid must not be nil or empty %s"):format(ownerGuid), 2)
+        end
+        if Utils.IsEmpty(entityId) then
+            error(("entityId must not be nil or empty %s"):format(entityId), 2)
+        end
+        if Utils.IsEmpty(serializedEntity) then
+            error(("serializedEntity must not be nil or empty %s"):format(serializedEntity), 2)
+        end
+
+        local event = NetworkUtils.events.newNuidSerialized.name
+        local data  = { NetworkUtils.getNextNetworkMessageId(), ownerName, ownerGuid, entityId, serializedEntity }
+        local sent  = self:sendToAll(event, data)
+        CustomProfiler.stop("Server.sendNewNuidSerialized", cpc026)
         return sent
     end
 
@@ -1039,8 +1068,8 @@ function Server.new(sockServer)
             --return
             local newNuid = NuidUtils.getNextNuid()
             NetworkVscUtils.addOrUpdateAllVscs(entityId, compOwnerName, compOwnerGuid, newNuid)
-            self.sendNewNuid({ compOwnerName, compOwnerGuid }, entityId, newNuid, x, y, rotation, velocity, filename,
-                             health, EntityUtils.isEntityPolymorphed(entityId))
+            --self.sendNewNuid({ compOwnerName, compOwnerGuid }, entityId, newNuid, x, y, rotation, velocity, filename,
+            --                 health, EntityUtils.isEntityPolymorphed(entityId))
         end
 
         if MinaUtils.getLocalMinaInformation().guid == compOwnerGuid then
@@ -1080,13 +1109,13 @@ function Server.new(sockServer)
 
     function self.kick(name)
         local cpc020 = CustomProfiler.start("Server.kick")
-        Logger.debug(Logger.channels.network, "Minä %s was kicked!", name)
+        Logger.debug(Logger.channels.network, "Mina %s was kicked!", name)
         CustomProfiler.stop("Server.kick", cpc020)
     end
 
     function self.ban(name)
         local cpc021 = CustomProfiler.start("Server.ban")
-        Logger.debug(Logger.channels.network, "Minä %s was banned!", name)
+        Logger.debug(Logger.channels.network, "Mina %s was banned!", name)
         CustomProfiler.stop("Server.ban", cpc021)
     end
 
