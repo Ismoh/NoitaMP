@@ -169,8 +169,8 @@ function OnWorldPreUpdate()
     local cpc1 = CustomProfiler.start("init.OnWorldPreUpdate.collectgarbage.count")
     if collectgarbage("count") >= 250000 then
         local cpc2 = CustomProfiler.start("init.OnWorldPreUpdate.collectgarbage.collect")
-        -- if memory usage is above 1GB, force a garbage collection
-        GamePrintImportant("Memory Usage", "Forcing garbage collection because memory usage is above 1GB.")
+        -- if memory usage is above 250MB, force a garbage collection
+        GamePrintImportant("Memory Usage", "Forcing garbage collection because memory usage is above 250MB.")
         CustomProfiler.stopAll()
         CustomProfiler.report()
         collectgarbage("collect")
