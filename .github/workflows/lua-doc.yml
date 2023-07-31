@@ -1,0 +1,44 @@
+name: Generate lua docs
+run-name: "github-actions[bot] is generating lua docs"
+on: push
+
+jobs:
+  generate-lua-docs:
+    name: 'Generate lua docs'
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v3.3.0
+
+      - name: Print GitHub context
+        run: echo "$GITHUB_CONTEXT"
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+
+      - name: 'Generate lua docs with lua-language-server'
+        shell: cmd
+        run: |
+          ${{ github.workspace }}\\.building\\lua-language-server-3.6.18-win32-x64\\bin\\lua-language-server.exe --logpath \"${{ github.workspace }}\\docs\\lua-docs\" --configpath \"${{ github.workspace }}\\docs\\lua-docs\\lua-language-server-config.lua\" --doc \"${{ github.workspace }}\\mods\\noita-mp\\files\\scripts\"
+          cd ${{ github.workspace }}\\docs\\lua-docs\\ 
+          DEL /f *.log
+          # https://api.github.com/users/github-actions%5Bbot%5D
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "Updated generated lua docs"
+          git push origin
+      
+      - name: 'Fix wrong paths in lua docs'
+        shell: pwsh
+        run: |
+          $env:Path += ";C:\Program Files\Git\usr\bin"
+          Get-Command sed
+          cd ${{ github.workspace }}\\docs\\lua-docs\\
+          sed -i 's#file:///d%3A/a/NoitaMP/NoitaMP/#../../#g' ${{ github.workspace }}\\docs\\lua-docs\\doc.md
+          sed -i 's/.lua#/.lua#L/g' ${{ github.workspace }}\\docs\\lua-docs\\doc.md
+          sed -i 's#file:///d%3A/a/NoitaMP/NoitaMP/#../../#g' ${{ github.workspace }}\\docs\\lua-docs\\doc.json
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "Updated generated lua docs"
+          git push origin

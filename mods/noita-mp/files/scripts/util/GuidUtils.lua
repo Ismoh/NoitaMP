@@ -1,23 +1,27 @@
-local Utils   = require("Utils")
+local Utils  = require("Utils")
 local socket = require("socket")
 local uuid   = require("uuid")
 
-------------------------------------------------------------------------------------------------------------------------
---- 'Imports'
-------------------------------------------------------------------------------------------------------------------------
 
-------------------------------------------------------------------------------------------------------------------------
+--- 'Imports'
+
+
+
 --- When NoitaComponents are accessing this file, they are not able to access the global variables defined in this file.
 --- Therefore, we need to redefine the global variables which we don't have access to, because of NoitaAPI restrictions.
 --- This is done by the following code:
-------------------------------------------------------------------------------------------------------------------------
+
 if require then
     if not CustomProfiler then
         require("CustomProfiler")
     end
 else
-    -- Fix stupid Noita sandbox issue. Noita Components does not have access to require.
+    ---@type CustomProfiler
     CustomProfiler       = {}
+
+    ---@diagnostic disable-next-line: duplicate-doc-alias
+    ---@alias CustomProfiler.start function(functionName: string): number
+    ---@diagnostic disable-next-line: duplicate-set-field
     CustomProfiler.start = function(functionName)
         --Logger.trace(Logger.channels.guid,
         --            ("NoitaComponents with their restricted Lua context are trying to use CustomProfiler.start(functionName %s)")
@@ -30,9 +34,9 @@ else
     end
 end
 
-------------------------------------------------------------------------------------------------------------------------
+
 --- GuidUtils
-------------------------------------------------------------------------------------------------------------------------
+
 local GuidUtils = {
     cached_guid = {},
 }
@@ -124,11 +128,18 @@ function GuidUtils.toNumber(guid)
     return number
 end
 
--- Because of stack overflow errors when loading lua files,
--- I decided to put Utils 'classes' into globals
-_G.GuidUtils = GuidUtils
+--- Returns the current local GUID.
+--- @deprecated Use MinaUtils.getLocalMinaGuid instead!
+--- @return string Guid
+function GuidUtils:getCurrentLocalGuid()
+    local cpc = CustomProfiler.start("GuidUtils:getCurrentLocalGuid")
+    if whoAmI() == Server.iAm then
+        CustomProfiler.stop("GuidUtils:getCurrentLocalGuid", cpc)
+        return Server.guid
+    end
+    CustomProfiler.stop("GuidUtils:getCurrentLocalGuid", cpc)
+    return Client.guid
+end
 
--- But still return for Noita Components,
--- which does not have access to _G,
--- because of own context/vm
 return GuidUtils
+

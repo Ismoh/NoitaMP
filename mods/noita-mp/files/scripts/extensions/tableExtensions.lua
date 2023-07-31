@@ -1,5 +1,4 @@
----@diagnostic disable: undefined-global, redundant-parameter, need-check-nil
--- Used to extend default lua implementations of table
+--- Used to extend default lua implementations of table
 
 --- Return true, if the key is contained in the tbl. NOTE: Doesn't check for duplicates inside the table.
 --- @param tbl table Table to check.
@@ -7,22 +6,15 @@
 --- @return boolean true if indexing by key does not return nil
 --- @return number index also returns the index of the found key
 table.contains    = function(tbl, key)
-    for i = 1, #tbl do
-        -- better performance? Yes reduced load from 111 to 80.
-        local v = tbl[i]
-        if v == key then
-            return true, i
-        end
-        --if type(v) == "string" and string.contains(v, key) then
-        --    return true, i
-        --end
-        if type(v) == "string" and type(key) == "string" and v:lower() == key:lower() then
-            return true, i
-        end
+    if Utils.IsEmpty(tbl) then
+        return false, -1
     end
-    for index, value in ipairs(tbl) do
-        if value == key then
-            return true, index
+    if Utils.IsEmpty(key) then
+        return false, -1
+    end
+    for k, v in pairs(tbl) do
+        if v == key then
+            return true, k
         end
     end
     return false, -1
@@ -246,7 +238,7 @@ function table.contentToString(tbl)
     return str
 end
 
-------------------------------------------------------------------------------------------------------------------------
+
 --[[ deepcopy.lua
 
     Deep-copy function for Lua - v0.2
@@ -257,7 +249,7 @@ end
       - Maintains common upvalues between copied functions (for Lua 5.2 only)
 
     TODO
-    ----
+    --
       - Document usage (properly) and provide examples
       - Implement handling of LuaJIT FFI ctypes
       - Provide option to only set metatables, not copy (as if they were
@@ -269,7 +261,7 @@ end
       - Handle C functions
 
     Usage
-    -----
+    --
         copy = table.deecopy(orig)
         copy = table.deecopy(orig, params, customcopyfunc_list)
 
@@ -317,7 +309,7 @@ end
     string keys prefixed with a single underscore are reserved.
 
     License
-    -------
+    --
     Copyright (C) 2012 Declan White
 
     Permission is hereby granted, free of charge, to any person obtaining a
@@ -409,12 +401,12 @@ do
                     end
                 end
                 -- No metatable, go straight to copying key-value pairs
-                orig_prevkey = nil -- grab first key
+                orig_prevkey = nil  -- grab first key
                 grabkey      = true --goto grabkey
             elseif state == 'metatable' then
                 -- Metatable has been copied, set it and get first key
                 -- orig, copy:{}, state, metaorig, metacopy
-                local copy_meta = arg2--select(2, ...)
+                local copy_meta = arg2 --select(2, ...)
                 stack:_pop(2)
 
                 if copy_meta ~= nil then
@@ -422,13 +414,13 @@ do
                 end
 
                 -- Now start copying key-value pairs
-                orig_prevkey = nil -- grab first key
+                orig_prevkey = nil  -- grab first key
                 grabkey      = true --goto grabkey
             elseif state == 'key' then
                 -- Key has been copied, now copy value
                 -- orig, copy:{}, state, keyorig, keycopy
-                local orig_key = arg1--select(1, ...)
-                local copy_key = arg2--select(2, ...)
+                local orig_key = arg1 --select(1, ...)
+                local copy_key = arg2 --select(2, ...)
 
                 if copy_key ~= nil then
                     -- leave keyorig and keycopy on the stack
@@ -437,17 +429,17 @@ do
                     return copy, 'value'
                 else
                     -- key not copied? move onto next
-                    stack:_pop(2) -- pop keyorig, keycopy
+                    stack:_pop(2)       -- pop keyorig, keycopy
                     orig_prevkey = orig_key
-                    grabkey      = true--goto grabkey
+                    grabkey      = true --goto grabkey
                 end
             elseif state == 'value' then
                 -- Value has been copied, set it and get next key
                 -- orig, copy:{}, state, keyorig, keycopy, valueorig, valuecopy
-                local orig_key   = arg1--select(1, ...)
-                local copy_key   = arg2--select(2, ...)
+                local orig_key   = arg1 --select(1, ...)
+                local copy_key   = arg2 --select(2, ...)
                 --local orig_value = arg3--select(3, ...)
-                local copy_value = arg4--select(4, ...)
+                local copy_value = arg4 --select(4, ...)
                 stack:_pop(4)
 
                 if copy_value ~= nil then
@@ -522,8 +514,8 @@ do
                                     if upvalue_uid == debug_upvalueid(other_orig, other_upvalue_idx) then
                                         local other_copy = stack[other_orig]
                                         debug_upvaluejoin(
-                                                copy, upvalue_idx,
-                                                other_copy, other_upvalue_idx
+                                            copy, upvalue_idx,
+                                            other_copy, other_upvalue_idx
                                         )
                                         break
                                     end
@@ -564,9 +556,11 @@ do
             end
             stack._top = stack_top + arg_list_len
         end
+
         function table.deepcopy_pop(stack, count)
             stack._top = stack._top - count
         end
+
         function table.deepcopy_recurse(stack, orig)
             local retto              = stack._ptr
             local stack_top          = stack._top
@@ -578,18 +572,19 @@ do
             stack[stack_ptr + RETTO] = retto
             stack[stack_ptr + STATE] = nil
         end
+
         function table.deepcopy(root, params, customcopyfunc_list)
-            local stack         = params or {}
+            local stack      = params or {}
             --orig,copy,retto,state,[temp...,] partorig,partcopy,partretoo,partstate
-            stack[1 + ORIG]     = root
-            stack[1 + COPY]     = nil
-            stack[1 + RETTO]    = nil
-            stack[1 + STATE]    = nil
-            stack._ptr          = 1
-            stack._top          = 4
-            stack._push         = table.deepcopy_push
-            stack._pop          = table.deepcopy_pop
-            stack._recurse      = table.deepcopy_recurse
+            stack[1 + ORIG]  = root
+            stack[1 + COPY]  = nil
+            stack[1 + RETTO] = nil
+            stack[1 + STATE] = nil
+            stack._ptr       = 1
+            stack._top       = 4
+            stack._push      = table.deepcopy_push
+            stack._pop       = table.deepcopy_pop
+            stack._recurse   = table.deepcopy_recurse
             --[[local stack_dbg do -- debug
                 stack_dbg = stack
                 stack = setmetatable({}, {
@@ -652,15 +647,15 @@ do
                     if not this_state then
                         local this_orig_type  = type(this_orig)
                         local copyfunc        = (
-                                customcopyfunc_list and customcopyfunc_list[this_orig_type]
-                                        or copyfunc_list[this_orig_type]
-                                        or error(("cannot copy type %q"):format(this_orig_type), 2)
-                        )
+                            customcopyfunc_list and customcopyfunc_list[this_orig_type]
+                            or copyfunc_list[this_orig_type]
+                            or error(("cannot copy type %q"):format(this_orig_type), 2)
+                            )
                         this_copy, this_state = copyfunc(
-                                stack,
-                                this_orig,
-                                stack[stack_ptr + COPY],
-                                unpack(stack--[[_dbg]], stack_ptr + STATE, stack._top)
+                            stack,
+                            this_orig,
+                            stack[stack_ptr + COPY],
+                            unpack(stack --[[_dbg]], stack_ptr + STATE, stack._top)
                         )
                     end
                 end
@@ -670,7 +665,7 @@ do
                     local retto = stack[stack_ptr + RETTO]
                     stack._top  = stack_ptr + 1 -- pop retto, state, temp...
                     -- Leave orig and copy on stack for parent object
-                    stack_ptr   = retto -- return to parent's stack frame
+                    stack_ptr   = retto         -- return to parent's stack frame
                     stack._ptr  = stack_ptr
                 else
                     stack[stack_ptr + STATE] = this_state
@@ -680,6 +675,6 @@ do
         end
     end
 end
-------------------------------------------------------------------------------------------------------------------------
+
 
 return table

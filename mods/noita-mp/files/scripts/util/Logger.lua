@@ -7,13 +7,13 @@
 -- Naming convention is found here:
 -- http://lua-users.org/wiki/LuaStyleGuide#:~:text=Lua%20internal%20variable%20naming%20%2D%20The,but%20not%20necessarily%2C%20e.g.%20_G%20.
 
-----------------------------------------
---- "Imports"
-----------------------------------------
 
-----------------------------------------
+--- "Imports"
+
+
+
 --- Logger
-----------------------------------------
+
 --- Class for being able to log per level
 Logger          = {}
 
@@ -70,9 +70,10 @@ function Logger.log(level, channel, message)
         return false
     end
 
-    local logLevelOfSettings = ModSettingGet(("noita-mp.log_level_%s"):format(channel)) -- i.e.: { "debug, info, warn", "DEBUG" }
+    local logLevelOfSettings = ModSettingGet(("noita-mp.log_level_%s"):format(channel)) -- i.e.: { "trace", "debug, info, warn", "DEBUG" }
     if not logLevelOfSettings then
-        error(("Looks like you missed to add 'noita-mp.log_level_%s' in settings.lua"):format(channel), 2)
+        print(("[warn] Looks like you missed to add 'noita-mp.log_level_%s' in settings.lua"):format(channel))
+        logLevelOfSettings = { "off", "OFF"}
     end
 
     -- Stupid workaround fix for stupid ModSettings:

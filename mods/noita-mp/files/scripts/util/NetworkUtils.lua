@@ -3,49 +3,45 @@
 -- Naming convention is found here:
 -- http://lua-users.org/wiki/LuaStyleGuide#:~:text=Lua%20internal%20variable%20naming%20%2D%20The,but%20not%20necessarily%2C%20e.g.%20_G%20.
 
-------------------------------------------------------------------------------------------------------------------------
---- 'Imports'
-------------------------------------------------------------------------------------------------------------------------
-local Utils                           = require("Utils")
 
-------------------------------------------------------------------------------------------------------------------------
+--- 'Imports'
+
+--local Utils = require("Utils")
+
+
 --- NetworkUtils
-------------------------------------------------------------------------------------------------------------------------
+
 NetworkUtils                         = {}
 
 NetworkUtils.networkMessageIdCounter = 0
 
 NetworkUtils.events                  = {
-    connect           = {
+    connect            = {
         name        = "connect",
         schema      = { "code" },
         isCacheable = false
     },
-
     --- connect2 is used to let the other clients know, who was connected
-    connect2          = {
+    connect2           = {
         name              = "connect2",
         schema            = { "networkMessageId", "name", "guid" },
         resendIdentifiers = { "name", "guid" },
         isCacheable       = true
     },
-
-    disconnect        = {
+    disconnect         = {
         name        = "disconnect",
         schema      = { "code" },
         isCacheable = false
     },
-
     --- disconnect2 is used to let the other clients know, who was disconnected
-    disconnect2       = {
+    disconnect2        = {
         name              = "disconnect2",
         schema            = { "networkMessageId", "name", "guid" },
         resendIdentifiers = { "name", "guid" },
         isCacheable       = true
     },
-
     --- acknowledgement is used to let the sender know if the message was acknowledged
-    acknowledgement   = {
+    acknowledgement    = {
         name              = "acknowledgement",
         schema            = { "networkMessageId", "event", "status", "ackedAt" },
         ack               = "ack",
@@ -53,96 +49,94 @@ NetworkUtils.events                  = {
         resendIdentifiers = { "networkMessageId", "status" },
         isCacheable       = false
     },
-
     --- seed is used to send the servers seed
-    seed              = {
+    seed               = {
         name              = "seed",
         schema            = { "networkMessageId", "seed" },
         resendIdentifiers = { "seed" },
         isCacheable       = true
     },
-
-    --- playerInfo is used to send localPlayerInfo name and guid to all peers
-    playerInfo        = {
-        name              = "playerInfo",
-        schema            = { "networkMessageId", "name", "guid", "version", "nuid" },
-        resendIdentifiers = { "name", "guid", "version" },
+    --- minaInformation is used to send local mina name, guid, etc pp to all peers. @see MinaUtils.getLocalMinaInformation()
+    minaInformation    = {
+        name              = "minaInformation",
+        schema            = { "networkMessageId", "version", "name", "guid", "entityId", "nuid", "transform", "health" },
+        resendIdentifiers = { "version", "name", "guid" },
         isCacheable       = true
     },
-
     --- newGuid is used to send a new GUID to a client, which GUID isn't unique all peers
-    newGuid           = {
+    newGuid            = {
         name              = "newGuid",
         schema            = { "networkMessageId", "oldGuid", "newGuid" },
         resendIdentifiers = { "oldGuid", "newGuid" },
         isCacheable       = true
     },
-
     --- newNuid is used to let clients spawn entities by the servers permission
-    newNuid           = {
+    newNuid            = {
         --- constant name for the event
         name              = "newNuid",
         --- network schema to decode the message
         schema            = { "networkMessageId", "owner", "localEntityId", "newNuid", "x", "y", "rotation", "velocity",
-                              "filename", "health", "isPolymorphed" },
+            "filename", "health", "isPolymorphed" },
         --- resendIdentifiers defines the schema for detection of resend mechanism.
         --- Based on the values the network message will be send again.
         resendIdentifiers = { "owner", "localEntityId", "newNuid", "filename" },
         --- identifier whether to cache this message, if it wasn't acknowledged
         isCacheable       = true
     },
-
-    newNuidSerialized = {
+    newNuidSerialized  = {
         name              = "newNuidSerialized",
-        schema            = { "networkMessageId", "ownerName", "ownerGuid", "entityId", "serializedEntity" },
-        resendIdentifiers = { "ownerName", "ownerGuid", "entityId" },
+        schema            = { "networkMessageId", "ownerName", "ownerGuid", "entityId", "serializedEntityString", "nuid", "x", "y",
+            "initialSerializedEntityString" },
+        resendIdentifiers = { "ownerName", "ownerGuid", "entityId", "nuid" },
         isCacheable       = true
     },
-
     --- needNuid is used to ask for a nuid from client to servers
-    needNuid          = {
+    needNuid           = {
         name              = "needNuid",
         schema            = { "networkMessageId", "owner", "localEntityId", "x", "y",
-                              "rotation", "velocity", "filename", "health", "isPolymorphed" },
+            "rotation", "velocity", "filename", "health", "isPolymorphed", "initialSerializedEntityString" },
         resendIdentifiers = { "owner", "localEntityId", "filename" },
         isCacheable       = true
     },
-
+    --- needNuidSerialised is used to ask for a nuid from client to servers
+    needNuidSerialised = {
+        name              = "needNuidSerialised",
+        schema            = { "networkMessageId", "owner", "localEntityId", "x", "y",
+            "rotation", "velocity", "filename", "health", "isPolymorphed", "serialisedEntity" },
+        resendIdentifiers = { "owner", "localEntityId", "filename" },
+        isCacheable       = true
+    },
     --- lostNuid is used to ask for the entity to spawn, when a client has a nuid stored, but no entityId (not sure
     --- atm, why this is happening, but this is due to reduce out of sync stuff)
-    lostNuid          = {
+    lostNuid           = {
         name              = "lostNuid",
         schema            = { "networkMessageId", "nuid" },
         resendIdentifiers = { "nuid" },
         isCacheable       = true
     },
-
     --- entityData is used to sync position, velocity and health
-    entityData        = {
+    entityData         = {
         name              = "entityData",
         schema            = { "networkMessageId", "owner", "nuid", "x", "y", "rotation", "velocity", "health" },
         resendIdentifiers = { "owner", "nuid", "x", "y", "rotation", "velocity", "health" },
         isCacheable       = false
     },
-
     --- deadNuids is used to let clients know, which entities were killed or destroyed
-    deadNuids         = {
+    deadNuids          = {
         name              = "deadNuids",
         schema            = { "networkMessageId", "deadNuids" },
         resendIdentifiers = { "deadNuids" },
         isCacheable       = true
     },
-
     --- needModList is used to let clients sync enabled mods with the server
-    needModList       = {
+    needModList        = {
         name              = "needModList",
         schema            = { "networkMessageId", "workshop", "external" },
         resendIdentifiers = { "workshop", "external" },
         isCacheable       = true
     },
-
     --- needModContent is used to sync mod content from server to client
-    needModContent    = {
+    needModContent     = {
         name              = "needModContent",
         schema            = { "networkMessageId", "get", "items" },
         resendIdentifiers = { "get", "items" },
@@ -232,21 +226,22 @@ function NetworkUtils.alreadySent(peer, event, data)
         return false
     end
 
-    --[[ if the network message is already stored ]]--
+    --[[ if the network message is already stored ]]
+    --
     local message = NetworkCacheUtils.get(peer.guid, networkMessageId, event)
     if message ~= nil then
         print(("Got message %s by cache with clientCacheId '%s', event '%s' and networkMessageId '%s'")
-                      :format(message, clientCacheId, event, networkMessageId))
+            :format(message, clientCacheId, event, networkMessageId))
         if message.status == NetworkUtils.events.acknowledgement.ack then
             print(("2Got message %s by cache with clientCacheId '%s', event '%s' and networkMessageId '%s'")
-                          :format(message, clientCacheId, event, networkMessageId))
+                :format(message, clientCacheId, event, networkMessageId))
             CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
             return true
         end
     else
         Logger.trace(Logger.channels.testing,
-                     ("NetworkUtils.alreadySent: NetworkCacheUtils.get(peer.guid %s, networkMessageId %s, event %s) returned message = nil")
-                             :format(peer.guid, networkMessageId, event))
+            ("NetworkUtils.alreadySent: NetworkCacheUtils.get(peer.guid %s, networkMessageId %s, event %s) returned message = nil")
+            :format(peer.guid, networkMessageId, event))
     end
     --- Compare if the current data matches the cached checksum
     local matchingData = NetworkCacheUtils.getByChecksum(peer.guid, event, data)
@@ -254,8 +249,8 @@ function NetworkUtils.alreadySent(peer, event, data)
         return true;
     else
         Logger.trace(Logger.channels.testing,
-                     ("NetworkUtils.alreadySent: NetworkCacheUtils.getByChecksum(peer.guid %s, event %s, data %s) returned matchingData = nil")
-                             :format(peer.guid, event, data))
+            ("NetworkUtils.alreadySent: NetworkCacheUtils.getByChecksum(peer.guid %s, event %s, data %s) returned matchingData = nil")
+            :format(peer.guid, event, data))
     end
     CustomProfiler.stop("NetworkUtils.alreadySent", cpc)
     return false

@@ -3,15 +3,11 @@
 -- Naming convention is found here:
 -- http://lua-users.org/wiki/LuaStyleGuide#:~:text=Lua%20internal%20variable%20naming%20%2D%20The,but%20not%20necessarily%2C%20e.g.%20_G%20.
 
-----------------------------------------
+
 --- 'Imports'
-----------------------------------------
-local fu        = require("FileUtils")
 local nxml      = require("nxml")
 
------------------
 --- NuidUtils:
------------------
 --- class for getting the current network unique identifier
 NuidUtils       = {}
 
@@ -26,8 +22,8 @@ local function getNextNuid()
 
     -- Are there any nuids saved in globals, if so get the highest nuid?
     if not xmlParsed then
-        local worldStateXmlAbsPath = fu.GetAbsDirPathOfWorldStateXml(_G.saveSlotMeta.dir)
-        if fu.Exists(worldStateXmlAbsPath) then
+        local worldStateXmlAbsPath = FileUtils.GetAbsDirPathOfWorldStateXml(_G.saveSlotMeta.dir)
+        if FileUtils.Exists(worldStateXmlAbsPath) then
             local f   = io.open(worldStateXmlAbsPath, "r")
             local xml = nxml.parse(f:read("*a"))
             f:close()
@@ -44,8 +40,7 @@ local function getNextNuid()
                 end
             end
             Logger.info(Logger.channels.nuid,
-                        "Loaded nuids after loading a savegame. Latest nuid from world_state.xml aka Globals = %s.",
-                        counter)
+                ("Loaded nuids after loading a savegame. Latest nuid from world_state.xml aka Globals = %s."):format(counter))
         end
         xmlParsed = true
     end
@@ -61,10 +56,10 @@ end
 --- If an entity died, the associated nuid-entityId-set will be updated with entityId multiplied by -1.
 --- If this happens, KillEntityMsg has to be send by network.
 function NuidUtils.getEntityIdsByKillIndicator()
-    local cpc = CustomProfiler.start("NuidUtils.getEntityIdsByKillIndicator")
+    local cpc                  = CustomProfiler.start("NuidUtils.getEntityIdsByKillIndicator")
     local deadNuids            = GlobalsUtils.getDeadNuids()
-    local worldStateXmlAbsPath = fu.GetAbsDirPathOfWorldStateXml(_G.saveSlotMeta.dir)
-    if fu.Exists(worldStateXmlAbsPath) then
+    local worldStateXmlAbsPath = FileUtils.GetAbsDirPathOfWorldStateXml(_G.saveSlotMeta.dir)
+    if FileUtils.Exists(worldStateXmlAbsPath) then
         local f   = io.open(worldStateXmlAbsPath, "r")
         local xml = nxml.parse(f:read("*a"))
         f:close()

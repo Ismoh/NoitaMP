@@ -20,9 +20,9 @@ function FileUtils.GetVersionByFile()
     return version
 end
 
-----------------------------------------------------------------------------------------------------
+
 --- Platform specific functions
-----------------------------------------------------------------------------------------------------
+
 
 --- Replaces windows path separator to unix path separator and vice versa.
 --- Error if path is not a string.
@@ -58,9 +58,9 @@ function FileUtils.RemoveTrailingPathSeparator(path)
     return path
 end
 
------------------------------------------------------------------------------------------------------------------------
+---
 --- eNet specific commands
------------------------------------------------------------------------------------------------------------------------
+---
 --- @return number?
 function FileUtils.GetPidOfRunningEnetHostByPort()
     local command = nil
@@ -90,9 +90,9 @@ function FileUtils.KillProcess(pid)
     os.execute(command)
 end
 
-----------------------------------------------------------------------------------------------------
+
 --- Noita specific file, directory or path functions
-----------------------------------------------------------------------------------------------------
+
 local noitaRootDirectory = nil
 --- Sets root directory of noita.exe, i.e. C:\Program Files (x86)\Steam\steamapps\common\Noita
 function FileUtils.SetAbsolutePathOfNoitaRootDirectory()
@@ -127,9 +127,9 @@ function FileUtils.GetAbsolutePathOfNoitaRootDirectory()
     return noitaRootDirectory
 end
 
-----------------------------------------------------------------------------------------------------
+
 --- Noita world and savegame specific functions
-----------------------------------------------------------------------------------------------------
+
 
 --- Return the parent directory of the savegame directory save06.
 --- If DebugGetIsDevBuild() then Noitas installation path is returned: 'C:\Program Files (x86)\Steam\steamapps\common\Noita'
@@ -187,8 +187,8 @@ function FileUtils.GetAbsoluteDirectoryPathOfSave06()
 end
 
 --- Returns the ABSOLUTE path of the mods folder.
---- If fu.GetAbsolutePathOfNoitaRootDirectory() is not set yet, then it will be
---- @return string fu.GetAbsolutePathOfNoitaRootDirectory() .. "/mods/noita-mp"
+--- If FileUtils.GetAbsolutePathOfNoitaRootDirectory() is not set yet, then it will be
+--- @return string FileUtils.GetAbsolutePathOfNoitaRootDirectory() .. "/mods/noita-mp"
 function FileUtils.GetAbsoluteDirectoryPathOfNoitaMP()
     if not FileUtils.GetAbsolutePathOfNoitaRootDirectory() then
         FileUtils.SetAbsolutePathOfNoitaRootDirectory()
@@ -215,8 +215,8 @@ function FileUtils.GetRelativeDirectoryPathOfRequiredLibs()
 end
 
 --- Returns the ABSOLUTE path of the library folder required for this mod.
---- If fu.GetAbsolutePathOfNoitaRootDirectory() is not set yet, then it will be
---- @return string fu.GetAbsolutePathOfNoitaRootDirectory() .. "/mods/noita-mp/files/libs"
+--- If FileUtils.GetAbsolutePathOfNoitaRootDirectory() is not set yet, then it will be
+--- @return string FileUtils.GetAbsolutePathOfNoitaRootDirectory() .. "/mods/noita-mp/files/libs"
 function FileUtils.GetAbsoluteDirectoryPathOfRequiredLibs()
     if not FileUtils.GetAbsolutePathOfNoitaRootDirectory() then
         FileUtils.SetAbsolutePathOfNoitaRootDirectory()
@@ -259,9 +259,14 @@ function FileUtils.GetAbsolutePathOfNoitaMpSettingsDirectory()
     return FileUtils.GetAbsoluteDirectoryPathOfNoitaMP() .. pathSeparator .. "settings"
 end
 
-----------------------------------------------------------------------------------------------------
+function FileUtils.GetRelativePathOfNoitaMpSettingsDirectory()
+    return FileUtils.GetRelativeDirectoryPathOfNoitaMP() .. pathSeparator .. "settings"
+end
+
+
+
 --- File and Directory checks, writing and reading
-----------------------------------------------------------------------------------------------------
+
 
 --- Checks if FILE or DIRECTORY exists
 --- @param absolutePath string full path
@@ -463,9 +468,9 @@ function FileUtils.RemoveContentOfDirectory(absolutePath)
     lfs.mkdir(absolutePath)
 end
 
-----------------------------------------------------------------------------------------------------
+
 --- 7zip stuff
-----------------------------------------------------------------------------------------------------
+
 
 function FileUtils.Find7zipExecutable()
     if is_windows then
@@ -552,11 +557,11 @@ end
 
 --cd "C:\Program Files (x86)\Steam\steamapps\common\Noita\mods\noita-mp\_" && 7z.exe x -aoa test.7z -o"C:\Program Files (x86)\Steam\steamapps\common\Noita\save06_test"
 
-----------------------------------------------------------------------------------------------------
---- Noita restart, yay!
-----------------------------------------------------------------------------------------------------
 
---- Credits to dextercd!
+--- Noita restart, yay!
+
+
+--- Credits to @dextercd !
 function FileUtils.FestartNoita()
     require("ffi").cast("void(__fastcall*)()", 0x0066e120)()
 end

@@ -70,7 +70,7 @@ function Utils.DebugEntity(e)
             msg             = msg .. ("  Comp: [" .. comp .. "] type = " .. comp_type)
             if comp_type == "VariableStorageComponent" then
                 msg = msg .. (" - " .. (ComponentGetValue2(comp, "name") or "") .. " = " .. (ComponentGetValue2(comp,
-                                                                                                                "value_string") or ""))
+                    "value_string") or ""))
             end
             msg = msg .. "\n"
         end
@@ -88,7 +88,7 @@ function Utils.DebugEntity(e)
             msg = msg .. ("   Comp: [" .. comp .. "] type = " .. comp_type)
             if comp_type == "VariableStorageComponent" then
                 msg = msg .. (" - " .. (ComponentGetValue2(comp, "name") or "") .. " = " .. (ComponentGetValue2(comp,
-                                                                                                                "value_string") or ""))
+                    "value_string") or ""))
             end
             msg = msg .. "\n"
         end
@@ -117,6 +117,45 @@ function Utils.CopyToClipboard(copy)
         command = ('echo "%s" | xclip -sel clip'):format(copy)
     end
     os.execute(command)
+end
+
+function Utils.openUrl(url)
+    local command = nil
+    if _G.is_windows then
+        command = ("rundll32 url.dll,FileProtocolHandler %s"):format(url) -- command = ('explorer "%s"'):format(url)
+    else
+        command = ('open "%s"'):format(url)
+    end
+    os.execute(command)
+end
+
+function Utils.execLua(pid)
+    local command = nil
+    if _G.is_windows then
+        --command = ('cd "%s" && start "NoitaMP - Profiler" profiler.bat %s 2>&1 &'):format(FileUtils.GetAbsoluteDirectoryPathOfNoitaMP(), parameter)
+        command = ('start "NoitaMP - Profiler" /D "%s" profiler.bat %s 2>&1 &'):format(FileUtils.GetAbsoluteDirectoryPathOfNoitaMP(), pid)
+        print(command)
+    else
+        error("Unix system are not supported yet :(", 2)
+    end
+    os.execute(command)
+
+
+    -- local command = nil
+    -- if _G.is_windows then
+    --     command = ('cd "%s" && lua.bat files\\scripts\\bin\\profiler.lua'):format(FileUtils.GetAbsoluteDirectoryPathOfNoitaMP())
+    -- else
+    --     error("Unix system are not supported yet :(", 2)
+    --     return
+    -- end
+
+    -- local file    = assert(io.popen(command, "r"))
+    -- local content = file:read("*a")
+    -- file:close()
+    -- local cmdOutput = string.split(content, " ")
+    -- local pid       = cmdOutput[#cmdOutput]
+    -- return tonumber(pid)
+
 end
 
 return Utils

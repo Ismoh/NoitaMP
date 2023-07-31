@@ -20,7 +20,7 @@ jobs:
 
       - name: Find linked issues
         id: find-linked-issues
-        uses: Ismoh-Games/find-linked-issues@v0.0.10
+        uses: Ismoh-Games/find-linked-issues@v1.0
         with:
           token: ${{ secrets.WORKFLOW_PAT }}
           repository: ${{ github.repository }}
@@ -83,7 +83,7 @@ jobs:
       futureRelease: ${{ steps.extend_version.outputs.futureRelease }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3.1.0
+      - uses: actions/checkout@v3.3.0
         with:
           fetch-depth: 0
       

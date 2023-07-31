@@ -1,60 +1,32 @@
--- OOP class definition is found here: Closure approach
--- http://lua-users.org/wiki/ObjectOrientationClosureApproach
--- Naming convention is found here:
--- http://lua-users.org/wiki/LuaStyleGuide#:~:text=Lua%20internal%20variable%20naming%20%2D%20The,but%20not%20necessarily%2C%20e.g.%20_G%20.
+---@class ServerInit
+ServerInit = {}
 
-----------------------------------------
+
 --- 'Imports'
-----------------------------------------
 local sock        = require("sock")
-local Utils        = require("Utils")
-local fu          = require("FileUtils")
 local zstandard   = require("zstd")
 local messagePack = require("MessagePack")
 
-----------------------------------------------------------------------------------------------------
---- Server
----@type Server
-----------------------------------------------------------------------------------------------------
-Server            = {}
-
-----------------------------------------
---- Global private variables:
-----------------------------------------
-
-----------------------------------------
---- Global private methods:
-----------------------------------------
-
-----------------------------------------
---- Access to global private variables
-----------------------------------------
-
-----------------------------------------
---- Global public variables:
-----------------------------------------
-
-----------------------------------------------------------------------------------------------------
---- Server constructor
-----------------------------------------------------------------------------------------------------
+--- ServerInit constructor
 --- Creates a new instance of server 'class'
----@param sockServer table sock.lua#newServer
----@return Server Server
-function Server.new(sockServer)
-    local cpc               = CustomProfiler.start("Server.new")
-    local self              = sockServer
+---@param sockServer SockServer
+---@return SockServer self
+function ServerInit.new(sockServer)
+    local cpc  = CustomProfiler.start("Server.new")
+    ---@class SockServer
+    local self = sockServer
 
-    ------------------------------------
-    --- Private variables:
-    ------------------------------------
 
-    ------------------------------------
-    --- Public variables:
-    ------------------------------------
+    -- Private variables:
+
+
+
+    -- Public variables:
+
     self.iAm                = "SERVER"
-    self.name               = tostring(ModSettingGet("noita-mp.name"))
+    self.name               = NoitaMpSettings.get("noita-mp.nickname", "string")
     -- guid might not be set here or will be overwritten at the end of the constructor. @see setGuid
-    self.guid               = tostring(ModSettingGet("noita-mp.guid"))
+    self.guid               = NoitaMpSettings.get("noita-mp.guid", "string")
     self.nuid               = nil
     --self.acknowledge        = {} -- sock.lua#Client:send -> self.acknowledge[packetsSent] = { event = event, data = data, entityId = data.entityId, status = NetworkUtils.events.acknowledgement.sent }
     --table.setNoitaMpDefaultMetaMethods(self.acknowledge, "v")
@@ -64,13 +36,12 @@ function Server.new(sockServer)
     self.modListCached      = nil
 
 
-    ------------------------------------
-    --- Private methods:
-    ------------------------------------
 
-    ------------------------------------------------------------------------------------------------
+    -- Private methods:
+
+
+
     --- Set servers settings
-    ------------------------------------------------------------------------------------------------
     local function setConfigSettings()
         local cpc0        = CustomProfiler.start("Server.setConfigSettings")
         local serialize   = function(anyValue)
@@ -111,17 +82,16 @@ function Server.new(sockServer)
         CustomProfiler.stop("Server.setConfigSettings", cpc0)
     end
 
-    ------------------------------------------------------------------------------------------------
+
     --- Set servers guid
-    ------------------------------------------------------------------------------------------------
     local function setGuid()
         local cpc01 = CustomProfiler.start("Server.setGuid")
-        local guid  = tostring(ModSettingGetNextValue("noita-mp.guid"))
+        local guid  = NoitaMpSettings.get("noita-mp.guid", "string")
 
         if guid == "" or GuidUtils.isPatternValid(guid) == false then
             guid = GuidUtils:getGuid()
-            ModSettingSetNextValue("noita-mp.guid", guid, false)
             self.guid = guid
+            NoitaMpSettings.set("noita-mp.guid", self.guid)
             Logger.debug(Logger.channels.network, "Servers guid set to " .. guid)
         else
             Logger.debug(Logger.channels.network, "Servers guid was already set to " .. guid)
@@ -133,9 +103,8 @@ function Server.new(sockServer)
         CustomProfiler.stop("Server.setGuid", cpc01)
     end
 
-    ------------------------------------------------------------------------------------------------
+
     --- Send acknowledgement
-    ------------------------------------------------------------------------------------------------
     local function sendAck(networkMessageId, peer, event)
         local cpc02 = CustomProfiler.start("Server.sendAck")
         if not event then
@@ -147,9 +116,8 @@ function Server.new(sockServer)
         CustomProfiler.stop("Server.sendAck", cpc02)
     end
 
-    ------------------------------------------------------------------------------------------------
+
     --- onAcknowledgement
-    ------------------------------------------------------------------------------------------------
     local function onAcknowledgement(data, peer)
         local cpc03 = CustomProfiler.start("Server.onAcknowledgement")
         Logger.debug(Logger.channels.network, "onAcknowledgement: Acknowledgement received.", Utils.pformat(data))
@@ -160,7 +128,7 @@ function Server.new(sockServer)
 
         if not data.networkMessageId then
             error(("Unable to get acknowledgement with networkMessageId = %s, data = %s, peer = %s")
-                          :format(networkMessageId, data, peer), 2)
+                :format(networkMessageId, data, peer), 2)
         end
 
         if Utils.IsEmpty(data.event) then
@@ -187,28 +155,31 @@ function Server.new(sockServer)
         if Utils.IsEmpty(cachedData.dataChecksum) or type(cachedData.dataChecksum) ~= "string" then
             NetworkCacheUtils.logAll()
             error(("Unable to get cachedData.dataChecksum, because it is nil '%s' or checksum is not of type string, type: %s")
-                          :format(cachedData.dataChecksum, type(cachedData.dataChecksum)), 2)
+                :format(cachedData.dataChecksum, type(cachedData.dataChecksum)), 2)
         end
         -- update previous cached network message
         NetworkCacheUtils.ack(self.guid, data.networkMessageId, data.event,
-                              data.status, os.clock(), cachedData.sendAt, cachedData.dataChecksum)
+            data.status, os.clock(), cachedData.sendAt, cachedData.dataChecksum)
 
         if NetworkCache.size() > self.acknowledgeMaxSize then
             NetworkCache.removeOldest()
         end
+
+
+        --NoitaComponentUtils.setNetworkSpriteIndicatorStatus(entityId, "acked")
+
         CustomProfiler.stop("Server.onAcknowledgement", cpc03)
     end
 
-    ------------------------------------------------------------------------------------------------
+
     --- onConnect
-    ------------------------------------------------------------------------------------------------
     --- Callback when client connected to server.
     --- @param data number not in use atm
     --- @param peer table
     local function onConnect(data, peer)
         local cpc04 = CustomProfiler.start("Server.onConnect")
         Logger.debug(Logger.channels.network, ("Peer %s connected! data = %s")
-                :format(Utils.pformat(peer), Utils.pformat(data)))
+            :format(Utils.pformat(peer), Utils.pformat(data)))
 
         if Utils.IsEmpty(peer) then
             error(("onConnect peer is empty: %s"):format(peer), 3)
@@ -218,43 +189,37 @@ function Server.new(sockServer)
             error(("onConnect data is empty: %s"):format(data), 3)
         end
 
-        local localPlayerInfo            = MinaUtils.getLocalMinaInformation()
-        local name                       = localPlayerInfo.name
-        local guid                       = localPlayerInfo.guid
-        local entityId                   = localPlayerInfo.entityId
-        local isPolymorphed              = EntityUtils.isEntityPolymorphed(entityId)
-        local ownerName, ownerGuid, nuid = NetworkVscUtils.getAllVscValuesByEntityId(entityId)
-
-        if not nuid then
-            nuid = NuidUtils.getNextNuid()
-            NetworkVscUtils.addOrUpdateAllVscs(entityId, name, guid, nuid)
+        if Utils.IsEmpty(MinaUtils.getLocalMinaInformation().nuid) then
+            local entityId = MinaUtils.getLocalMinaEntityId()
+            local hasNuid, nuid = NetworkVscUtils.hasNuidSet(entityId)
+            if not hasNuid or Utils.IsEmpty(nuid) then
+                nuid = NuidUtils.getNextNuid()
+                NetworkVscUtils.addOrUpdateAllVscs(entityId, MinaUtils.getLocalMinaName(), MinaUtils.getLocalMinaGuid(), nuid, nil, nil)
+            end
         end
 
-        if peer.guid == guid then
-            local oldGuid = peer.guid
-            peer.guid     = GuidUtils:getGuid({ guid })
-            self.sendNewGuid(peer, oldGuid, peer.guid)
-        end
-
-        self:send(peer, NetworkUtils.events.playerInfo.name,
-                  { NetworkUtils.getNextNetworkMessageId(), name, guid, fu.GetVersionByFile(), nuid })
+        self.sendMinaInformation()
 
         self:send(peer, NetworkUtils.events.seed.name,
-                  { NetworkUtils.getNextNetworkMessageId(), StatsGetValue("world_seed") })
+            { NetworkUtils.getNextNetworkMessageId(), StatsGetValue("world_seed") })
 
         -- Let the other clients know, that a new client connected
         self:sendToAllBut(peer, NetworkUtils.events.connect2.name,
-                          { NetworkUtils.getNextNetworkMessageId(), peer.name, peer.guid })
+            { NetworkUtils.getNextNetworkMessageId(), peer.name, peer.guid })
 
+        -- Send local minä to the new client
+        local entityId = MinaUtils.getLocalMinaEntityId()
         local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
-        --self.sendNewNuid({ name, guid }, entityId, nuid, x, y, rotation, velocity, filename, health, isPolymorphed)
+        local serializedEntityString = NoitaPatcherUtils.serializeEntity(entityId)
+        self.sendNewNuidSerialized(compOwnerName, compOwnerGuid, entityId, serializedEntityString, compNuid, x, y,
+            NoitaComponentUtils.getInitialSerializedEntityString(entityId))
+        -- self.sendNewNuid({ name, guid }, entityId, nuid, x, y, rotation, velocity, filename, health, isPolymorphed)
 
         CustomProfiler.stop("Server.onConnect", cpc04)
     end
 
-    ------------------------------------------------------------------------------------------------
+
     --- onDisconnect
-    ------------------------------------------------------------------------------------------------
     --- Callback when client disconnected from server.
     --- @param data table
     --- @param peer table
@@ -273,7 +238,7 @@ function Server.new(sockServer)
         Logger.debug(Logger.channels.network, "Disconnected from server!", Utils.pformat(data))
         -- Let the other clients know, that one client disconnected
         self:sendToAllBut(peer, NetworkUtils.events.disconnect2.name,
-                          { NetworkUtils.getNextNetworkMessageId(), peer.name, peer.guid, peer.nuid })
+            { NetworkUtils.getNextNetworkMessageId(), peer.name, peer.guid, peer.nuid })
         if peer.nuid then
             EntityUtils.destroyByNuid(peer, peer.nuid)
         end
@@ -288,148 +253,190 @@ function Server.new(sockServer)
         CustomProfiler.stop("Server.onDisconnect", cpc05)
     end
 
-    ------------------------------------------------------------------------------------------------
-    --- onPlayerInfo
-    ------------------------------------------------------------------------------------------------
-    --- Callback when Server sent his playerInfo to the client
-    --- @param data table data { networkMessageId, name, guid }
-    local function onPlayerInfo(data, peer)
-        local cpc06 = CustomProfiler.start("Server.onPlayerInfo")
-        Logger.debug(Logger.channels.network, "onPlayerInfo: Player info received.", Utils.pformat(data))
+
+    --- onMinaInformation
+    --- Callback when Server sent his MinaInformation to the client
+    --- @param data table data @see NetworkUtils.events.minaInformation.schema
+    local function onMinaInformation(data, peer)
+        local cpc06 = CustomProfiler.start("Server.onMinaInformation")
+        Logger.debug(Logger.channels.network, "onMinaInformation: Player info received.", Utils.pformat(data))
 
         if Utils.IsEmpty(peer) then
-            error(("onConnect peer is empty: %s"):format(peer), 3)
+            error(("onConnect peer is empty: %s"):format(peer), 2)
         end
 
         if Utils.IsEmpty(data.networkMessageId) then
-            error(("onPlayerInfo data.networkMessageId is empty: %s"):format(data.networkMessageId), 3)
+            error(("onMinaInformation data.networkMessageId is empty: %s"):format(data.networkMessageId), 2)
+        end
+
+        if Utils.IsEmpty(data.version) then
+            error(("onMinaInformation data.version is empty: %s"):format(data.version), 2)
         end
 
         if Utils.IsEmpty(data.name) then
-            error(("onPlayerInfo data.name is empty: %s"):format(data.name), 3)
+            error(("onMinaInformation data.name is empty: %s"):format(data.name), 2)
         end
 
         if Utils.IsEmpty(data.guid) then
-            error(("onPlayerInfo data.guid is empty: %s"):format(data.guid), 3)
+            error(("onMinaInformation data.guid is empty: %s"):format(data.guid), 2)
         end
 
-        --if Utils.IsEmpty(data.nuid) then
-        --    error(("onPlayerInfo data.nuid is empty: %s"):format(data.nuid), 3)
-        --end
-
-        if Utils.IsEmpty(data.version) then
-            error(("onPlayerInfo data.version is empty: %s"):format(data.version), 3)
+        if Utils.IsEmpty(data.entityId) or data.entityId == -1 then
+            error(("onMinaInformation data.entityId is empty: %s"):format(data.entityId), 2)
         end
 
-        if fu.GetVersionByFile() ~= tostring(data.version) then
+        -- if Utils.IsEmpty(data.nuid) or data.nuid == -1 then
+        --     error(("onMinaInformation data.nuid is empty: %s"):format(data.nuid), 2)
+        -- end
+
+        if Utils.IsEmpty(data.transform) then
+            error(("onMinaInformation data.transform is empty: %s"):format(data.transform), 2)
+        end
+
+        if Utils.IsEmpty(data.health) then
+            error(("onMinaInformation data.health is empty: %s"):format(data.health), 2)
+        end
+
+
+        if FileUtils.GetVersionByFile() ~= tostring(data.version) then
             error(("Version mismatch: NoitaMP version of Client: %s and your version: %s")
-                          :format(data.version, fu.GetVersionByFile()), 3)
+                :format(data.version, FileUtils.GetVersionByFile()), 3)
             peer:disconnect()
         end
 
         -- Make sure guids are unique. It's unlikely that two players have the same guid, but it can happen rarely.
         if self.guid == data.guid or table.contains(GuidUtils:getCachedGuids(), data.guid) then
-            Logger.warn(Logger.channels.network, ("onPlayerInfo: guid %s is not unique!"):format(data.guid))
+            Logger.warn(Logger.channels.network, ("onMinaInformation: guid %s is not unique!"):format(data.guid))
             local newGuid = GuidUtils:getGuid({ data.guid })
             --local dataNewGuid = {
             --    NetworkUtils.getNextNetworkMessageId(), data.guid, newGuid
             --}
-            self.sendNewGuid(peer, data.guid, newGuid)--self:sendToAll(NetworkUtils.events.newGuid.name, dataNewGuid)
+            self.sendNewGuid(peer, data.guid, newGuid) --self:sendToAll(NetworkUtils.events.newGuid.name, dataNewGuid)
             data.guid = newGuid
         end
 
         for i, client in pairs(self.clients) do
             if client == peer then
+                self.clients[i].version = data.version
                 self.clients[i].name = data.name
                 self.clients[i].guid = data.guid
+                self.clients[i].entityId = data.entityId
                 self.clients[i].nuid = data.nuid
+                self.clients[i].transform = data.transform
+                self.clients[i].health = data.health
 
                 GuidUtils:addGuidToCache(data.guid)
             end
         end
 
         sendAck(data.networkMessageId, peer, NetworkUtils.events.playerInfo.name)
-        CustomProfiler.stop("Server.onPlayerInfo", cpc06)
+        CustomProfiler.stop("Server.onMinaInformation", cpc06)
     end
 
-    ------------------------------------------------------------------------------------------------
+
     --- onNeedNuid
-    ------------------------------------------------------------------------------------------------
     local function onNeedNuid(data, peer)
         local cpc07 = CustomProfiler.start("Server.onNeedNuid")
         Logger.debug(Logger.channels.network, ("Peer %s needs a new nuid. data = %s")
-                :format(Utils.pformat(peer), Utils.pformat(data)))
+            :format(Utils.pformat(peer), Utils.pformat(data)))
 
         if Utils.IsEmpty(peer) then
-            error(("onNeedNuid peer is empty: %s"):format(Utils.pformat(peer)), 3)
+            error(("onNeedNuid peer is empty: %s"):format(Utils.pformat(peer)), 2)
         end
 
         if Utils.IsEmpty(data.networkMessageId) then
-            error(("onNewNuid data.networkMessageId is empty: %s"):format(data.networkMessageId), 3)
+            error(("onNeedNuid data.networkMessageId is empty: %s"):format(data.networkMessageId), 2)
         end
 
         if Utils.IsEmpty(data.owner) then
-            error(("onNewNuid data.owner is empty: %s"):format(Utils.pformat(data.owner)), 3)
+            error(("onNeedNuid data.owner is empty: %s"):format(Utils.pformat(data.owner)), 2)
         end
 
         if Utils.IsEmpty(data.localEntityId) then
-            error(("onNewNuid data.localEntityId is empty: %s"):format(data.localEntityId), 3)
+            error(("onNeedNuid data.localEntityId is empty: %s"):format(data.localEntityId), 2)
         end
 
         if Utils.IsEmpty(data.x) then
-            error(("onNewNuid data.x is empty: %s"):format(data.x), 3)
+            error(("onNeedNuid data.x is empty: %s"):format(data.x), 2)
         end
 
         if Utils.IsEmpty(data.y) then
-            error(("onNewNuid data.y is empty: %s"):format(data.y), 3)
+            error(("onNeedNuid data.y is empty: %s"):format(data.y), 2)
         end
 
         if Utils.IsEmpty(data.rotation) then
-            error(("onNewNuid data.rotation is empty: %s"):format(data.rotation), 3)
+            error(("onNeedNuid data.rotation is empty: %s"):format(data.rotation), 2)
         end
 
         if Utils.IsEmpty(data.velocity) then
-            error(("onNewNuid data.velocity is empty: %s"):format(Utils.pformat(data.velocity)), 3)
+            error(("onNeedNuid data.velocity is empty: %s"):format(Utils.pformat(data.velocity)), 2)
         end
 
         if Utils.IsEmpty(data.filename) then
-            error(("onNewNuid data.filename is empty: %s"):format(data.filename), 3)
+            error(("onNeedNuid data.filename is empty: %s"):format(data.filename), 2)
         end
 
         if Utils.IsEmpty(data.health) then
-            error(("onNewNuid data.health is empty: %s"):format(data.health), 3)
+            error(("onNeedNuid data.health is empty: %s"):format(data.health), 2)
         end
 
         if Utils.IsEmpty(data.isPolymorphed) then
-            error(("onNewNuid data.isPolymorphed is empty: %s"):format(data.isPolymorphed), 3)
+            error(("onNeedNuid data.isPolymorphed is empty: %s"):format(data.isPolymorphed), 2)
         end
 
-        local owner         = data.owner
-        local localEntityId = data.localEntityId
-        local x             = data.x
-        local y             = data.y
-        local rotation      = data.rotation
-        local velocity      = data.velocity
-        local filename      = data.filename
-        local health        = data.health
-        local isPolymorphed = data.isPolymorphed
+        if Utils.IsEmpty(data.initialSerializedEntityString) then
+            error(("onNeedNuid data.initialSerializedEntityString is empty: %s"):format(data.initialSerializedEntityString), 2)
+        end
 
-        local newNuid       = NuidUtils.getNextNuid()
-        --self.sendNewNuid(owner, localEntityId, newNuid, x, y, rotation, velocity, filename, health, isPolymorphed)
-        EntityUtils.spawnEntity(owner, newNuid, x, y, rotation, velocity, filename, localEntityId, health,
-                                isPolymorphed)
+        local owner                         = data.owner
+        local localEntityId                 = data.localEntityId
+        local x                             = data.x
+        local y                             = data.y
+        local rotation                      = data.rotation
+        local velocity                      = data.velocity
+        local filename                      = data.filename
+        local health                        = data.health
+        local isPolymorphed                 = data.isPolymorphed
+
+        local initialSerializedEntityString = nil
+        local serializedEntityString        = nil
+        local closestServerEntityId         = EntityGetClosest(x, y)
+        local nuid                          = nil
+
+        if not Utils.IsEmpty(closestServerEntityId) then
+            initialSerializedEntityString = NoitaComponentUtils.getInitialSerializedEntityString(closestServerEntityId)
+            if initialSerializedEntityString == data.initialSerializedEntityString then -- entity on server and client are the same
+                if not NetworkVscUtils.hasNuidSet(closestServerEntityId) then
+                    local ownerName, ownerGuid, nuid = NoitaComponentUtils.getEntityData(closestServerEntityId)
+                    if Utils.IsEmpty(nuid) or nuid < 0 then
+                        nuid = NuidUtils.getNextNuid()
+                        NetworkVscUtils.addOrUpdateAllVscs(closestServerEntityId, ownerName, ownerGuid, nuid)
+                    end
+                end
+                serializedEntityString = NoitaPatcherUtils.serializeEntity(closestServerEntityId)
+            else -- create new entity on server
+                nuid                          = NuidUtils.getNextNuid()
+                local serverEntityId          = EntityUtils.spawnEntity(owner, nuid, x, y, rotation,
+                    velocity, filename, localEntityId, health, isPolymorphed)
+                initialSerializedEntityString = NoitaPatcherUtils.serializeEntity(serverEntityId)
+                NoitaComponentUtils.setInitialSerializedEntityString(serverEntityId, initialSerializedEntityString)
+                serializedEntityString = initialSerializedEntityString
+            end
+        end
+
+        self.sendNewNuidSerialized(owner.name or owner[1], owner.guid or owner[2], localEntityId,
+            serializedEntityString, nuid, x, y, initialSerializedEntityString)
 
         sendAck(data.networkMessageId, peer, NetworkUtils.events.needNuid.name)
         CustomProfiler.stop("Server.onNeedNuid", cpc07)
     end
 
-    ------------------------------------------------------------------------------------------------
+
     --- onLostNuid
-    ------------------------------------------------------------------------------------------------
     local function onLostNuid(data, peer)
         local cpc08 = CustomProfiler.start("Server.onLostNuid")
         Logger.debug(Logger.channels.network, ("Peer %s lost a nuid and ask for the entity to spawn. data = %s")
-                :format(Utils.pformat(peer), Utils.pformat(data)))
+            :format(Utils.pformat(peer), Utils.pformat(data)))
 
         if Utils.IsEmpty(peer) then
             error(("onLostNuid peer is empty: %s"):format(Utils.pformat(peer)), 3)
@@ -447,19 +454,24 @@ function Server.new(sockServer)
 
         if not entityId or not EntityUtils.isEntityAlive(entityId) then
             Logger.debug(Logger.channels.network,
-                         ("onLostNuid(%s): Entity %s already dead."):format(data.nuid, entityId))
+                ("onLostNuid(%s): Entity %s already dead."):format(data.nuid, entityId))
             CustomProfiler.stop("Server.onLostNuid", cpc08)
+            self.sendDeadNuids({ nuid })
             sendAck(data.networkMessageId, peer, NetworkUtils.events.lostNuid.name)
+            CustomProfiler.stop("Server.onLostNuid", cpc08)
             return
         end
 
         --local compOwnerName, compOwnerGuid, compNuid     = NetworkVscUtils.getAllVscValuesByEntityId(entityId)
         local compOwnerName, compOwnerGuid, compNuid, filename,
-        health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
-        local isPolymorphed              = EntityUtils.isEntityPolymorphed(entityId)
+        health, rotation, velocity, x, y                                                                  = NoitaComponentUtils.getEntityData(entityId)
+        local isPolymorphed                                                                               = EntityUtils.isEntityPolymorphed(entityId)
 
         --self.sendNewNuid({ compOwnerName, compOwnerGuid },
         --                 "unknown", nuid, x, y, rotation, velocity, filename, health, isPolymorphed)
+        local serializedEntityString                                                                      = NoitaPatcherUtils.serializeEntity(entityId)
+        self.sendNewNuidSerialized(compOwnerName, compOwnerGuid, entityId, serializedEntityString, compNuid, x, y,
+            NoitaComponentUtils.getInitialSerializedEntityString(entityId))
 
         sendAck(data.networkMessageId, peer, NetworkUtils.events.lostNuid.name)
         CustomProfiler.stop("Server.onLostNuid", cpc08)
@@ -468,7 +480,7 @@ function Server.new(sockServer)
     local function onEntityData(data, peer)
         local cpc09 = CustomProfiler.start("Server.onEntityData")
         Logger.debug(Logger.channels.network, ("Received entityData for nuid = %s! data = %s")
-                :format(data.nuid, Utils.pformat(data)))
+            :format(data.nuid, Utils.pformat(data)))
 
         if Utils.IsEmpty(data.networkMessageId) then
             error(("onNewNuid data.networkMessageId is empty: %s"):format(data.networkMessageId), 3)
@@ -576,7 +588,7 @@ function Server.new(sockServer)
     local function onNeedModList(data, peer)
         local cpc = CustomProfiler.start("Server.onMeedModList")
         if self.modListCached == nil then
-            local modXML  = fu.ReadFile(fu.GetAbsoluteDirectoryPathOfParentSave() .. "\\save00\\mod_config.xml")
+            local modXML  = FileUtils.ReadFile(FileUtils.GetAbsoluteDirectoryPathOfParentSave() .. "\\save00\\mod_config.xml")
             local modList = {
                 workshop = {},
                 external = {}
@@ -603,7 +615,7 @@ function Server.new(sockServer)
             self.modListCached = modList
         end
         peer:send(NetworkUtils.events.needModList.name,
-                  { NetworkUtils.getNextNetworkMessageId(), self.modListCached.workshop, self.modListCached.external })
+            { NetworkUtils.getNextNetworkMessageId(), self.modListCached.workshop, self.modListCached.external })
 
         CustomProfiler.stop("Server.onMeedModList", cpc)
     end
@@ -623,15 +635,14 @@ function Server.new(sockServer)
             if modId ~= "0" then
                 pathToMod = ("C:/Program Files (x86)/Steam/steamapps/workshop/content/881100/%s/"):format(modId)
             else
-                pathToMod = (fu.GetAbsolutePathOfNoitaRootDirectory() .. "/mods/%s/"):format(mod)
-
+                pathToMod = (FileUtils.GetAbsolutePathOfNoitaRootDirectory() .. "/mods/%s/"):format(mod)
             end
             local archiveName = ("%s_%s_mod_sync"):format(tostring(os.date("!")), mod)
-            fu.Create7zipArchive(archiveName, pathToMod, fu.GetAbsoluteDirectoryPathOfNoitaMP())
+            FileUtils.Create7zipArchive(archiveName, pathToMod, FileUtils.GetAbsoluteDirectoryPathOfNoitaMP())
             table.insert(res, {
                 name       = mod,
                 workshopID = mod,
-                data       = fu.ReadBinaryFile(archiveName)
+                data       = FileUtils.ReadBinaryFile(archiveName)
             })
         end
         peer:send(NetworkUtils.events.needModContent.name, { NetworkUtils.getNextNetworkMessageId(), modsToGet, res })
@@ -761,9 +772,8 @@ function Server.new(sockServer)
 
     --#endregion
 
-    ------------------------------------------------------------------------------------------------
+
     --- setCallbackAndSchemas
-    ------------------------------------------------------------------------------------------------
     --- Sets callbacks and schemas of the server.
     local function setCallbackAndSchemas()
         local cpc012 = CustomProfiler.start("Server.setCallbackAndSchemas")
@@ -786,8 +796,8 @@ function Server.new(sockServer)
         --self:setSchema(NetworkUtils.events.seed.name, NetworkUtils.events.seed.schema)
         --self:on(NetworkUtils.events.seed.name, onSeed)
 
-        self:setSchema(NetworkUtils.events.playerInfo.name, NetworkUtils.events.playerInfo.schema)
-        self:on(NetworkUtils.events.playerInfo.name, onPlayerInfo)
+        self:setSchema(NetworkUtils.events.minaInformation.name, NetworkUtils.events.minaInformation.schema)
+        self:on(NetworkUtils.events.minaInformation.name, onMinaInformation)
 
         -- self:setSchema(NetworkUtils.events.newNuid.name, NetworkUtils.events.newNuid.schema)
         -- self:on(NetworkUtils.events.newNuid.name, onNewNuid)
@@ -825,27 +835,7 @@ function Server.new(sockServer)
         CustomProfiler.stop("Server.setCallbackAndSchemas", cpc012)
     end
 
-    local function updateVariables()
-        local cpc013   = CustomProfiler.start("Server.updateVariables")
-        local entityId = MinaUtils.getLocalMinaInformation().entityId
-        if entityId then
-            local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
-            self.health                                                                              = health
-            self.transform                                                                           = { x = math.floor(x), y = math.floor(y) }
-
-            if not compNuid then
-                self.nuid = NuidUtils.getNextNuid()
-                NetworkVscUtils.addOrUpdateAllVscs(entityId, compOwnerName, compOwnerGuid, self.nuid)
-                --self.sendNewNuid({ compOwnerName, compOwnerGuid }, entityId, self.nuid, x, y, rotation, velocity,
-                --                 filename, health, EntityUtils.isEntityPolymorphed(entityId))
-            end
-        end
-        CustomProfiler.stop("Server.updateVariables", cpc013)
-    end
-
-    ------------------------------------
     --- Public methods:
-    ------------------------------------
 
     --- Some inheritance: Save parent function (not polluting global 'self' space)
     local sockServerSend = sockServer.sendToPeer
@@ -858,7 +848,7 @@ function Server.new(sockServer)
 
         if NetworkUtils.alreadySent(peer, event, data) then
             Logger.debug(Logger.channels.network, ("Network message for %s for data %s already was acknowledged.")
-                    :format(event, Utils.pformat(data)))
+                :format(event, Utils.pformat(data)))
             CustomProfiler.stop("Server.send", cpc022)
             return false
         end
@@ -868,7 +858,7 @@ function Server.new(sockServer)
         if event ~= NetworkUtils.events.acknowledgement.name then
             if NetworkUtils.events[event].isCacheable == true then
                 NetworkCacheUtils.set(peer.guid, networkMessageId, event,
-                                      NetworkUtils.events.acknowledgement.sent, 0, os.clock(), data)
+                    NetworkUtils.events.acknowledgement.sent, 0, os.clock(), data)
             end
         end
         CustomProfiler.stop("Server.send", cpc022)
@@ -880,13 +870,13 @@ function Server.new(sockServer)
         local sent   = false
         if Utils.IsEmpty(self.clients) then
             Logger.trace(Logger.channels.testing,
-                         ("Unable to send anything, when there are no clients %s!"):format(Utils.pformat(self.clients)))
+                ("Unable to send anything, when there are no clients %s!"):format(Utils.pformat(self.clients)))
             return sent
         end
         for i = 1, #self.clients do
             Logger.trace(Logger.channels.testing,
-                         ("Sending event '%s' with data '%s' to client.name '%s'!"):format(event, Utils.pformat(data),
-                                                                                           self.clients[i].name))
+                ("Sending event '%s' with data '%s' to client.name '%s'!"):format(event, Utils.pformat(data),
+                    self.clients[i].name))
             sent = self:send(self.clients[i], event, data)
         end
         CustomProfiler.stop("Server.sendToAll", cpc023)
@@ -905,7 +895,6 @@ function Server.new(sockServer)
         return sent
     end
 
-
     --#region Start and stop
 
     --- Some inheritance: Save parent function (not polluting global 'self' space)
@@ -916,11 +905,13 @@ function Server.new(sockServer)
     function self.start(ip, port)
         local cpc014 = CustomProfiler.start("Server.start")
         if not ip then
-            ip = tostring(ModSettingGet("noita-mp.server_ip"))
+            --ip = tostring(ModSettingGet("noita-mp.server_ip"))
+            ip = self:getAddress()
         end
 
         if not port then
-            port = tonumber(ModSettingGet("noita-mp.server_port")) or error("noita-mp.server_port wasn't a number")
+            --port = tonumber(ModSettingGet("noita-mp.server_port")) or error("noita-mp.server_port wasn't a number")
+            port = self:getPort()
         end
 
         self.stop()
@@ -938,7 +929,7 @@ function Server.new(sockServer)
             setCallbackAndSchemas()
 
             GamePrintImportant("Server started", ("Your server is running on %s:%s. Tell your friends to join!")
-                    :format(self:getAddress(), self:getPort()))
+                :format(self:getAddress(), self:getPort()))
         else
             GamePrintImportant("Server didn't start!", "Try again, otherwise restart Noita.")
         end
@@ -979,7 +970,7 @@ function Server.new(sockServer)
     --- Some inheritance: Save parent function (not polluting global 'self' space)
     local sockServerUpdate = sockServer.update
     --- Updates the server by checking for network events and handling them.
-    function self.update()
+    function self.update(startFrameTime)
         local cpc016 = CustomProfiler.start("Server.update")
         if not self.isRunning() then
             --if not self.host then
@@ -988,7 +979,17 @@ function Server.new(sockServer)
             return
         end
 
-        EntityUtils.processAndSyncEntityNetworking()
+        if Utils.IsEmpty(MinaUtils.getLocalMinaInformation().nuid) then
+            local entityId = MinaUtils.getLocalMinaEntityId()
+            local hasNuid, nuid = NetworkVscUtils.hasNuidSet(entityId)
+            if not hasNuid or Utils.IsEmpty(nuid) then
+                nuid = NuidUtils.getNextNuid()
+                NetworkVscUtils.addOrUpdateAllVscs(entityId, MinaUtils.getLocalMinaName(), MinaUtils.getLocalMinaGuid(), nuid, nil, nil)
+            end
+        end
+        self.sendMinaInformation()
+
+        EntityUtils.processAndSyncEntityNetworking(startFrameTime)
 
         local nowTime     = GameGetRealWorldTimeSinceStarted() * 1000 -- *1000 to get milliseconds
         if (nowTime - prevEntitySync) >= (1000 / tonumber(ModSettingGet("noita-mp.tick_rate"))) then
@@ -1019,35 +1020,13 @@ function Server.new(sockServer)
         return sent
     end
 
-    --function self.sendNewNuid(owner, localEntityId, newNuid, x, y, rotation, velocity, filename, health, isPolymorphed)
-    --    local cpc017 = CustomProfiler.start("Server.sendNewNuid")
-    --    local event  = NetworkUtils.events.newNuid.name
-    --    local data   = { NetworkUtils.getNextNetworkMessageId(), owner, localEntityId, newNuid, x, y, rotation, velocity, filename, health, isPolymorphed }
-    --    local sent   = self:sendToAll(event, data)
-    --    CustomProfiler.stop("Server.sendNewNuid", cpc017)
-    --    return sent
-    --end
-
-    function self.sendNewNuidSerialized(ownerName, ownerGuid, entityId, serializedEntity)
-        local cpc026 = CustomProfiler.start("Server.sendNewNuidSerialized")
-
-        if Utils.IsEmpty(ownerName) then
-            error(("ownerName must not be nil or empty %s"):format(ownerName), 2)
-        end
-        if Utils.IsEmpty(ownerGuid) then
-            error(("ownerGuid must not be nil or empty %s"):format(ownerGuid), 2)
-        end
-        if Utils.IsEmpty(entityId) then
-            error(("entityId must not be nil or empty %s"):format(entityId), 2)
-        end
-        if Utils.IsEmpty(serializedEntity) then
-            error(("serializedEntity must not be nil or empty %s"):format(serializedEntity), 2)
-        end
-
-        local event = NetworkUtils.events.newNuidSerialized.name
-        local data  = { NetworkUtils.getNextNetworkMessageId(), ownerName, ownerGuid, entityId, serializedEntity }
-        local sent  = self:sendToAll(event, data)
-        CustomProfiler.stop("Server.sendNewNuidSerialized", cpc026)
+    function self.sendNewNuid(owner, localEntityId, newNuid, x, y, rotation, velocity, filename, health, isPolymorphed)
+        local cpc017 = CustomProfiler.start("Server.sendNewNuid")
+        local event  = NetworkUtils.events.newNuid.name
+        local data   = { NetworkUtils.getNextNetworkMessageId(), owner, localEntityId, newNuid, x, y, rotation, velocity, filename, health,
+            isPolymorphed }
+        local sent   = self:sendToAll(event, data)
+        CustomProfiler.stop("Server.sendNewNuid", cpc017)
         return sent
     end
 
@@ -1065,13 +1044,15 @@ function Server.new(sockServer)
         }
 
         if Utils.IsEmpty(compNuid) then
-            ---- nuid must not be empty, when Server!
+            -- nuid must not be empty, when Server!
             --logger:error(logger.channels.network, "Unable to send entity data, because nuid is empty.")
             --return
             local newNuid = NuidUtils.getNextNuid()
             NetworkVscUtils.addOrUpdateAllVscs(entityId, compOwnerName, compOwnerGuid, newNuid)
             --self.sendNewNuid({ compOwnerName, compOwnerGuid }, entityId, newNuid, x, y, rotation, velocity, filename,
             --                 health, EntityUtils.isEntityPolymorphed(entityId))
+            self.sendNewNuidSerialized(compOwnerName, compOwnerGuid, entityId, EntityUtils.serializeEntity(entityId), newNuid, x, y,
+                NoitaComponentUtils.getInitialSerializedEntityString(entityId))
         end
 
         if MinaUtils.getLocalMinaInformation().guid == compOwnerGuid then
@@ -1089,6 +1070,23 @@ function Server.new(sockServer)
         -- peer is nil when server, because a callback is executed manually
         onDeadNuids(deadNuids, nil)
         CustomProfiler.stop("Server.sendDeadNuids", cpc019)
+    end
+
+    function self.sendMinaInformation()
+        local cpc24     = CustomProfiler.start("Server.sendMinaInformation")
+        local minaInfo  = MinaUtils.getLocalMinaInformation()
+        local name      = minaInfo.name
+        local guid      = minaInfo.guid
+        local entityId  = minaInfo.entityId or -1
+        local nuid      = minaInfo.nuid or -1
+        local transform = minaInfo.transform
+        local health    = minaInfo.health
+        local data      = {
+            NetworkUtils.getNextNetworkMessageId(), FileUtils.GetVersionByFile(), name, guid, entityId, nuid, transform, health
+        }
+        local sent      = self:sendToAll(NetworkUtils.events.minaInformation.name, data)
+        CustomProfiler.stop("Server.sendMinaInformation", cpc24)
+        return sent
     end
 
     --- Checks if the current local user is the server
@@ -1135,11 +1133,9 @@ function Server.new(sockServer)
     return self
 end
 
--- Init this object:
-
 -- Because of stack overflow errors when loading lua files,
 -- I decided to put Utils 'classes' into globals
-_G.ServerInit = Server
+_G.ServerInit = ServerInit
 _G.Server     = ServerInit.new(sock.newServer())
 
 --local startOnLoad = ModSettingGet("noita-mp.server_start_when_world_loaded")

@@ -1,102 +1,133 @@
----
---- Created by Ismoh.
---- DateTime: 14.02.2023 11:47
----
--- OOP class definition is found here: Closure approach
--- http://lua-users.org/wiki/ObjectOrientationClosureApproach
--- Naming convention is found here:
--- http://lua-users.org/wiki/LuaStyleGuide#:~:text=Lua%20internal%20variable%20naming%20%2D%20The,but%20not%20necessarily%2C%20e.g.%20_G%20.
+--- NoitaMpSettings: Replacement for Noita ModSettings.
+--- @class NoitaMpSettings
+local NoitaMpSettings                  = {}
 
-------------------------------------------------------------------------------------------------------------------------
---- 'Imports'
-------------------------------------------------------------------------------------------------------------------------
-local fu        = require("FileUtils")
-local lfs       = require("lfs")
-local winapi    = require("winapi")
-local json      = require("json")
-local Utils      = require("Utils")
+local lfs                              = require("lfs")
+local winapi                           = require("winapi")
+local json                             = require("json")
 
-------------------------------------------------------------------------------------------------------------------------
---- NoitaMpSettings
-------------------------------------------------------------------------------------------------------------------------
-NoitaMpSettings = {}
+local cachedSettings                   = {}
 
-function NoitaMpSettings.clearAndCreateSettings()
-    local cpc         = CustomProfiler.start("NoitaMpSettings.clearAndCreateSettings")
-    local settingsDir = fu.GetAbsolutePathOfNoitaMpSettingsDirectory()
-    if fu.Exists(settingsDir) then
-        fu.RemoveContentOfDirectory(settingsDir)
-        Logger.info(Logger.channels.initialize, ("Removed old settings in '%s'!"):format(settingsDir))
-    else
-        lfs.mkdir(settingsDir)
-        Logger.info(Logger.channels.initialize, ("Created settings directory in '%s'!"):format(settingsDir))
+local convertToDataType                = function(value, dataType)
+    if not Utils.IsEmpty(dataType) then
+        if dataType == "boolean" then
+            if Utils.IsEmpty(value) then
+                return false
+            end
+            return toBoolean(value)
+        end
+        if dataType == "number" then
+            if Utils.IsEmpty(value) then
+                return 0
+            end
+            return tonumber(value)
+        end
     end
-    CustomProfiler.stop("NoitaMpSettings.clearAndCreateSettings", cpc)
+    return tostring(value)
 end
 
-function NoitaMpSettings.writeSettings(key, value)
-    local cpc = CustomProfiler.start("NoitaMpSettings.writeSettings")
+local getSettingsFilePath              = function()
+    local path = ("%s%ssettings.json"):format(FileUtils.GetAbsolutePathOfNoitaMpSettingsDirectory(), pathSeparator)
+
+    if NoitaMpSettings.isMoreThanOneNoitaProcessRunning() then
+        local who = "CLIENT" -- see Client.iAm
+
+        if whoAmI then
+            who = whoAmI()
+        end
+
+        path = ("%s%slocal%ssettings-%s.json")
+            :format(FileUtils.GetAbsolutePathOfNoitaMpSettingsDirectory(), pathSeparator, pathSeparator, who)
+    end
+    return path
+end
+
+
+function NoitaMpSettings.isMoreThanOneNoitaProcessRunning()
+    local cpc = CustomProfiler.start("NoitaMpSettings.isMoreThanOneNoitaProcessRunning")
+    local pids = winapi.get_processes()
+    local noitaCount = 0
+    for _, pid in ipairs(pids) do
+        local P = winapi.process_from_id(pid)
+        local name = P:get_process_name(true)
+        if name and string.contains(name, ("Noita%snoita"):format(pathSeparator)) then
+            noitaCount = noitaCount + 1
+        end
+        P:close()
+    end
+    CustomProfiler.stop("NoitaMpSettings.isMoreThanOneNoitaProcessRunning", cpc)
+    return noitaCount > 1
+end
+
+function NoitaMpSettings.clearAndCreateSettings()
+    -- local cpc         = CustomProfiler.start("NoitaMpSettings.clearAndCreateSettings")
+    -- local settingsDir = FileUtils.GetAbsolutePathOfNoitaMpSettingsDirectory()
+    -- if FileUtils.Exists(settingsDir) then
+    --     FileUtils.RemoveContentOfDirectory(settingsDir)
+    --     Logger.info(Logger.channels.initialize, ("Removed old settings in '%s'!"):format(settingsDir))
+    -- else
+    --     lfs.mkdir(settingsDir)
+    --     Logger.info(Logger.channels.initialize, ("Created settings directory in '%s'!"):format(settingsDir))
+    -- end
+    -- CustomProfiler.stop("NoitaMpSettings.clearAndCreateSettings", cpc)
+end
+
+function NoitaMpSettings.set(key, value)
+    local cpc = CustomProfiler.start("NoitaMpSettings.set")
     if Utils.IsEmpty(key) or type(key) ~= "string" then
         error(("'key' must not be nil or is not type of string!"):format(key), 2)
     end
 
-    if Utils.IsEmpty(value) or type(value) ~= "string" then
-        error(("'value' must not be nil or is not type of string!"):format(value), 2)
+    local settingsFilePath = getSettingsFilePath()
+    if Utils.IsEmpty(cachedSettings) or not FileUtils.Exists(settingsFilePath) then
+        NoitaMpSettings.load()
     end
 
-    local pid = winapi.get_current_pid()
+    cachedSettings[key] = value
 
-    local who = "CLIENT"
-    if whoAmI then
-        who = whoAmI()
-    end
-    local settingsFile = ("%s%s%s%s.json")
-            :format(fu.GetAbsolutePathOfNoitaMpSettingsDirectory(), pathSeparator, pid, who)
-
-    if not fu.Exists(settingsFile) then
-        fu.WriteFile(settingsFile, "{}")
-    end
-
-    local contentString = fu.ReadFile(settingsFile)
-    local contentJson   = json.decode(contentString)
-
-    contentJson[key]    = value
-
-    fu.WriteFile(settingsFile, json.encode(contentJson))
-    Logger.trace(Logger.channels.testing, ("Wrote custom setting: %s = %s"):format(key, value))
-
-    local result = fu.ReadFile(settingsFile)
-    CustomProfiler.stop("NoitaMpSettings.writeSettings", cpc)
-    return result
+    CustomProfiler.stop("NoitaMpSettings.set", cpc)
+    return cachedSettings
 end
 
-function NoitaMpSettings.getSetting(key)
-    local cpc          = CustomProfiler.start("NoitaMpSettings.getSetting")
-    local pid          = winapi.get_current_pid()
+function NoitaMpSettings.get(key, dataType)
+    local cpc = CustomProfiler.start("NoitaMpSettings.get")
 
-    local settingsFile = ("%s%s%s%s.json")
-            :format(fu.GetAbsolutePathOfNoitaMpSettingsDirectory(), pathSeparator, pid, whoAmI())
-
-    if not fu.Exists(settingsFile) then
-        fu.WriteFile(settingsFile, "{}")
+    local settingsFilePath = getSettingsFilePath()
+    if Utils.IsEmpty(cachedSettings) or not FileUtils.Exists(settingsFilePath) then
+        NoitaMpSettings.load()
     end
 
-    local contentString = fu.ReadFile(settingsFile)
-    local contentJson   = json.decode(contentString)
-
-    if Utils.IsEmpty(contentJson[key]) then
-        error(("Unable to find '%s' in NoitaMpSettings: %s"):format(key, contentString), 2)
+    if Utils.IsEmpty(cachedSettings[key]) then
+        --error(("Unable to find '%s' in NoitaMpSettings: %s"):format(key, contentString), 2)
+        CustomProfiler.stop("NoitaMpSettings.get", cpc)
+        return convertToDataType("", dataType)
     end
-    local value = contentJson[key]
-    CustomProfiler.stop("NoitaMpSettings.getSetting", cpc)
-    return value
+    CustomProfiler.stop("NoitaMpSettings.get", cpc)
+    return convertToDataType(cachedSettings[key], dataType)
 end
 
--- Because of stack overflow errors when loading lua files,
--- I decided to put Utils 'classes' into globals
-_G.NoitaMpSettings = NoitaMpSettings
+function NoitaMpSettings.load()
+    local settingsFilePath = getSettingsFilePath()
 
--- But still return for Noita Components,
--- which does not have access to _G,
--- because of own context/vm
+    if not FileUtils.Exists(settingsFilePath) then
+        NoitaMpSettings.save()
+    end
+
+    local contentString = FileUtils.ReadFile(settingsFilePath)
+    cachedSettings      = json.decode(contentString)
+end
+
+function NoitaMpSettings.save()
+    local settingsFilePath = getSettingsFilePath()
+
+    if Utils.IsEmpty(cachedSettings["pid"]) then
+        cachedSettings["pid"] = winapi.get_current_pid()
+    end
+
+    FileUtils.WriteFile(settingsFilePath, json.encode(cachedSettings))
+    if guiI then
+        guiI.setShowSettingsSaved(true)
+    end
+end
+
 return NoitaMpSettings

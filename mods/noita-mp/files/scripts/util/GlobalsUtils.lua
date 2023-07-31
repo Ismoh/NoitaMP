@@ -3,37 +3,41 @@
 -- Naming convention is found here:
 -- http://lua-users.org/wiki/LuaStyleGuide#:~:text=Lua%20internal%20variable%20naming%20%2D%20The,but%20not%20necessarily%2C%20e.g.%20_G%20.
 
-------------------------------------------------------------------------------------------------------------------------
---- 'Imports'
-------------------------------------------------------------------------------------------------------------------------
 
-------------------------------------------------------------------------------------------------------------------------
+--- 'Imports'
+
+
+
 --- When NoitaComponents are accessing this file, they are not able to access the global variables defined in this file.
 --- Therefore, we need to redefine the global variables which we don't have access to, because of NoitaAPI restrictions.
 --- This is done by the following code:
-------------------------------------------------------------------------------------------------------------------------
+
 if require then
     if not CustomProfiler then
         require("CustomProfiler")
     end
 else
-    -- Fix stupid Noita sandbox issue. Noita Components does not have access to require.
-    CustomProfiler       = {}
-    CustomProfiler.start = function(functionName)
-        --Logger.trace(Logger.channels.globals,
-        --            ("NoitaComponents with their restricted Lua context are trying to use CustomProfiler.start(functionName %s)")
-        --                    :format(functionName))
-    end
-    CustomProfiler.stop  = function(functionName, customProfilerCounter)
-        --Logger.trace(Logger.channels.globals,
-        --            ("NoitaComponents with their restricted Lua context are trying to use CustomProfiler.stop(functionName %s, customProfilerCounter %s)")
-        --                    :format(functionName, customProfilerCounter))
+    if not CustomProfiler then
+        ---@type CustomProfiler
+        CustomProfiler       = {}
+
+        ---@diagnostic disable-next-line: duplicate-doc-alias
+        ---@alias CustomProfiler.start function(functionName: string): number
+        ---@diagnostic disable-next-line: duplicate-set-field
+        CustomProfiler.start = function(functionName)
+            --Logger.trace(Logger.channels.globals,
+            --            ("NoitaComponents with their restricted Lua context are trying to use CustomProfiler.start(functionName %s)")
+            --                    :format(functionName))
+        end
+        CustomProfiler.stop  = function(functionName, customProfilerCounter)
+            --Logger.trace(Logger.channels.globals,
+            --            ("NoitaComponents with their restricted Lua context are trying to use CustomProfiler.stop(functionName %s, customProfilerCounter %s)")
+            --                    :format(functionName, customProfilerCounter))
+        end
     end
 end
 
------------------
 --- GlobalsUtils:
------------------
 --- class for GlobalsSetValue and GlobalsGetValue
 GlobalsUtils                    = {}
 
@@ -47,8 +51,8 @@ GlobalsUtils.deadNuidsKey       = "deadNuids"
 --- Parses key and value string to nuid and entityId.
 --- @param xmlKey string GlobalsUtils.nuidKeyFormat = "nuid = %s"
 --- @param xmlValue string GlobalsUtils.nuidValueFormat = "entityId = %s"
---- @return number nuid
---- @return number entityId
+--- @return number|nil nuid
+--- @return number|nil entityId
 function GlobalsUtils.parseXmlValueToNuidAndEntityId(xmlKey, xmlValue)
     local cpc = CustomProfiler.start("GlobalsUtils.parseXmlValueToNuidAndEntityId")
     if type(xmlKey) ~= "string" then
@@ -78,7 +82,7 @@ function GlobalsUtils.parseXmlValueToNuidAndEntityId(xmlKey, xmlValue)
         end
     end
 
-    if entityId == nil or entityId == "" then
+    if Utils.IsEmpty(entityId) then
         if _G.whoAmI then
             -- _G.whoAmI can be nil, when executed in Noita Components,
             -- because those does not have access to globals
@@ -94,7 +98,7 @@ end
 function GlobalsUtils.setNuid(nuid, entityId, componentIdForOwnerName, componentIdForOwnerGuid, componentIdForNuid)
     local cpc = CustomProfiler.start("GlobalsUtils.setNuid")
     GlobalsSetValue(GlobalsUtils.nuidKeyFormat:format(nuid),
-                    GlobalsUtils.nuidValueFormat:format(entityId)) -- also change stuff in nuid_updater.lua
+        GlobalsUtils.nuidValueFormat:format(entityId)) -- also change stuff in nuid_updater.lua
     CustomProfiler.stop("GlobalsUtils.setNuid", cpc)
 end
 
@@ -140,21 +144,39 @@ end
 
 --- Builds a key string by nuid and returns nuid and entityId found by the globals.
 --- @param nuid number
---- @return number nuid, number entityId
+--- @return number|nil nuid, number|nil entityId
 function GlobalsUtils.getNuidEntityPair(nuid)
-    local cpc            = CustomProfiler.start("GlobalsUtils.getNuidEntityPair")
-    local key            = GlobalsUtils.nuidKeyFormat:format(nuid)
-    local value          = GlobalsGetValue(key)
-    local nuid, entityId = GlobalsUtils.parseXmlValueToNuidAndEntityId(key, value)
+    local cpc = CustomProfiler.start("GlobalsUtils.getNuidEntityPair")
+    if Utils.IsEmpty(nuid) then
+        --print("Nuid is nil. Unable to return entityId then!")
+        CustomProfiler.stop("GlobalsUtils.getNuidEntityPair", cpc)
+        return nil, nil
+        --error(("nuid(%s) is empty!"):format(nuid), 2)
+    end
+    if type(nuid) ~= "number" then
+        error(("nuid(%s) is not type of number!"):format(nuid), 2)
+    end
+    local key                          = GlobalsUtils.nuidKeyFormat:format(nuid)
+    local value                        = GlobalsGetValue(key)
+    local nuidGlobals, entityIdGlobals = GlobalsUtils.parseXmlValueToNuidAndEntityId(key, value)
     CustomProfiler.stop("GlobalsUtils.getNuidEntityPair", cpc)
-    return nuid, entityId
+    return nuidGlobals, entityIdGlobals
 end
 
--- Because of stack overflow errors when loading lua files,
--- I decided to put Utils 'classes' into globals
-_G.GlobalsUtils = GlobalsUtils
+function GlobalsUtils.setUpdateGui(bool)
+    local cpc = CustomProfiler.start("GlobalsUtils.getUpdateGui")
+    local key = "updateGui"
+    local value = GlobalsSetValue(key, tostring(bool))
+    CustomProfiler.stop("GlobalsUtils.getUpdateGui", cpc)
+    return value
+end
 
--- But still return for Noita Components,
--- which does not have access to _G,
--- because of own context/vm
+function GlobalsUtils.getUpdateGui()
+    local cpc = CustomProfiler.start("GlobalsUtils.getUpdateGui")
+    local key = "updateGui"
+    local value = GlobalsGetValue(key)
+    CustomProfiler.stop("GlobalsUtils.getUpdateGui", cpc)
+    return value
+end
+
 return GlobalsUtils

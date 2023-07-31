@@ -1,0 +1,10 @@
+<!-- https://github.com/dextercd/Noita-Component-Explorer/blob/main/component-explorer/entities/imgui_warning.xml -->
+<Entity>
+    <!-- Script removes the entity after a couple runs -->
+    <LuaComponent
+        script_source_file="mods/noita-mp/files/scripts/noita-components/imgui_warning.lua"
+        execute_every_n_frame="60"
+        execute_on_added="1"
+        execute_times="-1"
+    />
+</Entity>

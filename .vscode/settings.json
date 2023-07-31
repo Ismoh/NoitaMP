@@ -1,7 +1,6 @@
 {
   "Lua.workspace.library": [".debug/noita_api.lua", "${3rd}/love2d/library"],
   "Lua.workspace.maxPreload": 2000,
-  "cmake.configureOnOpen": false,
   "Lua.diagnostics.globals": [
     "describe",
     "it",
@@ -32,14 +31,13 @@
     "EntityCacheC",
     "NetworkCacheC"
   ],
-  "lua.targetVersion": "5.1",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": false,
   "editor.formatOnPaste": false,
   "[xml]": {
     "editor.defaultFormatter": "DotJoshJohnson.xml"
   },
-  "Lua.runtime.version": "Lua 5.4",
+  "Lua.runtime.version": "LuaJIT",
   "Lua.workspace.checkThirdParty": false,
   "[lua]": {
     "editor.defaultFormatter": "sumneko.lua"
