@@ -151,7 +151,7 @@ NetworkUtils.events                  = {
 
     sendWorldData = {
         name = "sendWorldData",
-        schema = { "start_x", "start_y", "width", "height", "data"},
+        schema = { "start_x", "start_y", "end_x", "end_y", "data"},
         isCacheable = false
     }
 }
