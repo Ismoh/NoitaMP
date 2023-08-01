@@ -1,6 +1,6 @@
 # Client
 
-See: [SockClient](../../mods/noita-mp/files/scripts/net/Client.lua#L16#14)
+See: [SockClient](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/net/Client.lua#16#14)
 
 
 ```lua
@@ -29,12 +29,9 @@ unknown
 
 ClientInit class for creating a new extended instance of SockClient.
 
-## new
-
 
 ```lua
-function ClientInit.new(sockClient: SockClient)
-  -> self: SockClient
+ClientInit
 ```
 
 
@@ -44,9 +41,12 @@ function ClientInit.new(sockClient: SockClient)
 
 ClientInit class for creating a new extended instance of SockClient.
 
+## new
+
 
 ```lua
-ClientInit
+function ClientInit.new(sockClient: SockClient)
+  -> self: SockClient
 ```
 
 
@@ -193,7 +193,7 @@ Starts the profiler. This has to be called before the function (or first line of
 @*param* `functionName` — The name of the function that you want to measure. This has to be the same as the one used in CustomProfiler.stop(functionName, customProfilerCounter)
 
 @*return* `returnCounter` — The counter that is used to determine the order of the function calls. This has to be passed to CustomProfiler.stop(functionName, customProfilerCounter)
-See: [CustomProfiler.stop](../../mods/noita-mp/files/scripts/util/GuidUtils.lua#L30#4) functionName, customProfilerCounter)
+See: [CustomProfiler.stop](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/GuidUtils.lua#30#4) functionName, customProfilerCounter)
 
 ## stop
 
@@ -1309,12 +1309,24 @@ integer
 # MinaInformation
 
 See:
-  * [Transform](../../mods/noita-mp/files/scripts/util/MinaUtils.lua#L142#18)
-  * [Health](../../mods/noita-mp/files/scripts/util/NoitaComponentUtils.lua#L52#14)
+  * [Transform](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/MinaUtils.lua#142#18)
+  * [Health](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/NoitaComponentUtils.lua#52#14)
 
 
 ```lua
 table
+```
+
+
+---
+
+# MinaUtils
+
+Util class for fetching information about local and remote minas.
+
+
+```lua
+MinaUtils
 ```
 
 
@@ -1355,7 +1367,7 @@ function MinaUtils.getLocalMinaInformation()
 ```
 
 Getter for local mina information. It also takes care of polymorphism!
-See: [MinaInformation](../../mods/noita-mp/files/scripts/util/MinaUtils.lua#L152#4)
+See: [MinaInformation](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/MinaUtils.lua#152#4)
 
 ## getLocalMinaName
 
@@ -1407,18 +1419,6 @@ function MinaUtils.setLocalMinaName(name: string)
 ```
 
 Setter for local mina name. It also saves it to settings file.
-
-
----
-
-# MinaUtils
-
-Util class for fetching information about local and remote minas.
-
-
-```lua
-MinaUtils
-```
 
 
 ---
@@ -2358,18 +2358,6 @@ function NoitaComponentUtils.setNetworkSpriteIndicatorStatus(entityId: number, s
 
  NoitaMpSettings: Replacement for Noita ModSettings.
 
-
-```lua
-NoitaMpSettings
-```
-
-
----
-
-# NoitaMpSettings
-
- NoitaMpSettings: Replacement for Noita ModSettings.
-
 ## clearAndCreateSettings
 
 
@@ -2413,6 +2401,18 @@ function NoitaMpSettings.save()
 ```lua
 function NoitaMpSettings.set(key: any, value: any)
   -> table
+```
+
+
+---
+
+# NoitaMpSettings
+
+ NoitaMpSettings: Replacement for Noita ModSettings.
+
+
+```lua
+NoitaMpSettings
 ```
 
 
@@ -2597,22 +2597,6 @@ unknown
 
 # ServerInit
 
-## new
-
-
-```lua
-function ServerInit.new(sockServer: SockServer)
-  -> self: SockServer
-```
-
- ServerInit constructor
- Creates a new instance of server 'class'
-
-
----
-
-# ServerInit
-
  Because of stack overflow errors when loading lua files,
  I decided to put Utils 'classes' into globals
 
@@ -2625,6 +2609,22 @@ ServerInit
 ```lua
 ServerInit
 ```
+
+
+---
+
+# ServerInit
+
+## new
+
+
+```lua
+function ServerInit.new(sockServer: SockServer)
+  -> self: SockServer
+```
+
+ ServerInit constructor
+ Creates a new instance of server 'class'
 
 
 ---
@@ -2859,7 +2859,7 @@ function SockClient.update(startFrameTime: any)
 integer
 ```
 
-self.acknowledge        = {} -- sock.lua#LClient:send -> self.acknowledge[packetsSent] = { event = event, data = data, entityId = data.entityId, status = NetworkUtils.events.acknowledgement.sent }
+self.acknowledge        = {} -- sock.lua#Client:send -> self.acknowledge[packetsSent] = { event = event, data = data, entityId = data.entityId, status = NetworkUtils.events.acknowledgement.sent }
 table.setNoitaMpDefaultMetaMethods(self.acknowledge, "v")
 
 ## amIServer
@@ -3108,6 +3108,46 @@ function Ui.new()
 
 # Utils
 
+
+```lua
+Utils
+```
+
+
+```lua
+Utils
+```
+
+
+```lua
+Utils
+```
+
+
+```lua
+Utils
+```
+
+
+```lua
+Utils
+```
+
+
+```lua
+Utils
+```
+
+
+```lua
+any
+```
+
+
+---
+
+# Utils
+
 ## CopyToClipboard
 
 
@@ -3188,41 +3228,60 @@ function Utils.pformat(var: any)
 
 ---
 
-# Utils
+# WorldUtils
+
+---------------------------------------------------------------------------------------------------------------------
+ WorldUtils
+---------------------------------------------------------------------------------------------------------------------
 
 
 ```lua
-Utils
+table
 ```
 
 
 ```lua
-Utils
+table
 ```
 
 
 ```lua
-Utils
+unknown
 ```
 
 
+---
+
+# WorldUtils.EncodeWorldArea
+
+@*return* `area` — techincally a string but shouldn't be edited
+
+
 ```lua
-Utils
+function WorldUtils.EncodeWorldArea(start_x: number, start_y: number, end_x: number, end_y: number)
+  -> area: userdata
 ```
 
 
+---
+
+# WorldUtils.LoadEncodedArea
+
+
 ```lua
-Utils
+function WorldUtils.LoadEncodedArea(encodedArea: string)
 ```
 
 
-```lua
-Utils
-```
+---
+
+# WorldUtils.SyncLocalRegions
+
+Syncs the 256x256 area around every player
 
 
 ```lua
-any
+function WorldUtils.SyncLocalRegions()
 ```
 
 
@@ -3503,6 +3562,18 @@ Globally accessible Utils in _G.Utils.
 
 ```lua
 Utils
+```
+
+
+---
+
+# _G.WorldUtils
+
+Globally accessible gui instance in _G.gui.
+
+
+```lua
+WorldUtils
 ```
 
 
@@ -5829,6 +5900,16 @@ function pcall(f: fun(...any):...unknown, arg1?: any, ...any)
 
 ---
 
+# prevTime
+
+
+```lua
+unknown
+```
+
+
+---
+
 # print
 
 
@@ -5924,23 +6005,6 @@ Loads the given module, returns any value returned by the searcher(`true` when `
 function require(modname: string)
   -> unknown
   2. loaderdata: unknown
-```
-
-
----
-
-# run_count
-
- https://github.com/dextercd/Noita-Component-Explorer/blob/main/component-explorer/entities/imgui_warning.lua
-
-
-```lua
-integer
-```
-
-
-```lua
-unknown
 ```
 
 
