@@ -649,8 +649,8 @@ function ServerInit.new(sockServer)
         CustomProfiler.stop("Server.onMeedModList", cpc)
     end
 
-    local function onSendWorldData(_, peer)
-        error("sendWorldData shouldn't be called from client to server " .. peer)
+    local function onSendPlayerAreaData(_, peer)
+        error("onSendPlayerAreaData shouldn't be called from client to server " .. peer)
     end
 
     -- Called when someone connects to the server
@@ -820,8 +820,8 @@ function ServerInit.new(sockServer)
         self:setSchema(NetworkUtils.events.needModContent.name, NetworkUtils.events.needModContent.schema)
         self:on(NetworkUtils.events.needModContent.name, onNeedModContent)
 
-        self:setSchema(NetworkUtils.events.sendWorldData.name, NetworkUtils.events.sendWorldData.schema)
-        self:on(NetworkUtils.events.sendWorldData.name, onSendWorldData)
+        self:setSchema(NetworkUtils.events.sendPlayerAreaData.name, NetworkUtils.events.sendPlayerAreaData.schema)
+        self:on(NetworkUtils.events.sendPlayerAreaData.name, onSendPlayerAreaData)
         
         -- self:setSchema("duplicatedGuid", { "newGuid" })
         -- self:setSchema("worldFiles", { "relDirPath", "fileName", "fileContent", "fileIndex", "amountOfFiles" })

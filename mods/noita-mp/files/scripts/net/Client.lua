@@ -715,6 +715,12 @@ function ClientInit.new(sockClient)
         CustomProfiler.stop("ClientInit.onNeedModContent", cpc)
     end
 
+    local function onSendPlayerAreaData(data)
+        local cpc = CustomProfiler.start("Client.onSendPlayerAreaData")
+        WorldUtils.LoadEncodedArea(data.data)
+        CustomProfiler.stop("Client.onSendPlayerAreaData", cpc)
+    end
+
     -- self:on(
     --     "entityAlive",
     --     function(data)
@@ -798,7 +804,25 @@ function ClientInit.new(sockClient)
         self:setSchema(NetworkUtils.events.newNuidSerialized.name, NetworkUtils.events.newNuidSerialized.schema)
         self:on(NetworkUtils.events.newNuidSerialized.name, onNewNuidSerialized)
 
+        self:setSchema(NetworkUtils.events.sendPlayerAreaData.name, NetworkUtils.events.sendPlayerAreaData.schema)
+        self:on(NetworkUtils.events.sendPlayerAreaData.name, onSendPlayerAreaData)
+
         CustomProfiler.stop("ClientInit.setCallbackAndSchemas", cpc14)
+    end
+
+    local function updateVariables()
+        local cpc15    = CustomProfiler.start("Client.updateVariables")
+        local entityId = MinaUtils.getLocalMinaInformation().entityId
+        if entityId then
+            local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
+            self.health                                                                              = health
+            self.transform                                                                           = { x = math.floor(x), y = math.floor(y) }
+
+            if not compNuid then
+                self.sendNeedNuid(compOwnerName, compOwnerGuid, entityId)
+            end
+        end
+        CustomProfiler.stop("Client.updateVariables", cpc15)
     end
 
     --- Some inheritance: Save parent function (not polluting global 'self' space)
