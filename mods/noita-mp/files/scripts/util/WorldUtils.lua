@@ -18,6 +18,12 @@ local PixelRun_ptr = ffi.typeof("struct PixelRun const*")
 ---@param end_y number
 ---@return userdata area techincally a string but shouldn't be edited
 function WorldUtils.EncodeWorldArea(start_x, start_y, end_x, end_y)
+    local cpc = CustomProfiler.start("WorldUtils.EncodeWorldArea")
+    if DebugGetIsDevBuild() then
+        CustomProfiler.stop("WorldUtils.EncodeWorldArea", cpc)
+        return nil
+    end
+
     local grid = nsew_ffi.get_grid_world()
     local chunk_map = grid.vtable.get_chunk_map(grid)
 
@@ -32,6 +38,12 @@ end
 
 ---@param encodedArea string
 function WorldUtils.LoadEncodedArea(encodedArea)
+    local cpc = CustomProfiler.start("WorldUtils.LoadEncodedArea")
+    if DebugGetIsDevBuild() then
+        CustomProfiler.stop("WorldUtils.LoadEncodedArea", cpc)
+        return nil
+    end
+
     local grid_world = nsew_ffi.get_grid_world()
 
     local header = ffi.cast("struct EncodedAreaHeader const*", ffi.cast('char const*', encodedArea:sub(1, EncodedSize)))
@@ -41,11 +53,17 @@ function WorldUtils.LoadEncodedArea(encodedArea)
     local runs = ffi.cast(PixelRun_ptr, ffi.cast("const char*", body))
 
     nsew.decode(grid_world, header, runs)
+    CustomProfiler.stop("WorldUtils.LoadEncodedArea", cpc)
 end
 
 ---Syncs the 256x256 area around every player
 function WorldUtils.SyncLocalRegions()
     local cpc = CustomProfiler.start("WorldUtils.SyncLocalRegions")
+    if DebugGetIsDevBuild() then
+        CustomProfiler.stop("WorldUtils.SyncLocalRegions", cpc)
+        return nil
+    end
+
     local clients = Server:getClients()
     for i = 1, #clients do
         local client = clients[i]

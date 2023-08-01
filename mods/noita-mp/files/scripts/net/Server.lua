@@ -406,7 +406,7 @@ function ServerInit.new(sockServer)
         if not Utils.IsEmpty(closestServerEntityId) then
             initialSerializedEntityString = NoitaComponentUtils.getInitialSerializedEntityString(closestServerEntityId)
         end
-        if initialSerializedEntityString == data.initialSerializedEntityString then     -- entity on server and client are the same
+        if initialSerializedEntityString == data.initialSerializedEntityString then -- entity on server and client are the same
             if not NetworkVscUtils.hasNuidSet(closestServerEntityId) then
                 local ownerName, ownerGuid, nuid = NoitaComponentUtils.getEntityData(closestServerEntityId)
                 if Utils.IsEmpty(nuid) or nuid <= 0 then
@@ -876,11 +876,10 @@ function ServerInit.new(sockServer)
                 ("Unable to send anything, when there are no clients %s!"):format(Utils.pformat(self.clients)))
             return sent
         end
-        for i = 1, #self.clients do
-            Logger.trace(Logger.channels.testing,
-                ("Sending event '%s' with data '%s' to client.name '%s'!"):format(event, Utils.pformat(data),
-                    self.clients[i].name))
-            sent = self:send(self.clients[i], event, data)
+        for i = 1, #self:getClients() do
+            --Logger.trace(Logger.channels.testing, ("Sending event '%s' with data '%s' to client.name '%s'!")
+            --    :format(event, Utils.pformat(data), self.clients[i].name))
+            sent = self:send(self:getClients()[i], event, data)
         end
         CustomProfiler.stop("Server.sendToAll", cpc023)
         return sent
@@ -1008,7 +1007,9 @@ function ServerInit.new(sockServer)
         end
 
         if (nowTime - prevWorldSync) >= (1000 / tonumber(ModSettingGet("noita-mp.worldsync_tick"))) then
-            WorldUtils.SyncLocalRegions()
+            if not DebugGetIsDevBuild() then
+                WorldUtils.SyncLocalRegions()
+            end
         end
         sockServerUpdate(self)
         CustomProfiler.stop("Server.update", cpc016)

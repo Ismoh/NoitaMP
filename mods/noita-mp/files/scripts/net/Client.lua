@@ -714,7 +714,10 @@ function ClientInit.new(sockClient)
 
     local function onSendPlayerAreaData(data)
         local cpc = CustomProfiler.start("Client.onSendPlayerAreaData")
-        WorldUtils.LoadEncodedArea(data.data)
+        if not DebugGetIsDevBuild() then
+            WorldUtils.LoadEncodedArea(data.data)
+        end
+        sendAck(data.networkMessageId, NetworkUtils.events.sendPlayerAreaData.name)
         CustomProfiler.stop("Client.onSendPlayerAreaData", cpc)
     end
 
