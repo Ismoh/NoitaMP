@@ -706,7 +706,14 @@ function Client.new(sockClient)
                 end
             end
         end
+
         CustomProfiler.stop("Client.onNeedModContent", cpc)
+    end
+
+    local function onSendPlayerAreaData(data)
+        local cpc = CustomProfiler.start("Client.onSendPlayerAreaData")
+        WorldUtils.LoadEncodedArea(data.data)
+        CustomProfiler.stop("Client.onSendPlayerAreaData", cpc)
     end
 
     -- self:on(
@@ -792,6 +799,9 @@ function Client.new(sockClient)
 
         self:setSchema(NetworkUtils.events.newNuidSerialized.name, NetworkUtils.events.newNuidSerialized.schema)
         self:on(NetworkUtils.events.newNuidSerialized.name, onNewNuidSerialized)
+
+        self:setSchema(NetworkUtils.events.sendPlayerAreaData.name, NetworkUtils.events.sendPlayerAreaData.schema)
+        self:on(NetworkUtils.events.sendPlayerAreaData.name, onSendPlayerAreaData)
 
         CustomProfiler.stop("Client.setCallbackAndSchemas", cpc14)
     end

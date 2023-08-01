@@ -149,9 +149,9 @@ NetworkUtils.events                  = {
         isCacheable       = true
     },
 
-    sendWorldData = {
-        name = "sendWorldData",
-        schema = { "start_x", "start_y", "end_x", "end_y", "data"},
+    sendPlayerAreaData = {
+        name = "sendPlayerAreaData",
+        schema = { "x", "y", "data"},
         isCacheable = false
     }
 }

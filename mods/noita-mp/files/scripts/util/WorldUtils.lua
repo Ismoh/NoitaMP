@@ -46,5 +46,13 @@ end
 ---Syncs the 256x256 area around every player
 function WorldUtils.SyncLocalRegions()
     local cpc = CustomProfiler.start("WorldUtils.SyncLocalRegions")
+    local clients = Server:getClients()
+    for i = 1, #clients do
+        local client = clients[i]
+        local clientsNuid = client.nuid
+        local _, entityId = GlobalsUtils.getNuidEntityPair(clientsNuid)
+        local x, y = EntityGetTransform(entityId)
+        Server:sendToAll(NetworkUtils.events.sendPlayerAreaData.name, {x, y, WorldUtils.EncodeWorldArea(x-128, y-128, x+128, y+128)})
+    end
     CustomProfiler.stop("WorldUtils.SyncLocalRegions", cpc)
 end

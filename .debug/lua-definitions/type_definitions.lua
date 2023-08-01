@@ -60,6 +60,7 @@ local Server = {}
 ---@return boolean
 function Server.amIServer() end
 function Server.stop() end
+function Server:getClients() end
 ---@param ip string?
 ---@param port number?
 function Server.start(ip, port) end
