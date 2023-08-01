@@ -20,7 +20,7 @@ local PixelRun_ptr = ffi.typeof("struct PixelRun const*")
 function WorldUtils.EncodeWorldArea(start_x, start_y, end_x, end_y)
     local grid = nsew_ffi.get_grid_world()
     local chunk_map = grid.vtable.get_chunk_map(grid)
-   
+
     local area = nsew.encode_area(chunk_map, start_x, start_y, end_x, end_y)
     if area == nil then
         error(("WorldUtils.EncodeWorldArea failed to encode area (%s, %s) to (%s, %s)"):format(start_x, start_y, end_x, end_y))
@@ -50,9 +50,17 @@ function WorldUtils.SyncLocalRegions()
     for i = 1, #clients do
         local client = clients[i]
         local clientsNuid = client.nuid
-        local _, entityId = GlobalsUtils.getNuidEntityPair(clientsNuid)
-        local x, y = EntityGetTransform(entityId)
-        Server:sendToAll(NetworkUtils.events.sendPlayerAreaData.name, {x, y, WorldUtils.EncodeWorldArea(x-128, y-128, x+128, y+128)})
+        if not Utils.IsEmpty(clientsNuid) then
+            local _, entityId = GlobalsUtils.getNuidEntityPair(clientsNuid)
+            local x, y = EntityGetTransform(entityId)
+            Server:sendToAll(NetworkUtils.events.sendPlayerAreaData.name, { x, y, WorldUtils.EncodeWorldArea(x - 128, y - 128, x + 128, y + 128) })
+        end
     end
     CustomProfiler.stop("WorldUtils.SyncLocalRegions", cpc)
 end
+
+if not _G.WorldUtils then -- FIXME: Don't use globals anymore!
+    _G.WorldUtils = WorldUtils
+end
+
+return WorldUtils

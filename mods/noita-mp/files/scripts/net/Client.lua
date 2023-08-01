@@ -528,11 +528,12 @@ function ClientInit.new(sockClient)
         --print(Utils.pformat(data))
         --os.exit()
 
-        --if ownerGuid == MinaUtils.getLocalMinaInformation().guid then
-        --    if entityId == MinaUtils.getLocalMinaInformation().entityId then
-        --        self.nuid = newNuid
-        --    end
-        --end
+        if data.ownerGuid == MinaUtils.getLocalMinaGuid() then
+            if data.entityId == MinaUtils.getLocalMinaEntityId() then
+                self.nuid = data.nuid
+                NetworkVscUtils.addOrUpdateAllVscs(data.entityId, data.ownerName, data.ownerGuid, data.nuid)
+            end
+        end
 
         local nuid, entityId = GlobalsUtils.getNuidEntityPair(data.nuid)
 
@@ -905,6 +906,9 @@ function ClientInit.new(sockClient)
             return
         end
 
+        if MinaUtils.getLocalMinaNuid() <= 0 then
+            self.sendNeedNuid(MinaUtils.getLocalMinaName(), MinaUtils.getLocalMinaGuid(), MinaUtils.getLocalMinaEntityId())
+        end
         self.sendMinaInformation()
 
         --EntityUtils.destroyClientEntities()

@@ -265,6 +265,16 @@ if not _G.guiI then
     end
 end
 
+if not _G.WorldUtils then
+    if not require then
+        -- WorldUtils won't be available in Noita Components context!
+    else
+        ---Globally accessible gui instance in _G.gui.
+        ---@alias _G.WorldUtils WorldUtils
+        _G.WorldUtils = require("WorldUtils")
+    end
+end
+
 if require then
     _G.whoAmI = function()
         if Server:amIServer() then

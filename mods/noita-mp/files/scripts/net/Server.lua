@@ -189,7 +189,7 @@ function ServerInit.new(sockServer)
             error(("onConnect data is empty: %s"):format(data), 3)
         end
 
-        if Utils.IsEmpty(MinaUtils.getLocalMinaInformation().nuid) then
+        if Utils.IsEmpty(MinaUtils.getLocalMinaNuid()) then
             local entityId = MinaUtils.getLocalMinaEntityId()
             local hasNuid, nuid = NetworkVscUtils.hasNuidSet(entityId)
             if not hasNuid or Utils.IsEmpty(nuid) then
@@ -1027,6 +1027,47 @@ function ServerInit.new(sockServer)
             isPolymorphed }
         local sent   = self:sendToAll(event, data)
         CustomProfiler.stop("Server.sendNewNuid", cpc017)
+        return sent
+    end
+
+    function self.sendNewNuidSerialized(ownerName, ownerGuid, entityId, serializedEntityString, nuid, x, y, initialSerializedEntityString)
+        local cpc026 = CustomProfiler.start("Server.sendNewNuidSerialized")
+
+        if Utils.IsEmpty(ownerName) then
+            error(("ownerName must not be nil or empty %s"):format(ownerName), 2)
+        end
+        if Utils.IsEmpty(ownerGuid) then
+            error(("ownerGuid must not be nil or empty %s"):format(ownerGuid), 2)
+        end
+        if Utils.IsEmpty(entityId) then
+            error(("entityId must not be nil or empty %s"):format(entityId), 2)
+        end
+        if Utils.IsEmpty(serializedEntityString) or type(serializedEntityString) ~= "string" then
+            error(("serializedEntityString must not be nil or empty %s or is not of type 'string'."):format(serializedEntityString), 2)
+        end
+        if Utils.IsEmpty(nuid) then
+            error(("nuid must not be nil or empty %s"):format(nuid), 2)
+        end
+        if Utils.IsEmpty(x) then
+            error(("x must not be nil or empty %s"):format(x), 2)
+        end
+        if Utils.IsEmpty(y) then
+            error(("y must not be nil or empty %s"):format(y), 2)
+        end
+        if Utils.IsEmpty(initialSerializedEntityString) or type(initialSerializedEntityString) ~= "string" then
+            error(("initialSerializedEntityString must not be nil or empty %s or is not of type 'string'."):format(initialSerializedEntityString), 2)
+        end
+
+        local event = NetworkUtils.events.newNuidSerialized.name
+        local data  = { NetworkUtils.getNextNetworkMessageId(), ownerName, ownerGuid, entityId, serializedEntityString, nuid, x, y,
+            initialSerializedEntityString }
+        local sent  = self:sendToAll(event, data)
+        CustomProfiler.stop("Server.sendNewNuidSerialized", cpc026)
+
+        if sent == true then
+            NoitaComponentUtils.setNetworkSpriteIndicatorStatus(entityId, "sent")
+        end
+
         return sent
     end
 

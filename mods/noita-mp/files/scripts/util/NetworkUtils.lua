@@ -145,7 +145,7 @@ NetworkUtils.events                  = {
 
     sendPlayerAreaData = {
         name = "sendPlayerAreaData",
-        schema = { "x", "y", "data"},
+        schema = { "x", "y", "data" },
         isCacheable = false
     }
 }
