@@ -1,6 +1,6 @@
 # Client
 
-See: [SockClient](../../mods/noita-mp/files/scripts/net/Client.lua#L16#14)
+See: [SockClient](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/net/Client.lua#16#14)
 
 
 ```lua
@@ -29,9 +29,12 @@ unknown
 
 ClientInit class for creating a new extended instance of SockClient.
 
+## new
+
 
 ```lua
-ClientInit
+function ClientInit.new(sockClient: SockClient)
+  -> self: SockClient
 ```
 
 
@@ -41,12 +44,9 @@ ClientInit
 
 ClientInit class for creating a new extended instance of SockClient.
 
-## new
-
 
 ```lua
-function ClientInit.new(sockClient: SockClient)
-  -> self: SockClient
+ClientInit
 ```
 
 
@@ -193,7 +193,7 @@ Starts the profiler. This has to be called before the function (or first line of
 @*param* `functionName` — The name of the function that you want to measure. This has to be the same as the one used in CustomProfiler.stop(functionName, customProfilerCounter)
 
 @*return* `returnCounter` — The counter that is used to determine the order of the function calls. This has to be passed to CustomProfiler.stop(functionName, customProfilerCounter)
-See: [CustomProfiler.stop](../../mods/noita-mp/files/scripts/util/GuidUtils.lua#L30#4) functionName, customProfilerCounter)
+See: [CustomProfiler.stop](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/GuidUtils.lua#30#4) functionName, customProfilerCounter)
 
 ## stop
 
@@ -235,12 +235,12 @@ The threshold in milliseconds. If a function takes longer than this threshold, i
 
 
 ```lua
-function
+function CustomProfiler.start(functionName: any)
 ```
 
 
 ```lua
-function
+function CustomProfiler.start(functionName: any)
 ```
 
 
@@ -250,12 +250,12 @@ function
 
 
 ```lua
-function CustomProfiler.start(functionName: any)
+function
 ```
 
 
 ```lua
-function CustomProfiler.start(functionName: any)
+function
 ```
 
 
@@ -1303,19 +1303,19 @@ integer
 
 # MinaInformation
 
-
----
-
-# MinaInformation
-
 See:
-  * [Transform](../../mods/noita-mp/files/scripts/util/MinaUtils.lua#L142#18)
-  * [Health](../../mods/noita-mp/files/scripts/util/NoitaComponentUtils.lua#L52#14)
+  * [Transform](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/MinaUtils.lua#142#18)
+  * [Health](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/NoitaComponentUtils.lua#52#14)
 
 
 ```lua
 table
 ```
+
+
+---
+
+# MinaInformation
 
 
 ---
@@ -1367,7 +1367,7 @@ function MinaUtils.getLocalMinaInformation()
 ```
 
 Getter for local mina information. It also takes care of polymorphism!
-See: [MinaInformation](../../mods/noita-mp/files/scripts/util/MinaUtils.lua#L152#4)
+See: [MinaInformation](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/MinaUtils.lua#152#4)
 
 ## getLocalMinaName
 
@@ -1736,33 +1736,6 @@ integer
 
  NetworkVscUtils:
 
-
-```lua
-unknown
-```
-
-
-```lua
-NetworkVscUtils
-```
-
-
-```lua
-NetworkVscUtils
-```
-
-
-```lua
-NetworkVscUtils
-```
-
-
----
-
-# NetworkVscUtils
-
- NetworkVscUtils:
-
 ## addOrUpdateAllVscs
 
 
@@ -1958,6 +1931,33 @@ string
 
 ```lua
 string
+```
+
+
+---
+
+# NetworkVscUtils
+
+ NetworkVscUtils:
+
+
+```lua
+unknown
+```
+
+
+```lua
+NetworkVscUtils
+```
+
+
+```lua
+NetworkVscUtils
+```
+
+
+```lua
+NetworkVscUtils
 ```
 
 
@@ -2358,6 +2358,18 @@ function NoitaComponentUtils.setNetworkSpriteIndicatorStatus(entityId: number, s
 
  NoitaMpSettings: Replacement for Noita ModSettings.
 
+
+```lua
+NoitaMpSettings
+```
+
+
+---
+
+# NoitaMpSettings
+
+ NoitaMpSettings: Replacement for Noita ModSettings.
+
 ## clearAndCreateSettings
 
 
@@ -2401,18 +2413,6 @@ function NoitaMpSettings.save()
 ```lua
 function NoitaMpSettings.set(key: any, value: any)
   -> table
-```
-
-
----
-
-# NoitaMpSettings
-
- NoitaMpSettings: Replacement for Noita ModSettings.
-
-
-```lua
-NoitaMpSettings
 ```
 
 
@@ -2597,6 +2597,22 @@ unknown
 
 # ServerInit
 
+## new
+
+
+```lua
+function ServerInit.new(sockServer: SockServer)
+  -> self: SockServer
+```
+
+ ServerInit constructor
+ Creates a new instance of server 'class'
+
+
+---
+
+# ServerInit
+
  Because of stack overflow errors when loading lua files,
  I decided to put Utils 'classes' into globals
 
@@ -2609,22 +2625,6 @@ ServerInit
 ```lua
 ServerInit
 ```
-
-
----
-
-# ServerInit
-
-## new
-
-
-```lua
-function ServerInit.new(sockServer: SockServer)
-  -> self: SockServer
-```
-
- ServerInit constructor
- Creates a new instance of server 'class'
 
 
 ---
@@ -2859,7 +2859,7 @@ function SockClient.update(startFrameTime: any)
 integer
 ```
 
-self.acknowledge        = {} -- sock.lua#LClient:send -> self.acknowledge[packetsSent] = { event = event, data = data, entityId = data.entityId, status = NetworkUtils.events.acknowledgement.sent }
+self.acknowledge        = {} -- sock.lua#Client:send -> self.acknowledge[packetsSent] = { event = event, data = data, entityId = data.entityId, status = NetworkUtils.events.acknowledgement.sent }
 table.setNoitaMpDefaultMetaMethods(self.acknowledge, "v")
 
 ## amIServer
@@ -3108,46 +3108,6 @@ function Ui.new()
 
 # Utils
 
-
-```lua
-Utils
-```
-
-
-```lua
-Utils
-```
-
-
-```lua
-Utils
-```
-
-
-```lua
-Utils
-```
-
-
-```lua
-Utils
-```
-
-
-```lua
-Utils
-```
-
-
-```lua
-any
-```
-
-
----
-
-# Utils
-
 ## CopyToClipboard
 
 
@@ -3228,6 +3188,46 @@ function Utils.pformat(var: any)
 
 ---
 
+# Utils
+
+
+```lua
+Utils
+```
+
+
+```lua
+Utils
+```
+
+
+```lua
+Utils
+```
+
+
+```lua
+Utils
+```
+
+
+```lua
+Utils
+```
+
+
+```lua
+Utils
+```
+
+
+```lua
+any
+```
+
+
+---
+
 # WorldUtils
 
 ---------------------------------------------------------------------------------------------------------------------
@@ -3270,6 +3270,7 @@ function WorldUtils.EncodeWorldArea(start_x: number, start_y: number, end_x: num
 
 ```lua
 function WorldUtils.LoadEncodedArea(encodedArea: string)
+  -> nil
 ```
 
 
@@ -3282,6 +3283,7 @@ Syncs the 256x256 area around every player
 
 ```lua
 function WorldUtils.SyncLocalRegions()
+  -> nil
 ```
 
 
