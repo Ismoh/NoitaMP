@@ -524,10 +524,6 @@ function ClientInit.new(sockClient)
             error(("onNewNuidSerialized data.initialSerializedEntityString is empty: %s"):format(data.initialSerializedEntityString), 2)
         end
 
-        -- FOR TESTING ONLY, DO NOT MERGE
-        --print(Utils.pformat(data))
-        --os.exit()
-
         if data.ownerGuid == MinaUtils.getLocalMinaGuid() then
             if data.entityId == MinaUtils.getLocalMinaEntityId() then
                 self.nuid = data.nuid

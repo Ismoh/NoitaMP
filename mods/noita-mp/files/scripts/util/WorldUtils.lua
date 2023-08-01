@@ -50,6 +50,21 @@ function WorldUtils.SyncLocalRegions()
     for i = 1, #clients do
         local client = clients[i]
         local clientsNuid = client.nuid
+
+        -- FIXME: Workaround until clients.nuid is fixed
+        if Utils.IsEmpty(clientsNuid) or clientsNuid <= 0 then
+            local playerEntityIds = EntityGetWithTag("player_unit")
+            for j = 1, #playerEntityIds do
+                local entityId = playerEntityIds[j]
+                local ownerName, ownerGuid, nuid = NetworkVscUtils.getAllVscValuesByEntityId(entityId)
+                if client.guid == ownerGuid then
+                    clientsNuid = nuid
+                    clients[i].nuid = nuid
+                    break
+                end
+            end
+        end
+        -- FIXME: This is a workaround for the clients.nuid being nil
         if not Utils.IsEmpty(clientsNuid) then
             local _, entityId = GlobalsUtils.getNuidEntityPair(clientsNuid)
             local x, y = EntityGetTransform(entityId)

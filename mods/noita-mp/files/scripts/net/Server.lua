@@ -405,23 +405,26 @@ function ServerInit.new(sockServer)
 
         if not Utils.IsEmpty(closestServerEntityId) then
             initialSerializedEntityString = NoitaComponentUtils.getInitialSerializedEntityString(closestServerEntityId)
-            if initialSerializedEntityString == data.initialSerializedEntityString then -- entity on server and client are the same
-                if not NetworkVscUtils.hasNuidSet(closestServerEntityId) then
-                    local ownerName, ownerGuid, nuid = NoitaComponentUtils.getEntityData(closestServerEntityId)
-                    if Utils.IsEmpty(nuid) or nuid < 0 then
-                        nuid = NuidUtils.getNextNuid()
-                        NetworkVscUtils.addOrUpdateAllVscs(closestServerEntityId, ownerName, ownerGuid, nuid)
-                    end
+        end
+        if initialSerializedEntityString == data.initialSerializedEntityString then     -- entity on server and client are the same
+            if not NetworkVscUtils.hasNuidSet(closestServerEntityId) then
+                local ownerName, ownerGuid, nuid = NoitaComponentUtils.getEntityData(closestServerEntityId)
+                if Utils.IsEmpty(nuid) or nuid <= 0 then
+                    nuid = NuidUtils.getNextNuid()
+                    NetworkVscUtils.addOrUpdateAllVscs(closestServerEntityId, ownerName, ownerGuid, nuid)
                 end
-                serializedEntityString = NoitaPatcherUtils.serializeEntity(closestServerEntityId)
-            else -- create new entity on server
-                nuid                          = NuidUtils.getNextNuid()
-                local serverEntityId          = EntityUtils.spawnEntity(owner, nuid, x, y, rotation,
-                    velocity, filename, localEntityId, health, isPolymorphed)
-                initialSerializedEntityString = NoitaPatcherUtils.serializeEntity(serverEntityId)
-                NoitaComponentUtils.setInitialSerializedEntityString(serverEntityId, initialSerializedEntityString)
-                serializedEntityString = initialSerializedEntityString
             end
+            serializedEntityString = NoitaPatcherUtils.serializeEntity(closestServerEntityId)
+        else -- create new entity on server
+            nuid                 = NuidUtils.getNextNuid()
+            local tempEntityId   = EntityCreateNew()
+            local serverEntityId = NoitaPatcherUtils.deserializeEntity(tempEntityId, data.initialSerializedEntityString, x, y)
+            -- local serverEntityId          = EntityUtils.spawnEntity(owner, nuid, x, y, rotation,
+            --     velocity, filename, localEntityId, health, isPolymorphed)
+            NetworkVscUtils.addOrUpdateAllVscs(serverEntityId, owner.name or owner[1], owner.guid or owner[2], nuid, x, y)
+            initialSerializedEntityString = NoitaPatcherUtils.serializeEntity(serverEntityId)
+            NoitaComponentUtils.setInitialSerializedEntityString(serverEntityId, initialSerializedEntityString)
+            serializedEntityString = initialSerializedEntityString
         end
 
         self.sendNewNuidSerialized(owner.name or owner[1], owner.guid or owner[2], localEntityId,
@@ -822,7 +825,7 @@ function ServerInit.new(sockServer)
 
         self:setSchema(NetworkUtils.events.sendPlayerAreaData.name, NetworkUtils.events.sendPlayerAreaData.schema)
         self:on(NetworkUtils.events.sendPlayerAreaData.name, onSendPlayerAreaData)
-        
+
         -- self:setSchema("duplicatedGuid", { "newGuid" })
         -- self:setSchema("worldFiles", { "relDirPath", "fileName", "fileContent", "fileIndex", "amountOfFiles" })
         -- self:setSchema("worldFilesFinished", { "progress" })
@@ -991,7 +994,7 @@ function ServerInit.new(sockServer)
 
         EntityUtils.processAndSyncEntityNetworking(startFrameTime)
 
-        local nowTime     = GameGetRealWorldTimeSinceStarted() * 1000 -- *1000 to get milliseconds
+        local nowTime = GameGetRealWorldTimeSinceStarted() * 1000 -- *1000 to get milliseconds
         if (nowTime - prevEntitySync) >= (1000 / tonumber(ModSettingGet("noita-mp.tick_rate"))) then
             local cpc1 = CustomProfiler.start("Server.update.tick")
             prevTime   = nowTime
