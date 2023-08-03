@@ -14,7 +14,7 @@ if not load_imgui then
     error("Missing ImGui.", 2)
 end
 
-local imGui = load_imgui({ version = "1.10.0", mod = "noita-mp" })
+local imGui = load_imgui({ version = "1.11.0", mod = "noita-mp" })
 
 --- Can't know the width before creating the window.. Just an initial value, it's updated to the real value once we can call imgui.GetWindowWidth()
 local menuBarWidth = 100
@@ -135,6 +135,50 @@ function Gui.new()
         if self.showAbout then
             self.drawAbout()
         end
+
+        -- TODO: Remove this before merging
+        local imPlot = imGui.implot
+        imGui.SetNextWindowSize(800, 400, imGui.Cond.Once)
+        if imGui.Begin("Enemy Tracker") then
+            if imPlot.BeginPlot("Enemies") then
+                -- implot.SetupAxes("time", "enemy count", implot.PlotAxisFlags.AutoFit);
+                -- implot.SetupAxisLimits(implot.Axis.Y1, 0, 20)
+
+                -- implot.PlotLine("Hämis", hamis_history, 1, discarded)
+                -- implot.PlotLine("Zombie", zombie_history, 1, discarded)
+                -- implot.PlotLine("Miner", miner_history, 1, discarded)
+                -- implot.PlotLine("Shotgunner", shotgunner_history, 1, discarded)
+
+                local data = { 1, 2, 3, 4, 5,
+                    6, 7, 8, 9, 10,
+                    11, 12, 13, 14, 15 }
+                imPlot.SetupLegend(imPlot.PlotLocation.East, imPlot.PlotLegendFlags.Outside)
+                --imPlot.SetupAxes("Student", "Score", imPlot.PlotAxisFlags.AutoFit, imPlot.PlotAxisFlags.AutoFit);
+                --imPlot.SetupAxisTicks(imPlot.PlotAxis.X1, { 0, 1, 2, 3, 4, 5 }, { "A", "B", "C", "D", "E" });
+                --imPlot.PlotBarGroups({ "Test1", "Test2", "Test3" }, data, 3, 5, 0.75, 0, 0);
+                imPlot.EndPlot()
+            end
+            imGui.End()
+        end
+
+        -- if (ImPlot::BeginPlot("Bar Group")) {
+        --     ImPlot::SetupLegend(ImPlotLocation_East, ImPlotLegendFlags_Outside);
+        --     if (horz) {
+        --         ImPlot::SetupAxes("Score","Student",ImPlotAxisFlags_AutoFit,ImPlotAxisFlags_AutoFit);
+        --         ImPlot::SetupAxisTicks(ImAxis_Y1,positions, groups, glabels);
+        --         ImPlot::PlotBarGroups(ilabels,data,items,groups,size,0,flags|ImPlotBarGroupsFlags_Horizontal);
+        --     }
+        --     else {
+        --         ImPlot::SetupAxes("Student","Score",ImPlotAxisFlags_AutoFit,ImPlotAxisFlags_AutoFit);
+        --         ImPlot::SetupAxisTicks(ImAxis_X1,positions, groups, glabels);
+        --         ImPlot::PlotBarGroups(ilabels,data,items,groups,size,0,flags);
+        --     }
+        --     ImPlot::EndPlot();
+        -- }
+
+
+        -- TODO: Remove this before merging
+
 
         CustomProfiler.stop("Gui.update", cpcUpdate)
     end
