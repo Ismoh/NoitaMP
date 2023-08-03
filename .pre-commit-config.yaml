@@ -1,13 +1,9 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v1.2.3
+    rev: v2.1.0
     hooks:
+      - id: check-yaml
+      - id: end-of-file-fixer
       - id: trailing-whitespace
-  - repo: https://github.com/Calinou/pre-commit-luacheck
-    rev: v1.0.0
-    hooks:
-      - id: luacheck
-  - repo: https://gitlab.com/pablodiehl/pre-commit-lua-formatter.git
-    rev: v1.0.0
-    hooks:
-      - id: lua-formatter
+      - id: mixed-line-ending
+        args: [--fix=lf]
