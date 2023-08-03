@@ -3,4 +3,11 @@ repos:
     rev: v1.2.3
     hooks:
       - id: trailing-whitespace
-
+  - repo: https://github.com/Calinou/pre-commit-luacheck
+    rev: v1.0.0
+    hooks:
+      - id: luacheck
+  - repo: https://gitlab.com/pablodiehl/pre-commit-lua-formatter.git
+    rev: v1.0.0
+    hooks:
+      - id: lua-formatter

@@ -18,10 +18,26 @@
   },
   "tasks": [
     {
-      "label": "LuaRocks init",
+      "label": "LuaRocks init 0",
       "type": "shell",
       "windows": {
-        "command": "${workspaceFolder}\\.building\\luarocks-3.9.1-windows-32\\luarocks.exe --lua-version=\"5.1\" init noita-mp --output=\"${workspaceFolder}\\mods\\noita-mp\" --homepage=\"https://github.com/Ismoh/NoitaMP\" --lua-versions=\"5.1\" --license=\"GNU GPL v3\" && ${workspaceFolder}\\.building\\luarocks-3.9.1-windows-32\\luarocks.exe config --scope project variables.LUA_BINDIR ${workspaceFolder}\\LuaJIT-2.0.4\\bin && ${workspaceFolder}\\.building\\luarocks-3.9.1-windows-32\\luarocks.exe config --scope project variables.LUA_DIR ${workspaceFolder}\\LuaJIT-2.0.4 && ${workspaceFolder}\\.building\\luarocks-3.9.1-windows-32\\luarocks.exe config --scope project variables.LUA_INCDIR ${workspaceFolder}\\LuaJIT-2.0.4\\include && ${workspaceFolder}\\.building\\luarocks-3.9.1-windows-32\\luarocks.exe config --scope project variables.LUA_LIBDIR ${workspaceFolder}\\LuaJIT-2.0.4\\lib && ${workspaceFolder}\\.building\\luarocks-3.9.1-windows-32\\luarocks.exe --lua-version=\"5.1\" init noita-mp --output=\"${workspaceFolder}\\mods\\noita-mp\" --homepage=\"https://github.com/Ismoh/NoitaMP\" --lua-versions=\"5.1\" --license=\"GNU GPL v3\""
+        "command": "mkdir %appdata%\\luarocks"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "LuaRocks init 1",
+      "type": "shell",
+      "windows": {
+        "command": "${workspaceFolder}\\.building\\luarocks-3.9.1-windows-32\\luarocks.exe config --lua-version=\"5.1\" --local lua_dir ${workspaceFolder}\\LuaJIT-2.0.4"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "LuaRocks init 2",
+      "type": "shell",
+      "windows": {
+        "command": "${workspaceFolder}\\.building\\luarocks-3.9.1-windows-32\\luarocks.exe config --scope project variables.LUA_BINDIR ${workspaceFolder}\\LuaJIT-2.0.4\\bin && ${workspaceFolder}\\.building\\luarocks-3.9.1-windows-32\\luarocks.exe config --scope project variables.LUA_DIR ${workspaceFolder}\\LuaJIT-2.0.4 && ${workspaceFolder}\\.building\\luarocks-3.9.1-windows-32\\luarocks.exe config --scope project variables.LUA_INCDIR ${workspaceFolder}\\LuaJIT-2.0.4\\include && ${workspaceFolder}\\.building\\luarocks-3.9.1-windows-32\\luarocks.exe config --scope project variables.LUA_LIBDIR ${workspaceFolder}\\LuaJIT-2.0.4\\lib && ${workspaceFolder}\\.building\\luarocks-3.9.1-windows-32\\luarocks.exe --lua-version=\"5.1\" init noita-mp --output=\"${workspaceFolder}\\mods\\noita-mp\" --homepage=\"https://github.com/Ismoh/NoitaMP\" --lua-versions=\"5.1\" --license=\"GNU GPL v3\""
       },
       "problemMatcher": []
     },
@@ -56,7 +72,7 @@
         "command": "luarocks test ${input:luaRocksTestCommand}"
       },
       "problemMatcher": []
-    },
+    }
   ],
   "inputs": [
     {
