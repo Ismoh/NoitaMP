@@ -34,14 +34,14 @@
         "defines": [
             {
                 "extends": {
-                    "finish": 2820044,
-                    "start": 2820034,
+                    "finish": 3260044,
+                    "start": 3260034,
                     "type": "getlocal",
                     "view": "unknown"
                 },
                 "file": "../../mods/noita-mp/files/scripts/Gui.lua",
-                "finish": 2820031,
-                "start": 2820020,
+                "finish": 3260031,
+                "start": 3260020,
                 "type": "setfield"
             }
         ],
@@ -2691,7 +2691,7 @@
             {
                 "extends": {
                     "args": [],
-                    "finish": 5380003,
+                    "finish": 5820003,
                     "returns": [
                         {
                             "type": "function.return",
@@ -6199,14 +6199,14 @@
         "defines": [
             {
                 "extends": {
-                    "finish": 2780045,
-                    "start": 2780037,
+                    "finish": 3220045,
+                    "start": 3220037,
                     "type": "getlocal",
                     "view": "unknown"
                 },
                 "file": "../../mods/noita-mp/files/scripts/Gui.lua",
-                "finish": 2780034,
-                "start": 2780020,
+                "finish": 3220034,
+                "start": 3220020,
                 "type": "setfield"
             }
         ],
@@ -6217,14 +6217,14 @@
         "defines": [
             {
                 "extends": {
-                    "finish": 2660038,
-                    "start": 2660034,
+                    "finish": 3100038,
+                    "start": 3100034,
                     "type": "getlocal",
                     "view": "unknown"
                 },
                 "file": "../../mods/noita-mp/files/scripts/Gui.lua",
-                "finish": 2660031,
-                "start": 2660020,
+                "finish": 3100031,
+                "start": 3100020,
                 "type": "setfield"
             }
         ],
