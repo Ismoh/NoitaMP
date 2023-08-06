@@ -29,12 +29,9 @@ unknown
 
 ClientInit class for creating a new extended instance of SockClient.
 
-## new
-
 
 ```lua
-function ClientInit.new(sockClient: SockClient)
-  -> self: SockClient
+ClientInit
 ```
 
 
@@ -44,9 +41,12 @@ function ClientInit.new(sockClient: SockClient)
 
 ClientInit class for creating a new extended instance of SockClient.
 
+## new
+
 
 ```lua
-ClientInit
+function ClientInit.new(sockClient: SockClient)
+  -> self: SockClient
 ```
 
 
@@ -545,6 +545,26 @@ integer
 
 # FileUtils
 
+
+```lua
+FileUtils
+```
+
+
+```lua
+FileUtils
+```
+
+
+```lua
+FileUtils
+```
+
+
+---
+
+# FileUtils
+
 ## AppendToFile
 
 
@@ -922,26 +942,6 @@ function FileUtils.WriteFile(file_fullpath: string, file_content: string)
 
 ---
 
-# FileUtils
-
-
-```lua
-FileUtils
-```
-
-
-```lua
-FileUtils
-```
-
-
-```lua
-FileUtils
-```
-
-
----
-
 # GetWidthAndHeightByResolution
 
  Returns width and height depending on resolution.
@@ -1303,13 +1303,8 @@ integer
 
 # MinaInformation
 
-
----
-
-# MinaInformation
-
 See:
-  * [Transform](../../mods/noita-mp/files/scripts/util/MinaUtils.lua#L142#18)
+  * [Transform](../../mods/noita-mp/files/scripts/util/MinaUtils.lua#L144#18)
   * [Health](../../mods/noita-mp/files/scripts/util/NoitaComponentUtils.lua#L52#14)
 
 
@@ -1320,9 +1315,34 @@ table
 
 ---
 
+# MinaInformation
+
+
+---
+
 # MinaUtils
 
 Util class for fetching information about local and remote minas.
+
+
+```lua
+MinaUtils
+```
+
+
+---
+
+# MinaUtils
+
+Util class for fetching information about local and remote minas.
+
+## getAllMinas
+
+
+```lua
+function MinaUtils.getAllMinas()
+  -> table
+```
 
 ## getLocalMinaEntityId
 
@@ -1355,7 +1375,8 @@ function MinaUtils.getLocalMinaInformation()
 ```
 
 Getter for local mina information. It also takes care of polymorphism!
-See: [MinaInformation](../../mods/noita-mp/files/scripts/util/MinaUtils.lua#L152#4)
+ Deprecated: Use separated getters instead, like getLocalMinaName, getLocalMinaGuid, getLocalMinaEntityId, getLocalMinaNuid!
+See: [MinaInformation](../../mods/noita-mp/files/scripts/util/MinaUtils.lua#L154#4)
 
 ## getLocalMinaName
 
@@ -1407,18 +1428,6 @@ function MinaUtils.setLocalMinaName(name: string)
 ```
 
 Setter for local mina name. It also saves it to settings file.
-
-
----
-
-# MinaUtils
-
-Util class for fetching information about local and remote minas.
-
-
-```lua
-MinaUtils
-```
 
 
 ---
@@ -1736,33 +1745,6 @@ integer
 
  NetworkVscUtils:
 
-
-```lua
-unknown
-```
-
-
-```lua
-NetworkVscUtils
-```
-
-
-```lua
-NetworkVscUtils
-```
-
-
-```lua
-NetworkVscUtils
-```
-
-
----
-
-# NetworkVscUtils
-
- NetworkVscUtils:
-
 ## addOrUpdateAllVscs
 
 
@@ -1958,6 +1940,33 @@ string
 
 ```lua
 string
+```
+
+
+---
+
+# NetworkVscUtils
+
+ NetworkVscUtils:
+
+
+```lua
+unknown
+```
+
+
+```lua
+NetworkVscUtils
+```
+
+
+```lua
+NetworkVscUtils
+```
+
+
+```lua
+NetworkVscUtils
 ```
 
 
@@ -2358,18 +2367,6 @@ function NoitaComponentUtils.setNetworkSpriteIndicatorStatus(entityId: number, s
 
  NoitaMpSettings: Replacement for Noita ModSettings.
 
-
-```lua
-NoitaMpSettings
-```
-
-
----
-
-# NoitaMpSettings
-
- NoitaMpSettings: Replacement for Noita ModSettings.
-
 ## clearAndCreateSettings
 
 
@@ -2413,6 +2410,18 @@ function NoitaMpSettings.save()
 ```lua
 function NoitaMpSettings.set(key: any, value: any)
   -> table
+```
+
+
+---
+
+# NoitaMpSettings
+
+ NoitaMpSettings: Replacement for Noita ModSettings.
+
+
+```lua
+NoitaMpSettings
 ```
 
 
@@ -2597,22 +2606,6 @@ unknown
 
 # ServerInit
 
-## new
-
-
-```lua
-function ServerInit.new(sockServer: SockServer)
-  -> self: SockServer
-```
-
- ServerInit constructor
- Creates a new instance of server 'class'
-
-
----
-
-# ServerInit
-
  Because of stack overflow errors when loading lua files,
  I decided to put Utils 'classes' into globals
 
@@ -2625,6 +2618,22 @@ ServerInit
 ```lua
 ServerInit
 ```
+
+
+---
+
+# ServerInit
+
+## new
+
+
+```lua
+function ServerInit.new(sockServer: SockServer)
+  -> self: SockServer
+```
+
+ ServerInit constructor
+ Creates a new instance of server 'class'
 
 
 ---
@@ -3379,6 +3388,11 @@ Logger
 # _G.MinaUtils
 
 Globally accessible MinaUtils in _G.MinaUtils.
+
+
+```lua
+MinaUtils
+```
 
 
 ```lua
