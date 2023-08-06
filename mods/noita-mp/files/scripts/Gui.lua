@@ -551,16 +551,16 @@ function Gui.new()
     function self.drawPlayerList()
         local cpc = CustomProfiler.start("Gui.drawPlayerList")
 
-        local windowFlags = --bit.bor(
+        local windowFlags = bit.bor(
         -- imGui.WindowFlags.MenuBar,
         -- imGui.WindowFlags.NoDocking,
         -- imGui.WindowFlags.NoSavedSettings,
         -- imGui.WindowFlags.NoFocusOnAppearing,
         -- imGui.WindowFlags.NoMove,
         -- imGui.WindowFlags.NoDecoration,
-        -- imGui.WindowFlags.NoBackground
+            imGui.WindowFlags.NoBackground,
             imGui.WindowFlags.AlwaysAutoResize
-        --)
+        )
 
         -- imGui.SetNextWindowViewport(imGui.GetMainViewportID())
         -- imGui.SetNextWindowPos(getMenuBarPosition())
@@ -582,17 +582,16 @@ function Gui.new()
 
             local minas = MinaUtils.getAllMinas()
             if imGui.BeginTable("PlayerList", #minas, tableFlags) then
-                for headerName, _ in pairs(minas[1]) do
-                    imGui.TableSetupColumn(headerName)
-                end
-                imGui.TableHeadersRow()
-
                 for i, mina in pairs(minas) do
+                    --for headerName, value in pairs(mina) do
                     imGui.TableNextRow()
-                    for index, value in pairs(mina) do
-                        imGui.TableSetColumnIndex(index)
-                        imGui.Text(("%s"):format(value))
-                    end
+                    imGui.TableNextColumn()
+                    imGui.Text(("%s"):format(mina.name))
+                    imGui.TableNextColumn()
+                    imGui.Text(("%s"):format(mina.guid))
+                    imGui.TableNextColumn()
+                    imGui.Text(("%s"):format(mina.nuid))
+                    --end
                 end
                 imGui.EndTable()
             end
