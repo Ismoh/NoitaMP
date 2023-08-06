@@ -82,22 +82,25 @@ function Gui.new()
     local cpc = CustomProfiler.start("Gui.new")
     local self = {}
     self.shortcuts = {
-        about     = "CTRL + ALT + A",
-        bugReport = "CTRL + ALT + B",
-        play      = "CTRL + ALT + P",
-        settings  = "CTRL + ALT + S",
+        about      = "CTRL + ALT + A",
+        bugReport  = "CTRL + ALT + B",
+        playerList = "CTRL + ALT + L",
+        play       = "CTRL + ALT + P",
+        settings   = "CTRL + ALT + S",
     }
     self.menuBarLabel = "NoitaMP"
     self.menuBarPosition = "top-left"
     self.playLabel = "NoitaMp - Play"
     self.settingsLabel = "NoitaMp - Settings"
     self.aboutLabel = "NoitaMp - About"
+    self.playerListLabel = "NoitaMp - Player List"
     self.showAbout = false
     self.showFirstTime = true
     self.showMissingSettings = false
     self.showPlayMenu = false
     self.showSettings = false
     self.showSettingsSaved = false
+    self.showPlayerList = false
 
     function self.setShowSettingsSaved(show)
         self.showSettingsSaved = show
@@ -136,47 +139,46 @@ function Gui.new()
             self.drawAbout()
         end
 
-        -- TODO: Remove this before merging
-        local imPlot = imGui.implot
-        imGui.SetNextWindowSize(800, 400, imGui.Cond.Once)
-        if imGui.Begin("Enemy Tracker") then
-            if imPlot.BeginPlot("Enemies") then
-                -- implot.SetupAxes("time", "enemy count", implot.PlotAxisFlags.AutoFit);
-                -- implot.SetupAxisLimits(implot.Axis.Y1, 0, 20)
-
-                -- implot.PlotLine("Hämis", hamis_history, 1, discarded)
-                -- implot.PlotLine("Zombie", zombie_history, 1, discarded)
-                -- implot.PlotLine("Miner", miner_history, 1, discarded)
-                -- implot.PlotLine("Shotgunner", shotgunner_history, 1, discarded)
-
-                local data = { 1, 2, 3, 4, 5,
-                    6, 7, 8, 9, 10,
-                    11, 12, 13, 14, 15 }
-                imPlot.SetupLegend(imPlot.PlotLocation.East, imPlot.PlotLegendFlags.Outside)
-                --imPlot.SetupAxes("Student", "Score", imPlot.PlotAxisFlags.AutoFit, imPlot.PlotAxisFlags.AutoFit);
-                --imPlot.SetupAxisTicks(imPlot.PlotAxis.X1, { 0, 1, 2, 3, 4, 5 }, { "A", "B", "C", "D", "E" });
-                --imPlot.PlotBarGroups({ "Test1", "Test2", "Test3" }, data, 3, 5, 0.75, 0, 0);
-                imPlot.EndPlot()
-            end
-            imGui.End()
+        if self.showPlayerList then
+            self.drawPlayerList()
         end
 
-        -- if (ImPlot::BeginPlot("Bar Group")) {
-        --     ImPlot::SetupLegend(ImPlotLocation_East, ImPlotLegendFlags_Outside);
-        --     if (horz) {
-        --         ImPlot::SetupAxes("Score","Student",ImPlotAxisFlags_AutoFit,ImPlotAxisFlags_AutoFit);
-        --         ImPlot::SetupAxisTicks(ImAxis_Y1,positions, groups, glabels);
-        --         ImPlot::PlotBarGroups(ilabels,data,items,groups,size,0,flags|ImPlotBarGroupsFlags_Horizontal);
-        --     }
-        --     else {
-        --         ImPlot::SetupAxes("Student","Score",ImPlotAxisFlags_AutoFit,ImPlotAxisFlags_AutoFit);
-        --         ImPlot::SetupAxisTicks(ImAxis_X1,positions, groups, glabels);
-        --         ImPlot::PlotBarGroups(ilabels,data,items,groups,size,0,flags);
-        --     }
-        --     ImPlot::EndPlot();
-        -- }
-
-
+        -- TODO: Remove this before merging
+        -- local imPlot = imGui.implot
+        -- imGui.SetNextWindowSize(800, 400, imGui.Cond.Once)
+        -- if imGui.Begin("Enemy Tracker") then
+        --     if imPlot.BeginPlot("Enemies") then
+        --         -- implot.SetupAxes("time", "enemy count", implot.PlotAxisFlags.AutoFit);
+        --         -- implot.SetupAxisLimits(implot.Axis.Y1, 0, 20)
+        --         -- implot.PlotLine("Hämis", hamis_history, 1, discarded)
+        --         -- implot.PlotLine("Zombie", zombie_history, 1, discarded)
+        --         -- implot.PlotLine("Miner", miner_history, 1, discarded)
+        --         -- implot.PlotLine("Shotgunner", shotgunner_history, 1, discarded)
+        --         local data = { 1, 2, 3, 4, 5,
+        --             6, 7, 8, 9, 10,
+        --             11, 12, 13, 14, 15 }
+        --         imPlot.SetupLegend(imPlot.PlotLocation.East, imPlot.PlotLegendFlags.Outside)
+        --         --imPlot.SetupAxes("Student", "Score", imPlot.PlotAxisFlags.AutoFit, imPlot.PlotAxisFlags.AutoFit);
+        --         --imPlot.SetupAxisTicks(imPlot.PlotAxis.X1, { 0, 1, 2, 3, 4, 5 }, { "A", "B", "C", "D", "E" });
+        --         --imPlot.PlotBarGroups({ "Test1", "Test2", "Test3" }, data, 3, 5, 0.75, 0, 0);
+        --         imPlot.EndPlot()
+        --     end
+        --     imGui.End()
+        -- end
+        -- -- if (ImPlot::BeginPlot("Bar Group")) {
+        -- --     ImPlot::SetupLegend(ImPlotLocation_East, ImPlotLegendFlags_Outside);
+        -- --     if (horz) {
+        -- --         ImPlot::SetupAxes("Score","Student",ImPlotAxisFlags_AutoFit,ImPlotAxisFlags_AutoFit);
+        -- --         ImPlot::SetupAxisTicks(ImAxis_Y1,positions, groups, glabels);
+        -- --         ImPlot::PlotBarGroups(ilabels,data,items,groups,size,0,flags|ImPlotBarGroupsFlags_Horizontal);
+        -- --     }
+        -- --     else {
+        -- --         ImPlot::SetupAxes("Student","Score",ImPlotAxisFlags_AutoFit,ImPlotAxisFlags_AutoFit);
+        -- --         ImPlot::SetupAxisTicks(ImAxis_X1,positions, groups, glabels);
+        -- --         ImPlot::PlotBarGroups(ilabels,data,items,groups,size,0,flags);
+        -- --     }
+        -- --     ImPlot::EndPlot();
+        -- -- }
         -- TODO: Remove this before merging
 
 
@@ -211,6 +213,9 @@ function Gui.new()
                 if imGui.BeginMenu(self.menuBarLabel) then
                     if imGui.MenuItem("Play!", self.shortcuts.play) then
                         self.showPlayMenu = not self.showPlayMenu
+                    end
+                    if imGui.MenuItem("Player List", self.shortcuts.playerList) then
+                        self.showPlayerList = not self.showPlayerList
                     end
                     if imGui.MenuItem("Settings", self.shortcuts.settings) then
                         self.showSettings = not self.showSettings
@@ -543,6 +548,61 @@ function Gui.new()
         CustomProfiler.stop("Gui.drawAbout", cpc)
     end
 
+    function self.drawPlayerList()
+        local cpc = CustomProfiler.start("Gui.drawPlayerList")
+
+        local windowFlags = --bit.bor(
+        -- imGui.WindowFlags.MenuBar,
+        -- imGui.WindowFlags.NoDocking,
+        -- imGui.WindowFlags.NoSavedSettings,
+        -- imGui.WindowFlags.NoFocusOnAppearing,
+        -- imGui.WindowFlags.NoMove,
+        -- imGui.WindowFlags.NoDecoration,
+        -- imGui.WindowFlags.NoBackground
+            imGui.WindowFlags.AlwaysAutoResize
+        --)
+
+        -- imGui.SetNextWindowViewport(imGui.GetMainViewportID())
+        -- imGui.SetNextWindowPos(getMenuBarPosition())
+        -- imGui.SetNextWindowSize(0, 0)
+
+        local isCollapsed
+        isCollapsed, self.showPlayerList = imGui.Begin(self.playerListLabel, self.showPlayerList, windowFlags)
+        if isCollapsed then
+            imGui.Text("NoitaMP is a multiplayer mod for Noita.")
+
+            local tableFlags = bit.bor(
+                imGui.TableFlags.Resizable,
+                --     --imGui.TableFlags.ScrollY,
+                --     imGui.TableFlags.Sortable,
+                --     imGui.TableFlags.ContextMenuInBody,
+                --     --imGui.TableFlags.RowBg,
+                imGui.TableFlags.Borders
+            )
+
+            local minas = MinaUtils.getAllMinas()
+            if imGui.BeginTable("PlayerList", #minas, tableFlags) then
+                for headerName, _ in pairs(minas[1]) do
+                    imGui.TableSetupColumn(headerName)
+                end
+                imGui.TableHeadersRow()
+
+                for i, mina in pairs(minas) do
+                    imGui.TableNextRow()
+                    for index, value in pairs(mina) do
+                        imGui.TableSetColumnIndex(index)
+                        imGui.Text(("%s"):format(value))
+                    end
+                end
+                imGui.EndTable()
+            end
+
+            imGui.End()
+        end
+
+        CustomProfiler.stop("Gui.drawPlayerList", cpc)
+    end
+
     function self.checkShortcuts()
         local cpc = CustomProfiler.start("Gui.checkShortcuts")
 
@@ -573,6 +633,10 @@ function Gui.new()
 
         if imGui.IsKeyPressed(imGui.Key.S) then
             self.showSettings = not self.showSettings
+        end
+
+        if imGui.IsKeyPressed(imGui.Key.L) then
+            self.showPlayerList = not self.showPlayerList
         end
 
         CustomProfiler.stop("Gui.checkShortcuts", cpc)

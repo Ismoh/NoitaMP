@@ -97,6 +97,8 @@ function MinaUtils.getLocalMinaNuid()
 end
 
 ---Getter for local mina information. It also takes care of polymorphism!
+--- Deprecated: Use separated getters instead, like getLocalMinaName, getLocalMinaGuid, getLocalMinaEntityId, getLocalMinaNuid!
+---@deprecated
 ---@see MinaInformation
 ---@return MinaInformation localMinaInformation
 function MinaUtils.getLocalMinaInformation()
@@ -195,8 +197,64 @@ function MinaUtils.isLocalMinaPolymorphed()
     return false, nil
 end
 
-----Globally accessible MinaUtils in _G.MinaUtils.
-----@alias _G.MinaUtils MinaUtils
---_G.MinaUtils = MinaUtils
+function MinaUtils.getAllMinas()
+    local cpc = CustomProfiler.start("MinaUtils.getAllMinas")
+    local minas = {}
+    if whoAmI() == Client.iAm then
+        for i = 1, #Client.otherClients or 1 do
+            local mina = {}
+            mina.name = Client.otherClients[i].name
+            mina.guid = Client.otherClients[i].guid
+            mina.nuid = Client.otherClients[i].nuid
 
+            if Utils.IsEmpty(mina.nuid) then
+                local playerEntityIds = EntityGetWithTag("player_unit")
+                for i = 1, #playerEntityIds do
+                    if NetworkVscUtils.hasNetworkLuaComponents(playerEntityIds[i]) then
+                        local compOwnerName, compOwnerGuid, compNuid = NetworkVscUtils.getAllVscValuesByEntityId(playerEntityIds[i])
+                        if compOwnerGuid == mina.guid then
+                            mina.nuid = compNuid
+                            break
+                        end
+                    end
+                end
+            end
+            minas[i] = mina
+        end
+    else
+        for i = 1, #Server:getClients() do
+            local mina = {}
+            mina.name = Server:getClients()[i].name
+            mina.guid = Server:getClients()[i].guid
+            mina.nuid = Server:getClients()[i].nuid
+
+            if Utils.IsEmpty(mina.nuid) then
+                local playerEntityIds = EntityGetWithTag("player_unit")
+                for i = 1, #playerEntityIds do
+                    if NetworkVscUtils.hasNetworkLuaComponents(playerEntityIds[i]) then
+                        local compOwnerName, compOwnerGuid, compNuid = NetworkVscUtils.getAllVscValuesByEntityId(playerEntityIds[i])
+                        if compOwnerGuid == mina.guid then
+                            mina.nuid = compNuid
+                            break
+                        end
+                    end
+                end
+            end
+            minas[i] = mina
+        end
+    end
+
+    local localMina = {}
+    localMina.name = MinaUtils.getLocalMinaName()
+    localMina.guid = MinaUtils.getLocalMinaGuid()
+    localMina.nuid = MinaUtils.getLocalMinaNuid()
+
+    minas[#minas + 1] = localMina
+
+    CustomProfiler.stop("MinaUtils.getAllMinas", cpc)
+    return minas
+end
+
+---Globally accessible MinaUtils in _G.MinaUtils.
+---@alias _G.MinaUtils MinaUtils
 return MinaUtils
