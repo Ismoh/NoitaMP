@@ -1,14 +1,14 @@
 --- NoitaMpSettings: Replacement for Noita ModSettings.
 --- @class NoitaMpSettings
-local NoitaMpSettings                  = {}
+local NoitaMpSettings     = {}
 
-local lfs                              = require("lfs")
-local winapi                           = require("winapi")
-local json                             = require("json")
+local lfs                 = require("lfs")
+local winapi              = require("winapi")
+local json                = require("json")
 
-local cachedSettings                   = {}
+local cachedSettings      = {}
 
-local convertToDataType                = function(value, dataType)
+local convertToDataType   = function(value, dataType)
     if not Utils.IsEmpty(dataType) then
         if dataType == "boolean" then
             if Utils.IsEmpty(value) then
@@ -26,18 +26,21 @@ local convertToDataType                = function(value, dataType)
     return tostring(value)
 end
 
-local getSettingsFilePath              = function()
+local once                = false
+local getSettingsFilePath = function()
     local path = ("%s%ssettings.json"):format(FileUtils.GetAbsolutePathOfNoitaMpSettingsDirectory(), pathSeparator)
 
     if NoitaMpSettings.isMoreThanOneNoitaProcessRunning() then
-        local who = "CLIENT" -- see Client.iAm
-
-        if whoAmI then
-            who = whoAmI()
+        local defaultSettings = nil
+        if FileUtils.Exists(path) and not once then
+            defaultSettings = FileUtils.ReadFile(path)
         end
-
         path = ("%s%slocal%ssettings-%s.json")
-            :format(FileUtils.GetAbsolutePathOfNoitaMpSettingsDirectory(), pathSeparator, pathSeparator, who)
+            :format(FileUtils.GetAbsolutePathOfNoitaMpSettingsDirectory(), pathSeparator, pathSeparator, winapi.get_current_pid())
+        if defaultSettings then
+            FileUtils.WriteFile(path, defaultSettings)
+            once = true
+        end
     end
     return path
 end
@@ -60,16 +63,16 @@ function NoitaMpSettings.isMoreThanOneNoitaProcessRunning()
 end
 
 function NoitaMpSettings.clearAndCreateSettings()
-    -- local cpc         = CustomProfiler.start("NoitaMpSettings.clearAndCreateSettings")
-    -- local settingsDir = FileUtils.GetAbsolutePathOfNoitaMpSettingsDirectory()
-    -- if FileUtils.Exists(settingsDir) then
-    --     FileUtils.RemoveContentOfDirectory(settingsDir)
-    --     Logger.info(Logger.channels.initialize, ("Removed old settings in '%s'!"):format(settingsDir))
-    -- else
-    --     lfs.mkdir(settingsDir)
-    --     Logger.info(Logger.channels.initialize, ("Created settings directory in '%s'!"):format(settingsDir))
-    -- end
-    -- CustomProfiler.stop("NoitaMpSettings.clearAndCreateSettings", cpc)
+    local cpc         = CustomProfiler.start("NoitaMpSettings.clearAndCreateSettings")
+    local settingsDir = ("%s%slocal"):format(FileUtils.GetAbsolutePathOfNoitaMpSettingsDirectory(), pathSeparator) --FileUtils.GetAbsolutePathOfNoitaMpSettingsDirectory()
+    if FileUtils.Exists(settingsDir) then
+        FileUtils.RemoveContentOfDirectory(settingsDir)
+        Logger.info(Logger.channels.initialize, ("Removed old settings in '%s'!"):format(settingsDir))
+    else
+        lfs.mkdir(settingsDir)
+        Logger.info(Logger.channels.initialize, ("Created settings directory in '%s'!"):format(settingsDir))
+    end
+    CustomProfiler.stop("NoitaMpSettings.clearAndCreateSettings", cpc)
 end
 
 function NoitaMpSettings.set(key, value)

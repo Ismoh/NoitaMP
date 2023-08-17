@@ -248,7 +248,6 @@ function MinaUtils.getAllMinas()
     localMina.name = MinaUtils.getLocalMinaName()
     localMina.guid = MinaUtils.getLocalMinaGuid()
     localMina.nuid = MinaUtils.getLocalMinaNuid()
-
     minas[#minas + 1] = localMina
 
     CustomProfiler.stop("MinaUtils.getAllMinas", cpc)

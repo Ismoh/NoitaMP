@@ -228,6 +228,7 @@ if not _G.CustomProfiler then
         ---Globally accessible CustomProfiler in _G.CustomProfiler.
         ---@alias _G.CustomProfiler CustomProfiler
         _G.CustomProfiler = require("CustomProfiler")
+        CustomProfiler.init()
     end
 end
 

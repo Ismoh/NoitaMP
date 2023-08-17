@@ -15,15 +15,14 @@ function OnProjectileFiredPost() end
 
 ---Serialize an entity to a base64 and md5 string.
 ---@param entityId any
----@return string base64 
+---@return string base64
 ---@return string md5
 function NoitaPatcherUtils.serializeEntity(entityId)
     local cpc = CustomProfiler.start("NoitaPatcherUtils.serializeEntity")
-    local binaryString = np.SerializeEntity(entityId)
-    local encoded = base64.encode(binaryString)
-    local hash = md5.sumhexa(encoded)
+    local encodedBase64 = base64.encode(np.SerializeEntity(entityId))
+    local md5Hash = md5.sumhexa(encodedBase64)
     CustomProfiler.stop("NoitaPatcherUtils.serializeEntity", cpc)
-    return encoded, hash
+    return encodedBase64, md5Hash
 end
 
 function NoitaPatcherUtils.deserializeEntity(entityId, serializedEntityString, x, y)

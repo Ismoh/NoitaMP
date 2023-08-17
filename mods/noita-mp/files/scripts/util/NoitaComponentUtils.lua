@@ -160,10 +160,8 @@ function NoitaComponentUtils.setInitialSerializedEntityString(entityId, initialS
 end
 
 function NoitaComponentUtils.hasInitialSerializedEntityString(entityId)
-    if Utils.IsEmpty(NoitaComponentUtils.getInitialSerializedEntityString(entityId)) then
-        return false
-    end
-    return true
+    local status, result = pcall(NoitaComponentUtils.getInitialSerializedEntityString, entityId)
+    return status
 end
 
 ---Get initial serialized entity string to determine if the entity already exists on the server.
@@ -192,7 +190,7 @@ function NoitaComponentUtils.getInitialSerializedEntityString(entityId)
 
     if Utils.IsEmpty(serializedString) then
         CustomProfiler.stop("NoitaComponentUtils.getInitialSerializedEntityString", cpc)
-        --print(("Unable to get initial serialized entity string, because it is empty! Root %s Child %s"):format(rootEntityId, entityId), 2)
+        error(("Unable to get initial serialized entity string, because it is empty! Root %s Child %s"):format(rootEntityId, entityId), 2)
         return nil
     end
 

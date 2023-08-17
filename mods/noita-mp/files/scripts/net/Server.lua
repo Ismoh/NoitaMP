@@ -211,7 +211,7 @@ function ServerInit.new(sockServer)
         local entityId = MinaUtils.getLocalMinaEntityId()
         local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
         local serializedEntityString = NoitaPatcherUtils.serializeEntity(entityId)
-        self.sendNewNuidSerialized(compOwnerName, compOwnerGuid, entityId, serializedEntityString, compNuid, x, y,
+        self.sendNewNuid(compOwnerName, compOwnerGuid, entityId, serializedEntityString, compNuid, x, y,
             NoitaComponentUtils.getInitialSerializedEntityString(entityId))
         -- self.sendNewNuid({ name, guid }, entityId, nuid, x, y, rotation, velocity, filename, health, isPolymorphed)
 
@@ -305,18 +305,24 @@ function ServerInit.new(sockServer)
         end
 
         -- Make sure guids are unique. It's unlikely that two players have the same guid, but it can happen rarely.
-        if self.guid == data.guid or table.contains(GuidUtils:getCachedGuids(), data.guid) then
+        if self.guid == data.guid --[[or table.contains(GuidUtils:getCachedGuids(), data.guid)]] then
             Logger.warn(Logger.channels.network, ("onMinaInformation: guid %s is not unique!"):format(data.guid))
             local newGuid = GuidUtils:getGuid({ data.guid })
-            --local dataNewGuid = {
-            --    NetworkUtils.getNextNetworkMessageId(), data.guid, newGuid
-            --}
-            self.sendNewGuid(peer, data.guid, newGuid) --self:sendToAll(NetworkUtils.events.newGuid.name, dataNewGuid)
+            self.sendNewGuid(peer, data.guid, newGuid)
             data.guid = newGuid
         end
 
-        for i, client in pairs(self.clients) do
-            if client == peer then
+        -- Update peer as well, otherwise it's out of sync
+        peer.version = data.version
+        peer.name = data.name
+        peer.guid = data.guid
+        peer.entityId = data.entityId
+        peer.nuid = data.nuid
+        peer.transform = data.transform
+        peer.heath = data.health
+
+        for i, client in pairs(self:getClients()) do
+            if client.connectId == peer.connectId then
                 self.clients[i].version = data.version
                 self.clients[i].name = data.name
                 self.clients[i].guid = data.guid
@@ -329,7 +335,7 @@ function ServerInit.new(sockServer)
             end
         end
 
-        sendAck(data.networkMessageId, peer, NetworkUtils.events.playerInfo.name)
+        sendAck(data.networkMessageId, peer, NetworkUtils.events.minaInformation.name)
         CustomProfiler.stop("Server.onMinaInformation", cpc06)
     end
 
@@ -416,15 +422,17 @@ function ServerInit.new(sockServer)
                 serializedEntityString = NoitaPatcherUtils.serializeEntity(closestServerEntityId)
             else -- create new entity on server
                 nuid                          = NuidUtils.getNextNuid()
-                local serverEntityId          = EntityUtils.spawnEntity(owner, nuid, x, y, rotation,
-                    velocity, filename, localEntityId, health, isPolymorphed)
-                initialSerializedEntityString = NoitaPatcherUtils.serializeEntity(serverEntityId)
+                -- local serverEntityId          = EntityUtils.spawnEntity(owner, nuid, x, y, rotation,
+                --     velocity, filename, localEntityId, health, isPolymorphed)
+                local serverEntityId          = EntityCreateNew(data.nuid)
+                serverEntityId                = NoitaPatcherUtils.deserializeEntity(serverEntityId, data.initialSerializedEntityString, data.x, data.y)
+                initialSerializedEntityString = data.initialSerializedEntityString
                 NoitaComponentUtils.setInitialSerializedEntityString(serverEntityId, initialSerializedEntityString)
                 serializedEntityString = initialSerializedEntityString
             end
         end
 
-        self.sendNewNuidSerialized(owner.name or owner[1], owner.guid or owner[2], localEntityId,
+        self.sendNewNuid(owner.name or owner[1], owner.guid or owner[2], localEntityId,
             serializedEntityString, nuid, x, y, initialSerializedEntityString)
 
         sendAck(data.networkMessageId, peer, NetworkUtils.events.needNuid.name)
@@ -464,13 +472,13 @@ function ServerInit.new(sockServer)
 
         --local compOwnerName, compOwnerGuid, compNuid     = NetworkVscUtils.getAllVscValuesByEntityId(entityId)
         local compOwnerName, compOwnerGuid, compNuid, filename,
-        health, rotation, velocity, x, y                                                                  = NoitaComponentUtils.getEntityData(entityId)
-        local isPolymorphed                                                                               = EntityUtils.isEntityPolymorphed(entityId)
+        health, rotation, velocity, x, y                                                                 = NoitaComponentUtils.getEntityData(entityId)
+        local isPolymorphed                                                                              = EntityUtils.isEntityPolymorphed(entityId)
 
         --self.sendNewNuid({ compOwnerName, compOwnerGuid },
         --                 "unknown", nuid, x, y, rotation, velocity, filename, health, isPolymorphed)
-        local serializedEntityString                                                                      = NoitaPatcherUtils.serializeEntity(entityId)
-        self.sendNewNuidSerialized(compOwnerName, compOwnerGuid, entityId, serializedEntityString, compNuid, x, y,
+        local serializedEntityString                                                                     = NoitaPatcherUtils.serializeEntity(entityId)
+        self.sendNewNuid(compOwnerName, compOwnerGuid, entityId, serializedEntityString, compNuid, x, y,
             NoitaComponentUtils.getInitialSerializedEntityString(entityId))
 
         sendAck(data.networkMessageId, peer, NetworkUtils.events.lostNuid.name)
@@ -804,8 +812,8 @@ function ServerInit.new(sockServer)
         self:setSchema(NetworkUtils.events.lostNuid.name, NetworkUtils.events.lostNuid.schema)
         self:on(NetworkUtils.events.lostNuid.name, onLostNuid)
 
-        self:setSchema(NetworkUtils.events.entityData.name, NetworkUtils.events.entityData.schema)
-        self:on(NetworkUtils.events.entityData.name, onEntityData)
+        -- self:setSchema(NetworkUtils.events.entityData.name, NetworkUtils.events.entityData.schema)
+        -- self:on(NetworkUtils.events.entityData.name, onEntityData)
 
         self:setSchema(NetworkUtils.events.deadNuids.name, NetworkUtils.events.deadNuids.schema)
         self:on(NetworkUtils.events.deadNuids.name, onDeadNuids)
@@ -1011,18 +1019,19 @@ function ServerInit.new(sockServer)
         return sent
     end
 
-    function self.sendNewNuid(owner, localEntityId, newNuid, x, y, rotation, velocity, filename, health, isPolymorphed)
-        local cpc017 = CustomProfiler.start("Server.sendNewNuid")
-        local event  = NetworkUtils.events.newNuid.name
-        local data   = { NetworkUtils.getNextNetworkMessageId(), owner, localEntityId, newNuid, x, y, rotation, velocity, filename, health,
-            isPolymorphed }
-        local sent   = self:sendToAll(event, data)
-        CustomProfiler.stop("Server.sendNewNuid", cpc017)
-        return sent
-    end
+    -- function self.sendNewNuid(owner, localEntityId, newNuid, x, y, rotation, velocity, filename, health, isPolymorphed)
+    --     local cpc017 = CustomProfiler.start("Server.sendNewNuid")
+    --     local event  = NetworkUtils.events.newNuid.name
+    --     local data   = { NetworkUtils.getNextNetworkMessageId(), owner, localEntityId, newNuid, x, y, rotation, velocity, filename, health,
+    --         isPolymorphed }
+    --     local sent   = self:sendToAll(event, data)
+    --     CustomProfiler.stop("Server.sendNewNuid", cpc017)
+    --     return sent
+    -- end
 
-    function self.sendNewNuidSerialized(ownerName, ownerGuid, entityId, serializedEntityString, nuid, x, y, initialSerializedEntityString)
-        local cpc026 = CustomProfiler.start("Server.sendNewNuidSerialized")
+    -- TODO: this is the new sendNewNuid, but it's not tested yet
+    function self.sendNewNuid(ownerName, ownerGuid, entityId, serializedEntityString, nuid, x, y, initialSerializedEntityString)
+        local cpc026 = CustomProfiler.start("Server.sendNewNuid")
 
         if Utils.IsEmpty(ownerName) then
             error(("ownerName must not be nil or empty %s"):format(ownerName), 2)
@@ -1049,11 +1058,11 @@ function ServerInit.new(sockServer)
             error(("initialSerializedEntityString must not be nil or empty %s or is not of type 'string'."):format(initialSerializedEntityString), 2)
         end
 
-        local event = NetworkUtils.events.newNuidSerialized.name
+        local event = NetworkUtils.events.newNuid.name
         local data  = { NetworkUtils.getNextNetworkMessageId(), ownerName, ownerGuid, entityId, serializedEntityString, nuid, x, y,
             initialSerializedEntityString }
         local sent  = self:sendToAll(event, data)
-        CustomProfiler.stop("Server.sendNewNuidSerialized", cpc026)
+        CustomProfiler.stop("Server.sendNewNuid", cpc026)
 
         -- FOR TESTING ONLY, DO NOT MERGE
         --print(Utils.pformat(data))
@@ -1087,7 +1096,7 @@ function ServerInit.new(sockServer)
             NetworkVscUtils.addOrUpdateAllVscs(entityId, compOwnerName, compOwnerGuid, newNuid)
             --self.sendNewNuid({ compOwnerName, compOwnerGuid }, entityId, newNuid, x, y, rotation, velocity, filename,
             --                 health, EntityUtils.isEntityPolymorphed(entityId))
-            self.sendNewNuidSerialized(compOwnerName, compOwnerGuid, entityId, EntityUtils.serializeEntity(entityId), newNuid, x, y,
+            self.sendNewNuid(compOwnerName, compOwnerGuid, entityId, EntityUtils.serializeEntity(entityId), newNuid, x, y,
                 NoitaComponentUtils.getInitialSerializedEntityString(entityId))
         end
 
