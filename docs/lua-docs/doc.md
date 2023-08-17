@@ -123,6 +123,13 @@ function CustomProfiler.getSize()
 
 Returns the size of the report cache.
 
+## init
+
+
+```lua
+function CustomProfiler.init()
+```
+
 ## maxEntries
 
 
@@ -1303,6 +1310,11 @@ integer
 
 # MinaInformation
 
+
+---
+
+# MinaInformation
+
 See:
   * [Transform](../../mods/noita-mp/files/scripts/util/MinaUtils.lua#L144#18)
   * [Health](../../mods/noita-mp/files/scripts/util/NoitaComponentUtils.lua#L52#14)
@@ -1310,23 +1322,6 @@ See:
 
 ```lua
 table
-```
-
-
----
-
-# MinaInformation
-
-
----
-
-# MinaUtils
-
-Util class for fetching information about local and remote minas.
-
-
-```lua
-MinaUtils
 ```
 
 
@@ -1428,6 +1423,18 @@ function MinaUtils.setLocalMinaName(name: string)
 ```
 
 Setter for local mina name. It also saves it to settings file.
+
+
+---
+
+# MinaUtils
+
+Util class for fetching information about local and remote minas.
+
+
+```lua
+MinaUtils
+```
 
 
 ---
@@ -1745,6 +1752,33 @@ integer
 
  NetworkVscUtils:
 
+
+```lua
+unknown
+```
+
+
+```lua
+NetworkVscUtils
+```
+
+
+```lua
+NetworkVscUtils
+```
+
+
+```lua
+NetworkVscUtils
+```
+
+
+---
+
+# NetworkVscUtils
+
+ NetworkVscUtils:
+
 ## addOrUpdateAllVscs
 
 
@@ -1940,33 +1974,6 @@ string
 
 ```lua
 string
-```
-
-
----
-
-# NetworkVscUtils
-
- NetworkVscUtils:
-
-
-```lua
-unknown
-```
-
-
-```lua
-NetworkVscUtils
-```
-
-
-```lua
-NetworkVscUtils
-```
-
-
-```lua
-NetworkVscUtils
 ```
 
 
@@ -2606,6 +2613,22 @@ unknown
 
 # ServerInit
 
+## new
+
+
+```lua
+function ServerInit.new(sockServer: SockServer)
+  -> self: SockServer
+```
+
+ ServerInit constructor
+ Creates a new instance of server 'class'
+
+
+---
+
+# ServerInit
+
  Because of stack overflow errors when loading lua files,
  I decided to put Utils 'classes' into globals
 
@@ -2618,22 +2641,6 @@ ServerInit
 ```lua
 ServerInit
 ```
-
-
----
-
-# ServerInit
-
-## new
-
-
-```lua
-function ServerInit.new(sockServer: SockServer)
-  -> self: SockServer
-```
-
- ServerInit constructor
- Creates a new instance of server 'class'
 
 
 ---
@@ -3001,17 +3008,11 @@ function SockServer.sendNewGuid(peer: any, oldGuid: any, newGuid: any)
 
 
 ```lua
-function SockServer.sendNewNuid(owner: any, localEntityId: any, newNuid: any, x: any, y: any, rotation: any, velocity: any, filename: any, health: any, isPolymorphed: any)
+function SockServer.sendNewNuid(ownerName: any, ownerGuid: any, entityId: any, serializedEntityString: any, nuid: any, x: any, y: any, initialSerializedEntityString: any)
   -> boolean
 ```
 
-## sendNewNuidSerialized
-
-
-```lua
-function SockServer.sendNewNuidSerialized(ownerName: any, ownerGuid: any, entityId: any, serializedEntityString: any, nuid: any, x: any, y: any, initialSerializedEntityString: any)
-  -> boolean
-```
+ TODO: this is the new sendNewNuid, but it's not tested yet
 
 ## sendToAll
 
@@ -3117,6 +3118,46 @@ function Ui.new()
 
 # Utils
 
+
+```lua
+Utils
+```
+
+
+```lua
+Utils
+```
+
+
+```lua
+Utils
+```
+
+
+```lua
+Utils
+```
+
+
+```lua
+Utils
+```
+
+
+```lua
+Utils
+```
+
+
+```lua
+any
+```
+
+
+---
+
+# Utils
+
 ## CopyToClipboard
 
 
@@ -3192,46 +3233,6 @@ function Utils.openUrl(url: any)
 
 ```lua
 function Utils.pformat(var: any)
-```
-
-
----
-
-# Utils
-
-
-```lua
-Utils
-```
-
-
-```lua
-Utils
-```
-
-
-```lua
-Utils
-```
-
-
-```lua
-Utils
-```
-
-
-```lua
-Utils
-```
-
-
-```lua
-Utils
-```
-
-
-```lua
-any
 ```
 
 

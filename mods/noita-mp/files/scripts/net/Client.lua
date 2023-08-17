@@ -483,45 +483,46 @@ function ClientInit.new(sockClient)
         CustomProfiler.stop("ClientInit.onNewNuid", cpc11)
     end
 
-    local function onNewNuidSerialized(data)
-        local cpc32 = CustomProfiler.start("ClientInit.onNewNuidSerialized")
+    -- TODO: this is the new onNewNuid
+    local function onNewNuid(data)
+        local cpc32 = CustomProfiler.start("ClientInit.onNewNuid")
         Logger.debug(Logger.channels.network,
-            ("Received a new nuid onNewNuidSerialized! data = %s"):format(Utils.pformat(data)))
+            ("Received a new nuid onNewNuid! data = %s"):format(Utils.pformat(data)))
 
         if Utils.IsEmpty(data.networkMessageId) then
-            error(("onNewNuidSerialized data.networkMessageId is empty: %s"):format(data.networkMessageId), 2)
+            error(("onNewNuid data.networkMessageId is empty: %s"):format(data.networkMessageId), 2)
         end
 
         if Utils.IsEmpty(data.ownerName) then
-            error(("onNewNuidSerialized data.ownerName is empty: %s"):format(Utils.pformat(data.ownerName)), 2)
+            error(("onNewNuid data.ownerName is empty: %s"):format(Utils.pformat(data.ownerName)), 2)
         end
 
         if Utils.IsEmpty(data.ownerGuid) then
-            error(("onNewNuidSerialized data.ownerGuid is empty: %s"):format(Utils.pformat(data.ownerGuid)), 2)
+            error(("onNewNuid data.ownerGuid is empty: %s"):format(Utils.pformat(data.ownerGuid)), 2)
         end
 
         if Utils.IsEmpty(data.entityId) then
-            error(("onNewNuidSerialized data.entityId is empty: %s"):format(data.entityId), 2)
+            error(("onNewNuid data.entityId is empty: %s"):format(data.entityId), 2)
         end
 
         if Utils.IsEmpty(data.serializedEntityString) then
-            error(("onNewNuidSerialized data.serializedEntityString is empty: %s"):format(data.serializedEntityString), 2)
+            error(("onNewNuid data.serializedEntityString is empty: %s"):format(data.serializedEntityString), 2)
         end
 
         if Utils.IsEmpty(data.nuid) then
-            error(("onNewNuidSerialized data.nuid is empty: %s"):format(data.nuid), 2)
+            error(("onNewNuid data.nuid is empty: %s"):format(data.nuid), 2)
         end
 
         if Utils.IsEmpty(data.x) then
-            error(("onNewNuidSerialized data.x is empty: %s"):format(data.x), 2)
+            error(("onNewNuid data.x is empty: %s"):format(data.x), 2)
         end
 
         if Utils.IsEmpty(data.y) then
-            error(("onNewNuidSerialized data.y is empty: %s"):format(data.y), 2)
+            error(("onNewNuid data.y is empty: %s"):format(data.y), 2)
         end
 
         if Utils.IsEmpty(data.initialSerializedEntityString) then
-            error(("onNewNuidSerialized data.initialSerializedEntityString is empty: %s"):format(data.initialSerializedEntityString), 2)
+            error(("onNewNuid data.initialSerializedEntityString is empty: %s"):format(data.initialSerializedEntityString), 2)
         end
 
         -- FOR TESTING ONLY, DO NOT MERGE
@@ -573,8 +574,8 @@ function ClientInit.new(sockClient)
             end
         end
 
-        sendAck(data.networkMessageId, NetworkUtils.events.newNuidSerialized.name)
-        CustomProfiler.stop("ClientInit.onNewNuidSerialized", cpc32)
+        sendAck(data.networkMessageId, NetworkUtils.events.newNuid.name)
+        CustomProfiler.stop("ClientInit.onNewNuid", cpc32)
     end
 
     local function onEntityData(data)
@@ -783,8 +784,8 @@ function ClientInit.new(sockClient)
         self:setSchema(NetworkUtils.events.newNuid.name, NetworkUtils.events.newNuid.schema)
         self:on(NetworkUtils.events.newNuid.name, onNewNuid)
 
-        self:setSchema(NetworkUtils.events.entityData.name, NetworkUtils.events.entityData.schema)
-        self:on(NetworkUtils.events.entityData.name, onEntityData)
+        -- self:setSchema(NetworkUtils.events.entityData.name, NetworkUtils.events.entityData.schema)
+        -- self:on(NetworkUtils.events.entityData.name, onEntityData)
 
         self:setSchema(NetworkUtils.events.deadNuids.name, NetworkUtils.events.deadNuids.schema)
         self:on(NetworkUtils.events.deadNuids.name, onDeadNuids)
@@ -795,8 +796,8 @@ function ClientInit.new(sockClient)
         self:setSchema(NetworkUtils.events.needModContent.name, NetworkUtils.events.needModContent.schema)
         self:on(NetworkUtils.events.needModContent.name, onNeedModContent)
 
-        self:setSchema(NetworkUtils.events.newNuidSerialized.name, NetworkUtils.events.newNuidSerialized.schema)
-        self:on(NetworkUtils.events.newNuidSerialized.name, onNewNuidSerialized)
+        self:setSchema(NetworkUtils.events.newNuid.name, NetworkUtils.events.newNuid.schema)
+        self:on(NetworkUtils.events.newNuid.name, onNewNuid)
 
         CustomProfiler.stop("ClientInit.setCallbackAndSchemas", cpc14)
     end
@@ -956,10 +957,11 @@ function ClientInit.new(sockClient)
             return
         end
 
-        local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
+        local x, y = EntityGetTransform(entityId)
+        local initialBase64String, md5Hash = NoitaPatcherUtils.serializeEntity(entityId)
         local data                                                                               = {
-            NetworkUtils.getNextNetworkMessageId(), { ownerName, ownerGuid }, entityId, x, y, rotation, velocity,
-            filename, health, EntityUtils.isEntityPolymorphed(entityId), NoitaComponentUtils.getInitialSerializedEntityString(entityId)
+            NetworkUtils.getNextNetworkMessageId(), ownerName, ownerGuid, entityId, x, y,
+            NoitaComponentUtils.getInitialSerializedEntityString(entityId), initialBase64String
         }
 
         if isTestLuaContext then

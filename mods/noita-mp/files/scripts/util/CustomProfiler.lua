@@ -33,6 +33,22 @@ CustomProfiler.reportFilename            = "report.html" -- Default: report.html
 ---@type string The filename pattern of the report.
 CustomProfiler.reportJsonFilenamePattern = "%s.json" -- Default: %s.json
 
+
+function CustomProfiler.init()
+    if not NoitaMpSettings.get("noita-mp.toggle_profiler", "boolean") then
+        return
+    end
+
+    local content = ('cd "%s" && cmd /k lua.bat files\\scripts\\bin\\profiler.lua'):format(FileUtils.GetAbsoluteDirectoryPathOfNoitaMP())
+    content = content .. " %1"
+    FileUtils.WriteFile(("%s/profiler.bat"):format(FileUtils.GetAbsoluteDirectoryPathOfNoitaMP()), content)
+    Utils.execLua(winapi.get_current_pid())
+
+    udp = assert(socket.udp())
+    udp:settimeout(0)
+    udp:setpeername("localhost", 71041)
+end
+
 ---Starts the profiler. This has to be called before the function (or first line of function code) that you want to measure.
 ---@see CustomProfiler.stop(functionName, customProfilerCounter)
 ---@param functionName string The name of the function that you want to measure. This has to be the same as the one used in CustomProfiler.stop(functionName, customProfilerCounter)
@@ -98,7 +114,7 @@ function CustomProfiler.stop(functionName, customProfilerCounter)
     local frame       = GameGetFrameNum()
     local time        = GameGetRealWorldTimeSinceStarted() * 1000
 
-    local networkData      = ("%s, %s, %s, %s, %s, %s")
+    local networkData = ("%s, %s, %s, %s, %s, %s")
         :format(frame, CustomProfiler.counter, "stop", time, functionName, collectgarbage("count") / 1024)
     udp:send(networkData)
 
@@ -281,19 +297,6 @@ function CustomProfiler.getSize()
     end
     return size
 end
-
-local init = function()
-    local content = ('cd "%s" && cmd /k lua.bat files\\scripts\\bin\\profiler.lua'):format(FileUtils.GetAbsoluteDirectoryPathOfNoitaMP())
-    content = content .. " %1"
-    FileUtils.WriteFile(("%s/profiler.bat"):format(FileUtils.GetAbsoluteDirectoryPathOfNoitaMP()), content)
-    Utils.execLua(winapi.get_current_pid())
-
-    udp = assert(socket.udp())
-    udp:settimeout(0)
-    udp:setpeername("localhost", 71041)
-end
-
-init()
 
 ----Globally accessible CustomProfiler in _G.CustomProfiler.
 ----@alias _G.CustomProfiler CustomProfiler

@@ -466,7 +466,7 @@ function EntityUtils.processAndSyncEntityNetworking(startFrameTime)
 
                 if who == Server.iAm and not hasNuid then
                     nuid = NuidUtils.getNextNuid()
-                    -- Server.sendNewNuidSerialized this will be executed below
+                    -- Server.sendNewNuid this will be executed below
                 elseif who == Client.iAm and not hasNuid then
                     Client.sendNeedNuid(ownerName, ownerGuid, entityId)
                 else
@@ -500,7 +500,7 @@ function EntityUtils.processAndSyncEntityNetworking(startFrameTime)
                         finished = true
                     end
                     if finished == true then
-                        Server.sendNewNuidSerialized(compOwnerName, compOwnerGuid, entityId, serializedEntityString, nuid, x, y,
+                        Server.sendNewNuid(compOwnerName, compOwnerGuid, entityId, serializedEntityString, nuid, x, y,
                             NoitaComponentUtils.getInitialSerializedEntityString(entityId))
                     else
                         -- Logger.warn(Logger.channels.entity,
@@ -561,7 +561,7 @@ function EntityUtils.processAndSyncEntityNetworking(startFrameTime)
                 EntityCacheUtils.set(entityId, nuid, compOwnerGuid, compOwnerName, filename, x, y, rotation,
                     velocity.x, velocity.y, health.current, health.max, true, nil)
                 if changed then
-                    NetworkUtils.getClientOrServer().sendEntityData(entityId)
+                    --NetworkUtils.getClientOrServer().sendEntityData(entityId) TODO: Reenable this again
                 end
             end
 

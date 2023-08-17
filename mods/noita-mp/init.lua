@@ -3,7 +3,6 @@ if BaabInstruction then
     ModSettingSet("noita-mp.log_level_testing", "off")
 end
 
-
 --- Imports by dofile, dofile_once and require
 dofile("mods/noita-mp/files/scripts/init/init_.lua")
 local ui = require("Ui").new()
@@ -52,12 +51,13 @@ end
 function OnModPreInit()
     setSeedIfConnectedSecondTime()
     print(("NoitaMP %s"):format(FileUtils.GetVersionByFile()))
+    OnEntityLoaded()
 end
 
 function OnWorldInitialized()
     local cpc = CustomProfiler.start("init.OnWorldInitialized")
     Logger.debug(Logger.channels.initialize, "OnWorldInitialized()")
-    --OnEntityLoaded()
+    OnEntityLoaded()
 
     local cpc1     = CustomProfiler.start("ModSettingGet")
     local make_zip = ModSettingGet("noita-mp.server_start_7zip_savegame")
@@ -109,7 +109,7 @@ end
 function OnPausePreUpdate()
     local startFrameTime = GameGetRealWorldTimeSinceStarted()
     local cpc = CustomProfiler.start("init.OnPausePreUpdate")
-    --OnEntityLoaded()
+    OnEntityLoaded()
     Server.update(startFrameTime)
     Client.update(startFrameTime)
     CustomProfiler.stop("init.OnPausePreUpdate", cpc)
@@ -119,7 +119,6 @@ end
 function OnWorldPreUpdate()
     local startFrameTime = GameGetRealWorldTimeSinceStarted()
     local cpc = CustomProfiler.start("init.OnWorldPreUpdate")
-
     OnEntityLoaded()
 
     if Utils.IsEmpty(MinaUtils.getLocalMinaName()) or Utils.IsEmpty(MinaUtils.getLocalMinaGuid()) then

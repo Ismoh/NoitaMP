@@ -90,17 +90,26 @@ function Gui.new()
     }
     self.menuBarLabel = "NoitaMP"
     self.menuBarPosition = "top-left"
-    self.playLabel = "NoitaMp - Play"
-    self.settingsLabel = "NoitaMp - Settings"
-    self.aboutLabel = "NoitaMp - About"
-    self.playerListLabel = "NoitaMp - Player List"
-    self.showAbout = false
+
     self.showFirstTime = true
-    self.showMissingSettings = false
+
+    self.playLabel = "NoitaMp - Play"
     self.showPlayMenu = false
+
+    self.settingsLabel = "NoitaMp - Settings"
+    self.showMissingSettings = false
     self.showSettings = false
     self.showSettingsSaved = false
+    self.entityDetectionRadius = NoitaMpSettings.get("noita-mp.entity-detection-radius", "number")
+
+    self.aboutLabel = "NoitaMp - About"
+    self.showAbout = false
+
+    self.playerListLabel = "NoitaMp - Player List"
     self.showPlayerList = false
+    self.playerListIsBorder = NoitaMpSettings.get("noita-mp.gui.player-list.border", "boolean")
+    self.playerListTransparency = NoitaMpSettings.get("noita-mp.gui.player-list.background-alpha", "number")
+    self.playerListIsClickable = NoitaMpSettings.get("noita-mp.gui.player-list.clickable", "boolean")
 
     function self.setShowSettingsSaved(show)
         self.showSettingsSaved = show
@@ -408,6 +417,28 @@ function Gui.new()
                 end
                 imGui.EndCombo()
             end
+            local isPlayerListBorderChanged, isBorderValue = imGui.Checkbox("Player list border", self.playerListIsBorder)
+            if isPlayerListBorderChanged then
+                NoitaMpSettings.set("noita-mp.gui.player-list.border", isBorderValue)
+                self.playerListIsBorder = isBorderValue
+            end
+
+            local sliderFlagsPlayerList =     --bit.bor(
+                imGui.SliderFlags.AlwaysClamp --,
+            --)
+            local isPlayerListTransparencyChanged, transparency = imGui.SliderFloat("Player list transparency",
+                self.playerListTransparency, 0, 1, "%.2f", sliderFlagsPlayerList);
+            if isPlayerListTransparencyChanged then
+                NoitaMpSettings.set("noita-mp.gui.player-list.background-alpha", transparency)
+                self.playerListTransparency = transparency
+            end
+
+            local isPlayerListClickableChanged, isClickableValue = imGui.Checkbox("Player list clickable",
+                NoitaMpSettings.get("noita-mp.gui.player-list.clickable", "boolean"))
+            if isPlayerListClickableChanged then
+                NoitaMpSettings.set("noita-mp.gui.player-list.clickable", isClickableValue)
+                self.playerListIsClickable = isClickableValue
+            end
 
             -- Logger settings
             imGui.Separator()
@@ -424,11 +455,12 @@ function Gui.new()
                 imGui.SliderFlags.NoRoundToFormat
             )
             local isEntityDetectionRadiusChanged, entityDetectionRadius = imGui.SliderInt("Entity detection radius",
-                NoitaMpSettings.get("noita-mp.entity-detection-radius", "number"), 350, 1024, "%d", sliderFlags);
+                self.entityDetectionRadius, 350, 1024, "%d", sliderFlags);
             imGui.SameLine()
             tooltipHelper("'CTRL + Click' to input value.");
             if isEntityDetectionRadiusChanged then
                 NoitaMpSettings.set("noita-mp.entity-detection-radius", entityDetectionRadius)
+                self.entityDetectionRadius = entityDetectionRadius
             end
             -- Tick rate
             local tickRate = NoitaMpSettings.get("noita-mp.tick-rate", "number")
@@ -459,7 +491,8 @@ function Gui.new()
                 local x, y = EntityGetTransform(MinaUtils.getLocalMinaEntityId())
                 local entityIds = EntityGetInRadius(x, y, 2048) or {}
                 for i = 1, #entityIds do
-                    local componentIds = EntityGetComponentIncludingDisabled(entityIds[i], NetworkVscUtils.variableStorageComponentName) or {}
+                    local componentIds = EntityGetComponentIncludingDisabled(entityIds[i],
+                        NetworkVscUtils.variableStorageComponentName) or {}
                     for i = 1, #componentIds do
                         local name = ComponentGetValue(componentIds[i], "name")
                         if name == NetworkVscUtils.componentNameOfOwnersName then
@@ -477,8 +510,8 @@ function Gui.new()
                     end
                 end
 
-                NetworkVscUtils.addOrUpdateAllVscs(MinaUtils.getLocalMinaEntityId(), MinaUtils.getLocalMinaName(), MinaUtils.getLocalMinaGuid(),
-                    MinaUtils.getLocalMinaNuid())
+                NetworkVscUtils.addOrUpdateAllVscs(MinaUtils.getLocalMinaEntityId(), MinaUtils.getLocalMinaName(),
+                    MinaUtils.getLocalMinaGuid(), MinaUtils.getLocalMinaNuid())
 
                 GlobalsUtils.setUpdateGui(true)
             end
@@ -551,23 +584,31 @@ function Gui.new()
     function self.drawPlayerList()
         local cpc = CustomProfiler.start("Gui.drawPlayerList")
 
-        local windowFlags = bit.bor(
+        local windowFlags = 0 --bit.bor(
         -- imGui.WindowFlags.MenuBar,
         -- imGui.WindowFlags.NoDocking,
         -- imGui.WindowFlags.NoSavedSettings,
         -- imGui.WindowFlags.NoFocusOnAppearing,
         -- imGui.WindowFlags.NoMove,
         -- imGui.WindowFlags.NoDecoration,
-            imGui.WindowFlags.NoBackground,
-            imGui.WindowFlags.AlwaysAutoResize
-        )
+        --    imGui.WindowFlags.NoBackground --,
+        -- imGui.WindowFlags.AlwaysAutoResize
+        --)
 
         -- imGui.SetNextWindowViewport(imGui.GetMainViewportID())
         -- imGui.SetNextWindowPos(getMenuBarPosition())
         -- imGui.SetNextWindowSize(0, 0)
 
         local isCollapsed
+        if self.playerListBorder == true then --NoitaMpSettings.get("noita-mp.gui.player-list.border", "boolean") == true then
+            imGui.PushStyleVar(imGui.StyleVar.WindowBorderSize, 1)
+        else
+            imGui.PushStyleVar(imGui.StyleVar.WindowBorderSize, 0)
+            windowFlags = bit.bor(windowFlags, imGui.WindowFlags.NoDecoration, imGui.WindowFlags.NoTitleBar, imGui.WindowFlags.NoNav)
+        end
+        imGui.SetNextWindowBgAlpha(self.playerListTransparency)
         isCollapsed, self.showPlayerList = imGui.Begin(self.playerListLabel, self.showPlayerList, windowFlags)
+        imGui.PopStyleVar()
         if isCollapsed then
             imGui.Text("NoitaMP is a multiplayer mod for Noita.")
 
@@ -581,17 +622,32 @@ function Gui.new()
             )
 
             local minas = MinaUtils.getAllMinas()
-            if imGui.BeginTable("PlayerList", #minas, tableFlags) then
-                for i, mina in pairs(minas) do
-                    --for headerName, value in pairs(mina) do
+            local columnCount = function()
+                local count = 0
+                for _ in pairs(minas[1]) do
+                    count = count + 1
+                end
+                return count
+            end
+            if imGui.BeginTable("PlayerList", columnCount(), tableFlags) then
+                -- Set headers
+                imGui.TableNextRow()
+                local columnIndex = 0
+                for headerName, value in pairs(minas[1]) do
+                    imGui.TableSetColumnIndex(columnIndex)
+                    imGui.TableHeader(("%s"):format(headerName))
+                    columnIndex = columnIndex + 1
+                end
+
+                -- Set values
+                for rowIndex, mina in pairs(minas) do
                     imGui.TableNextRow()
-                    imGui.TableNextColumn()
-                    imGui.Text(("%s"):format(mina.name))
-                    imGui.TableNextColumn()
-                    imGui.Text(("%s"):format(mina.guid))
-                    imGui.TableNextColumn()
-                    imGui.Text(("%s"):format(mina.nuid))
-                    --end
+                    columnIndex = 0
+                    for headerName, value in pairs(mina) do
+                        imGui.TableSetColumnIndex(columnIndex)
+                        imGui.Text(("%s"):format(value))
+                        columnIndex = columnIndex + 1
+                    end
                 end
                 imGui.EndTable()
             end
