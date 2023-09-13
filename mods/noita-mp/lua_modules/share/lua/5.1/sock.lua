@@ -34,8 +34,8 @@ local sock = {
 
 local enet = require("enet")
 
-_G.Logger.info(_G.Logger.channels.initialize, "lua-enet version = master branch 21.10.2015")
-_G.Logger.info(_G.Logger.channels.initialize, "enet version = " .. enet.linked_version()) -- 1.3.17
+print("lua-enet version = master branch 21.10.2015")
+print(("enet version = %s"):format(enet.linked_version())) -- 1.3.17
 
 -- Current folder trick
 -- http://kiki.to/blog/2014/04/12/rule-5-beware-of-multiple-files/

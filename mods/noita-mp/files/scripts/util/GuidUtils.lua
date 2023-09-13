@@ -4,7 +4,7 @@ local uuid   = require("uuid")
 
 
 --- 'Imports'
-
+local CustomProfiler = nil
 
 
 --- When NoitaComponents are accessing this file, they are not able to access the global variables defined in this file.
@@ -13,7 +13,7 @@ local uuid   = require("uuid")
 
 if require then
     if not CustomProfiler then
-        require("CustomProfiler")
+        CustomProfiler = require("CustomProfiler")
     end
 else
     ---@type CustomProfiler
@@ -142,4 +142,3 @@ function GuidUtils:getCurrentLocalGuid()
 end
 
 return GuidUtils
-

@@ -16,6 +16,12 @@ end
 
 local imGui = load_imgui({ version = "1.11.0", mod = "noita-mp" })
 
+local CustomProfiler = require("CustomProfiler")
+local NoitaMpSettings = require("NoitaMpSettings")
+local MinaUtils = require("MinaUtils")
+local GuidUtils = require("GuidUtils")
+local Client = require("Client")
+
 --- Can't know the width before creating the window.. Just an initial value, it's updated to the real value once we can call imgui.GetWindowWidth()
 local menuBarWidth = 100
 local function getMenuBarPosition(position)
@@ -190,6 +196,9 @@ function Gui.new()
         -- -- }
         -- TODO: Remove this before merging
 
+        if not _G.guiI then
+            _G.guiI = self
+        end
 
         CustomProfiler.stop("Gui.update", cpcUpdate)
     end

@@ -5,7 +5,19 @@ end
 
 --- Imports by dofile, dofile_once and require
 dofile("mods/noita-mp/files/scripts/init/init_.lua")
+_G.np = require("noitapatcher") -- Need to be initialized before everything else, otherwise Noita will crash
+local customProfiler = require("CustomProfiler"):new()
+local EntityUtils = require("EntityUtils")
+local FileUtils = require("FileUtils")
+local guiI = require("Gui").new()
+local Logger = require("Logger")
+local MinaUtils = require("MinaUtils")
+local NoitaComponentUtils = require("NoitaComponentUtils")
+local NoitaMpSettings = require("NoitaMpSettings")
+local noitaPatcherUtils = require("NoitaPatcherUtils"):new()
 local ui = require("Ui").new()
+local Utils = require("Utils")
+
 Logger.debug(Logger.channels.initialize, "Starting to load noita-mp init.lua..")
 
 --- Stuff needs to be executed before anything else
@@ -18,22 +30,86 @@ local saveSlotsLastModifiedBeforeWorldInit = FileUtils.GetLastModifiedSaveSlots(
 
 --- NoitaMP functions
 
+if not EntitiesGetMaxID then -- TODO: REMOVE when Noita main branch was updated!
+    EntitiesGetMaxID = function()
+        return EntityUtils.previousHighestAliveEntityId + 1024
+    end
+end
+
+--local guesses = 1
+--- Make sure this is only be executed once in OnWorldPREUpdate!
+local function OnEntityLoaded()
+    local cpc = customProfiler:start("EntityUtils.OnEntityLoaded")
+
+    --for guessEntityId = EntityUtils.previousHighestAliveEntityId, EntityUtils.previousHighestAliveEntityId + 1024, 1 do
+    for guessEntityId = EntityUtils.previousHighestAliveEntityId, EntitiesGetMaxID(), 1 do
+        local entityId = guessEntityId
+        while EntityGetIsAlive(entityId) do
+            if entityId > EntityUtils.previousHighestAliveEntityId then
+                EntityUtils.previousHighestAliveEntityId = entityId
+            end
+
+            -- DEBUG ONLY
+            local debugEntityId = FileUtils.ReadFile(("%s%s%s"):format(
+                FileUtils.GetAbsoluteDirectoryPathOfNoitaMP(), pathSeparator, "debugOnEntityLoaded"))
+            if not Utils.IsEmpty(debugEntityId) then
+                if entityId >= tonumber(debugEntityId) then
+                    local debug = true
+                end
+            end
+
+            local rootEntity = EntityGetRootEntity(entityId) or entityId
+
+            if EntityGetIsAlive(rootEntity) then
+                if rootEntity > EntityUtils.previousHighestAliveEntityId then
+                    EntityUtils.previousHighestAliveEntityId = rootEntity
+                end
+
+                if not NoitaComponentUtils.hasInitialSerializedEntityString(rootEntity) then
+                    local initialSerializedEntityString = noitaPatcherUtils.serializeEntity(rootEntity)
+                    local success = NoitaComponentUtils.setInitialSerializedEntityString(rootEntity, initialSerializedEntityString)
+
+                    if not success then
+                        error("Unable to add serialized string!", 2)
+                    else
+                        --print(("Added iSES %s[...] to %s"):format(string.sub(initialSerializedEntityString, 1, 5), rootEntity))
+                    end
+                    -- free memory
+                    initialSerializedEntityString = nil
+
+                    -- Add NoitaMP Variable Storage Components
+                    local hasNuid, nuid = NetworkVscUtils.hasNuidSet(rootEntity)
+                    if not hasNuid and Server.amIServer() then
+                        nuid = NuidUtils.getNextNuid()
+                    end
+                    local spawnX, spawnY = EntityGetTransform(rootEntity)
+                    NetworkVscUtils.addOrUpdateAllVscs(rootEntity, MinaUtils.getLocalMinaName(), MinaUtils.getLocalMinaGuid(), nuid, spawnX, spawnY)
+
+                    NoitaComponentUtils.setNetworkSpriteIndicatorStatus(rootEntity, "processed")
+                end
+            end
+            entityId = EntityUtils.previousHighestAliveEntityId + 1
+        end
+    end
+    customProfiler.stop("EntityUtils.OnEntityLoaded", cpc)
+end
+
 --- When connecting the first time to a server, the server will send the servers' seed to the client.
 --- Then the client restarts, empties his selected save slot, to be able to generate the correct world,
 --- with the servers seed.
 local function setSeedIfConnectedSecondTime()
-    local cpc  = CustomProfiler.start("ModSettingGet")
+    local cpc  = customProfiler.start("ModSettingGet")
     local seed = tonumber(ModSettingGet("noita-mp.connect_server_seed"))
-    CustomProfiler.stop("ModSettingGet", cpc)
+    customProfiler.stop("ModSettingGet", cpc)
     Logger.debug(Logger.channels.initialize, ("Servers world seed = %s"):format(seed))
     if not seed and seed > 0 then
         if DebugGetIsDevBuild() then
             Utils.Sleep(5) -- needed to be able to attach debugger again
         end
 
-        local cpc1                  = CustomProfiler.start("ModSettingGet")
+        local cpc1                  = customProfiler.start("ModSettingGet")
         local saveSlotMetaDirectory = ModSettingGet("noita-mp.saveSlotMetaDirectory")
-        CustomProfiler.stop("ModSettingGet", cpc1)
+        customProfiler.stop("ModSettingGet", cpc1)
         if saveSlotMetaDirectory then
             FileUtils.RemoveContentOfDirectory(saveSlotMetaDirectory)
         else
@@ -55,13 +131,13 @@ function OnModPreInit()
 end
 
 function OnWorldInitialized()
-    local cpc = CustomProfiler.start("init.OnWorldInitialized")
+    local cpc = customProfiler.start("init.OnWorldInitialized")
     Logger.debug(Logger.channels.initialize, "OnWorldInitialized()")
     OnEntityLoaded()
 
-    local cpc1     = CustomProfiler.start("ModSettingGet")
+    local cpc1     = customProfiler.start("ModSettingGet")
     local make_zip = ModSettingGet("noita-mp.server_start_7zip_savegame")
-    CustomProfiler.stop("ModSettingGet", cpc1)
+    customProfiler.stop("ModSettingGet", cpc1)
     Logger.debug(Logger.channels.initialize, "make_zip = " .. tostring(make_zip))
     if make_zip then
         local archive_name    = "server_save06_" .. os.date("%Y-%m-%d_%H-%M-%S")
@@ -72,15 +148,15 @@ function OnWorldInitialized()
             archive_name, destination)
         Logger.debug(Logger.channels.initialize, msg)
         GamePrint(msg)
-        local cpc1 = CustomProfiler.start("ModSettingSetNextValue")
+        local cpc1 = customProfiler.start("ModSettingSetNextValue")
         ModSettingSetNextValue("noita-mp.server_start_7zip_savegame", false, false) -- automatically start the server again
-        CustomProfiler.stop("ModSettingSetNextValue", cpc1)
+        customProfiler.stop("ModSettingSetNextValue", cpc1)
     end
-    CustomProfiler.stop("init.OnWorldInitialized", cpc)
+    customProfiler.stop("init.OnWorldInitialized", cpc)
 end
 
 function OnPlayerSpawned(player_entity)
-    local cpc = CustomProfiler.start("init.OnPlayerSpawned")
+    local cpc = customProfiler.start("init.OnPlayerSpawned")
     Logger.info(Logger.channels.initialize, ("Player spawned with entityId = %s!"):format(player_entity))
     OnEntityLoaded()
 
@@ -103,22 +179,22 @@ function OnPlayerSpawned(player_entity)
                 execute_every_n_frame = 1,
             })
     end
-    CustomProfiler.stop("init.OnPlayerSpawned", cpc)
+    customProfiler.stop("init.OnPlayerSpawned", cpc)
 end
 
 function OnPausePreUpdate()
     local startFrameTime = GameGetRealWorldTimeSinceStarted()
-    local cpc = CustomProfiler.start("init.OnPausePreUpdate")
+    local cpc = customProfiler.start("init.OnPausePreUpdate")
     OnEntityLoaded()
     Server.update(startFrameTime)
     Client.update(startFrameTime)
-    CustomProfiler.stop("init.OnPausePreUpdate", cpc)
+    customProfiler.stop("init.OnPausePreUpdate", cpc)
 end
 
 --- PreUpdate of world
 function OnWorldPreUpdate()
     local startFrameTime = GameGetRealWorldTimeSinceStarted()
-    local cpc = CustomProfiler.start("init.OnWorldPreUpdate")
+    local cpc = customProfiler.start("init.OnWorldPreUpdate")
     OnEntityLoaded()
 
     if Utils.IsEmpty(MinaUtils.getLocalMinaName()) or Utils.IsEmpty(MinaUtils.getLocalMinaGuid()) then
@@ -151,9 +227,9 @@ function OnWorldPreUpdate()
                 if saveSlotMeta then
                     --- Set modSettings as well when changing this: ModSettingSetNextValue("noita-mp.saveSlotMetaDirectory", _G.saveSlotMeta, false)
                     _G.saveSlotMeta = saveSlotMeta
-                    local cpc1      = CustomProfiler.start("ModSettingSetNextValue")
+                    local cpc1      = customProfiler.start("ModSettingSetNextValue")
                     ModSettingSetNextValue("noita-mp.saveSlotMetaDirectory", _G.saveSlotMeta.dir, false)
-                    CustomProfiler.stop("ModSettingSetNextValue", cpc1)
+                    customProfiler.stop("ModSettingSetNextValue", cpc1)
                     Logger.info(Logger.channels.initialize,
                         ("Save slot found in '%s'"):format(Utils.pformat(_G.saveSlotMeta)))
                 end
@@ -165,23 +241,23 @@ function OnWorldPreUpdate()
     Client.update(startFrameTime)
     --ui.update()
 
-    local cpc1 = CustomProfiler.start("init.OnWorldPreUpdate.collectgarbage.count")
+    local cpc1 = customProfiler.start("init.OnWorldPreUpdate.collectgarbage.count")
     if collectgarbage("count") >= 250000 then
-        local cpc2 = CustomProfiler.start("init.OnWorldPreUpdate.collectgarbage.collect")
+        local cpc2 = customProfiler.start("init.OnWorldPreUpdate.collectgarbage.collect")
         -- if memory usage is above 250MB, force a garbage collection
         GamePrintImportant("Memory Usage", "Forcing garbage collection because memory usage is above 250MB.")
-        CustomProfiler.stopAll()
-        CustomProfiler.report()
+        customProfiler.stopAll()
+        customProfiler.report()
         collectgarbage("collect")
-        CustomProfiler.stop("init.OnWorldPreUpdate.collectgarbage.collect", cpc2)
+        customProfiler.stop("init.OnWorldPreUpdate.collectgarbage.collect", cpc2)
     end
 
-    CustomProfiler.stop("init.OnWorldPreUpdate.collectgarbage.count", cpc1)
-    CustomProfiler.stop("init.OnWorldPreUpdate", cpc)
+    customProfiler.stop("init.OnWorldPreUpdate.collectgarbage.count", cpc1)
+    customProfiler.stop("init.OnWorldPreUpdate", cpc)
 end
 
 function OnWorldPostUpdate()
-    local cpc = CustomProfiler.start("init.OnWorldPostUpdate")
+    local cpc = customProfiler.start("init.OnWorldPostUpdate")
     OnEntityLoaded()
 
     if EntityCache.size() >= 500 then
@@ -190,5 +266,5 @@ function OnWorldPostUpdate()
         EntityCache.delete(EntityCache.cache[1])
         --end
     end
-    CustomProfiler.stop("init.OnWorldPostUpdate", cpc)
+    customProfiler.stop("init.OnWorldPostUpdate", cpc)
 end

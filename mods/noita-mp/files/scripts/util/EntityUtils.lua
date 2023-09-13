@@ -4,9 +4,17 @@
 -- http://lua-users.org/wiki/LuaStyleGuide#:~:text=Lua%20internal%20variable%20naming%20%2D%20The,but%20not%20necessarily%2C%20e.g.%20_G%20.
 
 
---- 'Imports'
+--- EntityUtils
+--- 'Class' for manipulating entities in Noita.
+--- @see config.lua
+--- @see EntityUtils.lua
+local EntityUtils = {}
 
-dofile_once("mods/noita-mp/config.lua")
+--- 'Imports'
+local Utils = nil
+local EntityCache = nil
+local CustomProfiler = nil
+-- dofile_once("mods/noita-mp/config.lua")
 
 
 --- When NoitaComponents are accessing this file, they are not able to access the global variables defined in this file.
@@ -71,12 +79,6 @@ else
     -- end
 end
 
-
---- @see config.lua
-if not EntityUtils then
-    EntityUtils = {}
-end
-
 --- Contains all entities, which are alive
 EntityUtils.aliveEntityIds = {}
 
@@ -98,63 +100,6 @@ EntityUtils.timeFramesDelta = 1
 --     end
 --     return lastHighestEntityId
 -- end
-
---local guesses = 1
---- Make sure this is only be executed once in OnWorldPREUpdate!
-OnEntityLoaded = function()
-    local cpc = CustomProfiler.start("EntityUtils.OnEntityLoaded")
-
-    for guessEntityId = EntityUtils.previousHighestAliveEntityId, EntityUtils.previousHighestAliveEntityId + 1024, 1 do
-        local entityId = guessEntityId
-        while EntityGetIsAlive(entityId) do
-            if entityId > EntityUtils.previousHighestAliveEntityId then
-                EntityUtils.previousHighestAliveEntityId = entityId
-            end
-
-            -- DEBUG ONLY
-            local debugEntityId = FileUtils.ReadFile(("%s%s%s"):format(
-                FileUtils.GetAbsoluteDirectoryPathOfNoitaMP(), pathSeparator, "debugOnEntityLoaded"))
-            if not Utils.IsEmpty(debugEntityId) then
-                if entityId >= tonumber(debugEntityId) then
-                    local debug = true
-                end
-            end
-
-            local rootEntity = EntityGetRootEntity(entityId) or entityId
-
-            if EntityGetIsAlive(rootEntity) then
-                if rootEntity > EntityUtils.previousHighestAliveEntityId then
-                    EntityUtils.previousHighestAliveEntityId = rootEntity
-                end
-
-                if not NoitaComponentUtils.hasInitialSerializedEntityString(rootEntity) then
-                    local initialSerializedEntityString = NoitaPatcherUtils.serializeEntity(rootEntity)
-                    local success = NoitaComponentUtils.setInitialSerializedEntityString(rootEntity, initialSerializedEntityString)
-
-                    if not success then
-                        error("Unable to add serialized string!", 2)
-                    else
-                        --print(("Added iSES %s[...] to %s"):format(string.sub(initialSerializedEntityString, 1, 5), rootEntity))
-                    end
-                    -- free memory
-                    initialSerializedEntityString = nil
-
-                    -- Add NoitaMP Variable Storage Components
-                    local hasNuid, nuid = NetworkVscUtils.hasNuidSet(rootEntity)
-                    if not hasNuid and Server.amIServer() then
-                        nuid = NuidUtils.getNextNuid()
-                    end
-                    local spawnX, spawnY = EntityGetTransform(rootEntity)
-                    NetworkVscUtils.addOrUpdateAllVscs(rootEntity, MinaUtils.getLocalMinaName(), MinaUtils.getLocalMinaGuid(), nuid, spawnX, spawnY)
-
-                    NoitaComponentUtils.setNetworkSpriteIndicatorStatus(rootEntity, "processed")
-                end
-            end
-            entityId = EntityUtils.previousHighestAliveEntityId + 1
-        end
-    end
-    CustomProfiler.stop("EntityUtils.OnEntityLoaded", cpc)
-end
 
 --- Make sure this is only be executed once!
 OnEntityRemoved = function(entityId, nuid)
@@ -778,16 +723,6 @@ function EntityUtils.addOrChangeDetectionRadiusDebug(player_entity)
     CustomProfiler.stop("EntityUtils.addOrChangeDetectionRadiusDebug", cpc)
 end
 
---- 'Class' in Lua Globals
-
---- Because of stack overflow errors when loading lua files,
---- I decided to put Utils 'classes' into globals
-_G.EntityUtils = EntityUtils
-
-
---- 'Class' as module return value
-
---- But still return for Noita Components,
---- which does not have access to _G,
---- because of own context/vm
+--dofile_once("mods/noita-mp/config.lua")(EntityUtils)
+assert(loadfile("mods/noita-mp/config.lua"))(EntityUtils)
 return EntityUtils

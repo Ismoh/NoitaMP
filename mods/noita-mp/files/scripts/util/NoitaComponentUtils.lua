@@ -3,8 +3,11 @@
 -- Naming convention is found here:
 -- http://lua-users.org/wiki/LuaStyleGuide#:~:text=Lua%20internal%20variable%20naming%20%2D%20The,but%20not%20necessarily%2C%20e.g.%20_G%20.
 
+local CustomProfiler = require("CustomProfiler")
+local EntityUtils = require("EntityUtils")
+
 --- NoitaComponentUtils:
-NoitaComponentUtils = {}
+local NoitaComponentUtils = {}
 
 ---@param entityId number
 ---@param x number
@@ -198,11 +201,4 @@ function NoitaComponentUtils.getInitialSerializedEntityString(entityId)
     return serializedString
 end
 
--- Because of stack overflow errors when loading lua files,
--- I decided to put Utils 'classes' into globals
-_G.NoitaComponentUtils = NoitaComponentUtils
-
--- But still return for Noita Components,
--- which does not have access to _G,
--- because of own context/vm
 return NoitaComponentUtils

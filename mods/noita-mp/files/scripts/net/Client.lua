@@ -1,13 +1,20 @@
 ---ClientInit class for creating a new extended instance of SockClient.
 ---@see SockClient
 ---@class ClientInit
-local ClientInit  = {}
+local ClientInit        = {}
 
 --- 'Imports'
-local sock        = require("sock")
-local zstandard   = require("zstd")
-local messagePack = require("MessagePack")
-
+local CustomProfiler    = require("CustomProfiler")
+local EntityUtils       = require("EntityUtils")
+local GuidUtils         = require("GuidUtils")
+local Logger            = require("Logger")
+local messagePack       = require("MessagePack")
+local MinaUtils         = require("MinaUtils")
+local NetworkUtils      = require("NetworkUtils")
+local NoitaMpSettings   = require("NoitaMpSettings")
+local NoitaPatcherUtils = require("NoitaPatcherUtils")
+local sock              = require("sock")
+local zstandard         = require("zstd")
 
 ---@param sockClient SockClient
 ---@return SockClient self
@@ -36,7 +43,11 @@ function ClientInit.new(sockClient)
             local cpc2            = CustomProfiler.start("ClientInit.setConfigSettings.serialize")
             --logger:debug(logger.channels.network, ("Serializing value: %s"):format(anyValue))
             local serialized      = messagePack.pack(anyValue)
-            local zstd            = zstandard:new()
+            local zstd, zstdError = zstandard:new() -- new zstd instance for every serialization, otherwise it will crash
+            if not zstd or zstdError then
+                error("Error while creating zstd: " .. zstdError, 2)
+            end
+
             --logger:debug(logger.channels.network, "Uncompressed size:", string.len(serialized))
             local compressed, err = zstd:compress(serialized)
             if err then
@@ -50,9 +61,13 @@ function ClientInit.new(sockClient)
         end
 
         local deserialize = function(anyValue)
-            local cpc3              = CustomProfiler.start("ClientInit.setConfigSettings.deserialize")
+            local cpc3 = CustomProfiler.start("ClientInit.setConfigSettings.deserialize")
             --logger:debug(logger.channels.network, ("Serialized and compressed value: %s"):format(anyValue))
-            local zstd              = zstandard:new()
+            local zstd, zstdError = zstandard:new() -- new zstd instance for every serialization, otherwise it will crash
+            if not zstd or zstdError then
+                error("Error while creating zstd: " .. zstdError, 2)
+            end
+
             --logger:debug(logger.channels.network, "Compressed size:", string.len(anyValue))
             local decompressed, err = zstd:decompress(anyValue)
             if err then
@@ -957,9 +972,9 @@ function ClientInit.new(sockClient)
             return
         end
 
-        local x, y = EntityGetTransform(entityId)
+        local x, y                         = EntityGetTransform(entityId)
         local initialBase64String, md5Hash = NoitaPatcherUtils.serializeEntity(entityId)
-        local data                                                                               = {
+        local data                         = {
             NetworkUtils.getNextNetworkMessageId(), ownerName, ownerGuid, entityId, x, y,
             NoitaComponentUtils.getInitialSerializedEntityString(entityId), initialBase64String
         }

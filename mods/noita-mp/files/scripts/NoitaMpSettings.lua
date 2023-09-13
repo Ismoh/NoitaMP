@@ -5,6 +5,8 @@ local NoitaMpSettings     = {}
 local lfs                 = require("lfs")
 local winapi              = require("winapi")
 local json                = require("json")
+local CustomProfiler = require("CustomProfiler")
+local Utils = require("Utils")
 
 local cachedSettings      = {}
 

@@ -1,3 +1,5 @@
+local args        = { ... }
+
 ------------------------------------------------------------------------------------------------------------------------
 --- This config.lua is for configurable settings, like 'which entities and how should be synced?!'.
 --- Furthermore it holds ModSettings, which shouldn't be set by Noita, because one computer shares ModSettings in
@@ -9,15 +11,11 @@
 ------------------------------------------------------------------------------------------------------------------------
 --- This config.lua is for configurable settings, like 'which entities and how should be synced?!'.
 ------------------------------------------------------------------------------------------------------------------------
+local EntityUtils = args[1]
 if not EntityUtils then
-    --------------------------------------------------------------------------------------------------------------------
-    --- EntityUtils
-    --- 'Class' for manipulating entities in Noita.
-    --- @see config.lua
-    --- @see EntityUtils.lua
-    --------------------------------------------------------------------------------------------------------------------
-    _G.EntityUtils = {}
+    EntityUtils = require("EntityUtils")
 end
+local MinaUtils              = require("MinaUtils")
 
 EntityUtils.maxExecutionTime = 35 --ms = 1000 / 35 = 28,57 fps
 EntityUtils.maxPoolSize      = 10000
@@ -140,7 +138,7 @@ ModSettingGet                                  = function(id)
         if not Utils.IsEmpty(name) then
             return name
         else
-            name = NoitaApiModSettingGet(id)
+            name = tostring(NoitaApiModSettingGet(id))
             MinaUtils.setLocalMinaName(name)
             return name
         end
@@ -150,7 +148,7 @@ ModSettingGet                                  = function(id)
         if not Utils.IsEmpty(guid) then
             return guid
         else
-            guid = NoitaApiModSettingGet(id)
+            guid = tostring(NoitaApiModSettingGet(id))
             MinaUtils.setLocalMinaGuid(guid)
             return guid
         end
