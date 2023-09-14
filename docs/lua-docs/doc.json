@@ -1979,204 +1979,204 @@
         "fields": [
             {
                 "extends": {
-                    "finish": 1210023,
-                    "start": 1210019,
+                    "finish": 1230023,
+                    "start": 1230019,
                     "type": "getlocal",
                     "view": "Logger"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/Logger.lua",
-                "finish": 1210016,
+                "finish": 1230016,
                 "name": "__index",
-                "start": 1210004,
+                "start": 1230004,
                 "type": "setfield"
             },
             {
                 "extends": {
                     "args": [
                         {
-                            "finish": 1060008,
-                            "start": 1060008,
+                            "finish": 1080008,
+                            "start": 1080008,
                             "type": "self",
                             "view": "Logger"
                         },
                         {
-                            "finish": 1060029,
-                            "start": 1060022,
+                            "finish": 1080029,
+                            "start": 1080022,
                             "type": "local",
                             "view": "any"
                         },
                         {
-                            "finish": 1060047,
-                            "start": 1060031,
+                            "finish": 1080047,
+                            "start": 1080031,
                             "type": "local",
                             "view": "any"
                         }
                     ],
-                    "finish": 1080003,
+                    "finish": 1100003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "boolean"
                         }
                     ],
-                    "start": 1060000,
+                    "start": 1080000,
                     "type": "function",
                     "view": "function Logger.debug(self: Logger, channel: any, formattedMessage: any)\n  -> boolean"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/Logger.lua",
-                "finish": 1060021,
+                "finish": 1080021,
                 "name": "debug",
-                "start": 1060009,
+                "start": 1080009,
                 "type": "setmethod"
             },
             {
                 "extends": {
                     "args": [
                         {
-                            "finish": 1100008,
-                            "start": 1100008,
+                            "finish": 1120008,
+                            "start": 1120008,
                             "type": "self",
                             "view": "Logger"
                         },
                         {
-                            "finish": 1100028,
-                            "start": 1100021,
+                            "finish": 1120028,
+                            "start": 1120021,
                             "type": "local",
                             "view": "any"
                         },
                         {
-                            "finish": 1100046,
-                            "start": 1100030,
+                            "finish": 1120046,
+                            "start": 1120030,
                             "type": "local",
                             "view": "any"
                         }
                     ],
-                    "finish": 1120003,
+                    "finish": 1140003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "boolean"
                         }
                     ],
-                    "start": 1100000,
+                    "start": 1120000,
                     "type": "function",
                     "view": "function Logger.info(self: Logger, channel: any, formattedMessage: any)\n  -> boolean"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/Logger.lua",
-                "finish": 1100020,
+                "finish": 1120020,
                 "name": "info",
-                "start": 1100009,
+                "start": 1120009,
                 "type": "setmethod"
             },
             {
                 "extends": {
                     "args": [
                         {
-                            "finish": 1180008,
-                            "start": 1180008,
+                            "finish": 1200008,
+                            "start": 1200008,
                             "type": "self",
                             "view": "Logger"
                         },
                         {
-                            "finish": 1180026,
-                            "start": 1180020,
+                            "finish": 1200026,
+                            "start": 1200020,
                             "type": "local",
                             "view": "any"
                         }
                     ],
-                    "finish": 1240003,
+                    "finish": 1260003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "unknown"
                         }
                     ],
-                    "start": 1180000,
+                    "start": 1200000,
                     "type": "function",
                     "view": "function Logger.new(self: Logger, logger: any)\n  -> unknown"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/Logger.lua",
-                "finish": 1180019,
+                "finish": 1200019,
                 "name": "new",
-                "start": 1180009,
+                "start": 1200009,
                 "type": "setmethod"
             },
             {
                 "extends": {
                     "args": [
                         {
-                            "finish": 1010008,
-                            "start": 1010008,
+                            "finish": 1030008,
+                            "start": 1030008,
                             "type": "self",
                             "view": "Logger"
                         },
                         {
-                            "finish": 1010029,
-                            "start": 1010022,
+                            "finish": 1030029,
+                            "start": 1030022,
                             "type": "local",
                             "view": "any"
                         },
                         {
-                            "finish": 1010047,
-                            "start": 1010031,
+                            "finish": 1030047,
+                            "start": 1030031,
                             "type": "local",
                             "view": "any"
                         }
                     ],
-                    "finish": 1030003,
+                    "finish": 1050003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "boolean"
                         }
                     ],
-                    "start": 1010000,
+                    "start": 1030000,
                     "type": "function",
                     "view": "function Logger.trace(self: Logger, channel: any, formattedMessage: any)\n  -> boolean"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/Logger.lua",
-                "finish": 1010021,
+                "finish": 1030021,
                 "name": "trace",
-                "start": 1010009,
+                "start": 1030009,
                 "type": "setmethod"
             },
             {
                 "extends": {
                     "args": [
                         {
-                            "finish": 1140008,
-                            "start": 1140008,
+                            "finish": 1160008,
+                            "start": 1160008,
                             "type": "self",
                             "view": "Logger"
                         },
                         {
-                            "finish": 1140028,
-                            "start": 1140021,
+                            "finish": 1160028,
+                            "start": 1160021,
                             "type": "local",
                             "view": "any"
                         },
                         {
-                            "finish": 1140046,
-                            "start": 1140030,
+                            "finish": 1160046,
+                            "start": 1160030,
                             "type": "local",
                             "view": "any"
                         }
                     ],
-                    "finish": 1160003,
+                    "finish": 1180003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "boolean"
                         }
                     ],
-                    "start": 1140000,
+                    "start": 1160000,
                     "type": "function",
                     "view": "function Logger.warn(self: Logger, channel: any, formattedMessage: any)\n  -> boolean"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/Logger.lua",
-                "finish": 1140020,
+                "finish": 1160020,
                 "name": "warn",
-                "start": 1140009,
+                "start": 1160009,
                 "type": "setmethod"
             }
         ],
