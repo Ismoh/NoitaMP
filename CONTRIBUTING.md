@@ -65,6 +65,7 @@ local ExampleClass = {
 -- private functions
 
 ---Short description of the function.
+---@param classObjectOrSelf ExampleClass This parameter is used for self reference in private functions. Used `self` in public functions.
 ---@param param string Description of the parameter.
 ---@return string Description of the return value.
 local examplePrivateFunction = function(classObjectOrSelf, param) --[[ private ]]
@@ -83,7 +84,7 @@ end
 function ExampleClass:examplePublicFunction(param1, param2)
   local cpc = self.customProfiler:start("ExampleClass:examplePublicFunction")
   -- code
-  local value = examplePrivateFunction(param1)
+  local value = examplePrivateFunction(self, param1)
   value = value .. self.exampleAttribute
   value = value .. self.nestedTable.nestedAttribute
   value = value .. self:yetAnotherPublicFunction(param2)
