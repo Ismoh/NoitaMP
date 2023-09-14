@@ -70,6 +70,7 @@
     "luaunit",
     "noita",
     "rockspec",
+    "setmetatable",
     "winapi",
     "zstd"
   ]

@@ -3,9 +3,19 @@
 -- Naming convention is found here:
 -- http://lua-users.org/wiki/LuaStyleGuide#:~:text=Lua%20internal%20variable%20naming%20%2D%20The,but%20not%20necessarily%2C%20e.g.%20_G%20.
 
+--- GlobalsUtils:
+--- class for GlobalsSetValue and GlobalsGetValue
+GlobalsUtils = {
+    --Imports
+    customProfiler     = nil,
 
---- 'Imports'
-
+    --'variables'
+    deadNuidsKey       = "deadNuids",
+    nuidKeyFormat      = "nuid = %s",
+    nuidKeySubstring   = "nuid = ",
+    nuidValueFormat    = "entityId = %s",
+    nuidValueSubstring = "entityId = ",
+}
 
 
 --- When NoitaComponents are accessing this file, they are not able to access the global variables defined in this file.
@@ -13,7 +23,7 @@
 --- This is done by the following code:
 
 if require then
-    if not CustomProfiler then
+    if not GlobalUtils.customProfiler then
         require("CustomProfiler")
     end
 else
@@ -37,16 +47,7 @@ else
     end
 end
 
---- GlobalsUtils:
---- class for GlobalsSetValue and GlobalsGetValue
-GlobalsUtils                    = {}
 
---- key for nuid
-GlobalsUtils.nuidKeyFormat      = "nuid = %s"
-GlobalsUtils.nuidKeySubstring   = "nuid = "
-GlobalsUtils.nuidValueFormat    = "entityId = %s"
-GlobalsUtils.nuidValueSubstring = "entityId = "
-GlobalsUtils.deadNuidsKey       = "deadNuids"
 
 --- Parses key and value string to nuid and entityId.
 --- @param xmlKey string GlobalsUtils.nuidKeyFormat = "nuid = %s"

@@ -2,60 +2,54 @@
 --- Created by Ismoh-PC.
 --- DateTime: 20.01.2023 22:45
 ---
--- OOP class definition is found here: Closure approach
--- http://lua-users.org/wiki/ObjectOrientationClosureApproach
--- Naming convention is found here:
--- http://lua-users.org/wiki/LuaStyleGuide#:~:text=Lua%20internal%20variable%20naming%20%2D%20The,but%20not%20necessarily%2C%20e.g.%20_G%20.
 
+---@class Logger
+---Class for being able to log per level.
+local Logger = {
+    --- Imports
 
---- "Imports"
+    --- Attributes
+    level    = {
+        off   = "off",
+        trace = "trace",
+        debug = "debug",
+        info  = "info",
+        warn  = "warn"
+    },
 
-
-
---- Logger
-
---- Class for being able to log per level
-Logger          = {}
-
-Logger.level    = {
-    off   = "off",
-    trace = "trace",
-    debug = "debug",
-    info  = "info",
-    warn  = "warn"
-}
-
-Logger.channels = {
-    entity              = "entity",
-    globals             = "globals",
-    guid                = "guid",
-    network             = "network",
-    nuid                = "nuid",
-    vsc                 = "vsc",
-    profiler            = "profiler",
-    initialize          = "initialize",
-    testing             = "testing",
-    cache               = "cache",
-    entitySerialisation = "entitySerialisation"
+    channels = {
+        entity              = "entity",
+        globals             = "globals",
+        guid                = "guid",
+        network             = "network",
+        nuid                = "nuid",
+        vsc                 = "vsc",
+        profiler            = "profiler",
+        initialize          = "initialize",
+        testing             = "testing",
+        cache               = "cache",
+        entitySerialisation = "entitySerialisation"
+    },
 }
 
 --- Main function for logging, which simply uses `print()`.
 --- By the way, if you want to log error, simply use `error()`.
+--- @param logger Logger self in this case
 --- @param level string Possible values = off, trace, debug, info, warn
 --- @param channel string Defined in Logger.channels.
 --- @param message string Message text to `print()`. Use `Logger.log("debug", Logger.channels.entity, ("Debug message with string directive %s. Yay!"):format("FooBar"))`
 --- @return boolean true if logged, false if not logged
-function Logger.log(level, channel, message)
+local log = function(logger, level, channel, message) --[[ private ]]
     if not level then
         error("Unable to log, because 'level' must not be nil!", 2)
     end
-    if not Logger.level[level] then
+    if not logger.level[level] then
         error(("Unable to log, because log level '%s' is not valid!"):format(level), 2)
     end
     if not channel then
         error("Unable to log, because 'channel' must not be nil!", 2)
     end
-    if not Logger.channels[channel] then
+    if not logger.channels[channel] then
         error(("Unable to log, because log channel '%s' is not valid!"):format(channel), 2)
     end
     if not message then
@@ -73,7 +67,7 @@ function Logger.log(level, channel, message)
     local logLevelOfSettings = ModSettingGet(("noita-mp.log_level_%s"):format(channel)) -- i.e.: { "trace", "debug, info, warn", "DEBUG" }
     if not logLevelOfSettings then
         print(("[warn] Looks like you missed to add 'noita-mp.log_level_%s' in settings.lua"):format(channel))
-        logLevelOfSettings = { "off", "OFF"}
+        logLevelOfSettings = { "off", "OFF" }
     end
 
     -- Stupid workaround fix for stupid ModSettings:
@@ -83,8 +77,8 @@ function Logger.log(level, channel, message)
     end
 
     if string.contains and not string.contains(logLevelOfSettings[1], level)
-            -- string.contains is not available in NoitaComponents and Logger.lua is also used in NoitaComponents.
-            or not string.find(logLevelOfSettings[1]:lower(), level:lower(), 1, true) then
+        -- string.contains is not available in NoitaComponents and Logger.lua is also used in NoitaComponents.
+        or not string.find(logLevelOfSettings[1]:lower(), level:lower(), 1, true) then
         return false
     end
 
@@ -105,30 +99,34 @@ function Logger.log(level, channel, message)
     return true
 end
 
-function Logger.trace(channel, formattedMessage)
-    return Logger.log(Logger.level.trace, channel, formattedMessage)
+function Logger:trace(channel, formattedMessage)
+    return log(self, self.level.trace, channel, formattedMessage)
 end
 
 ---
-function Logger.debug(channel, formattedMessage)
-    return Logger.log(Logger.level.debug, channel, formattedMessage)
+function Logger:debug(channel, formattedMessage)
+    return log(self, self.level.debug, channel, formattedMessage)
 end
 
-function Logger.info(channel, formattedMessage)
-    return Logger.log(Logger.level.info, channel, formattedMessage)
+function Logger:info(channel, formattedMessage)
+    return log(self, self.level.info, channel, formattedMessage)
 end
 
-function Logger.warn(channel, formattedMessage)
-    return Logger.log(Logger.level.warn, channel, formattedMessage)
+function Logger:warn(channel, formattedMessage)
+    return log(self, self.level.warn, channel, formattedMessage)
 end
 
-Logger.trace(Logger.channels.initialize, "Logger was initialized!")
+function Logger:new(logger)
+    local logger = logger or {}
+    setmetatable(logger, self)
+    self.__index = self
+    self:trace(self.channels.initialize, "Logger was initialized!")
+    return logger
+end
 
--- Because of stack overflow errors when loading lua files,
--- I decided to put Utils 'classes' into globals
-_G.Logger = Logger
-
--- But still return for Noita Components,
--- which does not have access to _G,
--- because of own context/vm
+---Still need to return the class table at the end of the file,
+---so it can be used in other files, like this:
+---local Logger = require("Logger")
+---local logger = Logger:new()
+---OR local logger = require("Logger"):new(objectToInheritFrom)
 return Logger

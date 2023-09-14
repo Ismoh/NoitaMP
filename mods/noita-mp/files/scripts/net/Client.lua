@@ -1,90 +1,89 @@
----ClientInit class for creating a new extended instance of SockClient.
----@see SockClient
----@class ClientInit
-local ClientInit        = {}
+---@class Client Inherit client class from sock.lua#newClient
+local Client = {
+    --- Imports
+    customProfiler     = require("CustomProfiler"),
+    entityUtils        = require("EntityUtils"),
+    guidUtils          = require("GuidUtils"),
+    logger             = require("Logger"),
+    messagePack        = require("MessagePack"),
+    minaUtils          = require("MinaUtils"),
+    networkUtils       = require("NetworkUtils"),
+    noitaMpSettings    = require("NoitaMpSettings"),
+    noitaPatcherUtils  = require("NoitaPatcherUtils"),
+    sock               = require("sock"),
+    zstandard          = require("zstd"),
 
---- 'Imports'
-local CustomProfiler    = require("CustomProfiler")
-local EntityUtils       = require("EntityUtils")
-local GuidUtils         = require("GuidUtils")
-local Logger            = require("Logger")
-local messagePack       = require("MessagePack")
-local MinaUtils         = require("MinaUtils")
-local NetworkUtils      = require("NetworkUtils")
-local NoitaMpSettings   = require("NoitaMpSettings")
-local NoitaPatcherUtils = require("NoitaPatcherUtils")
-local sock              = require("sock")
-local zstandard         = require("zstd")
-
----@param sockClient SockClient
----@return SockClient self
-function ClientInit.new(sockClient)
-    local cpc               = CustomProfiler.start("ClientInit.new")
-    ---@class SockClient
-    local self              = sockClient
-    self.iAm                = "CLIENT"
-    self.name               = NoitaMpSettings.get("noita-mp.nickname", "string")
+    --- Attributes
+    iAm                = "CLIENT",
+    name               = Client.noitaMpSettings.get("noita-mp.nickname", "string"),
     -- guid might not be set here or will be overwritten at the end of the constructor. @see setGuid
-    self.guid               = NoitaMpSettings.get("noita-mp.guid", "string")
-    self.nuid               = nil
-    self.acknowledgeMaxSize = 500
-    self.transform          = { x = 0, y = 0 }
-    self.health             = { current = 99, max = 100 }
-    self.serverInfo         = {}
-    self.otherClients       = {}
-    self.missingMods        = nil
-    self.requiredMods       = nil
-    self.syncedMods         = false
+    guid               = self.noitaMpSettings.get("noita-mp.guid", "string"),
+    nuid               = nil,
+    acknowledgeMaxSize = 500,
+    transform          = { x = 0, y = 0 },
+    health             = { current = 99, max = 100 },
+    serverInfo         = {},
+    otherClients       = {},
+    missingMods        = nil,
+    requiredMods       = nil,
+    syncedMods         = false
+}
 
-    --- Set clients settings
-    local function setConfigSettings()
-        local cpc1        = CustomProfiler.start("ClientInit.setConfigSettings")
-        local serialize   = function(anyValue)
-            local cpc2            = CustomProfiler.start("ClientInit.setConfigSettings.serialize")
-            --logger:debug(logger.channels.network, ("Serializing value: %s"):format(anyValue))
-            local serialized      = messagePack.pack(anyValue)
-            local zstd, zstdError = zstandard:new() -- new zstd instance for every serialization, otherwise it will crash
-            if not zstd or zstdError then
-                error("Error while creating zstd: " .. zstdError, 2)
-            end
 
-            --logger:debug(logger.channels.network, "Uncompressed size:", string.len(serialized))
-            local compressed, err = zstd:compress(serialized)
-            if err then
-                error("Error while compressing: " .. err, 2)
-            end
-            --logger:debug(logger.channels.network, "Compressed size:", string.len(compressed))
-            --logger:debug(logger.channels.network, ("Serialized and compressed value: %s"):format(compressed))
-            zstd:free()
-            CustomProfiler.stop("ClientInit.setConfigSettings.serialize", cpc2)
-            return compressed
-        end
+---Defualt enhanced serialization function
+---@param value any
+---@return unknown
+function Client:serialize(value)
+    local cpc            = self.customProfiler:start("ClientInit.setConfigSettings.serialize")
+    self.logger:trace(self.logger.channels.network, ("Serializing value: %s"):format(value))
 
-        local deserialize = function(anyValue)
-            local cpc3 = CustomProfiler.start("ClientInit.setConfigSettings.deserialize")
-            --logger:debug(logger.channels.network, ("Serialized and compressed value: %s"):format(anyValue))
-            local zstd, zstdError = zstandard:new() -- new zstd instance for every serialization, otherwise it will crash
-            if not zstd or zstdError then
-                error("Error while creating zstd: " .. zstdError, 2)
-            end
-
-            --logger:debug(logger.channels.network, "Compressed size:", string.len(anyValue))
-            local decompressed, err = zstd:decompress(anyValue)
-            if err then
-                error("Error while decompressing: " .. err, 2)
-            end
-            --logger:debug(logger.channels.network, "Uncompressed size:", string.len(decompressed))
-            local deserialized = messagePack.unpack(decompressed)
-            Logger.debug(Logger.channels.network, ("Deserialized and uncompressed value: %s"):format(deserialized))
-            zstd:free()
-            CustomProfiler.stop("ClientInit.setConfigSettings.deserialize", cpc3)
-            return deserialized
-        end
-
-        self:setSerialization(serialize, deserialize)
-        self:setTimeout(320, 50000, 100000)
-        CustomProfiler.stop("ClientInit.setConfigSettings", cpc1)
+    local serialized      = self.messagePack.pack(value)
+    local zstd, zstdError = self.zstandard:new() -- new zstd instance for every serialization, otherwise it will crash
+    if not zstd or zstdError then
+        error("Error while creating zstd: " .. zstdError, 2)
     end
+
+    self.logger:debug(self.logger.channels.network, ("Uncompressed size: %s"):format(string.len(serialized)))
+
+    local compressed, err = zstd:compress(serialized)
+    if err then
+        error("Error while compressing: " .. err, 2)
+    end
+
+    self.logger:debug(self.logger.channels.network, ("Compressed size: %s"):format(string.len(compressed)))
+    self.logger:debug(self.logger.channels.network, ("Serialized and compressed value: %s"):format(compressed))
+
+    zstd:free()
+    self.customProfiler:stop("ClientInit.setConfigSettings.serialize", cpc2)
+    return compressed
+end
+
+---Defualt enhanced serialization function
+---@param value any
+---@return unknown
+function Client:deserialize(value)
+    local cpc = self.customProfiler:start("ClientInit.setConfigSettings.deserialize")
+    self.logger:debug(self.logger.channels.network, ("Serialized and compressed value: %s"):format(value))
+
+    local zstd, zstdError = self.zstandard:new() -- new zstd instance for every serialization, otherwise it will crash
+    if not zstd or zstdError then
+        error("Error while creating zstd: " .. zstdError, 2)
+    end
+
+    self.logger:debug(self.logger.channels.network, ("Compressed size: %s"):format(string.len(value)))
+    local decompressed, err = zstd:decompress(value)
+    if err then
+        error("Error while decompressing: " .. err, 2)
+    end
+    self.logger:debug(self.logger.channels.network, ("Uncompressed size: %s"):format(string.len(decompressed)))
+    local deserialized = messagePack.unpack(decompressed)
+    Logger.debug(Logger.channels.network, ("Deserialized and uncompressed value: %s"):format(deserialized))
+    zstd:free()
+    CustomProfiler.stop("ClientInit.setConfigSettings.deserialize", cpc3)
+    return deserialized
+end
+
+
 
 
     --- Set clients guid
@@ -1079,13 +1078,20 @@ function ClientInit.new(sockClient)
     return self
 end
 
----Globally accessible ClientInit in _G.ClientInit.
----@alias _G.ClientInit ClientInit
-_G.ClientInit = ClientInit
 
----Globally accessible SockClient in _G.SockClient.
----@see SockClient
----@alias _G.SockClient SockClient
-_G.Client = ClientInit.new(sock.newClient())
+---Class constructor
+---@param tOrSockClient Client|SockClient
+---@return Client
+function Client:new(tOrSockClient)
+    local cpc = CustomProfiler.start("Client:new")
+    local t = tOrSockClient or {}
+    setmetatable(t, self)
+    self.__index = self
+
+    self:setSerialization(serialize, deserialize)
+    self:setTimeout(320, 50000, 100000)
+    CustomProfiler.stop("Client:new", cpc)
+    return t
+end
 
 return Client

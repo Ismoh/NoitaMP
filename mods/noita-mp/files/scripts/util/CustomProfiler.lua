@@ -132,7 +132,7 @@ end
 ---@param t CustomProfiler|nil
 ---@return CustomProfiler
 function CustomProfiler:new(t, otherClassesIfRequireLoop)
-    t = t or {}
+    local t = t or {}
     setmetatable(t, self)
     self.__index = self
     return t

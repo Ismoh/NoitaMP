@@ -1,9 +1,11 @@
 # Contributing to NoitaMP
+
 I am happy to accept contributions to NoitaMP.\
 Please follow these guidelines when contributing,\
 but first off, thanks for taking the time to contribute!
 
 ## Table of Contents
+
 - [Requirements](#requirements)
 - [Contributing](#contributing)
   - [Before contributing](#before-contributing)
@@ -11,6 +13,7 @@ but first off, thanks for taking the time to contribute!
 - [Important resources](#important-resources)
 
 ## Requirements
+
 - [ ] I have read the [Contributing](CONTRIBUTING.md) document.
 - [ ] I have read the [Code of Conduct](CODE_OF_CONDUCT.md) document.
 - [ ] I have read the [README](README.md) document.
@@ -24,15 +27,96 @@ Everything will be explained here and if there are still questions, you can ask 
 ## Contributing
 
 ### Before contributing
+
 Please get in contact with me or the other collaborators on [Discord](https://discord.gg/DhMurdcw4k), before you start working on a feature or a bug fix.
 This is to avoid duplicate work.
 
+## NoitaMP naming conventions
+
+### General naming conventions
+
+Classes are written down as `PascalCase` and \
+functions are written down as `camelCase`.
+
+### Class OOP template
+
+This represents a class, which is used to create objects.\
+Make sure to **use the following naming convention** for classes and **also add** the **comments shown below**:
+
+```lua
+---@class ExampleClass
+---Short description of the class.
+local ExampleClass = {
+  -- Imports
+  foo = require("foo"),
+  bar = require("bar"),
+  -- Attributes
+  exampleAttribute = "exampleValue",
+  nestedTable = {
+    nestedAttribute = "nestedValue",
+    moreAttributes = "moreValues"
+  }
+}
+
+-- private functions
+
+---Short description of the function.
+---@param param string Description of the parameter.
+---@return string Description of the return value.
+local examplePrivateFunction = function(param) --[[ private ]]
+  -- code
+  return value
+end
+
+-- public functions
+
+---Short description of the function.
+---@param param1 string Description of the parameter.
+---@param param2 string Description of the parameter.
+---@return string Description of the return value.
+function ExampleClass:examplePublicFunction(param1, param2)
+  -- code
+  local value = examplePrivateFunction(param1)
+  value = value .. self.exampleAttribute
+  value = value .. self.nestedTable.nestedAttribute
+  value = value .. self:yetAnotherPublicFunction(param2)
+  return value
+end
+
+---Short description of the function.
+---@param param string Description of the parameter.
+---@return string Description of the return value.
+function ExampleClass:yetAnotherPublicFunction(param)
+  -- code
+  return value
+end
+
+---Constructor of the class. This is mandatory!
+---@param objectToInheritFrom ExampleClass This can be any object that you want to inherit from.
+---@return ExampleClass
+function ExampleClass:new(objectToInheritFrom)
+local exampleObject = objectToInheritFrom or {}
+  setmetatable(exampleObject, self)
+  self.__index = self
+  return exampleObject
+end
+
+---Still need to return the class table at the end of the file,
+---so it can be used in other files, like this:
+---local ExampleClass = require("ExampleClass")
+---local exampleObject = ExampleClass:new()
+---OR local exampleObject = require("ExampleClass"):new(objectToInheritFrom)
+return ExampleClass
+```
+
 ## How does NoitaMP work?
+
 NoitaMP is a mod that uses the [Noita API](https://noita.wiki.gg/wiki/Modding), but there is something that you need to know about the API.\
 The API is a Lua library that is used to interact with the game.\
 The API is not a mod, it is a library that is used to create mods.
 
 ### Lua context
+
 There are different Lua contexts in Noita, but the most important one is the `init.lua` context.
 
 ### Contexts in Noita
@@ -41,6 +125,7 @@ Let me try to explain it with an example:
 ![NoitaMP](miscs/contributing-md/lua-contexts.png)
 In the diagram above you can see the default Noita modding structure.\
 There are different Lua contexts:
+
 - One for `init.lua`
   - This is the 'main' context that is used to interact with NoitaMP, because unrestricted Lua code (unrestricted mod mode) is only available in the `init.lua` context.
 - and contexts for `LuaComponents`
@@ -49,14 +134,16 @@ There are different Lua contexts:
     ONE_PER_COMPONENT_INSTANCE means that even with the same script path, every LuaComponent has its own Lua context.
     The path of the entity XML file is irrelevant as far as I can tell.\
     SHARED_BY_MANY_COMPONENTS is the default, see [wiki](https://noita.wiki.gg/wiki/Documentation:_LuaComponent)
-    
+
   _Credits to dextercd_
 
 **You are able to use Noita API functions in each context, but you are not able to use functions from other contexts.**
 There is no way to access the `init.lua` context from a LuaComponent context and vice versa, **but there are workarounds**!
 
 ### Workarounds for communication between contexts
+
 There are different ways to communicate between contexts:
+
 - by Noita API Globals `GlobalsSetValue` and `GlobalsGetValue`
 - VariableStorageComponents
 - Using `init.lua` context only
@@ -65,6 +152,7 @@ Assume we need a value in NoitaMP, which can only be fetched in LuaComponents. S
 We can solve this problem by the examples below:
 
 #### GlobalsSetValue and GlobalsGetValue
+
 Then we would set a global "foo" variable in the `LuaComponent` context _(see 1 and 2 in the diagram below)_
 and afterwards we would use the `init.lua` context to fetch the value of the global "foo" variable _(see 3 and 4 in the diagram below)_.\
 In addition, please note that `GlobalsSetValue` and `GlobalsGetValue` has nothing to do with Lua globals `_G`.
@@ -72,8 +160,10 @@ See diagram below for a better understanding:
 ![NoitaMP](miscs/contributing-md/lua-contexts-workaround.png)
 
 #### VariableStorageComponents
+
 Another workaround is to use `VariableStorageComponents` to store values in the `LuaComponent` context and to fetch them in the `init.lua` context.
 In a LuaComponent context, we would create a `VariableStorageComponent` and set a value in it:
+
 ```lua
 local componentId = EntityAddComponent2(entityId, "VariableStorageComponent",
     {
@@ -82,7 +172,9 @@ local componentId = EntityAddComponent2(entityId, "VariableStorageComponent",
     }
 )
 ```
+
 In the `init.lua` context, we would fetch the value of the `VariableStorageComponent` with the name `"exampleName"`:
+
 ```lua
 local componentIds = EntityGetComponentIncludingDisabled(entityId, "VariableStorageComponent") or {}
 for i = 1, #componentIds do
@@ -98,9 +190,11 @@ end
 ```
 
 #### Using init.lua context only
+
 If you are able to use the `init.lua` context only, then you can use the NoitaMP functions directly.\
 For example, if you want to get local player/Mina, then you can use the NoitaMP
 function `MinaUtils.getLocalMinaInformation()`:
+
 ```lua
 --- Gets the local player information.
 --- Including polymorphed entity id. When polymorphed, entityId will be the new one and not minas anymore.
@@ -116,8 +210,10 @@ end
 ```
 
 ## 'Classes' in NoitaMP
+
 Most of NoitaMPs functions are in 'class' tables, available in Luas globals `_G`.\
 I tried to create topics for each class table, so you can find the global classes per topic:
+
 - Mostly everything regarding Entities: `EntityUtils.lua`
 - Mostly everything regarding Globals: `GlobalsUtils.lua`
 - Mostly everything regarding Network: `NetworkUtils.lua`, besides `Server.lua` and `Client.lua`
@@ -128,6 +224,7 @@ I tried to create topics for each class table, so you can find the global classe
 I try to use KISS (Keep It Simple Stupid) and DRY (Don't Repeat Yourself) as much as possible.\
 So before you want to add a new function, please try to use existing functions and classes, if possible.\
 If there are no existing functions or classes you could use, then take in mind:
+
 - to create a new class with functions
 - or to add functions to existing classes
 - and add the `CustomProfiler` per new function.
@@ -135,6 +232,7 @@ If there are no existing functions or classes you could use, then take in mind:
 `CustomProfiler` is a class that is used to measure the execution time of a function, because we had terrible performance issues and memory leaks in the past.\
 Therefore it is important to measure the time of each function, so we can find the functions that are causing performance issues.\
 To add the CustomProfiler to a function, you can use the following example:
+
 ```lua
 function EntityUtils.isEntityPolymorphed(entityId)
   -- first line of the function should be the CustomProfiler
@@ -151,23 +249,32 @@ end
 ```
 
 ## Making use of LuaRocks
+
 ### Setup
+
 ### Usage
 
 ## TTD - Test Driven Development
+
 Please! Please! Please, make sure to write tests for your functions!\
 I know it is not easy to write tests, but it is very important to do so.\
 If you are not able to write tests, then please ask for help in the Discord server.\
 I will help you to write tests for your functions.\
 I will not accept any pull requests without tests, sorry.\
+
 ### Location of tests
+
 `mods/noita-mp/tests/`
+
 ### How to run tests
+
 See LuaRocks section above.
 
 ### How to write tests?
+
 Simple example by adding a new function to an existing test class:\
 _Assume you've added a new event to **NetworkUtils.events**, then make sure to extend the **TestNetworkUtils** table in **NetworkUtils_test.lua**.)_
+
 ```lua
 ```
 
@@ -177,7 +284,9 @@ How to run tests?\
 If there are any questions left, then please ask them on [Discord](https://discord.gg/DhMurdcw4k).
 
 ### Important resources
+
 Along with this document, the following resources are important when contributing to NoitaMP:
+
 - documentation
 - bugs
 - communication
