@@ -4,11 +4,14 @@ I am happy to accept contributions to NoitaMP.\
 Please follow these guidelines when contributing,\
 but first off, thanks for taking the time to contribute!
 
-## Table of Contents
+## Table of contents
 
 - [Requirements](#requirements)
 - [Contributing](#contributing)
   - [Before contributing](#before-contributing)
+- [NoitaMP naming conventions](#noitamp-naming-conventions)
+  - [General naming conventions](#general-naming-conventions)
+  - [Class OOP template](#class-oop-template)
 - [How does NoitaMP work?](#how-does-noitamp-work)
 - [Important resources](#important-resources)
 
