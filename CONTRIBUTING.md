@@ -106,10 +106,11 @@ end
 ---@return ExampleClass
 function ExampleClass:new(objectToInheritFrom)
   local exampleObject = objectToInheritFrom or {}
-  local cpc = exampleObject.customProfiler:start("ExampleClass:new")
   setmetatable(exampleObject, self)
   self.__index = self
-  exampleObject.customProfiler:stop("ExampleClass:new", cpc)
+  local cpc = self.customProfiler:start("ExampleClass:new")
+  -- more init code
+  self.customProfiler:stop("ExampleClass:new", cpc)
   return exampleObject
 end
 
