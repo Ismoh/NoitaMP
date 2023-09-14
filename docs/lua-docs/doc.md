@@ -1,38 +1,41 @@
 # Client
 
-See: [SockClient](../../mods/noita-mp/files/scripts/net/Client.lua#L23#14)
+## __index
 
 
 ```lua
-SockClient
+Client
 ```
 
-
----
-
-# ClientInit
-
-ClientInit class for creating a new extended instance of SockClient.
+## deserialize
 
 
 ```lua
-ClientInit
+function Client.deserialize(self: Client, value: any)
+  -> unknown
 ```
 
-
----
-
-# ClientInit
-
-ClientInit class for creating a new extended instance of SockClient.
+Defualt enhanced serialization function
 
 ## new
 
 
 ```lua
-function ClientInit.new(sockClient: SockClient)
-  -> self: SockClient
+function Client.new(self: Client, tOrSockClient: Client|SockClient)
+  -> Client
 ```
+
+Class constructor
+
+## serialize
+
+
+```lua
+function Client.serialize(self: Client, value: any)
+  -> unknown
+```
+
+Defualt enhanced serialization function
 
 
 ---
@@ -166,7 +169,7 @@ Starts the profiler. This has to be called before the function (or first line of
 @*param* `functionName` — The name of the function that you want to measure. This has to be the same as the one used in CustomProfiler:stop(functionName, customProfilerCounter)
 
 @*return* `returnCounter` — The counter that is used to determine the order of the function calls. This has to be passed to CustomProfiler:stop(functionName, customProfilerCounter)
-See: [CustomProfiler](../../mods/noita-mp/files/scripts/util/CustomProfiler.lua#L2#10) stop(functionName, customProfilerCounter)
+See: [CustomProfiler](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/GlobalsUtils.lua#32#8) stop(functionName, customProfilerCounter)
 
 ## stop
 
@@ -211,12 +214,7 @@ CustomProfiler
 
 
 ```lua
-function
-```
-
-
-```lua
-function
+function CustomProfiler.start(functionName: any)
 ```
 
 
@@ -226,7 +224,12 @@ function
 
 
 ```lua
-function CustomProfiler.start(functionName: any)
+function
+```
+
+
+```lua
+function
 ```
 
 
@@ -237,6 +240,21 @@ function CustomProfiler.start(functionName: any)
 
 ```lua
 function CustomProfiler.stop(functionName: any, customProfilerCounter: any)
+```
+
+
+---
+
+# FileUtils
+
+
+```lua
+FileUtils
+```
+
+
+```lua
+FileUtils
 ```
 
 
@@ -621,21 +639,6 @@ function FileUtils.WriteFile(file_fullpath: string, file_content: string)
 
 ---
 
-# FileUtils
-
-
-```lua
-FileUtils
-```
-
-
-```lua
-FileUtils
-```
-
-
----
-
 # GetWidthAndHeightByResolution
 
  Returns width and height depending on resolution.
@@ -659,16 +662,6 @@ function GetWidthAndHeightByResolution()
 
 ```lua
 table
-```
-
-
----
-
-# GlobalsUtils.deadNuidsKey
-
-
-```lua
-string
 ```
 
 
@@ -705,48 +698,6 @@ function GlobalsUtils.getNuidEntityPair(nuid: number)
 ```lua
 function GlobalsUtils.getUpdateGui()
   -> unknown
-```
-
-
----
-
-# GlobalsUtils.nuidKeyFormat
-
- key for nuid
-
-
-```lua
-string
-```
-
-
----
-
-# GlobalsUtils.nuidKeySubstring
-
-
-```lua
-string
-```
-
-
----
-
-# GlobalsUtils.nuidValueFormat
-
-
-```lua
-string
-```
-
-
----
-
-# GlobalsUtils.nuidValueSubstring
-
-
-```lua
-string
 ```
 
 
@@ -847,107 +798,61 @@ number
 
 # Logger
 
- Class for being able to log per level
+## __index
 
 
 ```lua
-table
+Logger
 ```
 
+## debug
+
 
 ```lua
-table
+function Logger.debug(self: Logger, channel: any, formattedMessage: any)
+  -> boolean
 ```
 
+## info
+
 
 ```lua
-table
+function Logger.info(self: Logger, channel: any, formattedMessage: any)
+  -> boolean
 ```
 
-
----
-
-# Logger.channels
+## new
 
 
 ```lua
-table
+function Logger.new(self: Logger, logger: any)
+  -> unknown
 ```
 
-
----
-
-# Logger.debug
+## trace
 
 
 ```lua
-function Logger.debug(channel: any, formattedMessage: any)
+function Logger.trace(self: Logger, channel: any, formattedMessage: any)
+  -> boolean
+```
+
+## warn
+
+
+```lua
+function Logger.warn(self: Logger, channel: any, formattedMessage: any)
   -> boolean
 ```
 
 
 ---
 
-# Logger.info
+# Logger
 
 
 ```lua
-function Logger.info(channel: any, formattedMessage: any)
-  -> boolean
-```
-
-
----
-
-# Logger.level
-
-
-```lua
-table
-```
-
-
----
-
-# Logger.log
-
- Main function for logging, which simply uses `print()`.
- By the way, if you want to log error, simply use `error()`.
-
-@*param* `level` — Possible values = off, trace, debug, info, warn
-
-@*param* `channel` — Defined in Logger.channels.
-
-@*param* `message` — Message text to `print()`. Use `Logger.log("debug", Logger.channels.entity, ("Debug message with string directive %s. Yay!"):format("FooBar"))`
-
-@*return* `true` — if logged, false if not logged
-
-
-```lua
-function Logger.log(level: string, channel: string, message: string)
-  -> true: boolean
-```
-
-
----
-
-# Logger.trace
-
-
-```lua
-function Logger.trace(channel: any, formattedMessage: any)
-  -> boolean
-```
-
-
----
-
-# Logger.warn
-
-
-```lua
-function Logger.warn(channel: any, formattedMessage: any)
-  -> boolean
+Logger
 ```
 
 
@@ -968,8 +873,8 @@ integer
 # MinaInformation
 
 See:
-  * [Transform](../../mods/noita-mp/files/scripts/util/MinaUtils.lua#L144#18)
-  * [Health](../../mods/noita-mp/files/scripts/util/NoitaComponentUtils.lua#L55#14)
+  * [Transform](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/MinaUtils.lua#144#18)
+  * [Health](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/NoitaComponentUtils.lua#55#14)
 
 
 ```lua
@@ -1028,7 +933,7 @@ function MinaUtils.getLocalMinaInformation()
 
 Getter for local mina information. It also takes care of polymorphism!
  Deprecated: Use separated getters instead, like getLocalMinaName, getLocalMinaGuid, getLocalMinaEntityId, getLocalMinaNuid!
-See: [MinaInformation](../../mods/noita-mp/files/scripts/util/MinaUtils.lua#L151#14)
+See: [MinaInformation](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/MinaUtils.lua#151#14)
 
 ## getLocalMinaName
 
@@ -1387,23 +1292,6 @@ integer
 
  NetworkVscUtils:
 
-
-```lua
-NetworkVscUtils
-```
-
-
-```lua
-NetworkVscUtils
-```
-
-
----
-
-# NetworkVscUtils
-
- NetworkVscUtils:
-
 ## addOrUpdateAllVscs
 
 
@@ -1599,6 +1487,23 @@ string
 
 ```lua
 string
+```
+
+
+---
+
+# NetworkVscUtils
+
+ NetworkVscUtils:
+
+
+```lua
+NetworkVscUtils
+```
+
+
+```lua
+NetworkVscUtils
 ```
 
 
@@ -2091,22 +1996,6 @@ unknown
 
 # ServerInit
 
-## new
-
-
-```lua
-function ServerInit.new(sockServer: SockServer)
-  -> self: SockServer
-```
-
- ServerInit constructor
- Creates a new instance of server 'class'
-
-
----
-
-# ServerInit
-
  Because of stack overflow errors when loading lua files,
  I decided to put Utils 'classes' into globals
 
@@ -2119,6 +2008,22 @@ ServerInit
 ```lua
 ServerInit
 ```
+
+
+---
+
+# ServerInit
+
+## new
+
+
+```lua
+function ServerInit.new(sockServer: SockServer)
+  -> self: SockServer
+```
+
+ ServerInit constructor
+ Creates a new instance of server 'class'
 
 
 ---
@@ -2137,213 +2042,6 @@ function ServerInit.new(sockServer: SockServer)
 
 ---
 
-# SockClient
-
-## acknowledgeMaxSize
-
-
-```lua
-integer
-```
-
-## amIClient
-
-
-```lua
-function SockClient.amIClient()
-  -> iAm: boolean
-```
-
- Checks if the current local user is a client
-
-@*return* `iAm` — true if client
-
-## clientCacheId
-
-
-```lua
-integer
-```
-
-## connect
-
-
-```lua
-function SockClient.connect(ip: string, port?: number, code: number)
-```
-
- Connects to a server on ip and port. Both can be nil, then ModSettings will be used.
-
-@*param* `ip` — localhost or 127.0.0.1 or nil
-
-@*param* `port` — port number from 1 to max of 65535 or nil
-
-@*param* `code` — connection code 0 = connecting first time, 1 = connected second time with loaded seed
-
-## disconnect
-
-
-```lua
-function SockClient.disconnect()
-```
-
-## getAckCacheSize
-
-
-```lua
-function SockClient.getAckCacheSize()
-  -> cacheSize: number
-```
-
- Mainly for profiling. Returns then network cache, aka acknowledge.
-
-## guid
-
-
-```lua
-boolean|string|number
-```
-
- guid might not be set here or will be overwritten at the end of the constructor. @see setGuid
-
-## health
-
-
-```lua
-table
-```
-
-## iAm
-
-
-```lua
-string
-```
-
-## isConnected
-
-
-```lua
-function SockClient.isConnected()
-  -> unknown
-```
-
-## missingMods
-
-
-```lua
-nil
-```
-
-## name
-
-
-```lua
-boolean|string|number
-```
-
-## nuid
-
-
-```lua
-nil
-```
-
-## otherClients
-
-
-```lua
-table
-```
-
-## requiredMods
-
-
-```lua
-nil
-```
-
-## send
-
-
-```lua
-function SockClient.send(self: SockClient, event: any, data: any)
-  -> boolean
-```
-
-## sendDeadNuids
-
-
-```lua
-function SockClient.sendDeadNuids(deadNuids: any)
-  -> boolean
-```
-
-## sendEntityData
-
-
-```lua
-function SockClient.sendEntityData(entityId: any)
-```
-
-## sendLostNuid
-
-
-```lua
-function SockClient.sendLostNuid(nuid: any)
-  -> boolean
-```
-
-## sendMinaInformation
-
-
-```lua
-function SockClient.sendMinaInformation()
-  -> boolean
-```
-
-## sendNeedNuid
-
-
-```lua
-function SockClient.sendNeedNuid(ownerName: string, ownerGuid: string, entityId: number)
-```
-
-Sends a message to the server that the client needs a nuid.
-
-## serverInfo
-
-
-```lua
-table
-```
-
-## syncedMods
-
-
-```lua
-boolean
-```
-
-## transform
-
-
-```lua
-table
-```
-
-## update
-
-
-```lua
-function SockClient.update(startFrameTime: any)
-```
-
- Updates the Client by checking for network events and handling them.
-
-
----
-
 # SockServer
 
 ## acknowledgeMaxSize
@@ -2353,7 +2051,7 @@ function SockClient.update(startFrameTime: any)
 integer
 ```
 
-self.acknowledge        = {} -- sock.lua#LClient:send -> self.acknowledge[packetsSent] = { event = event, data = data, entityId = data.entityId, status = NetworkUtils.events.acknowledgement.sent }
+self.acknowledge        = {} -- sock.lua#Client:send -> self.acknowledge[packetsSent] = { event = event, data = data, entityId = data.entityId, status = NetworkUtils.events.acknowledgement.sent }
 table.setNoitaMpDefaultMetaMethods(self.acknowledge, "v")
 
 ## amIServer
@@ -2717,18 +2415,6 @@ _G
 
 ---
 
-# _G.ClientInit
-
-Globally accessible ClientInit in _G.ClientInit.
-
-
-```lua
-ClientInit
-```
-
-
----
-
 # _G.MinaUtils
 
 Globally accessible MinaUtils in _G.MinaUtils.
@@ -2736,18 +2422,6 @@ Globally accessible MinaUtils in _G.MinaUtils.
 
 ```lua
 MinaUtils
-```
-
-
----
-
-# _G.SockClient
-
-Globally accessible SockClient in _G.SockClient.
-
-
-```lua
-SockClient
 ```
 
 
@@ -5196,6 +4870,300 @@ index:
 ```lua
 function select(index: integer|"#", ...any)
   -> any
+```
+
+
+---
+
+# self.amIClient
+
+ Checks if the current local user is a client
+
+@*return* `iAm` — true if client
+
+
+```lua
+function self.amIClient()
+  -> iAm: boolean
+```
+
+
+---
+
+# self.clientCacheId
+
+
+```lua
+unknown
+```
+
+
+---
+
+# self.connect
+
+ Connects to a server on ip and port. Both can be nil, then ModSettings will be used.
+
+@*param* `ip` — localhost or 127.0.0.1 or nil
+
+@*param* `port` — port number from 1 to max of 65535 or nil
+
+@*param* `code` — connection code 0 = connecting first time, 1 = connected second time with loaded seed
+
+
+```lua
+function self.connect(ip: string, port?: number, code: number)
+```
+
+
+---
+
+# self.disconnect
+
+
+```lua
+function self.disconnect()
+```
+
+
+---
+
+# self.getAckCacheSize
+
+ Mainly for profiling. Returns then network cache, aka acknowledge.
+
+
+```lua
+function self.getAckCacheSize()
+  -> cacheSize: number
+```
+
+
+---
+
+# self.guid
+
+
+```lua
+unknown
+```
+
+
+```lua
+unknown
+```
+
+
+---
+
+# self.isConnected
+
+
+```lua
+function self.isConnected()
+```
+
+
+---
+
+# self.missingMods
+
+
+```lua
+table
+```
+
+
+---
+
+# self.nuid
+
+
+```lua
+nil
+```
+
+
+```lua
+unknown
+```
+
+
+---
+
+# self.otherClients
+
+
+```lua
+table
+```
+
+
+---
+
+# self.requiredMods
+
+
+```lua
+unknown
+```
+
+
+---
+
+# self.send
+
+
+```lua
+function self.send(self: any, event: any, data: any)
+  -> boolean
+```
+
+
+---
+
+# self.sendDeadNuids
+
+
+```lua
+function self.sendDeadNuids(deadNuids: any)
+  -> boolean
+```
+
+
+---
+
+# self.sendEntityData
+
+
+```lua
+function self.sendEntityData(entityId: any)
+```
+
+
+---
+
+# self.sendLostNuid
+
+
+```lua
+function self.sendLostNuid(nuid: any)
+  -> boolean
+```
+
+
+---
+
+# self.sendMinaInformation
+
+
+```lua
+function self.sendMinaInformation()
+  -> boolean
+```
+
+
+---
+
+# self.sendNeedNuid
+
+Sends a message to the server that the client needs a nuid.
+
+
+```lua
+function self.sendNeedNuid(ownerName: string, ownerGuid: string, entityId: number)
+```
+
+
+---
+
+# self.serverInfo
+
+
+```lua
+table
+```
+
+
+---
+
+# self.serverInfo.entityId
+
+
+```lua
+unknown
+```
+
+
+---
+
+# self.serverInfo.guid
+
+
+```lua
+unknown
+```
+
+
+---
+
+# self.serverInfo.health
+
+
+```lua
+unknown
+```
+
+
+---
+
+# self.serverInfo.name
+
+
+```lua
+unknown
+```
+
+
+---
+
+# self.serverInfo.nuid
+
+
+```lua
+unknown
+```
+
+
+---
+
+# self.serverInfo.transform
+
+
+```lua
+unknown
+```
+
+
+---
+
+# self.serverInfo.version
+
+
+```lua
+unknown
+```
+
+
+---
+
+# self.update
+
+ Updates the Client by checking for network events and handling them.
+
+
+```lua
+function self.update(startFrameTime: any)
 ```
 
 
