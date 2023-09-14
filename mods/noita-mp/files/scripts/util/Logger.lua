@@ -7,9 +7,9 @@
 ---Class for being able to log per level.
 local Logger = {
     --- Imports
-
+    customProfiler = require("CustomProfiler"),
     --- Attributes
-    level    = {
+    level          = {
         off   = "off",
         trace = "trace",
         debug = "debug",
@@ -17,7 +17,7 @@ local Logger = {
         warn  = "warn"
     },
 
-    channels = {
+    channels       = {
         entity              = "entity",
         globals             = "globals",
         guid                = "guid",
@@ -40,6 +40,7 @@ local Logger = {
 --- @param message string Message text to `print()`. Use `Logger.log("debug", Logger.channels.entity, ("Debug message with string directive %s. Yay!"):format("FooBar"))`
 --- @return boolean true if logged, false if not logged
 local log = function(logger, level, channel, message) --[[ private ]]
+    local cpc = logger.customProfiler:start("Logger.--[[private]]log")
     if not level then
         error("Unable to log, because 'level' must not be nil!", 2)
     end
@@ -96,6 +97,7 @@ local log = function(logger, level, channel, message) --[[ private ]]
     end
 
     print(msg)
+    logger.customProfiler:stop("Logger.--[[private]]log", cpc)
     return true
 end
 

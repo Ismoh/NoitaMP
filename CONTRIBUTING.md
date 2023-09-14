@@ -51,6 +51,7 @@ Make sure to **use the following naming convention** for classes and **also add*
 ---Short description of the class.
 local ExampleClass = {
   -- Imports
+  customProfiler = require("customProfiler"), -- mandatory
   foo = require("foo"),
   bar = require("bar"),
   -- Attributes
@@ -66,8 +67,10 @@ local ExampleClass = {
 ---Short description of the function.
 ---@param param string Description of the parameter.
 ---@return string Description of the return value.
-local examplePrivateFunction = function(param) --[[ private ]]
+local examplePrivateFunction = function(classObjectOrSelf, param) --[[ private ]]
+  local cpc = classObjectOrSelf.customProfiler:start("ExampleClass:examplePrivateFunction")
   -- code
+  classObjectOrSelf.customProfiler:stop("ExampleClass:examplePrivateFunction", cpc)
   return value
 end
 
@@ -78,11 +81,13 @@ end
 ---@param param2 string Description of the parameter.
 ---@return string Description of the return value.
 function ExampleClass:examplePublicFunction(param1, param2)
+  local cpc = self.customProfiler:start("ExampleClass:examplePublicFunction")
   -- code
   local value = examplePrivateFunction(param1)
   value = value .. self.exampleAttribute
   value = value .. self.nestedTable.nestedAttribute
   value = value .. self:yetAnotherPublicFunction(param2)
+  self.customProfiler:stop("ExampleClass:examplePublicFunction", cpc)
   return value
 end
 
@@ -90,7 +95,9 @@ end
 ---@param param string Description of the parameter.
 ---@return string Description of the return value.
 function ExampleClass:yetAnotherPublicFunction(param)
+  local cpc = self.customProfiler:start("ExampleClass:yetAnotherPublicFunction")
   -- code
+  self.customProfiler:stop("ExampleClass:yetAnotherPublicFunction", cpc)
   return value
 end
 
@@ -98,9 +105,11 @@ end
 ---@param objectToInheritFrom ExampleClass This can be any object that you want to inherit from.
 ---@return ExampleClass
 function ExampleClass:new(objectToInheritFrom)
-local exampleObject = objectToInheritFrom or {}
+  local exampleObject = objectToInheritFrom or {}
+  local cpc = exampleObject.customProfiler:start("ExampleClass:new")
   setmetatable(exampleObject, self)
   self.__index = self
+  exampleObject.customProfiler:stop("ExampleClass:new", cpc)
   return exampleObject
 end
 
