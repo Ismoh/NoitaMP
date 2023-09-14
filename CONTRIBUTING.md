@@ -75,6 +75,11 @@ local examplePrivateFunction = function(classObjectOrSelf, param) --[[ private ]
   return value
 end
 
+---Short description of the function.
+local anotherPrivateFunction = function() --[[ private ]]
+  -- code
+end
+
 -- public functions
 
 ---Short description of the function.
