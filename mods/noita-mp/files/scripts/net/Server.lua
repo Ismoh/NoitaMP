@@ -465,7 +465,7 @@ function ServerInit.new(sockServer)
 
         local nuid, entityId = GlobalsUtils.getNuidEntityPair(data.nuid)
 
-        if not entityId or not EntityUtils.isEntityAlive(entityId) then
+        if not entityId or not EntityGetIsAlive(entityId) then
             Logger.debug(Logger.channels.network,
                 ("onLostNuid(%s): Entity %s already dead."):format(data.nuid, entityId))
             CustomProfiler.stop("Server.onLostNuid", cpc08)
@@ -994,7 +994,7 @@ function ServerInit.new(sockServer)
         end
         self.sendMinaInformation()
 
-        EntityUtils.processAndSyncEntityNetworking(startFrameTime)
+        EntityUtils.syncEntities(startFrameTime)
 
         local nowTime     = GameGetRealWorldTimeSinceStarted() * 1000 -- *1000 to get milliseconds
         local elapsedTime = nowTime - prevTime
@@ -1082,7 +1082,7 @@ function ServerInit.new(sockServer)
 
     function self.sendEntityData(entityId)
         local cpc018 = CustomProfiler.start("Server.sendEntityData")
-        if not EntityUtils.isEntityAlive(entityId) then
+        if not EntityGetIsAlive(entityId) then
             CustomProfiler.stop("Server.sendEntityData", cpc018)
             return
         end

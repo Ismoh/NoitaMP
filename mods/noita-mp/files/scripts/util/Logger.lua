@@ -1,23 +1,23 @@
----
---- Created by Ismoh-PC.
---- DateTime: 20.01.2023 22:45
----
-
 ---@class Logger
 ---Class for being able to log per level.
 local Logger = {
-    --- Imports
-    customProfiler = require("CustomProfiler"),
-    --- Attributes
-    level          = {
+    --[[ Imports ]]
+
+    ---@type CustomProfiler
+    customProfiler = nil,
+
+    --[[ Attributes ]]
+
+    ---Log level, possible values = off, trace, debug, info, warn
+    level    = {
         off   = "off",
         trace = "trace",
         debug = "debug",
         info  = "info",
         warn  = "warn"
     },
-
-    channels       = {
+    ---Log channel is used to identify/group the source of the log message.
+    channels = {
         entity              = "entity",
         globals             = "globals",
         guid                = "guid",
@@ -32,25 +32,26 @@ local Logger = {
     },
 }
 
---- Main function for logging, which simply uses `print()`.
---- By the way, if you want to log error, simply use `error()`.
---- @param logger Logger self in this case
---- @param level string Possible values = off, trace, debug, info, warn
---- @param channel string Defined in Logger.channels.
---- @param message string Message text to `print()`. Use `Logger.log("debug", Logger.channels.entity, ("Debug message with string directive %s. Yay!"):format("FooBar"))`
---- @return boolean true if logged, false if not logged
-local log = function(logger, level, channel, message) --[[ private ]]
-    local cpc = logger.customProfiler:start("Logger.--[[private]]log")
+---Main function for logging, which simply uses `print()`.
+---By the way, if you want to log error, simply use `error()`.
+---@private
+---@param self Logger self in this case
+---@param level string Possible values = off, trace, debug, info, warn
+---@param channel string Defined in Logger.channels.
+---@param message string Message text to `print()`. Use `Logger.log("debug", Logger.channels.entity, ("Debug message with string directive %s. Yay!"):format("FooBar"))`
+---@return boolean true if logged, false if not logged
+local log = function(self, level, channel, message) --[[ private ]]
+    local cpc = self.customProfiler:start("Logger.--[[private]]log")
     if not level then
         error("Unable to log, because 'level' must not be nil!", 2)
     end
-    if not logger.level[level] then
+    if not self.level[level] then
         error(("Unable to log, because log level '%s' is not valid!"):format(level), 2)
     end
     if not channel then
         error("Unable to log, because 'channel' must not be nil!", 2)
     end
-    if not logger.channels[channel] then
+    if not self.channels[channel] then
         error(("Unable to log, because log channel '%s' is not valid!"):format(channel), 2)
     end
     if not message then
@@ -97,7 +98,7 @@ local log = function(logger, level, channel, message) --[[ private ]]
     end
 
     print(msg)
-    logger.customProfiler:stop("Logger.--[[private]]log", cpc)
+    self.customProfiler:stop("Logger.--[[private]]log", cpc)
     return true
 end
 
@@ -118,17 +119,23 @@ function Logger:warn(channel, formattedMessage)
     return log(self, self.level.warn, channel, formattedMessage)
 end
 
-function Logger:new(logger)
-    local logger = logger or {}
+---Logger constructor.
+---@param loggerObject Logger|nil
+---@param customProfiler CustomProfiler required
+---@return Logger
+function Logger:new(loggerObject, customProfiler)
+    local logger = loggerObject or self or {} -- Use self if this is called as a class constructor
     setmetatable(logger, self)
     self.__index = self
+
+    local cpc = customProfiler:start("Logger:new")
+
+    -- Initialize all imports to avoid recursive imports
+    self.customProfiler = customProfiler or error("Logger:new requires a CustomProfiler object", 2)
     self:trace(self.channels.initialize, "Logger was initialized!")
+
+    self.customProfiler:stop("Logger:new", cpc)
     return logger
 end
 
----Still need to return the class table at the end of the file,
----so it can be used in other files, like this:
----local Logger = require("Logger")
----local logger = Logger:new()
----OR local logger = require("Logger"):new(objectToInheritFrom)
 return Logger

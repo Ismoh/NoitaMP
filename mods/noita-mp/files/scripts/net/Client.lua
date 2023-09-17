@@ -574,7 +574,7 @@ end
         -- end
 
         -- local entityId = EntityLoad(filename, x, y)
-        -- if not EntityUtils.isEntityAlive(entityId) then
+        -- if not EntityGetIsAlive(entityId) then
         --     return
         -- end
 
@@ -902,7 +902,7 @@ end
         --EntityUtils.processEntityNetworking()
         --EntityUtils.initNetworkVscs()
 
-        EntityUtils.processAndSyncEntityNetworking(startFrameTime)
+        EntityUtils.syncEntities(startFrameTime)
 
         local nowTime     = GameGetRealWorldTimeSinceStarted() * 1000 -- *1000 to get milliseconds
         local elapsedTime = nowTime - prevTime
@@ -967,7 +967,7 @@ end
             error("entityId is nil")
         end
 
-        if not EntityUtils.isEntityAlive(entityId) then
+        if not EntityGetIsAlive(entityId) then
             return
         end
 
@@ -996,7 +996,7 @@ end
 
     function self.sendEntityData(entityId)
         local cpc22 = CustomProfiler.start("ClientInit.sendEntityData")
-        if not EntityUtils.isEntityAlive(entityId) then
+        if not EntityGetIsAlive(entityId) then
             return
         end
 

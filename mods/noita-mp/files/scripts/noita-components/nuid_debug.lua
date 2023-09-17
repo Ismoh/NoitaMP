@@ -7,7 +7,7 @@ dofile_once("mods/noita-mp/files/scripts/init/init_.lua")
 -- NoitaComponentUtils = dofile_once("mods/noita-mp/files/scripts/util/NoitaComponentUtils.lua")
 if ModSettingGet("noita-mp.toggle_debug") then
     local entityId = GetUpdatedEntityID()
-    if not EntityUtils.isEntityAlive(entityId) then return end
+    if not EntityGetIsAlive(entityId) then return end
 
     gui = gui or GuiCreate()
     GuiStartFrame(gui)
@@ -36,7 +36,7 @@ if ModSettingGet("noita-mp.toggle_debug") then
 
     table.setNoitaMpDefaultMetaMethods(data, "kv")
     local i = 0
-    
+
     for name, value in pairs(data) do
         local entityX, entityY = getEntityPositionOnScreen()
         local text             = ("%s: %s"):format(name, value)

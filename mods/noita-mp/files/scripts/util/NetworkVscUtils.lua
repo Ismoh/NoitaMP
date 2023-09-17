@@ -17,7 +17,7 @@ local idcounter = 0
 --- @return string? value The components value
 function NetworkVscUtils.checkIfSpecificVscExists(entityId, componentTypeName, fieldNameForMatch, matchValue, fieldNameForValue)
     local cpc = CustomProfiler.start("NetworkVscUtils.checkIfSpecificVscExists")
-    if not EntityUtils.isEntityAlive(entityId) then
+    if not EntityGetIsAlive(entityId) then
         CustomProfiler.stop("NetworkVscUtils.checkIfSpecificVscExists", cpc)
         return false, nil
     end
@@ -53,7 +53,7 @@ end
 ---@param ownerName string This is the owner of an entity. Owners name.
 local function addOrUpdateVscForOwnerName(entityId, ownerName)
     local cpc = CustomProfiler.start("NetworkVscUtils.addOrUpdateVscForOwnerName")
-    if not EntityUtils.isEntityAlive(entityId) then
+    if not EntityGetIsAlive(entityId) then
         CustomProfiler.stop("NetworkVscUtils.addOrUpdateVscForOwnerName", cpc)
         return
     end
@@ -95,7 +95,7 @@ end
 
 local function addOrUpdateVscForOwnerGuid(entityId, ownerGuid)
     local cpc = CustomProfiler.start("NetworkVscUtils.addOrUpdateVscForOwnerGuid")
-    if not EntityUtils.isEntityAlive(entityId) then
+    if not EntityGetIsAlive(entityId) then
         CustomProfiler.stop("NetworkVscUtils.addOrUpdateVscForOwnerGuid", cpc)
         return
     end
@@ -137,7 +137,7 @@ end
 
 local function addOrUpdateVscForNuid(entityId, nuid)
     local cpc = CustomProfiler.start("NetworkVscUtils.addOrUpdateVscForNuid")
-    if not EntityUtils.isEntityAlive(entityId) then
+    if not EntityGetIsAlive(entityId) then
         CustomProfiler.stop("NetworkVscUtils.addOrUpdateVscForNuid", cpc)
         return
     end
@@ -199,7 +199,7 @@ end
 ---@param spawnX number
 local function addOrUpdateVscForSpawnX(entityId, spawnX)
     local cpc = CustomProfiler.start("NetworkVscUtils.addOrUpdateVscForSpawnX")
-    if not EntityUtils.isEntityAlive(entityId) then
+    if not EntityGetIsAlive(entityId) then
         CustomProfiler.stop("NetworkVscUtils.addOrUpdateVscForSpawnX", cpc)
         return
     end
@@ -249,7 +249,7 @@ end
 ---@param spawnY number
 local function addOrUpdateVscForSpawnY(entityId, spawnY)
     local cpc = CustomProfiler.start("NetworkVscUtils.addOrUpdateVscForSpawnY")
-    if not EntityUtils.isEntityAlive(entityId) then
+    if not EntityGetIsAlive(entityId) then
         CustomProfiler.stop("NetworkVscUtils.addOrUpdateVscForSpawnY", cpc)
         return
     end
@@ -299,7 +299,7 @@ end
 ---@param entityId number Id of an entity provided by Noita
 local function addNuidDebugger(entityId)
     local cpc = CustomProfiler.start("NetworkVscUtils.addNuidDebugger")
-    if not EntityUtils.isEntityAlive(entityId) then
+    if not EntityGetIsAlive(entityId) then
         CustomProfiler.stop("NetworkVscUtils.addNuidDebugger", cpc)
         return
     end
@@ -334,7 +334,7 @@ end
 ---@param entityId number Id of an entity provided by Noita
 local function addNuidUpdater(entityId)
     local cpc = CustomProfiler.start("NetworkVscUtils.addNuidUpdater")
-    if not EntityUtils.isEntityAlive(entityId) then
+    if not EntityGetIsAlive(entityId) then
         CustomProfiler.stop("NetworkVscUtils.addNuidUpdater", cpc)
         return
     end
@@ -369,7 +369,7 @@ end
 
 local function getNetworkComponents(entityId)
     local cpc = CustomProfiler.start("NetworkVscUtils.getNetworkComponents")
-    if not EntityUtils.isEntityAlive(entityId) then
+    if not EntityGetIsAlive(entityId) then
         CustomProfiler.stop("NetworkVscUtils.getNetworkComponents", cpc)
         return
     end
@@ -427,7 +427,7 @@ NetworkVscUtils.componentNameOfSpawnY        = "noita-mp.nc_spawn.y"
 ---@return integer|nil componentIdForNuidDebugger
 function NetworkVscUtils.addOrUpdateAllVscs(entityId, ownerName, ownerGuid, nuid, spawnX, spawnY)
     local cpc = CustomProfiler.start("NetworkVscUtils.addOrUpdateAllVscs")
-    if not EntityUtils.isEntityAlive(entityId) then
+    if not EntityGetIsAlive(entityId) then
         CustomProfiler.stop("NetworkVscUtils.addOrUpdateAllVscs", cpc)
         return
     end
@@ -463,7 +463,7 @@ end
 --- @return string? ownerName, string? ownerGuid, number? nuid - nuid can be nil
 function NetworkVscUtils.getAllVscValuesByEntityId(entityId)
     local cpc = CustomProfiler.start("NetworkVscUtils.getAllVscValuesByEntityId")
-    if not EntityUtils.isEntityAlive(entityId) then
+    if not EntityGetIsAlive(entityId) then
         CustomProfiler.stop("NetworkVscUtils.getAllVscValuesByEntityId", cpc)
         return
     end
@@ -512,7 +512,7 @@ end
 --- @return number|nil nuid
 function NetworkVscUtils.isNetworkEntityByNuidVsc(entityId)
     local cpc = CustomProfiler.start("NetworkVscUtils.isNetworkEntityByNuidVsc")
-    if not EntityUtils.isEntityAlive(entityId) then
+    if not EntityGetIsAlive(entityId) then
         CustomProfiler.stop("NetworkVscUtils.isNetworkEntityByNuidVsc", cpc)
         return false, -1, -1
     end
@@ -561,7 +561,7 @@ end
 
 function NetworkVscUtils.hasNetworkLuaComponents(entityId)
     local cpc = CustomProfiler.start("NetworkVscUtils.hasNetworkLuaComponents")
-    if not EntityUtils.isEntityAlive(entityId) then
+    if not EntityGetIsAlive(entityId) then
         CustomProfiler.stop("NetworkVscUtils.hasNetworkLuaComponents", cpc)
         return
     end

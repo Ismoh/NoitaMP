@@ -15,7 +15,7 @@ function PlayerNameFunction(entity_id, playerName)
 end
 
 local entityId = GetUpdatedEntityID()
-if not EntityUtils.isEntityAlive(entityId) then
+if not EntityGetIsAlive(entityId) then
     return
 end
 

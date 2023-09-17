@@ -4,18 +4,30 @@ if BaabInstruction then
 end
 
 --- Imports by dofile, dofile_once and require
+
 dofile("mods/noita-mp/files/scripts/init/init_.lua")
-_G.np = require("noitapatcher") -- Need to be initialized before everything else, otherwise Noita will crash
-local customProfiler = require("CustomProfiler"):new()
-local EntityUtils = require("EntityUtils")
-local FileUtils = require("FileUtils")
+local np = require("noitapatcher") -- Need to be initialized before everything else, otherwise Noita will crash
+
 local guiI = require("Gui").new()
+
+local noitaMpSettings = require("NoitaMpSettings")
+    :new(nil, nil, guiI, nil, nil, nil, nil, nil, nil)
+
+local customProfiler = require("CustomProfiler")
+    :new(noitaMpSettings.customProfiler, noitaMpSettings.fileUtils, noitaMpSettings, nil, nil, noitaMpSettings.utils, noitaMpSettings.winapi)
+customProfiler.testNumber = 10
+customProfiler.testString = "reset"
+
+local Client = require("Client")
+local client = Client:new()
+
+local entityUtils = require("EntityUtils"):new(nil, require("Client"):new(), customProfiler)
+local FileUtils = require("FileUtils")
 local Logger = require("Logger")
 local MinaUtils = require("MinaUtils")
 local NoitaComponentUtils = require("NoitaComponentUtils")
-local NoitaMpSettings = require("NoitaMpSettings")
-local noitaPatcherUtils = require("NoitaPatcherUtils"):new()
-local ui = require("Ui").new()
+
+local noitaPatcherUtils = require("NoitaPatcherUtils"):new(np)
 local Utils = require("Utils")
 
 Logger.debug(Logger.channels.initialize, "Starting to load noita-mp init.lua..")

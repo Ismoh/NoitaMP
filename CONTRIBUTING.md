@@ -50,11 +50,15 @@ Make sure to **use the following naming convention** for classes and **also add*
 ---@class ExampleClass
 ---Short description of the class.
 local ExampleClass = {
-  -- Imports
-  customProfiler = require("customProfiler"), -- mandatory
-  foo = require("foo"),
-  bar = require("bar"),
-  -- Attributes
+  --[[ Imports ]]
+
+  ---@type CustomProfiler
+  customProfiler = nil, -- mandatory
+  foo = nil,
+  bar = nil,
+
+  --[[ Attributes ]]
+
   exampleAttribute = "exampleValue",
   nestedTable = {
     nestedAttribute = "nestedValue",
@@ -65,10 +69,11 @@ local ExampleClass = {
 -- private functions
 
 ---Short description of the function.
+---@private
 ---@param classObjectOrSelf ExampleClass This parameter is used for self reference in private functions. Used `self` in public functions.
 ---@param param string Description of the parameter.
 ---@return string Description of the return value.
-local examplePrivateFunction = function(classObjectOrSelf, param) --[[ private ]]
+local examplePrivateFunction = function(classObjectOrSelf, param)
   local cpc = classObjectOrSelf.customProfiler:start("ExampleClass:examplePrivateFunction")
   -- code
   classObjectOrSelf.customProfiler:stop("ExampleClass:examplePrivateFunction", cpc)
@@ -76,7 +81,8 @@ local examplePrivateFunction = function(classObjectOrSelf, param) --[[ private ]
 end
 
 ---Short description of the function.
-local anotherPrivateFunction = function() --[[ private ]]
+---@private
+local anotherPrivateFunction = function()
   -- code
 end
 
@@ -110,13 +116,20 @@ end
 ---Constructor of the class. This is mandatory!
 ---@param objectToInheritFrom ExampleClass This can be any object that you want to inherit from.
 ---@return ExampleClass
-function ExampleClass:new(objectToInheritFrom)
-  local exampleObject = objectToInheritFrom or {}
+function ExampleClass:new(objectToInheritFromOrObjectItself, customProfiler, importClass, foo, bar)
+  local exampleObject = objectToInheritFromOrObjectItself or self or {} -- Use self if this is called as a class constructor
   setmetatable(exampleObject, self)
   self.__index = self
-  local cpc = self.customProfiler:start("ExampleClass:new")
-  -- more init code
-  self.customProfiler:stop("ExampleClass:new", cpc)
+
+  local cpc = customProfiler:start("ExampleClass:new")
+
+  -- Initialize all imports to avoid recursive imports
+  self.customProfiler = customProfiler or require("CustomProfiler"):new()
+  self.importClass = importClass or require("importClass"):new()
+  self.foo = foo or require("foo"):new()
+  self.bar = bar or require("bar"):new()
+
+  customProfiler:stop("ExampleClass:new", cpc)
   return exampleObject
 end
 
@@ -127,6 +140,8 @@ end
 ---OR local exampleObject = require("ExampleClass"):new(objectToInheritFrom)
 return ExampleClass
 ```
+
+### How to require classes?
 
 ## How does NoitaMP work?
 

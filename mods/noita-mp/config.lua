@@ -1,4 +1,4 @@
-local args        = { ... }
+local args                                     = { ... }
 
 ------------------------------------------------------------------------------------------------------------------------
 --- This config.lua is for configurable settings, like 'which entities and how should be synced?!'.
@@ -11,86 +11,26 @@ local args        = { ... }
 ------------------------------------------------------------------------------------------------------------------------
 --- This config.lua is for configurable settings, like 'which entities and how should be synced?!'.
 ------------------------------------------------------------------------------------------------------------------------
-local EntityUtils = args[1]
-if not EntityUtils then
-    EntityUtils = require("EntityUtils")
-end
-local MinaUtils              = require("MinaUtils")
 
-EntityUtils.maxExecutionTime = 35 --ms = 1000 / 35 = 28,57 fps
-EntityUtils.maxPoolSize      = 10000
-EntityUtils.include          = {
+---@class EntityUtils
+local entityUtils                              = args[1]
+
+entityUtils.maxExecutionTime                   = 35 --ms = 1000 / 35 = 28,57 fps
+entityUtils.maxPoolSize                        = 10000
+entityUtils.include                            = {
     byComponentsName = { "VelocityComponent", "PhysicsBodyComponent", "PhysicsBody2Component", "ItemComponent",
         "PotionComponent" },
     byFilename       = {}
 }
-EntityUtils.exclude          = {
+entityUtils.exclude                            = {
     byComponentsName = { "WorldStateComponent" },
     byFilename       = { "particle", "tree_entity.xml", "vegetation", "custom_cards" }
 }
 
-EntityUtils.remove           = {
-    -- TODO: Remove EntityUtils.remove and replace it with EntitySerialisationUtils.ignore in usages!
+entityUtils.remove                             = {
     byComponentsName = { "AIComponent", "AdvancedFishAIComponent", "AnimalAIComponent", "ControllerGoombaAIComponent",
         "FishAIComponent", "PhysicsAIComponent", "WormAIComponent" },
     byFilename       = {}
-}
-
-if not EntitySerialisationUtils then
-    --------------------------------------------------------------------------------------------------------------------
-    --- EntitySerialisationUtils
-    --- 'Class' for serialisation of entities in Noita.
-    --- @see config.lua
-    --- @see EntitySerialisationUtils.lua
-    --------------------------------------------------------------------------------------------------------------------
-    _G.EntitySerialisationUtils = {}
-end
-
-EntitySerialisationUtils.ignore                = {
-    --- Components listed in byComponentsName will be ignored in serialisation
-    byComponentsType = {
-        "AdvancedFishAIComponent",
-        "AIComponent",
-        "AnimalAIComponent",
-        "CharacterDataComponent",
-        "CharacterPlatformingComponent",
-        "ControllerGoombaAIComponent",
-        "ControlsComponent",
-        "FishAIComponent",
-        "HitboxComponent",  -- Unable to determine HitboxComponents by values, if there are more than one, everyone could match?
-        "HotspotComponent", -- Unable to determine HotspotComponent by values, if there are more than one, everyone could match?
-        "Inventory2Component",
-        "InventoryGuiComponent",
-        "LightComponent", -- Unable to determine LightComponent by values, if there are more than one, everyone could match?
-        "MATERIAL",
-        "PhysicsAIComponent",
-        "WalletComponent",
-        "WormAIComponent",
-    },
-    --- Entities with the name listed in byEntityName will be ignored in serialisation
-    byEntityName     = { "cape" },
-    --- Entities with filename or better to say filepath listed in byFilenameOrPath will be ignored on serialisation
-    byFilenameOrPath = {},
-    --- Component members listed in byMemberKey will be ignored on serialisation
-    byMemberKey      = {
-        "delay",
-        "m_frame_created",
-        "mAirFramesNotInWater",
-        "mFramesNotSwimming",
-        "mFramesOnGround",
-        "mFromMaterialArray",
-        "mLastCheckTime",
-        "mLastExecutionFrame",
-        "mLastFrameOnGround",
-        "mNextExecutionTime",
-        "mPixelSprite",
-        "mRenderListHandle",
-        "mTimesExecuted",
-        "mToMaterialArray",
-        "mUpdateFrame",
-        "physics_explosion_power",
-        "player_polymorph_count",
-    }
 }
 
 ------------------------------------------------------------------------------------------------------------------------
@@ -121,10 +61,10 @@ ModSettingSet                                  = function(id, value)
         --error("Get rid off ModSettings!", 2)
     end
     if id == "noita-mp.nickname" then
-        MinaUtils.setLocalMinaName(value)
+        entityUtils.minaUtils:setLocalMinaName(value)
     end
     if id == "noita-mp.guid" then
-        MinaUtils.setLocalMinaGuid(value)
+        entityUtils.minaUtils:setLocalMinaGuid(value)
     end
     NoitaApiModSettingSet(id, value)
 end
@@ -134,22 +74,22 @@ ModSettingGet                                  = function(id)
         --error("Get rid off ModSettings!", 2)
     end
     if id == "noita-mp.nickname" then
-        local name = MinaUtils.getLocalMinaName()
-        if not Utils.IsEmpty(name) then
+        local name = entityUtils.minaUtils:getLocalMinaName()
+        if not entityUtils.utils.IsEmpty(name) then
             return name
         else
             name = tostring(NoitaApiModSettingGet(id))
-            MinaUtils.setLocalMinaName(name)
+            entityUtils.minaUtils:setLocalMinaName(name)
             return name
         end
     end
     if id == "noita-mp.guid" then
-        local guid = MinaUtils.getLocalMinaGuid()
+        local guid = entityUtils.minaUtils:getLocalMinaGuid()
         if not Utils.IsEmpty(guid) then
             return guid
         else
             guid = tostring(NoitaApiModSettingGet(id))
-            MinaUtils.setLocalMinaGuid(guid)
+            entityUtils.minaUtils:setLocalMinaGuid(guid)
             return guid
         end
     end
@@ -174,14 +114,14 @@ ModSettingGetNextValue                         = function(id)
         --error("Get rid off ModSettings!", 2)
     end
     if id == "noita-mp.nickname" and name then
-        local name = MinaUtils.getLocalMinaName()
-        if not Utils.IsEmpty(name) then
+        local name = entityUtils.minaUtils:getLocalMinaName()
+        if not entityUtils.utils.IsEmpty(name) then
             return name
         end
     end
     if id == "noita-mp.guid" and guid then
-        local guid = MinaUtils.getLocalMinaGuid()
-        if not Utils.IsEmpty(guid) then
+        local guid = entityUtils.minaUtils:getLocalMinaGuid()
+        if not entityUtils.utils.IsEmpty(guid) then
             return guid
         end
     end
@@ -196,7 +136,7 @@ EntityLoadToEntity                             = function(filename, entity)
     if EntityGetIsAlive(entity) then
         entityLoadToEntity(filename, entity)
     else
-        Logger.warn(Logger.channels.entity,
+        entityUtils.logger:warn(entityUtils.logger.channels.entity,
             ("Unable to EntityLoadToEntity(filename '%s', entity '%s'), because entity isn't alive anymore!")
             :format(filename, entity))
     end
@@ -207,7 +147,7 @@ EntityKill                                     = function(entity_id)
     if EntityGetIsAlive(entity_id) then
         entityKill(entity_id)
     else
-        Logger.warn(Logger.channels.entity,
+        entityUtils.logger:warn(entityUtils.logger.channels.entity,
             ("Unable to EntityKill(entity '%s'), because entity isn't alive anymore!"):format(entity_id))
     end
 end
@@ -217,7 +157,7 @@ EntityRemoveComponent                          = function(entity_id, component_i
     if EntityGetIsAlive(entity_id) then
         entityRemoveComponent(entity_id, component_id)
     else
-        Logger.warn(Logger.channels.entity,
+        entityUtils.logger:warn(entityUtils.logger.channels.entity,
             ("Unable to EntityRemoveComponent(entity_id %s, component_id %s), because entity isn't alive anymore!")
             :format(entity_id, component_id))
     end
@@ -228,7 +168,7 @@ EntityGetAllComponents                         = function(entity_id)
     if EntityGetIsAlive(entity_id) then
         return entityGetAllComponents(entity_id)
     else
-        Logger.warn(Logger.channels.entity,
+        entityUtils.logger:warn(entityUtils.logger.channels.entity,
             ("Unable to EntityGetAllComponents(entity_id %s), because entity isn't alive anymore!")
             :format(entity_id))
     end
@@ -243,7 +183,7 @@ EntityGetComponent                             = function(entity_id, component_t
         end
         return entityGetComponent(entity_id, component_type_name, tag)
     else
-        Logger.warn(Logger.channels.entity,
+        entityUtils.logger:warn(entityUtils.logger.channels.entity,
             ("Unable to EntityGetComponent(entity_id %s, component_type_name %s, tag %s), because entity isn't alive anymore!")
             :format(entity_id, component_type_name, tag))
     end
@@ -258,7 +198,7 @@ EntityGetFirstComponent                        = function(entity_id, component_t
         end
         return entityGetFirstComponent(entity_id, component_type_name, tag)
     else
-        Logger.warn(Logger.channels.entity,
+        entityUtils.logger:warn(entityUtils.logger.channels.entity,
             ("Unable to EntityGetFirstComponent(entity_id %s, component_type_name %s, tag %s), because entity isn't alive anymore!")
             :format(entity_id, component_type_name, tag))
     end
@@ -273,7 +213,7 @@ EntityGetComponentIncludingDisabled            = function(entity_id, component_t
         end
         return entityGetComponentIncludingDisabled(entity_id, component_type_name, tag)
     else
-        Logger.warn(Logger.channels.entity,
+        entityUtils.logger:warn(entityUtils.logger.channels.entity,
             ("Unable to EntityGetComponentIncludingDisabled(entity_id %s, component_type_name %s, tag %s), because entity isn't alive anymore!")
             :format(entity_id, component_type_name, tag))
     end
@@ -288,7 +228,7 @@ EntityGetFirstComponentIncludingDisabled       = function(entity_id, component_t
         end
         return entityGetFirstComponentIncludingDisabled(entity_id, component_type_name, tag)
     else
-        Logger.warn(Logger.channels.entity,
+        entityUtils.logger:warn(entityUtils.logger.channels.entity,
             ("Unable to EntityGetFirstComponentIncludingDisabled(entity_id %s, component_type_name %s, tag %s), because entity isn't alive anymore!")
             :format(entity_id, component_type_name, tag))
     end
@@ -300,7 +240,7 @@ EntitySetTransform                             = function(entity_id, x, y, rotat
     if EntityGetIsAlive(entity_id) then
         entitySetTransform(entity_id, x, y, rotation, scale_x, scale_y)
     else
-        Logger.warn(Logger.channels.entity,
+        entityUtils.logger:warn(entityUtils.logger.channels.entity,
             ("Unable to EntitySetTransform(entity_id %s, x %s, y %s, rotation %s, scale_x %s, scale_y %s), because entity isn't alive anymore!")
             :format(entity_id, x, y, rotation, scale_x, scale_y))
     end
@@ -311,7 +251,7 @@ EntityApplyTransform                           = function(entity_id, x, y, rotat
     if EntityGetIsAlive(entity_id) then
         entityApplyTransform(entity_id, x, y, rotation, scale_x, scale_y)
     else
-        Logger.warn(Logger.channels.entity,
+        entityUtils.logger:warn(entityUtils.logger.channels.entity,
             ("Unable to EntityApplyTransform(entity_id %s, x %s, y %s, rotation %s, scale_x %s, scale_y %s), because entity isn't alive anymore!")
             :format(entity_id, x, y, rotation, scale_x, scale_y))
     end
@@ -322,7 +262,7 @@ EntityGetTransform                             = function(entity_id)
     if EntityGetIsAlive(entity_id) then
         return entityGetTransform(entity_id)
     else
-        Logger.warn(Logger.channels.entity,
+        entityUtils.logger:warn(entityUtils.logger.channels.entity,
             ("Unable to EntityGetTransform(entity_id %s), because entity isn't alive anymore!")
             :format(entity_id))
     end
@@ -334,7 +274,7 @@ EntityAddChild                                 = function(parent_id, child_id)
     if EntityGetIsAlive(parent_id) and EntityGetIsAlive(child_id) then
         entityAddChild(parent_id, child_id)
     else
-        Logger.warn(Logger.channels.entity,
+        entityUtils.logger:warn(entityUtils.logger.channels.entity,
             ("Unable to EntityAddChild(parent_id %s %s, child_id %s %s), because entity isn't alive anymore!")
             :format(parent_id, EntityGetIsAlive(parent_id), child_id, EntityGetIsAlive(child_id)))
     end
@@ -345,7 +285,7 @@ EntityGetAllChildren                           = function(entity_id)
     if EntityGetIsAlive(entity_id) then
         return entityGetAllChildren(entity_id)
     else
-        Logger.warn(Logger.channels.entity,
+        entityUtils.logger:warn(entityUtils.logger.channels.entity,
             ("Unable to EntityGetAllChildren(entity_id %s), because entity isn't alive anymore!")
             :format(entity_id))
     end
@@ -357,7 +297,7 @@ EntityGetParent                                = function(entity_id)
     if EntityGetIsAlive(entity_id) then
         return entityGetParent(entity_id)
     else
-        Logger.warn(Logger.channels.entity,
+        entityUtils.logger:warn(entityUtils.logger.channels.entity,
             ("Unable to EntityGetParent(entity_id %s), because entity isn't alive anymore!")
             :format(entity_id))
     end
@@ -369,7 +309,7 @@ EntityGetRootEntity                            = function(entity_id)
     if EntityGetIsAlive(entity_id) then
         return entityGetRootEntity(entity_id)
     else
-        Logger.warn(Logger.channels.entity,
+        entityUtils.logger:warn(entityUtils.logger.channels.entity,
             ("Unable to EntityGetRootEntity(entity_id %s), because entity isn't alive anymore!")
             :format(entity_id))
     end
@@ -381,7 +321,7 @@ EntityRemoveFromParent                         = function(entity_id)
     if EntityGetIsAlive(entity_id) then
         return entityRemoveFromParent(entity_id)
     else
-        Logger.warn(Logger.channels.entity,
+        entityUtils.logger:warn(entityUtils.logger.channels.entity,
             ("Unable to EntityRemoveFromParent(entity_id %s), because entity isn't alive anymore!")
             :format(entity_id))
     end
@@ -392,7 +332,7 @@ EntitySetComponentsWithTagEnabled              = function(entity_id, tag, enable
     if EntityGetIsAlive(entity_id) then
         return entitySetComponentsWithTagEnabled(entity_id, tag, enabled)
     else
-        Logger.warn(Logger.channels.entity,
+        entityUtils.logger:warn(entityUtils.logger.channels.entity,
             ("Unable to EntitySetComponentsWithTagEnabled(entity_id %s, tag %s, enabled %s), because entity isn't alive anymore!")
             :format(entity_id, tag, enabled))
     end
@@ -403,7 +343,7 @@ EntitySetComponentIsEnabled                    = function(entity_id, component_i
     if EntityGetIsAlive(entity_id) then
         return entitySetComponentIsEnabled(entity_id, component_id, is_enabled)
     else
-        Logger.warn(Logger.channels.entity,
+        entityUtils.logger:warn(entityUtils.logger.channels.entity,
             ("Unable to EntitySetComponentIsEnabled(entity_id %s, component_id %s, is_enabled %s), because entity isn't alive anymore!")
             :format(entity_id, component_id, is_enabled))
     end
@@ -414,7 +354,7 @@ EntityGetName                                  = function(entity_id)
     if EntityGetIsAlive(entity_id) then
         return entityGetName(entity_id)
     else
-        Logger.warn(Logger.channels.entity,
+        entityUtils.logger:warn(entityUtils.logger.channels.entity,
             ("Unable to EntityGetName(entity_id %s), because entity isn't alive anymore!")
             :format(entity_id))
     end
@@ -426,7 +366,7 @@ EntitySetName                                  = function(entity_id, name)
     if EntityGetIsAlive(entity_id) then
         entitySetName(entity_id, name)
     else
-        Logger.warn(Logger.channels.entity,
+        entityUtils.logger:warn(entityUtils.logger.channels.entity,
             ("Unable to EntitySetName(entity_id %s, name %s), because entity isn't alive anymore!")
             :format(entity_id, name))
     end
@@ -437,7 +377,7 @@ EntityGetTags                                  = function(entity_id)
     if EntityGetIsAlive(entity_id) then
         return entityGetTags(entity_id)
     else
-        Logger.warn(Logger.channels.entity,
+        entityUtils.logger:warn(entityUtils.logger.channels.entity,
             ("Unable to EntityGetTags(entity_id %s), because entity isn't alive anymore!")
             :format(entity_id))
     end
@@ -449,7 +389,7 @@ EntityAddTag                                   = function(entity_id, tag)
     if EntityGetIsAlive(entity_id) then
         entityAddTag(entity_id, tag)
     else
-        Logger.warn(Logger.channels.entity,
+        entityUtils.logger:warn(entityUtils.logger.channels.entity,
             ("Unable to EntityAddTag(entity_id %s, tag %s), because entity isn't alive anymore!")
             :format(entity_id, tag))
     end
@@ -460,7 +400,7 @@ EntityRemoveTag                                = function(entity_id, tag)
     if EntityGetIsAlive(entity_id) then
         entityRemoveTag(entity_id, tag)
     else
-        Logger.warn(Logger.channels.entity,
+        entityUtils.logger:warn(entityUtils.logger.channels.entity,
             ("Unable to EntityRemoveTag(entity_id %s, tag %s), because entity isn't alive anymore!")
             :format(entity_id, tag))
     end
@@ -471,7 +411,7 @@ EntityHasTag                                   = function(entity_id, tag)
     if EntityGetIsAlive(entity_id) then
         return entityHasTag(entity_id, tag)
     else
-        Logger.warn(Logger.channels.entity,
+        entityUtils.logger:warn(entityUtils.logger.channels.entity,
             ("Unable to EntityHasTag(entity_id %s, tag %s), because entity isn't alive anymore!")
             :format(entity_id, tag))
     end
@@ -483,7 +423,7 @@ EntityGetFilename                              = function(entity_id)
     if EntityGetIsAlive(entity_id) then
         return entityGetFilename(entity_id)
     else
-        Logger.warn(Logger.channels.entity,
+        entityUtils.logger:warn(entityUtils.logger.channels.entity,
             ("Unable to EntityGetFilename(entity_id %s), because entity isn't alive anymore!")
             :format(entity_id))
     end
@@ -495,7 +435,7 @@ ComponentAddTag                                = function(component_id, tag)
     --if ComponentGetIsEnabled(component_id) then
     componentAddTag(component_id, tag)
     --else
-    --    Logger.warn(Logger.channels.entity,
+    --    entityUtils.logger:warn(entityUtils.logger.channels.entity,
     --                ("Unable to ComponentAddTag(component_id %s, tag %s), because component doesn't exist!")
     --                        :format(component_id, tag))
     --end
@@ -506,7 +446,7 @@ ComponentRemoveTag                             = function(component_id, tag)
     --if ComponentGetIsEnabled(component_id) then
     componentRemoveTag(component_id, tag)
     --else
-    --    Logger.warn(Logger.channels.entity,
+    --    entityUtils.logger:warn(entityUtils.logger.channels.entity,
     --                ("Unable to ComponentRemoveTag(component_id %s, tag %s), because component doesn't exist!")
     --                        :format(component_id, tag))
     --end
@@ -517,7 +457,7 @@ ComponentHasTag                                = function(component_id, tag)
     --if ComponentGetIsEnabled(component_id) then
     return componentHasTag(component_id, tag)
     --else
-    --    Logger.warn(Logger.channels.entity,
+    --    entityUtils.logger:warn(entityUtils.logger.channels.entity,
     --                ("Unable to ComponentHasTag(component_id %s, tag %s), because component doesn't exist!")
     --                        :format(component_id, tag))
     --end
@@ -529,7 +469,7 @@ ComponentGetValue2                             = function(component_id, field_na
     --if ComponentGetIsEnabled(component_id) then
     return componentGetValue2(component_id, field_name)
     --else
-    --    Logger.warn(Logger.channels.entity,
+    --    entityUtils.logger:warn(entityUtils.logger.channels.entity,
     --                ("Unable to ComponentGetValue2(component_id %s, field_name %s), because component doesn't exist!")
     --                        :format(component_id, field_name))
     --end
@@ -546,7 +486,7 @@ ComponentSetValue                              = function(component_id, variable
     end
     componentSetValue(component_id, variable_name, ("%s"):format(value_string))
     --else
-    --    Logger.warn(Logger.channels.entity,
+    --    entityUtils.logger:warn(entityUtils.logger.channels.entity,
     --                ("Unable to ComponentSetValue(component_id %s, variable_name %s, value_string %s), because component doesn't exist!")
     --                        :format(component_id, variable_name, value_string))
     --end
@@ -562,7 +502,7 @@ ComponentSetValue2                             = function(component_id, field_na
     --end
     componentSetValue2(component_id, field_name, ...)
     --else
-    --    Logger.warn(Logger.channels.entity,
+    --    entityUtils.logger:warn(entityUtils.logger.channels.entity,
     --                ("Unable to ComponentSetValue2(component_id %s, field_name %s, value_string %s), because component doesn't exist!")
     --                        :format(component_id, field_name, value_string))
     --end
@@ -573,7 +513,7 @@ EntityAddComponent                             = function(entity_id, component_t
     if EntityGetIsAlive(entity_id) then
         return entityAddComponent(entity_id, component_type_name, table_of_component_values)
     else
-        Logger.warn(Logger.channels.entity,
+        entityUtils.logger:warn(entityUtils.logger.channels.entity,
             ("Unable to EntityAddComponent(entity_id %s, component_type_name %s, table_of_component_values %s), because entity isn't alive anymore!")
             :format(entity_id, component_type_name, table_of_component_values))
     end
@@ -604,7 +544,7 @@ EntityAddComponent2                            = function(entity_id, component_t
         end
         return entityAddComponent2(entity_id, component_type_name, table_of_component_values)
     else
-        Logger.warn(Logger.channels.entity,
+        entityUtils.logger:warn(entityUtils.logger.channels.entity,
             ("Unable to EntityAddComponent2(entity_id %s, component_type_name %s, table_of_component_values %s), because entity isn't alive anymore!")
             :format(entity_id, component_type_name, table_of_component_values))
     end
@@ -616,7 +556,7 @@ ComponentGetMembers                            = function(component_id)
     --if ComponentGetIsEnabled(component_id) then
     return componentGetMembers(component_id)
     --else
-    --    Logger.warn(Logger.channels.entity,
+    --    entityUtils.logger:warn(entityUtils.logger.channels.entity,
     --                ("Unable to ComponentGetMembers(component_id %s), because component doesn't exist!")
     --                        :format(component_id))
     --end
@@ -628,7 +568,7 @@ ComponentObjectGetMembers                      = function(component_id, object_n
     --if ComponentGetIsEnabled(component_id) then
     return componentObjectGetMembers(component_id, object_name)
     --else
-    --    Logger.warn(Logger.channels.entity,
+    --    entityUtils.logger:warn(entityUtils.logger.channels.entity,
     --                ("Unable to ComponentGetMembers(component_id %s, object_name %s), because component doesn't exist!")
     --                        :format(component_id, object_name))
     --end
@@ -640,7 +580,7 @@ ComponentGetTypeName                           = function(component_id)
     --if ComponentGetIsEnabled(component_id) then
     return componentGetTypeName(component_id)
     --else
-    --    Logger.warn(Logger.channels.entity,
+    --    entityUtils.logger:warn(entityUtils.logger.channels.entity,
     --                ("Unable to ComponentGetMembers(component_id %s), because component doesn't exist!")
     --                        :format(component_id))
     --end

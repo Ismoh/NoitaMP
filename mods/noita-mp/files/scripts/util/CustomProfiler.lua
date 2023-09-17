@@ -1,10 +1,17 @@
 ---Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 ---@class CustomProfiler
 local CustomProfiler                     = {
-    plotly = require("plotly"),
-    winapi = require("winapi"),
-    socket = require("socket"),
-    udp    = nil
+    -- Imports set to nil to avoid recursive imports, but they are initialized in CustomProfiler:new()
+    fileUtils       = nil,
+    noitaMpSettings = nil,
+    plotly          = nil,
+    socket          = nil,
+    udp             = nil,
+    utils           = nil,
+    winapi          = nil,
+    -- Attributes
+    testNumber      = 0,
+    testString      = "wow"
 }
 
 ---@type table<string, table<number, table<string, number>>> A cache that stores all the data that is used to generate the report.
@@ -35,14 +42,14 @@ CustomProfiler.reportJsonFilenamePattern = "%s.json" -- Default: %s.json
 
 
 function CustomProfiler:init()
-    if not NoitaMpSettings.get("noita-mp.toggle_profiler", "boolean") then
+    if not self.noitaMpSettings:get("noita-mp.toggle_profiler", "boolean") then
         return
     end
 
     local content = ('cd "%s" && cmd /k lua.bat files\\scripts\\bin\\profiler.lua'):format(FileUtils.GetAbsoluteDirectoryPathOfNoitaMP())
     content = content .. " %1"
-    FileUtils.WriteFile(("%s/profiler.bat"):format(FileUtils.GetAbsoluteDirectoryPathOfNoitaMP()), content)
-    Utils.execLua(self.winapi.get_current_pid())
+    self.fileUtils.WriteFile(("%s/profiler.bat"):format(self.fileUtils.GetAbsoluteDirectoryPathOfNoitaMP()), content)
+    self.utils.execLua(self.winapi.get_current_pid())
 
     self.udp = assert(self.socket.udp())
     self.udp:settimeout(0)
@@ -66,8 +73,7 @@ function CustomProfiler:start(functionName)
     local time        = GameGetRealWorldTimeSinceStarted() * 1000
     self.counter      = self.counter + 1
 
-    local networkData = ("%s, %s, %s, %s, %s, %s")
-        :format(frame, self.counter, "start", time, functionName, collectgarbage("count") / 1024)
+    local networkData = ("%s, %s, %s, %s, %s, %s"):format(frame, self.counter, "start", time, functionName, collectgarbage("count") / 1024)
     self.udp:send(networkData)
 
     return self.counter
@@ -92,15 +98,14 @@ function CustomProfiler:stop(functionName, customProfilerCounter)
     local frame       = GameGetFrameNum()
     local time        = GameGetRealWorldTimeSinceStarted() * 1000
 
-    local networkData = ("%s, %s, %s, %s, %s, %s")
-        :format(frame, customProfilerCounter, "stop", time, functionName, collectgarbage("count") / 1024)
-    udp:send(networkData)
+    local networkData = ("%s, %s, %s, %s, %s, %s"):format(frame, customProfilerCounter, "stop", time, functionName, collectgarbage("count") / 1024)
+    self.udp:send(networkData)
     return 0
 end
 
 ---Creates a report of all the functions that were profiled into profiler_2022-11-24_20-23-00.json
 function CustomProfiler:report()
-    local fig1 = plotly.figure()
+    local fig1 = self.plotly.figure()
 
     fig1:update_layout {
         width   = 1920,
@@ -129,13 +134,31 @@ function CustomProfiler:getSize()
 end
 
 ---CustomProfiler constructor.
----@param t CustomProfiler|nil
+---@param customProfilerObject CustomProfiler|nil require("CustomProfiler") or nil
+---@param fileUtils FileUtils|nil can be nil
+---@param noitaMpSettings NoitaMpSettings required
+---@param plotly plotly|nil can be nil
+---@param socket socket|nil can be nil
+---@param utils Utils|nil can be nil
+---@param winapi winapi|nil can be nil
 ---@return CustomProfiler
-function CustomProfiler:new(t, otherClassesIfRequireLoop)
-    local t = t or {}
-    setmetatable(t, self)
-    self.__index = self
-    return t
+function CustomProfiler:new(customProfilerObject, fileUtils, noitaMpSettings, plotly, socket, utils, winapi)
+    local customProfiler = customProfilerObject or self or {} -- Use self if this is called as a class constructor
+    setmetatable(customProfiler, self)
+    self.__index         = self
+
+    local cpc            = self:start("CustomProfiler:new")
+
+    -- Initialize all imports to avoid recursive imports
+    self.fileUtils       = fileUtils or require("FileUtils")             --:new()
+    self.noitaMpSettings = noitaMpSettings or require("NoitaMpSettings") --:new()
+    self.plotly          = plotly or require("plotly")                   --:new()
+    self.socket          = socket or require("socket")
+    self.utils           = utils or require("Utils")                     --:new()
+    self.winapi          = winapi or require("winapi")
+
+    self:stop("CustomProfiler:new", cpc)
+    return customProfiler
 end
 
 return CustomProfiler

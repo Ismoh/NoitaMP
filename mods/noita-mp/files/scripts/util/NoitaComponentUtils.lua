@@ -17,7 +17,7 @@ local NoitaComponentUtils = {}
 ---@param health number
 function NoitaComponentUtils.setEntityData(entityId, x, y, rotation, velocity, health)
     local cpc = CustomProfiler.start("NoitaComponentUtils.setEntityData")
-    if not EntityUtils.isEntityAlive(entityId) then
+    if not EntityGetIsAlive(entityId) then
         CustomProfiler.stop("NoitaComponentUtils.setEntityData", cpc)
         return
     end
@@ -87,7 +87,7 @@ end
 ---@return number|nil compId
 function NoitaComponentUtils.addOrGetNetworkSpriteStatusIndicator(entityId)
     local cpc = CustomProfiler.start("NoitaComponentUtils.addNetworkSpriteStatusIndicator")
-    if not EntityUtils.isEntityAlive(entityId) then
+    if not EntityGetIsAlive(entityId) then
         CustomProfiler.stop("NoitaComponentUtils.addNetworkSpriteStatusIndicator", cpc)
         return nil
     end
@@ -144,7 +144,7 @@ function NoitaComponentUtils.setInitialSerializedEntityString(entityId, initialS
     local cpc = CustomProfiler.start("NoitaComponentUtils.setInitialSerializedEntityString")
 
     entityId = EntityGetRootEntity(entityId)
-    if not EntityUtils.isEntityAlive(entityId) then
+    if not EntityGetIsAlive(entityId) then
         CustomProfiler.stop("NoitaComponentUtils.setInitialSerializedEntityString", cpc)
         error("Unable to set initial serialized entity string, because entity is not alive!", 2)
     end
@@ -174,7 +174,7 @@ function NoitaComponentUtils.getInitialSerializedEntityString(entityId)
     local cpc = CustomProfiler.start("NoitaComponentUtils.getInitialSerializedEntityString")
 
     local rootEntityId = EntityGetRootEntity(entityId)
-    if not EntityUtils.isEntityAlive(rootEntityId) then
+    if not EntityGetIsAlive(rootEntityId) then
         CustomProfiler.stop("NoitaComponentUtils.getInitialSerializedEntityString", cpc)
         error(("Unable to get initial serialized entity (%s) string, because entity is not alive!"):format(rootEntityId), 2)
     end

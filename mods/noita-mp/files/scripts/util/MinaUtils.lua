@@ -175,7 +175,7 @@ function MinaUtils.isLocalMinaPolymorphed()
     local polymorphedEntityIds = EntityGetWithTag("polymorphed") or {}
 
     for e = 1, #polymorphedEntityIds do
-        if EntityUtils.isEntityAlive(polymorphedEntityIds[e]) then
+        if EntityGetIsAlive(polymorphedEntityIds[e]) then
             local componentIds = EntityGetComponentIncludingDisabled(polymorphedEntityIds[e],
                 "GameStatsComponent") or {}
             for c = 1, #componentIds do
@@ -252,6 +252,49 @@ function MinaUtils.getAllMinas()
 
     CustomProfiler.stop("MinaUtils.getAllMinas", cpc)
     return minas
+end
+
+-- TODO: Rework this by adding and updating entityId to Server.entityId and Client.entityId! Dont forget polymorphism!
+--- isRemoteMinae
+---Checks if the entityId is a remote minae.
+---@param entityId number
+---@return boolean true if entityId is a remote minae, otherwise false
+function MinaUtils:isRemoteMinae(entityId)
+    local cpc = self.customProfiler:start("EntityUtils.isRemoteMinae")
+    if not EntityGetIsAlive(entityId) then
+        CustomProfiler.stop("EntityUtils.isRemoteMinae", cpc)
+        return false
+    end
+    local who = whoAmI()
+    if who == Server.iAm then
+        local clients = Server:getClients()
+        for i = 1, #clients do
+            local client                     = clients[i]
+            local clientsNuid                = client.nuid
+            local nuidRemote, entityIdRemote = GlobalsUtils.getNuidEntityPair(clientsNuid)
+            if not Utils.IsEmpty(entityIdRemote) and entityIdRemote == entityId then
+                CustomProfiler.stop("EntityUtils.isRemoteMinae", cpc)
+                return true
+            end
+        end
+    elseif who == Client.iAm then
+        local serverNuid, serverEntityId = GlobalsUtils.getNuidEntityPair(Client.serverInfo.nuid)
+        if entityId == serverEntityId then
+            CustomProfiler.stop("EntityUtils.isRemoteMinae", cpc)
+            return true
+        end
+        for i = 1, #Client.otherClients do
+            local client                     = Client.otherClients[i]
+            local clientsNuid                = client.nuid
+            local nuidRemote, entityIdRemote = GlobalsUtils.getNuidEntityPair(clientsNuid)
+            if not Utils.IsEmpty(entityIdRemote) and entityIdRemote == entityId then
+                CustomProfiler.stop("EntityUtils.isRemoteMinae", cpc)
+                return true
+            end
+        end
+    end
+    CustomProfiler.stop("EntityUtils.isRemoteMinae", cpc)
+    return false
 end
 
 ---Globally accessible MinaUtils in _G.MinaUtils.
