@@ -103,11 +103,25 @@ The maximum amount of entries per trace.
 
 
 ```lua
-function CustomProfiler.new(self: CustomProfiler, t: CustomProfiler|nil, otherClassesIfRequireLoop: any)
+function CustomProfiler.new(self: CustomProfiler, customProfilerObject: CustomProfiler|nil, fileUtils: FileUtils|nil, noitaMpSettings: NoitaMpSettings, plotly: plotly|nil, socket: socket|nil, utils: Utils|nil, winapi: winapi|nil)
   -> CustomProfiler
 ```
 
 CustomProfiler constructor.
+
+@*param* `customProfilerObject` — require("CustomProfiler") or nil
+
+@*param* `fileUtils` — can be nil
+
+@*param* `noitaMpSettings` — required
+
+@*param* `plotly` — can be nil
+
+@*param* `socket` — can be nil
+
+@*param* `utils` — can be nil
+
+@*param* `winapi` — can be nil
 
 ## report
 
@@ -169,7 +183,7 @@ Starts the profiler. This has to be called before the function (or first line of
 @*param* `functionName` — The name of the function that you want to measure. This has to be the same as the one used in CustomProfiler:stop(functionName, customProfilerCounter)
 
 @*return* `returnCounter` — The counter that is used to determine the order of the function calls. This has to be passed to CustomProfiler:stop(functionName, customProfilerCounter)
-See: [CustomProfiler](../../mods/noita-mp/files/scripts/util/GlobalsUtils.lua#L32#8) stop(functionName, customProfilerCounter)
+See: [CustomProfiler](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/GlobalsUtils.lua#32#8) stop(functionName, customProfilerCounter)
 
 ## stop
 
@@ -214,7 +228,12 @@ CustomProfiler
 
 
 ```lua
-function CustomProfiler.start(functionName: any)
+function
+```
+
+
+```lua
+function
 ```
 
 
@@ -224,12 +243,7 @@ function CustomProfiler.start(functionName: any)
 
 
 ```lua
-function
-```
-
-
-```lua
-function
+function CustomProfiler.start(functionName: any)
 ```
 
 
@@ -245,17 +259,232 @@ function CustomProfiler.stop(functionName: any, customProfilerCounter: any)
 
 ---
 
-# FileUtils
+# EntityCache
+
+## __index
 
 
 ```lua
-FileUtils
+EntityCache
 ```
+
+## contains
 
 
 ```lua
-FileUtils
+function EntityCache.contains(self: EntityCache, entityId: any)
+  -> boolean
 ```
+
+## delete
+
+
+```lua
+function EntityCache.delete(self: EntityCache, entityId: any)
+```
+
+## deleteNuid
+
+
+```lua
+function EntityCache.deleteNuid(self: EntityCache, nuid: any)
+```
+
+## get
+
+
+```lua
+function EntityCache.get(self: EntityCache, entityId: any)
+  -> unknown|nil
+```
+
+## getNuid
+
+
+```lua
+function EntityCache.getNuid(self: EntityCache, nuid: any)
+```
+
+## new
+
+
+```lua
+function EntityCache.new(self: EntityCache, entityCacheObject: EntityCache|nil, customProfiler: any, entityUtils: any, utils: any)
+  -> EntityCache
+```
+
+comment
+
+## set
+
+
+```lua
+function EntityCache.set(self: EntityCache, entityId: any, nuid: any, ownerGuid: any, ownerName: any, filepath: any, x: any, y: any, rotation: any, velX: any, velY: any, currentHealth: any, maxHealth: any, fullySerialised: any, serialisedRootEntity: any)
+```
+
+## size
+
+
+```lua
+function EntityCache.size(self: EntityCache)
+  -> integer|unknown
+```
+
+## usage
+
+
+```lua
+function EntityCache.usage(self: EntityCache)
+```
+
+
+---
+
+# EntityCacheUtils
+
+## __index
+
+
+```lua
+EntityCacheUtils
+```
+
+## new
+
+
+```lua
+function EntityCacheUtils.new(self: EntityCacheUtils, entityCacheUtilsObject: any, otherClassesIfRequireLoop: any)
+  -> unknown
+```
+
+## set
+
+
+```lua
+function EntityCacheUtils.set(self: EntityCacheUtils, entityId: any, nuid: any, ownerGuid: any, ownerName: any, filepath: any, x: any, y: any, rotation: any, velX: any, velY: any, currentHealth: any, maxHealth: any, fullySerialised: any, serialisedRootEntity: any)
+```
+
+
+---
+
+# EntityUtils
+
+## __index
+
+
+```lua
+EntityUtils
+```
+
+## addOrChangeDetectionRadiusDebug
+
+
+```lua
+function EntityUtils.addOrChangeDetectionRadiusDebug(self: EntityUtils, player_entity: any)
+```
+
+ Simply adds a ugly debug circle around the player to visualize the detection radius.
+
+## destroyByNuid
+
+
+```lua
+function EntityUtils.destroyByNuid(self: EntityUtils, peer: any, nuid: number)
+```
+
+Destroys the entity by the given nuid.
+
+@*param* `nuid` — The nuid of the entity.
+
+## isEntityPolymorphed
+
+
+```lua
+function EntityUtils.isEntityPolymorphed(self: EntityUtils, entityId: number)
+  -> boolean
+```
+
+ Checks if a specific entity is polymorphed.
+
+## new
+
+
+```lua
+function EntityUtils.new(self: EntityUtils, entityUtils: EntityUtils|nil, client: Client, customProfiler: CustomProfiler, enitityCacheUtils: EntityCacheUtils, entityCache: EntityCache, globalsUtils: GlobalsUtils|nil, logger: Logger|nil, minaUtils: MinaUtils, networkUtils: NetworkUtils, networkVscUtils: NetworkVscUtils, noitaComponentUtils: NoitaComponentUtils, nuidUtils: NuidUtils, server: Server, utils: Utils|nil)
+  -> EntityUtils
+```
+
+Constructor for EntityUtils. With this constructor you can override the default imports.
+
+@*param* `client` — Must not be nil!
+
+@*param* `customProfiler` — Must not be nil!
+
+@*param* `enitityCacheUtils` — Must not be nil!
+
+@*param* `entityCache` — Must not be nil!
+
+@*param* `logger` — (Must not be nil!)?
+
+@*param* `minaUtils` — Must not be nil!
+
+@*param* `networkUtils` — Must not be nil!
+
+@*param* `networkVscUtils` — Must not be nil!
+
+@*param* `noitaComponentUtils` — (Must not be nil!)?
+
+@*param* `nuidUtils` — Must not be nil!
+
+@*param* `server` — Must not be nil!
+
+## onEntityRemoved
+
+
+```lua
+function EntityUtils.onEntityRemoved(self: EntityUtils, entityId: any, nuid: any)
+```
+
+ Make sure this is only be executed once!
+
+## spawnEntity
+
+
+```lua
+function EntityUtils.spawnEntity(self: EntityUtils, owner: EntityOwner, nuid: number, x: number, y: number, rotation: number, velocity?: Vec2, filename: string, localEntityId: number, health: any, isPolymorphed: any)
+  -> entityId: number?
+```
+
+ Spawns an entity and applies the transform and velocity to it. Also adds the network_component.
+
+@*param* `velocity` — - can be nil
+
+@*param* `localEntityId` — this is the initial entity_id created by server OR client. It's owner specific! Every
+
+ owner has its own entity ids.
+
+@*return* `entityId` — Returns the entity_id of a already existing entity, found by nuid or the newly created entity.
+
+## syncDeadNuids
+
+
+```lua
+function EntityUtils.syncDeadNuids(self: EntityUtils)
+```
+
+ Synchronises dead nuids between server and client.
+
+## syncEntities
+
+
+```lua
+function EntityUtils.syncEntities(self: EntityUtils, startFrameTime: number)
+```
+
+Adds or updates all network components to the entity.
+Sends the entity data to all other peers.
+
+@*param* `startFrameTime` — Time at the very beginning of the frame.
 
 
 ---
@@ -639,6 +868,21 @@ function FileUtils.WriteFile(file_fullpath: string, file_content: string)
 
 ---
 
+# FileUtils
+
+
+```lua
+FileUtils
+```
+
+
+```lua
+FileUtils
+```
+
+
+---
+
 # GetWidthAndHeightByResolution
 
  Returns width and height depending on resolution.
@@ -825,9 +1069,13 @@ function Logger.info(self: Logger, channel: any, formattedMessage: any)
 
 
 ```lua
-function Logger.new(self: Logger, logger: any)
-  -> unknown
+function Logger.new(self: Logger, loggerObject: Logger|nil, customProfiler: CustomProfiler)
+  -> Logger
 ```
+
+Logger constructor.
+
+@*param* `customProfiler` — required
 
 ## trace
 
@@ -872,19 +1120,19 @@ integer
 
 # MinaInformation
 
+
+---
+
+# MinaInformation
+
 See:
-  * [Transform](../../mods/noita-mp/files/scripts/util/MinaUtils.lua#L144#18)
-  * [Health](../../mods/noita-mp/files/scripts/util/NoitaComponentUtils.lua#L55#14)
+  * [Transform](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/MinaUtils.lua#144#18)
+  * [Health](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/NoitaComponentUtils.lua#55#14)
 
 
 ```lua
 table
 ```
-
-
----
-
-# MinaInformation
 
 
 ---
@@ -933,7 +1181,7 @@ function MinaUtils.getLocalMinaInformation()
 
 Getter for local mina information. It also takes care of polymorphism!
  Deprecated: Use separated getters instead, like getLocalMinaName, getLocalMinaGuid, getLocalMinaEntityId, getLocalMinaNuid!
-See: [MinaInformation](../../mods/noita-mp/files/scripts/util/MinaUtils.lua#L151#14)
+See: [MinaInformation](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/MinaUtils.lua#151#14)
 
 ## getLocalMinaName
 
@@ -967,6 +1215,20 @@ function MinaUtils.isLocalMinaPolymorphed()
 ```
 
 Checks if local mina is polymorphed. Returns true, entityId | false, nil
+
+## isRemoteMinae
+
+
+```lua
+function MinaUtils.isRemoteMinae(self: MinaUtils, entityId: number)
+  -> true: boolean
+```
+
+ TODO: Rework this by adding and updating entityId to Server.entityId and Client.entityId! Dont forget polymorphism!
+ isRemoteMinae
+Checks if the entityId is a remote minae.
+
+@*return* `true` — if entityId is a remote minae, otherwise false
 
 ## setLocalMinaGuid
 
@@ -1761,50 +2023,91 @@ string
 
  NoitaMpSettings: Replacement for Noita ModSettings.
 
+## __index
+
+
+```lua
+NoitaMpSettings
+```
+
+ NoitaMpSettings: Replacement for Noita ModSettings.
+
 ## clearAndCreateSettings
 
 
 ```lua
-function NoitaMpSettings.clearAndCreateSettings()
+function NoitaMpSettings.clearAndCreateSettings(self: NoitaMpSettings)
 ```
+
+Removes all settings and creates a new settings file.
 
 ## get
 
 
 ```lua
-function NoitaMpSettings.get(key: any, dataType: any)
+function NoitaMpSettings.get(self: NoitaMpSettings, key: string, dataType: string)
   -> boolean|string|number
 ```
+
+Returns a setting from the settings file converted to the given dataType. If the setting does not exist, it will be created with the default empty value.
+
+@*param* `key` — required
+
+@*param* `dataType` — required! Must be one of "boolean" or "number". If not set, "string" is default.
 
 ## isMoreThanOneNoitaProcessRunning
 
 
 ```lua
-function NoitaMpSettings.isMoreThanOneNoitaProcessRunning()
-  -> boolean
+function NoitaMpSettings.isMoreThanOneNoitaProcessRunning(self: NoitaMpSettings)
+  -> true: boolean
 ```
+
+Checks if more than one Noita process is running.
+
+@*return* `true` — if more than one Noita process is running.
 
 ## load
 
 
 ```lua
-function NoitaMpSettings.load()
+function NoitaMpSettings.load(self: NoitaMpSettings)
 ```
+
+Loads the settings from the settings file and put those into the cached settings.
+
+## new
+
+
+```lua
+function NoitaMpSettings.new(self: NoitaMpSettings, noitaMpSettingsObject: NoitaMpSettings|nil, customProfiler: CustomProfiler|nil, guiI: guiI, fileUtils: FileUtils|nil, json: json|nil, lfs: LuaFileSystem|nil, logger: Logger|nil, utils: Utils|nil, winapi: winapi|nil)
+  -> NoitaMpSettings
+```
+
+NoitaMpSettings constructor.
+
+@*param* `guiI` — required
 
 ## save
 
 
 ```lua
-function NoitaMpSettings.save()
+function NoitaMpSettings.save(self: NoitaMpSettings)
 ```
 
 ## set
 
 
 ```lua
-function NoitaMpSettings.set(key: any, value: any)
-  -> table
+function NoitaMpSettings.set(self: NoitaMpSettings, key: string, value: any)
+  -> self.cachedSettings: table
 ```
+
+Sets a setting. Saves the settings to the settings file and returns the new updated cached settings.
+
+@*param* `key` — required
+
+@*param* `value` — required
 
 
 ---
@@ -1822,27 +2125,34 @@ NoitaPatcherUtils
 
 
 ```lua
-function NoitaPatcherUtils.deserializeEntity(self: NoitaPatcherUtils, entityId: any, serializedEntityString: any, x: any, y: any)
-  -> unknown
+function NoitaPatcherUtils.deserializeEntity(self: NoitaPatcherUtils, entityId: number, serializedEntityString: base64, x: number, y: number)
+  -> number
 ```
+
+Deserialize an entity from a base64 string and create it at the given position.
+
+@*param* `serializedEntityString` — encoded string
 
 ## new
 
 
 ```lua
-function NoitaPatcherUtils.new(self: NoitaPatcherUtils, t: NoitaPatcherUtils|nil)
+function NoitaPatcherUtils.new(self: NoitaPatcherUtils, noitaPatcherUtils: NoitaPatcherUtils|nil, base64: base64|nil, customProfiler: CustomProfiler, noitaPatcher: noitapatcher)
   -> NoitaPatcherUtils
 ```
 
 NoitaPatcherUtils constructor.
 
+@*param* `customProfiler` — required
+
+@*param* `noitaPatcher` — required
+
 ## serializeEntity
 
 
 ```lua
-function NoitaPatcherUtils.serializeEntity(self: NoitaPatcherUtils, entityId: any)
-  -> base64: string
-  2. md5: string
+function NoitaPatcherUtils.serializeEntity(self: NoitaPatcherUtils, entityId: number)
+  -> encodedBase64: string
 ```
 
 Serialize an entity to a base64 and md5 string.
@@ -1888,18 +2198,6 @@ function NuidUtils.getEntityIdsByKillIndicator()
 ```lua
 function NuidUtils.getNextNuid()
   -> number
-```
-
-
----
-
-# OnEntityRemoved
-
- Make sure this is only be executed once!
-
-
-```lua
-function OnEntityRemoved(entityId: any, nuid: any)
 ```
 
 
@@ -1955,11 +2253,6 @@ function PlayerNameFunction(entity_id: any, playerName: any)
 ```lua
 unknown
 ```
-
-
----
-
-# SerialisedEntity
 
 
 ---
@@ -2051,7 +2344,7 @@ function ServerInit.new(sockServer: SockServer)
 integer
 ```
 
-self.acknowledge        = {} -- sock.lua#LClient:send -> self.acknowledge[packetsSent] = { event = event, data = data, entityId = data.entityId, status = NetworkUtils.events.acknowledgement.sent }
+self.acknowledge        = {} -- sock.lua#Client:send -> self.acknowledge[packetsSent] = { event = event, data = data, entityId = data.entityId, status = NetworkUtils.events.acknowledgement.sent }
 table.setNoitaMpDefaultMetaMethods(self.acknowledge, "v")
 
 ## amIServer
@@ -2293,16 +2586,6 @@ function Ui.new()
 ---
 
 # Utils
-
-
-```lua
-Utils
-```
-
-
-```lua
-Utils
-```
 
 
 ```lua
