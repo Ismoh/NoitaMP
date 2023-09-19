@@ -126,12 +126,14 @@ function EntityCache:usage()
     return EntityCacheC.usage()
 end
 
----comment
----@param entityCacheObject EntityCache|nil
----@param otherClassesIfRequireLoop any
+---EntityCache constructor
+---@param entityCacheObject EntityCache|nil optional
+---@param customProfiler CustomProfiler required
+---@param entityUtils EntityUtils|nil optional
+---@param utils Utils|nil optional
 ---@return EntityCache
 function EntityCache:new(entityCacheObject, customProfiler, entityUtils, utils)
-    local entityCacheObject = entityCacheObject or self or {} -- Use self if this is called as a class constructor
+    entityCacheObject = entityCacheObject or self or {} -- Use self if this is called as a class constructor
     setmetatable(entityCacheObject, self)
     self.__index = self
 

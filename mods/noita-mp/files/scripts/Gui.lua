@@ -1,6 +1,25 @@
 ---Everything regarding ImGui: Credits to @dextercd
 --- @class Gui
-local Gui = {}
+local Gui = {
+    --[[ Imports ]]
+
+    ---@type Client
+    client = nil,
+    ---@type CustomProfiler
+    customProfiler = nil,
+    ---@type GuidUtils
+    guidUtils = nil,
+    ---@type ImGui
+    imGui = nil,
+    ---@type MinaUtils
+    minaUtils = nil,
+    ---@type NoitaMpSettings
+    noitaMpSettings = nil,
+
+    --[[ Attributes ]]
+
+
+}
 
 if not load_imgui then
     function OnWorldInitialized()
@@ -13,14 +32,6 @@ if not load_imgui then
 
     error("Missing ImGui.", 2)
 end
-
-local imGui = load_imgui({ version = "1.11.0", mod = "noita-mp" })
-
-local CustomProfiler = require("CustomProfiler")
-local NoitaMpSettings = require("NoitaMpSettings")
-local MinaUtils = require("MinaUtils")
-local GuidUtils = require("GuidUtils")
-local Client = require("Client")
 
 --- Can't know the width before creating the window.. Just an initial value, it's updated to the real value once we can call imgui.GetWindowWidth()
 local menuBarWidth = 100
@@ -708,6 +719,35 @@ function Gui.new()
 
     CustomProfiler.stop("Gui.new", cpc)
     return self
+end
+
+---Gui constructor.
+---@param guiObject Gui|nil optional
+---@param client Client required
+---@param customProfiler CustomProfiler required
+---@param guidUtils GuidUtils|nil optional
+---@param minaUtils MinaUtils|nil optional
+---@param noitaMpSettings NoitaMpSettings|nil optional
+---@return Gui
+function Gui:new(guiObject, client, customProfiler, guidUtils, minaUtils, noitaMpSettings)
+    guiObject = guiObject or self or {} -- Use self if this is called as a class constructor
+    setmetatable(guiObject, self)
+    self.__index = self
+
+    local cpc = customProfiler:start("ExampleClass:new")
+
+    -- Initialize all imports to avoid recursive imports
+    self.client = client or error("Client is required!", 2)
+    self.noitaMpSettings = noitaMpSettings or require("NoitaMpSettings")
+        :new(nil, customProfiler, self, nil, nil, nil, nil, nil, nil)
+    self.customProfiler = customProfiler or require("CustomProfiler")
+        :new(nil, nil, noitaMpSettings, nil, nil, nil, nil)
+    self.guidUtils = guidUtils or require("GuidUtils")--:new()
+    self.imGui = load_imgui({ version = "1.11.0", mod = "noita-mp" })
+    self.minaUtils = minaUtils or require("MinaUtils"):new()
+
+    customProfiler:stop("ExampleClass:new", cpc)
+    return guiObject
 end
 
 return Gui

@@ -114,10 +114,10 @@ function ExampleClass:yetAnotherPublicFunction(param)
 end
 
 ---Constructor of the class. This is mandatory!
----@param objectToInheritFrom ExampleClass This can be any object that you want to inherit from.
+---@param objectOfExampleClass ExampleClass
 ---@return ExampleClass
-function ExampleClass:new(objectToInheritFromOrObjectItself, customProfiler, importClass, foo, bar)
-  local exampleObject = objectToInheritFromOrObjectItself or self or {} -- Use self if this is called as a class constructor
+function ExampleClass:new(objectOfExampleClass, customProfiler, importClass, foo, bar)
+  objectOfExampleClass = objectOfExampleClass or self or {} -- Use self if this is called as a class constructor
   setmetatable(exampleObject, self)
   self.__index = self
 
@@ -130,7 +130,7 @@ function ExampleClass:new(objectToInheritFromOrObjectItself, customProfiler, imp
   self.bar = bar or require("bar"):new()
 
   customProfiler:stop("ExampleClass:new", cpc)
-  return exampleObject
+  return objectOfExampleClass
 end
 
 ---Still need to return the class table at the end of the file,

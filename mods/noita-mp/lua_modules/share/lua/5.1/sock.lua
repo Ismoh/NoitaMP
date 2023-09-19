@@ -3,6 +3,7 @@
 -- * [Examples](https://github.com/camchenry/sock.lua/tree/master/examples)
 -- @module sock
 
+---@class sock
 local sock = {
     _VERSION     = 'sock.lua v0.3.0',
     _DESCRIPTION = 'A Lua networking library for LÖVE games',
@@ -244,6 +245,9 @@ end
 ---@class SockServer
 local Server    = {}
 local Server_mt = { __index = Server }
+sock.getServerMetatable = function()
+    return Server_mt
+end
 
 --- NoitaMp Moved this part from newServer to Server:start
 ---@param ip string
@@ -287,7 +291,7 @@ function Server:update()
 
     while event do
         if event.type == "connect" then
-            local eventClient = ClientInit.new(sock.newClient(event.peer))
+            local eventClient = Client:new(sock.newClient(event.peer))
             eventClient:establishClient(event.peer)
             eventClient:setSerialization(self.serialize, self.deserialize)
             eventClient.clientCacheId = GuidUtils.toNumber(eventClient.guid)
@@ -819,6 +823,9 @@ end
 ---@class SockClient
 local Client    = {}
 local Client_mt = { __index = Client }
+sock.getClientClass = function()
+    return Client
+end
 
 function Client:establishClient(serverOrAddress, port)
     serverOrAddress = serverOrAddress or self.address

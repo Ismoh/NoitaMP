@@ -134,7 +134,7 @@ function CustomProfiler:getSize()
 end
 
 ---CustomProfiler constructor.
----@param customProfilerObject CustomProfiler|nil require("CustomProfiler") or nil
+---@param customProfiler CustomProfiler|nil require("CustomProfiler") or nil
 ---@param fileUtils FileUtils|nil can be nil
 ---@param noitaMpSettings NoitaMpSettings required
 ---@param plotly plotly|nil can be nil
@@ -142,22 +142,33 @@ end
 ---@param utils Utils|nil can be nil
 ---@param winapi winapi|nil can be nil
 ---@return CustomProfiler
-function CustomProfiler:new(customProfilerObject, fileUtils, noitaMpSettings, plotly, socket, utils, winapi)
-    local customProfiler = customProfilerObject or self or {} -- Use self if this is called as a class constructor
-    setmetatable(customProfiler, self)
-    self.__index         = self
+function CustomProfiler:new(customProfiler, fileUtils, noitaMpSettings, plotly, socket, utils, winapi)
+    ---@class CustomProfiler
+    customProfiler = setmetatable(customProfiler or self, CustomProfiler)
 
-    local cpc            = self:start("CustomProfiler:new")
+    local cpc    = customProfiler:start("CustomProfiler:new")
 
     -- Initialize all imports to avoid recursive imports
-    self.fileUtils       = fileUtils or require("FileUtils")             --:new()
-    self.noitaMpSettings = noitaMpSettings or require("NoitaMpSettings") --:new()
-    self.plotly          = plotly or require("plotly")                   --:new()
-    self.socket          = socket or require("socket")
-    self.utils           = utils or require("Utils")                     --:new()
-    self.winapi          = winapi or require("winapi")
+    if not customProfiler.fileUtils then
+        customProfiler.fileUtils = fileUtils or require("FileUtils")       --:new()
+    end
+    if not customProfiler.noitaMpSettings then
+        customProfiler.noitaMpSettings = noitaMpSettings or error("CustomProfiler:new requires a NoitaMpSettings object", 2)
+    end
+    if not customProfiler.plotly then
+        customProfiler.plotly = plotly or require("plotly")          --:new()
+    end
+    if not customProfiler.socket then
+        customProfiler.socket = socket or require("socket")
+    end
+    if not customProfiler.utils then
+        customProfiler.utils = utils or require("Utils")           --:new()
+    end
+    if not customProfiler.winapi then
+        customProfiler.winapi = winapi or require("winapi")
+    end
 
-    self:stop("CustomProfiler:new", cpc)
+    customProfiler:stop("CustomProfiler:new", cpc)
     return customProfiler
 end
 

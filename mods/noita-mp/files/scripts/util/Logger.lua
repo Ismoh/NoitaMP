@@ -131,7 +131,7 @@ function Logger:new(loggerObject, customProfiler)
     local cpc = customProfiler:start("Logger:new")
 
     -- Initialize all imports to avoid recursive imports
-    self.customProfiler = customProfiler or error("Logger:new requires a CustomProfiler object", 2)
+    self.customProfiler = customProfiler
     self:trace(self.channels.initialize, "Logger was initialized!")
 
     self.customProfiler:stop("Logger:new", cpc)

@@ -8,18 +8,19 @@ end
 dofile("mods/noita-mp/files/scripts/init/init_.lua")
 local np = require("noitapatcher") -- Need to be initialized before everything else, otherwise Noita will crash
 
-local guiI = require("Gui").new()
+local client = require("Client"):new()
 
-local noitaMpSettings = require("NoitaMpSettings")
+local gui = require("Gui"):new(nil, client, client.customProfiler, nil, nil, client.noitaMpSettings)
+client.noitaMpSettings.gui = gui
+
+local noitaMpSettings = client.noitaMpSettings or require("NoitaMpSettings")
     :new(nil, nil, guiI, nil, nil, nil, nil, nil, nil)
 
-local customProfiler = require("CustomProfiler")
+---@class CustomProfiler
+local customProfiler = client.customProfiler or require("CustomProfiler")
     :new(noitaMpSettings.customProfiler, noitaMpSettings.fileUtils, noitaMpSettings, nil, nil, noitaMpSettings.utils, noitaMpSettings.winapi)
 customProfiler.testNumber = 10
 customProfiler.testString = "reset"
-
-local Client = require("Client")
-local client = Client:new()
 
 local entityUtils = require("EntityUtils"):new(nil, require("Client"):new(), customProfiler)
 local FileUtils = require("FileUtils")

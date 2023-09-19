@@ -5,8 +5,8 @@ local NoitaMpSettings     = {
 
     ---@type CustomProfiler
     customProfiler = nil,
-    ---@type guiI
-    guiI = nil,
+    ---@type Gui
+    gui = nil,
     ---@type FileUtils
     fileUtils = nil,
     ---@type json
@@ -150,7 +150,7 @@ function NoitaMpSettings:get(key, dataType)
         return convertToDataType(self, "", dataType)
     end
     self.customProfiler:stop("NoitaMpSettings.get", cpc)
-    return convertToDataType(self, cachedSettings[key], dataType)
+    return convertToDataType(self, self.cachedSettings[key], dataType)
 end
 
 ---Loads the settings from the settings file and put those into the cached settings.
@@ -173,15 +173,15 @@ function NoitaMpSettings:save()
     end
 
     self.fileUtils.WriteFile(settingsFilePath, self.json.encode(self.cachedSettings))
-    if self.guiI then
-        self.guiI.setShowSettingsSaved(true)
+    if self.gui then
+        self.gui.setShowSettingsSaved(true)
     end
 end
 
 ---NoitaMpSettings constructor.
----@param noitaMpSettingsObject NoitaMpSettings|nil
+---@param noitaMpSettings NoitaMpSettings|nil
 ---@param customProfiler CustomProfiler|nil
----@param guiI guiI required
+---@param gui Gui required
 ---@param fileUtils FileUtils|nil
 ---@param json json|nil
 ---@param lfs LuaFileSystem|nil
@@ -189,23 +189,44 @@ end
 ---@param utils Utils|nil
 ---@param winapi winapi|nil
 ---@return NoitaMpSettings
-function NoitaMpSettings:new(noitaMpSettingsObject, customProfiler, guiI, fileUtils, json, lfs, logger, utils, winapi)
-    local noitaMpSettings = noitaMpSettingsObject or self or {} -- Use self if this is called as a class constructor
-    setmetatable(noitaMpSettings, self)
-    self.__index = self
+function NoitaMpSettings:new(noitaMpSettings, customProfiler, gui, fileUtils, json, lfs, logger, utils, winapi)
+    noitaMpSettings = setmetatable(noitaMpSettings or self, NoitaMpSettings)
 
     -- Initialize all imports to avoid recursive imports
-    self.customProfiler = customProfiler or require("CustomProfiler"):new(nil, nil, self, nil, nil, nil, nil)
+    if not noitaMpSettings.customProfiler then
+        self.customProfiler = customProfiler or require("CustomProfiler"):new(nil, nil, self, nil, nil, nil, nil)
+    end
     local cpc = self.customProfiler:start("NoitaMpSettings:new")
-    self.guiI = guiI or error("NoitaMpSettings:new requires a guiI object", 2)
-    self.fileUtils = fileUtils or require("FileUtils"):new()
-    self.json = json or require("json")
-    self.lfs = lfs or require("lfs")
-    self.logger = logger or require("Logger"):new(nil, customProfiler)
-    self.utils = utils or require("Utils"):new()
-    self.winapi = winapi or require("winapi")
 
-    customProfiler:stop("ExampleClass:new", cpc)
+    if not noitaMpSettings.gui then
+        self.gui = gui --or error("NoitaMpSettings:new requires a Gui object", 2)
+    end
+
+    if not noitaMpSettings.fileUtils then
+        self.fileUtils = fileUtils or self.customProfiler.fileUtils or require("FileUtils")--:new()
+    end
+
+    if not noitaMpSettings.json then
+        self.json = json or require("json")
+    end
+
+    if not noitaMpSettings.lfs then
+        self.lfs = lfs or require("lfs")
+    end
+
+    if not noitaMpSettings.logger then
+        self.logger = logger or require("Logger"):new(nil, self.customProfiler)
+    end
+
+    if not noitaMpSettings.utils then
+        self.utils = utils or self.customProfiler.utils or require("Utils")--:new()
+    end
+
+    if not noitaMpSettings.winapi then
+        self.winapi = winapi or self.customProfiler.winapi or require("winapi")
+    end
+
+    self.customProfiler:stop("ExampleClass:new", cpc)
     return noitaMpSettings
 end
 
