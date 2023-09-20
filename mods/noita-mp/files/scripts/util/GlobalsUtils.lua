@@ -3,8 +3,9 @@
 -- Naming convention is found here:
 -- http://lua-users.org/wiki/LuaStyleGuide#:~:text=Lua%20internal%20variable%20naming%20%2D%20The,but%20not%20necessarily%2C%20e.g.%20_G%20.
 
---- GlobalsUtils:
---- class for GlobalsSetValue and GlobalsGetValue
+---@class GlobalsUtils
+---Class for GlobalsSetValue and GlobalsGetValue
+---@deprecated Use VariableStorageComponents instead!
 GlobalsUtils = {
     --Imports
     customProfiler     = nil,

@@ -29,7 +29,7 @@ function Client:serialize(value)
     self.logger:debug(self.logger.channels.network, ("Serialized and compressed value: %s"):format(compressed))
 
     zstd:free()
-    self.customProfiler:stop("Client.setConfigSettings.serialize", cpc2)
+    self.customProfiler:stop("Client.setConfigSettings.serialize", cpc)
     return compressed
 end
 

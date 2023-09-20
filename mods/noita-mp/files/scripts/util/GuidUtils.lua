@@ -36,7 +36,7 @@ end
 
 
 --- GuidUtils
-
+---@class GuidUtils
 local GuidUtils = {
     cached_guid = {},
 }

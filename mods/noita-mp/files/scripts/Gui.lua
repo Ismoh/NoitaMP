@@ -7,14 +7,24 @@ local Gui = {
     client = nil,
     ---@type CustomProfiler
     customProfiler = nil,
+    ---@type FileUtils
+    fileUtils = nil,
+    ---@type GlobalsUtils
+    globalsUtils = nil,
     ---@type GuidUtils
     guidUtils = nil,
     ---@type ImGui
     imGui = nil,
     ---@type MinaUtils
     minaUtils = nil,
+    ---@type NetworkVscUtils
+    networkVscUtils = nil,
     ---@type NoitaMpSettings
     noitaMpSettings = nil,
+    ---@type Server
+    server = nil,
+    ---@type Utils
+    utils = nil,
 
     --[[ Attributes ]]
 
@@ -31,6 +41,13 @@ local Gui = {
     playerListTransparency = nil,
     playLabel = "NoitaMp - Play",
     settingsLabel = "NoitaMp - Settings",
+    shortcuts = {
+        about      = "CTRL + ALT + A",
+        bugReport  = "CTRL + ALT + B",
+        playerList = "CTRL + ALT + L",
+        play       = "CTRL + ALT + P",
+        settings   = "CTRL + ALT + S",
+    },
     showAbout = false,
     showFirstTime = true,
     showMissingSettings = false,
@@ -518,13 +535,13 @@ function Gui:drawSettings()
                     local name = ComponentGetValue(componentIds[i], "name")
                     if name == self.networkVscUtils.componentNameOfOwnersName then
                         local value = ComponentGetValue2(componentIds[i], "value_string")
-                        if value == oldMina.name then
+                        if oldMina and value == oldMina.name then
                             ComponentSetValue2(componentIds[i], "value_string", self.minaUtils:getLocalMinaName())
                         end
                     end
                     if name == self.networkVscUtils.componentNameOfOwnersGuid then
                         local value = ComponentGetValue2(componentIds[i], "value_string")
-                        if value == oldMina.guid then
+                        if oldMina and value == oldMina.guid then
                             ComponentSetValue2(componentIds[i], "value_string", self.minaUtils:getLocalMinaGuid())
                         end
                     end
@@ -534,7 +551,7 @@ function Gui:drawSettings()
             self.networkVscUtils.addOrUpdateAllVscs(self.minaUtils:getLocalMinaEntityId(), self.minaUtils:getLocalMinaName(),
                 self.minaUtils:getLocalMinaGuid(), self.minaUtils:getLocalMinaNuid())
 
-            self.globalUtils.setUpdateGui(true)
+            self.globalsUtils.setUpdateGui(true)
         end
         if self.showSettingsSaved then
             self.imGui.SameLine()
@@ -734,14 +751,6 @@ function Gui:new(guiObject, client, customProfiler, guidUtils, minaUtils, noitaM
     setmetatable(guiObject, self)
 
     local cpc = customProfiler:start("Gui:new")
-
-    guiObject.shortcuts = {
-        about      = "CTRL + ALT + A",
-        bugReport  = "CTRL + ALT + B",
-        playerList = "CTRL + ALT + L",
-        play       = "CTRL + ALT + P",
-        settings   = "CTRL + ALT + S",
-    }
 
     --[[ Imports ]]
     -- Initialize all imports to avoid recursive imports
