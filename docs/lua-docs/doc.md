@@ -7,6 +7,51 @@
 Client
 ```
 
+## acknowledgeMaxSize
+
+
+```lua
+integer
+```
+
+## amIClient
+
+
+```lua
+function Client.amIClient(self: Client)
+  -> true: boolean
+```
+
+Checks if the current local user is a client.
+
+@*return* `true` — if client, false if not
+See: ~Server.amIServer~
+
+## connect
+
+
+```lua
+function Client.connect(self: Client, ip: string|nil, port: number|nil, code: number|nil)
+```
+
+Connects to a server on ip and port. Both can be nil, then ModSettings will be used. Inherit from sock.connect.
+
+@*param* `ip` — localhost or 127.0.0.1 or nil
+
+@*param* `port` — port number from 1 to max of 65535 or nil
+
+@*param* `code` — connection code 0 = connecting first time, 1 = connected second time with loaded seed
+See: ~sock.connect~
+
+## customProfiler
+
+
+```lua
+CustomProfiler
+```
+
+self.noitaMpSettings.customProfiler or
+
 ## deserialize
 
 
@@ -15,17 +60,240 @@ function Client.deserialize(self: Client, value: any)
   -> unknown
 ```
 
-Defualt enhanced serialization function
+Default enhanced serialization function
+
+## disconnect
+
+
+```lua
+function Client.disconnect(self: Client)
+```
+
+Disconnects from the server. Inherit from sock.disconnect.
+See: ~sock.disconnect~
+
+## entityUtils
+
+
+```lua
+EntityUtils
+```
+
+## getAckCacheSize
+
+
+```lua
+function Client.getAckCacheSize(self: Client)
+  -> cacheSize: number
+```
+
+Mainly for profiling. Returns then network cache, aka acknowledge.
+
+## guid
+
+
+```lua
+nil
+```
+
+## guidUtils
+
+
+```lua
+table
+```
+
+## health
+
+
+```lua
+table
+```
+
+## iAm
+
+
+```lua
+string
+```
+
+## isConnected
+
+
+```lua
+function Client.isConnected(self: Client)
+  -> boolean
+```
+
+Returns true if the client is connected to the server. Inherit from sock.isConnected.
+
+## logger
+
+
+```lua
+Logger
+```
+
+## messagePack
+
+
+```lua
+unknown
+```
+
+## minaUtils
+
+
+```lua
+MinaUtils
+```
+
+Util class for fetching information about local and remote minas.
+
+## missingMods
+
+
+```lua
+nil
+```
+
+## name
+
+
+```lua
+nil
+```
+
+## networkUtils
+
+
+```lua
+table
+```
 
 ## new
 
 
 ```lua
-function Client.new(self: Client, tOrSockClient: Client|SockClient)
+function Client.new(self: Client, clientObject: Client|nil, serverOrAddress: string|nil, port: number|nil, maxChannels: number|nil, server: Server)
   -> Client
 ```
 
-Class constructor
+Client constructor. Inherited from sock.Client.
+
+@*param* `server` — required
+
+## noitaMpSettings
+
+
+```lua
+NoitaMpSettings
+```
+
+ NoitaMpSettings: Replacement for Noita ModSettings.
+
+## noitaPatcherUtils
+
+
+```lua
+NoitaPatcherUtils
+```
+
+## nuid
+
+
+```lua
+nil
+```
+
+## otherClients
+
+
+```lua
+table
+```
+
+## requiredMods
+
+
+```lua
+nil
+```
+
+## send
+
+
+```lua
+function Client.send(self: Client, event: string, data: table)
+  -> true: boolean
+```
+
+Sends a message to the server. Inherit from sock.send.
+
+@*param* `event` — required
+
+@*param* `data` — required
+
+@*return* `true` — if message was sent, false if not
+See: ~sock.send~
+
+## sendDeadNuids
+
+
+```lua
+function Client.sendDeadNuids(self: Client, deadNuids: table)
+  -> true: boolean
+```
+
+Sends dead nuids to the server.
+
+@*param* `deadNuids` — required
+
+@*return* `true` — if message was sent, false if not
+
+## sendEntityData
+
+
+```lua
+function Client.sendEntityData(self: Client, entityId: number)
+```
+
+Sends entity data to the server.
+
+@*param* `entityId` — required
+
+## sendLostNuid
+
+
+```lua
+function Client.sendLostNuid(self: Client, nuid: number)
+  -> true: boolean
+```
+
+Sends a message that the client has a nuid, but no linked entity.
+
+@*param* `nuid` — required
+
+@*return* `true` — if message was sent, false if not
+
+## sendMinaInformation
+
+
+```lua
+function Client.sendMinaInformation(self: Client)
+  -> boolean
+```
+
+Sends mina information to the server.
+
+## sendNeedNuid
+
+
+```lua
+function Client.sendNeedNuid(self: Client, ownerName: string, ownerGuid: string, entityId: number)
+```
+
+Sends a message to the server that the client needs a nuid.
 
 ## serialize
 
@@ -35,7 +303,82 @@ function Client.serialize(self: Client, value: any)
   -> unknown
 ```
 
-Defualt enhanced serialization function
+Default enhanced serialization function
+
+## server
+
+
+```lua
+Server
+```
+
+or error("Server is nil!", 2)
+
+## serverInfo
+
+
+```lua
+table
+```
+
+## sock
+
+
+```lua
+unknown
+```
+
+## syncedMods
+
+
+```lua
+boolean
+```
+
+## transform
+
+
+```lua
+table
+```
+
+## update
+
+
+```lua
+function Client.update(self: Client, startFrameTime: number)
+```
+
+Updates the Client by checking for network events and handling them. Inherit from sock.update.
+
+@*param* `startFrameTime` — required
+See: ~sock.update~
+
+## utils
+
+
+```lua
+Utils
+```
+
+:new()
+
+## zstandard
+
+
+```lua
+unknown
+```
+
+
+---
+
+# Client.port
+
+
+```lua
+unknown
+```
 
 
 ---
@@ -44,12 +387,15 @@ Defualt enhanced serialization function
 
 Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 
-## __index
-
 
 ```lua
 CustomProfiler
 ```
+
+
+---
+
+# CustomProfiler
 
 Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 
@@ -103,13 +449,13 @@ The maximum amount of entries per trace.
 
 
 ```lua
-function CustomProfiler.new(self: CustomProfiler, customProfilerObject: CustomProfiler|nil, fileUtils: FileUtils|nil, noitaMpSettings: NoitaMpSettings, plotly: plotly|nil, socket: socket|nil, utils: Utils|nil, winapi: winapi|nil)
+function CustomProfiler.new(self: CustomProfiler, customProfiler: CustomProfiler|nil, fileUtils: FileUtils|nil, noitaMpSettings: NoitaMpSettings, plotly: plotly|nil, socket: socket|nil, utils: Utils|nil, winapi: winapi|nil)
   -> CustomProfiler
 ```
 
 CustomProfiler constructor.
 
-@*param* `customProfilerObject` — require("CustomProfiler") or nil
+@*param* `customProfiler` — require("CustomProfiler") or nil
 
 @*param* `fileUtils` — can be nil
 
@@ -212,38 +558,26 @@ The threshold in milliseconds. If a function takes longer than this threshold, i
 
 ---
 
-# CustomProfiler
-
-Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
-
-
-```lua
-CustomProfiler
-```
-
-
----
-
-# CustomProfiler.start
-
-
-```lua
-function
-```
-
-
-```lua
-function
-```
-
-
----
-
 # CustomProfiler.start
 
 
 ```lua
 function CustomProfiler.start(functionName: any)
+```
+
+
+---
+
+# CustomProfiler.start
+
+
+```lua
+function
+```
+
+
+```lua
+function
 ```
 
 
@@ -309,11 +643,19 @@ function EntityCache.getNuid(self: EntityCache, nuid: any)
 
 
 ```lua
-function EntityCache.new(self: EntityCache, entityCacheObject: EntityCache|nil, customProfiler: any, entityUtils: any, utils: any)
+function EntityCache.new(self: EntityCache, entityCacheObject: EntityCache|nil, customProfiler: CustomProfiler, entityUtils: EntityUtils|nil, utils: Utils|nil)
   -> EntityCache
 ```
 
-comment
+EntityCache constructor
+
+@*param* `entityCacheObject` — optional
+
+@*param* `customProfiler` — required
+
+@*param* `entityUtils` — optional
+
+@*param* `utils` — optional
 
 ## set
 
@@ -1007,6 +1349,15 @@ function GlobalsUtils.setUpdateGui(bool: any)
 ---
 
 # Gui
+
+Everything regarding ImGui: Credits to @dextercd
+
+## __index
+
+
+```lua
+Gui
+```
 
 Everything regarding ImGui: Credits to @dextercd
 
@@ -2023,15 +2374,6 @@ string
 
  NoitaMpSettings: Replacement for Noita ModSettings.
 
-## __index
-
-
-```lua
-NoitaMpSettings
-```
-
- NoitaMpSettings: Replacement for Noita ModSettings.
-
 ## clearAndCreateSettings
 
 
@@ -2080,13 +2422,13 @@ Loads the settings from the settings file and put those into the cached settings
 
 
 ```lua
-function NoitaMpSettings.new(self: NoitaMpSettings, noitaMpSettingsObject: NoitaMpSettings|nil, customProfiler: CustomProfiler|nil, guiI: guiI, fileUtils: FileUtils|nil, json: json|nil, lfs: LuaFileSystem|nil, logger: Logger|nil, utils: Utils|nil, winapi: winapi|nil)
+function NoitaMpSettings.new(self: NoitaMpSettings, noitaMpSettings: NoitaMpSettings|nil, customProfiler: CustomProfiler|nil, gui: Gui, fileUtils: FileUtils|nil, json: json|nil, lfs: LuaFileSystem|nil, logger: Logger|nil, utils: Utils|nil, winapi: winapi|nil)
   -> NoitaMpSettings
 ```
 
 NoitaMpSettings constructor.
 
-@*param* `guiI` — required
+@*param* `gui` — required
 
 ## save
 
@@ -2289,6 +2631,22 @@ unknown
 
 # ServerInit
 
+## new
+
+
+```lua
+function ServerInit.new(sockServer: SockServer)
+  -> self: SockServer
+```
+
+ ServerInit constructor
+ Creates a new instance of server 'class'
+
+
+---
+
+# ServerInit
+
  Because of stack overflow errors when loading lua files,
  I decided to put Utils 'classes' into globals
 
@@ -2301,22 +2659,6 @@ ServerInit
 ```lua
 ServerInit
 ```
-
-
----
-
-# ServerInit
-
-## new
-
-
-```lua
-function ServerInit.new(sockServer: SockServer)
-  -> self: SockServer
-```
-
- ServerInit constructor
- Creates a new instance of server 'class'
 
 
 ---
@@ -5153,300 +5495,6 @@ index:
 ```lua
 function select(index: integer|"#", ...any)
   -> any
-```
-
-
----
-
-# self.amIClient
-
- Checks if the current local user is a client
-
-@*return* `iAm` — true if client
-
-
-```lua
-function self.amIClient()
-  -> iAm: boolean
-```
-
-
----
-
-# self.clientCacheId
-
-
-```lua
-unknown
-```
-
-
----
-
-# self.connect
-
- Connects to a server on ip and port. Both can be nil, then ModSettings will be used.
-
-@*param* `ip` — localhost or 127.0.0.1 or nil
-
-@*param* `port` — port number from 1 to max of 65535 or nil
-
-@*param* `code` — connection code 0 = connecting first time, 1 = connected second time with loaded seed
-
-
-```lua
-function self.connect(ip: string, port?: number, code: number)
-```
-
-
----
-
-# self.disconnect
-
-
-```lua
-function self.disconnect()
-```
-
-
----
-
-# self.getAckCacheSize
-
- Mainly for profiling. Returns then network cache, aka acknowledge.
-
-
-```lua
-function self.getAckCacheSize()
-  -> cacheSize: number
-```
-
-
----
-
-# self.guid
-
-
-```lua
-unknown
-```
-
-
-```lua
-unknown
-```
-
-
----
-
-# self.isConnected
-
-
-```lua
-function self.isConnected()
-```
-
-
----
-
-# self.missingMods
-
-
-```lua
-table
-```
-
-
----
-
-# self.nuid
-
-
-```lua
-nil
-```
-
-
-```lua
-unknown
-```
-
-
----
-
-# self.otherClients
-
-
-```lua
-table
-```
-
-
----
-
-# self.requiredMods
-
-
-```lua
-unknown
-```
-
-
----
-
-# self.send
-
-
-```lua
-function self.send(self: any, event: any, data: any)
-  -> boolean
-```
-
-
----
-
-# self.sendDeadNuids
-
-
-```lua
-function self.sendDeadNuids(deadNuids: any)
-  -> boolean
-```
-
-
----
-
-# self.sendEntityData
-
-
-```lua
-function self.sendEntityData(entityId: any)
-```
-
-
----
-
-# self.sendLostNuid
-
-
-```lua
-function self.sendLostNuid(nuid: any)
-  -> boolean
-```
-
-
----
-
-# self.sendMinaInformation
-
-
-```lua
-function self.sendMinaInformation()
-  -> boolean
-```
-
-
----
-
-# self.sendNeedNuid
-
-Sends a message to the server that the client needs a nuid.
-
-
-```lua
-function self.sendNeedNuid(ownerName: string, ownerGuid: string, entityId: number)
-```
-
-
----
-
-# self.serverInfo
-
-
-```lua
-table
-```
-
-
----
-
-# self.serverInfo.entityId
-
-
-```lua
-unknown
-```
-
-
----
-
-# self.serverInfo.guid
-
-
-```lua
-unknown
-```
-
-
----
-
-# self.serverInfo.health
-
-
-```lua
-unknown
-```
-
-
----
-
-# self.serverInfo.name
-
-
-```lua
-unknown
-```
-
-
----
-
-# self.serverInfo.nuid
-
-
-```lua
-unknown
-```
-
-
----
-
-# self.serverInfo.transform
-
-
-```lua
-unknown
-```
-
-
----
-
-# self.serverInfo.version
-
-
-```lua
-unknown
-```
-
-
----
-
-# self.update
-
- Updates the Client by checking for network events and handling them.
-
-
-```lua
-function self.update(startFrameTime: any)
 ```
 
 
