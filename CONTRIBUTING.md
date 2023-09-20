@@ -65,6 +65,7 @@ local ExampleClass = {
     moreAttributes = "moreValues"
   }
 }
+ExampleClass.__index = ExampleClass
 
 -- private functions
 
@@ -114,22 +115,20 @@ function ExampleClass:yetAnotherPublicFunction(param)
 end
 
 ---Constructor of the class. This is mandatory!
----@param objectOfExampleClass ExampleClass
+---@param exampleClassObject ExampleClass
 ---@return ExampleClass
-function ExampleClass:new(objectOfExampleClass, customProfiler, importClass, foo, bar)
-  objectOfExampleClass = objectOfExampleClass or self or {} -- Use self if this is called as a class constructor
-  setmetatable(exampleObject, self)
-  self.__index = self
+function ExampleClass:new(exampleClassObject, customProfiler, importClass, foo, bar)
+  exampleClassObject = exampleClassObject or self or {} -- Use self if this is called as a class constructor
 
   local cpc = customProfiler:start("ExampleClass:new")
 
   -- Initialize all imports to avoid recursive imports
-  self.customProfiler = customProfiler or require("CustomProfiler"):new()
-  self.importClass = importClass or require("importClass"):new()
-  self.foo = foo or require("foo"):new()
-  self.bar = bar or require("bar"):new()
+  exampleClassObject.customProfiler = customProfiler or require("CustomProfiler"):new()
+  exampleClassObject.importClass = importClass or require("importClass"):new()
+  exampleClassObject.foo = foo or require("foo"):new()
+  exampleClassObject.bar = bar or require("bar"):new()
 
-  customProfiler:stop("ExampleClass:new", cpc)
+  exampleClassObject.customProfiler:stop("ExampleClass:new", cpc)
   return objectOfExampleClass
 end
 
@@ -140,6 +139,8 @@ end
 ---OR local exampleObject = require("ExampleClass"):new(objectToInheritFrom)
 return ExampleClass
 ```
+
+#### 'Inheritance' in NoitaMP
 
 ### How to require classes?
 
