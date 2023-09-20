@@ -373,28 +373,6 @@ unknown
 
 ---
 
-# Client.port
-
-
-```lua
-unknown
-```
-
-
----
-
-# CustomProfiler
-
-Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
-
-
-```lua
-CustomProfiler
-```
-
-
----
-
 # CustomProfiler
 
 Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
@@ -529,7 +507,7 @@ Starts the profiler. This has to be called before the function (or first line of
 @*param* `functionName` — The name of the function that you want to measure. This has to be the same as the one used in CustomProfiler:stop(functionName, customProfilerCounter)
 
 @*return* `returnCounter` — The counter that is used to determine the order of the function calls. This has to be passed to CustomProfiler:stop(functionName, customProfilerCounter)
-See: [CustomProfiler](../../mods/noita-mp/files/scripts/util/GlobalsUtils.lua#L32#8) stop(functionName, customProfilerCounter)
+See: [CustomProfiler](../../mods/noita-mp/files/scripts/util/CustomProfiler.lua#L2#10) stop(functionName, customProfilerCounter)
 
 ## stop
 
@@ -554,6 +532,18 @@ number
 
 The threshold in milliseconds. If a function takes longer than this threshold, it will be reported.
  Default: 16.5ms = 60.60 fps
+
+
+---
+
+# CustomProfiler
+
+Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
+
+
+```lua
+CustomProfiler
+```
 
 
 ---
@@ -827,6 +817,21 @@ Adds or updates all network components to the entity.
 Sends the entity data to all other peers.
 
 @*param* `startFrameTime` — Time at the very beginning of the frame.
+
+
+---
+
+# FileUtils
+
+
+```lua
+FileUtils
+```
+
+
+```lua
+FileUtils
+```
 
 
 ---
@@ -1210,21 +1215,6 @@ function FileUtils.WriteFile(file_fullpath: string, file_content: string)
 
 ---
 
-# FileUtils
-
-
-```lua
-FileUtils
-```
-
-
-```lua
-FileUtils
-```
-
-
----
-
 # GetWidthAndHeightByResolution
 
  Returns width and height depending on resolution.
@@ -1361,13 +1351,124 @@ Gui
 
 Everything regarding ImGui: Credits to @dextercd
 
+## checkShortcuts
+
+
+```lua
+function Gui.checkShortcuts(self: Gui)
+```
+
+Function to check if the user pressed a shortcut.
+
+## drawAbout
+
+
+```lua
+function Gui.drawAbout(self: Gui)
+```
+
+Function for drawing the about window.
+
+## drawFirstTime
+
+
+```lua
+function Gui.drawFirstTime(self: Gui)
+```
+
+Function to draw the first time window.
+
+## drawMenuBar
+
+
+```lua
+function Gui.drawMenuBar(self: Gui)
+```
+
+Function to draw the menu bar.
+
+## drawPlayMenu
+
+
+```lua
+function Gui.drawPlayMenu(self: Gui)
+```
+
+Function to draw the play menu.
+
+## drawPlayerList
+
+
+```lua
+function Gui.drawPlayerList(self: Gui)
+```
+
+Function for drawing the player list window.
+
+## drawSettings
+
+
+```lua
+function Gui.drawSettings(self: Gui)
+```
+
+Function to draw the settings window.
+
+## isServer
+
+
+```lua
+nil
+```
+
 ## new
 
 
 ```lua
-function Gui.new()
-  -> table
+function Gui.new(self: Gui, guiObject: Gui|nil, client: Client, customProfiler: CustomProfiler, guidUtils: GuidUtils|nil, minaUtils: MinaUtils|nil, noitaMpSettings: NoitaMpSettings|nil)
+  -> Gui
 ```
+
+Gui constructor.
+
+@*param* `guiObject` — optional
+
+@*param* `client` — required
+
+@*param* `customProfiler` — required
+
+@*param* `guidUtils` — optional
+
+@*param* `minaUtils` — optional
+
+@*param* `noitaMpSettings` — optional
+
+## setShowMissingSettings
+
+
+```lua
+function Gui.setShowMissingSettings(self: Gui, show: boolean)
+```
+
+Setter for the 'showMissingSettings' attribute to show the user that the settings are missing.
+
+## setShowSettingsSaved
+
+
+```lua
+function Gui.setShowSettingsSaved(self: Gui, show: boolean)
+```
+
+Setter for the 'showSettingsSaved' attribute to show the user that the settings were saved.
+
+## update
+
+
+```lua
+function Gui.update(self: Gui)
+```
+
+Guis update function, called every frame.
 
 
 ---
@@ -1386,6 +1487,16 @@ number
 
 ```lua
 number
+```
+
+
+---
+
+# Logger
+
+
+```lua
+Logger
 ```
 
 
@@ -1447,16 +1558,6 @@ function Logger.warn(self: Logger, channel: any, formattedMessage: any)
 
 ---
 
-# Logger
-
-
-```lua
-Logger
-```
-
-
----
-
 # MAX_MEMORY_USAGE
 
  KB = 524,438 MB
@@ -1471,11 +1572,6 @@ integer
 
 # MinaInformation
 
-
----
-
-# MinaInformation
-
 See:
   * [Transform](../../mods/noita-mp/files/scripts/util/MinaUtils.lua#L144#18)
   * [Health](../../mods/noita-mp/files/scripts/util/NoitaComponentUtils.lua#L55#14)
@@ -1484,6 +1580,11 @@ See:
 ```lua
 table
 ```
+
+
+---
+
+# MinaInformation
 
 
 ---
@@ -2609,26 +2710,6 @@ SockServer
 
 ---
 
-# Server.address
-
-
-```lua
-unknown
-```
-
-
----
-
-# Server.port
-
-
-```lua
-unknown
-```
-
-
----
-
 # ServerInit
 
 ## new
@@ -3702,6 +3783,18 @@ function enabled_changed(entityId: any, isEnabled: any)
 
 ---
 
+# entityDetectionRadius
+
+Attributes 
+
+
+```lua
+boolean|string|number
+```
+
+
+---
+
 # error
 
 
@@ -3793,16 +3886,6 @@ unknown
 
 ```lua
 unknown
-```
-
-
----
-
-# guiI
-
-
-```lua
-table
 ```
 
 
@@ -5361,6 +5444,36 @@ function pcall(f: fun(...any):...unknown, arg1?: any, ...any)
 
 ---
 
+# playerListIsBorder
+
+
+```lua
+boolean|string|number
+```
+
+
+---
+
+# playerListIsClickable
+
+
+```lua
+boolean|string|number
+```
+
+
+---
+
+# playerListTransparency
+
+
+```lua
+boolean|string|number
+```
+
+
+---
+
 # print
 
 
@@ -5542,16 +5655,6 @@ function setmetatable(table: table, metatable?: table)
 
 ```lua
 string
-```
-
-
----
-
-# showSettingsSavedTimer
-
-
-```lua
-unknown
 ```
 
 
