@@ -100,8 +100,10 @@ nil
 
 
 ```lua
-table
+GuidUtils
 ```
+
+ GuidUtils
 
 ## health
 
@@ -377,6 +379,18 @@ unknown
 
 Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 
+
+```lua
+CustomProfiler
+```
+
+
+---
+
+# CustomProfiler
+
+Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
+
 ## ceiling
 
 
@@ -536,13 +550,16 @@ The threshold in milliseconds. If a function takes longer than this threshold, i
 
 ---
 
-# CustomProfiler
-
-Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
+# CustomProfiler.start
 
 
 ```lua
-CustomProfiler
+function
+```
+
+
+```lua
+function
 ```
 
 
@@ -553,21 +570,6 @@ CustomProfiler
 
 ```lua
 function CustomProfiler.start(functionName: any)
-```
-
-
----
-
-# CustomProfiler.start
-
-
-```lua
-function
-```
-
-
-```lua
-function
 ```
 
 
@@ -817,21 +819,6 @@ Adds or updates all network components to the entity.
 Sends the entity data to all other peers.
 
 @*param* `startFrameTime` — Time at the very beginning of the frame.
-
-
----
-
-# FileUtils
-
-
-```lua
-FileUtils
-```
-
-
-```lua
-FileUtils
-```
 
 
 ---
@@ -1215,6 +1202,21 @@ function FileUtils.WriteFile(file_fullpath: string, file_content: string)
 
 ---
 
+# FileUtils
+
+
+```lua
+FileUtils
+```
+
+
+```lua
+FileUtils
+```
+
+
+---
+
 # GetWidthAndHeightByResolution
 
  Returns width and height depending on resolution.
@@ -1232,12 +1234,87 @@ function GetWidthAndHeightByResolution()
 
 # GlobalsUtils
 
- GlobalsUtils:
- class for GlobalsSetValue and GlobalsGetValue
+## getDeadNuids
 
 
 ```lua
-table
+function GlobalsUtils.getDeadNuids()
+  -> table
+```
+
+## getNuidEntityPair
+
+
+```lua
+function GlobalsUtils.getNuidEntityPair(nuid: number)
+  -> nuid: number|nil
+  2. entityId: number|nil
+```
+
+ Builds a key string by nuid and returns nuid and entityId found by the globals.
+
+## getUpdateGui
+
+
+```lua
+function GlobalsUtils.getUpdateGui()
+  -> unknown
+```
+
+## parseXmlValueToNuidAndEntityId
+
+
+```lua
+function GlobalsUtils.parseXmlValueToNuidAndEntityId(xmlKey: string, xmlValue: string)
+  -> nuid: number|nil
+  2. entityId: number|nil
+```
+
+ Parses key and value string to nuid and entityId.
+
+@*param* `xmlKey` — GlobalsUtils.nuidKeyFormat = "nuid = %s"
+
+@*param* `xmlValue` — GlobalsUtils.nuidValueFormat = "entityId = %s"
+
+## removeDeadNuid
+
+
+```lua
+function GlobalsUtils.removeDeadNuid(nuid: any)
+```
+
+## setDeadNuid
+
+
+```lua
+function GlobalsUtils.setDeadNuid(nuid: any)
+```
+
+## setNuid
+
+
+```lua
+function GlobalsUtils.setNuid(nuid: any, entityId: any, componentIdForOwnerName: any, componentIdForOwnerGuid: any, componentIdForNuid: any)
+```
+
+## setUpdateGui
+
+
+```lua
+function GlobalsUtils.setUpdateGui(bool: any)
+  -> unknown
+```
+
+
+---
+
+# GlobalsUtils
+
+Class for GlobalsSetValue and GlobalsGetValue
+
+
+```lua
+GlobalsUtils
 ```
 
 
@@ -1469,6 +1546,83 @@ function Gui.update(self: Gui)
 ```
 
 Guis update function, called every frame.
+
+
+---
+
+# GuidUtils
+
+ GuidUtils
+
+## addGuidToCache
+
+
+```lua
+function GuidUtils.addGuidToCache(self: GuidUtils, guid: any)
+```
+
+## getCachedGuids
+
+
+```lua
+function GuidUtils.getCachedGuids(self: GuidUtils)
+  -> table
+```
+
+## getCurrentLocalGuid
+
+
+```lua
+function GuidUtils.getCurrentLocalGuid(self: GuidUtils)
+  -> Guid: string
+```
+
+ Returns the current local GUID.
+
+## getGuid
+
+
+```lua
+function GuidUtils.getGuid(self: GuidUtils, inUsedGuids?: table)
+  -> guid: string
+```
+
+ Generates a pseudo GUID. Does not fulfil RFC standard! Should generate unique GUIDs, but repeats if there is a duplicate.
+ Based on https://github.com/Tieske/uuid !
+
+@*param* `inUsedGuids` — list of already used GUIDs
+
+## isPatternValid
+
+
+```lua
+function GuidUtils.isPatternValid(guid: string)
+  -> true: boolean
+```
+
+ Validates a guid only on its pattern.
+
+@*return* `true` — if GUID-pattern matches
+
+## isUnique
+
+
+```lua
+function GuidUtils.isUnique(self: GuidUtils, guid: string)
+  -> true: boolean
+```
+
+ Validates if the given guid is unique or already generated.
+
+@*return* `true` — if GUID is unique.
+
+## toNumber
+
+
+```lua
+function GuidUtils.toNumber(guid: any)
+  -> integer
+```
 
 
 ---
@@ -2006,6 +2160,23 @@ integer
 
  NetworkVscUtils:
 
+
+```lua
+NetworkVscUtils
+```
+
+
+```lua
+NetworkVscUtils
+```
+
+
+---
+
+# NetworkVscUtils
+
+ NetworkVscUtils:
+
 ## addOrUpdateAllVscs
 
 
@@ -2201,23 +2372,6 @@ string
 
 ```lua
 string
-```
-
-
----
-
-# NetworkVscUtils
-
- NetworkVscUtils:
-
-
-```lua
-NetworkVscUtils
-```
-
-
-```lua
-NetworkVscUtils
 ```
 
 
@@ -2703,25 +2857,19 @@ unknown
 # Server
 
 
+---
+
+# Server
+
+
+```lua
+Server
+```
+
+
 ```lua
 SockServer
 ```
-
-
----
-
-# ServerInit
-
-## new
-
-
-```lua
-function ServerInit.new(sockServer: SockServer)
-  -> self: SockServer
-```
-
- ServerInit constructor
- Creates a new instance of server 'class'
 
 
 ---
@@ -2733,12 +2881,7 @@ function ServerInit.new(sockServer: SockServer)
 
 
 ```lua
-ServerInit
-```
-
-
-```lua
-ServerInit
+unknown
 ```
 
 
@@ -3010,21 +3153,6 @@ function Ui.new()
 
 # Utils
 
-
-```lua
-Utils
-```
-
-
-```lua
-Utils
-```
-
-
----
-
-# Utils
-
 ## CopyToClipboard
 
 
@@ -3100,6 +3228,21 @@ function Utils.openUrl(url: any)
 
 ```lua
 function Utils.pformat(var: any)
+```
+
+
+---
+
+# Utils
+
+
+```lua
+Utils
+```
+
+
+```lua
+Utils
 ```
 
 
