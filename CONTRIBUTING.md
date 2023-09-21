@@ -118,7 +118,7 @@ end
 ---@param exampleClassObject ExampleClass
 ---@return ExampleClass
 function ExampleClass:new(exampleClassObject, customProfiler, importClass, foo, bar)
-  exampleClassObject = exampleClassObject or self or {} -- Use self if this is called as a class constructor
+  exampleClassObject = setmetatable(exampleClassObject or self, ExampleClass)
 
   local cpc = customProfiler:start("ExampleClass:new")
 

@@ -6,8 +6,7 @@ function getNoitaMpRootDirectory()
     print("currentDirectory: " .. currentDirectory)
 
     -- Check if we are inside of noita-mp directory. Don't forget to escape the dash!
-    local startsAtI, endsAtI   = string.find(currentDirectory,
-        "noita%-mp") -- https://stackoverflow.com/a/20223010/3493998
+    local startsAtI, endsAtI   = string.find(currentDirectory, "noita%-mp") -- https://stackoverflow.com/a/20223010/3493998
     local noitaMpRootDirectory = nil
     if not startsAtI then
         error("The current directory is not inside the noita-mp directory. Please run it again somewhere inside the noita-mp directory.")
@@ -39,11 +38,6 @@ package.cpath = package.cpath .. ";" ..
     noitaMpRootDirectory .. "\\lua_modules\\lib\\lua\\5.1\\?.dll;" ..
     "mods\\noita-mp\\lua_modules\\lib\\lua\\5.1\\?.dll;"
 print("package.cpath = " .. package.cpath)
-
---[[ NoitaMP additions ]]
-if not FileUtils then
-    FileUtils = require("FileUtils")
-end
 
 -- A list of paths to lua script modules
 local paths        = {
@@ -92,7 +86,7 @@ local os_name      = require("os_name")
 package.path = default_package_path
 --[[ NoitaMP additions ]]
 -- A dot character represent current working directory
-local root_dir                               = "."
+local root_dir = "."
 
 --[[ NoitaMP additions ]]
 _G.is_windows                                = true
@@ -108,14 +102,13 @@ else
     _G.is_linux = true
     _G.pathSeparator = "/"
 end
-_G.os_name       = current_platform
-_G.os_arch       = current_architecture
+_G.os_name                   = current_platform
+_G.os_arch                   = current_architecture
 
-local cpaths, lpaths                         = {}, {}
-local current_clib_extension                 = extensions[current_platform]
+local cpaths, lpaths         = {}, {}
+local current_clib_extension = extensions[current_platform]
 
-print("init_package_loading.lua | Detected OS " .. _G.os_name ..
-"(" .. _G.os_arch .. ") with path separator '" .. _G.pathSeparator .. "'.")
+print("init_package_loading.lua | Detected OS " .. _G.os_name .. "(" .. _G.os_arch .. ") with path separator '" .. _G.pathSeparator .. "'.")
 
 --[[ NoitaMP additions ]]
 if current_clib_extension then
@@ -156,32 +149,36 @@ if current_clib_extension then
         end
     end
     -- build module path list delimited with semicolon.
-    --package.path = table.concat(lpaths, ";")
-    --package.cpath = table.concat(cpaths, ";")
+    package.path = table.concat(lpaths, ";")
+    package.cpath = table.concat(cpaths, ";")
 
     --[[ NoitaMP additions ]]
-    package.path  = FileUtils.ReplacePathSeparator(table.concat(lpaths, ";"))
-    package.cpath = FileUtils.ReplacePathSeparator(table.concat(cpaths, ";"))
+    local gui             = {} -- mocked gui
+    ---@class NoitaMpSettings
+    local noitaMpSettings = require("NoitaMpSettings")
+        :new(nil, nil, gui, nil, nil, nil, nil)
+    ---@class FileUtils
+    local fileUtils       = require("FileUtils")
+        :new(nil, noitaMpSettings.customProfiler, nil, noitaMpSettings, nil, nil)
 
-    if destination_path then
+    package.path          = fileUtils:ReplacePathSeparator(table.concat(lpaths, ";"))
+    package.cpath         = fileUtils:ReplacePathSeparator(table.concat(cpaths, ";"))
+
+    if destination_path then -- TODO: Remove this if it is not needed anymore
         print("destination_path was set to export LPATH and CPATH!")
 
-        local lua_path_file          = FileUtils.RemoveTrailingPathSeparator(destination_path) ..
-            _G.pathSeparator .. "lua_path.txt"
+        local lua_path_file          = fileUtils:RemoveTrailingPathSeparator(destination_path) .. _G.pathSeparator .. "lua_path.txt"
         local lua_path_file_content  = ";" .. package.path
 
-        local lua_cpath_file         = FileUtils.RemoveTrailingPathSeparator(destination_path) ..
-            _G.pathSeparator .. "lua_cpath.txt"
+        local lua_cpath_file         = fileUtils:RemoveTrailingPathSeparator(destination_path) .. _G.pathSeparator .. "lua_cpath.txt"
         local lua_cpath_file_content = ";" .. package.cpath
 
-        FileUtils.WriteFile(lua_path_file, lua_path_file_content)
+        fileUtils:WriteFile(lua_path_file, lua_path_file_content)
 
-        print("init_package_loading.lua | File (" .. lua_path_file ..
-        ") created with content: " .. lua_path_file_content)
+        print("init_package_loading.lua | File (" .. lua_path_file .. ") created with content: " .. lua_path_file_content)
 
-        FileUtils.WriteFile(lua_cpath_file, lua_cpath_file_content)
-        print("init_package_loading.lua | File (" .. lua_cpath_file ..
-        ") created with content: " .. lua_cpath_file_content)
+        fileUtils:WriteFile(lua_cpath_file, lua_cpath_file_content)
+        print("init_package_loading.lua | File (" .. lua_cpath_file .. ") created with content: " .. lua_cpath_file_content)
     else
         print("destination_path was not set. Export LPATH and CPATH will be skipped!")
     end

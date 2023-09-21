@@ -4,17 +4,18 @@ if BaabInstruction then
 end
 
 --- Imports by dofile, dofile_once and require
-
 dofile("mods/noita-mp/files/scripts/init/init_.lua")
 local np = require("noitapatcher") -- Need to be initialized before everything else, otherwise Noita will crash
 
-local client = require("Client"):new()
+local server = require("Server"):new()
+
+local client = require("Client"):new(nil, nil, nil, nil, server)
 
 local gui = require("Gui"):new(nil, client, client.customProfiler, nil, nil, client.noitaMpSettings)
 client.noitaMpSettings.gui = gui
 
 local noitaMpSettings = client.noitaMpSettings or require("NoitaMpSettings")
-    :new(nil, nil, guiI, nil, nil, nil, nil, nil, nil)
+    :new(nil, nil, gui, nil, nil, nil, nil, nil, nil)
 
 ---@class CustomProfiler
 local customProfiler = client.customProfiler or require("CustomProfiler")

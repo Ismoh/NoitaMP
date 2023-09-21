@@ -4,6 +4,10 @@ if not jit or jit.os ~= "Windows" then
     return
 end
 
+if executed then
+    error("ffiExtensions ran already?!", 2)
+end
+
 local ffi = require("ffi")
 
 local C   = ffi.C
@@ -153,8 +157,8 @@ function pfile:read(n)
 
     if type(n) == "number" then
         if not fetch(function()
-            return #self.buffer < n
-        end) then
+                return #self.buffer < n
+            end) then
             return nil
         end
         local out   = self.buffer:sub(1, n)
@@ -165,8 +169,8 @@ function pfile:read(n)
         return out
     elseif n == "*a" then
         if not fetch(function()
-            return true
-        end) then
+                return true
+            end) then
             return nil
         end
         local out   = self.buffer
@@ -174,8 +178,8 @@ function pfile:read(n)
         return out
     elseif n == "*l" then
         if not fetch(function()
-            return not self.buffer:find("\n", nil, true)
-        end) then
+                return not self.buffer:find("\n", nil, true)
+            end) then
             return nil
         end
         local out
@@ -218,7 +222,7 @@ function io.popen(commandLine)
 
     local pipe_outRd, pipe_outWr = ffi.new("HANDLE[1]"), ffi.new("HANDLE[1]")
     if not C.CreatePipe(pipe_outRd, pipe_outWr, sa, 0) or not C.SetHandleInformation(pipe_outRd[0], HANDLE_FLAG_INHERIT,
-                                                                                     0) then
+            0) then
         return
     end
 
@@ -238,11 +242,13 @@ function io.popen(commandLine)
 
     local size = 4096
     return setmetatable({
-                            pi         = pi,
-                            pipe_outRd = pipe_outRd,
-                            size       = size,
-                            byteBuf    = ffi.new("char[?]", size),
-                            bytesRead  = ffi.new("DWORD[1]"),
-                            buffer     = ""
-                        }, pfile_mt)
+        pi         = pi,
+        pipe_outRd = pipe_outRd,
+        size       = size,
+        byteBuf    = ffi.new("char[?]", size),
+        bytesRead  = ffi.new("DWORD[1]"),
+        buffer     = ""
+    }, pfile_mt)
 end
+
+executed = true

@@ -57,7 +57,6 @@ local Gui = {
     showSettingsSaved = false,
     showSettingsSavedTimer = 10,
 }
-Gui.__index = Gui
 
 if not load_imgui then
     function OnWorldInitialized()
@@ -744,11 +743,11 @@ end
 ---@param customProfiler CustomProfiler required
 ---@param guidUtils GuidUtils|nil optional
 ---@param minaUtils MinaUtils|nil optional
----@param noitaMpSettings NoitaMpSettings|nil optional
+---@param noitaMpSettings NoitaMpSettings required
 ---@return Gui
 function Gui:new(guiObject, client, customProfiler, guidUtils, minaUtils, noitaMpSettings)
-    guiObject = guiObject or self or {} -- Use self if this is called as a class constructor
-    setmetatable(guiObject, self)
+    ---@class Gui
+    guiObject = setmetatable(guiObject or self, Gui)
 
     local cpc = customProfiler:start("Gui:new")
 

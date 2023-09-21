@@ -1,7 +1,9 @@
 ---Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 ---@class CustomProfiler
-local CustomProfiler                     = {
+local CustomProfiler = {
+    --[[ Imports ]]
     -- Imports set to nil to avoid recursive imports, but they are initialized in CustomProfiler:new()
+
     fileUtils       = nil,
     noitaMpSettings = nil,
     plotly          = nil,
@@ -9,37 +11,27 @@ local CustomProfiler                     = {
     udp             = nil,
     utils           = nil,
     winapi          = nil,
-    -- Attributes
-    testNumber      = 0,
-    testString      = "wow"
+
+    --[[ Attributes ]]
+
+    ---@type table<string, table<number, table<string, number>>> A cache that stores all the data that is used to generate the report.
+    reportCache               = {},
+    ---@private
+    ---@type number The counter that is used to determine the order of the function calls.
+    counter                   = 1,
+    ---@type number The threshold in milliseconds. If a function takes longer than this threshold, it will be reported.
+    threshold                 = 16.5,          -- Default: 16.5ms = 60.60 fps
+    ---@type number The ceiling in milliseconds. If a function takes longer than this ceiling, it will be truncated.
+    ceiling                   = 1001,          -- Default: 1001 ms
+    ---@type number The maximum amount of entries per trace.
+    maxEntries                = 50,            -- Default: 50
+    ---@type string The directory where the report will be saved.
+    reportDirectory           = "reports",     -- Default: reports
+    ---@type string The filename of the report.
+    reportFilename            = "report.html", -- Default: report.html
+    ---@type string The filename pattern of the report.
+    reportJsonFilenamePattern = "%s.json",     -- Default: %s.json
 }
-
----@type table<string, table<number, table<string, number>>> A cache that stores all the data that is used to generate the report.
-CustomProfiler.reportCache               = {}
-
----@private
----@type number The counter that is used to determine the order of the function calls.
-CustomProfiler.counter                   = 1
-
----@type number The threshold in milliseconds. If a function takes longer than this threshold, it will be reported.
-CustomProfiler.threshold                 = 16.5 -- Default: 16.5ms = 60.60 fps
-
----@type number The ceiling in milliseconds. If a function takes longer than this ceiling, it will be truncated.
-CustomProfiler.ceiling                   = 1001 -- Default: 1001 ms
-
----@type number The maximum amount of entries per trace.
-CustomProfiler.maxEntries                = 50 -- Default: 50
-
----@type string The directory where the report will be saved.
-CustomProfiler.reportDirectory           = ("%s%sNoitaMP-Reports%s%s")
-    :format(FileUtils.GetDesktopDirectory(), pathSeparator, pathSeparator, os.date("%Y-%m-%d_%H-%M-%S", os.time()))
-
----@type string The filename of the report.
-CustomProfiler.reportFilename            = "report.html" -- Default: report.html
-
----@type string The filename pattern of the report.
-CustomProfiler.reportJsonFilenamePattern = "%s.json" -- Default: %s.json
-
 
 function CustomProfiler:init()
     if not self.noitaMpSettings:get("noita-mp.toggle_profiler", "boolean") then
@@ -48,7 +40,7 @@ function CustomProfiler:init()
 
     local content = ('cd "%s" && cmd /k lua.bat files\\scripts\\bin\\profiler.lua'):format(FileUtils.GetAbsoluteDirectoryPathOfNoitaMP())
     content = content .. " %1"
-    self.fileUtils.WriteFile(("%s/profiler.bat"):format(self.fileUtils.GetAbsoluteDirectoryPathOfNoitaMP()), content)
+    self.fileUtils:WriteFile(("%s/profiler.bat"):format(self.fileUtils:GetAbsoluteDirectoryPathOfNoitaMP()), content)
     self.utils.execLua(self.winapi.get_current_pid())
 
     self.udp = assert(self.socket.udp())
@@ -110,7 +102,7 @@ function CustomProfiler:report()
     fig1:update_layout {
         width   = 1920,
         height  = 1080,
-        title   = "NoitaMP Profiler Report of " .. whoAmI() .. " " .. FileUtils.GetVersionByFile(),
+        title   = "NoitaMP Profiler Report of " .. whoAmI() or nil .. " " .. self.fileUtils:GetVersionByFile(),
         xaxis   = { title = { text = "Frames" } },
         yaxis   = { title = { text = "Execution time [ms]" } },
         barmode = "group"
@@ -119,8 +111,7 @@ function CustomProfiler:report()
         scrollZoom = true,
         responsive = true
     }
-    fig1:tofilewithjsondatafile(self.reportDirectory .. pathSeparator .. self.reportFilename,
-        self.reportDirectory)
+    fig1:tofilewithjsondatafile(self.reportDirectory .. pathSeparator .. self.reportFilename, self.reportDirectory)
 end
 
 ---Returns the size of the report cache.
@@ -146,27 +137,42 @@ function CustomProfiler:new(customProfiler, fileUtils, noitaMpSettings, plotly, 
     ---@class CustomProfiler
     customProfiler = setmetatable(customProfiler or self, CustomProfiler)
 
-    local cpc    = customProfiler:start("CustomProfiler:new")
+    local cpc      = customProfiler:start("CustomProfiler:new")
 
     -- Initialize all imports to avoid recursive imports
     if not customProfiler.fileUtils then
-        customProfiler.fileUtils = fileUtils or require("FileUtils")       --:new()
+        ---@type FileUtils
+        customProfiler.fileUtils = fileUtils or require("FileUtils"):new(nil, customProfiler, nil, noitaMpSettings, plotly, utils)
     end
+
     if not customProfiler.noitaMpSettings then
+        ---@class NoitaMpSettings
         customProfiler.noitaMpSettings = noitaMpSettings or error("CustomProfiler:new requires a NoitaMpSettings object", 2)
     end
+
     if not customProfiler.plotly then
-        customProfiler.plotly = plotly or require("plotly")          --:new()
+        ---@class plotly
+        customProfiler.plotly = plotly or require("plotly") --:new()
     end
+
     if not customProfiler.socket then
+        ---@class socket
         customProfiler.socket = socket or require("socket")
     end
+
     if not customProfiler.utils then
-        customProfiler.utils = utils or require("Utils")           --:new()
+        ---@class Utils
+        customProfiler.utils = utils or require("Utils") --:new()
     end
+
     if not customProfiler.winapi then
+        ---@class winapi
         customProfiler.winapi = winapi or require("winapi")
     end
+
+    --[[ Attributes ]]
+    self.reportDirectory = ("%s%sNoitaMP-Reports%s%s"):format(self.fileUtils:GetDesktopDirectory(), pathSeparator, pathSeparator,
+        os.date("%Y-%m-%d_%H-%M-%S", os.time()))
 
     customProfiler:stop("CustomProfiler:new", cpc)
     return customProfiler

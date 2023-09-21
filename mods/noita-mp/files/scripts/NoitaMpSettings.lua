@@ -190,43 +190,44 @@ end
 ---@param winapi winapi|nil
 ---@return NoitaMpSettings
 function NoitaMpSettings:new(noitaMpSettings, customProfiler, gui, fileUtils, json, lfs, logger, utils, winapi)
+    ---@class NoitaMpSettings
     noitaMpSettings = setmetatable(noitaMpSettings or self, NoitaMpSettings)
 
     -- Initialize all imports to avoid recursive imports
     if not noitaMpSettings.customProfiler then
-        self.customProfiler = customProfiler or require("CustomProfiler"):new(nil, nil, self, nil, nil, nil, nil)
+        noitaMpSettings.customProfiler = customProfiler or require("CustomProfiler"):new(nil, nil, self, nil, nil, nil, nil)
     end
-    local cpc = self.customProfiler:start("NoitaMpSettings:new")
+    local cpc = noitaMpSettings.customProfiler:start("NoitaMpSettings:new")
 
     if not noitaMpSettings.gui then
-        self.gui = gui --or error("NoitaMpSettings:new requires a Gui object", 2)
+        noitaMpSettings.gui = gui --or error("NoitaMpSettings:new requires a Gui object", 2)
     end
 
     if not noitaMpSettings.fileUtils then
-        self.fileUtils = fileUtils or self.customProfiler.fileUtils or require("FileUtils")--:new()
+        noitaMpSettings.fileUtils = fileUtils or self.customProfiler.fileUtils or require("FileUtils") --:new()
     end
 
     if not noitaMpSettings.json then
-        self.json = json or require("json")
+        noitaMpSettings.json = json or require("json")
     end
 
     if not noitaMpSettings.lfs then
-        self.lfs = lfs or require("lfs")
+        noitaMpSettings.lfs = lfs or require("lfs")
     end
 
     if not noitaMpSettings.logger then
-        self.logger = logger or require("Logger"):new(nil, self.customProfiler)
+        noitaMpSettings.logger = logger or require("Logger"):new(nil, self.customProfiler)
     end
 
     if not noitaMpSettings.utils then
-        self.utils = utils or self.customProfiler.utils or require("Utils")--:new()
+        noitaMpSettings.utils = utils or self.customProfiler.utils or require("Utils") --:new()
     end
 
     if not noitaMpSettings.winapi then
-        self.winapi = winapi or self.customProfiler.winapi or require("winapi")
+        noitaMpSettings.winapi = winapi or self.customProfiler.winapi or require("winapi")
     end
 
-    self.customProfiler:stop("ExampleClass:new", cpc)
+    noitaMpSettings.customProfiler:stop("ExampleClass:new", cpc)
     return noitaMpSettings
 end
 
