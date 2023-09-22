@@ -391,25 +391,6 @@ CustomProfiler
 
 Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 
-## ceiling
-
-
-```lua
-integer
-```
-
-The ceiling in milliseconds. If a function takes longer than this ceiling, it will be truncated.
- Default: 1001 ms
-
-## counter
-
-
-```lua
-integer
-```
-
-The counter that is used to determine the order of the function calls.
-
 ## getSize
 
 
@@ -426,16 +407,6 @@ Returns the size of the report cache.
 ```lua
 function CustomProfiler.init(self: CustomProfiler)
 ```
-
-## maxEntries
-
-
-```lua
-integer
-```
-
-The maximum amount of entries per trace.
- Default: 50
 
 ## new
 
@@ -470,44 +441,6 @@ function CustomProfiler.report(self: CustomProfiler)
 
 Creates a report of all the functions that were profiled into profiler_2022-11-24_20-23-00.json
 
-## reportCache
-
-
-```lua
-{ [string]: table<number, table<string, number>> }
-```
-
-A cache that stores all the data that is used to generate the report.
-
-## reportDirectory
-
-
-```lua
-string
-```
-
-The directory where the report will be saved.
-
-## reportFilename
-
-
-```lua
-string
-```
-
-The filename of the report.
- Default: report.html
-
-## reportJsonFilenamePattern
-
-
-```lua
-string
-```
-
-The filename pattern of the report.
- Default: %s.json
-
 ## start
 
 
@@ -536,16 +469,6 @@ Stops the profiler. This has to be called after the function (or last line of fu
 @*param* `functionName` — The name of the function that you want to measure. This has to be the same as the one used in @see CustomProfiler.start(functionName)
 
 @*param* `customProfilerCounter` — The counter that is used to determine the order of the function calls. This has to same as the one returned by @see CustomProfiler.start(functionName)
-
-## threshold
-
-
-```lua
-number
-```
-
-The threshold in milliseconds. If a function takes longer than this threshold, it will be reported.
- Default: 16.5ms = 60.60 fps
 
 
 ---
@@ -829,14 +752,14 @@ Sends the entity data to all other peers.
 
 
 ```lua
-function FileUtils.AppendToFile(filenameAbsolutePath: string, appendContent: string)
+function FileUtils.AppendToFile(self: FileUtils, filenameAbsolutePath: string, appendContent: string)
 ```
 
 ## Create7zipArchive
 
 
 ```lua
-function FileUtils.Create7zipArchive(archive_name: string, absolute_directory_path_to_add_archive: string, absolute_destination_path: string)
+function FileUtils.Create7zipArchive(self: FileUtils, archive_name: string, absolute_directory_path_to_add_archive: string, absolute_destination_path: string)
   -> content: string|number
 ```
 
@@ -853,7 +776,7 @@ oita-mp\_
 
 
 ```lua
-function FileUtils.Exists(absolutePath: string)
+function FileUtils.Exists(self: FileUtils, absolutePath: string)
   -> boolean
 ```
 
@@ -865,7 +788,7 @@ function FileUtils.Exists(absolutePath: string)
 
 
 ```lua
-function FileUtils.Exists7zip()
+function FileUtils.Exists7zip(self: FileUtils)
   -> boolean
 ```
 
@@ -873,7 +796,7 @@ function FileUtils.Exists7zip()
 
 
 ```lua
-function FileUtils.Extract7zipArchive(archive_absolute_directory_path: string, archive_name: string, extract_absolute_directory_path: string)
+function FileUtils.Extract7zipArchive(self: FileUtils, archive_absolute_directory_path: string, archive_name: string, extract_absolute_directory_path: string)
 ```
 
 @*param* `archive_absolute_directory_path` — path to archive location like "C:\Program Files (x86)\Steam\steamapps\common\Noita\mods\noita-mp\_"
@@ -886,7 +809,7 @@ function FileUtils.Extract7zipArchive(archive_absolute_directory_path: string, a
 
 
 ```lua
-function FileUtils.FestartNoita()
+function FileUtils.FestartNoita(self: FileUtils)
 ```
 
  Credits to @dextercd !
@@ -895,14 +818,14 @@ function FileUtils.FestartNoita()
 
 
 ```lua
-function FileUtils.Find7zipExecutable()
+function FileUtils.Find7zipExecutable(self: FileUtils)
 ```
 
 ## GetAbsDirPathOfWorldStateXml
 
 
 ```lua
-function FileUtils.GetAbsDirPathOfWorldStateXml(saveSlotAbsDirectoryPath: string)
+function FileUtils.GetAbsDirPathOfWorldStateXml(self: FileUtils, saveSlotAbsDirectoryPath: string)
   -> absPath: string
 ```
 
@@ -916,20 +839,20 @@ function FileUtils.GetAbsDirPathOfWorldStateXml(saveSlotAbsDirectoryPath: string
 
 
 ```lua
-function FileUtils.GetAbsoluteDirectoryPathOfNoitaMP()
-  -> FileUtils.GetAbsolutePathOfNoitaRootDirectory: string
+function FileUtils.GetAbsoluteDirectoryPathOfNoitaMP(self: FileUtils)
+  -> self.GetAbsolutePathOfNoitaRootDirectory: string
 ```
 
  Returns the ABSOLUTE path of the mods folder.
- If FileUtils.GetAbsolutePathOfNoitaRootDirectory() is not set yet, then it will be
+ If self.GetAbsolutePathOfNoitaRootDirectory() is not set yet, then it will be
 
-@*return* `FileUtils.GetAbsolutePathOfNoitaRootDirectory` — ) .. "/mods/noita-mp"
+@*return* `self.GetAbsolutePathOfNoitaRootDirectory` — ) .. "/mods/noita-mp"
 
 ## GetAbsoluteDirectoryPathOfParentSave
 
 
 ```lua
-function FileUtils.GetAbsoluteDirectoryPathOfParentSave()
+function FileUtils.GetAbsoluteDirectoryPathOfParentSave(self: FileUtils)
   -> save06_parent_directory_path: string
 ```
 
@@ -943,20 +866,20 @@ function FileUtils.GetAbsoluteDirectoryPathOfParentSave()
 
 
 ```lua
-function FileUtils.GetAbsoluteDirectoryPathOfRequiredLibs()
-  -> FileUtils.GetAbsolutePathOfNoitaRootDirectory: string
+function FileUtils.GetAbsoluteDirectoryPathOfRequiredLibs(self: FileUtils)
+  -> self.GetAbsolutePathOfNoitaRootDirectory: string
 ```
 
  Returns the ABSOLUTE path of the library folder required for this mod.
- If FileUtils.GetAbsolutePathOfNoitaRootDirectory() is not set yet, then it will be
+ If self.GetAbsolutePathOfNoitaRootDirectory() is not set yet, then it will be
 
-@*return* `FileUtils.GetAbsolutePathOfNoitaRootDirectory` — ) .. "/mods/noita-mp/files/libs"
+@*return* `self.GetAbsolutePathOfNoitaRootDirectory` — ) .. "/mods/noita-mp/files/libs"
 
 ## GetAbsoluteDirectoryPathOfSave06
 
 
 ```lua
-function FileUtils.GetAbsoluteDirectoryPathOfSave06()
+function FileUtils.GetAbsoluteDirectoryPathOfSave06(self: FileUtils)
   -> directory_path_of_save06: string
 ```
 
@@ -968,7 +891,7 @@ function FileUtils.GetAbsoluteDirectoryPathOfSave06()
 
 
 ```lua
-function FileUtils.GetAbsolutePathOfNoitaMpSettingsDirectory()
+function FileUtils.GetAbsolutePathOfNoitaMpSettingsDirectory(self: FileUtils)
   -> absPath: string
 ```
 
@@ -980,7 +903,7 @@ function FileUtils.GetAbsolutePathOfNoitaMpSettingsDirectory()
 
 
 ```lua
-function FileUtils.GetAbsolutePathOfNoitaRootDirectory()
+function FileUtils.GetAbsolutePathOfNoitaRootDirectory(self: FileUtils)
   -> string
 ```
 
@@ -988,7 +911,7 @@ function FileUtils.GetAbsolutePathOfNoitaRootDirectory()
 
 
 ```lua
-function FileUtils.GetAllFilesInDirectory(directory: any, fileExtension: any)
+function FileUtils.GetAllFilesInDirectory(self: FileUtils, directory: any, fileExtension: any)
   -> table
 ```
 
@@ -996,7 +919,7 @@ function FileUtils.GetAllFilesInDirectory(directory: any, fileExtension: any)
 
 
 ```lua
-function FileUtils.GetDesktopDirectory()
+function FileUtils.GetDesktopDirectory(self: FileUtils)
   -> string|table
 ```
 
@@ -1004,7 +927,7 @@ function FileUtils.GetDesktopDirectory()
 
 
 ```lua
-function FileUtils.GetLastModifiedSaveSlots()
+function FileUtils.GetLastModifiedSaveSlots(self: FileUtils)
   -> table
 ```
 
@@ -1014,7 +937,7 @@ function FileUtils.GetLastModifiedSaveSlots()
 
 
 ```lua
-function FileUtils.GetPidOfRunningEnetHostByPort()
+function FileUtils.GetPidOfRunningEnetHostByPort(self: FileUtils)
   -> number?
 ```
 
@@ -1025,7 +948,7 @@ function FileUtils.GetPidOfRunningEnetHostByPort()
 
 
 ```lua
-function FileUtils.GetRelativeDirectoryPathOfNoitaMP()
+function FileUtils.GetRelativeDirectoryPathOfNoitaMP(self: FileUtils)
   -> string
 ```
 
@@ -1037,7 +960,7 @@ function FileUtils.GetRelativeDirectoryPathOfNoitaMP()
 
 
 ```lua
-function FileUtils.GetRelativeDirectoryPathOfRequiredLibs()
+function FileUtils.GetRelativeDirectoryPathOfRequiredLibs(self: FileUtils)
   -> string
 ```
 
@@ -1049,7 +972,7 @@ function FileUtils.GetRelativeDirectoryPathOfRequiredLibs()
 
 
 ```lua
-function FileUtils.GetRelativePathOfNoitaMpSettingsDirectory()
+function FileUtils.GetRelativePathOfNoitaMpSettingsDirectory(self: FileUtils)
   -> unknown
 ```
 
@@ -1057,15 +980,17 @@ function FileUtils.GetRelativePathOfNoitaMpSettingsDirectory()
 
 
 ```lua
-function FileUtils.GetVersionByFile()
-  -> string
+function FileUtils.GetVersionByFile(self: FileUtils)
+  -> version: string
 ```
+
+Returns NoitaMP version by reading the .version file.
 
 ## IsDirectory
 
 
 ```lua
-function FileUtils.IsDirectory(full_path: string)
+function FileUtils.IsDirectory(self: FileUtils, full_path: string)
   -> boolean
 ```
 
@@ -1073,7 +998,7 @@ function FileUtils.IsDirectory(full_path: string)
 
 
 ```lua
-function FileUtils.IsFile(full_path: string)
+function FileUtils.IsFile(self: FileUtils, full_path: string)
   -> boolean
 ```
 
@@ -1081,28 +1006,28 @@ function FileUtils.IsFile(full_path: string)
 
 
 ```lua
-function FileUtils.KillNoitaAndRestart()
+function FileUtils.KillNoitaAndRestart(self: FileUtils)
 ```
 
 ## KillProcess
 
 
 ```lua
-function FileUtils.KillProcess(pid: any)
+function FileUtils.KillProcess(self: FileUtils, pid: any)
 ```
 
 ## MkDir
 
 
 ```lua
-function FileUtils.MkDir(full_path: string)
+function FileUtils.MkDir(self: FileUtils, full_path: string)
 ```
 
 ## ReadBinaryFile
 
 
 ```lua
-function FileUtils.ReadBinaryFile(file_fullpath: string)
+function FileUtils.ReadBinaryFile(self: FileUtils, file_fullpath: string)
   -> string|number
 ```
 
@@ -1110,7 +1035,7 @@ function FileUtils.ReadBinaryFile(file_fullpath: string)
 
 
 ```lua
-function FileUtils.ReadFile(file_fullpath: string, mode?: string)
+function FileUtils.ReadFile(self: FileUtils, file_fullpath: string, mode?: string)
   -> unknown
 ```
 
@@ -1118,14 +1043,14 @@ function FileUtils.ReadFile(file_fullpath: string, mode?: string)
 
 
 ```lua
-function FileUtils.RemoveContentOfDirectory(absolutePath: any)
+function FileUtils.RemoveContentOfDirectory(self: FileUtils, absolutePath: any)
 ```
 
 ## RemoveTrailingPathSeparator
 
 
 ```lua
-function FileUtils.RemoveTrailingPathSeparator(path: string)
+function FileUtils.RemoveTrailingPathSeparator(self: FileUtils, path: string)
   -> path: string
 ```
 
@@ -1140,18 +1065,19 @@ function FileUtils.RemoveTrailingPathSeparator(path: string)
 
 
 ```lua
-function FileUtils.ReplacePathSeparator(path: string)
+function FileUtils.ReplacePathSeparator(self: FileUtils, path: string)
   -> path: string
+  2. count: number
 ```
 
- Replaces windows path separator to unix path separator and vice versa.
- Error if path is not a string.
+Replaces windows path separator to unix path separator and vice versa.
+Error if path is not a string.
 
 ## SaveAndRestartNoita
 
 
 ```lua
-function FileUtils.SaveAndRestartNoita()
+function FileUtils.SaveAndRestartNoita(self: FileUtils)
 ```
 
  This executes c code to sent SDL_QUIT command to the app
@@ -1160,7 +1086,7 @@ function FileUtils.SaveAndRestartNoita()
 
 
 ```lua
-function FileUtils.ScanDir(directory: any)
+function FileUtils.ScanDir(self: FileUtils, directory: any)
   -> string[]
 ```
 
@@ -1170,7 +1096,7 @@ function FileUtils.ScanDir(directory: any)
 
 
 ```lua
-function FileUtils.SetAbsolutePathOfNoitaRootDirectory()
+function FileUtils.SetAbsolutePathOfNoitaRootDirectory(self: FileUtils)
 ```
 
  Sets root directory of noita.exe, i.e. C:\Program Files (x86)\Steam\steamapps\common\Noita
@@ -1179,7 +1105,7 @@ function FileUtils.SetAbsolutePathOfNoitaRootDirectory()
 
 
 ```lua
-function FileUtils.SplitPath(str: any)
+function FileUtils.SplitPath(self: FileUtils, str: any)
   -> unknown
 ```
 
@@ -1189,25 +1115,58 @@ function FileUtils.SplitPath(str: any)
 
 
 ```lua
-function FileUtils.WriteBinaryFile(file_fullpath: string, file_content: any)
+function FileUtils.WriteBinaryFile(self: FileUtils, file_fullpath: string, file_content: any)
 ```
 
 ## WriteFile
 
 
 ```lua
-function FileUtils.WriteFile(file_fullpath: string, file_content: string)
+function FileUtils.WriteFile(self: FileUtils, file_fullpath: string, file_content: string)
 ```
+
+## customProfiler
+
+
+```lua
+CustomProfiler
+```
+
+Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
+
+## logger
+
+
+```lua
+Logger
+```
+
+## new
+
+
+```lua
+function FileUtils.new(self: FileUtils, fileUtilsObject: FileUtils|nil, customProfiler: CustomProfiler|nil, logger: Logger|nil, noitaMpSettings: NoitaMpSettings, plotly: plotly|nil, utils: Utils|nil)
+  -> FileUtils
+```
+
+FileUtils constructor.
+
+@*param* `fileUtilsObject` — require("FileUtils") or nil
+
+@*param* `customProfiler` — can be nil
+
+@*param* `logger` — can be nil
+
+@*param* `noitaMpSettings` — required
+
+@*param* `plotly` — can be nil
+
+@*param* `utils` — can be nil
 
 
 ---
 
 # FileUtils
-
-
-```lua
-FileUtils
-```
 
 
 ```lua
@@ -1227,6 +1186,18 @@ FileUtils
 function GetWidthAndHeightByResolution()
   -> width: number
   2. height: number
+```
+
+
+---
+
+# GlobalsUtils
+
+Class for GlobalsSetValue and GlobalsGetValue
+
+
+```lua
+GlobalsUtils
 ```
 
 
@@ -1303,18 +1274,6 @@ function GlobalsUtils.setNuid(nuid: any, entityId: any, componentIdForOwnerName:
 ```lua
 function GlobalsUtils.setUpdateGui(bool: any)
   -> unknown
-```
-
-
----
-
-# GlobalsUtils
-
-Class for GlobalsSetValue and GlobalsGetValue
-
-
-```lua
-GlobalsUtils
 ```
 
 
@@ -1419,15 +1378,6 @@ function GlobalsUtils.setUpdateGui(bool: any)
 
 Everything regarding ImGui: Credits to @dextercd
 
-## __index
-
-
-```lua
-Gui
-```
-
-Everything regarding ImGui: Credits to @dextercd
-
 ## checkShortcuts
 
 
@@ -1502,7 +1452,7 @@ nil
 
 
 ```lua
-function Gui.new(self: Gui, guiObject: Gui|nil, client: Client, customProfiler: CustomProfiler, guidUtils: GuidUtils|nil, minaUtils: MinaUtils|nil, noitaMpSettings: NoitaMpSettings|nil)
+function Gui.new(self: Gui, guiObject: Gui|nil, client: Client, customProfiler: CustomProfiler, guidUtils: GuidUtils|nil, minaUtils: MinaUtils|nil, noitaMpSettings: NoitaMpSettings)
   -> Gui
 ```
 
@@ -1518,7 +1468,7 @@ Gui constructor.
 
 @*param* `minaUtils` — optional
 
-@*param* `noitaMpSettings` — optional
+@*param* `noitaMpSettings` — required
 
 ## setShowMissingSettings
 
@@ -1708,6 +1658,11 @@ function Logger.trace(self: Logger, channel: any, formattedMessage: any)
 function Logger.warn(self: Logger, channel: any, formattedMessage: any)
   -> boolean
 ```
+
+
+---
+
+# LuaFileSystem
 
 
 ---
@@ -2160,23 +2115,6 @@ integer
 
  NetworkVscUtils:
 
-
-```lua
-NetworkVscUtils
-```
-
-
-```lua
-NetworkVscUtils
-```
-
-
----
-
-# NetworkVscUtils
-
- NetworkVscUtils:
-
 ## addOrUpdateAllVscs
 
 
@@ -2372,6 +2310,23 @@ string
 
 ```lua
 string
+```
+
+
+---
+
+# NetworkVscUtils
+
+ NetworkVscUtils:
+
+
+```lua
+NetworkVscUtils
+```
+
+
+```lua
+NetworkVscUtils
 ```
 
 
@@ -2844,16 +2799,6 @@ function PlayerNameFunction(entity_id: any, playerName: any)
 
 ---
 
-# SDL
-
-
-```lua
-unknown
-```
-
-
----
-
 # Server
 
 
@@ -3153,6 +3098,21 @@ function Ui.new()
 
 # Utils
 
+
+```lua
+Utils
+```
+
+
+```lua
+Utils
+```
+
+
+---
+
+# Utils
+
 ## CopyToClipboard
 
 
@@ -3228,21 +3188,6 @@ function Utils.openUrl(url: any)
 
 ```lua
 function Utils.pformat(var: any)
-```
-
-
----
-
-# Utils
-
-
-```lua
-Utils
-```
-
-
-```lua
-Utils
 ```
 
 
@@ -3956,6 +3901,21 @@ function error(message: any, level?: integer)
 
 ---
 
+# executed
+
+
+```lua
+boolean
+```
+
+
+---
+
+# ffilib
+
+
+---
+
 # getNoitaMpRootDirectory
 
 
@@ -4369,6 +4329,11 @@ boolean
 ```lua
 boolean
 ```
+
+
+---
+
+# json
 
 
 ---
@@ -5388,6 +5353,11 @@ string
 ```
 
 
+```lua
+string
+```
+
+
 ---
 
 # package.loaders
@@ -5459,6 +5429,11 @@ unknown
 
 ```lua
 unknown
+```
+
+
+```lua
+string
 ```
 
 
@@ -5613,6 +5588,11 @@ boolean|string|number
 ```lua
 boolean|string|number
 ```
+
+
+---
+
+# plotly
 
 
 ---
@@ -5799,6 +5779,11 @@ function setmetatable(table: table, metatable?: table)
 ```lua
 string
 ```
+
+
+---
+
+# socket
 
 
 ---
@@ -6767,13 +6752,7 @@ function warn(message: string, ...any)
 
 ---
 
-# whoAmI
-
-
-```lua
-function _G.whoAmI()
-  -> string
-```
+# winapi
 
 
 ---

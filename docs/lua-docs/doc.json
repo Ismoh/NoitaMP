@@ -963,181 +963,139 @@
             },
             {
                 "file": "../../mods/noita-mp/files/scripts/util/CustomProfiler.lua",
-                "finish": 1450028,
-                "start": 1450014,
+                "finish": 1360028,
+                "start": 1360014,
                 "type": "doc.class"
             }
         ],
         "desc": "Simple profiler that can be used to measure the duration of a function and the memory usage of a function.",
         "fields": [
             {
-                "desc": "The ceiling in milliseconds. If a function takes longer than this ceiling, it will be truncated.\n Default: 1001 ms",
-                "extends": {
-                    "finish": 270047,
-                    "start": 270043,
-                    "type": "integer",
-                    "view": "integer"
-                },
-                "file": "../../mods/noita-mp/files/scripts/util/CustomProfiler.lua",
-                "finish": 270022,
-                "name": "ceiling",
-                "start": 270000,
-                "type": "setfield"
-            },
-            {
-                "desc": "The counter that is used to determine the order of the function calls.",
-                "extends": {
-                    "finish": 210044,
-                    "start": 210043,
-                    "type": "integer",
-                    "view": "integer"
-                },
-                "file": "../../mods/noita-mp/files/scripts/util/CustomProfiler.lua",
-                "finish": 210022,
-                "name": "counter",
-                "start": 210000,
-                "type": "setfield"
-            },
-            {
                 "desc": "Returns the size of the report cache.",
                 "extends": {
                     "args": [
                         {
-                            "finish": 1270008,
-                            "start": 1270008,
+                            "finish": 1180008,
+                            "start": 1180008,
                             "type": "self",
                             "view": "CustomProfiler"
                         }
                     ],
                     "desc": "Returns the size of the report cache.",
-                    "finish": 1330003,
+                    "finish": 1240003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "number"
                         }
                     ],
-                    "start": 1270000,
+                    "start": 1180000,
                     "type": "function",
                     "view": "function CustomProfiler.getSize(self: CustomProfiler)\n  -> size: number"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/CustomProfiler.lua",
-                "finish": 1270031,
+                "finish": 1180031,
                 "name": "getSize",
-                "start": 1270009,
+                "start": 1180009,
                 "type": "setmethod"
             },
             {
                 "extends": {
                     "args": [
                         {
-                            "finish": 430008,
-                            "start": 430008,
+                            "finish": 350008,
+                            "start": 350008,
                             "type": "self",
                             "view": "CustomProfiler"
                         }
                     ],
-                    "finish": 560003,
-                    "start": 430000,
+                    "finish": 480003,
+                    "start": 350000,
                     "type": "function",
                     "view": "function CustomProfiler.init(self: CustomProfiler)"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/CustomProfiler.lua",
-                "finish": 430028,
+                "finish": 350028,
                 "name": "init",
-                "start": 430009,
+                "start": 350009,
                 "type": "setmethod"
-            },
-            {
-                "desc": "The maximum amount of entries per trace.\n Default: 50",
-                "extends": {
-                    "finish": 300045,
-                    "start": 300043,
-                    "type": "integer",
-                    "view": "integer"
-                },
-                "file": "../../mods/noita-mp/files/scripts/util/CustomProfiler.lua",
-                "finish": 300025,
-                "name": "maxEntries",
-                "start": 300000,
-                "type": "setfield"
             },
             {
                 "desc": "CustomProfiler constructor.\n\n@*param* `customProfiler` — require(\"CustomProfiler\") or nil\n\n@*param* `fileUtils` — can be nil\n\n@*param* `noitaMpSettings` — required\n\n@*param* `plotly` — can be nil\n\n@*param* `socket` — can be nil\n\n@*param* `utils` — can be nil\n\n@*param* `winapi` — can be nil",
                 "extends": {
                     "args": [
                         {
-                            "finish": 1440008,
-                            "start": 1440008,
+                            "finish": 1350008,
+                            "start": 1350008,
                             "type": "self",
                             "view": "CustomProfiler"
                         },
                         {
                             "desc": "require(\"CustomProfiler\") or nil",
-                            "finish": 1440042,
-                            "start": 1440028,
+                            "finish": 1350042,
+                            "start": 1350028,
                             "type": "local",
                             "view": "CustomProfiler|nil"
                         },
                         {
                             "desc": "can be nil",
-                            "finish": 1440053,
-                            "start": 1440044,
+                            "finish": 1350053,
+                            "start": 1350044,
                             "type": "local",
                             "view": "FileUtils|nil"
                         },
                         {
                             "desc": "required",
-                            "finish": 1440070,
-                            "start": 1440055,
+                            "finish": 1350070,
+                            "start": 1350055,
                             "type": "local",
                             "view": "NoitaMpSettings"
                         },
                         {
                             "desc": "can be nil",
-                            "finish": 1440078,
-                            "start": 1440072,
+                            "finish": 1350078,
+                            "start": 1350072,
                             "type": "local",
                             "view": "plotly|nil"
                         },
                         {
                             "desc": "can be nil",
-                            "finish": 1440086,
-                            "start": 1440080,
+                            "finish": 1350086,
+                            "start": 1350080,
                             "type": "local",
                             "view": "socket|nil"
                         },
                         {
                             "desc": "can be nil",
-                            "finish": 1440093,
-                            "start": 1440088,
+                            "finish": 1350093,
+                            "start": 1350088,
                             "type": "local",
                             "view": "Utils|nil"
                         },
                         {
                             "desc": "can be nil",
-                            "finish": 1440101,
-                            "start": 1440095,
+                            "finish": 1350101,
+                            "start": 1350095,
                             "type": "local",
                             "view": "winapi|nil"
                         }
                     ],
                     "desc": "CustomProfiler constructor.\n\n@*param* `customProfiler` — require(\"CustomProfiler\") or nil\n\n@*param* `fileUtils` — can be nil\n\n@*param* `noitaMpSettings` — required\n\n@*param* `plotly` — can be nil\n\n@*param* `socket` — can be nil\n\n@*param* `utils` — can be nil\n\n@*param* `winapi` — can be nil",
-                    "finish": 1720003,
+                    "finish": 1780003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "CustomProfiler"
                         }
                     ],
-                    "start": 1440000,
+                    "start": 1350000,
                     "type": "function",
                     "view": "function CustomProfiler.new(self: CustomProfiler, customProfiler: CustomProfiler|nil, fileUtils: FileUtils|nil, noitaMpSettings: NoitaMpSettings, plotly: plotly|nil, socket: socket|nil, utils: Utils|nil, winapi: winapi|nil)\n  -> CustomProfiler"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/CustomProfiler.lua",
-                "finish": 1440027,
+                "finish": 1350027,
                 "name": "new",
-                "start": 1440009,
+                "start": 1350009,
                 "type": "setmethod"
             },
             {
@@ -1145,114 +1103,58 @@
                 "extends": {
                     "args": [
                         {
-                            "finish": 1060008,
-                            "start": 1060008,
+                            "finish": 980008,
+                            "start": 980008,
                             "type": "self",
                             "view": "CustomProfiler"
                         }
                     ],
                     "desc": "Creates a report of all the functions that were profiled into profiler_2022-11-24_20-23-00.json",
-                    "finish": 1230003,
-                    "start": 1060000,
+                    "finish": 1140003,
+                    "start": 980000,
                     "type": "function",
                     "view": "function CustomProfiler.report(self: CustomProfiler)"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/CustomProfiler.lua",
-                "finish": 1060030,
+                "finish": 980030,
                 "name": "report",
-                "start": 1060009,
+                "start": 980009,
                 "type": "setmethod"
-            },
-            {
-                "desc": "A cache that stores all the data that is used to generate the report.",
-                "extends": {
-                    "finish": 170045,
-                    "start": 170043,
-                    "type": "table",
-                    "view": "{ [string]: table<number, table<string, number>> }"
-                },
-                "file": "../../mods/noita-mp/files/scripts/util/CustomProfiler.lua",
-                "finish": 170026,
-                "name": "reportCache",
-                "start": 170000,
-                "type": "setfield"
-            },
-            {
-                "desc": "The directory where the report will be saved.",
-                "extends": {
-                    "finish": 340115,
-                    "start": 330043,
-                    "type": "select",
-                    "view": "string"
-                },
-                "file": "../../mods/noita-mp/files/scripts/util/CustomProfiler.lua",
-                "finish": 330030,
-                "name": "reportDirectory",
-                "start": 330000,
-                "type": "setfield"
-            },
-            {
-                "desc": "The filename of the report.\n Default: report.html",
-                "extends": {
-                    "finish": 370056,
-                    "start": 370043,
-                    "type": "string",
-                    "view": "string"
-                },
-                "file": "../../mods/noita-mp/files/scripts/util/CustomProfiler.lua",
-                "finish": 370029,
-                "name": "reportFilename",
-                "start": 370000,
-                "type": "setfield"
-            },
-            {
-                "desc": "The filename pattern of the report.\n Default: %s.json",
-                "extends": {
-                    "finish": 400052,
-                    "start": 400043,
-                    "type": "string",
-                    "view": "string"
-                },
-                "file": "../../mods/noita-mp/files/scripts/util/CustomProfiler.lua",
-                "finish": 400040,
-                "name": "reportJsonFilenamePattern",
-                "start": 400000,
-                "type": "setfield"
             },
             {
                 "desc": "Starts the profiler. This has to be called before the function (or first line of function code) that you want to measure.\n\n@*param* `functionName` — The name of the function that you want to measure. This has to be the same as the one used in CustomProfiler:stop(functionName, customProfilerCounter)\n\n@*return* `returnCounter` — The counter that is used to determine the order of the function calls. This has to be passed to CustomProfiler:stop(functionName, customProfilerCounter)\nSee: [CustomProfiler](../../mods/noita-mp/files/scripts/util/CustomProfiler.lua#2#10) stop(functionName, customProfilerCounter)",
                 "extends": {
                     "args": [
                         {
-                            "finish": 620008,
-                            "start": 620008,
+                            "finish": 540008,
+                            "start": 540008,
                             "type": "self",
                             "view": "CustomProfiler"
                         },
                         {
                             "desc": "The name of the function that you want to measure. This has to be the same as the one used in CustomProfiler:stop(functionName, customProfilerCounter)",
-                            "finish": 620042,
-                            "start": 620030,
+                            "finish": 540042,
+                            "start": 540030,
                             "type": "local",
                             "view": "string"
                         }
                     ],
                     "desc": "Starts the profiler. This has to be called before the function (or first line of function code) that you want to measure.\n\n@*param* `functionName` — The name of the function that you want to measure. This has to be the same as the one used in CustomProfiler:stop(functionName, customProfilerCounter)\n\n@*return* `returnCounter` — The counter that is used to determine the order of the function calls. This has to be passed to CustomProfiler:stop(functionName, customProfilerCounter)\nSee: [CustomProfiler](../../mods/noita-mp/files/scripts/util/CustomProfiler.lua#2#10) stop(functionName, customProfilerCounter)",
-                    "finish": 870003,
+                    "finish": 790003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "number"
                         }
                     ],
-                    "start": 620000,
+                    "start": 540000,
                     "type": "function",
                     "view": "function CustomProfiler.start(self: CustomProfiler, functionName: string)\n  -> returnCounter: number"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/CustomProfiler.lua",
-                "finish": 620029,
+                "finish": 540029,
                 "name": "start",
-                "start": 620009,
+                "start": 540009,
                 "type": "setmethod"
             },
             {
@@ -1260,57 +1162,43 @@
                 "extends": {
                     "args": [
                         {
-                            "finish": 920008,
-                            "start": 920008,
+                            "finish": 840008,
+                            "start": 840008,
                             "type": "self",
                             "view": "CustomProfiler"
                         },
                         {
                             "desc": "The name of the function that you want to measure. This has to be the same as the one used in @see CustomProfiler.start(functionName)",
-                            "finish": 920041,
-                            "start": 920029,
+                            "finish": 840041,
+                            "start": 840029,
                             "type": "local",
                             "view": "string"
                         },
                         {
                             "desc": "The counter that is used to determine the order of the function calls. This has to same as the one returned by @see CustomProfiler.start(functionName)",
-                            "finish": 920064,
-                            "start": 920043,
+                            "finish": 840064,
+                            "start": 840043,
                             "type": "local",
                             "view": "number"
                         }
                     ],
                     "desc": "Stops the profiler. This has to be called after the function (or last line of function code, but before any `return`) that you want to measure.\n\n@*param* `functionName` — The name of the function that you want to measure. This has to be the same as the one used in @see CustomProfiler.start(functionName)\n\n@*param* `customProfilerCounter` — The counter that is used to determine the order of the function calls. This has to same as the one returned by @see CustomProfiler.start(functionName)",
-                    "finish": 1030003,
+                    "finish": 950003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "integer"
                         }
                     ],
-                    "start": 920000,
+                    "start": 840000,
                     "type": "function",
                     "view": "function CustomProfiler.stop(self: CustomProfiler, functionName: string, customProfilerCounter: number)\n  -> integer"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/CustomProfiler.lua",
-                "finish": 920028,
+                "finish": 840028,
                 "name": "stop",
-                "start": 920009,
+                "start": 840009,
                 "type": "setmethod"
-            },
-            {
-                "desc": "The threshold in milliseconds. If a function takes longer than this threshold, it will be reported.\n Default: 16.5ms = 60.60 fps",
-                "extends": {
-                    "finish": 240047,
-                    "start": 240043,
-                    "type": "number",
-                    "view": "number"
-                },
-                "file": "../../mods/noita-mp/files/scripts/util/CustomProfiler.lua",
-                "finish": 240024,
-                "name": "threshold",
-                "start": 240000,
-                "type": "setfield"
             }
         ],
         "name": "CustomProfiler",
@@ -2409,9 +2297,27 @@
     {
         "defines": [
             {
+                "file": "../../mods/noita-mp/files/scripts/init/init_.lua",
+                "finish": 240023,
+                "start": 240014,
+                "type": "doc.class"
+            },
+            {
+                "file": "../../mods/noita-mp/files/scripts/init/init_package_loading.lua",
+                "finish": 1590023,
+                "start": 1590014,
+                "type": "doc.class"
+            },
+            {
                 "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
                 "finish": 19,
                 "start": 10,
+                "type": "doc.class"
+            },
+            {
+                "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
+                "finish": 6630023,
+                "start": 6630014,
                 "type": "doc.class"
             }
         ],
@@ -2420,227 +2326,372 @@
                 "extends": {
                     "args": [
                         {
-                            "finish": 4150052,
-                            "start": 4150032,
+                            "finish": 4210008,
+                            "start": 4210008,
+                            "type": "self",
+                            "view": "FileUtils"
+                        },
+                        {
+                            "finish": 4210052,
+                            "start": 4210032,
                             "type": "local",
                             "view": "string"
                         },
                         {
-                            "finish": 4150067,
-                            "start": 4150054,
+                            "finish": 4210067,
+                            "start": 4210054,
                             "type": "local",
                             "view": "string"
                         }
                     ],
-                    "finish": 4280003,
-                    "start": 4150000,
+                    "finish": 4370003,
+                    "start": 4210000,
                     "type": "function",
-                    "view": "function FileUtils.AppendToFile(filenameAbsolutePath: string, appendContent: string)"
+                    "view": "function FileUtils.AppendToFile(self: FileUtils, filenameAbsolutePath: string, appendContent: string)"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
-                "finish": 4150031,
+                "finish": 4210031,
                 "name": "AppendToFile",
-                "start": 4150009,
-                "type": "setfield"
+                "start": 4210009,
+                "type": "setmethod"
             },
             {
                 "desc": "@*param* `archive_name` — server_save06_98-09-16_23:48:10 - without file extension (*.7z)\n\n@*param* `absolute_directory_path_to_add_archive` — C:\\Users\\Ismoh-PC\\AppData\\LocalLow\\Nolla_Games_Noita\\save06\n\n@*param* `absolute_destination_path` — C:\\Program Files (x86)\\Steam\\steamapps\\common\\Noita\\mods\noita-mp\\_\n\n@*return* `content` — binary content of archive",
                 "extends": {
                     "args": [
                         {
+                            "finish": 5190008,
+                            "start": 5190008,
+                            "type": "self",
+                            "view": "FileUtils"
+                        },
+                        {
                             "desc": "server_save06_98-09-16_23:48:10 - without file extension (*.7z)",
-                            "finish": 5080049,
-                            "start": 5080037,
+                            "finish": 5190049,
+                            "start": 5190037,
                             "type": "local",
                             "view": "string"
                         },
                         {
                             "desc": "C:\\Users\\Ismoh-PC\\AppData\\LocalLow\\Nolla_Games_Noita\\save06",
-                            "finish": 5080089,
-                            "start": 5080051,
+                            "finish": 5190089,
+                            "start": 5190051,
                             "type": "local",
                             "view": "string"
                         },
                         {
                             "desc": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Noita\\mods\noita-mp\\_",
-                            "finish": 5080116,
-                            "start": 5080091,
+                            "finish": 5190116,
+                            "start": 5190091,
                             "type": "local",
                             "view": "string"
                         }
                     ],
                     "desc": "@*param* `archive_name` — server_save06_98-09-16_23:48:10 - without file extension (*.7z)\n\n@*param* `absolute_directory_path_to_add_archive` — C:\\Users\\Ismoh-PC\\AppData\\LocalLow\\Nolla_Games_Noita\\save06\n\n@*param* `absolute_destination_path` — C:\\Program Files (x86)\\Steam\\steamapps\\common\\Noita\\mods\noita-mp\\_\n\n@*return* `content` — binary content of archive",
-                    "finish": 5410003,
+                    "finish": 5520003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "string|number"
                         }
                     ],
-                    "start": 5080000,
+                    "start": 5190000,
                     "type": "function",
-                    "view": "function FileUtils.Create7zipArchive(archive_name: string, absolute_directory_path_to_add_archive: string, absolute_destination_path: string)\n  -> content: string|number"
+                    "view": "function FileUtils.Create7zipArchive(self: FileUtils, archive_name: string, absolute_directory_path_to_add_archive: string, absolute_destination_path: string)\n  -> content: string|number"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
-                "finish": 5080036,
+                "finish": 5190036,
                 "name": "Create7zipArchive",
-                "start": 5080009,
-                "type": "setfield"
+                "start": 5190009,
+                "type": "setmethod"
             },
             {
                 "desc": " Checks if FILE or DIRECTORY exists\n\n@*param* `absolutePath` — full path",
                 "extends": {
                     "args": [
                         {
+                            "finish": 2790008,
+                            "start": 2790008,
+                            "type": "self",
+                            "view": "FileUtils"
+                        },
+                        {
                             "desc": "full path",
-                            "finish": 2730038,
-                            "start": 2730026,
+                            "finish": 2790038,
+                            "start": 2790026,
                             "type": "local",
                             "view": "string"
                         }
                     ],
                     "desc": " Checks if FILE or DIRECTORY exists\n\n@*param* `absolutePath` — full path",
-                    "finish": 2800003,
+                    "finish": 2860003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "boolean"
                         }
                     ],
-                    "start": 2730000,
+                    "start": 2790000,
                     "type": "function",
-                    "view": "function FileUtils.Exists(absolutePath: string)\n  -> boolean"
+                    "view": "function FileUtils.Exists(self: FileUtils, absolutePath: string)\n  -> boolean"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
-                "finish": 2730025,
+                "finish": 2790025,
                 "name": "Exists",
-                "start": 2730009,
-                "type": "setfield"
+                "start": 2790009,
+                "type": "setmethod"
             },
             {
                 "extends": {
-                    "args": [],
-                    "finish": 5020003,
+                    "args": [
+                        {
+                            "finish": 5070008,
+                            "start": 5070008,
+                            "type": "self",
+                            "view": "FileUtils"
+                        }
+                    ],
+                    "finish": 5130003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "boolean"
                         }
                     ],
-                    "start": 4960000,
+                    "start": 5070000,
                     "type": "function",
-                    "view": "function FileUtils.Exists7zip()\n  -> boolean"
+                    "view": "function FileUtils.Exists7zip(self: FileUtils)\n  -> boolean"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
-                "finish": 4960029,
+                "finish": 5070029,
                 "name": "Exists7zip",
-                "start": 4960009,
-                "type": "setfield"
+                "start": 5070009,
+                "type": "setmethod"
             },
             {
                 "desc": "@*param* `archive_absolute_directory_path` — path to archive location like \"C:\\Program Files (x86)\\Steam\\steamapps\\common\\Noita\\mods\\noita-mp\\_\"\n\n@*param* `archive_name` — server_save06_98-09-16_23:48:10.7z - with file extension (*.7z)\n\n@*param* `extract_absolute_directory_path` — C:\\Users\\Ismoh-PC\\AppData\\LocalLow\\Nolla_Games_Noita",
                 "extends": {
                     "args": [
                         {
+                            "finish": 5570008,
+                            "start": 5570008,
+                            "type": "self",
+                            "view": "FileUtils"
+                        },
+                        {
                             "desc": "path to archive location like \"C:\\Program Files (x86)\\Steam\\steamapps\\common\\Noita\\mods\\noita-mp\\_\"",
-                            "finish": 5460069,
-                            "start": 5460038,
+                            "finish": 5570069,
+                            "start": 5570038,
                             "type": "local",
                             "view": "string"
                         },
                         {
                             "desc": "server_save06_98-09-16_23:48:10.7z - with file extension (*.7z)",
-                            "finish": 5460083,
-                            "start": 5460071,
+                            "finish": 5570083,
+                            "start": 5570071,
                             "type": "local",
                             "view": "string"
                         },
                         {
                             "desc": "C:\\Users\\Ismoh-PC\\AppData\\LocalLow\\Nolla_Games_Noita",
-                            "finish": 5460116,
-                            "start": 5460085,
+                            "finish": 5570116,
+                            "start": 5570085,
                             "type": "local",
                             "view": "string"
                         }
                     ],
                     "desc": "@*param* `archive_absolute_directory_path` — path to archive location like \"C:\\Program Files (x86)\\Steam\\steamapps\\common\\Noita\\mods\\noita-mp\\_\"\n\n@*param* `archive_name` — server_save06_98-09-16_23:48:10.7z - with file extension (*.7z)\n\n@*param* `extract_absolute_directory_path` — C:\\Users\\Ismoh-PC\\AppData\\LocalLow\\Nolla_Games_Noita",
-                    "finish": 5550003,
-                    "start": 5460000,
+                    "finish": 5660003,
+                    "start": 5570000,
                     "type": "function",
-                    "view": "function FileUtils.Extract7zipArchive(archive_absolute_directory_path: string, archive_name: string, extract_absolute_directory_path: string)"
+                    "view": "function FileUtils.Extract7zipArchive(self: FileUtils, archive_absolute_directory_path: string, archive_name: string, extract_absolute_directory_path: string)"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
-                "finish": 5460037,
+                "finish": 5570037,
                 "name": "Extract7zipArchive",
-                "start": 5460009,
-                "type": "setfield"
+                "start": 5570009,
+                "type": "setmethod"
             },
             {
                 "desc": " Credits to @dextercd !",
                 "extends": {
-                    "args": [],
+                    "args": [
+                        {
+                            "finish": 5750008,
+                            "start": 5750008,
+                            "type": "self",
+                            "view": "FileUtils"
+                        }
+                    ],
                     "desc": " Credits to @dextercd !",
-                    "finish": 5660003,
-                    "start": 5640000,
+                    "finish": 5770003,
+                    "start": 5750000,
                     "type": "function",
-                    "view": "function FileUtils.FestartNoita()"
+                    "view": "function FileUtils.FestartNoita(self: FileUtils)"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
-                "finish": 5640031,
+                "finish": 5750031,
                 "name": "FestartNoita",
-                "start": 5640009,
-                "type": "setfield"
+                "start": 5750009,
+                "type": "setmethod"
             },
             {
                 "extends": {
-                    "args": [],
-                    "finish": 4930003,
-                    "start": 4740000,
+                    "args": [
+                        {
+                            "finish": 4850008,
+                            "start": 4850008,
+                            "type": "self",
+                            "view": "FileUtils"
+                        }
+                    ],
+                    "finish": 5040003,
+                    "start": 4850000,
                     "type": "function",
-                    "view": "function FileUtils.Find7zipExecutable()"
+                    "view": "function FileUtils.Find7zipExecutable(self: FileUtils)"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
-                "finish": 4740037,
+                "finish": 4850037,
                 "name": "Find7zipExecutable",
-                "start": 4740009,
-                "type": "setfield"
+                "start": 4850009,
+                "type": "setmethod"
             },
             {
                 "desc": " There is a world_state.xml per each saveSlot directory, which contains Globals. Nuid are stored in Globals.\n\n@*param* `saveSlotAbsDirectoryPath` — Absolute directory path to the current selected save slot.\n\n@*return* `absPath` — world_state.xml absolute file path",
                 "extends": {
                     "args": [
                         {
+                            "finish": 2390008,
+                            "start": 2390008,
+                            "type": "self",
+                            "view": "FileUtils"
+                        },
+                        {
                             "desc": "Absolute directory path to the current selected save slot.",
-                            "finish": 2310072,
-                            "start": 2310048,
+                            "finish": 2390072,
+                            "start": 2390048,
                             "type": "local",
                             "view": "string"
                         }
                     ],
                     "desc": " There is a world_state.xml per each saveSlot directory, which contains Globals. Nuid are stored in Globals.\n\n@*param* `saveSlotAbsDirectoryPath` — Absolute directory path to the current selected save slot.\n\n@*return* `absPath` — world_state.xml absolute file path",
-                    "finish": 2330003,
+                    "finish": 2410003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "string"
                         }
                     ],
-                    "start": 2310000,
+                    "start": 2390000,
                     "type": "function",
-                    "view": "function FileUtils.GetAbsDirPathOfWorldStateXml(saveSlotAbsDirectoryPath: string)\n  -> absPath: string"
+                    "view": "function FileUtils.GetAbsDirPathOfWorldStateXml(self: FileUtils, saveSlotAbsDirectoryPath: string)\n  -> absPath: string"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
-                "finish": 2310047,
+                "finish": 2390047,
                 "name": "GetAbsDirPathOfWorldStateXml",
-                "start": 2310009,
-                "type": "setfield"
+                "start": 2390009,
+                "type": "setmethod"
             },
             {
-                "desc": " Returns the ABSOLUTE path of the mods folder.\n If FileUtils.GetAbsolutePathOfNoitaRootDirectory() is not set yet, then it will be\n\n@*return* `FileUtils.GetAbsolutePathOfNoitaRootDirectory` — ) .. \"/mods/noita-mp\"",
+                "desc": " Returns the ABSOLUTE path of the mods folder.\n If self.GetAbsolutePathOfNoitaRootDirectory() is not set yet, then it will be\n\n@*return* `self.GetAbsolutePathOfNoitaRootDirectory` — ) .. \"/mods/noita-mp\"",
                 "extends": {
-                    "args": [],
-                    "desc": " Returns the ABSOLUTE path of the mods folder.\n If FileUtils.GetAbsolutePathOfNoitaRootDirectory() is not set yet, then it will be\n\n@*return* `FileUtils.GetAbsolutePathOfNoitaRootDirectory` — ) .. \"/mods/noita-mp\"",
-                    "finish": 1980003,
+                    "args": [
+                        {
+                            "finish": 1990008,
+                            "start": 1990008,
+                            "type": "self",
+                            "view": "FileUtils"
+                        }
+                    ],
+                    "desc": " Returns the ABSOLUTE path of the mods folder.\n If self.GetAbsolutePathOfNoitaRootDirectory() is not set yet, then it will be\n\n@*return* `self.GetAbsolutePathOfNoitaRootDirectory` — ) .. \"/mods/noita-mp\"",
+                    "finish": 2060003,
+                    "returns": [
+                        {
+                            "type": "function.return",
+                            "view": "string"
+                        }
+                    ],
+                    "start": 1990000,
+                    "type": "function",
+                    "view": "function FileUtils.GetAbsoluteDirectoryPathOfNoitaMP(self: FileUtils)\n  -> self.GetAbsolutePathOfNoitaRootDirectory: string"
+                },
+                "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
+                "finish": 1990052,
+                "name": "GetAbsoluteDirectoryPathOfNoitaMP",
+                "start": 1990009,
+                "type": "setmethod"
+            },
+            {
+                "desc": " Return the parent directory of the savegame directory save06.\n If DebugGetIsDevBuild() then Noitas installation path is returned: 'C:\\Program Files (x86)\\Steam\\steamapps\\common\\Noita'\n otherwise it will return: '%appdata%\\..\\LocalLow\\Nolla_Games_Noita' on windows\n\n@*return* `save06_parent_directory_path` — string of absolute path to '..\\Noita' or '..\\Nolla_Games_Noita'",
+                "extends": {
+                    "args": [
+                        {
+                            "finish": 1450008,
+                            "start": 1450008,
+                            "type": "self",
+                            "view": "FileUtils"
+                        }
+                    ],
+                    "desc": " Return the parent directory of the savegame directory save06.\n If DebugGetIsDevBuild() then Noitas installation path is returned: 'C:\\Program Files (x86)\\Steam\\steamapps\\common\\Noita'\n otherwise it will return: '%appdata%\\..\\LocalLow\\Nolla_Games_Noita' on windows\n\n@*return* `save06_parent_directory_path` — string of absolute path to '..\\Noita' or '..\\Nolla_Games_Noita'",
+                    "finish": 1870003,
+                    "returns": [
+                        {
+                            "type": "function.return",
+                            "view": "string"
+                        }
+                    ],
+                    "start": 1450000,
+                    "type": "function",
+                    "view": "function FileUtils.GetAbsoluteDirectoryPathOfParentSave(self: FileUtils)\n  -> save06_parent_directory_path: string"
+                },
+                "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
+                "finish": 1450055,
+                "name": "GetAbsoluteDirectoryPathOfParentSave",
+                "start": 1450009,
+                "type": "setmethod"
+            },
+            {
+                "desc": " Returns the ABSOLUTE path of the library folder required for this mod.\n If self.GetAbsolutePathOfNoitaRootDirectory() is not set yet, then it will be\n\n@*return* `self.GetAbsolutePathOfNoitaRootDirectory` — ) .. \"/mods/noita-mp/files/libs\"",
+                "extends": {
+                    "args": [
+                        {
+                            "finish": 2270008,
+                            "start": 2270008,
+                            "type": "self",
+                            "view": "FileUtils"
+                        }
+                    ],
+                    "desc": " Returns the ABSOLUTE path of the library folder required for this mod.\n If self.GetAbsolutePathOfNoitaRootDirectory() is not set yet, then it will be\n\n@*return* `self.GetAbsolutePathOfNoitaRootDirectory` — ) .. \"/mods/noita-mp/files/libs\"",
+                    "finish": 2340003,
+                    "returns": [
+                        {
+                            "type": "function.return",
+                            "view": "string"
+                        }
+                    ],
+                    "start": 2270000,
+                    "type": "function",
+                    "view": "function FileUtils.GetAbsoluteDirectoryPathOfRequiredLibs(self: FileUtils)\n  -> self.GetAbsolutePathOfNoitaRootDirectory: string"
+                },
+                "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
+                "finish": 2270057,
+                "name": "GetAbsoluteDirectoryPathOfRequiredLibs",
+                "start": 2270009,
+                "type": "setmethod"
+            },
+            {
+                "desc": " Returns fullpath of save06 directory on devBuild or release\n\n@*return* `directory_path_of_save06` — : noita installation path\\save06 or %appdata%\\..\\LocalLow\\Nolla_Games_Noita\\save06 on windows and unknown for unix systems",
+                "extends": {
+                    "args": [
+                        {
+                            "finish": 1910008,
+                            "start": 1910008,
+                            "type": "self",
+                            "view": "FileUtils"
+                        }
+                    ],
+                    "desc": " Returns fullpath of save06 directory on devBuild or release\n\n@*return* `directory_path_of_save06` — : noita installation path\\save06 or %appdata%\\..\\LocalLow\\Nolla_Games_Noita\\save06 on windows and unknown for unix systems",
+                    "finish": 1940003,
                     "returns": [
                         {
                             "type": "function.return",
@@ -2649,246 +2700,206 @@
                     ],
                     "start": 1910000,
                     "type": "function",
-                    "view": "function FileUtils.GetAbsoluteDirectoryPathOfNoitaMP()\n  -> FileUtils.GetAbsolutePathOfNoitaRootDirectory: string"
+                    "view": "function FileUtils.GetAbsoluteDirectoryPathOfSave06(self: FileUtils)\n  -> directory_path_of_save06: string"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
-                "finish": 1910052,
-                "name": "GetAbsoluteDirectoryPathOfNoitaMP",
-                "start": 1910009,
-                "type": "setfield"
-            },
-            {
-                "desc": " Return the parent directory of the savegame directory save06.\n If DebugGetIsDevBuild() then Noitas installation path is returned: 'C:\\Program Files (x86)\\Steam\\steamapps\\common\\Noita'\n otherwise it will return: '%appdata%\\..\\LocalLow\\Nolla_Games_Noita' on windows\n\n@*return* `save06_parent_directory_path` — string of absolute path to '..\\Noita' or '..\\Nolla_Games_Noita'",
-                "extends": {
-                    "args": [],
-                    "desc": " Return the parent directory of the savegame directory save06.\n If DebugGetIsDevBuild() then Noitas installation path is returned: 'C:\\Program Files (x86)\\Steam\\steamapps\\common\\Noita'\n otherwise it will return: '%appdata%\\..\\LocalLow\\Nolla_Games_Noita' on windows\n\n@*return* `save06_parent_directory_path` — string of absolute path to '..\\Noita' or '..\\Nolla_Games_Noita'",
-                    "finish": 1790003,
-                    "returns": [
-                        {
-                            "type": "function.return",
-                            "view": "string"
-                        }
-                    ],
-                    "start": 1370000,
-                    "type": "function",
-                    "view": "function FileUtils.GetAbsoluteDirectoryPathOfParentSave()\n  -> save06_parent_directory_path: string"
-                },
-                "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
-                "finish": 1370055,
-                "name": "GetAbsoluteDirectoryPathOfParentSave",
-                "start": 1370009,
-                "type": "setfield"
-            },
-            {
-                "desc": " Returns the ABSOLUTE path of the library folder required for this mod.\n If FileUtils.GetAbsolutePathOfNoitaRootDirectory() is not set yet, then it will be\n\n@*return* `FileUtils.GetAbsolutePathOfNoitaRootDirectory` — ) .. \"/mods/noita-mp/files/libs\"",
-                "extends": {
-                    "args": [],
-                    "desc": " Returns the ABSOLUTE path of the library folder required for this mod.\n If FileUtils.GetAbsolutePathOfNoitaRootDirectory() is not set yet, then it will be\n\n@*return* `FileUtils.GetAbsolutePathOfNoitaRootDirectory` — ) .. \"/mods/noita-mp/files/libs\"",
-                    "finish": 2260003,
-                    "returns": [
-                        {
-                            "type": "function.return",
-                            "view": "string"
-                        }
-                    ],
-                    "start": 2190000,
-                    "type": "function",
-                    "view": "function FileUtils.GetAbsoluteDirectoryPathOfRequiredLibs()\n  -> FileUtils.GetAbsolutePathOfNoitaRootDirectory: string"
-                },
-                "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
-                "finish": 2190057,
-                "name": "GetAbsoluteDirectoryPathOfRequiredLibs",
-                "start": 2190009,
-                "type": "setfield"
-            },
-            {
-                "desc": " Returns fullpath of save06 directory on devBuild or release\n\n@*return* `directory_path_of_save06` — : noita installation path\\save06 or %appdata%\\..\\LocalLow\\Nolla_Games_Noita\\save06 on windows and unknown for unix systems",
-                "extends": {
-                    "args": [],
-                    "desc": " Returns fullpath of save06 directory on devBuild or release\n\n@*return* `directory_path_of_save06` — : noita installation path\\save06 or %appdata%\\..\\LocalLow\\Nolla_Games_Noita\\save06 on windows and unknown for unix systems",
-                    "finish": 1860003,
-                    "returns": [
-                        {
-                            "type": "function.return",
-                            "view": "string"
-                        }
-                    ],
-                    "start": 1830000,
-                    "type": "function",
-                    "view": "function FileUtils.GetAbsoluteDirectoryPathOfSave06()\n  -> directory_path_of_save06: string"
-                },
-                "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
-                "finish": 1830051,
+                "finish": 1910051,
                 "name": "GetAbsoluteDirectoryPathOfSave06",
-                "start": 1830009,
-                "type": "setfield"
+                "start": 1910009,
+                "type": "setmethod"
             },
             {
                 "desc": " Returns absolute path of NoitaMP settings directory,\n\n@*return* `absPath` — i.e. \"C:\\Program Files (x86)\\Steam\\steamapps\\common\\Noita\\mods\\noita-mp\\settings\"",
                 "extends": {
-                    "args": [],
+                    "args": [
+                        {
+                            "finish": 2650008,
+                            "start": 2650008,
+                            "type": "self",
+                            "view": "FileUtils"
+                        }
+                    ],
                     "desc": " Returns absolute path of NoitaMP settings directory,\n\n@*return* `absPath` — i.e. \"C:\\Program Files (x86)\\Steam\\steamapps\\common\\Noita\\mods\\noita-mp\\settings\"",
-                    "finish": 2590003,
+                    "finish": 2670003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "string"
                         }
                     ],
-                    "start": 2570000,
+                    "start": 2650000,
                     "type": "function",
-                    "view": "function FileUtils.GetAbsolutePathOfNoitaMpSettingsDirectory()\n  -> absPath: string"
+                    "view": "function FileUtils.GetAbsolutePathOfNoitaMpSettingsDirectory(self: FileUtils)\n  -> absPath: string"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
-                "finish": 2570060,
+                "finish": 2650060,
                 "name": "GetAbsolutePathOfNoitaMpSettingsDirectory",
-                "start": 2570009,
-                "type": "setfield"
-            },
-            {
-                "extends": {
-                    "args": [],
-                    "finish": 1270003,
-                    "returns": [
-                        {
-                            "type": "function.return",
-                            "view": "string"
-                        }
-                    ],
-                    "start": 1220000,
-                    "type": "function",
-                    "view": "function FileUtils.GetAbsolutePathOfNoitaRootDirectory()\n  -> string"
-                },
-                "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
-                "finish": 1220054,
-                "name": "GetAbsolutePathOfNoitaRootDirectory",
-                "start": 1220009,
-                "type": "setfield"
+                "start": 2650009,
+                "type": "setmethod"
             },
             {
                 "extends": {
                     "args": [
                         {
-                            "finish": 6100051,
-                            "start": 6100042,
+                            "finish": 1310008,
+                            "start": 1310008,
+                            "type": "self",
+                            "view": "FileUtils"
+                        }
+                    ],
+                    "finish": 1360003,
+                    "returns": [
+                        {
+                            "type": "function.return",
+                            "view": "string"
+                        }
+                    ],
+                    "start": 1310000,
+                    "type": "function",
+                    "view": "function FileUtils.GetAbsolutePathOfNoitaRootDirectory(self: FileUtils)\n  -> string"
+                },
+                "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
+                "finish": 1310054,
+                "name": "GetAbsolutePathOfNoitaRootDirectory",
+                "start": 1310009,
+                "type": "setmethod"
+            },
+            {
+                "extends": {
+                    "args": [
+                        {
+                            "finish": 6200008,
+                            "start": 6200008,
+                            "type": "self",
+                            "view": "FileUtils"
+                        },
+                        {
+                            "finish": 6200051,
+                            "start": 6200042,
                             "type": "local",
                             "view": "any"
                         },
                         {
-                            "finish": 6100066,
-                            "start": 6100053,
+                            "finish": 6200066,
+                            "start": 6200053,
                             "type": "local",
                             "view": "any"
                         }
                     ],
-                    "finish": 6270003,
+                    "finish": 6370003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "table"
                         }
                     ],
-                    "start": 6100000,
+                    "start": 6200000,
                     "type": "function",
-                    "view": "function FileUtils.GetAllFilesInDirectory(directory: any, fileExtension: any)\n  -> table"
+                    "view": "function FileUtils.GetAllFilesInDirectory(self: FileUtils, directory: any, fileExtension: any)\n  -> table"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
-                "finish": 6100041,
+                "finish": 6200041,
                 "name": "GetAllFilesInDirectory",
-                "start": 6100009,
-                "type": "setfield"
+                "start": 6200009,
+                "type": "setmethod"
             },
             {
                 "extends": {
-                    "args": [],
-                    "finish": 6420003,
+                    "args": [
+                        {
+                            "finish": 6390008,
+                            "start": 6390008,
+                            "type": "self",
+                            "view": "FileUtils"
+                        }
+                    ],
+                    "finish": 6520003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "string|table"
                         }
                     ],
-                    "start": 6290000,
+                    "start": 6390000,
                     "type": "function",
-                    "view": "function FileUtils.GetDesktopDirectory()\n  -> string|table"
+                    "view": "function FileUtils.GetDesktopDirectory(self: FileUtils)\n  -> string|table"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
-                "finish": 6290038,
+                "finish": 6390038,
                 "name": "GetDesktopDirectory",
-                "start": 6290009,
-                "type": "setfield"
+                "start": 6390009,
+                "type": "setmethod"
             },
             {
                 "desc": " see _G.saveSlotMeta",
                 "extends": {
-                    "args": [],
+                    "args": [
+                        {
+                            "finish": 2450008,
+                            "start": 2450008,
+                            "type": "self",
+                            "view": "FileUtils"
+                        }
+                    ],
                     "desc": " see _G.saveSlotMeta",
-                    "finish": 2530003,
+                    "finish": 2610003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "table"
                         }
                     ],
-                    "start": 2370000,
+                    "start": 2450000,
                     "type": "function",
-                    "view": "function FileUtils.GetLastModifiedSaveSlots()\n  -> table"
+                    "view": "function FileUtils.GetLastModifiedSaveSlots(self: FileUtils)\n  -> table"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
-                "finish": 2370043,
+                "finish": 2450043,
                 "name": "GetLastModifiedSaveSlots",
-                "start": 2370009,
-                "type": "setfield"
+                "start": 2450009,
+                "type": "setmethod"
             },
             {
                 "desc": "\n eNet specific commands",
                 "extends": {
-                    "args": [],
+                    "args": [
+                        {
+                            "finish": 750008,
+                            "start": 750008,
+                            "type": "self",
+                            "view": "FileUtils"
+                        }
+                    ],
                     "desc": "\n eNet specific commands",
-                    "finish": 790003,
+                    "finish": 900003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "number?"
                         }
                     ],
-                    "start": 640000,
+                    "start": 750000,
                     "type": "function",
-                    "view": "function FileUtils.GetPidOfRunningEnetHostByPort()\n  -> number?"
+                    "view": "function FileUtils.GetPidOfRunningEnetHostByPort(self: FileUtils)\n  -> number?"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
-                "finish": 640048,
+                "finish": 750048,
                 "name": "GetPidOfRunningEnetHostByPort",
-                "start": 640009,
-                "type": "setfield"
+                "start": 750009,
+                "type": "setmethod"
             },
             {
                 "desc": " Returns the RELATIVE path of the mods folder.\n\n@*return* — mods/noita-mp",
                 "extends": {
-                    "args": [],
-                    "desc": " Returns the RELATIVE path of the mods folder.\n\n@*return* — mods/noita-mp",
-                    "finish": 2060003,
-                    "returns": [
+                    "args": [
                         {
-                            "type": "function.return",
-                            "view": "string"
+                            "finish": 2100008,
+                            "start": 2100008,
+                            "type": "self",
+                            "view": "FileUtils"
                         }
                     ],
-                    "start": 2020000,
-                    "type": "function",
-                    "view": "function FileUtils.GetRelativeDirectoryPathOfNoitaMP()\n  -> string"
-                },
-                "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
-                "finish": 2020052,
-                "name": "GetRelativeDirectoryPathOfNoitaMP",
-                "start": 2020009,
-                "type": "setfield"
-            },
-            {
-                "desc": " Returns the RELATIVE path of the library folder required for this mod.\n\n@*return* — /mods/noita-mp/files/libs",
-                "extends": {
-                    "args": [],
-                    "desc": " Returns the RELATIVE path of the library folder required for this mod.\n\n@*return* — /mods/noita-mp/files/libs",
+                    "desc": " Returns the RELATIVE path of the mods folder.\n\n@*return* — mods/noita-mp",
                     "finish": 2140003,
                     "returns": [
                         {
@@ -2898,447 +2909,693 @@
                     ],
                     "start": 2100000,
                     "type": "function",
-                    "view": "function FileUtils.GetRelativeDirectoryPathOfRequiredLibs()\n  -> string"
+                    "view": "function FileUtils.GetRelativeDirectoryPathOfNoitaMP(self: FileUtils)\n  -> string"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
-                "finish": 2100057,
-                "name": "GetRelativeDirectoryPathOfRequiredLibs",
+                "finish": 2100052,
+                "name": "GetRelativeDirectoryPathOfNoitaMP",
                 "start": 2100009,
-                "type": "setfield"
+                "type": "setmethod"
+            },
+            {
+                "desc": " Returns the RELATIVE path of the library folder required for this mod.\n\n@*return* — /mods/noita-mp/files/libs",
+                "extends": {
+                    "args": [
+                        {
+                            "finish": 2180008,
+                            "start": 2180008,
+                            "type": "self",
+                            "view": "FileUtils"
+                        }
+                    ],
+                    "desc": " Returns the RELATIVE path of the library folder required for this mod.\n\n@*return* — /mods/noita-mp/files/libs",
+                    "finish": 2220003,
+                    "returns": [
+                        {
+                            "type": "function.return",
+                            "view": "string"
+                        }
+                    ],
+                    "start": 2180000,
+                    "type": "function",
+                    "view": "function FileUtils.GetRelativeDirectoryPathOfRequiredLibs(self: FileUtils)\n  -> string"
+                },
+                "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
+                "finish": 2180057,
+                "name": "GetRelativeDirectoryPathOfRequiredLibs",
+                "start": 2180009,
+                "type": "setmethod"
             },
             {
                 "extends": {
-                    "args": [],
-                    "finish": 2630003,
+                    "args": [
+                        {
+                            "finish": 2690008,
+                            "start": 2690008,
+                            "type": "self",
+                            "view": "FileUtils"
+                        }
+                    ],
+                    "finish": 2710003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "unknown"
                         }
                     ],
-                    "start": 2610000,
+                    "start": 2690000,
                     "type": "function",
-                    "view": "function FileUtils.GetRelativePathOfNoitaMpSettingsDirectory()\n  -> unknown"
+                    "view": "function FileUtils.GetRelativePathOfNoitaMpSettingsDirectory(self: FileUtils)\n  -> unknown"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
-                "finish": 2610060,
+                "finish": 2690060,
                 "name": "GetRelativePathOfNoitaMpSettingsDirectory",
-                "start": 2610009,
-                "type": "setfield"
+                "start": 2690009,
+                "type": "setmethod"
             },
             {
+                "desc": "Returns NoitaMP version by reading the .version file.",
                 "extends": {
-                    "args": [],
-                    "finish": 200003,
+                    "args": [
+                        {
+                            "finish": 220008,
+                            "start": 220008,
+                            "type": "self",
+                            "view": "FileUtils"
+                        }
+                    ],
+                    "desc": "Returns NoitaMP version by reading the .version file.",
+                    "finish": 330003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "string"
                         }
                     ],
-                    "start": 90000,
+                    "start": 220000,
                     "type": "function",
-                    "view": "function FileUtils.GetVersionByFile()\n  -> string"
+                    "view": "function FileUtils.GetVersionByFile(self: FileUtils)\n  -> version: string"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
-                "finish": 90035,
+                "finish": 220035,
                 "name": "GetVersionByFile",
-                "start": 90009,
-                "type": "setfield"
+                "start": 220009,
+                "type": "setmethod"
             },
             {
                 "extends": {
                     "args": [
                         {
-                            "finish": 3030040,
-                            "start": 3030031,
+                            "finish": 3090008,
+                            "start": 3090008,
+                            "type": "self",
+                            "view": "FileUtils"
+                        },
+                        {
+                            "finish": 3090040,
+                            "start": 3090031,
                             "type": "local",
                             "view": "string"
                         }
                     ],
-                    "finish": 3130003,
+                    "finish": 3190003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "boolean"
                         }
                     ],
-                    "start": 3030000,
+                    "start": 3090000,
                     "type": "function",
-                    "view": "function FileUtils.IsDirectory(full_path: string)\n  -> boolean"
+                    "view": "function FileUtils.IsDirectory(self: FileUtils, full_path: string)\n  -> boolean"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
-                "finish": 3030030,
+                "finish": 3090030,
                 "name": "IsDirectory",
-                "start": 3030009,
-                "type": "setfield"
+                "start": 3090009,
+                "type": "setmethod"
             },
             {
                 "extends": {
                     "args": [
                         {
-                            "finish": 2840035,
-                            "start": 2840026,
+                            "finish": 2900008,
+                            "start": 2900008,
+                            "type": "self",
+                            "view": "FileUtils"
+                        },
+                        {
+                            "finish": 2900035,
+                            "start": 2900026,
                             "type": "local",
                             "view": "string"
                         }
                     ],
-                    "finish": 2990003,
+                    "finish": 3050003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "boolean"
                         }
                     ],
-                    "start": 2840000,
+                    "start": 2900000,
                     "type": "function",
-                    "view": "function FileUtils.IsFile(full_path: string)\n  -> boolean"
+                    "view": "function FileUtils.IsFile(self: FileUtils, full_path: string)\n  -> boolean"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
-                "finish": 2840025,
+                "finish": 2900025,
                 "name": "IsFile",
-                "start": 2840009,
-                "type": "setfield"
-            },
-            {
-                "extends": {
-                    "args": [],
-                    "finish": 5790003,
-                    "start": 5680000,
-                    "type": "function",
-                    "view": "function FileUtils.KillNoitaAndRestart()"
-                },
-                "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
-                "finish": 5680038,
-                "name": "KillNoitaAndRestart",
-                "start": 5680009,
-                "type": "setfield"
+                "start": 2900009,
+                "type": "setmethod"
             },
             {
                 "extends": {
                     "args": [
                         {
-                            "finish": 810034,
-                            "start": 810031,
+                            "finish": 5790008,
+                            "start": 5790008,
+                            "type": "self",
+                            "view": "FileUtils"
+                        }
+                    ],
+                    "finish": 5900003,
+                    "start": 5790000,
+                    "type": "function",
+                    "view": "function FileUtils.KillNoitaAndRestart(self: FileUtils)"
+                },
+                "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
+                "finish": 5790038,
+                "name": "KillNoitaAndRestart",
+                "start": 5790009,
+                "type": "setmethod"
+            },
+            {
+                "extends": {
+                    "args": [
+                        {
+                            "finish": 920008,
+                            "start": 920008,
+                            "type": "self",
+                            "view": "FileUtils"
+                        },
+                        {
+                            "finish": 920034,
+                            "start": 920031,
                             "type": "local",
                             "view": "any"
                         }
                     ],
-                    "finish": 900003,
-                    "start": 810000,
+                    "finish": 1010003,
+                    "start": 920000,
                     "type": "function",
-                    "view": "function FileUtils.KillProcess(pid: any)"
+                    "view": "function FileUtils.KillProcess(self: FileUtils, pid: any)"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
-                "finish": 810030,
+                "finish": 920030,
                 "name": "KillProcess",
-                "start": 810009,
-                "type": "setfield"
+                "start": 920009,
+                "type": "setmethod"
             },
             {
                 "extends": {
                     "args": [
                         {
-                            "finish": 3970034,
-                            "start": 3970025,
+                            "finish": 4030008,
+                            "start": 4030008,
+                            "type": "self",
+                            "view": "FileUtils"
+                        },
+                        {
+                            "finish": 4030034,
+                            "start": 4030025,
                             "type": "local",
                             "view": "string"
                         }
                     ],
-                    "finish": 4110003,
-                    "start": 3970000,
+                    "finish": 4170003,
+                    "start": 4030000,
                     "type": "function",
-                    "view": "function FileUtils.MkDir(full_path: string)"
+                    "view": "function FileUtils.MkDir(self: FileUtils, full_path: string)"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
-                "finish": 3970024,
+                "finish": 4030024,
                 "name": "MkDir",
-                "start": 3970009,
-                "type": "setfield"
+                "start": 4030009,
+                "type": "setmethod"
             },
             {
                 "extends": {
                     "args": [
                         {
-                            "finish": 3170047,
-                            "start": 3170034,
+                            "finish": 3230008,
+                            "start": 3230008,
+                            "type": "self",
+                            "view": "FileUtils"
+                        },
+                        {
+                            "finish": 3230047,
+                            "start": 3230034,
                             "type": "local",
                             "view": "string"
                         }
                     ],
-                    "finish": 3300003,
+                    "finish": 3360003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "string|number"
                         }
                     ],
-                    "start": 3170000,
+                    "start": 3230000,
                     "type": "function",
-                    "view": "function FileUtils.ReadBinaryFile(file_fullpath: string)\n  -> string|number"
+                    "view": "function FileUtils.ReadBinaryFile(self: FileUtils, file_fullpath: string)\n  -> string|number"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
-                "finish": 3170033,
+                "finish": 3230033,
                 "name": "ReadBinaryFile",
-                "start": 3170009,
-                "type": "setfield"
+                "start": 3230009,
+                "type": "setmethod"
             },
             {
                 "extends": {
                     "args": [
                         {
-                            "finish": 3480041,
-                            "start": 3480028,
+                            "finish": 3540008,
+                            "start": 3540008,
+                            "type": "self",
+                            "view": "FileUtils"
+                        },
+                        {
+                            "finish": 3540041,
+                            "start": 3540028,
                             "type": "local",
                             "view": "string"
                         },
                         {
-                            "finish": 3480047,
-                            "start": 3480043,
+                            "finish": 3540047,
+                            "start": 3540043,
                             "type": "local",
                             "view": "string?"
                         }
                     ],
-                    "finish": 3650003,
+                    "finish": 3710003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "unknown"
                         }
                     ],
-                    "start": 3480000,
+                    "start": 3540000,
                     "type": "function",
-                    "view": "function FileUtils.ReadFile(file_fullpath: string, mode?: string)\n  -> unknown"
+                    "view": "function FileUtils.ReadFile(self: FileUtils, file_fullpath: string, mode?: string)\n  -> unknown"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
-                "finish": 3480027,
+                "finish": 3540027,
                 "name": "ReadFile",
-                "start": 3480009,
-                "type": "setfield"
+                "start": 3540009,
+                "type": "setmethod"
             },
             {
                 "extends": {
                     "args": [
                         {
-                            "finish": 4590056,
-                            "start": 4590044,
+                            "finish": 4720008,
+                            "start": 4720008,
+                            "type": "self",
+                            "view": "FileUtils"
+                        },
+                        {
+                            "finish": 4720056,
+                            "start": 4720044,
                             "type": "local",
                             "view": "any"
                         }
                     ],
-                    "finish": 4680003,
-                    "start": 4590000,
+                    "finish": 4800003,
+                    "start": 4720000,
                     "type": "function",
-                    "view": "function FileUtils.RemoveContentOfDirectory(absolutePath: any)"
+                    "view": "function FileUtils.RemoveContentOfDirectory(self: FileUtils, absolutePath: any)"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
-                "finish": 4590043,
+                "finish": 4720043,
                 "name": "RemoveContentOfDirectory",
-                "start": 4590009,
-                "type": "setfield"
+                "start": 4720009,
+                "type": "setmethod"
             },
             {
                 "desc": " Removes trailing path separator in a string: \\persistent\\flags\\ -> \\persistent\\flags.\n Error if path is not a string.\n\n@*param* `path` — any string, i.e. \\persistent\\flags\\\n\n@*return* `path` — \\persistent\\flags",
                 "extends": {
                     "args": [
                         {
+                            "finish": 610008,
+                            "start": 610008,
+                            "type": "self",
+                            "view": "FileUtils"
+                        },
+                        {
                             "desc": "any string, i.e. \\persistent\\flags\\",
-                            "finish": 500051,
-                            "start": 500047,
+                            "finish": 610051,
+                            "start": 610047,
                             "type": "local",
                             "view": "string"
                         }
                     ],
                     "desc": " Removes trailing path separator in a string: \\persistent\\flags\\ -> \\persistent\\flags.\n Error if path is not a string.\n\n@*param* `path` — any string, i.e. \\persistent\\flags\\\n\n@*return* `path` — \\persistent\\flags",
-                    "finish": 580003,
+                    "finish": 690003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "string"
                         }
                     ],
-                    "start": 500000,
+                    "start": 610000,
                     "type": "function",
-                    "view": "function FileUtils.RemoveTrailingPathSeparator(path: string)\n  -> path: string"
+                    "view": "function FileUtils.RemoveTrailingPathSeparator(self: FileUtils, path: string)\n  -> path: string"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
-                "finish": 500046,
+                "finish": 610046,
                 "name": "RemoveTrailingPathSeparator",
-                "start": 500009,
-                "type": "setfield"
+                "start": 610009,
+                "type": "setmethod"
             },
             {
-                "desc": " Replaces windows path separator to unix path separator and vice versa.\n Error if path is not a string.",
+                "desc": "Replaces windows path separator to unix path separator and vice versa.\nError if path is not a string.",
                 "extends": {
                     "args": [
                         {
-                            "finish": 300044,
-                            "start": 300040,
+                            "finish": 430008,
+                            "start": 430008,
+                            "type": "self",
+                            "view": "FileUtils"
+                        },
+                        {
+                            "finish": 430044,
+                            "start": 430040,
                             "type": "local",
                             "view": "string"
                         }
                     ],
-                    "desc": " Replaces windows path separator to unix path separator and vice versa.\n Error if path is not a string.",
-                    "finish": 440003,
+                    "desc": "Replaces windows path separator to unix path separator and vice versa.\nError if path is not a string.",
+                    "finish": 550003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "string"
+                        },
+                        {
+                            "type": "function.return",
+                            "view": "number"
                         }
                     ],
-                    "start": 300000,
+                    "start": 430000,
                     "type": "function",
-                    "view": "function FileUtils.ReplacePathSeparator(path: string)\n  -> path: string"
+                    "view": "function FileUtils.ReplacePathSeparator(self: FileUtils, path: string)\n  -> path: string\n  2. count: number"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
-                "finish": 300039,
+                "finish": 430039,
                 "name": "ReplacePathSeparator",
-                "start": 300009,
-                "type": "setfield"
+                "start": 430009,
+                "type": "setmethod"
             },
             {
                 "desc": " This executes c code to sent SDL_QUIT command to the app",
                 "extends": {
-                    "args": [],
+                    "args": [
+                        {
+                            "finish": 5930008,
+                            "start": 5930008,
+                            "type": "self",
+                            "view": "FileUtils"
+                        }
+                    ],
                     "desc": " This executes c code to sent SDL_QUIT command to the app",
-                    "finish": 6080003,
-                    "start": 5820000,
+                    "finish": 6180003,
+                    "start": 5930000,
                     "type": "function",
-                    "view": "function FileUtils.SaveAndRestartNoita()"
+                    "view": "function FileUtils.SaveAndRestartNoita(self: FileUtils)"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
-                "finish": 5820038,
+                "finish": 5930038,
                 "name": "SaveAndRestartNoita",
-                "start": 5820009,
-                "type": "setfield"
+                "start": 5930009,
+                "type": "setmethod"
             },
             {
                 "desc": " Lua implementation of PHP scandir function",
                 "extends": {
                     "args": [
                         {
-                            "finish": 4410036,
-                            "start": 4410027,
+                            "finish": 4500008,
+                            "start": 4500008,
+                            "type": "self",
+                            "view": "FileUtils"
+                        },
+                        {
+                            "finish": 4500036,
+                            "start": 4500027,
                             "type": "local",
                             "view": "any"
                         }
                     ],
                     "desc": " Lua implementation of PHP scandir function",
-                    "finish": 4570003,
+                    "finish": 4700003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "string[]"
                         }
                     ],
-                    "start": 4410000,
+                    "start": 4500000,
                     "type": "function",
-                    "view": "function FileUtils.ScanDir(directory: any)\n  -> string[]"
+                    "view": "function FileUtils.ScanDir(self: FileUtils, directory: any)\n  -> string[]"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
-                "finish": 4410026,
+                "finish": 4500026,
                 "name": "ScanDir",
-                "start": 4410009,
-                "type": "setfield"
+                "start": 4500009,
+                "type": "setmethod"
             },
             {
                 "desc": " Sets root directory of noita.exe, i.e. C:\\Program Files (x86)\\Steam\\steamapps\\common\\Noita",
                 "extends": {
-                    "args": [],
+                    "args": [
+                        {
+                            "finish": 1060008,
+                            "start": 1060008,
+                            "type": "self",
+                            "view": "FileUtils"
+                        }
+                    ],
                     "desc": " Sets root directory of noita.exe, i.e. C:\\Program Files (x86)\\Steam\\steamapps\\common\\Noita",
-                    "finish": 1190003,
-                    "start": 970000,
+                    "finish": 1280003,
+                    "start": 1060000,
                     "type": "function",
-                    "view": "function FileUtils.SetAbsolutePathOfNoitaRootDirectory()"
+                    "view": "function FileUtils.SetAbsolutePathOfNoitaRootDirectory(self: FileUtils)"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
-                "finish": 970054,
+                "finish": 1060054,
                 "name": "SetAbsolutePathOfNoitaRootDirectory",
-                "start": 970009,
-                "type": "setfield"
+                "start": 1060009,
+                "type": "setmethod"
             },
             {
                 "desc": " http://lua-users.org/wiki/SplitJoin -> Example: Split a file path string into components.",
                 "extends": {
                     "args": [
                         {
-                            "finish": 4330032,
-                            "start": 4330029,
+                            "finish": 4420008,
+                            "start": 4420008,
+                            "type": "self",
+                            "view": "FileUtils"
+                        },
+                        {
+                            "finish": 4420032,
+                            "start": 4420029,
                             "type": "local",
                             "view": "any"
                         }
                     ],
                     "desc": " http://lua-users.org/wiki/SplitJoin -> Example: Split a file path string into components.",
-                    "finish": 4370003,
+                    "finish": 4460003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "unknown"
                         }
                     ],
-                    "start": 4330000,
+                    "start": 4420000,
                     "type": "function",
-                    "view": "function FileUtils.SplitPath(str: any)\n  -> unknown"
+                    "view": "function FileUtils.SplitPath(self: FileUtils, str: any)\n  -> unknown"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
-                "finish": 4330028,
+                "finish": 4420028,
                 "name": "SplitPath",
-                "start": 4330009,
-                "type": "setfield"
+                "start": 4420009,
+                "type": "setmethod"
             },
             {
                 "extends": {
                     "args": [
                         {
-                            "finish": 3340048,
-                            "start": 3340035,
+                            "finish": 3400008,
+                            "start": 3400008,
+                            "type": "self",
+                            "view": "FileUtils"
+                        },
+                        {
+                            "finish": 3400048,
+                            "start": 3400035,
                             "type": "local",
                             "view": "string"
                         },
                         {
-                            "finish": 3340062,
-                            "start": 3340050,
+                            "finish": 3400062,
+                            "start": 3400050,
                             "type": "local",
                             "view": "any"
                         }
                     ],
-                    "finish": 3440003,
-                    "start": 3340000,
+                    "finish": 3500003,
+                    "start": 3400000,
                     "type": "function",
-                    "view": "function FileUtils.WriteBinaryFile(file_fullpath: string, file_content: any)"
+                    "view": "function FileUtils.WriteBinaryFile(self: FileUtils, file_fullpath: string, file_content: any)"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
-                "finish": 3340034,
+                "finish": 3400034,
                 "name": "WriteBinaryFile",
-                "start": 3340009,
-                "type": "setfield"
+                "start": 3400009,
+                "type": "setmethod"
             },
             {
                 "extends": {
                     "args": [
                         {
-                            "finish": 3690042,
-                            "start": 3690029,
+                            "finish": 3750008,
+                            "start": 3750008,
+                            "type": "self",
+                            "view": "FileUtils"
+                        },
+                        {
+                            "finish": 3750042,
+                            "start": 3750029,
                             "type": "local",
                             "view": "string"
                         },
                         {
-                            "finish": 3690056,
-                            "start": 3690044,
+                            "finish": 3750056,
+                            "start": 3750044,
                             "type": "local",
                             "view": "string"
                         }
                     ],
-                    "finish": 3940003,
-                    "start": 3690000,
+                    "finish": 4000003,
+                    "start": 3750000,
                     "type": "function",
-                    "view": "function FileUtils.WriteFile(file_fullpath: string, file_content: string)"
+                    "view": "function FileUtils.WriteFile(self: FileUtils, file_fullpath: string, file_content: string)"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
-                "finish": 3690028,
+                "finish": 3750028,
                 "name": "WriteFile",
-                "start": 3690009,
+                "start": 3750009,
+                "type": "setmethod"
+            },
+            {
+                "desc": "Simple profiler that can be used to measure the duration of a function and the memory usage of a function.",
+                "extends": {
+                    "finish": 6750075,
+                    "start": 6740041,
+                    "type": "binary",
+                    "view": "CustomProfiler"
+                },
+                "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
+                "finish": 6740038,
+                "name": "customProfiler",
+                "start": 6740008,
                 "type": "setfield"
+            },
+            {
+                "extends": {
+                    "finish": 6970086,
+                    "start": 6970033,
+                    "type": "binary",
+                    "view": "Logger"
+                },
+                "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
+                "finish": 6970030,
+                "name": "logger",
+                "start": 6970008,
+                "type": "setfield"
+            },
+            {
+                "desc": "FileUtils constructor.\n\n@*param* `fileUtilsObject` — require(\"FileUtils\") or nil\n\n@*param* `customProfiler` — can be nil\n\n@*param* `logger` — can be nil\n\n@*param* `noitaMpSettings` — required\n\n@*param* `plotly` — can be nil\n\n@*param* `utils` — can be nil",
+                "extends": {
+                    "args": [
+                        {
+                            "finish": 6620008,
+                            "start": 6620008,
+                            "type": "self",
+                            "view": "FileUtils"
+                        },
+                        {
+                            "desc": "require(\"FileUtils\") or nil",
+                            "finish": 6620038,
+                            "start": 6620023,
+                            "type": "local",
+                            "view": "FileUtils|nil"
+                        },
+                        {
+                            "desc": "can be nil",
+                            "finish": 6620054,
+                            "start": 6620040,
+                            "type": "local",
+                            "view": "CustomProfiler|nil"
+                        },
+                        {
+                            "desc": "can be nil",
+                            "finish": 6620062,
+                            "start": 6620056,
+                            "type": "local",
+                            "view": "Logger|nil"
+                        },
+                        {
+                            "desc": "required",
+                            "finish": 6620079,
+                            "start": 6620064,
+                            "type": "local",
+                            "view": "NoitaMpSettings"
+                        },
+                        {
+                            "desc": "can be nil",
+                            "finish": 6620087,
+                            "start": 6620081,
+                            "type": "local",
+                            "view": "plotly|nil"
+                        },
+                        {
+                            "desc": "can be nil",
+                            "finish": 6620094,
+                            "start": 6620089,
+                            "type": "local",
+                            "view": "Utils|nil"
+                        }
+                    ],
+                    "desc": "FileUtils constructor.\n\n@*param* `fileUtilsObject` — require(\"FileUtils\") or nil\n\n@*param* `customProfiler` — can be nil\n\n@*param* `logger` — can be nil\n\n@*param* `noitaMpSettings` — required\n\n@*param* `plotly` — can be nil\n\n@*param* `utils` — can be nil",
+                    "finish": 7110003,
+                    "returns": [
+                        {
+                            "type": "function.return",
+                            "view": "FileUtils"
+                        }
+                    ],
+                    "start": 6620000,
+                    "type": "function",
+                    "view": "function FileUtils.new(self: FileUtils, fileUtilsObject: FileUtils|nil, customProfiler: CustomProfiler|nil, logger: Logger|nil, noitaMpSettings: NoitaMpSettings, plotly: plotly|nil, utils: Utils|nil)\n  -> FileUtils"
+                },
+                "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
+                "finish": 6620022,
+                "name": "new",
+                "start": 6620009,
+                "type": "setmethod"
             }
         ],
         "name": "FileUtils",
@@ -3357,18 +3614,6 @@
                 "finish": 780020,
                 "start": 780008,
                 "type": "setfield"
-            },
-            {
-                "extends": {
-                    "finish": 440036,
-                    "start": 440016,
-                    "type": "select",
-                    "view": "FileUtils"
-                },
-                "file": "../../mods/noita-mp/files/scripts/init/init_package_loading.lua",
-                "finish": 440013,
-                "start": 440004,
-                "type": "setglobal"
             }
         ],
         "name": "FileUtils",
@@ -3403,6 +3648,25 @@
         ],
         "desc": " Returns width and height depending on resolution.\n GuiGetScreenDimensions( gui:obj ) -> width:number,height:number [Returns dimensions of viewport in the gui coordinate system (which is equal to the coordinates of the screen bottom right corner in gui coordinates). The values returned may change depending on the game resolution because the UI is scaled for pixel-perfect text rendering.]",
         "name": "GetWidthAndHeightByResolution",
+        "type": "variable"
+    },
+    {
+        "defines": [
+            {
+                "extends": {
+                    "finish": 180001,
+                    "start": 80015,
+                    "type": "table",
+                    "view": "GlobalsUtils"
+                },
+                "file": "../../mods/noita-mp/files/scripts/util/GlobalsUtils.lua",
+                "finish": 80012,
+                "start": 80000,
+                "type": "setglobal"
+            }
+        ],
+        "desc": "Class for GlobalsSetValue and GlobalsGetValue",
+        "name": "GlobalsUtils",
         "type": "variable"
     },
     {
@@ -3646,25 +3910,6 @@
         ],
         "name": "GlobalsUtils",
         "type": "type"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
-                    "finish": 180001,
-                    "start": 80015,
-                    "type": "table",
-                    "view": "GlobalsUtils"
-                },
-                "file": "../../mods/noita-mp/files/scripts/util/GlobalsUtils.lua",
-                "finish": 80012,
-                "start": 80000,
-                "type": "setglobal"
-            }
-        ],
-        "desc": "Class for GlobalsSetValue and GlobalsGetValue",
-        "name": "GlobalsUtils",
-        "type": "variable"
     },
     {
         "defines": [
@@ -3941,45 +4186,37 @@
                 "finish": 10014,
                 "start": 10011,
                 "type": "doc.class"
+            },
+            {
+                "file": "../../mods/noita-mp/files/scripts/Gui.lua",
+                "finish": 7480017,
+                "start": 7480014,
+                "type": "doc.class"
             }
         ],
         "desc": "Everything regarding ImGui: Credits to @dextercd",
         "fields": [
             {
-                "desc": "Everything regarding ImGui: Credits to @dextercd",
-                "extends": {
-                    "finish": 590017,
-                    "start": 590014,
-                    "type": "getlocal",
-                    "view": "Gui"
-                },
-                "file": "../../mods/noita-mp/files/scripts/Gui.lua",
-                "finish": 590011,
-                "name": "__index",
-                "start": 590000,
-                "type": "setfield"
-            },
-            {
                 "desc": "Function to check if the user pressed a shortcut.",
                 "extends": {
                     "args": [
                         {
-                            "finish": 7010008,
-                            "start": 7010008,
+                            "finish": 7000008,
+                            "start": 7000008,
                             "type": "self",
                             "view": "Gui"
                         }
                     ],
                     "desc": "Function to check if the user pressed a shortcut.",
-                    "finish": 7380003,
-                    "start": 7010000,
+                    "finish": 7370003,
+                    "start": 7000000,
                     "type": "function",
                     "view": "function Gui.checkShortcuts(self: Gui)"
                 },
                 "file": "../../mods/noita-mp/files/scripts/Gui.lua",
-                "finish": 7010027,
+                "finish": 7000027,
                 "name": "checkShortcuts",
-                "start": 7010009,
+                "start": 7000009,
                 "type": "setmethod"
             },
             {
@@ -3987,22 +4224,22 @@
                 "extends": {
                     "args": [
                         {
-                            "finish": 5700008,
-                            "start": 5700008,
+                            "finish": 5690008,
+                            "start": 5690008,
                             "type": "self",
                             "view": "Gui"
                         }
                     ],
                     "desc": "Function for drawing the about window.",
-                    "finish": 6200003,
-                    "start": 5700000,
+                    "finish": 6190003,
+                    "start": 5690000,
                     "type": "function",
                     "view": "function Gui.drawAbout(self: Gui)"
                 },
                 "file": "../../mods/noita-mp/files/scripts/Gui.lua",
-                "finish": 5700022,
+                "finish": 5690022,
                 "name": "drawAbout",
-                "start": 5700009,
+                "start": 5690009,
                 "type": "setmethod"
             },
             {
@@ -4010,22 +4247,22 @@
                 "extends": {
                     "args": [
                         {
-                            "finish": 2830008,
-                            "start": 2830008,
+                            "finish": 2820008,
+                            "start": 2820008,
                             "type": "self",
                             "view": "Gui"
                         }
                     ],
                     "desc": "Function to draw the first time window.",
-                    "finish": 3050003,
-                    "start": 2830000,
+                    "finish": 3040003,
+                    "start": 2820000,
                     "type": "function",
                     "view": "function Gui.drawFirstTime(self: Gui)"
                 },
                 "file": "../../mods/noita-mp/files/scripts/Gui.lua",
-                "finish": 2830026,
+                "finish": 2820026,
                 "name": "drawFirstTime",
-                "start": 2830009,
+                "start": 2820009,
                 "type": "setmethod"
             },
             {
@@ -4033,22 +4270,22 @@
                 "extends": {
                     "args": [
                         {
-                            "finish": 2310008,
-                            "start": 2310008,
+                            "finish": 2300008,
+                            "start": 2300008,
                             "type": "self",
                             "view": "Gui"
                         }
                     ],
                     "desc": "Function to draw the menu bar.",
-                    "finish": 2800003,
-                    "start": 2310000,
+                    "finish": 2790003,
+                    "start": 2300000,
                     "type": "function",
                     "view": "function Gui.drawMenuBar(self: Gui)"
                 },
                 "file": "../../mods/noita-mp/files/scripts/Gui.lua",
-                "finish": 2310024,
+                "finish": 2300024,
                 "name": "drawMenuBar",
-                "start": 2310009,
+                "start": 2300009,
                 "type": "setmethod"
             },
             {
@@ -4056,22 +4293,22 @@
                 "extends": {
                     "args": [
                         {
-                            "finish": 3080008,
-                            "start": 3080008,
+                            "finish": 3070008,
+                            "start": 3070008,
                             "type": "self",
                             "view": "Gui"
                         }
                     ],
                     "desc": "Function to draw the play menu.",
-                    "finish": 3900003,
-                    "start": 3080000,
+                    "finish": 3890003,
+                    "start": 3070000,
                     "type": "function",
                     "view": "function Gui.drawPlayMenu(self: Gui)"
                 },
                 "file": "../../mods/noita-mp/files/scripts/Gui.lua",
-                "finish": 3080025,
+                "finish": 3070025,
                 "name": "drawPlayMenu",
-                "start": 3080009,
+                "start": 3070009,
                 "type": "setmethod"
             },
             {
@@ -4079,22 +4316,22 @@
                 "extends": {
                     "args": [
                         {
-                            "finish": 6230008,
-                            "start": 6230008,
+                            "finish": 6220008,
+                            "start": 6220008,
                             "type": "self",
                             "view": "Gui"
                         }
                     ],
                     "desc": "Function for drawing the player list window.",
-                    "finish": 6980003,
-                    "start": 6230000,
+                    "finish": 6970003,
+                    "start": 6220000,
                     "type": "function",
                     "view": "function Gui.drawPlayerList(self: Gui)"
                 },
                 "file": "../../mods/noita-mp/files/scripts/Gui.lua",
-                "finish": 6230027,
+                "finish": 6220027,
                 "name": "drawPlayerList",
-                "start": 6230009,
+                "start": 6220009,
                 "type": "setmethod"
             },
             {
@@ -4102,132 +4339,132 @@
                 "extends": {
                     "args": [
                         {
-                            "finish": 3960008,
-                            "start": 3960008,
+                            "finish": 3950008,
+                            "start": 3950008,
                             "type": "self",
                             "view": "Gui"
                         }
                     ],
                     "desc": "Function to draw the settings window.",
-                    "finish": 5670003,
-                    "start": 3960000,
+                    "finish": 5660003,
+                    "start": 3950000,
                     "type": "function",
                     "view": "function Gui.drawSettings(self: Gui)"
                 },
                 "file": "../../mods/noita-mp/files/scripts/Gui.lua",
-                "finish": 3960025,
+                "finish": 3950025,
                 "name": "drawSettings",
-                "start": 3960009,
+                "start": 3950009,
                 "type": "setmethod"
             },
             {
                 "extends": {
-                    "finish": 1730031,
-                    "start": 1730028,
+                    "finish": 1720031,
+                    "start": 1720028,
                     "type": "nil",
                     "view": "nil"
                 },
                 "file": "../../mods/noita-mp/files/scripts/Gui.lua",
-                "finish": 1730025,
+                "finish": 1720025,
                 "name": "isServer",
-                "start": 1730012,
+                "start": 1720012,
                 "type": "setfield"
             },
             {
                 "extends": {
-                    "finish": 3360036,
-                    "start": 3360032,
+                    "finish": 3350036,
+                    "start": 3350032,
                     "type": "boolean",
                     "view": "boolean"
                 },
                 "file": "../../mods/noita-mp/files/scripts/Gui.lua",
-                "finish": 3360029,
+                "finish": 3350029,
                 "name": "isServer",
-                "start": 3360016,
+                "start": 3350016,
                 "type": "setfield"
             },
             {
                 "extends": {
-                    "finish": 3400037,
-                    "start": 3400032,
+                    "finish": 3390037,
+                    "start": 3390032,
                     "type": "boolean",
                     "view": "boolean"
                 },
                 "file": "../../mods/noita-mp/files/scripts/Gui.lua",
-                "finish": 3400029,
+                "finish": 3390029,
                 "name": "isServer",
-                "start": 3400016,
+                "start": 3390016,
                 "type": "setfield"
             },
             {
-                "desc": "Gui constructor.\n\n@*param* `guiObject` — optional\n\n@*param* `client` — required\n\n@*param* `customProfiler` — required\n\n@*param* `guidUtils` — optional\n\n@*param* `minaUtils` — optional\n\n@*param* `noitaMpSettings` — optional",
+                "desc": "Gui constructor.\n\n@*param* `guiObject` — optional\n\n@*param* `client` — required\n\n@*param* `customProfiler` — required\n\n@*param* `guidUtils` — optional\n\n@*param* `minaUtils` — optional\n\n@*param* `noitaMpSettings` — required",
                 "extends": {
                     "args": [
                         {
-                            "finish": 7480008,
-                            "start": 7480008,
+                            "finish": 7470008,
+                            "start": 7470008,
                             "type": "self",
                             "view": "Gui"
                         },
                         {
                             "desc": "optional",
-                            "finish": 7480026,
-                            "start": 7480017,
+                            "finish": 7470026,
+                            "start": 7470017,
                             "type": "local",
                             "view": "Gui|nil"
                         },
                         {
                             "desc": "required",
-                            "finish": 7480034,
-                            "start": 7480028,
+                            "finish": 7470034,
+                            "start": 7470028,
                             "type": "local",
                             "view": "Client"
                         },
                         {
                             "desc": "required",
-                            "finish": 7480050,
-                            "start": 7480036,
+                            "finish": 7470050,
+                            "start": 7470036,
                             "type": "local",
                             "view": "CustomProfiler"
                         },
                         {
                             "desc": "optional",
-                            "finish": 7480061,
-                            "start": 7480052,
+                            "finish": 7470061,
+                            "start": 7470052,
                             "type": "local",
                             "view": "GuidUtils|nil"
                         },
                         {
                             "desc": "optional",
-                            "finish": 7480072,
-                            "start": 7480063,
+                            "finish": 7470072,
+                            "start": 7470063,
                             "type": "local",
                             "view": "MinaUtils|nil"
                         },
                         {
-                            "desc": "optional",
-                            "finish": 7480089,
-                            "start": 7480074,
+                            "desc": "required",
+                            "finish": 7470089,
+                            "start": 7470074,
                             "type": "local",
-                            "view": "NoitaMpSettings|nil"
+                            "view": "NoitaMpSettings"
                         }
                     ],
-                    "desc": "Gui constructor.\n\n@*param* `guiObject` — optional\n\n@*param* `client` — required\n\n@*param* `customProfiler` — required\n\n@*param* `guidUtils` — optional\n\n@*param* `minaUtils` — optional\n\n@*param* `noitaMpSettings` — optional",
-                    "finish": 7910003,
+                    "desc": "Gui constructor.\n\n@*param* `guiObject` — optional\n\n@*param* `client` — required\n\n@*param* `customProfiler` — required\n\n@*param* `guidUtils` — optional\n\n@*param* `minaUtils` — optional\n\n@*param* `noitaMpSettings` — required",
+                    "finish": 7900003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "Gui"
                         }
                     ],
-                    "start": 7480000,
+                    "start": 7470000,
                     "type": "function",
-                    "view": "function Gui.new(self: Gui, guiObject: Gui|nil, client: Client, customProfiler: CustomProfiler, guidUtils: GuidUtils|nil, minaUtils: MinaUtils|nil, noitaMpSettings: NoitaMpSettings|nil)\n  -> Gui"
+                    "view": "function Gui.new(self: Gui, guiObject: Gui|nil, client: Client, customProfiler: CustomProfiler, guidUtils: GuidUtils|nil, minaUtils: MinaUtils|nil, noitaMpSettings: NoitaMpSettings)\n  -> Gui"
                 },
                 "file": "../../mods/noita-mp/files/scripts/Gui.lua",
-                "finish": 7480016,
+                "finish": 7470016,
                 "name": "new",
-                "start": 7480009,
+                "start": 7470009,
                 "type": "setmethod"
             },
             {
@@ -4235,28 +4472,28 @@
                 "extends": {
                     "args": [
                         {
-                            "finish": 1540008,
-                            "start": 1540008,
+                            "finish": 1530008,
+                            "start": 1530008,
                             "type": "self",
                             "view": "Gui"
                         },
                         {
-                            "finish": 1540040,
-                            "start": 1540036,
+                            "finish": 1530040,
+                            "start": 1530036,
                             "type": "local",
                             "view": "boolean"
                         }
                     ],
                     "desc": "Setter for the 'showMissingSettings' attribute to show the user that the settings are missing.",
-                    "finish": 1560003,
-                    "start": 1540000,
+                    "finish": 1550003,
+                    "start": 1530000,
                     "type": "function",
                     "view": "function Gui.setShowMissingSettings(self: Gui, show: boolean)"
                 },
                 "file": "../../mods/noita-mp/files/scripts/Gui.lua",
-                "finish": 1540035,
+                "finish": 1530035,
                 "name": "setShowMissingSettings",
-                "start": 1540009,
+                "start": 1530009,
                 "type": "setmethod"
             },
             {
@@ -4264,28 +4501,28 @@
                 "extends": {
                     "args": [
                         {
-                            "finish": 1450008,
-                            "start": 1450008,
+                            "finish": 1440008,
+                            "start": 1440008,
                             "type": "self",
                             "view": "Gui"
                         },
                         {
-                            "finish": 1450038,
-                            "start": 1450034,
+                            "finish": 1440038,
+                            "start": 1440034,
                             "type": "local",
                             "view": "boolean"
                         }
                     ],
                     "desc": "Setter for the 'showSettingsSaved' attribute to show the user that the settings were saved.",
-                    "finish": 1500003,
-                    "start": 1450000,
+                    "finish": 1490003,
+                    "start": 1440000,
                     "type": "function",
                     "view": "function Gui.setShowSettingsSaved(self: Gui, show: boolean)"
                 },
                 "file": "../../mods/noita-mp/files/scripts/Gui.lua",
-                "finish": 1450033,
+                "finish": 1440033,
                 "name": "setShowSettingsSaved",
-                "start": 1450009,
+                "start": 1440009,
                 "type": "setmethod"
             },
             {
@@ -4293,22 +4530,22 @@
                 "extends": {
                     "args": [
                         {
-                            "finish": 1590008,
-                            "start": 1590008,
+                            "finish": 1580008,
+                            "start": 1580008,
                             "type": "self",
                             "view": "Gui"
                         }
                     ],
                     "desc": "Guis update function, called every frame.",
-                    "finish": 2280003,
-                    "start": 1590000,
+                    "finish": 2270003,
+                    "start": 1580000,
                     "type": "function",
                     "view": "function Gui.update(self: Gui)"
                 },
                 "file": "../../mods/noita-mp/files/scripts/Gui.lua",
-                "finish": 1590019,
+                "finish": 1580019,
                 "name": "update",
-                "start": 1590009,
+                "start": 1580009,
                 "type": "setmethod"
             }
         ],
@@ -4617,6 +4854,12 @@
     {
         "defines": [
             {
+                "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
+                "finish": 6960024,
+                "start": 6960018,
+                "type": "doc.class"
+            },
+            {
                 "file": "../../mods/noita-mp/files/scripts/util/Logger.lua",
                 "finish": 16,
                 "start": 10,
@@ -4837,6 +5080,25 @@
             }
         ],
         "name": "Logger",
+        "type": "type"
+    },
+    {
+        "defines": [
+            {
+                "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
+                "finish": 80027,
+                "start": 80014,
+                "type": "doc.class"
+            },
+            {
+                "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
+                "finish": 6910031,
+                "start": 6910018,
+                "type": "doc.class"
+            }
+        ],
+        "fields": [],
+        "name": "LuaFileSystem",
         "type": "type"
     },
     {
@@ -5986,37 +6248,6 @@
     {
         "defines": [
             {
-                "extends": {
-                    "finish": 20020,
-                    "start": 20018,
-                    "type": "table",
-                    "view": "NetworkVscUtils"
-                },
-                "file": "../../mods/noita-mp/files/scripts/util/NetworkVscUtils.lua",
-                "finish": 20015,
-                "start": 20000,
-                "type": "setglobal"
-            },
-            {
-                "extends": {
-                    "finish": 5880036,
-                    "start": 5880021,
-                    "type": "getglobal",
-                    "view": "NetworkVscUtils"
-                },
-                "file": "../../mods/noita-mp/files/scripts/util/NetworkVscUtils.lua",
-                "finish": 5880018,
-                "start": 5880000,
-                "type": "setfield"
-            }
-        ],
-        "desc": " NetworkVscUtils:",
-        "name": "NetworkVscUtils",
-        "type": "variable"
-    },
-    {
-        "defines": [
-            {
                 "file": "../../mods/noita-mp/files/scripts/util/NetworkVscUtils.lua",
                 "finish": 10026,
                 "start": 10011,
@@ -6489,6 +6720,37 @@
         ],
         "name": "NetworkVscUtils",
         "type": "type"
+    },
+    {
+        "defines": [
+            {
+                "extends": {
+                    "finish": 20020,
+                    "start": 20018,
+                    "type": "table",
+                    "view": "NetworkVscUtils"
+                },
+                "file": "../../mods/noita-mp/files/scripts/util/NetworkVscUtils.lua",
+                "finish": 20015,
+                "start": 20000,
+                "type": "setglobal"
+            },
+            {
+                "extends": {
+                    "finish": 5880036,
+                    "start": 5880021,
+                    "type": "getglobal",
+                    "view": "NetworkVscUtils"
+                },
+                "file": "../../mods/noita-mp/files/scripts/util/NetworkVscUtils.lua",
+                "finish": 5880018,
+                "start": 5880000,
+                "type": "setfield"
+            }
+        ],
+        "desc": " NetworkVscUtils:",
+        "name": "NetworkVscUtils",
+        "type": "variable"
     },
     {
         "defines": [
@@ -7043,6 +7305,30 @@
                 "finish": 10026,
                 "start": 10011,
                 "type": "doc.class"
+            },
+            {
+                "file": "../../mods/noita-mp/files/scripts/NoitaMpSettings.lua",
+                "finish": 1920029,
+                "start": 1920014,
+                "type": "doc.class"
+            },
+            {
+                "file": "../../mods/noita-mp/files/scripts/init/init_.lua",
+                "finish": 210029,
+                "start": 210014,
+                "type": "doc.class"
+            },
+            {
+                "file": "../../mods/noita-mp/files/scripts/init/init_package_loading.lua",
+                "finish": 1560029,
+                "start": 1560014,
+                "type": "doc.class"
+            },
+            {
+                "file": "../../mods/noita-mp/files/scripts/util/CustomProfiler.lua",
+                "finish": 1480033,
+                "start": 1480018,
+                "type": "doc.class"
             }
         ],
         "desc": " NoitaMpSettings: Replacement for Noita ModSettings.",
@@ -7234,7 +7520,7 @@
                         }
                     ],
                     "desc": "NoitaMpSettings constructor.\n\n@*param* `gui` — required",
-                    "finish": 2300003,
+                    "finish": 2310003,
                     "returns": [
                         {
                             "type": "function.return",
@@ -7618,14 +7904,14 @@
             {
                 "extends": {
                     "args": [],
-                    "finish": 680007,
-                    "start": 620004,
+                    "finish": 670007,
+                    "start": 610004,
                     "type": "function",
                     "view": "function OnWorldInitialized()"
                 },
                 "file": "../../mods/noita-mp/files/scripts/Gui.lua",
-                "finish": 620031,
-                "start": 620013,
+                "finish": 610031,
+                "start": 610013,
                 "type": "setglobal"
             }
         ],
@@ -7662,24 +7948,6 @@
             }
         ],
         "name": "PlayerNameFunction",
-        "type": "variable"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
-                    "finish": 5920036,
-                    "start": 5920016,
-                    "type": "select",
-                    "view": "unknown"
-                },
-                "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
-                "finish": 5920007,
-                "start": 5920004,
-                "type": "setglobal"
-            }
-        ],
-        "name": "SDL",
         "type": "variable"
     },
     {
@@ -8504,6 +8772,54 @@
     {
         "defines": [
             {
+                "extends": {
+                    "finish": 650035,
+                    "start": 650019,
+                    "type": "select",
+                    "view": "Utils"
+                },
+                "file": "../../mods/noita-mp/files/scripts/bin/profiler.lua",
+                "finish": 650016,
+                "start": 650008,
+                "type": "setfield"
+            },
+            {
+                "extends": {
+                    "finish": 2050032,
+                    "start": 2050016,
+                    "type": "select",
+                    "view": "Utils"
+                },
+                "file": "../../mods/noita-mp/files/scripts/extensions/tableExtensions.lua",
+                "finish": 2050013,
+                "start": 2050008,
+                "type": "setglobal"
+            }
+        ],
+        "name": "Utils",
+        "type": "variable"
+    },
+    {
+        "defines": [
+            {
+                "file": "../../mods/noita-mp/files/scripts/util/CustomProfiler.lua",
+                "finish": 1630023,
+                "start": 1630018,
+                "type": "doc.class"
+            },
+            {
+                "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
+                "finish": 100019,
+                "start": 100014,
+                "type": "doc.class"
+            },
+            {
+                "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
+                "finish": 7010023,
+                "start": 7010018,
+                "type": "doc.class"
+            },
+            {
                 "file": "../../mods/noita-mp/files/scripts/util/Utils.lua",
                 "finish": 100016,
                 "start": 100011,
@@ -8725,36 +9041,6 @@
         ],
         "name": "Utils",
         "type": "type"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
-                    "finish": 650035,
-                    "start": 650019,
-                    "type": "select",
-                    "view": "Utils"
-                },
-                "file": "../../mods/noita-mp/files/scripts/bin/profiler.lua",
-                "finish": 650016,
-                "start": 650008,
-                "type": "setfield"
-            },
-            {
-                "extends": {
-                    "finish": 2050032,
-                    "start": 2050016,
-                    "type": "select",
-                    "view": "Utils"
-                },
-                "file": "../../mods/noita-mp/files/scripts/extensions/tableExtensions.lua",
-                "finish": 2050013,
-                "start": 2050008,
-                "type": "setglobal"
-            }
-        ],
-        "name": "Utils",
-        "type": "variable"
     },
     {
         "defines": [
@@ -10194,14 +10480,14 @@
         "defines": [
             {
                 "extends": {
-                    "finish": 7840103,
-                    "start": 7840028,
+                    "finish": 7830103,
+                    "start": 7830028,
                     "type": "select",
                     "view": "boolean|string|number"
                 },
                 "file": "../../mods/noita-mp/files/scripts/Gui.lua",
-                "finish": 7840025,
-                "start": 7840004,
+                "finish": 7830025,
+                "start": 7830004,
                 "type": "setglobal"
             }
         ],
@@ -10247,8 +10533,45 @@
         "defines": [
             {
                 "extends": {
+                    "finish": 2530015,
+                    "start": 2530011,
+                    "type": "boolean",
+                    "view": "boolean"
+                },
+                "file": "../../mods/noita-mp/files/scripts/extensions/ffiExtensions.lua",
+                "finish": 2530008,
+                "start": 2530000,
+                "type": "setglobal"
+            }
+        ],
+        "name": "executed",
+        "type": "variable"
+    },
+    {
+        "defines": [
+            {
+                "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
+                "finish": 40020,
+                "start": 40014,
+                "type": "doc.class"
+            },
+            {
+                "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
+                "finish": 6810024,
+                "start": 6810018,
+                "type": "doc.class"
+            }
+        ],
+        "fields": [],
+        "name": "ffilib",
+        "type": "type"
+    },
+    {
+        "defines": [
+            {
+                "extends": {
                     "args": [],
-                    "finish": 180003,
+                    "finish": 170003,
                     "returns": [
                         {
                             "type": "function.return",
@@ -10700,26 +11023,26 @@
                 "extends": {
                     "args": [
                         {
-                            "finish": 2150029,
-                            "start": 2150018,
+                            "finish": 2190029,
+                            "start": 2190018,
                             "type": "local",
                             "view": "any"
                         }
                     ],
-                    "finish": 2470003,
+                    "finish": 2510003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "table|nil"
                         }
                     ],
-                    "start": 2150000,
+                    "start": 2190000,
                     "type": "function",
                     "view": "function io.popen(commandLine: any)\n  -> table|nil"
                 },
                 "file": "../../mods/noita-mp/files/scripts/extensions/ffiExtensions.lua",
-                "finish": 2150017,
-                "start": 2150009,
+                "finish": 2190017,
+                "start": 2190009,
                 "type": "setfield"
             }
         ],
@@ -10911,38 +11234,38 @@
         "defines": [
             {
                 "extends": {
-                    "finish": 980052,
-                    "start": 980047,
+                    "finish": 920052,
+                    "start": 920047,
                     "type": "boolean",
                     "view": "boolean"
                 },
                 "file": "../../mods/noita-mp/files/scripts/init/init_package_loading.lua",
-                "finish": 980011,
-                "start": 980000,
+                "finish": 920011,
+                "start": 920000,
                 "type": "setfield"
             },
             {
                 "extends": {
-                    "finish": 1030023,
-                    "start": 1030018,
+                    "finish": 970023,
+                    "start": 970018,
                     "type": "boolean",
                     "view": "boolean"
                 },
                 "file": "../../mods/noita-mp/files/scripts/init/init_package_loading.lua",
-                "finish": 1030015,
-                "start": 1030004,
+                "finish": 970015,
+                "start": 970004,
                 "type": "setfield"
             },
             {
                 "extends": {
-                    "finish": 1070022,
-                    "start": 1070018,
+                    "finish": 1010022,
+                    "start": 1010018,
                     "type": "boolean",
                     "view": "boolean"
                 },
                 "file": "../../mods/noita-mp/files/scripts/init/init_package_loading.lua",
-                "finish": 1070015,
-                "start": 1070004,
+                "finish": 1010015,
+                "start": 1010004,
                 "type": "setfield"
             }
         ],
@@ -10953,44 +11276,63 @@
         "defines": [
             {
                 "extends": {
-                    "finish": 970051,
-                    "start": 970047,
+                    "finish": 910051,
+                    "start": 910047,
                     "type": "boolean",
                     "view": "boolean"
                 },
                 "file": "../../mods/noita-mp/files/scripts/init/init_package_loading.lua",
-                "finish": 970013,
-                "start": 970000,
+                "finish": 910013,
+                "start": 910000,
                 "type": "setfield"
             },
             {
                 "extends": {
-                    "finish": 1020024,
-                    "start": 1020020,
+                    "finish": 960024,
+                    "start": 960020,
                     "type": "boolean",
                     "view": "boolean"
                 },
                 "file": "../../mods/noita-mp/files/scripts/init/init_package_loading.lua",
-                "finish": 1020017,
-                "start": 1020004,
+                "finish": 960017,
+                "start": 960004,
                 "type": "setfield"
             },
             {
                 "extends": {
-                    "finish": 1060025,
-                    "start": 1060020,
+                    "finish": 1000025,
+                    "start": 1000020,
                     "type": "boolean",
                     "view": "boolean"
                 },
                 "file": "../../mods/noita-mp/files/scripts/init/init_package_loading.lua",
-                "finish": 1060017,
-                "start": 1060004,
+                "finish": 1000017,
+                "start": 1000004,
                 "type": "setfield"
             }
         ],
         "desc": "NoitaMP additions ",
         "name": "is_windows",
         "type": "variable"
+    },
+    {
+        "defines": [
+            {
+                "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
+                "finish": 60018,
+                "start": 60014,
+                "type": "doc.class"
+            },
+            {
+                "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
+                "finish": 6860022,
+                "start": 6860018,
+                "type": "doc.class"
+            }
+        ],
+        "fields": [],
+        "name": "json",
+        "type": "type"
     },
     {
         "defines": [
@@ -12774,26 +13116,26 @@
                 "extends": {
                     "args": [
                         {
-                            "finish": 1080031,
-                            "start": 1080020,
+                            "finish": 1120031,
+                            "start": 1120020,
                             "type": "local",
                             "view": "any"
                         }
                     ],
-                    "finish": 1240003,
+                    "finish": 1280003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "integer"
                         }
                     ],
-                    "start": 1080000,
+                    "start": 1120000,
                     "type": "function",
                     "view": "function os.execute(commandLine: any)\n  -> integer"
                 },
                 "file": "../../mods/noita-mp/files/scripts/extensions/ffiExtensions.lua",
-                "finish": 1080019,
-                "start": 1080009,
+                "finish": 1120019,
+                "start": 1120009,
                 "type": "setfield"
             }
         ],
@@ -13056,14 +13398,14 @@
         "defines": [
             {
                 "extends": {
-                    "finish": 1110039,
-                    "start": 1110019,
+                    "finish": 1050051,
+                    "start": 1050031,
                     "type": "getlocal",
                     "view": "unknown"
                 },
                 "file": "../../mods/noita-mp/files/scripts/init/init_package_loading.lua",
-                "finish": 1110010,
-                "start": 1110000,
+                "finish": 1050010,
+                "start": 1050000,
                 "type": "setfield"
             }
         ],
@@ -13074,14 +13416,14 @@
         "defines": [
             {
                 "extends": {
-                    "finish": 1100035,
-                    "start": 1100019,
+                    "finish": 1040047,
+                    "start": 1040031,
                     "type": "getlocal",
                     "view": "string"
                 },
                 "file": "../../mods/noita-mp/files/scripts/init/init_package_loading.lua",
-                "finish": 1100010,
-                "start": 1100000,
+                "finish": 1040010,
+                "start": 1040000,
                 "type": "setfield"
             }
         ],
@@ -13130,26 +13472,38 @@
         "defines": [
             {
                 "extends": {
-                    "finish": 390056,
-                    "start": 360016,
+                    "finish": 380056,
+                    "start": 350016,
                     "type": "binary",
                     "view": "unknown"
                 },
                 "file": "../../mods/noita-mp/files/scripts/init/init_package_loading.lua",
-                "finish": 360013,
-                "start": 360000,
+                "finish": 350013,
+                "start": 350000,
                 "type": "setfield"
             },
             {
                 "extends": {
-                    "finish": 1630077,
-                    "start": 1630020,
+                    "finish": 1520045,
+                    "start": 1520020,
                     "type": "select",
                     "view": "string"
                 },
                 "file": "../../mods/noita-mp/files/scripts/init/init_package_loading.lua",
-                "finish": 1630017,
-                "start": 1630004,
+                "finish": 1520017,
+                "start": 1520004,
+                "type": "setfield"
+            },
+            {
+                "extends": {
+                    "finish": 1640085,
+                    "start": 1640028,
+                    "type": "select",
+                    "view": "string"
+                },
+                "file": "../../mods/noita-mp/files/scripts/init/init_package_loading.lua",
+                "finish": 1640017,
+                "start": 1640004,
                 "type": "setfield"
             }
         ],
@@ -13219,19 +13573,31 @@
         "defines": [
             {
                 "extends": {
-                    "finish": 250034,
-                    "start": 250015,
+                    "finish": 240034,
+                    "start": 240015,
                     "type": "binary",
                     "view": "unknown"
                 },
                 "file": "../../mods/noita-mp/files/scripts/init/init_package_loading.lua",
-                "finish": 250012,
-                "start": 250000,
+                "finish": 240012,
+                "start": 240000,
                 "type": "setfield"
             },
             {
                 "extends": {
-                    "finish": 270095,
+                    "finish": 260095,
+                    "start": 260015,
+                    "type": "binary",
+                    "view": "unknown"
+                },
+                "file": "../../mods/noita-mp/files/scripts/init/init_package_loading.lua",
+                "finish": 260012,
+                "start": 260000,
+                "type": "setfield"
+            },
+            {
+                "extends": {
+                    "finish": 270085,
                     "start": 270015,
                     "type": "binary",
                     "view": "unknown"
@@ -13243,19 +13609,19 @@
             },
             {
                 "extends": {
-                    "finish": 280085,
-                    "start": 280015,
+                    "finish": 290086,
+                    "start": 290015,
                     "type": "binary",
                     "view": "unknown"
                 },
                 "file": "../../mods/noita-mp/files/scripts/init/init_package_loading.lua",
-                "finish": 280012,
-                "start": 280000,
+                "finish": 290012,
+                "start": 290000,
                 "type": "setfield"
             },
             {
                 "extends": {
-                    "finish": 300086,
+                    "finish": 300087,
                     "start": 300015,
                     "type": "binary",
                     "view": "unknown"
@@ -13267,7 +13633,7 @@
             },
             {
                 "extends": {
-                    "finish": 310087,
+                    "finish": 310076,
                     "start": 310015,
                     "type": "binary",
                     "view": "unknown"
@@ -13279,7 +13645,7 @@
             },
             {
                 "extends": {
-                    "finish": 320076,
+                    "finish": 320077,
                     "start": 320015,
                     "type": "binary",
                     "view": "unknown"
@@ -13291,38 +13657,38 @@
             },
             {
                 "extends": {
-                    "finish": 330077,
-                    "start": 330015,
-                    "type": "binary",
-                    "view": "unknown"
-                },
-                "file": "../../mods/noita-mp/files/scripts/init/init_package_loading.lua",
-                "finish": 330012,
-                "start": 330000,
-                "type": "setfield"
-            },
-            {
-                "extends": {
-                    "finish": 910035,
-                    "start": 910015,
+                    "finish": 850035,
+                    "start": 850015,
                     "type": "getlocal",
                     "view": "string"
                 },
                 "file": "../../mods/noita-mp/files/scripts/init/init_package_loading.lua",
-                "finish": 910012,
-                "start": 910000,
+                "finish": 850012,
+                "start": 850000,
                 "type": "setfield"
             },
             {
                 "extends": {
-                    "finish": 1620077,
-                    "start": 1620020,
+                    "finish": 1510044,
+                    "start": 1510019,
                     "type": "select",
                     "view": "string"
                 },
                 "file": "../../mods/noita-mp/files/scripts/init/init_package_loading.lua",
-                "finish": 1620016,
-                "start": 1620004,
+                "finish": 1510016,
+                "start": 1510004,
+                "type": "setfield"
+            },
+            {
+                "extends": {
+                    "finish": 1630085,
+                    "start": 1630028,
+                    "type": "select",
+                    "view": "string"
+                },
+                "file": "../../mods/noita-mp/files/scripts/init/init_package_loading.lua",
+                "finish": 1630016,
+                "start": 1630004,
                 "type": "setfield"
             }
         ],
@@ -13475,38 +13841,38 @@
         "defines": [
             {
                 "extends": {
-                    "finish": 990081,
-                    "start": 990047,
+                    "finish": 930081,
+                    "start": 930047,
                     "type": "select",
                     "view": "string"
                 },
                 "file": "../../mods/noita-mp/files/scripts/init/init_package_loading.lua",
-                "finish": 990016,
-                "start": 990000,
+                "finish": 930016,
+                "start": 930000,
                 "type": "setfield"
             },
             {
                 "extends": {
-                    "finish": 1040027,
-                    "start": 1040023,
+                    "finish": 980027,
+                    "start": 980023,
                     "type": "string",
                     "view": "string"
                 },
                 "file": "../../mods/noita-mp/files/scripts/init/init_package_loading.lua",
-                "finish": 1040020,
-                "start": 1040004,
+                "finish": 980020,
+                "start": 980004,
                 "type": "setfield"
             },
             {
                 "extends": {
-                    "finish": 1080026,
-                    "start": 1080023,
+                    "finish": 1020026,
+                    "start": 1020023,
                     "type": "string",
                     "view": "string"
                 },
                 "file": "../../mods/noita-mp/files/scripts/init/init_package_loading.lua",
-                "finish": 1080020,
-                "start": 1080004,
+                "finish": 1020020,
+                "start": 1020004,
                 "type": "setfield"
             }
         ],
@@ -13571,14 +13937,14 @@
         "defines": [
             {
                 "extends": {
-                    "finish": 7850100,
-                    "start": 7850025,
+                    "finish": 7840100,
+                    "start": 7840025,
                     "type": "select",
                     "view": "boolean|string|number"
                 },
                 "file": "../../mods/noita-mp/files/scripts/Gui.lua",
-                "finish": 7850022,
-                "start": 7850004,
+                "finish": 7840022,
+                "start": 7840004,
                 "type": "setglobal"
             }
         ],
@@ -13589,14 +13955,14 @@
         "defines": [
             {
                 "extends": {
-                    "finish": 7860106,
-                    "start": 7860028,
+                    "finish": 7850106,
+                    "start": 7850028,
                     "type": "select",
                     "view": "boolean|string|number"
                 },
                 "file": "../../mods/noita-mp/files/scripts/Gui.lua",
-                "finish": 7860025,
-                "start": 7860004,
+                "finish": 7850025,
+                "start": 7850004,
                 "type": "setglobal"
             }
         ],
@@ -13607,19 +13973,32 @@
         "defines": [
             {
                 "extends": {
-                    "finish": 7870113,
-                    "start": 7870029,
+                    "finish": 7860113,
+                    "start": 7860029,
                     "type": "select",
                     "view": "boolean|string|number"
                 },
                 "file": "../../mods/noita-mp/files/scripts/Gui.lua",
-                "finish": 7870026,
-                "start": 7870004,
+                "finish": 7860026,
+                "start": 7860004,
                 "type": "setglobal"
             }
         ],
         "name": "playerListTransparency",
         "type": "variable"
+    },
+    {
+        "defines": [
+            {
+                "file": "../../mods/noita-mp/files/scripts/util/CustomProfiler.lua",
+                "finish": 1530024,
+                "start": 1530018,
+                "type": "doc.class"
+            }
+        ],
+        "fields": [],
+        "name": "plotly",
+        "type": "type"
     },
     {
         "defines": [
@@ -14002,19 +14381,32 @@
         "defines": [
             {
                 "extends": {
-                    "finish": 4850075,
-                    "start": 4850025,
+                    "finish": 4960070,
+                    "start": 4960025,
                     "type": "select",
                     "view": "string"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
-                "finish": 4850020,
-                "start": 4850008,
+                "finish": 4960020,
+                "start": 4960008,
                 "type": "setfield"
             }
         ],
         "name": "seven_zip",
         "type": "variable"
+    },
+    {
+        "defines": [
+            {
+                "file": "../../mods/noita-mp/files/scripts/util/CustomProfiler.lua",
+                "finish": 1580024,
+                "start": 1580018,
+                "type": "doc.class"
+            }
+        ],
+        "fields": [],
+        "name": "socket",
+        "type": "type"
     },
     {
         "defines": [
@@ -16312,27 +16704,15 @@
     {
         "defines": [
             {
-                "extends": {
-                    "args": [],
-                    "finish": 2800007,
-                    "returns": [
-                        {
-                            "type": "function.return",
-                            "view": "string"
-                        }
-                    ],
-                    "start": 2720016,
-                    "type": "function",
-                    "view": "function _G.whoAmI()\n  -> string"
-                },
-                "file": "../../mods/noita-mp/files/scripts/init/init_.lua",
-                "finish": 2720013,
-                "start": 2720004,
-                "type": "setfield"
+                "file": "../../mods/noita-mp/files/scripts/util/CustomProfiler.lua",
+                "finish": 1680024,
+                "start": 1680018,
+                "type": "doc.class"
             }
         ],
-        "name": "whoAmI",
-        "type": "variable"
+        "fields": [],
+        "name": "winapi",
+        "type": "type"
     },
     {
         "defines": [
