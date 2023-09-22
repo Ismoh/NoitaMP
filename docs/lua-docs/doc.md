@@ -25,7 +25,7 @@ function Client.amIClient(self: Client)
 Checks if the current local user is a client.
 
 @*return* `true` — if client, false if not
-See: [Server.amIServer](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/net/Server.lua#934#9)
+See: [Server.amIServer](../../mods/noita-mp/files/scripts/net/Server.lua#L934#9)
 
 ## connect
 
@@ -432,7 +432,7 @@ Starts the profiler. This has to be called before the function (or first line of
 @*param* `functionName` — The name of the function that you want to measure. This has to be the same as the one used in CustomProfiler:stop(functionName, customProfilerCounter)
 
 @*return* `returnCounter` — The counter that is used to determine the order of the function calls. This has to be passed to CustomProfiler:stop(functionName, customProfilerCounter)
-See: [CustomProfiler](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/GlobalsUtils.lua#33#8) stop(functionName, customProfilerCounter)
+See: [CustomProfiler](../../mods/noita-mp/files/scripts/util/GlobalsUtils.lua#L33#8) stop(functionName, customProfilerCounter)
 
 ## stop
 
@@ -1677,8 +1677,8 @@ integer
 # MinaInformation
 
 See:
-  * [Transform](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/MinaUtils.lua#144#18)
-  * [Health](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/NoitaComponentUtils.lua#55#14)
+  * [Transform](../../mods/noita-mp/files/scripts/util/MinaUtils.lua#L144#18)
+  * [Health](../../mods/noita-mp/files/scripts/util/NoitaComponentUtils.lua#L55#14)
 
 
 ```lua
@@ -1737,7 +1737,7 @@ function MinaUtils.getLocalMinaInformation()
 
 Getter for local mina information. It also takes care of polymorphism!
  Deprecated: Use separated getters instead, like getLocalMinaName, getLocalMinaGuid, getLocalMinaEntityId, getLocalMinaNuid!
-See: [MinaInformation](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/MinaUtils.lua#154#4)
+See: [MinaInformation](../../mods/noita-mp/files/scripts/util/MinaUtils.lua#L154#4)
 
 ## getLocalMinaName
 
@@ -2847,7 +2847,7 @@ function Server.amIServer(self: Server)
 Checks if the current local user is a server.
 
 @*return* `true` — if server, false if not
-See: [Client.amIClient](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/net/Client.lua#959#9)
+See: [Client.amIClient](../../mods/noita-mp/files/scripts/net/Client.lua#L959#9)
 
 ## ban
 
