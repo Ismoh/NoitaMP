@@ -25,7 +25,7 @@ function Client.amIClient(self: Client)
 Checks if the current local user is a client.
 
 @*return* `true` — if client, false if not
-See: ~Server.amIServer~
+See: [Server.amIServer](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/net/Server.lua#934#9)
 
 ## connect
 
@@ -50,17 +50,7 @@ See: ~sock.connect~
 CustomProfiler
 ```
 
-self.noitaMpSettings.customProfiler or
-
-## deserialize
-
-
-```lua
-function Client.deserialize(self: Client, value: any)
-  -> unknown
-```
-
-Default enhanced serialization function
+Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 
 ## disconnect
 
@@ -181,7 +171,7 @@ function Client.new(self: Client, clientObject: Client|nil, serverOrAddress: str
   -> Client
 ```
 
-Client constructor. Inherited from sock.Client.
+Client constructor. Inherits from SockClient sock.Client.
 
 @*param* `server` — required
 
@@ -297,24 +287,12 @@ function Client.sendNeedNuid(self: Client, ownerName: string, ownerGuid: string,
 
 Sends a message to the server that the client needs a nuid.
 
-## serialize
-
-
-```lua
-function Client.serialize(self: Client, value: any)
-  -> unknown
-```
-
-Default enhanced serialization function
-
 ## server
 
 
 ```lua
 Server
 ```
-
-or error("Server is nil!", 2)
 
 ## serverInfo
 
@@ -454,7 +432,7 @@ Starts the profiler. This has to be called before the function (or first line of
 @*param* `functionName` — The name of the function that you want to measure. This has to be the same as the one used in CustomProfiler:stop(functionName, customProfilerCounter)
 
 @*return* `returnCounter` — The counter that is used to determine the order of the function calls. This has to be passed to CustomProfiler:stop(functionName, customProfilerCounter)
-See: [CustomProfiler](../../mods/noita-mp/files/scripts/util/CustomProfiler.lua#L2#10) stop(functionName, customProfilerCounter)
+See: [CustomProfiler](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/GlobalsUtils.lua#33#8) stop(functionName, customProfilerCounter)
 
 ## stop
 
@@ -1193,18 +1171,6 @@ function GetWidthAndHeightByResolution()
 
 # GlobalsUtils
 
-Class for GlobalsSetValue and GlobalsGetValue
-
-
-```lua
-GlobalsUtils
-```
-
-
----
-
-# GlobalsUtils
-
 ## getDeadNuids
 
 
@@ -1274,6 +1240,18 @@ function GlobalsUtils.setNuid(nuid: any, entityId: any, componentIdForOwnerName:
 ```lua
 function GlobalsUtils.setUpdateGui(bool: any)
   -> unknown
+```
+
+
+---
+
+# GlobalsUtils
+
+Class for GlobalsSetValue and GlobalsGetValue
+
+
+```lua
+GlobalsUtils
 ```
 
 
@@ -1542,6 +1520,8 @@ function GuidUtils.getGuid(self: GuidUtils, inUsedGuids?: table)
 
 @*param* `inUsedGuids` — list of already used GUIDs
 
+ TODO: rename to generateGuid
+
 ## isPatternValid
 
 
@@ -1565,6 +1545,21 @@ function GuidUtils.isUnique(self: GuidUtils, guid: string)
  Validates if the given guid is unique or already generated.
 
 @*return* `true` — if GUID is unique.
+
+## setGuid
+
+
+```lua
+function GuidUtils.setGuid(self: GuidUtils, client: Client|nil, server: Server|nil, guid: string|nil)
+```
+
+Sets the guid of a client or the server.
+
+@*param* `client` — Either client
+
+@*param* `server` — or server must be set!
+
+@*param* `guid` — guid can be optional. If not set, a new guid will be generated and set.
 
 ## toNumber
 
@@ -1591,16 +1586,6 @@ number
 
 ```lua
 number
-```
-
-
----
-
-# Logger
-
-
-```lua
-Logger
 ```
 
 
@@ -1662,6 +1647,16 @@ function Logger.warn(self: Logger, channel: any, formattedMessage: any)
 
 ---
 
+# Logger
+
+
+```lua
+Logger
+```
+
+
+---
+
 # LuaFileSystem
 
 
@@ -1682,8 +1677,8 @@ integer
 # MinaInformation
 
 See:
-  * [Transform](../../mods/noita-mp/files/scripts/util/MinaUtils.lua#L144#18)
-  * [Health](../../mods/noita-mp/files/scripts/util/NoitaComponentUtils.lua#L55#14)
+  * [Transform](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/MinaUtils.lua#144#18)
+  * [Health](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/NoitaComponentUtils.lua#55#14)
 
 
 ```lua
@@ -1742,7 +1737,7 @@ function MinaUtils.getLocalMinaInformation()
 
 Getter for local mina information. It also takes care of polymorphism!
  Deprecated: Use separated getters instead, like getLocalMinaName, getLocalMinaGuid, getLocalMinaEntityId, getLocalMinaNuid!
-See: [MinaInformation](../../mods/noita-mp/files/scripts/util/MinaUtils.lua#L151#14)
+See: [MinaInformation](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/MinaUtils.lua#154#4)
 
 ## getLocalMinaName
 
@@ -2049,6 +2044,19 @@ function NetworkUtils.alreadySent(peer: table, event: string, data: table)
 
 ---
 
+# NetworkUtils.deserialize
+
+Default enhanced serialization function
+
+
+```lua
+function NetworkUtils.deserialize(self: table, value: any)
+  -> unknown
+```
+
+
+---
+
 # NetworkUtils.events
 
 
@@ -2106,6 +2114,19 @@ integer
 
 ```lua
 integer
+```
+
+
+---
+
+# NetworkUtils.serialize
+
+Default enhanced serialization function
+
+
+```lua
+function NetworkUtils.serialize(self: table, value: any)
+  -> unknown
 ```
 
 
@@ -2801,52 +2822,12 @@ function PlayerNameFunction(entity_id: any, playerName: any)
 
 # Server
 
-
----
-
-# Server
+## __index
 
 
 ```lua
 Server
 ```
-
-
-```lua
-SockServer
-```
-
-
----
-
-# ServerInit
-
- Because of stack overflow errors when loading lua files,
- I decided to put Utils 'classes' into globals
-
-
-```lua
-unknown
-```
-
-
----
-
-# ServerInit.new
-
- ServerInit constructor
- Creates a new instance of server 'class'
-
-
-```lua
-function ServerInit.new(sockServer: SockServer)
-  -> self: SockServer
-```
-
-
----
-
-# SockServer
 
 ## acknowledgeMaxSize
 
@@ -2855,46 +2836,76 @@ function ServerInit.new(sockServer: SockServer)
 integer
 ```
 
-self.acknowledge        = {} -- sock.lua#LClient:send -> self.acknowledge[packetsSent] = { event = event, data = data, entityId = data.entityId, status = NetworkUtils.events.acknowledgement.sent }
-table.setNoitaMpDefaultMetaMethods(self.acknowledge, "v")
-
 ## amIServer
 
 
 ```lua
-function SockServer.amIServer()
-  -> iAm: boolean
+function Server.amIServer(self: Server)
+  -> true: boolean
 ```
 
- Checks if the current local user is the server
+Checks if the current local user is a server.
 
-@*return* `iAm` — true if server
+@*return* `true` — if server, false if not
+See: [Client.amIClient](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/net/Client.lua#959#9)
 
 ## ban
 
 
 ```lua
-function SockServer.ban(name: any)
+function Server.ban(self: Server, name: string)
+```
+
+Bans a player by name.
+
+@*param* `name` — required
+
+## customProfiler
+
+
+```lua
+CustomProfiler
+```
+
+Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
+
+## entityUtils
+
+
+```lua
+EntityUtils
+```
+
+## fileUtils
+
+
+```lua
+FileUtils
 ```
 
 ## getAckCacheSize
 
 
 ```lua
-function SockServer.getAckCacheSize()
+function Server.getAckCacheSize(self: Server)
   -> cacheSize: number
 ```
 
- Mainly for profiling. Returns then network cache, aka acknowledge.
+Mainly for profiling. Returns then network cache, aka acknowledge.
 
 ## guid
 
 
 ```lua
-boolean|string|number
+nil
 ```
 
- guid might not be set here or will be overwritten at the end of the constructor. @see setGuid
+## guidUtils
+
+
+```lua
+unknown
+```
 
 ## health
 
@@ -2914,16 +2925,47 @@ string
 
 
 ```lua
-function SockServer.isRunning()
-  -> boolean
+function Server.isRunning(self: Server)
+  -> true: boolean
 ```
+
+Returns true if server is running, false if not.
+
+@*return* `true` — if server is running, false if not
 
 ## kick
 
 
 ```lua
-function SockServer.kick(name: any)
+function Server.kick(self: Server, name: string)
 ```
+
+Kicks a player by name.
+
+@*param* `name` — required
+
+## logger
+
+
+```lua
+Logger
+```
+
+## messagePack
+
+
+```lua
+unknown
+```
+
+## minaUtils
+
+
+```lua
+MinaUtils
+```
+
+Util class for fetching information about local and remote minas.
 
 ## modListCached
 
@@ -2936,7 +2978,70 @@ nil
 
 
 ```lua
-boolean|string|number
+nil
+```
+
+## networkCache
+
+
+```lua
+unknown
+```
+
+## networkCacheUtils
+
+
+```lua
+table
+```
+
+## networkUtils
+
+
+```lua
+table
+```
+
+## networkVscUtils
+
+
+```lua
+NetworkVscUtils
+```
+
+ NetworkVscUtils:
+
+## new
+
+
+```lua
+function Server.new(self: Server, serverObject: Server, address: string|nil, port: number|nil, maxPeers: number|nil, maxChannels: number|nil, inBandwidth: number|nil, outBandwidth: number|nil)
+  -> Server
+```
+
+Server constructor. Inherits from SockServer sock.newServer.
+
+## noitaComponentUtils
+
+
+```lua
+table
+```
+
+## noitaMpSettings
+
+
+```lua
+NoitaMpSettings
+```
+
+ NoitaMpSettings: Replacement for Noita ModSettings.
+
+## noitaPatcherUtils
+
+
+```lua
+NoitaPatcherUtils
 ```
 
 ## nuid
@@ -2946,78 +3051,156 @@ boolean|string|number
 nil
 ```
 
+## nuidUtils
+
+
+```lua
+table
+```
+
 ## send
 
 
 ```lua
-function SockServer.send(self: SockServer, peer: any, event: any, data: any)
-  -> boolean
+function Server.send(self: Server, peer: Client|Server, event: string, data: table)
+  -> true: boolean
 ```
+
+Sends a message a one peer.
+
+@*param* `peer` — required
+
+@*param* `event` — required
+
+@*param* `data` — required
+
+@*return* `true` — if message was sent, false if not
+See: ~SockServer.sendToPeer~
 
 ## sendDeadNuids
 
 
 ```lua
-function SockServer.sendDeadNuids(deadNuids: any)
+function Server.sendDeadNuids(self: Server, deadNuids: table)
+  -> true: boolean
 ```
+
+Sends dead nuids to all clients.
+
+@*param* `deadNuids` — required
+
+@*return* `true` — if message was sent, false if not
 
 ## sendEntityData
 
 
 ```lua
-function SockServer.sendEntityData(entityId: any)
+function Server.sendEntityData(self: Server, entityId: number)
 ```
+
+Sends entity data to all clients.
+
+@*param* `entityId` — required
 
 ## sendMinaInformation
 
 
 ```lua
-function SockServer.sendMinaInformation()
+function Server.sendMinaInformation(self: Server)
   -> boolean
 ```
+
+Sends mina information to all clients.
 
 ## sendNewGuid
 
 
 ```lua
-function SockServer.sendNewGuid(peer: any, oldGuid: any, newGuid: any)
-  -> boolean
+function Server.sendNewGuid(self: Server, peer: Client|Server, oldGuid: string, newGuid: string)
+  -> true: boolean
 ```
+
+Sends a message to the client, when there is a guid clash.
+
+@*return* `true` — if message was sent, false if not
 
 ## sendNewNuid
 
 
 ```lua
-function SockServer.sendNewNuid(ownerName: any, ownerGuid: any, entityId: any, serializedEntityString: any, nuid: any, x: any, y: any, initialSerializedEntityString: any)
-  -> boolean
+function Server.sendNewNuid(self: Server, ownerName: string, ownerGuid: string, entityId: number, serializedEntityString: string, nuid: number, x: number, y: number, initialSerializedEntityString: string)
+  -> true: boolean
 ```
 
- TODO: this is the new sendNewNuid, but it's not tested yet
+Sends a new nuid to all clients. This also creates/updates the entities on clients.
+
+@*param* `ownerName` — required
+
+@*param* `ownerGuid` — required
+
+@*param* `entityId` — required
+
+@*param* `serializedEntityString` — required
+
+@*param* `nuid` — required
+
+@*param* `x` — required
+
+@*param* `y` — required
+
+@*param* `initialSerializedEntityString` — required
+
+@*return* `true` — if message was sent, false if not
 
 ## sendToAll
 
 
 ```lua
-function SockServer.sendToAll(self: SockServer, event: any, data: any)
-  -> boolean
+function Server.sendToAll(self: Server, event: string, data: table)
+  -> true: boolean
 ```
+
+Sends a message to all peers.
+
+@*param* `event` — required
+
+@*param* `data` — required
+
+@*return* `true` — if message was sent, false if not
 
 ## sendToAllBut
 
 
 ```lua
-function SockServer.sendToAllBut(self: SockServer, peer: any, event: any, data: any)
-  -> boolean
+function Server.sendToAllBut(self: Server, peer: Client|Server, event: string, data: table)
+  -> true: boolean
+```
+
+Sends a message to all peers excluded one peer defined as the peer param.
+
+@*param* `peer` — required
+
+@*param* `event` — required
+
+@*param* `data` — required
+
+@*return* `true` — if message was sent, false if not
+
+## sock
+
+
+```lua
+unknown
 ```
 
 ## start
 
 
 ```lua
-function SockServer.start(ip: string, port?: number)
+function Server.start(self: Server, ip: string|nil, port: number|nil)
 ```
 
- Starts a server on ip and port. Both can be nil, then ModSettings will be used.
+Starts a server on ip and port. Both can be nil, then ModSettings will be used.
 
 @*param* `ip` — localhost or 127.0.0.1 or nil
 
@@ -3027,10 +3210,10 @@ function SockServer.start(ip: string, port?: number)
 
 
 ```lua
-function SockServer.stop()
+function Server.stop(self: Server)
 ```
 
- Stops the server.
+Stops the server.
 
 ## transform
 
@@ -3043,10 +3226,27 @@ table
 
 
 ```lua
-function SockServer.update(startFrameTime: any)
+function Server.update(self: Server, startFrameTime: number)
 ```
 
- Updates the server by checking for network events and handling them.
+Updates the server by checking for network events and handling them.
+
+@*param* `startFrameTime` — required
+See: ~SockServer.update~
+
+## utils
+
+
+```lua
+Utils
+```
+
+## zstandard
+
+
+```lua
+unknown
+```
 
 
 ---
@@ -3091,21 +3291,6 @@ table
 ```lua
 function Ui.new()
   -> table
-```
-
-
----
-
-# Utils
-
-
-```lua
-Utils
-```
-
-
-```lua
-Utils
 ```
 
 
@@ -3188,6 +3373,21 @@ function Utils.openUrl(url: any)
 
 ```lua
 function Utils.pformat(var: any)
+```
+
+
+---
+
+# Utils
+
+
+```lua
+Utils
+```
+
+
+```lua
+Utils
 ```
 
 
@@ -4812,8 +5012,8 @@ function math.randomseed(x?: integer, y?: integer)
 
 
 ```lua
-function math.round(v: any, bracket: any)
-  -> unknown
+function math.round(v: number, bracket: number|nil)
+  -> number
 ```
 
 
@@ -4821,9 +5021,11 @@ function math.round(v: any, bracket: any)
 
 # math.sign
 
+Returns the sign of a number.
+
 
 ```lua
-function math.sign(v: any)
+function math.sign(v: number)
   -> integer
 ```
 
