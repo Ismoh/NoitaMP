@@ -245,8 +245,8 @@ end
 ---@class SockServer
 local Server    = {}
 local Server_mt = { __index = Server }
-sock.getServerMetatable = function()
-    return Server_mt
+sock.getServerClass = function()
+    return Server
 end
 
 --- NoitaMp Moved this part from newServer to Server:start
@@ -428,6 +428,8 @@ function Server:sendToAll(event, data)
     self.host:broadcast(serializedMessage, self.sendChannel, self.sendMode)
 
     self:resetSendSettings()
+
+    return true
 end
 
 function Server:sendToAll2(event, data)
@@ -446,7 +448,7 @@ end
 
 --- Send a message to a single peer. Useful to send data to a newly connected player
 --- without sending to everyone who already received it.
---- @param peer enet_peer The enet peer to receive the message.
+--- @param peer Client|Server|enet_peer The enet peer to receive the message.
 --- @param event string The event to trigger with this message.
 --- @param data table to send to the peer.
 --- Usage: server:sendToPeer(peer, "initialGameInfo", {...})
@@ -1441,9 +1443,17 @@ end
 --
 -- -- Limit incoming/outgoing bandwidth to 1kB/s (1000 bytes/s)
 --server = sock.newServer("*", 1337, 10, 2, 1000, 1000)
+---Creates a new Server instance.
+---@param address string|nil The IP address or hostname to bind to. Default: "localhost" Available: "localhost", "*", "xxx.xxx.xxx.xxx" or nil
+---@param port number|nil The port to listen to for data. Default: 14017
+---@param maxPeers number|nil
+---@param maxChannels number|nil
+---@param inBandwidth number|nil
+---@param outBandwidth number|nil
+---@return SockServer
 sock.newServer = function(address, port, maxPeers, maxChannels, inBandwidth, outBandwidth)
     address         = address or "localhost"
-    port            = port or 1337
+    port            = port or 14017
     maxPeers        = maxPeers or 64
     maxChannels     = maxChannels or 1
     inBandwidth     = inBandwidth or 0
@@ -1518,13 +1528,13 @@ end
 -- -- NOTE: Server must also allocate two channels!
 --client = sock.newClient("123.45.67.89", 1234, 2)
 ---Creates a new Client instance.
----@param serverOrAddress string|nil
----@param port number|nil
+---@param address string|nil The IP address or hostname to connect to. Default: "localhost" Available: "localhost", "*", "xxx.xxx.xxx.xxx" or nil
+---@param port number|nil The port to listen to for data. Default: 14017
 ---@param maxChannels number|nil
 ---@return SockClient client
-sock.newClient = function(serverOrAddress, port, maxChannels)
-    serverOrAddress = serverOrAddress or "localhost"
-    port            = port or 1337
+sock.newClient = function(address, port, maxChannels)
+    address = address or "localhost"
+    port            = port or 14017
     maxChannels     = maxChannels or 1
 
     local client    = setmetatable({

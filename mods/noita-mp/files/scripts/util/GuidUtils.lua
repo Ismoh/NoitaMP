@@ -53,7 +53,7 @@ end
 --- Based on https://github.com/Tieske/uuid !
 --- @param inUsedGuids table? list of already used GUIDs
 --- @return string guid
-function GuidUtils:getGuid(inUsedGuids)
+function GuidUtils:getGuid(inUsedGuids) -- TODO: rename to generateGuid
     local cpc = CustomProfiler.start("GuidUtils:getGuid")
     if not Utils.IsEmpty(inUsedGuids) and #inUsedGuids > 0 then
         for i = 1, #inUsedGuids do
@@ -75,6 +75,33 @@ function GuidUtils:getGuid(inUsedGuids)
 
     CustomProfiler.stop("GuidUtils:getGuid", cpc)
     return guid
+end
+
+---Sets the guid of a client or the server.
+---@param client Client|nil Either client
+---@param server Server|nil or server must be set!
+---@param guid string|nil guid can be optional. If not set, a new guid will be generated and set.
+function GuidUtils:setGuid(client, server, guid)
+    if not client and not server then
+        error("'client' and 'server' cannot be set at the same time!", 2)
+    end
+
+    local clientOrServer = client or server or error("Either 'client' or 'server' must be set!", 2)
+    local cpc = clientOrServer.customProfiler:start("GuidUtils:setGuid")
+
+    if clientOrServer.utils.IsEmpty(guid) or self.isPatternValid(tostring(guid)) == false then
+        guid = self:getGuid()
+        clientOrServer.noitaMpSettings:set("noita-mp.guid", guid)
+        clientOrServer.guid = guid
+        clientOrServer.logger:debug(clientOrServer.logger.channels.network, ("%s's guid set to %s!"):format(clientOrServer, guid))
+    else
+        clientOrServer.logger:debug(clientOrServer.logger.channels.network, ("%s's guid was already set to %s!"):format(clientOrServer, guid))
+    end
+
+    if DebugGetIsDevBuild() then
+        guid = guid .. clientOrServer.iAm
+    end
+    clientOrServer.customProfiler:stop("GuidUtils:setGuid", cpc)
 end
 
 --- Validates a guid only on its pattern.

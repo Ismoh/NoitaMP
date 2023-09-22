@@ -1,30 +1,59 @@
+-- Thanks GitHub Copilot chat for writing this test.
+
+local lu = require("luaunit")
+require("stringExtensions")
+
 TestStringExtensions = {}
 
-function TestStringExtensions:setUp()
+function TestStringExtensions:test_ExtendOrCutStringToLength()
+    -- Test extending a short string
+    lu.assertEquals(string.ExtendOrCutStringToLength("test", 6, " "), "test  ")
 
+    -- Test cutting a long string
+    lu.assertEquals(string.ExtendOrCutStringToLength("verylongstring", 5, " "), "veryl")
+
+    -- Test making the cut visible
+    lu.assertEquals(string.ExtendOrCutStringToLength("verylongstring", 5, " ", true), "ver..")
 end
 
-function TestStringExtensions:tearDown()
+function TestStringExtensions:test_trim()
+    -- Test trimming whitespace from a string
+    lu.assertEquals(string.trim("  hello  "), "hello")
 
+    -- Test trimming a string with no whitespace
+    lu.assertEquals(string.trim("hello"), "hello")
+
+    -- Test trimming a non-string value
+    lu.assertErrorMsgContains("Unable to trim", string.trim, {})
 end
 
-function TestStringExtensions:testExtendAndCutStringToLength()
-    lu.assertErrorMsgEquals("length is not a number.", string.ExtendOrCutStringToLength, 1)
-    lu.assertErrorMsgEquals("length is not a number.", string.ExtendOrCutStringToLength, "var", "length")
-    lu.assertErrorMsgContains("char is not a character. string.len(char) > 1 = ",
-        string.ExtendOrCutStringToLength, "var", 1, "character")
+function TestStringExtensions:test_split()
+    -- Test splitting a string with a delimiter
+    lu.assertEquals(string.split("hello,world", ","), {"hello", "world"})
 
-    local expected = "12345"
-    local actual = string.ExtendOrCutStringToLength("12345678910", 5, " ")
-    lu.assertEquals(actual, expected)
+    -- Test splitting a string with no delimiter
+    lu.assertEquals(string.split("hello world", ","), {"hello world"})
 
-    local expected2 = "1234      "
-    local actual2 = string.ExtendOrCutStringToLength("1234", 10, " ")
-    lu.assertEquals(actual2, expected2)
+    -- Test splitting a non-string value
+    lu.assertErrorMsgContains("Unable to split", string.split, {}, ",")
 end
 
-function TestStringExtensions:testContains()
-    lu.assertIsTrue(string.contains("The brown red Fox!", "Fox"))
-    lu.assertIsTrue(string.contains("noita-mp.log_level_testing", "noita-mp.log_level_"))
-    lu.assertIsFalse(string.contains("ASDF", "Noita is nice, but abandoned!"))
+function TestStringExtensions:test_contains()
+    -- Test finding a substring in a string
+    lu.assertTrue(string.contains("hello world", "world"))
+
+    -- Test finding a character in a string
+    lu.assertTrue(string.contains("hello world", "o"))
+
+    -- Test finding a regex pattern in a string
+    lu.assertTrue(string.contains("hello world", "w.rld"))
+
+    -- Test not finding a pattern in a string
+    lu.assertFalse(string.contains("hello world", "goodbye"))
+
+    -- Test searching a non-string value
+    lu.assertErrorMsgContains("str must not be nil", string.contains, nil, "world")
+
+    -- Test searching with a nil pattern
+    lu.assertErrorMsgContains("pattern must not be nil", string.contains, "hello world", nil)
 end

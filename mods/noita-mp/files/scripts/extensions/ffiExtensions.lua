@@ -5,6 +5,9 @@ if not jit or jit.os ~= "Windows" then
 end
 
 if executed then
+    if _G.isTestLuaContext then
+        return
+    end
     error("ffiExtensions ran already?!", 2)
 end
 

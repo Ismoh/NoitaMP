@@ -85,9 +85,8 @@ string.contains                  = function(str, pattern)
     end
     local found = string.find(str:lower(), pattern:lower(), 1, true)
     if not found or found < 1 then
-        found = false
+        return false
     else
-        found = true
+        return true
     end
-    return found
 end

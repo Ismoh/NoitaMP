@@ -7,11 +7,12 @@ end
 dofile("mods/noita-mp/files/scripts/init/init_.lua")
 local np = require("noitapatcher") -- Need to be initialized before everything else, otherwise Noita will crash
 
-local server = require("Server"):new()
+local server = require("Server"):new(nil, nil, nil, nil, nil, nil, nil)
 
 local client = require("Client"):new(nil, nil, nil, nil, server)
 
 local gui = require("Gui"):new(nil, client, client.customProfiler, nil, nil, client.noitaMpSettings)
+server.noitaMpSettings.gui = gui
 client.noitaMpSettings.gui = gui
 
 local noitaMpSettings = client.noitaMpSettings or require("NoitaMpSettings")

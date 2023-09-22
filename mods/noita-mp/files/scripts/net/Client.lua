@@ -1,84 +1,10 @@
 local sock = require("sock")
+
 ---@class Client : SockClient Inherit client class from sock.lua#newClient
 local Client = setmetatable({
     -- when a class inherits from another class, all additional imports and attributes are defined in :new() !
 }, { __index = sock.getClientClass() })
 Client.__index = Client
-
----Default enhanced serialization function
----@param value any
----@return unknown
-function Client:serialize(value)
-    local cpc = self.customProfiler:start("Client.setConfigSettings.serialize")
-    self.logger:trace(self.logger.channels.network, ("Serializing value: %s"):format(value))
-
-    local serialized      = self.messagePack.pack(value)
-    local zstd, zstdError = self.zstandard:new() -- new zstd instance for every serialization, otherwise it will crash
-    if not zstd or zstdError then
-        error("Error while creating zstd: " .. zstdError, 2)
-    end
-
-    self.logger:debug(self.logger.channels.network, ("Uncompressed size: %s"):format(string.len(serialized)))
-
-    local compressed, err = zstd:compress(serialized)
-    if err then
-        error("Error while compressing: " .. err, 2)
-    end
-
-    self.logger:debug(self.logger.channels.network, ("Compressed size: %s"):format(string.len(compressed)))
-    self.logger:debug(self.logger.channels.network, ("Serialized and compressed value: %s"):format(compressed))
-
-    zstd:free()
-    self.customProfiler:stop("Client.setConfigSettings.serialize", cpc)
-    return compressed
-end
-
----Default enhanced serialization function
----@param value any
----@return unknown
-function Client:deserialize(value)
-    local cpc = self.customProfiler:start("Client.setConfigSettings.deserialize")
-    self.logger:debug(self.logger.channels.network, ("Serialized and compressed value: %s"):format(value))
-
-    local zstd, zstdError = self.zstandard:new() -- new zstd instance for every serialization, otherwise it will crash
-    if not zstd or zstdError then
-        error("Error while creating zstd: " .. zstdError, 2)
-    end
-
-    self.logger:debug(self.logger.channels.network, ("Compressed size: %s"):format(string.len(value)))
-    local decompressed, err = zstd:decompress(value)
-    if err then
-        error("Error while decompressing: " .. err, 2)
-    end
-    self.logger:debug(self.logger.channels.network, ("Uncompressed size: %s"):format(string.len(decompressed)))
-    local deserialized = self.messagePack.unpack(decompressed)
-    self.logger:debug(self.logger.channels.network, ("Deserialized and uncompressed value: %s"):format(deserialized))
-    zstd:free()
-    self.customProfiler:stop("Client.setConfigSettings.deserialize", cpc)
-    return deserialized
-end
-
----Sets the guid of the client.
----@param self Client
----@param guid string|nil
-local setGuid = function(self, guid)
-    local cpc1 = self.customProfiler:start("Client.setGuid")
-    local guid = self.noitaMpSettings:get("noita-mp.guid", "string")
-
-    if self.utils.IsEmpty(guid) or self.guidUtils.isPatternValid(guid) == false then
-        guid = self.guidUtils:getGuid()
-        self.noitaMpSettings.set("noita-mp.guid", guid)
-        self.guid = guid
-        self.logger:debug(self.logger.channels.network, "Clients guid set to " .. guid)
-    else
-        self.logger:debug(self.logger.channels.network, "Clients guid was already set to " .. guid)
-    end
-
-    if DebugGetIsDevBuild() then
-        guid = guid .. self.iAm
-    end
-    self.customProfiler:stop("Client.setGuid", cpc1)
-end
 
 
 ---Sends acknowledgement for a specific network event.
@@ -93,7 +19,7 @@ local sendAck = function(self, networkMessageId, event)
     end
     local data = { networkMessageId, event, self.networkUtils.events.acknowledgement.ack, os.clock() }
     self:send(self.networkUtils.events.acknowledgement.name, data)
-    self.logger.debug(self.logger.channels.network, ("Sent ack with data = %s"):format(self.utils.pformat(data)))
+    self.logger:debug(self.logger.channels.network, ("Sent ack with data = %s"):format(self.utils.pformat(data)))
     self.customProfiler:stop("Client.sendAck", cpc)
 end
 
@@ -666,6 +592,7 @@ local onDeadNuids = function(self, data)
             self.entityCache.deleteNuid(deadNuid)
         end
     end
+    sendAck(self, data.networkMessageId, self.networkUtils.events.deadNuids.name)
     self.customProfiler:stop("Client.onDeadNuids", cpc)
 end
 
@@ -738,6 +665,7 @@ end
 
 
 ---Sets callbacks and schemas of the client.
+---@private
 ---@param self Client
 local setCallbackAndSchemas = function(self)
     local cpc = self.customProfiler:start("Client.setCallbackAndSchemas")
@@ -780,9 +708,6 @@ local setCallbackAndSchemas = function(self)
     self:setSchema(self.networkUtils.events.needModContent.name, self.networkUtils.events.needModContent.schema)
     self:on(self.networkUtils.events.needModContent.name, onNeedModContent)
 
-    self:setSchema(self.networkUtils.events.newNuid.name, self.networkUtils.events.newNuid.schema)
-    self:on(self.networkUtils.events.newNuid.name, onNewNuid)
-
     self.customProfiler:stop("Client.setCallbackAndSchemas", cpc)
 end
 
@@ -814,7 +739,7 @@ function Client:connect(ip, port, code)
 
     port = tonumber(port) or error("noita-mp.connect_server_port wasn't a number")
 
-    self.logger.info(self.logger.channels.network, ("Trying to connect to server on %s:%s"):format(ip, port))
+    self.logger:info(self.logger.channels.network, ("Trying to connect to server on %s:%s"):format(ip, port))
     if not self.host then
         self:establishClient(ip, port)
     end
@@ -1047,7 +972,7 @@ function Client:getAckCacheSize()
     return self.networkCache.size()
 end
 
----Client constructor. Inherited from sock.Client.
+---Client constructor. Inherits from SockClient sock.Client.
 ---@param clientObject Client|nil
 ---@param serverOrAddress string|nil
 ---@param port number|nil
@@ -1064,11 +989,11 @@ function Client:new(clientObject, serverOrAddress, port, maxChannels, server)
     --Initialize all imports to avoid recursive imports
 
     if not clientObject.noitaMpSettings then
-        clientObject.noitaMpSettings = require("NoitaMpSettings")
+        clientObject.noitaMpSettings = server.noitaMpSettings or require("NoitaMpSettings")
             :new(nil, nil, nil, nil, nil, nil, nil, nil, nil)
     end
     if not clientObject.customProfiler then
-        clientObject.customProfiler = --[[self.noitaMpSettings.customProfiler or]] require("CustomProfiler")
+        clientObject.customProfiler = clientObject.noitaMpSettings.customProfiler or require("CustomProfiler")
             :new(nil, nil, clientObject.noitaMpSettings, nil, nil, nil, nil)
     end
     local cpc = clientObject.customProfiler:start("Client:new")
@@ -1097,16 +1022,16 @@ function Client:new(clientObject, serverOrAddress, port, maxChannels, server)
         clientObject.noitaPatcherUtils = require("NoitaPatcherUtils")
     end
     if not clientObject.server then
-        clientObject.server = server --or error("Server is nil!", 2)
+        clientObject.server = server or error("Client:new requires a server object!", 2)
     end
     if not clientObject.sock then
-        clientObject.sock = require("sock")
+        clientObject.sock = server.sock or require("sock")
     end
     if not clientObject.zstandard then
-        clientObject.zstandard = require("zstd")
+        clientObject.zstandard = server.zstandard or require("zstd")
     end
     if not clientObject.utils then
-        clientObject.utils = clientObject.noitaMpSettings.utils or require("Utils")--:new()
+        clientObject.utils = clientObject.noitaMpSettings.utils or require("Utils") --:new()
     end
 
     --[[ Attributes ]]
@@ -1126,13 +1051,13 @@ function Client:new(clientObject, serverOrAddress, port, maxChannels, server)
 
     -- Functions for initialization
 
-    clientObject:setSerialization(clientObject.serialize, clientObject.deserialize)
+    clientObject:setSerialization(clientObject.networkUtils.serialize, clientObject.networkUtils.deserialize)
     clientObject:setTimeout(320, 50000, 100000)
     setCallbackAndSchemas(clientObject)
 
-    clientObject.name = clientObject.noitaMpSettings:get("noita-mp.nickname", "string")
-    clientObject.guid = clientObject.noitaMpSettings:get("noita-mp.guid", "string")
-    setGuid(clientObject)
+    clientObject.name = tostring(clientObject.noitaMpSettings:get("noita-mp.nickname", "string"))
+    clientObject.guid = tostring(clientObject.noitaMpSettings:get("noita-mp.guid", "string"))
+    clientObject.guidUtils:setGuid(clientObject, nil, clientObject.guid)
 
     clientObject.customProfiler:stop("Client:new", cpc)
     return clientObject

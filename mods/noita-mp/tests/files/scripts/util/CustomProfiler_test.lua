@@ -2,7 +2,7 @@
 
 -- Import the necessary modules
 local CustomProfiler = require("CustomProfiler")
-local luaunit = require("luaunit")
+local lu = require("luaunit")
 
 -- Create a mock object for the NoitaMpSettings class
 local noitaMpSettingsMock = {
@@ -45,51 +45,51 @@ function test_CustomProfiler_init_toggle_profiler_false()
     noitaMpSettingsMock.get = function() return false end
     customProfiler = CustomProfiler:new(nil, fileUtilsMock, noitaMpSettingsMock, plotlyMock, socketMock, utilsMock, winapiMock)
     customProfiler:init()
-    luaunit.assert_not_called(fileUtilsMock.WriteFile)
-    luaunit.assert_not_called(utilsMock.execLua)
+    lu.assert_not_called(fileUtilsMock.WriteFile)
+    lu.assert_not_called(utilsMock.execLua)
 end
 
 function test_CustomProfiler_init_toggle_profiler_true()
     noitaMpSettingsMock.get = function() return true end
     customProfiler = CustomProfiler:new(nil, fileUtilsMock, noitaMpSettingsMock, plotlyMock, socketMock, utilsMock, winapiMock)
     customProfiler:init()
-    luaunit.assert_called(fileUtilsMock.WriteFile)
-    luaunit.assert_called(utilsMock.execLua)
+    lu.assert_called(fileUtilsMock.WriteFile)
+    lu.assert_called(utilsMock.execLua)
 end
 
 function test_CustomProfiler_start_toggle_profiler_false()
     noitaMpSettingsMock.get = function() return false end
     customProfiler = CustomProfiler:new(nil, fileUtilsMock, noitaMpSettingsMock, plotlyMock, socketMock, utilsMock, winapiMock)
     local result = customProfiler:start("testFunction")
-    luaunit.assert_equals(-1, result)
+    lu.assert_equals(-1, result)
 end
 
 function test_CustomProfiler_start_toggle_profiler_true()
     noitaMpSettingsMock.get = function() return true end
     customProfiler = CustomProfiler:new(nil, fileUtilsMock, noitaMpSettingsMock, plotlyMock, socketMock, utilsMock, winapiMock)
     local result = customProfiler:start("testFunction")
-    luaunit.assert_is_number(result)
+    lu.assert_is_number(result)
 end
 
 function test_CustomProfiler_stop_toggle_profiler_false()
     noitaMpSettingsMock.get = function() return false end
     customProfiler = CustomProfiler:new(nil, fileUtilsMock, noitaMpSettingsMock, plotlyMock, socketMock, utilsMock, winapiMock)
     local result = customProfiler:stop("testFunction", 1)
-    luaunit.assert_equals(-1, result)
+    lu.assert_equals(-1, result)
 end
 
 function test_CustomProfiler_stop_toggle_profiler_true()
     noitaMpSettingsMock.get = function() return true end
     customProfiler = CustomProfiler:new(nil, fileUtilsMock, noitaMpSettingsMock, plotlyMock, socketMock, utilsMock, winapiMock)
     local result = customProfiler:stop("testFunction", 1)
-    luaunit.assert_equals(0, result)
+    lu.assert_equals(0, result)
 end
 
 function test_CustomProfiler_report()
     customProfiler = CustomProfiler:new(nil, fileUtilsMock, noitaMpSettingsMock, plotlyMock, socketMock, utilsMock, winapiMock)
     customProfiler:report()
-    luaunit.assert_called(plotlyMock.figure)
-    luaunit.assert_called(plotlyMock.tofilewithjsondatafile)
+    lu.assert_called(plotlyMock.figure)
+    lu.assert_called(plotlyMock.tofilewithjsondatafile)
 end
 
 function test_CustomProfiler_getSize()
@@ -100,8 +100,5 @@ function test_CustomProfiler_getSize()
         testFunction3 = { size = 3 }
     }
     local result = customProfiler:getSize()
-    luaunit.assert_equals(18, result)
+    lu.assert_equals(18, result)
 end
-
--- Run the tests
-os.exit(luaunit.LuaUnit.run())

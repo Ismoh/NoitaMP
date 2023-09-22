@@ -2,6 +2,9 @@
 
 -- http://lua-users.org/wiki/SimpleRound
 
+---Returns the sign of a number.
+---@param v number
+---@return integer
 function math.sign(v)
     if type(v) ~= "number" then
         error("Unable to get sign of non-number: " .. type(v))
@@ -17,11 +20,11 @@ end
 --- math.round(119.68) -- 120
 --- math.round(119.68, 100) -- 100
 --- math.round(119.68, 1000) -- 0
+---@param v number
+---@param bracket number|nil
+---@return number
 function math.round(v, bracket)
     if type(v) ~= "number" then
-        error("Unable to round non-number: " .. type(v))
-    end
-    if type(bracket) ~= "number" then
         error("Unable to round non-number: " .. type(v))
     end
     bracket = bracket or 1

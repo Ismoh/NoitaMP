@@ -126,6 +126,59 @@ local function getIndexFromSchema(data, schema, resendIdentifier)
     return nil
 end
 
+---Default enhanced serialization function
+---@param value any
+---@return unknown
+function NetworkUtils:serialize(value)
+    local cpc = self.customProfiler:start("NetworkUtils:serialize")
+    self.logger:trace(self.logger.channels.network, ("Serializing value: %s"):format(value))
+
+    local serialized      = self.messagePack.pack(value)
+    local zstd, zstdError = self.zstandard:new() -- new zstd instance for every serialization, otherwise it will crash
+    if not zstd or zstdError then
+        error("Error while creating zstd: " .. zstdError, 2)
+    end
+
+    self.logger:debug(self.logger.channels.network, ("Uncompressed size: %s"):format(string.len(serialized)))
+
+    local compressed, err = zstd:compress(serialized)
+    if err then
+        error("Error while compressing: " .. err, 2)
+    end
+
+    self.logger:debug(self.logger.channels.network, ("Compressed size: %s"):format(string.len(compressed)))
+    self.logger:debug(self.logger.channels.network, ("Serialized and compressed value: %s"):format(compressed))
+
+    zstd:free()
+    self.customProfiler:stop("NetworkUtils:serialize", cpc)
+    return compressed
+end
+
+---Default enhanced serialization function
+---@param value any
+---@return unknown
+function NetworkUtils:deserialize(value)
+    local cpc = self.customProfiler:start("NetworkUtils:deserialize")
+    self.logger:debug(self.logger.channels.network, ("Serialized and compressed value: %s"):format(value))
+
+    local zstd, zstdError = self.zstandard:new() -- new zstd instance for every serialization, otherwise it will crash
+    if not zstd or zstdError then
+        error("Error while creating zstd: " .. zstdError, 2)
+    end
+
+    self.logger:debug(self.logger.channels.network, ("Compressed size: %s"):format(string.len(value)))
+    local decompressed, err = zstd:decompress(value)
+    if err then
+        error("Error while decompressing: " .. err, 2)
+    end
+    self.logger:debug(self.logger.channels.network, ("Uncompressed size: %s"):format(string.len(decompressed)))
+    local deserialized = self.messagePack.unpack(decompressed)
+    self.logger:debug(self.logger.channels.network, ("Deserialized and uncompressed value: %s"):format(deserialized))
+    zstd:free()
+    self.customProfiler:stop("NetworkUtils:deserialize", cpc)
+    return deserialized
+end
+
 --- Sometimes you don't care if it's the client or server, but you need one of them to send the messages.
 --- @return Client|Server Client or Server 'object'
 --- @public

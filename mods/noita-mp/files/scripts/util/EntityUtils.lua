@@ -288,7 +288,7 @@ function EntityUtils:syncEntities(startFrameTime)
             local compOwnerName, compOwnerGuid, compNuid, filenameUnused, health, rotation, velocity, x, y =
                 self.noitaComponentUtils:getEntityData(entityId)
             if cachedValue == nil or cachedValue.fullySerialised == false then
-                if who == Server.iAm then
+                if who == self.iAm then
                     if not hasNuid then
                         nuid = compNuid
                         if not nuid then
