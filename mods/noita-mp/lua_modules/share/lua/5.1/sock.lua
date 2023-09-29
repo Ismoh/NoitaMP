@@ -70,7 +70,7 @@ local function zipTable(items, keys, event)
 
         if not key then
             error(("Missing data key for event '%s'! items = %s schema = %s")
-                          :format(event, Utils.pformat(items), Utils.pformat(keys)), 2)
+                :format(event, Utils.pformat(items), Utils.pformat(keys)), 2)
         end
 
         data[key] = value
@@ -82,39 +82,39 @@ end
 --- All of the possible connection statuses for a client connection.
 -- @see Client:getState
 sock.CONNECTION_STATES    = {
-    "disconnected", -- Disconnected from the server.
-    "connecting", -- In the process of connecting to the server.
-    "acknowledging_connect", --
-    "connection_pending", --
-    "connection_succeeded", --
-    "connected", -- Successfully connected to the server.
-    "disconnect_later", -- Disconnecting, but only after sending all queued packets.
-    "disconnecting", -- In the process of disconnecting from the server.
+    "disconnected",             -- Disconnected from the server.
+    "connecting",               -- In the process of connecting to the server.
+    "acknowledging_connect",    --
+    "connection_pending",       --
+    "connection_succeeded",     --
+    "connected",                -- Successfully connected to the server.
+    "disconnect_later",         -- Disconnecting, but only after sending all queued packets.
+    "disconnecting",            -- In the process of disconnecting from the server.
     "acknowledging_disconnect", --
-    "zombie", --
-    "unknown", --
+    "zombie",                   --
+    "unknown",                  --
 }
 
 --- States that represent the client connecting to a server.
 sock.CONNECTING_STATES    = {
-    "connecting", -- In the process of connecting to the server.
+    "connecting",            -- In the process of connecting to the server.
     "acknowledging_connect", --
-    "connection_pending", --
-    "connection_succeeded", --
+    "connection_pending",    --
+    "connection_succeeded",  --
 }
 
 --- States that represent the client disconnecting from a server.
 sock.DISCONNECTING_STATES = {
-    "disconnect_later", -- Disconnecting, but only after sending all queued packets.
-    "disconnecting", -- In the process of disconnecting from the server.
+    "disconnect_later",         -- Disconnecting, but only after sending all queued packets.
+    "disconnecting",            -- In the process of disconnecting from the server.
     "acknowledging_disconnect", --
 }
 
 --- Valid modes for sending messages.
 sock.SEND_MODES           = {
-    "reliable", -- Message is guaranteed to arrive, and arrive in the order in which it is sent.
+    "reliable",    -- Message is guaranteed to arrive, and arrive in the order in which it is sent.
     "unsequenced", -- Message has no guarantee on the order that it arrives.
-    "unreliable", -- Message is not guaranteed to arrive.
+    "unreliable",  -- Message is not guaranteed to arrive.
 }
 
 local function isValidSendMode(mode)
@@ -131,16 +131,16 @@ local Logger_mt = { __index = Logger }
 
 local function newLogger(source)
     local logger = setmetatable({
-                                    source         = source,
-                                    messages       = {},
+        source         = source,
+        messages       = {},
 
-                                    -- Makes print info more concise, but should still log the full line
-                                    shortenLines   = true,
-                                    -- Print all incoming event data
-                                    printEventData = true,
-                                    printErrors    = true,
-                                    printWarnings  = true,
-                                }, Logger_mt)
+        -- Makes print info more concise, but should still log the full line
+        shortenLines   = true,
+        -- Print all incoming event data
+        printEventData = true,
+        printErrors    = true,
+        printWarnings  = true,
+    }, Logger_mt)
 
     return logger
 end
@@ -149,7 +149,7 @@ function Logger:log(event, data)
     local time      = os.date("%X") -- something like 24:59:59
     local shortLine = ("%s [%s] %s"):format(time, event, data)
     local fullLine  = ("%s [%s %s] %s"):format(time, self.source, event,
-                                               Utils.pformat(data)) --local fullLine  = ("[%s][%s][%s] %s"):format(self.source, time, event, data)
+        Utils.pformat(data))                                        --local fullLine  = ("[%s][%s][%s] %s"):format(self.source, time, event, data)
 
     -- The printed message may or may not be the full message
     local line      = fullLine
@@ -182,9 +182,9 @@ local Listener_mt = { __index = Listener }
 
 local function newListener()
     local listener = setmetatable({
-                                      triggers = {},
-                                      schemas  = {},
-                                  }, Listener_mt)
+        triggers = {},
+        schemas  = {},
+    }, Listener_mt)
 
     return listener
 end
@@ -243,8 +243,8 @@ end
 
 --- Manages all clients and receives network events.
 ---@class SockServer
-local Server    = {}
-local Server_mt = { __index = Server }
+local Server        = {}
+local Server_mt     = { __index = Server }
 sock.getServerClass = function()
     return Server
 end
@@ -271,7 +271,7 @@ function Server:start(ip, port)
         return false
     end
 
-    self.address = string.sub(self:getSocketAddress(), 1, string.find(self:getSocketAddress(), ":", 1, true) - 1)--ip
+    self.address = string.sub(self:getSocketAddress(), 1, string.find(self:getSocketAddress(), ":", 1, true) - 1) --ip
     self.port    = port
 
     self:setBandwidthLimit(0, 0)
@@ -291,22 +291,20 @@ function Server:update()
 
     while event do
         if event.type == "connect" then
-            local eventClient = Client:new(sock.newClient(event.peer))
+            local eventClient = require("Client"):new(nil, event.peer, nil, nil, self)
             eventClient:establishClient(event.peer)
             eventClient:setSerialization(self.serialize, self.deserialize)
-            eventClient.clientCacheId = GuidUtils.toNumber(eventClient.guid)
+            eventClient.clientCacheId = self.guidUtils.toNumber(eventClient.guid)
             table.insert(self.peers, event.peer)
             table.insert(self.clients, eventClient)
             self:_activateTriggers("connect", event.data, eventClient)
             self:log(event.type, tostring(event.peer) .. " connected")
-
         elseif event.type == "receive" then
             local eventName, data = self:__unpack(event.data)
             local eventClient     = self:getClient(event.peer)
 
             self:_activateTriggers(eventName, data, eventClient)
             self:log(eventName, data)
-
         elseif event.type == "disconnect" then
             -- remove from the active peer list
             for i, peer in pairs(self.peers) do
@@ -322,10 +320,9 @@ function Server:update()
             end
             self:_activateTriggers("disconnect", event.data, eventClient)
             self:log(event.type, tostring(event.peer) .. " disconnected")
-
         else
             self:log(event.type,
-                     ("event = %s, type = %s, data = %s, peer = %s"):format(event, event.type, event.data, event.peer))
+                ("event = %s, type = %s, data = %s, peer = %s"):format(event, event.type, event.data, event.peer))
         end
 
         event = self.host:service(self.messageTimeout)
@@ -570,7 +567,7 @@ end
 function Server:setSendChannel(channel)
     if channel > (self.maxChannels - 1) then
         self:log("warning",
-                 "Tried to use invalid channel: " .. channel .. " (max is " .. self.maxChannels - 1 .. "). Defaulting to 0.")
+            "Tried to use invalid channel: " .. channel .. " (max is " .. self.maxChannels - 1 .. "). Defaulting to 0.")
         channel = 0
     end
 
@@ -823,8 +820,8 @@ end
 
 --- Connects to servers.
 ---@class SockClient
-local Client    = {}
-local Client_mt = { __index = Client }
+local Client        = {}
+local Client_mt     = { __index = Client }
 sock.getClientClass = function()
     return Client
 end
@@ -871,13 +868,12 @@ function Client:update()
 
             self:_activateTriggers(eventName, data)
             self:log(eventName, data)
-
         elseif event.type == "disconnect" then
             self:_activateTriggers("disconnect", event.data)
             self:log(event.type, "Disconnected from " .. tostring(self.connection))
         else
             self:log(event.type,
-                     ("event = %s, type = %s, data = %s, peer = %s"):format(event, event.type, event.data, event.peer))
+                ("event = %s, type = %s, data = %s, peer = %s"):format(event, event.type, event.data, event.peer))
         end
 
         event = self.host:service(self.messageTimeout)
@@ -1086,7 +1082,7 @@ end
 function Client:setSendChannel(channel)
     if channel > (self.maxChannels - 1) then
         self:log("warning",
-                 "Tried to use invalid channel: " .. channel .. " (max is " .. self.maxChannels - 1 .. "). Defaulting to 0.")
+            "Tried to use invalid channel: " .. channel .. " (max is " .. self.maxChannels - 1 .. "). Defaulting to 0.")
         channel = 0
     end
 
@@ -1460,31 +1456,31 @@ sock.newServer = function(address, port, maxPeers, maxChannels, inBandwidth, out
     outBandwidth    = outBandwidth or 0
 
     local server    = setmetatable({
-                                       address            = address,
-                                       port               = port,
-                                       host               = nil,
+        address            = address,
+        port               = port,
+        host               = nil,
 
-                                       messageTimeout     = 0,
-                                       maxChannels        = maxChannels,
-                                       maxPeers           = maxPeers,
-                                       sendMode           = "reliable",
-                                       defaultSendMode    = "reliable",
-                                       sendChannel        = 0,
-                                       defaultSendChannel = 0,
+        messageTimeout     = 0,
+        maxChannels        = maxChannels,
+        maxPeers           = maxPeers,
+        sendMode           = "reliable",
+        defaultSendMode    = "reliable",
+        sendChannel        = 0,
+        defaultSendChannel = 0,
 
-                                       peers              = {},
-                                       clients            = {},
+        peers              = {},
+        clients            = {},
 
-                                       listener           = newListener(),
-                                       logger             = newLogger("SERVER"),
+        listener           = newListener(),
+        logger             = newLogger("SERVER"),
 
-                                       serialize          = nil,
-                                       deserialize        = nil,
+        serialize          = nil,
+        deserialize        = nil,
 
-                                       packetsSent        = 0,
-                                       packetsReceived    = 0,
+        packetsSent        = 0,
+        packetsReceived    = 0,
 
-                                   }, Server_mt)
+    }, Server_mt)
 
     server.zipTable = function(items, keys, event)
         return zipTable(items, keys, event)
@@ -1533,35 +1529,35 @@ end
 ---@param maxChannels number|nil
 ---@return SockClient client
 sock.newClient = function(address, port, maxChannels)
-    address = address or "localhost"
+    address         = address or "localhost"
     port            = port or 14017
     maxChannels     = maxChannels or 1
 
     local client    = setmetatable({
-                                       address            = nil,
-                                       port               = nil,
-                                       host               = nil,
+        address            = nil,
+        port               = nil,
+        host               = nil,
 
-                                       connection         = nil, -- aka peer
-                                       connectId          = nil,
+        connection         = nil,                                -- aka peer
+        connectId          = nil,
 
-                                       messageTimeout     = 0,
-                                       maxChannels        = maxChannels,
-                                       sendMode           = "reliable",
-                                       defaultSendMode    = "reliable",
-                                       sendChannel        = 0,
-                                       defaultSendChannel = 0,
+        messageTimeout     = 0,
+        maxChannels        = maxChannels,
+        sendMode           = "reliable",
+        defaultSendMode    = "reliable",
+        sendChannel        = 0,
+        defaultSendChannel = 0,
 
-                                       listener           = newListener(),
-                                       logger             = newLogger("CLIENT"),
+        listener           = newListener(),
+        logger             = newLogger("CLIENT"),
 
-                                       serialize          = nil,
-                                       deserialize        = nil,
+        serialize          = nil,
+        deserialize        = nil,
 
-                                       packetsReceived    = 0,
-                                       packetsSent        = 0,
+        packetsReceived    = 0,
+        packetsSent        = 0,
 
-                                   }, Client_mt)
+    }, Client_mt)
 
     client.zipTable = function(items, keys, event)
         return zipTable(items, keys, event)

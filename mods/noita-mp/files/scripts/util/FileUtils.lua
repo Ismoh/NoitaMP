@@ -1,22 +1,9 @@
 ---@class FileUtils
 local FileUtils = {
-    --[[ Imports ]]
-
-    ---@class ffilib
-    ffi     = nil,
-    ---@class json
-    json    = nil,
-    ---@class LuaFileSystem
-    lfs     = nil,
-    ---@class Utils
-    utils   = nil,
-    watcher = nil,
-
     --[[ Attributes ]]
 
     noitaRootDirectory = nil,
 }
-
 
 ---Returns NoitaMP version by reading the .version file.
 ---@return string version
@@ -672,6 +659,7 @@ function FileUtils:new(fileUtilsObject, customProfiler, logger, noitaMpSettings,
     end
 
     if not fileUtilsObject.customProfiler then
+        ---@type CustomProfiler
         fileUtilsObject.customProfiler = customProfiler or require("CustomProfiler")
             :new(nil, fileUtilsObject, noitaMpSettings, nil, nil, nil, nil)
     end
@@ -679,27 +667,27 @@ function FileUtils:new(fileUtilsObject, customProfiler, logger, noitaMpSettings,
     local cpc = fileUtilsObject.customProfiler:start("FileUtils:new")
 
     if not fileUtilsObject.ffi then
-        ---@class ffilib
+        ---@type ffilib
         fileUtilsObject.ffi = require("ffi")
     end
 
     if not fileUtilsObject.json then
-        ---@class json
+        ---@type json
         fileUtilsObject.json = require("json")
     end
 
     if not fileUtilsObject.lfs then
-        ---@class LuaFileSystem
+        ---@type LuaFileSystem
         fileUtilsObject.lfs = require("lfs")
     end
 
     if not fileUtilsObject.logger then
-        ---@class Logger
+        ---@type Logger
         fileUtilsObject.logger = logger or noitaMpSettings.logger or require("Logger")
     end
 
     if not fileUtilsObject.utils then
-        ---@class Utils
+        ---@type Utils
         fileUtilsObject.utils = utils or require("Utils")
     end
 

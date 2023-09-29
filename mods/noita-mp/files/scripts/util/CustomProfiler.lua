@@ -1,16 +1,6 @@
 ---Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 ---@class CustomProfiler
 local CustomProfiler = {
-    --[[ Imports ]]
-    -- Imports set to nil to avoid recursive imports, but they are initialized in CustomProfiler:new()
-
-    fileUtils       = nil,
-    noitaMpSettings = nil,
-    plotly          = nil,
-    socket          = nil,
-    udp             = nil,
-    utils           = nil,
-    winapi          = nil,
 
     --[[ Attributes ]]
 
@@ -139,38 +129,39 @@ function CustomProfiler:new(customProfiler, fileUtils, noitaMpSettings, plotly, 
 
     local cpc      = customProfiler:start("CustomProfiler:new")
 
-    -- Initialize all imports to avoid recursive imports
+    --[[ Imports ]]
+    --Initialize all imports to avoid recursive imports
+
     if not customProfiler.fileUtils then
         ---@type FileUtils
         customProfiler.fileUtils = fileUtils or require("FileUtils"):new(nil, customProfiler, nil, noitaMpSettings, plotly, utils)
     end
 
     if not customProfiler.noitaMpSettings then
-        ---@class NoitaMpSettings
+        ---@type NoitaMpSettings
         customProfiler.noitaMpSettings = noitaMpSettings or error("CustomProfiler:new requires a NoitaMpSettings object", 2)
     end
 
     if not customProfiler.plotly then
-        ---@class plotly
         customProfiler.plotly = plotly or require("plotly") --:new()
     end
 
     if not customProfiler.socket then
-        ---@class socket
+        ---@type socket
         customProfiler.socket = socket or require("socket")
     end
 
     if not customProfiler.utils then
-        ---@class Utils
+        ---@type Utils
         customProfiler.utils = utils or require("Utils") --:new()
     end
 
     if not customProfiler.winapi then
-        ---@class winapi
         customProfiler.winapi = winapi or require("winapi")
     end
 
     --[[ Attributes ]]
+
     self.reportDirectory = ("%s%sNoitaMP-Reports%s%s"):format(self.fileUtils:GetDesktopDirectory(), pathSeparator, pathSeparator,
         os.date("%Y-%m-%d_%H-%M-%S", os.time()))
 

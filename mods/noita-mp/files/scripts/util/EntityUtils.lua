@@ -18,35 +18,6 @@ end
 ---In addition have a look at the following file: ./config.lua
 ---@see EntityUtils.new
 local EntityUtils = {
-    --[[ 'Imports' ]]
-
-    ---@type Client
-    client = nil,
-    ---@type CustomProfiler
-    customProfiler = nil,
-    ---@type EntityCacheUtils
-    enitityCacheUtils = nil,
-    ---@type EntityCache
-    entityCache = nil,
-    ---@type Logger
-    logger = nil,
-    ---@type MinaUtils
-    minaUtils = nil,
-    ---@type NetworkVscUtils
-    networkVscUtils = nil,
-    ---@type NoitaComponentUtils
-    noitaComponentUtils = nil,
-    ---@type NuidUtils
-    nuidUtils = nil,
-    ---@type Server
-    server = nil,
-    ---@type Utils
-    utils = nil,
-    ---@type NetworkUtils
-    networkUtils = nil,
-    ---@type GlobalsUtils
-    globalsUtils = nil,
-
     --[[ 'Attributes' ]]
 
     --- Contains all entities, which are alive
@@ -578,12 +549,12 @@ function EntityUtils:addOrChangeDetectionRadiusDebug(player_entity)
 end
 
 ---Constructor for EntityUtils. With this constructor you can override the default imports.
----@param entityUtils EntityUtils|nil
+---@param entityUtilsObject EntityUtils|nil
 ---@param client Client Must not be nil!
 ---@param customProfiler CustomProfiler Must not be nil!
 ---@param enitityCacheUtils EntityCacheUtils Must not be nil!
 ---@param entityCache EntityCache Must not be nil!
----@param globalsUtils GlobalsUtils|nil
+---@param globalsUtils GlobalsUtils|nil optional
 ---@param logger Logger|nil (Must not be nil!)?
 ---@param minaUtils MinaUtils Must not be nil!
 ---@param networkUtils NetworkUtils Must not be nil!
@@ -593,33 +564,108 @@ end
 ---@param server Server Must not be nil!
 ---@param utils Utils|nil
 ---@return EntityUtils
-function EntityUtils:new(entityUtils, client, customProfiler, enitityCacheUtils, entityCache, globalsUtils, logger, minaUtils, networkUtils,
+function EntityUtils:new(entityUtilsObject, client, customProfiler, enitityCacheUtils, entityCache, globalsUtils, logger, minaUtils, networkUtils,
                          networkVscUtils, noitaComponentUtils, nuidUtils, server, utils)
-    local entityUtils = entityUtils or {}
-    setmetatable(entityUtils, self)
-    self.__index = self
+    ---@class EntityUtils
+    entityUtilsObject = setmetatable(entityUtilsObject or self, EntityUtils)
 
-    assert(loadfile("mods/noita-mp/config.lua"))(self)
+    -- Load config.lua
+    assert(loadfile("mods/noita-mp/config.lua"))(entityUtilsObject)
 
     local cpc = customProfiler:start("EntityUtils:new")
 
-    -- Initialize all imports to avoid recursive imports
-    self.client = client or error("EntityUtils:new: Parameter 'client' must not be nil!", 2)
-    self.customProfiler = customProfiler or require("CustomProfiler", "mods/noita-mp/files/scripts/util"):new()
-    self.enitityCacheUtils = enitityCacheUtils or require("EntityCacheUtils", "mods/noita-mp/files/scripts/util"):new()
-    self.entityCache = entityCache or require("EntityCache", "mods/noita-mp/files/scripts/util"):new()
-    self.globalsUtils = globalsUtils or require("GlobalsUtils", "mods/noita-mp/files/scripts/util"):new()
-    self.logger = logger or require("Logger", "mods/noita-mp/files/scripts/util"):new()
-    self.minaUtils = minaUtils or require("MinaUtils", "mods/noita-mp/files/scripts/util"):new()
-    self.networkUtils = networkUtils or require("NetworkUtils", "mods/noita-mp/files/scripts/util"):new()
-    self.networkVscUtils = networkVscUtils or require("NetworkVscUtils", "mods/noita-mp/files/scripts/util"):new()
-    self.noitaComponentUtils = noitaComponentUtils or require("NoitaComponentUtils", "mods/noita-mp/files/scripts/util"):new()
-    self.nuidUtils = nuidUtils or require("NuidUtils", "mods/noita-mp/files/scripts/util"):new()
-    self.server = server or error("EntityUtils:new: Parameter 'server' must not be nil!", 2)
-    self.utils = utils or require("Utils", "mods/noita-mp/files/scripts/util")
+    --[[ Imports ]]
+    --Initialize all imports to avoid recursive imports
 
-    customProfiler:stop("EntityUtils:new", cpc)
-    return entityUtils
+    if not entityUtilsObject.client then
+        ---@type Client
+        entityUtilsObject.client = client or error("EntityUtils:new: Parameter 'client' must not be nil!", 2)
+    end
+
+    if not entityUtilsObject.customProfiler then
+        ---@type CustomProfiler
+        entityUtilsObject.customProfiler = customProfiler or
+            require("CustomProfiler", "mods/noita-mp/files/scripts/util")
+            :new(nil, nil, noitaMpSettings, nil, nil, utils, nil)
+    end
+
+    if not entityUtilsObject.enitityCacheUtils then
+        ---@type EntityCacheUtils
+        entityUtilsObject.enitityCacheUtils = enitityCacheUtils or
+            require("EntityCacheUtils", "mods/noita-mp/files/scripts/util")
+            :new(nil, customProfiler, entityCache, entityUtilsObject, utils)
+    end
+
+    if not entityUtilsObject.entityCache then
+        ---@type EntityCache
+        entityUtilsObject.entityCache = entityCache or
+            require("EntityCache", "mods/noita-mp/files/scripts/util")
+            :new(nil, customProfiler, entityUtilsObject, utils)
+    end
+
+    if not entityUtilsObject.globalsUtils then
+        ---@type GlobalsUtils
+        entityUtilsObject.globalsUtils = globalsUtils or
+            require("GlobalsUtils", "mods/noita-mp/files/scripts/util")
+            :new(nil, customProfiler, logger, client, utils)
+    end
+
+    if not entityUtilsObject.logger then
+        ---@type Logger
+        entityUtilsObject.logger = logger or
+            require("Logger", "mods/noita-mp/files/scripts/util")
+            :new(nil, customProfiler)
+    end
+
+    if not entityUtilsObject.minaUtils then
+        ---@type MinaUtils
+        entityUtilsObject.minaUtils = minaUtils or
+            require("MinaUtils", "mods/noita-mp/files/scripts/util")
+        --:new()
+    end
+
+    if not entityUtilsObject.networkUtils then
+        ---@type NetworkUtils
+        entityUtilsObject.networkUtils = networkUtils or
+            require("NetworkUtils", "mods/noita-mp/files/scripts/util")
+        --:new()
+    end
+
+    if not entityUtilsObject.networkVscUtils then
+        ---@type NetworkVscUtils
+        entityUtilsObject.networkVscUtils = networkVscUtils or
+            require("NetworkVscUtils", "mods/noita-mp/files/scripts/util")
+        --:new()
+    end
+
+    if not entityUtilsObject.noitaComponentUtils then
+        ---@type NoitaComponentUtils
+        entityUtilsObject.noitaComponentUtils = noitaComponentUtils or
+            require("NoitaComponentUtils", "mods/noita-mp/files/scripts/util")
+            :new()
+    end
+
+    if not entityUtilsObject.nuidUtils then
+        ---@type NuidUtils
+        entityUtilsObject.nuidUtils = nuidUtils or
+            require("NuidUtils", "mods/noita-mp/files/scripts/util")
+            :new()
+    end
+
+    if not entityUtilsObject.server then
+        ---@type Server
+        entityUtilsObject.server = server or
+            error("EntityUtils:new: Parameter 'server' must not be nil!", 2)
+    end
+
+    if not entityUtilsObject.utils then
+        ---@type Utils
+        entityUtilsObject.utils = utils or
+            require("Utils", "mods/noita-mp/files/scripts/util")
+    end
+
+    entityUtilsObject.customProfiler:stop("EntityUtils:new", cpc)
+    return entityUtilsObject
 end
 
 return EntityUtils

@@ -1,11 +1,6 @@
 ---@class Logger
 ---Class for being able to log per level.
 local Logger = {
-    --[[ Imports ]]
-
-    ---@type CustomProfiler
-    customProfiler = nil,
-
     --[[ Attributes ]]
 
     ---Log level, possible values = off, trace, debug, info, warn
@@ -124,18 +119,23 @@ end
 ---@param customProfiler CustomProfiler required
 ---@return Logger
 function Logger:new(loggerObject, customProfiler)
-    local logger = loggerObject or self or {} -- Use self if this is called as a class constructor
-    setmetatable(logger, self)
-    self.__index = self
+    ---@class Logger
+    loggerObject = setmetatable(loggerObject or self, Logger)
 
     local cpc = customProfiler:start("Logger:new")
 
-    -- Initialize all imports to avoid recursive imports
-    self.customProfiler = customProfiler
+    --[[ Imports ]]
+    --Initialize all imports to avoid recursive imports
+
+    if not loggerObject.customProfiler then
+        ---@type CustomProfiler
+        loggerObject.customProfiler = customProfiler
+    end
+
     self:trace(self.channels.initialize, "Logger was initialized!")
 
     self.customProfiler:stop("Logger:new", cpc)
-    return logger
+    return loggerObject
 end
 
 return Logger

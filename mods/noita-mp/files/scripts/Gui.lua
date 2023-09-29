@@ -515,7 +515,7 @@ function Gui:drawSettings()
         -- Save settings
         if self.imGui.Button("Save Settings") then
             if self.noitaMpSettings:isMoreThanOneNoitaProcessRunning() then
-                local newGuid = self.guidUtils:getGuid({ self.minaUtils.getLocalMinaGuid() })
+                local newGuid = self.guidUtils:generateNewGuid({ self.minaUtils.getLocalMinaGuid() })
                 self.minaUtils.setLocalMinaGuid(newGuid)
             end
 

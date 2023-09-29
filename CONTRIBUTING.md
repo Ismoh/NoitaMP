@@ -65,7 +65,7 @@ local ExampleClass = {
     moreAttributes = "moreValues"
   }
 }
-ExampleClass.__index = ExampleClass
+--ExampleClass.__index = ExampleClass
 
 -- private functions
 

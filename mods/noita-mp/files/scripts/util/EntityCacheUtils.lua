@@ -1,10 +1,8 @@
 ---@class EntityCacheUtils
 ---Utils class only for cache of entities.
 local EntityCacheUtils = {
-    -- Imports
-    utils = require("Utils"),
-    entityCache = require("EntityCache"):new(),
-    -- Attributes
+
+    --[[ Attributes ]]
 
 }
 
@@ -51,10 +49,42 @@ function EntityCacheUtils:set(entityId, nuid, ownerGuid, ownerName, filepath, x,
         velX, velY, currentHealth, maxHealth, fullySerialised, serialisedRootEntity)
 end
 
-function EntityCacheUtils:new(entityCacheUtilsObject, otherClassesIfRequireLoop)
-    local entityCacheUtilsObject = entityCacheUtilsObject or {}
-    setmetatable(entityCacheUtilsObject, self)
-    self.__index = self
+---Constructor of the EntityCacheUtils class.
+---@param entityCacheUtilsObject EntityCacheUtils|nil optional
+---@param customProfiler CustomProfiler required
+---@param entityCache EntityCache required
+---@param entityUtils EntityUtils required
+---@param utils Utils|nil optional
+---@return EntityCacheUtils
+function EntityCacheUtils:new(entityCacheUtilsObject, customProfiler, entityCache, entityUtils, utils)
+    ---@class EntityCacheUtils
+    entityCacheUtilsObject = setmetatable(entityCacheUtilsObject or self, EntityCacheUtils)
+
+    local cpc = customProfiler:start("EntityCacheUtils:new")
+
+    --[[ Imports ]]
+    --Initialize all imports to avoid recursive imports
+
+    if not entityCacheUtilsObject.customProfiler then
+        ---@type CustomProfiler
+        entityCacheUtilsObject.customProfiler = customProfiler
+            or error("EntityCacheUtils:new requires 'customProfiler' as parameter!")
+    end
+
+    if not entityCacheUtilsObject.entityCache then
+        ---@type EntityCache
+        entityCacheUtilsObject.entityCache = entityCache or
+            require("EntityCache")
+            :new(nil, customProfiler, entityUtils, utils)
+    end
+    if not entityCacheUtilsObject.utils then
+        ---@type Utils
+        entityCacheUtilsObject.utils = utils or
+            require("Utils")
+        --:new(nil, customProfiler)
+    end
+
+    entityCacheUtilsObject.customProfiler:stop("EntityCacheUtils:new", cpc)
     return entityCacheUtilsObject
 end
 

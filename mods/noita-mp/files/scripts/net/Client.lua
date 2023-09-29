@@ -11,7 +11,8 @@ Client.__index = Client
 ---@private
 ---@param self Client
 ---@param networkMessageId number
----@param event string @see self.networkUtils.events
+---@param event string
+---@see NetworkUtils.events.acknowledgement.schema
 local sendAck = function(self, networkMessageId, event)
     local cpc = self.customProfiler:start("Client.sendAck")
     if not event then
@@ -54,7 +55,7 @@ local onAcknowledgement = function(self, data)
     end
 
     if not self.clientCacheId then
-        self.clientCacheId = self.guidUtils.toNumber(self.peer.guid) -- TODO where does `peer` come from?
+        self.clientCacheId = self.guidUtils.toNumber(self.guid)
     end
 
     local cachedData = self.networkCacheUtils.get(self.guid, data.networkMessageId, data.event)
@@ -89,7 +90,7 @@ local onConnect = function(self, data)
         error(("onConnect data is empty: %s"):format(data), 3)
     end
 
-    self.sendMinaInformation()
+    self:sendMinaInformation()
 
     self:send(self.networkUtils.events.needModList.name, { self.networkUtils.getNextNetworkMessageId(), {}, {} })
 
@@ -982,44 +983,51 @@ end
 function Client:new(clientObject, serverOrAddress, port, maxChannels, server)
     ---@class Client : SockClient
     clientObject =
-        setmetatable(clientObject or sock.newClient(serverOrAddress, port, maxChannels), Client) or --Inherits from sock.Client
+        setmetatable(clientObject or sock.newClient(serverOrAddress, port, maxChannels), Client) or
         error("Unable to create new sock client!", 2)
 
     --[[ Imports ]]
     --Initialize all imports to avoid recursive imports
 
     if not clientObject.noitaMpSettings then
-        clientObject.noitaMpSettings = server.noitaMpSettings or require("NoitaMpSettings")
-            :new(nil, nil, nil, nil, nil, nil, nil, nil, nil)
+        clientObject.noitaMpSettings = server.noitaMpSettings or error("Client:new requires a server object!", 2)
     end
     if not clientObject.customProfiler then
-        clientObject.customProfiler = clientObject.noitaMpSettings.customProfiler or require("CustomProfiler")
-            :new(nil, nil, clientObject.noitaMpSettings, nil, nil, nil, nil)
+        clientObject.customProfiler = clientObject.noitaMpSettings.customProfiler or error("Client:new requires a server object!", 2)
     end
     local cpc = clientObject.customProfiler:start("Client:new")
 
+    if not clientObject.globalUtils then
+        clientObject.globalUtils = server.globalUtils or require("GlobalUtils")
+    end
+    end
+    if not clientObject.networkCache then
+        clientObject.networkCache = server.networkCache or error("Client:new requires a server object!", 2)
+    end
+    if not clientObject.networkCacheUtils then
+        clientObject.networkCacheUtils = server.networkCacheUtils or error("Client:new requires a server object!", 2)
+    end
     if not clientObject.entityUtils then
-        clientObject.entityUtils = require("EntityUtils")
+        clientObject.entityUtils = server.entityUtils or error("Client:new requires a server object!", 2)
     end
     if not clientObject.guidUtils then
-        clientObject.guidUtils = require("GuidUtils")
+        clientObject.guidUtils = server.guidUtils or error("Client:new requires a server object!", 2)
     end
     -- clientObject.logger is sock.logger by default. Has to be repalced with NoitaMP logger.
     if not clientObject.logger or clientObject.logger ~= clientObject.noitaMpSettings.logger then
-        clientObject.logger = clientObject.noitaMpSettings.logger or require("Logger"):new(nil, clientObject.customProfiler)
+        clientObject.logger = clientObject.noitaMpSettings.logger or error("Client:new requires a server object!", 2)
     end
-
     if not clientObject.messagePack then
-        clientObject.messagePack = require("MessagePack")
+        clientObject.messagePack = server.messagePack or require("MessagePack")
     end
     if not clientObject.minaUtils then
-        clientObject.minaUtils = require("MinaUtils")
+        clientObject.minaUtils = server.minaUtils or require("MinaUtils")
     end
     if not clientObject.networkUtils then
-        clientObject.networkUtils = require("NetworkUtils")
+        clientObject.networkUtils = server.networkUtils or require("NetworkUtils")
     end
     if not clientObject.noitaPatcherUtils then
-        clientObject.noitaPatcherUtils = require("NoitaPatcherUtils")
+        clientObject.noitaPatcherUtils = server.noitaPatcherUtils or require("NoitaPatcherUtils")
     end
     if not clientObject.server then
         clientObject.server = server or error("Client:new requires a server object!", 2)
@@ -1031,7 +1039,7 @@ function Client:new(clientObject, serverOrAddress, port, maxChannels, server)
         clientObject.zstandard = server.zstandard or require("zstd")
     end
     if not clientObject.utils then
-        clientObject.utils = clientObject.noitaMpSettings.utils or require("Utils") --:new()
+        clientObject.utils = server.utils or error("Client:new requires a server object!", 2)
     end
 
     --[[ Attributes ]]

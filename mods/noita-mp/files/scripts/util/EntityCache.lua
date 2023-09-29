@@ -1,16 +1,8 @@
 ---@class EntityCache
 local EntityCache = {
-    --[[ Imports ]]
-
-    ---@type CustomProfiler
-    customProfiler = nil,
-    ---@type EntityUtils
-    entityUtils    = require("EntityUtils"):new(),
-    ---@type Utils
-    utils          = require("Utils"),
-
     --[[ Attributes ]]
-    usingC = false,         -- not _G.disableLuaExtensionsDLL
+
+    usingC = false, -- not _G.disableLuaExtensionsDLL
     cache  = {}
 }
 
@@ -133,19 +125,33 @@ end
 ---@param utils Utils|nil optional
 ---@return EntityCache
 function EntityCache:new(entityCacheObject, customProfiler, entityUtils, utils)
-    entityCacheObject = entityCacheObject or self or {} -- Use self if this is called as a class constructor
-    setmetatable(entityCacheObject, self)
-    self.__index = self
+    ---@class EntityCache
+    entityCacheObject = setmetatable(entityCacheObject or self, EntityCache)
 
-    local cpc = self.customProfiler:start("EntityUtils:new")
+    local cpc = customProfiler:start("EntityUtils:new")
 
-    -- Initialize all imports to avoid recursive imports
-    self.customProfiler = customProfiler
-    self.entityUtils = entityUtils
-    self.utils = utils
+    --[[ Imports ]]
+    --Initialize all imports to avoid recursive imports
 
-    self.customProfiler:stop("EntityUtils:new", cpc)
+    if not entityCacheObject.customProfiler then
+        ---@type CustomProfiler
+        entityCacheObject.customProfiler = customProfiler or
+            error("EntityCache:new requires 'customProfiler' as parameter!")
+    end
 
+    if not entityCacheObject.entityUtils then
+        ---@type EntityUtils
+        entityCacheObject.entityUtils = entityUtils or
+            error("EntityCache:new requires 'entityUtils' as parameter!")
+    end
+
+    if not entityCacheObject.utils then
+        ---@type Utils
+        entityCacheObject.utils = utils or
+            require("Utils") --:new(nil, customProfiler)
+    end
+
+    entityCacheObject.customProfiler:stop("EntityUtils:new", cpc)
     return entityCacheObject
 end
 

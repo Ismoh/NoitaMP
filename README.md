@@ -4,10 +4,10 @@
 
 ### Table of Contents
 
-- [TL:DR](#tldr)  
-- [Documentation](#documentation)  
-- [Our awesome and valuable Contributors](#our-awesome-and-valuable-contributors)  
-- [Credits, Supporter and special thanks](#credits-supporter-and-special-thanks)  
+- [TL:DR](#tldr)
+- [Documentation](#documentation)
+- [Our awesome and valuable Contributors](#our-awesome-and-valuable-contributors)
+- [Credits, Supporter and special thanks](#credits-supporter-and-special-thanks)
 - [Used libraries, frameworks and other stuff](#used-libraries-frameworks-and-other-stuff)
 - [Roadmap](#roadmap)
 
@@ -115,57 +115,22 @@ Also, special thanks to the people, who share their libraries, frameworks and ot
 - ~~[bitser.lua](https://github.com/gvx/bitser) for old serializing and deserializing data~~
 - [pprint.lua](https://github.com/jagt/pprint.lua) for debugging with pretty prints
 - ~~[json.lua](https://github.com/rxi/json.lua) for serializing and deserializing data in json format~~
-- [nxml.lua](https://github.com/zatherz/luanxml) for editing xml files used by Noita
+- ~~[nxml.lua](https://github.com/zatherz/luanxml) for editing xml files used by Noita~~
 - ~~[EZGUI.lua](https://github.com/TheHorscht/EZGUI) for the GUI, but unfortunately it isn't maintained anymore~~
 - [lua-watcher.lua](https://github.com/EvandroLG/lua-watcher) for getting the correct save path for Noita
-- [lfs-ffi.lua](https://github.com/sonoro1234/luafilesystem) for lua file system
+- ~~[lfs-ffi.lua](https://github.com/sonoro1234/luafilesystem) for lua file system~~
 - [deepcopy.lua](https://gist.github.com/Deco/3985043) for being able to copy tables
 - [libzstd.dll](https://github.com/facebook/zstd) for being able to compress and decompress data
 - [zstd.lua](https://github.com/sjnam/luajit-zstd) for easy to use libzstd.dll in Lua
 - [lua-MessagePack](https://framagit.org/fperrad/lua-MessagePack/-/tree/0.5.2) for serializing and deserializing data
-- [plotly.lua](https://github.com/kenloen/plotly.lua) for plotting profiled data
+- ~~[plotly.lua](https://github.com/kenloen/plotly.lua) for plotting profiled data~~
 - [dkjson.lua](https://github.com/LuaDist/dkjson) needed by plotly.lua
 
 I had to build the network library by my own, because Noita provides its own lua51.dll. I struggled to build it, if you are interested in,
 I've added all the necessary build files inside of .building/dll_building.7z and here you can see the [stackoverflow question](https://stackoverflow.com/questions/70048918/lua-5-1-package-loadlib-and-require-gcc-building-windows-dll) I've created.
-
-## Roadmap
-
-```mermaid
-gantt
-    title NoitaMP Roadmap
-    dateFormat  DD-MM-YYYY
-    section Init
-    Noita API |1|             :done, 10-11-2021, 2d
-    section Networking
-    eNet, lua-enet, sock.lua  :done, 12-11-2021, 21-11-2021
-    3rd Network Rework        :active, 26-02-2023, 14-06-2023
-    section GitHub
-    Workflow actions          :done, 14-12-2021, 1d
-    Workflow actions          :done, 14-12-2021, 1d
-    Workflow actions          :done, 15-12-2021, 1d
-    section TODO
-    need to update it, but no time atm :( :done, 15-12-2021, 26-02-2023
-    section Neo
-    Oracle, Do you think you're the one?! :asd, 14-06-2023, 01-01-2024
-  ```
-
-<div align="center">
-
-![NoitaMP-Roadmap](.github/NoitaMP-Roadmap.svg)
-
-</div>
-
-## [![Repography logo](https://images.repography.com/logo.svg)](https://repography.com) / Recent activity [![Time period](https://images.repography.com/36027144/Ismoh/NoitaMP/recent-activity/jAELA8Z3rdlroh0bPJvficEtziU3iyDdNnTghMkIcw0/_530-g9qI7Ne9TS6ZHbAFiMyTtIpN5ijgQKz3hwdxrU_badge.svg)](https://repography.com)
 
 [![Timeline graph](https://images.repography.com/36027144/Ismoh/NoitaMP/recent-activity/jAELA8Z3rdlroh0bPJvficEtziU3iyDdNnTghMkIcw0/_530-g9qI7Ne9TS6ZHbAFiMyTtIpN5ijgQKz3hwdxrU_timeline.svg)](https://github.com/Ismoh/NoitaMP/commits)
 
 [![Issue status graph](https://images.repography.com/36027144/Ismoh/NoitaMP/recent-activity/jAELA8Z3rdlroh0bPJvficEtziU3iyDdNnTghMkIcw0/_530-g9qI7Ne9TS6ZHbAFiMyTtIpN5ijgQKz3hwdxrU_issues.svg)](https://github.com/Ismoh/NoitaMP/issues)
 
 [![Pull request status graph](https://images.repography.com/36027144/Ismoh/NoitaMP/recent-activity/jAELA8Z3rdlroh0bPJvficEtziU3iyDdNnTghMkIcw0/_530-g9qI7Ne9TS6ZHbAFiMyTtIpN5ijgQKz3hwdxrU_prs.svg)](https://github.com/Ismoh/NoitaMP/pulls)
-
-[![Trending topics](https://images.repography.com/36027144/Ismoh/NoitaMP/recent-activity/jAELA8Z3rdlroh0bPJvficEtziU3iyDdNnTghMkIcw0/_530-g9qI7Ne9TS6ZHbAFiMyTtIpN5ijgQKz3hwdxrU_words.svg)](https://github.com/Ismoh/NoitaMP/commits)
-
-[![Top contributors](https://images.repography.com/36027144/Ismoh/NoitaMP/recent-activity/jAELA8Z3rdlroh0bPJvficEtziU3iyDdNnTghMkIcw0/_530-g9qI7Ne9TS6ZHbAFiMyTtIpN5ijgQKz3hwdxrU_users.svg)](https://github.com/Ismoh/NoitaMP/graphs/contributors)
-
-[![Activity map](https://images.repography.com/36027144/Ismoh/NoitaMP/recent-activity/jAELA8Z3rdlroh0bPJvficEtziU3iyDdNnTghMkIcw0/_530-g9qI7Ne9TS6ZHbAFiMyTtIpN5ijgQKz3hwdxrU_map.svg)](https://github.com/Ismoh/NoitaMP/commits)

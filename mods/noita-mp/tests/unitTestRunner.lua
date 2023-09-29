@@ -47,7 +47,7 @@ if not ModSettingGet then
         if id == "noita-mp.guid" then
             local guid = minaUtils.getLocalMinaGuid()
             if Utils.IsEmpty(guid) then
-                guid = guidUtils:getGuid()
+                guid = guidUtils:generateNewGuid()
             end
             return guid
         end

@@ -12,7 +12,7 @@ jobs:
       labelNames: ${{ steps.find-linked-issues.outputs.pull-request-labels }}
     steps:
       - uses: actions/checkout@v3.3.0
-      
+
       - name: Print GitHub context
         run: echo "$GITHUB_CONTEXT"
         env:
@@ -20,7 +20,7 @@ jobs:
 
       - name: Find linked issues
         id: find-linked-issues
-        uses: Ismoh-Games/find-linked-issues@v1.0
+        uses: Ismoh-Games/find-linked-issues@v1.0.1
         with:
           token: ${{ secrets.WORKFLOW_PAT }}
           repository: ${{ github.repository }}
@@ -28,13 +28,13 @@ jobs:
           pull-request-body: ${{ github.event.pull_request.body }}
           copy-issues-labels: true
           include-closed-issues: true
-          
+
       - name: Echo output
         run: |
           echo "is-pull-request-linked-to-issues: ${{ steps.find-linked-issues.outputs.is-pull-request-linked-to-issues }}"
           echo "linked-issues: ${{ steps.find-linked-issues.outputs.linked-issues }}"
           echo "pull-request-labels: ${{ steps.find-linked-issues.outputs.pull-request-labels }}"
-      
+
       - name: Linked issue found?
         run: |
           commentListResponse=`curl -u Ismoh:${{ secrets.WORKFLOW_PAT }} -H 'Accept: application/vnd.github+json' https://api.github.com/repos/Ismoh/NoitaMP/issues/${{github.event.number}}/comments`
@@ -42,7 +42,7 @@ jobs:
           # https://jqplay.org/s/WsuVZ8f-YiB
           commentIds=$(echo $commentListResponse | jq '.[] | select(.body | contains("pull request is not linked to any issue")) | .id')
           echo "commentIds="$commentIds
-        
+
           for commentId in $commentIds
           do
             echo "commentId="$commentId
@@ -71,7 +71,7 @@ jobs:
               exit 1
             fi
           fi
-  
+
   update-version:
     needs: find-linked-issues-and-copy-labels-to-pull-request
     env:
@@ -86,7 +86,7 @@ jobs:
       - uses: actions/checkout@v3.3.0
         with:
           fetch-depth: 0
-      
+
       - name: Increase version depending on labels
         uses: HardNorth/github-version-generate@v1.3.0
         with:
@@ -98,18 +98,18 @@ jobs:
           next-version-increment-patch: ${{ contains(env.LABEL_NAMES, 'bug') }}
           next-version-cut-build-metadata: false
           next-version-put-build-metadata: true
-          
+
         #- name: Update LuaRocks rockspec
         #shell: bash
           #run: |
           #sudo apt-get install rename
-  
+
           #git fetch
           #git checkout ${{ github.base_ref }}
           #git pull origin ${{ github.base_ref }}
           #git config --local user.email "action@github.com"
           #git config --local user.name "github-actions"
-  
+
           #currentVersionShort="$CURRENT_VERSION_MAJOR.$CURRENT_VERSION_MINOR.$CURRENT_VERSION_PATCH"
           #nextVersionShort="$NEXT_VERSION_MAJOR.$NEXT_VERSION_MINOR.$NEXT_VERSION_PATCH"
           #cd ${{github.workspace}}/mods/noita-mp/
@@ -120,7 +120,7 @@ jobs:
           #cat ${{github.workspace}}/mods/noita-mp/*.rockspec
           #git commit -m "Updated *.rockspec to $NEXT_VERSION in https://github.com/${{github.repository}}/pull/${{github.event.number}}"
           #git push origin ${{ github.base_ref }}
-      
+
       - name: Extend version with custom build numbers
         id: extend_version
         run: |
@@ -128,7 +128,7 @@ jobs:
           echo "nextVersion="$nextVersion
           echo "NEXT_VERSION=${nextVersion}" >> $GITHUB_ENV
           echo "{futureRelease}={$nextVersion}" >> $GITHUB_OUTPUT
-      
+
       - name: Add comment to pull request
         run: |
           commentListResponse=`curl -H 'Accept: application/vnd.github+json' -H 'Authorization: token ${{ github.token }}' https://api.github.com/repos/Ismoh/NoitaMP/issues/${{github.event.number}}/comments`
@@ -136,7 +136,7 @@ jobs:
           # https://jqplay.org/s/WsuVZ8f-YiB
           commentIds=$(echo $commentListResponse | jq '.[] | select(.body | contains("will be automatically increase to")) | .id')
           echo "commentIds="$commentIds
-        
+
           for commentId in $commentIds
           do
             echo "commentId="$commentId
@@ -147,7 +147,7 @@ jobs:
               echo "Unable to delete comment with id "$commentId
             fi
           done
-        
+
           body=":robot: _meep moop beep boop_<br/><br/>:information_source: When this pull request was merged,<br/> the current version **v$CURRENT_VERSION** will be automatically increase to **$NEXT_VERSION** in **${{ github.base_ref }}**<br/>and a new tag with **$NEXT_VERSION** will be created to the specific commit."
           echo "body="$body
           json=$(printf '%s\n' "$body" | jq -R '{ body: . }')
@@ -161,7 +161,7 @@ jobs:
             echo "Unable to add comment to pull request!"
             exit 1
           fi
-      
+
       - name: Commit and push version changes and tag it, when merged
         env:
           MERGED: ${{ github.event.pull_request.merged }}
@@ -181,7 +181,7 @@ jobs:
           else
             echo "Pull request is not merged yet, therefore '$VERSION_FILE_NAME' will not be increased."
           fi
-  
+
   update-changelog:
     needs: update-version
     env:
@@ -192,7 +192,7 @@ jobs:
       - uses: actions/checkout@v3.1.0
         with:
           fetch-depth: 0
-      
+
       - name: Generate CHANGELOG.md
         id: generate_changelog
         uses: heinrichreimer/github-changelog-generator-action@v2.3
@@ -203,7 +203,7 @@ jobs:
           issueLineLabels: "ALL"
           breakingLabels: "backwards-incompatible,breaking,rework,refactor"
           futureRelease: ${{ env.FUTURE_RELEASE }}
-      
+
       - name: Commit and push CHANGELOG.md, when merged
         env:
           CHANGELOG: ${{ steps.generate_changelog.outputs.changelog }}
@@ -214,7 +214,7 @@ jobs:
           # https://jqplay.org/s/WsuVZ8f-YiB
           commentIds=$(echo $commentListResponse | jq '.[] | select(.body | contains("# Changelog")) | .id')
           echo "commentIds="$commentIds
-        
+
           for commentId in $commentIds
           do
             echo "commentId="$commentId
@@ -225,11 +225,11 @@ jobs:
               echo "Unable to delete comment with id "$commentId
             fi
           done
-        
+
           echo ""
           echo "CHANGELOG="$CHANGELOG
           echo ""
-          
+
           body=":robot: _meep moop beep boop_<br/><br/>  "$CHANGELOG
           echo "body="$body
           json=$(printf '%s\n' "$body" | jq -Rsa '{ body: . }')
@@ -242,7 +242,7 @@ jobs:
           then
             echo "Unable to add comment to pull request!"
           fi
-        
+
           if [ $MERGED == true ]
           then
             git fetch

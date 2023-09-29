@@ -100,8 +100,13 @@ local onConnect = function(self, data, peer)
         error(("onConnect data is empty: %s"):format(data), 3)
     end
 
-    if self.utils:IsEmpty(self.minaUtils:getLocalMinaInformation().nuid) then
-        local entityId = self.minaUtils:getLocalMinaEntityId()
+    local localNuid = self.minaUtils:getLocalMinaNuid()
+    local entityId = self.minaUtils:getLocalMinaEntityId()
+    if self.utils:IsEmpty(entityId) or entityId <= 0 then
+        error(("onConnect entityId is empty: %s"):format(entityId), 2)
+    end
+
+    if self.utils:IsEmpty(localNuid) or localNuid <= 0 then
         local hasNuid, nuid = self.networkVscUtils:hasNuidSet(entityId)
         if not hasNuid or self.utils:IsEmpty(nuid) then
             nuid = self.nuidUtils:getNextNuid()
@@ -119,7 +124,6 @@ local onConnect = function(self, data, peer)
         { self.networkUtils:getNextNetworkMessageId(), peer.name, peer.guid })
 
     -- Send local minä to the new client
-    local entityId = self.minaUtils:getLocalMinaEntityId()
     local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = self.noitaComponentUtils:getEntityData(entityId)
     local serializedEntityString = self.noitaPatcherUtils:serializeEntity(entityId)
     self:sendNewNuid(compOwnerName, compOwnerGuid, entityId, serializedEntityString, compNuid, x, y,
@@ -220,7 +224,7 @@ local onMinaInformation = function(self, data, peer)
     -- Make sure guids are unique. It's unlikely that two players have the same guid, but it can happen rarely.
     if self.guid == data.guid --[[or table.contains(self.guidUtils:getCachedGuids(), data.guid)]] then
         self.logger:warn(self.logger.channels.network, ("onMinaInformation: guid %s is not unique!"):format(data.guid))
-        local newGuid = self.guidUtils:getGuid({ data.guid })
+        local newGuid = self.guidUtils:generateNewGuid({ data.guid })
         self:sendNewGuid(peer, data.guid, newGuid)
         data.guid = newGuid
     end
@@ -378,7 +382,7 @@ local onLostNuid = function(self, data, peer)
         error(("onLostNuid data.nuid is empty: %s"):format(self.utils:pformat(data.nuid)), 3)
     end
 
-    local nuid, entityId = self.globalUtils:getNuidEntityPair(data.nuid)
+    local nuid, entityId = self.globalsUtils:getNuidEntityPair(data.nuid)
 
     if not entityId or not EntityGetIsAlive(entityId) then
         self.logger:debug(self.logger.channels.network, ("onLostNuid(%s): Entity %s already dead."):format(data.nuid, entityId))
@@ -451,7 +455,7 @@ local onEntityData = function(self, data, peer)
     end
 
     local owner                = data.owner
-    local nnuid, localEntityId = self.globalUtils:getNuidEntityPair(data.nuid)
+    local nnuid, localEntityId = self.globalsUtils:getNuidEntityPair(data.nuid)
     local nuid                 = data.nuid
     local x                    = data.x
     local y                    = data.y
@@ -482,7 +486,7 @@ local onDeadNuids = function(self, data, peer)
             if peer then
                 self.entityUtils:destroyByNuid(peer, deadNuid)
             end
-            self.globalUtils:removeDeadNuid(deadNuid)
+            self.globalsUtils:removeDeadNuid(deadNuid)
             self.entityCache.deleteNuid(deadNuid)
         end
     end
@@ -1028,9 +1032,14 @@ function Server:new(serverObject, address, port, maxPeers, maxChannels, inBandwi
         --:new()
     end
 
+    if not serverObject.globalsUtils then
+        serverObject.globalsUtils = require("GlobalsUtils")
+        --:new()
+    end
+
     if not serverObject.entityUtils then
         serverObject.entityUtils = require("EntityUtils")
-            :new(nil, {}, serverObject.customProfiler, nil, nil, nil,
+            :new(nil, {}, serverObject.customProfiler, nil, nil, serverObject.globalsUtils,
                 serverObject.noitaMpSettings.logger, serverObject.minaUtils, serverObject.networkUtils, serverObject.networkVscUtils,
                 serverObject.noitaComponentUtils, serverObject.nuidUtils, serverObject, serverObject.noitaMpSettings.utils)
     end
@@ -1041,7 +1050,7 @@ function Server:new(serverObject, address, port, maxPeers, maxChannels, inBandwi
     end
 
     if not serverObject.guidUtils then
-        serverObject.guidUtils = require("self.guidUtils")
+        serverObject.guidUtils = require("GuidUtils")
     end
 
     if not serverObject.messagePack then

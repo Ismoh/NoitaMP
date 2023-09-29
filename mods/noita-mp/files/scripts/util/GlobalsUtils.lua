@@ -1,16 +1,9 @@
--- OOP class definition is found here: Closure approach
--- http://lua-users.org/wiki/ObjectOrientationClosureApproach
--- Naming convention is found here:
--- http://lua-users.org/wiki/LuaStyleGuide#:~:text=Lua%20internal%20variable%20naming%20%2D%20The,but%20not%20necessarily%2C%20e.g.%20_G%20.
-
 ---@class GlobalsUtils
 ---Class for GlobalsSetValue and GlobalsGetValue
+---Deprecated Use VariableStorageComponents instead!
 ---@deprecated Use VariableStorageComponents instead!
-GlobalsUtils = {
-    --Imports
-    customProfiler     = nil,
-
-    --'variables'
+local GlobalsUtils = {
+    --[[ Attributes ]]
     deadNuidsKey       = "deadNuids",
     nuidKeyFormat      = "nuid = %s",
     nuidKeySubstring   = "nuid = ",
@@ -19,44 +12,14 @@ GlobalsUtils = {
 }
 
 
---- When NoitaComponents are accessing this file, they are not able to access the global variables defined in this file.
---- Therefore, we need to redefine the global variables which we don't have access to, because of NoitaAPI restrictions.
---- This is done by the following code:
 
-if require then
-    if not GlobalUtils.customProfiler then
-        require("CustomProfiler")
-    end
-else
-    if not CustomProfiler then
-        ---@type CustomProfiler
-        CustomProfiler       = {}
-
-        ---@diagnostic disable-next-line: duplicate-doc-alias
-        ---@alias CustomProfiler.start function(functionName: string): number
-        ---@diagnostic disable-next-line: duplicate-set-field
-        CustomProfiler.start = function(functionName)
-            --Logger.trace(Logger.channels.globals,
-            --            ("NoitaComponents with their restricted Lua context are trying to use CustomProfiler.start(functionName %s)")
-            --                    :format(functionName))
-        end
-        CustomProfiler.stop  = function(functionName, customProfilerCounter)
-            --Logger.trace(Logger.channels.globals,
-            --            ("NoitaComponents with their restricted Lua context are trying to use CustomProfiler.stop(functionName %s, customProfilerCounter %s)")
-            --                    :format(functionName, customProfilerCounter))
-        end
-    end
-end
-
-
-
---- Parses key and value string to nuid and entityId.
---- @param xmlKey string GlobalsUtils.nuidKeyFormat = "nuid = %s"
---- @param xmlValue string GlobalsUtils.nuidValueFormat = "entityId = %s"
---- @return number|nil nuid
---- @return number|nil entityId
-function GlobalsUtils.parseXmlValueToNuidAndEntityId(xmlKey, xmlValue)
-    local cpc = CustomProfiler.start("GlobalsUtils.parseXmlValueToNuidAndEntityId")
+---Parses key and value string to nuid and entityId.
+---@param xmlKey string self.nuidKeyFormat = "nuid = %s"
+---@param xmlValue string self.nuidValueFormat = "entityId = %s"
+---@return number|nil nuid
+---@return number|nil entityId
+function GlobalsUtils:parseXmlValueToNuidAndEntityId(xmlKey, xmlValue)
+    local cpc = self.customProfiler:start("GlobalsUtils:parseXmlValueToNuidAndEntityId")
     if type(xmlKey) ~= "string" then
         error(("xmlKey(%s) is not type of string!"):format(xmlKey), 2)
     end
@@ -65,120 +28,153 @@ function GlobalsUtils.parseXmlValueToNuidAndEntityId(xmlKey, xmlValue)
     end
 
     local nuid      = nil
-    local foundNuid = string.find(xmlKey, GlobalsUtils.nuidKeySubstring, 1, true)
+    local foundNuid = string.find(xmlKey, self.nuidKeySubstring, 1, true)
     if foundNuid ~= nil then
-        nuid = tonumber(string.sub(xmlKey, GlobalsUtils.nuidKeySubstring:len()))
+        nuid = tonumber(string.sub(xmlKey, self.nuidKeySubstring:len()))
     else
-        Logger.info(Logger.channels.globals, "Unable to get nuid number of key string (%s).", xmlKey)
+        self.logger:info(self.logger.channels.globals, ("Unable to get nuid number of key string (%s)."):format(xmlKey))
         return nil, nil
     end
 
     local entityId = nil
     if xmlValue and xmlValue ~= "" then
         -- can be empty or nil, when there is no entityId stored in Noitas Globals
-        local foundEntityId = string.find(xmlValue, GlobalsUtils.nuidValueSubstring, 1, true)
+        local foundEntityId = string.find(xmlValue, self.nuidValueSubstring, 1, true)
         if foundEntityId ~= nil then
-            entityId = tonumber(string.sub(xmlValue, GlobalsUtils.nuidValueSubstring:len()))
+            entityId = tonumber(string.sub(xmlValue, self.nuidValueSubstring:len()))
         else
             error(("Unable to get entityId number of value string (%s)."):format(xmlValue), 2)
         end
     end
 
-    if Utils.IsEmpty(entityId) then
-        if _G.whoAmI then
-            -- _G.whoAmI can be nil, when executed in Noita Components,
-            -- because those does not have access to globals
-            if _G.whoAmI() == _G.Client.iAm and _G.Client.isConnected() then
-                _G.Client.sendLostNuid(nuid)
-            end
+    if self.utils:IsEmpty(entityId) then
+        if self.client:isConnected() then
+            self.client:sendLostNuid(nuid)
         end
     end
-    CustomProfiler.stop("GlobalsUtils.parseXmlValueToNuidAndEntityId", cpc)
+    self.customProfiler:stop("GlobalsUtils:parseXmlValueToNuidAndEntityId", cpc)
     return nuid, entityId
 end
 
-function GlobalsUtils.setNuid(nuid, entityId, componentIdForOwnerName, componentIdForOwnerGuid, componentIdForNuid)
-    local cpc = CustomProfiler.start("GlobalsUtils.setNuid")
-    GlobalsSetValue(GlobalsUtils.nuidKeyFormat:format(nuid),
-        GlobalsUtils.nuidValueFormat:format(entityId)) -- also change stuff in nuid_updater.lua
-    CustomProfiler.stop("GlobalsUtils.setNuid", cpc)
+function GlobalsUtils:setNuid(nuid, entityId, componentIdForOwnerName, componentIdForOwnerGuid, componentIdForNuid)
+    local cpc = self.customProfiler:start("GlobalsUtils:setNuid")
+    GlobalsSetValue(self.nuidKeyFormat:format(nuid),
+        self.nuidValueFormat:format(entityId)) -- also change stuff in nuid_updater.lua
+    self.customProfiler:stop("GlobalsUtils:setNuid", cpc)
 end
 
-function GlobalsUtils.setDeadNuid(nuid)
-    local cpc          = CustomProfiler.start("GlobalsUtils.setDeadNuid")
-    local oldDeadNuids = GlobalsGetValue(GlobalsUtils.deadNuidsKey, "")
+function GlobalsUtils:setDeadNuid(nuid)
+    local cpc          = self.customProfiler:start("GlobalsUtils:setDeadNuid")
+    local oldDeadNuids = GlobalsGetValue(self.deadNuidsKey, "")
     if oldDeadNuids == "" then
-        GlobalsSetValue(GlobalsUtils.deadNuidsKey, nuid)
+        GlobalsSetValue(self.deadNuidsKey, nuid)
     else
-        GlobalsSetValue(GlobalsUtils.deadNuidsKey, ("%s,%s"):format(oldDeadNuids, nuid))
+        GlobalsSetValue(self.deadNuidsKey, ("%s,%s"):format(oldDeadNuids, nuid))
     end
-    CustomProfiler.stop("GlobalsUtils.setDeadNuid", cpc)
+    self.customProfiler:stop("GlobalsUtils:setDeadNuid", cpc)
 end
 
-function GlobalsUtils.getDeadNuids()
-    local cpc          = CustomProfiler.start("GlobalsUtils.getDeadNuids")
-    local globalsValue = GlobalsGetValue(GlobalsUtils.deadNuidsKey, "")
+function GlobalsUtils:getDeadNuids()
+    local cpc          = self.customProfiler:start("GlobalsUtils:getDeadNuids")
+    local globalsValue = GlobalsGetValue(self.deadNuidsKey, "")
     local deadNuids    = string.split(globalsValue, ",") or {}
     if table.contains(deadNuids, "nil") then
         --table.remove(deadNuids, table.indexOf(deadNuids, "nil"))
         table.removeByValue(deadNuids, "nil")
     end
-    CustomProfiler.stop("GlobalsUtils.getDeadNuids", cpc)
+    self.customProfiler:stop("GlobalsUtils:getDeadNuids", cpc)
     return deadNuids
 end
 
-function GlobalsUtils.removeDeadNuid(nuid)
-    local cpc             = CustomProfiler.start("GlobalsUtils.removeDeadNuid")
-    local globalsValue    = GlobalsGetValue(GlobalsUtils.deadNuidsKey, "")
+function GlobalsUtils:removeDeadNuid(nuid)
+    local cpc             = self.customProfiler:start("GlobalsUtils:removeDeadNuid")
+    local globalsValue    = GlobalsGetValue(self.deadNuidsKey, "")
     local deadNuids       = string.split(globalsValue, ",")
     local contains, index = table.contains(deadNuids, nuid)
     if contains then
         table.remove(deadNuids, index)
         if not next(deadNuids) then
             -- if deadNuids is empty
-            GlobalsSetValue(GlobalsUtils.deadNuidsKey, "")
+            GlobalsSetValue(self.deadNuidsKey, "")
         else
-            GlobalsSetValue(GlobalsUtils.deadNuidsKey, table.concat(deadNuids, ","))
+            GlobalsSetValue(self.deadNuidsKey, table.concat(deadNuids, ","))
         end
     end
-    CustomProfiler.stop("GlobalsUtils.removeDeadNuid", cpc)
+    self.customProfiler:stop("GlobalsUtils:removeDeadNuid", cpc)
 end
 
---- Builds a key string by nuid and returns nuid and entityId found by the globals.
---- @param nuid number
---- @return number|nil nuid, number|nil entityId
-function GlobalsUtils.getNuidEntityPair(nuid)
-    local cpc = CustomProfiler.start("GlobalsUtils.getNuidEntityPair")
+---Builds a key string by nuid and returns nuid and entityId found by the globals.
+---@param nuid number
+---@return number|nil nuid, number|nil entityId
+function GlobalsUtils:getNuidEntityPair(nuid)
+    local cpc = self.customProfiler:start("GlobalsUtils:getNuidEntityPair")
     if Utils.IsEmpty(nuid) then
         --print("Nuid is nil. Unable to return entityId then!")
-        CustomProfiler.stop("GlobalsUtils.getNuidEntityPair", cpc)
+        self.customProfiler:stop("GlobalsUtils:getNuidEntityPair", cpc)
         return nil, nil
         --error(("nuid(%s) is empty!"):format(nuid), 2)
     end
     if type(nuid) ~= "number" then
         error(("nuid(%s) is not type of number!"):format(nuid), 2)
     end
-    local key                          = GlobalsUtils.nuidKeyFormat:format(nuid)
+    local key                          = self.nuidKeyFormat:format(nuid)
     local value                        = GlobalsGetValue(key)
-    local nuidGlobals, entityIdGlobals = GlobalsUtils.parseXmlValueToNuidAndEntityId(key, value)
-    CustomProfiler.stop("GlobalsUtils.getNuidEntityPair", cpc)
+    local nuidGlobals, entityIdGlobals = self:parseXmlValueToNuidAndEntityId(key, value)
+    self.customProfiler:stop("GlobalsUtils:getNuidEntityPair", cpc)
     return nuidGlobals, entityIdGlobals
 end
 
-function GlobalsUtils.setUpdateGui(bool)
-    local cpc = CustomProfiler.start("GlobalsUtils.getUpdateGui")
+function GlobalsUtils:setUpdateGui(bool)
+    local cpc = self.customProfiler:start("GlobalsUtils:getUpdateGui")
     local key = "updateGui"
     local value = GlobalsSetValue(key, tostring(bool))
-    CustomProfiler.stop("GlobalsUtils.getUpdateGui", cpc)
+    self.customProfiler:stop("GlobalsUtils:getUpdateGui", cpc)
     return value
 end
 
-function GlobalsUtils.getUpdateGui()
-    local cpc = CustomProfiler.start("GlobalsUtils.getUpdateGui")
+function GlobalsUtils:getUpdateGui()
+    local cpc = self.customProfiler:start("GlobalsUtils:getUpdateGui")
     local key = "updateGui"
     local value = GlobalsGetValue(key)
-    CustomProfiler.stop("GlobalsUtils.getUpdateGui", cpc)
+    self.customProfiler:stop("GlobalsUtils:getUpdateGui", cpc)
     return value
+end
+
+---Constructor of the class. This is mandatory!
+---@param globalsUtilsObject GlobalsUtils|nil optional
+---@param customProfiler CustomProfiler required
+---@param logger Logger|nil optional
+---@param client Client required
+---@param utils Utils|nil optional
+---@return GlobalsUtils
+function GlobalsUtils:new(globalsUtilsObject, customProfiler, logger, client, utils)
+    ---@class GlobalsUtils
+    globalsUtilsObject = setmetatable(globalsUtilsObject or self, GlobalsUtils)
+
+    local cpc = customProfiler:start("GlobalsUtils:new")
+
+    --[[ Imports ]]
+    --Initialize all imports to avoid recursive imports
+
+    if not globalsUtilsObject.customProfiler then
+        ---@type CustomProfiler
+        globalsUtilsObject.customProfiler = customProfiler
+    end
+    if not globalsUtilsObject.logger then
+        ---@type Logger
+        globalsUtilsObject.logger = logger or require("Logger"):new(nil, customProfiler)
+    end
+    if not globalsUtilsObject.client then
+        ---@type Client
+        globalsUtilsObject.client = client or error("GlobalsUtils:new requires client as parameter!")
+    end
+    if not globalsUtilsObject.utils then
+        ---@type Utils
+        globalsUtilsObject.utils = utils or require("Utils") --:new(nil, customProfiler)
+    end
+
+    globalsUtilsObject.customProfiler:stop("GlobalsUtils:new", cpc)
+    return globalsUtilsObject
 end
 
 return GlobalsUtils
