@@ -7,13 +7,6 @@
 Client
 ```
 
-## acknowledgeMaxSize
-
-
-```lua
-integer
-```
-
 ## amIClient
 
 
@@ -25,7 +18,7 @@ function Client.amIClient(self: Client)
 Checks if the current local user is a client.
 
 @*return* `true` — if client, false if not
-See: [Server.amIServer](../../mods/noita-mp/files/scripts/net/Server.lua#L934#9)
+See: [Server.amIServer](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/net/Server.lua#938#9)
 
 ## connect
 
@@ -62,13 +55,6 @@ function Client.disconnect(self: Client)
 Disconnects from the server. Inherit from sock.disconnect.
 See: ~sock.disconnect~
 
-## entityUtils
-
-
-```lua
-EntityUtils
-```
-
 ## getAckCacheSize
 
 
@@ -79,34 +65,11 @@ function Client.getAckCacheSize(self: Client)
 
 Mainly for profiling. Returns then network cache, aka acknowledge.
 
-## guid
+## globalUtils
 
 
 ```lua
-nil
-```
-
-## guidUtils
-
-
-```lua
-GuidUtils
-```
-
- GuidUtils
-
-## health
-
-
-```lua
-table
-```
-
-## iAm
-
-
-```lua
-string
+unknown
 ```
 
 ## isConnected
@@ -118,50 +81,6 @@ function Client.isConnected(self: Client)
 ```
 
 Returns true if the client is connected to the server. Inherit from sock.isConnected.
-
-## logger
-
-
-```lua
-Logger
-```
-
-## messagePack
-
-
-```lua
-unknown
-```
-
-## minaUtils
-
-
-```lua
-MinaUtils
-```
-
-Util class for fetching information about local and remote minas.
-
-## missingMods
-
-
-```lua
-nil
-```
-
-## name
-
-
-```lua
-nil
-```
-
-## networkUtils
-
-
-```lua
-table
-```
 
 ## new
 
@@ -183,34 +102,6 @@ NoitaMpSettings
 ```
 
  NoitaMpSettings: Replacement for Noita ModSettings.
-
-## noitaPatcherUtils
-
-
-```lua
-NoitaPatcherUtils
-```
-
-## nuid
-
-
-```lua
-nil
-```
-
-## otherClients
-
-
-```lua
-table
-```
-
-## requiredMods
-
-
-```lua
-nil
-```
 
 ## send
 
@@ -287,41 +178,6 @@ function Client.sendNeedNuid(self: Client, ownerName: string, ownerGuid: string,
 
 Sends a message to the server that the client needs a nuid.
 
-## server
-
-
-```lua
-Server
-```
-
-## serverInfo
-
-
-```lua
-table
-```
-
-## sock
-
-
-```lua
-unknown
-```
-
-## syncedMods
-
-
-```lua
-boolean
-```
-
-## transform
-
-
-```lua
-table
-```
-
 ## update
 
 
@@ -334,22 +190,6 @@ Updates the Client by checking for network events and handling them. Inherit fro
 @*param* `startFrameTime` — required
 See: ~sock.update~
 
-## utils
-
-
-```lua
-Utils
-```
-
-:new()
-
-## zstandard
-
-
-```lua
-unknown
-```
-
 
 ---
 
@@ -357,17 +197,12 @@ unknown
 
 Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 
+## fileUtils
+
 
 ```lua
-CustomProfiler
+FileUtils
 ```
-
-
----
-
-# CustomProfiler
-
-Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 
 ## getSize
 
@@ -410,6 +245,24 @@ CustomProfiler constructor.
 
 @*param* `winapi` — can be nil
 
+## noitaMpSettings
+
+
+```lua
+NoitaMpSettings
+```
+
+ NoitaMpSettings: Replacement for Noita ModSettings.
+
+## plotly
+
+
+```lua
+plotly
+```
+
+:new()
+
 ## report
 
 
@@ -418,6 +271,13 @@ function CustomProfiler.report(self: CustomProfiler)
 ```
 
 Creates a report of all the functions that were profiled into profiler_2022-11-24_20-23-00.json
+
+## socket
+
+
+```lua
+socket
+```
 
 ## start
 
@@ -432,7 +292,7 @@ Starts the profiler. This has to be called before the function (or first line of
 @*param* `functionName` — The name of the function that you want to measure. This has to be the same as the one used in CustomProfiler:stop(functionName, customProfilerCounter)
 
 @*return* `returnCounter` — The counter that is used to determine the order of the function calls. This has to be passed to CustomProfiler:stop(functionName, customProfilerCounter)
-See: [CustomProfiler](../../mods/noita-mp/files/scripts/util/GlobalsUtils.lua#L33#8) stop(functionName, customProfilerCounter)
+See: [CustomProfiler](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/CustomProfiler.lua#2#10) stop(functionName, customProfilerCounter)
 
 ## stop
 
@@ -448,52 +308,33 @@ Stops the profiler. This has to be called after the function (or last line of fu
 
 @*param* `customProfilerCounter` — The counter that is used to determine the order of the function calls. This has to same as the one returned by @see CustomProfiler.start(functionName)
 
-
----
-
-# CustomProfiler.start
+## udp
 
 
 ```lua
-function
+unknown
 ```
 
+## utils
+
 
 ```lua
-function
+Utils
 ```
 
+:new()
 
----
-
-# CustomProfiler.start
-
-
-```lua
-function CustomProfiler.start(functionName: any)
-```
-
-
----
-
-# CustomProfiler.stop
+## winapi
 
 
 ```lua
-function CustomProfiler.stop(functionName: any, customProfilerCounter: any)
+winapi
 ```
 
 
 ---
 
 # EntityCache
-
-## __index
-
-
-```lua
-EntityCache
-```
 
 ## contains
 
@@ -502,6 +343,15 @@ EntityCache
 function EntityCache.contains(self: EntityCache, entityId: any)
   -> boolean
 ```
+
+## customProfiler
+
+
+```lua
+CustomProfiler
+```
+
+Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 
 ## delete
 
@@ -515,6 +365,13 @@ function EntityCache.delete(self: EntityCache, entityId: any)
 
 ```lua
 function EntityCache.deleteNuid(self: EntityCache, nuid: any)
+```
+
+## entityUtils
+
+
+```lua
+EntityUtils
 ```
 
 ## get
@@ -572,25 +429,53 @@ function EntityCache.size(self: EntityCache)
 function EntityCache.usage(self: EntityCache)
 ```
 
+## utils
+
+
+```lua
+Utils
+```
+
 
 ---
 
 # EntityCacheUtils
 
-## __index
+## customProfiler
 
 
 ```lua
-EntityCacheUtils
+CustomProfiler
+```
+
+Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
+
+## entityCache
+
+
+```lua
+EntityCache
 ```
 
 ## new
 
 
 ```lua
-function EntityCacheUtils.new(self: EntityCacheUtils, entityCacheUtilsObject: any, otherClassesIfRequireLoop: any)
-  -> unknown
+function EntityCacheUtils.new(self: EntityCacheUtils, entityCacheUtilsObject: EntityCacheUtils|nil, customProfiler: CustomProfiler, entityCache: EntityCache, entityUtils: EntityUtils, utils: Utils|nil)
+  -> EntityCacheUtils
 ```
+
+Constructor of the EntityCacheUtils class.
+
+@*param* `entityCacheUtilsObject` — optional
+
+@*param* `customProfiler` — required
+
+@*param* `entityCache` — required
+
+@*param* `entityUtils` — required
+
+@*param* `utils` — optional
 
 ## set
 
@@ -599,17 +484,17 @@ function EntityCacheUtils.new(self: EntityCacheUtils, entityCacheUtilsObject: an
 function EntityCacheUtils.set(self: EntityCacheUtils, entityId: any, nuid: any, ownerGuid: any, ownerName: any, filepath: any, x: any, y: any, rotation: any, velX: any, velY: any, currentHealth: any, maxHealth: any, fullySerialised: any, serialisedRootEntity: any)
 ```
 
+## utils
+
+
+```lua
+Utils
+```
+
 
 ---
 
 # EntityUtils
-
-## __index
-
-
-```lua
-EntityUtils
-```
 
 ## addOrChangeDetectionRadiusDebug
 
@@ -619,6 +504,22 @@ function EntityUtils.addOrChangeDetectionRadiusDebug(self: EntityUtils, player_e
 ```
 
  Simply adds a ugly debug circle around the player to visualize the detection radius.
+
+## client
+
+
+```lua
+Client
+```
+
+## customProfiler
+
+
+```lua
+CustomProfiler
+```
+
+Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 
 ## destroyByNuid
 
@@ -631,6 +532,27 @@ Destroys the entity by the given nuid.
 
 @*param* `nuid` — The nuid of the entity.
 
+## enitityCacheUtils
+
+
+```lua
+EntityCacheUtils
+```
+
+## entityCache
+
+
+```lua
+EntityCache
+```
+
+## globalsUtils
+
+
+```lua
+GlobalsUtils
+```
+
 ## isEntityPolymorphed
 
 
@@ -641,11 +563,43 @@ function EntityUtils.isEntityPolymorphed(self: EntityUtils, entityId: number)
 
  Checks if a specific entity is polymorphed.
 
+## logger
+
+
+```lua
+Logger
+```
+
+## minaUtils
+
+
+```lua
+MinaUtils
+```
+
+Util class for fetching information about local and remote minas.
+
+## networkUtils
+
+
+```lua
+NetworkUtils
+```
+
+## networkVscUtils
+
+
+```lua
+NetworkVscUtils
+```
+
+ NetworkVscUtils:
+
 ## new
 
 
 ```lua
-function EntityUtils.new(self: EntityUtils, entityUtils: EntityUtils|nil, client: Client, customProfiler: CustomProfiler, enitityCacheUtils: EntityCacheUtils, entityCache: EntityCache, globalsUtils: GlobalsUtils|nil, logger: Logger|nil, minaUtils: MinaUtils, networkUtils: NetworkUtils, networkVscUtils: NetworkVscUtils, noitaComponentUtils: NoitaComponentUtils, nuidUtils: NuidUtils, server: Server, utils: Utils|nil)
+function EntityUtils.new(self: EntityUtils, entityUtilsObject: EntityUtils|nil, client: Client, customProfiler: CustomProfiler, enitityCacheUtils: EntityCacheUtils, entityCache: EntityCache, globalsUtils: GlobalsUtils|nil, logger: Logger|nil, minaUtils: MinaUtils, networkUtils: NetworkUtils, networkVscUtils: NetworkVscUtils, noitaComponentUtils: NoitaComponentUtils, nuidUtils: NuidUtils, server: Server, utils: Utils|nil)
   -> EntityUtils
 ```
 
@@ -658,6 +612,8 @@ Constructor for EntityUtils. With this constructor you can override the default 
 @*param* `enitityCacheUtils` — Must not be nil!
 
 @*param* `entityCache` — Must not be nil!
+
+@*param* `globalsUtils` — optional
 
 @*param* `logger` — (Must not be nil!)?
 
@@ -673,6 +629,20 @@ Constructor for EntityUtils. With this constructor you can override the default 
 
 @*param* `server` — Must not be nil!
 
+## noitaComponentUtils
+
+
+```lua
+NoitaComponentUtils
+```
+
+## nuidUtils
+
+
+```lua
+NuidUtils
+```
+
 ## onEntityRemoved
 
 
@@ -681,6 +651,13 @@ function EntityUtils.onEntityRemoved(self: EntityUtils, entityId: any, nuid: any
 ```
 
  Make sure this is only be executed once!
+
+## server
+
+
+```lua
+Server
+```
 
 ## spawnEntity
 
@@ -720,6 +697,23 @@ Adds or updates all network components to the entity.
 Sends the entity data to all other peers.
 
 @*param* `startFrameTime` — Time at the very beginning of the frame.
+
+## utils
+
+
+```lua
+Utils
+```
+
+
+---
+
+# FileUtils
+
+
+```lua
+FileUtils
+```
 
 
 ---
@@ -1112,6 +1106,27 @@ CustomProfiler
 
 Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 
+## ffi
+
+
+```lua
+unknown
+```
+
+## json
+
+
+```lua
+unknown
+```
+
+## lfs
+
+
+```lua
+unknown
+```
+
 ## logger
 
 
@@ -1141,14 +1156,18 @@ FileUtils constructor.
 
 @*param* `utils` — can be nil
 
-
----
-
-# FileUtils
+## utils
 
 
 ```lua
-FileUtils
+Utils
+```
+
+## watcher
+
+
+```lua
+unknown
 ```
 
 
@@ -1171,11 +1190,27 @@ function GetWidthAndHeightByResolution()
 
 # GlobalsUtils
 
+## client
+
+
+```lua
+Client
+```
+
+## customProfiler
+
+
+```lua
+CustomProfiler
+```
+
+Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
+
 ## getDeadNuids
 
 
 ```lua
-function GlobalsUtils.getDeadNuids()
+function GlobalsUtils.getDeadNuids(self: GlobalsUtils)
   -> table
 ```
 
@@ -1183,171 +1218,100 @@ function GlobalsUtils.getDeadNuids()
 
 
 ```lua
-function GlobalsUtils.getNuidEntityPair(nuid: number)
+function GlobalsUtils.getNuidEntityPair(self: GlobalsUtils, nuid: number)
   -> nuid: number|nil
   2. entityId: number|nil
 ```
 
- Builds a key string by nuid and returns nuid and entityId found by the globals.
+Builds a key string by nuid and returns nuid and entityId found by the globals.
 
 ## getUpdateGui
 
 
 ```lua
-function GlobalsUtils.getUpdateGui()
+function GlobalsUtils.getUpdateGui(self: GlobalsUtils)
   -> unknown
 ```
+
+## logger
+
+
+```lua
+Logger
+```
+
+## new
+
+
+```lua
+function GlobalsUtils.new(self: GlobalsUtils, globalsUtilsObject: GlobalsUtils|nil, customProfiler: CustomProfiler, logger: Logger|nil, client: Client, utils: Utils|nil)
+  -> GlobalsUtils
+```
+
+Constructor of the class. This is mandatory!
+
+@*param* `globalsUtilsObject` — optional
+
+@*param* `customProfiler` — required
+
+@*param* `logger` — optional
+
+@*param* `client` — required
+
+@*param* `utils` — optional
 
 ## parseXmlValueToNuidAndEntityId
 
 
 ```lua
-function GlobalsUtils.parseXmlValueToNuidAndEntityId(xmlKey: string, xmlValue: string)
+function GlobalsUtils.parseXmlValueToNuidAndEntityId(self: GlobalsUtils, xmlKey: string, xmlValue: string)
   -> nuid: number|nil
   2. entityId: number|nil
 ```
 
- Parses key and value string to nuid and entityId.
+Parses key and value string to nuid and entityId.
 
-@*param* `xmlKey` — GlobalsUtils.nuidKeyFormat = "nuid = %s"
+@*param* `xmlKey` — self.nuidKeyFormat = "nuid = %s"
 
-@*param* `xmlValue` — GlobalsUtils.nuidValueFormat = "entityId = %s"
+@*param* `xmlValue` — self.nuidValueFormat = "entityId = %s"
 
 ## removeDeadNuid
 
 
 ```lua
-function GlobalsUtils.removeDeadNuid(nuid: any)
+function GlobalsUtils.removeDeadNuid(self: GlobalsUtils, nuid: any)
 ```
 
 ## setDeadNuid
 
 
 ```lua
-function GlobalsUtils.setDeadNuid(nuid: any)
+function GlobalsUtils.setDeadNuid(self: GlobalsUtils, nuid: any)
 ```
 
 ## setNuid
 
 
 ```lua
-function GlobalsUtils.setNuid(nuid: any, entityId: any, componentIdForOwnerName: any, componentIdForOwnerGuid: any, componentIdForNuid: any)
+function GlobalsUtils.setNuid(self: GlobalsUtils, nuid: any, entityId: any, componentIdForOwnerName: any, componentIdForOwnerGuid: any, componentIdForNuid: any)
 ```
 
 ## setUpdateGui
 
 
 ```lua
-function GlobalsUtils.setUpdateGui(bool: any)
+function GlobalsUtils.setUpdateGui(self: GlobalsUtils, bool: any)
   -> unknown
 ```
 
-
----
-
-# GlobalsUtils
-
-Class for GlobalsSetValue and GlobalsGetValue
+## utils
 
 
 ```lua
-GlobalsUtils
+Utils
 ```
 
-
----
-
-# GlobalsUtils.getDeadNuids
-
-
-```lua
-function GlobalsUtils.getDeadNuids()
-  -> table
-```
-
-
----
-
-# GlobalsUtils.getNuidEntityPair
-
- Builds a key string by nuid and returns nuid and entityId found by the globals.
-
-
-```lua
-function GlobalsUtils.getNuidEntityPair(nuid: number)
-  -> nuid: number|nil
-  2. entityId: number|nil
-```
-
-
----
-
-# GlobalsUtils.getUpdateGui
-
-
-```lua
-function GlobalsUtils.getUpdateGui()
-  -> unknown
-```
-
-
----
-
-# GlobalsUtils.parseXmlValueToNuidAndEntityId
-
- Parses key and value string to nuid and entityId.
-
-@*param* `xmlKey` — GlobalsUtils.nuidKeyFormat = "nuid = %s"
-
-@*param* `xmlValue` — GlobalsUtils.nuidValueFormat = "entityId = %s"
-
-
-```lua
-function GlobalsUtils.parseXmlValueToNuidAndEntityId(xmlKey: string, xmlValue: string)
-  -> nuid: number|nil
-  2. entityId: number|nil
-```
-
-
----
-
-# GlobalsUtils.removeDeadNuid
-
-
-```lua
-function GlobalsUtils.removeDeadNuid(nuid: any)
-```
-
-
----
-
-# GlobalsUtils.setDeadNuid
-
-
-```lua
-function GlobalsUtils.setDeadNuid(nuid: any)
-```
-
-
----
-
-# GlobalsUtils.setNuid
-
-
-```lua
-function GlobalsUtils.setNuid(nuid: any, entityId: any, componentIdForOwnerName: any, componentIdForOwnerGuid: any, componentIdForNuid: any)
-```
-
-
----
-
-# GlobalsUtils.setUpdateGui
-
-
-```lua
-function GlobalsUtils.setUpdateGui(bool: any)
-  -> unknown
-```
+:new(nil, customProfiler)
 
 
 ---
@@ -1480,57 +1444,62 @@ Guis update function, called every frame.
 
 # GuidUtils
 
- GuidUtils
+GuidUtils is just for generating and validating GUIDs. Guids are used for identifying clients and servers.
 
 ## addGuidToCache
 
 
 ```lua
-function GuidUtils.addGuidToCache(self: GuidUtils, guid: any)
+function GuidUtils.addGuidToCache(self: GuidUtils, guid: string)
 ```
+
+Adds a guid to the cache.
+
+@*param* `guid` — required
+
+## customProfiler
+
+
+```lua
+any
+```
+
+Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
+
+## generateNewGuid
+
+
+```lua
+function GuidUtils.generateNewGuid(self: GuidUtils, inUsedGuids: table|nil)
+  -> guid: string
+```
+
+Generates a pseudo GUID. Does not fulfil RFC standard! Should generate unique GUIDs, but repeats if there is a duplicate.
+Based on https://github.com/Tieske/uuid !
+
+@*param* `inUsedGuids` — list of already used GUIDs
 
 ## getCachedGuids
 
 
 ```lua
 function GuidUtils.getCachedGuids(self: GuidUtils)
-  -> table
+  -> cached_guid: table
 ```
 
-## getCurrentLocalGuid
-
-
-```lua
-function GuidUtils.getCurrentLocalGuid(self: GuidUtils)
-  -> Guid: string
-```
-
- Returns the current local GUID.
-
-## getGuid
-
-
-```lua
-function GuidUtils.getGuid(self: GuidUtils, inUsedGuids?: table)
-  -> guid: string
-```
-
- Generates a pseudo GUID. Does not fulfil RFC standard! Should generate unique GUIDs, but repeats if there is a duplicate.
- Based on https://github.com/Tieske/uuid !
-
-@*param* `inUsedGuids` — list of already used GUIDs
-
- TODO: rename to generateGuid
+Returns the cached guids.
 
 ## isPatternValid
 
 
 ```lua
-function GuidUtils.isPatternValid(guid: string)
+function GuidUtils.isPatternValid(self: GuidUtils, guid: string)
   -> true: boolean
 ```
 
- Validates a guid only on its pattern.
+Validates a guid only on its pattern.
+
+@*param* `guid` — required
 
 @*return* `true` — if GUID-pattern matches
 
@@ -1542,9 +1511,24 @@ function GuidUtils.isUnique(self: GuidUtils, guid: string)
   -> true: boolean
 ```
 
- Validates if the given guid is unique or already generated.
+Validates if the given guid is unique or already generated.
 
 @*return* `true` — if GUID is unique.
+
+## logger
+
+
+```lua
+any
+```
+
+## new
+
+
+```lua
+function GuidUtils.new(self: GuidUtils, guidUtilsObject: any, customProfiler: any, fileUtils: any, logger: any, noitaMpSettings: any, plotly: any, socket: any, utils: any, winapi: any)
+  -> GuidUtils
+```
 
 ## setGuid
 
@@ -1565,8 +1549,22 @@ Sets the guid of a client or the server.
 
 
 ```lua
-function GuidUtils.toNumber(guid: any)
+function GuidUtils.toNumber(self: GuidUtils, guid: any)
   -> integer
+```
+
+## utils
+
+
+```lua
+any
+```
+
+## uuid
+
+
+```lua
+unknown
 ```
 
 
@@ -1593,12 +1591,14 @@ number
 
 # Logger
 
-## __index
+## customProfiler
 
 
 ```lua
-Logger
+CustomProfiler
 ```
+
+Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 
 ## debug
 
@@ -1657,11 +1657,6 @@ Logger
 
 ---
 
-# LuaFileSystem
-
-
----
-
 # MAX_MEMORY_USAGE
 
  KB = 524,438 MB
@@ -1676,19 +1671,19 @@ integer
 
 # MinaInformation
 
+
+---
+
+# MinaInformation
+
 See:
-  * [Transform](../../mods/noita-mp/files/scripts/util/MinaUtils.lua#L144#18)
-  * [Health](../../mods/noita-mp/files/scripts/util/NoitaComponentUtils.lua#L55#14)
+  * [Transform](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/MinaUtils.lua#144#18)
+  * [Health](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/NoitaComponentUtils.lua#55#14)
 
 
 ```lua
 table
 ```
-
-
----
-
-# MinaInformation
 
 
 ---
@@ -1737,7 +1732,7 @@ function MinaUtils.getLocalMinaInformation()
 
 Getter for local mina information. It also takes care of polymorphism!
  Deprecated: Use separated getters instead, like getLocalMinaName, getLocalMinaGuid, getLocalMinaEntityId, getLocalMinaNuid!
-See: [MinaInformation](../../mods/noita-mp/files/scripts/util/MinaUtils.lua#L154#4)
+See: [MinaInformation](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/MinaUtils.lua#154#4)
 
 ## getLocalMinaName
 
@@ -2136,6 +2131,23 @@ function NetworkUtils.serialize(self: table, value: any)
 
  NetworkVscUtils:
 
+
+```lua
+NetworkVscUtils
+```
+
+
+```lua
+NetworkVscUtils
+```
+
+
+---
+
+# NetworkVscUtils
+
+ NetworkVscUtils:
+
 ## addOrUpdateAllVscs
 
 
@@ -2331,23 +2343,6 @@ string
 
 ```lua
 string
-```
-
-
----
-
-# NetworkVscUtils
-
- NetworkVscUtils:
-
-
-```lua
-NetworkVscUtils
-```
-
-
-```lua
-NetworkVscUtils
 ```
 
 
@@ -2759,7 +2754,7 @@ table
 
 ```lua
 function NuidUtils.getEntityIdsByKillIndicator()
-  -> table
+  -> unknown
 ```
 
 
@@ -2847,7 +2842,7 @@ function Server.amIServer(self: Server)
 Checks if the current local user is a server.
 
 @*return* `true` — if server, false if not
-See: [Client.amIClient](../../mods/noita-mp/files/scripts/net/Client.lua#L959#9)
+See: [Client.amIClient](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/net/Client.lua#960#9)
 
 ## ban
 
@@ -2893,6 +2888,13 @@ function Server.getAckCacheSize(self: Server)
 
 Mainly for profiling. Returns then network cache, aka acknowledge.
 
+## globalsUtils
+
+
+```lua
+GlobalsUtils
+```
+
 ## guid
 
 
@@ -2904,8 +2906,10 @@ nil
 
 
 ```lua
-unknown
+GuidUtils
 ```
+
+GuidUtils is just for generating and validating GUIDs. Guids are used for identifying clients and servers.
 
 ## health
 
@@ -2985,7 +2989,7 @@ nil
 
 
 ```lua
-unknown
+table
 ```
 
 ## networkCacheUtils
@@ -3298,6 +3302,21 @@ function Ui.new()
 
 # Utils
 
+
+```lua
+Utils
+```
+
+
+```lua
+Utils
+```
+
+
+---
+
+# Utils
+
 ## CopyToClipboard
 
 
@@ -3318,7 +3337,7 @@ https://noita.wiki.gg/wiki/Modding:_Utilities#Easier_entity_debugging
 
 
 ```lua
-function Utils.IsEmpty(var: any)
+function Utils.IsEmpty(self: Utils, var: any)
   -> boolean
 ```
 
@@ -3373,21 +3392,6 @@ function Utils.openUrl(url: any)
 
 ```lua
 function Utils.pformat(var: any)
-```
-
-
----
-
-# Utils
-
-
-```lua
-Utils
-```
-
-
-```lua
-Utils
 ```
 
 
@@ -3476,6 +3480,268 @@ Raises an error if the value of its argument v is false (i.e., `nil` or `false`)
 function assert(v?: <T>, message?: any, ...any)
   -> <T>
   2. ...any
+```
+
+
+---
+
+# clientObject.acknowledgeMaxSize
+
+
+```lua
+integer
+```
+
+
+---
+
+# clientObject.entityUtils
+
+
+```lua
+unknown
+```
+
+
+---
+
+# clientObject.guid
+
+
+```lua
+nil
+```
+
+
+```lua
+string
+```
+
+
+---
+
+# clientObject.guidUtils
+
+
+```lua
+unknown
+```
+
+
+---
+
+# clientObject.health
+
+
+```lua
+table
+```
+
+
+---
+
+# clientObject.iAm
+
+
+```lua
+string
+```
+
+
+---
+
+# clientObject.logger
+
+
+```lua
+unknown
+```
+
+
+---
+
+# clientObject.messagePack
+
+
+```lua
+unknown
+```
+
+
+---
+
+# clientObject.minaUtils
+
+Util class for fetching information about local and remote minas.
+
+
+```lua
+MinaUtils
+```
+
+
+---
+
+# clientObject.missingMods
+
+
+```lua
+nil
+```
+
+
+---
+
+# clientObject.name
+
+
+```lua
+nil
+```
+
+
+```lua
+string
+```
+
+
+---
+
+# clientObject.networkCache
+
+
+```lua
+unknown
+```
+
+
+---
+
+# clientObject.networkCacheUtils
+
+
+```lua
+unknown
+```
+
+
+---
+
+# clientObject.networkUtils
+
+
+```lua
+table
+```
+
+
+---
+
+# clientObject.noitaPatcherUtils
+
+
+```lua
+NoitaPatcherUtils
+```
+
+
+---
+
+# clientObject.nuid
+
+
+```lua
+nil
+```
+
+
+---
+
+# clientObject.otherClients
+
+
+```lua
+table
+```
+
+
+---
+
+# clientObject.requiredMods
+
+
+```lua
+nil
+```
+
+
+---
+
+# clientObject.server
+
+
+```lua
+unknown
+```
+
+
+---
+
+# clientObject.serverInfo
+
+
+```lua
+table
+```
+
+
+---
+
+# clientObject.sock
+
+
+```lua
+unknown
+```
+
+
+---
+
+# clientObject.syncedMods
+
+
+```lua
+boolean
+```
+
+
+---
+
+# clientObject.transform
+
+
+```lua
+table
+```
+
+
+---
+
+# clientObject.utils
+
+
+```lua
+unknown
+```
+
+
+---
+
+# clientObject.zstandard
+
+
+```lua
+unknown
 ```
 
 
@@ -4111,11 +4377,6 @@ boolean
 
 ---
 
-# ffilib
-
-
----
-
 # getNoitaMpRootDirectory
 
 
@@ -4185,16 +4446,6 @@ unknown
 ```lua
 unknown
 ```
-
-
-```lua
-unknown
-```
-
-
----
-
-# guid
 
 
 ```lua
@@ -4529,11 +4780,6 @@ boolean
 ```lua
 boolean
 ```
-
-
----
-
-# json
 
 
 ---
@@ -5794,11 +6040,6 @@ boolean|string|number
 
 ---
 
-# plotly
-
-
----
-
 # print
 
 
@@ -5981,11 +6222,6 @@ function setmetatable(table: table, metatable?: table)
 ```lua
 string
 ```
-
-
----
-
-# socket
 
 
 ---
@@ -6950,11 +7186,6 @@ Emits a warning with a message composed by the concatenation of all its argument
 ```lua
 function warn(message: string, ...any)
 ```
-
-
----
-
-# winapi
 
 
 ---
