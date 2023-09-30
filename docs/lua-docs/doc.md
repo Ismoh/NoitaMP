@@ -7,6 +7,13 @@
 Client
 ```
 
+## acknowledgeMaxSize
+
+
+```lua
+integer
+```
+
 ## amIClient
 
 
@@ -18,7 +25,7 @@ function Client.amIClient(self: Client)
 Checks if the current local user is a client.
 
 @*return* `true` — if client, false if not
-See: [Server.amIServer](../../mods/noita-mp/files/scripts/net/Server.lua#L938#9)
+See: [Server.amIServer](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/net/Server.lua#936#9)
 
 ## connect
 
@@ -55,6 +62,13 @@ function Client.disconnect(self: Client)
 Disconnects from the server. Inherit from sock.disconnect.
 See: ~sock.disconnect~
 
+## entityUtils
+
+
+```lua
+EntityUtils
+```
+
 ## getAckCacheSize
 
 
@@ -72,6 +86,36 @@ Mainly for profiling. Returns then network cache, aka acknowledge.
 unknown
 ```
 
+## guid
+
+
+```lua
+nil
+```
+
+## guidUtils
+
+
+```lua
+GuidUtils
+```
+
+GuidUtils is just for generating and validating GUIDs. Guids are used for identifying clients and servers.
+
+## health
+
+
+```lua
+table
+```
+
+## iAm
+
+
+```lua
+string
+```
+
 ## isConnected
 
 
@@ -81,6 +125,64 @@ function Client.isConnected(self: Client)
 ```
 
 Returns true if the client is connected to the server. Inherit from sock.isConnected.
+
+## logger
+
+
+```lua
+Logger
+```
+
+## messagePack
+
+
+```lua
+unknown
+```
+
+## minaUtils
+
+
+```lua
+MinaUtils
+```
+
+Util class for fetching information about local and remote minas.
+
+## missingMods
+
+
+```lua
+nil
+```
+
+## name
+
+
+```lua
+nil
+```
+
+## networkCache
+
+
+```lua
+table
+```
+
+## networkCacheUtils
+
+
+```lua
+table
+```
+
+## networkUtils
+
+
+```lua
+table
+```
 
 ## new
 
@@ -102,6 +204,34 @@ NoitaMpSettings
 ```
 
  NoitaMpSettings: Replacement for Noita ModSettings.
+
+## noitaPatcherUtils
+
+
+```lua
+NoitaPatcherUtils
+```
+
+## nuid
+
+
+```lua
+nil
+```
+
+## otherClients
+
+
+```lua
+table
+```
+
+## requiredMods
+
+
+```lua
+nil
+```
 
 ## send
 
@@ -178,6 +308,41 @@ function Client.sendNeedNuid(self: Client, ownerName: string, ownerGuid: string,
 
 Sends a message to the server that the client needs a nuid.
 
+## server
+
+
+```lua
+Server
+```
+
+## serverInfo
+
+
+```lua
+table
+```
+
+## sock
+
+
+```lua
+unknown
+```
+
+## syncedMods
+
+
+```lua
+boolean
+```
+
+## transform
+
+
+```lua
+table
+```
+
 ## update
 
 
@@ -189,6 +354,20 @@ Updates the Client by checking for network events and handling them. Inherit fro
 
 @*param* `startFrameTime` — required
 See: ~sock.update~
+
+## utils
+
+
+```lua
+Utils
+```
+
+## zstandard
+
+
+```lua
+unknown
+```
 
 
 ---
@@ -292,7 +471,7 @@ Starts the profiler. This has to be called before the function (or first line of
 @*param* `functionName` — The name of the function that you want to measure. This has to be the same as the one used in CustomProfiler:stop(functionName, customProfilerCounter)
 
 @*return* `returnCounter` — The counter that is used to determine the order of the function calls. This has to be passed to CustomProfiler:stop(functionName, customProfilerCounter)
-See: [CustomProfiler](../../mods/noita-mp/files/scripts/util/CustomProfiler.lua#L2#10) stop(functionName, customProfilerCounter)
+See: [CustomProfiler](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/CustomProfiler.lua#2#10) stop(functionName, customProfilerCounter)
 
 ## stop
 
@@ -1591,6 +1770,16 @@ number
 
 # Logger
 
+
+```lua
+Logger
+```
+
+
+---
+
+# Logger
+
 ## customProfiler
 
 
@@ -1647,16 +1836,6 @@ function Logger.warn(self: Logger, channel: any, formattedMessage: any)
 
 ---
 
-# Logger
-
-
-```lua
-Logger
-```
-
-
----
-
 # MAX_MEMORY_USAGE
 
  KB = 524,438 MB
@@ -1669,42 +1848,38 @@ integer
 
 ---
 
-# MinaInformation
-
-
----
-
-# MinaInformation
-
-See:
-  * [Transform](../../mods/noita-mp/files/scripts/util/MinaUtils.lua#L144#18)
-  * [Health](../../mods/noita-mp/files/scripts/util/NoitaComponentUtils.lua#L55#14)
-
-
-```lua
-table
-```
-
-
----
-
 # MinaUtils
 
 Util class for fetching information about local and remote minas.
+
+## customProfiler
+
+
+```lua
+CustomProfiler
+```
+
+Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 
 ## getAllMinas
 
 
 ```lua
-function MinaUtils.getAllMinas()
+function MinaUtils.getAllMinas(self: MinaUtils, client: Client, server: Server)
   -> table
 ```
+
+Returns all minas.
+
+@*param* `client` — Either client or
+
+@*param* `server` — server object is required!
 
 ## getLocalMinaEntityId
 
 
 ```lua
-function MinaUtils.getLocalMinaEntityId()
+function MinaUtils.getLocalMinaEntityId(self: MinaUtils)
   -> localMinaEntityId: number|nil
 ```
 
@@ -1716,29 +1891,17 @@ Getter for local mina entity id. It also takes care of polymorphism!
 
 
 ```lua
-function MinaUtils.getLocalMinaGuid()
+function MinaUtils.getLocalMinaGuid(self: MinaUtils)
   -> localMinaGuid: string
 ```
 
 Getter for local mina guid. ~It also loads it from settings file.~
 
-## getLocalMinaInformation
-
-
-```lua
-function MinaUtils.getLocalMinaInformation()
-  -> localMinaInformation: MinaInformation
-```
-
-Getter for local mina information. It also takes care of polymorphism!
- Deprecated: Use separated getters instead, like getLocalMinaName, getLocalMinaGuid, getLocalMinaEntityId, getLocalMinaNuid!
-See: [MinaInformation](../../mods/noita-mp/files/scripts/util/MinaUtils.lua#L154#4)
-
 ## getLocalMinaName
 
 
 ```lua
-function MinaUtils.getLocalMinaName()
+function MinaUtils.getLocalMinaName(self: MinaUtils)
   -> localMinaName: string
 ```
 
@@ -1748,7 +1911,7 @@ Getter for local mina name. ~It also loads it from settings file.~
 
 
 ```lua
-function MinaUtils.getLocalMinaNuid()
+function MinaUtils.getLocalMinaNuid(self: MinaUtils)
   -> nuid: number
 ```
 
@@ -1756,11 +1919,18 @@ Getter for local mina nuid. It also takes care of polymorphism!
 
 @*return* `nuid` — if not found/dead
 
+## globalsUtils
+
+
+```lua
+GlobalsUtils
+```
+
 ## isLocalMinaPolymorphed
 
 
 ```lua
-function MinaUtils.isLocalMinaPolymorphed()
+function MinaUtils.isLocalMinaPolymorphed(self: MinaUtils)
   -> isPolymorphed: boolean
   2. entityId: number|nil
 ```
@@ -1771,33 +1941,102 @@ Checks if local mina is polymorphed. Returns true, entityId | false, nil
 
 
 ```lua
-function MinaUtils.isRemoteMinae(self: MinaUtils, entityId: number)
+function MinaUtils.isRemoteMinae(self: MinaUtils, client: Client, server: Server, entityId: number)
   -> true: boolean
 ```
 
  TODO: Rework this by adding and updating entityId to Server.entityId and Client.entityId! Dont forget polymorphism!
- isRemoteMinae
 Checks if the entityId is a remote minae.
 
+@*param* `client` — Either client or
+
+@*param* `server` — server object is required!
+
+@*param* `entityId` — required
+
 @*return* `true` — if entityId is a remote minae, otherwise false
+
+## logger
+
+
+```lua
+Logger
+```
+
+## networkVscUtils
+
+
+```lua
+NetworkVscUtils
+```
+
+ NetworkVscUtils:
+
+## new
+
+
+```lua
+function MinaUtils.new(self: MinaUtils, minaUtils: MinaUtils|nil, customProfiler: CustomProfiler, client: Client, globalsUtils: GlobalsUtils, gui: Gui, logger: Logger|nil, networkVscUtils: NetworkVscUtils|nil, noitaMpSettings: NoitaMpSettings, utils: Utils)
+  -> MinaUtils
+```
+
+Constructor for MinaUtils.
+
+@*param* `minaUtils` — optional
+
+@*param* `customProfiler` — required
+
+@*param* `client` — required
+
+@*param* `globalsUtils` — optional
+
+@*param* `gui` — required
+
+@*param* `logger` — optional
+
+@*param* `networkVscUtils` — optional
+
+@*param* `noitaMpSettings` — required
+
+@*param* `utils` — optional
+
+## noitaMpSettings
+
+
+```lua
+NoitaMpSettings
+```
+
+ NoitaMpSettings: Replacement for Noita ModSettings.
 
 ## setLocalMinaGuid
 
 
 ```lua
-function MinaUtils.setLocalMinaGuid(guid: string)
+function MinaUtils.setLocalMinaGuid(self: MinaUtils, guid: string)
 ```
 
 Setter for local mina guid. It also saves it to settings file.
+
+@*param* `guid` — required
 
 ## setLocalMinaName
 
 
 ```lua
-function MinaUtils.setLocalMinaName(name: string)
+function MinaUtils.setLocalMinaName(self: MinaUtils, name: string)
 ```
 
 Setter for local mina name. It also saves it to settings file.
+
+@*param* `name` — required
+
+## utils
+
+
+```lua
+Utils
+```
 
 
 ---
@@ -2842,7 +3081,7 @@ function Server.amIServer(self: Server)
 Checks if the current local user is a server.
 
 @*return* `true` — if server, false if not
-See: [Client.amIClient](../../mods/noita-mp/files/scripts/net/Client.lua#L960#9)
+See: [Client.amIClient](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/net/Client.lua#960#9)
 
 ## ban
 
@@ -3255,25 +3494,6 @@ unknown
 
 ---
 
-# Transform
-
-## x
-
-
-```lua
-number
-```
-
-## y
-
-
-```lua
-number
-```
-
-
----
-
 # Ui
 
  Ui: NoitaMP UI.
@@ -3295,21 +3515,6 @@ table
 ```lua
 function Ui.new()
   -> table
-```
-
-
----
-
-# Utils
-
-
-```lua
-Utils
-```
-
-
-```lua
-Utils
 ```
 
 
@@ -3397,6 +3602,21 @@ function Utils.pformat(var: any)
 
 ---
 
+# Utils
+
+
+```lua
+Utils
+```
+
+
+```lua
+Utils
+```
+
+
+---
+
 # _G
 
 
@@ -3408,18 +3628,6 @@ A global variable (not a function) that holds the global environment (see [§2.2
 
 ```lua
 _G
-```
-
-
----
-
-# _G.MinaUtils
-
-Globally accessible MinaUtils in _G.MinaUtils.
-
-
-```lua
-MinaUtils
 ```
 
 
@@ -3480,268 +3688,6 @@ Raises an error if the value of its argument v is false (i.e., `nil` or `false`)
 function assert(v?: <T>, message?: any, ...any)
   -> <T>
   2. ...any
-```
-
-
----
-
-# clientObject.acknowledgeMaxSize
-
-
-```lua
-integer
-```
-
-
----
-
-# clientObject.entityUtils
-
-
-```lua
-unknown
-```
-
-
----
-
-# clientObject.guid
-
-
-```lua
-nil
-```
-
-
-```lua
-string
-```
-
-
----
-
-# clientObject.guidUtils
-
-
-```lua
-unknown
-```
-
-
----
-
-# clientObject.health
-
-
-```lua
-table
-```
-
-
----
-
-# clientObject.iAm
-
-
-```lua
-string
-```
-
-
----
-
-# clientObject.logger
-
-
-```lua
-unknown
-```
-
-
----
-
-# clientObject.messagePack
-
-
-```lua
-unknown
-```
-
-
----
-
-# clientObject.minaUtils
-
-Util class for fetching information about local and remote minas.
-
-
-```lua
-MinaUtils
-```
-
-
----
-
-# clientObject.missingMods
-
-
-```lua
-nil
-```
-
-
----
-
-# clientObject.name
-
-
-```lua
-nil
-```
-
-
-```lua
-string
-```
-
-
----
-
-# clientObject.networkCache
-
-
-```lua
-unknown
-```
-
-
----
-
-# clientObject.networkCacheUtils
-
-
-```lua
-unknown
-```
-
-
----
-
-# clientObject.networkUtils
-
-
-```lua
-table
-```
-
-
----
-
-# clientObject.noitaPatcherUtils
-
-
-```lua
-NoitaPatcherUtils
-```
-
-
----
-
-# clientObject.nuid
-
-
-```lua
-nil
-```
-
-
----
-
-# clientObject.otherClients
-
-
-```lua
-table
-```
-
-
----
-
-# clientObject.requiredMods
-
-
-```lua
-nil
-```
-
-
----
-
-# clientObject.server
-
-
-```lua
-unknown
-```
-
-
----
-
-# clientObject.serverInfo
-
-
-```lua
-table
-```
-
-
----
-
-# clientObject.sock
-
-
-```lua
-unknown
-```
-
-
----
-
-# clientObject.syncedMods
-
-
-```lua
-boolean
-```
-
-
----
-
-# clientObject.transform
-
-
-```lua
-table
-```
-
-
----
-
-# clientObject.utils
-
-
-```lua
-unknown
-```
-
-
----
-
-# clientObject.zstandard
-
-
-```lua
-unknown
 ```
 
 
