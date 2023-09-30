@@ -411,8 +411,12 @@ function Gui:drawSettings()
     isCollapsed, self.showSettings = self.imGui.Begin(self.settingsLabel, self.showSettings, windowFlags)
     if isCollapsed then
         -- store previous Mina settings for being able using multiple instances locally
-        if self.utils.IsEmpty(oldMina) then
-            oldMina = self.minaUtils.getLocalMinaInformation()
+        if self.utils:IsEmpty(oldMina) then
+            oldMina = {}
+            oldMina.entityId = self.minaUtils:getLocalMinaEntityId()
+            oldMina.guid = self.minaUtils:getLocalMinaGuid()
+            oldMina.name = self.minaUtils:getLocalMinaName()
+            oldMina.nuid = self.minaUtils:getLocalMinaNuid()
         end
 
         if self.showMissingSettings then
@@ -427,10 +431,10 @@ function Gui:drawSettings()
         -- Player name
         local isPlayerNameChanged, playerName = self.imGui.InputTextWithHint("Nickname", "Type in your Nickname!", self.minaUtils.getLocalMinaName())
         if isPlayerNameChanged then
-            self.minaUtils.setLocalMinaName(playerName)
+            self.minaUtils:setLocalMinaName(playerName)
         end
         -- Guid
-        self.imGui.LabelText("Guid", self.minaUtils.getLocalMinaGuid())
+        self.imGui.LabelText("Guid", self.minaUtils:getLocalMinaGuid())
 
         -- Gui settings
         self.imGui.Separator()

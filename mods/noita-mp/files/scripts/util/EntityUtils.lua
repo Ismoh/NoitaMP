@@ -237,9 +237,8 @@ function EntityUtils:syncEntities(startFrameTime)
             if not self.networkVscUtils:isNetworkEntityByNuidVsc(entityId) or
                 not self.networkVscUtils:hasNetworkLuaComponents(entityId)
             then
-                local localPlayerInfo = self.minaUtils:getLocalMinaInformation()
-                local ownerName       = localPlayerInfo.name
-                local ownerGuid       = localPlayerInfo.guid
+                local ownerName       = self.minaUtils:getLocalMinaName()
+                local ownerGuid       = self.minaUtils:getLocalMinaGuid()
 
                 if who == self.server.iAm and not hasNuid then
                     nuid = self.nuidUtils:getNextNuid()
@@ -375,7 +374,7 @@ end
 --- @return number? entityId Returns the entity_id of a already existing entity, found by nuid or the newly created entity.
 function EntityUtils:spawnEntity(owner, nuid, x, y, rotation, velocity, filename, localEntityId, health, isPolymorphed)
     local cpc        = self.customProfiler:start("EntityUtils.spawnEntity")
-    local localGuid  = self.minaUtils:getLocalMinaInformation().guid or self.minaUtils:getLocalMinaInformation()[2]
+    local localGuid  = self.minaUtils:getLocalMinaGuid()
     local remoteName = owner.name or owner[1]
     local remoteGuid = owner.guid or owner[2]
 

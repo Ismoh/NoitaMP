@@ -50,13 +50,6 @@ Make sure to **use the following naming convention** for classes and **also add*
 ---@class ExampleClass
 ---Short description of the class.
 local ExampleClass = {
-  --[[ Imports ]]
-
-  ---@type CustomProfiler
-  customProfiler = nil, -- mandatory
-  foo = nil,
-  bar = nil,
-
   --[[ Attributes ]]
 
   exampleAttribute = "exampleValue",
@@ -65,7 +58,7 @@ local ExampleClass = {
     moreAttributes = "moreValues"
   }
 }
---ExampleClass.__index = ExampleClass
+--ExampleClass.__index = ExampleClass -- Only needed if you want to inherit from another class
 
 -- private functions
 
@@ -118,15 +111,33 @@ end
 ---@param exampleClassObject ExampleClass
 ---@return ExampleClass
 function ExampleClass:new(exampleClassObject, customProfiler, importClass, foo, bar)
+  ---@class ExampleClass
   exampleClassObject = setmetatable(exampleClassObject or self, ExampleClass)
 
   local cpc = customProfiler:start("ExampleClass:new")
 
-  -- Initialize all imports to avoid recursive imports
-  exampleClassObject.customProfiler = customProfiler or require("CustomProfiler"):new()
-  exampleClassObject.importClass = importClass or require("importClass"):new()
-  exampleClassObject.foo = foo or require("foo"):new()
-  exampleClassObject.bar = bar or require("bar"):new()
+  --[[ Imports ]]
+  --Initialize all imports to avoid recursive imports
+
+  if not exampleClassObject.customProfiler then
+    ---@type CustomProfiler
+    exampleClassObject.customProfiler = customProfiler or require("CustomProfiler"):new()
+  end
+
+  if not exampleClassObject.importClass then
+    ---@type ImportClass
+    exampleClassObject.importClass = importClass or require("importClass"):new()
+  end
+
+  if not exampleClassObject.foo then
+    ---@type Foo
+    exampleClassObject.foo = foo or require("foo"):new()
+  end
+
+  if not exampleClassObject.bar then
+    ---@type Bar
+    exampleClassObject.bar = bar or require("bar"):new()
+  end
 
   exampleClassObject.customProfiler:stop("ExampleClass:new", cpc)
   return objectOfExampleClass

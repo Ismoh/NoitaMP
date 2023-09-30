@@ -222,11 +222,12 @@ function OnWorldPreUpdate()
     --    FileUtils.createProfilerLog()
     --end
 
-    if not MinaUtils.getLocalMinaInformation().entityId then
+    local localMinaEntityId = minaUtils:getLocalMinaEntityId()
+    if not localMinaEntityId or localMinaEntityId <= 0 then
         return
     end
 
-    EntityUtils.addOrChangeDetectionRadiusDebug(MinaUtils.getLocalMinaInformation().entityId)
+    EntityUtils.addOrChangeDetectionRadiusDebug(localMinaEntityId)
 
     if not _G.saveSlotMeta then
         local saveSlotsLastModifiedAfterWorldInit = FileUtils.GetLastModifiedSaveSlots()

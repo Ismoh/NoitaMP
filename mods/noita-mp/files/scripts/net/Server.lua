@@ -766,7 +766,7 @@ function Server:update(startFrameTime)
         return
     end
 
-    if self.utils:IsEmpty(self.minaUtils:getLocalMinaInformation().nuid) then
+    if self.utils:IsEmpty(self.minaUtils:getLocalMinaNuid()) then
         local entityId = self.minaUtils:getLocalMinaEntityId()
         local hasNuid, nuid = self.networkVscUtils:hasNuidSet(entityId)
         if not hasNuid or self.utils:IsEmpty(nuid) then
@@ -893,7 +893,7 @@ function Server:sendEntityData(entityId)
             self.noitaComponentUtils:getInitialSerializedEntityString(entityId))
     end
 
-    if self.minaUtils:getLocalMinaInformation().guid == compOwnerGuid then
+    if self.minaUtils:getLocalMinaGuid() == compOwnerGuid then
         self:sendToAll(self.networkUtils.events.entityData.name, data)
     end
     self.customProfiler:stop("Server.sendEntityData", cpc)
@@ -916,18 +916,16 @@ end
 ---Sends mina information to all clients.
 ---@return boolean
 function Server:sendMinaInformation()
-    local cpc       = self.customProfiler:start("Server.sendMinaInformation")
-    local minaInfo  = self.minaUtils:getLocalMinaInformation()
-    local name      = minaInfo.name
-    local guid      = minaInfo.guid
-    local entityId  = minaInfo.entityId or -1
-    local nuid      = minaInfo.nuid or -1
-    local transform = minaInfo.transform
-    local health    = minaInfo.health
-    local data      = {
-        self.networkUtils:getNextNetworkMessageId(), self.fileUtils:GetVersionByFile(), name, guid, entityId, nuid, transform, health
+    local cpc                                                              = self.customProfiler:start("Server.sendMinaInformation")
+    local name                                                             = self.minaUtils:getLocalMinaName()
+    local guid                                                             = self.minaUtils:getLocalMinaGuid()
+    local entityId                                                         = self.minaUtils:getLocalMinaEntityId()
+    local nuid                                                             = self.minaUtils:getLocalMinaNuid()
+    local _name, _guid, _nuid, _filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId) -- TODO: rework this
+    local data                                                             = {
+        self.networkUtils:getNextNetworkMessageId(), self.fileUtils:GetVersionByFile(), name, guid, entityId, nuid, { x = x, y = y }, health
     }
-    local sent      = self:sendToAll(self.networkUtils.events.minaInformation.name, data)
+    local sent                                                             = self:sendToAll(self.networkUtils.events.minaInformation.name, data)
     self.customProfiler:stop("Server.sendMinaInformation", cpc)
     return sent
 end

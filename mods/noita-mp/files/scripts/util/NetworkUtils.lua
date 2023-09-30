@@ -43,7 +43,7 @@ NetworkUtils.events                  = {
         resendIdentifiers = { "seed" },
         isCacheable       = true
     },
-    --- minaInformation is used to send local mina name, guid, etc pp to all peers. @see MinaUtils.getLocalMinaInformation()
+    --- minaInformation is used to send local mina name, guid, etc pp to all peers.
     minaInformation = {
         name              = "minaInformation",
         schema            = { "networkMessageId", "version", "name", "guid", "entityId", "nuid", "transform", "health" },

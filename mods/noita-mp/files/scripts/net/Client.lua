@@ -1000,7 +1000,6 @@ function Client:new(clientObject, serverOrAddress, port, maxChannels, server)
     if not clientObject.globalUtils then
         clientObject.globalUtils = server.globalUtils or require("GlobalUtils")
     end
-    end
     if not clientObject.networkCache then
         clientObject.networkCache = server.networkCache or error("Client:new requires a server object!", 2)
     end
