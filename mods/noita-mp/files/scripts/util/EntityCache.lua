@@ -141,8 +141,7 @@ function EntityCache:new(entityCacheObject, customProfiler, entityUtils, utils)
 
     if not entityCacheObject.entityUtils then
         ---@type EntityUtils
-        entityCacheObject.entityUtils = entityUtils or
-            error("EntityCache:new requires 'entityUtils' as parameter!")
+        entityCacheObject.entityUtils = entityUtils
     end
 
     if not entityCacheObject.utils then

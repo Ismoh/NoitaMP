@@ -157,7 +157,7 @@ if current_clib_extension then
     ---@class NoitaMpSettings
     local noitaMpSettings = require("NoitaMpSettings")
         :new(nil, nil, gui, nil, nil, nil, nil)
-    ---@class FileUtils
+    ---@type FileUtils
     local fileUtils       = require("FileUtils")
         :new(nil, noitaMpSettings.customProfiler, nil, noitaMpSettings, nil, nil)
 

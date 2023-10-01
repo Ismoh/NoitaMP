@@ -1,25 +1,6 @@
 --- NoitaMpSettings: Replacement for Noita ModSettings.
 --- @class NoitaMpSettings
 local NoitaMpSettings     = {
-    --[[ Imports ]]
-
-    ---@type CustomProfiler
-    customProfiler = nil,
-    ---@type Gui
-    gui = nil,
-    ---@type FileUtils
-    fileUtils = nil,
-    ---@type json
-    json = nil,
-    ---@type LuaFileSystem
-    lfs = nil,
-    ---@type Logger
-    logger = nil,
-    ---@type Utils
-    utils = nil,
-    ---@type winapi
-    winapi = nil,
-
     --[[ Attributes ]]
 
     ---Settings cache. Makes it possible to access settings without reading the file every time.
@@ -62,17 +43,17 @@ local once                = false
 ---@param self NoitaMpSettings required
 ---@return string path
 local getSettingsFilePath = function(self)
-    local path = ("%s%ssettings.json"):format(self.fileUtils.GetAbsolutePathOfNoitaMpSettingsDirectory(), pathSeparator)
+    local path = ("%s%ssettings.json"):format(self.fileUtils:GetAbsolutePathOfNoitaMpSettingsDirectory(), pathSeparator)
 
     if self:isMoreThanOneNoitaProcessRunning() then
         local defaultSettings = nil
-        if self.fileUtils.Exists(path) and not once then
-            defaultSettings = self.fileUtils.ReadFile(path)
+        if self.fileUtils:Exists(path) and not once then
+            defaultSettings = self.fileUtils:ReadFile(path)
         end
         path = ("%s%slocal%ssettings-%s.json")
-            :format(self.fileUtils.GetAbsolutePathOfNoitaMpSettingsDirectory(), pathSeparator, pathSeparator, self.winapi.get_current_pid())
+            :format(self.fileUtils:GetAbsolutePathOfNoitaMpSettingsDirectory(), pathSeparator, pathSeparator, self.winapi.get_current_pid())
         if defaultSettings then
-            self.fileUtils.WriteFile(path, defaultSettings)
+            self.fileUtils:WriteFile(path, defaultSettings)
             once = true
         end
     end
@@ -100,9 +81,9 @@ end
 ---Removes all settings and creates a new settings file.
 function NoitaMpSettings:clearAndCreateSettings()
     local cpc         = self.customProfiler:start("NoitaMpSettings.clearAndCreateSettings")
-    local settingsDir = ("%s%slocal"):format(self.fileUtils.GetAbsolutePathOfNoitaMpSettingsDirectory(), pathSeparator) --FileUtils.GetAbsolutePathOfNoitaMpSettingsDirectory()
-    if self.fileUtils.Exists(settingsDir) then
-        self.fileUtils.RemoveContentOfDirectory(settingsDir)
+    local settingsDir = ("%s%slocal"):format(self.fileUtils:GetAbsolutePathOfNoitaMpSettingsDirectory(), pathSeparator) --FileUtils.GetAbsolutePathOfNoitaMpSettingsDirectory()
+    if self.fileUtils:Exists(settingsDir) then
+        self.fileUtils:RemoveContentOfDirectory(settingsDir)
         self.logger:info(self.logger.channels.initialize, ("Removed old settings in '%s'!"):format(settingsDir))
     else
         self.lfs.mkdir(settingsDir)
@@ -122,7 +103,7 @@ function NoitaMpSettings:set(key, value)
     end
 
     local settingsFilePath = getSettingsFilePath(self)
-    if self.utils.IsEmpty(self.cachedSettings) or not self.fileUtils.Exists(settingsFilePath) then
+    if self.utils.IsEmpty(self.cachedSettings) or not self.fileUtils:Exists(settingsFilePath) then
         self:load()
     end
 
@@ -140,7 +121,7 @@ function NoitaMpSettings:get(key, dataType)
     local cpc = self.customProfiler:start("NoitaMpSettings.get")
 
     local settingsFilePath = getSettingsFilePath(self)
-    if self.utils.IsEmpty(self.cachedSettings) or not self.fileUtils.Exists(settingsFilePath) then
+    if self.utils.IsEmpty(self.cachedSettings) or not self.fileUtils:Exists(settingsFilePath) then
         self:load()
     end
 
@@ -157,11 +138,11 @@ end
 function NoitaMpSettings:load()
     local settingsFilePath = getSettingsFilePath(self)
 
-    if not self.fileUtils.Exists(settingsFilePath) then
+    if not self.fileUtils:Exists(settingsFilePath) then
         self:save()
     end
 
-    local contentString = self.fileUtils.ReadFile(settingsFilePath)
+    local contentString = self.fileUtils:ReadFile(settingsFilePath)
     self.cachedSettings = self.json.decode(contentString)
 end
 
@@ -172,7 +153,7 @@ function NoitaMpSettings:save()
         self.cachedSettings["pid"] = self.winapi.get_current_pid()
     end
 
-    self.fileUtils.WriteFile(settingsFilePath, self.json.encode(self.cachedSettings))
+    self.fileUtils:WriteFile(settingsFilePath, self.json.encode(self.cachedSettings))
     if self.gui then
         self.gui.setShowSettingsSaved(true)
     end
@@ -193,18 +174,24 @@ function NoitaMpSettings:new(noitaMpSettings, customProfiler, gui, fileUtils, js
     ---@class NoitaMpSettings
     noitaMpSettings = setmetatable(noitaMpSettings or self, NoitaMpSettings)
 
-    -- Initialize all imports to avoid recursive imports
+    --[[ Imports ]]
+    --Initialize all imports to avoid recursive imports
+
     if not noitaMpSettings.customProfiler then
-        noitaMpSettings.customProfiler = customProfiler or require("CustomProfiler"):new(nil, nil, self, nil, nil, nil, nil)
+        ---@type CustomProfiler
+        ---@see CustomProfiler
+        noitaMpSettings.customProfiler = customProfiler or
+            require("CustomProfiler")
+            :new(nil, nil, noitaMpSettings, nil, nil, nil, nil)
     end
     local cpc = noitaMpSettings.customProfiler:start("NoitaMpSettings:new")
 
     if not noitaMpSettings.gui then
-        noitaMpSettings.gui = gui --or error("NoitaMpSettings:new requires a Gui object", 2)
+        noitaMpSettings.gui = gui or error("NoitaMpSettings:new requires a Gui object", 2)
     end
 
     if not noitaMpSettings.fileUtils then
-        noitaMpSettings.fileUtils = fileUtils or self.customProfiler.fileUtils or require("FileUtils") --:new()
+        noitaMpSettings.fileUtils = fileUtils or noitaMpSettings.customProfiler.fileUtils or require("FileUtils") --:new()
     end
 
     if not noitaMpSettings.json then
@@ -216,15 +203,15 @@ function NoitaMpSettings:new(noitaMpSettings, customProfiler, gui, fileUtils, js
     end
 
     if not noitaMpSettings.logger then
-        noitaMpSettings.logger = logger or require("Logger"):new(nil, self.customProfiler)
+        noitaMpSettings.logger = logger or require("Logger"):new(nil, noitaMpSettings.customProfiler)
     end
 
     if not noitaMpSettings.utils then
-        noitaMpSettings.utils = utils or self.customProfiler.utils or require("Utils") --:new()
+        noitaMpSettings.utils = utils or noitaMpSettings.customProfiler.utils or require("Utils") --:new()
     end
 
     if not noitaMpSettings.winapi then
-        noitaMpSettings.winapi = winapi or self.customProfiler.winapi or require("winapi")
+        noitaMpSettings.winapi = winapi or noitaMpSettings.customProfiler.winapi or require("winapi")
     end
 
     noitaMpSettings.customProfiler:stop("ExampleClass:new", cpc)

@@ -648,7 +648,7 @@ end
 ---@param utils Utils|nil can be nil
 ---@return FileUtils
 function FileUtils:new(fileUtilsObject, customProfiler, logger, noitaMpSettings, plotly, utils)
-    ---@class FileUtils
+    ---@type FileUtils
     fileUtilsObject = setmetatable(fileUtilsObject or self, FileUtils)
 
     --[[ Imports ]]

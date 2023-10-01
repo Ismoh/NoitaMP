@@ -30,6 +30,7 @@ if not ModSettingGet then
     --- DO NOT add ids, which are used in a test. Add those inside of the test itself!
     ----------------------------------------
     ModSettingGet          = function(id)
+        ---@type Utils
         utils = utils or require("Utils")             --:new()
         minaUtils = minaUtils or require("MinaUtils") --:new()
         guidUtils = guidUtils or require("GuidUtils") --:new()

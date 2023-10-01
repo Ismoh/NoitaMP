@@ -23,6 +23,7 @@ end
 
 ---Generates a pseudo GUID. Does not fulfil RFC standard! Should generate unique GUIDs, but repeats if there is a duplicate.
 ---Based on https://github.com/Tieske/uuid !
+---Formerly known as 'getGuid()'.
 ---@param inUsedGuids table|nil list of already used GUIDs
 ---@return string guid
 function GuidUtils:generateNewGuid(inUsedGuids)

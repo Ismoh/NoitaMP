@@ -48,7 +48,7 @@ typedef struct ZSTD_CStream_s ZSTD_CStream;
 ZSTD_CStream* ZSTD_createCStream(void);
 size_t ZSTD_freeCStream(ZSTD_CStream* zcs);
 size_t ZSTD_initCStream(ZSTD_CStream* zcs, int compressionLevel);
-size_t ZSTD_compressStream(ZSTD_CStream* zcs, 
+size_t ZSTD_compressStream(ZSTD_CStream* zcs,
                            ZSTD_outBuffer* output, ZSTD_inBuffer* input);
 size_t ZSTD_endStream(ZSTD_CStream* zcs, ZSTD_outBuffer* output);
 size_t ZSTD_CStreamInSize(void);
@@ -88,7 +88,12 @@ local arr_utint8_t = ffi_typeof "uint8_t[?]"
 local ptr_zstd_inbuffer_t = ffi_typeof "ZSTD_inBuffer[1]"
 local ptr_zstd_outbuffer_t = ffi_typeof "ZSTD_outBuffer[1]"
 
-local zstd = ffi_load(FileUtils.GetAbsolutePathOfNoitaRootDirectory() .. "\\mods\\noita-mp\\lua_modules\\lib\\lua\\5.1\\libzstd")
+local noitaMpSettings      = require("NoitaMpSettings")
+    :new(nil, nil, {}, nil, nil, nil, nil, nil, nil)
+local fileUtils            = require("FileUtils")
+    :new(nil, nil, nil, noitaMpSettings, nil, nil)
+
+local zstd = ffi_load(fileUtils:GetAbsolutePathOfNoitaRootDirectory() .. "\\mods\\noita-mp\\lua_modules\\lib\\lua\\5.1\\libzstd")
 local file    = assert(io.popen("zstd -vV", "r"))
 local zstdVersion = file:read("*a")
 print("zstd version = " .. zstdVersion)

@@ -53,10 +53,9 @@ end
 ---@param entityCacheUtilsObject EntityCacheUtils|nil optional
 ---@param customProfiler CustomProfiler required
 ---@param entityCache EntityCache required
----@param entityUtils EntityUtils required
 ---@param utils Utils|nil optional
 ---@return EntityCacheUtils
-function EntityCacheUtils:new(entityCacheUtilsObject, customProfiler, entityCache, entityUtils, utils)
+function EntityCacheUtils:new(entityCacheUtilsObject, customProfiler, entityCache, utils)
     ---@class EntityCacheUtils
     entityCacheUtilsObject = setmetatable(entityCacheUtilsObject or self, EntityCacheUtils)
 
@@ -74,8 +73,7 @@ function EntityCacheUtils:new(entityCacheUtilsObject, customProfiler, entityCach
     if not entityCacheUtilsObject.entityCache then
         ---@type EntityCache
         entityCacheUtilsObject.entityCache = entityCache or
-            require("EntityCache")
-            :new(nil, customProfiler, entityUtils, utils)
+            error("EntityCacheUtils:new requires 'entityCache' as parameter!")
     end
     if not entityCacheUtilsObject.utils then
         ---@type Utils

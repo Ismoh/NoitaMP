@@ -558,7 +558,7 @@ function Gui:drawSettings()
         end
         if self.showSettingsSaved then
             self.imGui.SameLine()
-            self.imGui.Text(("Saved into '%s'!"):format(self.fileUtils.GetRelativePathOfNoitaMpSettingsDirectory()))
+            self.imGui.Text(("Saved into '%s'!"):format(self.fileUtils:GetRelativePathOfNoitaMpSettingsDirectory()))
             if GameGetRealWorldTimeSinceStarted() >= self.showSettingsSavedTimer + 10 then
                 self.showSettingsSaved = false
                 self.showSettingsSavedTimer = GameGetRealWorldTimeSinceStarted()
@@ -598,7 +598,7 @@ function Gui:drawAbout()
             self.shortcuts.bugReport .. ".")
 
         self.imGui.Separator()
-        self.imGui.Text("NoitaMP - Noita Multiplayer version " .. self.fileUtils.GetVersionByFile())
+        self.imGui.Text("NoitaMP - Noita Multiplayer version " .. self.fileUtils:GetVersionByFile())
         self.imGui.Text("Made by Ismoh#0815 and many other awesome contributers!")
         self.imGui.Text("Homepage: https://github.com/Ismoh/NoitaMP")
         self.imGui.SameLine()

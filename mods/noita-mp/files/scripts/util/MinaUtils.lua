@@ -252,15 +252,13 @@ end
 ---Constructor for MinaUtils.
 ---@param minaUtils MinaUtils|nil optional
 ---@param customProfiler CustomProfiler required
----@param client Client required
----@param globalsUtils GlobalsUtils optional
----@param gui Gui required
----@param logger Logger|nil optional
----@param networkVscUtils NetworkVscUtils|nil optional
+---@param globalsUtils GlobalsUtils required
+---@param logger Logger required
+---@param networkVscUtils NetworkVscUtils required
 ---@param noitaMpSettings NoitaMpSettings required
----@param utils Utils optional
+---@param utils Utils required
 ---@return MinaUtils
-function MinaUtils:new(minaUtils, customProfiler, client, globalsUtils, gui, logger, networkVscUtils, noitaMpSettings, utils)
+function MinaUtils:new(minaUtils, customProfiler, globalsUtils, logger, networkVscUtils, noitaMpSettings, utils)
     ---@class MinaUtils
     minaUtils = setmetatable(minaUtils or self, MinaUtils)
 
@@ -280,36 +278,31 @@ function MinaUtils:new(minaUtils, customProfiler, client, globalsUtils, gui, log
     if not minaUtils.globalsUtils then
         ---@type GlobalsUtils
         minaUtils.globalsUtils = globalsUtils or
-            require("GlobalsUtils")
-            :new(nil, customProfiler, logger, client, utils)
+            error("MinaUtils:new() requires a GlobalsUtils object!", 2)
     end
 
     if not minaUtils.logger then
         ---@type Logger
         minaUtils.logger = logger or
-            require("Logger")
-            :new(nil, customProfiler)
+            error("MinaUtils:new() requires a Logger object!", 2)
     end
 
     if not minaUtils.networkVscUtils then
         ---@type NetworkVscUtils
         minaUtils.networkVscUtils = networkVscUtils or
-            require("NetworkVscUtils")
-            --:new()
+            error("MinaUtils:new() requires a NetworkVscUtils object!", 2)
     end
 
     if not minaUtils.noitaMpSettings then
         ---@type NoitaMpSettings
         minaUtils.noitaMpSettings = noitaMpSettings or
-            require("NoitaMpSettings")
-            :new(nil, customProfiler, gui, nil, nil, nil, logger, utils, nil)
+            error("MinaUtils:new() requires a NoitaMpSettings object!", 2)
     end
 
     if not minaUtils.utils then
         ---@type Utils
         minaUtils.utils = utils or
-            require("Utils")
-            --:new()
+            error("MinaUtils:new() requires a Utils object!", 2)
     end
 
     --[[ Attributes ]]

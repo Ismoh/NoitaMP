@@ -961,13 +961,13 @@ function Server:getAckCacheSize()
 end
 
 ---Server constructor. Inherits from SockServer sock.newServer.
----@param serverObject Server
----@param address string|nil
----@param port number|nil
----@param maxPeers number|nil
----@param maxChannels number|nil
----@param inBandwidth number|nil
----@param outBandwidth number|nil
+---@param serverObject Server|nil optional
+---@param address string|nil optional
+---@param port number|nil optional
+---@param maxPeers number|nil optional
+---@param maxChannels number|nil optional
+---@param inBandwidth number|nil optional
+---@param outBandwidth number|nil optional
 ---@return Server
 function Server:new(serverObject, address, port, maxPeers, maxChannels, inBandwidth, outBandwidth)
     ---@class Server : SockServer
@@ -979,70 +979,106 @@ function Server:new(serverObject, address, port, maxPeers, maxChannels, inBandwi
     --Initialize all imports to avoid recursive imports
 
     if not serverObject.noitaMpSettings then
+        ---@type NoitaMpSettings
         serverObject.noitaMpSettings = require("NoitaMpSettings")
             :new(nil, nil, nil, nil, nil, nil, nil, nil, nil)
     end
+
     if not serverObject.customProfiler then
-        serverObject.customProfiler = serverObject.noitaMpSettings.customProfiler or require("CustomProfiler")
+        ---@type CustomProfiler
+        serverObject.customProfiler = serverObject.noitaMpSettings.customProfiler or
+            require("CustomProfiler")
             :new(nil, nil, serverObject.noitaMpSettings, nil, nil, nil, nil)
     end
     local cpc = serverObject.customProfiler:start("Server:new")
 
+    if not serverObject.logger or type(serverObject.logger) ~= "Logger" then
+        ---@type Logger
+        serverObject.logger = serverObject.noitaMpSettings.logger or
+            require("Logger")
+            :new(nil, serverObject.customProfiler) or
+            error("serverObject.logger must not be nil!", 2)
+    end
+
     if not serverObject.utils then
-        serverObject.utils = serverObject.noitaMpSettings.utils or error("serverObject.noitaMpSettings.utils must not be nil!", 2)
-    end
-    if not serverObject.logger then
-        serverObject.logger = serverObject.noitaMpSettings.logger or error("serverObject.noitaMpSettings.logger must not be nil!", 2)
-    end
-
-    if not serverObject.minaUtils then
-        serverObject.minaUtils = require("MinaUtils")
-        --:new()
-    end
-
-    if not serverObject.nuidUtils then
-        serverObject.nuidUtils = require("NuidUtils")
-        --:new()
-    end
-
-    if not serverObject.networkVscUtils then
-        serverObject.networkVscUtils = require("NetworkVscUtils")
-        --:new()
-    end
-
-    if not serverObject.networkUtils then
-        serverObject.networkUtils = require("NetworkUtils")
-        --:new()
-    end
-
-    if not serverObject.networkCache then
-        serverObject.networkCache = require("NetworkCache")
-        --:new()
-    end
-
-    if not serverObject.networkCacheUtils then
-        serverObject.networkCacheUtils = require("NetworkCacheUtils")
-        --:new()
-    end
-
-    if not serverObject.noitaComponentUtils then
-        serverObject.noitaComponentUtils = require("NoitaComponentUtils")
-        --:new()
+        ---@type Utils
+        serverObject.utils = serverObject.noitaMpSettings.utils or
+            error("serverObject.noitaMpSettings.utils must not be nil!", 2)
     end
 
     if not serverObject.globalsUtils then
+        ---@type GlobalsUtils
+        ---@see GlobalsUtils
         serverObject.globalsUtils = require("GlobalsUtils")
-        --:new()
+            :new(nil, serverObject.customProfiler, serverObject.logger, nil, serverObject.utils) or
+            error("Unable to create GlobalsUtils!", 2)
+    end
+
+    if not serverObject.networkVscUtils then
+        ---@type NetworkVscUtils
+        serverObject.networkVscUtils = require("NetworkVscUtils") --:new()
+    end
+
+    if not serverObject.minaUtils then
+        ---@type MinaUtils
+        serverObject.minaUtils = require("MinaUtils")
+            :new(nil, serverObject.customProfiler, serverObject.globalsUtils, serverObject.logger,
+                serverObject.networkVscUtils, serverObject.noitaMpSettings, serverObject.noitaMpSettings.utils) or
+            error("Unable to create MinaUtils!", 2)
+    end
+
+    if not serverObject.nuidUtils then
+        ---@type NuidUtils
+        serverObject.nuidUtils = require("NuidUtils") --:new()
+    end
+
+    if not serverObject.networkUtils then
+        ---@type NetworkUtils
+        serverObject.networkUtils = require("NetworkUtils") --:new()
+    end
+
+    if not serverObject.networkCache then
+        ---@type NetworkCache
+        serverObject.networkCache = require("NetworkCache") --:new()
+    end
+
+    if not serverObject.networkCacheUtils then
+        ---@type NetworkCacheUtils
+        serverObject.networkCacheUtils = require("NetworkCacheUtils") --:new()
+    end
+
+    if not serverObject.noitaComponentUtils then
+        ---@type NoitaComponentUtils
+        serverObject.noitaComponentUtils = require("NoitaComponentUtils") --:new()
+    end
+
+    if not serverObject.entityCache then
+        ---@type EntityCache
+        serverObject.entityCache = require("EntityCache")
+            :new(nil, serverObject.customProfiler, nil, serverObject.noitaMpSettings.utils)
+    end
+
+    if not serverObject.entityCacheUtils then
+        ---@type EntityCacheUtils
+        ---@see EntityCacheUtils
+        serverObject.entityCacheUtils = require("EntityCacheUtils")
+            :new(nil, serverObject.customProfiler, serverObject.entityCache, serverObject.noitaMpSettings.utils)
     end
 
     if not serverObject.entityUtils then
         serverObject.entityUtils = require("EntityUtils")
-            :new(nil, {}, serverObject.customProfiler, nil, nil, serverObject.globalsUtils,
-                serverObject.noitaMpSettings.logger, serverObject.minaUtils, serverObject.networkUtils, serverObject.networkVscUtils,
-                serverObject.noitaComponentUtils, serverObject.nuidUtils, serverObject, serverObject.noitaMpSettings.utils)
+            :new(nil, {}, serverObject.customProfiler, serverObject.entityCacheUtils, serverObject.entityCache,
+                serverObject.globalsUtils, serverObject.noitaMpSettings.logger, serverObject.minaUtils,
+                serverObject.networkUtils, serverObject.networkVscUtils, serverObject.noitaComponentUtils,
+                serverObject.nuidUtils, serverObject, serverObject.noitaMpSettings.utils) or
+            error("Unable to create EntityUtils!", 2)
+
+        serverObject.entityCache.entityUtils = serverObject.entityUtils
     end
 
     if not serverObject.fileUtils then
+        ---@type FileUtils
+        ---@see FileUtils
         serverObject.fileUtils = require("FileUtils")
             :new(nil, serverObject.customProfiler, serverObject.logger, serverObject.noitaMpSettings, nil, serverObject.utils)
     end

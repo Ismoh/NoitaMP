@@ -998,7 +998,7 @@ function Client:new(clientObject, serverOrAddress, port, maxChannels, server)
     local cpc = clientObject.customProfiler:start("Client:new")
 
     if not clientObject.globalUtils then
-        clientObject.globalUtils = server.globalUtils or require("GlobalUtils")
+        clientObject.globalUtils = server.globalsUtils or require("GlobalUtils")
     end
     if not clientObject.networkCache then
         clientObject.networkCache = server.networkCache or error("Client:new requires a server object!", 2)

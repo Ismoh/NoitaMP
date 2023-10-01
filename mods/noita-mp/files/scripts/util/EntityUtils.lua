@@ -237,8 +237,8 @@ function EntityUtils:syncEntities(startFrameTime)
             if not self.networkVscUtils:isNetworkEntityByNuidVsc(entityId) or
                 not self.networkVscUtils:hasNetworkLuaComponents(entityId)
             then
-                local ownerName       = self.minaUtils:getLocalMinaName()
-                local ownerGuid       = self.minaUtils:getLocalMinaGuid()
+                local ownerName = self.minaUtils:getLocalMinaName()
+                local ownerGuid = self.minaUtils:getLocalMinaGuid()
 
                 if who == self.server.iAm and not hasNuid then
                     nuid = self.nuidUtils:getNextNuid()
@@ -565,7 +565,7 @@ end
 ---@return EntityUtils
 function EntityUtils:new(entityUtilsObject, client, customProfiler, enitityCacheUtils, entityCache, globalsUtils, logger, minaUtils, networkUtils,
                          networkVscUtils, noitaComponentUtils, nuidUtils, server, utils)
-    ---@class EntityUtils
+    ---@type EntityUtils
     entityUtilsObject = setmetatable(entityUtilsObject or self, EntityUtils)
 
     -- Load config.lua

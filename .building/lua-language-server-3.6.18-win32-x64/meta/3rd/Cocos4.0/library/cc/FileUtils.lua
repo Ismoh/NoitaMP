@@ -1,6 +1,5 @@
----@meta
-
----@class cc.FileUtils 
+---@meta cc.FileUtils
+---@class cc.FileUtils
 local FileUtils={ }
 cc.FileUtils=FileUtils
 
@@ -128,7 +127,7 @@ function FileUtils:loadFilenameLookupDictionaryFromFile (filename) end
 ---* return True if pop up a message box when failed to load an image, false if not.
 ---@return boolean
 function FileUtils:isPopupNotify () end
----* 
+---*
 ---@param filename string
 ---@return array_table
 function FileUtils:getValueVectorFromFile (filename) end

@@ -143,14 +143,17 @@ end
 ---Constructor of the class. This is mandatory!
 ---@param globalsUtilsObject GlobalsUtils|nil optional
 ---@param customProfiler CustomProfiler required
----@param logger Logger|nil optional
----@param client Client required
----@param utils Utils|nil optional
+---@param logger Logger required
+---@param client Client|nil optional
+---@param utils Utils required
 ---@return GlobalsUtils
 function GlobalsUtils:new(globalsUtilsObject, customProfiler, logger, client, utils)
     ---@class GlobalsUtils
     globalsUtilsObject = setmetatable(globalsUtilsObject or self, GlobalsUtils)
 
+    if not customProfiler then
+        error("GlobalsUtils:new requires customProfiler as parameter!")
+    end
     local cpc = customProfiler:start("GlobalsUtils:new")
 
     --[[ Imports ]]
@@ -162,15 +165,20 @@ function GlobalsUtils:new(globalsUtilsObject, customProfiler, logger, client, ut
     end
     if not globalsUtilsObject.logger then
         ---@type Logger
-        globalsUtilsObject.logger = logger or require("Logger"):new(nil, customProfiler)
+        globalsUtilsObject.logger = logger or
+            error("GlobalsUtils:new requires logger as parameter!")
     end
     if not globalsUtilsObject.client then
         ---@type Client
-        globalsUtilsObject.client = client or error("GlobalsUtils:new requires client as parameter!")
+        globalsUtilsObject.client = client
+        if not globalsUtilsObject.client then
+            globalsUtilsObject.logger:warn(globalsUtilsObject.logger.channels.initialize, "Make sure to set globalsUtilsObject.client later on!")
+        end
     end
     if not globalsUtilsObject.utils then
         ---@type Utils
-        globalsUtilsObject.utils = utils or require("Utils") --:new(nil, customProfiler)
+        globalsUtilsObject.utils = utils or
+            error("GlobalsUtils:new requires utils as parameter!")
     end
 
     globalsUtilsObject.customProfiler:stop("GlobalsUtils:new", cpc)
