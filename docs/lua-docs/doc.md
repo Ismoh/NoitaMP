@@ -25,7 +25,7 @@ function Client.amIClient(self: Client)
 Checks if the current local user is a client.
 
 @*return* `true` — if client, false if not
-See: [Server.amIServer](../../mods/noita-mp/files/scripts/net/Server.lua#L936#9)
+See: [Server.amIServer](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/net/Server.lua#936#9)
 
 ## connect
 
@@ -471,7 +471,7 @@ Starts the profiler. This has to be called before the function (or first line of
 @*param* `functionName` — The name of the function that you want to measure. This has to be the same as the one used in CustomProfiler:stop(functionName, customProfilerCounter)
 
 @*return* `returnCounter` — The counter that is used to determine the order of the function calls. This has to be passed to CustomProfiler:stop(functionName, customProfilerCounter)
-See: [CustomProfiler](../../mods/noita-mp/files/scripts/util/CustomProfiler.lua#L2#10) stop(functionName, customProfilerCounter)
+See: [CustomProfiler](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/CustomProfiler.lua#2#10) stop(functionName, customProfilerCounter)
 
 ## stop
 
@@ -784,16 +784,6 @@ Adds or updates all network components to the entity.
 Sends the entity data to all other peers.
 
 @*param* `startFrameTime` — Time at the very beginning of the frame.
-
-
----
-
-# FileUtils
-
-
-```lua
-FileUtils
-```
 
 
 ---
@@ -1202,6 +1192,16 @@ FileUtils constructor.
 
 ---
 
+# FileUtils
+
+
+```lua
+FileUtils
+```
+
+
+---
+
 # GetWidthAndHeightByResolution
 
  Returns width and height depending on resolution.
@@ -1573,6 +1573,13 @@ Sets the guid of a client or the server.
 
 @*param* `guid` — guid can be optional. If not set, a new guid will be generated and set.
 
+## socket
+
+
+```lua
+any
+```
+
 ## toNumber
 
 
@@ -1612,16 +1619,6 @@ number
 
 ```lua
 number
-```
-
-
----
-
-# Logger
-
-
-```lua
-Logger
 ```
 
 
@@ -1680,6 +1677,16 @@ function Logger.trace(self: Logger, channel: any, formattedMessage: any)
 ```lua
 function Logger.warn(self: Logger, channel: any, formattedMessage: any)
   -> boolean
+```
+
+
+---
+
+# Logger
+
+
+```lua
+Logger
 ```
 
 
@@ -2059,7 +2066,7 @@ function NetworkCacheUtils.getByChecksum(peerGuid: any, event: any, data: any)
 
 ```lua
 function NetworkCacheUtils.getSum(event: any, data: any)
-  -> string
+  -> unknown
 ```
 
 
@@ -2206,6 +2213,23 @@ Default enhanced serialization function
 ```lua
 function NetworkUtils.serialize(self: table, value: any)
   -> unknown
+```
+
+
+---
+
+# NetworkVscUtils
+
+ NetworkVscUtils:
+
+
+```lua
+NetworkVscUtils
+```
+
+
+```lua
+NetworkVscUtils
 ```
 
 
@@ -2410,23 +2434,6 @@ string
 
 ```lua
 string
-```
-
-
----
-
-# NetworkVscUtils
-
- NetworkVscUtils:
-
-
-```lua
-NetworkVscUtils
-```
-
-
-```lua
-NetworkVscUtils
 ```
 
 
@@ -2700,7 +2707,7 @@ Removes all settings and creates a new settings file.
 CustomProfiler
 ```
 
-See: [CustomProfiler](../../mods/noita-mp/files/scripts/util/CustomProfiler.lua#L2#10)
+See: [CustomProfiler](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/CustomProfiler.lua#2#10)
 
 ## fileUtils
 
@@ -2990,7 +2997,7 @@ function Server.amIServer(self: Server)
 Checks if the current local user is a server.
 
 @*return* `true` — if server, false if not
-See: [Client.amIClient](../../mods/noita-mp/files/scripts/net/Client.lua#L960#9)
+See: [Client.amIClient](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/net/Client.lua#960#9)
 
 ## ban
 
@@ -3026,7 +3033,7 @@ EntityCache
 EntityCacheUtils
 ```
 
-See: [EntityCacheUtils](../../mods/noita-mp/files/scripts/util/EntityCacheUtils.lua#L1#10)
+See: [EntityCacheUtils](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/EntityCacheUtils.lua#1#10)
 
 ## entityUtils
 
@@ -3042,7 +3049,7 @@ EntityUtils
 FileUtils
 ```
 
-See: [FileUtils](../../mods/noita-mp/files/scripts/bin/profiler.lua#L79#8)
+See: [FileUtils](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/bin/profiler.lua#79#8)
 
 ## getAckCacheSize
 
@@ -3061,7 +3068,7 @@ Mainly for profiling. Returns then network cache, aka acknowledge.
 GlobalsUtils
 ```
 
-See: [GlobalsUtils](../../mods/noita-mp/files/scripts/util/GlobalsUtils.lua#L1#10)
+See: [GlobalsUtils](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/GlobalsUtils.lua#1#10)
 
 ## guid
 
@@ -3475,6 +3482,16 @@ function Ui.new()
 
 # Utils
 
+
+```lua
+Utils
+```
+
+
+---
+
+# Utils
+
 ## CopyToClipboard
 
 
@@ -3550,21 +3567,6 @@ function Utils.openUrl(url: any)
 
 ```lua
 function Utils.pformat(var: any)
-```
-
-
----
-
-# Utils
-
-
-```lua
-Utils
-```
-
-
-```lua
-Utils
 ```
 
 
@@ -6125,16 +6127,6 @@ string
 
 ---
 
-# stack._top
-
-
-```lua
-unknown
-```
-
-
----
-
 # string
 
 
@@ -6535,63 +6527,6 @@ function table.concat(list: table, sep?: string, i?: integer, j?: integer)
 
 ---
 
-# table.contains
-
-@*param* `tbl` — Table to check.
-
-@*param* `key` — Number(index) or String(name matching) for indexing the table.
-
-@*return* `true` — if indexing by key does not return nil
-
-@*return* `index` — also returns the index of the found key
-
- Return true, if the key is contained in the tbl. NOTE: Doesn't check for duplicates inside the table.
-
-
-```lua
-function table.contains(tbl: table, key: any)
-  -> true: boolean
-  2. index: number
-```
-
-
----
-
-# table.containsAll
-
-@*param* `tbl` — The table to check within for the values passed in the following parameters.
-
-@*return* `true` — if all the values were in the table.
-
- https://gist.github.com/HoraceBury/9307117#file-tablelib-lua-L293-L313
- Returns true if all the arg parameters are contained in the tbl.
-
-
-```lua
-function table.containsAll(tbl: table, ...any)
-  -> true: boolean
-```
-
-
----
-
-# table.contentToString
-
- We need a simple and 'fast' way to convert a lua table into a string.
-
-@*param* `tbl` — Example: { "Name", 2, 234, "string" }
-
-@*return* `Example` — Name,2,234,string
-
-
-```lua
-function table.contentToString(tbl: table)
-  -> Example: string
-```
-
-
----
-
 # table.foreach
 
 
@@ -6640,19 +6575,6 @@ function table.getn(list: <T>[])
 
 ---
 
-# table.indexOf
-
- https://stackoverflow.com/a/52922737/3493998
-
-
-```lua
-function table.indexOf(tbl: any, value: any)
-  -> integer|nil
-```
-
-
----
-
 # table.insert
 
 
@@ -6663,43 +6585,6 @@ Inserts element `value` at position `pos` in `list`.
 
 ```lua
 function table.insert(list: table, pos: integer, value: any)
-```
-
-
----
-
-# table.insertAll
-
- DEPRECATED use table.insertAllButNotDuplicates(tbl1, tbl2)
- Adds all values of tbl2 into tbl1.
-
-
-```lua
-function table.insertAll(tbl1: table, tbl2: table)
-```
-
-
----
-
-# table.insertAllButNotDuplicates
-
- Adds all values of tbl2 into tbl1, but not duplicates.
-
-
-```lua
-function table.insertAllButNotDuplicates(tbl1: table, tbl2: table)
-```
-
-
----
-
-# table.insertIfNotExist
-
- Adds a value to a table, if this value doesn't exist in the table
-
-
-```lua
-function table.insertIfNotExist(tbl: table, value: any)
 ```
 
 
@@ -6775,63 +6660,6 @@ function table.remove(list: table, pos?: integer)
 
 ---
 
-# table.removeByTable
-
- Removes all values in tbl1 by the values of tbl2
-
-@*return* `tbl1` — returns tbl1 with remove values containing in tbl2
-
-
-```lua
-function table.removeByTable(tbl1: table, tbl2: table)
-  -> tbl1: table
-```
-
-
----
-
-# table.removeByValue
-
-
-```lua
-function table.removeByValue(tbl: any, value: any)
-  -> unknown
-```
-
-
----
-
-# table.setNoitaMpDefaultMetaMethods
-
- Sets metamethods for the table, which are default metamethods for NoitaMP.
- __mode = "kv" is set, so the table can be used as a weak table on key and value.
- __index = decreases __len by 1, so the table can be used as a stack.
- __newindex = increases __len by 1, so the table can be used as a stack.
- __len isn't available in lua 5.1, so init it.
-
-@*param* `tbl` — table to set the metamethods
-
-@*param* `mode` — k or v or kv
-
-
-```lua
-function table.setNoitaMpDefaultMetaMethods(tbl: table, mode?: string)
-```
-
-
----
-
-# table.size
-
-
-```lua
-function table.size(T: any)
-  -> integer
-```
-
-
----
-
 # table.sort
 
 
@@ -6863,6 +6691,129 @@ By default, `i` is `1` and `j` is `#list`.
 ```lua
 function table.unpack(list: <T>[], i?: integer, j?: integer)
   -> ...<T>
+```
+
+
+---
+
+# tablelib
+
+
+
+
+[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-table)
+
+
+## contains
+
+
+```lua
+function tablelib.contains(tbl: table, key: any)
+  -> true: boolean
+  2. index: number
+```
+
+Return true, if the key is contained in the tbl. NOTE: Doesn't check for duplicates inside the table.
+
+@*param* `key` — Number(index) or String(name matching) for indexing the table.
+
+@*return* `true` — if indexing by key does not return nil
+
+@*return* `index` — also returns the index of the found key
+
+## containsAll
+
+
+```lua
+function tablelib.containsAll(tbl: table, ...any)
+  -> true: boolean
+```
+
+ https://gist.github.com/HoraceBury/9307117#file-tablelib-lua-L293-L313
+Returns true if all the arg parameters are contained in the tbl.
+
+@*return* `true` — if all the values were in the table.
+
+## indexOf
+
+
+```lua
+function tablelib.indexOf(tbl: any, value: any)
+  -> integer|nil
+```
+
+ https://stackoverflow.com/a/52922737/3493998
+
+## insertAllButNotDuplicates
+
+
+```lua
+function tablelib.insertAllButNotDuplicates(tbl1: table, tbl2: table)
+```
+
+Adds all values of tbl2 into tbl, but not duplicates.
+
+## insertIfNotExist
+
+
+```lua
+function tablelib.insertIfNotExist(tbl: table, value: any)
+```
+
+ Adds a value to a table, if this value doesn't exist in the table
+
+## isEmpty
+
+
+```lua
+function tablelib.isEmpty(tbl: table)
+  -> true: boolean
+```
+
+Extension or expansion of the default lua table for checking if a table is empty.
+
+@*return* `true` — if table is empty.
+
+## join
+
+
+```lua
+function tablelib.join(tbl: table)
+  -> Example: string
+```
+
+We need a simple and 'fast' way to convert a lua table into a string.
+
+@*param* `tbl` — { "Name", 2, 234, "string" }
+
+@*return* `Example` — tbl becomes "Name,2,234,string"
+
+## removeByTable
+
+
+```lua
+function tablelib.removeByTable(tbl1: table, tbl2: table)
+  -> tbl1: table
+```
+
+ Removes all values in tbl1 by the values of tbl2
+
+@*return* `tbl1` — returns tbl1 with remove values containing in tbl2
+
+## removeByValue
+
+
+```lua
+function tablelib.removeByValue(tbl: any, value: any)
+  -> unknown
+```
+
+## size
+
+
+```lua
+function tablelib.size(tbl: any)
+  -> integer
 ```
 
 
