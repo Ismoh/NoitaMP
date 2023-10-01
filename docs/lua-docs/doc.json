@@ -45,7 +45,20 @@
                 "type": "setfield"
             },
             {
-                "desc": "Checks if the current local user is a client.\n\n@*return* `true` — if client, false if not\nSee: [Server.amIServer](../../mods/noita-mp/files/scripts/net/Server.lua#938#9)",
+                "extends": {
+                    "finish": 10450041,
+                    "start": 10450038,
+                    "type": "integer",
+                    "view": "integer"
+                },
+                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
+                "finish": 10450035,
+                "name": "acknowledgeMaxSize",
+                "start": 10450004,
+                "type": "setfield"
+            },
+            {
+                "desc": "Checks if the current local user is a client.\n\n@*return* `true` — if client, false if not\nSee: [Server.amIServer](../../mods/noita-mp/files/scripts/net/Server.lua#936#9)",
                 "extends": {
                     "args": [
                         {
@@ -55,7 +68,7 @@
                             "view": "Client"
                         }
                     ],
-                    "desc": "Checks if the current local user is a client.\n\n@*return* `true` — if client, false if not\nSee: [Server.amIServer](../../mods/noita-mp/files/scripts/net/Server.lua#938#9)",
+                    "desc": "Checks if the current local user is a client.\n\n@*return* `true` — if client, false if not\nSee: [Server.amIServer](../../mods/noita-mp/files/scripts/net/Server.lua#936#9)",
                     "finish": 9670003,
                     "returns": [
                         {
@@ -155,6 +168,19 @@
                 "type": "setmethod"
             },
             {
+                "extends": {
+                    "finish": 10090105,
+                    "start": 10090035,
+                    "type": "binary",
+                    "view": "EntityUtils"
+                },
+                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
+                "finish": 10090032,
+                "name": "entityUtils",
+                "start": 10090008,
+                "type": "setfield"
+            },
+            {
                 "desc": "Mainly for profiling. Returns then network cache, aka acknowledge.",
                 "extends": {
                     "args": [
@@ -197,6 +223,72 @@
                 "type": "setfield"
             },
             {
+                "extends": {
+                    "finish": 10460041,
+                    "start": 10460038,
+                    "type": "nil",
+                    "view": "nil"
+                },
+                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
+                "finish": 10460021,
+                "name": "guid",
+                "start": 10460004,
+                "type": "setfield"
+            },
+            {
+                "extends": {
+                    "finish": 10650093,
+                    "start": 10650024,
+                    "type": "select",
+                    "view": "string"
+                },
+                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
+                "finish": 10650021,
+                "name": "guid",
+                "start": 10650004,
+                "type": "setfield"
+            },
+            {
+                "desc": "GuidUtils is just for generating and validating GUIDs. Guids are used for identifying clients and servers.",
+                "extends": {
+                    "finish": 10120101,
+                    "start": 10120033,
+                    "type": "binary",
+                    "view": "GuidUtils"
+                },
+                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
+                "finish": 10120030,
+                "name": "guidUtils",
+                "start": 10120008,
+                "type": "setfield"
+            },
+            {
+                "extends": {
+                    "finish": 10470065,
+                    "start": 10470038,
+                    "type": "table",
+                    "view": "table"
+                },
+                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
+                "finish": 10470023,
+                "name": "health",
+                "start": 10470004,
+                "type": "setfield"
+            },
+            {
+                "extends": {
+                    "finish": 10480046,
+                    "start": 10480038,
+                    "type": "string",
+                    "view": "string"
+                },
+                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
+                "finish": 10480020,
+                "name": "iAm",
+                "start": 10480004,
+                "type": "setfield"
+            },
+            {
                 "desc": "Returns true if the client is connected to the server. Inherit from sock.isConnected.",
                 "extends": {
                     "args": [
@@ -224,6 +316,124 @@
                 "name": "isConnected",
                 "start": 7740009,
                 "type": "setmethod"
+            },
+            {
+                "extends": {
+                    "finish": 10160117,
+                    "start": 10160030,
+                    "type": "binary",
+                    "view": "Logger"
+                },
+                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
+                "finish": 10160027,
+                "name": "logger",
+                "start": 10160008,
+                "type": "setfield"
+            },
+            {
+                "extends": {
+                    "finish": 10190079,
+                    "start": 10190035,
+                    "type": "binary",
+                    "view": "unknown"
+                },
+                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
+                "finish": 10190032,
+                "name": "messagePack",
+                "start": 10190008,
+                "type": "setfield"
+            },
+            {
+                "desc": "Util class for fetching information about local and remote minas.",
+                "extends": {
+                    "finish": 10220073,
+                    "start": 10220033,
+                    "type": "binary",
+                    "view": "MinaUtils"
+                },
+                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
+                "finish": 10220030,
+                "name": "minaUtils",
+                "start": 10220008,
+                "type": "setfield"
+            },
+            {
+                "extends": {
+                    "finish": 10490041,
+                    "start": 10490038,
+                    "type": "nil",
+                    "view": "nil"
+                },
+                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
+                "finish": 10490028,
+                "name": "missingMods",
+                "start": 10490004,
+                "type": "setfield"
+            },
+            {
+                "extends": {
+                    "finish": 10500041,
+                    "start": 10500038,
+                    "type": "nil",
+                    "view": "nil"
+                },
+                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
+                "finish": 10500021,
+                "name": "name",
+                "start": 10500004,
+                "type": "setfield"
+            },
+            {
+                "extends": {
+                    "finish": 10640097,
+                    "start": 10640024,
+                    "type": "select",
+                    "view": "string"
+                },
+                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
+                "finish": 10640021,
+                "name": "name",
+                "start": 10640004,
+                "type": "setfield"
+            },
+            {
+                "extends": {
+                    "finish": 10030107,
+                    "start": 10030036,
+                    "type": "binary",
+                    "view": "table"
+                },
+                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
+                "finish": 10030033,
+                "name": "networkCache",
+                "start": 10030008,
+                "type": "setfield"
+            },
+            {
+                "extends": {
+                    "finish": 10060117,
+                    "start": 10060041,
+                    "type": "binary",
+                    "view": "table"
+                },
+                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
+                "finish": 10060038,
+                "name": "networkCacheUtils",
+                "start": 10060008,
+                "type": "setfield"
+            },
+            {
+                "extends": {
+                    "finish": 10250082,
+                    "start": 10250036,
+                    "type": "binary",
+                    "view": "table"
+                },
+                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
+                "finish": 10250033,
+                "name": "networkUtils",
+                "start": 10250008,
+                "type": "setfield"
             },
             {
                 "desc": "Client constructor. Inherits from SockClient sock.Client.\n\n@*param* `server` — required",
@@ -268,7 +478,7 @@
                         }
                     ],
                     "desc": "Client constructor. Inherits from SockClient sock.Client.\n\n@*param* `server` — required",
-                    "finish": 10020007,
+                    "finish": 10700003,
                     "returns": [
                         {
                             "type": "function.return",
@@ -297,6 +507,58 @@
                 "finish": 9920036,
                 "name": "noitaMpSettings",
                 "start": 9920008,
+                "type": "setfield"
+            },
+            {
+                "extends": {
+                    "finish": 10280097,
+                    "start": 10280041,
+                    "type": "binary",
+                    "view": "NoitaPatcherUtils"
+                },
+                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
+                "finish": 10280038,
+                "name": "noitaPatcherUtils",
+                "start": 10280008,
+                "type": "setfield"
+            },
+            {
+                "extends": {
+                    "finish": 10510041,
+                    "start": 10510038,
+                    "type": "nil",
+                    "view": "nil"
+                },
+                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
+                "finish": 10510021,
+                "name": "nuid",
+                "start": 10510004,
+                "type": "setfield"
+            },
+            {
+                "extends": {
+                    "finish": 10520040,
+                    "start": 10520038,
+                    "type": "table",
+                    "view": "table"
+                },
+                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
+                "finish": 10520029,
+                "name": "otherClients",
+                "start": 10520004,
+                "type": "setfield"
+            },
+            {
+                "extends": {
+                    "finish": 10530041,
+                    "start": 10530038,
+                    "type": "nil",
+                    "view": "nil"
+                },
+                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
+                "finish": 10530029,
+                "name": "requiredMods",
+                "start": 10530004,
                 "type": "setfield"
             },
             {
@@ -515,6 +777,71 @@
                 "type": "setmethod"
             },
             {
+                "extends": {
+                    "finish": 10310088,
+                    "start": 10310030,
+                    "type": "binary",
+                    "view": "Server"
+                },
+                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
+                "finish": 10310027,
+                "name": "server",
+                "start": 10310008,
+                "type": "setfield"
+            },
+            {
+                "extends": {
+                    "finish": 10540040,
+                    "start": 10540038,
+                    "type": "table",
+                    "view": "table"
+                },
+                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
+                "finish": 10540027,
+                "name": "serverInfo",
+                "start": 10540004,
+                "type": "setfield"
+            },
+            {
+                "extends": {
+                    "finish": 10340058,
+                    "start": 10340028,
+                    "type": "binary",
+                    "view": "unknown"
+                },
+                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
+                "finish": 10340025,
+                "name": "sock",
+                "start": 10340008,
+                "type": "setfield"
+            },
+            {
+                "extends": {
+                    "finish": 10550043,
+                    "start": 10550038,
+                    "type": "boolean",
+                    "view": "boolean"
+                },
+                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
+                "finish": 10550027,
+                "name": "syncedMods",
+                "start": 10550004,
+                "type": "setfield"
+            },
+            {
+                "extends": {
+                    "finish": 10560054,
+                    "start": 10560038,
+                    "type": "table",
+                    "view": "table"
+                },
+                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
+                "finish": 10560026,
+                "name": "transform",
+                "start": 10560004,
+                "type": "setfield"
+            },
+            {
                 "desc": "Updates the Client by checking for network events and handling them. Inherit from sock.update.\n\n@*param* `startFrameTime` — required\nSee: ~sock.update~",
                 "extends": {
                     "args": [
@@ -543,6 +870,32 @@
                 "name": "update",
                 "start": 7830009,
                 "type": "setmethod"
+            },
+            {
+                "extends": {
+                    "finish": 10400093,
+                    "start": 10400029,
+                    "type": "binary",
+                    "view": "Utils"
+                },
+                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
+                "finish": 10400026,
+                "name": "utils",
+                "start": 10400008,
+                "type": "setfield"
+            },
+            {
+                "extends": {
+                    "finish": 10370068,
+                    "start": 10370033,
+                    "type": "binary",
+                    "view": "unknown"
+                },
+                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
+                "finish": 10370030,
+                "name": "zstandard",
+                "start": 10370008,
+                "type": "setfield"
             }
         ],
         "name": "Client",
@@ -1549,8 +1902,8 @@
             },
             {
                 "file": "../../mods/noita-mp/files/scripts/util/EntityUtils.lua",
-                "finish": 5680025,
-                "start": 5680014,
+                "finish": 5670025,
+                "start": 5670014,
                 "type": "doc.class"
             }
         ],
@@ -1560,55 +1913,55 @@
                 "extends": {
                     "args": [
                         {
-                            "finish": 4860008,
-                            "start": 4860008,
+                            "finish": 4850008,
+                            "start": 4850008,
                             "type": "self",
                             "view": "EntityUtils"
                         },
                         {
-                            "finish": 4860066,
-                            "start": 4860053,
+                            "finish": 4850066,
+                            "start": 4850053,
                             "type": "local",
                             "view": "any"
                         }
                     ],
                     "desc": " Simply adds a ugly debug circle around the player to visualize the detection radius.",
-                    "finish": 5480003,
-                    "start": 4860000,
+                    "finish": 5470003,
+                    "start": 4850000,
                     "type": "function",
                     "view": "function EntityUtils.addOrChangeDetectionRadiusDebug(self: EntityUtils, player_entity: any)"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/EntityUtils.lua",
-                "finish": 4860052,
+                "finish": 4850052,
                 "name": "addOrChangeDetectionRadiusDebug",
-                "start": 4860009,
+                "start": 4850009,
                 "type": "setmethod"
             },
             {
                 "extends": {
-                    "finish": 5810109,
-                    "start": 5810035,
+                    "finish": 5800109,
+                    "start": 5800035,
                     "type": "binary",
                     "view": "Client"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/EntityUtils.lua",
-                "finish": 5810032,
+                "finish": 5800032,
                 "name": "client",
-                "start": 5810008,
+                "start": 5800008,
                 "type": "setfield"
             },
             {
                 "desc": "Simple profiler that can be used to measure the duration of a function and the memory usage of a function.",
                 "extends": {
-                    "finish": 5880065,
-                    "start": 5860043,
+                    "finish": 5870065,
+                    "start": 5850043,
                     "type": "binary",
                     "view": "CustomProfiler"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/EntityUtils.lua",
-                "finish": 5860040,
+                "finish": 5850040,
                 "name": "customProfiler",
-                "start": 5860008,
+                "start": 5850008,
                 "type": "setfield"
             },
             {
@@ -1616,74 +1969,74 @@
                 "extends": {
                     "args": [
                         {
-                            "finish": 4360008,
-                            "start": 4360008,
+                            "finish": 4350008,
+                            "start": 4350008,
                             "type": "self",
                             "view": "EntityUtils"
                         },
                         {
-                            "finish": 4360039,
-                            "start": 4360035,
+                            "finish": 4350039,
+                            "start": 4350035,
                             "type": "local",
                             "view": "any"
                         },
                         {
                             "desc": "The nuid of the entity.",
-                            "finish": 4360045,
-                            "start": 4360041,
+                            "finish": 4350045,
+                            "start": 4350041,
                             "type": "local",
                             "view": "number"
                         }
                     ],
                     "desc": "Destroys the entity by the given nuid.\n\n@*param* `nuid` — The nuid of the entity.",
-                    "finish": 4810003,
-                    "start": 4360000,
+                    "finish": 4800003,
+                    "start": 4350000,
                     "type": "function",
                     "view": "function EntityUtils.destroyByNuid(self: EntityUtils, peer: any, nuid: number)"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/EntityUtils.lua",
-                "finish": 4360034,
+                "finish": 4350034,
                 "name": "destroyByNuid",
-                "start": 4360009,
+                "start": 4350009,
                 "type": "setmethod"
             },
             {
                 "extends": {
-                    "finish": 5950076,
-                    "start": 5930046,
+                    "finish": 5940076,
+                    "start": 5920046,
                     "type": "binary",
                     "view": "EntityCacheUtils"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/EntityUtils.lua",
-                "finish": 5930043,
+                "finish": 5920043,
                 "name": "enitityCacheUtils",
-                "start": 5930008,
+                "start": 5920008,
                 "type": "setfield"
             },
             {
                 "extends": {
-                    "finish": 6020063,
-                    "start": 6000040,
+                    "finish": 6010063,
+                    "start": 5990040,
                     "type": "binary",
                     "view": "EntityCache"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/EntityUtils.lua",
-                "finish": 6000037,
+                "finish": 5990037,
                 "name": "entityCache",
-                "start": 6000008,
+                "start": 5990008,
                 "type": "setfield"
             },
             {
                 "extends": {
-                    "finish": 6090060,
-                    "start": 6070041,
+                    "finish": 6080060,
+                    "start": 6060041,
                     "type": "binary",
                     "view": "GlobalsUtils"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/EntityUtils.lua",
-                "finish": 6070038,
+                "finish": 6060038,
                 "name": "globalsUtils",
-                "start": 6070008,
+                "start": 6060008,
                 "type": "setfield"
             },
             {
@@ -1723,56 +2076,56 @@
             },
             {
                 "extends": {
-                    "finish": 6160037,
-                    "start": 6140035,
+                    "finish": 6150037,
+                    "start": 6130035,
                     "type": "binary",
                     "view": "Logger"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/EntityUtils.lua",
-                "finish": 6140032,
+                "finish": 6130032,
                 "name": "logger",
-                "start": 6140008,
+                "start": 6130008,
                 "type": "setfield"
             },
             {
                 "desc": "Util class for fetching information about local and remote minas.",
                 "extends": {
-                    "finish": 6220068,
-                    "start": 6210038,
+                    "finish": 6210068,
+                    "start": 6200038,
                     "type": "binary",
                     "view": "MinaUtils"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/EntityUtils.lua",
-                "finish": 6210035,
+                "finish": 6200035,
                 "name": "minaUtils",
-                "start": 6210008,
+                "start": 6200008,
                 "type": "setfield"
             },
             {
                 "extends": {
-                    "finish": 6290071,
-                    "start": 6280041,
+                    "finish": 6280071,
+                    "start": 6270041,
                     "type": "binary",
                     "view": "NetworkUtils"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/EntityUtils.lua",
-                "finish": 6280038,
+                "finish": 6270038,
                 "name": "networkUtils",
-                "start": 6280008,
+                "start": 6270008,
                 "type": "setfield"
             },
             {
                 "desc": " NetworkVscUtils:",
                 "extends": {
-                    "finish": 6360074,
-                    "start": 6350044,
+                    "finish": 6350074,
+                    "start": 6340044,
                     "type": "binary",
                     "view": "NetworkVscUtils"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/EntityUtils.lua",
-                "finish": 6350041,
+                "finish": 6340041,
                 "name": "networkVscUtils",
-                "start": 6350008,
+                "start": 6340008,
                 "type": "setfield"
             },
             {
@@ -1780,150 +2133,150 @@
                 "extends": {
                     "args": [
                         {
-                            "finish": 5660008,
-                            "start": 5660008,
+                            "finish": 5650008,
+                            "start": 5650008,
                             "type": "self",
                             "view": "EntityUtils"
                         },
                         {
-                            "finish": 5660042,
-                            "start": 5660025,
+                            "finish": 5650042,
+                            "start": 5650025,
                             "type": "local",
                             "view": "EntityUtils|nil"
                         },
                         {
                             "desc": "Must not be nil!",
-                            "finish": 5660050,
-                            "start": 5660044,
+                            "finish": 5650050,
+                            "start": 5650044,
                             "type": "local",
                             "view": "Client"
                         },
                         {
                             "desc": "Must not be nil!",
-                            "finish": 5660066,
-                            "start": 5660052,
+                            "finish": 5650066,
+                            "start": 5650052,
                             "type": "local",
                             "view": "CustomProfiler"
                         },
                         {
                             "desc": "Must not be nil!",
-                            "finish": 5660085,
-                            "start": 5660068,
+                            "finish": 5650085,
+                            "start": 5650068,
                             "type": "local",
                             "view": "EntityCacheUtils"
                         },
                         {
                             "desc": "Must not be nil!",
-                            "finish": 5660098,
-                            "start": 5660087,
+                            "finish": 5650098,
+                            "start": 5650087,
                             "type": "local",
                             "view": "EntityCache"
                         },
                         {
                             "desc": "optional",
-                            "finish": 5660112,
-                            "start": 5660100,
+                            "finish": 5650112,
+                            "start": 5650100,
                             "type": "local",
                             "view": "GlobalsUtils|nil"
                         },
                         {
                             "desc": "(Must not be nil!)?",
-                            "finish": 5660120,
-                            "start": 5660114,
+                            "finish": 5650120,
+                            "start": 5650114,
                             "type": "local",
                             "view": "Logger|nil"
                         },
                         {
                             "desc": "Must not be nil!",
-                            "finish": 5660131,
-                            "start": 5660122,
+                            "finish": 5650131,
+                            "start": 5650122,
                             "type": "local",
                             "view": "MinaUtils"
                         },
                         {
                             "desc": "Must not be nil!",
-                            "finish": 5660145,
-                            "start": 5660133,
+                            "finish": 5650145,
+                            "start": 5650133,
                             "type": "local",
                             "view": "NetworkUtils"
                         },
                         {
                             "desc": "Must not be nil!",
-                            "finish": 5670040,
-                            "start": 5670025,
+                            "finish": 5660040,
+                            "start": 5660025,
                             "type": "local",
                             "view": "NetworkVscUtils"
                         },
                         {
                             "desc": "(Must not be nil!)?",
-                            "finish": 5670061,
-                            "start": 5670042,
+                            "finish": 5660061,
+                            "start": 5660042,
                             "type": "local",
                             "view": "NoitaComponentUtils"
                         },
                         {
                             "desc": "Must not be nil!",
-                            "finish": 5670072,
-                            "start": 5670063,
+                            "finish": 5660072,
+                            "start": 5660063,
                             "type": "local",
                             "view": "NuidUtils"
                         },
                         {
                             "desc": "Must not be nil!",
-                            "finish": 5670080,
-                            "start": 5670074,
+                            "finish": 5660080,
+                            "start": 5660074,
                             "type": "local",
                             "view": "Server"
                         },
                         {
-                            "finish": 5670087,
-                            "start": 5670082,
+                            "finish": 5660087,
+                            "start": 5660082,
                             "type": "local",
                             "view": "Utils|nil"
                         }
                     ],
                     "desc": "Constructor for EntityUtils. With this constructor you can override the default imports.\n\n@*param* `client` — Must not be nil!\n\n@*param* `customProfiler` — Must not be nil!\n\n@*param* `enitityCacheUtils` — Must not be nil!\n\n@*param* `entityCache` — Must not be nil!\n\n@*param* `globalsUtils` — optional\n\n@*param* `logger` — (Must not be nil!)?\n\n@*param* `minaUtils` — Must not be nil!\n\n@*param* `networkUtils` — Must not be nil!\n\n@*param* `networkVscUtils` — Must not be nil!\n\n@*param* `noitaComponentUtils` — (Must not be nil!)?\n\n@*param* `nuidUtils` — Must not be nil!\n\n@*param* `server` — Must not be nil!",
-                    "finish": 6680003,
+                    "finish": 6670003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "EntityUtils"
                         }
                     ],
-                    "start": 5660000,
+                    "start": 5650000,
                     "type": "function",
                     "view": "function EntityUtils.new(self: EntityUtils, entityUtilsObject: EntityUtils|nil, client: Client, customProfiler: CustomProfiler, enitityCacheUtils: EntityCacheUtils, entityCache: EntityCache, globalsUtils: GlobalsUtils|nil, logger: Logger|nil, minaUtils: MinaUtils, networkUtils: NetworkUtils, networkVscUtils: NetworkVscUtils, noitaComponentUtils: NoitaComponentUtils, nuidUtils: NuidUtils, server: Server, utils: Utils|nil)\n  -> EntityUtils"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/EntityUtils.lua",
-                "finish": 5660024,
+                "finish": 5650024,
                 "name": "new",
-                "start": 5660009,
+                "start": 5650009,
                 "type": "setmethod"
             },
             {
                 "extends": {
-                    "finish": 6440018,
-                    "start": 6420048,
+                    "finish": 6430018,
+                    "start": 6410048,
                     "type": "binary",
                     "view": "NoitaComponentUtils"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/EntityUtils.lua",
-                "finish": 6420045,
+                "finish": 6410045,
                 "name": "noitaComponentUtils",
-                "start": 6420008,
+                "start": 6410008,
                 "type": "setfield"
             },
             {
                 "extends": {
-                    "finish": 6510018,
-                    "start": 6490038,
+                    "finish": 6500018,
+                    "start": 6480038,
                     "type": "binary",
                     "view": "NuidUtils"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/EntityUtils.lua",
-                "finish": 6490035,
+                "finish": 6480035,
                 "name": "nuidUtils",
-                "start": 6490008,
+                "start": 6480008,
                 "type": "setfield"
             },
             {
@@ -1963,15 +2316,15 @@
             },
             {
                 "extends": {
-                    "finish": 6570076,
-                    "start": 6560035,
+                    "finish": 6560076,
+                    "start": 6550035,
                     "type": "binary",
                     "view": "Server"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/EntityUtils.lua",
-                "finish": 6560032,
+                "finish": 6550032,
                 "name": "server",
-                "start": 6560008,
+                "start": 6550008,
                 "type": "setfield"
             },
             {
@@ -1979,90 +2332,90 @@
                 "extends": {
                     "args": [
                         {
-                            "finish": 3750008,
-                            "start": 3750008,
+                            "finish": 3740008,
+                            "start": 3740008,
                             "type": "self",
                             "view": "EntityUtils"
                         },
                         {
-                            "finish": 3750038,
-                            "start": 3750033,
+                            "finish": 3740038,
+                            "start": 3740033,
                             "type": "local",
                             "view": "EntityOwner"
                         },
                         {
-                            "finish": 3750044,
-                            "start": 3750040,
+                            "finish": 3740044,
+                            "start": 3740040,
                             "type": "local",
                             "view": "number"
                         },
                         {
-                            "finish": 3750047,
-                            "start": 3750046,
+                            "finish": 3740047,
+                            "start": 3740046,
                             "type": "local",
                             "view": "number"
                         },
                         {
-                            "finish": 3750050,
-                            "start": 3750049,
+                            "finish": 3740050,
+                            "start": 3740049,
                             "type": "local",
                             "view": "number"
                         },
                         {
-                            "finish": 3750060,
-                            "start": 3750052,
+                            "finish": 3740060,
+                            "start": 3740052,
                             "type": "local",
                             "view": "number"
                         },
                         {
                             "desc": "- can be nil",
-                            "finish": 3750070,
-                            "start": 3750062,
+                            "finish": 3740070,
+                            "start": 3740062,
                             "type": "local",
                             "view": "Vec2?"
                         },
                         {
-                            "finish": 3750080,
-                            "start": 3750072,
+                            "finish": 3740080,
+                            "start": 3740072,
                             "type": "local",
                             "view": "string"
                         },
                         {
                             "desc": "this is the initial entity_id created by server OR client. It's owner specific! Every",
-                            "finish": 3750095,
-                            "start": 3750082,
+                            "finish": 3740095,
+                            "start": 3740082,
                             "type": "local",
                             "view": "number"
                         },
                         {
-                            "finish": 3750103,
-                            "start": 3750097,
+                            "finish": 3740103,
+                            "start": 3740097,
                             "type": "local",
                             "view": "any"
                         },
                         {
-                            "finish": 3750118,
-                            "start": 3750105,
+                            "finish": 3740118,
+                            "start": 3740105,
                             "type": "local",
                             "view": "any"
                         }
                     ],
                     "desc": " Spawns an entity and applies the transform and velocity to it. Also adds the network_component.\n\n@*param* `velocity` — - can be nil\n\n@*param* `localEntityId` — this is the initial entity_id created by server OR client. It's owner specific! Every\n\n owner has its own entity ids.\n\n@*return* `entityId` — Returns the entity_id of a already existing entity, found by nuid or the newly created entity.",
-                    "finish": 4210003,
+                    "finish": 4200003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "number?"
                         }
                     ],
-                    "start": 3750000,
+                    "start": 3740000,
                     "type": "function",
                     "view": "function EntityUtils.spawnEntity(self: EntityUtils, owner: EntityOwner, nuid: number, x: number, y: number, rotation: number, velocity?: Vec2, filename: string, localEntityId: number, health: any, isPolymorphed: any)\n  -> entityId: number?"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/EntityUtils.lua",
-                "finish": 3750032,
+                "finish": 3740032,
                 "name": "spawnEntity",
-                "start": 3750009,
+                "start": 3740009,
                 "type": "setmethod"
             },
             {
@@ -2070,22 +2423,22 @@
                 "extends": {
                     "args": [
                         {
-                            "finish": 4240008,
-                            "start": 4240008,
+                            "finish": 4230008,
+                            "start": 4230008,
                             "type": "self",
                             "view": "EntityUtils"
                         }
                     ],
                     "desc": " Synchronises dead nuids between server and client.",
-                    "finish": 4320003,
-                    "start": 4240000,
+                    "finish": 4310003,
+                    "start": 4230000,
                     "type": "function",
                     "view": "function EntityUtils.syncDeadNuids(self: EntityUtils)"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/EntityUtils.lua",
-                "finish": 4240034,
+                "finish": 4230034,
                 "name": "syncDeadNuids",
-                "start": 4240009,
+                "start": 4230009,
                 "type": "setmethod"
             },
             {
@@ -2107,7 +2460,7 @@
                         }
                     ],
                     "desc": "Adds or updates all network components to the entity.\nSends the entity data to all other peers.\n\n@*param* `startFrameTime` — Time at the very beginning of the frame.",
-                    "finish": 3620003,
+                    "finish": 3610003,
                     "start": 900000,
                     "type": "function",
                     "view": "function EntityUtils.syncEntities(self: EntityUtils, startFrameTime: number)"
@@ -2120,15 +2473,15 @@
             },
             {
                 "extends": {
-                    "finish": 6630064,
-                    "start": 6620034,
+                    "finish": 6620064,
+                    "start": 6610034,
                     "type": "binary",
                     "view": "Utils"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/EntityUtils.lua",
-                "finish": 6620031,
+                "finish": 6610031,
                 "name": "utils",
-                "start": 6620008,
+                "start": 6610008,
                 "type": "setfield"
             }
         ],
@@ -3982,8 +4335,8 @@
             },
             {
                 "file": "../../mods/noita-mp/files/scripts/Gui.lua",
-                "finish": 7480017,
-                "start": 7480014,
+                "finish": 7520017,
+                "start": 7520014,
                 "type": "doc.class"
             }
         ],
@@ -3994,22 +4347,22 @@
                 "extends": {
                     "args": [
                         {
-                            "finish": 7000008,
-                            "start": 7000008,
+                            "finish": 7040008,
+                            "start": 7040008,
                             "type": "self",
                             "view": "Gui"
                         }
                     ],
                     "desc": "Function to check if the user pressed a shortcut.",
-                    "finish": 7370003,
-                    "start": 7000000,
+                    "finish": 7410003,
+                    "start": 7040000,
                     "type": "function",
                     "view": "function Gui.checkShortcuts(self: Gui)"
                 },
                 "file": "../../mods/noita-mp/files/scripts/Gui.lua",
-                "finish": 7000027,
+                "finish": 7040027,
                 "name": "checkShortcuts",
-                "start": 7000009,
+                "start": 7040009,
                 "type": "setmethod"
             },
             {
@@ -4017,22 +4370,22 @@
                 "extends": {
                     "args": [
                         {
-                            "finish": 5690008,
-                            "start": 5690008,
+                            "finish": 5730008,
+                            "start": 5730008,
                             "type": "self",
                             "view": "Gui"
                         }
                     ],
                     "desc": "Function for drawing the about window.",
-                    "finish": 6190003,
-                    "start": 5690000,
+                    "finish": 6230003,
+                    "start": 5730000,
                     "type": "function",
                     "view": "function Gui.drawAbout(self: Gui)"
                 },
                 "file": "../../mods/noita-mp/files/scripts/Gui.lua",
-                "finish": 5690022,
+                "finish": 5730022,
                 "name": "drawAbout",
-                "start": 5690009,
+                "start": 5730009,
                 "type": "setmethod"
             },
             {
@@ -4109,22 +4462,22 @@
                 "extends": {
                     "args": [
                         {
-                            "finish": 6220008,
-                            "start": 6220008,
+                            "finish": 6260008,
+                            "start": 6260008,
                             "type": "self",
                             "view": "Gui"
                         }
                     ],
                     "desc": "Function for drawing the player list window.",
-                    "finish": 6970003,
-                    "start": 6220000,
+                    "finish": 7010003,
+                    "start": 6260000,
                     "type": "function",
                     "view": "function Gui.drawPlayerList(self: Gui)"
                 },
                 "file": "../../mods/noita-mp/files/scripts/Gui.lua",
-                "finish": 6220027,
+                "finish": 6260027,
                 "name": "drawPlayerList",
-                "start": 6220009,
+                "start": 6260009,
                 "type": "setmethod"
             },
             {
@@ -4139,7 +4492,7 @@
                         }
                     ],
                     "desc": "Function to draw the settings window.",
-                    "finish": 5660003,
+                    "finish": 5700003,
                     "start": 3950000,
                     "type": "function",
                     "view": "function Gui.drawSettings(self: Gui)"
@@ -4194,70 +4547,70 @@
                 "extends": {
                     "args": [
                         {
-                            "finish": 7470008,
-                            "start": 7470008,
+                            "finish": 7510008,
+                            "start": 7510008,
                             "type": "self",
                             "view": "Gui"
                         },
                         {
                             "desc": "optional",
-                            "finish": 7470026,
-                            "start": 7470017,
+                            "finish": 7510026,
+                            "start": 7510017,
                             "type": "local",
                             "view": "Gui|nil"
                         },
                         {
                             "desc": "required",
-                            "finish": 7470034,
-                            "start": 7470028,
+                            "finish": 7510034,
+                            "start": 7510028,
                             "type": "local",
                             "view": "Client"
                         },
                         {
                             "desc": "required",
-                            "finish": 7470050,
-                            "start": 7470036,
+                            "finish": 7510050,
+                            "start": 7510036,
                             "type": "local",
                             "view": "CustomProfiler"
                         },
                         {
                             "desc": "optional",
-                            "finish": 7470061,
-                            "start": 7470052,
+                            "finish": 7510061,
+                            "start": 7510052,
                             "type": "local",
                             "view": "GuidUtils|nil"
                         },
                         {
                             "desc": "optional",
-                            "finish": 7470072,
-                            "start": 7470063,
+                            "finish": 7510072,
+                            "start": 7510063,
                             "type": "local",
                             "view": "MinaUtils|nil"
                         },
                         {
                             "desc": "required",
-                            "finish": 7470089,
-                            "start": 7470074,
+                            "finish": 7510089,
+                            "start": 7510074,
                             "type": "local",
                             "view": "NoitaMpSettings"
                         }
                     ],
                     "desc": "Gui constructor.\n\n@*param* `guiObject` — optional\n\n@*param* `client` — required\n\n@*param* `customProfiler` — required\n\n@*param* `guidUtils` — optional\n\n@*param* `minaUtils` — optional\n\n@*param* `noitaMpSettings` — required",
-                    "finish": 7900003,
+                    "finish": 7940003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "Gui"
                         }
                     ],
-                    "start": 7470000,
+                    "start": 7510000,
                     "type": "function",
                     "view": "function Gui.new(self: Gui, guiObject: Gui|nil, client: Client, customProfiler: CustomProfiler, guidUtils: GuidUtils|nil, minaUtils: MinaUtils|nil, noitaMpSettings: NoitaMpSettings)\n  -> Gui"
                 },
                 "file": "../../mods/noita-mp/files/scripts/Gui.lua",
-                "finish": 7470016,
+                "finish": 7510016,
                 "name": "new",
-                "start": 7470009,
+                "start": 7510009,
                 "type": "setmethod"
             },
             {
@@ -4802,6 +5155,24 @@
     {
         "defines": [
             {
+                "extends": {
+                    "finish": 610037,
+                    "start": 610020,
+                    "type": "select",
+                    "view": "Logger"
+                },
+                "file": "../../mods/noita-mp/files/scripts/bin/profiler.lua",
+                "finish": 610017,
+                "start": 610008,
+                "type": "setfield"
+            }
+        ],
+        "name": "Logger",
+        "type": "variable"
+    },
+    {
+        "defines": [
+            {
                 "file": "../../mods/noita-mp/files/scripts/util/Logger.lua",
                 "finish": 16,
                 "start": 10,
@@ -5035,24 +5406,6 @@
         "defines": [
             {
                 "extends": {
-                    "finish": 610037,
-                    "start": 610020,
-                    "type": "select",
-                    "view": "Logger"
-                },
-                "file": "../../mods/noita-mp/files/scripts/bin/profiler.lua",
-                "finish": 610017,
-                "start": 610008,
-                "type": "setfield"
-            }
-        ],
-        "name": "Logger",
-        "type": "variable"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
                     "finish": 170032,
                     "start": 170026,
                     "type": "integer",
@@ -5072,181 +5425,218 @@
         "defines": [
             {
                 "file": "../../mods/noita-mp/files/scripts/util/MinaUtils.lua",
-                "finish": 1500029,
-                "start": 1500014,
-                "type": "doc.class"
-            }
-        ],
-        "fields": [],
-        "name": "MinaInformation",
-        "type": "type"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
-                    "finish": 1660005,
-                    "start": 1530022,
-                    "type": "table",
-                    "view": "table"
-                },
-                "file": "../../mods/noita-mp/files/scripts/util/MinaUtils.lua",
-                "finish": 1530019,
-                "start": 1530004,
-                "type": "setglobal"
-            }
-        ],
-        "desc": "See:\n  * [Transform](../../mods/noita-mp/files/scripts/util/MinaUtils.lua#144#18)\n  * [Health](../../mods/noita-mp/files/scripts/util/NoitaComponentUtils.lua#55#14)",
-        "name": "MinaInformation",
-        "type": "variable"
-    },
-    {
-        "defines": [
-            {
-                "file": "../../mods/noita-mp/files/scripts/util/MinaUtils.lua",
                 "finish": 10019,
                 "start": 10010,
+                "type": "doc.class"
+            },
+            {
+                "file": "../../mods/noita-mp/files/scripts/util/MinaUtils.lua",
+                "finish": 2630023,
+                "start": 2630014,
                 "type": "doc.class"
             }
         ],
         "desc": "Util class for fetching information about local and remote minas.",
         "fields": [
             {
+                "desc": "Simple profiler that can be used to measure the duration of a function and the memory usage of a function.",
                 "extends": {
-                    "args": [],
-                    "finish": 2540003,
+                    "finish": 2760049,
+                    "start": 2760035,
+                    "type": "getlocal",
+                    "view": "CustomProfiler"
+                },
+                "file": "../../mods/noita-mp/files/scripts/util/MinaUtils.lua",
+                "finish": 2760032,
+                "name": "customProfiler",
+                "start": 2760008,
+                "type": "setfield"
+            },
+            {
+                "desc": "Returns all minas.\n\n@*param* `client` — Either client or\n\n@*param* `server` — server object is required!",
+                "extends": {
+                    "args": [
+                        {
+                            "finish": 1450008,
+                            "start": 1450008,
+                            "type": "self",
+                            "view": "MinaUtils"
+                        },
+                        {
+                            "desc": "Either client or",
+                            "finish": 1450037,
+                            "start": 1450031,
+                            "type": "local",
+                            "view": "Client"
+                        },
+                        {
+                            "desc": "server object is required!",
+                            "finish": 1450045,
+                            "start": 1450039,
+                            "type": "local",
+                            "view": "Server"
+                        }
+                    ],
+                    "desc": "Returns all minas.\n\n@*param* `client` — Either client or\n\n@*param* `server` — server object is required!",
+                    "finish": 2060003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "table"
                         }
                     ],
-                    "start": 1990000,
+                    "start": 1450000,
                     "type": "function",
-                    "view": "function MinaUtils.getAllMinas()\n  -> table"
+                    "view": "function MinaUtils.getAllMinas(self: MinaUtils, client: Client, server: Server)\n  -> table"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/MinaUtils.lua",
-                "finish": 1990030,
+                "finish": 1450030,
                 "name": "getAllMinas",
-                "start": 1990009,
-                "type": "setfield"
+                "start": 1450009,
+                "type": "setmethod"
             },
             {
                 "desc": "Getter for local mina entity id. It also takes care of polymorphism!\n\n@*return* `localMinaEntityId` — or nil if not found/dead",
                 "extends": {
-                    "args": [],
+                    "args": [
+                        {
+                            "finish": 620008,
+                            "start": 620008,
+                            "type": "self",
+                            "view": "MinaUtils"
+                        }
+                    ],
                     "desc": "Getter for local mina entity id. It also takes care of polymorphism!\n\n@*return* `localMinaEntityId` — or nil if not found/dead",
-                    "finish": 780003,
+                    "finish": 910003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "number|nil"
                         }
                     ],
-                    "start": 480000,
+                    "start": 620000,
                     "type": "function",
-                    "view": "function MinaUtils.getLocalMinaEntityId()\n  -> localMinaEntityId: number|nil"
+                    "view": "function MinaUtils.getLocalMinaEntityId(self: MinaUtils)\n  -> localMinaEntityId: number|nil"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/MinaUtils.lua",
-                "finish": 480039,
+                "finish": 620039,
                 "name": "getLocalMinaEntityId",
-                "start": 480009,
-                "type": "setfield"
+                "start": 620009,
+                "type": "setmethod"
             },
             {
                 "desc": "Getter for local mina guid. ~It also loads it from settings file.~",
                 "extends": {
-                    "args": [],
+                    "args": [
+                        {
+                            "finish": 510008,
+                            "start": 510008,
+                            "type": "self",
+                            "view": "MinaUtils"
+                        }
+                    ],
                     "desc": "Getter for local mina guid. ~It also loads it from settings file.~",
-                    "finish": 440003,
+                    "finish": 580003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "string"
                         }
                     ],
-                    "start": 390000,
+                    "start": 510000,
                     "type": "function",
-                    "view": "function MinaUtils.getLocalMinaGuid()\n  -> localMinaGuid: string"
+                    "view": "function MinaUtils.getLocalMinaGuid(self: MinaUtils)\n  -> localMinaGuid: string"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/MinaUtils.lua",
-                "finish": 390035,
+                "finish": 510035,
                 "name": "getLocalMinaGuid",
-                "start": 390009,
-                "type": "setfield"
-            },
-            {
-                "desc": "Getter for local mina information. It also takes care of polymorphism!\n Deprecated: Use separated getters instead, like getLocalMinaName, getLocalMinaGuid, getLocalMinaEntityId, getLocalMinaNuid!\nSee: [MinaInformation](../../mods/noita-mp/files/scripts/util/MinaUtils.lua#154#4)",
-                "extends": {
-                    "args": [],
-                    "desc": "Getter for local mina information. It also takes care of polymorphism!\n Deprecated: Use separated getters instead, like getLocalMinaName, getLocalMinaGuid, getLocalMinaEntityId, getLocalMinaNuid!\nSee: [MinaInformation](../../mods/noita-mp/files/scripts/util/MinaUtils.lua#154#4)",
-                    "finish": 1680003,
-                    "returns": [
-                        {
-                            "type": "function.return",
-                            "view": "MinaInformation"
-                        }
-                    ],
-                    "start": 1030000,
-                    "type": "function",
-                    "view": "function MinaUtils.getLocalMinaInformation()\n  -> localMinaInformation: MinaInformation"
-                },
-                "file": "../../mods/noita-mp/files/scripts/util/MinaUtils.lua",
-                "finish": 1030042,
-                "name": "getLocalMinaInformation",
-                "start": 1030009,
-                "type": "setfield"
+                "start": 510009,
+                "type": "setmethod"
             },
             {
                 "desc": "Getter for local mina name. ~It also loads it from settings file.~",
                 "extends": {
-                    "args": [],
+                    "args": [
+                        {
+                            "finish": 280008,
+                            "start": 280008,
+                            "type": "self",
+                            "view": "MinaUtils"
+                        }
+                    ],
                     "desc": "Getter for local mina name. ~It also loads it from settings file.~",
-                    "finish": 280003,
+                    "finish": 350003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "string"
                         }
                     ],
-                    "start": 230000,
+                    "start": 280000,
                     "type": "function",
-                    "view": "function MinaUtils.getLocalMinaName()\n  -> localMinaName: string"
+                    "view": "function MinaUtils.getLocalMinaName(self: MinaUtils)\n  -> localMinaName: string"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/MinaUtils.lua",
-                "finish": 230035,
+                "finish": 280035,
                 "name": "getLocalMinaName",
-                "start": 230009,
-                "type": "setfield"
+                "start": 280009,
+                "type": "setmethod"
             },
             {
                 "desc": "Getter for local mina nuid. It also takes care of polymorphism!\n\n@*return* `nuid` — if not found/dead",
                 "extends": {
-                    "args": [],
+                    "args": [
+                        {
+                            "finish": 950008,
+                            "start": 950008,
+                            "type": "self",
+                            "view": "MinaUtils"
+                        }
+                    ],
                     "desc": "Getter for local mina nuid. It also takes care of polymorphism!\n\n@*return* `nuid` — if not found/dead",
-                    "finish": 960003,
+                    "finish": 1100003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "number"
                         }
                     ],
-                    "start": 820000,
+                    "start": 950000,
                     "type": "function",
-                    "view": "function MinaUtils.getLocalMinaNuid()\n  -> nuid: number"
+                    "view": "function MinaUtils.getLocalMinaNuid(self: MinaUtils)\n  -> nuid: number"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/MinaUtils.lua",
-                "finish": 820035,
+                "finish": 950035,
                 "name": "getLocalMinaNuid",
-                "start": 820009,
+                "start": 950009,
+                "type": "setmethod"
+            },
+            {
+                "extends": {
+                    "finish": 2830060,
+                    "start": 2810033,
+                    "type": "binary",
+                    "view": "GlobalsUtils"
+                },
+                "file": "../../mods/noita-mp/files/scripts/util/MinaUtils.lua",
+                "finish": 2810030,
+                "name": "globalsUtils",
+                "start": 2810008,
                 "type": "setfield"
             },
             {
                 "desc": "Checks if local mina is polymorphed. Returns true, entityId | false, nil",
                 "extends": {
-                    "args": [],
+                    "args": [
+                        {
+                            "finish": 1140008,
+                            "start": 1140008,
+                            "type": "self",
+                            "view": "MinaUtils"
+                        }
+                    ],
                     "desc": "Checks if local mina is polymorphed. Returns true, entityId | false, nil",
-                    "finish": 1970003,
+                    "finish": 1390003,
                     "returns": [
                         {
                             "type": "function.return",
@@ -5257,95 +5647,270 @@
                             "view": "number|nil"
                         }
                     ],
-                    "start": 1720000,
+                    "start": 1140000,
                     "type": "function",
-                    "view": "function MinaUtils.isLocalMinaPolymorphed()\n  -> isPolymorphed: boolean\n  2. entityId: number|nil"
+                    "view": "function MinaUtils.isLocalMinaPolymorphed(self: MinaUtils)\n  -> isPolymorphed: boolean\n  2. entityId: number|nil"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/MinaUtils.lua",
-                "finish": 1720041,
+                "finish": 1140041,
                 "name": "isLocalMinaPolymorphed",
-                "start": 1720009,
-                "type": "setfield"
+                "start": 1140009,
+                "type": "setmethod"
             },
             {
-                "desc": " TODO: Rework this by adding and updating entityId to Server.entityId and Client.entityId! Dont forget polymorphism!\n isRemoteMinae\nChecks if the entityId is a remote minae.\n\n@*return* `true` — if entityId is a remote minae, otherwise false",
+                "desc": " TODO: Rework this by adding and updating entityId to Server.entityId and Client.entityId! Dont forget polymorphism!\nChecks if the entityId is a remote minae.\n\n@*param* `client` — Either client or\n\n@*param* `server` — server object is required!\n\n@*param* `entityId` — required\n\n@*return* `true` — if entityId is a remote minae, otherwise false",
                 "extends": {
                     "args": [
                         {
-                            "finish": 2610008,
-                            "start": 2610008,
+                            "finish": 2140008,
+                            "start": 2140008,
                             "type": "self",
                             "view": "MinaUtils"
                         },
                         {
-                            "finish": 2610041,
-                            "start": 2610033,
+                            "desc": "Either client or",
+                            "finish": 2140039,
+                            "start": 2140033,
+                            "type": "local",
+                            "view": "Client"
+                        },
+                        {
+                            "desc": "server object is required!",
+                            "finish": 2140047,
+                            "start": 2140041,
+                            "type": "local",
+                            "view": "Server"
+                        },
+                        {
+                            "desc": "required",
+                            "finish": 2140057,
+                            "start": 2140049,
                             "type": "local",
                             "view": "number"
                         }
                     ],
-                    "desc": " TODO: Rework this by adding and updating entityId to Server.entityId and Client.entityId! Dont forget polymorphism!\n isRemoteMinae\nChecks if the entityId is a remote minae.\n\n@*return* `true` — if entityId is a remote minae, otherwise false",
-                    "finish": 2970003,
+                    "desc": " TODO: Rework this by adding and updating entityId to Server.entityId and Client.entityId! Dont forget polymorphism!\nChecks if the entityId is a remote minae.\n\n@*param* `client` — Either client or\n\n@*param* `server` — server object is required!\n\n@*param* `entityId` — required\n\n@*return* `true` — if entityId is a remote minae, otherwise false",
+                    "finish": 2490003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "boolean"
                         }
                     ],
-                    "start": 2610000,
+                    "start": 2140000,
                     "type": "function",
-                    "view": "function MinaUtils.isRemoteMinae(self: MinaUtils, entityId: number)\n  -> true: boolean"
+                    "view": "function MinaUtils.isRemoteMinae(self: MinaUtils, client: Client, server: Server, entityId: number)\n  -> true: boolean"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/MinaUtils.lua",
-                "finish": 2610032,
+                "finish": 2140032,
                 "name": "isRemoteMinae",
-                "start": 2610009,
+                "start": 2140009,
                 "type": "setmethod"
             },
             {
-                "desc": "Setter for local mina guid. It also saves it to settings file.",
+                "extends": {
+                    "finish": 2900037,
+                    "start": 2880027,
+                    "type": "binary",
+                    "view": "Logger"
+                },
+                "file": "../../mods/noita-mp/files/scripts/util/MinaUtils.lua",
+                "finish": 2880024,
+                "name": "logger",
+                "start": 2880008,
+                "type": "setfield"
+            },
+            {
+                "desc": " NetworkVscUtils:",
+                "extends": {
+                    "finish": 2960038,
+                    "start": 2950036,
+                    "type": "binary",
+                    "view": "NetworkVscUtils"
+                },
+                "file": "../../mods/noita-mp/files/scripts/util/MinaUtils.lua",
+                "finish": 2950033,
+                "name": "networkVscUtils",
+                "start": 2950008,
+                "type": "setfield"
+            },
+            {
+                "desc": "Constructor for MinaUtils.\n\n@*param* `minaUtils` — optional\n\n@*param* `customProfiler` — required\n\n@*param* `client` — required\n\n@*param* `globalsUtils` — optional\n\n@*param* `gui` — required\n\n@*param* `logger` — optional\n\n@*param* `networkVscUtils` — optional\n\n@*param* `noitaMpSettings` — required\n\n@*param* `utils` — optional",
                 "extends": {
                     "args": [
                         {
-                            "finish": 320040,
-                            "start": 320036,
+                            "finish": 2620008,
+                            "start": 2620008,
+                            "type": "self",
+                            "view": "MinaUtils"
+                        },
+                        {
+                            "desc": "optional",
+                            "finish": 2620032,
+                            "start": 2620023,
+                            "type": "local",
+                            "view": "MinaUtils|nil"
+                        },
+                        {
+                            "desc": "required",
+                            "finish": 2620048,
+                            "start": 2620034,
+                            "type": "local",
+                            "view": "CustomProfiler"
+                        },
+                        {
+                            "desc": "required",
+                            "finish": 2620056,
+                            "start": 2620050,
+                            "type": "local",
+                            "view": "Client"
+                        },
+                        {
+                            "desc": "optional",
+                            "finish": 2620070,
+                            "start": 2620058,
+                            "type": "local",
+                            "view": "GlobalsUtils"
+                        },
+                        {
+                            "desc": "required",
+                            "finish": 2620075,
+                            "start": 2620072,
+                            "type": "local",
+                            "view": "Gui"
+                        },
+                        {
+                            "desc": "optional",
+                            "finish": 2620083,
+                            "start": 2620077,
+                            "type": "local",
+                            "view": "Logger|nil"
+                        },
+                        {
+                            "desc": "optional",
+                            "finish": 2620100,
+                            "start": 2620085,
+                            "type": "local",
+                            "view": "NetworkVscUtils|nil"
+                        },
+                        {
+                            "desc": "required",
+                            "finish": 2620117,
+                            "start": 2620102,
+                            "type": "local",
+                            "view": "NoitaMpSettings"
+                        },
+                        {
+                            "desc": "optional",
+                            "finish": 2620124,
+                            "start": 2620119,
+                            "type": "local",
+                            "view": "Utils"
+                        }
+                    ],
+                    "desc": "Constructor for MinaUtils.\n\n@*param* `minaUtils` — optional\n\n@*param* `customProfiler` — required\n\n@*param* `client` — required\n\n@*param* `globalsUtils` — optional\n\n@*param* `gui` — required\n\n@*param* `logger` — optional\n\n@*param* `networkVscUtils` — optional\n\n@*param* `noitaMpSettings` — required\n\n@*param* `utils` — optional",
+                    "finish": 3190003,
+                    "returns": [
+                        {
+                            "type": "function.return",
+                            "view": "MinaUtils"
+                        }
+                    ],
+                    "start": 2620000,
+                    "type": "function",
+                    "view": "function MinaUtils.new(self: MinaUtils, minaUtils: MinaUtils|nil, customProfiler: CustomProfiler, client: Client, globalsUtils: GlobalsUtils, gui: Gui, logger: Logger|nil, networkVscUtils: NetworkVscUtils|nil, noitaMpSettings: NoitaMpSettings, utils: Utils)\n  -> MinaUtils"
+                },
+                "file": "../../mods/noita-mp/files/scripts/util/MinaUtils.lua",
+                "finish": 2620022,
+                "name": "new",
+                "start": 2620009,
+                "type": "setmethod"
+            },
+            {
+                "desc": " NoitaMpSettings: Replacement for Noita ModSettings.",
+                "extends": {
+                    "finish": 3040077,
+                    "start": 3020036,
+                    "type": "binary",
+                    "view": "NoitaMpSettings"
+                },
+                "file": "../../mods/noita-mp/files/scripts/util/MinaUtils.lua",
+                "finish": 3020033,
+                "name": "noitaMpSettings",
+                "start": 3020008,
+                "type": "setfield"
+            },
+            {
+                "desc": "Setter for local mina guid. It also saves it to settings file.\n\n@*param* `guid` — required",
+                "extends": {
+                    "args": [
+                        {
+                            "finish": 390008,
+                            "start": 390008,
+                            "type": "self",
+                            "view": "MinaUtils"
+                        },
+                        {
+                            "desc": "required",
+                            "finish": 390040,
+                            "start": 390036,
                             "type": "local",
                             "view": "string"
                         }
                     ],
-                    "desc": "Setter for local mina guid. It also saves it to settings file.",
-                    "finish": 350003,
-                    "start": 320000,
+                    "desc": "Setter for local mina guid. It also saves it to settings file.\n\n@*param* `guid` — required",
+                    "finish": 470003,
+                    "start": 390000,
                     "type": "function",
-                    "view": "function MinaUtils.setLocalMinaGuid(guid: string)"
+                    "view": "function MinaUtils.setLocalMinaGuid(self: MinaUtils, guid: string)"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/MinaUtils.lua",
-                "finish": 320035,
+                "finish": 390035,
                 "name": "setLocalMinaGuid",
-                "start": 320009,
-                "type": "setfield"
+                "start": 390009,
+                "type": "setmethod"
             },
             {
-                "desc": "Setter for local mina name. It also saves it to settings file.",
+                "desc": "Setter for local mina name. It also saves it to settings file.\n\n@*param* `name` — required",
                 "extends": {
                     "args": [
                         {
+                            "finish": 160008,
+                            "start": 160008,
+                            "type": "self",
+                            "view": "MinaUtils"
+                        },
+                        {
+                            "desc": "required",
                             "finish": 160040,
                             "start": 160036,
                             "type": "local",
                             "view": "string"
                         }
                     ],
-                    "desc": "Setter for local mina name. It also saves it to settings file.",
-                    "finish": 190003,
+                    "desc": "Setter for local mina name. It also saves it to settings file.\n\n@*param* `name` — required",
+                    "finish": 240003,
                     "start": 160000,
                     "type": "function",
-                    "view": "function MinaUtils.setLocalMinaName(name: string)"
+                    "view": "function MinaUtils.setLocalMinaName(self: MinaUtils, name: string)"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/MinaUtils.lua",
                 "finish": 160035,
                 "name": "setLocalMinaName",
                 "start": 160009,
+                "type": "setmethod"
+            },
+            {
+                "extends": {
+                    "finish": 3100028,
+                    "start": 3090026,
+                    "type": "binary",
+                    "view": "Utils"
+                },
+                "file": "../../mods/noita-mp/files/scripts/util/MinaUtils.lua",
+                "finish": 3090023,
+                "name": "utils",
+                "start": 3090008,
                 "type": "setfield"
             }
         ],
@@ -7991,15 +8556,15 @@
             {
                 "extends": [
                     {
-                        "finish": 9740033,
-                        "start": 9740023,
+                        "finish": 9720033,
+                        "start": 9720023,
                         "type": "doc.extends.name",
                         "view": "SockServer"
                     }
                 ],
                 "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
-                "finish": 9740033,
-                "start": 9740014,
+                "finish": 9720033,
+                "start": 9720014,
                 "type": "doc.class"
             }
         ],
@@ -8019,15 +8584,15 @@
             },
             {
                 "extends": {
-                    "finish": 10720041,
-                    "start": 10720038,
+                    "finish": 10700041,
+                    "start": 10700038,
                     "type": "integer",
                     "view": "integer"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
-                "finish": 10720035,
+                "finish": 10700035,
                 "name": "acknowledgeMaxSize",
-                "start": 10720004,
+                "start": 10700004,
                 "type": "setfield"
             },
             {
@@ -8035,28 +8600,28 @@
                 "extends": {
                     "args": [
                         {
-                            "finish": 9370008,
-                            "start": 9370008,
+                            "finish": 9350008,
+                            "start": 9350008,
                             "type": "self",
                             "view": "Server"
                         }
                     ],
                     "desc": "Checks if the current local user is a server.\n\n@*return* `true` — if server, false if not\nSee: [Client.amIClient](../../mods/noita-mp/files/scripts/net/Client.lua#960#9)",
-                    "finish": 9400003,
+                    "finish": 9380003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "boolean"
                         }
                     ],
-                    "start": 9370000,
+                    "start": 9350000,
                     "type": "function",
                     "view": "function Server.amIServer(self: Server)\n  -> true: boolean"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
-                "finish": 9370025,
+                "finish": 9350025,
                 "name": "amIServer",
-                "start": 9370009,
+                "start": 9350009,
                 "type": "setmethod"
             },
             {
@@ -8064,69 +8629,69 @@
                 "extends": {
                     "args": [
                         {
-                            "finish": 9520008,
-                            "start": 9520008,
+                            "finish": 9500008,
+                            "start": 9500008,
                             "type": "self",
                             "view": "Server"
                         },
                         {
                             "desc": "required",
-                            "finish": 9520024,
-                            "start": 9520020,
+                            "finish": 9500024,
+                            "start": 9500020,
                             "type": "local",
                             "view": "string"
                         }
                     ],
                     "desc": "Bans a player by name.\n\n@*param* `name` — required",
-                    "finish": 9560003,
-                    "start": 9520000,
+                    "finish": 9540003,
+                    "start": 9500000,
                     "type": "function",
                     "view": "function Server.ban(self: Server, name: string)"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
-                "finish": 9520019,
+                "finish": 9500019,
                 "name": "ban",
-                "start": 9520009,
+                "start": 9500009,
                 "type": "setmethod"
             },
             {
                 "desc": "Simple profiler that can be used to measure the duration of a function and the memory usage of a function.",
                 "extends": {
-                    "finish": 9880076,
-                    "start": 9870038,
+                    "finish": 9860076,
+                    "start": 9850038,
                     "type": "binary",
                     "view": "CustomProfiler"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
-                "finish": 9870035,
+                "finish": 9850035,
                 "name": "customProfiler",
-                "start": 9870008,
+                "start": 9850008,
                 "type": "setfield"
             },
             {
                 "extends": {
-                    "finish": 10430123,
-                    "start": 10400035,
+                    "finish": 10410123,
+                    "start": 10380035,
                     "type": "select",
                     "view": "EntityUtils"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
-                "finish": 10400032,
+                "finish": 10380032,
                 "name": "entityUtils",
-                "start": 10400008,
+                "start": 10380008,
                 "type": "setfield"
             },
             {
                 "extends": {
-                    "finish": 10480126,
-                    "start": 10470033,
+                    "finish": 10460126,
+                    "start": 10450033,
                     "type": "select",
                     "view": "FileUtils"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
-                "finish": 10470030,
+                "finish": 10450030,
                 "name": "fileUtils",
-                "start": 10470008,
+                "start": 10450008,
                 "type": "setfield"
             },
             {
@@ -8134,107 +8699,107 @@
                 "extends": {
                     "args": [
                         {
-                            "finish": 9600008,
-                            "start": 9600008,
+                            "finish": 9580008,
+                            "start": 9580008,
                             "type": "self",
                             "view": "Server"
                         }
                     ],
                     "desc": "Mainly for profiling. Returns then network cache, aka acknowledge.",
-                    "finish": 9620003,
+                    "finish": 9600003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "number"
                         }
                     ],
-                    "start": 9600000,
+                    "start": 9580000,
                     "type": "function",
                     "view": "function Server.getAckCacheSize(self: Server)\n  -> cacheSize: number"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
-                "finish": 9600031,
+                "finish": 9580031,
                 "name": "getAckCacheSize",
-                "start": 9600009,
+                "start": 9580009,
                 "type": "setmethod"
             },
             {
                 "extends": {
-                    "finish": 10350059,
-                    "start": 10350036,
+                    "finish": 10330059,
+                    "start": 10330036,
                     "type": "select",
                     "view": "GlobalsUtils"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
-                "finish": 10350033,
+                "finish": 10330033,
                 "name": "globalsUtils",
-                "start": 10350008,
+                "start": 10330008,
                 "type": "setfield"
             },
             {
                 "extends": {
-                    "finish": 10730041,
-                    "start": 10730038,
+                    "finish": 10710041,
+                    "start": 10710038,
                     "type": "nil",
                     "view": "nil"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
-                "finish": 10730021,
+                "finish": 10710021,
                 "name": "guid",
-                "start": 10730004,
+                "start": 10710004,
                 "type": "setfield"
             },
             {
                 "extends": {
-                    "finish": 10860093,
-                    "start": 10860024,
+                    "finish": 10840093,
+                    "start": 10840024,
                     "type": "select",
                     "view": "string"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
-                "finish": 10860021,
+                "finish": 10840021,
                 "name": "guid",
-                "start": 10860004,
+                "start": 10840004,
                 "type": "setfield"
             },
             {
                 "desc": "GuidUtils is just for generating and validating GUIDs. Guids are used for identifying clients and servers.",
                 "extends": {
-                    "finish": 10520053,
-                    "start": 10520033,
+                    "finish": 10500053,
+                    "start": 10500033,
                     "type": "select",
                     "view": "GuidUtils"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
-                "finish": 10520030,
+                "finish": 10500030,
                 "name": "guidUtils",
-                "start": 10520008,
+                "start": 10500008,
                 "type": "setfield"
             },
             {
                 "extends": {
-                    "finish": 10740065,
-                    "start": 10740038,
+                    "finish": 10720065,
+                    "start": 10720038,
                     "type": "table",
                     "view": "table"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
-                "finish": 10740023,
+                "finish": 10720023,
                 "name": "health",
-                "start": 10740004,
+                "start": 10720004,
                 "type": "setfield"
             },
             {
                 "extends": {
-                    "finish": 10750046,
-                    "start": 10750038,
+                    "finish": 10730046,
+                    "start": 10730038,
                     "type": "string",
                     "view": "string"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
-                "finish": 10750020,
+                "finish": 10730020,
                 "name": "iAm",
-                "start": 10750004,
+                "start": 10730004,
                 "type": "setfield"
             },
             {
@@ -8271,69 +8836,272 @@
                 "extends": {
                     "args": [
                         {
-                            "finish": 9440008,
-                            "start": 9440008,
+                            "finish": 9420008,
+                            "start": 9420008,
                             "type": "self",
                             "view": "Server"
                         },
                         {
                             "desc": "required",
-                            "finish": 9440025,
-                            "start": 9440021,
+                            "finish": 9420025,
+                            "start": 9420021,
                             "type": "local",
                             "view": "string"
                         }
                     ],
                     "desc": "Kicks a player by name.\n\n@*param* `name` — required",
-                    "finish": 9480003,
-                    "start": 9440000,
+                    "finish": 9460003,
+                    "start": 9420000,
                     "type": "function",
                     "view": "function Server.kick(self: Server, name: string)"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
-                "finish": 9440020,
+                "finish": 9420020,
                 "name": "kick",
-                "start": 9440009,
+                "start": 9420009,
                 "type": "setmethod"
             },
             {
                 "extends": {
-                    "finish": 9960133,
-                    "start": 9960030,
+                    "finish": 9940133,
+                    "start": 9940030,
                     "type": "binary",
                     "view": "Logger"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
-                "finish": 9960027,
+                "finish": 9940027,
                 "name": "logger",
-                "start": 9960008,
+                "start": 9940008,
                 "type": "setfield"
             },
             {
                 "extends": {
-                    "finish": 10560057,
-                    "start": 10560035,
+                    "finish": 10540057,
+                    "start": 10540035,
                     "type": "select",
                     "view": "unknown"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
-                "finish": 10560032,
+                "finish": 10540032,
                 "name": "messagePack",
-                "start": 10560008,
+                "start": 10540008,
                 "type": "setfield"
             },
             {
                 "desc": "Util class for fetching information about local and remote minas.",
                 "extends": {
-                    "finish": 10000053,
-                    "start": 10000033,
+                    "finish": 9980053,
+                    "start": 9980033,
                     "type": "select",
                     "view": "MinaUtils"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
-                "finish": 10000030,
+                "finish": 9980030,
                 "name": "minaUtils",
-                "start": 10000008,
+                "start": 9980008,
+                "type": "setfield"
+            },
+            {
+                "extends": {
+                    "finish": 10740041,
+                    "start": 10740038,
+                    "type": "nil",
+                    "view": "nil"
+                },
+                "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
+                "finish": 10740030,
+                "name": "modListCached",
+                "start": 10740004,
+                "type": "setfield"
+            },
+            {
+                "extends": {
+                    "finish": 10750041,
+                    "start": 10750038,
+                    "type": "nil",
+                    "view": "nil"
+                },
+                "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
+                "finish": 10750021,
+                "name": "name",
+                "start": 10750004,
+                "type": "setfield"
+            },
+            {
+                "extends": {
+                    "finish": 10830097,
+                    "start": 10830024,
+                    "type": "select",
+                    "view": "string"
+                },
+                "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
+                "finish": 10830021,
+                "name": "name",
+                "start": 10830004,
+                "type": "setfield"
+            },
+            {
+                "extends": {
+                    "finish": 10180059,
+                    "start": 10180036,
+                    "type": "select",
+                    "view": "table"
+                },
+                "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
+                "finish": 10180033,
+                "name": "networkCache",
+                "start": 10180008,
+                "type": "setfield"
+            },
+            {
+                "extends": {
+                    "finish": 10230069,
+                    "start": 10230041,
+                    "type": "select",
+                    "view": "table"
+                },
+                "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
+                "finish": 10230038,
+                "name": "networkCacheUtils",
+                "start": 10230008,
+                "type": "setfield"
+            },
+            {
+                "extends": {
+                    "finish": 10130059,
+                    "start": 10130036,
+                    "type": "select",
+                    "view": "table"
+                },
+                "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
+                "finish": 10130033,
+                "name": "networkUtils",
+                "start": 10130008,
+                "type": "setfield"
+            },
+            {
+                "desc": " NetworkVscUtils:",
+                "extends": {
+                    "finish": 10080065,
+                    "start": 10080039,
+                    "type": "select",
+                    "view": "NetworkVscUtils"
+                },
+                "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
+                "finish": 10080036,
+                "name": "networkVscUtils",
+                "start": 10080008,
+                "type": "setfield"
+            },
+            {
+                "desc": "Server constructor. Inherits from SockServer sock.newServer.",
+                "extends": {
+                    "args": [
+                        {
+                            "finish": 9710008,
+                            "start": 9710008,
+                            "type": "self",
+                            "view": "Server"
+                        },
+                        {
+                            "finish": 9710032,
+                            "start": 9710020,
+                            "type": "local",
+                            "view": "Server"
+                        },
+                        {
+                            "finish": 9710041,
+                            "start": 9710034,
+                            "type": "local",
+                            "view": "string|nil"
+                        },
+                        {
+                            "finish": 9710047,
+                            "start": 9710043,
+                            "type": "local",
+                            "view": "number|nil"
+                        },
+                        {
+                            "finish": 9710057,
+                            "start": 9710049,
+                            "type": "local",
+                            "view": "number|nil"
+                        },
+                        {
+                            "finish": 9710070,
+                            "start": 9710059,
+                            "type": "local",
+                            "view": "number|nil"
+                        },
+                        {
+                            "finish": 9710083,
+                            "start": 9710072,
+                            "type": "local",
+                            "view": "number|nil"
+                        },
+                        {
+                            "finish": 9710097,
+                            "start": 9710085,
+                            "type": "local",
+                            "view": "number|nil"
+                        }
+                    ],
+                    "desc": "Server constructor. Inherits from SockServer sock.newServer.",
+                    "finish": 10890003,
+                    "returns": [
+                        {
+                            "type": "function.return",
+                            "view": "Server"
+                        }
+                    ],
+                    "start": 9710000,
+                    "type": "function",
+                    "view": "function Server.new(self: Server, serverObject: Server, address: string|nil, port: number|nil, maxPeers: number|nil, maxChannels: number|nil, inBandwidth: number|nil, outBandwidth: number|nil)\n  -> Server"
+                },
+                "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
+                "finish": 9710019,
+                "name": "new",
+                "start": 9710009,
+                "type": "setmethod"
+            },
+            {
+                "extends": {
+                    "finish": 10280073,
+                    "start": 10280043,
+                    "type": "select",
+                    "view": "table"
+                },
+                "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
+                "finish": 10280040,
+                "name": "noitaComponentUtils",
+                "start": 10280008,
+                "type": "setfield"
+            },
+            {
+                "desc": " NoitaMpSettings: Replacement for Noita ModSettings.",
+                "extends": {
+                    "finish": 9820061,
+                    "start": 9810039,
+                    "type": "select",
+                    "view": "NoitaMpSettings"
+                },
+                "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
+                "finish": 9810036,
+                "name": "noitaMpSettings",
+                "start": 9810008,
+                "type": "setfield"
+            },
+            {
+                "extends": {
+                    "finish": 10580069,
+                    "start": 10580041,
+                    "type": "select",
+                    "view": "NoitaPatcherUtils"
+                },
+                "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
+                "finish": 10580038,
+                "name": "noitaPatcherUtils",
+                "start": 10580008,
                 "type": "setfield"
             },
             {
@@ -8344,225 +9112,22 @@
                     "view": "nil"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
-                "finish": 10760030,
-                "name": "modListCached",
+                "finish": 10760021,
+                "name": "nuid",
                 "start": 10760004,
                 "type": "setfield"
             },
             {
                 "extends": {
-                    "finish": 10770041,
-                    "start": 10770038,
-                    "type": "nil",
-                    "view": "nil"
-                },
-                "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
-                "finish": 10770021,
-                "name": "name",
-                "start": 10770004,
-                "type": "setfield"
-            },
-            {
-                "extends": {
-                    "finish": 10850097,
-                    "start": 10850024,
-                    "type": "select",
-                    "view": "string"
-                },
-                "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
-                "finish": 10850021,
-                "name": "name",
-                "start": 10850004,
-                "type": "setfield"
-            },
-            {
-                "extends": {
-                    "finish": 10200059,
-                    "start": 10200036,
+                    "finish": 10030053,
+                    "start": 10030033,
                     "type": "select",
                     "view": "table"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
-                "finish": 10200033,
-                "name": "networkCache",
-                "start": 10200008,
-                "type": "setfield"
-            },
-            {
-                "extends": {
-                    "finish": 10250069,
-                    "start": 10250041,
-                    "type": "select",
-                    "view": "table"
-                },
-                "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
-                "finish": 10250038,
-                "name": "networkCacheUtils",
-                "start": 10250008,
-                "type": "setfield"
-            },
-            {
-                "extends": {
-                    "finish": 10150059,
-                    "start": 10150036,
-                    "type": "select",
-                    "view": "table"
-                },
-                "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
-                "finish": 10150033,
-                "name": "networkUtils",
-                "start": 10150008,
-                "type": "setfield"
-            },
-            {
-                "desc": " NetworkVscUtils:",
-                "extends": {
-                    "finish": 10100065,
-                    "start": 10100039,
-                    "type": "select",
-                    "view": "NetworkVscUtils"
-                },
-                "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
-                "finish": 10100036,
-                "name": "networkVscUtils",
-                "start": 10100008,
-                "type": "setfield"
-            },
-            {
-                "desc": "Server constructor. Inherits from SockServer sock.newServer.",
-                "extends": {
-                    "args": [
-                        {
-                            "finish": 9730008,
-                            "start": 9730008,
-                            "type": "self",
-                            "view": "Server"
-                        },
-                        {
-                            "finish": 9730032,
-                            "start": 9730020,
-                            "type": "local",
-                            "view": "Server"
-                        },
-                        {
-                            "finish": 9730041,
-                            "start": 9730034,
-                            "type": "local",
-                            "view": "string|nil"
-                        },
-                        {
-                            "finish": 9730047,
-                            "start": 9730043,
-                            "type": "local",
-                            "view": "number|nil"
-                        },
-                        {
-                            "finish": 9730057,
-                            "start": 9730049,
-                            "type": "local",
-                            "view": "number|nil"
-                        },
-                        {
-                            "finish": 9730070,
-                            "start": 9730059,
-                            "type": "local",
-                            "view": "number|nil"
-                        },
-                        {
-                            "finish": 9730083,
-                            "start": 9730072,
-                            "type": "local",
-                            "view": "number|nil"
-                        },
-                        {
-                            "finish": 9730097,
-                            "start": 9730085,
-                            "type": "local",
-                            "view": "number|nil"
-                        }
-                    ],
-                    "desc": "Server constructor. Inherits from SockServer sock.newServer.",
-                    "finish": 10910003,
-                    "returns": [
-                        {
-                            "type": "function.return",
-                            "view": "Server"
-                        }
-                    ],
-                    "start": 9730000,
-                    "type": "function",
-                    "view": "function Server.new(self: Server, serverObject: Server, address: string|nil, port: number|nil, maxPeers: number|nil, maxChannels: number|nil, inBandwidth: number|nil, outBandwidth: number|nil)\n  -> Server"
-                },
-                "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
-                "finish": 9730019,
-                "name": "new",
-                "start": 9730009,
-                "type": "setmethod"
-            },
-            {
-                "extends": {
-                    "finish": 10300073,
-                    "start": 10300043,
-                    "type": "select",
-                    "view": "table"
-                },
-                "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
-                "finish": 10300040,
-                "name": "noitaComponentUtils",
-                "start": 10300008,
-                "type": "setfield"
-            },
-            {
-                "desc": " NoitaMpSettings: Replacement for Noita ModSettings.",
-                "extends": {
-                    "finish": 9840061,
-                    "start": 9830039,
-                    "type": "select",
-                    "view": "NoitaMpSettings"
-                },
-                "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
-                "finish": 9830036,
-                "name": "noitaMpSettings",
-                "start": 9830008,
-                "type": "setfield"
-            },
-            {
-                "extends": {
-                    "finish": 10600069,
-                    "start": 10600041,
-                    "type": "select",
-                    "view": "NoitaPatcherUtils"
-                },
-                "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
-                "finish": 10600038,
-                "name": "noitaPatcherUtils",
-                "start": 10600008,
-                "type": "setfield"
-            },
-            {
-                "extends": {
-                    "finish": 10780041,
-                    "start": 10780038,
-                    "type": "nil",
-                    "view": "nil"
-                },
-                "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
-                "finish": 10780021,
-                "name": "nuid",
-                "start": 10780004,
-                "type": "setfield"
-            },
-            {
-                "extends": {
-                    "finish": 10050053,
-                    "start": 10050033,
-                    "type": "select",
-                    "view": "table"
-                },
-                "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
-                "finish": 10050030,
+                "finish": 10030030,
                 "name": "nuidUtils",
-                "start": 10050008,
+                "start": 10030008,
                 "type": "setfield"
             },
             {
@@ -8693,7 +9258,7 @@
                         }
                     ],
                     "desc": "Sends mina information to all clients.",
-                    "finish": 9320003,
+                    "finish": 9300003,
                     "returns": [
                         {
                             "type": "function.return",
@@ -8937,15 +9502,15 @@
             },
             {
                 "extends": {
-                    "finish": 10640043,
-                    "start": 10640028,
+                    "finish": 10620043,
+                    "start": 10620028,
                     "type": "select",
                     "view": "unknown"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
-                "finish": 10640025,
+                "finish": 10620025,
                 "name": "sock",
-                "start": 10640008,
+                "start": 10620008,
                 "type": "setfield"
             },
             {
@@ -9010,15 +9575,15 @@
             },
             {
                 "extends": {
-                    "finish": 10790054,
-                    "start": 10790038,
+                    "finish": 10770054,
+                    "start": 10770038,
                     "type": "table",
                     "view": "table"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
-                "finish": 10790026,
+                "finish": 10770026,
                 "name": "transform",
-                "start": 10790004,
+                "start": 10770004,
                 "type": "setfield"
             },
             {
@@ -9053,88 +9618,32 @@
             },
             {
                 "extends": {
-                    "finish": 9930130,
-                    "start": 9930029,
+                    "finish": 9910130,
+                    "start": 9910029,
                     "type": "binary",
                     "view": "Utils"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
-                "finish": 9930026,
+                "finish": 9910026,
                 "name": "utils",
-                "start": 9930008,
+                "start": 9910008,
                 "type": "setfield"
             },
             {
                 "extends": {
-                    "finish": 10670048,
-                    "start": 10670033,
+                    "finish": 10650048,
+                    "start": 10650033,
                     "type": "select",
                     "view": "unknown"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
-                "finish": 10670030,
+                "finish": 10650030,
                 "name": "zstandard",
-                "start": 10670008,
+                "start": 10650008,
                 "type": "setfield"
             }
         ],
         "name": "Server",
-        "type": "type"
-    },
-    {
-        "defines": [
-            {
-                "file": "../../mods/noita-mp/files/scripts/util/MinaUtils.lua",
-                "finish": 1430027,
-                "start": 1430018,
-                "type": "doc.class"
-            }
-        ],
-        "fields": [
-            {
-                "extends": {
-                    "finish": 1440026,
-                    "start": 1440020,
-                    "type": "doc.type",
-                    "types": [
-                        {
-                            "finish": 1440026,
-                            "start": 1440020,
-                            "type": "doc.type.name",
-                            "view": "number"
-                        }
-                    ],
-                    "view": "number"
-                },
-                "file": "../../mods/noita-mp/files/scripts/util/MinaUtils.lua",
-                "finish": 1440026,
-                "name": "x",
-                "start": 1440018,
-                "type": "doc.field"
-            },
-            {
-                "extends": {
-                    "finish": 1450026,
-                    "start": 1450020,
-                    "type": "doc.type",
-                    "types": [
-                        {
-                            "finish": 1450026,
-                            "start": 1450020,
-                            "type": "doc.type.name",
-                            "view": "number"
-                        }
-                    ],
-                    "view": "number"
-                },
-                "file": "../../mods/noita-mp/files/scripts/util/MinaUtils.lua",
-                "finish": 1450026,
-                "name": "y",
-                "start": 1450018,
-                "type": "doc.field"
-            }
-        ],
-        "name": "Transform",
         "type": "type"
     },
     {
@@ -9179,36 +9688,6 @@
             }
         ],
         "name": "Ui.new",
-        "type": "variable"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
-                    "finish": 650035,
-                    "start": 650019,
-                    "type": "select",
-                    "view": "Utils"
-                },
-                "file": "../../mods/noita-mp/files/scripts/bin/profiler.lua",
-                "finish": 650016,
-                "start": 650008,
-                "type": "setfield"
-            },
-            {
-                "extends": {
-                    "finish": 2050032,
-                    "start": 2050016,
-                    "type": "select",
-                    "view": "Utils"
-                },
-                "file": "../../mods/noita-mp/files/scripts/extensions/tableExtensions.lua",
-                "finish": 2050013,
-                "start": 2050008,
-                "type": "setglobal"
-            }
-        ],
-        "name": "Utils",
         "type": "variable"
     },
     {
@@ -9446,6 +9925,36 @@
         "defines": [
             {
                 "extends": {
+                    "finish": 650035,
+                    "start": 650019,
+                    "type": "select",
+                    "view": "Utils"
+                },
+                "file": "../../mods/noita-mp/files/scripts/bin/profiler.lua",
+                "finish": 650016,
+                "start": 650008,
+                "type": "setfield"
+            },
+            {
+                "extends": {
+                    "finish": 2050032,
+                    "start": 2050016,
+                    "type": "select",
+                    "view": "Utils"
+                },
+                "file": "../../mods/noita-mp/files/scripts/extensions/tableExtensions.lua",
+                "finish": 2050013,
+                "start": 2050008,
+                "type": "setglobal"
+            }
+        ],
+        "name": "Utils",
+        "type": "variable"
+    },
+    {
+        "defines": [
+            {
+                "extends": {
                     "finish": 680007,
                     "start": 680005,
                     "type": "table",
@@ -9460,34 +9969,6 @@
         "desc": "\nA global variable (not a function) that holds the global environment (see [§2.2](http://www.lua.org/manual/5.4/manual.html#2.2)). Lua itself does not use this variable; changing its value does not affect any environment, nor vice versa.\n\n[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-_G)\n",
         "name": "_G",
         "type": "variable"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
-                    "finish": 3000032,
-                    "start": 3000023,
-                    "type": "doc.type",
-                    "types": [
-                        {
-                            "finish": 3000032,
-                            "start": 3000023,
-                            "type": "doc.type.name",
-                            "view": "MinaUtils"
-                        }
-                    ],
-                    "view": "MinaUtils"
-                },
-                "file": "../../mods/noita-mp/files/scripts/util/MinaUtils.lua",
-                "finish": 3000032,
-                "start": 3000010,
-                "type": "doc.alias"
-            }
-        ],
-        "desc": "Globally accessible MinaUtils in _G.MinaUtils.",
-        "fields": [],
-        "name": "_G.MinaUtils",
-        "type": "type"
     },
     {
         "defines": [
@@ -9613,481 +10094,6 @@
         "defines": [
             {
                 "extends": {
-                    "finish": 10460041,
-                    "start": 10460038,
-                    "type": "integer",
-                    "view": "integer"
-                },
-                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
-                "finish": 10460035,
-                "start": 10460004,
-                "type": "setfield"
-            }
-        ],
-        "name": "clientObject.acknowledgeMaxSize",
-        "type": "variable"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
-                    "finish": 10100105,
-                    "start": 10100035,
-                    "type": "binary",
-                    "view": "unknown"
-                },
-                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
-                "finish": 10100032,
-                "start": 10100008,
-                "type": "setfield"
-            }
-        ],
-        "name": "clientObject.entityUtils",
-        "type": "variable"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
-                    "finish": 10470041,
-                    "start": 10470038,
-                    "type": "nil",
-                    "view": "nil"
-                },
-                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
-                "finish": 10470021,
-                "start": 10470004,
-                "type": "setfield"
-            },
-            {
-                "extends": {
-                    "finish": 10660093,
-                    "start": 10660024,
-                    "type": "select",
-                    "view": "string"
-                },
-                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
-                "finish": 10660021,
-                "start": 10660004,
-                "type": "setfield"
-            }
-        ],
-        "name": "clientObject.guid",
-        "type": "variable"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
-                    "finish": 10130101,
-                    "start": 10130033,
-                    "type": "binary",
-                    "view": "unknown"
-                },
-                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
-                "finish": 10130030,
-                "start": 10130008,
-                "type": "setfield"
-            }
-        ],
-        "name": "clientObject.guidUtils",
-        "type": "variable"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
-                    "finish": 10480065,
-                    "start": 10480038,
-                    "type": "table",
-                    "view": "table"
-                },
-                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
-                "finish": 10480023,
-                "start": 10480004,
-                "type": "setfield"
-            }
-        ],
-        "name": "clientObject.health",
-        "type": "variable"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
-                    "finish": 10490046,
-                    "start": 10490038,
-                    "type": "string",
-                    "view": "string"
-                },
-                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
-                "finish": 10490020,
-                "start": 10490004,
-                "type": "setfield"
-            }
-        ],
-        "name": "clientObject.iAm",
-        "type": "variable"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
-                    "finish": 10170117,
-                    "start": 10170030,
-                    "type": "binary",
-                    "view": "unknown"
-                },
-                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
-                "finish": 10170027,
-                "start": 10170008,
-                "type": "setfield"
-            }
-        ],
-        "name": "clientObject.logger",
-        "type": "variable"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
-                    "finish": 10200079,
-                    "start": 10200035,
-                    "type": "binary",
-                    "view": "unknown"
-                },
-                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
-                "finish": 10200032,
-                "start": 10200008,
-                "type": "setfield"
-            }
-        ],
-        "name": "clientObject.messagePack",
-        "type": "variable"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
-                    "finish": 10230073,
-                    "start": 10230033,
-                    "type": "binary",
-                    "view": "MinaUtils"
-                },
-                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
-                "finish": 10230030,
-                "start": 10230008,
-                "type": "setfield"
-            }
-        ],
-        "desc": "Util class for fetching information about local and remote minas.",
-        "name": "clientObject.minaUtils",
-        "type": "variable"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
-                    "finish": 10500041,
-                    "start": 10500038,
-                    "type": "nil",
-                    "view": "nil"
-                },
-                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
-                "finish": 10500028,
-                "start": 10500004,
-                "type": "setfield"
-            }
-        ],
-        "name": "clientObject.missingMods",
-        "type": "variable"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
-                    "finish": 10510041,
-                    "start": 10510038,
-                    "type": "nil",
-                    "view": "nil"
-                },
-                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
-                "finish": 10510021,
-                "start": 10510004,
-                "type": "setfield"
-            },
-            {
-                "extends": {
-                    "finish": 10650097,
-                    "start": 10650024,
-                    "type": "select",
-                    "view": "string"
-                },
-                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
-                "finish": 10650021,
-                "start": 10650004,
-                "type": "setfield"
-            }
-        ],
-        "name": "clientObject.name",
-        "type": "variable"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
-                    "finish": 10040107,
-                    "start": 10040036,
-                    "type": "binary",
-                    "view": "unknown"
-                },
-                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
-                "finish": 10040033,
-                "start": 10040008,
-                "type": "setfield"
-            }
-        ],
-        "name": "clientObject.networkCache",
-        "type": "variable"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
-                    "finish": 10070117,
-                    "start": 10070041,
-                    "type": "binary",
-                    "view": "unknown"
-                },
-                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
-                "finish": 10070038,
-                "start": 10070008,
-                "type": "setfield"
-            }
-        ],
-        "name": "clientObject.networkCacheUtils",
-        "type": "variable"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
-                    "finish": 10260082,
-                    "start": 10260036,
-                    "type": "binary",
-                    "view": "table"
-                },
-                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
-                "finish": 10260033,
-                "start": 10260008,
-                "type": "setfield"
-            }
-        ],
-        "name": "clientObject.networkUtils",
-        "type": "variable"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
-                    "finish": 10290097,
-                    "start": 10290041,
-                    "type": "binary",
-                    "view": "NoitaPatcherUtils"
-                },
-                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
-                "finish": 10290038,
-                "start": 10290008,
-                "type": "setfield"
-            }
-        ],
-        "name": "clientObject.noitaPatcherUtils",
-        "type": "variable"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
-                    "finish": 10520041,
-                    "start": 10520038,
-                    "type": "nil",
-                    "view": "nil"
-                },
-                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
-                "finish": 10520021,
-                "start": 10520004,
-                "type": "setfield"
-            }
-        ],
-        "name": "clientObject.nuid",
-        "type": "variable"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
-                    "finish": 10530040,
-                    "start": 10530038,
-                    "type": "table",
-                    "view": "table"
-                },
-                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
-                "finish": 10530029,
-                "start": 10530004,
-                "type": "setfield"
-            }
-        ],
-        "name": "clientObject.otherClients",
-        "type": "variable"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
-                    "finish": 10540041,
-                    "start": 10540038,
-                    "type": "nil",
-                    "view": "nil"
-                },
-                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
-                "finish": 10540029,
-                "start": 10540004,
-                "type": "setfield"
-            }
-        ],
-        "name": "clientObject.requiredMods",
-        "type": "variable"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
-                    "finish": 10320088,
-                    "start": 10320030,
-                    "type": "binary",
-                    "view": "unknown"
-                },
-                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
-                "finish": 10320027,
-                "start": 10320008,
-                "type": "setfield"
-            }
-        ],
-        "name": "clientObject.server",
-        "type": "variable"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
-                    "finish": 10550040,
-                    "start": 10550038,
-                    "type": "table",
-                    "view": "table"
-                },
-                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
-                "finish": 10550027,
-                "start": 10550004,
-                "type": "setfield"
-            }
-        ],
-        "name": "clientObject.serverInfo",
-        "type": "variable"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
-                    "finish": 10350058,
-                    "start": 10350028,
-                    "type": "binary",
-                    "view": "unknown"
-                },
-                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
-                "finish": 10350025,
-                "start": 10350008,
-                "type": "setfield"
-            }
-        ],
-        "name": "clientObject.sock",
-        "type": "variable"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
-                    "finish": 10560043,
-                    "start": 10560038,
-                    "type": "boolean",
-                    "view": "boolean"
-                },
-                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
-                "finish": 10560027,
-                "start": 10560004,
-                "type": "setfield"
-            }
-        ],
-        "name": "clientObject.syncedMods",
-        "type": "variable"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
-                    "finish": 10570054,
-                    "start": 10570038,
-                    "type": "table",
-                    "view": "table"
-                },
-                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
-                "finish": 10570026,
-                "start": 10570004,
-                "type": "setfield"
-            }
-        ],
-        "name": "clientObject.transform",
-        "type": "variable"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
-                    "finish": 10410093,
-                    "start": 10410029,
-                    "type": "binary",
-                    "view": "unknown"
-                },
-                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
-                "finish": 10410026,
-                "start": 10410008,
-                "type": "setfield"
-            }
-        ],
-        "name": "clientObject.utils",
-        "type": "variable"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
-                    "finish": 10380068,
-                    "start": 10380033,
-                    "type": "binary",
-                    "view": "unknown"
-                },
-                "file": "../../mods/noita-mp/files/scripts/net/Client.lua",
-                "finish": 10380030,
-                "start": 10380008,
-                "type": "setfield"
-            }
-        ],
-        "name": "clientObject.zstandard",
-        "type": "variable"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
                     "args": [
                         {
                             "finish": 390027,
@@ -10128,26 +10134,26 @@
         "defines": [
             {
                 "extends": {
-                    "finish": 5150014,
-                    "start": 5070021,
+                    "finish": 5140014,
+                    "start": 5060021,
                     "type": "select",
                     "view": "unknown"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/EntityUtils.lua",
-                "finish": 5070018,
-                "start": 5070012,
+                "finish": 5060018,
+                "start": 5060012,
                 "type": "setglobal"
             },
             {
                 "extends": {
-                    "finish": 5320014,
-                    "start": 5240021,
+                    "finish": 5310014,
+                    "start": 5230021,
                     "type": "select",
                     "view": "unknown"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/EntityUtils.lua",
-                "finish": 5240018,
-                "start": 5240012,
+                "finish": 5230018,
+                "start": 5230012,
                 "type": "setglobal"
             }
         ],
@@ -11355,14 +11361,14 @@
         "defines": [
             {
                 "extends": {
-                    "finish": 7830103,
-                    "start": 7830028,
+                    "finish": 7870103,
+                    "start": 7870028,
                     "type": "select",
                     "view": "boolean|string|number"
                 },
                 "file": "../../mods/noita-mp/files/scripts/Gui.lua",
-                "finish": 7830025,
-                "start": 7830004,
+                "finish": 7870025,
+                "start": 7870004,
                 "type": "setglobal"
             }
         ],
@@ -14758,14 +14764,14 @@
         "defines": [
             {
                 "extends": {
-                    "finish": 7840100,
-                    "start": 7840025,
+                    "finish": 7880100,
+                    "start": 7880025,
                     "type": "select",
                     "view": "boolean|string|number"
                 },
                 "file": "../../mods/noita-mp/files/scripts/Gui.lua",
-                "finish": 7840022,
-                "start": 7840004,
+                "finish": 7880022,
+                "start": 7880004,
                 "type": "setglobal"
             }
         ],
@@ -14776,14 +14782,14 @@
         "defines": [
             {
                 "extends": {
-                    "finish": 7850106,
-                    "start": 7850028,
+                    "finish": 7890106,
+                    "start": 7890028,
                     "type": "select",
                     "view": "boolean|string|number"
                 },
                 "file": "../../mods/noita-mp/files/scripts/Gui.lua",
-                "finish": 7850025,
-                "start": 7850004,
+                "finish": 7890025,
+                "start": 7890004,
                 "type": "setglobal"
             }
         ],
@@ -14794,14 +14800,14 @@
         "defines": [
             {
                 "extends": {
-                    "finish": 7860113,
-                    "start": 7860029,
+                    "finish": 7900113,
+                    "start": 7900029,
                     "type": "select",
                     "view": "boolean|string|number"
                 },
                 "file": "../../mods/noita-mp/files/scripts/Gui.lua",
-                "finish": 7860026,
-                "start": 7860004,
+                "finish": 7900026,
+                "start": 7900004,
                 "type": "setglobal"
             }
         ],
