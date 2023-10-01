@@ -42,7 +42,7 @@ function GuidUtils:generateNewGuid(inUsedGuids)
 
     local guid = nil
     repeat
-        self.uuid.randomseed(socket.gettime() * 10000)
+        self.uuid.randomseed(self.socket.gettime() * 10000)
         guid = self.uuid()
     until self:isUnique(guid) and self:isPatternValid(guid)
     table.insert(self.cached_guid, guid)
@@ -163,6 +163,10 @@ function GuidUtils:new(guidUtilsObject, customProfiler, fileUtils, logger, noita
 
     if not guidUtilsObject.uuid then
         guidUtilsObject.uuid = require("uuid")
+    end
+
+    if not guidUtilsObject.socket then
+        guidUtilsObject.socket = socket or require("socket")
     end
 
     --[[ Attributes ]]

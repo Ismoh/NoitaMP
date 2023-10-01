@@ -119,7 +119,7 @@ Also, special thanks to the people, who share their libraries, frameworks and ot
 - ~~[EZGUI.lua](https://github.com/TheHorscht/EZGUI) for the GUI, but unfortunately it isn't maintained anymore~~
 - [lua-watcher.lua](https://github.com/EvandroLG/lua-watcher) for getting the correct save path for Noita
 - ~~[lfs-ffi.lua](https://github.com/sonoro1234/luafilesystem) for lua file system~~
-- [deepcopy.lua](https://gist.github.com/Deco/3985043) for being able to copy tables
+- ~~[deepcopy.lua](https://gist.github.com/Deco/3985043) for being able to copy tables~~
 - [libzstd.dll](https://github.com/facebook/zstd) for being able to compress and decompress data
 - [zstd.lua](https://github.com/sjnam/luajit-zstd) for easy to use libzstd.dll in Lua
 - [lua-MessagePack](https://framagit.org/fperrad/lua-MessagePack/-/tree/0.5.2) for serializing and deserializing data

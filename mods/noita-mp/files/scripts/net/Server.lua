@@ -1085,6 +1085,8 @@ function Server:new(serverObject, address, port, maxPeers, maxChannels, inBandwi
 
     if not serverObject.guidUtils then
         serverObject.guidUtils = require("GuidUtils")
+            :new(nil, serverObject.customProfiler, serverObject.fileUtils,
+                serverObject.logger, serverObject.noitaMpSettings, nil, nil, serverObject.utils, nil)
     end
 
     if not serverObject.messagePack then
