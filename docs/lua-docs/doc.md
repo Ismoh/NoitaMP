@@ -25,7 +25,7 @@ function Client.amIClient(self: Client)
 Checks if the current local user is a client.
 
 @*return* `true` — if client, false if not
-See: [Server.amIServer](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/net/Server.lua#936#9)
+See: [Server.amIServer](../../mods/noita-mp/files/scripts/net/Server.lua#L936#9)
 
 ## connect
 
@@ -471,7 +471,7 @@ Starts the profiler. This has to be called before the function (or first line of
 @*param* `functionName` — The name of the function that you want to measure. This has to be the same as the one used in CustomProfiler:stop(functionName, customProfilerCounter)
 
 @*return* `returnCounter` — The counter that is used to determine the order of the function calls. This has to be passed to CustomProfiler:stop(functionName, customProfilerCounter)
-See: [CustomProfiler](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/CustomProfiler.lua#2#10) stop(functionName, customProfilerCounter)
+See: [CustomProfiler](../../mods/noita-mp/files/scripts/util/CustomProfiler.lua#L2#10) stop(functionName, customProfilerCounter)
 
 ## stop
 
@@ -2700,7 +2700,7 @@ Removes all settings and creates a new settings file.
 CustomProfiler
 ```
 
-See: [CustomProfiler](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/CustomProfiler.lua#2#10)
+See: [CustomProfiler](../../mods/noita-mp/files/scripts/util/CustomProfiler.lua#L2#10)
 
 ## fileUtils
 
@@ -2990,7 +2990,7 @@ function Server.amIServer(self: Server)
 Checks if the current local user is a server.
 
 @*return* `true` — if server, false if not
-See: [Client.amIClient](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/net/Client.lua#960#9)
+See: [Client.amIClient](../../mods/noita-mp/files/scripts/net/Client.lua#L960#9)
 
 ## ban
 
@@ -3026,7 +3026,7 @@ EntityCache
 EntityCacheUtils
 ```
 
-See: [EntityCacheUtils](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/EntityCacheUtils.lua#1#10)
+See: [EntityCacheUtils](../../mods/noita-mp/files/scripts/util/EntityCacheUtils.lua#L1#10)
 
 ## entityUtils
 
@@ -3042,7 +3042,7 @@ EntityUtils
 FileUtils
 ```
 
-See: [FileUtils](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/bin/profiler.lua#79#8)
+See: [FileUtils](../../mods/noita-mp/files/scripts/bin/profiler.lua#L79#8)
 
 ## getAckCacheSize
 
@@ -3061,7 +3061,7 @@ Mainly for profiling. Returns then network cache, aka acknowledge.
 GlobalsUtils
 ```
 
-See: [GlobalsUtils](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/GlobalsUtils.lua#1#10)
+See: [GlobalsUtils](../../mods/noita-mp/files/scripts/util/GlobalsUtils.lua#L1#10)
 
 ## guid
 
