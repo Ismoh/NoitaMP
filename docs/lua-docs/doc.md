@@ -25,7 +25,7 @@ function Client.amIClient(self: Client)
 Checks if the current local user is a client.
 
 @*return* `true` — if client, false if not
-See: [Server.amIServer](../../mods/noita-mp/files/scripts/net/Server.lua#L936#9)
+See: [Server.amIServer](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/net/Server.lua#936#9)
 
 ## connect
 
@@ -83,7 +83,7 @@ Mainly for profiling. Returns then network cache, aka acknowledge.
 
 
 ```lua
-unknown
+GlobalsUtils
 ```
 
 ## guid
@@ -167,21 +167,21 @@ nil
 
 
 ```lua
-table
+NetworkCache
 ```
 
 ## networkCacheUtils
 
 
 ```lua
-table
+NetworkCacheUtils
 ```
 
 ## networkUtils
 
 
 ```lua
-table
+NetworkUtils
 ```
 
 ## new
@@ -471,7 +471,7 @@ Starts the profiler. This has to be called before the function (or first line of
 @*param* `functionName` — The name of the function that you want to measure. This has to be the same as the one used in CustomProfiler:stop(functionName, customProfilerCounter)
 
 @*return* `returnCounter` — The counter that is used to determine the order of the function calls. This has to be passed to CustomProfiler:stop(functionName, customProfilerCounter)
-See: [CustomProfiler](../../mods/noita-mp/files/scripts/util/CustomProfiler.lua#L2#10) stop(functionName, customProfilerCounter)
+See: [CustomProfiler](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/CustomProfiler.lua#2#10) stop(functionName, customProfilerCounter)
 
 ## stop
 
@@ -550,7 +550,7 @@ function EntityCache.deleteNuid(self: EntityCache, nuid: any)
 
 
 ```lua
-EntityUtils
+EntityUtils|nil
 ```
 
 ## get
@@ -640,7 +640,7 @@ EntityCache
 
 
 ```lua
-function EntityCacheUtils.new(self: EntityCacheUtils, entityCacheUtilsObject: EntityCacheUtils|nil, customProfiler: CustomProfiler, entityCache: EntityCache, entityUtils: EntityUtils, utils: Utils|nil)
+function EntityCacheUtils.new(self: EntityCacheUtils, entityCacheUtilsObject: EntityCacheUtils|nil, customProfiler: CustomProfiler, entityCache: EntityCache, utils: Utils|nil)
   -> EntityCacheUtils
 ```
 
@@ -651,8 +651,6 @@ Constructor of the EntityCacheUtils class.
 @*param* `customProfiler` — required
 
 @*param* `entityCache` — required
-
-@*param* `entityUtils` — required
 
 @*param* `utils` — optional
 
@@ -684,22 +682,6 @@ function EntityUtils.addOrChangeDetectionRadiusDebug(self: EntityUtils, player_e
 
  Simply adds a ugly debug circle around the player to visualize the detection radius.
 
-## client
-
-
-```lua
-Client
-```
-
-## customProfiler
-
-
-```lua
-CustomProfiler
-```
-
-Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
-
 ## destroyByNuid
 
 
@@ -711,27 +693,6 @@ Destroys the entity by the given nuid.
 
 @*param* `nuid` — The nuid of the entity.
 
-## enitityCacheUtils
-
-
-```lua
-EntityCacheUtils
-```
-
-## entityCache
-
-
-```lua
-EntityCache
-```
-
-## globalsUtils
-
-
-```lua
-GlobalsUtils
-```
-
 ## isEntityPolymorphed
 
 
@@ -741,38 +702,6 @@ function EntityUtils.isEntityPolymorphed(self: EntityUtils, entityId: number)
 ```
 
  Checks if a specific entity is polymorphed.
-
-## logger
-
-
-```lua
-Logger
-```
-
-## minaUtils
-
-
-```lua
-MinaUtils
-```
-
-Util class for fetching information about local and remote minas.
-
-## networkUtils
-
-
-```lua
-NetworkUtils
-```
-
-## networkVscUtils
-
-
-```lua
-NetworkVscUtils
-```
-
- NetworkVscUtils:
 
 ## new
 
@@ -808,20 +737,6 @@ Constructor for EntityUtils. With this constructor you can override the default 
 
 @*param* `server` — Must not be nil!
 
-## noitaComponentUtils
-
-
-```lua
-NoitaComponentUtils
-```
-
-## nuidUtils
-
-
-```lua
-NuidUtils
-```
-
 ## onEntityRemoved
 
 
@@ -830,13 +745,6 @@ function EntityUtils.onEntityRemoved(self: EntityUtils, entityId: any, nuid: any
 ```
 
  Make sure this is only be executed once!
-
-## server
-
-
-```lua
-Server
-```
 
 ## spawnEntity
 
@@ -876,13 +784,6 @@ Adds or updates all network components to the entity.
 Sends the entity data to all other peers.
 
 @*param* `startFrameTime` — Time at the very beginning of the frame.
-
-## utils
-
-
-```lua
-Utils
-```
 
 
 ---
@@ -1276,43 +1177,6 @@ function FileUtils.WriteBinaryFile(self: FileUtils, file_fullpath: string, file_
 function FileUtils.WriteFile(self: FileUtils, file_fullpath: string, file_content: string)
 ```
 
-## customProfiler
-
-
-```lua
-CustomProfiler
-```
-
-Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
-
-## ffi
-
-
-```lua
-unknown
-```
-
-## json
-
-
-```lua
-unknown
-```
-
-## lfs
-
-
-```lua
-unknown
-```
-
-## logger
-
-
-```lua
-Logger
-```
-
 ## new
 
 
@@ -1334,20 +1198,6 @@ FileUtils constructor.
 @*param* `plotly` — can be nil
 
 @*param* `utils` — can be nil
-
-## utils
-
-
-```lua
-Utils
-```
-
-## watcher
-
-
-```lua
-unknown
-```
 
 
 ---
@@ -1373,7 +1223,7 @@ function GetWidthAndHeightByResolution()
 
 
 ```lua
-Client
+Client|nil
 ```
 
 ## customProfiler
@@ -1423,7 +1273,7 @@ Logger
 
 
 ```lua
-function GlobalsUtils.new(self: GlobalsUtils, globalsUtilsObject: GlobalsUtils|nil, customProfiler: CustomProfiler, logger: Logger|nil, client: Client, utils: Utils|nil)
+function GlobalsUtils.new(self: GlobalsUtils, globalsUtilsObject: GlobalsUtils|nil, customProfiler: CustomProfiler, logger: Logger, client: Client|nil, utils: Utils)
   -> GlobalsUtils
 ```
 
@@ -1433,11 +1283,11 @@ Constructor of the class. This is mandatory!
 
 @*param* `customProfiler` — required
 
-@*param* `logger` — optional
+@*param* `logger` — required
 
-@*param* `client` — required
+@*param* `client` — optional
 
-@*param* `utils` — optional
+@*param* `utils` — required
 
 ## parseXmlValueToNuidAndEntityId
 
@@ -1489,8 +1339,6 @@ function GlobalsUtils.setUpdateGui(self: GlobalsUtils, bool: any)
 ```lua
 Utils
 ```
-
-:new(nil, customProfiler)
 
 
 ---
@@ -1655,6 +1503,7 @@ function GuidUtils.generateNewGuid(self: GuidUtils, inUsedGuids: table|nil)
 
 Generates a pseudo GUID. Does not fulfil RFC standard! Should generate unique GUIDs, but repeats if there is a duplicate.
 Based on https://github.com/Tieske/uuid !
+Formerly known as 'getGuid()'.
 
 @*param* `inUsedGuids` — list of already used GUIDs
 
@@ -1976,7 +1825,7 @@ NetworkVscUtils
 
 
 ```lua
-function MinaUtils.new(self: MinaUtils, minaUtils: MinaUtils|nil, customProfiler: CustomProfiler, client: Client, globalsUtils: GlobalsUtils, gui: Gui, logger: Logger|nil, networkVscUtils: NetworkVscUtils|nil, noitaMpSettings: NoitaMpSettings, utils: Utils)
+function MinaUtils.new(self: MinaUtils, minaUtils: MinaUtils|nil, customProfiler: CustomProfiler, globalsUtils: GlobalsUtils, logger: Logger, networkVscUtils: NetworkVscUtils, noitaMpSettings: NoitaMpSettings, utils: Utils)
   -> MinaUtils
 ```
 
@@ -1986,19 +1835,15 @@ Constructor for MinaUtils.
 
 @*param* `customProfiler` — required
 
-@*param* `client` — required
+@*param* `globalsUtils` — required
 
-@*param* `globalsUtils` — optional
+@*param* `logger` — required
 
-@*param* `gui` — required
-
-@*param* `logger` — optional
-
-@*param* `networkVscUtils` — optional
+@*param* `networkVscUtils` — required
 
 @*param* `noitaMpSettings` — required
 
-@*param* `utils` — optional
+@*param* `utils` — required
 
 ## noitaMpSettings
 
@@ -2370,23 +2215,6 @@ function NetworkUtils.serialize(self: table, value: any)
 
  NetworkVscUtils:
 
-
-```lua
-NetworkVscUtils
-```
-
-
-```lua
-NetworkVscUtils
-```
-
-
----
-
-# NetworkVscUtils
-
- NetworkVscUtils:
-
 ## addOrUpdateAllVscs
 
 
@@ -2582,6 +2410,23 @@ string
 
 ```lua
 string
+```
+
+
+---
+
+# NetworkVscUtils
+
+ NetworkVscUtils:
+
+
+```lua
+NetworkVscUtils
+```
+
+
+```lua
+NetworkVscUtils
 ```
 
 
@@ -2848,6 +2693,24 @@ function NoitaMpSettings.clearAndCreateSettings(self: NoitaMpSettings)
 
 Removes all settings and creates a new settings file.
 
+## customProfiler
+
+
+```lua
+CustomProfiler
+```
+
+See: [CustomProfiler](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/CustomProfiler.lua#2#10)
+
+## fileUtils
+
+
+```lua
+FileUtils
+```
+
+:new()
+
 ## get
 
 
@@ -2862,6 +2725,15 @@ Returns a setting from the settings file converted to the given dataType. If the
 
 @*param* `dataType` — required! Must be one of "boolean" or "number". If not set, "string" is default.
 
+## gui
+
+
+```lua
+Gui
+```
+
+Everything regarding ImGui: Credits to @dextercd
+
 ## isMoreThanOneNoitaProcessRunning
 
 
@@ -2874,6 +2746,20 @@ Checks if more than one Noita process is running.
 
 @*return* `true` — if more than one Noita process is running.
 
+## json
+
+
+```lua
+json
+```
+
+## lfs
+
+
+```lua
+LuaFileSystem
+```
+
 ## load
 
 
@@ -2882,6 +2768,13 @@ function NoitaMpSettings.load(self: NoitaMpSettings)
 ```
 
 Loads the settings from the settings file and put those into the cached settings.
+
+## logger
+
+
+```lua
+Logger
+```
 
 ## new
 
@@ -2915,6 +2808,22 @@ Sets a setting. Saves the settings to the settings file and returns the new upda
 @*param* `key` — required
 
 @*param* `value` — required
+
+## utils
+
+
+```lua
+Utils
+```
+
+:new()
+
+## winapi
+
+
+```lua
+winapi
+```
 
 
 ---
@@ -3081,7 +2990,7 @@ function Server.amIServer(self: Server)
 Checks if the current local user is a server.
 
 @*return* `true` — if server, false if not
-See: [Client.amIClient](../../mods/noita-mp/files/scripts/net/Client.lua#L960#9)
+See: [Client.amIClient](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/net/Client.lua#960#9)
 
 ## ban
 
@@ -3103,6 +3012,22 @@ CustomProfiler
 
 Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 
+## entityCache
+
+
+```lua
+EntityCache
+```
+
+## entityCacheUtils
+
+
+```lua
+EntityCacheUtils
+```
+
+See: [EntityCacheUtils](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/EntityCacheUtils.lua#1#10)
+
 ## entityUtils
 
 
@@ -3116,6 +3041,8 @@ EntityUtils
 ```lua
 FileUtils
 ```
+
+See: [FileUtils](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/bin/profiler.lua#79#8)
 
 ## getAckCacheSize
 
@@ -3133,6 +3060,8 @@ Mainly for profiling. Returns then network cache, aka acknowledge.
 ```lua
 GlobalsUtils
 ```
+
+See: [GlobalsUtils](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/GlobalsUtils.lua#1#10)
 
 ## guid
 
@@ -3231,12 +3160,16 @@ nil
 table
 ```
 
+:new()
+
 ## networkCacheUtils
 
 
 ```lua
 table
 ```
+
+:new()
 
 ## networkUtils
 
@@ -3245,6 +3178,8 @@ table
 table
 ```
 
+:new()
+
 ## networkVscUtils
 
 
@@ -3252,17 +3187,31 @@ table
 NetworkVscUtils
 ```
 
- NetworkVscUtils:
+:new()
 
 ## new
 
 
 ```lua
-function Server.new(self: Server, serverObject: Server, address: string|nil, port: number|nil, maxPeers: number|nil, maxChannels: number|nil, inBandwidth: number|nil, outBandwidth: number|nil)
+function Server.new(self: Server, serverObject: Server|nil, address: string|nil, port: number|nil, maxPeers: number|nil, maxChannels: number|nil, inBandwidth: number|nil, outBandwidth: number|nil)
   -> Server
 ```
 
 Server constructor. Inherits from SockServer sock.newServer.
+
+@*param* `serverObject` — optional
+
+@*param* `address` — optional
+
+@*param* `port` — optional
+
+@*param* `maxPeers` — optional
+
+@*param* `maxChannels` — optional
+
+@*param* `inBandwidth` — optional
+
+@*param* `outBandwidth` — optional
 
 ## noitaComponentUtils
 
@@ -3270,6 +3219,8 @@ Server constructor. Inherits from SockServer sock.newServer.
 ```lua
 table
 ```
+
+:new()
 
 ## noitaMpSettings
 
@@ -3300,6 +3251,8 @@ nil
 ```lua
 table
 ```
+
+:new()
 
 ## send
 
@@ -3481,7 +3434,7 @@ See: ~SockServer.update~
 
 
 ```lua
-Utils
+unknown
 ```
 
 ## zstandard
