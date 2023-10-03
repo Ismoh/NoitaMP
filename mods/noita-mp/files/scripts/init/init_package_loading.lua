@@ -1,6 +1,6 @@
 -- https://subscription.packtpub.com/book/game-development/9781849515504/1/ch01lvl1sec10/preparing-a-basic-file-structure-for-the-game-engine
 
-function getNoitaMpRootDirectory()
+local getNoitaMpRootDirectory = function()
     -- Get the current directory of the script or the executable
     local currentDirectory = io.popen("cd"):read("*l") .. "/" .. debug.getinfo(1).source
     print("currentDirectory: " .. currentDirectory)
@@ -154,11 +154,14 @@ if current_clib_extension then
 
     --[[ NoitaMP additions ]]
     local gui             = {} -- mocked gui
+    print("init_package_loading.lua | Loading noitaMpSettings...")
     ---@class NoitaMpSettings
     local noitaMpSettings = require("NoitaMpSettings")
         :new(nil, nil, gui, nil, nil, nil, nil)
+
+    print("init_package_loading.lua | Loading fileUtils...")
     ---@type FileUtils
-    local fileUtils       = require("FileUtils")
+    local fileUtils       = noitaMpSettings.fileUtils or require("FileUtils")
         :new(nil, noitaMpSettings.customProfiler, nil, noitaMpSettings, nil, nil)
 
     package.path          = fileUtils:ReplacePathSeparator(table.concat(lpaths, ";"))

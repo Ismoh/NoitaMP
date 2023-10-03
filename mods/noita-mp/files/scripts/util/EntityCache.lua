@@ -28,7 +28,7 @@ function EntityCache:set(entityId, nuid, ownerGuid, ownerName, filepath, x, y, r
             currentHealth = currentHealth,
             maxHealth     = maxHealth
         }
-        if self.utils.IsEmpty(fullySerialised) or fullySerialised == true then
+        if self.utils:isEmpty(fullySerialised) or fullySerialised == true then
             --EntityCache.cache[entityId].fullySerialised = true
             --EntityCache.cache[entityId].serialisedRootEntity = nil -- free a bit memory
         else

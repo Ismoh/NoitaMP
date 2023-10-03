@@ -1,33 +1,28 @@
 local params = { ... }
 print("params", table.concat(params, ", "))
 
----@type string The directory where the report will be saved.
+local cache           = {}
+---@type FileUtils
+local fileUtils       = nil
+local lfs             = nil
+---@type Logger
+local logger          = nil
+local pid             = nil
+---@type plotly
+local plotly          = nil
 local reportDirectory = nil
 local reportFilename  = "report.html"
-
-local pid             = nil
-local lfs             = nil
-local winapi          = nil
 local socket          = nil
 local udp             = nil
-local cache           = {}
-local plotly          = nil
+---@type Utils
+local utils           = nil
+local winapi          = nil
 
 ---Initilizes the external profiler. All dependencies were loaded here.
 local init            = function()
     _G.MAX_MEMORY_USAGE = 524438 -- KB = 524,438 MB
 
-    pid = params[1]
-    print("pid", pid)
-
-    local noitaRootPath = io.popen("cd .. && cd .. && cd"):read("*l")
-    print("noitaRootPath", noitaRootPath)
-
-    dofile(noitaRootPath .. "/mods/noita-mp/files/scripts/init/init_package_loading.lua")
-
-    lfs = require("lfs")
-
-    local pathToMods = lfs.currentdir() .. "/../.."
+    local pathToMods = assert(io.popen("cd.. && cd.. && cd"):read("*l"), "Unable to run windows command 'cd' to get Noitas root directory!")
     print("pathToMods: " .. pathToMods)
 
     local gDofile = dofile
@@ -41,46 +36,76 @@ local init            = function()
         end
     end
 
+    if not _G.ModSettingGet then
+        _G.ModSettingGet = function(id)
+            if not id then
+                error("UNKNOWN ModSettingGet id - FIX ME!", 2)
+            end
+            if string.find(id:lower(), "noita-mp.log_level_", 1, true) then
+                return { "trace", "debug, info, warn", "WARN" }
+            end
+
+            error("UNKNOWN ModSettingGet id - FIX ME!", 2)
+        end
+    end
+
+    if not _G.ModSettingGetNextValue then
+        _G.ModSettingGetNextValue = function(id)
+            if not id or id == "" then
+                error("UNKNOWN ModSettingGetNextValue id - FIX ME!", 2)
+            end
+            if string.find(id:lower(), "noita-mp.toggle_profiler", 1, true) then
+                return false -- do not profile the profiler :KAPPA:
+            end
+            error("UNKNOWN ModSettingGetNextValue id - FIX ME!", 2)
+        end
+    end
+
+    if not _G.ModGetActiveModIDs then
+        _G.ModGetActiveModIDs = function()
+            return {}
+        end
+    end
+
+    if not _G.ModIsEnabled then
+        _G.ModIsEnabled = function(id)
+            return true
+        end
+    end
+
+
     -- dofile("mods/noita-mp/files/scripts/init/init_.lua") DO NOT LOAD ALL DEPENDENCIES!
     dofile("mods/noita-mp/files/scripts/extensions/tableExtensions.lua")
     dofile("mods/noita-mp/files/scripts/extensions/stringExtensions.lua")
     dofile("mods/noita-mp/files/scripts/extensions/mathExtensions.lua")
     dofile("mods/noita-mp/files/scripts/extensions/globalExtensions.lua")
+    dofile("mods/noita-mp/files/scripts/init/init_package_loading.lua")
 
-    if not _G.ModSettingGet then
-        _G.ModSettingGet = function(id)
-            if not id then
-                return "UNKNOWN ModSettingGet id - FIX ME!"
-            end
-            if string.contains(id, "noita-mp.log_level_") then
-                return { "trace", "debug, info, warn", "WARN" }
-            end
-        end
-    end
+    pid = params[1]
+    print("pid", pid)
 
-    if not _G.Logger then
-        _G.Logger = require("Logger")
-    end
+    local noitaRootPath = io.popen("cd .. && cd .. && cd"):read("*l")
+    print("noitaRootPath", noitaRootPath)
 
-    if not _G.Utils then
-        _G.Utils = require("Utils")
-    end
-
+    lfs    = require("lfs")
     winapi = require("winapi")
-
     socket = require("socket")
-    udp = assert(socket.udp())
+    udp    = assert(socket.udp())
+
     udp:settimeout(0)
     assert(udp:setsockname("*", 71041))
 
-    plotly = require("plotly")
+    plotly                = require("plotly")
+    utils                 = require("Utils")
+        :new(nil)
+    local noitaMpSettings = require("NoitaMpSettings")
+        :new(nil, nil, {}, nil, nil, lfs, nil, utils, winapi)
+    local customProfiler  = noitaMpSettings.customProfiler or error("NoitaMpSettings.customProfiler is nil!", 2)
+    logger                = noitaMpSettings.logger or error("NoitaMpSettings.logger is nil!", 2)
+    fileUtils             = noitaMpSettings.fileUtils or error("NoitaMpSettings.fileUtils is nil!", 2)
 
-    if not _G.FileUtils then
-        _G.FileUtils = require("FileUtils")
-    end
-
-    reportDirectory = ("%s%sNoitaMP-Reports%s%s")
-        :format(FileUtils.GetDesktopDirectory(), pathSeparator, pathSeparator, os.date("%Y-%m-%d_%H-%M-%S", os.time()))
+    reportDirectory       = ("%s%sNoitaMP-Reports%s%s")
+        :format(fileUtils:GetDesktopDirectory(), pathSeparator, pathSeparator, os.date("%Y-%m-%d_%H-%M-%S", os.time()))
 
 
     -- local json = require 'dkjson' REMOVE ME!
@@ -99,11 +124,11 @@ local init            = function()
 end
 
 local report          = function()
-    print("cache size " .. cache["size"] .. " >= 1024")
+    print("cache size " .. cache["size"] or 0 .. " >= 1024")
     print("Forcing Plotly to run..")
 
-    if not FileUtils.Exists(reportDirectory) then
-        FileUtils.MkDir(reportDirectory)
+    if not fileUtils:Exists(reportDirectory) then
+        fileUtils:MkDir(reportDirectory)
     end
 
     local x            = {}
@@ -115,12 +140,12 @@ local report          = function()
 
     for functionName, cpcEntries in pairs(cache) do
         --print("key", functionName)
-        --print("value", Utils.pformat(cpcEntries))
+        --print("value", utils:pformat(cpcEntries))
 
         if functionName ~= "size" then
             for cpc, cpcStartStop in pairs(cpcEntries) do
                 --print("key", cpc)
-                --print("value", Utils.pformat(cpcStartStop))
+                --print("value", utils:pformat(cpcStartStop))
 
                 local startEntry = cpcStartStop["start"]
                 local stopEntry  = cpcStartStop["stop"]
@@ -369,7 +394,7 @@ local run             = function()
                 --report()
             end
 
-            --print(Utils.pformat(cache))
+            print(utils:pformat(cache))
         end
 
         --[[ Just some memory double checking! ]]
@@ -401,9 +426,10 @@ local exit            = function()
     report()
     print("Done!")
 
-    print("Entries left without a stop entry:" .. Utils.pformat(cache))
+    print("Entries left without a stop entry:" .. utils:pformat(cache))
     os.exit(0)
     print("Bye, enjoy your day!")
+    _G.profilerIsRunning = false
 end
 
 init()

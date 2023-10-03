@@ -1,31 +1,6 @@
 ---Everything regarding ImGui: Credits to @dextercd
 --- @class Gui
 local Gui = {
-    --[[ Imports ]]
-
-    ---@type Client
-    client = nil,
-    ---@type CustomProfiler
-    customProfiler = nil,
-    ---@type FileUtils
-    fileUtils = nil,
-    ---@type GlobalsUtils
-    globalsUtils = nil,
-    ---@type GuidUtils
-    guidUtils = nil,
-    ---@type ImGui
-    imGui = nil,
-    ---@type MinaUtils
-    minaUtils = nil,
-    ---@type NetworkVscUtils
-    networkVscUtils = nil,
-    ---@type NoitaMpSettings
-    noitaMpSettings = nil,
-    ---@type Server
-    server = nil,
-    ---@type Utils
-    utils = nil,
-
     --[[ Attributes ]]
 
     aboutLabel = "NoitaMp - About",
@@ -60,8 +35,13 @@ local Gui = {
 
 if not load_imgui then
     function OnWorldInitialized()
+        local noitaMpSettings = require("NoitaMpSettings")
+            :new(nil, nil, {}, nil, nil, nil, nil, nil, nil)
+        local fileUtils = noitaMpSettings.fileUtils or require("FileUtils")
+            :new(nil, nil, nil, noitaMpSettings, nil, nil)
+
         local defaultFile = "mods/component-explorer/entities/imgui_warning.xml"
-        if not FileUtils.Exists(defaultFile) then
+        if not fileUtils:Exists(defaultFile) then
             defaultFile = "mods/noita-mp/files/data/entities/imgui_warning.xml"
         end
         EntityLoad(defaultFile, 0, 0)
@@ -125,7 +105,7 @@ end
 local tooltipHelper = function(self, tooltip)
     local cpc = self.customProfiler:start("Gui.tooltipHelper")
 
-    if not self.utils.IsEmpty(tooltip) then
+    if not self.utils:isEmpty(tooltip) then
         self.imGui.SameLine()
         self.imGui.TextDisabled("(?)")
         if self.imGui.IsItemHovered() then
@@ -169,7 +149,7 @@ function Gui:update()
     if self.showPlayMenu then
         self:drawPlayMenu()
     else
-        if not self.server.isRunning() then
+        if not self.server:isRunning() then
             self.isServer = nil
         end
     end
@@ -268,7 +248,7 @@ function Gui:drawMenuBar()
                 end
                 self.imGui.Separator()
                 if self.imGui.MenuItem("Found a bug?", self.shortcuts.bugReport) then
-                    self.utils.openUrl("https://github.com/Ismoh/NoitaMP/issues/new/choose")
+                    self.utils:openUrl("https://github.com/Ismoh/NoitaMP/issues/new/choose")
                 end
                 self.imGui.EndMenu()
             end
@@ -322,14 +302,14 @@ function Gui:drawPlayMenu()
     local isCollapsed
     isCollapsed, self.showPlayMenu = self.imGui.Begin(self.playLabel, self.showPlayMenu, windowFlags)
     if isCollapsed then
-        if self.utils.IsEmpty(self.minaUtils.getLocalMinaName()) then
+        if self.utils:isEmpty(self.minaUtils.getLocalMinaName()) then
             self.imGui.Text(("Please set your name in the settings first! Simply press '%s'!"):format(self.shortcuts.settings))
             self.imGui.End()
             self.customProfiler:stop("Gui.drawPlayMenu", cpc)
             return
         end
 
-        if self.utils.IsEmpty(self.isServer) then
+        if self.utils:isEmpty(self.isServer) then
             self.imGui.Text("Do you want to host or join a server?")
             self.imGui.Separator()
             if self.imGui.SmallButton("Host!") then
@@ -411,7 +391,7 @@ function Gui:drawSettings()
     isCollapsed, self.showSettings = self.imGui.Begin(self.settingsLabel, self.showSettings, windowFlags)
     if isCollapsed then
         -- store previous Mina settings for being able using multiple instances locally
-        if self.utils:IsEmpty(oldMina) then
+        if self.utils:isEmpty(oldMina) then
             oldMina = {}
             oldMina.entityId = self.minaUtils:getLocalMinaEntityId()
             oldMina.guid = self.minaUtils:getLocalMinaGuid()
@@ -525,7 +505,7 @@ function Gui:drawSettings()
 
             self.noitaMpSettings:save()
 
-            if not self.utils.IsEmpty(self.minaUtils:getLocalMinaName()) and not self.utils.IsEmpty(self.minaUtils:getLocalMinaGuid()) then
+            if not self.utils:isEmpty(self.minaUtils:getLocalMinaName()) and not self.utils:isEmpty(self.minaUtils:getLocalMinaGuid()) then
                 self:setShowMissingSettings(false)
             end
 
@@ -603,12 +583,12 @@ function Gui:drawAbout()
         self.imGui.Text("Homepage: https://github.com/Ismoh/NoitaMP")
         self.imGui.SameLine()
         if self.imGui.SmallButton("Open in Browser") then
-            self.utils.openUrl("https://github.com/Ismoh/NoitaMP")
+            self.utils:openUrl("https://github.com/Ismoh/NoitaMP")
         end
         self.imGui.Text("Join 'Ismoh Games' Discord server!")
         self.imGui.SameLine()
         if self.imGui.SmallButton("Open in Browser") then
-            self.utils.openUrl("https://discord.gg/DhMurdcw4k")
+            self.utils:openUrl("https://discord.gg/DhMurdcw4k")
         end
 
         self.imGui.Separator()
@@ -723,7 +703,7 @@ function Gui:checkShortcuts()
     end
 
     if self.imGui.IsKeyPressed(self.imGui.Key.B) then
-        self.utils.openUrl("https://github.com/Ismoh/NoitaMP/issues/new/choose")
+        self.utils:openUrl("https://github.com/Ismoh/NoitaMP/issues/new/choose")
     end
 
     if self.imGui.IsKeyPressed(self.imGui.Key.P) then
@@ -743,54 +723,84 @@ end
 
 ---Gui constructor.
 ---@param guiObject Gui|nil optional
+---@param server Server required
 ---@param client Client required
----@param customProfiler CustomProfiler required
+---@param customProfiler CustomProfiler|nil optional
 ---@param guidUtils GuidUtils|nil optional
 ---@param minaUtils MinaUtils|nil optional
----@param noitaMpSettings NoitaMpSettings required
+---@param noitaMpSettings NoitaMpSettings|nil optional
 ---@return Gui
-function Gui:new(guiObject, client, customProfiler, guidUtils, minaUtils, noitaMpSettings)
+function Gui:new(guiObject, server, client, customProfiler, guidUtils, minaUtils, noitaMpSettings)
     ---@class Gui
     guiObject = setmetatable(guiObject or self, Gui)
 
-    local cpc = customProfiler:start("Gui:new")
+    local cpc = server.customProfiler:start("Gui:new")
 
     --[[ Imports ]]
     -- Initialize all imports to avoid recursive imports
 
+    if not guiObject.server then
+        ---@type Server
+        ---@see Server
+        guiObject.server = server or error("Server is required!", 2)
+    end
+
     if not guiObject.client then
+        ---@type Client
+        ---@see Client
         guiObject.client = client or error("Client is required!", 2)
     end
 
     if not guiObject.noitaMpSettings then
-        guiObject.noitaMpSettings = noitaMpSettings or require("NoitaMpSettings")
+        ---@type NoitaMpSettings
+        ---@see NoitaMpSettings
+        guiObject.noitaMpSettings = noitaMpSettings or server.noitaMpSettings or require("NoitaMpSettings")
             :new(nil, customProfiler, self, nil, nil, nil, nil, nil, nil)
     end
 
     if not guiObject.customProfiler then
-        guiObject.customProfiler = customProfiler or require("CustomProfiler")
-            :new(nil, nil, noitaMpSettings, nil, nil, nil, nil)
+        ---@type CustomProfiler
+        ---@see CustomProfiler
+        guiObject.customProfiler = customProfiler or server.customProfiler or require("CustomProfiler")
+            :new(nil, nil, server.noitaMpSettings, nil, nil, nil, nil)
     end
 
     if not guiObject.guidUtils then
-        guiObject.guidUtils = guidUtils or require("GuidUtils") --:new()
+        ---@type GuidUtils
+        ---@see GuidUtils
+        guiObject.guidUtils = guidUtils or require("GuidUtils")
+            :new(nil, guiObject.customProfiler, server.fileUtils, server.logger, nil, nil,
+                server.utils, nil)
     end
 
     if not guiObject.imGui then
+        ---@type ImGui
+        ---@see ImGui
         guiObject.imGui = load_imgui({ version = "1.11.0", mod = "noita-mp" })
     end
 
     if not guiObject.minaUtils then
-        guiObject.minaUtils = minaUtils or require("MinaUtils") --:new()
+        ---@type MinaUtils
+        ---@see MinaUtils
+        guiObject.minaUtils = minaUtils or require("MinaUtils")
+            :new(nil, guiObject.customProfiler, server.noitaComponentUtils.globalsUtils, noitaMpSettings.logger,
+                server.networkVscUtils, noitaMpSettings, noitaMpSettings.utils)
+    end
+
+    if not guiObject.utils then
+        ---@type Utils
+        ---@see Utils
+        guiObject.utils = noitaMpSettings.utils or require("Utils")
+        --:new()
     end
 
     --[[ Attributes ]]
-    entityDetectionRadius = guiObject.noitaMpSettings:get("noita-mp.entity-detection-radius", "number")
-    playerListIsBorder = guiObject.noitaMpSettings:get("noita-mp.gui.player-list.border", "boolean")
-    playerListIsClickable = guiObject.noitaMpSettings:get("noita-mp.gui.player-list.clickable", "boolean")
-    playerListTransparency = guiObject.noitaMpSettings:get("noita-mp.gui.player-list.background-alpha", "number")
+    guiObject.entityDetectionRadius = guiObject.noitaMpSettings:get("noita-mp.entity-detection-radius", "number")
+    guiObject.playerListIsBorder = guiObject.noitaMpSettings:get("noita-mp.gui.player-list.border", "boolean")
+    guiObject.playerListIsClickable = guiObject.noitaMpSettings:get("noita-mp.gui.player-list.clickable", "boolean")
+    guiObject.playerListTransparency = guiObject.noitaMpSettings:get("noita-mp.gui.player-list.background-alpha", "number")
 
-    customProfiler:stop("ExampleClass:new", cpc)
+    guiObject.customProfiler:stop("ExampleClass:new", cpc)
     return guiObject
 end
 

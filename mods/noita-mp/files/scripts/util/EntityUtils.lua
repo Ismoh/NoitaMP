@@ -31,20 +31,21 @@ local EntityUtils = {
     timeFramesDelta = 1,
 }
 
---- Checks if the entity filename is in the include or exclude list of filenames.
+---Checks if the entity filename is in the include or exclude list of filenames.
 ---@private
---- @param filename string current entity filename
---- @param filenames table list of filenames
---- @return boolean true if filename is in filenames list otherwise false
-local findByFilename = function(filename, filenames) --[[ private ]]
-    local cpc = CustomProfiler.start("EntityUtils.findByFilename")
+---@param self EntityUtils
+---@param filename string current entity filename
+---@param filenames table list of filenames
+---@return boolean true if filename is in filenames list otherwise false
+local findByFilename = function(self, filename, filenames) --[[ private ]]
+    local cpc = self.customProfiler:start("EntityUtils.findByFilename")
     for i = 1, #filenames do
         if filename:find(filenames[i]) then
-            CustomProfiler.stop("EntityUtils.findByFilename", cpc)
+            self.customProfiler:stop("EntityUtils.findByFilename", cpc)
             return true
         end
     end
-    CustomProfiler.stop("EntityUtils.findByFilename", cpc)
+    self.customProfiler:stop("EntityUtils.findByFilename", cpc)
     return false
 end
 
@@ -272,7 +273,7 @@ function EntityUtils:syncEntities(startFrameTime)
                     --local ONLYFORTESTING = EntitySerialisationUtils.deserializeEntireRootEntity(serializedEntity)
                     local serializedEntityString = self.noitaPatcherUtils:serializeEntity(entityId)
                     local finished               = false
-                    if not self.utils:IsEmpty(serializedEntityString) then
+                    if not self.utils:isEmpty(serializedEntityString) then
                         finished = true
                     end
                     if finished == true then
@@ -565,7 +566,7 @@ end
 ---@return EntityUtils
 function EntityUtils:new(entityUtilsObject, client, customProfiler, enitityCacheUtils, entityCache, globalsUtils, logger, minaUtils, networkUtils,
                          networkVscUtils, noitaComponentUtils, nuidUtils, server, utils)
-    ---@type EntityUtils
+    ---@class EntityUtils
     entityUtilsObject = setmetatable(entityUtilsObject or self, EntityUtils)
 
     -- Load config.lua

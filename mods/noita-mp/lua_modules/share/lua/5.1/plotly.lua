@@ -1,6 +1,7 @@
 local json        = require("dkjson")
 local lfs         = require("lfs")
 
+---@class plotly
 local plotly      = {}
 
 plotly.cdn_main   = "<script src='https://cdn.plot.ly/plotly-2.16.0.min.js'></script>"
@@ -128,10 +129,10 @@ local dash_style     = { ["-"] = "solid", [":"] = "dot", ["--"] = "dash" }
 local mode_shorthand = { ["m"] = "markers", ["l"] = "lines", ["m+l"] = "lines+markers", ["l+m"] = "lines+markers" }
 
 
---[[Adding a trace for the figure with shorthand for common options (similar to matlab or matplotlib).   
-All js options can be found here: https://plotly.com/javascript/reference/index/  
-Easy to call like: figure:plot{x, y, ...}  
-Shorthand options:  
+--[[Adding a trace for the figure with shorthand for common options (similar to matlab or matplotlib).
+All js options can be found here: https://plotly.com/javascript/reference/index/
+Easy to call like: figure:plot{x, y, ...}
+Shorthand options:
 | key | explanation |
 | :----: | :---------: |
 | *1* | x-values  |
@@ -426,10 +427,10 @@ function plotly.figure()
     return fig
 end
 
---[[Adding a trace for the figure with shorthand for common options (similar to matlab or matplotlib).   
-All js options can be found here: https://plotly.com/javascript/reference/index/  
-Easy to call like: plotly.plot{x, y, ...}  
-Shorthand options:  
+--[[Adding a trace for the figure with shorthand for common options (similar to matlab or matplotlib).
+All js options can be found here: https://plotly.com/javascript/reference/index/
+Easy to call like: plotly.plot{x, y, ...}
+Shorthand options:
 | key | explanation |
 | :----: | :---------: |
 | *1* | x-values  |

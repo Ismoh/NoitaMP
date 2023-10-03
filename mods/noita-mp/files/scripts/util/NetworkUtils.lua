@@ -265,7 +265,7 @@ function NetworkUtils.alreadySent(peer, event, data)
             local now = GameGetRealWorldTimeSinceStarted()
             local diff = now - matchingData.sendAt
             if diff >= peer:getRoundTripTime() then
-                print(("Resend after %s ms: %s"):format(diff, Utils.pformat(data)))
+                print(("Resend after %s ms: %s"):format(diff, utils:pformat(data)))
                 return false
             end
         end

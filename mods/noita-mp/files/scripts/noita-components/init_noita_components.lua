@@ -1,0 +1,37 @@
+-- -- Noita has a restricted lua context on LuaComponents.
+-- -- This means that you can't use the following functions:
+-- -- `require`
+
+-- ---I want to use `require` as I am used to it, this is why I add a pathMap for
+-- ---knowning the path of the modules, so that `dofile` works fine.
+-- local pathMap = {
+--     CustomProfiler  = "mods/noita-mp/files/scripts/util/",
+--     EntityUtils     = "mods/noita-mp/files/scripts/util/",
+--     Utils     = "mods/noita-mp/files/scripts/util/",
+--     FileUtils       = "mods/noita-mp/files/scripts/util/",
+--     GlobalsUtils    = "mods/noita-mp/files/scripts/util/",
+--     Logger          = "mods/noita-mp/files/scripts/util/",
+--     NetworkVscUtils = "mods/noita-mp/files/scripts/util/",
+--     NoitaMpSettings = "mods/noita-mp/files/scripts/",
+-- }
+
+-- -- To fix this issue, I simply overwrite `require` with `dofile`:
+-- if not require then
+--     ---Overwritten `require` function for restricted lua context inside Noita.
+--     ---@param module string The name of the module/class/filename to require. Required.
+--     ---@param path string|nil The path of the module/class/filename to require. Optional.
+--     ---@return any The result of the `dofile` function.
+--     require = function(module, path)
+--         if not module or module == "" then
+--             error("module is required!")
+--         end
+--         if not path or path == "" then
+--             path = pathMap[module]
+--             if not path or path == "" then
+--                 print(("Extend pathMap inside of init_noita_components.lua, because cannot resolve path %s to %s!"):format(path, module))
+--                 path = ""
+--             end
+--         end
+--         return dofile_once(path .. module .. ".lua")
+--     end
+-- end

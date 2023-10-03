@@ -9,7 +9,7 @@ function TestUtil:tearDown()
 end
 
 function TestUtil:testSleep()
-    lu.assertErrorMsgContains("Unable to wait if parameter 'seconds' isn't a number:", Utils.Sleep, "seconds")
+    lu.assertErrorMsgContains("Unable to wait if parameter 'seconds' isn't a number:", utils.sleep, "seconds")
 
     local seconds_to_wait  = 4
     local timestamp_before = os.clock()

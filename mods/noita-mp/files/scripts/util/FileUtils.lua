@@ -11,7 +11,7 @@ function FileUtils:GetVersionByFile()
     local modsPath           = self:GetAbsoluteDirectoryPathOfNoitaMP()
     local versionAbsFilePath = ("%s%s.version"):format(modsPath, pathSeparator)
     local content            = self:ReadFile(versionAbsFilePath, "*l")
-    if not content or self.utils.IsEmpty(content) then
+    if not content or self.utils:isEmpty(content) then
         error(("Unable to read NoitaMP version. Check if '%s' exists!")
             :format(self:GetAbsolutePathOfNoitaRootDirectory() + "/.version"), 2)
     end
@@ -648,7 +648,7 @@ end
 ---@param utils Utils|nil can be nil
 ---@return FileUtils
 function FileUtils:new(fileUtilsObject, customProfiler, logger, noitaMpSettings, plotly, utils)
-    ---@type FileUtils
+    ---@class FileUtils
     fileUtilsObject = setmetatable(fileUtilsObject or self, FileUtils)
 
     --[[ Imports ]]
@@ -658,10 +658,13 @@ function FileUtils:new(fileUtilsObject, customProfiler, logger, noitaMpSettings,
         error("FileUtils:new requires a NoitaMpSettings object", 2)
     end
 
+    noitaMpSettings.fileUtils = fileUtilsObject
+
     if not fileUtilsObject.customProfiler then
         ---@type CustomProfiler
         fileUtilsObject.customProfiler = customProfiler or require("CustomProfiler")
             :new(nil, fileUtilsObject, noitaMpSettings, nil, nil, nil, nil)
+        customProfiler.fileUtils = fileUtilsObject
     end
 
     local cpc = fileUtilsObject.customProfiler:start("FileUtils:new")
@@ -684,6 +687,7 @@ function FileUtils:new(fileUtilsObject, customProfiler, logger, noitaMpSettings,
     if not fileUtilsObject.logger then
         ---@type Logger
         fileUtilsObject.logger = logger or noitaMpSettings.logger or require("Logger")
+            :new(nil, fileUtilsObject.customProfiler)
     end
 
     if not fileUtilsObject.utils then

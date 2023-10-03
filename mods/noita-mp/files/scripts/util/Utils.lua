@@ -1,29 +1,45 @@
-local pprint = {}
-if require then
-    pprint = require("pprint")
-else
-    pprint.pformat = function(...)
-        print(...)
-    end
-    pprint.defaults = {}
+---Utils class for lazy developers.
+---@class Utils
+local Utils = {
+
+    --[[ Attributes ]]
+
+}
+
+---Wait for n seconds.
+---@see Utils.sleep
+---@param s number seconds to wait
+function Utils:wait(s)
+    self:sleep(s)
 end
 
---- @class Utils
-local Utils = {}
-
---- Wait for n seconds.
----@param s number seconds to wait
-function Utils.Sleep(s)
+---Wait for n seconds.
+---@param s number seconds to wait. required
+function Utils:sleep(s)
+    if self:isEmpty(s) then
+        error("Unable to wait if parameter 'seconds' is empty: " .. tostring(s))
+    end
     if type(s) ~= "number" then
         error("Unable to wait if parameter 'seconds' isn't a number: " .. type(s))
     end
-    -- http://lua-users.org/wiki/SleepFunction
-    local ntime = os.clock() + s
-    repeat
-    until os.clock() > ntime
+    if not require then
+        -- http://lua-users.org/wiki/SleepFunction
+        local ntime = os.clock() + s
+        repeat
+        until os.clock() > ntime
+    else
+        if self.ffi.os == "Windows" then
+            self.ffi.C.Sleep(s * 1000)
+        else
+            self.ffi.C.poll(nil, 0, s * 1000)
+        end
+    end
 end
 
-function Utils:IsEmpty(var)
+---Checks if a variable is empty.
+---@param var number|string|table variable to check
+---@return boolean true if empty, false otherwise
+function Utils:isEmpty(var)
     -- if you change this also change NetworkVscUtils.lua
     -- if you change this also change tableExtensions.lua
     if var == nil then
@@ -38,78 +54,29 @@ function Utils:IsEmpty(var)
     return false
 end
 
---https://noita.wiki.gg/wiki/Modding:_Utilities#Easier_entity_debugging
-function Utils.Str(var)
-    if type(var) == "table" then
-        local s = "{ "
-        for k, v in pairs(var) do
-            if type(k) ~= "number" then
-                k = '"' .. k .. '"'
-            end
-            s = s .. "[" .. k .. "] = " .. Utils.Str(v) .. ","
-        end
-        return s .. "} "
-    end
-    return tostring(var)
+---Formats anything pretty.
+---@param var number|string|table variable to print
+---@return number|string|table formatted variable
+function Utils:pformat(var)
+    return self.pprint.pformat(var, self.pprint.defaults)
 end
 
---https://noita.wiki.gg/wiki/Modding:_Utilities#Easier_entity_debugging
-function Utils.DebugEntity(e)
-    local parent   = EntityGetParent(e)
-    local children = EntityGetAllChildren(e)
-    local comps    = EntityGetAllComponents(e)
-
-    local msg      = "--- ENTITY DATA ---\n"
-    msg            = msg .. ("Parent: [" .. parent .. "] name = " .. (EntityGetName(parent) or "") .. "\n")
-
-    msg            = msg .. (" Entity: [" .. Utils.Str(e) .. "] name = " .. (EntityGetName(e) or "") .. "\n")
-    msg            = msg .. ("  Tags: " .. (EntityGetTags(e) or "") .. "\n")
-    if (comps ~= nil) then
-        for _, comp in ipairs(comps) do
-            local comp_type = ComponentGetTypeName(comp) or ""
-            msg             = msg .. ("  Comp: [" .. comp .. "] type = " .. comp_type)
-            if comp_type == "VariableStorageComponent" then
-                msg = msg .. (" - " .. (ComponentGetValue2(comp, "name") or "") .. " = " .. (ComponentGetValue2(comp,
-                    "value_string") or ""))
-            end
-            msg = msg .. "\n"
-        end
-    end
-
-    if children == nil then
-        return
-    end
-
-    for _, child in ipairs(children) do
-        local comps = EntityGetAllComponents(child)
-        msg         = msg .. ("  Child: [" .. child .. "] name = " .. EntityGetName(child) .. "\n")
-        for _, comp in ipairs(comps) do
-            local comp_type = ComponentGetTypeName(comp) or ""
-            msg = msg .. ("   Comp: [" .. comp .. "] type = " .. comp_type)
-            if comp_type == "VariableStorageComponent" then
-                msg = msg .. (" - " .. (ComponentGetValue2(comp, "name") or "") .. " = " .. (ComponentGetValue2(comp,
-                    "value_string") or ""))
-            end
-            msg = msg .. "\n"
-        end
-    end
-    msg = msg .. ("--- END ENTITY DATA ---" .. "\n")
-
-    Logger.debug(Logger.channels.testing, msg)
-end
-
-function Utils.pformat(var)
-    return pprint.pformat(var, pprint.defaults)
-end
-
---- Reloads the whole world with a specific seed. No need to restart the game and use magic numbers.
+---Reloads the whole world with a specific seed. No need to restart the game and use magic numbers.
 ---@param seed number max = 4294967295
-function Utils.ReloadMap(seed)
+function Utils:reloadMap(seed)
     SetWorldSeed(seed)
     BiomeMapLoad_KeepPlayer("mods/noita-mp/files/scripts/DefaultBiomeMap.lua", "data/biome/_pixel_scenes.xml")
 end
 
-function Utils.CopyToClipboard(copy)
+---Copies a string to the clipboard.
+---@param copy string string to copy to the clipboard. required
+function Utils:copyToClipboard(copy)
+    if not copy then
+        error("Unable to copy to clipboard if parameter 'copy' is empty: " .. tostring(copy))
+    end
+    if type(copy) ~= "string" then
+        error("Unable to copy to clipboard if parameter 'copy' isn't a string: " .. type(copy))
+    end
     local command = nil
     if _G.is_windows then
         command = ('echo "%s" | clip'):format(copy)
@@ -119,7 +86,15 @@ function Utils.CopyToClipboard(copy)
     os.execute(command)
 end
 
-function Utils.openUrl(url)
+---Opens a url in the default browser.
+---@param url string url to open. required
+function Utils:openUrl(url)
+    if not url then
+        error("Unable to open url if parameter 'url' is empty: " .. tostring(url))
+    end
+    if type(url) ~= "string" then
+        error("Unable to open url if parameter 'url' isn't a string: " .. type(url))
+    end
     local command = nil
     if _G.is_windows then
         command = ("rundll32 url.dll,FileProtocolHandler %s"):format(url) -- command = ('explorer "%s"'):format(url)
@@ -129,33 +104,28 @@ function Utils.openUrl(url)
     os.execute(command)
 end
 
-function Utils.execLua(pid)
-    local command = nil
-    if _G.is_windows then
-        --command = ('cd "%s" && start "NoitaMP - Profiler" profiler.bat %s 2>&1 &'):format(FileUtils.GetAbsoluteDirectoryPathOfNoitaMP(), parameter)
-        command = ('start "NoitaMP - Profiler" /D "%s" profiler.bat %s 2>&1 &'):format(FileUtils.GetAbsoluteDirectoryPathOfNoitaMP(), pid)
-        print(command)
-    else
-        error("Unix system are not supported yet :(", 2)
+function Utils:new(utilsObject)
+    ---@class Utils
+    utilsObject = setmetatable(utilsObject or self, Utils)
+
+    --[[ Imports ]]
+    --Initialize all imports to avoid recursive imports
+
+    if not utilsObject.pprint then
+        ---@type pprint
+        utilsObject.pprint = require("pprint")
     end
-    os.execute(command)
 
+    if not utilsObject.ffi then
+        utilsObject.ffi = require("ffi")
+    end
 
-    -- local command = nil
-    -- if _G.is_windows then
-    --     command = ('cd "%s" && lua.bat files\\scripts\\bin\\profiler.lua'):format(FileUtils.GetAbsoluteDirectoryPathOfNoitaMP())
-    -- else
-    --     error("Unix system are not supported yet :(", 2)
-    --     return
-    -- end
+    utilsObject.ffi.cdef [[
+        void Sleep(int ms);
+        int poll(struct pollfd *fds, unsigned long nfds, int timeout);
+    ]]
 
-    -- local file    = assert(io.popen(command, "r"))
-    -- local content = file:read("*a")
-    -- file:close()
-    -- local cmdOutput = string.split(content, " ")
-    -- local pid       = cmdOutput[#cmdOutput]
-    -- return tonumber(pid)
-
+    return utilsObject
 end
 
 return Utils

@@ -28,7 +28,7 @@ end
 ---@return string localMinaName
 function MinaUtils:getLocalMinaName()
     local cpc = self.customProfiler:start("MinaUtils.getLocalMinaName")
-    if self.utils:IsEmpty(localMinaName) then
+    if self.utils:isEmpty(localMinaName) then
         localMinaName = tostring(self.noitaMpSettings:get("noita-mp.nickname", "string"))
     end
     self.customProfiler:stop("MinaUtils.getLocalMinaName", cpc)
@@ -51,7 +51,7 @@ end
 ---@return string localMinaGuid
 function MinaUtils:getLocalMinaGuid()
     local cpc = self.customProfiler:start("MinaUtils.getLocalMinaGuid")
-    if self.utils:IsEmpty(localMinaGuid) then
+    if self.utils:isEmpty(localMinaGuid) then
         localMinaGuid = self.noitaMpSettings:get("noita-mp.guid", "string")
     end
     self.customProfiler:stop("MinaUtils.getLocalMinaGuid", cpc)
@@ -72,14 +72,14 @@ function MinaUtils:getLocalMinaEntityId()
     local playerEntityIds = EntityGetWithTag("player_unit")
     for i = 1, #playerEntityIds do
         if self.networkVscUtils:hasNetworkLuaComponents(playerEntityIds[i]) then
-            local compOwnerName, compOwnerGuid, compNuid = NetworkVscUtils.getAllVscValuesByEntityId(playerEntityIds[i])
+            local compOwnerName, compOwnerGuid, compNuid = self.networkVscUtils:getAllVscValuesByEntityId(playerEntityIds[i])
             if compOwnerGuid == localMinaGuid then
                 self.customProfiler:stop("MinaUtils.getLocalMinaEntityId", cpc)
                 return playerEntityIds[i]
             end
         end
     end
-    if self.utils.IsEmpty(playerEntityIds) then
+    if self.utils:isEmpty(playerEntityIds) then
         self.logger:trace(self.logger.channels.entity,
             ("There isn't any Mina spawned yet or all died! EntityGetWithTag('player_unit') = {}"):format(playerEntityIds))
         self.customProfiler:stop("MinaUtils.getLocalMinaEntityId", cpc)
@@ -98,7 +98,7 @@ function MinaUtils:getLocalMinaNuid()
     local entityId = self:getLocalMinaEntityId()
     local ownerName, ownerGuid, nuid = self.networkVscUtils.getAllVscValuesByEntityId(entityId)
     local nuid_, entityId_ = self.globalsUtils:getNuidEntityPair(nuid)
-    if self.utils.IsEmpty(nuid_) and self.utils.IsEmpty(entityId_) then
+    if self.utils:isEmpty(nuid_) and self.utils:isEmpty(entityId_) then
         self.customProfiler:stop("MinaUtils.getLocalMinaNuid", cpc)
         return -1
     end
@@ -157,7 +157,7 @@ function MinaUtils:getAllMinas(client, server)
             mina.guid = client.otherClients[i].guid
             mina.nuid = client.otherClients[i].nuid
 
-            if self.utils:IsEmpty(mina.nuid) then
+            if self.utils:isEmpty(mina.nuid) then
                 local playerEntityIds = EntityGetWithTag("player_unit")
                 for i = 1, #playerEntityIds do
                     if self.networkVscUtils:hasNetworkLuaComponents(playerEntityIds[i]) then
@@ -178,7 +178,7 @@ function MinaUtils:getAllMinas(client, server)
             mina.guid = server:getClients()[i].guid
             mina.nuid = server:getClients()[i].nuid
 
-            if self.utils:IsEmpty(mina.nuid) then
+            if self.utils:isEmpty(mina.nuid) then
                 local playerEntityIds = EntityGetWithTag("player_unit")
                 for i = 1, #playerEntityIds do
                     if self.networkVscUtils:hasNetworkLuaComponents(playerEntityIds[i]) then
@@ -228,7 +228,7 @@ function MinaUtils:isRemoteMinae(client, server, entityId)
             local otherClient                = client.otherClients[i]
             local clientsNuid                = otherClient.nuid
             local nuidRemote, entityIdRemote = self.globalsUtils:getNuidEntityPair(clientsNuid)
-            if not self.utils:IsEmpty(entityIdRemote) and entityIdRemote == entityId then
+            if not self.utils:isEmpty(entityIdRemote) and entityIdRemote == entityId then
                 self.customProfiler:stop("EntityUtils.isRemoteMinae", cpc)
                 return true
             end
@@ -239,7 +239,7 @@ function MinaUtils:isRemoteMinae(client, server, entityId)
             local otherClient                = clients[i]
             local clientsNuid                = otherClient.nuid
             local nuidRemote, entityIdRemote = self.globalsUtils:getNuidEntityPair(clientsNuid)
-            if not self.utils:IsEmpty(entityIdRemote) and entityIdRemote == entityId then
+            if not self.utils:isEmpty(entityIdRemote) and entityIdRemote == entityId then
                 self.customProfiler:stop("EntityUtils.isRemoteMinae", cpc)
                 return true
             end

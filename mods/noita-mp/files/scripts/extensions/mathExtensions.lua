@@ -20,10 +20,13 @@ end
 --- math.round(119.68) -- 120
 --- math.round(119.68, 100) -- 100
 --- math.round(119.68, 1000) -- 0
----@param v number
+---@param v number|nil
 ---@param bracket number|nil
 ---@return number
 function math.round(v, bracket)
+    if not v then
+        error("Unable to round nil")
+    end
     if type(v) ~= "number" then
         error("Unable to round non-number: " .. type(v))
     end

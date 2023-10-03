@@ -24,18 +24,31 @@ local CustomProfiler = {
 }
 
 function CustomProfiler:init()
-    if not self.noitaMpSettings:get("noita-mp.toggle_profiler", "boolean") then
+    if not self.noitaMpSettings:get("noita-mp.toggle_profiler", "boolean") or not require or _G.profilerIsRunning then
         return
     end
 
-    local content = ('cd "%s" && cmd /k lua.bat files\\scripts\\bin\\profiler.lua'):format(FileUtils.GetAbsoluteDirectoryPathOfNoitaMP())
+    local content = ('cd "%s" && cmd /k lua.bat files\\scripts\\bin\\profiler.lua'):format(self.fileUtils:GetAbsoluteDirectoryPathOfNoitaMP())
     content = content .. " %1"
     self.fileUtils:WriteFile(("%s/profiler.bat"):format(self.fileUtils:GetAbsoluteDirectoryPathOfNoitaMP()), content)
-    self.utils.execLua(self.winapi.get_current_pid())
+    self:startExternalProfiler(self.winapi.get_current_pid())
+    _G.profilerIsRunning = true
 
-    self.udp = assert(self.socket.udp())
     self.udp:settimeout(0)
     self.udp:setpeername("localhost", 71041)
+end
+
+---Starts the external profiler.
+---@param pid number The process id of Noita.
+function CustomProfiler:startExternalProfiler(pid)
+    local command = nil
+    if self.ffi.os == "Windows" then
+        command = ('start "NoitaMP - Profiler" /D "%s" profiler.bat %s 2>&1 &'):format(self.fileUtils:GetAbsoluteDirectoryPathOfNoitaMP(), pid)
+        print(command)
+    else
+        error("Unix system are not supported yet :(", 2)
+    end
+    os.execute(command)
 end
 
 ---Starts the profiler. This has to be called before the function (or first line of function code) that you want to measure.
@@ -43,7 +56,11 @@ end
 ---@param functionName string The name of the function that you want to measure. This has to be the same as the one used in CustomProfiler:stop(functionName, customProfilerCounter)
 ---@return number returnCounter The counter that is used to determine the order of the function calls. This has to be passed to CustomProfiler:stop(functionName, customProfilerCounter)
 function CustomProfiler:start(functionName)
-    if not ModSettingGetNextValue("noita-mp.toggle_profiler") then
+    if not self.noitaMpSettings:get("noita-mp.toggle_profiler", "boolean") or not require then
+        return -1
+    end
+    if not self.udp:getsockname() then
+        print("CustomProfilers udp isn't connected yet!")
         return -1
     end
 
@@ -57,23 +74,18 @@ function CustomProfiler:start(functionName)
 
     local networkData = ("%s, %s, %s, %s, %s, %s"):format(frame, self.counter, "start", time, functionName, collectgarbage("count") / 1024)
     self.udp:send(networkData)
-
     return self.counter
-
-    -- if not self.reportCache[functionName]["size"] then
-    --     self.reportCache[functionName]["size"] = 0
-    -- end
-    -- self.reportCache[functionName]["size"] = self.reportCache[functionName]["size"] + 1
-    -- local returnCounter                              = self.counter
-    -- self.counter                           = self.counter + 1
-    --return returnCounter
 end
 
 ---Stops the profiler. This has to be called after the function (or last line of function code, but before any `return`) that you want to measure.
 ---@param functionName string The name of the function that you want to measure. This has to be the same as the one used in @see CustomProfiler.start(functionName)
 ---@param customProfilerCounter number The counter that is used to determine the order of the function calls. This has to same as the one returned by @see CustomProfiler.start(functionName)
 function CustomProfiler:stop(functionName, customProfilerCounter)
-    if not ModSettingGetNextValue("noita-mp.toggle_profiler") then
+    if not self.noitaMpSettings:get("noita-mp.toggle_profiler", "boolean") or not require then
+        return -1
+    end
+    if not self.udp:getsockname() then
+        print("CustomProfilers udp isn't connected yet!")
         return -1
     end
 
@@ -127,28 +139,33 @@ function CustomProfiler:new(customProfiler, fileUtils, noitaMpSettings, plotly, 
     ---@class CustomProfiler
     customProfiler = setmetatable(customProfiler or self, CustomProfiler)
 
-    local cpc      = customProfiler:start("CustomProfiler:new")
+    --local cpc      = customProfiler:start("CustomProfiler:new")
 
     --[[ Imports ]]
     --Initialize all imports to avoid recursive imports
+
+    if not customProfiler.noitaMpSettings then
+        noitaMpSettings.customProfiler = customProfiler
+        ---@type NoitaMpSettings
+        customProfiler.noitaMpSettings = noitaMpSettings or error("CustomProfiler:new requires a NoitaMpSettings object", 2)
+    end
+
+    if not customProfiler.socket then
+        ---@type socket
+        customProfiler.socket = socket or require("socket")
+    end
+
+    if not customProfiler.udp then
+        customProfiler.udp = assert(self.socket.udp())
+    end
 
     if not customProfiler.fileUtils then
         ---@type FileUtils
         customProfiler.fileUtils = fileUtils or require("FileUtils"):new(nil, customProfiler, nil, noitaMpSettings, plotly, utils)
     end
 
-    if not customProfiler.noitaMpSettings then
-        ---@type NoitaMpSettings
-        customProfiler.noitaMpSettings = noitaMpSettings or error("CustomProfiler:new requires a NoitaMpSettings object", 2)
-    end
-
     if not customProfiler.plotly then
         customProfiler.plotly = plotly or require("plotly") --:new()
-    end
-
-    if not customProfiler.socket then
-        ---@type socket
-        customProfiler.socket = socket or require("socket")
     end
 
     if not customProfiler.utils then
@@ -160,10 +177,38 @@ function CustomProfiler:new(customProfiler, fileUtils, noitaMpSettings, plotly, 
         customProfiler.winapi = winapi or require("winapi")
     end
 
+    if not customProfiler.ffi then
+        customProfiler.ffi = require("ffi")
+    end
+
+    -- Fix missing dependencies for noitaMpSettings, when starting the first time
+
+    if not noitaMpSettings.customProfiler then
+        noitaMpSettings.customProfiler = customProfiler
+    end
+
+    if not noitaMpSettings.fileUtils then
+        noitaMpSettings.fileUtils = customProfiler.fileUtils
+    end
+
+    if not noitaMpSettings.winapi then
+        noitaMpSettings.winapi = customProfiler.winapi
+    end
+
+    if not noitaMpSettings.utils then
+        noitaMpSettings.utils = customProfiler.utils
+    end
+
+    if not noitaMpSettings.json then
+        noitaMpSettings.json = require("json")
+    end
+
+    local cpc = customProfiler:start("CustomProfiler:new")
+
     --[[ Attributes ]]
 
-    self.reportDirectory = ("%s%sNoitaMP-Reports%s%s"):format(self.fileUtils:GetDesktopDirectory(), pathSeparator, pathSeparator,
-        os.date("%Y-%m-%d_%H-%M-%S", os.time()))
+    customProfiler.reportDirectory = ("%s%sNoitaMP-Reports%s%s")
+        :format(customProfiler.fileUtils:GetDesktopDirectory(), pathSeparator, pathSeparator, os.date("%Y-%m-%d_%H-%M-%S", os.time()))
 
     customProfiler:stop("CustomProfiler:new", cpc)
     return customProfiler

@@ -10,13 +10,16 @@ dofile("mods/noita-mp/files/scripts/init/init_.lua")
 local np = require("noitapatcher")
 
 -- Initialize default server
-local server = require("Server"):new(nil, nil, nil, nil, nil, nil, nil)
+local server = require("Server")
+    :new(nil, nil, nil, nil, nil, nil, nil, np)
 
 -- Initialize default client
-local client = require("Client"):new(nil, nil, nil, nil, server)
+local client = require("Client")
+    :new(nil, nil, nil, nil, server, np)
 -- Update client reference
 server.entityUtils.client = client
 server.globalsUtils.client = client
+server.nuidUtils.client = client
 
 -- Cache other classes
 local customProfiler = server.customProfiler or error("customProfiler is nil!")
@@ -30,9 +33,10 @@ local noitaComponentUtils = server.noitaComponentUtils or error("noitaComponentU
 local noitaMpSettings = server.noitaMpSettings or error("noitaMpSettings is nil!")
 local noitaPatcherUtils = server.noitaPatcherUtils or error("noitaPatcherUtils is nil!")
 local nuidUtils = server.nuidUtils or error("nuidUtils is nil!")
+local utils = server.utils or error("utils is nil!")
 local logger = server.logger or error("logger is nil!")
 
-local gui = require("Gui"):new(nil, client, customProfiler, guidUtils, minaUtils, noitaMpSettings)
+local gui = require("Gui"):new(nil, server, client, customProfiler, guidUtils, minaUtils, noitaMpSettings)
 -- Update gui reference
 server.noitaMpSettings.gui = gui
 client.noitaMpSettings.gui = gui
@@ -65,7 +69,7 @@ local function OnEntityLoaded()
     --for guessEntityId = entityUtils:previousHighestAliveEntityId, entityUtils:previousHighestAliveEntityId + 1024, 1 do
     for guessEntityId = entityUtils.previousHighestAliveEntityId, EntitiesGetMaxID(), 1 do
         local entityId = guessEntityId
-        while EntityGetIsAlive(entityId) do
+        while EntityGetIsAlive(entityId) and entityId > entityUtils.previousHighestAliveEntityId do
             if entityId > entityUtils.previousHighestAliveEntityId then
                 entityUtils.previousHighestAliveEntityId = entityId
             end
@@ -73,7 +77,7 @@ local function OnEntityLoaded()
             -- DEBUG ONLY
             local debugEntityId = fileUtils:ReadFile(("%s%s%s"):format(
                 fileUtils:GetAbsoluteDirectoryPathOfNoitaMP(), pathSeparator, "debugOnEntityLoaded"))
-            if not utils:IsEmpty(debugEntityId) then
+            if not utils:isEmpty(debugEntityId) then
                 if entityId >= tonumber(debugEntityId) then
                     local debug = true
                 end
@@ -86,9 +90,9 @@ local function OnEntityLoaded()
                     entityUtils.previousHighestAliveEntityId = rootEntity
                 end
 
-                if not noitaComponentUtils.hasInitialSerializedEntityString(rootEntity) then
+                if not noitaComponentUtils:hasInitialSerializedEntityString(rootEntity) then
                     local initialSerializedEntityString = noitaPatcherUtils:serializeEntity(rootEntity)
-                    local success = noitaComponentUtils.setInitialSerializedEntityString(rootEntity, initialSerializedEntityString)
+                    local success = noitaComponentUtils:setInitialSerializedEntityString(rootEntity, initialSerializedEntityString)
 
                     if not success then
                         error("Unable to add serialized string!", 2)
@@ -99,7 +103,7 @@ local function OnEntityLoaded()
                     initialSerializedEntityString = nil
 
                     -- Add NoitaMP Variable Storage Components
-                    local hasNuid, nuid = NetworkVscUtils.hasNuidSet(rootEntity)
+                    local hasNuid, nuid = networkVscUtils:hasNuidSet(rootEntity)
                     if not hasNuid and server:amIServer() then
                         nuid = nuidUtils:getNextNuid()
                     end
@@ -125,7 +129,7 @@ local function setSeedIfConnectedSecondTime()
     logger:debug(logger.channels.initialize, ("Servers world seed = %s"):format(seed))
     if seed and seed > 0 then
         if DebugGetIsDevBuild() then
-            utils.Sleep(5) -- needed to be able to attach debugger again
+            utils:sleep(5) -- needed to be able to attach debugger again
         end
 
         local cpc1                  = customProfiler:start("ModSettingGet")
@@ -179,7 +183,7 @@ function OnPlayerSpawned(player_entity)
     logger:info(logger.channels.initialize, ("Player spawned with entityId = %s!"):format(player_entity))
     OnEntityLoaded()
 
-    if utils:IsEmpty(minaUtils:getLocalMinaGuid()) then
+    if utils:isEmpty(minaUtils:getLocalMinaGuid()) then
         minaUtils:setLocalMinaGuid(guidUtils:generateNewGuid())
     end
 
@@ -216,7 +220,7 @@ function OnWorldPreUpdate()
     local cpc = customProfiler:start("init.OnWorldPreUpdate")
     OnEntityLoaded()
 
-    if utils:IsEmpty(minaUtils:getLocalMinaName()) or utils:IsEmpty(minaUtils:getLocalMinaGuid()) then
+    if utils:isEmpty(minaUtils:getLocalMinaName()) or utils:isEmpty(minaUtils:getLocalMinaGuid()) then
         gui:setShowMissingSettings(true)
     end
 
@@ -246,7 +250,7 @@ function OnWorldPreUpdate()
                     local cpc1      = customProfiler:start("ModSettingSetNextValue")
                     ModSettingSetNextValue("noita-mp.saveSlotMetaDirectory", _G.saveSlotMeta.dir, false)
                     customProfiler:stop("ModSettingSetNextValue", cpc1)
-                    logger:info(logger.channels.initialize, ("Save slot found in '%s'"):format(utils.pformat(_G.saveSlotMeta)))
+                    logger:info(logger.channels.initialize, ("Save slot found in '%s'"):format(utils:pformat(_G.saveSlotMeta)))
                 end
             end
         end
@@ -266,6 +270,8 @@ function OnWorldPreUpdate()
 
     customProfiler:stop("init.OnWorldPreUpdate.collectgarbage.count", cpc1)
     customProfiler:stop("init.OnWorldPreUpdate", cpc)
+
+    GamePrint("MemUsage " .. collectgarbage("count") / 1024 .. " MB")
 end
 
 function OnWorldPostUpdate()

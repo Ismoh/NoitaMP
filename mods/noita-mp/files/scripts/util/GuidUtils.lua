@@ -15,7 +15,7 @@ end
 ---Adds a guid to the cache.
 ---@param guid string required
 function GuidUtils:addGuidToCache(guid)
-    if self.utils:IsEmpty(guid) then
+    if self.utils:isEmpty(guid) then
         error("'guid' must not be nil or empty!", 2)
     end
     table.insertIfNotExist(self.cached_guid, guid)
@@ -28,7 +28,7 @@ end
 ---@return string guid
 function GuidUtils:generateNewGuid(inUsedGuids)
     local cpc = self.customProfiler:start("GuidUtils:getGuid")
-    if inUsedGuids and not self.utils:IsEmpty(inUsedGuids) and #inUsedGuids > 0 then
+    if inUsedGuids and not self.utils:isEmpty(inUsedGuids) and #inUsedGuids > 0 then
         for i = 1, #inUsedGuids do
             if inUsedGuids[i] and
                 not self:isPatternValid(inUsedGuids[i]) then
@@ -37,7 +37,7 @@ function GuidUtils:generateNewGuid(inUsedGuids)
         end
 
         table.insertAllButNotDuplicates(self.cached_guid, inUsedGuids)
-        self.logger:debug(self.logger.channels.guid, ("Guid:getGuid() - inUsedGuids: %s"):format(self.utils.pformat(inUsedGuids)))
+        self.logger:debug(self.logger.channels.guid, ("Guid:getGuid() - inUsedGuids: %s"):format(self.utils:pformat(inUsedGuids)))
     end
 
     local guid = nil
@@ -63,7 +63,7 @@ function GuidUtils:setGuid(client, server, guid)
     local clientOrServer = client or server or error("Either 'client' or 'server' must be set!", 2)
     local cpc = clientOrServer.customProfiler:start("GuidUtils:setGuid")
 
-    if self.utils:IsEmpty(guid) or self:isPatternValid(tostring(guid)) == false then
+    if self.utils:isEmpty(guid) or self:isPatternValid(tostring(guid)) == false then
         guid = self:generateNewGuid()
         clientOrServer.noitaMpSettings:set("noita-mp.guid", guid)
         clientOrServer.guid = guid
@@ -86,7 +86,7 @@ function GuidUtils:isPatternValid(guid)
     if type(guid) ~= "string" then
         return false
     end
-    if self.utils:IsEmpty(guid) then
+    if self.utils:isEmpty(guid) then
         return false
     end
 
@@ -129,7 +129,17 @@ function GuidUtils:toNumber(guid)
     return number
 end
 
-function GuidUtils:new(guidUtilsObject, customProfiler, fileUtils, logger, noitaMpSettings, plotly, socket, utils, winapi)
+---GuidUtils constructor.
+---@param guidUtilsObject GuidUtils|nil optional
+---@param customProfiler CustomProfiler required
+---@param fileUtils FileUtils|nil optional
+---@param logger Logger|nil optional
+---@param plotly plotly|nil optional
+---@param socket socket|nil optional
+---@param utils Utils|nil optional
+---@param winapi winapi|nil optional
+---@return GuidUtils
+function GuidUtils:new(guidUtilsObject, customProfiler, fileUtils, logger, plotly, socket, utils, winapi)
     ---@class GuidUtils
     guidUtilsObject = setmetatable(guidUtilsObject or self, GuidUtils)
 

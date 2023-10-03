@@ -14,26 +14,26 @@ local NoitaMpSettings     = {
 ---@param dataType string required! Must be one of "boolean" or "number". If not set, "string" is default.
 ---@return boolean|number|string value converted to dataType
 local convertToDataType   = function(self, value, dataType)
-    local cpc = self.customProfiler:start("NoitaMpSettings.convertToDataType")
-    if not self.utils.IsEmpty(dataType) then
+    --local cpc = self.customProfiler:start("NoitaMpSettings.convertToDataType")
+    if not self.utils:isEmpty(dataType) then
         if dataType == "boolean" then
-            if self.utils.IsEmpty(value) then
-                self.customProfiler:stop("NoitaMpSettings.convertToDataType", cpc)
+            if self.utils:isEmpty(value) then
+                --self.customProfiler:stop("NoitaMpSettings.convertToDataType", cpc)
                 return false
             end
-            self.customProfiler:stop("NoitaMpSettings.convertToDataType", cpc)
+            --self.customProfiler:stop("NoitaMpSettings.convertToDataType", cpc)
             return toBoolean(value)
         end
         if dataType == "number" then
-            if self.utils.IsEmpty(value) then
-                self.customProfiler:stop("NoitaMpSettings.convertToDataType", cpc)
+            if self.utils:isEmpty(value) then
+                --self.customProfiler:stop("NoitaMpSettings.convertToDataType", cpc)
                 return 0
             end
-            self.customProfiler:stop("NoitaMpSettings.convertToDataType", cpc)
+            --self.customProfiler:stop("NoitaMpSettings.convertToDataType", cpc)
             return tonumber(value)
         end
     end
-    self.customProfiler:stop("NoitaMpSettings.convertToDataType", cpc)
+    --self.customProfiler:stop("NoitaMpSettings.convertToDataType", cpc)
     return tostring(value)
 end
 
@@ -63,7 +63,7 @@ end
 ---Checks if more than one Noita process is running.
 ---@return boolean true if more than one Noita process is running.
 function NoitaMpSettings:isMoreThanOneNoitaProcessRunning()
-    local cpc = self.customProfiler:start("NoitaMpSettings.isMoreThanOneNoitaProcessRunning")
+    --local cpc = self.customProfiler:start("NoitaMpSettings.isMoreThanOneNoitaProcessRunning")
     local pids = self.winapi.get_processes()
     local noitaCount = 0
     for _, pid in ipairs(pids) do
@@ -74,7 +74,7 @@ function NoitaMpSettings:isMoreThanOneNoitaProcessRunning()
         end
         P:close()
     end
-    self.customProfiler:stop("NoitaMpSettings.isMoreThanOneNoitaProcessRunning", cpc)
+    --self.customProfiler:stop("NoitaMpSettings.isMoreThanOneNoitaProcessRunning", cpc)
     return noitaCount > 1
 end
 
@@ -98,12 +98,12 @@ end
 ---@return table self.cachedSettings
 function NoitaMpSettings:set(key, value)
     local cpc = self.customProfiler:start("NoitaMpSettings.set")
-    if self.utils.IsEmpty(key) or type(key) ~= "string" then
+    if self.utils:isEmpty(key) or type(key) ~= "string" then
         error(("'key' must not be nil or is not type of string!"):format(key), 2)
     end
 
     local settingsFilePath = getSettingsFilePath(self)
-    if self.utils.IsEmpty(self.cachedSettings) or not self.fileUtils:Exists(settingsFilePath) then
+    if self.utils:isEmpty(self.cachedSettings) or not self.fileUtils:Exists(settingsFilePath) then
         self:load()
     end
 
@@ -118,19 +118,19 @@ end
 ---@param dataType string required! Must be one of "boolean" or "number". If not set, "string" is default.
 ---@return boolean|string|number
 function NoitaMpSettings:get(key, dataType)
-    local cpc = self.customProfiler:start("NoitaMpSettings.get")
+    --local cpc = self.customProfiler:start("NoitaMpSettings.get")
 
     local settingsFilePath = getSettingsFilePath(self)
-    if self.utils.IsEmpty(self.cachedSettings) or not self.fileUtils:Exists(settingsFilePath) then
+    if self.utils:isEmpty(self.cachedSettings) or not self.fileUtils:Exists(settingsFilePath) then
         self:load()
     end
 
-    if self.utils.IsEmpty(self.cachedSettings[key]) then
+    if self.utils:isEmpty(self.cachedSettings[key]) then
         --error(("Unable to find '%s' in NoitaMpSettings: %s"):format(key, contentString), 2)
         self.customProfiler:stop("NoitaMpSettings.get", cpc)
         return convertToDataType(self, "", dataType)
     end
-    self.customProfiler:stop("NoitaMpSettings.get", cpc)
+    --self.customProfiler:stop("NoitaMpSettings.get", cpc)
     return convertToDataType(self, self.cachedSettings[key], dataType)
 end
 
@@ -149,13 +149,13 @@ end
 function NoitaMpSettings:save()
     local settingsFilePath = getSettingsFilePath(self)
 
-    if self.utils.IsEmpty(self.cachedSettings["pid"]) then
+    if self.utils:isEmpty(self.cachedSettings["pid"]) then
         self.cachedSettings["pid"] = self.winapi.get_current_pid()
     end
 
     self.fileUtils:WriteFile(settingsFilePath, self.json.encode(self.cachedSettings))
     if self.gui then
-        self.gui.setShowSettingsSaved(true)
+        self.gui:setShowSettingsSaved(true)
     end
 end
 
@@ -177,21 +177,8 @@ function NoitaMpSettings:new(noitaMpSettings, customProfiler, gui, fileUtils, js
     --[[ Imports ]]
     --Initialize all imports to avoid recursive imports
 
-    if not noitaMpSettings.customProfiler then
-        ---@type CustomProfiler
-        ---@see CustomProfiler
-        noitaMpSettings.customProfiler = customProfiler or
-            require("CustomProfiler")
-            :new(nil, nil, noitaMpSettings, nil, nil, nil, nil)
-    end
-    local cpc = noitaMpSettings.customProfiler:start("NoitaMpSettings:new")
-
-    if not noitaMpSettings.gui then
-        noitaMpSettings.gui = gui or error("NoitaMpSettings:new requires a Gui object", 2)
-    end
-
-    if not noitaMpSettings.fileUtils then
-        noitaMpSettings.fileUtils = fileUtils or noitaMpSettings.customProfiler.fileUtils or require("FileUtils") --:new()
+    if not noitaMpSettings.utils then
+        noitaMpSettings.utils = utils or require("Utils"):new(nil)
     end
 
     if not noitaMpSettings.json then
@@ -202,17 +189,34 @@ function NoitaMpSettings:new(noitaMpSettings, customProfiler, gui, fileUtils, js
         noitaMpSettings.lfs = lfs or require("lfs")
     end
 
+    if not noitaMpSettings.winapi then
+        noitaMpSettings.winapi = winapi or require("winapi")
+    end
+
+    if not noitaMpSettings.customProfiler then
+        ---@type CustomProfiler
+        ---@see CustomProfiler
+        noitaMpSettings.customProfiler = customProfiler or
+            require("CustomProfiler")
+            :new(nil, nil, noitaMpSettings, nil, nil, noitaMpSettings.utils, noitaMpSettings.winapi)
+    end
+    local cpc = noitaMpSettings.customProfiler:start("NoitaMpSettings:new")
+
+    if not noitaMpSettings.gui then
+        noitaMpSettings.gui = gui or error("NoitaMpSettings:new requires a Gui object", 2)
+    end
+
+    if not noitaMpSettings.fileUtils then
+        noitaMpSettings.fileUtils = fileUtils or noitaMpSettings.customProfiler.fileUtils or
+            require("FileUtils")
+            :new(nil, noitaMpSettings.customProfiler, nil, noitaMpSettings, nil, noitaMpSettings.utils)
+    end
+
     if not noitaMpSettings.logger then
         noitaMpSettings.logger = logger or require("Logger"):new(nil, noitaMpSettings.customProfiler)
     end
 
-    if not noitaMpSettings.utils then
-        noitaMpSettings.utils = utils or noitaMpSettings.customProfiler.utils or require("Utils") --:new()
-    end
 
-    if not noitaMpSettings.winapi then
-        noitaMpSettings.winapi = winapi or noitaMpSettings.customProfiler.winapi or require("winapi")
-    end
 
     noitaMpSettings.customProfiler:stop("ExampleClass:new", cpc)
     return noitaMpSettings

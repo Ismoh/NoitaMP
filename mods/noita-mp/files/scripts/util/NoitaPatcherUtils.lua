@@ -1,13 +1,5 @@
 ---@class NoitaPatcherUtils
 local NoitaPatcherUtils = {
-    --[[ Imports ]]
-
-    base64 = nil,
-    ---@type CustomProfiler
-    customProfiler = nil,
-    ---@type noitapatcher
-    ---docs: https://dexter.xn--dpping-wxa.eu/NoitaPatcher/Example.html#example
-    np = nil,
 
     --[[ Attributes ]]
 }
@@ -44,26 +36,42 @@ function NoitaPatcherUtils:deserializeEntity(entityId, serializedEntityString, x
 end
 
 ---NoitaPatcherUtils constructor.
----@param noitaPatcherUtils NoitaPatcherUtils|nil
+---@param noitaPatcherUtilsObject NoitaPatcherUtils|nil
 ---@param base64 base64|nil
 ---@param customProfiler CustomProfiler required
----@param noitaPatcher noitapatcher required
+---@param np noitapatcher required
 ---@return NoitaPatcherUtils
-function NoitaPatcherUtils:new(noitaPatcherUtils, base64, customProfiler, noitaPatcher)
-    local noitaPatcherUtils = noitaPatcherUtils or self or {} -- Use self if this is called as a class constructor
-    setmetatable(noitaPatcherUtils, self)
-    self.__index = self
+function NoitaPatcherUtils:new(noitaPatcherUtilsObject, base64, customProfiler, np)
+    ---@class NoitaPatcherUtils
+    noitaPatcherUtilsObject = setmetatable(noitaPatcherUtilsObject or self, NoitaPatcherUtils)
 
-    local cpc = self.customProfiler:start("EntityUtils:new")
+    if not customProfiler then
+        error("NoitaPatcherUtils:new requires a CustomProfiler object", 2)
+    end
 
-    -- Initialize all imports to avoid recursive imports
-    self.base64 = base64 or require("base64")
-    self.customProfiler = customProfiler or error("NoitaPatcherUtils:new requires a CustomProfiler object", 2)
-    self.np = noitaPatcher or error("NoitaPatcherUtils:new requires a NoitaPatcher object", 2)
+    local cpc = customProfiler:start("NoitaPatcherUtils:new")
 
-    self.customProfiler:stop("EntityUtils:new", cpc)
+    --[[ Imports ]]
+    --Initialize all imports to avoid recursive imports
 
-    return noitaPatcherUtils
+    if not noitaPatcherUtilsObject.base64 then
+        ---@type base64
+        noitaPatcherUtilsObject.base64 = base64 or require("base64")
+    end
+
+    if not noitaPatcherUtilsObject.customProfiler then
+        ---@type CustomProfiler
+        noitaPatcherUtilsObject.customProfiler = customProfiler or error("NoitaPatcherUtils:new requires a CustomProfiler object", 2)
+    end
+
+    if not noitaPatcherUtilsObject.np then
+        ---@type noitapatcher
+        noitaPatcherUtilsObject.np = np or error("NoitaPatcherUtils:new requires a NoitaPatcher object", 2)
+    end
+
+    customProfiler:stop("EntityUtils:new", cpc)
+
+    return noitaPatcherUtilsObject
 end
 
 return NoitaPatcherUtils

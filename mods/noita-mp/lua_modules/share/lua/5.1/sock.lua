@@ -70,7 +70,7 @@ local function zipTable(items, keys, event)
 
         if not key then
             error(("Missing data key for event '%s'! items = %s schema = %s")
-                :format(event, Utils.pformat(items), Utils.pformat(keys)), 2)
+                :format(event, utils:pformat(items), utils:pformat(keys)), 2)
         end
 
         data[key] = value
@@ -149,7 +149,7 @@ function Logger:log(event, data)
     local time      = os.date("%X") -- something like 24:59:59
     local shortLine = ("%s [%s] %s"):format(time, event, data)
     local fullLine  = ("%s [%s %s] %s"):format(time, self.source, event,
-        Utils.pformat(data))                                        --local fullLine  = ("[%s][%s][%s] %s"):format(self.source, time, event, data)
+        utils:pformat(data))                                        --local fullLine  = ("[%s][%s][%s] %s"):format(self.source, time, event, data)
 
     -- The printed message may or may not be the full message
     local line      = fullLine

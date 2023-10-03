@@ -33,7 +33,7 @@ local onAcknowledgement = function(self, data, peer)
     local cpc = self.customProfiler:start("Server.onAcknowledgement")
     self.logger:debug(self.logger.channels.network, "onAcknowledgement: Acknowledgement received.", self.utils:pformat(data))
 
-    if self.utils:IsEmpty(data.networkMessageId) then
+    if self.utils:isEmpty(data.networkMessageId) then
         error(("onAcknowledgement data.networkMessageId is empty: %s"):format(data.networkMessageId), 2)
     end
 
@@ -42,15 +42,15 @@ local onAcknowledgement = function(self, data, peer)
             :format(data.networkMessageId, data, peer), 2)
     end
 
-    if self.utils:IsEmpty(data.event) then
+    if self.utils:isEmpty(data.event) then
         error(("onAcknowledgement data.event is empty: %s"):format(data.event), 2)
     end
 
-    if self.utils:IsEmpty(data.status) then
+    if self.utils:isEmpty(data.status) then
         error(("onAcknowledgement data.status is empty: %s"):format(data.status), 2)
     end
 
-    if self.utils:IsEmpty(data.ackedAt) then
+    if self.utils:isEmpty(data.ackedAt) then
         error(("onAcknowledgement data.ackedAt is empty: %s"):format(data.ackedAt), 2)
     end
 
@@ -59,11 +59,11 @@ local onAcknowledgement = function(self, data, peer)
     end
 
     local cachedData = self.networkCacheUtils:get(self.guid, data.networkMessageId, data.event)
-    if self.utils:IsEmpty(cachedData) then
+    if self.utils:isEmpty(cachedData) then
         self.networkCacheUtils:logAll()
         error(("Unable to get cached data, because it is nil '%s'"):format(cachedData), 2)
     end
-    if self.utils:IsEmpty(cachedData.dataChecksum) or type(cachedData.dataChecksum) ~= "string" then
+    if self.utils:isEmpty(cachedData.dataChecksum) or type(cachedData.dataChecksum) ~= "string" then
         self.networkCacheUtils:logAll()
         error(("Unable to get cachedData.dataChecksum, because it is nil '%s' or checksum is not of type string, type: %s")
             :format(cachedData.dataChecksum, type(cachedData.dataChecksum)), 2)
@@ -92,23 +92,23 @@ local onConnect = function(self, data, peer)
     self.logger:debug(self.logger.channels.network, ("Peer %s connected! data = %s")
         :format(self.utils:pformat(peer), self.utils:pformat(data)))
 
-    if self.utils:IsEmpty(peer) then
+    if self.utils:isEmpty(peer) then
         error(("onConnect peer is empty: %s"):format(peer), 3)
     end
 
-    if self.utils:IsEmpty(data) then
+    if self.utils:isEmpty(data) then
         error(("onConnect data is empty: %s"):format(data), 3)
     end
 
     local localNuid = self.minaUtils:getLocalMinaNuid()
     local entityId = self.minaUtils:getLocalMinaEntityId()
-    if self.utils:IsEmpty(entityId) or entityId <= 0 then
+    if self.utils:isEmpty(entityId) or entityId <= 0 then
         error(("onConnect entityId is empty: %s"):format(entityId), 2)
     end
 
-    if self.utils:IsEmpty(localNuid) or localNuid <= 0 then
+    if self.utils:isEmpty(localNuid) or localNuid <= 0 then
         local hasNuid, nuid = self.networkVscUtils:hasNuidSet(entityId)
-        if not hasNuid or self.utils:IsEmpty(nuid) then
+        if not hasNuid or self.utils:isEmpty(nuid) then
             nuid = self.nuidUtils:getNextNuid()
             self.networkVscUtils:addOrUpdateAllVscs(entityId, self.minaUtils:getLocalMinaName(), self.minaUtils:getLocalMinaGuid(), nuid, nil, nil)
         end
@@ -143,11 +143,11 @@ local onDisconnect = function(self, data, peer)
     local cpc = self.customProfiler:start("Server.onDisconnect")
     self.logger:debug(self.logger.channels.network, "Disconnected from server!", self.utils:pformat(data))
 
-    if self.utils:IsEmpty(peer) then
+    if self.utils:isEmpty(peer) then
         error(("onConnect peer is empty: %s"):format(peer), 3)
     end
 
-    if self.utils:IsEmpty(data) then
+    if self.utils:isEmpty(data) then
         error(("onDisconnect data is empty: %s"):format(data), 3)
     end
 
@@ -178,39 +178,39 @@ local onMinaInformation = function(self, data, peer)
     local cpc = self.customProfiler:start("Server.onMinaInformation")
     self.logger:debug(self.logger.channels.network, "onMinaInformation: Player info received.", self.utils:pformat(data))
 
-    if self.utils:IsEmpty(peer) then
+    if self.utils:isEmpty(peer) then
         error(("onConnect peer is empty: %s"):format(peer), 2)
     end
 
-    if self.utils:IsEmpty(data.networkMessageId) then
+    if self.utils:isEmpty(data.networkMessageId) then
         error(("onMinaInformation data.networkMessageId is empty: %s"):format(data.networkMessageId), 2)
     end
 
-    if self.utils:IsEmpty(data.version) then
+    if self.utils:isEmpty(data.version) then
         error(("onMinaInformation data.version is empty: %s"):format(data.version), 2)
     end
 
-    if self.utils:IsEmpty(data.name) then
+    if self.utils:isEmpty(data.name) then
         error(("onMinaInformation data.name is empty: %s"):format(data.name), 2)
     end
 
-    if self.utils:IsEmpty(data.guid) then
+    if self.utils:isEmpty(data.guid) then
         error(("onMinaInformation data.guid is empty: %s"):format(data.guid), 2)
     end
 
-    if self.utils:IsEmpty(data.entityId) or data.entityId == -1 then
+    if self.utils:isEmpty(data.entityId) or data.entityId == -1 then
         error(("onMinaInformation data.entityId is empty: %s"):format(data.entityId), 2)
     end
 
-    -- if self.utils:IsEmpty(data.nuid) or data.nuid == -1 then
+    -- if self.utils:isEmpty(data.nuid) or data.nuid == -1 then
     --     error(("onMinaInformation data.nuid is empty: %s"):format(data.nuid), 2)
     -- end
 
-    if self.utils:IsEmpty(data.transform) then
+    if self.utils:isEmpty(data.transform) then
         error(("onMinaInformation data.transform is empty: %s"):format(data.transform), 2)
     end
 
-    if self.utils:IsEmpty(data.health) then
+    if self.utils:isEmpty(data.health) then
         error(("onMinaInformation data.health is empty: %s"):format(data.health), 2)
     end
 
@@ -266,51 +266,51 @@ local onNeedNuid = function(self, data, peer)
     self.logger:debug(self.logger.channels.network, ("Peer %s needs a new nuid. data = %s")
         :format(self.utils:pformat(peer), self.utils:pformat(data)))
 
-    if self.utils:IsEmpty(peer) then
+    if self.utils:isEmpty(peer) then
         error(("onNeedNuid peer is empty: %s"):format(self.utils:pformat(peer)), 2)
     end
 
-    if self.utils:IsEmpty(data.networkMessageId) then
+    if self.utils:isEmpty(data.networkMessageId) then
         error(("onNeedNuid data.networkMessageId is empty: %s"):format(data.networkMessageId), 2)
     end
 
-    if self.utils:IsEmpty(data.owner) then
+    if self.utils:isEmpty(data.owner) then
         error(("onNeedNuid data.owner is empty: %s"):format(self.utils:pformat(data.owner)), 2)
     end
 
-    if self.utils:IsEmpty(data.localEntityId) then
+    if self.utils:isEmpty(data.localEntityId) then
         error(("onNeedNuid data.localEntityId is empty: %s"):format(data.localEntityId), 2)
     end
 
-    if self.utils:IsEmpty(data.x) then
+    if self.utils:isEmpty(data.x) then
         error(("onNeedNuid data.x is empty: %s"):format(data.x), 2)
     end
 
-    if self.utils:IsEmpty(data.y) then
+    if self.utils:isEmpty(data.y) then
         error(("onNeedNuid data.y is empty: %s"):format(data.y), 2)
     end
 
-    if self.utils:IsEmpty(data.rotation) then
+    if self.utils:isEmpty(data.rotation) then
         error(("onNeedNuid data.rotation is empty: %s"):format(data.rotation), 2)
     end
 
-    if self.utils:IsEmpty(data.velocity) then
+    if self.utils:isEmpty(data.velocity) then
         error(("onNeedNuid data.velocity is empty: %s"):format(self.utils:pformat(data.velocity)), 2)
     end
 
-    if self.utils:IsEmpty(data.filename) then
+    if self.utils:isEmpty(data.filename) then
         error(("onNeedNuid data.filename is empty: %s"):format(data.filename), 2)
     end
 
-    if self.utils:IsEmpty(data.health) then
+    if self.utils:isEmpty(data.health) then
         error(("onNeedNuid data.health is empty: %s"):format(data.health), 2)
     end
 
-    if self.utils:IsEmpty(data.isPolymorphed) then
+    if self.utils:isEmpty(data.isPolymorphed) then
         error(("onNeedNuid data.isPolymorphed is empty: %s"):format(data.isPolymorphed), 2)
     end
 
-    if self.utils:IsEmpty(data.initialSerializedEntityString) then
+    if self.utils:isEmpty(data.initialSerializedEntityString) then
         error(("onNeedNuid data.initialSerializedEntityString is empty: %s"):format(data.initialSerializedEntityString), 2)
     end
 
@@ -329,12 +329,12 @@ local onNeedNuid = function(self, data, peer)
     local closestServerEntityId         = EntityGetClosest(x, y)
     local nuid                          = nil
 
-    if not self.utils:IsEmpty(closestServerEntityId) then
+    if not self.utils:isEmpty(closestServerEntityId) then
         initialSerializedEntityString = self.noitaComponentUtils:getInitialSerializedEntityString(closestServerEntityId)
         if initialSerializedEntityString == data.initialSerializedEntityString then -- entity on server and client are the same
             if not self.networkVscUtils:hasNuidSet(closestServerEntityId) then
                 local ownerName, ownerGuid, nuid = self.noitaComponentUtils:getEntityData(closestServerEntityId)
-                if self.utils:IsEmpty(nuid) or nuid < 0 then
+                if self.utils:isEmpty(nuid) or nuid < 0 then
                     nuid = self.nuidUtils:getNextNuid()
                     self.networkVscUtils:addOrUpdateAllVscs(closestServerEntityId, ownerName, ownerGuid, nuid)
                 end
@@ -370,15 +370,15 @@ local onLostNuid = function(self, data, peer)
     self.logger:debug(self.logger.channels.network, ("Peer %s lost a nuid and ask for the entity to spawn. data = %s")
         :format(self.utils:pformat(peer), self.utils:pformat(data)))
 
-    if self.utils:IsEmpty(peer) then
+    if self.utils:isEmpty(peer) then
         error(("onLostNuid peer is empty: %s"):format(self.utils:pformat(peer)), 3)
     end
 
-    if self.utils:IsEmpty(data.networkMessageId) then
+    if self.utils:isEmpty(data.networkMessageId) then
         error(("onLostNuid data.networkMessageId is empty: %s"):format(data.networkMessageId), 3)
     end
 
-    if self.utils:IsEmpty(data.nuid) then
+    if self.utils:isEmpty(data.nuid) then
         error(("onLostNuid data.nuid is empty: %s"):format(self.utils:pformat(data.nuid)), 3)
     end
 
@@ -418,39 +418,39 @@ local onEntityData = function(self, data, peer)
     self.logger:debug(self.logger.channels.network, ("Received entityData for nuid = %s! data = %s")
         :format(data.nuid, self.utils:pformat(data)))
 
-    if self.utils:IsEmpty(data.networkMessageId) then
+    if self.utils:isEmpty(data.networkMessageId) then
         error(("onNewNuid data.networkMessageId is empty: %s"):format(data.networkMessageId), 3)
     end
 
-    if self.utils:IsEmpty(data.owner) then
+    if self.utils:isEmpty(data.owner) then
         error(("onNewNuid data.owner is empty: %s"):format(self.utils:pformat(data.owner)), 3)
     end
 
-    --if self.utils:IsEmpty(data.localEntityId) then
+    --if self.utils:isEmpty(data.localEntityId) then
     --    error(("onNewNuid data.localEntityId is empty: %s"):format(data.localEntityId), 3)
     --end
 
-    if self.utils:IsEmpty(data.nuid) then
+    if self.utils:isEmpty(data.nuid) then
         error(("onNewNuid data.nuid is empty: %s"):format(data.nuid), 3)
     end
 
-    if self.utils:IsEmpty(data.x) then
+    if self.utils:isEmpty(data.x) then
         error(("onNewNuid data.x is empty: %s"):format(data.x), 3)
     end
 
-    if self.utils:IsEmpty(data.y) then
+    if self.utils:isEmpty(data.y) then
         error(("onNewNuid data.y is empty: %s"):format(data.y), 3)
     end
 
-    if self.utils:IsEmpty(data.rotation) then
+    if self.utils:isEmpty(data.rotation) then
         error(("onNewNuid data.rotation is empty: %s"):format(data.rotation), 3)
     end
 
-    if self.utils:IsEmpty(data.velocity) then
+    if self.utils:isEmpty(data.velocity) then
         error(("onNewNuid data.velocity is empty: %s"):format(self.utils:pformat(data.velocity)), 3)
     end
 
-    if self.utils:IsEmpty(data.health) then
+    if self.utils:isEmpty(data.health) then
         error(("onNewNuid data.health is empty: %s"):format(data.health), 3)
     end
 
@@ -480,7 +480,7 @@ local onDeadNuids = function(self, data, peer)
     local deadNuids = data.deadNuids or data or {}
     for i = 1, #deadNuids do
         local deadNuid = deadNuids[i]
-        if self.utils:IsEmpty(deadNuid) or deadNuid == "nil" then
+        if self.utils:isEmpty(deadNuid) or deadNuid == "nil" then
             error(("onDeadNuids deadNuid is empty: %s"):format(deadNuid), 2)
         else
             if peer then
@@ -766,10 +766,10 @@ function Server:update(startFrameTime)
         return
     end
 
-    if self.utils:IsEmpty(self.minaUtils:getLocalMinaNuid()) then
+    if self.utils:isEmpty(self.minaUtils:getLocalMinaNuid()) then
         local entityId = self.minaUtils:getLocalMinaEntityId()
         local hasNuid, nuid = self.networkVscUtils:hasNuidSet(entityId)
-        if not hasNuid or self.utils:IsEmpty(nuid) then
+        if not hasNuid or self.utils:isEmpty(nuid) then
             nuid = self.nuidUtils:getNextNuid()
             self.networkVscUtils:addOrUpdateAllVscs(entityId, self.minaUtils:getLocalMinaName(), self.minaUtils:getLocalMinaGuid(), nuid, nil, nil)
         end
@@ -824,28 +824,28 @@ end
 function Server:sendNewNuid(ownerName, ownerGuid, entityId, serializedEntityString, nuid, x, y, initialSerializedEntityString)
     local cpc = self.customProfiler:start("Server.sendNewNuid")
 
-    if self.utils:IsEmpty(ownerName) then
+    if self.utils:isEmpty(ownerName) then
         error(("ownerName must not be nil or empty %s"):format(ownerName), 2)
     end
-    if self.utils:IsEmpty(ownerGuid) then
+    if self.utils:isEmpty(ownerGuid) then
         error(("ownerGuid must not be nil or empty %s"):format(ownerGuid), 2)
     end
-    if self.utils:IsEmpty(entityId) then
+    if self.utils:isEmpty(entityId) then
         error(("entityId must not be nil or empty %s"):format(entityId), 2)
     end
-    if self.utils:IsEmpty(serializedEntityString) or type(serializedEntityString) ~= "string" then
+    if self.utils:isEmpty(serializedEntityString) or type(serializedEntityString) ~= "string" then
         error(("serializedEntityString must not be nil or empty %s or is not of type 'string'."):format(serializedEntityString), 2)
     end
-    if self.utils:IsEmpty(nuid) then
+    if self.utils:isEmpty(nuid) then
         error(("nuid must not be nil or empty %s"):format(nuid), 2)
     end
-    if self.utils:IsEmpty(x) then
+    if self.utils:isEmpty(x) then
         error(("x must not be nil or empty %s"):format(x), 2)
     end
-    if self.utils:IsEmpty(y) then
+    if self.utils:isEmpty(y) then
         error(("y must not be nil or empty %s"):format(y), 2)
     end
-    if self.utils:IsEmpty(initialSerializedEntityString) or type(initialSerializedEntityString) ~= "string" then
+    if self.utils:isEmpty(initialSerializedEntityString) or type(initialSerializedEntityString) ~= "string" then
         error(("initialSerializedEntityString must not be nil or empty %s or is not of type 'string'."):format(initialSerializedEntityString), 2)
     end
 
@@ -881,7 +881,7 @@ function Server:sendEntityData(entityId)
         self.networkUtils:getNextNetworkMessageId(), { compOwnerName, compOwnerGuid }, compNuid, x, y, rotation, velocity, health
     }
 
-    if self.utils:IsEmpty(compNuid) then
+    if self.utils:isEmpty(compNuid) then
         -- nuid must not be empty, when Server!
         --logger:error(logger.channels.network, "Unable to send entity data, because nuid is empty.")
         --return
@@ -968,8 +968,9 @@ end
 ---@param maxChannels number|nil optional
 ---@param inBandwidth number|nil optional
 ---@param outBandwidth number|nil optional
+---@param np noitapatcher required
 ---@return Server
-function Server:new(serverObject, address, port, maxPeers, maxChannels, inBandwidth, outBandwidth)
+function Server:new(serverObject, address, port, maxPeers, maxChannels, inBandwidth, outBandwidth, np)
     ---@class Server : SockServer
     serverObject =
         setmetatable(serverObject or sock.newServer(address, port, maxPeers, maxChannels, inBandwidth, outBandwidth), Server) or
@@ -1016,7 +1017,9 @@ function Server:new(serverObject, address, port, maxPeers, maxChannels, inBandwi
 
     if not serverObject.networkVscUtils then
         ---@type NetworkVscUtils
-        serverObject.networkVscUtils = require("NetworkVscUtils") --:new()
+        serverObject.networkVscUtils = require("NetworkVscUtils")
+            :new(nil, serverObject.customProfiler, serverObject.logger, serverObject,
+                serverObject.globalsUtils, serverObject.utils)
     end
 
     if not serverObject.minaUtils then
@@ -1029,7 +1032,9 @@ function Server:new(serverObject, address, port, maxPeers, maxChannels, inBandwi
 
     if not serverObject.nuidUtils then
         ---@type NuidUtils
-        serverObject.nuidUtils = require("NuidUtils") --:new()
+        serverObject.nuidUtils = require("NuidUtils")
+            :new(nil, {}, serverObject.customProfiler, serverObject.fileUtils, serverObject.globalsUtils,
+                serverObject.logger, nil)
     end
 
     if not serverObject.networkUtils then
@@ -1049,7 +1054,9 @@ function Server:new(serverObject, address, port, maxPeers, maxChannels, inBandwi
 
     if not serverObject.noitaComponentUtils then
         ---@type NoitaComponentUtils
-        serverObject.noitaComponentUtils = require("NoitaComponentUtils") --:new()
+        serverObject.noitaComponentUtils = require("NoitaComponentUtils")
+            :new(nil, serverObject.customProfiler, serverObject.globalsUtils, serverObject.logger,
+                serverObject.networkVscUtils, serverObject.utils)
     end
 
     if not serverObject.entityCache then
@@ -1080,13 +1087,16 @@ function Server:new(serverObject, address, port, maxPeers, maxChannels, inBandwi
         ---@type FileUtils
         ---@see FileUtils
         serverObject.fileUtils = require("FileUtils")
-            :new(nil, serverObject.customProfiler, serverObject.logger, serverObject.noitaMpSettings, nil, serverObject.utils)
+            :new(nil, serverObject.customProfiler, serverObject.logger, serverObject.noitaMpSettings,
+                nil, serverObject.utils)
     end
 
     if not serverObject.guidUtils then
+        ---@type GuidUtils
+        ---@see GuidUtils
         serverObject.guidUtils = require("GuidUtils")
-            :new(nil, serverObject.customProfiler, serverObject.fileUtils,
-                serverObject.logger, serverObject.noitaMpSettings, nil, nil, serverObject.utils, nil)
+            :new(nil, serverObject.customProfiler, serverObject.fileUtils, serverObject.logger,
+                nil, nil, serverObject.utils)
     end
 
     if not serverObject.messagePack then
@@ -1095,6 +1105,7 @@ function Server:new(serverObject, address, port, maxPeers, maxChannels, inBandwi
 
     if not serverObject.noitaPatcherUtils then
         serverObject.noitaPatcherUtils = require("NoitaPatcherUtils")
+            :new(nil, nil, serverObject.customProfiler, np)
     end
 
     if not serverObject.sock then

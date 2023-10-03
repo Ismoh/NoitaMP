@@ -47,7 +47,7 @@ function GlobalsUtils:parseXmlValueToNuidAndEntityId(xmlKey, xmlValue)
         end
     end
 
-    if self.utils:IsEmpty(entityId) then
+    if self.utils:isEmpty(entityId) then
         if self.client:isConnected() then
             self.client:sendLostNuid(nuid)
         end
@@ -108,7 +108,7 @@ end
 ---@return number|nil nuid, number|nil entityId
 function GlobalsUtils:getNuidEntityPair(nuid)
     local cpc = self.customProfiler:start("GlobalsUtils:getNuidEntityPair")
-    if Utils.IsEmpty(nuid) then
+    if self.utils:isEmpty(nuid) then
         --print("Nuid is nil. Unable to return entityId then!")
         self.customProfiler:stop("GlobalsUtils:getNuidEntityPair", cpc)
         return nil, nil

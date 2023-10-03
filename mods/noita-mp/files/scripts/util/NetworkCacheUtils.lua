@@ -13,7 +13,7 @@ NetworkCacheUtils = {}
 
 function NetworkCacheUtils.getSum(event, data)
     local cpc = CustomProfiler.start("NetworkCacheUtils.getSum")
-    Logger.trace(Logger.channels.testing, "getSum: " .. Utils.pformat(data))
+    Logger.trace(Logger.channels.testing, "getSum: " .. utils:pformat(data))
     if not event or Utils.IsEmpty(event) or type(event) ~= "string" then
         error(("Unable to calculate sum, when event is nil or not a string: '%s'"):format(event), 2)
     end
@@ -25,15 +25,15 @@ function NetworkCacheUtils.getSum(event, data)
         error(("Event '%s' shouldn't be cached!"):format(event), 2)
     end
 
-    Logger.trace(Logger.channels.testing, "data: " .. Utils.pformat(data))
+    Logger.trace(Logger.channels.testing, "data: " .. utils:pformat(data))
     local dataCopy = NetworkUtils.getClientOrServer().zipTable(data, NetworkUtils.events[event].schema, event)
-    Logger.trace(Logger.channels.testing, "dataCopy zipped: " .. Utils.pformat(dataCopy))
+    Logger.trace(Logger.channels.testing, "dataCopy zipped: " .. utils:pformat(dataCopy))
     if event ~= NetworkUtils.events.acknowledgement.name then
         -- when event is NOT acknowledgement, remove networkMessageId,
         -- but we need the networkMessageId to find the previous cached network message, when the event is acknowledgement
         dataCopy.networkMessageId = nil
     end
-    Logger.trace(Logger.channels.testing, "dataCopy without networkMessageId: " .. Utils.pformat(dataCopy))
+    Logger.trace(Logger.channels.testing, "dataCopy without networkMessageId: " .. utils:pformat(dataCopy))
     local sum = ""
     if NetworkUtils.events[event].resendIdentifiers ~= nil then
         local newData = {}
@@ -48,7 +48,7 @@ function NetworkCacheUtils.getSum(event, data)
     else
         sum = table.contentToString(dataCopy)
     end
-    Logger.trace(Logger.channels.testing, ("sum from %s = %s"):format(Utils.pformat(dataCopy), sum))
+    Logger.trace(Logger.channels.testing, ("sum from %s = %s"):format(utils:pformat(dataCopy), sum))
     CustomProfiler.stop("NetworkCacheUtils.getSum", cpc)
     return sum
 end
@@ -78,7 +78,7 @@ function NetworkCacheUtils.set(peerGuid, networkMessageId, event, status, ackedA
         error(("sendAt '%s' must not be nil or empty or isn't type of number!"):format(sendAt), 2)
     end
     if not data or Utils.IsEmpty(data) or type(data) ~= "table" then
-        error(("data '%s' must not be nil or empty or isn't type of table!"):format(Utils.pformat(data)), 2)
+        error(("data '%s' must not be nil or empty or isn't type of table!"):format(utils:pformat(data)), 2)
     end
 
     if not NetworkUtils.events[event].isCacheable then
@@ -105,7 +105,7 @@ function NetworkCacheUtils.set(peerGuid, networkMessageId, event, status, ackedA
 
     local clientCacheId = GuidUtils.toNumber(peerGuid)
 
-    Logger.trace(Logger.channels.cache, ("NetworkCache.set: %s"):format(Utils.pformat(data)))
+    Logger.trace(Logger.channels.cache, ("NetworkCache.set: %s"):format(utils:pformat(data)))
     Logger.trace(Logger.channels.cache,
         ("NetworkCache.set(clientCacheId %s, networkMessageId %s, event %s, status %s, ackedAt %s, sendAt %s, dataChecksum %s)")
         :format(clientCacheId, networkMessageId, event, status, ackedAt, sendAt, dataChecksum))
@@ -152,7 +152,7 @@ function NetworkCacheUtils.get(peerGuid, networkMessageId, event)
     local data          = NetworkCache.get(clientCacheId, event, tonumber(networkMessageId))
     Logger.info(Logger.channels.cache,
         ("Get nCache by clientCacheId %s, event %s, networkMessageId %s, data %s")
-        :format(clientCacheId, event, networkMessageId, Utils.pformat(data)))
+        :format(clientCacheId, event, networkMessageId, utils:pformat(data)))
     CustomProfiler.stop("NetworkCacheUtils.get", cpc)
     return data
 end
@@ -161,13 +161,13 @@ end
 function NetworkCacheUtils.getByChecksum(peerGuid, event, data)
     local cpc = CustomProfiler.start("NetworkCacheUtils.getByChecksum")
     if not peerGuid or Utils.IsEmpty(peerGuid) or type(peerGuid) ~= "string" then
-        error(("peerGuid '%s' must not be nil or empty or isn't type of string!"):format(Utils.pformat(peerGuid)), 2)
+        error(("peerGuid '%s' must not be nil or empty or isn't type of string!"):format(utils:pformat(peerGuid)), 2)
     end
     if not event or Utils.IsEmpty(event) or type(event) ~= "string" then
-        error(("event '%s' must not be nil or empty or isn't type of string!"):format(Utils.pformat(event)), 2)
+        error(("event '%s' must not be nil or empty or isn't type of string!"):format(utils:pformat(event)), 2)
     end
     if not data or Utils.IsEmpty(data) or type(data) ~= "table" then
-        error(("data '%s' must not be nil or empty or isn't type of table!"):format(Utils.pformat(data)), 2)
+        error(("data '%s' must not be nil or empty or isn't type of table!"):format(utils:pformat(data)), 2)
     end
 
     if not NetworkUtils.events[event].isCacheable then
@@ -180,7 +180,7 @@ function NetworkCacheUtils.getByChecksum(peerGuid, event, data)
     local cacheData     = NetworkCache.getChecksum(clientCacheId, dataChecksum)
     Logger.info(Logger.channels.cache,
         ("Get nCache by clientCacheId %s, dataChecksum %s, event %s, cacheData %s")
-        :format(clientCacheId, dataChecksum, event, Utils.pformat(cacheData)))
+        :format(clientCacheId, dataChecksum, event, utils:pformat(cacheData)))
     CustomProfiler.stop("NetworkCacheUtils.getByChecksum", cpc)
     return cacheData
 end
@@ -206,7 +206,7 @@ NetworkCacheUtils.ack    = function(peerGuid, networkMessageId, event, status, a
         error(("sendAt '%s' must not be nil or empty or isn't type of number!"):format(sendAt), 2)
     end
     if not checksum or Utils.IsEmpty(checksum) or type(checksum) ~= "string" then
-        error(("checksum '%s' must not be nil or empty or isn't type of string!"):format(Utils.pformat(checksum)), 2)
+        error(("checksum '%s' must not be nil or empty or isn't type of string!"):format(utils:pformat(checksum)), 2)
     end
 
     local clientCacheId = GuidUtils.toNumber(peerGuid)

@@ -21,7 +21,8 @@
 
 --]]
 
-
+---@meta base64
+---@class base64
 local base64 = {}
 
 local extract = _G.bit32 and _G.bit32.extract -- Lua 5.2/Lua 5.3 in compatibility mode

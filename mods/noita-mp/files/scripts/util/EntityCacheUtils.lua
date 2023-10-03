@@ -8,40 +8,40 @@ local EntityCacheUtils = {
 
 function EntityCacheUtils:set(entityId, nuid, ownerGuid, ownerName, filepath, x, y, rotation, velX, velY,
                               currentHealth, maxHealth, fullySerialised, serialisedRootEntity)
-    if self.utils.IsEmpty(entityId) then
+    if self.utils:isEmpty(entityId) then
         error(("entityId must not be nil or empty!"):format(entityId), 2)
     end
-    if self.utils.IsEmpty(nuid) then
+    if self.utils:isEmpty(nuid) then
         error(("nuid must not be nil or empty!"):format(nuid), 2)
     end
-    if self.utils.IsEmpty(ownerGuid) then
+    if self.utils:isEmpty(ownerGuid) then
         error(("ownerGuid must not be nil or empty!"):format(ownerGuid), 2)
     end
-    if self.utils.IsEmpty(ownerName) then
+    if self.utils:isEmpty(ownerName) then
         error(("ownerName must not be nil or empty!"):format(ownerName), 2)
     end
-    if self.utils.IsEmpty(filepath) then
+    if self.utils:isEmpty(filepath) then
         error(("filepath must not be nil or empty!"):format(filepath), 2)
     end
-    if self.utils.IsEmpty(x) then
+    if self.utils:isEmpty(x) then
         error(("x must not be nil or empty!"):format(x), 2)
     end
-    if self.utils.IsEmpty(y) then
+    if self.utils:isEmpty(y) then
         error(("y must not be nil or empty!"):format(y), 2)
     end
-    if self.utils.IsEmpty(rotation) then
+    if self.utils:isEmpty(rotation) then
         error(("rotation must not be nil or empty!"):format(rotation), 2)
     end
-    if self.utils.IsEmpty(velX) then
+    if self.utils:isEmpty(velX) then
         error(("velX must not be nil or empty!"):format(velX), 2)
     end
-    if self.utils.IsEmpty(velY) then
+    if self.utils:isEmpty(velY) then
         error(("velY must not be nil or empty!"):format(velY), 2)
     end
-    if self.utils.IsEmpty(currentHealth) then
+    if self.utils:isEmpty(currentHealth) then
         error(("currentHealth must not be nil or empty!"):format(currentHealth), 2)
     end
-    if self.utils.IsEmpty(maxHealth) then
+    if self.utils:isEmpty(maxHealth) then
         error(("maxHealth must not be nil or empty!"):format(maxHealth), 2)
     end
 

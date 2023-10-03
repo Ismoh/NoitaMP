@@ -42,20 +42,6 @@ local NoitaApiModSettingGet                    = ModSettingGet
 local NoitaApiModSettingSetNextValue           = ModSettingSetNextValue
 local NoitaApiModSettingGetNextValue           = ModSettingGetNextValue
 
--- if not Utils then
---     if require then
---         Utils = require("Utils")
---     else
---         -- when NoitaComponents with their own restricted LuaContext load this file,
---         -- util isn't available!
---         Utils = dofile_once("mods/noita-mp/files/scripts/util/Utils.lua")
---         if not MinaUtils and not require then
---             ----@type MinaUtils
---             --MinaUtils = dofile_once("mods/noita-mp/files/scripts/util/MinaUtils.lua")
---         end
---     end
--- end
-
 ModSettingSet                                  = function(id, value)
     if id:contains("noita-mp") then
         --error("Get rid off ModSettings!", 2)
@@ -75,7 +61,7 @@ ModSettingGet                                  = function(id)
     end
     if id == "noita-mp.nickname" then
         local name = entityUtils.minaUtils:getLocalMinaName()
-        if not entityUtils.utils.IsEmpty(name) then
+        if not entityUtils.utils:isEmpty(name) then
             return name
         else
             name = tostring(NoitaApiModSettingGet(id))
@@ -85,7 +71,7 @@ ModSettingGet                                  = function(id)
     end
     if id == "noita-mp.guid" then
         local guid = entityUtils.minaUtils:getLocalMinaGuid()
-        if not Utils.IsEmpty(guid) then
+        if not entityUtils.utils:isEmpty(guid) then
             return guid
         else
             guid = tostring(NoitaApiModSettingGet(id))
@@ -115,13 +101,13 @@ ModSettingGetNextValue                         = function(id)
     end
     if id == "noita-mp.nickname" and name then
         local name = entityUtils.minaUtils:getLocalMinaName()
-        if not entityUtils.utils.IsEmpty(name) then
+        if not entityUtils.utils:isEmpty(name) then
             return name
         end
     end
     if id == "noita-mp.guid" and guid then
         local guid = entityUtils.minaUtils:getLocalMinaGuid()
-        if not entityUtils.utils.IsEmpty(guid) then
+        if not entityUtils.utils:isEmpty(guid) then
             return guid
         end
     end
@@ -523,18 +509,18 @@ end
 local entityAddComponent2                      = _G.EntityAddComponent2
 EntityAddComponent2                            = function(entity_id, component_type_name, table_of_component_values)
     if EntityGetIsAlive(entity_id) then
-        if Utils.IsEmpty(table_of_component_values) then
+        if entityUtils.utils:isEmpty(table_of_component_values) then
             return entityAddComponent2(entity_id, component_type_name)
         else
             if type(table_of_component_values) ~= "table" then
                 error(("table_of_component_values is not a table: %s -> %s")
-                    :format(type(table_of_component_values), Utils.pformat(table_of_component_values)), 2)
+                    :format(type(table_of_component_values), utils:pformat(table_of_component_values)), 2)
             end
             for k, v in pairs(table_of_component_values) do
-                if Utils.IsEmpty(k) then
+                if entityUtils.utils:isEmpty(k) then
                     error(("k is empty: %s"):format(k), 2)
                 end
-                if Utils.IsEmpty(v) then
+                if entityUtils.utils:isEmpty(v) then
                     error(("v is empty: %s"):format(v), 2)
                 end
                 --if type(v) == "boolean" then
