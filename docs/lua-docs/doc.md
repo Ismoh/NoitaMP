@@ -25,7 +25,7 @@ function Client.amIClient(self: Client)
 Checks if the current local user is a client.
 
 @*return* `true` — if client, false if not
-See: [Server.amIServer](../../mods/noita-mp/files/scripts/net/Server.lua#L936#9)
+See: [Server.amIServer](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/net/Server.lua#936#9)
 
 ## connect
 
@@ -115,16 +115,6 @@ table
 ```lua
 string
 ```
-
-## isConnected
-
-
-```lua
-function Client.isConnected(self: Client)
-  -> boolean
-```
-
-Returns true if the client is connected to the server. Inherit from sock.isConnected.
 
 ## logger
 
@@ -491,7 +481,7 @@ Starts the profiler. This has to be called before the function (or first line of
 @*param* `functionName` — The name of the function that you want to measure. This has to be the same as the one used in CustomProfiler:stop(functionName, customProfilerCounter)
 
 @*return* `returnCounter` — The counter that is used to determine the order of the function calls. This has to be passed to CustomProfiler:stop(functionName, customProfilerCounter)
-See: [CustomProfiler](../../mods/noita-mp/files/scripts/util/CustomProfiler.lua#L2#10) stop(functionName, customProfilerCounter)
+See: [CustomProfiler](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/CustomProfiler.lua#2#10) stop(functionName, customProfilerCounter)
 
 ## startExternalProfiler
 
@@ -1019,7 +1009,7 @@ function FileUtils.GetAbsDirPathOfWorldStateXml(self: FileUtils, saveSlotAbsDire
 
 
 ```lua
-function FileUtils.GetAbsoluteDirectoryPathOfNoitaMP(self: FileUtils)
+function FileUtils.GetAbsoluteDirectoryPathOfNoitaMP(self: FileUtils, noitaMpSettings: any)
   -> self.GetAbsolutePathOfNoitaRootDirectory: string
 ```
 
@@ -1071,11 +1061,13 @@ function FileUtils.GetAbsoluteDirectoryPathOfSave06(self: FileUtils)
 
 
 ```lua
-function FileUtils.GetAbsolutePathOfNoitaMpSettingsDirectory(self: FileUtils)
+function FileUtils.GetAbsolutePathOfNoitaMpSettingsDirectory(self: FileUtils, noitaMpSettings: NoitaMpSettings|nil)
   -> absPath: string
 ```
 
- Returns absolute path of NoitaMP settings directory,
+Returns absolute path of NoitaMP settings directory,
+
+@*param* `noitaMpSettings` — optional. Needed for saving Noitas root directory to settings file.
 
 @*return* `absPath` — i.e. "C:\Program Files (x86)\Steam\steamapps\common\Noita\mods\noita-mp\settings"
 
@@ -1083,7 +1075,7 @@ function FileUtils.GetAbsolutePathOfNoitaMpSettingsDirectory(self: FileUtils)
 
 
 ```lua
-function FileUtils.GetAbsolutePathOfNoitaRootDirectory(self: FileUtils)
+function FileUtils.GetAbsolutePathOfNoitaRootDirectory(self: FileUtils, noitaMpSettings: any)
   -> string
 ```
 
@@ -1276,10 +1268,12 @@ function FileUtils.ScanDir(self: FileUtils, directory: any)
 
 
 ```lua
-function FileUtils.SetAbsolutePathOfNoitaRootDirectory(self: FileUtils)
+function FileUtils.SetAbsolutePathOfNoitaRootDirectory(self: FileUtils, noitaMpSettings: NoitaMpSettings|nil)
 ```
 
- Sets root directory of noita.exe, i.e. C:\Program Files (x86)\Steam\steamapps\common\Noita
+Sets root directory of noita.exe, i.e. C:\Program Files (x86)\Steam\steamapps\common\Noita
+
+@*param* `noitaMpSettings` — optional. Needed for saving Noitas root directory to settings file.
 
 ## SplitPath
 
@@ -1378,6 +1372,17 @@ Utils class for lazy developers.
 
 ```lua
 unknown
+```
+
+
+---
+
+# GameGetRealWorldTimeSinceStarted
+
+
+```lua
+function _G.GameGetRealWorldTimeSinceStarted()
+  -> integer
 ```
 
 
@@ -1546,7 +1551,7 @@ Function to check if the user pressed a shortcut.
 Client
 ```
 
-See: [Client](../../mods/noita-mp/files/scripts/net/Client.lua#L3#10)
+See: [Client](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/net/Client.lua#3#10)
 
 ## customProfiler
 
@@ -1555,7 +1560,7 @@ See: [Client](../../mods/noita-mp/files/scripts/net/Client.lua#L3#10)
 CustomProfiler
 ```
 
-See: [CustomProfiler](../../mods/noita-mp/files/scripts/util/CustomProfiler.lua#L2#10)
+See: [CustomProfiler](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/CustomProfiler.lua#2#10)
 
 ## drawAbout
 
@@ -1618,7 +1623,7 @@ Function to draw the settings window.
 GuidUtils
 ```
 
-See: [GuidUtils](../../mods/noita-mp/files/scripts/util/GuidUtils.lua#L2#10)
+See: [GuidUtils](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/GuidUtils.lua#2#10)
 
 ## imGui
 
@@ -1643,7 +1648,7 @@ nil
 MinaUtils
 ```
 
-See: [MinaUtils](../../mods/noita-mp/files/scripts/util/MinaUtils.lua#L2#10)
+See: [MinaUtils](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/MinaUtils.lua#2#10)
 
 ## new
 
@@ -1676,7 +1681,7 @@ Gui constructor.
 NoitaMpSettings
 ```
 
-See: [NoitaMpSettings](../../mods/noita-mp/files/scripts/NoitaMpSettings.lua#L2#11)
+See: [NoitaMpSettings](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/NoitaMpSettings.lua#2#11)
 
 ## server
 
@@ -1685,7 +1690,7 @@ See: [NoitaMpSettings](../../mods/noita-mp/files/scripts/NoitaMpSettings.lua#L2#
 Server
 ```
 
-See: [Server](../../mods/noita-mp/files/scripts/net/Server.lua#L3#10)
+See: [Server](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/net/Server.lua#3#10)
 
 ## setShowMissingSettings
 
@@ -1721,7 +1726,7 @@ Guis update function, called every frame.
 Utils
 ```
 
-See: [Utils](../../mods/noita-mp/files/scripts/util/Utils.lua#L2#10)
+See: [Utils](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/Utils.lua#2#10)
 
 
 ---
@@ -2589,7 +2594,7 @@ compId:
 any
 ```
 
-See: [CustomProfiler](../../mods/noita-mp/files/scripts/util/CustomProfiler.lua#L2#10)
+See: [CustomProfiler](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/CustomProfiler.lua#2#10)
 
 ## getAllVcsValuesByComponentIds
 
@@ -2632,7 +2637,7 @@ Returns all Network Vsc values by its entity id.
 any
 ```
 
-See: [GlobalsUtils](../../mods/noita-mp/files/scripts/util/GlobalsUtils.lua#L1#10)
+See: [GlobalsUtils](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/GlobalsUtils.lua#1#10)
 
 ## hasNetworkLuaComponents
 
@@ -2678,7 +2683,7 @@ Returns true, componentId and nuid if the entity has a NetworkVsc.
 any
 ```
 
-See: [Logger](../../mods/noita-mp/files/scripts/util/Logger.lua#L1#10)
+See: [Logger](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/Logger.lua#1#10)
 
 ## new
 
@@ -2695,7 +2700,7 @@ function NetworkVscUtils.new(self: NetworkVscUtils, networkVscUtilsObject: any, 
 any
 ```
 
-See: [Server](../../mods/noita-mp/files/scripts/net/Server.lua#L3#10)
+See: [Server](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/net/Server.lua#3#10)
 
 ## utils
 
@@ -2704,7 +2709,7 @@ See: [Server](../../mods/noita-mp/files/scripts/net/Server.lua#L3#10)
 any
 ```
 
-See: [Utils](../../mods/noita-mp/files/scripts/util/Utils.lua#L2#10)
+See: [Utils](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/Utils.lua#2#10)
 
 
 ---
@@ -2891,7 +2896,7 @@ Removes all settings and creates a new settings file.
 CustomProfiler
 ```
 
-See: [CustomProfiler](../../mods/noita-mp/files/scripts/util/CustomProfiler.lua#L2#10)
+See: [CustomProfiler](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/CustomProfiler.lua#2#10)
 
 ## fileUtils
 
@@ -3246,7 +3251,7 @@ function Server.amIServer(self: Server)
 Checks if the current local user is a server.
 
 @*return* `true` — if server, false if not
-See: [Client.amIClient](../../mods/noita-mp/files/scripts/net/Client.lua#L960#9)
+See: [Client.amIClient](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/net/Client.lua#953#9)
 
 ## ban
 
@@ -3282,7 +3287,7 @@ EntityCache
 EntityCacheUtils
 ```
 
-See: [EntityCacheUtils](../../mods/noita-mp/files/scripts/util/EntityCacheUtils.lua#L1#10)
+See: [EntityCacheUtils](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/EntityCacheUtils.lua#1#10)
 
 ## entityUtils
 
@@ -3298,7 +3303,7 @@ EntityUtils
 FileUtils
 ```
 
-See: [FileUtils](../../mods/noita-mp/files/scripts/util/FileUtils.lua#L1#10)
+See: [FileUtils](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/FileUtils.lua#1#10)
 
 ## getAckCacheSize
 
@@ -3317,7 +3322,7 @@ Mainly for profiling. Returns then network cache, aka acknowledge.
 GlobalsUtils
 ```
 
-See: [GlobalsUtils](../../mods/noita-mp/files/scripts/util/GlobalsUtils.lua#L1#10)
+See: [GlobalsUtils](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/GlobalsUtils.lua#1#10)
 
 ## guid
 
@@ -3333,7 +3338,7 @@ nil
 GuidUtils
 ```
 
-See: [GuidUtils](../../mods/noita-mp/files/scripts/util/GuidUtils.lua#L2#10)
+See: [GuidUtils](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/GuidUtils.lua#2#10)
 
 ## health
 
@@ -3841,7 +3846,7 @@ function Utils.wait(self: Utils, s: number)
 Wait for n seconds.
 
 @*param* `s` — seconds to wait
-See: [Utils.sleep](../../mods/noita-mp/files/scripts/util/Utils.lua#L18#9)
+See: [Utils.sleep](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/Utils.lua#18#9)
 
 
 ---
@@ -4502,16 +4507,6 @@ function dofile(path: any)
 
 ---
 
-# enabled_changed
-
-
-```lua
-function enabled_changed(entityId: any, isEnabled: any)
-```
-
-
----
-
 # error
 
 
@@ -4567,6 +4562,26 @@ If object does not have a metatable, returns nil. Otherwise, if the object's met
 ```lua
 function getmetatable(object: any)
   -> metatable: table
+```
+
+
+---
+
+# globalsUtils
+
+
+```lua
+GlobalsUtils
+```
+
+
+```lua
+GlobalsUtils
+```
+
+
+```lua
+GlobalsUtils
 ```
 
 
@@ -5001,6 +5016,26 @@ Loads a chunk from the given string.
 function loadstring(text: string, chunkname?: string)
   -> function?
   2. error_message: string?
+```
+
+
+---
+
+# logger
+
+
+```lua
+Logger
+```
+
+
+```lua
+Logger
+```
+
+
+```lua
+Logger
 ```
 
 
@@ -5611,6 +5646,23 @@ unknown
 
 ---
 
+# networkVscUtils
+
+NetworkVscUtils for getting and setting values in VariableStorageComponents of Noita-API
+
+
+```lua
+NetworkVscUtils
+```
+
+
+```lua
+NetworkVscUtils
+```
+
+
+---
+
 # newproxy
 
 
@@ -5639,6 +5691,18 @@ The behavior of `next` is undefined if, during the traversal, you assign any val
 function next(table: table<<K>, <V>>, index?: <K>)
   -> <K>?
   2. <V>?
+```
+
+
+---
+
+# noitaComponentUtils
+
+Class for using Noita components.
+
+
+```lua
+NoitaComponentUtils
 ```
 
 
@@ -6443,6 +6507,12 @@ function string.contains(str: string, pattern: string)
 ```
 
 
+```lua
+function string.contains(str: string, pattern: string)
+  -> found: boolean
+```
+
+
 ---
 
 # string.dump
@@ -6669,6 +6739,12 @@ function string.split(str: any, pat: any)
 ```
 
 
+```lua
+function string.split(str: any, pat: any)
+  -> table
+```
+
+
 ---
 
 # string.sub
@@ -6688,6 +6764,12 @@ function string.sub(s: string|number, i: integer, j?: integer)
 ---
 
 # string.trim
+
+
+```lua
+function string.trim(s: any)
+  -> string
+```
 
 
 ```lua
