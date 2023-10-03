@@ -2306,24 +2306,6 @@
     {
         "defines": [
             {
-                "extends": {
-                    "finish": 780043,
-                    "start": 780023,
-                    "type": "select",
-                    "view": "FileUtils"
-                },
-                "file": "../../mods/noita-mp/files/scripts/bin/profiler.lua",
-                "finish": 780020,
-                "start": 780008,
-                "type": "setfield"
-            }
-        ],
-        "name": "FileUtils",
-        "type": "variable"
-    },
-    {
-        "defines": [
-            {
                 "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
                 "finish": 19,
                 "start": 10,
@@ -3587,6 +3569,24 @@
         "defines": [
             {
                 "extends": {
+                    "finish": 780043,
+                    "start": 780023,
+                    "type": "select",
+                    "view": "FileUtils"
+                },
+                "file": "../../mods/noita-mp/files/scripts/bin/profiler.lua",
+                "finish": 780020,
+                "start": 780008,
+                "type": "setfield"
+            }
+        ],
+        "name": "FileUtils",
+        "type": "variable"
+    },
+    {
+        "defines": [
+            {
+                "extends": {
                     "args": [],
                     "desc": " Returns width and height depending on resolution.\n GuiGetScreenDimensions( gui:obj ) -> width:number,height:number [Returns dimensions of viewport in the gui coordinate system (which is equal to the coordinates of the screen bottom right corner in gui coordinates). The values returned may change depending on the game resolution because the UI is scaled for pixel-perfect text rendering.]",
                     "finish": 290003,
@@ -4676,7 +4676,7 @@
                             "view": "any"
                         }
                     ],
-                    "finish": 1710003,
+                    "finish": 1750003,
                     "returns": [
                         {
                             "type": "function.return",
@@ -4736,6 +4736,19 @@
                 "name": "setGuid",
                 "start": 570009,
                 "type": "setmethod"
+            },
+            {
+                "extends": {
+                    "finish": 1680060,
+                    "start": 1680033,
+                    "type": "binary",
+                    "view": "any"
+                },
+                "file": "../../mods/noita-mp/files/scripts/util/GuidUtils.lua",
+                "finish": 1680030,
+                "name": "socket",
+                "start": 1680008,
+                "type": "setfield"
             },
             {
                 "extends": {
@@ -4855,24 +4868,6 @@
         ],
         "name": "Health",
         "type": "type"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
-                    "finish": 610037,
-                    "start": 610020,
-                    "type": "select",
-                    "view": "Logger"
-                },
-                "file": "../../mods/noita-mp/files/scripts/bin/profiler.lua",
-                "finish": 610017,
-                "start": 610008,
-                "type": "setfield"
-            }
-        ],
-        "name": "Logger",
-        "type": "variable"
     },
     {
         "defines": [
@@ -5105,6 +5100,24 @@
         ],
         "name": "Logger",
         "type": "type"
+    },
+    {
+        "defines": [
+            {
+                "extends": {
+                    "finish": 610037,
+                    "start": 610020,
+                    "type": "select",
+                    "view": "Logger"
+                },
+                "file": "../../mods/noita-mp/files/scripts/bin/profiler.lua",
+                "finish": 610017,
+                "start": 610008,
+                "type": "setfield"
+            }
+        ],
+        "name": "Logger",
+        "type": "variable"
     },
     {
         "defines": [
@@ -6139,12 +6152,12 @@
                     "returns": [
                         {
                             "type": "function.return",
-                            "view": "string"
+                            "view": "unknown"
                         }
                     ],
                     "start": 130000,
                     "type": "function",
-                    "view": "function NetworkCacheUtils.getSum(event: any, data: any)\n  -> string"
+                    "view": "function NetworkCacheUtils.getSum(event: any, data: any)\n  -> unknown"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/NetworkCacheUtils.lua",
                 "finish": 130033,
@@ -6526,6 +6539,37 @@
         ],
         "desc": "Default enhanced serialization function",
         "name": "NetworkUtils.serialize",
+        "type": "variable"
+    },
+    {
+        "defines": [
+            {
+                "extends": {
+                    "finish": 20020,
+                    "start": 20018,
+                    "type": "table",
+                    "view": "NetworkVscUtils"
+                },
+                "file": "../../mods/noita-mp/files/scripts/util/NetworkVscUtils.lua",
+                "finish": 20015,
+                "start": 20000,
+                "type": "setglobal"
+            },
+            {
+                "extends": {
+                    "finish": 5880036,
+                    "start": 5880021,
+                    "type": "getglobal",
+                    "view": "NetworkVscUtils"
+                },
+                "file": "../../mods/noita-mp/files/scripts/util/NetworkVscUtils.lua",
+                "finish": 5880018,
+                "start": 5880000,
+                "type": "setfield"
+            }
+        ],
+        "desc": " NetworkVscUtils:",
+        "name": "NetworkVscUtils",
         "type": "variable"
     },
     {
@@ -7003,37 +7047,6 @@
         ],
         "name": "NetworkVscUtils",
         "type": "type"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
-                    "finish": 20020,
-                    "start": 20018,
-                    "type": "table",
-                    "view": "NetworkVscUtils"
-                },
-                "file": "../../mods/noita-mp/files/scripts/util/NetworkVscUtils.lua",
-                "finish": 20015,
-                "start": 20000,
-                "type": "setglobal"
-            },
-            {
-                "extends": {
-                    "finish": 5880036,
-                    "start": 5880021,
-                    "type": "getglobal",
-                    "view": "NetworkVscUtils"
-                },
-                "file": "../../mods/noita-mp/files/scripts/util/NetworkVscUtils.lua",
-                "finish": 5880018,
-                "start": 5880000,
-                "type": "setfield"
-            }
-        ],
-        "desc": " NetworkVscUtils:",
-        "name": "NetworkVscUtils",
-        "type": "variable"
     },
     {
         "defines": [
@@ -8382,15 +8395,15 @@
             },
             {
                 "extends": {
-                    "finish": 11060041,
-                    "start": 11060038,
+                    "finish": 11080041,
+                    "start": 11080038,
                     "type": "integer",
                     "view": "integer"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
-                "finish": 11060035,
+                "finish": 11080035,
                 "name": "acknowledgeMaxSize",
-                "start": 11060004,
+                "start": 11080004,
                 "type": "setfield"
             },
             {
@@ -8565,34 +8578,34 @@
             },
             {
                 "extends": {
-                    "finish": 11070041,
-                    "start": 11070038,
+                    "finish": 11090041,
+                    "start": 11090038,
                     "type": "nil",
                     "view": "nil"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
-                "finish": 11070021,
+                "finish": 11090021,
                 "name": "guid",
-                "start": 11070004,
+                "start": 11090004,
                 "type": "setfield"
             },
             {
                 "extends": {
-                    "finish": 11200093,
-                    "start": 11200024,
+                    "finish": 11220093,
+                    "start": 11220024,
                     "type": "select",
                     "view": "string"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
-                "finish": 11200021,
+                "finish": 11220021,
                 "name": "guid",
-                "start": 11200004,
+                "start": 11220004,
                 "type": "setfield"
             },
             {
                 "desc": "GuidUtils is just for generating and validating GUIDs. Guids are used for identifying clients and servers.",
                 "extends": {
-                    "finish": 10860053,
+                    "finish": 10880101,
                     "start": 10860033,
                     "type": "select",
                     "view": "GuidUtils"
@@ -8605,28 +8618,28 @@
             },
             {
                 "extends": {
-                    "finish": 11080065,
-                    "start": 11080038,
+                    "finish": 11100065,
+                    "start": 11100038,
                     "type": "table",
                     "view": "table"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
-                "finish": 11080023,
+                "finish": 11100023,
                 "name": "health",
-                "start": 11080004,
+                "start": 11100004,
                 "type": "setfield"
             },
             {
                 "extends": {
-                    "finish": 11090046,
-                    "start": 11090038,
+                    "finish": 11110046,
+                    "start": 11110038,
                     "type": "string",
                     "view": "string"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
-                "finish": 11090020,
+                "finish": 11110020,
                 "name": "iAm",
-                "start": 11090004,
+                "start": 11110004,
                 "type": "setfield"
             },
             {
@@ -8703,15 +8716,15 @@
             },
             {
                 "extends": {
-                    "finish": 10900057,
-                    "start": 10900035,
+                    "finish": 10920057,
+                    "start": 10920035,
                     "type": "select",
                     "view": "unknown"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
-                "finish": 10900032,
+                "finish": 10920032,
                 "name": "messagePack",
-                "start": 10900008,
+                "start": 10920008,
                 "type": "setfield"
             },
             {
@@ -8730,41 +8743,41 @@
             },
             {
                 "extends": {
-                    "finish": 11100041,
-                    "start": 11100038,
+                    "finish": 11120041,
+                    "start": 11120038,
                     "type": "nil",
                     "view": "nil"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
-                "finish": 11100030,
+                "finish": 11120030,
                 "name": "modListCached",
-                "start": 11100004,
+                "start": 11120004,
                 "type": "setfield"
             },
             {
                 "extends": {
-                    "finish": 11110041,
-                    "start": 11110038,
+                    "finish": 11130041,
+                    "start": 11130038,
                     "type": "nil",
                     "view": "nil"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
-                "finish": 11110021,
+                "finish": 11130021,
                 "name": "name",
-                "start": 11110004,
+                "start": 11130004,
                 "type": "setfield"
             },
             {
                 "extends": {
-                    "finish": 11190097,
-                    "start": 11190024,
+                    "finish": 11210097,
+                    "start": 11210024,
                     "type": "select",
                     "view": "string"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
-                "finish": 11190021,
+                "finish": 11210021,
                 "name": "name",
-                "start": 11190004,
+                "start": 11210004,
                 "type": "setfield"
             },
             {
@@ -8884,7 +8897,7 @@
                         }
                     ],
                     "desc": "Server constructor. Inherits from SockServer sock.newServer.\n\n@*param* `serverObject` — optional\n\n@*param* `address` — optional\n\n@*param* `port` — optional\n\n@*param* `maxPeers` — optional\n\n@*param* `maxChannels` — optional\n\n@*param* `inBandwidth` — optional\n\n@*param* `outBandwidth` — optional",
-                    "finish": 11250003,
+                    "finish": 11270003,
                     "returns": [
                         {
                             "type": "function.return",
@@ -8931,28 +8944,28 @@
             },
             {
                 "extends": {
-                    "finish": 10940069,
-                    "start": 10940041,
+                    "finish": 10960069,
+                    "start": 10960041,
                     "type": "select",
                     "view": "NoitaPatcherUtils"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
-                "finish": 10940038,
+                "finish": 10960038,
                 "name": "noitaPatcherUtils",
-                "start": 10940008,
+                "start": 10960008,
                 "type": "setfield"
             },
             {
                 "extends": {
-                    "finish": 11120041,
-                    "start": 11120038,
+                    "finish": 11140041,
+                    "start": 11140038,
                     "type": "nil",
                     "view": "nil"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
-                "finish": 11120021,
+                "finish": 11140021,
                 "name": "nuid",
-                "start": 11120004,
+                "start": 11140004,
                 "type": "setfield"
             },
             {
@@ -9341,15 +9354,15 @@
             },
             {
                 "extends": {
-                    "finish": 10980043,
-                    "start": 10980028,
+                    "finish": 11000043,
+                    "start": 11000028,
                     "type": "select",
                     "view": "unknown"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
-                "finish": 10980025,
+                "finish": 11000025,
                 "name": "sock",
-                "start": 10980008,
+                "start": 11000008,
                 "type": "setfield"
             },
             {
@@ -9414,15 +9427,15 @@
             },
             {
                 "extends": {
-                    "finish": 11130054,
-                    "start": 11130038,
+                    "finish": 11150054,
+                    "start": 11150038,
                     "type": "table",
                     "view": "table"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
-                "finish": 11130026,
+                "finish": 11150026,
                 "name": "transform",
-                "start": 11130004,
+                "start": 11150004,
                 "type": "setfield"
             },
             {
@@ -9470,15 +9483,15 @@
             },
             {
                 "extends": {
-                    "finish": 11010048,
-                    "start": 11010033,
+                    "finish": 11030048,
+                    "start": 11030033,
                     "type": "select",
                     "view": "unknown"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/Server.lua",
-                "finish": 11010030,
+                "finish": 11030030,
                 "name": "zstandard",
-                "start": 11010008,
+                "start": 11030008,
                 "type": "setfield"
             }
         ],
@@ -9527,6 +9540,24 @@
             }
         ],
         "name": "Ui.new",
+        "type": "variable"
+    },
+    {
+        "defines": [
+            {
+                "extends": {
+                    "finish": 650035,
+                    "start": 650019,
+                    "type": "select",
+                    "view": "Utils"
+                },
+                "file": "../../mods/noita-mp/files/scripts/bin/profiler.lua",
+                "finish": 650016,
+                "start": 650008,
+                "type": "setfield"
+            }
+        ],
+        "name": "Utils",
         "type": "variable"
     },
     {
@@ -9759,36 +9790,6 @@
         ],
         "name": "Utils",
         "type": "type"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
-                    "finish": 650035,
-                    "start": 650019,
-                    "type": "select",
-                    "view": "Utils"
-                },
-                "file": "../../mods/noita-mp/files/scripts/bin/profiler.lua",
-                "finish": 650016,
-                "start": 650008,
-                "type": "setfield"
-            },
-            {
-                "extends": {
-                    "finish": 2050032,
-                    "start": 2050016,
-                    "type": "select",
-                    "view": "Utils"
-                },
-                "file": "../../mods/noita-mp/files/scripts/extensions/tableExtensions.lua",
-                "finish": 2050013,
-                "start": 2050008,
-                "type": "setglobal"
-            }
-        ],
-        "name": "Utils",
-        "type": "variable"
     },
     {
         "defines": [
@@ -15052,24 +15053,6 @@
         "defines": [
             {
                 "extends": {
-                    "finish": 5560049,
-                    "start": 5560025,
-                    "type": "binary",
-                    "view": "unknown"
-                },
-                "file": "../../mods/noita-mp/files/scripts/extensions/tableExtensions.lua",
-                "finish": 5560022,
-                "start": 5560012,
-                "type": "setfield"
-            }
-        ],
-        "name": "stack._top",
-        "type": "variable"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
                     "finish": 80011,
                     "start": 80009,
                     "type": "table",
@@ -16066,128 +16049,6 @@
                 "extends": {
                     "args": [
                         {
-                            "desc": "Table to check.",
-                            "finish": 70032,
-                            "start": 70029,
-                            "type": "local",
-                            "view": "table"
-                        },
-                        {
-                            "desc": "Number(index) or String(name matching) for indexing the table.",
-                            "finish": 70037,
-                            "start": 70034,
-                            "type": "local",
-                            "view": "any"
-                        }
-                    ],
-                    "desc": "@*param* `tbl` — Table to check.\n\n@*param* `key` — Number(index) or String(name matching) for indexing the table.\n\n@*return* `true` — if indexing by key does not return nil\n\n@*return* `index` — also returns the index of the found key\n\n Return true, if the key is contained in the tbl. NOTE: Doesn't check for duplicates inside the table.",
-                    "finish": 200003,
-                    "returns": [
-                        {
-                            "type": "function.return",
-                            "view": "boolean"
-                        },
-                        {
-                            "type": "function.return",
-                            "view": "number"
-                        }
-                    ],
-                    "start": 70020,
-                    "type": "function",
-                    "view": "function table.contains(tbl: table, key: any)\n  -> true: boolean\n  2. index: number"
-                },
-                "file": "../../mods/noita-mp/files/scripts/extensions/tableExtensions.lua",
-                "finish": 70014,
-                "start": 70000,
-                "type": "setfield"
-            }
-        ],
-        "desc": "@*param* `tbl` — Table to check.\n\n@*param* `key` — Number(index) or String(name matching) for indexing the table.\n\n@*return* `true` — if indexing by key does not return nil\n\n@*return* `index` — also returns the index of the found key\n\n Return true, if the key is contained in the tbl. NOTE: Doesn't check for duplicates inside the table.",
-        "name": "table.contains",
-        "type": "variable"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
-                    "args": [
-                        {
-                            "desc": "The table to check within for the values passed in the following parameters.",
-                            "finish": 270032,
-                            "start": 270029,
-                            "type": "local",
-                            "view": "table"
-                        },
-                        {
-                            "finish": 270037,
-                            "start": 270034,
-                            "type": "...",
-                            "view": "any"
-                        }
-                    ],
-                    "desc": "@*param* `tbl` — The table to check within for the values passed in the following parameters.\n\n@*return* `true` — if all the values were in the table.\n\n https://gist.github.com/HoraceBury/9307117#file-tablelib-lua-L293-L313\n Returns true if all the arg parameters are contained in the tbl.",
-                    "finish": 380003,
-                    "returns": [
-                        {
-                            "type": "function.return",
-                            "view": "boolean"
-                        }
-                    ],
-                    "start": 270020,
-                    "type": "function",
-                    "view": "function table.containsAll(tbl: table, ...any)\n  -> true: boolean"
-                },
-                "file": "../../mods/noita-mp/files/scripts/extensions/tableExtensions.lua",
-                "finish": 270017,
-                "start": 270000,
-                "type": "setfield"
-            }
-        ],
-        "desc": "@*param* `tbl` — The table to check within for the values passed in the following parameters.\n\n@*return* `true` — if all the values were in the table.\n\n https://gist.github.com/HoraceBury/9307117#file-tablelib-lua-L293-L313\n Returns true if all the arg parameters are contained in the tbl.",
-        "name": "table.containsAll",
-        "type": "variable"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
-                    "args": [
-                        {
-                            "desc": "Example: { \"Name\", 2, 234, \"string\" }",
-                            "finish": 2000034,
-                            "start": 2000031,
-                            "type": "local",
-                            "view": "table"
-                        }
-                    ],
-                    "desc": " We need a simple and 'fast' way to convert a lua table into a string.\n\n@*param* `tbl` — Example: { \"Name\", 2, 234, \"string\" }\n\n@*return* `Example` — Name,2,234,string",
-                    "finish": 2380003,
-                    "returns": [
-                        {
-                            "type": "function.return",
-                            "view": "string"
-                        }
-                    ],
-                    "start": 2000000,
-                    "type": "function",
-                    "view": "function table.contentToString(tbl: table)\n  -> Example: string"
-                },
-                "file": "../../mods/noita-mp/files/scripts/extensions/tableExtensions.lua",
-                "finish": 2000030,
-                "start": 2000009,
-                "type": "setfield"
-            }
-        ],
-        "desc": " We need a simple and 'fast' way to convert a lua table into a string.\n\n@*param* `tbl` — Example: { \"Name\", 2, 234, \"string\" }\n\n@*return* `Example` — Name,2,234,string",
-        "name": "table.contentToString",
-        "type": "variable"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
-                    "args": [
-                        {
                             "finish": 1250027,
                             "start": 1250023,
                             "type": "local",
@@ -16302,46 +16163,6 @@
                 "extends": {
                     "args": [
                         {
-                            "finish": 700026,
-                            "start": 700023,
-                            "type": "local",
-                            "view": "any"
-                        },
-                        {
-                            "finish": 700033,
-                            "start": 700028,
-                            "type": "local",
-                            "view": "any"
-                        }
-                    ],
-                    "desc": " https://stackoverflow.com/a/52922737/3493998",
-                    "finish": 780003,
-                    "returns": [
-                        {
-                            "type": "function.return",
-                            "view": "integer|nil"
-                        }
-                    ],
-                    "start": 700000,
-                    "type": "function",
-                    "view": "function table.indexOf(tbl: any, value: any)\n  -> integer|nil"
-                },
-                "file": "../../mods/noita-mp/files/scripts/extensions/tableExtensions.lua",
-                "finish": 700022,
-                "start": 700009,
-                "type": "setfield"
-            }
-        ],
-        "desc": " https://stackoverflow.com/a/52922737/3493998",
-        "name": "table.indexOf",
-        "type": "variable"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
-                    "args": [
-                        {
                             "finish": 320026,
                             "start": 320022,
                             "type": "local",
@@ -16374,108 +16195,6 @@
         ],
         "desc": "\nInserts element `value` at position `pos` in `list`.\n\n[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-table.insert)",
         "name": "table.insert",
-        "type": "variable"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
-                    "args": [
-                        {
-                            "finish": 930029,
-                            "start": 930025,
-                            "type": "local",
-                            "view": "table"
-                        },
-                        {
-                            "finish": 930035,
-                            "start": 930031,
-                            "type": "local",
-                            "view": "table"
-                        }
-                    ],
-                    "desc": " DEPRECATED use table.insertAllButNotDuplicates(tbl1, tbl2)\n Adds all values of tbl2 into tbl1.",
-                    "finish": 1030003,
-                    "start": 930000,
-                    "type": "function",
-                    "view": "function table.insertAll(tbl1: table, tbl2: table)"
-                },
-                "file": "../../mods/noita-mp/files/scripts/extensions/tableExtensions.lua",
-                "finish": 930024,
-                "start": 930009,
-                "type": "setfield"
-            }
-        ],
-        "desc": " DEPRECATED use table.insertAllButNotDuplicates(tbl1, tbl2)\n Adds all values of tbl2 into tbl1.",
-        "name": "table.insertAll",
-        "type": "variable"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
-                    "args": [
-                        {
-                            "finish": 1080045,
-                            "start": 1080041,
-                            "type": "local",
-                            "view": "table"
-                        },
-                        {
-                            "finish": 1080051,
-                            "start": 1080047,
-                            "type": "local",
-                            "view": "table"
-                        }
-                    ],
-                    "desc": " Adds all values of tbl2 into tbl1, but not duplicates.",
-                    "finish": 1370003,
-                    "start": 1080000,
-                    "type": "function",
-                    "view": "function table.insertAllButNotDuplicates(tbl1: table, tbl2: table)"
-                },
-                "file": "../../mods/noita-mp/files/scripts/extensions/tableExtensions.lua",
-                "finish": 1080040,
-                "start": 1080009,
-                "type": "setfield"
-            }
-        ],
-        "desc": " Adds all values of tbl2 into tbl1, but not duplicates.",
-        "name": "table.insertAllButNotDuplicates",
-        "type": "variable"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
-                    "args": [
-                        {
-                            "finish": 830035,
-                            "start": 830032,
-                            "type": "local",
-                            "view": "table"
-                        },
-                        {
-                            "finish": 830042,
-                            "start": 830037,
-                            "type": "local",
-                            "view": "any"
-                        }
-                    ],
-                    "desc": " Adds a value to a table, if this value doesn't exist in the table",
-                    "finish": 870003,
-                    "start": 830000,
-                    "type": "function",
-                    "view": "function table.insertIfNotExist(tbl: table, value: any)"
-                },
-                "file": "../../mods/noita-mp/files/scripts/extensions/tableExtensions.lua",
-                "finish": 830031,
-                "start": 830009,
-                "type": "setfield"
-            }
-        ],
-        "desc": " Adds a value to a table, if this value doesn't exist in the table",
-        "name": "table.insertIfNotExist",
         "type": "variable"
     },
     {
@@ -16650,152 +16369,6 @@
                 "extends": {
                     "args": [
                         {
-                            "finish": 590033,
-                            "start": 590029,
-                            "type": "local",
-                            "view": "table"
-                        },
-                        {
-                            "finish": 590039,
-                            "start": 590035,
-                            "type": "local",
-                            "view": "table"
-                        }
-                    ],
-                    "desc": " Removes all values in tbl1 by the values of tbl2\n\n@*return* `tbl1` — returns tbl1 with remove values containing in tbl2",
-                    "finish": 670003,
-                    "returns": [
-                        {
-                            "type": "function.return",
-                            "view": "table"
-                        }
-                    ],
-                    "start": 590000,
-                    "type": "function",
-                    "view": "function table.removeByTable(tbl1: table, tbl2: table)\n  -> tbl1: table"
-                },
-                "file": "../../mods/noita-mp/files/scripts/extensions/tableExtensions.lua",
-                "finish": 590028,
-                "start": 590009,
-                "type": "setfield"
-            }
-        ],
-        "desc": " Removes all values in tbl1 by the values of tbl2\n\n@*return* `tbl1` — returns tbl1 with remove values containing in tbl2",
-        "name": "table.removeByTable",
-        "type": "variable"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
-                    "args": [
-                        {
-                            "finish": 470032,
-                            "start": 470029,
-                            "type": "local",
-                            "view": "any"
-                        },
-                        {
-                            "finish": 470039,
-                            "start": 470034,
-                            "type": "local",
-                            "view": "any"
-                        }
-                    ],
-                    "finish": 530003,
-                    "returns": [
-                        {
-                            "type": "function.return",
-                            "view": "unknown"
-                        }
-                    ],
-                    "start": 470000,
-                    "type": "function",
-                    "view": "function table.removeByValue(tbl: any, value: any)\n  -> unknown"
-                },
-                "file": "../../mods/noita-mp/files/scripts/extensions/tableExtensions.lua",
-                "finish": 470028,
-                "start": 470009,
-                "type": "setfield"
-            }
-        ],
-        "name": "table.removeByValue",
-        "type": "variable"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
-                    "args": [
-                        {
-                            "desc": "table to set the metamethods",
-                            "finish": 1590047,
-                            "start": 1590044,
-                            "type": "local",
-                            "view": "table"
-                        },
-                        {
-                            "desc": "k or v or kv",
-                            "finish": 1590053,
-                            "start": 1590049,
-                            "type": "local",
-                            "view": "string?"
-                        }
-                    ],
-                    "desc": " Sets metamethods for the table, which are default metamethods for NoitaMP.\n __mode = \"kv\" is set, so the table can be used as a weak table on key and value.\n __index = decreases __len by 1, so the table can be used as a stack.\n __newindex = increases __len by 1, so the table can be used as a stack.\n __len isn't available in lua 5.1, so init it.\n\n@*param* `tbl` — table to set the metamethods\n\n@*param* `mode` — k or v or kv",
-                    "finish": 1950003,
-                    "start": 1590000,
-                    "type": "function",
-                    "view": "function table.setNoitaMpDefaultMetaMethods(tbl: table, mode?: string)"
-                },
-                "file": "../../mods/noita-mp/files/scripts/extensions/tableExtensions.lua",
-                "finish": 1590043,
-                "start": 1590009,
-                "type": "setfield"
-            }
-        ],
-        "desc": " Sets metamethods for the table, which are default metamethods for NoitaMP.\n __mode = \"kv\" is set, so the table can be used as a weak table on key and value.\n __index = decreases __len by 1, so the table can be used as a stack.\n __newindex = increases __len by 1, so the table can be used as a stack.\n __len isn't available in lua 5.1, so init it.\n\n@*param* `tbl` — table to set the metamethods\n\n@*param* `mode` — k or v or kv",
-        "name": "table.setNoitaMpDefaultMetaMethods",
-        "type": "variable"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
-                    "args": [
-                        {
-                            "finish": 1390021,
-                            "start": 1390020,
-                            "type": "local",
-                            "view": "any"
-                        }
-                    ],
-                    "finish": 1500003,
-                    "returns": [
-                        {
-                            "type": "function.return",
-                            "view": "integer"
-                        }
-                    ],
-                    "start": 1390000,
-                    "type": "function",
-                    "view": "function table.size(T: any)\n  -> integer"
-                },
-                "file": "../../mods/noita-mp/files/scripts/extensions/tableExtensions.lua",
-                "finish": 1390019,
-                "start": 1390009,
-                "type": "setfield"
-            }
-        ],
-        "name": "table.size",
-        "type": "variable"
-    },
-    {
-        "defines": [
-            {
-                "extends": {
-                    "args": [
-                        {
                             "finish": 930024,
                             "start": 930020,
                             "type": "local",
@@ -16869,6 +16442,343 @@
         "desc": "\nReturns the elements from the given list. This function is equivalent to\n```lua\n    return list[i], list[i+1], ···, list[j]\n```\nBy default, `i` is `1` and `j` is `#list`.\n\n\n[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-table.unpack)",
         "name": "table.unpack",
         "type": "variable"
+    },
+    {
+        "defines": [
+            {
+                "file": "../../mods/noita-mp/files/scripts/extensions/tableExtensions.lua",
+                "finish": 20018,
+                "start": 20010,
+                "type": "doc.class"
+            }
+        ],
+        "desc": "\n\n\n[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-table)\n",
+        "fields": [
+            {
+                "desc": "Return true, if the key is contained in the tbl. NOTE: Doesn't check for duplicates inside the table.\n\n@*param* `key` — Number(index) or String(name matching) for indexing the table.\n\n@*return* `true` — if indexing by key does not return nil\n\n@*return* `index` — also returns the index of the found key",
+                "extends": {
+                    "args": [
+                        {
+                            "finish": 260027,
+                            "start": 260024,
+                            "type": "local",
+                            "view": "table"
+                        },
+                        {
+                            "desc": "Number(index) or String(name matching) for indexing the table.",
+                            "finish": 260032,
+                            "start": 260029,
+                            "type": "local",
+                            "view": "any"
+                        }
+                    ],
+                    "desc": "Return true, if the key is contained in the tbl. NOTE: Doesn't check for duplicates inside the table.\n\n@*param* `key` — Number(index) or String(name matching) for indexing the table.\n\n@*return* `true` — if indexing by key does not return nil\n\n@*return* `index` — also returns the index of the found key",
+                    "finish": 390003,
+                    "returns": [
+                        {
+                            "type": "function.return",
+                            "view": "boolean"
+                        },
+                        {
+                            "type": "function.return",
+                            "view": "number"
+                        }
+                    ],
+                    "start": 260000,
+                    "type": "function",
+                    "view": "function tablelib.contains(tbl: table, key: any)\n  -> true: boolean\n  2. index: number"
+                },
+                "file": "../../mods/noita-mp/files/scripts/extensions/tableExtensions.lua",
+                "finish": 260023,
+                "name": "contains",
+                "start": 260009,
+                "type": "setfield"
+            },
+            {
+                "desc": " https://gist.github.com/HoraceBury/9307117#file-tablelib-lua-L293-L313\nReturns true if all the arg parameters are contained in the tbl.\n\n@*return* `true` — if all the values were in the table.",
+                "extends": {
+                    "args": [
+                        {
+                            "finish": 460030,
+                            "start": 460027,
+                            "type": "local",
+                            "view": "table"
+                        },
+                        {
+                            "finish": 460035,
+                            "start": 460032,
+                            "type": "...",
+                            "view": "any"
+                        }
+                    ],
+                    "desc": " https://gist.github.com/HoraceBury/9307117#file-tablelib-lua-L293-L313\nReturns true if all the arg parameters are contained in the tbl.\n\n@*return* `true` — if all the values were in the table.",
+                    "finish": 570003,
+                    "returns": [
+                        {
+                            "type": "function.return",
+                            "view": "boolean"
+                        }
+                    ],
+                    "start": 460000,
+                    "type": "function",
+                    "view": "function tablelib.containsAll(tbl: table, ...any)\n  -> true: boolean"
+                },
+                "file": "../../mods/noita-mp/files/scripts/extensions/tableExtensions.lua",
+                "finish": 460026,
+                "name": "containsAll",
+                "start": 460009,
+                "type": "setfield"
+            },
+            {
+                "desc": " https://stackoverflow.com/a/52922737/3493998",
+                "extends": {
+                    "args": [
+                        {
+                            "finish": 890026,
+                            "start": 890023,
+                            "type": "local",
+                            "view": "any"
+                        },
+                        {
+                            "finish": 890033,
+                            "start": 890028,
+                            "type": "local",
+                            "view": "any"
+                        }
+                    ],
+                    "desc": " https://stackoverflow.com/a/52922737/3493998",
+                    "finish": 970003,
+                    "returns": [
+                        {
+                            "type": "function.return",
+                            "view": "integer|nil"
+                        }
+                    ],
+                    "start": 890000,
+                    "type": "function",
+                    "view": "function tablelib.indexOf(tbl: any, value: any)\n  -> integer|nil"
+                },
+                "file": "../../mods/noita-mp/files/scripts/extensions/tableExtensions.lua",
+                "finish": 890022,
+                "name": "indexOf",
+                "start": 890009,
+                "type": "setfield"
+            },
+            {
+                "desc": "Adds all values of tbl2 into tbl, but not duplicates.",
+                "extends": {
+                    "args": [
+                        {
+                            "finish": 1110045,
+                            "start": 1110041,
+                            "type": "local",
+                            "view": "table"
+                        },
+                        {
+                            "finish": 1110051,
+                            "start": 1110047,
+                            "type": "local",
+                            "view": "table"
+                        }
+                    ],
+                    "desc": "Adds all values of tbl2 into tbl, but not duplicates.",
+                    "finish": 1400003,
+                    "start": 1110000,
+                    "type": "function",
+                    "view": "function tablelib.insertAllButNotDuplicates(tbl1: table, tbl2: table)"
+                },
+                "file": "../../mods/noita-mp/files/scripts/extensions/tableExtensions.lua",
+                "finish": 1110040,
+                "name": "insertAllButNotDuplicates",
+                "start": 1110009,
+                "type": "setfield"
+            },
+            {
+                "desc": " Adds a value to a table, if this value doesn't exist in the table",
+                "extends": {
+                    "args": [
+                        {
+                            "finish": 1020035,
+                            "start": 1020032,
+                            "type": "local",
+                            "view": "table"
+                        },
+                        {
+                            "finish": 1020042,
+                            "start": 1020037,
+                            "type": "local",
+                            "view": "any"
+                        }
+                    ],
+                    "desc": " Adds a value to a table, if this value doesn't exist in the table",
+                    "finish": 1060003,
+                    "start": 1020000,
+                    "type": "function",
+                    "view": "function tablelib.insertIfNotExist(tbl: table, value: any)"
+                },
+                "file": "../../mods/noita-mp/files/scripts/extensions/tableExtensions.lua",
+                "finish": 1020031,
+                "name": "insertIfNotExist",
+                "start": 1020009,
+                "type": "setfield"
+            },
+            {
+                "desc": "Extension or expansion of the default lua table for checking if a table is empty.\n\n@*return* `true` — if table is empty.",
+                "extends": {
+                    "args": [
+                        {
+                            "finish": 110026,
+                            "start": 110023,
+                            "type": "local",
+                            "view": "table"
+                        }
+                    ],
+                    "desc": "Extension or expansion of the default lua table for checking if a table is empty.\n\n@*return* `true` — if table is empty.",
+                    "finish": 190003,
+                    "returns": [
+                        {
+                            "type": "function.return",
+                            "view": "boolean"
+                        }
+                    ],
+                    "start": 110000,
+                    "type": "function",
+                    "view": "function tablelib.isEmpty(tbl: table)\n  -> true: boolean"
+                },
+                "file": "../../mods/noita-mp/files/scripts/extensions/tableExtensions.lua",
+                "finish": 110022,
+                "name": "isEmpty",
+                "start": 110009,
+                "type": "setfield"
+            },
+            {
+                "desc": "We need a simple and 'fast' way to convert a lua table into a string.\n\n@*param* `tbl` — { \"Name\", 2, 234, \"string\" }\n\n@*return* `Example` — tbl becomes \"Name,2,234,string\"",
+                "extends": {
+                    "args": [
+                        {
+                            "desc": "{ \"Name\", 2, 234, \"string\" }",
+                            "finish": 1580023,
+                            "start": 1580020,
+                            "type": "local",
+                            "view": "table"
+                        }
+                    ],
+                    "desc": "We need a simple and 'fast' way to convert a lua table into a string.\n\n@*param* `tbl` — { \"Name\", 2, 234, \"string\" }\n\n@*return* `Example` — tbl becomes \"Name,2,234,string\"",
+                    "finish": 1910003,
+                    "returns": [
+                        {
+                            "type": "function.return",
+                            "view": "string"
+                        }
+                    ],
+                    "start": 1580000,
+                    "type": "function",
+                    "view": "function tablelib.join(tbl: table)\n  -> Example: string"
+                },
+                "file": "../../mods/noita-mp/files/scripts/extensions/tableExtensions.lua",
+                "finish": 1580019,
+                "name": "join",
+                "start": 1580009,
+                "type": "setfield"
+            },
+            {
+                "desc": " Removes all values in tbl1 by the values of tbl2\n\n@*return* `tbl1` — returns tbl1 with remove values containing in tbl2",
+                "extends": {
+                    "args": [
+                        {
+                            "finish": 780033,
+                            "start": 780029,
+                            "type": "local",
+                            "view": "table"
+                        },
+                        {
+                            "finish": 780039,
+                            "start": 780035,
+                            "type": "local",
+                            "view": "table"
+                        }
+                    ],
+                    "desc": " Removes all values in tbl1 by the values of tbl2\n\n@*return* `tbl1` — returns tbl1 with remove values containing in tbl2",
+                    "finish": 860003,
+                    "returns": [
+                        {
+                            "type": "function.return",
+                            "view": "table"
+                        }
+                    ],
+                    "start": 780000,
+                    "type": "function",
+                    "view": "function tablelib.removeByTable(tbl1: table, tbl2: table)\n  -> tbl1: table"
+                },
+                "file": "../../mods/noita-mp/files/scripts/extensions/tableExtensions.lua",
+                "finish": 780028,
+                "name": "removeByTable",
+                "start": 780009,
+                "type": "setfield"
+            },
+            {
+                "extends": {
+                    "args": [
+                        {
+                            "finish": 660032,
+                            "start": 660029,
+                            "type": "local",
+                            "view": "any"
+                        },
+                        {
+                            "finish": 660039,
+                            "start": 660034,
+                            "type": "local",
+                            "view": "any"
+                        }
+                    ],
+                    "finish": 720003,
+                    "returns": [
+                        {
+                            "type": "function.return",
+                            "view": "unknown"
+                        }
+                    ],
+                    "start": 660000,
+                    "type": "function",
+                    "view": "function tablelib.removeByValue(tbl: any, value: any)\n  -> unknown"
+                },
+                "file": "../../mods/noita-mp/files/scripts/extensions/tableExtensions.lua",
+                "finish": 660028,
+                "name": "removeByValue",
+                "start": 660009,
+                "type": "setfield"
+            },
+            {
+                "extends": {
+                    "args": [
+                        {
+                            "finish": 1420023,
+                            "start": 1420020,
+                            "type": "local",
+                            "view": "any"
+                        }
+                    ],
+                    "finish": 1530003,
+                    "returns": [
+                        {
+                            "type": "function.return",
+                            "view": "integer"
+                        }
+                    ],
+                    "start": 1420000,
+                    "type": "function",
+                    "view": "function tablelib.size(tbl: any)\n  -> integer"
+                },
+                "file": "../../mods/noita-mp/files/scripts/extensions/tableExtensions.lua",
+                "finish": 1420019,
+                "name": "size",
+                "start": 1420009,
+                "type": "setfield"
+            }
+        ],
+        "name": "tablelib",
+        "type": "type"
     },
     {
         "defines": [
