@@ -770,13 +770,6 @@ function Client:disconnect()
     self.customProfiler:stop("Client.disconnect", cpc)
 end
 
----Returns true if the client is connected to the server. Inherit from sock.isConnected.
----@return boolean
-function Client:isConnected()
-    -- Inheritance: https://ozzypig.com/2018/05/10/object-oriented-programming-in-lua-part-5-inheritance
-    return self.sock.isConnected(self)
-end
-
 local prevTime = 0
 ---Updates the Client by checking for network events and handling them. Inherit from sock.update.
 ---@param startFrameTime number required
@@ -811,7 +804,7 @@ function Client:update(startFrameTime)
     end
 
     -- Inheritance: https://ozzypig.com/2018/05/10/object-oriented-programming-in-lua-part-5-inheritance
-    self.sock.update(self) --sockClientUpdate(self)
+    self.update(self) --sockClientUpdate(self)
     self.customProfiler:stop("Client.update", cpc)
 end
 

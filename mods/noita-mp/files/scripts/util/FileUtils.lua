@@ -90,8 +90,9 @@ end
 
 --- Noita specific file, directory or path functions
 
---- Sets root directory of noita.exe, i.e. C:\Program Files (x86)\Steam\steamapps\common\Noita
-function FileUtils:SetAbsolutePathOfNoitaRootDirectory()
+---Sets root directory of noita.exe, i.e. C:\Program Files (x86)\Steam\steamapps\common\Noita
+---@param noitaMpSettings NoitaMpSettings|nil optional. Needed for saving Noitas root directory to settings file.
+function FileUtils:SetAbsolutePathOfNoitaRootDirectory(noitaMpSettings)
     if _G.is_windows then
         self.noitaRootDirectory = assert(io.popen("cd"):read("*l"),
             "Unable to run windows command 'cd' to get Noitas root directory!")
@@ -103,6 +104,10 @@ function FileUtils:SetAbsolutePathOfNoitaRootDirectory()
             :format(_G.os_name, _G.os_arch), 2)
     end
     self.noitaRootDirectory = self:ReplacePathSeparator(self.noitaRootDirectory)
+    if noitaMpSettings and not noitaMpSettings.settingsFilePath then
+        noitaMpSettings:set("noita-mp.noita-root-directory", self.noitaRootDirectory)
+        noitaMpSettings:save()
+    end
     if isTestLuaContext then
         self.logger:trace(self.logger.channels.testing,
             ("Absolute path of Noitas root directory set to %s, but we need to fix path! Removing \\mods\\noita-mp.")
@@ -116,9 +121,9 @@ function FileUtils:SetAbsolutePathOfNoitaRootDirectory()
 end
 
 ---@return string
-function FileUtils:GetAbsolutePathOfNoitaRootDirectory()
+function FileUtils:GetAbsolutePathOfNoitaRootDirectory(noitaMpSettings)
     if not self.noitaRootDirectory then
-        self:SetAbsolutePathOfNoitaRootDirectory()
+        self:SetAbsolutePathOfNoitaRootDirectory(noitaMpSettings)
     end
     return self.noitaRootDirectory
 end
@@ -184,9 +189,9 @@ end
 --- Returns the ABSOLUTE path of the mods folder.
 --- If self.GetAbsolutePathOfNoitaRootDirectory() is not set yet, then it will be
 --- @return string self.GetAbsolutePathOfNoitaRootDirectory() .. "/mods/noita-mp"
-function FileUtils:GetAbsoluteDirectoryPathOfNoitaMP()
-    if not self:GetAbsolutePathOfNoitaRootDirectory() then
-        self:SetAbsolutePathOfNoitaRootDirectory()
+function FileUtils:GetAbsoluteDirectoryPathOfNoitaMP(noitaMpSettings)
+    if not self:GetAbsolutePathOfNoitaRootDirectory(noitaMpSettings) then
+        self:SetAbsolutePathOfNoitaRootDirectory(noitaMpSettings)
     end
     local p = self:GetAbsolutePathOfNoitaRootDirectory() .. "/mods/noita-mp"
     p       = self:ReplacePathSeparator(p)
@@ -248,10 +253,11 @@ function FileUtils:GetLastModifiedSaveSlots()
     return saveSlotLastModified
 end
 
---- Returns absolute path of NoitaMP settings directory,
---- @return string absPath i.e. "C:\Program Files (x86)\Steam\steamapps\common\Noita\mods\noita-mp\settings"
-function FileUtils:GetAbsolutePathOfNoitaMpSettingsDirectory()
-    return self:GetAbsoluteDirectoryPathOfNoitaMP() .. pathSeparator .. "settings"
+---Returns absolute path of NoitaMP settings directory,
+---@param noitaMpSettings NoitaMpSettings|nil optional. Needed for saving Noitas root directory to settings file.
+---@return string absPath i.e. "C:\Program Files (x86)\Steam\steamapps\common\Noita\mods\noita-mp\settings"
+function FileUtils:GetAbsolutePathOfNoitaMpSettingsDirectory(noitaMpSettings)
+    return self:GetAbsoluteDirectoryPathOfNoitaMP(noitaMpSettings) .. pathSeparator .. "settings"
 end
 
 function FileUtils:GetRelativePathOfNoitaMpSettingsDirectory()

@@ -2,11 +2,13 @@ dofile_once("mods/noita-mp/files/scripts/init/init_.lua")
 dofile_once("mods/noita-mp/files/scripts/noita-components/init_noita_components.lua")
 
 ---@type Logger
-local logger = dofile_once("mods/noita-mp/files/scripts/util/Logger.lua")
+logger = logger or
+    dofile_once("mods/noita-mp/files/scripts/util/Logger.lua")
     :new(nil, { start = function() end, stop = function() end })
 
 ---@type GlobalsUtils
-local globalsUtils = dofile_once("mods/noita-mp/files/scripts/util/GlobalsUtils.lua")
+globalsUtils = globalsUtils or
+    dofile_once("mods/noita-mp/files/scripts/util/GlobalsUtils.lua")
     :new(nil, { start = function() end, stop = function() end }, logger, {}, {
         isEmpty = function(self, var)
             if var == nil then
@@ -23,7 +25,8 @@ local globalsUtils = dofile_once("mods/noita-mp/files/scripts/util/GlobalsUtils.
     })
 
 ---@type NetworkVscUtils
-local networkVscUtils = dofile_once("mods/noita-mp/files/scripts/util/NetworkVscUtils.lua")
+networkVscUtils = networkVscUtils or
+    dofile_once("mods/noita-mp/files/scripts/util/NetworkVscUtils.lua")
     :new(nil, { start = function() end, stop = function() end }, logger, {}, globalsUtils, {
         isEmpty = function(self, var)
             if var == nil then

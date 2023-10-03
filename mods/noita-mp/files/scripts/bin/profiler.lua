@@ -1,34 +1,119 @@
 local params = { ... }
 print("params", table.concat(params, ", "))
 
-local cache           = {}
+--require "luadebug" : start "127.0.0.1:4980" : event "wait"
+
+local cache            = {}
 ---@type FileUtils
-local fileUtils       = nil
-local lfs             = nil
+local fileUtils        = nil
+local lfs              = nil
 ---@type Logger
-local logger          = nil
-local pid             = nil
+local logger           = nil
+local pid              = nil
 ---@type plotly
-local plotly          = nil
-local reportDirectory = nil
-local reportFilename  = "report.html"
-local socket          = nil
-local udp             = nil
+local plotly           = nil
+local reportDirectory  = nil
+local reportFilename   = "report.html"
+local socket           = nil
+local udp              = nil
 ---@type Utils
-local utils           = nil
-local winapi          = nil
+local utils            = nil
+local winapi           = nil
+
+local getNoitaRootPath = function()
+
+end
+
+string.split           = function(str, pat)
+    local t         = {}
+    local fpat      = "(.-)" .. pat
+    local last_end  = 1
+    local s, e, cap = str:find(fpat, 1)
+    while s do
+        if s ~= 1 or cap ~= "" then
+            table.insert(t, cap)
+        end
+        last_end  = e + 1
+        s, e, cap = str:find(fpat, last_end)
+    end
+    if last_end <= #str then
+        cap = str:sub(last_end)
+        table.insert(t, cap)
+    end
+    return t
+end
+
+string.trim            = function(s)
+    if type(s) ~= "string" then
+        error("Unable to trim(s), because s is not a string.", 2)
+    end
+    -- http://lua-users.org/wiki/StringTrim -> trim12(s)
+    local from = s:match "^%s*()"
+    return from > #s and "" or s:match(".*%S", from)
+end
+
+--- Contains on lower case
+--- @param str string String
+--- @param pattern string String, Char, Regex
+--- @return boolean found: 'true' if found, else 'false'.
+string.contains        = function(str, pattern)
+    if not str or str == "" then
+        error("str must not be nil!", 2)
+    end
+    if not pattern or pattern == "" then
+        error("pattern must not be nil!", 2)
+    end
+    local found = string.find(str:lower(), pattern:lower(), 1, true)
+    if not found or found < 1 then
+        return false
+    else
+        return true
+    end
+end
 
 ---Initilizes the external profiler. All dependencies were loaded here.
-local init            = function()
-    _G.MAX_MEMORY_USAGE = 524438 -- KB = 524,438 MB
+local init             = function()
+    _G.MAX_MEMORY_USAGE    = 524438 -- KB = 524,438 MB
 
-    local pathToMods = assert(io.popen("cd.. && cd.. && cd"):read("*l"), "Unable to run windows command 'cd' to get Noitas root directory!")
-    print("pathToMods: " .. pathToMods)
+    local settingsFilePath = {}
+    local partitions       = string.split(assert(io.popen("wmic logicaldisk get caption"):read("*a")), "\r\n")
+    for i = 1, #partitions do
+        partitions[i] = string.trim(partitions[i])
+        if partitions[i] == "Caption" or partitions[i] == "" then
+            partitions[i] = nil
+        else
+            local partitionName = tostring(partitions[i])
+            local command = ("%s && dir /s /b *settings.json*"):format(partitionName)
+            local result = assert(io.popen(command):read("*a"))
+            settingsFilePath[partitionName] = string.split(result, "\n")
+        end
+    end
+
+    for partitionName, entries in pairs(settingsFilePath) do
+        if type(settingsFilePath) == "string" then break end
+        for i = 1, #entries do
+            local foundPath = entries[i]
+            if string.contains(foundPath, "noita-mp") and not string.contains(foundPath, "Recycle") then
+                settingsFilePath = nil -- free memory
+                settingsFilePath = entries[i]
+                print("Found noitaMpSettings file at: " .. settingsFilePath)
+                break
+            end
+        end
+    end
+    partitions          = nil -- free memory
+
+    local i, j          = string.find(tostring(settingsFilePath):lower(), "mods\\noita%-mp")
+    local noitaRootPath = settingsFilePath:sub(1, i - 2)
+    if not noitaRootPath or noitaRootPath == "" then
+        error("Noita root path is nil or empty!", 2)
+    end
+    print("Found noita root path at: " .. noitaRootPath)
 
     local gDofile = dofile
     dofile        = function(path)
         if path:sub(1, 4) == "mods" then
-            local pathToMod = pathToMods .. "/" .. path
+            local pathToMod = noitaRootPath .. "/" .. path
             print("dofile path: " .. pathToMod)
             return gDofile(pathToMod)
         else
@@ -73,6 +158,12 @@ local init            = function()
         end
     end
 
+    if not _G.GameGetRealWorldTimeSinceStarted then
+        _G.GameGetRealWorldTimeSinceStarted = function()
+            return 0
+        end
+    end
+
 
     -- dofile("mods/noita-mp/files/scripts/init/init_.lua") DO NOT LOAD ALL DEPENDENCIES!
     dofile("mods/noita-mp/files/scripts/extensions/tableExtensions.lua")
@@ -83,9 +174,6 @@ local init            = function()
 
     pid = params[1]
     print("pid", pid)
-
-    local noitaRootPath = io.popen("cd .. && cd .. && cd"):read("*l")
-    print("noitaRootPath", noitaRootPath)
 
     lfs    = require("lfs")
     winapi = require("winapi")
@@ -123,7 +211,7 @@ local init            = function()
     print("")
 end
 
-local report          = function()
+local report           = function()
     print("cache size " .. cache["size"] or 0 .. " >= 1024")
     print("Forcing Plotly to run..")
 
@@ -269,7 +357,7 @@ end
 ---comment
 ---@param functionName string
 ---@param customProfilerCounter number
-local report2         = function(functionName, customProfilerCounter)
+local report2          = function(functionName, customProfilerCounter)
     local cpcStartStop = cache[functionName][customProfilerCounter]
     local startEntry   = cpcStartStop["start"]
     local stopEntry    = cpcStartStop["stop"]
@@ -339,7 +427,7 @@ local report2         = function(functionName, customProfilerCounter)
 end
 
 ---`run` will run the profiler until Noita is closed.
-local run             = function()
+local run              = function()
     local P = winapi.process_from_id(pid)
     local exitCode = P:get_exit_code()
 
@@ -415,7 +503,7 @@ local run             = function()
 end
 
 ---`exit` will exit the profiler and clean up.
-local exit            = function()
+local exit             = function()
     print("exiting..")
 
     print("Stoping udp server..")

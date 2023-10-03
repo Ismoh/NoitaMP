@@ -4,7 +4,9 @@ local NoitaMpSettings     = {
     --[[ Attributes ]]
 
     ---Settings cache. Makes it possible to access settings without reading the file every time.
-    cachedSettings = {}
+    cachedSettings = {},
+    multipleNoitaProcessesRunning = false,
+    settingsFilePath = nil,
 }
 
 ---Converts a value to the given dataType.
@@ -38,24 +40,31 @@ local convertToDataType   = function(self, value, dataType)
 end
 
 local once                = false
+local lastCheck           = 5
 ---Returns the path to the settings file.
 ---@private
 ---@param self NoitaMpSettings required
 ---@return string path
 local getSettingsFilePath = function(self)
-    local path = ("%s%ssettings.json"):format(self.fileUtils:GetAbsolutePathOfNoitaMpSettingsDirectory(), pathSeparator)
+    local path = self.settingsFilePath
+    if lastCheck - GameGetRealWorldTimeSinceStarted() <= 0 or not path then
+        path = ("%s%ssettings.json"):format(self.fileUtils:GetAbsolutePathOfNoitaMpSettingsDirectory(self), pathSeparator)
 
-    if self:isMoreThanOneNoitaProcessRunning() then
-        local defaultSettings = nil
-        if self.fileUtils:Exists(path) and not once then
-            defaultSettings = self.fileUtils:ReadFile(path)
+        if self:isMoreThanOneNoitaProcessRunning() then
+            local defaultSettings = nil
+            if self.fileUtils:Exists(path) and not once then
+                defaultSettings = self.fileUtils:ReadFile(path)
+            end
+            path = ("%s%slocal%ssettings-%s.json")
+                :format(self.fileUtils:GetAbsolutePathOfNoitaMpSettingsDirectory(), pathSeparator, pathSeparator, self.winapi.get_current_pid())
+            if defaultSettings then
+                self.fileUtils:WriteFile(path, defaultSettings)
+                once = true
+            end
         end
-        path = ("%s%slocal%ssettings-%s.json")
-            :format(self.fileUtils:GetAbsolutePathOfNoitaMpSettingsDirectory(), pathSeparator, pathSeparator, self.winapi.get_current_pid())
-        if defaultSettings then
-            self.fileUtils:WriteFile(path, defaultSettings)
-            once = true
-        end
+        lastCheck = GameGetRealWorldTimeSinceStarted() + 100
+
+        self.settingsFilePath = path
     end
     return path
 end
@@ -75,7 +84,8 @@ function NoitaMpSettings:isMoreThanOneNoitaProcessRunning()
         P:close()
     end
     --self.customProfiler:stop("NoitaMpSettings.isMoreThanOneNoitaProcessRunning", cpc)
-    return noitaCount > 1
+    self.multipleNoitaProcessesRunning = noitaCount > 1
+    return self.multipleNoitaProcessesRunning
 end
 
 ---Removes all settings and creates a new settings file.
@@ -97,7 +107,7 @@ end
 ---@param value any required
 ---@return table self.cachedSettings
 function NoitaMpSettings:set(key, value)
-    local cpc = self.customProfiler:start("NoitaMpSettings.set")
+    --local cpc = self.customProfiler:start("NoitaMpSettings.set")
     if self.utils:isEmpty(key) or type(key) ~= "string" then
         error(("'key' must not be nil or is not type of string!"):format(key), 2)
     end
@@ -109,7 +119,7 @@ function NoitaMpSettings:set(key, value)
 
     self.cachedSettings[key] = value
 
-    self.customProfiler:stop("NoitaMpSettings.set", cpc)
+    --self.customProfiler:stop("NoitaMpSettings.set", cpc)
     return self.cachedSettings
 end
 
@@ -127,7 +137,7 @@ function NoitaMpSettings:get(key, dataType)
 
     if self.utils:isEmpty(self.cachedSettings[key]) then
         --error(("Unable to find '%s' in NoitaMpSettings: %s"):format(key, contentString), 2)
-        self.customProfiler:stop("NoitaMpSettings.get", cpc)
+        --self.customProfiler:stop("NoitaMpSettings.get", cpc)
         return convertToDataType(self, "", dataType)
     end
     --self.customProfiler:stop("NoitaMpSettings.get", cpc)

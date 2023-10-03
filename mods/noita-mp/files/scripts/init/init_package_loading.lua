@@ -3,7 +3,16 @@
 local getNoitaMpRootDirectory = function()
     -- Get the current directory of the script or the executable
     local currentDirectory = io.popen("cd"):read("*l") .. "/" .. debug.getinfo(1).source
-    print("currentDirectory: " .. currentDirectory)
+    print("Found current directory in init_package_loading.lua at: " .. currentDirectory)
+
+    -- Can happen pathes are messed up, so we need to remove the @ and everything before it from the path, i.e.:
+    -- currentDirectory: D:\NoitaMP_repo\NoitaMP/@C:\Program Files (x86)\Steam\steamapps\common\Noita/mods/noita-mp/files/scripts/init/init_package_loading.lua
+    -- Depends on how you start the game, debugger, tests, luajit.exe or plain lua.exe
+    local i, j = string.find(currentDirectory, "@")
+    if i then
+        -- Remove the @ from the beginning of the path
+        currentDirectory = string.sub(currentDirectory, i+1, string.len(currentDirectory))
+    end
 
     -- Check if we are inside of noita-mp directory. Don't forget to escape the dash!
     local startsAtI, endsAtI   = string.find(currentDirectory, "noita%-mp") -- https://stackoverflow.com/a/20223010/3493998
@@ -13,7 +22,7 @@ local getNoitaMpRootDirectory = function()
     else
         noitaMpRootDirectory = string.sub(currentDirectory, 1, endsAtI)
     end
-    print("noitaMpRootDirectory: " .. noitaMpRootDirectory)
+    print("Found noita-mp directory at: " .. noitaMpRootDirectory)
     return noitaMpRootDirectory
 end
 
@@ -153,7 +162,7 @@ if current_clib_extension then
     package.cpath = table.concat(cpaths, ";")
 
     --[[ NoitaMP additions ]]
-    local gui             = {} -- mocked gui
+    local gui = {} -- mocked gui
     print("init_package_loading.lua | Loading noitaMpSettings...")
     ---@class NoitaMpSettings
     local noitaMpSettings = require("NoitaMpSettings")
@@ -161,11 +170,11 @@ if current_clib_extension then
 
     print("init_package_loading.lua | Loading fileUtils...")
     ---@type FileUtils
-    local fileUtils       = noitaMpSettings.fileUtils or require("FileUtils")
+    local fileUtils = noitaMpSettings.fileUtils or require("FileUtils")
         :new(nil, noitaMpSettings.customProfiler, nil, noitaMpSettings, nil, nil)
 
-    package.path          = fileUtils:ReplacePathSeparator(table.concat(lpaths, ";"))
-    package.cpath         = fileUtils:ReplacePathSeparator(table.concat(cpaths, ";"))
+    package.path    = fileUtils:ReplacePathSeparator(table.concat(lpaths, ";"))
+    package.cpath   = fileUtils:ReplacePathSeparator(table.concat(cpaths, ";"))
 
     if destination_path then -- TODO: Remove this if it is not needed anymore
         print("destination_path was set to export LPATH and CPATH!")

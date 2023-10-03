@@ -46,7 +46,7 @@ client.noitaMpSettings.gui = gui
 logger:debug(logger.channels.initialize, "Starting to load noita-mp init.lua..")
 
 --- Stuff needs to be executed before anything else
-fileUtils:SetAbsolutePathOfNoitaRootDirectory()
+--fileUtils:SetAbsolutePathOfNoitaRootDirectory(noitaMpSettings)
 noitaMpSettings:clearAndCreateSettings()
 
 -- Is used to stop Noita pausing game, when focus is gone (tab out game)

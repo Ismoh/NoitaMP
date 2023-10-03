@@ -41,6 +41,7 @@ end
 ---Starts the external profiler.
 ---@param pid number The process id of Noita.
 function CustomProfiler:startExternalProfiler(pid)
+    print("Found running noita process with pid = " .. pid .. ". Starting profiler...")
     local command = nil
     if self.ffi.os == "Windows" then
         command = ('start "NoitaMP - Profiler" /D "%s" profiler.bat %s 2>&1 &'):format(self.fileUtils:GetAbsoluteDirectoryPathOfNoitaMP(), pid)

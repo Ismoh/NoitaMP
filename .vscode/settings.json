@@ -74,5 +74,6 @@
     "winapi",
     "zstd"
   ],
-  "prettier.printWidth": 110
+  "prettier.printWidth": 110,
+  "lua.debug.settings.luaVersion": "jit",
 }

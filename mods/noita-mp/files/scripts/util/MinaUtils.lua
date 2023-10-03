@@ -96,7 +96,7 @@ end
 function MinaUtils:getLocalMinaNuid()
     local cpc = self.customProfiler:start("MinaUtils.getLocalMinaNuid")
     local entityId = self:getLocalMinaEntityId()
-    local ownerName, ownerGuid, nuid = self.networkVscUtils.getAllVscValuesByEntityId(entityId)
+    local ownerName, ownerGuid, nuid = self.networkVscUtils:getAllVscValuesByEntityId(entityId)
     local nuid_, entityId_ = self.globalsUtils:getNuidEntityPair(nuid)
     if self.utils:isEmpty(nuid_) and self.utils:isEmpty(entityId_) then
         self.customProfiler:stop("MinaUtils.getLocalMinaNuid", cpc)

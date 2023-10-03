@@ -302,7 +302,6 @@ local addNuidDebugger            = function(self, entityId)
     else
         compId = EntityAddComponent2(entityId, "LuaComponent", {
             script_source_file    = "mods/noita-mp/files/scripts/noita-components/nuid_debug.lua",
-            --script_enabled_changed = "mods/noita-mp/files/scripts/noita-components/lua_component_enabler.lua",
             execute_every_n_frame = 1,
         })
         ComponentAddTag(compId, "enabled_in_hand")
@@ -340,7 +339,6 @@ local addNuidUpdater             = function(self, entityId)
     else
         compId = EntityAddComponent2(entityId, "LuaComponent", {
             script_source_file    = "mods/noita-mp/files/scripts/noita-components/nuid_updater.lua",
-            --script_enabled_changed = "mods/noita-mp/files/scripts/noita-components/lua_component_enabler.lua",
             execute_on_added      = true,
             execute_on_removed    = true,
             execute_every_n_frame = -1, -- = -1 -> execute only on add/remove/event
