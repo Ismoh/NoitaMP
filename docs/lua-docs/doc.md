@@ -188,13 +188,24 @@ NetworkUtils
 
 
 ```lua
-function Client.new(self: Client, clientObject: Client|nil, serverOrAddress: string|nil, port: number|nil, maxChannels: number|nil, server: Server)
+function Client.new(self: Client, clientObject: Client|nil, serverOrAddress: string|nil, port: number|nil, maxChannels: number|nil, server: Server, np: noitapatcher)
   -> Client
 ```
 
 Client constructor. Inherits from SockClient sock.Client.
 
 @*param* `server` — required
+
+@*param* `np` — required
+
+## noitaComponentUtils
+
+
+```lua
+NoitaComponentUtils
+```
+
+Class for using Noita components.
 
 ## noitaMpSettings
 
@@ -362,6 +373,8 @@ See: ~sock.update~
 Utils
 ```
 
+Utils class for lazy developers.
+
 ## zstandard
 
 
@@ -375,6 +388,13 @@ unknown
 # CustomProfiler
 
 Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
+
+## ffi
+
+
+```lua
+unknown
+```
 
 ## fileUtils
 
@@ -472,6 +492,17 @@ Starts the profiler. This has to be called before the function (or first line of
 
 @*return* `returnCounter` — The counter that is used to determine the order of the function calls. This has to be passed to CustomProfiler:stop(functionName, customProfilerCounter)
 See: [CustomProfiler](../../mods/noita-mp/files/scripts/util/CustomProfiler.lua#L2#10) stop(functionName, customProfilerCounter)
+
+## startExternalProfiler
+
+
+```lua
+function CustomProfiler.startExternalProfiler(self: CustomProfiler, pid: number)
+```
+
+Starts the external profiler.
+
+@*param* `pid` — The process id of Noita.
 
 ## stop
 
@@ -615,6 +646,8 @@ function EntityCache.usage(self: EntityCache)
 Utils
 ```
 
+Utils class for lazy developers.
+
 
 ---
 
@@ -668,6 +701,8 @@ function EntityCacheUtils.set(self: EntityCacheUtils, entityId: any, nuid: any, 
 Utils
 ```
 
+Utils class for lazy developers.
+
 
 ---
 
@@ -682,6 +717,22 @@ function EntityUtils.addOrChangeDetectionRadiusDebug(self: EntityUtils, player_e
 
  Simply adds a ugly debug circle around the player to visualize the detection radius.
 
+## client
+
+
+```lua
+Client
+```
+
+## customProfiler
+
+
+```lua
+CustomProfiler
+```
+
+Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
+
 ## destroyByNuid
 
 
@@ -693,6 +744,27 @@ Destroys the entity by the given nuid.
 
 @*param* `nuid` — The nuid of the entity.
 
+## enitityCacheUtils
+
+
+```lua
+EntityCacheUtils
+```
+
+## entityCache
+
+
+```lua
+EntityCache
+```
+
+## globalsUtils
+
+
+```lua
+GlobalsUtils
+```
+
 ## isEntityPolymorphed
 
 
@@ -702,6 +774,38 @@ function EntityUtils.isEntityPolymorphed(self: EntityUtils, entityId: number)
 ```
 
  Checks if a specific entity is polymorphed.
+
+## logger
+
+
+```lua
+Logger
+```
+
+## minaUtils
+
+
+```lua
+MinaUtils
+```
+
+Util class for fetching information about local and remote minas.
+
+## networkUtils
+
+
+```lua
+NetworkUtils
+```
+
+## networkVscUtils
+
+
+```lua
+NetworkVscUtils
+```
+
+NetworkVscUtils for getting and setting values in VariableStorageComponents of Noita-API
 
 ## new
 
@@ -737,6 +841,24 @@ Constructor for EntityUtils. With this constructor you can override the default 
 
 @*param* `server` — Must not be nil!
 
+## noitaComponentUtils
+
+
+```lua
+NoitaComponentUtils
+```
+
+Class for using Noita components.
+
+## nuidUtils
+
+
+```lua
+NuidUtils
+```
+
+NuidUtils for getting the current network unique identifier
+
 ## onEntityRemoved
 
 
@@ -745,6 +867,13 @@ function EntityUtils.onEntityRemoved(self: EntityUtils, entityId: any, nuid: any
 ```
 
  Make sure this is only be executed once!
+
+## server
+
+
+```lua
+Server
+```
 
 ## spawnEntity
 
@@ -784,6 +913,15 @@ Adds or updates all network components to the entity.
 Sends the entity data to all other peers.
 
 @*param* `startFrameTime` — Time at the very beginning of the frame.
+
+## utils
+
+
+```lua
+Utils
+```
+
+Utils class for lazy developers.
 
 
 ---
@@ -1167,6 +1305,43 @@ function FileUtils.WriteBinaryFile(self: FileUtils, file_fullpath: string, file_
 function FileUtils.WriteFile(self: FileUtils, file_fullpath: string, file_content: string)
 ```
 
+## customProfiler
+
+
+```lua
+CustomProfiler
+```
+
+Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
+
+## ffi
+
+
+```lua
+unknown
+```
+
+## json
+
+
+```lua
+unknown
+```
+
+## lfs
+
+
+```lua
+unknown
+```
+
+## logger
+
+
+```lua
+Logger
+```
+
 ## new
 
 
@@ -1189,14 +1364,20 @@ FileUtils constructor.
 
 @*param* `utils` — can be nil
 
-
----
-
-# FileUtils
+## utils
 
 
 ```lua
-FileUtils
+Utils
+```
+
+Utils class for lazy developers.
+
+## watcher
+
+
+```lua
+unknown
 ```
 
 
@@ -1340,6 +1521,8 @@ function GlobalsUtils.setUpdateGui(self: GlobalsUtils, bool: any)
 Utils
 ```
 
+Utils class for lazy developers.
+
 
 ---
 
@@ -1355,6 +1538,24 @@ function Gui.checkShortcuts(self: Gui)
 ```
 
 Function to check if the user pressed a shortcut.
+
+## client
+
+
+```lua
+Client
+```
+
+See: [Client](../../mods/noita-mp/files/scripts/net/Client.lua#L3#10)
+
+## customProfiler
+
+
+```lua
+CustomProfiler
+```
+
+See: [CustomProfiler](../../mods/noita-mp/files/scripts/util/CustomProfiler.lua#L2#10)
 
 ## drawAbout
 
@@ -1410,6 +1611,24 @@ function Gui.drawSettings(self: Gui)
 
 Function to draw the settings window.
 
+## guidUtils
+
+
+```lua
+GuidUtils
+```
+
+See: [GuidUtils](../../mods/noita-mp/files/scripts/util/GuidUtils.lua#L2#10)
+
+## imGui
+
+
+```lua
+unknown
+```
+
+See: ~ImGui~
+
 ## isServer
 
 
@@ -1417,11 +1636,20 @@ Function to draw the settings window.
 nil
 ```
 
+## minaUtils
+
+
+```lua
+MinaUtils
+```
+
+See: [MinaUtils](../../mods/noita-mp/files/scripts/util/MinaUtils.lua#L2#10)
+
 ## new
 
 
 ```lua
-function Gui.new(self: Gui, guiObject: Gui|nil, client: Client, customProfiler: CustomProfiler, guidUtils: GuidUtils|nil, minaUtils: MinaUtils|nil, noitaMpSettings: NoitaMpSettings)
+function Gui.new(self: Gui, guiObject: Gui|nil, server: Server, client: Client, customProfiler: CustomProfiler|nil, guidUtils: GuidUtils|nil, minaUtils: MinaUtils|nil, noitaMpSettings: NoitaMpSettings|nil)
   -> Gui
 ```
 
@@ -1429,15 +1657,35 @@ Gui constructor.
 
 @*param* `guiObject` — optional
 
+@*param* `server` — required
+
 @*param* `client` — required
 
-@*param* `customProfiler` — required
+@*param* `customProfiler` — optional
 
 @*param* `guidUtils` — optional
 
 @*param* `minaUtils` — optional
 
-@*param* `noitaMpSettings` — required
+@*param* `noitaMpSettings` — optional
+
+## noitaMpSettings
+
+
+```lua
+NoitaMpSettings
+```
+
+See: [NoitaMpSettings](../../mods/noita-mp/files/scripts/NoitaMpSettings.lua#L2#11)
+
+## server
+
+
+```lua
+Server
+```
+
+See: [Server](../../mods/noita-mp/files/scripts/net/Server.lua#L3#10)
 
 ## setShowMissingSettings
 
@@ -1466,6 +1714,15 @@ function Gui.update(self: Gui)
 
 Guis update function, called every frame.
 
+## utils
+
+
+```lua
+Utils
+```
+
+See: [Utils](../../mods/noita-mp/files/scripts/util/Utils.lua#L2#10)
+
 
 ---
 
@@ -1488,7 +1745,7 @@ Adds a guid to the cache.
 
 
 ```lua
-any
+CustomProfiler
 ```
 
 Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
@@ -1547,16 +1804,34 @@ Validates if the given guid is unique or already generated.
 
 
 ```lua
-any
+Logger
 ```
 
 ## new
 
 
 ```lua
-function GuidUtils.new(self: GuidUtils, guidUtilsObject: any, customProfiler: any, fileUtils: any, logger: any, noitaMpSettings: any, plotly: any, socket: any, utils: any, winapi: any)
+function GuidUtils.new(self: GuidUtils, guidUtilsObject: GuidUtils|nil, customProfiler: CustomProfiler, fileUtils: FileUtils|nil, logger: Logger|nil, plotly: plotly|nil, socket: socket|nil, utils: Utils|nil, winapi: winapi|nil)
   -> GuidUtils
 ```
+
+GuidUtils constructor.
+
+@*param* `guidUtilsObject` — optional
+
+@*param* `customProfiler` — required
+
+@*param* `fileUtils` — optional
+
+@*param* `logger` — optional
+
+@*param* `plotly` — optional
+
+@*param* `socket` — optional
+
+@*param* `utils` — optional
+
+@*param* `winapi` — optional
 
 ## setGuid
 
@@ -1577,7 +1852,7 @@ Sets the guid of a client or the server.
 
 
 ```lua
-any
+socket
 ```
 
 ## toNumber
@@ -1592,8 +1867,10 @@ function GuidUtils.toNumber(self: GuidUtils, guid: any)
 
 
 ```lua
-any
+Utils
 ```
+
+Utils class for lazy developers.
 
 ## uuid
 
@@ -1677,16 +1954,6 @@ function Logger.trace(self: Logger, channel: any, formattedMessage: any)
 ```lua
 function Logger.warn(self: Logger, channel: any, formattedMessage: any)
   -> boolean
-```
-
-
----
-
-# Logger
-
-
-```lua
-Logger
 ```
 
 
@@ -1826,7 +2093,7 @@ Logger
 NetworkVscUtils
 ```
 
- NetworkVscUtils:
+NetworkVscUtils for getting and setting values in VariableStorageComponents of Noita-API
 
 ## new
 
@@ -1890,6 +2157,30 @@ Setter for local mina name. It also saves it to settings file.
 Utils
 ```
 
+Utils class for lazy developers.
+
+
+---
+
+# ModGetActiveModIDs
+
+
+```lua
+function _G.ModGetActiveModIDs()
+  -> table
+```
+
+
+---
+
+# ModIsEnabled
+
+
+```lua
+function _G.ModIsEnabled(id: any)
+  -> boolean
+```
+
 
 ---
 
@@ -1898,7 +2189,18 @@ Utils
 
 ```lua
 function _G.ModSettingGet(id: any)
-  -> string|table
+  -> table
+```
+
+
+---
+
+# ModSettingGetNextValue
+
+
+```lua
+function _G.ModSettingGetNextValue(id: any)
+  -> boolean
 ```
 
 
@@ -2220,38 +2522,23 @@ function NetworkUtils.serialize(self: table, value: any)
 
 # NetworkVscUtils
 
- NetworkVscUtils:
-
-
-```lua
-NetworkVscUtils
-```
-
-
-```lua
-NetworkVscUtils
-```
-
-
----
-
-# NetworkVscUtils
-
- NetworkVscUtils:
+NetworkVscUtils for getting and setting values in VariableStorageComponents of Noita-API
 
 ## addOrUpdateAllVscs
 
 
 ```lua
-function NetworkVscUtils.addOrUpdateAllVscs(entityId: number, ownerName: string, ownerGuid: string, nuid: number|nil, spawnX: number|nil, spawnY: number|nil)
+function NetworkVscUtils.addOrUpdateAllVscs(self: NetworkVscUtils, entityId: number, ownerName: string, ownerGuid: string, nuid: number|nil, spawnX: number|nil, spawnY: number|nil)
   -> componentIdForOwnerName: integer|nil
   2. componentIdForOwnerGuid: integer|nil
   3. componentIdForNuid: integer|nil
   4. componentIdForNuidDebugger: integer|nil
   5. componentIdForNuidDebugger: integer|nil
+  6. componentIdForSpawnX: integer|nil
+  7. componentIdForSpawnY: integer|nil
 ```
 
- Simply adds or updates all needed Network Variable Storage Components.
+Simply adds or updates all needed Network Variable Storage Components.
 
 @*param* `entityId` — Id of an entity provided by Noita
 
@@ -2269,12 +2556,12 @@ function NetworkVscUtils.addOrUpdateAllVscs(entityId: number, ownerName: string,
 
 
 ```lua
-function NetworkVscUtils.checkIfSpecificVscExists(entityId: number, componentTypeName: string, fieldNameForMatch: string, matchValue: string, fieldNameForValue: string)
-  -> compId: (number|false)?
-  2. value: string?
+function NetworkVscUtils.checkIfSpecificVscExists(self: NetworkVscUtils, entityId: number, componentTypeName: string, fieldNameForMatch: string, matchValue: string, fieldNameForValue: string)
+  -> compId: number|false|nil
+  2. value: string|nil
 ```
 
- Checks if an entity already has a specific VariableStorageComponent.
+Checks if an entity already has a specific VariableStorageComponent.
 
 @*param* `entityId` — Id of an entity provided by Noita
 
@@ -2295,66 +2582,26 @@ compId:
     | false
 ```
 
-## componentNameOfNuid
+## customProfiler
 
 
 ```lua
-string
+any
 ```
 
-## componentNameOfNuidDebugger
-
-
-```lua
-string
-```
-
-## componentNameOfNuidUpdater
-
-
-```lua
-string
-```
-
-## componentNameOfOwnersGuid
-
-
-```lua
-string
-```
-
-## componentNameOfOwnersName
-
-
-```lua
-string
-```
-
-## componentNameOfSpawnX
-
-
-```lua
-string
-```
-
-## componentNameOfSpawnY
-
-
-```lua
-string
-```
+See: [CustomProfiler](../../mods/noita-mp/files/scripts/util/CustomProfiler.lua#L2#10)
 
 ## getAllVcsValuesByComponentIds
 
 
 ```lua
-function NetworkVscUtils.getAllVcsValuesByComponentIds(ownerNameCompId: number, ownerGuidCompId: number, nuidCompId: number)
+function NetworkVscUtils.getAllVcsValuesByComponentIds(self: NetworkVscUtils, ownerNameCompId: number, ownerGuidCompId: number, nuidCompId: number)
   -> ownerName: string
   2. ownerGuid: string
   3. nuid: number
 ```
 
- Returns all Network Vsc values by its component ids.
+Returns all Network Vsc values by its component ids.
 
 @*param* `ownerNameCompId` — Component Id of the OwnerNameVsc
 
@@ -2366,23 +2613,32 @@ function NetworkVscUtils.getAllVcsValuesByComponentIds(ownerNameCompId: number, 
 
 
 ```lua
-function NetworkVscUtils.getAllVscValuesByEntityId(entityId: number)
+function NetworkVscUtils.getAllVscValuesByEntityId(self: NetworkVscUtils, entityId: number)
   -> ownerName: string?
   2. ownerGuid: string?
   3. nuid: number?
 ```
 
- Returns all Network Vsc values by its entity id.
+Returns all Network Vsc values by its entity id.
 
 @*param* `entityId` — Entity Id provided by Noita
 
 @*return* `ownerName,ownerGuid,nuid` — - nuid can be nil
 
+## globalsUtils
+
+
+```lua
+any
+```
+
+See: [GlobalsUtils](../../mods/noita-mp/files/scripts/util/GlobalsUtils.lua#L1#10)
+
 ## hasNetworkLuaComponents
 
 
 ```lua
-function NetworkVscUtils.hasNetworkLuaComponents(entityId: any)
+function NetworkVscUtils.hasNetworkLuaComponents(self: NetworkVscUtils, entityId: any)
   -> boolean|nil
 ```
 
@@ -2390,12 +2646,12 @@ function NetworkVscUtils.hasNetworkLuaComponents(entityId: any)
 
 
 ```lua
-function NetworkVscUtils.hasNuidSet(entityId: number)
+function NetworkVscUtils.hasNuidSet(self: NetworkVscUtils, entityId: number)
   -> has: boolean
-  2. nuid: number
+  2. nuid: number|nil
 ```
 
- Checks if the nuid Vsc exists, if so returns nuid
+Checks if the nuid Vsc exists, if so returns nuid
 
 @*return* `has` — retruns 'false, -1': Returns false, if there is no NuidVsc or nuid is empty.
 
@@ -2405,284 +2661,212 @@ function NetworkVscUtils.hasNuidSet(entityId: number)
 
 
 ```lua
-function NetworkVscUtils.isNetworkEntityByNuidVsc(entityId: number)
+function NetworkVscUtils.isNetworkEntityByNuidVsc(self: NetworkVscUtils, entityId: number)
   -> isNetworkEntity: boolean
   2. componentId: number
   3. nuid: number|nil
 ```
 
- Returns true, componentId and nuid if the entity has a NetworkVsc.
+Returns true, componentId and nuid if the entity has a NetworkVsc.
 
 @*param* `entityId` — entityId provided by Noita
 
-## name
+## logger
 
 
 ```lua
-string
+any
 ```
 
-## valueString
+See: [Logger](../../mods/noita-mp/files/scripts/util/Logger.lua#L1#10)
+
+## new
 
 
 ```lua
-string
+function NetworkVscUtils.new(self: NetworkVscUtils, networkVscUtilsObject: any, customProfiler: any, logger: any, server: any, globalsUtils: any, utils: any)
+  -> NetworkVscUtils
 ```
 
-## variableStorageComponentName
+## server
 
 
 ```lua
-string
+any
 ```
+
+See: [Server](../../mods/noita-mp/files/scripts/net/Server.lua#L3#10)
+
+## utils
+
+
+```lua
+any
+```
+
+See: [Utils](../../mods/noita-mp/files/scripts/util/Utils.lua#L2#10)
 
 
 ---
 
-# NetworkVscUtils.addOrUpdateAllVscs
+# NoitaComponentUtils
 
- Simply adds or updates all needed Network Variable Storage Components.
+Class for using Noita components.
 
-@*param* `entityId` — Id of an entity provided by Noita
-
-@*param* `ownerName` — Owners name. Cannot be nil.
-
-@*param* `ownerGuid` — Owners guid. Cannot be nil.
-
-@*param* `nuid` — Network unique identifier. Can only be nil on clients, but not on server.
-
-@*param* `spawnX` — X position of the entity, when spawned. Can only be set once! Can be nil.
-
-@*param* `spawnY` — Y position of the entity, when spawned. Can only be set once! Can be nil.
+## addOrGetNetworkSpriteStatusIndicator
 
 
 ```lua
-function NetworkVscUtils.addOrUpdateAllVscs(entityId: number, ownerName: string, ownerGuid: string, nuid: number|nil, spawnX: number|nil, spawnY: number|nil)
-  -> componentIdForOwnerName: integer|nil
-  2. componentIdForOwnerGuid: integer|nil
-  3. componentIdForNuid: integer|nil
-  4. componentIdForNuidDebugger: integer|nil
-  5. componentIdForNuidDebugger: integer|nil
+function NoitaComponentUtils.addOrGetNetworkSpriteStatusIndicator(self: NoitaComponentUtils, entityId: number)
+  -> compId: number|nil
 ```
 
+Adds a SpriteComponent to indicate network status visually.
 
----
+## customProfiler
 
-# NetworkVscUtils.checkIfSpecificVscExists
-
- Checks if an entity already has a specific VariableStorageComponent.
-
-@*param* `entityId` — Id of an entity provided by Noita
-
-@*param* `componentTypeName` — "VariableStorageComponent", "LuaComponent", etc
-
-@*param* `fieldNameForMatch` — Components attribute to match the specific component you are searching for: "name", "script_source_file", "etc". component.name = "brah": 'name' -> fieldNameForMatch
-
-@*param* `matchValue` — The components attribute value, you want to match to: component.name = "brah": 'brah' -> matchValue Have a look on NetworkVscUtils.componentNameOf___
-
-@*param* `fieldNameForValue` — name
-
-@*return* `compId` — The specific componentId, which contains the searched value or false if there isn't any Component
-
-@*return* `value` — The components value
 
 ```lua
-compId:
-    | false
+CustomProfiler
 ```
 
+Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 
-```lua
-function NetworkVscUtils.checkIfSpecificVscExists(entityId: number, componentTypeName: string, fieldNameForMatch: string, matchValue: string, fieldNameForValue: string)
-  -> compId: (number|false)?
-  2. value: string?
-```
-
-
----
-
-# NetworkVscUtils.componentNameOfNuid
+## getEntityData
 
 
 ```lua
-string
-```
-
-
----
-
-# NetworkVscUtils.componentNameOfNuidDebugger
-
-
-```lua
-string
-```
-
-
----
-
-# NetworkVscUtils.componentNameOfNuidUpdater
-
-
-```lua
-string
-```
-
-
----
-
-# NetworkVscUtils.componentNameOfOwnersGuid
-
-
-```lua
-string
-```
-
-
----
-
-# NetworkVscUtils.componentNameOfOwnersName
-
-
-```lua
-string
-```
-
-
----
-
-# NetworkVscUtils.componentNameOfSpawnX
-
-
-```lua
-string
-```
-
-
----
-
-# NetworkVscUtils.componentNameOfSpawnY
-
-
-```lua
-string
-```
-
-
----
-
-# NetworkVscUtils.getAllVcsValuesByComponentIds
-
- Returns all Network Vsc values by its component ids.
-
-@*param* `ownerNameCompId` — Component Id of the OwnerNameVsc
-
-@*param* `ownerGuidCompId` — Component Id of the OwnerGuidVsc
-
-@*param* `nuidCompId` — Component Id of the NuidVsc
-
-
-```lua
-function NetworkVscUtils.getAllVcsValuesByComponentIds(ownerNameCompId: number, ownerGuidCompId: number, nuidCompId: number)
-  -> ownerName: string
-  2. ownerGuid: string
+function NoitaComponentUtils.getEntityData(self: NoitaComponentUtils, entityId: number)
+  -> ownername: string
+  2. ownerguid: string
   3. nuid: number
+  4. filename: string
+  5. health: Health
+  6. rotation: number
+  7. velocity: Vec2
+  8. x: number
+  9. y: number
 ```
 
+ Fetches data like position, rotation, velocity, health and filename
 
----
-
-# NetworkVscUtils.getAllVscValuesByEntityId
-
- Returns all Network Vsc values by its entity id.
-
-@*param* `entityId` — Entity Id provided by Noita
-
-@*return* `ownerName,ownerGuid,nuid` — - nuid can be nil
+## getEntityDataByNuid
 
 
 ```lua
-function NetworkVscUtils.getAllVscValuesByEntityId(entityId: number)
-  -> ownerName: string?
-  2. ownerGuid: string?
-  3. nuid: number?
+function NoitaComponentUtils.getEntityDataByNuid(self: NoitaComponentUtils, nuid: any)
+  -> string
+  2. string
+  3. number
+  4. string
+  5. Health
+  6. number
+  7. Vec2
+  8. number
+  9. number
 ```
 
-
----
-
-# NetworkVscUtils.hasNetworkLuaComponents
+## getInitialSerializedEntityString
 
 
 ```lua
-function NetworkVscUtils.hasNetworkLuaComponents(entityId: any)
-  -> boolean|nil
+function NoitaComponentUtils.getInitialSerializedEntityString(self: NoitaComponentUtils, entityId: number)
+  -> initialSerializedEntityString: string|nil
 ```
 
+Get initial serialized entity string to determine if the entity already exists on the server.
 
----
-
-# NetworkVscUtils.hasNuidSet
-
- Checks if the nuid Vsc exists, if so returns nuid
-
-@*return* `has` — retruns 'false, -1': Returns false, if there is no NuidVsc or nuid is empty.
-
-@*return* `nuid` — Returns 'true, nuid', if set.
+## globalsUtils
 
 
 ```lua
-function NetworkVscUtils.hasNuidSet(entityId: number)
-  -> has: boolean
-  2. nuid: number
+GlobalsUtils
 ```
 
-
----
-
-# NetworkVscUtils.isNetworkEntityByNuidVsc
-
- Returns true, componentId and nuid if the entity has a NetworkVsc.
-
-@*param* `entityId` — entityId provided by Noita
+## hasInitialSerializedEntityString
 
 
 ```lua
-function NetworkVscUtils.isNetworkEntityByNuidVsc(entityId: number)
-  -> isNetworkEntity: boolean
-  2. componentId: number
-  3. nuid: number|nil
+function NoitaComponentUtils.hasInitialSerializedEntityString(self: NoitaComponentUtils, entityId: any)
+  -> boolean
 ```
 
-
----
-
-# NetworkVscUtils.name
+## logger
 
 
 ```lua
-string
+Logger
 ```
 
-
----
-
-# NetworkVscUtils.valueString
+## networkVscUtils
 
 
 ```lua
-string
+NetworkVscUtils
 ```
 
+NetworkVscUtils for getting and setting values in VariableStorageComponents of Noita-API
 
----
-
-# NetworkVscUtils.variableStorageComponentName
+## new
 
 
 ```lua
-string
+function NoitaComponentUtils.new(self: NoitaComponentUtils, noitaComponentUtilsObject: NoitaComponentUtils|nil, customProfiler: CustomProfiler, globalsUtils: GlobalsUtils, logger: Logger|nil, networkVscUtils: NetworkVscUtils|nil, utils: Utils|nil)
+  -> NoitaComponentUtils
 ```
+
+NoitaComponentUtils constructor.
+
+@*param* `noitaComponentUtilsObject` — optional
+
+@*param* `customProfiler` — required
+
+@*param* `globalsUtils` — required
+
+@*param* `logger` — optional
+
+@*param* `networkVscUtils` — optional
+
+@*param* `utils` — optional
+
+## setEntityData
+
+
+```lua
+function NoitaComponentUtils.setEntityData(self: NoitaComponentUtils, entityId: number, x: number, y: number, rotation: number, velocity?: Vec2, health: number)
+```
+
+## setInitialSerializedEntityString
+
+
+```lua
+function NoitaComponentUtils.setInitialSerializedEntityString(self: NoitaComponentUtils, entityId: number, initialSerializedEntityString: string)
+  -> if: boolean
+```
+
+Set initial serialized entity string to determine if the entity already exists on the server.
+
+@*return* `if` — success
+
+## setNetworkSpriteIndicatorStatus
+
+
+```lua
+function NoitaComponentUtils.setNetworkSpriteIndicatorStatus(self: NoitaComponentUtils, entityId: number, status: string)
+```
+
+Sets the SpriteComponent to a specific status by setting image_file.
+
+@*param* `status` — off, processed, serialised, sent, acked
+
+## utils
+
+
+```lua
+Utils
+```
+
+Utils class for lazy developers.
 
 
 ---
@@ -2715,8 +2899,6 @@ See: [CustomProfiler](../../mods/noita-mp/files/scripts/util/CustomProfiler.lua#
 ```lua
 FileUtils
 ```
-
-:new()
 
 ## get
 
@@ -2823,7 +3005,7 @@ Sets a setting. Saves the settings to the settings file and returns the new upda
 Utils
 ```
 
-:new()
+Utils class for lazy developers.
 
 ## winapi
 
@@ -2837,12 +3019,21 @@ winapi
 
 # NoitaPatcherUtils
 
-## __index
+## base64
 
 
 ```lua
-NoitaPatcherUtils
+base64
 ```
+
+## customProfiler
+
+
+```lua
+CustomProfiler
+```
+
+Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 
 ## deserializeEntity
 
@@ -2860,7 +3051,7 @@ Deserialize an entity from a base64 string and create it at the given position.
 
 
 ```lua
-function NoitaPatcherUtils.new(self: NoitaPatcherUtils, noitaPatcherUtils: NoitaPatcherUtils|nil, base64: base64|nil, customProfiler: CustomProfiler, noitaPatcher: noitapatcher)
+function NoitaPatcherUtils.new(self: NoitaPatcherUtils, noitaPatcherUtilsObject: NoitaPatcherUtils|nil, base64: base64|nil, customProfiler: CustomProfiler, np: noitapatcher)
   -> NoitaPatcherUtils
 ```
 
@@ -2868,7 +3059,14 @@ NoitaPatcherUtils constructor.
 
 @*param* `customProfiler` — required
 
-@*param* `noitaPatcher` — required
+@*param* `np` — required
+
+## np
+
+
+```lua
+noitapatcher
+```
 
 ## serializeEntity
 
@@ -2885,42 +3083,93 @@ Serialize an entity to a base64 and md5 string.
 
 # NuidUtils
 
- NuidUtils:
- class for getting the current network unique identifier
+NuidUtils for getting the current network unique identifier
+
+## client
 
 
 ```lua
-table
+Client
 ```
 
+## customProfiler
+
 
 ```lua
-table
+CustomProfiler
 ```
 
+Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 
----
-
-# NuidUtils.getEntityIdsByKillIndicator
-
- If an entity died, the associated nuid-entityId-set will be updated with entityId multiplied by -1.
- If this happens, KillEntityMsg has to be send by network.
+## fileUtils
 
 
 ```lua
-function NuidUtils.getEntityIdsByKillIndicator()
-  -> unknown
+FileUtils
 ```
 
-
----
-
-# NuidUtils.getNextNuid
+## getEntityIdsByKillIndicator
 
 
 ```lua
-function NuidUtils.getNextNuid()
-  -> number
+function NuidUtils.getEntityIdsByKillIndicator(self: NuidUtils)
+  -> table<number, number>
+```
+
+If an entity died, the associated nuid-entityId-set will be updated with entityId multiplied by -1.
+If this happens, KillEntityMsg has to be send by network.
+
+## getNextNuid
+
+
+```lua
+function NuidUtils.getNextNuid(self: NuidUtils)
+  -> integer
+```
+
+## globalUtils
+
+
+```lua
+GlobalsUtils
+```
+
+## logger
+
+
+```lua
+Logger
+```
+
+## new
+
+
+```lua
+function NuidUtils.new(self: NuidUtils, nuidUitlsObject: NuidUtils|nil, client: Client, customProfiler: CustomProfiler, fileUtils: FileUtils|nil, globalsUtils: GlobalsUtils|nil, logger: Logger|nil, nxml: nxml|nil)
+  -> NuidUtils
+```
+
+NuidUtils constructor
+
+@*param* `nuidUitlsObject` — optional
+
+@*param* `client` — required
+
+@*param* `customProfiler` — required
+
+@*param* `fileUtils` — optional
+
+@*param* `globalsUtils` — optional
+
+@*param* `logger` — optional
+
+@*param* `nxml` — optional
+
+## nxml
+
+
+```lua
+nxml
 ```
 
 
@@ -3049,7 +3298,7 @@ EntityUtils
 FileUtils
 ```
 
-See: [FileUtils](../../mods/noita-mp/files/scripts/bin/profiler.lua#L79#8)
+See: [FileUtils](../../mods/noita-mp/files/scripts/util/FileUtils.lua#L1#10)
 
 ## getAckCacheSize
 
@@ -3084,7 +3333,7 @@ nil
 GuidUtils
 ```
 
-GuidUtils is just for generating and validating GUIDs. Guids are used for identifying clients and servers.
+See: [GuidUtils](../../mods/noita-mp/files/scripts/util/GuidUtils.lua#L2#10)
 
 ## health
 
@@ -3194,13 +3443,13 @@ table
 NetworkVscUtils
 ```
 
-:new()
+NetworkVscUtils for getting and setting values in VariableStorageComponents of Noita-API
 
 ## new
 
 
 ```lua
-function Server.new(self: Server, serverObject: Server|nil, address: string|nil, port: number|nil, maxPeers: number|nil, maxChannels: number|nil, inBandwidth: number|nil, outBandwidth: number|nil)
+function Server.new(self: Server, serverObject: Server|nil, address: string|nil, port: number|nil, maxPeers: number|nil, maxChannels: number|nil, inBandwidth: number|nil, outBandwidth: number|nil, np: noitapatcher)
   -> Server
 ```
 
@@ -3220,14 +3469,16 @@ Server constructor. Inherits from SockServer sock.newServer.
 
 @*param* `outBandwidth` — optional
 
+@*param* `np` — required
+
 ## noitaComponentUtils
 
 
 ```lua
-table
+NoitaComponentUtils
 ```
 
-:new()
+Class for using Noita components.
 
 ## noitaMpSettings
 
@@ -3256,10 +3507,10 @@ nil
 
 
 ```lua
-table
+NuidUtils
 ```
 
-:new()
+NuidUtils for getting the current network unique identifier
 
 ## send
 
@@ -3444,6 +3695,8 @@ See: ~SockServer.update~
 unknown
 ```
 
+Utils class for lazy developers.
+
 ## zstandard
 
 
@@ -3482,92 +3735,113 @@ function Ui.new()
 
 # Utils
 
+Utils class for lazy developers.
+
+## copyToClipboard
+
 
 ```lua
-Utils
+function Utils.copyToClipboard(self: Utils, copy: string)
 ```
 
+Copies a string to the clipboard.
 
----
+@*param* `copy` — string to copy to the clipboard. required
 
-# Utils
-
-## CopyToClipboard
+## ffi
 
 
 ```lua
-function Utils.CopyToClipboard(copy: any)
+unknown
 ```
 
-## DebugEntity
+## isEmpty
 
 
 ```lua
-function Utils.DebugEntity(e: any)
+function Utils.isEmpty(self: Utils, var: string|number|table)
+  -> true: boolean
 ```
 
-https://noita.wiki.gg/wiki/Modding:_Utilities#Easier_entity_debugging
+Checks if a variable is empty.
 
-## IsEmpty
+@*param* `var` — variable to check
 
+@*return* `true` — if empty, false otherwise
 
-```lua
-function Utils.IsEmpty(self: Utils, var: any)
-  -> boolean
-```
-
-## ReloadMap
+## new
 
 
 ```lua
-function Utils.ReloadMap(seed: number)
-```
-
- Reloads the whole world with a specific seed. No need to restart the game and use magic numbers.
-
-@*param* `seed` — max = 4294967295
-
-## Sleep
-
-
-```lua
-function Utils.Sleep(s: number)
-```
-
- Wait for n seconds.
-
-@*param* `s` — seconds to wait
-
-## Str
-
-
-```lua
-function Utils.Str(var: any)
-  -> string|unknown
-```
-
-https://noita.wiki.gg/wiki/Modding:_Utilities#Easier_entity_debugging
-
-## execLua
-
-
-```lua
-function Utils.execLua(pid: any)
+function Utils.new(self: Utils, utilsObject: any)
+  -> Utils
 ```
 
 ## openUrl
 
 
 ```lua
-function Utils.openUrl(url: any)
+function Utils.openUrl(self: Utils, url: string)
 ```
+
+Opens a url in the default browser.
+
+@*param* `url` — url to open. required
 
 ## pformat
 
 
 ```lua
-function Utils.pformat(var: any)
+function Utils.pformat(self: Utils, var: string|number|table)
+  -> formatted: string|number|table
 ```
+
+Formats anything pretty.
+
+@*param* `var` — variable to print
+
+@*return* `formatted` — variable
+
+## pprint
+
+
+```lua
+unknown
+```
+
+## reloadMap
+
+
+```lua
+function Utils.reloadMap(self: Utils, seed: number)
+```
+
+Reloads the whole world with a specific seed. No need to restart the game and use magic numbers.
+
+@*param* `seed` — max = 4294967295
+
+## sleep
+
+
+```lua
+function Utils.sleep(self: Utils, s: number)
+```
+
+Wait for n seconds.
+
+@*param* `s` — seconds to wait. required
+
+## wait
+
+
+```lua
+function Utils.wait(self: Utils, s: number)
+```
+
+Wait for n seconds.
+
+@*param* `s` — seconds to wait
+See: [Utils.sleep](../../mods/noita-mp/files/scripts/util/Utils.lua#L18#9)
 
 
 ---
@@ -4238,18 +4512,6 @@ function enabled_changed(entityId: any, isEnabled: any)
 
 ---
 
-# entityDetectionRadius
-
-Attributes 
-
-
-```lua
-boolean|string|number
-```
-
-
----
-
 # error
 
 
@@ -4273,17 +4535,6 @@ function error(message: any, level?: integer)
 
 ```lua
 boolean
-```
-
-
----
-
-# getNoitaMpRootDirectory
-
-
-```lua
-function getNoitaMpRootDirectory()
-  -> string
 ```
 
 
@@ -5159,7 +5410,7 @@ function math.randomseed(x?: integer, y?: integer)
 
 
 ```lua
-function math.round(v: number, bracket: number|nil)
+function math.round(v: number|nil, bracket: number|nil)
   -> number
 ```
 
@@ -5911,36 +6162,6 @@ function pcall(f: fun(...any):...unknown, arg1?: any, ...any)
 
 ---
 
-# playerListIsBorder
-
-
-```lua
-boolean|string|number
-```
-
-
----
-
-# playerListIsClickable
-
-
-```lua
-boolean|string|number
-```
-
-
----
-
-# playerListTransparency
-
-
-```lua
-boolean|string|number
-```
-
-
----
-
 # print
 
 
@@ -5953,6 +6174,21 @@ The function print is not intended for formatted output, but only as a quick way
 
 ```lua
 function print(...any)
+```
+
+
+---
+
+# profilerIsRunning
+
+
+```lua
+boolean
+```
+
+
+```lua
+boolean
 ```
 
 
