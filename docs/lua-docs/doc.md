@@ -25,7 +25,7 @@ function Client.amIClient(self: Client)
 Checks if the current local user is a client.
 
 @*return* `true` — if client, false if not
-See: [Server.amIServer](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/net/Server.lua#936#9)
+See: [Server.amIServer](../../mods/noita-mp/files/scripts/net/Server.lua#L936#9)
 
 ## connect
 
@@ -491,7 +491,7 @@ Starts the profiler. This has to be called before the function (or first line of
 @*param* `functionName` — The name of the function that you want to measure. This has to be the same as the one used in CustomProfiler:stop(functionName, customProfilerCounter)
 
 @*return* `returnCounter` — The counter that is used to determine the order of the function calls. This has to be passed to CustomProfiler:stop(functionName, customProfilerCounter)
-See: [CustomProfiler](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/CustomProfiler.lua#2#10) stop(functionName, customProfilerCounter)
+See: [CustomProfiler](../../mods/noita-mp/files/scripts/util/CustomProfiler.lua#L2#10) stop(functionName, customProfilerCounter)
 
 ## startExternalProfiler
 
@@ -1546,7 +1546,7 @@ Function to check if the user pressed a shortcut.
 Client
 ```
 
-See: [Client](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/net/Client.lua#3#10)
+See: [Client](../../mods/noita-mp/files/scripts/net/Client.lua#L3#10)
 
 ## customProfiler
 
@@ -1555,7 +1555,7 @@ See: [Client](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/net/Cli
 CustomProfiler
 ```
 
-See: [CustomProfiler](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/CustomProfiler.lua#2#10)
+See: [CustomProfiler](../../mods/noita-mp/files/scripts/util/CustomProfiler.lua#L2#10)
 
 ## drawAbout
 
@@ -1618,7 +1618,7 @@ Function to draw the settings window.
 GuidUtils
 ```
 
-See: [GuidUtils](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/GuidUtils.lua#2#10)
+See: [GuidUtils](../../mods/noita-mp/files/scripts/util/GuidUtils.lua#L2#10)
 
 ## imGui
 
@@ -1643,7 +1643,7 @@ nil
 MinaUtils
 ```
 
-See: [MinaUtils](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/MinaUtils.lua#2#10)
+See: [MinaUtils](../../mods/noita-mp/files/scripts/util/MinaUtils.lua#L2#10)
 
 ## new
 
@@ -1676,7 +1676,7 @@ Gui constructor.
 NoitaMpSettings
 ```
 
-See: [NoitaMpSettings](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/NoitaMpSettings.lua#2#11)
+See: [NoitaMpSettings](../../mods/noita-mp/files/scripts/NoitaMpSettings.lua#L2#11)
 
 ## server
 
@@ -1685,7 +1685,7 @@ See: [NoitaMpSettings](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/script
 Server
 ```
 
-See: [Server](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/net/Server.lua#3#10)
+See: [Server](../../mods/noita-mp/files/scripts/net/Server.lua#L3#10)
 
 ## setShowMissingSettings
 
@@ -1721,7 +1721,7 @@ Guis update function, called every frame.
 Utils
 ```
 
-See: [Utils](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/Utils.lua#2#10)
+See: [Utils](../../mods/noita-mp/files/scripts/util/Utils.lua#L2#10)
 
 
 ---
@@ -2589,7 +2589,7 @@ compId:
 any
 ```
 
-See: [CustomProfiler](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/CustomProfiler.lua#2#10)
+See: [CustomProfiler](../../mods/noita-mp/files/scripts/util/CustomProfiler.lua#L2#10)
 
 ## getAllVcsValuesByComponentIds
 
@@ -2632,7 +2632,7 @@ Returns all Network Vsc values by its entity id.
 any
 ```
 
-See: [GlobalsUtils](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/GlobalsUtils.lua#1#10)
+See: [GlobalsUtils](../../mods/noita-mp/files/scripts/util/GlobalsUtils.lua#L1#10)
 
 ## hasNetworkLuaComponents
 
@@ -2678,7 +2678,7 @@ Returns true, componentId and nuid if the entity has a NetworkVsc.
 any
 ```
 
-See: [Logger](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/Logger.lua#1#10)
+See: [Logger](../../mods/noita-mp/files/scripts/util/Logger.lua#L1#10)
 
 ## new
 
@@ -2695,7 +2695,7 @@ function NetworkVscUtils.new(self: NetworkVscUtils, networkVscUtilsObject: any, 
 any
 ```
 
-See: [Server](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/net/Server.lua#3#10)
+See: [Server](../../mods/noita-mp/files/scripts/net/Server.lua#L3#10)
 
 ## utils
 
@@ -2704,7 +2704,7 @@ See: [Server](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/net/Ser
 any
 ```
 
-See: [Utils](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/Utils.lua#2#10)
+See: [Utils](../../mods/noita-mp/files/scripts/util/Utils.lua#L2#10)
 
 
 ---
@@ -2891,7 +2891,7 @@ Removes all settings and creates a new settings file.
 CustomProfiler
 ```
 
-See: [CustomProfiler](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/CustomProfiler.lua#2#10)
+See: [CustomProfiler](../../mods/noita-mp/files/scripts/util/CustomProfiler.lua#L2#10)
 
 ## fileUtils
 
@@ -3246,7 +3246,7 @@ function Server.amIServer(self: Server)
 Checks if the current local user is a server.
 
 @*return* `true` — if server, false if not
-See: [Client.amIClient](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/net/Client.lua#960#9)
+See: [Client.amIClient](../../mods/noita-mp/files/scripts/net/Client.lua#L960#9)
 
 ## ban
 
@@ -3282,7 +3282,7 @@ EntityCache
 EntityCacheUtils
 ```
 
-See: [EntityCacheUtils](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/EntityCacheUtils.lua#1#10)
+See: [EntityCacheUtils](../../mods/noita-mp/files/scripts/util/EntityCacheUtils.lua#L1#10)
 
 ## entityUtils
 
@@ -3298,7 +3298,7 @@ EntityUtils
 FileUtils
 ```
 
-See: [FileUtils](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/FileUtils.lua#1#10)
+See: [FileUtils](../../mods/noita-mp/files/scripts/util/FileUtils.lua#L1#10)
 
 ## getAckCacheSize
 
@@ -3317,7 +3317,7 @@ Mainly for profiling. Returns then network cache, aka acknowledge.
 GlobalsUtils
 ```
 
-See: [GlobalsUtils](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/GlobalsUtils.lua#1#10)
+See: [GlobalsUtils](../../mods/noita-mp/files/scripts/util/GlobalsUtils.lua#L1#10)
 
 ## guid
 
@@ -3333,7 +3333,7 @@ nil
 GuidUtils
 ```
 
-See: [GuidUtils](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/GuidUtils.lua#2#10)
+See: [GuidUtils](../../mods/noita-mp/files/scripts/util/GuidUtils.lua#L2#10)
 
 ## health
 
@@ -3841,7 +3841,7 @@ function Utils.wait(self: Utils, s: number)
 Wait for n seconds.
 
 @*param* `s` — seconds to wait
-See: [Utils.sleep](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/Utils.lua#18#9)
+See: [Utils.sleep](../../mods/noita-mp/files/scripts/util/Utils.lua#L18#9)
 
 
 ---
