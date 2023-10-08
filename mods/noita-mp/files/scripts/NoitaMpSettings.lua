@@ -159,8 +159,8 @@ end
 function NoitaMpSettings:save()
     local settingsFilePath = getSettingsFilePath(self)
 
-    if self.utils:isEmpty(self.cachedSettings["pid"]) then
-        self.cachedSettings["pid"] = self.winapi.get_current_pid()
+    if self.utils:isEmpty(self.cachedSettings["noita-mp.pid"]) then
+        self.cachedSettings["noita-mp.pid"] = self.winapi.get_current_pid()
     end
 
     self.fileUtils:WriteFile(settingsFilePath, self.json.encode(self.cachedSettings))

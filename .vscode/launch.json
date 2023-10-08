@@ -5,52 +5,22 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "launch-lua",
-      "type": "lua",
+      "name": "Launch Noita with debugger",
+      "type": "lua-local",
       "request": "launch",
-      "workingDirectory": "${workspaceRoot}",
-      "sourceBasePath": "${workspaceRoot}",
-      "executable": "${workspaceRoot}/mods/noita-mp/lua.bat",
-      "arguments": "main.lua",
-      "listenPublicly": false,
-      "listenPort": 56789,
-      "encoding": "UTF-8",
-      "env": {}
-    },
-    {
-      "name": "launch-gideros",
-      "type": "lua",
-      "request": "launch",
-      "workingDirectory": "${workspaceRoot}",
-      "giderosPath": "C:/Program Files (x86)/Gideros",
-      "gprojPath": "${workspaceRoot}/GPROJ.gproj",
-      "jumpToGiderosErrorPosition": false,
-      "stopGiderosWhenDebuggerStops": true,
-      "listenPublicly": false,
-      "listenPort": 56789,
-      "encoding": "UTF-8"
-    },
-    {
-      "name": "wait",
-      "type": "lua",
-      "request": "attach",
-      "workingDirectory": "${workspaceRoot}",
-      "sourceBasePath": "${workspaceRoot}",
-      "listenPublicly": false,
-      "listenPort": 56789,
-      "encoding": "UTF-8"
-    },
-    {
-      "name": "LAUNCH debug profiler.lua",
-      "type": "lua",
-      "request": "launch",
-      "workingDirectory": "C:/Program Files (x86)/Steam/steamapps/common/Noita",
-      "program": "C:/Program Files (x86)/Steam/steamapps/common/Noita/mods/noita-mp/files/scripts/bin/profiler.lua",
-      "listenPublicly": false,
-      "listenPort": 0,
-      "luaVersion": "jit",
-      "encoding": "UTF-8",
-      "luaexe": "${workspaceRoot}/LuaJIT-2.0.4/bin/luajit.exe",
+      "program": {
+        "lua": "C:/Program Files (x86)/Steam/steamapps/common/Noita/noita_dev_log.exe",
+        "file": "C:/Program Files (x86)/Steam/steamapps/common/Noita/noita_dev_log.exe",
+        //"command": "C:/Program Files (x86)/Steam/steamapps/common/Noita/noita_dev_log.exe",
+        "communication": "stdio"
+      },
+      "args": ["-debug_lua", "-no-console", "-luadebugger"],
+      "stopOnEntry": true,
+      "cwd": "C:/Program Files (x86)/Steam/steamapps/common/Noita",
+      "env": {
+        "LOCAL_LUA_DEBUGGER_VSCODE": "1"
+      },
+      "verbose": true
     }
   ]
 }

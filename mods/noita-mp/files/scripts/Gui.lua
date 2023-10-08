@@ -302,7 +302,7 @@ function Gui:drawPlayMenu()
     local isCollapsed
     isCollapsed, self.showPlayMenu = self.imGui.Begin(self.playLabel, self.showPlayMenu, windowFlags)
     if isCollapsed then
-        if self.utils:isEmpty(self.minaUtils.getLocalMinaName()) then
+        if self.utils:isEmpty(self.minaUtils:getLocalMinaName()) then
             self.imGui.Text(("Please set your name in the settings first! Simply press '%s'!"):format(self.shortcuts.settings))
             self.imGui.End()
             self.customProfiler:stop("Gui.drawPlayMenu", cpc)
@@ -338,17 +338,17 @@ function Gui:drawPlayMenu()
 
             local isPortChanged, port = self.imGui.InputTextWithHint("Server Port", "Type from 1 to max of 65535!", tostring(self.server:getPort()))
             if isPortChanged then
-                self.server.port = port
+                self.server.port = tonumber(port) or 14017
             end
 
             self.imGui.Separator()
             if self.imGui.Button("Start Server!") then
-                self.server.start(self.server:getAddress(), self.server:getPort())
+                self.server:start(self.server:getAddress(), self.server:getPort())
                 self.showPlayMenu = false
             end
         else
             local isServerIpChanged, serverIp = self.imGui.InputTextWithHint("Server IP", "Use '*', 'localhost' or 'whatismyip.com'!",
-                Server:getAddress())
+                self.server:getAddress())
             if isServerIpChanged then
                 self.server.address = serverIp
             end
@@ -409,7 +409,7 @@ function Gui:drawSettings()
         self.imGui.Text("Mandatory:")
 
         -- Player name
-        local isPlayerNameChanged, playerName = self.imGui.InputTextWithHint("Nickname", "Type in your Nickname!", self.minaUtils.getLocalMinaName())
+        local isPlayerNameChanged, playerName = self.imGui.InputTextWithHint("Nickname", "Type in your Nickname!", self.minaUtils:getLocalMinaName())
         if isPlayerNameChanged then
             self.minaUtils:setLocalMinaName(playerName)
         end
@@ -499,8 +499,8 @@ function Gui:drawSettings()
         -- Save settings
         if self.imGui.Button("Save Settings") then
             if self.noitaMpSettings:isMoreThanOneNoitaProcessRunning() then
-                local newGuid = self.guidUtils:generateNewGuid({ self.minaUtils.getLocalMinaGuid() })
-                self.minaUtils.setLocalMinaGuid(newGuid)
+                local newGuid = self.guidUtils:generateNewGuid({ self.minaUtils:getLocalMinaGuid() })
+                self.minaUtils:setLocalMinaGuid(newGuid)
             end
 
             self.noitaMpSettings:save()
@@ -531,10 +531,10 @@ function Gui:drawSettings()
                 end
             end
 
-            self.networkVscUtils.addOrUpdateAllVscs(self.minaUtils:getLocalMinaEntityId(), self.minaUtils:getLocalMinaName(),
+            self.networkVscUtils:addOrUpdateAllVscs(self.minaUtils:getLocalMinaEntityId(), self.minaUtils:getLocalMinaName(),
                 self.minaUtils:getLocalMinaGuid(), self.minaUtils:getLocalMinaNuid())
 
-            self.globalsUtils.setUpdateGui(true)
+            self.globalsUtils:setUpdateGui(true)
         end
         if self.showSettingsSaved then
             self.imGui.SameLine()
@@ -644,7 +644,7 @@ function Gui:drawPlayerList()
             self.imGui.TableFlags.Borders
         )
 
-        local minas = self.minaUtils:getAllMinas()
+        local minas = self.minaUtils:getAllMinas(self.client, self.server)
         local columnCount = function()
             local count = 0
             for _ in pairs(minas[1]) do
@@ -761,16 +761,13 @@ function Gui:new(guiObject, server, client, customProfiler, guidUtils, minaUtils
     if not guiObject.customProfiler then
         ---@type CustomProfiler
         ---@see CustomProfiler
-        guiObject.customProfiler = customProfiler or server.customProfiler or require("CustomProfiler")
-            :new(nil, nil, server.noitaMpSettings, nil, nil, nil, nil)
+        guiObject.customProfiler = customProfiler or server.customProfiler or error("Gui:new needs a CustomProfiler instance!", 2)
     end
 
     if not guiObject.guidUtils then
         ---@type GuidUtils
         ---@see GuidUtils
-        guiObject.guidUtils = guidUtils or require("GuidUtils")
-            :new(nil, guiObject.customProfiler, server.fileUtils, server.logger, nil, nil,
-                server.utils, nil)
+        guiObject.guidUtils = guidUtils or server.guidUtils or error("Gui:new needs a GuidUtils instance!", 2)
     end
 
     if not guiObject.imGui then
@@ -782,16 +779,26 @@ function Gui:new(guiObject, server, client, customProfiler, guidUtils, minaUtils
     if not guiObject.minaUtils then
         ---@type MinaUtils
         ---@see MinaUtils
-        guiObject.minaUtils = minaUtils or require("MinaUtils")
-            :new(nil, guiObject.customProfiler, server.noitaComponentUtils.globalsUtils, noitaMpSettings.logger,
-                server.networkVscUtils, noitaMpSettings, noitaMpSettings.utils)
+        guiObject.minaUtils = minaUtils or server.minaUtils or error("Gui:new needs a MinaUtils instance!", 2)
+    end
+
+    if not guiObject.networkVscUtils then
+        guiObject.networkVscUtils = server.networkVscUtils or error("Gui:new needs a NetworkVscUtils instance!", 2)
     end
 
     if not guiObject.utils then
         ---@type Utils
         ---@see Utils
-        guiObject.utils = noitaMpSettings.utils or require("Utils")
+        guiObject.utils = server.utils or error("Gui:new needs a Utils instance!", 2)
         --:new()
+    end
+
+    if not guiObject.globalsUtils then
+        guiObject.globalsUtils = server.globalsUtils or error("Gui:new needs a GlobalsUtils instance!", 2)
+    end
+
+    if not guiObject.fileUtils then
+        guiObject.fileUtils = server.fileUtils or error("Gui:new needs a FileUtils instance!", 2)
     end
 
     --[[ Attributes ]]

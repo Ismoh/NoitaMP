@@ -37,7 +37,7 @@ function Utils:sleep(s)
 end
 
 ---Checks if a variable is empty.
----@param var number|string|table variable to check
+---@param var number|string|table|nil variable to check
 ---@return boolean true if empty, false otherwise
 function Utils:isEmpty(var)
     -- if you change this also change NetworkVscUtils.lua

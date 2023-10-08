@@ -31,7 +31,7 @@ end
 ---@param data table data = { "networkMessageId", "event", "status", "ackedAt" }
 local onAcknowledgement = function(self, data)
     local cpc = self.customProfiler:start("Client.onAcknowledgement")
-    self.logger:debug(self.logger.channels.network, "onAcknowledgement: Acknowledgement received.", self.utils:pformat(data))
+    self.logger:debug(self.logger.channels.network, ("onAcknowledgement: Acknowledgement received. %s"):format(self.utils:pformat(data)))
 
     if self.utils:isEmpty(data.networkMessageId) then
         error(("onAcknowledgement data.networkMessageId is empty: %s"):format(data.networkMessageId), 2)
@@ -55,21 +55,21 @@ local onAcknowledgement = function(self, data)
     end
 
     if not self.clientCacheId then
-        self.clientCacheId = self.guidUtils.toNumber(self.guid)
+        self.clientCacheId = self.guidUtils:toNumber(self.guid)
     end
 
-    local cachedData = self.networkCacheUtils.get(self.guid, data.networkMessageId, data.event)
+    local cachedData = self.networkCacheUtils:get(self.guid, data.networkMessageId, data.event)
     if self.utils:isEmpty(cachedData) then
-        self.networkCacheUtils.logAll()
+        self.networkCacheUtils:logAll()
         error(("Unable to get cached data, because it is nil '%s'"):format(cachedData), 2)
     end
     if self.utils:isEmpty(cachedData.dataChecksum) or type(cachedData.dataChecksum) ~= "string" then
-        self.networkCacheUtils.logAll()
+        self.networkCacheUtils:logAll()
         error(("Unable to get cachedData.dataChecksum, because it is nil '%s' or checksum is not of type string, type: %s")
             :format(cachedData.dataChecksum, type(cachedData.dataChecksum)), 2)
     end
     -- update previous cached network message
-    self.networkCacheUtils.ack(self.guid, data.networkMessageId, data.event,
+    self.networkCacheUtils:ack(self.guid, data.networkMessageId, data.event,
         data.status, os.clock(), cachedData.sendAt, cachedData.dataChecksum)
 
     if self.networkCache.size() > self.acknowledgeMaxSize then
@@ -134,19 +134,19 @@ end
 ---@param data number data(.code) = 0
 local onDisconnect = function(self, data)
     local cpc = self.customProfiler:start("Client.onDisconnect")
-    self.logger.debug(self.logger.channels.network, "Disconnected from server!", self.utils:pformat(data))
+    self.logger:debug(self.logger.channels.network, "Disconnected from server!", self.utils:pformat(data))
 
     if self.utils:isEmpty(data) then
         error(("onDisconnect data is empty: %s"):format(data), 3)
     end
 
     if self.serverInfo.nuid then
-        self.entityUtils.destroyByNuid(self, self.serverInfo.nuid)
+        self.entityUtils:destroyByNuid(self, self.serverInfo.nuid)
     end
 
     -- TODO remove all NUIDS from entities. I now need a nuid-entityId-cache.
-    local nuid, entityId = self.globalsUtils.getNuidEntityPair(self.nuid)
-    self.networkVscUtils.addOrUpdateAllVscs(entityId, self.name, self.guid, nil)
+    local nuid, entityId = self.globalsUtils:getNuidEntityPair(self.nuid)
+    self.networkVscUtils:addOrUpdateAllVscs(entityId, self.name, self.guid, nil)
 
     self.nuid         = nil
     self.otherClients = {}
@@ -163,7 +163,7 @@ end
 ---@param data table data { "name", "guid" } @see self.networkUtils.events.disconnect2.schema
 local onDisconnect2 = function(self, data)
     local cpc = self.customProfiler:start("Client.onDisconnect2")
-    self.logger.debug(self.logger.channels.network, "onDisconnect2: Another client disconnected.", self.utils:pformat(data))
+    self.logger:debug(self.logger.channels.network, "onDisconnect2: Another client disconnected.", self.utils:pformat(data))
 
     if self.utils:isEmpty(data.networkMessageId) then
         error(("onDisconnect2 data.networkMessageId is empty: %s"):format(data.networkMessageId), 3)
@@ -196,7 +196,7 @@ end
 ---@param data table data @see self.networkUtils.events.minaInformation.schema
 local onMinaInformation = function(self, data)
     local cpc = self.customProfiler:start("Client.onMinaInformation")
-    self.logger.debug(self.logger.channels.network, "onMinaInformation: Player info received.", self.utils:pformat(data))
+    self.logger:debug(self.logger.channels.network, "onMinaInformation: Player info received.", self.utils:pformat(data))
 
     if self.utils:isEmpty(data.networkMessageId) then
         error(("onMinaInformation data.networkMessageId is empty: %s"):format(data.networkMessageId), 2)
@@ -232,13 +232,13 @@ local onMinaInformation = function(self, data)
 
 
     if data.guid == self.guid then
-        self.logger.warn(self.logger.channels.network,
+        self.logger:warn(self.logger.channels.network,
             ("onMinaInformation: Clients GUID %s isn't unique! Server will fix this!"):format(self.guid))
     end
 
-    if FileUtils.GetVersionByFile() ~= tostring(data.version) then
+    if self.fileUtils:GetVersionByFile() ~= tostring(data.version) then
         error(("Version mismatch: NoitaMP version of Server: %s and your version: %s")
-            :format(data.version, FileUtils.GetVersionByFile()), 3)
+            :format(data.version, self.fileUtils:GetVersionByFile()), 3)
         self.disconnect()
     end
 
@@ -262,7 +262,7 @@ end
 ---@param data table data { "networkMessageId", "oldGuid", "newGuid" }
 local onNewGuid = function(self, data)
     local cpc = self.customProfiler:start("Client.onNewGuid")
-    self.logger.debug(self.logger.channels.network, ("onNewGuid: New GUID from server received."):format(self.utils:pformat(data)))
+    self.logger:debug(self.logger.channels.network, ("onNewGuid: New GUID from server received."):format(self.utils:pformat(data)))
 
     if self.utils:isEmpty(data.networkMessageId) then
         error(("onNewGuid data.networkMessageId is empty: %s"):format(data.networkMessageId), 2)
@@ -302,7 +302,7 @@ end
 ---@param data table data { networkMessageId, seed }
 local onSeed = function(self, data)
     local cpc = self.customProfiler:start("Client.onSeed")
-    self.logger.debug(self.logger.channels.network, "onSeed: Seed from server received.", self.utils:pformat(data))
+    self.logger:debug(self.logger.channels.network, "onSeed: Seed from server received.", self.utils:pformat(data))
 
     if self.utils:isEmpty(data.networkMessageId) then
         error(("onSeed data.networkMessageId is empty: %s"):format(data.networkMessageId), 3)
@@ -313,7 +313,7 @@ local onSeed = function(self, data)
     end
 
     local serversSeed = tonumber(data.seed)
-    self.logger.info(self.logger.channels.network,
+    self.logger:info(self.logger.channels.network,
         ("Client received servers seed (%s) and stored it. Reloading map with that seed!")
         :format(serversSeed))
 
@@ -345,7 +345,7 @@ end
 -- ---@param data table data { networkMessageId, owner { name, guid }, localEntityId, newNuid, x, y, rotation, velocity { x, y }, filename }
 -- local onNewNuid = function(self, data)
 --     local cpc = self.customProfiler:start("Client.onNewNuid")
---     self.logger.debug(self.logger.channels.network, ("Received a new nuid! data = %s"):format(self.utils:pformat(data)))
+--     self.logger:debug(self.logger.channels.network, ("Received a new nuid! data = %s"):format(self.utils:pformat(data)))
 
 --     if self.utils:isEmpty(data.networkMessageId) then
 --         error(("onNewNuid data.networkMessageId is empty: %s"):format(data.networkMessageId), 3)
@@ -420,7 +420,7 @@ end
 ---@param data table data { networkMessageId, ownerName, ownerGuid, entityId, serializedEntityString, nuid, x, y, initialSerializedEntityString }
 local onNewNuid = function(self, data)
     local cpc = self.customProfiler:start("Client.onNewNuid")
-    self.logger.debug(self.logger.channels.network,
+    self.logger:debug(self.logger.channels.network,
         ("Received a new nuid onNewNuid! data = %s"):format(self.utils:pformat(data)))
 
     if self.utils:isEmpty(data.networkMessageId) then
@@ -518,7 +518,7 @@ end
 ---@param data table data { networkMessageId, owner { name, guid }, localEntityId, nuid, x, y, rotation, velocity { x, y }, health }
 local onEntityData = function(self, data)
     local cpc = self.customProfiler:start("Client.onEntityData")
-    self.logger.debug(self.logger.channels.network, ("Received entityData for nuid = %s! data = %s")
+    self.logger:debug(self.logger.channels.network, ("Received entityData for nuid = %s! data = %s")
         :format(data.nuid, self.utils:pformat(data)))
 
     if self.utils:isEmpty(data.networkMessageId) then
@@ -569,7 +569,7 @@ local onEntityData = function(self, data)
     if self.nuid ~= nuid then
         self.noitaComponentUtils.setEntityData(localEntityId, x, y, rotation, velocity, health)
     else
-        self.logger.warn(self.logger.channels.network, ("Received entityData for self.nuid = %s! data = %s")
+        self.logger:warn(self.logger.channels.network, ("Received entityData for self.nuid = %s! data = %s")
             :format(data.nuid, self.utils:pformat(data)))
     end
 
@@ -629,7 +629,7 @@ local onNeedModList = function(self, data)
     -- Display a prompt if mod conflicts are detected
     if #conflicts > 0 then
         self.missingMods = conflicts
-        self.logger.info("Mod conflicts detected: Missing " .. table.concat(conflicts, ", "))
+        self.logger:info("Mod conflicts detected: Missing " .. table.concat(conflicts, ", "))
     end
     self.customProfiler:stop("Client.onNeedModList", cpc)
 end
@@ -644,19 +644,19 @@ local onNeedModContent = function(self, data)
         local modID   = v.workshopID
         local modData = v.data
         if modID == "0" then
-            if not FileUtils.IsDirectory((FileUtils.GetAbsolutePathOfNoitaRootDirectory() .. "/mods/%s/"):format(modName)) then
+            if not self.fileUtils:IsDirectory((self.fileUtils:GetAbsolutePathOfNoitaRootDirectory() .. "/mods/%s/"):format(modName)) then
                 local fileName = ("%s_%s_mod_sync.7z"):format(tostring(os.date("!")), modName)
-                FileUtils.WriteBinaryFile(FileUtils.GetAbsoluteDirectoryPathOfNoitaMP() .. "/" .. fileName, modData)
-                FileUtils.Extract7zipArchive(FileUtils.GetAbsoluteDirectoryPathOfNoitaMP(), fileName,
-                    (FileUtils.GetAbsolutePathOfNoitaRootDirectory() .. "/mods/%s/"):format(modName))
+                self.fileUtils:WriteBinaryFile(self.fileUtils:GetAbsoluteDirectoryPathOfNoitaMP() .. "/" .. fileName, modData)
+                self.fileUtils:Extract7zipArchive(self.fileUtils:GetAbsoluteDirectoryPathOfNoitaMP(), fileName,
+                    (self.fileUtils:GetAbsolutePathOfNoitaRootDirectory() .. "/mods/%s/"):format(modName))
             end
         else
-            if not FileUtils.IsDirectory(("C:/Program Files (x86)/Steam/steamapps/workshop/content/881100/%s/"):format(modID)) then
-                if not FileUtils.IsDirectory((FileUtils.GetAbsolutePathOfNoitaRootDirectory() .. "/mods/%s/"):format(modName)) then
+            if not self.fileUtils:IsDirectory(("C:/Program Files (x86)/Steam/steamapps/workshop/content/881100/%s/"):format(modID)) then
+                if not self.fileUtils:IsDirectory((self.fileUtils:GetAbsolutePathOfNoitaRootDirectory() .. "/mods/%s/"):format(modName)) then
                     local fileName = ("%s_%s_mod_sync.7z"):format(tostring(os.date("!")), modName)
-                    FileUtils.WriteBinaryFile(FileUtils.GetAbsoluteDirectoryPathOfNoitaMP() .. "/" .. fileName, modData)
-                    FileUtils.Extract7zipArchive(FileUtils.GetAbsoluteDirectoryPathOfNoitaMP(), fileName,
-                        (FileUtils.GetAbsolutePathOfNoitaRootDirectory() .. "/mods/%s/"):format(modName))
+                    self.fileUtils:WriteBinaryFile(self.fileUtils:GetAbsoluteDirectoryPathOfNoitaMP() .. "/" .. fileName, modData)
+                    self.fileUtils:Extract7zipArchive(self.fileUtils:GetAbsoluteDirectoryPathOfNoitaMP(), fileName,
+                        (self.fileUtils:GetAbsolutePathOfNoitaRootDirectory() .. "/mods/%s/"):format(modName))
                 end
             end
         end
@@ -765,7 +765,7 @@ function Client:disconnect()
         -- Inheritance: https://ozzypig.com/2018/05/10/object-oriented-programming-in-lua-part-5-inheritance
         self.sock.disconnect(self) --sockClientDisconnect(self)
     else
-        self.logger.info(self.logger.channels.network, "Client isn't connected, no need to disconnect!")
+        self.logger:info(self.logger.channels.network, "Client isn't connected, no need to disconnect!")
     end
     self.customProfiler:stop("Client.disconnect", cpc)
 end
@@ -821,7 +821,7 @@ function Client:send(event, data)
     end
 
     if self.networkUtils.alreadySent(self, event, data) then
-        self.logger.debug(self.logger.channels.network, ("Network message for %s for data %s already was acknowledged.")
+        self.logger:debug(self.logger.channels.network, ("Network message for %s for data %s already was acknowledged.")
             :format(event, self.utils:pformat(data)))
         self.customProfiler:stop("Client.send", cpc)
         return false
@@ -903,8 +903,8 @@ function Client:sendEntityData(entityId)
 
     if self.utils:isEmpty(compNuid) then
         -- this can happen, when entity spawned on client and network is slow
-        self.logger.debug(self.logger.channels.network, "Unable to send entity data, because nuid is empty.")
-        self.sendNeedNuid(compOwnerName, compOwnerGuid, entityId)
+        self.logger:debug(self.logger.channels.network, "Unable to send entity data, because nuid is empty.")
+        self:sendNeedNuid(compOwnerName, compOwnerGuid, entityId)
         return
     end
 
@@ -923,7 +923,7 @@ function Client:sendDeadNuids(deadNuids)
         self.networkUtils.getNextNetworkMessageId(), deadNuids
     }
     local sent = self:send(self.networkUtils.events.deadNuids.name, data)
-    onDeadNuids(deadNuids)
+    onDeadNuids(self, deadNuids)
     self.customProfiler:stop("Client.sendDeadNuids", cpc)
     return sent
 end
@@ -940,7 +940,7 @@ function Client:sendMinaInformation()
     local transform = minaInfo.transform
     local health    = minaInfo.health
     local data      = {
-        self.networkUtils.getNextNetworkMessageId(), FileUtils.GetVersionByFile(), name, guid, entityId, nuid, transform, health
+        self.networkUtils.getNextNetworkMessageId(), self.fileUtils:GetVersionByFile(), name, guid, entityId, nuid, transform, health
     }
     local sent      = self:send(self.networkUtils.events.minaInformation.name, data)
     self.customProfiler:stop("Client.sendMinaInformation", cpc)
@@ -1039,6 +1039,18 @@ function Client:new(clientObject, serverOrAddress, port, maxChannels, server, np
 
     if not clientObject.noitaComponentUtils then
         clientObject.noitaComponentUtils = server.noitaComponentUtils or error("Client:new requires a server object!", 2)
+    end
+
+    if not clientObject.fileUtils then
+        clientObject.fileUtils = server.fileUtils or error("Client:new requires a server object!", 2)
+    end
+
+    if not clientObject.globalsUtils then
+        clientObject.globalsUtils = server.globalsUtils or error("Client:new requires a server object!", 2)
+    end
+
+    if not clientObject.networkVscUtils then
+        clientObject.networkVscUtils = server.networkVscUtils or error("Client:new requires a server object!", 2)
     end
 
     --[[ Attributes ]]

@@ -9,6 +9,19 @@ dofile("mods/noita-mp/files/scripts/init/init_.lua")
 -- Need to be initialized before everything else, otherwise Noita will crash
 local np = require("noitapatcher")
 
+-- Check if we wan't to debug the mod
+--if os.getenv("LOCAL_LUA_DEBUGGER_VSCODE") == "1" then
+    local args = table.pack(...)
+    for i = 1, args.n do
+        local found = string.find(args[i], "debug_lua", 1, true)
+        if found then
+            local lldebugger = loadfile(os.getenv("LOCAL_LUA_DEBUGGER_FILEPATH"))()
+            lldebugger.start()
+            break
+        end
+    end
+--end
+
 -- Initialize default server
 local server = require("Server")
     :new(nil, nil, nil, nil, nil, nil, nil, np)
@@ -260,14 +273,12 @@ function OnWorldPreUpdate()
     client:update(startFrameTime)
 
     local cpc1 = customProfiler:start("init.OnWorldPreUpdate.collectgarbage.count")
-    if collectgarbage("count") >= 250000 then
+    if collectgarbage("count") >= 16414586.467743 then
         local cpc2 = customProfiler:start("init.OnWorldPreUpdate.collectgarbage.collect")
-        -- if memory usage is above 250MB, force a garbage collection
-        GamePrintImportant("Memory Usage", "Forcing garbage collection because memory usage is above 250MB.")
+        GamePrintImportant("Memory Usage", ("Forcing garbage collection because memory usage is above %sMB."):format(collectgarbage("count") / 1024))
         collectgarbage("collect")
         customProfiler:stop("init.OnWorldPreUpdate.collectgarbage.collect", cpc2)
     end
-
     customProfiler:stop("init.OnWorldPreUpdate.collectgarbage.count", cpc1)
     customProfiler:stop("init.OnWorldPreUpdate", cpc)
 

@@ -437,15 +437,27 @@ local run              = function()
         --[[ Recieve data from Noita.exe-Client ]]
         local dataString = udp:receive() --local data, msgOrIp, portOrNil = udp:receivefrom()
         if dataString then
-            local frame                 = tonumber(dataString:split(", ")[1])
-            local customProfilerCounter = tonumber(dataString:split(", ")[2])
+            local frame                 = dataString:split(", ")[1]
+            local customProfilerCounter = dataString:split(", ")[2]
             local startOrStop           = dataString:split(", ")[3]
-            local time                  = tonumber(dataString:split(", ")[4])
+            local time                  = dataString:split(", ")[4]
             local functionName          = dataString:split(", ")[5]
-            local noitaMemoryUsage      = tonumber(dataString:split(", ")[6])
+            local noitaMemoryUsage      = dataString:split(", ")[6]
 
 
-            print(("%s %s %s %s %s %s"):format(frame, customProfilerCounter, startOrStop, time, functionName, noitaMemoryUsage))
+            print(("Frame %s cpc %s %s time %s %s memoryUsage %s"):format(
+                string.ExtendOrCutStringToLength(frame, 8, " ", true),
+                string.ExtendOrCutStringToLength(customProfilerCounter, 8, " ", true),
+                string.ExtendOrCutStringToLength(startOrStop, 5, " ", true),
+                string.ExtendOrCutStringToLength(time, 12, " ", true),
+                string.ExtendOrCutStringToLength(functionName, 50, " ", true),
+                string.ExtendOrCutStringToLength(noitaMemoryUsage, 15, " ", true))
+            )
+
+            frame = tonumber(frame)
+            customProfilerCounter = tonumber(customProfilerCounter) or error("customProfilerCounter is nil!", 2)
+            time = tonumber(time)
+            noitaMemoryUsage = tonumber(noitaMemoryUsage)
 
             if not cache[functionName] then
                 cache[functionName] = {}
@@ -482,7 +494,7 @@ local run              = function()
                 --report()
             end
 
-            print(utils:pformat(cache))
+            --print(utils:pformat(cache))
         end
 
         --[[ Just some memory double checking! ]]
