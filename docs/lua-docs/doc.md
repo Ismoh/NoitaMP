@@ -116,16 +116,6 @@ table
 string
 ```
 
-## isConnected
-
-
-```lua
-function Client.isConnected(self: Client)
-  -> boolean
-```
-
-Returns true if the client is connected to the server. Inherit from sock.isConnected.
-
 ## logger
 
 
@@ -1019,7 +1009,7 @@ function FileUtils.GetAbsDirPathOfWorldStateXml(self: FileUtils, saveSlotAbsDire
 
 
 ```lua
-function FileUtils.GetAbsoluteDirectoryPathOfNoitaMP(self: FileUtils)
+function FileUtils.GetAbsoluteDirectoryPathOfNoitaMP(self: FileUtils, noitaMpSettings: any)
   -> self.GetAbsolutePathOfNoitaRootDirectory: string
 ```
 
@@ -1071,11 +1061,13 @@ function FileUtils.GetAbsoluteDirectoryPathOfSave06(self: FileUtils)
 
 
 ```lua
-function FileUtils.GetAbsolutePathOfNoitaMpSettingsDirectory(self: FileUtils)
+function FileUtils.GetAbsolutePathOfNoitaMpSettingsDirectory(self: FileUtils, noitaMpSettings: NoitaMpSettings|nil)
   -> absPath: string
 ```
 
- Returns absolute path of NoitaMP settings directory,
+Returns absolute path of NoitaMP settings directory,
+
+@*param* `noitaMpSettings` — optional. Needed for saving Noitas root directory to settings file.
 
 @*return* `absPath` — i.e. "C:\Program Files (x86)\Steam\steamapps\common\Noita\mods\noita-mp\settings"
 
@@ -1083,7 +1075,7 @@ function FileUtils.GetAbsolutePathOfNoitaMpSettingsDirectory(self: FileUtils)
 
 
 ```lua
-function FileUtils.GetAbsolutePathOfNoitaRootDirectory(self: FileUtils)
+function FileUtils.GetAbsolutePathOfNoitaRootDirectory(self: FileUtils, noitaMpSettings: any)
   -> string
 ```
 
@@ -1276,10 +1268,12 @@ function FileUtils.ScanDir(self: FileUtils, directory: any)
 
 
 ```lua
-function FileUtils.SetAbsolutePathOfNoitaRootDirectory(self: FileUtils)
+function FileUtils.SetAbsolutePathOfNoitaRootDirectory(self: FileUtils, noitaMpSettings: NoitaMpSettings|nil)
 ```
 
- Sets root directory of noita.exe, i.e. C:\Program Files (x86)\Steam\steamapps\common\Noita
+Sets root directory of noita.exe, i.e. C:\Program Files (x86)\Steam\steamapps\common\Noita
+
+@*param* `noitaMpSettings` — optional. Needed for saving Noitas root directory to settings file.
 
 ## SplitPath
 
@@ -1378,6 +1372,17 @@ Utils class for lazy developers.
 
 ```lua
 unknown
+```
+
+
+---
+
+# GameGetRealWorldTimeSinceStarted
+
+
+```lua
+function _G.GameGetRealWorldTimeSinceStarted()
+  -> integer
 ```
 
 
@@ -3246,7 +3251,7 @@ function Server.amIServer(self: Server)
 Checks if the current local user is a server.
 
 @*return* `true` — if server, false if not
-See: [Client.amIClient](../../mods/noita-mp/files/scripts/net/Client.lua#L960#9)
+See: [Client.amIClient](../../mods/noita-mp/files/scripts/net/Client.lua#L953#9)
 
 ## ban
 
@@ -4502,16 +4507,6 @@ function dofile(path: any)
 
 ---
 
-# enabled_changed
-
-
-```lua
-function enabled_changed(entityId: any, isEnabled: any)
-```
-
-
----
-
 # error
 
 
@@ -4567,6 +4562,26 @@ If object does not have a metatable, returns nil. Otherwise, if the object's met
 ```lua
 function getmetatable(object: any)
   -> metatable: table
+```
+
+
+---
+
+# globalsUtils
+
+
+```lua
+GlobalsUtils
+```
+
+
+```lua
+GlobalsUtils
+```
+
+
+```lua
+GlobalsUtils
 ```
 
 
@@ -5001,6 +5016,26 @@ Loads a chunk from the given string.
 function loadstring(text: string, chunkname?: string)
   -> function?
   2. error_message: string?
+```
+
+
+---
+
+# logger
+
+
+```lua
+Logger
+```
+
+
+```lua
+Logger
+```
+
+
+```lua
+Logger
 ```
 
 
@@ -5611,6 +5646,23 @@ unknown
 
 ---
 
+# networkVscUtils
+
+NetworkVscUtils for getting and setting values in VariableStorageComponents of Noita-API
+
+
+```lua
+NetworkVscUtils
+```
+
+
+```lua
+NetworkVscUtils
+```
+
+
+---
+
 # newproxy
 
 
@@ -5639,6 +5691,18 @@ The behavior of `next` is undefined if, during the traversal, you assign any val
 function next(table: table<<K>, <V>>, index?: <K>)
   -> <K>?
   2. <V>?
+```
+
+
+---
+
+# noitaComponentUtils
+
+Class for using Noita components.
+
+
+```lua
+NoitaComponentUtils
 ```
 
 
@@ -6443,6 +6507,12 @@ function string.contains(str: string, pattern: string)
 ```
 
 
+```lua
+function string.contains(str: string, pattern: string)
+  -> found: boolean
+```
+
+
 ---
 
 # string.dump
@@ -6669,6 +6739,12 @@ function string.split(str: any, pat: any)
 ```
 
 
+```lua
+function string.split(str: any, pat: any)
+  -> table
+```
+
+
 ---
 
 # string.sub
@@ -6688,6 +6764,12 @@ function string.sub(s: string|number, i: integer, j?: integer)
 ---
 
 # string.trim
+
+
+```lua
+function string.trim(s: any)
+  -> string
+```
 
 
 ```lua
