@@ -69,6 +69,13 @@ See: ~sock.disconnect~
 EntityUtils
 ```
 
+## fileUtils
+
+
+```lua
+FileUtils
+```
+
 ## getAckCacheSize
 
 
@@ -80,6 +87,13 @@ function Client.getAckCacheSize(self: Client)
 Mainly for profiling. Returns then network cache, aka acknowledge.
 
 ## globalUtils
+
+
+```lua
+GlobalsUtils
+```
+
+## globalsUtils
 
 
 ```lua
@@ -173,6 +187,15 @@ NetworkCacheUtils
 ```lua
 NetworkUtils
 ```
+
+## networkVscUtils
+
+
+```lua
+NetworkVscUtils
+```
+
+NetworkVscUtils for getting and setting values in VariableStorageComponents of Noita-API
 
 ## new
 
@@ -1616,6 +1639,20 @@ function Gui.drawSettings(self: Gui)
 
 Function to draw the settings window.
 
+## fileUtils
+
+
+```lua
+unknown
+```
+
+## globalsUtils
+
+
+```lua
+unknown
+```
+
 ## guidUtils
 
 
@@ -1649,6 +1686,13 @@ MinaUtils
 ```
 
 See: [MinaUtils](../../mods/noita-mp/files/scripts/util/MinaUtils.lua#L2#10)
+
+## networkVscUtils
+
+
+```lua
+unknown
+```
 
 ## new
 
@@ -1723,7 +1767,7 @@ Guis update function, called every frame.
 
 
 ```lua
-Utils
+unknown
 ```
 
 See: [Utils](../../mods/noita-mp/files/scripts/util/Utils.lua#L2#10)
@@ -3764,7 +3808,7 @@ unknown
 
 
 ```lua
-function Utils.isEmpty(self: Utils, var: string|number|table)
+function Utils.isEmpty(self: Utils, var: string|number|table|nil)
   -> true: boolean
 ```
 
