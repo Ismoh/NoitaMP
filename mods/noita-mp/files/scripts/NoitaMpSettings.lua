@@ -131,7 +131,8 @@ function NoitaMpSettings:get(key, dataType)
     --local cpc = self.customProfiler:start("NoitaMpSettings.get")
 
     local settingsFilePath = getSettingsFilePath(self)
-    if self.utils:isEmpty(self.cachedSettings) or not self.fileUtils:Exists(settingsFilePath) then
+    if not self.settingsFileExists or self.utils:isEmpty(self.cachedSettings) then
+        self.settingsFileExists = self.fileUtils:Exists(settingsFilePath)
         self:load()
     end
 
@@ -164,7 +165,7 @@ function NoitaMpSettings:save()
     end
 
     self.fileUtils:WriteFile(settingsFilePath, self.json.encode(self.cachedSettings))
-    if self.gui then
+    if self.gui and self.gui.setShowSettingsSaved then
         self.gui:setShowSettingsSaved(true)
     end
 end
@@ -208,7 +209,8 @@ function NoitaMpSettings:new(noitaMpSettings, customProfiler, gui, fileUtils, js
         ---@see CustomProfiler
         noitaMpSettings.customProfiler = customProfiler or
             require("CustomProfiler")
-            :new(nil, nil, noitaMpSettings, nil, nil, noitaMpSettings.utils, noitaMpSettings.winapi)
+            :new(nil, nil, noitaMpSettings, nil, nil, noitaMpSettings.utils,
+                noitaMpSettings.winapi)
     end
     local cpc = noitaMpSettings.customProfiler:start("NoitaMpSettings:new")
 
@@ -216,17 +218,18 @@ function NoitaMpSettings:new(noitaMpSettings, customProfiler, gui, fileUtils, js
         noitaMpSettings.gui = gui or error("NoitaMpSettings:new requires a Gui object", 2)
     end
 
+    if not noitaMpSettings.logger then
+        noitaMpSettings.logger = logger or
+            require("Logger")
+            :new(nil, noitaMpSettings)
+    end
+
     if not noitaMpSettings.fileUtils then
         noitaMpSettings.fileUtils = fileUtils or noitaMpSettings.customProfiler.fileUtils or
             require("FileUtils")
-            :new(nil, noitaMpSettings.customProfiler, nil, noitaMpSettings, nil, noitaMpSettings.utils)
+            :new(nil, noitaMpSettings.customProfiler, noitaMpSettings.logger, noitaMpSettings, nil,
+                noitaMpSettings.utils)
     end
-
-    if not noitaMpSettings.logger then
-        noitaMpSettings.logger = logger or require("Logger"):new(nil, noitaMpSettings.customProfiler)
-    end
-
-
 
     noitaMpSettings.customProfiler:stop("ExampleClass:new", cpc)
     return noitaMpSettings

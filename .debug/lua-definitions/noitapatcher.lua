@@ -65,7 +65,7 @@ function noitapatcher.UseItem(responsible_entity_id, item_entity_id, ignore_relo
 
 ---Patch out logging for a certain string literal.
 ---@param logstr string The string to look for in the exe, it should end with a newline character in most cases.
----@return bool patch_successful
+---@return boolean patch_successful
 function noitapatcher.SilenceLogs(logstr) end
 
 ---Like Noita's LoadPixelScene, but doesn't care if the scene has been loaded before.
@@ -74,10 +74,10 @@ function noitapatcher.SilenceLogs(logstr) end
 ---@param x number
 ---@param y number
 ---@param background_file string
----@param skip_biome_checks bool Defaults to false
----@param skip_edge_textures bool Defaults to false
+---@param skip_biome_checks boolean Defaults to false
+---@param skip_edge_textures boolean Defaults to false
 ---@param color_to_material_table table Defaults to {}
----@param background_z_index int Defaults to 50
+---@param background_z_index integer Defaults to 50
 function noitapatcher.ForceLoadPixelScene(materials_filename, colors_filename, x, y, background_file, skip_biome_checks, skip_edge_textures, color_to_material_table, background_z_index) end
 
 ---Enable source location logging
@@ -90,8 +90,8 @@ function noitapatcher.EnableLogFiltering(enable) end
 
 ---Disable system updates
 ---@param system_name string Name of the system to disable, for instance BlackHoleSystem
----@param change_to bool enable (true) or disable (false)
----@return bool change_succeeded
+---@param change_to boolean enable (true) or disable (false)
+---@return boolean change_succeeded
 function noitapatcher.ComponentUpdatesSetEnabled(system_name, change_to) end
 
 ---Serialize an entity
@@ -129,8 +129,19 @@ function noitapatcher.PhysBodySetTransform(component_id, x, y, r, vx, vy, av) en
 ---@return number box2d angular velocity
 function noitapatcher.PhysBodyGetTransform(component_id) end
 
----Mark the current game mode as a daily. Disables spell progress and if called during mod init makes all spells available for the run.
----@param deterministic bool
+---Mark the current game mode as a daily. Disables spell unlocks and if called during mod init makes all spells available for the run.
+---@param deterministic boolean
 function noitapatcher.SetGameModeDeterministic(deterministic)end
+
+---Set the current pause state bitfield.
+---0, 1, 4 and >=32 are safe values to use.
+---0 means unpaused, 4 is the escape menu pause, the other safe values don't have any GUI.
+---@param value integer new pause state value
+---@return integer previous pause state value
+function noitapatcher.SetPauseState(value)end
+
+---Set the current pause state bitfield value.
+---@return integer current pause state value
+function noitapatcher.GetPauseState()end
 
 return noitapatcher

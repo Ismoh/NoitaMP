@@ -103,12 +103,19 @@ function FileUtils:SetAbsolutePathOfNoitaRootDirectory(noitaMpSettings)
         error(("self.lua | Unable to detect OS(%s[%s]), therefore not able to replace path separator!")
             :format(_G.os_name, _G.os_arch), 2)
     end
+
+    local startsAtI, _ = string.find(self.noitaRootDirectory, "noita%-mp")
+    if startsAtI then
+        print("Needs to fix path! Removing \\mods\\noita-mp.")
+        self.noitaRootDirectory = string.sub(self.noitaRootDirectory, 1, startsAtI - 7)
+    end
+
     self.noitaRootDirectory = self:ReplacePathSeparator(self.noitaRootDirectory)
     if noitaMpSettings and not noitaMpSettings.settingsFilePath then
         noitaMpSettings:set("noita-mp.noita-root-directory", self.noitaRootDirectory)
         noitaMpSettings:save()
     end
-    if isTestLuaContext then
+    if isTestLuaContext and self.logger then
         self.logger:trace(self.logger.channels.testing,
             ("Absolute path of Noitas root directory set to %s, but we need to fix path! Removing \\mods\\noita-mp.")
             :format(self.noitaRootDirectory))
@@ -266,50 +273,53 @@ end
 
 --- File and Directory checks, writing and reading
 
-
---- Checks if FILE or DIRECTORY exists
---- @param absolutePath string full path
---- @return boolean
-function FileUtils:Exists(absolutePath)
-    -- https://stackoverflow.com/a/21637809/3493998
-    if type(absolutePath) ~= "string" then
-        error("Parameter 'absolutePath' '" .. tostring(absolutePath) .. "' is not type of string!", 2)
-    end
-    local exists = os.rename(absolutePath, absolutePath) and true or false
-    return exists
-end
-
---- @param full_path string
---- @return boolean
-function FileUtils:IsFile(full_path)
-    -- https://stackoverflow.com/a/21637809/3493998
-    if type(full_path) ~= "string" then
-        error("self.lua | Parameter full_path '" .. tostring(full_path) .. "' is not type of string!")
-    end
-    if not self:Exists(full_path) then
-        --logger:debug("self.lua | Path '" .. tostring(full_path) .. "' does not exist!")
-        return false
-    end
-    local f = io.open(full_path)
-    if f then
-        f:close()
+---Checks if path is an existing directory.
+---@private
+---@param self FileUtils
+---@param path string
+---@return boolean isDir true|false
+local dirExists = function(self, path)
+    if self.lfs.attributes(path, "mode") == "directory" then
         return true
     end
     return false
 end
 
---- @param full_path string
---- @return boolean
-function FileUtils:IsDirectory(full_path)
-    -- https://stackoverflow.com/a/21637809/3493998
-    if type(full_path) ~= "string" then
-        error("self.lua | Parameter full_path '" .. tostring(full_path) .. "' is not type of string!")
+---Checks if path is an existing file.
+---@private
+---@param self FileUtils
+---@param path string
+---@return boolean isFile true|false
+local fileExists = function(self, path)
+    if self.lfs.attributes(path, "mode") == "file" then
+        return true
     end
-    local exists  = self:Exists(full_path)
-    --logger:debug("self.lua | Directory " .. full_path .. " exists = " .. tostring(exists))
-    local is_file = self:IsFile(full_path)
-    --logger:debug("self.lua | Is the directory a file? " .. full_path .. " is_file = " .. tostring(is_file))
-    return (exists and not is_file)
+    return false
+end
+
+--- Checks if FILE or DIRECTORY exists
+--- @param absolutePath string full path
+--- @return boolean
+function FileUtils:Exists(absolutePath)
+    if require then
+        return fileExists(self, absolutePath) or dirExists(self, absolutePath)
+    else
+        -- some error codes:
+        -- 13 : EACCES  - Permission denied
+        -- 17 : EEXIST  - File exists
+        -- 20 : ENOTDIR - Not a directory
+        -- 21 : EISDIR  - Is a directory
+        --
+        local isok, errstr, errcode = os.rename(absolutePath, absolutePath)
+        if isok == nil then
+            if errcode == 13 then
+                -- Permission denied, but it exists
+                return true
+            end
+            return false
+        end
+        return false
+    end
 end
 
 --- @param file_fullpath string
@@ -666,6 +676,17 @@ function FileUtils:new(fileUtilsObject, customProfiler, logger, noitaMpSettings,
 
     noitaMpSettings.fileUtils = fileUtilsObject
 
+    if not fileUtilsObject.lfs then
+        ---@type LuaFileSystem
+        fileUtilsObject.lfs = require("lfs")
+    end
+
+    if not fileUtilsObject.logger then
+        ---@type Logger
+        fileUtilsObject.logger = logger or noitaMpSettings.logger or require("Logger")
+            :new(nil, noitaMpSettings)
+    end
+
     if not fileUtilsObject.customProfiler then
         ---@type CustomProfiler
         fileUtilsObject.customProfiler = customProfiler or require("CustomProfiler")
@@ -688,12 +709,6 @@ function FileUtils:new(fileUtilsObject, customProfiler, logger, noitaMpSettings,
     if not fileUtilsObject.lfs then
         ---@type LuaFileSystem
         fileUtilsObject.lfs = require("lfs")
-    end
-
-    if not fileUtilsObject.logger then
-        ---@type Logger
-        fileUtilsObject.logger = logger or noitaMpSettings.logger or require("Logger")
-            :new(nil, fileUtilsObject.customProfiler)
     end
 
     if not fileUtilsObject.utils then

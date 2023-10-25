@@ -6,25 +6,25 @@ end
 --- Imports by dofile, dofile_once and require
 dofile("mods/noita-mp/files/scripts/init/init_.lua")
 
--- Need to be initialized before everything else, otherwise Noita will crash
-local np = require("noitapatcher")
+local np = {}
+if not _G.isTestLuaContext then
+    -- Need to be initialized before everything else, otherwise Noita will crash
+    np = require("noitapatcher")
+end
 
 -- Check if we wan't to debug the mod
---if os.getenv("LOCAL_LUA_DEBUGGER_VSCODE") == "1" then
-    local args = table.pack(...)
-    for i = 1, args.n do
-        local found = string.find(args[i], "debug_lua", 1, true)
-        if found then
-            local lldebugger = loadfile(os.getenv("LOCAL_LUA_DEBUGGER_FILEPATH"))()
-            lldebugger.start()
-            break
-        end
-    end
---end
+-- if DebugGetIsDevBuild() then
+--     if not lldebugger then
+--         lldebugger = require("lldebugger") --error("Unable to load debugger!", 2)
+--     end
+--     lldebugger.start()
+--     lldebugger.pullBreakpoints()
+-- end
+lldebugger = nil
 
 -- Initialize default server
 local server = require("Server")
-    :new(nil, nil, nil, nil, nil, nil, nil, np)
+    :new(nil, nil, nil, nil, nil, nil, np)
 
 -- Initialize default client
 local client = require("Client")
@@ -54,7 +54,15 @@ local gui = require("Gui"):new(nil, server, client, customProfiler, guidUtils, m
 server.noitaMpSettings.gui = gui
 client.noitaMpSettings.gui = gui
 
-
+if jit.version_num == 20100 then
+    jit.p = require("jit.p")
+    jit.p.outPath = ("%s/jit_profiler"):format(server.fileUtils:GetAbsoluteDirectoryPathOfNoitaMP(server.noitaMpSettings))
+    jit.p.outFile = "jit.p"
+    jit.p.mode = "af50si1"
+    server.fileUtils:MkDir(("%s/jit_profiler"):format(server.fileUtils:GetAbsoluteDirectoryPathOfNoitaMP(server.noitaMpSettings)))
+    jit.p.start(jit.p.mode, ("%s/%s.log"):format(jit.p.outPath, jit.p.outFile))
+    --jit.profile = require("jit.profile")
+end
 
 logger:debug(logger.channels.initialize, "Starting to load noita-mp init.lua..")
 
@@ -82,19 +90,20 @@ local function OnEntityLoaded()
     --for guessEntityId = entityUtils:previousHighestAliveEntityId, entityUtils:previousHighestAliveEntityId + 1024, 1 do
     for guessEntityId = entityUtils.previousHighestAliveEntityId, EntitiesGetMaxID(), 1 do
         local entityId = guessEntityId
+        print(("OnEntityLoaded(entityId = %s)"):format(entityId))
         while EntityGetIsAlive(entityId) and entityId > entityUtils.previousHighestAliveEntityId do
             if entityId > entityUtils.previousHighestAliveEntityId then
                 entityUtils.previousHighestAliveEntityId = entityId
             end
 
             -- DEBUG ONLY
-            local debugEntityId = fileUtils:ReadFile(("%s%s%s"):format(
-                fileUtils:GetAbsoluteDirectoryPathOfNoitaMP(), pathSeparator, "debugOnEntityLoaded"))
-            if not utils:isEmpty(debugEntityId) then
-                if entityId >= tonumber(debugEntityId) then
-                    local debug = true
-                end
-            end
+            -- local debugEntityId = fileUtils:ReadFile(("%s%s%s"):format(
+            --     fileUtils:GetAbsoluteDirectoryPathOfNoitaMP(), pathSeparator, "debugOnEntityLoaded"))
+            -- if not utils:isEmpty(debugEntityId) then
+            --     if entityId >= tonumber(debugEntityId) then
+            --         local debug = true
+            --     end
+            -- end
 
             local rootEntity = EntityGetRootEntity(entityId) or entityId
 
@@ -229,8 +238,19 @@ end
 
 --- PreUpdate of world
 function OnWorldPreUpdate()
+    -- if not jit.p.isProfiling then
+    if jit.version_num == 20100 then
+        jit.p.start(jit.p.mode, ("%s/%s.log"):format(jit.p.outPath, jit.p.outFile))
+    end
+    -- end
+
     local startFrameTime = GameGetRealWorldTimeSinceStarted()
     local cpc = customProfiler:start("init.OnWorldPreUpdate")
+
+    if DebugGetIsDevBuild() and lldebugger then
+        lldebugger.pullBreakpoints()
+    end
+
     OnEntityLoaded()
 
     if utils:isEmpty(minaUtils:getLocalMinaName()) or utils:isEmpty(minaUtils:getLocalMinaGuid()) then
@@ -273,7 +293,7 @@ function OnWorldPreUpdate()
     client:update(startFrameTime)
 
     local cpc1 = customProfiler:start("init.OnWorldPreUpdate.collectgarbage.count")
-    if collectgarbage("count") >= 16414586.467743 then
+    if collectgarbage("count") >= 102412345.0 then
         local cpc2 = customProfiler:start("init.OnWorldPreUpdate.collectgarbage.collect")
         GamePrintImportant("Memory Usage", ("Forcing garbage collection because memory usage is above %sMB."):format(collectgarbage("count") / 1024))
         collectgarbage("collect")
@@ -283,6 +303,8 @@ function OnWorldPreUpdate()
     customProfiler:stop("init.OnWorldPreUpdate", cpc)
 
     GamePrint("MemUsage " .. collectgarbage("count") / 1024 .. " MB")
+
+    --print("jit.profile " .. jit.profile.dumpstack("l\n", 10))
 end
 
 function OnWorldPostUpdate()
@@ -296,4 +318,9 @@ function OnWorldPostUpdate()
         --end
     end
     customProfiler:stop("init.OnWorldPostUpdate", cpc)
+    if jit.version_num == 20100 then
+        -- if jit.p.isProfiling then
+        jit.p.stop()
+        -- end
+    end
 end

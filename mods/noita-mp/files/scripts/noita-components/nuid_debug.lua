@@ -1,14 +1,21 @@
 dofile_once("mods/noita-mp/files/scripts/init/init_.lua")
 
+---@type NoitaMpSettings
+noitaMpSettings = noitaMpSettings or {}
+noitaMpSettings.customProfiler = {
+    start = function() end,
+    stop = function() end,
+}
+
 ---@type Logger
 logger = logger or
     dofile_once("mods/noita-mp/files/scripts/util/Logger.lua")
-    :new(nil, { start = function() end, stop = function() end })
+    :new(nil, noitaMpSettings)
 
 ---@type GlobalsUtils
 globalsUtils = globalsUtils or
     dofile_once("mods/noita-mp/files/scripts/util/GlobalsUtils.lua")
-    :new(nil, logger.customProfiler, logger, {}, {
+    :new(nil, logger.noitaMpSettings.customProfiler, logger, {}, {
         isEmpty = function(self, var)
             if var == nil then
                 return true

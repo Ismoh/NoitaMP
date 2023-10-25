@@ -30,6 +30,9 @@ function MinaUtils:getLocalMinaName()
     local cpc = self.customProfiler:start("MinaUtils.getLocalMinaName")
     if self.utils:isEmpty(localMinaName) then
         localMinaName = tostring(self.noitaMpSettings:get("noita-mp.nickname", "string"))
+        if self.utils:isEmpty(localMinaName) then
+            localMinaName = "Press CTRL+ALT+S for setting a nickname!"
+        end
     end
     self.customProfiler:stop("MinaUtils.getLocalMinaName", cpc)
     return localMinaName

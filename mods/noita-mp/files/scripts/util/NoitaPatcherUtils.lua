@@ -16,7 +16,7 @@ function OnProjectileFiredPost() end
 ---@return string encodedBase64
 function NoitaPatcherUtils:serializeEntity(entityId)
     local cpc = self.customProfiler:start("NoitaPatcherUtils.serializeEntity")
-    local encodedBase64 = self.base64.encode(self.np.SerializeEntity(entityId))
+    local encodedBase64 = self.base64.encode(self.np.SerializeEntity(entityId), nil, false)
     self.customProfiler:stop("NoitaPatcherUtils.serializeEntity", cpc)
     return encodedBase64
 end
@@ -29,7 +29,7 @@ end
 ---@return number
 function NoitaPatcherUtils:deserializeEntity(entityId, serializedEntityString, x, y)
     local cpc = self.customProfiler:start("NoitaPatcherUtils.deserializeEntity")
-    local decoded = self.base64.decode(serializedEntityString)
+    local decoded = self.base64.decode(serializedEntityString, nil, false)
     local entityId = self.np.DeserializeEntity(entityId, decoded, x, y)
     self.customProfiler:stop("NoitaPatcherUtils.deserializeEntity", cpc)
     return entityId

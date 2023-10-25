@@ -1,10 +1,5 @@
-local sock = require("sock")
-
----@class Server : SockServer Inherit server from sock.newServer
-local Server = setmetatable({
-    -- when a class inherits from another class, all additional imports and attributes are defined in :new() !
-}, { __index = sock.getServerClass() })
-Server.__index = Server
+---@class Server
+local Server = {}
 
 ---Sends acknowledgement for a specific network event.
 ---@private
@@ -628,7 +623,6 @@ end
 ---@param event string required
 ---@param data table required
 ---@return boolean true if message was sent, false if not
----@see SockServer.sendToPeer
 function Server:send(peer, event, data)
     local cpc = self.customProfiler:start("Server.send")
     if type(data) ~= "table" then
@@ -714,7 +708,7 @@ function Server:start(ip, port)
 
     self.logger:info(self.logger.channels.network, ("Starting server on %s:%s.."):format(ip, port))
 
-    local success = self.start(self, ip, port)
+    local success = getmetatable(self).__index.start(self, ip, port)
     if success == true then
         self.logger:info(self.logger.channels.network, ("Server started on %s:%s"):format(self:getAddress(), self:getPort()))
 
@@ -743,12 +737,15 @@ end
 
 ---Returns true if server is running, false if not.
 ---@return boolean true if server is running, false if not
-function Server:isRunning()
+function Server:isRunning() -- TODO: remove this before merge
     --local cpc = self.customProfiler:start("Server.isRunning") DO NOT PROFILE, stack overflow error! See self.customProfiler:lua
     local status, result = pcall(self.getSocketAddress, self)
     if not status then
         --self.customProfiler:stop("Server.isRunning", cpc)
         return false
+    end
+    if DebugGetIsDevBuild() and lldebugger then -- TODO: remove this before merge
+        lldebugger.start(true)                  -- TODO: remove this before merge
     end
     --self.customProfiler:stop("Server.isRunning", cpc)
     return true
@@ -793,7 +790,7 @@ function Server:update(startFrameTime)
         self.customProfiler:stop("Server.update.tick", cpc1)
     end
 
-    self.update(self)
+    getmetatable(self).__index.update(self)
     self.customProfiler:stop("Server.update", cpc)
 end
 
@@ -961,7 +958,6 @@ function Server:getAckCacheSize()
 end
 
 ---Server constructor. Inherits from SockServer sock.newServer.
----@param serverObject Server|nil optional
 ---@param address string|nil optional
 ---@param port number|nil optional
 ---@param maxPeers number|nil optional
@@ -970,11 +966,22 @@ end
 ---@param outBandwidth number|nil optional
 ---@param np noitapatcher required
 ---@return Server
-function Server:new(serverObject, address, port, maxPeers, maxChannels, inBandwidth, outBandwidth, np)
-    ---@class Server : SockServer
-    serverObject =
-        setmetatable(serverObject or sock.newServer(address, port, maxPeers, maxChannels, inBandwidth, outBandwidth), Server) or
+function Server:new(address, port, maxPeers, maxChannels, inBandwidth, outBandwidth, np)
+    address      = address or "localhost"
+    port         = port or 14017
+    maxPeers     = maxPeers or 64
+    maxChannels  = maxChannels or 1
+    inBandwidth  = inBandwidth or 0
+    outBandwidth = outBandwidth or 0
+
+    --setmetatable(Server, { __index = require("SockServer") })
+
+    local serverObject = setmetatable(self, Server) or
         error("Unable to create new sock server!", 2)
+
+    setmetatable(serverObject, { __index = require("SockServer") })
+
+    --serverObject:start(nil, nil)
 
     --[[ Imports ]]
     --Initialize all imports to avoid recursive imports
@@ -997,7 +1004,7 @@ function Server:new(serverObject, address, port, maxPeers, maxChannels, inBandwi
         ---@type Logger
         serverObject.logger = serverObject.noitaMpSettings.logger or
             require("Logger")
-            :new(nil, serverObject.customProfiler) or
+            :new(nil, serverObject.noitaMpSettings) or
             error("serverObject.logger must not be nil!", 2)
     end
 
@@ -1028,6 +1035,15 @@ function Server:new(serverObject, address, port, maxPeers, maxChannels, inBandwi
             :new(nil, serverObject.customProfiler, serverObject.globalsUtils, serverObject.logger,
                 serverObject.networkVscUtils, serverObject.noitaMpSettings, serverObject.noitaMpSettings.utils) or
             error("Unable to create MinaUtils!", 2)
+    end
+
+    if not serverObject.fileUtils then
+        ---@type FileUtils
+        ---@see FileUtils
+        serverObject.fileUtils = require("FileUtils")
+            :new(nil, serverObject.customProfiler, serverObject.logger, serverObject.noitaMpSettings,
+                nil, serverObject.utils)
+        serverObject.customProfiler.fileUtils = serverObject.fileUtils
     end
 
     if not serverObject.nuidUtils then
@@ -1083,14 +1099,6 @@ function Server:new(serverObject, address, port, maxPeers, maxChannels, inBandwi
         serverObject.entityCache.entityUtils = serverObject.entityUtils
     end
 
-    if not serverObject.fileUtils then
-        ---@type FileUtils
-        ---@see FileUtils
-        serverObject.fileUtils = require("FileUtils")
-            :new(nil, serverObject.customProfiler, serverObject.logger, serverObject.noitaMpSettings,
-                nil, serverObject.utils)
-    end
-
     if not serverObject.guidUtils then
         ---@type GuidUtils
         ---@see GuidUtils
@@ -1108,14 +1116,35 @@ function Server:new(serverObject, address, port, maxPeers, maxChannels, inBandwi
             :new(nil, nil, serverObject.customProfiler, np)
     end
 
-    if not serverObject.sock then
-        serverObject.sock = require("sock")
-    end
+    --if not serverObject.sock then
+    --    serverObject.sock = require("sock")
+    --end
     if not serverObject.zstandard then
         serverObject.zstandard = require("zstd")
     end
 
     -- [[ Attributes ]]
+    serverObject.address            = address
+    serverObject.port               = port
+    serverObject.host               = nil
+    serverObject.messageTimeout     = 0
+    serverObject.maxChannels        = maxChannels
+    serverObject.maxPeers           = maxPeers
+    serverObject.sendMode           = "reliable"
+    serverObject.defaultSendMode    = "reliable"
+    serverObject.sendChannel        = 0
+    serverObject.defaultSendChannel = 0
+    serverObject.peers              = {}
+    serverObject.clients            = {}
+    --serverObject.listener           = newListener()
+    --serverObject.logger             = newLogger("SERVER")
+    serverObject.serialize          = nil
+    serverObject.deserialize        = nil
+    serverObject.packetsSent        = 0
+    serverObject.packetsReceived    = 0
+    --serverObject.zipTable           = function(items, keys, event)
+    --    return zipTable(items, keys, event)
+    --end
 
     serverObject.acknowledgeMaxSize = 500
     serverObject.guid               = nil

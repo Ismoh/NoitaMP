@@ -51,7 +51,9 @@ if require then
     local fileUtils       = require("FileUtils")
         :new(nil, noitaMpSettings.customProfiler, nil, noitaMpSettings, nil, utils)
 
-    checkMandatoryDependencyMods(fileUtils, utils)
+    if not _G.isTestLuaContext then
+        checkMandatoryDependencyMods(fileUtils, utils)
+    end
 
     noitaMpSettings.customProfiler:init()
 end

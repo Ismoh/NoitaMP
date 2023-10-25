@@ -1,15 +1,21 @@
 dofile_once("mods/noita-mp/files/scripts/init/init_.lua")
-dofile_once("mods/noita-mp/files/scripts/noita-components/init_noita_components.lua")
+
+---@type NoitaMpSettings
+noitaMpSettings = noitaMpSettings or {}
+noitaMpSettings.customProfiler = {
+    start = function() end,
+    stop = function() end,
+}
 
 ---@type Logger
 logger = logger or
     dofile_once("mods/noita-mp/files/scripts/util/Logger.lua")
-    :new(nil, { start = function() end, stop = function() end })
+    :new(nil, noitaMpSettings)
 
 ---@type GlobalsUtils
 globalsUtils = globalsUtils or
     dofile_once("mods/noita-mp/files/scripts/util/GlobalsUtils.lua")
-    :new(nil, { start = function() end, stop = function() end }, logger, {}, {
+    :new(nil, logger.noitaMpSettings.customProfiler, logger, {}, {
         isEmpty = function(self, var)
             if var == nil then
                 return true
@@ -27,7 +33,7 @@ globalsUtils = globalsUtils or
 ---@type NetworkVscUtils
 networkVscUtils = networkVscUtils or
     dofile_once("mods/noita-mp/files/scripts/util/NetworkVscUtils.lua")
-    :new(nil, { start = function() end, stop = function() end }, logger, {}, globalsUtils, {
+    :new(nil, logger.noitaMpSettings.customProfiler, logger, {}, globalsUtils, {
         isEmpty = function(self, var)
             if var == nil then
                 return true
@@ -52,11 +58,14 @@ if executeOnAdded then
     end
     local ownerName, ownerGuid, nuid   = networkVscUtils:getAllVscValuesByEntityId(currentEntityId)
     local globalsNuid, globalsEntityId = globalsUtils:getNuidEntityPair(nuid)
-    if currentEntityId ~= globalsEntityId then
+    if not nuid and globalsNuid then
+        nuid = globalsNuid
+    end
+    if currentEntityId ~= globalsEntityId and nuid then
         globalsUtils:setNuid(nuid, currentEntityId)
         logger:debug(logger.channels.nuid, ("nuid in noitas global storage was set: nuid = %s and entity_id = %s"):format(nuid, currentEntityId))
+        SetValueBool("executeOnAdded", 0)
     end
-    SetValueBool("executeOnAdded", 0)
 end
 
 if not executeOnAdded then

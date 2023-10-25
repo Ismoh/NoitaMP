@@ -57,6 +57,21 @@
         "command": "luarocks test ${input:luaRocksTestCommand}"
       },
       "problemMatcher": []
+    },
+    {
+      "label": "Compile LuaJIT-2.1.0-beta3",
+      "type": "shell",
+      "windows": {
+        "command": "cd ${workspaceFolder}\\.building\\LuaJIT-2.1.0-beta3\\src && msvcbuild.bat"
+      },
+    },
+    {
+      "label": "Run LuaJIT Profiler on init.lua (LuaJIT-2.1.0-beta3)",
+      "type": "shell",
+      "windows": {
+        "command": "lua -jp=a ${workspaceFolder}\\mods\\noita-mp\\LuaJITProfilerRunner.lua"
+      },
+      "problemMatcher": []
     }
   ],
   "inputs": [

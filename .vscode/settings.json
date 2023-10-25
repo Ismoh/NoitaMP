@@ -76,5 +76,5 @@
   ],
   "prettier.printWidth": 110,
   "lua.debug.settings.luaVersion": "jit",
-  "lua-local.interpreter": "LuaJIT",
+  "lua-local.interpreter": "",
 }

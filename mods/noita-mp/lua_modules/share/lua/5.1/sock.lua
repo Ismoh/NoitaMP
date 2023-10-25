@@ -149,7 +149,7 @@ function Logger:log(event, data)
     local time      = os.date("%X") -- something like 24:59:59
     local shortLine = ("%s [%s] %s"):format(time, event, data)
     local fullLine  = ("%s [%s %s] %s"):format(time, self.source, event,
-        utils:pformat(data))                                        --local fullLine  = ("[%s][%s][%s] %s"):format(self.source, time, event, data)
+        utils:pformat(data)) --local fullLine  = ("[%s][%s][%s] %s"):format(self.source, time, event, data)
 
     -- The printed message may or may not be the full message
     local line      = fullLine
@@ -252,7 +252,9 @@ end
 --- NoitaMp Moved this part from newServer to Server:start
 ---@param ip string
 ---@param port number
-function Server:start(ip, port)
+---@param fileUtils FileUtils
+---@param logger Logger
+function Server:start(ip, port, fileUtils, logger)
     ip           = ip or self.address
     port         = port or self.port
 
@@ -266,8 +268,8 @@ function Server:start(ip, port)
     if not self.host then
         --error("Failed to create the host. Is there another server running on :" .. self.port .. "?")
         self:log("", { "Failed to create the host. Is there another server running on :" .. self.port .. "?" })
-        local pid = FileUtils.GetPidOfRunningEnetHostByPort()
-        FileUtils.KillProcess(pid)
+        local pid = fileUtils:GetPidOfRunningEnetHostByPort()
+        fileUtils:KillProcess(pid)
         return false
     end
 
@@ -276,7 +278,7 @@ function Server:start(ip, port)
 
     self:setBandwidthLimit(0, 0)
 
-    _G.Logger.info(_G.Logger.channels.network, "Started server on " .. self.address .. ":" .. self.port)
+    logger:info(logger.channels.network, ("Started server on %s:%s"):format(self.address, self.port))
     -- Serialization is set in Server.setConfigSettings()
     --if bitserLoaded then
     --    self:setSerialization(bitser.dumps, bitser.loads)
@@ -1538,7 +1540,7 @@ sock.newClient = function(address, port, maxChannels)
         port               = nil,
         host               = nil,
 
-        connection         = nil,                                -- aka peer
+        connection         = nil, -- aka peer
         connectId          = nil,
 
         messageTimeout     = 0,

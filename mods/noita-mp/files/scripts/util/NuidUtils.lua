@@ -17,9 +17,10 @@ function NuidUtils:getNextNuid()
     -- Are there any nuids saved in globals, if so get the highest nuid?
     if not self.xmlParsed then
         local worldStateXmlAbsPath = self.fileUtils:GetAbsDirPathOfWorldStateXml(_G.saveSlotMeta.dir)
-        if self.fileUtils:Exists(worldStateXmlAbsPath) then
-            local f   = io.open(worldStateXmlAbsPath, "r")
-            local xml = self.nxml.parse(f:read("*a"))
+        if not self.worldStateXmlFileExists then
+            self.worldStateXmlFileExists = self.fileUtils:Exists(worldStateXmlAbsPath)
+            local f                      = io.open(worldStateXmlAbsPath, "r")
+            local xml                    = self.nxml.parse(f:read("*a"))
             f:close()
 
             for v in xml:first_of("WorldStateComponent"):first_of("lua_globals"):each_of("E") do
@@ -50,7 +51,10 @@ function NuidUtils:getEntityIdsByKillIndicator()
     local cpc                  = self.customProfiler:start("NuidUtils.getEntityIdsByKillIndicator")
     local deadNuids            = self.globalUtils:getDeadNuids()
     local worldStateXmlAbsPath = self.fileUtils:GetAbsDirPathOfWorldStateXml(_G.saveSlotMeta.dir)
-    if self.fileUtils:Exists(worldStateXmlAbsPath) then
+    if not self.worldStateXmlFileExists then
+        self.worldStateXmlFileExists = self.fileUtils:Exists(worldStateXmlAbsPath)
+    end
+    if self.worldStateXmlFileExists then
         local fileContent = self.fileUtils:ReadFile(worldStateXmlAbsPath, "*a")
         local xml         = self.nxml.parse(fileContent)
 

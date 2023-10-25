@@ -461,6 +461,26 @@ function Gui:drawSettings()
             self.playerListIsClickable = isClickableValue
         end
 
+        -- Profiler settings
+        self.imGui.Separator()
+        self.imGui.Text("Profiler:")
+
+        if jit.version_num == 20100 then
+            if not jit.p.isProfiling then
+                if self.imGui.Button("Start jit.p") then
+                    print("jit.p.start()")
+                    jit.p.start(jit.p.mode, ("%s/%s.log"):format(jit.p.outPath, jit.p.outFile))
+                end
+            end
+
+            if jit.p.isProfiling then
+                if self.imGui.Button("Stop jit.p") then
+                    print("jit.p.stop()")
+                    jit.p.stop()
+                end
+            end
+        end
+
         -- Logger settings
         self.imGui.Separator()
         self.imGui.Text("Logger:")

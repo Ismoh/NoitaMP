@@ -28,8 +28,19 @@ function table.contains(tbl, key)
     if table.isEmpty(tbl) then
         return false, -1
     end
-    if not key or key <= 0 or key == "" then
+    if not key then
+        error("Unable to check if a key is contained in a table, when key is nil.", 2)
         return false, -1
+    end
+    if type(key) == "number" then
+        if key <= 0 then
+            return false, -1
+        end
+    end
+    if type(key) == "string" then
+        if key == "" then
+            return false, -1
+        end
     end
     for k, v in pairs(tbl) do
         if v == key then

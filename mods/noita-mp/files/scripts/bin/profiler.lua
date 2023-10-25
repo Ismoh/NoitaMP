@@ -1,8 +1,6 @@
 local params = { ... }
 print("params", table.concat(params, ", "))
 
---require "luadebug" : start "127.0.0.1:4980" : event "wait"
-
 local cache            = {}
 ---@type FileUtils
 local fileUtils        = nil

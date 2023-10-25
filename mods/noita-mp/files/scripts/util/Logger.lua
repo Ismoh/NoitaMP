@@ -116,20 +116,42 @@ end
 
 ---Logger constructor.
 ---@param loggerObject Logger|nil
----@param customProfiler CustomProfiler required
+---@param noitaMpSettings NoitaMpSettings required
 ---@return Logger
-function Logger:new(loggerObject, customProfiler)
+function Logger:new(loggerObject, noitaMpSettings)
     ---@class Logger
     loggerObject = setmetatable(loggerObject or self, Logger)
 
-    local cpc = customProfiler:start("Logger:new")
+    if not noitaMpSettings then
+        error("Logger:new requires a NoitaMpSettings object", 2)
+    end
+
+    if not noitaMpSettings.customProfiler then
+        if DebugGetIsDevBuild() and not lldebugger then -- TODO: remove this before merge
+            if require then -- TODO: remove this before merge
+                lldebugger = require("lldebugger") -- TODO: remove this before merge
+            else -- TODO: remove this before merge
+                error("Logger:new requires a CustomProfiler object", 2) -- TODO: remove this before merge
+            end -- TODO: remove this before merge
+        end-- TODO: remove this before merge
+        lldebugger.start(true)-- TODO: remove this before merge
+        error("Logger:new requires a CustomProfiler object", 2)
+    end
+
+    local cpc = noitaMpSettings.customProfiler:start("Logger:new")
 
     --[[ Imports ]]
     --Initialize all imports to avoid recursive imports
 
+    if not loggerObject.noitaMpSettings then
+        ---@type NoitaMpSettings
+        loggerObject.noitaMpSettings = noitaMpSettings
+    end
+
     if not loggerObject.customProfiler then
         ---@type CustomProfiler
-        loggerObject.customProfiler = customProfiler
+        loggerObject.customProfiler = noitaMpSettings.customProfiler or
+            error("Logger:new requires a CustomProfiler object", 2)
     end
 
     self:trace(self.channels.initialize, "Logger was initialized!")

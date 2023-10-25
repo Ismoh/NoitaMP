@@ -65,8 +65,8 @@ function CustomProfiler:start(functionName)
         return -1
     end
 
-    -- if not self.reportCache[functionName] then
-    --     self.reportCache[functionName] = {}
+    -- if jit.profile then
+    --     jit.profile.start("f", 1)
     -- end
 
     local frame       = GameGetFrameNum()
@@ -162,7 +162,9 @@ function CustomProfiler:new(customProfiler, fileUtils, noitaMpSettings, plotly, 
 
     if not customProfiler.fileUtils then
         ---@type FileUtils
-        customProfiler.fileUtils = fileUtils or require("FileUtils"):new(nil, customProfiler, nil, noitaMpSettings, plotly, utils)
+        customProfiler.fileUtils = fileUtils or
+            require("FileUtils")
+            :new(nil, noitaMpSettings.customProfiler, nil, noitaMpSettings, plotly, utils)
     end
 
     if not customProfiler.plotly then

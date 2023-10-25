@@ -39,15 +39,15 @@ if not ModSettingGet then
             return { "trace, debug, info, warn", "TRACE" }
         end
         if id == "noita-mp.name" then
-            local name = minaUtils.getLocalMinaName()
-            if utils.IsEmpty(name) then
+            local name = minaUtils:getLocalMinaName()
+            if utils:IsEmpty(name) then
                 name = "initializeUnitTests"
             end
             return name
         end
         if id == "noita-mp.guid" then
-            local guid = minaUtils.getLocalMinaGuid()
-            if Utils.IsEmpty(guid) then
+            local guid = minaUtils:getLocalMinaGuid()
+            if utils:IsEmpty(guid) then
                 guid = guidUtils:generateNewGuid()
             end
             return guid
@@ -63,7 +63,7 @@ if not ModSettingGet then
             return false
         end
         if id == "noita-mp.guid" then
-            return minaUtils.getLocalMinaGuid()
+            return minaUtils:getLocalMinaGuid()
         end
 
         error(("ModSettingGetNextValue '%s' is not mocked! Add it!"):format(id), 2)
@@ -76,7 +76,7 @@ if not ModSettingGet then
         customProfiler = customProfiler or require("CustomProfiler")
             :new(nil, nil, noitaMpSettings, nil, nil, nil, nil)
         logger = logger or require("Logger")
-            :new(nil, customProfiler)
+            :new(nil, noitaMpSettings)
 
         logger:trace(logger.channels.testing, ("Mocked ModSettingSetNextValue(%s, %s, %s)"):format(id, value, is_default))
     end

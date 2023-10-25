@@ -93,7 +93,7 @@ local noitaMpSettings      = require("NoitaMpSettings")
 local fileUtils            = require("FileUtils")
     :new(nil, nil, nil, noitaMpSettings, nil, nil)
 
-local zstd = ffi_load(fileUtils:GetAbsolutePathOfNoitaRootDirectory() .. "\\mods\\noita-mp\\lua_modules\\lib\\lua\\5.1\\libzstd")
+local zstd = ffi_load(fileUtils:GetAbsolutePathOfNoitaRootDirectory() .. "/mods/noita-mp/lua_modules/lib/lua/5.1/libzstd")
 local file    = assert(io.popen("zstd -vV", "r"))
 local zstdVersion = file:read("*a")
 print("zstd version = " .. zstdVersion)
