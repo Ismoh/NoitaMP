@@ -1,5 +1,9 @@
+-- Needed for inheritance in lua. Load the Superclass into the metatable.__index to make those functions available.
+local SockClient = require("SockClient")
+
 ---@class Client : SockClient Inherit client class from sock.lua#newClient
-local Client = {}
+local Client = setmetatable({}, { __index = SockClient })
+Client.__index = Client
 
 ---Sends acknowledgement for a specific network event.
 ---@private
@@ -968,14 +972,14 @@ end
 ---@param server Server required
 ---@param np noitapatcher required
 ---@return Client
-function Client:new(clientObject, serverOrAddress, port, maxChannels, server, np)
+function Client.new(clientObject, serverOrAddress, port, maxChannels, server, np)
     ---@class Client : SockClient
     clientObject =
         setmetatable(clientObject or
-            require("SockClient"):new(serverOrAddress, port, maxChannels), Client) or
+            require("SockClient").new(serverOrAddress, port, maxChannels), Client) or
         error("Unable to create new sock client!", 2)
 
-    setmetatable(clientObject, { __index = require("SockClient") })
+    --setmetatable(clientObject, { __index = require("SockClient") })
 
     --[[ Imports ]]
     --Initialize all imports to avoid recursive imports

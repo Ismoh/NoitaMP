@@ -1,5 +1,9 @@
+-- Needed for inheritance in lua. Load the Superclass into the metatable.__index to make those functions available.
+local SockServer = require("SockServer")
+
 ---@class Server : SockServer Inherit server class from sock.lua#newServer
-local Server = {}
+local Server = setmetatable({}, { __index = SockServer })
+Server.__index = Server
 
 ---Sends acknowledgement for a specific network event.
 ---@private
@@ -966,14 +970,14 @@ end
 ---@param outBandwidth number|nil optional
 ---@param np noitapatcher required
 ---@return Server
-function Server:new(address, port, maxPeers, maxChannels, inBandwidth, outBandwidth, np)
+function Server.new(address, port, maxPeers, maxChannels, inBandwidth, outBandwidth, np)
     ---@class Server : SockClient
     local serverObject = setmetatable(
-            require("SockServer"):new(address, port, maxPeers, maxChannels, inBandwidth, outBandwidth)
+            require("SockServer").new(address, port, maxPeers, maxChannels, inBandwidth, outBandwidth)
             , Server) or
         error("Unable to create new sock server!", 2)
 
-    setmetatable(serverObject, { __index = require("SockServer") })
+    --setmetatable(serverObject, { __index = require("SockServer") })
 
     --serverObject:start(nil, nil)
 
@@ -992,7 +996,7 @@ function Server:new(address, port, maxPeers, maxChannels, inBandwidth, outBandwi
             require("CustomProfiler")
             :new(nil, nil, serverObject.noitaMpSettings, nil, nil, nil, nil)
     end
-    local cpc = serverObject.customProfiler:start("Server:new")
+    local cpc = serverObject.customProfiler:start("Server.new")
 
     if not serverObject.logger or type(serverObject.logger) ~= "Logger" then
         ---@type Logger
@@ -1154,7 +1158,7 @@ function Server:new(address, port, maxPeers, maxChannels, inBandwidth, outBandwi
     serverObject.guid = tostring(serverObject.noitaMpSettings:get("noita-mp.guid", "string"))
     serverObject.guidUtils:setGuid(nil, serverObject, serverObject.guid)
 
-    serverObject.customProfiler:stop("Server:new", cpc)
+    serverObject.customProfiler:stop("Server.new", cpc)
     return serverObject
 end
 

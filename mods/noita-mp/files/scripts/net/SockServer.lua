@@ -1,4 +1,5 @@
 local SockServer = {}
+SockServer.__index = SockServer
 
 --- A Lua networking library for LÖVE games.
 -- * [Source code](https://github.com/camchenry/sock.lua)
@@ -697,7 +698,7 @@ end
 ---@param inBandwidth number|nil
 ---@param outBandwidth number|nil
 ---@return SockServer
-function SockServer:new(address, port, maxPeers, maxChannels, inBandwidth, outBandwidth)
+function SockServer.new(address, port, maxPeers, maxChannels, inBandwidth, outBandwidth)
     address             = address or "localhost"
     port                = port or 14017
     maxPeers            = maxPeers or 64

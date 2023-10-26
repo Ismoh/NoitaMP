@@ -24,11 +24,11 @@ lldebugger = nil
 
 -- Initialize default server
 local server = require("Server")
-    :new(nil, nil, nil, nil, nil, nil, np)
+    .new(nil, nil, nil, nil, nil, nil, np)
 
 -- Initialize default client
 local client = require("Client")
-    :new(nil, nil, nil, nil, server, np)
+    .new(nil, nil, nil, nil, server, np)
 -- Update client reference
 server.entityUtils.client = client
 server.globalsUtils.client = client
@@ -90,7 +90,7 @@ local function OnEntityLoaded()
     --for guessEntityId = entityUtils:previousHighestAliveEntityId, entityUtils:previousHighestAliveEntityId + 1024, 1 do
     for guessEntityId = entityUtils.previousHighestAliveEntityId, EntitiesGetMaxID(), 1 do
         local entityId = guessEntityId
-        print(("OnEntityLoaded(entityId = %s)"):format(entityId))
+        GamePrint(("OnEntityLoaded(entityId = %s)"):format(entityId))
         while EntityGetIsAlive(entityId) and entityId > entityUtils.previousHighestAliveEntityId do
             if entityId > entityUtils.previousHighestAliveEntityId then
                 entityUtils.previousHighestAliveEntityId = entityId

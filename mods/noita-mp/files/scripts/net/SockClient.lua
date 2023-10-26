@@ -693,7 +693,7 @@ end
 ---@param port number|nil The port to listen to for data. Default: 14017
 ---@param maxChannels number|nil
 ---@return SockClient client
-function SockClient:new(address, port, maxChannels)
+function SockClient.new(address, port, maxChannels)
     address         = address or "localhost"
     port            = port or 14017
     maxChannels     = maxChannels or 1
