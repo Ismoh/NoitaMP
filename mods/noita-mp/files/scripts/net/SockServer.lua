@@ -39,25 +39,7 @@ local enet = require("enet")
 print("lua-enet version = master branch 21.10.2015")
 print(("enet version = %s"):format(enet.linked_version())) -- 1.3.17
 
--- links variables to keys based on their order
--- note that it only works for boolean and number values, not strings
-local function zipTable(items, keys, event)
-    local data = {}
 
-    -- convert variable at index 1 into the value for the key value at index 1, and so on
-    for i, value in ipairs(items) do
-        local key = keys[i]
-
-        if not key then
-            error(("Missing data key for event '%s'! items = %s schema = %s")
-                :format(event, utils:pformat(items), utils:pformat(keys)), 2)
-        end
-
-        data[key] = value
-    end
-
-    return data
-end
 
 --- All of the possible connection statuses for a client connection.
 -- @see Client:getState
@@ -677,9 +659,81 @@ function SockServer:getRoundTripTime()
     return 0
 end
 
-function SockServer:new()
+--- Creates a new Server object.
+-- @tparam ?string address Hostname or IP address to bind to. (default: "localhost")
+-- @tparam ?number port Port to listen to for data. (default: 1337)
+-- @tparam ?number maxPeers Maximum peers that can connect to the server. (default: 64)
+-- @tparam ?number maxChannels Maximum channels available to send and receive data. (default: 1)
+-- @tparam ?number inBandwidth Maximum incoming bandwidth (default: 0)
+-- @tparam ?number outBandwidth Maximum outgoing bandwidth (default: 0)
+-- @return A new Server object.
+-- @see Server
+-- @within sock
+-- @usage
+--local sock = require "sock"
+--
+-- -- Local server hosted on localhost:1337 (by default)
+--server = sock.newServer()
+--
+-- -- Local server only, on port 1234
+--server = sock.newServer("localhost", 1234)
+--
+-- -- Server hosted on static IP 123.45.67.89, on port 1337
+--server = sock.newServer("123.45.67.89", 1337)
+--
+-- -- Server hosted on any IP, on port 1337
+--server = sock.newServer("*", 1337)
+--
+-- -- Limit peers to 10, channels to 2
+--server = sock.newServer("*", 1337, 10, 2)
+--
+-- -- Limit incoming/outgoing bandwidth to 1kB/s (1000 bytes/s)
+--server = sock.newServer("*", 1337, 10, 2, 1000, 1000)
+---Creates a new Server instance.
+---@param address string|nil The IP address or hostname to bind to. Default: "localhost" Available: "localhost", "*", "xxx.xxx.xxx.xxx" or nil
+---@param port number|nil The port to listen to for data. Default: 14017
+---@param maxPeers number|nil
+---@param maxChannels number|nil
+---@param inBandwidth number|nil
+---@param outBandwidth number|nil
+---@return SockServer
+function SockServer:new(address, port, maxPeers, maxChannels, inBandwidth, outBandwidth)
+    address             = address or "localhost"
+    port                = port or 14017
+    maxPeers            = maxPeers or 64
+    maxChannels         = maxChannels or 1
+    inBandwidth         = inBandwidth or 0
+    outBandwidth        = outBandwidth or 0
+
     ---@class SockServer
-    local sockServer = setmetatable(self, SockServer)
+    local sockServer    = setmetatable({
+        address            = address,
+        port               = port,
+        host               = nil,
+
+        messageTimeout     = 0,
+        maxChannels        = maxChannels,
+        maxPeers           = maxPeers,
+        sendMode           = "reliable",
+        defaultSendMode    = "reliable",
+        sendChannel        = 0,
+        defaultSendChannel = 0,
+
+        peers              = {},
+        clients            = {},
+
+        listener           = require("SockListener"):newListener(),--newListener(),
+        --logger             = newLogger("SERVER"),
+
+        serialize          = nil,
+        deserialize        = nil,
+
+        packetsSent        = 0,
+        packetsReceived    = 0,
+
+    }, SockServer)
+
+    sockServer.zipTable = require("NetworkUtils").zipTable
 
     return sockServer
 end

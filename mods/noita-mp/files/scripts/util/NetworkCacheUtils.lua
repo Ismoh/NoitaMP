@@ -26,7 +26,7 @@ function NetworkCacheUtils.getSum(event, data)
     end
 
     Logger.trace(Logger.channels.testing, "data: " .. utils:pformat(data))
-    local dataCopy = NetworkUtils.getClientOrServer().zipTable(data, NetworkUtils.events[event].schema, event)
+    local dataCopy = NetworkUtils:zipTable(data, NetworkUtils.events[event].schema, event)
     Logger.trace(Logger.channels.testing, "dataCopy zipped: " .. utils:pformat(dataCopy))
     if event ~= NetworkUtils.events.acknowledgement.name then
         -- when event is NOT acknowledgement, remove networkMessageId,

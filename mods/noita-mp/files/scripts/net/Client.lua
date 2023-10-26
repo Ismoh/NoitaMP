@@ -1,11 +1,5 @@
-local sock = require("sock")
-
 ---@class Client : SockClient Inherit client class from sock.lua#newClient
-local Client = setmetatable({
-    -- when a class inherits from another class, all additional imports and attributes are defined in :new() !
-}, { __index = sock.getClientClass() })
-Client.__index = Client
-
+local Client = {}
 
 ---Sends acknowledgement for a specific network event.
 ---@private
@@ -977,8 +971,11 @@ end
 function Client:new(clientObject, serverOrAddress, port, maxChannels, server, np)
     ---@class Client : SockClient
     clientObject =
-        setmetatable(clientObject or sock.newClient(serverOrAddress, port, maxChannels), Client) or
+        setmetatable(clientObject or
+            require("SockClient"):new(serverOrAddress, port, maxChannels), Client) or
         error("Unable to create new sock client!", 2)
+
+    setmetatable(clientObject, { __index = require("SockClient") })
 
     --[[ Imports ]]
     --Initialize all imports to avoid recursive imports

@@ -1,4 +1,4 @@
----@class Server
+---@class Server : SockServer Inherit server class from sock.lua#newServer
 local Server = {}
 
 ---Sends acknowledgement for a specific network event.
@@ -967,16 +967,10 @@ end
 ---@param np noitapatcher required
 ---@return Server
 function Server:new(address, port, maxPeers, maxChannels, inBandwidth, outBandwidth, np)
-    address      = address or "localhost"
-    port         = port or 14017
-    maxPeers     = maxPeers or 64
-    maxChannels  = maxChannels or 1
-    inBandwidth  = inBandwidth or 0
-    outBandwidth = outBandwidth or 0
-
-    --setmetatable(Server, { __index = require("SockServer") })
-
-    local serverObject = setmetatable(self, Server) or
+    ---@class Server : SockClient
+    local serverObject = setmetatable(
+            require("SockServer"):new(address, port, maxPeers, maxChannels, inBandwidth, outBandwidth)
+            , Server) or
         error("Unable to create new sock server!", 2)
 
     setmetatable(serverObject, { __index = require("SockServer") })
@@ -1142,9 +1136,6 @@ function Server:new(address, port, maxPeers, maxChannels, inBandwidth, outBandwi
     serverObject.deserialize        = nil
     serverObject.packetsSent        = 0
     serverObject.packetsReceived    = 0
-    --serverObject.zipTable           = function(items, keys, event)
-    --    return zipTable(items, keys, event)
-    --end
 
     serverObject.acknowledgeMaxSize = 500
     serverObject.guid               = nil

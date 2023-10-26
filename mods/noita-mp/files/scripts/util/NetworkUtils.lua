@@ -297,6 +297,27 @@ function NetworkUtils.isTick()
     return false
 end
 
+-- links variables to keys based on their order
+-- note that it only works for boolean and number values, not strings
+-- credits to sock.lua
+function NetworkUtils:zipTable(items, keys, event)
+    local data = {}
+
+    -- convert variable at index 1 into the value for the key value at index 1, and so on
+    for i, value in ipairs(items) do
+        local key = keys[i]
+
+        if not key then
+            error(("Missing data key for event '%s'! items = %s schema = %s")
+                :format(event, utils:pformat(items), utils:pformat(keys)), 2)
+        end
+
+        data[key] = value
+    end
+
+    return data
+end
+
 -- Because of stack overflow errors when loading lua files,
 -- I decided to put Utils 'classes' into globals
 _G.NetworkUtils = NetworkUtils
