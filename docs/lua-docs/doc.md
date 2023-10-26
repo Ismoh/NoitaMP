@@ -25,7 +25,7 @@ function Client.amIClient(self: Client)
 Checks if the current local user is a client.
 
 @*return* `true` — if client, false if not
-See: [Server.amIServer](../../mods/noita-mp/files/scripts/net/Server.lua#L936#9)
+See: [Server.amIServer](../../mods/noita-mp/files/scripts/net/Server.lua#L933#9)
 
 ## connect
 
@@ -47,10 +47,8 @@ See: ~sock.connect~
 
 
 ```lua
-CustomProfiler
+unknown
 ```
-
-Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 
 ## disconnect
 
@@ -66,14 +64,14 @@ See: ~sock.disconnect~
 
 
 ```lua
-EntityUtils
+unknown
 ```
 
 ## fileUtils
 
 
 ```lua
-FileUtils
+unknown
 ```
 
 ## getAckCacheSize
@@ -90,14 +88,14 @@ Mainly for profiling. Returns then network cache, aka acknowledge.
 
 
 ```lua
-GlobalsUtils
+unknown
 ```
 
 ## globalsUtils
 
 
 ```lua
-GlobalsUtils
+unknown
 ```
 
 ## guid
@@ -111,10 +109,8 @@ nil
 
 
 ```lua
-GuidUtils
+unknown
 ```
-
-GuidUtils is just for generating and validating GUIDs. Guids are used for identifying clients and servers.
 
 ## health
 
@@ -134,7 +130,7 @@ string
 
 
 ```lua
-Logger
+unknown
 ```
 
 ## messagePack
@@ -171,31 +167,29 @@ nil
 
 
 ```lua
-NetworkCache
+unknown
 ```
 
 ## networkCacheUtils
 
 
 ```lua
-NetworkCacheUtils
+unknown
 ```
 
 ## networkUtils
 
 
 ```lua
-NetworkUtils
+table
 ```
 
 ## networkVscUtils
 
 
 ```lua
-NetworkVscUtils
+unknown
 ```
-
-NetworkVscUtils for getting and setting values in VariableStorageComponents of Noita-API
 
 ## new
 
@@ -215,19 +209,15 @@ Client constructor. Inherits from SockClient sock.Client.
 
 
 ```lua
-NoitaComponentUtils
+unknown
 ```
-
-Class for using Noita components.
 
 ## noitaMpSettings
 
 
 ```lua
-NoitaMpSettings
+unknown
 ```
-
- NoitaMpSettings: Replacement for Noita ModSettings.
 
 ## noitaPatcherUtils
 
@@ -383,10 +373,8 @@ See: ~sock.update~
 
 
 ```lua
-Utils
+unknown
 ```
-
-Utils class for lazy developers.
 
 ## zstandard
 
@@ -1181,22 +1169,6 @@ function FileUtils.GetVersionByFile(self: FileUtils)
 
 Returns NoitaMP version by reading the .version file.
 
-## IsDirectory
-
-
-```lua
-function FileUtils.IsDirectory(self: FileUtils, full_path: string)
-  -> boolean
-```
-
-## IsFile
-
-
-```lua
-function FileUtils.IsFile(self: FileUtils, full_path: string)
-  -> boolean
-```
-
 ## KillNoitaAndRestart
 
 
@@ -1734,7 +1706,7 @@ See: [NoitaMpSettings](../../mods/noita-mp/files/scripts/NoitaMpSettings.lua#L2#
 Server
 ```
 
-See: [Server](../../mods/noita-mp/files/scripts/net/Server.lua#L3#10)
+See: [Server](../../mods/noita-mp/files/scripts/net/Server.lua#L1#10)
 
 ## setShowMissingSettings
 
@@ -1981,13 +1953,22 @@ function Logger.info(self: Logger, channel: any, formattedMessage: any)
 
 
 ```lua
-function Logger.new(self: Logger, loggerObject: Logger|nil, customProfiler: CustomProfiler)
+function Logger.new(self: Logger, loggerObject: Logger|nil, noitaMpSettings: NoitaMpSettings)
   -> Logger
 ```
 
 Logger constructor.
 
-@*param* `customProfiler` — required
+@*param* `noitaMpSettings` — required
+
+## noitaMpSettings
+
+
+```lua
+NoitaMpSettings
+```
+
+ NoitaMpSettings: Replacement for Noita ModSettings.
 
 ## trace
 
@@ -2744,7 +2725,7 @@ function NetworkVscUtils.new(self: NetworkVscUtils, networkVscUtilsObject: any, 
 any
 ```
 
-See: [Server](../../mods/noita-mp/files/scripts/net/Server.lua#L3#10)
+See: [Server](../../mods/noita-mp/files/scripts/net/Server.lua#L1#10)
 
 ## utils
 
@@ -3047,6 +3028,13 @@ Sets a setting. Saves the settings to the settings file and returns the new upda
 
 @*param* `value` — required
 
+## settingsFileExists
+
+
+```lua
+unknown
+```
+
 ## utils
 
 
@@ -3221,6 +3209,13 @@ NuidUtils constructor
 nxml
 ```
 
+## worldStateXmlFileExists
+
+
+```lua
+unknown
+```
+
 
 ---
 
@@ -3270,20 +3265,6 @@ function PlayerNameFunction(entity_id: any, playerName: any)
 
 # Server
 
-## __index
-
-
-```lua
-Server
-```
-
-## acknowledgeMaxSize
-
-
-```lua
-integer
-```
-
 ## amIServer
 
 
@@ -3308,47 +3289,6 @@ Bans a player by name.
 
 @*param* `name` — required
 
-## customProfiler
-
-
-```lua
-CustomProfiler
-```
-
-Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
-
-## entityCache
-
-
-```lua
-EntityCache
-```
-
-## entityCacheUtils
-
-
-```lua
-EntityCacheUtils
-```
-
-See: [EntityCacheUtils](../../mods/noita-mp/files/scripts/util/EntityCacheUtils.lua#L1#10)
-
-## entityUtils
-
-
-```lua
-EntityUtils
-```
-
-## fileUtils
-
-
-```lua
-FileUtils
-```
-
-See: [FileUtils](../../mods/noita-mp/files/scripts/util/FileUtils.lua#L1#10)
-
 ## getAckCacheSize
 
 
@@ -3358,45 +3298,6 @@ function Server.getAckCacheSize(self: Server)
 ```
 
 Mainly for profiling. Returns then network cache, aka acknowledge.
-
-## globalsUtils
-
-
-```lua
-GlobalsUtils
-```
-
-See: [GlobalsUtils](../../mods/noita-mp/files/scripts/util/GlobalsUtils.lua#L1#10)
-
-## guid
-
-
-```lua
-nil
-```
-
-## guidUtils
-
-
-```lua
-GuidUtils
-```
-
-See: [GuidUtils](../../mods/noita-mp/files/scripts/util/GuidUtils.lua#L2#10)
-
-## health
-
-
-```lua
-table
-```
-
-## iAm
-
-
-```lua
-string
-```
 
 ## isRunning
 
@@ -3410,6 +3311,8 @@ Returns true if server is running, false if not.
 
 @*return* `true` — if server is running, false if not
 
+ TODO: remove this before merge
+
 ## kick
 
 
@@ -3421,90 +3324,15 @@ Kicks a player by name.
 
 @*param* `name` — required
 
-## logger
-
-
-```lua
-Logger
-```
-
-## messagePack
-
-
-```lua
-unknown
-```
-
-## minaUtils
-
-
-```lua
-MinaUtils
-```
-
-Util class for fetching information about local and remote minas.
-
-## modListCached
-
-
-```lua
-nil
-```
-
-## name
-
-
-```lua
-nil
-```
-
-## networkCache
-
-
-```lua
-table
-```
-
-:new()
-
-## networkCacheUtils
-
-
-```lua
-table
-```
-
-:new()
-
-## networkUtils
-
-
-```lua
-table
-```
-
-:new()
-
-## networkVscUtils
-
-
-```lua
-NetworkVscUtils
-```
-
-NetworkVscUtils for getting and setting values in VariableStorageComponents of Noita-API
-
 ## new
 
 
 ```lua
-function Server.new(self: Server, serverObject: Server|nil, address: string|nil, port: number|nil, maxPeers: number|nil, maxChannels: number|nil, inBandwidth: number|nil, outBandwidth: number|nil, np: noitapatcher)
+function Server.new(self: Server, address: string|nil, port: number|nil, maxPeers: number|nil, maxChannels: number|nil, inBandwidth: number|nil, outBandwidth: number|nil, np: noitapatcher)
   -> Server
 ```
 
 Server constructor. Inherits from SockServer sock.newServer.
-
-@*param* `serverObject` — optional
 
 @*param* `address` — optional
 
@@ -3519,47 +3347,6 @@ Server constructor. Inherits from SockServer sock.newServer.
 @*param* `outBandwidth` — optional
 
 @*param* `np` — required
-
-## noitaComponentUtils
-
-
-```lua
-NoitaComponentUtils
-```
-
-Class for using Noita components.
-
-## noitaMpSettings
-
-
-```lua
-NoitaMpSettings
-```
-
- NoitaMpSettings: Replacement for Noita ModSettings.
-
-## noitaPatcherUtils
-
-
-```lua
-NoitaPatcherUtils
-```
-
-## nuid
-
-
-```lua
-nil
-```
-
-## nuidUtils
-
-
-```lua
-NuidUtils
-```
-
-NuidUtils for getting the current network unique identifier
 
 ## send
 
@@ -3578,7 +3365,6 @@ Sends a message a one peer.
 @*param* `data` — required
 
 @*return* `true` — if message was sent, false if not
-See: ~SockServer.sendToPeer~
 
 ## sendDeadNuids
 
@@ -3689,13 +3475,6 @@ Sends a message to all peers excluded one peer defined as the peer param.
 
 @*return* `true` — if message was sent, false if not
 
-## sock
-
-
-```lua
-unknown
-```
-
 ## start
 
 
@@ -3718,13 +3497,6 @@ function Server.stop(self: Server)
 
 Stops the server.
 
-## transform
-
-
-```lua
-table
-```
-
 ## update
 
 
@@ -3737,21 +3509,10 @@ Updates the server by checking for network events and handling them.
 @*param* `startFrameTime` — required
 See: ~SockServer.update~
 
-## utils
 
+---
 
-```lua
-unknown
-```
-
-Utils class for lazy developers.
-
-## zstandard
-
-
-```lua
-unknown
-```
+# SockServer
 
 
 ---
@@ -4995,6 +4756,19 @@ boolean
 
 ---
 
+# lldebugger
+
+ TODO: remove this before merge
+ TODO: remove this before merge
+
+
+```lua
+unknown
+```
+
+
+---
+
 # load
 
 
@@ -5752,6 +5526,50 @@ NoitaComponentUtils
 
 ---
 
+# noitaMpSettings
+
+ NoitaMpSettings: Replacement for Noita ModSettings.
+
+
+```lua
+NoitaMpSettings
+```
+
+
+```lua
+NoitaMpSettings
+```
+
+
+```lua
+NoitaMpSettings
+```
+
+
+---
+
+# noitaMpSettings.customProfiler
+
+Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
+
+
+```lua
+CustomProfiler
+```
+
+
+```lua
+CustomProfiler
+```
+
+
+```lua
+CustomProfiler
+```
+
+
+---
+
 # orderedNext
 
 
@@ -6467,6 +6285,48 @@ function setmetatable(table: table, metatable?: table)
 ```lua
 string
 ```
+
+
+---
+
+# sock
+
+## CONNECTING_STATES
+
+
+```lua
+table
+```
+
+ States that represent the client connecting to a server.
+
+## CONNECTION_STATES
+
+
+```lua
+table
+```
+
+ All of the possible connection statuses for a client connection.
+ @see Client:getState
+
+## DISCONNECTING_STATES
+
+
+```lua
+table
+```
+
+ States that represent the client disconnecting from a server.
+
+## SEND_MODES
+
+
+```lua
+table
+```
+
+ Valid modes for sending messages.
 
 
 ---
