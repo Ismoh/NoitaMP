@@ -1,5 +1,12 @@
 # Client
 
+## __index
+
+
+```lua
+Client
+```
+
 ## acknowledgeMaxSize
 
 
@@ -18,7 +25,7 @@ function Client.amIClient(self: Client)
 Checks if the current local user is a client.
 
 @*return* `true` — if client, false if not
-See: [Server.amIServer](../../mods/noita-mp/files/scripts/net/Server.lua#L933#9)
+See: [Server.amIServer](../../mods/noita-mp/files/scripts/net/Server.lua#L937#9)
 
 ## connect
 
@@ -194,7 +201,7 @@ NetworkVscUtils for getting and setting values in VariableStorageComponents of N
 
 
 ```lua
-function Client.new(self: Client, clientObject: Client|nil, serverOrAddress: string|nil, port: number|nil, maxChannels: number|nil, server: Server, np: noitapatcher)
+function Client.new(clientObject: Client|nil, serverOrAddress: string|nil, port: number|nil, maxChannels: number|nil, server: Server, np: noitapatcher)
   -> Client
 ```
 
@@ -1558,7 +1565,7 @@ Function to check if the user pressed a shortcut.
 Client
 ```
 
-See: [Client](../../mods/noita-mp/files/scripts/net/Client.lua#L1#10)
+See: [Client](../../mods/noita-mp/files/scripts/net/Client.lua#L4#10)
 
 ## customProfiler
 
@@ -1720,7 +1727,7 @@ See: [NoitaMpSettings](../../mods/noita-mp/files/scripts/NoitaMpSettings.lua#L2#
 Server
 ```
 
-See: [Server](../../mods/noita-mp/files/scripts/net/Server.lua#L1#10)
+See: [Server](../../mods/noita-mp/files/scripts/net/Server.lua#L4#10)
 
 ## setShowMissingSettings
 
@@ -2754,7 +2761,7 @@ function NetworkVscUtils.new(self: NetworkVscUtils, networkVscUtilsObject: any, 
 any
 ```
 
-See: [Server](../../mods/noita-mp/files/scripts/net/Server.lua#L1#10)
+See: [Server](../../mods/noita-mp/files/scripts/net/Server.lua#L4#10)
 
 ## utils
 
@@ -3294,6 +3301,13 @@ function PlayerNameFunction(entity_id: any, playerName: any)
 
 # Server
 
+## __index
+
+
+```lua
+Server
+```
+
 ## acknowledgeMaxSize
 
 
@@ -3321,7 +3335,7 @@ function Server.amIServer(self: Server)
 Checks if the current local user is a server.
 
 @*return* `true` — if server, false if not
-See: [Client.amIClient](../../mods/noita-mp/files/scripts/net/Client.lua#L947#9)
+See: [Client.amIClient](../../mods/noita-mp/files/scripts/net/Client.lua#L951#9)
 
 ## ban
 
@@ -3582,7 +3596,7 @@ NetworkVscUtils for getting and setting values in VariableStorageComponents of N
 
 
 ```lua
-function Server.new(self: Server, address: string|nil, port: number|nil, maxPeers: number|nil, maxChannels: number|nil, inBandwidth: number|nil, outBandwidth: number|nil, np: noitapatcher)
+function Server.new(address: string|nil, port: number|nil, maxPeers: number|nil, maxChannels: number|nil, inBandwidth: number|nil, outBandwidth: number|nil, np: noitapatcher)
   -> Server
 ```
 
