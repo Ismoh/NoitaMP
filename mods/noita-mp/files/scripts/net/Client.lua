@@ -715,7 +715,7 @@ end
 ---@param port number|nil port number from 1 to max of 65535 or nil
 ---@param code number|nil connection code 0 = connecting first time, 1 = connected second time with loaded seed
 ---@see sock.connect
-function Client:connect(ip, port, code)
+function Client:preConnect(ip, port, code)
     local cpc = self.customProfiler:start("Client.connect")
 
     if self:isConnecting() or self:isConnected() then
@@ -748,20 +748,17 @@ function Client:connect(ip, port, code)
         ""
     )
 
-    -- Inheritance: https://ozzypig.com/2018/05/10/object-oriented-programming-in-lua-part-5-inheritance
-    self.sock.connect(self, code) --sockClientConnect(self, code)
-
+    self:connect(code)
     -- FYI: If you want to send data after connected, do it in the "connect" callback function
-    self.customProfiler:stop("Client.connect", cpc16)
+    self.customProfiler:stop("Client.connect", cpc)
 end
 
----Disconnects from the server. Inherit from sock.disconnect.
----@see sock.disconnect
-function Client:disconnect()
+--- Disconnects from the server.
+---@see SockClient.disconnect
+function Client:preDisconnect()
     local cpc = self.customProfiler:start("Client.disconnect")
-    if self.isConnected() then
-        -- Inheritance: https://ozzypig.com/2018/05/10/object-oriented-programming-in-lua-part-5-inheritance
-        self.sock.disconnect(self) --sockClientDisconnect(self)
+    if self:isConnected() then
+        self:disconnect()
     else
         self.logger:info(self.logger.channels.network, "Client isn't connected, no need to disconnect!")
     end
@@ -771,15 +768,15 @@ end
 local prevTime = 0
 ---Updates the Client by checking for network events and handling them. Inherit from sock.update.
 ---@param startFrameTime number required
----@see sock.update
-function Client:update(startFrameTime)
+---@see SockClient.update
+function Client:preUpdate(startFrameTime)
     local cpc = self.customProfiler:start("Client.update")
     if not self:isConnected() and not self:isConnecting() or self:isDisconnected() then
         self.customProfiler:stop("Client.update", cpc)
         return
     end
 
-    self.sendMinaInformation()
+    self:sendMinaInformation()
 
     --self.entityUtils.destroyClientEntities()
     --self.entityUtils.processEntityNetworking()
@@ -798,11 +795,10 @@ function Client:update(startFrameTime)
 
         --self.entityUtils.destroyClientEntities()
         --self.entityUtils.syncEntityData()
-        self.entityUtils.syncDeadNuids()
+        self.entityUtils:syncDeadNuids(nil, self)
     end
 
-    -- Inheritance: https://ozzypig.com/2018/05/10/object-oriented-programming-in-lua-part-5-inheritance
-    self.update(self) --sockClientUpdate(self)
+    self:update()
     self.customProfiler:stop("Client.update", cpc)
 end
 
@@ -950,7 +946,7 @@ end
 ---@see Server.amIServer
 function Client:amIClient()
     --local cpc24 = self.customProfiler:start("Client.amIClient") DO NOT PROFILE, stack overflow error! See self.customProfiler.lua
-    if not self.server.amIServer() then
+    if not self.server:amIServer() then
         --self.customProfiler:stop("Client.amIClient", cpc24)
         return true
     end
@@ -1011,14 +1007,13 @@ function Client.new(clientObject, serverOrAddress, port, maxChannels, server, np
     if not clientObject.logger or clientObject.logger ~= clientObject.noitaMpSettings.logger then
         clientObject.logger = clientObject.noitaMpSettings.logger or error("Client:new requires a server object!", 2)
     end
-    if not clientObject.messagePack then
-        clientObject.messagePack = server.messagePack or require("MessagePack")
-    end
     if not clientObject.minaUtils then
         clientObject.minaUtils = server.minaUtils or require("MinaUtils")
     end
     if not clientObject.networkUtils then
         clientObject.networkUtils = server.networkUtils or require("NetworkUtils")
+            :new(clientObject.customProfiler, clientObject.guidUtils, clientObject.logger,
+                clientObject.networkCacheUtils, clientObject.utils)
     end
     if not clientObject.noitaPatcherUtils then
         clientObject.noitaPatcherUtils = server.noitaPatcherUtils or
@@ -1027,12 +1022,6 @@ function Client.new(clientObject, serverOrAddress, port, maxChannels, server, np
     end
     if not clientObject.server then
         clientObject.server = server or error("Client:new requires a server object!", 2)
-    end
-    if not clientObject.sock then
-        clientObject.sock = server.sock or require("sock")
-    end
-    if not clientObject.zstandard then
-        clientObject.zstandard = server.zstandard or require("zstd")
     end
     if not clientObject.utils then
         clientObject.utils = server.utils or error("Client:new requires a server object!", 2)

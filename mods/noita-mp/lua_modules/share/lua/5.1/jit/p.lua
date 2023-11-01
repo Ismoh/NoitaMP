@@ -52,7 +52,7 @@ local zone -- Load jit.zone module on demand.
 
 -- Output file handle.
 local out
-
+local outputFilePath
 ------------------------------------------------------------------------------
 
 local prof_ud
@@ -133,10 +133,22 @@ local function prof_top(count1, count2, samples, indent)
     local pct = floor(v * 100 / samples + 0.5)
     if pct < prof_min then break end
     if not prof_raw then
+      if io.type(out) ~= "file" then
+        print("out is closed, reopening..")
+        out = assert(io.open(outputFilePath, "a+"))
+      end
       out:write(format("%s%2d%%  %s\n", indent, pct, k))
     elseif prof_raw == "r" then
+      if io.type(out) ~= "file" then
+        print("out is closed, reopening..")
+        out = assert(io.open(outputFilePath, "a+"))
+      end
       out:write(format("%s%5d  %s\n", indent, v, k))
     else
+      if io.type(out) ~= "file" then
+        print("out is closed, reopening..")
+        out = assert(io.open(outputFilePath, "a+"))
+      end
       out:write(format("%s %d\n", k, v))
     end
     if count2 then
@@ -180,13 +192,25 @@ local function prof_annotate(count1, samples)
   for _, file in ipairs(files) do
     local f0 = file:byte()
     if f0 == 40 or f0 == 91 then
-      --out:write(format("\n====== %s ======\n[Cannot annotate non-file]\n", file))
+      if io.type(out) ~= "file" then
+        print("out is closed, reopening..")
+        out = assert(io.open(outputFilePath, "a+"))
+      end
+      out:write(format("\n====== %s ======\n[Cannot annotate non-file]\n", file))
       break
     end
     local fp, err = io.open(file)
     if not fp then
+      if io.type(out) ~= "file" then
+        print("out is closed, reopening..")
+        out = assert(io.open(outputFilePath, "a+"))
+      end
       out:write(format("====== ERROR: %s: %s\n", file, err))
       break
+    end
+    if io.type(out) ~= "file" then
+      print("out is closed, reopening..")
+      out = assert(io.open(outputFilePath, "a+"))
     end
     out:write(format("\n====== %s ======\n", file))
     local fl = files[file]
@@ -194,13 +218,23 @@ local function prof_annotate(count1, samples)
     if ann ~= 0 then
       for i = 1, ann do
         if fl[i] then
-          show = true; out:write("@@ 1 @@\n"); break
+          show = true
+          if io.type(out) ~= "file" then
+            print("out is closed, reopening..")
+            out = assert(io.open(outputFilePath, "a+"))
+          end
+          out:write("@@ 1 @@\n")
+          break
         end
       end
     end
     for line in fp:lines() do
       if line:byte() == 27 then
-        --out:write("[Cannot annotate bytecode file]\n")
+        if io.type(out) ~= "file" then
+          print("out is closed, reopening..")
+          out = assert(io.open(outputFilePath, "a+"))
+        end
+        out:write("[Cannot annotate bytecode file]\n")
         break
       end
       local v = fl[n]
@@ -216,13 +250,25 @@ local function prof_annotate(count1, samples)
           end
         elseif v2 then
           show = n + ann
+          if io.type(out) ~= "file" then
+            print("out is closed, reopening..")
+            out = assert(io.open(outputFilePath, "a+"))
+          end
           out:write(format("@@ %d @@\n", n))
         end
         if not show then goto next end
       end
       if v then
+        if io.type(out) ~= "file" then
+          print("out is closed, reopening..")
+          out = assert(io.open(outputFilePath, "a+"))
+        end
         out:write(format(fmtv, v, line))
       else
+        if io.type(out) ~= "file" then
+          print("out is closed, reopening..")
+          out = assert(io.open(outputFilePath, "a+"))
+        end
         out:write(format(fmtn, line))
       end
       ::next::
@@ -240,8 +286,18 @@ local function prof_finish()
     profile.stop()
     local samples = prof_samples
     if samples == 0 then
-      if prof_raw ~= true then out:write("[No samples collected]\n") end
+      if prof_raw ~= true then
+        if io.type(out) ~= "file" then
+          print("out is closed, reopening..")
+          out = assert(io.open(outputFilePath, "a+"))
+        end
+        out:write("[No samples collected]\n")
+      end
       return
+    end
+    if io.type(out) ~= "file" then
+      print("out is closed, reopening..")
+      out = assert(io.open(outputFilePath, "a+"))
     end
     out:write(format("Frame: %d\n", GameGetFrameNum()))
     if prof_ann then
@@ -322,6 +378,7 @@ end
 local function start(mode, outfile)
   if not outfile then outfile = os.getenv("LUAJIT_PROFILEFILE") end
   if outfile then
+    outputFilePath = outfile
     out = outfile == "-" and stdout or assert(io.open(outfile, "a+"))
   else
     out = stdout

@@ -696,7 +696,7 @@ end
 ---Starts a server on ip and port. Both can be nil, then ModSettings will be used.
 ---@param ip string|nil localhost or 127.0.0.1 or nil
 ---@param port number|nil port number from 1 to max of 65535 or nil
-function Server:start(ip, port)
+function Server:preStart(ip, port)
     local cpc = self.customProfiler:start("Server.start")
     if not ip then
         --ip = tostring(ModSettingGet("noita-mp.server_ip"))
@@ -712,7 +712,7 @@ function Server:start(ip, port)
 
     self.logger:info(self.logger.channels.network, ("Starting server on %s:%s.."):format(ip, port))
 
-    local success = getmetatable(self).__index.start(self, ip, port)
+    local success = self:start(ip, port, self.fileUtils, self.logger)
     if success == true then
         self.logger:info(self.logger.channels.network, ("Server started on %s:%s"):format(self:getAddress(), self:getPort()))
 
@@ -759,7 +759,7 @@ local prevTime = 0
 ---Updates the server by checking for network events and handling them.
 ---@param startFrameTime number required
 ---@see SockServer.update
-function Server:update(startFrameTime)
+function Server:preUpdate(startFrameTime)
     local cpc = self.customProfiler:start("Server.update")
     if not self:isRunning() then
         --if not self.host then server not established
@@ -777,7 +777,7 @@ function Server:update(startFrameTime)
     end
     self:sendMinaInformation()
 
-    self.entityUtils:syncEntities(startFrameTime)
+    self.entityUtils:syncEntities(startFrameTime, self, nil)
 
     local nowTime     = GameGetRealWorldTimeSinceStarted() * 1000 -- *1000 to get milliseconds
     local elapsedTime = nowTime - prevTime
@@ -789,12 +789,12 @@ function Server:update(startFrameTime)
         --updateVariables()
 
         --self.entityUtils:syncEntityData()
-        self.entityUtils:syncDeadNuids()
+        self.entityUtils:syncDeadNuids(self, nil)
         --end
         self.customProfiler:stop("Server.update.tick", cpc1)
     end
 
-    getmetatable(self).__index.update(self)
+    self:update()
     self.customProfiler:stop("Server.update", cpc)
 end
 
@@ -851,7 +851,7 @@ function Server:sendNewNuid(ownerName, ownerGuid, entityId, serializedEntityStri
     end
 
     local event = self.networkUtils.events.newNuid.name
-    local data  = { self.networkUtils.getNextNetworkMessageId(), ownerName, ownerGuid, entityId, serializedEntityString, nuid, x, y,
+    local data  = { self.networkUtils:getNextNetworkMessageId(), ownerName, ownerGuid, entityId, serializedEntityString, nuid, x, y,
         initialSerializedEntityString }
     local sent  = self:sendToAll(event, data)
 
@@ -922,7 +922,7 @@ function Server:sendMinaInformation()
     local guid                                                             = self.minaUtils:getLocalMinaGuid()
     local entityId                                                         = self.minaUtils:getLocalMinaEntityId()
     local nuid                                                             = self.minaUtils:getLocalMinaNuid()
-    local _name, _guid, _nuid, _filename, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId) -- TODO: rework this
+    local _name, _guid, _nuid, _filename, health, rotation, velocity, x, y = self.noitaComponentUtils:getEntityData(entityId) -- TODO: rework this
     local data                                                             = {
         self.networkUtils:getNextNetworkMessageId(), self.fileUtils:GetVersionByFile(), name, guid, entityId, nuid, { x = x, y = y }, health
     }
@@ -1051,9 +1051,12 @@ function Server.new(address, port, maxPeers, maxChannels, inBandwidth, outBandwi
                 serverObject.logger, nil)
     end
 
-    if not serverObject.networkUtils then
-        ---@type NetworkUtils
-        serverObject.networkUtils = require("NetworkUtils") --:new()
+    if not serverObject.guidUtils then
+        ---@type GuidUtils
+        ---@see GuidUtils
+        serverObject.guidUtils = require("GuidUtils")
+            :new(nil, serverObject.customProfiler, serverObject.fileUtils, serverObject.logger,
+                nil, nil, serverObject.utils)
     end
 
     if not serverObject.networkCache then
@@ -1064,6 +1067,13 @@ function Server.new(address, port, maxPeers, maxChannels, inBandwidth, outBandwi
     if not serverObject.networkCacheUtils then
         ---@type NetworkCacheUtils
         serverObject.networkCacheUtils = require("NetworkCacheUtils") --:new()
+    end
+
+    if not serverObject.networkUtils then
+        ---@type NetworkUtils
+        serverObject.networkUtils = require("NetworkUtils")
+            :new(serverObject.customProfiler, serverObject.guidUtils, serverObject.logger,
+                serverObject.networkCacheUtils, serverObject.utils)
     end
 
     if not serverObject.noitaComponentUtils then
@@ -1091,22 +1101,10 @@ function Server.new(address, port, maxPeers, maxChannels, inBandwidth, outBandwi
             :new(nil, {}, serverObject.customProfiler, serverObject.entityCacheUtils, serverObject.entityCache,
                 serverObject.globalsUtils, serverObject.noitaMpSettings.logger, serverObject.minaUtils,
                 serverObject.networkUtils, serverObject.networkVscUtils, serverObject.noitaComponentUtils,
-                serverObject.nuidUtils, serverObject, serverObject.noitaMpSettings.utils) or
+                serverObject.nuidUtils, serverObject, serverObject.noitaMpSettings.utils, np) or
             error("Unable to create EntityUtils!", 2)
 
         serverObject.entityCache.entityUtils = serverObject.entityUtils
-    end
-
-    if not serverObject.guidUtils then
-        ---@type GuidUtils
-        ---@see GuidUtils
-        serverObject.guidUtils = require("GuidUtils")
-            :new(nil, serverObject.customProfiler, serverObject.fileUtils, serverObject.logger,
-                nil, nil, serverObject.utils)
-    end
-
-    if not serverObject.messagePack then
-        serverObject.messagePack = require("MessagePack")
     end
 
     if not serverObject.noitaPatcherUtils then
@@ -1114,32 +1112,7 @@ function Server.new(address, port, maxPeers, maxChannels, inBandwidth, outBandwi
             :new(nil, nil, serverObject.customProfiler, np)
     end
 
-    --if not serverObject.sock then
-    --    serverObject.sock = require("sock")
-    --end
-    if not serverObject.zstandard then
-        serverObject.zstandard = require("zstd")
-    end
-
     -- [[ Attributes ]]
-    serverObject.address            = address
-    serverObject.port               = port
-    serverObject.host               = nil
-    serverObject.messageTimeout     = 0
-    serverObject.maxChannels        = maxChannels
-    serverObject.maxPeers           = maxPeers
-    serverObject.sendMode           = "reliable"
-    serverObject.defaultSendMode    = "reliable"
-    serverObject.sendChannel        = 0
-    serverObject.defaultSendChannel = 0
-    serverObject.peers              = {}
-    serverObject.clients            = {}
-    --serverObject.listener           = newListener()
-    --serverObject.logger             = newLogger("SERVER")
-    serverObject.serialize          = nil
-    serverObject.deserialize        = nil
-    serverObject.packetsSent        = 0
-    serverObject.packetsReceived    = 0
 
     serverObject.acknowledgeMaxSize = 500
     serverObject.guid               = nil
@@ -1158,6 +1131,7 @@ function Server.new(address, port, maxPeers, maxChannels, inBandwidth, outBandwi
     serverObject.guid = tostring(serverObject.noitaMpSettings:get("noita-mp.guid", "string"))
     serverObject.guidUtils:setGuid(nil, serverObject, serverObject.guid)
 
+    print("Server loaded, instantiated and inherited!")
     serverObject.customProfiler:stop("Server.new", cpc)
     return serverObject
 end

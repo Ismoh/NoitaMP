@@ -95,8 +95,8 @@ end
 ---@param fileUtils FileUtils
 ---@param logger Logger
 function SockServer:start(ip, port, fileUtils, logger)
-    ip           = ip or self.address
-    port         = port or self.port
+    ip           = ip or self.address or error("ip is nil", 2)
+    port         = port or self.port or error("port is nil", 2)
 
     self.address = ip
     self.port    = port
@@ -116,14 +116,9 @@ function SockServer:start(ip, port, fileUtils, logger)
     self.address = string.sub(self:getSocketAddress(), 1, string.find(self:getSocketAddress(), ":", 1, true) - 1) --ip
     self.port    = port
 
-    self:setBandwidthLimit(0, 0)
+    self:setBandwidthLimit(self.inBandwidth, self.outBandwidth)
 
     self.logger:info(logger.channels.network, ("Started server on %s:%s"):format(self.address, self.port))
-    -- Serialization is set in Server.setConfigSettings()
-    --if bitserLoaded then
-    --    self:setSerialization(bitser.dumps, bitser.loads)
-    --end
-    --self:setSerialization(zstandard.compress, zstandard.decompress)
     return true
 end
 
@@ -699,43 +694,31 @@ end
 ---@param outBandwidth number|nil
 ---@return SockServer
 function SockServer.new(address, port, maxPeers, maxChannels, inBandwidth, outBandwidth)
-    address             = address or "localhost"
-    port                = port or 14017
-    maxPeers            = maxPeers or 64
-    maxChannels         = maxChannels or 1
-    inBandwidth         = inBandwidth or 0
-    outBandwidth        = outBandwidth or 0
-
     ---@class SockServer
-    local sockServer    = setmetatable({
-        address            = address,
-        port               = port,
-        host               = nil,
+    local sockServer              = setmetatable({}, SockServer)
+    sockServer.address            = address or "localhost"
+    sockServer.clients            = {}
+    sockServer.defaultSendChannel = 0
+    sockServer.defaultSendMode    = "reliable"
+    sockServer.deserialize        = nil
+    sockServer.host               = nil
+    sockServer.inBandwidth        = inBandwidth or 0
+    sockServer.listener           = require("SockListener"):newListener() --newListener(),
+    sockServer.maxChannels        = maxChannels or 1
+    sockServer.maxPeers           = maxPeers or 4
+    sockServer.messageTimeout     = 0
+    sockServer.outBandwidth       = outBandwidth or 0
+    sockServer.packetsReceived    = 0
+    sockServer.packetsSent        = 0
+    sockServer.peers              = {}
+    sockServer.port               = port or 14017
+    sockServer.sendChannel        = 0
+    sockServer.sendMode           = "reliable"
+    sockServer.serialize          = nil
 
-        messageTimeout     = 0,
-        maxChannels        = maxChannels,
-        maxPeers           = maxPeers,
-        sendMode           = "reliable",
-        defaultSendMode    = "reliable",
-        sendChannel        = 0,
-        defaultSendChannel = 0,
+    sockServer.zipTable           = require("NetworkUtils").zipTable
 
-        peers              = {},
-        clients            = {},
-
-        listener           = require("SockListener"):newListener(),--newListener(),
-        --logger             = newLogger("SERVER"),
-
-        serialize          = nil,
-        deserialize        = nil,
-
-        packetsSent        = 0,
-        packetsReceived    = 0,
-
-    }, SockServer)
-
-    sockServer.zipTable = require("NetworkUtils").zipTable
-
+    print("SockServer loaded and instantiated!")
     return sockServer
 end
 

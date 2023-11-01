@@ -90,8 +90,15 @@ local function OnEntityLoaded()
     --for guessEntityId = entityUtils:previousHighestAliveEntityId, entityUtils:previousHighestAliveEntityId + 1024, 1 do
     for guessEntityId = entityUtils.previousHighestAliveEntityId, EntitiesGetMaxID(), 1 do
         local entityId = guessEntityId
-        GamePrint(("OnEntityLoaded(entityId = %s)"):format(entityId))
-        while EntityGetIsAlive(entityId) and entityId > entityUtils.previousHighestAliveEntityId do
+        local filename = nil
+        if EntityGetIsAlive(entityId) then
+            filename = EntityGetFilename(entityId)
+        end
+        while EntityGetIsAlive(entityId)
+            and entityId > entityUtils.previousHighestAliveEntityId
+            and not table.contains(entityUtils.exclude.byFilename, filename)
+        do
+            GamePrint(("OnEntityLoaded(entityId = %s)"):format(entityId))
             if entityId > entityUtils.previousHighestAliveEntityId then
                 entityUtils.previousHighestAliveEntityId = entityId
             end
@@ -231,8 +238,8 @@ function OnPausePreUpdate()
     local startFrameTime = GameGetRealWorldTimeSinceStarted()
     local cpc = customProfiler:start("init.OnPausePreUpdate")
     OnEntityLoaded()
-    server:update(startFrameTime)
-    client:update(startFrameTime)
+    server:preUpdate(startFrameTime)
+    client:preUpdate(startFrameTime)
     customProfiler:stop("init.OnPausePreUpdate", cpc)
 end
 
@@ -289,8 +296,8 @@ function OnWorldPreUpdate()
         end
     end
 
-    server:update(startFrameTime)
-    client:update(startFrameTime)
+    server:preUpdate(startFrameTime)
+    client:preUpdate(startFrameTime)
 
     local cpc1 = customProfiler:start("init.OnWorldPreUpdate.collectgarbage.count")
     if collectgarbage("count") >= 102412345.0 then

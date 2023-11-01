@@ -1,0 +1,8 @@
+cat jit.p.log | grep '3.%' -A 3 -B 3 >'30%+.log'
+cat jit.p.log | grep '4.%' -A 3 -B 3 >'40%+.log'
+cat jit.p.log | grep '5.%' -A 3 -B 3 >'50%+.log'
+cat jit.p.log | grep '6.%' -A 3 -B 3 >'60%+.log'
+cat jit.p.log | grep '7.%' -A 3 -B 3 >'70%+.log'
+cat jit.p.log | grep '8.%' -A 3 -B 3 >'80%+.log'
+cat jit.p.log | grep '9.%' -A 3 -B 3 >'90%+.log'
+cat jit.p.log | grep '10.%' -A 3 -B 3 >'100%.log'

@@ -24,7 +24,15 @@ entityUtils.include                            = {
 }
 entityUtils.exclude                            = {
     byComponentsName = { "WorldStateComponent" },
-    byFilename       = { "particle", "tree_entity.xml", "vegetation", "custom_cards" }
+    byFilename       = {
+        "controls",
+        "custom_cards",
+        "particle",
+        "player_stats",
+        "tree_entity.xml",
+        "vegetation",
+        "vines",
+    }
 }
 
 entityUtils.remove                             = {

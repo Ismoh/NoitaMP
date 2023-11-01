@@ -343,7 +343,7 @@ function Gui:drawPlayMenu()
 
             self.imGui.Separator()
             if self.imGui.Button("Start Server!") then
-                self.server:start(self.server:getAddress(), self.server:getPort())
+                self.server:preStart(self.server:getAddress(), self.server:getPort())
                 self.showPlayMenu = false
             end
         else
@@ -359,7 +359,7 @@ function Gui:drawPlayMenu()
 
             self.imGui.Separator()
             if self.imGui.Button("Join self.server..") then
-                self.client:connect(serverIp, tonumber(serverPort))
+                self.client:preConnect(serverIp, tonumber(serverPort))
                 self.showPlayMenu = false
             end
         end

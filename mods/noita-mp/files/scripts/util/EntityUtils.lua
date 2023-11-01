@@ -65,7 +65,7 @@ function EntityUtils:onEntityRemoved(entityId, nuid)
     -- end
     self.entityCache:delete(entityId)
     -- NetworkCacheUtils.delete ?
-    GlobalsUtils.setDeadNuid(nuid)
+    self.globalsUtils:setDeadNuid(nuid)
     self.customProfiler:stop("OnEntityRemoved", cpc)
 end
 
@@ -86,13 +86,14 @@ function EntityUtils:isEntityPolymorphed(entityId)
 end
 
 local prevEntityIndex = 1
----Adds or updates all network components to the entity.
----Sends the entity data to all other peers.
+--- Adds or updates all network components to the entity.
+--- Sends the entity data to all other peers.
 ---@param startFrameTime number Time at the very beginning of the frame.
-function EntityUtils:syncEntities(startFrameTime)
+---@param server Server|nil Either server or client must not be nil!
+---@param client Client|nil Either server or client must not be nil!
+function EntityUtils:syncEntities(startFrameTime, server, client)
     local cpc              = self.customProfiler:start("EntityUtils.syncEntities")
     local start            = GameGetRealWorldTimeSinceStarted() * 1000
-    local who              = whoAmI()
     local localPlayerId    = self.minaUtils:getLocalMinaEntityId()
     local playerX, playerY = EntityGetTransform(localPlayerId)
     local radius           = ModSettingGetNextValue("noita-mp.radius_include_entities")
@@ -106,7 +107,7 @@ function EntityUtils:syncEntities(startFrameTime)
     --
     table.sort(entityIds)
 
-    if who == self.client.iAm then
+    if client then
         --table.insertIfNotExist(playerEntityIds, localPlayerId)
         --table.insertAllButNotDuplicates(playerEntityIds,
         --                                get_player_inventory_contents("inventory_quick")) -- wands and items
@@ -125,8 +126,8 @@ function EntityUtils:syncEntities(startFrameTime)
         --    end
         --end
         if not self.networkVscUtils:hasNuidSet(localPlayerId) then
-            self.client:sendNeedNuid(self.minaUtils:getLocalMinaName(), self.minaUtils:getLocalMinaGuid(),
-                EntityGetRootEntity(localPlayerId))
+            self.client:sendNeedNuid(
+                self.minaUtils:getLocalMinaName(), self.minaUtils:getLocalMinaGuid(), EntityGetRootEntity(localPlayerId))
         end
     end
 
@@ -148,11 +149,11 @@ function EntityUtils:syncEntities(startFrameTime)
 
             --[[ Check if this entityId belongs to client ]]
             --
-            if who == self.client.iAm then
+            if client then
                 if not table.contains(playerEntityIds, entityId) then
                     if EntityGetIsAlive(entityId) and
                         entityId ~= self.minaUtils:getLocalMinaEntityId() and
-                        not self.minaUtils:isRemoteMinae(entityId) and
+                        not self.minaUtils:isRemoteMinae(client, server, entityId) and
                         not self.networkVscUtils:hasNetworkLuaComponents(entityId)
                     then
                         local distance                    = -1
@@ -166,7 +167,7 @@ function EntityUtils:syncEntities(startFrameTime)
                             --for i = 1, #Client.otherClients do -- TODO NOT YET IMPLEMENTED
                             --    local remoteX, remoteY = EntityGetTransform(Client.otherClients[i].)
                             --end
-                            local nuidRemote, entityIdRemote = GlobalsUtils.getNuidEntityPair(self.client.serverInfo.nuid) -- TODO rework with getRemoteMina
+                            local nuidRemote, entityIdRemote = self.globalsUtils:getNuidEntityPair(self.client.serverInfo.nuid) -- TODO rework with getRemoteMina
                             if EntityGetIsAlive(entityIdRemote) then
                                 local remoteX, remoteY = EntityGetTransform(entityIdRemote)
                                 distance               = get_distance2(localX, localY, remoteX, remoteY)
@@ -195,7 +196,7 @@ function EntityUtils:syncEntities(startFrameTime)
             --else
             if self.exclude.byFilename[filename] or
                 --table.contains(EntityUtils.exclude.byFilename, filename) or
-                findByFilename(filename, self.exclude.byFilename)
+                findByFilename(self, filename, self.exclude.byFilename)
             then
                 exclude = true
                 break -- work around for continue: repeat until true with break
@@ -213,7 +214,7 @@ function EntityUtils:syncEntities(startFrameTime)
 
             if self.include.byFilename[filename] or
                 --table.contains(EntityUtils.include.byFilename, filename) or
-                findByFilename(filename, self.include.byFilename)
+                findByFilename(self, filename, self.include.byFilename)
             then
                 exclude = false
             else
@@ -241,11 +242,11 @@ function EntityUtils:syncEntities(startFrameTime)
                 local ownerName = self.minaUtils:getLocalMinaName()
                 local ownerGuid = self.minaUtils:getLocalMinaGuid()
 
-                if who == self.server.iAm and not hasNuid then
+                if server and not hasNuid then
                     nuid = self.nuidUtils:getNextNuid()
                     -- Server.sendNewNuid this will be executed below
-                elseif who == self.client.iAm and not hasNuid then
-                    self.client:sendNeedNuid(ownerName, ownerGuid, entityId)
+                elseif client and not hasNuid then
+                    client:sendNeedNuid(ownerName, ownerGuid, entityId)
                 else
                     error("Unable to get whoAmI()!", 2)
                     return
@@ -259,7 +260,7 @@ function EntityUtils:syncEntities(startFrameTime)
             local compOwnerName, compOwnerGuid, compNuid, filenameUnused, health, rotation, velocity, x, y =
                 self.noitaComponentUtils:getEntityData(entityId)
             if cachedValue == nil or cachedValue.fullySerialised == false then
-                if who == self.iAm then
+                if server then
                     if not hasNuid then
                         nuid = compNuid
                         if not nuid then
@@ -294,7 +295,7 @@ function EntityUtils:syncEntities(startFrameTime)
 
             --[[ Check if moved or anything else changed, but only on each tick ]]
             --
-            if self.networkUtils:isTick() and not self.minaUtils:isRemoteMinae(entityId) then
+            if self.networkUtils:isTick() and not self.minaUtils:isRemoteMinae(client, server, entityId) then
                 local changed = false
                 --local compOwnerName, compOwnerGuid, compNuid, filenameUnused, health, rotation, velocity, x, y = NoitaComponentUtils.getEntityData(entityId)
 
@@ -335,6 +336,9 @@ function EntityUtils:syncEntities(startFrameTime)
                     end
                 end
                 --end
+                if not self.entityCacheUtils then --TODO: temporary dirty whacky hacky fix
+                    self.entityCacheUtils = self.server.entityCacheUtils
+                end
                 self.entityCacheUtils:set(entityId, nuid, compOwnerGuid, compOwnerName, filename, x, y, rotation,
                     velocity.x, velocity.y, health.current, health.max, true, nil)
                 if changed then
@@ -422,14 +426,27 @@ function EntityUtils:spawnEntity(owner, nuid, x, y, rotation, velocity, filename
 end
 
 --- Synchronises dead nuids between server and client.
-function EntityUtils:syncDeadNuids()
-    local cpc       = self.customProfiler:start("EntityUtils.syncDeadNuids")
+---@param server Server|nil Either server or client must not be nil!
+---@param client Client|nil Either server or client must not be nil!
+function EntityUtils:syncDeadNuids(server, client)
+    local cpc = self.customProfiler:start("EntityUtils.syncDeadNuids")
+
     local deadNuids = self.nuidUtils:getEntityIdsByKillIndicator()
     if #deadNuids > 0 then
-        local clientOrServer = self.networkUtils:getClientOrServer()
-        clientOrServer.sendDeadNuids(deadNuids)
+        if server then
+            server:sendDeadNuids(deadNuids)
+        else
+            if client then
+                client:sendDeadNuids(deadNuids)
+            else
+                error(
+                    ("EntityUtils.syncDeadNuids: server %s and client %s must not be nil!"):format(self.utils:pformat(server),
+                        self.utils:pformat(client)),
+                    2)
+            end
+        end
+        self.customProfiler:stop("EntityUtils.syncDeadNuids", cpc)
     end
-    self.customProfiler:stop("EntityUtils.syncDeadNuids", cpc)
 end
 
 ---Destroys the entity by the given nuid.
@@ -565,7 +582,7 @@ end
 ---@param utils Utils|nil
 ---@return EntityUtils
 function EntityUtils:new(entityUtilsObject, client, customProfiler, enitityCacheUtils, entityCache, globalsUtils, logger, minaUtils, networkUtils,
-                         networkVscUtils, noitaComponentUtils, nuidUtils, server, utils)
+                         networkVscUtils, noitaComponentUtils, nuidUtils, server, utils, np)
     ---@class EntityUtils
     entityUtilsObject = setmetatable(entityUtilsObject or self, EntityUtils)
 
@@ -662,6 +679,11 @@ function EntityUtils:new(entityUtilsObject, client, customProfiler, enitityCache
         ---@type Utils
         entityUtilsObject.utils = utils or
             require("Utils", "mods/noita-mp/files/scripts/util")
+    end
+
+    if not entityUtilsObject.noitaPatcherUtils then
+        entityUtilsObject.noitaPatcherUtils = require("NoitaPatcherUtils")
+            :new(nil, nil, server.customProfiler, np)
     end
 
     entityUtilsObject.customProfiler:stop("EntityUtils:new", cpc)

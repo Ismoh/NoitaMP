@@ -55,7 +55,7 @@ function Utils:isEmpty(var)
 end
 
 ---Formats anything pretty.
----@param var number|string|table variable to print
+---@param var number|string|table|nil variable to print
 ---@return number|string|table formatted variable
 function Utils:pformat(var)
     return self.pprint.pformat(var, self.pprint.defaults)

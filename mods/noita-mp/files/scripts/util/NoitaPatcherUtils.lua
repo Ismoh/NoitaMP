@@ -16,9 +16,15 @@ function OnProjectileFiredPost() end
 ---@return string encodedBase64
 function NoitaPatcherUtils:serializeEntity(entityId)
     local cpc = self.customProfiler:start("NoitaPatcherUtils.serializeEntity")
-    local encodedBase64 = self.base64.encode(self.np.SerializeEntity(entityId), nil, false)
+    local binaryString = self.np.SerializeEntity(entityId)
+    --local encodedBase64 = self.base64.encode(binaryString, nil, false)
+    if not self.base64_fast then
+        self.base64_fast = require("base64_fast")
+    end
+    local encodedBase64 = self.base64_fast.encode(binaryString)
     self.customProfiler:stop("NoitaPatcherUtils.serializeEntity", cpc)
     return encodedBase64
+    --return binaryString
 end
 
 ---Deserialize an entity from a base64 string and create it at the given position.
@@ -29,7 +35,12 @@ end
 ---@return number
 function NoitaPatcherUtils:deserializeEntity(entityId, serializedEntityString, x, y)
     local cpc = self.customProfiler:start("NoitaPatcherUtils.deserializeEntity")
-    local decoded = self.base64.decode(serializedEntityString, nil, false)
+    --local decoded = self.base64.decode(serializedEntityString, nil, false)
+    --local entityId = self.np.DeserializeEntity(entityId, decoded, x, y)
+    if not self.base64_fast then
+        self.base64_fast = require("base64_fast")
+    end
+    local decoded = self.base64_fast.decode(serializedEntityString)
     local entityId = self.np.DeserializeEntity(entityId, decoded, x, y)
     self.customProfiler:stop("NoitaPatcherUtils.deserializeEntity", cpc)
     return entityId

@@ -1,5 +1,5 @@
 ---@class Logger
----Class for being able to log per level.
+--- Class for being able to log per level.
 local Logger = {
     --[[ Attributes ]]
 

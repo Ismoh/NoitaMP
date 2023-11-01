@@ -107,12 +107,6 @@ function SockClient:establishClient(serverOrAddress, port)
         self.connection = serverOrAddress
         self.connectId  = self.connection:connect_id()
     end
-
-    -- Serialization is set in Client.setConfigSettings()
-    --if bitserLoaded then
-    --    self:setSerialization(bitser.dumps, bitser.loads)
-    --end
-    --self:setSerialization(zstandard.compress, zstandard.decompress)
 end
 
 --- Check for network events and handle them.

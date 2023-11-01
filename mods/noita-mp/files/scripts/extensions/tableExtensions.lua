@@ -41,6 +41,11 @@ function table.contains(tbl, key)
         if key == "" then
             return false, -1
         end
+        for k, v in pairs(tbl) do
+        if string.contains(key, v) then
+            return true, k
+        end
+    end
     end
     for k, v in pairs(tbl) do
         if v == key then

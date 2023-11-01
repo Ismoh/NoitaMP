@@ -87,6 +87,9 @@ unsigned ZSTD_getDictID_fromFrame(const void* src, size_t srcSize);
 local arr_utint8_t = ffi_typeof "uint8_t[?]"
 local ptr_zstd_inbuffer_t = ffi_typeof "ZSTD_inBuffer[1]"
 local ptr_zstd_outbuffer_t = ffi_typeof "ZSTD_outBuffer[1]"
+local _M = {
+    version = '0.2.3'
+}
 
 local noitaMpSettings      = require("NoitaMpSettings")
     :new(nil, nil, {}, nil, nil, nil, nil, nil, nil)
@@ -96,12 +99,8 @@ local fileUtils            = require("FileUtils")
 local zstd = ffi_load(fileUtils:GetAbsolutePathOfNoitaRootDirectory() .. "/mods/noita-mp/lua_modules/lib/lua/5.1/libzstd")
 local file    = assert(io.popen("zstd -vV", "r"))
 local zstdVersion = file:read("*a")
-print("zstd version = " .. zstdVersion)
-
-
-local _M = {
-    version = '0.2.3'
-}
+file:close()
+print("zstd version = " .. _M.version .. " -> " .. zstdVersion)
 
 
 local function init_cstream (cstream, cLevel)

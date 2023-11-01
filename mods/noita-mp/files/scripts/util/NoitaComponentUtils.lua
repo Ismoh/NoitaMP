@@ -158,7 +158,7 @@ function NoitaComponentUtils:setInitialSerializedEntityString(entityId, initialS
 end
 
 function NoitaComponentUtils:hasInitialSerializedEntityString(entityId)
-    local status, result = pcall(self.getInitialSerializedEntityString, entityId)
+    local status, result = pcall(self.getInitialSerializedEntityString, self, entityId)
     return status
 end
 

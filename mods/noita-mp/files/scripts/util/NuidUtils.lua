@@ -20,22 +20,24 @@ function NuidUtils:getNextNuid()
         if not self.worldStateXmlFileExists then
             self.worldStateXmlFileExists = self.fileUtils:Exists(worldStateXmlAbsPath)
             local f                      = io.open(worldStateXmlAbsPath, "r")
-            local xml                    = self.nxml.parse(f:read("*a"))
-            f:close()
+            if f then
+                local xml = self.nxml.parse(f:read("*a"))
+                f:close()
 
-            for v in xml:first_of("WorldStateComponent"):first_of("lua_globals"):each_of("E") do
-                if string.contains(v.attr.key, "nuid") then
-                    local nuid = self.globalUtils:parseXmlValueToNuidAndEntityId(v.attr.key, v.attr.value)
-                    if nuid ~= nil then
-                        nuid = tonumber(nuid) or -1
-                        if nuid > self.counter then
-                            self.counter = nuid
+                for v in xml:first_of("WorldStateComponent"):first_of("lua_globals"):each_of("E") do
+                    if string.contains(v.attr.key, "nuid") then
+                        local nuid = self.globalUtils:parseXmlValueToNuidAndEntityId(v.attr.key, v.attr.value)
+                        if nuid ~= nil then
+                            nuid = tonumber(nuid) or -1
+                            if nuid > self.counter then
+                                self.counter = nuid
+                            end
                         end
                     end
                 end
+                self.logger:info(self.logger.channels.nuid,
+                    ("Loaded nuids after loading a savegame. Latest nuid from world_state.xml aka Globals = %s."):format(self.counter))
             end
-            self.logger:info(self.logger.channels.nuid,
-                ("Loaded nuids after loading a savegame. Latest nuid from world_state.xml aka Globals = %s."):format(self.counter))
         end
         self.xmlParsed = true
     end
