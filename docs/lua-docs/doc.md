@@ -27,22 +27,6 @@ Checks if the current local user is a client.
 @*return* `true` — if client, false if not
 See: [Server.amIServer](../../mods/noita-mp/files/scripts/net/Server.lua#L937#9)
 
-## connect
-
-
-```lua
-function Client.connect(self: Client, ip: string|nil, port: number|nil, code: number|nil)
-```
-
-Connects to a server on ip and port. Both can be nil, then ModSettings will be used. Inherit from sock.connect.
-
-@*param* `ip` — localhost or 127.0.0.1 or nil
-
-@*param* `port` — port number from 1 to max of 65535 or nil
-
-@*param* `code` — connection code 0 = connecting first time, 1 = connected second time with loaded seed
-See: ~sock.connect~
-
 ## customProfiler
 
 
@@ -51,16 +35,6 @@ CustomProfiler
 ```
 
 Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
-
-## disconnect
-
-
-```lua
-function Client.disconnect(self: Client)
-```
-
-Disconnects from the server. Inherit from sock.disconnect.
-See: ~sock.disconnect~
 
 ## entityUtils
 
@@ -135,13 +109,6 @@ string
 
 ```lua
 Logger
-```
-
-## messagePack
-
-
-```lua
-unknown
 ```
 
 ## minaUtils
@@ -250,6 +217,44 @@ nil
 table
 ```
 
+## preConnect
+
+
+```lua
+function Client.preConnect(self: Client, ip: string|nil, port: number|nil, code: number|nil)
+```
+
+Connects to a server on ip and port. Both can be nil, then ModSettings will be used. Inherit from sock.connect.
+
+@*param* `ip` — localhost or 127.0.0.1 or nil
+
+@*param* `port` — port number from 1 to max of 65535 or nil
+
+@*param* `code` — connection code 0 = connecting first time, 1 = connected second time with loaded seed
+See: ~sock.connect~
+
+## preDisconnect
+
+
+```lua
+function Client.preDisconnect(self: Client)
+```
+
+ Disconnects from the server.
+See: ~SockClient.disconnect~
+
+## preUpdate
+
+
+```lua
+function Client.preUpdate(self: Client, startFrameTime: number)
+```
+
+Updates the Client by checking for network events and handling them. Inherit from sock.update.
+
+@*param* `startFrameTime` — required
+See: ~SockClient.update~
+
 ## requiredMods
 
 
@@ -346,13 +351,6 @@ Server
 table
 ```
 
-## sock
-
-
-```lua
-unknown
-```
-
 ## syncedMods
 
 
@@ -366,18 +364,6 @@ boolean
 ```lua
 table
 ```
-
-## update
-
-
-```lua
-function Client.update(self: Client, startFrameTime: number)
-```
-
-Updates the Client by checking for network events and handling them. Inherit from sock.update.
-
-@*param* `startFrameTime` — required
-See: ~sock.update~
 
 ## utils
 
@@ -393,13 +379,6 @@ Utils class for lazy developers.
 
 ```lua
 function
-```
-
-## zstandard
-
-
-```lua
-unknown
 ```
 
 
@@ -778,6 +757,16 @@ EntityCacheUtils
 EntityCache
 ```
 
+## entityCacheUtils
+
+
+```lua
+EntityCacheUtils
+```
+
+end
+TODO: temporary dirty whacky hacky fix
+
 ## globalsUtils
 
 
@@ -831,7 +820,7 @@ NetworkVscUtils for getting and setting values in VariableStorageComponents of N
 
 
 ```lua
-function EntityUtils.new(self: EntityUtils, entityUtilsObject: EntityUtils|nil, client: Client, customProfiler: CustomProfiler, enitityCacheUtils: EntityCacheUtils, entityCache: EntityCache, globalsUtils: GlobalsUtils|nil, logger: Logger|nil, minaUtils: MinaUtils, networkUtils: NetworkUtils, networkVscUtils: NetworkVscUtils, noitaComponentUtils: NoitaComponentUtils, nuidUtils: NuidUtils, server: Server, utils: Utils|nil)
+function EntityUtils.new(self: EntityUtils, entityUtilsObject: EntityUtils|nil, client: Client, customProfiler: CustomProfiler, enitityCacheUtils: EntityCacheUtils, entityCache: EntityCache, globalsUtils: GlobalsUtils|nil, logger: Logger|nil, minaUtils: MinaUtils, networkUtils: NetworkUtils, networkVscUtils: NetworkVscUtils, noitaComponentUtils: NoitaComponentUtils, nuidUtils: NuidUtils, server: Server, utils: Utils|nil, np: any)
   -> EntityUtils
 ```
 
@@ -869,6 +858,13 @@ NoitaComponentUtils
 ```
 
 Class for using Noita components.
+
+## noitaPatcherUtils
+
+
+```lua
+NoitaPatcherUtils
+```
 
 ## nuidUtils
 
@@ -917,22 +913,30 @@ function EntityUtils.spawnEntity(self: EntityUtils, owner: EntityOwner, nuid: nu
 
 
 ```lua
-function EntityUtils.syncDeadNuids(self: EntityUtils)
+function EntityUtils.syncDeadNuids(self: EntityUtils, server: Server|nil, client: Client|nil)
 ```
 
  Synchronises dead nuids between server and client.
+
+@*param* `server` — Either server or client must not be nil!
+
+@*param* `client` — Either server or client must not be nil!
 
 ## syncEntities
 
 
 ```lua
-function EntityUtils.syncEntities(self: EntityUtils, startFrameTime: number)
+function EntityUtils.syncEntities(self: EntityUtils, startFrameTime: number, server: Server|nil, client: Client|nil)
 ```
 
-Adds or updates all network components to the entity.
-Sends the entity data to all other peers.
+ Adds or updates all network components to the entity.
+ Sends the entity data to all other peers.
 
 @*param* `startFrameTime` — Time at the very beginning of the frame.
+
+@*param* `server` — Either server or client must not be nil!
+
+@*param* `client` — Either server or client must not be nil!
 
 ## utils
 
@@ -2452,135 +2456,133 @@ function NetworkCacheUtils.set(peerGuid: string, networkMessageId: number, event
 
 # NetworkUtils
 
- Because of stack overflow errors when loading lua files,
- I decided to put Utils 'classes' into globals
+## alreadySent
 
 
 ```lua
-table
+function NetworkUtils.alreadySent(self: NetworkUtils, peer: table, event: string, data: table)
+  -> boolean
 ```
-
-
-```lua
-table
-```
-
-
----
-
-# NetworkUtils.alreadySent
 
  Checks if the event within its data was already sent
 
 @*param* `peer` — If Server, then it's the peer, if Client, then it's the 'self' object
 
+## customProfiler
+
 
 ```lua
-function NetworkUtils.alreadySent(peer: table, event: string, data: table)
-  -> boolean
+CustomProfiler
 ```
 
+Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 
----
-
-# NetworkUtils.deserialize
-
-Default enhanced serialization function
+## deserialize
 
 
 ```lua
-function NetworkUtils.deserialize(self: table, value: any)
+function NetworkUtils.deserialize(self: NetworkUtils, value: any)
   -> unknown
 ```
 
+Default enhanced serialization function
 
----
-
-# NetworkUtils.events
+## getNextNetworkMessageId
 
 
 ```lua
-table
+function NetworkUtils.getNextNetworkMessageId(self: NetworkUtils)
+  -> networkMessageIdCounter: integer
 ```
 
+ Returns the network message id counter and increases it by one
 
----
-
-# NetworkUtils.getClientOrServer
-
- Sometimes you don't care if it's the client or server, but you need one of them to send the messages.
-
-@*return* `Client` — or Server 'object'
+## guidUtils
 
 
 ```lua
-function NetworkUtils.getClientOrServer()
-  -> Client: Client|Server
+GuidUtils
 ```
 
+GuidUtils is just for generating and validating GUIDs. Guids are used for identifying clients and servers.
 
----
-
-# NetworkUtils.getNextNetworkMessageId
-
-
-```lua
-function NetworkUtils.getNextNetworkMessageId()
-  -> integer
-```
-
-
----
-
-# NetworkUtils.isTick
+## isTick
 
 
 ```lua
-function NetworkUtils.isTick()
+function NetworkUtils.isTick(self: NetworkUtils)
   -> boolean
 ```
 
+ Checks if the current time is a tick.
 
----
-
-# NetworkUtils.networkMessageIdCounter
+## logger
 
 
 ```lua
-integer
+Logger
 ```
 
+## messagePack
+
 
 ```lua
-integer
+unknown
 ```
 
-
----
-
-# NetworkUtils.serialize
-
-Default enhanced serialization function
+## networkCacheUtils
 
 
 ```lua
-function NetworkUtils.serialize(self: table, value: any)
+NetworkCacheUtils
+```
+
+## new
+
+
+```lua
+function NetworkUtils.new(self: NetworkUtils, customProfiler: CustomProfiler, guidUtils: GuidUtils, logger: Logger, networkCacheUtils: NetworkCacheUtils, utils: Utils|nil)
+  -> NetworkUtils
+```
+
+ Constructor for NetworkUtils class.
+
+## serialize
+
+
+```lua
+function NetworkUtils.serialize(self: NetworkUtils, value: any)
   -> unknown
 ```
 
+ Default enhanced serialization function
 
----
+## utils
 
-# NetworkUtils.zipTable
+
+```lua
+Utils
+```
+
+Utils class for lazy developers.
+
+## zipTable
+
+
+```lua
+function NetworkUtils.zipTable(self: NetworkUtils, items: any, keys: any, event: any)
+  -> table
+```
 
  links variables to keys based on their order
- note that it only works for boolean and number values, not strings
- credits to sock.lua
+ note that it only works for boolean and number values, not strings.
+ Credits to sock.lua
+
+## zstandard
 
 
 ```lua
-function NetworkUtils.zipTable(self: table, items: any, keys: any, event: any)
-  -> table
+unknown
 ```
 
 
@@ -3099,6 +3101,13 @@ winapi
 base64
 ```
 
+## base64_fast
+
+
+```lua
+unknown
+```
+
 ## customProfiler
 
 
@@ -3319,10 +3328,8 @@ integer
 
 
 ```lua
-string|nil
+string
 ```
-
- [[ Attributes ]]
 
 ## amIServer
 
@@ -3335,7 +3342,7 @@ function Server.amIServer(self: Server)
 Checks if the current local user is a server.
 
 @*return* `true` — if server, false if not
-See: [Client.amIClient](../../mods/noita-mp/files/scripts/net/Client.lua#L951#9)
+See: [Client.amIClient](../../mods/noita-mp/files/scripts/net/Client.lua#L947#9)
 
 ## ban
 
@@ -3473,6 +3480,13 @@ nil
 string
 ```
 
+## inBandwidth
+
+
+```lua
+number
+```
+
 ## isRunning
 
 
@@ -3498,6 +3512,15 @@ Kicks a player by name.
 
 @*param* `name` — required
 
+## listener
+
+
+```lua
+table
+```
+
+newListener(),
+
 ## logger
 
 
@@ -3509,21 +3532,14 @@ Logger
 
 
 ```lua
-number|nil
+number
 ```
 
 ## maxPeers
 
 
 ```lua
-number|nil
-```
-
-## messagePack
-
-
-```lua
-unknown
+number
 ```
 
 ## messageTimeout
@@ -3578,10 +3594,8 @@ table
 
 
 ```lua
-table
+NetworkUtils
 ```
-
-:new()
 
 ## networkVscUtils
 
@@ -3657,6 +3671,13 @@ NuidUtils
 
 NuidUtils for getting the current network unique identifier
 
+## outBandwidth
+
+
+```lua
+number
+```
+
 ## packetsReceived
 
 
@@ -3682,8 +3703,33 @@ table
 
 
 ```lua
-number|nil
+number
 ```
+
+## preStart
+
+
+```lua
+function Server.preStart(self: Server, ip: string|nil, port: number|nil)
+```
+
+Starts a server on ip and port. Both can be nil, then ModSettings will be used.
+
+@*param* `ip` — localhost or 127.0.0.1 or nil
+
+@*param* `port` — port number from 1 to max of 65535 or nil
+
+## preUpdate
+
+
+```lua
+function Server.preUpdate(self: Server, startFrameTime: number)
+```
+
+Updates the server by checking for network events and handling them.
+
+@*param* `startFrameTime` — required
+See: ~SockServer.update~
 
 ## send
 
@@ -3833,22 +3879,6 @@ Sends a message to all peers excluded one peer defined as the peer param.
 nil
 ```
 
-serverObject.listener           = newListener()
-serverObject.logger             = newLogger("SERVER")
-
-## start
-
-
-```lua
-function Server.start(self: Server, ip: string|nil, port: number|nil)
-```
-
-Starts a server on ip and port. Both can be nil, then ModSettings will be used.
-
-@*param* `ip` — localhost or 127.0.0.1 or nil
-
-@*param* `port` — port number from 1 to max of 65535 or nil
-
 ## stop
 
 
@@ -3865,18 +3895,6 @@ Stops the server.
 table
 ```
 
-## update
-
-
-```lua
-function Server.update(self: Server, startFrameTime: number)
-```
-
-Updates the server by checking for network events and handling them.
-
-@*param* `startFrameTime` — required
-See: ~SockServer.update~
-
 ## utils
 
 
@@ -3891,13 +3909,6 @@ Utils class for lazy developers.
 
 ```lua
 function
-```
-
-## zstandard
-
-
-```lua
-unknown
 ```
 
 
@@ -3916,6 +3927,141 @@ function
 ---
 
 # SockServer
+
+## address
+
+
+```lua
+string
+```
+
+## clients
+
+
+```lua
+table
+```
+
+## defaultSendChannel
+
+
+```lua
+integer
+```
+
+## defaultSendMode
+
+
+```lua
+string
+```
+
+## deserialize
+
+
+```lua
+nil
+```
+
+## host
+
+
+```lua
+nil
+```
+
+## inBandwidth
+
+
+```lua
+number
+```
+
+## listener
+
+
+```lua
+table
+```
+
+newListener(),
+
+## maxChannels
+
+
+```lua
+number
+```
+
+## maxPeers
+
+
+```lua
+number
+```
+
+## messageTimeout
+
+
+```lua
+integer
+```
+
+## outBandwidth
+
+
+```lua
+number
+```
+
+## packetsReceived
+
+
+```lua
+integer
+```
+
+## packetsSent
+
+
+```lua
+integer
+```
+
+## peers
+
+
+```lua
+table
+```
+
+## port
+
+
+```lua
+number
+```
+
+## sendChannel
+
+
+```lua
+integer
+```
+
+## sendMode
+
+
+```lua
+string
+```
+
+## serialize
+
+
+```lua
+nil
+```
 
 ## zipTable
 
@@ -4012,7 +4158,7 @@ Opens a url in the default browser.
 
 
 ```lua
-function Utils.pformat(self: Utils, var: string|number|table)
+function Utils.pformat(self: Utils, var: string|number|table|nil)
   -> formatted: string|number|table
 ```
 
