@@ -25,7 +25,7 @@ function Client.amIClient(self: Client)
 Checks if the current local user is a client.
 
 @*return* `true` — if client, false if not
-See: [Server.amIServer](../../mods/noita-mp/files/scripts/net/Server.lua#L937#9)
+See: [Server.amIServer](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/net/Server.lua#911#9)
 
 ## customProfiler
 
@@ -35,6 +35,13 @@ CustomProfiler
 ```
 
 Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
+
+## entityCache
+
+
+```lua
+EntityCache
+```
 
 ## entityUtils
 
@@ -243,6 +250,23 @@ function Client.preDisconnect(self: Client)
  Disconnects from the server.
 See: ~SockClient.disconnect~
 
+## preSend
+
+
+```lua
+function Client.preSend(self: Client, event: string, data: table)
+  -> true: boolean
+```
+
+Sends a message to the server. Inherit from sock.send.
+
+@*param* `event` — required
+
+@*param* `data` — required
+
+@*return* `true` — if message was sent, false if not
+See: ~sock.send~
+
 ## preUpdate
 
 
@@ -261,23 +285,6 @@ See: ~SockClient.update~
 ```lua
 nil
 ```
-
-## send
-
-
-```lua
-function Client.send(self: Client, event: string, data: table)
-  -> true: boolean
-```
-
-Sends a message to the server. Inherit from sock.send.
-
-@*param* `event` — required
-
-@*param* `data` — required
-
-@*return* `true` — if message was sent, false if not
-See: ~sock.send~
 
 ## sendDeadNuids
 
@@ -490,7 +497,7 @@ Starts the profiler. This has to be called before the function (or first line of
 @*param* `functionName` — The name of the function that you want to measure. This has to be the same as the one used in CustomProfiler:stop(functionName, customProfilerCounter)
 
 @*return* `returnCounter` — The counter that is used to determine the order of the function calls. This has to be passed to CustomProfiler:stop(functionName, customProfilerCounter)
-See: [CustomProfiler](../../mods/noita-mp/files/scripts/util/CustomProfiler.lua#L2#10) stop(functionName, customProfilerCounter)
+See: [CustomProfiler](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/CustomProfiler.lua#2#10) stop(functionName, customProfilerCounter)
 
 ## startExternalProfiler
 
@@ -820,35 +827,41 @@ NetworkVscUtils for getting and setting values in VariableStorageComponents of N
 
 
 ```lua
-function EntityUtils.new(self: EntityUtils, entityUtilsObject: EntityUtils|nil, client: Client, customProfiler: CustomProfiler, enitityCacheUtils: EntityCacheUtils, entityCache: EntityCache, globalsUtils: GlobalsUtils|nil, logger: Logger|nil, minaUtils: MinaUtils, networkUtils: NetworkUtils, networkVscUtils: NetworkVscUtils, noitaComponentUtils: NoitaComponentUtils, nuidUtils: NuidUtils, server: Server, utils: Utils|nil, np: any)
+function EntityUtils.new(self: EntityUtils, client: Client, customProfiler: CustomProfiler, enitityCacheUtils: EntityCacheUtils, entityCache: EntityCache, globalsUtils: GlobalsUtils|nil, logger: Logger|nil, minaUtils: MinaUtils, networkUtils: NetworkUtils, networkVscUtils: NetworkVscUtils, noitaComponentUtils: NoitaComponentUtils, noitaMpSettings: NoitaMpSettings, nuidUtils: NuidUtils, server: Server, utils: Utils|nil, np: noitapatcher)
   -> EntityUtils
 ```
 
 Constructor for EntityUtils. With this constructor you can override the default imports.
 
-@*param* `client` — Must not be nil!
+@*param* `client` — required
 
-@*param* `customProfiler` — Must not be nil!
+@*param* `customProfiler` — required
 
-@*param* `enitityCacheUtils` — Must not be nil!
+@*param* `enitityCacheUtils` — required
 
-@*param* `entityCache` — Must not be nil!
+@*param* `entityCache` — required
 
 @*param* `globalsUtils` — optional
 
-@*param* `logger` — (Must not be nil!)?
+@*param* `logger` — optional
 
-@*param* `minaUtils` — Must not be nil!
+@*param* `minaUtils` — required
 
-@*param* `networkUtils` — Must not be nil!
+@*param* `networkUtils` — required
 
-@*param* `networkVscUtils` — Must not be nil!
+@*param* `networkVscUtils` — required
 
-@*param* `noitaComponentUtils` — (Must not be nil!)?
+@*param* `noitaComponentUtils` — required
 
-@*param* `nuidUtils` — Must not be nil!
+@*param* `noitaMpSettings` — required
 
-@*param* `server` — Must not be nil!
+@*param* `nuidUtils` — required
+
+@*param* `server` — required
+
+@*param* `utils` — optional
+
+@*param* `np` — required
 
 ## noitaComponentUtils
 
@@ -1569,7 +1582,7 @@ Function to check if the user pressed a shortcut.
 Client
 ```
 
-See: [Client](../../mods/noita-mp/files/scripts/net/Client.lua#L4#10)
+See: [Client](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/net/Client.lua#4#10)
 
 ## customProfiler
 
@@ -1578,7 +1591,7 @@ See: [Client](../../mods/noita-mp/files/scripts/net/Client.lua#L4#10)
 CustomProfiler
 ```
 
-See: [CustomProfiler](../../mods/noita-mp/files/scripts/util/CustomProfiler.lua#L2#10)
+See: [CustomProfiler](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/CustomProfiler.lua#2#10)
 
 ## drawAbout
 
@@ -1655,7 +1668,7 @@ GlobalsUtils
 GuidUtils
 ```
 
-See: [GuidUtils](../../mods/noita-mp/files/scripts/util/GuidUtils.lua#L2#10)
+See: [GuidUtils](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/GuidUtils.lua#2#10)
 
 ## imGui
 
@@ -1680,7 +1693,7 @@ nil
 MinaUtils
 ```
 
-See: [MinaUtils](../../mods/noita-mp/files/scripts/util/MinaUtils.lua#L2#10)
+See: [MinaUtils](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/MinaUtils.lua#2#10)
 
 ## networkVscUtils
 
@@ -1722,7 +1735,7 @@ Gui constructor.
 NoitaMpSettings
 ```
 
-See: [NoitaMpSettings](../../mods/noita-mp/files/scripts/NoitaMpSettings.lua#L2#11)
+See: [NoitaMpSettings](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/NoitaMpSettings.lua#2#11)
 
 ## server
 
@@ -1731,7 +1744,7 @@ See: [NoitaMpSettings](../../mods/noita-mp/files/scripts/NoitaMpSettings.lua#L2#
 Server
 ```
 
-See: [Server](../../mods/noita-mp/files/scripts/net/Server.lua#L4#10)
+See: [Server](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/net/Server.lua#4#10)
 
 ## setShowMissingSettings
 
@@ -1767,7 +1780,7 @@ Guis update function, called every frame.
 Utils
 ```
 
-See: [Utils](../../mods/noita-mp/files/scripts/util/Utils.lua#L2#10)
+See: [Utils](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/Utils.lua#2#10)
 
 
 ---
@@ -2263,193 +2276,260 @@ function _G.ModSettingGetNextValue(id: any)
 
 # NetworkCache
 
+## clear
+
 
 ```lua
-table
+function NetworkCache.clear(self: NetworkCache, clientCacheId: number)
 ```
 
+ Clears the cache entry for the given clientCacheId.
 
----
-
-# NetworkCache.cache
+## customProfiler
 
 
 ```lua
-table
+any
 ```
 
+Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 
-```lua
-table
-```
-
-
----
-
-# NetworkCache.clear
+## get
 
 
 ```lua
-function NetworkCache.clear(clientCacheId: any)
-```
-
-
----
-
-# NetworkCache.get
-
-
-```lua
-function NetworkCache.get(clientCacheId: any, event: any, networkMessageId: any)
+function NetworkCache.get(self: NetworkCache, clientCacheId: number, event: string, networkMessageId: number)
   -> unknown|nil
 ```
 
+ Gets the cache entry for the given clientCacheId, event and networkMessageId.
 
----
-
-# NetworkCache.getAll
+## getAll
 
 
 ```lua
-function NetworkCache.getAll()
+function NetworkCache.getAll(self: NetworkCache)
   -> table|unknown
 ```
 
+ Returns all cache entries.
 
----
-
-# NetworkCache.getChecksum
+## getChecksum
 
 
 ```lua
-function NetworkCache.getChecksum(clientCacheId: any, dataChecksum: any)
+function NetworkCache.getChecksum(self: NetworkCache, clientCacheId: number, dataChecksum: string)
   -> unknown|nil
 ```
 
+ Gets the checksum of a cache entry for the given clientCacheId and dataChecksum.
 
----
-
-# NetworkCache.set
-
-
-```lua
-function NetworkCache.set(clientCacheId: any, networkMessageId: any, event: any, status: any, ackedAt: any, sendAt: any, dataChecksum: any)
-```
-
-
----
-
-# NetworkCache.size
+## logger
 
 
 ```lua
-function NetworkCache.size()
-  -> integer|unknown
+any
 ```
 
-
----
-
-# NetworkCache.usage
+## new
 
 
 ```lua
-function NetworkCache.usage()
+function NetworkCache.new(self: NetworkCache, customProfiler: any, logger: any, utils: any)
+  -> NetworkCache
 ```
 
-
----
-
-# NetworkCache.usingC
-
- not _G.disableLuaExtensionsDLL
+## removeOldest
 
 
 ```lua
-boolean
+function NetworkCache.removeOldest(self: NetworkCache)
 ```
+
+## set
+
+
+```lua
+function NetworkCache.set(self: NetworkCache, clientCacheId: number, networkMessageId: number, event: string, status: string, ackedAt?: any, sendAt?: any, dataChecksum: string)
+```
+
+ Sets the cache entry for the given clientCacheId, networkMessageId and event.
+
+## size
+
+
+```lua
+function NetworkCache.size(self: NetworkCache)
+  -> size: number
+```
+
+ Returns the size of the cache.
+
+## usage
+
+
+```lua
+function NetworkCache.usage(self: NetworkCache)
+```
+
+ Returns the usage of the cache.
+
+## utils
+
+
+```lua
+any
+```
+
+Utils class for lazy developers.
 
 
 ---
 
 # NetworkCacheUtils
 
+## ack
+
 
 ```lua
-table
+function NetworkCacheUtils.ack(self: NetworkCacheUtils, peerGuid: string, networkMessageId: number, event: string, status: string, ackedAt?: any, sendAt?: any, checksum: string)
 ```
 
+ Sets a acknoledgement for a cached network message.
 
----
-
-# NetworkCacheUtils.ack
+## customProfiler
 
 
 ```lua
-function NetworkCacheUtils.ack(peerGuid: any, networkMessageId: any, event: any, status: any, ackedAt: any, sendAt: any, checksum: any)
+CustomProfiler
 ```
 
+Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 
----
-
-# NetworkCacheUtils.get
-
-@*return* `data` — { ackedAt, dataChecksum, event, messageId, sendAt, status}
+## get
 
 
 ```lua
-function NetworkCacheUtils.get(peerGuid: any, networkMessageId: any, event: any)
+function NetworkCacheUtils.get(self: NetworkCacheUtils, peerGuid: string, networkMessageId: number, event: string)
   -> data: table
 ```
 
+ Returns the cached network message.
 
----
+@*return* `data` — { ackedAt, dataChecksum, event, messageId, sendAt, status}
 
-# NetworkCacheUtils.getByChecksum
-
-@*return* `cacheData` — { ackedAt, dataChecksum, event, messageId, sendAt, status}
+## getByChecksum
 
 
 ```lua
-function NetworkCacheUtils.getByChecksum(peerGuid: any, event: any, data: any)
+function NetworkCacheUtils.getByChecksum(self: NetworkCacheUtils, peerGuid: string, event: string, data: table)
   -> cacheData: table
 ```
 
+ Returns the cached network message by checksum.
 
----
+@*return* `cacheData` — { ackedAt, dataChecksum, event, messageId, sendAt, status}
 
-# NetworkCacheUtils.getSum
+## getSum
 
 
 ```lua
-function NetworkCacheUtils.getSum(event: any, data: any)
+function NetworkCacheUtils.getSum(self: NetworkCacheUtils, event: string, data: table)
   -> unknown
 ```
 
+ Returns the sum of the data.
 
----
-
-# NetworkCacheUtils.logAll
+## guidUtils
 
 
 ```lua
-function NetworkCacheUtils.logAll()
+GuidUtils
 ```
 
+GuidUtils is just for generating and validating GUIDs. Guids are used for identifying clients and servers.
 
----
+## logAll
 
-# NetworkCacheUtils.set
 
- Manipulates parameters to use Cache-CAPI.
+```lua
+function NetworkCacheUtils.logAll(self: NetworkCacheUtils)
+```
+
+ Logs all cached network messages. Only for debugging.
+
+## logger
+
+
+```lua
+Logger
+```
+
+## md5
+
+
+```lua
+md5
+```
+
+## networkCache
+
+
+```lua
+NetworkCache
+```
+
+## networkUtils
+
+
+```lua
+NetworkUtils
+```
+
+## new
+
+
+```lua
+function NetworkCacheUtils.new(self: NetworkCacheUtils, customProfiler: CustomProfiler, guidUtils: GuidUtils, logger: Logger, md5: md5|nil, networkCache: NetworkCache, networkUtils: NetworkUtils|nil, utils: Utils|nil)
+  -> NetworkCacheUtils
+```
+
+ NetworkCacheUtils constructor.
+
+@*param* `customProfiler` — required
+
+@*param* `guidUtils` — required
+
+@*param* `logger` — required
+
+@*param* `md5` — optional
+
+@*param* `networkCache` — required
+
+@*param* `networkUtils` — optional
+
+@*param* `utils` — optional
+
+## set
+
+
+```lua
+function NetworkCacheUtils.set(self: NetworkCacheUtils, peerGuid: string, networkMessageId: number, event: any, status: any, ackedAt: any, sendAt: any, data: any)
+  -> string
+```
+
+ Creates a new network cache entry.
 
 @*param* `peerGuid` — peer.guid
 
+## utils
+
 
 ```lua
-function NetworkCacheUtils.set(peerGuid: string, networkMessageId: number, event: any, status: any, ackedAt: any, sendAt: any, data: any)
-  -> string
+Utils
 ```
+
+Utils class for lazy developers.
 
 
 ---
@@ -2657,7 +2737,7 @@ compId:
 any
 ```
 
-See: [CustomProfiler](../../mods/noita-mp/files/scripts/util/CustomProfiler.lua#L2#10)
+See: [CustomProfiler](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/CustomProfiler.lua#2#10)
 
 ## getAllVcsValuesByComponentIds
 
@@ -2700,7 +2780,7 @@ Returns all Network Vsc values by its entity id.
 any
 ```
 
-See: [GlobalsUtils](../../mods/noita-mp/files/scripts/util/GlobalsUtils.lua#L1#10)
+See: [GlobalsUtils](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/GlobalsUtils.lua#1#10)
 
 ## hasNetworkLuaComponents
 
@@ -2746,7 +2826,7 @@ Returns true, componentId and nuid if the entity has a NetworkVsc.
 any
 ```
 
-See: [Logger](../../mods/noita-mp/files/scripts/util/Logger.lua#L1#10)
+See: [Logger](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/Logger.lua#1#10)
 
 ## new
 
@@ -2763,7 +2843,7 @@ function NetworkVscUtils.new(self: NetworkVscUtils, networkVscUtilsObject: any, 
 any
 ```
 
-See: [Server](../../mods/noita-mp/files/scripts/net/Server.lua#L4#10)
+See: [Server](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/net/Server.lua#4#10)
 
 ## utils
 
@@ -2772,7 +2852,7 @@ See: [Server](../../mods/noita-mp/files/scripts/net/Server.lua#L4#10)
 any
 ```
 
-See: [Utils](../../mods/noita-mp/files/scripts/util/Utils.lua#L2#10)
+See: [Utils](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/Utils.lua#2#10)
 
 
 ---
@@ -2879,7 +2959,7 @@ NetworkVscUtils for getting and setting values in VariableStorageComponents of N
 
 
 ```lua
-function NoitaComponentUtils.new(self: NoitaComponentUtils, noitaComponentUtilsObject: NoitaComponentUtils|nil, customProfiler: CustomProfiler, globalsUtils: GlobalsUtils, logger: Logger|nil, networkVscUtils: NetworkVscUtils|nil, utils: Utils|nil)
+function NoitaComponentUtils.new(self: NoitaComponentUtils, noitaComponentUtilsObject: NoitaComponentUtils|nil, customProfiler: CustomProfiler, globalsUtils: GlobalsUtils, logger: Logger|nil, networkVscUtils: NetworkVscUtils|nil, utils: Utils|nil, noitaPatcherUtils: NoitaPatcherUtils)
   -> NoitaComponentUtils
 ```
 
@@ -2896,6 +2976,15 @@ NoitaComponentUtils constructor.
 @*param* `networkVscUtils` — optional
 
 @*param* `utils` — optional
+
+@*param* `noitaPatcherUtils` — required
+
+## noitaPatcherUtils
+
+
+```lua
+NoitaPatcherUtils
+```
 
 ## setEntityData
 
@@ -2959,7 +3048,7 @@ Removes all settings and creates a new settings file.
 CustomProfiler
 ```
 
-See: [CustomProfiler](../../mods/noita-mp/files/scripts/util/CustomProfiler.lua#L2#10)
+See: [CustomProfiler](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/CustomProfiler.lua#2#10)
 
 ## fileUtils
 
@@ -3129,6 +3218,20 @@ Deserialize an entity from a base64 string and create it at the given position.
 
 @*param* `serializedEntityString` — encoded string
 
+## ffi
+
+
+```lua
+unknown
+```
+
+## luaBase64
+
+
+```lua
+unknown
+```
+
 ## new
 
 
@@ -3150,15 +3253,45 @@ NoitaPatcherUtils constructor.
 noitapatcher
 ```
 
+## prepareForVsc
+
+
+```lua
+function NoitaPatcherUtils.prepareForVsc(self: NoitaPatcherUtils, binaryString: string)
+  -> Binary: string
+```
+
+ Removes NUL(\0) bytes from a string.
+
+@*param* `binaryString` — Binary string to remove NUL bytes from.
+
+@*return* `Binary` — string without NUL bytes.
+
 ## serializeEntity
 
 
 ```lua
 function NoitaPatcherUtils.serializeEntity(self: NoitaPatcherUtils, entityId: number)
-  -> encodedBase64: string
+  -> string
 ```
 
 Serialize an entity to a base64 and md5 string.
+
+## utf8
+
+
+```lua
+unknown
+```
+
+## utils
+
+
+```lua
+Utils
+```
+
+Utils class for lazy developers.
 
 
 ---
@@ -3342,7 +3475,7 @@ function Server.amIServer(self: Server)
 Checks if the current local user is a server.
 
 @*return* `true` — if server, false if not
-See: [Client.amIClient](../../mods/noita-mp/files/scripts/net/Client.lua#L947#9)
+See: [Client.amIClient](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/net/Client.lua#946#9)
 
 ## ban
 
@@ -3406,7 +3539,7 @@ EntityCache
 EntityCacheUtils
 ```
 
-See: [EntityCacheUtils](../../mods/noita-mp/files/scripts/util/EntityCacheUtils.lua#L1#10)
+See: [EntityCacheUtils](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/EntityCacheUtils.lua#1#10)
 
 ## entityUtils
 
@@ -3422,7 +3555,7 @@ EntityUtils
 FileUtils
 ```
 
-See: [FileUtils](../../mods/noita-mp/files/scripts/util/FileUtils.lua#L1#10)
+See: [FileUtils](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/FileUtils.lua#1#10)
 
 ## getAckCacheSize
 
@@ -3441,7 +3574,7 @@ Mainly for profiling. Returns then network cache, aka acknowledge.
 GlobalsUtils
 ```
 
-See: [GlobalsUtils](../../mods/noita-mp/files/scripts/util/GlobalsUtils.lua#L1#10)
+See: [GlobalsUtils](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/GlobalsUtils.lua#1#10)
 
 ## guid
 
@@ -3457,7 +3590,7 @@ nil
 GuidUtils
 ```
 
-See: [GuidUtils](../../mods/noita-mp/files/scripts/util/GuidUtils.lua#L2#10)
+See: [GuidUtils](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/GuidUtils.lua#2#10)
 
 ## health
 
@@ -3576,19 +3709,15 @@ nil
 
 
 ```lua
-table
+NetworkCache
 ```
-
-:new()
 
 ## networkCacheUtils
 
 
 ```lua
-table
+NetworkCacheUtils
 ```
-
-:new()
 
 ## networkUtils
 
@@ -4207,7 +4336,7 @@ function Utils.wait(self: Utils, s: number)
 Wait for n seconds.
 
 @*param* `s` — seconds to wait
-See: [Utils.sleep](../../mods/noita-mp/files/scripts/util/Utils.lua#L18#9)
+See: [Utils.sleep](file:///d%3A/a/NoitaMP/NoitaMP/mods/noita-mp/files/scripts/util/Utils.lua#18#9)
 
 
 ---
@@ -5975,21 +6104,6 @@ function math.ult(m: integer, n: integer)
 
 ---
 
-# md5
-
-
-```lua
-table
-```
-
-
-```lua
-unknown
-```
-
-
----
-
 # module
 
 
@@ -6106,21 +6220,19 @@ NoitaMpSettings
 
 # noitaMpSettings.customProfiler
 
-Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
-
 
 ```lua
-CustomProfiler
+table
 ```
 
 
 ```lua
-CustomProfiler
+table
 ```
 
 
 ```lua
-CustomProfiler
+table
 ```
 
 
@@ -7556,13 +7668,17 @@ Extension or expansion of the default lua table for checking if a table is empty
 
 
 ```lua
-function tablelib.join(tbl: table)
+function tablelib.join(tbl: table, logger: Logger, utils: Utils)
   -> Example: string
 ```
 
 We need a simple and 'fast' way to convert a lua table into a string.
 
 @*param* `tbl` — { "Name", 2, 234, "string" }
+
+@*param* `logger` — required
+
+@*param* `utils` — required
 
 @*return* `Example` — tbl becomes "Name,2,234,string"
 
