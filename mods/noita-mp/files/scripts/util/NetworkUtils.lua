@@ -146,6 +146,13 @@ function NetworkUtils:serialize(value)
     local cpc = self.customProfiler:start("NetworkUtils:serialize")
     self.logger:trace(self.logger.channels.network, ("Serializing value: %s"):format(value))
 
+    if not self.messagePack then
+        self.messagePack = require("MessagePack")
+    end
+    if not self.zstandard then
+        self.zstandard = require("zstd")
+    end
+
     local serialized      = self.messagePack.pack(value)
     local zstd, zstdError = self.zstandard:new() -- new zstd instance for every serialization, otherwise it will crash
     if not zstd or zstdError then
@@ -173,6 +180,13 @@ end
 function NetworkUtils:deserialize(value)
     local cpc = self.customProfiler:start("NetworkUtils:deserialize")
     self.logger:debug(self.logger.channels.network, ("Serialized and compressed value: %s"):format(value))
+
+    if not self.messagePack then
+        self.messagePack = require("MessagePack")
+    end
+    if not self.zstandard then
+        self.zstandard = require("zstd")
+    end
 
     local zstd, zstdError = self.zstandard:new() -- new zstd instance for every serialization, otherwise it will crash
     if not zstd or zstdError then
@@ -220,7 +234,7 @@ function NetworkUtils:alreadySent(peer, event, data)
     if not data then
         error("'data' must not be nil!", 2)
     end
-    if self.utils:IsEmpty(peer.clientCacheId) then
+    if self.utils:isEmpty(peer.clientCacheId) then
         self.logger:info(self.logger.channels.testing, ("peer.guid = '%s'"):format(peer.guid))
         peer.clientCacheId = self.guidUtils:toNumber(peer.guid) --error("peer.clientCacheId must not be nil!", 2)
     end
@@ -311,7 +325,7 @@ function NetworkUtils:zipTable(items, keys, event)
 
         if not key then
             error(("Missing data key for event '%s'! items = %s schema = %s")
-                :format(event, utils:pformat(items), utils:pformat(keys)), 2)
+                :format(event, self.utils:pformat(items), self.utils:pformat(keys)), 2)
         end
 
         data[key] = value

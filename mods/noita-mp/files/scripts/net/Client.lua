@@ -17,7 +17,7 @@ local sendAck = function(self, networkMessageId, event)
         error("event is nil", 2)
     end
     local data = { networkMessageId, event, self.networkUtils.events.acknowledgement.ack, os.clock() }
-    self:send(self.networkUtils.events.acknowledgement.name, data)
+    self:preSend(self.networkUtils.events.acknowledgement.name, data)
     self.logger:debug(self.logger.channels.network, ("Sent ack with data = %s"):format(self.utils:pformat(data)))
     self.customProfiler:stop("Client.sendAck", cpc)
 end
@@ -70,8 +70,8 @@ local onAcknowledgement = function(self, data)
     self.networkCacheUtils:ack(self.guid, data.networkMessageId, data.event,
         data.status, os.clock(), cachedData.sendAt, cachedData.dataChecksum)
 
-    if self.networkCache.size() > self.acknowledgeMaxSize then
-        self.networkCache.removeOldest()
+    if self.networkCache:size() > self.acknowledgeMaxSize then
+        self.networkCache:removeOldest()
     end
     self.customProfiler:stop("Client.onAcknowledgement", cpc)
 end
@@ -90,7 +90,7 @@ local onConnect = function(self, data)
 
     self:sendMinaInformation()
 
-    self:send(self.networkUtils.events.needModList.name, { self.networkUtils.getNextNetworkMessageId(), {}, {} })
+    self:preSend(self.networkUtils.events.needModList.name, { self.networkUtils:getNextNetworkMessageId(), {}, {} })
 
     -- sendAck(self, data.networkMessageId)
     self.customProfiler:stop("Client.onConnect", cpc)
@@ -275,7 +275,7 @@ local onNewGuid = function(self, data)
     end
 
     if data.oldGuid == self.guid then
-        local entityId                               = self.minaUtils.getLocalMinaInformation().entityId
+        local entityId                               = self.minaUtils:getLocalMinaEntityId()
         local compOwnerName, compOwnerGuid, compNuid = self.networkVscUtils.getAllVscValuesByEntityId(entityId)
 
         self.guid                                    = data.newGuid
@@ -322,14 +322,14 @@ local onSeed = function(self, data)
         end
     end
 
-    local entityId = self.minaUtils.getLocalMinaEntityId()
-    local name = self.minaUtils.getLocalMinaName()
-    local guid = self.minaUtils.getLocalMinaGuid()
-    if not self.networkVscUtils.hasNetworkLuaComponents(entityId) then
-        self.networkVscUtils.addOrUpdateAllVscs(entityId, name, guid, nil)
+    local entityId = self.minaUtils:getLocalMinaEntityId()
+    local name = self.minaUtils:getLocalMinaName()
+    local guid = self.minaUtils:getLocalMinaGuid()
+    if not self.networkVscUtils:hasNetworkLuaComponents(entityId) then
+        self.networkVscUtils:addOrUpdateAllVscs(entityId, name, guid, nil)
     end
-    if not self.networkVscUtils.hasNuidSet(entityId) then
-        self.sendNeedNuid(name, guid, entityId)
+    if not self.networkVscUtils:hasNuidSet(entityId) then
+        self:sendNeedNuid(name, guid, entityId)
     end
 
     sendAck(self, data.networkMessageId, self.networkUtils.events.seed.name)
@@ -433,8 +433,8 @@ local onNewNuid = function(self, data)
         error(("onNewNuid data.ownerGuid is empty: %s"):format(self.utils:pformat(data.ownerGuid)), 2)
     end
 
-    if self.utils:isEmpty(data.entityId) then
-        error(("onNewNuid data.entityId is empty: %s"):format(data.entityId), 2)
+    if self.utils:isEmpty(data.localEntityId) then
+        error(("onNewNuid data.localEntityId is empty: %s"):format(data.localEntityId), 2)
     end
 
     if self.utils:isEmpty(data.serializedEntityString) then
@@ -478,13 +478,13 @@ local onNewNuid = function(self, data)
             entityId = EntityCreateNew(data.nuid)
         end
     else
-        if self.entityCache.contains(entityId) then
-            local cachedEntity = self.entityCache.get(entityId)
+        if self.entityCache:contains(entityId) then
+            local cachedEntity = self.entityCache:get(entityId)
         end
     end
 
 
-    entityId = self.noitaPatcherUtils.deserializeEntity(entityId, data.serializedEntityString, data.x, data.y) --EntitySerialisationUtils.deserializeEntireRootEntity(data.serializedEntity, data.nuid)
+    entityId = self.noitaPatcherUtils:deserializeEntity(entityId, data.serializedEntityString, data.x, data.y) --EntitySerialisationUtils.deserializeEntireRootEntity(data.serializedEntity, data.nuid)
 
     -- include exclude list of entityIds which shouldn't be spawned
     -- if filename:contains("player.xml") then
@@ -496,15 +496,15 @@ local onNewNuid = function(self, data)
     --     return
     -- end
 
-    local compIds = EntityGetAllComponents(entityId) or {}
-    for i = 1, #compIds do
-        local compId   = compIds[i]
-        local compType = ComponentGetTypeName(compId)
-        if table.contains(self.entityUtils.remove.byComponentsName, compType) or
-            table.contains(EntitySerialisationUtils.ignore.byComponentsType) then
-            EntityRemoveComponent(entityId, compId)
-        end
-    end
+    -- local compIds = EntityGetAllComponents(entityId) or {}
+    -- for i = 1, #compIds do
+    --     local compId   = compIds[i]
+    --     local compType = ComponentGetTypeName(compId)
+    --     if table.contains(self.entityUtils.remove.byComponentsName, compType) or
+    --         table.contains(EntitySerialisationUtils.ignore.byComponentsType) then
+    --         EntityRemoveComponent(entityId, compId)
+    --     end
+    -- end
 
     sendAck(self, data.networkMessageId, self.networkUtils.events.newNuid.name)
     self.customProfiler:stop("Client.onNewNuid", cpc)
@@ -586,9 +586,9 @@ local onDeadNuids = function(self, data)
         if self.utils:isEmpty(deadNuid) or deadNuid == "nil" then
             error(("onDeadNuids deadNuid is empty: %s"):format(deadNuid), 2)
         else
-            self.entityUtils.destroyByNuid(self, deadNuid)
-            self.globalsUtils.removeDeadNuid(deadNuid)
-            self.entityCache.deleteNuid(deadNuid)
+            self.entityUtils:destroyByNuid(self, deadNuid)
+            self.globalsUtils:removeDeadNuid(deadNuid)
+            self.entityCache:deleteNuid(deadNuid)
         end
     end
     sendAck(self, data.networkMessageId, self.networkUtils.events.deadNuids.name)
@@ -782,7 +782,7 @@ function Client:preUpdate(startFrameTime)
     --self.entityUtils.processEntityNetworking()
     --self.entityUtils.initNetworkVscs()
 
-    self.entityUtils.syncEntities(startFrameTime)
+    self.entityUtils:syncEntities(startFrameTime)
 
     local nowTime     = GameGetRealWorldTimeSinceStarted() * 1000 -- *1000 to get milliseconds
     local elapsedTime = nowTime - prevTime
@@ -807,14 +807,14 @@ end
 ---@param data table required
 ---@return boolean true if message was sent, false if not
 ---@see sock.send
-function Client:send(event, data)
+function Client:preSend(event, data)
     local cpc = self.customProfiler:start("Client.send")
     if type(data) ~= "table" then
         error(("Data is not type of table: %s"):format(data), 2)
         return false
     end
 
-    if self.networkUtils.alreadySent(self, event, data) then
+    if self.networkUtils:alreadySent(self, event, data) then
         self.logger:debug(self.logger.channels.network, ("Network message for %s for data %s already was acknowledged.")
             :format(event, self.utils:pformat(data)))
         self.customProfiler:stop("Client.send", cpc)
@@ -822,11 +822,11 @@ function Client:send(event, data)
     end
 
     -- Inheritance: https://ozzypig.com/2018/05/10/object-oriented-programming-in-lua-part-5-inheritance
-    local networkMessageId = self.sock.send(self, event, data) --sockClientSend(self, event, data)
+    local networkMessageId = self:send(event, data) --sockClientSend(self, event, data)
 
     if event ~= self.networkUtils.events.acknowledgement.name then
         if self.networkUtils.events[event].isCacheable == true then
-            self.networkCacheUtils.set(self.guid, networkMessageId, event,
+            self.networkCacheUtils:set(self.guid, networkMessageId, event,
                 self.networkUtils.events.acknowledgement.sent, 0, os.clock(), data)
         end
     end
@@ -856,17 +856,17 @@ function Client:sendNeedNuid(ownerName, ownerGuid, entityId)
     end
 
     local x, y                         = EntityGetTransform(entityId)
-    local initialBase64String, md5Hash = self.noitaPatcherUtils.serializeEntity(entityId)
+    local initialBase64String, md5Hash = self.noitaPatcherUtils:serializeEntity(entityId)
     local data                         = {
-        self.networkUtils.getNextNetworkMessageId(), ownerName, ownerGuid, entityId, x, y,
-        self.noitaComponentUtils.getInitialSerializedEntityString(entityId), initialBase64String
+        self.networkUtils:getNextNetworkMessageId(), ownerName, ownerGuid, entityId, x, y,
+        self.noitaComponentUtils:getInitialSerializedEntityString(entityId), initialBase64String
     }
 
     if isTestLuaContext then
         print(("Sending need nuid for entity %s with data %s"):format(entityId, self.utils:pformat(data)))
     end
 
-    self:send(self.networkUtils.events.needNuid.name, data)
+    self:preSend(self.networkUtils.events.needNuid.name, data)
     self.customProfiler:stop("Client.sendNeedNuid", cpc)
 end
 
@@ -875,8 +875,8 @@ end
 ---@return boolean true if message was sent, false if not
 function Client:sendLostNuid(nuid)
     local cpc  = self.customProfiler:start("Client.sendLostNuid")
-    local data = { self.networkUtils.getNextNetworkMessageId(), nuid }
-    local sent = self:send(self.networkUtils.events.lostNuid.name, data)
+    local data = { self.networkUtils:getNextNetworkMessageId(), nuid }
+    local sent = self:preSend(self.networkUtils.events.lostNuid.name, data)
     self.customProfiler:stop("Client.sendLostNuid", cpc)
     return sent
 end
@@ -902,8 +902,8 @@ function Client:sendEntityData(entityId)
         return
     end
 
-    if self.minaUtils.getLocalMinaInformation().guid == compOwnerGuid then
-        self:send(self.networkUtils.events.entityData.name, data)
+    if self.minaUtils:getLocalMinaGuid() == compOwnerGuid then
+        self:preSend(self.networkUtils.events.entityData.name, data)
     end
     self.customProfiler:stop("Client.sendEntityData", cpc)
 end
@@ -914,9 +914,9 @@ end
 function Client:sendDeadNuids(deadNuids)
     local cpc  = self.customProfiler:start("Client.sendDeadNuids")
     local data = {
-        self.networkUtils.getNextNetworkMessageId(), deadNuids
+        self.networkUtils:getNextNetworkMessageId(), deadNuids
     }
-    local sent = self:send(self.networkUtils.events.deadNuids.name, data)
+    local sent = self:preSend(self.networkUtils.events.deadNuids.name, data)
     onDeadNuids(self, deadNuids)
     self.customProfiler:stop("Client.sendDeadNuids", cpc)
     return sent
@@ -925,18 +925,17 @@ end
 ---Sends mina information to the server.
 ---@return boolean
 function Client:sendMinaInformation()
-    local cpc       = self.customProfiler:start("Client.sendMinaInformation")
-    local minaInfo  = self.minaUtils.getLocalMinaInformation()
-    local name      = minaInfo.name
-    local guid      = minaInfo.guid
-    local entityId  = minaInfo.entityId or -1
-    local nuid      = minaInfo.nuid or -1
-    local transform = minaInfo.transform
-    local health    = minaInfo.health
-    local data      = {
-        self.networkUtils.getNextNetworkMessageId(), self.fileUtils:GetVersionByFile(), name, guid, entityId, nuid, transform, health
+    local cpc                                                                                = self.customProfiler:start("Client.sendMinaInformation")
+    local name                                                                               = self.minaUtils:getLocalMinaName()
+    local guid                                                                               = self.minaUtils:getLocalMinaGuid()
+    local entityId                                                                           = self.minaUtils:getLocalMinaEntityId()
+    local nuid                                                                               = self.minaUtils:getLocalMinaNuid()
+    local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = self.noitaComponentUtils:getEntityData(entityId)
+    local data                                                                               = {
+        self.networkUtils:getNextNetworkMessageId(), self.fileUtils:GetVersionByFile(), name, guid, entityId, nuid, { x, y }, health
     }
-    local sent      = self:send(self.networkUtils.events.minaInformation.name, data)
+    local sent                                                                               = self:preSend(
+        self.networkUtils.events.minaInformation.name, data)
     self.customProfiler:stop("Client.sendMinaInformation", cpc)
     return sent
 end
@@ -957,7 +956,7 @@ end
 ---Mainly for profiling. Returns then network cache, aka acknowledge.
 ---@return number cacheSize
 function Client:getAckCacheSize()
-    return self.networkCache.size()
+    return self.networkCache:size()
 end
 
 ---Client constructor. Inherits from SockClient sock.Client.
@@ -1043,9 +1042,13 @@ function Client.new(clientObject, serverOrAddress, port, maxChannels, server, np
         clientObject.networkVscUtils = server.networkVscUtils or error("Client:new requires a server object!", 2)
     end
 
+    if not clientObject.entityCache then
+        clientObject.entityCache = server.entityCache or error("Client:new requires a server object!", 2)
+    end
+
     --[[ Attributes ]]
 
-    clientObject.acknowledgeMaxSize = 500
+    clientObject.acknowledgeMaxSize = 1024
     clientObject.guid               = nil
     clientObject.health             = { current = 99, max = 100 }
     clientObject.iAm                = "CLIENT"

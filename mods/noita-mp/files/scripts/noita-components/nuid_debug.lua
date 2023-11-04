@@ -38,7 +38,7 @@ networkVscUtils = networkVscUtils or
 ---@type NoitaComponentUtils
 noitaComponentUtils = noitaComponentUtils or
     dofile_once("mods/noita-mp/files/scripts/util/NoitaComponentUtils.lua")
-    :new(nil, logger.customProfiler, globalsUtils, logger, networkVscUtils, globalsUtils.utils)
+    :new(nil, logger.customProfiler, globalsUtils, logger, networkVscUtils, globalsUtils.utils, {})
 
 if ModSettingGet("noita-mp.toggle_debug") then
     local entityId = GetUpdatedEntityID()

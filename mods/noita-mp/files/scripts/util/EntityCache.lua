@@ -81,16 +81,16 @@ function EntityCache:delete(entityId)
 end
 
 function EntityCache:deleteNuid(nuid)
-    local cpc = self.customProfiler:start("EntityCache.deleteNuid")
+    local cpc = self.customProfiler:start("EntityCache:deleteNuid")
     if self.usingC then
         return EntityCacheC.deleteNuid(nuid)
     end
-    for entry in pairs(self.cache) do
+    for entityId, entry in pairs(self.cache) do
         if entry.nuid == nuid then
-            EntityCache.cache[entry.entityId] = nil
+            self.cache[entry.entityId] = nil
         end
     end
-    self.customProfiler:stop("EntityCache.deleteNuid", cpc)
+    self.customProfiler:stop("EntityCache:deleteNuid", cpc)
 end
 
 function EntityCache:size()

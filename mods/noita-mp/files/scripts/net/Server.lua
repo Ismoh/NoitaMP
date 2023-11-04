@@ -71,8 +71,8 @@ local onAcknowledgement = function(self, data, peer)
     self.networkCacheUtils:ack(self.guid, data.networkMessageId, data.event,
         data.status, os.clock(), cachedData.sendAt, cachedData.dataChecksum)
 
-    if self.networkCache.size() > self.acknowledgeMaxSize then
-        self.networkCache.removeOldest()
+    if self.networkCache:size() > self.acknowledgeMaxSize then
+        self.networkCache:removeOldest()
     end
 
     --self.noitaComponentUtils:setNetworkSpriteIndicatorStatus(entityId, "acked")
@@ -162,7 +162,7 @@ local onDisconnect = function(self, data, peer)
     if not peer.clientCacheId then
         peer.clientCacheId = self.guidUtils:toNumber(peer.guid) --error("peer.clientCacheId must not be nil!", 2)
     end
-    self.networkCache.clear(peer.clientCacheId)
+    self.networkCache:clear(peer.clientCacheId)
 
     -- sendAck(data.networkMessageId, peer)
     self.customProfiler:stop("Server.onDisconnect", cpc)
@@ -273,8 +273,12 @@ local onNeedNuid = function(self, data, peer)
         error(("onNeedNuid data.networkMessageId is empty: %s"):format(data.networkMessageId), 2)
     end
 
-    if self.utils:isEmpty(data.owner) then
-        error(("onNeedNuid data.owner is empty: %s"):format(self.utils:pformat(data.owner)), 2)
+    if self.utils:isEmpty(data.ownerName) then
+        error(("onNeedNuid data.ownerName is empty: %s"):format(self.utils:pformat(data.ownerName)), 2)
+    end
+
+    if self.utils:isEmpty(data.ownerGuid) then
+        error(("onNeedNuid data.ownerGuid is empty: %s"):format(self.utils:pformat(data.ownerGuid)), 2)
     end
 
     if self.utils:isEmpty(data.localEntityId) then
@@ -289,43 +293,13 @@ local onNeedNuid = function(self, data, peer)
         error(("onNeedNuid data.y is empty: %s"):format(data.y), 2)
     end
 
-    if self.utils:isEmpty(data.rotation) then
-        error(("onNeedNuid data.rotation is empty: %s"):format(data.rotation), 2)
-    end
-
-    if self.utils:isEmpty(data.velocity) then
-        error(("onNeedNuid data.velocity is empty: %s"):format(self.utils:pformat(data.velocity)), 2)
-    end
-
-    if self.utils:isEmpty(data.filename) then
-        error(("onNeedNuid data.filename is empty: %s"):format(data.filename), 2)
-    end
-
-    if self.utils:isEmpty(data.health) then
-        error(("onNeedNuid data.health is empty: %s"):format(data.health), 2)
-    end
-
-    if self.utils:isEmpty(data.isPolymorphed) then
-        error(("onNeedNuid data.isPolymorphed is empty: %s"):format(data.isPolymorphed), 2)
-    end
-
     if self.utils:isEmpty(data.initialSerializedEntityString) then
         error(("onNeedNuid data.initialSerializedEntityString is empty: %s"):format(data.initialSerializedEntityString), 2)
     end
 
-    local owner                         = data.owner
-    local localEntityId                 = data.localEntityId
-    local x                             = data.x
-    local y                             = data.y
-    local rotation                      = data.rotation
-    local velocity                      = data.velocity
-    local filename                      = data.filename
-    local health                        = data.health
-    local isPolymorphed                 = data.isPolymorphed
-
     local initialSerializedEntityString = nil
     local serializedEntityString        = nil
-    local closestServerEntityId         = EntityGetClosest(x, y)
+    local closestServerEntityId         = EntityGetClosest(data.x, data.y)
     local nuid                          = nil
 
     if not self.utils:isEmpty(closestServerEntityId) then
@@ -344,16 +318,16 @@ local onNeedNuid = function(self, data, peer)
             -- local serverEntityId          = self.entityUtils:spawnEntity(owner, nuid, x, y, rotation,
             --     velocity, filename, localEntityId, health, isPolymorphed)
             local serverEntityId          = EntityCreateNew(data.nuid)
-            serverEntityId                = self.noitaPatcherUtils:deserializeEntity(serverEntityId, data.initialSerializedEntityString, data.x, data
-                .y)
+            serverEntityId                = self.noitaPatcherUtils:deserializeEntity(
+                serverEntityId, data.initialSerializedEntityString, data.x, data.y)
             initialSerializedEntityString = data.initialSerializedEntityString
             self.noitaComponentUtils:setInitialSerializedEntityString(serverEntityId, initialSerializedEntityString)
             serializedEntityString = initialSerializedEntityString
         end
     end
 
-    self.sendNewNuid(owner.name or owner[1], owner.guid or owner[2], localEntityId,
-        serializedEntityString, nuid, x, y, initialSerializedEntityString)
+    self:sendNewNuid(data.ownerName, data.ownerGuid, data.localEntityId,
+        serializedEntityString, nuid, data.x, data.y, initialSerializedEntityString)
 
     sendAck(self, data.networkMessageId, peer, self.networkUtils.events.needNuid.name)
     self.customProfiler:stop("Server.onNeedNuid", cpc)
@@ -486,7 +460,7 @@ local onDeadNuids = function(self, data, peer)
                 self.entityUtils:destroyByNuid(peer, deadNuid)
             end
             self.globalsUtils:removeDeadNuid(deadNuid)
-            self.entityCache.deleteNuid(deadNuid)
+            self.entityCache:deleteNuid(deadNuid)
         end
     end
     if peer then
@@ -958,7 +932,7 @@ end
 ---Mainly for profiling. Returns then network cache, aka acknowledge.
 ---@return number cacheSize
 function Server:getAckCacheSize()
-    return self.networkCache.size()
+    return self.networkCache:size()
 end
 
 ---Server constructor. Inherits from SockServer sock.newServer.
@@ -1061,26 +1035,35 @@ function Server.new(address, port, maxPeers, maxChannels, inBandwidth, outBandwi
 
     if not serverObject.networkCache then
         ---@type NetworkCache
-        serverObject.networkCache = require("NetworkCache") --:new()
+        serverObject.networkCache = require("NetworkCache")
+            :new(serverObject.customProfiler, serverObject.logger, serverObject.utils)
     end
 
     if not serverObject.networkCacheUtils then
         ---@type NetworkCacheUtils
-        serverObject.networkCacheUtils = require("NetworkCacheUtils") --:new()
+        serverObject.networkCacheUtils = require("NetworkCacheUtils")
+            :new(serverObject.customProfiler, serverObject.guidUtils, serverObject.logger, nil, serverObject.networkCache,
+                nil, serverObject.utils)
     end
 
     if not serverObject.networkUtils then
         ---@type NetworkUtils
-        serverObject.networkUtils = require("NetworkUtils")
+        serverObject.networkUtils = serverObject.networkCacheUtils.networkUtils or
+            require("NetworkUtils")
             :new(serverObject.customProfiler, serverObject.guidUtils, serverObject.logger,
                 serverObject.networkCacheUtils, serverObject.utils)
+    end
+
+    if not serverObject.noitaPatcherUtils then
+        serverObject.noitaPatcherUtils = require("NoitaPatcherUtils")
+            :new(nil, nil, serverObject.customProfiler, np)
     end
 
     if not serverObject.noitaComponentUtils then
         ---@type NoitaComponentUtils
         serverObject.noitaComponentUtils = require("NoitaComponentUtils")
             :new(nil, serverObject.customProfiler, serverObject.globalsUtils, serverObject.logger,
-                serverObject.networkVscUtils, serverObject.utils)
+                serverObject.networkVscUtils, serverObject.utils, serverObject.noitaPatcherUtils)
     end
 
     if not serverObject.entityCache then
@@ -1098,23 +1081,18 @@ function Server.new(address, port, maxPeers, maxChannels, inBandwidth, outBandwi
 
     if not serverObject.entityUtils then
         serverObject.entityUtils = require("EntityUtils")
-            :new(nil, {}, serverObject.customProfiler, serverObject.entityCacheUtils, serverObject.entityCache,
+            :new({}, serverObject.customProfiler, serverObject.entityCacheUtils, serverObject.entityCache,
                 serverObject.globalsUtils, serverObject.noitaMpSettings.logger, serverObject.minaUtils,
                 serverObject.networkUtils, serverObject.networkVscUtils, serverObject.noitaComponentUtils,
-                serverObject.nuidUtils, serverObject, serverObject.noitaMpSettings.utils, np) or
+                serverObject.noitaMpSettings, serverObject.nuidUtils, serverObject, serverObject.noitaMpSettings.utils, np) or
             error("Unable to create EntityUtils!", 2)
 
         serverObject.entityCache.entityUtils = serverObject.entityUtils
     end
 
-    if not serverObject.noitaPatcherUtils then
-        serverObject.noitaPatcherUtils = require("NoitaPatcherUtils")
-            :new(nil, nil, serverObject.customProfiler, np)
-    end
-
     -- [[ Attributes ]]
 
-    serverObject.acknowledgeMaxSize = 500
+    serverObject.acknowledgeMaxSize = 1024
     serverObject.guid               = nil
     serverObject.health             = { current = 99, max = 100 }
     serverObject.iAm                = "SERVER"

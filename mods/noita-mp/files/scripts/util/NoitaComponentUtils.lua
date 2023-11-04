@@ -143,6 +143,8 @@ function NoitaComponentUtils:setInitialSerializedEntityString(entityId, initialS
         self.customProfiler:stop("NoitaComponentUtils.setInitialSerializedEntityString", cpc)
         error("Unable to set initial serialized entity string, because entity is not alive!", 2)
     end
+
+    initialSerializedEntityString = self.noitaPatcherUtils:prepareForVsc(initialSerializedEntityString)
     if self.utils:isEmpty(initialSerializedEntityString) then
         self.customProfiler:stop("NoitaComponentUtils.setInitialSerializedEntityString", cpc)
         error("Unable to set initial serialized entity string, because it is empty!", 2)
@@ -183,6 +185,7 @@ function NoitaComponentUtils:getInitialSerializedEntityString(entityId)
         if string.find(compName, "noita-mp.nc_initialSerializedEntityString", 1, true) then
             -- if the name of the component match to the one we are searching for, then get the value
             serializedString = ComponentGetValue2(componentId, "value_string")
+            break
         end
     end
 
@@ -203,12 +206,13 @@ end
 ---@param logger Logger|nil optional
 ---@param networkVscUtils NetworkVscUtils|nil optional
 ---@param utils Utils|nil optional
+---@param noitaPatcherUtils NoitaPatcherUtils required
 ---@return NoitaComponentUtils
-function NoitaComponentUtils:new(noitaComponentUtilsObject, customProfiler, globalsUtils, logger, networkVscUtils, utils)
+function NoitaComponentUtils:new(noitaComponentUtilsObject, customProfiler, globalsUtils, logger, networkVscUtils, utils, noitaPatcherUtils)
     ---@class NoitaComponentUtils
     noitaComponentUtilsObject = setmetatable(noitaComponentUtilsObject or self, NoitaComponentUtils)
 
-    local cpc           = customProfiler:start("NoitaComponentUtils:new")
+    local cpc                 = customProfiler:start("NoitaComponentUtils:new")
 
     --[[ Imports ]]
     --Initialize all imports to avoid recursive imports
@@ -239,6 +243,12 @@ function NoitaComponentUtils:new(noitaComponentUtilsObject, customProfiler, glob
         ---@type Utils
         noitaComponentUtilsObject.utils = utils or
             require("Utils") --:new()
+    end
+
+    if not noitaComponentUtilsObject.noitaPatcherUtils then
+        ---@type NoitaPatcherUtils
+        noitaComponentUtilsObject.noitaPatcherUtils = noitaPatcherUtils or
+            error("NoitaComponentUtils:new requires a NoitaPatcherUtils object", 2)
     end
 
     return noitaComponentUtilsObject

@@ -36,16 +36,23 @@ function Listener:setSchema(event, schema)
     self.schemas[event] = schema
 end
 
--- Activates all callbacks for a trigger
--- Returns a boolean indicating if any callbacks were triggered
-function Listener:trigger(event, data, client)
+--- Activates all callbacks for a trigger.
+---@param selfClientOrSelfServer Server|Client OnTrigger needs a self reference to the server or client.
+---@param event string
+---@param data table
+---@param client Client|nil required for Server
+---@return boolean triggered Returns a boolean indicating if any callbacks were triggered
+function Listener:trigger(selfClientOrSelfServer, event, data, client)
     if self.triggers[event] then
         for _, trigger in pairs(self.triggers[event]) do
             -- Event has a pre-existing schema defined
             if self.schemas[event] then
                 data = require("NetworkUtils"):zipTable(data, self.schemas[event], event)
             end
-            trigger(data, client)
+            if not selfClientOrSelfServer then
+                print("sock.lua | trigger | selfClientOrSelfServer is nil!")
+            end
+            trigger(selfClientOrSelfServer, data, client)
         end
         return true
     else

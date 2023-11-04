@@ -52,10 +52,6 @@ local log = function(self, level, channel, message) --[[ private ]]
     if not message then
         error("Unable to log, because 'message' must not be nil!", 2)
     end
-    -- string.contains is not available in NoitaComponents and Logger.lua is also used in NoitaComponents.
-    if string.contains and message:contains("%") then
-        error("There is a directive (%) in your log message. Use string.format! Message = '" .. message .. "'", 2)
-    end
 
     if string.lower(level) == "off" then
         return false
@@ -77,6 +73,11 @@ local log = function(self, level, channel, message) --[[ private ]]
         -- string.contains is not available in NoitaComponents and Logger.lua is also used in NoitaComponents.
         or not string.find(logLevelOfSettings[1]:lower(), level:lower(), 1, true) then
         return false
+    end
+
+    -- string.contains is not available in NoitaComponents and Logger.lua is also used in NoitaComponents.
+    if string.contains and message:contains("%") then
+        error("There is a directive (%) in your log message. Use string.format! Message = '" .. message .. "'", 2)
     end
 
     local msg

@@ -128,10 +128,12 @@ function SockServer:update()
 
     while event do
         if event.type == "connect" then
-            local eventClient = require("Client"):new(nil, event.peer, nil, nil, self)
+            local address = string.split(tostring(event.peer), ":")[1]
+            local port = string.split(tostring(event.peer), ":")[2]
+            local eventClient = require("Client").new(nil, address, port, self:getMaxChannels(), self, self.noitaPatcherUtils.np)
             eventClient:establishClient(event.peer)
             eventClient:setSerialization(self.serialize, self.deserialize)
-            eventClient.clientCacheId = self.guidUtils.toNumber(eventClient.guid)
+            eventClient.clientCacheId = self.guidUtils:toNumber(eventClient.guid)
             table.insert(self.peers, event.peer)
             table.insert(self.clients, eventClient)
             self:_activateTriggers("connect", event.data, eventClient)
@@ -175,7 +177,7 @@ function SockServer:__unpack(data)
         error("Can't deserialize message: deserialize was not set")
     end
 
-    local message         = self.deserialize(data)
+    local message         = self:deserialize(data)
     local eventName, data = message[1], message[2]
     return eventName, data
 end
@@ -189,7 +191,7 @@ function SockServer:unpack(data)
         error("Can't deserialize message: deserialize was not set")
     end
 
-    return self.deserialize(data)
+    return self:deserialize(data)
 end
 
 -- Creates the serialized message that will be sent over the network
@@ -207,9 +209,9 @@ function SockServer:__pack(event, data)
     -- 'Data' = binary data class in Love
     if type(data) == "userdata" and data.type and data:typeOf("Data") then
         message[2]        = data:getString()
-        serializedMessage = self.serialize(message)
+        serializedMessage = self:serialize(message)
     else
-        serializedMessage = self.serialize(message)
+        serializedMessage = self:serialize(message)
     end
 
     return serializedMessage
@@ -224,7 +226,7 @@ function SockServer:pack(data)
         error("Can't serialize message: serialize was not set")
     end
 
-    return self.serialize(data)
+    return self:serialize(data)
 end
 
 --- Send a message to all clients, except one.
@@ -241,7 +243,7 @@ function SockServer:sendToAllBut(client, event, data)
     for _, p in pairs(self.peers) do
         if p ~= client.connection then
             self.packetsSent = self.packetsSent + 1
-            p:send(serializedMessage, self.sendChannel, self.sendMode)
+            p:preSend(serializedMessage, self.sendChannel, self.sendMode)
         end
     end
 
@@ -268,16 +270,16 @@ end
 
 function SockServer:sendToAll2(event, data)
     error("SockServer:sendToAll2 is deprecated, because cache wont work. Use SockServer:sendToPeer instead.", 2)
-    local cpc               = CustomProfiler.start("SockServer:sendToAll2")
+    local cpc               = self.customProfiler:start("SockServer:sendToAll2")
     local serializedMessage = self:__pack(event, data)
 
     for _, p in pairs(self.peers) do
         self.packetsSent = self.packetsSent + 1
-        p:send(serializedMessage, self.sendChannel, self.sendMode)
+        p:preSend(serializedMessage, self.sendChannel, self.sendMode)
     end
 
     self:resetSendSettings()
-    CustomProfiler.stop("SockServer:sendToAll2", cpc)
+    self.customProfiler:stop("SockServer:sendToAll2", cpc)
 end
 
 --- Send a message to a single peer. Useful to send data to a newly connected player
@@ -287,15 +289,15 @@ end
 --- @param data table to send to the peer.
 --- Usage: server:sendToPeer(peer, "initialGameInfo", {...})
 function SockServer:sendToPeer(peer, event, data)
-    local cpc              = CustomProfiler.start("SockServer:sendToPeer")
+    local cpc              = self.customProfiler:start("SockServer:sendToPeer")
     local networkMessageId = data[1] or data.networkMessageId
-    if Utils.IsEmpty(networkMessageId) then
+    if self.utils:isEmpty(networkMessageId) then
         error("networkMessageId is empty!", 3)
     end
     self.packetsSent = self.packetsSent + 1
-    peer:send(event, data)
+    peer:preSend(event, data)
     self:resetSendSettings()
-    CustomProfiler.stop("SockServer:sendToPeer", cpc)
+    self.customProfiler:stop("SockServer:sendToPeer", cpc)
     return networkMessageId
 end
 
@@ -312,7 +314,7 @@ function SockServer:on(event, callback)
 end
 
 function SockServer:_activateTriggers(event, data, client)
-    local result         = self.listener:trigger(event, data, client)
+    local result         = self.listener:trigger(self, event, data, client)
 
     self.packetsReceived = self.packetsReceived + 1
 
@@ -342,7 +344,7 @@ end
 --    server:log("error", "Something bad happened!")
 --end
 function SockServer:log(event, data)
-    return self.logger:log(event, data)
+    --return self.logger:log(event, data)
 end
 
 --- Reset all send options to their default values.

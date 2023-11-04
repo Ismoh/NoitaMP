@@ -1,241 +1,306 @@
+---@class NetworkCacheUtils
+--- Class for caching network messages.
+local NetworkCacheUtils = {}
 
-if not md5 then
-    if not require then
-        md5 = {}
-    else
-        md5 = require("md5")
-    end
-end
-
---- NetworkCacheUtils
-
-NetworkCacheUtils = {}
-
-function NetworkCacheUtils.getSum(event, data)
-    local cpc = CustomProfiler.start("NetworkCacheUtils.getSum")
-    Logger.trace(Logger.channels.testing, "getSum: " .. utils:pformat(data))
-    if not event or Utils.IsEmpty(event) or type(event) ~= "string" then
+--- Returns the sum of the data.
+---@param event string
+---@param data table
+---@return unknown
+function NetworkCacheUtils:getSum(event, data)
+    local cpc = self.customProfiler:start("NetworkCacheUtils:getSum")
+    self.logger:trace(self.logger.channels.testing, "getSum: " .. self.utils:pformat(data))
+    if not event or self.utils:isEmpty(event) or type(event) ~= "string" then
         error(("Unable to calculate sum, when event is nil or not a string: '%s'"):format(event), 2)
     end
-    if not data or Utils.IsEmpty(data) or type(data) ~= "table" then
+    if not data or self.utils:isEmpty(data) or type(data) ~= "table" then
         error(("Unable to calculate sum, when data is nil or not a table: '%s'"):format(data), 2)
     end
 
-    if not NetworkUtils.events[event].isCacheable then
+    if not self.networkUtils.events[event].isCacheable then
         error(("Event '%s' shouldn't be cached!"):format(event), 2)
     end
 
-    Logger.trace(Logger.channels.testing, "data: " .. utils:pformat(data))
-    local dataCopy = NetworkUtils:zipTable(data, NetworkUtils.events[event].schema, event)
-    Logger.trace(Logger.channels.testing, "dataCopy zipped: " .. utils:pformat(dataCopy))
-    if event ~= NetworkUtils.events.acknowledgement.name then
+    self.logger:trace(self.logger.channels.testing, "data: " .. self.utils:pformat(data))
+    local dataCopy = self.networkUtils:zipTable(data, self.networkUtils.events[event].schema, event)
+    self.logger:trace(self.logger.channels.testing, "dataCopy zipped: " .. self.utils:pformat(dataCopy))
+    if event ~= self.networkUtils.events.acknowledgement.name then
         -- when event is NOT acknowledgement, remove networkMessageId,
         -- but we need the networkMessageId to find the previous cached network message, when the event is acknowledgement
         dataCopy.networkMessageId = nil
     end
-    Logger.trace(Logger.channels.testing, "dataCopy without networkMessageId: " .. utils:pformat(dataCopy))
+    self.logger:trace(self.logger.channels.testing, "dataCopy without networkMessageId: " .. self.utils:pformat(dataCopy))
     local sum = ""
-    if NetworkUtils.events[event].resendIdentifiers ~= nil then
+    if self.networkUtils.events[event].resendIdentifiers ~= nil then
         local newData = {}
-        for i = 1, #NetworkUtils.events[event].resendIdentifiers do
-            local v = NetworkUtils.events[event].resendIdentifiers[i]
+        for i = 1, #self.networkUtils.events[event].resendIdentifiers do
+            local v = self.networkUtils.events[event].resendIdentifiers[i]
             if dataCopy[v] == nil then
                 error(("dataCopy: data for event '%s' was missing '%s' resendIdentifier"):format(event, v), 2)
             end
             newData[v] = dataCopy[v]
-            sum        = table.contentToString(newData)
+            sum        = table.join(newData, self.logger, self.utils)
         end
     else
-        sum = table.contentToString(dataCopy)
+        sum = table.join(dataCopy, self.logger, self.utils)
     end
-    Logger.trace(Logger.channels.testing, ("sum from %s = %s"):format(utils:pformat(dataCopy), sum))
-    CustomProfiler.stop("NetworkCacheUtils.getSum", cpc)
+    self.logger:trace(self.logger.channels.testing, ("sum from %s = %s"):format(self.utils:pformat(dataCopy), sum))
+    self.customProfiler:stop("NetworkCacheUtils:getSum", cpc)
     return sum
 end
 
---- Manipulates parameters to use Cache-CAPI.
---- @param peerGuid string peer.guid
---- @param networkMessageId number
----
-function NetworkCacheUtils.set(peerGuid, networkMessageId, event, status, ackedAt, sendAt, data)
-    local cpc = CustomProfiler.start("NetworkCacheUtils.set")
-    if not peerGuid or Utils.IsEmpty(peerGuid) or type(peerGuid) ~= "string" then
+--- Creates a new network cache entry.
+---@param peerGuid string peer.guid
+---@param networkMessageId number
+function NetworkCacheUtils:set(peerGuid, networkMessageId, event, status, ackedAt, sendAt, data)
+    local cpc = self.customProfiler:start("NetworkCacheUtils:set")
+    if not peerGuid or self.utils:isEmpty(peerGuid) or type(peerGuid) ~= "string" then
         error(("peerGuid '%s' must not be nil or empty or isn't type of string!"):format(peerGuid), 2)
     end
-    if not networkMessageId or Utils.IsEmpty(networkMessageId) or type(networkMessageId) ~= "number" then
+    if not networkMessageId or self.utils:isEmpty(networkMessageId) or type(networkMessageId) ~= "number" then
         error(("networkMessageId '%s' must not be nil or empty or isn't type of number!"):format(networkMessageId), 2)
     end
-    if not event or Utils.IsEmpty(event) or type(event) ~= "string" then
+    if not event or self.utils:isEmpty(event) or type(event) ~= "string" then
         error(("event '%s' must not be nil or empty or isn't type of string!"):format(event), 2)
     end
-    if not status or Utils.IsEmpty(status) or type(status) ~= "string" then
+    if not status or self.utils:isEmpty(status) or type(status) ~= "string" then
         error(("status '%s' must not be nil or empty or isn't type of string!"):format(status), 2)
     end
-    if not ackedAt or Utils.IsEmpty(ackedAt) or type(ackedAt) ~= "number" then
+    if not ackedAt or self.utils:isEmpty(ackedAt) or type(ackedAt) ~= "number" then
         error(("ackedAt '%s' must not be nil or empty or isn't type of number!"):format(ackedAt), 2)
     end
-    if not sendAt or Utils.IsEmpty(sendAt) or type(sendAt) ~= "number" then
+    if not sendAt or self.utils:isEmpty(sendAt) or type(sendAt) ~= "number" then
         error(("sendAt '%s' must not be nil or empty or isn't type of number!"):format(sendAt), 2)
     end
-    if not data or Utils.IsEmpty(data) or type(data) ~= "table" then
+    if not data or self.utils:isEmpty(data) or type(data) ~= "table" then
         error(("data '%s' must not be nil or empty or isn't type of table!"):format(utils:pformat(data)), 2)
     end
 
-    if not NetworkUtils.events[event].isCacheable then
+    if not self.networkUtils.events[event].isCacheable then
         error(("Event '%s' shouldn't be cached!"):format(event), 2)
     end
 
-    local sum = NetworkCacheUtils.getSum(event, data)
-    if Utils.IsEmpty(sum) then
-        Logger.warn(Logger.channels.cache, ("sum is empty '%s'. Setting it to '%s'."):format(sum, event))
+    local sum = self:getSum(event, data)
+    if self.utils:isEmpty(sum) then
+        self.logger:warn(self.logger.channels.cache, ("sum is empty '%s'. Setting it to '%s'."):format(sum, event))
         sum = event
     end
 
-    local dataChecksum = ("%s"):format(md5.sumhexa(sum))
+    local dataChecksum = ("%s"):format(self.md5.sumhexa(sum))
     if type(dataChecksum) ~= "string" then
-        Logger.warn(Logger.channels.cache,
+        self.logger:warn(self.logger.channels.cache,
             ("dataChecksum is a string '%s'. Converting it to a string!."):format(dataChecksum))
         dataChecksum = tostring(dataChecksum)
-        Logger.warn(Logger.channels.cache, ("dataChecksum converted to string '%s'."):format(dataChecksum))
+        self.logger:warn(self.logger.channels.cache, ("dataChecksum converted to string '%s'."):format(dataChecksum))
     end
 
-    if Utils.IsEmpty(dataChecksum) then
+    if self.utils:isEmpty(dataChecksum) then
         error(("Unable to set cache, when dataChecksum is empty %s!"):format(dataChecksum), 2)
     end
 
-    local clientCacheId = GuidUtils.toNumber(peerGuid)
+    local clientCacheId = self.guidUtils:toNumber(peerGuid)
 
-    Logger.trace(Logger.channels.cache, ("NetworkCache.set: %s"):format(utils:pformat(data)))
-    Logger.trace(Logger.channels.cache,
+    self.logger:trace(self.logger.channels.cache, ("NetworkCache.set: %s"):format(self.utils:pformat(data)))
+    self.logger:trace(self.logger.channels.cache,
         ("NetworkCache.set(clientCacheId %s, networkMessageId %s, event %s, status %s, ackedAt %s, sendAt %s, dataChecksum %s)")
         :format(clientCacheId, networkMessageId, event, status, ackedAt, sendAt, dataChecksum))
-    Logger.trace(Logger.channels.testing,
+    self.logger:trace(self.logger.channels.testing,
         ("NetworkCache.set(clientCacheId %s, networkMessageId %s, event %s, status %s, ackedAt %s, sendAt %s, dataChecksum %s)")
         :format(clientCacheId, networkMessageId, event, status, ackedAt, sendAt, dataChecksum))
 
-    NetworkCache.set(clientCacheId, networkMessageId, event, status, ackedAt, sendAt, dataChecksum)
-    Logger.info(Logger.channels.cache,
+    self.networkCache:set(clientCacheId, networkMessageId, event, status, ackedAt, sendAt, dataChecksum)
+    self.logger:info(self.logger.channels.cache,
         ("Set nCache for clientCacheId %s, networkMessageId %s, event %s, status %s, ackedAt %s, sendAt %s, dataChecksum %s")
         :format(clientCacheId, networkMessageId, event, status, ackedAt, sendAt, dataChecksum))
-    CustomProfiler.stop("NetworkCacheUtils.set", cpc)
+    self.customProfiler:stop("NetworkCacheUtils:set", cpc)
     return dataChecksum
 end
 
---- @return table data { ackedAt, dataChecksum, event, messageId, sendAt, status}
-function NetworkCacheUtils.get(peerGuid, networkMessageId, event)
-    local cpc = CustomProfiler.start("NetworkCacheUtils.get")
-    if not peerGuid or Utils.IsEmpty(peerGuid) or type(peerGuid) ~= "string" then
+--- Returns the cached network message.
+---@param peerGuid string
+---@param networkMessageId number
+---@param event string
+---@return table data { ackedAt, dataChecksum, event, messageId, sendAt, status}
+function NetworkCacheUtils:get(peerGuid, networkMessageId, event)
+    local cpc = self.customProfiler:start("NetworkCacheUtils:get")
+    if not peerGuid or self.utils:isEmpty(peerGuid) or type(peerGuid) ~= "string" then
         error(("peerGuid '%s' must not be nil or empty or isn't type of string!"):format(peerGuid), 2)
     end
-    if not networkMessageId or Utils.IsEmpty(networkMessageId) or type(networkMessageId) ~= "number" then
+    if not networkMessageId or self.utils:isEmpty(networkMessageId) or type(networkMessageId) ~= "number" then
         error(("networkMessageId '%s' must not be nil or empty or isn't type of number!"):format(networkMessageId), 2)
     end
-    if not event or Utils.IsEmpty(event) or type(event) ~= "string" then
+    if not event or self.utils:isEmpty(event) or type(event) ~= "string" then
         error(("event '%s' must not be nil or empty or isn't type of string!"):format(event), 2)
     end
 
-    if not NetworkUtils.events[event].isCacheable then
+    if not self.networkUtils.events[event].isCacheable then
         error(("Event '%s' shouldn't be cached!"):format(event), 2)
     end
 
-    if not NetworkUtils.events[event].isCacheable then
+    if not self.networkUtils.events[event].isCacheable then
         error(("Event '%s' shouldn't be cached!"):format(event), 2)
     end
-    Logger.info(Logger.channels.testing,
+    self.logger:info(self.logger.channels.testing,
         ("NetworkCacheUtils.get(peerGuid %s, networkMessageId %s, event %s)"):format(peerGuid, networkMessageId,
             event))
-    Logger.info(Logger.channels.testing,
-        ("NetworkCache.get(clientCacheId %s, networkMessageId %s, event %s)"):format(GuidUtils.toNumber(peerGuid),
+    self.logger:info(self.logger.channels.testing,
+        ("NetworkCache.get(clientCacheId %s, networkMessageId %s, event %s)"):format(self.guidUtils:toNumber(peerGuid),
             networkMessageId, event))
 
-    local clientCacheId = GuidUtils.toNumber(peerGuid)
-    local data          = NetworkCache.get(clientCacheId, event, tonumber(networkMessageId))
-    Logger.info(Logger.channels.cache,
+    local clientCacheId = self.guidUtils:toNumber(peerGuid)
+    local data          = self.networkCache:get(clientCacheId, event, tonumber(networkMessageId))
+    self.logger:info(self.logger.channels.cache,
         ("Get nCache by clientCacheId %s, event %s, networkMessageId %s, data %s")
-        :format(clientCacheId, event, networkMessageId, utils:pformat(data)))
-    CustomProfiler.stop("NetworkCacheUtils.get", cpc)
+        :format(clientCacheId, event, networkMessageId, self.utils:pformat(data)))
+    self.customProfiler:stop("NetworkCacheUtils:get", cpc)
     return data
 end
 
+--- Returns the cached network message by checksum.
+---@param peerGuid string
+---@param event string
+---@param data table
 --- @return table cacheData { ackedAt, dataChecksum, event, messageId, sendAt, status}
-function NetworkCacheUtils.getByChecksum(peerGuid, event, data)
-    local cpc = CustomProfiler.start("NetworkCacheUtils.getByChecksum")
-    if not peerGuid or Utils.IsEmpty(peerGuid) or type(peerGuid) ~= "string" then
+function NetworkCacheUtils:getByChecksum(peerGuid, event, data)
+    local cpc = self.customProfiler:start("NetworkCacheUtils:getByChecksum")
+    if not peerGuid or self.utils:isEmpty(peerGuid) or type(peerGuid) ~= "string" then
         error(("peerGuid '%s' must not be nil or empty or isn't type of string!"):format(utils:pformat(peerGuid)), 2)
     end
-    if not event or Utils.IsEmpty(event) or type(event) ~= "string" then
+    if not event or self.utils:isEmpty(event) or type(event) ~= "string" then
         error(("event '%s' must not be nil or empty or isn't type of string!"):format(utils:pformat(event)), 2)
     end
-    if not data or Utils.IsEmpty(data) or type(data) ~= "table" then
+    if not data or self.utils:isEmpty(data) or type(data) ~= "table" then
         error(("data '%s' must not be nil or empty or isn't type of table!"):format(utils:pformat(data)), 2)
     end
 
-    if not NetworkUtils.events[event].isCacheable then
+    if not self.networkUtils.events[event].isCacheable then
         error(("Event '%s' shouldn't be cached!"):format(event), 2)
     end
 
-    local sum           = NetworkCacheUtils.getSum(event, data)
-    local dataChecksum  = ("%s"):format(md5.sumhexa(sum))
-    local clientCacheId = GuidUtils.toNumber(peerGuid)
-    local cacheData     = NetworkCache.getChecksum(clientCacheId, dataChecksum)
-    Logger.info(Logger.channels.cache,
+    local sum           = self:getSum(event, data)
+    local dataChecksum  = ("%s"):format(self.md5.sumhexa(sum))
+    local clientCacheId = self.guidUtils:toNumber(peerGuid)
+    local cacheData     = self.networkCache:getChecksum(clientCacheId, dataChecksum)
+    self.logger:info(self.logger.channels.cache,
         ("Get nCache by clientCacheId %s, dataChecksum %s, event %s, cacheData %s")
-        :format(clientCacheId, dataChecksum, event, utils:pformat(cacheData)))
-    CustomProfiler.stop("NetworkCacheUtils.getByChecksum", cpc)
+        :format(clientCacheId, dataChecksum, event, self.utils:pformat(cacheData)))
+    self.customProfiler:stop("NetworkCacheUtils:getByChecksum", cpc)
     return cacheData
 end
 
-NetworkCacheUtils.ack    = function(peerGuid, networkMessageId, event, status, ackedAt, sendAt, checksum)
-    local cpc = CustomProfiler.start("NetworkCacheUtils.ack")
-    if not peerGuid or Utils.IsEmpty(peerGuid) or type(peerGuid) ~= "string" then
+--- Sets a acknoledgement for a cached network message.
+---@param peerGuid string
+---@param networkMessageId number
+---@param event string
+---@param status string
+---@param ackedAt ?
+---@param sendAt ?
+---@param checksum string
+function NetworkCacheUtils:ack(peerGuid, networkMessageId, event, status, ackedAt, sendAt, checksum)
+    local cpc = self.customProfiler:start("NetworkCacheUtils:ack")
+    if not peerGuid or self.utils:isEmpty(peerGuid) or type(peerGuid) ~= "string" then
         error(("peerGuid '%s' must not be nil or empty or isn't type of string!"):format(peerGuid), 2)
     end
-    if not networkMessageId or Utils.IsEmpty(networkMessageId) or type(networkMessageId) ~= "number" then
+    if not networkMessageId or self.utils:isEmpty(networkMessageId) or type(networkMessageId) ~= "number" then
         error(("networkMessageId '%s' must not be nil or empty or isn't type of number!"):format(networkMessageId), 2)
     end
-    if not event or Utils.IsEmpty(event) or type(event) ~= "string" then
+    if not event or self.utils:isEmpty(event) or type(event) ~= "string" then
         error(("event '%s' must not be nil or empty or isn't type of string!"):format(event), 2)
     end
-    if not status or Utils.IsEmpty(status) or type(status) ~= "string" then
+    if not status or self.utils:isEmpty(status) or type(status) ~= "string" then
         error(("status '%s' must not be nil or empty or isn't type of string!"):format(status), 2)
     end
-    if not ackedAt or Utils.IsEmpty(ackedAt) or type(ackedAt) ~= "number" then
+    if not ackedAt or self.utils:isEmpty(ackedAt) or type(ackedAt) ~= "number" then
         error(("ackedAt '%s' must not be nil or empty or isn't type of number!"):format(ackedAt), 2)
     end
-    if not sendAt or Utils.IsEmpty(sendAt) or type(sendAt) ~= "number" then
+    if not sendAt or self.utils:isEmpty(sendAt) or type(sendAt) ~= "number" then
         error(("sendAt '%s' must not be nil or empty or isn't type of number!"):format(sendAt), 2)
     end
-    if not checksum or Utils.IsEmpty(checksum) or type(checksum) ~= "string" then
+    if not checksum or self.utils:isEmpty(checksum) or type(checksum) ~= "string" then
         error(("checksum '%s' must not be nil or empty or isn't type of string!"):format(utils:pformat(checksum)), 2)
     end
 
-    local clientCacheId = GuidUtils.toNumber(peerGuid)
+    local clientCacheId = self.guidUtils:toNumber(peerGuid)
 
-    Logger.trace(Logger.channels.cache,
+    self.logger:trace(self.logger.channels.cache,
         ("NetworkCache.ack(clientCacheId %s, networkMessageId %s, event %s, status %s, ackedAt %s, sendAt %s, dataChecksum %s)")
         :format(clientCacheId, networkMessageId, event, status, ackedAt, sendAt, checksum))
-    Logger.trace(Logger.channels.testing,
+    self.logger:trace(self.logger.channels.testing,
         ("NetworkCache.set(clientCacheId %s, networkMessageId %s, event %s, status %s, ackedAt %s, sendAt %s, dataChecksum %s)")
         :format(clientCacheId, networkMessageId, event, status, ackedAt, sendAt, checksum))
-    NetworkCache.set(clientCacheId, networkMessageId, event, status, ackedAt, sendAt, tostring(checksum))
-    Logger.info(Logger.channels.cache,
+    self.networkCache:set(clientCacheId, networkMessageId, event, status, ackedAt, sendAt, tostring(checksum))
+    self.logger:info(self.logger.channels.cache,
         ("Set nCache for clientCacheId %s, networkMessageId %s, event %s, status %s, ackedAt %s, sendAt %s, dataChecksum %s")
         :format(clientCacheId, networkMessageId, event, status, ackedAt, sendAt, checksum))
-    CustomProfiler.stop("NetworkCacheUtils.ack", cpc)
+    self.customProfiler:stop("NetworkCacheUtils:ack", cpc)
 end
 
-NetworkCacheUtils.logAll = function()
-    local all = NetworkCache.getAll()
+--- Logs all cached network messages. Only for debugging.
+function NetworkCacheUtils:logAll()
+    local all = self.networkCache:getAll()
     for i = 1, #all do
-        if not Utils.IsEmpty(all[i].dataChecksum) and string.contains(all[i].dataChecksum, "%%") then
+        if not self.utils:isEmpty(all[i].dataChecksum) and string.contains(all[i].dataChecksum, "%%") then
             all[i].dataChecksum = string.gsub(all[i].dataChecksum, "percent sign")
         end
-        Logger.trace(Logger.channels.cache,
+        self.logger:trace(self.logger.channels.cache,
             ("event = %s, messageId = %s, dataChecksum = %s, status = %s, ackedAt = %s, sendAt = %s")
             :format(all[i].event, all[i].messageId, all[i].dataChecksum, all[i].status, all[i].ackedAt,
                 all[i].sendAt))
     end
 end
 
+--- NetworkCacheUtils constructor.
+---@param customProfiler CustomProfiler required
+---@param guidUtils GuidUtils required
+---@param logger Logger required
+---@param md5 md5|nil optional
+---@param networkCache NetworkCache required
+---@param networkUtils NetworkUtils|nil optional
+---@param utils Utils|nil optional
+---@return NetworkCacheUtils
+function NetworkCacheUtils:new(customProfiler, guidUtils, logger, md5, networkCache, networkUtils, utils)
+    ---@class NetworkCacheUtils
+    local networkCacheUtils = setmetatable(self, NetworkCacheUtils)
+
+    --[[ Imports ]]
+    --Initialize all imports to avoid recursive imports
+
+    if not networkCacheUtils.customProfiler then
+        networkCacheUtils.customProfiler = customProfiler or
+            error("NetworkCacheUtils:new requires a CustomProfiler object", 2)
+    end
+
+    if not networkCacheUtils.guidUtils then
+        networkCacheUtils.guidUtils = guidUtils or
+            error("NetworkCacheUtils:new requires a GuidUtils object", 2)
+    end
+
+    if not networkCacheUtils.logger then
+        networkCacheUtils.logger = logger or
+            error("NetworkCacheUtils:new requires a Logger object", 2)
+    end
+
+    if not networkCacheUtils.md5 then
+        networkCacheUtils.md5 = md5 or require("md5")
+    end
+
+    if not networkCacheUtils.networkCache then
+        networkCacheUtils.networkCache = networkCache or
+            error("NetworkCacheUtils:new requires a NetworkCache object", 2)
+    end
+
+    if not networkCacheUtils.utils then
+        networkCacheUtils.utils = utils or
+            require("Utils"):new(nil)
+    end
+
+    if not networkCacheUtils.networkUtils then
+        networkCacheUtils.networkUtils = networkUtils or
+            require("NetworkUtils")
+            :new(networkCacheUtils.customProfiler, guidUtils, logger,
+                networkCacheUtils, utils)
+    end
+
+    return networkCacheUtils
+end
 
 return NetworkCacheUtils

@@ -352,9 +352,9 @@ function Gui:drawPlayMenu()
             if isServerIpChanged then
                 self.server.address = serverIp
             end
-            local isServerPortChanged, serverPort = self.imGui.InputTextWithHint("Server Port", "Use '1 - 65535'!", tostring(self.client:getPort()))
+            local isServerPortChanged, serverPort = self.imGui.InputTextWithHint("Server Port", "Use '1 - 65535'!", tostring(self.client:getPort()) or 14017)
             if isServerPortChanged then
-                self.client.port = serverPort
+                self.client.port = tonumber(serverPort) or 14017
             end
 
             self.imGui.Separator()

@@ -23,9 +23,9 @@ end
 function TestUtil:testIsEmpty()
     local tbl = {}
     table.insert(tbl, "1234")
-    lu.assertIsFalse(Utils.IsEmpty(tbl))
+    lu.assertIsFalse(self.utils:isEmpty(tbl))
 
-    lu.assertIsTrue(Utils.IsEmpty(nil))
-    lu.assertIsTrue(Utils.IsEmpty(""))
-    lu.assertIsTrue(Utils.IsEmpty({}))
+    lu.assertIsTrue(self.utils:isEmpty(nil))
+    lu.assertIsTrue(self.utils:isEmpty(""))
+    lu.assertIsTrue(self.utils:isEmpty({}))
 end

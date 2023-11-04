@@ -64,11 +64,11 @@ end
 ---Getter for local mina entity id. It also takes care of polymorphism!
 ---@return number|nil localMinaEntityId or nil if not found/dead
 function MinaUtils:getLocalMinaEntityId()
-    local cpc                   = self.customProfiler:start("MinaUtils.getLocalMinaEntityId")
+    local cpc                   = self.customProfiler:start("MinaUtils:getLocalMinaEntityId")
     local polymorphed, entityId = self:isLocalMinaPolymorphed()
 
     if polymorphed then
-        self.customProfiler:stop("MinaUtils.getLocalMinaEntityId", cpc)
+        self.customProfiler:stop("MinaUtils:getLocalMinaEntityId", cpc)
         return entityId
     end
 
@@ -77,7 +77,7 @@ function MinaUtils:getLocalMinaEntityId()
         if self.networkVscUtils:hasNetworkLuaComponents(playerEntityIds[i]) then
             local compOwnerName, compOwnerGuid, compNuid = self.networkVscUtils:getAllVscValuesByEntityId(playerEntityIds[i])
             if compOwnerGuid == localMinaGuid then
-                self.customProfiler:stop("MinaUtils.getLocalMinaEntityId", cpc)
+                self.customProfiler:stop("MinaUtils:getLocalMinaEntityId", cpc)
                 return playerEntityIds[i]
             end
         end
@@ -85,12 +85,12 @@ function MinaUtils:getLocalMinaEntityId()
     if self.utils:isEmpty(playerEntityIds) then
         self.logger:trace(self.logger.channels.entity,
             ("There isn't any Mina spawned yet or all died! EntityGetWithTag('player_unit') = {}"):format(playerEntityIds))
-        self.customProfiler:stop("MinaUtils.getLocalMinaEntityId", cpc)
+        self.customProfiler:stop("MinaUtils:getLocalMinaEntityId", cpc)
         return nil
     end
     self.logger:debug(self.logger.channels.entity,
         ("Unable to get local player entity id. Returning first entity id(%s), which was found."):format(playerEntityIds[1]))
-    self.customProfiler:stop("MinaUtils.getLocalMinaEntityId", cpc)
+    self.customProfiler:stop("MinaUtils:getLocalMinaEntityId", cpc)
     return playerEntityIds[1]
 end
 

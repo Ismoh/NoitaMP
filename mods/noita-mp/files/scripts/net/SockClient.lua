@@ -144,7 +144,7 @@ function SockClient:connect(code)
 
     -- number of channels for the client and server must match
     self.connection = self.host:connect(self.address .. ":" .. self.port, self.maxChannels, code)
-    _G.Logger.info(_G.Logger.channels.network, "Connecting to " .. self.address .. ":" .. self.port)
+    self.logger:info(self.logger.channels.network, "Connecting to " .. self.address .. ":" .. self.port)
     self.connectId = self.connection:connect_id()
 end
 
@@ -191,7 +191,7 @@ function SockClient:__unpack(data)
         error("Can't deserialize message: deserialize was not set")
     end
 
-    local message         = self.deserialize(data)
+    local message         = self:deserialize(data)
     local eventName, data = message[1], message[2]
     return eventName, data
 end
@@ -211,9 +211,9 @@ function SockClient:__pack(event, data)
     -- 'Data' = binary data class in Love
     if type(data) == "userdata" and data.type and data:typeOf("Data") then
         message[2]        = data:getString()
-        serializedMessage = self.serialize(message)
+        serializedMessage = self:serialize(message)
     else
-        serializedMessage = self.serialize(message)
+        serializedMessage = self:serialize(message)
     end
 
     return serializedMessage
@@ -224,7 +224,7 @@ end
 -- @param data The data to send.
 function SockClient:send(event, data)
     local networkMessageId = data[1] or data.networkMessageId
-    if Utils.IsEmpty(networkMessageId) then
+    if self.utils:isEmpty(networkMessageId) then
         error("networkMessageId is empty!", 3)
     end
 
@@ -249,7 +249,7 @@ function SockClient:on(event, callback)
 end
 
 function SockClient:_activateTriggers(event, data)
-    local result         = self.listener:trigger(event, data)
+    local result         = self.listener:trigger(self, event, data)
 
     self.packetsReceived = self.packetsReceived + 1
 
@@ -279,7 +279,7 @@ end
 --    client:log("error", "Something bad happened!")
 --end
 function SockClient:log(event, data)
-    return self.logger:log(event, data)
+    --return self.logger:log(event, data)
 end
 
 --- Reset all send options to their default values.

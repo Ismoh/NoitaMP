@@ -13,18 +13,82 @@ function OnProjectileFiredPost() end
 
 ---Serialize an entity to a base64 and md5 string.
 ---@param entityId number
----@return string encodedBase64
+---@return string
 function NoitaPatcherUtils:serializeEntity(entityId)
-    local cpc = self.customProfiler:start("NoitaPatcherUtils.serializeEntity")
-    local binaryString = self.np.SerializeEntity(entityId)
-    --local encodedBase64 = self.base64.encode(binaryString, nil, false)
+    local cpc = self.customProfiler:start("NoitaPatcherUtils:serializeEntity")
+
     if not self.base64_fast then
         self.base64_fast = require("base64_fast")
     end
+
+    if not self.luaBase64 then
+        -- luarocks remove LuaBase64
+
+        self.luaBase64 = require("LuaBase64")
+    end
+
+    if not self.utf8 then
+        -- luarocks remove luautf8
+
+        self.utf8 = require("lua-utf8")
+    end
+
+    print("__________________")
+    local start = GameGetRealWorldTimeSinceStarted()
+    local binaryString = self.np.SerializeEntity(entityId)
+    local finish = GameGetRealWorldTimeSinceStarted()
+    print("self.np.SerializeEntity(entityId) took " .. (finish - start) .. "ms")
+    print("binaryString: " .. binaryString)
+
+    print("")
+    start = GameGetRealWorldTimeSinceStarted()
+    local ffiString = self.ffi.string(binaryString)
+    finish = GameGetRealWorldTimeSinceStarted()
+    print("self.ffi.string(binaryString) took " .. (finish - start) .. "ms")
+    print("ffiString: " .. ffiString)
+
+    print("")
+    start = GameGetRealWorldTimeSinceStarted()
+    local base64String = self.base64.encode(binaryString, nil, false)
+    finish = GameGetRealWorldTimeSinceStarted()
+    print("self.base64.encode(binaryString, nil, false) took " .. (finish - start) .. "ms")
+    print("base64String: " .. base64String)
+
+    print("")
+    start = GameGetRealWorldTimeSinceStarted()
     local encodedBase64 = self.base64_fast.encode(binaryString)
-    self.customProfiler:stop("NoitaPatcherUtils.serializeEntity", cpc)
-    return encodedBase64
-    --return binaryString
+    finish = GameGetRealWorldTimeSinceStarted()
+    print("self.base64_fast.encode(binaryString) took " .. (finish - start) .. "ms")
+    print("encodedBase64: " .. encodedBase64)
+
+    print("")
+    start = GameGetRealWorldTimeSinceStarted()
+    local luaBase64String = self.luaBase64.encode(binaryString)
+    finish = GameGetRealWorldTimeSinceStarted()
+    print("self.luaBase64.encode(binaryString) took " .. (finish - start) .. "ms")
+    print("luaBase64String: " .. luaBase64String)
+
+    print("")
+    start = GameGetRealWorldTimeSinceStarted()
+    local utf8String = self.utf8.escape(binaryString)
+    finish = GameGetRealWorldTimeSinceStarted()
+    print("self.utf8.escape(binaryString) took " .. (finish - start) .. "ms")
+    print("utf8String: " .. utf8String)
+
+    self.customProfiler:stop("NoitaPatcherUtils:serializeEntity", cpc)
+    return binaryString
+end
+
+--- Removes NUL(\0) bytes from a string.
+---@param binaryString string Binary string to remove NUL bytes from.
+---@return string Binary string without NUL bytes.
+function NoitaPatcherUtils:prepareForVsc(binaryString)
+    local cpc = self.customProfiler:start("NoitaPatcherUtils:prepareForVsc")
+    print("NUL " .. binaryString)
+    binaryString = binaryString:gsub("\0", "|")
+    print("| " .. binaryString)
+    self.customProfiler:stop("NoitaPatcherUtils:prepareForVsc", cpc)
+    return binaryString
 end
 
 ---Deserialize an entity from a base64 string and create it at the given position.
@@ -42,6 +106,9 @@ function NoitaPatcherUtils:deserializeEntity(entityId, serializedEntityString, x
     end
     local decoded = self.base64_fast.decode(serializedEntityString)
     local entityId = self.np.DeserializeEntity(entityId, decoded, x, y)
+    if not entityId or self.utils:isEmpty(entityId) then
+        error("Failed to deserialize entity from base64 string.", 2)
+    end
     self.customProfiler:stop("NoitaPatcherUtils.deserializeEntity", cpc)
     return entityId
 end
@@ -78,6 +145,16 @@ function NoitaPatcherUtils:new(noitaPatcherUtilsObject, base64, customProfiler, 
     if not noitaPatcherUtilsObject.np then
         ---@type noitapatcher
         noitaPatcherUtilsObject.np = np or error("NoitaPatcherUtils:new requires a NoitaPatcher object", 2)
+    end
+
+    if not noitaPatcherUtilsObject.utils then
+        ---@type Utils
+        noitaPatcherUtilsObject.utils = require("Utils"):new(nil)
+    end
+
+    if not noitaPatcherUtilsObject.ffi then
+        ---@type ffilib
+        noitaPatcherUtilsObject.ffi = require("ffi")
     end
 
     customProfiler:stop("EntityUtils:new", cpc)

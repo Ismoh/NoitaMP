@@ -196,7 +196,7 @@ function Ui.new()
                 player[i].health    = { current = i, max = 2 }
                 player[i].transform = { x = 123, y = 12334 }
                 local getRoundTripTime = player[i].getRoundTripTime
-                if not Utils.IsEmpty(getRoundTripTime) then
+                if not Utils:isEmpty(getRoundTripTime) then
                     player[i].rtt       = player[i]:getRoundTripTime()
                 else
                     player[i].rtt       = "?"
@@ -260,7 +260,7 @@ function Ui.new()
             local clicked, _, hovered = GuiGetPreviousWidgetInfo(gui)
             if clicked then
                 missingModGuiDismissed = true
-                Client:send(NetworkUtils.events.needModContent.name,
+                Client:preSend(NetworkUtils.events.needModContent.name,
                     { NetworkUtils.getNextNetworkMessageId(), Client.missingMods })
             end
             if hovered then
@@ -313,7 +313,7 @@ function Ui.new()
     local function drawMinaPositions()
         if whoAmI() == Client.iAm then
             local otherMinas = Client.otherClients or {}
-            if Utils.IsEmpty(Client.serverInfo) then
+            if Utils:isEmpty(Client.serverInfo) then
                 return
             end
             otherMinas[#otherMinas + 1] = Client.serverInfo

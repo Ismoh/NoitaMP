@@ -42,10 +42,12 @@ function table.contains(tbl, key)
             return false, -1
         end
         for k, v in pairs(tbl) do
-        if string.contains(key, v) then
-            return true, k
+            if type(v) == "string" then
+                if string.contains(key, v) then
+                    return true, k
+                end
+            end
         end
-    end
     end
     for k, v in pairs(tbl) do
         if v == key then
@@ -171,13 +173,15 @@ end
 
 ---We need a simple and 'fast' way to convert a lua table into a string.
 ---@param tbl table { "Name", 2, 234, "string" }
+---@param logger Logger required
+---@param utils Utils required
 ---@return string Example: tbl becomes "Name,2,234,string"
-function table.join(tbl)
+function table.join(tbl, logger, utils)
     if not tbl or type(tbl) ~= "table" then
         error("'tbl' must not be nil and type of table!", 2)
     end
 
-    --Logger.trace(Logger.channels.testing, ("tbl = %s"):format(util.pformat(tbl)))
+    logger:trace(logger.channels.testing, ("tbl = %s"):format(utils:pformat(tbl)))
     local status, err = pcall(table.concat, tbl, ",")
     local str         = nil
     if status == true then
@@ -186,12 +190,12 @@ function table.join(tbl)
     else
         logger:warn(logger.channels.testing, ("table.concat(tbl, ',') = %s"):format(err))
     end
-    --Logger.trace(Logger.channels.testing, ("str = %s"):format(str))
+    logger:trace(logger.channels.testing, ("str = %s"):format(str))
     if not str or str == "" then
         for key, value in orderedPairs(tbl) do
-            --Logger.trace(Logger.channels.testing, ("value = %s"):format(util.pformat(value)))
+            logger:trace(logger.channels.testing, ("value = %s"):format(utils:pformat(value)))
             if type(value) == "table" then
-                --Logger.trace(Logger.channels.testing, ("value = %s is table!"):format(util.pformat(tbl)))
+                logger:trace(logger.channels.testing, ("value = %s is table!"):format(utils:pformat(tbl)))
                 value = value:join()
             end
             if not str or str == "" then
@@ -199,10 +203,10 @@ function table.join(tbl)
             else
                 str = ("%s,%s"):format(str, value)
             end
-            --Logger.trace(Logger.channels.testing, ("str = %s"):format(str))
+            logger:trace(logger.channels.testing, ("str = %s"):format(str))
         end
     end
     str = str:gsub("%s", "")
-    --Logger.trace(Logger.channels.testing, ("contentToString end str = '%s'"):format(str))
+    logger:trace(logger.channels.testing, ("contentToString end str = '%s'"):format(str))
     return str
 end

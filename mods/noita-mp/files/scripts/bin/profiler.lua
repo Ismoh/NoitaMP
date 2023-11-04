@@ -470,7 +470,7 @@ local run              = function()
             end
             cache["size"] = cache["size"] + 1
 
-            if startOrStop == "start" then --Utils.IsEmpty(cache[functionName][customProfilerCounter]) then
+            if startOrStop == "start" then --Utils:isEmpty(cache[functionName][customProfilerCounter]) then
                 cache[functionName][customProfilerCounter]["start"] = {
                     ["frame"] = frame,
                     ["time"] = time,
