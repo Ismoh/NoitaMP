@@ -25,7 +25,7 @@ function Client.amIClient(self: Client)
 Checks if the current local user is a client.
 
 @*return* `true` — if client, false if not
-See: [Server.amIServer](../../mods/noita-mp/files/scripts/net/Server.lua#L937#9)
+See: [Server.amIServer](../../mods/noita-mp/files/scripts/net/Server.lua#L911#9)
 
 ## customProfiler
 
@@ -35,6 +35,13 @@ CustomProfiler
 ```
 
 Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
+
+## entityCache
+
+
+```lua
+EntityCache
+```
 
 ## entityUtils
 
@@ -243,6 +250,23 @@ function Client.preDisconnect(self: Client)
  Disconnects from the server.
 See: ~SockClient.disconnect~
 
+## preSend
+
+
+```lua
+function Client.preSend(self: Client, event: string, data: table)
+  -> true: boolean
+```
+
+Sends a message to the server. Inherit from sock.send.
+
+@*param* `event` — required
+
+@*param* `data` — required
+
+@*return* `true` — if message was sent, false if not
+See: ~sock.send~
+
 ## preUpdate
 
 
@@ -261,23 +285,6 @@ See: ~SockClient.update~
 ```lua
 nil
 ```
-
-## send
-
-
-```lua
-function Client.send(self: Client, event: string, data: table)
-  -> true: boolean
-```
-
-Sends a message to the server. Inherit from sock.send.
-
-@*param* `event` — required
-
-@*param* `data` — required
-
-@*return* `true` — if message was sent, false if not
-See: ~sock.send~
 
 ## sendDeadNuids
 
@@ -820,35 +827,41 @@ NetworkVscUtils for getting and setting values in VariableStorageComponents of N
 
 
 ```lua
-function EntityUtils.new(self: EntityUtils, entityUtilsObject: EntityUtils|nil, client: Client, customProfiler: CustomProfiler, enitityCacheUtils: EntityCacheUtils, entityCache: EntityCache, globalsUtils: GlobalsUtils|nil, logger: Logger|nil, minaUtils: MinaUtils, networkUtils: NetworkUtils, networkVscUtils: NetworkVscUtils, noitaComponentUtils: NoitaComponentUtils, nuidUtils: NuidUtils, server: Server, utils: Utils|nil, np: any)
+function EntityUtils.new(self: EntityUtils, client: Client, customProfiler: CustomProfiler, enitityCacheUtils: EntityCacheUtils, entityCache: EntityCache, globalsUtils: GlobalsUtils|nil, logger: Logger|nil, minaUtils: MinaUtils, networkUtils: NetworkUtils, networkVscUtils: NetworkVscUtils, noitaComponentUtils: NoitaComponentUtils, noitaMpSettings: NoitaMpSettings, nuidUtils: NuidUtils, server: Server, utils: Utils|nil, np: noitapatcher)
   -> EntityUtils
 ```
 
 Constructor for EntityUtils. With this constructor you can override the default imports.
 
-@*param* `client` — Must not be nil!
+@*param* `client` — required
 
-@*param* `customProfiler` — Must not be nil!
+@*param* `customProfiler` — required
 
-@*param* `enitityCacheUtils` — Must not be nil!
+@*param* `enitityCacheUtils` — required
 
-@*param* `entityCache` — Must not be nil!
+@*param* `entityCache` — required
 
 @*param* `globalsUtils` — optional
 
-@*param* `logger` — (Must not be nil!)?
+@*param* `logger` — optional
 
-@*param* `minaUtils` — Must not be nil!
+@*param* `minaUtils` — required
 
-@*param* `networkUtils` — Must not be nil!
+@*param* `networkUtils` — required
 
-@*param* `networkVscUtils` — Must not be nil!
+@*param* `networkVscUtils` — required
 
-@*param* `noitaComponentUtils` — (Must not be nil!)?
+@*param* `noitaComponentUtils` — required
 
-@*param* `nuidUtils` — Must not be nil!
+@*param* `noitaMpSettings` — required
 
-@*param* `server` — Must not be nil!
+@*param* `nuidUtils` — required
+
+@*param* `server` — required
+
+@*param* `utils` — optional
+
+@*param* `np` — required
 
 ## noitaComponentUtils
 
@@ -2263,193 +2276,260 @@ function _G.ModSettingGetNextValue(id: any)
 
 # NetworkCache
 
+## clear
+
 
 ```lua
-table
+function NetworkCache.clear(self: NetworkCache, clientCacheId: number)
 ```
 
+ Clears the cache entry for the given clientCacheId.
 
----
-
-# NetworkCache.cache
+## customProfiler
 
 
 ```lua
-table
+any
 ```
 
+Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 
-```lua
-table
-```
-
-
----
-
-# NetworkCache.clear
+## get
 
 
 ```lua
-function NetworkCache.clear(clientCacheId: any)
-```
-
-
----
-
-# NetworkCache.get
-
-
-```lua
-function NetworkCache.get(clientCacheId: any, event: any, networkMessageId: any)
+function NetworkCache.get(self: NetworkCache, clientCacheId: number, event: string, networkMessageId: number)
   -> unknown|nil
 ```
 
+ Gets the cache entry for the given clientCacheId, event and networkMessageId.
 
----
-
-# NetworkCache.getAll
+## getAll
 
 
 ```lua
-function NetworkCache.getAll()
+function NetworkCache.getAll(self: NetworkCache)
   -> table|unknown
 ```
 
+ Returns all cache entries.
 
----
-
-# NetworkCache.getChecksum
+## getChecksum
 
 
 ```lua
-function NetworkCache.getChecksum(clientCacheId: any, dataChecksum: any)
+function NetworkCache.getChecksum(self: NetworkCache, clientCacheId: number, dataChecksum: string)
   -> unknown|nil
 ```
 
+ Gets the checksum of a cache entry for the given clientCacheId and dataChecksum.
 
----
-
-# NetworkCache.set
-
-
-```lua
-function NetworkCache.set(clientCacheId: any, networkMessageId: any, event: any, status: any, ackedAt: any, sendAt: any, dataChecksum: any)
-```
-
-
----
-
-# NetworkCache.size
+## logger
 
 
 ```lua
-function NetworkCache.size()
-  -> integer|unknown
+any
 ```
 
-
----
-
-# NetworkCache.usage
+## new
 
 
 ```lua
-function NetworkCache.usage()
+function NetworkCache.new(self: NetworkCache, customProfiler: any, logger: any, utils: any)
+  -> NetworkCache
 ```
 
-
----
-
-# NetworkCache.usingC
-
- not _G.disableLuaExtensionsDLL
+## removeOldest
 
 
 ```lua
-boolean
+function NetworkCache.removeOldest(self: NetworkCache)
 ```
+
+## set
+
+
+```lua
+function NetworkCache.set(self: NetworkCache, clientCacheId: number, networkMessageId: number, event: string, status: string, ackedAt?: any, sendAt?: any, dataChecksum: string)
+```
+
+ Sets the cache entry for the given clientCacheId, networkMessageId and event.
+
+## size
+
+
+```lua
+function NetworkCache.size(self: NetworkCache)
+  -> size: number
+```
+
+ Returns the size of the cache.
+
+## usage
+
+
+```lua
+function NetworkCache.usage(self: NetworkCache)
+```
+
+ Returns the usage of the cache.
+
+## utils
+
+
+```lua
+any
+```
+
+Utils class for lazy developers.
 
 
 ---
 
 # NetworkCacheUtils
 
+## ack
+
 
 ```lua
-table
+function NetworkCacheUtils.ack(self: NetworkCacheUtils, peerGuid: string, networkMessageId: number, event: string, status: string, ackedAt?: any, sendAt?: any, checksum: string)
 ```
 
+ Sets a acknoledgement for a cached network message.
 
----
-
-# NetworkCacheUtils.ack
+## customProfiler
 
 
 ```lua
-function NetworkCacheUtils.ack(peerGuid: any, networkMessageId: any, event: any, status: any, ackedAt: any, sendAt: any, checksum: any)
+CustomProfiler
 ```
 
+Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 
----
-
-# NetworkCacheUtils.get
-
-@*return* `data` — { ackedAt, dataChecksum, event, messageId, sendAt, status}
+## get
 
 
 ```lua
-function NetworkCacheUtils.get(peerGuid: any, networkMessageId: any, event: any)
+function NetworkCacheUtils.get(self: NetworkCacheUtils, peerGuid: string, networkMessageId: number, event: string)
   -> data: table
 ```
 
+ Returns the cached network message.
 
----
+@*return* `data` — { ackedAt, dataChecksum, event, messageId, sendAt, status}
 
-# NetworkCacheUtils.getByChecksum
-
-@*return* `cacheData` — { ackedAt, dataChecksum, event, messageId, sendAt, status}
+## getByChecksum
 
 
 ```lua
-function NetworkCacheUtils.getByChecksum(peerGuid: any, event: any, data: any)
+function NetworkCacheUtils.getByChecksum(self: NetworkCacheUtils, peerGuid: string, event: string, data: table)
   -> cacheData: table
 ```
 
+ Returns the cached network message by checksum.
 
----
+@*return* `cacheData` — { ackedAt, dataChecksum, event, messageId, sendAt, status}
 
-# NetworkCacheUtils.getSum
+## getSum
 
 
 ```lua
-function NetworkCacheUtils.getSum(event: any, data: any)
+function NetworkCacheUtils.getSum(self: NetworkCacheUtils, event: string, data: table)
   -> unknown
 ```
 
+ Returns the sum of the data.
 
----
-
-# NetworkCacheUtils.logAll
+## guidUtils
 
 
 ```lua
-function NetworkCacheUtils.logAll()
+GuidUtils
 ```
 
+GuidUtils is just for generating and validating GUIDs. Guids are used for identifying clients and servers.
 
----
+## logAll
 
-# NetworkCacheUtils.set
 
- Manipulates parameters to use Cache-CAPI.
+```lua
+function NetworkCacheUtils.logAll(self: NetworkCacheUtils)
+```
+
+ Logs all cached network messages. Only for debugging.
+
+## logger
+
+
+```lua
+Logger
+```
+
+## md5
+
+
+```lua
+md5
+```
+
+## networkCache
+
+
+```lua
+NetworkCache
+```
+
+## networkUtils
+
+
+```lua
+NetworkUtils
+```
+
+## new
+
+
+```lua
+function NetworkCacheUtils.new(self: NetworkCacheUtils, customProfiler: CustomProfiler, guidUtils: GuidUtils, logger: Logger, md5: md5|nil, networkCache: NetworkCache, networkUtils: NetworkUtils|nil, utils: Utils|nil)
+  -> NetworkCacheUtils
+```
+
+ NetworkCacheUtils constructor.
+
+@*param* `customProfiler` — required
+
+@*param* `guidUtils` — required
+
+@*param* `logger` — required
+
+@*param* `md5` — optional
+
+@*param* `networkCache` — required
+
+@*param* `networkUtils` — optional
+
+@*param* `utils` — optional
+
+## set
+
+
+```lua
+function NetworkCacheUtils.set(self: NetworkCacheUtils, peerGuid: string, networkMessageId: number, event: any, status: any, ackedAt: any, sendAt: any, data: any)
+  -> string
+```
+
+ Creates a new network cache entry.
 
 @*param* `peerGuid` — peer.guid
 
+## utils
+
 
 ```lua
-function NetworkCacheUtils.set(peerGuid: string, networkMessageId: number, event: any, status: any, ackedAt: any, sendAt: any, data: any)
-  -> string
+Utils
 ```
+
+Utils class for lazy developers.
 
 
 ---
@@ -2879,7 +2959,7 @@ NetworkVscUtils for getting and setting values in VariableStorageComponents of N
 
 
 ```lua
-function NoitaComponentUtils.new(self: NoitaComponentUtils, noitaComponentUtilsObject: NoitaComponentUtils|nil, customProfiler: CustomProfiler, globalsUtils: GlobalsUtils, logger: Logger|nil, networkVscUtils: NetworkVscUtils|nil, utils: Utils|nil)
+function NoitaComponentUtils.new(self: NoitaComponentUtils, noitaComponentUtilsObject: NoitaComponentUtils|nil, customProfiler: CustomProfiler, globalsUtils: GlobalsUtils, logger: Logger|nil, networkVscUtils: NetworkVscUtils|nil, utils: Utils|nil, noitaPatcherUtils: NoitaPatcherUtils)
   -> NoitaComponentUtils
 ```
 
@@ -2896,6 +2976,15 @@ NoitaComponentUtils constructor.
 @*param* `networkVscUtils` — optional
 
 @*param* `utils` — optional
+
+@*param* `noitaPatcherUtils` — required
+
+## noitaPatcherUtils
+
+
+```lua
+NoitaPatcherUtils
+```
 
 ## setEntityData
 
@@ -3129,6 +3218,20 @@ Deserialize an entity from a base64 string and create it at the given position.
 
 @*param* `serializedEntityString` — encoded string
 
+## ffi
+
+
+```lua
+unknown
+```
+
+## luaBase64
+
+
+```lua
+unknown
+```
+
 ## new
 
 
@@ -3150,15 +3253,45 @@ NoitaPatcherUtils constructor.
 noitapatcher
 ```
 
+## prepareForVsc
+
+
+```lua
+function NoitaPatcherUtils.prepareForVsc(self: NoitaPatcherUtils, binaryString: string)
+  -> Binary: string
+```
+
+ Removes NUL(\0) bytes from a string.
+
+@*param* `binaryString` — Binary string to remove NUL bytes from.
+
+@*return* `Binary` — string without NUL bytes.
+
 ## serializeEntity
 
 
 ```lua
 function NoitaPatcherUtils.serializeEntity(self: NoitaPatcherUtils, entityId: number)
-  -> encodedBase64: string
+  -> string
 ```
 
 Serialize an entity to a base64 and md5 string.
+
+## utf8
+
+
+```lua
+unknown
+```
+
+## utils
+
+
+```lua
+Utils
+```
+
+Utils class for lazy developers.
 
 
 ---
@@ -3342,7 +3475,7 @@ function Server.amIServer(self: Server)
 Checks if the current local user is a server.
 
 @*return* `true` — if server, false if not
-See: [Client.amIClient](../../mods/noita-mp/files/scripts/net/Client.lua#L947#9)
+See: [Client.amIClient](../../mods/noita-mp/files/scripts/net/Client.lua#L946#9)
 
 ## ban
 
@@ -3576,19 +3709,15 @@ nil
 
 
 ```lua
-table
+NetworkCache
 ```
-
-:new()
 
 ## networkCacheUtils
 
 
 ```lua
-table
+NetworkCacheUtils
 ```
-
-:new()
 
 ## networkUtils
 
@@ -5975,21 +6104,6 @@ function math.ult(m: integer, n: integer)
 
 ---
 
-# md5
-
-
-```lua
-table
-```
-
-
-```lua
-unknown
-```
-
-
----
-
 # module
 
 
@@ -6106,21 +6220,19 @@ NoitaMpSettings
 
 # noitaMpSettings.customProfiler
 
-Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
-
 
 ```lua
-CustomProfiler
+table
 ```
 
 
 ```lua
-CustomProfiler
+table
 ```
 
 
 ```lua
-CustomProfiler
+table
 ```
 
 
@@ -7556,13 +7668,17 @@ Extension or expansion of the default lua table for checking if a table is empty
 
 
 ```lua
-function tablelib.join(tbl: table)
+function tablelib.join(tbl: table, logger: Logger, utils: Utils)
   -> Example: string
 ```
 
 We need a simple and 'fast' way to convert a lua table into a string.
 
 @*param* `tbl` — { "Name", 2, 234, "string" }
+
+@*param* `logger` — required
+
+@*param* `utils` — required
 
 @*return* `Example` — tbl becomes "Name,2,234,string"
 
