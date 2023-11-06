@@ -67,11 +67,11 @@ local NetworkUtils = {
 
             --- network schema to decode the message
             schema            = { "networkMessageId", "ownerName", "ownerGuid", "localEntityId", "x", "y",
-                "initialSerializedEntityString", "currentSerializedEntityString", "nuid" },
+                "initSerializedB64Str", "currentSerializedB64Str", "nuid" },
 
             --- resendIdentifiers defines the schema for detection of resend mechanism.
             --- Based on the values the network message will be send again.
-            resendIdentifiers = { "ownerName", "ownerGuid", "localEntityId", "initialSerializedEntityString", "nuid" },
+            resendIdentifiers = { "ownerName", "ownerGuid", "localEntityId", "initSerializedB64Str", "nuid" },
 
             --- identifier whether to cache this message, if it wasn't acknowledged
             isCacheable       = true,
@@ -80,8 +80,8 @@ local NetworkUtils = {
         needNuid        = {
             name              = "needNuid",
             schema            = { "networkMessageId", "ownerName", "ownerGuid", "localEntityId", "x", "y",
-                "initialSerializedEntityString", "currentSerializedEntityString" },
-            resendIdentifiers = { "ownerGuid", "localEntityId", "initialSerializedEntityString" },
+                "initSerializedB64Str", "currentSerializedB64Str" },
+            resendIdentifiers = { "ownerGuid", "localEntityId", "initSerializedB64Str" },
             isCacheable       = true
         },
         --- lostNuid is used to ask for the entity to spawn, when a client has a nuid stored, but no entityId (not sure
@@ -137,6 +137,19 @@ local getIndexFromSchema = function(self, data, schema, resendIdentifier)
 
     self.customProfiler:stop("NetworkUtils.getIndexFromSchema", cpc)
     return -1
+end
+
+--- Double checks if the schema order is correct, but only in dev build.
+---@param event string
+---@param data table
+function NetworkUtils:checkSchemaOrder(event, data)
+    if DebugGetIsDevBuild() then
+        local result = self:zipTable(data, self.events[event].schema, event)
+        if table.size(result) ~= table.size(data) then
+            error(("Something wrong with network event schema! event %s, data %s and result %s"):format(event, data, result), 2)
+        end
+        result = nil
+    end
 end
 
 --- Default enhanced serialization function
@@ -234,6 +247,9 @@ function NetworkUtils:alreadySent(peer, event, data)
     if not data then
         error("'data' must not be nil!", 2)
     end
+
+    self:checkSchemaOrder(event, data)
+
     if self.utils:isEmpty(peer.clientCacheId) then
         self.logger:info(self.logger.channels.testing, ("peer.guid = '%s'"):format(peer.guid))
         peer.clientCacheId = self.guidUtils:toNumber(peer.guid) --error("peer.clientCacheId must not be nil!", 2)
@@ -312,9 +328,9 @@ end
 --- links variables to keys based on their order
 --- note that it only works for boolean and number values, not strings.
 --- Credits to sock.lua
----@param items any
----@param keys any
----@param event any
+---@param items table data
+---@param keys table schema
+---@param event string
 ---@return table
 function NetworkUtils:zipTable(items, keys, event)
     local data = {}

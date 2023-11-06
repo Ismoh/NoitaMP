@@ -131,11 +131,11 @@ function NoitaComponentUtils:setNetworkSpriteIndicatorStatus(entityId, status)
     end
 end
 
----Set initial serialized entity string to determine if the entity already exists on the server.
+--- Set initial serialized entity string to determine if the entity already exists on the server.
 ---@param entityId number
----@param initialSerializedEntityString string
+---@param initSerializedB64Str string
 ---@return boolean if success
-function NoitaComponentUtils:setInitialSerializedEntityString(entityId, initialSerializedEntityString)
+function NoitaComponentUtils:setInitialSerializedEntityString(entityId, initSerializedB64Str)
     local cpc = self.customProfiler:start("NoitaComponentUtils.setInitialSerializedEntityString")
 
     entityId = EntityGetRootEntity(entityId)
@@ -143,16 +143,14 @@ function NoitaComponentUtils:setInitialSerializedEntityString(entityId, initialS
         self.customProfiler:stop("NoitaComponentUtils.setInitialSerializedEntityString", cpc)
         error("Unable to set initial serialized entity string, because entity is not alive!", 2)
     end
-
-    initialSerializedEntityString = self.noitaPatcherUtils:prepareForVsc(initialSerializedEntityString)
-    if self.utils:isEmpty(initialSerializedEntityString) then
+    if self.utils:isEmpty(initSerializedB64Str) then
         self.customProfiler:stop("NoitaComponentUtils.setInitialSerializedEntityString", cpc)
         error("Unable to set initial serialized entity string, because it is empty!", 2)
     end
     local compId = EntityAddComponent2(entityId, self.networkVscUtils.variableStorageComponentName,
         {
             name         = "noita-mp.nc_initialSerializedEntityString",
-            value_string = initialSerializedEntityString
+            value_string = initSerializedB64Str
         })
     self.customProfiler:stop("NoitaComponentUtils.setInitialSerializedEntityString", cpc)
 
@@ -164,9 +162,9 @@ function NoitaComponentUtils:hasInitialSerializedEntityString(entityId)
     return status
 end
 
----Get initial serialized entity string to determine if the entity already exists on the server.
+--- Get initial serialized entity string to determine if the entity already exists on the server.
 ---@param entityId number
----@return string|nil initialSerializedEntityString
+---@return string|nil initSerializedB64Str
 function NoitaComponentUtils:getInitialSerializedEntityString(entityId)
     local cpc = self.customProfiler:start("NoitaComponentUtils.getInitialSerializedEntityString")
 

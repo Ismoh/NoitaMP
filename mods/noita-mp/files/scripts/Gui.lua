@@ -352,7 +352,8 @@ function Gui:drawPlayMenu()
             if isServerIpChanged then
                 self.server.address = serverIp
             end
-            local isServerPortChanged, serverPort = self.imGui.InputTextWithHint("Server Port", "Use '1 - 65535'!", tostring(self.client:getPort()) or 14017)
+            local isServerPortChanged, serverPort = self.imGui.InputTextWithHint("Server Port", "Use '1 - 65535'!",
+                tostring(self.client:getPort() or 14017))
             if isServerPortChanged then
                 self.client.port = tonumber(serverPort) or 14017
             end
@@ -516,7 +517,17 @@ function Gui:drawSettings()
         self.imGui.SameLine()
         tooltipHelper(self, "'CTRL + Click' to input value.");
 
+        -- Debug settings
+        if self.noitaMpSettings.multipleNoitaProcessesRunning or
+            not self.noitaMpSettings.checkForMultipleNoitaInstances then
+            if self.imGui.Button("Check pid again!") then
+                self.noitaMpSettings.checkForMultipleNoitaInstances = true
+                self.noitaMpSettings:load()
+            end
+        end
+
         -- Save settings
+        self.imGui.Separator()
         if self.imGui.Button("Save Settings") then
             if self.noitaMpSettings:isMoreThanOneNoitaProcessRunning() then
                 local newGuid = self.guidUtils:generateNewGuid({ self.minaUtils:getLocalMinaGuid() })

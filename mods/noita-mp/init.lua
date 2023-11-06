@@ -120,16 +120,16 @@ local function OnEntityLoaded()
                 end
 
                 if not noitaComponentUtils:hasInitialSerializedEntityString(rootEntity) then
-                    local initialSerializedEntityString = noitaPatcherUtils:serializeEntity(rootEntity)
-                    local success = noitaComponentUtils:setInitialSerializedEntityString(rootEntity, initialSerializedEntityString)
+                    local initSerializedB64Str = noitaPatcherUtils:serializeEntity(rootEntity)
+                    local success = noitaComponentUtils:setInitialSerializedEntityString(rootEntity, initSerializedB64Str)
 
                     if not success then
                         error("Unable to add serialized string!", 2)
                     else
-                        --print(("Added iSES %s[...] to %s"):format(string.sub(initialSerializedEntityString, 1, 5), rootEntity))
+                        --print(("Added iSES %s[...] to %s"):format(string.sub(initSerializedB64Str, 1, 5), rootEntity))
                     end
                     -- free memory
-                    initialSerializedEntityString = nil
+                    initSerializedB64Str = nil
 
                     -- Add NoitaMP Variable Storage Components
                     local hasNuid, nuid = networkVscUtils:hasNuidSet(rootEntity)

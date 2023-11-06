@@ -12,10 +12,17 @@ logger = logger or
     dofile_once("mods/noita-mp/files/scripts/util/Logger.lua")
     :new(nil, noitaMpSettings)
 
+---@type Client
+client = client or {
+    isConnected = function(self)
+        return false
+    end
+}
+
 ---@type GlobalsUtils
 globalsUtils = globalsUtils or
     dofile_once("mods/noita-mp/files/scripts/util/GlobalsUtils.lua")
-    :new(nil, logger.noitaMpSettings.customProfiler, logger, {}, {
+    :new(nil, logger.noitaMpSettings.customProfiler, logger, client, {
         isEmpty = function(self, var)
             if var == nil then
                 return true
@@ -30,10 +37,13 @@ globalsUtils = globalsUtils or
         end
     })
 
+---@type Server
+server = server or {}
+
 ---@type NetworkVscUtils
 networkVscUtils = networkVscUtils or
     dofile_once("mods/noita-mp/files/scripts/util/NetworkVscUtils.lua")
-    :new(nil, logger.noitaMpSettings.customProfiler, logger, {}, globalsUtils, {
+    :new(nil, logger.noitaMpSettings.customProfiler, logger, server, globalsUtils, {
         isEmpty = function(self, var)
             if var == nil then
                 return true

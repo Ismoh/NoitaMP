@@ -52,7 +52,20 @@ local zone -- Load jit.zone module on demand.
 
 -- Output file handle.
 local out
+local outputFile
 local outputFilePath
+------------------------------------------------------------------------------
+local function writeToFile(str)
+  if io.type(outputFile) ~= "file" then
+    --print("out is closed, reopening..")
+    outputFile = assert(io.open(outputFilePath, "a+"), "Failed to open file: " .. outputFilePath)
+  end
+  if outputFile then
+    outputFile:write(str)
+    outputFile:flush()
+    outputFile:close()
+  end
+end
 ------------------------------------------------------------------------------
 
 local prof_ud
@@ -105,16 +118,17 @@ local function prof_cb(th, samples, vmmode)
   -- Coalesce samples in one or two levels.
   if k1 then
     local t1 = prof_count1
-    t1[k1] = (t1[k1] or 0) + samples
-    if k2 then
-      local t2 = prof_count2
-      local t3 = t2[k1]
-      if not t3 then
-        t3 = {}; t2[k1] = t3
-      end
-      t3[k2] = (t3[k2] or 0) + samples
-    end
-  end
+    if t1 then
+        t1[k1] = (t1[k1] or 0) + samples
+        if k2 then
+        local t2 = prof_count2
+        local t3 = t2[k1]
+        if not t3 then
+            t3 = {}; t2[k1] = t3
+        end
+        t3[k2] = (t3[k2] or 0) + samples
+        end
+  end end
 end
 
 ------------------------------------------------------------------------------
@@ -133,23 +147,11 @@ local function prof_top(count1, count2, samples, indent)
     local pct = floor(v * 100 / samples + 0.5)
     if pct < prof_min then break end
     if not prof_raw then
-      if io.type(out) ~= "file" then
-        print("out is closed, reopening..")
-        out = assert(io.open(outputFilePath, "a+"))
-      end
-      out:write(format("%s%2d%%  %s\n", indent, pct, k))
+      writeToFile(format("%s%2d%%  %s\n", indent, pct, k))
     elseif prof_raw == "r" then
-      if io.type(out) ~= "file" then
-        print("out is closed, reopening..")
-        out = assert(io.open(outputFilePath, "a+"))
-      end
-      out:write(format("%s%5d  %s\n", indent, v, k))
+      writeToFile(format("%s%5d  %s\n", indent, v, k))
     else
-      if io.type(out) ~= "file" then
-        print("out is closed, reopening..")
-        out = assert(io.open(outputFilePath, "a+"))
-      end
-      out:write(format("%s %d\n", k, v))
+      writeToFile(format("%s %d\n", k, v))
     end
     if count2 then
       local r = count2[k]
@@ -192,49 +194,29 @@ local function prof_annotate(count1, samples)
   for _, file in ipairs(files) do
     local f0 = file:byte()
     if f0 == 40 or f0 == 91 then
-      if io.type(out) ~= "file" then
-        print("out is closed, reopening..")
-        out = assert(io.open(outputFilePath, "a+"))
-      end
-      out:write(format("\n====== %s ======\n[Cannot annotate non-file]\n", file))
+      writeToFile(format("\n====== %s ======\n[Cannot annotate non-file]\n", file))
       break
     end
     local fp, err = io.open(file)
     if not fp then
-      if io.type(out) ~= "file" then
-        print("out is closed, reopening..")
-        out = assert(io.open(outputFilePath, "a+"))
-      end
-      out:write(format("====== ERROR: %s: %s\n", file, err))
+      writeToFile(format("====== ERROR: %s: %s\n", file, err))
       break
     end
-    if io.type(out) ~= "file" then
-      print("out is closed, reopening..")
-      out = assert(io.open(outputFilePath, "a+"))
-    end
-    out:write(format("\n====== %s ======\n", file))
+    writeToFile(format("\n====== %s ======\n", file))
     local fl = files[file]
     local n, show = 1, false
     if ann ~= 0 then
       for i = 1, ann do
         if fl[i] then
           show = true
-          if io.type(out) ~= "file" then
-            print("out is closed, reopening..")
-            out = assert(io.open(outputFilePath, "a+"))
-          end
-          out:write("@@ 1 @@\n")
+          writeToFile("@@ 1 @@\n")
           break
         end
       end
     end
     for line in fp:lines() do
       if line:byte() == 27 then
-        if io.type(out) ~= "file" then
-          print("out is closed, reopening..")
-          out = assert(io.open(outputFilePath, "a+"))
-        end
-        out:write("[Cannot annotate bytecode file]\n")
+        writeToFile("[Cannot annotate bytecode file]\n")
         break
       end
       local v = fl[n]
@@ -250,26 +232,14 @@ local function prof_annotate(count1, samples)
           end
         elseif v2 then
           show = n + ann
-          if io.type(out) ~= "file" then
-            print("out is closed, reopening..")
-            out = assert(io.open(outputFilePath, "a+"))
-          end
-          out:write(format("@@ %d @@\n", n))
+          writeToFile(format("@@ %d @@\n", n))
         end
         if not show then goto next end
       end
       if v then
-        if io.type(out) ~= "file" then
-          print("out is closed, reopening..")
-          out = assert(io.open(outputFilePath, "a+"))
-        end
-        out:write(format(fmtv, v, line))
+        writeToFile(format(fmtv, v, line))
       else
-        if io.type(out) ~= "file" then
-          print("out is closed, reopening..")
-          out = assert(io.open(outputFilePath, "a+"))
-        end
-        out:write(format(fmtn, line))
+        writeToFile(format(fmtn, line))
       end
       ::next::
       n = n + 1
@@ -287,19 +257,11 @@ local function prof_finish()
     local samples = prof_samples
     if samples == 0 then
       if prof_raw ~= true then
-        if io.type(out) ~= "file" then
-          print("out is closed, reopening..")
-          out = assert(io.open(outputFilePath, "a+"))
-        end
-        out:write("[No samples collected]\n")
+        writeToFile("[No samples collected]\n")
       end
       return
     end
-    if io.type(out) ~= "file" then
-      print("out is closed, reopening..")
-      out = assert(io.open(outputFilePath, "a+"))
-    end
-    out:write(format("Frame: %d\n", GameGetFrameNum()))
+    writeToFile(format("Frame: %d\n", GameGetFrameNum()))
     if prof_ann then
       prof_annotate(prof_count1, samples)
     else
@@ -308,7 +270,7 @@ local function prof_finish()
     prof_count1 = nil
     prof_count2 = nil
     prof_ud = nil
-    if out ~= stdout then out:close() end
+    --if out ~= stdout then out:close() end
   end
 
   jit.p.isProfiling = false
@@ -380,6 +342,7 @@ local function start(mode, outfile)
   if outfile then
     outputFilePath = outfile
     out = outfile == "-" and stdout or assert(io.open(outfile, "a+"))
+    outputFile = out
   else
     out = stdout
   end

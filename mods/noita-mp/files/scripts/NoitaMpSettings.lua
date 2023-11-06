@@ -5,6 +5,7 @@ local NoitaMpSettings     = {
 
     ---Settings cache. Makes it possible to access settings without reading the file every time.
     cachedSettings = {},
+    checkForMultipleNoitaInstances = true,
     multipleNoitaProcessesRunning = false,
     settingsFilePath = nil,
 }
@@ -39,15 +40,15 @@ local convertToDataType   = function(self, value, dataType)
     return tostring(value)
 end
 
-local once                = false
-local lastCheck           = 5
 ---Returns the path to the settings file.
 ---@private
 ---@param self NoitaMpSettings required
 ---@return string path
 local getSettingsFilePath = function(self)
     local path = self.settingsFilePath
-    if lastCheck - GameGetRealWorldTimeSinceStarted() <= 0 or not path then
+    if self.checkForMultipleNoitaInstances or
+        not path
+    then
         path = ("%s%ssettings.json"):format(self.fileUtils:GetAbsolutePathOfNoitaMpSettingsDirectory(self), pathSeparator)
 
         if self:isMoreThanOneNoitaProcessRunning() then
@@ -62,8 +63,8 @@ local getSettingsFilePath = function(self)
                 once = true
             end
         end
-        lastCheck = GameGetRealWorldTimeSinceStarted() + 100
 
+        self.checkForMultipleNoitaInstances = false
         self.settingsFilePath = path
     end
     return path

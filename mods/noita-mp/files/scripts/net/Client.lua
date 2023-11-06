@@ -413,9 +413,9 @@ end
 --     self.customProfiler:stop("Client.onNewNuid", cpc)
 -- end
 
----Callback when Server sent a new nuid to the client.
+--- Callback when Server sent a new nuid to the client.
 ---@param self Client
----@param data table data { networkMessageId, ownerName, ownerGuid, entityId, serializedEntityString, nuid, x, y, initialSerializedEntityString }
+---@param data table data { networkMessageId, ownerName, ownerGuid, entityId, serializedEntityString, nuid, x, y, initSerializedB64Str }
 local onNewNuid = function(self, data)
     local cpc = self.customProfiler:start("Client.onNewNuid")
     self.logger:debug(self.logger.channels.network,
@@ -437,8 +437,8 @@ local onNewNuid = function(self, data)
         error(("onNewNuid data.localEntityId is empty: %s"):format(data.localEntityId), 2)
     end
 
-    if self.utils:isEmpty(data.serializedEntityString) then
-        error(("onNewNuid data.serializedEntityString is empty: %s"):format(data.serializedEntityString), 2)
+    if self.utils:isEmpty(data.currentSerializedB64Str) then
+        error(("onNewNuid data.currentSerializedB64Str is empty: %s"):format(data.currentSerializedB64Str), 2)
     end
 
     if self.utils:isEmpty(data.nuid) then
@@ -453,8 +453,8 @@ local onNewNuid = function(self, data)
         error(("onNewNuid data.y is empty: %s"):format(data.y), 2)
     end
 
-    if self.utils:isEmpty(data.initialSerializedEntityString) then
-        error(("onNewNuid data.initialSerializedEntityString is empty: %s"):format(data.initialSerializedEntityString), 2)
+    if self.utils:isEmpty(data.initSerializedB64Str) then
+        error(("onNewNuid data.initSerializedB64Str is empty: %s"):format(data.initSerializedB64Str), 2)
     end
 
     -- FOR TESTING ONLY, DO NOT MERGE
@@ -467,15 +467,15 @@ local onNewNuid = function(self, data)
     --    end
     --end
 
-    local nuid, entityId = self.globalsUtils.getNuidEntityPair(data.nuid)
+    local nuid, entityId = self.globalsUtils:getNuidEntityPair(data.nuid)
 
     if self.utils:isEmpty(entityId) then
         local closestEntityId = EntityGetClosest(data.x, data.y)
-        local initialSerializedEntityString = self.noitaComponentUtils.getInitialSerializedEntityString(closestEntityId)
-        if initialSerializedEntityString == data.initialSerializedEntityString then
+        local initSerializedB64Str = self.noitaComponentUtils:getInitialSerializedEntityString(closestEntityId)
+        if initSerializedB64Str == data.initSerializedB64Str then
             entityId = closestEntityId
         else
-            entityId = EntityCreateNew(data.nuid)
+            entityId = EntityCreateNew(tostring(data.nuid))
         end
     else
         if self.entityCache:contains(entityId) then
@@ -484,7 +484,7 @@ local onNewNuid = function(self, data)
     end
 
 
-    entityId = self.noitaPatcherUtils:deserializeEntity(entityId, data.serializedEntityString, data.x, data.y) --EntitySerialisationUtils.deserializeEntireRootEntity(data.serializedEntity, data.nuid)
+    entityId = self.noitaPatcherUtils:deserializeEntity(entityId, data.currentSerializedB64Str, data.x, data.y) --EntitySerialisationUtils.deserializeEntireRootEntity(data.serializedEntity, data.nuid)
 
     -- include exclude list of entityIds which shouldn't be spawned
     -- if filename:contains("player.xml") then
@@ -1017,7 +1017,7 @@ function Client.new(clientObject, serverOrAddress, port, maxChannels, server, np
     if not clientObject.noitaPatcherUtils then
         clientObject.noitaPatcherUtils = server.noitaPatcherUtils or
             require("NoitaPatcherUtils")
-            :new(nil, nil, server.customProfiler, np)
+            :new(server.customProfiler, np)
     end
     if not clientObject.server then
         clientObject.server = server or error("Client:new requires a server object!", 2)

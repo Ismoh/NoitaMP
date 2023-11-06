@@ -104,6 +104,7 @@ function Utils:openUrl(url)
     os.execute(command)
 end
 
+local once = false
 function Utils:new(utilsObject)
     ---@class Utils
     utilsObject = setmetatable(utilsObject or self, Utils)
@@ -120,10 +121,13 @@ function Utils:new(utilsObject)
         utilsObject.ffi = require("ffi")
     end
 
-    utilsObject.ffi.cdef [[
+    if not once then
+        utilsObject.ffi.cdef [[
         void Sleep(int ms);
         int poll(struct pollfd *fds, unsigned long nfds, int timeout);
     ]]
+        once = true
+    end
 
     return utilsObject
 end

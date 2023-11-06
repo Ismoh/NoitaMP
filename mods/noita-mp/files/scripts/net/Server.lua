@@ -293,18 +293,18 @@ local onNeedNuid = function(self, data, peer)
         error(("onNeedNuid data.y is empty: %s"):format(data.y), 2)
     end
 
-    if self.utils:isEmpty(data.initialSerializedEntityString) then
-        error(("onNeedNuid data.initialSerializedEntityString is empty: %s"):format(data.initialSerializedEntityString), 2)
+    if self.utils:isEmpty(data.initSerializedB64Str) then
+        error(("onNeedNuid data.initSerializedB64Str is empty: %s"):format(data.initSerializedB64Str), 2)
     end
 
-    local initialSerializedEntityString = nil
+    local initSerializedB64Str = nil
     local serializedEntityString        = nil
     local closestServerEntityId         = EntityGetClosest(data.x, data.y)
     local nuid                          = nil
 
     if not self.utils:isEmpty(closestServerEntityId) then
-        initialSerializedEntityString = self.noitaComponentUtils:getInitialSerializedEntityString(closestServerEntityId)
-        if initialSerializedEntityString == data.initialSerializedEntityString then -- entity on server and client are the same
+        initSerializedB64Str = self.noitaComponentUtils:getInitialSerializedEntityString(closestServerEntityId)
+        if initSerializedB64Str == data.initSerializedB64Str then -- entity on server and client are the same
             if not self.networkVscUtils:hasNuidSet(closestServerEntityId) then
                 local ownerName, ownerGuid, nuid = self.noitaComponentUtils:getEntityData(closestServerEntityId)
                 if self.utils:isEmpty(nuid) or nuid < 0 then
@@ -317,17 +317,17 @@ local onNeedNuid = function(self, data, peer)
             nuid                          = self.nuidUtils:getNextNuid()
             -- local serverEntityId          = self.entityUtils:spawnEntity(owner, nuid, x, y, rotation,
             --     velocity, filename, localEntityId, health, isPolymorphed)
-            local serverEntityId          = EntityCreateNew(data.nuid)
+            local serverEntityId          = EntityCreateNew(tostring(data.nuid))
             serverEntityId                = self.noitaPatcherUtils:deserializeEntity(
-                serverEntityId, data.initialSerializedEntityString, data.x, data.y)
-            initialSerializedEntityString = data.initialSerializedEntityString
-            self.noitaComponentUtils:setInitialSerializedEntityString(serverEntityId, initialSerializedEntityString)
-            serializedEntityString = initialSerializedEntityString
+                serverEntityId, data.initSerializedB64Str, data.x, data.y)
+                initSerializedB64Str = data.initSerializedB64Str
+            self.noitaComponentUtils:setInitialSerializedEntityString(serverEntityId, initSerializedB64Str)
+            serializedEntityString = initSerializedB64Str
         end
     end
 
     self:sendNewNuid(data.ownerName, data.ownerGuid, data.localEntityId,
-        serializedEntityString, nuid, data.x, data.y, initialSerializedEntityString)
+        serializedEntityString, nuid, data.x, data.y, initSerializedB64Str)
 
     sendAck(self, data.networkMessageId, peer, self.networkUtils.events.needNuid.name)
     self.customProfiler:stop("Server.onNeedNuid", cpc)
@@ -465,8 +465,8 @@ local onDeadNuids = function(self, data, peer)
     end
     if peer then
         self:sendToAllBut(peer, self.networkUtils.events.deadNuids.name, data)
+        sendAck(self, data.networkMessageId, peer, self.networkUtils.events.deadNuids.name)
     end
-    sendAck(self, data.networkMessageId, peer, self.networkUtils.events.deadNuids.name)
     self.customProfiler:stop("Server.onDeadNuids", cpc)
 end
 
@@ -794,9 +794,9 @@ end
 ---@param nuid number required
 ---@param x number required
 ---@param y number required
----@param initialSerializedEntityString string required
+---@param initSerializedB64Str string required
 ---@return boolean true if message was sent, false if not
-function Server:sendNewNuid(ownerName, ownerGuid, entityId, serializedEntityString, nuid, x, y, initialSerializedEntityString)
+function Server:sendNewNuid(ownerName, ownerGuid, entityId, currentSerializedB64Str, nuid, x, y, initSerializedB64Str)
     local cpc = self.customProfiler:start("Server.sendNewNuid")
 
     if self.utils:isEmpty(ownerName) then
@@ -808,8 +808,8 @@ function Server:sendNewNuid(ownerName, ownerGuid, entityId, serializedEntityStri
     if self.utils:isEmpty(entityId) then
         error(("entityId must not be nil or empty %s"):format(entityId), 2)
     end
-    if self.utils:isEmpty(serializedEntityString) or type(serializedEntityString) ~= "string" then
-        error(("serializedEntityString must not be nil or empty %s or is not of type 'string'."):format(serializedEntityString), 2)
+    if self.utils:isEmpty(currentSerializedB64Str) or type(currentSerializedB64Str) ~= "string" then
+        error(("currentSerializedB64Str must not be nil or empty %s or is not of type 'string'."):format(currentSerializedB64Str), 2)
     end
     if self.utils:isEmpty(nuid) then
         error(("nuid must not be nil or empty %s"):format(nuid), 2)
@@ -820,13 +820,12 @@ function Server:sendNewNuid(ownerName, ownerGuid, entityId, serializedEntityStri
     if self.utils:isEmpty(y) then
         error(("y must not be nil or empty %s"):format(y), 2)
     end
-    if self.utils:isEmpty(initialSerializedEntityString) or type(initialSerializedEntityString) ~= "string" then
-        error(("initialSerializedEntityString must not be nil or empty %s or is not of type 'string'."):format(initialSerializedEntityString), 2)
+    if self.utils:isEmpty(initSerializedB64Str) or type(initSerializedB64Str) ~= "string" then
+        error(("initSerializedB64Str must not be nil or empty %s or is not of type 'string'."):format(initSerializedB64Str), 2)
     end
 
     local event = self.networkUtils.events.newNuid.name
-    local data  = { self.networkUtils:getNextNetworkMessageId(), ownerName, ownerGuid, entityId, serializedEntityString, nuid, x, y,
-        initialSerializedEntityString }
+    local data  = { self.networkUtils:getNextNetworkMessageId(), ownerName, ownerGuid, entityId, x, y, initSerializedB64Str, currentSerializedB64Str, nuid }
     local sent  = self:sendToAll(event, data)
 
     -- FOR TESTING ONLY, DO NOT MERGE
@@ -1056,7 +1055,7 @@ function Server.new(address, port, maxPeers, maxChannels, inBandwidth, outBandwi
 
     if not serverObject.noitaPatcherUtils then
         serverObject.noitaPatcherUtils = require("NoitaPatcherUtils")
-            :new(nil, nil, serverObject.customProfiler, np)
+            :new(serverObject.customProfiler, np)
     end
 
     if not serverObject.noitaComponentUtils then

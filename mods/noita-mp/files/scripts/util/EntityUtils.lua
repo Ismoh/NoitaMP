@@ -484,8 +484,8 @@ function EntityUtils:destroyByNuid(peer, nuid)
         return
     end
 
-    if entityId ~= self.minaUtils:getLocalMinaEntityId() and
-        entityId ~= self.minaUtils:getLocalPolymorphedMinaEntityId()
+    if entityId ~= self.minaUtils:getLocalMinaEntityId() --and
+        --entityId ~= self.minaUtils:getLocalPolymorphedMinaEntityId()
     then
         EntityKill(entityId)
     end
@@ -685,7 +685,7 @@ function EntityUtils:new(client, customProfiler, enitityCacheUtils, entityCache,
 
     if not entityUtilsObject.noitaPatcherUtils then
         entityUtilsObject.noitaPatcherUtils = require("NoitaPatcherUtils")
-            :new(nil, nil, server.customProfiler, np)
+            :new(server.customProfiler, np)
     end
 
     entityUtilsObject.customProfiler:stop("EntityUtils:new", cpc)

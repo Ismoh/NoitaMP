@@ -105,7 +105,7 @@ function CustomProfiler:report()
     fig1:update_layout {
         width   = 1920,
         height  = 1080,
-        title   = "NoitaMP Profiler Report of " .. whoAmI() or nil .. " " .. self.fileUtils:GetVersionByFile(),
+        title   = "NoitaMP Profiler Report " .. self.fileUtils:GetVersionByFile(),
         xaxis   = { title = { text = "Frames" } },
         yaxis   = { title = { text = "Execution time [ms]" } },
         barmode = "group"

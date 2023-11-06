@@ -85,6 +85,7 @@ I wouldn't be able to create this mod without the help by
 - [@ofoxsmith](https://github.com/ofoxsmith)
 - [@Nathan](https://github.com/Nathdsgfiugaoiysfnhuah/)
 - [@Myzumi](https://github.com/Myzumi)
+- [@ma-bo](https://github.com/ma-bo)
 
 I also want to say thank you to the sponsors of this project on
 
@@ -100,6 +101,7 @@ I also want to say thank you to the sponsors of this project on
 |  [stefnotch](https://github.com/stefnotch)  |   20$    |  one-time  |  Jul 13, 2023  |
 |  [conga lyne](https://github.com/Conga0)    |   25$    |  monthly   |  Jul 13, 2023  |
 |  [clragon](https://github.com/clragon)      |   20$    |  one-time  |  Jul 13, 2023  |
+|  [den3606](https://github.com/den3606)      |   20$    |  one-time  |  Oct 21, 2023  |
 
 If you spot anything I should mention, feel free to create an issue or get in touch with [me](https://github.com/Ismoh)!
 
