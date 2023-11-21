@@ -48,11 +48,11 @@ Also, special thanks to the people, who share their libraries, frameworks and ot
 - [eNet](http://enet.bespin.org/) for network communication
 - [lua-enet](https://github.com/leafo/lua-enet) for being able to use eNet in Lua
 - [sock.lua](https://github.com/camchenry/sock.lua) for 'easy' to use lua-enet and eNet in Lua
-- ~~[bitser.lua](https://github.com/gvx/bitser) for old serializing and deserializing data~~
+- <s>[bitser.lua](https://github.com/gvx/bitser) for old serializing and deserializing data</s>
 - [pprint.lua](https://github.com/jagt/pprint.lua) for debugging with pretty prints
-- ~~[json.lua](https://github.com/rxi/json.lua) for serializing and deserializing data in json format~~
+- <s>[json.lua](https://github.com/rxi/json.lua) for serializing and deserializing data in json format</s>
 - [nxml.lua](https://github.com/zatherz/luanxml) for editing xml files used by Noita
-- ~~[EZGUI.lua](https://github.com/TheHorscht/EZGUI) for the GUI, but unfortunately it isn't maintained anymore~~
+- <s>[EZGUI.lua](https://github.com/TheHorscht/EZGUI) for the GUI, but unfortunately it isn't maintained anymore</s>
 - [lua-watcher.lua](https://github.com/EvandroLG/lua-watcher) for getting the correct save path for Noita
 - [lfs-ffi.lua](https://github.com/sonoro1234/luafilesystem) for lua file system
 - [deepcopy.lua](https://gist.github.com/Deco/3985043) for being able to copy tables
