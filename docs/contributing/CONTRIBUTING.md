@@ -33,7 +33,7 @@ This is to avoid duplicate work.
 ## How does NoitaMP work?
 
 NoitaMP is a mod that uses the [Noita API](https://noita.wiki.gg/wiki/Modding), but there is something that you need to know about the API.
-The API is a Lua library that is used to interact with the game.\
+The API is a Lua library that is used to interact with the game.
 The API is not a mod, it is a library that is used to create mods.
 
 ### Lua context
@@ -192,13 +192,13 @@ See LuaRocks section above.
 
 ### How to write tests?
 
-Simple example by adding a new function to an existing test class:\
+Simple example by adding a new function to an existing test class:
 _Assume you've added a new event to **NetworkUtils.events**, then make sure to extend the **TestNetworkUtils** table in **NetworkUtils_test.lua**.)_
 
 ```lua
 ```
 
-How to run tests?\
+How to run tests?
 `luarocks test > result.log`
 
 If there are any questions left, then please ask them on [Discord](https://discord.gg/DhMurdcw4k).
