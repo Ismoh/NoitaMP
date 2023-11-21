@@ -78,7 +78,7 @@ Then we would set a global "foo" variable in the `LuaComponent` context _(see 1 
 and afterwards we would use the `init.lua` context to fetch the value of the global "foo" variable _(see 3 and 4 in the diagram below)_.
 In addition, please note that `GlobalsSetValue` and `GlobalsGetValue` has nothing to do with Lua globals `_G`.
 See diagram below for a better understanding:
-![NoitaMP](/resorces/img/lua-contexts-workaround.png)
+![NoitaMP](/res/img/lua-contexts-workaround.png)
 
 #### VariableStorageComponents
 
