@@ -1,0 +1,24 @@
+site_name: NoitaMP Documentation
+
+theme:
+  name: material
+  logo: 'res/img/NoitaMP.png'
+  favicon: 'res/img/noita-logo.png'
+
+markdown_extensions:
+  - toc:
+      permalink: "#"
+
+nav:
+  - Home: 'index.md'
+  - User Guides:
+    - Installation: 'user-guide/installation.md'
+    - Configuration: 'user-guide/configuration.md'
+  - Contributing:
+    - Contributing guide: 'contributing/CONTRIBUTING.md'
+    - Code of conduct: 'contributing/CODE_OF_CONDUCT.md'
+  - About:
+    - Credits : 'about/credits.md'
+    - License: 'about/LICENSE.md'
+  - Changelog: 'CHANGELOG.md'
+  - Support: 'SUPPORT.md'
