@@ -27,8 +27,7 @@ If applicable, add screenshots to help explain your problem.
 **Desktop (please complete the following information):**
 
 - OS: [Windows, Linux]
-- Browser [e.g. chrome, safari]
-- Version [e.g. 22]
+- Version [NoitaMP version, e.g. `v5.0.0-alpha+1262`, have a look into `mods/noita-mp/.version]
 
 **Additional context**
 Add any other context about the problem here.
