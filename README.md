@@ -5,7 +5,8 @@
 ## Table of Contents
 
 - [TL:DR](#tldr)  
-- [Documentation](#documentation)  
+- [Documentation](#documentation)
+- [Credits](#credits)  
 - [Roadmap](#roadmap)
 
 ## TL;DR
@@ -57,6 +58,10 @@ Let's see, if I can do so?! I am new to Lua and modding, but someone said to me:
 ## Documentation
 
 Installation, configuration and support can be found on the [docs](https://ismoh.github.io/NoitaMP/).
+
+## Credits
+
+This mod would not be possible without [their](https://ismoh.github.io/NoitaMP/about/credits/) impact.
 
 ## Roadmap
 
