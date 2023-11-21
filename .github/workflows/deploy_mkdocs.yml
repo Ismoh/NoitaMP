@@ -2,8 +2,7 @@ name: Deploy mkdocs
 on:
   push:
     branches:
-      - master 
-      - main
+      - master
 permissions:
   contents: write
 jobs:
@@ -27,4 +26,9 @@ jobs:
           restore-keys: |
             mkdocs-material-
       - run: pip install mkdocs-material 
+      - name: Mirror GitHub md's
+        run: |
+          cp -f CONTRIBUTING.md docs/contributing/CONTRIBUTING.md
+          cp -f CODE_OF_CONDUCT.md docs/contributing/CODE_OF_CONDUCT.md
+          cp -f LICENSE.md docs/about/LICENSE.md
       - run: mkdocs gh-deploy --force
