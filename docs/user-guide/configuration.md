@@ -27,7 +27,7 @@ You can include entities by their component or file names. In addition you are a
 
 In addition to this there are some settings/configurations inside Noitas Mod Settings:
 
-![Mod Settings](/resources/img/mod-settings.png)
+![Mod Settings](/res/img/mod-settings.png)
 
 | Setting                              | Description                                                                                            |
 |--------------------------------------|--------------------------------------------------------------------------------------------------------|

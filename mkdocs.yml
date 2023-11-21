@@ -2,8 +2,8 @@ site_name: NoitaMP Documentation
 
 theme:
   name: material
-  logo: 'resources/img/NoitaMP.png'
-  favicon: 'resources/img/noita-logo.png'
+  logo: 'res/img/NoitaMP.png'
+  favicon: 'res/img/noita-logo.png'
 
 markdown_extensions:
   - toc:

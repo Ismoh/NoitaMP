@@ -43,7 +43,7 @@ There are different Lua contexts in Noita, but the most important one is the `in
 ### Contexts in Noita
 
 Let me try to explain it with an example:
-![NoitaMP](/resources/img/lua-contexts.png)
+![NoitaMP](/res/img/lua-contexts.png)
 In the diagram above you can see the default Noita modding structure.
 There are different Lua contexts:
 
