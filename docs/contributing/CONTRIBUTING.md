@@ -16,8 +16,7 @@ but first off, thanks for taking the time to contribute!
 
 - [ ] I have read the [Contributing](CONTRIBUTING.md) document.
 - [ ] I have read the [Code of Conduct](CODE_OF_CONDUCT.md) document.
-- [ ] I have read the [README](README.md) document.
-- [ ] I have read the [LICENSE](LICENSE) document.
+- [ ] I have read the [LICENSE](/about/LICENSE.md) document.
 - [ ] I have experience in Lua.
 - [ ] I have experience in Noita modding.
 
@@ -44,7 +43,7 @@ There are different Lua contexts in Noita, but the most important one is the `in
 ### Contexts in Noita
 
 Let me try to explain it with an example:
-![NoitaMP](miscs/contributing-md/lua-contexts.png)
+![NoitaMP](/resources/img/lua-contexts.png)
 In the diagram above you can see the default Noita modding structure.
 There are different Lua contexts:
 
@@ -79,7 +78,7 @@ Then we would set a global "foo" variable in the `LuaComponent` context _(see 1 
 and afterwards we would use the `init.lua` context to fetch the value of the global "foo" variable _(see 3 and 4 in the diagram below)_.
 In addition, please note that `GlobalsSetValue` and `GlobalsGetValue` has nothing to do with Lua globals `_G`.
 See diagram below for a better understanding:
-![NoitaMP](miscs/contributing-md/lua-contexts-workaround.png)
+![NoitaMP](/resorces/img/lua-contexts-workaround.png)
 
 #### VariableStorageComponents
 
