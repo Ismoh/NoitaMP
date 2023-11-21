@@ -31,6 +31,6 @@ jobs:
           cp -f CONTRIBUTING.md docs/contributing/CONTRIBUTING.md
           cp -f CODE_OF_CONDUCT.md docs/contributing/CODE_OF_CONDUCT.md
           cp -f LICENSE.md docs/about/LICENSE.md
-          cp -f SUPOORT.md docs/SUPORT.md
+          cp -f SUPPORT.md docs/SUPORT.md
       - run: mkdocs gh-deploy --force
   
