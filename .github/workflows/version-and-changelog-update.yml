@@ -199,7 +199,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           dateFormat: "%d.%m.%Y"
-          output: "CHANGELOG.md"
+          output: "docs/CHANGELOG.md"
           issueLineLabels: "ALL"
           breakingLabels: "backwards-incompatible,breaking,rework,refactor"
           futureRelease: ${{ env.FUTURE_RELEASE }}
@@ -250,7 +250,7 @@ jobs:
             git pull origin ${{ github.base_ref }}
             git config --local user.email "action@github.com"
             git config --local user.name "github-actions"
-            git add CHANGELOG.md
+            git add docs/CHANGELOG.md
             git commit -m "Updated CHANGELOG.md in https://github.com/${{github.repository}}/pull/${{github.event.number}}"
             git push origin ${{ github.base_ref }}
           else
