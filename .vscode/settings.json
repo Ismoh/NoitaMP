@@ -48,10 +48,12 @@
     "deprecated"
   ],
   "files.associations": {
+    "NOTES_BY_MYSELF": "plaintext",
     "stdbool.h": "c",
     "stdio.h": "c",
     "lua.h": "c",
-    "lauxlib.h": "c"
+    "lauxlib.h": "c",
+    "enet.h": "c"
   },
   "[c]": {
     "editor.defaultFormatter": "ms-vscode.cpptools"

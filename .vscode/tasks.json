@@ -63,13 +63,51 @@
       "type": "shell",
       "windows": {
         "command": "cd ${workspaceFolder}\\.building\\LuaJIT-2.1.0-beta3\\src && msvcbuild.bat"
-      },
+      }
     },
     {
       "label": "Run LuaJIT Profiler on init.lua (LuaJIT-2.1.0-beta3)",
       "type": "shell",
       "windows": {
         "command": "lua -jp=a ${workspaceFolder}\\mods\\noita-mp\\LuaJITProfilerRunner.lua"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "eNet & lua-enet: Clean builds",
+      "type": "shell",
+      "windows": {
+        "command": "cd ${workspaceFolder} && if exist building rd /s building /q"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "eNet: create and run build",
+      "type": "shell",
+      "dependsOrder": "sequence",
+      "dependsOn": ["eNet & lua-enet: Clean builds"],
+      "windows": {
+        "command": "cd ${workspaceFolder} && if not exist building mkdir building && cd building && git clone --depth 1 --branch v1.3.17-add-ons https://github.com/Ismoh/enet.git && cd enet && if not exist build mkdir build && cmake -S . -B build && cmake --build build --config Release && cmake --build build --config Debug"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "lua-enet: pre-build",
+      "type": "shell",
+      "dependsOrder": "sequence",
+      "dependsOn": ["eNet: create and run build", "Compile LuaJIT-2.1.0-beta3"],
+      "windows": {
+        "command": "cd ${workspaceFolder} && cd building && git clone --depth 1 --branch master https://github.com/Ismoh/lua-enet.git && cd ${workspaceFolder} && xcopy LuaJIT-2.1.0-beta3\\bin building\\lua-enet\\luajit2.1\\bin\\ /E/H && xcopy LuaJIT-2.1.0-beta3\\include building\\lua-enet\\luajit2.1\\include\\ /E/H && xcopy building\\enet\\build\\CMakeFiles\\enet.dir building\\lua-enet\\build\\CMakeFiles\\enet.dir\\ /E/H && xcopy building\\enet\\include\\enet building\\lua-enet\\enet\\ && xcopy building\\enet\\build\\enet.lib building\\lua-enet\\enet\\ /E/H"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "lua-enet: create and run build",
+      "type": "shell",
+      "dependsOrder": "sequence",
+      "dependsOn": ["eNet & lua-enet: Clean builds", "eNet: create and run build", "Compile LuaJIT-2.1.0-beta3", "lua-enet: pre-build"],
+      "windows": {
+        "command": "cd ${workspaceFolder} && cd building && cd lua-enet && cmake -S . -B build && cmake --build build --config Release && cmake --build build --config Debug"
       },
       "problemMatcher": []
     }
