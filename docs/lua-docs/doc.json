@@ -9169,14 +9169,14 @@
         "fields": [
             {
                 "extends": {
-                    "finish": 780046,
-                    "start": 780024,
+                    "finish": 780043,
+                    "start": 780022,
                     "type": "select",
                     "view": "unknown"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/NoitaPatcherUtils.lua",
-                "finish": 780021,
-                "name": "base64_2",
+                "finish": 780019,
+                "name": "base64",
                 "start": 780008,
                 "type": "setfield"
             },

@@ -3196,7 +3196,7 @@ winapi
 
 # NoitaPatcherUtils
 
-## base64_2
+## base64
 
 
 ```lua
