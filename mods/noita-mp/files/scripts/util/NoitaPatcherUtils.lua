@@ -17,7 +17,7 @@ function OnProjectileFiredPost() end
 function NoitaPatcherUtils:serializeEntity(entityId)
     local cpc = self.customProfiler:start("NoitaPatcherUtils:serializeEntity")
     local binaryString = self.np.SerializeEntity(entityId)
-    local base64String = self.base64_2.encode(binaryString)
+    local base64String = self.base64.encode(binaryString)
     self.customProfiler:stop("NoitaPatcherUtils:serializeEntity", cpc)
     return base64String
 end
@@ -30,7 +30,7 @@ end
 ---@return number entityId of the created entity
 function NoitaPatcherUtils:deserializeEntity(entityId, base64String, x, y)
     local cpc = self.customProfiler:start("NoitaPatcherUtils.deserializeEntity")
-    local decoded = self.base64_2.decode(base64String)
+    local decoded = self.base64.decode(base64String)
     entityId = self.np.DeserializeEntity(entityId, decoded, x, y)
     if not entityId or self.utils:isEmpty(entityId) then
         error(("Failed to deserialize entity(%s) from base64 string: %s"):format(entityId, base64String), 2)
@@ -75,8 +75,8 @@ function NoitaPatcherUtils:new(customProfiler, np)
         noitaPatcherUtilsObject.utils = require("Utils"):new(nil)
     end
 
-    if not self.base64_2 then
-        self.base64_2 = require("base64_ffi2")
+    if not self.base64 then
+        self.base64 = require("base64_ffi")
     end
 
     customProfiler:stop("EntityUtils:new", cpc)
