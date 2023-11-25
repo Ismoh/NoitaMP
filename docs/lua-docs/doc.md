@@ -25,7 +25,7 @@ function Client.amIClient(self: Client)
 Checks if the current local user is a client.
 
 @*return* `true` — if client, false if not
-See: [Server.amIServer](../../mods/noita-mp/files/scripts/net/Server.lua#L911#9)
+See: [Server.amIServer](../../mods/noita-mp/files/scripts/net/Server.lua#L910#9)
 
 ## customProfiler
 
@@ -2548,6 +2548,15 @@ function NetworkUtils.alreadySent(self: NetworkUtils, peer: table, event: string
 
 @*param* `peer` — If Server, then it's the peer, if Client, then it's the 'self' object
 
+## checkSchemaOrder
+
+
+```lua
+function NetworkUtils.checkSchemaOrder(self: NetworkUtils, event: string, data: table)
+```
+
+ Double checks if the schema order is correct, but only in dev build.
+
 ## customProfiler
 
 
@@ -2650,13 +2659,17 @@ Utils class for lazy developers.
 
 
 ```lua
-function NetworkUtils.zipTable(self: NetworkUtils, items: any, keys: any, event: any)
+function NetworkUtils.zipTable(self: NetworkUtils, items: table, keys: table, event: string)
   -> table
 ```
 
  links variables to keys based on their order
  note that it only works for boolean and number values, not strings.
  Credits to sock.lua
+
+@*param* `items` — data
+
+@*param* `keys` — schema
 
 ## zstandard
 
@@ -2919,10 +2932,10 @@ function NoitaComponentUtils.getEntityDataByNuid(self: NoitaComponentUtils, nuid
 
 ```lua
 function NoitaComponentUtils.getInitialSerializedEntityString(self: NoitaComponentUtils, entityId: number)
-  -> initialSerializedEntityString: string|nil
+  -> initSerializedB64Str: string|nil
 ```
 
-Get initial serialized entity string to determine if the entity already exists on the server.
+ Get initial serialized entity string to determine if the entity already exists on the server.
 
 ## globalsUtils
 
@@ -2997,11 +3010,11 @@ function NoitaComponentUtils.setEntityData(self: NoitaComponentUtils, entityId: 
 
 
 ```lua
-function NoitaComponentUtils.setInitialSerializedEntityString(self: NoitaComponentUtils, entityId: number, initialSerializedEntityString: string)
+function NoitaComponentUtils.setInitialSerializedEntityString(self: NoitaComponentUtils, entityId: number, initSerializedB64Str: string)
   -> if: boolean
 ```
 
-Set initial serialized entity string to determine if the entity already exists on the server.
+ Set initial serialized entity string to determine if the entity already exists on the server.
 
 @*return* `if` — success
 
@@ -3183,14 +3196,7 @@ winapi
 
 # NoitaPatcherUtils
 
-## base64
-
-
-```lua
-base64
-```
-
-## base64_fast
+## base64_2
 
 
 ```lua
@@ -3210,33 +3216,27 @@ Simple profiler that can be used to measure the duration of a function and the m
 
 
 ```lua
-function NoitaPatcherUtils.deserializeEntity(self: NoitaPatcherUtils, entityId: number, serializedEntityString: base64, x: number, y: number)
-  -> number
+function NoitaPatcherUtils.deserializeEntity(self: NoitaPatcherUtils, entityId: number, base64String: string, x: number|nil, y: number|nil)
+  -> entityId: number
 ```
 
-Deserialize an entity from a base64 string and create it at the given position.
+ Deserialize an entity from a serialized base64 string and create it at the given position.
 
-@*param* `serializedEntityString` — encoded string
+@*param* `entityId` — mostly an empty entity, but required
 
-## ffi
+@*param* `base64String` — serialized entity in base64 format
 
+@*param* `x` — x position to create entity at, but optional.
 
-```lua
-unknown
-```
+@*param* `y` — y position to create entity at, but optional.
 
-## luaBase64
-
-
-```lua
-unknown
-```
+@*return* `entityId` — of the created entity
 
 ## new
 
 
 ```lua
-function NoitaPatcherUtils.new(self: NoitaPatcherUtils, noitaPatcherUtilsObject: NoitaPatcherUtils|nil, base64: base64|nil, customProfiler: CustomProfiler, np: noitapatcher)
+function NoitaPatcherUtils.new(self: NoitaPatcherUtils, customProfiler: CustomProfiler, np: noitapatcher)
   -> NoitaPatcherUtils
 ```
 
@@ -3253,36 +3253,17 @@ NoitaPatcherUtils constructor.
 noitapatcher
 ```
 
-## prepareForVsc
-
-
-```lua
-function NoitaPatcherUtils.prepareForVsc(self: NoitaPatcherUtils, binaryString: string)
-  -> Binary: string
-```
-
- Removes NUL(\0) bytes from a string.
-
-@*param* `binaryString` — Binary string to remove NUL bytes from.
-
-@*return* `Binary` — string without NUL bytes.
-
 ## serializeEntity
 
 
 ```lua
 function NoitaPatcherUtils.serializeEntity(self: NoitaPatcherUtils, entityId: number)
-  -> string
+  -> base64String: string
 ```
 
-Serialize an entity to a base64 and md5 string.
+ Serialize an entity to a base64 and md5 string.
 
-## utf8
-
-
-```lua
-unknown
-```
+@*return* `base64String` — base64 encoded string
 
 ## utils
 
@@ -3943,7 +3924,7 @@ Sends a message to the client, when there is a guid clash.
 
 
 ```lua
-function Server.sendNewNuid(self: Server, ownerName: string, ownerGuid: string, entityId: number, serializedEntityString: string, nuid: number, x: number, y: number, initialSerializedEntityString: string)
+function Server.sendNewNuid(self: Server, ownerName: string, ownerGuid: string, entityId: number, currentSerializedB64Str: any, nuid: number, x: number, y: number, initSerializedB64Str: string)
   -> true: boolean
 ```
 
@@ -3963,7 +3944,7 @@ Sends a new nuid to all clients. This also creates/updates the entities on clien
 
 @*param* `y` — required
 
-@*param* `initialSerializedEntityString` — required
+@*param* `initSerializedB64Str` — required
 
 @*return* `true` — if message was sent, false if not
 
@@ -4412,6 +4393,16 @@ Raises an error if the value of its argument v is false (i.e., `nil` or `false`)
 function assert(v?: <T>, message?: any, ...any)
   -> <T>
   2. ...any
+```
+
+
+---
+
+# client
+
+
+```lua
+Client
 ```
 
 
@@ -6238,6 +6229,16 @@ table
 
 ---
 
+# once
+
+
+```lua
+boolean
+```
+
+
+---
+
 # orderedNext
 
 
@@ -6905,6 +6906,16 @@ index:
 ```lua
 function select(index: integer|"#", ...any)
   -> any
+```
+
+
+---
+
+# server
+
+
+```lua
+Server
 ```
 
 
