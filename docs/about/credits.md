@@ -21,6 +21,7 @@ I wouldn't be able to create this mod without the help by
 - [@bruham](https://steamcommunity.com/id/bruham/myworkshopfiles/?appid=881100)
 - [@ofoxsmith](https://github.com/ofoxsmith)
 - [@Myzumi](https://github.com/Myzumi)
+- [@inlife](https://github.com/inlife)
 
 I also want to say thank you to the sponsors of this project on
 
