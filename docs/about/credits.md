@@ -8,20 +8,21 @@
 
 I wouldn't be able to create this mod without the help by
 
-- [@EvaisaGiac](https://github.com/EvaisaGiac/)
-- [@TheHorscht](https://github.com/TheHorscht/)
-- [@Pyry](https://github.com/probable-basilisk)
-- [@DevonX](https://github.com/DevonX)
-- [@shebpamm](https://github.com/shebpamm)
-- @Coxas/Thighs
-- [@dextercd](https://github.com/dextercd)
+- [@aaptel](https://github.com/aaptel)
 - [@BlueAmulet](https://github.com/BlueAmulet)
-- [@Shaw](https://github.com/ShawSumma)
-- [@Ramiels](https://github.com/Ramiels)
 - [@bruham](https://steamcommunity.com/id/bruham/myworkshopfiles/?appid=881100)
-- [@ofoxsmith](https://github.com/ofoxsmith)
-- [@Myzumi](https://github.com/Myzumi)
+- [@DevonX](https://github.com/DevonX)
+- [@dextercd](https://github.com/dextercd)
+- [@EvaisaGiac](https://github.com/EvaisaGiac/)
 - [@inlife](https://github.com/inlife)
+- [@Myzumi](https://github.com/Myzumi)
+- [@ofoxsmith](https://github.com/ofoxsmith)
+- [@Pyry](https://github.com/probable-basilisk)
+- [@Ramiels](https://github.com/Ramiels)
+- [@Shaw](https://github.com/ShawSumma)
+- [@shebpamm](https://github.com/shebpamm)
+- [@TheHorscht](https://github.com/TheHorscht/)
+- @Coxas/Thighs
 
 I also want to say thank you to the sponsors of this project on
 
