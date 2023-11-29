@@ -53,7 +53,8 @@
     "stdio.h": "c",
     "lua.h": "c",
     "lauxlib.h": "c",
-    "enet.h": "c"
+    "enet.h": "c",
+    "limits": "c"
   },
   "[c]": {
     "editor.defaultFormatter": "ms-vscode.cpptools"

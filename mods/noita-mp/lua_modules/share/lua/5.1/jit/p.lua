@@ -119,16 +119,17 @@ local function prof_cb(th, samples, vmmode)
   if k1 then
     local t1 = prof_count1
     if t1 then
-        t1[k1] = (t1[k1] or 0) + samples
-        if k2 then
+      t1[k1] = (t1[k1] or 0) + samples
+      if k2 then
         local t2 = prof_count2
         local t3 = t2[k1]
         if not t3 then
-            t3 = {}; t2[k1] = t3
+          t3 = {}; t2[k1] = t3
         end
         t3[k2] = (t3[k2] or 0) + samples
-        end
-  end end
+      end
+    end
+  end
 end
 
 ------------------------------------------------------------------------------

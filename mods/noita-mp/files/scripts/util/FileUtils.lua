@@ -60,10 +60,10 @@ end
 --- eNet specific commands
 ---
 --- @return number?
-function FileUtils:GetPidOfRunningEnetHostByPort()
+function FileUtils:GetPidOfRunningEnetHostByPort(server)
     local command = nil
     if _G.is_windows then
-        command = ('netstat -abon | find /i "%s"'):format(_G.Server:getPort())
+        command = ('netstat -abon | find /i "%s"'):format(server:getPort())
     else
         error("Unix system are not supported yet :(", 2)
         return

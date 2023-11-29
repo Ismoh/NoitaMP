@@ -77,7 +77,7 @@
       "label": "lua-enet: 1. Clean builds",
       "type": "shell",
       "windows": {
-        "command": "echo '1.' && cd ${workspaceFolder} && IF EXIST build (rd /s build /q) ELSE (echo 'No clean builds necessary') && mkdir build"
+        "command": "echo '1.' && cd ${workspaceFolder} && IF EXIST build (rd /s build /q) ELSE (echo 'No clean builds necessary'); && mkdir build"
       },
       "problemMatcher": []
     },
@@ -85,7 +85,7 @@
       "label": "lua-enet: 2. Add or update lua-enet dependency",
       "type": "shell",
       "windows": {
-        "command": "echo '2.' && cd ${workspaceFolder}\\build && git clone --depth 1 --branch master https://github.com/Ismoh/lua-enet.git && cd lua-enet && gh release download v2.3.6 --repo zpl-c/enet --clobber"
+        "command": "echo '2.' && cd ${workspaceFolder}\\build && git clone --depth 1 --branch master https://github.com/Ismoh/lua-enet.git" // && cd lua-enet && gh release download v2.3.6 --repo zpl-c/enet --clobber
       },
       "problemMatcher": []
     },
@@ -109,7 +109,19 @@
         "lua-enet: 3. pre-build"
       ],
       "windows": {
-        "command": "echo '0.' && cd ${workspaceFolder} && cd build && cd lua-enet && cmake -S . -B build && cmake --build build --config Release && cmake --build build --config Debug"
+        "command": "echo '0.' && cd ${workspaceFolder} && cd build && cd lua-enet && cmake -S . -B build && cd build && ninja -v"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "lua-enet: 00. post build move enet libraries in dependencies directory",
+      "type": "shell",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "lua-enet: 0. create and run build (automated / one-click solution)"
+      ],
+      "windows": {
+        "command": "echo '00.' && cd ${workspaceFolder} && copy ${workspaceFolder}\\build\\lua-enet\\build\\enet.* ${workspaceFolder}\\mods\\noita-mp\\lua_modules\\lib\\lua\\5.1 /Y"
       },
       "problemMatcher": []
     }

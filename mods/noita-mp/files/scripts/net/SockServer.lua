@@ -95,21 +95,27 @@ end
 ---@param fileUtils FileUtils
 ---@param logger Logger
 function SockServer:start(ip, port, fileUtils, logger)
-    ip           = ip or self.address or error("ip is nil", 2)
-    port         = port or self.port or error("port is nil", 2)
+    ip             = ip or self.address or error("ip is nil", 2)
+    port           = port or self.port or error("port is nil", 2)
 
-    self.address = ip
-    self.port    = port
+    self.address   = ip
+    self.port      = port
 
     -- ip, max peers, max channels, in bandwidth, out bandwidth
     -- number of channels for the client and server must match
-    self.host    = enet.host_create(ip .. ":" .. port, self.maxPeers, self.maxChannels)
+    self.host, err = enet.host_create(("%s:%s"):format(ip, port), self.maxPeers, self.maxChannels)
+
+    if err then
+        error(("Error starting server: %s"):format(err), 2)
+    end
 
     if not self.host then
         --error("Failed to create the host. Is there another server running on :" .. self.port .. "?")
         self:log("", { "Failed to create the host. Is there another server running on :" .. self.port .. "?" })
-        local pid = fileUtils:GetPidOfRunningEnetHostByPort()
-        fileUtils:KillProcess(pid)
+        local pid = fileUtils:GetPidOfRunningEnetHostByPort(self)
+        if pid then
+            fileUtils:KillProcess(pid)
+        end
         return false
     end
 

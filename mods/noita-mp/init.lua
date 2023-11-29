@@ -56,12 +56,11 @@ client.noitaMpSettings.gui = gui
 
 if jit.version_num == 20100 then
     jit.p = require("jit.p")
-    jit.p.outPath = ("%s/jit_profiler"):format(server.fileUtils:GetAbsoluteDirectoryPathOfNoitaMP(server.noitaMpSettings))
+    jit.p.outPath = ("%s/jit_profiler"):format(server.fileUtils:GetDesktopDirectory())
     jit.p.outFile = "jit.p"
     jit.p.mode = "af50si1"
     server.fileUtils:MkDir(("%s/jit_profiler"):format(server.fileUtils:GetAbsoluteDirectoryPathOfNoitaMP(server.noitaMpSettings)))
-    jit.p.start(jit.p.mode, ("%s/%s.log"):format(jit.p.outPath, jit.p.outFile))
-    --jit.profile = require("jit.profile")
+    --jit.p.start(jit.p.mode, ("%s/%s.log"):format(jit.p.outPath, jit.p.outFile))
 end
 
 logger:debug(logger.channels.initialize, "Starting to load noita-mp init.lua..")
@@ -247,7 +246,7 @@ end
 function OnWorldPreUpdate()
     -- if not jit.p.isProfiling then
     if jit.version_num == 20100 then
-        jit.p.start(jit.p.mode, ("%s/%s.log"):format(jit.p.outPath, jit.p.outFile))
+        --jit.p.start(jit.p.mode, ("%s/%s.log"):format(jit.p.outPath, jit.p.outFile))
     end
     -- end
 
@@ -327,7 +326,7 @@ function OnWorldPostUpdate()
     customProfiler:stop("init.OnWorldPostUpdate", cpc)
     if jit.version_num == 20100 then
         -- if jit.p.isProfiling then
-        jit.p.stop()
+        --jit.p.stop()
         -- end
     end
 end
