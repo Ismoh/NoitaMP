@@ -18,28 +18,40 @@ pprint.defaults = {
     show_userdata = false,
     -- additional display trigger
     show_metatable = false, -- show metatable
-    show_all = false, -- override other show settings and show everything
-    use_tostring = false, -- use __tostring to print table if available
-    filter_function = nil, -- called like callback(value[,key, parent]), return truty value to hide
+    show_all = false,       -- override other show settings and show everything
+    use_tostring = false,   -- use __tostring to print table if available
+    filter_function = nil,  -- called like callback(value[,key, parent]), return truty value to hide
     object_cache = 'local', -- cache blob and table to give it a id, 'local' cache per print, 'global' cache
     -- per process, falsy value to disable (might cause infinite loop)
     -- format settings
-    indent_size = 2, -- indent for each nested table level
-    level_width = 80, -- max width per indent level
+    indent_size = 2,    -- indent for each nested table level
+    level_width = 80,   -- max width per indent level
     wrap_string = true, -- wrap string when it's longer than level_width
     wrap_array = false, -- wrap every array elements
-    sort_keys = true, -- sort table keys
+    sort_keys = true,   -- sort table keys
 }
 
 local TYPES = {
-    ['nil'] = 1, ['boolean'] = 2, ['number'] = 3, ['string'] = 4,
-    ['table'] = 5, ['function'] = 6, ['thread'] = 7, ['userdata'] = 8
+    ['nil'] = 1,
+    ['boolean'] = 2,
+    ['number'] = 3,
+    ['string'] = 4,
+    ['table'] = 5,
+    ['function'] = 6,
+    ['thread'] = 7,
+    ['userdata'] = 8
 }
 
 -- seems this is the only way to escape these, as lua don't know how to map char '\a' to 'a'
 local ESCAPE_MAP = {
-    ['\a'] = '\\a', ['\b'] = '\\b', ['\f'] = '\\f', ['\n'] = '\\n', ['\r'] = '\\r',
-    ['\t'] = '\\t', ['\v'] = '\\v', ['\\'] = '\\\\',
+    ['\a'] = '\\a',
+    ['\b'] = '\\b',
+    ['\f'] = '\\f',
+    ['\n'] = '\\n',
+    ['\r'] = '\\r',
+    ['\t'] = '\\t',
+    ['\v'] = '\\v',
+    ['\\'] = '\\\\',
 }
 
 -- generic utilities
@@ -106,13 +118,16 @@ local function cache_apperance(obj, cache, option)
             cache.visited_tables[obj] = cache.visited_tables[obj] + 1
             return
         end
-        for k, v in pairs(obj) do
-            cache_apperance(k, cache, option)
-            cache_apperance(v, cache, option)
-        end
-        local mt = getmetatable(obj)
-        if mt and option.show_metatable then
-            cache_apperance(mt, cache, option)
+        local metatable = getmetatable(obj)     -- TODD: wacky fix for missing __pairs
+        if metatable and metatable.__pairs then -- TODD: wacky fix for missing __pairs
+            for k, v in pairs(obj) do
+                cache_apperance(k, cache, option)
+                cache_apperance(v, cache, option)
+            end
+            local mt = getmetatable(obj)
+            if mt and option.show_metatable then
+                cache_apperance(mt, cache, option)
+            end
         end
     end
 end
@@ -199,10 +214,10 @@ function pprint.pformat(obj, option, printer)
         cache = {}
     end
 
-    local last = '' -- used for look back and remove trailing comma
+    local last = ''  -- used for look back and remove trailing comma
     local status = {
         indent = '', -- current indent
-        len = 0, -- current line length
+        len = 0,     -- current line length
     }
 
     local wrapped_printer = function(s)

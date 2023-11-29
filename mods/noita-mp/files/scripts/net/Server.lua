@@ -88,16 +88,17 @@ end
 ---@param peer Client|Server
 local onConnect = function(self, data, peer)
     local cpc = self.customProfiler:start("Server.onConnect")
-    self.logger:debug(self.logger.channels.network, ("Peer %s connected! data = %s")
-        :format(self.utils:pformat(peer), self.utils:pformat(data)))
 
     if self.utils:isEmpty(peer) then
-        error(("onConnect peer is empty: %s"):format(peer), 3)
+        error(("onConnect peer is empty: %s"):format(peer), 2)
     end
 
     if self.utils:isEmpty(data) then
-        error(("onConnect data is empty: %s"):format(data), 3)
+        error(("onConnect data is empty: %s"):format(data), 2)
     end
+
+    self.logger:debug(self.logger.channels.network, ("Peer %s connected! data = %s")
+        :format(self.utils:pformat(peer), self.utils:pformat(data)))
 
     local localNuid = self.minaUtils:getLocalMinaNuid()
     local entityId = self.minaUtils:getLocalMinaEntityId()
