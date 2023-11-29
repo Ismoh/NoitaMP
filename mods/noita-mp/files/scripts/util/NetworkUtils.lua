@@ -272,11 +272,11 @@ function NetworkUtils:alreadySent(peer, event, data)
     --
     local message = self.networkCacheUtils:get(peer.guid, networkMessageId, event)
     if message ~= nil then
-        print(("Got message %s by cache with clientCacheId '%s', event '%s' and networkMessageId '%s'")
-            :format(message, clientCacheId, event, networkMessageId))
+        -- print(("Got message %s by cache with clientCacheId '%s', event '%s' and networkMessageId '%s'")
+        --     :format(message, clientCacheId, event, networkMessageId))
         if message.status == self.events.acknowledgement.ack then
-            print(("Got message %s by cache with clientCacheId '%s', event '%s' and networkMessageId '%s'")
-                :format(message, clientCacheId, event, networkMessageId))
+            -- print(("Got message %s by cache with clientCacheId '%s', event '%s' and networkMessageId '%s'")
+            --     :format(message, clientCacheId, event, networkMessageId))
             self.customProfiler:stop("NetworkUtils.alreadySent", cpc)
             return true
         end
