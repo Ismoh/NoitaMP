@@ -4429,8 +4429,8 @@
             },
             {
                 "file": "../../mods/noita-mp/files/scripts/Gui.lua",
-                "finish": 7640017,
-                "start": 7640014,
+                "finish": 7670017,
+                "start": 7670014,
                 "type": "doc.class"
             }
         ],
@@ -4441,50 +4441,50 @@
                 "extends": {
                     "args": [
                         {
-                            "finish": 7150008,
-                            "start": 7150008,
+                            "finish": 7180008,
+                            "start": 7180008,
                             "type": "self",
                             "view": "Gui"
                         }
                     ],
                     "desc": "Function to check if the user pressed a shortcut.",
-                    "finish": 7520003,
-                    "start": 7150000,
+                    "finish": 7550003,
+                    "start": 7180000,
                     "type": "function",
                     "view": "function Gui.checkShortcuts(self: Gui)"
                 },
                 "file": "../../mods/noita-mp/files/scripts/Gui.lua",
-                "finish": 7150027,
+                "finish": 7180027,
                 "name": "checkShortcuts",
-                "start": 7150009,
+                "start": 7180009,
                 "type": "setmethod"
             },
             {
                 "desc": "See: [Client](../../mods/noita-mp/files/scripts/net/Client.lua#4#10)",
                 "extends": {
-                    "finish": 7810068,
-                    "start": 7810027,
+                    "finish": 7840068,
+                    "start": 7840027,
                     "type": "binary",
                     "view": "Client"
                 },
                 "file": "../../mods/noita-mp/files/scripts/Gui.lua",
-                "finish": 7810024,
+                "finish": 7840024,
                 "name": "client",
-                "start": 7810008,
+                "start": 7840008,
                 "type": "setfield"
             },
             {
                 "desc": "See: [CustomProfiler](../../mods/noita-mp/files/scripts/util/CustomProfiler.lua#2#10)",
                 "extends": {
-                    "finish": 7940130,
-                    "start": 7940035,
+                    "finish": 7970130,
+                    "start": 7970035,
                     "type": "binary",
                     "view": "CustomProfiler"
                 },
                 "file": "../../mods/noita-mp/files/scripts/Gui.lua",
-                "finish": 7940032,
+                "finish": 7970032,
                 "name": "customProfiler",
-                "start": 7940008,
+                "start": 7970008,
                 "type": "setfield"
             },
             {
@@ -4492,22 +4492,22 @@
                 "extends": {
                     "args": [
                         {
-                            "finish": 5840008,
-                            "start": 5840008,
+                            "finish": 5870008,
+                            "start": 5870008,
                             "type": "self",
                             "view": "Gui"
                         }
                     ],
                     "desc": "Function for drawing the about window.",
-                    "finish": 6340003,
-                    "start": 5840000,
+                    "finish": 6370003,
+                    "start": 5870000,
                     "type": "function",
                     "view": "function Gui.drawAbout(self: Gui)"
                 },
                 "file": "../../mods/noita-mp/files/scripts/Gui.lua",
-                "finish": 5840022,
+                "finish": 5870022,
                 "name": "drawAbout",
-                "start": 5840009,
+                "start": 5870009,
                 "type": "setmethod"
             },
             {
@@ -4568,7 +4568,7 @@
                         }
                     ],
                     "desc": "Function to draw the play menu.",
-                    "finish": 3700003,
+                    "finish": 3730003,
                     "start": 2870000,
                     "type": "function",
                     "view": "function Gui.drawPlayMenu(self: Gui)"
@@ -4584,22 +4584,22 @@
                 "extends": {
                     "args": [
                         {
-                            "finish": 6370008,
-                            "start": 6370008,
+                            "finish": 6400008,
+                            "start": 6400008,
                             "type": "self",
                             "view": "Gui"
                         }
                     ],
                     "desc": "Function for drawing the player list window.",
-                    "finish": 7120003,
-                    "start": 6370000,
+                    "finish": 7150003,
+                    "start": 6400000,
                     "type": "function",
                     "view": "function Gui.drawPlayerList(self: Gui)"
                 },
                 "file": "../../mods/noita-mp/files/scripts/Gui.lua",
-                "finish": 6370027,
+                "finish": 6400027,
                 "name": "drawPlayerList",
-                "start": 6370009,
+                "start": 6400009,
                 "type": "setmethod"
             },
             {
@@ -4607,76 +4607,76 @@
                 "extends": {
                     "args": [
                         {
-                            "finish": 3760008,
-                            "start": 3760008,
+                            "finish": 3790008,
+                            "start": 3790008,
                             "type": "self",
                             "view": "Gui"
                         }
                     ],
                     "desc": "Function to draw the settings window.",
-                    "finish": 5810003,
-                    "start": 3760000,
+                    "finish": 5840003,
+                    "start": 3790000,
                     "type": "function",
                     "view": "function Gui.drawSettings(self: Gui)"
                 },
                 "file": "../../mods/noita-mp/files/scripts/Gui.lua",
-                "finish": 3760025,
+                "finish": 3790025,
                 "name": "drawSettings",
-                "start": 3760009,
+                "start": 3790009,
                 "type": "setmethod"
             },
             {
                 "extends": {
-                    "finish": 8310097,
-                    "start": 8310030,
+                    "finish": 8340097,
+                    "start": 8340030,
                     "type": "binary",
                     "view": "FileUtils"
                 },
                 "file": "../../mods/noita-mp/files/scripts/Gui.lua",
-                "finish": 8310027,
+                "finish": 8340027,
                 "name": "fileUtils",
-                "start": 8310008,
+                "start": 8340008,
                 "type": "setfield"
             },
             {
                 "extends": {
-                    "finish": 8270106,
-                    "start": 8270033,
+                    "finish": 8300106,
+                    "start": 8300033,
                     "type": "binary",
                     "view": "GlobalsUtils"
                 },
                 "file": "../../mods/noita-mp/files/scripts/Gui.lua",
-                "finish": 8270030,
+                "finish": 8300030,
                 "name": "globalsUtils",
-                "start": 8270008,
+                "start": 8300008,
                 "type": "setfield"
             },
             {
                 "desc": "See: [GuidUtils](../../mods/noita-mp/files/scripts/util/GuidUtils.lua#2#10)",
                 "extends": {
-                    "finish": 8000110,
-                    "start": 8000030,
+                    "finish": 8030110,
+                    "start": 8030030,
                     "type": "binary",
                     "view": "GuidUtils"
                 },
                 "file": "../../mods/noita-mp/files/scripts/Gui.lua",
-                "finish": 8000027,
+                "finish": 8030027,
                 "name": "guidUtils",
-                "start": 8000008,
+                "start": 8030008,
                 "type": "setfield"
             },
             {
                 "desc": "See: ~ImGui~",
                 "extends": {
-                    "finish": 8060078,
-                    "start": 8060026,
+                    "finish": 8090078,
+                    "start": 8090026,
                     "type": "select",
                     "view": "unknown"
                 },
                 "file": "../../mods/noita-mp/files/scripts/Gui.lua",
-                "finish": 8060023,
+                "finish": 8090023,
                 "name": "imGui",
-                "start": 8060008,
+                "start": 8090008,
                 "type": "setfield"
             },
             {
@@ -4721,29 +4721,29 @@
             {
                 "desc": "See: [MinaUtils](../../mods/noita-mp/files/scripts/util/MinaUtils.lua#2#10)",
                 "extends": {
-                    "finish": 8120110,
-                    "start": 8120030,
+                    "finish": 8150110,
+                    "start": 8150030,
                     "type": "binary",
                     "view": "MinaUtils"
                 },
                 "file": "../../mods/noita-mp/files/scripts/Gui.lua",
-                "finish": 8120027,
+                "finish": 8150027,
                 "name": "minaUtils",
-                "start": 8120008,
+                "start": 8150008,
                 "type": "setfield"
             },
             {
                 "desc": "NetworkVscUtils for getting and setting values in VariableStorageComponents of Noita-API",
                 "extends": {
-                    "finish": 8160115,
-                    "start": 8160036,
+                    "finish": 8190115,
+                    "start": 8190036,
                     "type": "binary",
                     "view": "NetworkVscUtils"
                 },
                 "file": "../../mods/noita-mp/files/scripts/Gui.lua",
-                "finish": 8160033,
+                "finish": 8190033,
                 "name": "networkVscUtils",
-                "start": 8160008,
+                "start": 8190008,
                 "type": "setfield"
             },
             {
@@ -4751,105 +4751,105 @@
                 "extends": {
                     "args": [
                         {
-                            "finish": 7630008,
-                            "start": 7630008,
+                            "finish": 7660008,
+                            "start": 7660008,
                             "type": "self",
                             "view": "Gui"
                         },
                         {
                             "desc": "optional",
-                            "finish": 7630026,
-                            "start": 7630017,
+                            "finish": 7660026,
+                            "start": 7660017,
                             "type": "local",
                             "view": "Gui|nil"
                         },
                         {
                             "desc": "required",
-                            "finish": 7630034,
-                            "start": 7630028,
+                            "finish": 7660034,
+                            "start": 7660028,
                             "type": "local",
                             "view": "Server"
                         },
                         {
                             "desc": "required",
-                            "finish": 7630042,
-                            "start": 7630036,
+                            "finish": 7660042,
+                            "start": 7660036,
                             "type": "local",
                             "view": "Client"
                         },
                         {
                             "desc": "optional",
-                            "finish": 7630058,
-                            "start": 7630044,
+                            "finish": 7660058,
+                            "start": 7660044,
                             "type": "local",
                             "view": "CustomProfiler|nil"
                         },
                         {
                             "desc": "optional",
-                            "finish": 7630069,
-                            "start": 7630060,
+                            "finish": 7660069,
+                            "start": 7660060,
                             "type": "local",
                             "view": "GuidUtils|nil"
                         },
                         {
                             "desc": "optional",
-                            "finish": 7630080,
-                            "start": 7630071,
+                            "finish": 7660080,
+                            "start": 7660071,
                             "type": "local",
                             "view": "MinaUtils|nil"
                         },
                         {
                             "desc": "optional",
-                            "finish": 7630097,
-                            "start": 7630082,
+                            "finish": 7660097,
+                            "start": 7660082,
                             "type": "local",
                             "view": "NoitaMpSettings|nil"
                         }
                     ],
                     "desc": "Gui constructor.\n\n@*param* `guiObject` — optional\n\n@*param* `server` — required\n\n@*param* `client` — required\n\n@*param* `customProfiler` — optional\n\n@*param* `guidUtils` — optional\n\n@*param* `minaUtils` — optional\n\n@*param* `noitaMpSettings` — optional",
-                    "finish": 8420003,
+                    "finish": 8450003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "Gui"
                         }
                     ],
-                    "start": 7630000,
+                    "start": 7660000,
                     "type": "function",
                     "view": "function Gui.new(self: Gui, guiObject: Gui|nil, server: Server, client: Client, customProfiler: CustomProfiler|nil, guidUtils: GuidUtils|nil, minaUtils: MinaUtils|nil, noitaMpSettings: NoitaMpSettings|nil)\n  -> Gui"
                 },
                 "file": "../../mods/noita-mp/files/scripts/Gui.lua",
-                "finish": 7630016,
+                "finish": 7660016,
                 "name": "new",
-                "start": 7630009,
+                "start": 7660009,
                 "type": "setmethod"
             },
             {
                 "desc": "See: [NoitaMpSettings](../../mods/noita-mp/files/scripts/NoitaMpSettings.lua#2#11)",
                 "extends": {
-                    "finish": 7880073,
-                    "start": 7870036,
+                    "finish": 7910073,
+                    "start": 7900036,
                     "type": "binary",
                     "view": "NoitaMpSettings"
                 },
                 "file": "../../mods/noita-mp/files/scripts/Gui.lua",
-                "finish": 7870033,
+                "finish": 7900033,
                 "name": "noitaMpSettings",
-                "start": 7870008,
+                "start": 7900008,
                 "type": "setfield"
             },
             {
                 "desc": "See: [Server](../../mods/noita-mp/files/scripts/net/Server.lua#4#10)",
                 "extends": {
-                    "finish": 7750068,
-                    "start": 7750027,
+                    "finish": 7780068,
+                    "start": 7780027,
                     "type": "binary",
                     "view": "Server"
                 },
                 "file": "../../mods/noita-mp/files/scripts/Gui.lua",
-                "finish": 7750024,
+                "finish": 7780024,
                 "name": "server",
-                "start": 7750008,
+                "start": 7780008,
                 "type": "setfield"
             },
             {
@@ -4936,15 +4936,15 @@
             {
                 "desc": "See: [Utils](../../mods/noita-mp/files/scripts/util/Utils.lua#2#10)",
                 "extends": {
-                    "finish": 8220085,
-                    "start": 8220026,
+                    "finish": 8250085,
+                    "start": 8250026,
                     "type": "binary",
                     "view": "Utils"
                 },
                 "file": "../../mods/noita-mp/files/scripts/Gui.lua",
-                "finish": 8220023,
+                "finish": 8250023,
                 "name": "utils",
-                "start": 8220008,
+                "start": 8250008,
                 "type": "setfield"
             }
         ],
@@ -9777,7 +9777,7 @@
             },
             {
                 "extends": {
-                    "finish": 7060058,
+                    "finish": 7060056,
                     "start": 7060036,
                     "type": "binary",
                     "view": "string"
@@ -11119,7 +11119,7 @@
         "fields": [
             {
                 "extends": {
-                    "finish": 7060058,
+                    "finish": 7060056,
                     "start": 7060036,
                     "type": "binary",
                     "view": "string"
