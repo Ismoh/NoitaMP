@@ -1156,7 +1156,7 @@ function FileUtils.GetLastModifiedSaveSlots(self: FileUtils)
 
 
 ```lua
-function FileUtils.GetPidOfRunningEnetHostByPort(self: FileUtils)
+function FileUtils.GetPidOfRunningEnetHostByPort(self: FileUtils, server: any)
   -> number?
 ```
 
@@ -4983,6 +4983,16 @@ function dofile(filename?: string)
 ```lua
 function dofile(path: any)
   -> unknown
+```
+
+
+---
+
+# err
+
+
+```lua
+unknown
 ```
 
 

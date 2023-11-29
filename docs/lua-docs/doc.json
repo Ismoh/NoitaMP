@@ -3188,6 +3188,12 @@
                             "start": 620008,
                             "type": "self",
                             "view": "FileUtils"
+                        },
+                        {
+                            "finish": 620055,
+                            "start": 620049,
+                            "type": "local",
+                            "view": "any"
                         }
                     ],
                     "desc": "\n eNet specific commands",
@@ -3200,7 +3206,7 @@
                     ],
                     "start": 620000,
                     "type": "function",
-                    "view": "function FileUtils.GetPidOfRunningEnetHostByPort(self: FileUtils)\n  -> number?"
+                    "view": "function FileUtils.GetPidOfRunningEnetHostByPort(self: FileUtils, server: any)\n  -> number?"
                 },
                 "file": "../../mods/noita-mp/files/scripts/util/FileUtils.lua",
                 "finish": 620048,
@@ -9771,15 +9777,15 @@
             },
             {
                 "extends": {
-                    "finish": 7000058,
-                    "start": 7000036,
+                    "finish": 7060058,
+                    "start": 7060036,
                     "type": "binary",
                     "view": "string"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/SockServer.lua",
-                "finish": 7000022,
+                "finish": 7060022,
                 "name": "address",
-                "start": 7000004,
+                "start": 7060004,
                 "type": "setfield"
             },
             {
@@ -9843,15 +9849,15 @@
             },
             {
                 "extends": {
-                    "finish": 7010038,
-                    "start": 7010036,
+                    "finish": 7070038,
+                    "start": 7070036,
                     "type": "table",
                     "view": "table"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/SockServer.lua",
-                "finish": 7010022,
+                "finish": 7070022,
                 "name": "clients",
-                "start": 7010004,
+                "start": 7070004,
                 "type": "setfield"
             },
             {
@@ -9870,41 +9876,41 @@
             },
             {
                 "extends": {
-                    "finish": 7020037,
-                    "start": 7020036,
+                    "finish": 7080037,
+                    "start": 7080036,
                     "type": "integer",
                     "view": "integer"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/SockServer.lua",
-                "finish": 7020033,
+                "finish": 7080033,
                 "name": "defaultSendChannel",
-                "start": 7020004,
+                "start": 7080004,
                 "type": "setfield"
             },
             {
                 "extends": {
-                    "finish": 7030046,
-                    "start": 7030036,
+                    "finish": 7090046,
+                    "start": 7090036,
                     "type": "string",
                     "view": "string"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/SockServer.lua",
-                "finish": 7030030,
+                "finish": 7090030,
                 "name": "defaultSendMode",
-                "start": 7030004,
+                "start": 7090004,
                 "type": "setfield"
             },
             {
                 "extends": {
-                    "finish": 7040039,
-                    "start": 7040036,
+                    "finish": 7100039,
+                    "start": 7100036,
                     "type": "nil",
                     "view": "nil"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/SockServer.lua",
-                "finish": 7040026,
+                "finish": 7100026,
                 "name": "deserialize",
-                "start": 7040004,
+                "start": 7100004,
                 "type": "setfield"
             },
             {
@@ -10059,15 +10065,15 @@
             },
             {
                 "extends": {
-                    "finish": 7050039,
-                    "start": 7050036,
+                    "finish": 7110039,
+                    "start": 7110036,
                     "type": "nil",
                     "view": "nil"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/SockServer.lua",
-                "finish": 7050019,
+                "finish": 7110019,
                 "name": "host",
-                "start": 7050004,
+                "start": 7110004,
                 "type": "setfield"
             },
             {
@@ -10085,15 +10091,15 @@
             },
             {
                 "extends": {
-                    "finish": 7060052,
-                    "start": 7060036,
+                    "finish": 7120052,
+                    "start": 7120036,
                     "type": "binary",
                     "view": "number"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/SockServer.lua",
-                "finish": 7060026,
+                "finish": 7120026,
                 "name": "inBandwidth",
-                "start": 7060004,
+                "start": 7120004,
                 "type": "setfield"
             },
             {
@@ -10158,15 +10164,15 @@
             {
                 "desc": "newListener(),",
                 "extends": {
-                    "finish": 7070073,
-                    "start": 7070036,
+                    "finish": 7130073,
+                    "start": 7130036,
                     "type": "select",
                     "view": "table"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/SockServer.lua",
-                "finish": 7070023,
+                "finish": 7130023,
                 "name": "listener",
-                "start": 7070004,
+                "start": 7130004,
                 "type": "setfield"
             },
             {
@@ -10184,41 +10190,41 @@
             },
             {
                 "extends": {
-                    "finish": 7080052,
-                    "start": 7080036,
+                    "finish": 7140052,
+                    "start": 7140036,
                     "type": "binary",
                     "view": "number"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/SockServer.lua",
-                "finish": 7080026,
+                "finish": 7140026,
                 "name": "maxChannels",
-                "start": 7080004,
+                "start": 7140004,
                 "type": "setfield"
             },
             {
                 "extends": {
-                    "finish": 7090049,
-                    "start": 7090036,
+                    "finish": 7150049,
+                    "start": 7150036,
                     "type": "binary",
                     "view": "number"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/SockServer.lua",
-                "finish": 7090023,
+                "finish": 7150023,
                 "name": "maxPeers",
-                "start": 7090004,
+                "start": 7150004,
                 "type": "setfield"
             },
             {
                 "extends": {
-                    "finish": 7100037,
-                    "start": 7100036,
+                    "finish": 7160037,
+                    "start": 7160036,
                     "type": "integer",
                     "view": "integer"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/SockServer.lua",
-                "finish": 7100029,
+                "finish": 7160029,
                 "name": "messageTimeout",
-                "start": 7100004,
+                "start": 7160004,
                 "type": "setfield"
             },
             {
@@ -10469,67 +10475,67 @@
             },
             {
                 "extends": {
-                    "finish": 7110053,
-                    "start": 7110036,
+                    "finish": 7170053,
+                    "start": 7170036,
                     "type": "binary",
                     "view": "number"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/SockServer.lua",
-                "finish": 7110027,
+                "finish": 7170027,
                 "name": "outBandwidth",
-                "start": 7110004,
+                "start": 7170004,
                 "type": "setfield"
             },
             {
                 "extends": {
-                    "finish": 7120037,
-                    "start": 7120036,
+                    "finish": 7180037,
+                    "start": 7180036,
                     "type": "integer",
                     "view": "integer"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/SockServer.lua",
-                "finish": 7120030,
+                "finish": 7180030,
                 "name": "packetsReceived",
-                "start": 7120004,
+                "start": 7180004,
                 "type": "setfield"
             },
             {
                 "extends": {
-                    "finish": 7130037,
-                    "start": 7130036,
+                    "finish": 7190037,
+                    "start": 7190036,
                     "type": "integer",
                     "view": "integer"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/SockServer.lua",
-                "finish": 7130026,
+                "finish": 7190026,
                 "name": "packetsSent",
-                "start": 7130004,
+                "start": 7190004,
                 "type": "setfield"
             },
             {
                 "extends": {
-                    "finish": 7140038,
-                    "start": 7140036,
+                    "finish": 7200038,
+                    "start": 7200036,
                     "type": "table",
                     "view": "table"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/SockServer.lua",
-                "finish": 7140020,
+                "finish": 7200020,
                 "name": "peers",
-                "start": 7140004,
+                "start": 7200004,
                 "type": "setfield"
             },
             {
                 "extends": {
-                    "finish": 7150049,
-                    "start": 7150036,
+                    "finish": 7210049,
+                    "start": 7210036,
                     "type": "binary",
                     "view": "number"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/SockServer.lua",
-                "finish": 7150019,
+                "finish": 7210019,
                 "name": "port",
-                "start": 7150004,
+                "start": 7210004,
                 "type": "setfield"
             },
             {
@@ -10651,15 +10657,15 @@
             },
             {
                 "extends": {
-                    "finish": 7160037,
-                    "start": 7160036,
+                    "finish": 7220037,
+                    "start": 7220036,
                     "type": "integer",
                     "view": "integer"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/SockServer.lua",
-                "finish": 7160026,
+                "finish": 7220026,
                 "name": "sendChannel",
-                "start": 7160004,
+                "start": 7220004,
                 "type": "setfield"
             },
             {
@@ -10759,15 +10765,15 @@
             },
             {
                 "extends": {
-                    "finish": 7170046,
-                    "start": 7170036,
+                    "finish": 7230046,
+                    "start": 7230036,
                     "type": "string",
                     "view": "string"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/SockServer.lua",
-                "finish": 7170023,
+                "finish": 7230023,
                 "name": "sendMode",
-                "start": 7170004,
+                "start": 7230004,
                 "type": "setfield"
             },
             {
@@ -10996,15 +11002,15 @@
             },
             {
                 "extends": {
-                    "finish": 7180039,
-                    "start": 7180036,
+                    "finish": 7240039,
+                    "start": 7240036,
                     "type": "nil",
                     "view": "nil"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/SockServer.lua",
-                "finish": 7180024,
+                "finish": 7240024,
                 "name": "serialize",
-                "start": 7180004,
+                "start": 7240004,
                 "type": "setfield"
             },
             {
@@ -11059,15 +11065,15 @@
             },
             {
                 "extends": {
-                    "finish": 7200068,
-                    "start": 7200036,
+                    "finish": 7260068,
+                    "start": 7260036,
                     "type": "getfield",
                     "view": "function"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/SockServer.lua",
-                "finish": 7200023,
+                "finish": 7260023,
                 "name": "zipTable",
-                "start": 7200004,
+                "start": 7260004,
                 "type": "setfield"
             }
         ],
@@ -11105,205 +11111,127 @@
         "defines": [
             {
                 "file": "../../mods/noita-mp/files/scripts/net/SockServer.lua",
-                "finish": 6980024,
-                "start": 6980014,
+                "finish": 7040024,
+                "start": 7040014,
                 "type": "doc.class"
             }
         ],
         "fields": [
             {
                 "extends": {
-                    "finish": 7000058,
-                    "start": 7000036,
-                    "type": "binary",
-                    "view": "string"
-                },
-                "file": "../../mods/noita-mp/files/scripts/net/SockServer.lua",
-                "finish": 7000022,
-                "name": "address",
-                "start": 7000004,
-                "type": "setfield"
-            },
-            {
-                "extends": {
-                    "finish": 7010038,
-                    "start": 7010036,
-                    "type": "table",
-                    "view": "table"
-                },
-                "file": "../../mods/noita-mp/files/scripts/net/SockServer.lua",
-                "finish": 7010022,
-                "name": "clients",
-                "start": 7010004,
-                "type": "setfield"
-            },
-            {
-                "extends": {
-                    "finish": 7020037,
-                    "start": 7020036,
-                    "type": "integer",
-                    "view": "integer"
-                },
-                "file": "../../mods/noita-mp/files/scripts/net/SockServer.lua",
-                "finish": 7020033,
-                "name": "defaultSendChannel",
-                "start": 7020004,
-                "type": "setfield"
-            },
-            {
-                "extends": {
-                    "finish": 7030046,
-                    "start": 7030036,
-                    "type": "string",
-                    "view": "string"
-                },
-                "file": "../../mods/noita-mp/files/scripts/net/SockServer.lua",
-                "finish": 7030030,
-                "name": "defaultSendMode",
-                "start": 7030004,
-                "type": "setfield"
-            },
-            {
-                "extends": {
-                    "finish": 7040039,
-                    "start": 7040036,
-                    "type": "nil",
-                    "view": "nil"
-                },
-                "file": "../../mods/noita-mp/files/scripts/net/SockServer.lua",
-                "finish": 7040026,
-                "name": "deserialize",
-                "start": 7040004,
-                "type": "setfield"
-            },
-            {
-                "extends": {
-                    "finish": 7050039,
-                    "start": 7050036,
-                    "type": "nil",
-                    "view": "nil"
-                },
-                "file": "../../mods/noita-mp/files/scripts/net/SockServer.lua",
-                "finish": 7050019,
-                "name": "host",
-                "start": 7050004,
-                "type": "setfield"
-            },
-            {
-                "extends": {
-                    "finish": 7060052,
+                    "finish": 7060058,
                     "start": 7060036,
                     "type": "binary",
-                    "view": "number"
+                    "view": "string"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/SockServer.lua",
-                "finish": 7060026,
-                "name": "inBandwidth",
+                "finish": 7060022,
+                "name": "address",
                 "start": 7060004,
                 "type": "setfield"
             },
             {
-                "desc": "newListener(),",
                 "extends": {
-                    "finish": 7070073,
+                    "finish": 7070038,
                     "start": 7070036,
-                    "type": "select",
+                    "type": "table",
                     "view": "table"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/SockServer.lua",
-                "finish": 7070023,
-                "name": "listener",
+                "finish": 7070022,
+                "name": "clients",
                 "start": 7070004,
                 "type": "setfield"
             },
             {
                 "extends": {
-                    "finish": 7080052,
+                    "finish": 7080037,
                     "start": 7080036,
-                    "type": "binary",
-                    "view": "number"
+                    "type": "integer",
+                    "view": "integer"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/SockServer.lua",
-                "finish": 7080026,
-                "name": "maxChannels",
+                "finish": 7080033,
+                "name": "defaultSendChannel",
                 "start": 7080004,
                 "type": "setfield"
             },
             {
                 "extends": {
-                    "finish": 7090049,
+                    "finish": 7090046,
                     "start": 7090036,
-                    "type": "binary",
-                    "view": "number"
+                    "type": "string",
+                    "view": "string"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/SockServer.lua",
-                "finish": 7090023,
-                "name": "maxPeers",
+                "finish": 7090030,
+                "name": "defaultSendMode",
                 "start": 7090004,
                 "type": "setfield"
             },
             {
                 "extends": {
-                    "finish": 7100037,
+                    "finish": 7100039,
                     "start": 7100036,
-                    "type": "integer",
-                    "view": "integer"
+                    "type": "nil",
+                    "view": "nil"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/SockServer.lua",
-                "finish": 7100029,
-                "name": "messageTimeout",
+                "finish": 7100026,
+                "name": "deserialize",
                 "start": 7100004,
                 "type": "setfield"
             },
             {
                 "extends": {
-                    "finish": 7110053,
+                    "finish": 7110039,
                     "start": 7110036,
-                    "type": "binary",
-                    "view": "number"
+                    "type": "nil",
+                    "view": "nil"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/SockServer.lua",
-                "finish": 7110027,
-                "name": "outBandwidth",
+                "finish": 7110019,
+                "name": "host",
                 "start": 7110004,
                 "type": "setfield"
             },
             {
                 "extends": {
-                    "finish": 7120037,
+                    "finish": 7120052,
                     "start": 7120036,
-                    "type": "integer",
-                    "view": "integer"
+                    "type": "binary",
+                    "view": "number"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/SockServer.lua",
-                "finish": 7120030,
-                "name": "packetsReceived",
+                "finish": 7120026,
+                "name": "inBandwidth",
                 "start": 7120004,
                 "type": "setfield"
             },
             {
+                "desc": "newListener(),",
                 "extends": {
-                    "finish": 7130037,
+                    "finish": 7130073,
                     "start": 7130036,
-                    "type": "integer",
-                    "view": "integer"
+                    "type": "select",
+                    "view": "table"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/SockServer.lua",
-                "finish": 7130026,
-                "name": "packetsSent",
+                "finish": 7130023,
+                "name": "listener",
                 "start": 7130004,
                 "type": "setfield"
             },
             {
                 "extends": {
-                    "finish": 7140038,
+                    "finish": 7140052,
                     "start": 7140036,
-                    "type": "table",
-                    "view": "table"
+                    "type": "binary",
+                    "view": "number"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/SockServer.lua",
-                "finish": 7140020,
-                "name": "peers",
+                "finish": 7140026,
+                "name": "maxChannels",
                 "start": 7140004,
                 "type": "setfield"
             },
@@ -11315,8 +11243,8 @@
                     "view": "number"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/SockServer.lua",
-                "finish": 7150019,
-                "name": "port",
+                "finish": 7150023,
+                "name": "maxPeers",
                 "start": 7150004,
                 "type": "setfield"
             },
@@ -11328,48 +11256,126 @@
                     "view": "integer"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/SockServer.lua",
-                "finish": 7160026,
-                "name": "sendChannel",
+                "finish": 7160029,
+                "name": "messageTimeout",
                 "start": 7160004,
                 "type": "setfield"
             },
             {
                 "extends": {
-                    "finish": 7170046,
+                    "finish": 7170053,
                     "start": 7170036,
-                    "type": "string",
-                    "view": "string"
+                    "type": "binary",
+                    "view": "number"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/SockServer.lua",
-                "finish": 7170023,
-                "name": "sendMode",
+                "finish": 7170027,
+                "name": "outBandwidth",
                 "start": 7170004,
                 "type": "setfield"
             },
             {
                 "extends": {
-                    "finish": 7180039,
+                    "finish": 7180037,
                     "start": 7180036,
-                    "type": "nil",
-                    "view": "nil"
+                    "type": "integer",
+                    "view": "integer"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/SockServer.lua",
-                "finish": 7180024,
-                "name": "serialize",
+                "finish": 7180030,
+                "name": "packetsReceived",
                 "start": 7180004,
                 "type": "setfield"
             },
             {
                 "extends": {
-                    "finish": 7200068,
+                    "finish": 7190037,
+                    "start": 7190036,
+                    "type": "integer",
+                    "view": "integer"
+                },
+                "file": "../../mods/noita-mp/files/scripts/net/SockServer.lua",
+                "finish": 7190026,
+                "name": "packetsSent",
+                "start": 7190004,
+                "type": "setfield"
+            },
+            {
+                "extends": {
+                    "finish": 7200038,
                     "start": 7200036,
+                    "type": "table",
+                    "view": "table"
+                },
+                "file": "../../mods/noita-mp/files/scripts/net/SockServer.lua",
+                "finish": 7200020,
+                "name": "peers",
+                "start": 7200004,
+                "type": "setfield"
+            },
+            {
+                "extends": {
+                    "finish": 7210049,
+                    "start": 7210036,
+                    "type": "binary",
+                    "view": "number"
+                },
+                "file": "../../mods/noita-mp/files/scripts/net/SockServer.lua",
+                "finish": 7210019,
+                "name": "port",
+                "start": 7210004,
+                "type": "setfield"
+            },
+            {
+                "extends": {
+                    "finish": 7220037,
+                    "start": 7220036,
+                    "type": "integer",
+                    "view": "integer"
+                },
+                "file": "../../mods/noita-mp/files/scripts/net/SockServer.lua",
+                "finish": 7220026,
+                "name": "sendChannel",
+                "start": 7220004,
+                "type": "setfield"
+            },
+            {
+                "extends": {
+                    "finish": 7230046,
+                    "start": 7230036,
+                    "type": "string",
+                    "view": "string"
+                },
+                "file": "../../mods/noita-mp/files/scripts/net/SockServer.lua",
+                "finish": 7230023,
+                "name": "sendMode",
+                "start": 7230004,
+                "type": "setfield"
+            },
+            {
+                "extends": {
+                    "finish": 7240039,
+                    "start": 7240036,
+                    "type": "nil",
+                    "view": "nil"
+                },
+                "file": "../../mods/noita-mp/files/scripts/net/SockServer.lua",
+                "finish": 7240024,
+                "name": "serialize",
+                "start": 7240004,
+                "type": "setfield"
+            },
+            {
+                "extends": {
+                    "finish": 7260068,
+                    "start": 7260036,
                     "type": "getfield",
                     "view": "function"
                 },
                 "file": "../../mods/noita-mp/files/scripts/net/SockServer.lua",
-                "finish": 7200023,
+                "finish": 7260023,
                 "name": "zipTable",
-                "start": 7200004,
+                "start": 7260004,
                 "type": "setfield"
             }
         ],
@@ -13112,6 +13118,24 @@
         ],
         "desc": "\nOpens the named file and executes its content as a Lua chunk. When called without arguments, `dofile` executes the content of the standard input (`stdin`). Returns all values returned by the chunk. In case of errors, `dofile` propagates the error to its caller. (That is, `dofile` does not run in protected mode.)\n\n[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-dofile)",
         "name": "dofile",
+        "type": "variable"
+    },
+    {
+        "defines": [
+            {
+                "extends": {
+                    "finish": 1050098,
+                    "start": 1050021,
+                    "type": "select",
+                    "view": "unknown"
+                },
+                "file": "../../mods/noita-mp/files/scripts/net/SockServer.lua",
+                "finish": 1050018,
+                "start": 1050015,
+                "type": "setglobal"
+            }
+        ],
+        "name": "err",
         "type": "variable"
     },
     {
