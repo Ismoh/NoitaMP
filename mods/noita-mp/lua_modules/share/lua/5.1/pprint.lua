@@ -118,16 +118,13 @@ local function cache_apperance(obj, cache, option)
             cache.visited_tables[obj] = cache.visited_tables[obj] + 1
             return
         end
-        local metatable = getmetatable(obj)     -- TODD: wacky fix for missing __pairs
-        if metatable and metatable.__pairs then -- TODD: wacky fix for missing __pairs
-            for k, v in pairs(obj) do
-                cache_apperance(k, cache, option)
-                cache_apperance(v, cache, option)
-            end
-            local mt = getmetatable(obj)
-            if mt and option.show_metatable then
-                cache_apperance(mt, cache, option)
-            end
+        for k, v in pairs(obj) do
+            cache_apperance(k, cache, option)
+            cache_apperance(v, cache, option)
+        end
+        local mt = getmetatable(obj)
+        if mt and option.show_metatable then
+            cache_apperance(mt, cache, option)
         end
     end
 end
