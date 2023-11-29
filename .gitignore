@@ -1,5 +1,5 @@
 # Generated build files
-build
+build/
 
 # Generated files
 mods/noita-mp/luacov.stats.out
@@ -24,7 +24,6 @@ mods/noita-mp/lua_modules/lib/luarocks
 .vs/
 
 # luaExtensions dll output files
-Debug/
 out/
 mods/noita-mp/lua_modules/lib/lua/5.1/noitamp_cache.exp
 mods/noita-mp/lua_modules/lib/lua/5.1/noitamp_cache.lib

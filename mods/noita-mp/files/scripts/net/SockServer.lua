@@ -704,7 +704,7 @@ end
 function SockServer.new(address, port, maxPeers, maxChannels, inBandwidth, outBandwidth)
     ---@class SockServer
     local sockServer              = setmetatable({}, SockServer)
-    sockServer.address            = address or "localhost"
+    sockServer.address            = address or "0.0.0.0"
     sockServer.clients            = {}
     sockServer.defaultSendChannel = 0
     sockServer.defaultSendMode    = "reliable"

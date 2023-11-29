@@ -330,7 +330,10 @@ function Gui:drawPlayMenu()
                 serverIpText = "Hidden Server IP, because streaming is enabled!"
             end
 
-            self.imGui.LabelText("Server IP:", serverIpText)
+            local isIpChanged, ip = self.imGui.InputTextWithHint("Server IP", "0.0.0.0", tostring(self.server:getAddress()))
+            if isIpChanged then
+                self.server.address = ip or "0.0.0.0"
+            end
             self.imGui.SameLine()
             if self.imGui.SmallButton("Copy IP to clipboard!") then
                 self.imGui.SetClipboardText(self.server:getAddress())
