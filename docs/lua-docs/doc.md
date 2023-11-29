@@ -25,7 +25,7 @@ function Client.amIClient(self: Client)
 Checks if the current local user is a client.
 
 @*return* `true` — if client, false if not
-See: [Server.amIServer](../../mods/noita-mp/files/scripts/net/Server.lua#L910#9)
+See: [Server.amIServer](../../mods/noita-mp/files/scripts/net/Server.lua#L911#9)
 
 ## customProfiler
 
