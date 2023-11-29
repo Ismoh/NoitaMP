@@ -18,7 +18,7 @@ local sendAck = function(self, networkMessageId, event)
     end
     local data = { networkMessageId, event, self.networkUtils.events.acknowledgement.ack, os.clock() }
     self:preSend(self.networkUtils.events.acknowledgement.name, data)
-    self.logger:debug(self.logger.channels.network, ("Sent ack with data = %s"):format(self.utils:pformat(data)))
+    --self.logger:debug(self.logger.channels.network, ("Sent ack with data = %s"):format(self.utils:pformat(data)))
     self.customProfiler:stop("Client.sendAck", cpc)
 end
 
@@ -29,7 +29,7 @@ end
 ---@param data table data = { "networkMessageId", "event", "status", "ackedAt" }
 local onAcknowledgement = function(self, data)
     local cpc = self.customProfiler:start("Client.onAcknowledgement")
-    self.logger:debug(self.logger.channels.network, ("onAcknowledgement: Acknowledgement received. %s"):format(self.utils:pformat(data)))
+    --self.logger:debug(self.logger.channels.network, ("onAcknowledgement: Acknowledgement received. %s"):format(self.utils:pformat(data)))
 
     if self.utils:isEmpty(data.networkMessageId) then
         error(("onAcknowledgement data.networkMessageId is empty: %s"):format(data.networkMessageId), 2)
@@ -82,7 +82,7 @@ end
 ---@param data table data = { "networkMessageId", "name", "guid", "transform" }
 local onConnect = function(self, data)
     local cpc = self.customProfiler:start("Client.onConnect")
-    self.logger:debug(self.logger.channels.network, "Connected to server!", self.utils:pformat(data))
+    --self.logger:debug(self.logger.channels.network, "Connected to server!", self.utils:pformat(data))
 
     if self.utils:isEmpty(data) then
         error(("onConnect data is empty: %s"):format(data), 3)
@@ -104,7 +104,7 @@ end
 ---@param data table data = { "name", "guid" } @see self.networkUtils.events.connect2.schema
 local onConnect2 = function(self, data)
     local cpc = self.customProfiler:start("Client.onConnect2")
-    self.logger:debug(self.logger.channels.network, "Another client connected.", self.utils:pformat(data))
+    --self.logger:debug(self.logger.channels.network, "Another client connected.", self.utils:pformat(data))
 
     if self.utils:isEmpty(data.networkMessageId) then
         error(("onConnect2 data.networkMessageId is empty: %s"):format(data.networkMessageId), 3)
@@ -132,7 +132,7 @@ end
 ---@param data number data(.code) = 0
 local onDisconnect = function(self, data)
     local cpc = self.customProfiler:start("Client.onDisconnect")
-    self.logger:debug(self.logger.channels.network, "Disconnected from server!", self.utils:pformat(data))
+    --self.logger:debug(self.logger.channels.network, "Disconnected from server!", self.utils:pformat(data))
 
     if self.utils:isEmpty(data) then
         error(("onDisconnect data is empty: %s"):format(data), 3)
@@ -161,7 +161,7 @@ end
 ---@param data table data { "name", "guid" } @see self.networkUtils.events.disconnect2.schema
 local onDisconnect2 = function(self, data)
     local cpc = self.customProfiler:start("Client.onDisconnect2")
-    self.logger:debug(self.logger.channels.network, "onDisconnect2: Another client disconnected.", self.utils:pformat(data))
+    --self.logger:debug(self.logger.channels.network, "onDisconnect2: Another client disconnected.", self.utils:pformat(data))
 
     if self.utils:isEmpty(data.networkMessageId) then
         error(("onDisconnect2 data.networkMessageId is empty: %s"):format(data.networkMessageId), 3)
@@ -194,7 +194,7 @@ end
 ---@param data table data @see self.networkUtils.events.minaInformation.schema
 local onMinaInformation = function(self, data)
     local cpc = self.customProfiler:start("Client.onMinaInformation")
-    self.logger:debug(self.logger.channels.network, "onMinaInformation: Player info received.", self.utils:pformat(data))
+    --self.logger:debug(self.logger.channels.network, "onMinaInformation: Player info received.", self.utils:pformat(data))
 
     if self.utils:isEmpty(data.networkMessageId) then
         error(("onMinaInformation data.networkMessageId is empty: %s"):format(data.networkMessageId), 2)
@@ -260,7 +260,7 @@ end
 ---@param data table data { "networkMessageId", "oldGuid", "newGuid" }
 local onNewGuid = function(self, data)
     local cpc = self.customProfiler:start("Client.onNewGuid")
-    self.logger:debug(self.logger.channels.network, ("onNewGuid: New GUID from server received."):format(self.utils:pformat(data)))
+    --self.logger:debug(self.logger.channels.network, ("onNewGuid: New GUID from server received."):format(self.utils:pformat(data)))
 
     if self.utils:isEmpty(data.networkMessageId) then
         error(("onNewGuid data.networkMessageId is empty: %s"):format(data.networkMessageId), 2)
@@ -300,7 +300,7 @@ end
 ---@param data table data { networkMessageId, seed }
 local onSeed = function(self, data)
     local cpc = self.customProfiler:start("Client.onSeed")
-    self.logger:debug(self.logger.channels.network, "onSeed: Seed from server received.", self.utils:pformat(data))
+    --self.logger:debug(self.logger.channels.network, "onSeed: Seed from server received.", self.utils:pformat(data))
 
     if self.utils:isEmpty(data.networkMessageId) then
         error(("onSeed data.networkMessageId is empty: %s"):format(data.networkMessageId), 3)
@@ -418,19 +418,19 @@ end
 ---@param data table data { networkMessageId, ownerName, ownerGuid, entityId, serializedEntityString, nuid, x, y, initSerializedB64Str }
 local onNewNuid = function(self, data)
     local cpc = self.customProfiler:start("Client.onNewNuid")
-    self.logger:debug(self.logger.channels.network,
-        ("Received a new nuid onNewNuid! data = %s"):format(self.utils:pformat(data)))
+    --self.logger:debug(self.logger.channels.network,
+    --    ("Received a new nuid onNewNuid! data = %s"):format(self.utils:pformat(data)))
 
     if self.utils:isEmpty(data.networkMessageId) then
         error(("onNewNuid data.networkMessageId is empty: %s"):format(data.networkMessageId), 2)
     end
 
     if self.utils:isEmpty(data.ownerName) then
-        error(("onNewNuid data.ownerName is empty: %s"):format(self.utils:pformat(data.ownerName)), 2)
+        error(("onNewNuid data.ownerName is empty: %s"):format(data.ownerName), 2)
     end
 
     if self.utils:isEmpty(data.ownerGuid) then
-        error(("onNewNuid data.ownerGuid is empty: %s"):format(self.utils:pformat(data.ownerGuid)), 2)
+        error(("onNewNuid data.ownerGuid is empty: %s"):format(data.ownerGuid), 2)
     end
 
     if self.utils:isEmpty(data.localEntityId) then
@@ -516,15 +516,15 @@ end
 ---@param data table data { networkMessageId, owner { name, guid }, localEntityId, nuid, x, y, rotation, velocity { x, y }, health }
 local onEntityData = function(self, data)
     local cpc = self.customProfiler:start("Client.onEntityData")
-    self.logger:debug(self.logger.channels.network, ("Received entityData for nuid = %s! data = %s")
-        :format(data.nuid, self.utils:pformat(data)))
+    --self.logger:debug(self.logger.channels.network, ("Received entityData for nuid = %s! data = %s")
+    --    :format(data.nuid, self.utils:pformat(data)))
 
     if self.utils:isEmpty(data.networkMessageId) then
         error(("onNewNuid data.networkMessageId is empty: %s"):format(data.networkMessageId), 3)
     end
 
     if self.utils:isEmpty(data.owner) then
-        error(("onNewNuid data.owner is empty: %s"):format(self.utils:pformat(data.owner)), 3)
+        error(("onNewNuid data.owner is empty: %s"):format(data.owner), 2)
     end
 
     --if self.utils:isEmpty(data.localEntityId) then
@@ -565,10 +565,10 @@ local onEntityData = function(self, data)
     local health               = data.health
 
     if self.nuid ~= nuid then
-        self.noitaComponentUtils.setEntityData(localEntityId, x, y, rotation, velocity, health)
+        self.noitaComponentUtils:setEntityData(localEntityId, x, y, rotation, velocity, health)
     else
-        self.logger:warn(self.logger.channels.network, ("Received entityData for self.nuid = %s! data = %s")
-            :format(data.nuid, self.utils:pformat(data)))
+        --self.logger:warn(self.logger.channels.network, ("Received entityData for self.nuid = %s! data = %s")
+        --    :format(data.nuid, self.utils:pformat(data)))
     end
 
     -- sendAck(self, data.networkMessageId) do not send ACK for position data, network will explode
@@ -815,8 +815,8 @@ function Client:preSend(event, data)
     end
 
     if self.networkUtils:alreadySent(self, event, data) then
-        self.logger:debug(self.logger.channels.network, ("Network message for %s for data %s already was acknowledged.")
-            :format(event, self.utils:pformat(data)))
+        --self.logger:debug(self.logger.channels.network, ("Network message for %s for data %s already was acknowledged.")
+        --    :format(event, self.utils:pformat(data)))
         self.customProfiler:stop("Client.send", cpc)
         return false
     end
