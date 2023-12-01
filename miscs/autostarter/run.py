@@ -14,46 +14,66 @@ import pyautogui
 import pygetwindow as gw
 import os
 import time
+import shutil
+import argparse
+
 
 GIT_DIR = os.path.dirname(__file__)
-NOITA_DIR = r'C:\Program Files (x86)\Steam\steamapps\common\Noita'
-
 CONFIG_PATH = GIT_DIR + r'\config_test.xml'
-NOITA_BIN = NOITA_DIR + r'\noita.exe'
+
+# default options
+NOITA_DIR = r'C:\Program Files (x86)\Steam\steamapps\common\Noita'
+SAVE_SLOT = 1
+GAME_MODE = 4
 
 def main():
+    ap = argparse.ArgumentParser(description="Start 2 instances of noita to test/debug NoitaMP")
+    ap.add_argument("--noita-dir", "-n", help="path to noita directory (default %s)"%NOITA_DIR, default=NOITA_DIR)
+    ap.add_argument("--slot", "-s", type=int, help="save slot to load on each instance (0-indexed, default %d)"%SAVE_SLOT, default=SAVE_SLOT)
+    ap.add_argument("--gamemode", "-g", type=int, help="NoitaMP game mode index in the New Game menu (0-indexed, default %d)"%GAME_MODE, default=GAME_MODE)
+    args = ap.parse_args()
+
+    noita_bin = args.noita_dir + r'\noita.exe'
+    noita2_bin = args.noita_dir + r'\noita2.exe'
+
+    make_client_exe(noita_bin, noita2_bin)
     write_config(CONFIG_PATH)
 
-    # start server instance
-    os.chdir(NOITA_DIR)
-    os.system('start "" noita.exe -windowed -config "%s"'%(CONFIG_PATH))
-    os.chdir(GIT_DIR)
-    time.sleep(3)
+    server_window = start_exe(noita_bin,  mode=args.gamemode, slot=args.slot, config=CONFIG_PATH)
+    client_window = start_exe(noita2_bin, mode=args.gamemode, slot=args.slot, config=CONFIG_PATH)
 
-    server_window = find_noita_window()
     server_window.moveTo(0, 0)
-    time.sleep(0.5)
-
-    noita_click(server_window, 'newgame-btn.png')
-    noita_click(server_window, 'noitamp-btn.png', confidence=0.5)
-    noita_click(server_window, 'world2-btn.png')
-
-    # start client instance
-    os.chdir(NOITA_DIR)
-    os.system('start "" noita.exe -windowed -config "%s"'%(CONFIG_PATH))
-    os.chdir(GIT_DIR)
-    time.sleep(3)
-
-    client_window = find_noita_window(exclude=[server_window])
     client_window.moveTo(server_window.left+server_window.width+30, 0)
-    time.sleep(0.5)
-
-    noita_click(client_window, 'newgame-btn.png')
-    noita_click(client_window, 'noitamp-btn.png', confidence=0.5)
-    noita_click(client_window, 'world2-btn.png')
-
 
     time.sleep(60)
+
+def start_exe(exe, mode, slot, config):
+    start = {x._hWnd: x for x in gw.getWindowsWithTitle('Noita - Build')}
+
+    os.chdir(os.path.dirname(exe))
+    fn = os.path.basename(exe)
+    os.system('start "" %s -no_logo_splashes -windowed -config "%s" -gamemode %d -save_slot %d'%(fn, config, mode, slot))
+    os.chdir(GIT_DIR)
+
+    print("waiting for %s window to pop up..."%fn)
+    while True:
+        now = gw.getWindowsWithTitle('Noita - Build')
+        if len(now) > len(start):
+            for x in now:
+                if x._hWnd not in start.keys():
+                    return x
+        time.sleep(0.2)
+
+def make_client_exe(original_exe, new_client_exe):
+    if os.path.exists(new_client_exe):
+        return
+
+    shutil.copyfile(original_exe, new_client_exe)
+    with open(new_client_exe, "rb+") as f:
+        buf = f.read()
+        offset = buf.find(b'logger.txt')
+        f.seek(offset, 0)
+        f.write(b'logge2.txt')
 
 def noita_click(window, img, confidence=0.8, sleep=0.5):
     game = pyautogui.screenshot(region=(window.left, window.top, window.width, window.height))
