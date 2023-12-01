@@ -16,7 +16,7 @@ import os
 import time
 import shutil
 import argparse
-
+import subprocess
 
 GIT_DIR = os.path.dirname(__file__)
 CONFIG_PATH = GIT_DIR + r'\config_test.xml'
@@ -28,13 +28,19 @@ GAME_MODE = 4
 
 def main():
     ap = argparse.ArgumentParser(description="Start 2 instances of noita to test/debug NoitaMP")
+    ap.add_argument("--dev", "-d", help="use noita_dev.exe", action="store_true", default=False)
+    ap.add_argument("--log", "-l", help="logging mode", choices=['off', 'on', 'merged'], default='off')
     ap.add_argument("--noita-dir", "-n", help="path to noita directory (default %s)"%NOITA_DIR, default=NOITA_DIR)
     ap.add_argument("--slot", "-s", type=int, help="save slot to load on each instance (0-indexed, default %d)"%SAVE_SLOT, default=SAVE_SLOT)
     ap.add_argument("--gamemode", "-g", type=int, help="NoitaMP game mode index in the New Game menu (0-indexed, default %d)"%GAME_MODE, default=GAME_MODE)
     args = ap.parse_args()
 
-    noita_bin = args.noita_dir + r'\noita.exe'
-    noita2_bin = args.noita_dir + r'\noita2.exe'
+    if args.dev:
+        noita_bin = args.noita_dir + r'\noita_dev.exe'
+        noita2_bin = args.noita_dir + r'\noita2_dev.exe'
+    else:
+        noita_bin = args.noita_dir + r'\noita.exe'
+        noita2_bin = args.noita_dir + r'\noita2.exe'
 
     make_client_exe(noita_bin, noita2_bin)
     write_config(CONFIG_PATH)
@@ -45,7 +51,18 @@ def main():
     server_window.moveTo(0, 0)
     client_window.moveTo(server_window.left+server_window.width+30, 0)
 
-    time.sleep(60)
+    if args.log == 'merged':
+        server_log = LogPoll(args.noita_dir + r'\logger.txt', prefix='\x1b[31m[SERVER]\x1b[0m ')
+        client_log = LogPoll(args.noita_dir + r'\logge2.txt', prefix='\x1b[32m[CLIENT]\x1b[0m ')
+        while True:
+            server_log.read_and_print()
+            client_log.read_and_print()
+            time.sleep(.5)
+    elif args.log == 'on':
+        start_log_console(args.noita_dir + r'\logger.txt',
+                          args.noita_dir + r'\logge2.txt',
+                          pos_y=server_window.top+server_window.height)
+
 
 def start_exe(exe, mode, slot, config):
     start = {x._hWnd: x for x in gw.getWindowsWithTitle('Noita - Build')}
@@ -57,7 +74,7 @@ def start_exe(exe, mode, slot, config):
 
     print("waiting for %s window to pop up..."%fn)
     while True:
-        now = gw.getWindowsWithTitle('Noita - Build')
+        now = gw.getWindowsWithTitle('Noita - ')
         if len(now) > len(start):
             for x in now:
                 if x._hWnd not in start.keys():
@@ -133,6 +150,46 @@ def write_config(path):
     >
     </Config>
         """, file=f)
+
+
+def start_log_console(log_client, log_server, pos_y=0):
+    log_dir = os.path.dirname(log_client)
+    log_client_fn = os.path.basename(log_client)
+    log_server_fn = os.path.basename(log_server)
+    subprocess.run(["wt.exe", "--pos", "0,%d"%pos_y,
+                    "nt",       "-d", log_dir, "powershell.exe", "-command", 'Get-Content -Path "%s" -Wait'%log_server_fn, ';',
+                    "sp", "-V", "-d", log_dir, "powershell.exe", "-command", 'Get-Content -Path "%s" -Wait'%log_client_fn,
+                    ])
+    print("ok")
+
+
+class LogPoll:
+    def __init__(self, path, prefix):
+        self._path = path
+        self._last_offset = 0
+        self._prefix = prefix
+        self._need_prefix = False
+
+    def read_and_print(self):
+        with open(self._path, "r") as f:
+            f.seek(self._last_offset, 0)
+            buf = f.read()
+            end = ''
+            if len(buf) > 0:
+                if buf[-1] == '\n':
+                    buf = buf[:-1]
+                    end = '\n'
+                    nextpref = True
+                else:
+                    nextpref = False
+                buf = buf.replace('\n', '\n'+self._prefix)
+                if self._need_prefix:
+                    buf = self._prefix + buf
+                else:
+                    self._need_prefix = nextpref
+                print(buf, end=end)
+                self._last_offset = f.tell()
+
 
 if __name__ == '__main__':
     main()
