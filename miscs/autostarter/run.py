@@ -8,10 +8,13 @@
 #
 # 2. Install dependencies
 # > pip install pyautogui pygetwindow opencv-python
+# or
+# >
+# pip install -r requirements.txt
 #
 # Run
 # -------
-# python run.py --log=merged --slots 1 2
+# > python run.py --log=merged --slots 1 2
 #
 
 import argparse
