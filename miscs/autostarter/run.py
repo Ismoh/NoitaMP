@@ -9,29 +9,34 @@
 # 2. Install dependencies
 # > pip install pyautogui pygetwindow opencv-python
 #
+# Run
+# -------
+# python run.py --log=merged --slots 1 2
+#
 
+import argparse
+import os
 import pyautogui
 import pygetwindow as gw
-import os
-import time
 import shutil
-import argparse
 import subprocess
+import time
 
 GIT_DIR = os.path.dirname(__file__)
 CONFIG_PATH = GIT_DIR + r'\config_test.xml'
 
 # default options
 NOITA_DIR = r'C:\Program Files (x86)\Steam\steamapps\common\Noita'
-SAVE_SLOT = 1
+SAVE_SLOT = [1, 2]
 GAME_MODE = 4
+LOG = 'off'
 
 def main():
     ap = argparse.ArgumentParser(description="Start 2 instances of noita to test/debug NoitaMP")
     ap.add_argument("--dev", "-d", help="use noita_dev.exe", action="store_true", default=False)
-    ap.add_argument("--log", "-l", help="logging mode", choices=['off', 'on', 'merged'], default='off')
+    ap.add_argument("--log", "-l", help="logging mode (default %s)"%LOG, choices=['off', 'on', 'merged'], default=LOG)
     ap.add_argument("--noita-dir", "-n", help="path to noita directory (default %s)"%NOITA_DIR, default=NOITA_DIR)
-    ap.add_argument("--slot", "-s", type=int, help="save slot to load on each instance (0-indexed, default %d)"%SAVE_SLOT, default=SAVE_SLOT)
+    ap.add_argument("--slots", "-s", type=int, nargs="*", help="comma separated save slot list to load on each instance (1-indexed, default %s)"%SAVE_SLOT, default=SAVE_SLOT)
     ap.add_argument("--gamemode", "-g", type=int, help="NoitaMP game mode index in the New Game menu (0-indexed, default %d)"%GAME_MODE, default=GAME_MODE)
     args = ap.parse_args()
 
@@ -45,8 +50,8 @@ def main():
     make_client_exe(noita_bin, noita2_bin)
     write_config(CONFIG_PATH)
 
-    server_window = start_exe(noita_bin,  mode=args.gamemode, slot=args.slot, config=CONFIG_PATH)
-    client_window = start_exe(noita2_bin, mode=args.gamemode, slot=args.slot, config=CONFIG_PATH)
+    server_window = start_exe(noita_bin,  mode=args.gamemode, slot=args.slots[0], config=CONFIG_PATH)
+    client_window = start_exe(noita2_bin, mode=args.gamemode, slot=args.slots[1], config=CONFIG_PATH)
 
     server_window.moveTo(0, 0)
     client_window.moveTo(server_window.left+server_window.width+30, 0)

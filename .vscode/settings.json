@@ -64,6 +64,7 @@
   },
   "cSpell.words": [
     "dkjson",
+    "gamemode",
     "luacheck",
     "luacov",
     "luafilesystem",
@@ -72,6 +73,9 @@
     "luasocket",
     "luaunit",
     "noita",
+    "pigar",
+    "pyautogui",
+    "pygetwindow",
     "rockspec",
     "setmetatable",
     "winapi",
