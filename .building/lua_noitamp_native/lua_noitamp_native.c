@@ -401,9 +401,9 @@ static int l_networkCacheClear(lua_State *L)
 }
 #pragma endregion
 
-__declspec(dllexport) int luaopen_luaExtensions(lua_State *L)
+__declspec(dllexport) int luaopen_lua_noitamp_native(lua_State *L)
 {
-    static const luaL_reg eCachelib[] =
+    static const luaL_Reg eCachelib[] =
         {
             {"set", l_entityCacheWrite},
             {"get", l_entityCacheReadByEntityId},
@@ -415,7 +415,7 @@ __declspec(dllexport) int luaopen_luaExtensions(lua_State *L)
             {"getAll", l_entityCacheReadAll},
             {NULL, NULL}};
     luaL_openlib(L, "EntityCacheC", eCachelib, 0);
-    static const luaL_reg nCachelib[] =
+    static const luaL_Reg nCachelib[] =
         {
             {"set", l_networkCacheWrite},
             {"get", l_networkCacheRead},
