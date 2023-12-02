@@ -10,16 +10,15 @@ Client.__index = Client
 ---@param self Client
 ---@param networkMessageId number
 ---@param event string
+---@param nuid number|nil optional, some events don't have a nuid
 ---@see NetworkUtils.events.acknowledgement.schema
-local sendAck = function(self, networkMessageId, event)
-    local cpc = self.customProfiler:start("Client.sendAck")
+local sendAck = function(self, networkMessageId, event, nuid)
     if not event then
         error("event is nil", 2)
     end
-    local data = { networkMessageId, event, self.networkUtils.events.acknowledgement.ack, os.clock() }
+    local data = { networkMessageId, event, self.networkUtils.events.acknowledgement.ack, os.clock(), nuid }
     self:preSend(self.networkUtils.events.acknowledgement.name, data)
     --self.logger:debug(self.logger.channels.network, ("Sent ack with data = %s"):format(self.utils:pformat(data)))
-    self.customProfiler:stop("Client.sendAck", cpc)
 end
 
 
@@ -28,7 +27,6 @@ end
 ---@param self Client
 ---@param data table data = { "networkMessageId", "event", "status", "ackedAt" }
 local onAcknowledgement = function(self, data)
-    local cpc = self.customProfiler:start("Client.onAcknowledgement")
     --self.logger:debug(self.logger.channels.network, ("onAcknowledgement: Acknowledgement received. %s"):format(self.utils:pformat(data)))
 
     if self.utils:isEmpty(data.networkMessageId) then
@@ -73,7 +71,14 @@ local onAcknowledgement = function(self, data)
     if self.networkCache:size() > self.acknowledgeMaxSize then
         self.networkCache:removeOldest()
     end
-    self.customProfiler:stop("Client.onAcknowledgement", cpc)
+
+    if not self.utils:isEmpty(data.nuid) then
+        -- data.nuid can be nil now and then, because it's not set in all events
+        local nuid_, entityId = self.globalsUtils:getNuidEntityPair(data.nuid)
+        if not self.utils:isEmpty(entityId) then
+            self.noitaComponentUtils:setNetworkSpriteIndicatorStatus(entityId, "acked")
+        end
+    end
 end
 
 ---Callback when connected to server.
@@ -81,7 +86,6 @@ end
 ---@param self Client
 ---@param data table data = { "networkMessageId", "name", "guid", "transform" }
 local onConnect = function(self, data)
-    local cpc = self.customProfiler:start("Client.onConnect")
     --self.logger:debug(self.logger.channels.network, "Connected to server!", self.utils:pformat(data))
 
     if self.utils:isEmpty(data) then
@@ -93,7 +97,6 @@ local onConnect = function(self, data)
     self:preSend(self.networkUtils.events.needModList.name, { self.networkUtils:getNextNetworkMessageId(), {}, {} })
 
     -- sendAck(self, data.networkMessageId)
-    self.customProfiler:stop("Client.onConnect", cpc)
 end
 
 
@@ -103,7 +106,6 @@ end
 ---@param self Client
 ---@param data table data = { "name", "guid" } @see self.networkUtils.events.connect2.schema
 local onConnect2 = function(self, data)
-    local cpc = self.customProfiler:start("Client.onConnect2")
     --self.logger:debug(self.logger.channels.network, "Another client connected.", self.utils:pformat(data))
 
     if self.utils:isEmpty(data.networkMessageId) then
@@ -121,7 +123,6 @@ local onConnect2 = function(self, data)
     table.insertIfNotExist(self.otherClients, { name = data.name, guid = data.guid, transofrm = data.transform })
 
     sendAck(self, data.networkMessageId, self.networkUtils.events.connect2.name)
-    self.customProfiler:stop("Client.onConnect2", cpc)
 end
 
 
@@ -131,7 +132,6 @@ end
 ---@param self Client
 ---@param data number data(.code) = 0
 local onDisconnect = function(self, data)
-    local cpc = self.customProfiler:start("Client.onDisconnect")
     --self.logger:debug(self.logger.channels.network, "Disconnected from server!", self.utils:pformat(data))
 
     if self.utils:isEmpty(data) then
@@ -151,7 +151,6 @@ local onDisconnect = function(self, data)
     self.serverInfo   = {}
 
     -- sendAck(self, data.networkMessageId)
-    self.customProfiler:stop("Client.onDisconnect", cpc)
 end
 
 
@@ -160,7 +159,6 @@ end
 ---@param self Client
 ---@param data table data { "name", "guid" } @see self.networkUtils.events.disconnect2.schema
 local onDisconnect2 = function(self, data)
-    local cpc = self.customProfiler:start("Client.onDisconnect2")
     --self.logger:debug(self.logger.channels.network, "onDisconnect2: Another client disconnected.", self.utils:pformat(data))
 
     if self.utils:isEmpty(data.networkMessageId) then
@@ -183,7 +181,6 @@ local onDisconnect2 = function(self, data)
     end
 
     sendAck(self, data.networkMessageId, self.networkUtils.events.disconnect2.name)
-    self.customProfiler:stop("Client.onDisconnect2", cpc)
 end
 
 
@@ -193,7 +190,6 @@ end
 ---@param self Client
 ---@param data table data @see self.networkUtils.events.minaInformation.schema
 local onMinaInformation = function(self, data)
-    local cpc = self.customProfiler:start("Client.onMinaInformation")
     --self.logger:debug(self.logger.channels.network, "onMinaInformation: Player info received.", self.utils:pformat(data))
 
     if self.utils:isEmpty(data.networkMessageId) then
@@ -248,8 +244,7 @@ local onMinaInformation = function(self, data)
     self.serverInfo.transform = data.transform
     self.serverInfo.health = data.health
 
-    sendAck(self, data.networkMessageId, self.networkUtils.events.minaInformation.name)
-    self.customProfiler:stop("Client.onMinaInformation", cpc)
+    sendAck(self, data.networkMessageId, self.networkUtils.events.minaInformation.name, data.nuid)
 end
 
 
@@ -259,7 +254,6 @@ end
 ---@param self Client
 ---@param data table data { "networkMessageId", "oldGuid", "newGuid" }
 local onNewGuid = function(self, data)
-    local cpc = self.customProfiler:start("Client.onNewGuid")
     --self.logger:debug(self.logger.channels.network, ("onNewGuid: New GUID from server received."):format(self.utils:pformat(data)))
 
     if self.utils:isEmpty(data.networkMessageId) then
@@ -290,7 +284,6 @@ local onNewGuid = function(self, data)
     end
 
     sendAck(self, data.networkMessageId, self.networkUtils.events.newGuid.name)
-    self.customProfiler:stop("Client.onNewGuid", cpc)
 end
 
 
@@ -299,7 +292,6 @@ end
 ---@param self Client
 ---@param data table data { networkMessageId, seed }
 local onSeed = function(self, data)
-    local cpc = self.customProfiler:start("Client.onSeed")
     --self.logger:debug(self.logger.channels.network, "onSeed: Seed from server received.", self.utils:pformat(data))
 
     if self.utils:isEmpty(data.networkMessageId) then
@@ -333,7 +325,6 @@ local onSeed = function(self, data)
     end
 
     sendAck(self, data.networkMessageId, self.networkUtils.events.seed.name)
-    self.customProfiler:stop("Client.onSeed", cpc)
 end
 
 
@@ -342,7 +333,6 @@ end
 -- ---@param self Client
 -- ---@param data table data { networkMessageId, owner { name, guid }, localEntityId, newNuid, x, y, rotation, velocity { x, y }, filename }
 -- local onNewNuid = function(self, data)
---     local cpc = self.customProfiler:start("Client.onNewNuid")
 --     self.logger:debug(self.logger.channels.network, ("Received a new nuid! data = %s"):format(self.utils:pformat(data)))
 
 --     if self.utils:isEmpty(data.networkMessageId) then
@@ -409,15 +399,13 @@ end
 --     self.entityUtils.spawnEntity(owner, newNuid, x, y, rotation, velocity, filename, localEntityId, health,
 --         isPolymorphed)
 
---     sendAck(self, data.networkMessageId, self.networkUtils.events.newNuid.name)
---     self.customProfiler:stop("Client.onNewNuid", cpc)
+--     sendAck(self, data.networkMessageId, self.networkUtils.events.newNuid.name, data.nuid)
 -- end
 
 --- Callback when Server sent a new nuid to the client.
 ---@param self Client
 ---@param data table data { networkMessageId, ownerName, ownerGuid, entityId, serializedEntityString, nuid, x, y, initSerializedB64Str }
 local onNewNuid = function(self, data)
-    local cpc = self.customProfiler:start("Client.onNewNuid")
     --self.logger:debug(self.logger.channels.network,
     --    ("Received a new nuid onNewNuid! data = %s"):format(self.utils:pformat(data)))
 
@@ -506,8 +494,7 @@ local onNewNuid = function(self, data)
     --     end
     -- end
 
-    sendAck(self, data.networkMessageId, self.networkUtils.events.newNuid.name)
-    self.customProfiler:stop("Client.onNewNuid", cpc)
+    sendAck(self, data.networkMessageId, self.networkUtils.events.newNuid.name, data.nuid)
 end
 
 ---Callback when entity data received.
@@ -515,7 +502,6 @@ end
 ---@param self Client
 ---@param data table data { networkMessageId, owner { name, guid }, localEntityId, nuid, x, y, rotation, velocity { x, y }, health }
 local onEntityData = function(self, data)
-    local cpc = self.customProfiler:start("Client.onEntityData")
     --self.logger:debug(self.logger.channels.network, ("Received entityData for nuid = %s! data = %s")
     --    :format(data.nuid, self.utils:pformat(data)))
 
@@ -572,14 +558,12 @@ local onEntityData = function(self, data)
     end
 
     -- sendAck(self, data.networkMessageId) do not send ACK for position data, network will explode
-    self.customProfiler:stop("Client.onEntityData", cpc)
 end
 
 ---Callback when dead nuids received.
 ---@param self Client
 ---@param data table data { networkMessageId, deadNuids }
 local onDeadNuids = function(self, data)
-    local cpc       = self.customProfiler:start("Client.onDeadNuids")
     local deadNuids = data.deadNuids or data or {}
     for i = 1, #deadNuids do
         local deadNuid = deadNuids[i]
@@ -592,14 +576,12 @@ local onDeadNuids = function(self, data)
         end
     end
     sendAck(self, data.networkMessageId, self.networkUtils.events.deadNuids.name)
-    self.customProfiler:stop("Client.onDeadNuids", cpc)
 end
 
 ---Callback when mod list is requested.
 ---@param self Client
 ---@param data table data { networkMessageId, workshop, external }
 local onNeedModList = function(self, data)
-    local cpc        = self.customProfiler:start("Client.onNeedModList")
     local activeMods = ModGetActiveModIDs()
     local function contains(elem)
         for _, value in pairs(activeMods) do
@@ -629,14 +611,12 @@ local onNeedModList = function(self, data)
         self.missingMods = conflicts
         self.logger:info("Mod conflicts detected: Missing " .. table.concat(conflicts, ", "))
     end
-    self.customProfiler:stop("Client.onNeedModList", cpc)
 end
 
 ---Callback when mod content is requested.
 ---@param self Client
 ---@param data table data { networkMessageId, items }
 local onNeedModContent = function(self, data)
-    local cpc = self.customProfiler:start("Client.onNeedModContent")
     for _, v in ipairs(data.items) do
         local modName = v.name
         local modID   = v.workshopID
@@ -659,7 +639,6 @@ local onNeedModContent = function(self, data)
             end
         end
     end
-    self.customProfiler:stop("Client.onNeedModContent", cpc)
 end
 
 
@@ -667,7 +646,6 @@ end
 ---@private
 ---@param self Client
 local setCallbackAndSchemas = function(self)
-    local cpc = self.customProfiler:start("Client.setCallbackAndSchemas")
     --self:setSchema(self.networkUtils.events.connect, { "code" })
     self:on(self.networkUtils.events.connect.name, onConnect)
 
@@ -706,8 +684,6 @@ local setCallbackAndSchemas = function(self)
 
     self:setSchema(self.networkUtils.events.needModContent.name, self.networkUtils.events.needModContent.schema)
     self:on(self.networkUtils.events.needModContent.name, onNeedModContent)
-
-    self.customProfiler:stop("Client.setCallbackAndSchemas", cpc)
 end
 
 ---Connects to a server on ip and port. Both can be nil, then ModSettings will be used. Inherit from sock.connect.
@@ -716,8 +692,6 @@ end
 ---@param code number|nil connection code 0 = connecting first time, 1 = connected second time with loaded seed
 ---@see sock.connect
 function Client:preConnect(ip, port, code)
-    local cpc = self.customProfiler:start("Client.connect")
-
     if self:isConnecting() or self:isConnected() then
         self.logger:warn(self.logger.channels.network, ("Client is still connected to %s:%s. Disconnecting!")
             :format(self:getAddress(), self:getPort()))
@@ -725,15 +699,11 @@ function Client:preConnect(ip, port, code)
     end
 
     if not ip then
-        local cpc29 = self.customProfiler:start("ModSettingGet")
-        ip          = tostring(ModSettingGet("noita-mp.connect_server_ip"))
-        self.customProfiler:stop("ModSettingGet", cpc29)
+        ip = tostring(ModSettingGet("noita-mp.connect_server_ip"))
     end
 
     if not port then
-        local cpc30 = self.customProfiler:start("ModSettingGet")
-        port        = tonumber(ModSettingGet("noita-mp.connect_server_port")) or error("noita-mp.connect_server_port wasn't a number")
-        self.customProfiler:stop("ModSettingGet", cpc30)
+        port = tonumber(ModSettingGet("noita-mp.connect_server_port")) or error("noita-mp.connect_server_port wasn't a number")
     end
 
     port = tonumber(port) or error("noita-mp.connect_server_port wasn't a number")
@@ -750,19 +720,16 @@ function Client:preConnect(ip, port, code)
 
     self:connect(code)
     -- FYI: If you want to send data after connected, do it in the "connect" callback function
-    self.customProfiler:stop("Client.connect", cpc)
 end
 
 --- Disconnects from the server.
 ---@see SockClient.disconnect
 function Client:preDisconnect()
-    local cpc = self.customProfiler:start("Client.disconnect")
     if self:isConnected() then
         self:disconnect()
     else
         self.logger:info(self.logger.channels.network, "Client isn't connected, no need to disconnect!")
     end
-    self.customProfiler:stop("Client.disconnect", cpc)
 end
 
 local prevTime = 0
@@ -770,9 +737,7 @@ local prevTime = 0
 ---@param startFrameTime number required
 ---@see SockClient.update
 function Client:preUpdate(startFrameTime)
-    local cpc = self.customProfiler:start("Client.update")
     if not self:isConnected() and not self:isConnecting() or self:isDisconnected() then
-        self.customProfiler:stop("Client.update", cpc)
         return
     end
 
@@ -786,9 +751,7 @@ function Client:preUpdate(startFrameTime)
 
     local nowTime     = GameGetRealWorldTimeSinceStarted() * 1000 -- *1000 to get milliseconds
     local elapsedTime = nowTime - prevTime
-    local cpc31       = self.customProfiler:start("ModSettingGet")
     local oneTickInMs = 1000 / tonumber(ModSettingGet("noita-mp.tick_rate"))
-    self.customProfiler:stop("ModSettingGet", cpc31)
     if elapsedTime >= oneTickInMs then
         prevTime = nowTime
         --updateVariables()
@@ -799,7 +762,6 @@ function Client:preUpdate(startFrameTime)
     end
 
     self:update()
-    self.customProfiler:stop("Client.update", cpc)
 end
 
 ---Sends a message to the server. Inherit from sock.send.
@@ -808,7 +770,6 @@ end
 ---@return boolean true if message was sent, false if not
 ---@see sock.send
 function Client:preSend(event, data)
-    local cpc = self.customProfiler:start("Client.send")
     if type(data) ~= "table" then
         error(("Data is not type of table: %s"):format(data), 2)
         return false
@@ -817,7 +778,6 @@ function Client:preSend(event, data)
     if self.networkUtils:alreadySent(self, event, data) then
         --self.logger:debug(self.logger.channels.network, ("Network message for %s for data %s already was acknowledged.")
         --    :format(event, self.utils:pformat(data)))
-        self.customProfiler:stop("Client.send", cpc)
         return false
     end
 
@@ -830,7 +790,6 @@ function Client:preSend(event, data)
                 self.networkUtils.events.acknowledgement.sent, 0, os.clock(), data)
         end
     end
-    self.customProfiler:stop("Client.send", cpc)
     return true
 end
 
@@ -839,8 +798,6 @@ end
 ---@param ownerGuid string
 ---@param entityId number
 function Client:sendNeedNuid(ownerName, ownerGuid, entityId)
-    local cpc = self.customProfiler:start("Client.sendNeedNuid")
-
     if not ownerName then
         error("ownerName is nil")
     end
@@ -867,32 +824,28 @@ function Client:sendNeedNuid(ownerName, ownerGuid, entityId)
     end
 
     self:preSend(self.networkUtils.events.needNuid.name, data)
-    self.customProfiler:stop("Client.sendNeedNuid", cpc)
 end
 
 ---Sends a message that the client has a nuid, but no linked entity.
 ---@param nuid number required
 ---@return boolean true if message was sent, false if not
 function Client:sendLostNuid(nuid)
-    local cpc  = self.customProfiler:start("Client.sendLostNuid")
     local data = { self.networkUtils:getNextNetworkMessageId(), nuid }
     local sent = self:preSend(self.networkUtils.events.lostNuid.name, data)
-    self.customProfiler:stop("Client.sendLostNuid", cpc)
     return sent
 end
 
 ---Sends entity data to the server.
 ---@param entityId number required
 function Client:sendEntityData(entityId)
-    local cpc = self.customProfiler:start("Client.sendEntityData")
     if not EntityGetIsAlive(entityId) then
         return
     end
 
     --local compOwnerName, compOwnerGuid, compNuid     = self.networkVscUtils.getAllVscValuesByEntityId(entityId)
-    local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = self.noitaComponentUtils.getEntityData(entityId)
+    local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = self.noitaComponentUtils:getEntityData(entityId)
     local data                                                                               = {
-        self.networkUtils.getNextNetworkMessageId(), { compOwnerName, compOwnerGuid }, compNuid, x, y, rotation, velocity, health
+        self.networkUtils:getNextNetworkMessageId(), { compOwnerName, compOwnerGuid }, compNuid, x, y, rotation, velocity, health
     }
 
     if self.utils:isEmpty(compNuid) then
@@ -905,38 +858,49 @@ function Client:sendEntityData(entityId)
     if self.minaUtils:getLocalMinaGuid() == compOwnerGuid then
         self:preSend(self.networkUtils.events.entityData.name, data)
     end
-    self.customProfiler:stop("Client.sendEntityData", cpc)
 end
 
 ---Sends dead nuids to the server.
 ---@param deadNuids table required
 ---@return boolean true if message was sent, false if not
 function Client:sendDeadNuids(deadNuids)
-    local cpc  = self.customProfiler:start("Client.sendDeadNuids")
     local data = {
         self.networkUtils:getNextNetworkMessageId(), deadNuids
     }
     local sent = self:preSend(self.networkUtils.events.deadNuids.name, data)
     onDeadNuids(self, deadNuids)
-    self.customProfiler:stop("Client.sendDeadNuids", cpc)
     return sent
 end
 
 ---Sends mina information to the server.
 ---@return boolean
 function Client:sendMinaInformation()
-    local cpc                                                                                = self.customProfiler:start("Client.sendMinaInformation")
-    local name                                                                               = self.minaUtils:getLocalMinaName()
-    local guid                                                                               = self.minaUtils:getLocalMinaGuid()
-    local entityId                                                                           = self.minaUtils:getLocalMinaEntityId()
-    local nuid                                                                               = self.minaUtils:getLocalMinaNuid()
+    local name     = self.minaUtils:getLocalMinaName()
+    local guid     = self.minaUtils:getLocalMinaGuid()
+    local entityId = self.minaUtils:getLocalMinaEntityId()
+    local nuid     = self.minaUtils:getLocalMinaNuid()
+
+    if self.utils:isEmpty(entityId) or entityId <= 0 then
+        self.logger:warn(self.logger.channels.entity, ("Unable to send mina information, because entityId is empty or <= 0: %s"):format(entityId))
+        if self.utils:isEmpty(nuid) or nuid <= 0 then
+            self.logger:warn(self.logger.channels.nuid, ("Unable to send mina information, because nuid is empty or <= 0: %s"):format(nuid))
+            return false
+        end
+        local nuid_, entityId_ = self.globalsUtils:getNuidEntityPair(nuid)
+        if nuid == nuid_ then
+            entityId = entityId_
+        else
+            self.logger:warn(self.logger.channels.nuid, ("Unable to send mina information, because nuid is not in globals: %s"):format(nuid))
+            return false
+        end
+    end
+
     local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = self.noitaComponentUtils:getEntityData(entityId)
     local data                                                                               = {
         self.networkUtils:getNextNetworkMessageId(), self.fileUtils:GetVersionByFile(), name, guid, entityId, nuid, { x, y }, health
     }
     local sent                                                                               = self:preSend(
         self.networkUtils.events.minaInformation.name, data)
-    self.customProfiler:stop("Client.sendMinaInformation", cpc)
     return sent
 end
 
@@ -944,12 +908,9 @@ end
 ---@return boolean true if client, false if not
 ---@see Server.amIServer
 function Client:amIClient()
-    --local cpc24 = self.customProfiler:start("Client.amIClient") DO NOT PROFILE, stack overflow error! See self.customProfiler.lua
     if not self.server:amIServer() then
-        --self.customProfiler:stop("Client.amIClient", cpc24)
         return true
     end
-    --self.customProfiler:stop("Client.amIClient", cpc24)
     return false
 end
 
@@ -985,7 +946,6 @@ function Client.new(clientObject, serverOrAddress, port, maxChannels, server, np
     if not clientObject.customProfiler then
         clientObject.customProfiler = clientObject.noitaMpSettings.customProfiler or error("Client:new requires a server object!", 2)
     end
-    local cpc = clientObject.customProfiler:start("Client:new")
 
     if not clientObject.globalUtils then
         clientObject.globalUtils = server.globalsUtils or require("GlobalUtils")
@@ -1071,7 +1031,6 @@ function Client.new(clientObject, serverOrAddress, port, maxChannels, server, np
     clientObject.guid = tostring(clientObject.noitaMpSettings:get("noita-mp.guid", "string"))
     clientObject.guidUtils:setGuid(clientObject, nil, clientObject.guid)
 
-    clientObject.customProfiler:stop("Client:new", cpc)
     return clientObject
 end
 

@@ -84,8 +84,6 @@ end
 --local guesses = 1
 --- Make sure this is only be executed once in OnWorldPREUpdate!
 local function OnEntityLoaded()
-    local cpc = customProfiler:start("entityUtils:OnEntityLoaded")
-
     --for guessEntityId = entityUtils:previousHighestAliveEntityId, entityUtils:previousHighestAliveEntityId + 1024, 1 do
     for guessEntityId = entityUtils.previousHighestAliveEntityId, EntitiesGetMaxID(), 1 do
         local entityId = guessEntityId
@@ -144,25 +142,20 @@ local function OnEntityLoaded()
             entityId = entityUtils.previousHighestAliveEntityId + 1
         end
     end
-    customProfiler:stop("entityUtils:OnEntityLoaded", cpc)
 end
 
 --- When connecting the first time to a server, the server will send the servers' seed to the client.
 --- Then the client restarts, empties his selected save slot, to be able to generate the correct world,
 --- with the servers seed.
 local function setSeedIfConnectedSecondTime()
-    local cpc  = customProfiler:start("ModSettingGet")
     local seed = tonumber(ModSettingGet("noita-mp.connect_server_seed"))
-    customProfiler:stop("ModSettingGet", cpc)
     logger:debug(logger.channels.initialize, ("Servers world seed = %s"):format(seed))
     if seed and seed > 0 then
         if DebugGetIsDevBuild() then
             utils:sleep(5) -- needed to be able to attach debugger again
         end
 
-        local cpc1                  = customProfiler:start("ModSettingGet")
         local saveSlotMetaDirectory = ModSettingGet("noita-mp.saveSlotMetaDirectory")
-        customProfiler:stop("ModSettingGet", cpc1)
         if saveSlotMetaDirectory then
             fileUtils:RemoveContentOfDirectory(saveSlotMetaDirectory)
         else
@@ -182,13 +175,10 @@ function OnModPreInit()
 end
 
 function OnWorldInitialized()
-    local cpc = customProfiler:start("init.OnWorldInitialized")
     logger:debug(logger.channels.initialize, "OnWorldInitialized()")
     OnEntityLoaded()
 
-    local cpc1     = customProfiler:start("ModSettingGet")
     local make_zip = ModSettingGet("noita-mp.server_start_7zip_savegame")
-    customProfiler:stop("ModSettingGet", cpc1)
     logger:debug(logger.channels.initialize, "make_zip = " .. tostring(make_zip))
     if make_zip then
         local archive_name    = "server_save06_" .. os.date("%Y-%m-%d_%H-%M-%S")
@@ -199,15 +189,11 @@ function OnWorldInitialized()
             archive_name, destination)
         logger:debug(logger.channels.initialize, msg)
         GamePrint(msg)
-        local cpc2 = customProfiler:start("ModSettingSetNextValue")
         ModSettingSetNextValue("noita-mp.server_start_7zip_savegame", false, false) -- automatically start the server again
-        customProfiler:stop("ModSettingSetNextValue", cpc2)
     end
-    customProfiler:stop("init.OnWorldInitialized", cpc)
 end
 
 function OnPlayerSpawned(player_entity)
-    local cpc = customProfiler:start("init.OnPlayerSpawned")
     logger:info(logger.channels.initialize, ("Player spawned with entityId = %s!"):format(player_entity))
     OnEntityLoaded()
 
@@ -230,16 +216,13 @@ function OnPlayerSpawned(player_entity)
                 execute_every_n_frame = 1,
             })
     end
-    customProfiler:stop("init.OnPlayerSpawned", cpc)
 end
 
 function OnPausePreUpdate()
     local startFrameTime = GameGetRealWorldTimeSinceStarted()
-    local cpc = customProfiler:start("init.OnPausePreUpdate")
     OnEntityLoaded()
     server:preUpdate(startFrameTime)
     client:preUpdate(startFrameTime)
-    customProfiler:stop("init.OnPausePreUpdate", cpc)
 end
 
 --- PreUpdate of world
@@ -251,11 +234,10 @@ function OnWorldPreUpdate()
     -- end
 
     local startFrameTime = GameGetRealWorldTimeSinceStarted()
-    local cpc = customProfiler:start("init.OnWorldPreUpdate")
 
-    if DebugGetIsDevBuild() and lldebugger then
-        lldebugger.pullBreakpoints()
-    end
+    -- if DebugGetIsDevBuild() and lldebugger then
+    --     lldebugger.pullBreakpoints()
+    -- end
 
     OnEntityLoaded()
 
@@ -286,9 +268,7 @@ function OnWorldPreUpdate()
                 if saveSlotMeta then
                     --- Set modSettings as well when changing this: ModSettingSetNextValue("noita-mp.saveSlotMetaDirectory", _G.saveSlotMeta, false)
                     _G.saveSlotMeta = saveSlotMeta
-                    local cpc1      = customProfiler:start("ModSettingSetNextValue")
                     ModSettingSetNextValue("noita-mp.saveSlotMetaDirectory", _G.saveSlotMeta.dir, false)
-                    customProfiler:stop("ModSettingSetNextValue", cpc1)
                     logger:info(logger.channels.initialize, ("Save slot found in '%s'"):format(utils:pformat(_G.saveSlotMeta)))
                 end
             end
@@ -298,23 +278,16 @@ function OnWorldPreUpdate()
     server:preUpdate(startFrameTime)
     client:preUpdate(startFrameTime)
 
-    local cpc1 = customProfiler:start("init.OnWorldPreUpdate.collectgarbage.count")
     if collectgarbage("count") >= 102412345.0 then
-        local cpc2 = customProfiler:start("init.OnWorldPreUpdate.collectgarbage.collect")
         GamePrintImportant("Memory Usage", ("Forcing garbage collection because memory usage is above %sMB."):format(collectgarbage("count") / 1024))
         collectgarbage("collect")
-        customProfiler:stop("init.OnWorldPreUpdate.collectgarbage.collect", cpc2)
     end
-    customProfiler:stop("init.OnWorldPreUpdate.collectgarbage.count", cpc1)
-    customProfiler:stop("init.OnWorldPreUpdate", cpc)
-
     GamePrint("MemUsage " .. collectgarbage("count") / 1024 .. " MB")
 
     --print("jit.profile " .. jit.profile.dumpstack("l\n", 10))
 end
 
 function OnWorldPostUpdate()
-    local cpc = customProfiler:start("init.OnWorldPostUpdate")
     OnEntityLoaded()
 
     if entityCache:size() >= 500 then
@@ -323,7 +296,6 @@ function OnWorldPostUpdate()
         entityCache:delete(entityCache.cache[1])
         --end
     end
-    customProfiler:stop("init.OnWorldPostUpdate", cpc)
     if jit.version_num == 20100 then
         -- if jit.p.isProfiling then
         --jit.p.stop()

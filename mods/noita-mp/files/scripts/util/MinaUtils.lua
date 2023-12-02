@@ -15,60 +15,50 @@ local localMinaGuid = nil
 ---Setter for local mina name. It also saves it to settings file.
 ---@param name string required
 function MinaUtils:setLocalMinaName(name)
-    local cpc = self.customProfiler:start("MinaUtils.setLocalMinaName")
     if not name or type(name) ~= "string" then
         error(("MinaUtils:setLocalMinaName(name) requires a string, but got %s"):format(type(name)), 2)
     end
     localMinaName = name
     self.noitaMpSettings:set("noita-mp.nickname", localMinaName)
-    self.customProfiler:stop("MinaUtils.setLocalMinaName", cpc)
 end
 
 ---Getter for local mina name. ~It also loads it from settings file.~
 ---@return string localMinaName
 function MinaUtils:getLocalMinaName()
-    local cpc = self.customProfiler:start("MinaUtils.getLocalMinaName")
     if self.utils:isEmpty(localMinaName) then
         localMinaName = tostring(self.noitaMpSettings:get("noita-mp.nickname", "string"))
         if self.utils:isEmpty(localMinaName) then
             localMinaName = "Press CTRL+ALT+S for setting a nickname!"
         end
     end
-    self.customProfiler:stop("MinaUtils.getLocalMinaName", cpc)
     return localMinaName
 end
 
 ---Setter for local mina guid. It also saves it to settings file.
 ---@param guid string required
 function MinaUtils:setLocalMinaGuid(guid)
-    local cpc = self.customProfiler:start("MinaUtils.setLocalMinaGuid")
     if not guid or type(guid) ~= "string" then
         error(("MinaUtils:setLocalMinaGuid(guid) requires a string, but got %s"):format(type(guid)), 2)
     end
     localMinaGuid = guid
     self.noitaMpSettings:set("noita-mp.guid", localMinaGuid)
-    self.customProfiler:stop("MinaUtils.setLocalMinaGuid", cpc)
 end
 
 ---Getter for local mina guid. ~It also loads it from settings file.~
 ---@return string localMinaGuid
 function MinaUtils:getLocalMinaGuid()
-    local cpc = self.customProfiler:start("MinaUtils.getLocalMinaGuid")
     if self.utils:isEmpty(localMinaGuid) then
         localMinaGuid = self.noitaMpSettings:get("noita-mp.guid", "string")
     end
-    self.customProfiler:stop("MinaUtils.getLocalMinaGuid", cpc)
     return localMinaGuid
 end
 
 ---Getter for local mina entity id. It also takes care of polymorphism!
 ---@return number|nil localMinaEntityId or nil if not found/dead
 function MinaUtils:getLocalMinaEntityId()
-    local cpc                   = self.customProfiler:start("MinaUtils:getLocalMinaEntityId")
     local polymorphed, entityId = self:isLocalMinaPolymorphed()
 
     if polymorphed then
-        self.customProfiler:stop("MinaUtils:getLocalMinaEntityId", cpc)
         return entityId
     end
 
@@ -77,7 +67,6 @@ function MinaUtils:getLocalMinaEntityId()
         if self.networkVscUtils:hasNetworkLuaComponents(playerEntityIds[i]) then
             local compOwnerName, compOwnerGuid, compNuid = self.networkVscUtils:getAllVscValuesByEntityId(playerEntityIds[i])
             if compOwnerGuid == localMinaGuid then
-                self.customProfiler:stop("MinaUtils:getLocalMinaEntityId", cpc)
                 return playerEntityIds[i]
             end
         end
@@ -85,38 +74,32 @@ function MinaUtils:getLocalMinaEntityId()
     if self.utils:isEmpty(playerEntityIds) then
         self.logger:trace(self.logger.channels.entity,
             ("There isn't any Mina spawned yet or all died! EntityGetWithTag('player_unit') = {}"):format(playerEntityIds))
-        self.customProfiler:stop("MinaUtils:getLocalMinaEntityId", cpc)
         return nil
     end
     self.logger:debug(self.logger.channels.entity,
         ("Unable to get local player entity id. Returning first entity id(%s), which was found."):format(playerEntityIds[1]))
-    self.customProfiler:stop("MinaUtils:getLocalMinaEntityId", cpc)
-    return playerEntityIds[1]
+    return playerEntityIds[1] or nil
 end
 
 ---Getter for local mina nuid. It also takes care of polymorphism!
 ---@return number nuid if not found/dead
 function MinaUtils:getLocalMinaNuid()
-    local cpc = self.customProfiler:start("MinaUtils.getLocalMinaNuid")
     local entityId = self:getLocalMinaEntityId()
     local ownerName, ownerGuid, nuid = self.networkVscUtils:getAllVscValuesByEntityId(entityId)
     local nuid_, entityId_ = self.globalsUtils:getNuidEntityPair(nuid)
     if self.utils:isEmpty(nuid_) and self.utils:isEmpty(entityId_) then
-        self.customProfiler:stop("MinaUtils.getLocalMinaNuid", cpc)
         return -1
     end
     if nuid ~= nuid_ or entityId ~= entityId_ then
         error(("Something bad happen! Nuid or entityId missmatch: nuid %s ~= nuid_ and/or entityId %s ~= entityId_ %s")
             :format(nuid, nuid_, entityId, entityId_), 2)
     end
-    self.customProfiler:stop("MinaUtils.getLocalMinaNuid", cpc)
     return tonumber(nuid) or -1
 end
 
 ---Checks if local mina is polymorphed. Returns true, entityId | false, nil
 ---@return boolean isPolymorphed, number|nil entityId
 function MinaUtils:isLocalMinaPolymorphed()
-    local cpc                  = self.customProfiler:start("MinaUtils.isLocalMinaPolymorphed")
     local polymorphedEntityIds = EntityGetWithTag("polymorphed") or {}
 
     for e = 1, #polymorphedEntityIds do
@@ -128,7 +111,6 @@ function MinaUtils:isLocalMinaPolymorphed()
                 if isPlayer then
                     local compOwnerName, compOwnerGuid, compNuid = self.networkVscUtils:getAllVscValuesByEntityId(polymorphedEntityIds[e])
                     if compOwnerGuid == localMinaGuid then
-                        self.customProfiler:stop("MinaUtils.isLocalMinaPolymorphed", cpc)
                         return true, polymorphedEntityIds[e]
                     else
                         self.logger:warn(self.logger.channels.entity,
@@ -138,7 +120,6 @@ function MinaUtils:isLocalMinaPolymorphed()
             end
         end
     end
-    self.customProfiler:stop("MinaUtils.isLocalMinaPolymorphed", cpc)
     return false, nil
 end
 
@@ -147,7 +128,6 @@ end
 ---@param server Server server object is required!
 ---@return table
 function MinaUtils:getAllMinas(client, server)
-    local cpc = self.customProfiler:start("MinaUtils.getAllMinas")
     if not client or not server then
         error("MinaUtils:getAllMinas(client, server) requires a client or server object!", 2)
     end
@@ -205,7 +185,6 @@ function MinaUtils:getAllMinas(client, server)
     localMina.nuid = self:getLocalMinaNuid()
     minas[#minas + 1] = localMina
 
-    self.customProfiler:stop("MinaUtils.getAllMinas", cpc)
     return minas
 end
 
@@ -216,15 +195,12 @@ end
 ---@param entityId number required
 ---@return boolean true if entityId is a remote minae, otherwise false
 function MinaUtils:isRemoteMinae(client, server, entityId)
-    local cpc = self.customProfiler:start("EntityUtils.isRemoteMinae")
     if not EntityGetIsAlive(entityId) then
-        self.customProfiler:stop("EntityUtils.isRemoteMinae", cpc)
         return false
     end
     if client then
         local serverNuid, serverEntityId = self.globalsUtils:getNuidEntityPair(client.serverInfo.nuid)
         if entityId == serverEntityId then
-            self.customProfiler:stop("EntityUtils.isRemoteMinae", cpc)
             return true
         end
         for i = 1, #client.otherClients do
@@ -232,7 +208,6 @@ function MinaUtils:isRemoteMinae(client, server, entityId)
             local clientsNuid                = otherClient.nuid
             local nuidRemote, entityIdRemote = self.globalsUtils:getNuidEntityPair(clientsNuid)
             if not self.utils:isEmpty(entityIdRemote) and entityIdRemote == entityId then
-                self.customProfiler:stop("EntityUtils.isRemoteMinae", cpc)
                 return true
             end
         end
@@ -243,12 +218,10 @@ function MinaUtils:isRemoteMinae(client, server, entityId)
             local clientsNuid                = otherClient.nuid
             local nuidRemote, entityIdRemote = self.globalsUtils:getNuidEntityPair(clientsNuid)
             if not self.utils:isEmpty(entityIdRemote) and entityIdRemote == entityId then
-                self.customProfiler:stop("EntityUtils.isRemoteMinae", cpc)
                 return true
             end
         end
     end
-    self.customProfiler:stop("EntityUtils.isRemoteMinae", cpc)
     return false
 end
 
@@ -268,7 +241,6 @@ function MinaUtils:new(minaUtils, customProfiler, globalsUtils, logger, networkV
     if not customProfiler then
         error("MinaUtils:new() requires a CustomProfiler object!", 2)
     end
-    local cpc = customProfiler:start("MinaUtils:new")
 
     --[[ Imports ]]
     --Initialize all imports to avoid recursive imports
@@ -310,8 +282,6 @@ function MinaUtils:new(minaUtils, customProfiler, globalsUtils, logger, networkV
 
     --[[ Attributes ]]
 
-
-    customProfiler:stop("MinaUtils:new", cpc)
     return minaUtils
 end
 

@@ -9,7 +9,6 @@ local NuidUtils = {
 }
 
 function NuidUtils:getNextNuid()
-    local cpc = self.customProfiler:start("NuidUtils.getNextNuid")
     if self.client:amIClient() then
         error("Unable to get next nuid, because looks like you aren't a server?!", 2)
     end
@@ -42,7 +41,6 @@ function NuidUtils:getNextNuid()
         self.xmlParsed = true
     end
     self.counter = self.counter + 1
-    self.customProfiler:stop("NuidUtils.getNextNuid", cpc)
     return self.counter
 end
 
@@ -50,7 +48,6 @@ end
 ---If this happens, KillEntityMsg has to be send by network.
 ---@return table<number, number>
 function NuidUtils:getEntityIdsByKillIndicator()
-    local cpc                  = self.customProfiler:start("NuidUtils.getEntityIdsByKillIndicator")
     local deadNuids            = self.globalUtils:getDeadNuids()
     local worldStateXmlAbsPath = self.fileUtils:GetAbsDirPathOfWorldStateXml(_G.saveSlotMeta.dir)
     if not self.worldStateXmlFileExists then
@@ -69,7 +66,6 @@ function NuidUtils:getEntityIdsByKillIndicator()
             end
         end
     end
-    self.customProfiler:stop("NuidUtils.getEntityIdsByKillIndicator", cpc)
     return deadNuids
 end
 
@@ -85,8 +81,6 @@ end
 function NuidUtils:new(nuidUitlsObject, client, customProfiler, fileUtils, globalsUtils, logger, nxml)
     ---@class NuidUtils
     nuidUitlsObject = setmetatable(nuidUitlsObject or self, NuidUtils)
-
-    local cpc = customProfiler:start("NuidUtils:new")
 
     --[[ Imports ]]
     --Initialize all imports to avoid recursive imports
@@ -120,15 +114,12 @@ function NuidUtils:new(nuidUitlsObject, client, customProfiler, fileUtils, globa
                 client, nuidUitlsObject.customProfiler.utils)
     end
 
-
-
     if not nuidUitlsObject.nxml then
         nuidUitlsObject.nxml = nxml or require("nxml")
     end
 
     --[[ Attributes ]]
 
-    customProfiler:stop("NuidUtils:new", cpc)
     return nuidUitlsObject
 end
 

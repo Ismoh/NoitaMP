@@ -15,10 +15,8 @@ function OnProjectileFiredPost() end
 ---@param entityId number
 ---@return string base64String base64 encoded string
 function NoitaPatcherUtils:serializeEntity(entityId)
-    local cpc = self.customProfiler:start("NoitaPatcherUtils:serializeEntity")
     local binaryString = self.np.SerializeEntity(entityId)
     local base64String = self.base64.encode(binaryString)
-    self.customProfiler:stop("NoitaPatcherUtils:serializeEntity", cpc)
     return base64String
 end
 
@@ -29,13 +27,11 @@ end
 ---@param y number|nil y position to create entity at, but optional.
 ---@return number entityId of the created entity
 function NoitaPatcherUtils:deserializeEntity(entityId, base64String, x, y)
-    local cpc = self.customProfiler:start("NoitaPatcherUtils.deserializeEntity")
     local decoded = self.base64.decode(base64String)
     entityId = self.np.DeserializeEntity(entityId, decoded, x, y)
     if not entityId or self.utils:isEmpty(entityId) then
         error(("Failed to deserialize entity(%s) from base64 string: %s"):format(entityId, base64String), 2)
     end
-    self.customProfiler:stop("NoitaPatcherUtils.deserializeEntity", cpc)
     return entityId
 end
 
@@ -54,8 +50,6 @@ function NoitaPatcherUtils:new(customProfiler, np)
     if require and not np then
         error("NoitaPatcherUtils:new requires a noitapatcher object, when require is available!", 2)
     end
-
-    local cpc = customProfiler:start("NoitaPatcherUtils:new")
 
     --[[ Imports ]]
     --Initialize all imports to avoid recursive imports
@@ -78,8 +72,6 @@ function NoitaPatcherUtils:new(customProfiler, np)
     if not self.base64 then
         self.base64 = require("base64_ffi")
     end
-
-    customProfiler:stop("EntityUtils:new", cpc)
 
     return noitaPatcherUtilsObject
 end

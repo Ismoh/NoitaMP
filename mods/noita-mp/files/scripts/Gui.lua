@@ -57,8 +57,6 @@ end
 ---@return unknown
 ---@return unknown
 local getMenuBarPosition = function(self, position)
-    local cpc = self.customProfiler:start("Gui.getMenuBarPosition")
-
     local menuBarHeight = self.imGui.GetFontSize() + 2 * self.imGui.GetStyle().FramePadding_y
 
     -- Available space
@@ -94,7 +92,6 @@ local getMenuBarPosition = function(self, position)
 
     local vx, vy = self.imGui.GetMainViewportWorkPos()
 
-    self.customProfiler:stop("Gui.getMenuBarPosition", cpc)
     return vx + aw * rx - 2, vy + ah * ry + 20
 end
 
@@ -103,8 +100,6 @@ end
 ---@param self Gui Gui ojbect, most cases 'self'
 ---@param tooltip string Tooltip text
 local tooltipHelper = function(self, tooltip)
-    local cpc = self.customProfiler:start("Gui.tooltipHelper")
-
     if not self.utils:isEmpty(tooltip) then
         self.imGui.SameLine()
         self.imGui.TextDisabled("(?)")
@@ -116,8 +111,6 @@ local tooltipHelper = function(self, tooltip)
             self.imGui.EndTooltip()
         end
     end
-
-    self.customProfiler:stop("Gui.tooltipHelper", cpc)
 end
 
 ---Setter for the 'showSettingsSaved' attribute to show the user that the settings were saved.
@@ -137,7 +130,6 @@ end
 
 ---Guis update function, called every frame.
 function Gui:update()
-    local cpcUpdate = self.customProfiler:start("Gui.update")
 
     self:checkShortcuts()
     self:drawMenuBar()
@@ -203,14 +195,10 @@ function Gui:update()
     -- --     ImPlot::EndPlot();
     -- -- }
     -- TODO: Remove this before merging
-
-    self.customProfiler:stop("Gui.update", cpcUpdate)
 end
 
 ---Function to draw the menu bar.
 function Gui:drawMenuBar()
-    local cpcDrawMenuBar = self.customProfiler:start("Gui.drawMenuBar")
-
     local windowFlags = bit.bor(
         self.imGui.WindowFlags.MenuBar,
         self.imGui.WindowFlags.NoDocking,
@@ -256,13 +244,10 @@ function Gui:drawMenuBar()
         end
         self.imGui.End()
     end
-    self.customProfiler:stop("Gui.drawMenuBar", cpcDrawMenuBar)
 end
 
 ---Function to draw the first time window.
 function Gui:drawFirstTime()
-    local cpc = self.customProfiler:start("Gui.drawFirstTime")
-
     local windowFlags = --bit.bor(
     -- self.imGui.WindowFlags.MenuBar,
     -- self.imGui.WindowFlags.NoDocking,
@@ -280,14 +265,10 @@ function Gui:drawFirstTime()
         self.imGui.Text("This is the first time you're using NoitaMP, please set your name and press 'Let's go!'")
         self.imGui.End()
     end
-
-    self.customProfiler:stop("Gui.drawFirstTime", cpc)
 end
 
 ---Function to draw the play menu.
 function Gui:drawPlayMenu()
-    local cpc = self.customProfiler:start("Gui.drawPlayMenu")
-
     local windowFlags = --bit.bor(
     -- self.imGui.WindowFlags.MenuBar,
     -- self.imGui.WindowFlags.NoDocking,
@@ -305,7 +286,6 @@ function Gui:drawPlayMenu()
         if self.utils:isEmpty(self.minaUtils:getLocalMinaName()) then
             self.imGui.Text(("Please set your name in the settings first! Simply press '%s'!"):format(self.shortcuts.settings))
             self.imGui.End()
-            self.customProfiler:stop("Gui.drawPlayMenu", cpc)
             return
         end
 
@@ -320,7 +300,6 @@ function Gui:drawPlayMenu()
                 self.isServer = false
             end
             self.imGui.End()
-            self.customProfiler:stop("Gui.drawPlayMenu", cpc)
             return
         end
 
@@ -369,8 +348,6 @@ function Gui:drawPlayMenu()
         end
         self.imGui.End()
     end
-
-    self.customProfiler:stop("Gui.drawPlayMenu", cpc)
 end
 
 local base = 1
@@ -378,8 +355,6 @@ local oldMina = nil
 
 ---Function to draw the settings window.
 function Gui:drawSettings()
-    local cpc = self.customProfiler:start("Gui.drawSettings")
-
     local windowFlags = --bit.bor(
     -- self.imGui.WindowFlags.MenuBar,
     -- self.imGui.WindowFlags.NoDocking,
@@ -580,14 +555,10 @@ function Gui:drawSettings()
         end
         self.imGui.End()
     end
-
-    self.customProfiler:stop("Gui.drawSettings", cpc)
 end
 
 ---Function for drawing the about window.
 function Gui:drawAbout()
-    local cpc = self.customProfiler:start("Gui.drawAbout")
-
     local windowFlags = --bit.bor(
     -- self.imGui.WindowFlags.MenuBar,
     -- self.imGui.WindowFlags.NoDocking,
@@ -633,14 +604,10 @@ function Gui:drawAbout()
 
         self.imGui.End()
     end
-
-    self.customProfiler:stop("Gui.drawAbout", cpc)
 end
 
 ---Function for drawing the player list window.
 function Gui:drawPlayerList()
-    local cpc = self.customProfiler:start("Gui.drawPlayerList")
-
     local windowFlags = 0 --bit.bor(
     -- self.imGui.WindowFlags.MenuBar,
     -- self.imGui.WindowFlags.NoDocking,
@@ -711,14 +678,10 @@ function Gui:drawPlayerList()
 
         self.imGui.End()
     end
-
-    self.customProfiler:stop("Gui.drawPlayerList", cpc)
 end
 
 ---Function to check if the user pressed a shortcut.
 function Gui:checkShortcuts()
-    local cpc = self.customProfiler:start("Gui.checkShortcuts")
-
     if self.imGui.IsKeyDown(self.imGui.Key.LeftShift) then
         -- make sure that there are no ComponentExplorer shortcut conflicts
         return
@@ -751,8 +714,6 @@ function Gui:checkShortcuts()
     if self.imGui.IsKeyPressed(self.imGui.Key.L) then
         self.showPlayerList = not self.showPlayerList
     end
-
-    self.customProfiler:stop("Gui.checkShortcuts", cpc)
 end
 
 ---Gui constructor.
@@ -767,8 +728,6 @@ end
 function Gui:new(guiObject, server, client, customProfiler, guidUtils, minaUtils, noitaMpSettings)
     ---@class Gui
     guiObject = setmetatable(guiObject or self, Gui)
-
-    local cpc = server.customProfiler:start("Gui:new")
 
     --[[ Imports ]]
     -- Initialize all imports to avoid recursive imports
@@ -841,7 +800,6 @@ function Gui:new(guiObject, server, client, customProfiler, guidUtils, minaUtils
     guiObject.playerListIsClickable = guiObject.noitaMpSettings:get("noita-mp.gui.player-list.clickable", "boolean")
     guiObject.playerListTransparency = guiObject.noitaMpSettings:get("noita-mp.gui.player-list.background-alpha", "number")
 
-    guiObject.customProfiler:stop("ExampleClass:new", cpc)
     return guiObject
 end
 

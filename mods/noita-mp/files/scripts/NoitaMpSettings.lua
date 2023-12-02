@@ -15,28 +15,22 @@ local NoitaMpSettings     = {
 ---@param self NoitaMpSettings required
 ---@param value any required
 ---@param dataType string required! Must be one of "boolean" or "number". If not set, "string" is default.
----@return boolean|number|string value converted to dataType
+---@return boolean|number|string|nil value converted to dataType or nil, when value is not set.
 local convertToDataType   = function(self, value, dataType)
-    --local cpc = self.customProfiler:start("NoitaMpSettings.convertToDataType")
     if not self.utils:isEmpty(dataType) then
         if dataType == "boolean" then
             if self.utils:isEmpty(value) then
-                --self.customProfiler:stop("NoitaMpSettings.convertToDataType", cpc)
                 return false
             end
-            --self.customProfiler:stop("NoitaMpSettings.convertToDataType", cpc)
             return toBoolean(value)
         end
         if dataType == "number" then
             if self.utils:isEmpty(value) then
-                --self.customProfiler:stop("NoitaMpSettings.convertToDataType", cpc)
                 return 0
             end
-            --self.customProfiler:stop("NoitaMpSettings.convertToDataType", cpc)
             return tonumber(value)
         end
     end
-    --self.customProfiler:stop("NoitaMpSettings.convertToDataType", cpc)
     return tostring(value)
 end
 
@@ -73,7 +67,6 @@ end
 ---Checks if more than one Noita process is running.
 ---@return boolean true if more than one Noita process is running.
 function NoitaMpSettings:isMoreThanOneNoitaProcessRunning()
-    --local cpc = self.customProfiler:start("NoitaMpSettings.isMoreThanOneNoitaProcessRunning")
     local pids = self.winapi.get_processes()
     local noitaCount = 0
     for _, pid in ipairs(pids) do
@@ -84,14 +77,12 @@ function NoitaMpSettings:isMoreThanOneNoitaProcessRunning()
         end
         P:close()
     end
-    --self.customProfiler:stop("NoitaMpSettings.isMoreThanOneNoitaProcessRunning", cpc)
     self.multipleNoitaProcessesRunning = noitaCount > 1
     return self.multipleNoitaProcessesRunning
 end
 
 ---Removes all settings and creates a new settings file.
 function NoitaMpSettings:clearAndCreateSettings()
-    local cpc         = self.customProfiler:start("NoitaMpSettings.clearAndCreateSettings")
     local settingsDir = ("%s%slocal"):format(self.fileUtils:GetAbsolutePathOfNoitaMpSettingsDirectory(), pathSeparator) --FileUtils.GetAbsolutePathOfNoitaMpSettingsDirectory()
     if self.fileUtils:Exists(settingsDir) then
         self.fileUtils:RemoveContentOfDirectory(settingsDir)
@@ -100,7 +91,6 @@ function NoitaMpSettings:clearAndCreateSettings()
         self.lfs.mkdir(settingsDir)
         self.logger:info(self.logger.channels.initialize, ("Created settings directory in '%s'!"):format(settingsDir))
     end
-    self.customProfiler:stop("NoitaMpSettings.clearAndCreateSettings", cpc)
 end
 
 ---Sets a setting. Saves the settings to the settings file and returns the new updated cached settings.
@@ -108,7 +98,6 @@ end
 ---@param value any required
 ---@return table self.cachedSettings
 function NoitaMpSettings:set(key, value)
-    --local cpc = self.customProfiler:start("NoitaMpSettings.set")
     if self.utils:isEmpty(key) or type(key) ~= "string" then
         error(("'key' must not be nil or is not type of string!"):format(key), 2)
     end
@@ -120,17 +109,14 @@ function NoitaMpSettings:set(key, value)
 
     self.cachedSettings[key] = value
 
-    --self.customProfiler:stop("NoitaMpSettings.set", cpc)
     return self.cachedSettings
 end
 
 ---Returns a setting from the settings file converted to the given dataType. If the setting does not exist, it will be created with the default empty value.
 ---@param key string required
 ---@param dataType string required! Must be one of "boolean" or "number". If not set, "string" is default.
----@return boolean|string|number
+---@return boolean|string|number|nil value converted to dataType or nil, when value is not set.
 function NoitaMpSettings:get(key, dataType)
-    --local cpc = self.customProfiler:start("NoitaMpSettings.get")
-
     local settingsFilePath = getSettingsFilePath(self)
     if not self.settingsFileExists or self.utils:isEmpty(self.cachedSettings) then
         self.settingsFileExists = self.fileUtils:Exists(settingsFilePath)
@@ -139,10 +125,8 @@ function NoitaMpSettings:get(key, dataType)
 
     if self.utils:isEmpty(self.cachedSettings[key]) then
         --error(("Unable to find '%s' in NoitaMpSettings: %s"):format(key, contentString), 2)
-        --self.customProfiler:stop("NoitaMpSettings.get", cpc)
         return convertToDataType(self, "", dataType)
     end
-    --self.customProfiler:stop("NoitaMpSettings.get", cpc)
     return convertToDataType(self, self.cachedSettings[key], dataType)
 end
 
@@ -213,7 +197,6 @@ function NoitaMpSettings:new(noitaMpSettings, customProfiler, gui, fileUtils, js
             :new(nil, nil, noitaMpSettings, nil, nil, noitaMpSettings.utils,
                 noitaMpSettings.winapi)
     end
-    local cpc = noitaMpSettings.customProfiler:start("NoitaMpSettings:new")
 
     if not noitaMpSettings.gui then
         noitaMpSettings.gui = gui or error("NoitaMpSettings:new requires a Gui object", 2)
@@ -232,7 +215,6 @@ function NoitaMpSettings:new(noitaMpSettings, customProfiler, gui, fileUtils, js
                 noitaMpSettings.utils)
     end
 
-    noitaMpSettings.customProfiler:stop("ExampleClass:new", cpc)
     return noitaMpSettings
 end
 

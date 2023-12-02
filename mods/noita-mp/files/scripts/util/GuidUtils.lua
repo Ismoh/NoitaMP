@@ -27,7 +27,6 @@ end
 ---@param inUsedGuids table|nil list of already used GUIDs
 ---@return string guid
 function GuidUtils:generateNewGuid(inUsedGuids)
-    local cpc = self.customProfiler:start("GuidUtils:getGuid")
     if inUsedGuids and not self.utils:isEmpty(inUsedGuids) and #inUsedGuids > 0 then
         for i = 1, #inUsedGuids do
             if inUsedGuids[i] and
@@ -47,7 +46,6 @@ function GuidUtils:generateNewGuid(inUsedGuids)
     until self:isUnique(guid) and self:isPatternValid(guid)
     table.insert(self.cached_guid, guid)
 
-    self.customProfiler:stop("GuidUtils:getGuid", cpc)
     return guid
 end
 
@@ -61,7 +59,6 @@ function GuidUtils:setGuid(client, server, guid)
     end
 
     local clientOrServer = client or server or error("Either 'client' or 'server' must be set!", 2)
-    local cpc = clientOrServer.customProfiler:start("GuidUtils:setGuid")
 
     if self.utils:isEmpty(guid) or self:isPatternValid(tostring(guid)) == false then
         guid = self:generateNewGuid()
@@ -75,14 +72,12 @@ function GuidUtils:setGuid(client, server, guid)
     if DebugGetIsDevBuild() then
         guid = guid .. clientOrServer.iAm
     end
-    clientOrServer.customProfiler:stop("GuidUtils:setGuid", cpc)
 end
 
 ---Validates a guid only on its pattern.
 ---@param guid string required
 ---@return boolean true if GUID-pattern matches
 function GuidUtils:isPatternValid(guid)
-    local cpc = self.customProfiler:start("GuidUtils.isPatternValid")
     if type(guid) ~= "string" then
         return false
     end
@@ -97,7 +92,6 @@ function GuidUtils:isPatternValid(guid)
     if match == guid then
         is_valid = true
     end
-    self.customProfiler:stop("GuidUtils.isPatternValid", cpc)
     return is_valid
 end
 
@@ -105,7 +99,6 @@ end
 ---@param guid string
 ---@return boolean true if GUID is unique.
 function GuidUtils:isUnique(guid)
-    local cpc = self.customProfiler:start("GuidUtils:isUnique")
     if guid == nil or guid == "" or type(guid) ~= "string" then
         error("'guid' is nil, empty or not a string.", 2)
     end
@@ -113,19 +106,16 @@ function GuidUtils:isUnique(guid)
     if table.contains(self.cached_guid, guid) == true then
         is_unique = false
     end
-    self.customProfiler:stop("GuidUtils:isUnique", cpc)
     return is_unique
 end
 
 function GuidUtils:toNumber(guid)
-    local cpc = self.customProfiler:start("GuidUtils.toNumber")
     if not self:isPatternValid(guid) then
         error(("Guid '%s' is not a valid guid!"):format(guid), 2)
     end
     local guidWithoutDashes = string.gsub(guid, "%-", "")
     guidWithoutDashes       = guidWithoutDashes:upper()
     local number            = tonumber(guidWithoutDashes, 16)
-    self.customProfiler:stop("GuidUtils.toNumber", cpc)
     return number
 end
 
@@ -147,8 +137,6 @@ function GuidUtils:new(guidUtilsObject, customProfiler, fileUtils, logger, plotl
         error("GuidUtils:new requires a CustomProfiler object", 2)
     end
 
-    local cpc = customProfiler:start("GuidUtils:new")
-
     --[[ Imports ]]
     --Initialize all imports to avoid recursive imports
 
@@ -168,7 +156,7 @@ function GuidUtils:new(guidUtilsObject, customProfiler, fileUtils, logger, plotl
         ---@type Logger
         guidUtilsObject.logger = logger or
             require("Logger")
-            :new(nil, customProfiler)
+            :new(nil, noitaMpSettings)
     end
 
     if not guidUtilsObject.uuid then
@@ -181,7 +169,6 @@ function GuidUtils:new(guidUtilsObject, customProfiler, fileUtils, logger, plotl
 
     --[[ Attributes ]]
 
-    customProfiler:stop("GuidUtils:new", cpc)
     return guidUtilsObject
 end
 
