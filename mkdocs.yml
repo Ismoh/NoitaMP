@@ -29,6 +29,7 @@ nav:
   - Contributing:
     - Contributing guide: 'contributing/CONTRIBUTING.md'
     - Code of conduct: 'contributing/CODE_OF_CONDUCT.md'
+    - Lua Docs: 'lua-docs/doc.md'
   - About:
     - Credits : 'about/credits.md'
     - License: 'about/LICENSE.md'
