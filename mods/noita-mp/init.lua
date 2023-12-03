@@ -12,6 +12,53 @@ if not _G.isTestLuaContext then
     np = require("noitapatcher")
 end
 
+-- print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+
+-- local NativeEntityMap = require("lua_noitamp_native")
+
+-- NativeEntityMap.removeAllMappings()
+--   Clear all existing mappings
+--   No return value.
+
+-- NativeEntityMap.getNuidBySerializedString(serialized_string)
+--   Return Nuid associated with @serialized_string entity or 0xffffffff if no mappings exist.
+
+-- NativeEntityMap.getEntityIdBySerializedString(serialized_string)
+--   Return EntityId associated with @serialized_string entity or 0xffffffff if no mappings exist.
+
+-- NativeEntityMap.setMappingOfNuidToSerialisedString(serialized_string, nuid)
+--   Set the Nuid of @serialized_string to @nuid
+--   No return value.
+
+-- NativeEntityMap.setMappingOfEntityIdToSerialisedString(serialized_string, entity_id)
+--   Set the entity id of @serialized_string to @entity_id
+--   No return value.
+
+-- NativeEntityMap.removeMappingOfEntityId(entity_id)
+--   Remove the entity mapping for @entity_id. If that entity has an
+--   existing nuid mapping remove that too. Remove any reference to
+--   the serialized_string associated with the entity.
+--   No return value.
+
+-- NativeEntityMap.removeMappingOfNuid(nuid)
+--   Remove the entity mapping for @nuid. If that entity has an
+--   existing entity_id mapping remove that too. Remove any reference to
+--   the serialized_string associated with the entity.
+--   No return value.
+
+-- NativeEntityMap.getSerializedStringCount()
+--   Return the number of existing mappings stored in the system.
+
+-- NativeEntityMap.getMemoryUsage()
+--   Return the number of bytes consumed by the stored mappings. (approximation).
+
+-- NativeEntityMap.removeAllMappings()
+--   Remove all mappings and clear all ressources.
+--   No return value.
+
+-- print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+
+
 -- Check if we wan't to debug the mod
 -- if DebugGetIsDevBuild() then
 --     if not lldebugger then
