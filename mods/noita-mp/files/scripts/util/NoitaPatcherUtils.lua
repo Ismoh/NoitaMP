@@ -69,8 +69,12 @@ function NoitaPatcherUtils:new(customProfiler, np)
         noitaPatcherUtilsObject.utils = require("Utils"):new(nil)
     end
 
-    if not self.base64 then
-        self.base64 = require("base64_ffi")
+    if not noitaPatcherUtilsObject.base64 then
+        noitaPatcherUtilsObject.base64 = require("base64_ffi")
+    end
+
+    if not noitaPatcherUtilsObject.luaNoitaMpNative then
+        noitaPatcherUtilsObject.luaNoitaMpNative = require("lua_noitamp_native")
     end
 
     return noitaPatcherUtilsObject
