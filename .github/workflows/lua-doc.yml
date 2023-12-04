@@ -4,7 +4,7 @@ on: push
 
 jobs:
   generate-lua-docs:
-    name: 'Generate lua docs'
+    name: "Generate lua docs"
     runs-on: windows-latest
 
     steps:
@@ -15,11 +15,11 @@ jobs:
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
 
-      - name: 'Generate lua docs with lua-language-server'
+      - name: "Generate lua docs with lua-language-server"
         shell: cmd
         run: |
           ${{ github.workspace }}\\.building\\lua-language-server-3.6.18-win32-x64\\bin\\lua-language-server.exe --logpath \"${{ github.workspace }}\\docs\\lua-docs\" --configpath \"${{ github.workspace }}\\docs\\lua-docs\\lua-language-server-config.lua\" --doc \"${{ github.workspace }}\\mods\\noita-mp\\files\\scripts\"
-          cd ${{ github.workspace }}\\docs\\lua-docs\\ 
+          cd ${{ github.workspace }}\\docs\\lua-docs\\
           DEL /f *.log
           # https://api.github.com/users/github-actions%5Bbot%5D
           git config --global user.name "github-actions[bot]"
@@ -27,8 +27,8 @@ jobs:
           git add .
           git commit -m "Updated generated lua docs"
           git push origin
-      
-      - name: 'Fix wrong paths in lua docs'
+
+      - name: "Fix wrong paths in lua docs"
         shell: pwsh
         run: |
           $env:Path += ";C:\Program Files\Git\usr\bin"
@@ -42,3 +42,13 @@ jobs:
           git add .
           git commit -m "Updated generated lua docs"
           git push origin
+
+  fix-markdown-issues:
+    name: "Fix markdown errors"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Lint changelog file
+        uses: docker://avtodev/markdown-lint:v1
