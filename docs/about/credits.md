@@ -38,6 +38,7 @@ I also want to say thank you to the sponsors of this project on
 |  [stefnotch](https://github.com/stefnotch)  |   20$    |  one-time  |  Jul 13, 2023  |
 |  [conga lyne](https://github.com/Conga0)    |   25$    |  monthly   |  Jul 13, 2023  |
 |  [clragon](https://github.com/clragon)      |   20$    |  one-time  |  Jul 13, 2023  |
+|  [Rehus04](https://github.com/Rehus04)      |   20$    |  one-time  |  Dec 05, 2023  |
 
 If you spot anything I should mention, feel free to create an issue or get in touch with [me](https://github.com/Ismoh)!
 
