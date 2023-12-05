@@ -33,7 +33,7 @@ jobs:
           $env:Path += ";C:\Program Files\Git\usr\bin"
           Get-Command sed
           cd ${{ github.workspace }}\\docs\\lua-docs\\
-          echo "Recplacing filepaths"
+          echo "Replacing filepaths"
           sed -i 's#file:///d%3A/a/NoitaMP/NoitaMP/#${{ github.server_url }}/${{ github.repository }}#g' ${{ github.workspace }}\\docs\\lua-docs\\doc.md
           sed -i 's#file:///d%3A/a/NoitaMP/NoitaMP/#${{ github.server_url }}/${{ github.repository }}#g' ${{ github.workspace }}\\docs\\lua-docs\\doc.json         
           echo "Adding #L's"
