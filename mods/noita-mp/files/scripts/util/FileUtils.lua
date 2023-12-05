@@ -115,16 +115,6 @@ function FileUtils:SetAbsolutePathOfNoitaRootDirectory(noitaMpSettings)
         noitaMpSettings:set("noita-mp.noita-root-directory", self.noitaRootDirectory)
         noitaMpSettings:save()
     end
---[[     if isTestLuaContext and self.logger then
-        self.logger:trace(self.logger.channels.testing,
-            ("Absolute path of Noitas root directory set to %s, but we need to fix path! Removing \\mods\\noita-mp.")
-            :format(self.noitaRootDirectory))
-        local i, _              = string.find(self.noitaRootDirectory, "mods")
-        self.noitaRootDirectory = string.sub(self.noitaRootDirectory, 0, i - 1)
-        self.logger:trace(self.logger.channels.testing,
-            ("NEW absolute path of Noitas root directory set to %s.")
-            :format(self.noitaRootDirectory))
-    end ]]
 end
 
 ---@return string
