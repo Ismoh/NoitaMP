@@ -4,7 +4,7 @@ on: push
 
 jobs:
   generate-lua-docs:
-    name: 'Generate lua docs'
+    name: Generate lua docs
     runs-on: windows-latest
 
     steps:
@@ -18,7 +18,7 @@ jobs:
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
 
-      - name: 'Generate lua docs with lua-language-server'
+      - name: Generate lua docs with lua-language-server
         shell: cmd
         run: |
           ${{ github.workspace }}\\.building\\lua-language-server-3.6.18-win32-x64\\bin\\lua-language-server.exe ^
@@ -28,7 +28,7 @@ jobs:
           cd ${{ github.workspace }}\\docs\\lua-docs\\ 
           del /f *.log
       
-      - name: 'Format lua docs'
+      - name: Format lua docs
         run: |
           $env:Path += ";C:\Program Files\Git\usr\bin"
           Get-Command sed
@@ -41,7 +41,7 @@ jobs:
           echo "Replacing headers in .md"
           sed -i 's#\# #\#\# #g' ${{ github.workspace }}\\docs\\lua-docs\\doc.md 
 
-      - name: 'Commit and push changes'
+      - name: Commit and push changes
         run: |
           git add .
           git commit -m "Generate lua docs"
