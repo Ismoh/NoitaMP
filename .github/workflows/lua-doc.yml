@@ -4,51 +4,45 @@ on: push
 
 jobs:
   generate-lua-docs:
-    name: "Generate lua docs"
+    name: 'Generate lua docs'
     runs-on: windows-latest
 
     steps:
       - uses: actions/checkout@v3.3.0
-
-      - name: Print GitHub context
-        run: echo "$GITHUB_CONTEXT"
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-
-      - name: "Generate lua docs with lua-language-server"
-        shell: cmd
+      - name: Setup GitHub
         run: |
-          ${{ github.workspace }}\\.building\\lua-language-server-3.6.18-win32-x64\\bin\\lua-language-server.exe --logpath \"${{ github.workspace }}\\docs\\lua-docs\" --configpath \"${{ github.workspace }}\\docs\\lua-docs\\lua-language-server-config.lua\" --doc \"${{ github.workspace }}\\mods\\noita-mp\\files\\scripts\"
-          cd ${{ github.workspace }}\\docs\\lua-docs\\
-          DEL /f *.log
+          echo "$GITHUB_CONTEXT"
           # https://api.github.com/users/github-actions%5Bbot%5D
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add .
-          git commit -m "Updated generated lua docs"
-          git push origin
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
 
-      - name: "Fix wrong paths in lua docs"
-        shell: pwsh
+      - name: 'Generate lua docs with lua-language-server'
+        shell: cmd
+        run: |
+          ${{ github.workspace }}\\.building\\lua-language-server-3.6.18-win32-x64\\bin\\lua-language-server.exe ^
+            --logpath \"${{ github.workspace }}\\docs\\lua-docs\" ^
+            --configpath \"${{ github.workspace }}\\docs\\lua-docs\\lua-language-server-config.lua\" ^
+            --doc \"${{ github.workspace }}\\mods\\noita-mp\\files\\scripts\" 
+          cd ${{ github.workspace }}\\docs\\lua-docs\\ 
+          del /f *.log
+      
+      - name: 'Format lua docs'
         run: |
           $env:Path += ";C:\Program Files\Git\usr\bin"
           Get-Command sed
           cd ${{ github.workspace }}\\docs\\lua-docs\\
-          sed -i 's#file:///d%3A/a/NoitaMP/NoitaMP/#../../#g' ${{ github.workspace }}\\docs\\lua-docs\\doc.md
+          echo "Recplacing filepaths"
+          sed -i 's#file:///d%3A/a/NoitaMP/NoitaMP/#${{ github.server_url }}/${{ github.repository }}#g' ${{ github.workspace }}\\docs\\lua-docs\\doc.md
+          sed -i 's#file:///d%3A/a/NoitaMP/NoitaMP/#${{ github.server_url }}/${{ github.repository }}#g' ${{ github.workspace }}\\docs\\lua-docs\\doc.json         
+          echo "Adding #L's"
           sed -i 's/.lua#/.lua#L/g' ${{ github.workspace }}\\docs\\lua-docs\\doc.md
-          sed -i 's#file:///d%3A/a/NoitaMP/NoitaMP/#../../#g' ${{ github.workspace }}\\docs\\lua-docs\\doc.json
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          echo "Replacing headers in .md"
+          sed -i 's#\# #\#\# #g' ${{ github.workspace }}\\docs\\lua-docs\\doc.md 
+
+      - name: 'Commit and push changes'
+        run: |
           git add .
-          git commit -m "Updated generated lua docs"
+          git commit -m "Generate lua docs"
           git push origin
-
-  fix-markdown-issues:
-    name: "Fix markdown errors"
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v3
-
-      - name: Lint changelog file
-        uses: docker://avtodev/markdown-lint:v1
