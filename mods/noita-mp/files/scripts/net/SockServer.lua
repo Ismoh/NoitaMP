@@ -276,7 +276,6 @@ end
 
 function SockServer:sendToAll2(event, data)
     error("SockServer:sendToAll2 is deprecated, because cache wont work. Use SockServer:sendToPeer instead.", 2)
-    local cpc               = self.customProfiler:start("SockServer:sendToAll2")
     local serializedMessage = self:__pack(event, data)
 
     for _, p in pairs(self.peers) do
@@ -285,7 +284,6 @@ function SockServer:sendToAll2(event, data)
     end
 
     self:resetSendSettings()
-    self.customProfiler:stop("SockServer:sendToAll2", cpc)
 end
 
 --- Send a message to a single peer. Useful to send data to a newly connected player
@@ -295,7 +293,6 @@ end
 --- @param data table to send to the peer.
 --- Usage: server:sendToPeer(peer, "initialGameInfo", {...})
 function SockServer:sendToPeer(peer, event, data)
-    local cpc              = self.customProfiler:start("SockServer:sendToPeer")
     local networkMessageId = data[1] or data.networkMessageId
     if self.utils:isEmpty(networkMessageId) then
         error("networkMessageId is empty!", 3)
@@ -303,7 +300,6 @@ function SockServer:sendToPeer(peer, event, data)
     self.packetsSent = self.packetsSent + 1
     peer:preSend(event, data)
     self:resetSendSettings()
-    self.customProfiler:stop("SockServer:sendToPeer", cpc)
     return networkMessageId
 end
 

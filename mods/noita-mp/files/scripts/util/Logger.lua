@@ -36,7 +36,6 @@ local Logger = {
 ---@param message string Message text to `print()`. Use `Logger.log("debug", Logger.channels.entity, ("Debug message with string directive %s. Yay!"):format("FooBar"))`
 ---@return boolean true if logged, false if not logged
 local log = function(self, level, channel, message) --[[ private ]]
-    local cpc = self.customProfiler:start("Logger.--[[private]]log")
     if not level then
         error("Unable to log, because 'level' must not be nil!", 2)
     end
@@ -94,7 +93,6 @@ local log = function(self, level, channel, message) --[[ private ]]
     end
 
     print(msg)
-    self.customProfiler:stop("Logger.--[[private]]log", cpc)
     return true
 end
 
@@ -139,8 +137,6 @@ function Logger:new(loggerObject, noitaMpSettings)
         error("Logger:new requires a CustomProfiler object", 2)
     end
 
-    local cpc = noitaMpSettings.customProfiler:start("Logger:new")
-
     --[[ Imports ]]
     --Initialize all imports to avoid recursive imports
 
@@ -157,7 +153,6 @@ function Logger:new(loggerObject, noitaMpSettings)
 
     self:trace(self.channels.initialize, "Logger was initialized!")
 
-    self.customProfiler:stop("Logger:new", cpc)
     return loggerObject
 end
 

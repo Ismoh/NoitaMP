@@ -68,9 +68,7 @@ local ExampleClass = {
 ---@param param string Description of the parameter.
 ---@return string Description of the return value.
 local examplePrivateFunction = function(classObjectOrSelf, param)
-  local cpc = classObjectOrSelf.customProfiler:start("ExampleClass:examplePrivateFunction")
   -- code
-  classObjectOrSelf.customProfiler:stop("ExampleClass:examplePrivateFunction", cpc)
   return value
 end
 
@@ -87,13 +85,11 @@ end
 ---@param param2 string Description of the parameter.
 ---@return string Description of the return value.
 function ExampleClass:examplePublicFunction(param1, param2)
-  local cpc = self.customProfiler:start("ExampleClass:examplePublicFunction")
   -- code
   local value = examplePrivateFunction(self, param1)
   value = value .. self.exampleAttribute
   value = value .. self.nestedTable.nestedAttribute
   value = value .. self:yetAnotherPublicFunction(param2)
-  self.customProfiler:stop("ExampleClass:examplePublicFunction", cpc)
   return value
 end
 
@@ -101,28 +97,19 @@ end
 ---@param param string Description of the parameter.
 ---@return string Description of the return value.
 function ExampleClass:yetAnotherPublicFunction(param)
-  local cpc = self.customProfiler:start("ExampleClass:yetAnotherPublicFunction")
   -- code
-  self.customProfiler:stop("ExampleClass:yetAnotherPublicFunction", cpc)
   return value
 end
 
 ---Constructor of the class. This is mandatory!
 ---@param exampleClassObject ExampleClass
 ---@return ExampleClass
-function ExampleClass:new(exampleClassObject, customProfiler, importClass, foo, bar)
+function ExampleClass:new(exampleClassObject, importClass, foo, bar)
   ---@class ExampleClass
   exampleClassObject = setmetatable(exampleClassObject or self, ExampleClass)
 
-  local cpc = customProfiler:start("ExampleClass:new")
-
   --[[ Imports ]]
   --Initialize all imports to avoid recursive imports
-
-  if not exampleClassObject.customProfiler then
-    ---@type CustomProfiler
-    exampleClassObject.customProfiler = customProfiler or require("CustomProfiler"):new()
-  end
 
   if not exampleClassObject.importClass then
     ---@type ImportClass
@@ -139,7 +126,6 @@ function ExampleClass:new(exampleClassObject, customProfiler, importClass, foo, 
     exampleClassObject.bar = bar or require("bar"):new()
   end
 
-  exampleClassObject.customProfiler:stop("ExampleClass:new", cpc)
   return objectOfExampleClass
 end
 
@@ -273,28 +259,10 @@ If there are no existing functions or classes you could use, then take in mind:
 
 - to create a new class with functions
 - or to add functions to existing classes
-- and add the `CustomProfiler` per new function.
-
-`CustomProfiler` is a class that is used to measure the execution time of a function, because we had terrible performance issues and memory leaks in the past.\
-Therefore it is important to measure the time of each function, so we can find the functions that are causing performance issues.\
-To add the CustomProfiler to a function, you can use the following example:
-
-```lua
-function EntityUtils.isEntityPolymorphed(entityId)
-  -- first line of the function should be the CustomProfiler
-  local cpc = CustomProfiler.start("EntityUtils.isEntityPolymorphed")
-  --                                ClassName.functionName
-  -- your code
-  --
-  -- last line of the function should be the CustomProfiler
-  CustomProfiler.stop("EntityUtils.isEntityPolymorphed", cpc)
-  -- Make sure to use the same name as in the start function and the same cpc variable
-  -- if there is a return value, then put CustomProfiler.stop() before the return
-  return false
-end
-```
 
 ## Making use of LuaRocks
+
+Only necessary if you want to run tests or install new LuaRocks dependencies.
 
 ### Setup
 

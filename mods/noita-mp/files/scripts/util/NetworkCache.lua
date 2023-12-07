@@ -17,7 +17,6 @@ local NetworkCache = {
 ---@param dataChecksum string
 ---@return
 function NetworkCache:set(clientCacheId, networkMessageId, event, status, ackedAt, sendAt, dataChecksum)
-    local cpc = self.customProfiler:start("NetworkCache:set")
 
     if self.utils:isEmpty(clientCacheId) or type(clientCacheId) ~= "number" then
         error(("clientCacheId must not be nil or empty '%s' or type is not number '%s'")
@@ -63,17 +62,14 @@ function NetworkCache:set(clientCacheId, networkMessageId, event, status, ackedA
         sendAt           = sendAt,
         dataChecksum     = dataChecksum
     }
-    self.customProfiler:stop("NetworkCache:set", cpc)
 end
 
 --- Gets the cache entry for the given clientCacheId, event and networkMessageId.
 ---@param clientCacheId number
 ---@param event string
 ---@param networkMessageId number
----@return
+---@return table|nil entry self.cache[clientCacheId][networkMessageId] or nil if not found
 function NetworkCache:get(clientCacheId, event, networkMessageId)
-    local cpc = self.customProfiler:start("NetworkCache:get")
-
     if self.utils:isEmpty(clientCacheId) or type(clientCacheId) ~= "number" then
         error(("clientCacheId must not be nil or empty '%s' or type is not number '%s'")
             :format(clientCacheId, type(clientCacheId)), 2)
@@ -100,29 +96,23 @@ function NetworkCache:get(clientCacheId, event, networkMessageId)
         self.logger:trace(self.logger.channels.cache,
             ("There is no cache entry for clientCacheId %s, event %s and networkMessageId %s")
             :format(clientCacheId, event, networkMessageId))
-        self.customProfiler:stop("NetworkCache:get", cpc)
         return nil
     end
     if not self.cache[clientCacheId][networkMessageId] then
-        self.customProfiler:stop("NetworkCache:get", cpc)
         return nil
     end
     if not self.cache[clientCacheId][networkMessageId].event == event then
-        self.customProfiler:stop("NetworkCache:get", cpc)
         return nil
     end
 
-    self.customProfiler:stop("NetworkCache:get", cpc)
     return self.cache[clientCacheId][networkMessageId]
 end
 
 --- Gets the checksum of a cache entry for the given clientCacheId and dataChecksum.
 ---@param clientCacheId number
 ---@param dataChecksum string
----@return
+---@return table|nil entry self.cache[clientCacheId][index] or nil if not found
 function NetworkCache:getChecksum(clientCacheId, dataChecksum)
-    local cpc = self.customProfiler:start("NetworkCache:getChecksum")
-
     if self.utils:isEmpty(clientCacheId) or type(clientCacheId) ~= "number" then
         error(("clientCacheId must not be nil or empty '%s' or type is not number '%s'")
             :format(clientCacheId, type(clientCacheId)), 2)
@@ -139,24 +129,20 @@ function NetworkCache:getChecksum(clientCacheId, dataChecksum)
         self.logger:trace(self.logger.channels.cache,
             ("There is no cache entry for clientCacheId %s and dataChecksum %s")
             :format(clientCacheId, dataChecksum))
-        self.customProfiler:stop("NetworkCache:getChecksum", cpc)
         return nil
     end
 
     local found, index = table.contains(self.cache[clientCacheId], dataChecksum)
     if found then
-        self.customProfiler:stop("NetworkCache:getChecksum", cpc)
         return self.cache[clientCacheId][index]
     end
 
     for k, v in pairs(self.cache[clientCacheId]) do
         if v.dataChecksum == dataChecksum then
-            self.customProfiler:stop("NetworkCache:getChecksum", cpc)
             return v
         end
     end
 
-    self.customProfiler:stop("NetworkCache:get", cpc)
     return nil
 end
 
@@ -170,7 +156,7 @@ function NetworkCache:size()
 end
 
 --- Returns the usage of the cache.
----@return
+---@return unknown
 function NetworkCache:usage()
     if not self.usingC then
         error("NetworkCache.usage requires the luaExtensions dll to be enabled", 2)
@@ -179,7 +165,7 @@ function NetworkCache:usage()
 end
 
 --- Returns all cache entries.
----@return
+---@return table self.cache
 function NetworkCache:getAll()
     if self.usingC then
         return NetworkCacheC.getAll()
@@ -189,7 +175,7 @@ end
 
 --- Clears the cache entry for the given clientCacheId.
 ---@param clientCacheId number
----@return
+---@return unknown
 function NetworkCache:clear(clientCacheId)
     if self.usingC then
         return NetworkCacheC.clear(clientCacheId)
@@ -218,8 +204,6 @@ function NetworkCache:new(customProfiler, logger, utils)
     ---@class NetworkCache
     local networkCache = setmetatable(self, NetworkCache)
 
-    local cpc = customProfiler:start("NetworkCache:new")
-
     --[[ Imports ]]
     --Initialize all imports to avoid recursive imports
 
@@ -241,7 +225,6 @@ function NetworkCache:new(customProfiler, logger, utils)
         networkCache.utils = utils or require("Utils"):new(nil)
     end
 
-    networkCache.customProfiler:stop("NetworkCache:new", cpc)
     return networkCache
 end
 

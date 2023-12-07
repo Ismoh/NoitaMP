@@ -694,8 +694,6 @@ function FileUtils:new(fileUtilsObject, customProfiler, logger, noitaMpSettings,
         customProfiler.fileUtils = fileUtilsObject
     end
 
-    local cpc = fileUtilsObject.customProfiler:start("FileUtils:new")
-
     if not fileUtilsObject.ffi then
         ---@type ffilib
         fileUtilsObject.ffi = require("ffi")
@@ -720,7 +718,6 @@ function FileUtils:new(fileUtilsObject, customProfiler, logger, noitaMpSettings,
         fileUtilsObject.watcher = require("watcher")
     end
 
-    fileUtilsObject.customProfiler:stop("FileUtils:new", cpc)
     return fileUtilsObject
 end
 

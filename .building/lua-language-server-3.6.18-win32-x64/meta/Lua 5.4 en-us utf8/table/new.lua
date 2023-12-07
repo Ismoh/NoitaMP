@@ -8,7 +8,7 @@
 ---```
 ---
 ---
----[查看文档](command:extension.lua.doc?["en-us/54/manual.html/pdf-table.new"])
+---[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-table.new)
 ---
 ---@param narray integer
 ---@param nhash integer

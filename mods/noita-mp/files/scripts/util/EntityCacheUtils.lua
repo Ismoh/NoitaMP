@@ -59,8 +59,6 @@ function EntityCacheUtils:new(entityCacheUtilsObject, customProfiler, entityCach
     ---@class EntityCacheUtils
     entityCacheUtilsObject = setmetatable(entityCacheUtilsObject or self, EntityCacheUtils)
 
-    local cpc = customProfiler:start("EntityCacheUtils:new")
-
     --[[ Imports ]]
     --Initialize all imports to avoid recursive imports
 
@@ -82,7 +80,6 @@ function EntityCacheUtils:new(entityCacheUtilsObject, customProfiler, entityCach
         --:new(nil, customProfiler)
     end
 
-    entityCacheUtilsObject.customProfiler:stop("EntityCacheUtils:new", cpc)
     return entityCacheUtilsObject
 end
 

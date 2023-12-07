@@ -33,7 +33,7 @@ local NetworkUtils = {
         --- acknowledgement is used to let the sender know if the message was acknowledged
         acknowledgement = {
             name              = "acknowledgement",
-            schema            = { "networkMessageId", "event", "status", "ackedAt" },
+            schema            = { "networkMessageId", "event", "status", "ackedAt", "nuid" },
             ack               = "ack",
             sent              = "sent",
             resendIdentifiers = { "networkMessageId", "status" },
@@ -126,16 +126,11 @@ local NetworkUtils = {
 ---@param resendIdentifier string
 ---@return integer index
 local getIndexFromSchema = function(self, data, schema, resendIdentifier)
-    local cpc = self.customProfiler:start("NetworkUtils.getIndexFromSchema")
-
     for i, value in ipairs(data) do
         if schema[i] == resendIdentifier then
-            self.customProfiler:stop("NetworkUtils.getIndexFromSchema", cpc)
             return i
         end
     end
-
-    self.customProfiler:stop("NetworkUtils.getIndexFromSchema", cpc)
     return -1
 end
 
@@ -156,7 +151,6 @@ end
 ---@param value any
 ---@return unknown
 function NetworkUtils:serialize(value)
-    local cpc = self.customProfiler:start("NetworkUtils:serialize")
     self.logger:trace(self.logger.channels.network, ("Serializing value: %s"):format(value))
 
     if not self.messagePack then
@@ -183,7 +177,6 @@ function NetworkUtils:serialize(value)
     self.logger:debug(self.logger.channels.network, ("Serialized and compressed value: %s"):format(compressed))
 
     zstd:free()
-    self.customProfiler:stop("NetworkUtils:serialize", cpc)
     return compressed
 end
 
@@ -191,7 +184,6 @@ end
 ---@param value any
 ---@return unknown
 function NetworkUtils:deserialize(value)
-    local cpc = self.customProfiler:start("NetworkUtils:deserialize")
     self.logger:debug(self.logger.channels.network, ("Serialized and compressed value: %s"):format(value))
 
     if not self.messagePack then
@@ -215,16 +207,13 @@ function NetworkUtils:deserialize(value)
     local deserialized = self.messagePack.unpack(decompressed)
     self.logger:debug(self.logger.channels.network, ("Deserialized and uncompressed value: %s"):format(deserialized))
     zstd:free()
-    self.customProfiler:stop("NetworkUtils:deserialize", cpc)
     return deserialized
 end
 
 --- Returns the network message id counter and increases it by one
 ---@return integer networkMessageIdCounter
 function NetworkUtils:getNextNetworkMessageId()
-    local cpc                    = self.customProfiler:start("NetworkUtils.getNextNetworkMessageId")
     self.networkMessageIdCounter = self.networkMessageIdCounter + 1
-    self.customProfiler:stop("NetworkUtils.getNextNetworkMessageId", cpc)
     return self.networkMessageIdCounter
 end
 
@@ -234,7 +223,6 @@ end
 ---@param data table
 ---@return boolean
 function NetworkUtils:alreadySent(peer, event, data)
-    local cpc = self.customProfiler:start("NetworkUtils.alreadySent")
     if not peer then
         error("'peer' must not be nil! When Server, then peer or Server.clients[i]. When Client, then self.", 2)
     end
@@ -264,7 +252,6 @@ function NetworkUtils:alreadySent(peer, event, data)
     -- [[ if the event isn't store in the cache, it wasn't already send ]] --
     if not self.events[event].isCacheable then
         self.logger:trace(self.logger.channels.testing, ("event %s is not cacheable!"):format(event))
-        self.customProfiler:stop("NetworkUtils.alreadySent", cpc)
         return false
     end
 
@@ -277,7 +264,6 @@ function NetworkUtils:alreadySent(peer, event, data)
         if message.status == self.events.acknowledgement.ack then
             -- print(("Got message %s by cache with clientCacheId '%s', event '%s' and networkMessageId '%s'")
             --     :format(message, clientCacheId, event, networkMessageId))
-            self.customProfiler:stop("NetworkUtils.alreadySent", cpc)
             return true
         end
     else
@@ -302,7 +288,6 @@ function NetworkUtils:alreadySent(peer, event, data)
             ("NetworkUtils.alreadySent: NetworkCacheUtils.getByChecksum(peer.guid %s, event %s, data %s) returned matchingData = nil")
             :format(peer.guid, event, data))
     end
-    self.customProfiler:stop("NetworkUtils.alreadySent", cpc)
     return false
 end
 
@@ -310,18 +295,14 @@ local prevTimeInMs = 0
 --- Checks if the current time is a tick.
 ---@return boolean
 function NetworkUtils:isTick()
-    local cpc         = self.customProfiler:start("NetworkUtils.isTick")
     local nowTimeInMs = GameGetRealWorldTimeSinceStarted() * 1000
     local elapsedTime = nowTimeInMs - prevTimeInMs
-    local cpc2        = self.customProfiler:start("ModSettingGet")
     local oneTickInMs = 1000 / tonumber(ModSettingGet("noita-mp.tick_rate"))
-    self.customProfiler:stop("ModSettingGet", cpc2)
+
     if elapsedTime >= oneTickInMs then
         prevTimeInMs = nowTimeInMs
-        self.customProfiler:stop("NetworkUtils.isTick", cpc)
         return true
     end
-    self.customProfiler:stop("NetworkUtils.isTick", cpc)
     return false
 end
 
@@ -361,8 +342,6 @@ function NetworkUtils:new(customProfiler, guidUtils, logger, networkCacheUtils, 
     ---@class NetworkUtils
     local networkUtils = setmetatable(self, NetworkUtils)
 
-    local cpc = customProfiler:start("NetworkUtils:new")
-
     --[[ Imports ]]
     --Initialize all imports to avoid recursive imports
 
@@ -388,7 +367,6 @@ function NetworkUtils:new(customProfiler, guidUtils, logger, networkCacheUtils, 
         networkUtils.zstandard = require("zstd")
     end
 
-    networkUtils.customProfiler:stop("NetworkUtils:new", cpc)
     return networkUtils
 end
 

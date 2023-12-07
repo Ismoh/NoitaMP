@@ -3,7 +3,7 @@
 ---
 ---
 ---
----[查看文档](command:extension.lua.doc?["en-us/54/manual.html/pdf-debug"])
+---[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-debug)
 ---
 ---@class debuglib
 debug = {}
@@ -27,17 +27,17 @@ debug = {}
 ---@field activelines     table
 
 ---
----进入一个用户交互模式，运行用户输入的每个字符串。
+---Enters an interactive mode with the user, running each string that the user enters.
 ---
----[查看文档](command:extension.lua.doc?["en-us/54/manual.html/pdf-debug.debug"])
+---[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-debug.debug)
 ---
 function debug.debug() end
 
 ---@version 5.1
 ---
----返回对象 `o` 的环境。
+---Returns the environment of object `o` .
 ---
----[查看文档](command:extension.lua.doc?["en-us/54/manual.html/pdf-debug.getfenv"])
+---[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-debug.getfenv)
 ---
 ---@param o any
 ---@return table
@@ -45,9 +45,9 @@ function debug.debug() end
 function debug.getfenv(o) end
 
 ---
----返回三个表示线程钩子设置的值： 当前钩子函数，当前钩子掩码，当前钩子计数 。
+---Returns the current hook settings of the thread.
 ---
----[查看文档](command:extension.lua.doc?["en-us/54/manual.html/pdf-debug.gethook"])
+---[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-debug.gethook)
 ---
 ---@param co? thread
 ---@return function hook
@@ -57,19 +57,19 @@ function debug.getfenv(o) end
 function debug.gethook(co) end
 
 ---@alias infowhat string
----|+"n"     # `name` 和 `namewhat`
----|+"S"     # `source`，`short_src`，`linedefined`，`lalinedefined`，和 `what`
+---|+"n"     # `name` and `namewhat`
+---|+"S"     # `source`, `short_src`, `linedefined`, `lastlinedefined`, and `what`
 ---|+"l"     # `currentline`
 ---|+"t"     # `istailcall`
----|+"u" # `nups`、`nparams` 和 `isvararg`
+---|+"u" # `nups`, `nparams`, and `isvararg`
 ---|+"f"     # `func`
----|+"r"     # `ftransfer` 和 `ntransfer`
+---|+"r"     # `ftransfer` and `ntransfer`
 ---|+"L"     # `activelines`
 
 ---
----返回关于一个函数信息的表。
+---Returns a table with information about a function.
 ---
----[查看文档](command:extension.lua.doc?["en-us/54/manual.html/pdf-debug.getinfo"])
+---[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-debug.getinfo)
 ---
 ---@overload fun(f: integer|function, what?: infowhat):debuginfo
 ---@param thread thread
@@ -80,9 +80,9 @@ function debug.gethook(co) end
 function debug.getinfo(thread, f, what) end
 
 ---
----返回在栈的 `f` 层处函数的索引为 `index` 的局部变量的名字和值。
+---Returns the name and the value of the local variable with index `local` of the function at level `f` of the stack.
 ---
----[查看文档](command:extension.lua.doc?["en-us/54/manual.html/pdf-debug.getlocal"])
+---[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-debug.getlocal)
 ---
 ---@overload fun(f: integer|async fun(...):..., index: integer):string, any
 ---@param thread  thread
@@ -94,9 +94,9 @@ function debug.getinfo(thread, f, what) end
 function debug.getlocal(thread, f, index) end
 
 ---
----返回给定 `value` 的元表。
+---Returns the metatable of the given value.
 ---
----[查看文档](command:extension.lua.doc?["en-us/54/manual.html/pdf-debug.getmetatable"])
+---[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-debug.getmetatable)
 ---
 ---@param object any
 ---@return table metatable
@@ -104,18 +104,18 @@ function debug.getlocal(thread, f, index) end
 function debug.getmetatable(object) end
 
 ---
----返回注册表。
+---Returns the registry table.
 ---
----[查看文档](command:extension.lua.doc?["en-us/54/manual.html/pdf-debug.getregistry"])
+---[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-debug.getregistry)
 ---
 ---@return table
 ---@nodiscard
 function debug.getregistry() end
 
 ---
----返回函数 `f` 的第 `up` 个上值的名字和值。
+---Returns the name and the value of the upvalue with index `up` of the function.
 ---
----[查看文档](command:extension.lua.doc?["en-us/54/manual.html/pdf-debug.getupvalue"])
+---[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-debug.getupvalue)
 ---
 ---@param f  async fun(...):...
 ---@param up integer
@@ -125,9 +125,12 @@ function debug.getregistry() end
 function debug.getupvalue(f, up) end
 
 ---
----返回关联在 `u` 上的第 `n` 个 `Lua` 值，以及一个布尔，`false`表示值不存在。
+---Returns the `n`-th user value associated
+---to the userdata `u` plus a boolean,
+---`false` if the userdata does not have that value.
 ---
----[查看文档](command:extension.lua.doc?["en-us/54/manual.html/pdf-debug.getuservalue"])
+---
+---[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-debug.getuservalue)
 ---
 ---@param u  userdata
 ---@param n? integer
@@ -137,14 +140,14 @@ function debug.getupvalue(f, up) end
 function debug.getuservalue(u, n) end
 
 ---
----### **已在 `Lua 5.4.2` 中废弃**
+---### **Deprecated in `Lua 5.4.2`**
 ---
----设置新的C栈限制。该限制控制Lua中嵌套调用的深度，以避免堆栈溢出。
+---Sets a new limit for the C stack. This limit controls how deeply nested calls can go in Lua, with the intent of avoiding a stack overflow.
 ---
----如果设置成功，该函数返回之前的限制；否则返回`false`。
+---In case of success, this function returns the old limit. In case of error, it returns `false`.
 ---
 ---
----[查看文档](command:extension.lua.doc?["en-us/54/manual.html/pdf-debug.setcstacklimit"])
+---[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-debug.setcstacklimit)
 ---
 ---@deprecated
 ---@param limit integer
@@ -152,9 +155,9 @@ function debug.getuservalue(u, n) end
 function debug.setcstacklimit(limit) end
 
 ---
----将 `table` 设置为 `object` 的环境。
+---Sets the environment of the given `object` to the given `table` .
 ---
----[查看文档](command:extension.lua.doc?["en-us/54/manual.html/pdf-debug.setfenv"])
+---[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-debug.setfenv)
 ---
 ---@version 5.1
 ---@generic T
@@ -164,14 +167,14 @@ function debug.setcstacklimit(limit) end
 function debug.setfenv(object, env) end
 
 ---@alias hookmask string
----|+"c" # 每当 Lua 调用一个函数时，调用钩子。
----|+"r" # 每当 Lua 从一个函数内返回时，调用钩子。
----|+"l" # 每当 Lua 进入新的一行时，调用钩子。
+---|+"c" # Calls hook when Lua calls a function.
+---|+"r" # Calls hook when Lua returns from a function.
+---|+"l" # Calls hook when Lua enters a new line of code.
 
 ---
----将一个函数作为钩子函数设入。
+---Sets the given function as a hook.
 ---
----[查看文档](command:extension.lua.doc?["en-us/54/manual.html/pdf-debug.sethook"])
+---[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-debug.sethook)
 ---
 ---@overload fun(hook: (async fun(...):...), mask: hookmask, count?: integer)
 ---@overload fun(thread: thread):...
@@ -183,9 +186,9 @@ function debug.setfenv(object, env) end
 function debug.sethook(thread, hook, mask, count) end
 
 ---
----将 `value` 赋给 栈上第 `level` 层函数的第 `local` 个局部变量。
+---Assigns the `value` to the local variable with index `local` of the function at `level` of the stack.
 ---
----[查看文档](command:extension.lua.doc?["en-us/54/manual.html/pdf-debug.setlocal"])
+---[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-debug.setlocal)
 ---
 ---@overload fun(level: integer, index: integer, value: any):string
 ---@param thread thread
@@ -196,9 +199,9 @@ function debug.sethook(thread, hook, mask, count) end
 function debug.setlocal(thread, level, index, value) end
 
 ---
----将 `value` 的元表设为 `table` （可以是 `nil`）。
+---Sets the metatable for the given value to the given table (which can be `nil`).
 ---
----[查看文档](command:extension.lua.doc?["en-us/54/manual.html/pdf-debug.setmetatable"])
+---[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-debug.setmetatable)
 ---
 ---@generic T
 ---@param value T
@@ -207,9 +210,9 @@ function debug.setlocal(thread, level, index, value) end
 function debug.setmetatable(value, meta) end
 
 ---
----将 `value` 设为函数 `f` 的第 `up` 个上值。
+---Assigns the `value` to the upvalue with index `up` of the function.
 ---
----[查看文档](command:extension.lua.doc?["en-us/54/manual.html/pdf-debug.setupvalue"])
+---[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-debug.setupvalue)
 ---
 ---@param f     async fun(...):...
 ---@param up    integer
@@ -218,9 +221,12 @@ function debug.setmetatable(value, meta) end
 function debug.setupvalue(f, up, value) end
 
 ---
----将 `value` 设为 `udata` 的第 `n` 个关联值。
+---Sets the given `value` as
+---the `n`-th user value associated to the given `udata`.
+---`udata` must be a full userdata.
 ---
----[查看文档](command:extension.lua.doc?["en-us/54/manual.html/pdf-debug.setuservalue"])
+---
+---[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-debug.setuservalue)
 ---
 ---@param udata userdata
 ---@param value any
@@ -229,9 +235,9 @@ function debug.setupvalue(f, up, value) end
 function debug.setuservalue(udata, value, n) end
 
 ---
----返回调用栈的栈回溯信息。 字符串可选项 `message` 被添加在栈回溯信息的开头。
+---Returns a string with a traceback of the call stack. The optional message string is appended at the beginning of the traceback.
 ---
----[查看文档](command:extension.lua.doc?["en-us/54/manual.html/pdf-debug.traceback"])
+---[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-debug.traceback)
 ---
 ---@overload fun(message?: any, level?: integer): string
 ---@param thread   thread
@@ -243,9 +249,9 @@ function debug.traceback(thread, message, level) end
 
 ---@version >5.2, JIT
 ---
----返回指定函数第 `n` 个上值的唯一标识符（一个轻量用户数据）。
+---Returns a unique identifier (as a light userdata) for the upvalue numbered `n` from the given function.
 ---
----[查看文档](command:extension.lua.doc?["en-us/54/manual.html/pdf-debug.upvalueid"])
+---[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-debug.upvalueid)
 ---
 ---@param f async fun(...):...
 ---@param n integer
@@ -255,9 +261,9 @@ function debug.upvalueid(f, n) end
 
 ---@version >5.2, JIT
 ---
----让 Lua 闭包 `f1` 的第 `n1` 个上值 引用 `Lua` 闭包 `f2` 的第 `n2` 个上值。
+---Make the `n1`-th upvalue of the Lua closure `f1` refer to the `n2`-th upvalue of the Lua closure `f2`.
 ---
----[查看文档](command:extension.lua.doc?["en-us/54/manual.html/pdf-debug.upvaluejoin"])
+---[View documents](http://www.lua.org/manual/5.4/manual.html#pdf-debug.upvaluejoin)
 ---
 ---@param f1 async fun(...):...
 ---@param n1 integer

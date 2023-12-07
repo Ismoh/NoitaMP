@@ -206,14 +206,14 @@ function CustomProfiler:new(customProfiler, fileUtils, noitaMpSettings, plotly, 
         noitaMpSettings.json = require("json")
     end
 
-    local cpc = customProfiler:start("CustomProfiler:new")
+    --local cpc = customProfiler:start("CustomProfiler:new")
 
     --[[ Attributes ]]
 
     customProfiler.reportDirectory = ("%s%sNoitaMP-Reports%s%s")
         :format(customProfiler.fileUtils:GetDesktopDirectory(), pathSeparator, pathSeparator, os.date("%Y-%m-%d_%H-%M-%S", os.time()))
 
-    customProfiler:stop("CustomProfiler:new", cpc)
+   --customProfiler:stop("CustomProfiler:new", cpc)
     return customProfiler
 end
 

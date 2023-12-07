@@ -12,9 +12,7 @@ local NoitaComponentUtils = {
 ---@param velocity Vec2?
 ---@param health number
 function NoitaComponentUtils:setEntityData(entityId, x, y, rotation, velocity, health)
-    local cpc = self.customProfiler:start("NoitaComponentUtils.setEntityData")
     if not EntityGetIsAlive(entityId) then
-        self.customProfiler:stop("NoitaComponentUtils.setEntityData", cpc)
         return
     end
 
@@ -37,14 +35,12 @@ function NoitaComponentUtils:setEntityData(entityId, x, y, rotation, velocity, h
             "have any VelocityComponent."):format(entityId))
         --EntityAddComponent2(entityId, "VelocityComponent", {})
     end
-    self.customProfiler:stop("NoitaComponentUtils.setEntityData", cpc)
 end
 
 --- Fetches data like position, rotation, velocity, health and filename
 --- @param entityId number
 --- @return string ownername, string ownerguid, number nuid, string filename, Health health, number rotation, Vec2 velocity, number x, number y
 function NoitaComponentUtils:getEntityData(entityId)
-    local cpc                                    = self.customProfiler:start("NoitaComponentUtils.getEntityData")
     local compOwnerName, compOwnerGuid, compNuid = self.networkVscUtils:getAllVscValuesByEntityId(entityId)
     local hpCompId                               = EntityGetFirstComponentIncludingDisabled(entityId,
         "DamageModelComponent")
@@ -65,15 +61,12 @@ function NoitaComponentUtils:getEntityData(entityId)
         velocity                   = { x = math.round(velocityX, 0.1), y = math.round(velocityY, 0.1) }
     end
     local filename = EntityGetFilename(entityId)
-    self.customProfiler:stop("NoitaComponentUtils.getEntityData", cpc)
     return compOwnerName, compOwnerGuid, compNuid, filename, health, math.round(
         rotation, 0.1), velocity, math.round(x, 0.1), math.round(y, 0.1)
 end
 
 function NoitaComponentUtils:getEntityDataByNuid(nuid)
-    local cpc             = self.customProfiler:start("NoitaComponentUtils.getEntityDataByNuid")
     local nNuid, entityId = self.globalsUtils:getNuidEntityPair(nuid)
-    self.customProfiler:stop("NoitaComponentUtils.getEntityDataByNuid", cpc)
     return self:getEntityData(entityId)
 end
 
@@ -81,9 +74,7 @@ end
 ---@param entityId number
 ---@return number|nil compId
 function NoitaComponentUtils:addOrGetNetworkSpriteStatusIndicator(entityId)
-    local cpc = self.customProfiler:start("NoitaComponentUtils.addNetworkSpriteStatusIndicator")
     if not EntityGetIsAlive(entityId) then
-        self.customProfiler:stop("NoitaComponentUtils.addNetworkSpriteStatusIndicator", cpc)
         return nil
     end
     local compId, compOwnerName = self.networkVscUtils:checkIfSpecificVscExists(
@@ -91,7 +82,6 @@ function NoitaComponentUtils:addOrGetNetworkSpriteStatusIndicator(entityId)
         "network_indicator.png", "image_file")
     if compId then
         self.logger:debug(self.logger.channels.vsc, ("Entity(%s) already has a network indicator."):format(entityId))
-        self.customProfiler:stop("NoitaComponentUtils.addNetworkSpriteStatusIndicator", cpc)
         return compId
     else
         compId = EntityAddComponent2(entityId, "SpriteComponent", {
@@ -109,14 +99,11 @@ function NoitaComponentUtils:addOrGetNetworkSpriteStatusIndicator(entityId)
         --ComponentAddTag(compId, "enabled_in_hand")
         --ComponentAddTag(compId, "enabled_in_world")
         self.logger:debug(self.logger.channels.vsc,
-            ("%s(%s) added with noita componentId = %s to entityId = %s!")
-            :format("SpriteComponent", "network_indicator.png", compId, entityId))
-        self.customProfiler:stop("NoitaComponentUtils.addNetworkSpriteStatusIndicator", cpc)
+            ("%s(%s) added with noita componentId = %s to entityId = %s!"):format("SpriteComponent", "network_indicator.png", compId, entityId))
         return compId
     end
 
     error("Unable to add network indicator!", 2)
-    self.customProfiler:stop("NoitaComponentUtils.addNetworkSpriteStatusIndicator", cpc)
     return nil
 end
 
@@ -136,15 +123,12 @@ end
 ---@param initSerializedB64Str string
 ---@return boolean if success
 function NoitaComponentUtils:setInitialSerializedEntityString(entityId, initSerializedB64Str)
-    local cpc = self.customProfiler:start("NoitaComponentUtils.setInitialSerializedEntityString")
-
     entityId = EntityGetRootEntity(entityId)
     if not EntityGetIsAlive(entityId) then
-        self.customProfiler:stop("NoitaComponentUtils.setInitialSerializedEntityString", cpc)
-        error("Unable to set initial serialized entity string, because entity is not alive!", 2)
+        self.logger:warn(self.logger.channels.entitySerialisation, "Unable to set initial serialized entity string, because entity is not alive!")
+        return false
     end
     if self.utils:isEmpty(initSerializedB64Str) then
-        self.customProfiler:stop("NoitaComponentUtils.setInitialSerializedEntityString", cpc)
         error("Unable to set initial serialized entity string, because it is empty!", 2)
     end
     local compId = EntityAddComponent2(entityId, self.networkVscUtils.variableStorageComponentName,
@@ -152,7 +136,6 @@ function NoitaComponentUtils:setInitialSerializedEntityString(entityId, initSeri
             name         = "noita-mp.nc_initialSerializedEntityString",
             value_string = initSerializedB64Str
         })
-    self.customProfiler:stop("NoitaComponentUtils.setInitialSerializedEntityString", cpc)
 
     return not self.utils:isEmpty(compId)
 end
@@ -166,12 +149,11 @@ end
 ---@param entityId number
 ---@return string|nil initSerializedB64Str
 function NoitaComponentUtils:getInitialSerializedEntityString(entityId)
-    local cpc = self.customProfiler:start("NoitaComponentUtils.getInitialSerializedEntityString")
-
     local rootEntityId = EntityGetRootEntity(entityId)
     if not EntityGetIsAlive(rootEntityId) then
-        self.customProfiler:stop("NoitaComponentUtils.getInitialSerializedEntityString", cpc)
-        error(("Unable to get initial serialized entity (%s) string, because entity is not alive!"):format(rootEntityId), 2)
+        self.logger:warn(self.logger.channels.entitySerialisation,
+            ("Unable to get initial serialized entity (%s) string, because entity is not alive!"):format(rootEntityId))
+        return nil
     end
 
     local componentIds = EntityGetComponentIncludingDisabled(rootEntityId, self.networkVscUtils.variableStorageComponentName) or {}
@@ -188,12 +170,10 @@ function NoitaComponentUtils:getInitialSerializedEntityString(entityId)
     end
 
     if self.utils:isEmpty(serializedString) then
-        self.customProfiler:stop("NoitaComponentUtils.getInitialSerializedEntityString", cpc)
         error(("Unable to get initial serialized entity string, because it is empty! Root %s Child %s"):format(rootEntityId, entityId), 2)
         return nil
     end
 
-    self.customProfiler:stop("NoitaComponentUtils.getInitialSerializedEntityString", cpc)
     return serializedString
 end
 
@@ -209,8 +189,6 @@ end
 function NoitaComponentUtils:new(noitaComponentUtilsObject, customProfiler, globalsUtils, logger, networkVscUtils, utils, noitaPatcherUtils)
     ---@class NoitaComponentUtils
     noitaComponentUtilsObject = setmetatable(noitaComponentUtilsObject or self, NoitaComponentUtils)
-
-    local cpc                 = customProfiler:start("NoitaComponentUtils:new")
 
     --[[ Imports ]]
     --Initialize all imports to avoid recursive imports

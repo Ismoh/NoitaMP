@@ -8,7 +8,6 @@ local EntityCache = {
 
 function EntityCache:set(entityId, nuid, ownerGuid, ownerName, filepath, x, y, rotation, velX, velY, currentHealth,
                          maxHealth, fullySerialised, serialisedRootEntity)
-    local cpc = self.customProfiler:start("EntityCache.set")
     if self.usingC then
         return EntityCacheC.set(entityId, nuid, ownerGuid, ownerName, filepath, x, y, rotation, velX, velY, currentHealth,
             maxHealth)
@@ -36,7 +35,6 @@ function EntityCache:set(entityId, nuid, ownerGuid, ownerName, filepath, x, y, r
             self.cache[entityId].serialisedRootEntity = serialisedRootEntity
         end
     end
-    self.customProfiler:stop("EntityCache.set", cpc)
 end
 
 function EntityCache:contains(entityId)
@@ -47,7 +45,6 @@ function EntityCache:contains(entityId)
 end
 
 function EntityCache:get(entityId)
-    local cpc = self.customProfiler:start("EntityCache.get")
     if self.usingC then
         return EntityCacheC.get(entityId)
     end
@@ -56,15 +53,12 @@ function EntityCache:get(entityId)
         return nil
     end
     if self.cache[entityId] then
-        self.customProfiler:stop("EntityCache.get", cpc)
         return self.cache[entityId]
     end
-    self.customProfiler:stop("EntityCache.get", cpc)
     return nil
 end
 
 function EntityCache:getNuid(nuid)
-    local cpc = self.customProfiler:start("EntityCache.getNuid")
     if self.usingC then
         return EntityCacheC.getNuid(nuid)
     end
@@ -72,16 +66,13 @@ function EntityCache:getNuid(nuid)
 end
 
 function EntityCache:delete(entityId)
-    local cpc = self.customProfiler:start("EntityCache.delete")
     if self.usingC then
         return EntityCacheC.delete(entityId)
     end
     self.cache[entityId] = nil
-    self.customProfiler:stop("EntityCache.delete", cpc)
 end
 
 function EntityCache:deleteNuid(nuid)
-    local cpc = self.customProfiler:start("EntityCache:deleteNuid")
     if self.usingC then
         return EntityCacheC.deleteNuid(nuid)
     end
@@ -90,13 +81,10 @@ function EntityCache:deleteNuid(nuid)
             self.cache[entry.entityId] = nil
         end
     end
-    self.customProfiler:stop("EntityCache:deleteNuid", cpc)
 end
 
 function EntityCache:size()
-    local cpc = self.customProfiler:start("EntityCache.size")
     if self.usingC then
-        self.customProfiler:stop("EntityCache.size", cpc)
         return EntityCacheC.size()
     end
     local size = 0
@@ -107,7 +95,6 @@ function EntityCache:size()
             self.entityUtils:onEntityRemoved(entry.entityId, entry.nuid)
         end
     end
-    self.customProfiler:stop("EntityCache.size", cpc)
     return size
 end
 
@@ -127,8 +114,6 @@ end
 function EntityCache:new(entityCacheObject, customProfiler, entityUtils, utils)
     ---@class EntityCache
     entityCacheObject = setmetatable(entityCacheObject or self, EntityCache)
-
-    local cpc = customProfiler:start("EntityUtils:new")
 
     --[[ Imports ]]
     --Initialize all imports to avoid recursive imports
@@ -150,7 +135,6 @@ function EntityCache:new(entityCacheObject, customProfiler, entityUtils, utils)
             require("Utils") --:new(nil, customProfiler)
     end
 
-    entityCacheObject.customProfiler:stop("EntityUtils:new", cpc)
     return entityCacheObject
 end
 

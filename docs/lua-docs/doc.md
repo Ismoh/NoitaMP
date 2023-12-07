@@ -1,20 +1,20 @@
-# Client
+## Client
 
-## __index
+### __index
 
 
 ```lua
 Client
 ```
 
-## acknowledgeMaxSize
+### acknowledgeMaxSize
 
 
 ```lua
 integer
 ```
 
-## amIClient
+### amIClient
 
 
 ```lua
@@ -25,9 +25,9 @@ function Client.amIClient(self: Client)
 Checks if the current local user is a client.
 
 @*return* `true` — if client, false if not
-See: [Server.amIServer](../../mods/noita-mp/files/scripts/net/Server.lua#L911#9)
+See: [Server.amIServer](https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/net/Server.lua#L852#9)
 
-## customProfiler
+### customProfiler
 
 
 ```lua
@@ -36,28 +36,28 @@ CustomProfiler
 
 Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 
-## entityCache
+### entityCache
 
 
 ```lua
 EntityCache
 ```
 
-## entityUtils
+### entityUtils
 
 
 ```lua
 EntityUtils
 ```
 
-## fileUtils
+### fileUtils
 
 
 ```lua
 FileUtils
 ```
 
-## getAckCacheSize
+### getAckCacheSize
 
 
 ```lua
@@ -67,28 +67,28 @@ function Client.getAckCacheSize(self: Client)
 
 Mainly for profiling. Returns then network cache, aka acknowledge.
 
-## globalUtils
+### globalUtils
 
 
 ```lua
 GlobalsUtils
 ```
 
-## globalsUtils
+### globalsUtils
 
 
 ```lua
 GlobalsUtils
 ```
 
-## guid
+### guid
 
 
 ```lua
 nil
 ```
 
-## guidUtils
+### guidUtils
 
 
 ```lua
@@ -97,28 +97,28 @@ GuidUtils
 
 GuidUtils is just for generating and validating GUIDs. Guids are used for identifying clients and servers.
 
-## health
+### health
 
 
 ```lua
 table
 ```
 
-## iAm
+### iAm
 
 
 ```lua
 string
 ```
 
-## logger
+### logger
 
 
 ```lua
 Logger
 ```
 
-## minaUtils
+### minaUtils
 
 
 ```lua
@@ -127,42 +127,42 @@ MinaUtils
 
 Util class for fetching information about local and remote minas.
 
-## missingMods
+### missingMods
 
 
 ```lua
 nil
 ```
 
-## name
+### name
 
 
 ```lua
 nil
 ```
 
-## networkCache
+### networkCache
 
 
 ```lua
 NetworkCache
 ```
 
-## networkCacheUtils
+### networkCacheUtils
 
 
 ```lua
 NetworkCacheUtils
 ```
 
-## networkUtils
+### networkUtils
 
 
 ```lua
 NetworkUtils
 ```
 
-## networkVscUtils
+### networkVscUtils
 
 
 ```lua
@@ -171,7 +171,7 @@ NetworkVscUtils
 
 NetworkVscUtils for getting and setting values in VariableStorageComponents of Noita-API
 
-## new
+### new
 
 
 ```lua
@@ -185,7 +185,7 @@ Client constructor. Inherits from SockClient sock.Client.
 
 @*param* `np` — required
 
-## noitaComponentUtils
+### noitaComponentUtils
 
 
 ```lua
@@ -194,7 +194,7 @@ NoitaComponentUtils
 
 Class for using Noita components.
 
-## noitaMpSettings
+### noitaMpSettings
 
 
 ```lua
@@ -203,28 +203,28 @@ NoitaMpSettings
 
  NoitaMpSettings: Replacement for Noita ModSettings.
 
-## noitaPatcherUtils
+### noitaPatcherUtils
 
 
 ```lua
 NoitaPatcherUtils
 ```
 
-## nuid
+### nuid
 
 
 ```lua
 nil
 ```
 
-## otherClients
+### otherClients
 
 
 ```lua
 table
 ```
 
-## preConnect
+### preConnect
 
 
 ```lua
@@ -240,7 +240,7 @@ Connects to a server on ip and port. Both can be nil, then ModSettings will be u
 @*param* `code` — connection code 0 = connecting first time, 1 = connected second time with loaded seed
 See: ~sock.connect~
 
-## preDisconnect
+### preDisconnect
 
 
 ```lua
@@ -250,7 +250,7 @@ function Client.preDisconnect(self: Client)
  Disconnects from the server.
 See: ~SockClient.disconnect~
 
-## preSend
+### preSend
 
 
 ```lua
@@ -267,7 +267,7 @@ Sends a message to the server. Inherit from sock.send.
 @*return* `true` — if message was sent, false if not
 See: ~sock.send~
 
-## preUpdate
+### preUpdate
 
 
 ```lua
@@ -279,14 +279,14 @@ Updates the Client by checking for network events and handling them. Inherit fro
 @*param* `startFrameTime` — required
 See: ~SockClient.update~
 
-## requiredMods
+### requiredMods
 
 
 ```lua
 nil
 ```
 
-## sendDeadNuids
+### sendDeadNuids
 
 
 ```lua
@@ -300,7 +300,7 @@ Sends dead nuids to the server.
 
 @*return* `true` — if message was sent, false if not
 
-## sendEntityData
+### sendEntityData
 
 
 ```lua
@@ -311,7 +311,7 @@ Sends entity data to the server.
 
 @*param* `entityId` — required
 
-## sendLostNuid
+### sendLostNuid
 
 
 ```lua
@@ -325,7 +325,7 @@ Sends a message that the client has a nuid, but no linked entity.
 
 @*return* `true` — if message was sent, false if not
 
-## sendMinaInformation
+### sendMinaInformation
 
 
 ```lua
@@ -335,7 +335,7 @@ function Client.sendMinaInformation(self: Client)
 
 Sends mina information to the server.
 
-## sendNeedNuid
+### sendNeedNuid
 
 
 ```lua
@@ -344,35 +344,35 @@ function Client.sendNeedNuid(self: Client, ownerName: string, ownerGuid: string,
 
 Sends a message to the server that the client needs a nuid.
 
-## server
+### server
 
 
 ```lua
 Server
 ```
 
-## serverInfo
+### serverInfo
 
 
 ```lua
 table
 ```
 
-## syncedMods
+### syncedMods
 
 
 ```lua
 boolean
 ```
 
-## transform
+### transform
 
 
 ```lua
 table
 ```
 
-## utils
+### utils
 
 
 ```lua
@@ -381,7 +381,7 @@ Utils
 
 Utils class for lazy developers.
 
-## zipTable
+### zipTable
 
 
 ```lua
@@ -391,25 +391,25 @@ function
 
 ---
 
-# CustomProfiler
+## CustomProfiler
 
 Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 
-## ffi
+### ffi
 
 
 ```lua
 unknown
 ```
 
-## fileUtils
+### fileUtils
 
 
 ```lua
 FileUtils
 ```
 
-## getSize
+### getSize
 
 
 ```lua
@@ -419,14 +419,14 @@ function CustomProfiler.getSize(self: CustomProfiler)
 
 Returns the size of the report cache.
 
-## init
+### init
 
 
 ```lua
 function CustomProfiler.init(self: CustomProfiler)
 ```
 
-## new
+### new
 
 
 ```lua
@@ -450,7 +450,7 @@ CustomProfiler constructor.
 
 @*param* `winapi` — can be nil
 
-## noitaMpSettings
+### noitaMpSettings
 
 
 ```lua
@@ -459,7 +459,7 @@ NoitaMpSettings
 
  NoitaMpSettings: Replacement for Noita ModSettings.
 
-## plotly
+### plotly
 
 
 ```lua
@@ -468,7 +468,7 @@ plotly
 
 :new()
 
-## report
+### report
 
 
 ```lua
@@ -477,14 +477,14 @@ function CustomProfiler.report(self: CustomProfiler)
 
 Creates a report of all the functions that were profiled into profiler_2022-11-24_20-23-00.json
 
-## socket
+### socket
 
 
 ```lua
 socket
 ```
 
-## start
+### start
 
 
 ```lua
@@ -497,9 +497,9 @@ Starts the profiler. This has to be called before the function (or first line of
 @*param* `functionName` — The name of the function that you want to measure. This has to be the same as the one used in CustomProfiler:stop(functionName, customProfilerCounter)
 
 @*return* `returnCounter` — The counter that is used to determine the order of the function calls. This has to be passed to CustomProfiler:stop(functionName, customProfilerCounter)
-See: [CustomProfiler](../../mods/noita-mp/files/scripts/util/CustomProfiler.lua#L2#10) stop(functionName, customProfilerCounter)
+See: [CustomProfiler](https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/util/CustomProfiler.lua#L2#10) stop(functionName, customProfilerCounter)
 
-## startExternalProfiler
+### startExternalProfiler
 
 
 ```lua
@@ -510,7 +510,7 @@ Starts the external profiler.
 
 @*param* `pid` — The process id of Noita.
 
-## stop
+### stop
 
 
 ```lua
@@ -524,14 +524,14 @@ Stops the profiler. This has to be called after the function (or last line of fu
 
 @*param* `customProfilerCounter` — The counter that is used to determine the order of the function calls. This has to same as the one returned by @see CustomProfiler.start(functionName)
 
-## udp
+### udp
 
 
 ```lua
 unknown
 ```
 
-## utils
+### utils
 
 
 ```lua
@@ -540,7 +540,7 @@ Utils
 
 :new()
 
-## winapi
+### winapi
 
 
 ```lua
@@ -550,9 +550,9 @@ winapi
 
 ---
 
-# EntityCache
+## EntityCache
 
-## contains
+### contains
 
 
 ```lua
@@ -560,7 +560,7 @@ function EntityCache.contains(self: EntityCache, entityId: any)
   -> boolean
 ```
 
-## customProfiler
+### customProfiler
 
 
 ```lua
@@ -569,28 +569,28 @@ CustomProfiler
 
 Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 
-## delete
+### delete
 
 
 ```lua
 function EntityCache.delete(self: EntityCache, entityId: any)
 ```
 
-## deleteNuid
+### deleteNuid
 
 
 ```lua
 function EntityCache.deleteNuid(self: EntityCache, nuid: any)
 ```
 
-## entityUtils
+### entityUtils
 
 
 ```lua
 EntityUtils|nil
 ```
 
-## get
+### get
 
 
 ```lua
@@ -598,14 +598,14 @@ function EntityCache.get(self: EntityCache, entityId: any)
   -> unknown|nil
 ```
 
-## getNuid
+### getNuid
 
 
 ```lua
 function EntityCache.getNuid(self: EntityCache, nuid: any)
 ```
 
-## new
+### new
 
 
 ```lua
@@ -623,14 +623,14 @@ EntityCache constructor
 
 @*param* `utils` — optional
 
-## set
+### set
 
 
 ```lua
 function EntityCache.set(self: EntityCache, entityId: any, nuid: any, ownerGuid: any, ownerName: any, filepath: any, x: any, y: any, rotation: any, velX: any, velY: any, currentHealth: any, maxHealth: any, fullySerialised: any, serialisedRootEntity: any)
 ```
 
-## size
+### size
 
 
 ```lua
@@ -638,14 +638,14 @@ function EntityCache.size(self: EntityCache)
   -> integer|unknown
 ```
 
-## usage
+### usage
 
 
 ```lua
 function EntityCache.usage(self: EntityCache)
 ```
 
-## utils
+### utils
 
 
 ```lua
@@ -657,9 +657,9 @@ Utils class for lazy developers.
 
 ---
 
-# EntityCacheUtils
+## EntityCacheUtils
 
-## customProfiler
+### customProfiler
 
 
 ```lua
@@ -668,14 +668,14 @@ CustomProfiler
 
 Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 
-## entityCache
+### entityCache
 
 
 ```lua
 EntityCache
 ```
 
-## new
+### new
 
 
 ```lua
@@ -693,14 +693,14 @@ Constructor of the EntityCacheUtils class.
 
 @*param* `utils` — optional
 
-## set
+### set
 
 
 ```lua
 function EntityCacheUtils.set(self: EntityCacheUtils, entityId: any, nuid: any, ownerGuid: any, ownerName: any, filepath: any, x: any, y: any, rotation: any, velX: any, velY: any, currentHealth: any, maxHealth: any, fullySerialised: any, serialisedRootEntity: any)
 ```
 
-## utils
+### utils
 
 
 ```lua
@@ -712,9 +712,9 @@ Utils class for lazy developers.
 
 ---
 
-# EntityUtils
+## EntityUtils
 
-## addOrChangeDetectionRadiusDebug
+### addOrChangeDetectionRadiusDebug
 
 
 ```lua
@@ -723,14 +723,14 @@ function EntityUtils.addOrChangeDetectionRadiusDebug(self: EntityUtils, player_e
 
  Simply adds a ugly debug circle around the player to visualize the detection radius.
 
-## client
+### client
 
 
 ```lua
 Client
 ```
 
-## customProfiler
+### customProfiler
 
 
 ```lua
@@ -739,7 +739,7 @@ CustomProfiler
 
 Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 
-## destroyByNuid
+### destroyByNuid
 
 
 ```lua
@@ -750,21 +750,21 @@ Destroys the entity by the given nuid.
 
 @*param* `nuid` — The nuid of the entity.
 
-## enitityCacheUtils
+### enitityCacheUtils
 
 
 ```lua
 EntityCacheUtils
 ```
 
-## entityCache
+### entityCache
 
 
 ```lua
 EntityCache
 ```
 
-## entityCacheUtils
+### entityCacheUtils
 
 
 ```lua
@@ -774,14 +774,14 @@ EntityCacheUtils
 end
 TODO: temporary dirty whacky hacky fix
 
-## globalsUtils
+### globalsUtils
 
 
 ```lua
 GlobalsUtils
 ```
 
-## isEntityPolymorphed
+### isEntityPolymorphed
 
 
 ```lua
@@ -791,14 +791,14 @@ function EntityUtils.isEntityPolymorphed(self: EntityUtils, entityId: number)
 
  Checks if a specific entity is polymorphed.
 
-## logger
+### logger
 
 
 ```lua
 Logger
 ```
 
-## minaUtils
+### minaUtils
 
 
 ```lua
@@ -807,14 +807,14 @@ MinaUtils
 
 Util class for fetching information about local and remote minas.
 
-## networkUtils
+### networkUtils
 
 
 ```lua
 NetworkUtils
 ```
 
-## networkVscUtils
+### networkVscUtils
 
 
 ```lua
@@ -823,7 +823,7 @@ NetworkVscUtils
 
 NetworkVscUtils for getting and setting values in VariableStorageComponents of Noita-API
 
-## new
+### new
 
 
 ```lua
@@ -863,7 +863,7 @@ Constructor for EntityUtils. With this constructor you can override the default 
 
 @*param* `np` — required
 
-## noitaComponentUtils
+### noitaComponentUtils
 
 
 ```lua
@@ -872,14 +872,14 @@ NoitaComponentUtils
 
 Class for using Noita components.
 
-## noitaPatcherUtils
+### noitaPatcherUtils
 
 
 ```lua
 NoitaPatcherUtils
 ```
 
-## nuidUtils
+### nuidUtils
 
 
 ```lua
@@ -888,7 +888,7 @@ NuidUtils
 
 NuidUtils for getting the current network unique identifier
 
-## onEntityRemoved
+### onEntityRemoved
 
 
 ```lua
@@ -897,14 +897,14 @@ function EntityUtils.onEntityRemoved(self: EntityUtils, entityId: any, nuid: any
 
  Make sure this is only be executed once!
 
-## server
+### server
 
 
 ```lua
 Server
 ```
 
-## spawnEntity
+### spawnEntity
 
 
 ```lua
@@ -922,7 +922,7 @@ function EntityUtils.spawnEntity(self: EntityUtils, owner: EntityOwner, nuid: nu
 
 @*return* `entityId` — Returns the entity_id of a already existing entity, found by nuid or the newly created entity.
 
-## syncDeadNuids
+### syncDeadNuids
 
 
 ```lua
@@ -935,7 +935,7 @@ function EntityUtils.syncDeadNuids(self: EntityUtils, server: Server|nil, client
 
 @*param* `client` — Either server or client must not be nil!
 
-## syncEntities
+### syncEntities
 
 
 ```lua
@@ -951,7 +951,7 @@ function EntityUtils.syncEntities(self: EntityUtils, startFrameTime: number, ser
 
 @*param* `client` — Either server or client must not be nil!
 
-## utils
+### utils
 
 
 ```lua
@@ -963,16 +963,16 @@ Utils class for lazy developers.
 
 ---
 
-# FileUtils
+## FileUtils
 
-## AppendToFile
+### AppendToFile
 
 
 ```lua
 function FileUtils.AppendToFile(self: FileUtils, filenameAbsolutePath: string, appendContent: string)
 ```
 
-## Create7zipArchive
+### Create7zipArchive
 
 
 ```lua
@@ -989,7 +989,7 @@ oita-mp\_
 
 @*return* `content` — binary content of archive
 
-## Exists
+### Exists
 
 
 ```lua
@@ -1001,7 +1001,7 @@ function FileUtils.Exists(self: FileUtils, absolutePath: string)
 
 @*param* `absolutePath` — full path
 
-## Exists7zip
+### Exists7zip
 
 
 ```lua
@@ -1009,7 +1009,7 @@ function FileUtils.Exists7zip(self: FileUtils)
   -> boolean
 ```
 
-## Extract7zipArchive
+### Extract7zipArchive
 
 
 ```lua
@@ -1022,7 +1022,7 @@ function FileUtils.Extract7zipArchive(self: FileUtils, archive_absolute_director
 
 @*param* `extract_absolute_directory_path` — C:\Users\Ismoh-PC\AppData\LocalLow\Nolla_Games_Noita
 
-## FestartNoita
+### FestartNoita
 
 
 ```lua
@@ -1031,14 +1031,14 @@ function FileUtils.FestartNoita(self: FileUtils)
 
  Credits to @dextercd !
 
-## Find7zipExecutable
+### Find7zipExecutable
 
 
 ```lua
 function FileUtils.Find7zipExecutable(self: FileUtils)
 ```
 
-## GetAbsDirPathOfWorldStateXml
+### GetAbsDirPathOfWorldStateXml
 
 
 ```lua
@@ -1052,7 +1052,7 @@ function FileUtils.GetAbsDirPathOfWorldStateXml(self: FileUtils, saveSlotAbsDire
 
 @*return* `absPath` — world_state.xml absolute file path
 
-## GetAbsoluteDirectoryPathOfNoitaMP
+### GetAbsoluteDirectoryPathOfNoitaMP
 
 
 ```lua
@@ -1065,7 +1065,7 @@ function FileUtils.GetAbsoluteDirectoryPathOfNoitaMP(self: FileUtils, noitaMpSet
 
 @*return* `self.GetAbsolutePathOfNoitaRootDirectory` — ) .. "/mods/noita-mp"
 
-## GetAbsoluteDirectoryPathOfParentSave
+### GetAbsoluteDirectoryPathOfParentSave
 
 
 ```lua
@@ -1079,7 +1079,7 @@ function FileUtils.GetAbsoluteDirectoryPathOfParentSave(self: FileUtils)
 
 @*return* `save06_parent_directory_path` — string of absolute path to '..\Noita' or '..\Nolla_Games_Noita'
 
-## GetAbsoluteDirectoryPathOfRequiredLibs
+### GetAbsoluteDirectoryPathOfRequiredLibs
 
 
 ```lua
@@ -1092,7 +1092,7 @@ function FileUtils.GetAbsoluteDirectoryPathOfRequiredLibs(self: FileUtils)
 
 @*return* `self.GetAbsolutePathOfNoitaRootDirectory` — ) .. "/mods/noita-mp/files/libs"
 
-## GetAbsoluteDirectoryPathOfSave06
+### GetAbsoluteDirectoryPathOfSave06
 
 
 ```lua
@@ -1104,7 +1104,7 @@ function FileUtils.GetAbsoluteDirectoryPathOfSave06(self: FileUtils)
 
 @*return* `directory_path_of_save06` — : noita installation path\save06 or %appdata%\..\LocalLow\Nolla_Games_Noita\save06 on windows and unknown for unix systems
 
-## GetAbsolutePathOfNoitaMpSettingsDirectory
+### GetAbsolutePathOfNoitaMpSettingsDirectory
 
 
 ```lua
@@ -1118,7 +1118,7 @@ Returns absolute path of NoitaMP settings directory,
 
 @*return* `absPath` — i.e. "C:\Program Files (x86)\Steam\steamapps\common\Noita\mods\noita-mp\settings"
 
-## GetAbsolutePathOfNoitaRootDirectory
+### GetAbsolutePathOfNoitaRootDirectory
 
 
 ```lua
@@ -1126,7 +1126,7 @@ function FileUtils.GetAbsolutePathOfNoitaRootDirectory(self: FileUtils, noitaMpS
   -> string
 ```
 
-## GetAllFilesInDirectory
+### GetAllFilesInDirectory
 
 
 ```lua
@@ -1134,7 +1134,7 @@ function FileUtils.GetAllFilesInDirectory(self: FileUtils, directory: any, fileE
   -> table
 ```
 
-## GetDesktopDirectory
+### GetDesktopDirectory
 
 
 ```lua
@@ -1142,7 +1142,7 @@ function FileUtils.GetDesktopDirectory(self: FileUtils)
   -> string|table
 ```
 
-## GetLastModifiedSaveSlots
+### GetLastModifiedSaveSlots
 
 
 ```lua
@@ -1152,7 +1152,7 @@ function FileUtils.GetLastModifiedSaveSlots(self: FileUtils)
 
  see _G.saveSlotMeta
 
-## GetPidOfRunningEnetHostByPort
+### GetPidOfRunningEnetHostByPort
 
 
 ```lua
@@ -1163,7 +1163,7 @@ function FileUtils.GetPidOfRunningEnetHostByPort(self: FileUtils, server: any)
 
  eNet specific commands
 
-## GetRelativeDirectoryPathOfNoitaMP
+### GetRelativeDirectoryPathOfNoitaMP
 
 
 ```lua
@@ -1175,7 +1175,7 @@ function FileUtils.GetRelativeDirectoryPathOfNoitaMP(self: FileUtils)
 
 @*return* — mods/noita-mp
 
-## GetRelativeDirectoryPathOfRequiredLibs
+### GetRelativeDirectoryPathOfRequiredLibs
 
 
 ```lua
@@ -1187,7 +1187,7 @@ function FileUtils.GetRelativeDirectoryPathOfRequiredLibs(self: FileUtils)
 
 @*return* — /mods/noita-mp/files/libs
 
-## GetRelativePathOfNoitaMpSettingsDirectory
+### GetRelativePathOfNoitaMpSettingsDirectory
 
 
 ```lua
@@ -1195,7 +1195,7 @@ function FileUtils.GetRelativePathOfNoitaMpSettingsDirectory(self: FileUtils)
   -> unknown
 ```
 
-## GetVersionByFile
+### GetVersionByFile
 
 
 ```lua
@@ -1205,28 +1205,28 @@ function FileUtils.GetVersionByFile(self: FileUtils)
 
 Returns NoitaMP version by reading the .version file.
 
-## KillNoitaAndRestart
+### KillNoitaAndRestart
 
 
 ```lua
 function FileUtils.KillNoitaAndRestart(self: FileUtils)
 ```
 
-## KillProcess
+### KillProcess
 
 
 ```lua
 function FileUtils.KillProcess(self: FileUtils, pid: any)
 ```
 
-## MkDir
+### MkDir
 
 
 ```lua
 function FileUtils.MkDir(self: FileUtils, full_path: string)
 ```
 
-## ReadBinaryFile
+### ReadBinaryFile
 
 
 ```lua
@@ -1234,7 +1234,7 @@ function FileUtils.ReadBinaryFile(self: FileUtils, file_fullpath: string)
   -> string|number
 ```
 
-## ReadFile
+### ReadFile
 
 
 ```lua
@@ -1242,14 +1242,14 @@ function FileUtils.ReadFile(self: FileUtils, file_fullpath: string, mode?: strin
   -> unknown
 ```
 
-## RemoveContentOfDirectory
+### RemoveContentOfDirectory
 
 
 ```lua
 function FileUtils.RemoveContentOfDirectory(self: FileUtils, absolutePath: any)
 ```
 
-## RemoveTrailingPathSeparator
+### RemoveTrailingPathSeparator
 
 
 ```lua
@@ -1264,7 +1264,7 @@ function FileUtils.RemoveTrailingPathSeparator(self: FileUtils, path: string)
 
 @*return* `path` — \persistent\flags
 
-## ReplacePathSeparator
+### ReplacePathSeparator
 
 
 ```lua
@@ -1276,7 +1276,7 @@ function FileUtils.ReplacePathSeparator(self: FileUtils, path: string)
 Replaces windows path separator to unix path separator and vice versa.
 Error if path is not a string.
 
-## SaveAndRestartNoita
+### SaveAndRestartNoita
 
 
 ```lua
@@ -1285,7 +1285,7 @@ function FileUtils.SaveAndRestartNoita(self: FileUtils)
 
  This executes c code to sent SDL_QUIT command to the app
 
-## ScanDir
+### ScanDir
 
 
 ```lua
@@ -1295,7 +1295,7 @@ function FileUtils.ScanDir(self: FileUtils, directory: any)
 
  Lua implementation of PHP scandir function
 
-## SetAbsolutePathOfNoitaRootDirectory
+### SetAbsolutePathOfNoitaRootDirectory
 
 
 ```lua
@@ -1306,7 +1306,7 @@ Sets root directory of noita.exe, i.e. C:\Program Files (x86)\Steam\steamapps\co
 
 @*param* `noitaMpSettings` — optional. Needed for saving Noitas root directory to settings file.
 
-## SplitPath
+### SplitPath
 
 
 ```lua
@@ -1316,21 +1316,21 @@ function FileUtils.SplitPath(self: FileUtils, str: any)
 
  http://lua-users.org/wiki/SplitJoin -> Example: Split a file path string into components.
 
-## WriteBinaryFile
+### WriteBinaryFile
 
 
 ```lua
 function FileUtils.WriteBinaryFile(self: FileUtils, file_fullpath: string, file_content: any)
 ```
 
-## WriteFile
+### WriteFile
 
 
 ```lua
 function FileUtils.WriteFile(self: FileUtils, file_fullpath: string, file_content: string)
 ```
 
-## customProfiler
+### customProfiler
 
 
 ```lua
@@ -1339,35 +1339,35 @@ CustomProfiler
 
 Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 
-## ffi
+### ffi
 
 
 ```lua
 unknown
 ```
 
-## json
+### json
 
 
 ```lua
 unknown
 ```
 
-## lfs
+### lfs
 
 
 ```lua
 unknown
 ```
 
-## logger
+### logger
 
 
 ```lua
 Logger
 ```
 
-## new
+### new
 
 
 ```lua
@@ -1389,7 +1389,7 @@ FileUtils constructor.
 
 @*param* `utils` — can be nil
 
-## utils
+### utils
 
 
 ```lua
@@ -1398,7 +1398,7 @@ Utils
 
 Utils class for lazy developers.
 
-## watcher
+### watcher
 
 
 ```lua
@@ -1408,7 +1408,7 @@ unknown
 
 ---
 
-# GameGetRealWorldTimeSinceStarted
+## GameGetRealWorldTimeSinceStarted
 
 
 ```lua
@@ -1419,7 +1419,7 @@ function _G.GameGetRealWorldTimeSinceStarted()
 
 ---
 
-# GetWidthAndHeightByResolution
+## GetWidthAndHeightByResolution
 
  Returns width and height depending on resolution.
  GuiGetScreenDimensions( gui:obj ) -> width:number,height:number [Returns dimensions of viewport in the gui coordinate system (which is equal to the coordinates of the screen bottom right corner in gui coordinates). The values returned may change depending on the game resolution because the UI is scaled for pixel-perfect text rendering.]
@@ -1434,16 +1434,16 @@ function GetWidthAndHeightByResolution()
 
 ---
 
-# GlobalsUtils
+## GlobalsUtils
 
-## client
+### client
 
 
 ```lua
 Client|nil
 ```
 
-## customProfiler
+### customProfiler
 
 
 ```lua
@@ -1452,7 +1452,7 @@ CustomProfiler
 
 Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 
-## getDeadNuids
+### getDeadNuids
 
 
 ```lua
@@ -1460,7 +1460,7 @@ function GlobalsUtils.getDeadNuids(self: GlobalsUtils)
   -> table
 ```
 
-## getNuidEntityPair
+### getNuidEntityPair
 
 
 ```lua
@@ -1471,7 +1471,7 @@ function GlobalsUtils.getNuidEntityPair(self: GlobalsUtils, nuid: number)
 
 Builds a key string by nuid and returns nuid and entityId found by the globals.
 
-## getUpdateGui
+### getUpdateGui
 
 
 ```lua
@@ -1479,14 +1479,14 @@ function GlobalsUtils.getUpdateGui(self: GlobalsUtils)
   -> unknown
 ```
 
-## logger
+### logger
 
 
 ```lua
 Logger
 ```
 
-## new
+### new
 
 
 ```lua
@@ -1506,7 +1506,7 @@ Constructor of the class. This is mandatory!
 
 @*param* `utils` — required
 
-## parseXmlValueToNuidAndEntityId
+### parseXmlValueToNuidAndEntityId
 
 
 ```lua
@@ -1521,28 +1521,28 @@ Parses key and value string to nuid and entityId.
 
 @*param* `xmlValue` — self.nuidValueFormat = "entityId = %s"
 
-## removeDeadNuid
+### removeDeadNuid
 
 
 ```lua
 function GlobalsUtils.removeDeadNuid(self: GlobalsUtils, nuid: any)
 ```
 
-## setDeadNuid
+### setDeadNuid
 
 
 ```lua
 function GlobalsUtils.setDeadNuid(self: GlobalsUtils, nuid: any)
 ```
 
-## setNuid
+### setNuid
 
 
 ```lua
 function GlobalsUtils.setNuid(self: GlobalsUtils, nuid: any, entityId: any, componentIdForOwnerName: any, componentIdForOwnerGuid: any, componentIdForNuid: any)
 ```
 
-## setUpdateGui
+### setUpdateGui
 
 
 ```lua
@@ -1550,7 +1550,7 @@ function GlobalsUtils.setUpdateGui(self: GlobalsUtils, bool: any)
   -> unknown
 ```
 
-## utils
+### utils
 
 
 ```lua
@@ -1562,11 +1562,11 @@ Utils class for lazy developers.
 
 ---
 
-# Gui
+## Gui
 
 Everything regarding ImGui: Credits to @dextercd
 
-## checkShortcuts
+### checkShortcuts
 
 
 ```lua
@@ -1575,25 +1575,25 @@ function Gui.checkShortcuts(self: Gui)
 
 Function to check if the user pressed a shortcut.
 
-## client
+### client
 
 
 ```lua
 Client
 ```
 
-See: [Client](../../mods/noita-mp/files/scripts/net/Client.lua#L4#10)
+See: [Client](https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/net/Client.lua#L4#10)
 
-## customProfiler
+### customProfiler
 
 
 ```lua
 CustomProfiler
 ```
 
-See: [CustomProfiler](../../mods/noita-mp/files/scripts/util/CustomProfiler.lua#L2#10)
+See: [CustomProfiler](https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/util/CustomProfiler.lua#L2#10)
 
-## drawAbout
+### drawAbout
 
 
 ```lua
@@ -1602,7 +1602,7 @@ function Gui.drawAbout(self: Gui)
 
 Function for drawing the about window.
 
-## drawFirstTime
+### drawFirstTime
 
 
 ```lua
@@ -1611,7 +1611,7 @@ function Gui.drawFirstTime(self: Gui)
 
 Function to draw the first time window.
 
-## drawMenuBar
+### drawMenuBar
 
 
 ```lua
@@ -1620,7 +1620,7 @@ function Gui.drawMenuBar(self: Gui)
 
 Function to draw the menu bar.
 
-## drawPlayMenu
+### drawPlayMenu
 
 
 ```lua
@@ -1629,7 +1629,7 @@ function Gui.drawPlayMenu(self: Gui)
 
 Function to draw the play menu.
 
-## drawPlayerList
+### drawPlayerList
 
 
 ```lua
@@ -1638,7 +1638,7 @@ function Gui.drawPlayerList(self: Gui)
 
 Function for drawing the player list window.
 
-## drawSettings
+### drawSettings
 
 
 ```lua
@@ -1647,30 +1647,30 @@ function Gui.drawSettings(self: Gui)
 
 Function to draw the settings window.
 
-## fileUtils
+### fileUtils
 
 
 ```lua
 FileUtils
 ```
 
-## globalsUtils
+### globalsUtils
 
 
 ```lua
 GlobalsUtils
 ```
 
-## guidUtils
+### guidUtils
 
 
 ```lua
 GuidUtils
 ```
 
-See: [GuidUtils](../../mods/noita-mp/files/scripts/util/GuidUtils.lua#L2#10)
+See: [GuidUtils](https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/util/GuidUtils.lua#L2#10)
 
-## imGui
+### imGui
 
 
 ```lua
@@ -1679,23 +1679,23 @@ unknown
 
 See: ~ImGui~
 
-## isServer
+### isServer
 
 
 ```lua
 nil
 ```
 
-## minaUtils
+### minaUtils
 
 
 ```lua
 MinaUtils
 ```
 
-See: [MinaUtils](../../mods/noita-mp/files/scripts/util/MinaUtils.lua#L2#10)
+See: [MinaUtils](https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/util/MinaUtils.lua#L2#10)
 
-## networkVscUtils
+### networkVscUtils
 
 
 ```lua
@@ -1704,7 +1704,7 @@ NetworkVscUtils
 
 NetworkVscUtils for getting and setting values in VariableStorageComponents of Noita-API
 
-## new
+### new
 
 
 ```lua
@@ -1728,25 +1728,25 @@ Gui constructor.
 
 @*param* `noitaMpSettings` — optional
 
-## noitaMpSettings
+### noitaMpSettings
 
 
 ```lua
 NoitaMpSettings
 ```
 
-See: [NoitaMpSettings](../../mods/noita-mp/files/scripts/NoitaMpSettings.lua#L2#11)
+See: [NoitaMpSettings](https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/NoitaMpSettings.lua#L2#11)
 
-## server
+### server
 
 
 ```lua
 Server
 ```
 
-See: [Server](../../mods/noita-mp/files/scripts/net/Server.lua#L4#10)
+See: [Server](https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/net/Server.lua#L4#10)
 
-## setShowMissingSettings
+### setShowMissingSettings
 
 
 ```lua
@@ -1755,7 +1755,7 @@ function Gui.setShowMissingSettings(self: Gui, show: boolean)
 
 Setter for the 'showMissingSettings' attribute to show the user that the settings are missing.
 
-## setShowSettingsSaved
+### setShowSettingsSaved
 
 
 ```lua
@@ -1764,7 +1764,7 @@ function Gui.setShowSettingsSaved(self: Gui, show: boolean)
 
 Setter for the 'showSettingsSaved' attribute to show the user that the settings were saved.
 
-## update
+### update
 
 
 ```lua
@@ -1773,23 +1773,23 @@ function Gui.update(self: Gui)
 
 Guis update function, called every frame.
 
-## utils
+### utils
 
 
 ```lua
 Utils
 ```
 
-See: [Utils](../../mods/noita-mp/files/scripts/util/Utils.lua#L2#10)
+See: [Utils](https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/util/Utils.lua#L2#10)
 
 
 ---
 
-# GuidUtils
+## GuidUtils
 
 GuidUtils is just for generating and validating GUIDs. Guids are used for identifying clients and servers.
 
-## addGuidToCache
+### addGuidToCache
 
 
 ```lua
@@ -1800,7 +1800,7 @@ Adds a guid to the cache.
 
 @*param* `guid` — required
 
-## customProfiler
+### customProfiler
 
 
 ```lua
@@ -1809,7 +1809,7 @@ CustomProfiler
 
 Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 
-## generateNewGuid
+### generateNewGuid
 
 
 ```lua
@@ -1823,7 +1823,7 @@ Formerly known as 'getGuid()'.
 
 @*param* `inUsedGuids` — list of already used GUIDs
 
-## getCachedGuids
+### getCachedGuids
 
 
 ```lua
@@ -1833,7 +1833,7 @@ function GuidUtils.getCachedGuids(self: GuidUtils)
 
 Returns the cached guids.
 
-## isPatternValid
+### isPatternValid
 
 
 ```lua
@@ -1847,7 +1847,7 @@ Validates a guid only on its pattern.
 
 @*return* `true` — if GUID-pattern matches
 
-## isUnique
+### isUnique
 
 
 ```lua
@@ -1859,14 +1859,14 @@ Validates if the given guid is unique or already generated.
 
 @*return* `true` — if GUID is unique.
 
-## logger
+### logger
 
 
 ```lua
 Logger
 ```
 
-## new
+### new
 
 
 ```lua
@@ -1892,7 +1892,7 @@ GuidUtils constructor.
 
 @*param* `winapi` — optional
 
-## setGuid
+### setGuid
 
 
 ```lua
@@ -1907,14 +1907,14 @@ Sets the guid of a client or the server.
 
 @*param* `guid` — guid can be optional. If not set, a new guid will be generated and set.
 
-## socket
+### socket
 
 
 ```lua
 socket
 ```
 
-## toNumber
+### toNumber
 
 
 ```lua
@@ -1922,7 +1922,7 @@ function GuidUtils.toNumber(self: GuidUtils, guid: any)
   -> integer
 ```
 
-## utils
+### utils
 
 
 ```lua
@@ -1931,7 +1931,7 @@ Utils
 
 Utils class for lazy developers.
 
-## uuid
+### uuid
 
 
 ```lua
@@ -1941,16 +1941,16 @@ unknown
 
 ---
 
-# Health
+## Health
 
-## current
+### current
 
 
 ```lua
 number
 ```
 
-## max
+### max
 
 
 ```lua
@@ -1960,9 +1960,9 @@ number
 
 ---
 
-# Logger
+## Logger
 
-## customProfiler
+### customProfiler
 
 
 ```lua
@@ -1971,7 +1971,7 @@ CustomProfiler
 
 Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 
-## debug
+### debug
 
 
 ```lua
@@ -1979,7 +1979,7 @@ function Logger.debug(self: Logger, channel: any, formattedMessage: any)
   -> boolean
 ```
 
-## info
+### info
 
 
 ```lua
@@ -1987,7 +1987,7 @@ function Logger.info(self: Logger, channel: any, formattedMessage: any)
   -> boolean
 ```
 
-## new
+### new
 
 
 ```lua
@@ -1999,7 +1999,7 @@ Logger constructor.
 
 @*param* `noitaMpSettings` — required
 
-## noitaMpSettings
+### noitaMpSettings
 
 
 ```lua
@@ -2008,7 +2008,7 @@ NoitaMpSettings
 
  NoitaMpSettings: Replacement for Noita ModSettings.
 
-## trace
+### trace
 
 
 ```lua
@@ -2016,7 +2016,7 @@ function Logger.trace(self: Logger, channel: any, formattedMessage: any)
   -> boolean
 ```
 
-## warn
+### warn
 
 
 ```lua
@@ -2027,7 +2027,7 @@ function Logger.warn(self: Logger, channel: any, formattedMessage: any)
 
 ---
 
-# MAX_MEMORY_USAGE
+## MAX_MEMORY_USAGE
 
  KB = 524,438 MB
 
@@ -2039,11 +2039,11 @@ integer
 
 ---
 
-# MinaUtils
+## MinaUtils
 
 Util class for fetching information about local and remote minas.
 
-## customProfiler
+### customProfiler
 
 
 ```lua
@@ -2052,7 +2052,7 @@ CustomProfiler
 
 Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 
-## getAllMinas
+### getAllMinas
 
 
 ```lua
@@ -2066,7 +2066,7 @@ Returns all minas.
 
 @*param* `server` — server object is required!
 
-## getLocalMinaEntityId
+### getLocalMinaEntityId
 
 
 ```lua
@@ -2078,7 +2078,7 @@ Getter for local mina entity id. It also takes care of polymorphism!
 
 @*return* `localMinaEntityId` — or nil if not found/dead
 
-## getLocalMinaGuid
+### getLocalMinaGuid
 
 
 ```lua
@@ -2088,7 +2088,7 @@ function MinaUtils.getLocalMinaGuid(self: MinaUtils)
 
 Getter for local mina guid. ~It also loads it from settings file.~
 
-## getLocalMinaName
+### getLocalMinaName
 
 
 ```lua
@@ -2098,7 +2098,7 @@ function MinaUtils.getLocalMinaName(self: MinaUtils)
 
 Getter for local mina name. ~It also loads it from settings file.~
 
-## getLocalMinaNuid
+### getLocalMinaNuid
 
 
 ```lua
@@ -2110,14 +2110,14 @@ Getter for local mina nuid. It also takes care of polymorphism!
 
 @*return* `nuid` — if not found/dead
 
-## globalsUtils
+### globalsUtils
 
 
 ```lua
 GlobalsUtils
 ```
 
-## isLocalMinaPolymorphed
+### isLocalMinaPolymorphed
 
 
 ```lua
@@ -2128,7 +2128,7 @@ function MinaUtils.isLocalMinaPolymorphed(self: MinaUtils)
 
 Checks if local mina is polymorphed. Returns true, entityId | false, nil
 
-## isRemoteMinae
+### isRemoteMinae
 
 
 ```lua
@@ -2147,14 +2147,14 @@ Checks if the entityId is a remote minae.
 
 @*return* `true` — if entityId is a remote minae, otherwise false
 
-## logger
+### logger
 
 
 ```lua
 Logger
 ```
 
-## networkVscUtils
+### networkVscUtils
 
 
 ```lua
@@ -2163,7 +2163,7 @@ NetworkVscUtils
 
 NetworkVscUtils for getting and setting values in VariableStorageComponents of Noita-API
 
-## new
+### new
 
 
 ```lua
@@ -2187,7 +2187,7 @@ Constructor for MinaUtils.
 
 @*param* `utils` — required
 
-## noitaMpSettings
+### noitaMpSettings
 
 
 ```lua
@@ -2196,7 +2196,7 @@ NoitaMpSettings
 
  NoitaMpSettings: Replacement for Noita ModSettings.
 
-## setLocalMinaGuid
+### setLocalMinaGuid
 
 
 ```lua
@@ -2207,7 +2207,7 @@ Setter for local mina guid. It also saves it to settings file.
 
 @*param* `guid` — required
 
-## setLocalMinaName
+### setLocalMinaName
 
 
 ```lua
@@ -2218,7 +2218,7 @@ Setter for local mina name. It also saves it to settings file.
 
 @*param* `name` — required
 
-## utils
+### utils
 
 
 ```lua
@@ -2230,7 +2230,7 @@ Utils class for lazy developers.
 
 ---
 
-# ModGetActiveModIDs
+## ModGetActiveModIDs
 
 
 ```lua
@@ -2241,7 +2241,7 @@ function _G.ModGetActiveModIDs()
 
 ---
 
-# ModIsEnabled
+## ModIsEnabled
 
 
 ```lua
@@ -2252,7 +2252,7 @@ function _G.ModIsEnabled(id: any)
 
 ---
 
-# ModSettingGet
+## ModSettingGet
 
 
 ```lua
@@ -2263,7 +2263,7 @@ function _G.ModSettingGet(id: any)
 
 ---
 
-# ModSettingGetNextValue
+## ModSettingGetNextValue
 
 
 ```lua
@@ -2274,18 +2274,19 @@ function _G.ModSettingGetNextValue(id: any)
 
 ---
 
-# NetworkCache
+## NetworkCache
 
-## clear
+### clear
 
 
 ```lua
 function NetworkCache.clear(self: NetworkCache, clientCacheId: number)
+  -> unknown
 ```
 
  Clears the cache entry for the given clientCacheId.
 
-## customProfiler
+### customProfiler
 
 
 ```lua
@@ -2294,44 +2295,48 @@ any
 
 Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 
-## get
+### get
 
 
 ```lua
 function NetworkCache.get(self: NetworkCache, clientCacheId: number, event: string, networkMessageId: number)
-  -> unknown|nil
+  -> entry: table|nil
 ```
 
  Gets the cache entry for the given clientCacheId, event and networkMessageId.
 
-## getAll
+@*return* `entry` — self.cache[clientCacheId][networkMessageId] or nil if not found
+
+### getAll
 
 
 ```lua
 function NetworkCache.getAll(self: NetworkCache)
-  -> table|unknown
+  -> self.cache: table
 ```
 
  Returns all cache entries.
 
-## getChecksum
+### getChecksum
 
 
 ```lua
 function NetworkCache.getChecksum(self: NetworkCache, clientCacheId: number, dataChecksum: string)
-  -> unknown|nil
+  -> entry: table|nil
 ```
 
  Gets the checksum of a cache entry for the given clientCacheId and dataChecksum.
 
-## logger
+@*return* `entry` — self.cache[clientCacheId][index] or nil if not found
+
+### logger
 
 
 ```lua
 any
 ```
 
-## new
+### new
 
 
 ```lua
@@ -2339,14 +2344,14 @@ function NetworkCache.new(self: NetworkCache, customProfiler: any, logger: any, 
   -> NetworkCache
 ```
 
-## removeOldest
+### removeOldest
 
 
 ```lua
 function NetworkCache.removeOldest(self: NetworkCache)
 ```
 
-## set
+### set
 
 
 ```lua
@@ -2355,7 +2360,7 @@ function NetworkCache.set(self: NetworkCache, clientCacheId: number, networkMess
 
  Sets the cache entry for the given clientCacheId, networkMessageId and event.
 
-## size
+### size
 
 
 ```lua
@@ -2365,16 +2370,17 @@ function NetworkCache.size(self: NetworkCache)
 
  Returns the size of the cache.
 
-## usage
+### usage
 
 
 ```lua
 function NetworkCache.usage(self: NetworkCache)
+  -> unknown
 ```
 
  Returns the usage of the cache.
 
-## utils
+### utils
 
 
 ```lua
@@ -2386,9 +2392,9 @@ Utils class for lazy developers.
 
 ---
 
-# NetworkCacheUtils
+## NetworkCacheUtils
 
-## ack
+### ack
 
 
 ```lua
@@ -2397,7 +2403,7 @@ function NetworkCacheUtils.ack(self: NetworkCacheUtils, peerGuid: string, networ
 
  Sets a acknoledgement for a cached network message.
 
-## customProfiler
+### customProfiler
 
 
 ```lua
@@ -2406,31 +2412,31 @@ CustomProfiler
 
 Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 
-## get
+### get
 
 
 ```lua
 function NetworkCacheUtils.get(self: NetworkCacheUtils, peerGuid: string, networkMessageId: number, event: string)
-  -> data: table
+  -> data: table|nil
 ```
 
  Returns the cached network message.
 
 @*return* `data` — { ackedAt, dataChecksum, event, messageId, sendAt, status}
 
-## getByChecksum
+### getByChecksum
 
 
 ```lua
 function NetworkCacheUtils.getByChecksum(self: NetworkCacheUtils, peerGuid: string, event: string, data: table)
-  -> cacheData: table
+  -> cacheData: table|nil
 ```
 
  Returns the cached network message by checksum.
 
 @*return* `cacheData` — { ackedAt, dataChecksum, event, messageId, sendAt, status}
 
-## getSum
+### getSum
 
 
 ```lua
@@ -2440,7 +2446,7 @@ function NetworkCacheUtils.getSum(self: NetworkCacheUtils, event: string, data: 
 
  Returns the sum of the data.
 
-## guidUtils
+### guidUtils
 
 
 ```lua
@@ -2449,7 +2455,7 @@ GuidUtils
 
 GuidUtils is just for generating and validating GUIDs. Guids are used for identifying clients and servers.
 
-## logAll
+### logAll
 
 
 ```lua
@@ -2458,35 +2464,35 @@ function NetworkCacheUtils.logAll(self: NetworkCacheUtils)
 
  Logs all cached network messages. Only for debugging.
 
-## logger
+### logger
 
 
 ```lua
 Logger
 ```
 
-## md5
+### md5
 
 
 ```lua
 md5
 ```
 
-## networkCache
+### networkCache
 
 
 ```lua
 NetworkCache
 ```
 
-## networkUtils
+### networkUtils
 
 
 ```lua
 NetworkUtils
 ```
 
-## new
+### new
 
 
 ```lua
@@ -2510,7 +2516,7 @@ function NetworkCacheUtils.new(self: NetworkCacheUtils, customProfiler: CustomPr
 
 @*param* `utils` — optional
 
-## set
+### set
 
 
 ```lua
@@ -2522,7 +2528,7 @@ function NetworkCacheUtils.set(self: NetworkCacheUtils, peerGuid: string, networ
 
 @*param* `peerGuid` — peer.guid
 
-## utils
+### utils
 
 
 ```lua
@@ -2534,9 +2540,9 @@ Utils class for lazy developers.
 
 ---
 
-# NetworkUtils
+## NetworkUtils
 
-## alreadySent
+### alreadySent
 
 
 ```lua
@@ -2548,7 +2554,7 @@ function NetworkUtils.alreadySent(self: NetworkUtils, peer: table, event: string
 
 @*param* `peer` — If Server, then it's the peer, if Client, then it's the 'self' object
 
-## checkSchemaOrder
+### checkSchemaOrder
 
 
 ```lua
@@ -2557,7 +2563,7 @@ function NetworkUtils.checkSchemaOrder(self: NetworkUtils, event: string, data: 
 
  Double checks if the schema order is correct, but only in dev build.
 
-## customProfiler
+### customProfiler
 
 
 ```lua
@@ -2566,7 +2572,7 @@ CustomProfiler
 
 Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 
-## deserialize
+### deserialize
 
 
 ```lua
@@ -2576,7 +2582,7 @@ function NetworkUtils.deserialize(self: NetworkUtils, value: any)
 
 Default enhanced serialization function
 
-## getNextNetworkMessageId
+### getNextNetworkMessageId
 
 
 ```lua
@@ -2586,7 +2592,7 @@ function NetworkUtils.getNextNetworkMessageId(self: NetworkUtils)
 
  Returns the network message id counter and increases it by one
 
-## guidUtils
+### guidUtils
 
 
 ```lua
@@ -2595,7 +2601,7 @@ GuidUtils
 
 GuidUtils is just for generating and validating GUIDs. Guids are used for identifying clients and servers.
 
-## isTick
+### isTick
 
 
 ```lua
@@ -2605,28 +2611,28 @@ function NetworkUtils.isTick(self: NetworkUtils)
 
  Checks if the current time is a tick.
 
-## logger
+### logger
 
 
 ```lua
 Logger
 ```
 
-## messagePack
+### messagePack
 
 
 ```lua
 unknown
 ```
 
-## networkCacheUtils
+### networkCacheUtils
 
 
 ```lua
 NetworkCacheUtils
 ```
 
-## new
+### new
 
 
 ```lua
@@ -2636,7 +2642,7 @@ function NetworkUtils.new(self: NetworkUtils, customProfiler: CustomProfiler, gu
 
  Constructor for NetworkUtils class.
 
-## serialize
+### serialize
 
 
 ```lua
@@ -2646,7 +2652,7 @@ function NetworkUtils.serialize(self: NetworkUtils, value: any)
 
  Default enhanced serialization function
 
-## utils
+### utils
 
 
 ```lua
@@ -2655,7 +2661,7 @@ Utils
 
 Utils class for lazy developers.
 
-## zipTable
+### zipTable
 
 
 ```lua
@@ -2671,7 +2677,7 @@ function NetworkUtils.zipTable(self: NetworkUtils, items: table, keys: table, ev
 
 @*param* `keys` — schema
 
-## zstandard
+### zstandard
 
 
 ```lua
@@ -2681,11 +2687,11 @@ unknown
 
 ---
 
-# NetworkVscUtils
+## NetworkVscUtils
 
 NetworkVscUtils for getting and setting values in VariableStorageComponents of Noita-API
 
-## addOrUpdateAllVscs
+### addOrUpdateAllVscs
 
 
 ```lua
@@ -2713,7 +2719,7 @@ Simply adds or updates all needed Network Variable Storage Components.
 
 @*param* `spawnY` — Y position of the entity, when spawned. Can only be set once! Can be nil.
 
-## checkIfSpecificVscExists
+### checkIfSpecificVscExists
 
 
 ```lua
@@ -2743,16 +2749,16 @@ compId:
     | false
 ```
 
-## customProfiler
+### customProfiler
 
 
 ```lua
 any
 ```
 
-See: [CustomProfiler](../../mods/noita-mp/files/scripts/util/CustomProfiler.lua#L2#10)
+See: [CustomProfiler](https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/util/CustomProfiler.lua#L2#10)
 
-## getAllVcsValuesByComponentIds
+### getAllVcsValuesByComponentIds
 
 
 ```lua
@@ -2770,7 +2776,7 @@ Returns all Network Vsc values by its component ids.
 
 @*param* `nuidCompId` — Component Id of the NuidVsc
 
-## getAllVscValuesByEntityId
+### getAllVscValuesByEntityId
 
 
 ```lua
@@ -2786,16 +2792,16 @@ Returns all Network Vsc values by its entity id.
 
 @*return* `ownerName,ownerGuid,nuid` — - nuid can be nil
 
-## globalsUtils
+### globalsUtils
 
 
 ```lua
 any
 ```
 
-See: [GlobalsUtils](../../mods/noita-mp/files/scripts/util/GlobalsUtils.lua#L1#10)
+See: [GlobalsUtils](https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/util/GlobalsUtils.lua#L1#10)
 
-## hasNetworkLuaComponents
+### hasNetworkLuaComponents
 
 
 ```lua
@@ -2803,7 +2809,7 @@ function NetworkVscUtils.hasNetworkLuaComponents(self: NetworkVscUtils, entityId
   -> boolean|nil
 ```
 
-## hasNuidSet
+### hasNuidSet
 
 
 ```lua
@@ -2818,7 +2824,7 @@ Checks if the nuid Vsc exists, if so returns nuid
 
 @*return* `nuid` — Returns 'true, nuid', if set.
 
-## isNetworkEntityByNuidVsc
+### isNetworkEntityByNuidVsc
 
 
 ```lua
@@ -2832,16 +2838,16 @@ Returns true, componentId and nuid if the entity has a NetworkVsc.
 
 @*param* `entityId` — entityId provided by Noita
 
-## logger
+### logger
 
 
 ```lua
 any
 ```
 
-See: [Logger](../../mods/noita-mp/files/scripts/util/Logger.lua#L1#10)
+See: [Logger](https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/util/Logger.lua#L1#10)
 
-## new
+### new
 
 
 ```lua
@@ -2849,32 +2855,32 @@ function NetworkVscUtils.new(self: NetworkVscUtils, networkVscUtilsObject: any, 
   -> NetworkVscUtils
 ```
 
-## server
+### server
 
 
 ```lua
 any
 ```
 
-See: [Server](../../mods/noita-mp/files/scripts/net/Server.lua#L4#10)
+See: [Server](https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/net/Server.lua#L4#10)
 
-## utils
+### utils
 
 
 ```lua
 any
 ```
 
-See: [Utils](../../mods/noita-mp/files/scripts/util/Utils.lua#L2#10)
+See: [Utils](https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/util/Utils.lua#L2#10)
 
 
 ---
 
-# NoitaComponentUtils
+## NoitaComponentUtils
 
 Class for using Noita components.
 
-## addOrGetNetworkSpriteStatusIndicator
+### addOrGetNetworkSpriteStatusIndicator
 
 
 ```lua
@@ -2884,7 +2890,7 @@ function NoitaComponentUtils.addOrGetNetworkSpriteStatusIndicator(self: NoitaCom
 
 Adds a SpriteComponent to indicate network status visually.
 
-## customProfiler
+### customProfiler
 
 
 ```lua
@@ -2893,7 +2899,7 @@ CustomProfiler
 
 Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 
-## getEntityData
+### getEntityData
 
 
 ```lua
@@ -2911,7 +2917,7 @@ function NoitaComponentUtils.getEntityData(self: NoitaComponentUtils, entityId: 
 
  Fetches data like position, rotation, velocity, health and filename
 
-## getEntityDataByNuid
+### getEntityDataByNuid
 
 
 ```lua
@@ -2927,7 +2933,7 @@ function NoitaComponentUtils.getEntityDataByNuid(self: NoitaComponentUtils, nuid
   9. number
 ```
 
-## getInitialSerializedEntityString
+### getInitialSerializedEntityString
 
 
 ```lua
@@ -2937,14 +2943,14 @@ function NoitaComponentUtils.getInitialSerializedEntityString(self: NoitaCompone
 
  Get initial serialized entity string to determine if the entity already exists on the server.
 
-## globalsUtils
+### globalsUtils
 
 
 ```lua
 GlobalsUtils
 ```
 
-## hasInitialSerializedEntityString
+### hasInitialSerializedEntityString
 
 
 ```lua
@@ -2952,14 +2958,14 @@ function NoitaComponentUtils.hasInitialSerializedEntityString(self: NoitaCompone
   -> boolean
 ```
 
-## logger
+### logger
 
 
 ```lua
 Logger
 ```
 
-## networkVscUtils
+### networkVscUtils
 
 
 ```lua
@@ -2968,7 +2974,7 @@ NetworkVscUtils
 
 NetworkVscUtils for getting and setting values in VariableStorageComponents of Noita-API
 
-## new
+### new
 
 
 ```lua
@@ -2992,21 +2998,21 @@ NoitaComponentUtils constructor.
 
 @*param* `noitaPatcherUtils` — required
 
-## noitaPatcherUtils
+### noitaPatcherUtils
 
 
 ```lua
 NoitaPatcherUtils
 ```
 
-## setEntityData
+### setEntityData
 
 
 ```lua
 function NoitaComponentUtils.setEntityData(self: NoitaComponentUtils, entityId: number, x: number, y: number, rotation: number, velocity?: Vec2, health: number)
 ```
 
-## setInitialSerializedEntityString
+### setInitialSerializedEntityString
 
 
 ```lua
@@ -3018,7 +3024,7 @@ function NoitaComponentUtils.setInitialSerializedEntityString(self: NoitaCompone
 
 @*return* `if` — success
 
-## setNetworkSpriteIndicatorStatus
+### setNetworkSpriteIndicatorStatus
 
 
 ```lua
@@ -3029,7 +3035,7 @@ Sets the SpriteComponent to a specific status by setting image_file.
 
 @*param* `status` — off, processed, serialised, sent, acked
 
-## utils
+### utils
 
 
 ```lua
@@ -3041,11 +3047,11 @@ Utils class for lazy developers.
 
 ---
 
-# NoitaMpSettings
+## NoitaMpSettings
 
  NoitaMpSettings: Replacement for Noita ModSettings.
 
-## clearAndCreateSettings
+### clearAndCreateSettings
 
 
 ```lua
@@ -3054,28 +3060,28 @@ function NoitaMpSettings.clearAndCreateSettings(self: NoitaMpSettings)
 
 Removes all settings and creates a new settings file.
 
-## customProfiler
+### customProfiler
 
 
 ```lua
 CustomProfiler
 ```
 
-See: [CustomProfiler](../../mods/noita-mp/files/scripts/util/CustomProfiler.lua#L2#10)
+See: [CustomProfiler](https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/util/CustomProfiler.lua#L2#10)
 
-## fileUtils
+### fileUtils
 
 
 ```lua
 FileUtils
 ```
 
-## get
+### get
 
 
 ```lua
 function NoitaMpSettings.get(self: NoitaMpSettings, key: string, dataType: string)
-  -> boolean|string|number
+  -> value: boolean|string|number|nil
 ```
 
 Returns a setting from the settings file converted to the given dataType. If the setting does not exist, it will be created with the default empty value.
@@ -3084,7 +3090,9 @@ Returns a setting from the settings file converted to the given dataType. If the
 
 @*param* `dataType` — required! Must be one of "boolean" or "number". If not set, "string" is default.
 
-## gui
+@*return* `value` — converted to dataType or nil, when value is not set.
+
+### gui
 
 
 ```lua
@@ -3093,7 +3101,7 @@ Gui
 
 Everything regarding ImGui: Credits to @dextercd
 
-## isMoreThanOneNoitaProcessRunning
+### isMoreThanOneNoitaProcessRunning
 
 
 ```lua
@@ -3105,21 +3113,21 @@ Checks if more than one Noita process is running.
 
 @*return* `true` — if more than one Noita process is running.
 
-## json
+### json
 
 
 ```lua
 json
 ```
 
-## lfs
+### lfs
 
 
 ```lua
 LuaFileSystem
 ```
 
-## load
+### load
 
 
 ```lua
@@ -3128,14 +3136,14 @@ function NoitaMpSettings.load(self: NoitaMpSettings)
 
 Loads the settings from the settings file and put those into the cached settings.
 
-## logger
+### logger
 
 
 ```lua
 Logger
 ```
 
-## new
+### new
 
 
 ```lua
@@ -3147,14 +3155,14 @@ NoitaMpSettings constructor.
 
 @*param* `gui` — required
 
-## save
+### save
 
 
 ```lua
 function NoitaMpSettings.save(self: NoitaMpSettings)
 ```
 
-## set
+### set
 
 
 ```lua
@@ -3168,14 +3176,14 @@ Sets a setting. Saves the settings to the settings file and returns the new upda
 
 @*param* `value` — required
 
-## settingsFileExists
+### settingsFileExists
 
 
 ```lua
 unknown
 ```
 
-## utils
+### utils
 
 
 ```lua
@@ -3184,7 +3192,7 @@ Utils
 
 Utils class for lazy developers.
 
-## winapi
+### winapi
 
 
 ```lua
@@ -3194,16 +3202,16 @@ winapi
 
 ---
 
-# NoitaPatcherUtils
+## NoitaPatcherUtils
 
-## base64
+### base64
 
 
 ```lua
 unknown
 ```
 
-## customProfiler
+### customProfiler
 
 
 ```lua
@@ -3212,7 +3220,7 @@ CustomProfiler
 
 Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 
-## deserializeEntity
+### deserializeEntity
 
 
 ```lua
@@ -3232,7 +3240,14 @@ function NoitaPatcherUtils.deserializeEntity(self: NoitaPatcherUtils, entityId: 
 
 @*return* `entityId` — of the created entity
 
-## new
+### luaNoitaMpNative
+
+
+```lua
+unknown
+```
+
+### new
 
 
 ```lua
@@ -3246,14 +3261,14 @@ NoitaPatcherUtils constructor.
 
 @*param* `np` — required
 
-## np
+### np
 
 
 ```lua
 noitapatcher
 ```
 
-## serializeEntity
+### serializeEntity
 
 
 ```lua
@@ -3265,7 +3280,7 @@ function NoitaPatcherUtils.serializeEntity(self: NoitaPatcherUtils, entityId: nu
 
 @*return* `base64String` — base64 encoded string
 
-## utils
+### utils
 
 
 ```lua
@@ -3277,18 +3292,18 @@ Utils class for lazy developers.
 
 ---
 
-# NuidUtils
+## NuidUtils
 
 NuidUtils for getting the current network unique identifier
 
-## client
+### client
 
 
 ```lua
 Client
 ```
 
-## customProfiler
+### customProfiler
 
 
 ```lua
@@ -3297,14 +3312,14 @@ CustomProfiler
 
 Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 
-## fileUtils
+### fileUtils
 
 
 ```lua
 FileUtils
 ```
 
-## getEntityIdsByKillIndicator
+### getEntityIdsByKillIndicator
 
 
 ```lua
@@ -3315,7 +3330,7 @@ function NuidUtils.getEntityIdsByKillIndicator(self: NuidUtils)
 If an entity died, the associated nuid-entityId-set will be updated with entityId multiplied by -1.
 If this happens, KillEntityMsg has to be send by network.
 
-## getNextNuid
+### getNextNuid
 
 
 ```lua
@@ -3323,21 +3338,21 @@ function NuidUtils.getNextNuid(self: NuidUtils)
   -> integer
 ```
 
-## globalUtils
+### globalUtils
 
 
 ```lua
 GlobalsUtils
 ```
 
-## logger
+### logger
 
 
 ```lua
 Logger
 ```
 
-## new
+### new
 
 
 ```lua
@@ -3361,14 +3376,14 @@ NuidUtils constructor
 
 @*param* `nxml` — optional
 
-## nxml
+### nxml
 
 
 ```lua
 nxml
 ```
 
-## worldStateXmlFileExists
+### worldStateXmlFileExists
 
 
 ```lua
@@ -3378,7 +3393,7 @@ unknown
 
 ---
 
-# OnProjectileFired
+## OnProjectileFired
 
  Must define these callbacks else you get errors every
  time a projectile is fired. Functions are empty since
@@ -3392,7 +3407,7 @@ function OnProjectileFired()
 
 ---
 
-# OnProjectileFiredPost
+## OnProjectileFiredPost
 
 
 ```lua
@@ -3402,7 +3417,7 @@ function OnProjectileFiredPost()
 
 ---
 
-# OnWorldInitialized
+## OnWorldInitialized
 
 
 ```lua
@@ -3412,7 +3427,7 @@ function OnWorldInitialized()
 
 ---
 
-# PlayerNameFunction
+## PlayerNameFunction
 
 
 ```lua
@@ -3422,30 +3437,30 @@ function PlayerNameFunction(entity_id: any, playerName: any)
 
 ---
 
-# Server
+## Server
 
-## __index
+### __index
 
 
 ```lua
 Server
 ```
 
-## acknowledgeMaxSize
+### acknowledgeMaxSize
 
 
 ```lua
 integer
 ```
 
-## address
+### address
 
 
 ```lua
 string
 ```
 
-## amIServer
+### amIServer
 
 
 ```lua
@@ -3456,9 +3471,9 @@ function Server.amIServer(self: Server)
 Checks if the current local user is a server.
 
 @*return* `true` — if server, false if not
-See: [Client.amIClient](../../mods/noita-mp/files/scripts/net/Client.lua#L946#9)
+See: [Client.amIClient](https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/net/Client.lua#L910#9)
 
-## ban
+### ban
 
 
 ```lua
@@ -3469,14 +3484,14 @@ Bans a player by name.
 
 @*param* `name` — required
 
-## clients
+### clients
 
 
 ```lua
 table
 ```
 
-## customProfiler
+### customProfiler
 
 
 ```lua
@@ -3485,60 +3500,60 @@ CustomProfiler
 
 Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
 
-## defaultSendChannel
+### defaultSendChannel
 
 
 ```lua
 integer
 ```
 
-## defaultSendMode
+### defaultSendMode
 
 
 ```lua
 string
 ```
 
-## deserialize
+### deserialize
 
 
 ```lua
 nil
 ```
 
-## entityCache
+### entityCache
 
 
 ```lua
 EntityCache
 ```
 
-## entityCacheUtils
+### entityCacheUtils
 
 
 ```lua
 EntityCacheUtils
 ```
 
-See: [EntityCacheUtils](../../mods/noita-mp/files/scripts/util/EntityCacheUtils.lua#L1#10)
+See: [EntityCacheUtils](https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/util/EntityCacheUtils.lua#L1#10)
 
-## entityUtils
+### entityUtils
 
 
 ```lua
 EntityUtils
 ```
 
-## fileUtils
+### fileUtils
 
 
 ```lua
 FileUtils
 ```
 
-See: [FileUtils](../../mods/noita-mp/files/scripts/util/FileUtils.lua#L1#10)
+See: [FileUtils](https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/util/FileUtils.lua#L1#10)
 
-## getAckCacheSize
+### getAckCacheSize
 
 
 ```lua
@@ -3548,60 +3563,60 @@ function Server.getAckCacheSize(self: Server)
 
 Mainly for profiling. Returns then network cache, aka acknowledge.
 
-## globalsUtils
+### globalsUtils
 
 
 ```lua
 GlobalsUtils
 ```
 
-See: [GlobalsUtils](../../mods/noita-mp/files/scripts/util/GlobalsUtils.lua#L1#10)
+See: [GlobalsUtils](https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/util/GlobalsUtils.lua#L1#10)
 
-## guid
+### guid
 
 
 ```lua
 nil
 ```
 
-## guidUtils
+### guidUtils
 
 
 ```lua
 GuidUtils
 ```
 
-See: [GuidUtils](../../mods/noita-mp/files/scripts/util/GuidUtils.lua#L2#10)
+See: [GuidUtils](https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/util/GuidUtils.lua#L2#10)
 
-## health
+### health
 
 
 ```lua
 table
 ```
 
-## host
+### host
 
 
 ```lua
 nil
 ```
 
-## iAm
+### iAm
 
 
 ```lua
 string
 ```
 
-## inBandwidth
+### inBandwidth
 
 
 ```lua
 number
 ```
 
-## isRunning
+### isRunning
 
 
 ```lua
@@ -3615,7 +3630,7 @@ Returns true if server is running, false if not.
 
  TODO: remove this before merge
 
-## kick
+### kick
 
 
 ```lua
@@ -3626,7 +3641,7 @@ Kicks a player by name.
 
 @*param* `name` — required
 
-## listener
+### listener
 
 
 ```lua
@@ -3635,35 +3650,35 @@ table
 
 newListener(),
 
-## logger
+### logger
 
 
 ```lua
 Logger
 ```
 
-## maxChannels
+### maxChannels
 
 
 ```lua
 number
 ```
 
-## maxPeers
+### maxPeers
 
 
 ```lua
 number
 ```
 
-## messageTimeout
+### messageTimeout
 
 
 ```lua
 integer
 ```
 
-## minaUtils
+### minaUtils
 
 
 ```lua
@@ -3672,42 +3687,42 @@ MinaUtils
 
 Util class for fetching information about local and remote minas.
 
-## modListCached
+### modListCached
 
 
 ```lua
 nil
 ```
 
-## name
+### name
 
 
 ```lua
 nil
 ```
 
-## networkCache
+### networkCache
 
 
 ```lua
 NetworkCache
 ```
 
-## networkCacheUtils
+### networkCacheUtils
 
 
 ```lua
 NetworkCacheUtils
 ```
 
-## networkUtils
+### networkUtils
 
 
 ```lua
 NetworkUtils
 ```
 
-## networkVscUtils
+### networkVscUtils
 
 
 ```lua
@@ -3716,7 +3731,7 @@ NetworkVscUtils
 
 NetworkVscUtils for getting and setting values in VariableStorageComponents of Noita-API
 
-## new
+### new
 
 
 ```lua
@@ -3740,7 +3755,7 @@ Server constructor. Inherits from SockServer sock.newServer.
 
 @*param* `np` — required
 
-## noitaComponentUtils
+### noitaComponentUtils
 
 
 ```lua
@@ -3749,7 +3764,7 @@ NoitaComponentUtils
 
 Class for using Noita components.
 
-## noitaMpSettings
+### noitaMpSettings
 
 
 ```lua
@@ -3758,21 +3773,21 @@ NoitaMpSettings
 
  NoitaMpSettings: Replacement for Noita ModSettings.
 
-## noitaPatcherUtils
+### noitaPatcherUtils
 
 
 ```lua
 NoitaPatcherUtils
 ```
 
-## nuid
+### nuid
 
 
 ```lua
 nil
 ```
 
-## nuidUtils
+### nuidUtils
 
 
 ```lua
@@ -3781,42 +3796,42 @@ NuidUtils
 
 NuidUtils for getting the current network unique identifier
 
-## outBandwidth
+### outBandwidth
 
 
 ```lua
 number
 ```
 
-## packetsReceived
+### packetsReceived
 
 
 ```lua
 integer
 ```
 
-## packetsSent
+### packetsSent
 
 
 ```lua
 integer
 ```
 
-## peers
+### peers
 
 
 ```lua
 table
 ```
 
-## port
+### port
 
 
 ```lua
 number
 ```
 
-## preStart
+### preStart
 
 
 ```lua
@@ -3829,7 +3844,7 @@ Starts a server on ip and port. Both can be nil, then ModSettings will be used.
 
 @*param* `port` — port number from 1 to max of 65535 or nil
 
-## preUpdate
+### preUpdate
 
 
 ```lua
@@ -3841,7 +3856,7 @@ Updates the server by checking for network events and handling them.
 @*param* `startFrameTime` — required
 See: ~SockServer.update~
 
-## send
+### send
 
 
 ```lua
@@ -3859,28 +3874,25 @@ Sends a message a one peer.
 
 @*return* `true` — if message was sent, false if not
 
-## sendChannel
+### sendChannel
 
 
 ```lua
 integer
 ```
 
-## sendDeadNuids
+### sendDeadNuids
 
 
 ```lua
 function Server.sendDeadNuids(self: Server, deadNuids: table)
-  -> true: boolean
 ```
 
 Sends dead nuids to all clients.
 
 @*param* `deadNuids` — required
 
-@*return* `true` — if message was sent, false if not
-
-## sendEntityData
+### sendEntityData
 
 
 ```lua
@@ -3891,7 +3903,7 @@ Sends entity data to all clients.
 
 @*param* `entityId` — required
 
-## sendMinaInformation
+### sendMinaInformation
 
 
 ```lua
@@ -3901,14 +3913,14 @@ function Server.sendMinaInformation(self: Server)
 
 Sends mina information to all clients.
 
-## sendMode
+### sendMode
 
 
 ```lua
 string
 ```
 
-## sendNewGuid
+### sendNewGuid
 
 
 ```lua
@@ -3920,11 +3932,11 @@ Sends a message to the client, when there is a guid clash.
 
 @*return* `true` — if message was sent, false if not
 
-## sendNewNuid
+### sendNewNuid
 
 
 ```lua
-function Server.sendNewNuid(self: Server, ownerName: string, ownerGuid: string, entityId: number, currentSerializedB64Str: any, nuid: number, x: number, y: number, initSerializedB64Str: string)
+function Server.sendNewNuid(self: Server, ownerName: string, ownerGuid: string, entityId: number, currentSerializedB64Str: string, nuid: number, x: number, y: number, initSerializedB64Str: string)
   -> true: boolean
 ```
 
@@ -3936,7 +3948,7 @@ Sends a new nuid to all clients. This also creates/updates the entities on clien
 
 @*param* `entityId` — required
 
-@*param* `serializedEntityString` — required
+@*param* `currentSerializedB64Str` — required
 
 @*param* `nuid` — required
 
@@ -3948,7 +3960,7 @@ Sends a new nuid to all clients. This also creates/updates the entities on clien
 
 @*return* `true` — if message was sent, false if not
 
-## sendToAll
+### sendToAll
 
 
 ```lua
@@ -3964,7 +3976,7 @@ Sends a message to all peers.
 
 @*return* `true` — if message was sent, false if not
 
-## sendToAllBut
+### sendToAllBut
 
 
 ```lua
@@ -3982,14 +3994,14 @@ Sends a message to all peers excluded one peer defined as the peer param.
 
 @*return* `true` — if message was sent, false if not
 
-## serialize
+### serialize
 
 
 ```lua
 nil
 ```
 
-## stop
+### stop
 
 
 ```lua
@@ -3998,14 +4010,14 @@ function Server.stop(self: Server)
 
 Stops the server.
 
-## transform
+### transform
 
 
 ```lua
 table
 ```
 
-## utils
+### utils
 
 
 ```lua
@@ -4014,7 +4026,7 @@ unknown
 
 Utils class for lazy developers.
 
-## zipTable
+### zipTable
 
 
 ```lua
@@ -4024,9 +4036,9 @@ function
 
 ---
 
-# SockClient
+## SockClient
 
-## zipTable
+### zipTable
 
 
 ```lua
@@ -4036,58 +4048,58 @@ function
 
 ---
 
-# SockServer
+## SockServer
 
-## address
+### address
 
 
 ```lua
 string
 ```
 
-## clients
+### clients
 
 
 ```lua
 table
 ```
 
-## defaultSendChannel
+### defaultSendChannel
 
 
 ```lua
 integer
 ```
 
-## defaultSendMode
+### defaultSendMode
 
 
 ```lua
 string
 ```
 
-## deserialize
+### deserialize
 
 
 ```lua
 nil
 ```
 
-## host
+### host
 
 
 ```lua
 nil
 ```
 
-## inBandwidth
+### inBandwidth
 
 
 ```lua
 number
 ```
 
-## listener
+### listener
 
 
 ```lua
@@ -4096,84 +4108,84 @@ table
 
 newListener(),
 
-## maxChannels
+### maxChannels
 
 
 ```lua
 number
 ```
 
-## maxPeers
+### maxPeers
 
 
 ```lua
 number
 ```
 
-## messageTimeout
+### messageTimeout
 
 
 ```lua
 integer
 ```
 
-## outBandwidth
+### outBandwidth
 
 
 ```lua
 number
 ```
 
-## packetsReceived
+### packetsReceived
 
 
 ```lua
 integer
 ```
 
-## packetsSent
+### packetsSent
 
 
 ```lua
 integer
 ```
 
-## peers
+### peers
 
 
 ```lua
 table
 ```
 
-## port
+### port
 
 
 ```lua
 number
 ```
 
-## sendChannel
+### sendChannel
 
 
 ```lua
 integer
 ```
 
-## sendMode
+### sendMode
 
 
 ```lua
 string
 ```
 
-## serialize
+### serialize
 
 
 ```lua
 nil
 ```
 
-## zipTable
+### zipTable
 
 
 ```lua
@@ -4183,7 +4195,7 @@ function
 
 ---
 
-# Ui
+## Ui
 
  Ui: NoitaMP UI.
 See:
@@ -4198,7 +4210,7 @@ table
 
 ---
 
-# Ui.new
+## Ui.new
 
 
 ```lua
@@ -4209,11 +4221,11 @@ function Ui.new()
 
 ---
 
-# Utils
+## Utils
 
 Utils class for lazy developers.
 
-## copyToClipboard
+### copyToClipboard
 
 
 ```lua
@@ -4224,14 +4236,14 @@ Copies a string to the clipboard.
 
 @*param* `copy` — string to copy to the clipboard. required
 
-## ffi
+### ffi
 
 
 ```lua
 unknown
 ```
 
-## isEmpty
+### isEmpty
 
 
 ```lua
@@ -4245,7 +4257,7 @@ Checks if a variable is empty.
 
 @*return* `true` — if empty, false otherwise
 
-## new
+### new
 
 
 ```lua
@@ -4253,7 +4265,7 @@ function Utils.new(self: Utils, utilsObject: any)
   -> Utils
 ```
 
-## openUrl
+### openUrl
 
 
 ```lua
@@ -4264,7 +4276,7 @@ Opens a url in the default browser.
 
 @*param* `url` — url to open. required
 
-## pformat
+### pformat
 
 
 ```lua
@@ -4278,14 +4290,14 @@ Formats anything pretty.
 
 @*return* `formatted` — variable
 
-## pprint
+### pprint
 
 
 ```lua
 unknown
 ```
 
-## reloadMap
+### reloadMap
 
 
 ```lua
@@ -4296,7 +4308,7 @@ Reloads the whole world with a specific seed. No need to restart the game and us
 
 @*param* `seed` — max = 4294967295
 
-## sleep
+### sleep
 
 
 ```lua
@@ -4307,7 +4319,7 @@ Wait for n seconds.
 
 @*param* `s` — seconds to wait. required
 
-## wait
+### wait
 
 
 ```lua
@@ -4317,12 +4329,12 @@ function Utils.wait(self: Utils, s: number)
 Wait for n seconds.
 
 @*param* `s` — seconds to wait
-See: [Utils.sleep](../../mods/noita-mp/files/scripts/util/Utils.lua#L18#9)
+See: [Utils.sleep](https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/util/Utils.lua#L18#9)
 
 
 ---
 
-# _G
+## _G
 
 
 A global variable (not a function) that holds the global environment (see [§2.2](http://www.lua.org/manual/5.4/manual.html#2.2)). Lua itself does not use this variable; changing its value does not affect any environment, nor vice versa.
@@ -4338,7 +4350,7 @@ _G
 
 ---
 
-# _VERSION
+## _VERSION
 
 
 A global variable (not a function) that holds a string containing the running Lua version.
@@ -4354,7 +4366,7 @@ string
 
 ---
 
-# __genOrderedIndex
+## __genOrderedIndex
 
 
 ```lua
@@ -4365,7 +4377,7 @@ function __genOrderedIndex(t: any)
 
 ---
 
-# arg
+## arg
 
 
 Command-line arguments of Lua Standalone.
@@ -4381,7 +4393,7 @@ string[]
 
 ---
 
-# assert
+## assert
 
 
 Raises an error if the value of its argument v is false (i.e., `nil` or `false`); otherwise, returns all its arguments. In case of error, `message` is the error object; when absent, it defaults to `"assertion failed!"`
@@ -4398,7 +4410,7 @@ function assert(v?: <T>, message?: any, ...any)
 
 ---
 
-# client
+## client
 
 
 ```lua
@@ -4408,7 +4420,7 @@ Client
 
 ---
 
-# collectgarbage
+## collectgarbage
 
 
 This function is a generic interface to the garbage collector. It performs different functions according to its first argument, `opt`.
@@ -4437,7 +4449,7 @@ function collectgarbage(opt?: "collect"|"count"|"generational"|"incremental"|"is
 
 ---
 
-# compId
+## compId
 
 
 ```lua
@@ -4452,7 +4464,7 @@ unknown
 
 ---
 
-# coroutine
+## coroutine
 
 
 
@@ -4468,7 +4480,7 @@ coroutinelib
 
 ---
 
-# coroutine.close
+## coroutine.close
 
 
 Closes coroutine `co` , closing all its pending to-be-closed variables and putting the coroutine in a dead state.
@@ -4485,7 +4497,7 @@ function coroutine.close(co: thread)
 
 ---
 
-# coroutine.create
+## coroutine.create
 
 
 Creates a new coroutine, with body `f`. `f` must be a function. Returns this new coroutine, an object with type `"thread"`.
@@ -4501,7 +4513,7 @@ function coroutine.create(f: fun(...any):...unknown)
 
 ---
 
-# coroutine.isyieldable
+## coroutine.isyieldable
 
 
 Returns true when the coroutine `co` can yield. The default for `co` is the running coroutine.
@@ -4517,7 +4529,7 @@ function coroutine.isyieldable(co?: thread)
 
 ---
 
-# coroutine.resume
+## coroutine.resume
 
 
 Starts or continues the execution of coroutine `co`.
@@ -4534,7 +4546,7 @@ function coroutine.resume(co: thread, val1?: any, ...any)
 
 ---
 
-# coroutine.running
+## coroutine.running
 
 
 Returns the running coroutine plus a boolean, true when the running coroutine is the main one.
@@ -4551,7 +4563,7 @@ function coroutine.running()
 
 ---
 
-# coroutine.status
+## coroutine.status
 
 
 Returns the status of coroutine `co`.
@@ -4576,7 +4588,7 @@ function coroutine.status(co: thread)
 
 ---
 
-# coroutine.wrap
+## coroutine.wrap
 
 
 Creates a new coroutine, with body `f`; `f` must be a function. Returns a function that resumes the coroutine each time it is called.
@@ -4592,7 +4604,7 @@ function coroutine.wrap(f: fun(...any):...unknown)
 
 ---
 
-# coroutine.yield
+## coroutine.yield
 
 
 Suspends the execution of the calling coroutine.
@@ -4608,7 +4620,7 @@ Suspends the execution of the calling coroutine.
 
 ---
 
-# debug
+## debug
 
 
 
@@ -4624,7 +4636,7 @@ debuglib
 
 ---
 
-# debug.debug
+## debug.debug
 
 
 Enters an interactive mode with the user, running each string that the user enters.
@@ -4639,7 +4651,7 @@ function debug.debug()
 
 ---
 
-# debug.getfenv
+## debug.getfenv
 
 
 Returns the environment of object `o` .
@@ -4655,7 +4667,7 @@ function debug.getfenv(o: any)
 
 ---
 
-# debug.gethook
+## debug.gethook
 
 
 Returns the current hook settings of the thread.
@@ -4673,7 +4685,7 @@ function debug.gethook(co?: thread)
 
 ---
 
-# debug.getinfo
+## debug.getinfo
 
 
 Returns a table with information about a function.
@@ -4704,7 +4716,7 @@ function debug.getinfo(thread: thread, f: integer|fun(...any):...unknown, what?:
 
 ---
 
-# debug.getlocal
+## debug.getlocal
 
 
 Returns the name and the value of the local variable with index `local` of the function at level `f` of the stack.
@@ -4721,7 +4733,7 @@ function debug.getlocal(thread: thread, f: integer|fun(...any):...unknown, index
 
 ---
 
-# debug.getmetatable
+## debug.getmetatable
 
 
 Returns the metatable of the given value.
@@ -4737,7 +4749,7 @@ function debug.getmetatable(object: any)
 
 ---
 
-# debug.getregistry
+## debug.getregistry
 
 
 Returns the registry table.
@@ -4753,7 +4765,7 @@ function debug.getregistry()
 
 ---
 
-# debug.getupvalue
+## debug.getupvalue
 
 
 Returns the name and the value of the upvalue with index `up` of the function.
@@ -4770,7 +4782,7 @@ function debug.getupvalue(f: fun(...any):...unknown, up: integer)
 
 ---
 
-# debug.getuservalue
+## debug.getuservalue
 
 
 Returns the `n`-th user value associated
@@ -4790,10 +4802,10 @@ function debug.getuservalue(u: userdata, n?: integer)
 
 ---
 
-# debug.setcstacklimit
+## debug.setcstacklimit
 
 
-### **Deprecated in `Lua 5.4.2`**
+#### **Deprecated in `Lua 5.4.2`**
 
 Sets a new limit for the C stack. This limit controls how deeply nested calls can go in Lua, with the intent of avoiding a stack overflow.
 
@@ -4811,7 +4823,7 @@ function debug.setcstacklimit(limit: integer)
 
 ---
 
-# debug.setfenv
+## debug.setfenv
 
 
 Sets the environment of the given `object` to the given `table` .
@@ -4827,7 +4839,7 @@ function debug.setfenv(object: <T>, env: table)
 
 ---
 
-# debug.sethook
+## debug.sethook
 
 
 Sets the given function as a hook.
@@ -4852,7 +4864,7 @@ function debug.sethook(thread: thread, hook: fun(...any):...unknown, mask: strin
 
 ---
 
-# debug.setlocal
+## debug.setlocal
 
 
 Assigns the `value` to the local variable with index `local` of the function at `level` of the stack.
@@ -4868,7 +4880,7 @@ function debug.setlocal(thread: thread, level: integer, index: integer, value: a
 
 ---
 
-# debug.setmetatable
+## debug.setmetatable
 
 
 Sets the metatable for the given value to the given table (which can be `nil`).
@@ -4884,7 +4896,7 @@ function debug.setmetatable(value: <T>, meta?: table)
 
 ---
 
-# debug.setupvalue
+## debug.setupvalue
 
 
 Assigns the `value` to the upvalue with index `up` of the function.
@@ -4900,7 +4912,7 @@ function debug.setupvalue(f: fun(...any):...unknown, up: integer, value: any)
 
 ---
 
-# debug.setuservalue
+## debug.setuservalue
 
 
 Sets the given `value` as
@@ -4919,7 +4931,7 @@ function debug.setuservalue(udata: userdata, value: any, n?: integer)
 
 ---
 
-# debug.traceback
+## debug.traceback
 
 
 Returns a string with a traceback of the call stack. The optional message string is appended at the beginning of the traceback.
@@ -4935,7 +4947,7 @@ function debug.traceback(thread: thread, message?: any, level?: integer)
 
 ---
 
-# debug.upvalueid
+## debug.upvalueid
 
 
 Returns a unique identifier (as a light userdata) for the upvalue numbered `n` from the given function.
@@ -4951,7 +4963,7 @@ function debug.upvalueid(f: fun(...any):...unknown, n: integer)
 
 ---
 
-# debug.upvaluejoin
+## debug.upvaluejoin
 
 
 Make the `n1`-th upvalue of the Lua closure `f1` refer to the `n2`-th upvalue of the Lua closure `f2`.
@@ -4966,7 +4978,7 @@ function debug.upvaluejoin(f1: fun(...any):...unknown, n1: integer, f2: fun(...a
 
 ---
 
-# dofile
+## dofile
 
 
 Opens the named file and executes its content as a Lua chunk. When called without arguments, `dofile` executes the content of the standard input (`stdin`). Returns all values returned by the chunk. In case of errors, `dofile` propagates the error to its caller. (That is, `dofile` does not run in protected mode.)
@@ -4988,7 +5000,7 @@ function dofile(path: any)
 
 ---
 
-# err
+## err
 
 
 ```lua
@@ -4998,7 +5010,7 @@ unknown
 
 ---
 
-# error
+## error
 
 
 Terminates the last protected function called and returns message as the error object.
@@ -5016,7 +5028,7 @@ function error(message: any, level?: integer)
 
 ---
 
-# executed
+## executed
 
 
 ```lua
@@ -5026,7 +5038,7 @@ boolean
 
 ---
 
-# getfenv
+## getfenv
 
 
 Returns the current environment in use by the function. `f` can be a Lua function or a number that specifies the function at that stack level.
@@ -5042,7 +5054,7 @@ function getfenv(f?: integer|fun(...any):...unknown)
 
 ---
 
-# getmetatable
+## getmetatable
 
 
 If object does not have a metatable, returns nil. Otherwise, if the object's metatable has a __metatable field, returns the associated value. Otherwise, returns the metatable of the given object.
@@ -5058,7 +5070,7 @@ function getmetatable(object: any)
 
 ---
 
-# globalsUtils
+## globalsUtils
 
 
 ```lua
@@ -5078,7 +5090,7 @@ GlobalsUtils
 
 ---
 
-# gui
+## gui
 
 
 ```lua
@@ -5113,7 +5125,7 @@ unknown
 
 ---
 
-# io
+## io
 
 
 
@@ -5129,7 +5141,7 @@ iolib
 
 ---
 
-# io.close
+## io.close
 
 
 Close `file` or default output file.
@@ -5154,7 +5166,7 @@ function io.close(file?: file*)
 
 ---
 
-# io.flush
+## io.flush
 
 
 Saves any written data to default output file.
@@ -5169,7 +5181,7 @@ function io.flush()
 
 ---
 
-# io.input
+## io.input
 
 
 Sets `file` as the default input file.
@@ -5184,7 +5196,7 @@ function io.input(file: string|file*)
 
 ---
 
-# io.lines
+## io.lines
 
 
 ------
@@ -5215,7 +5227,7 @@ function io.lines(filename?: string, ...string|integer|"L"|"a"|"l"...(+1))
 
 ---
 
-# io.open
+## io.open
 
 
 Opens a file, in the mode specified in the string `mode`.
@@ -5249,7 +5261,7 @@ function io.open(filename: string, mode?: "a"|"a+"|"a+b"|"ab"|"r"...(+7))
 
 ---
 
-# io.output
+## io.output
 
 
 Sets `file` as the default output file.
@@ -5264,7 +5276,7 @@ function io.output(file: string|file*)
 
 ---
 
-# io.popen
+## io.popen
 
 
 Starts program prog in a separated process.
@@ -5294,7 +5306,7 @@ function io.popen(commandLine: any)
 
 ---
 
-# io.read
+## io.read
 
 
 Reads the `file`, according to the given formats, which specify what to read.
@@ -5320,7 +5332,7 @@ function io.read(...string|integer|"L"|"a"|"l"...(+1))
 
 ---
 
-# io.tmpfile
+## io.tmpfile
 
 
 In case of success, returns a handle for a temporary file.
@@ -5336,7 +5348,7 @@ function io.tmpfile()
 
 ---
 
-# io.type
+## io.type
 
 
 Checks whether `obj` is a valid file handle.
@@ -5360,7 +5372,7 @@ function io.type(file: file*)
 
 ---
 
-# io.write
+## io.write
 
 
 Writes the value of each of its arguments to default output file.
@@ -5377,7 +5389,7 @@ function io.write(...any)
 
 ---
 
-# ipairs
+## ipairs
 
 
 Returns three values (an iterator function, the table `t`, and `0`) so that the construction
@@ -5400,7 +5412,7 @@ function ipairs(t: <T:table>)
 
 ---
 
-# is_linux
+## is_linux
 
 
 ```lua
@@ -5420,7 +5432,7 @@ boolean
 
 ---
 
-# is_windows
+## is_windows
 
 NoitaMP additions 
 
@@ -5442,7 +5454,7 @@ boolean
 
 ---
 
-# lldebugger
+## lldebugger
 
  TODO: remove this before merge
  TODO: remove this before merge
@@ -5455,7 +5467,7 @@ unknown
 
 ---
 
-# load
+## load
 
 
 Loads a chunk.
@@ -5483,7 +5495,7 @@ function load(chunk: string|function, chunkname?: string, mode?: "b"|"bt"|"t", e
 
 ---
 
-# loadfile
+## loadfile
 
 
 Loads a chunk from file `filename` or from the standard input, if no file name is given.
@@ -5508,7 +5520,7 @@ function loadfile(filename?: string, mode?: "b"|"bt"|"t", env?: table)
 
 ---
 
-# loadstring
+## loadstring
 
 
 Loads a chunk from the given string.
@@ -5525,7 +5537,7 @@ function loadstring(text: string, chunkname?: string)
 
 ---
 
-# logger
+## logger
 
 
 ```lua
@@ -5545,7 +5557,7 @@ Logger
 
 ---
 
-# math
+## math
 
 
 
@@ -5561,7 +5573,7 @@ mathlib
 
 ---
 
-# math.abs
+## math.abs
 
 
 Returns the absolute value of `x`.
@@ -5577,7 +5589,7 @@ function math.abs(x: <Number:number>)
 
 ---
 
-# math.acos
+## math.acos
 
 
 Returns the arc cosine of `x` (in radians).
@@ -5593,7 +5605,7 @@ function math.acos(x: number)
 
 ---
 
-# math.asin
+## math.asin
 
 
 Returns the arc sine of `x` (in radians).
@@ -5609,7 +5621,7 @@ function math.asin(x: number)
 
 ---
 
-# math.atan
+## math.atan
 
 
 Returns the arc tangent of `y/x` (in radians).
@@ -5625,7 +5637,7 @@ function math.atan(y: number, x?: number)
 
 ---
 
-# math.atan2
+## math.atan2
 
 
 Returns the arc tangent of `y/x` (in radians).
@@ -5641,7 +5653,7 @@ function math.atan2(y: number, x: number)
 
 ---
 
-# math.ceil
+## math.ceil
 
 
 Returns the smallest integral value larger than or equal to `x`.
@@ -5657,7 +5669,7 @@ function math.ceil(x: number)
 
 ---
 
-# math.cos
+## math.cos
 
 
 Returns the cosine of `x` (assumed to be in radians).
@@ -5673,7 +5685,7 @@ function math.cos(x: number)
 
 ---
 
-# math.cosh
+## math.cosh
 
 
 Returns the hyperbolic cosine of `x` (assumed to be in radians).
@@ -5689,7 +5701,7 @@ function math.cosh(x: number)
 
 ---
 
-# math.deg
+## math.deg
 
 
 Converts the angle `x` from radians to degrees.
@@ -5705,7 +5717,7 @@ function math.deg(x: number)
 
 ---
 
-# math.exp
+## math.exp
 
 
 Returns the value `e^x` (where `e` is the base of natural logarithms).
@@ -5721,7 +5733,7 @@ function math.exp(x: number)
 
 ---
 
-# math.floor
+## math.floor
 
 
 Returns the largest integral value smaller than or equal to `x`.
@@ -5737,7 +5749,7 @@ function math.floor(x: number)
 
 ---
 
-# math.fmod
+## math.fmod
 
 
 Returns the remainder of the division of `x` by `y` that rounds the quotient towards zero.
@@ -5753,7 +5765,7 @@ function math.fmod(x: number, y: number)
 
 ---
 
-# math.frexp
+## math.frexp
 
 
 Decompose `x` into tails and exponents. Returns `m` and `e` such that `x = m * (2 ^ e)`, `e` is an integer and the absolute value of `m` is in the range [0.5, 1) (or zero when `x` is zero).
@@ -5770,7 +5782,7 @@ function math.frexp(x: number)
 
 ---
 
-# math.ldexp
+## math.ldexp
 
 
 Returns `m * (2 ^ e)` .
@@ -5786,7 +5798,7 @@ function math.ldexp(m: number, e: number)
 
 ---
 
-# math.log
+## math.log
 
 
 Returns the logarithm of `x` in the given base.
@@ -5802,7 +5814,7 @@ function math.log(x: number, base?: integer)
 
 ---
 
-# math.log10
+## math.log10
 
 
 Returns the base-10 logarithm of x.
@@ -5818,7 +5830,7 @@ function math.log10(x: number)
 
 ---
 
-# math.max
+## math.max
 
 
 Returns the argument with the maximum value, according to the Lua operator `<`.
@@ -5834,7 +5846,7 @@ function math.max(x: <Number:number>, ...<Number:number>)
 
 ---
 
-# math.min
+## math.min
 
 
 Returns the argument with the minimum value, according to the Lua operator `<`.
@@ -5850,7 +5862,7 @@ function math.min(x: <Number:number>, ...<Number:number>)
 
 ---
 
-# math.modf
+## math.modf
 
 
 Returns the integral part of `x` and the fractional part of `x`.
@@ -5867,7 +5879,7 @@ function math.modf(x: number)
 
 ---
 
-# math.pow
+## math.pow
 
 
 Returns `x ^ y` .
@@ -5883,7 +5895,7 @@ function math.pow(x: number, y: number)
 
 ---
 
-# math.rad
+## math.rad
 
 
 Converts the angle `x` from degrees to radians.
@@ -5899,7 +5911,7 @@ function math.rad(x: number)
 
 ---
 
-# math.random
+## math.random
 
 
 * `math.random()`: Returns a float in the range [0,1).
@@ -5918,7 +5930,7 @@ function math.random(m: integer, n: integer)
 
 ---
 
-# math.randomseed
+## math.randomseed
 
 
 * `math.randomseed(x, y)`: Concatenate `x` and `y` into a 128-bit `seed` to reinitialize the pseudo-random generator.
@@ -5936,7 +5948,7 @@ function math.randomseed(x?: integer, y?: integer)
 
 ---
 
-# math.round
+## math.round
 
  This way, you can round on any bracket:
  math.round(119.68, 6.4) -- 121.6 (= 19 * 6.4)
@@ -5956,7 +5968,7 @@ function math.round(v: number|nil, bracket: number|nil)
 
 ---
 
-# math.sign
+## math.sign
 
 Returns the sign of a number.
 
@@ -5969,7 +5981,7 @@ function math.sign(v: number)
 
 ---
 
-# math.sin
+## math.sin
 
 
 Returns the sine of `x` (assumed to be in radians).
@@ -5985,7 +5997,7 @@ function math.sin(x: number)
 
 ---
 
-# math.sinh
+## math.sinh
 
 
 Returns the hyperbolic sine of `x` (assumed to be in radians).
@@ -6001,7 +6013,7 @@ function math.sinh(x: number)
 
 ---
 
-# math.sqrt
+## math.sqrt
 
 
 Returns the square root of `x`.
@@ -6017,7 +6029,7 @@ function math.sqrt(x: number)
 
 ---
 
-# math.tan
+## math.tan
 
 
 Returns the tangent of `x` (assumed to be in radians).
@@ -6033,7 +6045,7 @@ function math.tan(x: number)
 
 ---
 
-# math.tanh
+## math.tanh
 
 
 Returns the hyperbolic tangent of `x` (assumed to be in radians).
@@ -6049,7 +6061,7 @@ function math.tanh(x: number)
 
 ---
 
-# math.tointeger
+## math.tointeger
 
 
 If the value `x` is convertible to an integer, returns that integer.
@@ -6065,7 +6077,7 @@ function math.tointeger(x: any)
 
 ---
 
-# math.type
+## math.type
 
 
 Returns `"integer"` if `x` is an integer, `"float"` if it is a float, or `nil` if `x` is not a number.
@@ -6089,7 +6101,7 @@ function math.type(x: any)
 
 ---
 
-# math.ult
+## math.ult
 
 
 Returns `true` if and only if `m` is below `n` when they are compared as unsigned integers.
@@ -6105,7 +6117,7 @@ function math.ult(m: integer, n: integer)
 
 ---
 
-# module
+## module
 
 
 Creates a module.
@@ -6120,7 +6132,7 @@ function module(name: string, ...any)
 
 ---
 
-# name
+## name
 
 
 ```lua
@@ -6135,7 +6147,7 @@ unknown
 
 ---
 
-# networkVscUtils
+## networkVscUtils
 
 NetworkVscUtils for getting and setting values in VariableStorageComponents of Noita-API
 
@@ -6152,7 +6164,7 @@ NetworkVscUtils
 
 ---
 
-# newproxy
+## newproxy
 
 
 ```lua
@@ -6163,7 +6175,7 @@ function newproxy(proxy: boolean|table|userdata)
 
 ---
 
-# next
+## next
 
 
 Allows a program to traverse all fields of a table. Its first argument is a table and its second argument is an index in this table. A call to `next` returns the next index of the table and its associated value. When called with `nil` as its second argument, `next` returns an initial index and its associated value. When called with the last index, or with `nil` in an empty table, `next` returns `nil`. If the second argument is absent, then it is interpreted as `nil`. In particular, you can use `next(t)` to check whether a table is empty.
@@ -6185,7 +6197,7 @@ function next(table: table<<K>, <V>>, index?: <K>)
 
 ---
 
-# noitaComponentUtils
+## noitaComponentUtils
 
 Class for using Noita components.
 
@@ -6197,7 +6209,7 @@ NoitaComponentUtils
 
 ---
 
-# noitaMpSettings
+## noitaMpSettings
 
  NoitaMpSettings: Replacement for Noita ModSettings.
 
@@ -6219,7 +6231,7 @@ NoitaMpSettings
 
 ---
 
-# noitaMpSettings.customProfiler
+## noitaMpSettings.customProfiler
 
 
 ```lua
@@ -6239,7 +6251,7 @@ table
 
 ---
 
-# once
+## once
 
 
 ```lua
@@ -6249,7 +6261,7 @@ boolean
 
 ---
 
-# orderedNext
+## orderedNext
 
 
 ```lua
@@ -6261,7 +6273,7 @@ function orderedNext(t: any, state: any)
 
 ---
 
-# orderedPairs
+## orderedPairs
 
 
 ```lua
@@ -6274,7 +6286,7 @@ function orderedPairs(t: any)
 
 ---
 
-# os
+## os
 
 
 
@@ -6290,7 +6302,7 @@ oslib
 
 ---
 
-# os.clock
+## os.clock
 
 
 Returns an approximation of the amount in seconds of CPU time used by the program.
@@ -6306,7 +6318,7 @@ function os.clock()
 
 ---
 
-# os.date
+## os.date
 
 
 Returns a string or a table containing date and time, formatted according to the given string `format`.
@@ -6322,7 +6334,7 @@ function os.date(format?: string, time?: integer)
 
 ---
 
-# os.difftime
+## os.difftime
 
 
 Returns the difference, in seconds, from time `t1` to time `t2`.
@@ -6338,7 +6350,7 @@ function os.difftime(t2: integer, t1: integer)
 
 ---
 
-# os.execute
+## os.execute
 
 
 Passes `command` to be executed by an operating system shell.
@@ -6369,7 +6381,7 @@ function os.execute(commandLine: any)
 
 ---
 
-# os.exit
+## os.exit
 
 
 Calls the ISO C function `exit` to terminate the host program.
@@ -6384,7 +6396,7 @@ function os.exit(code?: boolean|integer, close?: boolean)
 
 ---
 
-# os.getenv
+## os.getenv
 
 
 Returns the value of the process environment variable `varname`.
@@ -6400,7 +6412,7 @@ function os.getenv(varname: string)
 
 ---
 
-# os.remove
+## os.remove
 
 
 Deletes the file with the given name.
@@ -6417,7 +6429,7 @@ function os.remove(filename: string)
 
 ---
 
-# os.rename
+## os.rename
 
 
 Renames the file or directory named `oldname` to `newname`.
@@ -6434,7 +6446,7 @@ function os.rename(oldname: string, newname: string)
 
 ---
 
-# os.setlocale
+## os.setlocale
 
 
 Sets the current locale of the program.
@@ -6461,7 +6473,7 @@ function os.setlocale(locale: string|nil, category?: "all"|"collate"|"ctype"|"mo
 
 ---
 
-# os.time
+## os.time
 
 
 Returns the current time when called without arguments, or a time representing the local date and time specified by the given table.
@@ -6477,7 +6489,7 @@ function os.time(date?: osdate)
 
 ---
 
-# os.tmpname
+## os.tmpname
 
 
 Returns a string with a file name that can be used for a temporary file.
@@ -6493,7 +6505,7 @@ function os.tmpname()
 
 ---
 
-# os_arch
+## os_arch
 
 
 ```lua
@@ -6503,7 +6515,7 @@ unknown
 
 ---
 
-# os_name
+## os_name
 
 
 ```lua
@@ -6513,7 +6525,7 @@ string
 
 ---
 
-# package
+## package
 
 
 
@@ -6529,7 +6541,7 @@ packagelib
 
 ---
 
-# package.config
+## package.config
 
 
 A string describing some compile-time configurations for packages.
@@ -6545,7 +6557,7 @@ string
 
 ---
 
-# package.cpath
+## package.cpath
 
 
 ```lua
@@ -6565,7 +6577,7 @@ string
 
 ---
 
-# package.loaders
+## package.loaders
 
 
 A table used by `require` to control how to load modules.
@@ -6581,7 +6593,7 @@ table
 
 ---
 
-# package.loadlib
+## package.loadlib
 
 
 Dynamically links the host program with the C library `libname`.
@@ -6597,7 +6609,7 @@ function package.loadlib(libname: string, funcname: string)
 
 ---
 
-# package.path
+## package.path
 
  [[ LuaRocks modules ]]--
 
@@ -6654,7 +6666,7 @@ string
 
 ---
 
-# package.searchers
+## package.searchers
 
 
 A table used by `require` to control how to load modules.
@@ -6670,7 +6682,7 @@ table
 
 ---
 
-# package.searchpath
+## package.searchpath
 
 
 Searches for the given `name` in the given `path`.
@@ -6687,7 +6699,7 @@ function package.searchpath(name: string, path: string, sep?: string, rep?: stri
 
 ---
 
-# package.seeall
+## package.seeall
 
 
 Sets a metatable for `module` with its `__index` field referring to the global environment, so that this module inherits values from the global environment. To be used as an option to function `module` .
@@ -6702,7 +6714,7 @@ function package.seeall(module: table)
 
 ---
 
-# pairs
+## pairs
 
 
 If `t` has a metamethod `__pairs`, calls it with t as argument and returns the first three results from the call.
@@ -6728,7 +6740,7 @@ function pairs(t: <T:table>)
 
 ---
 
-# pathSeparator
+## pathSeparator
 
 
 ```lua
@@ -6748,7 +6760,7 @@ string
 
 ---
 
-# pcall
+## pcall
 
 
 Calls the function `f` with the given arguments in *protected mode*. This means that any error inside `f` is not propagated; instead, `pcall` catches the error and returns a status code. Its first result is the status code (a boolean), which is true if the call succeeds without errors. In such case, `pcall` also returns all results from the call, after this first result. In case of any error, `pcall` returns `false` plus the error object.
@@ -6767,7 +6779,7 @@ function pcall(f: fun(...any):...unknown, arg1?: any, ...any)
 
 ---
 
-# print
+## print
 
 
 Receives any number of arguments and prints their values to `stdout`, converting each argument to a string following the same rules of [tostring](http://www.lua.org/manual/5.4/manual.html#pdf-tostring).
@@ -6784,7 +6796,7 @@ function print(...any)
 
 ---
 
-# profilerIsRunning
+## profilerIsRunning
 
 
 ```lua
@@ -6799,7 +6811,7 @@ boolean
 
 ---
 
-# rawequal
+## rawequal
 
 
 Checks whether v1 is equal to v2, without invoking the `__eq` metamethod.
@@ -6815,7 +6827,7 @@ function rawequal(v1: any, v2: any)
 
 ---
 
-# rawget
+## rawget
 
 
 Gets the real value of `table[index]`, without invoking the `__index` metamethod.
@@ -6831,7 +6843,7 @@ function rawget(table: table, index: any)
 
 ---
 
-# rawlen
+## rawlen
 
 
 Returns the length of the object `v`, without invoking the `__len` metamethod.
@@ -6847,7 +6859,7 @@ function rawlen(v: string|table)
 
 ---
 
-# rawset
+## rawset
 
 
 Sets the real value of `table[index]` to `value`, without using the `__newindex` metavalue. `table` must be a table, `index` any value different from `nil` and `NaN`, and `value` any Lua value.
@@ -6865,7 +6877,7 @@ function rawset(table: table, index: any, value: any)
 
 ---
 
-# require
+## require
 
 
 Loads the given module, returns any value returned by the searcher(`true` when `nil`). Besides that value, also returns as a second result the loader data returned by the searcher, which indicates how `require` found the module. (For instance, if the module came from a file, this loader data is the file path.)
@@ -6882,7 +6894,7 @@ function require(modname: string)
 
 ---
 
-# run_count
+## run_count
 
  https://github.com/dextercd/Noita-Component-Explorer/blob/main/component-explorer/entities/imgui_warning.lua
 
@@ -6899,7 +6911,7 @@ unknown
 
 ---
 
-# select
+## select
 
 
 If `index` is a number, returns all arguments after argument number `index`; a negative number indexes from the end (`-1` is the last argument). Otherwise, `index` must be the string `"#"`, and `select` returns the total number of extra arguments it received.
@@ -6921,7 +6933,7 @@ function select(index: integer|"#", ...any)
 
 ---
 
-# server
+## server
 
 
 ```lua
@@ -6931,7 +6943,7 @@ Server
 
 ---
 
-# setfenv
+## setfenv
 
 
 Sets the environment to be used by the given function.
@@ -6947,7 +6959,7 @@ function setfenv(f: fun(...any):...integer|unknown, table: table)
 
 ---
 
-# setmetatable
+## setmetatable
 
 
 Sets the metatable for the given table. If `metatable` is `nil`, removes the metatable of the given table. If the original metatable has a `__metatable` field, raises an error.
@@ -6968,7 +6980,7 @@ function setmetatable(table: table, metatable?: table)
 
 ---
 
-# seven_zip
+## seven_zip
 
 
 ```lua
@@ -6978,9 +6990,9 @@ string
 
 ---
 
-# sock
+## sock
 
-## CONNECTING_STATES
+### CONNECTING_STATES
 
 
 ```lua
@@ -6989,7 +7001,7 @@ table
 
  States that represent the client connecting to a server.
 
-## CONNECTION_STATES
+### CONNECTION_STATES
 
 
 ```lua
@@ -6999,7 +7011,7 @@ table
  All of the possible connection statuses for a client connection.
  @see SockClient:getState
 
-## DISCONNECTING_STATES
+### DISCONNECTING_STATES
 
 
 ```lua
@@ -7008,7 +7020,7 @@ table
 
  States that represent the client disconnecting from a server.
 
-## SEND_MODES
+### SEND_MODES
 
 
 ```lua
@@ -7020,7 +7032,7 @@ table
 
 ---
 
-# string
+## string
 
 
 
@@ -7036,7 +7048,7 @@ stringlib
 
 ---
 
-# string.ExtendOrCutStringToLength
+## string.ExtendOrCutStringToLength
 
 @*param* `var` — any string you want to extend or cut
 
@@ -7051,7 +7063,7 @@ function string.ExtendOrCutStringToLength(var: string, length: number, char: any
 
 ---
 
-# string.byte
+## string.byte
 
 
 Returns the internal numeric codes of the characters `s[i], s[i+1], ..., s[j]`.
@@ -7067,7 +7079,7 @@ function string.byte(s: string|number, i?: integer, j?: integer)
 
 ---
 
-# string.char
+## string.char
 
 
 Returns a string with length equal to the number of arguments, in which each character has the internal numeric code equal to its corresponding argument.
@@ -7083,7 +7095,7 @@ function string.char(byte: integer, ...integer)
 
 ---
 
-# string.contains
+## string.contains
 
 @*param* `str` — String
 
@@ -7108,7 +7120,7 @@ function string.contains(str: string, pattern: string)
 
 ---
 
-# string.dump
+## string.dump
 
 
 Returns a string containing a binary representation (a *binary chunk*) of the given function.
@@ -7124,7 +7136,7 @@ function string.dump(f: fun(...any):...unknown, strip?: boolean)
 
 ---
 
-# string.find
+## string.find
 
 
 Looks for the first match of `pattern` (see [§6.4.1](http://www.lua.org/manual/5.4/manual.html#6.4.1)) in the string.
@@ -7148,7 +7160,7 @@ function string.find(s: string|number, pattern: string|number, init?: integer, p
 
 ---
 
-# string.format
+## string.format
 
 
 Returns a formatted version of its variable number of arguments following the description given in its first argument.
@@ -7164,7 +7176,7 @@ function string.format(s: string|number, ...any)
 
 ---
 
-# string.gmatch
+## string.gmatch
 
 
 Returns an iterator function that, each time it is called, returns the next captures from `pattern` (see [§6.4.1](http://www.lua.org/manual/5.4/manual.html#6.4.1)) over the string s.
@@ -7190,7 +7202,7 @@ function string.gmatch(s: string|number, pattern: string|number, init?: integer)
 
 ---
 
-# string.gsub
+## string.gsub
 
 
 Returns a copy of s in which all (or the first `n`, if given) occurrences of the `pattern` (see [§6.4.1](http://www.lua.org/manual/5.4/manual.html#6.4.1)) have been replaced by a replacement string specified by `repl`.
@@ -7207,7 +7219,7 @@ function string.gsub(s: string|number, pattern: string|number, repl: string|numb
 
 ---
 
-# string.len
+## string.len
 
 
 Returns its length.
@@ -7223,7 +7235,7 @@ function string.len(s: string|number)
 
 ---
 
-# string.lower
+## string.lower
 
 
 Returns a copy of this string with all uppercase letters changed to lowercase.
@@ -7239,7 +7251,7 @@ function string.lower(s: string|number)
 
 ---
 
-# string.match
+## string.match
 
 
 Looks for the first match of `pattern` (see [§6.4.1](http://www.lua.org/manual/5.4/manual.html#6.4.1)) in the string.
@@ -7255,7 +7267,7 @@ function string.match(s: string|number, pattern: string|number, init?: integer)
 
 ---
 
-# string.pack
+## string.pack
 
 
 Returns a binary string containing the values `v1`, `v2`, etc. packed (that is, serialized in binary form) according to the format string `fmt` (see [§6.4.2](http://www.lua.org/manual/5.4/manual.html#6.4.2)) .
@@ -7271,7 +7283,7 @@ function string.pack(fmt: string, v1: string|number, v2: any, ...string|number)
 
 ---
 
-# string.packsize
+## string.packsize
 
 
 Returns the size of a string resulting from `string.pack` with the given format string `fmt` (see [§6.4.2](http://www.lua.org/manual/5.4/manual.html#6.4.2)) .
@@ -7287,7 +7299,7 @@ function string.packsize(fmt: string)
 
 ---
 
-# string.rep
+## string.rep
 
 
 Returns a string that is the concatenation of `n` copies of the string `s` separated by the string `sep`.
@@ -7303,7 +7315,7 @@ function string.rep(s: string|number, n: integer, sep?: string|number)
 
 ---
 
-# string.reverse
+## string.reverse
 
 
 Returns a string that is the string `s` reversed.
@@ -7319,7 +7331,7 @@ function string.reverse(s: string|number)
 
 ---
 
-# string.split
+## string.split
 
  http://lua-users.org/wiki/SplitJoin
  Function: Split a string with a pattern, Take Two
@@ -7340,7 +7352,7 @@ function string.split(str: any, pat: any)
 
 ---
 
-# string.sub
+## string.sub
 
 
 Returns the substring of the string that starts at `i` and continues until `j`.
@@ -7356,7 +7368,7 @@ function string.sub(s: string|number, i: integer, j?: integer)
 
 ---
 
-# string.trim
+## string.trim
 
 
 ```lua
@@ -7373,7 +7385,7 @@ function string.trim(s: any)
 
 ---
 
-# string.unpack
+## string.unpack
 
 
 Returns the values packed in string according to the format string `fmt` (see [§6.4.2](http://www.lua.org/manual/5.4/manual.html#6.4.2)) .
@@ -7390,7 +7402,7 @@ function string.unpack(fmt: string, s: string, pos?: integer)
 
 ---
 
-# string.upper
+## string.upper
 
 
 Returns a copy of this string with all lowercase letters changed to uppercase.
@@ -7406,7 +7418,7 @@ function string.upper(s: string|number)
 
 ---
 
-# table
+## table
 
 
 
@@ -7422,7 +7434,7 @@ tablelib
 
 ---
 
-# table.concat
+## table.concat
 
 
 Given a list where all elements are strings or numbers, returns the string `list[i]..sep..list[i+1] ··· sep..list[j]`.
@@ -7438,7 +7450,7 @@ function table.concat(list: table, sep?: string, i?: integer, j?: integer)
 
 ---
 
-# table.foreach
+## table.foreach
 
 
 Executes the given f over all elements of table. For each element, f is called with the index and respective value as arguments. If f returns a non-nil value, then the loop is broken, and this value is returned as the final value of foreach.
@@ -7454,7 +7466,7 @@ function table.foreach(list: any, callback: fun(key: string, value: any):<T>|nil
 
 ---
 
-# table.foreachi
+## table.foreachi
 
 
 Executes the given f over the numerical indices of table. For each index, f is called with the index and respective value as arguments. Indices are visited in sequential order, from 1 to n, where n is the size of the table. If f returns a non-nil value, then the loop is broken and this value is returned as the result of foreachi.
@@ -7470,7 +7482,7 @@ function table.foreachi(list: any, callback: fun(key: string, value: any):<T>|ni
 
 ---
 
-# table.getn
+## table.getn
 
 
 Returns the number of elements in the table. This function is equivalent to `#list`.
@@ -7486,7 +7498,7 @@ function table.getn(list: <T>[])
 
 ---
 
-# table.insert
+## table.insert
 
 
 Inserts element `value` at position `pos` in `list`.
@@ -7501,7 +7513,7 @@ function table.insert(list: table, pos: integer, value: any)
 
 ---
 
-# table.maxn
+## table.maxn
 
 
 Returns the largest positive numerical index of the given table, or zero if the table has no positive numerical indices.
@@ -7517,7 +7529,7 @@ function table.maxn(table: table)
 
 ---
 
-# table.move
+## table.move
 
 
 Moves elements from table `a1` to table `a2`.
@@ -7539,7 +7551,7 @@ function table.move(a1: table, f: integer, e: integer, t: integer, a2?: table)
 
 ---
 
-# table.pack
+## table.pack
 
 
 Returns a new table with all arguments stored into keys `1`, `2`, etc. and with a field `"n"` with the total number of arguments.
@@ -7555,7 +7567,7 @@ function table.pack(...any)
 
 ---
 
-# table.remove
+## table.remove
 
 
 Removes from `list` the element at position `pos`, returning the value of the removed element.
@@ -7571,7 +7583,7 @@ function table.remove(list: table, pos?: integer)
 
 ---
 
-# table.sort
+## table.sort
 
 
 Sorts list elements in a given order, *in-place*, from `list[1]` to `list[#list]`.
@@ -7586,7 +7598,7 @@ function table.sort(list: <T>[], comp?: fun(a: <T>, b: <T>):boolean)
 
 ---
 
-# table.unpack
+## table.unpack
 
 
 Returns the elements from the given list. This function is equivalent to
@@ -7607,7 +7619,7 @@ function table.unpack(list: <T>[], i?: integer, j?: integer)
 
 ---
 
-# tablelib
+## tablelib
 
 
 
@@ -7615,7 +7627,7 @@ function table.unpack(list: <T>[], i?: integer, j?: integer)
 [View documents](http://www.lua.org/manual/5.4/manual.html#pdf-table)
 
 
-## contains
+### contains
 
 
 ```lua
@@ -7632,7 +7644,7 @@ Return true, if the key is contained in the tbl. NOTE: Doesn't check for duplica
 
 @*return* `index` — also returns the index of the found key
 
-## containsAll
+### containsAll
 
 
 ```lua
@@ -7645,7 +7657,7 @@ Returns true if all the arg parameters are contained in the tbl.
 
 @*return* `true` — if all the values were in the table.
 
-## indexOf
+### indexOf
 
 
 ```lua
@@ -7655,7 +7667,7 @@ function tablelib.indexOf(tbl: any, value: any)
 
  https://stackoverflow.com/a/52922737/3493998
 
-## insertAllButNotDuplicates
+### insertAllButNotDuplicates
 
 
 ```lua
@@ -7664,7 +7676,7 @@ function tablelib.insertAllButNotDuplicates(tbl1: table, tbl2: table)
 
 Adds all values of tbl2 into tbl, but not duplicates.
 
-## insertIfNotExist
+### insertIfNotExist
 
 
 ```lua
@@ -7673,7 +7685,7 @@ function tablelib.insertIfNotExist(tbl: table, value: any)
 
  Adds a value to a table, if this value doesn't exist in the table
 
-## isEmpty
+### isEmpty
 
 
 ```lua
@@ -7685,7 +7697,7 @@ Extension or expansion of the default lua table for checking if a table is empty
 
 @*return* `true` — if table is empty.
 
-## join
+### join
 
 
 ```lua
@@ -7703,7 +7715,7 @@ We need a simple and 'fast' way to convert a lua table into a string.
 
 @*return* `Example` — tbl becomes "Name,2,234,string"
 
-## removeByTable
+### removeByTable
 
 
 ```lua
@@ -7715,7 +7727,7 @@ function tablelib.removeByTable(tbl1: table, tbl2: table)
 
 @*return* `tbl1` — returns tbl1 with remove values containing in tbl2
 
-## removeByValue
+### removeByValue
 
 
 ```lua
@@ -7723,7 +7735,7 @@ function tablelib.removeByValue(tbl: any, value: any)
   -> unknown
 ```
 
-## size
+### size
 
 
 ```lua
@@ -7734,7 +7746,7 @@ function tablelib.size(tbl: any)
 
 ---
 
-# toBoolean
+## toBoolean
 
 
 ```lua
@@ -7745,7 +7757,7 @@ function toBoolean(value: any)
 
 ---
 
-# tonumber
+## tonumber
 
 
 When called with no `base`, `tonumber` tries to convert its argument to a number. If the argument is already a number or a string convertible to a number, then `tonumber` returns this number; otherwise, it returns `fail`.
@@ -7764,7 +7776,7 @@ function tonumber(e: any)
 
 ---
 
-# tostring
+## tostring
 
 
 Receives a value of any type and converts it to a string in a human-readable format.
@@ -7785,7 +7797,7 @@ function tostring(v: any)
 
 ---
 
-# type
+## type
 
 
 Returns the type of its only argument, coded as a string. The possible results of this function are `"nil"` (a string, not the value `nil`), `"number"`, `"string"`, `"boolean"`, `"table"`, `"function"`, `"thread"`, and `"userdata"`.
@@ -7815,7 +7827,7 @@ function type(v: any)
 
 ---
 
-# unpack
+## unpack
 
 
 Returns the elements from the given `list`. This function is equivalent to
@@ -7835,7 +7847,7 @@ function unpack(list: <T>[], i?: integer, j?: integer)
 
 ---
 
-# utf8
+## utf8
 
 
 
@@ -7851,7 +7863,7 @@ utf8lib
 
 ---
 
-# utf8.char
+## utf8.char
 
 
 Receives zero or more integers, converts each one to its corresponding UTF-8 byte sequence and returns a string with the concatenation of all these sequences.
@@ -7867,7 +7879,7 @@ function utf8.char(code: integer, ...integer)
 
 ---
 
-# utf8.codepoint
+## utf8.codepoint
 
 
 Returns the codepoints (as integers) from all characters in `s` that start between byte position `i` and `j` (both included).
@@ -7884,7 +7896,7 @@ function utf8.codepoint(s: string, i?: integer, j?: integer, lax?: boolean)
 
 ---
 
-# utf8.codes
+## utf8.codes
 
 
 Returns values so that the construction
@@ -7907,7 +7919,7 @@ function utf8.codes(s: string, lax?: boolean)
 
 ---
 
-# utf8.len
+## utf8.len
 
 
 Returns the number of UTF-8 characters in string `s` that start between positions `i` and `j` (both inclusive).
@@ -7924,7 +7936,7 @@ function utf8.len(s: string, i?: integer, j?: integer, lax?: boolean)
 
 ---
 
-# utf8.offset
+## utf8.offset
 
 
 Returns the position (in bytes) where the encoding of the `n`-th character of `s` (counting from position `i`) starts.
@@ -7940,7 +7952,7 @@ function utf8.offset(s: string, n: integer, i?: integer)
 
 ---
 
-# warn
+## warn
 
 
 Emits a warning with a message composed by the concatenation of all its arguments (which should be strings).
@@ -7955,7 +7967,7 @@ function warn(message: string, ...any)
 
 ---
 
-# xpcall
+## xpcall
 
 
 Calls function `f` with the given arguments in protected mode with a new message handler.

@@ -38,20 +38,16 @@ local EntityUtils = {
 ---@param filenames table list of filenames
 ---@return boolean true if filename is in filenames list otherwise false
 local findByFilename = function(self, filename, filenames) --[[ private ]]
-    local cpc = self.customProfiler:start("EntityUtils.findByFilename")
     for i = 1, #filenames do
         if filename:find(filenames[i]) then
-            self.customProfiler:stop("EntityUtils.findByFilename", cpc)
             return true
         end
     end
-    self.customProfiler:stop("EntityUtils.findByFilename", cpc)
     return false
 end
 
 --- Make sure this is only be executed once!
 function EntityUtils:onEntityRemoved(entityId, nuid)
-    local cpc = self.customProfiler:start("OnEntityRemoved")
     -- local _nuid, _entityId = self.globalsUtils.getNuidEntityPair(nuid)
 
     -- -- _entityId can be nil if the entity was removed before it was fully loaded
@@ -66,22 +62,18 @@ function EntityUtils:onEntityRemoved(entityId, nuid)
     self.entityCache:delete(entityId)
     -- NetworkCacheUtils.delete ?
     self.globalsUtils:setDeadNuid(nuid)
-    self.customProfiler:stop("OnEntityRemoved", cpc)
 end
 
 --- Checks if a specific entity is polymorphed.
 --- @param entityId number
 function EntityUtils:isEntityPolymorphed(entityId)
-    local cpc                  = self.customProfiler:start("EntityUtils.isEntityPolymorphed")
     local polymorphedEntityIds = EntityGetWithTag("polymorphed") or {}
 
     for e = 1, #polymorphedEntityIds do
         if polymorphedEntityIds[e] == entityId then
-            self.customProfiler:stop("EntityUtils.isEntityPolymorphed", cpc)
             return true
         end
     end
-    self.customProfiler:stop("EntityUtils.isEntityPolymorphed", cpc)
     return false
 end
 
@@ -92,7 +84,6 @@ local prevEntityIndex = 1
 ---@param server Server|nil Either server or client must not be nil!
 ---@param client Client|nil Either server or client must not be nil!
 function EntityUtils:syncEntities(startFrameTime, server, client)
-    local cpc              = self.customProfiler:start("EntityUtils.syncEntities")
     local start            = GameGetRealWorldTimeSinceStarted() * 1000
     local localPlayerId    = self.minaUtils:getLocalMinaEntityId()
     local playerX, playerY = EntityGetTransform(localPlayerId)
@@ -287,7 +278,6 @@ function EntityUtils:syncEntities(startFrameTime, server, client)
                         --prevEntityIndex = entityIndex + 1
                         self.entityCacheUtils:set(entityId, nuid, compOwnerGuid, compOwnerName, filename, x, y, rotation, velocity.x, velocity.y,
                             health.current, health.max, finished, serializedEntityString)
-                        self.customProfiler:stop("EntityUtils.syncEntities", cpc)
                         return -- completely end function, because it took too long
                     end
                 end
@@ -353,8 +343,6 @@ function EntityUtils:syncEntities(startFrameTime, server, client)
                 self.logger:warn(self.logger.channels.entity, "EntityUtils.syncEntities took too long. Breaking loop by returning entityId.")
                 -- when executionTime is too long, return the next entityCacheIndex to continue with it
                 prevEntityIndex = entityIndex + 1
-
-                self.customProfiler:stop("EntityUtils.syncEntities", cpc)
                 return -- completely end function, because it took too long
             end
 
@@ -363,7 +351,6 @@ function EntityUtils:syncEntities(startFrameTime, server, client)
     end
     -- when all entities are processed, reset the entityCacheIndex to 1 to start with the first entity again
     prevEntityIndex = 1
-    self.customProfiler:stop("EntityUtils.syncEntities", cpc)
 end
 
 --- Spawns an entity and applies the transform and velocity to it. Also adds the network_component.
@@ -378,7 +365,6 @@ end
 --- owner has its own entity ids.
 --- @return number? entityId Returns the entity_id of a already existing entity, found by nuid or the newly created entity.
 function EntityUtils:spawnEntity(owner, nuid, x, y, rotation, velocity, filename, localEntityId, health, isPolymorphed)
-    local cpc        = self.customProfiler:start("EntityUtils.spawnEntity")
     local localGuid  = self.minaUtils:getLocalMinaGuid()
     local remoteName = owner.name or owner[1]
     local remoteGuid = owner.guid or owner[2]
@@ -421,7 +407,6 @@ function EntityUtils:spawnEntity(owner, nuid, x, y, rotation, velocity, filename
     self.networkVscUtils:addOrUpdateAllVscs(entityId, remoteName, remoteGuid, nuid)
     self.noitaComponentUtils:setEntityData(entityId, x, y, rotation, velocity, health)
 
-    self.customProfiler:stop("EntityUtils.spawnEntity", cpc)
     return entityId
 end
 
@@ -429,7 +414,6 @@ end
 ---@param server Server|nil Either server or client must not be nil!
 ---@param client Client|nil Either server or client must not be nil!
 function EntityUtils:syncDeadNuids(server, client)
-    local cpc = self.customProfiler:start("EntityUtils.syncDeadNuids")
 
     local deadNuids = self.nuidUtils:getEntityIdsByKillIndicator()
     if #deadNuids > 0 then
@@ -445,15 +429,12 @@ function EntityUtils:syncDeadNuids(server, client)
                     2)
             end
         end
-        self.customProfiler:stop("EntityUtils.syncDeadNuids", cpc)
     end
 end
 
 ---Destroys the entity by the given nuid.
 ---@param nuid number The nuid of the entity.
 function EntityUtils:destroyByNuid(peer, nuid)
-    local cpc = self.customProfiler:start("EntityUtils.destroyByNuid")
-
     if not peer or type(peer) ~= "table" then
         error(("EntityUtils.destroyByNuid: peer is not a table: %s"):format(self.utils:pformat(peer)), 2)
     end
@@ -469,7 +450,6 @@ function EntityUtils:destroyByNuid(peer, nuid)
     local _, entityId = self.globalsUtils:getNuidEntityPair(nuid)
 
     if not entityId then
-        self.customProfiler:stop("EntityUtils.destroyByNuid", cpc)
         return
     end
 
@@ -480,7 +460,6 @@ function EntityUtils:destroyByNuid(peer, nuid)
 
     if not EntityGetIsAlive(entityId) then
         self.entityCache:delete(entityId)
-        self.customProfiler:stop("EntityUtils.destroyByNuid", cpc)
         return
     end
 
@@ -495,15 +474,12 @@ function EntityUtils:destroyByNuid(peer, nuid)
     else
         self.entityCache:deleteNuid(nuid)
     end
-    self.customProfiler:stop("EntityUtils.destroyByNuid", cpc)
 end
 
 --- addOrChangeDetectionRadiusDebug
 
 --- Simply adds a ugly debug circle around the player to visualize the detection radius.
 function EntityUtils:addOrChangeDetectionRadiusDebug(player_entity)
-    local cpc              = self.customProfiler:start("EntityUtils.addOrChangeDetectionRadiusDebug")
-
     local compIdInclude    = nil
     local compIdExclude    = nil
     local imageFileInclude = "mods/noita-mp/files/data/debug/radiusInclude24.png"
@@ -562,7 +538,6 @@ function EntityUtils:addOrChangeDetectionRadiusDebug(player_entity)
             EntityRemoveComponent(player_entity, compIdExclude)
         end
     end
-    self.customProfiler:stop("EntityUtils.addOrChangeDetectionRadiusDebug", cpc)
 end
 
 ---Constructor for EntityUtils. With this constructor you can override the default imports.
@@ -589,8 +564,6 @@ function EntityUtils:new(client, customProfiler, enitityCacheUtils, entityCache,
 
     -- Load config.lua
     assert(loadfile("mods/noita-mp/config.lua"))(entityUtilsObject)
-
-    local cpc = customProfiler:start("EntityUtils:new")
 
     --[[ Imports ]]
     --Initialize all imports to avoid recursive imports
@@ -645,8 +618,6 @@ function EntityUtils:new(client, customProfiler, enitityCacheUtils, entityCache,
             :new(nil, customProfiler, entityUtilsObject.logger, client, entityUtilsObject.utils)
     end
 
-
-
     if not entityUtilsObject.minaUtils then
         ---@type MinaUtils
         entityUtilsObject.minaUtils = minaUtils or
@@ -688,7 +659,6 @@ function EntityUtils:new(client, customProfiler, enitityCacheUtils, entityCache,
             :new(server.customProfiler, np)
     end
 
-    entityUtilsObject.customProfiler:stop("EntityUtils:new", cpc)
     return entityUtilsObject
 end
 
