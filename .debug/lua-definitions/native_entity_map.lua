@@ -7,14 +7,14 @@ local NativeEntityMap = {}
 --- No return value.
 function NativeEntityMap.removeAllMappings() end
 
---- Return Nuid associated with @serialized_string entity or 0xffffffff if no mappings exist.
+--- Return Nuid associated with @serialized_string entity or nil if no mappings exist.
 ---@param serialized_string string binaryString
----@return number nuid|0xffffffff nuid
+---@return number nuid|nil
 function NativeEntityMap.getNuidBySerializedString(serialized_string) end
 
---- Return EntityId associated with @serialized_string entity or 0xffffffff if no mappings exist.
+--- Return EntityId associated with @serialized_string entity or nil if no mappings exist.
 ---@param serialized_string string binaryString
----@return number entity_id|0xffffffff entity_id
+---@return number entity_id|nil
 function NativeEntityMap.getEntityIdBySerializedString(serialized_string) end
 
 --- Set the Nuid of @serialized_string to @nuid
@@ -47,3 +47,8 @@ function NativeEntityMap.getMemoryUsage() end
 
 --- Remove all mappings and clear all ressources.
 function NativeEntityMap.removeAllMappings() end
+
+--- Return entity serialized string associated with @entity_id or nil
+---@param entity_id number|nil
+---@return string serialzed_string binaryString
+function NativeEntityMap.getSerializedStringByEntityId(entity_id) end

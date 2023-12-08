@@ -49,6 +49,9 @@ local nuidUtils = server.nuidUtils or error("nuidUtils is nil!")
 local utils = server.utils or error("utils is nil!")
 local logger = server.logger or error("logger is nil!")
 
+---@type NativeEntityMap
+local nativeEntityMap = require("lua_noitamp_native")
+
 local gui = require("Gui"):new(nil, server, client, customProfiler, guidUtils, minaUtils, noitaMpSettings)
 -- Update gui reference
 server.noitaMpSettings.gui = gui
@@ -95,19 +98,9 @@ local function OnEntityLoaded()
             and entityId > entityUtils.previousHighestAliveEntityId
             and not table.contains(entityUtils.exclude.byFilename, filename)
         do
-            GamePrint(("OnEntityLoaded(entityId = %s)"):format(entityId))
             if entityId > entityUtils.previousHighestAliveEntityId then
                 entityUtils.previousHighestAliveEntityId = entityId
             end
-
-            -- DEBUG ONLY
-            -- local debugEntityId = fileUtils:ReadFile(("%s%s%s"):format(
-            --     fileUtils:GetAbsoluteDirectoryPathOfNoitaMP(), pathSeparator, "debugOnEntityLoaded"))
-            -- if not utils:isEmpty(debugEntityId) then
-            --     if entityId >= tonumber(debugEntityId) then
-            --         local debug = true
-            --     end
-            -- end
 
             local rootEntity = EntityGetRootEntity(entityId) or entityId
 
@@ -116,26 +109,14 @@ local function OnEntityLoaded()
                     entityUtils.previousHighestAliveEntityId = rootEntity
                 end
 
-                if not noitaComponentUtils:hasInitialSerializedEntityString(rootEntity) then
-                    local initSerializedB64Str = noitaPatcherUtils:serializeEntity(rootEntity)
-                    local success = noitaComponentUtils:setInitialSerializedEntityString(rootEntity, initSerializedB64Str)
-
-                    if not success then
-                        error("Unable to add serialized string!", 2)
-                    else
-                        --print(("Added iSES %s[...] to %s"):format(string.sub(initSerializedB64Str, 1, 5), rootEntity))
-                    end
-                    -- free memory
-                    initSerializedB64Str = nil
-
-                    -- Add NoitaMP Variable Storage Components
+                local serialisedString = np.SerializeEntity(rootEntity)
+                if not nativeEntityMap.getEntityIdBySerializedString(serialisedString) then
+                    nativeEntityMap.setMappingOfEntityIdToSerialisedString(serialisedString, rootEntity)
                     local hasNuid, nuid = networkVscUtils:hasNuidSet(rootEntity)
                     if not hasNuid and server:amIServer() then
                         nuid = nuidUtils:getNextNuid()
                     end
-                    local spawnX, spawnY = EntityGetTransform(rootEntity)
-                    networkVscUtils:addOrUpdateAllVscs(rootEntity, minaUtils:getLocalMinaName(), minaUtils:getLocalMinaGuid(), nuid, spawnX, spawnY)
-
+                    networkVscUtils:addOrUpdateAllVscs(rootEntity, minaUtils:getLocalMinaName(), minaUtils:getLocalMinaGuid(), nuid)
                     noitaComponentUtils:setNetworkSpriteIndicatorStatus(rootEntity, "processed")
                 end
             end

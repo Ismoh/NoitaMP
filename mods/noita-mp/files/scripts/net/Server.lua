@@ -125,10 +125,10 @@ local onConnect = function(self, data, peer)
 
     -- Send local minä to the new client
     local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = self.noitaComponentUtils:getEntityData(entityId)
-    local serializedEntityString = self.noitaPatcherUtils:serializeEntity(entityId)
-    self:sendNewNuid(compOwnerName, compOwnerGuid, entityId, serializedEntityString, compNuid, x, y,
-        self.noitaComponentUtils:getInitialSerializedEntityString(entityId))
-    -- self.sendNewNuid({ name, guid }, entityId, nuid, x, y, rotation, velocity, filename, health, isPolymorphed)
+    local initialSerialisedBinaryString = self.nativeEntityMap.getSerializedStringByEntityId(entityId)
+    local currentSerialisedBinaryString = self.noitaPatcherUtils:serializeEntity(entityId)
+    self:sendNewNuid(compOwnerName, compOwnerGuid, entityId, initialSerialisedBinaryString,
+        compNuid, x, y, currentSerialisedBinaryString)
 end
 
 
@@ -287,57 +287,64 @@ local onNeedNuid = function(self, data, peer)
         error(("onNeedNuid data.y is empty: %s"):format(data.y), 2)
     end
 
-    if self.utils:isEmpty(data.initSerializedB64Str) then
-        error(("onNeedNuid data.initSerializedB64Str is empty: %s"):format(data.initSerializedB64Str), 2)
+    if self.utils:isEmpty(data.initialSerialisedBinaryString) then
+        error(("onNeedNuid data.initialSerialisedBinaryString is empty: %s"):format(data.initialSerialisedBinaryString), 2)
     end
 
-    local initSerializedB64Str   = nil
-    local serializedEntityString = nil
-    local closestServerEntityId  = EntityGetClosest(data.x, data.y)
-    local nuid                   = nil
+    if self.utils:isEmpty(data.currentSerialisedBinaryString) then
+        error(("onNeedNuid data.currentSerialisedBinaryString is empty: %s"):format(data.currentSerialisedBinaryString), 2)
+    end
 
-    if not self.utils:isEmpty(closestServerEntityId) then
-        initSerializedB64Str = self.noitaComponentUtils:getInitialSerializedEntityString(closestServerEntityId)
-        if initSerializedB64Str == data.initSerializedB64Str then -- entity on server and client are the same
-            if not self.networkVscUtils:hasNuidSet(closestServerEntityId) then
-                local ownerName, ownerGuid, nuid = self.noitaComponentUtils:getEntityData(closestServerEntityId)
-                if self.utils:isEmpty(nuid) or nuid < 0 then
-                    nuid = self.nuidUtils:getNextNuid()
-                    self.networkVscUtils:addOrUpdateAllVscs(closestServerEntityId, ownerName, ownerGuid, nuid)
-                end
-            end
-            serializedEntityString = self.noitaPatcherUtils:serializeEntity(closestServerEntityId)
-        else -- create new entity on server
-            nuid                 = self.nuidUtils:getNextNuid()
-            -- local serverEntityId          = self.entityUtils:spawnEntity(owner, nuid, x, y, rotation,
-            --     velocity, filename, localEntityId, health, isPolymorphed)
-            local serverEntityId = EntityCreateNew(tostring(data.nuid))
-            serverEntityId       = self.noitaPatcherUtils:deserializeEntity(
-                serverEntityId, data.initSerializedB64Str, data.x, data.y)
-            initSerializedB64Str = data.initSerializedB64Str
-            self.noitaComponentUtils:setInitialSerializedEntityString(serverEntityId, initSerializedB64Str)
-            serializedEntityString = initSerializedB64Str
+    local entityId                      = nil
+    local nuid                          = nil
 
-            -- TODO: use a list for removing components
-            if string.contains(EntityGetFilename(serverEntityId) or "", "player.xml") then
-                -- Remove player components which leads to crashes and are also not necessary
-                local compId = EntityGetComponentIncludingDisabled(serverEntityId, "PlayerCollisionComponent")
-                if compId then
-                    EntityRemoveComponent(serverEntityId, compId)
-                end
-                compId = EntityGetComponentIncludingDisabled(serverEntityId, "CharacterCollisionComponent")
-                if compId then
-                    EntityRemoveComponent(serverEntityId, compId)
-                end
-                compId = nil -- maybe not needed, but let's free the memory a bit
-            end
+    -- find nuid by initialSerialisedBinaryString
+    nuid                                = self.nativeEntityMap.getNuidBySerializedString(data.initialSerialisedBinaryString)
+    if self.utils:isEmpty(nuid) then
+        -- find entityId by initialSerialisedBinaryString, when there is no nuid
+        entityId = self.nativeEntityMap.getEntityIdBySerializedString(data.initialSerialisedBinaryString)
+    end
+
+    if self.utils:isEmpty(entityId) then
+        -- find by closestServerEntityId, but double check owner
+        entityId = EntityGetClosest(data.x, data.y)
+        local compOwnerName, compOwnerGuid, compNuid = self.networkVscUtils:getAllVscValuesByEntityId(entityId)
+        if compOwnerName ~= data.ownerName or compOwnerGuid ~= data.ownerGuid then
+            -- Owner is different, no match
+            entityId = nil
         end
     end
 
-    self:sendNewNuid(data.ownerName, data.ownerGuid, data.localEntityId,
-        serializedEntityString, nuid, data.x, data.y, initSerializedB64Str)
+    if self.utils:isEmpty(entityId) then
+        -- create one if not found
+        nuid = self.nuidUtils:getNextNuid()
+        entityId = EntityCreateNew(tostring(nuid))
+    end
+
+    entityId = self.noitaPatcherUtils:deserializeEntity(entityId, data.currentSerialisedBinaryString, data.x, data.y)
+    self.networkVscUtils:addOrUpdateAllVscs(entityId, data.ownerName, data.ownerGuid, nuid)
+
+    -- TODO: use a list for removing components
+    if string.contains(EntityGetFilename(entityId) or "", "player.xml") then
+        -- Remove player components which leads to crashes and are also not necessary
+        local compId = EntityGetComponentIncludingDisabled(entityId, "PlayerCollisionComponent")
+        if compId then
+            EntityRemoveComponent(entityId, compId)
+        end
+        compId = EntityGetComponentIncludingDisabled(entityId, "CharacterCollisionComponent")
+        if compId then
+            EntityRemoveComponent(entityId, compId)
+        end
+        compId = nil         -- maybe not needed, but let's free the memory a bit
+    end
+
+    local initialSerialisedBinaryString = self.nativeEntityMap.getSerializedStringByEntityId(entityId)
+    local currentSerialisedBinaryString = self.noitaPatcherUtils:serializeEntity(entityId)
 
     sendAck(self, data.networkMessageId, peer, self.networkUtils.events.needNuid.name, nuid)
+
+    self:sendNewNuid(data.ownerName, data.ownerGuid, data.localEntityId,
+        initialSerialisedBinaryString, nuid, data.x, data.y, currentSerialisedBinaryString)
 end
 
 
@@ -361,27 +368,30 @@ local onLostNuid = function(self, data, peer)
         error(("onLostNuid data.nuid is empty: %s"):format(data.nuid), 2)
     end
 
-    local nuid, entityId = self.globalsUtils:getNuidEntityPair(data.nuid)
+    -- get serialized string by nuid
+    local initialSerialisedBinaryString = self.nativeEntityMap.getSerializedStringByNuid(data.nuid)
 
-    if not entityId or not EntityGetIsAlive(entityId) then
-        self.logger:warn(self.logger.channels.network, ("onLostNuid(%s): Entity %s already dead."):format(nuid, entityId))
-        if not self.utils:isEmpty(nuid) then
-            self:sendDeadNuids({ nuid })
+    -- find entityId by serialized string
+    local entityId = self.nativeEntityMap.getEntityIdBySerializedString(initialSerialisedBinaryString)
+
+    if self.utils:isEmpty(entityId) or not EntityGetIsAlive(entityId) then
+        self.logger:warn(self.logger.channels.network, ("onLostNuid(%s): Entity %s already dead."):format(data.nuid, entityId))
+        self.nativeEntityMap.removeMappingOfEntityId(entityId)
+        if not self.utils:isEmpty(data.nuid) then
+            self.nativeEntityMap.removeMappingOfNuid(data.nuid)
+            self:sendDeadNuids({ data.nuid })
         end
-        sendAck(self, data.networkMessageId, peer, self.networkUtils.events.lostNuid.name, nuid)
+        sendAck(self, data.networkMessageId, peer, self.networkUtils.events.lostNuid.name, data.nuid)
         return
     end
 
-    --local compOwnerName, compOwnerGuid, compNuid     = self.networkVscUtils:getAllVscValuesByEntityId(entityId)
     local compOwnerName, compOwnerGuid, compNuid, filename,
     health, rotation, velocity, x, y = self.noitaComponentUtils:getEntityData(entityId)
     local isPolymorphed              = self.entityUtils:isEntityPolymorphed(entityId)
 
-    --self.sendNewNuid({ compOwnerName, compOwnerGuid },
-    --                 "unknown", nuid, x, y, rotation, velocity, filename, health, isPolymorphed)
-    local serializedEntityString     = self.noitaPatcherUtils:serializeEntity(entityId)
-    self:sendNewNuid(compOwnerName, compOwnerGuid, entityId, serializedEntityString, compNuid, x, y,
-        self.noitaComponentUtils:getInitialSerializedEntityString(entityId))
+    local currentSerialisedBinaryString     = self.noitaPatcherUtils:serializeEntity(entityId)
+    self:sendNewNuid(compOwnerName, compOwnerGuid, entityId, initialSerialisedBinaryString, compNuid, x, y,
+        currentSerialisedBinaryString)
 
     sendAck(self, data.networkMessageId, peer, self.networkUtils.events.lostNuid.name, data.nuid)
 end
@@ -757,13 +767,13 @@ end
 ---@param ownerName string required
 ---@param ownerGuid string required
 ---@param entityId number required
----@param currentSerializedB64Str string required
+---@param initialSerialisedBinaryString string required
 ---@param nuid number required
 ---@param x number required
 ---@param y number required
----@param initSerializedB64Str string required
+---@param currentSerialisedBinaryString string required
 ---@return boolean true if message was sent, false if not
-function Server:sendNewNuid(ownerName, ownerGuid, entityId, currentSerializedB64Str, nuid, x, y, initSerializedB64Str)
+function Server:sendNewNuid(ownerName, ownerGuid, entityId, initialSerialisedBinaryString, nuid, x, y, currentSerialisedBinaryString)
     if self.utils:isEmpty(ownerName) then
         error(("ownerName must not be nil or empty %s"):format(ownerName), 2)
     end
@@ -773,8 +783,8 @@ function Server:sendNewNuid(ownerName, ownerGuid, entityId, currentSerializedB64
     if self.utils:isEmpty(entityId) then
         error(("entityId must not be nil or empty %s"):format(entityId), 2)
     end
-    if self.utils:isEmpty(currentSerializedB64Str) or type(currentSerializedB64Str) ~= "string" then
-        error(("currentSerializedB64Str must not be nil or empty %s or is not of type 'string'."):format(currentSerializedB64Str), 2)
+    if self.utils:isEmpty(initialSerialisedBinaryString) or type(initialSerialisedBinaryString) ~= "string" then
+        error(("initialSerialisedBinaryString must not be nil or empty %s or is not of type 'string'."):format(initialSerialisedBinaryString), 2)
     end
     if self.utils:isEmpty(nuid) then
         error(("nuid must not be nil or empty %s"):format(nuid), 2)
@@ -785,18 +795,14 @@ function Server:sendNewNuid(ownerName, ownerGuid, entityId, currentSerializedB64
     if self.utils:isEmpty(y) then
         error(("y must not be nil or empty %s"):format(y), 2)
     end
-    if self.utils:isEmpty(initSerializedB64Str) or type(initSerializedB64Str) ~= "string" then
-        error(("initSerializedB64Str must not be nil or empty %s or is not of type 'string'."):format(initSerializedB64Str), 2)
+    if self.utils:isEmpty(currentSerialisedBinaryString) or type(currentSerialisedBinaryString) ~= "string" then
+        error(("currentSerialisedBinaryString must not be nil or empty %s or is not of type 'string'."):format(currentSerialisedBinaryString), 2)
     end
 
     local event = self.networkUtils.events.newNuid.name
-    local data  = { self.networkUtils:getNextNetworkMessageId(), ownerName, ownerGuid, entityId, x, y, initSerializedB64Str, currentSerializedB64Str,
-        nuid }
+    local data  = { self.networkUtils:getNextNetworkMessageId(), ownerName, ownerGuid, entityId, x, y,
+        initialSerialisedBinaryString, currentSerialisedBinaryString, nuid }
     local sent  = self:sendToAll(event, data)
-
-    -- FOR TESTING ONLY, DO NOT MERGE
-    --print(self.utils:pformat(data))
-    --os.exit()
 
     if sent == true then
         self.noitaComponentUtils:setNetworkSpriteIndicatorStatus(entityId, "sent")
@@ -811,7 +817,6 @@ function Server:sendEntityData(entityId)
         return
     end
 
-    --local compOwnerName, compOwnerGuid, compNuid     = self.networkVscUtils:getAllVscValuesByEntityId(entityId)
     local compOwnerName, compOwnerGuid, compNuid, filename, health, rotation, velocity, x, y = self.noitaComponentUtils:getEntityData(entityId)
     local data                                                                               = {
         self.networkUtils:getNextNetworkMessageId(), { compOwnerName, compOwnerGuid }, compNuid, x, y, rotation, velocity, health
@@ -823,10 +828,8 @@ function Server:sendEntityData(entityId)
         --return
         local newNuid = self.nuidUtils:getNextNuid()
         self.networkVscUtils:addOrUpdateAllVscs(entityId, compOwnerName, compOwnerGuid, newNuid)
-        --self.sendNewNuid({ compOwnerName, compOwnerGuid }, entityId, newNuid, x, y, rotation, velocity, filename,
-        --                 health, self.entityUtils:isEntityPolymorphed(entityId))
-        self:sendNewNuid(compOwnerName, compOwnerGuid, entityId, self.entityUtils:serializeEntity(entityId), newNuid, x, y,
-            self.noitaComponentUtils:getInitialSerializedEntityString(entityId))
+        --self:sendNewNuid(compOwnerName, compOwnerGuid, entityId, self.entityUtils:serializeEntity(entityId), newNuid, x, y,
+        --    self.noitaComponentUtils:getInitialSerializedEntityString(entityId))
     end
 
     if self.minaUtils:getLocalMinaGuid() == compOwnerGuid then
@@ -893,8 +896,9 @@ end
 ---@param inBandwidth number|nil optional
 ---@param outBandwidth number|nil optional
 ---@param np noitapatcher required
+---@param nativeEntityMap NativeEntityMap|nil optional
 ---@return Server
-function Server.new(address, port, maxPeers, maxChannels, inBandwidth, outBandwidth, np)
+function Server.new(address, port, maxPeers, maxChannels, inBandwidth, outBandwidth, np, nativeEntityMap)
     ---@class Server : SockClient
     local serverObject = setmetatable(
             require("SockServer").new(address, port, maxPeers, maxChannels, inBandwidth, outBandwidth)
@@ -1001,7 +1005,7 @@ function Server.new(address, port, maxPeers, maxChannels, inBandwidth, outBandwi
 
     if not serverObject.noitaPatcherUtils then
         serverObject.noitaPatcherUtils = require("NoitaPatcherUtils")
-            :new(serverObject.customProfiler, np)
+            :new(serverObject.customProfiler, np, serverObject.logger, nativeEntityMap)
     end
 
     if not serverObject.noitaComponentUtils then
@@ -1033,6 +1037,11 @@ function Server.new(address, port, maxPeers, maxChannels, inBandwidth, outBandwi
             error("Unable to create EntityUtils!", 2)
 
         serverObject.entityCache.entityUtils = serverObject.entityUtils
+    end
+
+    if not serverObject.nativeEntityMap then
+        ---@type NativeEntityMap
+        serverObject.nativeEntityMap = nativeEntityMap or require("native_entity_map")
     end
 
     -- [[ Attributes ]]

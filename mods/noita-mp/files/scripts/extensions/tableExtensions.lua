@@ -29,7 +29,7 @@ function table.contains(tbl, key)
         return false, -1
     end
     if not key then
-        error("Unable to check if a key is contained in a table, when key is nil.", 2)
+        --error("Unable to check if a key is contained in a table, when key is nil.", 2)
         return false, -1
     end
     if type(key) == "number" then

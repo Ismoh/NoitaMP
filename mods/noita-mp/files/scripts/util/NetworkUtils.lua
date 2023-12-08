@@ -67,11 +67,11 @@ local NetworkUtils = {
 
             --- network schema to decode the message
             schema            = { "networkMessageId", "ownerName", "ownerGuid", "localEntityId", "x", "y",
-                "initSerializedB64Str", "currentSerializedB64Str", "nuid" },
+                "initialSerialisedBinaryString", "currentSerialisedBinaryString", "nuid" },
 
             --- resendIdentifiers defines the schema for detection of resend mechanism.
             --- Based on the values the network message will be send again.
-            resendIdentifiers = { "ownerName", "ownerGuid", "localEntityId", "initSerializedB64Str", "nuid" },
+            resendIdentifiers = { "ownerName", "ownerGuid", "localEntityId", "initialSerialisedBinaryString", "nuid" },
 
             --- identifier whether to cache this message, if it wasn't acknowledged
             isCacheable       = true,
@@ -80,8 +80,8 @@ local NetworkUtils = {
         needNuid        = {
             name              = "needNuid",
             schema            = { "networkMessageId", "ownerName", "ownerGuid", "localEntityId", "x", "y",
-                "initSerializedB64Str", "currentSerializedB64Str" },
-            resendIdentifiers = { "ownerGuid", "localEntityId", "initSerializedB64Str" },
+                "initialSerialisedBinaryString", "currentSerialisedBinaryString" },
+            resendIdentifiers = { "ownerGuid", "localEntityId", "initialSerialisedBinaryString" },
             isCacheable       = true
         },
         --- lostNuid is used to ask for the entity to spawn, when a client has a nuid stored, but no entityId (not sure
