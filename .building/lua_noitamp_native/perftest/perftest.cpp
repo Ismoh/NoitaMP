@@ -52,7 +52,12 @@ int main(void) {
 
     em.add_id_to_entity(3, 4, es);
     assert(em.get_count() == 1);
-    pes = em.get_entity(3);
+    pes = em.get_entity(3, INVALID_ID);
+    assert(pes);
+    assert(pes->len == es.len);
+    assert(memcmp(pes->p.get(), es.p.get(), es.len) == 0);
+
+    pes = em.get_entity(INVALID_ID, 4);
     assert(pes);
     assert(pes->len == es.len);
     assert(memcmp(pes->p.get(), es.p.get(), es.len) == 0);
