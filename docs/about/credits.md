@@ -30,15 +30,15 @@ I also want to say thank you to the sponsors of this project on
 - [Patreon](https://www.patreon.com/ismoh)
 - [Discord](https://donatebot.io/checkout/747169041457872917)
 
-|                    Name                     |  Amount  |    Type    |     Start      |
-|:-------------------------------------------:|:--------:|:----------:|:--------------:|
-|  [stefnotch](https://github.com/stefnotch)  |   20$    |  one-time  |  Nov 18, 2022  |
-|  [den3606](https://github.com/den3606)      |    1$    |  monthly   |  Feb 8, 2023   |
-|  [clragon](https://github.com/clragon)      |   25$    |  one-time  |  Feb 17, 2023  |
-|  [stefnotch](https://github.com/stefnotch)  |   20$    |  one-time  |  Jul 13, 2023  |
-|  [conga lyne](https://github.com/Conga0)    |   25$    |  monthly   |  Jul 13, 2023  |
-|  [clragon](https://github.com/clragon)      |   20$    |  one-time  |  Jul 13, 2023  |
-|  [Rehus04](https://github.com/Rehus04)      |   20$    |  one-time  |  Dec 05, 2023  |
+|                    Name                     |  Amount  |    Type    |     From       |     Till       |
+|:-------------------------------------------:|:--------:|:----------:|:--------------:|:--------------:|
+|  [stefnotch](https://github.com/stefnotch)  |   20$    |  one-time  |  Nov 18, 2022  |  Nov 18, 2022  |
+|  [den3606](https://github.com/den3606)      |    1$    |  monthly   |  Feb 08, 2023  |  Dec 08, 2023  |
+|  [clragon](https://github.com/clragon)      |   25$    |  one-time  |  Feb 17, 2023  |  Feb 17, 2023  |
+|  [stefnotch](https://github.com/stefnotch)  |   20$    |  one-time  |  Jul 13, 2023  |  Jul 13, 2023  |
+|  [conga lyne](https://github.com/Conga0)    |   25$    |  monthly   |  Jul 13, 2023  |       <3       |
+|  [clragon](https://github.com/clragon)      |   20$    |  one-time  |  Jul 13, 2023  |  Jul 13, 2023  |
+|  [Rehus04](https://github.com/Rehus04)      |   20$    |  one-time  |  Dec 05, 2023  |  Dec 05, 2023  |
 
 If you spot anything I should mention, feel free to create an issue or get in touch with [me](https://github.com/Ismoh)!
 
