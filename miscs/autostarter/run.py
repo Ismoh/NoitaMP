@@ -127,6 +127,7 @@ def start_exe(exe, mode, slot, config):
     gam_win = None
 
     os.chdir(os.path.dirname(exe))
+    print('cmd line: %s -no_logo_splashes -windowed -config "%s" -gamemode %d -save_slot %d'%(fn, config, mode, slot))
     os.system('start "" %s -no_logo_splashes -windowed -config "%s" -gamemode %d -save_slot %d'%(fn, config, mode, slot))
     #os.system('start "" %s -no_logo_splashes -windowed -config "%s"'%(fn, config))
     os.chdir(CURRENT_DIR)

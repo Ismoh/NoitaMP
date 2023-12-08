@@ -21,12 +21,11 @@
 
 struct entity_serialized {
 	std::shared_ptr<uint8_t> p;
-	uint16_t len;
+	uint32_t len;
 
 	entity_serialized(void* in_p, size_t in_len)
 		: p(new uint8_t[in_len]), len(in_len)
 	{
-		assert(in_len <= UINT16_MAX);
 		memcpy(p.get(), in_p, in_len);
 	}
 

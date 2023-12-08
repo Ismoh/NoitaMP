@@ -163,8 +163,10 @@ static int l_NativeEntityMap_getNuidBySerializedString(lua_State * L) {
 	uint32_t eid, nuid;
 
 	g_entity_map.get_ids_by_entry(entity_serialized((void *)s, len), eid, nuid);
-
-	lua_pushinteger(L, nuid);
+	if (nuid == INVALID_ID)
+		lua_pushnil(L);
+	else
+		lua_pushinteger(L, nuid);
 
 	return 1;
 }
@@ -175,8 +177,10 @@ static int l_NativeEntityMap_getEntityIdBySerializedString(lua_State * L) {
 	uint32_t eid, nuid;
 
 	g_entity_map.get_ids_by_entry(entity_serialized((void *)s, len), eid, nuid);
-
-	lua_pushinteger(L, eid);
+	if (eid == INVALID_ID)
+		lua_pushnil(L);
+	else
+		lua_pushinteger(L, eid);
 
 	return 1;
 }
