@@ -1,0 +1,1283 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../user-guide/configuration/">
+      
+      
+        <link rel="next" href="../CODE_OF_CONDUCT/">
+      
+      
+      <link rel="icon" href="../../res/img/noita-logo.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.1">
+    
+    
+      
+        <title>Contributing guide - NoitaMP Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.45e1311d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#contributing-to-noitamp" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="NoitaMP Documentation" class="md-header__button md-logo" aria-label="NoitaMP Documentation" data-md-component="logo">
+      
+  <img src="../../res/img/NoitaMP.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            NoitaMP Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Contributing guide
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="NoitaMP Documentation" class="md-nav__button md-logo" aria-label="NoitaMP Documentation" data-md-component="logo">
+      
+  <img src="../../res/img/NoitaMP.png" alt="logo">
+
+    </a>
+    NoitaMP Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    User Guides
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            User Guides
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/installation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/configuration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Configuration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Contributing
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Contributing
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Contributing guide
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Contributing guide
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table of Contents
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Requirements
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contributing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contributing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Contributing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#before-contributing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Before contributing
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-does-noitamp-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      How does NoitaMP work?
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How does NoitaMP work?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lua-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lua context
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contexts-in-noita" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contexts in Noita
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#workarounds-for-communication-between-contexts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Workarounds for communication between contexts
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Workarounds for communication between contexts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#globalssetvalue-and-globalsgetvalue" class="md-nav__link">
+    <span class="md-ellipsis">
+      GlobalsSetValue and GlobalsGetValue
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variablestoragecomponents" class="md-nav__link">
+    <span class="md-ellipsis">
+      VariableStorageComponents
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-initlua-context-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using init.lua context only
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#classes-in-noitamp" class="md-nav__link">
+    <span class="md-ellipsis">
+      'Classes' in NoitaMP
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#making-use-of-luarocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Making use of LuaRocks
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Making use of LuaRocks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usage
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ttd-test-driven-development" class="md-nav__link">
+    <span class="md-ellipsis">
+      TTD - Test Driven Development
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="TTD - Test Driven Development">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#location-of-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      Location of tests
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-run-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to run tests
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-write-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to write tests?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      Important resources
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CODE_OF_CONDUCT/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Code of conduct
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lua-docs/doc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Lua Docs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            About
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/credits/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Credits
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/LICENSE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    License
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CHANGELOG/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Changelog
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SUPPORT/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Support
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table of Contents
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Requirements
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contributing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contributing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Contributing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#before-contributing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Before contributing
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-does-noitamp-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      How does NoitaMP work?
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How does NoitaMP work?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lua-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lua context
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contexts-in-noita" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contexts in Noita
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#workarounds-for-communication-between-contexts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Workarounds for communication between contexts
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Workarounds for communication between contexts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#globalssetvalue-and-globalsgetvalue" class="md-nav__link">
+    <span class="md-ellipsis">
+      GlobalsSetValue and GlobalsGetValue
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variablestoragecomponents" class="md-nav__link">
+    <span class="md-ellipsis">
+      VariableStorageComponents
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-initlua-context-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using init.lua context only
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#classes-in-noitamp" class="md-nav__link">
+    <span class="md-ellipsis">
+      'Classes' in NoitaMP
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#making-use-of-luarocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Making use of LuaRocks
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Making use of LuaRocks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usage
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ttd-test-driven-development" class="md-nav__link">
+    <span class="md-ellipsis">
+      TTD - Test Driven Development
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="TTD - Test Driven Development">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#location-of-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      Location of tests
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-run-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to run tests
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-write-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to write tests?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      Important resources
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="contributing-to-noitamp">Contributing to NoitaMP<a class="headerlink" href="#contributing-to-noitamp" title="Permanent link">#</a></h1>
+<p>I am happy to accept contributions to NoitaMP.
+Please follow these guidelines when contributing,
+but first off, thanks for taking the time to contribute!</p>
+<h2 id="table-of-contents">Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">#</a></h2>
+<ul>
+<li><a href="#requirements">Requirements</a></li>
+<li><a href="#contributing">Contributing</a></li>
+<li><a href="#before-contributing">Before contributing</a></li>
+<li><a href="#how-does-noitamp-work">How does NoitaMP work?</a></li>
+<li><a href="#important-resources">Important resources</a></li>
+</ul>
+<h2 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">#</a></h2>
+<ul>
+<li>[ ] I have read the <a href="./">Contributing</a> document.</li>
+<li>[ ] I have read the <a href="../CODE_OF_CONDUCT/">Code of Conduct</a> document.</li>
+<li>[ ] I have read the <a href="/about/LICENSE.md">LICENSE</a> document.</li>
+<li>[ ] I have experience in Lua.</li>
+<li>[ ] I have experience in Noita modding.</li>
+</ul>
+<p>To be honest, I am sure that you have experience in Lua and Noita modding and if you read this, you will probably be able to contribute to NoitaMP.
+Everything will be explained here and if there are still questions, you can ask them in the <a href="https://discord.gg/DhMurdcw4k">Discord server</a>.</p>
+<h2 id="contributing">Contributing<a class="headerlink" href="#contributing" title="Permanent link">#</a></h2>
+<h3 id="before-contributing">Before contributing<a class="headerlink" href="#before-contributing" title="Permanent link">#</a></h3>
+<p>Please get in contact with me or the other collaborators on <a href="https://discord.gg/DhMurdcw4k">Discord</a>, before you start working on a feature or a bug fix.
+This is to avoid duplicate work.</p>
+<h2 id="how-does-noitamp-work">How does NoitaMP work?<a class="headerlink" href="#how-does-noitamp-work" title="Permanent link">#</a></h2>
+<p>NoitaMP is a mod that uses the <a href="https://noita.wiki.gg/wiki/Modding">Noita API</a>, but there is something that you need to know about the API.
+The API is a Lua library that is used to interact with the game.
+The API is not a mod, it is a library that is used to create mods.</p>
+<h3 id="lua-context">Lua context<a class="headerlink" href="#lua-context" title="Permanent link">#</a></h3>
+<p>There are different Lua contexts in Noita, but the most important one is the <code>init.lua</code> context.</p>
+<h3 id="contexts-in-noita">Contexts in Noita<a class="headerlink" href="#contexts-in-noita" title="Permanent link">#</a></h3>
+<p>Let me try to explain it with an example:
+<img alt="NoitaMP" src="/res/img/lua-contexts.png" />
+In the diagram above you can see the default Noita modding structure.
+There are different Lua contexts:</p>
+<ul>
+<li>One for <code>init.lua</code></li>
+<li>This is the 'main' context that is used to interact with NoitaMP, because unrestricted Lua code (unrestricted mod mode) is only available in the <code>init.lua</code> context.</li>
+<li>and contexts for <code>LuaComponents</code></li>
+<li>
+<p>How contexts for LuaComponents are defined, depends on the value of <code>vm_type</code>.
+    <code>SHARED_BY_MANY_COMPONENTS</code> means that for that script path, it uses a single Lua context.
+    <code>ONE_PER_COMPONENT_INSTANCE</code> means that even with the same script path, every LuaComponent has its own Lua context.
+    The path of the entity XML file is irrelevant as far as I can tell.
+    <code>SHARED_BY_MANY_COMPONENTS</code> is the default, see <a href="https://noita.wiki.gg/wiki/Documentation:_LuaComponent">wiki</a></p>
+<p><em>Credits to dextercd</em></p>
+</li>
+</ul>
+<p><strong>You are able to use Noita API functions in each context, but you are not able to use functions from other contexts.</strong>
+There is no way to access the <code>init.lua</code> context from a LuaComponent context and vice versa, <strong>but there are workarounds</strong>!</p>
+<h3 id="workarounds-for-communication-between-contexts">Workarounds for communication between contexts<a class="headerlink" href="#workarounds-for-communication-between-contexts" title="Permanent link">#</a></h3>
+<p>There are different ways to communicate between contexts:</p>
+<ul>
+<li>by Noita API Globals <code>GlobalsSetValue</code> and <code>GlobalsGetValue</code></li>
+<li>VariableStorageComponents</li>
+<li>Using <code>init.lua</code> context only</li>
+</ul>
+<p>Assume we need a value in NoitaMP, which can only be fetched in LuaComponents. So in different Lua contexts!
+We can solve this problem by the examples below:</p>
+<h4 id="globalssetvalue-and-globalsgetvalue">GlobalsSetValue and GlobalsGetValue<a class="headerlink" href="#globalssetvalue-and-globalsgetvalue" title="Permanent link">#</a></h4>
+<p>Then we would set a global "foo" variable in the <code>LuaComponent</code> context <em>(see 1 and 2 in the diagram below)</em>
+and afterwards we would use the <code>init.lua</code> context to fetch the value of the global "foo" variable <em>(see 3 and 4 in the diagram below)</em>.
+In addition, please note that <code>GlobalsSetValue</code> and <code>GlobalsGetValue</code> has nothing to do with Lua globals <code>_G</code>.
+See diagram below for a better understanding:
+<img alt="NoitaMP" src="/res/img/lua-contexts-workaround.png" /></p>
+<h4 id="variablestoragecomponents">VariableStorageComponents<a class="headerlink" href="#variablestoragecomponents" title="Permanent link">#</a></h4>
+<p>Another workaround is to use <code>VariableStorageComponents</code> to store values in the <code>LuaComponent</code> context and to fetch them in the <code>init.lua</code> context.
+In a LuaComponent context, we would create a <code>VariableStorageComponent</code> and set a value in it:</p>
+<pre><code class="language-lua">local componentId = EntityAddComponent2(entityId, &quot;VariableStorageComponent&quot;,
+    {
+        name         = &quot;exampleName&quot;,
+        value_string = &quot;exampleValue&quot;
+    }
+)
+</code></pre>
+<p>In the <code>init.lua</code> context, we would fetch the value of the <code>VariableStorageComponent</code> with the name <code>"exampleName"</code>:</p>
+<pre><code class="language-lua">local componentIds = EntityGetComponentIncludingDisabled(entityId, &quot;VariableStorageComponent&quot;) or {}
+for i = 1, #componentIds do
+  local componentId = componentIds[i]
+  -- get the components name
+  local componentName    = tostring(ComponentGetValue2(componentId, &quot;name&quot;))
+  if string.find(componentName, &quot;exampleName&quot;, 1, true) then
+    -- if the name of the component match to the one we are searching for, then get the value
+    local value = tostring(ComponentGetValue2(componentId, &quot;value_string&quot;))
+    return componentIds[i], value
+  end
+end
+</code></pre>
+<h4 id="using-initlua-context-only">Using init.lua context only<a class="headerlink" href="#using-initlua-context-only" title="Permanent link">#</a></h4>
+<p>If you are able to use the <code>init.lua</code> context only, then you can use the NoitaMP functions directly.
+For example, if you want to get local player/Minä, then you can use the NoitaMP function <code>MinaUtils.getLocalMinaInformation()</code>:</p>
+<pre><code class="language-lua">--- Gets the local player information.
+--- Including polymorphed entity id. When polymorphed, entityId will be the new one and not minäs anymore.
+--- @return PlayerInfo playerInfo
+function MinaUtils.getLocalMinaInformation()
+  -- more code
+  local ownerName = tostring(ModSettingGet(&quot;noita-mp.name&quot;))
+  local ownerGuid = tostring(ModSettingGet(&quot;noita-mp.guid&quot;))
+  local entityId  = MinaUtils.getLocalMinaEntityId()
+  local nuid = nil
+  -- yet another code fragment
+end
+</code></pre>
+<h2 id="classes-in-noitamp">'Classes' in NoitaMP<a class="headerlink" href="#classes-in-noitamp" title="Permanent link">#</a></h2>
+<p>Most of NoitaMPs functions are in 'class' tables, available in Luas globals <code>_G</code>.
+I tried to create topics for each class table, so you can find the global classes per topic:</p>
+<ul>
+<li>Mostly everything regarding Entities: <code>EntityUtils.lua</code></li>
+<li>Mostly everything regarding Globals: <code>GlobalsUtils.lua</code></li>
+<li>Mostly everything regarding Network: <code>NetworkUtils.lua</code>, besides <code>Server.lua</code> and <code>Client.lua</code></li>
+<li>Mostly everything regarding (Network)VariableStorageComponents: <code>NetworkVscUtils.lua</code></li>
+<li>Just some utilise functions: <code>util.lua</code></li>
+<li>and so on...</li>
+</ul>
+<p>I try to use KISS (Keep It Simple Stupid) and DRY (Don't Repeat Yourself) as much as possible.
+So before you want to add a new function, please try to use existing functions and classes, if possible.
+If there are no existing functions or classes you could use, then take in mind:</p>
+<ul>
+<li>to create a new class with functions</li>
+<li>or to add functions to existing classes</li>
+<li>and add the <code>CustomProfiler</code> per new function.</li>
+</ul>
+<p><code>CustomProfiler</code> is a class that is used to measure the execution time of a function, because we had terrible performance issues and memory leaks in the past.
+Therefore it is important to measure the time of each function, so we can find the functions that are causing performance issues.
+To add the CustomProfiler to a function, you can use the following example:</p>
+<pre><code class="language-lua">function EntityUtils.isEntityPolymorphed(entityId)
+  -- first line of the function should be the CustomProfiler
+  local cpc = CustomProfiler.start(&quot;EntityUtils.isEntityPolymorphed&quot;)
+  --                                ClassName.functionName
+  -- your code
+  --
+  -- last line of the function should be the CustomProfiler
+  CustomProfiler.stop(&quot;EntityUtils.isEntityPolymorphed&quot;, cpc)
+  -- Make sure to use the same name as in the start function and the same cpc variable
+  -- if there is a return value, then put CustomProfiler.stop() before the return
+  return false
+end
+</code></pre>
+<h2 id="making-use-of-luarocks">Making use of LuaRocks<a class="headerlink" href="#making-use-of-luarocks" title="Permanent link">#</a></h2>
+<h3 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">#</a></h3>
+<h3 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">#</a></h3>
+<h2 id="ttd-test-driven-development">TTD - Test Driven Development<a class="headerlink" href="#ttd-test-driven-development" title="Permanent link">#</a></h2>
+<p>Please! Please! Please, make sure to write tests for your functions!
+I know it is not easy to write tests, but it is very important to do so.
+If you are not able to write tests, then please ask for help in the Discord server.
+I will help you to write tests for your functions.
+I will not accept any pull requests without tests, sorry.</p>
+<h3 id="location-of-tests">Location of tests<a class="headerlink" href="#location-of-tests" title="Permanent link">#</a></h3>
+<p><code>mods/noita-mp/tests/</code></p>
+<h3 id="how-to-run-tests">How to run tests<a class="headerlink" href="#how-to-run-tests" title="Permanent link">#</a></h3>
+<p>See LuaRocks section above.</p>
+<h3 id="how-to-write-tests">How to write tests?<a class="headerlink" href="#how-to-write-tests" title="Permanent link">#</a></h3>
+<p>Simple example by adding a new function to an existing test class:
+<em>Assume you've added a new event to <strong>NetworkUtils.events</strong>, then make sure to extend the <strong>TestNetworkUtils</strong> table in <strong>NetworkUtils_test.lua</strong>.)</em></p>
+<pre><code class="language-lua"></code></pre>
+<p>How to run tests?
+<code>luarocks test &gt; result.log</code></p>
+<p>If there are any questions left, then please ask them on <a href="https://discord.gg/DhMurdcw4k">Discord</a>.</p>
+<h3 id="important-resources">Important resources<a class="headerlink" href="#important-resources" title="Permanent link">#</a></h3>
+<p>Along with this document, the following resources are important when contributing to NoitaMP:</p>
+<ul>
+<li>documentation</li>
+<li>bugs</li>
+<li>communication</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7c377c4.min.js"></script>
+      
+    
+  </body>
+</html>
