@@ -9179,37 +9179,37 @@
             },
             {
                 "file": "https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/util/NoitaPatcherUtils.lua",
-                "finish": 420031,
-                "start": 420014,
+                "finish": 440031,
+                "start": 440014,
                 "type": "doc.class"
             }
         ],
         "fields": [
             {
                 "extends": {
-                    "finish": 720062,
-                    "start": 720041,
+                    "finish": 740062,
+                    "start": 740041,
                     "type": "select",
                     "view": "unknown"
                 },
                 "file": "https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/util/NoitaPatcherUtils.lua",
-                "finish": 720038,
+                "finish": 740038,
                 "name": "base64",
-                "start": 720008,
+                "start": 740008,
                 "type": "setfield"
             },
             {
                 "desc": "Simple profiler that can be used to measure the duration of a function and the memory usage of a function.",
                 "extends": {
-                    "finish": 580133,
-                    "start": 580049,
+                    "finish": 600133,
+                    "start": 600049,
                     "type": "binary",
                     "view": "CustomProfiler"
                 },
                 "file": "https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/util/NoitaPatcherUtils.lua",
-                "finish": 580046,
+                "finish": 600046,
                 "name": "customProfiler",
-                "start": 580008,
+                "start": 600008,
                 "type": "setfield"
             },
             {
@@ -9217,69 +9217,69 @@
                 "extends": {
                     "args": [
                         {
-                            "finish": 280008,
-                            "start": 280008,
+                            "finish": 290008,
+                            "start": 290008,
                             "type": "self",
                             "view": "NoitaPatcherUtils"
                         },
                         {
                             "desc": "mostly an empty entity, but required",
-                            "finish": 280053,
-                            "start": 280045,
+                            "finish": 290053,
+                            "start": 290045,
                             "type": "local",
                             "view": "number"
                         },
                         {
                             "desc": "serialized entity in base64 format",
-                            "finish": 280067,
-                            "start": 280055,
+                            "finish": 290067,
+                            "start": 290055,
                             "type": "local",
                             "view": "string"
                         },
                         {
                             "desc": "x position to create entity at, but optional.",
-                            "finish": 280070,
-                            "start": 280069,
+                            "finish": 290070,
+                            "start": 290069,
                             "type": "local",
                             "view": "number|nil"
                         },
                         {
                             "desc": "y position to create entity at, but optional.",
-                            "finish": 280073,
-                            "start": 280072,
+                            "finish": 290073,
+                            "start": 290072,
                             "type": "local",
                             "view": "number|nil"
                         }
                     ],
                     "desc": " Deserialize an entity from a serialized base64 string and create it at the given position.\n\n@*param* `entityId` — mostly an empty entity, but required\n\n@*param* `base64String` — serialized entity in base64 format\n\n@*param* `x` — x position to create entity at, but optional.\n\n@*param* `y` — y position to create entity at, but optional.\n\n@*return* `entityId` — of the created entity",
-                    "finish": 350003,
+                    "finish": 370003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "number"
                         }
                     ],
-                    "start": 280000,
+                    "start": 290000,
                     "type": "function",
                     "view": "function NoitaPatcherUtils.deserializeEntity(self: NoitaPatcherUtils, entityId: number, base64String: string, x: number|nil, y: number|nil)\n  -> entityId: number"
                 },
                 "file": "https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/util/NoitaPatcherUtils.lua",
-                "finish": 280044,
+                "finish": 290044,
                 "name": "deserializeEntity",
-                "start": 280009,
+                "start": 290009,
                 "type": "setmethod"
             },
             {
                 "extends": {
-                    "finish": 760080,
-                    "start": 760051,
+                    "finish": 790079,
+                    "start": 790050,
                     "type": "select",
                     "view": "unknown"
                 },
                 "file": "https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/util/NoitaPatcherUtils.lua",
-                "finish": 760048,
-                "name": "luaNoitaMpNative",
-                "start": 760008,
+                "finish": 790047,
+                "name": "nativeEntityMap",
+                "start": 790008,
                 "type": "setfield"
             },
             {
@@ -9287,55 +9287,55 @@
                 "extends": {
                     "args": [
                         {
-                            "finish": 410008,
-                            "start": 410008,
+                            "finish": 430008,
+                            "start": 430008,
                             "type": "self",
                             "view": "NoitaPatcherUtils"
                         },
                         {
                             "desc": "required",
-                            "finish": 410045,
-                            "start": 410031,
+                            "finish": 430045,
+                            "start": 430031,
                             "type": "local",
                             "view": "CustomProfiler"
                         },
                         {
                             "desc": "required",
-                            "finish": 410049,
-                            "start": 410047,
+                            "finish": 430049,
+                            "start": 430047,
                             "type": "local",
                             "view": "noitapatcher"
                         }
                     ],
                     "desc": "NoitaPatcherUtils constructor.\n\n@*param* `customProfiler` — required\n\n@*param* `np` — required",
-                    "finish": 800003,
+                    "finish": 830003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "NoitaPatcherUtils"
                         }
                     ],
-                    "start": 410000,
+                    "start": 430000,
                     "type": "function",
                     "view": "function NoitaPatcherUtils.new(self: NoitaPatcherUtils, customProfiler: CustomProfiler, np: noitapatcher)\n  -> NoitaPatcherUtils"
                 },
                 "file": "https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/util/NoitaPatcherUtils.lua",
-                "finish": 410030,
+                "finish": 430030,
                 "name": "new",
-                "start": 410009,
+                "start": 430009,
                 "type": "setmethod"
             },
             {
                 "extends": {
-                    "finish": 630107,
-                    "start": 630037,
+                    "finish": 650107,
+                    "start": 650037,
                     "type": "binary",
                     "view": "noitapatcher"
                 },
                 "file": "https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/util/NoitaPatcherUtils.lua",
-                "finish": 630034,
+                "finish": 650034,
                 "name": "np",
-                "start": 630008,
+                "start": 650008,
                 "type": "setfield"
             },
             {
@@ -9356,7 +9356,7 @@
                         }
                     ],
                     "desc": " Serialize an entity to a base64 and md5 string.\n\n@*return* `base64String` — base64 encoded string",
-                    "finish": 200003,
+                    "finish": 210003,
                     "returns": [
                         {
                             "type": "function.return",
@@ -9376,15 +9376,15 @@
             {
                 "desc": "Utils class for lazy developers.",
                 "extends": {
-                    "finish": 680065,
-                    "start": 680040,
+                    "finish": 700065,
+                    "start": 700040,
                     "type": "select",
                     "view": "Utils"
                 },
                 "file": "https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/util/NoitaPatcherUtils.lua",
-                "finish": 680037,
+                "finish": 700037,
                 "name": "utils",
-                "start": 680008,
+                "start": 700008,
                 "type": "setfield"
             }
         ],
