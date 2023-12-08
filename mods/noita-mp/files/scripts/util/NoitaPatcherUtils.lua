@@ -16,6 +16,7 @@ function OnProjectileFiredPost() end
 ---@return string base64String base64 encoded string
 function NoitaPatcherUtils:serializeEntity(entityId)
     local binaryString = self.np.SerializeEntity(entityId)
+    self.nativeEntityMap.setMappingOfEntityIdToSerialisedString(binaryString, entityId) -- TODO: add logic somewhere else
     local base64String = self.base64.encode(binaryString)
     return base64String
 end
@@ -28,6 +29,7 @@ end
 ---@return number entityId of the created entity
 function NoitaPatcherUtils:deserializeEntity(entityId, base64String, x, y)
     local decoded = self.base64.decode(base64String)
+    local _entityId = self.nativeEntityMap.getEntityIdBySerializedString(decoded) -- TODO: add logic somewhere else
     entityId = self.np.DeserializeEntity(entityId, decoded, x, y)
     if not entityId or self.utils:isEmpty(entityId) then
         error(("Failed to deserialize entity(%s) from base64 string: %s"):format(entityId, base64String), 2)
@@ -73,8 +75,9 @@ function NoitaPatcherUtils:new(customProfiler, np)
         noitaPatcherUtilsObject.base64 = require("base64_ffi")
     end
 
-    if not noitaPatcherUtilsObject.luaNoitaMpNative then
-        noitaPatcherUtilsObject.luaNoitaMpNative = require("lua_noitamp_native")
+    if not noitaPatcherUtilsObject.nativeEntityMap then
+        ---@type NativeEntityMap
+        noitaPatcherUtilsObject.nativeEntityMap = require("lua_noitamp_native")
     end
 
     return noitaPatcherUtilsObject
