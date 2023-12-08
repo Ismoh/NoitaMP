@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="luaExtensions.c">
+    <ClCompile Include="lua_noitamp_native.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
