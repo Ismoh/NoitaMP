@@ -185,6 +185,18 @@ static int l_NativeEntityMap_getEntityIdBySerializedString(lua_State * L) {
 	return 1;
 }
 
+static int l_NativeEntityMap_getSerializedStringByEntityId(lua_State* L) {
+	uint32_t eid = lua_tonumber(L, 2);
+
+	const entity_serialized *e = g_entity_map.get_entity(eid);
+	if (!e)
+		lua_pushnil(L);
+	else
+		lua_pushlstring(L, reinterpret_cast<const char *>(e->p.get()), e->len);
+
+	return 1;
+}
+
 static int l_NativeEntityMap_setMappingOfEntityIdToSerialisedString(lua_State * L) {
 	const char* s = lua_tostring(L, 1);
 	size_t len = lua_strlen(L, 1);
@@ -246,6 +258,7 @@ extern "C" void register_NativeEntityMap(lua_State * L) {
 	luaL_Reg NativeEntityMaplib[] = {
 		  {"getNuidBySerializedString", l_NativeEntityMap_getNuidBySerializedString},
 		  {"getEntityIdBySerializedString", l_NativeEntityMap_getEntityIdBySerializedString},
+		  {"getSerializedStringByEntityId", l_NativeEntityMap_getSerializedStringByEntityId},
 		  {"setMappingOfNuidToSerialisedString", l_NativeEntityMap_setMappingOfNuidToSerialisedString},
 		  {"setMappingOfEntityIdToSerialisedString", l_NativeEntityMap_setMappingOfEntityIdToSerialisedString},
 		  {"removeMappingOfEntityId", l_NativeEntityMap_removeMappingOfEntityId},

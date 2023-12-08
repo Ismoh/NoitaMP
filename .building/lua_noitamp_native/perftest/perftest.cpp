@@ -22,6 +22,7 @@ int main(void) {
     printf("empty mem usage: %zu bytes\n", em.get_memory_usage());
 
     entity_serialized es = make_random_entity();
+    const entity_serialized* pes;
     uint32_t eid, nuid;
 
     em.add_id_to_entity(INVALID_ID, INVALID_ID, es);
@@ -51,6 +52,11 @@ int main(void) {
 
     em.add_id_to_entity(3, 4, es);
     assert(em.get_count() == 1);
+    pes = em.get_entity(3);
+    assert(pes);
+    assert(pes->len == es.len);
+    assert(memcmp(pes->p.get(), es.p.get(), es.len) == 0);
+
     em.remove_ids(INVALID_ID, 4);
     assert(em.get_count() == 0);
 

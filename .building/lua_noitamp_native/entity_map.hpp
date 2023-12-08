@@ -78,6 +78,13 @@ struct entity_values {
 	void get_ids_by_entry(const entity_serialized& ed, uint32_t& eid, uint32_t& nuid);
 	void remove_ids(uint32_t eid, uint32_t nuid);
 
+	const entity_serialized* get_entity(uint32_t eid) {
+		auto it = eid_to_entity.find(eid);
+		if (it != eid_to_entity.end()) {
+			return &it->second->entity;
+		}
+		return NULL;
+	}
 	size_t get_count(void) const {
 		return entity_ptrs.size();
 	}

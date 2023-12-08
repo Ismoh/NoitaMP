@@ -47,3 +47,8 @@ function NativeEntityMap.getMemoryUsage() end
 
 --- Remove all mappings and clear all ressources.
 function NativeEntityMap.removeAllMappings() end
+
+--- Return entity serialized string associated with @entity_id or nil
+---@param entity_id number|nil
+---@return serialized_string string binaryString
+function NativeEntityMap.getSerializedStringByEntityId(entity_id) end
