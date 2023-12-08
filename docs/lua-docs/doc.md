@@ -25,7 +25,7 @@ function Client.amIClient(self: Client)
 Checks if the current local user is a client.
 
 @*return* `true` — if client, false if not
-See: [Server.amIServer](https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/net/Server.lua#L852#9)
+See: [Server.amIServer](https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/net/Server.lua#L866#9)
 
 ### customProfiler
 
@@ -3471,7 +3471,7 @@ function Server.amIServer(self: Server)
 Checks if the current local user is a server.
 
 @*return* `true` — if server, false if not
-See: [Client.amIClient](https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/net/Client.lua#L910#9)
+See: [Client.amIClient](https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/net/Client.lua#L924#9)
 
 ### ban
 
@@ -6233,19 +6233,21 @@ NoitaMpSettings
 
 ## noitaMpSettings.customProfiler
 
+Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
+
 
 ```lua
-table
+CustomProfiler
 ```
 
 
 ```lua
-table
+CustomProfiler
 ```
 
 
 ```lua
-table
+CustomProfiler
 ```
 
 
