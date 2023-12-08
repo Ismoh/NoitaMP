@@ -21,12 +21,11 @@
 
 struct entity_serialized {
 	std::shared_ptr<uint8_t> p;
-	uint16_t len;
+	uint32_t len;
 
 	entity_serialized(void* in_p, size_t in_len)
 		: p(new uint8_t[in_len]), len(in_len)
 	{
-		assert(in_len <= UINT16_MAX);
 		memcpy(p.get(), in_p, in_len);
 	}
 
@@ -78,6 +77,22 @@ struct entity_values {
 	void add_id_to_entity(uint32_t eid, uint32_t nuid, const entity_serialized& ed);
 	void get_ids_by_entry(const entity_serialized& ed, uint32_t& eid, uint32_t& nuid);
 	void remove_ids(uint32_t eid, uint32_t nuid);
+
+	const entity_serialized* get_entity(uint32_t eid, uint32_t nuid) {
+		if (eid != INVALID_ID) {
+			auto it = eid_to_entity.find(eid);
+			if (it != eid_to_entity.end()) {
+				return &it->second->entity;
+			}
+		}
+		else if (nuid != INVALID_ID) {
+			auto it = nuid_to_entity.find(nuid);
+			if (it != nuid_to_entity.end()) {
+				return &it->second->entity;
+			}
+		}
+		return NULL;
+	}
 
 	size_t get_count(void) const {
 		return entity_ptrs.size();

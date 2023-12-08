@@ -50,5 +50,10 @@ function NativeEntityMap.removeAllMappings() end
 
 --- Return entity serialized string associated with @entity_id or nil
 ---@param entity_id number|nil
----@return string serialzed_string binaryString
+---@return string binaryString|nil
 function NativeEntityMap.getSerializedStringByEntityId(entity_id) end
+
+--- Return entity serialized string associated with @nuid or nil
+---@param nuid number|nil
+---@return string binaryString|nil
+function NativeEntityMap.getSerializedStringByNuid(nuid) end

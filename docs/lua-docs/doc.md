@@ -3240,7 +3240,7 @@ function NoitaPatcherUtils.deserializeEntity(self: NoitaPatcherUtils, entityId: 
 
 @*return* `entityId` — of the created entity
 
-### luaNoitaMpNative
+### nativeEntityMap
 
 
 ```lua

@@ -25,25 +25,38 @@ import shutil
 import subprocess
 import time
 import re
+import hashlib
 
-GIT_DIR = os.path.dirname(__file__)
-CONFIG_PATH = GIT_DIR + r'\config_test.xml'
+def find_git_root():
+    d = os.path.dirname(__file__)
+    while d:
+        if os.path.exists(d + r'\.git'):
+            return d
+        d = os.path.realpath(d + r'\..')
+
+CURRENT_DIR = os.getcwd()
+GIT_DIR = find_git_root()
+SCRIPT_DIR = os.path.dirname(__file__)
+CONFIG_PATH = SCRIPT_DIR + r'\config_test.xml'
+LUA_ORIG_SHA1 = '1a8bce6cb7acc4575ed114ce1a685ae540a5e9be'
 
 # default options
 NOITA_DIR = r'C:\Program Files (x86)\Steam\steamapps\common\Noita'
 SAVE_SLOT = [1, 2]
 GAME_MODE = 4
 LOG = 'off'
+LUA = 'latest'
 
 def main():
     ap = argparse.ArgumentParser(description="Start 2 instances of noita to test/debug NoitaMP")
     ap.add_argument("--dev", "-d", help="use noita_dev.exe", action="store_true", default=False)
-    ap.add_argument("--log", "-l", help="logging mode (default %s)"%LOG, choices=['off', 'on', 'merged'], default=LOG)
-    ap.add_argument("--noita-dir", "-n", help="path to noita directory (default %s)"%NOITA_DIR, default=NOITA_DIR)
+    ap.add_argument("--log", "-l", help="logging mode, only applies to non-dev mode (default %s)"%LOG, choices=['off', 'on', 'merged'], default=LOG)
+    ap.add_argument("--noita-dir", "-n", metavar="DIR", help="path to noita directory (default %s)"%NOITA_DIR, default=NOITA_DIR)
     ap.add_argument("--slots", "-s", type=int, nargs="*", help="comma separated save slot list to load on each instance (1-indexed, default %s)"%SAVE_SLOT, default=SAVE_SLOT)
-    ap.add_argument("--gamemode", "-g", type=int, help="NoitaMP game mode index in the New Game menu (0-indexed, default %d)"%GAME_MODE, default=GAME_MODE)
+    ap.add_argument("--gamemode", "-g", metavar="N", type=int, help="NoitaMP game mode index in the New Game menu (0-indexed, default %d)"%GAME_MODE, default=GAME_MODE)
     ap.add_argument("--update", "-u", action="store_true", help="update NoitaMP in Noita install by deleting and copying the mod from git", default=False)
     ap.add_argument("--kill", "-k", action="store_true", help="kill any running Noita instances", default=False)
+    ap.add_argument("--lua", choices=lua_choices(), help="Lua version to use (default %s)"%LUA, default=LUA)
 
     args = ap.parse_args()
 
@@ -56,15 +69,17 @@ def main():
         noita_bin = args.noita_dir + r'\noita.exe'
         noita2_bin = args.noita_dir + r'\noita2.exe'
 
-    make_client_exe(noita_bin, noita2_bin)
-    write_config(CONFIG_PATH)
-
     if args.kill:
         kill_process("noita_dev.exe")
         kill_process("noita2_dev.exe")
         kill_process("noita.exe")
         kill_process("noita2.exe")
         time.sleep(1)
+
+    make_client_exe(noita_bin, noita2_bin)
+    update_lua(args.noita_dir, args.lua)
+    write_config(CONFIG_PATH)
+
 
     if args.update:
         update_mod(args.noita_dir)
@@ -112,8 +127,10 @@ def start_exe(exe, mode, slot, config):
     gam_win = None
 
     os.chdir(os.path.dirname(exe))
+    print('cmd line: %s -no_logo_splashes -windowed -config "%s" -gamemode %d -save_slot %d'%(fn, config, mode, slot))
     os.system('start "" %s -no_logo_splashes -windowed -config "%s" -gamemode %d -save_slot %d'%(fn, config, mode, slot))
-    os.chdir(GIT_DIR)
+    #os.system('start "" %s -no_logo_splashes -windowed -config "%s"'%(fn, config))
+    os.chdir(CURRENT_DIR)
 
     print("waiting for %s window to pop up..."%fn)
     while True:
@@ -150,6 +167,77 @@ def make_client_exe(original_exe, new_client_exe):
         offset = buf.find(b'logger.txt')
         f.seek(offset, 0)
         f.write(b'logge2.txt')
+
+def version_key(s):
+    desc = ""
+    if "-" in s:
+        s, desc = s.split("-")
+    n = [0]*10
+    for i, x in enumerate(s.split(".")):
+        n[i] = int(x)
+    return n + [desc]
+
+
+def sha1_file(path):
+    with open(path, "rb") as f:
+        return hashlib.sha1(f.read()).hexdigest()
+
+def list_all_luajit():
+    lua_dlls = {}
+    for root, dirs, fns in os.walk(GIT_DIR):
+        for fn in fns:
+            if fn == 'lua51.dll':
+                fullpath = os.path.join(root, fn)
+                vers = find_luajit_version(fullpath)
+                if vers is not None:
+                    lua_dlls[fullpath] = vers
+    return lua_dlls
+
+def lua_choices():
+    return ['latest', 'original'] + sorted(list(set(list_all_luajit().values())), key=version_key, reverse=True)
+
+def find_luajit_version(dll):
+    with open(dll, "rb") as f:
+        data = f.read()
+        m = re.search(b'LuaJIT (\d.+?)\x00', data)
+        if not m:
+            return None
+        return m.group(1).decode('ascii')
+
+def update_lua(noita_dir, lua_version):
+    dll = noita_dir + r'\lua51.dll'
+    orgdll = dll + r'.bak'
+    alldlls = list_all_luajit()
+    allversions = {v: k for k,v in alldlls.items()}
+    hashes = {x: sha1_file(x) for x in alldlls.keys()}
+    currenthash = sha1_file(dll)
+
+    if currenthash == LUA_ORIG_SHA1 or currenthash not in hashes.values() and not os.path.exists(orgdll):
+        shutil.copyfile(dll, orgdll)
+
+    if lua_version == 'latest':
+        lua_version = sorted(allversions.keys(), key=version_key, reverse=True)[0]
+        newdll = allversions[lua_version]
+    elif lua_version == 'original':
+        newdll = orgdll
+        if not os.path.exists(orgdll):
+            print("no original lua dll found, keeping current one")
+            return
+        lua_version = find_luajit_version(orgdll)
+    else:
+        if lua_version not in allversions.keys():
+            print("unknown lua dll version %s, keeping current one")
+            return
+        newdll = allversions[lua_version]
+
+
+    print("using lua v%s (%s)"%(lua_version, newdll))
+    if not os.path.exists(newdll):
+        print("cannot find it, keeping current one")
+        return
+
+    os.unlink(dll)
+    shutil.copyfile(newdll, dll)
 
 def noita_click(window, img, confidence=0.8, sleep=0.5):
     game = pyautogui.screenshot(region=(window.left, window.top, window.width, window.height))
@@ -256,17 +344,11 @@ def setup_dev_env(noita_dir):
     os.system('copy *.* ..')
     os.chdir(noita_dir)
     os.system('data_wak_unpack')
+    os.chdir(CURRENT_DIR)
 
 def kill_process(path):
     exe = os.path.basename(path)
     os.system('taskkill /im %s'%exe)
-
-def find_git_root():
-    d = os.path.dirname(__file__)
-    while d:
-        if os.path.exists(d + r'\.git'):
-            return d
-        d = os.path.realpath(d + r'\..')
 
 if __name__ == '__main__':
     main()
