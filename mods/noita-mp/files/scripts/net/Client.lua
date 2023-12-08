@@ -472,7 +472,21 @@ local onNewNuid = function(self, data)
     end
 
 
-    entityId = self.noitaPatcherUtils:deserializeEntity(entityId, data.currentSerializedB64Str, data.x, data.y) --EntitySerialisationUtils.deserializeEntireRootEntity(data.serializedEntity, data.nuid)
+    entityId = self.noitaPatcherUtils:deserializeEntity(entityId, data.currentSerializedB64Str, data.x, data.y)
+
+    -- TODO: improved version is below, but need to be tested
+    if string.contains(EntityGetFilename(entityId) or "", "player.xml") then
+        -- Remove player components which leads to crashes and are also not necessary
+        local compId = EntityGetComponentIncludingDisabled(entityId, "PlayerCollisionComponent")
+        if compId then
+            EntityRemoveComponent(entityId, compId)
+        end
+        compId = EntityGetComponentIncludingDisabled(entityId, "CharacterCollisionComponent")
+        if compId then
+            EntityRemoveComponent(entityId, compId)
+        end
+        compId = nil -- maybe not needed, but let's free the memory a bit
+    end
 
     -- include exclude list of entityIds which shouldn't be spawned
     -- if filename:contains("player.xml") then

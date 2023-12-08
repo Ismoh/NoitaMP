@@ -317,6 +317,20 @@ local onNeedNuid = function(self, data, peer)
             initSerializedB64Str = data.initSerializedB64Str
             self.noitaComponentUtils:setInitialSerializedEntityString(serverEntityId, initSerializedB64Str)
             serializedEntityString = initSerializedB64Str
+
+            -- TODO: use a list for removing components
+            if string.contains(EntityGetFilename(serverEntityId) or "", "player.xml") then
+                -- Remove player components which leads to crashes and are also not necessary
+                local compId = EntityGetComponentIncludingDisabled(serverEntityId, "PlayerCollisionComponent")
+                if compId then
+                    EntityRemoveComponent(serverEntityId, compId)
+                end
+                compId = EntityGetComponentIncludingDisabled(serverEntityId, "CharacterCollisionComponent")
+                if compId then
+                    EntityRemoveComponent(serverEntityId, compId)
+                end
+                compId = nil -- maybe not needed, but let's free the memory a bit
+            end
         end
     end
 
@@ -715,7 +729,7 @@ function Server:preUpdate(startFrameTime)
     local elapsedTime = nowTime - prevTime
     local oneTickInMs = 1000 / tonumber(ModSettingGet("noita-mp.tick_rate"))
     if elapsedTime >= oneTickInMs then
-        prevTime   = nowTime
+        prevTime = nowTime
         --if since % tonumber(ModSettingGet("noita-mp.tick_rate")) == 0 then
         --updateVariables()
 
