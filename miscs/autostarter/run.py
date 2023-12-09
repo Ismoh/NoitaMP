@@ -264,7 +264,7 @@ def write_config(path):
     <Config
     	vsync="2"
 
-    	sounds="1"
+    	sounds="0"
 
     	record_events="0"
     	do_a_playback="0"

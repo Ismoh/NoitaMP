@@ -820,7 +820,7 @@ function Client:sendNeedNuid(ownerName, ownerGuid, entityId)
     end
 
     local x, y                         = EntityGetTransform(entityId)
-    local initialSerialisedBinaryString = self.nativeEntityMap:getSerializedStringByEntityId(entityId)
+    local initialSerialisedBinaryString = self.nativeEntityMap.getSerializedStringByEntityId(entityId)
     local currentSerialisedBinaryString = self.noitaPatcherUtils:serializeEntity(entityId)
     local data                         = {
         self.networkUtils:getNextNetworkMessageId(), ownerName, ownerGuid, entityId, x, y,
@@ -1016,7 +1016,7 @@ function Client.new(clientObject, serverOrAddress, port, maxChannels, server, np
     end
 
     if not clientObject.nativeEntityMap then
-        clientObject.nativeEntityMap = nativeEntityMap or require("native_entity_map")
+        clientObject.nativeEntityMap = nativeEntityMap or require("lua_noitamp_native")
     end
 
     --[[ Attributes ]]

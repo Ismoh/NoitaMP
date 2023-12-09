@@ -29,8 +29,8 @@ end
 ---@param y number|nil y position to create entity at, but optional.
 ---@return number entityId of the created entity
 function NoitaPatcherUtils:deserializeEntity(entityId, binaryString, x, y)
-    entityId = self.nativeEntityMap.getEntityIdBySerializedString(binaryString)
-    if entityId then
+    if self.nativeEntityMap.getEntityIdBySerializedString(binaryString) then
+        entityId = self.nativeEntityMap.getEntityIdBySerializedString(binaryString)
         self.logger:warn(("Entity(%s) already exists, returning existing entity(%s)"):format(entityId, entityId))
         --return entityId TODO: double check if we can 'update' the entity by deserialising the new binaryString into the same entity again
     end

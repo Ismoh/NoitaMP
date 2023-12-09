@@ -641,6 +641,10 @@ function EntityUtils:new(client, customProfiler, enitityCacheUtils, entityCache,
             :new(server.customProfiler, np, server.logger, nativeEntityMap)
     end
 
+    if not entityUtilsObject.nativeEntityMap then
+        entityUtilsObject.nativeEntityMap = nativeEntityMap or require("lua_noitamp_native")
+    end
+
     return entityUtilsObject
 end
 
