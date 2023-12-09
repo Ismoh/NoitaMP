@@ -395,8 +395,8 @@ def setup_dev_env(noita_dir: str) -> None:
 
 
 def kill_process(path: str) -> None:
-    exe = os.path.basename(path)
-    os.system('taskkill /im %s' % exe)
+    exe_name = os.path.basename(path)
+    os.system(f'taskkill /im {exe_name}')
 
 
 if __name__ == '__main__':
