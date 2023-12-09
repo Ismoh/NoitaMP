@@ -148,10 +148,10 @@ def start_exe(exe_path: str, mode: int, slot: int, config_path: str) -> tuple[gw
     filename = os.path.basename(exe_path)
     # start = {x._hWnd: x for x in gw.getAllWindow() if re.search(r'^(Noita -|(noita|noita2)(_dev)?\.exe)', x.title)}
     windows: list[gw.Win32Window] = gw.getAllWindows()
-    exe_gui_windows: dict[int, gw.Win32Window] = {window._hWnd: window for window in windows if
-                                                  re.search(r'^Noita -', window.title)}  # type: ignore
-    exe_cli_windows: dict[int, gw.Win32Window] = {window._hWnd: window for window in windows if
-                                                  re.search(fr'^{filename}', window.title)}  # type: ignore
+    exe_gui_windows: dict[int, gw.Win32Window] = {window._hWnd: window for window in windows if  # type: ignore
+                                                  re.search(r'^Noita -', window.title)}
+    exe_cli_windows: dict[int, gw.Win32Window] = {window._hWnd: window for window in windows if  # type: ignore
+                                                  re.search(fr'^{filename}', window.title)}
 
     cli_window = None
     game_window = None
