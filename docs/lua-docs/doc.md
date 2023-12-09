@@ -816,6 +816,13 @@ MinaUtils
 
 Util class for fetching information about local and remote minas.
 
+### nativeEntityMap
+
+
+```lua
+NativeEntityMap
+```
+
 ### networkUtils
 
 
