@@ -20,18 +20,17 @@
 import argparse
 import hashlib
 import os
+import pyautogui
+import pygetwindow as gw  # type: ignore
 import re
 import shutil
 import subprocess
 import time
 from PIL import Image
 
-import pyautogui
-import pygetwindow as gw # type: ignore
-
 
 def get_git_root(path: str) -> str:
-    filesystem_root = os.path.abspath('.').split(os.path.sep)[0]+os.path.sep
+    filesystem_root = os.path.abspath('.').split(os.path.sep)[0] + os.path.sep
     while not os.path.exists(path + r'\.git'):
         if path == filesystem_root:
             raise LookupError("Git dir not found. Probably the repo is downloaded as zip.")
@@ -78,9 +77,11 @@ def main() -> None:
                             help=f"NoitaMP game mode index in the New Game menu (0-indexed, default {GAME_MODE})",
                             default=GAME_MODE)
     arg_parser.add_argument("--update", "-u", action="store_true",
-                            help="update NoitaMP in Noita install by deleting and copying the mod from git", default=False)
+                            help="update NoitaMP in Noita install by deleting and copying the mod from git",
+                            default=False)
     arg_parser.add_argument("--kill", "-k", action="store_true", help="kill any running Noita instances", default=False)
-    arg_parser.add_argument("--lua", choices=lua_choices(), help=f"Lua version to use (default {LUA_VER})", default=LUA_VER)
+    arg_parser.add_argument("--lua", choices=lua_choices(), help=f"Lua version to use (default {LUA_VER})",
+                            default=LUA_VER)
 
     cli_args = arg_parser.parse_args(namespace=ProgramArgs())
 
@@ -112,13 +113,13 @@ def main() -> None:
     client_window, client_dev_console = start_exe(noita2_bin, mode=cli_args.gamemode, slot=cli_args.slots[1],
                                                   config_path=CONFIG_PATH)
 
-    server_window.moveTo(0, 0) # type: ignore
+    server_window.moveTo(0, 0)  # type: ignore
     if server_dev_console:
-        server_dev_console.moveTo(server_window.left, server_window.top + server_window.height) # type: ignore
+        server_dev_console.moveTo(server_window.left, server_window.top + server_window.height)  # type: ignore
 
-    client_window.moveTo(server_window.left + server_window.width + 30, 0) # type: ignore
+    client_window.moveTo(server_window.left + server_window.width + 30, 0)  # type: ignore
     if client_dev_console:
-        client_dev_console.moveTo(client_window.left, client_window.top + client_window.height) # type: ignore
+        client_dev_console.moveTo(client_window.left, client_window.top + client_window.height)  # type: ignore
 
     if cli_args.log == 'merged':
         server_log = LogPoll(cli_args.noita_dir + r'\logger.txt', prefix='\x1b[31m[SERVER]\x1b[0m ')
@@ -130,7 +131,7 @@ def main() -> None:
     elif cli_args.log == 'on':
         start_log_console(cli_args.noita_dir + r'\logger.txt',
                           cli_args.noita_dir + r'\logge2.txt',
-                          pos_y=server_window.top + server_window.height) # type: ignore
+                          pos_y=server_window.top + server_window.height)  # type: ignore
 
 
 def update_mod(noita_dir: str):
@@ -147,8 +148,10 @@ def start_exe(exe_path: str, mode: int, slot: int, config_path: str) -> tuple[gw
     filename = os.path.basename(exe_path)
     # start = {x._hWnd: x for x in gw.getAllWindow() if re.search(r'^(Noita -|(noita|noita2)(_dev)?\.exe)', x.title)}
     windows: list[gw.Win32Window] = gw.getAllWindows()
-    exe_gui_windows: dict[int, gw.Win32Window] = {window._hWnd: window for window in windows if re.search(r'^Noita -', window.title)} # type: ignore
-    exe_cli_windows: dict[int, gw.Win32Window] = {window._hWnd: window for window in windows if re.search(fr'^{filename}', window.title)} # type: ignore
+    exe_gui_windows: dict[int, gw.Win32Window] = {window._hWnd: window for window in windows if
+                                                  re.search(r'^Noita -', window.title)}  # type: ignore
+    exe_cli_windows: dict[int, gw.Win32Window] = {window._hWnd: window for window in windows if
+                                                  re.search(fr'^{filename}', window.title)}  # type: ignore
 
     cli_window = None
     game_window = None
@@ -163,18 +166,18 @@ def start_exe(exe_path: str, mode: int, slot: int, config_path: str) -> tuple[gw
     print(f"waiting for {filename} window to pop up...")
     while True:
         if game_window is None:
-            noita_windows: list[gw.Win32Window] = gw.getWindowsWithTitle('Noita - ') # type: ignore
+            noita_windows: list[gw.Win32Window] = gw.getWindowsWithTitle('Noita - ')  # type: ignore
             if len(noita_windows) > len(exe_gui_windows):
                 for window in noita_windows:
-                    if window._hWnd not in exe_gui_windows.keys(): # type: ignore
+                    if window._hWnd not in exe_gui_windows.keys():  # type: ignore
                         game_window = window
 
         if 'dev' in filename:
             if cli_window is None:
-                cli_windows: list[gw.Win32Window] = gw.getWindowsWithTitle(filename) # type: ignore
+                cli_windows: list[gw.Win32Window] = gw.getWindowsWithTitle(filename)  # type: ignore
                 if len(cli_windows) > len(exe_cli_windows):
                     for window in cli_windows:
-                        if window._hWnd not in exe_cli_windows.keys(): # type: ignore
+                        if window._hWnd not in exe_cli_windows.keys():  # type: ignore
                             cli_window = window
 
             if game_window and cli_window:
@@ -250,7 +253,8 @@ def update_lua(noita_dir: str, lua_version: str) -> None:
     dlls_hashes = {dll_path: sha1_file(dll_path) for dll_path in all_dlls.keys()}
     currenthash = sha1_file(dll_path)
 
-    if currenthash == LUA_ORIG_SHA1 or currenthash not in dlls_hashes.values() and not os.path.exists(original_dll_path):
+    if currenthash == LUA_ORIG_SHA1 or currenthash not in dlls_hashes.values() and not os.path.exists(
+        original_dll_path):
         shutil.copyfile(dll_path, original_dll_path)
 
     if lua_version == 'latest':
@@ -280,21 +284,21 @@ def update_lua(noita_dir: str, lua_version: str) -> None:
     shutil.copyfile(selected_dll, dll_path)
 
 
-
 def noita_click(window: gw.Win32Window, img: str | Image.Image, confidence: float = 0.8, sleep: float = 0.5) -> None:
-    game = pyautogui.screenshot(region=(int(window.left), int(window.top), int(window.width), int(window.height))) # type: ignore
+    game = pyautogui.screenshot(
+        region=(int(window.left), int(window.top), int(window.width), int(window.height)))  # type: ignore
     r = pyautogui.locate(img, game, confidence=confidence)
     print("located btn at", r)
-    p = pyautogui.center(r) # type: ignore
+    p = pyautogui.center(r)  # type: ignore
     print("center at", p)
-    print("abs", window.top + p.y, window.left + p.x) # type: ignore
-    pyautogui.moveTo(window.left + p.x, window.top + p.y) # type: ignore
-    pyautogui.click(window.left + p.x, window.top + p.y) # type: ignore
+    print("abs", window.top + p.y, window.left + p.x)  # type: ignore
+    pyautogui.moveTo(window.left + p.x, window.top + p.y)  # type: ignore
+    pyautogui.click(window.left + p.x, window.top + p.y)  # type: ignore
     time.sleep(sleep)
 
 
 def find_noita_window(exclude: list[gw.Win32Window] | None = None) -> gw.Win32Window:
-    winlist: list[gw.Win32Window] = gw.getWindowsWithTitle('Noita - Build') # type: ignore
+    winlist: list[gw.Win32Window] = gw.getWindowsWithTitle('Noita - Build')  # type: ignore
     if exclude:
         for window in winlist:
             if window not in exclude:
@@ -348,7 +352,8 @@ def start_log_console(log_client_path: str, log_server_path: str, pos_y: int = 0
     log_client_filename = os.path.basename(log_client_path)
     log_server_filename = os.path.basename(log_server_path)
     subprocess.run(["wt.exe", "--pos", f"0,{pos_y}",
-                    "nt", "-d", log_dir, "powershell.exe", "-command", f'Get-Content -Path "{log_server_filename}" -Wait'
+                    "nt", "-d", log_dir, "powershell.exe", "-command",
+                    f'Get-Content -Path "{log_server_filename}" -Wait'
                     ';',
                     "sp", "-V", "-d", log_dir, "powershell.exe", "-command",
                     f'Get-Content -Path "{log_client_filename}" -Wait',
