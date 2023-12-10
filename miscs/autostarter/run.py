@@ -20,12 +20,13 @@
 import argparse
 import hashlib
 import os
-import pyautogui
-import pygetwindow as gw  # type: ignore
 import re
 import shutil
 import subprocess
 import time
+
+import pyautogui
+import pygetwindow as gw
 from PIL import Image
 
 
@@ -65,22 +66,39 @@ class ProgramArgs(argparse.Namespace):
 
 def main() -> None:
     arg_parser = argparse.ArgumentParser(description="Start 2 instances of noita to test/debug NoitaMP")
-    arg_parser.add_argument("--dev", "-d", type=bool, help="use noita_dev.exe", action="store_true", default=False)
-    arg_parser.add_argument("--log", "-l", help=f"logging mode, only applies to non-dev mode (default {LOG})",
-                            choices=['off', 'on', 'merged'], default=LOG)
-    arg_parser.add_argument("--noita-dir", "-n", metavar="DIR", help=f"path to noita directory (default {NOITA_DIR})",
+    arg_parser.add_argument("--dev", "-d",
+                            help="use noita_dev.exe",
+                            action="store_true",
+                            default=False)
+    arg_parser.add_argument("--log", "-l",
+                            help=f"logging mode, only applies to non-dev mode (default {LOG})",
+                            choices=['off', 'on', 'merged'],
+                            default=LOG)
+    arg_parser.add_argument("--noita-dir", "-n",
+                            metavar="DIR",
+                            help=f"path to noita directory (default {NOITA_DIR})",
                             default=NOITA_DIR)
-    arg_parser.add_argument("--slots", "-s", type=int, nargs="*",
+    arg_parser.add_argument("--slots", "-s",
+                            type=int,
+                            nargs="*",
                             help=f"comma separated save slot list to load on each instance (1-indexed, default {SAVE_SLOT})",
                             default=SAVE_SLOT)
-    arg_parser.add_argument("--gamemode", "-g", metavar="N", type=int,
+    arg_parser.add_argument("--gamemode", "-g",
+                            metavar="N",
+                            type=int,
                             help=f"NoitaMP game mode index in the New Game menu (0-indexed, default {GAME_MODE})",
                             default=GAME_MODE)
-    arg_parser.add_argument("--update", "-u", action="store_true",
+    arg_parser.add_argument("--update", "-u",
+                            action="store_true",
                             help="update NoitaMP in Noita install by deleting and copying the mod from git",
                             default=False)
-    arg_parser.add_argument("--kill", "-k", action="store_true", help="kill any running Noita instances", default=False)
-    arg_parser.add_argument("--lua", choices=lua_choices(), help=f"Lua version to use (default {LUA_VER})",
+    arg_parser.add_argument("--kill", "-k",
+                            action="store_true",
+                            help="kill any running Noita instances",
+                            default=False)
+    arg_parser.add_argument("--lua",
+                            choices=lua_choices(),
+                            help=f"Lua version to use (default {LUA_VER})",
                             default=LUA_VER)
 
     cli_args = arg_parser.parse_args(namespace=ProgramArgs())
@@ -108,30 +126,34 @@ def main() -> None:
     if cli_args.update:
         update_mod(cli_args.noita_dir)
 
-    server_window, server_dev_console = start_exe(noita_bin, mode=cli_args.gamemode, slot=cli_args.slots[0],
+    server_window, server_dev_console = start_exe(noita_bin,
+                                                  mode=cli_args.gamemode,
+                                                  slot=cli_args.slots[0],
                                                   config_path=CONFIG_PATH)
-    client_window, client_dev_console = start_exe(noita2_bin, mode=cli_args.gamemode, slot=cli_args.slots[1],
+    client_window, client_dev_console = start_exe(noita2_bin,
+                                                  mode=cli_args.gamemode,
+                                                  slot=cli_args.slots[1],
                                                   config_path=CONFIG_PATH)
 
-    server_window.moveTo(0, 0)  # type: ignore
+    server_window.moveTo(0, 0)
     if server_dev_console:
-        server_dev_console.moveTo(server_window.left, server_window.top + server_window.height)  # type: ignore
+        server_dev_console.moveTo(server_window.left, server_window.top + server_window.height)
 
-    client_window.moveTo(server_window.left + server_window.width + 30, 0)  # type: ignore
+    client_window.moveTo(server_window.left + server_window.width + 30, 0)
     if client_dev_console:
-        client_dev_console.moveTo(client_window.left, client_window.top + client_window.height)  # type: ignore
+        client_dev_console.moveTo(client_window.left, client_window.top + client_window.height)
 
     if cli_args.log == 'merged':
         server_log = LogPoll(cli_args.noita_dir + r'\logger.txt', prefix='\x1b[31m[SERVER]\x1b[0m ')
-        client_log = LogPoll(cli_args.noita_dir + r'\logge2.txt', prefix='\x1b[32m[CLIENT]\x1b[0m ')
+        client_log = LogPoll(cli_args.noita_dir + r'\logger2.txt', prefix='\x1b[32m[CLIENT]\x1b[0m ')
         while True:
             server_log.read_and_print()
             client_log.read_and_print()
             time.sleep(.5)
     elif cli_args.log == 'on':
         start_log_console(cli_args.noita_dir + r'\logger.txt',
-                          cli_args.noita_dir + r'\logge2.txt',
-                          pos_y=server_window.top + server_window.height)  # type: ignore
+                          cli_args.noita_dir + r'\logger2.txt',
+                          pos_y=server_window.top + server_window.height)
 
 
 def update_mod(noita_dir: str):
@@ -148,36 +170,35 @@ def start_exe(exe_path: str, mode: int, slot: int, config_path: str) -> tuple[gw
     filename = os.path.basename(exe_path)
     # start = {x._hWnd: x for x in gw.getAllWindow() if re.search(r'^(Noita -|(noita|noita2)(_dev)?\.exe)', x.title)}
     windows: list[gw.Win32Window] = gw.getAllWindows()
-    exe_gui_windows: dict[int, gw.Win32Window] = {window._hWnd: window for window in windows if  # type: ignore
+    exe_gui_windows: dict[int, gw.Win32Window] = {window._hWnd: window for window in windows if
                                                   re.search(r'^Noita -', window.title)}
-    exe_cli_windows: dict[int, gw.Win32Window] = {window._hWnd: window for window in windows if  # type: ignore
+    exe_cli_windows: dict[int, gw.Win32Window] = {window._hWnd: window for window in windows if
                                                   re.search(fr'^{filename}', window.title)}
 
     cli_window = None
     game_window = None
 
     os.chdir(os.path.dirname(exe_path))
-    print(f'cmd line: {filename} -no_logo_splashes -windowed -config "{config_path}" -gamemode{mode} -save_slot {slot}')
-    os.system(
-        f'start "" {filename} -no_logo_splashes -windowed -config "{config_path}" -gamemode{mode} -save_slot {slot}')
+    print(f'cmd line: {filename} -no_logo_splashes -windowed -config "{config_path}" -gamemode {mode} -save_slot {slot}')
+    os.system(f'start "" {filename} -no_logo_splashes -windowed -config "{config_path}" -gamemode {mode} -save_slot {slot}')
     # os.system('start "" %s -no_logo_splashes -windowed -config "%s"'%(fn, config))
     os.chdir(CURRENT_DIR)
 
     print(f"waiting for {filename} window to pop up...")
     while True:
         if game_window is None:
-            noita_windows: list[gw.Win32Window] = gw.getWindowsWithTitle('Noita - ')  # type: ignore
+            noita_windows = gw.getWindowsWithTitle('Noita - ')
             if len(noita_windows) > len(exe_gui_windows):
                 for window in noita_windows:
-                    if window._hWnd not in exe_gui_windows.keys():  # type: ignore
+                    if window._hWnd not in exe_gui_windows.keys():
                         game_window = window
 
         if 'dev' in filename:
             if cli_window is None:
-                cli_windows: list[gw.Win32Window] = gw.getWindowsWithTitle(filename)  # type: ignore
+                cli_windows = gw.getWindowsWithTitle(filename)
                 if len(cli_windows) > len(exe_cli_windows):
                     for window in cli_windows:
-                        if window._hWnd not in exe_cli_windows.keys():  # type: ignore
+                        if window._hWnd not in exe_cli_windows.keys():
                             cli_window = window
 
             if game_window and cli_window:
@@ -193,22 +214,24 @@ def make_client_exe(original_exe_path: str, new_client_exe_path: str) -> None:
     if os.path.exists(new_client_exe_path):
         return
 
+    if not os.path.exists(original_exe_path):
+        raise LookupError(f"Game not found at {original_exe_path}")
+
     shutil.copyfile(original_exe_path, new_client_exe_path)
     with open(new_client_exe_path, "rb+") as f:
         buffer = f.read()
         offset = buffer.find(b'logger.txt')
         f.seek(offset, 0)
-        f.write(b'logge2.txt')
+        f.write(b'logger2.txt')
 
 
-# !Help Wanted! - Unreadable. Need some more context to understand.
-def version_key(s: str):
+def version_key(version: str):
     desc = ""
-    if "-" in s:
-        s, desc = s.split("-")
+    if "-" in version:
+        version, desc = version.split("-")
     n = [0] * 10
-    for i, x in enumerate(s.split(".")):
-        n[i] = int(x)
+    for i, subversion in enumerate(version.split(".")):
+        n[i] = int(subversion)
     return n + [desc]
 
 
@@ -218,7 +241,7 @@ def sha1_file(path: str) -> str:
 
 
 def list_all_luajit() -> dict[str, str]:
-    lua_dlls: dict[str, str] = {}
+    lua_dlls = {}
     for root, _, filenames in os.walk(GIT_DIR):
         for filename in filenames:
             if filename != 'lua51.dll':
@@ -232,7 +255,7 @@ def list_all_luajit() -> dict[str, str]:
     return lua_dlls
 
 
-def lua_choices():
+def lua_choices() -> list[str]:
     return ['latest', 'original'] + sorted(list(set(list_all_luajit().values())), key=version_key, reverse=True)
 
 
@@ -251,10 +274,12 @@ def update_lua(noita_dir: str, lua_version: str) -> None:
     all_dlls = list_all_luajit()
     all_versions = {version: path for path, version in all_dlls.items()}
     dlls_hashes = {dll_path: sha1_file(dll_path) for dll_path in all_dlls.keys()}
-    currenthash = sha1_file(dll_path)
+    current_hash = sha1_file(dll_path)
 
-    if currenthash == LUA_ORIG_SHA1 or currenthash not in dlls_hashes.values() and not os.path.exists(
-        original_dll_path):
+    if (current_hash == LUA_ORIG_SHA1
+            or current_hash not in dlls_hashes.values()
+            and not os.path.exists(
+                original_dll_path)):
         shutil.copyfile(dll_path, original_dll_path)
 
     if lua_version == 'latest':
@@ -286,19 +311,19 @@ def update_lua(noita_dir: str, lua_version: str) -> None:
 
 def noita_click(window: gw.Win32Window, img: str | Image.Image, confidence: float = 0.8, sleep: float = 0.5) -> None:
     game = pyautogui.screenshot(
-        region=(int(window.left), int(window.top), int(window.width), int(window.height)))  # type: ignore
+        region=(window.left, window.top, window.width, window.height))
     r = pyautogui.locate(img, game, confidence=confidence)
     print("located btn at", r)
-    p = pyautogui.center(r)  # type: ignore
+    p = pyautogui.center(r)
     print("center at", p)
-    print("abs", window.top + p.y, window.left + p.x)  # type: ignore
-    pyautogui.moveTo(window.left + p.x, window.top + p.y)  # type: ignore
-    pyautogui.click(window.left + p.x, window.top + p.y)  # type: ignore
+    print("abs", window.top + p.y, window.left + p.x)
+    pyautogui.moveTo(window.left + p.x, window.top + p.y)
+    pyautogui.click(window.left + p.x, window.top + p.y)
     time.sleep(sleep)
 
 
 def find_noita_window(exclude: list[gw.Win32Window] | None = None) -> gw.Win32Window:
-    winlist: list[gw.Win32Window] = gw.getWindowsWithTitle('Noita - Build')  # type: ignore
+    winlist = gw.getWindowsWithTitle('Noita - Build')
     if exclude:
         for window in winlist:
             if window not in exclude:
@@ -369,7 +394,7 @@ class LogPoll:
         self._need_prefix = False
 
     def read_and_print(self):
-        with open(self._path, "r") as f:
+        with open(self._path) as f:
             f.seek(self._last_offset, 0)
             buffer = f.read()
             end = ''
@@ -377,14 +402,14 @@ class LogPoll:
                 if buffer[-1] == '\n':
                     buffer = buffer[:-1]
                     end = '\n'
-                    nextpref = True
+                    next_pref = True
                 else:
-                    nextpref = False
+                    next_pref = False
                 buffer = buffer.replace('\n', '\n' + self._prefix)
                 if self._need_prefix:
                     buffer = self._prefix + buffer
                 else:
-                    self._need_prefix = nextpref
+                    self._need_prefix = next_pref
                 print(buffer, end=end)
                 self._last_offset = f.tell()
 
