@@ -273,7 +273,7 @@ def update_lua(noita_dir: str, lua_version: str) -> None:
     original_dll_path = dll_path + r'.bak'
     all_dlls = list_all_luajit()
     all_versions = {version: path for path, version in all_dlls.items()}
-    dlls_hashes = {dll_path: sha1_file(dll_path) for dll_path in all_dlls.keys()}
+    dlls_hashes = {dll_path: sha1_file(dll_path) for dll_path in all_dlls}
     current_hash = sha1_file(dll_path)
 
     if (current_hash == LUA_ORIG_SHA1
