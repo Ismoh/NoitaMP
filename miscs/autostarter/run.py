@@ -333,42 +333,42 @@ def find_noita_window(exclude: list[gw.Win32Window] | None = None) -> gw.Win32Wi
 
 def write_config(path: str) -> None:
     with open(path, "w+") as f:
-        f.write("""
-    <Config
-    	vsync="2"
+        f.write("""\
+<Config
+        vsync="2"
 
-    	sounds="1"
+        sounds="1"
 
-    	record_events="0"
-    	do_a_playback="0"
+        record_events="0"
+        do_a_playback="0"
 
-      	report_fps="0"
-      	event_recorder_flush_every_frame="0"
+        report_fps="0"
+        event_recorder_flush_every_frame="0"
 
 
-    	fullscreen="0"
-    	display_id="0"
+        fullscreen="0"
+        display_id="0"
 
-    	internal_size_w="1280"
-    	internal_size_h="720"
+        internal_size_w="1280"
+        internal_size_h="720"
 
-    	joysticks_enabled="1"
-    	gamepad_mode="-1"
+        joysticks_enabled="1"
+        gamepad_mode="-1"
 
-    	ui_report_damage="1"
+        ui_report_damage="1"
 
-    	application_rendered_cursor="0"
-    	is_default_config="0"
+        application_rendered_cursor="0"
+        is_default_config="0"
 
-      has_been_started_before="1"
-      last_started_game_version_hash="3cb5b0870058b819c65ca3288fdfc6c2cf554021"
-      mods_disclaimer_accepted="1"
-      mods_sandbox_enabled="0"
-      mods_sandbox_warning_done="1"
-      config_format_version="14"
-      mods_active_privileged="1"
-    >
-    </Config>
+        has_been_started_before="1"
+        last_started_game_version_hash="3cb5b0870058b819c65ca3288fdfc6c2cf554021"
+        mods_disclaimer_accepted="1"
+        mods_sandbox_enabled="0"
+        mods_sandbox_warning_done="1"
+        config_format_version="14"
+        mods_active_privileged="1"
+>
+</Config>
         """)
 
 
