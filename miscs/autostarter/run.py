@@ -332,8 +332,7 @@ def find_noita_window(exclude: list[gw.Win32Window] | None = None) -> gw.Win32Wi
 
 
 def write_config(path: str) -> None:
-    with open(path, "w+") as f:
-        f.write("""\
+    config_string = """\
 <Config
         vsync="2"
 
@@ -369,7 +368,10 @@ def write_config(path: str) -> None:
         mods_active_privileged="1"
 >
 </Config>
-        """)
+    """
+    config_string = config_string.rstrip() + '\n'
+    with open(path, "w+") as f:
+        f.write(config_string)
 
 
 def start_log_console(log_client_path: str, log_server_path: str, pos_y: int = 0) -> None:
