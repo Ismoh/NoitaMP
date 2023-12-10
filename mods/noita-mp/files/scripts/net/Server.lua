@@ -514,7 +514,7 @@ local onNeedModList = function(self, data, peer)
         end)
         self.modListCached = modList
     end
-    peer:send(peer, self.networkUtils.events.needModList.name,
+    peer:preSend( self.networkUtils.events.needModList.name,
         { self.networkUtils:getNextNetworkMessageId(), self.modListCached.workshop, self.modListCached.external })
 end
 
@@ -1041,7 +1041,7 @@ function Server.new(address, port, maxPeers, maxChannels, inBandwidth, outBandwi
 
     if not serverObject.nativeEntityMap then
         ---@type NativeEntityMap
-        serverObject.nativeEntityMap = nativeEntityMap or require("native_entity_map")
+        serverObject.nativeEntityMap = nativeEntityMap or require("lua_noitamp_native")
     end
 
     -- [[ Attributes ]]

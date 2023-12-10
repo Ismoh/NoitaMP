@@ -328,7 +328,7 @@
             },
             {
                 "extends": {
-                    "finish": 10180086,
+                    "finish": 10180087,
                     "start": 10180039,
                     "type": "binary",
                     "view": "NativeEntityMap"
@@ -2189,6 +2189,19 @@
             },
             {
                 "extends": {
+                    "finish": 6440092,
+                    "start": 6440044,
+                    "type": "binary",
+                    "view": "NativeEntityMap"
+                },
+                "file": "https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/util/EntityUtils.lua",
+                "finish": 6440041,
+                "name": "nativeEntityMap",
+                "start": 6440008,
+                "type": "setfield"
+            },
+            {
+                "extends": {
                     "finish": 6110019,
                     "start": 6100041,
                     "type": "binary",
@@ -2338,7 +2351,7 @@
                         }
                     ],
                     "desc": "Constructor for EntityUtils. With this constructor you can override the default imports.\n\n@*param* `client` — required\n\n@*param* `customProfiler` — required\n\n@*param* `enitityCacheUtils` — required\n\n@*param* `entityCache` — required\n\n@*param* `globalsUtils` — optional\n\n@*param* `logger` — optional\n\n@*param* `minaUtils` — required\n\n@*param* `networkUtils` — required\n\n@*param* `networkVscUtils` — required\n\n@*param* `noitaComponentUtils` — required\n\n@*param* `noitaMpSettings` — required\n\n@*param* `nuidUtils` — required\n\n@*param* `server` — required\n\n@*param* `utils` — optional\n\n@*param* `np` — required\n\n@*param* `nativeEntityMap` — optional",
-                    "finish": 6440003,
+                    "finish": 6480003,
                     "returns": [
                         {
                             "type": "function.return",
@@ -10239,7 +10252,7 @@
             },
             {
                 "extends": {
-                    "finish": 10430086,
+                    "finish": 10430087,
                     "start": 10430039,
                     "type": "binary",
                     "view": "NativeEntityMap"

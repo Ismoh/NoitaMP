@@ -261,7 +261,7 @@ function Ui.new()
             if clicked then
                 missingModGuiDismissed = true
                 Client:preSend(NetworkUtils.events.needModContent.name,
-                    { NetworkUtils.getNextNetworkMessageId(), Client.missingMods })
+                    { NetworkUtils:getNextNetworkMessageId(), Client.missingMods })
             end
             if hovered then
                 missingModGuiButton1Hovered = true
