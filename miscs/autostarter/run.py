@@ -57,6 +57,7 @@ def main():
     ap.add_argument("--update", "-u", action="store_true", help="update NoitaMP in Noita install by deleting and copying the mod from git", default=False)
     ap.add_argument("--kill", "-k", action="store_true", help="kill any running Noita instances", default=False)
     ap.add_argument("--lua", choices=lua_choices(), help="Lua version to use (default %s)"%LUA, default=LUA)
+    ap.add_argument('--single', action="store_true", help="only run one instance")
 
     args = ap.parse_args()
 
@@ -80,9 +81,12 @@ def main():
     update_lua(args.noita_dir, args.lua)
     write_config(CONFIG_PATH)
 
-
     if args.update:
         update_mod(args.noita_dir)
+
+    if args.single:
+        server_window, server_dev_console = start_exe(noita_bin,  mode=args.gamemode, slot=args.slots[0], config=CONFIG_PATH)
+        exit(0)
 
     server_window, server_dev_console = start_exe(noita_bin,  mode=args.gamemode, slot=args.slots[0], config=CONFIG_PATH)
     client_window, client_dev_console = start_exe(noita2_bin, mode=args.gamemode, slot=args.slots[1], config=CONFIG_PATH)
