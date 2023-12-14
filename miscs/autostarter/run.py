@@ -79,7 +79,7 @@ def main():
 
     make_client_exe(noita_bin, noita2_bin)
     update_lua(args.noita_dir, args.lua)
-    write_config(CONFIG_PATH)
+    write_config(args.noita_dir, CONFIG_PATH)
 
     if args.update:
         update_mod(args.noita_dir)
@@ -262,9 +262,15 @@ def find_noita_window(exclude=None):
                 return w
     return winlist[0]
 
-def write_config(path):
-    with open(path, "w+") as f:
-        print("""
+
+def write_config(noita_dir, config_path):
+    # skip release note pop up
+    last_hash = None
+    with open(os.path.join(noita_dir, "_version_hash.txt")) as f:
+        last_hash = f.read().strip()
+
+    with open(config_path, "w+") as f:
+        print(f"""
     <Config
     	vsync="2"
 
@@ -292,7 +298,7 @@ def write_config(path):
     	is_default_config="0"
 
       has_been_started_before="1"
-      last_started_game_version_hash="3cb5b0870058b819c65ca3288fdfc6c2cf554021"
+      last_started_game_version_hash="{last_hash}"
       mods_disclaimer_accepted="1"
       mods_sandbox_enabled="0"
       mods_sandbox_warning_done="1"
@@ -300,7 +306,7 @@ def write_config(path):
       mods_active_privileged="1"
     >
     </Config>
-        """, file=f)
+""", file=f)
 
 
 def start_log_console(log_client, log_server, pos_y=0):

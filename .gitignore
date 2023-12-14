@@ -32,6 +32,7 @@ luaExtensions.pdb
 luaExtensions.exp
 *.pdb
 .building/lua_noitamp_native/*.user
+config_test.xml
 
 # Object files
 # *.o
