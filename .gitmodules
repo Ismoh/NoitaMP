@@ -1,0 +1,6 @@
+[submodule ".building/lua-enet"]
+	path = .building/lua-enet
+	url = https://github.com/Ismoh/lua-enet
+[submodule ".building/LuaJIT"]
+	path = .building/LuaJIT
+	url = https://github.com/LuaJIT/LuaJIT

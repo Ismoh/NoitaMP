@@ -1,12 +1,10 @@
 # Install luarocks on Windows with Lua 5.1 and LuaJIT-2.0.4
 
-## Install MSVC 2022
 1. Download and install [MSVC 2022](https://visualstudio.microsoft.com/de/downloads/#build-tools-for-visual-studio-2022).
-2. Search for vcvarsall.bat and copy the path to the clipboard.
-3. Put the path to Windows environment variable `PATH` (e.g. `C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Auxiliary\Build`).
-4. After that you can run `vcvarsall` from any directory.
-
-[More about vcvarsall!](https://learn.microsoft.com/en-us/cpp/build/building-on-the-command-line?view=msvc-170#developer_command_file_locations)
+2. Make sure git modules are initialized `git submodule init`
+3. Run `python build.py` to build lua & modules (Use `--help` for more details)
+4. TODO: update luarocks instructions
+5. TODO: install built jit modules in mods/
 
 ## Install and init luarocks
 
