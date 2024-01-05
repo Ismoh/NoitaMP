@@ -26,7 +26,8 @@ entityUtils.include                            = {
         -- "PotionComponent"
     },
     byFilename       = {
-        "player",
+        --"player",
+        "lantern_small"
     }
 }
 entityUtils.exclude                            = {

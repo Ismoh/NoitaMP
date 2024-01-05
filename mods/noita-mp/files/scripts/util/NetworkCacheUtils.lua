@@ -280,7 +280,7 @@ function NetworkCacheUtils:new(customProfiler, guidUtils, logger, md5, networkCa
 
     if not networkCacheUtils.utils then
         networkCacheUtils.utils = utils or
-            require("Utils"):new(nil)
+            require("Utils"):new()
     end
 
     if not networkCacheUtils.networkUtils then

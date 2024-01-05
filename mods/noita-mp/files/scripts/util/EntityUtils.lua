@@ -204,7 +204,7 @@ function EntityUtils:syncEntities(startFrameTime, server, client)
             end
 
             if self.include.byFilename[filename] or
-                --table.contains(EntityUtils.include.byFilename, filename) or
+                table.contains(EntityUtils.include.byFilename, filename) or
                 findByFilename(self, filename, self.include.byFilename)
             then
                 exclude = false
@@ -562,7 +562,7 @@ function EntityUtils:new(client, customProfiler, enitityCacheUtils, entityCache,
     if not entityUtilsObject.utils then
         ---@type Utils
         entityUtilsObject.utils = utils or
-            require("Utils"):new(nil)
+            require("Utils"):new()
     end
 
     if not entityUtilsObject.customProfiler then

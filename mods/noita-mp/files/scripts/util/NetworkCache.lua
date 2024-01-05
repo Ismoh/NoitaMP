@@ -222,7 +222,7 @@ function NetworkCache:new(customProfiler, logger, utils)
 
     if not networkCache.utils then
         ---@type Utils
-        networkCache.utils = utils or require("Utils"):new(nil)
+        networkCache.utils = utils or require("Utils"):new()
     end
 
     return networkCache

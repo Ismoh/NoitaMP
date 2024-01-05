@@ -75,7 +75,7 @@ function NoitaPatcherUtils:new(customProfiler, np, logger, nativeEntityMap)
 
     if not noitaPatcherUtilsObject.utils then
         ---@type Utils
-        noitaPatcherUtilsObject.utils = require("Utils"):new(nil)
+        noitaPatcherUtilsObject.utils = require("Utils"):new()
     end
 
     if not noitaPatcherUtilsObject.logger then

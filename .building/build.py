@@ -85,7 +85,7 @@ def build_lua_enet() -> str | None:
     cmds = [
         rf'""{VSDEVCMD_PATH}""',
         r'cd lua-enet',
-        r'cmake -A Win32 -DLUA_LIBRARIES=..\LuaJIT\src\lua51.lib -DLUA_INCLUDE_DIR=..\LuaJIT\src -B build',
+        r'cmake -G \"Visual\ Studio\ 17\ 2022\" -A Win32 -DLUA_LIBRARIES=..\LuaJIT\src\lua51.lib -DLUA_INCLUDE_DIR=..\LuaJIT\src -B build',
         r'cd build',
         r'msbuild lua-enet.sln'
     ]

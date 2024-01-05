@@ -174,7 +174,7 @@ function NoitaMpSettings:new(noitaMpSettings, customProfiler, gui, fileUtils, js
     --Initialize all imports to avoid recursive imports
 
     if not noitaMpSettings.utils then
-        noitaMpSettings.utils = utils or require("Utils"):new(nil)
+        noitaMpSettings.utils = utils or require("Utils"):new()
     end
 
     if not noitaMpSettings.json then

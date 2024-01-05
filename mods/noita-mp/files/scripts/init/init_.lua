@@ -42,8 +42,7 @@ end
 if require then
     local gui             = {} -- mocked gui
     ---@type Utils
-    local utils           = require("Utils")
-        :new(nil)
+    local utils           = require("Utils"):new()
     ---@type NoitaMpSettings
     local noitaMpSettings = require("NoitaMpSettings")
         :new(nil, nil, gui, nil, nil, nil, nil)

@@ -105,9 +105,9 @@ function Utils:openUrl(url)
 end
 
 local once = false
-function Utils:new(utilsObject)
+function Utils:new()
     ---@class Utils
-    utilsObject = setmetatable(utilsObject or self, Utils)
+    local utilsObject = setmetatable(self, Utils)
 
     --[[ Imports ]]
     --Initialize all imports to avoid recursive imports

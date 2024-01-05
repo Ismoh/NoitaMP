@@ -614,6 +614,9 @@ function Server:send(peer, event, data)
         return false
     end
 
+    print("Server:preSend")
+    print(event)
+    print(self.utils:pformat(data))
     local networkMessageId = self:sendToPeer(peer, event, data)
 
     if event ~= self.networkUtils.events.acknowledgement.name then

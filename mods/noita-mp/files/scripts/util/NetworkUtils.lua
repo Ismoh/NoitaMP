@@ -361,7 +361,7 @@ function NetworkUtils:new(customProfiler, guidUtils, logger, networkCacheUtils, 
         networkUtils.networkCacheUtils = networkCacheUtils or error("NetworkUtils:new requires a NetworkCacheUtils object", 2)
     end
     if not networkUtils.utils then
-        networkUtils.utils = utils or require("Utils"):new(nil)
+        networkUtils.utils = utils or require("Utils"):new()
     end
     if not networkUtils.zstandard then
         networkUtils.zstandard = require("zstd")

@@ -788,6 +788,9 @@ function Client:preSend(event, data)
         return false
     end
 
+    print("Client:preSend")
+    print(event)
+    print(self.utils:pformat(data))
     -- Inheritance: https://ozzypig.com/2018/05/10/object-oriented-programming-in-lua-part-5-inheritance
     local networkMessageId = self:send(event, data) --sockClientSend(self, event, data)
 
@@ -992,7 +995,7 @@ function Client.new(clientObject, serverOrAddress, port, maxChannels, server, np
         clientObject.server = server or error("Client:new requires a server object!", 2)
     end
     if not clientObject.utils then
-        clientObject.utils = server.utils or error("Client:new requires a server object!", 2)
+        clientObject.utils = require("Utils"):new()--server.utils or error("Client:new requires a server object!", 2)
     end
 
     if not clientObject.noitaComponentUtils then
