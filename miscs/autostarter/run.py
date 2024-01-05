@@ -57,6 +57,7 @@ def main():
     ap.add_argument("--update", "-u", action="store_true", help="update NoitaMP in Noita install by deleting and copying the mod from git", default=False)
     ap.add_argument("--kill", "-k", action="store_true", help="kill any running Noita instances", default=False)
     ap.add_argument("--lua", choices=lua_choices(), help="Lua version to use (default %s)"%LUA, default=LUA)
+    ap.add_argument('--new-world', action="store_true", help="delete slot saved world and let noita create a new one", default=False)
     ap.add_argument('--single', action="store_true", help="only run one instance")
 
     args = ap.parse_args()
@@ -83,6 +84,10 @@ def main():
 
     if args.update:
         update_mod(args.noita_dir)
+
+    if args.new_world:
+        for slot in args.slots:
+            delete_save_slot(args.noita_dir, slot)
 
     if args.single:
         server_window, server_dev_console = start_exe(noita_bin,  mode=args.gamemode, slot=args.slots[0], config=CONFIG_PATH)
@@ -319,6 +324,15 @@ def start_log_console(log_client, log_server, pos_y=0):
                     ])
     print("ok")
 
+def delete_save_slot(noita_dir: str, slot: int):
+    save_dir = os.path.join(noita_dir, "save%02d" % slot)
+    if not os.path.isdir(save_dir):
+        return
+    for root, dirs, files in os.walk(save_dir):
+        for fn in files:
+            path = os.path.join(root, fn)
+            if fn != "magic_numbers.xml":
+                os.unlink(path)
 
 class LogPoll:
     def __init__(self, path, prefix):
