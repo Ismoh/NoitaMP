@@ -151,7 +151,7 @@ static void register_NativeEntityMap(lua_State * L) {
 	luaL_register(L, "NativeEntityMap", NativeEntityMaplib);
 }
 
-__declspec(dllexport) int luaopen_lua_noitamp_native(lua_State* L)
+extern "C" __declspec(dllexport) int luaopen_lua_noitamp_native(lua_State * L)
 {
 	register_NativeEntityMap(L);
 
