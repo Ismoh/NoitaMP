@@ -5,7 +5,8 @@ project(lua_noitamp_native)
 add_library(lua_noitamp_native SHARED
     lua_noitamp_native.c
     entity_map.cpp
-)
+    lua_export.cpp
+    debug.cpp)
 
 
 set(LUA_SHARED ${PROJECT_SOURCE_DIR}/luajit/bin/lua51.dll
@@ -38,4 +39,3 @@ add_custom_command(TARGET perftest POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
         ${LUA_SHARED}
         $<TARGET_FILE_DIR:perftest>)
-        

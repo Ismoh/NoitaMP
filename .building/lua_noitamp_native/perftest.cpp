@@ -1,7 +1,6 @@
-#include "entity_map.hpp"
 #include <cstdio>
 #include <cstdlib>
-
+#include "entity_map.hpp"
 
 entity_serialized make_random_entity() {
     uint8_t buf[1024];
