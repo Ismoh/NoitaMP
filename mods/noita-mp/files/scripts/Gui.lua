@@ -448,14 +448,14 @@ function Gui:drawSettings()
             if not jit.p.isProfiling then
                 if self.imGui.Button("Start jit.p") then
                     print("jit.p.start()")
-                    jit.p.start(jit.p.mode, ("%s/%s.log"):format(jit.p.outPath, jit.p.outFile))
+                    --jit.p.start(jit.p.mode, ("%s/%s.log"):format(jit.p.outPath, jit.p.outFile))
                 end
             end
 
             if jit.p.isProfiling then
                 if self.imGui.Button("Stop jit.p") then
                     print("jit.p.stop()")
-                    jit.p.stop()
+                    --jit.p.stop()
                 end
             end
         end

@@ -18,26 +18,41 @@ local entityUtils                              = args[1]
 entityUtils.maxExecutionTime                   = 35 --ms = 1000 / 35 = 28,57 fps
 entityUtils.maxPoolSize                        = 10000
 entityUtils.include                            = {
-    byComponentsName = { "VelocityComponent", "PhysicsBodyComponent", "PhysicsBody2Component", "ItemComponent",
-        "PotionComponent" },
-    byFilename       = {}
+    byComponentsName = {
+        -- "VelocityComponent",
+        -- "PhysicsBodyComponent",
+        -- "PhysicsBody2Component",
+        -- "ItemComponent",
+        -- "PotionComponent"
+    },
+    byFilename       = {
+        "player",
+    }
 }
 entityUtils.exclude                            = {
-    byComponentsName = { "WorldStateComponent" },
+    byComponentsName = {
+        "WorldStateComponent",
+    },
     byFilename       = {
         "controls",
         "custom_cards",
         "particle",
         "player_stats",
-        "tree_entity.xml",
+        "tree_entity",
         "vegetation",
         "vines",
     }
 }
-
 entityUtils.remove                             = {
-    byComponentsName = { "AIComponent", "AdvancedFishAIComponent", "AnimalAIComponent", "ControllerGoombaAIComponent",
-        "FishAIComponent", "PhysicsAIComponent", "WormAIComponent" },
+    byComponentsName = {
+        "AIComponent",
+        "AdvancedFishAIComponent",
+        "AnimalAIComponent",
+        "ControllerGoombaAIComponent",
+        "FishAIComponent",
+        "PhysicsAIComponent",
+        "WormAIComponent",
+    },
     byFilename       = {}
 }
 
