@@ -1,25 +1,33 @@
-local lu = require("luaunit")
-require("tableExtensions")
+require("tableExtensions") -- load table extensions into _G.table
 
 TestTableExtensions = {}
 
-function TestTableExtensions:test_filter()
-    -- Test filtering a table with a predicate function
-    local t = {1, 2, 3, 4, 5}
-    local filtered = table.filter(t, function(x) return x % 2 == 0 end)
-    lu.assertEquals(filtered, {2, 4})
-end
+local gui = {}
+local noitaMpSettings = require("NoitaMpSettings")
+    :new(nil, nil, gui, nil, nil, nil, nil, nil, nil)
+local guidUtils = require("GuidUtils")
+    :new(nil, noitaMpSettings.customProfiler, nil, noitaMpSettings.logger, nil, nil, noitaMpSettings.utils, nil)
+local networkCache = require("NetworkCache")
+    :new(noitaMpSettings.customProfiler, noitaMpSettings.logger, noitaMpSettings.utils)
+local networkCacheUtils = require("NetworkCacheUtils")
+    :new(noitaMpSettings.customProfiler, guidUtils, noitaMpSettings.logger, nil, networkCache, nil, noitaMpSettings.utils)
+local networkUtils = networkCacheUtils.networkUtils
 
-function TestTableExtensions:test_reduce()
-    -- Test reducing a table with an accumulator function
-    local t = {1, 2, 3, 4, 5}
-    local reduced = table.reduce(t, function(acc, x) return acc + x end, 0)
-    lu.assertEquals(reduced, 15)
-end
+function TestTableExtensions:test_contains()
+    -- add something to network cache and check if it's there
+    local peerGuid = guidUtils:generateNewGuid()
+    local networkMessageId = networkUtils:getNextNetworkMessageId()
+    local event = networkUtils.events.connect2.name
+    local status = networkUtils.events.acknowledgement.sent
+    local ackedAt = 0
+    local sendAt = os.clock()
+    local data = { networkMessageId, "PlayerName", "PlayerGuid" }
 
-function TestTableExtensions:test_flatten()
-    -- Test flattening a nested table
-    local t = {1, {2, 3}, {4, {5, 6}}}
-    local flattened = table.flatten(t)
-    lu.assertEquals(flattened, {1, 2, 3, 4, 5, 6})
+    networkCacheUtils:set(peerGuid, networkMessageId, event, status, ackedAt, sendAt, data)
+
+    local sum = networkCacheUtils:getSum(event, data)
+    local expectedChecksum = ("%s"):format(networkCacheUtils.md5.sumhexa(sum))
+    local found, index, index2 = table.contains(networkCache.cache, expectedChecksum)
+    local cachedChecksum = networkCache.cache[index][index2].dataChecksum
+    lu.assertEquals(cachedChecksum, expectedChecksum)
 end

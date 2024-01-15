@@ -822,10 +822,10 @@ function Client:sendNeedNuid(ownerName, ownerGuid, entityId)
         return
     end
 
-    local x, y                         = EntityGetTransform(entityId)
+    local x, y                          = EntityGetTransform(entityId)
     local initialSerialisedBinaryString = self.nativeEntityMap.getSerializedStringByEntityId(entityId)
     local currentSerialisedBinaryString = self.noitaPatcherUtils:serializeEntity(entityId)
-    local data                         = {
+    local data                          = {
         self.networkUtils:getNextNetworkMessageId(), ownerName, ownerGuid, entityId, x, y,
         initialSerialisedBinaryString, currentSerialisedBinaryString
     }
@@ -932,18 +932,16 @@ function Client:getAckCacheSize()
 end
 
 ---Client constructor. Inherits from SockClient sock.Client.
----@param clientObject Client|nil
 ---@param serverOrAddress string|nil
 ---@param port number|nil
 ---@param maxChannels number|nil
 ---@param server Server required
 ---@param np noitapatcher required
----@param nativeEntityMap NativeEntityMap required???
+---@param nativeEntityMap NativeEntityMap|nil optional
 ---@return Client
-function Client.new(clientObject, serverOrAddress, port, maxChannels, server, np, nativeEntityMap)
+function Client.new(serverOrAddress, port, maxChannels, server, np, nativeEntityMap)
     ---@class Client : SockClient
-    clientObject =
-        setmetatable(clientObject or
+    local clientObject = setmetatable(
             require("SockClient").new(serverOrAddress, port, maxChannels), Client) or
         error("Unable to create new sock client!", 2)
 
@@ -986,16 +984,19 @@ function Client.new(clientObject, serverOrAddress, port, maxChannels, server, np
             :new(clientObject.customProfiler, clientObject.guidUtils, clientObject.logger,
                 clientObject.networkCacheUtils, clientObject.utils)
     end
+    if not clientObject.nativeEntityMap then
+        clientObject.nativeEntityMap = nativeEntityMap or require("lua_noitamp_native")
+    end
     if not clientObject.noitaPatcherUtils then
         clientObject.noitaPatcherUtils = server.noitaPatcherUtils or
             require("NoitaPatcherUtils")
-            :new(server.customProfiler, np, nativeEntityMap, clientObject.logger)
+            :new(server.customProfiler, np, clientObject.logger, clientObject.nativeEntityMap)
     end
     if not clientObject.server then
         clientObject.server = server or error("Client:new requires a server object!", 2)
     end
     if not clientObject.utils then
-        clientObject.utils = require("Utils"):new()--server.utils or error("Client:new requires a server object!", 2)
+        clientObject.utils = require("Utils"):new() --server.utils or error("Client:new requires a server object!", 2)
     end
 
     if not clientObject.noitaComponentUtils then
@@ -1016,10 +1017,6 @@ function Client.new(clientObject, serverOrAddress, port, maxChannels, server, np
 
     if not clientObject.entityCache then
         clientObject.entityCache = server.entityCache or error("Client:new requires a server object!", 2)
-    end
-
-    if not clientObject.nativeEntityMap then
-        clientObject.nativeEntityMap = nativeEntityMap or require("lua_noitamp_native")
     end
 
     --[[ Attributes ]]

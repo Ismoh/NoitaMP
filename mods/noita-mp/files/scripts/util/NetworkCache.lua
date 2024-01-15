@@ -200,6 +200,11 @@ function NetworkCache:removeOldest()
     end
 end
 
+--- NetworkCache constructor.
+---@param customProfiler CustomProfiler required
+---@param logger Logger optional
+---@param utils Utils optional
+---@return NetworkCache networkCache
 function NetworkCache:new(customProfiler, logger, utils)
     ---@class NetworkCache
     local networkCache = setmetatable(self, NetworkCache)

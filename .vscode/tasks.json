@@ -18,12 +18,23 @@
   },
   "tasks": [
     {
+      "hide": true, // disabled for now
+      "label": "Python build LuaJIT",
+      "type": "shell",
+      "windows": {
+        "command": "python ${workspaceFolder}\\.building\\build.py --build lua --lua-version ${input:luaRocksAwesomeInit}"
+      },
+      "problemMatcher": []
+    },
+    {
       "label": "LuaRocks awesome init",
       "type": "shell",
+      //"dependsOrder": "sequence",
+      //"dependsOn": ["Python build LuaJIT"],
       "windows": {
         "command": "${workspaceFolder}\\.vscode\\noita-mp-tasks.cmd"
       },
-      "args": ["${userHome}\\AppData\\Roaming\\luarocks", "${workspaceFolder}"],
+      "args": ["${userHome}\\AppData\\Roaming\\luarocks", "${workspaceFolder}", "${input:luaRocksAwesomeInit}"],
       "problemMatcher": []
     },
     {
@@ -128,6 +139,12 @@
   ],
   "inputs": [
     {
+      "id": "luaRocksAwesomeInit",
+      "description": "Which LuaJIT version?",
+      "type": "pickString",
+      "options": ["v2.0.4", "v2.1.0-beta3"]
+    },
+    {
       "id": "luaRocksInstallPackageName",
       "description": "Write LuaRocks package name, you want to install!",
       "type": "promptString"
@@ -136,7 +153,7 @@
       "id": "luaRocksTestCommand",
       "description": "Keep blank for console output otherwise write in file!",
       "type": "pickString",
-      "options": ["", " > result.log"]
+      "options": ["> result.log", ""]
     }
   ]
 }

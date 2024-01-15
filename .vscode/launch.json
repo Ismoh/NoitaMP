@@ -37,6 +37,18 @@
       "stopOnEntry": true,
       "cwd": "${workspaceFolder}/mods/noita-mp",
       "verbose": true
+    },
+    {
+      "name": "Launch unitTestRunner.lua with debugger",
+      "type": "lua-local",
+      "request": "launch",
+      "program": {
+        "command": "lua.bat"
+      },
+      "args": ["${workspaceFolder}/mods/noita-mp/tests/unitTestRunner.lua"],
+      "stopOnEntry": true,
+      "cwd": "${workspaceFolder}/mods/noita-mp",
+      "verbose": true
     }
   ]
 }

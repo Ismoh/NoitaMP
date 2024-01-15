@@ -15,6 +15,8 @@ end
 --- Teardown function for each test.
 function TestNetworkCacheUtils:tearDown()
     Logger.trace(Logger.channels.testing, "-------------------- tearDown")
+    print("\n-------------------------------------------------------------------------------------------------------------------------------------------------------")
+    print("\n-------------------------------------------------------------------------------------------------------------------------------------------------------")
 end
 
 function TestNetworkCacheUtils:testGetSum()

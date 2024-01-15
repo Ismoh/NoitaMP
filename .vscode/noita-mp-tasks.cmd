@@ -1,34 +1,83 @@
-echo off
+@echo off
 
-echo "----------------------------------------------------------------------------------------------------------------------"
-echo "This script will install LuaRocks for NoitaMP without destroying your (maybe) already installed LuaRocks installation!"
+set /p "answer=Did you build LuaJIT beforehand? [y|n|?]"
+if "%answer%"=="n" (
+    echo ERROR: Run 'python.exe %2\.building\build.py --build lua --lua-version v2.?.?' and retry! Try 'git log' and/or 'git tag' in %2\.building\LuaJIT if uncertain about version.
+    EXIT /B
+)
+if "%answer%"=="?" (
+    echo Run 'python.exe %2\.building\build.py --build lua --lua-version v2.?.?' and retry! Try 'git log' and/or 'git tag' in %2\.building\LuaJIT if uncertain about version.
+    EXIT /B
+)
 
-echo "----------------------------------------------------------------------------------------------------------------------"
-echo "Backing up users config-5.1.lua and default-lua-version.lua if they exist"
+echo ----------------------------------------------------------------------------------------------------------------------
+echo This script will install LuaRocks for NoitaMP without destroying your (maybe) already installed LuaRocks installation!
+echo ----------------------------------------------------------------------------------------------------------------------
+
+echo .
+echo Checking for already build LuaJIT
+
+if not exist %2\build\LuaJIT-%3 (
+    mkdir %2\build\LuaJIT-%3
+    mkdir %2\build\LuaJIT-%3\bin
+    mkdir %2\build\LuaJIT-%3\include
+
+    copy %2\.building\LuaJIT\src\lua51.ilk   %2\build\LuaJIT-%3\bin\lua51.ilk   /Y
+    copy %2\.building\LuaJIT\src\lua51.pdb   %2\build\LuaJIT-%3\bin\lua51.pdb   /Y
+    copy %2\.building\LuaJIT\src\lua51.dll   %2\build\LuaJIT-%3\bin\lua51.dll   /Y
+    copy %2\.building\LuaJIT\src\lua51.exp   %2\build\LuaJIT-%3\bin\lua51.exp   /Y
+    copy %2\.building\LuaJIT\src\lua51.lib   %2\build\LuaJIT-%3\bin\lua51.lib   /Y
+    copy %2\.building\LuaJIT\src\luajit.exe  %2\build\LuaJIT-%3\bin\luajit.exe  /Y
+    copy %2\.building\LuaJIT\src\luajit.exp  %2\build\LuaJIT-%3\bin\luajit.exp  /Y
+    copy %2\.building\LuaJIT\src\luajit.lib  %2\build\LuaJIT-%3\bin\luajit.lib  /Y
+    copy %2\.building\LuaJIT\src\luajit.ilk  %2\build\LuaJIT-%3\bin\luajit.ilk  /Y
+    copy %2\.building\LuaJIT\src\luajit.pdb  %2\build\LuaJIT-%3\bin\luajit.pdb  /Y
+
+    copy %2\.building\LuaJIT\src\lauxlib.h %2\build\LuaJIT-%3\include\lauxlib.h /Y
+    copy %2\.building\LuaJIT\src\lua.h     %2\build\LuaJIT-%3\include\lua.h     /Y
+    copy %2\.building\LuaJIT\src\lua.hpp   %2\build\LuaJIT-%3\include\lua.hpp   /Y
+    copy %2\.building\LuaJIT\src\luaconf.h %2\build\LuaJIT-%3\include\luaconf.h /Y
+    copy %2\.building\LuaJIT\src\laulib.h  %2\build\LuaJIT-%3\include\laulib.h  /Y
+)
+
+echo .
+echo ----------------------------------------------------------------------------------------------------------------------
+echo Backing up users config-5.1.lua and default-lua-version.lua if they exist
+
 if not exist %1 mkdir %1
 if exist %1\config-5.1.lua move %1\config-5.1.lua %1\config-5.1.lua.bak
 if exist %1\default-lua-version.lua move %1\default-lua-version.lua %1\default-lua-version.lua.bak
+echo .
 
-echo "----------------------------------------------------------------------------------------------------------------------"
-echo "Creating config-5.1.lua and default-lua-version.lua for NoitaMP"
-%2\.building\luarocks-3.9.1-windows-32\luarocks.exe config --lua-version="5.1" --local lua_dir %2\LuaJIT-2.0.4
+echo ----------------------------------------------------------------------------------------------------------------------
+echo Creating config-5.1.lua and default-lua-version.lua for NoitaMP
 
-echo "----------------------------------------------------------------------------------------------------------------------"
-echo "Init LuaRocks project for NoitaMP"
+%2\.building\luarocks-3.9.1-windows-32\luarocks.exe config --lua-version="5.1" --local lua_dir %2\build\LuaJIT-%3
+echo .
+
+echo ----------------------------------------------------------------------------------------------------------------------
+echo Init LuaRocks project for NoitaMP
+
 %2\.building\luarocks-3.9.1-windows-32\luarocks.exe --lua-version="5.1" init noita-mp --output="%2\mods\noita-mp" --homepage="https://github.com/Ismoh/NoitaMP" --license="GNU GPL v3"
-%2\.building\luarocks-3.9.1-windows-32\luarocks.exe config --scope project variables.LUA_DIR %2\LuaJIT-2.0.4
-%2\.building\luarocks-3.9.1-windows-32\luarocks.exe config --scope project variables.LUA_BINDIR %2\LuaJIT-2.0.4\bin
-%2\.building\luarocks-3.9.1-windows-32\luarocks.exe config --scope project variables.LUA_INCDIR %2\LuaJIT-2.0.4\include
-%2\.building\luarocks-3.9.1-windows-32\luarocks.exe config --scope project variables.LUA_LIBDIR %2\LuaJIT-2.0.4\lib
+%2\.building\luarocks-3.9.1-windows-32\luarocks.exe config --scope project variables.LUA_DIR %2\build\LuaJIT-%3
+%2\.building\luarocks-3.9.1-windows-32\luarocks.exe config --scope project variables.LUA_BINDIR %2\build\LuaJIT-%3\bin
+%2\.building\luarocks-3.9.1-windows-32\luarocks.exe config --scope project variables.LUA_INCDIR %2\build\LuaJIT-%3\include
+%2\.building\luarocks-3.9.1-windows-32\luarocks.exe config --scope project variables.LUA_LIBDIR %2\build\LuaJIT-%3\lib
+echo .
 
-echo "----------------------------------------------------------------------------------------------------------------------"
-echo "Small cleanup of unnecessary files generated by LuaRocks"
+echo ----------------------------------------------------------------------------------------------------------------------
+echo Small cleanup of unnecessary files generated by LuaRocks
+
 del %2\mods\noita-mp\.gitignore
+echo .
 
-echo "----------------------------------------------------------------------------------------------------------------------"
-echo "Reverting users config-5.1.lua and default-lua-version.lua"
+echo ----------------------------------------------------------------------------------------------------------------------
+echo Reverting users config-5.1.lua and default-lua-version.lua
+
 if exist %1\config-5.1.lua.bak (move %1\config-5.1.lua.bak %1\config-5.1.lua) else (del %1\config-5.1.lua)
 if exist %1\default-lua-version.lua.bak (move %1\default-lua-version.lua.bak %1\default-lua-version.lua) else (del %1\default-lua-version.lua)
+echo .
 
-echo "----------------------------------------------------------------------------------------------------------------------"
-echo "Done! You can now use LuaRocks for NoitaMP!"
+echo ----------------------------------------------------------------------------------------------------------------------
+echo Done! You can now use LuaRocks for NoitaMP!
+echo .

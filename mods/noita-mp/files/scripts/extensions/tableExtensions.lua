@@ -24,37 +24,44 @@ end
 ---@param key any Number(index) or String(name matching) for indexing the table.
 ---@return boolean true if indexing by key does not return nil
 ---@return number index also returns the index of the found key
+---@return number index2 if tbl contains tables, then it returns the index of the found key inside the table
 function table.contains(tbl, key)
     if table.isEmpty(tbl) then
-        return false, -1
+        return false, -1, -1
     end
     if not key then
         --error("Unable to check if a key is contained in a table, when key is nil.", 2)
-        return false, -1
+        return false, -1, -1
     end
     if type(key) == "number" then
         if key <= 0 then
-            return false, -1
+            return false, -1, -1
         end
     end
     if type(key) == "string" then
         if key == "" then
-            return false, -1
+            return false, -1, -1
         end
         for k, v in pairs(tbl) do
             if type(v) == "string" then
                 if string.contains(key, v) then
-                    return true, k
+                    return true, k, -1
+                end
+            end
+            if type(v) == "table" then
+                local status, index = table.contains(v, key)
+                if status == true then
+                    return true, k, index
                 end
             end
         end
     end
     for k, v in pairs(tbl) do
         if v == key then
-            return true, k
+            return true, k, -1
         end
     end
-    return false, -1
+    return false, -1, -1
 end
 
 -- https://gist.github.com/HoraceBury/9307117#file-tablelib-lua-L293-L313
@@ -165,7 +172,7 @@ function table.size(tbl)
 
     -- https://stackoverflow.com/a/64882015/3493998
     local count = 0
-    for _ in pairs(table) do
+    for _ in pairs(tbl) do
         count = count + 1
     end
     return count
@@ -181,6 +188,10 @@ function table.join(tbl, logger, utils)
         error("'tbl' must not be nil and type of table!", 2)
     end
 
+    if not utils then
+        error("'utils' must not be nil!", 2)
+    end
+
     logger:trace(logger.channels.testing, ("tbl = %s"):format(utils:pformat(tbl)))
     local status, err = pcall(table.concat, tbl, ",")
     local str         = nil
@@ -191,7 +202,7 @@ function table.join(tbl, logger, utils)
         logger:warn(logger.channels.testing, ("table.concat(tbl, ',') = %s"):format(err))
     end
     logger:trace(logger.channels.testing, ("str = %s"):format(str))
-    if not str or str == "" then
+    if not str or str == "" or utils:isEmpty(str) then
         for key, value in orderedPairs(tbl) do
             logger:trace(logger.channels.testing, ("value = %s"):format(utils:pformat(value)))
             if type(value) == "table" then
@@ -204,6 +215,21 @@ function table.join(tbl, logger, utils)
                 str = ("%s,%s"):format(str, value)
             end
             logger:trace(logger.channels.testing, ("str = %s"):format(str))
+        end
+        if utils:isEmpty(str) then
+            for key, value in pairs(tbl) do
+                logger:trace(logger.channels.testing, ("value = %s"):format(utils:pformat(value)))
+                if type(value) == "table" then
+                    logger:trace(logger.channels.testing, ("value = %s is table!"):format(utils:pformat(tbl)))
+                    value = table.join(value, logger, utils)
+                end
+                if not str or str == "" then
+                    str = ("%s"):format(value)
+                else
+                    str = ("%s,%s"):format(str, value)
+                end
+                logger:trace(logger.channels.testing, ("str = %s"):format(str))
+            end
         end
     end
     str = str:gsub("%s", "")

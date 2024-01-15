@@ -136,7 +136,7 @@ function SockServer:update()
         if event.type == "connect" then
             local address = string.split(tostring(event.peer), ":")[1]
             local port = string.split(tostring(event.peer), ":")[2]
-            local eventClient = require("Client").new(nil, address, port, self:getMaxChannels(), self, self.noitaPatcherUtils.np)
+            local eventClient = require("Client").new(address, port, self:getMaxChannels(), self, self.noitaPatcherUtils.np, nil)
             eventClient:establishClient(event.peer)
             eventClient:setSerialization(self.serialize, self.deserialize)
             eventClient.clientCacheId = self.guidUtils:toNumber(eventClient.guid)

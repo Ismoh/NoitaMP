@@ -2,6 +2,15 @@ _G.isTestLuaContext = true
 _G.disableLuaExtensionsDLL = true
 local params = ...
 
+-- Check if we wan't to debug the mod
+if not lldebugger then
+    if (pcall(require, "lldebugger")) then
+        lldebugger = require("lldebugger")
+        lldebugger.start()
+        lldebugger.pullBreakpoints()
+    end
+end
+
 ---comment
 ---@see init_package_loading.lua
 ---@return string
@@ -40,17 +49,25 @@ if not ModSettingGet then
         end
         if id == "noita-mp.name" then
             local name = minaUtils:getLocalMinaName()
-            if utils:IsEmpty(name) then
+            if utils:isEmpty(name) then
                 name = "initializeUnitTests"
             end
             return name
         end
         if id == "noita-mp.guid" then
             local guid = minaUtils:getLocalMinaGuid()
-            if utils:IsEmpty(guid) then
+            if utils:isEmpty(guid) then
                 guid = guidUtils:generateNewGuid()
             end
             return guid
+        end
+
+        if id == "noita-mp.connect_server_ip" then
+            return "localhost"
+        end
+
+        if id == "noita-mp.connect_server_port" then
+            return 1337
         end
 
         error(("ModSettingGet '%s' is not mocked! Add it!"):format(id), 2)
@@ -93,7 +110,7 @@ if not ModSettingGet then
         return true
     end
 
-    local pathToMods = getNoitaMpRootDirectory() .. "/../.."
+    local pathToMods       = getNoitaMpRootDirectory() .. "/../.."
     print("pathToMods: " .. pathToMods)
     dofile = function(path)
         if path:sub(1, 4) == "mods" then
@@ -109,7 +126,7 @@ end
 dofile("../noita-mp/files/scripts/init/init_.lua")
 
 local lfs = require("lfs")
-local lu  = require("luaunit")
+_G.lu     = require("luaunit")
 
 --- Returns a list of all files in a directory
 function getAllFilesInside(folder)
@@ -125,7 +142,13 @@ function getAllFilesInside(folder)
                 --print("Found directory: " .. path)
                 local subfiles = getAllFilesInside(path)
                 for _, subfile in ipairs(subfiles) do
-                    table.insert(files, subfile)
+                    if string.contains(subfile, "tableExtensions") then -- TODO: remove this for merge
+                        table.insert(files, subfile)
+                    end
+                    if string.contains(subfile, "NetworkUtils") then -- TODO: remove this for merge
+                        table.insert(files, subfile)
+                    end
+                    -- table.insert(files, subfile)
                 end
             end
         end
@@ -140,4 +163,5 @@ for _, testFile in ipairs(testFiles) do
     print("Loaded test " .. _ .. " " .. testFile)
 end
 
+print("Running all loaded tests...")
 lu.LuaUnit.run(params)

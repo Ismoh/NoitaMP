@@ -119,11 +119,13 @@ function FileUtils:SetAbsolutePathOfNoitaRootDirectory(noitaMpSettings)
         self.logger:trace(self.logger.channels.testing,
             ("Absolute path of Noitas root directory set to %s, but we need to fix path! Removing \\mods\\noita-mp.")
             :format(self.noitaRootDirectory))
-        local i, _              = string.find(self.noitaRootDirectory, "mods")
-        self.noitaRootDirectory = string.sub(self.noitaRootDirectory, 0, i - 1)
-        self.logger:trace(self.logger.channels.testing,
-            ("NEW absolute path of Noitas root directory set to %s.")
-            :format(self.noitaRootDirectory))
+        local i, _ = string.find(self.noitaRootDirectory, "mods")
+        if i then
+            self.noitaRootDirectory = string.sub(self.noitaRootDirectory, 0, i - 1)
+            self.logger:trace(self.logger.channels.testing,
+                ("NEW absolute path of Noitas root directory set to %s.")
+                :format(self.noitaRootDirectory))
+        end
     end
 end
 

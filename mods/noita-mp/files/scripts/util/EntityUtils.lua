@@ -545,10 +545,14 @@ function EntityUtils:new(client, customProfiler, enitityCacheUtils, entityCache,
     local entityUtilsObject = setmetatable(self, EntityUtils)
 
     -- Load config.lua
-    assert(loadfile("mods/noita-mp/config.lua"))(entityUtilsObject)
+    --assert(loadfile(entityUtilsObject.fileUtils:GetAbsoluteDirectoryPathOfNoitaMP() + "/config.lua"))(entityUtilsObject)
 
     --[[ Imports ]]
     --Initialize all imports to avoid recursive imports
+
+    if not entityUtilsObject.fileUtils then
+        entityUtilsObject.fileUtils = noitaMpSettings.fileUtils or error("EntityUtils:new: Parameter 'noitaMpSettings.fileUtils' must not be nil!", 2)
+    end
 
     if not entityUtilsObject.client then
         ---@type Client
@@ -644,6 +648,9 @@ function EntityUtils:new(client, customProfiler, enitityCacheUtils, entityCache,
     if not entityUtilsObject.nativeEntityMap then
         entityUtilsObject.nativeEntityMap = nativeEntityMap or require("lua_noitamp_native")
     end
+
+    -- Load config.lua
+    assert(loadfile(("%s/config.lua"):format(entityUtilsObject.fileUtils:GetAbsoluteDirectoryPathOfNoitaMP())))(entityUtilsObject)
 
     return entityUtilsObject
 end

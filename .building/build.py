@@ -29,7 +29,7 @@ VSDEVCMD_PATH = os.path.join(VS_PATH, r'Common7\Tools\vsdevcmd.bat')
 
 def main():
     ap = argparse.ArgumentParser("lua dependency rebuilder. By default rebuild everything with the current state of LuaJIT dir.")
-    ap.add_argument("--lua-version", help="LuaJIT version to checkout and rebuild with (git rev or branch)")
+    ap.add_argument("--lua-version", help="LuaJIT version to checkout and rebuild with (git rev or branch) Uncertain? Do 'git log' in .building/LuaJIT!")
     ap.add_argument("--build", choices=["all", "lua", "enet", "native"], help="Only rebuild one project (default all)", default="all")
     ap.add_argument("--install-lua", action="store_true", help="Copy lua dll to noita game directory (default False)", default=False)
     ap.add_argument("--noita-dir", help=f"Path to noita game dir (default {NOITA_DIR})", default=NOITA_DIR)

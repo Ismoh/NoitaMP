@@ -610,7 +610,7 @@ end
 
 --- Get the current connection state, if connected.
 -- @treturn string The connection state.
--- @see CONNECTION_STATES
+--- @see CONNECTION_STATES
 function SockClient:getState()
     if self.connection then
         return self.connection:state()

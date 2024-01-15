@@ -28,7 +28,7 @@ local server = require("Server")
 
 -- Initialize default client
 local client = require("Client")
-    .new(nil, nil, nil, nil, server, np)
+    .new(nil, nil, nil, server, np, server.nativeEntityMap)
 -- Update client reference
 server.entityUtils.client = client
 server.globalsUtils.client = client
