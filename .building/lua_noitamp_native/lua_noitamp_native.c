@@ -2,6 +2,11 @@
 #include <lauxlib.h>
 #include <string.h>
 
+/*
+    Old C native module.
+    Compiled but unused.
+*/
+
 #pragma region EntityCache
 #define entityCacheSize sizeof(EntityCacheEntry)
 typedef struct EntityCacheEntry
@@ -133,7 +138,7 @@ static int l_entityCacheReadByEntityId(lua_State *L)
         {
             l_createEntityCacheReturnTable(L, entry);
             return 1;
-        };
+        }
     }
     lua_pushnil(L);
     return 1;
@@ -401,37 +406,3 @@ static int l_networkCacheClear(lua_State *L)
     return 0;
 }
 #pragma endregion
-
-void register_NativeEntityMap(lua_State * L);
-
-__declspec(dllexport) int luaopen_lua_noitamp_native(lua_State *L)
-{
-    static const luaL_Reg eCachelib[] =
-        {
-            {"set", l_entityCacheWrite},
-            {"get", l_entityCacheReadByEntityId},
-            {"getNuid", l_entityCacheReadByNuid},
-            {"delete", l_entityCacheDeleteByEntityId},
-            {"deleteNuid", l_entityCacheDeleteByNuid},
-            {"size", l_entityCacheSize},
-            {"usage", l_entityCacheUsage},
-            {"getAll", l_entityCacheReadAll},
-            {NULL, NULL}};
-    luaL_register(L, "EntityCacheC", eCachelib);
-    static const luaL_Reg nCachelib[] =
-        {
-            {"set", l_networkCacheWrite},
-            {"get", l_networkCacheRead},
-            {"getChecksum", l_networkCacheReadByChecksum},
-            {"size", l_networkCacheSize},
-            {"usage", l_networkCacheUsage},
-            {"removeOldest", l_networkCacheRemoveOldest},
-            {"clear", l_networkCacheClear},
-            {"getAll", l_networkCacheReadAll},
-            {NULL, NULL}};
-    luaL_register(L, "NetworkCacheC", nCachelib);
-
-    register_NativeEntityMap(L);
-
-    return 1;
-}

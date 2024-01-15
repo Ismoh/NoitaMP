@@ -25,7 +25,7 @@ function Client.amIClient(self: Client)
 Checks if the current local user is a client.
 
 @*return* `true` — if client, false if not
-See: [Server.amIServer](https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/net/Server.lua#L869#9)
+See: [Server.amIServer](https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/net/Server.lua#L872#9)
 
 ### customProfiler
 
@@ -388,7 +388,7 @@ table
 Utils
 ```
 
-Utils class for lazy developers.
+server.utils or error("Client:new requires a server object!", 2)
 
 ### zipTable
 
@@ -3463,7 +3463,7 @@ function Server.amIServer(self: Server)
 Checks if the current local user is a server.
 
 @*return* `true` — if server, false if not
-See: [Client.amIClient](https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/net/Client.lua#L918#9)
+See: [Client.amIClient](https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/net/Client.lua#L921#9)
 
 ### ban
 
@@ -4262,7 +4262,7 @@ Checks if a variable is empty.
 
 
 ```lua
-function Utils.new(self: Utils, utilsObject: any)
+function Utils.new(self: Utils)
   -> Utils
 ```
 
