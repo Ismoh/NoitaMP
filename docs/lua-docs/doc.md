@@ -182,7 +182,7 @@ NetworkVscUtils for getting and setting values in VariableStorageComponents of N
 
 
 ```lua
-function Client.new(clientObject: Client|nil, serverOrAddress: string|nil, port: number|nil, maxChannels: number|nil, server: Server, np: noitapatcher, nativeEntityMap: NativeEntityMap)
+function Client.new(serverOrAddress: string|nil, port: number|nil, maxChannels: number|nil, server: Server, np: noitapatcher, nativeEntityMap: NativeEntityMap|nil)
   -> Client
 ```
 
@@ -192,7 +192,7 @@ Client constructor. Inherits from SockClient sock.Client.
 
 @*param* `np` — required
 
-@*param* `nativeEntityMap` — required???
+@*param* `nativeEntityMap` — optional
 
 ### noitaComponentUtils
 
@@ -782,6 +782,13 @@ EntityCacheUtils
 
 end
 TODO: temporary dirty whacky hacky fix
+
+### fileUtils
+
+
+```lua
+unknown
+```
 
 ### globalsUtils
 
@@ -2308,7 +2315,7 @@ function NetworkCache.clear(self: NetworkCache, clientCacheId: number)
 
 
 ```lua
-any
+CustomProfiler
 ```
 
 Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
@@ -2351,16 +2358,24 @@ function NetworkCache.getChecksum(self: NetworkCache, clientCacheId: number, dat
 
 
 ```lua
-any
+Logger
 ```
 
 ### new
 
 
 ```lua
-function NetworkCache.new(self: NetworkCache, customProfiler: any, logger: any, utils: any)
-  -> NetworkCache
+function NetworkCache.new(self: NetworkCache, customProfiler: CustomProfiler, logger: Logger, utils: Utils)
+  -> networkCache: NetworkCache
 ```
+
+ NetworkCache constructor.
+
+@*param* `customProfiler` — required
+
+@*param* `logger` — optional
+
+@*param* `utils` — optional
 
 ### removeOldest
 
@@ -2402,7 +2417,7 @@ function NetworkCache.usage(self: NetworkCache)
 
 
 ```lua
-any
+Utils
 ```
 
 Utils class for lazy developers.
@@ -7637,6 +7652,7 @@ function table.unpack(list: <T>[], i?: integer, j?: integer)
 function tablelib.contains(tbl: table, key: any)
   -> true: boolean
   2. index: number
+  3. index2: number
 ```
 
 Return true, if the key is contained in the tbl. NOTE: Doesn't check for duplicates inside the table.
@@ -7646,6 +7662,8 @@ Return true, if the key is contained in the tbl. NOTE: Doesn't check for duplica
 @*return* `true` — if indexing by key does not return nil
 
 @*return* `index` — also returns the index of the found key
+
+@*return* `index2` — if tbl contains tables, then it returns the index of the found key inside the table
 
 ### containsAll
 
