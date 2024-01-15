@@ -225,7 +225,7 @@ end
 function SockClient:send(event, data)
     local networkMessageId = data[1] or data.networkMessageId
     if self.utils:isEmpty(networkMessageId) then
-        error("networkMessageId is empty!", 3)
+        error("networkMessageId is empty!", 2)
     end
 
     local serializedMessage = self:__pack(event, data)

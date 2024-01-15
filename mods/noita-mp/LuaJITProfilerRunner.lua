@@ -136,7 +136,7 @@ dofile("../noita-mp/files/scripts/init/init_.lua")
 require("lldebugger").start()
 
 local gui = {} -- mocked gui
-local utils = require("Utils"):new(nil)
+local utils = require("Utils"):new()
 local noitaMpSettings = require("NoitaMpSettings")
     :new(nil, nil, gui, nil, nil, nil, nil)
 local customProfiler = require("CustomProfiler")

@@ -25,7 +25,7 @@ function Client.amIClient(self: Client)
 Checks if the current local user is a client.
 
 @*return* `true` — if client, false if not
-See: [Server.amIServer](https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/net/Server.lua#L852#9)
+See: [Server.amIServer](https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/net/Server.lua#L872#9)
 
 ### customProfiler
 
@@ -141,6 +141,13 @@ nil
 nil
 ```
 
+### nativeEntityMap
+
+
+```lua
+NativeEntityMap
+```
+
 ### networkCache
 
 
@@ -175,7 +182,7 @@ NetworkVscUtils for getting and setting values in VariableStorageComponents of N
 
 
 ```lua
-function Client.new(clientObject: Client|nil, serverOrAddress: string|nil, port: number|nil, maxChannels: number|nil, server: Server, np: noitapatcher)
+function Client.new(clientObject: Client|nil, serverOrAddress: string|nil, port: number|nil, maxChannels: number|nil, server: Server, np: noitapatcher, nativeEntityMap: NativeEntityMap)
   -> Client
 ```
 
@@ -184,6 +191,8 @@ Client constructor. Inherits from SockClient sock.Client.
 @*param* `server` — required
 
 @*param* `np` — required
+
+@*param* `nativeEntityMap` — required???
 
 ### noitaComponentUtils
 
@@ -379,7 +388,7 @@ table
 Utils
 ```
 
-Utils class for lazy developers.
+server.utils or error("Client:new requires a server object!", 2)
 
 ### zipTable
 
@@ -807,6 +816,13 @@ MinaUtils
 
 Util class for fetching information about local and remote minas.
 
+### nativeEntityMap
+
+
+```lua
+NativeEntityMap
+```
+
 ### networkUtils
 
 
@@ -827,7 +843,7 @@ NetworkVscUtils for getting and setting values in VariableStorageComponents of N
 
 
 ```lua
-function EntityUtils.new(self: EntityUtils, client: Client, customProfiler: CustomProfiler, enitityCacheUtils: EntityCacheUtils, entityCache: EntityCache, globalsUtils: GlobalsUtils|nil, logger: Logger|nil, minaUtils: MinaUtils, networkUtils: NetworkUtils, networkVscUtils: NetworkVscUtils, noitaComponentUtils: NoitaComponentUtils, noitaMpSettings: NoitaMpSettings, nuidUtils: NuidUtils, server: Server, utils: Utils|nil, np: noitapatcher)
+function EntityUtils.new(self: EntityUtils, client: Client, customProfiler: CustomProfiler, enitityCacheUtils: EntityCacheUtils, entityCache: EntityCache, globalsUtils: GlobalsUtils|nil, logger: Logger|nil, minaUtils: MinaUtils, networkUtils: NetworkUtils, networkVscUtils: NetworkVscUtils, noitaComponentUtils: NoitaComponentUtils, noitaMpSettings: NoitaMpSettings, nuidUtils: NuidUtils, server: Server, utils: Utils|nil, np: noitapatcher, nativeEntityMap: NativeEntityMap|nil)
   -> EntityUtils
 ```
 
@@ -862,6 +878,8 @@ Constructor for EntityUtils. With this constructor you can override the default 
 @*param* `utils` — optional
 
 @*param* `np` — required
+
+@*param* `nativeEntityMap` — optional
 
 ### noitaComponentUtils
 
@@ -2933,29 +2951,11 @@ function NoitaComponentUtils.getEntityDataByNuid(self: NoitaComponentUtils, nuid
   9. number
 ```
 
-### getInitialSerializedEntityString
-
-
-```lua
-function NoitaComponentUtils.getInitialSerializedEntityString(self: NoitaComponentUtils, entityId: number)
-  -> initSerializedB64Str: string|nil
-```
-
- Get initial serialized entity string to determine if the entity already exists on the server.
-
 ### globalsUtils
 
 
 ```lua
 GlobalsUtils
-```
-
-### hasInitialSerializedEntityString
-
-
-```lua
-function NoitaComponentUtils.hasInitialSerializedEntityString(self: NoitaComponentUtils, entityId: any)
-  -> boolean
 ```
 
 ### logger
@@ -3011,18 +3011,6 @@ NoitaPatcherUtils
 ```lua
 function NoitaComponentUtils.setEntityData(self: NoitaComponentUtils, entityId: number, x: number, y: number, rotation: number, velocity?: Vec2, health: number)
 ```
-
-### setInitialSerializedEntityString
-
-
-```lua
-function NoitaComponentUtils.setInitialSerializedEntityString(self: NoitaComponentUtils, entityId: number, initSerializedB64Str: string)
-  -> if: boolean
-```
-
- Set initial serialized entity string to determine if the entity already exists on the server.
-
-@*return* `if` — success
 
 ### setNetworkSpriteIndicatorStatus
 
@@ -3204,13 +3192,6 @@ winapi
 
 ## NoitaPatcherUtils
 
-### base64
-
-
-```lua
-unknown
-```
-
 ### customProfiler
 
 
@@ -3224,15 +3205,15 @@ Simple profiler that can be used to measure the duration of a function and the m
 
 
 ```lua
-function NoitaPatcherUtils.deserializeEntity(self: NoitaPatcherUtils, entityId: number, base64String: string, x: number|nil, y: number|nil)
+function NoitaPatcherUtils.deserializeEntity(self: NoitaPatcherUtils, entityId: number, binaryString: string, x: number|nil, y: number|nil)
   -> entityId: number
 ```
 
- Deserialize an entity from a serialized base64 string and create it at the given position.
+ Deserialize an entity from a serialized binary string and create or update it at the given position.
 
 @*param* `entityId` — mostly an empty entity, but required
 
-@*param* `base64String` — serialized entity in base64 format
+@*param* `binaryString` — serialized entity in binary format
 
 @*param* `x` — x position to create entity at, but optional.
 
@@ -3240,18 +3221,25 @@ function NoitaPatcherUtils.deserializeEntity(self: NoitaPatcherUtils, entityId: 
 
 @*return* `entityId` — of the created entity
 
-### luaNoitaMpNative
+### logger
 
 
 ```lua
-unknown
+Logger
+```
+
+### nativeEntityMap
+
+
+```lua
+NativeEntityMap
 ```
 
 ### new
 
 
 ```lua
-function NoitaPatcherUtils.new(self: NoitaPatcherUtils, customProfiler: CustomProfiler, np: noitapatcher)
+function NoitaPatcherUtils.new(self: NoitaPatcherUtils, customProfiler: CustomProfiler, np: noitapatcher, logger: Logger, nativeEntityMap: NativeEntityMap|nil)
   -> NoitaPatcherUtils
 ```
 
@@ -3260,6 +3248,10 @@ NoitaPatcherUtils constructor.
 @*param* `customProfiler` — required
 
 @*param* `np` — required
+
+@*param* `logger` — required
+
+@*param* `nativeEntityMap` — optional
 
 ### np
 
@@ -3273,12 +3265,12 @@ noitapatcher
 
 ```lua
 function NoitaPatcherUtils.serializeEntity(self: NoitaPatcherUtils, entityId: number)
-  -> base64String: string
+  -> binaryString: string
 ```
 
- Serialize an entity to a base64 and md5 string.
+ Serialize an entity to a binary string.
 
-@*return* `base64String` — base64 encoded string
+@*return* `binaryString` — serialized entity in binary format
 
 ### utils
 
@@ -3471,7 +3463,7 @@ function Server.amIServer(self: Server)
 Checks if the current local user is a server.
 
 @*return* `true` — if server, false if not
-See: [Client.amIClient](https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/net/Client.lua#L910#9)
+See: [Client.amIClient](https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/net/Client.lua#L921#9)
 
 ### ban
 
@@ -3701,6 +3693,13 @@ nil
 nil
 ```
 
+### nativeEntityMap
+
+
+```lua
+NativeEntityMap
+```
+
 ### networkCache
 
 
@@ -3735,7 +3734,7 @@ NetworkVscUtils for getting and setting values in VariableStorageComponents of N
 
 
 ```lua
-function Server.new(address: string|nil, port: number|nil, maxPeers: number|nil, maxChannels: number|nil, inBandwidth: number|nil, outBandwidth: number|nil, np: noitapatcher)
+function Server.new(address: string|nil, port: number|nil, maxPeers: number|nil, maxChannels: number|nil, inBandwidth: number|nil, outBandwidth: number|nil, np: noitapatcher, nativeEntityMap: NativeEntityMap|nil)
   -> Server
 ```
 
@@ -3754,6 +3753,8 @@ Server constructor. Inherits from SockServer sock.newServer.
 @*param* `outBandwidth` — optional
 
 @*param* `np` — required
+
+@*param* `nativeEntityMap` — optional
 
 ### noitaComponentUtils
 
@@ -3936,7 +3937,7 @@ Sends a message to the client, when there is a guid clash.
 
 
 ```lua
-function Server.sendNewNuid(self: Server, ownerName: string, ownerGuid: string, entityId: number, currentSerializedB64Str: string, nuid: number, x: number, y: number, initSerializedB64Str: string)
+function Server.sendNewNuid(self: Server, ownerName: string, ownerGuid: string, entityId: number, initialSerialisedBinaryString: string, nuid: number, x: number, y: number, currentSerialisedBinaryString: string)
   -> true: boolean
 ```
 
@@ -3948,7 +3949,7 @@ Sends a new nuid to all clients. This also creates/updates the entities on clien
 
 @*param* `entityId` — required
 
-@*param* `currentSerializedB64Str` — required
+@*param* `initialSerialisedBinaryString` — required
 
 @*param* `nuid` — required
 
@@ -3956,7 +3957,7 @@ Sends a new nuid to all clients. This also creates/updates the entities on clien
 
 @*param* `y` — required
 
-@*param* `initSerializedB64Str` — required
+@*param* `currentSerialisedBinaryString` — required
 
 @*return* `true` — if message was sent, false if not
 
@@ -4261,7 +4262,7 @@ Checks if a variable is empty.
 
 
 ```lua
-function Utils.new(self: Utils, utilsObject: any)
+function Utils.new(self: Utils)
   -> Utils
 ```
 
@@ -6233,19 +6234,21 @@ NoitaMpSettings
 
 ## noitaMpSettings.customProfiler
 
+Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
+
 
 ```lua
-table
+CustomProfiler
 ```
 
 
 ```lua
-table
+CustomProfiler
 ```
 
 
 ```lua
-table
+CustomProfiler
 ```
 
 

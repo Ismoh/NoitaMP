@@ -204,7 +204,7 @@ function EntityUtils:syncEntities(startFrameTime, server, client)
             end
 
             if self.include.byFilename[filename] or
-                --table.contains(EntityUtils.include.byFilename, filename) or
+                table.contains(EntityUtils.include.byFilename, filename) or
                 findByFilename(self, filename, self.include.byFilename)
             then
                 exclude = false
@@ -259,27 +259,9 @@ function EntityUtils:syncEntities(startFrameTime, server, client)
                             self.networkVscUtils:addOrUpdateAllVscs(entityId, compOwnerName, compOwnerGuid, nuid)
                         end
                     end
-                    --Server.sendNewNuid({ compOwnerName, compOwnerGuid }, entityId, nuid, x, y, rotation, velocity,
-                    --    filename, health, EntityUtils.isEntityPolymorphed(entityId))
-                    --local finished, serializedEntity = EntitySerialisationUtils.serializeEntireRootEntity(entityId, nuid, startFrameTime)
-                    --local ONLYFORTESTING = EntitySerialisationUtils.deserializeEntireRootEntity(serializedEntity)
-                    local serializedEntityString = self.noitaPatcherUtils:serializeEntity(entityId)
-                    local finished               = false
-                    if not self.utils:isEmpty(serializedEntityString) then
-                        finished = true
-                    end
-                    if finished == true then
-                        self.server:sendNewNuid(compOwnerName, compOwnerGuid, entityId, serializedEntityString, nuid, x, y,
-                            self.noitaComponentUtils:getInitialSerializedEntityString(entityId))
-                    else
-                        self.logger:warn(self.logger.channels.entity,
-                            "EntitySerialisationUtils.serializeEntireRootEntity took too long. Breaking loop by returning entityId.")
-                        -- when executionTime is too long, return the next entityCacheIndex to continue with it
-                        --prevEntityIndex = entityIndex + 1
-                        self.entityCacheUtils:set(entityId, nuid, compOwnerGuid, compOwnerName, filename, x, y, rotation, velocity.x, velocity.y,
-                            health.current, health.max, finished, serializedEntityString)
-                        return -- completely end function, because it took too long
-                    end
+                    local initialSerialisedBinaryString = self.nativeEntityMap.getSerializedStringByEntityId(entityId)
+                    self.server:sendNewNuid(compOwnerName, compOwnerGuid, entityId, initialSerialisedBinaryString, nuid, x, y,
+                        self.noitaPatcherUtils:serializeEntity(entityId))
                 end
             end
 
@@ -414,7 +396,6 @@ end
 ---@param server Server|nil Either server or client must not be nil!
 ---@param client Client|nil Either server or client must not be nil!
 function EntityUtils:syncDeadNuids(server, client)
-
     local deadNuids = self.nuidUtils:getEntityIdsByKillIndicator()
     if #deadNuids > 0 then
         if server then
@@ -464,7 +445,7 @@ function EntityUtils:destroyByNuid(peer, nuid)
     end
 
     if entityId ~= self.minaUtils:getLocalMinaEntityId() --and
-        --entityId ~= self.minaUtils:getLocalPolymorphedMinaEntityId()
+    --entityId ~= self.minaUtils:getLocalPolymorphedMinaEntityId()
     then
         EntityKill(entityId)
     end
@@ -556,9 +537,10 @@ end
 ---@param server Server required
 ---@param utils Utils|nil optional
 ---@param np noitapatcher required
+---@param nativeEntityMap NativeEntityMap|nil optional
 ---@return EntityUtils
 function EntityUtils:new(client, customProfiler, enitityCacheUtils, entityCache, globalsUtils, logger, minaUtils, networkUtils,
-                         networkVscUtils, noitaComponentUtils, noitaMpSettings, nuidUtils, server, utils, np)
+                         networkVscUtils, noitaComponentUtils, noitaMpSettings, nuidUtils, server, utils, np, nativeEntityMap)
     ---@class EntityUtils
     local entityUtilsObject = setmetatable(self, EntityUtils)
 
@@ -580,7 +562,7 @@ function EntityUtils:new(client, customProfiler, enitityCacheUtils, entityCache,
     if not entityUtilsObject.utils then
         ---@type Utils
         entityUtilsObject.utils = utils or
-            require("Utils"):new(nil)
+            require("Utils"):new()
     end
 
     if not entityUtilsObject.customProfiler then
@@ -656,7 +638,11 @@ function EntityUtils:new(client, customProfiler, enitityCacheUtils, entityCache,
 
     if not entityUtilsObject.noitaPatcherUtils then
         entityUtilsObject.noitaPatcherUtils = require("NoitaPatcherUtils")
-            :new(server.customProfiler, np)
+            :new(server.customProfiler, np, server.logger, nativeEntityMap)
+    end
+
+    if not entityUtilsObject.nativeEntityMap then
+        entityUtilsObject.nativeEntityMap = nativeEntityMap or require("lua_noitamp_native")
     end
 
     return entityUtilsObject

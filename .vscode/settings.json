@@ -63,6 +63,9 @@
     "https://json.schemastore.org/github-workflow.json": "file:///d%3A/______BACKUP/NoitaMP_repo/NoitaMP/.github/workflows/dependency-updater.yml"
   },
   "cSpell.words": [
+    "altleft",
+    "autostarter",
+    "ctrlleft",
     "dkjson",
     "gamemode",
     "luacheck",
@@ -72,12 +75,15 @@
     "luaposix",
     "luasocket",
     "luaunit",
+    "miscs",
     "noita",
+    "noitamp",
     "pigar",
     "pyautogui",
     "pygetwindow",
     "rockspec",
     "setmetatable",
+    "taskkill",
     "winapi",
     "zstd"
   ],
