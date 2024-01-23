@@ -31,7 +31,10 @@ end
 function FileUtils:ReplacePathSeparator(path)
     if type(path) == "string" then
         if (_G.is_windows) then
-            return path:gsub("/", "\\")
+            path = path:gsub("/", "\\")    -- replace unix path separator to windows path separator
+            path = path:gsub("\"", "\\\"") -- escape double quotes
+            --path = path:gsub(" ", "\\ ")   -- escape spaces
+            return path, 1
         elseif (_G.is_linux) then
             return path:gsub("\\", "/")
         end

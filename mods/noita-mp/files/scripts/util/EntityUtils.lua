@@ -650,7 +650,9 @@ function EntityUtils:new(client, customProfiler, enitityCacheUtils, entityCache,
     end
 
     -- Load config.lua
-    assert(loadfile(("%s/config.lua"):format(entityUtilsObject.fileUtils:GetAbsoluteDirectoryPathOfNoitaMP())))(entityUtilsObject)
+    local configFilePath = ("%s%sconfig.lua"):format(entityUtilsObject.fileUtils:GetAbsoluteDirectoryPathOfNoitaMP(), pathSeparator)
+    configFilePath = entityUtilsObject.fileUtils:ReplacePathSeparator(configFilePath)
+    assert(loadfile(configFilePath))(entityUtilsObject)
 
     return entityUtilsObject
 end
