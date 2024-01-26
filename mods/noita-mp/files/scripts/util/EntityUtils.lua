@@ -650,9 +650,19 @@ function EntityUtils:new(client, customProfiler, enitityCacheUtils, entityCache,
     end
 
     -- Load config.lua
-    local configFilePath = ("%s%sconfig.lua"):format(entityUtilsObject.fileUtils:GetAbsoluteDirectoryPathOfNoitaMP(), pathSeparator)
-    configFilePath = entityUtilsObject.fileUtils:ReplacePathSeparator(configFilePath)
-    assert(loadfile(configFilePath))(entityUtilsObject)
+    local configFilePath = "mods/noita-mp/config.lua"
+    local config, err = loadfile(configFilePath)
+    if err then
+        -- if it's erroring, then it's probably because we're running NOT from noita.exe, so try the absolute path
+        configFilePath = ("%s%sconfig.lua"):format(entityUtilsObject.fileUtils:GetAbsoluteDirectoryPathOfNoitaMP(), pathSeparator)
+        configFilePath = entityUtilsObject.fileUtils:ReplacePathSeparator(configFilePath)
+        config, err = loadfile(configFilePath)
+        if err then
+            error(("Unable to load config.lua: %s with error: %s"):format(configFilePath, err), 2)
+        end
+    end
+    assert(config, ("Unable to load config.lua: %s"):format(configFilePath))
+    config(entityUtilsObject)
 
     return entityUtilsObject
 end
