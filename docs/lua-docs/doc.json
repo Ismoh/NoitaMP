@@ -2358,7 +2358,7 @@
                         }
                     ],
                     "desc": "Constructor for EntityUtils. With this constructor you can override the default imports.\n\n@*param* `client` — required\n\n@*param* `customProfiler` — required\n\n@*param* `enitityCacheUtils` — required\n\n@*param* `entityCache` — required\n\n@*param* `globalsUtils` — optional\n\n@*param* `logger` — optional\n\n@*param* `minaUtils` — required\n\n@*param* `networkUtils` — required\n\n@*param* `networkVscUtils` — required\n\n@*param* `noitaComponentUtils` — required\n\n@*param* `noitaMpSettings` — required\n\n@*param* `nuidUtils` — required\n\n@*param* `server` — required\n\n@*param* `utils` — optional\n\n@*param* `np` — required\n\n@*param* `nativeEntityMap` — optional",
-                    "finish": 6570003,
+                    "finish": 6670003,
                     "returns": [
                         {
                             "type": "function.return",
