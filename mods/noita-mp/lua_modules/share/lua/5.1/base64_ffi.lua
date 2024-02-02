@@ -48,6 +48,7 @@ end
 
 local test = base64.encode("Hello World!")
 print("base64 quick'n'dirty test:")
+assert(base64.encode("SGVsbG8gV29ybGQh") == test)
 print(("%s == %s"):format(test, base64.decode(test)))
 
 return base64

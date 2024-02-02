@@ -259,11 +259,14 @@ function OnWorldPreUpdate()
     server:preUpdate(startFrameTime)
     client:preUpdate(startFrameTime)
 
-    if collectgarbage("count") >= 102412345.0 then
+    local mem = collectgarbage("count")
+    if mem >= 102412345.0 then
         GamePrintImportant("Memory Usage", ("Forcing garbage collection because memory usage is above %sMB."):format(collectgarbage("count") / 1024))
         collectgarbage("collect")
     end
-    GamePrint("MemUsage " .. collectgarbage("count") / 1024 .. " MB")
+    if mem / 1024 >= 250 then
+        GamePrint("Memory usage = " .. mem / 1024 .. " MB")
+    end
 
     --print("jit.profile " .. jit.profile.dumpstack("l\n", 10))
 end

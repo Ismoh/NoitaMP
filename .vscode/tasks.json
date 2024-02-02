@@ -34,7 +34,11 @@
       "windows": {
         "command": "${workspaceFolder}\\.vscode\\noita-mp-tasks.cmd"
       },
-      "args": ["${userHome}\\AppData\\Roaming\\luarocks", "${workspaceFolder}", "${input:luaRocksAwesomeInit}"],
+      "args": [
+        "${userHome}\\AppData\\Roaming\\luarocks",
+        "${workspaceFolder}",
+        "${input:luaRocksAwesomeInit}"
+      ],
       "problemMatcher": []
     },
     {
@@ -70,11 +74,12 @@
       "problemMatcher": []
     },
     {
-      "label": "Compile LuaJIT-2.1.0-beta3",
+      "label": "Compile LuaJIT",
       "type": "shell",
       "windows": {
-        "command": "cd ${workspaceFolder}\\.building\\LuaJIT-2.1.0-beta3\\src && msvcbuild.bat"
-      }
+        "command": "cd ${workspaceFolder}\\.building\\LuaJIT && git status && cd ${workspaceFolder}\\.building\\LuaJIT\\src && msvcbuild.bat"
+      },
+      "problemMatcher": []
     },
     {
       "label": "Run LuaJIT Profiler on init.lua (LuaJIT-2.1.0-beta3)",
@@ -88,7 +93,7 @@
       "label": "lua-enet: 1. Clean builds",
       "type": "shell",
       "windows": {
-        "command": "echo '1.' && cd ${workspaceFolder} && IF EXIST build (rd /s build /q) ELSE (echo 'No clean builds necessary'); && mkdir build"
+        "command": "echo '1.' && cd ${workspaceFolder} && IF EXIST build (rd /s build /q && mkdir build) ELSE (echo 'No clean builds necessary'); && mkdir build"
       },
       "problemMatcher": []
     },
@@ -104,9 +109,34 @@
       "label": "lua-enet: 3. pre-build",
       "type": "shell",
       "dependsOrder": "sequence",
-      "dependsOn": ["Compile LuaJIT-2.1.0-beta3"],
+      "dependsOn": ["Compile LuaJIT"],
       "windows": {
-        "command": "echo '3.' && cd ${workspaceFolder} && xcopy LuaJIT-2.1.0-beta3\\bin build\\lua-enet\\luajit2.1\\bin\\ /E/H && xcopy LuaJIT-2.1.0-beta3\\include build\\lua-enet\\luajit2.1\\include\\ /E/H"
+        "command": [
+          "echo '3.'",
+          "&& if not exist ${workspaceFolder}\\build\\LuaJIT (mkdir ${workspaceFolder}\\build\\LuaJIT)",
+          "&& if not exist ${workspaceFolder}\\build\\LuaJIT\\bin (mkdir ${workspaceFolder}\\build\\LuaJIT\\bin)",
+          "&& if not exist ${workspaceFolder}\\build\\LuaJIT\\include (mkdir ${workspaceFolder}\\build\\LuaJIT\\include)",
+
+          //" && copy ${workspaceFolder}\\.building\\LuaJIT\\src\\lua51.ilk   ${workspaceFolder}\\build\\LuaJIT\\bin\\lua51.ilk     /Y",
+          "&& copy ${workspaceFolder}\\.building\\LuaJIT\\src\\lua51.pdb ${workspaceFolder}\\build\\LuaJIT\\bin\\lua51.pdb /Y",
+          "&& copy ${workspaceFolder}\\.building\\LuaJIT\\src\\lua51.dll ${workspaceFolder}\\build\\LuaJIT\\bin\\lua51.dll /Y",
+          "&& copy ${workspaceFolder}\\.building\\LuaJIT\\src\\lua51.exp ${workspaceFolder}\\build\\LuaJIT\\bin\\lua51.exp /Y",
+          "&& copy ${workspaceFolder}\\.building\\LuaJIT\\src\\lua51.lib ${workspaceFolder}\\build\\LuaJIT\\bin\\lua51.lib /Y",
+          "&& copy ${workspaceFolder}\\.building\\LuaJIT\\src\\luajit.exe ${workspaceFolder}\\build\\LuaJIT\\bin\\luajit.exe /Y",
+          //" && copy ${workspaceFolder}\\.building\\LuaJIT\\src\\luajit.exp  ${workspaceFolder}\\build\\LuaJIT\\bin\\luajit.exp    /Y",
+          //" && copy ${workspaceFolder}\\.building\\LuaJIT\\src\\luajit.lib  ${workspaceFolder}\\build\\LuaJIT\\bin\\luajit.lib    /Y",
+          //" && copy ${workspaceFolder}\\.building\\LuaJIT\\src\\luajit.ilk  ${workspaceFolder}\\build\\LuaJIT\\bin\\luajit.ilk    /Y",
+          "&& copy ${workspaceFolder}\\.building\\LuaJIT\\src\\luajit.pdb ${workspaceFolder}\\build\\LuaJIT\\bin\\luajit.pdb /Y",
+
+          "&& copy ${workspaceFolder}\\.building\\LuaJIT\\src\\lauxlib.h ${workspaceFolder}\\build\\LuaJIT\\include\\lauxlib.h /Y",
+          "&& copy ${workspaceFolder}\\.building\\LuaJIT\\src\\lua.h ${workspaceFolder}\\build\\LuaJIT\\include\\lua.h /Y",
+          "&& copy ${workspaceFolder}\\.building\\LuaJIT\\src\\lua.hpp ${workspaceFolder}\\build\\LuaJIT\\include\\lua.hpp /Y",
+          "&& copy ${workspaceFolder}\\.building\\LuaJIT\\src\\luaconf.h ${workspaceFolder}\\build\\LuaJIT\\include\\luaconf.h /Y",
+          "&& copy ${workspaceFolder}\\.building\\LuaJIT\\src\\lualib.h ${workspaceFolder}\\build\\LuaJIT\\include\\lualib.h /Y",
+
+          "&& if not exist ${workspaceFolder}\\build\\lua-enet\\luajit (mkdir ${workspaceFolder}\\build\\lua-enet\\luajit)",
+          "&& xcopy ${workspaceFolder}\\build\\LuaJIT ${workspaceFolder}\\build\\lua-enet\\luajit /E /H /I",
+        ]
       },
       "problemMatcher": []
     },
@@ -128,9 +158,7 @@
       "label": "lua-enet: 00. post build move enet libraries in dependencies directory",
       "type": "shell",
       "dependsOrder": "sequence",
-      "dependsOn": [
-        "lua-enet: 0. create and run build (automated / one-click solution)"
-      ],
+      "dependsOn": ["lua-enet: 0. create and run build (automated / one-click solution)"],
       "windows": {
         "command": "echo '00.' && cd ${workspaceFolder} && copy ${workspaceFolder}\\build\\lua-enet\\build\\enet.* ${workspaceFolder}\\mods\\noita-mp\\lua_modules\\lib\\lua\\5.1 /Y"
       },
