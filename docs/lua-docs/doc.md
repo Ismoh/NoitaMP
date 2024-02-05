@@ -25,7 +25,14 @@ function Client.amIClient(self: Client)
 Checks if the current local user is a client.
 
 @*return* `true` — if client, false if not
-See: [Server.amIServer](https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/net/Server.lua#L872#9)
+See: [Server.amIServer](https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/net/Server.lua#L886#9)
+
+### base64
+
+
+```lua
+unknown
+```
 
 ### customProfiler
 
@@ -583,6 +590,7 @@ Simple profiler that can be used to measure the duration of a function and the m
 
 ```lua
 function EntityCache.delete(self: EntityCache, entityId: any)
+  -> boolean|unknown
 ```
 
 ### deleteNuid
@@ -590,6 +598,7 @@ function EntityCache.delete(self: EntityCache, entityId: any)
 
 ```lua
 function EntityCache.deleteNuid(self: EntityCache, nuid: any)
+  -> boolean|unknown
 ```
 
 ### entityUtils
@@ -731,6 +740,13 @@ function EntityUtils.addOrChangeDetectionRadiusDebug(self: EntityUtils, player_e
 ```
 
  Simply adds a ugly debug circle around the player to visualize the detection radius.
+
+### base64
+
+
+```lua
+unknown
+```
 
 ### client
 
@@ -2365,7 +2381,7 @@ Logger
 
 
 ```lua
-function NetworkCache.new(self: NetworkCache, customProfiler: CustomProfiler, logger: Logger, utils: Utils)
+function NetworkCache.new(self: NetworkCache, customProfiler: CustomProfiler, logger: Logger|nil, utils: Utils|nil)
   -> networkCache: NetworkCache
 ```
 
@@ -3083,7 +3099,7 @@ FileUtils
 
 
 ```lua
-function NoitaMpSettings.get(self: NoitaMpSettings, key: string, dataType: string)
+function NoitaMpSettings.get(self: NoitaMpSettings, key: string, dataType: string|nil)
   -> value: boolean|string|number|nil
 ```
 
@@ -3091,7 +3107,7 @@ Returns a setting from the settings file converted to the given dataType. If the
 
 @*param* `key` — required
 
-@*param* `dataType` — required! Must be one of "boolean" or "number". If not set, "string" is default.
+@*param* `dataType` — optional! Must be one of "boolean" or "number". If not set, "string" is default.
 
 @*return* `value` — converted to dataType or nil, when value is not set.
 
@@ -3206,6 +3222,13 @@ winapi
 ---
 
 ## NoitaPatcherUtils
+
+### base64
+
+
+```lua
+unknown
+```
 
 ### customProfiler
 
@@ -3478,7 +3501,7 @@ function Server.amIServer(self: Server)
 Checks if the current local user is a server.
 
 @*return* `true` — if server, false if not
-See: [Client.amIClient](https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/net/Client.lua#L921#9)
+See: [Client.amIClient](https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/net/Client.lua#L930#9)
 
 ### ban
 
@@ -3490,6 +3513,13 @@ function Server.ban(self: Server, name: string)
 Bans a player by name.
 
 @*param* `name` — required
+
+### base64
+
+
+```lua
+unknown
+```
 
 ### clients
 
@@ -5011,16 +5041,6 @@ function dofile(filename?: string)
 ```lua
 function dofile(path: any)
   -> unknown
-```
-
-
----
-
-## err
-
-
-```lua
-unknown
 ```
 
 
