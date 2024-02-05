@@ -47,6 +47,9 @@ GAME_MODE = 4
 LOG = 'off'
 LUA = 'latest'
 
+NOITAMP_INSTANCE = 0
+
+
 def main():
     ap = argparse.ArgumentParser(description="Start 2 instances of noita to test/debug NoitaMP")
     ap.add_argument("--dev", "-d", help="use noita_dev.exe", action="store_true", default=False)
@@ -137,6 +140,9 @@ def start_exe(exe, mode, slot, config):
 
     os.chdir(os.path.dirname(exe))
     print('cmd line: %s -no_logo_splashes -windowed -config "%s" -gamemode %d -save_slot %d'%(fn, config, mode, slot))
+    global NOITAMP_INSTANCE
+    os.putenv('NOITAMP_INSTANCE', "%d"%NOITAMP_INSTANCE)
+    NOITAMP_INSTANCE += 1
     os.system('start "" %s -no_logo_splashes -windowed -config "%s" -gamemode %d -save_slot %d'%(fn, config, mode, slot))
     #os.system('start "" %s -no_logo_splashes -windowed -config "%s"'%(fn, config))
     os.chdir(CURRENT_DIR)
