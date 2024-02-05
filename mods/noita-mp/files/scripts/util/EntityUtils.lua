@@ -649,6 +649,10 @@ function EntityUtils:new(client, customProfiler, enitityCacheUtils, entityCache,
         entityUtilsObject.nativeEntityMap = nativeEntityMap or require("lua_noitamp_native")
     end
 
+    if not entityUtilsObject.base64 then
+        entityUtilsObject.base64 = require("base64_ffi")
+    end
+
     -- Load config.lua
     local configFilePath = "mods/noita-mp/config.lua"
     local config, err = loadfile(configFilePath)

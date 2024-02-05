@@ -1,26 +1,42 @@
 TestEntityCache = {}
 
-local guid1     = GuidUtils:getGuid()
-local guid2     = GuidUtils:getGuid({ guid1 })
-local guid3     = GuidUtils:getGuid({ guid1, guid2 })
-local guid4     = GuidUtils:getGuid({ guid1, guid2, guid3 })
-local guid5     = GuidUtils:getGuid({ guid1, guid2, guid3, guid4 })
+noitaMpSettings = noitaMpSettings or
+    require("NoitaMpSettings")
+    :new(nil, nil, {}, nil, nil, nil, nil, nil, nil)
+customProfiler  = customProfiler or
+    require("CustomProfiler")
+    :new(nil, nil, noitaMpSettings, nil, nil, nil, nil)
+guidUitls       = guidUtils or
+    require("GuidUtils")
+    :new(nil, customProfiler, nil, nil, nil, nil, nil, nil)
+logger          = logger or
+    require("Logger")
+    :new(nil, noitaMpSettings)
+entityCache     = entityCache or
+    require("EntityCache")
+    :new(nil, customProfiler, nil, nil)
+
+local guid1     = guidUtils:generateNewGuid()
+local guid2     = guidUtils:generateNewGuid({ guid1 })
+local guid3     = guidUtils:generateNewGuid({ guid1, guid2 })
+local guid4     = guidUtils:generateNewGuid({ guid1, guid2, guid3 })
+local guid5     = guidUtils:generateNewGuid({ guid1, guid2, guid3, guid4 })
 
 function TestEntityCache:setUp()
-    Logger.trace(Logger.channels.testing, ("EntityCache.size() = %s"):format(EntityCache.size()))
+    logger:trace(logger.channels.testing, ("EntityCache.size() = %s"):format(entityCache:size()))
 end
 
 function TestEntityCache:testGet()
-    EntityCache.set(1, 213, guid1, "compOwnerName",
-                    "data/entities/items/flute.xml", 0, 0, 1, 57, 0, 100, 100)
+    entityCache:set(1, 213, guid1, "compOwnerName",
+        "data/entities/items/flute.xml", 0, 0, 1, 57, 0, 100, 100)
 
-    local data = EntityCache.get(1)
+    local data = entityCache:get(1)
     lu.assertEquals(data, {
         entityId      = 1,
         nuid          = 213,
         ownerGuid     = guid1,
         ownerName     = "compOwnerName",
-        filepath      = "data/entities/items/flute.xml",
+        filename      = "data/entities/items/flute.xml",
         x             = 0,
         y             = 0,
         rotation      = 1,
@@ -30,14 +46,18 @@ function TestEntityCache:testGet()
         maxHealth     = 100
     })
 
-    EntityCache.delete(1)
+    entityCache:delete(1)
 end
 
 function TestEntityCache:testGetNuid()
-    EntityCache.set(1, 213, guid1, "compOwnerName",
-                    "data/entities/items/flute.xml", 0, 0, 1, 57, 0, 100, 100)
+    if _G.disableLuaExtensionsDLL then
+        return
+    end
 
-    local data = EntityCache.getNuid(213)
+    entityCache:set(1, 213, guid1, "compOwnerName",
+        "data/entities/items/flute.xml", 0, 0, 1, 57, 0, 100, 100)
+
+    local data = entityCache:getNuid(213)
     lu.assertEquals(data, {
         entityId      = 1,
         nuid          = 213,
@@ -53,49 +73,53 @@ function TestEntityCache:testGetNuid()
         maxHealth     = 100
     })
 
-    EntityCache.delete(1)
+    entityCache:delete(1)
 end
 
 function TestEntityCache:testDelete()
-    EntityCache.set(3, 231, guid3, "compOwnerName3",
-                    "data/entities/items/eye.xml", 10, 0, 1, 57, 0, 50, 90)
+    entityCache:set(3, 231, guid3, "compOwnerName3",
+        "data/entities/items/eye.xml", 10, 0, 1, 57, 0, 50, 90)
 
-    local hasDeleted = EntityCache.delete(3)
+    local hasDeleted = entityCache:delete(3)
     lu.assertEquals(hasDeleted, true)
-    local data = EntityCache.get(3)
+    local data = entityCache:get(3)
     lu.assertIsNil(data)
 end
 
 function TestEntityCache:testDeleteNuid()
-    EntityCache.set(2, 222, guid2, "compOwnerName2",
-                    "data/entities/items/eye.xml", 10, 0, 1, 57, 0, 10, 100)
+    if _G.disableLuaExtensionsDLL then
+        return
+    end
 
-    local hasDeleted = EntityCache.deleteNuid(222)
+    entityCache:set(2, 222, guid2, "compOwnerName2",
+        "data/entities/items/eye.xml", 10, 0, 1, 57, 0, 10, 100)
+
+    local hasDeleted = entityCache:deleteNuid(222)
     lu.assertEquals(hasDeleted, true)
-    local data = EntityCache.getNuid(222)
+    local data = entityCache:getNuid(222)
     lu.assertIsNil(data)
 end
 
 function TestEntityCache:testSize()
-    EntityCache.set(4, 402, guid4, "compOwnerName4",
-                    "data/entities/items/eye.xml", 10, 0, 1, 57, 0, 1, 100)
-    EntityCache.set(5, 102, guid5, "compOwnerName5",
-                    "data/entities/items/eye.xml", 10, 0, 1, 57, 0, 100, 100)
+    entityCache:set(4, 402, guid4, "compOwnerName4",
+        "data/entities/items/eye.xml", 10, 0, 1, 57, 0, 1, 100)
+    entityCache:set(5, 102, guid5, "compOwnerName5",
+        "data/entities/items/eye.xml", 10, 0, 1, 57, 0, 100, 100)
 
-    lu.assertEquals(EntityCache.size(), 2)
+    lu.assertEquals(entityCache:size(), 2)
 
-    EntityCache.delete(4)
-    EntityCache.delete(5)
+    entityCache:delete(4)
+    entityCache:delete(5)
 end
 
 function TestEntityCache:testUsage()
-    EntityCache.set(4, 402, guid4, "compOwnerName4",
-                    "data/entities/items/eye.xml", 10, 0, 1, 57, 0, 1, 100)
-    EntityCache.set(5, 102, guid5, "compOwnerName5",
-                    "data/entities/items/eye.xml", 10, 0, 1, 57, 0, 100, 100)
+    entityCache:set(4, 402, guid4, "compOwnerName4",
+        "data/entities/items/eye.xml", 10, 0, 1, 57, 0, 1, 100)
+    entityCache:set(5, 102, guid5, "compOwnerName5",
+        "data/entities/items/eye.xml", 10, 0, 1, 57, 0, 100, 100)
 
-    lu.assertError(EntityCache.usage())
+    lu.assertError(entityCache.usage)
 
-    EntityCache.delete(4)
-    EntityCache.delete(5)
+    entityCache:delete(4)
+    entityCache:delete(5)
 end

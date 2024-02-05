@@ -70,6 +70,7 @@ function EntityCache:delete(entityId)
         return EntityCacheC.delete(entityId)
     end
     self.cache[entityId] = nil
+    return true
 end
 
 function EntityCache:deleteNuid(nuid)
@@ -79,6 +80,7 @@ function EntityCache:deleteNuid(nuid)
     for entityId, entry in pairs(self.cache) do
         if entry.nuid == nuid then
             self.cache[entry.entityId] = nil
+            return true
         end
     end
 end

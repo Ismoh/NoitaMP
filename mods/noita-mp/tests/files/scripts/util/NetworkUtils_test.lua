@@ -106,7 +106,26 @@ function TestNetworkUtils:tearDown()
         "\n-------------------------------------------------------------------------------------------------------------------------------------------------------")
 end
 
+function TestNetworkUtils:testSerialize()
+    print("JSFGLKNDKFJNGKJNDFGKJ")
+    local data = {
+        "serilaze",
+        123,
+        { x = 1,         y = 2 },
+        { current = 100, max = 100 },
+        "\000asdf\000", -- binary string
+        "qwerty"
+    }
+
+    local serializedData = networkUtils:serialize(data)
+    local desializedData = networkUtils:deserialize(serializedData)
+
+    lu.assertEquals(#data, #desializedData, "Serialized and deserialized data isn't equal!")
+    lu.assertEquals(data, desializedData, "Serialized and deserialized data isn't equal!")
+end
+
 function TestNetworkUtils:testAlreadySent()
+    print("jksndkfjnskdjnfskjd")
     local event = networkUtils.events.connect2.name
     local data = { networkUtils:getNextNetworkMessageId(), "TestNetworkUtils Player Name", "anyGuid" }
 

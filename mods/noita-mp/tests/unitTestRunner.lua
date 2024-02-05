@@ -110,6 +110,10 @@ if not ModSettingGet then
         return true
     end
 
+    EntityGetIsAlive       = function(entity_id)
+        return true
+    end
+
     local pathToMods       = getNoitaMpRootDirectory() .. "/../.."
     print("pathToMods: " .. pathToMods)
     dofile = function(path)
@@ -142,13 +146,13 @@ function getAllFilesInside(folder)
                 --print("Found directory: " .. path)
                 local subfiles = getAllFilesInside(path)
                 for _, subfile in ipairs(subfiles) do
-                    if string.contains(subfile, "tableExtensions") then -- TODO: remove this for merge
-                        table.insert(files, subfile)
-                    end
-                    if string.contains(subfile, "NetworkUtils") then -- TODO: remove this for merge
-                        table.insert(files, subfile)
-                    end
-                    -- table.insert(files, subfile)
+                    -- if string.contains(subfile, "tableExtensions") then -- TODO: remove this for merge
+                    --     table.insert(files, subfile)
+                    -- end
+                    -- if string.contains(subfile, "NetworkUtils") then -- TODO: remove this for merge
+                    --     table.insert(files, subfile)
+                    -- end
+                    table.insert(files, subfile)
                 end
             end
         end

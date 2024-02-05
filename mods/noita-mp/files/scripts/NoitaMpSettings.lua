@@ -50,6 +50,9 @@ local getSettingsFilePath = function(self)
             if self.fileUtils:Exists(path) and not once then
                 defaultSettings = self.fileUtils:ReadFile(path)
             end
+            -- TODO: add a file to determine if this session is the first one, it's called 'initNoitaMpSettingsFirst'.
+            -- TODO: If it DOESN'T exist, then create the settings file for the server inside local directory.
+            -- TODO: If it DOES exist, then create the settings file for the client inside local directory.
             path = ("%s%slocal%ssettings-%s.json")
                 :format(self.fileUtils:GetAbsolutePathOfNoitaMpSettingsDirectory(), pathSeparator, pathSeparator, self.winapi.get_current_pid())
             if defaultSettings then
@@ -114,9 +117,13 @@ end
 
 ---Returns a setting from the settings file converted to the given dataType. If the setting does not exist, it will be created with the default empty value.
 ---@param key string required
----@param dataType string required! Must be one of "boolean" or "number". If not set, "string" is default.
+---@param dataType string|nil optional! Must be one of "boolean" or "number". If not set, "string" is default.
 ---@return boolean|string|number|nil value converted to dataType or nil, when value is not set.
 function NoitaMpSettings:get(key, dataType)
+    if not dataType then
+        dataType = "string"
+    end
+
     local settingsFilePath = getSettingsFilePath(self)
     if not self.settingsFileExists or self.utils:isEmpty(self.cachedSettings) then
         self.settingsFileExists = self.fileUtils:Exists(settingsFilePath)

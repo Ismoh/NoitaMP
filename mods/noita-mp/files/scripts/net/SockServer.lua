@@ -99,7 +99,8 @@ function SockServer:start(ip, port, fileUtils, logger)
     port           = port or self.port or error("port is nil", 2)
 
     self.address   = ip
-    self.port      = port
+    self.port    = port
+    local err      = nil
 
     -- ip, max peers, max channels, in bandwidth, out bandwidth
     -- number of channels for the client and server must match
@@ -130,7 +131,11 @@ end
 
 --- Check for network events and handle them.
 function SockServer:update()
-    local event = self.host:service(self.messageTimeout)
+    local success, event = pcall(self.host.service, self.host, self.messageTimeout)
+    if not success then
+        print("event = ", event)
+        error("event = " .. event)
+    end
 
     while event do
         if event.type == "connect" then

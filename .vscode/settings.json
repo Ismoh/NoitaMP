@@ -93,4 +93,5 @@
   "[shellscript]": {
     "editor.defaultFormatter": "foxundermoon.shell-format"
   },
+  "cmake.configureOnOpen": false,
 }

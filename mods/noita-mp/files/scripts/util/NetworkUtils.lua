@@ -30,13 +30,13 @@ local NetworkUtils = {
             resendIdentifiers = { "name", "guid" },
             isCacheable       = true
         },
-        --- acknowledgement is used to let the sender know if the message was acknowledged
+        --- acknowledgement is used to let the sender know if the message was received and processed
         acknowledgement = {
             name              = "acknowledgement",
-            schema            = { "networkMessageId", "event", "status", "ackedAt", "nuid" },
+            schema            = { "networkMessageId", "event", "status", "ackedAt", "nuid", "networkMessageIdToAcknowledge" },
             ack               = "ack",
             sent              = "sent",
-            resendIdentifiers = { "networkMessageId", "status" },
+            resendIdentifiers = { "networkMessageId", "status", "networkMessageIdToAcknowledge" },
             isCacheable       = false
         },
         --- seed is used to send the servers seed
@@ -223,6 +223,7 @@ end
 ---@param data table
 ---@return boolean
 function NetworkUtils:alreadySent(peer, event, data)
+    -- TODO error("FIX ME!",2)
     if not peer then
         error("'peer' must not be nil! When Server, then peer or Server.clients[i]. When Client, then self.", 2)
     end

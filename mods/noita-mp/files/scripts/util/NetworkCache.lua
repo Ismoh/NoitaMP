@@ -17,7 +17,6 @@ local NetworkCache = {
 ---@param dataChecksum string
 ---@return
 function NetworkCache:set(clientCacheId, networkMessageId, event, status, ackedAt, sendAt, dataChecksum)
-
     if self.utils:isEmpty(clientCacheId) or type(clientCacheId) ~= "number" then
         error(("clientCacheId must not be nil or empty '%s' or type is not number '%s'")
             :format(clientCacheId, type(clientCacheId)), 2)
@@ -202,8 +201,8 @@ end
 
 --- NetworkCache constructor.
 ---@param customProfiler CustomProfiler required
----@param logger Logger optional
----@param utils Utils optional
+---@param logger Logger|nil optional
+---@param utils Utils|nil optional
 ---@return NetworkCache networkCache
 function NetworkCache:new(customProfiler, logger, utils)
     ---@class NetworkCache

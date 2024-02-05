@@ -16,7 +16,9 @@ local sendAck = function(self, networkMessageId, peer, event, nuid)
     if not event then
         error("event is nil", 2)
     end
-    local data = { networkMessageId, event, self.networkUtils.events.acknowledgement.ack, os.clock(), nuid }
+    --networkMessageId is already cached, that's why the ack wasn't received
+    --use a new networkMessageId, but add 'ackedNetworkMessageIdFromSender' to the data
+    local data = { self.networkUtils:getNextNetworkMessageId(), event, self.networkUtils.events.acknowledgement.ack, os.clock(), nuid, networkMessageId }
     self:sendToPeer(peer, self.networkUtils.events.acknowledgement.name, data)
     --self.logger:debug(self.logger.channels.network, ("Sent ack with data = %s"):format(self.utils:pformat(data)))
 end
@@ -51,11 +53,15 @@ local onAcknowledgement = function(self, data, peer)
         error(("onAcknowledgement data.ackedAt is empty: %s"):format(data.ackedAt), 2)
     end
 
+    if self.utils:isEmpty(data.networkMessageIdToAcknowledge) then
+        error(("onAcknowledgement data.networkMessageIdToAcknowledge is empty: %s"):format(data.networkMessageIdToAcknowledge), 2)
+    end
+
     if not peer.clientCacheId then
         peer.clientCacheId = self.guidUtils:toNumber(peer.guid)
     end
 
-    local cachedData = self.networkCacheUtils:get(self.guid, data.networkMessageId, data.event)
+    local cachedData = self.networkCacheUtils:get(self.guid, data.networkMessageIdToAcknowledge, data.event)
     if self.utils:isEmpty(cachedData) then
         self.networkCacheUtils:logAll()
         error(("Unable to get cached data, because it is nil '%s'"):format(cachedData), 2)
@@ -66,7 +72,7 @@ local onAcknowledgement = function(self, data, peer)
             :format(cachedData.dataChecksum, type(cachedData.dataChecksum)), 2)
     end
     -- update previous cached network message
-    self.networkCacheUtils:ack(self.guid, data.networkMessageId, data.event,
+    self.networkCacheUtils:ack(self.guid, data.networkMessageIdToAcknowledge, data.event,
         data.status, os.clock(), cachedData.sendAt, cachedData.dataChecksum)
 
     if self.networkCache:size() > self.acknowledgeMaxSize then
@@ -171,7 +177,7 @@ end
 ---@param self Server
 ---@param data table data @see self.networkUtils.events.minaInformation.schema
 local onMinaInformation = function(self, data, peer)
-    --self.logger:debug(self.logger.channels.network, "onMinaInformation: Player info received.", self.utils:pformat(data))
+    self.logger:debug(self.logger.channels.network, ("onMinaInformation: Player info received. %s"):format(self.utils:pformat(data)))
 
     if self.utils:isEmpty(peer) then
         error(("onConnect peer is empty: %s"):format(peer), 2)
@@ -209,11 +215,10 @@ local onMinaInformation = function(self, data, peer)
         error(("onMinaInformation data.health is empty: %s"):format(data.health), 2)
     end
 
-
     if self.fileUtils:GetVersionByFile() ~= tostring(data.version) then
         error(("Version mismatch: NoitaMP version of Client: %s and your version: %s")
             :format(data.version, self.fileUtils:GetVersionByFile()), 3)
-        peer:disconnect()
+        peer:preDisconnect()
     end
 
     -- Make sure guids are unique. It's unlikely that two players have the same guid, but it can happen rarely.
@@ -295,11 +300,11 @@ local onNeedNuid = function(self, data, peer)
         error(("onNeedNuid data.currentSerialisedBinaryString is empty: %s"):format(data.currentSerialisedBinaryString), 2)
     end
 
-    local entityId                      = nil
-    local nuid                          = nil
+    local entityId = nil
+    local nuid     = nil
 
     -- find nuid by initialSerialisedBinaryString
-    nuid                                = self.nativeEntityMap.getNuidBySerializedString(data.initialSerialisedBinaryString)
+    nuid           = self.nativeEntityMap.getNuidBySerializedString(data.initialSerialisedBinaryString)
     if self.utils:isEmpty(nuid) then
         -- find entityId by initialSerialisedBinaryString, when there is no nuid
         entityId = self.nativeEntityMap.getEntityIdBySerializedString(data.initialSerialisedBinaryString)
@@ -335,11 +340,20 @@ local onNeedNuid = function(self, data, peer)
         if compId then
             EntityRemoveComponent(entityId, compId)
         end
-        compId = nil         -- maybe not needed, but let's free the memory a bit
+        compId = nil -- maybe not needed, but let's free the memory a bit
     end
 
     local initialSerialisedBinaryString = self.nativeEntityMap.getSerializedStringByEntityId(entityId)
     local currentSerialisedBinaryString = self.noitaPatcherUtils:serializeEntity(entityId)
+
+    if self.utils:isEmpty(initialSerialisedBinaryString) then
+        -- when client sent an entity the server doesn't have it's impossible to find an initialSerialisedBinaryString on server
+        -- to keep clients match mechanism working, we send the client's initialSerialisedBinaryString back
+        initialSerialisedBinaryString = data.initialSerialisedBinaryString
+    end
+
+    self.nativeEntityMap.setMappingOfEntityIdToSerialisedString(initialSerialisedBinaryString, entityId)
+    self.nativeEntityMap.setMappingOfNuidToSerialisedString(initialSerialisedBinaryString, nuid)
 
     sendAck(self, data.networkMessageId, peer, self.networkUtils.events.needNuid.name, nuid)
 
@@ -386,10 +400,10 @@ local onLostNuid = function(self, data, peer)
     end
 
     local compOwnerName, compOwnerGuid, compNuid, filename,
-    health, rotation, velocity, x, y = self.noitaComponentUtils:getEntityData(entityId)
-    local isPolymorphed              = self.entityUtils:isEntityPolymorphed(entityId)
+    health, rotation, velocity, x, y    = self.noitaComponentUtils:getEntityData(entityId)
+    local isPolymorphed                 = self.entityUtils:isEntityPolymorphed(entityId)
 
-    local currentSerialisedBinaryString     = self.noitaPatcherUtils:serializeEntity(entityId)
+    local currentSerialisedBinaryString = self.noitaPatcherUtils:serializeEntity(entityId)
     self:sendNewNuid(compOwnerName, compOwnerGuid, entityId, initialSerialisedBinaryString, compNuid, x, y,
         currentSerialisedBinaryString)
 
@@ -514,7 +528,7 @@ local onNeedModList = function(self, data, peer)
         end)
         self.modListCached = modList
     end
-    peer:preSend( self.networkUtils.events.needModList.name,
+    peer:preSend(self.networkUtils.events.needModList.name,
         { self.networkUtils:getNextNetworkMessageId(), self.modListCached.workshop, self.modListCached.external })
 end
 
@@ -1045,6 +1059,10 @@ function Server.new(address, port, maxPeers, maxChannels, inBandwidth, outBandwi
     if not serverObject.nativeEntityMap then
         ---@type NativeEntityMap
         serverObject.nativeEntityMap = nativeEntityMap or require("lua_noitamp_native")
+    end
+
+    if not serverObject.base64 then
+        serverObject.base64 = require("base64_ffi")
     end
 
     -- [[ Attributes ]]

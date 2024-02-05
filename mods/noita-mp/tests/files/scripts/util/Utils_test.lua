@@ -1,12 +1,24 @@
-TestUtil     = {}
+TestUtil = {}
+
+noitaMpSettings = noitaMpSettings or
+    require("NoitaMpSettings")
+    :new(nil, nil, {}, nil, nil, nil, nil, nil, nil)
+utils = utils or
+    require("Utils")
+    :new()
+logger = logger or
+    require("Logger")
+    :new(nil, noitaMpSettings)
 
 function TestUtil:setUp()
 
 end
 
 function TestUtil:tearDown()
-    print("\n-------------------------------------------------------------------------------------------------------------------------------------------------------")
-    print("\n-------------------------------------------------------------------------------------------------------------------------------------------------------")
+    print(
+        "\n-------------------------------------------------------------------------------------------------------------------------------------------------------")
+    print(
+        "\n-------------------------------------------------------------------------------------------------------------------------------------------------------")
 end
 
 function TestUtil:testSleep()
@@ -14,19 +26,19 @@ function TestUtil:testSleep()
 
     local seconds_to_wait  = 4
     local timestamp_before = os.clock()
-    Utils.Sleep(seconds_to_wait)
+    utils:sleep(seconds_to_wait)
     local timestamp_after = os.clock()
     local diff            = timestamp_before + seconds_to_wait
-    Logger.debug(Logger.channels.testing,("timestamp_before=%s, timestamp_after=%s, diff=%s"):format(timestamp_before, timestamp_after, diff))
+    logger:debug(logger.channels.testing, ("timestamp_before=%s, timestamp_after=%s, diff=%s"):format(timestamp_before, timestamp_after, diff))
     lu.almostEquals(diff, timestamp_after, 0.1)
 end
 
 function TestUtil:testIsEmpty()
     local tbl = {}
     table.insert(tbl, "1234")
-    lu.assertIsFalse(self.utils:isEmpty(tbl))
+    lu.assertIsFalse(utils:isEmpty(tbl))
 
-    lu.assertIsTrue(self.utils:isEmpty(nil))
-    lu.assertIsTrue(self.utils:isEmpty(""))
-    lu.assertIsTrue(self.utils:isEmpty({}))
+    lu.assertIsTrue(utils:isEmpty(nil))
+    lu.assertIsTrue(utils:isEmpty(""))
+    lu.assertIsTrue(utils:isEmpty({}))
 end

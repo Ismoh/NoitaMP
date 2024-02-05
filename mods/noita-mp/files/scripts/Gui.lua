@@ -130,7 +130,6 @@ end
 
 ---Guis update function, called every frame.
 function Gui:update()
-
     self:checkShortcuts()
     self:drawMenuBar()
 
@@ -331,6 +330,9 @@ function Gui:drawPlayMenu()
         else
             local isServerIpChanged, serverIp = self.imGui.InputTextWithHint("Server IP", "Use '*', 'localhost' or 'whatismyip.com'!",
                 self.server:getAddress())
+            if self.server:getAddress() == "0.0.0.0" then
+                serverIp = "localhost" -- enet crash, when it's 0.0.0.0 on client
+            end
             if isServerIpChanged then
                 self.server.address = serverIp
             end

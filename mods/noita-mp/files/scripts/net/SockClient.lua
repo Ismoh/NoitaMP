@@ -101,9 +101,8 @@ function SockClient:establishClient(serverOrAddress, port)
         self.address = serverOrAddress
         self.port    = port
         self.host    = enet.host_create()
-
-        -- Second form: (enet peer)
     elseif type(serverOrAddress) == "userdata" then
+        -- Second form: (enet peer)
         self.connection = serverOrAddress
         self.connectId  = self.connection:connect_id()
     end
@@ -111,7 +110,11 @@ end
 
 --- Check for network events and handle them.
 function SockClient:update()
-    local event = self.host:service(self.messageTimeout)
+    local success, event = pcall(self.host.service, self.host, self.messageTimeout)
+    if not success then
+        print("event = ", event)
+        error("event = " .. event)
+    end
 
     while event do
         if event.type == "connect" then
@@ -688,12 +691,12 @@ end
 ---@param maxChannels number|nil
 ---@return SockClient client
 function SockClient.new(address, port, maxChannels)
-    address         = address or "localhost"
-    port            = port or 14017
-    maxChannels     = maxChannels or 1
+    address             = address or "localhost"
+    port                = port or 14017
+    maxChannels         = maxChannels or 1
 
     ---@class SockClient
-    local sockClient = setmetatable({
+    local sockClient    = setmetatable({
         address            = nil,
         port               = nil,
         host               = nil,
@@ -708,7 +711,7 @@ function SockClient.new(address, port, maxChannels)
         sendChannel        = 0,
         defaultSendChannel = 0,
 
-        listener           = require("SockListener"):newListener(),--newListener(),
+        listener           = require("SockListener"):newListener(), --newListener(),
         --logger             = newLogger("CLIENT"),
 
         serialize          = nil,

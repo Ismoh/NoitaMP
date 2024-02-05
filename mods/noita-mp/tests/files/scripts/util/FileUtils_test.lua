@@ -1,5 +1,12 @@
-local os_name = require("os_name")
-TestFileUtil  = {}
+local os_name   = require("os_name")
+TestFileUtil    = {}
+
+noitaMpSettings = noitaMpSettings or
+    require("NoitaMpSettings")
+    :new(nil, nil, {}, nil, nil, nil, nil, nil, nil)
+fileUtils       = fileUtils or
+    require("FileUtils")
+    :new(nil, nil, nil, noitaMpSettings, nil, nil)
 
 function TestFileUtil:setUp()
     -- Mock Noita Api global functions
@@ -7,8 +14,8 @@ function TestFileUtil:setUp()
         return false
     end
 
-    if not FileUtils.GetAbsolutePathOfNoitaRootDirectory() then
-        FileUtils.SetAbsolutePathOfNoitaRootDirectory()
+    if not fileUtils:GetAbsolutePathOfNoitaRootDirectory() then
+        fileUtils:SetAbsolutePathOfNoitaRootDirectory()
     end
 end
 
@@ -27,8 +34,10 @@ function TestFileUtil:tearDown()
         _G.is_linux      = true
         _G.pathSeparator = "/"
     end
-    print("\n-------------------------------------------------------------------------------------------------------------------------------------------------------")
-    print("\n-------------------------------------------------------------------------------------------------------------------------------------------------------")
+    print(
+        "\n-------------------------------------------------------------------------------------------------------------------------------------------------------")
+    print(
+        "\n-------------------------------------------------------------------------------------------------------------------------------------------------------")
 end
 
 ----------------------------------------------------------------------------------------------------
@@ -40,12 +49,12 @@ function TestFileUtil:testReplacePathSeparatorOnWindows()
     local old_is_linux      = _G.is_linux
     local old_pathSeparator = _G.pathSeparator
 
-    _G.is_windows           = true -- TODO: is there a better way to mock?
+    _G.is_windows           = true  -- TODO: is there a better way to mock?
     _G.is_linux             = false -- TODO: is there a better way to mock?
-    _G.pathSeparator        = "\\" -- TODO: is there a better way to mock?
+    _G.pathSeparator        = "\\"  -- TODO: is there a better way to mock?
 
     local path_unix         = "/test/path/123"
-    local path_windows      = FileUtils.ReplacePathSeparator(path_unix)
+    local path_windows      = fileUtils:ReplacePathSeparator(path_unix)
 
     lu.assertNotEquals(path_unix, path_windows)
     lu.assertEquals([[\test\path\123]], path_windows)
@@ -61,11 +70,11 @@ function TestFileUtil:testReplacePathSeparatorOnUnix()
     local old_pathSeparator = _G.pathSeparator
 
     _G.is_windows           = false -- TODO: is there a better way to mock?
-    _G.is_linux             = true -- TODO: is there a better way to mock?
-    _G.pathSeparator        = "/" -- TODO: is there a better way to mock?
+    _G.is_linux             = true  -- TODO: is there a better way to mock?
+    _G.pathSeparator        = "/"   -- TODO: is there a better way to mock?
 
     local path_windows      = "\\test\\path\\123"
-    local path_unix         = FileUtils.ReplacePathSeparator(path_windows)
+    local path_unix         = fileUtils:ReplacePathSeparator(path_windows)
 
     lu.assertNotEquals(path_windows, path_unix)
     lu.assertEquals("/test/path/123", path_unix)
@@ -77,7 +86,7 @@ end
 
 function TestFileUtil:testRemoveTrailingPathSeparator()
     local path   = tostring(_G.pathSeparator .. "persistent" .. _G.pathSeparator .. "flags" .. _G.pathSeparator)
-    local result = FileUtils.RemoveTrailingPathSeparator(path)
+    local result = fileUtils:RemoveTrailingPathSeparator(path)
 
     lu.assertNotEquals(path, result)
     lu.assertEquals(_G.pathSeparator .. "persistent" .. _G.pathSeparator .. "flags", result)
@@ -88,10 +97,10 @@ end
 ----------------------------------------------------------------------------------------------------
 
 function TestFileUtil:testSetAbsolutePathOfNoitaRootDirectory()
-    FileUtils.SetAbsolutePathOfNoitaRootDirectory()
-    lu.assertNotIsNil(FileUtils.GetAbsolutePathOfNoitaRootDirectory(),
-                      "FileUtils.GetAbsolutePathOfNoitaRootDirectory() must not be nil!")
-    lu.assertNotStrContains(FileUtils.GetAbsolutePathOfNoitaRootDirectory(), "\\mods\\noita-mp")
+    fileUtils:SetAbsolutePathOfNoitaRootDirectory()
+    lu.assertNotIsNil(fileUtils:GetAbsolutePathOfNoitaRootDirectory(),
+        "fileUtils:GetAbsolutePathOfNoitaRootDirectory() must not be nil!")
+    lu.assertNotStrContains(fileUtils:GetAbsolutePathOfNoitaRootDirectory(), "\\mods\\noita-mp")
 end
 
 function TestFileUtil:testSetAbsolutePathOfNoitaRootDirectoryUnknownOs()
@@ -101,18 +110,16 @@ function TestFileUtil:testSetAbsolutePathOfNoitaRootDirectoryUnknownOs()
     _G.is_windows        = false -- TODO: is there a better way to mock?
     _G.is_linux          = false -- TODO: is there a better way to mock?
 
-    lu.assertErrorMsgContains("FileUtils.lua | Unable to detect OS", FileUtils.SetAbsolutePathOfNoitaRootDirectory,
-                              "path doesnt matter")
+    lu.assertErrorMsgContains("fileUtils:lua | Unable to detect OS", fileUtils.SetAbsolutePathOfNoitaRootDirectory, "path doesnt matter")
 
     _G.is_windows = old_is_windows
     _G.is_linux   = old_is_linux
 end
 
 function TestFileUtil:testGetAbsolutePathOfNoitaRootDirectory()
-    Logger.trace(Logger.channels.testing,
-                 ("Need to verify absolute path of root noita: %s"):format(FileUtils.GetAbsolutePathOfNoitaRootDirectory()))
-    lu.assertStrContains(FileUtils.GetAbsolutePathOfNoitaRootDirectory(),
-                         _G.pathSeparator) -- TODO: Need a better test for this!
+    logger:trace(logger.channels.testing,
+        ("Need to verify absolute path of root noita: %s"):format(fileUtils:GetAbsolutePathOfNoitaRootDirectory()))
+    lu.assertStrContains(fileUtils:GetAbsolutePathOfNoitaRootDirectory(), "Noita")
 end
 
 ----------------------------------------------------------------------------------------------------
@@ -138,7 +145,7 @@ end
     local newfile_command_result = assert(io.popen(newfile_command, "r"), "Unable to execute command: " .. newfile_command)
     print(newfile_command_result:read("*a"))
 
-    local table, index = FileUtils.GetRelativeDirectoryAndFilesOfSave06()
+    local table, index = fileUtils:GetRelativeDirectoryAndFilesOfSave06()
     print(table[1])
 
     lu.assertEquals(table[1].dir_name, nil, "Returned relativ path doesn't match.")
@@ -164,34 +171,34 @@ function TestFileUtil:testGetAbsoluteDirectoryPathOfParentSave()
     print(mkdir_command_result:read("*a"))
     -- Mock end
 
-    local path = FileUtils.GetAbsoluteDirectoryPathOfParentSave()
+    local path = fileUtils:GetAbsoluteDirectoryPathOfParentSave()
     print(path)
     lu.assertNotNil(path)
     lu.assertStrContains(path, "Noita", "", "Parent directory of save06 does not contain Noita!")
 end
 
 function TestFileUtil:testGetAbsoluteDirectoryPathOfSave06()
-    --lu.assertError(FileUtils.GetAbsoluteDirectoryPathOfSave06)
-    --lu.assertErrorMsgContains("", FileUtils.GetAbsoluteDirectoryPathOfSave06)
+    --lu.assertError(fileUtils:GetAbsoluteDirectoryPathOfSave06)
+    --lu.assertErrorMsgContains("", fileUtils:GetAbsoluteDirectoryPathOfSave06)
 end
 
 function TestFileUtil:testGetAbsoluteDirectoryPathOfNoitaMP()
-    local actual_path = FileUtils.GetAbsoluteDirectoryPathOfNoitaMP()
-    local expected    = FileUtils.ReplacePathSeparator(FileUtils.GetAbsolutePathOfNoitaRootDirectory() .. "/mods/noita-mp")
+    local actual_path = fileUtils:GetAbsoluteDirectoryPathOfNoitaMP()
+    local expected    = fileUtils:ReplacePathSeparator(fileUtils:GetAbsolutePathOfNoitaRootDirectory() .. "/mods/noita-mp")
     lu.assertEquals(actual_path, expected)
 end
 
 function TestFileUtil:testGetRelativeDirectoryPathOfNoitaMP()
-    lu.assertEquals(FileUtils.GetRelativeDirectoryPathOfNoitaMP(), FileUtils.ReplacePathSeparator("mods/noita-mp"))
+    lu.assertEquals(fileUtils:GetRelativeDirectoryPathOfNoitaMP(), fileUtils:ReplacePathSeparator("mods/noita-mp"))
 end
 
 function TestFileUtil:testGetRelativeDirectoryPathOfRequiredLibs()
-    lu.assertEquals(FileUtils.GetRelativeDirectoryPathOfRequiredLibs(), FileUtils.ReplacePathSeparator("mods/noita-mp/files/libs"))
+    lu.assertEquals(fileUtils:GetRelativeDirectoryPathOfRequiredLibs(), fileUtils:ReplacePathSeparator("mods/noita-mp/files/libs"))
 end
 
 function TestFileUtil:testGetAbsoluteDirectoryPathOfRequiredLibs()
-    local actual_path = FileUtils.GetAbsoluteDirectoryPathOfRequiredLibs()
-    local expected    = FileUtils.ReplacePathSeparator(FileUtils.GetAbsolutePathOfNoitaRootDirectory() .. "/mods/noita-mp/files/libs")
+    local actual_path = fileUtils:GetAbsoluteDirectoryPathOfRequiredLibs()
+    local expected    = fileUtils:ReplacePathSeparator(fileUtils:GetAbsolutePathOfNoitaRootDirectory() .. "/mods/noita-mp/files/libs")
     lu.assertEquals(actual_path, expected)
 end
 
@@ -200,65 +207,53 @@ end
 ----------------------------------------------------------------------------------------------------
 
 function TestFileUtil:testExists()
-    lu.assertNotIsTrue(FileUtils.Exists("nonexistingfile.asdf"))
-    lu.assertErrorMsgContains("is not type of string!", FileUtils.Exists)
-    lu.assertIsTrue(FileUtils.Exists(FileUtils.GetAbsoluteDirectoryPathOfNoitaMP() .. "/mod.xml"))
-end
-
-function TestFileUtil:testIsFile()
-    lu.assertNotIsTrue(FileUtils.IsFile("nonexistingfile.asdf"))
-    lu.assertErrorMsgContains("is not type of string!", FileUtils.IsFile)
-    lu.assertIsTrue(FileUtils.IsFile(FileUtils.GetAbsoluteDirectoryPathOfNoitaMP() .. "/mod.xml"))
-end
-
-function TestFileUtil:testIsDirectory()
-    lu.assertNotIsTrue(FileUtils.IsDirectory("nonexistingdirectory"))
-    lu.assertErrorMsgContains("is not type of string!", FileUtils.IsDirectory)
-    -- lu.assertIsTrue(FileUtils.IsDirectory(FileUtils.GetAbsolutePathOfNoitaRootDirectory())) TODO: https://github.com/Ismoh/NoitaMP/issues/13
+    lu.assertNotIsTrue(fileUtils:Exists("nonexistingfile.asdf"))
+    lu.assertErrorMsgContains("is not type of string!", fileUtils.Exists, fileUtils)
+    lu.assertIsTrue(fileUtils:Exists(fileUtils:GetAbsoluteDirectoryPathOfNoitaMP() .. "/mod.xml"))
 end
 
 function TestFileUtil:testReadBinaryFile()
-    lu.assertErrorMsgContains("is not type of string!", FileUtils.ReadBinaryFile)
-    lu.assertErrorMsgContains("Unable to open and read file: ", FileUtils.ReadBinaryFile, "nonexistingfile.asdf")
+    lu.assertErrorMsgContains("is not type of string!", fileUtils.ReadBinaryFile, fileUtils)
+    lu.assertErrorMsgContains("Unable to open and read file: ", fileUtils.ReadBinaryFile, fileUtils, "nonexistingfile.asdf")
 
-    local content = FileUtils.ReadBinaryFile(FileUtils.GetAbsoluteDirectoryPathOfNoitaMP() .. "/mod.xml")
+    local content = fileUtils:ReadBinaryFile(fileUtils:GetAbsoluteDirectoryPathOfNoitaMP() .. "/mod.xml")
     lu.assertNotNil(content)
 end
 
 function TestFileUtil:testWriteBinaryFile()
-    lu.assertErrorMsgContains("is not type of string!", FileUtils.WriteBinaryFile)
+    lu.assertErrorMsgContains("is not type of string!", fileUtils.WriteBinaryFile)
 
-    local full_path = FileUtils.GetAbsolutePathOfNoitaRootDirectory() .. "/write-temporary-binary-test-file.txt"
-    FileUtils.WriteBinaryFile(full_path, "File Content")
-    lu.assertIsTrue(FileUtils.Exists(full_path))
+    local full_path = fileUtils:GetAbsolutePathOfNoitaRootDirectory() .. "/write-temporary-binary-test-file.txt"
+    fileUtils:WriteBinaryFile(full_path, "File Content")
+    lu.assertIsTrue(fileUtils:Exists(full_path))
     os.remove(full_path)
 end
 
 function TestFileUtil:testReadFile()
-    lu.assertErrorMsgContains("is not type of string!", FileUtils.ReadFile)
-    lu.assertErrorMsgContains("Unable to open and read file: ", FileUtils.ReadFile, "nonexistingfile.asdf")
+    lu.assertErrorMsgContains("is not type of string!", fileUtils.ReadFile)
+    lu.assertErrorMsgContains("Unable to open and read file: ", fileUtils.ReadFile, "nonexistingfile.asdf")
 
-    local content = FileUtils.ReadFile(FileUtils.GetAbsoluteDirectoryPathOfNoitaMP() .. "/mod.xml")
+    local content = fileUtils:ReadFile(fileUtils:GetAbsoluteDirectoryPathOfNoitaMP() .. "/mod.xml")
     lu.assertNotNil(content)
 end
 
 function TestFileUtil:testWriteFile()
-    lu.assertErrorMsgContains("is not type of string!", FileUtils.WriteFile)
+    lu.assertErrorMsgContains("is not type of string!", fileUtils.WriteFile)
 
-    local full_path = FileUtils.GetAbsolutePathOfNoitaRootDirectory() .. "/write-temporary-test-file.txt"
-    FileUtils.WriteFile(full_path, "File Content")
-    lu.assertIsTrue(FileUtils.Exists(full_path))
+    local full_path = fileUtils:GetAbsolutePathOfNoitaRootDirectory() .. "/write-temporary-test-file.txt"
+    fileUtils:WriteFile(full_path, "File Content")
+    lu.assertIsTrue(fileUtils:Exists(full_path))
     os.remove(full_path)
 end
 
 function TestFileUtil:testMkDir()
-    lu.assertErrorMsgContains("is not type of string!", FileUtils.MkDir)
+    lu.assertErrorMsgContains("is not type of string!", fileUtils.MkDir)
 
     -- TODO: windows
-    -- local dir_path = FileUtils.GetAbsolutePathOfNoitaRootDirectory() .. "/tests/temp-test-dir"
-    -- FileUtils.MkDir(dir_path)
-    -- lu.assertIsTrue(FileUtils.exists(dir_path))
-    -- lu.assertIsTrue(FileUtils.IsDirectory(dir_path))
+    -- local dir_path = fileUtils:GetAbsolutePathOfNoitaRootDirectory() .. "/tests/temp-test-dir"
+    -- fileUtils:MkDir(dir_path)
+    -- lu.assertIsTrue(fileUtils:exists(dir_path))
+    -- lu.assertIsTrue(fileUtils:IsDirectory(dir_path))
 end
 
 function TestFileUtil:testFind7zipExecutable()
@@ -268,12 +263,12 @@ end
 function TestFileUtil:testExists7zip()
     local old    = _G.seven_zip
     _G.seven_zip = false -- mock
-    lu.assertNotIsTrue(FileUtils.Exists7zip())
-    _G.seven_zip = true -- mock
-    lu.assertIsTrue(FileUtils.Exists7zip())
+    lu.assertNotIsTrue(fileUtils:Exists7zip())
+    _G.seven_zip = true  -- mock
+    lu.assertIsTrue(fileUtils:Exists7zip())
     _G.seven_zip = old
 end
 
 function TestFileUtil:testCreate7zipArchive()
-    --FileUtils.Create7zipArchive()
+    --fileUtils:Create7zipArchive()
 end

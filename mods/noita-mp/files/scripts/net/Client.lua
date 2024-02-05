@@ -16,7 +16,12 @@ local sendAck = function(self, networkMessageId, event, nuid)
     if not event then
         error("event is nil", 2)
     end
-    local data = { networkMessageId, event, self.networkUtils.events.acknowledgement.ack, os.clock(), nuid }
+    if self.utils:isEmpty(nuid) or nuid <= 0 then
+        nuid = -1 -- Need to explicit add a nuid, otherwise schema/data table doesn't have a fifth entry
+    end
+    --networkMessageId is already cached, that's why the ack wasn't received
+    --use a new networkMessageId, but add 'ackedNetworkMessageIdFromSender' to the data
+    local data = { self.networkUtils:getNextNetworkMessageId(), event, self.networkUtils.events.acknowledgement.ack, os.clock(), nuid, networkMessageId }
     self:preSend(self.networkUtils.events.acknowledgement.name, data)
     --self.logger:debug(self.logger.channels.network, ("Sent ack with data = %s"):format(self.utils:pformat(data)))
 end
@@ -50,11 +55,15 @@ local onAcknowledgement = function(self, data)
         error(("onAcknowledgement data.ackedAt is empty: %s"):format(data.ackedAt), 2)
     end
 
+    if self.utils:isEmpty(data.networkMessageIdToAcknowledge) then
+        error(("onAcknowledgement data.networkMessageIdToAcknowledge is empty: %s"):format(data.networkMessageIdToAcknowledge), 2)
+    end
+
     if not self.clientCacheId then
         self.clientCacheId = self.guidUtils:toNumber(self.guid)
     end
 
-    local cachedData = self.networkCacheUtils:get(self.guid, data.networkMessageId, data.event)
+    local cachedData = self.networkCacheUtils:get(self.guid, data.networkMessageIdToAcknowledge, data.event)
     if self.utils:isEmpty(cachedData) then
         self.networkCacheUtils:logAll()
         error(("Unable to get cached data, because it is nil '%s'"):format(cachedData), 2)
@@ -65,7 +74,7 @@ local onAcknowledgement = function(self, data)
             :format(cachedData.dataChecksum, type(cachedData.dataChecksum)), 2)
     end
     -- update previous cached network message
-    self.networkCacheUtils:ack(self.guid, data.networkMessageId, data.event,
+    self.networkCacheUtils:ack(self.guid, data.networkMessageIdToAcknowledge, data.event,
         data.status, os.clock(), cachedData.sendAt, cachedData.dataChecksum)
 
     if self.networkCache:size() > self.acknowledgeMaxSize then
@@ -190,7 +199,7 @@ end
 ---@param self Client
 ---@param data table data @see self.networkUtils.events.minaInformation.schema
 local onMinaInformation = function(self, data)
-    --self.logger:debug(self.logger.channels.network, "onMinaInformation: Player info received.", self.utils:pformat(data))
+    self.logger:debug(self.logger.channels.network, ("onMinaInformation: Player info received."):format(self.utils:pformat(data)))
 
     if self.utils:isEmpty(data.networkMessageId) then
         error(("onMinaInformation data.networkMessageId is empty: %s"):format(data.networkMessageId), 2)
@@ -233,7 +242,7 @@ local onMinaInformation = function(self, data)
     if self.fileUtils:GetVersionByFile() ~= tostring(data.version) then
         error(("Version mismatch: NoitaMP version of Server: %s and your version: %s")
             :format(data.version, self.fileUtils:GetVersionByFile()), 3)
-        self.disconnect()
+        self:preDisconnect()
     end
 
     self.serverInfo.version = data.version
@@ -1017,6 +1026,10 @@ function Client.new(serverOrAddress, port, maxChannels, server, np, nativeEntity
 
     if not clientObject.entityCache then
         clientObject.entityCache = server.entityCache or error("Client:new requires a server object!", 2)
+    end
+
+    if not clientObject.base64 then
+        clientObject.base64 = require("base64_ffi")
     end
 
     --[[ Attributes ]]

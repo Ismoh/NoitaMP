@@ -88,6 +88,10 @@ function NoitaPatcherUtils:new(customProfiler, np, logger, nativeEntityMap)
         noitaPatcherUtilsObject.nativeEntityMap = nativeEntityMap or require("lua_noitamp_native")
     end
 
+    if not noitaPatcherUtilsObject.base64 then
+        noitaPatcherUtilsObject.base64 = require("base64_ffi")
+    end
+
     return noitaPatcherUtilsObject
 end
 

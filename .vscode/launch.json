@@ -16,13 +16,13 @@
       },
       "args": ["-debug_lua", "-no-console", "-luadebugger"],
       "stopOnEntry": false,
-      "cwd": "C:/Program Files (x86)/Steam/steamapps/common/Noita",
+      "cwd": "C:/Program Files (x86)/Steam/steamapps/common/Noita/",
       "env": {
         "LOCAL_LUA_DEBUGGER_VSCODE": "1"
       },
       "verbose": true,
       "pullBreakpointsSupport": true,
-      //"scriptFiles": ["${workspaceFolder}/mods/noita-mp/**/*.lua"],
+      "scriptFiles": ["${workspaceFolder}/mods/noita-mp/**/*.lua"],
       //"stepUnmappedLines": true,
       //"scriptRoots": ["${workspaceFolder}/mods/noita-mp/**/*.lua", "."]
     },

@@ -55,7 +55,11 @@ In addition to this there are some settings/configurations inside Noitas Mod Set
 | Debug settings                       |                                                                                                        |
 | Toggle debug (in game)               | Enable nuid debugger in a run. Nothing you can do with :)                                              |
 | Log level                            | Will be interesting when something isnt working, but for higher fps and performance, keep it on Error! |
- 
+
 ## Support
 
 If you need help or anything looks like to be broken, search the [issues](https://github.com/Ismoh/NoitaMP/issues?q=is%3Aissue) to find a similar problem or [create](https://github.com/Ismoh/NoitaMP/issues/new/choose) a new issue, when there really is something broken! Please do me a favour and first check the old issues. I appreciate it!
+
+## Network Errors
+
+Take a look on error codes and their meanings [here](https://learn.microsoft.com/en-us/windows/win32/debug/system-error-codes--0-499-).
