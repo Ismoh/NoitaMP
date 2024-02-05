@@ -34,6 +34,8 @@ local convertToDataType   = function(self, value, dataType)
     return tostring(value)
 end
 
+local noitamp_instance = nil
+
 ---Returns the path to the settings file.
 ---@private
 ---@param self NoitaMpSettings required
@@ -50,19 +52,47 @@ local getSettingsFilePath = function(self)
             if self.fileUtils:Exists(path) and not once then
                 defaultSettings = self.fileUtils:ReadFile(path)
             end
-            -- TODO: add a file to determine if this session is the first one, it's called 'initNoitaMpSettingsFirst'.
-            -- TODO: If it DOESN'T exist, then create the settings file for the server inside local directory.
-            -- TODO: If it DOES exist, then create the settings file for the client inside local directory.
             path = ("%s%slocal%ssettings-%s.json")
                 :format(self.fileUtils:GetAbsolutePathOfNoitaMpSettingsDirectory(), pathSeparator, pathSeparator, self.winapi.get_current_pid())
             if defaultSettings then
                 self.fileUtils:WriteFile(path, defaultSettings)
                 once = true
             end
-        end
 
-        self.checkForMultipleNoitaInstances = false
-        self.settingsFilePath = path
+            self.settingsFilePath = path
+            self.checkForMultipleNoitaInstances = false
+
+            if self.utils:isEmpty(self.cachedSettings) then
+                if self.fileUtils:Exists(self.settingsFilePath) then
+                    self:load()
+                    self:set("noita-mp.pid", self.winapi.get_current_pid())
+                end
+            end
+
+            if os.getenv("NOITAMP_INSTANCE") and not noitamp_instance or test then
+                print(("NoitaMpSettings found NOITAMP_INSTANCE: %s type %s"):format(os.getenv("NOITAMP_INSTANCE"), type(os.getenv("NOITAMP_INSTANCE"))))
+                local serverGuid = self.guidUtils:generateNewGuid()
+                if os.getenv("NOITAMP_INSTANCE") == "0" then -- os.getenv returns strings
+                    noitamp_instance = 0
+                    local serverNickname = "Server"
+                    self:set("noita-mp.nickname", serverNickname)
+                    print(("NoitaMpSettings sets server NICKNAME automatically: %s"):format(serverNickname))
+                    self:set("noita-mp.guid", serverGuid)
+                    print(("NoitaMpSettings sets server GUID automatically: %s"):format(serverGuid))
+                else
+                    noitamp_instance = os.getenv("NOITAMP_INSTANCE")
+                    local clientNickname = "Client"
+                    local clientGuid = self.guidUtils:generateNewGuid({ serverGuid })
+                    self:set("noita-mp.nickname", clientNickname)
+                    print(("NoitaMpSettings sets client NICKNAME automatically: %s"):format(clientNickname))
+                    self:set("noita-mp.guid", clientGuid)
+                    print(("NoitaMpSettings sets client GUID automatically: %s"):format(clientGuid))
+                end
+            else
+                print("No NOITAMP_INSTANCE found!")
+            end
+            self:save()
+        end
     end
     return path
 end
@@ -106,8 +136,10 @@ function NoitaMpSettings:set(key, value)
     end
 
     local settingsFilePath = getSettingsFilePath(self)
-    if self.utils:isEmpty(self.cachedSettings) or not self.fileUtils:Exists(settingsFilePath) then
-        self:load()
+    if self.utils:isEmpty(self.cachedSettings) then
+        if self.fileUtils:Exists(settingsFilePath) then
+            self:load()
+        end
     end
 
     self.cachedSettings[key] = value
@@ -157,6 +189,11 @@ function NoitaMpSettings:save()
     end
 
     self.fileUtils:WriteFile(settingsFilePath, self.json.encode(self.cachedSettings))
+
+    if not self.settingsFileExists then
+        self.settingsFileExists = self.fileUtils:Exists(settingsFilePath)
+    end
+
     if self.gui and self.gui.setShowSettingsSaved then
         self.gui:setShowSettingsSaved(true)
     end
@@ -172,8 +209,9 @@ end
 ---@param logger Logger|nil
 ---@param utils Utils|nil
 ---@param winapi winapi|nil
+---@param guidUtils GuidUtils|nil
 ---@return NoitaMpSettings
-function NoitaMpSettings:new(noitaMpSettings, customProfiler, gui, fileUtils, json, lfs, logger, utils, winapi)
+function NoitaMpSettings:new(noitaMpSettings, customProfiler, gui, fileUtils, json, lfs, logger, utils, winapi, guidUtils)
     ---@class NoitaMpSettings
     noitaMpSettings = setmetatable(noitaMpSettings or self, NoitaMpSettings)
 
@@ -220,6 +258,13 @@ function NoitaMpSettings:new(noitaMpSettings, customProfiler, gui, fileUtils, js
             require("FileUtils")
             :new(nil, noitaMpSettings.customProfiler, noitaMpSettings.logger, noitaMpSettings, nil,
                 noitaMpSettings.utils)
+    end
+
+    if not noitaMpSettings.guidUtils then
+        noitaMpSettings.guidUtils = guidUtils or
+            require("GuidUtils")
+            :new(nil, noitaMpSettings.customProfiler, noitaMpSettings.fileUtils,
+                noitaMpSettings.logger, nil, nil, nil, nil)
     end
 
     return noitaMpSettings
