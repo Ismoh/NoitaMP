@@ -204,7 +204,7 @@ function EntityUtils:syncEntities(startFrameTime, server, client)
             end
 
             if self.include.byFilename[filename] or
-                table.contains(EntityUtils.include.byFilename, filename) or
+                table.contains(self.include.byFilename, filename) or
                 findByFilename(self, filename, self.include.byFilename)
             then
                 exclude = false
@@ -228,15 +228,16 @@ function EntityUtils:syncEntities(startFrameTime, server, client)
             --
             local hasNuid, nuid = self.networkVscUtils:hasNuidSet(entityId)
             if not self.networkVscUtils:isNetworkEntityByNuidVsc(entityId) or
-                not self.networkVscUtils:hasNetworkLuaComponents(entityId)
+                not self.networkVscUtils:hasNetworkLuaComponents(entityId) or
+                nuid <= 0
             then
                 local ownerName = self.minaUtils:getLocalMinaName()
                 local ownerGuid = self.minaUtils:getLocalMinaGuid()
 
-                if server and not hasNuid then
+                if server and not hasNuid or nuid <= 0 then
                     nuid = self.nuidUtils:getNextNuid()
                     -- Server.sendNewNuid this will be executed below
-                elseif client and not hasNuid then
+                elseif client and not hasNuid or nuid <= 0 then
                     client:sendNeedNuid(ownerName, ownerGuid, entityId)
                 else
                     error("Unable to get whoAmI()!", 2)

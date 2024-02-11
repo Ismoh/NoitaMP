@@ -133,8 +133,9 @@ end
 function SockServer:update()
     local success, event = pcall(self.host.service, self.host, self.messageTimeout)
     if not success then
-        print("event = ", event)
-        error("event = " .. event)
+        print("self.host.service errors for no reason = ", event)
+        print("Skipping SockServer:update for one frame!")
+        return
     end
 
     while event do
@@ -175,7 +176,12 @@ function SockServer:update()
                 ("event = %s, type = %s, data = %s, peer = %s"):format(event, event.type, event.data, event.peer))
         end
 
-        event = self.host:service(self.messageTimeout)
+        local success, event = pcall(self.host.service, self.host, self.messageTimeout)
+        if not success then
+            print("self.host.service errors for no reason = ", event)
+            print("Skipping SockServer:update for one frame!")
+            return
+        end
     end
 end
 

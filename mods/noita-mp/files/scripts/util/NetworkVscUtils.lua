@@ -421,7 +421,7 @@ function NetworkVscUtils:addOrUpdateAllVscs(entityId, ownerName, ownerGuid, nuid
                 componentIdForNuidDebugger, componentIdForNuidUpdater), 2)
     end
 
-    return componentIdForOwnerName, componentIdForOwnerGuid, componentIdForNuid, componentIdForNuidDebugger, componentIdForNuidUpdater--[[,
+    return componentIdForOwnerName, componentIdForOwnerGuid, componentIdForNuid, componentIdForNuidDebugger, componentIdForNuidUpdater --[[,
         componentIdForSpawnX, componentIdForSpawnY]]
 end
 
@@ -484,9 +484,6 @@ function NetworkVscUtils:isNetworkEntityByNuidVsc(entityId)
     if not componentId then
         componentId = -1
     end
-    if nuid == 0 or nuid == -1 then
-        value = nil
-    end
     return true, componentId, nuid
 end
 
@@ -524,11 +521,31 @@ function NetworkVscUtils:hasNetworkLuaComponents(entityId)
     return has
 end
 
-function NetworkVscUtils:new(networkVscUtilsObject, customProfiler, logger, server, globalsUtils, utils)
+--- Returns the nuid of an entity. Basically the same as NetworkVscUtils:hasNuidSet, but returns -1 if there is no nuid set.
+---@param entityId number required
+---@return number|-1 nuid Returns the nuid of an entity or -1 if there is no nuid set.
+function NetworkVscUtils:getStoredNuid(entityId)
+    local exists, nuid = self:hasNuidSet(entityId)
+    if exists and nuid then
+        return nuid
+    end
+    return -1
+end
+
+--- NetworkVscUtils constructor
+---@param networkVscUtilsObject NetworkVscUtils|nil optional instance to use as base
+---@param noitaMpSettings NoitaMpSettings required
+---@param customProfiler CustomProfiler|nil optional
+---@param logger Logger|nil optional
+---@param server Server required
+---@param globalsUtils GlobalsUtils required
+---@param utils Utils|nil optional
+---@return NetworkVscUtils
+function NetworkVscUtils:new(networkVscUtilsObject, noitaMpSettings, customProfiler, logger, server, globalsUtils, utils)
     ---@class NetworkVscUtils
     networkVscUtilsObject = setmetatable(networkVscUtilsObject or self, NetworkVscUtils)
 
-    if not customProfiler then
+    if not noitaMpSettings.customProfiler then
         error("NetworkVscUtils:new needs a CustomProfiler parameter!", 2)
     end
 
@@ -538,7 +555,8 @@ function NetworkVscUtils:new(networkVscUtilsObject, customProfiler, logger, serv
     if not networkVscUtilsObject.customProfiler then
         ---@see CustomProfiler
         ---@type CustomProfiler
-        networkVscUtilsObject.customProfiler = customProfiler or error("NetworkVscUtils:new needs a CustomProfiler parameter!", 2)
+        networkVscUtilsObject.customProfiler = noitaMpSettings.customProfiler or
+            error("NetworkVscUtils:new needs a CustomProfiler parameter!", 2)
     end
 
     if not networkVscUtilsObject.logger then
@@ -546,25 +564,28 @@ function NetworkVscUtils:new(networkVscUtilsObject, customProfiler, logger, serv
         ---@type Logger
         networkVscUtilsObject.logger = logger or
             require("Logger")
-            :new(nil, customProfiler)
+            :new(nil, noitaMpSettings)
     end
 
     if not networkVscUtilsObject.server then
         ---@see Server
         ---@type Server
-        networkVscUtilsObject.server = server or error("NetworkVscUtils:new needs a Server parameter!", 2)
+        networkVscUtilsObject.server = server or
+            error("NetworkVscUtils:new needs a Server parameter!", 2)
     end
 
     if not networkVscUtilsObject.globalsUtils then
         ---@see GlobalsUtils
         ---@type GlobalsUtils
-        networkVscUtilsObject.globalsUtils = globalsUtils or error("NetworkVscUtils:new needs a GlobalsUtils parameter!", 2)
+        networkVscUtilsObject.globalsUtils = globalsUtils or
+            error("NetworkVscUtils:new needs a GlobalsUtils parameter!", 2)
     end
 
     if not networkVscUtilsObject.utils then
         ---@see Utils
         ---@type Utils
-        networkVscUtilsObject.utils = utils or error("NetworkVscUtils:new needs a Utils parameter!", 2)
+        networkVscUtilsObject.utils = utils or
+            require("Utils"):new()
     end
 
     --[[ Attributes ]]

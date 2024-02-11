@@ -21,7 +21,7 @@ local sendAck = function(self, networkMessageId, event, nuid)
     end
     --networkMessageId is already cached, that's why the ack wasn't received
     --use a new networkMessageId, but add 'ackedNetworkMessageIdFromSender' to the data
-    local data = { self.networkUtils:getNextNetworkMessageId(), event, self.networkUtils.events.acknowledgement.ack, os.clock(), nuid, networkMessageId }
+    local data = { self.networkUtils:getNextNetworkMessageId(), event, self.networkUtils.events.acknowledgement.status.ack, os.clock(), nuid, networkMessageId }
     self:preSend(self.networkUtils.events.acknowledgement.name, data)
     --self.logger:debug(self.logger.channels.network, ("Sent ack with data = %s"):format(self.utils:pformat(data)))
 end
@@ -105,7 +105,7 @@ local onConnect = function(self, data)
 
     self:preSend(self.networkUtils.events.needModList.name, { self.networkUtils:getNextNetworkMessageId(), {}, {} })
 
-    -- sendAck(self, data.networkMessageId)
+    --sendAck(self, data.networkMessageId, self.networkUtils.events.connect.name, nil)
 end
 
 
@@ -806,7 +806,7 @@ function Client:preSend(event, data)
     if event ~= self.networkUtils.events.acknowledgement.name then
         if self.networkUtils.events[event].isCacheable == true then
             self.networkCacheUtils:set(self.guid, networkMessageId, event,
-                self.networkUtils.events.acknowledgement.sent, 0, os.clock(), data)
+                self.networkUtils.events.acknowledgement.status.sent, 0, os.clock(), data)
         end
     end
     return true

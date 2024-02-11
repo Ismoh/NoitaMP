@@ -18,7 +18,7 @@ function TestTableExtensions:test_contains()
     local peerGuid = guidUtils:generateNewGuid()
     local networkMessageId = networkUtils:getNextNetworkMessageId()
     local event = networkUtils.events.connect2.name
-    local status = networkUtils.events.acknowledgement.sent
+    local status = networkUtils.events.acknowledgement.status.sent
     local ackedAt = 0
     local sendAt = os.clock()
     local data = { networkMessageId, "PlayerName", "PlayerGuid" }

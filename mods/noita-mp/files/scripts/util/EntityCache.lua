@@ -13,6 +13,20 @@ function EntityCache:set(entityId, nuid, ownerGuid, ownerName, filepath, x, y, r
             maxHealth)
     end
     if not self.cache[entityId] then
+        ---@meta 'EntityCacheEntry'
+        ---@class EntityCacheEntry
+        ---@field entityId number cached entity id
+        ---@field nuid number cached entity nuid
+        ---@field ownerGuid string cached entity owner guid
+        ---@field ownerName string cached entity owner name
+        ---@field filename string cached entity filename
+        ---@field x number cached entity x position
+        ---@field y number cached entity y position
+        ---@field rotation number cached entity rotation
+        ---@field velX number cached entity x velocity
+        ---@field velY number cached entity y velocity
+        ---@field currentHealth number cached entity current health
+        ---@field maxHealth number cached entity max health
         self.cache[entityId] = {
             entityId      = entityId,
             nuid          = nuid,
@@ -44,6 +58,9 @@ function EntityCache:contains(entityId)
     return false
 end
 
+--- Returns the entity cache entry for the given entityId
+---@param entityId number required
+---@return EntityCacheEntry|nil entity cache entry or nil if not exists
 function EntityCache:get(entityId)
     if self.usingC then
         return EntityCacheC.get(entityId)

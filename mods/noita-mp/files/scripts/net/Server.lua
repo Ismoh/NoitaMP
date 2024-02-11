@@ -18,7 +18,7 @@ local sendAck = function(self, networkMessageId, peer, event, nuid)
     end
     --networkMessageId is already cached, that's why the ack wasn't received
     --use a new networkMessageId, but add 'ackedNetworkMessageIdFromSender' to the data
-    local data = { self.networkUtils:getNextNetworkMessageId(), event, self.networkUtils.events.acknowledgement.ack, os.clock(), nuid, networkMessageId }
+    local data = { self.networkUtils:getNextNetworkMessageId(), event, self.networkUtils.events.acknowledgement.status.ack, os.clock(), nuid, networkMessageId }
     self:sendToPeer(peer, self.networkUtils.events.acknowledgement.name, data)
     --self.logger:debug(self.logger.channels.network, ("Sent ack with data = %s"):format(self.utils:pformat(data)))
 end
@@ -636,7 +636,7 @@ function Server:send(peer, event, data)
     if event ~= self.networkUtils.events.acknowledgement.name then
         if self.networkUtils.events[event].isCacheable == true then
             self.networkCacheUtils:set(peer.guid, networkMessageId, event,
-                self.networkUtils.events.acknowledgement.sent, 0, os.clock(), data)
+                self.networkUtils.events.acknowledgement.status.sent, 0, os.clock(), data)
         end
     end
     return true
@@ -963,7 +963,7 @@ function Server.new(address, port, maxPeers, maxChannels, inBandwidth, outBandwi
     if not serverObject.networkVscUtils then
         ---@type NetworkVscUtils
         serverObject.networkVscUtils = require("NetworkVscUtils")
-            :new(nil, serverObject.customProfiler, serverObject.logger, serverObject,
+            :new(nil, serverObject.noitaMpSettings, serverObject.customProfiler, serverObject.logger, serverObject,
                 serverObject.globalsUtils, serverObject.utils)
     end
 

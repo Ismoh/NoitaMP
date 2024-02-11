@@ -148,7 +148,7 @@ local fileUtils = require("FileUtils")
 local globalsUtils = require("GlobalsUtils")
     :new(nil, customProfiler, logger, {}, utils)
 local networkVscUtils = require("NetworkVscUtils")
-    :new(nil, customProfiler, logger, {}, globalsUtils, utils)
+    :new(nil, noitaMpSettings, customProfiler, logger, {}, globalsUtils, utils)
 local minaUtils = require("MinaUtils")
     :new(nil, customProfiler, globalsUtils, logger, networkVscUtils,
         noitaMpSettings, utils)

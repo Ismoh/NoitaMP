@@ -250,6 +250,11 @@ function pprint.pformat(obj, option, printer)
     local formatter = {}
     local function format(v)
         local f = formatter[type(v)]
+        if type(v) == "string" then
+            if string.match(v, '[^ -~\n\t]') then -- string contains binary characters
+                f = formatter['binary_string']
+            end
+        end
         f = f or formatter.table -- allow patched type()
         if option.filter_function and option.filter_function(v, nil, nil) then
             return ''
@@ -268,6 +273,15 @@ function pprint.pformat(obj, option, printer)
 
     local function nop_formatter(v)
         return ''
+    end
+
+    local function binary_string_formatter(v)
+--        local s = ""
+--        for x in v:gmatch("%G") do
+--            s = string.format("%s%s", s,string.byte(x))
+--        end
+--        return s
+	return "binary_string"
     end
 
     local function make_fixed_formatter(t, has_cache)
@@ -451,6 +465,7 @@ function pprint.pformat(obj, option, printer)
     formatter['userdata'] = option.show_userdata and make_fixed_formatter('userdata', option.object_cache) or nop_formatter
     formatter['string'] = option.show_string and string_formatter or nop_formatter
     formatter['table'] = option.show_table and table_formatter or nop_formatter
+    formatter['binary_string'] = option.show_string and binary_string_formatter or nop_formatter
 
     if option.object_cache then
         -- needs to visit the table before start printing

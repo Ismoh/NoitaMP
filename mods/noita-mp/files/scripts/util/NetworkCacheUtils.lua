@@ -49,6 +49,7 @@ end
 --- Creates a new network cache entry.
 ---@param peerGuid string peer.guid
 ---@param networkMessageId number
+---@return string dataChecksum
 function NetworkCacheUtils:set(peerGuid, networkMessageId, event, status, ackedAt, sendAt, data)
     if not peerGuid or self.utils:isEmpty(peerGuid) or type(peerGuid) ~= "string" then
         error(("peerGuid '%s' must not be nil or empty or isn't type of string!"):format(peerGuid), 2)
@@ -115,7 +116,7 @@ end
 ---@param peerGuid string
 ---@param networkMessageId number
 ---@param event string
----@return table|nil data { ackedAt, dataChecksum, event, messageId, sendAt, status}
+---@return NetworkCacheEntry|nil data
 function NetworkCacheUtils:get(peerGuid, networkMessageId, event)
     if not peerGuid or self.utils:isEmpty(peerGuid) or type(peerGuid) ~= "string" then
         error(("peerGuid '%s' must not be nil or empty or isn't type of string!"):format(peerGuid), 2)
@@ -177,6 +178,27 @@ function NetworkCacheUtils:getByChecksum(peerGuid, event, data)
         ("Get nCache by clientCacheId %s, dataChecksum %s, event %s, cacheData %s")
         :format(clientCacheId, dataChecksum, event, self.utils:pformat(cacheData)))
     return cacheData
+end
+
+--- Returns the md5 checksum of the data.
+---@param event string @see NetworkUtils.events
+---@param data table @see NetworkUtils.schema[event]
+---@return string dataChecksum
+function NetworkCacheUtils:getMd5Checksum(event, data)
+    if not event or self.utils:isEmpty(event) or type(event) ~= "string" then
+        error(("event '%s' must not be nil or empty or isn't type of string!"):format(utils:pformat(event)), 2)
+    end
+    if not data or self.utils:isEmpty(data) or type(data) ~= "table" then
+        error(("data '%s' must not be nil or empty or isn't type of table!"):format(utils:pformat(data)), 2)
+    end
+
+    if not self.networkUtils.events[event].isCacheable then
+        error(("Event '%s' shouldn't be cached!"):format(event), 2)
+    end
+
+    local sum          = self:getSum(event, data)
+    local dataChecksum = ("%s"):format(self.md5.sumhexa(sum))
+    return dataChecksum
 end
 
 --- Sets a acknoledgement for a cached network message.

@@ -43,7 +43,7 @@ server = server or {}
 ---@type NetworkVscUtils
 networkVscUtils = networkVscUtils or
     dofile_once("mods/noita-mp/files/scripts/util/NetworkVscUtils.lua")
-    :new(nil, logger.noitaMpSettings.customProfiler, logger, server, globalsUtils, {
+    :new(nil, noitaMpSettings, noitaMpSettings.customProfiler, logger, server, globalsUtils, {
         isEmpty = function(self, var)
             if var == nil then
                 return true

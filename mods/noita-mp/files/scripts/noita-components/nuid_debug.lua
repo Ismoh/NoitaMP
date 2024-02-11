@@ -33,7 +33,7 @@ globalsUtils = globalsUtils or
 ---@type NetworkVscUtils
 networkVscUtils = networkVscUtils or
     dofile_once("mods/noita-mp/files/scripts/util/NetworkVscUtils.lua")
-    :new(nil, logger.customProfiler, logger, {}, globalsUtils, globalsUtils.utils)
+    :new(nil, noitaMpSettings, noitaMpSettings.customProfiler, logger, {}, globalsUtils, globalsUtils.utils)
 
 ---@type NoitaComponentUtils
 noitaComponentUtils = noitaComponentUtils or

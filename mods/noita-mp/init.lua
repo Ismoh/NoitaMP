@@ -148,11 +148,13 @@ local function setSeedIfConnectedSecondTime()
     end
 end
 
-
 function OnModPreInit()
     setSeedIfConnectedSecondTime()
     print(("NoitaMP %s"):format(fileUtils:GetVersionByFile()))
     OnEntityLoaded()
+    if ModIsEnabled("component-explorer") then
+        ModLuaFileAppend("mods/component-explorer/entity_list.lua", "mods/noita-mp/files/scripts/extensions/componentExplorerExtension.lua")
+    end
 end
 
 function OnWorldInitialized()

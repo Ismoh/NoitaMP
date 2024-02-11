@@ -332,6 +332,7 @@ function Gui:drawPlayMenu()
                 self.server:getAddress())
             if self.server:getAddress() == "0.0.0.0" then
                 serverIp = "localhost" -- enet crash, when it's 0.0.0.0 on client
+                isServerIpChanged = true
             end
             if isServerIpChanged then
                 self.server.address = serverIp
@@ -343,7 +344,7 @@ function Gui:drawPlayMenu()
             end
 
             self.imGui.Separator()
-            if self.imGui.Button("Join self.server..") then
+            if self.imGui.Button("Join..") then
                 self.client:preConnect(serverIp, tonumber(serverPort))
                 self.showPlayMenu = false
             end

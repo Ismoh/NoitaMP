@@ -15,7 +15,7 @@ local NetworkCache = {
 ---@param ackedAt ?
 ---@param sendAt ?
 ---@param dataChecksum string
----@return
+---@return cachedData NetworkCacheEntry
 function NetworkCache:set(clientCacheId, networkMessageId, event, status, ackedAt, sendAt, dataChecksum)
     if self.utils:isEmpty(clientCacheId) or type(clientCacheId) ~= "number" then
         error(("clientCacheId must not be nil or empty '%s' or type is not number '%s'")
@@ -52,6 +52,16 @@ function NetworkCache:set(clientCacheId, networkMessageId, event, status, ackedA
     if not self.cache[clientCacheId] then
         self.cache[clientCacheId] = {}
     end
+
+    ---@meta 'NetworkCacheEntry'
+    ---@class NetworkCacheEntry
+    ---@field clientCacheId number the clientCacheId of the message @see GuidUtils.toNumber
+    ---@field networkMessageId number
+    ---@field event string the event name @see NetworkUtils.events
+    ---@field status string ack, sent, resent, cancelled
+    ---@field ackedAt number os.clock() when the message was acked
+    ---@field sendAt number os.clock() when the message was sent
+    ---@field resentCount number how many times the message was resent, max 3
     self.cache[clientCacheId][networkMessageId] = {
         clientCacheId    = clientCacheId,
         networkMessageId = networkMessageId,
@@ -59,7 +69,8 @@ function NetworkCache:set(clientCacheId, networkMessageId, event, status, ackedA
         status           = status,
         ackedAt          = ackedAt,
         sendAt           = sendAt,
-        dataChecksum     = dataChecksum
+        dataChecksum     = dataChecksum,
+        resentCount      = 0
     }
 end
 

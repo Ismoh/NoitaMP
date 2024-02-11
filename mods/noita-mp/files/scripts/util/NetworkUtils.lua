@@ -34,8 +34,11 @@ local NetworkUtils = {
         acknowledgement = {
             name              = "acknowledgement",
             schema            = { "networkMessageId", "event", "status", "ackedAt", "nuid", "networkMessageIdToAcknowledge" },
-            ack               = "ack",
-            sent              = "sent",
+            status            = {
+                ack       = "ack",
+                sent      = "sent",
+                cancelled = "cancelled" -- after 3 resents the message will be ignored
+            },
             resendIdentifiers = { "networkMessageId", "status", "networkMessageIdToAcknowledge" },
             isCacheable       = false
         },
@@ -74,7 +77,7 @@ local NetworkUtils = {
             resendIdentifiers = { "ownerName", "ownerGuid", "localEntityId", "initialSerialisedBinaryString", "nuid" },
 
             --- identifier whether to cache this message, if it wasn't acknowledged
-            isCacheable       = true,
+            isCacheable       = true
         },
         --- needNuid is used to ask for a nuid from client to servers
         needNuid        = {
@@ -141,9 +144,11 @@ function NetworkUtils:checkSchemaOrder(event, data)
     if DebugGetIsDevBuild() then
         local result = self:zipTable(data, self.events[event].schema, event)
         if table.size(result) ~= table.size(data) then
-            error(("Something wrong with network event schema! event %s, data %s and result %s"):format(event, data, result), 2)
+            error(
+            ("Something wrong with network event schema! event %s, data %s and result %s"):format(event, self.utils.pformat(data),
+                self.utils.pformat(result)), 2)
         end
-        result = nil
+        result = nil -- free memory
     end
 end
 
@@ -223,7 +228,6 @@ end
 ---@param data table
 ---@return boolean
 function NetworkUtils:alreadySent(peer, event, data)
-    -- TODO error("FIX ME!",2)
     if not peer then
         error("'peer' must not be nil! When Server, then peer or Server.clients[i]. When Client, then self.", 2)
     end
@@ -241,7 +245,7 @@ function NetworkUtils:alreadySent(peer, event, data)
 
     if self.utils:isEmpty(peer.clientCacheId) then
         self.logger:info(self.logger.channels.testing, ("peer.guid = '%s'"):format(peer.guid))
-        peer.clientCacheId = self.guidUtils:toNumber(peer.guid) --error("peer.clientCacheId must not be nil!", 2)
+        peer.clientCacheId = self.guidUtils:toNumber(peer.guid)
     end
 
     local clientCacheId    = peer.clientCacheId
@@ -257,14 +261,14 @@ function NetworkUtils:alreadySent(peer, event, data)
     end
 
     --[[ if the network message is already stored ]]
-    --
     local message = self.networkCacheUtils:get(peer.guid, networkMessageId, event)
     if message ~= nil then
         -- print(("Got message %s by cache with clientCacheId '%s', event '%s' and networkMessageId '%s'")
         --     :format(message, clientCacheId, event, networkMessageId))
-        if message.status == self.events.acknowledgement.ack then
+        if message.status == self.events.acknowledgement.status.ack then
             -- print(("Got message %s by cache with clientCacheId '%s', event '%s' and networkMessageId '%s'")
             --     :format(message, clientCacheId, event, networkMessageId))
+            message.resentCount = 3
             return true
         end
     else
@@ -275,11 +279,21 @@ function NetworkUtils:alreadySent(peer, event, data)
     --- Compare if the current data matches the cached checksum
     local matchingData = self.networkCacheUtils:getByChecksum(peer.guid, event, data)
     if matchingData ~= nil then
-        if matchingData.status == self.events.acknowledgement.sent then
+        if matchingData.status == self.events.acknowledgement.status.sent then
             local now = GameGetRealWorldTimeSinceStarted()
             local diff = now - matchingData.sendAt
             if diff >= peer:getRoundTripTime() then
                 print(("Resend after %s ms: %s"):format(diff, self.utils:pformat(data)))
+                -- Stop resending after 3 times
+                if matchingData.resentCount >= 3 then
+                    self.networkCacheUtils:ack(peer.guid, matchingData.networkMessageId, matchingData.event,
+                        self.events.acknowledgement.status.cancelled, os.clock(), matchingData.sendAt,
+                        self.networkCacheUtils:getMd5Checksum(event, data))
+                    print(("Resending will be cancelled after 3 times after %s ms: %s"):format(diff, self.utils:pformat(data)))
+                    return true
+                end
+
+                matchingData.resentCount = matchingData.resentCount + 1
                 return false
             end
         end

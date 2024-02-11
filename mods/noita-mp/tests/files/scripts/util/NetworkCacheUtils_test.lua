@@ -65,7 +65,7 @@ function TestNetworkCacheUtils:testSet()
     local networkMessageId = networkUtils:getNextNetworkMessageId()
     local data             = { networkMessageId, { name = "test", guid = guid }, 1234, 3, 1.2, 3.4, 0.5, { 12, 3 }, "/test/filename.xml", { current = 57, max = 100 }, false }
     local expectedChecksum = networkCacheUtils:set(guid, networkMessageId, networkUtils.events.newNuid.name,
-        networkUtils.events.acknowledgement.sent, 0, os.clock(), data)
+        networkUtils.events.acknowledgement.status.sent, 0, os.clock(), data)
     local cached           = networkCacheUtils:get(guid, networkMessageId, networkUtils.events.newNuid.name)
     lu.assertEquals(cached.dataChecksum, expectedChecksum)
 
@@ -74,7 +74,7 @@ function TestNetworkCacheUtils:testSet()
     local data2             = { networkMessageId2 --[[ different ]], { name = "test2", guid = guid2 }, 1234, 5 --[[ different ]], 1.2, 3.4, 0.5, { 12, 3 },
         "/test/filename.xml", { current = 57, max = 100 }, false }
     local expectedChecksum2 = networkCacheUtils:set(guid2, networkMessageId2, networkUtils.events.newNuid.name,
-        networkUtils.events.acknowledgement.sent, 0, os.clock(), data2)
+        networkUtils.events.acknowledgement.status.sent, 0, os.clock(), data2)
     local cached2           = networkCacheUtils:getByChecksum(guid2, networkUtils.events.newNuid.name, data2)
     lu.assertEquals(cached2.dataChecksum, expectedChecksum2)
 end

@@ -3,6 +3,9 @@ on:
   schedule:
     # Weekly on saturday at 00:00 UTC
     - cron: "0 0 * * 6"
+  push:
+    branches:
+      - dependency-updates
 
 jobs:
   update-dependencies:
@@ -10,7 +13,7 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           ref: develop
           fetch-depth: 0
@@ -107,14 +110,19 @@ jobs:
           echo "Latest release was created at $releaseCreatedAt"
           echo ($releaseCreatedAt -lt $creationTime)
 
-          if ($releaseCreatedAt -lt $creationTime) {
+          $tagName = gh release view --repo dextercd/NoitaPatcher --json tagName --jq .tagName
+          $currentTagName = Get-Content -Path ${{ github.workspace }}\mods\noita-mp\lua_modules\lib\lua\5.1\noitapatcher.version
+
+          echo "NoitaPatcher release tagName is $TagName"
+
+          if ($releaseCreatedAt -lt $creationTime AND $tagName -eq $currentTagName) {
             echo "NoitaPatcher is up to date"
             Exit 0
           } else {
+            echo "NoitaPatcher is not up to date, downloading latest release $tagName .."
             gh release download --repo dextercd/NoitaPatcher --pattern "*.zip" --dir "${{ github.workspace }}\temp"
           }
 
-          $tagName = gh release view --repo dextercd/NoitaPatcher --json tagName --jq .tagName
           $tagName | Out-File -FilePath ${{ github.workspace }}\mods\noita-mp\lua_modules\lib\lua\5.1\noitapatcher.version
 
           Expand-Archive -Path "${{ github.workspace }}\temp\NoitaPatcher*.zip" -DestinationPath "${{ github.workspace }}\temp" -Force
