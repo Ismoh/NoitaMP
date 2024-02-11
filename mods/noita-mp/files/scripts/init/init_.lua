@@ -25,7 +25,7 @@ local checkMandatoryDependencyMods = function(fileUtils, utils)
         error("Please install NoitaDearImGui mod: https://github.com/dextercd/Noita-Dear-ImGui/releases/tag/release-1.9.0", 2)
     end
     if not fileUtils:Exists(("%s\\lua_modules\\lib\\lua\\5.1\\noitapatcher.dll"):format(fileUtils:GetAbsoluteDirectoryPathOfNoitaMP())) then
-        error("Please install NoitaPatcher mod: https://github.com/dextercd/NoitaPatcher/releases/tag/release-1.10.1", 2)
+        error("Please install NoitaPatcher mod: https://github.com/dextercd/NoitaPatcher/releases/latest", 2)
     end
     -- if not FileUtils.Exists(("%s\\..\\nsew"):format(FileUtils.GetAbsoluteDirectoryPathOfNoitaMP())) then
     --     error("Please install NSEW mod: https://github.com/dextercd/Noita-Synchronise-Expansive-Worlds/releases/tag/release-0.0.5", 2)

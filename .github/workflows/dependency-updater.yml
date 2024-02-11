@@ -96,7 +96,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           $noitaptacherPath = "${{ github.workspace }}\mods\noita-mp\lua_modules\lib\lua\5.1\noitapatcher\noitapatcher.dll"
-          $noitaptacherDirectroyPath = "${{ github.workspace }}\mods\noita-mp\lua_modules\lib\lua\5.1\noitapatcher"
+          $noitaptacherDirectroyPath = "${{ github.workspace }}\mods\noita-mp\lua_modules\lib\lua\5.1\"
 
           if ([System.IO.File]::Exists($noitaptacherPath)) {
             $creationTime = (Get-Item $noitaptacherPath).CreationTime.ToString("yyyy-MM-ddThh:mm:ssZ")
@@ -129,9 +129,8 @@ jobs:
           $tagName | Out-File -FilePath ${{ github.workspace }}\mods\noita-mp\lua_modules\lib\lua\5.1\noitapatcher.version
 
           Expand-Archive -Path "${{ github.workspace }}\temp\NoitaPatcher*.zip" -DestinationPath "${{ github.workspace }}\temp" -Force
-          ls -R "${{ github.workspace }}\temp"
           Copy-Item -Path "${{ github.workspace }}\temp\NoitaPatcher\*" -Destination $noitaptacherDirectroyPath -Recurse -Force
-          Copy-Item -Path "${{ github.workspace }}\temp\NoitaPatcher\noitapatcher\nsew\*" -Destination $noitaptacherDirectroyPath\nsew\ -Recurse -Force
+          Copy-Item -Path "${{ github.workspace }}\temp\NoitaPatcher\noitapatcher\nsew\*" -Destination $noitaptacherDirectroyPath\noitapatcher\nsew\ -Recurse -Force
           Copy-Item -Path "${{ github.workspace }}\temp\Modules\noitapatcher.lua" -Destination "${{ github.workspace }}\.debug\lua-definitions" -Force
           cd ${{ github.workspace }} # go back to root otherwise we cannot delete the temp folder
           Remove-Item -Path "${{ github.workspace }}\temp" -Recurse -Force
