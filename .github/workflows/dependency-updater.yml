@@ -3,9 +3,7 @@ on:
   schedule:
     # Weekly on saturday at 00:00 UTC
     - cron: "0 0 * * 6"
-  push:
-    branches:
-      - dependency-updates
+  workflow_dispatch:
 
 jobs:
   update-dependencies:
