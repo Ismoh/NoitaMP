@@ -4,6 +4,8 @@ on:
     # Weekly on saturday at 00:00 UTC
     - cron: "0 0 * * 6"
 
+  push:
+
 jobs:
   update-dependencies:
     name: Update dependencies
@@ -91,7 +93,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          $noitaptacherPath = "${{ github.workspace }}\mods\noita-mp\lua_modules\lib\lua\5.1\noitapatcher\noitapatcher.dll"
+          $noitaptacherPath = "${{ github.workspace }}\mods\noita-mp\lua_modules\lib\lua\5.1\noitapatcher.dll"
           $noitaptacherDirectroyPath = "${{ github.workspace }}\mods\noita-mp\lua_modules\lib\lua\5.1\"
 
           if ([System.IO.File]::Exists($noitaptacherPath)) {
