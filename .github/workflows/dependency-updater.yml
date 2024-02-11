@@ -129,6 +129,7 @@ jobs:
           $tagName | Out-File -FilePath ${{ github.workspace }}\mods\noita-mp\lua_modules\lib\lua\5.1\noitapatcher.version
 
           Expand-Archive -Path "${{ github.workspace }}\temp\NoitaPatcher*.zip" -DestinationPath "${{ github.workspace }}\temp" -Force
+          ls -R "${{ github.workspace }}\temp"
           Copy-Item -Path "${{ github.workspace }}\temp\NoitaPatcher\*" -Destination $noitaptacherDirectroyPath -Recurse -Force
           Copy-Item -Path "${{ github.workspace }}\temp\NoitaPatcher\Modules\noitapatcher.lua" -Destination "${{ github.workspace }}\.debug\lua-definitions" -Force
           cd ${{ github.workspace }} # go back to root otherwise we cannot delete the temp folder
