@@ -96,6 +96,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           $noitaptacherPath = "${{ github.workspace }}\mods\noita-mp\lua_modules\lib\lua\5.1\noitapatcher.dll"
+          $noitaptacherDirectroyPath = "${{ github.workspace }}\mods\noita-mp\lua_modules\lib\lua\5.1\"
 
           if ([System.IO.File]::Exists($noitaptacherPath)) {
             $creationTime = (Get-Item $noitaptacherPath).CreationTime.ToString("yyyy-MM-ddThh:mm:ssZ")
@@ -128,7 +129,7 @@ jobs:
           $tagName | Out-File -FilePath ${{ github.workspace }}\mods\noita-mp\lua_modules\lib\lua\5.1\noitapatcher.version
 
           Expand-Archive -Path "${{ github.workspace }}\temp\NoitaPatcher*.zip" -DestinationPath "${{ github.workspace }}\temp" -Force
-          Copy-Item -Path "${{ github.workspace }}\temp\NoitaPatcher\*" -Destination $noitaptacherPath -Recurse -Force
+          Copy-Item -Path "${{ github.workspace }}\temp\NoitaPatcher\*" -Destination $noitaptacherDirectroyPath -Recurse -Force
           Copy-Item -Path "${{ github.workspace }}\temp\NoitaPatcher\Modules\noitapatcher.lua" -Destination "${{ github.workspace }}\.debug\lua-definitions" -Force
           cd ${{ github.workspace }} # go back to root otherwise we cannot delete the temp folder
           Remove-Item -Path "${{ github.workspace }}\temp" -Recurse -Force
@@ -137,50 +138,6 @@ jobs:
           git add -f $noitaptacherPath
           git add "${{ github.workspace }}\.debug\lua-definitions\noitapatcher.lua"
           git commit -m "Updated NoitaPatcher dependencies" -a || echo "No changes to commit"; Exit 0
-
-      - name: Update Noita-Synchronise-Expansive-Worlds
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          $nsewPath = "${{ github.workspace }}\mods\noita-mp\lua_modules\lib\lua\5.1\nsew_native.dll"
-
-          if ([System.IO.File]::Exists($neswPath)) {
-            $creationTime = (Get-Item $nsewPath).CreationTime.ToString("yyyy-MM-ddThh:mm:ssZ")
-          } else {
-            $creationTime = "2021-11-10T00:00:00Z"
-          }
-          $creationTime = [Datetime]::ParseExact($creationTime, "yyyy-MM-ddThh:mm:ssZ", $null)
-
-          $releaseCreatedAt = gh release view --repo dextercd/Noita-Synchronise-Expansive-Worlds --json createdAt --jq .createdAt
-          $releaseCreatedAt = [Datetime]$releaseCreatedAt
-
-          echo "Noita-Synchronise-Expansive-Worlds was created at $creationTime"
-          echo "Latest release was created at $releaseCreatedAt"
-          echo ($releaseCreatedAt -lt $creationTime)
-
-          if ($releaseCreatedAt -lt $creationTime) {
-            echo "Noita-Synchronise-Expansive-Worlds is up to date"
-            Exit 0
-          } else {
-            gh release download --repo dextercd/Noita-Synchronise-Expansive-Worlds --pattern "*.zip" --dir "${{ github.workspace }}\temp"
-          }
-
-          $tagName = gh release view --repo dextercd/Noita-Synchronise-Expansive-Worlds --json tagName --jq .tagName
-          $tagName | Out-File -FilePath ${{ github.workspace }}\mods\noita-mp\lua_modules\lib\lua\5.1\nsew.version
-
-          Expand-Archive -Path "${{ github.workspace }}\temp\nsew-*.zip" -DestinationPath "${{ github.workspace }}\temp\nsew" -Force
-          Copy-Item -Path "${{ github.workspace }}\temp\nsew\nsew\nsew_native.dll" -Destination $nsewPath -Force
-          if (![System.IO.File]::Exists("${{ github.workspace }}\mods\noita-mp\lua_modules\share\lua\5.1\nsew")) {
-            New-Item -Path "${{ github.workspace }}\mods\noita-mp\lua_modules\share\lua\5.1\nsew" -ItemType Directory -Force
-          }
-          Copy-Item -Path "${{ github.workspace }}\temp\nsew\nsew\*.lua" -Destination "${{ github.workspace }}\mods\noita-mp\lua_modules\share\lua\5.1\nsew" -Force
-          cd ${{ github.workspace }} # go back to root otherwise we cannot delete the temp folder
-          Remove-Item -Path "${{ github.workspace }}\temp" -Recurse -Force
-
-          git add ${{ github.workspace }}\mods\noita-mp\lua_modules\lib\lua\5.1\nsew.version
-          git add -f $nsewPath
-          git add -f "${{ github.workspace }}\mods\noita-mp\lua_modules\share\lua\5.1\nsew\*.lua"
-          git commit -m "Updated nsew dependencies" -a || echo "No changes to commit"; Exit 0
 
       - name: Push changes and create a pull request
         env:
