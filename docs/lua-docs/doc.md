@@ -612,9 +612,15 @@ EntityUtils|nil
 
 
 ```lua
-function EntityCache.get(self: EntityCache, entityId: any)
-  -> unknown|nil
+function EntityCache.get(self: EntityCache, entityId: number)
+  -> entity: EntityCacheEntry|nil
 ```
+
+ Returns the entity cache entry for the given entityId
+
+@*param* `entityId` — required
+
+@*return* `entity` — cache entry or nil if not exists
 
 ### getNuid
 
@@ -671,6 +677,119 @@ Utils
 ```
 
 Utils class for lazy developers.
+
+
+---
+
+## EntityCacheEntry
+
+### currentHealth
+
+
+```lua
+number
+```
+
+cached entity current health
+
+### entityId
+
+
+```lua
+number
+```
+
+cached entity id
+
+### filename
+
+
+```lua
+string
+```
+
+cached entity filename
+
+### maxHealth
+
+
+```lua
+number
+```
+
+cached entity max health
+
+### nuid
+
+
+```lua
+number
+```
+
+cached entity nuid
+
+### ownerGuid
+
+
+```lua
+string
+```
+
+cached entity owner guid
+
+### ownerName
+
+
+```lua
+string
+```
+
+cached entity owner name
+
+### rotation
+
+
+```lua
+number
+```
+
+cached entity rotation
+
+### velX
+
+
+```lua
+number
+```
+
+cached entity x velocity
+
+### velY
+
+
+```lua
+number
+```
+
+cached entity y velocity
+
+### x
+
+
+```lua
+number
+```
+
+cached entity x position
+
+### y
+
+
+```lua
+number
+```
+
+cached entity y position
 
 
 ---
@@ -2405,6 +2524,7 @@ function NetworkCache.removeOldest(self: NetworkCache)
 
 ```lua
 function NetworkCache.set(self: NetworkCache, clientCacheId: number, networkMessageId: number, event: string, status: string, ackedAt?: any, sendAt?: any, dataChecksum: string)
+  -> NetworkCacheEntry: cachedData
 ```
 
  Sets the cache entry for the given clientCacheId, networkMessageId and event.
@@ -2441,6 +2561,72 @@ Utils class for lazy developers.
 
 ---
 
+## NetworkCacheEntry
+
+### ackedAt
+
+
+```lua
+number
+```
+
+os.clock() when the message was acked
+
+### clientCacheId
+
+
+```lua
+number
+```
+
+the clientCacheId of the message @see GuidUtils.toNumber
+
+### event
+
+
+```lua
+string
+```
+
+the event name @see NetworkUtils.events
+
+### networkMessageId
+
+
+```lua
+number
+```
+
+### resentCount
+
+
+```lua
+number
+```
+
+how many times the message was resent, max 3
+
+### sendAt
+
+
+```lua
+number
+```
+
+os.clock() when the message was sent
+
+### status
+
+
+```lua
+string
+```
+
+ack, sent, resent, cancelled
+
+
+---
+
 ## NetworkCacheUtils
 
 ### ack
@@ -2466,12 +2652,10 @@ Simple profiler that can be used to measure the duration of a function and the m
 
 ```lua
 function NetworkCacheUtils.get(self: NetworkCacheUtils, peerGuid: string, networkMessageId: number, event: string)
-  -> data: table|nil
+  -> data: NetworkCacheEntry|nil
 ```
 
  Returns the cached network message.
-
-@*return* `data` — { ackedAt, dataChecksum, event, messageId, sendAt, status}
 
 ### getByChecksum
 
@@ -2484,6 +2668,20 @@ function NetworkCacheUtils.getByChecksum(self: NetworkCacheUtils, peerGuid: stri
  Returns the cached network message by checksum.
 
 @*return* `cacheData` — { ackedAt, dataChecksum, event, messageId, sendAt, status}
+
+### getMd5Checksum
+
+
+```lua
+function NetworkCacheUtils.getMd5Checksum(self: NetworkCacheUtils, event: string, data: table)
+  -> dataChecksum: string
+```
+
+ Returns the md5 checksum of the data.
+
+@*param* `event` — see NetworkUtils.events
+
+@*param* `data` — see NetworkUtils.schema[event]
 
 ### getSum
 
@@ -2570,7 +2768,7 @@ function NetworkCacheUtils.new(self: NetworkCacheUtils, customProfiler: CustomPr
 
 ```lua
 function NetworkCacheUtils.set(self: NetworkCacheUtils, peerGuid: string, networkMessageId: number, event: any, status: any, ackedAt: any, sendAt: any, data: any)
-  -> string
+  -> dataChecksum: string
 ```
 
  Creates a new network cache entry.
@@ -2802,7 +3000,7 @@ compId:
 
 
 ```lua
-any
+CustomProfiler
 ```
 
 See: [CustomProfiler](https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/util/CustomProfiler.lua#L2#10)
@@ -2841,11 +3039,30 @@ Returns all Network Vsc values by its entity id.
 
 @*return* `ownerName,ownerGuid,nuid` — - nuid can be nil
 
+### getStoredNuid
+
+
+```lua
+function NetworkVscUtils.getStoredNuid(self: NetworkVscUtils, entityId: number)
+  -> nuid: number|-1
+```
+
+ Returns the nuid of an entity. Basically the same as NetworkVscUtils:hasNuidSet, but returns -1 if there is no nuid set.
+
+@*param* `entityId` — required
+
+@*return* `nuid` — Returns the nuid of an entity or -1 if there is no nuid set.
+
+```lua
+nuid:
+    | -1
+```
+
 ### globalsUtils
 
 
 ```lua
-any
+GlobalsUtils
 ```
 
 See: [GlobalsUtils](https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/util/GlobalsUtils.lua#L1#10)
@@ -2891,7 +3108,7 @@ Returns true, componentId and nuid if the entity has a NetworkVsc.
 
 
 ```lua
-any
+Logger
 ```
 
 See: [Logger](https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/util/Logger.lua#L1#10)
@@ -2900,15 +3117,31 @@ See: [Logger](https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/util/L
 
 
 ```lua
-function NetworkVscUtils.new(self: NetworkVscUtils, networkVscUtilsObject: any, customProfiler: any, logger: any, server: any, globalsUtils: any, utils: any)
+function NetworkVscUtils.new(self: NetworkVscUtils, networkVscUtilsObject: NetworkVscUtils|nil, noitaMpSettings: NoitaMpSettings, customProfiler: CustomProfiler|nil, logger: Logger|nil, server: Server, globalsUtils: GlobalsUtils, utils: Utils|nil)
   -> NetworkVscUtils
 ```
+
+ NetworkVscUtils constructor
+
+@*param* `networkVscUtilsObject` — optional instance to use as base
+
+@*param* `noitaMpSettings` — required
+
+@*param* `customProfiler` — optional
+
+@*param* `logger` — optional
+
+@*param* `server` — required
+
+@*param* `globalsUtils` — required
+
+@*param* `utils` — optional
 
 ### server
 
 
 ```lua
-any
+Server
 ```
 
 See: [Server](https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/net/Server.lua#L4#10)
@@ -2917,7 +3150,7 @@ See: [Server](https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/net/Se
 
 
 ```lua
-any
+Utils
 ```
 
 See: [Utils](https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/util/Utils.lua#L2#10)
