@@ -128,7 +128,7 @@ jobs:
 
           Expand-Archive -Path "${{ github.workspace }}\temp\NoitaPatcher*.zip" -DestinationPath "${{ github.workspace }}\temp" -Force
           ls -R "${{ github.workspace }}\temp\NoitaPatcher"
-          Copy-Item -Path "${{ github.workspace }}\temp\NoitaPatcher\*" -Destination $noitaptacherDirectroyPath -Force
+          Copy-Item -Path "${{ github.workspace }}\temp\NoitaPatcher\*" -Destination $noitaptacherDirectroyPath -Recuse -Force -Verbose
           ls -R $noitaptacherDirectroyPath
           Copy-Item -Path "${{ github.workspace }}\temp\Modules\noitapatcher.lua" -Destination "${{ github.workspace }}\.debug\lua-definitions" -Force
           cd ${{ github.workspace }} # go back to root otherwise we cannot delete the temp folder
