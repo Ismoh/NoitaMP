@@ -8744,8 +8744,8 @@
             },
             {
                 "file": "https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/NoitaMpSettings.lua",
-                "finish": 1760029,
-                "start": 1760014,
+                "finish": 2140029,
+                "start": 2140014,
                 "type": "doc.class"
             },
             {
@@ -8762,49 +8762,49 @@
                 "extends": {
                     "args": [
                         {
-                            "finish": 870008,
-                            "start": 870008,
+                            "finish": 1170008,
+                            "start": 1170008,
                             "type": "self",
                             "view": "NoitaMpSettings"
                         }
                     ],
                     "desc": "Removes all settings and creates a new settings file.",
-                    "finish": 960003,
-                    "start": 870000,
+                    "finish": 1260003,
+                    "start": 1170000,
                     "type": "function",
                     "view": "function NoitaMpSettings.clearAndCreateSettings(self: NoitaMpSettings)"
                 },
                 "file": "https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/NoitaMpSettings.lua",
-                "finish": 870047,
+                "finish": 1170047,
                 "name": "clearAndCreateSettings",
-                "start": 870009,
+                "start": 1170009,
                 "type": "setmethod"
             },
             {
                 "desc": "See: [CustomProfiler](https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/util/CustomProfiler.lua#2#10)",
                 "extends": {
-                    "finish": 2040039,
-                    "start": 2010041,
+                    "finish": 2420039,
+                    "start": 2390041,
                     "type": "binary",
                     "view": "CustomProfiler"
                 },
                 "file": "https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/NoitaMpSettings.lua",
-                "finish": 2010038,
+                "finish": 2390038,
                 "name": "customProfiler",
-                "start": 2010008,
+                "start": 2390008,
                 "type": "setfield"
             },
             {
                 "extends": {
-                    "finish": 2210038,
-                    "start": 2180036,
+                    "finish": 2590038,
+                    "start": 2560036,
                     "type": "binary",
                     "view": "FileUtils"
                 },
                 "file": "https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/NoitaMpSettings.lua",
-                "finish": 2180033,
+                "finish": 2560033,
                 "name": "fileUtils",
-                "start": 2180008,
+                "start": 2560008,
                 "type": "setfield"
             },
             {
@@ -8812,56 +8812,70 @@
                 "extends": {
                     "args": [
                         {
-                            "finish": 1210008,
-                            "start": 1210008,
+                            "finish": 1530008,
+                            "start": 1530008,
                             "type": "self",
                             "view": "NoitaMpSettings"
                         },
                         {
                             "desc": "required",
-                            "finish": 1210032,
-                            "start": 1210029,
+                            "finish": 1530032,
+                            "start": 1530029,
                             "type": "local",
                             "view": "string"
                         },
                         {
                             "desc": "optional! Must be one of \"boolean\" or \"number\". If not set, \"string\" is default.",
-                            "finish": 1210042,
-                            "start": 1210034,
+                            "finish": 1530042,
+                            "start": 1530034,
                             "type": "local",
                             "view": "string|nil"
                         }
                     ],
                     "desc": "Returns a setting from the settings file converted to the given dataType. If the setting does not exist, it will be created with the default empty value.\n\n@*param* `key` — required\n\n@*param* `dataType` — optional! Must be one of \"boolean\" or \"number\". If not set, \"string\" is default.\n\n@*return* `value` — converted to dataType or nil, when value is not set.",
-                    "finish": 1370003,
+                    "finish": 1690003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "boolean|string|number|nil"
                         }
                     ],
-                    "start": 1210000,
+                    "start": 1530000,
                     "type": "function",
                     "view": "function NoitaMpSettings.get(self: NoitaMpSettings, key: string, dataType: string|nil)\n  -> value: boolean|string|number|nil"
                 },
                 "file": "https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/NoitaMpSettings.lua",
-                "finish": 1210028,
+                "finish": 1530028,
                 "name": "get",
-                "start": 1210009,
+                "start": 1530009,
                 "type": "setmethod"
             },
             {
                 "desc": "Everything regarding ImGui: Credits to @dextercd",
                 "extends": {
-                    "finish": 2080090,
-                    "start": 2080030,
+                    "finish": 2460090,
+                    "start": 2460030,
                     "type": "binary",
                     "view": "Gui"
                 },
                 "file": "https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/NoitaMpSettings.lua",
-                "finish": 2080027,
+                "finish": 2460027,
                 "name": "gui",
-                "start": 2080008,
+                "start": 2460008,
+                "type": "setfield"
+            },
+            {
+                "desc": "GuidUtils is just for generating and validating GUIDs. Guids are used for identifying clients and servers.",
+                "extends": {
+                    "finish": 2660059,
+                    "start": 2630036,
+                    "type": "binary",
+                    "view": "GuidUtils"
+                },
+                "file": "https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/NoitaMpSettings.lua",
+                "finish": 2630033,
+                "name": "guidUtils",
+                "start": 2630008,
                 "type": "setfield"
             },
             {
@@ -8869,54 +8883,54 @@
                 "extends": {
                     "args": [
                         {
-                            "finish": 710008,
-                            "start": 710008,
+                            "finish": 1010008,
+                            "start": 1010008,
                             "type": "self",
                             "view": "NoitaMpSettings"
                         }
                     ],
                     "desc": "Checks if more than one Noita process is running.\n\n@*return* `true` — if more than one Noita process is running.",
-                    "finish": 840003,
+                    "finish": 1140003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "boolean"
                         }
                     ],
-                    "start": 710000,
+                    "start": 1010000,
                     "type": "function",
                     "view": "function NoitaMpSettings.isMoreThanOneNoitaProcessRunning(self: NoitaMpSettings)\n  -> true: boolean"
                 },
                 "file": "https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/NoitaMpSettings.lua",
-                "finish": 710057,
+                "finish": 1010057,
                 "name": "isMoreThanOneNoitaProcessRunning",
-                "start": 710009,
+                "start": 1010009,
                 "type": "setmethod"
             },
             {
                 "extends": {
-                    "finish": 1870054,
-                    "start": 1870031,
+                    "finish": 2250054,
+                    "start": 2250031,
                     "type": "binary",
                     "view": "json"
                 },
                 "file": "https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/NoitaMpSettings.lua",
-                "finish": 1870028,
+                "finish": 2250028,
                 "name": "json",
-                "start": 1870008,
+                "start": 2250008,
                 "type": "setfield"
             },
             {
                 "extends": {
-                    "finish": 1910051,
-                    "start": 1910030,
+                    "finish": 2290051,
+                    "start": 2290030,
                     "type": "binary",
                     "view": "LuaFileSystem"
                 },
                 "file": "https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/NoitaMpSettings.lua",
-                "finish": 1910027,
+                "finish": 2290027,
                 "name": "lfs",
-                "start": 1910008,
+                "start": 2290008,
                 "type": "setfield"
             },
             {
@@ -8924,35 +8938,35 @@
                 "extends": {
                     "args": [
                         {
-                            "finish": 1400008,
-                            "start": 1400008,
+                            "finish": 1720008,
+                            "start": 1720008,
                             "type": "self",
                             "view": "NoitaMpSettings"
                         }
                     ],
                     "desc": "Loads the settings from the settings file and put those into the cached settings.",
-                    "finish": 1490003,
-                    "start": 1400000,
+                    "finish": 1810003,
+                    "start": 1720000,
                     "type": "function",
                     "view": "function NoitaMpSettings.load(self: NoitaMpSettings)"
                 },
                 "file": "https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/NoitaMpSettings.lua",
-                "finish": 1400029,
+                "finish": 1720029,
                 "name": "load",
-                "start": 1400009,
+                "start": 1720009,
                 "type": "setmethod"
             },
             {
                 "extends": {
-                    "finish": 2140038,
-                    "start": 2120033,
+                    "finish": 2520038,
+                    "start": 2500033,
                     "type": "binary",
                     "view": "Logger"
                 },
                 "file": "https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/NoitaMpSettings.lua",
-                "finish": 2120030,
+                "finish": 2500030,
                 "name": "logger",
-                "start": 2120008,
+                "start": 2500008,
                 "type": "setfield"
             },
             {
@@ -8960,107 +8974,114 @@
                 "extends": {
                     "args": [
                         {
-                            "finish": 1750008,
-                            "start": 1750008,
+                            "finish": 2130008,
+                            "start": 2130008,
                             "type": "self",
                             "view": "NoitaMpSettings"
                         },
                         {
                             "desc": " NoitaMpSettings: Replacement for Noita ModSettings.",
-                            "finish": 1750044,
-                            "start": 1750029,
+                            "finish": 2130044,
+                            "start": 2130029,
                             "type": "local",
                             "view": "NoitaMpSettings|nil"
                         },
                         {
                             "desc": "Simple profiler that can be used to measure the duration of a function and the memory usage of a function.",
-                            "finish": 1750060,
-                            "start": 1750046,
+                            "finish": 2130060,
+                            "start": 2130046,
                             "type": "local",
                             "view": "CustomProfiler|nil"
                         },
                         {
                             "desc": "required",
-                            "finish": 1750065,
-                            "start": 1750062,
+                            "finish": 2130065,
+                            "start": 2130062,
                             "type": "local",
                             "view": "Gui"
                         },
                         {
-                            "finish": 1750076,
-                            "start": 1750067,
+                            "finish": 2130076,
+                            "start": 2130067,
                             "type": "local",
                             "view": "FileUtils|nil"
                         },
                         {
-                            "finish": 1750082,
-                            "start": 1750078,
+                            "finish": 2130082,
+                            "start": 2130078,
                             "type": "local",
                             "view": "json|nil"
                         },
                         {
-                            "finish": 1750087,
-                            "start": 1750084,
+                            "finish": 2130087,
+                            "start": 2130084,
                             "type": "local",
                             "view": "LuaFileSystem|nil"
                         },
                         {
-                            "finish": 1750095,
-                            "start": 1750089,
+                            "finish": 2130095,
+                            "start": 2130089,
                             "type": "local",
                             "view": "Logger|nil"
                         },
                         {
                             "desc": "Utils class for lazy developers.",
-                            "finish": 1750102,
-                            "start": 1750097,
+                            "finish": 2130102,
+                            "start": 2130097,
                             "type": "local",
                             "view": "Utils|nil"
                         },
                         {
-                            "finish": 1750110,
-                            "start": 1750104,
+                            "finish": 2130110,
+                            "start": 2130104,
                             "type": "local",
                             "view": "winapi|nil"
+                        },
+                        {
+                            "desc": "GuidUtils is just for generating and validating GUIDs. Guids are used for identifying clients and servers.",
+                            "finish": 2130121,
+                            "start": 2130112,
+                            "type": "local",
+                            "view": "GuidUtils|nil"
                         }
                     ],
                     "desc": "NoitaMpSettings constructor.\n\n@*param* `gui` — required",
-                    "finish": 2250003,
+                    "finish": 2700003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "NoitaMpSettings"
                         }
                     ],
-                    "start": 1750000,
+                    "start": 2130000,
                     "type": "function",
-                    "view": "function NoitaMpSettings.new(self: NoitaMpSettings, noitaMpSettings: NoitaMpSettings|nil, customProfiler: CustomProfiler|nil, gui: Gui, fileUtils: FileUtils|nil, json: json|nil, lfs: LuaFileSystem|nil, logger: Logger|nil, utils: Utils|nil, winapi: winapi|nil)\n  -> NoitaMpSettings"
+                    "view": "function NoitaMpSettings.new(self: NoitaMpSettings, noitaMpSettings: NoitaMpSettings|nil, customProfiler: CustomProfiler|nil, gui: Gui, fileUtils: FileUtils|nil, json: json|nil, lfs: LuaFileSystem|nil, logger: Logger|nil, utils: Utils|nil, winapi: winapi|nil, guidUtils: GuidUtils|nil)\n  -> NoitaMpSettings"
                 },
                 "file": "https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/NoitaMpSettings.lua",
-                "finish": 1750028,
+                "finish": 2130028,
                 "name": "new",
-                "start": 1750009,
+                "start": 2130009,
                 "type": "setmethod"
             },
             {
                 "extends": {
                     "args": [
                         {
-                            "finish": 1510008,
-                            "start": 1510008,
+                            "finish": 1830008,
+                            "start": 1830008,
                             "type": "self",
                             "view": "NoitaMpSettings"
                         }
                     ],
-                    "finish": 1620003,
-                    "start": 1510000,
+                    "finish": 1990003,
+                    "start": 1830000,
                     "type": "function",
                     "view": "function NoitaMpSettings.save(self: NoitaMpSettings)"
                 },
                 "file": "https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/NoitaMpSettings.lua",
-                "finish": 1510029,
+                "finish": 1830029,
                 "name": "save",
-                "start": 1510009,
+                "start": 1830009,
                 "type": "setmethod"
             },
             {
@@ -9068,82 +9089,95 @@
                 "extends": {
                     "args": [
                         {
-                            "finish": 1020008,
-                            "start": 1020008,
+                            "finish": 1320008,
+                            "start": 1320008,
                             "type": "self",
                             "view": "NoitaMpSettings"
                         },
                         {
                             "desc": "required",
-                            "finish": 1020032,
-                            "start": 1020029,
+                            "finish": 1320032,
+                            "start": 1320029,
                             "type": "local",
                             "view": "string"
                         },
                         {
                             "desc": "required",
-                            "finish": 1020039,
-                            "start": 1020034,
+                            "finish": 1320039,
+                            "start": 1320034,
                             "type": "local",
                             "view": "any"
                         }
                     ],
                     "desc": "Sets a setting. Saves the settings to the settings file and returns the new updated cached settings.\n\n@*param* `key` — required\n\n@*param* `value` — required",
-                    "finish": 1150003,
+                    "finish": 1470003,
                     "returns": [
                         {
                             "type": "function.return",
                             "view": "table"
                         }
                     ],
-                    "start": 1020000,
+                    "start": 1320000,
                     "type": "function",
                     "view": "function NoitaMpSettings.set(self: NoitaMpSettings, key: string, value: any)\n  -> self.cachedSettings: table"
                 },
                 "file": "https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/NoitaMpSettings.lua",
-                "finish": 1020028,
+                "finish": 1320028,
                 "name": "set",
-                "start": 1020009,
+                "start": 1320009,
                 "type": "setmethod"
             },
             {
                 "extends": {
-                    "finish": 1280073,
-                    "start": 1280034,
+                    "finish": 1600073,
+                    "start": 1600034,
                     "type": "select",
                     "view": "unknown"
                 },
                 "file": "https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/NoitaMpSettings.lua",
-                "finish": 1280031,
+                "finish": 1600031,
                 "name": "settingsFileExists",
-                "start": 1280008,
+                "start": 1600008,
+                "type": "setfield"
+            },
+            {
+                "extends": {
+                    "finish": 1930073,
+                    "start": 1930034,
+                    "type": "select",
+                    "view": "unknown"
+                },
+                "file": "https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/NoitaMpSettings.lua",
+                "finish": 1930031,
+                "name": "settingsFileExists",
+                "start": 1930008,
                 "type": "setfield"
             },
             {
                 "desc": "Utils class for lazy developers.",
                 "extends": {
-                    "finish": 1830063,
-                    "start": 1830032,
+                    "finish": 2210063,
+                    "start": 2210032,
                     "type": "binary",
                     "view": "Utils"
                 },
                 "file": "https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/NoitaMpSettings.lua",
-                "finish": 1830029,
+                "finish": 2210029,
                 "name": "utils",
-                "start": 1830008,
+                "start": 2210008,
                 "type": "setfield"
             },
             {
                 "extends": {
-                    "finish": 1950060,
-                    "start": 1950033,
+                    "finish": 2330060,
+                    "start": 2330033,
                     "type": "binary",
                     "view": "winapi"
                 },
                 "file": "https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/NoitaMpSettings.lua",
-                "finish": 1950030,
+                "finish": 2330030,
                 "name": "winapi",
-                "start": 1950008,
+                "start": 2330008,
                 "type": "setfield"
             }
         ],
@@ -15681,14 +15715,14 @@
         "defines": [
             {
                 "extends": {
-                    "finish": 590027,
-                    "start": 590023,
+                    "finish": 580027,
+                    "start": 580023,
                     "type": "boolean",
                     "view": "boolean"
                 },
                 "file": "https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/NoitaMpSettings.lua",
-                "finish": 590020,
-                "start": 590016,
+                "finish": 580020,
+                "start": 580016,
                 "type": "setglobal"
             }
         ],

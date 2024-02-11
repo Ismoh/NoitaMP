@@ -3120,6 +3120,15 @@ Gui
 
 Everything regarding ImGui: Credits to @dextercd
 
+### guidUtils
+
+
+```lua
+GuidUtils
+```
+
+GuidUtils is just for generating and validating GUIDs. Guids are used for identifying clients and servers.
+
 ### isMoreThanOneNoitaProcessRunning
 
 
@@ -3166,7 +3175,7 @@ Logger
 
 
 ```lua
-function NoitaMpSettings.new(self: NoitaMpSettings, noitaMpSettings: NoitaMpSettings|nil, customProfiler: CustomProfiler|nil, gui: Gui, fileUtils: FileUtils|nil, json: json|nil, lfs: LuaFileSystem|nil, logger: Logger|nil, utils: Utils|nil, winapi: winapi|nil)
+function NoitaMpSettings.new(self: NoitaMpSettings, noitaMpSettings: NoitaMpSettings|nil, customProfiler: CustomProfiler|nil, gui: Gui, fileUtils: FileUtils|nil, json: json|nil, lfs: LuaFileSystem|nil, logger: Logger|nil, utils: Utils|nil, winapi: winapi|nil, guidUtils: GuidUtils|nil)
   -> NoitaMpSettings
 ```
 
