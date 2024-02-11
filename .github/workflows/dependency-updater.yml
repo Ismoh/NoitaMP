@@ -139,14 +139,14 @@ jobs:
           git add ${{ github.workspace }}\mods\noita-mp\lua_modules\lib\lua\5.1\noitapatcher.version
           git add -f $noitaptacherPath
           git add "${{ github.workspace }}\.debug\lua-definitions\noitapatcher.lua"
-          git commit -m "Updated NoitaPatcher dependencies" -a || echo "No changes to commit"; Exit 0
+          git commit -m "Updated NoitaPatcher dependencies" -a || echo "No changes to commit"
+          git push origin dependency-updates || echo "There are no changes!"; Exit 0
 
       - name: Push changes and create a pull request
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           git pull origin dependency-updates
-          git push origin dependency-updates || echo "There are no changes!"; Exit 0
 
           $prTitleArray = gh pr list --head "dependency-updates" --json "title" | ConvertFrom-Json
           if ($prTitleArray.Count -gt 0) {
