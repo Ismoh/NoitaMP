@@ -140,6 +140,7 @@ jobs:
           git add -f $noitaptacherPath
           git add "${{ github.workspace }}\.debug\lua-definitions\noitapatcher.lua"
           git commit -m "Updated NoitaPatcher dependencies" -a || echo "No changes to commit"
+          git pull origin dependency-updates
           git push origin dependency-updates || echo "There are no changes!"; Exit 0
 
       - name: Push changes and create a pull request
