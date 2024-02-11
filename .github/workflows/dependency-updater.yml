@@ -4,10 +4,6 @@ on:
     # Weekly on saturday at 00:00 UTC
     - cron: "0 0 * * 6"
 
-  workflow_dispatch:
-
-  push:
-
 jobs:
   update-dependencies:
     name: Update dependencies
