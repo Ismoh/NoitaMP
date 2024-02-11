@@ -116,7 +116,7 @@ jobs:
 
           echo "NoitaPatcher release tagName is $TagName"
 
-          if ($releaseCreatedAt -lt $creationTime AND $tagName -eq $currentTagName) {
+          if ($releaseCreatedAt -lt $creationTime -AND $tagName -eq $currentTagName) {
             echo "NoitaPatcher is up to date"
             Exit 0
           } else {
