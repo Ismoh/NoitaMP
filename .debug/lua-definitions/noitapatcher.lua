@@ -1,5 +1,6 @@
 ---@meta 'noitapatcher'
----@class noitapatcher
+---@module noitapatcher
+
 local noitapatcher = {}
 
 ---Enable OnProjectileFired and OnProjectileFiredPost callbacks.
@@ -105,7 +106,7 @@ function noitapatcher.SerializeEntity(entity_id) end
 ---@param serialized_data string The serialized data
 ---@param x number? Position to force the entity to if provided
 ---@param y number? Position to force the entity to if provided
----@return integer entity_id The entity_id passed into the function if deserialization was successful.
+---@return integer? entity_id The entity_id passed into the function if deserialization was successful.
 function noitapatcher.DeserializeEntity(entity_id, serialized_data, x, y) end
 
 ---Set box2d parameters of a PhysicsBody(2)Component
