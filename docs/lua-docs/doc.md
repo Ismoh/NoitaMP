@@ -25,7 +25,7 @@ function Client.amIClient(self: Client)
 Checks if the current local user is a client.
 
 @*return* `true` — if client, false if not
-See: [Server.amIServer](https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/net/Server.lua#L886#9)
+See: [Server.amIServer](https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/net/Server.lua#L912#9)
 
 ### base64
 
@@ -3743,7 +3743,7 @@ function Server.amIServer(self: Server)
 Checks if the current local user is a server.
 
 @*return* `true` — if server, false if not
-See: [Client.amIClient](https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/net/Client.lua#L930#9)
+See: [Client.amIClient](https://github.com/Ismoh/NoitaMPmods/noita-mp/files/scripts/net/Client.lua#L965#9)
 
 ### ban
 
@@ -4119,6 +4119,24 @@ table
 number
 ```
 
+### preSend
+
+
+```lua
+function Server.preSend(self: Server, peer: Client|Server, event: string, data: table)
+  -> true: boolean
+```
+
+Sends a message a one peer.
+
+@*param* `peer` — required
+
+@*param* `event` — required
+
+@*param* `data` — required
+
+@*return* `true` — if message was sent, false if not
+
 ### preStart
 
 
@@ -4143,24 +4161,6 @@ Updates the server by checking for network events and handling them.
 
 @*param* `startFrameTime` — required
 See: ~SockServer.update~
-
-### send
-
-
-```lua
-function Server.send(self: Server, peer: Client|Server, event: string, data: table)
-  -> true: boolean
-```
-
-Sends a message a one peer.
-
-@*param* `peer` — required
-
-@*param* `event` — required
-
-@*param* `data` — required
-
-@*return* `true` — if message was sent, false if not
 
 ### sendChannel
 
@@ -4922,6 +4922,11 @@ debuglib
 ```
 
 
+```lua
+table
+```
+
+
 ---
 
 ## debug.debug
@@ -5417,6 +5422,11 @@ iolib
 ```
 
 
+```lua
+table
+```
+
+
 ---
 
 ## io.close
@@ -5739,6 +5749,11 @@ boolean
 
 
 ```lua
+any
+```
+
+
+```lua
 unknown
 ```
 
@@ -5810,6 +5825,13 @@ Loads a chunk from the given string.
 function loadstring(text: string, chunkname?: string)
   -> function?
   2. error_message: string?
+```
+
+
+```lua
+function loadstring()
+  -> nil
+  2. nil
 ```
 
 
@@ -6511,21 +6533,19 @@ NoitaMpSettings
 
 ## noitaMpSettings.customProfiler
 
-Simple profiler that can be used to measure the duration of a function and the memory usage of a function.
-
 
 ```lua
-CustomProfiler
+table
 ```
 
 
 ```lua
-CustomProfiler
+table
 ```
 
 
 ```lua
-CustomProfiler
+table
 ```
 
 
@@ -6577,6 +6597,11 @@ function orderedPairs(t: any)
 
 ```lua
 oslib
+```
+
+
+```lua
+table
 ```
 
 
@@ -6816,6 +6841,11 @@ string
 
 ```lua
 packagelib
+```
+
+
+```lua
+table
 ```
 
 
@@ -7338,6 +7368,23 @@ stringlib
 ```lua
 function string.ExtendOrCutStringToLength(var: string, length: number, char: any, makeItVisible?: boolean)
   -> string
+```
+
+
+---
+
+## string.binaryToHex
+
+@*param* `s` — binary string
+
+@*return* `hex` — string
+
+ Bump binary string to (readable) hex string
+
+
+```lua
+function string.binaryToHex(s: string)
+  -> hex: string
 ```
 
 
