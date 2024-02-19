@@ -191,6 +191,7 @@ local onDisconnect = function(self, data, peer)
         peer.clientCacheId = self.guidUtils:toNumber(peer.guid) --error("peer.clientCacheId must not be nil!", 2)
     end
     self.networkCache:clear(peer.clientCacheId)
+    connectedQuickFix[peer.connectId] = nil
 
     -- sendAck(data.networkMessageId, peer)
 end
