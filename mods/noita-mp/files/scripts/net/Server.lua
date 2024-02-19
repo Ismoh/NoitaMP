@@ -8,7 +8,7 @@ Server.__index = Server
 ---Sends acknowledgement for a specific network event.
 ---@private
 ---@param self Server
----@param networkMessageId number
+---@param networkMessageId number the network message id to acknowledge (sent by the other peer)
 ---@param peer Client|Server
 ---@param event string @see self.networkself.utils:events
 ---@param nuid number|nil optional, some events don't have a nuid
@@ -18,7 +18,9 @@ local sendAck = function(self, networkMessageId, peer, event, nuid)
     end
     --networkMessageId is already cached, that's why the ack wasn't received
     --use a new networkMessageId, but add 'ackedNetworkMessageIdFromSender' to the data
-    local data = { self.networkUtils:getNextNetworkMessageId(), event, self.networkUtils.events.acknowledgement.status.ack, os.clock(), nuid, networkMessageId }
+    local data = {
+        self.networkUtils:getNextNetworkMessageId(), event, self.networkUtils.events.acknowledgement.status.ack, os.clock(), nuid, networkMessageId
+    }
     self:sendToPeer(peer, self.networkUtils.events.acknowledgement.name, data)
     --self.logger:debug(self.logger.channels.network, ("Sent ack with data = %s"):format(self.utils:pformat(data)))
 end
@@ -89,18 +91,38 @@ local onAcknowledgement = function(self, data, peer)
 end
 
 
+local connectedQuickFix = {}
 ---Callback when client connected to server.
 ---@private
 ---@param self Server
 ---@param data table data = { "networkMessageId", "name", "guid", "transform" }
 ---@param peer Client|Server
 local onConnect = function(self, data, peer)
+    if not self then
+        error("You missed 'self' parameter..", 2)
+    end
+
     if self.utils:isEmpty(peer) then
         error(("onConnect peer is empty: %s"):format(peer), 2)
     end
 
     if self.utils:isEmpty(data) then
         error(("onConnect data is empty: %s"):format(data), 2)
+    end
+
+    if connectedQuickFix[peer.connectId] then
+        -- onConnect is called more than once, didn't find the issue yet
+        return
+    end
+
+    if DebugGetIsDevBuild() then
+        -- Let's see, if serialization matches are really working
+        -- Loading the exact same entity based on a xml file on Server and Client.
+        -- Sending it to the client and comparing binary string (but bumped to a readable hex string) to see if it's the same.
+        local testEntity = EntityLoad("data/entities/lantern_small.xml", 0, 0)
+        local bString = self.noitaPatcherUtils:serializeEntity(testEntity)
+        local bStringHex = string.binaryToHex(bString)
+        self:preSend(peer, self.networkUtils.events.testBinaryString.name, { self.networkUtils:getNextNetworkMessageId(), bStringHex })
     end
 
     --self.logger:debug(self.logger.channels.network, ("Peer %s connected! data = %s")
@@ -122,7 +144,7 @@ local onConnect = function(self, data, peer)
 
     self:sendMinaInformation()
 
-    self:send(peer, self.networkUtils.events.seed.name,
+    self:preSend(peer, self.networkUtils.events.seed.name,
         { self.networkUtils:getNextNetworkMessageId(), StatsGetValue("world_seed") })
 
     -- Let the other clients know, that a new client connected
@@ -135,6 +157,8 @@ local onConnect = function(self, data, peer)
     local currentSerialisedBinaryString = self.noitaPatcherUtils:serializeEntity(entityId)
     self:sendNewNuid(compOwnerName, compOwnerGuid, entityId, initialSerialisedBinaryString,
         compNuid, x, y, currentSerialisedBinaryString)
+
+    connectedQuickFix[peer.connectId] = true
 end
 
 
@@ -530,6 +554,8 @@ local onNeedModList = function(self, data, peer)
     end
     peer:preSend(self.networkUtils.events.needModList.name,
         { self.networkUtils:getNextNetworkMessageId(), self.modListCached.workshop, self.modListCached.external })
+
+    sendAck(self, data.networkMessageId, peer, self.networkUtils.events.needModList.name)
 end
 
 ---Callback when mod content is requested.
@@ -560,7 +586,7 @@ local onNeedModContent = function(self, data, peer)
             data       = self.fileUtils:ReadBinaryFile(archiveName)
         })
     end
-    peer:send(peer, self.networkUtils.events.needModContent.name, { self.networkUtils:getNextNetworkMessageId(), modsToGet, res })
+    peer:preSend(peer, self.networkUtils.events.needModContent.name, { self.networkUtils:getNextNetworkMessageId(), modsToGet, res })
 end
 
 
@@ -617,7 +643,7 @@ end
 ---@param event string required
 ---@param data table required
 ---@return boolean true if message was sent, false if not
-function Server:send(peer, event, data)
+function Server:preSend(peer, event, data)
     if type(data) ~= "table" then
         error("Data type must be table!", 2)
     end
@@ -653,7 +679,7 @@ function Server:sendToAll(event, data)
 
     local sent = false
     for i = 1, #self.clients do
-        sent = self:send(self.clients[i], event, data)
+        sent = self:preSend(self.clients[i], event, data)
     end
     return sent
 end
@@ -671,7 +697,7 @@ function Server:sendToAllBut(peer, event, data)
     local sent = false
     for i = 1, #self.clients do
         if self.clients[i].connectId ~= peer.connectId then
-            sent = self:send(self.clients[i], event, data)
+            sent = self:preSend(self.clients[i], event, data)
         end
     end
     return sent
@@ -776,7 +802,7 @@ end
 function Server:sendNewGuid(peer, oldGuid, newGuid)
     local event = self.networkUtils.events.newGuid.name
     local data  = { self.networkUtils:getNextNetworkMessageId(), oldGuid, newGuid }
-    local sent  = self:send(peer, event, data)
+    local sent  = self:preSend(peer, event, data)
     return sent
 end
 

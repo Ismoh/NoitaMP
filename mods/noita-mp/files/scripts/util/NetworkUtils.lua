@@ -6,6 +6,11 @@ local NetworkUtils = {
     networkMessageIdCounter = 0,
     --- Network events with name, schema, resendIdentifiers and isCacheable
     events                  = {
+        testBinaryString         = {
+            name        = "testBinaryString",
+            schema      = { "networkMessageId", "bStringHex" },
+            isCacheable = false
+        },
         connect         = {
             name        = "connect",
             schema      = { "code" },

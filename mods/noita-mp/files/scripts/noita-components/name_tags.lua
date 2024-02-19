@@ -1,5 +1,36 @@
 dofile_once("mods/noita-mp/files/scripts/init/init_.lua")
 
+debug = {
+    gethook = function() end,
+    getinfo = function() end,
+    getlocal = function() end,
+    getmetatable = function() end,
+    getregistry = function() return {} end,
+    getupvalue = function() end,
+    sethook = function() end,
+    setlocal = function() end,
+    setmetatable = function() end,
+    setupvalue = function() end,
+    traceback = function() end,
+}
+package = {
+    config = nil,
+}
+os = {
+    getenv = function() end,
+    exit = function() end,
+}
+io = {
+    popen = function() end,
+    open = function() end,
+    stdout = nil,
+    stdin = nil,
+    stderr = nil,
+}
+loadstring = function() return nil, nil end
+
+lldebugger = lldebugger or dofile("mods/noita-mp/lua_modules/share/lua/5.1/lldebugger.lua")
+
 ---@type NoitaMpSettings
 noitaMpSettings = noitaMpSettings or {}
 noitaMpSettings.customProfiler = {

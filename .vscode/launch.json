@@ -9,22 +9,19 @@
       "type": "lua-local",
       "request": "launch",
       "program": {
-        //"lua": "C:/Program Files (x86)/Steam/steamapps/common/Noita/noita_dev_log.exe",
-        //"file": "C:/Program Files (x86)/Steam/steamapps/common/Noita/mods/noita-mp/init.lua",
-        "command": "C:/Program Files (x86)/Steam/steamapps/common/Noita/noita_dev_log.exe",
+        "command": "C:/Program Files (x86)/Steam/steamapps/common/Noita/noita_dev.exe",
         "communication": "stdio"
       },
       "args": ["-debug_lua", "-no-console", "-luadebugger"],
-      "stopOnEntry": false,
+      "stopOnEntry": true,
       "cwd": "C:/Program Files (x86)/Steam/steamapps/common/Noita/",
       "env": {
-        "LOCAL_LUA_DEBUGGER_VSCODE": "1"
+        "LOCAL_LUA_DEBUGGER_VSCODE": "1",
+        "DESTINATION_PATH": "mods/noita-mp/lua_modules/share/lua/5.1"
       },
       "verbose": true,
       "pullBreakpointsSupport": true,
       "scriptFiles": ["${workspaceFolder}/mods/noita-mp/**/*.lua"],
-      //"stepUnmappedLines": true,
-      //"scriptRoots": ["${workspaceFolder}/mods/noita-mp/**/*.lua", "."]
     },
     {
       "name": "Launch LuaJITProfilerRunner.lua with debugger",

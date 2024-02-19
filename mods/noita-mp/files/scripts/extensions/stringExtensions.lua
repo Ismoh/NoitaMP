@@ -90,3 +90,46 @@ string.contains                  = function(str, pattern)
         return true
     end
 end
+
+--- Bump binary string to (readable) hex string
+---@param s string binary string
+---@return string hex string
+string.binaryToHex               = function(s)
+    if not DebugGetIsDevBuild() then
+        error("This function is only available in dev builds, because it consume to much performance.", 2)
+    end
+
+    -- https://gist.github.com/Elemecca/6361899
+    local len = string.len(s)
+    local dump = ""
+    local hex = ""
+    local asc = ""
+
+    for i = 1, len do
+        if 1 == i % 8 then
+            dump = dump .. hex .. asc .. "\n"
+            hex = string.format("%04x: ", i - 1)
+            asc = ""
+        end
+
+        local ord = string.byte(s, i)
+        hex = hex .. string.format("%02x ", ord)
+        if ord >= 32 and ord <= 126 then
+            asc = asc .. string.char(ord)
+        else
+            asc = asc .. "."
+        end
+    end
+
+    local hexString = dump .. hex .. string.rep("   ", 8 - len % 8) .. asc
+    return hexString
+
+    -- alternative:
+    -- for byte=1, #buf, 16 do
+    --     local chunk = buf:sub(byte, byte+15)
+    --     io.write(string.format('%08X  ',byte-1))
+    --     chunk:gsub('.', function (c) io.write(string.format('%02X ',string.byte(c))) end)
+    --     io.write(string.rep(' ',3*(16-#chunk)))
+    --     io.write(' ',chunk:gsub('%c','.'),"\n")
+    --  end
+end

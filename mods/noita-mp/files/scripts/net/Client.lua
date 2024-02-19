@@ -8,7 +8,7 @@ Client.__index = Client
 ---Sends acknowledgement for a specific network event.
 ---@private
 ---@param self Client
----@param networkMessageId number
+---@param networkMessageId number the network message id to acknowledge (sent by the other peer)
 ---@param event string
 ---@param nuid number|nil optional, some events don't have a nuid
 ---@see NetworkUtils.events.acknowledgement.schema
@@ -21,7 +21,8 @@ local sendAck = function(self, networkMessageId, event, nuid)
     end
     --networkMessageId is already cached, that's why the ack wasn't received
     --use a new networkMessageId, but add 'ackedNetworkMessageIdFromSender' to the data
-    local data = { self.networkUtils:getNextNetworkMessageId(), event, self.networkUtils.events.acknowledgement.status.ack, os.clock(), nuid, networkMessageId }
+    local data = { self.networkUtils:getNextNetworkMessageId(), event, self.networkUtils.events.acknowledgement.status.ack, os.clock(), nuid,
+        networkMessageId }
     self:preSend(self.networkUtils.events.acknowledgement.name, data)
     --self.logger:debug(self.logger.channels.network, ("Sent ack with data = %s"):format(self.utils:pformat(data)))
 end
@@ -56,7 +57,9 @@ local onAcknowledgement = function(self, data)
     end
 
     if self.utils:isEmpty(data.networkMessageIdToAcknowledge) then
-        error(("onAcknowledgement data.networkMessageIdToAcknowledge is empty: %s"):format(data.networkMessageIdToAcknowledge), 2)
+        error(
+            ("onAcknowledgement data.networkMessageIdToAcknowledge is empty: %s"):format(data.networkMessageIdToAcknowledge),
+            2)
     end
 
     if not self.clientCacheId then
@@ -70,7 +73,8 @@ local onAcknowledgement = function(self, data)
     end
     if self.utils:isEmpty(cachedData.dataChecksum) or type(cachedData.dataChecksum) ~= "string" then
         self.networkCacheUtils:logAll()
-        error(("Unable to get cachedData.dataChecksum, because it is nil '%s' or checksum is not of type string, type: %s")
+        error(
+            ("Unable to get cachedData.dataChecksum, because it is nil '%s' or checksum is not of type string, type: %s")
             :format(cachedData.dataChecksum, type(cachedData.dataChecksum)), 2)
     end
     -- update previous cached network message
@@ -90,12 +94,37 @@ local onAcknowledgement = function(self, data)
     end
 end
 
+--- Callback when binary string received. Only for testing purposes.
+---@private
+---@param self Client
+---@param data table @see self.networkUtils.events.binaryStringTest.schema
+local onTestBinaryString = function(self, data)
+    if not data.bStringHex then
+        error(("onTestBinaryString data.bStringHex is empty: %s"):format(data.bStringHex), 2)
+    end
+
+    local bStringHex = data.bStringHex
+
+    local entityId = EntityLoad("mods/noita-mp/data/entities/lantern_small.xml", 0, 0)
+    local bString = self.noitaPatcherUtils:serializeEntity(entityId)
+    local bStringHexCheck = string.binaryToHex(bString)
+    if bStringHexCheck ~= bStringHex then
+        error(("onTestBinaryString bStringHexCheck = %s, bStringHex = %s"):format(bStringHexCheck, bStringHex), 2)
+    else
+        print("onTestBinaryString: bStringHexCheck = bStringHex, yay!")
+    end
+end
+
+local quickFix = 0
 ---Callback when connected to server.
 ---@private
 ---@param self Client
 ---@param data table data = { "networkMessageId", "name", "guid", "transform" }
 local onConnect = function(self, data)
     --self.logger:debug(self.logger.channels.network, "Connected to server!", self.utils:pformat(data))
+    if quickFix > 0 then
+        return
+    end
 
     if self.utils:isEmpty(data) then
         error(("onConnect data is empty: %s"):format(data), 3)
@@ -103,8 +132,9 @@ local onConnect = function(self, data)
 
     self:sendMinaInformation()
 
-    self:preSend(self.networkUtils.events.needModList.name, { self.networkUtils:getNextNetworkMessageId(), {}, {} })
+    self:preSend(self.networkUtils.events.needModList.name, { self.networkUtils:getNextNetworkMessageId(), {"workshop"}, {"external"} })
 
+    quickFix = quickFix + 1
     --sendAck(self, data.networkMessageId, self.networkUtils.events.connect.name, nil)
 end
 
@@ -158,7 +188,7 @@ local onDisconnect = function(self, data)
     self.nuid         = nil
     self.otherClients = {}
     self.serverInfo   = {}
-
+    quickFix          = 0
     -- sendAck(self, data.networkMessageId)
 end
 
@@ -627,6 +657,8 @@ local onNeedModList = function(self, data)
         self.missingMods = conflicts
         self.logger:info("Mod conflicts detected: Missing " .. table.concat(conflicts, ", "))
     end
+
+    sendAck(self, data.networkMessageId, self.networkUtils.events.needModList.name)
 end
 
 ---Callback when mod content is requested.
@@ -662,6 +694,9 @@ end
 ---@private
 ---@param self Client
 local setCallbackAndSchemas = function(self)
+    self:setSchema(self.networkUtils.events.testBinaryString.name, self.networkUtils.events.testBinaryString.schema)
+    self:on(self.networkUtils.events.testBinaryString.name, onTestBinaryString)
+
     --self:setSchema(self.networkUtils.events.connect, { "code" })
     self:on(self.networkUtils.events.connect.name, onConnect)
 
@@ -763,7 +798,7 @@ function Client:preUpdate(startFrameTime)
     --self.entityUtils.processEntityNetworking()
     --self.entityUtils.initNetworkVscs()
 
-    self.entityUtils:syncEntities(startFrameTime)
+    self.entityUtils:syncEntities(startFrameTime, nil, self)
 
     local nowTime     = GameGetRealWorldTimeSinceStarted() * 1000 -- *1000 to get milliseconds
     local elapsedTime = nowTime - prevTime

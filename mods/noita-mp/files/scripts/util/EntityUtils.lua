@@ -84,6 +84,10 @@ local prevEntityIndex = 1
 ---@param server Server|nil Either server or client must not be nil!
 ---@param client Client|nil Either server or client must not be nil!
 function EntityUtils:syncEntities(startFrameTime, server, client)
+    if not server and not client then
+        error("EntityUtils.syncEntities: server OR client must not be nil!", 2)
+    end
+
     local start            = GameGetRealWorldTimeSinceStarted() * 1000
     local localPlayerId    = self.minaUtils:getLocalMinaEntityId()
     local playerX, playerY = EntityGetTransform(localPlayerId)
@@ -234,7 +238,7 @@ function EntityUtils:syncEntities(startFrameTime, server, client)
                 local ownerName = self.minaUtils:getLocalMinaName()
                 local ownerGuid = self.minaUtils:getLocalMinaGuid()
 
-                if server and not hasNuid or nuid <= 0 then
+                if server and server.iAm == "SERVER" and not hasNuid or nuid <= 0 and not client then
                     nuid = self.nuidUtils:getNextNuid()
                     -- Server.sendNewNuid this will be executed below
                 elseif client and not hasNuid or nuid <= 0 then
