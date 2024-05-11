@@ -199,6 +199,9 @@ function OnPlayerSpawned(player_entity)
                 execute_every_n_frame = 1,
             })
     end
+
+    -- custom debug biome
+    EntityApplyTransform(player_entity, -968, 50)
 end
 
 function OnPausePreUpdate()
