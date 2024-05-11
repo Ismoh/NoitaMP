@@ -12,7 +12,7 @@ cc.RepeatForever=RepeatForever
 ---@param action cc.ActionInterval
 ---@return self
 function RepeatForever:setInnerAction (action) end
----*  initializes the action 
+---*  initializes the action
 ---@param action cc.ActionInterval
 ---@return boolean
 function RepeatForever:initWithAction (action) end
@@ -26,23 +26,23 @@ function RepeatForever:getInnerAction () end
 ---@param action cc.ActionInterval
 ---@return self
 function RepeatForever:create (action) end
----* 
+---*
 ---@param target cc.Node
 ---@return self
 function RepeatForever:startWithTarget (target) end
----* 
+---*
 ---@return self
 function RepeatForever:clone () end
----* 
+---*
 ---@return boolean
 function RepeatForever:isDone () end
----* 
+---*
 ---@return self
 function RepeatForever:reverse () end
 ---* param dt In seconds.
 ---@param dt float
 ---@return self
 function RepeatForever:step (dt) end
----* 
+---*
 ---@return self
 function RepeatForever:RepeatForever () end

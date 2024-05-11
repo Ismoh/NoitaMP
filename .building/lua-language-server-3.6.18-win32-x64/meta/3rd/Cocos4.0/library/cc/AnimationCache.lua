@@ -21,7 +21,7 @@ function AnimationCache:getAnimation (name) end
 ---@param name string
 ---@return self
 function AnimationCache:addAnimation (animation,name) end
----* 
+---*
 ---@return boolean
 function AnimationCache:init () end
 ---*  Adds an animation from an NSDictionary.<br>

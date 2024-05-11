@@ -71,16 +71,16 @@ function Follow:createWithOffset (followedNode,xOffset,yOffset,rect) end
 ---@param dt float
 ---@return self
 function Follow:step (dt) end
----* 
+---*
 ---@return self
 function Follow:clone () end
----* 
+---*
 ---@return self
 function Follow:stop () end
----* 
+---*
 ---@return self
 function Follow:reverse () end
----* 
+---*
 ---@return boolean
 function Follow:isDone () end
 ---* js ctor

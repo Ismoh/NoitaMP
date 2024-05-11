@@ -15,19 +15,19 @@ cc.FadeOutUpTiles=FadeOutUpTiles
 ---@param gridSize size_table
 ---@return self
 function FadeOutUpTiles:create (duration,gridSize) end
----* 
+---*
 ---@return self
 function FadeOutUpTiles:clone () end
----* 
+---*
 ---@param pos vec2_table
 ---@param distance float
 ---@return self
 function FadeOutUpTiles:transformTile (pos,distance) end
----* 
+---*
 ---@param pos size_table
 ---@param time float
 ---@return float
 function FadeOutUpTiles:testFunc (pos,time) end
----* 
+---*
 ---@return self
 function FadeOutUpTiles:FadeOutUpTiles () end

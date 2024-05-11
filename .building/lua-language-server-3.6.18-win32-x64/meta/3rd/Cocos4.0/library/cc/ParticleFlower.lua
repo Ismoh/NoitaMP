@@ -7,10 +7,10 @@ cc.ParticleFlower=ParticleFlower
 
 
 
----* 
+---*
 ---@return boolean
 function ParticleFlower:init () end
----* 
+---*
 ---@param numberOfParticles int
 ---@return boolean
 function ParticleFlower:initWithTotalParticles (numberOfParticles) end

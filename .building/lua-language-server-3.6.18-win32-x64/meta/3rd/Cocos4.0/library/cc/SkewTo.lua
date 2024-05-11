@@ -23,20 +23,20 @@ function SkewTo:initWithDuration (t,sx,sy) end
 ---@param sy float
 ---@return self
 function SkewTo:create (t,sx,sy) end
----* 
+---*
 ---@param target cc.Node
 ---@return self
 function SkewTo:startWithTarget (target) end
----* 
+---*
 ---@return self
 function SkewTo:clone () end
----* 
+---*
 ---@return self
 function SkewTo:reverse () end
 ---* param time In seconds.
 ---@param time float
 ---@return self
 function SkewTo:update (time) end
----* 
+---*
 ---@return self
 function SkewTo:SkewTo () end

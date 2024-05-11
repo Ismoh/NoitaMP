@@ -15,9 +15,9 @@ cc.TransitionSplitRows=TransitionSplitRows
 ---@param scene cc.Scene
 ---@return self
 function TransitionSplitRows:create (t,scene) end
----* 
+---*
 ---@return cc.ActionInterval
 function TransitionSplitRows:action () end
----* 
+---*
 ---@return self
 function TransitionSplitRows:TransitionSplitRows () end

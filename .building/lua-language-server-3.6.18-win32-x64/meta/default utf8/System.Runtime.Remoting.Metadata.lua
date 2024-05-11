@@ -61,7 +61,7 @@ CS.System.Runtime.Remoting.Metadata.SoapMethodAttribute = {}
 ---@source mscorlib.dll
 CS.System.Runtime.Remoting.Metadata.SoapOption = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.Remoting.Metadata.SoapOption
 function CS.System.Runtime.Remoting.Metadata.SoapOption:__CastFrom(value) end
@@ -104,7 +104,7 @@ CS.System.Runtime.Remoting.Metadata.SoapTypeAttribute = {}
 ---@source mscorlib.dll
 CS.System.Runtime.Remoting.Metadata.XmlFieldOrderOption = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.Remoting.Metadata.XmlFieldOrderOption
 function CS.System.Runtime.Remoting.Metadata.XmlFieldOrderOption:__CastFrom(value) end

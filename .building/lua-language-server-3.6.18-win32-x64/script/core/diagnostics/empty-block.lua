@@ -4,7 +4,7 @@ local lang    = require 'language'
 local define  = require 'proto.define'
 local await   = require 'await'
 
--- 检查空代码块  
+-- 检查空代码块
 -- 但是排除忙等待（repeat/while)
 ---@async
 return function (uri, callback)

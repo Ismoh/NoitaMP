@@ -27,13 +27,13 @@ function FlipX3D:initWithDuration (duration) end
 ---@param duration float
 ---@return self
 function FlipX3D:create (duration) end
----* 
+---*
 ---@return self
 function FlipX3D:clone () end
----* 
+---*
 ---@param time float
 ---@return self
 function FlipX3D:update (time) end
----* 
+---*
 ---@return self
 function FlipX3D:FlipX3D () end

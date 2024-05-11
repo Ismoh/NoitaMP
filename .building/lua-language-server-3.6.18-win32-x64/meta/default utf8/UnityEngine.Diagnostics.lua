@@ -35,7 +35,7 @@
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Diagnostics.ForcedCrashCategory = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Diagnostics.ForcedCrashCategory
 function CS.UnityEngine.Diagnostics.ForcedCrashCategory:__CastFrom(value) end

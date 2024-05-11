@@ -40,7 +40,7 @@ CS.UnityEngine.Networking.NetworkTransport = {}
 --
 --```plaintext
 --Params: endPoint - EndPoint instance to check.
---        
+--
 --```
 --
 ---@source UnityEngine.UNETModule.dll
@@ -77,7 +77,7 @@ function CS.UnityEngine.Networking.NetworkTransport:Shutdown() end
 --
 --```plaintext
 --Params: go - Target GameObject to get assetId for.
---        
+--
 --```
 --
 ---@source UnityEngine.UNETModule.dll
@@ -102,7 +102,7 @@ function CS.UnityEngine.Networking.NetworkTransport:GetNextSceneId() end
 --        maxTimeout - Maximum simulated delay in milliseconds.
 --        port - Port to bind to (when 0 is selected, the OS will choose a port at random).
 --        ip - IP address to bind to.
---        
+--
 --```
 --
 ---@source UnityEngine.UNETModule.dll
@@ -136,7 +136,7 @@ function CS.UnityEngine.Networking.NetworkTransport:AddHostWithSimulator(topolog
 --Params: topology - The Networking.HostTopology associated with the host.
 --        port - Port to bind to (when 0 is selected, the OS will choose a port at random).
 --        ip - IP address to bind to.
---        
+--
 --```
 --
 ---@source UnityEngine.UNETModule.dll
@@ -164,7 +164,7 @@ function CS.UnityEngine.Networking.NetworkTransport:AddHost(topology) end
 --Params: port - Port to bind to.
 --        topology - The Networking.HostTopology associated with the host.
 --        ip - IP address to bind to.
---        
+--
 --```
 --
 ---@source UnityEngine.UNETModule.dll
@@ -181,7 +181,7 @@ function CS.UnityEngine.Networking.NetworkTransport:AddWebsocketHost(topology, p
 --Params: port - Port to bind to.
 --        topology - The Networking.HostTopology associated with the host.
 --        ip - IP address to bind to.
---        
+--
 --```
 --
 ---@source UnityEngine.UNETModule.dll
@@ -532,7 +532,7 @@ function CS.UnityEngine.Networking.NetworkTransport:FinishSendMulticast(hostId, 
 --
 --```plaintext
 --Params: hostId - Host ID to remove.
---        
+--
 --```
 --
 ---@source UnityEngine.UNETModule.dll
@@ -623,7 +623,7 @@ function CS.UnityEngine.Networking.NetworkTransport:ReceiveFromHost(hostId, conn
 --        numMsgs - Number of messages being reported.
 --        numBytes - Number of bytes used by reported messages.
 --        direction - Whether the packet is outgoing (-1) or incoming (0).
---        
+--
 --```
 --
 ---@source UnityEngine.UNETModule.dll
@@ -646,7 +646,7 @@ function CS.UnityEngine.Networking.NetworkTransport:NotifyWhenConnectionReadyFor
 --
 --```plaintext
 --Params: hostId - Host ID.
---        
+--
 --```
 --
 ---@source UnityEngine.UNETModule.dll
@@ -722,7 +722,7 @@ function CS.UnityEngine.Networking.NetworkTransport:SetMulticastLock(enabled) en
 --
 --```plaintext
 --Params: libraryName - The path to the native encryption plugin to load, relative to the executable.
---        
+--
 --```
 --
 ---@source UnityEngine.UNETModule.dll
@@ -748,7 +748,7 @@ function CS.UnityEngine.Networking.NetworkTransport:IsEncryptionActive() end
 --
 --```plaintext
 --Params: maxPacketSize - The largest packet size that the network allows, in bytes.
---        
+--
 --```
 --
 ---@source UnityEngine.UNETModule.dll
@@ -791,7 +791,7 @@ function CS.UnityEngine.Networking.NetworkTransport:GetEncryptionSafeMaxPacketSi
 ---@source UnityEngine.UNETModule.dll
 CS.UnityEngine.Networking.NetworkEventType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Networking.NetworkEventType
 function CS.UnityEngine.Networking.NetworkEventType:__CastFrom(value) end
@@ -860,7 +860,7 @@ function CS.UnityEngine.Networking.NetworkEventType:__CastFrom(value) end
 ---@source UnityEngine.UNETModule.dll
 CS.UnityEngine.Networking.QosType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Networking.QosType
 function CS.UnityEngine.Networking.QosType:__CastFrom(value) end
@@ -939,7 +939,7 @@ function CS.UnityEngine.Networking.QosType:__CastFrom(value) end
 ---@source UnityEngine.UNETModule.dll
 CS.UnityEngine.Networking.NetworkError = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Networking.NetworkError
 function CS.UnityEngine.Networking.NetworkError:__CastFrom(value) end
@@ -963,7 +963,7 @@ function CS.UnityEngine.Networking.NetworkError:__CastFrom(value) end
 ---@source UnityEngine.UNETModule.dll
 CS.UnityEngine.Networking.ReactorModel = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Networking.ReactorModel
 function CS.UnityEngine.Networking.ReactorModel:__CastFrom(value) end
@@ -997,7 +997,7 @@ function CS.UnityEngine.Networking.ReactorModel:__CastFrom(value) end
 ---@source UnityEngine.UNETModule.dll
 CS.UnityEngine.Networking.ConnectionAcksType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Networking.ConnectionAcksType
 function CS.UnityEngine.Networking.ConnectionAcksType:__CastFrom(value) end
@@ -1244,7 +1244,7 @@ function CS.UnityEngine.Networking.ConnectionConfig:Validate(config) end
 --
 --```plaintext
 --Params: value - Add new channel to configuration.
---        
+--
 --```
 --
 ---@source UnityEngine.UNETModule.dll
@@ -1261,7 +1261,7 @@ function CS.UnityEngine.Networking.ConnectionConfig.MakeChannelsSharedOrder(chan
 --
 --```plaintext
 --Params: idx - Index in array.
---        
+--
 --```
 --
 ---@source UnityEngine.UNETModule.dll
@@ -1274,7 +1274,7 @@ function CS.UnityEngine.Networking.ConnectionConfig.GetChannel(idx) end
 --
 --```plaintext
 --Params: idx - Group id.
---        
+--
 --```
 --
 ---@source UnityEngine.UNETModule.dll
@@ -1328,7 +1328,7 @@ CS.UnityEngine.Networking.HostTopology = {}
 --
 --```plaintext
 --Params: i - Config id.
---        
+--
 --```
 --
 ---@source UnityEngine.UNETModule.dll
@@ -1341,7 +1341,7 @@ function CS.UnityEngine.Networking.HostTopology.GetSpecialConnectionConfig(i) en
 --
 --```plaintext
 --Params: config - Connection config for special connection.
---        
+--
 --```
 --
 ---@source UnityEngine.UNETModule.dll
@@ -1511,7 +1511,7 @@ CS.UnityEngine.Networking.UnityWebRequestAssetBundle = {}
 --Analogous to the version parameter for WWW.LoadFromCacheOrDownload.
 --        hash - A version hash. If this hash does not match the hash for the cached version of this asset bundle, the asset bundle will be redownloaded.
 --        cachedAssetBundle - A structure used to download a given version of AssetBundle to a customized cache path.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityWebRequestAssetBundleModule.dll
@@ -1530,7 +1530,7 @@ function CS.UnityEngine.Networking.UnityWebRequestAssetBundle:GetAssetBundle(uri
 --Analogous to the version parameter for WWW.LoadFromCacheOrDownload.
 --        hash - A version hash. If this hash does not match the hash for the cached version of this asset bundle, the asset bundle will be redownloaded.
 --        cachedAssetBundle - A structure used to download a given version of AssetBundle to a customized cache path.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityWebRequestAssetBundleModule.dll
@@ -1549,7 +1549,7 @@ function CS.UnityEngine.Networking.UnityWebRequestAssetBundle:GetAssetBundle(uri
 --Analogous to the version parameter for WWW.LoadFromCacheOrDownload.
 --        hash - A version hash. If this hash does not match the hash for the cached version of this asset bundle, the asset bundle will be redownloaded.
 --        cachedAssetBundle - A structure used to download a given version of AssetBundle to a customized cache path.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityWebRequestAssetBundleModule.dll
@@ -1569,7 +1569,7 @@ function CS.UnityEngine.Networking.UnityWebRequestAssetBundle:GetAssetBundle(uri
 --Analogous to the version parameter for WWW.LoadFromCacheOrDownload.
 --        hash - A version hash. If this hash does not match the hash for the cached version of this asset bundle, the asset bundle will be redownloaded.
 --        cachedAssetBundle - A structure used to download a given version of AssetBundle to a customized cache path.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityWebRequestAssetBundleModule.dll
@@ -1589,7 +1589,7 @@ function CS.UnityEngine.Networking.UnityWebRequestAssetBundle:GetAssetBundle(uri
 --Analogous to the version parameter for WWW.LoadFromCacheOrDownload.
 --        hash - A version hash. If this hash does not match the hash for the cached version of this asset bundle, the asset bundle will be redownloaded.
 --        cachedAssetBundle - A structure used to download a given version of AssetBundle to a customized cache path.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityWebRequestAssetBundleModule.dll
@@ -1610,7 +1610,7 @@ function CS.UnityEngine.Networking.UnityWebRequestAssetBundle:GetAssetBundle(uri
 --Analogous to the version parameter for WWW.LoadFromCacheOrDownload.
 --        hash - A version hash. If this hash does not match the hash for the cached version of this asset bundle, the asset bundle will be redownloaded.
 --        cachedAssetBundle - A structure used to download a given version of AssetBundle to a customized cache path.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityWebRequestAssetBundleModule.dll
@@ -1631,7 +1631,7 @@ function CS.UnityEngine.Networking.UnityWebRequestAssetBundle:GetAssetBundle(uri
 --Analogous to the version parameter for WWW.LoadFromCacheOrDownload.
 --        hash - A version hash. If this hash does not match the hash for the cached version of this asset bundle, the asset bundle will be redownloaded.
 --        cachedAssetBundle - A structure used to download a given version of AssetBundle to a customized cache path.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityWebRequestAssetBundleModule.dll
@@ -1652,7 +1652,7 @@ function CS.UnityEngine.Networking.UnityWebRequestAssetBundle:GetAssetBundle(uri
 --Analogous to the version parameter for WWW.LoadFromCacheOrDownload.
 --        hash - A version hash. If this hash does not match the hash for the cached version of this asset bundle, the asset bundle will be redownloaded.
 --        cachedAssetBundle - A structure used to download a given version of AssetBundle to a customized cache path.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityWebRequestAssetBundleModule.dll
@@ -1673,7 +1673,7 @@ function CS.UnityEngine.Networking.UnityWebRequestAssetBundle:GetAssetBundle(uri
 --Analogous to the version parameter for WWW.LoadFromCacheOrDownload.
 --        hash - A version hash. If this hash does not match the hash for the cached version of this asset bundle, the asset bundle will be redownloaded.
 --        cachedAssetBundle - A structure used to download a given version of AssetBundle to a customized cache path.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityWebRequestAssetBundleModule.dll
@@ -1694,7 +1694,7 @@ function CS.UnityEngine.Networking.UnityWebRequestAssetBundle:GetAssetBundle(uri
 --Analogous to the version parameter for WWW.LoadFromCacheOrDownload.
 --        hash - A version hash. If this hash does not match the hash for the cached version of this asset bundle, the asset bundle will be redownloaded.
 --        cachedAssetBundle - A structure used to download a given version of AssetBundle to a customized cache path.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityWebRequestAssetBundleModule.dll
@@ -1733,7 +1733,7 @@ CS.UnityEngine.Networking.DownloadHandlerAssetBundle = {}
 --
 --```plaintext
 --Params: www - A finished UnityWebRequest object with DownloadHandlerAssetBundle attached.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityWebRequestAssetBundleModule.dll
@@ -1756,7 +1756,7 @@ CS.UnityEngine.Networking.UnityWebRequestMultimedia = {}
 --```plaintext
 --Params: uri - The URI of the audio clip to download.
 --        audioType - The type of audio encoding for the downloaded audio clip. See AudioType.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityWebRequestAudioModule.dll
@@ -1842,7 +1842,7 @@ CS.UnityEngine.Networking.DownloadHandlerAudioClip = {}
 --
 --```plaintext
 --Params: www - A finished UnityWebRequest object with DownloadHandlerAudioClip attached.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityWebRequestAudioModule.dll
@@ -2087,7 +2087,7 @@ CS.UnityEngine.Networking.UnityWebRequest = {}
 --
 --```plaintext
 --Params: domain - An optional URL to define which cookies are removed. Only cookies that apply to this URL will be removed from the cache.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityWebRequestModule.dll
@@ -2128,7 +2128,7 @@ function CS.UnityEngine.Networking.UnityWebRequest.Abort() end
 --
 --```plaintext
 --Params: name - Name of the custom request header. Case-insensitive.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityWebRequestModule.dll
@@ -2142,7 +2142,7 @@ function CS.UnityEngine.Networking.UnityWebRequest.GetRequestHeader(name) end
 --```plaintext
 --Params: name - The key of the header to be set. Case-sensitive.
 --        value - The header's intended value.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityWebRequestModule.dll
@@ -2155,7 +2155,7 @@ function CS.UnityEngine.Networking.UnityWebRequest.SetRequestHeader(name, value)
 --
 --```plaintext
 --Params: name - The name of the HTTP header to retrieve. Case-insensitive.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityWebRequestModule.dll
@@ -2175,7 +2175,7 @@ function CS.UnityEngine.Networking.UnityWebRequest.GetResponseHeaders() end
 --
 --```plaintext
 --Params: uri - The URI of the resource to retrieve via HTTP GET.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityWebRequestModule.dll
@@ -2188,7 +2188,7 @@ function CS.UnityEngine.Networking.UnityWebRequest:Get(uri) end
 --
 --```plaintext
 --Params: uri - The URI of the resource to retrieve via HTTP GET.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityWebRequestModule.dll
@@ -2201,7 +2201,7 @@ function CS.UnityEngine.Networking.UnityWebRequest:Get(uri) end
 --
 --```plaintext
 --Params: uri - The URI to which a DELETE request should be sent.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityWebRequestModule.dll
@@ -2219,7 +2219,7 @@ function CS.UnityEngine.Networking.UnityWebRequest:Delete(uri) end
 --
 --```plaintext
 --Params: uri - The URI to which to send a HTTP HEAD request.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityWebRequestModule.dll
@@ -2238,7 +2238,7 @@ function CS.UnityEngine.Networking.UnityWebRequest:Head(uri) end
 --```plaintext
 --Params: uri - The URI of the image to download.
 --        nonReadable - If true, the texture's raw data will not be accessible to script. This can conserve memory. Default: false.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityWebRequestModule.dll
@@ -2252,7 +2252,7 @@ function CS.UnityEngine.Networking.UnityWebRequest:GetTexture(uri) end
 --```plaintext
 --Params: uri - The URI of the image to download.
 --        nonReadable - If true, the texture's raw data will not be accessible to script. This can conserve memory. Default: false.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityWebRequestModule.dll
@@ -2322,7 +2322,7 @@ function CS.UnityEngine.Networking.UnityWebRequest:GetAssetBundle(uri, cachedAss
 --        bodyData - The data to transmit to the remote server.
 --
 --If a string, the string will be converted to raw bytes via <a href="https:msdn.microsoft.comen-uslibrarysystem.text.encoding.utf8">System.Text.Encoding.UTF8<a>.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityWebRequestModule.dll
@@ -2345,7 +2345,7 @@ function CS.UnityEngine.Networking.UnityWebRequest:Put(uri, bodyData) end
 --        bodyData - The data to transmit to the remote server.
 --
 --If a string, the string will be converted to raw bytes via <a href="https:msdn.microsoft.comen-uslibrarysystem.text.encoding.utf8">System.Text.Encoding.UTF8<a>.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityWebRequestModule.dll
@@ -2366,7 +2366,7 @@ function CS.UnityEngine.Networking.UnityWebRequest:Put(uri, bodyData) end
 --```plaintext
 --Params: uri - The target URI to which form data will be transmitted.
 --        postData - Form body data. Will be URLEncoded prior to transmission.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityWebRequestModule.dll
@@ -2387,7 +2387,7 @@ function CS.UnityEngine.Networking.UnityWebRequest:Post(uri, postData) end
 --```plaintext
 --Params: uri - The target URI to which form data will be transmitted.
 --        formData - Form fields or files encapsulated in a WWWForm object, for formatting and transmission to the remote server.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityWebRequestModule.dll
@@ -2446,7 +2446,7 @@ function CS.UnityEngine.Networking.UnityWebRequest:Post(uri, formFields) end
 --```plaintext
 --Params: s - A string with characters to be escaped.
 --        e - The text encoding to use.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityWebRequestModule.dll
@@ -2460,7 +2460,7 @@ function CS.UnityEngine.Networking.UnityWebRequest:EscapeURL(s) end
 --```plaintext
 --Params: s - A string with characters to be escaped.
 --        e - The text encoding to use.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityWebRequestModule.dll
@@ -2475,7 +2475,7 @@ function CS.UnityEngine.Networking.UnityWebRequest:EscapeURL(s, e) end
 --```plaintext
 --Params: s - A string containing escaped characters.
 --        e - The text encoding to use.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityWebRequestModule.dll
@@ -2489,7 +2489,7 @@ function CS.UnityEngine.Networking.UnityWebRequest:UnEscapeURL(s) end
 --```plaintext
 --Params: s - A string containing escaped characters.
 --        e - The text encoding to use.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityWebRequestModule.dll
@@ -2577,7 +2577,7 @@ CS.UnityEngine.Networking.DownloadHandlerBuffer = {}
 --
 --```plaintext
 --Params: www - A finished UnityWebRequest object with DownloadHandlerBuffer attached.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityWebRequestModule.dll
@@ -2671,7 +2671,7 @@ CS.UnityEngine.Networking.UnityWebRequestTexture = {}
 --```plaintext
 --Params: uri - The URI of the image to download.
 --        nonReadable - If true, the texture's raw data will not be accessible to script. This can conserve memory. Default: false.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityWebRequestTextureModule.dll
@@ -2690,7 +2690,7 @@ function CS.UnityEngine.Networking.UnityWebRequestTexture:GetTexture(uri) end
 --```plaintext
 --Params: uri - The URI of the image to download.
 --        nonReadable - If true, the texture's raw data will not be accessible to script. This can conserve memory. Default: false.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityWebRequestTextureModule.dll
@@ -2724,7 +2724,7 @@ CS.UnityEngine.Networking.DownloadHandlerTexture = {}
 --
 --```plaintext
 --Params: www - A finished UnityWebRequest object with DownloadHandlerTexture attached.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityWebRequestTextureModule.dll
@@ -2766,7 +2766,7 @@ function CS.UnityEngine.Networking.DownloadHandlerTexture:GetContent(www) end
 ---@source UnityEngine.UnityWebRequestModule.dll
 CS.UnityEngine.Networking.Result = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Networking.UnityWebRequest.Result
 function CS.UnityEngine.Networking.Result:__CastFrom(value) end

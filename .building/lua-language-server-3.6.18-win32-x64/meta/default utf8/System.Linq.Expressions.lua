@@ -2527,7 +2527,7 @@ function CS.System.Linq.Expressions.Expression.Update(body, parameters) end
 ---@source System.Core.dll
 CS.System.Linq.Expressions.ExpressionType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Linq.Expressions.ExpressionType
 function CS.System.Linq.Expressions.ExpressionType:__CastFrom(value) end
@@ -2602,7 +2602,7 @@ function CS.System.Linq.Expressions.GotoExpression.Update(target, value) end
 ---@source System.Core.dll
 CS.System.Linq.Expressions.GotoExpressionKind = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Linq.Expressions.GotoExpressionKind
 function CS.System.Linq.Expressions.GotoExpressionKind:__CastFrom(value) end
@@ -2844,7 +2844,7 @@ function CS.System.Linq.Expressions.MemberBinding.ToString() end
 ---@source System.Core.dll
 CS.System.Linq.Expressions.MemberBindingType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Linq.Expressions.MemberBindingType
 function CS.System.Linq.Expressions.MemberBindingType:__CastFrom(value) end

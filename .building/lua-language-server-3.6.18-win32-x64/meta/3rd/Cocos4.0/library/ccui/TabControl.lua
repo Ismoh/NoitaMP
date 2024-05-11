@@ -21,7 +21,7 @@ function TabControl:removeTab (index) end
 ---* return the count of tabs
 ---@return unsigned_int
 function TabControl:getTabCount () end
----* 
+---*
 ---@return int
 function TabControl:getHeaderDockPlace () end
 ---* get current selected tab's index<br>
@@ -99,6 +99,6 @@ function TabControl:getHeaderSelectedZoom () end
 ---* return header's height
 ---@return int
 function TabControl:getHeaderHeight () end
----* 
+---*
 ---@return self
 function TabControl:create () end

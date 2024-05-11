@@ -40,13 +40,13 @@ function FadeOutTRTiles:testFunc (pos,time) end
 ---@param gridSize size_table
 ---@return self
 function FadeOutTRTiles:create (duration,gridSize) end
----* 
+---*
 ---@return self
 function FadeOutTRTiles:clone () end
----* 
+---*
 ---@param time float
 ---@return self
 function FadeOutTRTiles:update (time) end
----* 
+---*
 ---@return self
 function FadeOutTRTiles:FadeOutTRTiles () end

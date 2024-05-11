@@ -71,7 +71,7 @@ function CS.UnityEngine.U2D.SpriteDataAccessExtensions.SetVertexAttribute(channe
 --
 --```plaintext
 --Params: sprite - The sprite to retrieve the bind pose from.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -98,7 +98,7 @@ function CS.UnityEngine.U2D.SpriteDataAccessExtensions.SetIndices(src) end
 --
 --```plaintext
 --Params: sprite - The sprite to get the list of SpriteBone from.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -214,7 +214,7 @@ function CS.UnityEngine.U2D.SpriteAtlas.CanBindTo(sprite) end
 --
 --```plaintext
 --Params: name - The name of the Sprite.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -227,7 +227,7 @@ function CS.UnityEngine.U2D.SpriteAtlas.GetSprite(name) end
 --
 --```plaintext
 --Params: sprites - Array of Sprite that will be filled.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -241,7 +241,7 @@ function CS.UnityEngine.U2D.SpriteAtlas.GetSprites(sprites) end
 --```plaintext
 --Params: sprites - Array of Sprite that will be filled.
 --        name - The name of the Sprite.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -379,7 +379,7 @@ CS.UnityEngine.U2D.SpriteShapeRenderer = {}
 --Params: handle - JobHandle for the C# based SpriteShape Generator Job.
 --        shapeParams - Sprite Shape generation input params.
 --        sprites - Input list of Sprites.
---        
+--
 --```
 --
 ---@source UnityEngine.SpriteShapeModule.dll
@@ -400,7 +400,7 @@ function CS.UnityEngine.U2D.SpriteShapeRenderer.GetBounds() end
 --
 --```plaintext
 --Params: dataSize - Size to be reserved for the segments array.
---        
+--
 --```
 --
 ---@source UnityEngine.SpriteShapeModule.dll
@@ -544,7 +544,7 @@ CS.UnityEngine.U2D.SpriteShapeUtility = {}
 --        sprites - The list of Sprites that could be used for the edges.
 --        corners - The list of Sprites that could be used for the corners.
 --        angleRange - A parameter that determins how to tessellate each of the edge.
---        
+--
 --```
 --
 ---@source UnityEngine.SpriteShapeModule.dll
@@ -568,7 +568,7 @@ function CS.UnityEngine.U2D.SpriteShapeUtility:Generate(mesh, shapeParams, point
 --        sprites - The list of Sprites that could be used for the edges.
 --        corners - The list of Sprites that could be used for the corners.
 --        angleRange - A parameter that determins how to tessellate each of the edge.
---        
+--
 --```
 --
 ---@source UnityEngine.SpriteShapeModule.dll

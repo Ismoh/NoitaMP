@@ -29,7 +29,7 @@ function Sprite3DMaterial:createBuiltInMaterial (type,skinned) end
 ---* Release all built in materials
 ---@return self
 function Sprite3DMaterial:releaseBuiltInMaterial () end
----* 
+---*
 ---@param programState cc.backend.ProgramState
 ---@return self
 function Sprite3DMaterial:createWithProgramState (programState) end

@@ -11,7 +11,7 @@ CS.UnityEngine.Jobs.IJobParallelForTransform = {}
 --```plaintext
 --Params: index - Index.
 --        transform - TransformAccessArray.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -137,7 +137,7 @@ function CS.UnityEngine.Jobs.TransformAccessArray.Dispose() end
 --
 --```plaintext
 --Params: transform - Transform.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -149,7 +149,7 @@ function CS.UnityEngine.Jobs.TransformAccessArray.Add(transform) end
 --
 --```plaintext
 --Params: index - Index.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -161,7 +161,7 @@ function CS.UnityEngine.Jobs.TransformAccessArray.RemoveAtSwapBack(index) end
 --
 --```plaintext
 --Params: transforms - Transforms.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll

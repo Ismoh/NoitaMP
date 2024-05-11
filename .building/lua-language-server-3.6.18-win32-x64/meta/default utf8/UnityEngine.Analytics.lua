@@ -570,7 +570,7 @@ CS.UnityEngine.Analytics.EnumCase = {}
 ---@source Unity.Analytics.StandardEvents.dll
 CS.UnityEngine.Analytics.Styles = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Analytics.EnumCase.Styles
 function CS.UnityEngine.Analytics.Styles:__CastFrom(value) end
@@ -597,7 +597,7 @@ function CS.UnityEngine.Analytics.Styles:__CastFrom(value) end
 ---@source Unity.Analytics.StandardEvents.dll
 CS.UnityEngine.Analytics.AcquisitionSource = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Analytics.AcquisitionSource
 function CS.UnityEngine.Analytics.AcquisitionSource:__CastFrom(value) end
@@ -612,7 +612,7 @@ function CS.UnityEngine.Analytics.AcquisitionSource:__CastFrom(value) end
 ---@source Unity.Analytics.StandardEvents.dll
 CS.UnityEngine.Analytics.AcquisitionType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Analytics.AcquisitionType
 function CS.UnityEngine.Analytics.AcquisitionType:__CastFrom(value) end
@@ -787,7 +787,7 @@ function CS.UnityEngine.Analytics.AcquisitionType:__CastFrom(value) end
 ---@source Unity.Analytics.StandardEvents.dll
 CS.UnityEngine.Analytics.AdvertisingNetwork = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Analytics.AdvertisingNetwork
 function CS.UnityEngine.Analytics.AdvertisingNetwork:__CastFrom(value) end
@@ -810,7 +810,7 @@ function CS.UnityEngine.Analytics.AdvertisingNetwork:__CastFrom(value) end
 ---@source Unity.Analytics.StandardEvents.dll
 CS.UnityEngine.Analytics.AuthorizationNetwork = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Analytics.AuthorizationNetwork
 function CS.UnityEngine.Analytics.AuthorizationNetwork:__CastFrom(value) end
@@ -855,7 +855,7 @@ function CS.UnityEngine.Analytics.AuthorizationNetwork:__CastFrom(value) end
 ---@source Unity.Analytics.StandardEvents.dll
 CS.UnityEngine.Analytics.ScreenName = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Analytics.ScreenName
 function CS.UnityEngine.Analytics.ScreenName:__CastFrom(value) end
@@ -878,7 +878,7 @@ function CS.UnityEngine.Analytics.ScreenName:__CastFrom(value) end
 ---@source Unity.Analytics.StandardEvents.dll
 CS.UnityEngine.Analytics.ShareType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Analytics.ShareType
 function CS.UnityEngine.Analytics.ShareType:__CastFrom(value) end
@@ -915,7 +915,7 @@ function CS.UnityEngine.Analytics.ShareType:__CastFrom(value) end
 ---@source Unity.Analytics.StandardEvents.dll
 CS.UnityEngine.Analytics.SocialNetwork = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Analytics.SocialNetwork
 function CS.UnityEngine.Analytics.SocialNetwork:__CastFrom(value) end
@@ -930,7 +930,7 @@ function CS.UnityEngine.Analytics.SocialNetwork:__CastFrom(value) end
 ---@source Unity.Analytics.StandardEvents.dll
 CS.UnityEngine.Analytics.StoreType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Analytics.StoreType
 function CS.UnityEngine.Analytics.StoreType:__CastFrom(value) end
@@ -1350,7 +1350,7 @@ CS.UnityEngine.Analytics.AnalyticsEventParam = {}
 ---@source Unity.Analytics.Tracker.dll
 CS.UnityEngine.Analytics.RequirementType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Analytics.AnalyticsEventParam.RequirementType
 function CS.UnityEngine.Analytics.RequirementType:__CastFrom(value) end
@@ -1423,7 +1423,7 @@ function CS.UnityEngine.Analytics.ValueProperty.IsValid() end
 ---@source Unity.Analytics.Tracker.dll
 CS.UnityEngine.Analytics.PropertyType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Analytics.ValueProperty.PropertyType
 function CS.UnityEngine.Analytics.PropertyType:__CastFrom(value) end
@@ -1451,7 +1451,7 @@ function CS.UnityEngine.Analytics.AnalyticsTracker.TriggerEvent() end
 ---@source Unity.Analytics.Tracker.dll
 CS.UnityEngine.Analytics.TriggerBool = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Analytics.TriggerBool
 function CS.UnityEngine.Analytics.TriggerBool:__CastFrom(value) end
@@ -1478,7 +1478,7 @@ function CS.UnityEngine.Analytics.TriggerBool:__CastFrom(value) end
 ---@source Unity.Analytics.Tracker.dll
 CS.UnityEngine.Analytics.TriggerLifecycleEvent = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Analytics.TriggerLifecycleEvent
 function CS.UnityEngine.Analytics.TriggerLifecycleEvent:__CastFrom(value) end
@@ -1505,7 +1505,7 @@ function CS.UnityEngine.Analytics.TriggerLifecycleEvent:__CastFrom(value) end
 ---@source Unity.Analytics.Tracker.dll
 CS.UnityEngine.Analytics.TriggerOperator = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Analytics.TriggerOperator
 function CS.UnityEngine.Analytics.TriggerOperator:__CastFrom(value) end
@@ -1524,7 +1524,7 @@ function CS.UnityEngine.Analytics.TriggerOperator:__CastFrom(value) end
 ---@source Unity.Analytics.Tracker.dll
 CS.UnityEngine.Analytics.TriggerType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Analytics.TriggerType
 function CS.UnityEngine.Analytics.TriggerType:__CastFrom(value) end
@@ -1689,7 +1689,7 @@ function CS.UnityEngine.Analytics.ContinuousEvent:ConfigureEvent(eventName, metr
 ---@source UnityEngine.UnityAnalyticsModule.dll
 CS.UnityEngine.Analytics.AnalyticsSessionState = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Analytics.AnalyticsSessionState
 function CS.UnityEngine.Analytics.AnalyticsSessionState:__CastFrom(value) end
@@ -1777,7 +1777,7 @@ function CS.UnityEngine.Analytics.AnalyticsSessionInfo:remove_identityTokenChang
 --        sessionId - Current session id.
 --        sessionElapsedTime - Length of the current session in milliseconds.
 --        sessionChanged - True, if the sessionId has changed; otherwise false.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityAnalyticsModule.dll
@@ -1898,7 +1898,7 @@ function CS.UnityEngine.Analytics.Analytics:FlushEvents() end
 --
 --```plaintext
 --Params: userId - User id.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityAnalyticsModule.dll
@@ -1911,7 +1911,7 @@ function CS.UnityEngine.Analytics.Analytics:SetUserId(userId) end
 --
 --```plaintext
 --Params: gender - Gender of user can be "Female", "Male", or "Unknown".
---        
+--
 --```
 --
 ---@source UnityEngine.UnityAnalyticsModule.dll
@@ -1924,7 +1924,7 @@ function CS.UnityEngine.Analytics.Analytics:SetUserGender(gender) end
 --
 --```plaintext
 --Params: birthYear - Birth year of user. Must be 4-digit year format, only.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityAnalyticsModule.dll
@@ -1942,7 +1942,7 @@ function CS.UnityEngine.Analytics.Analytics:SetUserBirthYear(birthYear) end
 --        receiptPurchaseData - Receipt data (iOS)  receipt ID (android)  for in-app purchases to verify purchases with Apple iTunes / Google Play. Use null in the absence of receipts.
 --        signature - Android receipt signature. If using native Android use the INAPP_DATA_SIGNATURE string containing the signature of the purchase data that was signed with the private key of the developer. The data signature uses the RSASSA-PKCS1-v1_5 scheme. Pass in null in absence of a signature.
 --        usingIAPService - Set to true when using UnityIAP.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityAnalyticsModule.dll
@@ -1962,7 +1962,7 @@ function CS.UnityEngine.Analytics.Analytics:Transaction(productId, amount, curre
 --        receiptPurchaseData - Receipt data (iOS)  receipt ID (android)  for in-app purchases to verify purchases with Apple iTunes / Google Play. Use null in the absence of receipts.
 --        signature - Android receipt signature. If using native Android use the INAPP_DATA_SIGNATURE string containing the signature of the purchase data that was signed with the private key of the developer. The data signature uses the RSASSA-PKCS1-v1_5 scheme. Pass in null in absence of a signature.
 --        usingIAPService - Set to true when using UnityIAP.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityAnalyticsModule.dll
@@ -1984,7 +1984,7 @@ function CS.UnityEngine.Analytics.Analytics:Transaction(productId, amount, curre
 --        receiptPurchaseData - Receipt data (iOS)  receipt ID (android)  for in-app purchases to verify purchases with Apple iTunes / Google Play. Use null in the absence of receipts.
 --        signature - Android receipt signature. If using native Android use the INAPP_DATA_SIGNATURE string containing the signature of the purchase data that was signed with the private key of the developer. The data signature uses the RSASSA-PKCS1-v1_5 scheme. Pass in null in absence of a signature.
 --        usingIAPService - Set to true when using UnityIAP.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityAnalyticsModule.dll
@@ -2047,7 +2047,7 @@ function CS.UnityEngine.Analytics.Analytics:IsCustomEventEnabled(customEventName
 --        vendorKey - Vendor key name.
 --        prefix - Optional event name prefix value.
 --        ver - Event version number.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityAnalyticsModule.dll
@@ -2069,7 +2069,7 @@ function CS.UnityEngine.Analytics.Analytics:RegisterEvent(eventName, maxEventPer
 --        vendorKey - Vendor key name.
 --        prefix - Optional event name prefix value.
 --        ver - Event version number.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityAnalyticsModule.dll
@@ -2090,7 +2090,7 @@ function CS.UnityEngine.Analytics.Analytics:RegisterEvent(eventName, maxEventPer
 --        ver - Event version number.
 --        prefix - Optional event name prefix value.
 --        parameters - Additional event data.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityAnalyticsModule.dll
@@ -2109,7 +2109,7 @@ function CS.UnityEngine.Analytics.Analytics:SendEvent(eventName, parameters, ver
 --        ver - Event version number.
 --        endPoint - Event end point URL.
 --        prefix - Optional event name prefix value.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityAnalyticsModule.dll
@@ -2128,7 +2128,7 @@ function CS.UnityEngine.Analytics.Analytics:SetEventEndPoint(eventName, endPoint
 --        ver - Event version number.
 --        prefix - Optional event name prefix value.
 --        eventPriority - Event priority.
---        
+--
 --```
 --
 ---@source UnityEngine.UnityAnalyticsModule.dll
@@ -2184,7 +2184,7 @@ function CS.UnityEngine.Analytics.Analytics:IsEventEnabled(eventName, ver, prefi
 ---@source UnityEngine.UnityAnalyticsModule.dll
 CS.UnityEngine.Analytics.Gender = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Analytics.Gender
 function CS.UnityEngine.Analytics.Gender:__CastFrom(value) end
@@ -2238,7 +2238,7 @@ function CS.UnityEngine.Analytics.Gender:__CastFrom(value) end
 ---@source UnityEngine.UnityAnalyticsModule.dll
 CS.UnityEngine.Analytics.AnalyticsResult = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Analytics.AnalyticsResult
 function CS.UnityEngine.Analytics.AnalyticsResult:__CastFrom(value) end
@@ -2317,7 +2317,7 @@ function CS.UnityEngine.Analytics.AnalyticsResult:__CastFrom(value) end
 ---@source UnityEngine.UnityAnalyticsModule.dll
 CS.UnityEngine.Analytics.AnalyticsEventPriority = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Analytics.AnalyticsEventPriority
 function CS.UnityEngine.Analytics.AnalyticsEventPriority:__CastFrom(value) end

@@ -14,6 +14,6 @@ cc.TransitionZoomFlipX=TransitionZoomFlipX
 ---@param o int
 ---@return self
 function TransitionZoomFlipX:create (t,s,o) end
----* 
+---*
 ---@return self
 function TransitionZoomFlipX:TransitionZoomFlipX () end

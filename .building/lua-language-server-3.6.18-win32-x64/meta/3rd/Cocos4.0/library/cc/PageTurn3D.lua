@@ -15,13 +15,13 @@ cc.PageTurn3D=PageTurn3D
 ---@param gridSize size_table
 ---@return self
 function PageTurn3D:create (duration,gridSize) end
----* 
+---*
 ---@return self
 function PageTurn3D:clone () end
----* js NA 
+---* js NA
 ---@return cc.GridBase
 function PageTurn3D:getGrid () end
----* 
+---*
 ---@param time float
 ---@return self
 function PageTurn3D:update (time) end

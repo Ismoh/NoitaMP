@@ -53,7 +53,7 @@
 ---@source UnityEngine.AndroidJNIModule.dll
 CS.UnityEngine.Android.AndroidAssetPackStatus = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Android.AndroidAssetPackStatus
 function CS.UnityEngine.Android.AndroidAssetPackStatus:__CastFrom(value) end
@@ -132,7 +132,7 @@ function CS.UnityEngine.Android.AndroidAssetPackStatus:__CastFrom(value) end
 ---@source UnityEngine.AndroidJNIModule.dll
 CS.UnityEngine.Android.AndroidAssetPackError = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Android.AndroidAssetPackError
 function CS.UnityEngine.Android.AndroidAssetPackError:__CastFrom(value) end
@@ -331,7 +331,7 @@ function CS.UnityEngine.Android.AndroidAssetPacks:GetAssetPackStateAsync(assetPa
 --
 --```plaintext
 --Params: assetPackNames - The array of names of the Android asset packs to query the state of.
---        
+--
 --```
 --
 ---@source UnityEngine.AndroidJNIModule.dll
@@ -349,7 +349,7 @@ function CS.UnityEngine.Android.AndroidAssetPacks:DownloadAssetPackAsync(assetPa
 --
 --```plaintext
 --Params: assetPackNames - The array of names of Android asset packs to download.
---        
+--
 --```
 --
 ---@source UnityEngine.AndroidJNIModule.dll
@@ -373,7 +373,7 @@ function CS.UnityEngine.Android.AndroidAssetPacks:RequestToUseMobileDataAsync() 
 --
 --```plaintext
 --Params: assetPackName - The name of the Android asset pack to get path.
---        
+--
 --```
 --
 ---@source UnityEngine.AndroidJNIModule.dll
@@ -386,7 +386,7 @@ function CS.UnityEngine.Android.AndroidAssetPacks:GetAssetPackPath(assetPackName
 --
 --```plaintext
 --Params: assetPackNames - The array of names of the Android asset packs to cancel the download for.
---        
+--
 --```
 --
 ---@source UnityEngine.AndroidJNIModule.dll
@@ -398,7 +398,7 @@ function CS.UnityEngine.Android.AndroidAssetPacks:CancelAssetPackDownload(assetP
 --
 --```plaintext
 --Params: assetPackName - The name of the Android asset pack to remove.
---        
+--
 --```
 --
 ---@source UnityEngine.AndroidJNIModule.dll
@@ -424,7 +424,7 @@ function CS.UnityEngine.Android.AndroidAssetPacks:RemoveAssetPack(assetPackName)
 ---@source UnityEngine.AndroidJNIModule.dll
 CS.UnityEngine.Android.AndroidHardwareType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Android.AndroidHardwareType
 function CS.UnityEngine.Android.AndroidHardwareType:__CastFrom(value) end
@@ -533,7 +533,7 @@ CS.UnityEngine.Android.Permission = {}
 --
 --```plaintext
 --Params: permission - A string representing the permission to request. For permissions which Unity has not predefined you may also manually provide the constant value obtained from the Android documentation here: https:developer.android.comguidetopicspermissionsoverview#permission-groups such as "android.permission.READ_CONTACTS".
---        
+--
 --```
 --
 ---@source UnityEngine.AndroidJNIModule.dll
@@ -547,7 +547,7 @@ function CS.UnityEngine.Android.Permission:HasUserAuthorizedPermission(permissio
 --```plaintext
 --Params: permission - A string that describes the permission to request. For permissions which Unity has not predefined you may also manually provide the constant value obtained from the Android documentation here: https:developer.android.comguidetopicspermissionsoverview#permission-groups such as "android.permission.READ_CONTACTS".
 --        callbacks - An instance of callbacks invoked when permission request is executed.
---        
+--
 --```
 --
 ---@source UnityEngine.AndroidJNIModule.dll
@@ -560,7 +560,7 @@ function CS.UnityEngine.Android.Permission:RequestUserPermission(permission) end
 --```plaintext
 --Params: callbacks - An instance of callbacks invoked when permission request is executed.
 --        permissions - An array of strings that describe the permissions to request.
---        
+--
 --```
 --
 ---@source UnityEngine.AndroidJNIModule.dll
@@ -573,7 +573,7 @@ function CS.UnityEngine.Android.Permission:RequestUserPermissions(permissions) e
 --```plaintext
 --Params: permission - A string that describes the permission to request. For permissions which Unity has not predefined you may also manually provide the constant value obtained from the Android documentation here: https:developer.android.comguidetopicspermissionsoverview#permission-groups such as "android.permission.READ_CONTACTS".
 --        callbacks - An instance of callbacks invoked when permission request is executed.
---        
+--
 --```
 --
 ---@source UnityEngine.AndroidJNIModule.dll
@@ -587,7 +587,7 @@ function CS.UnityEngine.Android.Permission:RequestUserPermission(permission, cal
 --```plaintext
 --Params: callbacks - An instance of callbacks invoked when permission request is executed.
 --        permissions - An array of strings that describe the permissions to request.
---        
+--
 --```
 --
 ---@source UnityEngine.AndroidJNIModule.dll

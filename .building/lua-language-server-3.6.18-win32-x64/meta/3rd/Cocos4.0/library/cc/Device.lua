@@ -1,6 +1,6 @@
 ---@meta
 
----@class cc.Device 
+---@class cc.Device
 local Device={ }
 cc.Device=Device
 

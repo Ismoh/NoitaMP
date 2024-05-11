@@ -30,7 +30,7 @@ function ClippingRectangleNode:setClippingRegion (clippingRegion) end
 ---@param clippingRegion rect_table
 ---@return self
 function ClippingRectangleNode:create (clippingRegion) end
----* 
+---*
 ---@param renderer cc.Renderer
 ---@param parentTransform mat4_table
 ---@param parentFlags unsigned_int

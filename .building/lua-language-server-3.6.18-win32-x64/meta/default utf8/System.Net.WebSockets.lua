@@ -228,7 +228,7 @@ function CS.System.Net.WebSockets.WebSocket.SendAsync(buffer, messageType, endOf
 ---@source System.dll
 CS.System.Net.WebSockets.WebSocketCloseStatus = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.WebSockets.WebSocketCloseStatus
 function CS.System.Net.WebSockets.WebSocketCloseStatus:__CastFrom(value) end
@@ -289,7 +289,7 @@ CS.System.Net.WebSockets.WebSocketContext = {}
 ---@source System.dll
 CS.System.Net.WebSockets.WebSocketError = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.WebSockets.WebSocketError
 function CS.System.Net.WebSockets.WebSocketError:__CastFrom(value) end
@@ -321,7 +321,7 @@ function CS.System.Net.WebSockets.WebSocketException.GetObjectData(info, context
 ---@source System.dll
 CS.System.Net.WebSockets.WebSocketMessageType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.WebSockets.WebSocketMessageType
 function CS.System.Net.WebSockets.WebSocketMessageType:__CastFrom(value) end
@@ -362,7 +362,7 @@ CS.System.Net.WebSockets.WebSocketReceiveResult = {}
 ---@source System.dll
 CS.System.Net.WebSockets.WebSocketState = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.WebSockets.WebSocketState
 function CS.System.Net.WebSockets.WebSocketState:__CastFrom(value) end

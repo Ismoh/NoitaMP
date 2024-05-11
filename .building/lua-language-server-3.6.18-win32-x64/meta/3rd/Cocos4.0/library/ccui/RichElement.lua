@@ -7,7 +7,7 @@ ccui.RichElement=RichElement
 
 
 
----* 
+---*
 ---@param type int
 ---@return boolean
 function RichElement:equalType (type) end
@@ -21,7 +21,7 @@ function RichElement:equalType (type) end
 ---@param opacity unsigned_char
 ---@return boolean
 function RichElement:init (tag,color,opacity) end
----* 
+---*
 ---@param color color3b_table
 ---@return self
 function RichElement:setColor (color) end

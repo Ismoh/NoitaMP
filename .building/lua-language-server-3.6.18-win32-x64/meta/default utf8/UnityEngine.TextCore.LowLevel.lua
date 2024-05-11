@@ -11,7 +11,7 @@
 ---@source UnityEngine.TextCoreModule.dll
 CS.UnityEngine.TextCore.LowLevel.FontFeatureLookupFlags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.TextCore.LowLevel.FontFeatureLookupFlags
 function CS.UnityEngine.TextCore.LowLevel.FontFeatureLookupFlags:__CastFrom(value) end
@@ -176,7 +176,7 @@ CS.UnityEngine.TextCore.LowLevel.GlyphPairAdjustmentRecord = {}
 ---@source UnityEngine.TextCoreModule.dll
 CS.UnityEngine.TextCore.LowLevel.GlyphLoadFlags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.TextCore.LowLevel.GlyphLoadFlags
 function CS.UnityEngine.TextCore.LowLevel.GlyphLoadFlags:__CastFrom(value) end
@@ -257,7 +257,7 @@ function CS.UnityEngine.TextCore.LowLevel.GlyphLoadFlags:__CastFrom(value) end
 ---@source UnityEngine.TextCoreModule.dll
 CS.UnityEngine.TextCore.LowLevel.FontEngineError = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.TextCore.LowLevel.FontEngineError
 function CS.UnityEngine.TextCore.LowLevel.FontEngineError:__CastFrom(value) end
@@ -321,7 +321,7 @@ function CS.UnityEngine.TextCore.LowLevel.FontEngineError:__CastFrom(value) end
 ---@source UnityEngine.TextCoreModule.dll
 CS.UnityEngine.TextCore.LowLevel.GlyphRenderMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.TextCore.LowLevel.GlyphRenderMode
 function CS.UnityEngine.TextCore.LowLevel.GlyphRenderMode:__CastFrom(value) end
@@ -360,7 +360,7 @@ function CS.UnityEngine.TextCore.LowLevel.GlyphRenderMode:__CastFrom(value) end
 ---@source UnityEngine.TextCoreModule.dll
 CS.UnityEngine.TextCore.LowLevel.GlyphPackingMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.TextCore.LowLevel.GlyphPackingMode
 function CS.UnityEngine.TextCore.LowLevel.GlyphPackingMode:__CastFrom(value) end
@@ -403,7 +403,7 @@ function CS.UnityEngine.TextCore.LowLevel.FontEngine:DestroyFontEngine() end
 --        faceIndex - The face index of the font face to load. When the font file is a TrueType collection (.TTC), this specifies the face index of the font face to load. If the font file is a TrueType Font (.TTF) or OpenType Font (.OTF) file, the face index is always zero (0).
 --        familyName - The family name of the font face to load.
 --        styleName - The style name of the font face to load.
---        
+--
 --```
 --
 ---@source UnityEngine.TextCoreModule.dll
@@ -422,7 +422,7 @@ function CS.UnityEngine.TextCore.LowLevel.FontEngine:LoadFontFace(filePath) end
 --        faceIndex - The face index of the font face to load. When the font file is a TrueType collection (.TTC), this specifies the face index of the font face to load. If the font file is a TrueType Font (.TTF) or OpenType Font (.OTF) file, the face index is always zero (0).
 --        familyName - The family name of the font face to load.
 --        styleName - The style name of the font face to load.
---        
+--
 --```
 --
 ---@source UnityEngine.TextCoreModule.dll
@@ -442,7 +442,7 @@ function CS.UnityEngine.TextCore.LowLevel.FontEngine:LoadFontFace(filePath, poin
 --        faceIndex - The face index of the font face to load. When the font file is a TrueType collection (.TTC), this specifies the face index of the font face to load. If the font file is a TrueType Font (.TTF) or OpenType Font (.OTF) file, the face index is always zero (0).
 --        familyName - The family name of the font face to load.
 --        styleName - The style name of the font face to load.
---        
+--
 --```
 --
 ---@source UnityEngine.TextCoreModule.dll
@@ -463,7 +463,7 @@ function CS.UnityEngine.TextCore.LowLevel.FontEngine:LoadFontFace(filePath, poin
 --        faceIndex - The face index of the font face to load. When the font file is a TrueType collection (.TTC), this specifies the face index of the font face to load. If the font file is a TrueType Font (.TTF) or OpenType Font (.OTF) file, the face index is always zero (0).
 --        familyName - The family name of the font face to load.
 --        styleName - The style name of the font face to load.
---        
+--
 --```
 --
 ---@source UnityEngine.TextCoreModule.dll
@@ -482,7 +482,7 @@ function CS.UnityEngine.TextCore.LowLevel.FontEngine:LoadFontFace(sourceFontFile
 --        faceIndex - The face index of the font face to load. When the font file is a TrueType collection (.TTC), this specifies the face index of the font face to load. If the font file is a TrueType Font (.TTF) or OpenType Font (.OTF) file, the face index is always zero (0).
 --        familyName - The family name of the font face to load.
 --        styleName - The style name of the font face to load.
---        
+--
 --```
 --
 ---@source UnityEngine.TextCoreModule.dll
@@ -502,7 +502,7 @@ function CS.UnityEngine.TextCore.LowLevel.FontEngine:LoadFontFace(sourceFontFile
 --        faceIndex - The face index of the font face to load. When the font file is a TrueType collection (.TTC), this specifies the face index of the font face to load. If the font file is a TrueType Font (.TTF) or OpenType Font (.OTF) file, the face index is always zero (0).
 --        familyName - The family name of the font face to load.
 --        styleName - The style name of the font face to load.
---        
+--
 --```
 --
 ---@source UnityEngine.TextCoreModule.dll
@@ -523,7 +523,7 @@ function CS.UnityEngine.TextCore.LowLevel.FontEngine:LoadFontFace(sourceFontFile
 --        faceIndex - The face index of the font face to load. When the font file is a TrueType collection (.TTC), this specifies the face index of the font face to load. If the font file is a TrueType Font (.TTF) or OpenType Font (.OTF) file, the face index is always zero (0).
 --        familyName - The family name of the font face to load.
 --        styleName - The style name of the font face to load.
---        
+--
 --```
 --
 ---@source UnityEngine.TextCoreModule.dll
@@ -542,7 +542,7 @@ function CS.UnityEngine.TextCore.LowLevel.FontEngine:LoadFontFace(font) end
 --        faceIndex - The face index of the font face to load. When the font file is a TrueType collection (.TTC), this specifies the face index of the font face to load. If the font file is a TrueType Font (.TTF) or OpenType Font (.OTF) file, the face index is always zero (0).
 --        familyName - The family name of the font face to load.
 --        styleName - The style name of the font face to load.
---        
+--
 --```
 --
 ---@source UnityEngine.TextCoreModule.dll
@@ -562,7 +562,7 @@ function CS.UnityEngine.TextCore.LowLevel.FontEngine:LoadFontFace(font, pointSiz
 --        faceIndex - The face index of the font face to load. When the font file is a TrueType collection (.TTC), this specifies the face index of the font face to load. If the font file is a TrueType Font (.TTF) or OpenType Font (.OTF) file, the face index is always zero (0).
 --        familyName - The family name of the font face to load.
 --        styleName - The style name of the font face to load.
---        
+--
 --```
 --
 ---@source UnityEngine.TextCoreModule.dll
@@ -583,7 +583,7 @@ function CS.UnityEngine.TextCore.LowLevel.FontEngine:LoadFontFace(font, pointSiz
 --        faceIndex - The face index of the font face to load. When the font file is a TrueType collection (.TTC), this specifies the face index of the font face to load. If the font file is a TrueType Font (.TTF) or OpenType Font (.OTF) file, the face index is always zero (0).
 --        familyName - The family name of the font face to load.
 --        styleName - The style name of the font face to load.
---        
+--
 --```
 --
 ---@source UnityEngine.TextCoreModule.dll
@@ -603,7 +603,7 @@ function CS.UnityEngine.TextCore.LowLevel.FontEngine:LoadFontFace(familyName, st
 --        faceIndex - The face index of the font face to load. When the font file is a TrueType collection (.TTC), this specifies the face index of the font face to load. If the font file is a TrueType Font (.TTF) or OpenType Font (.OTF) file, the face index is always zero (0).
 --        familyName - The family name of the font face to load.
 --        styleName - The style name of the font face to load.
---        
+--
 --```
 --
 ---@source UnityEngine.TextCoreModule.dll
@@ -638,7 +638,7 @@ function CS.UnityEngine.TextCore.LowLevel.FontEngine:GetSystemFontNames() end
 --
 --```plaintext
 --Params: pointSize - The point size used to scale the font face.
---        
+--
 --```
 --
 ---@source UnityEngine.TextCoreModule.dll

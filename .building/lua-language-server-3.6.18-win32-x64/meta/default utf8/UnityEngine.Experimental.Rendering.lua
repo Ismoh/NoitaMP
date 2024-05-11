@@ -82,7 +82,7 @@ function CS.UnityEngine.Experimental.Rendering.ExternalGPUProfiler:IsAttached() 
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Experimental.Rendering.WaitForPresentSyncPoint = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Experimental.Rendering.WaitForPresentSyncPoint
 function CS.UnityEngine.Experimental.Rendering.WaitForPresentSyncPoint:__CastFrom(value) end
@@ -101,7 +101,7 @@ function CS.UnityEngine.Experimental.Rendering.WaitForPresentSyncPoint:__CastFro
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Experimental.Rendering.GraphicsJobsSyncPoint = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Experimental.Rendering.GraphicsJobsSyncPoint
 function CS.UnityEngine.Experimental.Rendering.GraphicsJobsSyncPoint:__CastFrom(value) end
@@ -128,7 +128,7 @@ CS.UnityEngine.Experimental.Rendering.GraphicsDeviceSettings = {}
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Experimental.Rendering.TextureCreationFlags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Experimental.Rendering.TextureCreationFlags
 function CS.UnityEngine.Experimental.Rendering.TextureCreationFlags:__CastFrom(value) end
@@ -212,7 +212,7 @@ function CS.UnityEngine.Experimental.Rendering.TextureCreationFlags:__CastFrom(v
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Experimental.Rendering.FormatUsage = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Experimental.Rendering.FormatUsage
 function CS.UnityEngine.Experimental.Rendering.FormatUsage:__CastFrom(value) end
@@ -236,7 +236,7 @@ function CS.UnityEngine.Experimental.Rendering.FormatUsage:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Experimental.Rendering.DefaultFormat = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Experimental.Rendering.DefaultFormat
 function CS.UnityEngine.Experimental.Rendering.DefaultFormat:__CastFrom(value) end
@@ -929,7 +929,7 @@ function CS.UnityEngine.Experimental.Rendering.DefaultFormat:__CastFrom(value) e
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Experimental.Rendering.GraphicsFormat = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Experimental.Rendering.GraphicsFormat
 function CS.UnityEngine.Experimental.Rendering.GraphicsFormat:__CastFrom(value) end
@@ -963,7 +963,7 @@ function CS.UnityEngine.Experimental.Rendering.GraphicsFormat:__CastFrom(value) 
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Experimental.Rendering.RayTracingMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Experimental.Rendering.RayTracingMode
 function CS.UnityEngine.Experimental.Rendering.RayTracingMode:__CastFrom(value) end
@@ -1299,7 +1299,7 @@ function CS.UnityEngine.Experimental.Rendering.RayTracingAccelerationStructure.U
 --        instanceTransform - The object to world matrix to apply to an instance defined by axis-aligned bounding boxes in a GraphicsBuffer. This is optional, and takes the value of a Matrix4x4.identity by default.
 --        isCutOff - A bool that indicates whether the Material applied to a GraphicsBuffer instance has cutoff transparency.
 --        reuseBounds - A bool that indicates whether Unity reuses the AABBs defined in the GraphicsBuffer without change. If the exact same bounds can be used across multiple acceleration structures or multiple frames, set this to true. This is false by default.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -1327,7 +1327,7 @@ function CS.UnityEngine.Experimental.Rendering.RayTracingAccelerationStructure.A
 --        instanceTransform - The object to world matrix to apply to an instance defined by axis-aligned bounding boxes in a GraphicsBuffer. This is optional, and takes the value of a Matrix4x4.identity by default.
 --        isCutOff - A bool that indicates whether the Material applied to a GraphicsBuffer instance has cutoff transparency.
 --        reuseBounds - A bool that indicates whether Unity reuses the AABBs defined in the GraphicsBuffer without change. If the exact same bounds can be used across multiple acceleration structures or multiple frames, set this to true. This is false by default.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -1357,7 +1357,7 @@ function CS.UnityEngine.Experimental.Rendering.RayTracingAccelerationStructure.A
 --        instanceTransform - The object to world matrix to apply to an instance defined by axis-aligned bounding boxes in a GraphicsBuffer. This is optional, and takes the value of a Matrix4x4.identity by default.
 --        isCutOff - A bool that indicates whether the Material applied to a GraphicsBuffer instance has cutoff transparency.
 --        reuseBounds - A bool that indicates whether Unity reuses the AABBs defined in the GraphicsBuffer without change. If the exact same bounds can be used across multiple acceleration structures or multiple frames, set this to true. This is false by default.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -1420,7 +1420,7 @@ function CS.UnityEngine.Experimental.Rendering.RayTracingAccelerationStructure.G
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Experimental.Rendering.RayTracingModeMask = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Experimental.Rendering.RayTracingAccelerationStructure.RayTracingModeMask
 function CS.UnityEngine.Experimental.Rendering.RayTracingModeMask:__CastFrom(value) end
@@ -1444,7 +1444,7 @@ function CS.UnityEngine.Experimental.Rendering.RayTracingModeMask:__CastFrom(val
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Experimental.Rendering.ManagementMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Experimental.Rendering.RayTracingAccelerationStructure.ManagementMode
 function CS.UnityEngine.Experimental.Rendering.ManagementMode:__CastFrom(value) end
@@ -1534,7 +1534,7 @@ CS.UnityEngine.Experimental.Rendering.RayTracingShader = {}
 --Params: name - The name of the property being set.
 --        nameID - The ID of the property as given by Shader.PropertyToID.
 --        val - The float value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -1549,7 +1549,7 @@ function CS.UnityEngine.Experimental.Rendering.RayTracingShader.SetFloat(nameID,
 --Params: name - The name of the property being set.
 --        nameID - The ID of the property as given by Shader.PropertyToID.
 --        val - The int value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -1564,7 +1564,7 @@ function CS.UnityEngine.Experimental.Rendering.RayTracingShader.SetInt(nameID, v
 --Params: name - The name of the property being set.
 --        nameID - The ID of the property as given by Shader.PropertyToID.
 --        val - The vector to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -1579,7 +1579,7 @@ function CS.UnityEngine.Experimental.Rendering.RayTracingShader.SetVector(nameID
 --Params: name - The name of the property being set.
 --        nameID - The ID of the property as given by Shader.PropertyToID.
 --        val - The matrix to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -1594,7 +1594,7 @@ function CS.UnityEngine.Experimental.Rendering.RayTracingShader.SetMatrix(nameID
 --Params: name - The name of the property being set.
 --        nameID - The ID of the property as given by Shader.PropertyToID.
 --        values - The array of vectors to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -1609,7 +1609,7 @@ function CS.UnityEngine.Experimental.Rendering.RayTracingShader.SetVectorArray(n
 --Params: name - The name of the property being set.
 --        nameID - The ID of the property as given by Shader.PropertyToID.
 --        values - The matrix array to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -1624,7 +1624,7 @@ function CS.UnityEngine.Experimental.Rendering.RayTracingShader.SetMatrixArray(n
 --Params: nameID - The ID of the resource as given by Shader.PropertyToID.
 --        name - The name of the texture being set.
 --        texture - The texture to bind the named local resource to.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -1639,7 +1639,7 @@ function CS.UnityEngine.Experimental.Rendering.RayTracingShader.SetTexture(nameI
 --Params: nameID - The ID of the buffer name in shader code. Use Shader.PropertyToID to get this ID.
 --        name - The name of the buffer in shader code.
 --        buffer - The buffer to bind the named local resource to.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -1654,7 +1654,7 @@ function CS.UnityEngine.Experimental.Rendering.RayTracingShader.SetBuffer(nameID
 --Params: name - The name of the RayTracingAccelerationStructure being set.
 --        nameID - The ID of the RayTracingAccelerationStructure as given by Shader.PropertyToID.
 --        accelerationStructure - The value to set the RayTracingAccelerationStructure to.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -1667,7 +1667,7 @@ function CS.UnityEngine.Experimental.Rendering.RayTracingShader.SetAccelerationS
 --
 --```plaintext
 --Params: passName - The Shader Pass to use when executing ray tracing shaders.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -1682,7 +1682,7 @@ function CS.UnityEngine.Experimental.Rendering.RayTracingShader.SetShaderPass(pa
 --        name - The name of the texture to bind.
 --        globalTextureName - The name of the global resource to bind to the RayTracingShader.
 --        globalTextureNameID - The ID of the global resource as given by Shader.PropertyToID.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -1699,7 +1699,7 @@ function CS.UnityEngine.Experimental.Rendering.RayTracingShader.SetTextureFromGl
 --        height - The height of the ray generation shader thread grid.
 --        depth - The depth of the ray generation shader thread grid.
 --        camera - Optional parameter used to setup camera-related built-in shader variables.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -1717,7 +1717,7 @@ function CS.UnityEngine.Experimental.Rendering.RayTracingShader.Dispatch(rayGenF
 --Params: nameID - The ID of the buffer name in shader code. Use Shader.PropertyToID to get this ID.
 --        name - The name of the buffer in shader code.
 --        buffer - The buffer to bind the named local resource to.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -1732,7 +1732,7 @@ function CS.UnityEngine.Experimental.Rendering.RayTracingShader.SetBuffer(nameID
 --Params: name - The name of the property being set.
 --        nameID - The ID of the property as given by Shader.PropertyToID.
 --        val - The float value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -1747,7 +1747,7 @@ function CS.UnityEngine.Experimental.Rendering.RayTracingShader.SetFloat(name, v
 --Params: name - The name of the property being set.
 --        nameID - The ID of the property as given by Shader.PropertyToID.
 --        val - The int value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -1762,7 +1762,7 @@ function CS.UnityEngine.Experimental.Rendering.RayTracingShader.SetInt(name, val
 --Params: name - The name of the property being set.
 --        nameID - The ID of the property as given by Shader.PropertyToID.
 --        val - The vector to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -1777,7 +1777,7 @@ function CS.UnityEngine.Experimental.Rendering.RayTracingShader.SetVector(name, 
 --Params: name - The name of the property being set.
 --        nameID - The ID of the property as given by Shader.PropertyToID.
 --        val - The matrix to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -1792,7 +1792,7 @@ function CS.UnityEngine.Experimental.Rendering.RayTracingShader.SetMatrix(name, 
 --Params: name - The name of the property being set.
 --        nameID - The ID of the property as given by Shader.PropertyToID.
 --        values - The array of vectors to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -1807,7 +1807,7 @@ function CS.UnityEngine.Experimental.Rendering.RayTracingShader.SetVectorArray(n
 --Params: name - The name of the property being set.
 --        nameID - The ID of the property as given by Shader.PropertyToID.
 --        values - The matrix array to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -1822,7 +1822,7 @@ function CS.UnityEngine.Experimental.Rendering.RayTracingShader.SetMatrixArray(n
 --Params: name - The name of the property being set.
 --        nameID - The ID of the property as given by Shader.PropertyToID.
 --        values - The float array to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -1837,7 +1837,7 @@ function CS.UnityEngine.Experimental.Rendering.RayTracingShader.SetFloats(name, 
 --Params: name - The name of the property being set.
 --        nameID - The ID of the property as given by Shader.PropertyToID.
 --        values - The float array to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -1852,7 +1852,7 @@ function CS.UnityEngine.Experimental.Rendering.RayTracingShader.SetFloats(nameID
 --Params: name - The name of the property being set.
 --        nameID - The ID of the property as given by Shader.PropertyToID.
 --        values - The int array to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -1867,7 +1867,7 @@ function CS.UnityEngine.Experimental.Rendering.RayTracingShader.SetInts(name, va
 --Params: name - The name of the property being set.
 --        nameID - The ID of the property as given by Shader.PropertyToID.
 --        values - The int array to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -1882,7 +1882,7 @@ function CS.UnityEngine.Experimental.Rendering.RayTracingShader.SetInts(nameID, 
 --Params: name - The name of the property being set.
 --        nameID - The ID of the property as given by Shader.PropertyToID.
 --        val - The boolean value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -1897,7 +1897,7 @@ function CS.UnityEngine.Experimental.Rendering.RayTracingShader.SetBool(name, va
 --Params: name - The name of the property being set.
 --        nameID - The ID of the property as given by Shader.PropertyToID.
 --        val - The boolean value to set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -1912,7 +1912,7 @@ function CS.UnityEngine.Experimental.Rendering.RayTracingShader.SetBool(nameID, 
 --Params: nameID - The ID of the resource as given by Shader.PropertyToID.
 --        name - The name of the texture being set.
 --        texture - The texture to bind the named local resource to.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -1927,7 +1927,7 @@ function CS.UnityEngine.Experimental.Rendering.RayTracingShader.SetTexture(name,
 --Params: nameID - The ID of the buffer name in shader code. Use Shader.PropertyToID to get this ID.
 --        name - The name of the buffer in shader code.
 --        buffer - The buffer to bind the named local resource to.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -1942,7 +1942,7 @@ function CS.UnityEngine.Experimental.Rendering.RayTracingShader.SetBuffer(name, 
 --Params: nameID - The ID of the buffer name in shader code. Use Shader.PropertyToID to get this ID.
 --        name - The name of the buffer in shader code.
 --        buffer - The buffer to bind the named local resource to.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -1959,7 +1959,7 @@ function CS.UnityEngine.Experimental.Rendering.RayTracingShader.SetBuffer(name, 
 --        buffer - The buffer to bind as constant buffer.
 --        offset - The offset in bytes from the beginning of the ComputeBuffer or GraphicsBuffer to bind. Must be a multiple of SystemInfo.constantBufferOffsetAlignment, or 0 if that value is 0.
 --        size - The number of bytes to bind.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -1978,7 +1978,7 @@ function CS.UnityEngine.Experimental.Rendering.RayTracingShader.SetConstantBuffe
 --        buffer - The buffer to bind as constant buffer.
 --        offset - The offset in bytes from the beginning of the ComputeBuffer or GraphicsBuffer to bind. Must be a multiple of SystemInfo.constantBufferOffsetAlignment, or 0 if that value is 0.
 --        size - The number of bytes to bind.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -1997,7 +1997,7 @@ function CS.UnityEngine.Experimental.Rendering.RayTracingShader.SetConstantBuffe
 --        buffer - The buffer to bind as constant buffer.
 --        offset - The offset in bytes from the beginning of the ComputeBuffer or GraphicsBuffer to bind. Must be a multiple of SystemInfo.constantBufferOffsetAlignment, or 0 if that value is 0.
 --        size - The number of bytes to bind.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -2016,7 +2016,7 @@ function CS.UnityEngine.Experimental.Rendering.RayTracingShader.SetConstantBuffe
 --        buffer - The buffer to bind as constant buffer.
 --        offset - The offset in bytes from the beginning of the ComputeBuffer or GraphicsBuffer to bind. Must be a multiple of SystemInfo.constantBufferOffsetAlignment, or 0 if that value is 0.
 --        size - The number of bytes to bind.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -2033,7 +2033,7 @@ function CS.UnityEngine.Experimental.Rendering.RayTracingShader.SetConstantBuffe
 --Params: name - The name of the RayTracingAccelerationStructure being set.
 --        nameID - The ID of the RayTracingAccelerationStructure as given by Shader.PropertyToID.
 --        accelerationStructure - The value to set the RayTracingAccelerationStructure to.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -2049,7 +2049,7 @@ function CS.UnityEngine.Experimental.Rendering.RayTracingShader.SetAccelerationS
 --        name - The name of the texture to bind.
 --        globalTextureName - The name of the global resource to bind to the RayTracingShader.
 --        globalTextureNameID - The ID of the global resource as given by Shader.PropertyToID.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll

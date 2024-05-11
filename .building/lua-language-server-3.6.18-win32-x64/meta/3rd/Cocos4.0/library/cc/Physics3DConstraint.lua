@@ -44,6 +44,6 @@ function Physics3DConstraint:getConstraintType () end
 ---@param userData void
 ---@return self
 function Physics3DConstraint:setUserData (userData) end
----* 
+---*
 ---@return btTypedConstraint
 function Physics3DConstraint:getbtContraint () end

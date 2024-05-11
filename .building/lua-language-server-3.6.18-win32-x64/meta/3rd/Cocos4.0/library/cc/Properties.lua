@@ -1,6 +1,6 @@
 ---@meta
 
----@class cc.Properties 
+---@class cc.Properties
 local Properties={ }
 cc.Properties=Properties
 

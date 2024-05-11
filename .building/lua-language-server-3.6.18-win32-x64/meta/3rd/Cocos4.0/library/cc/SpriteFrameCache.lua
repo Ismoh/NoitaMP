@@ -7,7 +7,7 @@ cc.SpriteFrameCache=SpriteFrameCache
 
 
 
----* 
+---*
 ---@param plist string
 ---@return boolean
 function SpriteFrameCache:reloadTexture (plist) end

@@ -7,13 +7,13 @@ cc.PhysicsBody=PhysicsBody
 
 
 
----*  Whether this physics body is affected by the physics world's gravitational force. 
+---*  Whether this physics body is affected by the physics world's gravitational force.
 ---@return boolean
 function PhysicsBody:isGravityEnabled () end
----* reset all the force applied to body. 
+---* reset all the force applied to body.
 ---@return self
 function PhysicsBody:resetForces () end
----*  get the max of velocity 
+---*  get the max of velocity
 ---@return float
 function PhysicsBody:getVelocityLimit () end
 ---* Set the group of body.<br>
@@ -22,20 +22,20 @@ function PhysicsBody:getVelocityLimit () end
 ---@param group int
 ---@return self
 function PhysicsBody:setGroup (group) end
----*  Get the body mass. 
+---*  Get the body mass.
 ---@return float
 function PhysicsBody:getMass () end
 ---* Return bitmask of first shape.<br>
 ---* return If there is no shape in body, return default value.(0xFFFFFFFF)
 ---@return int
 function PhysicsBody:getCollisionBitmask () end
----*  set the body rotation offset 
+---*  set the body rotation offset
 ---@return float
 function PhysicsBody:getRotationOffset () end
----*  get the body rotation. 
+---*  get the body rotation.
 ---@return float
 function PhysicsBody:getRotation () end
----*  Get the body moment of inertia. 
+---*  Get the body moment of inertia.
 ---@return float
 function PhysicsBody:getMoment () end
 ---* Applies a immediate force to body.<br>
@@ -45,7 +45,7 @@ function PhysicsBody:getMoment () end
 ---@param offset vec2_table
 ---@return self
 function PhysicsBody:applyImpulse (impulse,offset) end
----*  set body rotation offset, it's the rotation witch relative to node 
+---*  set body rotation offset, it's the rotation witch relative to node
 ---@param rotation float
 ---@return self
 function PhysicsBody:setRotationOffset (rotation) end
@@ -69,17 +69,17 @@ function PhysicsBody:addShape (shape,addMassAndMoment) end
 ---@param torque float
 ---@return self
 function PhysicsBody:applyTorque (torque) end
----*  get the max of angular velocity 
+---*  get the max of angular velocity
 ---@return float
 function PhysicsBody:getAngularVelocityLimit () end
----*  set the max of angular velocity 
+---*  set the max of angular velocity
 ---@param limit float
 ---@return self
 function PhysicsBody:setAngularVelocityLimit (limit) end
----*  Get the velocity of a body. 
+---*  Get the velocity of a body.
 ---@return vec2_table
 function PhysicsBody:getVelocity () end
----*  get linear damping. 
+---*  get linear damping.
 ---@return float
 function PhysicsBody:getLinearDamping () end
 ---* Remove all shapes.<br>
@@ -92,15 +92,15 @@ function PhysicsBody:removeAllShapes () end
 ---@param damping float
 ---@return self
 function PhysicsBody:setAngularDamping (damping) end
----*  set the max of velocity 
+---*  set the max of velocity
 ---@param limit float
 ---@return self
 function PhysicsBody:setVelocityLimit (limit) end
----*  set body to rest 
+---*  set body to rest
 ---@param rest boolean
 ---@return self
 function PhysicsBody:setResting (rest) end
----*  get body position offset. 
+---*  get body position offset.
 ---@return vec2_table
 function PhysicsBody:getPositionOffset () end
 ---* A mask that defines which categories this physics body belongs to.<br>
@@ -109,21 +109,21 @@ function PhysicsBody:getPositionOffset () end
 ---@param bitmask int
 ---@return self
 function PhysicsBody:setCategoryBitmask (bitmask) end
----*  get the world body added to. 
+---*  get the world body added to.
 ---@return cc.PhysicsWorld
 function PhysicsBody:getWorld () end
----*  get the angular velocity of a body 
+---*  get the angular velocity of a body
 ---@return float
 function PhysicsBody:getAngularVelocity () end
----*  get the body position. 
+---*  get the body position.
 ---@return vec2_table
 function PhysicsBody:getPosition () end
----*  Set the body is affected by the physics world's gravitational force or not. 
+---*  Set the body is affected by the physics world's gravitational force or not.
 ---@param enable boolean
 ---@return self
 function PhysicsBody:setGravityEnable (enable) end
 ---* Return group of first shape.<br>
----* return If there is no shape in body, return default value.(0) 
+---* return If there is no shape in body, return default value.(0)
 ---@return int
 function PhysicsBody:getGroup () end
 ---* brief Set the body moment of inertia.<br>
@@ -131,10 +131,10 @@ function PhysicsBody:getGroup () end
 ---@param moment float
 ---@return self
 function PhysicsBody:setMoment (moment) end
----*  Get the body's tag. 
+---*  Get the body's tag.
 ---@return int
 function PhysicsBody:getTag () end
----*  Convert the local point to world. 
+---*  Convert the local point to world.
 ---@param point vec2_table
 ---@return vec2_table
 function PhysicsBody:local2World (point) end
@@ -164,7 +164,7 @@ function PhysicsBody:getContactTestBitmask () end
 ---@param velocity float
 ---@return self
 function PhysicsBody:setAngularVelocity (velocity) end
----*  Convert the world point to local. 
+---*  Convert the world point to local.
 ---@param point vec2_table
 ---@return vec2_table
 function PhysicsBody:world2Local (point) end
@@ -205,28 +205,28 @@ function PhysicsBody:setLinearDamping (damping) end
 ---@param bitmask int
 ---@return self
 function PhysicsBody:setCollisionBitmask (bitmask) end
----*  set body position offset, it's the position witch relative to node 
+---*  set body position offset, it's the position witch relative to node
 ---@param position vec2_table
 ---@return self
 function PhysicsBody:setPositionOffset (position) end
----*  Set the body is allow rotation or not 
+---*  Set the body is allow rotation or not
 ---@param enable boolean
 ---@return self
 function PhysicsBody:setRotationEnable (enable) end
----*  Whether the body can rotation. 
+---*  Whether the body can rotation.
 ---@return boolean
 function PhysicsBody:isRotationEnabled () end
----*  Get the rigid body of chipmunk. 
+---*  Get the rigid body of chipmunk.
 ---@return cpBody
 function PhysicsBody:getCPBody () end
----*  Get angular damping. 
+---*  Get angular damping.
 ---@return float
 function PhysicsBody:getAngularDamping () end
 ---*  Get the angular velocity of a body at a local point.
 ---@param point vec2_table
 ---@return vec2_table
 function PhysicsBody:getVelocityAtLocalPoint (point) end
----*  Whether the body is at rest. 
+---*  Whether the body is at rest.
 ---@return boolean
 function PhysicsBody:isResting () end
 ---* brief Add mass to body.<br>
@@ -244,11 +244,11 @@ function PhysicsBody:addMass (mass) end
 ---@param tag int
 ---@return cc.PhysicsShape
 function PhysicsBody:getShape (tag) end
----*  set the body's tag. 
+---*  set the body's tag.
 ---@param tag int
 ---@return self
 function PhysicsBody:setTag (tag) end
----*  get the angular velocity of a body at a world point 
+---*  get the angular velocity of a body at a world point
 ---@param point vec2_table
 ---@return vec2_table
 function PhysicsBody:getVelocityAtWorldPoint (point) end
@@ -258,14 +258,14 @@ function PhysicsBody:getVelocityAtWorldPoint (point) end
 ---@param bitmask int
 ---@return self
 function PhysicsBody:setContactTestBitmask (bitmask) end
----*  remove the body from the world it added to 
+---*  remove the body from the world it added to
 ---@return self
 function PhysicsBody:removeFromWorld () end
 ---* brief Test the body is dynamic or not.<br>
 ---* A dynamic body will effect with gravity.
 ---@return boolean
 function PhysicsBody:isDynamic () end
----*  get the node the body set to. 
+---*  get the node the body set to.
 ---@return cc.Node
 function PhysicsBody:getNode () end
 ---* Create a body contains a box shape.<br>
@@ -324,15 +324,15 @@ function PhysicsBody:createCircle (radius,material,offset) end
 ---@param enable boolean
 ---@return self
 function PhysicsBody:setEnabled (enable) end
----* 
+---*
 ---@return self
 function PhysicsBody:onRemove () end
----* 
+---*
 ---@return self
 function PhysicsBody:onEnter () end
----* 
+---*
 ---@return self
 function PhysicsBody:onExit () end
----* 
+---*
 ---@return self
 function PhysicsBody:onAdd () end

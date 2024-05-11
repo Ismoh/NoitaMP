@@ -375,7 +375,7 @@ function CS.System.Collections.Specialized.NameValueCollection.Set(name, value) 
 ---@source System.dll
 CS.System.Collections.Specialized.NotifyCollectionChangedAction = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Collections.Specialized.NotifyCollectionChangedAction
 function CS.System.Collections.Specialized.NotifyCollectionChangedAction:__CastFrom(value) end

@@ -77,7 +77,7 @@ function CS.vxGameModule:Create() end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UIAnchor.cs:45
 ---@field side UIAnchor.Side
 --
---If set to 'true', UIAnchor will execute once, then will be disabled. 
+--If set to 'true', UIAnchor will execute once, then will be disabled.
 --    Screen size changes will still cause the anchor to update itself, even if it's disabled.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UIAnchor.cs:52
@@ -88,7 +88,7 @@ function CS.vxGameModule:Create() end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UIAnchor.cs:58
 ---@field relativeOffset UnityEngine.Vector2
 --
---Pixel offset value if any. For example "10" in x will move the widget 10 pixels to the right  
+--Pixel offset value if any. For example "10" in x will move the widget 10 pixels to the right
 --    while "-10" in x is 10 pixels to the left based on the pixel values set in UIRoot.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UIAnchor.cs:65
@@ -114,7 +114,7 @@ CS.DontDestroy = {}
 
 
 --
---This script, when attached to a panel turns it into a scroll view. 
+--This script, when attached to a panel turns it into a scroll view.
 --    You can then attach UIDragScrollView to colliders within to make it draggable.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Interaction/UIScrollView.cs:16
@@ -298,7 +298,7 @@ function CS.UIScrollView.UpdateScrollbars() end
 function CS.UIScrollView.UpdateScrollbars(recalculateBounds) end
 
 --
---Changes the drag amount of the scroll view to the specified 0-1 range values. 
+--Changes the drag amount of the scroll view to the specified 0-1 range values.
 --    (0, 0) is the top-left corner, (1, 1) is the bottom-right.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Interaction/UIScrollView.cs:583
@@ -314,8 +314,8 @@ function CS.UIScrollView.SetDragAmount(x, y, updateScrollbars) end
 function CS.UIScrollView.InvalidateBounds() end
 
 --
---Reset the scroll view's position to the top-left corner. 
---    It's recommended to call this function before AND after you re-populate the scroll view's contents (ex: switching window tabs). 
+--Reset the scroll view's position to the top-left corner.
+--    It's recommended to call this function before AND after you re-populate the scroll view's contents (ex: switching window tabs).
 --    Another option is to populate the scroll view's contents, reset its position, then call this function to reposition the clipping.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Interaction/UIScrollView.cs:646
@@ -526,7 +526,7 @@ function CS.UIScrollBar.ForceUpdate() end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UIAnchor.cs:16
 CS.Side = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UIAnchor.Side
 function CS.Side:__CastFrom(value) end
@@ -767,7 +767,7 @@ function CS.UltimateJoystick.GetDistance() end
 --
 --```plaintext
 --Params: targetColor - New highlight color.
---        
+--
 --```
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/Ultimate Joystick/Scripts/UltimateJoystick.cs:1194
@@ -780,7 +780,7 @@ function CS.UltimateJoystick.UpdateHighlightColor(targetColor) end
 --```plaintext
 --Params: targetTensionNone - New idle tension color.
 --        targetTensionFull - New full tension color.
---        
+--
 --```
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/Ultimate Joystick/Scripts/UltimateJoystick.cs:1217
@@ -819,7 +819,7 @@ function CS.UltimateJoystick.EnableJoystick() end
 --
 --```plaintext
 --Params: joystickName - The Joystick Name of the desired Ultimate Joystick.
---        
+--
 --```
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/Ultimate Joystick/Scripts/UltimateJoystick.cs:1304
@@ -832,7 +832,7 @@ function CS.UltimateJoystick:GetUltimateJoystick(joystickName) end
 --
 --```plaintext
 --Params: joystickName - The name of the desired Ultimate Joystick.
---        
+--
 --```
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/Ultimate Joystick/Scripts/UltimateJoystick.cs:1316
@@ -845,7 +845,7 @@ function CS.UltimateJoystick:GetHorizontalAxis(joystickName) end
 --
 --```plaintext
 --Params: joystickName - The name of the desired Ultimate Joystick.
---        
+--
 --```
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/Ultimate Joystick/Scripts/UltimateJoystick.cs:1328
@@ -858,7 +858,7 @@ function CS.UltimateJoystick:GetVerticalAxis(joystickName) end
 --
 --```plaintext
 --Params: joystickName - The name of the desired Ultimate Joystick.
---        
+--
 --```
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/Ultimate Joystick/Scripts/UltimateJoystick.cs:1340
@@ -871,7 +871,7 @@ function CS.UltimateJoystick:GetHorizontalAxisRaw(joystickName) end
 --
 --```plaintext
 --Params: joystickName - The name of the desired Ultimate Joystick.
---        
+--
 --```
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/Ultimate Joystick/Scripts/UltimateJoystick.cs:1352
@@ -884,7 +884,7 @@ function CS.UltimateJoystick:GetVerticalAxisRaw(joystickName) end
 --
 --```plaintext
 --Params: joystickName - The name of the desired Ultimate Joystick.
---        
+--
 --```
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/Ultimate Joystick/Scripts/UltimateJoystick.cs:1364
@@ -897,7 +897,7 @@ function CS.UltimateJoystick:GetDistance(joystickName) end
 --
 --```plaintext
 --Params: joystickName - The name of the desired Ultimate Joystick.
---        
+--
 --```
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/Ultimate Joystick/Scripts/UltimateJoystick.cs:1376
@@ -910,7 +910,7 @@ function CS.UltimateJoystick:GetJoystickState(joystickName) end
 --
 --```plaintext
 --Params: joystickName - The name of the desired Ultimate Joystick.
---        
+--
 --```
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/Ultimate Joystick/Scripts/UltimateJoystick.cs:1388
@@ -923,7 +923,7 @@ function CS.UltimateJoystick:GetTapCount(joystickName) end
 --
 --```plaintext
 --Params: joystickName - The name of the desired Ultimate Joystick.
---        
+--
 --```
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/Ultimate Joystick/Scripts/UltimateJoystick.cs:1400
@@ -935,7 +935,7 @@ function CS.UltimateJoystick:DisableJoystick(joystickName) end
 --
 --```plaintext
 --Params: joystickName - The name of the desired Ultimate Joystick.
---        
+--
 --```
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/Ultimate Joystick/Scripts/UltimateJoystick.cs:1412
@@ -984,7 +984,7 @@ function CS.PropertyBinding.UpdateTarget() end
 
 
 --
---Text list can be used with a UILabel to create a scrollable multi-line text field that's 
+--Text list can be used with a UILabel to create a scrollable multi-line text field that's
 --    easy to add new entries to. Optimal use: chat window.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UITextList.cs:20
@@ -1098,7 +1098,7 @@ CS.UIEventTrigger = {}
 
 
 --
---Very simple script that can be attached to a slider and will control the volume of all sounds played via NGUITools.PlaySound, 
+--Very simple script that can be attached to a slider and will control the volume of all sounds played via NGUITools.PlaySound,
 --    which includes all of UI's sounds.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Interaction/UISoundVolume.cs:15
@@ -1410,29 +1410,29 @@ function CS.SpringPosition:Begin(go, pos, strength) end
 
 
 --
---This script should be attached to each camera that's used to draw the objects with 
---     UI components on them. This may mean only one camera (main camera or your UI camera), 
---     or multiple cameras if you happen to have multiple viewports. Failing to attach this 
---     script simply means that objects drawn by this camera won't receive UI notifications: 
---     
---     * OnHover (isOver) is sent when the mouse hovers over a collider or moves away. 
---     * OnPress (isDown) is sent when a mouse button gets pressed on the collider. 
---     * OnSelect (selected) is sent when a mouse button is first pressed on an object. Repeated presses won't result in an OnSelect(true). 
---     * OnClick () is sent when a mouse is pressed and released on the same object. 
---       UICamera.currentTouchID tells you which button was clicked. 
---     * OnDoubleClick () is sent when the click happens twice within a fourth of a second. 
---       UICamera.currentTouchID tells you which button was clicked. 
---     
---     * OnDragStart () is sent to a game object under the touch just before the OnDrag() notifications begin. 
---     * OnDrag (delta) is sent to an object that's being dragged. 
---     * OnDragOver (draggedObject) is sent to a game object when another object is dragged over its area. 
---     * OnDragOut (draggedObject) is sent to a game object when another object is dragged out of its area. 
---     * OnDragEnd () is sent to a dragged object when the drag event finishes. 
---     
---     * OnTooltip (show) is sent when the mouse hovers over a collider for some time without moving. 
---     * OnScroll (float delta) is sent out when the mouse scroll wheel is moved. 
---     * OnNavigate (KeyCode key) is sent when horizontal or vertical navigation axes are moved. 
---     * OnPan (Vector2 delta) is sent when when horizontal or vertical panning axes are moved. 
+--This script should be attached to each camera that's used to draw the objects with
+--     UI components on them. This may mean only one camera (main camera or your UI camera),
+--     or multiple cameras if you happen to have multiple viewports. Failing to attach this
+--     script simply means that objects drawn by this camera won't receive UI notifications:
+--
+--     * OnHover (isOver) is sent when the mouse hovers over a collider or moves away.
+--     * OnPress (isDown) is sent when a mouse button gets pressed on the collider.
+--     * OnSelect (selected) is sent when a mouse button is first pressed on an object. Repeated presses won't result in an OnSelect(true).
+--     * OnClick () is sent when a mouse is pressed and released on the same object.
+--       UICamera.currentTouchID tells you which button was clicked.
+--     * OnDoubleClick () is sent when the click happens twice within a fourth of a second.
+--       UICamera.currentTouchID tells you which button was clicked.
+--
+--     * OnDragStart () is sent to a game object under the touch just before the OnDrag() notifications begin.
+--     * OnDrag (delta) is sent to an object that's being dragged.
+--     * OnDragOver (draggedObject) is sent to a game object when another object is dragged over its area.
+--     * OnDragOut (draggedObject) is sent to a game object when another object is dragged out of its area.
+--     * OnDragEnd () is sent to a dragged object when the drag event finishes.
+--
+--     * OnTooltip (show) is sent when the mouse hovers over a collider for some time without moving.
+--     * OnScroll (float delta) is sent out when the mouse scroll wheel is moved.
+--     * OnNavigate (KeyCode key) is sent when horizontal or vertical navigation axes are moved.
+--     * OnPan (Vector2 delta) is sent when when horizontal or vertical panning axes are moved.
 --     * OnKey (KeyCode key) is sent when keyboard or controller input is used.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UICamera.cs:43
@@ -1483,19 +1483,19 @@ function CS.SpringPosition:Begin(go, pos, strength) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UICamera.cs:215
 ---@field RemoveTouch UICamera.RemoveTouchDelegate
 --
---Delegate triggered when the screen size changes for any reason. 
+--Delegate triggered when the screen size changes for any reason.
 --    Subscribe to it if you don't want to compare Screen.width and Screen.height each frame.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UICamera.cs:233
 ---@field onScreenResize UICamera.OnScreenResize
 --
---Event type -- use "UI" for your user interfaces, and "World" for your game camera. 
+--Event type -- use "UI" for your user interfaces, and "World" for your game camera.
 --    This setting changes how raycasts are handled. Raycasts have to be more complicated for UI cameras.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UICamera.cs:241
 ---@field eventType UICamera.EventType
 --
---By default, events will go to rigidbodies when the Event Type is not UI. 
+--By default, events will go to rigidbodies when the Event Type is not UI.
 --    You can change this behaviour back to how it was pre-3.7.0 using this flag.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UICamera.cs:248
@@ -1629,7 +1629,7 @@ function CS.SpringPosition:Begin(go, pos, strength) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UICamera.cs:405
 ---@field autoHideCursor bool
 --
---Custom input processing logic, if desired. For example: WP7 touches. 
+--Custom input processing logic, if desired. For example: WP7 touches.
 --    Use UICamera.current to get the current camera.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UICamera.cs:414
@@ -1640,7 +1640,7 @@ function CS.SpringPosition:Begin(go, pos, strength) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UICamera.cs:420
 ---@field showTooltips bool
 --
---Whether controller input will be temporarily disabled or not. 
+--Whether controller input will be temporarily disabled or not.
 --    It's useful to be able to turn off controller interaction and only turn it on when the UI is actually visible.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UICamera.cs:427
@@ -1676,8 +1676,8 @@ function CS.SpringPosition:Begin(go, pos, strength) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UICamera.cs:497
 ---@field lastWorldRay UnityEngine.Ray
 --
---Last raycast hit prior to sending out the event. This is useful if you want detailed information 
---    about what was actually hit in your OnClick, OnHover, and other event functions. 
+--Last raycast hit prior to sending out the event. This is useful if you want detailed information
+--    about what was actually hit in your OnClick, OnHover, and other event functions.
 --    Note that this is not going to be valid if you're using 2D colliders.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UICamera.cs:505
@@ -1708,7 +1708,7 @@ function CS.SpringPosition:Begin(go, pos, strength) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UICamera.cs:545
 ---@field currentScheme UICamera.ControlScheme
 --
---ID of the touch or mouse operation prior to sending out the event. 
+--ID of the touch or mouse operation prior to sending out the event.
 --    Mouse ID is '-1' for left, '-2' for right mouse button, '-3' for middle.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UICamera.cs:591
@@ -1827,8 +1827,8 @@ function CS.SpringPosition:Begin(go, pos, strength) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UICamera.cs:937
 ---@field interactingWithUI bool
 --
---The object over which the mouse is hovering over, or the object currently selected by the controller input. 
---    Mouse and controller input share the same hovered object, while touches have no hovered object at all. 
+--The object over which the mouse is hovering over, or the object currently selected by the controller input.
+--    Mouse and controller input share the same hovered object, while touches have no hovered object at all.
 --    Checking this value from within a touch-based event will simply return the current touched object.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UICamera.cs:998
@@ -1839,8 +1839,8 @@ function CS.SpringPosition:Begin(go, pos, strength) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UICamera.cs:1089
 ---@field controllerNavigationObject UnityEngine.GameObject
 --
---Selected object receives exclusive focus. An input field requires exclusive focus in order to type, 
---    for example. Any object is capable of grabbing the selection just by clicking on that object, 
+--Selected object receives exclusive focus. An input field requires exclusive focus in order to type,
+--    for example. Any object is capable of grabbing the selection just by clicking on that object,
 --    but only one object can be selected at a time.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UICamera.cs:1151
@@ -1886,8 +1886,8 @@ function CS.UICamera:IsPartOfUI(go) end
 function CS.UICamera:IsPressed(go) end
 
 --
---Number of active touches from all sources. 
---    Note that this will include the sum of touch, mouse and controller events. 
+--Number of active touches from all sources.
+--    Note that this will include the sum of touch, mouse and controller events.
 --    If you want only touch events, use activeTouches.Count.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UICamera.cs:1303
@@ -1961,7 +1961,7 @@ function CS.UICamera.ProcessOthers() end
 function CS.UICamera.ProcessTouch(pressed, released) end
 
 --
---Cancel the next tooltip, preventing it from being shown. 
+--Cancel the next tooltip, preventing it from being shown.
 --    Moving the mouse again will reset this counter.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UICamera.cs:2940
@@ -2052,8 +2052,8 @@ function CS.UIDragObject.CancelSpring() end
 
 
 --
---Demo代码 
---    只是为了暂时把joystick和player从场景中拆出来 
+--Demo代码
+--    只是为了暂时把joystick和player从场景中拆出来
 --    后面有了相关功能记得删
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/JoystickAndPlayer.cs:10
@@ -2086,8 +2086,8 @@ CS.UIButtonRotation = {}
 
 
 --
---MemoryStream.ReadLine has an interesting oddity: it doesn't always advance the stream's position by the correct amount: 
---    http://social.msdn.microsoft.com/Forums/en-AU/Vsexpressvcs/thread/b8f7837b-e396-494e-88e1-30547fcf385f 
+--MemoryStream.ReadLine has an interesting oddity: it doesn't always advance the stream's position by the correct amount:
+--    http://social.msdn.microsoft.com/Forums/en-AU/Vsexpressvcs/thread/b8f7837b-e396-494e-88e1-30547fcf385f
 --    Solution? Custom line reader with the added benefit of not having to use streams at all.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/ByteReader.cs:17
@@ -2139,7 +2139,7 @@ function CS.ByteReader.ReadCSV() end
 
 
 --
---This script can be used to stretch objects relative to the screen's width and height. 
+--This script can be used to stretch objects relative to the screen's width and height.
 --    The most obvious use would be to create a full-screen background by attaching it to a sprite.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UIStretch.cs:15
@@ -2160,7 +2160,7 @@ function CS.ByteReader.ReadCSV() end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UIStretch.cs:44
 ---@field style UIStretch.Style
 --
---Whether the operation will occur only once and the script will then be disabled. 
+--Whether the operation will occur only once and the script will then be disabled.
 --    Screen size changes will still cause the script's logic to execute.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UIStretch.cs:51
@@ -2171,8 +2171,8 @@ function CS.ByteReader.ReadCSV() end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UIStretch.cs:57
 ---@field relativeSize UnityEngine.Vector2
 --
---The size that the item/image should start out initially. 
---    Used for FillKeepingRatio, and FitInternalKeepingRatio. 
+--The size that the item/image should start out initially.
+--    Used for FillKeepingRatio, and FitInternalKeepingRatio.
 --    Contributed by Dylan Ryan.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UIStretch.cs:65
@@ -2208,7 +2208,7 @@ function CS.OnFinished.EndInvoke(result) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/BaseSystem/Scene/LevelDesign/MapUnit.cs:5
 ---@class MapUnit: UnityEngine.MonoBehaviour
 --
---能否在上面走，子弹能不能穿过之类的类型 
+--能否在上面走，子弹能不能穿过之类的类型
 --    后面再加个表配Id对应的参数
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/BaseSystem/Scene/LevelDesign/MapUnit.cs:11
@@ -2232,7 +2232,7 @@ CS.MapUnit = {}
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Interaction/UIDragObject.cs:17
 CS.DragEffect = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UIDragObject.DragEffect
 function CS.DragEffect:__CastFrom(value) end
@@ -2254,14 +2254,14 @@ function CS.DragEffect:__CastFrom(value) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/UIWidget.cs:51
 ---@field onPostFill UIWidget.OnPostFillCallback
 --
---Callback triggered when the widget is about to be renderered (OnWillRenderObject). 
---    NOTE: This property is only exposed for the sake of speed to avoid property execution. 
+--Callback triggered when the widget is about to be renderered (OnWillRenderObject).
+--    NOTE: This property is only exposed for the sake of speed to avoid property execution.
 --    In most cases you will want to use UIWidget.onRender instead.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/UIWidget.cs:60
 ---@field mOnRender UIDrawCall.OnRenderCallback
 --
---Set the callback that will be triggered when the widget is being rendered (OnWillRenderObject). 
+--Set the callback that will be triggered when the widget is being rendered (OnWillRenderObject).
 --    This is where you would set material properties and shader values.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/UIWidget.cs:67
@@ -2287,7 +2287,7 @@ function CS.DragEffect:__CastFrom(value) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/UIWidget.cs:120
 ---@field aspectRatio float
 --
---Custom hit check function. If set, all hit checks (including events) will call this function, 
+--Custom hit check function. If set, all hit checks (including events) will call this function,
 --    passing the world position. Return 'true' if it's within the bounds of your choice, 'false' otherwise.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/UIWidget.cs:129
@@ -2313,9 +2313,9 @@ function CS.DragEffect:__CastFrom(value) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/UIWidget.cs:161
 ---@field drawCall UIDrawCall
 --
---Draw region alters how the widget looks without modifying the widget's rectangle. 
---    A region is made up of 4 relative values (0-1 range). The order is Left (X), Bottom (Y), Right (Z) and Top (W). 
---    To have a widget's left edge be 30% from the left side, set X to 0.3. To have the widget's right edge be 30% 
+--Draw region alters how the widget looks without modifying the widget's rectangle.
+--    A region is made up of 4 relative values (0-1 range). The order is Left (X), Bottom (Y), Right (Z) and Top (W).
+--    To have a widget's left edge be 30% from the left side, set X to 0.3. To have the widget's right edge be 30%
 --    from the right hand side, set Z to 0.7.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/UIWidget.cs:171
@@ -2371,7 +2371,7 @@ function CS.DragEffect:__CastFrom(value) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/UIWidget.cs:422
 ---@field depth int
 --
---Raycast depth order on widgets takes the depth of their panel into consideration. 
+--Raycast depth order on widgets takes the depth of their panel into consideration.
 --    This functionality is used to determine the "final" depth of the widget for drawing and raycasts.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/UIWidget.cs:466
@@ -2402,7 +2402,7 @@ function CS.DragEffect:__CastFrom(value) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/UIWidget.cs:555
 ---@field worldCenter UnityEngine.Vector3
 --
---Local space region where the actual drawing will take place. 
+--Local space region where the actual drawing will take place.
 --    X = left, Y = bottom, Z = right, W = top.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/UIWidget.cs:562
@@ -2481,7 +2481,7 @@ function CS.UIWidget.SetColorNoAlpha(c) end
 function CS.UIWidget.SetDimensions(w, h) end
 
 --
---Get the sides of the rectangle relative to the specified transform. 
+--Get the sides of the rectangle relative to the specified transform.
 --    The order is left, top, right, bottom.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/UIWidget.cs:689
@@ -2747,7 +2747,7 @@ function CS.NGUIMath:Wrap01(val) end
 function CS.NGUIMath:HexToDecimal(ch, defVal) end
 
 --
---Convert a single 0-15 value into its hex representation. 
+--Convert a single 0-15 value into its hex representation.
 --    It's coded because int.ToString(format) syntax doesn't seem to be supported by Unity's Flash. It just silently crashes.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/NGUIMath.cs:111
@@ -2764,8 +2764,8 @@ function CS.NGUIMath:DecimalToHexChar(num) end
 function CS.NGUIMath:DecimalToHex8(num) end
 
 --
---Convert a decimal value to its hex representation. 
---    It's coded because num.ToString("X6") syntax doesn't seem to be supported by Unity's Flash. It just silently crashes. 
+--Convert a decimal value to its hex representation.
+--    It's coded because num.ToString("X6") syntax doesn't seem to be supported by Unity's Flash. It just silently crashes.
 --    string.Format("{0,6:X}", num).Replace(' ', '0') doesn't work either. It returns the format string, not the formatted value.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/NGUIMath.cs:145
@@ -2774,8 +2774,8 @@ function CS.NGUIMath:DecimalToHex8(num) end
 function CS.NGUIMath:DecimalToHex24(num) end
 
 --
---Convert a decimal value to its hex representation. 
---    It's coded because num.ToString("X6") syntax doesn't seem to be supported by Unity's Flash. It just silently crashes. 
+--Convert a decimal value to its hex representation.
+--    It's coded because num.ToString("X6") syntax doesn't seem to be supported by Unity's Flash. It just silently crashes.
 --    string.Format("{0,6:X}", num).Replace(' ', '0') doesn't work either. It returns the format string, not the formatted value.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/NGUIMath.cs:170
@@ -2856,7 +2856,7 @@ function CS.NGUIMath:MakePixelPerfect(rect) end
 function CS.NGUIMath:MakePixelPerfect(rect, width, height) end
 
 --
---Constrain 'rect' to be within 'area' as much as possible, returning the Vector2 offset necessary for this to happen. 
+--Constrain 'rect' to be within 'area' as much as possible, returning the Vector2 offset necessary for this to happen.
 --    This function is useful when trying to restrict one area (window) to always be within another (viewport).
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/NGUIMath.cs:325
@@ -2913,13 +2913,13 @@ function CS.NGUIMath:CalculateRelativeWidgetBounds(relativeTo, content) end
 function CS.NGUIMath:CalculateRelativeWidgetBounds(relativeTo, content, considerInactive, considerChildren) end
 
 --
---This code is not framerate-independent: 
---     
---    target.position += velocity; 
---    velocity = Vector3.Lerp(velocity, Vector3.zero, Time.deltaTime * 9f); 
---     
---    But this code is: 
---     
+--This code is not framerate-independent:
+--
+--    target.position += velocity;
+--    velocity = Vector3.Lerp(velocity, Vector3.zero, Time.deltaTime * 9f);
+--
+--    But this code is:
+--
 --    target.position += NGUIMath.SpringDampen(ref velocity, 9f, Time.deltaTime);
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/NGUIMath.cs:545
@@ -3121,7 +3121,7 @@ function CS.NGUIMath:AdjustWidget(w, left, bottom, right, top, minWidth, minHeig
 function CS.NGUIMath:AdjustWidget(w, left, bottom, right, top, minWidth, minHeight, maxWidth, maxHeight) end
 
 --
---Adjust the specified value by DPI: height * 96 / DPI. 
+--Adjust the specified value by DPI: height * 96 / DPI.
 --    This will result in in a smaller value returned for higher pixel density devices.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/NGUIMath.cs:1043
@@ -3139,7 +3139,7 @@ function CS.NGUIMath:AdjustByDPI(height) end
 function CS.NGUIMath:ScreenToPixels(pos, relativeTo) end
 
 --
---Convert the specified position, making it relative to the specified object's parent. 
+--Convert the specified position, making it relative to the specified object's parent.
 --    Useful if you plan on positioning the widget using the specified value (think mouse cursor).
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/NGUIMath.cs:1088
@@ -3149,9 +3149,9 @@ function CS.NGUIMath:ScreenToPixels(pos, relativeTo) end
 function CS.NGUIMath:ScreenToParentPixels(pos, relativeTo) end
 
 --
---Convert the specified world point from one camera's world space to another, then make it relative to the specified transform. 
---    You should use this function if you want to position a widget using some 3D point in space. 
---    Pass your main camera for the "worldCam", and your UI camera for "uiCam", then the widget's transform for "relativeTo". 
+--Convert the specified world point from one camera's world space to another, then make it relative to the specified transform.
+--    You should use this function if you want to position a widget using some 3D point in space.
+--    Pass your main camera for the "worldCam", and your UI camera for "uiCam", then the widget's transform for "relativeTo".
 --    You can then assign the widget's localPosition to the returned value.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/NGUIMath.cs:1113
@@ -3163,14 +3163,14 @@ function CS.NGUIMath:ScreenToParentPixels(pos, relativeTo) end
 function CS.NGUIMath:WorldToLocalPoint(worldPos, worldCam, uiCam, relativeTo) end
 
 --
---Helper function that can set the transform's position to be at the specified world position. 
+--Helper function that can set the transform's position to be at the specified world position.
 --    Ideal usage: positioning a UI element to be directly over a 3D point in space.
 --
 --```plaintext
 --Params: worldPos - World position, visible by the worldCam
 --        worldCam - Camera that is able to see the worldPos
 --        myCam - Camera that is able to see the transform this function is called on
---        
+--
 --```
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/NGUIMath.cs:1131
@@ -3180,13 +3180,13 @@ function CS.NGUIMath:WorldToLocalPoint(worldPos, worldCam, uiCam, relativeTo) en
 function CS.NGUIMath.OverlayPosition(worldPos, worldCam, myCam) end
 
 --
---Helper function that can set the transform's position to be at the specified world position. 
+--Helper function that can set the transform's position to be at the specified world position.
 --    Ideal usage: positioning a UI element to be directly over a 3D point in space.
 --
 --```plaintext
 --Params: worldPos - World position, visible by the worldCam
 --        worldCam - Camera that is able to see the worldPos
---        
+--
 --```
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/NGUIMath.cs:1146
@@ -3195,12 +3195,12 @@ function CS.NGUIMath.OverlayPosition(worldPos, worldCam, myCam) end
 function CS.NGUIMath.OverlayPosition(worldPos, worldCam) end
 
 --
---Helper function that can set the transform's position to be over the specified target transform. 
+--Helper function that can set the transform's position to be over the specified target transform.
 --    Ideal usage: positioning a UI element to be directly over a 3D object in space.
 --
 --```plaintext
 --Params: target - Target over which the transform should be positioned
---        
+--
 --```
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/NGUIMath.cs:1158
@@ -3227,7 +3227,7 @@ function CS.NGUIMath.OverlayPosition(target) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UIStretch.cs:17
 CS.Style = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UIStretch.Style
 function CS.Style:__CastFrom(value) end
@@ -3328,10 +3328,10 @@ function CS.UIPlayAnimation.PlayReverse() end
 
 
 --
---Sprite collection is a widget that contains a bunch of sprites that don't create their own game objects and colliders. 
---    Its best usage is to replace the need to create individual game objects while still maintaining full visualization 
---    and interaction functionality of NGUI's sprites. For example: a world map with thousands of individual icons. 
---    The thousands of individual icons can be a single Sprite Collection. Its downside is that the sprites can't be 
+--Sprite collection is a widget that contains a bunch of sprites that don't create their own game objects and colliders.
+--    Its best usage is to replace the need to create individual game objects while still maintaining full visualization
+--    and interaction functionality of NGUI's sprites. For example: a world map with thousands of individual icons.
+--    The thousands of individual icons can be a single Sprite Collection. Its downside is that the sprites can't be
 --    interacted with in the Editor window, as this is meant to be a fast, programmable solution.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UISpriteCollection.cs:19
@@ -3640,9 +3640,9 @@ function CS.TweenFOV.SetEndToCurrentValue() end
 
 
 --
---Simple interface that can be used anywhere. Used by the atlas maker to specify any desired custom processing that apply to textures before adding them to the atlas. 
---    The returned texture will be automatically destroyed after the atlas gets created (unless it matches the original). 
---    To create a pre-processor, have your script implement this interface, then reference the game object it's attached to in the Atlas Maker. 
+--Simple interface that can be used anywhere. Used by the atlas maker to specify any desired custom processing that apply to textures before adding them to the atlas.
+--    The returned texture will be automatically destroyed after the atlas gets created (unless it matches the original).
+--    To create a pre-processor, have your script implement this interface, then reference the game object it's attached to in the Atlas Maker.
 --    Example usage: having an off-screen renderer that composits several sprites together (for example a skill icon), then renders it into a smaller texture.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/NGUIAtlas.cs:17
@@ -3681,8 +3681,8 @@ function CS.INGUITextureProcessor.Process(src) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/NGUIAtlas.cs:46
 ---@field texture UnityEngine.Texture
 --
---Pixel size is a multiplier applied to widgets dimensions when performing MakePixelPerfect() pixel correction. 
---    Most obvious use would be on retina screen displays. The resolution doubles, but with UIRoot staying the same 
+--Pixel size is a multiplier applied to widgets dimensions when performing MakePixelPerfect() pixel correction.
+--    Most obvious use would be on retina screen displays. The resolution doubles, but with UIRoot staying the same
 --    for layout purposes, you can still get extra sharpness by switching to an HD atlas that has pixel size set to 0.5.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/NGUIAtlas.cs:54
@@ -3693,8 +3693,8 @@ function CS.INGUITextureProcessor.Process(src) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/NGUIAtlas.cs:60
 ---@field premultipliedAlpha bool
 --
---Setting a replacement atlas value will cause everything using this atlas to use the replacement atlas instead. 
---    Suggested use: set up all your widgets to use a dummy atlas that points to the real atlas. Switching that atlas 
+--Setting a replacement atlas value will cause everything using this atlas to use the replacement atlas instead.
+--    Suggested use: set up all your widgets to use a dummy atlas that points to the real atlas. Switching that atlas
 --    to another one (for example an HD atlas) is then a simple matter of setting this field on your dummy atlas.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/NGUIAtlas.cs:68
@@ -3772,15 +3772,15 @@ function CS.INGUIAtlas.SortAlphabetically() end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/NGUIAtlas.cs:230
 ---@field texture UnityEngine.Texture
 --
---Pixel size is a multiplier applied to widgets dimensions when performing MakePixelPerfect() pixel correction. 
---    Most obvious use would be on retina screen displays. The resolution doubles, but with UIRoot staying the same 
+--Pixel size is a multiplier applied to widgets dimensions when performing MakePixelPerfect() pixel correction.
+--    Most obvious use would be on retina screen displays. The resolution doubles, but with UIRoot staying the same
 --    for layout purposes, you can still get extra sharpness by switching to an HD atlas that has pixel size set to 0.5.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/NGUIAtlas.cs:245
 ---@field pixelSize float
 --
---Setting a replacement atlas value will cause everything using this atlas to use the replacement atlas instead. 
---    Suggested use: set up all your widgets to use a dummy atlas that points to the real atlas. Switching that atlas 
+--Setting a replacement atlas value will cause everything using this atlas to use the replacement atlas instead.
+--    Suggested use: set up all your widgets to use a dummy atlas that points to the real atlas. Switching that atlas
 --    to another one (for example an HD atlas) is then a simple matter of setting this field on your dummy atlas.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/NGUIAtlas.cs:279
@@ -3835,7 +3835,7 @@ function CS.NGUIAtlas.MarkAsChanged() end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UILabel.cs:13
 ---@class UILabel: UIWidget
 --
---Whether the label will keep its content crisp even when shrunk. 
+--Whether the label will keep its content crisp even when shrunk.
 --    You may want to turn this off on mobile devices.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UILabel.cs:51
@@ -3943,13 +3943,13 @@ function CS.NGUIAtlas.MarkAsChanged() end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UILabel.cs:510
 ---@field useFloatSpacing bool
 --
---Additional horizontal spacing between characters when printing text. 
+--Additional horizontal spacing between characters when printing text.
 --    For this to have any effect useFloatSpacing must be true.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UILabel.cs:531
 ---@field floatSpacingX float
 --
---Additional vertical spacing between lines when printing text. 
+--Additional vertical spacing between lines when printing text.
 --    For this to have any effect useFloatSpacing must be true.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UILabel.cs:552
@@ -3970,13 +3970,13 @@ function CS.NGUIAtlas.MarkAsChanged() end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UILabel.cs:596
 ---@field overflowEllipsis bool
 --
---Maximum width used when Resize Freely overflow type is enabled. 
+--Maximum width used when Resize Freely overflow type is enabled.
 --    If the printed text exceeds this width, it will wrap onto the following line.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UILabel.cs:617
 ---@field overflowWidth int
 --
---Maximum height used when Resize Freely overflow type is enabled. 
+--Maximum height used when Resize Freely overflow type is enabled.
 --    If the printed text exceeds this height, it will reduce the font size.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UILabel.cs:640
@@ -4113,7 +4113,7 @@ CS.UILabel = {}
 function CS.UILabel.SetDirty() end
 
 --
---Get the sides of the rectangle relative to the specified transform. 
+--Get the sides of the rectangle relative to the specified transform.
 --    The order is left, top, right, bottom.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UILabel.cs:1336
@@ -4262,7 +4262,7 @@ function CS.UILabel.OnFill(verts, uvs, cols) end
 function CS.UILabel.Fill(verts, uvs, cols, symbolVerts, symbolUVs, symbolCols) end
 
 --
---Align the vertices, making the label positioned correctly based on the pivot. 
+--Align the vertices, making the label positioned correctly based on the pivot.
 --    Returns the offset that was applied.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UILabel.cs:2273
@@ -4293,21 +4293,21 @@ function CS.UILabel.ApplyShadow(verts, uvs, cols, start, end, x, y) end
 function CS.UILabel.CalculateOffsetToFit(text) end
 
 --
---Convenience function, in case you wanted to associate progress bar, slider or scroll bar's 
+--Convenience function, in case you wanted to associate progress bar, slider or scroll bar's
 --    OnValueChanged function in inspector with a label.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UILabel.cs:2352
 function CS.UILabel.SetCurrentProgress() end
 
 --
---Convenience function, in case you wanted to associate progress bar, slider or scroll bar's 
+--Convenience function, in case you wanted to associate progress bar, slider or scroll bar's
 --    OnValueChanged function in inspector with a label.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UILabel.cs:2363
 function CS.UILabel.SetCurrentPercent() end
 
 --
---Convenience function, in case you wanted to automatically set some label's text 
+--Convenience function, in case you wanted to automatically set some label's text
 --    by selecting a value in the UIPopupList.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UILabel.cs:2374
@@ -4340,7 +4340,7 @@ function CS.UILabel.UpdateNGUIText() end
 
 
 --
---Generic interface for the NGUI's font implementations. Added in order to support both 
+--Generic interface for the NGUI's font implementations. Added in order to support both
 --    old style (prefab-based) and new style (scriptable object-based) fonts.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/NGUIFont.cs:25
@@ -4436,8 +4436,8 @@ function CS.UILabel.UpdateNGUIText() end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/NGUIFont.cs:139
 ---@field sprite UISpriteData
 --
---Setting a replacement atlas value will cause everything using this font to use the replacement font instead. 
---    Suggested use: set up all your widgets to use a dummy font that points to the real font. Switching that font to 
+--Setting a replacement atlas value will cause everything using this font to use the replacement font instead.
+--    Suggested use: set up all your widgets to use a dummy font that points to the real font. Switching that font to
 --    another one (for example an eastern language one) is then a simple matter of setting this field on your dummy font.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/NGUIFont.cs:147
@@ -4664,8 +4664,8 @@ function CS.INGUIFont.UsesSprite(s) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/NGUIFont.cs:803
 ---@field sprite UISpriteData
 --
---Setting a replacement atlas value will cause everything using this font to use the replacement font instead. 
---    Suggested use: set up all your widgets to use a dummy font that points to the real font. Switching that font to 
+--Setting a replacement atlas value will cause everything using this font to use the replacement font instead.
+--    Suggested use: set up all your widgets to use a dummy font that points to the real font. Switching that font to
 --    another one (for example an eastern language one) is then a simple matter of setting this field on your dummy font.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/NGUIFont.cs:836
@@ -4850,7 +4850,7 @@ CS.UIButtonMessage = {}
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Interaction/UIButtonMessage.cs:15
 CS.Trigger = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UIButtonMessage.Trigger
 function CS.Trigger:__CastFrom(value) end
@@ -4891,7 +4891,7 @@ function CS.CollectionsExtension.GetOrAdd(key) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/NGUIText.cs:16
 ---@class NGUIText: object
 --
---When printing text, a lot of additional data must be passed in. In order to save allocations, 
+--When printing text, a lot of additional data must be passed in. In order to save allocations,
 --    this data is not passed at all, but is rather set in a single place before calling the functions that use it.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/NGUIText.cs:52
@@ -5122,7 +5122,7 @@ function CS.NGUIText:ParseSymbol(text, index) end
 function CS.NGUIText:IsHex(ch) end
 
 --
---Parse the symbol, if possible. Returns 'true' if the 'index' was adjusted. 
+--Parse the symbol, if possible. Returns 'true' if the 'index' was adjusted.
 --    Advanced symbol support originally contributed by Rudy Pangestu.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/NGUIText.cs:594
@@ -5159,7 +5159,7 @@ function CS.NGUIText:StripSymbols(text) end
 function CS.NGUIText:Align(verts, indexOffset, printedWidth, elements) end
 
 --
---Get the index of the closest character within the provided list of values. 
+--Get the index of the closest character within the provided list of values.
 --    Meant to be used with the arrays created by PrintExactCharacterPositions().
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/NGUIText.cs:874
@@ -5170,8 +5170,8 @@ function CS.NGUIText:Align(verts, indexOffset, printedWidth, elements) end
 function CS.NGUIText:GetExactCharacterIndex(verts, indices, pos) end
 
 --
---Get the index of the closest vertex within the provided list of values. 
---    This function first sorts by Y, and only then by X. 
+--Get the index of the closest vertex within the provided list of values.
+--    This function first sorts by Y, and only then by X.
 --    Meant to be used with the arrays created by PrintApproximateCharacterPositions().
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/NGUIText.cs:904
@@ -5233,7 +5233,7 @@ function CS.NGUIText:GetEndOfLineThatFits(text) end
 function CS.NGUIText:WrapText(text, finalText, wrapLineColors) end
 
 --
---Text wrapping functionality. The 'width' and 'height' should be in pixels. 
+--Text wrapping functionality. The 'width' and 'height' should be in pixels.
 --    Returns 'true' if the requested text fits into the previously set dimensions.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/NGUIText.cs:1241
@@ -5268,8 +5268,8 @@ function CS.NGUIText:Print(text, verts, uvs, cols, sverts, suvs, scols) end
 function CS.NGUIText:PrintApproximateCharacterPositions(text, verts, indices) end
 
 --
---Print character positions and indices into the specified buffer. 
---    This function's data is meant to be used for precise character selection, such as clicking on a link. 
+--Print character positions and indices into the specified buffer.
+--    This function's data is meant to be used for precise character selection, such as clicking on a link.
 --    There are 2 vertices for every index: Bottom Left + Top Right.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/NGUIText.cs:2232
@@ -5351,23 +5351,23 @@ function CS.vxGame.RaiseGameStateEvent(eventType, args) end
 
 
 --
---Localization manager is able to parse localization information from text assets. 
---     Using it is simple: text = Localization.Get(key), or just add a UILocalize script to your labels. 
---     You can switch the language by using Localization.language = "French", for example. 
---     This will attempt to load the file called "French.txt" in the Resources folder, 
---     or a column "French" from the Localization.csv file in the Resources folder. 
---     If going down the TXT language file route, it's expected that the file is full of key = value pairs, like so: 
---     
---     LABEL1 = Hello 
---     LABEL2 = Music 
---     Info = Localization Example 
---     
---     In the case of the CSV file, the first column should be the "KEY". Other columns 
---     should be your localized text values, such as "French" for the first row: 
---     
---     KEY,English,French 
---     LABEL1,Hello,Bonjour 
---     LABEL2,Music,Musique 
+--Localization manager is able to parse localization information from text assets.
+--     Using it is simple: text = Localization.Get(key), or just add a UILocalize script to your labels.
+--     You can switch the language by using Localization.language = "French", for example.
+--     This will attempt to load the file called "French.txt" in the Resources folder,
+--     or a column "French" from the Localization.csv file in the Resources folder.
+--     If going down the TXT language file route, it's expected that the file is full of key = value pairs, like so:
+--
+--     LABEL1 = Hello
+--     LABEL2 = Music
+--     Info = Localization Example
+--
+--     In the case of the CSV file, the first column should be the "KEY". Other columns
+--     should be your localized text values, such as "French" for the first row:
+--
+--     KEY,English,French
+--     LABEL1,Hello,Bonjour
+--     LABEL2,Music,Musique
 --     Info,"Localization Example","Par exemple la localisation"
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/Localization.cs:30
@@ -5378,7 +5378,7 @@ function CS.vxGame.RaiseGameStateEvent(eventType, args) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/Localization.cs:39
 ---@field loadFunction Localization.LoadFunction
 --
---Notification triggered when the localization data gets changed, such as when changing the language. 
+--Notification triggered when the localization data gets changed, such as when changing the language.
 --    If you want to make modifications to the localization data after it was loaded, this is the place.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/Localization.cs:46
@@ -5389,7 +5389,7 @@ function CS.vxGame.RaiseGameStateEvent(eventType, args) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/Localization.cs:52
 ---@field localizationHasBeenSet bool
 --
---Localization dictionary. Dictionary key is the localization key. 
+--Localization dictionary. Dictionary key is the localization key.
 --    Dictionary value is the list of localized values (columns in the CSV file).
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/Localization.cs:77
@@ -5472,9 +5472,9 @@ function CS.Localization:LoadCSV(bytes, merge) end
 function CS.Localization:Set(languageName, dictionary) end
 
 --
---Change or set the localization value for the specified key. 
---    Note that this method only supports one fallback language, and should 
---    ideally be called from within Localization.onLocalize. 
+--Change or set the localization value for the specified key.
+--    Note that this method only supports one fallback language, and should
+--    ideally be called from within Localization.onLocalize.
 --    To set the multi-language value just modify Localization.dictionary directly.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/Localization.cs:489
@@ -5585,7 +5585,7 @@ function CS.Localization:Set(language, key, text) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/NGUIText.cs:18
 CS.Alignment = {}
 
----@source 
+---@source
 ---@param value any
 ---@return NGUIText.Alignment
 function CS.Alignment:__CastFrom(value) end
@@ -5604,7 +5604,7 @@ function CS.Alignment:__CastFrom(value) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/NGUIText.cs:27
 CS.SymbolStyle = {}
 
----@source 
+---@source
 ---@param value any
 ---@return NGUIText.SymbolStyle
 function CS.SymbolStyle:__CastFrom(value) end
@@ -5645,7 +5645,7 @@ CS.GlyphInfo = {}
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UILabel.cs:15
 CS.Effect = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UILabel.Effect
 function CS.Effect:__CastFrom(value) end
@@ -5664,7 +5664,7 @@ function CS.Effect:__CastFrom(value) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/PropertyBinding.cs:16
 CS.UpdateCondition = {}
 
----@source 
+---@source
 ---@param value any
 ---@return PropertyBinding.UpdateCondition
 function CS.UpdateCondition:__CastFrom(value) end
@@ -5681,8 +5681,8 @@ function CS.UpdateCondition:__CastFrom(value) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Interaction/UIKeyNavigation.cs:19
 ---@field list BetterList<UIKeyNavigation>
 --
---If a selection target is not set, the target can be determined automatically, restricted by this constraint. 
---    'None' means free movement on both horizontal and vertical axis. 'Explicit' means the automatic logic will 
+--If a selection target is not set, the target can be determined automatically, restricted by this constraint.
+--    'None' means free movement on both horizontal and vertical axis. 'Explicit' means the automatic logic will
 --    not execute, and only the explicitly set values will be used.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Interaction/UIKeyNavigation.cs:35
@@ -5788,7 +5788,7 @@ function CS.UIKeyNavigation.OnKey(key) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UILabel.cs:23
 CS.Overflow = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UILabel.Overflow
 function CS.Overflow:__CastFrom(value) end
@@ -5805,7 +5805,7 @@ function CS.Overflow:__CastFrom(value) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UILabel.cs:31
 CS.Crispness = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UILabel.Crispness
 function CS.Crispness:__CastFrom(value) end
@@ -5824,7 +5824,7 @@ function CS.Crispness:__CastFrom(value) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UILabel.cs:38
 CS.Modifier = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UILabel.Modifier
 function CS.Modifier:__CastFrom(value) end
@@ -5864,7 +5864,7 @@ function CS.ModifierFunc.EndInvoke(result) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/PropertyBinding.cs:24
 CS.Direction = {}
 
----@source 
+---@source
 ---@param value any
 ---@return PropertyBinding.Direction
 function CS.Direction:__CastFrom(value) end
@@ -5913,7 +5913,7 @@ function CS.LoadFunction.EndInvoke(result) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Interaction/UIKeyNavigation.cs:21
 CS.Constraint = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UIKeyNavigation.Constraint
 function CS.Constraint:__CastFrom(value) end
@@ -5981,7 +5981,7 @@ function CS.MapUnitsRoot.Clear() end
 
 
 --
---UIFont contains everything needed to be able to print text. This is the legacy component that stores its data in a prefab. 
+--UIFont contains everything needed to be able to print text. This is the legacy component that stores its data in a prefab.
 --    It's best to use NGUIFont now as it saves its data in Scriptable Objects, which plays better with Unity 2018+.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UIFont.cs:19
@@ -6081,8 +6081,8 @@ function CS.MapUnitsRoot.Clear() end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UIFont.cs:422
 ---@field sprite UISpriteData
 --
---Setting a replacement atlas value will cause everything using this font to use the replacement font instead. 
---    Suggested use: set up all your widgets to use a dummy font that points to the real font. Switching that font to 
+--Setting a replacement atlas value will cause everything using this font to use the replacement font instead.
+--    Suggested use: set up all your widgets to use a dummy font that points to the real font. Switching that font to
 --    another one (for example an eastern language one) is then a simple matter of setting this field on your dummy font.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UIFont.cs:451
@@ -6335,8 +6335,8 @@ function CS.TweenPosition.SetEndToCurrentValue() end
 
 
 --
---All children added to the game object with this script will be arranged into a table 
---    with rows and columns automatically adjusting their size to fit their content 
+--All children added to the game object with this script will be arranged into a table
+--    with rows and columns automatically adjusting their size to fit their content
 --    (think "table" tag in HTML).
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Interaction/UITable.cs:16
@@ -6456,19 +6456,19 @@ function CS.UITable.Reposition() end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UIPanel.cs:68
 ---@field widgetsAreStatic bool
 --
---Whether widgets will be culled while the panel is being dragged. 
+--Whether widgets will be culled while the panel is being dragged.
 --    Having this on improves performance, but turning it off will reduce garbage collection.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UIPanel.cs:75
 ---@field cullWhileDragging bool
 --
---Optimization flag. Makes the assumption that the panel's geometry 
+--Optimization flag. Makes the assumption that the panel's geometry
 --    will always be on screen and the bounds don't need to be re-calculated.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UIPanel.cs:82
 ---@field alwaysOnScreen bool
 --
---By default, non-clipped panels use the camera's bounds, and the panel's position has no effect. 
+--By default, non-clipped panels use the camera's bounds, and the panel's position has no effect.
 --    If you want the panel's position to actually be used with anchors, set this field to 'true'.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UIPanel.cs:89
@@ -6479,19 +6479,19 @@ function CS.UITable.Reposition() end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UIPanel.cs:95
 ---@field softBorderPadding bool
 --
---By default all panels manage render queues of their draw calls themselves by incrementing them 
+--By default all panels manage render queues of their draw calls themselves by incrementing them
 --    so that the geometry is drawn in the proper order. You can alter this behaviour.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UIPanel.cs:102
 ---@field renderQueue UIPanel.RenderQueue
 --
---Render queue used by the panel. The default value of '3000' is the equivalent of "Transparent". 
+--Render queue used by the panel. The default value of '3000' is the equivalent of "Transparent".
 --    This property is only used if 'renderQueue' is set to something other than "Automatic".
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UIPanel.cs:109
 ---@field startingRenderQueue int
 --
---Sorting layer used by the panel -- used when mixing NGUI with the Unity's 2D system. 
+--Sorting layer used by the panel -- used when mixing NGUI with the Unity's 2D system.
 --    Contributed by Benzino07: http://www.tasharen.com/forum/index.php?topic=6956.15
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UIPanel.cs:116
@@ -6522,7 +6522,7 @@ function CS.UITable.Reposition() end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UIPanel.cs:169
 ---@field onClipMove UIPanel.OnClippingMoved
 --
---There may be cases where you will want to create a custom material per-widget in order to have unique draw calls. 
+--There may be cases where you will want to create a custom material per-widget in order to have unique draw calls.
 --    If that's the case, set this delegate and return your newly created material. Note that it's up to you to cache this material for the next call.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UIPanel.cs:176
@@ -6620,8 +6620,8 @@ function CS.UITable.Reposition() end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UIPanel.cs:498
 ---@field clipsChildren bool
 --
---Clipping area offset used to make it possible to move clipped panels (scroll views) efficiently. 
---    Scroll views move by adjusting the clip offset by one value, and the transform position by the inverse. 
+--Clipping area offset used to make it possible to move clipped panels (scroll views) efficiently.
+--    Scroll views move by adjusting the clip offset by one value, and the transform position by the inverse.
 --    This makes it possible to not have to rebuild the geometry, greatly improving performance.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UIPanel.cs:506
@@ -6632,13 +6632,13 @@ function CS.UITable.Reposition() end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UIPanel.cs:550
 ---@field clipTexture UnityEngine.Texture2D
 --
---Clipping position (XY) and size (ZW). 
+--Clipping position (XY) and size (ZW).
 --    Note that you should not be modifying this property at run-time to reposition the clipping. Adjust clipOffset instead.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UIPanel.cs:574
 ---@field clipRange UnityEngine.Vector4
 --
---Clipping position (XY) and size (ZW). 
+--Clipping position (XY) and size (ZW).
 --    Note that you should not be modifying this property at run-time to reposition the clipping. Adjust clipOffset instead.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UIPanel.cs:591
@@ -6676,7 +6676,7 @@ CS.UIPanel = {}
 function CS.UIPanel:CompareFunc(a, b) end
 
 --
---Get the sides of the rectangle relative to the specified transform. 
+--Get the sides of the rectangle relative to the specified transform.
 --    The order is left, top, right, bottom.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UIPanel.cs:765
@@ -6750,7 +6750,7 @@ function CS.UIPanel.Affects(w) end
 function CS.UIPanel.RebuildAllDrawCalls() end
 
 --
---Invalidate the panel's draw calls, forcing them to be rebuilt on the next update. 
+--Invalidate the panel's draw calls, forcing them to be rebuilt on the next update.
 --    This call also affects all children.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UIPanel.cs:1000
@@ -6786,8 +6786,8 @@ function CS.UIPanel.FillDrawCall(dc) end
 function CS.UIPanel.FillDrawCall(dc, needsCulling) end
 
 --
---Insert the specified widget into one of the existing draw calls if possible. 
---    If it's not possible, and a new draw call is required, 'null' is returned 
+--Insert the specified widget into one of the existing draw calls if possible.
+--    If it's not possible, and a new draw call is required, 'null' is returned
 --    because draw call creation is a delayed operation.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UIPanel.cs:1803
@@ -7005,7 +7005,7 @@ function CS.UIDragDropItem.StopDragging(go) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Interaction/UIDragDropItem.cs:17
 CS.Restriction = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UIDragDropItem.Restriction
 function CS.Restriction:__CastFrom(value) end
@@ -7098,7 +7098,7 @@ function CS.UIButtonColor.UpdateColor(instant) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Interaction/UIPopupList.cs:28
 CS.Position = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UIPopupList.Position
 function CS.Position:__CastFrom(value) end
@@ -7132,7 +7132,7 @@ function CS.OnReposition.EndInvoke(result) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Interaction/UIPopupList.cs:35
 CS.Selection = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UIPopupList.Selection
 function CS.Selection:__CastFrom(value) end
@@ -7147,7 +7147,7 @@ function CS.Selection:__CastFrom(value) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Interaction/UITable.cs:20
 CS.Direction = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UITable.Direction
 function CS.Direction:__CastFrom(value) end
@@ -7166,7 +7166,7 @@ function CS.Direction:__CastFrom(value) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Interaction/UIPopupList.cs:245
 CS.OpenOn = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UIPopupList.OpenOn
 function CS.OpenOn:__CastFrom(value) end
@@ -7187,7 +7187,7 @@ function CS.OpenOn:__CastFrom(value) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Interaction/UITable.cs:26
 CS.Sorting = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UITable.Sorting
 function CS.Sorting:__CastFrom(value) end
@@ -7227,7 +7227,7 @@ function CS.LegacyEvent.EndInvoke(result) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Interaction/UIButtonColor.cs:16
 CS.State = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UIButtonColor.State
 function CS.State:__CastFrom(value) end
@@ -7463,8 +7463,8 @@ function CS.PropertyReference:Convert(value, from, to) end
 
 
 --
---If you don't have or don't wish to create an atlas, you can simply use this script to draw a texture. 
---    Keep in mind though that this will create an extra draw call with each UITexture present, so it's 
+--If you don't have or don't wish to create an atlas, you can simply use this script to draw a texture.
+--    Keep in mind though that this will create an extra draw call with each UITexture present, so it's
 --    best to use it only for backgrounds or temporary visible widgets.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UITexture.cs:17
@@ -7500,14 +7500,14 @@ function CS.PropertyReference:Convert(value, from, to) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UITexture.cs:157
 ---@field uvRect UnityEngine.Rect
 --
---Widget's dimensions used for drawing. X = left, Y = bottom, Z = right, W = top. 
---    This function automatically adds 1 pixel on the edge if the texture's dimensions are not even. 
+--Widget's dimensions used for drawing. X = left, Y = bottom, Z = right, W = top.
+--    This function automatically adds 1 pixel on the edge if the texture's dimensions are not even.
 --    It's used to achieve pixel-perfect sprites even when an odd dimension widget happens to be centered.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UITexture.cs:179
 ---@field drawingDimensions UnityEngine.Vector4
 --
---Whether the drawn texture will always maintain a fixed aspect ratio. 
+--Whether the drawn texture will always maintain a fixed aspect ratio.
 --    This setting is not compatible with drawRegion adjustments (sliders, progress bars, etc).
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UITexture.cs:250
@@ -7532,7 +7532,7 @@ function CS.UITexture.OnFill(verts, uvs, cols) end
 
 
 --
---This is a script used to keep the game object scaled to 2/(Screen.height). 
+--This is a script used to keep the game object scaled to 2/(Screen.height).
 --    If you use it, be sure to NOT use UIOrthoCamera at the same time.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UIRoot.cs:16
@@ -7563,13 +7563,13 @@ function CS.UITexture.OnFill(verts, uvs, cols) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UIRoot.cs:73
 ---@field manualHeight int
 --
---If the screen height goes below this value, it will be as if the scaling style 
+--If the screen height goes below this value, it will be as if the scaling style
 --    is set to FixedSize with manualHeight of this value.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UIRoot.cs:80
 ---@field minimumHeight int
 --
---If the screen height goes above this value, it will be as if the scaling style 
+--If the screen height goes above this value, it will be as if the scaling style
 --    is set to Fixed Height with manualHeight of this value.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UIRoot.cs:87
@@ -7585,13 +7585,13 @@ function CS.UITexture.OnFill(verts, uvs, cols) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UIRoot.cs:99
 ---@field fitHeight bool
 --
---Whether the final value will be adjusted by the device's DPI setting. 
+--Whether the final value will be adjusted by the device's DPI setting.
 --    Used when the Scaling is set to Pixel-Perfect.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UIRoot.cs:106
 ---@field adjustByDPI bool
 --
---If set and the game is in portrait mode, the UI will shrink based on the screen's width instead of height. 
+--If set and the game is in portrait mode, the UI will shrink based on the screen's width instead of height.
 --    Used when the Scaling is set to Pixel-Perfect.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UIRoot.cs:113
@@ -7719,7 +7719,7 @@ function CS.TweenOrthoSize.SetEndToCurrentValue() end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UIPanel.cs:23
 CS.RenderQueue = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UIPanel.RenderQueue
 function CS.RenderQueue:__CastFrom(value) end
@@ -7790,7 +7790,7 @@ function CS.OnClippingMoved.EndInvoke(result) end
 
 
 --
---Mainly an internal script used by UIButtonPlayAnimation, but can also be used to call 
+--Mainly an internal script used by UIButtonPlayAnimation, but can also be used to call
 --    the specified function on the game object after it finishes animating.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/ActiveAnimation.cs:16
@@ -8003,7 +8003,7 @@ function CS.ILuaMessengerLuaTable.LuaTableCallBack(val) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Interaction/UIProgressBar.cs:29
 ---@field current UIProgressBar
 --
---Delegate triggered when the scroll bar stops being dragged. 
+--Delegate triggered when the scroll bar stops being dragged.
 --    Useful for things like centering on the closest valid object, for example.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Interaction/UIProgressBar.cs:36
@@ -8257,8 +8257,8 @@ function CS.NGUITools:PlaySound(clip, volume) end
 function CS.NGUITools:PlaySound(clip, volume, pitch) end
 
 --
---Same as Random.Range, but the returned value is between min and max, inclusive. 
---    Unity's Random.Range is less than max instead, unless min == max. 
+--Same as Random.Range, but the returned value is between min and max, inclusive.
+--    Unity's Random.Range is less than max instead, unless min == max.
 --    This means Range(0,1) produces 0 instead of 0 or 1. That's unacceptable.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/NGUITools.cs:199
@@ -8424,7 +8424,7 @@ function CS.NGUITools:CalculateNextDepth(go) end
 function CS.NGUITools:CalculateNextDepth(go, ignoreChildrenWithColliders) end
 
 --
---Adjust the widgets' depth by the specified value. 
+--Adjust the widgets' depth by the specified value.
 --    Returns '0' if nothing was adjusted, '1' if panels were adjusted, and '2' if widgets were adjusted.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/NGUITools.cs:932
@@ -8515,7 +8515,7 @@ function CS.NGUITools:CreateUI(trans, advanced3D, layer) end
 function CS.NGUITools:GetRoot(go) end
 
 --
---Finds the specified component on the game object or one of its parents. 
+--Finds the specified component on the game object or one of its parents.
 --    This function has become obsolete with Unity 4.3.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/NGUITools.cs:1369
@@ -8524,7 +8524,7 @@ function CS.NGUITools:GetRoot(go) end
 function CS.NGUITools:FindInParents(go) end
 
 --
---Finds the specified component on the game object or one of its parents. 
+--Finds the specified component on the game object or one of its parents.
 --    This function has become obsolete with Unity 4.3.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/NGUITools.cs:1394
@@ -8571,7 +8571,7 @@ function CS.NGUITools:Broadcast(funcName, param) end
 function CS.NGUITools:IsChild(parent, child) end
 
 --
---SetActiveRecursively enables children before parents. This is a problem when a widget gets re-enabled 
+--SetActiveRecursively enables children before parents. This is a problem when a widget gets re-enabled
 --    and it tries to find a panel on its parent.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/NGUITools.cs:1569
@@ -8580,7 +8580,7 @@ function CS.NGUITools:IsChild(parent, child) end
 function CS.NGUITools:SetActive(go, state) end
 
 --
---SetActiveRecursively enables children before parents. This is a problem when a widget gets re-enabled 
+--SetActiveRecursively enables children before parents. This is a problem when a widget gets re-enabled
 --    and it tries to find a panel on its parent.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/NGUITools.cs:1576
@@ -8725,7 +8725,7 @@ function CS.NGUITools:Execute(go, funcName) end
 function CS.NGUITools:ExecuteAll(root, funcName) end
 
 --
---Immediately start, update, and create all the draw calls from newly instantiated UI. 
+--Immediately start, update, and create all the draw calls from newly instantiated UI.
 --    This is useful if you plan on doing something like immediately taking a screenshot then destroying the UI.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/NGUITools.cs:2192
@@ -8749,8 +8749,8 @@ function CS.NGUITools:KeyToCaption(key) end
 function CS.NGUITools:CaptionToKey(caption) end
 
 --
---Immediately add a new widget to the screen or return an existing one that matches the specified ID. 
---    The usage of this function is very similar to GUI.Draw in a sense that it can be used to quickly 
+--Immediately add a new widget to the screen or return an existing one that matches the specified ID.
+--    The usage of this function is very similar to GUI.Draw in a sense that it can be used to quickly
 --    show persistent widgets via code.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/NGUITools.cs:2767
@@ -8866,7 +8866,7 @@ function CS.NGUITools.AddChild(undo) end
 function CS.NGUITools.AddWidget(depth) end
 
 --
---Add a sprite appropriate for the specified atlas sprite. 
+--Add a sprite appropriate for the specified atlas sprite.
 --    It will be sliced if the sprite has an inner rect, and a regular sprite otherwise.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/NGUITools.cs:1337
@@ -8892,7 +8892,7 @@ function CS.NGUITools.DestroyChildren() end
 function CS.NGUITools.FitOnScreen(t, considerInactive, considerChildren) end
 
 --
---Fit the specified NGUI hierarchy on the screen. 
+--Fit the specified NGUI hierarchy on the screen.
 --    Example: uiCamera.FitOnScreen(contentObjectTransform, UICamera.lastEventPosition);
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/NGUITools.cs:1757
@@ -8901,7 +8901,7 @@ function CS.NGUITools.FitOnScreen(t, considerInactive, considerChildren) end
 function CS.NGUITools.FitOnScreen(transform, pos) end
 
 --
---Fit the specified NGUI hierarchy on the screen. 
+--Fit the specified NGUI hierarchy on the screen.
 --    Example: uiCamera.FitOnScreen(rootObjectTransform, contentObjectTransform, UICamera.lastEventPosition);
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/NGUITools.cs:1767
@@ -8912,7 +8912,7 @@ function CS.NGUITools.FitOnScreen(transform, pos) end
 function CS.NGUITools.FitOnScreen(transform, content, pos, considerInactive) end
 
 --
---Fit the specified NGUI hierarchy on the screen. 
+--Fit the specified NGUI hierarchy on the screen.
 --    Example: uiCamera.FitOnScreen(rootObjectTransform, contentObjectTransform, UICamera.lastEventPosition);
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/NGUITools.cs:1778
@@ -8924,7 +8924,7 @@ function CS.NGUITools.FitOnScreen(transform, content, pos, considerInactive) end
 function CS.NGUITools.FitOnScreen(transform, content, pos, bounds, considerInactive) end
 
 --
---Extension for the game object that checks to see if the component already exists before adding a new one. 
+--Extension for the game object that checks to see if the component already exists before adding a new one.
 --    If the component is already present it will be returned instead.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/NGUITools.cs:1953
@@ -9003,13 +9003,13 @@ function CS.NGUITools.LinearToGammaSpace() end
 
 
 --
---This script makes it possible for a scroll view to wrap its content, creating endless scroll views. 
---    Usage: simply attach this script underneath your scroll view where you would normally place a UIGrid: 
---     
---    + Scroll View 
---    |- UIWrappedContent 
---    |-- Item 1 
---    |-- Item 2 
+--This script makes it possible for a scroll view to wrap its content, creating endless scroll views.
+--    Usage: simply attach this script underneath your scroll view where you would normally place a UIGrid:
+--
+--    + Scroll View
+--    |- UIWrappedContent
+--    |-- Item 1
+--    |-- Item 2
 --    |-- Item 3
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Interaction/UIWrapContent.cs:21
@@ -9025,13 +9025,13 @@ function CS.NGUITools.LinearToGammaSpace() end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Interaction/UIWrapContent.cs:35
 ---@field cullContent bool
 --
---Minimum allowed index for items. If "min" is equal to "max" then there is no limit. 
+--Minimum allowed index for items. If "min" is equal to "max" then there is no limit.
 --    For vertical scroll views indices increment with the Y position (towards top of the screen).
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Interaction/UIWrapContent.cs:42
 ---@field minIndex int
 --
---Maximum allowed index for items. If "min" is equal to "max" then there is no limit. 
+--Maximum allowed index for items. If "min" is equal to "max" then there is no limit.
 --    For vertical scroll views indices increment with the Y position (towards top of the screen).
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Interaction/UIWrapContent.cs:49
@@ -9042,7 +9042,7 @@ function CS.NGUITools.LinearToGammaSpace() end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Interaction/UIWrapContent.cs:55
 ---@field hideInactive bool
 --
---Callback that will be called every time an item needs to have its content updated. 
+--Callback that will be called every time an item needs to have its content updated.
 --    The 'wrapIndex' is the index within the child list, and 'realIndex' is the index using position logic.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Interaction/UIWrapContent.cs:62
@@ -9080,7 +9080,7 @@ function CS.UIWrapContent.WrapContent() end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UIRoot.cs:24
 CS.Scaling = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UIRoot.Scaling
 function CS.Scaling:__CastFrom(value) end
@@ -9120,7 +9120,7 @@ function CS.OnInitFunc.EndInvoke(result) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UIRoot.cs:31
 CS.Constraint = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UIRoot.Constraint
 function CS.Constraint:__CastFrom(value) end
@@ -9178,14 +9178,14 @@ function CS.Constraint:__CastFrom(value) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/MessageKeys.cs:1
 CS.MessageKeys = {}
 
----@source 
+---@source
 ---@param value any
 ---@return MessageKeys
 function CS.MessageKeys:__CastFrom(value) end
 
 
 --
---Attach this script to a UITexture to turn it into a color picker. 
+--Attach this script to a UITexture to turn it into a color picker.
 --    The color picking texture will be generated automatically.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UIColorPicker.cs:15
@@ -9236,7 +9236,7 @@ function CS.UIColorPicker:Sample(x, y) end
 
 
 --
---Abstract UI rectangle containing functionality common to both panels and widgets. 
+--Abstract UI rectangle containing functionality common to both panels and widgets.
 --    A UI rectangle contains 4 anchor points (one for each side), and it ensures that they are updated in the proper order.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/UIRect.cs:13
@@ -9355,7 +9355,7 @@ function CS.UIRect.CalculateFinalAlpha(frameID) end
 function CS.UIRect.Invalidate(includeChildren) end
 
 --
---Get the sides of the rectangle relative to the specified transform. 
+--Get the sides of the rectangle relative to the specified transform.
 --    The order is left, top, right, bottom.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/UIRect.cs:353
@@ -9369,7 +9369,7 @@ function CS.UIRect.GetSides(relativeTo) end
 function CS.UIRect.Start() end
 
 --
---Rectangles need to update in a specific order -- parents before children. 
+--Rectangles need to update in a specific order -- parents before children.
 --    When deriving from this class, override its OnUpdate() function instead.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/UIRect.cs:477
@@ -9382,7 +9382,7 @@ function CS.UIRect.Update() end
 function CS.UIRect.UpdateAnchors() end
 
 --
---Anchor this rectangle to the specified transform. 
+--Anchor this rectangle to the specified transform.
 --    Note that this function will not keep the rectangle's current dimensions, but will instead assume the target's dimensions.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/UIRect.cs:574
@@ -9390,7 +9390,7 @@ function CS.UIRect.UpdateAnchors() end
 function CS.UIRect.SetAnchor(t) end
 
 --
---Anchor this rectangle to the specified transform. 
+--Anchor this rectangle to the specified transform.
 --    Note that this function will not keep the rectangle's current dimensions, but will instead assume the target's dimensions.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/UIRect.cs:590
@@ -9449,7 +9449,7 @@ function CS.UIRect.SetAnchor(go, left, leftOffset, bottom, bottomOffset, right, 
 function CS.UIRect.SetAnchor(left, leftOffset, bottom, bottomOffset, right, rightOffset, top, topOffset) end
 
 --
---Set the rect of the widget to the specified X, Y, width and height, anchored to the top-left corner of the screen. 
+--Set the rect of the widget to the specified X, Y, width and height, anchored to the top-left corner of the screen.
 --    Convenience function for those familiar with GUI.Draw.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/UIRect.cs:724
@@ -9808,7 +9808,7 @@ CS.MinMaxRangeAttribute = {}
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Interaction/UIProgressBar.cs:17
 CS.FillDirection = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UIProgressBar.FillDirection
 function CS.FillDirection:__CastFrom(value) end
@@ -9834,7 +9834,7 @@ function CS.OnDragFinished.EndInvoke(result) end
 
 
 --
---This script is capable of resizing the widget it's attached to in order to 
+--This script is capable of resizing the widget it's attached to in order to
 --    completely envelop targeted UI content.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Interaction/EnvelopContent.cs:15
@@ -9870,7 +9870,7 @@ CS.AnimatedAlpha = {}
 
 
 --
---Example script showing how to activate or deactivate a game object when a toggle's state changes. 
+--Example script showing how to activate or deactivate a game object when a toggle's state changes.
 --    OnActivate event is sent out by the UIToggle script.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Interaction/UIToggledObjects.cs:15
@@ -9897,7 +9897,7 @@ function CS.UIToggledObjects.Toggle() end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UICamera.cs:45
 CS.ControlScheme = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UICamera.ControlScheme
 function CS.ControlScheme:__CastFrom(value) end
@@ -9921,7 +9921,7 @@ function CS.TweenLetters.Play(forward) end
 
 
 --
---UI Atlas contains a collection of sprites inside one large texture atlas. 
+--UI Atlas contains a collection of sprites inside one large texture atlas.
 --    This is the legacy atlas component, kept for full backwards compatibility. All newly created UIs should use NGUIAtlas-based atlases instead.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UIAtlas.cs:16
@@ -9947,15 +9947,15 @@ function CS.TweenLetters.Play(forward) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UIAtlas.cs:150
 ---@field texture UnityEngine.Texture
 --
---Pixel size is a multiplier applied to widgets dimensions when performing MakePixelPerfect() pixel correction. 
---    Most obvious use would be on retina screen displays. The resolution doubles, but with UIRoot staying the same 
+--Pixel size is a multiplier applied to widgets dimensions when performing MakePixelPerfect() pixel correction.
+--    Most obvious use would be on retina screen displays. The resolution doubles, but with UIRoot staying the same
 --    for layout purposes, you can still get extra sharpness by switching to an HD atlas that has pixel size set to 0.5.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UIAtlas.cs:165
 ---@field pixelSize float
 --
---Setting a replacement atlas value will cause everything using this atlas to use the replacement atlas instead. 
---    Suggested use: set up all your widgets to use a dummy atlas that points to the real atlas. Switching that atlas 
+--Setting a replacement atlas value will cause everything using this atlas to use the replacement atlas instead.
+--    Suggested use: set up all your widgets to use a dummy atlas that points to the real atlas. Switching that atlas
 --    to another one (for example an HD atlas) is then a simple matter of setting this field on your dummy atlas.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UIAtlas.cs:199
@@ -10027,7 +10027,7 @@ function CS.UIAtlas.MarkAsChanged() end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UICamera.cs:56
 CS.ClickNotification = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UICamera.ClickNotification
 function CS.ClickNotification:__CastFrom(value) end
@@ -10104,7 +10104,7 @@ CS.MouseOrTouch = {}
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UICamera.cs:115
 CS.EventType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UICamera.EventType
 function CS.EventType:__CastFrom(value) end
@@ -10274,7 +10274,7 @@ function CS.OnScreenResize.EndInvoke(result) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UICamera.cs:256
 CS.ProcessEventsIn = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UICamera.ProcessEventsIn
 function CS.ProcessEventsIn:__CastFrom(value) end
@@ -10448,7 +10448,7 @@ function CS.VoidDelegate.EndInvoke(result) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/UIRect.cs:157
 CS.AnchorUpdate = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UIRect.AnchorUpdate
 function CS.AnchorUpdate:__CastFrom(value) end
@@ -10478,8 +10478,8 @@ function CS.BoolDelegate.EndInvoke(result) end
 
 
 --
---This script can be used to forward events from one object to another. 
---    In most cases you should use UIEventListener script instead. For example: 
+--This script can be used to forward events from one object to another.
+--    In most cases you should use UIEventListener script instead. For example:
 --    UIEventListener.Get(gameObject).onClick += MyClickFunction;
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Interaction/UIForwardEvents.cs:15
@@ -10621,9 +10621,9 @@ function CS.ObjectDelegate.EndInvoke(result) end
 
 
 --
---2D Sprite is capable of drawing sprites added in Unity 4.3. When importing your textures, 
---    import them as Sprites and you will be able to draw them with this widget. 
---    If you provide a Packing Tag in your import settings, your sprites will get automatically 
+--2D Sprite is capable of drawing sprites added in Unity 4.3. When importing your textures,
+--    import them as Sprites and you will be able to draw them with this widget.
+--    If you provide a Packing Tag in your import settings, your sprites will get automatically
 --    packed into an atlas for you, so creating an atlas beforehand is not necessary.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UI2DSprite.cs:18
@@ -10669,8 +10669,8 @@ function CS.ObjectDelegate.EndInvoke(result) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UI2DSprite.cs:162
 ---@field pixelSize float
 --
---Widget's dimensions used for drawing. X = left, Y = bottom, Z = right, W = top. 
---    This function automatically adds 1 pixel on the edge if the texture's dimensions are not even. 
+--Widget's dimensions used for drawing. X = left, Y = bottom, Z = right, W = top.
+--    This function automatically adds 1 pixel on the edge if the texture's dimensions are not even.
 --    It's used to achieve pixel-perfect sprites even when an odd dimension widget happens to be centered.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UI2DSprite.cs:170
@@ -10761,7 +10761,7 @@ function CS.EventDelegate.GetHashCode() end
 function CS.EventDelegate.Set(target, methodName) end
 
 --
---Execute the delegate, if possible. 
+--Execute the delegate, if possible.
 --    This will only be used when the application is playing in order to prevent unintentional state changes.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/EventDelegate.cs:454
@@ -11070,7 +11070,7 @@ function CS.UIDrawCall:Count(panel) end
 function CS.UIDrawCall:Destroy(dc) end
 
 --
---Move all draw calls to the specified scene. 
+--Move all draw calls to the specified scene.
 --    http://www.tasharen.com/forum/index.php?topic=13965.0
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/UIDrawCall.cs:1096
@@ -11103,7 +11103,7 @@ CS.Touch = {}
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Tweening/TweenLetters.cs:15
 CS.AnimationLetterOrder = {}
 
----@source 
+---@source
 ---@param value any
 ---@return TweenLetters.AnimationLetterOrder
 function CS.AnimationLetterOrder:__CastFrom(value) end
@@ -11214,7 +11214,7 @@ CS.UIShowControlScheme = {}
 
 
 --
---Event Hook class lets you easily add remote event listener functions to an object. 
+--Event Hook class lets you easily add remote event listener functions to an object.
 --    Example usage: UIEventListener.Get(gameObject).onClick += MyClickFunction;
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/UIEventListener.cs:14
@@ -11269,7 +11269,7 @@ function CS.UIEventListener:Get(go) end
 
 
 --
---Functionality common to both NGUI and 2D sprites brought out into a single common parent. 
+--Functionality common to both NGUI and 2D sprites brought out into a single common parent.
 --    Mostly contains everything related to drawing the sprite.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/UIBasicSprite.cs:9
@@ -11364,7 +11364,7 @@ CS.UIBasicSprite = {}
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UIInput.cs:21
 CS.InputType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UIInput.InputType
 function CS.InputType:__CastFrom(value) end
@@ -11389,7 +11389,7 @@ function CS.InputType:__CastFrom(value) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UIInput.cs:28
 CS.Validation = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UIInput.Validation
 function CS.Validation:__CastFrom(value) end
@@ -11416,7 +11416,7 @@ function CS.Validation:__CastFrom(value) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UIInput.cs:40
 CS.KeyboardType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UIInput.KeyboardType
 function CS.KeyboardType:__CastFrom(value) end
@@ -11433,7 +11433,7 @@ function CS.KeyboardType:__CastFrom(value) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UIInput.cs:65
 CS.OnReturnKey = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UIInput.OnReturnKey
 function CS.OnReturnKey:__CastFrom(value) end
@@ -11492,7 +11492,7 @@ function CS.UISlider.OnPan(delta) end
 
 
 --
---Delegates can have parameters, and this class makes it possible to save references to properties 
+--Delegates can have parameters, and this class makes it possible to save references to properties
 --    that can then be passed as function arguments, such as transform.position or widget.color.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/EventDelegate.cs:30
@@ -11619,8 +11619,8 @@ function CS.TweenTransform:Begin(go, duration, from, to) end
 
 
 --
---This class is added by UIInput when it gets selected in order to be able to receive input events properly. 
---    The reason it's not a part of UIInput is because it allocates 336 bytes of GC every update because of OnGUI. 
+--This class is added by UIInput when it gets selected in order to be able to receive input events properly.
+--    The reason it's not a part of UIInput is because it allocates 336 bytes of GC every update because of OnGUI.
 --    It's best to only keep it active when it's actually needed.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UIInputOnGUI.cs:19
@@ -11754,7 +11754,7 @@ CS.UIViewport = {}
 
 
 --
---Ever wanted to be able to auto-center on an object within a draggable panel? 
+--Ever wanted to be able to auto-center on an object within a draggable panel?
 --    Attach this script to the container that has the objects to center on as its children.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Interaction/UICenterOnChild.cs:15
@@ -11832,7 +11832,7 @@ function CS.ShaderManager:Find(shaderName) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/UIDrawCall.cs:37
 CS.Clipping = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UIDrawCall.Clipping
 function CS.Clipping:__CastFrom(value) end
@@ -11916,8 +11916,8 @@ function CS.Clipping:__CastFrom(value) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UISprite.cs:355
 ---@field minHeight int
 --
---Sprite's dimensions used for drawing. X = left, Y = bottom, Z = right, W = top. 
---    This function automatically adds 1 pixel on the edge if the sprite's dimensions are not even. 
+--Sprite's dimensions used for drawing. X = left, Y = bottom, Z = right, W = top.
+--    This function automatically adds 1 pixel on the edge if the sprite's dimensions are not even.
 --    It's used to achieve pixel-perfect sprites even when an odd dimension sprite happens to be centered.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UISprite.cs:380
@@ -12047,7 +12047,7 @@ function CS.JoystickMoveCommand.Reset() end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/UIDrawCall.cs:294
 CS.ShadowMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UIDrawCall.ShadowMode
 function CS.ShadowMode:__CastFrom(value) end
@@ -12279,8 +12279,8 @@ function CS.UITweener.PlayReverse() end
 function CS.UITweener.Play(forward) end
 
 --
---Manually reset the tweener's state to the beginning. 
---    If the tween is playing forward, this means the tween's start. 
+--Manually reset the tweener's state to the beginning.
+--    If the tween is playing forward, this means the tween's start.
 --    If the tween is playing in reverse, this means the tween's end.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Tweening/UITweener.cs:443
@@ -12441,7 +12441,7 @@ function CS.ObjectPool.Clear() end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/UIBasicSprite.cs:11
 CS.Type = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UIBasicSprite.Type
 function CS.Type:__CastFrom(value) end
@@ -12535,7 +12535,7 @@ function CS.UIDraggableCamera.Scroll(delta) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/UIBasicSprite.cs:20
 CS.FillDirection = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UIBasicSprite.FillDirection
 function CS.FillDirection:__CastFrom(value) end
@@ -12572,7 +12572,7 @@ function CS.UIPlaySound.Play() end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/UIBasicSprite.cs:29
 CS.AdvancedType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UIBasicSprite.AdvancedType
 function CS.AdvancedType:__CastFrom(value) end
@@ -12591,7 +12591,7 @@ function CS.AdvancedType:__CastFrom(value) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/UIBasicSprite.cs:36
 CS.Flip = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UIBasicSprite.Flip
 function CS.Flip:__CastFrom(value) end
@@ -12654,9 +12654,9 @@ function CS.MaterialPropertyBlockTool:ClearPropertyBlock(renderer, materialIndex
 --批量修改属性块,开始于StartEdit,然后修改属性调用无Renderer参数版方法，最后调用StopEdit停止属性块编辑并提交
 --
 --```plaintext
---Params: materialIndex - 如果materialIndex为负数，表示这个属性块是存储在renderer上的，非负数并且小于材质的数量，表示存储在对应的material上。 
+--Params: materialIndex - 如果materialIndex为负数，表示这个属性块是存储在renderer上的，非负数并且小于材质的数量，表示存储在对应的material上。
 --    renderer的材质块作用于全部材质，但是material的属性块会覆盖renderer上的
---        
+--
 --```
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/VxFramework/Utils/MaterialPropertyBlockTool.cs:39
@@ -12675,7 +12675,7 @@ function CS.MaterialPropertyBlockTool:StopEdit() end
 --
 --```plaintext
 --Params: propertyId - Shader.PropertyToID
---        
+--
 --```
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/VxFramework/Utils/MaterialPropertyBlockTool.cs:63
@@ -12688,7 +12688,7 @@ function CS.MaterialPropertyBlockTool:SetTexture(propertyId, tex) end
 --
 --```plaintext
 --Params: propertyId - Shader.PropertyToID
---        
+--
 --```
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/VxFramework/Utils/MaterialPropertyBlockTool.cs:73
@@ -12701,7 +12701,7 @@ function CS.MaterialPropertyBlockTool:SetInt(propertyId, val) end
 --
 --```plaintext
 --Params: propertyId - Shader.PropertyToID
---        
+--
 --```
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/VxFramework/Utils/MaterialPropertyBlockTool.cs:83
@@ -12714,7 +12714,7 @@ function CS.MaterialPropertyBlockTool:SetFloat(propertyId, val) end
 --
 --```plaintext
 --Params: propertyId - Shader.PropertyToID
---        
+--
 --```
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/VxFramework/Utils/MaterialPropertyBlockTool.cs:94
@@ -12727,7 +12727,7 @@ function CS.MaterialPropertyBlockTool:SetColor(propertyId, color) end
 --
 --```plaintext
 --Params: propertyId - Shader.PropertyToID
---        
+--
 --```
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/VxFramework/Utils/MaterialPropertyBlockTool.cs:104
@@ -12740,7 +12740,7 @@ function CS.MaterialPropertyBlockTool:SetVector(propertyId, vec4) end
 --
 --```plaintext
 --Params: propertyId - Shader.PropertyToID
---        
+--
 --```
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/VxFramework/Utils/MaterialPropertyBlockTool.cs:114
@@ -12753,7 +12753,7 @@ function CS.MaterialPropertyBlockTool:SetMatrix(propertyId, matrix) end
 --
 --```plaintext
 --Params: propertyId - Shader.PropertyToID
---        
+--
 --```
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/VxFramework/Utils/MaterialPropertyBlockTool.cs:124
@@ -12768,7 +12768,7 @@ function CS.MaterialPropertyBlockTool:SetTexture(renderer, propertyId, tex, mate
 --
 --```plaintext
 --Params: propertyId - Shader.PropertyToID
---        
+--
 --```
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/VxFramework/Utils/MaterialPropertyBlockTool.cs:135
@@ -12783,7 +12783,7 @@ function CS.MaterialPropertyBlockTool:SetInt(renderer, propertyId, val, material
 --
 --```plaintext
 --Params: propertyId - Shader.PropertyToID
---        
+--
 --```
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/VxFramework/Utils/MaterialPropertyBlockTool.cs:146
@@ -12798,7 +12798,7 @@ function CS.MaterialPropertyBlockTool:SetFloat(renderer, propertyId, val, materi
 --
 --```plaintext
 --Params: propertyId - Shader.PropertyToID
---        
+--
 --```
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/VxFramework/Utils/MaterialPropertyBlockTool.cs:157
@@ -12813,7 +12813,7 @@ function CS.MaterialPropertyBlockTool:SetColor(renderer, propertyId, color, mate
 --
 --```plaintext
 --Params: propertyId - Shader.PropertyToID
---        
+--
 --```
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/VxFramework/Utils/MaterialPropertyBlockTool.cs:168
@@ -12828,7 +12828,7 @@ function CS.MaterialPropertyBlockTool:SetVector(renderer, propertyId, vec4, mate
 --
 --```plaintext
 --Params: propertyId - Shader.PropertyToID
---        
+--
 --```
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/VxFramework/Utils/MaterialPropertyBlockTool.cs:179
@@ -12857,7 +12857,7 @@ function CS.MaterialPropertyBlockTool:ClearCachedProperties() end
 --
 --```plaintext
 --Params: propertyId - Shader.PropertyToID
---        
+--
 --```
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/VxFramework/Utils/MaterialPropertyBlockTool.cs:210
@@ -12870,7 +12870,7 @@ function CS.MaterialPropertyBlockTool:GetTexture(propertyId) end
 --
 --```plaintext
 --Params: propertyId - Shader.PropertyToID
---        
+--
 --```
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/VxFramework/Utils/MaterialPropertyBlockTool.cs:219
@@ -12883,7 +12883,7 @@ function CS.MaterialPropertyBlockTool:GetInt(propertyId) end
 --
 --```plaintext
 --Params: propertyId - Shader.PropertyToID
---        
+--
 --```
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/VxFramework/Utils/MaterialPropertyBlockTool.cs:228
@@ -12896,7 +12896,7 @@ function CS.MaterialPropertyBlockTool:GetFloat(propertyId) end
 --
 --```plaintext
 --Params: propertyId - Shader.PropertyToID
---        
+--
 --```
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/VxFramework/Utils/MaterialPropertyBlockTool.cs:237
@@ -12909,7 +12909,7 @@ function CS.MaterialPropertyBlockTool:GetColor(propertyId) end
 --
 --```plaintext
 --Params: propertyId - Shader.PropertyToID
---        
+--
 --```
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/VxFramework/Utils/MaterialPropertyBlockTool.cs:246
@@ -12922,7 +12922,7 @@ function CS.MaterialPropertyBlockTool:GetVector(propertyId) end
 --
 --```plaintext
 --Params: propertyId - Shader.PropertyToID
---        
+--
 --```
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/VxFramework/Utils/MaterialPropertyBlockTool.cs:255
@@ -12965,7 +12965,7 @@ function CS.MapGridCreater.Create() end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Interaction/UIPlaySound.cs:15
 CS.Trigger = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UIPlaySound.Trigger
 function CS.Trigger:__CastFrom(value) end
@@ -13034,7 +13034,7 @@ function CS.VoidDelegate.EndInvoke(result) end
 
 
 --
---All children added to the game object with this script will be repositioned to be on a grid of specified dimensions. 
+--All children added to the game object with this script will be repositioned to be on a grid of specified dimensions.
 --    If you want the cells to automatically set their scale based on the dimensions of their content, take a look at UITable.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Interaction/UIGrid.cs:15
@@ -13057,8 +13057,8 @@ function CS.VoidDelegate.EndInvoke(result) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Interaction/UIGrid.cs:54
 ---@field pivot UIWidget.Pivot
 --
---Maximum children per line. 
---    If the arrangement is horizontal, this denotes the number of columns. 
+--Maximum children per line.
+--    If the arrangement is horizontal, this denotes the number of columns.
 --    If the arrangement is vertical, this stands for the number of rows.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Interaction/UIGrid.cs:62
@@ -13113,7 +13113,7 @@ CS.UIGrid = {}
 function CS.UIGrid.GetChildList() end
 
 --
---Convenience method: get the child at the specified index. 
+--Convenience method: get the child at the specified index.
 --    Note that if you plan on calling this function more than once, it's faster to get the entire list using GetChildList() instead.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Interaction/UIGrid.cs:155
@@ -13137,7 +13137,7 @@ function CS.UIGrid.GetIndex(trans) end
 function CS.UIGrid.AddChild(trans) end
 
 --
---Convenience method -- add a new child. 
+--Convenience method -- add a new child.
 --    Note that if you plan on adding multiple objects, it's faster to GetChildList() and modify that instead.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Interaction/UIGrid.cs:187
@@ -13146,7 +13146,7 @@ function CS.UIGrid.AddChild(trans) end
 function CS.UIGrid.AddChild(trans, sort) end
 
 --
---Remove the specified child from the list. 
+--Remove the specified child from the list.
 --    Note that if you plan on removing multiple objects, it's faster to GetChildList() and modify that instead.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Interaction/UIGrid.cs:239
@@ -13237,7 +13237,7 @@ function CS.BoolDelegate.EndInvoke(result) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Interaction/UIKeyBinding.cs:22
 CS.Action = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UIKeyBinding.Action
 function CS.Action:__CastFrom(value) end
@@ -13281,7 +13281,7 @@ function CS.FloatDelegate.EndInvoke(result) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Interaction/UIKeyBinding.cs:29
 CS.Modifier = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UIKeyBinding.Modifier
 function CS.Modifier:__CastFrom(value) end
@@ -13436,7 +13436,7 @@ function CS.KeyCodeDelegate.EndInvoke(result) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Tweening/UITweener.cs:22
 CS.Method = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UITweener.Method
 function CS.Method:__CastFrom(value) end
@@ -13453,7 +13453,7 @@ function CS.Method:__CastFrom(value) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Tweening/UITweener.cs:32
 CS.Style = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UITweener.Style
 function CS.Style:__CastFrom(value) end
@@ -13470,20 +13470,20 @@ function CS.Style:__CastFrom(value) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Tweening/UITweener.cs:74
 CS.DelayAffects = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UITweener.DelayAffects
 function CS.DelayAffects:__CastFrom(value) end
 
 
 --
---Generated geometry class. All widgets have one. 
---    This class separates the geometry creation into several steps, making it possible to perform 
---    actions selectively depending on what has changed. For example, the widget doesn't need to be 
---    rebuilt unless something actually changes, so its geometry can be cached. Likewise, the widget's 
---    transformed coordinates only change if the widget's transform moves relative to the panel, 
---    so that can be cached as well. In the end, using this class means using more memory, but at 
---    the same time it allows for significant performance gains, especially when using widgets that 
+--Generated geometry class. All widgets have one.
+--    This class separates the geometry creation into several steps, making it possible to perform
+--    actions selectively depending on what has changed. For example, the widget doesn't need to be
+--    rebuilt unless something actually changes, so its geometry can be cached. Likewise, the widget's
+--    transformed coordinates only change if the widget's transform moves relative to the panel,
+--    so that can be cached as well. In the end, using this class means using more memory, but at
+--    the same time it allows for significant performance gains, especially when using widgets that
 --    spit out a lot of vertices, such as UILabels.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/UIGeometry.cs:20
@@ -13504,7 +13504,7 @@ function CS.DelayAffects:__CastFrom(value) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/UIGeometry.cs:38
 ---@field cols System.Collections.Generic.List<UnityEngine.Color>
 --
---Custom delegate called after WriteToBuffers finishes filling in the geometry. 
+--Custom delegate called after WriteToBuffers finishes filling in the geometry.
 --    Use it to apply any and all modifications to vertices that you need.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/UIGeometry.cs:45
@@ -13597,9 +13597,9 @@ function CS.NGUIDebug:DrawBounds(b) end
 
 
 --
---Convenience script that resizes the camera's orthographic size to match the screen size. 
---    This script can be used to create pixel-perfect UI, however it's usually more convenient 
---    to create the UI that stays proportional as the screen scales. If that is what you 
+--Convenience script that resizes the camera's orthographic size to match the screen size.
+--    This script can be used to create pixel-perfect UI, however it's usually more convenient
+--    to create the UI that stays proportional as the screen scales. If that is what you
 --    want, you don't need this script (or at least don't need it to be active).
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UIOrthoCamera.cs:18
@@ -13713,7 +13713,7 @@ function CS.OnReposition.EndInvoke(result) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Interaction/UIGrid.cs:19
 CS.Arrangement = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UIGrid.Arrangement
 function CS.Arrangement:__CastFrom(value) end
@@ -13734,7 +13734,7 @@ function CS.Arrangement:__CastFrom(value) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Interaction/UIGrid.cs:26
 CS.Sorting = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UIGrid.Sorting
 function CS.Sorting:__CastFrom(value) end
@@ -13768,7 +13768,7 @@ function CS.OnFinished.EndInvoke(result) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/Ultimate Joystick/Scripts/UltimateJoystick.cs:28
 CS.ScalingAxis = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UltimateJoystick.ScalingAxis
 function CS.ScalingAxis:__CastFrom(value) end
@@ -13783,7 +13783,7 @@ function CS.ScalingAxis:__CastFrom(value) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/Ultimate Joystick/Scripts/UltimateJoystick.cs:36
 CS.Anchor = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UltimateJoystick.Anchor
 function CS.Anchor:__CastFrom(value) end
@@ -13800,7 +13800,7 @@ function CS.Anchor:__CastFrom(value) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/Ultimate Joystick/Scripts/UltimateJoystick.cs:56
 CS.Axis = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UltimateJoystick.Axis
 function CS.Axis:__CastFrom(value) end
@@ -13815,7 +13815,7 @@ function CS.Axis:__CastFrom(value) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/Ultimate Joystick/Scripts/UltimateJoystick.cs:65
 CS.Boundary = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UltimateJoystick.Boundary
 function CS.Boundary:__CastFrom(value) end
@@ -13832,7 +13832,7 @@ function CS.Boundary:__CastFrom(value) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/Ultimate Joystick/Scripts/UltimateJoystick.cs:74
 CS.TapCountOption = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UltimateJoystick.TapCountOption
 function CS.TapCountOption:__CastFrom(value) end
@@ -13847,7 +13847,7 @@ function CS.TapCountOption:__CastFrom(value) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/Ultimate Joystick/Scripts/UltimateJoystick.cs:103
 CS.TensionType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UltimateJoystick.TensionType
 function CS.TensionType:__CastFrom(value) end
@@ -13876,7 +13876,7 @@ function CS.TensionType:__CastFrom(value) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/UIWidget.cs:17
 CS.Pivot = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UIWidget.Pivot
 function CS.Pivot:__CastFrom(value) end
@@ -13895,7 +13895,7 @@ function CS.Pivot:__CastFrom(value) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/Ultimate Joystick/Scripts/UltimateJoystick.cs:125
 CS.JoystickTouchSize = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UltimateJoystick.JoystickTouchSize
 function CS.JoystickTouchSize:__CastFrom(value) end
@@ -14004,7 +14004,7 @@ function CS.OnPostFillCallback.EndInvoke(result) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Internal/UIWidget.cs:103
 CS.AspectRatioSource = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UIWidget.AspectRatioSource
 function CS.AspectRatioSource:__CastFrom(value) end
@@ -14046,7 +14046,7 @@ function CS.HitCheck.EndInvoke(result) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Interaction/UIScrollView.cs:20
 CS.Movement = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UIScrollView.Movement
 function CS.Movement:__CastFrom(value) end
@@ -14063,7 +14063,7 @@ function CS.Movement:__CastFrom(value) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Interaction/UIScrollView.cs:28
 CS.DragEffect = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UIScrollView.DragEffect
 function CS.DragEffect:__CastFrom(value) end
@@ -14080,7 +14080,7 @@ function CS.DragEffect:__CastFrom(value) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Interaction/UIScrollView.cs:35
 CS.ShowCondition = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UIScrollView.ShowCondition
 function CS.ShowCondition:__CastFrom(value) end
@@ -14211,7 +14211,7 @@ function CS.UIToggle.Start() end
 function CS.UIToggle.OnClick() end
 
 --
---Fade out or fade in the active sprite and notify the OnChange event listener. 
+--Fade out or fade in the active sprite and notify the OnChange event listener.
 --    If setting the initial value, call Start() first.
 --
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/Interaction/UIToggle.cs:238
@@ -14252,7 +14252,7 @@ function CS.OnPressCB.EndInvoke(result) end
 ---@source file:///c:/Users/zc/Desktop/vxProject/Client_Dev/Assets/Script/Plugins/NGUI/Scripts/UI/UITextList.cs:22
 CS.Style = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UITextList.Style
 function CS.Style:__CastFrom(value) end

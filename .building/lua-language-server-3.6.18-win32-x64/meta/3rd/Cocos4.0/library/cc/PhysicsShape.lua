@@ -31,7 +31,7 @@ function PhysicsShape:getMass () end
 ---* return A PhysicsMaterial object reference.
 ---@return cc.PhysicsMaterial
 function PhysicsShape:getMaterial () end
----* 
+---*
 ---@param sensor boolean
 ---@return self
 function PhysicsShape:setSensor (sensor) end
@@ -69,7 +69,7 @@ function PhysicsShape:containsPoint (point) end
 ---* return An integer number.
 ---@return int
 function PhysicsShape:getCategoryBitmask () end
----* 
+---*
 ---@return boolean
 function PhysicsShape:isSensor () end
 ---* Return this shape's type.<br>

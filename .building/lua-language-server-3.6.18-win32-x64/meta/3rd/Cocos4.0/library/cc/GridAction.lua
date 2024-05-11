@@ -19,13 +19,13 @@ function GridAction:getGrid () end
 ---@param gridSize size_table
 ---@return boolean
 function GridAction:initWithDuration (duration,gridSize) end
----* 
+---*
 ---@param target cc.Node
 ---@return self
 function GridAction:startWithTarget (target) end
----* 
+---*
 ---@return self
 function GridAction:clone () end
----* 
+---*
 ---@return self
 function GridAction:reverse () end

@@ -25,7 +25,7 @@ function PhysicsJointLimit:getAnchr2 () end
 ---*  Get the anchor point on body a.
 ---@return vec2_table
 function PhysicsJointLimit:getAnchr1 () end
----* 
+---*
 ---@return boolean
 function PhysicsJointLimit:createConstraints () end
 ---*  Get the allowed min distance of the anchor points.

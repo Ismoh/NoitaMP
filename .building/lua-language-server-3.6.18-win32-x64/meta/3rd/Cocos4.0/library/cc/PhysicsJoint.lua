@@ -1,6 +1,6 @@
 ---@meta
 
----@class cc.PhysicsJoint 
+---@class cc.PhysicsJoint
 local PhysicsJoint={ }
 cc.PhysicsJoint=PhysicsJoint
 
@@ -13,21 +13,21 @@ function PhysicsJoint:getBodyA () end
 ---* Get physics body b connected to this joint.
 ---@return cc.PhysicsBody
 function PhysicsJoint:getBodyB () end
----*  Get the max force setting. 
+---*  Get the max force setting.
 ---@return float
 function PhysicsJoint:getMaxForce () end
----*  Set the max force between two bodies. 
+---*  Set the max force between two bodies.
 ---@param force float
 ---@return self
 function PhysicsJoint:setMaxForce (force) end
----*  Determines if the joint is enable. 
+---*  Determines if the joint is enable.
 ---@return boolean
 function PhysicsJoint:isEnabled () end
----*  Enable/Disable the joint. 
+---*  Enable/Disable the joint.
 ---@param enable boolean
 ---@return self
 function PhysicsJoint:setEnable (enable) end
----*  Enable/disable the collision between two bodies. 
+---*  Enable/disable the collision between two bodies.
 ---@param enable boolean
 ---@return self
 function PhysicsJoint:setCollisionEnable (enable) end
@@ -39,10 +39,10 @@ function PhysicsJoint:getWorld () end
 ---@param tag int
 ---@return self
 function PhysicsJoint:setTag (tag) end
----*  Remove the joint from the world. 
+---*  Remove the joint from the world.
 ---@return self
 function PhysicsJoint:removeFormWorld () end
----*  Determines if the collision is enable. 
+---*  Determines if the collision is enable.
 ---@return boolean
 function PhysicsJoint:isCollisionEnabled () end
 ---* Get this joint's tag.<br>

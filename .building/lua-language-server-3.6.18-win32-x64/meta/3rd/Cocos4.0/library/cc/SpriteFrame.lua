@@ -92,7 +92,7 @@ function SpriteFrame:initWithTexture (pobTexture,rect,rotated,offset,originalSiz
 ---* return The original size of the trimmed image.
 ---@return size_table
 function SpriteFrame:getOriginalSize () end
----* 
+---*
 ---@return self
 function SpriteFrame:clone () end
 ---*  Get rect of the sprite frame.<br>

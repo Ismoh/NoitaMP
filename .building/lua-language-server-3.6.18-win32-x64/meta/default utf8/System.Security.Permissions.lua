@@ -71,7 +71,7 @@ function CS.System.Security.Permissions.EnvironmentPermission.Union(other) end
 ---@source mscorlib.dll
 CS.System.Security.Permissions.EnvironmentPermissionAccess = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Permissions.EnvironmentPermissionAccess
 function CS.System.Security.Permissions.EnvironmentPermissionAccess:__CastFrom(value) end
@@ -145,7 +145,7 @@ function CS.System.Security.Permissions.FileDialogPermission.Union(target) end
 ---@source mscorlib.dll
 CS.System.Security.Permissions.FileDialogPermissionAccess = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Permissions.FileDialogPermissionAccess
 function CS.System.Security.Permissions.FileDialogPermissionAccess:__CastFrom(value) end
@@ -256,7 +256,7 @@ function CS.System.Security.Permissions.FileIOPermission.Union(other) end
 ---@source mscorlib.dll
 CS.System.Security.Permissions.FileIOPermissionAccess = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Permissions.FileIOPermissionAccess
 function CS.System.Security.Permissions.FileIOPermissionAccess:__CastFrom(value) end
@@ -392,7 +392,7 @@ function CS.System.Security.Permissions.HostProtectionAttribute.CreatePermission
 ---@source mscorlib.dll
 CS.System.Security.Permissions.HostProtectionResource = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Permissions.HostProtectionResource
 function CS.System.Security.Permissions.HostProtectionResource:__CastFrom(value) end
@@ -427,7 +427,7 @@ function CS.System.Security.Permissions.HostProtectionResource:__CastFrom(value)
 ---@source mscorlib.dll
 CS.System.Security.Permissions.IsolatedStorageContainment = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Permissions.IsolatedStorageContainment
 function CS.System.Security.Permissions.IsolatedStorageContainment:__CastFrom(value) end
@@ -686,7 +686,7 @@ function CS.System.Security.Permissions.KeyContainerPermissionAttribute.CreatePe
 ---@source mscorlib.dll
 CS.System.Security.Permissions.KeyContainerPermissionFlags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Permissions.KeyContainerPermissionFlags
 function CS.System.Security.Permissions.KeyContainerPermissionFlags:__CastFrom(value) end
@@ -741,7 +741,7 @@ function CS.System.Security.Permissions.PermissionSetAttribute.CreatePermissionS
 ---@source mscorlib.dll
 CS.System.Security.Permissions.PermissionState = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Permissions.PermissionState
 function CS.System.Security.Permissions.PermissionState:__CastFrom(value) end
@@ -927,7 +927,7 @@ function CS.System.Security.Permissions.ReflectionPermissionAttribute.CreatePerm
 ---@source mscorlib.dll
 CS.System.Security.Permissions.ReflectionPermissionFlag = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Permissions.ReflectionPermissionFlag
 function CS.System.Security.Permissions.ReflectionPermissionFlag:__CastFrom(value) end
@@ -970,7 +970,7 @@ function CS.System.Security.Permissions.ReflectionPermissionFlag:__CastFrom(valu
 ---@source mscorlib.dll
 CS.System.Security.Permissions.SecurityPermissionFlag = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Permissions.SecurityPermissionFlag
 function CS.System.Security.Permissions.SecurityPermissionFlag:__CastFrom(value) end
@@ -1049,7 +1049,7 @@ function CS.System.Security.Permissions.RegistryPermission.Union(other) end
 ---@source mscorlib.dll
 CS.System.Security.Permissions.RegistryPermissionAccess = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Permissions.RegistryPermissionAccess
 function CS.System.Security.Permissions.RegistryPermissionAccess:__CastFrom(value) end
@@ -1188,7 +1188,7 @@ function CS.System.Security.Permissions.SiteIdentityPermissionAttribute.CreatePe
 ---@source mscorlib.dll
 CS.System.Security.Permissions.SecurityAction = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Permissions.SecurityAction
 function CS.System.Security.Permissions.SecurityAction:__CastFrom(value) end
@@ -1350,7 +1350,7 @@ function CS.System.Security.Permissions.UIPermissionAttribute.CreatePermission()
 ---@source mscorlib.dll
 CS.System.Security.Permissions.UIPermissionWindow = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Permissions.UIPermissionWindow
 function CS.System.Security.Permissions.UIPermissionWindow:__CastFrom(value) end
@@ -1407,7 +1407,7 @@ function CS.System.Security.Permissions.SecurityPermissionAttribute.CreatePermis
 ---@source mscorlib.dll
 CS.System.Security.Permissions.UIPermissionClipboard = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Permissions.UIPermissionClipboard
 function CS.System.Security.Permissions.UIPermissionClipboard:__CastFrom(value) end
@@ -1646,7 +1646,7 @@ function CS.System.Security.Permissions.StorePermissionAttribute.CreatePermissio
 ---@source System.dll
 CS.System.Security.Permissions.StorePermissionFlags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Permissions.StorePermissionFlags
 function CS.System.Security.Permissions.StorePermissionFlags:__CastFrom(value) end
@@ -1714,7 +1714,7 @@ function CS.System.Security.Permissions.TypeDescriptorPermissionAttribute.Create
 ---@source System.dll
 CS.System.Security.Permissions.TypeDescriptorPermissionFlags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Permissions.TypeDescriptorPermissionFlags
 function CS.System.Security.Permissions.TypeDescriptorPermissionFlags:__CastFrom(value) end

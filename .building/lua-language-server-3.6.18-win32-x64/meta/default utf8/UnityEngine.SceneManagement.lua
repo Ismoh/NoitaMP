@@ -131,7 +131,7 @@ function CS.UnityEngine.SceneManagement.SceneManager:GetActiveScene() end
 --
 --```plaintext
 --Params: scene - The Scene to be set.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -144,7 +144,7 @@ function CS.UnityEngine.SceneManagement.SceneManager:SetActiveScene(scene) end
 --
 --```plaintext
 --Params: scenePath - Path of the Scene. Should be relative to the project folder. Like: "AssetsMyScenesMyScene.unity".
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -157,7 +157,7 @@ function CS.UnityEngine.SceneManagement.SceneManager:GetSceneByPath(scenePath) e
 --
 --```plaintext
 --Params: name - Name of Scene to find.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -170,7 +170,7 @@ function CS.UnityEngine.SceneManagement.SceneManager:GetSceneByName(name) end
 --
 --```plaintext
 --Params: buildIndex - Build index as shown in the Build Settings window.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -183,7 +183,7 @@ function CS.UnityEngine.SceneManagement.SceneManager:GetSceneByBuildIndex(buildI
 --
 --```plaintext
 --Params: index - Index of the Scene to get. Index must be greater than or equal to 0 and less than SceneManager.sceneCount.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -197,7 +197,7 @@ function CS.UnityEngine.SceneManagement.SceneManager:GetSceneAt(index) end
 --```plaintext
 --Params: sceneName - The name of the new Scene. It cannot be empty or null, or same as the name of the existing Scenes.
 --        parameters - Various parameters used to create the Scene.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -212,7 +212,7 @@ function CS.UnityEngine.SceneManagement.SceneManager:CreateScene(sceneName, para
 --```plaintext
 --Params: sourceScene - The Scene that will be merged into the destination Scene.
 --        destinationScene - Existing Scene to merge the source Scene into.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -226,7 +226,7 @@ function CS.UnityEngine.SceneManagement.SceneManager:MergeScenes(sourceScene, de
 --```plaintext
 --Params: go - GameObject to move.
 --        scene - Scene to move into.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -270,7 +270,7 @@ function CS.UnityEngine.SceneManagement.SceneManager:GetAllScenes() end
 --```plaintext
 --Params: sceneName - The name of the new Scene. It cannot be empty or null, or same as the name of the existing Scenes.
 --        parameters - Various parameters used to create the Scene.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -285,7 +285,7 @@ function CS.UnityEngine.SceneManagement.SceneManager:CreateScene(sceneName) end
 --Params: sceneName - Name or path of the Scene to load.
 --        sceneBuildIndex - Index of the Scene in the Build Settings to load.
 --        mode - Allows you to specify whether or not to load the Scene additively. See SceneManagement.LoadSceneMode for more information about the options.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -304,7 +304,7 @@ function CS.UnityEngine.SceneManagement.SceneManager:LoadScene(sceneName) end
 --Params: sceneName - Name or path of the Scene to load.
 --        sceneBuildIndex - Index of the Scene in the Build Settings to load.
 --        parameters - Various parameters used to load the Scene.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -320,7 +320,7 @@ function CS.UnityEngine.SceneManagement.SceneManager:LoadScene(sceneName, parame
 --Params: sceneName - Name or path of the Scene to load.
 --        sceneBuildIndex - Index of the Scene in the Build Settings to load.
 --        mode - Allows you to specify whether or not to load the Scene additively. See SceneManagement.LoadSceneMode for more information about the options.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -339,7 +339,7 @@ function CS.UnityEngine.SceneManagement.SceneManager:LoadScene(sceneBuildIndex) 
 --Params: sceneName - Name or path of the Scene to load.
 --        sceneBuildIndex - Index of the Scene in the Build Settings to load.
 --        parameters - Various parameters used to load the Scene.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -356,7 +356,7 @@ function CS.UnityEngine.SceneManagement.SceneManager:LoadScene(sceneBuildIndex, 
 --        sceneBuildIndex - Index of the Scene in the Build Settings to load.
 --        mode - If LoadSceneMode.Single then all current Scenes will be unloaded before loading.
 --        parameters - Struct that collects the various parameters into a single place except for the name and index.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -378,7 +378,7 @@ function CS.UnityEngine.SceneManagement.SceneManager:LoadSceneAsync(sceneBuildIn
 --        sceneBuildIndex - Index of the Scene in the Build Settings to load.
 --        mode - If LoadSceneMode.Single then all current Scenes will be unloaded before loading.
 --        parameters - Struct that collects the various parameters into a single place except for the name and index.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -395,7 +395,7 @@ function CS.UnityEngine.SceneManagement.SceneManager:LoadSceneAsync(sceneBuildIn
 --        sceneBuildIndex - Index of the Scene in the Build Settings to load.
 --        mode - If LoadSceneMode.Single then all current Scenes will be unloaded before loading.
 --        parameters - Struct that collects the various parameters into a single place except for the name and index.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -417,7 +417,7 @@ function CS.UnityEngine.SceneManagement.SceneManager:LoadSceneAsync(sceneName) e
 --        sceneBuildIndex - Index of the Scene in the Build Settings to load.
 --        mode - If LoadSceneMode.Single then all current Scenes will be unloaded before loading.
 --        parameters - Struct that collects the various parameters into a single place except for the name and index.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -433,7 +433,7 @@ function CS.UnityEngine.SceneManagement.SceneManager:LoadSceneAsync(sceneName, p
 --Params: sceneBuildIndex - Index of the Scene in the Build Settings to unload.
 --        sceneName - Name or path of the Scene to unload.
 --        scene - Scene to unload.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -448,7 +448,7 @@ function CS.UnityEngine.SceneManagement.SceneManager:UnloadScene(scene) end
 --Params: sceneBuildIndex - Index of the Scene in the Build Settings to unload.
 --        sceneName - Name or path of the Scene to unload.
 --        scene - Scene to unload.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -463,7 +463,7 @@ function CS.UnityEngine.SceneManagement.SceneManager:UnloadScene(sceneBuildIndex
 --Params: sceneBuildIndex - Index of the Scene in the Build Settings to unload.
 --        sceneName - Name or path of the Scene to unload.
 --        scene - Scene to unload.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -479,7 +479,7 @@ function CS.UnityEngine.SceneManagement.SceneManager:UnloadScene(sceneName) end
 --        sceneName - Name or path of the Scene to unload.
 --        scene - Scene to unload.
 --        options - Scene unloading options.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -495,7 +495,7 @@ function CS.UnityEngine.SceneManagement.SceneManager:UnloadSceneAsync(sceneBuild
 --        sceneName - Name or path of the Scene to unload.
 --        scene - Scene to unload.
 --        options - Scene unloading options.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -511,7 +511,7 @@ function CS.UnityEngine.SceneManagement.SceneManager:UnloadSceneAsync(sceneName)
 --        sceneName - Name or path of the Scene to unload.
 --        scene - Scene to unload.
 --        options - Scene unloading options.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -527,7 +527,7 @@ function CS.UnityEngine.SceneManagement.SceneManager:UnloadSceneAsync(scene) end
 --        sceneName - Name or path of the Scene to unload.
 --        scene - Scene to unload.
 --        options - Scene unloading options.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -544,7 +544,7 @@ function CS.UnityEngine.SceneManagement.SceneManager:UnloadSceneAsync(sceneBuild
 --        sceneName - Name or path of the Scene to unload.
 --        scene - Scene to unload.
 --        options - Scene unloading options.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -561,7 +561,7 @@ function CS.UnityEngine.SceneManagement.SceneManager:UnloadSceneAsync(sceneName,
 --        sceneName - Name or path of the Scene to unload.
 --        scene - Scene to unload.
 --        options - Scene unloading options.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -590,7 +590,7 @@ function CS.UnityEngine.SceneManagement.SceneManager:UnloadSceneAsync(scene, opt
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.SceneManagement.LoadSceneMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.SceneManagement.LoadSceneMode
 function CS.UnityEngine.SceneManagement.LoadSceneMode:__CastFrom(value) end
@@ -619,7 +619,7 @@ function CS.UnityEngine.SceneManagement.LoadSceneMode:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.SceneManagement.LocalPhysicsMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.SceneManagement.LocalPhysicsMode
 function CS.UnityEngine.SceneManagement.LocalPhysicsMode:__CastFrom(value) end
@@ -679,7 +679,7 @@ CS.UnityEngine.SceneManagement.CreateSceneParameters = {}
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.SceneManagement.UnloadSceneOptions = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.SceneManagement.UnloadSceneOptions
 function CS.UnityEngine.SceneManagement.UnloadSceneOptions:__CastFrom(value) end
@@ -706,7 +706,7 @@ function CS.UnityEngine.SceneManagement.SceneUtility:GetScenePathByBuildIndex(bu
 --
 --```plaintext
 --Params: scenePath - Scene path (e.g: "AssetsScenesScene1.unity").
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll

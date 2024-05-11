@@ -18,7 +18,7 @@ function PhysicsJointGear:getPhase () end
 ---@param phase float
 ---@return self
 function PhysicsJointGear:setPhase (phase) end
----* 
+---*
 ---@return boolean
 function PhysicsJointGear:createConstraints () end
 ---*  Get the ratio.

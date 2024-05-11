@@ -19,7 +19,7 @@ CS.System.Security.Authentication.ExtendedProtection.ChannelBinding = {}
 ---@source System.dll
 CS.System.Security.Authentication.ExtendedProtection.ChannelBindingKind = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Authentication.ExtendedProtection.ChannelBindingKind
 function CS.System.Security.Authentication.ExtendedProtection.ChannelBindingKind:__CastFrom(value) end
@@ -76,7 +76,7 @@ function CS.System.Security.Authentication.ExtendedProtection.ExtendedProtection
 ---@source System.dll
 CS.System.Security.Authentication.ExtendedProtection.PolicyEnforcement = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Authentication.ExtendedProtection.PolicyEnforcement
 function CS.System.Security.Authentication.ExtendedProtection.PolicyEnforcement:__CastFrom(value) end
@@ -91,7 +91,7 @@ function CS.System.Security.Authentication.ExtendedProtection.PolicyEnforcement:
 ---@source System.dll
 CS.System.Security.Authentication.ExtendedProtection.ProtectionScenario = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Authentication.ExtendedProtection.ProtectionScenario
 function CS.System.Security.Authentication.ExtendedProtection.ProtectionScenario:__CastFrom(value) end
@@ -138,7 +138,7 @@ function CS.System.Security.Authentication.ExtendedProtection.TokenBinding.GetRa
 ---@source System.dll
 CS.System.Security.Authentication.ExtendedProtection.TokenBindingType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Authentication.ExtendedProtection.TokenBindingType
 function CS.System.Security.Authentication.ExtendedProtection.TokenBindingType:__CastFrom(value) end

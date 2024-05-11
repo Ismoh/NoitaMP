@@ -1,6 +1,6 @@
 ---@meta
 
----@class cc.AsyncTaskPool 
+---@class cc.AsyncTaskPool
 local AsyncTaskPool={ }
 cc.AsyncTaskPool=AsyncTaskPool
 
@@ -26,6 +26,6 @@ function AsyncTaskPool:destroyInstance () end
 ---* Returns the shared instance of the async task pool.
 ---@return self
 function AsyncTaskPool:getInstance () end
----* 
+---*
 ---@return self
 function AsyncTaskPool:AsyncTaskPool () end

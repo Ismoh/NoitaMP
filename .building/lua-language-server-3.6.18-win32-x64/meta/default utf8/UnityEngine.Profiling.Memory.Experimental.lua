@@ -33,7 +33,7 @@
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Profiling.Memory.Experimental.CaptureFlags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Profiling.Memory.Experimental.CaptureFlags
 function CS.UnityEngine.Profiling.Memory.Experimental.CaptureFlags:__CastFrom(value) end

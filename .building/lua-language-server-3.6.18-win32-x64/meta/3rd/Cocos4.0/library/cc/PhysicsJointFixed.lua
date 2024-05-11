@@ -7,7 +7,7 @@ cc.PhysicsJointFixed=PhysicsJointFixed
 
 
 
----* 
+---*
 ---@return boolean
 function PhysicsJointFixed:createConstraints () end
 ---*  Create a fixed joint.<br>

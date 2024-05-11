@@ -31,13 +31,13 @@ function ShatteredTiles3D:initWithDuration (duration,gridSize,range,shatterZ) en
 ---@param shatterZ boolean
 ---@return self
 function ShatteredTiles3D:create (duration,gridSize,range,shatterZ) end
----* 
+---*
 ---@return self
 function ShatteredTiles3D:clone () end
----* 
+---*
 ---@param time float
 ---@return self
 function ShatteredTiles3D:update (time) end
----* 
+---*
 ---@return self
 function ShatteredTiles3D:ShatteredTiles3D () end

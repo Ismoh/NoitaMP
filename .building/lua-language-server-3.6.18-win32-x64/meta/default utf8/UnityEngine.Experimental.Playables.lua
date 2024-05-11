@@ -14,7 +14,7 @@ CS.UnityEngine.Experimental.Playables.CameraPlayable = {}
 --```plaintext
 --Params: graph - The PlayableGraph object that will own the CameraPlayable.
 --        camera - Camera used to produce a texture in the PlayableGraph.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -115,7 +115,7 @@ CS.UnityEngine.Experimental.Playables.TextureMixerPlayable = {}
 --
 --```plaintext
 --Params: graph - The PlayableGraph object that will own the TextureMixerPlayable.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -157,7 +157,7 @@ CS.UnityEngine.Experimental.Playables.TexturePlayableBinding = {}
 --```plaintext
 --Params: key - A reference to a UnityEngine.Object that acts as a key for this binding.
 --        name - The name of the TexturePlayableOutput.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll

@@ -56,7 +56,7 @@ function AssetsManagerEx:downloadFailedAssets () end
 ---@param storagePath string
 ---@return self
 function AssetsManagerEx:create (manifestUrl,storagePath) end
----* 
+---*
 ---@param manifestUrl string
 ---@param storagePath string
 ---@return self

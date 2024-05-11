@@ -14,6 +14,6 @@ cc.TransitionFlipAngular=TransitionFlipAngular
 ---@param o int
 ---@return self
 function TransitionFlipAngular:create (t,s,o) end
----* 
+---*
 ---@return self
 function TransitionFlipAngular:TransitionFlipAngular () end

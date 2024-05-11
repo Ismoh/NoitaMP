@@ -7,14 +7,14 @@ ccui.Button=Button
 
 
 
----* 
+---*
 ---@return size_table
 function Button:getNormalTextureSize () end
 ---* Query the button title content.<br>
 ---* return Get the button's title content.
 ---@return string
 function Button:getTitleText () end
----*  replaces the current Label node with a new one 
+---*  replaces the current Label node with a new one
 ---@param label cc.Label
 ---@return self
 function Button:setTitleLabel (label) end
@@ -23,7 +23,7 @@ function Button:setTitleLabel (label) end
 ---@param size float
 ---@return self
 function Button:setTitleFontSize (size) end
----* 
+---*
 ---@return self
 function Button:resetPressedRender () end
 ---* Enable scale9 renderer.<br>
@@ -31,7 +31,7 @@ function Button:resetPressedRender () end
 ---@param enable boolean
 ---@return self
 function Button:setScale9Enabled (enable) end
----* 
+---*
 ---@return self
 function Button:resetDisabledRender () end
 ---* Return the inner title renderer of Button.<br>
@@ -44,7 +44,7 @@ function Button:getTitleRenderer () end
 ---* since v3.9
 ---@return ccui.Scale9Sprite
 function Button:getRendererClicked () end
----* 
+---*
 ---@return cc.ResourceData
 function Button:getDisabledFile () end
 ---* brief Return a zoom scale<br>
@@ -61,10 +61,10 @@ function Button:getCapInsetsDisabledRenderer () end
 ---@param color color3b_table
 ---@return self
 function Button:setTitleColor (color) end
----* 
+---*
 ---@return cc.ResourceData
 function Button:getNormalFile () end
----* 
+---*
 ---@return self
 function Button:resetNormalRender () end
 ---* brief Return the nine-patch sprite of disabled state<br>
@@ -90,7 +90,7 @@ function Button:setCapInsets (capInsets) end
 ---@param texType int
 ---@return self
 function Button:loadTextureDisabled (disabled,texType) end
----* 
+---*
 ---@param normalImage string
 ---@param selectedImage string
 ---@param disableImage string
@@ -160,10 +160,10 @@ function Button:loadTextureNormal (normal,texType) end
 ---@param capInsets rect_table
 ---@return self
 function Button:setCapInsetsPressedRenderer (capInsets) end
----* 
+---*
 ---@return cc.ResourceData
 function Button:getPressedFile () end
----*  returns the current Label being used 
+---*  returns the current Label being used
 ---@return cc.Label
 function Button:getTitleLabel () end
 ---* Query the font size of button title<br>
@@ -202,22 +202,22 @@ function Button:setZoomScale (scale) end
 ---@param texType int
 ---@return self
 function Button:create (normalImage,selectedImage,disableImage,texType) end
----* 
+---*
 ---@return cc.Ref
 function Button:createInstance () end
----* 
+---*
 ---@return cc.Node
 function Button:getVirtualRenderer () end
----* 
+---*
 ---@return boolean
 function Button:init () end
----* 
+---*
 ---@return string
 function Button:getDescription () end
----* 
+---*
 ---@return size_table
 function Button:getVirtualRendererSize () end
----* 
+---*
 ---@param ignore boolean
 ---@return self
 function Button:ignoreContentAdaptWithSize (ignore) end

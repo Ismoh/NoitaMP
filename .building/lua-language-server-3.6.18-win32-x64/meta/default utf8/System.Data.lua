@@ -9,7 +9,7 @@
 ---@source System.Data.dll
 CS.System.Data.AcceptRejectRule = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Data.AcceptRejectRule
 function CS.System.Data.AcceptRejectRule:__CastFrom(value) end
@@ -34,7 +34,7 @@ function CS.System.Data.AcceptRejectRule:__CastFrom(value) end
 ---@source System.Data.dll
 CS.System.Data.CommandBehavior = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Data.CommandBehavior
 function CS.System.Data.CommandBehavior:__CastFrom(value) end
@@ -51,7 +51,7 @@ function CS.System.Data.CommandBehavior:__CastFrom(value) end
 ---@source System.Data.dll
 CS.System.Data.CommandType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Data.CommandType
 function CS.System.Data.CommandType:__CastFrom(value) end
@@ -68,7 +68,7 @@ function CS.System.Data.CommandType:__CastFrom(value) end
 ---@source System.Data.dll
 CS.System.Data.ConflictOption = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Data.ConflictOption
 function CS.System.Data.ConflictOption:__CastFrom(value) end
@@ -91,7 +91,7 @@ function CS.System.Data.ConflictOption:__CastFrom(value) end
 ---@source System.Data.dll
 CS.System.Data.ConnectionState = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Data.ConnectionState
 function CS.System.Data.ConnectionState:__CastFrom(value) end
@@ -740,7 +740,7 @@ function CS.System.Data.DataRow.SetParentRow(parentRow, relation) end
 ---@source System.Data.dll
 CS.System.Data.DataRowAction = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Data.DataRowAction
 function CS.System.Data.DataRowAction:__CastFrom(value) end
@@ -874,7 +874,7 @@ function CS.System.Data.DataRowCollection.RemoveAt(index) end
 ---@source System.Data.dll
 CS.System.Data.DataRowState = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Data.DataRowState
 function CS.System.Data.DataRowState:__CastFrom(value) end
@@ -893,7 +893,7 @@ function CS.System.Data.DataRowState:__CastFrom(value) end
 ---@source System.Data.dll
 CS.System.Data.DataRowVersion = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Data.DataRowVersion
 function CS.System.Data.DataRowVersion:__CastFrom(value) end
@@ -1318,7 +1318,7 @@ function CS.System.Data.DataSet.WriteXmlSchema(writer, multipleTargetConverter) 
 ---@source System.Data.dll
 CS.System.Data.DataSetDateTime = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Data.DataSetDateTime
 function CS.System.Data.DataSetDateTime:__CastFrom(value) end
@@ -2190,7 +2190,7 @@ function CS.System.Data.DataTableReader.Read() end
 ---@source System.Data.dll
 CS.System.Data.DataViewRowState = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Data.DataViewRowState
 function CS.System.Data.DataViewRowState:__CastFrom(value) end
@@ -2459,7 +2459,7 @@ CS.System.Data.IColumnMapping = {}
 ---@source System.Data.dll
 CS.System.Data.DbType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Data.DbType
 function CS.System.Data.DbType:__CastFrom(value) end
@@ -2932,7 +2932,7 @@ CS.System.Data.IDbDataParameter = {}
 ---@source System.Data.dll
 CS.System.Data.MissingMappingAction = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Data.MissingMappingAction
 function CS.System.Data.MissingMappingAction:__CastFrom(value) end
@@ -3002,7 +3002,7 @@ function CS.System.Data.InternalDataCollectionBase.GetEnumerator() end
 ---@source System.Data.dll
 CS.System.Data.MissingSchemaAction = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Data.MissingSchemaAction
 function CS.System.Data.MissingSchemaAction:__CastFrom(value) end
@@ -3045,7 +3045,7 @@ CS.System.Data.InvalidExpressionException = {}
 ---@source System.Data.dll
 CS.System.Data.IsolationLevel = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Data.IsolationLevel
 function CS.System.Data.IsolationLevel:__CastFrom(value) end
@@ -3105,7 +3105,7 @@ function CS.System.Data.ITableMappingCollection.RemoveAt(sourceTableName) end
 ---@source System.Data.dll
 CS.System.Data.KeyRestrictionBehavior = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Data.KeyRestrictionBehavior
 function CS.System.Data.KeyRestrictionBehavior:__CastFrom(value) end
@@ -3122,7 +3122,7 @@ function CS.System.Data.KeyRestrictionBehavior:__CastFrom(value) end
 ---@source System.Data.dll
 CS.System.Data.LoadOption = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Data.LoadOption
 function CS.System.Data.LoadOption:__CastFrom(value) end
@@ -3141,7 +3141,7 @@ function CS.System.Data.LoadOption:__CastFrom(value) end
 ---@source System.Data.dll
 CS.System.Data.MappingType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Data.MappingType
 function CS.System.Data.MappingType:__CastFrom(value) end
@@ -3199,7 +3199,7 @@ CS.System.Data.OperationAbortedException = {}
 ---@source System.Data.dll
 CS.System.Data.ParameterDirection = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Data.ParameterDirection
 function CS.System.Data.ParameterDirection:__CastFrom(value) end
@@ -3220,7 +3220,7 @@ function CS.System.Data.ParameterDirection:__CastFrom(value) end
 ---@source System.Data.dll
 CS.System.Data.PropertyAttributes = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Data.PropertyAttributes
 function CS.System.Data.PropertyAttributes:__CastFrom(value) end
@@ -3261,7 +3261,7 @@ CS.System.Data.RowNotInTableException = {}
 ---@source System.Data.dll
 CS.System.Data.Rule = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Data.Rule
 function CS.System.Data.Rule:__CastFrom(value) end
@@ -3276,7 +3276,7 @@ function CS.System.Data.Rule:__CastFrom(value) end
 ---@source System.Data.dll
 CS.System.Data.SchemaSerializationMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Data.SchemaSerializationMode
 function CS.System.Data.SchemaSerializationMode:__CastFrom(value) end
@@ -3291,7 +3291,7 @@ function CS.System.Data.SchemaSerializationMode:__CastFrom(value) end
 ---@source System.Data.dll
 CS.System.Data.SchemaType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Data.SchemaType
 function CS.System.Data.SchemaType:__CastFrom(value) end
@@ -3306,7 +3306,7 @@ function CS.System.Data.SchemaType:__CastFrom(value) end
 ---@source System.Data.dll
 CS.System.Data.SerializationFormat = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Data.SerializationFormat
 function CS.System.Data.SerializationFormat:__CastFrom(value) end
@@ -3379,7 +3379,7 @@ function CS.System.Data.SerializationFormat:__CastFrom(value) end
 ---@source System.Data.dll
 CS.System.Data.SqlDbType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Data.SqlDbType
 function CS.System.Data.SqlDbType:__CastFrom(value) end
@@ -3464,7 +3464,7 @@ function CS.System.Data.StatementCompletedEventHandler.EndInvoke(result) end
 ---@source System.Data.dll
 CS.System.Data.StatementType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Data.StatementType
 function CS.System.Data.StatementType:__CastFrom(value) end
@@ -3541,7 +3541,7 @@ function CS.System.Data.UniqueConstraint.GetHashCode() end
 ---@source System.Data.dll
 CS.System.Data.UpdateRowSource = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Data.UpdateRowSource
 function CS.System.Data.UpdateRowSource:__CastFrom(value) end
@@ -3560,7 +3560,7 @@ function CS.System.Data.UpdateRowSource:__CastFrom(value) end
 ---@source System.Data.dll
 CS.System.Data.UpdateStatus = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Data.UpdateStatus
 function CS.System.Data.UpdateStatus:__CastFrom(value) end
@@ -3591,7 +3591,7 @@ CS.System.Data.VersionNotFoundException = {}
 ---@source System.Data.dll
 CS.System.Data.XmlReadMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Data.XmlReadMode
 function CS.System.Data.XmlReadMode:__CastFrom(value) end
@@ -3608,7 +3608,7 @@ function CS.System.Data.XmlReadMode:__CastFrom(value) end
 ---@source System.Data.dll
 CS.System.Data.XmlWriteMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Data.XmlWriteMode
 function CS.System.Data.XmlWriteMode:__CastFrom(value) end

@@ -62,13 +62,13 @@ function Twirl:getPosition () end
 ---@param amplitude float
 ---@return self
 function Twirl:create (duration,gridSize,position,twirls,amplitude) end
----* 
+---*
 ---@return self
 function Twirl:clone () end
----* 
+---*
 ---@param time float
 ---@return self
 function Twirl:update (time) end
----* 
+---*
 ---@return self
 function Twirl:Twirl () end

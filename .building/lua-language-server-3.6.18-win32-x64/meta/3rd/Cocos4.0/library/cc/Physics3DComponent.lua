@@ -35,15 +35,15 @@ function Physics3DComponent:getPhysics3DComponentName () end
 ---@param b boolean
 ---@return self
 function Physics3DComponent:setEnabled (b) end
----* 
+---*
 ---@return boolean
 function Physics3DComponent:init () end
----* 
+---*
 ---@return self
 function Physics3DComponent:onEnter () end
----* 
+---*
 ---@return self
 function Physics3DComponent:onExit () end
----* 
+---*
 ---@return self
 function Physics3DComponent:Physics3DComponent () end

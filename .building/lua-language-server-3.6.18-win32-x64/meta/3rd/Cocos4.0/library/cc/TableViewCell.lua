@@ -13,13 +13,13 @@ function TableViewCell:reset () end
 ---* The index used internally by SWTableView and its subclasses
 ---@return int
 function TableViewCell:getIdx () end
----* 
+---*
 ---@param uIdx int
 ---@return self
 function TableViewCell:setIdx (uIdx) end
----* 
+---*
 ---@return self
 function TableViewCell:create () end
----* 
+---*
 ---@return self
 function TableViewCell:TableViewCell () end

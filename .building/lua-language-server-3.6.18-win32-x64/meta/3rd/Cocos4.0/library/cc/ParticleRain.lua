@@ -7,10 +7,10 @@ cc.ParticleRain=ParticleRain
 
 
 
----* 
+---*
 ---@return boolean
 function ParticleRain:init () end
----* 
+---*
 ---@param numberOfParticles int
 ---@return boolean
 function ParticleRain:initWithTotalParticles (numberOfParticles) end

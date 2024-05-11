@@ -21,7 +21,7 @@ CS.System.Threading.AbandonedMutexException = {}
 ---@source mscorlib.dll
 CS.System.Threading.ApartmentState = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Threading.ApartmentState
 function CS.System.Threading.ApartmentState:__CastFrom(value) end
@@ -369,7 +369,7 @@ function CS.System.Threading.ContextCallback.EndInvoke(result) end
 ---@source mscorlib.dll
 CS.System.Threading.EventResetMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Threading.EventResetMode
 function CS.System.Threading.EventResetMode:__CastFrom(value) end
@@ -733,7 +733,7 @@ function CS.System.Threading.LockCookie:op_Inequality(a, b) end
 ---@source mscorlib.dll
 CS.System.Threading.LazyThreadSafetyMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Threading.LazyThreadSafetyMode
 function CS.System.Threading.LazyThreadSafetyMode:__CastFrom(value) end
@@ -1861,7 +1861,7 @@ function CS.System.Threading.ThreadPoolBoundHandle:GetNativeOverlappedState(over
 ---@source mscorlib.dll
 CS.System.Threading.ThreadState = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Threading.ThreadState
 function CS.System.Threading.ThreadState:__CastFrom(value) end
@@ -1882,7 +1882,7 @@ function CS.System.Threading.ThreadState:__CastFrom(value) end
 ---@source mscorlib.dll
 CS.System.Threading.ThreadPriority = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Threading.ThreadPriority
 function CS.System.Threading.ThreadPriority:__CastFrom(value) end
@@ -2413,7 +2413,7 @@ function CS.System.Threading.ThreadExceptionEventHandler.EndInvoke(result) end
 ---@source System.Core.dll
 CS.System.Threading.LockRecursionPolicy = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Threading.LockRecursionPolicy
 function CS.System.Threading.LockRecursionPolicy:__CastFrom(value) end

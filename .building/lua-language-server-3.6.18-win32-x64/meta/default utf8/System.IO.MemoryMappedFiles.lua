@@ -208,7 +208,7 @@ function CS.System.IO.MemoryMappedFiles.MemoryMappedFile.SetAccessControl(memory
 ---@source System.Core.dll
 CS.System.IO.MemoryMappedFiles.MemoryMappedFileAccess = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.IO.MemoryMappedFiles.MemoryMappedFileAccess
 function CS.System.IO.MemoryMappedFiles.MemoryMappedFileAccess:__CastFrom(value) end
@@ -223,7 +223,7 @@ function CS.System.IO.MemoryMappedFiles.MemoryMappedFileAccess:__CastFrom(value)
 ---@source System.Core.dll
 CS.System.IO.MemoryMappedFiles.MemoryMappedFileOptions = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.IO.MemoryMappedFiles.MemoryMappedFileOptions
 function CS.System.IO.MemoryMappedFiles.MemoryMappedFileOptions:__CastFrom(value) end
@@ -260,7 +260,7 @@ function CS.System.IO.MemoryMappedFiles.MemoryMappedFileOptions:__CastFrom(value
 ---@source System.Core.dll
 CS.System.IO.MemoryMappedFiles.MemoryMappedFileRights = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.IO.MemoryMappedFiles.MemoryMappedFileRights
 function CS.System.IO.MemoryMappedFiles.MemoryMappedFileRights:__CastFrom(value) end

@@ -64,7 +64,7 @@ function RadioButtonGroup:setSelectedButton (index) end
 ---* Create and return a empty RadioButtonGroup instance pointer.
 ---@return self
 function RadioButtonGroup:create () end
----* 
+---*
 ---@return string
 function RadioButtonGroup:getDescription () end
 ---* Default constructor.<br>

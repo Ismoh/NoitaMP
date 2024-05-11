@@ -21,7 +21,7 @@ function Node:addChild (child,localZOrder,name) end
 ---@param name string
 ---@return boolean
 function Node:removeComponent (name) end
----* 
+---*
 ---@param physicsBody cc.PhysicsBody
 ---@return self
 function Node:setPhysicsBody (physicsBody) end
@@ -95,7 +95,7 @@ function Node:getChildByName (name) end
 ---@param parentOpacity unsigned_char
 ---@return self
 function Node:updateDisplayedOpacity (parentOpacity) end
----* 
+---*
 ---@return boolean
 function Node:init () end
 ---* get & set camera mask, the node is visible by the camera whose camera flag & node's camera mask is true
@@ -143,7 +143,7 @@ function Node:setRotationSkewX (rotationX) end
 ---* Removes all components
 ---@return self
 function Node:removeAllComponents () end
----* 
+---*
 ---@param z int
 ---@return self
 function Node:_setLocalZOrder (z) end
@@ -160,7 +160,7 @@ function Node:setCameraMask (mask,applyChildren) end
 ---* Please use `getTag()` instead.
 ---@return int
 function Node:getTag () end
----* 
+---*
 ---@return cc.AffineTransform
 function Node:getNodeToWorldAffineTransform () end
 ---* Returns the world affine transform matrix. The matrix is in Pixels.<br>
@@ -227,7 +227,7 @@ function Node:setOnEnterCallback (callback) end
 ---@param flags unsigned_int
 ---@return self
 function Node:stopActionsByFlags (flags) end
----* 
+---*
 ---@param position vec2_table
 ---@return self
 function Node:setNormalizedPosition (position) end
@@ -247,7 +247,7 @@ function Node:removeAllChildrenWithCleanup (cleanup) end
 ---@param callback function
 ---@return self
 function Node:setOnEnterTransitionDidFinishCallback (callback) end
----* 
+---*
 ---@param programState cc.backend.ProgramState
 ---@return self
 function Node:setProgramState (programState) end
@@ -423,7 +423,7 @@ function Node:visit (renderer,parentTransform,parentFlags) end
 ---* return The rotation of the node in degrees.
 ---@return float
 function Node:getRotation () end
----* 
+---*
 ---@return cc.PhysicsBody
 function Node:getPhysicsBody () end
 ---* Returns the anchorPoint in absolute pixels.<br>
@@ -498,7 +498,7 @@ function Node:getLocalZOrder () end
 ---@overload fun():self
 ---@return cc.Scheduler
 function Node:getScheduler () end
----* 
+---*
 ---@return cc.AffineTransform
 function Node:getParentToNodeAffineTransform () end
 ---*  Returns the normalized position.<br>
@@ -625,7 +625,7 @@ function Node:getScaleX () end
 ---@param localZOrder int
 ---@return self
 function Node:setLocalZOrder (localZOrder) end
----* 
+---*
 ---@return cc.AffineTransform
 function Node:getWorldToNodeAffineTransform () end
 ---* If you want node's color affect the children node's color, then set it to true.<br>
@@ -728,7 +728,7 @@ function Node:getNumberOfRunningActionsByTag (tag) end
 ---* note Don't call this manually unless a child added needs to be removed in the same frame.
 ---@return self
 function Node:sortAllChildren () end
----* 
+---*
 ---@return cc.backend.ProgramState
 function Node:getProgramState () end
 ---* Returns the inverse world affine transform matrix. The matrix is in Pixels.<br>
@@ -753,7 +753,7 @@ function Node:getOpacity () end
 ---* param orderOfArrival   The arrival order.
 ---@return self
 function Node:updateOrderOfArrival () end
----* 
+---*
 ---@return vec2_table
 function Node:getNormalizedPosition () end
 ---* Set the callback of event ExitTransitionDidStart.<br>
@@ -764,7 +764,7 @@ function Node:setOnExitTransitionDidStartCallback (callback) end
 ---* Gets the X rotation (angle) of the node in degrees which performs a horizontal rotation skew.<br>
 ---* see `setRotationSkewX(float)`<br>
 ---* return The X rotation in degrees.<br>
----* js getRotationX 
+---* js getRotationX
 ---@return float
 function Node:getRotationSkewX () end
 ---* Gets the Y rotation (angle) of the node in degrees which performs a vertical rotational skew.<br>
@@ -800,6 +800,6 @@ function Node:create () end
 ---* Gets count of nodes those are attached to scene graph.
 ---@return int
 function Node:getAttachedNodeCount () end
----* 
+---*
 ---@return self
 function Node:Node () end

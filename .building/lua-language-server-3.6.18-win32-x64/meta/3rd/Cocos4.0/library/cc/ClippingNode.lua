@@ -61,12 +61,12 @@ function ClippingNode:isInverted () end
 ---@param stencil cc.Node
 ---@return self
 function ClippingNode:create (stencil) end
----* 
+---*
 ---@param mask unsigned short
 ---@param applyChildren boolean
 ---@return self
 function ClippingNode:setCameraMask (mask,applyChildren) end
----* 
+---*
 ---@param renderer cc.Renderer
 ---@param parentTransform mat4_table
 ---@param parentFlags unsigned_int

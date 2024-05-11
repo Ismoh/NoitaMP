@@ -27,11 +27,11 @@ function ArmatureDataManager:addArmatureData (id,armatureData,configFilePath) en
 ---@param configFilePath string
 ---@return self
 function ArmatureDataManager:addArmatureFileInfo (imagePath,plistPath,configFilePath) end
----* 
+---*
 ---@param configFilePath string
 ---@return self
 function ArmatureDataManager:removeArmatureFileInfo (configFilePath) end
----* 
+---*
 ---@return map_table
 function ArmatureDataManager:getTextureDatas () end
 ---* brief    get texture data<br>
@@ -68,7 +68,7 @@ function ArmatureDataManager:init () end
 ---@param id string
 ---@return self
 function ArmatureDataManager:removeArmatureData (id) end
----* 
+---*
 ---@return map_table
 function ArmatureDataManager:getArmatureDatas () end
 ---* brief    remove texture data<br>
@@ -84,7 +84,7 @@ function ArmatureDataManager:removeTextureData (id) end
 ---@param configFilePath string
 ---@return self
 function ArmatureDataManager:addTextureData (id,textureData,configFilePath) end
----* 
+---*
 ---@return map_table
 function ArmatureDataManager:getAnimationDatas () end
 ---* brief    Judge whether or not need auto load sprite file
@@ -96,9 +96,9 @@ function ArmatureDataManager:isAutoLoadSpriteFile () end
 ---@param configFilePath string
 ---@return self
 function ArmatureDataManager:addSpriteFrameFromFile (plistPath,imagePath,configFilePath) end
----* 
+---*
 ---@return self
 function ArmatureDataManager:destroyInstance () end
----* 
+---*
 ---@return self
 function ArmatureDataManager:getInstance () end

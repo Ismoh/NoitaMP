@@ -49,13 +49,13 @@ function Liquid:setAmplitude (amplitude) end
 ---@param amplitude float
 ---@return self
 function Liquid:create (duration,gridSize,waves,amplitude) end
----* 
+---*
 ---@return self
 function Liquid:clone () end
----* 
+---*
 ---@param time float
 ---@return self
 function Liquid:update (time) end
----* 
+---*
 ---@return self
 function Liquid:Liquid () end

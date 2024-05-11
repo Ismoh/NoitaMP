@@ -547,7 +547,7 @@ function CS.System.Configuration.SettingsBase:Synchronized(settingsBase) end
 ---@source System.dll
 CS.System.Configuration.SettingsManageability = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Configuration.SettingsManageability
 function CS.System.Configuration.SettingsManageability:__CastFrom(value) end
@@ -815,7 +815,7 @@ CS.System.Configuration.SettingsProviderAttribute = {}
 ---@source System.dll
 CS.System.Configuration.SpecialSetting = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Configuration.SpecialSetting
 function CS.System.Configuration.SpecialSetting:__CastFrom(value) end
@@ -889,7 +889,7 @@ CS.System.Configuration.UriSection = {}
 ---@source System.dll
 CS.System.Configuration.SettingsSerializeAs = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Configuration.SettingsSerializeAs
 function CS.System.Configuration.SettingsSerializeAs:__CastFrom(value) end

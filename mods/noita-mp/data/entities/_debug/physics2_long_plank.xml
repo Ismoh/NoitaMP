@@ -1,9 +1,9 @@
 <Entity serialize="1" >
 
-  <PhysicsBody2Component 
+  <PhysicsBody2Component
       allow_sleep="1"
       angular_damping="0"
-      linear_damping="0" 
+      linear_damping="0"
       kill_entity_after_initialized="0"
   ></PhysicsBody2Component>
 
@@ -12,7 +12,7 @@
       offset_x="0"
       offset_y="0"
       image_file="data/props_breakable_gfx/long_plank_a_00.png"
-      material="wood_prop" 
+      material="wood_prop"
   ></PhysicsImageShapeComponent>
 
   <PhysicsImageShapeComponent
@@ -20,7 +20,7 @@
       offset_x="64"
       offset_y="0"
       image_file="data/props_breakable_gfx/long_plank_a_00.png"
-      material="wood_prop" 
+      material="wood_prop"
   ></PhysicsImageShapeComponent>
 
   <PhysicsImageShapeComponent
@@ -28,7 +28,7 @@
       offset_x="128"
       offset_y="0"
       image_file="data/props_breakable_gfx/long_plank_a_00.png"
-      material="wood_prop" 
+      material="wood_prop"
   ></PhysicsImageShapeComponent>
 
   <PhysicsImageShapeComponent
@@ -36,7 +36,7 @@
       offset_x="192"
       offset_y="0"
       image_file="data/props_breakable_gfx/long_plank_a_00.png"
-      material="wood_prop" 
+      material="wood_prop"
   ></PhysicsImageShapeComponent>
 
   <PhysicsImageShapeComponent
@@ -44,7 +44,7 @@
       offset_x="256"
       offset_y="0"
       image_file="data/props_breakable_gfx/long_plank_a_00.png"
-      material="wood_prop" 
+      material="wood_prop"
   ></PhysicsImageShapeComponent>
 
   <PhysicsImageShapeComponent
@@ -52,7 +52,7 @@
       offset_x="320"
       offset_y="0"
       image_file="data/props_breakable_gfx/long_plank_a_00.png"
-      material="wood_prop" 
+      material="wood_prop"
   ></PhysicsImageShapeComponent>
 
   <PhysicsImageShapeComponent
@@ -60,7 +60,7 @@
       offset_x="384"
       offset_y="0"
       image_file="data/props_breakable_gfx/long_plank_a_00.png"
-      material="wood_prop" 
+      material="wood_prop"
   ></PhysicsImageShapeComponent>
 
   <PhysicsJoint2Component

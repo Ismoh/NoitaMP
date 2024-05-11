@@ -23,7 +23,7 @@
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Networking.PlayerConnection.ConnectionTarget = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Networking.PlayerConnection.ConnectionTarget
 function CS.UnityEngine.Networking.PlayerConnection.ConnectionTarget:__CastFrom(value) end

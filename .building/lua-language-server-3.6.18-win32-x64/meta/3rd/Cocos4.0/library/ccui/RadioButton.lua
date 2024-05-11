@@ -23,10 +23,10 @@ function RadioButton:addEventListener (callback) end
 ---@param texType int
 ---@return self
 function RadioButton:create (backGround,backGroundSelected,cross,backGroundDisabled,frontCrossDisabled,texType) end
----* 
+---*
 ---@return cc.Ref
 function RadioButton:createInstance () end
----* 
+---*
 ---@return string
 function RadioButton:getDescription () end
 ---* Default constructor.<br>

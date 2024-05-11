@@ -68,7 +68,7 @@ function Widget:setPositionPercent (percent) end
 function Widget:setSwallowTouches (swallow) end
 ---* Get the content size of widget.<br>
 ---* warning This API exists mainly for keeping back compatibility.<br>
----* return 
+---* return
 ---@return size_table
 function Widget:getLayoutSize () end
 ---* Sets whether the widget is highlighted<br>
@@ -266,7 +266,7 @@ function Widget:updateSizeAndPosition (parentSize) end
 ---@param widgetGetFocus ccui.Widget
 ---@return self
 function Widget:onFocusChange (widgetLostFocus,widgetGetFocus) end
----* 
+---*
 ---@return vec2_table
 function Widget:getTouchMovePosition () end
 ---* Gets the size type of widget.<br>
@@ -277,7 +277,7 @@ function Widget:getSizeType () end
 ---* return Callback type string.
 ---@return string
 function Widget:getCallbackType () end
----* 
+---*
 ---@return vec2_table
 function Widget:getTouchEndPosition () end
 ---* Gets the percent (x,y) of the widget in OpenGL coordinates<br>
@@ -317,7 +317,7 @@ function Widget:isClippingParentContainsPoint (pt) end
 ---@param type int
 ---@return self
 function Widget:setSizeType (type) end
----* 
+---*
 ---@param event int
 ---@param sender ccui.Widget
 ---@param touch cc.Touch
@@ -339,7 +339,7 @@ function Widget:setCallbackType (callbackType) end
 ---* since v3.3
 ---@return boolean
 function Widget:isSwallowTouches () end
----* 
+---*
 ---@param enable boolean
 ---@return self
 function Widget:enableDpadNavigation (enable) end
@@ -350,18 +350,18 @@ function Widget:getCurrentFocusedWidget () end
 ---* Create and return a empty Widget instance pointer.
 ---@return self
 function Widget:create () end
----* 
+---*
 ---@param scaleY float
 ---@return self
 function Widget:setScaleY (scaleY) end
----* 
+---*
 ---@param scaleX float
 ---@return self
 function Widget:setScaleX (scaleX) end
----* 
+---*
 ---@return float
 function Widget:getScaleY () end
----* 
+---*
 ---@return float
 function Widget:getScaleX () end
 ---* Returns the string representation of widget class name<br>
@@ -374,7 +374,7 @@ function Widget:getDescription () end
 ---@param scaley float
 ---@return self
 function Widget:setScale (scalex,scaley) end
----* 
+---*
 ---@return boolean
 function Widget:init () end
 ---* Changes the position (x,y) of the widget in OpenGL coordinates<br>
@@ -389,7 +389,7 @@ function Widget:setPosition (pos) end
 ---@param contentSize size_table
 ---@return self
 function Widget:setContentSize (contentSize) end
----* 
+---*
 ---@return float
 function Widget:getScale () end
 ---* Default constructor<br>

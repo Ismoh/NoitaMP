@@ -177,7 +177,7 @@ function CS.System.Security.Cryptography.X509Certificates.X509Certificate.ToStri
 ---@source mscorlib.dll
 CS.System.Security.Cryptography.X509Certificates.X509ContentType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Cryptography.X509Certificates.X509ContentType
 function CS.System.Security.Cryptography.X509Certificates.X509ContentType:__CastFrom(value) end
@@ -200,7 +200,7 @@ function CS.System.Security.Cryptography.X509Certificates.X509ContentType:__Cast
 ---@source mscorlib.dll
 CS.System.Security.Cryptography.X509Certificates.X509KeyStorageFlags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Cryptography.X509Certificates.X509KeyStorageFlags
 function CS.System.Security.Cryptography.X509Certificates.X509KeyStorageFlags:__CastFrom(value) end
@@ -305,7 +305,7 @@ CS.System.Security.Cryptography.X509Certificates.TimestampInformation = {}
 ---@source System.Core.dll
 CS.System.Security.Cryptography.X509Certificates.TrustStatus = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Cryptography.X509Certificates.TrustStatus
 function CS.System.Security.Cryptography.X509Certificates.TrustStatus:__CastFrom(value) end
@@ -326,7 +326,7 @@ function CS.System.Security.Cryptography.X509Certificates.TrustStatus:__CastFrom
 ---@source System.dll
 CS.System.Security.Cryptography.X509Certificates.OpenFlags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Cryptography.X509Certificates.OpenFlags
 function CS.System.Security.Cryptography.X509Certificates.OpenFlags:__CastFrom(value) end
@@ -367,7 +367,7 @@ CS.System.Security.Cryptography.X509Certificates.PublicKey = {}
 ---@source System.dll
 CS.System.Security.Cryptography.X509Certificates.StoreName = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Cryptography.X509Certificates.StoreName
 function CS.System.Security.Cryptography.X509Certificates.StoreName:__CastFrom(value) end
@@ -382,7 +382,7 @@ function CS.System.Security.Cryptography.X509Certificates.StoreName:__CastFrom(v
 ---@source System.dll
 CS.System.Security.Cryptography.X509Certificates.StoreLocation = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Cryptography.X509Certificates.StoreLocation
 function CS.System.Security.Cryptography.X509Certificates.StoreLocation:__CastFrom(value) end
@@ -431,7 +431,7 @@ function CS.System.Security.Cryptography.X509Certificates.X500DistinguishedName.
 ---@source System.dll
 CS.System.Security.Cryptography.X509Certificates.X500DistinguishedNameFlags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Cryptography.X509Certificates.X500DistinguishedNameFlags
 function CS.System.Security.Cryptography.X509Certificates.X500DistinguishedNameFlags:__CastFrom(value) end
@@ -877,7 +877,7 @@ CS.System.Security.Cryptography.X509Certificates.X509ChainStatus = {}
 ---@source System.dll
 CS.System.Security.Cryptography.X509Certificates.X509ChainStatusFlags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Cryptography.X509Certificates.X509ChainStatusFlags
 function CS.System.Security.Cryptography.X509Certificates.X509ChainStatusFlags:__CastFrom(value) end
@@ -1002,7 +1002,7 @@ function CS.System.Security.Cryptography.X509Certificates.X509ExtensionEnumerato
 ---@source System.dll
 CS.System.Security.Cryptography.X509Certificates.X509FindType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Cryptography.X509Certificates.X509FindType
 function CS.System.Security.Cryptography.X509Certificates.X509FindType:__CastFrom(value) end
@@ -1021,7 +1021,7 @@ function CS.System.Security.Cryptography.X509Certificates.X509FindType:__CastFro
 ---@source System.dll
 CS.System.Security.Cryptography.X509Certificates.X509IncludeOption = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Cryptography.X509Certificates.X509IncludeOption
 function CS.System.Security.Cryptography.X509Certificates.X509IncludeOption:__CastFrom(value) end
@@ -1064,7 +1064,7 @@ function CS.System.Security.Cryptography.X509Certificates.X509KeyUsageExtension.
 ---@source System.dll
 CS.System.Security.Cryptography.X509Certificates.X509KeyUsageFlags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Cryptography.X509Certificates.X509KeyUsageFlags
 function CS.System.Security.Cryptography.X509Certificates.X509KeyUsageFlags:__CastFrom(value) end
@@ -1081,7 +1081,7 @@ function CS.System.Security.Cryptography.X509Certificates.X509KeyUsageFlags:__Ca
 ---@source System.dll
 CS.System.Security.Cryptography.X509Certificates.X509RevocationFlag = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Cryptography.X509Certificates.X509RevocationFlag
 function CS.System.Security.Cryptography.X509Certificates.X509RevocationFlag:__CastFrom(value) end
@@ -1104,7 +1104,7 @@ function CS.System.Security.Cryptography.X509Certificates.X509RevocationFlag:__C
 ---@source System.dll
 CS.System.Security.Cryptography.X509Certificates.X509NameType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Cryptography.X509Certificates.X509NameType
 function CS.System.Security.Cryptography.X509Certificates.X509NameType:__CastFrom(value) end
@@ -1121,7 +1121,7 @@ function CS.System.Security.Cryptography.X509Certificates.X509NameType:__CastFro
 ---@source System.dll
 CS.System.Security.Cryptography.X509Certificates.X509RevocationMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Cryptography.X509Certificates.X509RevocationMode
 function CS.System.Security.Cryptography.X509Certificates.X509RevocationMode:__CastFrom(value) end
@@ -1212,7 +1212,7 @@ function CS.System.Security.Cryptography.X509Certificates.X509SubjectKeyIdentifi
 ---@source System.dll
 CS.System.Security.Cryptography.X509Certificates.X509VerificationFlags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Cryptography.X509Certificates.X509VerificationFlags
 function CS.System.Security.Cryptography.X509Certificates.X509VerificationFlags:__CastFrom(value) end
@@ -1229,7 +1229,7 @@ function CS.System.Security.Cryptography.X509Certificates.X509VerificationFlags:
 ---@source System.dll
 CS.System.Security.Cryptography.X509Certificates.X509SubjectKeyIdentifierHashAlgorithm = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Cryptography.X509Certificates.X509SubjectKeyIdentifierHashAlgorithm
 function CS.System.Security.Cryptography.X509Certificates.X509SubjectKeyIdentifierHashAlgorithm:__CastFrom(value) end

@@ -50,7 +50,7 @@ function CS.UnityEngine.Experimental.TerrainAPI.BrushTransform.GetBrushXYBounds(
 --
 --```plaintext
 --Params: brushRect - Brush rectangle, in target XY coordinates.
---        
+--
 --```
 --
 ---@source UnityEngine.TerrainModule.dll
@@ -63,7 +63,7 @@ function CS.UnityEngine.Experimental.TerrainAPI.BrushTransform:FromRect(brushRec
 --
 --```plaintext
 --Params: targetXY - Point in target XY space.
---        
+--
 --```
 --
 ---@source UnityEngine.TerrainModule.dll
@@ -76,7 +76,7 @@ function CS.UnityEngine.Experimental.TerrainAPI.BrushTransform.ToBrushUV(targetX
 --
 --```plaintext
 --Params: brushUV - Brush UV coordinate to transform.
---        
+--
 --```
 --
 ---@source UnityEngine.TerrainModule.dll
@@ -158,7 +158,7 @@ CS.UnityEngine.Experimental.TerrainAPI.PaintContext = {}
 --
 --```plaintext
 --Params: terrainIndex - Index of the terrain.
---        
+--
 --```
 --
 ---@source UnityEngine.TerrainModule.dll
@@ -171,7 +171,7 @@ function CS.UnityEngine.Experimental.TerrainAPI.PaintContext.GetTerrain(terrainI
 --
 --```plaintext
 --Params: terrainIndex - Index of the Terrain.
---        
+--
 --```
 --
 ---@source UnityEngine.TerrainModule.dll
@@ -184,7 +184,7 @@ function CS.UnityEngine.Experimental.TerrainAPI.PaintContext.GetClippedPixelRect
 --
 --```plaintext
 --Params: terrainIndex - Index of the Terrain.
---        
+--
 --```
 --
 ---@source UnityEngine.TerrainModule.dll
@@ -207,7 +207,7 @@ function CS.UnityEngine.Experimental.TerrainAPI.PaintContext:CreateFromBounds(te
 --
 --```plaintext
 --Params: colorFormat - Render Texture format.
---        
+--
 --```
 --
 ---@source UnityEngine.TerrainModule.dll
@@ -219,7 +219,7 @@ function CS.UnityEngine.Experimental.TerrainAPI.PaintContext.CreateRenderTargets
 --
 --```plaintext
 --Params: restoreRenderTexture - When true, indicates that this function restores RenderTexture.active
---        
+--
 --```
 --
 ---@source UnityEngine.TerrainModule.dll
@@ -254,7 +254,7 @@ function CS.UnityEngine.Experimental.TerrainAPI.PaintContext.GatherHeightmap() e
 --
 --```plaintext
 --Params: editorUndoName - Unique name used for the undo stack.
---        
+--
 --```
 --
 ---@source UnityEngine.TerrainModule.dll
@@ -272,7 +272,7 @@ function CS.UnityEngine.Experimental.TerrainAPI.PaintContext.GatherHoles() end
 --
 --```plaintext
 --Params: editorUndoName - Unique name used for the undo stack.
---        
+--
 --```
 --
 ---@source UnityEngine.TerrainModule.dll
@@ -291,7 +291,7 @@ function CS.UnityEngine.Experimental.TerrainAPI.PaintContext.GatherNormals() end
 --```plaintext
 --Params: inputLayer - TerrainLayer used for painting.
 --        addLayerIfDoesntExist - Set to true to specify that the inputLayer is added to the terrain if it does not already exist. Set to false to specify that terrain layers are not added to the terrain.
---        
+--
 --```
 --
 ---@source UnityEngine.TerrainModule.dll
@@ -304,7 +304,7 @@ function CS.UnityEngine.Experimental.TerrainAPI.PaintContext.GatherAlphamap(inpu
 --
 --```plaintext
 --Params: editorUndoName - Unique name used for the undo stack.
---        
+--
 --```
 --
 ---@source UnityEngine.TerrainModule.dll
@@ -390,7 +390,7 @@ function CS.UnityEngine.Experimental.TerrainAPI.TerrainCallbacks:remove_textureC
 --Params: terrain - The Terrain object that references a changed TerrainData asset.
 --        heightRegion - The heightmap region that changed, in samples.
 --        synched - Indicates whether the changes were fully synchronized back to CPU memory.
---        
+--
 --```
 --
 ---@source UnityEngine.TerrainModule.dll
@@ -426,7 +426,7 @@ function CS.UnityEngine.Experimental.TerrainAPI.HeightmapChangedCallback.EndInvo
 --        textureName - The name of the texture that changed.
 --        texelRegion - The region of the Terrain texture that changed, in texel coordinates.
 --        synched - Indicates whether the changes were fully synchronized back to CPU memory.
---        
+--
 --```
 --
 ---@source UnityEngine.TerrainModule.dll
@@ -488,7 +488,7 @@ function CS.UnityEngine.Experimental.TerrainAPI.TerrainPaintUtility:GetBrushWorl
 --        brushCenterTerrainUV - Center point of the brush, in terrain UV space (0-1 across the terrain tile).
 --        brushSize - Size of the brush, in terrain space.
 --        brushRotationDegrees - Brush rotation in degrees (clockwise).
---        
+--
 --```
 --
 ---@source UnityEngine.TerrainModule.dll
@@ -512,7 +512,7 @@ function CS.UnityEngine.Experimental.TerrainAPI.TerrainPaintUtility:BuildTransfo
 --Params: paintContext - PaintContext describing the area we are editing, and the terrain space.
 --        brushXform - BrushTransform from terrain space to Brush UVs.
 --        material - Material to populate with transform properties.
---        
+--
 --```
 --
 ---@source UnityEngine.TerrainModule.dll
@@ -526,7 +526,7 @@ function CS.UnityEngine.Experimental.TerrainAPI.TerrainPaintUtility:SetupTerrain
 --
 --```plaintext
 --Params: ctx - The PaintContext containing the resources to release.
---        
+--
 --```
 --
 ---@source UnityEngine.TerrainModule.dll
@@ -540,7 +540,7 @@ function CS.UnityEngine.Experimental.TerrainAPI.TerrainPaintUtility:ReleaseConte
 --Params: terrain - Reference Terrain tile.
 --        boundsInTerrainSpace - The region in terrain space to edit.
 --        extraBorderPixels - Number of extra border pixels required.
---        
+--
 --```
 --
 ---@source UnityEngine.TerrainModule.dll
@@ -556,7 +556,7 @@ function CS.UnityEngine.Experimental.TerrainAPI.TerrainPaintUtility:BeginPaintHe
 --```plaintext
 --Params: ctx - The heightmap paint context to complete.
 --        editorUndoName - Unique name used for the undo stack.
---        
+--
 --```
 --
 ---@source UnityEngine.TerrainModule.dll
@@ -571,7 +571,7 @@ function CS.UnityEngine.Experimental.TerrainAPI.TerrainPaintUtility:EndPaintHeig
 --Params: terrain - Reference Terrain tile.
 --        boundsInTerrainSpace - The region in Terrain space to edit.
 --        extraBorderPixels - Number of extra border pixels required.
---        
+--
 --```
 --
 ---@source UnityEngine.TerrainModule.dll
@@ -587,7 +587,7 @@ function CS.UnityEngine.Experimental.TerrainAPI.TerrainPaintUtility:BeginPaintHo
 --```plaintext
 --Params: ctx - The Terrain holes PaintContext to complete.
 --        editorUndoName - Unique name used for the undo stack.
---        
+--
 --```
 --
 ---@source UnityEngine.TerrainModule.dll
@@ -602,7 +602,7 @@ function CS.UnityEngine.Experimental.TerrainAPI.TerrainPaintUtility:EndPaintHole
 --Params: terrain - Reference Terrain tile.
 --        boundsInTerrainSpace - The region in terrain space from which to collect normals.
 --        extraBorderPixels - Number of extra border pixels required.
---        
+--
 --```
 --
 ---@source UnityEngine.TerrainModule.dll
@@ -620,7 +620,7 @@ function CS.UnityEngine.Experimental.TerrainAPI.TerrainPaintUtility:CollectNorma
 --        inputLayer - Selects the alphamap to paint.
 --        boundsInTerrainSpace - The region in terrain space to edit.
 --        extraBorderPixels - Number of extra border pixels required.
---        
+--
 --```
 --
 ---@source UnityEngine.TerrainModule.dll
@@ -637,7 +637,7 @@ function CS.UnityEngine.Experimental.TerrainAPI.TerrainPaintUtility:BeginPaintTe
 --```plaintext
 --Params: ctx - The texture paint context to complete.
 --        editorUndoName - Unique name used for the undo stack.
---        
+--
 --```
 --
 ---@source UnityEngine.TerrainModule.dll
@@ -672,7 +672,7 @@ function CS.UnityEngine.Experimental.TerrainAPI.TerrainPaintUtility:GetCopyTerra
 --```plaintext
 --Params: terrain - Terrain tile.
 --        mapIndex - Index to retrieve.
---        
+--
 --```
 --
 ---@source UnityEngine.TerrainModule.dll
@@ -687,7 +687,7 @@ function CS.UnityEngine.Experimental.TerrainAPI.TerrainPaintUtility:GetTerrainAl
 --```plaintext
 --Params: terrain - Terrain tile.
 --        inputLayer - Terrain layer to search for.
---        
+--
 --```
 --
 ---@source UnityEngine.TerrainModule.dll
@@ -735,7 +735,7 @@ function CS.UnityEngine.Experimental.TerrainAPI.TerrainPaintUtility:FindTerrainL
 ---@source UnityEngine.TerrainModule.dll
 CS.UnityEngine.Experimental.TerrainAPI.BuiltinPaintMaterialPasses = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Experimental.TerrainAPI.TerrainPaintUtility.BuiltinPaintMaterialPasses
 function CS.UnityEngine.Experimental.TerrainAPI.BuiltinPaintMaterialPasses:__CastFrom(value) end
@@ -780,7 +780,7 @@ CS.UnityEngine.Experimental.TerrainAPI.TerrainMap = {}
 --```plaintext
 --Params: tileX - Tile X coordinate.
 --        tileZ - Tile Z coordinate.
---        
+--
 --```
 --
 ---@source UnityEngine.TerrainModule.dll
@@ -817,7 +817,7 @@ function CS.UnityEngine.Experimental.TerrainAPI.TerrainMap:CreateFromPlacement(g
 --
 --```plaintext
 --Params: terrain - Terrain object to apply filter to.
---        
+--
 --```
 --
 ---@source UnityEngine.TerrainModule.dll
@@ -890,7 +890,7 @@ CS.UnityEngine.Experimental.TerrainAPI.TileCoord = {}
 ---@source UnityEngine.TerrainModule.dll
 CS.UnityEngine.Experimental.TerrainAPI.ErrorCode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Experimental.TerrainAPI.TerrainUtility.TerrainMap.ErrorCode
 function CS.UnityEngine.Experimental.TerrainAPI.ErrorCode:__CastFrom(value) end

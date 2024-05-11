@@ -24,7 +24,7 @@ function Event:getCurrentTarget () end
 ---*  Stops propagation for current event.
 ---@return self
 function Event:stopPropagation () end
----*  Constructor 
+---*  Constructor
 ---@param type int
 ---@return self
 function Event:Event (type) end

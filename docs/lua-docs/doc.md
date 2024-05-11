@@ -5732,7 +5732,7 @@ boolean
 
 ## is_windows
 
-NoitaMP additions 
+NoitaMP additions
 
 
 ```lua

@@ -188,7 +188,7 @@ function CS.System.Collections.Concurrent.ConcurrentStack.TryPopRange(items, sta
 ---@source mscorlib.dll
 CS.System.Collections.Concurrent.EnumerablePartitionerOptions = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Collections.Concurrent.EnumerablePartitionerOptions
 function CS.System.Collections.Concurrent.EnumerablePartitionerOptions:__CastFrom(value) end

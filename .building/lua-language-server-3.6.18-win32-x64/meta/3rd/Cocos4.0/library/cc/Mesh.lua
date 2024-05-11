@@ -7,7 +7,7 @@ cc.Mesh=Mesh
 
 
 
----*  Returns the Material being used by the Mesh 
+---*  Returns the Material being used by the Mesh
 ---@return cc.Material
 function Mesh:getMaterial () end
 ---* get per vertex size in bytes
@@ -18,11 +18,11 @@ function Mesh:getVertexSizeInBytes () end
 ---@param programState cc.backend.ProgramState
 ---@return self
 function Mesh:setProgramState (programState) end
----*  Sets a new Material to the Mesh 
+---*  Sets a new Material to the Mesh
 ---@param material cc.Material
 ---@return self
 function Mesh:setMaterial (material) end
----* name getter 
+---* name getter
 ---@return string
 function Mesh:getName () end
 ---* get MeshVertexAttribute by index
@@ -33,7 +33,7 @@ function Mesh:getMeshVertexAttribute (idx) end
 ---* note the AABB is in the local space, not the world space
 ---@return self
 function Mesh:calculateAABB () end
----* 
+---*
 ---@param renderer cc.Renderer
 ---@param globalZ float
 ---@param transform mat4_table
@@ -43,7 +43,7 @@ function Mesh:calculateAABB () end
 ---@param forceDepthWrite boolean
 ---@return self
 function Mesh:draw (renderer,globalZ,transform,flags,lightMask,color,forceDepthWrite) end
----* 
+---*
 ---@return cc.BlendFunc
 function Mesh:getBlendFunc () end
 ---* name setter
@@ -61,7 +61,7 @@ function Mesh:getProgramState () end
 ---* get mesh vertex attribute count
 ---@return int
 function Mesh:getMeshVertexAttribCount () end
----* 
+---*
 ---@param blendFunc cc.BlendFunc
 ---@return self
 function Mesh:setBlendFunc (blendFunc) end
@@ -73,13 +73,13 @@ function Mesh:setForce2DQueue (force2D) end
 ---@param skin cc.MeshSkin
 ---@return self
 function Mesh:setSkin (skin) end
----* 
+---*
 ---@return boolean
 function Mesh:isVisible () end
 ---* visible getter and setter
 ---@param visible boolean
 ---@return self
 function Mesh:setVisible (visible) end
----* 
+---*
 ---@return self
 function Mesh:Mesh () end

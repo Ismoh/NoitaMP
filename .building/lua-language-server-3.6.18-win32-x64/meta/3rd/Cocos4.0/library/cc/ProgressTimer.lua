@@ -7,7 +7,7 @@ cc.ProgressTimer=ProgressTimer
 
 
 
----*  Initializes a progress timer with the sprite as the shape the timer goes through 
+---*  Initializes a progress timer with the sprite as the shape the timer goes through
 ---@param sp cc.Sprite
 ---@return boolean
 function ProgressTimer:initWithSprite (sp) end
@@ -81,28 +81,28 @@ function ProgressTimer:setType (type) end
 ---@param sp cc.Sprite
 ---@return self
 function ProgressTimer:create (sp) end
----* 
+---*
 ---@param anchorPoint vec2_table
 ---@return self
 function ProgressTimer:setAnchorPoint (anchorPoint) end
----* 
+---*
 ---@param renderer cc.Renderer
 ---@param transform mat4_table
 ---@param flags unsigned_int
 ---@return self
 function ProgressTimer:draw (renderer,transform,flags) end
----* 
+---*
 ---@param color color3b_table
 ---@return self
 function ProgressTimer:setColor (color) end
----* 
+---*
 ---@return color3b_table
 function ProgressTimer:getColor () end
----* 
+---*
 ---@param opacity unsigned_char
 ---@return self
 function ProgressTimer:setOpacity (opacity) end
----* 
+---*
 ---@return unsigned_char
 function ProgressTimer:getOpacity () end
 ---* js ctor

@@ -34,7 +34,7 @@ function PhysicsJointSpring:getAnchr1 () end
 ---*  Get the spring constant.
 ---@return float
 function PhysicsJointSpring:getStiffness () end
----* 
+---*
 ---@return boolean
 function PhysicsJointSpring:createConstraints () end
 ---*  Set the distance of the anchor points.

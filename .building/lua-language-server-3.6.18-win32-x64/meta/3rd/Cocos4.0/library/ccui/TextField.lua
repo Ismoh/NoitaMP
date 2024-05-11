@@ -218,29 +218,29 @@ function TextField:getTouchSize () end
 ---@param fontSize int
 ---@return self
 function TextField:create (placeholder,fontName,fontSize) end
----* 
+---*
 ---@return cc.Ref
 function TextField:createInstance () end
----* 
+---*
 ---@return cc.Node
 function TextField:getVirtualRenderer () end
 ---* Returns the "class name" of widget.
 ---@return string
 function TextField:getDescription () end
----* 
+---*
 ---@param dt float
 ---@return self
 function TextField:update (dt) end
----* 
+---*
 ---@param pt vec2_table
 ---@param camera cc.Camera
 ---@param p vec3_table
 ---@return boolean
 function TextField:hitTest (pt,camera,p) end
----* 
+---*
 ---@return boolean
 function TextField:init () end
----* 
+---*
 ---@return size_table
 function TextField:getVirtualRendererSize () end
 ---* brief Default constructor.

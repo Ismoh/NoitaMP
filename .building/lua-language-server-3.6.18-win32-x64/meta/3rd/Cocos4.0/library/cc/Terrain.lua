@@ -7,7 +7,7 @@ cc.Terrain=Terrain
 
 
 
----* initialize heightMap data 
+---* initialize heightMap data
 ---@param heightMap string
 ---@return boolean
 function Terrain:initHeightMap (heightMap) end
@@ -23,7 +23,7 @@ function Terrain:setDrawWire (boolValue) end
 ---* get the terrain's height data
 ---@return array_table
 function Terrain:getHeightData () end
----* set the Detail Map 
+---* set the Detail Map
 ---@param index unsigned_int
 ---@param detailMap cc.Terrain.DetailMap
 ---@return self
@@ -52,10 +52,10 @@ function Terrain:convertToTerrainSpace (worldSpace) end
 ---* initialize alphaMap ,detailMaps textures
 ---@return boolean
 function Terrain:initTextures () end
----* initialize all Properties which terrain need 
+---* initialize all Properties which terrain need
 ---@return boolean
 function Terrain:initProperties () end
----* 
+---*
 ---@param parameter cc.Terrain.TerrainData
 ---@param fixedType int
 ---@return boolean
@@ -77,7 +77,7 @@ function Terrain:getTerrainSize () end
 ---@param pixelY int
 ---@return vec3_table
 function Terrain:getNormal (pixelX,pixelY) end
----* 
+---*
 ---@return self
 function Terrain:reload () end
 ---* get height from the raw height filed
@@ -85,12 +85,12 @@ function Terrain:reload () end
 ---@param pixelY int
 ---@return float
 function Terrain:getImageHeight (pixelX,pixelY) end
----*  set light map texture 
+---*  set light map texture
 ---@param fileName string
 ---@return self
 function Terrain:setLightMap (fileName) end
 ---* Switch frustum Culling Flag<br>
----* Note frustum culling will remarkable improve your terrain rendering performance. 
+---* Note frustum culling will remarkable improve your terrain rendering performance.
 ---@param boolValue boolean
 ---@return self
 function Terrain:setIsEnableFrustumCull (boolValue) end
@@ -100,12 +100,12 @@ function Terrain:getMinHeight () end
 ---* get the terrain's maximal height.
 ---@return float
 function Terrain:getMaxHeight () end
----* 
+---*
 ---@param renderer cc.Renderer
 ---@param transform mat4_table
 ---@param flags unsigned_int
 ---@return self
 function Terrain:draw (renderer,transform,flags) end
----* 
+---*
 ---@return self
 function Terrain:Terrain () end

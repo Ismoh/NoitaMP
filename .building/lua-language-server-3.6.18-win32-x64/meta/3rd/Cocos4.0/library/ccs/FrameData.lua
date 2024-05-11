@@ -7,11 +7,11 @@ ccs.FrameData=FrameData
 
 
 
----* 
+---*
 ---@param baseData ccs.BaseData
 ---@return self
 function FrameData:copy (baseData) end
----* 
+---*
 ---@return self
 function FrameData:create () end
 ---* js ctor

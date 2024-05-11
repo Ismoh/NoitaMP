@@ -89,11 +89,11 @@ function TextureCache:removeTexture (texture) end
 ---* Called by director, please do not called outside.
 ---@return self
 function TextureCache:waitForQuit () end
----* 
+---*
 ---@param suffix string
 ---@return self
 function TextureCache:setETC1AlphaFileSuffix (suffix) end
----* 
+---*
 ---@return string
 function TextureCache:getETC1AlphaFileSuffix () end
 ---* js ctor

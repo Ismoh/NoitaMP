@@ -412,7 +412,7 @@ CS.System.Reflection.AssemblyConfigurationAttribute = {}
 ---@source mscorlib.dll
 CS.System.Reflection.AssemblyContentType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Reflection.AssemblyContentType
 function CS.System.Reflection.AssemblyContentType:__CastFrom(value) end
@@ -525,7 +525,7 @@ CS.System.Reflection.AssemblyMetadataAttribute = {}
 ---@source mscorlib.dll
 CS.System.Reflection.AssemblyNameFlags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Reflection.AssemblyNameFlags
 function CS.System.Reflection.AssemblyNameFlags:__CastFrom(value) end
@@ -695,7 +695,7 @@ CS.System.Reflection.AssemblyVersionAttribute = {}
 ---@source mscorlib.dll
 CS.System.Reflection.BindingFlags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Reflection.BindingFlags
 function CS.System.Reflection.BindingFlags:__CastFrom(value) end
@@ -778,7 +778,7 @@ function CS.System.Reflection.Binder.SelectProperty(bindingAttr, match, returnTy
 ---@source mscorlib.dll
 CS.System.Reflection.CallingConventions = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Reflection.CallingConventions
 function CS.System.Reflection.CallingConventions:__CastFrom(value) end
@@ -1158,7 +1158,7 @@ CS.System.Reflection.DefaultMemberAttribute = {}
 ---@source mscorlib.dll
 CS.System.Reflection.EventAttributes = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Reflection.EventAttributes
 function CS.System.Reflection.EventAttributes:__CastFrom(value) end
@@ -1296,7 +1296,7 @@ function CS.System.Reflection.ExceptionHandlingClause.ToString() end
 ---@source mscorlib.dll
 CS.System.Reflection.GenericParameterAttributes = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Reflection.GenericParameterAttributes
 function CS.System.Reflection.GenericParameterAttributes:__CastFrom(value) end
@@ -1315,7 +1315,7 @@ function CS.System.Reflection.GenericParameterAttributes:__CastFrom(value) end
 ---@source mscorlib.dll
 CS.System.Reflection.ExceptionHandlingClauseOptions = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Reflection.ExceptionHandlingClauseOptions
 function CS.System.Reflection.ExceptionHandlingClauseOptions:__CastFrom(value) end
@@ -1355,7 +1355,7 @@ function CS.System.Reflection.ICustomAttributeProvider.IsDefined(attributeType, 
 ---@source mscorlib.dll
 CS.System.Reflection.ImageFileMachine = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Reflection.ImageFileMachine
 function CS.System.Reflection.ImageFileMachine:__CastFrom(value) end
@@ -1404,7 +1404,7 @@ function CS.System.Reflection.ImageFileMachine:__CastFrom(value) end
 ---@source mscorlib.dll
 CS.System.Reflection.FieldAttributes = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Reflection.FieldAttributes
 function CS.System.Reflection.FieldAttributes:__CastFrom(value) end
@@ -1753,7 +1753,7 @@ CS.System.Reflection.ManifestResourceInfo = {}
 ---@source mscorlib.dll
 CS.System.Reflection.MemberTypes = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Reflection.MemberTypes
 function CS.System.Reflection.MemberTypes:__CastFrom(value) end
@@ -1856,7 +1856,7 @@ function CS.System.Reflection.MethodBody.GetILAsByteArray() end
 ---@source mscorlib.dll
 CS.System.Reflection.MethodAttributes = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Reflection.MethodAttributes
 function CS.System.Reflection.MethodAttributes:__CastFrom(value) end
@@ -1899,7 +1899,7 @@ function CS.System.Reflection.MethodAttributes:__CastFrom(value) end
 ---@source mscorlib.dll
 CS.System.Reflection.MethodImplAttributes = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Reflection.MethodImplAttributes
 function CS.System.Reflection.MethodImplAttributes:__CastFrom(value) end
@@ -2168,7 +2168,7 @@ CS.System.Reflection.ObfuscateAssemblyAttribute = {}
 ---@source mscorlib.dll
 CS.System.Reflection.PortableExecutableKinds = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Reflection.PortableExecutableKinds
 function CS.System.Reflection.PortableExecutableKinds:__CastFrom(value) end
@@ -2205,7 +2205,7 @@ CS.System.Reflection.ObfuscationAttribute = {}
 ---@source mscorlib.dll
 CS.System.Reflection.ProcessorArchitecture = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Reflection.ProcessorArchitecture
 function CS.System.Reflection.ProcessorArchitecture:__CastFrom(value) end
@@ -2220,7 +2220,7 @@ function CS.System.Reflection.ProcessorArchitecture:__CastFrom(value) end
 ---@source mscorlib.dll
 CS.System.Reflection.ResourceAttributes = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Reflection.ResourceAttributes
 function CS.System.Reflection.ResourceAttributes:__CastFrom(value) end
@@ -2247,7 +2247,7 @@ function CS.System.Reflection.ResourceAttributes:__CastFrom(value) end
 ---@source mscorlib.dll
 CS.System.Reflection.PropertyAttributes = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Reflection.PropertyAttributes
 function CS.System.Reflection.PropertyAttributes:__CastFrom(value) end
@@ -2280,7 +2280,7 @@ function CS.System.Reflection.PropertyAttributes:__CastFrom(value) end
 ---@source mscorlib.dll
 CS.System.Reflection.ParameterAttributes = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Reflection.ParameterAttributes
 function CS.System.Reflection.ParameterAttributes:__CastFrom(value) end
@@ -2297,7 +2297,7 @@ function CS.System.Reflection.ParameterAttributes:__CastFrom(value) end
 ---@source mscorlib.dll
 CS.System.Reflection.ResourceLocation = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Reflection.ResourceLocation
 function CS.System.Reflection.ResourceLocation:__CastFrom(value) end
@@ -2685,7 +2685,7 @@ function CS.System.Reflection.ReflectionTypeLoadException.GetObjectData(info, co
 ---@source mscorlib.dll
 CS.System.Reflection.TypeAttributes = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Reflection.TypeAttributes
 function CS.System.Reflection.TypeAttributes:__CastFrom(value) end

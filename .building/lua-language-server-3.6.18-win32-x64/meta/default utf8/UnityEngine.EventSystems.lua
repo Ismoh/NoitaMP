@@ -109,7 +109,7 @@ function CS.UnityEngine.EventSystems.PointerEventData.ToString() end
 ---@source UnityEngine.UI.dll
 CS.UnityEngine.EventSystems.EventHandle = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.EventSystems.EventHandle
 function CS.UnityEngine.EventSystems.EventHandle:__CastFrom(value) end
@@ -202,7 +202,7 @@ function CS.UnityEngine.EventSystems.IBeginDragHandler.OnBeginDrag(eventData) en
 ---@source UnityEngine.UI.dll
 CS.UnityEngine.EventSystems.InputButton = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.EventSystems.PointerEventData.InputButton
 function CS.UnityEngine.EventSystems.InputButton:__CastFrom(value) end
@@ -241,7 +241,7 @@ function CS.UnityEngine.EventSystems.IEndDragHandler.OnEndDrag(eventData) end
 ---@source UnityEngine.UI.dll
 CS.UnityEngine.EventSystems.FramePressState = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.EventSystems.PointerEventData.FramePressState
 function CS.UnityEngine.EventSystems.FramePressState:__CastFrom(value) end
@@ -420,7 +420,7 @@ function CS.UnityEngine.EventSystems.EventSystem.ToString() end
 ---@source UnityEngine.UI.dll
 CS.UnityEngine.EventSystems.EventTriggerType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.EventSystems.EventTriggerType
 function CS.UnityEngine.EventSystems.EventTriggerType:__CastFrom(value) end
@@ -850,7 +850,7 @@ function CS.UnityEngine.EventSystems.PhysicsRaycaster.Raycast(eventData, resultA
 ---@source UnityEngine.UI.dll
 CS.UnityEngine.EventSystems.InputMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.EventSystems.StandaloneInputModule.InputMode
 function CS.UnityEngine.EventSystems.InputMode:__CastFrom(value) end
@@ -902,7 +902,7 @@ function CS.UnityEngine.EventSystems.TouchInputModule.ToString() end
 ---@source UnityEngine.UI.dll
 CS.UnityEngine.EventSystems.MoveDirection = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.EventSystems.MoveDirection
 function CS.UnityEngine.EventSystems.MoveDirection:__CastFrom(value) end

@@ -1,6 +1,6 @@
 ---@meta
 
----@class cc.PhysicsContactPostSolve 
+---@class cc.PhysicsContactPostSolve
 local PhysicsContactPostSolve={ }
 cc.PhysicsContactPostSolve=PhysicsContactPostSolve
 

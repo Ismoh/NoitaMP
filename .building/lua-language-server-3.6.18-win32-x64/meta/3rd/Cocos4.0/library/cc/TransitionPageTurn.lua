@@ -37,7 +37,7 @@ function TransitionPageTurn:initWithDuration (t,scene,backwards) end
 ---@param backwards boolean
 ---@return self
 function TransitionPageTurn:create (t,scene,backwards) end
----* 
+---*
 ---@param renderer cc.Renderer
 ---@param transform mat4_table
 ---@param flags unsigned_int

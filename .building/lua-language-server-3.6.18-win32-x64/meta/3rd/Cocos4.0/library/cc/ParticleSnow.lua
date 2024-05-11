@@ -7,10 +7,10 @@ cc.ParticleSnow=ParticleSnow
 
 
 
----* 
+---*
 ---@return boolean
 function ParticleSnow:init () end
----* 
+---*
 ---@param numberOfParticles int
 ---@return boolean
 function ParticleSnow:initWithTotalParticles (numberOfParticles) end

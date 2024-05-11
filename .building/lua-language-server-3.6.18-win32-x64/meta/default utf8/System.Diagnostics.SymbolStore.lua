@@ -347,7 +347,7 @@ function CS.System.Diagnostics.SymbolStore.ISymbolWriter.UsingNamespace(fullName
 ---@source mscorlib.dll
 CS.System.Diagnostics.SymbolStore.SymAddressKind = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Diagnostics.SymbolStore.SymAddressKind
 function CS.System.Diagnostics.SymbolStore.SymAddressKind:__CastFrom(value) end

@@ -96,7 +96,7 @@ function ListView:setMagneticAllowedOutOfBoundary (magneticAllowedOutOfBoundary)
 ---@param callback function
 ---@return self
 function ListView:addEventListener (callback) end
----* 
+---*
 ---@return self
 function ListView:doLayout () end
 ---* brief Query the topmost item in horizontal list<br>
@@ -223,7 +223,7 @@ function ListView:insertCustomItem (item,index) end
 ---* return A ListView instance.
 ---@return self
 function ListView:create () end
----* 
+---*
 ---@return cc.Ref
 function ListView:createInstance () end
 ---@overload fun(cc.Node:cc.Node,int:int):self
@@ -238,7 +238,7 @@ function ListView:addChild (child,zOrder,name) end
 ---* Override functions
 ---@return self
 function ListView:jumpToBottom () end
----* 
+---*
 ---@return boolean
 function ListView:init () end
 ---* Changes scroll direction of scrollview.<br>
@@ -247,54 +247,54 @@ function ListView:init () end
 ---@param dir int
 ---@return self
 function ListView:setDirection (dir) end
----* 
+---*
 ---@return self
 function ListView:jumpToTopRight () end
----* 
+---*
 ---@return self
 function ListView:jumpToLeft () end
----* 
+---*
 ---@param cleanup boolean
 ---@return self
 function ListView:removeAllChildrenWithCleanup (cleanup) end
----* 
+---*
 ---@return self
 function ListView:requestDoLayout () end
----* 
+---*
 ---@return self
 function ListView:removeAllChildren () end
----* 
+---*
 ---@return self
 function ListView:jumpToTopLeft () end
----* 
+---*
 ---@param child cc.Node
 ---@param cleanup boolean
 ---@return self
 function ListView:removeChild (child,cleanup) end
----* 
+---*
 ---@return self
 function ListView:jumpToBottomRight () end
----* 
+---*
 ---@return self
 function ListView:jumpToTop () end
----* 
+---*
 ---@return self
 function ListView:jumpToBottomLeft () end
----* 
+---*
 ---@param percent vec2_table
 ---@return self
 function ListView:jumpToPercentBothDirection (percent) end
----* 
+---*
 ---@param percent float
 ---@return self
 function ListView:jumpToPercentHorizontal (percent) end
----* 
+---*
 ---@return self
 function ListView:jumpToRight () end
----* 
+---*
 ---@return string
 function ListView:getDescription () end
----* 
+---*
 ---@param percent float
 ---@return self
 function ListView:jumpToPercentVertical (percent) end

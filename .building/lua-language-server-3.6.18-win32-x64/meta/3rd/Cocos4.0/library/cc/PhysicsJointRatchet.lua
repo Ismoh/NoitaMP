@@ -14,7 +14,7 @@ function PhysicsJointRatchet:getAngle () end
 ---@param angle float
 ---@return self
 function PhysicsJointRatchet:setAngle (angle) end
----* 
+---*
 ---@return boolean
 function PhysicsJointRatchet:createConstraints () end
 ---*  Set the initial offset.

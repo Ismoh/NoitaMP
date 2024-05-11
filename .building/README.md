@@ -14,7 +14,7 @@
    ```cmd
    cd fullPathTo\NoitaMP\mods\noita-mp
    set INIT_PATH=%CD%
-   
+
    REM // resolve absolute path
    set REL_PATH=..\..\.building\luarocks-3.9.1-windows-32
    set ABS_PATH=
@@ -23,15 +23,15 @@
    rem // Save value of CD variable (current directory)
    set ABS_PATH=%CD%
    rem // Restore original directory
-   popd   
+   popd
    echo Relative path: %REL_PATH%
    echo Maps to path: %ABS_PATH%
-   
-   REM // make use of LuaJIT-2.0.4  
+
+   REM // make use of LuaJIT-2.0.4
    %ABS_PATH%\luarocks config --local variables.LUA_BINDIR %INIT_PATH%\..\..\LuaJIT-2.0.4\bin
    %ABS_PATH%\luarocks config --local variables.LUA_DIR %INIT_PATH%\..\..\LuaJIT-2.0.4
    %ABS_PATH%\luarocks config --local variables.LUA_INCDIR %INIT_PATH%\..\..\LuaJIT-2.0.4\include
-   
+
    REM // init luarocks
    %ABS_PATH%\luarocks --lua-version="5.1" init noita-mp --output="%INIT_PATH%" --homepage="https://github.com/Ismoh/NoitaMP" --lua-versions="5.1" --license="GNU GPL v3"
    ```
@@ -40,11 +40,11 @@
    ```cmd
    Initializing project 'noita-mp' for Lua 5.1 ...
    -----------------------------------------------
-   
+
    Checking your Lua installation ...
-   
+
    Wrote template at D:\______BACKUP\NoitaMP_repo\NoitaMP\mods\noita-mp -- you should now edit and finish it.
-   
+
    Adding entries to .gitignore ...
    Preparing ./.luarocks/ ...
    Wrote .luarocks/config-5.1.lua
@@ -115,7 +115,3 @@ Simply type in `luarocks install --only-deps noita` and hit tab to autocomplete 
 ~~After that in cmd as admin:~~\
 ~~`luarocks install lua-zstd ZSTD_DIR=D:\______BACKUP\NoitaMP_repo\NoitaMP\.building\zstd-v1.5.2-win32`~~
 All of this fails! Simply use prebuild dll from https://github.com/facebook/zstd/releases zstd-v1.5.2-win32.zip
-
-
-
-

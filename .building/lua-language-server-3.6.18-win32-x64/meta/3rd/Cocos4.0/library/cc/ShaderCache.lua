@@ -10,7 +10,7 @@ cc.ShaderCache=ShaderCache
 ---* Remove all unused shaders.
 ---@return cc.backend.ShaderCache
 function ShaderCache:removeUnusedShader () end
----*  purges the cache. It releases the retained instance. 
+---*  purges the cache. It releases the retained instance.
 ---@return cc.backend.ShaderCache
 function ShaderCache:destroyInstance () end
 ---* Create a vertex shader module and add it to cache.<br>
@@ -25,6 +25,6 @@ function ShaderCache:newVertexShaderModule (shaderSource) end
 ---@param shaderSource string
 ---@return cc.backend.ShaderModule
 function ShaderCache:newFragmentShaderModule (shaderSource) end
----*  returns the shared instance 
+---*  returns the shared instance
 ---@return cc.backend.ShaderCache
 function ShaderCache:getInstance () end

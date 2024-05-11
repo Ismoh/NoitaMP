@@ -9,7 +9,7 @@
 ---@source System.Data.dll
 CS.System.Data.Common.CatalogLocation = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Data.Common.CatalogLocation
 function CS.System.Data.Common.CatalogLocation:__CastFrom(value) end
@@ -1646,7 +1646,7 @@ function CS.System.Data.Common.DbTransaction.Rollback() end
 ---@source System.Data.dll
 CS.System.Data.Common.GroupByBehavior = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Data.Common.GroupByBehavior
 function CS.System.Data.Common.GroupByBehavior:__CastFrom(value) end
@@ -1673,7 +1673,7 @@ function CS.System.Data.Common.IDbColumnSchemaGenerator.GetColumnSchema() end
 ---@source System.Data.dll
 CS.System.Data.Common.IdentifierCase = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Data.Common.IdentifierCase
 function CS.System.Data.Common.IdentifierCase:__CastFrom(value) end
@@ -1817,7 +1817,7 @@ CS.System.Data.Common.SchemaTableOptionalColumn = {}
 ---@source System.Data.dll
 CS.System.Data.Common.SupportedJoinOperators = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Data.Common.SupportedJoinOperators
 function CS.System.Data.Common.SupportedJoinOperators:__CastFrom(value) end

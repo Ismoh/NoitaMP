@@ -18,7 +18,7 @@
 ---@source UnityEngine.AnimationModule.dll
 CS.UnityEngine.Experimental.Animations.AnimationStreamSource = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Experimental.Animations.AnimationStreamSource
 function CS.UnityEngine.Experimental.Animations.AnimationStreamSource:__CastFrom(value) end
@@ -37,7 +37,7 @@ CS.UnityEngine.Experimental.Animations.AnimationPlayableOutputExtensions = {}
 --
 --```plaintext
 --Params: output - The AnimationPlayableOutput instance that calls this method.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -50,7 +50,7 @@ function CS.UnityEngine.Experimental.Animations.AnimationPlayableOutputExtension
 --```plaintext
 --Params: output - The AnimationPlayableOutput instance that calls this method.
 --        streamSource - The AnimationStreamSource to apply on this output.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll
@@ -62,7 +62,7 @@ function CS.UnityEngine.Experimental.Animations.AnimationPlayableOutputExtension
 --
 --```plaintext
 --Params: output - The AnimationPlayableOutput instance that calls this method.
---        
+--
 --```
 --
 ---@source UnityEngine.AnimationModule.dll

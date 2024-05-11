@@ -7,7 +7,7 @@ cc.MenuItemAtlasFont=MenuItemAtlasFont
 
 
 
----*  Initializes a menu item from a string and atlas with a target/selector. 
+---*  Initializes a menu item from a string and atlas with a target/selector.
 ---@param value string
 ---@param charMapFile string
 ---@param itemWidth int

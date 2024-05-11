@@ -32,7 +32,7 @@ function PageView:setIndicatorSelectedIndexOpacity (opacity) end
 ---* brief Remove all pages of the PageView.
 ---@return self
 function PageView:removeAllPages () end
----* 
+---*
 ---@param epsilon float
 ---@return self
 function PageView:setAutoScrollStopEpsilon (epsilon) end
@@ -155,16 +155,16 @@ function PageView:addPage (page) end
 ---* return A PageView instance.
 ---@return self
 function PageView:create () end
----* 
+---*
 ---@return cc.Ref
 function PageView:createInstance () end
----* 
+---*
 ---@return self
 function PageView:doLayout () end
----* 
+---*
 ---@return boolean
 function PageView:init () end
----* 
+---*
 ---@return string
 function PageView:getDescription () end
 ---* Changes direction<br>

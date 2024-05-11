@@ -25,7 +25,7 @@ CS.System.Xml.Serialization.CodeExporter = {}
 ---@source System.Xml.dll
 CS.System.Xml.Serialization.CodeGenerationOptions = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Xml.Serialization.CodeGenerationOptions
 function CS.System.Xml.Serialization.CodeGenerationOptions:__CastFrom(value) end
@@ -883,7 +883,7 @@ function CS.System.Xml.Serialization.XmlMapping.SetKey(key) end
 ---@source System.Xml.dll
 CS.System.Xml.Serialization.XmlMappingAccess = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Xml.Serialization.XmlMappingAccess
 function CS.System.Xml.Serialization.XmlMappingAccess:__CastFrom(value) end

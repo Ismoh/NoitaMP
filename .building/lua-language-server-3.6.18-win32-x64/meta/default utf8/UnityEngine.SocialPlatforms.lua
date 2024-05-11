@@ -210,7 +210,7 @@ function CS.UnityEngine.SocialPlatforms.ILocalUser.LoadFriends(callback) end
 ---@source UnityEngine.GameCenterModule.dll
 CS.UnityEngine.SocialPlatforms.UserState = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.SocialPlatforms.UserState
 function CS.UnityEngine.SocialPlatforms.UserState:__CastFrom(value) end
@@ -375,7 +375,7 @@ function CS.UnityEngine.SocialPlatforms.IScore.ReportScore(callback) end
 ---@source UnityEngine.GameCenterModule.dll
 CS.UnityEngine.SocialPlatforms.UserScope = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.SocialPlatforms.UserScope
 function CS.UnityEngine.SocialPlatforms.UserScope:__CastFrom(value) end
@@ -395,7 +395,7 @@ function CS.UnityEngine.SocialPlatforms.UserScope:__CastFrom(value) end
 ---@source UnityEngine.GameCenterModule.dll
 CS.UnityEngine.SocialPlatforms.TimeScope = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.SocialPlatforms.TimeScope
 function CS.UnityEngine.SocialPlatforms.TimeScope:__CastFrom(value) end
@@ -475,7 +475,7 @@ CS.UnityEngine.SocialPlatforms.ILeaderboard = {}
 --
 --```plaintext
 --Params: userIDs - List of user ids.
---        
+--
 --```
 --
 ---@source UnityEngine.GameCenterModule.dll

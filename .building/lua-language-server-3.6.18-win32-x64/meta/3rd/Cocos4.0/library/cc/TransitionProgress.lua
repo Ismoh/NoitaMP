@@ -15,6 +15,6 @@ cc.TransitionProgress=TransitionProgress
 ---@param scene cc.Scene
 ---@return self
 function TransitionProgress:create (t,scene) end
----* 
+---*
 ---@return self
 function TransitionProgress:TransitionProgress () end

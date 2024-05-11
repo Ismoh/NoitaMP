@@ -96,7 +96,7 @@ function CS.System.Diagnostics.Eventing.EventProvider.WriteTransferEvent(eventDe
 ---@source System.Core.dll
 CS.System.Diagnostics.Eventing.WriteEventErrorCode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Diagnostics.Eventing.EventProvider.WriteEventErrorCode
 function CS.System.Diagnostics.Eventing.WriteEventErrorCode:__CastFrom(value) end

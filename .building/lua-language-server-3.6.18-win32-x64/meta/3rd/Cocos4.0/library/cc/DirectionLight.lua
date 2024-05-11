@@ -26,9 +26,9 @@ function DirectionLight:setDirection (dir) end
 ---@param color color3b_table
 ---@return self
 function DirectionLight:create (direction,color) end
----* 
+---*
 ---@return int
 function DirectionLight:getLightType () end
----* 
+---*
 ---@return self
 function DirectionLight:DirectionLight () end

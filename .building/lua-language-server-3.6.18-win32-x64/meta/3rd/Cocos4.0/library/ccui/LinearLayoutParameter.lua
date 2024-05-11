@@ -22,10 +22,10 @@ function LinearLayoutParameter:getGravity () end
 ---* return A initialized LayoutParameter which is marked as "autorelease".
 ---@return self
 function LinearLayoutParameter:create () end
----* 
+---*
 ---@return ccui.LayoutParameter
 function LinearLayoutParameter:createCloneInstance () end
----* 
+---*
 ---@param model ccui.LayoutParameter
 ---@return self
 function LinearLayoutParameter:copyProperties (model) end

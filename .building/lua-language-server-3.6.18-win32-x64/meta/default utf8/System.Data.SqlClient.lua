@@ -9,7 +9,7 @@
 ---@source System.Data.dll
 CS.System.Data.SqlClient.ApplicationIntent = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Data.SqlClient.ApplicationIntent
 function CS.System.Data.SqlClient.ApplicationIntent:__CastFrom(value) end
@@ -49,7 +49,7 @@ function CS.System.Data.SqlClient.OnChangeEventHandler.EndInvoke(result) end
 ---@source System.Data.dll
 CS.System.Data.SqlClient.PoolBlockingPeriod = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Data.SqlClient.PoolBlockingPeriod
 function CS.System.Data.SqlClient.PoolBlockingPeriod:__CastFrom(value) end
@@ -66,7 +66,7 @@ function CS.System.Data.SqlClient.PoolBlockingPeriod:__CastFrom(value) end
 ---@source System.Data.dll
 CS.System.Data.SqlClient.SortOrder = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Data.SqlClient.SortOrder
 function CS.System.Data.SqlClient.SortOrder:__CastFrom(value) end
@@ -85,7 +85,7 @@ function CS.System.Data.SqlClient.SortOrder:__CastFrom(value) end
 ---@source System.Data.dll
 CS.System.Data.SqlClient.SqlAuthenticationMethod = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Data.SqlClient.SqlAuthenticationMethod
 function CS.System.Data.SqlClient.SqlAuthenticationMethod:__CastFrom(value) end
@@ -303,7 +303,7 @@ function CS.System.Data.SqlClient.SqlBulkCopyColumnMappingCollection.RemoveAt(in
 ---@source System.Data.dll
 CS.System.Data.SqlClient.SqlBulkCopyOptions = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Data.SqlClient.SqlBulkCopyOptions
 function CS.System.Data.SqlClient.SqlBulkCopyOptions:__CastFrom(value) end
@@ -722,7 +722,7 @@ function CS.System.Data.SqlClient.SqlCommandBuilder.UnquoteIdentifier(quotedIden
 ---@source System.Data.dll
 CS.System.Data.SqlClient.SqlCommandColumnEncryptionSetting = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Data.SqlClient.SqlCommandColumnEncryptionSetting
 function CS.System.Data.SqlClient.SqlCommandColumnEncryptionSetting:__CastFrom(value) end
@@ -876,7 +876,7 @@ function CS.System.Data.SqlClient.SqlConnection.RetrieveStatistics() end
 ---@source System.Data.dll
 CS.System.Data.SqlClient.SqlConnectionColumnEncryptionSetting = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Data.SqlClient.SqlConnectionColumnEncryptionSetting
 function CS.System.Data.SqlClient.SqlConnectionColumnEncryptionSetting:__CastFrom(value) end
@@ -1580,7 +1580,7 @@ CS.System.Data.SqlClient.SqlNotificationEventArgs = {}
 ---@source System.Data.dll
 CS.System.Data.SqlClient.SqlNotificationInfo = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Data.SqlClient.SqlNotificationInfo
 function CS.System.Data.SqlClient.SqlNotificationInfo:__CastFrom(value) end
@@ -1613,7 +1613,7 @@ function CS.System.Data.SqlClient.SqlNotificationInfo:__CastFrom(value) end
 ---@source System.Data.dll
 CS.System.Data.SqlClient.SqlNotificationSource = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Data.SqlClient.SqlNotificationSource
 function CS.System.Data.SqlClient.SqlNotificationSource:__CastFrom(value) end
@@ -1630,7 +1630,7 @@ function CS.System.Data.SqlClient.SqlNotificationSource:__CastFrom(value) end
 ---@source System.Data.dll
 CS.System.Data.SqlClient.SqlNotificationType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Data.SqlClient.SqlNotificationType
 function CS.System.Data.SqlClient.SqlNotificationType:__CastFrom(value) end

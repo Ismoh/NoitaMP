@@ -15,9 +15,9 @@ cc.TransitionSlideInR=TransitionSlideInR
 ---@param scene cc.Scene
 ---@return self
 function TransitionSlideInR:create (t,scene) end
----*  Returns the action that will be performed by the incoming and outgoing scene. 
+---*  Returns the action that will be performed by the incoming and outgoing scene.
 ---@return cc.ActionInterval
 function TransitionSlideInR:action () end
----* 
+---*
 ---@return self
 function TransitionSlideInR:TransitionSlideInR () end

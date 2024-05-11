@@ -340,7 +340,7 @@ function CS.System.ComponentModel.BindableAttribute.IsDefaultAttribute() end
 ---@source System.dll
 CS.System.ComponentModel.BindableSupport = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.ComponentModel.BindableSupport
 function CS.System.ComponentModel.BindableSupport:__CastFrom(value) end
@@ -355,7 +355,7 @@ function CS.System.ComponentModel.BindableSupport:__CastFrom(value) end
 ---@source System.dll
 CS.System.ComponentModel.BindingDirection = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.ComponentModel.BindingDirection
 function CS.System.ComponentModel.BindingDirection:__CastFrom(value) end
@@ -599,7 +599,7 @@ function CS.System.ComponentModel.CharConverter.ConvertTo(context, culture, valu
 ---@source System.dll
 CS.System.ComponentModel.CollectionChangeAction = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.ComponentModel.CollectionChangeAction
 function CS.System.ComponentModel.CollectionChangeAction:__CastFrom(value) end
@@ -1017,7 +1017,7 @@ function CS.System.ComponentModel.DataObjectMethodAttribute.Match(obj) end
 ---@source System.dll
 CS.System.ComponentModel.DataObjectMethodType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.ComponentModel.DataObjectMethodType
 function CS.System.ComponentModel.DataObjectMethodType:__CastFrom(value) end
@@ -1269,7 +1269,7 @@ function CS.System.ComponentModel.DesignerCategoryAttribute.IsDefaultAttribute()
 ---@source System.dll
 CS.System.ComponentModel.DesignerSerializationVisibility = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.ComponentModel.DesignerSerializationVisibility
 function CS.System.ComponentModel.DesignerSerializationVisibility:__CastFrom(value) end
@@ -1469,7 +1469,7 @@ function CS.System.ComponentModel.EditorBrowsableAttribute.GetHashCode() end
 ---@source System.dll
 CS.System.ComponentModel.EditorBrowsableState = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.ComponentModel.EditorBrowsableState
 function CS.System.ComponentModel.EditorBrowsableState:__CastFrom(value) end
@@ -2184,7 +2184,7 @@ function CS.System.ComponentModel.InheritanceAttribute.ToString() end
 ---@source System.dll
 CS.System.ComponentModel.InheritanceLevel = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.ComponentModel.InheritanceLevel
 function CS.System.ComponentModel.InheritanceLevel:__CastFrom(value) end
@@ -2585,7 +2585,7 @@ function CS.System.ComponentModel.LicenseProviderAttribute.GetHashCode() end
 ---@source System.dll
 CS.System.ComponentModel.LicenseUsageMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.ComponentModel.LicenseUsageMode
 function CS.System.ComponentModel.LicenseUsageMode:__CastFrom(value) end
@@ -2690,7 +2690,7 @@ function CS.System.ComponentModel.ListChangedEventHandler.EndInvoke(result) end
 ---@source System.dll
 CS.System.ComponentModel.ListChangedType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.ComponentModel.ListChangedType
 function CS.System.ComponentModel.ListChangedType:__CastFrom(value) end
@@ -2740,7 +2740,7 @@ function CS.System.ComponentModel.ListSortDescriptionCollection.IndexOf(value) e
 ---@source System.dll
 CS.System.ComponentModel.ListSortDirection = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.ComponentModel.ListSortDirection
 function CS.System.ComponentModel.ListSortDirection:__CastFrom(value) end
@@ -3225,7 +3225,7 @@ function CS.System.ComponentModel.MaskedTextProvider.VerifyString(input, testPos
 ---@source System.dll
 CS.System.ComponentModel.MaskedTextResultHint = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.ComponentModel.MaskedTextResultHint
 function CS.System.ComponentModel.MaskedTextResultHint:__CastFrom(value) end
@@ -3781,7 +3781,7 @@ function CS.System.ComponentModel.PropertyTabAttribute.GetHashCode() end
 ---@source System.dll
 CS.System.ComponentModel.PropertyTabScope = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.ComponentModel.PropertyTabScope
 function CS.System.ComponentModel.PropertyTabScope:__CastFrom(value) end
@@ -3946,7 +3946,7 @@ function CS.System.ComponentModel.RefreshEventHandler.EndInvoke(result) end
 ---@source System.dll
 CS.System.ComponentModel.RefreshProperties = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.ComponentModel.RefreshProperties
 function CS.System.ComponentModel.RefreshProperties:__CastFrom(value) end
@@ -4215,7 +4215,7 @@ function CS.System.ComponentModel.ToolboxItemFilterAttribute.ToString() end
 ---@source System.dll
 CS.System.ComponentModel.ToolboxItemFilterType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.ComponentModel.ToolboxItemFilterType
 function CS.System.ComponentModel.ToolboxItemFilterType:__CastFrom(value) end

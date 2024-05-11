@@ -7,7 +7,7 @@ ccui.VBox=VBox
 
 
 
----* 
+---*
 ---@param size size_table
 ---@return boolean
 function VBox:initWithSize (size) end
@@ -16,7 +16,7 @@ function VBox:initWithSize (size) end
 ---@param size size_table
 ---@return self
 function VBox:create (size) end
----* 
+---*
 ---@return boolean
 function VBox:init () end
 ---* Default constructor<br>

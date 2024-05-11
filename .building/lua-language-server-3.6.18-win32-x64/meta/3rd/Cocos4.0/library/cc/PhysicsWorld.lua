@@ -1,6 +1,6 @@
 ---@meta
 
----@class cc.PhysicsWorld 
+---@class cc.PhysicsWorld
 local PhysicsWorld={ }
 cc.PhysicsWorld=PhysicsWorld
 
@@ -13,7 +13,7 @@ cc.PhysicsWorld=PhysicsWorld
 ---@return self
 function PhysicsWorld:setGravity (gravity) end
 ---* Get all the bodies that in this physics world.<br>
----* return A Vector<PhysicsBody*>& object contains all bodies in this physics world. 
+---* return A Vector<PhysicsBody*>& object contains all bodies in this physics world.
 ---@return array_table
 function PhysicsWorld:getAllBodies () end
 ---* set the number of update of the physics world in a second.<br>
@@ -110,7 +110,7 @@ function PhysicsWorld:getGravity () end
 ---@param rate int
 ---@return self
 function PhysicsWorld:setUpdateRate (rate) end
----*  get the number of substeps 
+---*  get the number of substeps
 ---@return int
 function PhysicsWorld:getFixedUpdateRate () end
 ---* Get the number of substeps of this physics world.<br>

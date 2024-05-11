@@ -56,6 +56,6 @@ function Physics3D6DofConstraint:setAngularUpperLimit (angularUpper) end
 ---@param useLinearReferenceFrameA boolean
 ---@return self
 function Physics3D6DofConstraint:create (rbA,rbB,frameInA,frameInB,useLinearReferenceFrameA) end
----* 
+---*
 ---@return self
 function Physics3D6DofConstraint:Physics3D6DofConstraint () end

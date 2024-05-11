@@ -23,10 +23,10 @@ function CheckBox:addEventListener (callback) end
 ---@param texType int
 ---@return self
 function CheckBox:create (backGround,backGroundSelected,cross,backGroundDisabled,frontCrossDisabled,texType) end
----* 
+---*
 ---@return cc.Ref
 function CheckBox:createInstance () end
----* 
+---*
 ---@return string
 function CheckBox:getDescription () end
 ---* Default constructor.<br>

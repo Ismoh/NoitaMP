@@ -23,17 +23,17 @@ function SplitCols:initWithDuration (duration,cols) end
 ---@param cols unsigned_int
 ---@return self
 function SplitCols:create (duration,cols) end
----* 
+---*
 ---@param target cc.Node
 ---@return self
 function SplitCols:startWithTarget (target) end
----* 
+---*
 ---@return self
 function SplitCols:clone () end
 ---* param time in seconds
 ---@param time float
 ---@return self
 function SplitCols:update (time) end
----* 
+---*
 ---@return self
 function SplitCols:SplitCols () end

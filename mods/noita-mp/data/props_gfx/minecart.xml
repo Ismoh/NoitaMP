@@ -1,7 +1,7 @@
 <Sprite
  filename="data/props_gfx/minecart.png"
  offset_x="9"
- offset_y="7.5" 
+ offset_y="7.5"
  default_animation="minecart">
 
  <!-- stand -->

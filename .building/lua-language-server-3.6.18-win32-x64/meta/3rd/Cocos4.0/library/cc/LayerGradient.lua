@@ -78,12 +78,12 @@ function LayerGradient:setStartColor (startColor) end
 ---@param v vec2_table
 ---@return self
 function LayerGradient:create (start,_end,v) end
----* 
+---*
 ---@return boolean
 function LayerGradient:init () end
----* 
+---*
 ---@return string
 function LayerGradient:getDescription () end
----* 
+---*
 ---@return self
 function LayerGradient:LayerGradient () end

@@ -28,7 +28,7 @@
 ---@source UnityEngine.UNETModule.dll
 CS.UnityEngine.Networking.Types.NetworkAccessLevel = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Networking.Types.NetworkAccessLevel
 function CS.UnityEngine.Networking.Types.NetworkAccessLevel:__CastFrom(value) end
@@ -47,7 +47,7 @@ function CS.UnityEngine.Networking.Types.NetworkAccessLevel:__CastFrom(value) en
 ---@source UnityEngine.UNETModule.dll
 CS.UnityEngine.Networking.Types.AppID = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Networking.Types.AppID
 function CS.UnityEngine.Networking.Types.AppID:__CastFrom(value) end
@@ -66,7 +66,7 @@ function CS.UnityEngine.Networking.Types.AppID:__CastFrom(value) end
 ---@source UnityEngine.UNETModule.dll
 CS.UnityEngine.Networking.Types.SourceID = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Networking.Types.SourceID
 function CS.UnityEngine.Networking.Types.SourceID:__CastFrom(value) end
@@ -85,7 +85,7 @@ function CS.UnityEngine.Networking.Types.SourceID:__CastFrom(value) end
 ---@source UnityEngine.UNETModule.dll
 CS.UnityEngine.Networking.Types.NetworkID = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Networking.Types.NetworkID
 function CS.UnityEngine.Networking.Types.NetworkID:__CastFrom(value) end
@@ -104,7 +104,7 @@ function CS.UnityEngine.Networking.Types.NetworkID:__CastFrom(value) end
 ---@source UnityEngine.UNETModule.dll
 CS.UnityEngine.Networking.Types.NodeID = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Networking.Types.NodeID
 function CS.UnityEngine.Networking.Types.NodeID:__CastFrom(value) end
@@ -123,7 +123,7 @@ function CS.UnityEngine.Networking.Types.NodeID:__CastFrom(value) end
 ---@source UnityEngine.UNETModule.dll
 CS.UnityEngine.Networking.Types.HostPriority = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Networking.Types.HostPriority
 function CS.UnityEngine.Networking.Types.HostPriority:__CastFrom(value) end

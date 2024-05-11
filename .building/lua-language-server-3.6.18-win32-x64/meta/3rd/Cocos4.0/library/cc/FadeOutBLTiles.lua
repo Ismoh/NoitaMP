@@ -15,14 +15,14 @@ cc.FadeOutBLTiles=FadeOutBLTiles
 ---@param gridSize size_table
 ---@return self
 function FadeOutBLTiles:create (duration,gridSize) end
----* 
+---*
 ---@return self
 function FadeOutBLTiles:clone () end
----* 
+---*
 ---@param pos size_table
 ---@param time float
 ---@return float
 function FadeOutBLTiles:testFunc (pos,time) end
----* 
+---*
 ---@return self
 function FadeOutBLTiles:FadeOutBLTiles () end

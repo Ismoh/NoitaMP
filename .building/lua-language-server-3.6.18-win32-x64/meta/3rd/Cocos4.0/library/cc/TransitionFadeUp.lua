@@ -15,10 +15,10 @@ cc.TransitionFadeUp=TransitionFadeUp
 ---@param scene cc.Scene
 ---@return self
 function TransitionFadeUp:create (t,scene) end
----* 
+---*
 ---@param size size_table
 ---@return cc.ActionInterval
 function TransitionFadeUp:actionWithSize (size) end
----* 
+---*
 ---@return self
 function TransitionFadeUp:TransitionFadeUp () end

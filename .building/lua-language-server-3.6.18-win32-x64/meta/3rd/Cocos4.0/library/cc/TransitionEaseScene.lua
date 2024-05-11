@@ -1,6 +1,6 @@
 ---@meta
 
----@class cc.TransitionEaseScene 
+---@class cc.TransitionEaseScene
 local TransitionEaseScene={ }
 cc.TransitionEaseScene=TransitionEaseScene
 

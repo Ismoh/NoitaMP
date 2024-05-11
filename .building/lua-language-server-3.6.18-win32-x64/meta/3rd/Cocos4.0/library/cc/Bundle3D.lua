@@ -1,6 +1,6 @@
 ---@meta
 
----@class cc.Bundle3D 
+---@class cc.Bundle3D
 local Bundle3D={ }
 cc.Bundle3D=Bundle3D
 
@@ -19,14 +19,14 @@ function Bundle3D:load (path) end
 ---@param skindata cc.SkinData
 ---@return boolean
 function Bundle3D:loadSkinData (id,skindata) end
----* 
+---*
 ---@return self
 function Bundle3D:clear () end
----* 
+---*
 ---@param materialdatas cc.MaterialDatas
 ---@return boolean
 function Bundle3D:loadMaterials (materialdatas) end
----* 
+---*
 ---@param nodedatas cc.NodeDatas
 ---@return boolean
 function Bundle3D:loadNodes (nodedatas) end
@@ -41,7 +41,7 @@ function Bundle3D:loadAnimationData (id,animationdata) end
 ---@param str string
 ---@return int
 function Bundle3D:parseSamplerAddressMode (str) end
----* 
+---*
 ---@param bundle cc.Bundle3D
 ---@return self
 function Bundle3D:destroyBundle (bundle) end
@@ -54,6 +54,6 @@ function Bundle3D:createBundle () end
 ---@param size int
 ---@return int
 function Bundle3D:parseGLDataType (str,size) end
----* 
+---*
 ---@return self
 function Bundle3D:Bundle3D () end

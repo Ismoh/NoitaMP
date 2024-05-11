@@ -1,6 +1,6 @@
 ---@meta
 
----@class ccb.VertexLayout 
+---@class ccb.VertexLayout
 local VertexLayout={ }
 ccb.VertexLayout=VertexLayout
 
@@ -37,6 +37,6 @@ function VertexLayout:setAttribute (name,index,format,offset,needToBeNormallized
 ---* return The distance between the data of two vertices, in bytes.
 ---@return unsigned_int
 function VertexLayout:getStride () end
----* 
+---*
 ---@return cc.backend.VertexLayout
 function VertexLayout:VertexLayout () end

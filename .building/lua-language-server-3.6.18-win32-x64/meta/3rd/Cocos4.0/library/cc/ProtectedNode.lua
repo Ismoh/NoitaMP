@@ -15,7 +15,7 @@ cc.ProtectedNode=ProtectedNode
 ---@param tag int
 ---@return self
 function ProtectedNode:addProtectedChild (child,localZOrder,tag) end
----* 
+---*
 ---@return self
 function ProtectedNode:disableCascadeColor () end
 ---* Removes a child from the container by tag value. It will also cleanup all running actions depending on the cleanup parameter.<br>
@@ -39,7 +39,7 @@ function ProtectedNode:reorderProtectedChild (child,localZOrder) end
 ---@param cleanup boolean
 ---@return self
 function ProtectedNode:removeAllProtectedChildrenWithCleanup (cleanup) end
----* 
+---*
 ---@return self
 function ProtectedNode:disableCascadeOpacity () end
 ---* Sorts the children array once before drawing, instead of every time when a child is added or reordered.<br>
@@ -68,12 +68,12 @@ function ProtectedNode:removeAllProtectedChildren () end
 ---* return A instance of ProtectedNode.
 ---@return self
 function ProtectedNode:create () end
----* 
+---*
 ---@param mask unsigned short
 ---@param applyChildren boolean
 ---@return self
 function ProtectedNode:setCameraMask (mask,applyChildren) end
----* 
+---*
 ---@param globalZOrder float
 ---@return self
 function ProtectedNode:setGlobalZOrder (globalZOrder) end
@@ -83,17 +83,17 @@ function ProtectedNode:setGlobalZOrder (globalZOrder) end
 ---@param parentFlags unsigned_int
 ---@return self
 function ProtectedNode:visit (renderer,parentTransform,parentFlags) end
----* 
+---*
 ---@param parentOpacity unsigned_char
 ---@return self
 function ProtectedNode:updateDisplayedOpacity (parentOpacity) end
----* 
+---*
 ---@param parentColor color3b_table
 ---@return self
 function ProtectedNode:updateDisplayedColor (parentColor) end
----* 
+---*
 ---@return self
 function ProtectedNode:cleanup () end
----* 
+---*
 ---@return self
 function ProtectedNode:ProtectedNode () end

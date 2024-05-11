@@ -14,7 +14,7 @@ function PhysicsJointMotor:setRate (rate) end
 ---*  Get the relative angular velocity.
 ---@return float
 function PhysicsJointMotor:getRate () end
----* 
+---*
 ---@return boolean
 function PhysicsJointMotor:createConstraints () end
 ---*  Create a motor joint.<br>

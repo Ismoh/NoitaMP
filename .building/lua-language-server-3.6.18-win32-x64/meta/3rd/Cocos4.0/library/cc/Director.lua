@@ -1,6 +1,6 @@
 ---@meta
 
----@class cc.Director 
+---@class cc.Director
 local Director={ }
 cc.Director=Director
 
@@ -25,14 +25,14 @@ function Director:setEventDispatcher (dispatcher) end
 ---@param scaleFactor float
 ---@return self
 function Director:setContentScaleFactor (scaleFactor) end
----* 
+---*
 ---@return float
 function Director:getDeltaTime () end
 ---* Gets content scale factor.<br>
 ---* see Director::setContentScaleFactor()
 ---@return float
 function Director:getContentScaleFactor () end
----*  Returns the size of the OpenGL view in pixels. 
+---*  Returns the size of the OpenGL view in pixels.
 ---@return size_table
 function Director:getWinSizeInPixels () end
 ---* Returns safe area rectangle of the OpenGL view in points.
@@ -67,10 +67,10 @@ function Director:loadMatrix (type,mat) end
 ---* since v0.99.5
 ---@return cc.Node
 function Director:getNotificationNode () end
----*  Returns the size of the OpenGL view in points. 
+---*  Returns the size of the OpenGL view in points.
 ---@return size_table
 function Director:getWinSize () end
----* 
+---*
 ---@return cc.TextureCache
 function Director:getTextureCache () end
 ---*  Whether or not the replaced scene will receive the cleanup message.<br>
@@ -79,7 +79,7 @@ function Director:getTextureCache () end
 ---* since v0.99.0
 ---@return boolean
 function Director:isSendCleanupToScene () end
----*  Returns visible origin coordinate of the OpenGL view in points. 
+---*  Returns visible origin coordinate of the OpenGL view in points.
 ---@return vec2_table
 function Director:getVisibleOrigin () end
 ---@overload fun(float:float):self
@@ -91,7 +91,7 @@ function Director:mainLoop (dt) end
 ---* js NA
 ---@return float
 function Director:getFrameRate () end
----*  Get seconds per frame. 
+---*  Get seconds per frame.
 ---@return float
 function Director:getSecondsPerFrame () end
 ---* Clear all types of matrix stack, and add identity matrix to these matrix stacks.<br>
@@ -108,10 +108,10 @@ function Director:convertToUI (point) end
 ---@param type int
 ---@return self
 function Director:pushMatrix (type) end
----*  Sets the default values based on the Configuration info. 
+---*  Sets the default values based on the Configuration info.
 ---@return self
 function Director:setDefaultValues () end
----* 
+---*
 ---@return boolean
 function Director:init () end
 ---*  Sets the Scheduler associated with this director.<br>
@@ -140,7 +140,7 @@ function Director:getRenderer () end
 ---* lua NA
 ---@return cc.GLView
 function Director:getOpenGLView () end
----*  Gets current running Scene. Director can only run one Scene at a time. 
+---*  Gets current running Scene. Director can only run one Scene at a time.
 ---@return cc.Scene
 function Director:getRunningScene () end
 ---*  Sets the glViewport.
@@ -162,7 +162,7 @@ function Director:popToSceneStackLevel (level) end
 ---* The "delta time" will be 0 (as if the game wasn't paused).
 ---@return self
 function Director:resume () end
----*  Whether or not `_nextDeltaTimeZero` is set to 0. 
+---*  Whether or not `_nextDeltaTimeZero` is set to 0.
 ---@return boolean
 function Director:isNextDeltaTimeZero () end
 ---*  Sets clear values for the color buffers,<br>
@@ -190,7 +190,7 @@ function Director:convertToGL (point) end
 ---* since v0.99.3
 ---@return self
 function Director:purgeCachedData () end
----*  How many frames were called since the director started 
+---*  How many frames were called since the director started
 ---@return unsigned_int
 function Director:getTotalFrames () end
 ---* Enters the Director's main loop with the given Scene.<br>
@@ -210,7 +210,7 @@ function Director:setNotificationNode (node) end
 ---* This method is called every frame. Don't call it manually.
 ---@return self
 function Director:drawScene () end
----* 
+---*
 ---@return self
 function Director:restart () end
 ---* Pops out a scene from the stack.<br>
@@ -224,10 +224,10 @@ function Director:popScene () end
 ---@param type int
 ---@return self
 function Director:loadIdentityMatrix (type) end
----*  Whether or not displaying the FPS on the bottom-left corner of the screen. 
+---*  Whether or not displaying the FPS on the bottom-left corner of the screen.
 ---@return boolean
 function Director:isDisplayStats () end
----*  Sets OpenGL projection. 
+---*  Sets OpenGL projection.
 ---@param projection int
 ---@return self
 function Director:setProjection (projection) end
@@ -274,13 +274,13 @@ function Director:getScheduler () end
 ---@param scene cc.Scene
 ---@return self
 function Director:pushScene (scene) end
----*  Gets the FPS value. 
+---*  Gets the FPS value.
 ---@return float
 function Director:getAnimationInterval () end
----*  Whether or not the Director is paused. 
+---*  Whether or not the Director is paused.
 ---@return boolean
 function Director:isPaused () end
----*  Display the FPS on the bottom-left corner of the screen. 
+---*  Display the FPS on the bottom-left corner of the screen.
 ---@param displayStats boolean
 ---@return self
 function Director:setDisplayStats (displayStats) end
@@ -295,7 +295,7 @@ function Director:getEventDispatcher () end
 ---@param scene cc.Scene
 ---@return self
 function Director:replaceScene (scene) end
----*  Sets the FPS value. FPS = 1/interval. 
+---*  Sets the FPS value. FPS = 1/interval.
 ---@param interval float
 ---@return self
 function Director:setAnimationInterval (interval) end

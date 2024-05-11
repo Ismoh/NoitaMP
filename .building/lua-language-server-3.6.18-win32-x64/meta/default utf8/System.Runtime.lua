@@ -17,7 +17,7 @@ CS.System.Runtime.AssemblyTargetedPatchBandAttribute = {}
 ---@source mscorlib.dll
 CS.System.Runtime.GCLargeObjectHeapCompactionMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.GCLargeObjectHeapCompactionMode
 function CS.System.Runtime.GCLargeObjectHeapCompactionMode:__CastFrom(value) end
@@ -38,7 +38,7 @@ function CS.System.Runtime.GCLargeObjectHeapCompactionMode:__CastFrom(value) end
 ---@source mscorlib.dll
 CS.System.Runtime.GCLatencyMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.GCLatencyMode
 function CS.System.Runtime.GCLatencyMode:__CastFrom(value) end

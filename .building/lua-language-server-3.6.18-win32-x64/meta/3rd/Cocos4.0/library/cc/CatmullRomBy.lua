@@ -14,9 +14,9 @@ cc.CatmullRomBy=CatmullRomBy
 ---@param points point_table
 ---@return boolean
 function CatmullRomBy:initWithDuration (dt,points) end
----* 
+---*
 ---@return self
 function CatmullRomBy:clone () end
----* 
+---*
 ---@return self
 function CatmullRomBy:reverse () end

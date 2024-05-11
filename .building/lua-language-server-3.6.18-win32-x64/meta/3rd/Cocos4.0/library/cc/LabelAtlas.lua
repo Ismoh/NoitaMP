@@ -7,7 +7,7 @@ cc.LabelAtlas=LabelAtlas
 
 
 
----* 
+---*
 ---@param label string
 ---@return self
 function LabelAtlas:setString (label) end
@@ -21,7 +21,7 @@ function LabelAtlas:setString (label) end
 ---@param startCharMap int
 ---@return boolean
 function LabelAtlas:initWithString (string,texture,itemWidth,itemHeight,startCharMap) end
----* 
+---*
 ---@return string
 function LabelAtlas:getString () end
 ---@overload fun(string:string,string:string,int:int,int:int,int:int):self
@@ -34,12 +34,12 @@ function LabelAtlas:getString () end
 ---@param startCharMap int
 ---@return self
 function LabelAtlas:create (string,charMapFile,itemWidth,itemHeight,startCharMap) end
----* 
+---*
 ---@return self
 function LabelAtlas:updateAtlasValues () end
 ---* js NA
 ---@return string
 function LabelAtlas:getDescription () end
----* 
+---*
 ---@return self
 function LabelAtlas:LabelAtlas () end

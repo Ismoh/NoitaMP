@@ -264,7 +264,7 @@ CS.System.Resources.SatelliteContractVersionAttribute = {}
 ---@source mscorlib.dll
 CS.System.Resources.UltimateResourceFallbackLocation = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Resources.UltimateResourceFallbackLocation
 function CS.System.Resources.UltimateResourceFallbackLocation:__CastFrom(value) end

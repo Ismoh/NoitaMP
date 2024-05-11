@@ -17,16 +17,16 @@ function FadeIn:setReverseAction (ac) end
 ---@param d float
 ---@return self
 function FadeIn:create (d) end
----* 
+---*
 ---@param target cc.Node
 ---@return self
 function FadeIn:startWithTarget (target) end
----* 
+---*
 ---@return self
 function FadeIn:clone () end
----* 
+---*
 ---@return cc.FadeTo
 function FadeIn:reverse () end
----* 
+---*
 ---@return self
 function FadeIn:FadeIn () end

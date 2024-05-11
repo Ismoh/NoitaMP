@@ -23,7 +23,7 @@
 ---@source UnityEngine.AIModule.dll
 CS.UnityEngine.AI.NavMeshPathStatus = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.AI.NavMeshPathStatus
 function CS.UnityEngine.AI.NavMeshPathStatus:__CastFrom(value) end
@@ -52,7 +52,7 @@ CS.UnityEngine.AI.NavMeshPath = {}
 --
 --```plaintext
 --Params: results - Array to store path corners.
---        
+--
 --```
 --
 ---@source UnityEngine.AIModule.dll
@@ -153,7 +153,7 @@ function CS.UnityEngine.AI.NavMeshBuilder:Cancel(data) end
 ---@source UnityEngine.AIModule.dll
 CS.UnityEngine.AI.ObstacleAvoidanceType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.AI.ObstacleAvoidanceType
 function CS.UnityEngine.AI.ObstacleAvoidanceType:__CastFrom(value) end
@@ -349,7 +349,7 @@ CS.UnityEngine.AI.NavMeshAgent = {}
 --
 --```plaintext
 --Params: target - The target point to navigate to.
---        
+--
 --```
 --
 ---@source UnityEngine.AIModule.dll
@@ -362,7 +362,7 @@ function CS.UnityEngine.AI.NavMeshAgent.SetDestination(target) end
 --
 --```plaintext
 --Params: activated - Is the link activated?
---        
+--
 --```
 --
 ---@source UnityEngine.AIModule.dll
@@ -380,7 +380,7 @@ function CS.UnityEngine.AI.NavMeshAgent.CompleteOffMeshLink() end
 --
 --```plaintext
 --Params: newPosition - New position to warp the agent to.
---        
+--
 --```
 --
 ---@source UnityEngine.AIModule.dll
@@ -393,7 +393,7 @@ function CS.UnityEngine.AI.NavMeshAgent.Warp(newPosition) end
 --
 --```plaintext
 --Params: offset - The relative movement vector.
---        
+--
 --```
 --
 ---@source UnityEngine.AIModule.dll
@@ -427,7 +427,7 @@ function CS.UnityEngine.AI.NavMeshAgent.ResetPath() end
 --
 --```plaintext
 --Params: path - New path to follow.
---        
+--
 --```
 --
 ---@source UnityEngine.AIModule.dll
@@ -452,7 +452,7 @@ function CS.UnityEngine.AI.NavMeshAgent.Raycast(targetPosition, hit) end
 --```plaintext
 --Params: targetPosition - The final position of the path requested.
 --        path - The resulting path.
---        
+--
 --```
 --
 ---@source UnityEngine.AIModule.dll
@@ -474,7 +474,7 @@ function CS.UnityEngine.AI.NavMeshAgent.SamplePathPosition(areaMask, maxDistance
 --```plaintext
 --Params: layer - Layer index.
 --        cost - New cost for the specified layer.
---        
+--
 --```
 --
 ---@source UnityEngine.AIModule.dll
@@ -487,7 +487,7 @@ function CS.UnityEngine.AI.NavMeshAgent.SetLayerCost(layer, cost) end
 --
 --```plaintext
 --Params: layer - Layer index.
---        
+--
 --```
 --
 ---@source UnityEngine.AIModule.dll
@@ -501,7 +501,7 @@ function CS.UnityEngine.AI.NavMeshAgent.GetLayerCost(layer) end
 --```plaintext
 --Params: areaIndex - Area cost.
 --        areaCost - New cost for the specified area index.
---        
+--
 --```
 --
 ---@source UnityEngine.AIModule.dll
@@ -514,7 +514,7 @@ function CS.UnityEngine.AI.NavMeshAgent.SetAreaCost(areaIndex, areaCost) end
 --
 --```plaintext
 --Params: areaIndex - Area Index.
---        
+--
 --```
 --
 ---@source UnityEngine.AIModule.dll
@@ -541,7 +541,7 @@ function CS.UnityEngine.AI.NavMeshAgent.GetAreaCost(areaIndex) end
 ---@source UnityEngine.AIModule.dll
 CS.UnityEngine.AI.NavMeshObstacleShape = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.AI.NavMeshObstacleShape
 function CS.UnityEngine.AI.NavMeshObstacleShape:__CastFrom(value) end
@@ -629,7 +629,7 @@ CS.UnityEngine.AI.NavMeshObstacle = {}
 ---@source UnityEngine.AIModule.dll
 CS.UnityEngine.AI.OffMeshLinkType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.AI.OffMeshLinkType
 function CS.UnityEngine.AI.OffMeshLinkType:__CastFrom(value) end
@@ -938,7 +938,7 @@ CS.UnityEngine.AI.NavMeshQueryFilter = {}
 --
 --```plaintext
 --Params: areaIndex - Index to retreive the cost for.
---        
+--
 --```
 --
 ---@source UnityEngine.AIModule.dll
@@ -952,7 +952,7 @@ function CS.UnityEngine.AI.NavMeshQueryFilter.GetAreaCost(areaIndex) end
 --```plaintext
 --Params: areaIndex - The area index to set the cost for.
 --        cost - The cost for the supplied area index.
---        
+--
 --```
 --
 ---@source UnityEngine.AIModule.dll
@@ -1005,7 +1005,7 @@ function CS.UnityEngine.AI.NavMesh:Raycast(sourcePosition, targetPosition, hit, 
 --        targetPosition - The final position of the path requested.
 --        areaMask - A bitfield mask specifying which NavMesh areas can be passed when calculating a path.
 --        path - The resulting path.
---        
+--
 --```
 --
 ---@source UnityEngine.AIModule.dll
@@ -1061,7 +1061,7 @@ function CS.UnityEngine.AI.NavMesh:GetNavMeshLayerFromName(layerName) end
 --```plaintext
 --Params: areaIndex - Index of the area to set.
 --        cost - New cost.
---        
+--
 --```
 --
 ---@source UnityEngine.AIModule.dll
@@ -1074,7 +1074,7 @@ function CS.UnityEngine.AI.NavMesh:SetAreaCost(areaIndex, cost) end
 --
 --```plaintext
 --Params: areaIndex - Index of the area to get.
---        
+--
 --```
 --
 ---@source UnityEngine.AIModule.dll
@@ -1087,7 +1087,7 @@ function CS.UnityEngine.AI.NavMesh:GetAreaCost(areaIndex) end
 --
 --```plaintext
 --Params: areaName - Name of the area to look up.
---        
+--
 --```
 --
 ---@source UnityEngine.AIModule.dll
@@ -1118,7 +1118,7 @@ function CS.UnityEngine.AI.NavMesh:RestoreNavMesh() end
 --
 --```plaintext
 --Params: navMeshData - Contains the data for the navmesh.
---        
+--
 --```
 --
 ---@source UnityEngine.AIModule.dll
@@ -1133,7 +1133,7 @@ function CS.UnityEngine.AI.NavMesh:AddNavMeshData(navMeshData) end
 --Params: navMeshData - Contains the data for the navmesh.
 --        position - Translate the navmesh to this position.
 --        rotation - Rotate the navmesh to this orientation.
---        
+--
 --```
 --
 ---@source UnityEngine.AIModule.dll
@@ -1148,7 +1148,7 @@ function CS.UnityEngine.AI.NavMesh:AddNavMeshData(navMeshData, position, rotatio
 --
 --```plaintext
 --Params: handle - The instance of a NavMesh to remove.
---        
+--
 --```
 --
 ---@source UnityEngine.AIModule.dll
@@ -1160,7 +1160,7 @@ function CS.UnityEngine.AI.NavMesh:RemoveNavMeshData(handle) end
 --
 --```plaintext
 --Params: link - Describing the properties of the link.
---        
+--
 --```
 --
 ---@source UnityEngine.AIModule.dll
@@ -1175,7 +1175,7 @@ function CS.UnityEngine.AI.NavMesh:AddLink(link) end
 --Params: link - Describing the properties of the link.
 --        position - Translate the link to this position.
 --        rotation - Rotate the link to this orientation.
---        
+--
 --```
 --
 ---@source UnityEngine.AIModule.dll
@@ -1190,7 +1190,7 @@ function CS.UnityEngine.AI.NavMesh:AddLink(link, position, rotation) end
 --
 --```plaintext
 --Params: handle - The instance of a link to remove.
---        
+--
 --```
 --
 ---@source UnityEngine.AIModule.dll
@@ -1228,7 +1228,7 @@ function CS.UnityEngine.AI.NavMesh:Raycast(sourcePosition, targetPosition, hit, 
 --        targetPosition - The final position of the path requested.
 --        filter - A filter specifying the cost of NavMesh areas that can be passed when calculating a path.
 --        path - The resulting path.
---        
+--
 --```
 --
 ---@source UnityEngine.AIModule.dll
@@ -1251,7 +1251,7 @@ function CS.UnityEngine.AI.NavMesh:CreateSettings() end
 --
 --```plaintext
 --Params: agentTypeID - The ID of the entry to remove.
---        
+--
 --```
 --
 ---@source UnityEngine.AIModule.dll
@@ -1263,7 +1263,7 @@ function CS.UnityEngine.AI.NavMesh:RemoveSettings(agentTypeID) end
 --
 --```plaintext
 --Params: agentTypeID - The ID to look for.
---        
+--
 --```
 --
 ---@source UnityEngine.AIModule.dll
@@ -1283,7 +1283,7 @@ function CS.UnityEngine.AI.NavMesh:GetSettingsCount() end
 --
 --```plaintext
 --Params: index - The index to retrieve from.
---        
+--
 --```
 --
 ---@source UnityEngine.AIModule.dll
@@ -1296,7 +1296,7 @@ function CS.UnityEngine.AI.NavMesh:GetSettingsByIndex(index) end
 --
 --```plaintext
 --Params: agentTypeID - The ID to look for.
---        
+--
 --```
 --
 ---@source UnityEngine.AIModule.dll
@@ -1386,7 +1386,7 @@ function CS.UnityEngine.AI.OnNavMeshPreUpdate.EndInvoke(result) end
 ---@source UnityEngine.AIModule.dll
 CS.UnityEngine.AI.NavMeshBuildDebugFlags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.AI.NavMeshBuildDebugFlags
 function CS.UnityEngine.AI.NavMeshBuildDebugFlags:__CastFrom(value) end
@@ -1430,7 +1430,7 @@ function CS.UnityEngine.AI.NavMeshBuildDebugFlags:__CastFrom(value) end
 ---@source UnityEngine.AIModule.dll
 CS.UnityEngine.AI.NavMeshBuildSourceShape = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.AI.NavMeshBuildSourceShape
 function CS.UnityEngine.AI.NavMeshBuildSourceShape:__CastFrom(value) end
@@ -1454,7 +1454,7 @@ function CS.UnityEngine.AI.NavMeshBuildSourceShape:__CastFrom(value) end
 ---@source UnityEngine.AIModule.dll
 CS.UnityEngine.AI.NavMeshCollectGeometry = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.AI.NavMeshCollectGeometry
 function CS.UnityEngine.AI.NavMeshCollectGeometry:__CastFrom(value) end
@@ -1603,7 +1603,7 @@ CS.UnityEngine.AI.NavMeshBuildSettings = {}
 --
 --```plaintext
 --Params: buildBounds - Describes the volume to build NavMesh for.
---        
+--
 --```
 --
 ---@source UnityEngine.AIModule.dll

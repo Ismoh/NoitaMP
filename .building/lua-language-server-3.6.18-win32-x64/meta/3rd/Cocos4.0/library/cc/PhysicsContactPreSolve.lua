@@ -1,6 +1,6 @@
 ---@meta
 
----@class cc.PhysicsContactPreSolve 
+---@class cc.PhysicsContactPreSolve
 local PhysicsContactPreSolve={ }
 cc.PhysicsContactPreSolve=PhysicsContactPreSolve
 
@@ -17,7 +17,7 @@ function PhysicsContactPreSolve:getRestitution () end
 ---@param friction float
 ---@return self
 function PhysicsContactPreSolve:setFriction (friction) end
----*  Ignore the rest of the contact presolve and postsolve callbacks. 
+---*  Ignore the rest of the contact presolve and postsolve callbacks.
 ---@return self
 function PhysicsContactPreSolve:ignore () end
 ---*  Get surface velocity between two bodies.

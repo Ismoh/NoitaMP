@@ -505,7 +505,7 @@ CS.System.Xml.Schema.XmlSchemaContentModel = {}
 ---@source System.Xml.dll
 CS.System.Xml.Schema.XmlSchemaContentProcessing = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Xml.Schema.XmlSchemaContentProcessing
 function CS.System.Xml.Schema.XmlSchemaContentProcessing:__CastFrom(value) end
@@ -524,7 +524,7 @@ function CS.System.Xml.Schema.XmlSchemaContentProcessing:__CastFrom(value) end
 ---@source System.Xml.dll
 CS.System.Xml.Schema.XmlSchemaContentType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Xml.Schema.XmlSchemaContentType
 function CS.System.Xml.Schema.XmlSchemaContentType:__CastFrom(value) end
@@ -580,7 +580,7 @@ function CS.System.Xml.Schema.XmlSchemaDatatype.ParseValue(s, nameTable, nsmgr) 
 ---@source System.Xml.dll
 CS.System.Xml.Schema.XmlSchemaDatatypeVariety = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Xml.Schema.XmlSchemaDatatypeVariety
 function CS.System.Xml.Schema.XmlSchemaDatatypeVariety:__CastFrom(value) end
@@ -607,7 +607,7 @@ function CS.System.Xml.Schema.XmlSchemaDatatypeVariety:__CastFrom(value) end
 ---@source System.Xml.dll
 CS.System.Xml.Schema.XmlSchemaDerivationMethod = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Xml.Schema.XmlSchemaDerivationMethod
 function CS.System.Xml.Schema.XmlSchemaDerivationMethod:__CastFrom(value) end
@@ -729,7 +729,7 @@ CS.System.Xml.Schema.XmlSchemaFacet = {}
 ---@source System.Xml.dll
 CS.System.Xml.Schema.XmlSchemaForm = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Xml.Schema.XmlSchemaForm
 function CS.System.Xml.Schema.XmlSchemaForm:__CastFrom(value) end
@@ -833,7 +833,7 @@ function CS.System.Xml.Schema.XmlSchemaInference.InferSchema(instanceDocument, s
 ---@source System.Xml.dll
 CS.System.Xml.Schema.InferenceOption = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Xml.Schema.XmlSchemaInference.InferenceOption
 function CS.System.Xml.Schema.InferenceOption:__CastFrom(value) end
@@ -1342,7 +1342,7 @@ CS.System.Xml.Schema.XmlSchemaUnique = {}
 ---@source System.Xml.dll
 CS.System.Xml.Schema.XmlSchemaUse = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Xml.Schema.XmlSchemaUse
 function CS.System.Xml.Schema.XmlSchemaUse:__CastFrom(value) end
@@ -1378,7 +1378,7 @@ function CS.System.Xml.Schema.XmlSchemaValidationException.GetObjectData(info, c
 ---@source System.Xml.dll
 CS.System.Xml.Schema.XmlSchemaValidationFlags = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Xml.Schema.XmlSchemaValidationFlags
 function CS.System.Xml.Schema.XmlSchemaValidationFlags:__CastFrom(value) end
@@ -1510,7 +1510,7 @@ function CS.System.Xml.Schema.XmlSchemaValidator.ValidateWhitespace(elementValue
 ---@source System.Xml.dll
 CS.System.Xml.Schema.XmlSchemaValidity = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Xml.Schema.XmlSchemaValidity
 function CS.System.Xml.Schema.XmlSchemaValidity:__CastFrom(value) end
@@ -1539,7 +1539,7 @@ CS.System.Xml.Schema.XmlSchemaXPath = {}
 ---@source System.Xml.dll
 CS.System.Xml.Schema.XmlSeverityType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Xml.Schema.XmlSeverityType
 function CS.System.Xml.Schema.XmlSeverityType:__CastFrom(value) end
@@ -1660,7 +1660,7 @@ function CS.System.Xml.Schema.XmlSeverityType:__CastFrom(value) end
 ---@source System.Xml.dll
 CS.System.Xml.Schema.XmlTypeCode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Xml.Schema.XmlTypeCode
 function CS.System.Xml.Schema.XmlTypeCode:__CastFrom(value) end

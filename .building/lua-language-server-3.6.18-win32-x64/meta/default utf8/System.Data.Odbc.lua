@@ -925,7 +925,7 @@ function CS.System.Data.Odbc.OdbcTransaction.Rollback() end
 ---@source System.Data.dll
 CS.System.Data.Odbc.OdbcType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Data.Odbc.OdbcType
 function CS.System.Data.Odbc.OdbcType:__CastFrom(value) end

@@ -522,7 +522,7 @@ function CS.System.Runtime.Remoting.Channels.ServerChannelSinkStack.StoreAndDisp
 ---@source mscorlib.dll
 CS.System.Runtime.Remoting.Channels.ServerProcessing = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.Remoting.Channels.ServerProcessing
 function CS.System.Runtime.Remoting.Channels.ServerProcessing:__CastFrom(value) end

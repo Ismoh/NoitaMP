@@ -137,7 +137,7 @@ CS.System.Net.Mime.Text = {}
 ---@source System.dll
 CS.System.Net.Mime.TransferEncoding = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.Mime.TransferEncoding
 function CS.System.Net.Mime.TransferEncoding:__CastFrom(value) end

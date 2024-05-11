@@ -28,7 +28,7 @@
 ---@source UnityEngine.VFXModule.dll
 CS.UnityEngine.VFX.VFXCameraBufferTypes = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.VFX.VFXCameraBufferTypes
 function CS.UnityEngine.VFX.VFXCameraBufferTypes:__CastFrom(value) end
@@ -51,7 +51,7 @@ function CS.UnityEngine.VFX.VFXEventAttribute.Dispose() end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -65,7 +65,7 @@ function CS.UnityEngine.VFX.VFXEventAttribute.HasBool(nameID) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -79,7 +79,7 @@ function CS.UnityEngine.VFX.VFXEventAttribute.HasInt(nameID) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -93,7 +93,7 @@ function CS.UnityEngine.VFX.VFXEventAttribute.HasUint(nameID) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -107,7 +107,7 @@ function CS.UnityEngine.VFX.VFXEventAttribute.HasFloat(nameID) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -121,7 +121,7 @@ function CS.UnityEngine.VFX.VFXEventAttribute.HasVector2(nameID) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -135,7 +135,7 @@ function CS.UnityEngine.VFX.VFXEventAttribute.HasVector3(nameID) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -149,7 +149,7 @@ function CS.UnityEngine.VFX.VFXEventAttribute.HasVector4(nameID) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -164,7 +164,7 @@ function CS.UnityEngine.VFX.VFXEventAttribute.HasMatrix4x4(nameID) end
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
 --        b - The new bool value.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -179,7 +179,7 @@ function CS.UnityEngine.VFX.VFXEventAttribute.SetBool(nameID, b) end
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
 --        i - The new integer value.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -194,7 +194,7 @@ function CS.UnityEngine.VFX.VFXEventAttribute.SetInt(nameID, i) end
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
 --        i - The new unsigned integer value.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -209,7 +209,7 @@ function CS.UnityEngine.VFX.VFXEventAttribute.SetUint(nameID, i) end
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
 --        f - The new float value.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -224,7 +224,7 @@ function CS.UnityEngine.VFX.VFXEventAttribute.SetFloat(nameID, f) end
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
 --        v - The new Vector2 value.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -239,7 +239,7 @@ function CS.UnityEngine.VFX.VFXEventAttribute.SetVector2(nameID, v) end
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
 --        v - The new Vector3 value.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -254,7 +254,7 @@ function CS.UnityEngine.VFX.VFXEventAttribute.SetVector3(nameID, v) end
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
 --        v - The new Vector4 value.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -269,7 +269,7 @@ function CS.UnityEngine.VFX.VFXEventAttribute.SetVector4(nameID, v) end
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
 --        v - The new Matrix4x4 value.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -283,7 +283,7 @@ function CS.UnityEngine.VFX.VFXEventAttribute.SetMatrix4x4(nameID, v) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -297,7 +297,7 @@ function CS.UnityEngine.VFX.VFXEventAttribute.GetBool(nameID) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -311,7 +311,7 @@ function CS.UnityEngine.VFX.VFXEventAttribute.GetInt(nameID) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -325,7 +325,7 @@ function CS.UnityEngine.VFX.VFXEventAttribute.GetUint(nameID) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -339,7 +339,7 @@ function CS.UnityEngine.VFX.VFXEventAttribute.GetFloat(nameID) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -353,7 +353,7 @@ function CS.UnityEngine.VFX.VFXEventAttribute.GetVector2(nameID) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -367,7 +367,7 @@ function CS.UnityEngine.VFX.VFXEventAttribute.GetVector3(nameID) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -381,7 +381,7 @@ function CS.UnityEngine.VFX.VFXEventAttribute.GetVector4(nameID) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -395,7 +395,7 @@ function CS.UnityEngine.VFX.VFXEventAttribute.GetMatrix4x4(nameID) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -409,7 +409,7 @@ function CS.UnityEngine.VFX.VFXEventAttribute.HasBool(name) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -423,7 +423,7 @@ function CS.UnityEngine.VFX.VFXEventAttribute.HasInt(name) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -437,7 +437,7 @@ function CS.UnityEngine.VFX.VFXEventAttribute.HasUint(name) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -451,7 +451,7 @@ function CS.UnityEngine.VFX.VFXEventAttribute.HasFloat(name) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -465,7 +465,7 @@ function CS.UnityEngine.VFX.VFXEventAttribute.HasVector2(name) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -479,7 +479,7 @@ function CS.UnityEngine.VFX.VFXEventAttribute.HasVector3(name) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -493,7 +493,7 @@ function CS.UnityEngine.VFX.VFXEventAttribute.HasVector4(name) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -508,7 +508,7 @@ function CS.UnityEngine.VFX.VFXEventAttribute.HasMatrix4x4(name) end
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
 --        b - The new bool value.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -523,7 +523,7 @@ function CS.UnityEngine.VFX.VFXEventAttribute.SetBool(name, b) end
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
 --        i - The new integer value.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -538,7 +538,7 @@ function CS.UnityEngine.VFX.VFXEventAttribute.SetInt(name, i) end
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
 --        i - The new unsigned integer value.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -553,7 +553,7 @@ function CS.UnityEngine.VFX.VFXEventAttribute.SetUint(name, i) end
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
 --        f - The new float value.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -568,7 +568,7 @@ function CS.UnityEngine.VFX.VFXEventAttribute.SetFloat(name, f) end
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
 --        v - The new Vector2 value.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -583,7 +583,7 @@ function CS.UnityEngine.VFX.VFXEventAttribute.SetVector2(name, v) end
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
 --        v - The new Vector3 value.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -598,7 +598,7 @@ function CS.UnityEngine.VFX.VFXEventAttribute.SetVector3(name, v) end
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
 --        v - The new Vector4 value.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -613,7 +613,7 @@ function CS.UnityEngine.VFX.VFXEventAttribute.SetVector4(name, v) end
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
 --        v - The new Matrix4x4 value.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -627,7 +627,7 @@ function CS.UnityEngine.VFX.VFXEventAttribute.SetMatrix4x4(name, v) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -641,7 +641,7 @@ function CS.UnityEngine.VFX.VFXEventAttribute.GetBool(name) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -655,7 +655,7 @@ function CS.UnityEngine.VFX.VFXEventAttribute.GetInt(name) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -669,7 +669,7 @@ function CS.UnityEngine.VFX.VFXEventAttribute.GetUint(name) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -683,7 +683,7 @@ function CS.UnityEngine.VFX.VFXEventAttribute.GetFloat(name) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -697,7 +697,7 @@ function CS.UnityEngine.VFX.VFXEventAttribute.GetVector2(name) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -711,7 +711,7 @@ function CS.UnityEngine.VFX.VFXEventAttribute.GetVector3(name) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -725,7 +725,7 @@ function CS.UnityEngine.VFX.VFXEventAttribute.GetVector4(name) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -738,7 +738,7 @@ function CS.UnityEngine.VFX.VFXEventAttribute.GetMatrix4x4(name) end
 --
 --```plaintext
 --Params: eventAttibute - The source event attribute.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -760,7 +760,7 @@ CS.UnityEngine.VFX.VFXExpressionValues = {}
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -774,7 +774,7 @@ function CS.UnityEngine.VFX.VFXExpressionValues.GetBool(nameID) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -788,7 +788,7 @@ function CS.UnityEngine.VFX.VFXExpressionValues.GetInt(nameID) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -802,7 +802,7 @@ function CS.UnityEngine.VFX.VFXExpressionValues.GetUInt(nameID) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -816,7 +816,7 @@ function CS.UnityEngine.VFX.VFXExpressionValues.GetFloat(nameID) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -830,7 +830,7 @@ function CS.UnityEngine.VFX.VFXExpressionValues.GetVector2(nameID) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -844,7 +844,7 @@ function CS.UnityEngine.VFX.VFXExpressionValues.GetVector3(nameID) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -858,7 +858,7 @@ function CS.UnityEngine.VFX.VFXExpressionValues.GetVector4(nameID) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -872,7 +872,7 @@ function CS.UnityEngine.VFX.VFXExpressionValues.GetMatrix4x4(nameID) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -886,7 +886,7 @@ function CS.UnityEngine.VFX.VFXExpressionValues.GetTexture(nameID) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -900,7 +900,7 @@ function CS.UnityEngine.VFX.VFXExpressionValues.GetMesh(nameID) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -914,7 +914,7 @@ function CS.UnityEngine.VFX.VFXExpressionValues.GetAnimationCurve(nameID) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -928,7 +928,7 @@ function CS.UnityEngine.VFX.VFXExpressionValues.GetGradient(nameID) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -942,7 +942,7 @@ function CS.UnityEngine.VFX.VFXExpressionValues.GetBool(name) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -956,7 +956,7 @@ function CS.UnityEngine.VFX.VFXExpressionValues.GetInt(name) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -970,7 +970,7 @@ function CS.UnityEngine.VFX.VFXExpressionValues.GetUInt(name) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -984,7 +984,7 @@ function CS.UnityEngine.VFX.VFXExpressionValues.GetFloat(name) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -998,7 +998,7 @@ function CS.UnityEngine.VFX.VFXExpressionValues.GetVector2(name) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -1012,7 +1012,7 @@ function CS.UnityEngine.VFX.VFXExpressionValues.GetVector3(name) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -1026,7 +1026,7 @@ function CS.UnityEngine.VFX.VFXExpressionValues.GetVector4(name) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -1040,7 +1040,7 @@ function CS.UnityEngine.VFX.VFXExpressionValues.GetMatrix4x4(name) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -1054,7 +1054,7 @@ function CS.UnityEngine.VFX.VFXExpressionValues.GetTexture(name) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -1068,7 +1068,7 @@ function CS.UnityEngine.VFX.VFXExpressionValues.GetAnimationCurve(name) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -1082,7 +1082,7 @@ function CS.UnityEngine.VFX.VFXExpressionValues.GetGradient(name) end
 --```plaintext
 --Params: nameID - The name ID of the property retrieved by Shader.PropertyToID.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -1117,7 +1117,7 @@ function CS.UnityEngine.VFX.VFXManager:GetComponents() end
 --
 --```plaintext
 --Params: cam - The Camera to prepare for processing VFX commands.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -1129,7 +1129,7 @@ function CS.UnityEngine.VFX.VFXManager:ProcessCamera(cam) end
 --
 --```plaintext
 --Params: cam - The Camera to prepare for processing VFX commands.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -1142,7 +1142,7 @@ function CS.UnityEngine.VFX.VFXManager:PrepareCamera(cam) end
 --```plaintext
 --Params: cam - The Camera to process the VFX commands for.
 --        cmd - The CommandBuffer to push commands to (can be null).
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -1155,7 +1155,7 @@ function CS.UnityEngine.VFX.VFXManager:ProcessCameraCommand(cam, cmd) end
 --
 --```plaintext
 --Params: cam - The Camera for which to query needed buffers.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -1174,7 +1174,7 @@ function CS.UnityEngine.VFX.VFXManager:IsCameraBufferNeeded(cam) end
 --        y - Y offset of the viewport in the buffer.
 --        width - Width of the viewport in the buffer.
 --        height - Height of the viewport in the buffer.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -1203,7 +1203,7 @@ CS.UnityEngine.VFX.VFXSpawnerCallbacks = {}
 --Params: state - The spawner state.
 --        vfxValues - The values of expression (input properties for a spawner block).
 --        vfxComponent - The visual effect.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -1219,7 +1219,7 @@ function CS.UnityEngine.VFX.VFXSpawnerCallbacks.OnPlay(state, vfxValues, vfxComp
 --Params: state - The spawner state.
 --        vfxValues - The values of expression (input properties for a spawner block).
 --        vfxComponent - The visual effect.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -1235,7 +1235,7 @@ function CS.UnityEngine.VFX.VFXSpawnerCallbacks.OnUpdate(state, vfxValues, vfxCo
 --Params: state - The spawner state.
 --        vfxValues - The values of expression (input properties for a spawner block).
 --        vfxComponent - The visual effect.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -1273,7 +1273,7 @@ function CS.UnityEngine.VFX.VFXSpawnerCallbacks.OnStop(state, vfxValues, vfxComp
 ---@source UnityEngine.VFXModule.dll
 CS.UnityEngine.VFX.VFXSpawnerLoopState = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.VFX.VFXSpawnerLoopState
 function CS.UnityEngine.VFX.VFXSpawnerLoopState:__CastFrom(value) end
@@ -1413,7 +1413,7 @@ CS.UnityEngine.VFX.VisualEffectAsset = {}
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -1435,7 +1435,7 @@ function CS.UnityEngine.VFX.VisualEffectAsset.GetEvents(names) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -1535,7 +1535,7 @@ function CS.UnityEngine.VFX.VisualEffect.CreateVFXEventAttribute() end
 --Params: eventName - The name of the event.
 --        eventNameID - The ID of the event. This is the same ID that Shader.PropertyToID returns.
 --        eventAttribute - Can be null or a VFXEventAttribute. To create a VFXEventAttribute, use VFX.VisualEffect.CreateVFXEventAttribute.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -1550,7 +1550,7 @@ function CS.UnityEngine.VFX.VisualEffect.SendEvent(eventNameID, eventAttribute) 
 --Params: eventName - The name of the event.
 --        eventNameID - The ID of the event. This is the same ID that Shader.PropertyToID returns.
 --        eventAttribute - Can be null or a VFXEventAttribute. To create a VFXEventAttribute, use VFX.VisualEffect.CreateVFXEventAttribute.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -1565,7 +1565,7 @@ function CS.UnityEngine.VFX.VisualEffect.SendEvent(eventName, eventAttribute) en
 --Params: eventName - The name of the event.
 --        eventNameID - The ID of the event. This is the same ID that Shader.PropertyToID returns.
 --        eventAttribute - Can be null or a VFXEventAttribute. To create a VFXEventAttribute, use VFX.VisualEffect.CreateVFXEventAttribute.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -1579,7 +1579,7 @@ function CS.UnityEngine.VFX.VisualEffect.SendEvent(eventNameID) end
 --Params: eventName - The name of the event.
 --        eventNameID - The ID of the event. This is the same ID that Shader.PropertyToID returns.
 --        eventAttribute - Can be null or a VFXEventAttribute. To create a VFXEventAttribute, use VFX.VisualEffect.CreateVFXEventAttribute.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -1591,7 +1591,7 @@ function CS.UnityEngine.VFX.VisualEffect.SendEvent(eventName) end
 --
 --```plaintext
 --Params: eventAttribute - Can be null or a VFXEventAttribute. To create a VFXEventAttribute, use VFX.VisualEffect.CreateVFXEventAttribute.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -1603,7 +1603,7 @@ function CS.UnityEngine.VFX.VisualEffect.Play(eventAttribute) end
 --
 --```plaintext
 --Params: eventAttribute - Can be null or a VFXEventAttribute. To create a VFXEventAttribute, use VFX.VisualEffect.CreateVFXEventAttribute.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -1614,7 +1614,7 @@ function CS.UnityEngine.VFX.VisualEffect.Play() end
 --
 --```plaintext
 --Params: eventAttribute - Can be null or a VFXEventAttribute. To create a VFXEventAttribute, use VFX.VisualEffect.CreateVFXEventAttribute.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -1626,7 +1626,7 @@ function CS.UnityEngine.VFX.VisualEffect.Stop(eventAttribute) end
 --
 --```plaintext
 --Params: eventAttribute - Can be null or a VFXEventAttribute. To create a VFXEventAttribute, use VFX.VisualEffect.CreateVFXEventAttribute.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -1650,7 +1650,7 @@ function CS.UnityEngine.VFX.VisualEffect.AdvanceOneFrame() end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -1663,7 +1663,7 @@ function CS.UnityEngine.VFX.VisualEffect.ResetOverride(nameID) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -1677,7 +1677,7 @@ function CS.UnityEngine.VFX.VisualEffect.GetTextureDimension(nameID) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -1691,7 +1691,7 @@ function CS.UnityEngine.VFX.VisualEffect.HasBool(nameID) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -1705,7 +1705,7 @@ function CS.UnityEngine.VFX.VisualEffect.HasInt(nameID) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -1719,7 +1719,7 @@ function CS.UnityEngine.VFX.VisualEffect.HasUInt(nameID) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -1733,7 +1733,7 @@ function CS.UnityEngine.VFX.VisualEffect.HasFloat(nameID) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -1747,7 +1747,7 @@ function CS.UnityEngine.VFX.VisualEffect.HasVector2(nameID) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -1761,7 +1761,7 @@ function CS.UnityEngine.VFX.VisualEffect.HasVector3(nameID) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -1775,7 +1775,7 @@ function CS.UnityEngine.VFX.VisualEffect.HasVector4(nameID) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -1789,7 +1789,7 @@ function CS.UnityEngine.VFX.VisualEffect.HasMatrix4x4(nameID) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -1803,7 +1803,7 @@ function CS.UnityEngine.VFX.VisualEffect.HasTexture(nameID) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -1817,7 +1817,7 @@ function CS.UnityEngine.VFX.VisualEffect.HasAnimationCurve(nameID) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -1831,7 +1831,7 @@ function CS.UnityEngine.VFX.VisualEffect.HasGradient(nameID) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -1846,7 +1846,7 @@ function CS.UnityEngine.VFX.VisualEffect.HasMesh(nameID) end
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
 --        b - The new boolean value.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -1861,7 +1861,7 @@ function CS.UnityEngine.VFX.VisualEffect.SetBool(nameID, b) end
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
 --        i - The new integer value.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -1876,7 +1876,7 @@ function CS.UnityEngine.VFX.VisualEffect.SetInt(nameID, i) end
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
 --        i - The new unsigned integer value.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -1891,7 +1891,7 @@ function CS.UnityEngine.VFX.VisualEffect.SetUInt(nameID, i) end
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
 --        f - The new float value.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -1906,7 +1906,7 @@ function CS.UnityEngine.VFX.VisualEffect.SetFloat(nameID, f) end
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
 --        v - The new Vector2 value.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -1921,7 +1921,7 @@ function CS.UnityEngine.VFX.VisualEffect.SetVector2(nameID, v) end
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
 --        v - The new Vector3 value.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -1936,7 +1936,7 @@ function CS.UnityEngine.VFX.VisualEffect.SetVector3(nameID, v) end
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
 --        v - The new Vector4 value.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -1951,7 +1951,7 @@ function CS.UnityEngine.VFX.VisualEffect.SetVector4(nameID, v) end
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
 --        v - The new Matrix4x4 value.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -1966,7 +1966,7 @@ function CS.UnityEngine.VFX.VisualEffect.SetMatrix4x4(nameID, v) end
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
 --        t - The new texture value.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -1981,7 +1981,7 @@ function CS.UnityEngine.VFX.VisualEffect.SetTexture(nameID, t) end
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        c - The new animation curve.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -1996,7 +1996,7 @@ function CS.UnityEngine.VFX.VisualEffect.SetAnimationCurve(nameID, c) end
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
 --        g - The new gradient value.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2011,7 +2011,7 @@ function CS.UnityEngine.VFX.VisualEffect.SetGradient(nameID, g) end
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
 --        m - The new mesh value.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2025,7 +2025,7 @@ function CS.UnityEngine.VFX.VisualEffect.SetMesh(nameID, m) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2039,7 +2039,7 @@ function CS.UnityEngine.VFX.VisualEffect.GetBool(nameID) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2053,7 +2053,7 @@ function CS.UnityEngine.VFX.VisualEffect.GetInt(nameID) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2067,7 +2067,7 @@ function CS.UnityEngine.VFX.VisualEffect.GetUInt(nameID) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2081,7 +2081,7 @@ function CS.UnityEngine.VFX.VisualEffect.GetFloat(nameID) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2095,7 +2095,7 @@ function CS.UnityEngine.VFX.VisualEffect.GetVector2(nameID) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2109,7 +2109,7 @@ function CS.UnityEngine.VFX.VisualEffect.GetVector3(nameID) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2123,7 +2123,7 @@ function CS.UnityEngine.VFX.VisualEffect.GetVector4(nameID) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2137,7 +2137,7 @@ function CS.UnityEngine.VFX.VisualEffect.GetMatrix4x4(nameID) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2151,7 +2151,7 @@ function CS.UnityEngine.VFX.VisualEffect.GetTexture(nameID) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2165,7 +2165,7 @@ function CS.UnityEngine.VFX.VisualEffect.GetMesh(nameID) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2179,7 +2179,7 @@ function CS.UnityEngine.VFX.VisualEffect.GetGradient(nameID) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2193,7 +2193,7 @@ function CS.UnityEngine.VFX.VisualEffect.GetAnimationCurve(nameID) end
 --```plaintext
 --Params: nameID - The system ID. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2207,7 +2207,7 @@ function CS.UnityEngine.VFX.VisualEffect.HasSystem(nameID) end
 --```plaintext
 --Params: nameID - The system ID. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the particle system.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2221,7 +2221,7 @@ function CS.UnityEngine.VFX.VisualEffect.GetParticleSystemInfo(nameID) end
 --```plaintext
 --Params: nameID - The system ID. This is the same ID that Shader.PropertyToID returns.
 --        spawnState - A modified  VFXSpawnerState instance.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2235,7 +2235,7 @@ function CS.UnityEngine.VFX.VisualEffect.GetSpawnSystemInfo(nameID, spawnState) 
 --```plaintext
 --Params: nameID - The system ID. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the spawn system.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2265,7 +2265,7 @@ function CS.UnityEngine.VFX.VisualEffect.GetSpawnSystemNames(names) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2278,7 +2278,7 @@ function CS.UnityEngine.VFX.VisualEffect.ResetOverride(name) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2292,7 +2292,7 @@ function CS.UnityEngine.VFX.VisualEffect.HasInt(name) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2306,7 +2306,7 @@ function CS.UnityEngine.VFX.VisualEffect.HasUInt(name) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2320,7 +2320,7 @@ function CS.UnityEngine.VFX.VisualEffect.HasFloat(name) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2334,7 +2334,7 @@ function CS.UnityEngine.VFX.VisualEffect.HasVector2(name) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2348,7 +2348,7 @@ function CS.UnityEngine.VFX.VisualEffect.HasVector3(name) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2362,7 +2362,7 @@ function CS.UnityEngine.VFX.VisualEffect.HasVector4(name) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2376,7 +2376,7 @@ function CS.UnityEngine.VFX.VisualEffect.HasMatrix4x4(name) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2390,7 +2390,7 @@ function CS.UnityEngine.VFX.VisualEffect.HasTexture(name) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2404,7 +2404,7 @@ function CS.UnityEngine.VFX.VisualEffect.GetTextureDimension(name) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2418,7 +2418,7 @@ function CS.UnityEngine.VFX.VisualEffect.HasAnimationCurve(name) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2432,7 +2432,7 @@ function CS.UnityEngine.VFX.VisualEffect.HasGradient(name) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2446,7 +2446,7 @@ function CS.UnityEngine.VFX.VisualEffect.HasMesh(name) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2461,7 +2461,7 @@ function CS.UnityEngine.VFX.VisualEffect.HasBool(name) end
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
 --        i - The new integer value.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2476,7 +2476,7 @@ function CS.UnityEngine.VFX.VisualEffect.SetInt(name, i) end
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
 --        i - The new unsigned integer value.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2491,7 +2491,7 @@ function CS.UnityEngine.VFX.VisualEffect.SetUInt(name, i) end
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
 --        f - The new float value.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2506,7 +2506,7 @@ function CS.UnityEngine.VFX.VisualEffect.SetFloat(name, f) end
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
 --        v - The new Vector2 value.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2521,7 +2521,7 @@ function CS.UnityEngine.VFX.VisualEffect.SetVector2(name, v) end
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
 --        v - The new Vector3 value.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2536,7 +2536,7 @@ function CS.UnityEngine.VFX.VisualEffect.SetVector3(name, v) end
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
 --        v - The new Vector4 value.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2551,7 +2551,7 @@ function CS.UnityEngine.VFX.VisualEffect.SetVector4(name, v) end
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
 --        v - The new Matrix4x4 value.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2566,7 +2566,7 @@ function CS.UnityEngine.VFX.VisualEffect.SetMatrix4x4(name, v) end
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
 --        t - The new texture value.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2581,7 +2581,7 @@ function CS.UnityEngine.VFX.VisualEffect.SetTexture(name, t) end
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        c - The new animation curve.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2596,7 +2596,7 @@ function CS.UnityEngine.VFX.VisualEffect.SetAnimationCurve(name, c) end
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
 --        g - The new gradient value.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2611,7 +2611,7 @@ function CS.UnityEngine.VFX.VisualEffect.SetGradient(name, g) end
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
 --        m - The new mesh value.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2626,7 +2626,7 @@ function CS.UnityEngine.VFX.VisualEffect.SetMesh(name, m) end
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
 --        b - The new boolean value.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2640,7 +2640,7 @@ function CS.UnityEngine.VFX.VisualEffect.SetBool(name, b) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2654,7 +2654,7 @@ function CS.UnityEngine.VFX.VisualEffect.GetInt(name) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2668,7 +2668,7 @@ function CS.UnityEngine.VFX.VisualEffect.GetUInt(name) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2682,7 +2682,7 @@ function CS.UnityEngine.VFX.VisualEffect.GetFloat(name) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2696,7 +2696,7 @@ function CS.UnityEngine.VFX.VisualEffect.GetVector2(name) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2710,7 +2710,7 @@ function CS.UnityEngine.VFX.VisualEffect.GetVector3(name) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2724,7 +2724,7 @@ function CS.UnityEngine.VFX.VisualEffect.GetVector4(name) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2738,7 +2738,7 @@ function CS.UnityEngine.VFX.VisualEffect.GetMatrix4x4(name) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2752,7 +2752,7 @@ function CS.UnityEngine.VFX.VisualEffect.GetTexture(name) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2766,7 +2766,7 @@ function CS.UnityEngine.VFX.VisualEffect.GetMesh(name) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2780,7 +2780,7 @@ function CS.UnityEngine.VFX.VisualEffect.GetBool(name) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2794,7 +2794,7 @@ function CS.UnityEngine.VFX.VisualEffect.GetAnimationCurve(name) end
 --```plaintext
 --Params: nameID - The ID of the property. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2808,7 +2808,7 @@ function CS.UnityEngine.VFX.VisualEffect.GetGradient(name) end
 --```plaintext
 --Params: nameID - The system ID. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the property.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2822,7 +2822,7 @@ function CS.UnityEngine.VFX.VisualEffect.HasSystem(name) end
 --```plaintext
 --Params: nameID - The system ID. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the particle system.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2836,7 +2836,7 @@ function CS.UnityEngine.VFX.VisualEffect.GetParticleSystemInfo(name) end
 --```plaintext
 --Params: nameID - The system ID. This is the same ID that Shader.PropertyToID returns.
 --        name - The name of the spawn system.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll
@@ -2850,7 +2850,7 @@ function CS.UnityEngine.VFX.VisualEffect.GetSpawnSystemInfo(name) end
 --```plaintext
 --Params: stepDeltaTime - The delta time, in seconds, the simulation applies to each step.
 --        stepCount - Number of steps to proceed.
---        
+--
 --```
 --
 ---@source UnityEngine.VFXModule.dll

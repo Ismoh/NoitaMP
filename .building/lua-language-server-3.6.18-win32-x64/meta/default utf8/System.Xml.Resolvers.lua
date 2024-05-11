@@ -13,7 +13,7 @@
 ---@source System.Xml.dll
 CS.System.Xml.Resolvers.XmlKnownDtds = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Xml.Resolvers.XmlKnownDtds
 function CS.System.Xml.Resolvers.XmlKnownDtds:__CastFrom(value) end

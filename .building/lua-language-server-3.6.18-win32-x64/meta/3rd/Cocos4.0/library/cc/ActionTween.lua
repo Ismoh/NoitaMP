@@ -31,17 +31,17 @@ function ActionTween:initWithDuration (duration,key,from,to) end
 ---@param to float
 ---@return self
 function ActionTween:create (duration,key,from,to) end
----* 
+---*
 ---@param target cc.Node
 ---@return self
 function ActionTween:startWithTarget (target) end
----* 
+---*
 ---@return self
 function ActionTween:clone () end
----* 
+---*
 ---@param dt float
 ---@return self
 function ActionTween:update (dt) end
----* 
+---*
 ---@return self
 function ActionTween:reverse () end

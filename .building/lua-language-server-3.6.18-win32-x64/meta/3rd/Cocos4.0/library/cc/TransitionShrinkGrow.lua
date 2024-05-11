@@ -7,7 +7,7 @@ cc.TransitionShrinkGrow=TransitionShrinkGrow
 
 
 
----* 
+---*
 ---@param action cc.ActionInterval
 ---@return cc.ActionInterval
 function TransitionShrinkGrow:easeActionWithAction (action) end
@@ -19,6 +19,6 @@ function TransitionShrinkGrow:easeActionWithAction (action) end
 ---@param scene cc.Scene
 ---@return self
 function TransitionShrinkGrow:create (t,scene) end
----* 
+---*
 ---@return self
 function TransitionShrinkGrow:TransitionShrinkGrow () end

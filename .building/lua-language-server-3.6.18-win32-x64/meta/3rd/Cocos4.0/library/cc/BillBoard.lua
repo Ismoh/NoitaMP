@@ -7,10 +7,10 @@ cc.BillBoard=BillBoard
 
 
 
----*  Get the billboard rotation mode. 
+---*  Get the billboard rotation mode.
 ---@return int
 function BillBoard:getMode () end
----*  Set the billboard rotation mode. 
+---*  Set the billboard rotation mode.
 ---@param mode int
 ---@return self
 function BillBoard:setMode (mode) end
@@ -30,12 +30,12 @@ function BillBoard:create (filename,rect,mode) end
 ---@param mode int
 ---@return self
 function BillBoard:createWithTexture (texture,mode) end
----*  update billboard's transform and turn it towards camera 
+---*  update billboard's transform and turn it towards camera
 ---@param renderer cc.Renderer
 ---@param parentTransform mat4_table
 ---@param parentFlags unsigned_int
 ---@return self
 function BillBoard:visit (renderer,parentTransform,parentFlags) end
----* 
+---*
 ---@return self
 function BillBoard:BillBoard () end

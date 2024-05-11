@@ -11,7 +11,7 @@ cc.ParticleSystem=ParticleSystem
 ---* return The start size variance in pixels of each particle.
 ---@return float
 function ParticleSystem:getStartSizeVar () end
----* 
+---*
 ---@return cc.Texture2D
 function ParticleSystem:getTexture () end
 ---*  Whether or not the system is full.<br>
@@ -89,7 +89,7 @@ function ParticleSystem:setEndSize (endSize) end
 ---* return The gravity.
 ---@return vec2_table
 function ParticleSystem:getGravity () end
----* 
+---*
 ---@return self
 function ParticleSystem:resumeEmissions () end
 ---*  Gets the tangential acceleration.<br>
@@ -105,7 +105,7 @@ function ParticleSystem:setEndRadius (endRadius) end
 ---* return The speed.
 ---@return float
 function ParticleSystem:getSpeed () end
----* 
+---*
 ---@return self
 function ParticleSystem:pauseEmissions () end
 ---*  Gets the angle of each particle. <br>
@@ -131,11 +131,11 @@ function ParticleSystem:setDuration (duration) end
 ---@param numberOfParticles int
 ---@return boolean
 function ParticleSystem:initWithTotalParticles (numberOfParticles) end
----* 
+---*
 ---@param count int
 ---@return self
 function ParticleSystem:addParticles (count) end
----* 
+---*
 ---@param texture cc.Texture2D
 ---@return self
 function ParticleSystem:setTexture (texture) end
@@ -160,7 +160,7 @@ function ParticleSystem:getSpeedVar () end
 ---@param type int
 ---@return self
 function ParticleSystem:setPositionType (type) end
----* 
+---*
 ---@return self
 function ParticleSystem:stopSystem () end
 ---*  Gets the source position of the emitter.<br>
@@ -240,7 +240,7 @@ function ParticleSystem:setSpeed (speed) end
 ---* return The start spin of each particle.
 ---@return float
 function ParticleSystem:getStartSpin () end
----* 
+---*
 ---@return string
 function ParticleSystem:getResourceFile () end
 ---*  Gets the number of degrees to rotate a particle around the source pos per second.<br>
@@ -261,11 +261,11 @@ function ParticleSystem:getDuration () end
 ---@param pos vec2_table
 ---@return self
 function ParticleSystem:setSourcePosition (pos) end
----* 
+---*
 ---@return self
 function ParticleSystem:stop () end
 ---*  Update the verts position data of particle,<br>
----* should be overridden by subclasses. 
+---* should be overridden by subclasses.
 ---@return self
 function ParticleSystem:updateParticleQuads () end
 ---*  Gets the end spin variance of each particle.<br>
@@ -373,7 +373,7 @@ function ParticleSystem:setAutoRemoveOnFinish (var) end
 ---@return self
 function ParticleSystem:setGravity (g) end
 ---*  Update the VBO verts buffer which does not use batch node,<br>
----* should be overridden by subclasses. 
+---* should be overridden by subclasses.
 ---@return self
 function ParticleSystem:postStep () end
 ---*  Sets the emission rate of the particles.<br>
@@ -447,7 +447,7 @@ function ParticleSystem:initWithDictionary (dictionary,dirname) end
 ---* return True if the particle system removed self on finish.
 ---@return boolean
 function ParticleSystem:isAutoRemoveOnFinish () end
----* 
+---*
 ---@return boolean
 function ParticleSystem:isSourcePositionCompatible () end
 ---*  Gets the maximum particles of the system.<br>
@@ -494,33 +494,33 @@ function ParticleSystem:createWithTotalParticles (numberOfParticles) end
 ---*  Gets all ParticleSystem references
 ---@return array_table
 function ParticleSystem:getAllParticleSystems () end
----* 
+---*
 ---@param newScaleY float
 ---@return self
 function ParticleSystem:setScaleY (newScaleY) end
----* 
+---*
 ---@param newScaleX float
 ---@return self
 function ParticleSystem:setScaleX (newScaleX) end
----* 
+---*
 ---@return boolean
 function ParticleSystem:isOpacityModifyRGB () end
----*  does the alpha value modify color 
+---*  does the alpha value modify color
 ---@param opacityModifyRGB boolean
 ---@return self
 function ParticleSystem:setOpacityModifyRGB (opacityModifyRGB) end
----* 
+---*
 ---@param s float
 ---@return self
 function ParticleSystem:setScale (s) end
----* 
+---*
 ---@param dt float
 ---@return self
 function ParticleSystem:update (dt) end
 ---*  initializes a ParticleSystem
 ---@return boolean
 function ParticleSystem:init () end
----* 
+---*
 ---@param newRotation float
 ---@return self
 function ParticleSystem:setRotation (newRotation) end

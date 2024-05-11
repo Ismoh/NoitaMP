@@ -149,7 +149,7 @@ function lovr.graphics.getDevice() end
 ---
 ---Returns a table indicating which features are supported by the GPU.
 ---
----@return {textureBC: boolean, textureASTC: boolean, wireframe: boolean, depthClamp: boolean, indirectDrawFirstInstance: boolean, float64: boolean, int64: boolean, int16: boolean} features # 
+---@return {textureBC: boolean, textureASTC: boolean, wireframe: boolean, depthClamp: boolean, indirectDrawFirstInstance: boolean, float64: boolean, int64: boolean, int16: boolean} features #
 function lovr.graphics.getFeatures() end
 
 ---
@@ -322,7 +322,7 @@ function lovr.graphics.getFeatures() end
 ---
 ---Note: in the table above, `*` means that LÖVR itself is imposing a cap on the limit, instead of the GPU.
 ---
----@return {textureSize2D: number, textureSize3D: number, textureSizeCube: number, textureLayers: number, renderSize: table, uniformBuffersPerStage: number, storageBuffersPerStage: number, sampledTexturesPerStage: number, storageTexturesPerStage: number, samplersPerStage: number, resourcesPerShader: number, uniformBufferRange: number, storageBufferRange: number, uniformBufferAlign: number, storageBufferAlign: number, vertexAttributes: number, vertexBufferStride: number, vertexShaderOutputs: number, clipDistances: number, cullDistances: number, clipAndCullDistances: number, workgroupCount: table, workgroupSize: table, totalWorkgroupSize: number, computeSharedMemory: number, shaderConstantSize: number, indirectDrawCount: number, instances: number, anisotropy: number, pointSize: number} limits # 
+---@return {textureSize2D: number, textureSize3D: number, textureSizeCube: number, textureLayers: number, renderSize: table, uniformBuffersPerStage: number, storageBuffersPerStage: number, sampledTexturesPerStage: number, storageTexturesPerStage: number, samplersPerStage: number, resourcesPerShader: number, uniformBufferRange: number, storageBufferRange: number, uniformBufferAlign: number, storageBufferAlign: number, vertexAttributes: number, vertexBufferStride: number, vertexShaderOutputs: number, clipDistances: number, cullDistances: number, clipAndCullDistances: number, workgroupCount: table, workgroupSize: table, totalWorkgroupSize: number, computeSharedMemory: number, shaderConstantSize: number, indirectDrawCount: number, instances: number, anisotropy: number, pointSize: number} limits #
 function lovr.graphics.getLimits() end
 
 ---

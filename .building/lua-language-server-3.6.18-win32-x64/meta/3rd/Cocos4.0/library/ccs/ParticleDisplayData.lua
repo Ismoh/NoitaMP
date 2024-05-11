@@ -7,7 +7,7 @@ ccs.ParticleDisplayData=ParticleDisplayData
 
 
 
----* 
+---*
 ---@return self
 function ParticleDisplayData:create () end
 ---* js ctor

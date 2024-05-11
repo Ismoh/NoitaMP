@@ -23,16 +23,16 @@ function SkewBy:initWithDuration (t,sx,sy) end
 ---@param deltaSkewY float
 ---@return self
 function SkewBy:create (t,deltaSkewX,deltaSkewY) end
----* 
+---*
 ---@param target cc.Node
 ---@return self
 function SkewBy:startWithTarget (target) end
----* 
+---*
 ---@return self
 function SkewBy:clone () end
----* 
+---*
 ---@return self
 function SkewBy:reverse () end
----* 
+---*
 ---@return self
 function SkewBy:SkewBy () end

@@ -13,16 +13,16 @@ cc.DelayTime=DelayTime
 ---@param d float
 ---@return self
 function DelayTime:create (d) end
----* 
+---*
 ---@return self
 function DelayTime:clone () end
 ---* param time In seconds.
 ---@param time float
 ---@return self
 function DelayTime:update (time) end
----* 
+---*
 ---@return self
 function DelayTime:reverse () end
----* 
+---*
 ---@return self
 function DelayTime:DelayTime () end

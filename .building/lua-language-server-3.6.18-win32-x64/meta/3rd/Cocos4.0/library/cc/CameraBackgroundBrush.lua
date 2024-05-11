@@ -15,10 +15,10 @@ function CameraBackgroundBrush:getBrushType () end
 ---@param a cc.Camer
 ---@return self
 function CameraBackgroundBrush:drawBackground (a) end
----* 
+---*
 ---@return boolean
 function CameraBackgroundBrush:init () end
----* 
+---*
 ---@return boolean
 function CameraBackgroundBrush:isValid () end
 ---*  Creates a Skybox brush with 6 textures.<br>
@@ -54,6 +54,6 @@ function CameraBackgroundBrush:createNoneBrush () end
 ---* return Created brush
 ---@return cc.CameraBackgroundDepthBrush
 function CameraBackgroundBrush:createDepthBrush () end
----* 
+---*
 ---@return self
 function CameraBackgroundBrush:CameraBackgroundBrush () end

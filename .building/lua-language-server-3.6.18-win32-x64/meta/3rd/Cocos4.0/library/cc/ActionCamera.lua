@@ -14,31 +14,31 @@ cc.ActionCamera=ActionCamera
 ---@param z float
 ---@return self
 function ActionCamera:setEye (x,y,z) end
----* 
+---*
 ---@return vec3_table
 function ActionCamera:getEye () end
----* 
+---*
 ---@param up vec3_table
 ---@return self
 function ActionCamera:setUp (up) end
----* 
+---*
 ---@return vec3_table
 function ActionCamera:getCenter () end
----* 
+---*
 ---@param center vec3_table
 ---@return self
 function ActionCamera:setCenter (center) end
----* 
+---*
 ---@return vec3_table
 function ActionCamera:getUp () end
----* 
+---*
 ---@param target cc.Node
 ---@return self
 function ActionCamera:startWithTarget (target) end
----* 
+---*
 ---@return self
 function ActionCamera:clone () end
----* 
+---*
 ---@return self
 function ActionCamera:reverse () end
 ---* js ctor<br>

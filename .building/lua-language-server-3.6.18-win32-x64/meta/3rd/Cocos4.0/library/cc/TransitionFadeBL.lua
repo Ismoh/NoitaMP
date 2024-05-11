@@ -15,10 +15,10 @@ cc.TransitionFadeBL=TransitionFadeBL
 ---@param scene cc.Scene
 ---@return self
 function TransitionFadeBL:create (t,scene) end
----* 
+---*
 ---@param size size_table
 ---@return cc.ActionInterval
 function TransitionFadeBL:actionWithSize (size) end
----* 
+---*
 ---@return self
 function TransitionFadeBL:TransitionFadeBL () end

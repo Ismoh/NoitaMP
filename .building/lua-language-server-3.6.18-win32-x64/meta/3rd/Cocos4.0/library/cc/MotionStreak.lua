@@ -24,7 +24,7 @@ function MotionStreak:setBlendFunc (blendFunc) end
 ---@param colors color3b_table
 ---@return self
 function MotionStreak:tintWithColor (colors) end
----* 
+---*
 ---@return cc.Texture2D
 function MotionStreak:getTexture () end
 ---*  Sets the starting position initialized or not.<br>
@@ -32,7 +32,7 @@ function MotionStreak:getTexture () end
 ---@param bStartingPositionInitialized boolean
 ---@return self
 function MotionStreak:setStartingPositionInitialized (bStartingPositionInitialized) end
----* 
+---*
 ---@param texture cc.Texture2D
 ---@return self
 function MotionStreak:setTexture (texture) end
@@ -76,35 +76,35 @@ function MotionStreak:setStroke (stroke) end
 ---@param imagePath string
 ---@return self
 function MotionStreak:create (timeToFade,minSeg,strokeWidth,strokeColor,imagePath) end
----* 
+---*
 ---@return boolean
 function MotionStreak:isOpacityModifyRGB () end
----* 
+---*
 ---@param opacity unsigned_char
 ---@return self
 function MotionStreak:setOpacity (opacity) end
----* 
+---*
 ---@param y float
 ---@return self
 function MotionStreak:setPositionY (y) end
----* 
+---*
 ---@param x float
 ---@return self
 function MotionStreak:setPositionX (x) end
----* 
+---*
 ---@return float
 function MotionStreak:getPositionY () end
----* 
+---*
 ---@return float
 function MotionStreak:getPositionX () end
----* 
+---*
 ---@return vec3_table
 function MotionStreak:getPosition3D () end
----* 
+---*
 ---@param value boolean
 ---@return self
 function MotionStreak:setOpacityModifyRGB (value) end
----* 
+---*
 ---@return unsigned_char
 function MotionStreak:getOpacity () end
 ---@overload fun(float:float,float:float):self
@@ -119,6 +119,6 @@ function MotionStreak:setPosition (x,y) end
 ---@param y float
 ---@return self
 function MotionStreak:getPosition (x,y) end
----* 
+---*
 ---@return self
 function MotionStreak:MotionStreak () end

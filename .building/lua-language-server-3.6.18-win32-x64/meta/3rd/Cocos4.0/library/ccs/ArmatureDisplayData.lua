@@ -7,7 +7,7 @@ ccs.ArmatureDisplayData=ArmatureDisplayData
 
 
 
----* 
+---*
 ---@return self
 function ArmatureDisplayData:create () end
 ---* js ctor

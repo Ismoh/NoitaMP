@@ -1,6 +1,6 @@
 ---@meta
 
----@class ccui.Helper 
+---@class ccui.Helper
 local Helper={ }
 ccui.Helper=Helper
 

@@ -7,11 +7,11 @@ ccs.SpriteDisplayData=SpriteDisplayData
 
 
 
----* 
+---*
 ---@param displayData ccs.DisplayData
 ---@return self
 function SpriteDisplayData:copy (displayData) end
----* 
+---*
 ---@return self
 function SpriteDisplayData:create () end
 ---* js ctor

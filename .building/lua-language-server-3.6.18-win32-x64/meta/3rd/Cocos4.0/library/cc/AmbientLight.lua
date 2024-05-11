@@ -13,9 +13,9 @@ cc.AmbientLight=AmbientLight
 ---@param color color3b_table
 ---@return self
 function AmbientLight:create (color) end
----* 
+---*
 ---@return int
 function AmbientLight:getLightType () end
----* 
+---*
 ---@return self
 function AmbientLight:AmbientLight () end

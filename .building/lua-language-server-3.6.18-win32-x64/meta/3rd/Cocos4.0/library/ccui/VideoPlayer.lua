@@ -84,10 +84,10 @@ function VideoPlayer:setLooping (looping) end
 ---@param enableInput boolean
 ---@return self
 function VideoPlayer:setUserInputEnabled (enableInput) end
----* 
+---*
 ---@return self
 function VideoPlayer:create () end
----* 
+---*
 ---@param renderer cc.Renderer
 ---@param transform mat4_table
 ---@param flags unsigned_int
@@ -96,19 +96,19 @@ function VideoPlayer:draw (renderer,transform,flags) end
 ---* Pauses playback.
 ---@return self
 function VideoPlayer:pause () end
----* 
+---*
 ---@return self
 function VideoPlayer:onEnter () end
----* 
+---*
 ---@return self
 function VideoPlayer:onExit () end
 ---* Resumes playback.
 ---@return self
 function VideoPlayer:resume () end
----* 
+---*
 ---@param visible boolean
 ---@return self
 function VideoPlayer:setVisible (visible) end
----* 
+---*
 ---@return self
 function VideoPlayer:VideoPlayer () end

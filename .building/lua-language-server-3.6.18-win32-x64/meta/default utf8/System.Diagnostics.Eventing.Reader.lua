@@ -130,7 +130,7 @@ CS.System.Diagnostics.Eventing.Reader.EventLogInvalidDataException = {}
 ---@source System.Core.dll
 CS.System.Diagnostics.Eventing.Reader.EventLogIsolation = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Diagnostics.Eventing.Reader.EventLogIsolation
 function CS.System.Diagnostics.Eventing.Reader.EventLogIsolation:__CastFrom(value) end
@@ -159,7 +159,7 @@ CS.System.Diagnostics.Eventing.Reader.EventLogLink = {}
 ---@source System.Core.dll
 CS.System.Diagnostics.Eventing.Reader.EventLogMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Diagnostics.Eventing.Reader.EventLogMode
 function CS.System.Diagnostics.Eventing.Reader.EventLogMode:__CastFrom(value) end
@@ -410,7 +410,7 @@ CS.System.Diagnostics.Eventing.Reader.EventLogStatus = {}
 ---@source System.Core.dll
 CS.System.Diagnostics.Eventing.Reader.EventLogType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Diagnostics.Eventing.Reader.EventLogType
 function CS.System.Diagnostics.Eventing.Reader.EventLogType:__CastFrom(value) end
@@ -584,7 +584,7 @@ CS.System.Diagnostics.Eventing.Reader.EventRecordWrittenEventArgs = {}
 ---@source System.Core.dll
 CS.System.Diagnostics.Eventing.Reader.PathType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Diagnostics.Eventing.Reader.PathType
 function CS.System.Diagnostics.Eventing.Reader.PathType:__CastFrom(value) end
@@ -638,7 +638,7 @@ function CS.System.Diagnostics.Eventing.Reader.ProviderMetadata.Dispose() end
 ---@source System.Core.dll
 CS.System.Diagnostics.Eventing.Reader.SessionAuthentication = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Diagnostics.Eventing.Reader.SessionAuthentication
 function CS.System.Diagnostics.Eventing.Reader.SessionAuthentication:__CastFrom(value) end
@@ -671,7 +671,7 @@ function CS.System.Diagnostics.Eventing.Reader.SessionAuthentication:__CastFrom(
 ---@source System.Core.dll
 CS.System.Diagnostics.Eventing.Reader.StandardEventOpcode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Diagnostics.Eventing.Reader.StandardEventOpcode
 function CS.System.Diagnostics.Eventing.Reader.StandardEventOpcode:__CastFrom(value) end
@@ -702,7 +702,7 @@ function CS.System.Diagnostics.Eventing.Reader.StandardEventOpcode:__CastFrom(va
 ---@source System.Core.dll
 CS.System.Diagnostics.Eventing.Reader.StandardEventKeywords = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Diagnostics.Eventing.Reader.StandardEventKeywords
 function CS.System.Diagnostics.Eventing.Reader.StandardEventKeywords:__CastFrom(value) end
@@ -715,7 +715,7 @@ function CS.System.Diagnostics.Eventing.Reader.StandardEventKeywords:__CastFrom(
 ---@source System.Core.dll
 CS.System.Diagnostics.Eventing.Reader.StandardEventTask = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Diagnostics.Eventing.Reader.StandardEventTask
 function CS.System.Diagnostics.Eventing.Reader.StandardEventTask:__CastFrom(value) end
@@ -738,7 +738,7 @@ function CS.System.Diagnostics.Eventing.Reader.StandardEventTask:__CastFrom(valu
 ---@source System.Core.dll
 CS.System.Diagnostics.Eventing.Reader.StandardEventLevel = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Diagnostics.Eventing.Reader.StandardEventLevel
 function CS.System.Diagnostics.Eventing.Reader.StandardEventLevel:__CastFrom(value) end

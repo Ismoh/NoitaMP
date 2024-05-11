@@ -963,7 +963,7 @@ function CS.System.Threading.Tasks.TaskCompletionSource.TrySetResult(result) end
 ---@source mscorlib.dll
 CS.System.Threading.Tasks.TaskContinuationOptions = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Threading.Tasks.TaskContinuationOptions
 function CS.System.Threading.Tasks.TaskContinuationOptions:__CastFrom(value) end
@@ -1528,7 +1528,7 @@ function CS.System.Threading.Tasks.TaskFactory.StartNew(function, creationOption
 ---@source mscorlib.dll
 CS.System.Threading.Tasks.TaskCreationOptions = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Threading.Tasks.TaskCreationOptions
 function CS.System.Threading.Tasks.TaskCreationOptions:__CastFrom(value) end
@@ -1866,7 +1866,7 @@ CS.System.Threading.Tasks.TaskSchedulerException = {}
 ---@source mscorlib.dll
 CS.System.Threading.Tasks.TaskStatus = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Threading.Tasks.TaskStatus
 function CS.System.Threading.Tasks.TaskStatus:__CastFrom(value) end

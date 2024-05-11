@@ -11,7 +11,7 @@ cc.EventListenerController=EventListenerController
 ---* return An autoreleased EventListenerController object.
 ---@return self
 function EventListenerController:create () end
----* 
+---*
 ---@return self
 function EventListenerController:clone () end
 ---* / Overrides

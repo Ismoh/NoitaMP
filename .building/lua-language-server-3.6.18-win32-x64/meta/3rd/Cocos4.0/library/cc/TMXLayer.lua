@@ -61,7 +61,7 @@ function TMXLayer:removeTileAt (tileCoordinate) end
 ---@param mapInfo cc.TMXMapInfo
 ---@return boolean
 function TMXLayer:initWithTilesetInfo (tilesetInfo,layerInfo,mapInfo) end
----*  Creates the tiles. 
+---*  Creates the tiles.
 ---@return self
 function TMXLayer:setupTiles () end
 ---@overload fun(unsigned_int:unsigned_int,vec2_table:vec2_table,int:int):self
@@ -125,7 +125,7 @@ function TMXLayer:getTileAt (tileCoordinate) end
 ---@param mapInfo cc.TMXMapInfo
 ---@return self
 function TMXLayer:create (tilesetInfo,layerInfo,mapInfo) end
----* 
+---*
 ---@param child cc.Node
 ---@param zOrder int
 ---@param tag int
@@ -134,7 +134,7 @@ function TMXLayer:addChild (child,zOrder,tag) end
 ---* js NA
 ---@return string
 function TMXLayer:getDescription () end
----* 
+---*
 ---@param child cc.Node
 ---@param cleanup boolean
 ---@return self

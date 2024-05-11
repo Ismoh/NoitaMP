@@ -16,10 +16,10 @@ function TableView:updateCellAtIndex (idx) end
 ---@param order int
 ---@return self
 function TableView:setVerticalFillOrder (order) end
----* 
+---*
 ---@return self
 function TableView:_updateContentSize () end
----* 
+---*
 ---@return int
 function TableView:getVerticalFillOrder () end
 ---* Removes a cell at a given index<br>
@@ -27,19 +27,19 @@ function TableView:getVerticalFillOrder () end
 ---@param idx int
 ---@return self
 function TableView:removeCellAtIndex (idx) end
----* 
+---*
 ---@param size size_table
 ---@param container cc.Node
 ---@return boolean
 function TableView:initWithViewSize (size,container) end
----* 
+---*
 ---@param view cc.ScrollView
 ---@return self
 function TableView:scrollViewDidScroll (view) end
 ---* reloads data from data source.  the view will be refreshed.
 ---@return self
 function TableView:reloadData () end
----* 
+---*
 ---@param view cc.ScrollView
 ---@return self
 function TableView:scrollViewDidZoom (view) end
@@ -58,22 +58,22 @@ function TableView:cellAtIndex (idx) end
 ---* return free cell
 ---@return cc.TableViewCell
 function TableView:dequeueCell () end
----* 
+---*
 ---@param pTouch cc.Touch
 ---@param pEvent cc.Event
 ---@return self
 function TableView:onTouchMoved (pTouch,pEvent) end
----* 
+---*
 ---@param pTouch cc.Touch
 ---@param pEvent cc.Event
 ---@return self
 function TableView:onTouchEnded (pTouch,pEvent) end
----* 
+---*
 ---@param pTouch cc.Touch
 ---@param pEvent cc.Event
 ---@return self
 function TableView:onTouchCancelled (pTouch,pEvent) end
----* 
+---*
 ---@param pTouch cc.Touch
 ---@param pEvent cc.Event
 ---@return boolean

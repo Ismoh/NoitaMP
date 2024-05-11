@@ -26,15 +26,15 @@ function SkeletonNode:addSkinGroup (groupName,boneSkinNameMap) end
 ---* get All bones in this skeleton, <bone's name, BoneNode>
 ---@return map_table
 function SkeletonNode:getAllSubBonesMap () end
----* 
+---*
 ---@return self
 function SkeletonNode:create () end
----* 
+---*
 ---@return rect_table
 function SkeletonNode:getBoundingBox () end
----* 
+---*
 ---@return boolean
 function SkeletonNode:init () end
----* 
+---*
 ---@return self
 function SkeletonNode:SkeletonNode () end

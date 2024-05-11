@@ -7,25 +7,25 @@ cc.Label=Label
 
 
 
----* 
+---*
 ---@return boolean
 function Label:isClipMarginEnabled () end
 ---* Enable shadow effect to Label.<br>
 ---* todo Support blur for shadow effect.
 ---@return self
 function Label:enableShadow () end
----*  Sets the untransformed size of the Label in a more efficient way. 
+---*  Sets the untransformed size of the Label in a more efficient way.
 ---@param width float
 ---@param height float
 ---@return self
 function Label:setDimensions (width,height) end
----* 
+---*
 ---@return float
 function Label:getWidth () end
 ---*  Return the text the Label is currently displaying.
 ---@return string
 function Label:getString () end
----* 
+---*
 ---@return float
 function Label:getHeight () end
 ---@overload fun(int:int):self
@@ -47,7 +47,7 @@ function Label:getLabelType () end
 ---*  Returns the text color of the Label.
 ---@return color4b_table
 function Label:getTextColor () end
----* 
+---*
 ---@return cc.BlendFunc
 function Label:getBlendFunc () end
 ---* Toggle wrap option of the label.<br>
@@ -70,7 +70,7 @@ function Label:getAdditionalKerning () end
 ---* return The BMFont size in float value.
 ---@return float
 function Label:getBMFontSize () end
----* 
+---*
 ---@return float
 function Label:getMaxLineWidth () end
 ---*  Returns the Label's text horizontal alignment.
@@ -79,7 +79,7 @@ function Label:getHorizontalAlignment () end
 ---* Return shadow effect offset value.
 ---@return size_table
 function Label:getShadowOffset () end
----* 
+---*
 ---@return float
 function Label:getLineSpacing () end
 ---*  Clips upper and lower margin to reduce height of Label.
@@ -103,7 +103,7 @@ function Label:isWrapEnabled () end
 ---* Return the outline effect size value.
 ---@return float
 function Label:getOutlineSize () end
----*  Sets a new bitmap font to Label 
+---*  Sets a new bitmap font to Label
 ---@param bmfontFilePath string
 ---@param imageOffset vec2_table
 ---@param fontSize float
@@ -119,7 +119,7 @@ function Label:setBMFontFilePath (bmfontFilePath,imageOffset,fontSize) end
 ---@param vAlignment int
 ---@return boolean
 function Label:initWithTTF (text,fontFilePath,fontSize,dimensions,hAlignment,vAlignment) end
----* 
+---*
 ---@return cc.FontAtlas
 function Label:getFontAtlas () end
 ---*  Sets the line height of the Label.<br>
@@ -128,7 +128,7 @@ function Label:getFontAtlas () end
 ---@param height float
 ---@return self
 function Label:setLineHeight (height) end
----* 
+---*
 ---@param fontSize float
 ---@return self
 function Label:setSystemFontSize (fontSize) end
@@ -170,7 +170,7 @@ function Label:getShadowBlurRadius () end
 ---* Return current effect color value.
 ---@return color4f_table
 function Label:getEffectColor () end
----* 
+---*
 ---@param cleanup boolean
 ---@return self
 function Label:removeAllChildrenWithCleanup (cleanup) end
@@ -183,7 +183,7 @@ function Label:removeAllChildrenWithCleanup (cleanup) end
 ---@param startCharMap int
 ---@return boolean
 function Label:setCharMap (charMapFile,itemWidth,itemHeight,startCharMap) end
----* 
+---*
 ---@return size_table
 function Label:getDimensions () end
 ---* Makes the Label at most this line untransformed width.<br>
@@ -198,7 +198,7 @@ function Label:getSystemFontName () end
 ---@param vAlignment int
 ---@return self
 function Label:setVerticalAlignment (vAlignment) end
----* 
+---*
 ---@param height float
 ---@return self
 function Label:setLineSpacing (height) end
@@ -261,7 +261,7 @@ function Label:setAdditionalKerning (space) end
 ---*  Returns the bitmap font path used by the Label.
 ---@return float
 function Label:getSystemFontSize () end
----* 
+---*
 ---@param blendFunc cc.BlendFunc
 ---@return self
 function Label:setBlendFunc (blendFunc) end
@@ -344,39 +344,39 @@ function Label:createWithCharMap (charMapFile,itemWidth,itemHeight,startCharMap)
 ---@param vAlignment int
 ---@return self
 function Label:createWithSystemFont (text,font,fontSize,dimensions,hAlignment,vAlignment) end
----* 
+---*
 ---@param renderer cc.Renderer
 ---@param transform mat4_table
 ---@param flags unsigned_int
 ---@return self
 function Label:draw (renderer,transform,flags) end
----* 
+---*
 ---@return boolean
 function Label:isOpacityModifyRGB () end
----* 
+---*
 ---@param mask unsigned short
 ---@param applyChildren boolean
 ---@return self
 function Label:setCameraMask (mask,applyChildren) end
----* 
+---*
 ---@param child cc.Node
 ---@param cleanup boolean
 ---@return self
 function Label:removeChild (child,cleanup) end
----* 
+---*
 ---@param renderer cc.Renderer
 ---@param parentTransform mat4_table
 ---@param parentFlags unsigned_int
 ---@return self
 function Label:visit (renderer,parentTransform,parentFlags) end
----* 
+---*
 ---@return string
 function Label:getDescription () end
----* 
+---*
 ---@param isOpacityModifyRGB boolean
 ---@return self
 function Label:setOpacityModifyRGB (isOpacityModifyRGB) end
----* 
+---*
 ---@param parentOpacity unsigned_char
 ---@return self
 function Label:updateDisplayedOpacity (parentOpacity) end
@@ -384,17 +384,17 @@ function Label:updateDisplayedOpacity (parentOpacity) end
 ---@param programState cc.backend.ProgramState
 ---@return self
 function Label:setProgramState (programState) end
----* 
+---*
 ---@return size_table
 function Label:getContentSize () end
----* 
+---*
 ---@return rect_table
 function Label:getBoundingBox () end
----* 
+---*
 ---@param parentColor color3b_table
 ---@return self
 function Label:updateDisplayedColor (parentColor) end
----* 
+---*
 ---@param globalZOrder float
 ---@return self
 function Label:setGlobalZOrder (globalZOrder) end

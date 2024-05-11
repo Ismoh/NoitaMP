@@ -71,7 +71,7 @@ function CS.UnityEngine.WSA.WindowSizeChanged.EndInvoke(result) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.WSA.WindowActivationState = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.WSA.WindowActivationState
 function CS.UnityEngine.WSA.WindowActivationState:__CastFrom(value) end
@@ -145,7 +145,7 @@ function CS.UnityEngine.WSA.Application:remove_windowActivated(value) end
 --```plaintext
 --Params: item - Item to execute.
 --        waitUntilDone - Wait until item is executed.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -159,7 +159,7 @@ function CS.UnityEngine.WSA.Application:InvokeOnAppThread(item, waitUntilDone) e
 --```plaintext
 --Params: item - Item to execute.
 --        waitUntilDone - Wait until item is executed.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -195,7 +195,7 @@ CS.UnityEngine.WSA.Cursor = {}
 --
 --```plaintext
 --Params: id - The cursor resource id.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -239,7 +239,7 @@ function CS.UnityEngine.WSA.Cursor:SetCustomCursor(id) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.WSA.Folder = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.WSA.Folder
 function CS.UnityEngine.WSA.Folder:__CastFrom(value) end
@@ -260,7 +260,7 @@ CS.UnityEngine.WSA.Launcher = {}
 --Params: folder - Folder type where the file is located.
 --        relativeFilePath - Relative file path inside the specified folder.
 --        showWarning - Shows user a warning that application will be switched.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -274,7 +274,7 @@ function CS.UnityEngine.WSA.Launcher:LaunchFile(folder, relativeFilePath, showWa
 --
 --```plaintext
 --Params: fileExtension - File extension.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -287,7 +287,7 @@ function CS.UnityEngine.WSA.Launcher:LaunchFileWithPicker(fileExtension) end
 --```plaintext
 --Params: uri - The URI.
 --        showWarning - Displays a warning that the URI is potentially unsafe.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -470,7 +470,7 @@ function CS.UnityEngine.WSA.Launcher:LaunchUri(uri, showWarning) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.WSA.TileTemplate = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.WSA.TileTemplate
 function CS.UnityEngine.WSA.TileTemplate:__CastFrom(value) end
@@ -500,7 +500,7 @@ function CS.UnityEngine.WSA.TileTemplate:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.WSA.ToastTemplate = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.WSA.ToastTemplate
 function CS.UnityEngine.WSA.ToastTemplate:__CastFrom(value) end
@@ -520,7 +520,7 @@ function CS.UnityEngine.WSA.ToastTemplate:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.WSA.TileForegroundText = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.WSA.TileForegroundText
 function CS.UnityEngine.WSA.TileForegroundText:__CastFrom(value) end
@@ -658,7 +658,7 @@ CS.UnityEngine.WSA.Tile = {}
 --
 --```plaintext
 --Params: templ - A template identifier.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -675,7 +675,7 @@ function CS.UnityEngine.WSA.Tile:GetTemplate(templ) end
 --        wide - An uri to a 310x150 image to be shown on a wide tile (if such issupported).
 --        large - An uri to a 310x310 image to be shown on a large tile (if such is supported).
 --        text - A text to shown on a tile.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -691,7 +691,7 @@ function CS.UnityEngine.WSA.Tile.Update(xml) end
 --        wide - An uri to a 310x150 image to be shown on a wide tile (if such issupported).
 --        large - An uri to a 310x310 image to be shown on a large tile (if such is supported).
 --        text - A text to shown on a tile.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -707,7 +707,7 @@ function CS.UnityEngine.WSA.Tile.Update(medium, wide, large, text) end
 --```plaintext
 --Params: uri - a remote location fromwhere to retrieve tile update
 --        interval - a time interval in minutes, will be rounded to a value, supported by the system
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -726,7 +726,7 @@ function CS.UnityEngine.WSA.Tile.StopPeriodicUpdate() end
 --
 --```plaintext
 --Params: image - Image identifier.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -738,7 +738,7 @@ function CS.UnityEngine.WSA.Tile.UpdateBadgeImage(image) end
 --
 --```plaintext
 --Params: number - Number to be shown on a badge.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -757,7 +757,7 @@ function CS.UnityEngine.WSA.Tile.RemoveBadge() end
 --```plaintext
 --Params: uri - A remote location from where to retrieve tile update
 --        interval - A time interval in minutes, will be rounded to a value, supported by the system
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -776,7 +776,7 @@ function CS.UnityEngine.WSA.Tile.StopPeriodicBadgeUpdate() end
 --
 --```plaintext
 --Params: tileId - An identifier for secondary tile.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -791,7 +791,7 @@ function CS.UnityEngine.WSA.Tile:Exists(tileId) end
 --Params: data - The data used to create or update secondary tile.
 --        pos - The coordinates for a request to create new tile.
 --        area - The area on the screen above which the request to create new tile will be displayed.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -806,7 +806,7 @@ function CS.UnityEngine.WSA.Tile:CreateOrUpdateSecondary(data) end
 --Params: data - The data used to create or update secondary tile.
 --        pos - The coordinates for a request to create new tile.
 --        area - The area on the screen above which the request to create new tile will be displayed.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -822,7 +822,7 @@ function CS.UnityEngine.WSA.Tile:CreateOrUpdateSecondary(data, pos) end
 --Params: data - The data used to create or update secondary tile.
 --        pos - The coordinates for a request to create new tile.
 --        area - The area on the screen above which the request to create new tile will be displayed.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -836,7 +836,7 @@ function CS.UnityEngine.WSA.Tile:CreateOrUpdateSecondary(data, area) end
 --
 --```plaintext
 --Params: tileId - A tile identifier.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -856,7 +856,7 @@ function CS.UnityEngine.WSA.Tile:GetSecondaries() end
 --```plaintext
 --Params: pos - The coordinates for a request to unpin tile.
 --        area - The area on the screen above which the request to unpin tile will be displayed.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -869,7 +869,7 @@ function CS.UnityEngine.WSA.Tile.Delete() end
 --Params: tileId - An identifier for secondary tile.
 --        pos - The coordinates for a request to unpin tile.
 --        area - The area on the screen above which the request to unpin tile will be displayed.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -882,7 +882,7 @@ function CS.UnityEngine.WSA.Tile:DeleteSecondary(tileId) end
 --```plaintext
 --Params: pos - The coordinates for a request to unpin tile.
 --        area - The area on the screen above which the request to unpin tile will be displayed.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -896,7 +896,7 @@ function CS.UnityEngine.WSA.Tile.Delete(pos) end
 --Params: tileId - An identifier for secondary tile.
 --        pos - The coordinates for a request to unpin tile.
 --        area - The area on the screen above which the request to unpin tile will be displayed.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -910,7 +910,7 @@ function CS.UnityEngine.WSA.Tile:DeleteSecondary(tileId, pos) end
 --```plaintext
 --Params: pos - The coordinates for a request to unpin tile.
 --        area - The area on the screen above which the request to unpin tile will be displayed.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -924,7 +924,7 @@ function CS.UnityEngine.WSA.Tile.Delete(area) end
 --Params: tileId - An identifier for secondary tile.
 --        pos - The coordinates for a request to unpin tile.
 --        area - The area on the screen above which the request to unpin tile will be displayed.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -966,7 +966,7 @@ CS.UnityEngine.WSA.Toast = {}
 --
 --```plaintext
 --Params: templ - A template identifier.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -981,7 +981,7 @@ function CS.UnityEngine.WSA.Toast:GetTemplate(templ) end
 --Params: xml - XML document with tile data.
 --        image - Uri to image to show on a toast, can be empty, in that case text-only notification will be shown.
 --        text - A text to display on a toast notification.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -996,7 +996,7 @@ function CS.UnityEngine.WSA.Toast:Create(xml) end
 --Params: xml - XML document with tile data.
 --        image - Uri to image to show on a toast, can be empty, in that case text-only notification will be shown.
 --        text - A text to display on a toast notification.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll

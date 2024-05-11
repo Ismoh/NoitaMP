@@ -68,7 +68,7 @@ function CS.System.Web.AspNetHostingPermissionAttribute.CreatePermission() end
 ---@source System.dll
 CS.System.Web.AspNetHostingPermissionLevel = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Web.AspNetHostingPermissionLevel
 function CS.System.Web.AspNetHostingPermissionLevel:__CastFrom(value) end

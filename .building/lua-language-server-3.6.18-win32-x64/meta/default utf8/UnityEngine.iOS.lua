@@ -137,7 +137,7 @@ function CS.UnityEngine.iOS.ADBannerView:remove_onBannerFailedToLoad(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.iOS.Layout = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.iOS.ADBannerView.Layout
 function CS.UnityEngine.iOS.Layout:__CastFrom(value) end
@@ -161,7 +161,7 @@ function CS.UnityEngine.iOS.Layout:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.iOS.Type = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.iOS.ADBannerView.Type
 function CS.UnityEngine.iOS.Type:__CastFrom(value) end
@@ -708,7 +708,7 @@ function CS.UnityEngine.iOS.InterstitialWasViewedDelegate.EndInvoke(result) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.iOS.DeviceGeneration = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.iOS.DeviceGeneration
 function CS.UnityEngine.iOS.DeviceGeneration:__CastFrom(value) end
@@ -742,7 +742,7 @@ function CS.UnityEngine.iOS.DeviceGeneration:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.iOS.ActivityIndicatorStyle = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.iOS.ActivityIndicatorStyle
 function CS.UnityEngine.iOS.ActivityIndicatorStyle:__CastFrom(value) end
@@ -891,7 +891,7 @@ function CS.UnityEngine.iOS.Device:RequestStoreReview() end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.iOS.CalendarIdentifier = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.iOS.CalendarIdentifier
 function CS.UnityEngine.iOS.CalendarIdentifier:__CastFrom(value) end
@@ -960,7 +960,7 @@ function CS.UnityEngine.iOS.CalendarIdentifier:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.iOS.CalendarUnit = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.iOS.CalendarUnit
 function CS.UnityEngine.iOS.CalendarUnit:__CastFrom(value) end
@@ -994,7 +994,7 @@ function CS.UnityEngine.iOS.CalendarUnit:__CastFrom(value) end
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.iOS.NotificationType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.iOS.NotificationType
 function CS.UnityEngine.iOS.NotificationType:__CastFrom(value) end
@@ -1179,7 +1179,7 @@ function CS.UnityEngine.iOS.NotificationServices:ClearRemoteNotifications() end
 --```plaintext
 --Params: notificationTypes - Notification types to register for.
 --        registerForRemote - Specify true to also register for remote notifications.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -1192,7 +1192,7 @@ function CS.UnityEngine.iOS.NotificationServices:RegisterForNotifications(notifi
 --```plaintext
 --Params: notificationTypes - Notification types to register for.
 --        registerForRemote - Specify true to also register for remote notifications.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -1288,7 +1288,7 @@ function CS.UnityEngine.iOS.NotificationServices:GetRemoteNotification(index) en
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.iOS.SystemGestureDeferMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.iOS.SystemGestureDeferMode
 function CS.UnityEngine.iOS.SystemGestureDeferMode:__CastFrom(value) end
@@ -1317,7 +1317,7 @@ CS.UnityEngine.iOS.OnDemandResourcesRequest = {}
 --
 --```plaintext
 --Params: resourceName - Resource name.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -1350,7 +1350,7 @@ CS.UnityEngine.iOS.OnDemandResources = {}
 --
 --```plaintext
 --Params: tags - Tags for On Demand Resources that should be included in the request.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll

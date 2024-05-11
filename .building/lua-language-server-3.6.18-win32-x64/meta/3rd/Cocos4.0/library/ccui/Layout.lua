@@ -42,7 +42,7 @@ function Layout:getBackGroundColorVector () end
 ---* see `setClippingType(ClippingType)`
 ---@return int
 function Layout:getClippingType () end
----* 
+---*
 ---@return cc.ResourceData
 function Layout:getRenderFile () end
 ---* return If focus loop is enabled, then it will return true, otherwise it returns false. The default value is false.
@@ -66,7 +66,7 @@ function Layout:isClippingEnabled () end
 function Layout:setBackGroundImageOpacity (opacity) end
 ---* Sets a background image for layout.<br>
 ---* param fileName image file path.<br>
----* param texType @see TextureResType. 
+---* param texType @see TextureResType.
 ---@param fileName string
 ---@param texType int
 ---@return self
@@ -159,7 +159,7 @@ function Layout:setLayoutType (type) end
 ---* Create a empty layout.
 ---@return self
 function Layout:create () end
----* 
+---*
 ---@return cc.Ref
 function Layout:createInstance () end
 ---@overload fun(cc.Node:cc.Node,int:int):self
@@ -194,12 +194,12 @@ function Layout:removeAllChildren () end
 ---@param current ccui.Widget
 ---@return ccui.Widget
 function Layout:findNextFocusedWidget (direction,current) end
----* 
+---*
 ---@param child cc.Node
 ---@param cleanup boolean
 ---@return self
 function Layout:removeChild (child,cleanup) end
----* 
+---*
 ---@return boolean
 function Layout:init () end
 ---* Override function. Set camera mask, the node is visible by the camera whose camera flag & node's camera mask is true. <br>
@@ -209,7 +209,7 @@ function Layout:init () end
 ---@param applyChildren boolean
 ---@return self
 function Layout:setCameraMask (mask,applyChildren) end
----* 
+---*
 ---@param globalZOrder float
 ---@return self
 function Layout:setGlobalZOrder (globalZOrder) end

@@ -47,7 +47,7 @@ local function trace_json(o)
       debug_print(o, "  remotes\n")
       for i, t in ipairs(o._json.git.remotes) do
         debug_print(o, "    ", t.name, " ", t.url, "\n")
-      end 
+      end
    end
    debug_print(o, "--------------------\n")
 end

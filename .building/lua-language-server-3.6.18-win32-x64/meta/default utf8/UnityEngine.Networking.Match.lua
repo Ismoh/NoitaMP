@@ -120,7 +120,7 @@ CS.UnityEngine.Networking.Match.NetworkMatch = {}
 --
 --```plaintext
 --Params: programAppID - Deprecated, see description.
---        
+--
 --```
 --
 ---@source UnityEngine.UNETModule.dll
@@ -221,7 +221,7 @@ CS.UnityEngine.Networking.Match.MatchInfoDirectConnectSnapshot = {}
 --```plaintext
 --Params: success - Indicates if the request succeeded.
 --        extendedInfo - A text description of the failure if success is false.
---        
+--
 --```
 --
 ---@source UnityEngine.UNETModule.dll

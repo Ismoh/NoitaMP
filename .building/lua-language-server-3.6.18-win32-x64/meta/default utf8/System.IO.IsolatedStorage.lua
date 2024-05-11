@@ -366,7 +366,7 @@ function CS.System.IO.IsolatedStorage.IsolatedStorageFileStream.WriteByte(value)
 ---@source mscorlib.dll
 CS.System.IO.IsolatedStorage.IsolatedStorageScope = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.IO.IsolatedStorage.IsolatedStorageScope
 function CS.System.IO.IsolatedStorage.IsolatedStorageScope:__CastFrom(value) end
@@ -379,7 +379,7 @@ function CS.System.IO.IsolatedStorage.IsolatedStorageScope:__CastFrom(value) end
 ---@source mscorlib.dll
 CS.System.IO.IsolatedStorage.IsolatedStorageSecurityOptions = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.IO.IsolatedStorage.IsolatedStorageSecurityOptions
 function CS.System.IO.IsolatedStorage.IsolatedStorageSecurityOptions:__CastFrom(value) end

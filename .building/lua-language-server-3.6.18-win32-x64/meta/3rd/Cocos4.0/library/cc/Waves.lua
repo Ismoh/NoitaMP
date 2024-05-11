@@ -57,13 +57,13 @@ function Waves:setAmplitude (amplitude) end
 ---@param vertical boolean
 ---@return self
 function Waves:create (duration,gridSize,waves,amplitude,horizontal,vertical) end
----* 
+---*
 ---@return self
 function Waves:clone () end
----* 
+---*
 ---@param time float
 ---@return self
 function Waves:update (time) end
----* 
+---*
 ---@return self
 function Waves:Waves () end

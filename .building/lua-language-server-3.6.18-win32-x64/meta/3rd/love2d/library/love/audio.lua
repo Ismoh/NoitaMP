@@ -759,7 +759,7 @@ function Source:setPosition(x, y, z) end
 ---
 ---Sets whether the Source's position, velocity, direction, and cone angles are relative to the listener, or absolute.
 ---
----By default, all sources are absolute and therefore relative to the origin of love's coordinate system 0, 0. Only absolute sources are affected by the position of the listener. Please note that positional audio only works for mono (i.e. non-stereo) sources. 
+---By default, all sources are absolute and therefore relative to the origin of love's coordinate system 0, 0. Only absolute sources are affected by the position of the listener. Please note that positional audio only works for mono (i.e. non-stereo) sources.
 ---
 ---
 ---[Open in Browser](https://love2d.org/wiki/Source:setRelative)

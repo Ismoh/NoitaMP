@@ -7,11 +7,11 @@ cc.TMXLayerInfo=TMXLayerInfo
 
 
 
----* 
+---*
 ---@param properties map_table
 ---@return self
 function TMXLayerInfo:setProperties (properties) end
----* 
+---*
 ---@return map_table
 function TMXLayerInfo:getProperties () end
 ---* js ctor

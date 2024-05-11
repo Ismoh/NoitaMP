@@ -7,7 +7,7 @@ cc.Menu=Menu
 
 
 
----*  initializes a Menu with a NSArray of MenuItem objects 
+---*  initializes a Menu with a NSArray of MenuItem objects
 ---@param arrayOfItems array_table
 ---@return boolean
 function Menu:initWithArray (arrayOfItems) end
@@ -18,7 +18,7 @@ function Menu:initWithArray (arrayOfItems) end
 ---@param value boolean
 ---@return self
 function Menu:setEnabled (value) end
----*  Align items vertically. 
+---*  Align items vertically.
 ---@return self
 function Menu:alignItemsVertically () end
 ---* Determines if the menu is enabled.<br>
@@ -26,7 +26,7 @@ function Menu:alignItemsVertically () end
 ---* return whether the menu is enabled or not.
 ---@return boolean
 function Menu:isEnabled () end
----*  Align items horizontally. 
+---*  Align items horizontally.
 ---@return self
 function Menu:alignItemsHorizontally () end
 ---*  Align items horizontally with padding.<br>
@@ -48,22 +48,22 @@ function Menu:alignItemsVerticallyWithPadding (padding) end
 ---@param name string
 ---@return self
 function Menu:addChild (child,zOrder,name) end
----* 
+---*
 ---@return string
 function Menu:getDescription () end
----* 
+---*
 ---@param child cc.Node
 ---@param cleanup boolean
 ---@return self
 function Menu:removeChild (child,cleanup) end
----*  initializes an empty Menu 
+---*  initializes an empty Menu
 ---@return boolean
 function Menu:init () end
----* 
+---*
 ---@param value boolean
 ---@return self
 function Menu:setOpacityModifyRGB (value) end
----* 
+---*
 ---@return boolean
 function Menu:isOpacityModifyRGB () end
 ---* js ctor

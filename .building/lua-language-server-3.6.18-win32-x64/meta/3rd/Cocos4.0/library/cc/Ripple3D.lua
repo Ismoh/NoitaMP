@@ -66,13 +66,13 @@ function Ripple3D:getPosition () end
 ---@param amplitude float
 ---@return self
 function Ripple3D:create (duration,gridSize,position,radius,waves,amplitude) end
----* 
+---*
 ---@return self
 function Ripple3D:clone () end
----* 
+---*
 ---@param time float
 ---@return self
 function Ripple3D:update (time) end
----* 
+---*
 ---@return self
 function Ripple3D:Ripple3D () end

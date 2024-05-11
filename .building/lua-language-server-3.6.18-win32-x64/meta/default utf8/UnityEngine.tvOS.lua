@@ -65,7 +65,7 @@ CS.UnityEngine.tvOS.Remote = {}
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.tvOS.DeviceGeneration = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.tvOS.DeviceGeneration
 function CS.UnityEngine.tvOS.DeviceGeneration:__CastFrom(value) end

@@ -7,10 +7,10 @@ cc.ParticleSun=ParticleSun
 
 
 
----* 
+---*
 ---@return boolean
 function ParticleSun:init () end
----* 
+---*
 ---@param numberOfParticles int
 ---@return boolean
 function ParticleSun:initWithTotalParticles (numberOfParticles) end

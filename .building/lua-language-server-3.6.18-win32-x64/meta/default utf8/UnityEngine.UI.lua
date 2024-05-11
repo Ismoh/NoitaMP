@@ -49,7 +49,7 @@ function CS.UnityEngine.UI.Button.OnSubmit(eventData) end
 ---@source UnityEngine.UI.dll
 CS.UnityEngine.UI.CanvasUpdate = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UI.CanvasUpdate
 function CS.UnityEngine.UI.CanvasUpdate:__CastFrom(value) end
@@ -761,7 +761,7 @@ CS.UnityEngine.UI.OptionData = {}
 ---@source UnityEngine.UI.dll
 CS.UnityEngine.UI.BlockingObjects = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UI.GraphicRaycaster.BlockingObjects
 function CS.UnityEngine.UI.BlockingObjects:__CastFrom(value) end
@@ -832,7 +832,7 @@ CS.UnityEngine.UI.DropdownEvent = {}
 ---@source UnityEngine.UI.dll
 CS.UnityEngine.UI.FitMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UI.ContentSizeFitter.FitMode
 function CS.UnityEngine.UI.FitMode:__CastFrom(value) end
@@ -851,7 +851,7 @@ function CS.UnityEngine.UI.FitMode:__CastFrom(value) end
 ---@source UnityEngine.UI.dll
 CS.UnityEngine.UI.Type = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UI.Image.Type
 function CS.UnityEngine.UI.Type:__CastFrom(value) end
@@ -872,7 +872,7 @@ function CS.UnityEngine.UI.Type:__CastFrom(value) end
 ---@source UnityEngine.UI.dll
 CS.UnityEngine.UI.FillMethod = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UI.Image.FillMethod
 function CS.UnityEngine.UI.FillMethod:__CastFrom(value) end
@@ -887,7 +887,7 @@ function CS.UnityEngine.UI.FillMethod:__CastFrom(value) end
 ---@source UnityEngine.UI.dll
 CS.UnityEngine.UI.OriginHorizontal = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UI.Image.OriginHorizontal
 function CS.UnityEngine.UI.OriginHorizontal:__CastFrom(value) end
@@ -902,7 +902,7 @@ function CS.UnityEngine.UI.OriginHorizontal:__CastFrom(value) end
 ---@source UnityEngine.UI.dll
 CS.UnityEngine.UI.OriginVertical = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UI.Image.OriginVertical
 function CS.UnityEngine.UI.OriginVertical:__CastFrom(value) end
@@ -921,7 +921,7 @@ function CS.UnityEngine.UI.OriginVertical:__CastFrom(value) end
 ---@source UnityEngine.UI.dll
 CS.UnityEngine.UI.Origin90 = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UI.Image.Origin90
 function CS.UnityEngine.UI.Origin90:__CastFrom(value) end
@@ -940,7 +940,7 @@ function CS.UnityEngine.UI.Origin90:__CastFrom(value) end
 ---@source UnityEngine.UI.dll
 CS.UnityEngine.UI.Origin180 = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UI.Image.Origin180
 function CS.UnityEngine.UI.Origin180:__CastFrom(value) end
@@ -959,7 +959,7 @@ function CS.UnityEngine.UI.Origin180:__CastFrom(value) end
 ---@source UnityEngine.UI.dll
 CS.UnityEngine.UI.Origin360 = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UI.Image.Origin360
 function CS.UnityEngine.UI.Origin360:__CastFrom(value) end
@@ -1172,7 +1172,7 @@ function CS.UnityEngine.UI.GridLayoutGroup.SetLayoutVertical() end
 ---@source UnityEngine.UI.dll
 CS.UnityEngine.UI.AspectMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UI.AspectRatioFitter.AspectMode
 function CS.UnityEngine.UI.AspectMode:__CastFrom(value) end
@@ -1283,7 +1283,7 @@ CS.UnityEngine.UI.ILayoutGroup = {}
 ---@source UnityEngine.UI.dll
 CS.UnityEngine.UI.Corner = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UI.GridLayoutGroup.Corner
 function CS.UnityEngine.UI.Corner:__CastFrom(value) end
@@ -1312,7 +1312,7 @@ CS.UnityEngine.UI.ILayoutIgnorer = {}
 ---@source UnityEngine.UI.dll
 CS.UnityEngine.UI.Axis = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UI.GridLayoutGroup.Axis
 function CS.UnityEngine.UI.Axis:__CastFrom(value) end
@@ -1329,7 +1329,7 @@ function CS.UnityEngine.UI.Axis:__CastFrom(value) end
 ---@source UnityEngine.UI.dll
 CS.UnityEngine.UI.Constraint = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UI.GridLayoutGroup.Constraint
 function CS.UnityEngine.UI.Constraint:__CastFrom(value) end
@@ -1428,7 +1428,7 @@ function CS.UnityEngine.UI.LayoutGroup.SetLayoutVertical() end
 ---@source UnityEngine.UI.dll
 CS.UnityEngine.UI.ScaleMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UI.CanvasScaler.ScaleMode
 function CS.UnityEngine.UI.ScaleMode:__CastFrom(value) end
@@ -1514,7 +1514,7 @@ function CS.UnityEngine.UI.LayoutUtility:GetLayoutProperty(rect, property, defau
 ---@source UnityEngine.UI.dll
 CS.UnityEngine.UI.ScreenMatchMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UI.CanvasScaler.ScreenMatchMode
 function CS.UnityEngine.UI.ScreenMatchMode:__CastFrom(value) end
@@ -1535,7 +1535,7 @@ function CS.UnityEngine.UI.ScreenMatchMode:__CastFrom(value) end
 ---@source UnityEngine.UI.dll
 CS.UnityEngine.UI.Unit = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UI.CanvasScaler.Unit
 function CS.UnityEngine.UI.Unit:__CastFrom(value) end
@@ -1779,7 +1779,7 @@ function CS.UnityEngine.UI.RawImage.SetNativeSize() end
 ---@source UnityEngine.UI.dll
 CS.UnityEngine.UI.Mode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UI.Navigation.Mode
 function CS.UnityEngine.UI.Mode:__CastFrom(value) end
@@ -2073,7 +2073,7 @@ function CS.UnityEngine.UI.StencilMaterial:ClearAll() end
 ---@source UnityEngine.UI.dll
 CS.UnityEngine.UI.ContentType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UI.InputField.ContentType
 function CS.UnityEngine.UI.ContentType:__CastFrom(value) end
@@ -2090,7 +2090,7 @@ function CS.UnityEngine.UI.ContentType:__CastFrom(value) end
 ---@source UnityEngine.UI.dll
 CS.UnityEngine.UI.InputType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UI.InputField.InputType
 function CS.UnityEngine.UI.InputType:__CastFrom(value) end
@@ -2113,7 +2113,7 @@ function CS.UnityEngine.UI.InputType:__CastFrom(value) end
 ---@source UnityEngine.UI.dll
 CS.UnityEngine.UI.CharacterValidation = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UI.InputField.CharacterValidation
 function CS.UnityEngine.UI.CharacterValidation:__CastFrom(value) end
@@ -2206,7 +2206,7 @@ function CS.UnityEngine.UI.Text.OnRebuildRequested() end
 ---@source UnityEngine.UI.dll
 CS.UnityEngine.UI.LineType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UI.InputField.LineType
 function CS.UnityEngine.UI.LineType:__CastFrom(value) end
@@ -2467,7 +2467,7 @@ function CS.UnityEngine.UI.Shadow.ModifyMesh(vh) end
 ---@source UnityEngine.UI.dll
 CS.UnityEngine.UI.MovementType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UI.ScrollRect.MovementType
 function CS.UnityEngine.UI.MovementType:__CastFrom(value) end
@@ -2484,7 +2484,7 @@ function CS.UnityEngine.UI.MovementType:__CastFrom(value) end
 ---@source UnityEngine.UI.dll
 CS.UnityEngine.UI.ScrollbarVisibility = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UI.ScrollRect.ScrollbarVisibility
 function CS.UnityEngine.UI.ScrollbarVisibility:__CastFrom(value) end
@@ -2586,7 +2586,7 @@ function CS.UnityEngine.UI.Scrollbar.SetDirection(direction, includeRectLayouts)
 ---@source UnityEngine.UI.dll
 CS.UnityEngine.UI.Direction = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UI.Slider.Direction
 function CS.UnityEngine.UI.Direction:__CastFrom(value) end
@@ -2626,7 +2626,7 @@ function CS.UnityEngine.UI.SpriteState.Equals(other) end
 ---@source UnityEngine.UI.dll
 CS.UnityEngine.UI.ToggleTransition = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UI.Toggle.ToggleTransition
 function CS.UnityEngine.UI.ToggleTransition:__CastFrom(value) end
@@ -2691,7 +2691,7 @@ function CS.UnityEngine.UI.ToggleGroup.SetAllTogglesOff(sendCallback) end
 ---@source UnityEngine.UI.dll
 CS.UnityEngine.UI.Direction = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UI.Scrollbar.Direction
 function CS.UnityEngine.UI.Direction:__CastFrom(value) end
@@ -2807,7 +2807,7 @@ function CS.UnityEngine.UI.Selectable.Select() end
 ---@source UnityEngine.UI.dll
 CS.UnityEngine.UI.Transition = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.UI.Selectable.Transition
 function CS.UnityEngine.UI.Transition:__CastFrom(value) end

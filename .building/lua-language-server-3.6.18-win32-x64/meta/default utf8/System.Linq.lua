@@ -2072,7 +2072,7 @@ function CS.System.Linq.ParallelEnumerable.Zip(second, resultSelector) end
 ---@source System.Core.dll
 CS.System.Linq.ParallelExecutionMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Linq.ParallelExecutionMode
 function CS.System.Linq.ParallelExecutionMode:__CastFrom(value) end
@@ -2091,7 +2091,7 @@ function CS.System.Linq.ParallelExecutionMode:__CastFrom(value) end
 ---@source System.Core.dll
 CS.System.Linq.ParallelMergeOptions = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Linq.ParallelMergeOptions
 function CS.System.Linq.ParallelMergeOptions:__CastFrom(value) end

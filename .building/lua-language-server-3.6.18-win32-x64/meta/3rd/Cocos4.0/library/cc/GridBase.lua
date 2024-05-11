@@ -29,19 +29,19 @@ function GridBase:beforeDraw () end
 ---* return Return the effect grid rect.
 ---@return rect_table
 function GridBase:getGridRect () end
----*  is texture flipped. 
+---*  is texture flipped.
 ---@return boolean
 function GridBase:isTextureFlipped () end
----*  Size of the grid. 
+---*  Size of the grid.
 ---@return size_table
 function GridBase:getGridSize () end
----* 
+---*
 ---@return self
 function GridBase:afterBlit () end
 ---* Change projection to 2D for grabbing.
 ---@return self
 function GridBase:set2DProjection () end
----*  Pixels between the grids. 
+---*  Pixels between the grids.
 ---@return vec2_table
 function GridBase:getStep () end
 ---* Get the pixels between the grids.
@@ -55,11 +55,11 @@ function GridBase:setTextureFlipped (flipped) end
 ---* Interface used to blit the texture with grid to screen.
 ---@return self
 function GridBase:blit () end
----* 
+---*
 ---@param active boolean
 ---@return self
 function GridBase:setActive (active) end
----*  Get number of times that the grid will be reused. 
+---*  Get number of times that the grid will be reused.
 ---@return int
 function GridBase:getReuseGrid () end
 ---@overload fun(size_table:size_table,cc.Texture2D1:rect_table):self
@@ -76,14 +76,14 @@ function GridBase:initWithSize (gridSize,texture,flipped,rect) end
 ---* js NA
 ---@return self
 function GridBase:beforeBlit () end
----*  Set number of times that the grid will be reused. 
+---*  Set number of times that the grid will be reused.
 ---@param reuseGrid int
 ---@return self
 function GridBase:setReuseGrid (reuseGrid) end
 ---* Getter and setter of the active state of the grid.
 ---@return boolean
 function GridBase:isActive () end
----* 
+---*
 ---@param target cc.Node
 ---@return self
 function GridBase:afterDraw (target) end

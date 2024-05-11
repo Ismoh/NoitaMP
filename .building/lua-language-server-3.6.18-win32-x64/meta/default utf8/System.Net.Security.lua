@@ -29,7 +29,7 @@ CS.System.Net.Security.AuthenticatedStream = {}
 ---@source System.dll
 CS.System.Net.Security.AuthenticationLevel = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.Security.AuthenticationLevel
 function CS.System.Net.Security.AuthenticationLevel:__CastFrom(value) end
@@ -46,7 +46,7 @@ function CS.System.Net.Security.AuthenticationLevel:__CastFrom(value) end
 ---@source System.dll
 CS.System.Net.Security.EncryptionPolicy = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.Security.EncryptionPolicy
 function CS.System.Net.Security.EncryptionPolicy:__CastFrom(value) end
@@ -374,7 +374,7 @@ function CS.System.Net.Security.NegotiateStream.Write(buffer, offset, count) end
 ---@source System.dll
 CS.System.Net.Security.ProtectionLevel = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.Security.ProtectionLevel
 function CS.System.Net.Security.ProtectionLevel:__CastFrom(value) end
@@ -422,7 +422,7 @@ function CS.System.Net.Security.RemoteCertificateValidationCallback.EndInvoke(re
 ---@source System.dll
 CS.System.Net.Security.SslPolicyErrors = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.Security.SslPolicyErrors
 function CS.System.Net.Security.SslPolicyErrors:__CastFrom(value) end

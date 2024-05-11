@@ -1,6 +1,6 @@
 ---@meta
 
----@class cc.Renderer 
+---@class cc.Renderer
 local Renderer={ }
 cc.Renderer=Renderer
 
@@ -11,13 +11,13 @@ cc.Renderer=Renderer
 ---* return The winding mode.
 ---@return int
 function Renderer:getWinding () end
----* 
+---*
 ---@return int
 function Renderer:getDrawnVertices () end
----*  Renders into the GLView all the queued `RenderCommand` objects 
+---*  Renders into the GLView all the queued `RenderCommand` objects
 ---@return self
 function Renderer:render () end
----*  Creates a render queue and returns its Id 
+---*  Creates a render queue and returns its Id
 ---@return int
 function Renderer:createRenderQueue () end
 ---* Get whether stencil test is enabled or not.<br>
@@ -58,13 +58,13 @@ function Renderer:setViewPort (x,y,w,h) end
 ---@return unsigned_int
 function Renderer:getStencilReadMask () end
 ---* Get depth clear value.<br>
----* return Depth clear value. 
+---* return Depth clear value.
 ---@return float
 function Renderer:getClearDepth () end
 ---* Set front and back function and reference value for stencil testing.<br>
 ---* param func Specifies the stencil test function.<br>
 ---* param ref Specifies the reference value for the stencil test. <br>
----* readMask Specifies a mask that is ANDed with both the reference value and the stored stencil value when the test is done. 
+---* readMask Specifies a mask that is ANDed with both the reference value and the stored stencil value when the test is done.
 ---@param func int
 ---@param ref unsigned_int
 ---@param readMask unsigned_int
@@ -74,7 +74,7 @@ function Renderer:setStencilCompareFunction (func,ref,readMask) end
 ---@return cc.Viewport
 function Renderer:getViewport () end
 ---* Get the index when the stencil buffer is cleared. <br>
----* return The index used when the stencil buffer is cleared. 
+---* return The index used when the stencil buffer is cleared.
 ---@return unsigned_int
 function Renderer:getClearStencil () end
 ---* Enable/disable stencil test. <br>
@@ -82,7 +82,7 @@ function Renderer:getClearStencil () end
 ---@param value boolean
 ---@return self
 function Renderer:setStencilTest (value) end
----* / Get the action to take when the stencil test fails. 
+---* / Get the action to take when the stencil test fails.
 ---@return int
 function Renderer:getStencilFailureOperation () end
 ---* Get color attachment.<br>
@@ -114,7 +114,7 @@ function Renderer:setScissorRect (x,y,width,height) end
 ---* return true if depth test is enabled, otherwise false.
 ---@return boolean
 function Renderer:getDepthTest () end
----* 
+---*
 ---@return self
 function Renderer:init () end
 ---* Enable/disable to update depth buffer. <br>
@@ -122,7 +122,7 @@ function Renderer:init () end
 ---@param value boolean
 ---@return self
 function Renderer:setDepthWrite (value) end
----* / Get the stencil action when the stencil test passes, but the depth test fails. 
+---* / Get the stencil action when the stencil test passes, but the depth test fails.
 ---@return int
 function Renderer:getStencilPassDepthFailureOperation () end
 ---* Fixed-function state<br>
@@ -130,17 +130,17 @@ function Renderer:getStencilPassDepthFailureOperation () end
 ---@param mode int
 ---@return self
 function Renderer:setCullMode (mode) end
----*  Pops a group from the render queue 
+---*  Pops a group from the render queue
 ---@return self
 function Renderer:popGroup () end
----*  Pushes a group into the render queue 
+---*  Pushes a group into the render queue
 ---@param renderQueueID int
 ---@return self
 function Renderer:pushGroup (renderQueueID) end
----* 
+---*
 ---@return cc.ScissorRect
 function Renderer:getScissorRect () end
----* 
+---*
 ---@return boolean
 function Renderer:getScissorTest () end
 ---* Get the stencil write mask.<br>
@@ -148,11 +148,11 @@ function Renderer:getScissorTest () end
 ---* see `setStencilWriteMask(unsigned int mask)`
 ---@return unsigned_int
 function Renderer:getStencilWriteMask () end
----* 
+---*
 ---@param number int
 ---@return self
 function Renderer:addDrawnBatches (number) end
----*  returns whether or not a rectangle is visible or not 
+---*  returns whether or not a rectangle is visible or not
 ---@param transform mat4_table
 ---@param size size_table
 ---@return boolean
@@ -160,7 +160,7 @@ function Renderer:checkVisibility (transform,size) end
 ---* Set front and back stencil test actions.<br>
 ---* param stencilFailureOp Specifies the action to take when the stencil test fails. <br>
 ---* param depthFailureOp Specifies the stencil action when the stencil test passes, but the depth test fails. <br>
----* param stencilDepthPassOp Specifies the stencil action when both the stencil test and the depth test pass, or when the stencil test passes and either there is no depth buffer or depth testing is not enabled. 
+---* param stencilDepthPassOp Specifies the stencil action when both the stencil test and the depth test pass, or when the stencil test passes and either there is no depth buffer or depth testing is not enabled.
 ---@param stencilFailureOp int
 ---@param depthFailureOp int
 ---@param stencilDepthPassOp int
@@ -191,7 +191,7 @@ function Renderer:setDepthCompareFunction (func) end
 ---@param mask unsigned_int
 ---@return self
 function Renderer:setStencilWriteMask (mask) end
----* / Get the stencil action when both the stencil test and the depth test pass, or when the stencil test passes and either there is no depth buffer or depth testing is not enabled. 
+---* / Get the stencil action when both the stencil test and the depth test pass, or when the stencil test passes and either there is no depth buffer or depth testing is not enabled.
 ---@return int
 function Renderer:getStencilDepthPassOperation () end
 ---* Enable/disable scissor test. <br>
@@ -232,17 +232,17 @@ function Renderer:setRenderTarget (flags,colorAttachment,depthAttachment,stencil
 ---* return Depth attachment.
 ---@return cc.Texture2D
 function Renderer:getDepthAttachment () end
----* 
+---*
 ---@param number int
 ---@return self
 function Renderer:addDrawnVertices (number) end
----*  Cleans all `RenderCommand`s in the queue 
+---*  Cleans all `RenderCommand`s in the queue
 ---@return self
 function Renderer:clean () end
----* 
+---*
 ---@return int
 function Renderer:getDrawnBatches () end
----* 
+---*
 ---@return self
 function Renderer:clearDrawStats () end
 ---* Get depth compare function.<br>

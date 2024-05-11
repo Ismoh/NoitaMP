@@ -47,7 +47,7 @@ function CS.UnityEngine.Scripting.GarbageCollector:remove_GCModeChanged(value) e
 --
 --```plaintext
 --Params: nanoseconds - The maximum number of nanoseconds to spend in garbage collection.
---        
+--
 --```
 --
 ---@source UnityEngine.CoreModule.dll
@@ -79,7 +79,7 @@ function CS.UnityEngine.Scripting.GarbageCollector:CollectIncremental(nanosecond
 ---@source UnityEngine.CoreModule.dll
 CS.UnityEngine.Scripting.Mode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Scripting.GarbageCollector.Mode
 function CS.UnityEngine.Scripting.Mode:__CastFrom(value) end

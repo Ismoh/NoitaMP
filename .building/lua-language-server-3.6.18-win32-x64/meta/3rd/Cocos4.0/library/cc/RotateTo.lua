@@ -22,20 +22,20 @@ function RotateTo:initWithDuration (duration,dstAngleX,dstAngleY) end
 ---@param dstAngleY float
 ---@return self
 function RotateTo:create (duration,dstAngleX,dstAngleY) end
----* 
+---*
 ---@param target cc.Node
 ---@return self
 function RotateTo:startWithTarget (target) end
----* 
+---*
 ---@return self
 function RotateTo:clone () end
----* 
+---*
 ---@return self
 function RotateTo:reverse () end
 ---* param time In seconds.
 ---@param time float
 ---@return self
 function RotateTo:update (time) end
----* 
+---*
 ---@return self
 function RotateTo:RotateTo () end

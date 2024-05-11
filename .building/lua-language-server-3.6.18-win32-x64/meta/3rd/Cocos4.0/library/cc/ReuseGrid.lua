@@ -19,16 +19,16 @@ function ReuseGrid:initWithTimes (times) end
 ---@param times int
 ---@return self
 function ReuseGrid:create (times) end
----* 
+---*
 ---@param target cc.Node
 ---@return self
 function ReuseGrid:startWithTarget (target) end
----* 
+---*
 ---@return self
 function ReuseGrid:clone () end
----* 
+---*
 ---@return self
 function ReuseGrid:reverse () end
----* 
+---*
 ---@return self
 function ReuseGrid:ReuseGrid () end

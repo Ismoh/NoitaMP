@@ -7,10 +7,10 @@ cc.ParticleSmoke=ParticleSmoke
 
 
 
----* 
+---*
 ---@return boolean
 function ParticleSmoke:init () end
----* 
+---*
 ---@param numberOfParticles int
 ---@return boolean
 function ParticleSmoke:initWithTotalParticles (numberOfParticles) end

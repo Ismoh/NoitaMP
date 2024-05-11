@@ -7,10 +7,10 @@ cc.Scene=Scene
 
 
 
----* 
+---*
 ---@return boolean
 function Scene:initWithPhysics () end
----* 
+---*
 ---@return self
 function Scene:setCameraOrderDirty () end
 ---*  Render the scene.<br>
@@ -23,11 +23,11 @@ function Scene:setCameraOrderDirty () end
 ---@param eyeProjection mat4_table
 ---@return self
 function Scene:render (renderer,eyeTransform,eyeProjection) end
----* 
+---*
 ---@param deltaTime float
 ---@return self
 function Scene:stepPhysicsAndNavigation (deltaTime) end
----* 
+---*
 ---@param event cc.EventCustom
 ---@return self
 function Scene:onProjectionChanged (event) end
@@ -36,7 +36,7 @@ function Scene:onProjectionChanged (event) end
 ---* js NA
 ---@return cc.PhysicsWorld
 function Scene:getPhysicsWorld () end
----* 
+---*
 ---@param size size_table
 ---@return boolean
 function Scene:initWithSize (size) end
@@ -61,15 +61,15 @@ function Scene:create () end
 ---* js NA
 ---@return self
 function Scene:createWithPhysics () end
----* 
+---*
 ---@return boolean
 function Scene:init () end
----* 
+---*
 ---@return string
 function Scene:getDescription () end
----*  override function 
+---*  override function
 ---@return self
 function Scene:removeAllChildren () end
----* 
+---*
 ---@return self
 function Scene:Scene () end

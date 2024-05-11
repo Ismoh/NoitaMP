@@ -51,7 +51,7 @@ CS.System.Runtime.InteropServices.ComTypes.BIND_OPTS = {}
 ---@source mscorlib.dll
 CS.System.Runtime.InteropServices.ComTypes.CALLCONV = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.ComTypes.CALLCONV
 function CS.System.Runtime.InteropServices.ComTypes.CALLCONV:__CastFrom(value) end
@@ -84,7 +84,7 @@ CS.System.Runtime.InteropServices.ComTypes.CONNECTDATA = {}
 ---@source mscorlib.dll
 CS.System.Runtime.InteropServices.ComTypes.DESCKIND = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.ComTypes.DESCKIND
 function CS.System.Runtime.InteropServices.ComTypes.DESCKIND:__CastFrom(value) end
@@ -185,7 +185,7 @@ CS.System.Runtime.InteropServices.ComTypes.FUNCDESC = {}
 ---@source mscorlib.dll
 CS.System.Runtime.InteropServices.ComTypes.FUNCFLAGS = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.ComTypes.FUNCFLAGS
 function CS.System.Runtime.InteropServices.ComTypes.FUNCFLAGS:__CastFrom(value) end
@@ -206,7 +206,7 @@ function CS.System.Runtime.InteropServices.ComTypes.FUNCFLAGS:__CastFrom(value) 
 ---@source mscorlib.dll
 CS.System.Runtime.InteropServices.ComTypes.FUNCKIND = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.ComTypes.FUNCKIND
 function CS.System.Runtime.InteropServices.ComTypes.FUNCKIND:__CastFrom(value) end
@@ -317,7 +317,7 @@ function CS.System.Runtime.InteropServices.ComTypes.IConnectionPointContainer.Fi
 ---@source mscorlib.dll
 CS.System.Runtime.InteropServices.ComTypes.IDLFLAG = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.ComTypes.IDLFLAG
 function CS.System.Runtime.InteropServices.ComTypes.IDLFLAG:__CastFrom(value) end
@@ -620,7 +620,7 @@ function CS.System.Runtime.InteropServices.ComTypes.IEnumVARIANT.Skip(celt) end
 ---@source mscorlib.dll
 CS.System.Runtime.InteropServices.ComTypes.IMPLTYPEFLAGS = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.ComTypes.IMPLTYPEFLAGS
 function CS.System.Runtime.InteropServices.ComTypes.IMPLTYPEFLAGS:__CastFrom(value) end
@@ -639,7 +639,7 @@ function CS.System.Runtime.InteropServices.ComTypes.IMPLTYPEFLAGS:__CastFrom(val
 ---@source mscorlib.dll
 CS.System.Runtime.InteropServices.ComTypes.INVOKEKIND = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.ComTypes.INVOKEKIND
 function CS.System.Runtime.InteropServices.ComTypes.INVOKEKIND:__CastFrom(value) end
@@ -1262,7 +1262,7 @@ function CS.System.Runtime.InteropServices.ComTypes.ITypeLib2.ReleaseTLibAttr(pT
 ---@source mscorlib.dll
 CS.System.Runtime.InteropServices.ComTypes.LIBFLAGS = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.ComTypes.LIBFLAGS
 function CS.System.Runtime.InteropServices.ComTypes.LIBFLAGS:__CastFrom(value) end
@@ -1299,7 +1299,7 @@ CS.System.Runtime.InteropServices.ComTypes.PARAMDESC = {}
 ---@source mscorlib.dll
 CS.System.Runtime.InteropServices.ComTypes.PARAMFLAG = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.ComTypes.PARAMFLAG
 function CS.System.Runtime.InteropServices.ComTypes.PARAMFLAG:__CastFrom(value) end
@@ -1390,7 +1390,7 @@ CS.System.Runtime.InteropServices.ComTypes.STATSTG = {}
 ---@source mscorlib.dll
 CS.System.Runtime.InteropServices.ComTypes.SYSKIND = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.ComTypes.SYSKIND
 function CS.System.Runtime.InteropServices.ComTypes.SYSKIND:__CastFrom(value) end
@@ -1441,7 +1441,7 @@ CS.System.Runtime.InteropServices.ComTypes.TYPEDESC = {}
 ---@source mscorlib.dll
 CS.System.Runtime.InteropServices.ComTypes.TYPEFLAGS = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.ComTypes.TYPEFLAGS
 function CS.System.Runtime.InteropServices.ComTypes.TYPEFLAGS:__CastFrom(value) end
@@ -1470,7 +1470,7 @@ function CS.System.Runtime.InteropServices.ComTypes.TYPEFLAGS:__CastFrom(value) 
 ---@source mscorlib.dll
 CS.System.Runtime.InteropServices.ComTypes.TYPEKIND = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.ComTypes.TYPEKIND
 function CS.System.Runtime.InteropServices.ComTypes.TYPEKIND:__CastFrom(value) end
@@ -1521,7 +1521,7 @@ CS.System.Runtime.InteropServices.ComTypes.TYPELIBATTR = {}
 ---@source System.dll
 CS.System.Runtime.InteropServices.ComTypes.DATADIR = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.ComTypes.DATADIR
 function CS.System.Runtime.InteropServices.ComTypes.DATADIR:__CastFrom(value) end
@@ -1540,7 +1540,7 @@ function CS.System.Runtime.InteropServices.ComTypes.DATADIR:__CastFrom(value) en
 ---@source System.dll
 CS.System.Runtime.InteropServices.ComTypes.DVASPECT = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.ComTypes.DVASPECT
 function CS.System.Runtime.InteropServices.ComTypes.DVASPECT:__CastFrom(value) end
@@ -1684,7 +1684,7 @@ CS.System.Runtime.InteropServices.ComTypes.FORMATETC = {}
 ---@source mscorlib.dll
 CS.System.Runtime.InteropServices.ComTypes.VARFLAGS = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.ComTypes.VARFLAGS
 function CS.System.Runtime.InteropServices.ComTypes.VARFLAGS:__CastFrom(value) end
@@ -1755,7 +1755,7 @@ function CS.System.Runtime.InteropServices.ComTypes.IAdviseSink.OnViewChange(asp
 ---@source mscorlib.dll
 CS.System.Runtime.InteropServices.ComTypes.VARKIND = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.ComTypes.VARKIND
 function CS.System.Runtime.InteropServices.ComTypes.VARKIND:__CastFrom(value) end
@@ -1794,7 +1794,7 @@ CS.System.Runtime.InteropServices.ComTypes.STATDATA = {}
 ---@source System.dll
 CS.System.Runtime.InteropServices.ComTypes.ADVF = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.ComTypes.ADVF
 function CS.System.Runtime.InteropServices.ComTypes.ADVF:__CastFrom(value) end
@@ -1821,7 +1821,7 @@ function CS.System.Runtime.InteropServices.ComTypes.ADVF:__CastFrom(value) end
 ---@source System.dll
 CS.System.Runtime.InteropServices.ComTypes.TYMED = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.InteropServices.ComTypes.TYMED
 function CS.System.Runtime.InteropServices.ComTypes.TYMED:__CastFrom(value) end

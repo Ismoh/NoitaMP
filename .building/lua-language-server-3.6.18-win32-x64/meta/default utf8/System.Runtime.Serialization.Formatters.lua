@@ -9,7 +9,7 @@
 ---@source mscorlib.dll
 CS.System.Runtime.Serialization.Formatters.FormatterAssemblyStyle = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.Serialization.Formatters.FormatterAssemblyStyle
 function CS.System.Runtime.Serialization.Formatters.FormatterAssemblyStyle:__CastFrom(value) end
@@ -26,7 +26,7 @@ function CS.System.Runtime.Serialization.Formatters.FormatterAssemblyStyle:__Cas
 ---@source mscorlib.dll
 CS.System.Runtime.Serialization.Formatters.FormatterTypeStyle = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.Serialization.Formatters.FormatterTypeStyle
 function CS.System.Runtime.Serialization.Formatters.FormatterTypeStyle:__CastFrom(value) end
@@ -166,7 +166,7 @@ CS.System.Runtime.Serialization.Formatters.SoapMessage = {}
 ---@source mscorlib.dll
 CS.System.Runtime.Serialization.Formatters.TypeFilterLevel = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.Serialization.Formatters.TypeFilterLevel
 function CS.System.Runtime.Serialization.Formatters.TypeFilterLevel:__CastFrom(value) end

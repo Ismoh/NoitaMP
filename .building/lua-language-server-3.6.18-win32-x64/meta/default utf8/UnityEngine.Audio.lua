@@ -15,7 +15,7 @@ CS.UnityEngine.Audio.AudioClipPlayable = {}
 --Params: graph - The PlayableGraph that will contain the new AnimationLayerMixerPlayable.
 --        clip - The AudioClip that will be added in the PlayableGraph.
 --        looping - True if the clip should loop, false otherwise.
---        
+--
 --```
 --
 ---@source UnityEngine.AudioModule.dll
@@ -106,7 +106,7 @@ function CS.UnityEngine.Audio.AudioClipPlayable.Seek(startTime, startDelay, dura
 ---@source UnityEngine.AudioModule.dll
 CS.UnityEngine.Audio.AudioMixerUpdateMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return UnityEngine.Audio.AudioMixerUpdateMode
 function CS.UnityEngine.Audio.AudioMixerUpdateMode:__CastFrom(value) end
@@ -135,7 +135,7 @@ CS.UnityEngine.Audio.AudioMixer = {}
 --
 --```plaintext
 --Params: name - Name of snapshot object to be returned.
---        
+--
 --```
 --
 ---@source UnityEngine.AudioModule.dll
@@ -148,7 +148,7 @@ function CS.UnityEngine.Audio.AudioMixer.FindSnapshot(name) end
 --
 --```plaintext
 --Params: subPath - Sub-string of the paths to be matched.
---        
+--
 --```
 --
 ---@source UnityEngine.AudioModule.dll
@@ -162,7 +162,7 @@ function CS.UnityEngine.Audio.AudioMixer.FindMatchingGroups(subPath) end
 --Params: snapshots - The set of snapshots to be mixed.
 --        weights - The mix weights for the snapshots specified.
 --        timeToReach - Relative time after which the mixture should be reached from any current state.
---        
+--
 --```
 --
 ---@source UnityEngine.AudioModule.dll
@@ -177,7 +177,7 @@ function CS.UnityEngine.Audio.AudioMixer.TransitionToSnapshots(snapshots, weight
 --```plaintext
 --Params: name - Name of exposed parameter.
 --        value - New value of exposed parameter.
---        
+--
 --```
 --
 ---@source UnityEngine.AudioModule.dll
@@ -191,7 +191,7 @@ function CS.UnityEngine.Audio.AudioMixer.SetFloat(name, value) end
 --
 --```plaintext
 --Params: name - Exposed parameter.
---        
+--
 --```
 --
 ---@source UnityEngine.AudioModule.dll
@@ -267,7 +267,7 @@ CS.UnityEngine.Audio.AudioMixerSnapshot = {}
 --
 --```plaintext
 --Params: timeToReach - Relative time after which this snapshot should be reached from any current state.
---        
+--
 --```
 --
 ---@source UnityEngine.AudioModule.dll
@@ -289,7 +289,7 @@ CS.UnityEngine.Audio.AudioPlayableBinding = {}
 --```plaintext
 --Params: key - A reference to a UnityEngine.Object that acts as a key for this binding.
 --        name - The name of the AudioPlayableOutput.
---        
+--
 --```
 --
 ---@source UnityEngine.AudioModule.dll
@@ -319,7 +319,7 @@ CS.UnityEngine.Audio.AudioPlayableOutput = {}
 --Params: graph - The PlayableGraph that will contain the AnimationPlayableOutput.
 --        name - The name of the output.
 --        target - The AudioSource that will play the AudioPlayableOutput source Playable.
---        
+--
 --```
 --
 ---@source UnityEngine.AudioModule.dll
@@ -363,7 +363,7 @@ function CS.UnityEngine.Audio.AudioPlayableOutput.GetEvaluateOnSeek() end
 --
 --```plaintext
 --Params: value - Set to true to play the output when seeking. Set to false to disable audio scrubbing on this output. Default is true.
---        
+--
 --```
 --
 ---@source UnityEngine.AudioModule.dll

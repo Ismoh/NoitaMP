@@ -31,7 +31,7 @@ CS.System.Security.Authentication.AuthenticationException = {}
 ---@source System.dll
 CS.System.Security.Authentication.CipherAlgorithmType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Authentication.CipherAlgorithmType
 function CS.System.Security.Authentication.CipherAlgorithmType:__CastFrom(value) end
@@ -50,7 +50,7 @@ function CS.System.Security.Authentication.CipherAlgorithmType:__CastFrom(value)
 ---@source System.dll
 CS.System.Security.Authentication.ExchangeAlgorithmType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Authentication.ExchangeAlgorithmType
 function CS.System.Security.Authentication.ExchangeAlgorithmType:__CastFrom(value) end
@@ -81,7 +81,7 @@ CS.System.Security.Authentication.InvalidCredentialException = {}
 ---@source System.dll
 CS.System.Security.Authentication.SslProtocols = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Security.Authentication.SslProtocols
 function CS.System.Security.Authentication.SslProtocols:__CastFrom(value) end

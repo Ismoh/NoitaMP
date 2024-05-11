@@ -24,7 +24,7 @@ function EaseRateAction:initWithAction (pAction,fRate) end
 ---* return Return the rate value of the ease rate action.
 ---@return float
 function EaseRateAction:getRate () end
----* 
+---*
 ---@param action cc.ActionInterval
 ---@param rate float
 ---@return self

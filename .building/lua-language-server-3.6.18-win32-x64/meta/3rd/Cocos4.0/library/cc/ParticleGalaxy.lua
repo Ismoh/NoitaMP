@@ -7,10 +7,10 @@ cc.ParticleGalaxy=ParticleGalaxy
 
 
 
----* 
+---*
 ---@return boolean
 function ParticleGalaxy:init () end
----* 
+---*
 ---@param numberOfParticles int
 ---@return boolean
 function ParticleGalaxy:initWithTotalParticles (numberOfParticles) end

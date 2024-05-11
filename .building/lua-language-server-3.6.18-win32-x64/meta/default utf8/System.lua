@@ -1350,7 +1350,7 @@ function CS.System.ActivationContext.Dispose() end
 ---@source mscorlib.dll
 CS.System.ContextForm = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.ActivationContext.ContextForm
 function CS.System.ContextForm:__CastFrom(value) end
@@ -2395,7 +2395,7 @@ function CS.System.AppDomainManager.InitializeNewDomain(appDomainInfo) end
 ---@source mscorlib.dll
 CS.System.AppDomainManagerInitializationOptions = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.AppDomainManagerInitializationOptions
 function CS.System.AppDomainManagerInitializationOptions:__CastFrom(value) end
@@ -3535,7 +3535,7 @@ function CS.System.Attribute.Match(obj) end
 ---@source mscorlib.dll
 CS.System.AttributeTargets = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.AttributeTargets
 function CS.System.AttributeTargets:__CastFrom(value) end
@@ -3583,7 +3583,7 @@ function CS.System.BadImageFormatException.ToString() end
 ---@source mscorlib.dll
 CS.System.Base64FormattingOptions = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Base64FormattingOptions
 function CS.System.Base64FormattingOptions:__CastFrom(value) end
@@ -4709,7 +4709,7 @@ function CS.System.ConsoleCancelEventHandler.EndInvoke(result) end
 ---@source mscorlib.dll
 CS.System.ConsoleColor = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.ConsoleColor
 function CS.System.ConsoleColor:__CastFrom(value) end
@@ -5008,7 +5008,7 @@ function CS.System.ConsoleColor:__CastFrom(value) end
 ---@source mscorlib.dll
 CS.System.ConsoleKey = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.ConsoleKey
 function CS.System.ConsoleKey:__CastFrom(value) end
@@ -5063,7 +5063,7 @@ function CS.System.ConsoleKeyInfo:op_Inequality(a, b) end
 ---@source mscorlib.dll
 CS.System.ConsoleModifiers = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.ConsoleModifiers
 function CS.System.ConsoleModifiers:__CastFrom(value) end
@@ -5078,7 +5078,7 @@ function CS.System.ConsoleModifiers:__CastFrom(value) end
 ---@source mscorlib.dll
 CS.System.ConsoleSpecialKey = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.ConsoleSpecialKey
 function CS.System.ConsoleSpecialKey:__CastFrom(value) end
@@ -6796,7 +6796,7 @@ CS.System.DataMisalignedException = {}
 ---@source mscorlib.dll
 CS.System.DateTimeKind = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.DateTimeKind
 function CS.System.DateTimeKind:__CastFrom(value) end
@@ -6821,7 +6821,7 @@ function CS.System.DateTimeKind:__CastFrom(value) end
 ---@source mscorlib.dll
 CS.System.DayOfWeek = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.DayOfWeek
 function CS.System.DayOfWeek:__CastFrom(value) end
@@ -8005,7 +8005,7 @@ function CS.System.Environment:SetEnvironmentVariable(variable, value, target) e
 ---@source mscorlib.dll
 CS.System.SpecialFolder = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Environment.SpecialFolder
 function CS.System.SpecialFolder:__CastFrom(value) end
@@ -8022,7 +8022,7 @@ function CS.System.SpecialFolder:__CastFrom(value) end
 ---@source mscorlib.dll
 CS.System.SpecialFolderOption = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Environment.SpecialFolderOption
 function CS.System.SpecialFolderOption:__CastFrom(value) end
@@ -8039,7 +8039,7 @@ function CS.System.SpecialFolderOption:__CastFrom(value) end
 ---@source mscorlib.dll
 CS.System.EnvironmentVariableTarget = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.EnvironmentVariableTarget
 function CS.System.EnvironmentVariableTarget:__CastFrom(value) end
@@ -8963,7 +8963,7 @@ function CS.System.GC:WaitForPendingFinalizers() end
 ---@source mscorlib.dll
 CS.System.GCCollectionMode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.GCCollectionMode
 function CS.System.GCCollectionMode:__CastFrom(value) end
@@ -8984,7 +8984,7 @@ function CS.System.GCCollectionMode:__CastFrom(value) end
 ---@source mscorlib.dll
 CS.System.GCNotificationStatus = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.GCNotificationStatus
 function CS.System.GCNotificationStatus:__CastFrom(value) end
@@ -9813,7 +9813,7 @@ function CS.System.Lazy.ToString() end
 ---@source mscorlib.dll
 CS.System.LoaderOptimization = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.LoaderOptimization
 function CS.System.LoaderOptimization:__CastFrom(value) end
@@ -10272,7 +10272,7 @@ CS.System.MethodAccessException = {}
 ---@source mscorlib.dll
 CS.System.MidpointRounding = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.MidpointRounding
 function CS.System.MidpointRounding:__CastFrom(value) end
@@ -10675,7 +10675,7 @@ CS.System.ParamArrayAttribute = {}
 ---@source mscorlib.dll
 CS.System.PlatformID = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.PlatformID
 function CS.System.PlatformID:__CastFrom(value) end
@@ -12022,7 +12022,7 @@ function CS.System.StringComparer.GetHashCode(obj) end
 ---@source mscorlib.dll
 CS.System.StringComparison = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.StringComparison
 function CS.System.StringComparison:__CastFrom(value) end
@@ -12037,7 +12037,7 @@ function CS.System.StringComparison:__CastFrom(value) end
 ---@source mscorlib.dll
 CS.System.StringSplitOptions = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.StringSplitOptions
 function CS.System.StringSplitOptions:__CastFrom(value) end
@@ -14147,7 +14147,7 @@ CS.System.TypeAccessException = {}
 ---@source mscorlib.dll
 CS.System.TypeCode = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.TypeCode
 function CS.System.TypeCode:__CastFrom(value) end
@@ -15649,7 +15649,7 @@ CS.System.GenericUriParser = {}
 ---@source System.dll
 CS.System.GenericUriParserOptions = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.GenericUriParserOptions
 function CS.System.GenericUriParserOptions:__CastFrom(value) end
@@ -16006,7 +16006,7 @@ function CS.System.UriBuilder.ToString() end
 ---@source System.dll
 CS.System.UriComponents = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.UriComponents
 function CS.System.UriComponents:__CastFrom(value) end
@@ -16023,7 +16023,7 @@ function CS.System.UriComponents:__CastFrom(value) end
 ---@source System.dll
 CS.System.UriFormat = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.UriFormat
 function CS.System.UriFormat:__CastFrom(value) end
@@ -16050,7 +16050,7 @@ CS.System.UriFormatException = {}
 ---@source System.dll
 CS.System.UriHostNameType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.UriHostNameType
 function CS.System.UriHostNameType:__CastFrom(value) end
@@ -16067,7 +16067,7 @@ function CS.System.UriHostNameType:__CastFrom(value) end
 ---@source System.dll
 CS.System.UriIdnScope = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.UriIdnScope
 function CS.System.UriIdnScope:__CastFrom(value) end
@@ -16084,7 +16084,7 @@ function CS.System.UriIdnScope:__CastFrom(value) end
 ---@source System.dll
 CS.System.UriKind = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.UriKind
 function CS.System.UriKind:__CastFrom(value) end
@@ -16120,7 +16120,7 @@ function CS.System.UriParser:Register(uriParser, schemeName, defaultPort) end
 ---@source System.dll
 CS.System.UriPartial = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.UriPartial
 function CS.System.UriPartial:__CastFrom(value) end

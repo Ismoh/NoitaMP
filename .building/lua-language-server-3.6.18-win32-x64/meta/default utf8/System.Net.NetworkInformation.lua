@@ -15,7 +15,7 @@
 ---@source System.dll
 CS.System.Net.NetworkInformation.DuplicateAddressDetectionState = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.NetworkInformation.DuplicateAddressDetectionState
 function CS.System.Net.NetworkInformation.DuplicateAddressDetectionState:__CastFrom(value) end
@@ -530,7 +530,7 @@ CS.System.Net.NetworkInformation.IPInterfaceStatistics = {}
 ---@source System.dll
 CS.System.Net.NetworkInformation.IPStatus = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.NetworkInformation.IPStatus
 function CS.System.Net.NetworkInformation.IPStatus:__CastFrom(value) end
@@ -672,7 +672,7 @@ function CS.System.Net.NetworkInformation.MulticastIPAddressInformationCollectio
 ---@source System.dll
 CS.System.Net.NetworkInformation.NetBiosNodeType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.NetworkInformation.NetBiosNodeType
 function CS.System.Net.NetworkInformation.NetBiosNodeType:__CastFrom(value) end
@@ -773,7 +773,7 @@ CS.System.Net.NetworkInformation.NetworkAvailabilityEventArgs = {}
 ---@source System.dll
 CS.System.Net.NetworkInformation.NetworkInformationAccess = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.NetworkInformation.NetworkInformationAccess
 function CS.System.Net.NetworkInformation.NetworkInformationAccess:__CastFrom(value) end
@@ -905,7 +905,7 @@ function CS.System.Net.NetworkInformation.NetworkInterface.Supports(networkInter
 ---@source System.dll
 CS.System.Net.NetworkInformation.NetworkInterfaceComponent = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.NetworkInformation.NetworkInterfaceComponent
 function CS.System.Net.NetworkInformation.NetworkInterfaceComponent:__CastFrom(value) end
@@ -930,7 +930,7 @@ function CS.System.Net.NetworkInformation.NetworkInterfaceComponent:__CastFrom(v
 ---@source System.dll
 CS.System.Net.NetworkInformation.OperationalStatus = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.NetworkInformation.OperationalStatus
 function CS.System.Net.NetworkInformation.OperationalStatus:__CastFrom(value) end
@@ -997,7 +997,7 @@ function CS.System.Net.NetworkInformation.OperationalStatus:__CastFrom(value) en
 ---@source System.dll
 CS.System.Net.NetworkInformation.NetworkInterfaceType = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.NetworkInformation.NetworkInterfaceType
 function CS.System.Net.NetworkInformation.NetworkInterfaceType:__CastFrom(value) end
@@ -1259,7 +1259,7 @@ CS.System.Net.NetworkInformation.PingException = {}
 ---@source System.dll
 CS.System.Net.NetworkInformation.PrefixOrigin = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.NetworkInformation.PrefixOrigin
 function CS.System.Net.NetworkInformation.PrefixOrigin:__CastFrom(value) end
@@ -1312,7 +1312,7 @@ CS.System.Net.NetworkInformation.PingReply = {}
 ---@source System.dll
 CS.System.Net.NetworkInformation.ScopeLevel = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.NetworkInformation.ScopeLevel
 function CS.System.Net.NetworkInformation.ScopeLevel:__CastFrom(value) end
@@ -1335,7 +1335,7 @@ function CS.System.Net.NetworkInformation.ScopeLevel:__CastFrom(value) end
 ---@source System.dll
 CS.System.Net.NetworkInformation.SuffixOrigin = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.NetworkInformation.SuffixOrigin
 function CS.System.Net.NetworkInformation.SuffixOrigin:__CastFrom(value) end
@@ -1384,7 +1384,7 @@ CS.System.Net.NetworkInformation.TcpConnectionInformation = {}
 ---@source System.dll
 CS.System.Net.NetworkInformation.TcpState = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Net.NetworkInformation.TcpState
 function CS.System.Net.NetworkInformation.TcpState:__CastFrom(value) end

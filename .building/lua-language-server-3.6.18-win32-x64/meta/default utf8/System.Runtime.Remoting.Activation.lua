@@ -15,7 +15,7 @@
 ---@source mscorlib.dll
 CS.System.Runtime.Remoting.Activation.ActivatorLevel = {}
 
----@source 
+---@source
 ---@param value any
 ---@return System.Runtime.Remoting.Activation.ActivatorLevel
 function CS.System.Runtime.Remoting.Activation.ActivatorLevel:__CastFrom(value) end
